@@ -1,0 +1,1286 @@
+{
+ "generated_by": "scripts/csat/map/v4/exam-review-packet.mts",
+ "ref": "M2409",
+ "summary": {
+  "examId": "M2706",
+  "held": false,
+  "keyRows": 45,
+  "items": 28,
+  "readiness": "검수 완료 후 가능 — 남은 문항 28",
+  "structural": [],
+  "noAnswer": 0,
+  "withTraps": 28,
+  "published": 28,
+  "withLocus": 28,
+  "withUnits": 0,
+  "typesNotInM2409": [],
+  "itemsWithM2409Diff": 22
+ },
+ "items": [
+  {
+   "no": 18,
+   "itemId": "M2706#18",
+   "typeId": "R-PURPOSE",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 1,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "부분 사실",
+    "무관",
+    "어휘 함정",
+    "지문 밖 상식"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A5",
+     "seed": 1,
+     "m2409": 2
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 19,
+   "itemId": "M2706#19",
+   "typeId": "R-MOOD",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "반대 진술",
+    "무관",
+    "지문 밖 상식",
+    "부분 사실"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 2,
+     "m2409": 1
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 20,
+   "itemId": "M2706#20",
+   "typeId": "R-CLAIM",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "반대 진술",
+    "부분 사실",
+    "어휘 함정",
+    "무관"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A5",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 21,
+   "itemId": "M2706#21",
+   "typeId": "R-IMPLY",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 0,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "반대 진술",
+    "어휘 함정",
+    "범위 과대",
+    "지문 밖 상식"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 0,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 22,
+   "itemId": "M2706#22",
+   "typeId": "R-GIST",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "부분 사실",
+    "범위 과대",
+    "무관",
+    "반대 진술"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A5",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 23,
+   "itemId": "M2706#23",
+   "typeId": "R-TOPIC",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "어휘 함정",
+    "반대 진술",
+    "범위 과소",
+    "부분 사실"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 5,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 24,
+   "itemId": "M2706#24",
+   "typeId": "R-TITLE",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "무관",
+    "반대 진술",
+    "인과 역전",
+    "지문 밖 상식"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 0,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 25,
+   "itemId": "M2706#25",
+   "typeId": "R-CHART",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "임계값 경계",
+    "대소 비교 뒤집기",
+    "복합 절 후반 누락",
+    "전칭 검증 부담"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A9",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 26,
+   "itemId": "M2706#26",
+   "typeId": "R-FACT",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "부분 사실",
+    "지문 밖 상식",
+    "주체 역전",
+    "어휘 함정"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 27,
+   "itemId": "M2706#27",
+   "typeId": "R-NOTICE",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "어휘 함정",
+    "부분 사실",
+    "반대 진술",
+    "범위 과소"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 6,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A9",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 28,
+   "itemId": "M2706#28",
+   "typeId": "R-NOTICE",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "범위 과대",
+    "반대 진술",
+    "부분 사실",
+    "어휘 함정"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A9",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 29,
+   "itemId": "M2706#29",
+   "typeId": "R-GRAMMAR",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 0,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 2,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "태 판별",
+    "준동사 형태 선택",
+    "분사구문 주어 일치",
+    "대명사 지시·수·격"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 30,
+   "itemId": "M2706#30",
+   "typeId": "R-VOCAB",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "역설 표현 오인",
+    "주변 부정어 전이",
+    "대조쌍 반의 착시",
+    "문내 역접 절단"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A3",
+     "seed": 1,
+     "m2409": 2
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 31,
+   "itemId": "M2706#31",
+   "typeId": "R-BLANK",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "반대 진술",
+    "부분 사실",
+    "지문 밖 상식"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 2
+    },
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 2,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 32,
+   "itemId": "M2706#32",
+   "typeId": "R-BLANK",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "지문 밖 상식",
+    "인과 역전",
+    "무관",
+    "반대 진술"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 2
+    },
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 2,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 33,
+   "itemId": "M2706#33",
+   "typeId": "R-BLANK",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "반대 진술",
+    "무관"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 2
+    },
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 2,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 34,
+   "itemId": "M2706#34",
+   "typeId": "R-BLANK",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "무관",
+    "인과 역전",
+    "부분 사실",
+    "범위 과대"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 2
+    },
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 2,
+     "m2409": 1
+    },
+    {
+     "code": "A6",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 35,
+   "itemId": "M2706#35",
+   "typeId": "R-IRRELEVANT",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "총론-각론 역전",
+    "연결사 방향 충돌",
+    "지시어 선행사 절단",
+    "마무리 문장 위치 오판"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 36,
+   "itemId": "M2706#36",
+   "typeId": "R-ORDER",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "지시어 선행사 없음",
+    "어휘 반복에 낚임",
+    "예고–응답 분리",
+    "끝맺음 위반"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 37,
+   "itemId": "M2706#37",
+   "typeId": "R-ORDER",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "연결사 방향 오독",
+    "지시어 선행사 없음",
+    "예고–응답 분리",
+    "끝맺음 위반"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 38,
+   "itemId": "M2706#38",
+   "typeId": "R-INSERT",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "인과 연쇄 절단",
+    "지시어 선행사 절단",
+    "총론-각론 역전",
+    "열거 병렬 절단"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A4",
+     "seed": 0,
+     "m2409": 1
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 39,
+   "itemId": "M2706#39",
+   "typeId": "R-INSERT",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "지시어 선행사 절단",
+    "시간·순서 역전",
+    "첫 등장 위반",
+    "열거 병렬 절단"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A4",
+     "seed": 0,
+     "m2409": 1
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 40,
+   "itemId": "M2706#40",
+   "typeId": "R-SUMMARY",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 0,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "인과 역전",
+    "지문 밖 상식",
+    "어휘 함정",
+    "반대 진술"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A1",
+     "seed": 1,
+     "m2409": 2
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 41,
+   "itemId": "M2706#41",
+   "typeId": "X-TITLE",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "무관",
+    "범위 과소",
+    "지문 밖 상식",
+    "부분 사실"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 42,
+   "itemId": "M2706#42",
+   "typeId": "X-VOCAB",
+   "hasAnswer": true,
+   "points": 3,
+   "seed": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "역접 표지 오귀속",
+    "생소 어휘 회피",
+    "국소 어색함",
+    "양보절 오독"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A3",
+     "seed": 1,
+     "m2409": 2
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 43,
+   "itemId": "M2706#43",
+   "typeId": "X-ORDER",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "시간·인과 순서 역전",
+    "대화 인접쌍 절단",
+    "어휘 반복 유인",
+    "조건-귀결 절단"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 5,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 44,
+   "itemId": "M2706#44",
+   "typeId": "X-REFER",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 1,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "최근접 명사 오인",
+    "동일인 다른 호칭 미연결",
+    "주어=목적어 착시",
+    "직접인용 화자 오인"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [
+    {
+     "code": "A2",
+     "seed": 1,
+     "m2409": 0
+    },
+    {
+     "code": "A3",
+     "seed": 1,
+     "m2409": 2
+    }
+   ],
+   "m2409TypeCovered": true
+  },
+  {
+   "no": 45,
+   "itemId": "M2706#45",
+   "typeId": "X-FACT",
+   "hasAnswer": true,
+   "points": 2,
+   "seed": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "seedSource": [
+    "type_default"
+   ],
+   "reviewed": false,
+   "trapOptions": 4,
+   "trapKeys": [
+    "시점 이동",
+    "부분 사실",
+    "등장인물 혼동",
+    "어휘 함정"
+   ],
+   "trapsReviewed": 0,
+   "analysis": {
+    "version": 4,
+    "hasLocus": true
+   },
+   "units": false,
+   "m2409Diff": [],
+   "m2409TypeCovered": true
+  }
+ ]
+}

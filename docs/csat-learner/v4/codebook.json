@@ -150,7 +150,8 @@
    "assets": [
     "shared_dictionary",
     "WordVault·Flashcard(FSRS)"
-   ]
+   ],
+   "learner_criterion": "도움 없이 뜻을 떠올리고, 다른 날에도 다시 떠올린다"
   },
   {
    "id": "v.contextual_sense",
@@ -171,7 +172,8 @@
    ],
    "assets": [
     "csat_items(어휘 문항)"
-   ]
+   ],
+   "learner_criterion": "서로 다른 두 문맥에서 알맞은 뜻을 고른다"
   },
   {
    "id": "v.multiword",
@@ -189,7 +191,8 @@
    "methods": [
     "I6"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "덩어리 표현을 낱말로 쪼개지 않고 한 뜻으로 말한다"
   },
   {
    "id": "v.semantic_relation",
@@ -207,7 +210,8 @@
    "methods": [
     "A4-2"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "같은 뜻을 다르게 말한 표현 쌍을 가려낸다"
   },
   {
    "id": "s.sentence_core",
@@ -228,7 +232,8 @@
    ],
    "assets": [
     "csat_item_units"
-   ]
+   ],
+   "learner_criterion": "긴 문장 3개를 이어서 뼈대를 정확히 찾는다"
   },
   {
    "id": "s.chunk_boundary",
@@ -248,7 +253,8 @@
    ],
    "assets": [
     "csat_item_units"
-   ]
+   ],
+   "learner_criterion": "의미 단위를 끊어 풀어 쓴 결과가 원문과 같다"
   },
   {
    "id": "s.attachment",
@@ -266,7 +272,8 @@
    "methods": [
     "I2"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "꾸미는 말이 무엇을 꾸미는지 다른 문장에서도 맞힌다"
   },
   {
    "id": "s.structural_relation",
@@ -285,7 +292,8 @@
     "I2",
     "A2-3"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "복잡한 구조를 풀어 쓴 뜻이 원문과 같다"
   },
   {
    "id": "s.form_scope",
@@ -306,7 +314,8 @@
    ],
    "assets": [
     "csat_items(어법)"
-   ]
+   ],
+   "learner_criterion": "어법 포인트마다 서로 다른 문항 2개를 맞힌다"
   },
   {
    "id": "s.o.sentence_meaning_model",
@@ -324,7 +333,8 @@
    "methods": [
     "A2-4"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "한 문장의 뜻을 우리말로 정확히 구성한다(관찰 기록만 남겨요)"
   },
   {
    "id": "r.reference",
@@ -344,7 +354,8 @@
    ],
    "assets": [
     "cohesion-link"
-   ]
+   ],
+   "learner_criterion": "서로 다른 두 지문에서 가리키는 대상을 맞힌다"
   },
   {
    "id": "r.relation",
@@ -364,7 +375,8 @@
    ],
    "assets": [
     "cohesion-link"
-   ]
+   ],
+   "learner_criterion": "앞뒤 문장 관계를 근거 단서와 함께 말한다"
   },
   {
    "id": "r.discourse_function",
@@ -385,7 +397,8 @@
    "assets": [
     "claim-support",
     "passage_design.roles"
-   ]
+   ],
+   "learner_criterion": "이 문장이 글에서 하는 역할을 말한다"
   },
   {
    "id": "r.discourse_structure",
@@ -406,7 +419,8 @@
    "assets": [
     "claim-support",
     "passage_design.pattern"
-   ]
+   ],
+   "learner_criterion": "글이 어떤 순서로 전개되는지 다시 짠다"
   },
   {
    "id": "r.central_meaning",
@@ -427,7 +441,8 @@
    ],
    "assets": [
     "claim-support"
-   ]
+   ],
+   "learner_criterion": "서로 다른 두 지문에서 혼자 핵심을 잡고, 다른 날 새 지문으로 다시 확인한다"
   },
   {
    "id": "r.inference",
@@ -445,7 +460,8 @@
    "methods": [
     "B7-1"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "쓰이지 않은 뜻을 본문 근거와 함께 끌어낸다"
   },
   {
    "id": "r.o.global_meaning_model",
@@ -463,7 +479,8 @@
    "methods": [
     "I1"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "글 전체의 뜻을 하나로 정리한다(관찰 기록만 남겨요)"
   },
   {
    "id": "e.task_demand",
@@ -481,7 +498,8 @@
    "methods": [
     "B1-1"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "두 유형 이상에서 발문이 무엇을 묻는지 정확히 말한다"
   },
   {
    "id": "e.evidence_location",
@@ -502,7 +520,8 @@
    "assets": [
     "evidence-locate",
     "answer_locus"
-   ]
+   ],
+   "learner_criterion": "서로 다른 확인 문항 2개에서 혼자 근거 문장을 찾고, 다른 날 다시 확인한다"
   },
   {
    "id": "e.option_correspondence",
@@ -524,7 +543,8 @@
    "assets": [
     "option-restate",
     "choice_analysis.how_to_reject"
-   ]
+   ],
+   "learner_criterion": "선지가 본문의 어느 문장을 다시 말했는지 근거와 함께 지목한다"
   },
   {
    "id": "e.o.final_judgment",
@@ -544,7 +564,8 @@
    ],
    "assets": [
     "reveal-gate GateCommit"
-   ]
+   ],
+   "learner_criterion": "고른 답과 버린 답의 이유를 함께 댄다(찍어서 맞힌 것은 세지 않아요)"
   },
   {
    "id": "l.sound",
@@ -562,7 +583,8 @@
    "methods": [
     "I7"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "l.sentence",
@@ -580,7 +602,8 @@
    "methods": [
     "I7"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "l.retain",
@@ -598,7 +621,8 @@
    "methods": [
     "B3-1"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "l.respond",
@@ -616,7 +640,8 @@
    "methods": [
     "B4-1"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "x.time_allocation",
@@ -636,7 +661,8 @@
    ],
    "assets": [
     "csat_session_attempts.sec"
-   ]
+   ],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "x.sequence",
@@ -654,7 +680,8 @@
    "methods": [
     "J2"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "x.recovery_adaptation",
@@ -672,7 +699,8 @@
    "methods": [
     "J3"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "x.attention_stamina",
@@ -690,7 +718,8 @@
    "methods": [
     "J5"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   },
   {
    "id": "x.o.whole_test_stability",
@@ -708,7 +737,8 @@
    "methods": [
     "I4"
    ],
-   "assets": []
+   "assets": [],
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요"
   }
  ],
  "non_task_layers": {

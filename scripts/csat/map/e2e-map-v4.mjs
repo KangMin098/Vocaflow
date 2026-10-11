@@ -8,6 +8,7 @@
 // e2e-map-goal.mjs 와 같은 도우미 · 같은 정리 방식.
 //   node --env-file=<apps/web/.env.local> scripts/csat/map/e2e-map-v4.mjs [--base http://localhost:3002] [--out tmp/map-v4]
 import fs from 'node:fs'
+import { cleanupLeftovers, onInterrupt } from './e2e-cleanup.mjs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { createRequire } from 'node:module'
@@ -25,12 +26,16 @@ if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const must = async (q, what) => { const r = await q; if (r.error) throw new Error(`${what}: ${r.error.message}`); return r.data }
 fs.mkdirSync(OUT, { recursive: true })
+// 시작 전에 지난 실행의 잔여(30분 넘은 E2E 계정 · TEST fixture)를 지운다 — Windows 는 종료 신호가 node 에 닿지 않아(2026-10-11 실측) 신호 정리만으로는 보장되지 않는다
+{ const swept = await cleanupLeftovers(db, { minAgeMs: 30 * 60_000, log: () => {} }); if (swept.users || swept.exams) console.log(`지난 실행 잔여 정리 — 계정 ${swept.users} · TEST 시험 ${swept.exams}`) }
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + JSON.stringify(detail).slice(0, 240)}`) }
 
 const READY = 'M2409'
 const users = []
 const browser = await chromium.launch()
+// 중단(Ctrl+C · 종료 신호)돼도 임시 계정을 지운다(기록 cascade) — 남은 것은 e2e-cleanup.mjs 로도 정리
+onInterrupt(async () => { await browser.close().catch(() => {}); for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {}) })
 try {
   const keyOf = async (id) => Object.fromEntries((await must(db.from('csat_dx_answer_key').select('no, answers').eq('exam_id', id), 'key')).map((k) => [k.no, k.answers[0]]))
   const readyKey = await keyOf(READY)
@@ -170,6 +175,46 @@ try {
     rec('D · 목표 변경이 영역 근거(As-Is)를 바꾸지 않음', domsAfter === domsBefore)
     await panel.screenshot({ path: path.join(OUT, 'v4-D-panel-goal60.png') })
 
+    // 3차 — 학습계획(PLAN): 대표 묶음 계획 · 진행은 글자 · 조정은 이 기기 초안 · 근거 불변
+    {
+      const sec = panel.locator('[data-testid="plan-section"]')
+      rec('PLAN · 대표 묶음 학습계획이 보임', (await sec.count()) === 1 && (await sec.getAttribute('data-ws')) === ws, await sec.getAttribute('data-ws').catch(() => null))
+      const prog = await sec.locator('[data-testid="plan-progress"]').innerText()
+      rec('PLAN · 계획 진행은 「수행 / 계획 문항」 글자 · 퍼센트 없음', /계획 진행 \d+ \/ \d+문항/.test(prog) && !/%/.test(prog), prog)
+      rec('PLAN · 저장 미구현을 화면에 명시', /이 기기에만/.test(await sec.locator('[data-testid="plan-not-saved"]').innerText()))
+      const coreRow = () => panel.locator('[data-testid="plan-section"] li[data-core="true"]').first()
+      const before = Number(await coreRow().getAttribute('data-planned'))
+      const achieveBefore = await coreRow().getAttribute('data-achievement')
+      const domsPre = await panel.locator('[data-testid="need-domains"]').innerText()
+      await coreRow().getByRole('button', { name: /계획 한 문항 줄이기$/ }).click()
+      const after = Number(await coreRow().getAttribute('data-planned'))
+      rec('PLAN · 계획량 조정(−1)', after === before - 1, { before, after })
+      rec('PLAN · 조정해도 확인 상태 · 영역 근거 불변', (await coreRow().getAttribute('data-achievement')) === achieveBefore && (await panel.locator('[data-testid="need-domains"]').innerText()) === domsPre)
+      await page.reload({ waitUntil: 'domcontentloaded' })
+      await panel.locator('[data-testid="plan-section"]').waitFor()
+      await page.waitForFunction((b) => Number(document.querySelector('[data-testid="plan-section"] li[data-core="true"]')?.getAttribute('data-planned')) === b, before - 1, { timeout: 30_000 }).catch(() => {})
+      rec('PLAN · 새로고침 뒤 초안 유지(이 기기)', Number(await coreRow().getAttribute('data-planned')) === before - 1)
+      await panel.locator('[data-testid="plan-reset"]').click()
+      rec('PLAN · 추천 계획으로 되돌리기', Number(await coreRow().getAttribute('data-planned')) === before)
+      const taskBtn = panel.locator('[data-testid="need-task-plan"]').nth(1)
+      if (await taskBtn.count()) {
+        await taskBtn.click()
+        const opened = await panel.locator('[data-testid="plan-section"]').getAttribute('data-ws')
+        rec('PLAN · 목표 순서의 TASK 를 누르면 그 TASK 의 묶음 계획이 열림', !!opened && opened.startsWith('ws.'), opened)
+      }
+      await panel.locator('[data-testid="plan-tab"][data-ws="ws.central-meaning"]').click().catch(() => {})
+      await panel.screenshot({ path: path.join(OUT, 'v4-D-plan-1440.png') })
+      const go = panel.locator('[data-testid="plan-go"]').first()
+      if (await go.count()) {
+        const href = await go.getAttribute('href')
+        await go.click()
+        await page.waitForURL((u) => u.pathname !== '/csat/diagnosis', { timeout: 120_000 })
+        rec('PLAN · 「활동 시작」 → 실제 확인 문항 화면', page.url().includes(href.split('#')[0]), { href, url: page.url() })
+        await page.goBack({ waitUntil: 'domcontentloaded' })
+        await page.locator('[data-testid="need-panel"]').waitFor()
+      } else rec('PLAN · 「활동 시작」 링크', false, '없음')
+    }
+
     // 다음 행동 → 실제 확인 문항으로 이동
     const next = panel.locator('[data-testid="need-next"]')
     rec('D · 다음 행동 링크 하나', (await next.count()) === 1)
@@ -207,6 +252,7 @@ try {
     rec('P · 기준 뒤에 입력된 기록 제외(시험 기록 없음)', /시험 기록 없음/.test(await panel.locator('[data-testid="need-records"]').innerText()))
     rec('P · 화면 모드 = past_reanalysis', (await panel.getAttribute('data-mode')) === 'past_reanalysis')
     rec('P · 과거 기준 보기에는 지금 할 행동 링크 없음 · 「지금 기준으로 보기」만', (await panel.locator('[data-testid="need-next"], [data-testid="need-go"]').count()) === 0 && (await panel.locator('[data-testid="need-now"]').count()) === 1)
+    rec('P · 과거 기준 계획에는 조정 · 활동 버튼 없음', (await panel.locator('[data-testid="plan-go"]').count()) === 0 && (await panel.getByRole('button', { name: /계획 한 문항/ }).count()) === 0)
     await panel.screenshot({ path: path.join(OUT, 'v4-P-panel-asof.png') })
   }
 

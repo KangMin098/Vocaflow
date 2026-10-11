@@ -44,6 +44,7 @@ export const V4_DATA: V4Data = {
    "conditions": "고등 기출 빈도 어휘 · 시간 제한 없음",
    "evidence": "낱말 → 뜻 인출 정답(독립 첫 시도)",
    "criterion": "도움 없이 맞히고, 다른 날 다시 맞힌다",
+   "learner_criterion": "도움 없이 뜻을 떠올리고, 다른 날에도 다시 떠올린다",
    "quantity_policy": "모르는 낱말 수 기준 간격 반복 분량(FSRS due)",
    "direct_check": "content_needed",
    "methods": [
@@ -66,6 +67,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문 문장 안",
    "evidence": "문맥 의미 선택 정답 + 근거 낱말 지목",
    "criterion": "서로 다른 문맥 2개 이상에서 맞힌다",
+   "learner_criterion": "서로 다른 두 문맥에서 알맞은 뜻을 고른다",
    "quantity_policy": "확인 문항 묶음 단위",
    "direct_check": "content_needed",
    "methods": [
@@ -87,6 +89,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문",
    "evidence": "덩어리 경계·의미 정답",
    "criterion": "낱낱 해석으로 바꾸지 않고 의미를 말한다",
+   "learner_criterion": "덩어리 표현을 낱말로 쪼개지 않고 한 뜻으로 말한다",
    "quantity_policy": "표현 목록 간격 반복",
    "direct_check": "content_needed",
    "methods": [
@@ -105,6 +108,7 @@ export const V4_DATA: V4Data = {
    "conditions": "본문 표현 ↔ 다른 표현",
    "evidence": "두 표현이 같은 뜻인지 판정 + 이유",
    "criterion": "재진술 쌍을 가려낸다",
+   "learner_criterion": "같은 뜻을 다르게 말한 표현 쌍을 가려낸다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "content_needed",
    "methods": [
@@ -123,6 +127,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 긴 문장",
    "evidence": "뼈대 표시 정답",
    "criterion": "3문장 이상 연속 정확",
+   "learner_criterion": "긴 문장 3개를 이어서 뼈대를 정확히 찾는다",
    "quantity_policy": "막힌 문장 수집량 기준",
    "direct_check": "content_needed",
    "methods": [
@@ -144,6 +149,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 문장",
    "evidence": "경계 표시",
    "criterion": "경계 오류 없이 풀어 쓴다",
+   "learner_criterion": "의미 단위를 끊어 풀어 쓴 결과가 원문과 같다",
    "quantity_policy": "문장 묶음",
    "direct_check": "content_needed",
    "methods": [
@@ -164,6 +170,7 @@ export const V4_DATA: V4Data = {
    "conditions": "수식어가 긴 문장",
    "evidence": "피수식어 지목",
    "criterion": "다른 문장에서도 맞힌다",
+   "learner_criterion": "꾸미는 말이 무엇을 꾸미는지 다른 문장에서도 맞힌다",
    "quantity_policy": "문장 묶음",
    "direct_check": "content_needed",
    "methods": [
@@ -182,6 +189,7 @@ export const V4_DATA: V4Data = {
    "conditions": "복합 구조 문장",
    "evidence": "구조 복원 정답",
    "criterion": "풀어 쓰기가 원문 의미와 같다",
+   "learner_criterion": "복잡한 구조를 풀어 쓴 뜻이 원문과 같다",
    "quantity_policy": "문장 묶음",
    "direct_check": "content_needed",
    "methods": [
@@ -201,6 +209,7 @@ export const V4_DATA: V4Data = {
    "conditions": "어법 문항 + 독해 문장",
    "evidence": "어법 판정 + 이유",
    "criterion": "포인트별 서로 다른 문항 2개 이상",
+   "learner_criterion": "어법 포인트마다 서로 다른 문항 2개를 맞힌다",
    "quantity_policy": "포인트별 기출 반복",
    "direct_check": "content_needed",
    "methods": [
@@ -222,6 +231,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 문장 · 도움 없이",
    "evidence": "명제 풀어 쓰기",
    "criterion": "숙달도 계산 없음 — 관찰 기록만",
+   "learner_criterion": "한 문장의 뜻을 우리말로 정확히 구성한다(관찰 기록만 남겨요)",
    "quantity_policy": "없음(통합 관찰)",
    "direct_check": "content_needed",
    "methods": [
@@ -240,6 +250,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문",
    "evidence": "지시 대상 지목",
    "criterion": "서로 다른 지문 2개",
+   "learner_criterion": "서로 다른 두 지문에서 가리키는 대상을 맞힌다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "ready",
    "methods": [
@@ -260,6 +271,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문 · relation facet 기록",
    "evidence": "관계 종류 + 근거 단서",
    "criterion": "facet 별 막대 없음 — 관찰 근거 내역만",
+   "learner_criterion": "앞뒤 문장 관계를 근거 단서와 함께 말한다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "ready",
    "methods": [
@@ -280,6 +292,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문",
    "evidence": "역할 표시",
    "criterion": "§20-2 하향 조건 — Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정",
+   "learner_criterion": "이 문장이 글에서 하는 역할을 말한다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "live",
    "methods": [
@@ -301,6 +314,7 @@ export const V4_DATA: V4Data = {
    "conditions": "기출 지문",
    "evidence": "구조 유형 + 근거",
    "criterion": "R3 와 다른 근거로 관찰될 때만 독립",
+   "learner_criterion": "글이 어떤 순서로 전개되는지 다시 짠다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "live",
    "methods": [
@@ -322,6 +336,7 @@ export const V4_DATA: V4Data = {
    "conditions": "주제·요지·제목 지문",
    "evidence": "한 줄 요지 + 중심 문장",
    "criterion": "서로 다른 지문 2개 독립 확인 + 다른 날 재확인",
+   "learner_criterion": "서로 다른 두 지문에서 혼자 핵심을 잡고, 다른 날 새 지문으로 다시 확인한다",
    "quantity_policy": "확인 9문항 묶음(claim-support) 기준",
    "direct_check": "live",
    "methods": [
@@ -343,6 +358,7 @@ export const V4_DATA: V4Data = {
    "conditions": "함축·빈칸 지문",
    "evidence": "추론 + 근거 문장",
    "criterion": "근거 없는 추론은 실패",
+   "learner_criterion": "쓰이지 않은 뜻을 본문 근거와 함께 끌어낸다",
    "quantity_policy": "확인 문항 묶음",
    "direct_check": "content_needed",
    "methods": [
@@ -361,6 +377,7 @@ export const V4_DATA: V4Data = {
    "conditions": "장문·고난도",
    "evidence": "구조도 + 요지",
    "criterion": "숙달도 계산 없음",
+   "learner_criterion": "글 전체의 뜻을 하나로 정리한다(관찰 기록만 남겨요)",
    "quantity_policy": "없음",
    "direct_check": "content_needed",
    "methods": [
@@ -379,6 +396,7 @@ export const V4_DATA: V4Data = {
    "conditions": "모든 유형",
    "evidence": "요구 진술",
    "criterion": "유형 2개 이상",
+   "learner_criterion": "두 유형 이상에서 발문이 무엇을 묻는지 정확히 말한다",
    "quantity_policy": "확인 문항",
    "direct_check": "content_needed",
    "methods": [
@@ -397,6 +415,7 @@ export const V4_DATA: V4Data = {
    "conditions": "빈칸 지문 등",
    "evidence": "근거 문장 지목(Evidence Anchor 결속)",
    "criterion": "서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인",
+   "learner_criterion": "서로 다른 확인 문항 2개에서 혼자 근거 문장을 찾고, 다른 날 다시 확인한다",
    "quantity_policy": "확인 5문항 묶음",
    "direct_check": "live",
    "methods": [
@@ -418,6 +437,7 @@ export const V4_DATA: V4Data = {
    "conditions": "주제·제목·요지 지문 · judgment facet 기록",
    "evidence": "대응 본문 문장 지목",
    "criterion": "facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지",
+   "learner_criterion": "선지가 본문의 어느 문장을 다시 말했는지 근거와 함께 지목한다",
    "quantity_policy": "확인 6문항 묶음",
    "direct_check": "live",
    "methods": [
@@ -440,6 +460,7 @@ export const V4_DATA: V4Data = {
    "conditions": "정답 + 과정 근거",
    "evidence": "선택 + 근거 + 배제 이유",
    "criterion": "추측 정답은 근거 아님",
+   "learner_criterion": "고른 답과 버린 답의 이유를 함께 댄다(찍어서 맞힌 것은 세지 않아요)",
    "quantity_policy": "없음",
    "direct_check": "content_needed",
    "methods": [
@@ -460,6 +481,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -478,6 +500,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -496,6 +519,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -514,6 +538,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -532,6 +557,7 @@ export const V4_DATA: V4Data = {
    "conditions": "실전 70분",
    "evidence": "문항별 시간(유효 데이터 0)",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -552,6 +578,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -570,6 +597,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -588,6 +616,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "—",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [
@@ -606,6 +635,7 @@ export const V4_DATA: V4Data = {
    "conditions": "—",
    "evidence": "—",
    "criterion": "숙달도 계산 없음",
+   "learner_criterion": "측정 방법을 정한 뒤에 정해요",
    "quantity_policy": "—",
    "direct_check": "blocked",
    "methods": [

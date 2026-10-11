@@ -10,7 +10,7 @@
 
 import { ArrowRight, CalendarClock, CircleDashed, Compass, Layers, ListChecks, PlayCircle } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -21,6 +21,7 @@ import { NEED_LABEL, type Need } from '@/lib/csat/map/v4/to-be'
 import { STAGE_BLOCKED_LABEL, STAGE_LABEL, type StageKey, type WorkspacePlan, type WorkspaceView } from '@/lib/csat/map/v4/workspace'
 
 import n from './needs.module.css'
+import { PlanSection } from './PlanSection'
 
 const READ_DOMAINS: Domain[] = ['V', 'S', 'R', 'E']
 const SHOW_NEEDS = 6
@@ -67,6 +68,8 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
   const primaryId = v?.plan.primary ? wsSlug(v.plan.primary.id) : null
   const reason = v?.plan.reason ?? null
   const shown = v !== null
+  // 열린 학습계획 — 기본은 대표 묶음. TASK 를 누르면 그 TASK 를 중심으로 하는 묶음(없으면 처음 연결된 묶음)
+  const [wsSel, setWsSel] = useState<string | null>(null)
   // 보인 묶음 · 이유가 바뀔 때만 — 목표를 바꿔 같은 묶음이 다시 계산될 때마다 세지 않는다
   useEffect(() => {
     if (!shown) return
@@ -78,6 +81,14 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
   // 과거 기준 보기에서는 「지금」 할 행동 링크를 내밀지 않는다 — 그 시점의 분석이지 지금의 할 일이 아니다
   const past = asIs.mode === 'past_reanalysis'
   const inWindow = asIs.sessions.filter((s) => s.excluded !== 'after_as_of')
+  const planIds = Object.keys(v.plans)
+  const openWs = wsSel && v.plans[wsSel] ? wsSel : plan.primary?.id ?? planIds[0] ?? null
+  const homeOf = (task: string) => planIds.find((id) => v.plans[id].core.includes(task)) ?? planIds.find((id) => v.plans[id].tasks.some((t) => t.task === task)) ?? null
+  const openPlan = (id: string | null) => {
+    if (!id) return
+    setWsSel(id)
+    requestAnimationFrame(() => document.getElementById('plan-h')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
+  }
 
   return (
     <section className={n.panel} aria-labelledby="need-h" data-testid="need-panel" data-mode={asIs.mode} data-goal-set={goalSet}>
@@ -184,7 +195,11 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
                 <span className={n.prio}>{x.priority}</span>
                 <span className={n.needBody}>
                   <span className={n.needName}>
-                    {taskOf(x.task).name}
+                    {homeOf(x.task) ? (
+                      <button type="button" className={n.taskLink} onClick={() => openPlan(homeOf(x.task))} data-testid="need-task-plan" aria-label={`${taskOf(x.task).name} 학습계획 보기`}>
+                        {taskOf(x.task).name}
+                      </button>
+                    ) : taskOf(x.task).name}
                     <span className={n.needType}>{NEED_LABEL[x.type]}</span>
                   </span>
                   <span className={n.needWhy}>
@@ -205,6 +220,22 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
         )}
         {toBe && toBe.needs.length > SHOW_NEEDS && <p className={n.sub}>나머지 {toBe.needs.length - SHOW_NEEDS}개는 앞의 확인 결과를 보고 다시 정해요.</p>}
       </div>
+
+      {/* ⑤-2 학습 묶음별 학습계획 — TASK 를 누르거나 묶음을 골라 연다 */}
+      {openWs && v.plans[openWs] && (
+        <>
+          {planIds.length > 1 && (
+            <div className={n.wsTabs} role="group" aria-label="학습 묶음 고르기">
+              {planIds.map((id) => (
+                <button key={id} type="button" className={n.wsTab} aria-pressed={id === openWs} onClick={() => setWsSel(id)} data-testid="plan-tab" data-ws={id}>
+                  {templateOf(id)?.name ?? id}{id === plan.primary?.id ? ' · 추천' : ''}
+                </button>
+              ))}
+            </div>
+          )}
+          <PlanSection view={v.plans[openWs]} reason={openWs === plan.primary?.id && plan.reason ? REASON_LABEL[plan.reason] : null} past={past} />
+        </>
+      )}
 
       {/* ⑦ 아직 계산할 수 없는 학습 요구 */}
       <div className={n.notYet} data-testid="need-not-computable">
