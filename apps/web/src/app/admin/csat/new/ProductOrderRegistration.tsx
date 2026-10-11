@@ -29,6 +29,8 @@ export function ProductOrderRegistration({ selection }: { selection: PlanSelecti
   const [languageBand, setLanguageBand] = useState('middle')
   const [passageLevel, setPassageLevel] = useState(4)
   const [shareAlike, setShareAlike] = useState(false)
+  const [exam, setExam] = useState('')
+  const [resourcesText, setResourcesText] = useState('')
   const [draft, setDraft] = useState<Draft | null>(null)
   const [registrationReceipt, setRegistrationReceipt] = useState<{ orderId: string; revision: number; hash: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -52,6 +54,15 @@ export function ProductOrderRegistration({ selection }: { selection: PlanSelecti
 
   async function preview() {
     if (!selection || !grade) return
+    // Licensed second texts (P13/P20) or data (P14) are sealed into the order; the server validates rights fields.
+    let resources: unknown[] | undefined
+    if (resourcesText.trim()) {
+      try {
+        const parsed = JSON.parse(resourcesText) as unknown
+        if (!Array.isArray(parsed)) throw Error('not array')
+        resources = parsed
+      } catch { invalidate(); setError('자료는 JSON 배열이어야 합니다.'); return }
+    }
     invalidate(); setPending(true)
     const generation = requestGeneration.current
     try {
@@ -59,7 +70,8 @@ export function ProductOrderRegistration({ selection }: { selection: PlanSelecti
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ brief: selection.brief, plan_hash: selection.plan_hash,
           grade, ...fields, order_revision: revision, language_band: languageBand,
-          passage_v_level: passageLevel, share_alike: shareAlike, policies }),
+          passage_v_level: passageLevel, share_alike: shareAlike, policies,
+          ...(exam ? { exam } : {}), ...(resources ? { resources } : {}) }),
       })
       if (!response.ok) {
         if (generation === requestGeneration.current) setError('주문 초안을 봉인하지 못했습니다. 정책 참조·학년·난도를 확인하세요.')
@@ -117,6 +129,15 @@ export function ProductOrderRegistration({ selection }: { selection: PlanSelecti
         <label className="text-[13px] text-[var(--t1)]">지문 V-Level<input type="number" min={0} max={11} value={passageLevel} onChange={event => { setPassageLevel(Number(event.target.value)); invalidate() }} className="mt-1 min-h-[44px] w-full rounded border border-[var(--bd)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]" /></label>
       </div>
       <label className="mt-3 flex min-h-[44px] items-center gap-2 text-[13px] text-[var(--t1)]"><input type="checkbox" className="h-[44px] w-[44px]" checked={shareAlike} onChange={event => { setShareAlike(event.target.checked); invalidate() }} />동일조건 공유 조판</label>
+      <div className="mt-3 grid gap-3 lg:grid-cols-[14rem_1fr]">
+        <label className="text-[13px] text-[var(--t1)]">시험 목표(P18 등 시간 판단)<select value={exam} onChange={event => { setExam(event.target.value); invalidate() }} className="mt-1 min-h-[44px] w-full rounded border border-[var(--bd)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+          <option value="">없음</option>{['csat', 'psat_8_9', 'sat', 'act', 'toefl', 'lsat'].map(value => <option key={value} value={value}>{value}</option>)}
+        </select></label>
+        <label className="text-[13px] text-[var(--t1)]">봉인할 자료(P13·P20 제2 지문, P14 데이터) — JSON 배열, 일자마다 순서대로 순환
+          <textarea value={resourcesText} onChange={event => { setResourcesText(event.target.value); invalidate() }} rows={4}
+            className="mt-1 min-h-[44px] w-full rounded border border-[var(--bd)] bg-[var(--bg)] p-2 font-mono text-[12px] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]" />
+        </label>
+      </div>
       <fieldset className="mt-3"><legend className="font-[700] text-[13px] text-[var(--t1)]">정책·계약 참조 입력</legend><p className="text-[12px] text-[var(--t2)]">운영자가 확인한 버전과 SHA-256을 입력하세요. 이 화면은 참조 형식만 검증합니다.</p>
         {(Object.keys(policyLabels) as Policy[]).map(key => <div key={key} className="mt-2 grid gap-2 lg:grid-cols-[9rem_1fr_2fr]">
           <span className="text-[13px] text-[var(--t1)]">{policyLabels[key]}</span>

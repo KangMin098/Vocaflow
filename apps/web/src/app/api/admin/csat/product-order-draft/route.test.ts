@@ -51,3 +51,26 @@ it('requires administrator role before constructing a draft', async () => {
   mocks.requireAdminApi.mockResolvedValueOnce(NextResponse.json({ error: 'Forbidden' }, { status: 403 }))
   expect((await send(input())).status).toBe(403)
 })
+
+it('seals exam targets, licensed resources and companion activities from the admin inputs', async () => {
+  const resource = { kind: 'text', canonical_source: 'frym', canonical_url: 'https://example.org/text-b',
+    content: 'A second synthetic account gives a different explanation of the same event.',
+    license_evidence: 'Synthetic permission recorded for this fixture only.', license: 'CC BY 4.0',
+    license_url: 'https://example.org/license', commercial_use: true, derivative_use: true,
+    ai_processing: 'allowed', third_party_text: false, share_alike: false,
+    attribution: 'Synthetic fixture source', checked_at: '2026-10-08T00:00:00Z' }
+  const withBrief = (extra: Record<string, unknown>, draft: Record<string, unknown> = {}) => {
+    const next = { ...brief, ...extra }
+    return { ...input(), brief: next, plan_hash: planProductBrief(next).plan_hash, ...draft }
+  }
+  const p13 = withBrief({ product_family: 'P13' })
+  expect((await send(p13)).status).toBe(400)
+  const sealed = await (await send({ ...p13, resources: [resource] })).json()
+  expect(sealed.order.target.resources).toHaveLength(1)
+  const p18 = withBrief({ product_family: 'P18' }, { language_band: 'high', passage_v_level: 7, grade: 'middle_2' })
+  expect((await send(p18)).status).toBe(400)
+  expect((await send({ ...p18, exam: 'csat' })).status).toBe(200)
+  const companion = await (await send(withBrief({ companion_activities: ['grammar_practice', 'vocab_cards'] }))).json()
+  expect(companion.order.activity_types).toEqual(['grammar_practice', 'vocab_cards'])
+  expect((await send({ ...input(), brief: { ...brief, companion_activities: ['tarot_reading'] } })).status).toBe(400)
+})

@@ -27,6 +27,12 @@ type PlanningResult = {
     chapters: { chapter: number; from_day: number; to_day: number }[] }
 }
 
+const companionOptions = [
+  ['grammar_practice', '어법'], ['word_order_practice', '구문 배열'], ['vocab_practice', '어휘'],
+  ['listening_practice', '듣기'], ['dictation_practice', '받아쓰기'], ['vocab_cards', '낱말 카드'],
+  ['diagnostic_check', '진단'],
+] as const
+
 export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { brief: unknown; plan_hash: string } | null) => void }) {
   const requestGeneration = useRef(0)
   const [families, setFamilies] = useState<Record<string, { name: string; state: string }>>({})
@@ -44,6 +50,7 @@ export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { b
   const [startWords, setStartWords] = useState(180)
   const [endWords, setEndWords] = useState(260)
   const [sourceStrategy, setSourceStrategy] = useState('balanced')
+  const [companions, setCompanions] = useState<string[]>([])
   const [result, setResult] = useState<PlanningResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
@@ -89,6 +96,7 @@ export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { b
       duration_days: days, units_per_chapter: unitsPerChapter,
       difficulty: { start: startLevel, end: endLevel },
       passage_words: { start: startWords, end: endWords }, source_strategy: sourceStrategy,
+      ...(companions.length ? { companion_activities: companionOptions.map(([value]) => value).filter(value => companions.includes(value)) } : {}),
     }
     setPending(true)
     try {
@@ -146,6 +154,9 @@ export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { b
           className="mr-2 min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 text-[13px] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-pressed:border-[var(--p)] aria-pressed:text-[var(--p)]">{label}</button>)}</fieldset>
       <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">글 유형</legend>{genres.map(([value, label]) =>
         <button key={value} type="button" aria-pressed={selectedGenres.includes(value)} onClick={() => toggle(value, selectedGenres, setSelectedGenres)}
+          className="mr-2 min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 text-[13px] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-pressed:border-[var(--p)] aria-pressed:text-[var(--p)]">{label}</button>)}</fieldset>
+      <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">함께 낼 연습(독해 외)</legend>{companionOptions.map(([value, label]) =>
+        <button key={value} type="button" aria-pressed={companions.includes(value)} onClick={() => toggle(value, companions, setCompanions)}
           className="mr-2 min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 text-[13px] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-pressed:border-[var(--p)] aria-pressed:text-[var(--p)]">{label}</button>)}</fieldset>
     </div>
     <div className="mt-3 grid gap-x-6 lg:grid-cols-3">
