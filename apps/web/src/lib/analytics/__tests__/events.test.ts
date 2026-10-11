@@ -159,6 +159,9 @@ describe('허용 이벤트 목록', () => {
     'csat_map_node_opened',
     'csat_map_goal_set',
     'csat_map_task_toggled',
+    // 2026-10-10 — 학습 지도 rev4 Workspace 2종. DB 허용 목록은 20261008160000_learning_sessions_integrated 에 이미 있다
+    'csat_workspace_opened',
+    'csat_workspace_suggestion_applied',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

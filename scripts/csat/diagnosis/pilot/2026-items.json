@@ -1,0 +1,174 @@
+{
+ "exam": "2026",
+ "note": "문항 메타만(지문 · 선지 본문 없음). choiceWords = 선지별 칸마다 낱말 수의 최댓값",
+ "items": [
+  {
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "choiceWords": 5
+  },
+  {
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "choiceWords": 3
+  },
+  {
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "choiceWords": 10
+  },
+  {
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "choiceWords": 9
+  },
+  {
+   "no": 25,
+   "type": "R-CHART",
+   "points": 2,
+   "choiceWords": 35
+  },
+  {
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 27,
+   "type": "R-NOTICE",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 28,
+   "type": "R-NOTICE",
+   "points": 2,
+   "choiceWords": 8
+  },
+  {
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "choiceWords": 32
+  },
+  {
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "choiceWords": 49
+  },
+  {
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "choiceWords": 1
+  },
+  {
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "choiceWords": 7
+  },
+  {
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "choiceWords": 9
+  },
+  {
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "choiceWords": 9
+  },
+  {
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "choiceWords": 29
+  },
+  {
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "choiceWords": 5
+  },
+  {
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "choiceWords": 5
+  },
+  {
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "choiceWords": 36
+  },
+  {
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "choiceWords": 47
+  },
+  {
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "choiceWords": 1
+  },
+  {
+   "no": 41,
+   "type": "X-TITLE",
+   "points": 3,
+   "choiceWords": 9
+  },
+  {
+   "no": 42,
+   "type": "X-VOCAB",
+   "points": 2,
+   "choiceWords": 1
+  },
+  {
+   "no": 43,
+   "type": "X-ORDER",
+   "points": 2,
+   "choiceWords": 5
+  },
+  {
+   "no": 44,
+   "type": "X-REFER",
+   "points": 2,
+   "choiceWords": 1
+  },
+  {
+   "no": 45,
+   "type": "X-FACT",
+   "points": 2,
+   "choiceWords": 7
+  }
+ ]
+}

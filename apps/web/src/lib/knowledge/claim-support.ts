@@ -23,6 +23,12 @@ import ann_2026_20 from './annotations/claim-support-2026-20.v1.json'
 import ann_m2506_20 from './annotations/claim-support-m2506-20.v1.json'
 import ann_m2606_20 from './annotations/claim-support-m2606-20.v1.json'
 import ann_m2609_20 from './annotations/claim-support-m2609-20.v1.json'
+// 2026-10-11 5차 — 「다른 글에 적용」 전이 문항(주제 유형). 같은 채택 조건으로 9 후보 중 2 채택(나머지 7 은 앵커 불일치 · 주석자 이견으로 보류)
+//   학습자에게 열리는 것은 knowledge_applications 활성(B7 사람 출시 승인) 뒤 — 등록만으로는 실학습 풀에 들어가지 않는다
+import ann_2026_23 from './annotations/claim-support-2026-23.v1.json'
+import ann_m2609_23 from './annotations/claim-support-m2609-23.v1.json'
+import ann_2020_24 from './annotations/claim-support-2020-24.v1.json'
+import ann_2021_24 from './annotations/claim-support-2021-24.v1.json'
 import { RELATIONS, type Relation } from './claim-support-labels'
 
 export { RELATIONS, RELATION_LABEL, type Relation } from './claim-support-labels'
@@ -62,6 +68,10 @@ const ANNOTATIONS: Record<string, ClaimSupportAnnotation> = {
   [ann_m2506_20.itemId]: ann_m2506_20 as ClaimSupportAnnotation,
   [ann_m2606_20.itemId]: ann_m2606_20 as ClaimSupportAnnotation,
   [ann_m2609_20.itemId]: ann_m2609_20 as ClaimSupportAnnotation,
+  [ann_2026_23.itemId]: ann_2026_23 as ClaimSupportAnnotation,
+  [ann_m2609_23.itemId]: ann_m2609_23 as ClaimSupportAnnotation,
+  [ann_2020_24.itemId]: ann_2020_24 as ClaimSupportAnnotation,
+  [ann_2021_24.itemId]: ann_2021_24 as ClaimSupportAnnotation,
 }
 
 export function annotationFor(itemId: string): ClaimSupportAnnotation | null {

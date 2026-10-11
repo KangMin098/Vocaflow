@@ -15,6 +15,7 @@
 // 실행: node --env-file=<apps/web/.env.local> scripts/csat/map/e2e-map-states.mjs [--base http://localhost:3000] [--out tmp/map-states]
 // 개발 프로젝트(jajenrevcbmrpaliomxv)가 아니면 멈춘다. 종료 코드 0 = 모든 단언 통과.
 import fs from 'node:fs'
+import { cleanupLeftovers, onInterrupt } from './e2e-cleanup.mjs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { createRequire } from 'node:module'
@@ -51,6 +52,8 @@ let fail = 0
 const results = []
 const rec = (name, ok, detail = '') => { if (!ok) fail++; results.push({ name, ok, detail }); console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + (typeof detail === 'string' ? detail : JSON.stringify(detail)).slice(0, 220)}`) }
 fs.mkdirSync(OUT, { recursive: true })
+// 시작 전에 지난 실행의 잔여(30분 넘은 E2E 계정 · TEST fixture)를 지운다 — Windows 는 종료 신호가 node 에 닿지 않아(2026-10-11 실측) 신호 정리만으로는 보장되지 않는다
+{ const swept = await cleanupLeftovers(db, { minAgeMs: 30 * 60_000, log: () => {} }); if (swept.users || swept.exams) console.log(`지난 실행 잔여 정리 — 계정 ${swept.users} · TEST 시험 ${swept.exams}`) }
 
 // ── fixture ──
 async function createFixture() {
@@ -141,6 +144,8 @@ const expectedFind = (stepKey) =>
 
 const browser = await chromium.launch()
 let fx = null
+// 중단(Ctrl+C · 종료 신호)돼도 임시 계정 · TEST fixture 를 지운다 — 2026-10-10 중단된 실행이 diagnosis_ready=true 인 M2098 을 남겼다
+onInterrupt(async () => { await browser.close().catch(() => {}); for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {}); if (fx) await dropFixture() })
 try {
   // ── 상태 A: 기록 없음 ──
   {
@@ -214,7 +219,8 @@ try {
     const sheetStep = await page.locator('[data-step-sheet]').getAttribute('data-step-sheet')
     rec('C · 확인 시작 → 같은 단계 시트', sheetStep === focusStep, { sheetStep, focusStep })
     const want = await must(db.from('csat_map_task').select('id, title').in('id', expectedFind(sheetStep)), 'find titles')
-    const shown = await page.locator('#step-check li strong').allInnerTexts()
+    // 과제 목록의 제목만 — 생애주기 줄(LifecycleStrip)의 단계 이름(확인하기 · 바로잡기 …)도 li strong 이라 함께 잡히던 낡은 셀렉터(2026-10-10 발견)
+    const shown = await page.locator('#step-check li [class*="taskMain"] > strong').allInnerTexts()
     rec('C · 「지금 확인할 것」 = 그 단계의 확인하기(FIND) 과제 전부 · 그것만', want.length > 0 && JSON.stringify([...shown].sort()) === JSON.stringify(want.map((w) => w.title).sort()), { shown, want: want.map((w) => w.id) })
     const sheetTxt = await page.locator('[data-step-sheet]').innerText()
     rec('C · 원인 확인 전 — 바로잡기 · 다른 문제에 적용하기 · 다시 확인하기는 잠금(이어지는 학습으로만)', sheetTxt.includes('원인이 확인되면 이어지는 학습') && (await page.locator('#step-check input[type="checkbox"]').count()) === want.length)

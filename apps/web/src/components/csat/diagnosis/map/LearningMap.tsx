@@ -116,7 +116,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
     else els.current.delete(code)
   }
 
-  const graph = useMemo(() => edges.filter((e) => e.kind === 'goal' || e.kind === 'member').map((e) => ({ id: e.id, from: e.from_code, to: e.to_code })), [edges])
+  const graph = useMemo(() => edges.filter((e) => e.kind === 'goal' || e.kind === 'member').map((e) => ({ id: e.id, from: e.from_code, to: e.to_code, basis: e.basis })), [edges])
   const path = useMemo(() => (selected ? pathOf(selected, graph) : null), [selected, graph])
   const hoverPath = useMemo(() => (hovered && !selected ? pathOf(hovered, graph) : null), [hovered, selected, graph])
 
@@ -187,7 +187,8 @@ export function LearningMap({ data }: { data: MapPageData }) {
               <path
                 key={e.id}
                 d={e.d}
-                className={`${s.edge} ${e.basis === 'inferred' ? s.edgeInferred : e.basis === 'pending' ? s.edgePending : ''} ${path?.edges.has(e.id) ? s.edgeOn : ''} ${hoverPath?.edges.has(e.id) ? s.edgeHover : ''}`}
+                className={`${s.edge} ${e.basis === 'inferred' ? s.edgeInferred : e.basis === 'pending' ? s.edgePending : ''} ${path?.edges.has(e.id) ? (path.unconfirmed.has(e.id) ? s.edgeOnUnconfirmed : s.edgeOn) : ''} ${hoverPath?.edges.has(e.id) ? s.edgeHover : ''}`}
+                data-path={path?.edges.has(e.id) ? (path.unconfirmed.has(e.id) ? 'unconfirmed' : 'confirmed') : undefined}
               />
             ))}
           </svg>
