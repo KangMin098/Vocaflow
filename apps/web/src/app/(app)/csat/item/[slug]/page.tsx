@@ -215,7 +215,7 @@ export default async function CsatItemTheaterPage({ params, searchParams }: { pa
   ) : null
   if (checkMode && panel) {
     return (
-      <CsatShell place="item" pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번 · 직접 확인</>}>
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번 · 직접 확인</>}>
         <div data-testid="item-check-mode">
           <p className="mx-auto mt-6 max-w-3xl break-keep px-4 text-sm leading-relaxed text-[var(--t2)]">
             해설을 보기 전에 혼자 판단해 보는 확인이에요. 공개 문제지의 지문을 보며 문장 번호로 골라 주세요.
