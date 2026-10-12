@@ -1,0 +1,216 @@
+{
+  "basis": "committed public artifacts read from current worktree; NOT live DB counts or semantic certification",
+  "items": 786,
+  "verified": 786,
+  "v3": 786,
+  "meanings": 3971,
+  "meaningFields": {
+    "id": 3971,
+    "sentences": 3971,
+    "expression": 3971,
+    "meaning_ko": 3971,
+    "scope": 3971
+  },
+  "scope": {
+    "agent": 361,
+    "none": 1028,
+    "condition": 444,
+    "contrast": 411,
+    "quantity": 356,
+    "negation": 323,
+    "reference": 685,
+    "time": 363
+  },
+  "choicesWithMeaningIds": 3812,
+  "missingMeaningReferences": 0,
+  "types": {
+    "R-PURPOSE": {
+      "items": 26,
+      "verified": 26,
+      "v3": 26,
+      "meanings": 121,
+      "choicesWithMeaningIds": 128
+    },
+    "R-TOPIC": {
+      "items": 30,
+      "verified": 30,
+      "v3": 30,
+      "meanings": 148,
+      "choicesWithMeaningIds": 145
+    },
+    "R-TITLE": {
+      "items": 31,
+      "verified": 31,
+      "v3": 31,
+      "meanings": 150,
+      "choicesWithMeaningIds": 149
+    },
+    "R-GRAMMAR": {
+      "items": 29,
+      "verified": 29,
+      "v3": 29,
+      "meanings": 150,
+      "choicesWithMeaningIds": 137
+    },
+    "R-VOCAB": {
+      "items": 28,
+      "verified": 28,
+      "v3": 28,
+      "meanings": 143,
+      "choicesWithMeaningIds": 132
+    },
+    "R-NOTICE": {
+      "items": 57,
+      "verified": 57,
+      "v3": 57,
+      "meanings": 286,
+      "choicesWithMeaningIds": 281
+    },
+    "R-CHART": {
+      "items": 29,
+      "verified": 29,
+      "v3": 29,
+      "meanings": 142,
+      "choicesWithMeaningIds": 138
+    },
+    "R-BLANK": {
+      "items": 115,
+      "verified": 115,
+      "v3": 115,
+      "meanings": 557,
+      "choicesWithMeaningIds": 565
+    },
+    "R-BLANK2": {
+      "items": 2,
+      "verified": 2,
+      "v3": 2,
+      "meanings": 10,
+      "choicesWithMeaningIds": 10
+    },
+    "R-ORDER": {
+      "items": 56,
+      "verified": 56,
+      "v3": 56,
+      "meanings": 299,
+      "choicesWithMeaningIds": 280
+    },
+    "R-IRRELEVANT": {
+      "items": 28,
+      "verified": 28,
+      "v3": 28,
+      "meanings": 148,
+      "choicesWithMeaningIds": 137
+    },
+    "R-INSERT": {
+      "items": 55,
+      "verified": 55,
+      "v3": 55,
+      "meanings": 281,
+      "choicesWithMeaningIds": 270
+    },
+    "R-MOOD": {
+      "items": 21,
+      "verified": 21,
+      "v3": 21,
+      "meanings": 107,
+      "choicesWithMeaningIds": 104
+    },
+    "X-TITLE": {
+      "items": 29,
+      "verified": 29,
+      "v3": 29,
+      "meanings": 140,
+      "choicesWithMeaningIds": 132
+    },
+    "X-BLANK": {
+      "items": 6,
+      "verified": 6,
+      "v3": 6,
+      "meanings": 28,
+      "choicesWithMeaningIds": 29
+    },
+    "X-ORDER": {
+      "items": 29,
+      "verified": 29,
+      "v3": 29,
+      "meanings": 162,
+      "choicesWithMeaningIds": 143
+    },
+    "X-REFER": {
+      "items": 27,
+      "verified": 27,
+      "v3": 27,
+      "meanings": 144,
+      "choicesWithMeaningIds": 129
+    },
+    "X-FACT": {
+      "items": 29,
+      "verified": 29,
+      "v3": 29,
+      "meanings": 150,
+      "choicesWithMeaningIds": 139
+    },
+    "R-REFER": {
+      "items": 6,
+      "verified": 6,
+      "v3": 6,
+      "meanings": 29,
+      "choicesWithMeaningIds": 28
+    },
+    "R-FACT": {
+      "items": 28,
+      "verified": 28,
+      "v3": 28,
+      "meanings": 142,
+      "choicesWithMeaningIds": 133
+    },
+    "R-SUMMARY": {
+      "items": 28,
+      "verified": 28,
+      "v3": 28,
+      "meanings": 139,
+      "choicesWithMeaningIds": 140
+    },
+    "R-GIST": {
+      "items": 27,
+      "verified": 27,
+      "v3": 27,
+      "meanings": 135,
+      "choicesWithMeaningIds": 133
+    },
+    "R-CLAIM": {
+      "items": 25,
+      "verified": 25,
+      "v3": 25,
+      "meanings": 126,
+      "choicesWithMeaningIds": 122
+    },
+    "X-BLANK2": {
+      "items": 1,
+      "verified": 1,
+      "v3": 1,
+      "meanings": 6,
+      "choicesWithMeaningIds": 5
+    },
+    "R-IMPLY": {
+      "items": 22,
+      "verified": 22,
+      "v3": 22,
+      "meanings": 109,
+      "choicesWithMeaningIds": 106
+    },
+    "X-VOCAB": {
+      "items": 22,
+      "verified": 22,
+      "v3": 22,
+      "meanings": 119,
+      "choicesWithMeaningIds": 97
+    }
+  },
+  "comparison": {
+    "pairs": 749,
+    "items": 477,
+    "principles": 110
+  },
+  "proposedV31FieldsPresent": 0
+}

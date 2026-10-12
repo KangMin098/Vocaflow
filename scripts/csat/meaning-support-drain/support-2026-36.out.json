@@ -1,0 +1,564 @@
+{
+  "writer_run": "ms-wr-2026-36",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#36",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "79c616281a5e44a2",
+      "basePublicHash": "450991f7d0ecdfb7471146e0587f69b8b692bebbd6991831b22d5f6ef209c175",
+      "sourceSnapshotHash": "8ad76ca7dac03572"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 36,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u4",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 2,
+        "quote": "the nature of that process is repetitive",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 8,
+        "quote": "almost any process that repeats itself",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 8,
+        "quote": "almost any",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 4,
+        "quote": "The only example that comes to mind readily",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 5,
+        "quote": "although at first masked",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 6,
+        "quote": "another, much longer scale clock",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 6,
+        "quote": "another",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 7,
+        "quote": "gives the appearance of being continuous",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 18,
+          "end": 55,
+          "spanHash": "ed3bf1d4cc1ada8f56f0a49199a63020b9614915c77d2aeb5b6a86ee28e450bb"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 34,
+          "end": 74,
+          "spanHash": "16f6505025feea11e2d9c9b7ec5f615868f72d495e671037e52f271bb1539fba"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 0,
+          "end": 58,
+          "spanHash": "41cdca8be0eb4c585558eb74681604f8d45a9f018cab611e164e547a93efaea6"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a12",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 60,
+          "end": 105,
+          "spanHash": "a8d2de01e45b01c4e94434f2fd40daf0677f9980e7d452d7cb0f0f1d66c24d2c"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "시계는 물건이라기보다 기계에 담긴 과정이며, 그 과정의 본질은 반복이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "무한정 계속 되풀이되는 과정이라면 거의 어떤 것이든 시계가 될 수 있고, 물시계와 석영은 그 반복이 눈에 드러나는 예다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2",
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "반복에 기대지 않는 시계는 떠올리기 거의 불가능하고, 쉽게 떠오르는 유일한 예가 시간 눈금을 새긴 양초다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a9",
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "양초도 실은 왁스 분자가 되풀이해 타는 반복 과정이며, 처음에는 그 반복이 가려져 있을 뿐이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a10",
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "방사성 탄소 연대 측정은 매끄러운 시간 척도를 내는 것처럼 보이지만 실제로는 그렇지 않다. 탄소-14 원자의 붕괴는 반복이고, 큰 척도에서 연속처럼 보일 뿐이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a11",
+          "a12",
+          "a8"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p6",
+        "textKo": "6번 문장의 '또 하나의 ~ 이와 같은 시계'는 같은 종류의 사례가 바로 앞에 있어야 성립한다. 7번 문장이 그 종류를 '매끄러워 보이지만 실은 반복'으로 밝히며, 반복이 처음엔 가려져 있다는 5번 문장의 양초가 이에 가장 가깝다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a7",
+          "a6",
+          "a5",
+          "a11"
+        ],
+        "warrantsKo": [
+          "another 는 같은 종류의 앞 사례가 이미 있다는 뜻을 담는다",
+          "7번 문장이 그 종류를 '매끄러워 보이지만 실은 반복'으로 규정한다",
+          "9번 문장의 물시계·석영은 반복이 처음부터 드러나 있어 그 종류에 들지 않는다"
+        ],
+        "limitKo": "양초가 '연속처럼 보인다'는 말은 원문에 없다. 5번은 반복이 처음엔 가려져 있다고만 하므로, 양초와 방사성 탄소를 같은 종류로 묶는 것은 '반복이 겉으로 드러나지 않는다'는 공통점에 기댄 연결 추론이다. like this 가 앞 단락의 일반 규정 전체를 받는다고 읽을 여지도 남는다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "시계 = 반복되는 과정 (주어진 글)",
+        "exactKo": "시계는 사실 기계에 담긴 하나의 과정이며, 그 과정의 본질은 반복적이다.",
+        "simpleKo": "시계의 정체는 물건이 아니라 같은 일이 되풀이되는 과정이다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "그 과정 = 기계에 담긴 과정",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "반복적이라는 성질은 1번 문장의 물건이 아니라, 2번 문장 앞부분에서 새로 세운 '기계에 담긴 과정'에 붙는다. 통념(물건)을 관점(과정)으로 고친 뒤의 진술이다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          8,
+          9
+        ],
+        "legacyMeaningIds": [
+          "m2"
+        ],
+        "labelKo": "거의 어떤 반복 과정이든 시계 ((C))",
+        "exactKo": "시계는 무한정 계속해서 되풀이되는 거의 어떤 과정이든 될 수 있다. 물시계는 일정하게 떨어지고 석영은 규칙적으로 진동한다.",
+        "simpleKo": "끝없이 되풀이되기만 하면 거의 무엇이든 시계로 쓸 수 있다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "거의 어떤",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "'모든 것' '언제나'가 아니라 '거의 어떤 것이든'이다. 예외가 있을 여지를 남기므로 뒤에서 예외처럼 보이는 사례를 꺼낼 자리가 생긴다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "무한정 되풀이되는 과정이라면",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "시계가 될 수 있는 조건은 반복이다. 아무 과정이나가 아니다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "어떤 과정이든 언제나 시계가 될 수 있다.",
+          "lostFacet": "quantity",
+          "whyWrongKo": "원문은 '거의'로 범위를 한정하고 '반복하는 과정'이라는 조건을 붙인다. 이를 빼면 규정이 과장되고, 다음 단락이 왜 '유일한 예외처럼 보이는 것'을 검토하는지 설명되지 않는다.",
+          "anchorIds": [
+            "a3",
+            "a2"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          3,
+          4,
+          5
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4"
+        ],
+        "labelKo": "예외처럼 보이는 양초도 실은 반복 ((A))",
+        "exactKo": "반복 주기에 기대지 않는 시계는 떠올리기 거의 불가능하다. 쉽게 떠오르는 유일한 예는 시간 눈금을 새긴 양초인데, 여기에도 왁스 분자가 되풀이해 타는 반복이 있으므로, 처음에는 가려져 있지만 이것 역시 반복 과정이다.",
+        "simpleKo": "반복 없는 시계처럼 보이는 양초조차, 들여다보면 왁스가 계속 되풀이해 타는 반복이다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "modality",
+            "valueKo": "거의 불가능하다",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "'불가능하다'고 단정하지 않는다. 그래서 바로 예외 후보 하나를 검토한다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "쉽게 떠오르는 유일한 예",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "예외 후보가 하나뿐이라는 한정이며, 그것도 '쉽게 떠오르는' 범위에서다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "처음에는 가려져 있지만 실은 반복",
+            "anchorIds": [
+              "a5",
+              "a10"
+            ],
+            "explanationKo": "5번 문장은 양초에도 반복(왁스 분자의 연소)이 있고, 그 반복이 처음엔 가려져 있다고만 말한다. 양초가 반복이 아니라는 말이 아니다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "양초는 반복에 기대지 않는 시계의 실제 예외다.",
+          "lostFacet": "polarity",
+          "whyWrongKo": "원문은 양초를 예외 '후보'로 꺼낸 뒤 실은 반복이라고 되돌린다. 가려져 있다는 말은 반복이 없다는 뜻이 아니라 처음에 안 보인다는 뜻이다.",
+          "anchorIds": [
+            "a5",
+            "a10"
+          ]
+        }
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m6"
+        ],
+        "labelKo": "또 하나의, 연속처럼 보이는 반복 ((B))",
+        "exactKo": "방사성 탄소 연대 측정은 또 하나의, 훨씬 긴 척도의 시계로서 역시 이와 같아 보인다. 매끄러운 시간 척도를 내는 것 같지만 실은 그렇지 않다. 탄소-14 원자의 붕괴는 반복이지만 큰 척도에서는 연속처럼 보인다.",
+        "simpleKo": "방사성 탄소도 양초처럼 반복이 겉으로 드러나지 않는 시계다. 매끄럽게 흐르는 듯 보여도 실은 반복이다.",
+        "propositionIds": [
+          "p5",
+          "p6"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "또 하나의 ~ 이와 같은",
+            "anchorIds": [
+              "a7",
+              "a6"
+            ],
+            "explanationKo": "같은 종류의 앞 사례가 이미 나와 있어야 쓸 수 있는 말이다. 7번 문장은 방사성 탄소가 연속처럼 보이지만 실은 반복이라고 밝히며, 앞 사례(양초)와 겹치는 부분은 반복이 겉으로 드러나지 않는다는 점이다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "매끄러워 보이지만 실은 아니다",
+            "anchorIds": [
+              "a11",
+              "a12",
+              "a8"
+            ],
+            "explanationKo": "연속은 겉보기이고 실제는 반복이다. 큰 척도에서 그렇게 보인다는 조건도 함께 남긴다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "훨씬 긴 척도",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "앞 사례(양초)보다 시간 척도가 훨씬 길다는 비교다. 반복이 겉으로 드러나지 않는다는 공통점은 그대로 두고 척도만 늘린다."
+          }
+        ],
+        "syntax": {
+          "parts": [
+            {
+              "id": "s1",
+              "role": "main",
+              "anchorIds": [
+                "a11"
+              ],
+              "meaningKo": "매끄러운 척도를 내는 것 같지만 실은 그렇지 않다 — 판정"
+            },
+            {
+              "id": "s2",
+              "role": "main",
+              "anchorIds": [
+                "a12"
+              ],
+              "meaningKo": "콜론 뒤: 탄소-14 붕괴는 반복이다 — 판정의 이유"
+            },
+            {
+              "id": "s3",
+              "role": "modifier",
+              "anchorIds": [
+                "a8"
+              ],
+              "meaningKo": "although 절: 큰 척도에서는 연속처럼 보이긴 한다 — 겉보기 인정"
+            }
+          ],
+          "attachments": [
+            {
+              "fromPart": "s2",
+              "toPart": "s1",
+              "whyKo": "콜론 뒤 내용이 '실은 그렇지 않다'의 근거를 댄다."
+            },
+            {
+              "fromPart": "s3",
+              "toPart": "s2",
+              "whyKo": "반복이라는 사실에 '그래도 연속처럼 보인다'는 양보를 붙여 겉보기와 실제를 함께 둔다."
+            }
+          ],
+          "recombinedKo": "연속처럼 보이는 건 큰 척도에서의 겉모습이고, 실제로는 붕괴가 반복되므로 매끄러운 척도가 아니다."
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "add",
+        "beforeKo": "시계의 본질은 반복되는 과정이다.",
+        "afterKo": "끝없이 되풀이되는 과정이라면 거의 무엇이든 시계가 되며, 물시계·석영이 그 예다.",
+        "changeKo": "반복이라는 본질을 유지한 채 '거의 어떤 과정이든'으로 범위를 넓혀 일반 규정으로 만들고, 반복이 눈에 보이는 예시를 붙인다. '거의'가 예외 검토의 여지를 남긴다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "add",
+        "beforeKo": "거의 어떤 반복 과정이든 시계가 된다.",
+        "afterKo": "반복 없는 시계는 거의 떠올릴 수 없고, 유일한 후보인 양초도 실은 가려진 반복이다.",
+        "changeKo": "(A)는 Indeed 로 (C)의 일반 규정을 '반복 없는 시계는 거의 떠올릴 수 없다'로 다시 강조해 규정을 유지·보강한다. 대조는 이 연결이 아니라 (A) 안에서 일어난다: 4번 문장이 유일한 예외 후보(양초)를 꺼내고, 5번 문장이 But 으로 그것도 반복이라고 되돌린다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a9",
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "'유일한 예'는 일반 규정과 평범한 예가 먼저 있어야 예외로서 의미가 생긴다",
+          "8번 문장의 '거의'가 예외 후보를 검토할 자리를 연다"
+        ],
+        "limitKo": "주어진 글(2번 문장)만으로도 반복 규정은 있으나, 평범한 예시(9번)가 앞서 있어야 '유일한 예'의 대비가 선명해진다는 판단이다."
+      },
+      {
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "add",
+        "beforeKo": "양초에도 반복이 있지만 처음엔 그 반복이 가려져 있다.",
+        "afterKo": "방사성 탄소도 또 하나의, 훨씬 긴 척도에서 같은 종류다.",
+        "changeKo": "'반복이 겉으로 드러나지 않는 시계'라는 공통점을 유지한 채 사례를 하나 더하고, 시간 척도를 훨씬 길게 바꾼다. 7번 문장은 그 숨은 반복을 '매끄러워 보이지만 실은 반복'으로 구체화한다. '또 하나'가 받을 앞 사례는 반복이 드러난 물시계·석영이 아니라 양초여야 한다.",
+        "propositionIds": [
+          "p4",
+          "p5",
+          "p6"
+        ],
+        "anchorIds": [
+          "a5",
+          "a7",
+          "a6",
+          "a11"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "another 는 같은 종류의 앞 사례를 요구한다",
+          "5번(처음엔 가려진 반복)과 7번(연속처럼 보이는 반복)은 모두 반복이 겉으로 드러나지 않는다는 점을 공유한다"
+        ],
+        "limitKo": "양초가 연속처럼 보인다는 진술은 원문에 없다. 공통점은 '가려진 반복'까지만이다. like this 가 앞 단락의 일반 규정 전체를 받는다는 읽기는 7번 문장의 대조 때문에 택하지 않았다. 출제 의도는 확인할 수 없다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "시계는 반복되는 과정이고 거의 어떤 반복 과정이든 시계가 될 수 있다. 예외처럼 보이는 양초도 반복이 처음에 가려져 있을 뿐이고, 방사성 탄소도 큰 척도에서 연속처럼 보일 뿐 실은 반복이다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "단락 표지 (A)·(B)·(C)와 인쇄 문장 번호는 다르다((A)=3~5번, (B)=6~7번, (C)=8~9번).",
+        "실제 출제 의도는 확인할 수 없다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          2,
+          4
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          3,
+          4
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m3",
+          "m4"
+        ],
+        "choiceNumbers": [
+          4
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5",
+          "m6"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      }
+    ]
+  }
+}

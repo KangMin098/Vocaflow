@@ -496,3 +496,10 @@ pnpm csat:drill:check    # 낡았으면 exit 1
 ## 11. v3 탐구 전달 현황 (2026-10-12)
 
 해설 극장은 일곱 장면(평가 과제 · 원문 이해 · 문항 성립 · 설계 재구성 · 기출 비교 · 조건부 원리 · 내 설명)으로 전달한다. 공개 v3 탐구 786문항 · 검수된 비교 749쌍 · 원리 노트(reasoningNotes) · 학습 지도 복귀. 계약 [ITEM_INQUIRY_V2_CONTRACT §7~9](./csat-learner/ITEM_INQUIRY_V2_CONTRACT.md) · 출시 검수표 [M5_RELEASE_CHECK](./csat-learner/v3/M5_RELEASE_CHECK.md)(F01~F16 · 실행 검사 · 교육 효과 미검증 · 다크 범위 제외).
+
+## 12. v3.1 원문 이해 교수 파일럿 (2026-10-12)
+
+- 데이터: `apps/web/src/lib/csat/meaning-support-data.json` — 기존 `inquiry-data.json` 을 고치지 않는 별도 sidecar. 공개 조건은 결속(분석 버전 · units_hash · 배포 레코드 canonical SHA-256) + 작성자와 다른 독립 검수 pass(내용 해시 일치)가 모두 맞을 때. 하나라도 어긋나면 화면은 기존 v3 의미 패널로 돌아간다.
+- 파일럿 8문항 — 2026#34 · #38(C2) · #22 · #23 · #25(도표 — 언어만 부분 공개) · #29 · #36 · #43(C3). 독립 검수 revise 4건(#34 「만」 조건 확대 · #23 seems 단정화 · #43 인과 · 선지 연결 · #36 관계 종류 · 양초 「연속」 원문 밖 주장)을 고친 뒤 재검수 pass.
+- 굽기(재실행 안전): `node scripts/csat/meaning-support-export.mjs`(입력 · 매니페스트) → 작성 `support-<id>.out.json` → `meaning-support-validate.mjs` → 독립 검수 `review-ms-*.json` → `meaning-support-build.mjs`(현재 공개 항목이 빠지면 `--allow-drop` 없이 실패 · 입력이 없으면 기존 유지).
+- 검증: Node 가드 13 · vitest 8(서버↔빌드 해시 동치 전 문항) · e2e `csat-v31-meaning` 1280/1440 라이트 · 기존 M5 · 강의 · 학습 루프 회귀. 실제 학습자 검증 전이라 교육 효과는 입증되지 않았다.

@@ -1,0 +1,49 @@
+{
+  "writer_run": "ms-wr-2026-25",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#25",
+    "binding": { "analysisVersion": 5, "unitsHash": "228485b747aa1614", "basePublicHash": "58500ff22de1c769dab1ce00f21f09d4b4c4f472c050a99e9307796dacf01584", "sourceSnapshotHash": "b48bc46a03240454" },
+    "sourceRef": { "organizer": "kice", "examId": "2026", "itemNo": 25, "inputRef": "inquiry-origin:chunk-inq-15" },
+    "partial": { "scope": ["language"], "withheldKo": "원본 도표를 확인하기 전이라 수치 판단은 보류" },
+    "defaultUnitId": "u3",
+    "anchors": [
+      { "id": "a1", "sentence": 2, "quote": "In the category of Every Day", "occurrence": 1, "mode": "original" },
+      { "id": "a2", "sentence": 3, "quote": "more than twice that of teenagers", "occurrence": 1, "mode": "original" },
+      { "id": "a3", "sentence": 5, "quote": "emailing was the second highest", "occurrence": 1, "mode": "original" },
+      { "id": "a4", "sentence": 4, "quote": "in the category of Less Often", "occurrence": 1, "mode": "original" }
+    ],
+    "propositions": [
+      { "id": "p1", "textKo": "2번 문장의 '가장 높다'는 비교는 매일 범주 안의 네 소통 방식끼리만 이루어진다.", "basis": "source_observation", "anchorIds": ["a1"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p2", "textKo": "3번 문장은 덜 자주 범주에서 전화 비율이 문자 비율의 두 배보다 크다고 말한다 — 정확히 두 배이면 이 진술은 성립하지 않는다.", "basis": "source_observation", "anchorIds": ["a2"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p3", "textKo": "5번 문장은 덜 자주 범주에 나열된 방식들 가운데 이메일이 두 번째 자리라고 말한다 — 1위도 3위도 아닌 정확히 둘째다.", "basis": "source_observation", "anchorIds": ["a3"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p4", "textKo": "4·6번 문장은 같은 소통 방식 하나를 두고 매일 범주와 덜 자주 범주의 비율을 맞댄다.", "basis": "source_observation", "anchorIds": ["a4"], "warrantsKo": [], "limitKo": "" }
+    ],
+    "units": [
+      { "id": "u1", "sentences": [2], "legacyMeaningIds": ["m1"], "labelKo": "범주 안 최고", "exactKo": "매일 범주에 한정해, 네 소통 방식 중 문자가 가장 높은 비율이라는 진술", "simpleKo": "'매일' 칸만 놓고 보면 문자가 1등이라는 말", "propositionIds": ["p1"],
+        "preserves": [ { "facet": "quantity", "valueKo": "매일 범주 안에서만", "anchorIds": ["a1"], "explanationKo": "덜 자주 범주나 두 범주 합계는 비교 대상이 아니다." },
+                       { "facet": "comparison", "valueKo": "네 방식 중 최고", "anchorIds": ["a1"], "explanationKo": "비교 집합은 네 소통 방식이다." } ] },
+      { "id": "u2", "sentences": [3], "legacyMeaningIds": ["m2"], "labelKo": "두 배 초과", "exactKo": "덜 자주 범주에서 전화로 시간을 보낸 비율이 문자로 그런 비율의 두 배보다 크다는 배수 진술", "simpleKo": "'덜 자주' 칸에서 전화가 문자의 두 배를 넘는다는 말", "propositionIds": ["p2"],
+        "preserves": [ { "facet": "comparison", "valueKo": "두 배보다 큼(엄격 초과)", "anchorIds": ["a2"], "explanationKo": "비교 기준은 문자 비율의 두 배이고, 그 값과 같으면 '두 배 초과'가 아니다." },
+                       { "facet": "reference", "valueKo": "전화(비교 대상) 대 문자(기준)", "anchorIds": ["a2"], "explanationKo": "that of 는 문자로 시간을 보낸 십대의 비율을 가리키며, 이것이 배수의 기준이다." } ],
+        "misunderstanding": { "alteredKo": "전화가 문자의 두 배 이상이기만 하면 맞다", "lostFacet": "comparison", "whyWrongKo": "more than twice 는 두 배와 같은 경우를 포함하지 않는다.", "anchorIds": ["a2"] } },
+      { "id": "u3", "sentences": [5], "legacyMeaningIds": ["m3"], "labelKo": "범주 안 순위", "exactKo": "덜 자주 범주에서 나열된 소통 방식 가운데 이메일이 두 번째로 높은 비율이라는 순위 진술", "simpleKo": "'덜 자주' 칸만 줄 세우면 이메일이 둘째라는 말", "propositionIds": ["p3"],
+        "preserves": [ { "facet": "quantity", "valueKo": "덜 자주 범주 안의 순위", "anchorIds": ["a3"], "explanationKo": "순위는 그 범주 숫자끼리만 매기며, 다른 범주 값이나 막대 전체 길이는 기준이 아니다." },
+                       { "facet": "comparison", "valueKo": "두 번째(1위가 아님)", "anchorIds": ["a3"], "explanationKo": "second highest 는 바로 위에 하나가 더 있다는 뜻이라, 1위이거나 3위이면 이 진술과 다르다." } ],
+        "misunderstanding": { "alteredKo": "이메일이 상위권이기만 하면 맞다", "lostFacet": "comparison", "whyWrongKo": "진술은 '높은 편'이 아니라 정확히 두 번째 자리를 말한다.", "anchorIds": ["a3"] } },
+      { "id": "u4", "sentences": [4, 6], "legacyMeaningIds": ["m4"], "labelKo": "범주 간 비교", "exactKo": "같은 소통 방식의 매일 비율과 덜 자주 비율을 맞대는 비교(4번 문장은 전화, 6번 문장은 화상 채팅)", "simpleKo": "한 방식을 두고 '매일' 값과 '덜 자주' 값 중 어느 쪽이 큰지 보는 말", "propositionIds": ["p4"],
+        "preserves": [ { "facet": "comparison", "valueKo": "4번은 매일이 더 낮다, 6번은 덜 자주가 더 높다", "anchorIds": ["a4"], "explanationKo": "두 문장은 비교 방향(lower / higher)과 주어 범주가 서로 반대이므로 어느 쪽이 기준인지 따로 확인해야 한다." } ] }
+    ],
+    "relations": [
+      { "id": "r1", "from": ["u1", "u3"], "to": ["u2", "u4"], "kind": "contrast", "beforeKo": "범주 하나 안에서 매기는 최고·순위 진술", "afterKo": "두 값의 배수 관계 또는 두 범주 사이의 비교 진술", "changeKo": "판단의 단위가 바뀐다 — 앞은 한 범주 안의 줄 세우기, 뒤는 두 값의 크기 관계라 읽어야 할 숫자 묶음이 다르다.", "propositionIds": ["p1", "p2", "p3", "p4"], "anchorIds": ["a1", "a2", "a3", "a4"], "basis": "source_observation", "warrantsKo": [], "limitKo": "" }
+    ],
+    "whole": { "genre": "visual", "summaryKo": "다섯 진술은 범주 안 최고·배수·범주 간 비교·범주 안 순위로 판단 종류가 다르며, 각 진술이 지정한 대상·범주·비교 기준에 해당하는 값만 골라 읽어야 한다.", "propositionIds": ["p1", "p2", "p3", "p4"], "relationIds": ["r1"], "limitsKo": ["원본 도표를 확인하기 전이라 각 진술의 참·거짓과 수치는 판단하지 않는다."] },
+    "bridges": [
+      { "unitId": "u1", "meaningIds": ["m1"], "choiceNumbers": [1], "designClaimIndices": [1] },
+      { "unitId": "u2", "meaningIds": ["m2"], "choiceNumbers": [2], "designClaimIndices": [1] },
+      { "unitId": "u3", "meaningIds": ["m3"], "choiceNumbers": [4], "designClaimIndices": [1] },
+      { "unitId": "u4", "meaningIds": ["m4"], "choiceNumbers": [3, 5], "designClaimIndices": [1] }
+    ]
+  }
+}

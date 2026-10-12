@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): v3.1 원문 이해 교수 파일럿 — `scene=meaning` 안 선택적 탐구(`MeaningSupportPanel` · 의미/관계/깊이 · 지도 문장 선택 · 메모리 초안 600자 · 문항 성립/설계로 이동). 별도 sidecar `lib/csat/meaning-support-data.json`(schema `meaning-support/1`)을 분석 버전 · units_hash · 배포 레코드 SHA-256 · 독립 검수 해시에 결속, 8문항(2026#22·23·25·29·34·36·38·43) 독립 검수 통과분만 공개. 빌드 `scripts/csat/meaning-support-build.mjs` · CI 가드 2종. DB 변경 없음.
+
 - docs(csat): v3 M5 출시 검수표(F01~F16 · 실행 검사 · 교육 검증 계획) · DELIVERY §11 · 낡은 E2E 고정값 수정(42-csat-item-map 골격에서 선택 · csat-continuity 메뉴 펼치기) · 미로그인 E2E.
 
 - fix(csat): v3 M5 보강 2 — 비교 선택 변경 · 해제 · 장면 이탈 시 근거 강조 해제 · 장면 복귀 시 고른 쌍 유지 · 비교 양쪽 분석 버전 · 문장 분할 결속 검사 · CI 에 공개 정본 가드 · 목록 라벨 대비(axe). `/csat` 다크 테마는 사용자 결정으로 범위 제외.

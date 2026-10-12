@@ -530,3 +530,12 @@
 .cmpActions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 /* 목록 항목 배경(--bg3) 위에서는 --t3 라벨이 대비 기준(4.5:1)에 못 미친다(axe color-contrast · M5) — 목록 안 라벨은 한 단계 진하게 */
 .cmpList [role='option'] .diagramLabel { color: var(--t2); }
+
+/* v3.1 원문 이해 — 관계 판 · 메모리 초안 */
+.msRelation { display: grid; gap: 6px; margin-top: 8px; padding: 10px 12px; border: 1px solid var(--bd); border-radius: 10px; background: var(--bg); }
+.msRelation p { margin: 0; }
+.msRelationGrid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: start; }
+.msRelationGrid > div { display: grid; gap: 4px; align-content: start; }
+.msArrow { align-self: center; color: var(--t3); font-size: 1.125rem; }
+.msDraft { display: grid; gap: 6px; margin-top: 8px; }
+.msWarn { font-size: 13px; line-height: 1.6; color: #9C3A30; font-weight: 600; }

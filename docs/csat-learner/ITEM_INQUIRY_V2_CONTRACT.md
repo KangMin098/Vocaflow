@@ -126,3 +126,10 @@
 - 회귀: `compare-v3.test.ts`(실제 정본 결속 · 상대 상태) · `V3CompareExplorer.test.tsx` · E2E `csat-v3-m5-explore`(로컬 — CI e2e 잡은 smoke 5종만 실행).
 - **M5 범위 결정(2026-10-12 사용자)**: `/csat` **다크 테마 구현 · 검증은 범위 제외**(3B 스킨에 다크 규칙 없음). 실화면 검수는 PC 1280 · 1440 **라이트**만. 다크 제외는 다른 미완료 항목의 완료 근거가 아니다.
 - **M5 보강 2(2026-10-12)**: 비교 쌍을 바꾸거나 해제 · 장면을 떠나면 그 비교가 켠 지도 근거 강조를 끈다 · 장면 복귀 시 주소 `?pair=` 로 같은 쌍 재선택 · 공개 쌍 결속에 양쪽 `analysis_version` 추가 → 화면이 양쪽(이 문항 · 상대) 문장 분할 · 분석 버전을 지금 공개 탐구와 대조(`inquiryBinding`) · CI 에 공개 정본 가드 4종(`compare-v3-binding` · `-types` · `-guard` · `inquiry-review-guard`) 편입 · 비교 목록 라벨 대비 수정(axe color-contrast).
+
+## 10. v3.1 원문 이해 교수 sidecar (2026-10-12)
+
+- `inquiry-data.json` 레코드는 바꾸지 않는다. 교수 설명은 `meaning-support-data.json`(schema `meaning-support/1` · 기준 `meaning-support-v1.0` MS01–MS10)에 문항별로 두고 `binding = { analysisVersion, unitsHash, basePublicHash, sourceSnapshotHash }` 로 묶는다.
+- `basePublicHash` = 배포 레코드 전체의 canonical JSON(키 재귀 정렬 · 배열 순서 유지 · 문자열 원형) SHA-256 hex. 빌드(`scripts/csat/lib-meaning-support.mjs`)와 서버(`lib/csat/meaning-support/data.ts`)가 같은 값을 낸다 — 전 문항 동치 회귀.
+- 공개 영어는 기존 `v3.meanings[].expression` 안의 8단어 이하 조각만. 그 밖의 위치는 `sourceRange{start,end,spanHash}`(공백 정규화 문장 · UTF-16)로만 가리킨다.
+- 화면은 결속이 맞을 때만 sidecar 를 쓰고(문항 1개 projection · 결속/검수 메타 제외), 아니면 §7 의 v3 의미 칸을 그대로 쓴다.

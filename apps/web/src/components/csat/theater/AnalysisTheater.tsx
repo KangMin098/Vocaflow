@@ -95,6 +95,9 @@ import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './In
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
+import { MeaningSupportPanel } from './MeaningSupportPanel'
+import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
+import { relationSentences, sentencesOf, unitsForSentence } from '@/lib/csat/meaning-support/model'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -204,6 +207,9 @@ export function AnalysisTheater({
   paper,
   gate,
   typeId,
+  meaningSupport = null,
+  initialMeaning = null,
+  initialDepth = 'brief',
 }: {
   title: string
   typeName: string | null
@@ -255,6 +261,11 @@ export function AnalysisTheater({
   gate: GateKey
   /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
+  /** v3.1 원문 이해 교수 설명 — 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때만 서버가 넘긴다. 없으면 기존 v3 의미 패널 */
+  meaningSupport?: MeaningSupportView | null
+  /** URL meaning= (서버가 allowlist 로 검증한 unit) */
+  initialMeaning?: string | null
+  initialDepth?: MsDepth
 }) {
   const lec = useLecture()
   const isReviewPhase = (s: LearningSession | null | undefined) => s?.phase === 'review'
@@ -439,6 +450,40 @@ export function AnalysisTheater({
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
   const onEvidence = (sentences: number[], key: string) => setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
+  // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다
+  const ms = meaningSupport
+  const [msUnit, setMsUnit] = useState<string | null>(initialMeaning ?? ms?.defaultUnitId ?? null)
+  const [msRelation, setMsRelation] = useState<string | null>(null)
+  const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
+  const [msDrafts, setMsDrafts] = useState<Record<string, string>>({})
+  // 지도 문장 선택 결과 — unit 이 0 개 · 여러 개일 때 설명을 지어내지 않고 그대로 알린다
+  const [msPick, setMsPick] = useState<{ n: number; unitIds: string[] } | null>(null)
+  const syncMeaningUrl = (unit: string | null, depth: MsDepth) => {
+    const url = new URL(window.location.href)
+    if (unit) url.searchParams.set('meaning', unit)
+    else url.searchParams.delete('meaning')
+    if (depth !== 'brief') url.searchParams.set('depth', depth)
+    else url.searchParams.delete('depth')
+    window.history.replaceState(window.history.state, '', url)
+  }
+  const pickMsUnit = (id: string | null) => {
+    setMsUnit(id)
+    setMsRelation(null)
+    setMsPick(null)
+    syncMeaningUrl(id, msDepth)
+  }
+  const pickMsDepth = (d: MsDepth) => {
+    setMsDepth(d)
+    syncMeaningUrl(msUnit, d)
+  }
+  const onMapSentence = (n: number) => {
+    if (!ms) return
+    const hits = unitsForSentence(ms, n)
+    if (hits.length === 1) pickMsUnit(hits[0].id)
+    else setMsPick({ n, unitIds: hits.map((u) => u.id) })
+  }
+  const msActive = Boolean(ms && scene === 'meaning')
+  const msFocus = ms ? (msRelation ? relationSentences(ms, msRelation) : msPick ? [msPick.n] : sentencesOf(ms, msUnit)) : []
   // 장면 이동 — 학습자가 고른 것은 history 에 쌓고(뒤로가기), 강의가 따라 옮긴 것은 주소만 바꾼다
   const selectScene = (id: SceneId, how: 'push' | 'replace' = 'push') => {
     setScene(id)
@@ -806,7 +851,10 @@ export function AnalysisTheater({
                         sentences={map.sentences}
                         anchors={map.anchors}
                         placements={map.placements}
-                        focusSentences={v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null}
+                        focusSentences={
+                          !v3Linkable ? null : msActive ? (msFocus.length ? msFocus.map((n) => n - 1) : null) : evidence ? evidence.sentences.map((n) => n - 1) : null
+                        }
+                        onSentenceSelect={msActive && v3Linkable ? onMapSentence : undefined}
                       />
                     </>
                   ) : (
@@ -872,7 +920,29 @@ export function AnalysisTheater({
                       </section>
                     ) : null}
                     {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
-                    {scene === 'meaning' && v3 ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                    {scene === 'meaning' && ms && msPick ? (
+                      <p className="break-keep text-[13px] text-[var(--t2)]" role="status" data-testid="ms-pick" data-count={msPick.unitIds.length}>
+                        {msPick.unitIds.length === 0
+                          ? `${msPick.n}번 문장에는 아직 검수된 탐구 설명이 없어요. 위치만 비춰 둘게요.`
+                          : `${msPick.n}번 문장은 여러 의미에 걸쳐 있어요 — 아래에서 탐구할 의미를 고르세요.`}
+                      </p>
+                    ) : null}
+                    {scene === 'meaning' && ms ? (
+                      <MeaningSupportPanel
+                        view={ms}
+                        unitId={msUnit}
+                        relationId={msRelation}
+                        depth={msDepth}
+                        linkable={v3Linkable}
+                        draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
+                        onSelectUnit={pickMsUnit}
+                        onSelectRelation={(id) => { setMsRelation(id); setMsPick(null) }}
+                        onDepth={pickMsDepth}
+                        onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
+                        onGo={(id) => selectScene(id)}
+                      />
+                    ) : null}
+                    {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'meaning' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
                     {scene === 'meaning' ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">

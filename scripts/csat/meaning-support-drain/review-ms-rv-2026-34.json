@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-34",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#34",
+      "verdict": "revise",
+      "content_hash": "160ba7603359cca9",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "7fb095d3cac4821e",
+        "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+        "sourceSnapshotHash": "570bf3a5cbe78dd3"
+      },
+      "schema": "meaning-support/1",
+      "codes": ["MS02", "MS06"],
+      "why": "MS02(범위 강화): 7번 문장 If 절은 그런 법이 '이성적으로 어차피 고르지 않을 무언가를 금지한다면'이지 '그런 일만 금지한다면'이 아니다. 그런데 p2·p4·u2.labelKo('어차피 안 할 일만 금지')·u2.simpleKo('하지 않을 일뿐인 경우라면')·u3.syntax s1('일만 금지한다면')·r1.afterKo·whole.summaryKo('일만 금지한다면')가 모두 '만/뿐'을 덧붙여 조건을 '어떤 금지'에서 '모든 금지가 그런 것'으로 넓혔다. 수정: '만/뿐'을 빼고 '그런 법이 이성적으로 어차피 하지 않을 일을 금지하는 경우라면'으로 쓴다. 정답 논리(빼앗기는 선택이 없어 구속이 아니다)는 '만' 없이도 그 금지에 대해 성립한다. MS06: '만'이 결론을 법 전체로 확장하는 근거로 쓰이고 있다면 그것은 원문 관찰이 아니라 연결 추론이므로, 남기려면 p2를 bridging_inference 로 바꾸고 warrant·limit 를 적어야 한다(source_observation 으로 둔 채 강화 금지). 그 외 축은 문제 없음 — MS01 주체·대상(칸트=옹호자, 법=대상, them=이성적 존재) 정확 · MS03 조건절/결론 재결합 일치 · MS04 r1~r3 실제 의미 변화 설명, r2·r3 추론 표시·warrant·limit 있음 · MS05 전체 요약이 지문 논증과 일관, 2~5번 미처리 한계 명시 · MS07 bridges 의 m1~m4·선지·designClaimIndices(0기준 1=빈칸 관찰, 3=설계 가설) 실제 referent 일치 · MS08 a1(6번 0-7 'Ideally')·a3(7번 0-40 'If such laws forbid them to do something') 범위와 quote occurrence 확인 · MS09 n/a · MS10 새 영어 인용 없음, quote 모두 8단어 이하 기존 표현, 지문 전체 한국어 재구성 아님(6번 한 문장 번역은 단위 설명 범위). 참고: u2.misunderstanding.lostFacet 은 'condition' 보다 이성 기준이 바뀌는 것이므로 'reference' 또는 기준 facet 이 더 맞을 수 있다(경미)."
+    }
+  ]
+}

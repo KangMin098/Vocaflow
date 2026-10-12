@@ -56,12 +56,17 @@ export interface PassageMapProps {
    * 원문 분할이 v3 작성 때와 다르면 부모가 넘기지 않는다(잘못된 문장을 비추지 않는다).
    */
   focusSentences?: number[] | null
+  /**
+   * v3.1 원문 이해 — 있으면 문장 번호가 버튼이 된다(1-기반 번호를 넘긴다). 무엇을 열지는 부모가 정한다
+   * (검수 unit 0 · 1 · 여러 개). 원문 분할이 다르면 부모가 넘기지 않는다.
+   */
+  onSentenceSelect?: (n: number) => void
 }
 
 const GREEN = '#2E7D5A'
 const RED = '#9C3A30'
 
-export function PassageMap({ sentences, anchors, placements, onSelect, focusSentences = null }: PassageMapProps) {
+export function PassageMap({ sentences, anchors, placements, onSelect, focusSentences = null, onSentenceSelect }: PassageMapProps) {
   const [activeId, setActiveId] = useState<string | null>(() => initialAnchorId(anchors))
   const { active, lit, notFound } = useMemo(
     () => mapState(anchors, placements, activeId),
@@ -192,12 +197,25 @@ export function PassageMap({ sentences, anchors, placements, onSelect, focusSent
               }`}
               className="flex items-center gap-2"
             >
-              <span
-                aria-hidden
-                className="w-5 shrink-0 text-right font-display text-[10px] tabular-nums text-[var(--t3)]"
-              >
-                {isLit && !followingSpeech && !chosenEvidence ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
-              </span>
+              {onSentenceSelect ? (
+                <button
+                  type="button"
+                  onClick={() => onSentenceSelect(i + 1)}
+                  aria-label={`${i + 1}번 문장의 뜻 탐구하기`}
+                  data-testid="map-sentence-pick"
+                  data-sentence={i + 1}
+                  className="min-h-[44px] min-w-[44px] shrink-0 rounded-[var(--r-sm)] text-right font-display text-xs tabular-nums text-[var(--t2)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                >
+                  {i + 1}
+                </button>
+              ) : (
+                <span
+                  aria-hidden
+                  className="w-5 shrink-0 text-right font-display text-[10px] tabular-nums text-[var(--t3)]"
+                >
+                  {isLit && !followingSpeech && !chosenEvidence ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
+                </span>
+              )}
 
               {isLit && reveals.length ? (
                 <span

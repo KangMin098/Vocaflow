@@ -1,0 +1,556 @@
+{
+  "writer_run": "ms-wr-2026-43",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#43",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "ac4a9343a8650153",
+      "basePublicHash": "5a4ba3e56de4e5e614f5ecd1f751b85a08189b84f50147777ec6dd263c06cdf8",
+      "sourceSnapshotHash": "7b27524674de1184"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 43,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u2",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 10,
+        "quote": "Sam promised to talk with Mia",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 26,
+        "quote": "Mia immediately shook her head",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 32,
+        "sourceRange": {
+          "start": 27,
+          "end": 45,
+          "spanHash": "1ad4bcbd5245a3d07e5b89f4989ad6fa02e0752edae91c059378acd9c66c9caa"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 34,
+        "quote": "can I choose the first book?",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 21,
+        "quote": "a book for my family’s reading club",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 12,
+        "quote": "the book Mia had chosen",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 15,
+        "sourceRange": {
+          "start": 41,
+          "end": 57,
+          "spanHash": "bd7efd0ab1d5b81d84736b50493d47254265576857d763fc2e7ea7c046faed2e"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 16,
+        "sourceRange": {
+          "start": 0,
+          "end": 36,
+          "spanHash": "3ed84e188ed5915e1cfefe358d5ce43d39f0f138c93144f8ee298d6241c42f2b"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 13,
+        "sourceRange": {
+          "start": 31,
+          "end": 41,
+          "spanHash": "d69cc26d5cb22b318f18d8328af592805e60319e3dd25d1f7f3aa497b0cfb460"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 33,
+        "sourceRange": {
+          "start": 15,
+          "end": 67,
+          "spanHash": "f1ea570cf6aa163e59c3c179501ed105b63d2f6399ceaf23cc71be598c12102d"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "10번 문장에서 Sam 은 Mia 와 독서 모임 이야기를 하겠다고 약속만 한다. 대화는 아직 일어나지 않았다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "26번 문장의 제안 장면에서 Mia 는 처음에 바로 거절하고, 32번 문장에서 설득을 받은 뒤에야 마지못해 동의한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2",
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "Mia 는 34번 문장에서 첫 책을 자기가 골라도 되는지 묻고 35번 문장에서 허락을 받는다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "21번 문장의 Mia 는 이미 모임에 참여하기로 한 상태로, 그 모임에서 읽을 책을 찾는다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [
+          "모임용 책을 찾는다는 말은 참여를 받아들였다는 뜻이고, 참여 동의는 32번 문장에서 처음 나온다."
+        ],
+        "limitKo": "21번 문장 자체는 언제 동의했는지 말하지 않는다. 동의 시점은 (D) 단락에서 확인한다."
+      },
+      {
+        "id": "p5",
+        "textKo": "12번 문장의 그 책은 첫 모임보다 앞서 Mia 가 이미 골라 둔 책이며, 24~25번 문장에서 빌린 Café Paris 로 이어진다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a6"
+        ],
+        "warrantsKo": [
+          "과거완료 had chosen 은 모임보다 앞선 선택을 가리키고, 13번 문장에 나오는 책 속 이야기가 24번 문장에서 받은 책 제목과 같다."
+        ],
+        "limitKo": "12번 문장은 선택 장면을 다시 보여 주지 않는다. 선택 장면이 앞 단락에 있어야 한다는 것까지만 말할 수 있다."
+      },
+      {
+        "id": "p6",
+        "textKo": "15~16번 문장에서 Mia 가 이해한다고 한 '그'는 책 속 인물 Dr. Duvall 이고, 바리스타를 꿈꾸다 이룬 사람도 그 인물이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a7",
+          "a8",
+          "a9"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          10
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "(A) 끝의 예고",
+        "exactKo": "Sam 은 독서 모임에 대해 Mia 와 이야기해 보겠다고 약속한다.",
+        "simpleKo": "아빠가 딸에게 말해 보겠다고 했을 뿐, 아직 말하지는 않았다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "약속한 시점일 뿐 대화는 아직 일어나지 않음",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "약속은 앞으로의 일을 가리킨다. 이 대화가 실제로 벌어지는 장면이 다음 단락으로 와야 한다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "말을 꺼낼 사람은 Sam",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "제안하는 사람이 엄마가 아니라 아빠라는 점이 (D) 단락의 첫 문장과 맞물린다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          26,
+          32,
+          33,
+          34,
+          35
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3"
+        ],
+        "labelKo": "(D) 거절에서 동의, 그리고 선택권",
+        "exactKo": "제안을 처음 들은 Mia 는 즉시 거절하지만 설득 끝에 마지못해 동의하고, 첫 책을 직접 고를 권리를 얻는다.",
+        "simpleKo": "처음엔 싫다고 했다가, 내키지 않지만 하기로 하고, 첫 책은 자기가 고르겠다고 했다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "즉시 거절 → 설득 → 동의 → 선택권 요청의 순서",
+            "anchorIds": [
+              "a2",
+              "a3",
+              "a4"
+            ],
+            "explanationKo": "immediately 는 제안을 처음 들었을 때의 반응이다. 그래서 이 단락이 제안이 처음 전달되는 장면이다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "동의는 했지만 내키지 않은 채로",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "처음의 거부감이 사라진 것이 아니다. 마지못해라는 한정이 남아 있어, 기꺼이 찬성했다고 바꾸면 뜻이 달라진다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "속으로 휴대전화를 너무 많이 쓴다는 것을 알았기에 첫 책을 골라도 되는지 묻는다",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "33번 문장과 34번 문장은 So 로 이어진다. 원문이 직접 밝힌 인과는 이 깨달음이 첫 책 선택 요청으로 이어진다는 것이다. 32번 문장의 동의 이유로 단정하지 않는다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "Mia 는 설득을 듣고 독서 모임을 기꺼이 반겼다.",
+          "lostFacet": "polarity",
+          "whyWrongKo": "원문은 마지못해 동의했다고 한다. 기꺼움은 (B) 단락 끝에서 모임을 겪은 뒤에 생기는 변화이므로, 여기로 당겨 오면 사건의 변화가 사라진다.",
+          "anchorIds": [
+            "a3"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          21,
+          24,
+          25
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "(C) 모임용 책 고르기",
+        "exactKo": "Mia 는 가족 독서 모임에서 읽을 책을 찾다가 사서가 건넨 Café Paris 를 빌린다.",
+        "simpleKo": "모임에 나가기로 한 Mia 가, 첫 책을 고르러 도서관에 갔다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "모임 참여와 첫 책 선택권이 이미 정해져 있어야 성립",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "모임용 책을 찾는다는 행동 자체가 앞 조건을 전제한다. 그 조건은 (D) 단락의 32·34·35번 문장에서 생긴다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "책을 건넨 사람은 사서, 빌린 사람은 Mia",
+            "anchorIds": [],
+            "explanationKo": "25번 문장의 그녀(c)는 Mia 가 고마워한 대상, 곧 사서다. 고른 책의 결정에 사서의 추천이 들어 있다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          12,
+          13,
+          15,
+          16
+        ],
+        "legacyMeaningIds": [
+          "m5"
+        ],
+        "labelKo": "(B) 이미 고른 책, 책 속 인물의 꿈",
+        "exactKo": "첫 모임에서 가족은 Mia 가 앞서 골라 둔 책을 함께 이야기하고, Mia 는 책 속 인물 Dr. Duvall 의 선택을 이해한다고 말한다.",
+        "simpleKo": "Mia 가 미리 골라 둔 책으로 모임을 열었고, Mia 는 책 속 인물이 꿈을 이룬 것이라고 설명했다.",
+        "propositionIds": [
+          "p5",
+          "p6"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "책을 고른 일은 모임보다 먼저",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "had chosen 은 모임 시점보다 앞선 선택을 가리킨다. 그 선택 장면이 앞 단락에 있어야 한다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "'그'와 바리스타의 꿈은 책 속 인물 Dr. Duvall 의 것",
+            "anchorIds": [
+              "a7",
+              "a8",
+              "a9"
+            ],
+            "explanationKo": "13번 문장은 엄마 Julia 가, 15~16번 문장은 Mia 가 말한다. Mia 는 엄마가 꺼낸 인물을 '그'로 받아 그의 꿈을 설명한다."
+          }
+        ],
+        "syntax": {
+          "parts": [
+            {
+              "id": "s1",
+              "role": "main",
+              "anchorIds": [
+                "a7"
+              ],
+              "meaningKo": "Mia 가 엄마에게 '나는 그를 이해한다'고 말한다."
+            },
+            {
+              "id": "s2",
+              "role": "clause",
+              "anchorIds": [
+                "a8"
+              ],
+              "meaningKo": "그는 늘 바리스타가 되기를 꿈꿨고 그 꿈이 이루어졌다."
+            },
+            {
+              "id": "s3",
+              "role": "modifier",
+              "anchorIds": [
+                "a9"
+              ],
+              "meaningKo": "앞 문장에서 엄마가 말한 책 속 인물"
+            }
+          ],
+          "attachments": [
+            {
+              "fromPart": "s3",
+              "toPart": "s1",
+              "whyKo": "'그'는 바로 앞에서 엄마가 이름을 댄 인물을 받는다."
+            },
+            {
+              "fromPart": "s2",
+              "toPart": "s1",
+              "whyKo": "16번 문장은 왜 그를 이해하는지 이유를 풀어 준다."
+            }
+          ],
+          "recombinedKo": "Mia 는 엄마가 수수께끼라고 한 책 속 인물을 두고, 그가 오랜 꿈을 이룬 것이라 이해된다고 답한다."
+        },
+        "misunderstanding": {
+          "alteredKo": "Mia 는 자기가 늘 바리스타를 꿈꿔 왔다고 털어놓는다.",
+          "lostFacet": "reference",
+          "whyWrongKo": "꿈을 꾼 사람은 책 속 인물이다. Mia 자신의 과거로 바꾸면 화자와 지시 대상이 섞이고, 모임이 책 이야기로 활기를 띠었다는 흐름도 흐려진다.",
+          "anchorIds": [
+            "a8"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "temporal",
+        "beforeKo": "Sam 이 Mia 에게 말하겠다고 약속함",
+        "afterKo": "Sam 이 실제로 제안하고 Mia 가 즉시 거절함",
+        "changeKo": "예고된 대화가 실제 장면이 된다. 즉시 거절은 제안을 처음 듣는 순간이라는 표시라, 이 장면이 약속 바로 다음 사건이다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "condition",
+        "beforeKo": "마지못한 동의와 첫 책 선택권",
+        "afterKo": "모임용 책을 찾아 빌림",
+        "changeKo": "동의와 허락이라는 전제가 생겨야 도서관 장면의 행동이 가능해진다. 거부감은 지워지지 않은 채 행동으로 옮겨진다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "첫 책을 고르겠다는 요청이 허락된 뒤, 책을 고르는 장면이 그 요청을 실행한다."
+        ],
+        "limitKo": "두 단락 사이의 정확한 날짜 간격은 원문에 없다."
+      },
+      {
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "reference",
+        "beforeKo": "Mia 가 Café Paris 를 빌림",
+        "afterKo": "Mia 가 골라 둔 그 책으로 첫 모임을 엶",
+        "changeKo": "선택된 책이 모임에서 쓰인다. 정관사와 과거완료가 앞의 선택을 가리키고, 모임 끝에 Mia 는 다음 모임을 기다릴 만큼 처음의 거부감에서 달라진다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "anchorIds": [
+          "a6"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "13번 문장의 책 속 가게 이름과 24번 문장의 책 제목이 같다."
+        ],
+        "limitKo": "책 제목이 (B) 단락에 직접 적히지는 않는다."
+      }
+    ],
+    "whole": {
+      "genre": "narrative",
+      "summaryKo": "휴대전화에 빠진 딸을 걱정한 부모가 독서 모임을 계획하고, 아빠의 제안을 마지못해 받아들인 Mia 가 첫 책을 직접 고른 뒤, 그 책으로 연 첫 모임에서 부모와 다시 가까워진다. 사건은 약속 → 제안과 동의 → 책 선택 → 모임 순서로 앞 사건이 뒤 사건의 전제가 된다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "44·45번 문항(지칭·내용 일치)은 이 설명의 범위가 아니다.",
+        "단락 표지 (A)~(D)와 문장 번호는 다르며, 문장 번호는 공통 지문의 원래 번호다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          2,
+          5
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          2,
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          2,
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          1,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      }
+    ]
+  }
+}
