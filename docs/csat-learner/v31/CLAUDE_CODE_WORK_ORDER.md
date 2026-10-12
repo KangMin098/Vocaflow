@@ -39,10 +39,11 @@
 - `node docs/csat-learner/v31/audit-corpus.mjs`로 공개 자료를 읽기 계수하고 기존 786/3,971 수치를 현재 실계수와 대조한다. 구조 감사와 의미 검수 결과를 구별한다.
 - 기존 문맥 뜻·범위·meaning_ids·문장 역할·구절 anchor·현재 기기 원문을 재사용할 수 있는지 전량 필드/참조 검사와 대표 내용 대조를 분리해 기록한다.
 - baseline 실제 화면을 PC 두 폭 라이트에서 캡처하고 이미지를 열어 본다. 현재 의미 목록과 구조 도식의 학습 행동을 직접 조작한다. 접근 실패는 미검증으로 남기고 설계/오프라인 검증을 계속한다.
-- 대표 manifest: 2026#34·36·38·22·23·29·25·43. source ref, type, 분석 버전, units/inquiry/source hash, 공개 상태, 원문/도표 유무, 다룰 unit, 적용 가능한 지원, 제외 사유를 기록한다.
+- 대표 manifest: 2026#34·36·38·22·23·29·25·43. source ref, type, 분석 버전, units/basePublic/source hash, 공개 상태, 원문/도표 유무, 다룰 unit, 적용 가능한 지원, 제외 사유를 기록한다.
+- 인용 기준선은 문항별 현재 v3.expression의 단어 수·중복 제거 원문 구간·원문 대비 비율이다. 파일럿 신규 공개 영어 구간0, 재사용 표현당8단어 이하를 가드로 검사한다. 기존 인용 밖 구문은 원문 없는 sourceRange/해시로 기기 원문에서만 표시한다(설계 §5.1b).
 - 첫 수직 구현은 #34와 #38. 이후 #36·22·23·29·43 확장, #25는 원본 도표 확인 상태에 맞춰 언어 부분과 수치 부분을 분리한다.
 - 원문은 로컬 비공개 입력 또는 승인된 읽기 경로로 확보한다. 없는 입력을 기존 설명/정답표에서 복원하지 않는다. 새 DB 조회도 task의 read scope와 기존 권한을 따른다.
-- 이번 감사가 실제 읽은 입력은 `D:/workspace/Vocaflow-csat-vnext2/scripts/csat/inquiry-drain/chunk-inq-15.json`(#22·23·25·29·34·36·38), 같은 폴더 `chunk-inq-16.json`(#43)이다. 다른 작업트리의 입력은 읽기 전용으로 사용하며 원 파일을 수정하지 않는다. 현재 버전/원문 결속을 다시 확인한다. 공용 문서·정적 artifact·커밋으로 복사하지 않는다. 경로가 없으면 승인된 read scope에서 자기 작업의 비공개 입력을 새로 확보하고 없는 원문을 needs_source로 기록한다.
+- 이번 감사가 실제 읽은 비민감 inputRef는 `inquiry-origin:chunk-inq-15`(#22·23·25·29·34·36·38), `inquiry-origin:chunk-inq-16`(#43)이다. 실제 sourceInputRoot는 비공개 인수인계 `.agent-handoff/v31-source-inputs.json` 또는 사용자가 받은 단일 전달 파일의 로컬 입력 안내에서 확인한다. 다른 작업트리의 입력은 읽기 전용이며 원 파일을 수정하지 않는다. 현재 버전/원문 결속을 다시 확인한다. 원문 전체·기기 파일 경로를 공용 artifact/커밋으로 복사하지 않는다. 해당 경로가 없으면 승인된 read scope에서 자기 작업의 비공개 입력을 새로 확보하고 없는 원문을 needs_source로 기록한다.
 - 구문/한국어 설명이 실제 DB 다른 자산에 있다면 직접 읽고 출처/품질/범위를 확인한 후 재사용한다. 타입 이름만으로 자산 존재를 단정하지 않는다.
 - M5 잔여는 `docs/csat-learner/v3/M5_RELEASE_CHECK.md`와 실제 결과를 대조한다. #236은 학습 루프13개 통과를 보고하므로 옛 미검증1개를 새 결함으로 반복하지 않는다. 원본 도표·밑줄 영역·embargo 실화면·새 패널 참조 미확보와 교육 효과를 구별해 남긴다. 다크를 다시 추가하지 않는다.
 
@@ -71,13 +72,32 @@
 - 서버 lookup은 현재 접근 가능한 item, live 분석 버전, ready base inquiry, sidecar binding, 독립 pass를 확인한다. 전체 JSON을 클라이언트에 import하지 않는다.
 - binding.basePublicHash는 **현재 배포된 inquiry-data.json의 해당 item 전체 레코드 직접 해시**다. 객체 키 재귀 정렬·배열 순서 보존·문자열 원형 보존의 canonical SHA-256 함수를 빌드/CI/서버가 공유한다. writer contentHash나 별도 옛 manifest로 대체하지 않는다. 같은 analysis_version/units_hash에서 문맥 뜻만 바뀐 negative fixture도 stale이어야 한다. 원문 소스용 FS 스캔을 클라이언트/요청 핫패스에 가져오지 않는다. 기존 base/compare 해시 함수의 의미는 바꾸지 않는다.
 - 수동 교수 초안은 writer status=`ok|needs_source|needs_review|not_applicable`; coverage에 미작성/불필요/보류 사유를 구별한다. empty 값을 ready로 만들지 않는다.
-- independent verdict: item ID, schema, revision, binding, content hash, criteria version, writer run, reviewer run, pass/revise/hold, 구체 이유. 서명 없는 기존 pass를 새 pass로 사용하지 않는다.
-- sourceSnapshotHash·anchor 검증 보고서·내용 검수도 같은 출력 revision/hash에 묶는다. 원문 **전체 입력**·개인 경로는 커밋하지 않는다. anchor.quote는 기존 v3 expression과 같은 **8단어 이하** 짧은 인용만 허용하며 기존 단어 계수 로직을 재사용한다. 기존 모든 공개 인용과 신규 anchor를 합친 누적 인용 예산·같은 원문의 반복/재구성 범위를 별도 가드·권리 검수로 확인한다. 인용을 쪼개 원문을 우회 재구성하지 않는다. 이번 작업에서 예산을 늘리지 않는다.
+- independent verdict: item ID, schema, revision, binding, content hash, criteria version, writer run, reviewer run, pass/revise/hold, 구체 이유. 기준 정본은 [CONTENT_REVIEW_CRITERIA.md](CONTENT_REVIEW_CRITERIA.md)의 meaning-support-v1.0이며 writer/reviewer는 분리된 세션·컨텍스트다. 작성자의 자기평가를 주지 않고 새 설명 자체와 원문을 대조한다. 서명 없는 기존 pass를 새 pass로 사용하지 않는다.
+- sourceSnapshotHash·anchor 검증 보고서·내용 검수도 같은 출력 revision/hash에 묶는다. 원문 **전체 입력**·학습자 PDF 기기 경로는 커밋하지 않는다. 공개 anchor.quote/inline 영어 인용은 기존 v3.expression 범위의 재사용만, 8단어 이하, 신규 원문 구간0이다. C0 기준선에 새 공개 인용 합집합을 대조하는 가드를 만들고 한국어 재구성의 권리 검수도 별도로 한다. 기존 인용 밖 구문은 sourceRange/해시로 기기 원문에서만 표시한다. 인용을 쪼개 원문을 우회 재구성하지 않는다.
 - export는 manifest 범위만, 같은 schema+binding+완료 revision이면 skip; 원문/분석 버전이 바뀌면 신규 revision. 기존 출력/검수 덮어쓰기 금지.
 - 검증·재빌드 전 원문 입력 존재와 버전부터 점검한다. 없으면 기존 산출물을 보존하고 build 실패한다. 입력 없음 때문에 기존 공개 자료가 사라지는 결과를 쓰지 않는다.
 - 원문 대조 full build는 비공개 입력을 사용한다. 커밋된 artifact guard는 원문 없이 CI에서 schema/참조/공개 base 결속/현재 독립 pass를 검사한다. 두 검사의 증거 수준을 구별한다.
 - build `--dry`는 diff와 added/unchanged/stale/held/revise/missing_input 사유별 수를 출력, 파일을 안 쓴다. 정상 build는 같은 입력에서 byte-identical, 원자적 파일 교체, manifest 밖 기존 확장은 보존한다.
 - held/revise 후보는 배포 JSON에 싣지 않는다. 누락 사유/coverage 요약은 개인정보·원문 없는 별도 원장으로 남긴다. 잘못된 새 설명은 기존 V3Meaning으로 fallback한다.
+- **보류는 두 층이다.** `review_hold`(콘텐츠 검수 보류)는 빌드 입력 후보이고 배포 artifact에서 제외되며 Node/가드 테스트로 제외를 검사한다. `access_withheld`(공개/접근 권한 보류)는 이미 독립 pass인 sidecar에 대한 현재 문항의 접근 정책 결과이며 서버 projection/RSC 검사의 대상이다. E2E의 ‘held 비노출’은 후자를 뜻한다. 검수 보류 후보를 production JSON에 넣어 화면 테스트하지 않는다.
+- build/CI는 전체 basePublicHash 결속 때문에 stale된 문항을 이유별 계수한다. 기대 공개 manifest의 항목이 새로 stale이면 실패시켜 설명이 조용히 사라지는 회귀를 막는다.
+- 새 schema/public artifact guard 두 스펙은 기존 공개 정본 가드와 함께 CI에 **필수 편입**한다. 테스트 파일 생성만으로 완료하지 않는다.
+
+### 격리 화면 검증의 데이터 전제
+
+현재 isolated job은 마이그레이션과 학습 지도 seed만 실행하므로 문항 라우트용 fixture를 별도로 준비한다. 신규 `scripts/csat/meaning-support-isolated-seed.mjs`와 `.github/workflows/ci.yml` 적재 단계를 C1 책임에 포함한다.
+
+- 실제 `loadCsatItemExplain`·`loadRevealScope` 쿼리와 최신 migrations로 문항/회차/분석/공개 상태/테스트 계정의 필요한 행·관계를 확인한다. 없는 테이블/필드를 추측하지 않는다. 스키마 변경 없이 현재 테이블의 테스트 행만 적재한다.
+- fixture는 해당 CI 러너의 **127.0.0.1/localhost 로컬 Supabase + isolated test namespace**일 때만 적재한다. 둘 중 하나라도 확인 안 되면 즉시 거부. shared-dev·원격·production 대상은 거부하고 키/DB URL은 출력하지 않는다.
+- namespace는 현재 존재하는 기능이 아니라 **C1에서 구현할 명시 계약**이다. 신규 CI seed 단계는 `VOCAFLOW_CSAT_ISOLATED_NAMESPACE=csat-v31`과 `VOCAFLOW_CSAT_ISOLATED_RUN_ID=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}`를 환경으로 전달한다. seed는 namespace가 정확히 csat-v31인지, run ID가 `^[0-9]+-[0-9]+$` 형식의 64자 이하인지, 실제 Supabase host/port가 러너의 loopback인지 모두 검사한다. 로컬 재현도 동일 변수를 명시적으로 설정하며 미설정은 거부한다.
+- 소유 manifest는 기존에 gitignore된 **`.agent-logs/csat-v31-owner.json`**에 namespace/run ID·fixture manifest hash·정해진 문항 ID/시험 계정 ID·대상 fingerprint(키/URL 원문 없음)를 기록한다. Playwright가 지우는 test-results 폴더에 두지 않는다. 같은 run/manifest이면 재실행, 다른 소유 marker면 중단한다. marker 없는 상태에서 대상 fixture ID가 이미 존재하면 새로 소유를 주장하거나 덮지 말고 중단한다. 문항 ID 형식은 실제 라우트 규칙을 유지하므로 임의 접두사를 붙이지 않고 marker의 allowlist로 소유를 확인한다. 계정/세션 fixture도 같은 marker에 결속한다. CI 러너 폐기가 복구 경계이며 공유 개발환경에는 이 marker/플래그를 만들지 않는다.
+- 공개 정본의 비민감 문항 metadata/버전과 검수된 짧은 설명을 재사용할 수 있으나 원문·선지 전체·도표 본체·개인 PDF·실사용 기록은 seed하지 않는다. 공개/access_withheld/stale의 상태 조합은 기존 문항 접근·공개 정책을 통해 만들고 production 가드를 우회하는 앱 플래그/테스트 전용 공개 API를 만들지 않는다.
+- 신규 교수 설명 fixture는 production JSON을 조작해 넣지 않는다. 이미 C1 검수를 지난 실제 파일럿 sidecar와 그 base 버전에 맞는 최소 DB fixture를 사용한다. 테스트 전용 작성 결과를 검수된 실제 콘텐츠로 발행하지 않는다.
+- 러너 안 반복 적재는 소유 namespace/정해진 ID에만 멱등 적용한다. 전역 truncate/delete나 공유 DB 정리를 하지 않는다. 테스트 종료 후 러너 환경 자체를 폐기한다.
+- 양성 대조: 같은 검수 완료 sidecar와 같은 fixture 문항이 정상 접근 조건에서는 실제로 렌더되어 식별 가능한 설명이 SSR/Flight/화면에 있는지 먼저 단언한다. 그 문항을 기존 접근 정책상 제외한 별도 케이스에서는 같은 설명이 응답/RSC/화면에 없어야 한다. 새 공개 API·production 데이터 주입 경로는 만들지 않는다. review_hold 후보의 비노출은 별도 builder/public guard가 후보를 실제로 읽은 뒤 출력에서 제외했음을 단언한다.
+- 기존 CI의 격리 환경 확인/마이그레이션/학습 지도 seed 다음, 웹 build/기동 전에 문항 fixture 적재를 실행한다. 스펙은 실제 라우트가 notFound가 아님을 먼저 단언한 뒤 공개/held SSR·Flight 비노출/stale fallback을 검사한다. 분석 버전 변경·held 상태 변경은 러너의 소유 fixture에만 적용하고 케이스별 격리/복원을 한다.
+- seed 가드 단위 테스트는 원격/잘못된 port 대상, namespace 누락/잘못된 값, run ID 형식/길이 위반, 다른 소유 marker, marker 없는 기존 fixture ID, allowlist 밖 ID를 각각 거부하고 **쓰기0**임을 단언한다. 같은 run/manifest 두 번 적재는 결과 동일, 다른 manifest 충돌은 중단한다. 실제 CI 로그의 seed 성공·새 스펙 실행·skip0을 완료 증거로 남긴다. 입력/권한 전제 실패는 skip/pass로 바꾸지 않는다.
+- DB 스키마/정책 변경이나 shared DB 쓰기가 필요해지면 별도 승인 작업으로 분리한다. 임시 isolated fixture를 만드는 일을 승인 없이 공유 DB에 쓰는 근거로 사용하지 않는다.
 
 **C1 완료:** 최소 두 대표의 원문 기반 작성→기계 검증→독립 내용 검수→공개 가드가 존재하고 negative fixture가 실제 차단된다. 아직 공개 UI 활성화 전 단계다. 이 게이트를 C4 이후로 미루지 않는다.
 
@@ -177,9 +197,10 @@ pnpm.cmd --filter web exec playwright test csat-v31-meaning.spec.ts
 
 CLI는 manifest 출력 경로·source input root·dry-run·재실행 안전 여부를 help에 명시한다. 필요한 입력이 없으면 clean checkout에서도 원문을 재구성하는 척하지 않는다.
 
-새 `apps/web/tests/e2e/csat-v31-meaning.spec.ts`는 실제 네트워크·원문·권한과 UI를 확인한다. 별도 isolated fixture가 필요하면 `apps/web/tests/e2e-isolated/`에 의미 gate/상호작용 스펙을 추가하고 **실제 CI 실행 설정**에 편입한다. CI smoke만 통과한 것을 local learner E2E의 통과로 대신하지 않는다. 공유 개발 DB와 isolated DB 테스트/승인 범위를 구별한다.
+새 `apps/web/tests/e2e/csat-v31-meaning.spec.ts`는 로컬 실제 원문 여정을 확인한다. 별도로 `apps/web/tests/e2e-isolated/`에 접근 gate·access_withheld SSR/Flight 비노출·stale fallback·핵심 선택 상태 스펙을 **필수 추가**하여 CI에서 실행한다. review_hold는 builder/Node public guard에서 제외를 검사한다. 비민감 fixture로 인증/접근 상태를 만들어도 production 권한 우회 경로는 만들지 않는다. CI 로그에서 이 스펙의 실행/skip0을 확인해야 C5 pass다. 기존 smoke만 통과한 것을 새 E2E 통과로 대신하지 않는다. 공유 개발 DB와 isolated DB 테스트/승인 범위를 구별한다.
 
-격리 스펙을 추가한 경우 실행 명령은 `pnpm.cmd --filter web exec playwright test -c playwright.isolated.config.ts`다. 러너의 로컬 Supabase/fixture 전제와 실제 대상 URL을 확인한다. 이 명령의 통과를 비공개 실제 기출 원문 대조 검증의 대체로 쓰지 않는다.
+격리 스펙의 실행 명령은 `pnpm.cmd --filter web exec playwright test -c playwright.isolated.config.ts`다. 러너의 로컬 Supabase/fixture 전제와 실제 대상 URL을 확인한다. 이 명령의 통과를 비공개 실제 기출 원문 대조 검증의 대체로 쓰지 않는다.
+격리 seed 실행은 `node scripts/csat/meaning-support-isolated-seed.mjs`이며 C1에서 구현하기 전에는 현재 존재하는 명령으로 보고하지 않는다. 대상/namespace 가드가 내부에서 항상 실행되어야 한다.
 
 ### 화면 검증과 디자인
 

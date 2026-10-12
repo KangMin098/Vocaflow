@@ -32,7 +32,7 @@ for (const [id, r] of records) {
   }
 }
 console.log(JSON.stringify({
-  basis: 'committed artifacts at main 521944f227c9cf5b957cb8b366fb27a6d81a3d42; NOT live DB counts or semantic certification',
+  basis: 'committed public artifacts read from current worktree; NOT live DB counts or semantic certification',
   items: records.length, verified: records.filter(([, r]) => r.review === 'verified').length,
   v3: records.filter(([, r]) => r.v3).length, meanings, meaningFields: keys, scope,
   choicesWithMeaningIds: linked, missingMeaningReferences: missingIds, types,

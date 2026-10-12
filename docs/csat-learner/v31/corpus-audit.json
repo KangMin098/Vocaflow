@@ -1,5 +1,5 @@
 {
-  "basis": "committed artifacts at main 521944f227c9cf5b957cb8b366fb27a6d81a3d42; NOT live DB counts or semantic certification",
+  "basis": "committed public artifacts read from current worktree; NOT live DB counts or semantic certification",
   "items": 786,
   "verified": 786,
   "v3": 786,

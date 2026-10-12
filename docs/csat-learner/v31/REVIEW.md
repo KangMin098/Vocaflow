@@ -20,6 +20,25 @@
 
 3차: P2 2건·P3 1건. writer 해시 manifest만으로는 배포된 base 항목의 변경을 못 잡을 수 있어 binding을 실제 배포 item 전체 레코드의 직접 canonical SHA-256(`basePublicHash`)으로 변경했다. 짧은 anchor.quote의 8단어 상한·기존 공개 인용과 합산 예산 가드를 명시하고 전체 원문 입력 커밋 금지와 구별했다. dissection-passage.ts의 전체 경로를 명시했다. 최종 main #236의 E2E/검수표도 대조해 최신 현황을 반영했다.
 
+4차: P2 3건·P3 3건을 받았다. 파일럿 신규 영어 인용0과 기존 expression 범위 기준선·sourceRange/해시를 구체화했다. 콘텐츠 기준 정본과 독립 세션을 명시했다. 새 public guard와 isolated 비노출/fallback 스펙의 CI 실행을 필수화했다. 보수적 전체 해시의 stale 집계/실패 조건, scope→facet 참고표, 비공개 입력 안내를 보강했다. ‘새 설명 자체를 검수자에게 숨김’ 제안은 그 설명의 정확성을 판정할 수 없어 미채택하고 작성자의 자기평가/합리화만 배제했다.
+
+5차: P1 1건(격리 DB에 문항 라우트 데이터가 없어 새 필수 E2E가 notFound), 다른 확인 항목 결함 없음. C1에 문항/회차/분석/공개 fixture의 실제 스키마 조사, 신규 guarded isolated seed, CI 적재 단계, 원문/사용자 자료 제외, 루프백+소유 namespace 확인, 기존 권한 경로, 멱등·케이스 격리·skip0 증거를 추가했다. 공유 DB/스키마 변경은 별도 승인 범위다.
+
+6차: P2 1건(held의 검수 보류와 접근 보류가 혼용). review_hold는 builder/Node guard에서 제외, access_withheld는 이미 pass인 sidecar의 실제 접근 gate/SSR/Flight 검사로 분리했다. 정상 접근 양성 대조→접근 제외 음성 대조로 실제 검수 자료가 대상임을 확인한다. 가짜 held 콘텐츠를 production JSON에 넣는 주입 경로는 만들지 않는다.
+
+7차: P2 1건(새 namespace 가드의 실제 판정 표식 미정의). C1의 신규 CI 환경 변수, run ID 형식, 루프백 대상, gitignore 소유 manifest와 충돌 거부/멱등 계약을 명시했다. 이것을 현재 CI에 이미 있는 기능이라고 주장하지 않는다.
+
+8차: P2 3건(소유 marker 경로 ignore 미등록, run 형식, 음성 가드 테스트 범위). marker를 실제 기존 ignore `.agent-logs/` 안으로 옮겨 Playwright 결과 정리와도 분리했다. run 형식은 앞서 보강한 명시 regex/64자 상한을 유지했다. namespace 값·run·소유 충돌·기존 ID·allowlist·대상/port의 실패에서 쓰기0 검사와 멱등/manifest 충돌 테스트를 모두 요구했다.
+
+9차 최종 잔여 지적 확인: Claude가 C1의 marker/namespace/run/음성 가드와 8차 조치를 읽기 대조해 **NO_FINDINGS**를 반환했다. 이 마지막 확인은 해당 잔여 지적의 해소 범위이며 실제 화면/콘텐츠 의미/DB 실행 인증이 아니다. 앞선 전반 검토 결과와 수정은 위 회차별 기록을 따른다.
+
+## 문서 정합성 검증
+
+- 공개 JSON 읽기 계수 재현 결과와 corpus-audit.json deep equality 일치. 26유형·8대표·C0~C5·F01~F16 누락 없음.
+- Markdown6개, 상대 링크10개, 기존 구현 경로27개 존재·코드 fence 정합성 확인.
+- audit-corpus.mjs 실제 실행·Node syntax, git diff check 통과. agents 설정 검사15/15 통과.
+- origin/main 대비 apps/packages/scripts/supabase 변경0. 앱 테스트·빌드는 설계 문서 검사의 통과 결과로 대체하지 않으며 이번 설계 작업에서는 실행하지 않았다.
+
 ## 미검증
 
 - 인증된 정상 화면·실제 TTS·픽셀 측정: 이번 문서 작성에서 재실행하지 않음(CUA 연결 없음).

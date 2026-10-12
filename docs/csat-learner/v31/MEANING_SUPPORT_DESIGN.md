@@ -74,6 +74,7 @@ PC 1280/1440 라이트, 기존 CSAT 셸·3B 방향·토큰 보존. 다크/모바
 ## 4. 이벤트 · 반응 · 예외 · 상태 전이
 
 상태 축을 독립 유지한다: 콘텐츠=`missing|unreviewed|stale|ready|withheld`, 원문=`absent|image_only|mapped|unmapped`, 선택=`none|unit|relation`, 초안=`empty|editing|compared`. 설명 조회 실패가 전체 문항·기존 분석을 잠그지 않는다.
+검수 보류(review_hold)는 빌드 단계에서 배포 파일에 들어가지 않는다. 현재 접근 보류(access_withheld)는 이미 pass인 자료도 현재 문항 권한 때문에 조회/SSR에서 제외되는 상태다. 두 층을 같은 fixture 주입 방식으로 테스트하지 않는다.
 
 | UI 이벤트 | 상태/반응 | 예외와 복귀 |
 |---|---|---|
@@ -106,8 +107,9 @@ type Basis = 'source_observation' | 'bridging_inference' | 'explanatory_elaborat
 interface Anchor {
   id: string
   sentence: number                 // 기존 입력 1-기반, 인쇄 순서를 보존
-  quote: string                    // 기존 인용 예산 안의 짧은 원문, 공개 권리 검수
-  occurrence: number               // 그 문장 안 중복 구절 1-기반
+  quote?: string                   // 기존 공개 expression 재사용, 최대8단어
+  occurrence?: number              // quote가 있으면 문장 안 중복 구절 1-기반
+  sourceRange?: { start: number; end: number; spanHash: string } // 원문 없는 메타데이터
   mode: 'original'                 // 모든 anchor는 실제 원문에만 결속
 }
 interface Proposition {
@@ -169,9 +171,32 @@ interface ReadingSupportV31 {
 
 각 unit은 원문 의미 형성과 문맥 통합에 필요한 의미를 다룬다. 선택지 판정에 직결되지 않는 일반 이해 unit도 허용한다. bridges는 확인된 연결만; 빈 배열이 허용된다. `legacyMeaningIds`가 없는 unit은 기존 의미를 임의 생성하지 않고 문장·명제 근거로 검수한다.
 
+### 5.1a 기존 scope와 보존 facet
+
+| 기존 scope | 새 지원에서 재사용할 후보 | 자동 변환 금지/보완 |
+|---|---|---|
+| negation | polarity | 부정이 걸리는 정확한 명제를 원문 대조 |
+| condition | condition | 조건인지 may의 가능성인지 분리; may는 modality 후보 |
+| agent | agent | 실제 행위자·대상·화자와 구별 |
+| time | time | 인쇄 순서·사건 순서·시제를 분리 |
+| quantity | quantity 또는 comparison | 수량/범주와 순위/배수 관계를 내용으로 판정 |
+| reference | reference | 지시 대상과 범위를 검수 |
+| contrast | relation.kind=contrast의 후보 | facet로 억지 변환하지 않고 실제 바뀌는 주체/범위/극성을 따로 확인 |
+| none | 후보 없음 | 조건·가능성 부재라는 뜻 아님; 필요한 한정은 원문에서 새로 확인 |
+
+modality·causality·comparison은 원문에 실제로 있을 때 추가한다. 이 표는 작성자의 탐구 질문이며 새 보존 조건을 자동 판정하는 변환 함수가 아니다.
+
+### 5.1b 파일럿 인용 예산과 구간 정보
+
+파일럿의 **새 원문 영어 인용 예산은 0**이다. 공개 anchor.quote/설명 안 영어 원문은 해당 문항에서 이미 공개된 `v3.meanings[].expression`의 표현/그 안의 연속 구절만 재사용한다. 8단어 이하이며 같은 표현을 여러 필드에 복제해 원문을 재구성하지 않는다. C0는 현재 expression의 문항별 인용 단어 수·중복 제거 원문 구간·원문 대비 비율을 비공개 입력으로 측정해 기준선을 남긴다. 새 공개 인용 구간의 합집합은 그 기준선 구간의 부분집합이어야 하고, 같은 표현의 반복 렌더는 한 번으로 합친다. 권리 확인이나 전체 의미 재구성의 적법성을 이 수치만으로 통과시키지 않는다.
+
+기존 인용 밖 구문을 실제 원문 판에서 강조할 때는 quote 없이 sourceRange를 사용한다. anchor에는 quote 또는 sourceRange 중 하나 이상이 필요하다. sourceRange의 start/end는 원문 입력 문장의 공백 정규화 문자열(연속 공백→한 칸, 양끝 trim) 기준 0-기반 UTF-16 반열린 구간, spanHash는 그 구간의 SHA-256이다. 생성 시 전체 원문으로 검증하고 표시 시 같은 정규화와 원문 index 대응표를 사용해 실제 표시 구간을 찾는다. 원문 없이 해시에서 문자열을 복원하지 않는다. 현재 표시 원문과 구간 해시가 다르거나 index 대응이 불확실하면 구절 강조를 끄고 문장 수준/설명 fallback한다. correction은 별도 작성 예로 표시하고 인용 예산 검사와 원문 정합 검수에서 교정 전후를 구별한다.
+
+향후 새 인용이 필요하면 구체 문항·추가 구간·누적 예산·권리 근거가 있는 별도 변경안으로 다룬다. 기존 8단어 제한을 잘게 쪼개 원문 전체를 공개하지 않는다.
+
 basePublicHash는 **실제로 배포된 inquiry-data.json의 해당 item 전체 레코드**(analysis_version·review·distractors·principle·v3)를 파싱한 뒤 canonical JSON으로 SHA-256한 값이다. 객체 키는 재귀 정렬, 배열 순서는 유지하고 문자열 의미를 바꾸는 정규화는 하지 않는다. 빌드·CI·서버 lookup이 같은 순수 함수를 사용한다. 기존 작성 결과의 contentHash/inquiry_hash와는 다른 값이다. 파일 경로·메타데이터는 해시 입력에서 제외하고 레코드 필드를 임의로 생략하지 않는다. basePublicHash를 기존 비교 결속의 inquiry_hash에 대입하거나 기존 검수 해시를 바꾸지 않는다.
 
-sourceSnapshotHash는 비공개 원문 입력의 원문·발문·선지·도표 확인 상태를 안정적 직렬화로 해시한 값이다. 원문 입력 파일 본문이나 개인 PDF 파일 경로를 공용 산출물에 넣지 않는다. 기존 정책에 허용된 짧은 anchor.quote는 예외이며 C1에서 길이·누적 인용 예산을 검사한다. inputRef는 공정의 비민감 식별자다. 실제 원문 개정 감지는 해당 해시 재계산과 기기 표시 원문의 대응 검증으로 수행하며 정적 JSON만으로 DB 원문 변경이 자동 감지된다고 주장하지 않는다.
+sourceSnapshotHash는 비공개 원문 입력의 원문·발문·선지·도표 확인 상태를 안정적 직렬화로 해시한 값이다. 원문 입력 파일 본문이나 학습자 개인 PDF 파일 경로를 공용 산출물에 넣지 않는다. §5.1b의 짧은 anchor.quote는 예외이며 C1에서 8단어·새 구간0 예산을 검사한다. inputRef는 공정의 비민감 식별자다. 실제 원문 개정 감지는 해당 해시 재계산과 기기 표시 원문의 대응 검증으로 수행하며 정적 JSON만으로 DB 원문 변경이 자동 감지된다고 주장하지 않는다.
 
 ### 5.2 결속·공개와 서버 projection
 
@@ -183,6 +208,7 @@ sourceSnapshotHash는 비공개 원문 입력의 원문·발문·선지·도표 
 6. 문장 단위 매핑만 확실하면 문장 강조만, 구절이 불명확하면 span 표시 끔. 재업로드/문항 변경에 매핑 캐시 무효화. 동일 길이 다른 텍스트 사례로 검증한다.
 7. 어법은 original/correction 표시. anchor는 실제 원문에만 둔다. 교정 예는 syntax.correction에 두고 오류 원문에 실재하는 인용처럼 매칭하지 않는다. 실제 원문 오류를 조용히 고치지 않는다.
 8. 비교/원리의 base inquiry hash는 이 확장 데이터 변경으로 바뀌지 않는다. base가 바뀌면 신규 sidecar도 재검수하며 기존 비교의 자체 게이트가 작동한다.
+9. basePublicHash는 전체 레코드에 보수적으로 결속한다. 원리 문구/검수 상태 변경도 stale이 되는 것은 의도된 정책이다. build/CI는 stale 문항 수·이유를 출력하고, 기대 공개 manifest의 항목이 새로 stale이면 성공으로 삼키지 않고 실패시킨다. 일반 확장 없는 문항과 새로 stale된 문항을 coverage에서 구별한다.
 
 ## 6. 유형별 처리 — 26유형 유지
 
@@ -281,7 +307,7 @@ sourceSnapshotHash는 비공개 원문 입력의 원문·발문·선지·도표 
 | 문항 연결 | 기존 meaning/choice/design referent가 실제로 존재하고 맞음 | 원문 이해를 공식 출제 의도로 표현 |
 | 도표/오류/권리 | 미확인 수치 보류, 원문 오류와 교정 구별, 재구성 공개 권리 확인 | 기존 숫자를 확인된 원본 값으로 승격, 한국어로 원문 전체 우회 배포 |
 
-원문·발문·선지·기존 분석·새 확장 본문 전체를 검수자가 읽는다. writer run과 reviewer run은 다르며 자기 3페르소나 점검은 독립 pass가 아니다. contentHash+binding+criteriaVersion에 결속된 명시 pass만 공개. 동일 revision/hash에 revise가 있으면 hold, 누락된 판정/애매한 의견을 pass로 채우지 않는다. 다른 후보 읽기는 limitations에 보존하고 충돌하는 판정은 무한 수정 대신 비공개 후보 원장에 남긴다.
+독립 검수는 별도 에이전트 세션(Claude와 다른 Codex 또는 별도 컨텍스트의 전용 Claude 세션)이 맡는다. 같은 작성 세션의 자기 검토/3페르소나/작성 설명을 공유한 하위 에이전트를 독립 pass로 세지 않는다. 검수자는 원문·발문·선지·새 확장 본문 전체를 읽고, 작성자의 자기평가/합리화/검수 예상 답은 받지 않는다. 기존 분석은 대조 자료이며 의미 판정의 정답지로 취급하지 않는다. 새 설명을 숨기는 맹검은 설명의 정확성을 검수할 수 없으므로 사용하지 않는다. 기준 정본은 [CONTENT_REVIEW_CRITERIA.md](CONTENT_REVIEW_CRITERIA.md)의 `meaning-support-v1.0`이다. writer run과 reviewer run은 다르며 contentHash+binding+criteriaVersion에 결속된 명시 pass만 공개. 동일 revision/hash에 revise가 있으면 hold, 누락된 판정/애매한 의견을 pass로 채우지 않는다. 다른 후보 읽기는 limitations에 보존하고 충돌하는 판정은 무한 수정 대신 비공개 후보 원장에 남긴다. 대표8문항은 전량 원문 재대조, 확대 회차는 유형/지원별 표본 재대조와 불일치를 별도 기록한다.
 
 형식 가드는 dangling ID, 잘못된 unit/구간, 같은 길이 다른 원문, 중복 구절, scope 누락 의심, modality/수량 강화 의심을 잡는다. 자동 탐지 신호는 검토 후보이며 의미 정확성의 자동 판정이 아니다. 지표는 ‘검수 항목 충족’이고 ‘학습자 이해 완료’가 아니다.
 
