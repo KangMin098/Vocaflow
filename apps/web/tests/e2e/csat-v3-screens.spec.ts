@@ -74,7 +74,7 @@ for (const v of VIEWS) {
         const m = await page.evaluate(() => ({
           url: location.pathname + location.search,
           overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-          theme: document.documentElement.getAttribute('data-theme'),
+          dataTheme: document.documentElement.getAttribute('data-theme'),
           preparing: /준비 중/.test(document.body.innerText),
           unavailable: /(불러오지 못|오류가 발생)/.test(document.body.innerText),
         }))

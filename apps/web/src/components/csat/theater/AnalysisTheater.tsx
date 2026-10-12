@@ -61,7 +61,7 @@ import { distractorsAreTrue, teachingModelOf } from '@/lib/csat/teaching-contrac
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
-import type { CheckAttempt, DissectionRecord, Prediction, SelfExplanation } from '@/lib/csat/dissect'
+import type { CheckAttempt, DissectionRecord, Prediction, ReasoningNote, SelfExplanation } from '@/lib/csat/dissect'
 import {
   finishSession,
   isSkipPrediction,
@@ -88,9 +88,10 @@ import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-ch
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
-import { V3Design, V3Judgment, V3Meaning, V3Task } from './InquiryV3Panels'
+import { ReasoningNoteForm } from './ReasoningNoteForm'
+import { V3Compare, V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
-import type { InquiryRecord } from '@/lib/csat/inquiry/labels'
+import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import styles from './theater.module.css'
 
@@ -179,6 +180,8 @@ export function AnalysisTheater({
   blocks,
   checks = [],
   comparePairs = [],
+  v3Pairs = [],
+  pairAbsence = null,
   initialScene = 'task',
   initialJudgmentView = 'answer',
   sceneNormalized = false,
@@ -186,6 +189,7 @@ export function AnalysisTheater({
   map,
   itemId,
   backHref,
+  mapReturn = null,
   typeHref,
   next,
   source,
@@ -205,6 +209,10 @@ export function AnalysisTheater({
   checks?: UnderstandingCheck[]
   /** 같은 원리 비교 쌍(M4) — 독립 검수 통과분만 */
   comparePairs?: ComparePair[]
+  /** v3 비교 쌍(M4) — 해시 결속 독립 검수 · 상대 공개 확인을 지난 것만, 이 문항 기준으로 돌린 형태 */
+  v3Pairs?: V3PairView[]
+  /** v3 비교가 없을 때 그 이유(쌍 없음 · 상대 비공개 · stale) */
+  pairAbsence?: PairAbsence | null
   /** 일곱 장면 중 처음 열 장면(URL `?scene=` · 서버가 parseScene 으로 정규화) */
   initialScene?: SceneId
   /** 문항 성립 장면의 처음 보기 — 옛 `distractor` 링크면 options */
@@ -218,6 +226,8 @@ export function AnalysisTheater({
   itemId: string
   /** 기출분석공간 홈 */
   backHref: string
+  /** 학습 지도에서 들어왔으면 지도로 돌아가는 주소(v3 M4) — 탐구 이력은 독립 진단이 아니다 */
+  mapReturn?: string | null
   /** 이 유형의 서가 — 유형을 모르면 null */
   typeHref: string | null
   next: { href: string; label: string } | null
@@ -249,6 +259,13 @@ export function AnalysisTheater({
   // 이 문항의 자기 설명(M4) — 기기 기록에서 읽고, 저장 · 대조 때 갱신한다
   const [explained, setExplained] = useState<SelfExplanation[]>([])
   const pickExplained = (r: DissectionRecord) => setExplained((r.explanations ?? []).filter((x) => x.item === itemId))
+  // 원리 노트(v3 M4) — 이 문항 것만. 저장은 id 단위 교체(대조 표시도 같은 경로)
+  const [notes, setNotes] = useState<ReasoningNote[]>([])
+  const pickNotes = (r: DissectionRecord) => setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
+  const saveNote = (x: ReasoningNote) => {
+    setNotes((xs) => [...xs.filter((y) => y.id !== x.id), x])
+    void persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() })).then(({ record }) => pickNotes(record))
+  }
   // 이 문항의 이해 확인 시도(M4)
   const [checked, setChecked] = useState<CheckAttempt[]>([])
   const pickChecked = (r: DissectionRecord) => setChecked((r.checks ?? []).filter((x) => x.item === itemId))
@@ -289,6 +306,7 @@ export function AnalysisTheater({
       if (!alive || !opened) return
       setSeen(touchedItems(record))
       pickExplained(record)
+      pickNotes(record)
       pickChecked(record)
       pickCompared(record)
       if (principleTag) setPrincipleSaved(record.formulas.some((f) => f.tag === principleTag && f.sources.includes(itemId)))
@@ -345,7 +363,9 @@ export function AnalysisTheater({
     track({ name: 'csat_principle_saved', props: { from: 'theater' } })
     void persist((r) => {
       const prev = r.formulas.find((f) => f.tag === principleTag)
-      const f = { tag: principleTag, text: goal.relation, type: typeId ?? '', sources: [...new Set([...(prev?.sources ?? []), itemId])], conditions: goal.answerDesign, limit: goal.pitfalls[0], from: 'theater' as const }
+      // 검수된 탐구 원리가 있으면 그 통하는 조건 · 쓰면 안 되는 조건을 함께 담는다(M4 — 관계 문장만 저장하던 공백)
+      const ip = inquiry?.principle
+      const f = { tag: principleTag, text: goal.relation, type: typeId ?? '', sources: [...new Set([...(prev?.sources ?? []), itemId])], conditions: ip ? ip.when_applies.join(' · ') : goal.answerDesign, limit: ip ? ip.when_not.join(' · ') : goal.pitfalls[0], from: 'theater' as const }
       return { ...r, formulas: [...r.formulas.filter((x) => x.tag !== principleTag), f], updatedAt: Date.now() }
     })
   }
@@ -600,6 +620,11 @@ export function AnalysisTheater({
         {typeName ? <span className={styles.tag}>{typeName}</span> : null}
         {points ? <span className={styles.tag}>{points}점</span> : null}
         <nav className={styles.crumbs} aria-label="목록으로">
+          {mapReturn ? (
+            <Link className={styles.back} href={mapReturn} data-testid="item-back-map">
+              학습 지도로
+            </Link>
+          ) : null}
           {typeHref ? (
             <Link className={styles.back} href={typeHref} onClick={back('type')} data-testid="item-back-type">
               이 유형 목록
@@ -860,16 +885,21 @@ export function AnalysisTheater({
                     {sceneChecks.length ? (
                       <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
                     ) : null}
+                    {scene === 'compare' ? <V3Compare pairs={v3Pairs} absence={v3Pairs.length || !comparePairs.length ? pairAbsence : null} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'compare' ? (
                       comparePairs.length ? (
-                        <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
-                      ) : (
+                        <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
+                          <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
+                          <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
+                        </section>
+                      ) : v3Pairs.length || pairAbsence ? null : (
                         <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="compare-empty">
                           이 문항과 짝지은 검수된 비교 문항을 준비 중이에요. 같은 유형이라는 이유만으로 같은 원리라고 잇지 않아요 — 「같은 유형」 탭에서 목록은 볼 수 있어요.
                         </p>
                       )
                     ) : null}
                     {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} review={inquiry.review} /> : null}
+                    {scene === 'principle' ? <V3PrincipleLevels hasCandidate={Boolean(inquiry?.principle)} pairs={v3Pairs} /> : null}
                     {scene === 'principle' && goal ? (
                       <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
                         <b>이 문항에서 확인한 관계</b>
@@ -892,6 +922,9 @@ export function AnalysisTheater({
                         onSave={saveExplanation}
                         onCompare={compareExplanation}
                       />
+                    ) : null}
+                    {scene === 'explain' ? (
+                      <ReasoningNoteForm key={`note-${itemId}`} itemId={itemId} analysisVersion={inquiry?.analysis_version ?? null} principle={inquiry?.principle ?? null} pairs={v3Pairs} saved={notes} onSave={saveNote} />
                     ) : null}
                     {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
