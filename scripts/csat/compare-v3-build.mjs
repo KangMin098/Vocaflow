@@ -9,6 +9,7 @@ import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { classifyReview, contentHash, pairContentHash, PAIR_CRITERIA_VERSION } from './lib-inquiry-review.mjs'
+import { buildPairTypeIndex, isInquiryInputFilename, requirePairTypes } from './lib-compare-types.mjs'
 
 const ROOT = process.cwd()
 const CDIR = join(ROOT, 'scripts/csat/compare-drain')
@@ -54,11 +55,11 @@ for (const f of readdirSync(IDIR).filter((f) => /^chunk-(inq|v3)-[\w-]+\.out\.js
   }
 }
 
-// 문항 유형 — 화면이 상대 문항의 공개 여부를 유형별 공개 목록으로 확인한다(같은 유형으로 한정하지 않음)
-const typeOf = new Map()
-for (const f of readdirSync(IDIR).filter((f) => /^chunk-(inq|v3)-[w-]+.json$/.test(f) && !f.includes('.out.'))) {
-  for (const it of listOf(readJson(join(IDIR, f)))) if (!typeOf.has(it.id)) typeOf.set(it.id, it.type_id)
-}
+// 상대 공개 조회도 이 골격 유형을 쓴다. 원문 입력은 gitignore이므로 깨끗한 checkout에서도 유형을 복구할 수 있어야 한다.
+const skeletonDir = join(ROOT, 'apps/web/src/lib/csat/skeleton-data')
+const skeletonDocs = readdirSync(skeletonDir).filter((f) => f.endsWith('.json') && f !== 'index.json').map((f) => readJson(join(skeletonDir, f)))
+const inputDocs = readdirSync(IDIR).filter(isInquiryInputFilename).map((f) => readJson(join(IDIR, f)))
+const typeOf = buildPairTypeIndex(skeletonDocs, inputDocs)
 
 const skip = { not_ok: [], revise: [], unreviewed: [], stale: [], not_public: [] }
 const keep = []
@@ -78,7 +79,7 @@ for (const p of pairs) {
 const data = { note: 'v3 비교 쌍 — scripts/csat/compare-v3-build.mjs 가 생성. 손으로 고치지 말 것.', criteria: PAIR_CRITERIA_VERSION, count: keep.length, pairs: {}, items: {} }
 for (const p of keep.sort((a, b) => a.pair_id.localeCompare(b.pair_id))) {
   data.pairs[p.pair_id] = {
-    kind: p.kind, focus: p.focus, left: p.left.id, right: p.right.id, types: { left: typeOf.get(p.left.id) ?? null, right: typeOf.get(p.right.id) ?? null }, mappings: p.mappings, shared_conditions: p.shared_conditions ?? [],
+    kind: p.kind, focus: p.focus, left: p.left.id, right: p.right.id, types: requirePairTypes(p, typeOf), mappings: p.mappings, shared_conditions: p.shared_conditions ?? [],
     decisive_differences: p.decisive_differences ?? [], principle: p.principle ?? null, limitation: p.limitation,
     binding: { left: { units_hash: p.left.units_hash, inquiry_hash: p.left.inquiry_hash }, right: { units_hash: p.right.units_hash, inquiry_hash: p.right.inquiry_hash } },
   }
