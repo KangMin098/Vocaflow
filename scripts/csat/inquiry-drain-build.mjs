@@ -8,7 +8,10 @@
 // 넣는 조건(하나라도 어기면 뺀다 · 뺀 수와 이유를 출력한다):
 //   · status = ok  (needs_review · needs_source 는 화면에 내지 않는다 — 분석 교정 공정의 몫)
 //   · 검증기 오류 0  (inquiry-drain-validate 의 validateItem 을 그대로 다시 돌린다)
-//   · 독립 검수의 마지막 판정이 revise 가 아니다(review-*.json 을 이름 순으로 읽어 문항마다 마지막 판정 — 재검수는 review-zz-*.json)
+//   · 공개 가드(lib-inquiry-review.mjs · v3 M2) — verified(현재 내용 해시에 묶인 독립 pass · 검수자≠작성자 · 기준 버전 일치)
+//     또는 legacy(해시 결속 없는 v1 판정의 마지막이 revise 아님 — 2026-10-11 이전 공개분 보존용)만 넣는다.
+//     revise · unreviewed 는 뺀다. 각 문항에 `review: verified|legacy` 를 기록해 화면이 둘을 구별한다(legacy 를 verified 로 승격하지 않는다).
+//     `--verified-only` 면 legacy 도 뺀다(v3 공개 빌드).
 // 원문(지문 · 선지)은 출력에 넣지 않는다 — 작성자가 쓴 짧은 인용(8단어 이하)만 들어간다.
 // 재실행 안전: 같은 입력이면 같은 출력(문항 id 정렬). 파일을 통째로 다시 쓴다.
 //
@@ -18,20 +21,27 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { validateItem } from './inquiry-drain-validate.mjs'
+import { classifyReview } from './lib-inquiry-review.mjs'
 
 const WORK = path.resolve('scripts/csat/inquiry-drain')
 const OUT = path.resolve('apps/web/src/lib/csat/inquiry-data.json')
 const DRY = process.argv.includes('--dry')
+const VERIFIED_ONLY = process.argv.includes('--verified-only')
 
-// 문항마다 **마지막** 검수 판정을 쓴다(파일 이름 순) — 고쳐 쓴 뒤의 재검수(review-zz-*.json)가 처음 판정을 덮는다
-const lastVerdict = new Map()
-for (const f of fs.readdirSync(WORK).filter((f) => /^review-.*\.json$/.test(f)).sort()) {
-  for (const v of JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8')).verdicts ?? []) lastVerdict.set(v.id, v.verdict)
+// 문항 → 모든 판정(파일 이름 · 검수자 · 해시 · 기준 버전 포함). 판정 결과는 classifyReview 가 해시에 묶어 정한다
+const verdictsById = new Map()
+for (const f of fs.readdirSync(WORK).filter((f) => /^review-.*\.json$/.test(f))) {
+  const doc = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+  for (const v of doc.verdicts ?? []) {
+    const list = verdictsById.get(v.id) ?? []
+    list.push({ ...v, reviewer: v.reviewer ?? doc.reviewer ?? null, criteria: v.criteria ?? doc.criteria ?? null, file: f })
+    verdictsById.set(v.id, list)
+  }
 }
-const revised = new Set([...lastVerdict].filter(([, v]) => v === 'revise').map(([id]) => id))
 
 const items = {}
-const dropped = { status: [], invalid: [], revised: [], no_input: [] }
+const dropped = { status: [], invalid: [], revised: [], unreviewed: [], legacy_excluded: [], no_input: [] }
+const reviewCount = { verified: 0, legacy: 0 }
 for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-inq-\d+\.out\.json$/.test(f)).sort()) {
   const name = f.replace(/\.out\.json$/, '')
   const inPath = path.join(WORK, `${name}.json`)
@@ -52,12 +62,24 @@ for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-inq-\d+\.out\.json$/.
       dropped.invalid.push(`${r.id}(${errs.length})`)
       continue
     }
-    if (revised.has(r.id)) {
+    // 작성 run 은 문항 또는 출력 최상위 — 검수자와 같은지 공개 가드가 본다
+    const review = classifyReview({ ...r, writer_run: r.writer_run ?? out.writer_run }, verdictsById.get(r.id) ?? [])
+    if (review.state === 'revise') {
       dropped.revised.push(r.id)
       continue
     }
+    if (review.state === 'unreviewed') {
+      dropped.unreviewed.push(`${r.id}(${review.reason})`)
+      continue
+    }
+    if (review.state === 'legacy' && VERIFIED_ONLY) {
+      dropped.legacy_excluded.push(r.id)
+      continue
+    }
+    reviewCount[review.state] += 1
     items[r.id] = {
       analysis_version: r.analysis_version,
+      review: review.state,
       distractors: r.distractors
         .map((d) => ({ n: d.n, truth: d.truth, operation: d.operation, preserved: d.preserved ?? [], altered: d.altered ?? [], note: d.note }))
         .sort((a, b) => a.n - b.n),
@@ -74,5 +96,5 @@ const doc = {
   items: sorted,
 }
 if (!DRY) fs.writeFileSync(OUT, JSON.stringify(doc, null, 1) + '\n')
-console.log(`넣음 ${doc.count} · 뺌: status ${dropped.status.length} · 검증 오류 ${dropped.invalid.length} · 검수 revise ${dropped.revised.length} · 입력 없음 ${dropped.no_input.length}${DRY ? ' (dry — 파일 안 씀)' : ''}`)
+console.log(`넣음 ${doc.count}(verified ${reviewCount.verified} · legacy ${reviewCount.legacy}) · 뺌: status ${dropped.status.length} · 검증 오류 ${dropped.invalid.length} · 검수 revise ${dropped.revised.length} · 미검수 ${dropped.unreviewed.length} · legacy 제외 ${dropped.legacy_excluded.length} · 입력 없음 ${dropped.no_input.length}${DRY ? ' (dry — 파일 안 씀)' : ''}`)
 for (const [k, v] of Object.entries(dropped)) if (v.length) console.log(`  ${k}: ${v.slice(0, 30).join(' ')}${v.length > 30 ? ' …' : ''}`)

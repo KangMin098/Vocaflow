@@ -20,8 +20,12 @@ export interface InquiryPrinciple {
   when_not: string[]
 }
 
+/** 공개 가드 상태 — verified: 현재 내용에 묶인 독립 pass · legacy: 해시 결속 전(v1) 검수분 보존 */
+export type InquiryReview = 'verified' | 'legacy'
+
 export interface InquiryRecord {
   analysis_version: number
+  review: InquiryReview
   distractors: InquiryDistractor[]
   principle: InquiryPrinciple | null
 }
