@@ -267,3 +267,90 @@ export function decidePublic(out, verdicts, record, classify) {
   if (c.state !== 'verified') return { state: 'unreviewed', reason: c.reason, hash }
   return { state: 'public', reason: c.reason, hash }
 }
+
+// ── 원문 대조 자료(alignment) ──────────────────────────────────────────────────────────────────────
+// 서버는 원문을 보내지 않는다. 화면은 **학습자 기기의 문제지 추출본**(ItemPaper)과 이 자료를 대조해
+//   (1) 같은 문장 수 · 같은 길이지만 글자가 다른 원문을 가려내고 (2) 앵커가 가리키는 구절의 실제 위치를 찾는다.
+// 자료는 글자 지문(해시) · 길이 · 오프셋뿐이다(영어 본문 없음). 검수 대상 본문이 아니라 원문 입력에서 빌드가 결정적으로 만든다 —
+// 입력은 binding.sourceSnapshotHash 로 이미 결속돼 있어 검수 해시(contentHash)에 넣지 않는다.
+// 규칙(서버 · 화면 동치 — apps/web/src/lib/csat/meaning-support/align.ts):
+//   lettersOnly = NFKC → 소문자 → [a-z0-9] 만 남김(공백 · 문장부호 · 기호 · 원문자 번호 무시 — 추출 줄바꿈 · 따옴표 차이를 흡수)
+//   textHash    = cyrb53(같은 문자열) 14 hex — 보안 용도가 아니라 동일성 지문이다
+export const ALIGN_VERSION = 1
+export function lettersOnly(t) {
+  let s = ''
+  for (const ch of String(t ?? '').normalize('NFKC').toLowerCase()) if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) s += ch
+  return s
+}
+export function textHash(str) {
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charCodeAt(i)
+    h1 = Math.imul(h1 ^ c, 2654435761)
+    h2 = Math.imul(h2 ^ c, 1597334677)
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909)
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16).padStart(14, '0')
+}
+const nthOf = (hay, needle, n) => {
+  let i = -1
+  for (let k = 0; k < n; k++) { i = hay.indexOf(needle, i + 1); if (i < 0) return -1 }
+  return i
+}
+/**
+ * 원문 입력 → 대조 자료. 앵커마다 문장 안 글자 오프셋(lettersOnly 기준)과 구절 지문을 둔다.
+ * 찾지 못한 앵커가 있으면 throw(빌드 실패 — 대조 자료가 틀리면 화면이 잘못된 자리를 비춘다).
+ */
+export function buildAlignment(support, input) {
+  const byN = new Map((input.sentences ?? []).map((s) => [s.n, s]))
+  const sentences = (input.sentences ?? []).map((s) => {
+    const l = lettersOnly(s.text)
+    return { n: s.n, chars: String(s.text).length, len: l.length, h: textHash(l) }
+  })
+  const spans = {}
+  for (const a of support.anchors ?? []) {
+    const sent = byN.get(a.sentence)
+    if (!sent) throw new Error(`${a.id}: 문장 ${a.sentence} 없음`)
+    const L = lettersOnly(sent.text)
+    let s, e
+    if (a.sourceRange) {
+      const ns = normSpace(sent.text)
+      s = lettersOnly(ns.slice(0, a.sourceRange.start)).length
+      e = s + lettersOnly(ns.slice(a.sourceRange.start, a.sourceRange.end)).length
+    } else if (a.quote) {
+      const q = lettersOnly(a.quote)
+      s = nthOf(L, q, a.occurrence ?? 1)
+      e = s + q.length
+    }
+    if (s == null || s < 0 || e <= s) throw new Error(`${a.id}: 문장 ${a.sentence} 안에서 구절을 찾지 못함`)
+    spans[a.id] = { n: a.sentence, s, e, h: textHash(L.slice(s, e)) }
+  }
+  return { v: ALIGN_VERSION, sentences, spans }
+}
+
+/**
+ * 파일럿 계약 대조 — manifest.contract.expectedPublic(명시 목록) ↔ 산출물. 위반 목록(빈 배열 = 통과).
+ * 숫자를 상수로 박지 않는다: 공개 대상은 manifest 의 명시 목록이고, count 는 실제 항목 수와 같아야 한다.
+ */
+export function checkPilotContract(manifest, artifact) {
+  const errs = []
+  const c = manifest?.contract
+  const expected = c?.expectedPublic ?? []
+  const items = artifact?.items ?? {}
+  const keys = Object.keys(items)
+  if (!c?.id) errs.push('contract.id 없음')
+  if (!expected.length) errs.push('contract.expectedPublic 비어 있음')
+  if (new Set(expected).size !== expected.length) errs.push('contract.expectedPublic 중복')
+  if (artifact?.schema !== SCHEMA) errs.push(`산출물 schema ${artifact?.schema}`)
+  if (artifact?.criteria !== MS_CRITERIA_VERSION) errs.push(`산출물 criteria ${artifact?.criteria}`)
+  if (!keys.length) errs.push('산출물이 비어 있음')
+  if (artifact?.count !== keys.length) errs.push(`count ${artifact?.count} ≠ 항목 ${keys.length}`)
+  const listed = new Set((manifest?.items ?? []).map((m) => m.itemId))
+  for (const id of expected) {
+    if (!listed.has(id)) errs.push(`${id}: manifest 밖`)
+    if (!items[id]) errs.push(`${id}: 공개 대상인데 산출물에 없음`)
+  }
+  for (const id of keys) if (!listed.has(id)) errs.push(`${id}: manifest 에 없는 산출물 항목`)
+  return errs
+}

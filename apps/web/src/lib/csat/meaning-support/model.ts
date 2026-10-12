@@ -12,22 +12,37 @@ import type { MeaningSupportView, MsDepth, MsUnit } from './labels'
 export const DEPTHS: MsDepth[] = ['brief', 'why', 'deep']
 export const DRAFT_MAX = 600
 
-export interface MeaningParams { unitId: string | null; depth: MsDepth; normalized: boolean }
+export interface MeaningParams { unitId: string | null; depth: MsDepth; relationId: string | null; bridge: boolean; normalized: boolean }
 
-/** URL 값 → 검증된 선택. unit 은 이 문항의 unit id 집합에 있을 때만, depth 는 셋 중 하나만 */
-export function parseMeaningParams(raw: { meaning?: string | null; depth?: string | null }, unitIds: readonly string[], defaultUnitId: string | null): MeaningParams {
+/**
+ * URL 값 → 검증된 선택. unit 은 이 문항의 unit id 집합에 있을 때만, depth 는 셋 중 하나만,
+ * rel 은 그 unit 에 이어진 관계일 때만(relationIdsOf 를 넘길 때), bridge 는 '1' 이고 unit 이 URL 에 있을 때만.
+ * 하나라도 걸러지면 normalized=true — 화면은 주소도 정규형으로 바꾼다(replaceState).
+ */
+export function parseMeaningParams(
+  raw: { meaning?: string | null; depth?: string | null; rel?: string | null; bridge?: string | null },
+  unitIds: readonly string[],
+  defaultUnitId: string | null,
+  relationIdsOf?: (unitId: string) => readonly string[],
+): MeaningParams {
   let normalized = false
   let unitId = raw.meaning ?? null
   if (unitId != null && !unitIds.includes(unitId)) { unitId = null; normalized = true }
   let depth = (raw.depth ?? 'brief') as MsDepth
   if (!DEPTHS.includes(depth)) { depth = 'brief'; normalized = true }
-  return { unitId: unitId ?? defaultUnitId, depth, normalized }
+  const chosen = unitId ?? defaultUnitId
+  let relationId = raw.rel ?? null
+  if (relationId != null && (!relationIdsOf || !chosen || !relationIdsOf(chosen).includes(relationId))) { relationId = null; normalized = true }
+  let bridge = raw.bridge === '1'
+  if (raw.bridge != null && (!bridge || unitId == null)) { bridge = false; normalized = true }
+  if (raw.depth === 'brief') normalized = true // 기본값은 주소에 싣지 않는다
+  return { unitId: chosen, depth, relationId, bridge, normalized }
 }
 
 /** 같은 문항 안 장면 이동 주소 — 기존 맥락 키만 보존하고, meaning/depth 는 검증된 값만 싣는다 */
 export function buildItemUrl(
   current: URL,
-  next: { scene: string; meaning?: string | null; depth?: MsDepth | null },
+  next: { scene: string; meaning?: string | null; depth?: MsDepth | null; rel?: string | null; bridge?: boolean },
 ): string {
   const u = new URL(current.toString())
   const keep = new Set(['from', 'check', 'pair', 'back', 'judgmentView'])
@@ -35,6 +50,8 @@ export function buildItemUrl(
   u.searchParams.set('scene', next.scene)
   if (next.meaning) u.searchParams.set('meaning', next.meaning)
   if (next.depth && next.depth !== 'brief') u.searchParams.set('depth', next.depth)
+  if (next.meaning && next.rel) u.searchParams.set('rel', next.rel)
+  if (next.meaning && next.bridge) u.searchParams.set('bridge', '1')
   return `${u.pathname}?${u.searchParams.toString()}${u.hash}`
 }
 
@@ -64,4 +81,19 @@ export function relationsOfUnit(view: MeaningSupportView, unitId: string | null)
 /** 초안 길이 검사 — 넘으면 잘라내지 않고 오류만 알린다 */
 export function draftTooLong(text: string): boolean {
   return [...text].length > DRAFT_MAX
+}
+
+/** 원문 이해 → 문항 성립 · 설계 재구성으로 넘길 검수된 연결(같은 unit 의 bridge 가 여럿이면 합친다) */
+export function bridgeOf(view: MeaningSupportView, unitId: string | null): { choices: number[]; claims: number[] } {
+  const bs = view.bridges.filter((b) => b.unitId === unitId)
+  const uniq = (xs: number[]) => [...new Set(xs)].sort((a, b) => a - b)
+  return { choices: uniq(bs.flatMap((b) => b.choiceNumbers)), claims: uniq(bs.flatMap((b) => b.designClaimIndices)) }
+}
+
+/** unit 의 구절 대응 행 — 구문 부분이 있으면 그 순서, 없으면 보존 조건의 앵커. 앵커 없는 행은 뺀다 */
+export function phraseRowsOf(unit: MsUnit): { key: string; anchorIds: string[]; role: string | null; meaningKo: string }[] {
+  if (unit.syntax?.parts.length) {
+    return unit.syntax.parts.filter((p) => p.anchorIds.length).map((p) => ({ key: p.id, anchorIds: p.anchorIds, role: p.role, meaningKo: p.meaningKo }))
+  }
+  return unit.preserves.filter((p) => p.anchorIds.length).map((p, i) => ({ key: `pv${i}`, anchorIds: p.anchorIds, role: null, meaningKo: p.valueKo }))
 }

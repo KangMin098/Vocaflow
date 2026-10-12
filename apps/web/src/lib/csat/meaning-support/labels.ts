@@ -3,6 +3,8 @@
 // **v3.1 원문 이해 교수 sidecar — 타입 · 라벨(클라이언트 안전).** 데이터 본체는 서버만 읽는다(`data.ts`).
 // 계약: docs/csat-learner/v31/MEANING_SUPPORT_DESIGN.md §5 · scripts/csat/lib-meaning-support.mjs(검증 · 해시 정본).
 
+import type { MsAlignment } from './align'
+
 export type MsDepth = 'brief' | 'why' | 'deep'
 export type MsFacet = 'agent' | 'polarity' | 'condition' | 'quantity' | 'modality' | 'time' | 'reference' | 'causality' | 'comparison'
 export type MsBasis = 'source_observation' | 'bridging_inference' | 'explanatory_elaboration'
@@ -62,9 +64,13 @@ export interface MeaningSupportView {
   bridges: { unitId: string; meaningIds: string[]; choiceNumbers: number[]; designClaimIndices: number[] }[]
   /** 부분 공개(도표 등) — 공개하지 않은 범위와 이유 */
   partial?: { scope: string[]; withheldKo: string } | null
+  /** 원문 대조 자료(글자 지문 · 오프셋 — 영어 본문 없음). 기기 문제지와 대조해 구절 위치를 찾는다 */
+  alignment?: MsAlignment | null
+  /** 지도 골격(문장 수 · 길이)이 작성 원문과 같은가 — 서버가 판정. false 면 지도 강조 · 문장 선택을 끈다 */
+  splitOk?: boolean
 }
 /** 콘텐츠 상태 — ready 만 새 판을 쓰고 나머지는 기존 V3Meaning 으로 돌아간다 */
-export type MsContentState = 'missing' | 'stale' | 'ready' | 'withheld'
+export type MsContentState = 'missing' | 'stale' | 'ready' | 'withheld' | 'invalid'
 
 export const DEPTH_LABEL: Record<MsDepth, string> = { brief: '핵심만', why: '왜 그런가', deep: '깊이 탐구' }
 export const FACET_LABEL: Record<MsFacet, string> = {

@@ -503,3 +503,10 @@ pnpm csat:drill:check    # 낡았으면 exit 1
 - 파일럿 8문항 — 2026#34 · #38(C2) · #22 · #23 · #25(도표 — 언어만 부분 공개) · #29 · #36 · #43(C3). 독립 검수 revise 4건(#34 「만」 조건 확대 · #23 seems 단정화 · #43 인과 · 선지 연결 · #36 관계 종류 · 양초 「연속」 원문 밖 주장)을 고친 뒤 재검수 pass.
 - 굽기(재실행 안전): `node scripts/csat/meaning-support-export.mjs`(입력 · 매니페스트) → 작성 `support-<id>.out.json` → `meaning-support-validate.mjs` → 독립 검수 `review-ms-*.json` → `meaning-support-build.mjs`(현재 공개 항목이 빠지면 `--allow-drop` 없이 실패 · 입력이 없으면 기존 유지).
 - 검증: Node 가드 13 · vitest 8(서버↔빌드 해시 동치 전 문항) · e2e `csat-v31-meaning` 1280/1440 라이트 · 기존 M5 · 강의 · 학습 루프 회귀. 실제 학습자 검증 전이라 교육 효과는 입증되지 않았다.
+
+### 12-1. PR #238 병합 전 보강 (2026-10-12)
+
+- 공개 조건에 **검수 재확인**을 더했다: 서버가 schema · 검수 기준 · 검수자 · 지금 본문의 contentHash 를 다시 계산해 판정 해시와 대조한다(어긋나면 invalid — 기존 v3 화면).
+- 빌드: 원문 입력이 하나라도 없으면 full · `--dry` 모두 exit 1(산출물 그대로). 공개 대상은 `pilot-manifest.json` 의 `contract.expectedPublic`(명시 목록 · v31-pilot-1) — 기대 공개 = 검수 판정 public = 산출물 키여야 한다(`scripts/csat/__tests__/meaning-support-artifact.test.mjs`).
+- 원문 대조: 공개 항목마다 빌드가 `alignment`(문장 · 구절 글자 지문 · 오프셋 — 영어 본문 없음)를 붙인다. 서버는 지도 골격(문장 수 · 길이)으로 분할을, 화면은 기기 문제지로 글자를 대조한다. 실측: 기기 문제지 글자 대조 6문항 ok, 2026#25(도표) · #29(어법 — 밑줄 원본 그림) = 원문 글자 없음.
+- 격리 CI: `scripts/csat/meaning-support-isolated-seed.mjs`(namespace csat-v31 · run id · loopback 54321 · 소유 marker · allowlist) + `tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts`. Reveal Gate RPC 마이그레이션이 저장소에 없어 격리 DB 는 모든 문항이 fail-closed 보류 — 지금은 보류 SSR/Flight 비노출만 단언하고, 공개 · stale 격리 케이스는 그 마이그레이션 병합(사용자 결정) 뒤로 막혀 있다.

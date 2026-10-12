@@ -1,4 +1,19 @@
 {
+ "contract": {
+  "id": "v31-pilot-1",
+  "decidedAt": "2026-10-12",
+  "why": "설계 C2 2문항 + C3 6문항 — 독립 검수 pass 를 받은 8문항 전부 공개(#25 는 도표 수치 보류 · 언어 부분 공개)",
+  "expectedPublic": [
+   "2026#22",
+   "2026#23",
+   "2026#25",
+   "2026#29",
+   "2026#34",
+   "2026#36",
+   "2026#38",
+   "2026#43"
+  ]
+ },
  "note": "v3.1 원문 이해 교수 파일럿 manifest — meaning-support-export.mjs 가 생성. 원문 본문 없음(결속 · 기준선만).",
  "basis": "커밋된 공개 inquiry-data.json + 로컬 원문 입력(비공개). live DB 통계 아님",
  "sourceRoot": "scripts/csat/inquiry-drain",

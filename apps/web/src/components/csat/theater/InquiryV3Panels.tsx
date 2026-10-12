@@ -76,9 +76,34 @@ export function V3Meaning({ v3, onEvidence, linkable, selectedKey }: { v3: Inqui
   )
 }
 
-export function V3Judgment({ v3, onEvidence, linkable, selectedKey }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null }) {
+/**
+ * v3.1 원문 이해에서 이어 온 맥락 — 그 의미(unit)가 걸린 선택지 · 설계 근거만 표시한다(검수된 bridges).
+ * 일반 장면 이동과 구별된다: 해당 선택지를 먼저 열고, 걸린 설계 근거를 표시하고, 원래 의미로 돌아갈 길을 준다.
+ */
+export interface MeaningBridgeFocus {
+  unitLabel: string
+  choices: number[]
+  claims: number[]
+  onReturn: () => void
+}
+
+function BridgeBanner({ focus, what }: { focus: MeaningBridgeFocus; what: string }) {
+  return (
+    <div className={styles.msBridge} role="note" data-testid="ms-bridge">
+      <p className="break-keep">
+        원문 이해 「{focus.unitLabel}」에서 왔어요 — {what}
+      </p>
+      <button type="button" className={styles.back} onClick={focus.onReturn} data-testid="ms-bridge-return">
+        그 의미로 돌아가기
+      </button>
+    </div>
+  )
+}
+
+export function V3Judgment({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
   const answer = v3.choices.find((c) => c.selected_as_answer)?.n ?? v3.choices[0]?.n ?? 1
-  const [pick, setPick] = useState<number>(answer)
+  // 원문 이해에서 왔으면 그 의미가 걸린 첫 선택지부터 연다(부모가 focus 마다 key 를 바꿔 다시 연다)
+  const [pick, setPick] = useState<number>(focus?.choices.find((n) => v3.choices.some((c) => c.n === n)) ?? answer)
   const c = v3.choices.find((x) => x.n === pick) ?? v3.choices[0]
   if (!c) return null
   const meanings = v3.meanings.filter((m) => (c.meaning_ids ?? []).includes(m.id))
@@ -88,11 +113,15 @@ export function V3Judgment({ v3, onEvidence, linkable, selectedKey }: { v3: Inqu
         <b>선택지 하나씩 — 무엇이 이 판단을 가르나</b>
         <span className={styles.epistemic}>{VERIFIED}</span>
       </p>
+      {focus ? (
+        <BridgeBanner focus={focus} what={focus.choices.length ? `이 의미가 걸린 선택지 ${focus.choices.map((n) => CIRCLED[n] ?? n).join(' · ')}` : '이 의미가 걸린 선택지는 검수 기록에 없어요'} />
+      ) : null}
       <div className={styles.choicePick} role="group" aria-label="선택지 고르기">
         {v3.choices.map((x) => (
-          <button key={x.n} type="button" aria-pressed={x.n === pick} onClick={() => setPick(x.n)} data-choice={x.n}>
+          <button key={x.n} type="button" aria-pressed={x.n === pick} onClick={() => setPick(x.n)} data-choice={x.n} data-bridge={focus?.choices.includes(x.n) ? 'true' : undefined}>
             {CIRCLED[x.n] ?? x.n}
             {x.selected_as_answer ? <span className={styles.roleAlt}> 정답</span> : null}
+            {focus?.choices.includes(x.n) ? <span className={styles.roleAlt}> · 이 의미</span> : null}
           </button>
         ))}
       </div>
@@ -124,15 +153,19 @@ export function V3Judgment({ v3, onEvidence, linkable, selectedKey }: { v3: Inqu
   )
 }
 
-export function V3Design({ v3, onEvidence, linkable, selectedKey }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null }) {
+export function V3Design({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
   return (
     <section className={styles.diagram} aria-label="관찰에서 설계 해석으로" data-testid="v3-design">
       <p className={styles.diagramHead}>
         <b>관찰한 근거 → 설계 해석</b>
         <span className={styles.epistemic}>항목마다 근거 수준 표시</span>
       </p>
+      {focus ? (
+        <BridgeBanner focus={focus} what={focus.claims.length ? `이 의미가 받치는 설계 근거 ${focus.claims.length}개를 표시했어요` : '이 의미가 받치는 설계 근거는 검수 기록에 없어요'} />
+      ) : null}
       {v3.design.claims.map((cl, i) => (
-        <div key={i} className={styles.designRow} data-basis={cl.basis}>
+        <div key={i} className={`${styles.designRow} ${focus?.claims.includes(i) ? styles.msBridged : ''}`} data-basis={cl.basis} data-bridge={focus?.claims.includes(i) ? 'true' : undefined} data-testid="v3-design-claim">
+          {focus?.claims.includes(i) ? <span className={styles.diagramLabel}>이 의미가 받치는 근거</span> : null}
           <p className="break-keep">
             <span className={styles.diagramLabel}>{BASIS_LABEL[cl.basis]}</span>
             {cl.text}

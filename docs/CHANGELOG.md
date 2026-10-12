@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(csat): v3.1 PR #238 보강 — 공개 조회가 schema · 검수 기준 · 검수자 · 현재 본문 contentHash 재검증(어긋나면 invalid → 기존 v3) · 원문 입력 누락 빌드 exit 1(산출물 보존) · 파일럿 계약(`manifest.contract`) 대조 · 원문 대조 자료(글자 지문)로 기기 문제지와 문장 · 구절 대조(다른 글자면 강조 금지) · 구절 대응(영어 구절 → 역할 → 뜻) · 문항 성립/설계로 선택지 · 근거 전달(`bridge=1`) · 뒤로/앞으로 전체 복원 · 무효 주소 정규화 · 격리 seed/CI · 3B 패널 대응 실측 12/12. 결함 대장 docs/csat-learner/v31/PR238_HARDENING.md. DB 변경 없음.
+
 - feat(csat): v3.1 원문 이해 교수 파일럿 — `scene=meaning` 안 선택적 탐구(`MeaningSupportPanel` · 의미/관계/깊이 · 지도 문장 선택 · 메모리 초안 600자 · 문항 성립/설계로 이동). 별도 sidecar `lib/csat/meaning-support-data.json`(schema `meaning-support/1`)을 분석 버전 · units_hash · 배포 레코드 SHA-256 · 독립 검수 해시에 결속, 8문항(2026#22·23·25·29·34·36·38·43) 독립 검수 통과분만 공개. 빌드 `scripts/csat/meaning-support-build.mjs` · CI 가드 2종. DB 변경 없음.
 
 - docs(csat): v3 M5 출시 검수표(F01~F16 · 실행 검사 · 교육 검증 계획) · DELIVERY §11 · 낡은 E2E 고정값 수정(42-csat-item-map 골격에서 선택 · csat-continuity 메뉴 펼치기) · 미로그인 E2E.

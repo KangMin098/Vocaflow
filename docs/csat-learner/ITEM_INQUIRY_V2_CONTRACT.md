@@ -133,3 +133,6 @@
 - `basePublicHash` = 배포 레코드 전체의 canonical JSON(키 재귀 정렬 · 배열 순서 유지 · 문자열 원형) SHA-256 hex. 빌드(`scripts/csat/lib-meaning-support.mjs`)와 서버(`lib/csat/meaning-support/data.ts`)가 같은 값을 낸다 — 전 문항 동치 회귀.
 - 공개 영어는 기존 `v3.meanings[].expression` 안의 8단어 이하 조각만. 그 밖의 위치는 `sourceRange{start,end,spanHash}`(공백 정규화 문장 · UTF-16)로만 가리킨다.
 - 화면은 결속이 맞을 때만 sidecar 를 쓰고(문항 1개 projection · 결속/검수 메타 제외), 아니면 §7 의 v3 의미 칸을 그대로 쓴다.
+- 공개 조회(서버)는 결속 외에 `schema = meaning-support/1` · `review.criteria = meaning-support-v1.0` · 검수자 있음 · `review.contentHash = supportContentHash(지금 본문)` 를 모두 확인한다. 하나라도 어긋나면 상태 `invalid`(비공개).
+- `alignment`(빌드가 원문 입력에서 만든 대조 자료 — `lettersOnly`(NFKC · 소문자 · [a-z0-9]) 의 cyrb53 지문과 오프셋)는 검수 해시 밖이다(입력이 `sourceSnapshotHash` 로 이미 결속). 서버 `splitOk` = 지도 골격 문장 수 · 길이 일치, 화면 `alignPassage` = 기기 문제지 글자 일치. 둘 중 하나라도 어긋나면 지도 강조 · 구절 표시를 끈다.
+- 주소: `scene · meaning · depth · rel · bridge`(allowlist · 무효값은 주소까지 정규화) + 기존 `from · check · pair · back · judgmentView` 유지. 초안 · 구절 선택은 주소에 싣지 않는다.

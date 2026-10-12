@@ -80,7 +80,10 @@ for (const p of PILOT) {
   }
 }
 
+// 파일럿 계약(공개 대상 명시 목록)은 사람이 정한다 — 다시 뽑아도 기존 manifest 의 contract 를 그대로 둔다
+const prevManifest = existsSync(join(ROOT, MANIFEST)) ? JSON.parse(readFileSync(join(ROOT, MANIFEST), 'utf8')) : null
 const manifest = {
+  contract: prevManifest?.contract ?? null,
   note: 'v3.1 원문 이해 교수 파일럿 manifest — meaning-support-export.mjs 가 생성. 원문 본문 없음(결속 · 기준선만).',
   basis: '커밋된 공개 inquiry-data.json + 로컬 원문 입력(비공개). live DB 통계 아님',
   sourceRoot: relative(ROOT, join(ROOT, SRC)).replace(/\\/g, '/'),

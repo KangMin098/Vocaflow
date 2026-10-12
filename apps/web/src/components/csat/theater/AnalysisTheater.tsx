@@ -97,7 +97,8 @@ import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import { MeaningSupportPanel } from './MeaningSupportPanel'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
-import { relationSentences, sentencesOf, unitsForSentence } from '@/lib/csat/meaning-support/model'
+import { alignPassage } from '@/lib/csat/meaning-support/align'
+import { bridgeOf, buildItemUrl, parseMeaningParams, relationSentences, relationsOfUnit, sentencesOf, unitsForSentence } from '@/lib/csat/meaning-support/model'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -210,6 +211,9 @@ export function AnalysisTheater({
   meaningSupport = null,
   initialMeaning = null,
   initialDepth = 'brief',
+  initialRelation = null,
+  initialBridge = false,
+  meaningNormalized = false,
 }: {
   title: string
   typeName: string | null
@@ -266,6 +270,12 @@ export function AnalysisTheater({
   /** URL meaning= (서버가 allowlist 로 검증한 unit) */
   initialMeaning?: string | null
   initialDepth?: MsDepth
+  /** URL rel= (그 의미에 이어진 관계일 때만) */
+  initialRelation?: string | null
+  /** URL bridge=1 — 원문 이해에서 문항 성립 · 설계 재구성으로 이어 온 상태 */
+  initialBridge?: boolean
+  /** 주소의 meaning · depth · rel · bridge 중 무효값이 있었다 — 첫 렌더 뒤 정규형 주소로 바꾼다 */
+  meaningNormalized?: boolean
 }) {
   const lec = useLecture()
   const isReviewPhase = (s: LearningSession | null | undefined) => s?.phase === 'review'
@@ -450,54 +460,119 @@ export function AnalysisTheater({
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
   const onEvidence = (sentences: number[], key: string) => setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
-  // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다
+  // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
+  //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
   const ms = meaningSupport
   const [msUnit, setMsUnit] = useState<string | null>(initialMeaning ?? ms?.defaultUnitId ?? null)
-  const [msRelation, setMsRelation] = useState<string | null>(null)
+  const [msRelation, setMsRelation] = useState<string | null>(initialRelation)
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
+  const [msBridge, setMsBridge] = useState(initialBridge)
   const [msDrafts, setMsDrafts] = useState<Record<string, string>>({})
-  // 지도 문장 선택 결과 — unit 이 0 개 · 여러 개일 때 설명을 지어내지 않고 그대로 알린다
+  // 지도 문장 선택 결과 — unit 이 0 개 · 여러 개일 때 이전 설명 · 관계를 접고 그 문장만 말한다(설명을 지어내지 않는다)
   const [msPick, setMsPick] = useState<{ n: number; unitIds: string[] } | null>(null)
-  const syncMeaningUrl = (unit: string | null, depth: MsDepth) => {
-    const url = new URL(window.location.href)
-    if (unit) url.searchParams.set('meaning', unit)
-    else url.searchParams.delete('meaning')
-    if (depth !== 'brief') url.searchParams.set('depth', depth)
-    else url.searchParams.delete('depth')
-    window.history.replaceState(window.history.state, '', url)
-  }
+  // 고른 구절(앵커 id) — 대조가 맞을 때만 문제지 · 지도에 표시
+  const [msPhrase, setMsPhrase] = useState<string | null>(null)
+  // 원문 대조 — 기기 문제지(ItemPaper)와 빌드 대조 자료. 여는 중 · 없음 · 다름 · 맞음
+  const paperStatus = quotePassage?.itemId === itemId ? (quotePassage.status ?? (quotePassage.passage ? 'ready' : 'loading')) : 'loading'
+  const msText = useMemo(() => alignPassage(ms?.alignment, paperStatus, currentPassage), [ms, paperStatus, currentPassage])
+  // 지도 강조 · 문장 고르기는 분할(서버 · 문장 수 + 길이)이 같고, 기기 원문이 있으면 글자까지 맞을 때만
+  const msMapOk = Boolean(ms && v3Linkable && ms.splitOk && msText.state !== 'mismatch')
+  const msHref = (sceneId: SceneId, o: { unit: string | null; depth: MsDepth; rel: string | null; bridge: boolean }) =>
+    buildItemUrl(new URL(window.location.href), { scene: sceneId, meaning: o.unit, depth: o.depth, rel: o.rel, bridge: o.bridge })
+  const writeMs = (o: { unit: string | null; depth: MsDepth; rel: string | null }) =>
+    window.history.replaceState(window.history.state, '', msHref(scene, { ...o, bridge: false }))
   const pickMsUnit = (id: string | null) => {
     setMsUnit(id)
     setMsRelation(null)
     setMsPick(null)
-    syncMeaningUrl(id, msDepth)
+    setMsPhrase(null)
+    writeMs({ unit: id, depth: msDepth, rel: null })
+  }
+  const pickMsRelation = (id: string | null) => {
+    setMsRelation(id)
+    setMsPick(null)
+    setMsPhrase(null)
+    writeMs({ unit: msUnit, depth: msDepth, rel: id })
   }
   const pickMsDepth = (d: MsDepth) => {
     setMsDepth(d)
-    syncMeaningUrl(msUnit, d)
+    writeMs({ unit: msUnit, depth: d, rel: msRelation })
   }
+  // 지도 문장 — 한 의미면 그 의미로. 0 · 여러 개면 관계 선택을 풀고 이전 설명을 접는다(옛 설명 · 관계 강조와 섞이지 않게)
   const onMapSentence = (n: number) => {
     if (!ms) return
     const hits = unitsForSentence(ms, n)
-    if (hits.length === 1) pickMsUnit(hits[0].id)
-    else setMsPick({ n, unitIds: hits.map((u) => u.id) })
+    if (hits.length === 1) return pickMsUnit(hits[0].id)
+    setMsPick({ n, unitIds: hits.map((u) => u.id) })
+    setMsRelation(null)
+    setMsPhrase(null)
+    writeMs({ unit: msUnit, depth: msDepth, rel: null })
   }
   const msActive = Boolean(ms && scene === 'meaning')
-  const msFocus = ms ? (msRelation ? relationSentences(ms, msRelation) : msPick ? [msPick.n] : sentencesOf(ms, msUnit)) : []
+  const msPhraseSentence = ms && msPhrase ? ms.anchors.find((a) => a.id === msPhrase)?.sentence ?? null : null
+  const msFocus = ms
+    ? msPick ? [msPick.n] : msRelation ? relationSentences(ms, msRelation) : msPhraseSentence ? [msPhraseSentence] : sentencesOf(ms, msUnit)
+    : []
+  const msPaperMark = msActive && msText.state === 'ok' && msPhrase ? msText.spans[msPhrase] ?? null : null
   // 장면 이동 — 학습자가 고른 것은 history 에 쌓고(뒤로가기), 강의가 따라 옮긴 것은 주소만 바꾼다
   const selectScene = (id: SceneId, how: 'push' | 'replace' = 'push') => {
     setScene(id)
     setEvidence(null)
+    setMsPick(null)
+    setMsPhrase(null)
+    setMsBridge(false)
+    if (ms) {
+      // 원문 이해 선택(의미 · 깊이 · 관계)은 주소에 남긴다 — 다른 장면에서 돌아와도 같은 의미가 열린다
+      window.history[how === 'push' ? 'pushState' : 'replaceState'](window.history.state, '', msHref(id, { unit: msUnit, depth: msDepth, rel: msRelation, bridge: false }))
+      return
+    }
     const url = new URL(window.location.href)
     url.searchParams.set('scene', id)
     url.searchParams.delete('judgmentView')
     window.history[how === 'push' ? 'pushState' : 'replaceState'](window.history.state, '', url)
   }
+  // 원문 이해 → 문항 성립 · 설계 재구성: 이 의미가 걸린 선택지 · 설계 근거를 들고 간다(주소 bridge=1 — 뒤로가기로 원래 의미에 돌아온다)
+  const goBridge = (target: 'judgment' | 'design') => {
+    setScene(target)
+    setEvidence(null)
+    setMsPick(null)
+    setMsPhrase(null)
+    setMsBridge(true)
+    window.history.pushState(window.history.state, '', msHref(target, { unit: msUnit, depth: msDepth, rel: msRelation, bridge: true }))
+  }
+  const msUnitObj = ms?.units.find((u) => u.id === msUnit) ?? null
+  const msBridgeFocus =
+    ms && msBridge && msUnitObj
+      ? { unitLabel: msUnitObj.labelKo, ...bridgeOf(ms, msUnitObj.id), onReturn: () => selectScene('meaning') }
+      : null
   useEffect(() => {
-    // 뒤로가기 · 앞으로가기도 서버와 같은 파서(별칭 · 무효값 정규화)
-    const onPop = () => setScene(parseScene(new URL(window.location.href).searchParams.get('scene')).scene)
+    // 뒤로가기 · 앞으로가기 — 장면 · 의미 · 깊이 · 관계 · 이어 온 맥락을 **주소에서** 되살린다(서버와 같은 파서 · allowlist)
+    const onPop = () => {
+      const q = new URL(window.location.href).searchParams
+      setScene(parseScene(q.get('scene')).scene)
+      setEvidence(null)
+      if (!ms) return
+      const p = parseMeaningParams(
+        { meaning: q.get('meaning'), depth: q.get('depth'), rel: q.get('rel'), bridge: q.get('bridge') },
+        ms.units.map((u) => u.id),
+        ms.defaultUnitId,
+        (u) => relationsOfUnit(ms, u).map((r) => r.id),
+      )
+      setMsUnit(p.unitId)
+      setMsDepth(p.depth)
+      setMsRelation(p.relationId)
+      setMsBridge(p.bridge)
+      setMsPick(null)
+      setMsPhrase(null)
+    }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
+  }, [ms])
+  // 원문 이해 주소의 무효값(모르는 의미 · 깊이 · 관계 · bridge) — 화면 상태뿐 아니라 **주소도** 정규형으로(history 를 쌓지 않는다)
+  useEffect(() => {
+    if (!ms || !meaningNormalized) return
+    window.history.replaceState(window.history.state, '', msHref(initialScene, { unit: initialMeaning ?? ms.defaultUnitId, depth: initialDepth, rel: initialRelation, bridge: initialBridge }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 첫 렌더 한 번(서버가 정규화한 값)
   }, [])
   // 옛 장면 값(essence · structure · answer · distractor) · 무효값은 정규형으로 주소만 고친다(history 를 쌓지 않는다)
   useEffect(() => {
@@ -737,7 +812,7 @@ export function AnalysisTheater({
             <span className={styles.railTime}>{examLabel}</span>
           </p>
           <div className={styles.stream}>
-            <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} />
+            <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} highlight={msPaperMark} />
           </div>
 
           <div className={styles.composer}>
@@ -852,9 +927,9 @@ export function AnalysisTheater({
                         anchors={map.anchors}
                         placements={map.placements}
                         focusSentences={
-                          !v3Linkable ? null : msActive ? (msFocus.length ? msFocus.map((n) => n - 1) : null) : evidence ? evidence.sentences.map((n) => n - 1) : null
+                          msActive ? (msMapOk && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
                         }
-                        onSentenceSelect={msActive && v3Linkable ? onMapSentence : undefined}
+                        onSentenceSelect={msActive && msMapOk ? onMapSentence : undefined}
                       />
                     </>
                   ) : (
@@ -920,26 +995,24 @@ export function AnalysisTheater({
                       </section>
                     ) : null}
                     {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
-                    {scene === 'meaning' && ms && msPick ? (
-                      <p className="break-keep text-[13px] text-[var(--t2)]" role="status" data-testid="ms-pick" data-count={msPick.unitIds.length}>
-                        {msPick.unitIds.length === 0
-                          ? `${msPick.n}번 문장에는 아직 검수된 탐구 설명이 없어요. 위치만 비춰 둘게요.`
-                          : `${msPick.n}번 문장은 여러 의미에 걸쳐 있어요 — 아래에서 탐구할 의미를 고르세요.`}
-                      </p>
-                    ) : null}
                     {scene === 'meaning' && ms ? (
                       <MeaningSupportPanel
                         view={ms}
                         unitId={msUnit}
                         relationId={msRelation}
                         depth={msDepth}
-                        linkable={v3Linkable}
                         draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
+                        pick={msPick}
+                        phraseId={msPhrase}
+                        textAlign={msText}
+                        passage={msText.state === 'ok' ? currentPassage : null}
+                        splitOk={Boolean(v3Linkable && ms.splitOk)}
                         onSelectUnit={pickMsUnit}
-                        onSelectRelation={(id) => { setMsRelation(id); setMsPick(null) }}
+                        onSelectRelation={pickMsRelation}
+                        onPhrase={setMsPhrase}
                         onDepth={pickMsDepth}
                         onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
-                        onGo={(id) => selectScene(id)}
+                        onGo={goBridge}
                       />
                     ) : null}
                     {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
@@ -951,14 +1024,14 @@ export function AnalysisTheater({
                           : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 아래 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
                       </p>
                     ) : null}
-                    {scene === 'judgment' && v3 ? <V3Judgment v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                    {scene === 'judgment' && v3 ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
                     {scene === 'judgment' && gate.design ? <TransformDiagram design={gate.design} /> : null}
                     {scene === 'design' ? (
                       <p className={styles.quiet} data-testid="design-epistemic">
                         아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                       </p>
                     ) : null}
-                    {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                    {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
                     {scene === 'design' && gate.design ? <DesignSelection design={gate.design} /> : null}
                     <p className={styles.status}>
                       <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>

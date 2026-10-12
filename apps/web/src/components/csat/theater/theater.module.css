@@ -539,3 +539,47 @@
 .msArrow { align-self: center; color: var(--t3); font-size: 1.125rem; }
 .msDraft { display: grid; gap: 6px; margin-top: 8px; }
 .msWarn { font-size: 13px; line-height: 1.6; color: #9C3A30; font-weight: 600; }
+
+/* v3.1 보강 — 원문 이해 판의 누름 대상은 44px(학습 화면 접근성 규칙) · 구절 대응 행 · 문제지 표시 · 이어 온 맥락 */
+/* 3B 참조 대응(docs/design/refs/3b/meaning-panel/spec.json) — 값은 여기 변수로만 쓴다. meaning-panel-geometry.test.ts 가 명세와 대조한다 */
+.msPanel {
+  --msp-card-bg: #fbf9f7;
+  --msp-card-border: #e2e1e0;
+  --msp-card-radius: 12px;
+  --msp-card-gap: 16px;
+  --msp-card-inset-x: 24px;
+  --msp-card-pad-y: 26px;
+  --msp-field-bg: #ffffff;
+  --msp-field-h: 34px;
+  --msp-pill-active-bg: #f8f7f5;
+  --msp-pill-active-h: 30px;
+  --msp-pill-soft-bg: #f4f1ed;
+  --msp-pill-soft-h: 24px;
+  --msp-min-target: 44px;
+  display: grid; gap: var(--msp-card-gap); margin: 0 0 12px; padding: 0; border: 0;
+}
+.msCard { display: grid; gap: 10px; padding: var(--msp-card-pad-y) var(--msp-card-inset-x); background: var(--msp-card-bg); border: 1px solid var(--msp-card-border); border-radius: var(--msp-card-radius); line-height: 1.6; }
+.msCard p { margin: 0; }
+.msPanel .cmpFilters { margin: 0; }
+.msPanel .cmpFilters button { min-height: max(var(--msp-min-target), var(--msp-pill-active-h)); background: var(--msp-field-bg); }
+.msPanel .cmpFilters button[aria-pressed='true'] { background: var(--msp-pill-active-bg); }
+.msPanel .back { min-height: max(var(--msp-min-target), var(--msp-pill-soft-h)); padding: 0 12px; border-radius: 999px; background: var(--msp-pill-soft-bg); }
+.msPhrases { display: grid; gap: 6px; margin: 6px 0 8px; padding: 0; list-style: none; }
+.msPhrase {
+  display: grid; grid-template-columns: minmax(9rem, 1.2fr) auto auto minmax(0, 1.3fr); align-items: center; gap: 8px;
+  width: 100%; min-height: max(var(--msp-min-target), var(--msp-field-h)); padding: 8px 12px; text-align: left; font-size: 13px; line-height: 1.55;
+  border: 1px solid var(--msp-card-border); border-radius: 8px; background: var(--msp-field-bg); color: var(--t1); cursor: pointer;
+  transition: border-color var(--dur-fast, 120ms) var(--ease, ease), background var(--dur-fast, 120ms) var(--ease, ease);
+}
+.msPhrase:hover { background: var(--msp-pill-active-bg); }
+.msPhrase[aria-pressed='true'] { border-color: var(--p); background: var(--msp-pill-active-bg); box-shadow: inset 3px 0 0 var(--p); }
+.msPhrase:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+.msPhraseEn { display: flex; flex-wrap: wrap; gap: 4px 8px; font-weight: 600; }
+.msPhraseEn q { quotes: '“' '”'; }
+.paperMark { background: color-mix(in srgb, var(--p) 22%, transparent); color: inherit; border-radius: 3px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--p) 45%, transparent); }
+.msBridge { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border: 1px solid var(--p); border-radius: 10px; background: var(--bg3); }
+.msBridge p { margin: 0; font-size: 13px; }
+.msBridge .back { min-height: 44px; }
+.msBridged { box-shadow: inset 3px 0 0 var(--p); padding-left: 10px; background: var(--bg3); border-radius: 0 8px 8px 0; }
+.choicePick button[data-bridge='true'] { box-shadow: 0 0 0 2px var(--p); }
+@media (prefers-reduced-motion: reduce) { .msPhrase { transition: none; } }
