@@ -1913,7 +1913,7 @@ PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 �
 - 앱 계약: `lib/csat/embargo-gate.ts` 가 service role 로 게이트 RPC 를 부른다. 실패 · 부재는 보류(fail-closed).
 - funnel CHECK 집합: ③ 앞 65 = ③ 기대 · ③ 결과 67 = ④ 기대 · ④ 결과 68 ⊆ 20261008160000 의 83 — 기존 이벤트 보존.
 - 제외(별도 범위): 권한 회수 `20261005170100` · `20261006110000`, function_exec_policy, detector · auto_promote · spelling.
-- 공유 DB DOWN(설명만): feat/ec-smoke `scripts/csat/error-evidence/rollback-reveal-gate.sql` → rollback-capture → rollback-pilot → rollback.sql.
+- 공유 DB DOWN(설명만 · 이 브랜치에는 없는 파일): feat/ec-smoke 브랜치의 error-evidence 롤백 스크립트 4종을 reveal-gate → capture → pilot → 기본 순서로.
 
 ## 교재 문항 3인 검수 — `csat_item_reviews` ([20260912210000](../supabase/migrations/20260912210000_csat_item_reviews.sql))
 
