@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-20",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2026#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "80808b9c7714b8fd",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "cbdafb79679b5e24",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "dca8d510f3c1018e",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "15b511a2980db0d3",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "f560df8ee589e271",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "6176b0d868b66229",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "4ea03a37f1fead70",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "f860bc56828009d1",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "efdf17239253746b",
+      "codes": [],
+      "why": "not_applicable 이유(중복·대응 불성립)가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2026#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "e874e512b0b1d1fa",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "cd640faaaf7ca339",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "380af60acda8ad88",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "bdaf896950b70eaf",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "56f5b11712b03a69",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "fd1095e574648956",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "0feacb3f078c20b5",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "35545f501567bfae",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "2026#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "e40a0ccdd1088303",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "M1809#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "9693991cc9711b4b",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    },
+    {
+      "pair_id": "M1809#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "88323f388847a686",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 kind 가 입력 v3 decisive 와 맞고, 공통 조건·limitation 이 두 사례 범위 안에 있다."
+    }
+  ]
+}

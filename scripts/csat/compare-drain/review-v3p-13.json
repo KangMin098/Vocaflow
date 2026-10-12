@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-13",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2021#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "f333bbcf64663ff3",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "0c21ea84d2fb2ef0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "19dc875d3f7f0be8",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "cf29737772c09765",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "c33a3a263aad234d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "feef36276966716c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "8b2357d8752e107c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "9fe33de760f1d3f0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "6be4964577826aad",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "fabdfae010c458b1",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "79179eaf6849d7f1",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "2dda525ac2326974",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "c397717c323905bf",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "3fac743473421a3b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "16df5fbd2e820c6b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "3a9e029536e6d9fc",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "84cc8c63fc2a090f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#35~M2609#35",
+      "verdict": "revise",
+      "content_hash": "f1e8b0fef637bc39",
+      "codes": [
+        "P2"
+      ],
+      "why": "두 오답(왼쪽 ①·오른쪽 ①)은 모두 다른 문장과의 연결(왼쪽 3번의 사례 · 오른쪽 4·5번이 받는 총론)로 흐름 안에 남아 같은 규칙으로 같은 판정을 받는다. 근거 문장이 앞이냐 뒤냐는 적용 범위의 경계(문장 안 대 다른 문장 필요)가 아니라 겉모양 차이다. 수정안: kind 를 same_structure 로 바꾸고 shared_conditions 에 「오답 문장이 이웃 문장(앞의 일반 진술 또는 뒤의 하위 항목)과 일반-구체 관계로 묶여 흐름 안에 남는다」를 두며, 앞/뒤 방향 차이는 limitation 으로 옮기고 decisive_differences 를 비운다."
+    },
+    {
+      "pair_id": "2021#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "eb8afa7315ebfe42",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "12491f78a65daf4c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    }
+  ]
+}

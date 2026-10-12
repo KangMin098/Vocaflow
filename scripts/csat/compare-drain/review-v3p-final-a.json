@@ -1,0 +1,291 @@
+{
+ "reviewer": "rv-v3p-final-a",
+ "criteria": "pair-v1.0",
+ "verdicts": [
+  {
+   "pair_id": "2014A#25~M2609#23",
+   "verdict": "pass",
+   "content_hash": "e66e959fc8c3db92",
+   "codes": [],
+   "why": "왼①(5번 게임 허용→중독)·오④(1·4번 차이→유사) 모두 지문이 세운 방향을 뒤집은 오답으로 v3 와 일치, same_structure 타당."
+  },
+  {
+   "pair_id": "2014A#33~M2706#31",
+   "verdict": "revise",
+   "content_hash": "fb582665a9c28208",
+   "codes": [
+    "P6"
+   ],
+   "why": "다른 선지 조합에 대응이 성립한다(규칙 10): 왼쪽 ⑤ responsibility 는 의무(required to be attentive)가 걸린 쪽이 지위 낮은 사람이라(6번), 오른쪽 ③ isolated 는 변화에서 떼어 두는 태도가 보존주의자 쪽이라(4·6번) 지워진다 — 둘 다 빈칸 주어와 대비되는 집단의 속성을 빈칸 주어에 붙인 오답. 수정: status ok · kind same_structure, mapping left{s:[6],c:[5]} ↔ right{s:[4,6],c:[3]}, shared_conditions 「빈칸 값은 빈칸 주어 집단의 속성이어야 하고 대비 집단의 속성을 옮긴 선지는 지워진다」. (보조 대응: 왼 ④ reluctance[2·4] ↔ 오 ⑤ delicate[4·7]도 같은 규칙.) anxiety·natural 의 근거 종류 차이는 limitation 으로."
+  },
+  {
+   "pair_id": "2014A#34~M2706#31",
+   "verdict": "pass",
+   "content_hash": "8ad212ca29f1fa68",
+   "codes": [],
+   "why": "왼④(5번 not more truthful)·오②(4번 prolong) 모두 빈칸 문장 안에서 지워져 v3 decisive 와 일치."
+  },
+  {
+   "pair_id": "2014A#34~M2706#32",
+   "verdict": "pass",
+   "content_hash": "90edf0668269b7e6",
+   "codes": [],
+   "why": "왼②(6번 enjoyment)·오④(7번 저절로 새어 나옴) 모두 인접 문장이 정한 값과 방향이 맞지 않아 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2014A#40~M2609#19",
+   "verdict": "revise",
+   "content_hash": "62d03f8c3aed8ca2",
+   "codes": [
+    "P6"
+   ],
+   "why": "다른 선지 조합에 대응이 성립한다(규칙 10): 왼쪽 ⑤ delighted 는 10번 losing my patience·13번 커지는 목소리가 부정 극성을 고정해, 오른쪽 ② frustrated → bored 는 10번 This is the best day ever! 가 뒤 심경을 긍정으로 고정해 지워진다 — 직접 진술·감탄이 극성을 고정해 반대 극성 선지가 지워지는 같은 규칙. 수정: status ok · kind same_structure, mapping left{s:[10,13],c:[5]} ↔ right{s:[10],c:[2]}, 정답 mapping left{s:[8,10,13],c:[2]} ↔ right{s:[1,4,5,8,10],c:[3]}, shared_conditions 「감정을 직접 말하는 문장이 극성을 고정하면 반대 극성 선지는 지워진다」. 단일 심경 대 심경 변화(뒤 칸만 대응)는 limitation."
+  },
+  {
+   "pair_id": "2014A#42~2016#42",
+   "verdict": "pass",
+   "content_hash": "bb364544d3eb99d9",
+   "codes": [],
+   "why": "incomes(11번 축 밖)·inaccurate(2·11번 쓸모 축 밖) 모두 대립축 밖 속성으로 지워져 same_structure 타당."
+  },
+  {
+   "pair_id": "2014B#24~M2706#23",
+   "verdict": "revise",
+   "content_hash": "79b10ed2a2cf0824",
+   "codes": [
+    "P6"
+   ],
+   "why": "다른 선지 조합에 대응이 성립한다(규칙 10): 왼쪽 ④ disobedient 는 7번 문장에서 조건이 깨졌을 때의 증상 하나일 뿐이고(6·7번), 오른쪽 ④ 의사결정 제약은 3번 문장의 소형 쪽 한 측면일 뿐이라(3·6번) 둘 다 지문의 한 항을 주제로 올려 범위가 좁아 지워진다. 수정: status ok · kind same_structure, mapping left{s:[6,7],c:[4]} ↔ right{s:[3,6],c:[4]}, 정답 mapping left{s:[1,2,4],c:[5]} ↔ right{s:[1,4,5,7],c:[2]}(수단+목적 / 축+대비를 함께 덮음), shared_conditions 「지문에 실재하는 한 항(증상·한 측면)을 주제로 올린 선지는 글 전체를 덮지 못해 지워진다」."
+  },
+  {
+   "pair_id": "2014B#31~M2706#31",
+   "verdict": "pass",
+   "content_hash": "aaae37467a50edd5",
+   "codes": [],
+   "why": "not_applicable(중복) 타당: 2014B#31 은 2014A#35 와 같은 지문이고 2014A#35~M2706#31 이 같은 상대와 이미 비교된다. 다른 조합도 같은 상대와의 중복이 된다."
+  },
+  {
+   "pair_id": "2014B#32~M2706#31",
+   "verdict": "pass",
+   "content_hash": "6bbf24323f44dfa7",
+   "codes": [],
+   "why": "boundary 수용: 왼① 은 v3 가 1번 문장(연결이 많을수록 성공)을 주 근거로 7번 병렬 짝과 함께 지우고, 오② 는 4번 prolong 만으로 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2014B#41~M2609#41",
+   "verdict": "pass",
+   "content_hash": "69684b49b6e92e9a",
+   "codes": [],
+   "why": "규칙 10 에 따른 새 조합 확인: 왼③(로봇은 9·10번 사례, 12번이 가상 전체로 넓힘)·오③(immediate feedback 은 4번 요소 하나, 10번 결론은 맞는 그릇) 모두 v3 decisive 그대로 「사례·요소 하나를 제목으로 올림」으로 지워진다. same_structure 타당."
+  },
+  {
+   "pair_id": "2014B#41~M2706#41",
+   "verdict": "pass",
+   "content_hash": "c6c171b68ea51358",
+   "codes": [],
+   "why": "새 조합 확인: 왼③(로봇 사례)·오③(스테인드글라스는 6·7번 통념 반박 사례, 9번 물음이 화제) 모두 사례를 제목 화제로 올린 오답으로 v3 와 일치. 상대가 달라 앞 쌍과 중복 아님."
+  },
+  {
+   "pair_id": "2014B#43~M2609#43",
+   "verdict": "pass",
+   "content_hash": "911fa34d7be449a1",
+   "codes": [],
+   "why": "새 조합 확인: 왼④(21번 the roofless house 가 20번보다 앞)·오④(21번 Chavez 가 17번 첫 소개보다 앞) 모두 (D) 첫 배치로 소개 전 대상을 아는 것처럼 받아 지워진다. v3 decisive 와 일치."
+  },
+  {
+   "pair_id": "2014B#43~M2706#43",
+   "verdict": "revise",
+   "content_hash": "b031d81d98bcf097",
+   "codes": [
+    "P6"
+   ],
+   "why": "다른 선지 조합에 대응이 성립한다(규칙 10): 왼쪽 ① (B)-(D)-(C)는 (B)의 his little home·Yet 이 집이 지어지기(15번 문장) 전에 나오고, 오른쪽 ① (B)-(D)-(C)는 8번 The following day 가 첫날 만남(26번)보다 앞선다 — 둘 다 마지막 단락 (B)를 (A) 바로 뒤에 두어 아직 일어나지 않은 사건을 전제한 단락이 먼저 오는 같은 규칙. 수정: status ok · kind same_structure, mapping left{s:[6,15],c:[1]} ↔ right{s:[8,26],c:[1]}, 정답 mapping left{s:[15,20,21,28,6],c:[3]} ↔ right{s:[26,32,16,24,8],c:[5]}, shared_conditions 「앞 사건을 전제하는 단락은 그 사건을 서술하는 단락 뒤에 와야 한다」. 소유 표현 대 시간 표지의 차이는 limitation."
+  },
+  {
+   "pair_id": "2015#20~M2706#23",
+   "verdict": "pass",
+   "content_hash": "64c2f60673fde4ff",
+   "codes": [],
+   "why": "왼①(4·6번 개인의 학습 시간→교육의 역사)·오①(2·4번 실제 시간→시간 지각) 모두 시간 표현의 뜻을 바꿔 지워져 v3 와 일치."
+  },
+  {
+   "pair_id": "2015#26~M2706#28",
+   "verdict": "pass",
+   "content_hash": "5f2b205fa719adc9",
+   "codes": [],
+   "why": "boundary 타당: 왼② 는 1번 한 항목 안의 pm 표기만으로, 오③ 은 2·4번 두 항목을 맞대야 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2015#35~M2706#35",
+   "verdict": "pass",
+   "content_hash": "a28f4afd86c662c5",
+   "codes": [],
+   "why": "정답 대응 타당(왼② 4번·오④ 6번, 빼면 앞뒤가 이어짐). 남는 오답 쪽도 이웃 문장과의 결속으로 남는다는 공통 규칙 아래 있다. 메모: focus 의 「왼쪽 ② 에너지」 화제어 겹침은 지문에 energy 가 다시 나오지 않아 「기술·환경 화제」로 쓰는 편이 정확하다."
+  },
+  {
+   "pair_id": "2015#41~M2609#41",
+   "verdict": "pass",
+   "content_hash": "92a7fa599163bfe0",
+   "codes": [],
+   "why": "새 조합 확인: 왼③(7·15번 세부)·오③(4번 요소 하나) 모두 세부를 제목으로 올려 글 전체를 덮지 못해 지워진다. v3 와 일치, 상대가 달라 중복 아님."
+  },
+  {
+   "pair_id": "2015#42~2018#42",
+   "verdict": "pass",
+   "content_hash": "1f6594a266b33ae5",
+   "codes": [],
+   "why": "새 조합 확인: 정답 escape(14번 not plagued·15번)·objectively(10번 이유·14번 objectivity) 모두 빈칸 뒤 재진술과 같은 방향·축으로 정해진다. 오답 mapping 도 「재진술과 방향·축이 다르다」는 같은 공통 조건 아래 있다."
+  },
+  {
+   "pair_id": "2016#19~M2609#19",
+   "verdict": "pass",
+   "content_hash": "8f2e6ed08b8bfb67",
+   "codes": [],
+   "why": "새 조합 확인: 왼⑤ relieved(1·7번 여정이 아직 앞)·오④ 앞 항 relieved(6번 칭찬 전 4번 걱정뿐) 모두 부담이 지나가기 전이라 지워진다. v3 decisive 와 일치."
+  },
+  {
+   "pair_id": "2016#19~M2706#19",
+   "verdict": "revise",
+   "content_hash": "ad680e31896e41cc",
+   "codes": [
+    "P6"
+   ],
+   "why": "작성자 자신의 대응이 실제로 같은 규칙이다: 왼쪽 ③ frustrated 는 5번 모기·뱀이 I wish 아래 원하는 대상이라, 오른쪽 ⑤ nervous 는 3번 시계 보기 뒤 blankly·5번 졸림이 지루함을 가리켜 지워진다 — 둘 다 겉보기 부정 단서를 둘러싼 문맥이 감정 해석을 정하고 단서만 옮긴 오답이 지워진다. 「감싸는 동사 대 뒤따르는 행동」은 겉모양 차이다. 수정: status ok · kind same_structure, mapping left{s:[5],c:[3]} ↔ right{s:[3,5],c:[5]} 와 정답 mapping 유지, shared_conditions 「겉보기 부정 단서는 둘러싼 문맥(I wish · 뒤따르는 멍한 시선·졸림)으로 해석하며 단서만 감정으로 옮긴 선지는 지워진다」, decisive_differences 는 비우고 limitation 에 단서 위치 차이와 오⑤ 뒤 항(pleased 의 강도)을 적는다."
+  },
+  {
+   "pair_id": "2016#21~M2609#22",
+   "verdict": "pass",
+   "content_hash": "24c9b0a7dd19fffc",
+   "codes": [],
+   "why": "왼②(2번 Although 양보절)·오②(3번 정의문 수식 재료) 모두 종속 성분을 요지로 올려 지워진다. v3 와 일치."
+  },
+  {
+   "pair_id": "2016#36~M2506#36",
+   "verdict": "pass",
+   "content_hash": "3bd482efe8ea9de9",
+   "codes": [],
+   "why": "수정 확인: 오른쪽 지시어 단락이 (C)(8번)로 바로잡혔다. 왼② (B) 첫 배치·오③ (B)-(C)-(A) 모두 선행사 단락 (A)보다 지시어 단락이 앞서 지워진다."
+  },
+  {
+   "pair_id": "2017#20~M2706#22",
+   "verdict": "pass",
+   "content_hash": "d72b2b1a0e0eca34",
+   "codes": [],
+   "why": "수정 확인: 왼⑤(1·2번 고갈→개발이 발전 조건)·오⑤(5번 안전감 제공→안전 원하면 피함) 모두 핵심어를 둔 채 관계 방향을 뒤집어 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2017#33~M2706#31",
+   "verdict": "pass",
+   "content_hash": "2a378c57085479e7",
+   "codes": [],
+   "why": "수정 확인: 왼③ 은 v3 주 근거가 3번 문장 전제(상실이 실재함)이고, 오② 는 4번 prolong 만으로 지워져 boundary 성립. 번호 일치."
+  },
+  {
+   "pair_id": "2017#35~M2706#35",
+   "verdict": "pass",
+   "content_hash": "133361d5f28084d5",
+   "codes": [],
+   "why": "수정 확인: 왼① doing this(2번 직업 소개)·오① Their(2번 아기) 모두 지시어 연결로 흐름에 남는다. v3 decisive 그대로."
+  },
+  {
+   "pair_id": "2018#23~M2609#24",
+   "verdict": "pass",
+   "content_hash": "0dba59cf329064b2",
+   "codes": [],
+   "why": "수정 확인: 왼⑤(2번은 연장 이력, 기원 없음)·오⑤(7번 power 는 구원의 힘, 정치 없음) 모두 핵심 개념을 받치는 문장이 없어 지워진다."
+  },
+  {
+   "pair_id": "2018#43~M2706#43",
+   "verdict": "pass",
+   "content_hash": "af96332747dac09d",
+   "codes": [],
+   "why": "수정 확인: 왼② 결과 (B)가 선거일 (D)보다, 오① 이튿날 (B)가 첫날 (D)보다 앞서 시간 순서와 단락 순서가 어긋난다. 방향 차이는 limitation 에 정확히 적혔다."
+  },
+  {
+   "pair_id": "2019#22~M2609#22",
+   "verdict": "pass",
+   "content_hash": "fb04756c872c01a1",
+   "codes": [],
+   "why": "왼④(3번 연구 범주 목록)·오②(3번 정의문 수식 재료) 모두 목록·정의 속 한 항목을 요지로 올려 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2019#22~M2706#22",
+   "verdict": "pass",
+   "content_hash": "6ece604524e82896",
+   "codes": [],
+   "why": "왼①(4번 매체와 분리)·오⑤(5번 안전감 제공) 모두 해당 문장의 진술 방향을 뒤집어 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2019#32~M2706#32",
+   "verdict": "pass",
+   "content_hash": "db7f29a443d1e3ad",
+   "codes": [],
+   "why": "왼②(3번 주체=소수)·오③(6·7번 말하는 쪽, 해석은 3번 듣는 쪽) 모두 행위자를 상대 쪽으로 옮겨 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2019#36~M2609#37",
+   "verdict": "pass",
+   "content_hash": "2eca68a7136dbcff",
+   "codes": [],
+   "why": "왼①(these difficulties 가 받을 목록 없음)·오④(Put simply 가 줄일 설명 없음) 모두 첫 자리 묶음·요약 단락으로 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2019#37~M2609#37",
+   "verdict": "pass",
+   "content_hash": "b4ae1b0a1c5c1bc4",
+   "codes": [],
+   "why": "왼①(Likewise 의 짝 5번이 아직 없음)·오④(Put simply) 모두 연결사가 전제하는 앞 내용이 없어 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2020#18~M2609#18",
+   "verdict": "pass",
+   "content_hash": "e14c2dc6b0a42394",
+   "codes": [],
+   "why": "왼②(at night 은 소음 수식)·오①(열의·관심은 등록 뒤 인사) 모두 글에 없는 질문 행위를 만든 오답으로 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2020#19~M2706#19",
+   "verdict": "pass",
+   "content_hash": "5f5356b091acfb41",
+   "codes": [],
+   "why": "왼⑤(1번 동요를 2번이 기대로 정함)·오⑤(3번 시계 보기를 blankly·졸림이 지루함으로 정함) 모두 이어지는 문장 묶음이 감정을 고정해 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2020#24~M2609#24",
+   "verdict": "pass",
+   "content_hash": "539cdfd3d42e3c9d",
+   "codes": [],
+   "why": "왼④(4~6번은 지지 메커니즘, 난점 없음)·오④(2번 업적 열거, 필요조건 없음) 모두 열거에 없는 틀을 덧씌워 지워진다. 번호 일치."
+  },
+  {
+   "pair_id": "2020#28~M2706#28",
+   "verdict": "pass",
+   "content_hash": "393d8b0fc7144dc6",
+   "codes": [],
+   "why": "왼②(3은 3-point match 숫자)·오③(6 p.m. 은 행사 시작) 모두 다른 항목의 숫자를 옮겨 붙여 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2020#31~M2706#31",
+   "verdict": "pass",
+   "content_hash": "9127bef2bc3bd86d",
+   "codes": [],
+   "why": "왼⑤ bias(4번 merely subjective·therefore)·오② unstable(4번 prolong) 모두 빈칸 문장 안에서 지워진다. v3 일치."
+  },
+  {
+   "pair_id": "2020#35~M2706#35",
+   "verdict": "revise",
+   "content_hash": "4ae58b35df3bf04d",
+   "codes": [
+    "P1"
+   ],
+   "why": "첫 mapping(왼② 1·4·6번 · 오② 1·3·4번)과 same_structure 수정은 타당하다. 그러나 둘째 mapping 의 relation 이 「왼쪽은 방향을 뒤집는 That is why 문장, 오른쪽은 mass 낱말만 겹치는 BMI 문장」이라 두 근거가 어떤 같은 요구로 대응하는지 말하지 않고, limitation 은 정답 이탈 방식이 비교 대상이 아니라고 해 서로 어긋난다. 수정(둘 중 하나): (a) 둘째 mapping 을 지운다, 또는 (b) v3 decisive 대로 「정답 문장을 빼면 왼쪽 ④ They·even less 가 ②(4번)를, 오른쪽 ⑤ For the same reasons 가 ③(5번)을 바로 받는다」로 relation 을 고치고 left{s:[4,5,6],c:[3]} ↔ right{s:[5,6,7],c:[4]} 로 문장 번호를 바꾼 뒤 limitation 의 해당 문구를 조정한다."
+  },
+  {
+   "pair_id": "2021#35~M2609#35",
+   "verdict": "pass",
+   "content_hash": "5f223d4b605bcb5f",
+   "codes": [],
+   "why": "수정 확인: 왼①(3번의 구체 사례)·오①(alike 로 4·5번을 예고) 모두 이웃 문장과 일반-구체 관계로 흐름에 남는다. 정답 mapping(빼면 5→7번)도 v3 와 일치."
+  }
+ ]
+}

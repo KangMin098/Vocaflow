@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-23",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2006#31~M2706#31",
+      "verdict": "revise",
+      "content_hash": "e369b475cc49707d",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ③ training 과 오른쪽 ④ natural 은 둘 다 오답이라 판정이 갈리지 않으므로 contrast 정의에 맞지 않는다. 배제 위치의 차이로 boundary 를 쓰려 해도 왼쪽 v3 근거가 6번 문장(빈칸 문장 밖)을 함께 써 경계가 성립하지 않는다(limitation 도 이를 인정). status 를 not_applicable(「두 오답 모두 빈칸 밖 문장으로 지워져 경계·대조가 성립하지 않음」)로 바꾼다."
+    },
+    {
+      "pair_id": "M2006#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "43405e49b35f131a",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "3ed3e64fd9ac6165",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "787c9dcc7d8895ff",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "fff3582b561d7c39",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "b8420bd210b1a913",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "d00f033cd986e2fd",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "407e51f6b35c6e72",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "5273d1ac20e201bf",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "59227d386388be2f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "5862e8feb6b5bb63",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "008056ef5e8c0d1a",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "04a94d32f5c13b5c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "aaf06428d25444d2",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "64c185e291b45373",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "c91f6cdb5c43b759",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "a95fcee077ced756",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "a7f4f3fb6c5cb5a8",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "c3e476ff89e604af",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2106#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "35b5ed9223ab2de5",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    }
+  ]
+}

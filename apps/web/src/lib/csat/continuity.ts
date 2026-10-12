@@ -10,7 +10,7 @@
 // 그리고 기기 기록과 서버 기록을 **항목 단위로 합친다**(`mergeDissection`) — 통째 덮기는 한쪽 기기의
 // 학습을 지운다.
 
-import type { DissectionRecord } from './dissect'
+import { normalizeReasoningNote, NOTE_KEEP, type DissectionRecord, type ReasoningNote } from './dissect'
 import { mergeSessions, sameSessions } from './learning-session'
 
 export const DAY = 86_400_000
@@ -183,6 +183,19 @@ function mergeById<T extends { id: string; at: number }>(a: T[] | undefined, b: 
   return [...byId.values()].sort((p, q) => p.at - q.at).slice(-cap)
 }
 
+/** 원리 노트 병합(순수) — id 단위, 같은 id 는 updatedAt 이 큰 쪽. 두 기기에서 따로 쓴 노트는 둘 다 남는다 */
+export function mergeReasoningNotes(a?: ReasoningNote[], b?: ReasoningNote[]): ReasoningNote[] | undefined {
+  if (!a?.length && !b?.length) return undefined
+  const byId = new Map<string, ReasoningNote>()
+  for (const raw of [...(a ?? []), ...(b ?? [])]) {
+    const x = normalizeReasoningNote(raw)
+    if (!x) continue
+    const prev = byId.get(x.id)
+    if (!prev || x.updatedAt >= prev.updatedAt) byId.set(x.id, x)
+  }
+  return [...byId.values()].sort((p, q) => p.at - q.at).slice(-NOTE_KEEP)
+}
+
 export function mergeDissection(local: DissectionRecord, server: DissectionRecord): DissectionRecord {
   const newer = (server.updatedAt ?? 0) > (local.updatedAt ?? 0) ? server : local
   const older = newer === server ? local : server
@@ -205,6 +218,8 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     explanations: mergeExplanations(older.explanations, newer.explanations),
     checks: mergeById(older.checks, newer.checks, 600),
     compares: mergeById(older.compares, newer.compares, 300),
+    // 원리 노트 — 같은 id 면 나중에 고친 쪽(updatedAt) · 빈 노트는 버린다 · 최근 NOTE_KEEP 건
+    reasoningNotes: mergeReasoningNotes(older.reasoningNotes, newer.reasoningNotes),
     completed: uniqBy([...older.completed, ...newer.completed], (c) => `${c.id}|${c.at}`).sort((a, b) => a.at - b.at),
     formulas: [...formulas.values()],
     queue: [...newer.queue, ...olderOnlyQueue],
@@ -232,6 +247,8 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     a.onboarded === b.onboarded &&
     sameSessions(a.sessions, b.sessions) &&
     (a.explanations ?? []).length === (b.explanations ?? []).length &&
+    (a.reasoningNotes ?? []).length === (b.reasoningNotes ?? []).length &&
+    (a.reasoningNotes ?? []).every((x, i) => x.updatedAt === b.reasoningNotes?.[i]?.updatedAt) &&
     (a.explanations ?? []).every((x, i) => x.compared === b.explanations?.[i]?.compared) &&
     (a.checks ?? []).length === (b.checks ?? []).length &&
     (a.compares ?? []).length === (b.compares ?? []).length &&
@@ -251,6 +268,7 @@ export function correctnessItemIds(record: DissectionRecord): string[] {
     ...record.formulas.flatMap((f) => f.sources),
     ...(record.explanations ?? []).map((x) => x.item),
     ...(record.checks ?? []).map((x) => x.item),
+    ...(record.reasoningNotes ?? []).map((x) => x.item),
   ])]
 }
 
@@ -270,6 +288,8 @@ export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId
     formulas: record.formulas.filter((f) => !f.sources.some(isHeld)),
     ...(record.explanations ? { explanations: record.explanations.filter((x) => !isHeld(x.item)) } : {}),
     ...(record.checks ? { checks: record.checks.filter((x) => !isHeld(x.item)) } : {}),
+    // 보류 문항에 묶인 원리 노트도 내보내지 않는다(근거 문장 번호가 정답 근거를 드러낸다)
+    ...(record.reasoningNotes ? { reasoningNotes: record.reasoningNotes.filter((x) => !isHeld(x.item)) } : {}),
     ...(drafts ? { drafts } : {}),
   }
 }

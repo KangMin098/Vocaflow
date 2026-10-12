@@ -88,3 +88,21 @@
   REVIEWER **R7-경계** 정의(검수자마다 엄격도가 달라 수정이 반복됨 → revise 3종 · 메모 처리 경계 고정).
   결과는 빌드 요약을 정본으로 본다(`inquiry-drain-build.mjs --dry`). 회귀 `inquiry-validate-v3.test.mjs` 8개.
 - 열린 과제: 연결 관계 반전 전용 변환 라벨이 없어 2014B#37 은 `polarity` 를 넓혀 썼다(정의표 확장 검토). 학평은 보류(공개 정책).
+
+## 8. v3 M4 — 비교 쌍 · 조건부 원리 · 원리 노트 · 지도 복귀 (2026-10-12)
+
+- **비교 쌍 v3** — 기존 `compare-data.json`(831선언 · legacy_unbound)은 그대로 두고 v3 로 승격하지 않는다. 화면에는 「검수 전 1차 비교」로 표시.
+  공정: `compare-v3-export.mjs`(양쪽 공개 v3 쌍만 · 원문 포함 입력은 gitignore) → 작성(`compare-drain/WRITER_PAIR.md`) → `compare-v3-validate.mjs`
+  → 해시 결속 독립 검수(`REVIEWER_PAIR.md`, 기준 `pair-v1.0`) → `compare-v3-build.mjs` → `compare-v3-data.json`.
+  - 쌍 해시(`pairContentHash`)는 양쪽 결속(units_hash · 탐구 contentHash)을 포함한다 — 한쪽 탐구가 바뀌면 옛 pass 는 자동 무효, 빌드가 stale 로 뺀다.
+  - kind: same_structure(같은 규칙 · 같은 판정) · contrast(같은 단서로 판정이 실제로 갈림) · boundary(한쪽은 문장 안, 다른 쪽은 다른 문장이 필요). 원리는 bounded 만(generalized 금지).
+  - 공개 문장에 작성 과정(입력 · 기존 메모) 언급 금지 — 검증기가 강제.
+- **서버 projection** `lib/csat/inquiry/compare-v3.ts` — 이 문항 탐구가 stale 이면 비교 전체를 숨기고, 상대는 상대 유형의 공개 목록(`revealedSkeletonSiblings`)으로 확인한다(교차 유형 허용). absence reason: none · partner_hidden · stale.
+- **원리 수준** — 이 문항 원리 = candidate, 검수된 쌍의 원리 = bounded. 비교 클릭과 무관하게 「조건부 원리」 장면에 보인다. 원리 저장은 탐구 원리의 통하는 조건 · 쓰면 안 되는 조건을 담는다.
+- **원리 노트** — `DissectionRecord.reasoningNotes`(v1 optional, 새 DB 컬럼 없음). 칸당 300자 · 100건(한글 최대치로도 약 360KB) · id 단위 병합(updatedAt) · 보류 문항 노트 비노출 · `afterExplanation: true` 고정 · 자동 채점 없음 · 이벤트에 글 · 문항 id 없음. 「내 설명」 장면에서 쓰고 검수된 원리와 스스로 대조.
+- **지도 복귀** — 지도의 확인 링크(`?check=1`)로 들어오면 해설 보기 링크가 `from=map` 을 달고, 해설 화면 상단에 「학습 지도로」(`/csat/diagnosis`)가 보인다. 탐구 · 노트 이력은 독립 진단이 아니다(확인 · 전이 판정은 기존 승인 경로 그대로).
+- 회귀: `scripts/csat/__tests__/compare-v3-guard.test.mjs` · `lib/csat/inquiry/__tests__/compare-v3.test.ts` · `lib/csat/__tests__/reasoning-notes.test.ts`.
+- **1회차 결과(2026-10-12)** — 작성 797쌍(legacy 815 중 양쪽 공개 v3 아닌 18 제외) · 1차 독립 검수 → revise 수정 → 최종 재검수. 수치 정본은 `compare-v3-build.mjs --dry`.
+  - kind 판정이 검수자마다 흔들려(「근거 종류가 다르다」를 contrast 로) 정의를 REVIEWER_PAIR 에 고정 · 작성 규칙 7~10 추가(v3 근거 대조 · contrast 는 판정이 갈릴 때만 · 내부 참조 금지 · 다른 선지 조합 확인).
+  - **반복 차단 결정**: not_applicable(비공개)로 둔 쌍을 최종 재검수가 「다른 선지 조합이면 대응 성립」으로 뒤집은 12쌍은 이번 회차에 고치지 않는다(이전 검수는 not_applicable 을 요구 — 판정이 오가는 반복). 학습자에게 틀린 설명이 나가지 않는 보수적 결과다. 다음 회차 후보:
+    2024#22~M2706#22 · M1809#22~M2706#23 · M1809#31~M2706#32 · M2006#21~M2706#21 · M2006#31~M2706#31 · M2109#41~M2706#41 · M2306#21~M2609#21 · 2014A#33~M2706#31 · 2014A#40~M2609#19 · 2014B#24~M2706#23 · 2014B#43~M2706#43 · 2016#19~M2706#19 (조합 제안은 `review-v3p-final-a/b.json`).

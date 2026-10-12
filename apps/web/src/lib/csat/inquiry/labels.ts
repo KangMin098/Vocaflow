@@ -111,3 +111,39 @@ export const FIT_LABEL: Record<InquiryV3['choices'][number]['requirement_fit'], 
   fails: '발문 요구를 충족하지 못함',
   unknown: '충족 여부 확정 불가',
 }
+
+// ── v3 비교 쌍 · 조건부 원리 (M4 · REASONING_DATA ComparisonPair · Principle) ──
+export type PairKind = 'same_structure' | 'contrast' | 'boundary'
+export const PAIR_KIND_LABEL: Record<PairKind, string> = {
+  same_structure: '같은 판단 구조',
+  contrast: '비슷해 보이지만 판정이 갈림',
+  boundary: '원리가 통하는 경계',
+}
+export type PrincipleLevel = 'candidate' | 'bounded' | 'generalized'
+export const PRINCIPLE_LEVEL_LABEL: Record<PrincipleLevel, string> = {
+  candidate: '이 문항에서 얻은 잠정 원리',
+  bounded: '검수된 두 사례가 지지하는 원리',
+  generalized: '여러 사례로 검수된 원리',
+}
+
+/** 화면용 비교 쌍 — 이 문항(self) 기준으로 돌려 놓은 형태. 원문은 없고 문장 · 선지 번호만 */
+export interface V3PairView {
+  pairId: string
+  kind: PairKind
+  focus: string
+  otherSlug: string
+  otherLabel: string
+  mappings: { self: { sentences: number[]; choices?: number[] }; other: { sentences: number[]; choices?: number[] }; relation: string }[]
+  shared: string[]
+  differences: { text: string; selfSentences: number[]; otherSentences: number[] }[]
+  principle: { level: 'bounded'; statement: string; when_applies: string[]; when_not: string[] } | null
+  limitation: string
+}
+
+/** 비교가 없는 이유 — 서로 다른 absence reason(REASONING_DATA §pair) */
+export type PairAbsence = 'none' | 'partner_hidden' | 'stale'
+export const PAIR_ABSENCE_TEXT: Record<PairAbsence, string> = {
+  none: '이 문항과 독립 검수를 통과한 비교 쌍이 아직 없어요. 같은 유형이라는 이유만으로 채우지 않아요.',
+  partner_hidden: '검수된 비교가 있지만 상대 문항이 지금 공개되지 않아 보여 드릴 수 없어요.',
+  stale: '이 문항의 분석이 새로 바뀌어, 예전 분석으로 만든 비교는 다시 검수할 때까지 숨겨요.',
+}

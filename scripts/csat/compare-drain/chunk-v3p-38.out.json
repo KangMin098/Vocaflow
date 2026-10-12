@@ -1,0 +1,1551 @@
+{
+  "chunk": "v3p-38",
+  "writer_run": "wr-v3p-38",
+  "pairs": [
+    {
+      "pair_id": "M2509#24~M2706#24",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#24",
+        "units_hash": "306eec245d251021",
+        "inquiry_hash": "7969208ae10600fe"
+      },
+      "right": {
+        "id": "M2706#24",
+        "units_hash": "c4acee8684f7d019",
+        "inquiry_hash": "583c1f6c294cc80c"
+      },
+      "focus": "두 제목 문항 모두 지문이 다루지 않은 현재의 과제·요령(현대 사무실 관리 / 현대 관광의 새 과제)으로 범위를 옮긴 오답이, 글이 과거 변화 관찰로 끝난다는 점으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              9
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ⑤는 8번 문장까지 1940년대와 2000년대를 비교할 뿐인 글에 관리 요령을, 오른쪽 ⑤는 1950년대 중반 이후 사례로 끝나는 글에 현대의 과제를 붙였다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 글이 관찰한 변화의 모양(순환 / 개별에서 통합으로)을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "제목은 글이 실제로 다루는 시기·변화의 범위 안에 있어야 한다",
+        "현재의 과제·요령은 그것을 다루는 문장이 있어야 제목이 된다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "변화의 역사를 관찰하는 글에서 현재의 과제·요령을 내세운 제목은 근거 문장이 없어 지워진다고 볼 수 있다",
+        "when_applies": [
+          "과거 시점들을 비교하거나 변화 사례를 나열하는 글"
+        ],
+        "when_not": [
+          "글 끝에서 현재의 과제를 직접 제기하는 글"
+        ]
+      },
+      "limitation": "왼쪽 ⑤는 Tips 라는 지시형, 오른쪽 ⑤는 Challenges 라는 문제 제기형이라 덧붙인 형식은 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#28~M2606#28",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#28",
+        "units_hash": "84ccfb11c86cc7c4",
+        "inquiry_hash": "bf99472dfbbefe1b"
+      },
+      "right": {
+        "id": "M2606#28",
+        "units_hash": "3f6ae94ebd79745f",
+        "inquiry_hash": "bd8fbb93cd864f90"
+      },
+      "focus": "두 안내문 문항 모두 기간 표기의 양 끝을 잘못 읽은 오답(마감일을 시작일로 / 2시간 30분을 3시간으로)과 한정어를 넓힌 오답이 해당 줄과 대조해 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ②는 from October 1st to November 30th 의 끝점을 시작으로, 오른쪽 ①은 9:00—11:30 의 길이를 3시간으로 읽었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              5
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ③은 only one webtoon 을 두 개로, 오른쪽 ⑤는 Only the first participant 를 모든 참가자로 넓혔다"
+        }
+      ],
+      "shared_conditions": [
+        "기간은 시작점과 끝점을 from·to 또는 시각 표기로 구분해 읽고 길이는 계산한다",
+        "only 같은 한정어가 정한 수량·범위를 선지와 대조한다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "안내문의 기간·수량 선지는 양 끝점과 한정어를 그대로 대조하면 판정된다고 볼 수 있다",
+        "when_applies": [
+          "기간이 범위로, 수량이 only 로 표시된 안내문"
+        ],
+        "when_not": [
+          "기간·수량이 하나의 값으로만 적힌 안내문"
+        ]
+      },
+      "limitation": "왼쪽 ②는 끝점을 시작점으로 바꾼 것이고 오른쪽 ①은 길이 계산 오류라 기간 오류의 종류는 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#28~M2706#28",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#28",
+        "units_hash": "84ccfb11c86cc7c4",
+        "inquiry_hash": "bf99472dfbbefe1b"
+      },
+      "right": {
+        "id": "M2706#28",
+        "units_hash": "b90af64f5a73a45d",
+        "inquiry_hash": "97183c7724aa0704"
+      },
+      "focus": "두 안내문 문항 모두 안내문에 있는 값을 이웃한 다른 이름표(3등 인원 / 행사 시작 시각)에서 가져와 붙인 오답이 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              4
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ④의 3명은 3rd prize 행의 인원이고, 오른쪽 ③의 오후 6시는 2번 문장의 행사 시작 시각으로 4번 문장의 영화 시각(7 p.m.)이 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답은 한 항목의 문장을 이름표 그대로 옮긴다(선정 위원회 결정 / 음식·음료 판매)"
+        }
+      ],
+      "shared_conditions": [
+        "선지의 값이 안내문에 있어도 그 값이 붙은 이름표가 선지의 대상과 같은지 확인한다",
+        "이웃한 항목의 값을 옮긴 선지는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "안내문 일치 문항에서 값과 이름표의 짝을 확인하면 이웃 항목 값을 옮긴 선지를 지울 수 있다고 볼 수 있다",
+        "when_applies": [
+          "비슷한 종류의 값(인원·시각)이 여러 항목에 흩어진 안내문"
+        ],
+        "when_not": [
+          "값이 한 번만 나오는 안내문"
+        ]
+      },
+      "limitation": "왼쪽은 표의 행, 오른쪽은 서로 다른 줄의 시각이라 이웃의 형식이 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#31~M2706#31",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#31",
+        "units_hash": "5119ba98627dff24",
+        "inquiry_hash": "de81b092e235efea"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "두 빈칸 문항 모두 상식으로 그럴듯한 낱말(warmed / natural)이 지문이 서술한 내용(빛의 작용 방식 / 복원 대상 목록)과 대조하면 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 ①은 3번 문장의 감각 과부하·4~7번 문장의 시각 설명에 없는 열 작용을, 오른쪽 ④는 3번 문장의 악기·그림이 포함된 복원 대상과 맞지 않는 자연 상태를 넣는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              3,
+              7,
+              9
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 지문 서술(갇혀 맴돎 / 목적 있는 유지와 복원)과 들어맞는다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 낱말은 상식이 아니라 지문이 그 대상에 대해 서술한 내용으로 확인한다",
+        "지문 서술과 맞지 않는 연상어는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "빈칸 문항에서 상식 연상어는 지문이 서술한 작용·사례와 대조해 걸러진다고 볼 수 있다",
+        "when_applies": [
+          "빛-열, 보존-자연처럼 상식적 연상이 쉬운 소재의 글"
+        ],
+        "when_not": [
+          "지문이 그 연상 자체를 서술하는 글"
+        ]
+      },
+      "limitation": "왼쪽은 해당 개념이 지문에 아예 없고, 오른쪽은 예시 목록과 어긋난다는 점에서 확인 방식이 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#31~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#31",
+        "units_hash": "5119ba98627dff24",
+        "inquiry_hash": "de81b092e235efea"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 빈칸 문항 모두 지문 어디에도 대응하는 서술이 없는 행위(빛이 겨냥함 / 주의 기울이는 척)를 넣은 오답이 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ③은 9번 문장의 pull(끌어당김)에 없는 의도적 겨냥을, 오른쪽 ①은 6·7번 문장의 새어 나옴에 없는 주의를 기울이는 척을 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              3,
+              7,
+              9
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 근거 문장의 서술(맴돌며 벗어나지 못함 / 감추지 못함)을 그대로 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 선지는 근거 문장에 대응하는 서술이 있어야 한다",
+        "근거 문장과 무관한 행위를 넣은 선지는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "빈칸 문항에서 근거 문장 어디에도 대응하지 않는 행위어는 근거 부재로 지워진다고 볼 수 있다",
+        "when_applies": [
+          "빈칸 근거가 몇 문장에 모여 있는 글"
+        ],
+        "when_not": [
+          "빈칸이 지문 밖 추론을 요구하는 글"
+        ]
+      },
+      "limitation": "왼쪽 ③은 pull 과 의미가 가까워 보이는 근처 낱말 함정이고, 오른쪽 ①은 근처 낱말도 없다는 차이가 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#32~M2706#31",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#32",
+        "units_hash": "772c306ba19a2f14",
+        "inquiry_hash": "82fcb214f6250efe"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "두 빈칸 문항 모두 지문의 대립 축에서 반대편에 속한 속성(상업적 이익 / 격리)을 고른 오답이, 빈칸 주어가 어느 편인지 확인하면 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              3,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              4,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ⑤는 3번 문장에서 이미 보장된 쪽(수익성)을 no guarantee 아래에 넣고, 오른쪽 ③은 6번 문장 보존주의자의 태도를 보전주의자 문장에 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              5,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 빈칸 자리에 맞는 편(보장되지 않는 다수의 수요 / 보전주의자의 원하는 상태)의 속성이다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 문장이 대립 축의 어느 편을 요구하는지 먼저 정한다",
+        "반대편 속성을 넣은 선지는 지문 어휘와 겹쳐도 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "대립 축이 있는 글의 빈칸은 빈칸 자리가 요구하는 편의 속성으로 채워진다고 볼 수 있다",
+        "when_applies": [
+          "rather than·대비 집단으로 두 편이 갈리는 글"
+        ],
+        "when_not": [
+          "두 항이 대립하지 않는 글"
+        ]
+      },
+      "limitation": "왼쪽은 no guarantee 라는 부정이 편을 뒤집어 주는 반면 오른쪽은 주어(Conservationists)가 편을 직접 정해, 편을 찾는 단서가 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#32~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#32",
+        "units_hash": "772c306ba19a2f14",
+        "inquiry_hash": "82fcb214f6250efe"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 빈칸 문항 모두 지문이 다루지 않은 개념(기준·규범 / 주의 기울이는 척)을 넣은 오답이, 지문의 대립 축이나 근거 문장에 없다는 점으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              7
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ③은 3·7번 문장의 수익성 대 공동체 수요 축에 없는 기준·규범을, 오른쪽 ①은 6·7번 문장에 없는 주의 기울이는 척을 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              5,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 근거 문장들이 세운 축·방향을 그대로 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 선지의 개념이 지문의 축이나 근거 문장에 있는지 확인한다",
+        "지문 밖 개념은 그럴듯해도 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "빈칸 문항에서 지문의 축 밖 개념을 담은 선지는 근거 부재로 지워진다고 볼 수 있다",
+        "when_applies": [
+          "지문이 하나의 대립 축이나 하나의 귀결로 빈칸을 받치는 글"
+        ],
+        "when_not": [
+          "지문이 여러 기준을 열거하는 글"
+        ]
+      },
+      "limitation": "왼쪽은 축이 rather than 으로 명시되고 오른쪽은 인용 내용이 근거라 근거 형식이 다르며, 오른쪽 ①은 다른 문항과의 비교에서도 같은 원리로 다뤄진다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#33~M2706#31",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#33",
+        "units_hash": "3e0ad750f3e13830",
+        "inquiry_hash": "9e9fc8d8d4fa2f42"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "두 빈칸 문항 모두 빈칸 문장 자체의 틀(not due to necessity / prolong 의 목적어)이 오답 하나를 그 문장 안에서 지운다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              5
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ③(교통 부재)은 2번 문장에서 걷게 만드는 필요 사정인데 5번 문장 not due to necessity 가 그런 이유를 배제하고, 오른쪽 ②(불안정한 상태)는 4번 문장 prolong 이 원하는 상태를 요구해 성립하지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              5,
+              6
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 빈칸 문장의 틀을 만족하면서 근거 문장(머물고 싶은 유혹 / 목적 있는 유지)과 맞는다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 문장 안의 부정 틀이나 동사가 넣을 수 있는 말의 종류를 먼저 제한한다",
+        "그 제한을 어기는 선지는 다른 문장을 보지 않아도 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "빈칸 문항에서 빈칸 문장의 틀(not A but B, 동사의 목적어 성격)이 허용하지 않는 선지는 그 문장 안에서 배제된다고 볼 수 있다",
+        "when_applies": [
+          "빈칸 문장에 not due to·prolong 처럼 넣을 말을 제한하는 표현이 있는 경우"
+        ],
+        "when_not": [
+          "빈칸 문장이 중립적이어서 근거 문장을 봐야만 선지가 걸러지는 경우"
+        ]
+      },
+      "limitation": "왼쪽 ③은 2번 문장에서 교통 부족이 필요 사정임을 확인해야 틀에 걸린다는 점에서 오른쪽보다 한 단계가 더 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#34~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#34",
+        "units_hash": "41bcfba36b3eab71",
+        "inquiry_hash": "6018d63414a91197"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 빈칸 문항 모두 배경지식으로 그럴듯한 결론(철학 연구의 필요 / 주의를 기울이는 척)을 넣은 오답이, 근거 문장에 그 내용이 없다는 점으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ①은 7·8번 문장의 집합적 존재·친절에 없는 철학 연구의 필요를, 오른쪽 ①은 6·7번 문장의 새어 나옴에 없는 주의를 기울이는 척을 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 빈칸 뒤·앞 근거 문장(참된 자아는 우리 안에만 있지 않음 / 비밀을 못 지킴)을 그대로 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "빈칸 선지의 내용이 근거 문장에 있는지 확인한다",
+        "배경지식으로만 그럴듯한 결론은 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "빈칸 문항에서 근거 문장에 없는 배경지식형 결론은 근거 부재로 지워진다고 볼 수 있다",
+        "when_applies": [
+          "철학자·심리학 같은 소재로 일반 상식 결론이 쉽게 떠오르는 글"
+        ],
+        "when_not": [
+          "빈칸이 지문 밖 일반화를 요구하는 글"
+        ]
+      },
+      "limitation": "왼쪽 근거는 빈칸 뒤 인용, 오른쪽 근거는 빈칸 앞 인용이며, 오른쪽 ①은 다른 문항과의 비교에서도 같은 원리로 다뤄진다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#35~M2606#35",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#35",
+        "units_hash": "f2f1e1c992fdbe55",
+        "inquiry_hash": "24beb9d97d63510d"
+      },
+      "right": {
+        "id": "M2606#35",
+        "units_hash": "6fccd5c33b99eccc",
+        "inquiry_hash": "c66b085401ef6a0f"
+      },
+      "focus": "두 무관 문장 문항 모두 화제를 넓히는 듯한 ①이 실은 2번 문장을 받아(수단 / 현재 추세 선언) 뒤 문장들이 차례로 그것을 이어받으므로 흐름 안에 있다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ①의 넓은 연결망은 2번 문장의 적극적 탐색을 가능하게 하는 수단이고, 오른쪽 ①은 2번 문장이 열어 둔 녹음·축소를 현재 추세로 선언한다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답 ④는 주어를 구매 장점 / 학교 과학 프로젝트로 돌려, 빼면 5번 문장 뒤에 7번 문장이 바로 이어진다"
+        }
+      ],
+      "shared_conditions": [
+        "넓어 보이는 문장도 앞 문장을 받아 뒤 문장들의 출발점이 되면 흐름 안에 있다",
+        "뒤 문장들이 이어받지 않는 문장이 무관 문장이다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "무관 문장 문항에서 총론처럼 넓은 문장은 뒤 문장들이 그것을 이어받는지로 소속을 확인할 수 있다고 볼 수 있다",
+        "when_applies": [
+          "①이 앞 도입을 받아 새 축을 세우는 글"
+        ],
+        "when_not": [
+          "①이 도입과 다른 화제를 여는 글"
+        ]
+      },
+      "limitation": "왼쪽 ①은 이유(Because) 형식, 오른쪽 ①은 현재 추세 선언이라 앞 문장을 받는 방식이 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#35~M2609#35",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#35",
+        "units_hash": "f2f1e1c992fdbe55",
+        "inquiry_hash": "24beb9d97d63510d"
+      },
+      "right": {
+        "id": "M2609#35",
+        "units_hash": "163589e35e5f16eb",
+        "inquiry_hash": "4d41e300e4196ce8"
+      },
+      "focus": "두 무관 문장 문항 모두 ①이 넓은 틀(연결망 / 두 집단 모두에 중요)을 세우고 ②③이 그것을 차례로 받으므로, ①은 흐름의 총론이다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              4,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              4,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ①의 연결망을 ②(다른 도시·해외 문의)와 ③(정보 수신)이, 오른쪽 ①의 alike 두 집단을 ②(소수자)와 ③(다수자)이 차례로 받는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답 ④는 틀의 핵심(연결망 / diverse)을 놓친 일반 진술이며, 빼면 7번 문장의 In turn / these mentoring opportunities 가 5번 문장을 바로 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "뒤 문장들이 차례로 받는 넓은 문장은 총론이라 흐름 안에 있다",
+        "틀의 핵심 한정어를 놓친 일반 진술이 무관 문장이 된다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "무관 문장 문항에서 뒤 문장들이 각론으로 받는 넓은 문장은 지우지 않는다고 볼 수 있다",
+        "when_applies": [
+          "① 뒤에 그 문장의 항목을 하나씩 채우는 문장이 이어지는 글"
+        ],
+        "when_not": [
+          "① 뒤 문장들이 ①과 다른 항목을 다루는 글"
+        ]
+      },
+      "limitation": "왼쪽 각론은 연결망의 사용 예, 오른쪽 각론은 짝 대비의 두 항이라 받는 형식이 다르며, 같은 왼쪽 문항의 다른 비교와 원리가 겹친다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#35~M2706#35",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#35",
+        "units_hash": "f2f1e1c992fdbe55",
+        "inquiry_hash": "24beb9d97d63510d"
+      },
+      "right": {
+        "id": "M2706#35",
+        "units_hash": "4dff555466c70624",
+        "inquiry_hash": "8f8e547038b6e696"
+      },
+      "focus": "두 무관 문장 문항 모두 ①이 2번 문장을 받아 이유를 대는 문장(전업이라 연결망이 넓다 / 아기는 뼈가 상대적으로 굵다)이라 흐름 안에 있고, 정답 ④는 화제 낱말만 겹친다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ①은 Because 로 2번 문장의 탐색이 가능한 이유를, 오른쪽 ①은 Their 로 2번 문장의 아기를 받아 크게 다치지 않는 이유를 댄다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답 ④는 dealer / mass 낱말만 겹치고 이유 사슬에 기여하지 않으며, 빼면 7번 문장 In turn / For the same reasons 가 5번 문장을 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "앞 문장에 이유·수단을 대는 문장은 화제가 튀어 보여도 흐름 안에 있다",
+        "겹치는 낱말만 있고 이유 사슬에 기여하지 않는 문장이 무관 문장이다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "무관 문장 문항에서 앞 문장의 이유를 대는 문장과 낱말만 겹치는 문장은 이유 사슬 기여 여부로 갈린다고 볼 수 있다",
+        "when_applies": [
+          "Because·대명사로 앞 문장에 이유를 붙이는 문장이 있는 글"
+        ],
+        "when_not": [
+          "이유 설명 없이 사례만 나열되는 글"
+        ]
+      },
+      "limitation": "왼쪽 ①은 접속사로, 오른쪽 ①은 대명사 Their 로 앞 문장과 이어져 연결 표지가 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#38~M2606#38",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#38",
+        "units_hash": "b9f45cb17ed4a126",
+        "inquiry_hash": "e938f9a566e61068"
+      },
+      "right": {
+        "id": "M2606#38",
+        "units_hash": "401038b8290a8342",
+        "inquiry_hash": "79149292fe1d3a71"
+      },
+      "focus": "두 삽입 문항 모두 주어진 문장의 연결 표지(If not / But ... also)가 요구하는 앞 내용(부정할 요건 / 끝난 장점 묶음)이 없는 자리가 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ②에서는 If not 이 4번 문장의 설정 지시를 부정하게 되고, 오른쪽 ①에서는 But 이 3번 문장의 However 와 겹치며 뒤가 단점이 아닌 장점이다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              1,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5,
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답 자리는 앞 문장이 표지의 요구(구별 장치 요건 / 장점 묶음의 끝)를 채우고 뒤 문장이 주어진 문장을 받는(would / 첫 단점) 곳이다"
+        }
+      ],
+      "shared_conditions": [
+        "주어진 문장의 연결 표지가 앞에 어떤 내용을 요구하는지 먼저 정한다",
+        "그 내용이 바로 앞에 없는 자리는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "삽입 문항에서 주어진 문장의 연결 표지가 요구하는 앞 내용의 종류로 자리를 좁힐 수 있다고 볼 수 있다",
+        "when_applies": [
+          "If not·also downsides 처럼 앞 내용을 특정하는 표지로 시작하는 주어진 문장"
+        ],
+        "when_not": [
+          "주어진 문장에 연결 표지가 없는 경우"
+        ]
+      },
+      "limitation": "왼쪽은 조건 부정의 대상, 오른쪽은 첨가 대상(장점 묶음)을 찾는 것이라 표지의 논리는 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#38~M2606#39",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#38",
+        "units_hash": "b9f45cb17ed4a126",
+        "inquiry_hash": "e938f9a566e61068"
+      },
+      "right": {
+        "id": "M2606#39",
+        "units_hash": "106d337bf409ec86",
+        "inquiry_hash": "781ac62e02901fc4"
+      },
+      "focus": "두 삽입 문항 모두 주어진 문장의 정관사·지시 표현(the robot·the blocks / all of this walking)이 가리킬 대상이 처음 나오기 전 자리가 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              3
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ①은 the robot·the blocks 를 4번 문장의 첫 등장보다, 오른쪽 ①은 all of this walking 을 3번 문장의 첫 걷기보다 앞에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              1,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              6,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답 자리는 지시 대상이 모두 나온 뒤(구별 장치 요건 / 앞뒤 걷기 모두)다"
+        }
+      ],
+      "shared_conditions": [
+        "정관사·지시 표현의 대상이 처음 나온 문장 뒤로만 삽입할 수 있다",
+        "대상이 아직 없는 자리는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "삽입 문항에서 주어진 문장의 지시 대상이 처음 나오는 위치가 가능한 자리의 하한을 정한다고 볼 수 있다",
+        "when_applies": [
+          "주어진 문장에 the+명사나 all of this 가 있는 경우"
+        ],
+        "when_not": [
+          "주어진 문장이 새 대상을 a+명사로 처음 소개하는 경우"
+        ]
+      },
+      "limitation": "오른쪽은 back and forth 의 두 방향이 모두 나와야 해 하한이 6번 문장까지 내려가고, 왼쪽은 If not 의 부정 대상이 자리를 확정한다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#38~M2609#38",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#38",
+        "units_hash": "b9f45cb17ed4a126",
+        "inquiry_hash": "e938f9a566e61068"
+      },
+      "right": {
+        "id": "M2609#38",
+        "units_hash": "42738cfe892da41e",
+        "inquiry_hash": "3cc70bf773b7be47"
+      },
+      "focus": "두 삽입 문항 모두 가정과 그 would 귀결이 한 묶음이라, 귀결 문장을 조건에서 떼어 놓는 자리가 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ③에 넣으면 8번 문장의 would 가 받을 조건(If not)이 멀어지고, 오른쪽 ①에 넣으면 3번 문장의 if 가정과 4번 문장의 would 귀결 사이가 끊긴다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              1,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답 자리는 가정-귀결 묶음이 끝난 뒤 또는 귀결이 조건 바로 뒤에 오는 곳(If not → would / 겨울 가정이 끝난 5번 문장 뒤)이다"
+        }
+      ],
+      "shared_conditions": [
+        "조건 없이 쓰인 would 문장은 바로 앞 문장의 가정을 이어받는다",
+        "가정과 귀결 사이, 또는 귀결을 조건에서 떼어 놓는 자리는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "삽입 문항에서 would 귀결 문장은 그 가정과 붙어 있어야 하므로 그 사이를 후보에서 뺄 수 있다고 볼 수 있다",
+        "when_applies": [
+          "If·If not 가정 뒤 would 문장이 이어지는 글"
+        ],
+        "when_not": [
+          "would 가 과거 습관을 뜻해 가정과 무관한 경우"
+        ]
+      },
+      "limitation": "왼쪽은 주어진 문장 자체가 조건(If not)이라 귀결 앞에 와야 하고, 오른쪽은 주어진 문장이 가정 묶음 밖의 도입이라 묶음을 건너야 한다는 차이가 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#38~M2706#39",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#38",
+        "units_hash": "b9f45cb17ed4a126",
+        "inquiry_hash": "e938f9a566e61068"
+      },
+      "right": {
+        "id": "M2706#39",
+        "units_hash": "b0b83afa53b94aa2",
+        "inquiry_hash": "21a5d9783c5c164e"
+      },
+      "focus": "두 삽입 문항 모두 정관사·지시 표현의 대상이 그 표현보다 뒤에 오게 되는 자리가 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 ①은 주어진 문장의 the robot·the blocks 를 4번 문장의 첫 등장보다, 오른쪽 ④는 6번 문장 Here the lexicon 을 그 대상인 color terms(주어진 문장)보다 앞에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              1,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답 자리는 지시 대상이 먼저 나오고 지시 표현이 뒤따르게 한다"
+        }
+      ],
+      "shared_conditions": [
+        "정관사 명사·지시 표현은 그 대상이 처음 나온 뒤에만 올 수 있다",
+        "대상이 표현보다 뒤에 오는 배치는 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "삽입 문항에서 지시 대상이 처음 나오는 위치를 기준으로 앞뒤 자리를 걸러 낼 수 있다고 볼 수 있다",
+        "when_applies": [
+          "주어진 문장이나 그 뒤 문장에 the+명사·Here 같은 지시 표현이 있는 글"
+        ],
+        "when_not": [
+          "지시 표현이 글 밖 일반 대상을 가리키는 경우"
+        ]
+      },
+      "limitation": "왼쪽은 주어진 문장의 정관사가, 오른쪽은 뒤 문장의 지시 표현이 대상을 잃는다는 방향 차이가 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#40~M2609#40",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#40",
+        "units_hash": "8b03b668e7ddc71a",
+        "inquiry_hash": "d64d3280b8211a6e"
+      },
+      "right": {
+        "id": "M2609#40",
+        "units_hash": "5b1e0a8c1c3319bc",
+        "inquiry_hash": "777d60c2c3fabc5f"
+      },
+      "focus": "두 요약 문항 모두 (A)는 받아들일 만하지만 (B)가 지문에 없는 성질·평가(universal / degradation)를 넣은 선지가 (B) 근거 문장과 대조해 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ②의 universal 은 6번 문장의 개수 제한 대신 보편성을, 오른쪽 ②의 degradation 은 8번 문장의 큰 변화 대신 나빠짐을 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              6,
+              10
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              8,
+              9
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답 (B)는 근거 문장의 정도(a restricted number → finite / change considerably → transformation)를 그대로 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "요약문 (B)는 근거 문장이 말한 성질 차원(수 제한·변화 정도)을 옮겨야 한다",
+        "다른 성질·평가를 넣은 낱말은 (A)가 맞아도 선지를 지운다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "요약 문항에서 (B) 낱말이 근거 문장과 다른 성질 차원을 말하면 그 선지는 지워진다고 볼 수 있다",
+        "when_applies": [
+          "(B)가 수량·정도를 옮기는 칸인 요약문"
+        ],
+        "when_not": [
+          "지문이 그 성질어를 직접 쓰는 경우"
+        ]
+      },
+      "limitation": "오른쪽 ②는 (A) endure 도 어긋나 (B)만으로 지워지는 것은 아니다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#40~M2706#40",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#40",
+        "units_hash": "8b03b668e7ddc71a",
+        "inquiry_hash": "d64d3280b8211a6e"
+      },
+      "right": {
+        "id": "M2706#40",
+        "units_hash": "f4891bf6194c6485",
+        "inquiry_hash": "86ebbfa8dd30d877"
+      },
+      "focus": "두 요약 문항 모두 (B)에 대비되는 다른 쪽 집단의 속성(동물 체계의 새 소리 / 이미 자원이 몰리는 부유층)을 넣은 선지가 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4,
+              8
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 ④의 novel 은 4번 문장에서 동물 체계가 새 소리를 들여와야 하는 쪽의 성질이고, 오른쪽 ④의 wealthy 는 2번 문장에서 이미 자원이 몰리는 쪽이라 새로 포함할 대상이 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              6,
+              10
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              5,
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답 (B)는 요약문이 가리키는 쪽(인간 언어의 한정된 소리 / 방치된 집단)의 속성이다"
+        }
+      ],
+      "shared_conditions": [
+        "요약문 (B)가 대비의 어느 쪽에 대한 칸인지 먼저 정한다",
+        "반대쪽의 속성을 넣은 선지는 지문 근거가 있어도 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "두 집단을 대비하는 글의 요약 칸은 그 칸이 가리키는 쪽의 속성으로만 채워진다고 볼 수 있다",
+        "when_applies": [
+          "whereas·rather than 으로 두 집단이 대비되는 요약문"
+        ],
+        "when_not": [
+          "요약문이 두 집단의 공통점을 묻는 경우"
+        ]
+      },
+      "limitation": "왼쪽 ④는 지문에 근거가 있는 속성을 엉뚱한 쪽에 붙였고, 오른쪽 ④는 지문에서 이미 혜택받는 쪽을 새 대상으로 바꿨다는 차이가 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#41~M2606#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#41",
+        "units_hash": "d1496d7d1a1b959b",
+        "inquiry_hash": "b75129caf731a541"
+      },
+      "right": {
+        "id": "M2606#41",
+        "units_hash": "54d1c0c7a8d9c306",
+        "inquiry_hash": "a8fe63b7a6dbe879"
+      },
+      "focus": "두 장문 제목 문항 모두 비유·사례로 한 번 스친 소재(해변 주민 / VR)를 제목의 핵심으로 키운 오답이 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              7,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ②는 5번 문장 해변 비유의 no longer 를 시인의 영감 원천으로, 오른쪽 ③은 7번 문장에서 사례로 한 번 나온 VR 을 역사 서술로 키웠다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              6
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              2
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 글의 중심 진술(일상어를 새롭게 함 / 기술이 일상에 녹아듦)을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "비유·사례로 한 번 나온 소재는 제목의 핵심이 되지 않는다",
+        "제목은 비유·사례가 설명하는 중심 진술로 정한다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "제목 문항에서 비유나 단일 사례의 소재를 핵심으로 올린 선지는 중심 진술이 빠져 지워진다고 볼 수 있다",
+        "when_applies": [
+          "In much the same way·for example 로 비유·사례가 끼어 있는 글"
+        ],
+        "when_not": [
+          "사례가 글 전체에 걸쳐 반복되는 글"
+        ]
+      },
+      "limitation": "왼쪽은 비유, 오른쪽은 예시라 장치 종류가 다르며, 오른쪽 ③은 역사라는 지문에 없는 측면도 덧붙였다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2509#41~M2706#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2509#41",
+        "units_hash": "d1496d7d1a1b959b",
+        "inquiry_hash": "b75129caf731a541"
+      },
+      "right": {
+        "id": "M2706#41",
+        "units_hash": "54e417e31299d679",
+        "inquiry_hash": "23aae4ee42751539"
+      },
+      "focus": "두 장문 제목 문항 모두 지문에 한 번 나온 소재(구술시 / 평판 유리)에 지문이 말하지 않은 술어(부활 / 제작 기법)를 붙인 오답이 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ⑤는 1번 문장에 한 번 나온 구술시에 부활을, 오른쪽 ⑤는 8번 문장의 개발 시기만 나온 평판 유리에 제작 기법을 붙였다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              6
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 글 끝까지 이어지는 중심 진술(일상어를 새롭게 함 / 아직 풀리지 않은 유리의 성질)을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "한 번 나온 소재에 붙은 제목 술어는 그 문장이 실제로 말한 내용과 같아야 한다",
+        "지문에 없는 술어를 붙인 제목은 지워진다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "제목 문항에서 한 번 언급된 소재에 지문 밖 술어를 붙인 선지는 그 문장과 대조해 지워진다고 볼 수 있다",
+        "when_applies": [
+          "소재 낱말이 지문 한 문장에만 나오는 경우"
+        ],
+        "when_not": [
+          "그 소재가 글의 중심 화제인 경우"
+        ]
+      },
+      "limitation": "왼쪽 ⑤의 소재는 도입의 배경, 오른쪽 ⑤의 소재는 중간 사례라 글 안의 위치가 다르다.",
+      "decisive_differences": []
+    }
+  ]
+}

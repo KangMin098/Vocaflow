@@ -1,0 +1,164 @@
+{
+  "reviewer": "rv-v3p-final-b",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2022#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "1a9ed057e456ec24",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. 왼쪽 ③(However 가 대조할 6번 문장이 뒤)과 오른쪽 ③(Put simply 가 줄일 2·3번 문장이 뒤)은 v3 근거와 맞고 같은 규칙이다."
+    },
+    {
+      "pair_id": "2022#38~M2606#38",
+      "verdict": "revise",
+      "content_hash": "9f0fb2f34224f55b",
+      "codes": [
+        "P1"
+      ],
+      "why": "첫 대응(정답 자리)은 맞다. 둘째 대응은 왼쪽 ②(4번 For example 이 3번을 받음)와 오른쪽 ⑤(첫 단점 6번이 표제 없이 장점 묶음에 섞임)를 묶는데, relation 스스로 두 이유를 다르게 적고 limitation 도 「두 오답 자리는 지워지는 규칙이 달라 다루지 않는다」고 해 서로 어긋난다. 수정안: mappings 의 둘째 항목(왼쪽 [3,4]/② · 오른쪽 [6,7]/⑤)을 지우고 정답 자리 대응만 남긴다."
+    },
+    {
+      "pair_id": "2022#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "56f9a4238a0a97b3",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. 왼쪽 ④는 (A) fixed, 오른쪽 ①은 (B) simplification 이 v3 근거대로 방향을 바꿔 같은 규칙으로 지워진다."
+    },
+    {
+      "pair_id": "2022#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "5917546bbd544b3b",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. 슈퍼마켓 예시(2~4번)와 While 종속절 배경(1번)을 화제로 올린 오답이라는 대응이 v3 근거와 맞다."
+    },
+    {
+      "pair_id": "2023#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "aab89c403210d2d8",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. 2번 문장 should use the theme / no participation fee 를 뒤집는 오답 대응이 v3 와 맞다."
+    },
+    {
+      "pair_id": "2023#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "50f4afceb34f1b84",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. 4번 For example ↔ 6번 The vortices 가 바로 앞 문장을 받는 자리라는 대응이 v3 와 맞다."
+    },
+    {
+      "pair_id": "2024#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "5335e57f1a31a4f1",
+      "codes": [],
+      "why": "내부 과정 언급이 지워졌다. launched 의 대상(강좌) · 이미 본 영상이라는 v3 근거와 대응이 맞다."
+    },
+    {
+      "pair_id": "2024#22~M2706#22",
+      "verdict": "revise",
+      "content_hash": "556f060105b73274",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ④ 다루지 않은 대상 · 오른쪽 ⑤ 5번 문장과 정반대)끼리는 규칙이 달라 not_applicable 이유는 맞지만, 규칙 10에 따라 다른 조합에 대응이 성립한다: 왼쪽 ②(6번 문장 understand what drove the compliments 는 놓친 기회의 한 세부일 뿐인데 피드백 분석 처방으로 키움)와 오른쪽 ②(2번 문장 인용 속 세부인 전문가 동원을 요지로 키움)는 「한 문장 속 세부를 글의 요지로 끌어올린 오답」으로 같은 규칙이다. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[6],choices:[2]} ↔ 오른쪽 {sentences:[2,7],choices:[2]}, 정답 대응 왼쪽 [1,5,6]/① ↔ 오른쪽 [1,4,7]/①, shared_conditions 「오답이 근거로 삼는 표현이 한 문장 안의 세부다」. 또 지금 출력은 not_applicable 인데 focus · mappings 에 「극성 뒤집기」 내용이 남아 있으니 함께 바꾼다."
+    },
+    {
+      "pair_id": "M1809#22~M2706#23",
+      "verdict": "revise",
+      "content_hash": "c10003dcd886d701",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ①·오른쪽 ⑤)끼리 규칙이 다르다는 이유는 맞지만, 규칙 10에 따라 다른 조합을 보면 왼쪽 ④(5번 문장은 통찰을 분석적 사고의 결과로 잇는데 「분리해야 한다」로 뒤집음)와 오른쪽 ③(3번 문장은 에너지 비축이 적어 제약인데 「이점」으로 뒤집음)이 「지문이 밝힌 관계를 반대로 놓은 주제 오답」으로 같은 규칙이다. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[5],choices:[4]} ↔ 오른쪽 {sentences:[3],choices:[3]}, 정답 대응 왼쪽 [5,6,7]/② ↔ 오른쪽 [1,4,5,7]/②, shared_conditions 「지문 한 문장이 두 요소의 관계(결과·제약)를 명시하고 오답이 그 관계를 반대로 놓는다」."
+    },
+    {
+      "pair_id": "M1809#31~M2706#32",
+      "verdict": "revise",
+      "content_hash": "5c889b11358b5b38",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ① 언급 없음 · 오른쪽 ④ 반대 방향)끼리는 규칙이 달라 이유는 맞지만, 규칙 10에 따라 왼쪽 ②(4번 문장이 천재의 더 높은 성공률을 부정 → superiority)와 오른쪽 ④(7번 문장이 비언어가 저절로 새어 나온다고 함 → maintain 이 어렵다는 반대 방향)는 「지문 문장이 정면으로 부정하는 방향의 낱말로 빈칸을 채운 오답」으로 같은 규칙이다(또는 왼쪽 ①·오른쪽 ①이 둘 다 대응 문장 없음으로 같은 규칙). 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[4],choices:[2]} ↔ 오른쪽 {sentences:[7],choices:[4]}, 정답 대응 왼쪽 [1,3,4]/④ ↔ 오른쪽 [6,7,8]/②."
+    },
+    {
+      "pair_id": "M1809#37~M2609#37",
+      "verdict": "revise",
+      "content_hash": "ce6453550905774a",
+      "codes": [
+        "P1"
+      ],
+      "why": "첫 대응의 오른쪽 선지가 ④로 고쳐져 맞다. 그러나 둘째 대응은 왼쪽 ⑤(this oneness 선행사 없음, [5,8])와 오른쪽 ⑤를 묶으면서 오른쪽 문장을 v3 근거 [4,7](B 의 대꾸가 7번 뒤에 붙음)로 달아, 같은 요구 조건(첫 자리 단락 연결 표현의 선행 내용)의 대응이 아니다 — limitation 도 오른쪽 ⑤ 배제가 (B) 위치 중심이라 인정한다. 수정안: 둘째 mapping(왼쪽 [5,8]/⑤ · 오른쪽 [4,7]/⑤)을 지우고 limitation 의 「오른쪽 ⑤의 배제는 …」 문장도 지운다. 첫 대응만으로 same_structure 가 선다."
+    },
+    {
+      "pair_id": "M2006#21~M2706#21",
+      "verdict": "revise",
+      "content_hash": "e6b1c9c480692478",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ① · 오른쪽 ③)끼리 근거 종류가 다르다는 이유는 맞지만, 규칙 10에 따라 정답끼리 대응이 성립한다: 왼쪽 ⑤는 9번 밑줄 직전 7번 문장(The process asked for activity, and activity was what it got)이, 오른쪽 ②는 9번 밑줄 직전 8번 문장(인간 고유의 의식 부위를 아무도 못 찾음)이 밑줄 비유가 가리키는 대상을 정한다 — 「밑줄 비유의 지시 대상을 바로 앞 문장이 정한다」는 같은 구조. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[1,7,9],choices:[5]} ↔ 오른쪽 {sentences:[8,9],choices:[2]}, 오답 대응으로 왼쪽 ①(3번이 보상을 효과와 반대로 둠) ↔ 오른쪽 ①(7번 연구 촉구는 Griffin 자신의 주장이라 버릴 대상이 아님)을 「지문이 반대 평가를 준 대상을 밑줄 뜻으로 놓음」으로 더할 수 있다."
+    },
+    {
+      "pair_id": "M2006#31~M2706#31",
+      "verdict": "revise",
+      "content_hash": "92431e70280918a1",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ③ · 오른쪽 ④)끼리 대응이 없다는 이유는 맞지만, 규칙 10에 따라 왼쪽 ①(cloning — without 자리는 피해야 할 일을 요구하는데 복제는 그런 일로 놓인 적 없음, v3 [7])과 오른쪽 ②(unstable — prolong 의 목적이 될 수 없음, v3 [4])는 「빈칸 문장 안의 틀 낱말(without · prolong)이 요구하는 의미와 맞지 않아 그 문장 안에서 지워지는 오답」으로 같은 규칙이다. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[7],choices:[1]} ↔ 오른쪽 {sentences:[4],choices:[2]}, 정답 대응 왼쪽 [4,5,7]/② ↔ 오른쪽 [2,3,4]/①, shared_conditions 「빈칸 앞 틀 낱말이 빈칸 의미의 방향(피할 것 / 늘릴 것)을 정한다」."
+    },
+    {
+      "pair_id": "M2109#41~M2706#41",
+      "verdict": "revise",
+      "content_hash": "ccb5cb71d10339d7",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ⑤ 범위 과소 · 오른쪽 ③ 구실 왜곡)끼리 규칙이 다르다는 이유는 맞지만, 규칙 10에 따라 왼쪽 ①(4번 문장의 허구 몰입 한 장면에 지문에 없는 「벽 세우기」를 얹음)과 오른쪽 ⑤(8번 문장의 평판 유리 개발 시기 한 줄에 지문에 없는 「제작 기법」을 얹음)는 「한 문장 세부에 지문에 없는 내용을 붙여 제목으로 세운 오답」으로 같은 규칙이다. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[4],choices:[1]} ↔ 오른쪽 {sentences:[8],choices:[5]}, 정답 대응 왼쪽 [1,9]/④ ↔ 오른쪽 [9,11]/①."
+    },
+    {
+      "pair_id": "M2306#21~M2609#21",
+      "verdict": "revise",
+      "content_hash": "e6162bf101150080",
+      "codes": [
+        "P6"
+      ],
+      "why": "legacy 선지(왼쪽 ① · 오른쪽 ②)끼리 규칙이 다르다는 이유는 맞지만, 규칙 10에 따라 정답끼리 대응이 성립한다: 왼쪽 ⑤는 밑줄 문장 6번의 since 절(특정 관점 없이는 볼 수 없다)이, 오른쪽 ③은 밑줄 문장 8번의 each time we double 조건이 밑줄 비유의 뜻을 정한다 — 「밑줄 문장 안의 조건절이 비유의 뜻을 고정한다」는 같은 구조. 수정안: status ok · kind same_structure · mapping 왼쪽 {sentences:[1,6],choices:[5]} ↔ 오른쪽 {sentences:[2,8],choices:[3]}, 오답 대응으로 왼쪽 ③(particular 를 「소수」로 읽음) ↔ 오른쪽 ②(home 을 같은 주파수로 문자 그대로 읽음)를 「밑줄 문장 낱말을 그 문장의 조건이 배제하는 뜻으로 읽은 오답」으로 더할 수 있다."
+    },
+    {
+      "pair_id": "M2306#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "997bd8c2f169421e",
+      "codes": [],
+      "why": "내부 산출물 언급이 지워졌다. awake(1번 쇠퇴와 반대) · maintain(7번 저절로 새어 나옴과 반대) 대응이 v3 와 맞다."
+    },
+    {
+      "pair_id": "M2306#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "f0d6fc00c0b572f3",
+      "codes": [],
+      "why": "내부 경위가 지워졌다. 두 ② 자리 모두 주어진 문장이 기댈 내용이 6번 문장에 처음 나온다는 대응이 v3 근거와 맞다."
+    },
+    {
+      "pair_id": "M2309#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "2536e39b79e340a0",
+      "codes": [],
+      "why": "내부 산출물 언급이 지워졌다. must 문장의 요구 행동을 지문에 없는 행동으로 바꾼 오답(업무 분배 · 활동 다양화) 대응이 v3 와 맞다."
+    },
+    {
+      "pair_id": "M2406#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "df5bc244a6b5cb3f",
+      "codes": [],
+      "why": "kind 가 same_structure 로 고쳐졌고 5번 문장 보강은 limitation 으로 옮겨졌다. dependent upon observers · prolong 이 그 문장 안에서 반대 방향 낱말을 막는다는 대응이 v3 와 맞다."
+    },
+    {
+      "pair_id": "M2406#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "934dfa70162d313b",
+      "codes": [],
+      "why": "왼쪽 대응이 ⑤(10번 their decline 이 잘 자라는 개체를 가리킴)로 바뀌어 오른쪽 ①(4번 they 가 사람을 받음)과 같은 「자리 뒤 문장 지시어의 선행사 교체」가 됐고 v3 와 맞다."
+    }
+  ]
+}

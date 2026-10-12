@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-06",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2016#23~M2706#24",
+      "verdict": "pass",
+      "content_hash": "58641005520ee0b7",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#26~M2609#28",
+      "verdict": "pass",
+      "content_hash": "3741755508356d0d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#26~M2706#28",
+      "verdict": "pass",
+      "content_hash": "9c0e8d910a23ec4b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "a71c9ba18f1d6840",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "b3a27fa05c4e165e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "5992a0b612bfff3c",
+      "codes": [],
+      "why": "not_applicable 이유가 원문 근거와 맞고, 다른 선지 조합에서도 같은 규칙의 대응이 서지 않는다."
+    },
+    {
+      "pair_id": "2016#33~M2706#32",
+      "verdict": "pass",
+      "content_hash": "6219dd575f14a07d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "1b50d6f09cb7c855",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#35~M2506#36",
+      "verdict": "pass",
+      "content_hash": "a63e7f51f2ea617d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#35~M2609#37",
+      "verdict": "pass",
+      "content_hash": "1b9e64aeeab3b01c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#36~M2506#36",
+      "verdict": "revise",
+      "content_hash": "fbd53282cbc696fc",
+      "codes": [
+        "P1"
+      ],
+      "why": "오른쪽에서 지시어 their animals·they 를 가진 단락은 (B)가 아니라 (C)(8번 문장)다. focus 를 「왼쪽은 (B)의 this avoidance·the child 를 (A)보다 앞에, 오른쪽은 (C)의 their animals·they 를 (A)보다 앞에 두어 지워진다」로 고치고, shared_conditions 의 「지시어 단락」 서술도 양쪽 단락 이름을 따로 밝힌다."
+    },
+    {
+      "pair_id": "2016#37~M2706#38",
+      "verdict": "pass",
+      "content_hash": "362de7ca096b124d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#37~M2706#39",
+      "verdict": "pass",
+      "content_hash": "1a7fe066b2b14077",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "ebfe897979a1f9ba",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "8991dd44f98d350d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "fbb0d6f7aa21a7d5",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "54cbb44fa157687b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#42~M1809#42",
+      "verdict": "pass",
+      "content_hash": "0fe1b9e7bd361f20",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "8218f63d6215b204",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2016#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "f604f145857ae3f0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    }
+  ]
+}

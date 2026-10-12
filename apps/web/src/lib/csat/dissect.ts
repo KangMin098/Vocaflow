@@ -78,6 +78,8 @@ export interface DissectionRecord {
   checks?: CheckAttempt[]
   /** 비교 완료(해설 극장 M4) — 검수된 같은 원리 쌍을 학습자가 실제로 대조했는가. 열람과 구별 */
   compares?: { id: string; item: string; other: string; at: number }[]
+  /** 원리 노트(v3 M4) — 해설 뒤 학습자가 쓴 조건부 원리 · 근거 · 적용 경계. 병합은 id 단위(새로 고친 쪽) · 자동 채점 없음 · 독립 진단 아님 */
+  reasoningNotes?: ReasoningNote[]
 }
 
 /**
@@ -113,6 +115,56 @@ export interface SelfExplanation {
   afterExplanation: true
   /** 쓴 뒤 분석 설명을 열어 대조했는가 */
   compared: boolean
+}
+
+/**
+ * 원리 노트 하나(CSAT_REASONING_DATA_V3 §ReasoningNote). 언제나 **설명 후 기록**이다 — `helpAtReveal` 이 independent 여도 독립 수행이 아니다.
+ * 원문 · 도표를 첨부하지 않는다(문장 번호만). 쓴 내용은 분석 이벤트로 보내지 않는다.
+ */
+export interface ReasoningNote {
+  id: string
+  item: string
+  /** 근거로 삼은 비교 쌍(검수된 v3 쌍 id) */
+  pairIds: string[]
+  /** 쓸 때의 결속 — 분석 버전이 바뀌면 화면이 「예전 분석으로 쓴 노트」로 표시한다 */
+  binding: { analysisVersion: number | null }
+  statement: string
+  grounds: string
+  applicability: string
+  limit: string
+  /** 근거 문장 번호(이 문항 지문) */
+  evidence: number[]
+  afterExplanation: true
+  /** 원세션의 해설 노출 수준을 알 때만 복사 — 덮어쓰지 않는다 */
+  helpAtReveal?: 'independent' | 'hint' | 'viewed_first'
+  /** 쓴 뒤 검수된 원리와 스스로 대조했는가 */
+  comparedWithModel: boolean
+  at: number
+  updatedAt: number
+}
+
+/** 원리 노트 한 칸 글자 상한 · 보관 건수 — 한글(3바이트) 최대치로도 노트 전체가 약 360KB 로 서버 상한(900KB) 안에 남게 */
+export const NOTE_FIELD_MAX = 300
+export const NOTE_KEEP = 100
+
+/** 노트 정규화 — 칸마다 NOTE_FIELD_MAX 로 자르고, 원리 문장이 비면 버린다(빈 노트가 저장되지 않게). 순수 */
+export function normalizeReasoningNote(x: Partial<ReasoningNote> | null | undefined): ReasoningNote | null {
+  if (!x || typeof x.id !== 'string' || typeof x.item !== 'string') return null
+  const clip = (v: unknown) => (typeof v === 'string' ? v.trim().slice(0, NOTE_FIELD_MAX) : '')
+  const statement = clip(x.statement)
+  if (!statement) return null
+  const at = Number.isFinite(x.at) ? Number(x.at) : 0
+  return {
+    id: x.id, item: x.item,
+    pairIds: Array.isArray(x.pairIds) ? x.pairIds.filter((p): p is string => typeof p === 'string').slice(0, 10) : [],
+    binding: { analysisVersion: typeof x.binding?.analysisVersion === 'number' ? x.binding.analysisVersion : null },
+    statement, grounds: clip(x.grounds), applicability: clip(x.applicability), limit: clip(x.limit),
+    evidence: Array.isArray(x.evidence) ? x.evidence.filter((n): n is number => Number.isInteger(n) && n > 0).slice(0, 20) : [],
+    afterExplanation: true,
+    ...(x.helpAtReveal === 'independent' || x.helpAtReveal === 'hint' || x.helpAtReveal === 'viewed_first' ? { helpAtReveal: x.helpAtReveal } : {}),
+    comparedWithModel: x.comparedWithModel === true,
+    at, updatedAt: Number.isFinite(x.updatedAt) ? Number(x.updatedAt) : at,
+  }
 }
 
 /** 한 칸 글자 상한 — 기록 전체가 서버 상한(900KB)을 넘지 않게 */

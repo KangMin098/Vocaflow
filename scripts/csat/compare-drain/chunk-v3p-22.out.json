@@ -1,0 +1,1319 @@
+{
+  "chunk": "v3p-22",
+  "writer_run": "wr-v3p-22",
+  "pairs": [
+    {
+      "pair_id": "M1809#39~M2706#38",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#39",
+        "units_hash": "c11d3f8655e493e8",
+        "inquiry_hash": "69f72a08dac10d6f"
+      },
+      "right": {
+        "id": "M2706#38",
+        "units_hash": "c106c0b7fcaaa386",
+        "inquiry_hash": "033774351de381ee"
+      },
+      "focus": "두 삽입 문항의 오답 자리는 바로 뒤 문장의 지시 표현(These great musicians · The vortices)이 앞 문장을 받아 그 사이를 끊을 수 없다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4,
+              5
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 5번 문장의 These great musicians 는 4번 문장의 Mozart · Mendelssohn 을, 오른쪽 6번 문장의 The vortices 는 5번 문장의 vortices 를 받아 사이에 다른 명제가 들어갈 수 없다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              6,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              6,
+              7
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답 자리에서는 주어진 문장이 앞 내용(속도로 인정받음·위험)을 받고 뒤 문장(this · can help)의 대상이 된다"
+        }
+      ],
+      "shared_conditions": [
+        "넣을 자리 바로 뒤 문장이 바로 앞 문장을 지시 표현으로 받는다",
+        "그 사이에 주어진 문장을 넣으면 지시가 끊긴다"
+      ],
+      "limitation": "왼쪽 정답은 뒤 문장의 this 가 선행사를 얻는 자리, 오른쪽 정답은 원인에서 대책으로 넘어가는 자리라 정답을 찾는 단서는 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#39~M2706#39",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#39",
+        "units_hash": "c11d3f8655e493e8",
+        "inquiry_hash": "69f72a08dac10d6f"
+      },
+      "right": {
+        "id": "M2706#39",
+        "units_hash": "b0b83afa53b94aa2",
+        "inquiry_hash": "21a5d9783c5c164e"
+      },
+      "focus": "두 삽입 문항의 오답 자리는 바로 뒤 문장의 지시어(These great musicians · they)가 앞 문장의 대상을 받아 사이를 끊을 수 없다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4,
+              5
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 These great musicians 는 4번 문장의 작곡가를, 오른쪽 4번 문장의 they 는 3번 문장의 all others(다른 색)를 받아, 사이에 다른 대상을 가리키는 문장을 넣으면 지시가 엇갈린다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              6,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답 자리에서는 주어진 문장이 앞 문장과 이어지고(But · also) 뒤 문장의 지시 표현(this · Here the lexicon)이 주어진 문장을 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "넣을 자리 뒤 지시어가 바로 앞 문장의 대상을 받는다"
+      ],
+      "limitation": "오른쪽은 주어진 문장의 they 가 사람을 가리켜 지시 대상이 엇갈린다는 점이 더해진다. 같은 왼쪽 문항을 다른 삽입 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#40~M2609#40",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#40",
+        "units_hash": "1e251b72439074ba",
+        "inquiry_hash": "546c8c7486b885b8"
+      },
+      "right": {
+        "id": "M2609#40",
+        "units_hash": "5b1e0a8c1c3319bc",
+        "inquiry_hash": "777d60c2c3fabc5f"
+      },
+      "focus": "두 요약 문항의 오답은 한 칸은 맞추고 다른 한 칸을 지문 진술과 반대 방향 낱말로 채워(withdraw · fade) 그 칸의 근거 문장으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 (B) withdraw from 은 5번 문장의 benefit from 과, 오른쪽 (A) fade 는 3번 문장의 재등장이 드물다는 진술과 반대가 된다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              5,
+              9
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              8,
+              9
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답은 두 칸을 각각 근거 문장(lack of ties · benefit / reappear · change considerably)에 맞춘다"
+        }
+      ],
+      "shared_conditions": [
+        "요약문 두 칸이 각각 다른 근거 문장에 대응한다",
+        "한 칸이라도 근거 문장과 반대 방향이면 그 선지가 지워진다"
+      ],
+      "limitation": "왼쪽은 (B), 오른쪽은 (A)가 틀린 칸이며, 오른쪽 (A)는 hardly ever 와 함께 읽어야 반대가 드러난다는 점이 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#40~M2706#40",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#40",
+        "units_hash": "1e251b72439074ba",
+        "inquiry_hash": "546c8c7486b885b8"
+      },
+      "right": {
+        "id": "M2706#40",
+        "units_hash": "f4891bf6194c6485",
+        "inquiry_hash": "86ebbfa8dd30d877"
+      },
+      "focus": "두 요약 문항의 오답은 한 칸을 지문과 반대 방향 낱말(withdraw · prevention)로 채워, 그 칸이 대응하는 문장으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              6
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 (B) withdraw 는 5번 문장의 benefit from 과, 오른쪽 (A) prevention 은 3번 문장의 방치(neglected)와 반대이며 불균형의 결과가 될 수 없다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              5,
+              9
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              5,
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답은 각 칸을 lack of ties · benefit, neglected issues · neglected populations 에 맞춘다"
+        }
+      ],
+      "shared_conditions": [
+        "한 칸이 근거 문장과 반대 방향이면 다른 칸이 맞아도 지워진다"
+      ],
+      "limitation": "왼쪽은 (B), 오른쪽은 (A)가 틀린 칸이다. 같은 왼쪽 오답을 다른 요약 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#41~M2609#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#41",
+        "units_hash": "4af60590c06bc026",
+        "inquiry_hash": "c6d8cd88c885e492"
+      },
+      "right": {
+        "id": "M2609#41",
+        "units_hash": "0f18e9503d3e42ec",
+        "inquiry_hash": "83dc8ca3bf8ed8ec"
+      },
+      "focus": "두 장문 제목 문항의 오답은 글의 핵심어(colonisation · container)에 지문에 없는 평가·수식(부끄러움·자랑, 최첨단)을 붙여 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              9
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 4번 문장의 colonisation 은 정의어일 뿐이고, 오른쪽 9번 문장의 container 는 비유이며 지문의 채널은 전화·이메일이라 최첨단이 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              3,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              10
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 각각 경작 중단과 균형 회복, 맞는 그릇 고르기라는 결론을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답이 쓰는 핵심어는 지문에 반복된다",
+        "핵심어에 붙인 평가·수식에 대응하는 문장이 없다"
+      ],
+      "limitation": "두 글의 소재(생태 정착·소통 채널)는 다르며, 이 비교는 평가어를 덧붙인 제목 오답만 다룬다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#41~M2706#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#41",
+        "units_hash": "4af60590c06bc026",
+        "inquiry_hash": "c6d8cd88c885e492"
+      },
+      "right": {
+        "id": "M2706#41",
+        "units_hash": "54e417e31299d679",
+        "inquiry_hash": "23aae4ee42751539"
+      },
+      "focus": "두 장문 제목 문항의 오답은 글의 주변 문장(훼손 전제·평판 유리 시기)에 기대지만, 그 문장이 말하지 않는 내용(인간의 잘못·제작 기법)을 제목으로 세워 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 1번 문장의 훼손은 회복 설명의 전제일 뿐 인간의 잘못을 지목하지 않고, 오른쪽 8번 문장은 평판 유리의 개발 시기만 말할 뿐 제작 기법을 서술하지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              3,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 각각 경작 중단과 균형 회복, 아직 풀리지 않은 유리의 본성이라는 글 전체의 축을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 제목의 소재는 지문의 한 문장에 실제로 나온다",
+        "그 문장은 제목이 내세우는 내용(평가·기법)을 담지 않고 글 전체의 축도 아니다"
+      ],
+      "limitation": "왼쪽 오답은 전제 문장에 평가를 덧붙인 것이고 오른쪽 오답은 시기 정보를 기법으로 부풀린 것이라 덧붙인 내용의 종류가 다르다. 둘 다 근거 문장이 그 내용을 말하지 않아 지워진다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#43~M2609#43",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#43",
+        "units_hash": "a50e19f5b359a030",
+        "inquiry_hash": "464c17de51dabddc"
+      },
+      "right": {
+        "id": "M2609#43",
+        "units_hash": "0612508de088ba30",
+        "inquiry_hash": "40b8530c38a0796d"
+      },
+      "focus": "두 장문 순서 문항의 오답은 결말 단락(명예의 전당·경기 종료)을 (A) 바로 뒤로 당겨, 결말이 그 원인 사건보다 먼저 오게 한다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              13,
+              16
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              10,
+              23
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽은 야구를 시작하기(13·16번 문장) 전에 명예의 전당(6번 문장)이 오고, 오른쪽은 10번 문장의 the ball he caught 가 아직 일어나지 않은 23번 문장의 공 잡기를 받는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              18,
+              10,
+              22,
+              17,
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              15,
+              17,
+              20,
+              21,
+              23,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답 배열에서는 결말 단락이 맨 뒤에 와 앞선 사건(전설이 됨·공 잡기)을 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "(B)가 이야기의 결말이라 앞선 사건이 먼저 나와야 한다",
+        "결말이 앞선 사건을 되받는 표현을 포함한다"
+      ],
+      "limitation": "왼쪽은 수년에 걸친 일대기, 오른쪽은 하루 경기라 시간 규모가 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M1809#43~M2706#43",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M1809#43",
+        "units_hash": "a50e19f5b359a030",
+        "inquiry_hash": "464c17de51dabddc"
+      },
+      "right": {
+        "id": "M2706#43",
+        "units_hash": "d47faef3665c9752",
+        "inquiry_hash": "94d33bfb572a1aed"
+      },
+      "focus": "두 장문 순서 문항의 오답은 (C)를 첫 자리에 두어, (C)의 첫머리(these jobs · 악기 질문)가 받을 내용이 (D)에 있는데도 그보다 먼저 나오게 한다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              10,
+              22
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              16,
+              26,
+              32
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 10번 문장의 these jobs 는 (D) 22번 문장의 일 목록을 받고, 오른쪽 16번 문장의 악기 질문은 (D) 32번 문장의 「악기를 잘 못 다룬다」와 26번 문장의 첫 인사 뒤에 와야 한다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              18,
+              10,
+              22,
+              17,
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              26,
+              32,
+              16,
+              21,
+              24,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답 배열 (D)-(C)-(B)에서는 (D)가 (C)의 첫머리를 준비하고 (B)가 결말이 된다"
+        }
+      ],
+      "shared_conditions": [
+        "(C)의 첫머리가 (D)의 내용을 전제한다",
+        "(D)가 (A) 바로 뒤에 와야 첫 장면이 이어진다"
+      ],
+      "limitation": "왼쪽은 지시어(these jobs)라는 명시적 단서, 오른쪽은 대화의 흐름(인사 → 질문)이라는 내용 단서라 단서의 형태가 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#18~M2706#18",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#18",
+        "units_hash": "be8eab9068012a64",
+        "inquiry_hash": "ed1053b179f5fdad"
+      },
+      "right": {
+        "id": "M2706#18",
+        "units_hash": "18f4a31ef1988254",
+        "inquiry_hash": "a00f084d61fdc6a4"
+      },
+      "focus": "두 목적 문항의 오답은 지문 명사(캠프·홈런 대회)를 그대로 두고 화행만 바꿔(변경 공지·선수 발표), 핵심 동사(will offer · ask you to join)와 맞지 않아 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 1번 문장은 will offer 로 새로 연다고 알릴 뿐 변경 표현이 없고, 오른쪽 4번 문장은 참가를 요청하는 단계라 선수 발표가 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              4,
+              7
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답은 각각 announce · will offer(개최 안내), would like to ask you to join(참가 요청)의 화행을 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "글의 목적은 핵심 동사가 나타내는 화행이 정한다",
+        "같은 명사를 쓰더라도 화행이 다르면 오답이다"
+      ],
+      "limitation": "왼쪽은 불특정 다수에게 보내는 안내, 오른쪽은 한 사람에게 보내는 요청이라 수신자 범위가 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#20~M2609#20",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#20",
+        "units_hash": "c777ef7890dbd519",
+        "inquiry_hash": "34e4748657a5055f"
+      },
+      "right": {
+        "id": "M2609#20",
+        "units_hash": "d25f249cf89e3459",
+        "inquiry_hash": "503a93e0dff524cd"
+      },
+      "focus": "두 주장 문항의 오답은 필자가 넘어서거나 문제 삼은 견해(반복·암기, 처벌)를 주장으로 내세워 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 5번 문장 This suggests more than repetition 은 암기식 반복을 넘어서라고 하고, 오른쪽 3번 문장은 2번 문장의 처벌 중심 통념의 전제를 문제 삼는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              2,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              4,
+              6,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 각각 2번 문장의 should, 6번 문장의 must 가 담은 처방을 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "필자가 넘어서거나 반박하는 견해가 지문에 언급된다",
+        "그 견해 쪽의 처방을 담은 선지는 필자의 주장과 반대가 된다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "주장 글에서 필자가 반박·한정하는 견해가 먼저 언급되면, 그 견해와 같은 방향의 선지는 주장으로 고를 수 없다고 볼 수 있다",
+        "when_applies": [
+          "통념을 언급한 뒤 should · must 로 다른 처방을 내놓는 글"
+        ],
+        "when_not": [
+          "필자가 언급한 견해를 일부 받아들이는 글"
+        ]
+      },
+      "limitation": "왼쪽은 반복을 넘어선다(한정), 오른쪽은 처벌의 전제가 틀렸다(반박)는 점에서 거리 두는 방식이 다르다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#20~M2706#20",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#20",
+        "units_hash": "c777ef7890dbd519",
+        "inquiry_hash": "34e4748657a5055f"
+      },
+      "right": {
+        "id": "M2706#20",
+        "units_hash": "819d479bf79286ac",
+        "inquiry_hash": "eafba7379ded4bef"
+      },
+      "focus": "두 주장 문항의 오답은 필자가 부족하다고 넘어선 방식(단순 반복·지시 따르기 위주의 실습)을 오히려 주장으로 내세워 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              5,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 5번 문장은 반복을 넘어선다고 하고, 오른쪽 5번 문장은 지시만 따르게 하는 것이 부족하다며 7번 문장이 원리 설명을 요구해, 암기 선행·실습 강조 선지와 방향이 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              2,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답은 각각 should experience it multiple times, must raise awareness 의 처방을 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "필자가 기존 방식이 부족하다고 밝히는 문장이 있다",
+        "그 기존 방식 쪽으로 기운 선지는 주장과 반대다"
+      ],
+      "limitation": "오른쪽 오답은 이론보다 실습이라는 비교 구도를 새로 세웠다는 점이 더해진다. 같은 왼쪽 오답을 다른 주장 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#21~M2706#21",
+      "status": "not_applicable",
+      "reason": "왼쪽 ①은 3번 문장이 반대 역할을 말해서, 오른쪽 ③은 4번 문장에 착각이라는 평가 근거가 없어서 지워진다. 둘 다 오답이고 근거 종류만 달라 공유하는 판단 구조가 없다.",
+      "left": {
+        "id": "M2006#21",
+        "units_hash": "6f4b7ca84dc94eb3",
+        "inquiry_hash": "c80b958b29645989"
+      },
+      "right": {
+        "id": "M2706#21",
+        "units_hash": "b84b17de3f0a5e6f",
+        "inquiry_hash": "d7793bfbe638b16d"
+      }
+    },
+    {
+      "pair_id": "M2006#22~M2609#22",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#22",
+        "units_hash": "897cc9a1e7ef9afe",
+        "inquiry_hash": "b7b1e551bf3814f7"
+      },
+      "right": {
+        "id": "M2609#22",
+        "units_hash": "c927e5e8a8b96276",
+        "inquiry_hash": "161501bb2b15bbdb"
+      },
+      "focus": "두 요지 문항의 오답은 주절이 아닌 딸린 구절(관계절의 결과·정의문의 수식 재료)을 요지로 올려 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 고객 행동 예측은 8번 문장 관계절 안의 결과이고, 오른쪽 규범·가치 공유는 3번 문장 정의문의 수식 재료라 글의 명제가 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              7,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 각각 데이터 → 지식 변환과 경쟁 우위, 소셜 미디어 참여와 관계망 확장이라는 주된 진술을 합친다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 내용은 지문에 실제로 있지만 딸린 구절 안에 있다",
+        "글이 되풀이하는 중심 진술이 따로 있다"
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "요지 문항에서 관계절·정의문 수식 같은 딸린 구절의 내용만 담은 선지는 사실이어도 요지가 되기 어렵다고 볼 수 있다",
+        "when_applies": [
+          "중심 진술이 주절에서 되풀이되는 설명문"
+        ],
+        "when_not": [
+          "딸린 구절의 내용이 뒤에서 주된 논점으로 다시 전개되는 글"
+        ]
+      },
+      "limitation": "두 글의 소재(데이터 변환·사회적 자본)는 다르며, 이 비교는 딸린 구절을 요지로 올린 오답만 다룬다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#22~M2706#22",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#22",
+        "units_hash": "897cc9a1e7ef9afe",
+        "inquiry_hash": "b7b1e551bf3814f7"
+      },
+      "right": {
+        "id": "M2706#22",
+        "units_hash": "179e5df33efbf4be",
+        "inquiry_hash": "8f02da614789bca2"
+      },
+      "focus": "두 요지 문항의 오답은 딸린 구절·인용 속 세부(관계절의 결과·전문가 동원)를 요지로 올려 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 고객 행동 예측은 8번 문장 관계절의 결과이고, 오른쪽 전문가 동원은 2번 문장 인용 속 세부이며 4·6·7번 문장은 얼굴 모양과 판매만 말한다"
+        },
+        {
+          "left": {
+            "sentences": [
+              2,
+              7,
+              8
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              4,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 각각 변환 능력과 경쟁력, 성난 외관 추세와 판매 호조라는 되풀이되는 진술을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 내용은 지문에 있지만 딸린 구절·인용 속 세부다"
+      ],
+      "limitation": "오른쪽 오답은 판매 증가라는 목적을 덧붙였다는 점이 더해진다. 같은 왼쪽 오답을 다른 요지 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#23~M2609#23",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#23",
+        "units_hash": "96ed413649b35298",
+        "inquiry_hash": "9749a8b62d72024c"
+      },
+      "right": {
+        "id": "M2609#23",
+        "units_hash": "1818231b7319d182",
+        "inquiry_hash": "78c3b6b70e236181"
+      },
+      "focus": "두 주제 문항의 오답은 글이 명시한 관계(장벽은 허물 수 없음·자료가 다름)를 반대로 뒤집어, 그 관계를 밝힌 문장으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              4
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 5번 문장은 장벽을 허물 수 없다고 해 계층 간 평등과 반대이고, 오른쪽 1·4번 문장은 different kinds 와 by contrast 로 차이를 세워 유사성과 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 각각 안팎 구분과 계층 표지, 두 유형에서 개인 기억 역할의 대비를 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "관계를 직접 밝히는 문장(barriers · by contrast)이 있다",
+        "선지가 그 관계를 반대로 바꿨다"
+      ],
+      "limitation": "왼쪽은 결과의 방향(구분 → 평등), 오른쪽은 비교의 골격(차이 → 유사)을 뒤집었다는 차이가 있으나 둘 다 한 문장의 명시로 지워진다. 같은 오른쪽 오답을 다른 주제 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#23~M2706#23",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#23",
+        "units_hash": "96ed413649b35298",
+        "inquiry_hash": "9749a8b62d72024c"
+      },
+      "right": {
+        "id": "M2706#23",
+        "units_hash": "549fc471af2d2437",
+        "inquiry_hash": "9da95b455a54cf6e"
+      },
+      "focus": "두 주제 문항의 오답은 지문이 말한 방향(장벽 고착·비축 부족의 제약)을 정반대(평등·비축의 이점)로 뒤집어, 그 문장 하나로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 5번 문장은 장벽을 허물 수 없다고 해 계층 간 평등과 반대이고, 오른쪽 3번 문장의 minimal energy reserves 는 선택지를 줄이는 제약이라 이점과 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              4,
+              5,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 각각 계층 구분의 표지, 크기·수명·생존 기술의 대비라는 글 전체의 축을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답의 소재는 지문 문장에 있다",
+        "그 문장이 말한 평가 방향과 선지의 방향이 반대다"
+      ],
+      "limitation": "오른쪽 오답은 소형 동물 쪽 한 측면에만 기대 글 전체를 덮지 못한다는 결함도 함께 있다. 같은 왼쪽 오답을 다른 주제 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#24~M2609#24",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#24",
+        "units_hash": "8ce6d3a82fd74ee3",
+        "inquiry_hash": "d957fca1a523c31f"
+      },
+      "right": {
+        "id": "M2609#24",
+        "units_hash": "2bf9b27ca8a23807",
+        "inquiry_hash": "36c24187319792d9"
+      },
+      "focus": "두 제목 문항의 오답은 소재 낱말 뒤에 지문에 없는 구도·개념(원인과 결과·정치)을 붙여 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽에는 불평등의 원인을 지목하는 문장이 없고, 오른쪽 7번 문장의 power 는 구원의 힘일 뿐 정치를 말하는 문장이 없다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              2,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답은 각각 끝나지 않는 과제, 격리와 사회 기여의 양면을 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답의 소재 낱말은 지문과 같다",
+        "제목이 덧붙인 구도·개념에 대응하는 문장이 없다"
+      ],
+      "limitation": "두 글의 소재(스포츠의 인종 관계·수도원)는 다르며, 이 비교는 없는 개념을 덧붙인 제목 오답만 다룬다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#24~M2706#24",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#24",
+        "units_hash": "8ce6d3a82fd74ee3",
+        "inquiry_hash": "d957fca1a523c31f"
+      },
+      "right": {
+        "id": "M2706#24",
+        "units_hash": "c4acee8684f7d019",
+        "inquiry_hash": "583c1f6c294cc80c"
+      },
+      "focus": "두 제목 문항의 오답은 지문에 대응 문장이 없는 구도(원인과 결과·밝은 면과 어두운 면의 붕괴)를 제목으로 세워 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              8,
+              9
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽에는 원인을 지목하는 문장이 없고, 오른쪽은 8·9번 문장까지 서비스 확대 사례라 붕괴·어두운 면이 없다"
+        },
+        {
+          "left": {
+            "sentences": [
+              1,
+              2,
+              5
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 각각 과제가 계속된다는 흐름, 개별에서 통합으로의 변화를 담는다"
+        }
+      ],
+      "shared_conditions": [
+        "제목의 구도 한쪽 또는 전부에 대응하는 문장이 없다"
+      ],
+      "limitation": "오른쪽 오답은 지문의 성장 흐름과 반대되는 붕괴를 세웠다는 점이 더해진다. 같은 왼쪽 오답을 다른 제목 문항과 견준 비교가 따로 있다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#28~M2609#28",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#28",
+        "units_hash": "8a13cfe6a1f799e4",
+        "inquiry_hash": "0b4a17a80f7cd767"
+      },
+      "right": {
+        "id": "M2609#28",
+        "units_hash": "fee35feea75ea3e4",
+        "inquiry_hash": "49d9faa752688363"
+      },
+      "focus": "두 안내문 문항의 오답은 안내문의 값을 그 값이 속한 소제목·이름표와 맞춰 읽지 않아(분야 수·심사 기간) 생기고, 해당 항목을 확인하면 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽은 Submission Categories 아래 항목이 People · Landscape 두 개뿐이고, 오른쪽은 9월 15일~10월 15일의 이름표가 Submission period 라 심사 기간이 아니다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답은 각각 Details · Assessment Criteria 항목 아래 값을 그대로 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "안내문 정보가 소제목·이름표 아래 목록으로 배치된다",
+        "값을 그 이름표와 함께 읽어야 일치 여부가 정해진다"
+      ],
+      "limitation": "왼쪽은 한 소제목 아래 항목 수를 세는 일, 오른쪽은 같은 줄의 다른 이름표를 가르는 일이라 확인 동작이 조금 다르다. 두 오답 모두 같은 항목 확인으로 지워진다.",
+      "decisive_differences": []
+    },
+    {
+      "pair_id": "M2006#28~M2706#28",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "M2006#28",
+        "units_hash": "8a13cfe6a1f799e4",
+        "inquiry_hash": "0b4a17a80f7cd767"
+      },
+      "right": {
+        "id": "M2706#28",
+        "units_hash": "b90af64f5a73a45d",
+        "inquiry_hash": "97183c7724aa0704"
+      },
+      "focus": "두 안내문 문항의 오답은 안내문의 값을 다른 항목에서 옮겨 오거나 소제목 범위를 잘못 세어(분야 수·영화 시각) 생기고, 해당 항목을 확인하면 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              4
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽은 Submission Categories 아래 두 분야만 있고, 오른쪽은 6 p.m. 이 2번 문장의 행사 시작 시각이며 영화는 4번 문장에서 7 p.m. 이다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답은 각각 한 항목 문장(No photo editing · Food and beverages will be sold)을 그대로 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "값이 어느 항목에 속하는지 확인해야 일치 여부가 정해진다"
+      ],
+      "limitation": "같은 왼쪽 오답을 다른 안내문 문항과 견준 비교가 따로 있다. 오른쪽은 서로 다른 문장의 값을 섞었다는 점에서 한 문장 안 확인보다 범위가 넓다.",
+      "decisive_differences": []
+    }
+  ]
+}

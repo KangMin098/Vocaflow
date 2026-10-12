@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-22",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M1809#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "068e246d76f39520",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "5784d5d8d1f45c4c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "12c5d7b929d13a5c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "712cccf6dbf966c9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "5af4c7f8fa4d9614",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "160bc3316e09cb71",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "f62aa7eef133097e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "d19b507e4bd497b2",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "9da050ef14bc3b19",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "7cc77c9c3c76dcd4",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "857d433b626a2795",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#21~M2706#21",
+      "verdict": "revise",
+      "content_hash": "6f0ffa1aeebda6f6",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ①(3번 문장이 반대 역할을 말함)과 오른쪽 ③(4번 문장에 착각이라는 평가 근거 없음)은 둘 다 오답으로 지워져 판정이 갈리지 않는다. 지우는 근거의 종류만 다르므로 contrast 가 아니다 — status 를 not_applicable(「근거 종류 차이일 뿐 공유하는 판단 구조 없음」)로 바꾼다."
+    },
+    {
+      "pair_id": "M2006#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "907ad24b02e77aa4",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "a700bd433359e0ff",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "29a11ba409fb3469",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "1e1120b5611543c9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "31215c42b104455b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "ca665e54805c3749",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "4d041e78518e53ff",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M2006#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "a39861aa14afa866",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    }
+  ]
+}

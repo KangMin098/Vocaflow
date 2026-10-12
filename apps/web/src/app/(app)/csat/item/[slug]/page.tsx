@@ -46,6 +46,7 @@ import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import compareData from '@/lib/csat/compare-data.json'
+import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 
 export const dynamic = 'force-dynamic'
 
@@ -63,7 +64,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -74,6 +75,8 @@ export default async function CsatItemTheaterPage({
   //   F01(2026-10-10): 문항을 열면 해설을 바로 보여 주므로 그 열람은 「해설 먼저 봄」으로 남는다 — 그 화면에서 푼 확인 과제는 독립 수행이 아니다.
   //   그래서 지도에서 확인용으로 들어올 때만 해설 극장 · 강의를 그리지 않는다(해설 열람 기록도 없다). 과제 뒤 「해설 보기」 는 일반 화면(F01 그대로).
   const checkMode = sp.check === '1'
+  // 학습 지도에서 온 학습자(확인 링크 → 해설 보기)는 지도로 돌아갈 수 있다(v3 M4). 지도의 확인 링크는 모두 check=1 로 온다
+  const fromMap = sp.from === 'map' || checkMode
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
@@ -153,6 +156,17 @@ export default async function CsatItemTheaterPage({
     const o = sibById.get(p.other)
     return o ? [{ ...p, otherSlug: o.slug, otherLabel: `${o.exam_label} ${o.no}번` }] : []
   })
+  // v3 비교 쌍(M4) — 상대는 같은 유형 siblings 가 아니라 **상대 유형의 공개 목록**에서 확인한다(교차 유형 허용 · 비공개 상대는 뺀다)
+  const inquiryHit = lookupInquiry(item.id, item.analysis_version)
+  const revealScope = await loadRevealScope()
+  const partnerTypes = [...new Set(v3PairPartners(item.id).map((x) => x.type).filter((t): t is string => Boolean(t)))]
+  const openById = new Map<string, { slug: string; label: string }>()
+  for (const t of partnerTypes) {
+    for (const sib of t === item.type_id ? siblings.map((x) => ({ id: x.id, exam_label: x.exam_label, no: x.no })) : revealedSkeletonSiblings(t, revealScope)) {
+      openById.set(sib.id, { slug: toItemSlug(sib.id), label: `${sib.exam_label} ${sib.no}번` })
+    }
+  }
+  const v3Compare = projectV3Pairs(item.id, inquiryHit.state === 'ready', (id) => openById.get(id) ?? null)
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
   // 평가원 회차는 링크가 없으면 평가원 게시판으로, 학평은 갈 곳이 없다(평가원 게시판으로 보내지 않는다)
@@ -193,17 +207,17 @@ export default async function CsatItemTheaterPage({
       blocks={blocks}
       checks={checks}
       comparePairs={comparePairs}
-      inquiry={(() => {
-        // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
-        const hit = lookupInquiry(item.id, item.analysis_version)
-        return hit.state === 'ready' ? hit.record : null
-      })()}
+      v3Pairs={v3Compare.pairs}
+      pairAbsence={v3Compare.absence}
+      // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
+      inquiry={inquiryHit.state === 'ready' ? inquiryHit.record : null}
       initialScene={parsedScene.scene}
       initialJudgmentView={parsedScene.judgmentView}
       sceneNormalized={parsedScene.normalized}
       map={map}
       itemId={item.id}
       backHref="/csat"
+      mapReturn={fromMap ? '/csat/diagnosis' : null}
       typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
       paper={{ catalog: paperCatalog, examId, no: item.no }}
@@ -242,7 +256,7 @@ export default async function CsatItemTheaterPage({
           </p>
           {panel}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
-            <a href={`/csat/item/${toItemSlug(item.id)}${first(sp.scene) ? `?scene=${parsedScene.scene}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
               확인을 마쳤으면 해설 보기 →
             </a>
           </p>

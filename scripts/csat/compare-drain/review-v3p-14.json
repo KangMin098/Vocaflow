@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-14",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2021#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "8247bc28f90bbd68",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#38~M2606#38",
+      "verdict": "pass",
+      "content_hash": "29af5471d6826062",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "206c6f59adfe1622",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "d555ff2e2888d267",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "58faf9f987ab60b0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "cd18c44d9636165e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "c4d93d4183e88281",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "49dbf323e0ed5eb8",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "d846416ce933b8ca",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "4561dac191cfc3ac",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2021#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "1f541e2245455a13",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "b301aec983f9602d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "309475829cfe62fd",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "cda70690c49eeb15",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "7690cb28aa66761c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "cc80f4a169177201",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "c22b063d72bd428e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "9926b6ef06999203",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "d8a19ae2ac901a01",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    },
+    {
+      "pair_id": "2022#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "5327d22c3b373044",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 decisive·sentences 와 맞고 kind·조건·한계가 원문과 맞는다."
+    }
+  ]
+}

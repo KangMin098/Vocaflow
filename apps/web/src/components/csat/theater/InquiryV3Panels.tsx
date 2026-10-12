@@ -10,7 +10,7 @@
 
 import { useState } from 'react'
 
-import { BASIS_LABEL, CONTENT_TRUTH_LABEL, FIT_LABEL, SCOPE_LABEL, type InquiryV3 } from '@/lib/csat/inquiry/labels'
+import { BASIS_LABEL, CONTENT_TRUTH_LABEL, FIT_LABEL, PAIR_ABSENCE_TEXT, PAIR_KIND_LABEL, PRINCIPLE_LEVEL_LABEL, SCOPE_LABEL, type InquiryV3, type PairAbsence, type V3PairView } from '@/lib/csat/inquiry/labels'
 
 import styles from './theater.module.css'
 
@@ -146,6 +146,79 @@ export function V3Design({ v3, onEvidence, linkable, selectedKey }: { v3: Inquir
         <span className={styles.diagramLabel}>확인하지 못한 부분</span>
         {v3.design.limitation}
       </p>
+    </section>
+  )
+}
+
+/**
+ * v3 기출 비교(M4) — 독립 검수된 쌍만. 한 쌍에 한 비교 관계: 이 문항 근거 ↔ 상대 문항 근거 · 공통 조건 · 가르는 조건.
+ * 상대 문항의 원문은 싣지 않는다(문장 번호와 링크만). 이 문항 쪽 근거만 지문 지도로 비춘다.
+ */
+export function V3Compare({ pairs, absence, onEvidence, linkable, selectedKey }: { pairs: V3PairView[]; absence: PairAbsence | null; onEvidence: Evidence; linkable: boolean; selectedKey: string | null }) {
+  if (!pairs.length) {
+    return absence ? <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="v3-compare-absent" data-reason={absence}>{PAIR_ABSENCE_TEXT[absence]}</p> : null
+  }
+  return (
+    <section className={styles.diagram} aria-label="검수된 기출 비교" data-testid="v3-compare">
+      <p className={styles.diagramHead}>
+        <b>검수된 기출 비교</b>
+        <span className={styles.epistemic}>{VERIFIED} · 두 문항 범위</span>
+      </p>
+      {pairs.map((p) => (
+        <article key={p.pairId} className={styles.designRow} data-kind={p.kind} data-testid="v3-pair">
+          <p className="break-keep">
+            <span className={styles.diagramLabel}>{PAIR_KIND_LABEL[p.kind]}</span>
+            <a href={`/csat/item/${p.otherSlug}?scene=compare`} className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">{p.otherLabel}</a>
+            {' — '}{p.focus}
+          </p>
+          <ul className="break-keep">
+            {p.mappings.map((m, i) => (
+              <li key={i}>
+                {m.relation}{' '}
+                <span className={styles.quiet}>(상대 {m.other.sentences.join(' · ')}번 문장{m.other.choices?.length ? ` · ${m.other.choices.map((c) => CIRCLED[c]).join('')}` : ''})</span>
+                <EvidenceButton sentences={m.self.sentences} label={`pair-${p.pairId}-${i}`} onEvidence={onEvidence} linkable={linkable} selected={selectedKey === `pair-${p.pairId}-${i}`} />
+              </li>
+            ))}
+          </ul>
+          {p.shared.length ? (
+            <p className="break-keep"><span className={styles.diagramLabel}>두 문항에 같은 조건</span>{p.shared.join(' · ')}</p>
+          ) : null}
+          {p.differences.map((d, i) => (
+            <p key={i} className="break-keep">
+              <span className={styles.diagramLabel}>판정을 가르는 조건</span>
+              {d.text}{' '}
+              <EvidenceButton sentences={d.selfSentences} label={`diff-${p.pairId}-${i}`} onEvidence={onEvidence} linkable={linkable} selected={selectedKey === `diff-${p.pairId}-${i}`} />
+            </p>
+          ))}
+          <p className="break-keep"><span className={styles.diagramLabel}>이 비교가 말하지 않는 것</span>{p.limitation}</p>
+        </article>
+      ))}
+    </section>
+  )
+}
+
+/** 조건부 원리 수준(M4) — 이 문항 원리는 candidate, 검수된 쌍이 지지하면 bounded. 비교를 눌렀는지와 무관하게 보인다 */
+export function V3PrincipleLevels({ hasCandidate, pairs }: { hasCandidate: boolean; pairs: V3PairView[] }) {
+  const bounded = pairs.filter((p) => p.principle)
+  if (!hasCandidate && !bounded.length) return null
+  return (
+    <section className={styles.diagram} aria-label="원리의 지지 수준" data-testid="v3-principle-levels">
+      {hasCandidate ? (
+        <p className="break-keep" data-level="candidate">
+          <span className={styles.diagramLabel}>{PRINCIPLE_LEVEL_LABEL.candidate}</span>
+          위 원리는 이 문항 하나로 확인한 것이에요. 다른 문항에서는 같은 조건이 있을 때만 통해요.
+        </p>
+      ) : null}
+      {bounded.map((p) => (
+        <div key={p.pairId} className={styles.designRow} data-level="bounded" data-testid="v3-principle-bounded">
+          <p className="break-keep">
+            <span className={styles.diagramLabel}>{PRINCIPLE_LEVEL_LABEL.bounded}</span>
+            {p.principle!.statement} <span className={styles.quiet}>(이 문항 · {p.otherLabel})</span>
+          </p>
+          <p className="break-keep"><span className={styles.diagramLabel}>통하는 조건</span>{p.principle!.when_applies.join(' · ')}</p>
+          <p className="break-keep"><span className={styles.diagramLabel}>쓰면 안 되는 조건</span>{p.principle!.when_not.join(' · ')}</p>
+        </div>
+      ))}
     </section>
   )
 }

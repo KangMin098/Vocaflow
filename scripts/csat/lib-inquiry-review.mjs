@@ -49,13 +49,30 @@ export function contentHash(item) {
   return createHash('sha256').update(stableStringify(body)).digest('hex').slice(0, 16)
 }
 
+/** v3 비교 쌍 판정 기준 버전 — WRITER_PAIR.md / REVIEWER_PAIR.md 가 바뀌면 올린다 */
+export const PAIR_CRITERIA_VERSION = 'pair-v1.0'
+
+/**
+ * v3 비교 쌍 검수 대상 내용 — 화면에 나가는 칸 + 양쪽 결속(units_hash · inquiry_hash).
+ * 양쪽 탐구 내용이 바뀌면 inquiry_hash 가 달라져 이 해시도 바뀌므로 옛 pass 는 자동으로 무효(stale)다.
+ */
+export function pairContentHash(p) {
+  const side = (s) => ({ id: s?.id, units_hash: s?.units_hash, inquiry_hash: s?.inquiry_hash })
+  const body = {
+    pair_id: p.pair_id, status: p.status, kind: p.kind, left: side(p.left), right: side(p.right), focus: p.focus,
+    mappings: p.mappings ?? [], shared_conditions: p.shared_conditions ?? [], decisive_differences: p.decisive_differences ?? [],
+    principle: p.principle ?? null, limitation: p.limitation,
+  }
+  return createHash('sha256').update(stableStringify(body)).digest('hex').slice(0, 16)
+}
+
 /**
  * @param item     작성 출력 한 문항(.out.json items[]) — writer_run 을 가질 수 있다
  * @param verdicts 이 문항에 대한 모든 판정 [{verdict, reviewer, content_hash?, criteria?, file}]
  * @returns {{ state: 'verified'|'revise'|'legacy'|'unreviewed', reason: string }}
  */
-export function classifyReview(item, verdicts, { criteria = CRITERIA_VERSION } = {}) {
-  const hash = contentHash(item)
+export function classifyReview(item, verdicts, { criteria = CRITERIA_VERSION, hashOf = contentHash } = {}) {
+  const hash = hashOf(item)
   const writer = item.writer_run ?? null
   const bound = verdicts.filter((v) => v.content_hash === hash)
   if (bound.some((v) => v.verdict === 'revise')) return { state: 'revise', reason: '현재 내용에 revise 판정' }
