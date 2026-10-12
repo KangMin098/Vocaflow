@@ -10,7 +10,8 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- feat(map): 6차 근거 찾기 Workspace — 전이 4문항(2024#31·33 · 2023#32 · 2025#34) 정본 주석 role=transfer + 원문 결속 15/15 · E2E `--ws evidence-locate` 확인·바로잡기·다시 확인 PASS, 전이는 출시 승인(B7) 전 BLOCKED · 선지 맞대기 전이 후보 0 기록
+
+- feat(csat): v3 M1 **일곱 학습 장면** — 평가 과제 · 원문 이해 · 문항 성립(정답 + 모든 비선정 선지) · 설계 재구성(가설 라벨) · 기출 비교 · 조건부 원리(「이 문항에서 얻은 잠정 원리」) · 내 설명. `parseScene` 별칭(essence/structure/answer/distractor) replace 정규화 · `judgmentView` · 장면 탭 한 줄 · check 모드 해설 보기가 장면 유지 · e2e 13.- feat(map): 6차 근거 찾기 Workspace — 전이 4문항(2024#31·33 · 2023#32 · 2025#34) 정본 주석 role=transfer + 원문 결속 15/15 · E2E `--ws evidence-locate` 확인·바로잡기·다시 확인 PASS, 전이는 출시 승인(B7) 전 BLOCKED · 선지 맞대기 전이 후보 0 기록
 - fix(map): 학습 지도 rev4.0 6차 — **문항 화면 확인 모드(`?check=1`)**: PR #211 이후 문항을 열면 「해설 먼저 봄」으로 기록돼 모든 학습자의 확인 풀이가 독립 근거에서 빠지던 회귀 수정(지도 확인 · 적용 링크만 해설 없이 과제만). 상태 전이 테스트 14 · 브라우저 E2E 다시 확인 성공(해소) · 실패(필요 유지) 양쪽 ALL PASS. 전이 일반화(role=transfer 문항 풀이 = `phase transfer` · 모든 과제 적용 링크). M2606 제3 맹검 판정(3자 합의 0.976) · 추천 민감도(`tag-sensitivity.mts`) · 영향 큰 셀 가드(`review-impact-guard.mjs`) → M2606 진단 반영 · M2609 다시 저장(진단 반영 4 → 5). 기록 [LEARNING_MAP_V4_PHASE6](csat-learner/LEARNING_MAP_V4_PHASE6.md).
 
 - feat(csat): **오답 설계 · 공통 원리 탐구 데이터**(vNext2) — 평가원 802문항 드레인(inquiry-drain export·validate·build) · 선지별 유지/바뀜/변환/내용 참거짓 + 조건부 원리(통하는/적용 안 되는 조건) · 독립 검수 1차 96.2% · 분석 버전에 묶인 정적 정본 `inquiry-data.json`(버전 다르면 stale 로 숨김) · DB 쓰기 없음 · 기존 분석 문장 번호 오류 16건 발견(화면 제외 · 분석 교정 대상).

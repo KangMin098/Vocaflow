@@ -90,7 +90,7 @@ import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
 import type { InquiryRecord } from '@/lib/csat/inquiry/labels'
-import { SCENES, nextScene, sceneOfBlock, sceneOfCheck, type SceneId } from '@/lib/csat/inquiry/scenes'
+import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -178,7 +178,9 @@ export function AnalysisTheater({
   blocks,
   checks = [],
   comparePairs = [],
-  initialScene = 'essence',
+  initialScene = 'task',
+  initialJudgmentView = 'answer',
+  sceneNormalized = false,
   inquiry = null,
   map,
   itemId,
@@ -202,8 +204,12 @@ export function AnalysisTheater({
   checks?: UnderstandingCheck[]
   /** 같은 원리 비교 쌍(M4) — 독립 검수 통과분만 */
   comparePairs?: ComparePair[]
-  /** 여섯 장면 중 처음 열 장면(URL `?scene=` · 서버가 정규화) */
+  /** 일곱 장면 중 처음 열 장면(URL `?scene=` · 서버가 parseScene 으로 정규화) */
   initialScene?: SceneId
+  /** 문항 성립 장면의 처음 보기 — 옛 `distractor` 링크면 options */
+  initialJudgmentView?: JudgmentView
+  /** 주소의 장면 값이 옛 별칭 · 무효값이었다 — 첫 렌더 뒤 replace 로 정규형으로 고친다 */
+  sceneNormalized?: boolean
   /** 탐구 데이터(오답 설계 · 원리) — 분석 버전이 같을 때만 서버가 넘긴다 */
   inquiry?: InquiryRecord | null
   map: TheaterMap | null
@@ -391,13 +397,28 @@ export function AnalysisTheater({
     setScene(id)
     const url = new URL(window.location.href)
     url.searchParams.set('scene', id)
+    url.searchParams.delete('judgmentView')
     window.history[how === 'push' ? 'pushState' : 'replaceState'](window.history.state, '', url)
   }
   useEffect(() => {
-    const onPop = () => setScene((SCENES.find((x) => x.id === new URL(window.location.href).searchParams.get('scene'))?.id ?? 'essence'))
+    // 뒤로가기 · 앞으로가기도 서버와 같은 파서(별칭 · 무효값 정규화)
+    const onPop = () => setScene(parseScene(new URL(window.location.href).searchParams.get('scene')).scene)
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
+  // 옛 장면 값(essence · structure · answer · distractor) · 무효값은 정규형으로 주소만 고친다(history 를 쌓지 않는다)
+  useEffect(() => {
+    if (!sceneNormalized) return
+    const url = new URL(window.location.href)
+    url.searchParams.set('scene', initialScene)
+    if (initialJudgmentView === 'options') url.searchParams.set('judgmentView', 'options')
+    window.history.replaceState(window.history.state, '', url)
+  }, [sceneNormalized, initialScene, initialJudgmentView])
+  // 옛 `distractor` 링크 — 문항 성립 장면의 비선정 선지 구역부터 보인다(특정 선지 번호는 지어내지 않는다)
+  useEffect(() => {
+    if (initialScene !== 'judgment' || initialJudgmentView !== 'options') return
+    document.getElementById('judgment-options')?.scrollIntoView({ block: 'start' })
+  }, [initialScene, initialJudgmentView])
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
   const played = useRef(-1)
@@ -458,6 +479,22 @@ export function AnalysisTheater({
   const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
   const sceneBlocks = blocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
+  const renderBlock = (b: TheaterBlock) => (
+    <article key={b.key} data-block={b.key} data-lecture-target={b.key} data-kind={b.kind} data-live={b.key === liveKey} className={styles.block}>
+      <div className={styles.chips}>
+        {b.chips.map((c) => (
+          <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
+            {c.text}
+          </span>
+        ))}
+      </div>
+      <h2>{b.title}</h2>
+      {b.body.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+      <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
+    </article>
+  )
 
   // 강의가 다른 장면의 블록을 설명하기 시작하면 그 장면으로 따라간다(재생 중에만 · history 는 쌓지 않는다)
   const liveScene = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
@@ -759,13 +796,13 @@ export function AnalysisTheater({
                     <p className={styles.sceneQuestion} data-testid="scene-question">
                       {SCENES.find((x) => x.id === scene)?.question}
                     </p>
-                    {scene === 'essence' && goal ? (
-                      <section className={styles.goal} aria-label="이 문항의 학습 목표" data-testid="learning-goal">
-                        <b>이 문항에서 설명할 관계</b>
+                    {scene === 'task' && goal ? (
+                      <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
+                        <b>이 문항에서 확인할 관계</b>
                         <p className="break-keep">{goal.relation}</p>
                         {distractorsAreTrue(typeId, itemId) ? (
                           <p className="break-keep">
-                            이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 오답 선지의 설명은 「왜 맞는 말인가」입니다.
+                            이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 비선정 선지의 설명은 「왜 맞는 말인가」입니다.
                           </p>
                         ) : null}
                         {goal.visual ? (
@@ -773,70 +810,38 @@ export function AnalysisTheater({
                         ) : null}
                       </section>
                     ) : null}
-                    {scene === 'essence' && gate.design ? <DesignSelection design={gate.design} /> : null}
-                    {scene === 'structure' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
-                    {scene === 'answer' && gate.design ? <TransformDiagram design={gate.design} /> : null}
-                    {scene === 'distractor' && inquiry ? <DistractorDesign distractors={inquiry.distractors} /> : null}
-                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} /> : null}
-                    {scene === 'structure' ? (
+                    {scene === 'meaning' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
+                    {scene === 'meaning' ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
                         {map
-                          ? '왼쪽 지문 지도에서 문장의 역할과 정답 근거 · 오답을 지우는 자리를 확인하세요. 문장 길이는 위치를 보여 줄 뿐 중요도가 아닙니다.'
+                          ? '왼쪽 지문 지도에서 문장을 골라 실제 의미와 범위를 확인하세요. 역할 라벨은 의미를 대조하는 도구이고, 문장 길이는 위치를 보여 줄 뿐 중요도가 아닙니다.'
                           : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 아래 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
                       </p>
                     ) : null}
+                    {scene === 'judgment' && gate.design ? <TransformDiagram design={gate.design} /> : null}
+                    {scene === 'design' ? (
+                      <p className={styles.quiet} data-testid="design-epistemic">
+                        아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
+                      </p>
+                    ) : null}
+                    {scene === 'design' && gate.design ? <DesignSelection design={gate.design} /> : null}
                     <p className={styles.status}>
                       <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
                       {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
                     </p>
-                    {sceneBlocks.map((b) => (
-                      <article
-                        key={b.key}
-                        data-block={b.key}
-                        data-lecture-target={b.key}
-                        data-kind={b.kind}
-                        data-live={b.key === liveKey}
-                        className={styles.block}
-                      >
-                        <div className={styles.chips}>
-                          {b.chips.map((c) => (
-                            <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
-                              {c.text}
-                            </span>
-                          ))}
-                        </div>
-                        <h2>{b.title}</h2>
-                        {b.body.map((p, i) => (
-                          <p key={i}>{p}</p>
-                        ))}
-                        <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
-                      </article>
-                    ))}
-                    {scene === 'distractor' ? (
-                      <SelfExplain
-                        key={itemId}
-                        itemId={itemId}
-                        rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                        choiceTruth={distractorsAreTrue(typeId, itemId)}
-                        saved={explained}
-                        onSave={saveExplanation}
-                        onCompare={compareExplanation}
-                      />
-                    ) : null}
+                    {scene === 'judgment' ? (
+                      <>
+                        {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
+                        <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
+                          {inquiry ? <DistractorDesign distractors={inquiry.distractors} /> : null}
+                          {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
+                        </section>
+                      </>
+                    ) : (
+                      sceneBlocks.map(renderBlock)
+                    )}
                     {sceneChecks.length ? (
                       <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
-                    ) : null}
-                    {scene === 'principle' && goal ? (
-                      <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
-                        <b>이 문항에서 확인한 관계</b>
-                        <p className="break-keep">{goal.relation}</p>
-                        <p className="break-keep">
-                          이 관계가 다른 문항에서도 통하는지는 성립 조건이 같을 때만입니다 — 「기출 비교」에서 검수된 사례로 경계를 확인하세요.
-                        </p>
-                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
-                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
-                        </button>
-                      </section>
                     ) : null}
                     {scene === 'compare' ? (
                       comparePairs.length ? (
@@ -847,7 +852,31 @@ export function AnalysisTheater({
                         </p>
                       )
                     ) : null}
-                    {!sceneBlocks.length && !sceneChecks.length && scene !== 'compare' && scene !== 'structure' && !(scene === 'essence' && goal) && !(scene === 'principle' && goal) ? (
+                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} /> : null}
+                    {scene === 'principle' && goal ? (
+                      <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
+                        <b>이 문항에서 확인한 관계</b>
+                        <p className="break-keep">{goal.relation}</p>
+                        <p className="break-keep">
+                          이 문항 하나에서 얻은 잠정 원리예요. 다른 문항에도 통하는지는 성립 조건이 같을 때만입니다 — 「기출 비교」에서 검수된 사례로 경계를 확인하세요.
+                        </p>
+                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
+                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
+                        </button>
+                      </section>
+                    ) : null}
+                    {scene === 'explain' ? (
+                      <SelfExplain
+                        key={itemId}
+                        itemId={itemId}
+                        rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
+                        choiceTruth={distractorsAreTrue(typeId, itemId)}
+                        saved={explained}
+                        onSave={saveExplanation}
+                        onCompare={compareExplanation}
+                      />
+                    ) : null}
+                    {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
                         이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
                       </p>

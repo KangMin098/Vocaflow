@@ -140,7 +140,7 @@ async function expectOpen(page: Page) {
   await expect(page.getByTestId('predict-gate')).toHaveCount(0)
   await expect(page.getByTestId('scene-nav')).toBeVisible({ timeout: 30_000 })
   // 정답 설계는 제출 없이 한 번 눌러 바로 연다
-  await openScene(page, 'answer')
+  await openScene(page, 'judgment')
   await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
   // 블록은 서버 HTML 로 먼저 보인다 — 키 입력 전에 하이드레이션 · 세션 읽기가 끝났음을 「마치기」 단추(클라이언트 상태)로 기다린다
   await expect(page.getByTestId('finish-item').or(page.getByTestId('session-done'))).toBeVisible({ timeout: 30_000 })
@@ -171,7 +171,7 @@ test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸�
   await openItem(p, KICE)
   await expectOpen(p.page)
   // 큐가 가리키지 않아도 오답 블록까지 잠금 없이 읽힌다(F03) — 오답 설계 장면을 한 번 눌러 연다
-  await openScene(p.page, 'distractor')
+  await openScene(p.page, 'judgment')
   await expect(p.page.locator('[data-block^="analysis:reject"]').first()).toBeVisible()
   // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
   await stepTo(p.page, 3)
@@ -393,7 +393,7 @@ test('12 M4 — 관계 다시 짚기(근거 · 바뀐 성분) · 원리 저장 �
   await evidence.getByRole('button', { name: String(correct[0] + 1), exact: true }).click()
   await expect(evidence.getByText(/맞아요/)).toBeVisible()
   await p.page.getByTestId('understanding-checks').screenshot({ path: 'test-results/m4-checks.png' })
-  await openScene(p.page, 'distractor')
+  await openScene(p.page, 'judgment')
   await expect(p.page.getByTestId('check-lure')).toBeVisible()
 
   await openScene(p.page, 'principle')
@@ -420,5 +420,31 @@ test('12 M4 — 관계 다시 짚기(근거 · 바뀐 성분) · 원리 저장 �
   await expect.poll(() => (server.record?.checks ?? []).some((x) => x.item === M4_ID), { timeout: 15_000 }).toBe(true)
   expect(p.events).toContain('csat_principle_saved')
   expect(p.events).toContain('csat_transfer_submitted')
+  await p.ctx.close()
+})
+
+test('13 v3 일곱 장면 — 옛 장면 주소는 정규형으로 · 수동 이동은 뒤로가기 · 새로고침해도 같은 장면 · 잠금 없음', async ({ browser }) => {
+  const server = new FakeServer()
+  const p = await device(browser, server)
+  // 옛 `distractor` 링크 → 문항 성립(judgment) · 비선정 선지 구역부터
+  await p.page.goto(`/csat/item/${KICE}?scene=distractor`, { waitUntil: 'domcontentloaded' })
+  await expect(p.page.getByTestId('scene-nav')).toBeVisible({ timeout: 90_000 })
+  await expect(p.page).toHaveURL(/scene=judgment/)
+  await expect(p.page).toHaveURL(/judgmentView=options/)
+  await expect(p.page.getByTestId('judgment-options')).toBeVisible()
+  await expect(p.page.locator('[data-scene="judgment"]')).toHaveAttribute('aria-selected', 'true')
+  // 일곱 장면 모두 제출 없이 열린다
+  for (const id of ['task', 'meaning', 'judgment', 'design', 'compare', 'principle', 'explain']) {
+    await openScene(p.page, id)
+    await expect(p.page.locator(`[data-scene="${id}"]`)).toHaveAttribute('aria-selected', 'true')
+  }
+  // 수동 이동은 history 에 쌓인다 — 뒤로가기는 직전 장면
+  await p.page.goBack()
+  await expect(p.page).toHaveURL(/scene=principle/)
+  await expect(p.page.locator('[data-scene="principle"]')).toHaveAttribute('aria-selected', 'true')
+  // 새로고침해도 같은 장면
+  await p.page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(p.page.locator('[data-scene="principle"]')).toHaveAttribute('aria-selected', 'true', { timeout: 90_000 })
+  await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
   await p.ctx.close()
 })

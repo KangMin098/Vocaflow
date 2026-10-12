@@ -43,7 +43,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
-import { normalizeScene } from '@/lib/csat/inquiry/scenes'
+import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import compareData from '@/lib/csat/compare-data.json'
 
@@ -63,11 +63,13 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; check?: string }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string }>
 }) {
   const { slug } = await params
   const sp = await searchParams
-  const sceneParam = sp.scene
+  const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
+  // 일곱 장면 파서 — 옛 장면 값(essence · structure · answer · distractor)은 별칭, 무효값은 평가 과제(UX v3 §2)
+  const parsedScene = parseScene(first(sp.scene), first(sp.judgmentView))
   // 확인 모드(학습 지도의 확인 · 다시 확인 · 적용 링크) — 해설을 열기 전에 확인 과제만 푼다(6차).
   //   F01(2026-10-10): 문항을 열면 해설을 바로 보여 주므로 그 열람은 「해설 먼저 봄」으로 남는다 — 그 화면에서 푼 확인 과제는 독립 수행이 아니다.
   //   그래서 지도에서 확인용으로 들어올 때만 해설 극장 · 강의를 그리지 않는다(해설 열람 기록도 없다). 과제 뒤 「해설 보기」 는 일반 화면(F01 그대로).
@@ -196,7 +198,9 @@ export default async function CsatItemTheaterPage({
         const hit = lookupInquiry(item.id, item.analysis_version)
         return hit.state === 'ready' ? hit.record : null
       })()}
-      initialScene={normalizeScene(Array.isArray(sceneParam) ? sceneParam[0] : sceneParam)}
+      initialScene={parsedScene.scene}
+      initialJudgmentView={parsedScene.judgmentView}
+      sceneNormalized={parsedScene.normalized}
       map={map}
       itemId={item.id}
       backHref="/csat"
@@ -238,7 +242,7 @@ export default async function CsatItemTheaterPage({
           </p>
           {panel}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
-            <a href={`/csat/item/${toItemSlug(item.id)}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+            <a href={`/csat/item/${toItemSlug(item.id)}${first(sp.scene) ? `?scene=${parsedScene.scene}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
               확인을 마쳤으면 해설 보기 →
             </a>
           </p>
