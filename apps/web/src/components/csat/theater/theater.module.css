@@ -91,10 +91,15 @@
 .play:hover { opacity: .88; }
 
 /* ── 본문 2열 ─────────────────────────────────────────── */
-.body { display: grid; grid-template-columns: 24rem minmax(0, 1fr); flex: 1; min-height: 0; }
+.body { display: grid; grid-template-columns: var(--paper-w, 24rem) minmax(0, 1fr); flex: 1; min-height: 0; }
 
 /* ① 레일 */
-.rail { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg2); border-right: 1px solid var(--bd); }
+.rail { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg2); border-right: 1px solid var(--bd); }
+/* 기출 원문 폭 손잡이(PaperResizer) — 경계선 위 12px 띠 · 끌기/←→ · 더블클릭 기본 폭 */
+.paperResizer { position: absolute; top: 0; right: -6px; bottom: 0; z-index: 5; width: 12px; cursor: col-resize; touch-action: none; }
+.paperResizer::after { content: ''; position: absolute; top: 0; bottom: 0; left: 5px; width: 2px; background: transparent; transition: background var(--dur-fast, 120ms); }
+.paperResizer:hover::after, .paperResizer:focus-visible::after { background: var(--p); }
+.paperResizer:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
 .railTop { display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid var(--bd); font-size: 12.5px; }
 .railTop svg { color: var(--t3); flex-shrink: 0; }
 .railTop b { font-weight: 500; }
@@ -326,6 +331,7 @@
 @media (max-width: 1000px) {
   .workspace { height: auto; min-height: 0; }
   .body { grid-template-columns: 1fr; }
+  .paperResizer { display: none; }
   .rail { border-right: 0; border-bottom: 1px solid var(--bd); }
   .stream { max-height: 26rem; }
   .crumbs { margin-left: 0; }

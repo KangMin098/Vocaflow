@@ -15,6 +15,7 @@
 // 없는 것을 있는 것처럼 두지 않는다(ia-design §6).
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { BookMarked, ChevronDown, Crosshair, FlaskConical, Hash, History, Home, Layers, Library, Microscope, NotebookPen, Search, Stethoscope, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
@@ -33,6 +34,8 @@ export const NEEDS: { id: NeedId; label: string; href: string; Icon: typeof Home
   { id: 'recent', label: '최근 기출부터', href: `/csat/browse?from=${RECENT_FROM}`, Icon: Timer },
 ]
 
+const RAIL_KEY = 'csat-rail'
+
 const n = (value: number) => value.toLocaleString('ko-KR')
 
 export function CsatRail({
@@ -50,10 +53,42 @@ export function CsatRail({
 }) {
   const types = [...ATLAS_TYPES].sort((a, b) => b.items - a.items || a.name.localeCompare(b.name))
   const cur = (on: boolean) => (on ? ('page' as const) : undefined)
+  // 메뉴 최소 축소(2026-10-12 사용자 요청) — 기본은 아이콘만 남긴 좁은 레일이라 작업 화면(기출 원문 · 분석)이 넓다.
+  // 왼쪽 위 표지를 누르면 펼치고, 다시 누르면 접는다. 고른 상태는 이 기기에 남긴다(첫 그림은 접힌 상태 — 깜빡임 없음).
+  const [collapsed, setCollapsed] = useState(true)
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(RAIL_KEY) === 'open') setCollapsed(false)
+    } catch {
+      // 저장소를 못 쓰는 환경 — 접힌 기본값 그대로
+    }
+  }, [])
+  const toggle = () => {
+    setCollapsed((c) => {
+      const next = !c
+      try {
+        localStorage.setItem(RAIL_KEY, next ? 'closed' : 'open')
+      } catch {
+        // 저장 실패는 화면 전환에 영향 없음
+      }
+      return next
+    })
+  }
 
   return (
-    <nav className={styles.rail} aria-label="기출분석공간 메뉴" data-testid="csat-rail">
-      <Link className={styles.mark} href="/csat">
+    <nav className={styles.rail} aria-label="기출분석공간 메뉴" data-testid="csat-rail" data-collapsed={collapsed ? 'true' : 'false'}>
+      <Link
+        className={styles.mark}
+        href="/csat"
+        onClick={(e) => {
+          e.preventDefault()
+          toggle()
+        }}
+        aria-expanded={!collapsed}
+        aria-label={collapsed ? '기출분석공간 메뉴 펼치기' : '기출분석공간 메뉴 접기'}
+        title={collapsed ? '메뉴 펼치기' : '메뉴 접기'}
+        data-testid="rail-toggle"
+      >
         <span className={styles.markGlyph} aria-hidden="true">
           <Microscope size={15} />
         </span>

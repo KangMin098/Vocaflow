@@ -88,6 +88,7 @@ import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-ch
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
+import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
 import { V3Compare, V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
@@ -274,6 +275,8 @@ export function AnalysisTheater({
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const ready = useRef(false)
+  // 기출 원문 열 폭(PaperResizer 가 --paper-w 를 이 격자에 건다)
+  const bodyRef = useRef<HTMLDivElement | null>(null)
   // 기기 저장(IndexedDB) 실패 — 기록은 이 탭 메모리에만 있다. 완료처럼 보여도 창을 닫으면 사라진다고 알린다
   const [saveFailed, setSaveFailed] = useState(false)
   const persist = (fn: (r: DissectionRecord) => DissectionRecord) =>
@@ -569,6 +572,8 @@ export function AnalysisTheater({
       const t = e.target as HTMLElement | null
       const tag = t?.tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t?.isContentEditable) return
+      // 기출 원문 폭 손잡이 위의 ←/→ 는 폭 조절이다
+      if (t?.getAttribute('role') === 'separator') return
       if (e.metaKey || e.ctrlKey || e.altKey) return
       if (e.key === ' ') {
         // 단추 위의 Space 는 그 단추의 일이다
@@ -660,9 +665,10 @@ export function AnalysisTheater({
         </div>
       </header>
 
-      <div className={styles.body}>
+      <div className={styles.body} ref={bodyRef}>
         {/* ── ① 왼쪽 열: 기출문제 원본 + 행동 상자 ───────────────── */}
         <aside className={styles.rail} aria-label="기출문제 원본">
+          <PaperResizer bodyRef={bodyRef} />
           <p className={styles.railTop}>
             <FileText size={13} aria-hidden />
             <b>기출문제 원본</b>
