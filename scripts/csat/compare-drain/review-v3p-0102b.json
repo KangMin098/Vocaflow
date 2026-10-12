@@ -1,0 +1,101 @@
+{
+  "reviewer": "rv-v3p-0102b",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2014A#25~M2609#23",
+      "verdict": "revise",
+      "content_hash": "67f92df6d578bd2b",
+      "codes": [
+        "P2"
+      ],
+      "why": "두 근거 모두 오답(왼쪽 ①·오른쪽 ④)이고, 둘 다 지문이 세운 방향(5번 게임 허용 · 1·4번 차이)을 뒤집은 선지라 같은 규칙으로 지워진다 — 판정이 한쪽 정답·한쪽 오답으로 갈리지 않으므로 contrast 가 아니다. 수정: kind 를 same_structure 로 바꾸고 shared_conditions(축의 방향 보존)를 유지, decisive_differences 두 항목(세부 소재 극성 대 비교 관계 반전)은 limitation 으로 옮긴다. focus 도 「두 오답 모두 지문이 세운 방향을 뒤집어 지워진다」로 고친다."
+    },
+    {
+      "pair_id": "2014A#33~M2706#31",
+      "verdict": "revise",
+      "content_hash": "b1abc7f47399ddb8",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ①(anxiety)과 오른쪽 ④(natural)는 둘 다 오답이며 차이는 지우는 근거의 종류(근거 부재[2·3] 대 예시 목록 반례[3])뿐이다 — 새 kind 정의상 contrast 가 아니고, 두 근거 모두 빈칸 밖 문장에서 지워져 boundary 도 아니다. 수정: status 를 not_applicable 로, reason 「두 오답의 배제 근거 종류만 다르고 판정이 갈리지 않는다」. (정답 확정 대응만 살리려면 same_structure 로 바꾸고 mappings 를 첫 항목(2·7번 재진술 ↔ 2·3·4번 목적)만 남겨도 된다.)"
+    },
+    {
+      "pair_id": "2014A#34~M2706#31",
+      "verdict": "revise",
+      "content_hash": "90a43b68eff8def1",
+      "codes": [
+        "P2",
+        "P1"
+      ],
+      "why": "오른쪽 ②(unstable)의 v3 decisive 는 4번 문장만 근거로 둔다(「prolong 의 목적으로 불안정한 상태는 맞지 않는다」, sentences [4]) — 3번 복원 목적이 있어야 지워진다는 쌍의 주장은 입력과 어긋난다. 그러면 왼쪽 ④(5번 빈칸 문장 내부의 not more truthful)와 오른쪽 ②(4번 빈칸 문장 내부의 prolong) 모두 빈칸 문장 안에서 지워져 경계가 성립하지 않는다. 수정: kind 를 same_structure 로, 첫 mapping 의 right.sentences 를 [4] 로, relation 을 「두 오답 모두 빈칸 문장 안의 술어(not more truthful · prolong)와 충돌해 그 문장만으로 지워진다」로, decisive_differences 를 비우고 shared_conditions 를 「빈칸 문장의 술어가 선지와 문장 안에서 충돌한다」로. limitation 의 「정답 확정에는 다른 문장이 필요」는 유지."
+    },
+    {
+      "pair_id": "2014A#34~M2706#32",
+      "verdict": "revise",
+      "content_hash": "2691e14ab2964cb1",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ②(brutality)·오른쪽 ④(maintain nonverbal) 모두 오답이고, 둘 다 빈칸 값을 정하는 인접 문장(6번 enjoyment · 6·7번 숨길 수 없음)과 맞지 않아 같은 규칙으로 지워진다. 핵심어 재사용 여부는 겉모양 차이라 kind 를 바꾸지 않는다. 수정: kind 를 same_structure 로, decisive_differences 두 항목(어휘 겹침 없음 대 nonverbal 재사용)을 limitation 으로 옮기고 focus 를 「두 오답 모두 인접 문장이 정한 빈칸 값과 방향이 맞지 않아 지워진다」로."
+    },
+    {
+      "pair_id": "2014A#35~M2706#31",
+      "verdict": "pass",
+      "content_hash": "a56a8ae3366afa00",
+      "codes": [],
+      "why": "not_applicable(중복) 이유가 원문과 맞는다 — 왼쪽 ②(출시 지연, 근거 부재)와 오른쪽 ④(natural, 3번 예시 반례)의 대비는 같은 지문의 다른 비교와 사실상 같고, 새 정의로도 판정이 갈리지 않아 contrast 대응은 성립하지 않는다. 공개되지 않으므로 kind 칸의 contrast 는 메모만: 재작성 시 지우거나 정리."
+    },
+    {
+      "pair_id": "2014A#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "ceea438a5a7dcd5c",
+      "codes": [],
+      "why": "왼쪽 ①은 (A)를 앞에 둬 So 의 이유인 폭풍(6번)이 뒤로 가고, 오른쪽 ③은 (C)를 (A)보다 앞에 둬 Put simply 가 요약할 2·3번이 없다 — 표지가 요구하는 단락이 먼저 와야 한다는 같은 규칙으로 둘 다 오답, v3 decisive 와 일치. 정답 대응·principle(bounded, when_not 포함)도 두 사례가 지지한다. 메모: 왼쪽 첫 mapping 의 sentences 에 6 을 넣으면 relation 과 맞는다."
+    },
+    {
+      "pair_id": "2014A#40~M2609#19",
+      "verdict": "revise",
+      "content_hash": "c3c12182a64d0a26",
+      "codes": [
+        "P2"
+      ],
+      "why": "두 bored 류 오답(왼쪽 ① bored · 오른쪽 ② frustrated → bored)은 모두 오답이고, 차이는 지우는 축(감정 주체[3·8·9] 대 뒤 칸 극성[10])뿐이라 판정이 갈리는 contrast 가 아니다. 한 규칙의 적용 범위 경계도 아니다. 수정: status 를 not_applicable 로, reason 「두 오답이 서로 다른 규칙(감정 주체 구분 · 전환 후 극성)으로 지워져 같은 판단 구조도, 갈리는 판정도 없다」."
+    },
+    {
+      "pair_id": "2014B#24~M2706#23",
+      "verdict": "revise",
+      "content_hash": "8a83b76f48396f1a",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ②와 오른쪽 ⑤는 모두 오답이고 차이는 배제 근거의 종류(지문에 없는 요소 추가[2·7] 대 한 항을 축으로 올린 범위 축소[5·7])뿐 — 새 정의상 contrast 가 아니며 boundary 도 아니다. 수정: status 를 not_applicable 로, reason 「두 주제 오답의 배제 근거 종류만 다르고 판정이 갈리지 않는다」."
+    },
+    {
+      "pair_id": "2014B#25~M2706#24",
+      "verdict": "pass",
+      "content_hash": "224e18ce9d563777",
+      "codes": [],
+      "why": "왼쪽 ③(측정 방법)은 1·3번이 음 이름-값 짝과 임의성만 말해 근거가 없고, 오른쪽 ①(붕괴·어두운 면)은 8·9번까지 확대 사례뿐이라 근거가 없다 — 제목 중심 요소의 근거 부재라는 같은 규칙으로 둘 다 오답, v3 decisive·문장 번호와 일치. 핵심어 일치 정도의 차이를 limitation 에 둔 처리도 정의에 맞다."
+    },
+    {
+      "pair_id": "2014B#31~M2706#31",
+      "verdict": "revise",
+      "content_hash": "fb61e071233a67c2",
+      "codes": [
+        "P2",
+        "P6"
+      ],
+      "why": "왼쪽 ②(출시 지연, 6번 근거 부재)와 오른쪽 ④(natural, 3번 예시 반례)는 둘 다 오답이고 지우는 근거의 종류만 다르다 — contrast 가 아니다. 또 2014B#31 은 2014A#35 와 같은 지문·선지라 같은 대비가 이미 not_applicable(중복)으로 처리된 비교와 사실상 같다. 수정: status 를 not_applicable 로, reason 「두 오답의 배제 근거 종류만 다르고, 같은 상대와의 같은 대비가 다른 비교에 있어 중복」."
+    },
+    {
+      "pair_id": "2014B#32~M2706#31",
+      "verdict": "revise",
+      "content_hash": "81761a755904ccd4",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ①과 오른쪽 ②는 둘 다 오답이라 contrast 가 아니다. 다만 둘 다 정답 방향을 뒤집은 선지이고, 오른쪽은 빈칸 문장(4번 prolong) 안에서, 왼쪽은 다른 문장(1번 연결이 많을수록 성공, 7번 병렬 짝)이 있어야 지워진다 — 정의의 boundary 에 해당한다. 수정: kind 를 boundary 로 바꾸고 decisive_differences(1번 대 4번)는 유지, 왼쪽 근거에 7번 병렬 짝도 함께 적는다(left_sentences [1,7]). focus 를 「방향을 뒤집은 빈칸 오답이 한쪽은 빈칸 문장 안에서, 다른 쪽은 다른 문장이 있어야 지워진다」로."
+    }
+  ]
+}

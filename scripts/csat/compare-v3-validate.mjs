@@ -60,6 +60,8 @@ export function validatePair(input, out) {
   if (!txt(out.limitation)) e('limitation 없음')
   const all = JSON.stringify([out.focus, maps.map((m) => m.relation), shared, diffs.map((d) => d.text), out.principle ?? '', out.limitation])
   if (BANNED.test(all)) e('보편 단정 · 출제자 내부 사고 단정 표현')
+  // 공개 화면 문장 — 작성 과정(입력 메모 · legacy) 언급은 학습자에게 뜻이 없다(검수 P5 · 전량 21건 적발 뒤 강제)
+  if (/입력 메모|기존 메모|legacy|레거시/i.test(all)) e('작성 과정(입력 · 기존 메모) 언급 — 원문 근거만 남긴다')
   return errs
 }
 

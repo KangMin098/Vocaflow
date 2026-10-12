@@ -1,0 +1,152 @@
+{
+  "reviewer": "rv-v3p-07",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2017#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "bff46cad300d24d5",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "ebcbe96339efd941",
+      "codes": [],
+      "why": "not_applicable 이유가 원문 근거와 맞고, 다른 선지 조합에서도 같은 규칙의 대응이 서지 않는다."
+    },
+    {
+      "pair_id": "2017#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "85c78981b3cf53dc",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "8db2f62b86cc6c16",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#20~M2609#22",
+      "verdict": "pass",
+      "content_hash": "c0093bacb15bd5aa",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#20~M2706#22",
+      "verdict": "revise",
+      "content_hash": "c8abd515d0fe8fc5",
+      "codes": [
+        "P6"
+      ],
+      "why": "대응이 성립한다: 왼쪽 ⑤(발전은 자원 개발에 달려 있다, 1·2번 문장의 「발전 노력이 자원을 고갈시킨다」를 뒤집음)와 오른쪽 ⑤(안전감을 원하면 거친 차를 피한다, 5번 문장의 「성난 얼굴이 안전감을 준다」를 뒤집음)는 핵심어를 둔 채 관계 방향을 뒤집어 지워진다. status ok · kind same_structure, mapping left{s:[1,2],c:[5]} ↔ right{s:[5],c:[5]} 로 다시 쓴다. 이유문이 왼쪽 ① 하나만 보고 판정했다."
+    },
+    {
+      "pair_id": "2017#21~M2609#23",
+      "verdict": "pass",
+      "content_hash": "a9dd1ea4e2408769",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#21~M2706#23",
+      "verdict": "pass",
+      "content_hash": "511203ec36b99803",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#22~M2609#24",
+      "verdict": "pass",
+      "content_hash": "ba223afa20f952eb",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#22~M2706#24",
+      "verdict": "pass",
+      "content_hash": "eb1e7598a57b4983",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#23~M2609#24",
+      "verdict": "pass",
+      "content_hash": "612fa4995ffa89c7",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#23~M2706#24",
+      "verdict": "pass",
+      "content_hash": "5d0b93e76fd27f9d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#27~M2609#28",
+      "verdict": "pass",
+      "content_hash": "74f4faa3cbdc5484",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#27~M2706#28",
+      "verdict": "pass",
+      "content_hash": "b01405573c4a8fda",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "41f495b44bfed854",
+      "codes": [],
+      "why": "not_applicable 이유가 원문 근거와 맞고, 다른 선지 조합에서도 같은 규칙의 대응이 서지 않는다."
+    },
+    {
+      "pair_id": "2017#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "5c30cc5db8c7e8fc",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#33~M2706#31",
+      "verdict": "revise",
+      "content_hash": "4ab09660c80a968c",
+      "codes": [
+        "P6"
+      ],
+      "why": "상대(2017#33)가 다른 쌍과 달라 중복이 아니다(같은 상대 선지 반복은 상대가 다르면 중복 아님). 왼쪽 ③(상실은 결코 실재할 수 없다)은 7번 빈칸 문장만으로는 걸러지지 않고 3번 문장의 전제가 있어야 지워지며, 오른쪽 unstable 은 4번 문장 안의 prolong 제약으로 지워진다. status ok · kind boundary, mapping left{s:[3,7],c:[3]} ↔ right{s:[4],c:[2]}, decisive_differences 에 「다른 문장 필요 대 문장 안에서 걸러짐」을 쓴다."
+    },
+    {
+      "pair_id": "2017#35~M2606#35",
+      "verdict": "pass",
+      "content_hash": "9bc45aea39d71a85",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#35~M2706#35",
+      "verdict": "revise",
+      "content_hash": "934acfcb7eea77d4",
+      "codes": [
+        "P6"
+      ],
+      "why": "대응이 성립한다: 왼쪽 ①의 doing this 가 2번 문장의 직업 소개를 받고, 오른쪽 ①(3번 문장)의 Their 가 2번 문장의 아기를 받아 둘 다 지시어 연결로 흐름에 남는다(입력 decisive 그대로). 이유문은 오른쪽 ②만 대 보았다. status ok · kind same_structure, mapping left{s:[2,3],c:[1]} ↔ right{s:[2,3],c:[1]} 로 다시 쓴다."
+    },
+    {
+      "pair_id": "2017#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "a9ec520679a29e70",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    }
+  ]
+}

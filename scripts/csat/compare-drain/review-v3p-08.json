@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-08",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2017#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "ab669ab93f21180f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "f10422a702003048",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "5a0f667a2fdf03cb",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "e4b7e3a5ba9c462b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "f4cd0219a3102acf",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "2fa37eda2f6deda6",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "5a52397441422b58",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "72ee2504b4445bbf",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "18608a8f80ebae8b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2017#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "30d506d2973222e9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "1d2039dab6e6d9e1",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "73995007b45f40c0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "0b92536929b749dc",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "65e76f67aa8d4428",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#21~M2706#22",
+      "verdict": "pass",
+      "content_hash": "e45c48957a8744bb",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#22~M2706#23",
+      "verdict": "pass",
+      "content_hash": "040fd14589cd5fb0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#23~M2609#24",
+      "verdict": "revise",
+      "content_hash": "461c33cfceece826",
+      "codes": [
+        "P6"
+      ],
+      "why": "대응이 성립한다: 왼쪽 ⑤(The Untold Origin, 2번 문장은 기간 연장 이력일 뿐 기원을 말하지 않음)와 오른쪽 ⑤(Politics, 7번 문장의 power 는 구원의 힘일 뿐 정치를 말하지 않음)는 핵심 개념을 받치는 문장이 없어 지워진다. 이유문은 왼쪽 ③·오른쪽 ④ 한 조합만 보았다. status ok · kind same_structure, mapping left{s:[2],c:[5]} ↔ right{s:[6,7],c:[5]} 로 다시 쓴다."
+    },
+    {
+      "pair_id": "2018#23~M2706#24",
+      "verdict": "pass",
+      "content_hash": "6b1bb9cdbd994eeb",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#27~M2706#28",
+      "verdict": "pass",
+      "content_hash": "17f2b14b78b7dd17",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    },
+    {
+      "pair_id": "2018#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "81c21f3d18995d44",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive 와 맞고 kind·조건이 정의대로 성립한다."
+    }
+  ]
+}

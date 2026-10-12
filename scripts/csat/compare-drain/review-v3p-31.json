@@ -1,0 +1,150 @@
+{
+  "reviewer": "rv-v3p-31",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2306#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "68e3bde90644e531",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "4eb1de318fbf5642",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#31~M2706#32",
+      "verdict": "revise",
+      "content_hash": "adc97a6c318e359a",
+      "codes": [
+        "P5"
+      ],
+      "why": "대응·kind 는 맞으나 공개 문장인 limitation 첫 문장이 내부 산출물(「기존 메모는 … 판정했다」)을 언급한다(작성 규칙 9 내부 참조 금지). 수정안: 그 문장을 지우고 「오른쪽은 difficult 틀과 결합해 방향을 계산해야 한다는 점이 다르다」만 남긴다."
+    },
+    {
+      "pair_id": "M2306#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "f161142d24a8de7a",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "b75926ce0406fd47",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "e2a3a452021b8ec5",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "35c307e017e05ec1",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "4d95045bb673637f",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#36~M2406#37",
+      "verdict": "pass",
+      "content_hash": "ead54ecce7520320",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "a629b385a228f6c9",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "5153e3c3c6fd31f4",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "fcd2a46f508059ee",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#39~M2706#38",
+      "verdict": "revise",
+      "content_hash": "2b253dd2aba30e30",
+      "codes": [
+        "P5"
+      ],
+      "why": "대응·kind 는 맞으나 limitation 이 「기존 메모의 정관사구 절단보다 v3 근거에 맞춰」라는 내부 작업 경위를 공개 문장에 쓴다(작성 규칙 9). 수정안: 그 구절을 지우고 「왼쪽은 This 가 5번 문장을 받는 것처럼 보여 더 끌리기 쉽다는 차이가 있다.」만 남긴다."
+    },
+    {
+      "pair_id": "M2306#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "115d88e289b9d2e1",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "e6fa28a3db54d1ec",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "1a4771e98d7a3969",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "0a3d5a9ff7e72f43",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "90f631a07d956608",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "0dd7fd0f94a3cae6",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "057bc4c524702a65",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    }
+  ]
+}

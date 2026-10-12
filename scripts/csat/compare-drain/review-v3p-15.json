@@ -1,0 +1,154 @@
+{
+  "reviewer": "rv-v3p-15",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2022#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "d31c8f88e1b3a096",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "fd7a00a7ef9445db",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "f64a8408d915013c",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "fac9d4885fca954b",
+      "codes": [],
+      "why": "not_applicable 이유가 원문·v3 배제 근거와 맞다."
+    },
+    {
+      "pair_id": "2022#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "628b0a271f431408",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "9cc68a2edd177757",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "a9d1e207f78b185d",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "0492ab6295115193",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#37~M2609#37",
+      "verdict": "revise",
+      "content_hash": "a965a61fd64c4956",
+      "codes": [
+        "P5"
+      ],
+      "why": "대응·kind 는 맞다. 다만 limitation 첫 문장 「입력 메모는 왼쪽 2번 순서를 대응시켰지만…」은 공개 화면에 내부 작업 과정을 드러낸다. 이 문장을 지우고 「왼쪽 3번 순서는 However 가 받을 내용이 뒤로 밀려 지워진다(2번 순서는 the mind 의 선행어 문제로 지워진다).」처럼 원문 근거만 남긴다."
+    },
+    {
+      "pair_id": "2022#38~M2606#38",
+      "verdict": "revise",
+      "content_hash": "e639164177fd815a",
+      "codes": [
+        "P5"
+      ],
+      "why": "정답 자리 대응은 맞다. limitation 의 「입력 메모는 두 오답을 대비로 묶었지만」은 내부 과정 언급이라 공개 화면에 부적합하다. 「두 오답 자리(왼쪽 ②·오른쪽 ⑤)는 지워지는 규칙이 달라 이 비교에서 다루지 않는다. 정답 자리 결정 구조만 비교한다.」로 고친다."
+    },
+    {
+      "pair_id": "2022#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "f2466b2bdf988821",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "8e276e9ed18876f1",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "f25934dbe5390108",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#40~M2609#40",
+      "verdict": "revise",
+      "content_hash": "a64fd2999dbe206c",
+      "codes": [
+        "P5"
+      ],
+      "why": "same_structure 판정은 맞다. limitation 둘째 문장 「입력 메모는 대비로 묶었지만…」을 지우고 「왼쪽은 (A), 오른쪽은 (B)가 틀린 칸이라 위치만 다르다」만 남긴다(내부 과정 언급 제거)."
+    },
+    {
+      "pair_id": "2022#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "6a118cb750587629",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#41~M2609#41",
+      "verdict": "revise",
+      "content_hash": "a132ff27f6d65903",
+      "codes": [
+        "P5"
+      ],
+      "why": "same_structure 판정은 맞다. limitation 의 「입력 메모는 대비로 묶었지만…」 문장을 지우고 「왼쪽 1번은 지문에 없는 전략의 유사성까지 더해 어긋남이 겹친다」만 남긴다(내부 과정 언급 제거)."
+    },
+    {
+      "pair_id": "2022#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "9e7efc07d3f2aa2f",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "c42754c323d86ec3",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2022#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "b10c9fa3fe996935",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "cc95b680a985aeb5",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    }
+  ]
+}

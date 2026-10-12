@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-38",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2509#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "bc7cec3344983317",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#28~M2606#28",
+      "verdict": "pass",
+      "content_hash": "999a9205cafc9cbb",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "d1ed81900df75f5a",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "499e7ffaa8fd2114",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "bafd7b1bb649c1b2",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "89c3cfc19047427c",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "3ce7d931a7e00487",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "8ac77a20845f1f53",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "af13e9233d7a615e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#35~M2606#35",
+      "verdict": "pass",
+      "content_hash": "24ce6e36ebfbaef0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "01a37db3659fb2c9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "a8b8c18c809a589e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#38~M2606#38",
+      "verdict": "pass",
+      "content_hash": "38ca6392abbe8420",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#38~M2606#39",
+      "verdict": "pass",
+      "content_hash": "3a6a3b5b9e6abd47",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#38~M2609#38",
+      "verdict": "pass",
+      "content_hash": "38f000b6f665fb4d",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "1ad80bedd41ec162",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "397e958c861798ec",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "974f70d3283e43de",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#41~M2606#41",
+      "verdict": "pass",
+      "content_hash": "aa25ae33b81e31fc",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    },
+    {
+      "pair_id": "M2509#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "9f1aca44d43c9b98",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고 kind·조건·원리가 두 사례 범위 안에 있다"
+    }
+  ]
+}

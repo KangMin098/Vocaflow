@@ -1,0 +1,152 @@
+{
+  "reviewer": "rv-v3p-21",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M1809#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "92efda91a6b47ed9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#21~M2609#22",
+      "verdict": "pass",
+      "content_hash": "e32c50aa5770fa96",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#21~M2706#22",
+      "verdict": "pass",
+      "content_hash": "b60bfbccbc6fd354",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#22~M2609#23",
+      "verdict": "pass",
+      "content_hash": "cd8030c998111de5",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#22~M2706#23",
+      "verdict": "revise",
+      "content_hash": "032de7472aa48b30",
+      "codes": [
+        "P2"
+      ],
+      "why": "두 근거(왼쪽 ①, 오른쪽 ⑤)가 모두 오답으로 지워져 판정이 갈리지 않는다 — 지우는 이유(반박된 전언 대 부분 사실)의 종류 차이만으로는 contrast 가 아니다. status 를 not_applicable 로 바꾸고 이유를 「두 오답이 서로 다른 규칙으로 지워져 공유하는 판단 구조가 없음」으로 적는다."
+    },
+    {
+      "pair_id": "M1809#23~M2609#24",
+      "verdict": "pass",
+      "content_hash": "7774f514e0c9b74f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#23~M2706#24",
+      "verdict": "pass",
+      "content_hash": "74f897df7afd5f2f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#27~M2609#28",
+      "verdict": "pass",
+      "content_hash": "7039d6a5b46b2576",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#27~M2706#28",
+      "verdict": "pass",
+      "content_hash": "8202f911f6c5dcc9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "aaeb3ae9be3c6672",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#31~M2706#32",
+      "verdict": "revise",
+      "content_hash": "755a92904d385322",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ①(대응 문장 없음)과 오른쪽 ④(7번 문장이 반대 방향)는 둘 다 오답이라 판정이 갈리지 않고, 지우는 근거의 종류만 다르다. contrast 정의에 맞지 않으므로 not_applicable(「근거 종류 차이일 뿐 같은 판단 구조 없음」)로 바꾼다."
+    },
+    {
+      "pair_id": "M1809#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "6a4167d7432374ac",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "d3179fb5aa6ad6f0",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "a217efb696828170",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "5ac4b96ac867e866",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "544995070e3b8a05",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "bcae1b1639a3ac0f",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "9080e5279f7b9fdd",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "c28c43cfcc517a98",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 v3 근거와 맞고 kind 정의에 부합한다"
+    },
+    {
+      "pair_id": "M1809#37~M2609#37",
+      "verdict": "revise",
+      "content_hash": "5104d3131cea0c95",
+      "codes": [
+        "P1"
+      ],
+      "why": "첫 mapping 의 오른쪽 relation(「(C)가 첫 자리라 Put simply 가 줄일 설명이 1번 문장뿐」, 문장 [1,6])은 v3 상 ④ (C)-(A)-(B) 의 배제 근거다. 오른쪽 choices 를 [5]→[4] 로 고친다(⑤의 v3 근거 [4,7]은 둘째 mapping 에 이미 있음)."
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-28",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2206#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "7eb1eb5bd91bc84e",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "081108c1666f0196",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#33~M2706#32",
+      "verdict": "pass",
+      "content_hash": "7365da53040e1f54",
+      "codes": [],
+      "why": "not_applicable 이유가 v3 decisive 와 맞다 — 두 오답이 서로 다른 규칙으로 지워지고 판정이 갈리지도 않는다."
+    },
+    {
+      "pair_id": "M2206#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "677d5106e0c67cba",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "3724842d7e11fde0",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "b3d9824c850f9105",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "a719e9007a4e9414",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "549699d0351f4507",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "16eea2d1354531b4",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#37~M2306#36",
+      "verdict": "pass",
+      "content_hash": "6085c24b2815be79",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "2d7a44f7213f65ad",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "d9a5c1af5f55a1d6",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "780e340938180af8",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "22e011c9af3a1c73",
+      "codes": [],
+      "why": "not_applicable 이유가 v3 decisive 와 맞다 — 두 오답이 서로 다른 규칙으로 지워지고 판정이 갈리지도 않는다."
+    },
+    {
+      "pair_id": "M2206#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "ee0eaad6e0465b10",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2206#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "caef62b70bd18982",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2209#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "933d17f57121afa9",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2209#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "ea6dff1ebc45e1c7",
+      "codes": [],
+      "why": "not_applicable 이유가 v3 decisive 와 맞다 — 두 오답이 서로 다른 규칙으로 지워지고 판정이 갈리지도 않는다."
+    },
+    {
+      "pair_id": "M2209#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "2ce47d4d69647a0f",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    },
+    {
+      "pair_id": "M2209#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "e34763a2ec8049a1",
+      "codes": [],
+      "why": "mappings 의 문장·선지 번호와 relation 이 v3 decisive 와 맞고, kind 가 정의(같은 규칙·같은 판정 / 범위 경계)에 맞으며 limitation 이 겉모양 차이를 밝힌다."
+    }
+  ]
+}

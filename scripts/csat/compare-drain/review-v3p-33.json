@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-33",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2309#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "8469562ca9a81407",
+      "codes": [],
+      "why": "왼쪽 ②(5번 This obstacle)·오른쪽 ①(4번 they) 모두 v3 decisive 의 지시 절단 근거와 일치하고, 정답 자리 대응(such calls · Here the lexicon)도 맞다. same_structure 타당."
+    },
+    {
+      "pair_id": "M2309#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "9fe30492aeff6884",
+      "codes": [],
+      "why": "두 오답 모두 (A)는 맞고 (B)가 근거 문장(왼쪽 7번 · 오른쪽 8번)과 어긋난다는 v3 decisive 와 일치. 바뀐 방식 차이는 limitation 에 정리됨."
+    },
+    {
+      "pair_id": "M2309#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "3b62634afefcda29",
+      "codes": [],
+      "why": "왼쪽 ④ cost(3·4번 크기 기준) · 오른쪽 ③ native(3번 지불 능력 기준) 모두 기준어 교체로 지워져 v3 와 맞다. 칸 수 차이는 limitation 에 밝힘."
+    },
+    {
+      "pair_id": "M2309#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "dca8cc07741fc047",
+      "codes": [],
+      "why": "legacy 는 contrast 였으나 두 ②번 모두 「덧붙은 서술의 근거 문장 없음」으로 오답 쪽 판정이라 판정이 갈리지 않는다 — same_structure 가 정의에 맞다."
+    },
+    {
+      "pair_id": "M2309#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "dff92dac7356a50b",
+      "codes": [],
+      "why": "왼쪽 ①(태도 대비 없음) · 오른쪽 ②(4번 실제로는 고체, 용도 서술 없음) 모두 v3 decisive 와 일치. 비교 틀 부재라는 공통 조건이 실제 판정 근거다."
+    },
+    {
+      "pair_id": "M2309#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "fb09b257ecf30120",
+      "codes": [],
+      "why": "왼쪽 ②(22번 완료 → 32번 입장) · 오른쪽 ②(8번 종료 → 26번 접전) 시간 역전이 v3 와 일치. bounded 원리와 when_not 적절."
+    },
+    {
+      "pair_id": "M2309#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "766040d0ad873497",
+      "codes": [],
+      "why": "왼쪽 ②와 오른쪽 ①(8번 The following day 가 첫 만남보다 앞섬) 모두 시간 역전으로 지워져 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "a5d0be4ad7cb95ef",
+      "codes": [],
+      "why": "두 ②번 모두 시간 낱말(June 1st · Every year)만 있고 변경 표현이 없다는 v3 decisive 와 일치. 정답 화행 대응도 4번 문장끼리 정확."
+    },
+    {
+      "pair_id": "M2406#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "a61e39fcc4d72ecc",
+      "codes": [],
+      "why": "두 ②번의 뒤 칸이 마지막 감정 문장(9번 · 10번)과 반대라는 대응이 v3 와 맞다. 앞 칸 차이는 limitation 에 정리."
+    },
+    {
+      "pair_id": "M2406#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "349151595884f033",
+      "codes": [],
+      "why": "왼쪽 ②(9번 at ease) · 오른쪽 ②(6·7번 경탄) 뒤 칸 반대, 앞 칸도 어긋남 — v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2406#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "d3407875c136d112",
+      "codes": [],
+      "why": "왼쪽 ①(challenges → 실패) · 오른쪽 ⑤(7번 standards → 동료 평가) 모두 수단을 지문 밖 처방으로 바꾼 선지라 v3 와 맞다. 빌린 위치 차이는 limitation 에."
+    },
+    {
+      "pair_id": "M2406#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "ada62ce90b76e390",
+      "codes": [],
+      "why": "왼쪽 ①(5번 challenges) · 오른쪽 ④(8번 gradually) 모두 낱말이 꾸미는 대상을 넓혀 읽은 오답으로 v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2406#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "e1b017a3646a5a88",
+      "codes": [],
+      "why": "왼쪽 ①(2번 anonymity) · 오른쪽 ③(8번 new media) 모두 열쇳말에 근거 없는 서술을 붙인 오답이라 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "b4f56d1ebc0b49e0",
+      "codes": [],
+      "why": "왼쪽 ①(5번 대가를 중요성으로) · 오른쪽 ③(3번 제약을 이점으로) 평가 뒤집기가 v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2406#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "4f5d2ca647b5af3d",
+      "codes": [],
+      "why": "왼쪽 ②(8번 accessibility 는 위기의 이름) · 오른쪽 ①(6번 혜택은 사회의 것) 모두 방법·안내 서술 부재로 지워져 v3 와 맞다."
+    },
+    {
+      "pair_id": "M2406#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "4e021417159e6d59",
+      "codes": [],
+      "why": "legacy contrast 를 same_structure 로 바로잡았다 — 두 선지 모두 근거 문장 없음으로 오답 판정이 같고, 부정 서술 유무 차이는 limitation 에 둔 것이 정의에 맞다."
+    },
+    {
+      "pair_id": "M2406#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "55a6ba9ab7facbc3",
+      "codes": [],
+      "why": "왼쪽 ②(월요일은 Clay Arts) · 오른쪽 ①(9/15~10/15 는 Submission period) 이름표 바꾸기가 v3 와 일치. bounded 원리 적절."
+    },
+    {
+      "pair_id": "M2406#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "3ea16f2ea68f7cf6",
+      "codes": [],
+      "why": "오른쪽 ② unstable 은 4번 prolong 만으로, 왼쪽 ③ nutritional 은 5·9번 증감 축이 있어야 지워진다 — 같은 규칙의 적용 범위 경계라 boundary 정의에 맞다."
+    },
+    {
+      "pair_id": "M2406#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "87565c464c4825e9",
+      "codes": [],
+      "why": "왼쪽 ③(5·9번 sustenance 감소) · 오른쪽 ⑤(6번 볼 눈이 있으면 안다) 모두 방향 역전으로 지워져 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "1a0f4e5b713fc268",
+      "codes": [],
+      "why": "legacy contrast 였으나 왼쪽 ①(2번 no formal records) · 오른쪽 ④(3번 악기·그림 목록) 모두 빈칸 밖 한 문장으로 오답 판정이 같다 — same_structure 타당, 근거 형태 차이는 limitation 에."
+    }
+  ]
+}

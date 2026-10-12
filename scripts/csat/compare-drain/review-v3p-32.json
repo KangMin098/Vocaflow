@@ -1,0 +1,148 @@
+{
+  "reviewer": "rv-v3p-32",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2309#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "7f54105f1edc5678",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "926be17ca77a54f7",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#20~M2706#20",
+      "verdict": "revise",
+      "content_hash": "7217d5139b1d7d94",
+      "codes": [
+        "P5"
+      ],
+      "why": "대응·kind(둘 다 must 문장의 요구 행동을 바꾼 오답)는 맞으나 공개 문장인 limitation 첫 문장이 내부 산출물(「기존 메모는 … 판정했다」)을 언급한다(작성 규칙 9). 수정안: 그 문장을 지우고 「오른쪽은 4번 문장의 활동 목록이라는 유인 재료가 따로 있다」만 남긴다."
+    },
+    {
+      "pair_id": "M2309#21~M2609#21",
+      "verdict": "pass",
+      "content_hash": "09360a48dec0f021",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "4f4dd5856e56f2d7",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "8ee830ab3c371799",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "0df35803b55d23bb",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "89012abf4d539d12",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "8210780a10b65072",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "09b64f06122f667d",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "20c1bac1fdffe161",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "8bfe7e58ef82839d",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "4a915302d19e3acf",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#33~M2706#32",
+      "verdict": "pass",
+      "content_hash": "c5423351d8896a2c",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "7d16500202819ce9",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "d051e9e5c9a70a13",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "eb89b55dee3fb464",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "4b984967faba9b8a",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "ec3cd62cde6424aa",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2309#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "6b6578f2459d7a03",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    }
+  ]
+}

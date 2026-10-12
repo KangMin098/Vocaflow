@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-26",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2109#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "ca0bc3df8c64ea2d",
+      "codes": [],
+      "why": "전환 뒤 반응(13번 · 6·7번)이 뒤 칸 부호를 고정해 2번 · 2번이 같은 규칙으로 지워짐"
+    },
+    {
+      "pair_id": "M2109#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "f6842928901551fc",
+      "codes": [],
+      "why": "필자가 물리친 쪽(3번 열등항 · 2·3번 처벌 통념)을 고른 1번 · 3번 대응 정확"
+    },
+    {
+      "pair_id": "M2109#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "91749d83b06a96b7",
+      "codes": [],
+      "why": "지문이 부정한 방향(3번 · 5·7번)을 고른 1번 · 1번 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "f3e72c89e8937d82",
+      "codes": [],
+      "why": "평가 방향을 맞바꾼 2번(6·9번 금지) · 1번(7번 Griffin 자신의 주장) 대응 타당, 같은 판정이라 same_structure 수용"
+    },
+    {
+      "pair_id": "M2109#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "0ef87641a62c7c14",
+      "codes": [],
+      "why": "수식구 속 낱말(Prior to 부사구 · 정의문 수식절) 대응이 7번 · 3번 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "748aa7c18b68251d",
+      "codes": [],
+      "why": "범위 초과(한정 삭제 · 없는 비교 축) 오답 1번 · 3번이 같은 범위 대조로 지워짐"
+    },
+    {
+      "pair_id": "M2109#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "d88865f1f895c3fa",
+      "codes": [],
+      "why": "지문 밖 개념(간극 메우기 · 성공 조건) 대응 정확"
+    },
+    {
+      "pair_id": "M2109#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "b1f6aba0bd29a9f2",
+      "codes": [],
+      "why": "일부 낱말만 쓴 3번 · 5번 오답이 중심 축 누락으로 지워지는 대응 타당"
+    },
+    {
+      "pair_id": "M2109#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "ff765809bff7cdee",
+      "codes": [],
+      "why": "표면 낱말 일치 오답(2번 산 · 1번 혜택) 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "eaa1713f40d5eb84",
+      "codes": [],
+      "why": "방향 역전(3번 부정된 완전함 · 3번 역할 축소) 대응 정확"
+    },
+    {
+      "pair_id": "M2109#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "cf2967d7b3496213",
+      "codes": [],
+      "why": "not_applicable 이유(개념 바꿔치기 vs 진술 주체 바꿔치기)가 원문과 맞음"
+    },
+    {
+      "pair_id": "M2109#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "ecde02257d33e47b",
+      "codes": [],
+      "why": "빈칸 근거 문장과 맞지 않는 3번(축 부재) · 4번(반대) 같은 판정, 차이는 limitation"
+    },
+    {
+      "pair_id": "M2109#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "691376bd5c363e41",
+      "codes": [],
+      "why": "오른쪽 2번은 빈칸 문장 prolong 안에서, 왼쪽 2번은 빈칸 밖 4번 문장이 있어야 지워져 boundary 정의와 정확히 일치"
+    },
+    {
+      "pair_id": "M2109#33~M2706#32",
+      "verdict": "pass",
+      "content_hash": "bc8e74131e17a3a6",
+      "codes": [],
+      "why": "관계 역전 오답(2번 · 5번)이 4번 · 6번 문장으로 지워지는 대응 정확"
+    },
+    {
+      "pair_id": "M2109#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "1d21c0beef2656b3",
+      "codes": [],
+      "why": "근거 문장 대조로 2번(부재) · 4번(예시 모순)이 같은 판정, 차이는 limitation"
+    },
+    {
+      "pair_id": "M2109#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "eb2e9a60447d7482",
+      "codes": [],
+      "why": "덧댄 상식(예측 · 듣는 척) 근거 부재 대응 정확"
+    },
+    {
+      "pair_id": "M2109#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "eb9ff3c1b4ad8de2",
+      "codes": [],
+      "why": "예고 · 채움으로 남는 2번 · 1번과 무관 문장 3번 · 4번 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "e32af875ff77431c",
+      "codes": [],
+      "why": "앞 문장 단서로 남는 2번 · 1번, 낱말만 겹친 무관 문장 대응 정확"
+    },
+    {
+      "pair_id": "M2109#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "6f59b37a1bcbf1cc",
+      "codes": [],
+      "why": "받을 내용 없이 놓인 블록(5번 직유 · 1번 대꾸) 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "556d9a4d9c5f43fa",
+      "codes": [],
+      "why": "(A) 첫 자리 1번 · 1번이 evidential value · 대꾸 분리로 지워지는 대응 정확"
+    }
+  ]
+}

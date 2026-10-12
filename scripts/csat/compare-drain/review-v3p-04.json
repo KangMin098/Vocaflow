@@ -1,0 +1,152 @@
+{
+  "reviewer": "rv-v3p-04",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2015#20~M2609#23",
+      "verdict": "pass",
+      "content_hash": "83c6d90342d690ef",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#20~M2706#23",
+      "verdict": "revise",
+      "content_hash": "a01770d8f3ba209b",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ⑤(예시 둘을 대조로 읽음, 3·6번)와 오른쪽 ⑤(한 항만 남겨 범위 축소, 5·7번) 모두 오답이라 같은 단서가 정답/오답으로 갈리지 않는다. 읽기 오류 종류만 다르므로 contrast 아님 → not_applicable(제거 근거 종류 상이)로 바꾼다."
+    },
+    {
+      "pair_id": "2015#21~M2609#23",
+      "verdict": "pass",
+      "content_hash": "80a275281115a88d",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#21~M2706#23",
+      "verdict": "pass",
+      "content_hash": "b0d9f4611fbe7f36",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#22~M2609#24",
+      "verdict": "pass",
+      "content_hash": "2f670d8410156f78",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#22~M2706#24",
+      "verdict": "pass",
+      "content_hash": "6cab9bd98bf054df",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#23~M2609#24",
+      "verdict": "pass",
+      "content_hash": "9a55060a2a1b1024",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#23~M2706#24",
+      "verdict": "pass",
+      "content_hash": "23cd8d47f5aa7381",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#26~M2609#28",
+      "verdict": "pass",
+      "content_hash": "3ffc4a6bb7801ce5",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#26~M2706#28",
+      "verdict": "revise",
+      "content_hash": "98544797137bbb39",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ②(pm 을 오전으로, 1번)와 오른쪽 ③(행사 시작 6 p.m. 을 영화에 붙임, 2·4번) 모두 오답이다. 판정이 갈리지 않고 근거 위치만 다르므로 contrast 정의 불충족 → not_applicable 로 바꾸거나, 한 항목 안 vs 두 항목 대조라는 범위 차이를 살리려면 kind 를 boundary 로 바꾸고 focus 의 '판정 근거가 다르다'를 '적용 범위(한 줄 안/두 줄 대조)가 다르다'로 고친다."
+    },
+    {
+      "pair_id": "2015#30~M2406#30",
+      "verdict": "pass",
+      "content_hash": "07b88a4cbcf230e4",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "85a7757b8c0db440",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "d78681ea859c3faa",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "df2ede38955b42e0",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "69910ed53ef43a2a",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "d9da6163e513042c",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#35~M2706#35",
+      "verdict": "revise",
+      "content_hash": "fcdf14a61a421a1e",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ③(6번 This last option 의 지시 대상)과 오른쪽 ②(3번과 대비 짝·1번 주장 채움) 모두 '남아야 할 문장'으로 같은 판정(오답)이고 남기는 근거 종류만 다르다. contrast 아님 → not_applicable(남기는 근거 종류 상이)로 바꾼다."
+    },
+    {
+      "pair_id": "2015#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "51b94764bb17a017",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "b6bcd14513deb007",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "fe253c29fe094f81",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    }
+  ]
+}

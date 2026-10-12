@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-40",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2606#39~M2609#38",
+      "verdict": "pass",
+      "content_hash": "4a11890ad6e40de1",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#39~M2609#39",
+      "verdict": "pass",
+      "content_hash": "78a15fc92834a09e",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "75fd0c17d3b208ce",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "c42e1ec424b238cb",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "a38d1b80bfd3e8d5",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "fb0434b23bced954",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "bb00b4ab68893f9b",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "efb1711528068b9b",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2606#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "4081c0130e3f14eb",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "57c26acdf8eda59d",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "1e690ddd59669857",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "520c309986b52b52",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "bcd4006bc3af90c4",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "2e5fce0017062906",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "06790fdb847fad1e",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "30d6e49158955226",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#31~M2706#34",
+      "verdict": "pass",
+      "content_hash": "e30780d33650c8c4",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#32~M2706#33",
+      "verdict": "pass",
+      "content_hash": "572d38b6d4785415",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "cdc30ccdc30b4f3a",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    },
+    {
+      "pair_id": "M2609#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "01194f191c4a1893",
+      "codes": [],
+      "why": "same_structure 판정·대응 문장·선지 번호가 입력 v3 decisive 와 맞고, 공통·가르는 조건과 limitation 이 원문에 근거한다"
+    }
+  ]
+}

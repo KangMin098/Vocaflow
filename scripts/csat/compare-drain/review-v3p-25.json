@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-25",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2106#34~M2706#32",
+      "verdict": "pass",
+      "content_hash": "1345dc16ce35cd14",
+      "codes": [],
+      "why": "근거 부재 틀(3번 분류 · 1번 듣는 척) 대응이 6번 · 6·7번 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "eeb872bc9ee4c90a",
+      "codes": [],
+      "why": "엇나가 보이는 1번 문장이 대비 짝 · 예고로 남고 무관 문장 4번 · 4번 대응이 v3 와 맞음"
+    },
+    {
+      "pair_id": "M2106#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "f13ac33b585c4120",
+      "codes": [],
+      "why": "1번 선지들이 이웃 문장 연결로 남는 같은 판정, 연결 방향 차이는 limitation"
+    },
+    {
+      "pair_id": "M2106#36~M2506#36",
+      "verdict": "pass",
+      "content_hash": "1b47a03e63beb18e",
+      "codes": [],
+      "why": "(A) 결과 · (B) the burnt areas 를 첫 자리에 둔 1번 · 2번 오답 근거가 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#36~M2609#37",
+      "verdict": "pass",
+      "content_hash": "5782be48a287b7c3",
+      "codes": [],
+      "why": "Thus 블록 첫 자리(2번)와 대꾸 블록 분리(1번)가 같은 연결 확인으로 지워짐"
+    },
+    {
+      "pair_id": "M2106#37~M2506#36",
+      "verdict": "pass",
+      "content_hash": "d576e27809e64f3f",
+      "codes": [],
+      "why": "대명사 블록을 선행사 앞에 둔 2번 · 5번 대응 정확(4·8 / 8·4~5)"
+    },
+    {
+      "pair_id": "M2106#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "f8824ab11b892d89",
+      "codes": [],
+      "why": "If 가정 · Put simply 가 전제 블록보다 앞선 4번 · 3번 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "167e856651fd09c9",
+      "codes": [],
+      "why": "지시어와 선행사 사이 삽입(④ 6·7 / ② 5·6) 대응 정확"
+    },
+    {
+      "pair_id": "M2106#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "68ff109c2dcfb4bb",
+      "codes": [],
+      "why": "those decisions · they(=all others) 사이 삽입 오답 대응이 v3 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "bd1593113461e6c0",
+      "codes": [],
+      "why": "시간 · 인과 연쇄 한가운데 삽입(③ 7·8 / ① 4·5) 대응 정확"
+    },
+    {
+      "pair_id": "M2106#39~M2706#39",
+      "verdict": "pass",
+      "content_hash": "8e42be849fd1ba08",
+      "codes": [],
+      "why": "첫 소개 전 지시(② 6번 실험 / ④ color terms) 대응, 전제 방향 차이는 limitation 에 명시"
+    },
+    {
+      "pair_id": "M2106#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "5c3fde416f4ca849",
+      "codes": [],
+      "why": "한 칸 지문 밖 개념(experimental · degradation) 대응이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "a2d669b769a0661c",
+      "codes": [],
+      "why": "지문 밖 분류 기준(experimental · native) 대응 정확"
+    },
+    {
+      "pair_id": "M2106#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "161d913d8fe5e0b4",
+      "codes": [],
+      "why": "지문에 없는 핵심 개념(거래 전략 · 최첨단) 대응이 2·11번 · 1·9번 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "0cdb45b01d9faa16",
+      "codes": [],
+      "why": "소재 겹침 · 핵심 개념 부재(저장 방법 · 용도) 대응 정확"
+    },
+    {
+      "pair_id": "M2106#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "d9de7cd87e8d770a",
+      "codes": [],
+      "why": "(B) 결말을 첫 자리에 둔 1번 · 1번이 11·26 / 10·23 전제로 지워짐"
+    },
+    {
+      "pair_id": "M2106#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "3ecb021eedcd9386",
+      "codes": [],
+      "why": "Reading on · The following day 연속 표지 대응(2번 · 1번)이 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2109#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "c33db05db42b3630",
+      "codes": [],
+      "why": "발신자 · 수신자 역할 역전(1번 · 4번) 대응 정확"
+    },
+    {
+      "pair_id": "M2109#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "ed9b0b74c0c0dd87",
+      "codes": [],
+      "why": "수신자 처지와 어긋난 명사 오답(2번 · 1번) 대응이 v3 와 맞음"
+    },
+    {
+      "pair_id": "M2109#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "0aec0c6032bb4c1a",
+      "codes": [],
+      "why": "전환 뒤 반응(13번 relax · 10번 best day)으로 2번 · 2번이 지워지는 대응 정확"
+    }
+  ]
+}

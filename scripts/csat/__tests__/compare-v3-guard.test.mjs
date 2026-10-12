@@ -33,6 +33,7 @@ test('결속 해시가 입력과 다르면 오류 · contrast 에 가르는 조�
   assert.ok(validatePair(input, out({ kind: 'contrast' })).some((x) => x.includes('decisive_differences 없음')))
   assert.ok(validatePair(input, out({ principle: { ...out().principle, level: 'generalized' } })).some((x) => x.includes('bounded 만')))
   assert.ok(validatePair(input, out({ focus: '이 원리는 항상 통한다' })).some((x) => x.includes('보편 단정')))
+  assert.ok(validatePair(input, out({ limitation: '입력 메모는 대비로 보았지만 같은 규칙이다' })).some((x) => x.includes('작성 과정')))
 })
 
 test('not_applicable 은 이유만 있으면 통과', () => {

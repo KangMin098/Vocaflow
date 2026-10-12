@@ -1,0 +1,156 @@
+{
+  "reviewer": "rv-v3p-05",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2015#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "a9bd31dff7ff5870",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "8f3e58f324f87de5",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "721d0fab261215e6",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "26e8b6f560a84283",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#41~M2609#41",
+      "verdict": "revise",
+      "content_hash": "f2d3bfabc7a22b56",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ③(7·15번 세부를 이어 붙임)과 오른쪽 ④(1번 While 종속절 배경을 주제로 오독) 모두 오답이라 같은 단서가 정답/오답으로 갈리지 않는다. 오독 종류만 다르므로 contrast 아님 → not_applicable(제거 근거 종류 상이)로 바꾼다."
+    },
+    {
+      "pair_id": "2015#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "411689018ef51c51",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#42~2016#42",
+      "verdict": "pass",
+      "content_hash": "b63df07233dac072",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#42~2018#42",
+      "verdict": "revise",
+      "content_hash": "d270dce4a248a31c",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ③ mirror(14번 not plagued 와 방향 반대)와 오른쪽 ④ emotionally(5번 낱말 겹침, 14번 objectivity 축과 불일치) 모두 오답이며 판정이 갈리지 않는다. contrast 정의 불충족 → not_applicable(제거 근거 종류 상이)로 바꾼다."
+    },
+    {
+      "pair_id": "2015#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "61823d4f39986c10",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2015#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "14d65dd240184f32",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "2450554b3385c96a",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "68d74119c2e82464",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#19~M2609#19",
+      "verdict": "revise",
+      "content_hash": "65efac1306c8039b",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ② exhausted(7번 ahead of me 로 미래)와 오른쪽 ① angry → calm(4·5번이 떨림 원인을 걱정으로 정함) 모두 오답 — 한 단서가 한쪽은 정답, 다른 쪽은 오답으로 갈리지 않는다. contrast → not_applicable(제거 근거 종류 상이)로 바꾼다."
+    },
+    {
+      "pair_id": "2016#19~M2706#19",
+      "verdict": "revise",
+      "content_hash": "772f28550561c846",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ③ frustrated(5번 I wish 가 부호를 뒤집음)와 오른쪽 ⑤ nervous → pleased(3·5번 뒤 행동이 지루함으로 정함) 모두 오답이며 근거 종류만 다르다. contrast 정의 불충족 → not_applicable 로 바꾼다."
+    },
+    {
+      "pair_id": "2016#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "7fa30ed5825cea1e",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "4522d7a583409801",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#21~M2609#22",
+      "verdict": "revise",
+      "content_hash": "470132f48a80639b",
+      "codes": [
+        "P2"
+      ],
+      "why": "왼쪽 ②(2번 Although 양보절을 요지로 올림)와 오른쪽 ②(3번 정의문 수식 재료) 모두 오답이다. 판정이 갈리지 않으므로 contrast 아님 — '딸린 성분을 요지로 끌어올림'이라는 같은 규칙으로 지워지므로 kind 를 same_structure 로 바꾸고 shared_conditions 에 '오답 핵심이 지문의 종속 성분(양보절·정의 수식)에서 왔다'를 넣고 양보절의 극성 반대 여부 차이는 limitation 으로 옮긴다."
+    },
+    {
+      "pair_id": "2016#21~M2706#22",
+      "verdict": "pass",
+      "content_hash": "65b12d07885ebc38",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#22~M2609#23",
+      "verdict": "pass",
+      "content_hash": "53791feae559c4b0",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    },
+    {
+      "pair_id": "2016#23~M2609#24",
+      "verdict": "pass",
+      "content_hash": "497df6cf93f634c0",
+      "codes": [],
+      "why": "양쪽 원문·선지·v3 decisive 와 대응·kind·조건이 맞는다."
+    }
+  ]
+}

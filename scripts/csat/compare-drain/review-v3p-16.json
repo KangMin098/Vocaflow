@@ -1,0 +1,150 @@
+{
+  "reviewer": "rv-v3p-16",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2023#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "b49a9c65d476a27b",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "4a8c45b75943977e",
+      "codes": [],
+      "why": "not_applicable 이유가 원문·v3 배제 근거와 맞다."
+    },
+    {
+      "pair_id": "2023#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "adf8e95167dbbb05",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "9a239a98587b4feb",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "c91b9eeb93911dd5",
+      "codes": [],
+      "why": "not_applicable 이유가 원문·v3 배제 근거와 맞다."
+    },
+    {
+      "pair_id": "2023#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "2255899887cb304c",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#28~M2609#28",
+      "verdict": "revise",
+      "content_hash": "2f52092dffded637",
+      "codes": [
+        "P5"
+      ],
+      "why": "same_structure 판정·대응 문장은 맞다. limitation 끝 문장 「입력 메모는 대비로 묶었지만 판정이 갈리지 않아 같은 구조로 보았다」는 공개 화면에 내부 작업 과정을 드러내므로 지우고 앞 문장(놓치는 표지 should · no 의 차이)만 남긴다."
+    },
+    {
+      "pair_id": "2023#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "8de5e1dcbb5cccb4",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "87e75652c6953052",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "0368ce1656b8e605",
+      "codes": [],
+      "why": "not_applicable 이유가 원문·v3 배제 근거와 맞다."
+    },
+    {
+      "pair_id": "2023#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "4bb2a138d19a994f",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "ac1a60c94aed63d6",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "8beb4d3e4e2594a3",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "1d72c8975a23d085",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#39~M2706#38",
+      "verdict": "revise",
+      "content_hash": "a073f5899a518190",
+      "codes": [
+        "P5"
+      ],
+      "why": "대응(왼쪽 ②·오른쪽 ②, For example · The vortices)은 맞다. limitation 첫 문장 「입력 메모는 오른쪽 ⑤를 대응시켰지만…」은 내부 과정 언급이라 지우고 「오른쪽 ⑤는 목표 진술 순서로 지워져 이 비교에 넣지 않는다」처럼 원문 근거만 남긴다."
+    },
+    {
+      "pair_id": "2023#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "8fb18fc7acf5fc39",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "b8c7d58bf9c6cfda",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "777fd7d2a64b8622",
+      "codes": [],
+      "why": "not_applicable 이유가 원문·v3 배제 근거와 맞다."
+    },
+    {
+      "pair_id": "2023#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "d85f4701192a9346",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    },
+    {
+      "pair_id": "2023#43~M2606#43",
+      "verdict": "pass",
+      "content_hash": "3c39ed22225c864a",
+      "codes": [],
+      "why": "대응 문장·선지 번호와 v3 배제 근거가 일치하고 kind 정의에 맞다."
+    }
+  ]
+}

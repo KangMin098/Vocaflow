@@ -1,0 +1,152 @@
+{
+  "reviewer": "rv-v3p-34",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2406#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "1710695bc204d456",
+      "codes": [],
+      "why": "legacy contrast 를 same_structure 로 바로잡음 — 왼쪽 ①(2번 no formal records)·오른쪽 ①(6·7번에 관련 내용 없음) 모두 빈칸 표지가 받는 앞 문장 대조로 오답 판정이 같다. 모순/근거 부재 차이는 limitation 에."
+    },
+    {
+      "pair_id": "M2406#33~M2706#31",
+      "verdict": "revise",
+      "content_hash": "e99f35f18ebc0d41",
+      "codes": [
+        "P2",
+        "P3"
+      ],
+      "why": "왼쪽 ④ readers remain distanced 는 빈칸 문장 8번의 dependent upon observers 만으로도 바로 어긋나고 v3 근거도 [5,8]이다 — 「빈칸 문장만으로는 드러나지 않는다」는 decisive_differences 가 원문과 맞지 않아 boundary 가 성립하지 않는다. 수정안: kind 를 same_structure 로 바꾸고(두 오답 모두 빈칸 문장 안의 관계어 dependent upon observers · prolong 과 반대라 지워짐), shared_conditions 에 「빈칸 문장 안의 관계어가 반대 방향 낱말을 막는다」를 두고, 5번 문장의 결합 관계는 보강 근거로 limitation 에 옮긴다. (또는 같은 상대 ②와의 경계 대비가 이미 다른 쌍에 있으면 not_applicable)"
+    },
+    {
+      "pair_id": "M2406#35~M2609#35",
+      "verdict": "pass",
+      "content_hash": "71a26688f8085e25",
+      "codes": [],
+      "why": "legacy contrast 를 same_structure 로 바로잡음 — 왼쪽 ④·오른쪽 ③ 모두 빼면 연결이 비는 고리 문장이라 남는다(같은 판정). v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2406#35~M2706#35",
+      "verdict": "pass",
+      "content_hash": "527b161d318831ad",
+      "codes": [],
+      "why": "왼쪽 ④(7번이 6번 fluency 를 받음) · 오른쪽 ③(7번 For the same reasons 가 4·5번을 받음) 대응이 v3 와 일치. bounded 원리 적절."
+    },
+    {
+      "pair_id": "M2406#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "3e6613eaac29d7d9",
+      "codes": [],
+      "why": "왼쪽 ①(Maybe 가 7번 확정 주장보다 앞섬) · 오른쪽 ③(Put simply 가 2·3번 설명보다 앞섬) 모두 전제 표지 위치로 지워져 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "2f75fb70e6e206b1",
+      "codes": [],
+      "why": "왼쪽 ②(4번 this formal character ↔ 3번) · 오른쪽 ②(6번 The vortices ↔ 5번) 지시 절단이 v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2406#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "ab9497278be3f407",
+      "codes": [],
+      "why": "왼쪽 ②(4번 this formal character) · 오른쪽 ①(4번 they = all others) 지시 절단이 v3 와 일치. 함께 걸리는 조건은 limitation 에 밝힘."
+    },
+    {
+      "pair_id": "M2406#39~M2706#39",
+      "verdict": "revise",
+      "content_hash": "f875fef29247abf1",
+      "codes": [
+        "P1",
+        "P3"
+      ],
+      "why": "왼쪽 ③ 자리는 7·8번 사이라 문제의 This is because(7번)는 자리 「앞」 문장이다 — focus·shared_conditions 의 「오답 자리 뒤 문장의 지시 표현」이 왼쪽 매핑에서 원문과 맞지 않는다(limitation 도 방향이 반대라고 인정). 수정안: 왼쪽 매핑을 ⑤(9·10번 사이, 10번 their decline 이 9번 약한 개체 대신 잘 자라는 개체를 가리키게 됨)로 바꿔 오른쪽 ①(4번 they)과 같은 「자리 뒤 문장 지시어의 선행사 교체」로 맞추거나, ③을 유지하려면 focus·shared_conditions 를 「자리 앞뒤 문장의 지시·설명 연결」로 고친다."
+    },
+    {
+      "pair_id": "M2406#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "5894c8dc1b79a43d",
+      "codes": [],
+      "why": "legacy contrast 를 same_structure 로 바로잡음 — 왼쪽 ①(diet 는 7번 예시의 세부)·오른쪽 ①(simplification 은 8번 변화의 한 방향) 모두 (B) 축소로 지워진다. 칸 수 차이는 limitation 에."
+    },
+    {
+      "pair_id": "M2406#41~M2609#41",
+      "verdict": "pass",
+      "content_hash": "42db4ae3a98e1fc5",
+      "codes": [],
+      "why": "not_applicable 이유가 원문과 맞다 — 왼쪽 ①은 3·11번 부정 평가의 반전, 오른쪽 ②는 근거 없는 속성(최첨단) 추가로 서로 다른 규칙으로 지워지고 판정이 갈리지도 않는다."
+    },
+    {
+      "pair_id": "M2406#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "96e17cfd4ecce40b",
+      "codes": [],
+      "why": "왼쪽 ②(4·5번 급여 사례) · 오른쪽 ③(6·7번 스테인드글라스 반박 사례) 모두 사례를 제목으로 올리며 역할을 바꾼 오답이라 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "8a8c99ed353ab2ff",
+      "codes": [],
+      "why": "왼쪽 ①(14번 가방이 18번 구매 전) · 오른쪽 ②(8번 종료 후 26번 접전) 시간·전제 역전이 v3 와 일치."
+    },
+    {
+      "pair_id": "M2406#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "91f609affbfd2412",
+      "codes": [],
+      "why": "왼쪽 ①(14번 shoe bag 이 18번 구매 전제) · 오른쪽 ①(8번 The following day 가 26번 첫 만남 전제) 대응이 v3 와 일치."
+    },
+    {
+      "pair_id": "M2409#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "b7c76e24bcf3ee1b",
+      "codes": [],
+      "why": "왼쪽 ②(5번 봉사 시간) · 오른쪽 ①(2·3번 등록 인사)을 용건으로 오인한 오답이라 v3 와 일치. 핵심 화행 위치(4번 · 5번)도 정확."
+    },
+    {
+      "pair_id": "M2409#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "94c9fc91c95e0a70",
+      "codes": [],
+      "why": "왼쪽 ①(4번 대가에 팀 갈등 없음) · 오른쪽 ⑤(8번 쟁점은 고유 부위 하나) 모두 근거 문장 범위를 넘는 통념이라 v3 와 일치."
+    },
+    {
+      "pair_id": "M2409#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "5d2d3b1b4637af88",
+      "codes": [],
+      "why": "왼쪽 ①(국제 청취자) · 오른쪽 ⑤(성공 조건) 모두 덧붙은 개념의 근거 문장이 없다는 v3 decisive 와 일치."
+    },
+    {
+      "pair_id": "M2409#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "f3f2a5d615d2944d",
+      "codes": [],
+      "why": "왼쪽 ③(4번 주체는 online news consumers) · 오른쪽 ②(3·4번 self-imposed) 주체 역전이 v3 와 일치."
+    },
+    {
+      "pair_id": "M2409#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "db6fa254f91a1454",
+      "codes": [],
+      "why": "왼쪽 ①(3번 쇠퇴 주체는 대중교통) · 오른쪽 ③(6번 보존주의자 쪽 태도) 모두 다른 주어의 서술을 옮겨 붙인 오답이라 v3 와 일치."
+    },
+    {
+      "pair_id": "M2409#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "d88fc2acbf5e297f",
+      "codes": [],
+      "why": "왼쪽 ②(5번에 여가 간 비교 없음) · 오른쪽 ①(6·7번에 듣는 척 없음) 근거 부재로 지워져 v3 와 일치. 7번 similar entertainment 함정 언급도 정확."
+    },
+    {
+      "pair_id": "M2409#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "7efbc2c347fc13e1",
+      "codes": [],
+      "why": "왼쪽 ②(2번이 회화 지위를 다루지 않음) · 오른쪽 ④(3번 악기·그림 목록) 모두 낱말이 부른 배경지식이 근거 문장과 맞지 않아 지워져 v3 와 일치."
+    }
+  ]
+}

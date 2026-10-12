@@ -1,0 +1,1419 @@
+{
+  "chunk": "v3p-03",
+  "writer_run": "wr-v3p-03",
+  "pairs": [
+    {
+      "pair_id": "2014B#33~M2706#31",
+      "status": "ok",
+      "kind": "boundary",
+      "left": {
+        "id": "2014B#33",
+        "units_hash": "2b5cf021fd9099a0",
+        "inquiry_hash": "85b972d6bc05e8c6"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "두 오답 모두 지문과 반대 방향이지만, 왼쪽 ①은 다른 문장(4번)의 진술과 대조해야 지워지고 오른쪽 ②는 빈칸 문장 안의 prolong 과 결합만으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ①은 4번 문장의 「주민 의견은 불필요하게 여겨진다」를 뒤집은 진술이고, 오른쪽 ②는 4번 문장(빈칸 문장)의 「변화를 관리해 연장한다」의 목적어로 「불안정한」이 어울리지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              5,
+              8
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 앞 문장들이 정한 방향(왼쪽: 불평등이 남음, 오른쪽: 목적 있는 유지·복원)을 빈칸에서 잇는다"
+        }
+      ],
+      "shared_conditions": [],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 ①은 빈칸 문장 밖의 4번 문장 내용과 맞대야 틀린 것이 드러나고, 오른쪽 ②는 빈칸 문장 자체의 동사 prolong 과 목적어의 의미 충돌로 지워진다",
+          "left_sentences": [
+            4,
+            9
+          ],
+          "right_sentences": [
+            4
+          ]
+        }
+      ],
+      "principle": {
+        "level": "bounded",
+        "statement": "이 두 문항에서는 같은 '반대 방향' 오답이라도, 빈칸 문장 안의 동사와 목적어가 이미 충돌하면 그 문장만으로 지울 수 있고 그렇지 않으면 근거 문장을 찾아 대조해야 했다",
+        "when_applies": [
+          "빈칸 문장의 동사가 목적어의 성질을 제한하는 경우(prolong + 상태)"
+        ],
+        "when_not": [
+          "빈칸 문장 자체로는 어느 선지도 문법·의미상 막히지 않는 경우"
+        ]
+      },
+      "limitation": "두 문항의 주제·정답 논리는 다르며, 오른쪽 문항은 다른 왼쪽 문항들과도 같은 방식으로 대비된다. 오답 하나씩의 제거 경로만 비교한다."
+    },
+    {
+      "pair_id": "2014B#33~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#33",
+        "units_hash": "2b5cf021fd9099a0",
+        "inquiry_hash": "85b972d6bc05e8c6"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 오답은 모두 지문 다른 문장에 명시된 진술을 정반대로 뒤집어 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ①「주민 의견을 반영한다」는 4번 문장의 「불필요하게 여겨진다」의 반대이고, 오른쪽 ⑤「이해할 기회를 만나기 어렵다」는 6번 문장의 「볼 눈·들을 귀가 있으면 알 수 있다」의 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              5,
+              8
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 양쪽 모두 빈칸 직전 문장들의 결론(공익에 반함 / 비밀을 지킬 수 없음)을 같은 방향으로 이어 받는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답이 지문 안 특정 문장의 명시 진술과 극성이 반대다",
+        "빈칸 문장 바깥의 그 문장을 찾아 맞대면 제거된다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽은 통념-반박 구조, 오른쪽은 인용을 No wonder 로 받는 구조라 정답을 정하는 논리는 다르다. 오답 제거 방식만 같다."
+    },
+    {
+      "pair_id": "2014B#34~M2706#31",
+      "status": "ok",
+      "kind": "boundary",
+      "left": {
+        "id": "2014B#34",
+        "units_hash": "17803d3d13c78136",
+        "inquiry_hash": "c62f0a1210baa175"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "왼쪽 ②「정확히 평가한다」는 3·7번 문장의 '의도적 오류'와 대조해야 지워지고, 오른쪽 ②「불안정한」은 빈칸 문장의 prolong 과의 결합만으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ② precisely 는 3번 문장 intentional error·7번 문장 '정확함이 늘 현명하진 않다'와 반대이고, 오른쪽 ② unstable 은 4번 문장의 연장(prolong) 대상으로 맞지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 앞 문장의 핵심어(의도적 오류 / 목적 있는 유지)를 빈칸 말로 바꿔 쓴 것이다"
+        }
+      ],
+      "shared_conditions": [],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 오답은 빈칸 문장(5번) 밖 3·7번 문장의 진술이 있어야 틀리고, 오른쪽 오답은 빈칸 문장 안에서 동사-목적어 의미 충돌로 틀린다",
+          "left_sentences": [
+            3,
+            5,
+            7
+          ],
+          "right_sentences": [
+            4
+          ]
+        }
+      ],
+      "limitation": "오른쪽 문항은 다른 왼쪽 문항들과도 같은 방식으로 대비된다. 두 지문의 주제 관련성은 다루지 않는다."
+    },
+    {
+      "pair_id": "2014B#34~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#34",
+        "units_hash": "17803d3d13c78136",
+        "inquiry_hash": "c62f0a1210baa175"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 오답은 모두 지문 다른 문장의 명시 진술을 뒤집어 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ②「정확하게 평가」는 3번 문장의 intentional error 와 7번 문장의 진술에 반대이고, 오른쪽 ⑤「이해 기회를 만나기 어렵다」는 6번 문장의 '보고 들으면 알 수 있다'에 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              3,
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 빈칸 앞뒤 문장이 확정한 방향을 그대로 바꿔 쓴 것이다"
+        }
+      ],
+      "shared_conditions": [
+        "오답이 특정 근거 문장의 진술과 극성이 반대다",
+        "근거 문장이 빈칸 문장 밖에 있어 찾아 맞대야 한다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽은 오답 하나가 두 문장(3·7번)에 걸쳐 반박되고 오른쪽은 6번 한 문장으로 반박된다는 차이가 있으나 제거 규칙은 같다."
+    },
+    {
+      "pair_id": "2014B#35~M2706#31",
+      "status": "ok",
+      "kind": "boundary",
+      "left": {
+        "id": "2014B#35",
+        "units_hash": "b0b44ce7a3c184c4",
+        "inquiry_hash": "02cdb1928eabf7e0"
+      },
+      "right": {
+        "id": "M2706#31",
+        "units_hash": "4f25c722f3935a09",
+        "inquiry_hash": "d588225b110e4a7c"
+      },
+      "focus": "왼쪽 ②「수학과 연결해 장벽을 넘는다」는 1번 문장과 대조해야 지워지고, 오른쪽 ②「불안정한」은 빈칸 문장 안의 prolong 과의 결합만으로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              4
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ②는 1번 문장 '수학은 과학에 대한 저항을 극복하지 못한다'의 반대이고, 오른쪽 ②는 4번 문장의 연장 대상으로 의미가 맞지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              7
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              4
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 앞 문장의 규범·목적(수학화 규범 / 원하는 상태 유지)에서 따라 나온다"
+        }
+      ],
+      "shared_conditions": [],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 오답은 지문 첫 문장(1번)의 진술을 찾아야 지워지고, 오른쪽 오답은 빈칸 문장 자체로 지워진다",
+          "left_sentences": [
+            1,
+            7
+          ],
+          "right_sentences": [
+            4
+          ]
+        }
+      ],
+      "limitation": "오른쪽 문항은 다른 왼쪽 문항들과도 같은 방식으로 대비된다. 왼쪽 ②는 빈칸 주어(모호함을 택한 과학자)와도 어긋나지만 v3 근거는 1번 문장이다."
+    },
+    {
+      "pair_id": "2014B#35~M2706#32",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#35",
+        "units_hash": "b0b44ce7a3c184c4",
+        "inquiry_hash": "02cdb1928eabf7e0"
+      },
+      "right": {
+        "id": "M2706#32",
+        "units_hash": "6100e36d6653eda5",
+        "inquiry_hash": "514df2bf29b90bbd"
+      },
+      "focus": "두 오답은 모두 지문 다른 문장에 명시된 진술을 정반대로 뒤집어 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              1
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "왼쪽 ②「장벽을 넘는다」는 1번 문장의 '저항을 극복하지 못한다'의 반대이고, 오른쪽 ⑤는 6번 문장의 '볼 눈·들을 귀가 있으면 알 수 있다'의 반대다"
+        }
+      ],
+      "shared_conditions": [
+        "오답이 빈칸 밖 특정 문장의 진술과 극성이 반대다",
+        "그 문장 하나와 맞대면 제거된다"
+      ],
+      "decisive_differences": [],
+      "limitation": "정답을 정하는 논리(규범 위반 / No wonder 로 인용을 받음)는 다르다. 오답 하나씩의 제거 방식만 비교한다."
+    },
+    {
+      "pair_id": "2014B#38~M2506#36",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#38",
+        "units_hash": "04595877d8119289",
+        "inquiry_hash": "11e6a6c833055079"
+      },
+      "right": {
+        "id": "M2506#36",
+        "units_hash": "c0b06e093d1a9c2a",
+        "inquiry_hash": "e79275f4f3f3d214"
+      },
+      "focus": "두 오답 배열은 모두 정관사로 받는 대상(the trapezoid / the burnt areas)이 아직 도입되지 않은 자리에 그 단락을 맨 앞에 둔다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              3,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ①은 (A)의 the trapezoid 를 사다리꼴을 처음 내놓는 (C)보다 앞에 두고, 오른쪽 ②는 (B)의 the burnt areas 를 구체 소각 장면이 나오기 전에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              3
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              4,
+              5,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 대상을 처음 도입하는 단락(C / A) 뒤에 그것을 정관사·대명사로 받는 단락을 잇는다"
+        }
+      ],
+      "shared_conditions": [
+        "첫 단락의 정관사 명사가 주어진 글에 선행 대상이 없다",
+        "도입 단락이 뒤에 있어 지시 방향이 거꾸로 된다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽은 지각 현상의 단계 묘사, 오른쪽은 관행의 시간 순서라 나머지 단락 배치 근거(Similarly / 데리고 나감-돌아옴)는 다르다."
+    },
+    {
+      "pair_id": "2014B#38~M2609#37",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#38",
+        "units_hash": "04595877d8119289",
+        "inquiry_hash": "11e6a6c833055079"
+      },
+      "right": {
+        "id": "M2609#37",
+        "units_hash": "f763060adb4b7cca",
+        "inquiry_hash": "0763d4e3820ce329"
+      },
+      "focus": "두 오답 배열은 모두 앞 내용을 요구하는 연결 표지(Similarly / Put simply)가 달린 단락을 주어진 글 바로 뒤에 붙여, 그 표지가 받을 내용이 아직 없다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2,
+              5
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              6
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 ②는 (B) Similarly 를 문 사례가 완결되기 전(2번 문장 뒤)에 두고, 오른쪽 ④는 (C) Put simply 를 요약할 설명이 없는 1번 문장 뒤에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              3,
+              5
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 양쪽 모두 표지가 받을 내용(문의 사다리꼴 변화 / 기호 설명)을 먼저 둔 뒤 표지 단락을 놓는다"
+        }
+      ],
+      "shared_conditions": [
+        "표지 단락이 앞에 완결된 설명을 전제한다",
+        "주어진 글만으로는 그 전제가 채워지지 않는다"
+      ],
+      "decisive_differences": [],
+      "limitation": "Similarly 는 유사 사례를, Put simply 는 요약을 요구해 전제의 종류는 다르다. 두 문항 모두 다른 근거(정관사·대꾸 표현)도 함께 쓰인다."
+    },
+    {
+      "pair_id": "2014B#40~M2609#40",
+      "status": "ok",
+      "kind": "boundary",
+      "left": {
+        "id": "2014B#40",
+        "units_hash": "aab63d62d83d70a8",
+        "inquiry_hash": "7b4c07caaf99161b"
+      },
+      "right": {
+        "id": "M2609#40",
+        "units_hash": "5b1e0a8c1c3319bc",
+        "inquiry_hash": "777d60c2c3fabc5f"
+      },
+      "focus": "왼쪽 ④ modify 는 요약문 안의 by not withdrawing 과 바로 충돌해 지워지지만, 오른쪽 ③ fade 는 3번 문장(재등장이 드물다)과 맞대야 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              9
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ④ modify 는 요약문의 '거래에서 물러나지 않음으로써'와 결정 유지 방향이 충돌하고, 오른쪽 ③ fade 는 넣으면 '거의 사라지지 않는다'가 되어 3번 문장의 재등장이 드물다와 반대가 된다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              8,
+              9
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "정답은 양쪽 모두 지문의 두 핵심 진술을 요약문 두 빈칸으로 바꿔 쓴다"
+        }
+      ],
+      "shared_conditions": [],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 오답은 요약문(9번) 자체의 by not withdrawing 이 방향을 막아 지워지고, 오른쪽 오답은 요약문만으로는 막히지 않아 지문 3번 문장과 대조해야 지워진다",
+          "left_sentences": [
+            9
+          ],
+          "right_sentences": [
+            3,
+            9
+          ]
+        }
+      ],
+      "limitation": "왼쪽 ④의 (B) face 는 정답과 같아 (A) 하나로 지워진다. v3 근거는 6번 문장도 함께 들지만 요약문 안 표지만으로 판정이 가능하다는 점을 비교했다."
+    },
+    {
+      "pair_id": "2014B#40~M2706#40",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#40",
+        "units_hash": "aab63d62d83d70a8",
+        "inquiry_hash": "7b4c07caaf99161b"
+      },
+      "right": {
+        "id": "M2706#40",
+        "units_hash": "f4891bf6194c6485",
+        "inquiry_hash": "86ebbfa8dd30d877"
+      },
+      "focus": "두 오답은 모두 지문에 없는 개념(시간 절약 / 병의 확산)을 요약어로 넣어 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              7,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              5,
+              6
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ①의 (B) time 은 7·8번 문장이 인상(체면)만 말하는데 시간을 넣었고, 오른쪽 ②의 (A) spread 는 지문에 없는 병의 확산을 넣었다"
+        },
+        {
+          "left": {
+            "sentences": [
+              5,
+              6,
+              8
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "right": {
+            "sentences": [
+              3,
+              5,
+              6
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답은 양쪽 모두 지문 문장의 표현(인상 회피 / neglected)을 요약어로 바꿔 쓴다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 요약어가 지문 어느 문장에도 근거가 없다",
+        "소재에서 연상되는 상식 개념이다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽 ①은 (A) justify 가 맞아 (B) 하나로 지워지고, 오른쪽 ②는 (B) general 도 5번 문장과 어긋나 두 칸 모두 틀린다."
+    },
+    {
+      "pair_id": "2014B#41~M2609#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#41",
+        "units_hash": "441e9c2472069675",
+        "inquiry_hash": "832fd1b22ac9f2b1"
+      },
+      "right": {
+        "id": "M2609#41",
+        "units_hash": "0f18e9503d3e42ec",
+        "inquiry_hash": "83dc8ca3bf8ed8ec"
+      },
+      "focus": "두 오답 제목 모두 지문에 나온 사례·요소 하나(왼쪽 ③ 로봇 / 오른쪽 ③ immediate feedback)를 제목 화제로 올려, 글 끝 결론을 덮지 못해 같은 이유로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              9,
+              10,
+              12
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              4,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ③의 로봇은 9·10번 문장의 사례이고 12번 문장이 대상을 가상 전체로 넓히며, 오른쪽 ③ immediate feedback 은 4번 문장에서 풍부함을 재는 요소 하나이고 10번 결론은 맞는 그릇 고르기다"
+        },
+        {
+          "left": {
+            "sentences": [
+              8,
+              12
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              10
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 글 끝 결론 문장(가상 속 단절 / 맞는 그릇 고르기)을 제목으로 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "제목은 글 끝 결론 문장을 덮어야 하며, 결론을 받치는 사례·요소 하나만 담은 선지는 범위가 좁아 지워진다"
+      ],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 ③은 사례(로봇)에 지문이 판정하지 않는 물음(친구인가 적인가)까지 더했고, 오른쪽 ③은 지문과 맞는 요소를 경영 성공의 왕도로 부풀렸다",
+          "left_sentences": [
+            9,
+            12
+          ],
+          "right_sentences": [
+            4,
+            10
+          ]
+        }
+      ],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 비교된다. 왼쪽 ①(통념 인용)·오른쪽 ④(While 종속절)처럼 다른 규칙으로 지워지는 오답은 다루지 않는다."
+    },
+    {
+      "pair_id": "2014B#41~M2706#41",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#41",
+        "units_hash": "441e9c2472069675",
+        "inquiry_hash": "832fd1b22ac9f2b1"
+      },
+      "right": {
+        "id": "M2706#41",
+        "units_hash": "54e417e31299d679",
+        "inquiry_hash": "23aae4ee42751539"
+      },
+      "focus": "두 오답 제목 모두 지문의 사례(왼쪽 ③ 로봇 / 오른쪽 ③ 스테인드글라스)를 제목 화제로 올려, 사례가 받치는 결론을 덮지 못해 같은 이유로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              9,
+              10,
+              12
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7,
+              9
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ③의 로봇은 9·10번 문장의 사례일 뿐 12번 문장이 대상을 가상 전체로 넓히고, 오른쪽 ③의 스테인드글라스는 6·7번 문장에서 통념을 반박하는 사례일 뿐 9번 문장의 물음(유리의 본성)이 화제다"
+        },
+        {
+          "left": {
+            "sentences": [
+              8,
+              12
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 글 후반의 결론(가상 속 단절 / 아직 풀리지 않은 유리의 본성)을 옮긴다"
+        }
+      ],
+      "shared_conditions": [
+        "사례 문장의 소재를 제목 화제로 올리면 그 사례가 받치는 상위 결론을 덮지 못해 지워진다"
+      ],
+      "decisive_differences": [
+        {
+          "text": "왼쪽 ③은 사례에 지문이 판정하지 않는 물음(친구인가 적인가)을 더했고, 오른쪽 ③은 통념 반박용 사례를 문제 진단으로 바꿨다",
+          "left_sentences": [
+            9,
+            12
+          ],
+          "right_sentences": [
+            6,
+            7
+          ]
+        }
+      ],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 비교된다. 왼쪽 ①(통념 인용)·오른쪽 ⑤(시기 세부)는 서로 다른 규칙으로 지워져 다루지 않는다."
+    },
+    {
+      "pair_id": "2014B#42~2016#42",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#42",
+        "units_hash": "c9a4a2311fb79fca",
+        "inquiry_hash": "a16baf7d5785dd03"
+      },
+      "right": {
+        "id": "2016#42",
+        "units_hash": "c69237ce57dde79a",
+        "inquiry_hash": "bc5938e224dda081"
+      },
+      "focus": "두 오답은 모두 지문의 대립축(원한다고 생각하는 것 대 정말 원하는 것 / 쓸모 있음 대 없음)에 없는 새 축의 말을 빈칸에 넣어 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              11
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ① '모험'은 6번 문장의 고요·8번 문장의 사람 목소리 어디와도 이어지지 않고, 오른쪽 ③ '부정확한'은 2번 문장이 세운 실용성 축과 무관하다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              7,
+              8,
+              11
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              11,
+              12
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "정답은 양쪽 모두 지문이 세운 대립축의 한쪽 값(대면 만남 / 겉보기 비실용)을 빈칸에 채운다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 말을 가리키는 문장이 지문에 없다",
+        "빈칸 앞뒤 문장이 정한 대립축 밖의 성질이다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽은 지문 여러 문장의 공통 지시로, 오른쪽은 seemingly 반전 구조로 정답이 정해져 정답 논리는 다르다."
+    },
+    {
+      "pair_id": "2014B#42~2018#42",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#42",
+        "units_hash": "c9a4a2311fb79fca",
+        "inquiry_hash": "a16baf7d5785dd03"
+      },
+      "right": {
+        "id": "2018#42",
+        "units_hash": "61ab960c73af82c3",
+        "inquiry_hash": "007500d9d2e25d40"
+      },
+      "focus": "두 오답은 모두 지문이 다루지 않는 성질(모험 / 헌신)을 빈칸에 넣어, 빈칸 주변 문장의 문제·해결 어디에도 대응하지 않아 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              10,
+              14
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "왼쪽 ① '모험'은 6·8번 문장의 고요·사람 목소리와 무관하고, 오른쪽 ③ '헌신적으로'는 10번 문장의 문제(너무 가까움)와 14번 문장의 해결(객관성) 어디에도 대응하지 않는다"
+        },
+        {
+          "left": {
+            "sentences": [
+              7,
+              8,
+              10,
+              11
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              9,
+              10,
+              14
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 뒤 문장들이 직접 가리키는 말(사람과의 대면 / objectivity)로 빈칸을 채운다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 말에 대응하는 진술이 지문에 없다",
+        "빈칸 뒤 문장들이 정답 방향을 직접 지시한다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 같은 방식으로 비교된다. 오른쪽은 이유절(10번)·해결(14번)의 짝으로, 왼쪽은 여러 문장의 공통 지시로 정답이 정해진다."
+    },
+    {
+      "pair_id": "2014B#43~M2609#43",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2014B#43",
+        "units_hash": "ef0c6e3578282e6f",
+        "inquiry_hash": "40b3e041cfa714f9"
+      },
+      "right": {
+        "id": "M2609#43",
+        "units_hash": "0612508de088ba30",
+        "inquiry_hash": "40b8530c38a0796d"
+      },
+      "focus": "두 오답 배열 모두 (D)를 맨 앞에 두어, 앞 단락에서 소개되어야 할 대상(왼쪽 the roofless house / 오른쪽 Chavez)을 소개 없이 아는 것처럼 받는 단락이 먼저 와서 같은 이유로 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              20,
+              21
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              17,
+              21
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "relation": "왼쪽 ④는 21번 문장의 the roofless house 를 지붕 없이 입주했다는 20번 문장보다 앞에 두고, 오른쪽 ④는 21번 문장의 Chavez’s turn 을 Chavez 첫 소개인 17번 문장보다 앞에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              15,
+              20,
+              21,
+              28,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              17,
+              20,
+              21,
+              23,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답은 양쪽 모두 첫 소개 → 그것을 받는 장면 → 결말 순으로 세 이음매를 세운다"
+        }
+      ],
+      "shared_conditions": [
+        "정관사 명사·고유명사처럼 이미 아는 대상으로 쓰인 표현은 그 대상을 처음 소개하는 단락 뒤에 와야 한다"
+      ],
+      "decisive_differences": [
+        {
+          "text": "왼쪽은 정관사 명사(the roofless house)가 앞 서술(20번)을 받고, 오른쪽은 고유명사(Chavez)가 앞의 첫 소개(17번)를 받는다",
+          "left_sentences": [
+            20,
+            21
+          ],
+          "right_sentences": [
+            17,
+            21
+          ]
+        }
+      ],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 비교된다. 오른쪽 ②(끝난 경기 뒤 접전)는 시간 논리로 지워져 이 대응에 넣지 않았다."
+    },
+    {
+      "pair_id": "2014B#43~M2706#43",
+      "status": "not_applicable",
+      "kind": "contrast",
+      "left": {
+        "id": "2014B#43",
+        "units_hash": "ef0c6e3578282e6f",
+        "inquiry_hash": "40b3e041cfa714f9"
+      },
+      "right": {
+        "id": "M2706#43",
+        "units_hash": "d47faef3665c9752",
+        "inquiry_hash": "94d33bfb572a1aed"
+      },
+      "focus": "두 오답 배열 모두 뒤 단락을 앞으로 당기지만, 왼쪽 ④는 정관사 명사의 선행 서술이 없어서, 오른쪽 ①은 The following day 라는 날짜 표지가 첫날 장면보다 앞서서 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              20,
+              21
+            ],
+            "choices": [
+              4
+            ]
+          },
+          "right": {
+            "sentences": [
+              8,
+              26
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "왼쪽 ④는 the roofless house 를 받을 20번 문장보다 (D)를 앞에 두고, 오른쪽 ①은 이튿날을 말하는 8번 문장을 첫날 만남(26번 문장)보다 앞에 둔다"
+        },
+        {
+          "left": {
+            "sentences": [
+              15,
+              20,
+              21,
+              28,
+              6
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              26,
+              32,
+              16,
+              21,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "relation": "정답은 양쪽 모두 첫 도입 → 이어지는 장면 → 결말(또는 이튿날) 순서로 이음매를 맞춘다"
+        }
+      ],
+      "shared_conditions": [],
+      "decisive_differences": [
+        {
+          "text": "왼쪽은 지시 표현의 선행사가 판정을 가르고, 오른쪽은 단락 첫머리의 시간 표지(The following day)가 판정을 가른다",
+          "left_sentences": [
+            21
+          ],
+          "right_sentences": [
+            8
+          ]
+        }
+      ],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 같은 방식으로 비교된다. 오른쪽 ①은 (B)의 the same bench 같은 지시 단서로도 지울 수 있으나 v3 결정 근거는 시간 표지다.",
+      "reason": "두 오답이 서로 다른 규칙으로 지워지고 판정도 갈리지 않음"
+    },
+    {
+      "pair_id": "2015#18~M2609#22",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2015#18",
+        "units_hash": "7b26d7a95909c57b",
+        "inquiry_hash": "286492db65b3db2f"
+      },
+      "right": {
+        "id": "M2609#22",
+        "units_hash": "c927e5e8a8b96276",
+        "inquiry_hash": "161501bb2b15bbdb"
+      },
+      "focus": "두 오답 요지는 모두 지문의 딸린 재료(양보 예시 / 정의문의 수식어)를 글의 주장으로 끌어올려 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              3
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ①은 2번 문장에서 실패는 누구에게나 있다는 양보 예시로 쓰인 best companies 를 '경영 전문화'라는 주장으로 바꿨고, 오른쪽 ②는 3번 문장 정의문의 수식 재료(규범·가치 공유)를 관계 형성의 기반이라는 주장으로 바꿨다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              8
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 주장 문장(Thus 결론 / 참여→자본 증가와 관계망 확대)을 합쳐 요지로 삼는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 핵심어가 지문 한 문장의 종속 재료(예시·수식)에서 왔다",
+        "그 재료에 주장 술어를 붙인 문장은 지문에 없다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽 ①은 지문에 없는 '전문화' 술어까지 더했고, 오른쪽 ②는 지문 낱말에 더 가깝다는 차이가 있다."
+    },
+    {
+      "pair_id": "2015#18~M2706#22",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2015#18",
+        "units_hash": "7b26d7a95909c57b",
+        "inquiry_hash": "286492db65b3db2f"
+      },
+      "right": {
+        "id": "M2706#22",
+        "units_hash": "179e5df33efbf4be",
+        "inquiry_hash": "8f02da614789bca2"
+      },
+      "focus": "두 오답 요지는 모두 예시·인용 속 세부(일류 기업 / 전문가 동원)를 요지로 끌어올려 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ①은 2번 문장 양보 예시의 best companies 를, 오른쪽 ②는 2번 문장 인용 속 전문가 동원 세부를 주장으로 삼았다"
+        },
+        {
+          "left": {
+            "sentences": [
+              4,
+              8
+            ],
+            "choices": [
+              5
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              4,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 글 전체에 걸친 주된 진술(빨리 다시 일어서기 / 성난 얼굴의 인기)을 묶는다"
+        }
+      ],
+      "shared_conditions": [
+        "오답 근거가 예시·인용 안의 딸린 정보다",
+        "글의 나머지 문장들은 그 세부를 다시 다루지 않는다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 같은 방식으로 비교된다. 오른쪽 ②의 세부는 지문에 실제로 있으나 왼쪽 ①의 '전문화'는 지문에 없다."
+    },
+    {
+      "pair_id": "2015#19~M2609#19",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2015#19",
+        "units_hash": "1c09f6e8d70a344a",
+        "inquiry_hash": "b56eec11706a2134"
+      },
+      "right": {
+        "id": "M2609#19",
+        "units_hash": "180cce3f4ade9afb",
+        "inquiry_hash": "940f0957895999ef"
+      },
+      "focus": "두 오답 모두 부정적 심경을 내세우지만, 글 끝의 명시적 평가 문장(꿈이 이뤄짐 / 최고의 날)이 긍정을 고정해 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              10
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ③ outraged 는 6번 문장의 미소 띤 제안과 10번 문장의 '꿈이 이뤄졌다'에 막히고, 오른쪽 ②의 뒤 항 bored 는 10번 문장의 '최고의 날'에 막힌다"
+        },
+        {
+          "left": {
+            "sentences": [
+              9,
+              10,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              1,
+              4,
+              8,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "relation": "정답은 양쪽 모두 감탄사·평가 문장이 직접 주는 긍정 감정을 담는다(오른쪽은 앞의 긴장까지)"
+        }
+      ],
+      "shared_conditions": [
+        "화자·인물이 자기 감정을 명시적으로 평가하는 문장이 끝에 있다",
+        "그 평가가 오답의 부정 감정과 극성이 반대다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽은 단일 심경, 오른쪽은 심경 변화 문항이라 오른쪽은 앞 항(nervous)도 따로 판정해야 한다."
+    },
+    {
+      "pair_id": "2015#19~M2706#19",
+      "status": "ok",
+      "kind": "same_structure",
+      "left": {
+        "id": "2015#19",
+        "units_hash": "1c09f6e8d70a344a",
+        "inquiry_hash": "b56eec11706a2134"
+      },
+      "right": {
+        "id": "M2706#19",
+        "units_hash": "e62ab56532717d9a",
+        "inquiry_hash": "039785323b46e3c4"
+      },
+      "focus": "두 오답 모두 부정적 감정을 내세우지만, 끝부분의 명시 반응(꿈이 이뤄짐 / 경탄)과 극성이 반대여서 지워진다.",
+      "mappings": [
+        {
+          "left": {
+            "sentences": [
+              6,
+              10
+            ],
+            "choices": [
+              3
+            ]
+          },
+          "right": {
+            "sentences": [
+              6,
+              7
+            ],
+            "choices": [
+              2
+            ]
+          },
+          "relation": "왼쪽 ③ outraged 는 10번 문장의 꿈이 이뤄진 기쁨과, 오른쪽 ②의 뒤 항 discouraged 는 6·7번 문장의 입 벌림·믿기지 않는 경탄과 반대다"
+        },
+        {
+          "left": {
+            "sentences": [
+              9,
+              10,
+              11
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "right": {
+            "sentences": [
+              2,
+              3,
+              6,
+              7
+            ],
+            "choices": [
+              1
+            ]
+          },
+          "relation": "정답은 양쪽 모두 끝부분 감정 표현을 그대로 옮긴다(오른쪽은 앞의 지루함까지)"
+        }
+      ],
+      "shared_conditions": [
+        "끝부분에 긍정 반응을 직접 보여 주는 문장이 있다",
+        "오답의 분노·낙담을 받칠 문장이 없다"
+      ],
+      "decisive_differences": [],
+      "limitation": "왼쪽 문항은 다른 오른쪽 문항과도 같은 방식으로 비교된다. 오른쪽은 앞 항 angry 도 근거가 없어 두 항 모두 틀린다."
+    }
+  ]
+}

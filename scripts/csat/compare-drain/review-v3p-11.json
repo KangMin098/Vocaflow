@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-11",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "2019#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "6cf3600a5b38c93e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2019#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "f50e97d63ffac28e",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2019#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "31bf1efc2709dfc5",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#18~M2609#18",
+      "verdict": "pass",
+      "content_hash": "3cd40d78ecedc767",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "a12207b1ac16fab2",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "345dfddf68cdaada",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "7ae6100ab55f6b59",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "25c9cd1937ca78f9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "0d89d88e83138fa8",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#21~M2609#21",
+      "verdict": "pass",
+      "content_hash": "8fd6b631591ac797",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "0d62d05354c4e5b9",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "8958793bf9c61314",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "97858ac441eb7387",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "fcc9f41aa0777c29",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "7a09cd3c40f94276",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "3cb5fa4c9b564ce4",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "b3513a47f77daa96",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "c125a45301487b04",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "b7db08e5ecdd5562",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    },
+    {
+      "pair_id": "2020#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "43bcc41355d26e3b",
+      "codes": [],
+      "why": "대응 문장·선지 번호가 입력 v3 decisive·sentences 와 맞고, 두 근거가 같은 규칙으로 같은 판정(오답끼리·정답끼리)이라 same_structure 가 맞다. 표지·소재 차이는 limitation 에 밝혀져 있다."
+    }
+  ]
+}

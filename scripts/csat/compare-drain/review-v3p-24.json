@@ -1,0 +1,146 @@
+{
+  "reviewer": "rv-v3p-24",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2106#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "dec7d9f6c829b5a7",
+      "codes": [],
+      "why": "요구 문장(10번 · 4번)의 목적어 대응과 4번 · 1번 오답의 화행 불일치가 v3 decisive 와 맞고 same_structure 타당"
+    },
+    {
+      "pair_id": "M2106#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "55503cd02efa38c5",
+      "codes": [],
+      "why": "13번 shook 은 왼쪽에서 부정으로 읽으면 오답(3번), 오른쪽 1번 shook 은 nervous 정답 근거라 같은 단서의 판정이 실제로 갈려 contrast 타당"
+    },
+    {
+      "pair_id": "M2106#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "64df253923ee4676",
+      "codes": [],
+      "why": "전환 앞뒤 칸 확인으로 정답 2번 · 1번, 두 4번 오답이 같은 규칙으로 지워져 same_structure 타당, 근거 유무 차이는 limitation 에 있음"
+    },
+    {
+      "pair_id": "M2106#20~M2609#20",
+      "verdict": "pass",
+      "content_hash": "28842fb7b2f71d58",
+      "codes": [],
+      "why": "처방 수단(직접 언급 · 기준과 교육) 대응과 지문 밖 수단 오답(1번 · 5번) 근거 문장이 v3 와 일치"
+    },
+    {
+      "pair_id": "M2106#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "3833475c246f4925",
+      "codes": [],
+      "why": "처방 대응(5·6 / 6·8)과 오답 1·4번, 4·1번 매핑이 decisive 와 맞고 같은 판정이라 same_structure 타당"
+    },
+    {
+      "pair_id": "M2106#21~M2609#21",
+      "verdict": "pass",
+      "content_hash": "e211687413620a31",
+      "codes": [],
+      "why": "방향 역전 오답(2번 · 2번)이 6번 do-it-for-me · 8번 double 로 지워지는 같은 규칙, 표면 차이는 limitation 처리"
+    },
+    {
+      "pair_id": "M2106#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "7e6b75a7f7ea8ec1",
+      "codes": [],
+      "why": "not_applicable 이유(사례 공통성 추상 vs 8번 직전 대상 찾기, 오답 근거 구조 상이)가 원문과 맞음"
+    },
+    {
+      "pair_id": "M2106#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "b6c44eae3cf83d8f",
+      "codes": [],
+      "why": "원인→결과 정답 대응과 낱말 역할을 바꾼 오답(1번 pleasure · 3번 방식 변화)이 v3 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "a27015bfff9a86f8",
+      "codes": [],
+      "why": "종속 성분 세부(When 절 rules · 인용 속 전문가)를 올린 2번 · 2번 오답 대응 정확, principle 이 bounded 범위 안"
+    },
+    {
+      "pair_id": "M2106#24~M2609#24",
+      "verdict": "pass",
+      "content_hash": "a0ce0e7ab597ded4",
+      "codes": [],
+      "why": "주체 바꿔치기 오답(4번 유전자 · 2번 시대)이 2번 · 3·4번 문장으로 지워져 same_structure 타당"
+    },
+    {
+      "pair_id": "M2106#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "559c141b36899191",
+      "codes": [],
+      "why": "방향 역전 오답(5번 · 3번)이 6번 · 5번 문장 하나로 지워지는 같은 구조, 근거 문장 정확"
+    },
+    {
+      "pair_id": "M2106#28~M2609#28",
+      "verdict": "pass",
+      "content_hash": "800e2cdf9dba8469",
+      "codes": [],
+      "why": "부정어 극성(not included · no) 오답 2번 · 3번 대응과 정답 칸 대응이 원문과 일치"
+    },
+    {
+      "pair_id": "M2106#28~M2706#28",
+      "verdict": "pass",
+      "content_hash": "030c40981b5b8db4",
+      "codes": [],
+      "why": "하루 행사 날짜 칸으로 1번 · 1번이 지워지는 대응 정확, 3번 · 5번 범위 변경 매핑도 decisive 와 맞음"
+    },
+    {
+      "pair_id": "M2106#31~M2706#31",
+      "verdict": "pass",
+      "content_hash": "edf823f9add13f47",
+      "codes": [],
+      "why": "not_applicable 이유(결과값 대조 vs 진술 주체 구분)가 v3 decisive 와 맞아 대응 불성립 판단 타당"
+    },
+    {
+      "pair_id": "M2106#31~M2706#32",
+      "verdict": "pass",
+      "content_hash": "806b5e5d6658ca47",
+      "codes": [],
+      "why": "신호 문장 대조로 3번(통념 모순) · 1번(근거 부재)이 둘 다 오답 — 정의상 같은 판정이라 same_structure 타당"
+    },
+    {
+      "pair_id": "M2106#32~M2706#31",
+      "verdict": "pass",
+      "content_hash": "0b6789802d094013",
+      "codes": [],
+      "why": "서술 주인 바꿔치기(4번 독자 · 3번 보존주의자) 대응이 7번 · 6번 문장과 맞음"
+    },
+    {
+      "pair_id": "M2106#32~M2706#32",
+      "verdict": "pass",
+      "content_hash": "6708aa5cc61ad149",
+      "codes": [],
+      "why": "다시 말하기 · 결과 신호 문장 대조로 1번 · 4번이 같은 판정, 근거 부재/반대 차이는 limitation"
+    },
+    {
+      "pair_id": "M2106#33~M2706#31",
+      "verdict": "pass",
+      "content_hash": "02fc9435cf3d2251",
+      "codes": [],
+      "why": "예시 목록 공통 성질로 정답 · 오답(1번 · 4번) 대응, 근거 문장 2번 · 3번 decisive 와 일치"
+    },
+    {
+      "pair_id": "M2106#33~M2706#32",
+      "verdict": "pass",
+      "content_hash": "238d4c94a968839d",
+      "codes": [],
+      "why": "근거 부재 오답(1번 과거 회상 · 1번 듣는 척) 대응 정확"
+    },
+    {
+      "pair_id": "M2106#34~M2706#31",
+      "verdict": "pass",
+      "content_hash": "b35818e05e9ded9b",
+      "codes": [],
+      "why": "투사 사례와 복원 목록 대응, 3번 · 4번 오답 근거 정확; 같은 상대 4번 반복이나 왼쪽 상대가 달라 중복 아님"
+    }
+  ]
+}

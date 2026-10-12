@@ -1,0 +1,149 @@
+{
+  "reviewer": "rv-v3p-30",
+  "criteria": "pair-v1.0",
+  "verdicts": [
+    {
+      "pair_id": "M2209#37~M2609#37",
+      "verdict": "pass",
+      "content_hash": "3a5b5d06a304fd37",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#38~M2706#38",
+      "verdict": "pass",
+      "content_hash": "315dc7f5720259ee",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#38~M2706#39",
+      "verdict": "pass",
+      "content_hash": "776500e3ae8c3a0a",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#39~M2706#38",
+      "verdict": "pass",
+      "content_hash": "16ecca0e417bf5aa",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#40~M2609#40",
+      "verdict": "pass",
+      "content_hash": "0ec8c9e772c6865c",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#40~M2706#40",
+      "verdict": "pass",
+      "content_hash": "e95d4263d69a995e",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#41~M2706#41",
+      "verdict": "pass",
+      "content_hash": "203537dde1ef3a00",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#43~M2609#43",
+      "verdict": "pass",
+      "content_hash": "0eb86e62a7b7244d",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2209#43~M2706#43",
+      "verdict": "pass",
+      "content_hash": "ffc11f0415ba906a",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#18~M2706#18",
+      "verdict": "pass",
+      "content_hash": "7bac64dc47912aa7",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#19~M2609#19",
+      "verdict": "pass",
+      "content_hash": "9245bf94f4112e68",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#19~M2706#19",
+      "verdict": "pass",
+      "content_hash": "c6e2114c6cdb6d47",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#20~M2706#20",
+      "verdict": "pass",
+      "content_hash": "953274a0aa869419",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#21~M2609#21",
+      "verdict": "revise",
+      "content_hash": "dd6a2149cd9dc430",
+      "codes": [
+        "P1",
+        "P6"
+      ],
+      "why": "왼쪽 ①은 지문이 참이라 한 내용을 there is no 의 부정 대상 자리에 넣는 극성 반전이고, 오른쪽 ②는 each time we double 조건을 무시한 비유의 문자적 오독이라 의미 변환이 다르다. 「같은 문장 안 한정 요소」는 너무 넓은 공통점이다. 수정안: status 를 not_applicable 로 바꾸고 이유를 「왼쪽은 부정 자리 극성 반전, 오른쪽은 비유 조건 누락으로 지우는 규칙이 다르다」로 적는다."
+    },
+    {
+      "pair_id": "M2306#21~M2706#21",
+      "verdict": "pass",
+      "content_hash": "53e807b7e7cb71b4",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#22~M2609#22",
+      "verdict": "pass",
+      "content_hash": "3d05d5cda4d85d31",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#22~M2706#22",
+      "verdict": "pass",
+      "content_hash": "7172bce62c779fda",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#23~M2609#23",
+      "verdict": "pass",
+      "content_hash": "6881b374ac6371e6",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#23~M2706#23",
+      "verdict": "pass",
+      "content_hash": "e01b09ff6c77bbd1",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    },
+    {
+      "pair_id": "M2306#24~M2706#24",
+      "verdict": "pass",
+      "content_hash": "74664a5786df3b10",
+      "codes": [],
+      "why": "원문·v3 근거와 대응 문장·선지, kind, 조건이 맞다."
+    }
+  ]
+}

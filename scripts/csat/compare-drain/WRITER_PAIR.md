@@ -37,4 +37,5 @@
 7. **배제 근거는 입력 v3 `choices[].decisive` · `sentences` 와 대조한다** — legacy 메모의 근거 문장을 그대로 믿지 않는다(파일럿: 「original」 을 「natural」 의 근거로 잘못 옮김).
 8. **contrast 는 판정이 실제로 갈릴 때만.** 두 오답이 같은 규칙으로 지워지면 표지 · 어휘의 차이가 있어도 same_structure 이고 그 차이는 limitation 에 쓴다. 한쪽은 문장 안에서, 다른 쪽은 다른 문장이 있어야 지워지면 boundary.
 9. 공개 화면 문장이다 — 「9번 쌍」 같은 내부 참조 · 다른 쌍 언급을 쓰지 않는다. 같은 상대와의 대비가 이미 다른 쌍으로 있으면 limitation 에 밝히고, 같은 내용 반복이면 not_applicable(「중복」).
-10. 각 쌍을 끝낼 때마다 파일에 저장하고 끝에 `node scripts/csat/compare-v3-validate.mjs --chunk v3p-NN` 이 오류 0 이어야 한다.
+10. **not_applicable 전에 다른 선지 조합도 본다** — legacy 가 짚은 선지끼리 대응이 없어도 두 문항의 다른 선지(정답 포함)끼리 같은 규칙이 성립하면 그 조합으로 쓴다. 상대 문항이 다르면 「중복」이 아니다.
+11. 각 쌍을 끝낼 때마다 파일에 저장하고 끝에 `node scripts/csat/compare-v3-validate.mjs --chunk v3p-NN` 이 오류 0 이어야 한다.
