@@ -77,7 +77,7 @@ for (const v of VIEWS) {
           dataTheme: document.documentElement.getAttribute('data-theme'),
           preparing: /준비 중/.test(document.body.innerText),
           unavailable: /(불러오지 못|오류가 발생)/.test(document.body.innerText),
-          v3Pairs: document.querySelectorAll('[data-testid="v3-pair"]').length,
+          v3Pairs: document.querySelectorAll('[data-testid="v3-pair-option"]').length,
           v3Absent: document.querySelector('[data-testid="v3-compare-absent"]')?.getAttribute('data-reason') ?? null,
         }))
         await page.screenshot({ path: path.join(SHOTS, `${it.slug}_${scene}_${v.w}_${v.theme}.png`), fullPage: false })

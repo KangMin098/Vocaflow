@@ -24,12 +24,17 @@ interface StoredPair {
   decisive_differences: { text: string; left_sentences: number[]; right_sentences: number[] }[]
   principle: V3PairView['principle']
   limitation: string
+  binding?: { left?: { units_hash?: string }; right?: { units_hash?: string } }
 }
 interface CompareV3Data { pairs: Record<string, StoredPair>; items: Record<string, string[]> }
 
 const DATA = data as unknown as CompareV3Data
 
 export interface PartnerInfo { slug: string; label: string }
+/** 상대 문항의 지금 상태 — 공개 · 보류/접근 제한(held) · 공개 골격에 없음(missing, 삭제 · 미발행) */
+export type PartnerState = ({ state: 'open' } & PartnerInfo) | { state: 'held' } | { state: 'missing' }
+/** 화면에서 뺀 쌍의 이유별 수 — 누락을 정상처럼 숨기지 않는다 */
+export interface PairWithheld { held: number; missing: number; changed: number }
 
 /** 이 문항의 비교 쌍 상대 문항 id · 유형(공개 확인용) */
 export function v3PairPartners(itemId: string, d: CompareV3Data = DATA): { id: string; type: string | null }[] {
@@ -48,19 +53,30 @@ export function v3PairPartners(itemId: string, d: CompareV3Data = DATA): { id: s
 export function projectV3Pairs(
   itemId: string,
   inquiryReady: boolean,
-  partner: (id: string) => PartnerInfo | null,
+  partner: (id: string) => PartnerInfo | PartnerState | null,
   d: CompareV3Data = DATA,
-): { pairs: V3PairView[]; absence: PairAbsence | null } {
+  /** 상대의 지금 공개 v3 문장 분할 결속 — 쌍을 쓸 때와 다르면 changed 로 뺀다(주지 않으면 검사 안 함) */
+  unitsOf?: (id: string) => string | null,
+): { pairs: V3PairView[]; absence: PairAbsence | null; withheld: PairWithheld } {
+  const withheld: PairWithheld = { held: 0, missing: 0, changed: 0 }
   const ids = d.items[itemId] ?? []
-  if (!ids.length) return { pairs: [], absence: 'none' }
-  if (!inquiryReady) return { pairs: [], absence: 'stale' }
+  if (!ids.length) return { pairs: [], absence: 'none', withheld }
+  if (!inquiryReady) return { pairs: [], absence: 'stale', withheld }
   const pairs: V3PairView[] = []
   for (const pid of ids) {
     const p = d.pairs[pid]
     if (!p) continue
     const selfLeft = p.left === itemId
-    const other = partner(selfLeft ? p.right : p.left)
-    if (!other) continue
+    const otherId = selfLeft ? p.right : p.left
+    const raw = partner(otherId)
+    const st: PartnerState = raw == null ? { state: 'held' } : 'state' in raw ? raw : { state: 'open', ...raw }
+    if (st.state !== 'open') { withheld[st.state]++; continue }
+    if (unitsOf) {
+      const now = unitsOf(otherId)
+      const bound = selfLeft ? p.binding?.right?.units_hash : p.binding?.left?.units_hash
+      if (!now || (bound && now !== bound)) { withheld.changed++; continue }
+    }
+    const other = st
     pairs.push({
       pairId: pid,
       kind: p.kind,
@@ -78,5 +94,6 @@ export function projectV3Pairs(
       limitation: p.limitation,
     })
   }
-  return pairs.length ? { pairs, absence: null } : { pairs: [], absence: 'partner_hidden' }
+  if (pairs.length) return { pairs, absence: null, withheld }
+  return { pairs: [], absence: withheld.changed && !withheld.held && !withheld.missing ? 'partner_changed' : withheld.missing && !withheld.held ? 'partner_missing' : 'partner_hidden', withheld }
 }

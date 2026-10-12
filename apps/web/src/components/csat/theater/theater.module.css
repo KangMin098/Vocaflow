@@ -513,3 +513,18 @@
 .judgeGrid div { display: flex; gap: 8px; font-size: 13px; }
 .judgeGrid dt { min-width: 64px; color: var(--t3); }
 .judgeGrid dd { margin: 0; }
+
+/* ── v3 기출 비교 탐구(V3CompareExplorer · M5) ── */
+.cmpFilters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.cmpFilters button { min-height: 36px; padding: 0 12px; border: 1px solid var(--bd); border-radius: 999px; background: var(--bg); font-size: 12.5px; color: var(--t2); cursor: pointer; }
+.cmpFilters button[aria-pressed='true'] { border-color: var(--p); color: var(--t1); font-weight: 600; background: var(--bg3); }
+.cmpList { display: flex; flex-direction: column; gap: 4px; max-height: 18rem; overflow-y: auto; margin: 0 0 10px; padding: 2px; list-style: none; border: 1px solid var(--bd); border-radius: 10px; }
+.cmpList [role='option'] { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: baseline; gap: 8px; min-height: 44px; padding: 8px 10px; border-radius: 8px; font-size: 12.5px; cursor: pointer; }
+.cmpList [role='option']:hover { background: var(--bg3); }
+.cmpList [role='option'][aria-selected='true'] { background: var(--bg3); box-shadow: inset 3px 0 0 var(--p); }
+.cmpList [role='option']:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
+.cmpList [role='option'] > span:last-child { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--t2); }
+.cmpTable { width: 100%; margin: 8px 0; border-collapse: collapse; font-size: 12.5px; }
+.cmpTable th, .cmpTable td { padding: 6px 8px; border-top: 1px solid var(--bd); text-align: left; vertical-align: top; }
+.cmpTable th { font-weight: 600; color: var(--t2); }
+.cmpActions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }

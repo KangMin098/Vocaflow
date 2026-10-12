@@ -36,7 +36,7 @@ import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
-import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings } from '@/lib/csat/skeleton'
+import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings, skeletonSiblings } from '@/lib/csat/skeleton'
 import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
@@ -44,7 +44,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
-import { lookupInquiry } from '@/lib/csat/inquiry/data'
+import { inquiryUnitsHash, lookupInquiry } from '@/lib/csat/inquiry/data'
 import compareData from '@/lib/csat/compare-data.json'
 import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 
@@ -64,7 +64,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[] }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -161,12 +161,24 @@ export default async function CsatItemTheaterPage({
   const revealScope = await loadRevealScope()
   const partnerTypes = [...new Set(v3PairPartners(item.id).map((x) => x.type).filter((t): t is string => Boolean(t)))]
   const openById = new Map<string, { slug: string; label: string }>()
+  const knownIds = new Set<string>()
   for (const t of partnerTypes) {
     for (const sib of t === item.type_id ? siblings.map((x) => ({ id: x.id, exam_label: x.exam_label, no: x.no })) : revealedSkeletonSiblings(t, revealScope)) {
       openById.set(sib.id, { slug: toItemSlug(sib.id), label: `${sib.exam_label} ${sib.no}번` })
     }
+    // 공개 필터 전 골격 — 있는데 열 수 없으면 보류/접근 제한, 골격에도 없으면 삭제 · 미발행(서로 다른 이유)
+    for (const sib of skeletonSiblings(t)) knownIds.add(sib.id)
   }
-  const v3Compare = projectV3Pairs(item.id, inquiryHit.state === 'ready', (id) => openById.get(id) ?? null)
+  const v3Compare = projectV3Pairs(
+    item.id,
+    inquiryHit.state === 'ready',
+    (id) => {
+      const o = openById.get(id)
+      return o ? { state: 'open' as const, ...o } : knownIds.has(id) ? { state: 'held' as const } : { state: 'missing' as const }
+    },
+    undefined,
+    inquiryUnitsHash,
+  )
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
   // 평가원 회차는 링크가 없으면 평가원 게시판으로, 학평은 갈 곳이 없다(평가원 게시판으로 보내지 않는다)
@@ -209,6 +221,18 @@ export default async function CsatItemTheaterPage({
       comparePairs={comparePairs}
       v3Pairs={v3Compare.pairs}
       pairAbsence={v3Compare.absence}
+      pairWithheld={v3Compare.withheld}
+      initialPairId={first(sp.pair) ?? null}
+      currentSlug={slug}
+      compareReturn={(() => {
+        // 다른 문항의 비교에서 넘어왔다(`back`) — 같은 쌍을 그 문항 쪽에서 다시 연다. 문항 slug 형식만 받는다(열린 리디렉트 방지)
+        const b = first(sp.back)
+        if (!b || !/^[A-Za-z0-9]+-\d+$/.test(b)) return null
+        const bid = fromItemSlug(b)
+        const label = openById.get(bid)?.label ?? bid.replace('#', ' ') + '번'
+        const pr = first(sp.pair)
+        return { href: `/csat/item/${b}?scene=compare${pr ? `&pair=${encodeURIComponent(pr)}` : ''}${fromMap ? '&from=map' : ''}`, label }
+      })()}
       // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
       inquiry={inquiryHit.state === 'ready' ? inquiryHit.record : null}
       initialScene={parsedScene.scene}
