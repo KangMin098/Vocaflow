@@ -1,0 +1,13 @@
+{
+  "reviewer": "rv-v3-03",
+  "criteria": "inquiry-v1.2",
+  "verdicts": [
+    { "id": "2026#26", "verdict": "pass", "content_hash": "a1b49ecc5f9c252e" },
+    { "id": "2026#28", "verdict": "pass", "content_hash": "3d8d8fb4cfc29dda", "why": "메모: 3번 문장 표가 평탄화된 점(no discounts for shoe / rentals)을 m2 scope 와 limitation 에 밝혔고 행 배정이 원문 값과 맞다." },
+    { "id": "2026#30", "verdict": "pass", "content_hash": "911827d883fdb72a", "why": "메모: 깨진 choices 대신 sentences 밑줄로 판단했음을 limitation 에 밝혔고, gain 을 단정하지 않았다(7·8번 문장)." },
+    { "id": "2026#35", "verdict": "pass", "content_hash": "6296c8dcece28231" },
+    { "id": "2026#40", "verdict": "pass", "content_hash": "8f5bc4673d6c2f3c", "why": "메모: 선지 2 operation unsupported 인데 from 이 「(지문에 없음)」이 아니라 5·6번 문장 내용(불안정과 관객 유지)이다 — 의미상 틀리진 않으나 규칙 1 표기와 다르다." },
+    { "id": "2018#30", "verdict": "pass", "content_hash": "978cb8fe080f52e9", "why": "메모: 깨진 choices 처리를 limitation 에 밝혔다. D4 preserved 의 Cassady's 는 원문 곡선 아포스트로피(’)와 다르다." },
+    { "id": "2014B#37", "verdict": "revise", "content_hash": "1de4a8541ffd81e0", "codes": ["R2"], "why": "선지 1 operation 이 order(순서/위치)인데 실제 변환은 (B)에서 3·4번 문장의 일반-사례 관계를 대조(however)로 바꾼 관계 변환이다 — 학습자에게 위치 변경으로 잘못 보인다. 선지 5 operation paraphrase(동의 재진술)도 오답 변환의 이름으로 맞지 않다: 1·2번 문장의 대조를 환언(In other words)으로, 4번 문장 사례를 귀결(therefore)로 바꾼 관계 변환이다. v3 칸(meanings·choices·design)은 문항 특화로 정확하다." }
+  ]
+}

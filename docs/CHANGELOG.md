@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): v3 M3 **평가원 26유형 대표 v3** — 21유형 추가(verified 27 = 26유형 전부) · v1/v3 내용 판정 일관성 검증(계약 결함 수정: v3 문항의 v1 에 「내용 참 · 요구 미충족」 허용) · 검증기 회귀 6.
 - feat(csat): v3 M2 **대표 6문항 의미 · 판단 · 설계 + 근거 연결** — 2026#34·36·38·29·25 · M2706#36 v3 칸(요구 · 의미 범위 · 선지 3칸 분리 · 근거 수준) 해시 결속 독립 검수 6/6 verified · 의미/판단/설계 패널의 근거 버튼이 지문 지도 문장을 비춤(분할이 다르면 연결 끔) · 강의 schema3 타입/검증 분기(legacy 규칙 유지 · unknown 거부) · M2706#36 기존 DB 분석 n=1 오류 발견.
 - feat(csat): v3 M2 **탐구 데이터 공개 가드** — 「마지막 판정 revise 아님」 대신 현재 내용 해시에 묶인 독립 pass(검수자≠작성 run · 기준 버전) 만 verified. 기존 786 은 legacy(v1)로 보존 · 화면 라벨 구별 · `--verified-only` · 해시 CLI · 회귀 9.
 - feat(csat): v3 M1 **일곱 학습 장면** — 평가 과제 · 원문 이해 · 문항 성립(정답 + 모든 비선정 선지) · 설계 재구성(가설 라벨) · 기출 비교 · 조건부 원리(「이 문항에서 얻은 잠정 원리」) · 내 설명. `parseScene` 별칭(essence/structure/answer/distractor) replace 정규화 · `judgmentView` · 장면 탭 한 줄 · check 모드 해설 보기가 장면 유지 · e2e 13.- feat(map): 6차 근거 찾기 Workspace — 전이 4문항(2024#31·33 · 2023#32 · 2025#34) 정본 주석 role=transfer + 원문 결속 15/15 · E2E `--ws evidence-locate` 확인·바로잡기·다시 확인 PASS, 전이는 출시 승인(B7) 전 BLOCKED · 선지 맞대기 전이 후보 0 기록

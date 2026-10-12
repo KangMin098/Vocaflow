@@ -1,0 +1,41 @@
+{
+  "reviewer": "rv-v3-04",
+  "criteria": "inquiry-v1.2",
+  "verdicts": [
+    {
+      "id": "2026#41",
+      "verdict": "pass",
+      "content_hash": "b54fc8072cff68fb"
+    },
+    {
+      "id": "2026#42",
+      "verdict": "pass",
+      "content_hash": "248289a2cac09b46"
+    },
+    {
+      "id": "2026#43",
+      "verdict": "pass",
+      "content_hash": "336aafe7a5852ab3"
+    },
+    {
+      "id": "2026#44",
+      "verdict": "pass",
+      "content_hash": "39da68947939a9ff"
+    },
+    {
+      "id": "2026#45",
+      "verdict": "pass",
+      "content_hash": "9bf87919d5014797"
+    },
+    {
+      "id": "2018#42",
+      "verdict": "pass",
+      "content_hash": "007500d9d2e25d40"
+    },
+    {
+      "id": "2017#42",
+      "verdict": "pass",
+      "content_hash": "1d274f8b7e448c7a"
+    }
+  ]
+}
