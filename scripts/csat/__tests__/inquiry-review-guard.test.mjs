@@ -59,3 +59,8 @@ test('해시는 키 순서와 무관하고 검수 칸 밖(review_note)은 무시
   assert.equal(contentHash(reordered), h)
   assert.equal(stableStringify({ b: 1, a: [2, { d: 1, c: 2 }] }), stableStringify({ a: [2, { c: 2, d: 1 }], b: 1 }))
 })
+
+test('v3 칸은 해시에 들어가고, v3 없는 문항의 해시는 바뀌지 않는다', () => {
+  assert.equal(contentHash({ ...item, v3: undefined }), h)
+  assert.notEqual(contentHash({ ...item, v3: { requirement: { requested: 'x' } } }), h)
+})

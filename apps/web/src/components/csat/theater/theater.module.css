@@ -494,3 +494,16 @@
 .alteredList { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
 .boundary { display: grid; gap: 10px; }
 .boundary ul { margin: 4px 0 0; padding-left: 18px; }
+
+/* v3 의미 · 판단 · 설계 패널 — 근거 연결 */
+.evidenceBtn { justify-self: start; min-height: 44px; padding: 0 12px; border: 1px solid var(--bd); border-radius: 10px; background: transparent; color: var(--t2); font: inherit; font-size: 12px; cursor: pointer; }
+.evidenceBtn[aria-pressed='true'] { border-color: currentColor; color: var(--t1); font-weight: 600; background: var(--bg3); }
+.evidenceBtn:focus-visible, .choicePick button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.plainList { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
+.choicePick { display: flex; flex-wrap: wrap; gap: 4px; }
+.choicePick button { min-width: 44px; min-height: 44px; padding: 0 10px; border: 1px solid var(--bd); border-radius: 10px; background: transparent; color: var(--t2); font: inherit; cursor: pointer; }
+.choicePick button[aria-pressed='true'] { border-color: currentColor; color: var(--t1); font-weight: 700; background: var(--bg3); }
+.judgeGrid { display: grid; gap: 4px; margin: 0; }
+.judgeGrid div { display: flex; gap: 8px; font-size: 13px; }
+.judgeGrid dt { min-width: 64px; color: var(--t3); }
+.judgeGrid dd { margin: 0; }

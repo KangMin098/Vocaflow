@@ -31,6 +31,8 @@ export interface TargetSet {
   anchor: string[]
   /** 지도가 그려지는가 */
   useMap: boolean
+  /** schema3 — 탐구 데이터 v3 의 실제 항목 id(`v3Targets`). legacy 강의는 쓰지 않는다 */
+  v3?: string[]
 }
 
 export function lectureTargets(t: TargetInput): TargetSet {
@@ -57,7 +59,21 @@ export function lectureTargets(t: TargetInput): TargetSet {
 export function isValidTarget(set: TargetSet, target: { kind: string; id: string }): boolean {
   if (target.kind === 'analysis') return set.analysis.includes(target.id)
   if (target.kind === 'anchor') return set.anchor.includes(target.id)
+  if (target.kind === 'v3') return (set.v3 ?? []).includes(target.id)
   return false
+}
+
+/** 탐구 데이터 v3 → schema3 강의가 가리킬 수 있는 항목 id. 비교 · 원리는 실제 데이터가 있을 때만 */
+export function v3Targets(v3: { meanings: { id: string }[]; choices: { n: number }[]; design: { claims: unknown[] } }, extra: { compare?: boolean; principle?: boolean } = {}): string[] {
+  return [
+    'task',
+    ...v3.meanings.map((m) => `meaning:${m.id}`),
+    ...v3.choices.map((c) => `choice:${c.n}`),
+    ...v3.design.claims.map((_, k) => `claim:${k}`),
+    ...(extra.compare ? ['compare'] : []),
+    ...(extra.principle ? ['principle'] : []),
+    'explain',
+  ]
 }
 
 /** DOM 에 박히는 속성 값 — 화면과 엔진이 같은 문자열로 만난다 */

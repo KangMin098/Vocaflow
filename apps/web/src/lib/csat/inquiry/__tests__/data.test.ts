@@ -18,9 +18,15 @@ describe('탐구 데이터 조회', () => {
     expect(lookupInquiry(someId!, rec!.analysis_version + 1).state).toBe('stale')
     expect(lookupInquiry(someId!, null).state).toBe('stale')
   })
-  it('정적 정본에 원문 칸(passage · choices · stem)이 없다', () => {
+  it('정적 정본에 원문(지문 · 발문 · 선지 문장)이 없다 — v3 의 choices 는 판정 객체, sentences 는 근거 번호다', () => {
     const raw = JSON.stringify(data)
-    expect(raw).not.toMatch(/"(passage|choices|stem|sentences)"\s*:/)
+    expect(raw).not.toMatch(/"(passage|stem)"\s*:/)
+    const items = (data as { items: Record<string, { v3?: { choices: unknown[]; meanings: { sentences: unknown[] }[] } }> }).items
+    for (const r of Object.values(items)) {
+      if (!r.v3) continue
+      for (const c of r.v3.choices) expect(typeof c).toBe('object')
+      for (const m of r.v3.meanings) for (const n of m.sentences) expect(typeof n).toBe('number')
+    }
   })
 })
 

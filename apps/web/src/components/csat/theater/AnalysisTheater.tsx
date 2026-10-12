@@ -88,6 +88,7 @@ import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-ch
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
+import { V3Design, V3Judgment, V3Meaning, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
 import type { InquiryRecord } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
@@ -392,9 +393,16 @@ export function AnalysisTheater({
   }
   const [tab, setTab] = useState<TabId>('analysis')
   const [scene, setScene] = useState<SceneId>(initialScene)
+  // v3 근거 연결 — 패널에서 고른 근거 문장(1-기반). 장면을 옮기면 비운다(다른 장면의 근거가 남아 비추지 않게)
+  const [evidence, setEvidence] = useState<{ sentences: number[]; key: string } | null>(null)
+  const v3 = inquiry?.v3 ?? null
+  // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
+  const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
+  const onEvidence = (sentences: number[], key: string) => setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
   // 장면 이동 — 학습자가 고른 것은 history 에 쌓고(뒤로가기), 강의가 따라 옮긴 것은 주소만 바꾼다
   const selectScene = (id: SceneId, how: 'push' | 'replace' = 'push') => {
     setScene(id)
+    setEvidence(null)
     const url = new URL(window.location.href)
     url.searchParams.set('scene', id)
     url.searchParams.delete('judgmentView')
@@ -746,7 +754,12 @@ export function AnalysisTheater({
                     <>
                       {done}
                       {diff}
-                      <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                      <PassageMap
+                        sentences={map.sentences}
+                        anchors={map.anchors}
+                        placements={map.placements}
+                        focusSentences={v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null}
+                      />
                     </>
                   ) : (
                     <>
@@ -810,6 +823,8 @@ export function AnalysisTheater({
                         ) : null}
                       </section>
                     ) : null}
+                    {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
+                    {scene === 'meaning' && v3 ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'meaning' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
                     {scene === 'meaning' ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
@@ -818,12 +833,14 @@ export function AnalysisTheater({
                           : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 아래 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
                       </p>
                     ) : null}
+                    {scene === 'judgment' && v3 ? <V3Judgment v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'judgment' && gate.design ? <TransformDiagram design={gate.design} /> : null}
                     {scene === 'design' ? (
                       <p className={styles.quiet} data-testid="design-epistemic">
                         아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                       </p>
                     ) : null}
+                    {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'design' && gate.design ? <DesignSelection design={gate.design} /> : null}
                     <p className={styles.status}>
                       <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>

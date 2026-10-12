@@ -51,12 +51,17 @@ export interface PassageMapProps {
   placements: MapPlacement[]
   /** 칩을 누를 때마다 부른다 — 계측용. */
   onSelect?: (anchorId: string, found: boolean) => void
+  /**
+   * v3 근거 연결 — 학습자가 의미 · 판단 · 설계 패널에서 고른 근거 문장(0-기반). 있으면 강의 초점 · 칩보다 앞선다.
+   * 원문 분할이 v3 작성 때와 다르면 부모가 넘기지 않는다(잘못된 문장을 비추지 않는다).
+   */
+  focusSentences?: number[] | null
 }
 
 const GREEN = '#2E7D5A'
 const RED = '#9C3A30'
 
-export function PassageMap({ sentences, anchors, placements, onSelect }: PassageMapProps) {
+export function PassageMap({ sentences, anchors, placements, onSelect, focusSentences = null }: PassageMapProps) {
   const [activeId, setActiveId] = useState<string | null>(() => initialAnchorId(anchors))
   const { active, lit, notFound } = useMemo(
     () => mapState(anchors, placements, activeId),
@@ -83,8 +88,12 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   // 「멈춤 뒤 칩을 골라도 막대가 안 바뀌는」 일을 막는다(Codex P2 · 2026-10-10)
   const [learnerChose, setLearnerChose] = useState(false)
   useEffect(() => { setLearnerChose(false) }, [lectureKey, lectureFocus])
-  const shownLit = useMemo(() => (learnerChose ? lit : litForCue(lit, lectureFocus)), [lit, lectureFocus, learnerChose])
-  const followingSpeech = shownLit !== lit
+  const chosenEvidence = Boolean(focusSentences && focusSentences.length)
+  const shownLit = useMemo(
+    () => (chosenEvidence ? focusSentences! : learnerChose ? lit : litForCue(lit, lectureFocus)),
+    [chosenEvidence, focusSentences, lit, lectureFocus, learnerChose],
+  )
+  const followingSpeech = !chosenEvidence && shownLit !== lit
 
   // 「클릭/클릭/클릭」이 실제로 일어나는지는 **몇 번째인지**를 세야 안다. 첫 근거는 서버가
   // 이미 펴 둔 채로 오므로 세지 않는다 — 세면 모든 방문이 최소 1이 되어 «눌렀다» 와
@@ -112,7 +121,11 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
       </div>
 
       {/* 강의가 지도를 움직이는 동안에는 학습자가 누른 칩이 다음 큐에 덮인다 — 「눌렀는데 안 바뀐다」로 보이지 않게 이유와 길을 말한다(2026-10-10) */}
-      {lectureKey?.startsWith('analysis:') || followingSpeech ? (
+      {chosenEvidence ? (
+        <p className="mb-2 break-keep text-xs leading-relaxed text-[var(--t2)]" role="status" data-testid="map-chosen-evidence">
+          오른쪽에서 고른 근거 문장을 비추는 중이에요.
+        </p>
+      ) : lectureKey?.startsWith('analysis:') || followingSpeech ? (
         <p className="mb-2 break-keep text-xs leading-relaxed text-[var(--t2)]" role="status" data-testid="map-following-lecture">
           강의가 말하는 자리를 따라 비추는 중이에요. 직접 칩을 골라 비교하려면 위의 「멈춤」으로 강의를 세우세요.
         </p>
@@ -160,7 +173,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
       <ol className="space-y-1.5" aria-label="지문의 문장" data-proof="passage-map">
         {sentences.map((s, i) => {
           const isLit = shownLit.includes(i)
-          const reveals = isLit && activeId && !followingSpeech ? s.reveals.filter((r) => r.anchorId === activeId) : []
+          const reveals = isLit && activeId && !followingSpeech && !chosenEvidence ? s.reveals.filter((r) => r.anchorId === activeId) : []
 
           return (
             <li
@@ -170,6 +183,8 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 isLit
                   ? followingSpeech
                     ? ' — 강의가 지금 말하는 문장이에요'
+                    : chosenEvidence
+                    ? ' — 고른 근거 문장이에요'
                     : active?.origin === 'tempt'
                     ? ' — 이 선지로 끌어당기는 자리가 여기예요'
                     : ' — 지금 보는 근거가 여기 있어요'
@@ -181,7 +196,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 aria-hidden
                 className="w-5 shrink-0 text-right font-display text-[10px] tabular-nums text-[var(--t3)]"
               >
-                {isLit && !followingSpeech ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
+                {isLit && !followingSpeech && !chosenEvidence ? (active?.kind === 'answer' ? '✓' : active?.label) : i + 1}
               </span>
 
               {isLit && reveals.length ? (
@@ -208,7 +223,12 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 <span
                   aria-hidden
                   className="h-2 rounded-full bg-[var(--bd)] transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none"
-                  style={{ width: `${widthPct(s.chars, maxChars)}%`, opacity: (activeId || followingSpeech) && !isLit ? 0.45 : 0.8 }}
+                  style={{
+                    width: `${widthPct(s.chars, maxChars)}%`,
+                    opacity: (activeId || followingSpeech || chosenEvidence) && !isLit ? 0.45 : 0.8,
+                    // 고른 근거는 색 + 번호 옆 aria-label 로 함께 알린다(색만으로 전달하지 않는다)
+                    ...(chosenEvidence && isLit ? { background: 'var(--p)', opacity: 1 } : {}),
+                  }}
                 />
               )}
             </li>

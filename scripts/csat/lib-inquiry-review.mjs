@@ -43,6 +43,8 @@ export function contentHash(item) {
       note: d.note,
     })),
     principle: item.principle ?? null,
+    // v3 의미 · 판단 · 설계 칸 — 없으면 undefined 라 직렬화에서 빠져 v1 문항의 해시는 그대로다
+    v3: item.v3 ?? undefined,
   }
   return createHash('sha256').update(stableStringify(body)).digest('hex').slice(0, 16)
 }

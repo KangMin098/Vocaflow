@@ -17,7 +17,7 @@
 import { cueFocus } from './focus'
 import { enWords, estimateSec, koSentences, segmentIssues, syllables } from './speakable'
 import { isValidTarget, type TargetSet } from './targets'
-import { ROLE_ORDER, type Lecture, type LectureCue, type LectureRole } from './types'
+import { ROLE_ORDER, V3_SCENES, V3_SCENE_ROLES, type Lecture, type LectureCue, type LectureRole, type LectureV3 } from './types'
 
 export interface ValidateContext {
   targets: TargetSet
@@ -115,9 +115,70 @@ function ngrams(ws: string[], n: number): Set<string> {
   return out
 }
 
-export function validateLecture(lec: Lecture, ctx: ValidateContext): ValidateResult {
+/**
+ * 강의 검사 입구 — schemaVersion 으로 나눈다. 없으면 legacy(schema1) · 3 이면 schema3 · 그 밖은 거부한다(데이터 계약 §6).
+ * legacy 규칙(ROLE_ORDER · 필수 역할 · 역할 타깃)은 그대로다 — 새 의미 · 비교 큐를 넣으려고 지우지 않는다.
+ */
+export function validateLecture(lec: Lecture | LectureV3, ctx: ValidateContext): ValidateResult {
+  const version = (lec as { schemaVersion?: unknown }).schemaVersion
+  if (version === undefined) return validateLegacy(lec as Lecture, ctx)
+  if (version === 3) return validateLectureV3(lec as LectureV3, ctx)
+  return {
+    ok: false,
+    issues: [{ code: 'schema', msg: `모르는 schemaVersion ${String(version)} — legacy(없음) 또는 3 만 받는다` }],
+    mechanical: { reading: 0, time: 0 },
+    stats: { cues: 0, totalSec: 0, maxCueSec: 0, koSentences: 0, longSentences: 0, quoteHits: 0 },
+  }
+}
+
+/** schema3 장면별 주대상 종류 — 장면이 말하는 것과 빛나는 것이 같은 종류여야 한다 */
+const V3_SCENE_TARGETS: Record<(typeof V3_SCENES)[number], RegExp> = {
+  task: /^(v3:task|analysis:(head|ability))$/,
+  meaning: /^(v3:meaning:[\w-]+|anchor:sentence:\d+|analysis:vocab)$/,
+  judgment: /^(v3:choice:\d|analysis:(answer|reject:\d))$/,
+  design: /^(v3:claim:\d+|analysis:intent)$/,
+  compare: /^v3:compare$/,
+  principle: /^(v3:principle|analysis:procedure)$/,
+  explain: /^v3:explain$/,
+}
+
+function validateLectureV3(lec: LectureV3, ctx: ValidateContext): ValidateResult {
   const issues: Issue[] = []
-  const add = (code: string, msg: string, cue?: LectureCue) => issues.push({ code, msg, cue: cue?.id })
+  const add = (code: string, msg: string, cue?: { id: string }) => issues.push({ code, msg, cue: cue?.id })
+  const cues = lec.cues ?? []
+  if (!lec.binding || typeof lec.binding.analysis_version !== 'number' || !lec.binding.units_hash)
+    add('binding', '탐구 데이터 결속(analysis_version · units_hash)이 없다')
+  if (cues.length < LIMITS.cuesMin || cues.length > LIMITS.cuesMax) add('cue-count', `큐 ${cues.length}개 — ${LIMITS.cuesMin}~${LIMITS.cuesMax} 밖`)
+  const ids = new Set<string>()
+  let lastScene = -1
+  cues.forEach((c, i) => {
+    if (ids.has(c.id)) add('dup-id', `큐 id 중복 ${c.id}`, c)
+    ids.add(c.id)
+    if (c.order !== i + 1) add('order', `order ${c.order} ≠ ${i + 1}`, c)
+    const sc = V3_SCENES.indexOf(c.scene)
+    if (sc < 0) add('scene', `모르는 장면 ${c.scene}`, c)
+    else if (sc < lastScene) add('scene-order', `장면 순서가 거꾸로 — ${c.scene} 이 ${V3_SCENES[lastScene]} 뒤에 왔다`, c)
+    lastScene = Math.max(lastScene, sc)
+    if (sc >= 0 && !V3_SCENE_ROLES[c.scene].includes(c.role)) add('scene-role', `${c.scene} 장면에 ${c.role} 역할`, c)
+    if (!c.target || !isValidTarget(ctx.targets, c.target)) add('target', `화면에 없는 타깃 ${c.target?.kind}:${c.target?.id}`, c)
+    else if (sc >= 0 && !V3_SCENE_TARGETS[c.scene].test(`${c.target.kind}:${c.target.id}`))
+      add('scene-target', `${c.scene} 큐가 ${c.target.kind}:${c.target.id} 를 가리킨다`, c)
+    for (const t of c.related ?? []) if (!isValidTarget(ctx.targets, t)) add('related', `없는 관련 타깃 ${t.kind}:${t.id}`, c)
+    const ko = (c.segments ?? []).filter((g) => g.lang === 'ko-KR').map((g) => g.text).join(' ')
+    for (const n of spokenHereOrdinals(ko)) {
+      const k = c.target?.kind === 'anchor' ? Number(c.target.id.split(':')[1]) + 1 : NaN
+      if (k !== n && !(c.evidence ?? []).includes(n)) add('pointing', `「여기 ${n}번째 문장」이라 말하는데 주대상 · 근거 문장에 없다`, c)
+    }
+  })
+  // 평가 과제 · 원문 의미 · 문항 성립은 v3 강의의 뼈대다 — 하나라도 없으면 ready 가 아니다(비교 · 설계 · 원리 결손은 생략 가능)
+  const scenes = new Set(cues.map((c) => c.scene))
+  for (const need of ['task', 'meaning', 'judgment'] as const) if (!scenes.has(need)) add('missing-scene', `${need} 장면 큐가 없다`)
+  return speechAndLength(cues, ctx, issues, add)
+}
+
+function validateLegacy(lec: Lecture, ctx: ValidateContext): ValidateResult {
+  const issues: Issue[] = []
+  const add = (code: string, msg: string, cue?: { id: string }) => issues.push({ code, msg, cue: cue?.id })
   const cues = lec.cues ?? []
 
   // ── 구조 ──────────────────────────────────────────────────────────────
@@ -140,14 +201,7 @@ export function validateLecture(lec: Lecture, ctx: ValidateContext): ValidateRes
     else if (!ROLE_TARGETS[c.role]?.test(`${c.target.kind}:${c.target.id}`))
       add('role-target', `${c.role} 큐가 ${c.target.kind}:${c.target.id} 를 가리킨다`, c)
 
-    if (!(c.pause_after_ms >= LIMITS.pauseMin && c.pause_after_ms <= LIMITS.pauseMax))
-      add('pause', `pause_after_ms ${c.pause_after_ms} — ${LIMITS.pauseMin}~${LIMITS.pauseMax} 밖`, c)
-    if (!c.segments?.length) add('empty', '조각이 없다', c)
-    for (const g of c.segments ?? []) for (const why of segmentIssues(g)) add('speakable', why, c)
-
     const ko = (c.segments ?? []).filter((g) => g.lang === 'ko-KR').map((g) => g.text).join(' ')
-    if (!DIRECTIVE.test(ko)) add('directive', '지시어(「여기 보세요」 류)가 없다', c)
-    if (BANNED.test(ko)) add('banned', '무근거 난이도 판정', c)
 
     // 귀와 눈이 같은 곳을 가리키는가 — 「여기 N번째 문장」이라고 말하면 N번째 막대가 켜져 있어야 한다.
     // 파일럿에서 심사관이 잡았다: 화면은 일곱 번째 막대를 켜 놓고 「여기 두 번째 문장을 보세요」라고 말했다.
@@ -180,6 +234,31 @@ export function validateLecture(lec: Lecture, ctx: ValidateContext): ValidateRes
   }
   for (const n of elim) {
     if (ctx.answer != null && n === ctx.answer) add('eliminate-answer', '정답을 지우는 큐가 있다')
+  }
+
+  return speechAndLength(cues, ctx, issues, add)
+}
+
+type SpeechCue = Pick<LectureCue, 'id' | 'segments' | 'pause_after_ms'>
+
+/**
+ * 낭독 · 문체 · 인용 · 길이 검사와 기계 채점 — legacy 와 schema3 이 **같은 함수**를 쓴다(검사가 두 벌이면 한쪽만 고쳐진다).
+ * schema3 첫 rollout 은 기존 상한/하한(8~14큐 · 150~270초 · 큐 20초 · 멈춤 300~900ms)을 그대로 쓴다(데이터 계약 §6).
+ */
+function speechAndLength(
+  cues: SpeechCue[],
+  ctx: ValidateContext,
+  issues: Issue[],
+  add: (code: string, msg: string, cue?: { id: string }) => void,
+): ValidateResult {
+  for (const c of cues) {
+    if (!(c.pause_after_ms >= LIMITS.pauseMin && c.pause_after_ms <= LIMITS.pauseMax))
+      add('pause', `pause_after_ms ${c.pause_after_ms} — ${LIMITS.pauseMin}~${LIMITS.pauseMax} 밖`, c)
+    if (!c.segments?.length) add('empty', '조각이 없다', c)
+    for (const g of c.segments ?? []) for (const why of segmentIssues(g)) add('speakable', why, c)
+    const ko = (c.segments ?? []).filter((g) => g.lang === 'ko-KR').map((g) => g.text).join(' ')
+    if (!DIRECTIVE.test(ko)) add('directive', '지시어(「여기 보세요」 류)가 없다', c)
+    if (BANNED.test(ko)) add('banned', '무근거 난이도 판정', c)
   }
 
   // ── 문체 · 낭독 ─────────────────────────────────────────────────────────

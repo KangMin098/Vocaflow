@@ -104,13 +104,85 @@ export function validateItem(input, out) {
   return errs
 }
 
-export function validateChunk(name) {
+// ── v3 칸(의미 · 판단 · 설계) — WRITER_V3.md · docs/csat-learner/v3/CSAT_REASONING_DATA_V3.md §3 ──
+export const SCOPE_KINDS = ['negation', 'condition', 'agent', 'time', 'quantity', 'contrast', 'reference', 'none']
+export const BASES = ['official', 'source_observation', 'design_hypothesis']
+
+export function validateV3(input, out) {
+  const errs = []
+  const e = (m) => errs.push(`${input.id}: v3 ${m}`)
+  if (!out || out.status !== 'ok') return errs
+  const v = out.v3
+  if (!v || typeof v !== 'object') return [`${input.id}: v3 없음`]
+  if (v.units_hash !== input.units_hash) e(`units_hash ${v.units_hash} ≠ 입력 ${input.units_hash}`)
+  const nSent = input.sentences.length
+  const okSent = (arr) => Array.isArray(arr) && arr.length > 0 && arr.every((n) => Number.isInteger(n) && n >= 1 && n <= nSent)
+  const sentText = (n) => norm(input.sentences.find((s) => s.n === n)?.text ?? '')
+  const r = v.requirement
+  if (!r || !String(r.requested ?? '').trim()) e('requirement.requested 없음')
+  else {
+    if (!['positive', 'negative'].includes(r.polarity)) e(`requirement.polarity ${r.polarity}`)
+    if (!Array.isArray(r.conditions) || r.conditions.length < 1 || r.conditions.length > 3) e('requirement.conditions 는 1~3개')
+  }
+  const meanings = Array.isArray(v.meanings) ? v.meanings : []
+  if (meanings.length < 2 || meanings.length > 6) e(`meanings ${meanings.length}개 — 2~6개`)
+  const ids = new Set()
+  for (const m of meanings) {
+    if (!m.id || ids.has(m.id)) e(`meaning id 비었거나 중복 ${m.id}`)
+    ids.add(m.id)
+    if (!okSent(m.sentences)) e(`${m.id} sentences 범위 밖/비어 있음`)
+    if (!String(m.meaning_ko ?? '').trim() || m.meaning_ko.length < 8) e(`${m.id} meaning_ko 비었거나 짧음`)
+    if (!SCOPE_KINDS.includes(m.scope?.kind)) e(`${m.id} scope.kind ${m.scope?.kind}`)
+    if (m.scope?.kind !== 'none' && !String(m.scope?.note ?? '').trim()) e(`${m.id} scope.note 없음`)
+    const ex = String(m.expression ?? '')
+    if (!ex.trim()) e(`${m.id} expression 없음`)
+    else {
+      if (words(ex) > 8) e(`${m.id} expression 8단어 초과`)
+      // 인용은 그 문장(들)에 그대로 있어야 한다 — 다른 문장 · 지어낸 영어를 의미 주석으로 위장하지 않는다
+      if (okSent(m.sentences) && !m.sentences.some((n) => sentText(n).includes(norm(ex)))) e(`${m.id} expression 「${ex}」 이 ${m.sentences.join(',')}번 문장에 없음`)
+    }
+    if (BANNED.test(`${m.meaning_ko} ${m.scope?.note ?? ''}`)) e(`${m.id} 금지 표현`)
+  }
+  const choices = Array.isArray(v.choices) ? v.choices : []
+  const nChoices = (input.choices ?? []).length || 5
+  const got = choices.map((c) => c.n).sort((a, b) => a - b)
+  const want = Array.from({ length: nChoices }, (_, k) => k + 1)
+  if (got.join() !== want.join()) e(`choices 는 1~${nChoices}번 전부 한 번씩 (받은 것 ${got.join(',')})`)
+  for (const c of choices) {
+    const tag = `선지 ${c.n}`
+    if (c.selected_as_answer !== (input.answer != null && c.n === input.answer)) e(`${tag} selected_as_answer 가 공식 정답과 다름`)
+    if (!['true', 'false', 'n_a', 'unknown'].includes(c.content_truth)) e(`${tag} content_truth ${c.content_truth}`)
+    if (!['satisfies', 'fails', 'unknown'].includes(c.requirement_fit)) e(`${tag} requirement_fit ${c.requirement_fit}`)
+    if (input.slot_type && c.content_truth !== 'n_a' && c.content_truth !== 'unknown') e(`${tag} 위치·지칭 유형인데 content_truth=${c.content_truth}`)
+    if (c.selected_as_answer && c.requirement_fit === 'fails') e(`${tag} 정답인데 요구 충족 fails`)
+    if (!c.selected_as_answer && c.requirement_fit === 'satisfies') e(`${tag} 비선정인데 요구 충족 satisfies`)
+    if (!String(c.decisive ?? '').trim() || c.decisive.length < 12) e(`${tag} decisive 비었거나 짧음`)
+    if (BANNED.test(c.decisive ?? '')) e(`${tag} decisive 금지 표현`)
+    if (!okSent(c.sentences)) e(`${tag} sentences 범위 밖/비어 있음`)
+    for (const id of c.meaning_ids ?? []) if (!ids.has(id)) e(`${tag} 없는 meaning_id ${id}`)
+  }
+  const d = v.design
+  if (!d || !Array.isArray(d.claims) || !d.claims.length) e('design.claims 없음')
+  else {
+    for (const [k, c] of d.claims.entries()) {
+      if (!BASES.includes(c.basis)) e(`design.claims[${k}].basis ${c.basis}`)
+      if (!String(c.text ?? '').trim()) e(`design.claims[${k}].text 없음`)
+      if (c.basis !== 'official' && !okSent(c.sentences)) e(`design.claims[${k}] 근거 문장 없음`)
+      if (BANNED.test(c.text ?? '')) e(`design.claims[${k}] 금지 표현(보편 규칙 · 출제자 내부 사고 단정)`)
+    }
+    if (!d.claims.some((c) => c.basis === 'design_hypothesis')) e('design 에 설계 가설(design_hypothesis)이 없음 — 관찰만 있으면 설계 장면이 아니다')
+    if (!String(d.limitation ?? '').trim()) e('design.limitation 없음')
+  }
+  return errs
+}
+
+export function validateChunk(name, { v3 = false } = {}) {
   const input = JSON.parse(fs.readFileSync(path.join(WORK, `chunk-${name}.json`), 'utf8'))
   const outPath = path.join(WORK, `chunk-${name}.out.json`)
   if (!fs.existsSync(outPath)) return { name, errors: [`${name}: 출력 파일 없음`], n: input.items.length }
   const out = JSON.parse(fs.readFileSync(outPath, 'utf8'))
   const byId = new Map((out.items ?? []).map((r) => [r.id, r]))
-  const errors = input.items.flatMap((it) => validateItem(it, byId.get(it.id)))
+  const errors = input.items.flatMap((it) => [...validateItem(it, byId.get(it.id)), ...(v3 ? validateV3(it, byId.get(it.id)) : [])])
   const extra = [...byId.keys()].filter((id) => !input.items.some((it) => it.id === id))
   if (extra.length) errors.push(`${name}: 입력에 없는 문항 ${extra.join(',')}`)
   return { name, errors, n: input.items.length, statuses: [...byId.values()].reduce((m, r) => ((m[r.status] = (m[r.status] ?? 0) + 1), m), {}) }
@@ -118,13 +190,13 @@ export function validateChunk(name) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))) {
   const i = process.argv.indexOf('--chunk')
+  const V3 = process.argv.includes('--v3')
+  const pattern = V3 ? /^chunk-v3-\d+\.out\.json$/ : /^chunk-inq-\d+\.out\.json$/
   const names =
-    i >= 0
-      ? [process.argv[i + 1]]
-      : fs.readdirSync(WORK).filter((f) => /^chunk-inq-\d+\.out\.json$/.test(f)).map((f) => f.replace(/^chunk-|\.out\.json$/g, ''))
+    i >= 0 ? [process.argv[i + 1]] : fs.readdirSync(WORK).filter((f) => pattern.test(f)).map((f) => f.replace(/^chunk-|\.out\.json$/g, ''))
   let bad = 0
   for (const name of names.sort()) {
-    const r = validateChunk(name)
+    const r = validateChunk(name, { v3: V3 || name.startsWith('v3-') })
     bad += r.errors.length
     console.log(`${name}: 문항 ${r.n} · 오류 ${r.errors.length}${r.statuses ? ` · ${JSON.stringify(r.statuses)}` : ''}`)
     for (const x of r.errors.slice(0, 40)) console.log(`  - ${x}`)

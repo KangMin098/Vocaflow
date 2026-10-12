@@ -1,0 +1,1605 @@
+{
+ "chunk": "v3-01",
+ "writer_run": "wr-v3-01",
+ "items": [
+  {
+   "id": "2026#34",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "법과 자유"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "제약 자체가 없음",
+       "to": "제약하되 합리적이지 않음"
+      }
+     ],
+     "note": "자유의 제약이라는 축을 남기되, cannot be 를 거치면 제약은 인정하고 합리성만 부정하게 되어 6~7번 문장(제약 자체가 없다)과 어긋난다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "강력한 옹호자"
+      }
+     ],
+     "altered": [
+      {
+       "component": "역할",
+       "from": "칸트가 옹호자",
+       "to": "법이 옹호자"
+      }
+     ],
+     "note": "1번 문장의 strong defender 를 남기되 그 주어를 칸트에서 법으로 바꿨고, 7번 문장 조건과 논리 연결도 없다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "악한 본성 억제"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "법 체계로 조화 가능",
+       "to": "효과적 집행 불가"
+      }
+     ],
+     "note": "4~5번 문장의 악한 본성과 법을 남기되, 부정을 거치면 법의 효력을 부정하는 결론이 되어 5번 문장과 반대다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "이상적 법 체계"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "이성이 받아들임",
+       "to": "받아들여질 수 없음"
+      }
+     ],
+     "note": "6번 문장의 이상적 법을 남기되 cannot be 를 거치면 지문이 받아들이는 것을 부정하게 된다."
+    }
+   ],
+   "principle": {
+    "statement": "빈칸이 cannot be 같은 부정 안에 있으면 각 선지를 넣은 완성 명제 전체가 지문의 조건에서 따라 나오는지로 판단한다",
+    "when_applies": [
+     "빈칸 문장이 cannot·never 로 빈칸 표현 전체를 부정하는 구조",
+     "선지들이 지문 낱말(freedom·defender·ideal)을 재료로 쓴 경우"
+    ],
+    "when_not": [
+     "부정어가 빈칸 밖 다른 절에 걸려 빈칸 자체는 긍정 맥락인 경우",
+     "선지 안에 부정·한정어(reasonably 등)가 있어 낱말의 반대만으로는 명제가 정해지지 않는 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "7fb095d3cac4821e",
+    "requirement": {
+     "requested": "7번 문장의 cannot be 뒤 빈칸에 넣었을 때, 완성된 명제 전체가 6~7번 문장의 조건에서 따라 나오는 표현을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "cannot be 는 빈칸 표현 전체를 부정하므로, 선지를 넣은 뒤 「법은 ~일 수 없다」 명제 전체가 지문 논리와 맞아야 한다",
+      "7번 문장의 If 조건(어차피 이성적으로 고르지 않을 일만 금지)이 그 결론의 근거가 되어야 한다",
+      "6번 문장(법은 이성적 존재가 자유롭게 고를 원칙의 구현)과 1번 문장(법치는 자유의 보장)과 같은 방향이어야 한다"
+     ],
+     "reading_scope": "1번 문장과 5~7번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       7
+      ],
+      "expression": "then the law cannot be",
+      "meaning_ko": "앞의 If 조건이 성립하면, 법을 빈칸에 들어갈 그런 것으로 볼 수 없다는 결론",
+      "scope": {
+       "kind": "negation",
+       "note": "cannot be 는 빈칸 낱말 하나가 아니라 빈칸에 들어갈 표현 전체(예: understood as a restraint on their freedom)를 부정한다. 선지 안에 이미 부정적·긍정적 낱말이 있는지와 무관하게, 완성된 명제 전체로 판단해야 한다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       7
+      ],
+      "expression": "they would not rationally choose to do anyway",
+      "meaning_ko": "법이 없어도 이성적인 사람이라면 애초에 하지 않았을 행동 — 금지되는 것은 원래 원하지 않던 일",
+      "scope": {
+       "kind": "condition",
+       "note": "If 절 안의 조건이다. 법이 이런 일만 금지할 때에 한해 then 이하 결론이 성립한다(모든 법에 대한 주장이 아님)"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "all rational beings would freely choose",
+      "meaning_ko": "이상적인 법은 이성적 존재 모두가 강요 없이 스스로 고를 원칙을 담은 것",
+      "scope": {
+       "kind": "condition",
+       "note": "Ideally 가 이 진술을 이상적인 경우로 한정한다 — 현실의 모든 법이 그렇다는 주장이 아니다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       1
+      ],
+      "expression": "the ultimate guarantee",
+      "meaning_ko": "법치는 안전·평화뿐 아니라 자유까지 지켜 주는 최종 보장 장치",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       5
+      ],
+      "expression": "can live in harmony in a legal system",
+      "meaning_ko": "선의가 없는 사람들(악마들의 나라)조차 모두를 똑같이 묶는 법 체계 안에서는 조화롭게 살 수 있다",
+      "scope": {
+       "kind": "condition",
+       "note": "even 이 가장 불리한 경우까지 포함시키며, 그 조화는 in a legal system that binds every citizen equally 라는 조건 아래에서다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "넣으면 「법은 자유를 합리적으로 제한한다고 볼 수 없다」가 되어, 제한 자체는 남기고 그 합리성만 부정한다. 7번 문장 조건은 원래 하지 않을 일만 금지하므로 제한 자체가 없다는 결론이고, 6번 문장은 법을 이성적 선택의 구현으로 본다 — 완성 명제가 두 문장과 어긋난다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "unknown",
+      "requirement_fit": "fails",
+      "decisive": "넣으면 「법은 정의 체계의 강력한 옹호자로 볼 수 없다」가 되는데, 7번 문장의 조건(원래 고르지 않을 일을 금지)에서 이 결론이 나오지 않는다. 1번 문장의 strong defender 는 칸트를 가리키며, 법이 옹호자인지는 지문이 다루지 않아 참·거짓을 정할 근거가 없다",
+      "sentences": [
+       1,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "넣으면 「(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다」가 된다. 7번 문장 조건대로 금지된 것이 어차피 고르지 않을 일이면 빼앗기는 선택이 없고, 6번 문장(자유롭게 고를 원칙)·1번 문장(자유의 보장)과 같은 결론이다",
+      "sentences": [
+       1,
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "넣으면 「법은 악한 본성을 억누르도록 효과적으로 집행될 수 없다」가 되어 법의 효력을 부정한다. 5번 문장은 악마들의 나라도 법 체계 안에서 조화롭게 살 수 있다고 하므로 완성 명제가 지문과 반대이고, 7번 문장 조건과도 연결되지 않는다",
+      "sentences": [
+       4,
+       5,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "넣으면 「법은 이상적 법 체계의 전제 안에서 받아들여질 수 없다」가 되는데, 6번 문장은 바로 그 이상적인 법을 이성적 존재가 자유롭게 고를 것이라 한다 — 지문이 받아들이는 것을 부정하는 명제가 된다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m3"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 3번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "빈칸은 7번 문장에서 cannot be 뒤에 놓여, 빈칸 표현 전체가 부정되는 명제 안에 있다",
+       "sentences": [
+        7
+       ]
+      },
+      {
+       "basis": "source_observation",
+       "text": "오답 선지에 지문 낱말이 재료로 쓰였다 — strong defender(1번 문장), legal frameworks·Ideally(2·6번 문장), 악한 본성(4·5번 문장)",
+       "sentences": [
+        1,
+        2,
+        4,
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "이 문항은 선지의 낱말 하나(restraint, confining)의 긍정·부정 느낌이 아니라, 선지를 넣은 완성 명제 전체가 If 조건에서 따라 나오는지를 판단하게 하는 과제로 볼 수 있다. 1번 선지는 「제한」을 담고도 reasonably 때문에 완성 명제가 「제한은 인정, 합리성만 부정」이 되어, 부정어 하나만 보고 반대 낱말을 고르는 읽기를 가려낼 수 있다",
+       "sentences": [
+        1,
+        6,
+        7
+       ]
+      }
+     ],
+     "limitation": "실제 출제 과정이나 선지 제작 순서는 확인할 수 없다. 2번 선지의 완성 명제는 지문이 다루지 않아 참·거짓 대신 unknown 으로 두었다. 「부정 → 반대 낱말」은 일반 규칙이 아니며, 부정의 범위가 빈칸 밖 절에 걸리거나 선지 안에 또 부정이 있으면 판단이 달라진다."
+    }
+   },
+   "review_note": "v1 principle 의 「지문이 거부하는 견해를 골라야 하므로」는 「부정 → 반대 낱말 고르기」 규칙으로 읽힐 수 있어, 완성 명제 전체를 지문 조건과 대조하는 문장으로 고치고 선지 안 한정어(reasonably) 경계를 when_not 에 더했다. distractors 는 원문과 맞아 그대로 두었다."
+  },
+  {
+   "id": "2026#36",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(C) 뒤",
+       "to": "첫 블록"
+      }
+     ],
+     "note": "(A)의 유일한 예외(양초)는 일반 규정과 평범한 예시가 담긴 (C) 뒤라야 성립해 맨 앞에 올 수 없다."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(A) 뒤",
+       "to": "첫 블록"
+      }
+     ],
+     "note": "(B)의 another 와 like this 가 가리킬 앞 사례가 주어진 글에 없어 (B)를 첫 블록에 둘 수 없다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(A) 뒤",
+       "to": "첫 블록"
+      }
+     ],
+     "note": "(B)를 맨 앞에 두면 another 의 선행 사례가 비고, 정의문 (C)가 개별 사례 뒤로 밀린다."
+    },
+    {
+     "n": 5,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(A) 바로 뒤",
+       "to": "(C) 바로 뒤"
+      }
+     ],
+     "note": "(C)의 물시계·석영은 반복이 드러난 사례라 (B)의 like this(겉보기와 실제가 다름)를 채우지 못한다. 그 조건은 (A)의 양초만 채운다."
+    }
+   ],
+   "principle": {
+    "statement": "another ~ like this 처럼 앞 사례의 특성을 요구하는 블록은 그 특성(겉보기와 실제가 다름)을 가진 사례 바로 뒤에 놓는다",
+    "when_applies": [
+     "한 블록에 눈에 띄는 예시가 있지만 특성이 다른 경우",
+     "정의 → 예외 → 또 다른 예외로 이어지는 구조"
+    ],
+    "when_not": [
+     "like this 가 특정 사례가 아니라 앞의 일반 규정 전체를 받는 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "79c616281a5e44a2",
+    "requirement": {
+     "requested": "주어진 글 뒤에 (A)·(B)·(C) 세 단락을, 각 단락이 앞에 요구하는 조건과 뒤에 넘기는 조건이 모두 맞도록 배열한다",
+     "polarity": "positive",
+     "conditions": [
+      "(B) 첫 문장의 another·also appears to be like this 가 요구하는 앞 사례(겉보기엔 매끄럽지만 실은 반복)가 바로 앞 단락에 있어야 한다",
+      "(A)의 The only example(유일한 예외)이 성립하려면 일반 규정과 평범한 예시가 그보다 앞에 나와 있어야 한다",
+      "(C)의 일반 규정이 주어진 글의 repetitive 를 이어받을 수 있어야 한다"
+     ],
+     "reading_scope": "1~9번 문장 전체((A)=3~5번, (B)=6~7번, (C)=8~9번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "the nature of that process is repetitive",
+      "meaning_ko": "시계의 본질은 반복되는 과정이라는 주어진 글의 결론",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       8
+      ],
+      "expression": "almost any process that repeats itself",
+      "meaning_ko": "거의 어떤 반복 과정이든 시계가 될 수 있다는 일반 규정",
+      "scope": {
+       "kind": "quantity",
+       "note": "almost any 로 범위를 넓게 잡아 일반 규정이 되며, 9번 문장의 물시계·석영은 그 규정의 눈에 보이는 예시다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "The only example that comes to mind readily",
+      "meaning_ko": "반복에 기대지 않는 것처럼 보이는 시계로 떠오르는 유일한 예(양초)",
+      "scope": {
+       "kind": "reference",
+       "note": "「유일한 예외」라는 말은 일반 규정(반복)과 평범한 사례가 이미 제시된 뒤에야 의미가 생긴다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "although at first masked",
+      "meaning_ko": "양초도 실은 반복(왁스 분자 연소)인데 처음에는 그 반복이 가려져 보이지 않는다",
+      "scope": {
+       "kind": "contrast",
+       "note": "겉보기(연속)와 실제(반복)의 대조가 양초 사례에만 걸린다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "another, much longer scale clock",
+      "meaning_ko": "앞에 나온 같은 종류의 시계에 이어 또 하나의, 훨씬 긴 시간 척도의 시계",
+      "scope": {
+       "kind": "reference",
+       "note": "another 와 like this 는 바로 앞 단락의 특정 사례를 가리킨다. 그 사례의 종류는 7번 문장 It seems to yield a smooth time scale but in fact does not 이 규정한다"
+      }
+     },
+     {
+      "id": "m6",
+      "sentences": [
+       7
+      ],
+      "expression": "gives the appearance of being continuous",
+      "meaning_ko": "방사성 탄소 붕괴는 반복이지만 큰 척도에서는 연속처럼 보인다",
+      "scope": {
+       "kind": "contrast",
+       "note": "although 로 실제(반복)와 겉보기(연속)를 대조해, (A)의 양초와 같은 종류임을 드러낸다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(A)를 맨 앞에 두면 4번 문장의 「유일한 예외」 앞에 일반 규정과 평범한 예시가 없다. 그 규정·예시는 8~9번 문장((C))에 있으므로 (A)의 앞쪽 조건이 비고, (C)-(B) 인접에서는 (B)의 like this 조건도 채워지지 않는다",
+      "sentences": [
+       4,
+       6,
+       8,
+       9
+      ],
+      "meaning_ids": [
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(B)를 맨 앞에 두면 6번 문장의 another·like this 가 가리킬 「매끄러워 보이는 시계」가 주어진 글에 없다. 주어진 글은 시계가 반복 과정이라는 규정만 말한다",
+      "sentences": [
+       2,
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(B)를 맨 앞에 두면 another 의 앞 사례가 비고, (C)-(A) 순서는 맞더라도 첫 이음매(주어진 글→(B))의 앞쪽 조건이 실패한다",
+      "sentences": [
+       2,
+       6,
+       8
+      ],
+      "meaning_ids": [
+       "m5",
+       "m2"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "주어진 글의 repetitive 를 (C)가 일반 규정과 눈에 보이는 예시로 펴고, (A)가 Indeed 로 그 규정을 강조한 뒤 유일한 예외(양초)를 들어 다시 반복으로 묶으며, (B)의 another·like this 가 바로 앞 (A)의 「가려진 반복」 사례를 받는다 — 세 이음매의 앞뒤 조건이 모두 채워진다",
+      "sentences": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C) 바로 뒤에 (B)를 두면 like this 의 앞 사례가 9번 문장의 물시계·석영이 되는데, 이들은 drip at a steady pace·vibrate regularly 로 반복이 드러나 있어 「매끄러워 보이지만 실은 반복」 조건(7번 문장)을 채우지 못한다. 그 조건을 채우는 것은 5번 문장의 양초뿐이다",
+      "sentences": [
+       5,
+       6,
+       7,
+       9
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5",
+       "m6"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번 (C)-(A)-(B)이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "(B) 첫 문장은 another·also appears to be like this 로 앞 사례를 요구하고, 7번 문장이 그 사례의 종류(매끄러워 보이지만 실은 반복)를 규정한다",
+       "sentences": [
+        6,
+        7
+       ]
+      },
+      {
+       "basis": "source_observation",
+       "text": "(C)의 9번 문장은 물시계·석영이라는 눈에 띄는 반복 예시를 담고 있고, (A)의 5번 문장은 although at first masked 로 가려진 반복을 말한다",
+       "sentences": [
+        5,
+        9
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "눈에 띄는 예시가 있는 (C) 뒤에 (B)를 붙이고 싶게 만드는 배치로 볼 수 있으며, like this 가 요구하는 특성(겉보기와 실제의 차이)을 뒤 문장에서 확인해야만 (A)-(B) 인접을 정할 수 있게 한 과제로 해석할 수 있다",
+       "sentences": [
+        5,
+        6,
+        7,
+        9
+       ]
+      }
+     ],
+     "limitation": "실제 출제 과정은 확인할 수 없다. 단락 표지 (A)·(B)·(C)와 문장 번호는 다르다((A)=3~5번, (B)=6~7번, (C)=8~9번). like this 가 앞 단락 전체의 일반 규정을 받는다고 읽으면 (C)-(B)도 가능해 보이지만, 7번 문장의 seems to … but in fact does not 이 특정 종류의 사례를 요구한다는 점에서 이 해석을 택했다."
+    }
+   }
+  },
+  {
+   "id": "2026#38",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "⑤",
+       "to": "①"
+      }
+     ],
+     "note": "①에 넣으면 these internal narratives we form 이 받을 우리가 만드는 서사가 아직 나오지 않았다(4번 문장에서 처음 등장)."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "⑤",
+       "to": "②"
+      }
+     ],
+     "note": "②는 서사를 만든다는 주장과 그 작동 방식(5번 문장)이 이어지는 자리라 정체성으로 넘어가는 문장을 끼우면 사슬이 끊긴다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "⑤",
+       "to": "③"
+      }
+     ],
+     "note": "③ 뒤 6번 문장의 대학 졸업생 예시는 5번 문장의 일반 진술을 보여 주므로 둘 사이가 비어 있지 않다."
+    },
+    {
+     "n": 4,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "⑤",
+       "to": "④"
+      }
+     ],
+     "note": "④ 뒤 7번 문장의 the university 는 6번 문장을 받아 한 예시의 두 문장이라 사이를 벌릴 수 없다."
+    }
+   ],
+   "principle": {
+    "statement": "같은 For example 이 두 번 나오면 각 예시가 걸릴 일반 진술이 따로 있어야 하므로, 새 축(정체성)을 여는 문장은 두 번째 예시 바로 앞에 들어간다",
+    "when_applies": [
+     "한 화제로 문단을 채우고 마지막 예시만 새 개념(identity)을 보여 주는 경우",
+     "주어진 문장이 these 로 앞 서사를 받는 경우"
+    ],
+    "when_not": [
+     "두 예시가 같은 일반 진술의 연속 사례로 나열된 글 — 이때는 사이에 새 문장이 필요 없다"
+    ]
+   },
+   "v3": {
+    "units_hash": "1f412cc306b16b62",
+    "requirement": {
+     "requested": "주어진 문장(1번 문장)이 앞 문장과 뒤 문장 양쪽에 대해 모두 성립하는 자리를 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "앞쪽: these internal narratives we form 이 받을, 우리가 만든 서사가 그 자리 앞에 나와 있어야 한다",
+      "뒤쪽: 그 자리 뒤 문장이 주어진 문장의 새 진술(정체성에 뿌리내림)을 받아야 하고, 원래 이어진 두 문장 사이를 끊지 않아야 한다",
+      "For example 이 두 번(6번·8번 문장) 나오므로, 각 예시가 받치는 일반 진술을 따로 확인해야 한다"
+     ],
+     "reading_scope": "1번 문장(주어진 문장)과 4~8번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "these internal narratives we form",
+      "meaning_ko": "앞에서 말한, 우리가 마음속에 만들어 낸 바로 그 서사들",
+      "scope": {
+       "kind": "reference",
+       "note": "these 는 자리 앞에 이미 나온 「우리가 만든 서사」를 가리켜야 한다 — 4번 문장 이전에는 그런 서사가 없다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       1
+      ],
+      "expression": "become deeply rooted in our identity",
+      "meaning_ko": "서사가 신념·의견을 넘어 우리가 누구인지(정체성)에까지 깊이 뿌리내린다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       5
+      ],
+      "expression": "our minds seek to make sense of them",
+      "meaning_ko": "사건·사실을 접하면 마음이 이야기를 만들어 그것을 이해하려 한다는 일반 진술",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       6
+      ],
+      "expression": "you may create a negative narrative",
+      "meaning_ko": "특정 대학 졸업생과의 나쁜 경험에서 그 학교 사람들에 대한 부정적 서사를 만든다는 예시",
+      "scope": {
+       "kind": "reference",
+       "note": "6번 문장의 For example 은 5번 문장의 일반 진술(경험에서 서사를 만든다)을 받친다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "judge everyone from the university",
+      "meaning_ko": "몇 번의 경험만으로 그 대학 출신 모두를 판단하게 된다",
+      "scope": {
+       "kind": "reference",
+       "note": "the university 는 6번 문장의 a particular university 를 받아 6·7번 문장이 한 예시임을 보여 준다"
+      }
+     },
+     {
+      "id": "m6",
+      "sentences": [
+       8
+      ],
+      "expression": "who you are as an individual",
+      "meaning_ko": "총기 규제·기후 변화에 대한 서사가 정치 이념, 곧 개인으로서의 나와 연결된다는 정체성 예시",
+      "scope": {
+       "kind": "reference",
+       "note": "8번 문장의 For example 은 정체성을 말하는 일반 진술을 요구하는데, 그 진술은 주어진 문장의 identity 뿐이다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "① 앞에는 3번 문장의 stories 만 있고 「우리가 만드는」 서사는 4번 문장에서 처음 나온다 — these internal narratives we form 의 앞쪽 조건이 비어 있다",
+      "sentences": [
+       1,
+       3,
+       4
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "② 앞 4번 문장과 낱말은 겹치지만, 4번 문장(서사를 만든다)과 5번 문장(그 작동 방식)은 한 사슬이라 사이에 정체성 문장을 넣으면 뒤쪽 조건이 깨진다",
+      "sentences": [
+       1,
+       4,
+       5
+      ],
+      "meaning_ids": [
+       "m1",
+       "m3"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "③ 뒤 6번 문장이 For example 이라 앞에 일반 진술이 필요해 보이지만, 그 예시가 받치는 일반 진술은 이미 5번 문장(경험에서 서사를 만든다)이고 정체성과 무관하다 — For example 하나로는 자리가 정해지지 않는다",
+      "sentences": [
+       5,
+       6
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "④ 뒤 7번 문장의 the university·what you’ve experienced 가 6번 문장을 받아 한 예시의 두 문장이므로 사이를 벌릴 수 없다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "⑤에 넣으면 앞쪽으로는 these internal narratives we form 이 6~7번 문장에서 실제로 만들어진 서사를 받고, 뒤쪽으로는 8번 문장의 For example 이 정체성 예시(who you are as an individual)로 주어진 문장의 identity 진술을 받친다 — 두 경계가 모두 성립한다",
+      "sentences": [
+       1,
+       6,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m5",
+       "m6"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번 ⑤이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "For example 이 6번과 8번 문장에 두 번 나오고, 6~7번 예시는 경험에서 서사를 만드는 일, 8번 예시는 정체성(who you are as an individual)을 보여 준다",
+       "sentences": [
+        6,
+        7,
+        8
+       ]
+      },
+      {
+       "basis": "source_observation",
+       "text": "주어진 문장의 identity 를 일반 진술로 세우는 문장은 지문의 나머지 문장에 없다",
+       "sentences": [
+        1,
+        8
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "같은 표지(For example)를 두 번 두어, 표지 하나만으로 자리를 정하지 않고 각 예시가 받치는 일반 진술과 앞쪽 지시(these)를 함께 확인하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        1,
+        5,
+        6,
+        8
+       ]
+      }
+     ],
+     "limitation": "실제 출제 과정은 확인할 수 없다. 1번 문장은 주어진 문장이고 지문 안 번호(①~⑤)와 문장 번호(4~8번)는 다르다. 2~3번 문장이 주어진 글의 앞부분인지는 입력 분할로만 판단했다."
+    }
+   }
+  },
+  {
+   "id": "2026#29",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "2번 문장은 형용사+enough+to부정사 구문이라 to solve 가 맞다."
+    },
+    {
+     "n": 3,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "4번 문장의 live 는 자동사라 선행사를 받으려면 전치사가 필요하고 in which 뒤가 완전한 절이라 맞다."
+    },
+    {
+     "n": 4,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "5번 문장에서 우리는 동기를 부여받는 쪽이고 뒤에 목적어가 없으므로 수동 motivated 가 맞다."
+    },
+    {
+     "n": 5,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "6번 문장의 that 은 복수 pools 를 받아 exceed 가 맞고 greatly 는 동사를 꾸미는 부사라 맞다."
+    }
+   ],
+   "principle": {
+    "statement": "주어가 길고 과거분사 수식구(used by ~)가 붙어 있으면 그 분사를 동사로 착각하지 말고 문장의 정동사 자리가 채워졌는지 확인한다",
+    "when_applies": [
+     "주어 뒤에 과거분사구가 붙고 그 뒤에 -ing 형이 오는 문장"
+    ],
+    "when_not": [
+     "과거분사가 실제로 능동 과거 동사로 쓰여 목적어를 받는 경우 — 이때는 이미 정동사가 있다"
+    ]
+   },
+   "v3": {
+    "units_hash": "a8a8d67346afd05e",
+    "requirement": {
+     "requested": "밑줄 친 다섯 부분 중 그 자리의 문법 조건(정동사 · 절 구조 · 수식)을 어긴 것 하나를 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "문장마다 정동사가 있는지 — 3번 문장은 used by 가 주어를 꾸미는 분사구라 정동사 자리가 비어 있다",
+      "관계사·전치사 뒤 절이 완전한지(4번 문장 in which)와 관계절 동사의 수 일치(6번 문장)",
+      "분사 형태가 능동·수동 관계와 맞는지(5번 문장 motivated)와 to부정사 구문(2번 문장)"
+     ],
+     "reading_scope": "2~6번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "not nearly smart enough as individuals",
+      "meaning_ko": "개인으로서는 문제를 풀 만큼 똑똑하기에 한참 못 미친다 — 형용사+enough 뒤에 to부정사가 이어지는 구조",
+      "scope": {
+       "kind": "negation",
+       "note": "not nearly 는 enough 전체를 부정해 「충분하지 않다」는 뜻이며, 뒤 to solve 는 그 충분함의 기준이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "used by any group of foragers",
+      "meaning_ko": "어떤 수렵채집 집단이든 사용하는 — 주어 The package 를 뒤에서 꾸미는 과거분사구",
+      "scope": {
+       "kind": "agent",
+       "note": "by any group of foragers 는 used 의 행위자이고, 이 분사구는 주어 안에 머물러 정동사 역할을 하지 않는다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       3
+      ],
+      "expression": "being far too complex",
+      "meaning_ko": "문장의 술어 자리 — 정동사가 와야 할 곳에 분사 being 이 놓여 있다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       4
+      ],
+      "expression": "in which we live",
+      "meaning_ko": "자동사 live 가 선행사 environments 를 전치사 in 과 함께 받는 관계절",
+      "scope": {
+       "kind": "reference",
+       "note": "which 는 many different environments 를 가리킨다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       5
+      ],
+      "expression": "motivated to learn from others",
+      "meaning_ko": "우리가 남에게서 배우도록 동기를 부여받는다 — 주어가 동기를 받는 쪽",
+      "scope": {
+       "kind": "agent",
+       "note": "주어 we 는 motivate 의 행위자가 아니라 대상이다"
+      }
+     },
+     {
+      "id": "m6",
+      "sentences": [
+       6
+      ],
+      "expression": "greatly exceed the inventive capacities of individuals",
+      "meaning_ko": "복수 선행사 pools 를 받는 주격 관계절에서 개인의 발명 능력을 크게 넘어선다",
+      "scope": {
+       "kind": "reference",
+       "note": "that 은 pools of adaptive information 을 받아 동사 exceed 가 복수형이다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "2번 문장은 smart enough … to solve 의 「형용사+enough+to부정사」 구조라 to 가 맞는 형태다 — 틀린 것을 고르는 요구를 충족하지 않는다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "3번 문장에서 used by any group of foragers 는 주어를 꾸미는 분사구일 뿐이라 문장에 정동사가 없다. being 자리가 유일한 술어 자리이므로 단수 주어 The package 와 현재 일반 서술에 맞춰 is 가 와야 한다 — 어법상 틀린 것을 고르는 요구를 충족한다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "4번 문장의 live 는 목적어를 받지 않으므로 선행사 environments 를 받으려면 전치사가 필요하고, in which we live 뒤는 완전한 절이라 맞는 형태다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "5번 문장에서 we 는 동기를 받는 쪽이고 motivated 뒤에 목적어가 없으므로 수동 과거분사가 맞는 형태다",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장의 that 은 복수 pools 를 받아 exceed 가 복수 동사로 맞고, greatly 는 동사를 꾸미는 부사라 맞는 형태다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m6"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "3번 문장의 주어는 명사 넷과 과거분사구 used by any group of foragers 로 길게 이어지고, 그 뒤에 being 이 온다",
+       "sentences": [
+        3
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "used 가 과거 동사처럼 보이는 긴 주어 뒤에 분사를 두어, 문장에 정동사가 실제로 있는지를 확인하게 하는 과제로 볼 수 있다. 나머지 밑줄은 to부정사·관계절·분사·수 일치처럼 다른 종류의 조건을 확인하게 한다",
+       "sentences": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     ],
+     "limitation": "실제 출제 과정은 확인할 수 없다. being 을 is 로 고치는 근거 중 시제(현재)는 앞뒤 문장의 일반 서술에서 추론한 것이고, 3번 문장 하나만으로는 was 도 문법적으로 가능하다."
+    }
+   }
+  },
+  {
+   "id": "2026#25",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "매일 범주에서 문자 55가 최댓값이라 2번 문장 진술이 맞다."
+    },
+    {
+     "n": 2,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "덜 자주 범주에서 전화 41이 문자 13의 두 배(26)보다 커서 3번 문장 진술이 맞다."
+    },
+    {
+     "n": 3,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "전화의 매일 값 19가 덜 자주 값 41보다 낮아 4번 문장 진술이 맞다."
+    },
+    {
+     "n": 5,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "화상 채팅의 덜 자주 값 37이 매일 값 7보다 높아 6번 문장 진술이 맞다."
+    }
+   ],
+   "principle": {
+    "statement": "누적 막대 도표의 순위 진술은 막대 전체 길이가 아니라 해당 범주의 숫자만 따로 비교해야 판정된다",
+    "when_applies": [
+     "한 항목의 다른 범주 값이 작아 막대 전체가 짧아 보이는 경우",
+     "진술이 특정 범주 안의 순위(second highest 등)를 말하는 경우"
+    ],
+    "when_not": [
+     "진술이 범주를 합친 전체 값을 비교하는 경우 — 이때는 막대 전체 길이가 기준이다"
+    ]
+   },
+   "v3": {
+    "units_hash": "228485b747aa1614",
+    "requirement": {
+     "requested": "도표 설명 다섯 진술 중 기존 검수 분석의 도표 값과 맞지 않는 것 하나를 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "진술이 말하는 범주(Every Day / Less Often)의 값만 따로 비교해야 한다",
+      "진술의 판단 종류(범주 안 순위 · 배수 · 범주 간 비교)를 구별해야 한다"
+     ],
+     "reading_scope": "2~6번 문장과 기존 분석에 기록된 도표 값"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "In the category of Every Day",
+      "meaning_ko": "매일 친구와 시간을 보낸 범주에 한정한 비교",
+      "scope": {
+       "kind": "quantity",
+       "note": "이 진술의 최고 비교는 Every Day 값(문자 55·전화 19·이메일 6·화상 7, 기존 분석 값)에만 걸린다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "more than twice that of teenagers",
+      "meaning_ko": "전화 비율이 문자 비율의 두 배보다 크다는 배수 관계",
+      "scope": {
+       "kind": "quantity",
+       "note": "Less Often 범주 안의 전화(41)와 문자(13)에만 걸린다(기존 분석 값)"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       5
+      ],
+      "expression": "emailing was the second highest",
+      "meaning_ko": "Less Often 범주에서 이메일이 두 번째로 높다는 순위 진술",
+      "scope": {
+       "kind": "quantity",
+       "note": "순위는 Less Often 값(이메일 43·전화 41·화상 37·문자 13, 기존 분석 값)에만 걸리고, 막대 전체 길이와는 무관하다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       4,
+       6
+      ],
+      "expression": "in the category of Less Often",
+      "meaning_ko": "같은 소통 방식의 Every Day 값과 Less Often 값을 맞대는 범주 간 비교",
+      "scope": {
+       "kind": "quantity",
+       "note": "4번 문장은 전화(19 vs 41), 6번 문장은 화상 채팅(7 vs 37)에 걸린다(기존 분석 값)"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "기존 분석의 Every Day 값에서 문자 55가 최댓값(전화 19·이메일 6·화상 7)이라 2번 문장 진술은 맞다 — 일치하지 않는 것을 고르는 요구를 충족하지 않는다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "Less Often 에서 전화 41 이 문자 13 의 두 배(26)보다 커서 3번 문장의 more than twice 가 성립한다(기존 분석 값)",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "전화의 Every Day 값 19 가 Less Often 값 41 보다 낮아 4번 문장의 lower than 이 맞다(기존 분석 값)",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "Less Often 값이 이메일 43 > 전화 41 > 화상 37 > 문자 13 이라 이메일은 1위다. 5번 문장의 second highest 는 순위가 한 칸 어긋나 도표와 일치하지 않으므로 요구를 충족한다(기존 분석 값)",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "화상 채팅의 Less Often 값 37 이 Every Day 값 7 보다 높아 6번 문장의 higher than 이 맞다(기존 분석 값)",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "다섯 진술은 범주 안 최고(2번 문장)·배수(3번 문장)·범주 간 비교(4·6번 문장)·범주 안 순위(5번 문장)로 판단 종류가 섞여 있다",
+       "sentences": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "기존 분석 값대로 이메일은 Every Day 값(6)이 작아 막대 전체가 짧아 보일 수 있으므로, 막대 길이가 아니라 해당 범주 숫자를 따로 읽는지를 확인하게 하는 진술로 볼 수 있다",
+       "sentences": [
+        5
+       ]
+      }
+     ],
+     "limitation": "도표 원본은 입력에 없고, 모든 수치는 기존 검수 분석(analysis)에 기록된 값을 그대로 쓴 것이다. 막대가 누적형인지, 수치 표기 방식이 어떤지는 원본으로 다시 확인하지 못했다. 실제 출제 과정도 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "M2706#36",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "The back-and-forth"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(A)가 맨 끝",
+       "to": "(A)가 맨 앞"
+      }
+     ],
+     "note": "3번 문장의 정관사 명사구 The back-and-forth 는 앞에 나온 식물과 곤충의 주고받음을 받아야 하는데, 주어진 글(1~2번 문장)은 식물이 곤충을 쫓는 한 방향 방어만 말해 (A)를 첫 단락에 둘 수 없다."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "Nor are individual plants entirely on their own"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(C) 다음 (B)",
+       "to": "(B)가 맨 앞"
+      }
+     ],
+     "note": "9번 문장은 이웃 협력을 처음 꺼내는 예고라 (B) 앞에 와야 하는데, 이 배열에서는 이미 말한 내용을 뒤늦게 예고하고 글이 예고문으로 끝난다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "Structural defenses like thick coats of wax"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(C)가 맨 앞",
+       "to": "(B) 다음 (C)"
+      }
+     ],
+     "note": "8번 문장은 2번 문장의 화학적 방어에 이어지는 두 번째 방어이고, 9번 문장이 (B)를 부르는 예고라 (C)가 (B) 앞이어야 한다."
+    },
+    {
+     "n": 4,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "maintain the stalemate"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(C) 바로 다음 (B)",
+       "to": "(C) 다음 (A)"
+      }
+     ],
+     "note": "9번 문장이 (B)를 직접 부르므로 사이에 (A)가 낄 수 없고, 5번 문장의 총괄 진술 뒤에 새 사례가 오면 요약 뒤에 예시를 다는 꼴이 된다."
+    }
+   ],
+   "principle": {
+    "statement": "방어 유형을 하나씩 더해 가는 글에서는 Nor 같은 예고 문장이 바로 다음 단락을 부르고, 상호작용을 총괄하는 단락(The back-and-forth)이 마지막에 온다",
+    "when_applies": [
+     "주어진 글이 Some 으로 첫 유형을 열고 단락마다 새 유형을 추가하는 경우",
+     "한 단락 끝이 Nor are … 처럼 다음 화제를 예고하는 문장인 경우"
+    ],
+    "when_not": [
+     "총괄 진술을 먼저 하고 사례를 뒤에 다는 두괄식 글"
+    ]
+   },
+   "v3": {
+    "units_hash": "4dbe567869c9404b",
+    "requirement": {
+     "requested": "주어진 글 뒤에 (A)·(B)·(C)를, 각 단락이 앞에 요구하는 조건과 끝에서 다음 단락에 넘기는 조건이 모두 맞도록 배열한다",
+     "polarity": "positive",
+     "conditions": [
+      "(C) 끝 9번 문장 Nor are individual plants entirely on their own 이 예고한 「혼자가 아님」을 바로 다음 단락이 채워야 한다",
+      "(A)의 The back-and-forth 가 받을 식물과 곤충의 주고받음이 그보다 앞에 갖춰져 있어야 한다",
+      "주어진 글의 Some(첫 방어 유형)에 이어 다른 방어 유형을 더하는 단락이 앞에 와야 한다"
+     ],
+     "reading_scope": "1~9번 문장 전체((A)=3~5번, (B)=6~7번, (C)=8~9번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "Some load their tissues with harsh compounds",
+      "meaning_ko": "어떤 식물은 조직에 해로운 화합물을 채워 곤충을 쫓는다 — 방어 유형 열거의 첫 항",
+      "scope": {
+       "kind": "quantity",
+       "note": "Some 은 식물 일부만 가리키며, 다른 방어 유형이 뒤에 더해질 자리를 연다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       8
+      ],
+      "expression": "Structural defenses like thick coats of wax",
+      "meaning_ko": "잎의 두꺼운 왁스층 같은 구조적 방어 — 화학적 방어와 다른 두 번째 유형",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       9
+      ],
+      "expression": "Nor are individual plants entirely on their own",
+      "meaning_ko": "게다가 공격받는 개별 식물이 완전히 혼자인 것도 아니다 — 다음에 이웃·협력 이야기가 올 것을 예고",
+      "scope": {
+       "kind": "negation",
+       "note": "Nor 는 앞의 방어 진술에 부정 진술을 덧붙이며, entirely on their own 전체를 부정해 「도움이 있다」는 내용을 예고한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       6
+      ],
+      "expression": "let their same-species neighbors know",
+      "meaning_ko": "같은 종 이웃 식물에게 공격이 다가온다고 알린다 — 9번 문장 예고에 대한 응답",
+      "scope": {
+       "kind": "agent",
+       "note": "알리는 주체는 공격받는 식물, 받는 쪽은 같은 종 이웃 식물이다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       3
+      ],
+      "expression": "The back-and-forth",
+      "meaning_ko": "식물과 곤충이 방어와 우회를 주고받는 과정 전체",
+      "scope": {
+       "kind": "reference",
+       "note": "정관사 명사구로, 앞 단락들에서 이미 나온 주고받음 전체를 되받는다"
+      }
+     },
+     {
+      "id": "m6",
+      "sentences": [
+       5
+      ],
+      "expression": "maintain the stalemate",
+      "meaning_ko": "새 변이들이 서로 막히는 교착 상태를 유지한다 — 논의를 총괄해 닫는 진술",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(A)를 맨 앞에 두면 3번 문장의 The back-and-forth 가 받을 주고받음이 없다. 주어진 글(1~2번 문장)은 식물이 화합물로 곤충을 쫓는 한 방향 방어만 말하므로, 정관사 명사구의 앞쪽 조건이 첫 이음매에서 실패한다",
+      "sentences": [
+       1,
+       2,
+       3
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "주어진 글과 (B)가 compounds 로 겹치지만, (B)를 맨 앞에 두면 9번 문장의 예고가 이미 말한 이웃 협력을 뒤늦게 꺼내고, 이 배열에서는 그 예고문이 글의 마지막 줄이 되어 뒤쪽 조건이 비어 버린다 — 반복 낱말만으로 인접을 정할 수 없다",
+      "sentences": [
+       2,
+       6,
+       9
+      ],
+      "meaning_ids": [
+       "m1",
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C)가 (B) 뒤에 오면 9번 문장의 「혼자가 아님」 예고 뒤에 (A)가 와서 예고가 응답을 잃는다. 2번 문장 Some 과 8번 문장 Structural defenses 가 방어 유형 열거로 이어진다는 점도 (C)가 먼저임을 가리킨다",
+      "sentences": [
+       2,
+       8,
+       9
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C) 뒤에 (A)를 두면 9번 문장이 부른 (B)와의 인접이 깨지고, 5번 문장의 총괄 진술(maintain the stalemate) 뒤에 (B)의 새 사례가 붙는다",
+      "sentences": [
+       5,
+       6,
+       9
+      ],
+      "meaning_ids": [
+       "m3",
+       "m6"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "2번 문장의 Some(화학적 방어)에 (C)의 Structural defenses 가 두 번째 유형을 더하고, (C) 끝 9번 문장의 예고를 (B)의 이웃 신호·a call for an assist 가 채우며, 그렇게 주고받음이 갖춰진 뒤 (A)의 The back-and-forth 가 이를 받아 maintain the stalemate 로 닫는다 — 세 이음매의 앞뒤 조건이 모두 맞는다",
+      "sentences": [
+       2,
+       3,
+       5,
+       6,
+       7,
+       8,
+       9
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번 (C)-(B)-(A)이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "(C)는 구조적 방어 문장(8번)과 예고 문장 Nor are individual plants entirely on their own(9번)으로 끝나고, (B)는 이웃 식물에게 신호를 보내는 내용(6~7번)이다",
+       "sentences": [
+        8,
+        9,
+        6,
+        7
+       ]
+      },
+      {
+       "basis": "source_observation",
+       "text": "주어진 글의 harsh compounds(2번 문장)와 (B)의 chemical compounds(6번 문장)가 낱말로 겹친다",
+       "sentences": [
+        2,
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "낱말이 겹치는 (B)를 먼저 붙이고 싶게 하면서, 단락 끝 예고문(9번 문장)과 정관사 명사구(The back-and-forth)라는 앞뒤 조건으로만 순서가 정해지게 한 과제로 볼 수 있다",
+       "sentences": [
+        2,
+        3,
+        6,
+        9
+       ]
+      }
+     ],
+     "limitation": "실제 출제 과정은 확인할 수 없다. 단락 표지와 문장 번호는 다르다((A)=3~5번, (B)=6~7번, (C)=8~9번). 9번 문장이 (C)에 속한다는 것은 입력 분할(표지 없는 문장이 앞 단락에 이어짐)에 기댄 판단이다."
+    }
+   },
+   "review_note": "기존 분석 choice_analysis n=1(과 이를 옮긴 v1 note)은 「(C) 끝의 Nor are individual plants entirely on their own 이 (B)와 떨어진다」고 했으나, 선지 1 (A)-(C)-(B)에서는 (B)(6~7번 문장)가 (C)(8~9번 문장) 바로 뒤에 와 그 인접이 유지된다. 이 오류를 빼고, 배열에 맞는 결정 조건 하나(3번 문장 The back-and-forth 의 앞말이 주어진 글에 없음)로 v1 note 와 v3 decisive 를 고쳤다."
+  }
+ ]
+}
