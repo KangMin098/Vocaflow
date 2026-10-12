@@ -56,7 +56,7 @@ for (const f of readdirSync(IDIR).filter((f) => /^chunk-(inq|v3)-[\w-]+\.out\.js
 
 // 문항 유형 — 화면이 상대 문항의 공개 여부를 유형별 공개 목록으로 확인한다(같은 유형으로 한정하지 않음)
 const typeOf = new Map()
-for (const f of readdirSync(IDIR).filter((f) => /^chunk-(inq|v3)-[w-]+.json$/.test(f) && !f.includes('.out.'))) {
+for (const f of readdirSync(IDIR).filter((f) => /^chunk-(inq|v3)-[\w-]+\.json$/.test(f) && !f.includes('.out.'))) {
   for (const it of listOf(readJson(join(IDIR, f)))) if (!typeOf.has(it.id)) typeOf.set(it.id, it.type_id)
 }
 
@@ -83,6 +83,14 @@ for (const p of keep.sort((a, b) => a.pair_id.localeCompare(b.pair_id))) {
     binding: { left: { units_hash: p.left.units_hash, inquiry_hash: p.left.inquiry_hash }, right: { units_hash: p.right.units_hash, inquiry_hash: p.right.inquiry_hash } },
   }
   for (const id of [p.left.id, p.right.id]) (data.items[id] ??= []).push(p.pair_id)
+}
+
+// 유형이 비면 화면이 상대 공개 여부를 확인할 수 없어 쌍이 통째로 사라진다 — 조용히 내보내지 않고 실패한다
+//   (2026-10-12 실측: 정규식 역슬래시가 heredoc 에서 빠져 유형 0건 → 공개 749쌍이 화면에서 전부 「상대 비공개」)
+const untyped = Object.entries(data.pairs).filter(([, p]) => !p.types.left || !p.types.right).map(([id]) => id)
+if (untyped.length) {
+  console.error(`유형 없는 쌍 ${untyped.length} — 입력 청크(chunk-inq|v3-*.json)의 type_id 를 읽지 못했다: ${untyped.slice(0, 5).join(' ')}`)
+  process.exit(1)
 }
 
 const head = (a) => a.slice(0, 20).join(' ') + (a.length > 20 ? ' …' : '')

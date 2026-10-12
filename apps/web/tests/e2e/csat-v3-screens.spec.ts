@@ -18,13 +18,13 @@ const USER = {
 const SHOTS = path.resolve('test-results-csat-learner/v3-screens')
 const SCENES = ['task', 'meaning', 'judgment', 'design', 'compare', 'principle', 'explain'] as const
 // 대표: 빈칸(전 장면) · 순서 · 삽입 · 어법 · 도표 · 3차 배치 표본(요지 · 심경)
-const ITEMS: { slug: string; scenes: readonly string[] }[] = [
+const ITEMS: { slug: string; scenes: readonly string[]; pairs?: boolean }[] = [
   { slug: '2026-34', scenes: SCENES },
   { slug: '2026-36', scenes: ['meaning', 'judgment', 'design'] },
-  { slug: '2026-38', scenes: ['meaning', 'judgment'] },
+  { slug: '2026-38', scenes: ['meaning', 'judgment', 'compare', 'principle', 'explain'], pairs: true },
   { slug: '2026-29', scenes: ['meaning', 'judgment'] },
   { slug: '2026-25', scenes: ['judgment', 'design'] },
-  { slug: 'M2306-22', scenes: ['meaning', 'judgment', 'principle'] },
+  { slug: 'M2306-22', scenes: ['meaning', 'judgment', 'compare', 'principle'], pairs: true },
   { slug: '2019-19', scenes: ['judgment'] },
 ]
 const VIEWS = [
@@ -77,12 +77,16 @@ for (const v of VIEWS) {
           dataTheme: document.documentElement.getAttribute('data-theme'),
           preparing: /준비 중/.test(document.body.innerText),
           unavailable: /(불러오지 못|오류가 발생)/.test(document.body.innerText),
+          v3Pairs: document.querySelectorAll('[data-testid="v3-pair"]').length,
+          v3Absent: document.querySelector('[data-testid="v3-compare-absent"]')?.getAttribute('data-reason') ?? null,
         }))
         await page.screenshot({ path: path.join(SHOTS, `${it.slug}_${scene}_${v.w}_${v.theme}.png`), fullPage: false })
         report.push({ slug: it.slug, scene, width: v.w, theme: v.theme, ...m, pageErrors: [...errors] })
         expect(m.overflowX, `${it.slug} ${scene} 가로 넘침`).toBeLessThanOrEqual(0)
         expect(m.unavailable, `${it.slug} ${scene} 오류 문구`).toBe(false)
         expect(errors, `${it.slug} ${scene} 페이지 오류`).toEqual([])
+        // 검수된 비교가 있는 문항은 비교 장면에 실제로 보여야 한다(상대 유형 누락으로 전부 사라진 2026-10-12 회귀)
+        if (scene === 'compare' && it.pairs) expect(m.v3Pairs, `${it.slug} v3 비교 표시`).toBeGreaterThan(0)
       }
     }
     await ctx.close()
