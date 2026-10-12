@@ -1,0 +1,194 @@
+[
+  {
+    "id": "M2406#31",
+    "type": "R-BLANK",
+    "passage_group": "M2406:31",
+    "binding": "5750ffbf30d537a722aa7639d53436c6e19ea059cde6971c305f9af9f3472c55"
+  },
+  {
+    "id": "2014B#37",
+    "type": "R-BLANK2",
+    "passage_group": "2014B:37",
+    "binding": "4e968a026c915867fb6472233197cca783a51fec8d4eecc23affa17b5243b824"
+  },
+  {
+    "id": "2024#25",
+    "type": "R-CHART",
+    "passage_group": "2024:25",
+    "binding": "6fc0668d5b2e954f58e8c2fc66540b22580d7d6a4dfa051a1902e326e77b2290"
+  },
+  {
+    "id": "M2309#20",
+    "type": "R-CLAIM",
+    "passage_group": "M2309:20",
+    "binding": "8a446d5f12805642d3dfc840624de2fd1237227b0f9bd03738f1adc5b72edd4a"
+  },
+  {
+    "id": "2019#26",
+    "type": "R-FACT",
+    "passage_group": "2019:26",
+    "binding": "1ac8459bc67fddd447b7ded9636d1557c8cae710b53febcad2d29c6a43f788ed"
+  },
+  {
+    "id": "2022#22",
+    "type": "R-GIST",
+    "passage_group": "2022:22",
+    "binding": "f52ff88cde9452ab9fc12e4c2b19e51a2f619de1ea8af4c183650ee4cdaeda9b"
+  },
+  {
+    "id": "2019#29",
+    "type": "R-GRAMMAR",
+    "passage_group": "2019:29",
+    "binding": "cac140f1ef01122259290311a00a9d8ba0f4ce75c2a6ffd50fc5b54139c56016"
+  },
+  {
+    "id": "2022#21",
+    "type": "R-IMPLY",
+    "passage_group": "2022:21",
+    "binding": "726821f9b4bbfd25e0e90b788c5cf55626894aecca41d4c0f9567adceb214e20"
+  },
+  {
+    "id": "2020#38",
+    "type": "R-INSERT",
+    "passage_group": "2020:38",
+    "binding": "fa676bfa41ff2538b3deebc4c96cdc286ac2cfad4f029db442fb8111ad3e0039"
+  },
+  {
+    "id": "M2306#35",
+    "type": "R-IRRELEVANT",
+    "passage_group": "M2306:35",
+    "binding": "faae903f125ec4cb1bf8e56d908b1e1b6344a1e49f175db1380318841fcd72f7"
+  },
+  {
+    "id": "2020#19",
+    "type": "R-MOOD",
+    "passage_group": "2020:19",
+    "binding": "ab81634ff4ffb23d00413f73971845539d7315d6815c655296bb0a6ae6053428"
+  },
+  {
+    "id": "2023#27",
+    "type": "R-NOTICE",
+    "passage_group": "2023:27",
+    "binding": "635a07f75713823b7546f6521c4145ff7d4253fd9d8f536f1623559290c87df1"
+  },
+  {
+    "id": "M2206#36",
+    "type": "R-ORDER",
+    "passage_group": "M2206:36",
+    "binding": "1446776cf038961dd7e8746d53ac3baf083e7235bafee26d21ecc39b3bac5c5b"
+  },
+  {
+    "id": "M2409#18",
+    "type": "R-PURPOSE",
+    "passage_group": "M2409:18",
+    "binding": "eae5379e3fd2dfa8c31f320576ae994cc1436cab7b31df7ac30054532579837d"
+  },
+  {
+    "id": "M1809#30",
+    "type": "R-REFER",
+    "passage_group": "M1809:30",
+    "binding": "2b3ebd1f831946eed81acffa2245d96beac6216c5f79aa76260e09ba08ef3bee"
+  },
+  {
+    "id": "2017#40",
+    "type": "R-SUMMARY",
+    "passage_group": "2017:40",
+    "binding": "88d2bce32480fe8a8e678cbe78a271ccc79f5e9654d075008e673a3d82f8ca97"
+  },
+  {
+    "id": "2019#24",
+    "type": "R-TITLE",
+    "passage_group": "2019:24",
+    "binding": "ba659c8f4d7790dbbbd3926418bc1388b06a61a49ad9b15835180ee20a26a58f"
+  },
+  {
+    "id": "2020#23",
+    "type": "R-TOPIC",
+    "passage_group": "2020:23",
+    "binding": "47e13b193a563defb938c138c35dd8aea9f658224e502c24111216422d3fa0b9"
+  },
+  {
+    "id": "2017#29",
+    "type": "R-VOCAB",
+    "passage_group": "2017:29",
+    "binding": "1452d4c2d185c0a0e392aa9a54bd20f27f2872a46b3a58196ffff88207b13f83"
+  },
+  {
+    "id": "2016#42",
+    "type": "X-BLANK",
+    "passage_group": "2016:41-42",
+    "binding": "acb10bfc4108ed2c25feee9b4ee3b4f6b51c25434bcb425a566f65316cfa0bc1"
+  },
+  {
+    "id": "2017#42",
+    "type": "X-BLANK2",
+    "passage_group": "2017:41-42",
+    "binding": "5e1a7e7e19b520f85b62197da64fdb748d3bde6923e8e624c63e7637a4dd0fe2"
+  },
+  {
+    "id": "2014A#45",
+    "type": "X-FACT",
+    "passage_group": "2014A:43-45",
+    "binding": "90663ef369b41229cb1a004ecd62e0827f9341fa0a2bbc5720692a06b330d06d"
+  },
+  {
+    "id": "2021#43",
+    "type": "X-ORDER",
+    "passage_group": "2021:43-45",
+    "binding": "7f6e1b415c0a24542d25bbb4f7868b55ffe2859135b7f859b225a15c759ee840"
+  },
+  {
+    "id": "2014A#44",
+    "type": "X-REFER",
+    "passage_group": "2014A:43-45",
+    "binding": "b3a2a994ff82811f25a00b95d22f4f75177acf2059942a75ed71a91e342fce3a"
+  },
+  {
+    "id": "2017#41",
+    "type": "X-TITLE",
+    "passage_group": "2017:41-42",
+    "binding": "142170cfa2108aca015624d98d523912d3c27f8e235953e6c2cde03c6ed5769b"
+  },
+  {
+    "id": "2022#42",
+    "type": "X-VOCAB",
+    "passage_group": "2022:41-42",
+    "binding": "55d179714ad02c1bc096b639fd7652511a51ca5c175be2c1b2ddebf76c10adcc"
+  },
+  {
+    "id": "2014A#23",
+    "type": "R-PURPOSE",
+    "passage_group": "2014A:23",
+    "binding": "9809a3f3a68f97a70a27c4e494897559cbcb042c449fa86d000c60510d6bf431"
+  },
+  {
+    "id": "2019#19",
+    "type": "R-MOOD",
+    "passage_group": "2019:19",
+    "binding": "db61f16265f7a427beb24bde9e3560e7dc96a8a2d7faa433b944ff04e90e0e35"
+  },
+  {
+    "id": "2023#37",
+    "type": "R-ORDER",
+    "passage_group": "2023:37",
+    "binding": "4bdab182a62d8d8e7b9898c07b27ba6ab43059ddf79791dd860d216c4ae53a40"
+  },
+  {
+    "id": "2022#38",
+    "type": "R-INSERT",
+    "passage_group": "2022:38",
+    "binding": "141d5f44338b8dc658143c9aebd3c351af7fcedd28425c1127e35376f13bd9d6"
+  },
+  {
+    "id": "M2106#31",
+    "type": "R-BLANK",
+    "passage_group": "M2106:31",
+    "binding": "5ca1d126b65a3a3d2cea952ae91a8714abb4a80e431d986627a7814057202b0d"
+  },
+  {
+    "id": "M2006#26",
+    "type": "R-FACT",
+    "passage_group": "M2006:26",
+    "binding": "01c995ca8a22b2c13c91b5bb2788b098785269840b53122762316927f08ff291"
+  }
+]

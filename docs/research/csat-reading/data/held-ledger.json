@@ -1,0 +1,178 @@
+[
+  {
+    "id": "2014A#24",
+    "type": "R-GIST",
+    "set": "discovery",
+    "school_year": 2014,
+    "status": "needs_review",
+    "source_file": "chunk-inq-01.out.json",
+    "legacy_note_sha256": "cec45adc665848e09b9c70861f9b950de8eb36eff380687478b3bfd09a48e880",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2014B#23",
+    "type": "R-GIST",
+    "set": "discovery",
+    "school_year": 2014,
+    "status": "needs_review",
+    "source_file": "chunk-inq-01.out.json",
+    "legacy_note_sha256": "0581ff735c6e919910ab799f46110ec9c5661337c8f05c5065d9711481096ce4",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2014B#36",
+    "type": "R-BLANK2",
+    "set": "discovery",
+    "school_year": 2014,
+    "status": "needs_review",
+    "source_file": "chunk-inq-02.out.json",
+    "legacy_note_sha256": "ca9f37ee3944b634ce54f8756845cbc7ef8e9e7716348b9a8618a91ba0847641",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2015#34",
+    "type": "R-BLANK2",
+    "set": "discovery",
+    "school_year": 2015,
+    "status": "needs_review",
+    "source_file": "chunk-inq-03.out.json",
+    "legacy_note_sha256": "a3558fe81e2c1f090a29dfa6846a22ef87d10e13ab836652b7399dc89a569361",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2015#44",
+    "type": "X-REFER",
+    "set": "discovery",
+    "school_year": 2015,
+    "status": "needs_review",
+    "source_file": "chunk-inq-03.out.json",
+    "legacy_note_sha256": "425f74203f09b4932857e60fe3b031943d61c811003d04afd30c3e38f1ab9a0a",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2016#44",
+    "type": "X-REFER",
+    "set": "discovery",
+    "school_year": 2016,
+    "status": "needs_review",
+    "source_file": "chunk-inq-05.out.json",
+    "legacy_note_sha256": "0d3612d62635e3ef45ba19d5159cb94683f8002017b99e0e3fd0337dd00f616d",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2023#18",
+    "type": "R-PURPOSE",
+    "set": "discovery",
+    "school_year": 2023,
+    "status": "needs_review",
+    "source_file": "chunk-inq-11.out.json",
+    "legacy_note_sha256": "ddbcb0a2337292c71ebcf969d6da049e51d62ea6201b7ce5506ac0f270597334",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2023#19",
+    "type": "R-MOOD",
+    "set": "discovery",
+    "school_year": 2023,
+    "status": "needs_review",
+    "source_file": "chunk-inq-11.out.json",
+    "legacy_note_sha256": "e6757cbe55accc48dbc8f3e02e75e9ba3939d04ae55f393f810db9e910c0f2cf",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2023#38",
+    "type": "R-INSERT",
+    "set": "discovery",
+    "school_year": 2023,
+    "status": "needs_review",
+    "source_file": "chunk-inq-12.out.json",
+    "legacy_note_sha256": "c4188948632f6f92cc5c751ef84626664554101e6efa1c73672fb4e7c27e7958",
+    "issue_summary": "legacy_evidence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2024#19",
+    "type": "R-MOOD",
+    "set": "discovery",
+    "school_year": 2024,
+    "status": "needs_review",
+    "source_file": "chunk-inq-12.out.json",
+    "legacy_note_sha256": "098ef159d319921ce05ba5032b160f693f074d0b923015f26e33998fbbc72272",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "2026#19",
+    "type": "R-MOOD",
+    "set": "validation",
+    "school_year": 2026,
+    "status": "needs_review",
+    "source_file": "chunk-inq-15.out.json",
+    "legacy_note_sha256": "b63cc2ccd231b1ad67d354d46c2fe64bb8dbf7afe8e79752ac0080de19d62ebd",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "M1809#19",
+    "type": "R-MOOD",
+    "set": "discovery",
+    "school_year": 2018,
+    "status": "needs_review",
+    "source_file": "chunk-inq-16.out.json",
+    "legacy_note_sha256": "5844c2becd347f8090da15166ff6a0bb7fba52155911afbfc5f3b10802240a60",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "M2006#19",
+    "type": "R-MOOD",
+    "set": "discovery",
+    "school_year": 2020,
+    "status": "needs_review",
+    "source_file": "chunk-inq-17.out.json",
+    "legacy_note_sha256": "f3994b102636d4365f069f546363c1b5f4ecdb6a5e50fbe6be3a908f93d72665",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "M2306#30",
+    "type": "R-VOCAB",
+    "set": "discovery",
+    "school_year": 2023,
+    "status": "needs_review",
+    "source_file": "chunk-inq-23.out.json",
+    "legacy_note_sha256": "bf9113ae35793e33b1cacf907ff0324cdb992c31bbc09f895eda8a277eef8b4f",
+    "issue_summary": "legacy_quotation_or_subject_structure_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "M2309#19",
+    "type": "R-MOOD",
+    "set": "discovery",
+    "school_year": 2023,
+    "status": "needs_review",
+    "source_file": "chunk-inq-24.out.json",
+    "legacy_note_sha256": "5e547ac00211c89c5e9700b8adc832cda94f7bb661c46640b306025d21d82064",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  },
+  {
+    "id": "M2606#19",
+    "type": "R-MOOD",
+    "set": "validation",
+    "school_year": 2026,
+    "status": "needs_review",
+    "source_file": "chunk-inq-29.out.json",
+    "legacy_note_sha256": "344baeaa08b7b6fcbc7888db7d5313a56b1a5c670fd62c46df3c0921fea13877",
+    "issue_summary": "legacy_sentence_reference_requires_revalidation",
+    "admission": "hold_no_research_canonical_admission"
+  }
+]
