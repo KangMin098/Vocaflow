@@ -13,7 +13,9 @@
 //   (참조에 없음 — 우리 콘텐츠)              → 읽을거리(새 글 · 주제 시리즈)
 //   HomeUSPSection(WHY + 보라 카드 넷)      → UspCards(진단 · 기억 4색 · 듣기 · 학급)
 //   「Built by you」 흩어진 물건 띠          → FinalCta(공개 화면 ScatterCta 와 같은 골격)
-//   꽃밭 · 꽃무늬는 랜딩 전용이라(tines-mapping §20) 여기에는 쓰지 않는다.
+//   참조 「100×」 무늬 글자 + 리본         → PatternWord 「한 서가」 + 서가 규모 리본(DB 실측 · 못 세면 그 리본 없음)
+//   2026-10-12 사용자 지시(「비로그인 화면 품질과 동일 수준」)로 랜딩 전용이던 꽃무늬 글자 · 리본을 여기도 쓴다
+//   (tines-mapping §20 의 「랜딩 전용」 은 이 지시로 바뀌었다).
 //   1회차의 자동 넘김 배너 · 원형 바로 가기 · 크기 다른 칸 격자는 참조에 없는 포털 문법이라 걷어 냈다.
 //
 // ── 유지한 것 ────────────────────────────────────────────────────────
@@ -39,6 +41,7 @@ import {
   platformTabs,
 } from '@/components/hub/portal/sections'
 import { TitleMarquee } from '@/components/hub/portal/TitleMarquee'
+import { FrameBar, PatternWord, Ribbon } from '@/components/marketing/signature'
 import { fetchHubPortal } from '@/lib/learner/hub-portal-query'
 import { buildWayfinder } from '@/lib/learner/wayfinder'
 import { fetchWayfinder } from '@/lib/learner/wayfinder-query'
@@ -102,7 +105,24 @@ export default async function HubPage() {
 
           <TitleMarquee books={portal.newBooks} />
 
-          <ProductFrame model={model} books={portal.newBooks} facts={portal.facts} />
+          {/* 무늬 글자 + 걸친 리본 → 그 위로 겹치는 제품 액자(랜딩 「아는 비율」 구간과 같은 골격).
+              글자는 장식이라 aria-hidden — 같은 말은 위 제목이 이미 한다. */}
+          <div className="relative">
+            <div aria-hidden className="relative overflow-hidden px-2 pt-2 text-center">
+              <PatternWord image="hero-book-field" className="block select-none font-display text-[22vw] font-[800] leading-[0.82] tracking-[-0.06em] lg:text-[280px]">
+                한 서가
+              </PatternWord>
+              {ribbons(portal.facts).map((r) => (
+                <Ribbon key={r.text} tone={r.tone} className={`absolute ${r.at}`}>
+                  {r.text}
+                </Ribbon>
+              ))}
+            </div>
+            <div className="relative z-10 -mt-[5vw] lg:-mt-[64px]">
+              <FrameBar tab="오늘, 나의 서가" />
+              <ProductFrame model={model} books={portal.newBooks} facts={portal.facts} />
+            </div>
+          </div>
         </div>
 
         {/* ── 플랫폼 색 탭 (참조 HomeUseCasesSection) ── */}
@@ -145,4 +165,15 @@ export default async function HubPage() {
       </div>
     </Screen>
   )
+}
+
+type RibbonSpec = { text: string; tone: 'green' | 'orange' | 'magenta'; at: string }
+
+/** 리본 셋 — 서가 규모를 DB 가 센 그대로(I5). 못 센 값(null)·0 은 리본째 뺀다. */
+function ribbons(facts: { books: number | null; articles: number | null; curatedSets: number | null }): RibbonSpec[] {
+  const out: RibbonSpec[] = []
+  if (facts.books) out.push({ text: `도서 ${facts.books.toLocaleString('ko-KR')}권`, tone: 'green', at: 'left-[10%] top-[24%] -rotate-[5deg]' })
+  if (facts.articles) out.push({ text: `읽을 글 ${facts.articles.toLocaleString('ko-KR')}편`, tone: 'orange', at: 'right-[12%] top-[10%] rotate-[4deg]' })
+  if (facts.curatedSets) out.push({ text: `단어장 ${facts.curatedSets.toLocaleString('ko-KR')}`, tone: 'magenta', at: 'right-[5%] top-[50%] rotate-[6deg]' })
+  return out
 }
