@@ -3,6 +3,8 @@
 // v3 비교 쌍 projection — 방향 돌리기 · 상대 비공개 · stale · 쌍 없음의 서로 다른 이유
 import { describe, expect, it } from 'vitest'
 
+import published from '../../compare-v3-data.json'
+
 import { projectV3Pairs, v3PairPartners } from '../compare-v3'
 
 const d = {
@@ -25,6 +27,21 @@ const d = {
 const open = () => ({ slug: 'x', label: 'X 1번' })
 
 describe('projectV3Pairs', () => {
+  it('실제 공개 정본의 모든 상대가 유형으로 조회되고 양쪽 방향에서 projection된다', () => {
+    const ids = Object.keys(published.items)
+    expect(ids.length).toBeGreaterThan(0)
+    for (const itemId of ids) {
+      const partners = v3PairPartners(itemId)
+      // item route는 이 유형 집합으로 공개 목록을 조회한다. null만 있으면 749쌍도 하나도 못 보인다.
+      const types = new Set(partners.map((p) => p.type).filter(Boolean))
+      expect(types.size, `${itemId}의 상대 유형`).toBeGreaterThan(0)
+      const openIds = new Set(partners.filter((p) => p.type && types.has(p.type)).map((p) => p.id))
+      const projected = projectV3Pairs(itemId, true, (id) => openIds.has(id) ? { slug: id, label: id } : null)
+      expect(projected.absence, itemId).toBeNull()
+      expect(projected.pairs, itemId).toHaveLength(published.items[itemId as keyof typeof published.items].length)
+    }
+  })
+
   it('상대 쪽에서 보면 대응 · 가르는 조건의 방향이 뒤집힌다', () => {
     const { pairs, absence } = projectV3Pairs('B#2', true, open, d)
     expect(absence).toBeNull()

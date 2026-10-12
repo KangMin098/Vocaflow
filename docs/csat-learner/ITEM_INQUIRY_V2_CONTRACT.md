@@ -91,6 +91,15 @@
 
 ## 8. v3 M4 — 비교 쌍 · 조건부 원리 · 원리 노트 · 지도 복귀 (2026-10-12)
 
+### M4 보고 대조에서 발견한 유형 metadata 결손 (2026-10-12)
+
+- PR #230의 공개 JSON을 직접 계수한 결과749쌍 양쪽 유형1498칸이 모두 null이었다. `compare-v3-build.mjs`의 입력 파일명 정규식이 숫자 청크를 읽지 못했고, 화면의 `partnerTypes`가 빈 집합이 되어 비교/쌍 원리가 빠졌다. 가짜 두 문항 fixture의 projection 회귀만으로는 실제 산출물 결손을 잡지 못했다.
+- 복구는 비교 본문/독립 검수/해시를 다시 생성하는 작업이 아니다. 공개 상대 목록과 동일한 `skeleton-data/<exam>.json`의 id/type_id를 사용해 유형 metadata만 재빌드한다. 원문 입력 파일이 없는 깨끗한 checkout에서도 동작한다. 입력이 있으면 정확한 파일명 규칙으로 읽고 골격과 유형이 충돌하면 중단한다. 공개 쌍 어느 한쪽의 유형이 없으면 null 적재/조용한 skip 대신 파일 쓰기 전에 build를 중단한다.
+- 실제 정본 회귀: `scripts/csat/__tests__/compare-v3-types.test.mjs`는 모든 쌍의 유형을 공개 골격과 대조한다. `lib/csat/inquiry/__tests__/compare-v3.test.ts`는 정본의 모든477문항에서 상대 유형 조회→양방향 projection을 검사한다. 수정 전 실제 정본 테스트 실패, 수정 후 통과. 인위적으로 공개 목록을 허용한 기계 검사이며 실제 RLS/브라우저 확인을 대신하지 않는다.
+- 재빌드 결과749쌍/110개 bounded 원리는 유지했고 유형 외 모든 pair 본문·binding과 item 색인은 기존 main과 deep equality로 확인했다. 같은 입력의 재빌드 byte diff0. 현재 데이터에는 다른 유형 사이의 쌍이0개이며 교차 유형 기능의 fixture 검증과 실제 사례 검증은 구별한다.
+- M5 후속: 현재 화면 스펙은1280 라이트/1440 다크 두 조합뿐이므로1280·1440 각각 라이트/다크 네 조합으로 확대한다. 실제 장면/비교·원리 패널 존재, 노트 저장 실패/재개, 권한/원문/데이터 부재, 상대 분석/탐구 갱신 후 stale를 단언한다. URL/overflow/오류 문구/첫 화면 캡처만으로 학습 UX 완료를 판정하지 않는다. 원문을 보여 주는 실제 양쪽 비교와 문항당 최대70쌍의 선택/접기 사용성도 직접 검수한다. 이번 metadata 복구에서 강의·메뉴·학평 보류는 유지한다.
+- 복구 검증: 관련 Node7개/웹 projection·노트10개 skip0 PASS, tsc/noEmit·변경 파일 eslint·Node syntax·agent 설정15/15·diff check PASS. 전체 스크립트는 병렬 실행의 VirtualAlloc 실패 후 순차 재검증278 PASS/0 FAIL/3 SKIP(기존 chart PostgreSQL·원문 corpus·live blind protocol 전제 없음). 스킵은 통과에 포함하지 않는다. 실제 화면/RLS/교육 효과는 여전히 미검증이다.
+
 - **비교 쌍 v3** — 기존 `compare-data.json`(831선언 · legacy_unbound)은 그대로 두고 v3 로 승격하지 않는다. 화면에는 「검수 전 1차 비교」로 표시.
   공정: `compare-v3-export.mjs`(양쪽 공개 v3 쌍만 · 원문 포함 입력은 gitignore) → 작성(`compare-drain/WRITER_PAIR.md`) → `compare-v3-validate.mjs`
   → 해시 결속 독립 검수(`REVIEWER_PAIR.md`, 기준 `pair-v1.0`) → `compare-v3-build.mjs` → `compare-v3-data.json`.
