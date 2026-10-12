@@ -28,7 +28,7 @@ jobs:
       - run: node agents/scripts/check.mjs
       - run: node --test agents/scripts/__tests__/*.test.mjs
       # 기출분석 공개 정본 가드 — 커밋된 산출물만 읽는다(원문 입력 없이 돈다). 공개 비교 쌍의 양쪽 결속 · 독립 pass · 상대 유형 · 탐구 공개 가드
-      - run: node --test scripts/csat/__tests__/compare-v3-binding.test.mjs scripts/csat/__tests__/compare-v3-types.test.mjs scripts/csat/__tests__/compare-v3-guard.test.mjs scripts/csat/__tests__/inquiry-review-guard.test.mjs scripts/csat/__tests__/meaning-support-schema.test.mjs scripts/csat/__tests__/meaning-support-public.test.mjs scripts/csat/__tests__/meaning-support-artifact.test.mjs scripts/csat/__tests__/meaning-support-isolated-seed.test.mjs
+      - run: node --test scripts/csat/__tests__/compare-v3-binding.test.mjs scripts/csat/__tests__/compare-v3-types.test.mjs scripts/csat/__tests__/compare-v3-guard.test.mjs scripts/csat/__tests__/inquiry-review-guard.test.mjs scripts/csat/__tests__/meaning-support-schema.test.mjs scripts/csat/__tests__/meaning-support-public.test.mjs scripts/csat/__tests__/meaning-support-artifact.test.mjs scripts/csat/__tests__/meaning-support-isolated-seed.test.mjs scripts/csat/__tests__/meaning-support-isolated-gate-fault.test.mjs
 
       # ⚠️ **실 DB 통합 테스트에 시크릿을 넘긴다.**
       #
@@ -238,6 +238,92 @@ jobs:
           path: |
             apps/web/test-results/
             apps/web/playwright-report-isolated/
+            migration-failures.txt
+          retention-days: 7
+
+      - if: always()
+        name: 격리 환경 폐기
+        run: supabase stop --no-backup || true
+
+  # PR 필수 e2e(격리 · 게이트 고장) — 주 격리 job 과 같은 준비(로컬 Supabase · 마이그레이션 전부 · seed) 뒤,
+  #   일회용 DB 에서 Reveal Gate 서비스 RPC 셋을 실제로 DROP 해(진짜 부재) 앱이 fail-closed 로 닫히는지 본다.
+  #   앱 플래그 · 가짜 RPC 없음. 이 job 의 spec 은 tests/e2e-isolated-fault(playwright.isolated-fault.config.ts)만 — 주 격리 job 과 겹치지 않는다.
+  e2e-gate-faultclosed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: 격리 Supabase 기동(빈 DB)
+        run: |
+          mv supabase/migrations supabase/_all_migrations
+          mkdir supabase/migrations
+          supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector,supavisor,realtime,storage-api
+          supabase status -o env > /tmp/sb.env
+          grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY|DB_URL)=' /tmp/sb.env | sed 's/^/LOCAL_/' >> "$GITHUB_ENV"
+
+      - name: 저장소 마이그레이션 적용(파일별)
+        run: bash scripts/ci/apply-migrations.sh supabase/_all_migrations "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')"
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter web exec playwright install --with-deps chromium
+
+      - name: 격리 환경 변수(로컬 데모 키 — 비밀값 아님)
+        run: |
+          strip() { echo "$1" | tr -d '"'; }
+          echo "NEXT_PUBLIC_SUPABASE_URL=$(strip "$LOCAL_API_URL")" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$(strip "$LOCAL_ANON_KEY")" >> "$GITHUB_ENV"
+          echo "SUPABASE_SERVICE_ROLE_KEY=$(strip "$LOCAL_SERVICE_ROLE_KEY")" >> "$GITHUB_ENV"
+          echo "VOCAFLOW_CSAT_ISOLATED_DB_URL=$(strip "$LOCAL_DB_URL")" >> "$GITHUB_ENV"
+
+      # 정상 게이트에서 먼저 seed(RPC 있음 · 보류 없음 확인) → 그 다음 고장 주입. 둘 다 가드(namespace · run ID · loopback · 소유 marker)를 안에서 돈다
+      - name: 격리 fixture 적재(v3.1 원문 이해 문항)
+        env:
+          VOCAFLOW_CSAT_ISOLATED_NAMESPACE: csat-v31
+          VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+        run: node scripts/csat/meaning-support-isolated-seed.mjs --commit
+
+      - name: 게이트 고장 주입(RPC 실제 부재 · 일회용 DB)
+        env:
+          VOCAFLOW_CSAT_ISOLATED_NAMESPACE: csat-v31
+          VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+        run: node scripts/csat/meaning-support-isolated-gate-fault.mjs --mode absent --commit
+
+      - run: pnpm --filter web build
+
+      - name: 앱 기동 후 대기
+        run: |
+          pnpm --filter web exec next start -p 3000 > /tmp/next.log 2>&1 &
+          npx --yes wait-on http://localhost:3000 --timeout 120000
+
+      - name: 격리 E2E(게이트 고장 → fail-closed)
+        run: pnpm --filter web exec playwright test -c playwright.isolated-fault.config.ts
+
+      - if: always()
+        name: 서버 로그
+        run: tail -n 80 /tmp/next.log || true
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-isolated-fault-report
+          path: |
+            apps/web/test-results/
+            apps/web/playwright-report-isolated-fault/
             migration-failures.txt
           retention-days: 7
 

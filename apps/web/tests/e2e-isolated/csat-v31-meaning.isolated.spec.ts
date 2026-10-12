@@ -1,12 +1,16 @@
 // apps/web/tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts
 //
-// PR 필수 e2e(격리) — v3.1 원문 이해 교수 설명이 **접근 gate 가 닫힌 문항**에서 SSR/Flight/화면 어디에도 새지 않는지.
+// PR 필수 e2e(격리) — v3.1 원문 이해 교수 설명의 공개 · stale fallback (정본 Reveal Gate 마이그레이션 ①–④ 적용 DB).
+// 전제: CI 가 `scripts/csat/meaning-support-isolated-seed.mjs --commit`(namespace csat-v31)으로 로컬 Supabase 에
+//   2026#34 = 분석 v5(배포 결속) · 2026#38 = 분석 v6(stale) · 2026#22 = 분석 v5 를 적재했고, 게이트 RPC 가 있고 2026 보류가 없다.
 //
-// ⚠️ 공개 · stale 격리 케이스는 지금 막혀 있다: 이 저장소 migrations 에 Reveal Gate(csat_ec_embargoed_items/exams)가 없다
-//    (feat/ec-pilot-gate 의 20261005170000 미병합 — 적용은 DB 변경이라 별도 사용자 결정). RPC 가 없으면 canRevealItem 이
-//    fail-closed 로 모든 문항을 held 로 본다. 그래서 이 spec 은 그 상태(세 문항 모두 item-held · 교수 설명 비노출)를 단언한다.
-//    Reveal Gate 가 들어오면 이 spec 을 공개(2026#34 · 분석 v5) / stale(2026#38 · 분석 v6) / 보류 케이스로 갱신해야 한다 —
-//    seed(`scripts/csat/meaning-support-isolated-seed.mjs --commit`)가 RPC 출현을 감지하면 실패해 그 시점을 크게 알린다.
+//   A. 보류 없음 — embargoed_items([22,34,38]) = [] · 34 공개(ms-panel · ms-explain · SSR/Flight 양성 대조) · 38 stale(설명 비노출)
+//   B/C(보류 시작 csat_ec_record_session_held → 학습자 capture_open/finish 해제)는 **아직 없다**: 보류 시작에 필요한 sealed taxonomy 를
+//     정본 경로(마이그레이션 시드 + csat_ec_taxonomy_seal → is_admin())로 격리 DB 에 만들 수 없다(is_admin 정의 20260706010000 이
+//     known-migration-failure). 우회(superuser 직접 UPDATE · 가짜 RPC)는 금지라 멈췄다 — 결정되면 여기에 B/C 를 더한다.
+//   게이트 고장(fail-closed)은 별도 job `e2e-gate-faultclosed` 의 tests/e2e-isolated-fault 가 본다.
+//   정리 단언(afterAll): 2026 에 활성 보류 · 열린 묘비가 없다(embargoed_exams). 실패하면 playwright 가 non-zero 로 끝나 job 이 멈춘다
+//   (러너는 폐기된다 — 공유 DB 는 없다).
 // 전제가 어긋나면 **실패**한다(skip 없음). 공유 개발 DB · 운영 데이터에 닿지 않는다(로컬 service_role 은 로컬 데모 키).
 import fs from 'node:fs'
 import path from 'node:path'
@@ -21,7 +25,6 @@ type Unit = { id: string; simpleKo: string; exactKo: string }
 const SUPPORT = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'lib', 'csat', 'meaning-support-data.json'), 'utf8')) as {
   items: Record<string, { defaultUnitId: string; units: Unit[] }>
 }
-/** 그 문항 교수 설명의 식별 가능한 한국어 문장들(쉬운 말 · 정확한 뜻) */
 const distinct = (id: string): string[] => {
   const s = SUPPORT.items[id]
   if (!s) throw new Error(`배포 교수 설명 없음: ${id}`)
@@ -30,11 +33,8 @@ const distinct = (id: string): string[] => {
   return out
 }
 const MARKERS = ['meaning-support', 'contentHash']
-const ROUTES = [
-  { id: '2026#34', slug: '2026-34' },
-  { id: '2026#38', slug: '2026-38' },
-  { id: '2026#22', slug: '2026-22' },
-]
+
+test.describe.configure({ mode: 'serial' })
 
 test.beforeAll(() => {
   expect(URL_, '격리 e2e 는 로컬 Supabase(127.0.0.1)에서만 돈다').toMatch(/^http:\/\/(127\.0\.0\.1|localhost):54321/)
@@ -42,6 +42,17 @@ test.beforeAll(() => {
 })
 
 const admin = () => createClient(URL_, SERVICE, { auth: { persistSession: false } })
+
+/** 2026 회차에 활성 보류(capture held/collecting) · 열린 묘비가 없다 — 정본 RPC 로 */
+async function expectNoHold2026() {
+  const ge = await admin().rpc('csat_ec_embargoed_exams', { p_exams: ['2026'] })
+  expect(ge.error, 'csat_ec_embargoed_exams 가 있어야 한다').toBeNull()
+  expect(ge.data ?? null, '2026 에 활성 보류 · 열린 묘비가 없어야 한다').toEqual([])
+}
+
+test.afterAll(async () => {
+  await expectNoHold2026()
+})
 
 async function login(page: Page) {
   const email = `iso-ms-${Date.now()}@example.com`
@@ -55,7 +66,6 @@ async function login(page: Page) {
   await page.waitForURL((u) => !u.pathname.startsWith('/login'))
 }
 
-/** SSR HTML + Flight(RSC: 1) — 같은 세션 쿠키로 같은 주소. 둘 다 200 이어야 한다(notFound · 오류는 실패) */
 async function fetchBoth(page: Page, url: string) {
   const html = await page.request.get(url)
   expect(html.status(), `${url} SSR 은 404 가 아니어야 한다`).toBe(200)
@@ -67,24 +77,39 @@ function expectNone(body: string, needles: string[], where: string) {
   for (const n of needles) expect(body.includes(n), `${where} 에 「${n.slice(0, 24)}…」 가 없어야 한다`).toBe(false)
 }
 
-test('v3.1 원문 이해 — Reveal Gate 부재(fail-closed) · 세 문항 보류 · 교수 설명 비노출(격리 DB)', async ({ page }) => {
-  // 전제(크게): Reveal Gate RPC 가 없다 → canRevealItem fail-closed. 생겼으면 이 spec 을 공개/stale 케이스로 갱신해야 한다
-  const gi = await admin().rpc('csat_ec_embargoed_items', { p_items: ROUTES.map((r) => r.id) })
-  expect(gi.error, 'Reveal Gate 가 격리 DB 에 생겼다 — 이 spec 을 공개/stale 케이스로 갱신해야 한다').not.toBeNull()
-  expect(`${gi.error?.code ?? ''} ${gi.error?.message ?? ''}`, 'RPC 부재 오류여야 한다(다른 오류는 전제 실패)').toMatch(/PGRST202|42883|does not exist|Could not find the function|schema cache/i)
+test('A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback', async ({ page }) => {
+  const gi = await admin().rpc('csat_ec_embargoed_items', { p_items: ['2026#22', '2026#34', '2026#38'] })
+  expect(gi.error, '게이트 RPC(csat_ec_embargoed_items)가 있어야 한다').toBeNull()
+  expect(gi.data ?? null).toEqual([])
+  await expectNoHold2026()
 
   await login(page)
 
-  for (const r of ROUTES) {
-    const url = `/csat/item/${r.slug}?scene=meaning`
-    const both = await fetchBoth(page, url)
-    const needles = [...distinct(r.id), ...MARKERS]
-    expectNone(both.html, needles, `${r.id} SSR`)
-    expectNone(both.flight, needles, `${r.id} Flight`)
+  // 공개 — 양성 대조(SSR · Flight 에 기본 의미 설명)
+  const pub = SUPPORT.items['2026#34']
+  const pubDefault = pub.units.find((u) => u.id === pub.defaultUnitId) ?? pub.units[0]
+  const pubBoth = await fetchBoth(page, '/csat/item/2026-34?scene=meaning')
+  expect(pubBoth.html.includes(pubDefault.simpleKo), 'SSR 에 기본 의미 설명').toBe(true)
+  expect(pubBoth.flight.includes(pubDefault.simpleKo), 'Flight 에 기본 의미 설명').toBe(true)
 
-    await page.goto(url, { waitUntil: 'domcontentloaded' })
-    await expect(page.locator('[data-testid="item-held"]'), `${r.id} 보류 안내`).toBeVisible({ timeout: 60_000 })
-    await expect(page.locator('[data-testid="ms-panel"]')).toHaveCount(0)
-    await expect(page.locator('[data-testid="map-sentence-pick"]')).toHaveCount(0)
-  }
+  await page.goto('/csat/item/2026-34?scene=meaning', { waitUntil: 'domcontentloaded' })
+  await expect(page.locator('[data-testid="ms-panel"]')).toBeVisible({ timeout: 60_000 })
+  await expect(page.locator('[data-testid="ms-explain"]')).toBeVisible()
+  await expect(page.locator('[data-testid="item-held"]')).toHaveCount(0)
+  const current = await page.locator('[data-testid="ms-explain"]').getAttribute('data-unit')
+  const other = pub.units.find((u) => u.id !== current)
+  expect(other, '다른 의미 단위가 있어야 한다').toBeTruthy()
+  await page.locator(`[data-testid="ms-unit"][data-unit="${other!.id}"]`).click()
+  await expect(page).toHaveURL(new RegExp(`[?&]meaning=${other!.id}(&|$)`))
+  await expect(page.locator('[data-testid="ms-explain"]')).toHaveAttribute('data-unit', other!.id)
+
+  // stale — 분석 v6 ≠ 결속 v5: 패널 없음 · SSR/Flight 에 교수 설명 없음(기존 화면으로 fallback)
+  const staleBoth = await fetchBoth(page, '/csat/item/2026-38?scene=meaning')
+  const needles = [...distinct('2026#38'), ...MARKERS]
+  expectNone(staleBoth.html, needles, 'stale SSR')
+  expectNone(staleBoth.flight, needles, 'stale Flight')
+  await page.goto('/csat/item/2026-38?scene=meaning', { waitUntil: 'domcontentloaded' })
+  await expect(page.locator('[data-testid="scene-question"]')).toBeVisible({ timeout: 60_000 })
+  await expect(page.locator('[data-testid="ms-panel"]')).toHaveCount(0)
+  await expect(page.locator('[data-testid="item-held"]')).toHaveCount(0)
 })

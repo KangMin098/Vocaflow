@@ -15,7 +15,7 @@ const OK_ENV = Object.freeze({
 })
 const RECORDS = { '2026#22': { analysis_version: 5 }, '2026#34': { analysis_version: 5 }, '2026#38': { analysis_version: 5 } }
 
-/** 가짜 DB — 쓰기를 기록하고 행을 메모리에 둔다. gate 기본 = RPC 부재(이 저장소의 격리 DB 와 같다) */
+/** 가짜 DB — 쓰기를 기록하고 행을 메모리에 둔다. gate 기본 = 정본 RPC 있음 · 보류 없음 */
 function fakeDb({ preexisting = [], gate } = {}) {
   const rows = new Map()
   for (const id of preexisting) rows.set(id, { id })
@@ -39,7 +39,7 @@ function fakeDb({ preexisting = [], gate } = {}) {
       writes.push({ op: 'update', table: 'csat_item_analyses', n: ids.length })
       for (const [k, v] of rows) if (k.startsWith('csat_item_analyses:') && ids.includes(v.id)) v.status = status
     },
-    async gate() { return gate ?? { items: null, exams: null, error: 'PGRST202 Could not find the function public.csat_ec_embargoed_items(p_items) in the schema cache' } },
+    async gate() { return gate ?? { items: [], exams: [], error: null } },
   }
   return {
     db, writes, rows,
@@ -145,23 +145,22 @@ test('dry-run 은 DB 를 만들지 않는다', async () => {
   assert.equal(mk.writes, 0)
 })
 
-test('Reveal Gate 부재 = 기대(fail-closed) · 생기면 실패(spec 갱신 신호)', async () => {
-  for (const err of ['42883 function public.csat_ec_embargoed_items(text[]) does not exist', 'PGRST202 Could not find the function']) {
+test('Reveal Gate — RPC 있음 · 보류 없음만 통과(부재 · 보류 · 묘비 · 오류는 실패)', async () => {
+  const ok = fakeDb({ gate: { items: [], exams: [], error: null } })
+  const r = await runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: ok.makeDb, markerIo: memMarker().io })
+  assert.equal(r.mode, 'committed')
+  for (const err of ['42883 function public.csat_ec_embargoed_items(text[]) does not exist', 'PGRST202 Could not find the function public.csat_ec_reveal_state']) {
     const missing = fakeDb({ gate: { items: null, exams: null, error: err } })
-    const r = await runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: missing.makeDb, markerIo: memMarker().io })
-    assert.equal(r.mode, 'committed')
-    assert.equal(r.counts.analyses, 3, '행은 게이트가 생길 때를 위해 그대로 준비한다')
+    await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: missing.makeDb, markerIo: memMarker().io }), /격리 DB 에 없다/)
   }
-  for (const gate of [{ items: ['2026#22'], exams: [], error: null }, { items: [], exams: [], error: null }]) {
-    const present = fakeDb({ gate })
-    await assert.rejects(
-      runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: present.makeDb, markerIo: memMarker().io }),
-      /Reveal Gate 가 격리 DB 에 생겼다 — csat-v31-meaning\.isolated\.spec 을 공개\/stale 케이스로 갱신해야 한다/,
-    )
+  for (const gate of [{ items: ['2026#22'], exams: [], error: null }, { items: [], exams: ['2026'], error: null }]) {
+    const held = fakeDb({ gate })
+    await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: held.makeDb, markerIo: memMarker().io }), /활성 보류 또는 열린 묘비/)
   }
-  // 다른 오류(권한 · 네트워크)는 부재로 보지 않는다 — 크게 실패
   const other = fakeDb({ gate: { items: null, exams: null, error: '42501 permission denied' } })
-  await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: other.makeDb, markerIo: memMarker().io }), /Reveal Gate 가 격리 DB 에 생겼다/)
+  await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: other.makeDb, markerIo: memMarker().io }), /판정 실패/)
+  const notArr = fakeDb({ gate: { items: null, exams: [], error: null } })
+  await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: notArr.makeDb, markerIo: memMarker().io }), /배열이 아니다/)
 })
 
 test('manifest 버전은 배포 탐구 결속과 맞아야 한다(stale = +1)', () => {

@@ -14,9 +14,10 @@
 //   같은 run + manifest 재실행은 같은 ID 에 upsert(멱등 · 결과 동일). 전역 delete/truncate 없음. 복구 경계 = CI 러너 폐기.
 // 적재(비민감 metadata 만): 회차 1 · 유형 3 · 문항 3(stem '' · 지문/선지/정답 없음) · 분석(placeholder 문장 · 버전만 의미) + 3인 pass 검수 행.
 //   공개 2026#34 = 분석 v5(= 배포 탐구/교수 설명 결속 버전) · stale 2026#38 = 분석 v6(record+1 → lookupInquiry stale)
-//   access_withheld 2026#22 = 기존 Reveal Gate(csat_ec_embargoed_items) 판정으로만 — 앱 플래그 · 테스트 전용 API 없음.
-//   ⚠️ 이 저장소 migrations 에는 Reveal Gate RPC/표가 없다(feat/ec-pilot-gate 의 20261005170000 미병합 · 적용은 사용자 결정).
-//      그래서 지금 기대는 fail-closed(RPC 부재 → 세 문항 모두 held). --commit 은 적재 뒤 RPC 부재를 확인하고, RPC 가 생겼으면 실패한다(spec 갱신 신호).
+//   2026#22 = 분석 v5. 보류(access_withheld)는 정본 Reveal Gate(20261005170000)의 회차 단위 capture 로만 — 앱 플래그 · 테스트 전용 API 없음.
+//   --commit 은 적재 뒤 게이트 RPC 셋(embargoed_items/exams · reveal_state)이 있고 2026 에 활성 보류 · 열린 묘비가 없는지 확인한다.
+//   ⚠️ 보류 시작(csat_ec_record_session_held)에 필요한 sealed taxonomy 는 만들지 않는다 — 정본 경로(마이그레이션 시드 + csat_ec_taxonomy_seal ·
+//      is_admin())가 격리 DB 에서 서지 않는다(is_admin 정의 마이그레이션 20260706010000 이 known-failure). 우회 금지라 멈춤(보고서 참고).
 // 재실행 안전: 예(같은 run/manifest). 되돌리기: 러너 폐기(공유 DB 에는 marker 를 만들지 않는다 — 가드가 막는다).
 
 import { createHash } from 'node:crypto'
@@ -153,10 +154,12 @@ export function supabaseDb(client) {
       must(await client.from('csat_item_analyses').update({ status }).in('id', ids).select('id'), '분석 상태 갱신')
     },
     async gate(itemIds, examIds) {
+      const e = (r) => (r.error ? `${r.error.code ?? ''} ${r.error.message ?? ''}`.trim() : null)
       const a = await client.rpc('csat_ec_embargoed_items', { p_items: itemIds })
       const b = await client.rpc('csat_ec_embargoed_exams', { p_exams: examIds })
-      const err = a.error ? `${a.error.code ?? ''} ${a.error.message ?? ''}`.trim() : null
-      return { items: a.error ? null : a.data, exams: b.error ? null : b.data, error: err }
+      // 없는 세션 id — 함수가 있으면 오류 없이 null(행 없음), 없으면 PGRST202
+      const c = await client.rpc('csat_ec_reveal_state', { p_session: '00000000-0000-0000-0000-000000000000' })
+      return { items: a.error ? null : a.data, exams: b.error ? null : b.data, error: e(a) ?? e(b) ?? e(c) }
     },
   }
 }
@@ -222,12 +225,17 @@ export async function runSeed({ env, commit = false, ids = ALLOWED_ITEM_IDS, rec
   await db.upsert('csat_analysis_reviews', rows.flatMap((r) => PERSONAS.map((persona) => ({ analysis_id: r.id, persona, verdict: 'pass', findings: [], checked: ['csat-v31 isolated fixture'] }))), 'analysis_id,persona')
   await db.setStatus(rows.map((r) => r.id), 'published')
 
-  // 접근 정책 확인 — 이 저장소에는 Reveal Gate 마이그레이션이 없다(적용은 별도 사용자 결정).
-  //   기대 = RPC 부재 → 앱 canRevealItem 이 fail-closed(세 문항 모두 held). spec 이 그 상태를 단언한다.
-  //   RPC 가 생기면 spec 전제가 깨지므로 크게 실패시킨다(행은 이미 v5/v6 으로 준비돼 있다).
+  // 접근 정책 확인 — 정본 Reveal Gate(마이그레이션 20261005170000)의 RPC 셋이 있고, 지금 2026 회차에 활성 보류 · 열린 묘비가 없어야 한다.
+  //   (embargoed_exams 는 capture held/collecting 과 열린 묘비를 함께 본다.) 어긋나면 실패 — skip 으로 바꾸지 않는다.
   const gate = await db.gate(marker.itemIds, marker.examIds)
-  if (!isMissingRpc(gate.error)) {
-    throw new SeedRefusal('Reveal Gate 가 격리 DB 에 생겼다 — csat-v31-meaning.isolated.spec 을 공개/stale 케이스로 갱신해야 한다')
+  if (gate.error) {
+    throw new SeedRefusal(isMissingRpc(gate.error)
+      ? 'Reveal Gate RPC(csat_ec_embargoed_items/exams · csat_ec_reveal_state)가 격리 DB 에 없다 — 마이그레이션 20261005170000 적용 실패'
+      : `Reveal Gate 판정 실패: ${gate.error}`)
+  }
+  if (!Array.isArray(gate.items) || !Array.isArray(gate.exams)) throw new SeedRefusal('Reveal Gate 응답이 배열이 아니다')
+  if (gate.items.length > 0 || gate.exams.length > 0) {
+    throw new SeedRefusal(`2026 회차에 활성 보류 또는 열린 묘비가 있다(보류 문항 ${gate.items.length} · 회차 ${gate.exams.length}) — fixture 시작 상태가 아니다`)
   }
   return { mode: 'committed', marker, counts: { exams: 1, types: p.types.length, items: p.items.length, analyses: rows.length, reviews: rows.length * 3 } }
 }
