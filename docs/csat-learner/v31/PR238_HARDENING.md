@@ -14,7 +14,7 @@
 | 7 | 뒤로/앞으로가 장면만 되살림 | popstate 가 scene 만 읽음 | 주소의 장면 · 의미 · 깊이 · 관계 · bridge 를 서버와 같은 파서로 되살림. 실화면: 성립 → 뒤로(같은 의미 · 깊이 · 초안) → 앞으로(같은 선택지) | — |
 | 8 | 관계 선택 뒤 무대응/다중 대응 문장 처리 미정 | 이전 설명이 남은 채 상태 문구만 | 관계 해제 · 이전 설명 접힘 · 그 문장만 강조 · 다중이면 의미 고르기 · 무대응이면 「검수된 설명 없음」. 실화면 확인 | — |
 | 9 | 무효 URL 의 실제 주소 미정규화 | 화면만 기본값 | `meaningNormalized` → 첫 렌더 뒤 replaceState 로 정규 주소(from · back · pair 유지). 실화면에서 주소 확인 | — |
-| 10 | 격리 CI 에 v3.1 검증 없음 | 없음 | guarded seed(namespace csat-v31 · run id · loopback 54321 · 소유 marker · allowlist · 쓰기 0 단위 시험 14) + CI 적재 단계 + 격리 스펙 | **공개 · stale 격리 케이스는 막힘** — Reveal Gate RPC 마이그레이션이 저장소에 없어 격리 DB 에서 모든 문항이 fail-closed 보류. 지금 스펙은 보류 3문항의 SSR/Flight 비노출을 단언하고, seed 는 RPC 가 생기면 실패해 스펙 갱신을 강제한다. 해제에는 마이그레이션 병합(사용자 승인)이 필요 |
+| 10 | 격리 CI 에 v3.1 검증 없음 | 없음 | guarded seed(namespace csat-v31 · run id · loopback 54321 · 소유 marker · allowlist · 평가원만) + 격리 스펙 A → B → C + 게이트 고장 별도 job. 아래 「격리 검증 완료」 | — |
 | 11 | 8문항 실화면 미확인 · 관계 조건문 건너뛰기 | 2문항 · 관계 `if` | 8문항 × 1280/1440: 원문 대조 상태(6 ok · 2026#25 도표 · #29 어법 = 원문 글자 없음) · 구절 조작 → 문제지 표시 글자 = 구절 · 관계 필수 조작 · 캡처 | #25 · #29 는 문제지 표시를 확인할 글자가 없다 |
 | 12 | 새 패널의 3B 참조 대응 없음(학습 지도 16/16 재사용) | — | `docs/design/refs/3b/meaning-panel/` 대응표 · spec · CSS 변수 · 가드 · 실측 12/12(1280 · 1440) | 글자 크기 · 그림자는 재지 않음 |
 
@@ -26,3 +26,25 @@
 | R2 | 격리 스펙이 공개 · stale 까지 보류로 단언 | **미해결(사용자 결정 필요)** — Reveal Gate 마이그레이션이 저장소에 없어 격리 DB 에서 공개 상태를 만들 수 없다. 앱 플래그 · 테스트 전용 API 는 지시상 금지 |
 | R3 | 관계를 연 채 구절을 고르면 문제지(구절) · 지도(관계 문장)가 갈라짐 | 구절 선택이 관계와 주소 `rel` 을 해제. 실화면 단언 추가 |
 | R4 | 의미 해제 시 주소 meaning 이 사라져 복원 불가 | 의미 고르기를 라디오처럼(해제 없음). 실화면 단언 추가 |
+
+## 격리 검증 완료 (2026-10-13 · CI run 38274616353)
+
+반입(원본 그대로 · 출처 cc32a3632 = feat/ec-pilot-gate · ec-detector · ec-smoke · ec-reveal-app 동일 blob):
+
+| 적용 순서 | 파일 | sha256 | git blob |
+|---|---|---|---|
+| ① | `20261003230000_csat_error_evidence.sql` (1295줄) | 824eabb4336512b4f4ec50577aa7eff7634c0a624b7ee6002d65d09566344f96 | 94bf857e |
+| ② | `20261005130000_csat_ec_pilot_evidence.sql` (880줄) | befdaec2e2ec111d06852f2049db90aa43eb854a7ed8187512eb4b3029f0b4d3 | e45068ff |
+| ②′ | `20261005140000_csat_ec_taxonomy_v01_restore.sql` (신규 · 정본 복원 시드) | — | 추출 md5 39d93854… · 봉인값 303e5140… |
+| ③ | `20261005150000_csat_ec_capture_support.sql` (208줄) | ef9e446f49115cc61b8e628aedff7b7b5bd71bee6da44c483c36c3e9b0026023 | 98a60247 |
+| ④ | `20261005170000_csat_ec_reveal_gate.sql` (616줄) | 40aa43c7873d406bb1cb015f1bb4b374972f51238bd2f8447708ff4a51ade4a6 | 4b675bcf |
+
+| 단계 | 정책 경로 | 결과 |
+|---|---|---|
+| 적용 | 빈 격리 DB · 파일별 | 적용 성공 352 · 실패 164(기준 목록 그대로) · **새 실패 0** — preflight 약화 · known-failure 추가 없음. 시드의 봉인값 재계산 단언 통과 |
+| A 보류 없음 | 수집 행 0 | 게이트 RPC [] · #34 교수 설명 공개(SSR · Flight 양성 대조) · #38 stale 비노출 |
+| B 회차 보류 | service_role `csat_ec_record_session_held`(taxonomy v0.1 · 대상 없음 · 근거 부적격) | `embargoed_exams=['2026']` · 22 · 34 · 38 보류 · item-held · SSR · Flight · 화면 비노출 |
+| C 보류 종료 | 학습자 JWT `capture_open`(collecting 도 보류 확인) → `capture_finish` | 게이트 RPC [] · #34 공개 복귀 · #38 stale 유지 · 활성 보류 · 열린 묘비 0 단언 |
+| fail-closed | 별도 job `e2e-gate-faultclosed` — 일회용 DB 에서 게이트 RPC 3개 DROP(가드 스크립트) | 세 문항 보류 · 비노출 |
+
+남은 것(별도 범위): main 병합 승인(반입 마이그레이션 5개가 main 정본이 된다) · 공유 개발 DB 적용 승인(②′ 는 동일 데이터라 변경 없이 통과 예상 — 읽기 전용 검증 완료) · 관리자 봉인 RPC · 관리자 해제 경로(`is_admin()` 이 격리 DB 에 없음)는 검증하지 않았다.

@@ -1898,6 +1898,23 @@ PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 �
 적용 직후 실측: 기존 2행 보존(reading/3 · reading/4) · 같은 step 을 시리즈 둘로 넣으면 **두 행**
 (전에는 하나) · 같은 (시리즈, 단)은 여전히 `unique_violation` 으로 막힘.
 
+## 오답 원인 근거 · Reveal Gate — `csat_ec_*` (PR #238 반입 · 2026-10-13)
+
+> 정본은 cc32a3632(feat/ec-pilot-gate 등 4개 브랜치 동일 blob). 공유 개발 DB 에는 2026-10-05 에 이미 같은 버전 · 같은 함수 본문으로 적용돼 있다(읽기 전용 대조). 저장소 반입은 격리 CI 검증용이고, main 병합 · 공유 DB 적용은 별도 승인이다.
+
+| 순서 | 마이그레이션 | 하는 일 |
+|---|---|---|
+| ① | [20261003230000](../supabase/migrations/20261003230000_csat_error_evidence.sql) | taxonomy 버전 · 코드 · 검수 회차 · 판정 · 근거 표 9개. taxonomy 표 쓰기는 모든 런타임 역할에서 회수(authenticated SELECT 만) · 봉인 트리거 |
+| ② | [20261005130000](../supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql) | `csat_ec_boundary`(코드 경계) · 경계 관찰 · 봉인 식에 경계 포함(`csat_ec_taxonomy_seal`) |
+| ②′ | [20261005140000](../supabase/migrations/20261005140000_csat_ec_taxonomy_v01_restore.sql) | **taxonomy v0.1 봉인 정본 복원 시드** — 코드 19 · 경계 1, 봉인값 `303e5140…934ced`. 없으면 draft 적재 → 봉인 식 재계산 단언 → draft→sealed, 있으면 전체 대조(같으면 쓰기 0 · 다르면 중단). 관리자 봉인 RPC 검증이 아니다 |
+| ③ | [20261005150000](../supabase/migrations/20261005150000_csat_ec_capture_support.sql) | 수집(capture) 지원 · funnel CHECK 65 → 67 |
+| ④ | [20261005170000](../supabase/migrations/20261005170000_csat_ec_reveal_gate.sql) | 게이트 RPC `csat_ec_embargoed_items/exams(text[])` · `csat_ec_reveal_state(uuid)` · `exam/item_answer_embargoed` · 수집 세션/묘비/outbox 표 · 정책 10개 수정(보류 회차 문항 읽기 · 쓰기 차단, `csat_session_attempts_own` 포함) · `csat_items_public` 재정의(보류 문항 answer null) · funnel CHECK 67 → 68 |
+
+- 앱 계약: `lib/csat/embargo-gate.ts` 가 service role 로 게이트 RPC 를 부른다. 실패 · 부재는 보류(fail-closed).
+- funnel CHECK 집합: ③ 앞 65 = ③ 기대 · ③ 결과 67 = ④ 기대 · ④ 결과 68 ⊆ 20261008160000 의 83 — 기존 이벤트 보존.
+- 제외(별도 범위): 권한 회수 `20261005170100` · `20261006110000`, function_exec_policy, detector · auto_promote · spelling.
+- 공유 DB DOWN(설명만): feat/ec-smoke `scripts/csat/error-evidence/rollback-reveal-gate.sql` → rollback-capture → rollback-pilot → rollback.sql.
+
 ## 교재 문항 3인 검수 — `csat_item_reviews` ([20260912210000](../supabase/migrations/20260912210000_csat_item_reviews.sql))
 
 **검증이 거꾸로 걸려 있었다** (DB 실측 2026-09-12):
