@@ -833,7 +833,7 @@ export function AnalysisTheater({
                       <>
                         {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
                         <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
-                          {inquiry ? <DistractorDesign distractors={inquiry.distractors} /> : null}
+                          {inquiry ? <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
                           {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
                         </section>
                       </>
@@ -852,7 +852,7 @@ export function AnalysisTheater({
                         </p>
                       )
                     ) : null}
-                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} /> : null}
+                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} review={inquiry.review} /> : null}
                     {scene === 'principle' && goal ? (
                       <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
                         <b>이 문항에서 확인한 관계</b>

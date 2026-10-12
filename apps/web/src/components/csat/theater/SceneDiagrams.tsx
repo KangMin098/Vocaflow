@@ -12,11 +12,13 @@
 // 모든 내용은 텍스트 목록이다 — 색만으로 구별하지 않는다.
 
 import { PATTERN_LABEL, ROLE_LABEL, TRANSFORM_LABEL, CUE_LABEL, type PassageDesign } from '@/lib/csat/design'
-import { OPERATION_LABEL, TRUTH_LABEL, type InquiryDistractor, type InquiryPrinciple } from '@/lib/csat/inquiry/labels'
+import { OPERATION_LABEL, TRUTH_LABEL, type InquiryDistractor, type InquiryPrinciple, type InquiryReview } from '@/lib/csat/inquiry/labels'
 
 import styles from './theater.module.css'
 
 const HYPOTHESIS = '설계 가설 · 검수된 주석'
+/** 탐구 데이터의 검수 상태를 숨기지 않는다 — legacy 를 독립 검수 완료처럼 보이지 않게(v3 M2) */
+const REVIEW_LABEL: Record<InquiryReview, string> = { verified: '설계 가설 · 독립 검수', legacy: '설계 가설 · 1차 검수(v1)' }
 
 export function DesignSelection({ design }: { design: PassageDesign }) {
   if (!design.selection.trim()) return null
@@ -90,13 +92,13 @@ const CIRCLED = ['', '①', '②', '③', '④', '⑤']
  * 오답 설계(S4) — 선지마다 「유지한 것 / 바뀐 것」을 두 줄로 대조한다. 처음엔 선지 번호와 변환 종류만 보이고,
  * 누르면 펼친다(네 장문 카드를 한꺼번에 펼치지 않는다). 유지/바뀜은 라벨 · 기호 · 텍스트로 구별한다(색만 쓰지 않는다).
  */
-export function DistractorDesign({ distractors }: { distractors: InquiryDistractor[] }) {
+export function DistractorDesign({ distractors, review = 'legacy' }: { distractors: InquiryDistractor[]; review?: InquiryReview }) {
   if (!distractors.length) return null
   return (
     <section className={styles.diagram} aria-label="오답이 유지한 것과 바꾼 것" data-testid="distractor-design">
       <p className={styles.diagramHead}>
         <b>무엇을 남기고 무엇을 바꿨나</b>
-        <span className={styles.epistemic}>{HYPOTHESIS}</span>
+        <span className={styles.epistemic} data-review={review}>{REVIEW_LABEL[review]}</span>
       </p>
       {distractors.map((d) => (
         <details key={d.n} className={styles.designRow} data-truth={d.truth}>
@@ -129,12 +131,12 @@ export function DistractorDesign({ distractors }: { distractors: InquiryDistract
 }
 
 /** 공통 원리(S5) — 조건부 원리 · 성립 조건 · 적용하면 안 되는 조건을 같은 판에서 대조한다 */
-export function PrincipleDesign({ principle }: { principle: InquiryPrinciple }) {
+export function PrincipleDesign({ principle, review = 'legacy' }: { principle: InquiryPrinciple; review?: InquiryReview }) {
   return (
     <section className={styles.diagram} aria-label="원리와 적용 경계" data-testid="principle-design">
       <p className={styles.diagramHead}>
         <b>이 문항에서 얻은 잠정 원리</b>
-        <span className={styles.epistemic}>잠정 원리 · 검수된 비교 지지 전</span>
+        <span className={styles.epistemic} data-review={review}>잠정 원리 · {review === 'verified' ? '독립 검수' : '1차 검수(v1)'} · 비교 지지 전</span>
       </p>
       <p className="break-keep">{principle.statement}</p>
       <div className={styles.boundary}>

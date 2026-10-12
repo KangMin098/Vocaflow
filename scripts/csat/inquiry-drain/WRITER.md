@@ -13,7 +13,7 @@
 ## 출력 형식
 
 ```json
-{ "chunk": "inq-NN", "items": [ {
+{ "chunk": "inq-NN", "writer_run": "wr-NN", "items": [ {
   "id": "2026#22", "analysis_version": 5, "status": "ok",
   "distractors": [ {
     "n": 2, "truth": "false", "operation": "scope",
@@ -30,6 +30,7 @@
 ```
 
 - `distractors`: **정답이 아닌 선지 전부**(보통 4개), 번호마다 한 번. 정답 번호는 넣지 않는다.
+- `writer_run`: 작성 run 라벨(출력 최상위 또는 문항마다). 공개 가드가 검수자와 다른지 확인한다 — 없으면 독립 검수를 증명할 수 없어 공개되지 않는다.
 - `status`: `ok` · `needs_review`(기존 분석이 원문과 다름 — `review_note` 필수) · `needs_source`(원문 · 선지가 깨져 대조 불가 — `review_note` 필수, 이때 distractors/principle 은 빈 배열 · null 가능).
 
 ## 정의표 — 이 값만 쓴다

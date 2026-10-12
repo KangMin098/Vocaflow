@@ -48,7 +48,10 @@
 2. 작성 에이전트 → `chunk-inq-NN.out.json`(한국어 결과 · 커밋).
 3. `inquiry-drain-validate.mjs` — 형식 + 내용 대조(정답 번호 배제 · 선지 전부 · 유형별 truth · 영어 인용이 원문/선지에 실재 · 8단어 · 보편 법칙/출제자 내부 사고 단정 금지 · 원리 조건부).
 4. 독립 검수(`REVIEWER.md`) — 다른 에이전트가 원문 대조로 pass/revise. revise 는 빌드에서 뺀다.
-5. `inquiry-drain-build.mjs` — status ok · 검증 0 · revise 아님만 `inquiry-data.json` 으로. 뺀 수와 이유를 출력.
+5. `inquiry-drain-build.mjs` — status ok · 검증 0 · **공개 가드**(`lib-inquiry-review.mjs`, 2026-10-12 v3 M2)를 지난 것만 `inquiry-data.json` 으로. 뺀 수와 이유를 출력.
+   - verified = 현재 내용 해시(`inquiry-drain-hash.mjs`)에 묶인 명시 pass · 검수자 ≠ 작성 run · 기준 버전 `CRITERIA_VERSION` 일치. 같은 내용에 revise 가 있으면 revise. 파일 이름 순서는 무관.
+   - legacy = 해시 결속 없는 v1 판정(2026-10-11 이전 786문항) — 보존 공개하되 화면에 「1차 검수(v1)」로 표시하고 verified 로 승격하지 않는다. `--verified-only` 는 legacy 도 뺀다.
+   - 실패→성공 회귀: `node --test scripts/csat/__tests__/inquiry-review-guard.test.mjs`
 
 ## 5. 하지 않는 것
 

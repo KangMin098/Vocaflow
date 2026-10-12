@@ -23,3 +23,16 @@
 ```json
 { "reviewer": "rv-01", "verdicts": [ { "id": "2026#22", "verdict": "pass" }, { "id": "2026#23", "verdict": "revise", "codes": ["R2"], "why": "선지 3의 from 은 5번 문장 내용이 아니라 …" } ] }
 ```
+
+## 공개 가드 결속 (v3 M2 · 2026-10-12 — 필수)
+
+판정 파일은 이제 **검수한 내용에 묶여야** 공개된다(`scripts/csat/lib-inquiry-review.mjs`). 먼저
+`node scripts/csat/inquiry-drain-hash.mjs --chunk inq-NN` 으로 문항별 해시와 작성 run 을 받고, 판정마다 아래를 쓴다:
+
+```json
+{ "reviewer": "rv-xx", "criteria": "inquiry-v1.2", "verdicts": [ { "id": "2026#22", "verdict": "pass", "content_hash": "<해시>" } ] }
+```
+
+- `reviewer` 는 작성 run(`writer_run`)과 달라야 한다 — 자기 검수는 verified 가 되지 않는다.
+- 작성자가 내용을 고치면 해시가 바뀌어 이전 pass 는 효력을 잃는다(재검수 필요). 파일 이름 순서는 판정에 영향이 없다.
+- 해시 없는 옛 판정은 `legacy`(2026-10-11 이전 공개분 보존)로만 남는다 — 새 공개분은 반드시 해시를 붙인다.

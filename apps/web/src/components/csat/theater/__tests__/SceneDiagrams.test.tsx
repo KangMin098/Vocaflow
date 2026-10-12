@@ -72,3 +72,15 @@ describe('오답 설계 · 원리 도식', () => {
     expect(html).toContain('전칭 주장일 때')
   })
 })
+
+describe('검수 상태 라벨(v3 공개 가드)', () => {
+  it('legacy 는 「1차 검수(v1)」, verified 는 「독립 검수」 — legacy 를 독립 검수처럼 보이지 않는다', async () => {
+    const { DistractorDesign, PrincipleDesign } = await import('../SceneDiagrams')
+    const d = [{ n: 1, truth: 'false' as const, operation: 'scope', preserved: [{ component: '대상', text: 'x' }], altered: [{ component: '범위', from: 'a', to: 'b' }], note: '범위를 넓혔다' }]
+    expect(renderToStaticMarkup(<DistractorDesign distractors={d} review="legacy" />)).toContain('1차 검수(v1)')
+    expect(renderToStaticMarkup(<DistractorDesign distractors={d} review="verified" />)).toContain('독립 검수')
+    const pr = { statement: '조건부 원리 문장입니다', when_applies: ['조건 하나'], when_not: ['경계 하나'] }
+    expect(renderToStaticMarkup(<PrincipleDesign principle={pr} review="legacy" />)).toContain('1차 검수(v1)')
+    expect(renderToStaticMarkup(<PrincipleDesign principle={pr} review="legacy" />)).not.toContain('독립 검수')
+  })
+})
