@@ -1,0 +1,123 @@
+{
+  "writer_run": "ms-wr-2026-29",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#29",
+    "binding": { "analysisVersion": 5, "unitsHash": "a8a8d67346afd05e", "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d", "sourceSnapshotHash": "8eef55ee9132e60a" },
+    "sourceRef": { "organizer": "kice", "examId": "2026", "itemNo": 29, "inputRef": "inquiry-origin:chunk-inq-15" },
+    "defaultUnitId": "u1",
+    "anchors": [
+      { "id": "a1", "sentence": 3, "sourceRange": { "start": 0, "end": 88, "spanHash": "4e12657923d16ba35753771ad1e5e158a401bf540844e85a2dd7840f77b71dce" }, "mode": "original" },
+      { "id": "a2", "sentence": 3, "quote": "used by any group of foragers", "occurrence": 1, "mode": "original" },
+      { "id": "a3", "sentence": 3, "quote": "being far too complex", "occurrence": 1, "mode": "original" },
+      { "id": "a4", "sentence": 3, "sourceRange": { "start": 143, "end": 171, "spanHash": "4973491babd7cce9fb27583908170e5b49c9713c0791656f03aa36c11693a0c2" }, "mode": "original" },
+      { "id": "a5", "sentence": 4, "sourceRange": { "start": 114, "end": 161, "spanHash": "be27f300552cda5607f3b64d529f4c124228efcff8c973623dc5c27df185ca4c" }, "mode": "original" },
+      { "id": "a6", "sentence": 4, "quote": "in which we live", "occurrence": 1, "mode": "original" },
+      { "id": "a7", "sentence": 2, "quote": "not nearly smart enough as individuals", "occurrence": 1, "mode": "original" }
+    ],
+    "propositions": [
+      { "id": "p1", "textKo": "3번 문장의 주어는 도구·채집 기술·생태 지식·사회적 관계를 하나로 묶은 '꾸러미'이고, 뒤의 분사구는 그 꾸러미가 어떤 채집 집단에서든 쓰이는 것이라고 설명한다.", "basis": "source_observation", "anchorIds": ["a1", "a2"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p2", "textKo": "이 꾸러미는 어느 한 개인이 만들어 내기에는 지나치게 복잡하다는 것이 3번 문장이 하려는 말이다.", "basis": "source_observation", "anchorIds": ["a3", "a4"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p3", "textKo": "우리가 여러 환경에서 필요한 것을 다 배울 수 있는 것은 오직 남에게서 정보를 얻기 때문이다.", "basis": "source_observation", "anchorIds": ["a5", "a6"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p4", "textKo": "인간은 개인으로서는 지구 곳곳으로 퍼지며 맞닥뜨린 적응 문제를 풀 만큼 똑똑하기에 한참 모자란다.", "basis": "source_observation", "anchorIds": ["a7"], "warrantsKo": [], "limitKo": "" }
+    ],
+    "units": [
+      {
+        "id": "u1", "sentences": [3], "legacyMeaningIds": ["m2", "m3"],
+        "labelKo": "개인이 못 만드는 생존 꾸러미",
+        "exactKo": "어떤 채집 집단이든 사용하는 도구·채집 기술·생태 지식·사회적 관계의 꾸러미는 어느 한 개인이 만들어 내기에는 너무나 복잡하다.",
+        "simpleKo": "집단이 쓰는 생존 지식 묶음은 한 사람이 혼자 만들기엔 너무 복잡하다.",
+        "propositionIds": ["p1", "p2"],
+        "preserves": [
+          { "facet": "agent", "valueKo": "'쓰는' 쪽은 채집 집단, '만들지 못하는' 쪽은 개인", "anchorIds": ["a2", "a4"], "explanationKo": "사용 주체(집단)와 창조 주체(개인)가 다르다. 둘을 섞으면 '집단도 못 만든다'로 잘못 넓어진다." },
+          { "facet": "quantity", "valueKo": "어떤 집단이든 / 어느 개인에게든", "anchorIds": ["a2", "a4"], "explanationKo": "특정 집단의 이야기가 아니라 모든 채집 집단에 해당하고, 어떤 한 사람도 혼자 만들 수 없다는 범위다." },
+          { "facet": "comparison", "valueKo": "너무나 복잡해서 할 수 없음", "anchorIds": ["a3"], "explanationKo": "'복잡하다'에서 그치지 않고 '개인이 만들 수 있는 정도를 훨씬 넘는다'는 정도 표현이다." }
+        ],
+        "syntax": {
+          "parts": [
+            { "id": "s1", "role": "main", "anchorIds": ["a1"], "meaningKo": "주어 덩어리 — 네 가지 명사를 묶은 하나의 '꾸러미'(단수)" },
+            { "id": "s2", "role": "modifier", "anchorIds": ["a2"], "meaningKo": "꾸러미를 뒤에서 꾸미는 수동 분사구 — '집단이 사용하는'" },
+            { "id": "s3", "role": "main", "anchorIds": ["a3"], "meaningKo": "술어 자리 — 꾸러미가 '어떠하다'를 말하는 자리" },
+            { "id": "s4", "role": "modifier", "anchorIds": ["a4"], "meaningKo": "복잡함의 기준 — 개인이 만들기에는" }
+          ],
+          "attachments": [
+            { "fromPart": "s2", "toPart": "s1", "whyKo": "분사구는 주어 안에 머물러 꾸러미가 '누가 쓰는 것인지'만 덧붙인다. 그래서 문장을 끝맺는 동사 역할을 하지 않는다." },
+            { "fromPart": "s4", "toPart": "s3", "whyKo": "'너무 복잡하다'의 기준을 개인의 창조 능력으로 정해 준다." }
+          ],
+          "recombinedKo": "[집단이 사용하는] 꾸러미가 → [개인이 만들기엔] 너무 복잡하다. 주어 덩어리를 한 묶음으로 세운 뒤, 그 꾸러미에 대해 무엇을 말하는지를 술어 자리에서 찾는다.",
+          "originalIssueKo": "원문은 술어 자리에 분사 형태가 그대로 놓여 있어, 꾸러미에 대해 '이다'를 말해 주는 정동사가 문장에 없다. 앞의 분사구는 주어를 꾸밀 뿐이라 그 자리를 대신 채우지 못한다.",
+          "correction": { "form": "is", "explanationKo": "단수 주어 '꾸러미'에 맞춘 정동사로 고친 작성 예다. 현재형은 앞뒤 문장의 일반 서술에서 추론한 것이며, 이 문장 하나만으로는 과거형도 문법적으로 가능하다." }
+        },
+        "misunderstanding": {
+          "alteredKo": "어떤 채집 집단이 그 꾸러미를 사용했고, 그 집단은 너무 복잡하다.",
+          "lostFacet": "agent",
+          "whyWrongKo": "by 뒤의 '채집 집단'을 문장 주어로, 분사구를 과거 동사로 읽은 오해다. 집단은 꾸러미를 쓰는 행위자로 분사구 안에 있을 뿐이고, '너무 복잡하다'는 말을 듣는 대상은 꾸러미다. 이렇게 읽으면 '개인이 만들 수 없다'는 핵심도 사라진다.",
+          "anchorIds": ["a2", "a3"]
+        }
+      },
+      {
+        "id": "u2", "sentences": [4], "legacyMeaningIds": ["m4"],
+        "labelKo": "오직 남에게서 배우기 때문에",
+        "exactKo": "우리가 살아가는 여러 다른 환경 각각에서 알아야 할 모든 것을 배울 수 있는 것은 오직 다른 사람에게서 정보를 얻기 때문이다.",
+        "simpleKo": "여러 환경에 필요한 지식을 다 익힐 수 있는 유일한 까닭은 남에게서 배우는 데 있다.",
+        "propositionIds": ["p3"],
+        "preserves": [
+          { "facet": "causality", "valueKo": "오직 ~ 때문에", "anchorIds": ["a5"], "explanationKo": "남에게서 배우는 것이 여러 이유 중 하나가 아니라 유일한 이유로 제시된다. '덕분에 도움이 된다' 정도로 약하게 바꾸면 한정이 사라진다." },
+          { "facet": "reference", "valueKo": "우리가 사는 그 환경들", "anchorIds": ["a6"], "explanationKo": "관계절은 앞의 '여러 다른 환경'을 다시 받아, 배워야 할 범위가 환경마다라는 점을 붙든다." }
+        ],
+        "misunderstanding": {
+          "alteredKo": "남에게서 정보를 얻으면 여러 환경에 필요한 것을 배우는 데 도움이 된다.",
+          "lostFacet": "causality",
+          "whyWrongKo": "원문은 '오직 그것 때문에' 배울 수 있다고 한정한다. 도움 정도로 낮추면 개인의 힘만으로는 부족하다는 글의 흐름(2·3번 문장)과의 연결이 약해진다.",
+          "anchorIds": ["a5"]
+        }
+      },
+      {
+        "id": "u3", "sentences": [2], "legacyMeaningIds": ["m1"],
+        "labelKo": "개인으로는 한참 모자람",
+        "exactKo": "그러나 우리는 개인으로서는 현생 인류가 지구 곳곳으로 퍼지며 맞닥뜨린 적응 문제를 풀 만큼 똑똑하기에는 한참 못 미친다.",
+        "simpleKo": "사람은 혼자 힘으로는 새 환경의 생존 문제를 풀 만큼 똑똑하지 않다.",
+        "propositionIds": ["p4"],
+        "preserves": [
+          { "facet": "polarity", "valueKo": "한참 못 미친다", "anchorIds": ["a7"], "explanationKo": "'충분히 똑똑하다'를 강하게 부정한다. '조금 부족하다'가 아니라 거리가 멀다는 뜻이다." },
+          { "facet": "quantity", "valueKo": "개인으로서는", "anchorIds": ["a7"], "explanationKo": "부족함은 개인 단위에 한정된다. 1번 문장의 '우리는 매우 똑똑하다'와 모순이 아니라 범위가 다른 말이다." }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1", "from": ["u3"], "to": ["u1"], "kind": "example",
+        "beforeKo": "개인으로는 적응 문제를 풀 만큼 똑똑하지 않다.",
+        "afterKo": "집단이 쓰는 생존 꾸러미는 개인이 만들기엔 너무 복잡하다.",
+        "changeKo": "'개인은 부족하다'는 일반 진술을 구체적 대상(도구·기술·지식·관계의 꾸러미)으로 보여 주며, 그 지식이 개인이 아니라 집단 차원에 있다는 점을 더한다.",
+        "propositionIds": ["p4", "p1", "p2"], "anchorIds": ["a7", "a4"],
+        "basis": "bridging_inference",
+        "warrantsKo": ["두 문장 모두 '개인'의 능력을 기준으로 삼는다", "3번 문장의 꾸러미가 2번 문장의 적응 문제를 푸는 수단으로 읽힌다"],
+        "limitKo": "원문에 예시 표지가 없으므로 구체화 관계는 내용 연결로 읽은 것이다."
+      },
+      {
+        "id": "r2", "from": ["u3", "u1"], "to": ["u2"], "kind": "cause",
+        "beforeKo": "개인 혼자서는 그 복잡한 지식을 만들 수 없다.",
+        "afterKo": "그런데도 우리가 다 배울 수 있는 것은 오직 남에게서 얻기 때문이다.",
+        "changeKo": "개인의 한계를 인정한 채로, 그 한계를 넘는 길을 '남에게서 배우기' 하나로 제한해 제시한다.",
+        "propositionIds": ["p2", "p3"], "anchorIds": ["a4", "a5"],
+        "basis": "bridging_inference",
+        "warrantsKo": ["3번 문장은 개인이 못 만든다고 하고, 4번 문장은 그런데도 배울 수 있는 유일한 이유를 든다"],
+        "limitKo": "두 문장 사이에 접속어가 없어 연결은 내용으로 추론한 것이다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "인간은 개인으로서는 다양한 환경의 적응 문제를 풀 만큼 똑똑하지 않으며, 집단이 쓰는 복잡한 생존 지식을 다 익힐 수 있는 것은 오직 남에게서 배우기 때문이다. 이런 배움의 성향 덕분에 집단은 개인의 발명 능력을 크게 넘는 적응 정보를 쌓는다.",
+      "propositionIds": ["p4", "p2", "p3"],
+      "relationIds": ["r1", "r2"],
+      "limitsKo": ["5·6번 문장은 unit 으로 따로 다루지 않았다."]
+    },
+    "bridges": [
+      { "unitId": "u1", "meaningIds": ["m2", "m3"], "choiceNumbers": [2], "designClaimIndices": [1, 2] },
+      { "unitId": "u2", "meaningIds": ["m4"], "choiceNumbers": [3], "designClaimIndices": [] },
+      { "unitId": "u3", "meaningIds": ["m1"], "choiceNumbers": [1], "designClaimIndices": [] }
+    ]
+  }
+}

@@ -1,0 +1,5081 @@
+{
+ "note": "v3.1 원문 이해 교수 sidecar — scripts/csat/meaning-support-build.mjs 가 생성. 손으로 고치지 말 것. 서버 전용(클라이언트 import 금지).",
+ "schema": "meaning-support/1",
+ "criteria": "meaning-support-v1.0",
+ "count": 8,
+ "items": {
+  "2026#22": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#22",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "0adad76963441a40",
+    "basePublicHash": "2fce7eca281063b0253ab5d02845727cdde4d7c5dcb0adfbac0c16120daf0659",
+    "sourceSnapshotHash": "a9533f55248f0d70"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 22,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u3",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 6,
+     "quote": "a careful balancing act may be required",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 5,
+     "sourceRange": {
+      "start": 70,
+      "end": 111,
+      "spanHash": "1bfb235c3b351f70bf7e1ad57dccb6822ea07e7e7a0eec28cf04ed5b54ada75f"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 0,
+      "end": 5,
+      "spanHash": "6f6f6b4ab1bd157aa91c23a7431ca3fba2fd776bd21ea5889cb499f2be455d10"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 7,
+     "quote": "will try to be more competitive",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 53,
+      "end": 79,
+      "spanHash": "a841c7b2fe5bbbd64926f103d83879faf9ab41c4bb15daa700439f61d7fe46aa"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 84,
+      "end": 102,
+      "spanHash": "9fb6344e5ab8781d973cab06f2b4912f1de2a71afb7b7a8acae6366785874757"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 8,
+     "quote": "By necessity they may need to share information",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a8",
+     "sentence": 8,
+     "sourceRange": {
+      "start": 48,
+      "end": 78,
+      "spanHash": "1cb01688786126275dc9e037aff1dce4a0b27c3fa474b86aef7b3dfa821c3092"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a9",
+     "sentence": 9,
+     "sourceRange": {
+      "start": 11,
+      "end": 52,
+      "spanHash": "f3231a24ab140ae340749e0744c82c3664e6047701c8ee526452e3eaf2bcffdc"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a10",
+     "sentence": 9,
+     "quote": "how to pursue both simultaneously",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a11",
+     "sentence": 10,
+     "quote": "not neglected at the expense of the other",
+     "occurrence": 1,
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "협력과 경쟁은 서로 다른 형태의 행동이라 스포츠에서 둘 다 해내기가 어려울 수 있고, 그래서 각 활동에 둘 비중을 조심스럽게 맞추는 균형이 필요할 수 있다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "스포츠 관리자들은 흔히 성과 때문에 더 경쟁적이고 덜 협력적이 되려 한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3",
+      "a4",
+      "a5",
+      "a6"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "필요에 의해 정보를 공유해야 할 수도 있지만, 그때도 조심스럽게 한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a7",
+      "a8"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "그래서 둘을 동시에 추구하는 방법에 대한 계획을 미리 세워 두는 편이 나을 수 있고, 그러면 한쪽 때문에 다른 쪽이 소홀해지지 않는다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a9",
+      "a10",
+      "a11"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p5",
+     "textKo": "7~8번 문장의 경쟁 쪽 쏠림은 필자가 권하는 해법이 아니라, 9~10번 문장의 계획이 필요해지는 상황이다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a3",
+      "a4",
+      "a9"
+     ],
+     "warrantsKo": [
+      "9번 문장은 앞 내용을 받아 '그러므로 ~하는 편이 낫다'고 결론을 내는 말로 시작한다",
+      "10번 문장은 한쪽이 소홀해지는 것을 막을 대상으로 삼는데, 7번 문장의 쏠림이 바로 협력이 소홀해지는 모습이다"
+     ],
+     "limitKo": "필자가 경쟁을 나쁘다고 평가하는 것은 아니다. 쏠림이 흔하다는 관찰을 계획의 이유로 쓸 뿐이다."
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      5,
+      6
+     ],
+     "legacyMeaningIds": [
+      "m2"
+     ],
+     "labelKo": "두 행동 사이의 조심스러운 균형",
+     "exactKo": "협력과 경쟁은 서로 다른 형태의 행동이라 스포츠에서 둘 다 하기가 어려울 수 있으며, 이는 각 활동에 얼마나 비중을 둘지 조심스럽게 균형을 맞추는 일이 필요할 수 있다는 뜻이다.",
+     "simpleKo": "협력과 경쟁은 성격이 달라서, 어느 쪽에 얼마나 힘을 줄지 잘 맞춰야 할 수도 있다.",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "필요할 수 있다",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "균형이 꼭 필요하다고 단정하지 않고 완곡하게 권한다. '꼭 해야 한다'는 의무로 바꾸면 말의 세기가 달라진다."
+      },
+      {
+       "facet": "causality",
+       "valueKo": "서로 다른 형태의 행동이므로",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "균형이 필요할 수 있는 이유는 두 행동의 성격이 달라 함께 하기 어렵기 때문이다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "각 활동에 둘 비중",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "균형은 상황에 맞게 비중을 조절하는 일이다. 언제나 정확히 반반으로 나눈다는 뜻이 아니다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "협력과 경쟁에는 언제나 정확히 같은 비중을 두어야 한다.",
+      "lostFacet": "modality",
+      "whyWrongKo": "원문은 균형이 필요할 수 있다고 완곡하게 말하고, 그 균형도 비중을 조심스럽게 조절하는 일이다. '언제나'와 '같은 비중'은 원문에 없는 단정이다.",
+      "anchorIds": [
+       "a1"
+      ]
+     }
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      7,
+      8
+     ],
+     "legacyMeaningIds": [
+      "m3",
+      "m4"
+     ],
+     "labelKo": "흔한 쏠림: 경쟁 쪽으로 (진단)",
+     "exactKo": "흔히 스포츠 관리자들은 성과 때문에 더 경쟁적이고 덜 협력적이 되려 한다. 필요에 의해 정보를 공유해야 할 수도 있지만, 조심스러운 방식으로 한다.",
+     "simpleKo": "실제로는 성적 때문에 경쟁 쪽으로 기우는 일이 많고, 꼭 필요한 정보 공유도 조심조심 한다.",
+     "propositionIds": [
+      "p2",
+      "p3",
+      "p5"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "흔히",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "모든 관리자가 늘 그렇다는 말이 아니라 자주 그렇다는 빈도 한정이다."
+      },
+      {
+       "facet": "causality",
+       "valueKo": "성과 때문에",
+       "anchorIds": [
+        "a5"
+       ],
+       "explanationKo": "경쟁 쪽으로 기우는 이유가 성과라는 점이 함께 제시된다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "더 경쟁적 · 덜 협력적",
+       "anchorIds": [
+        "a4",
+        "a6"
+       ],
+       "explanationKo": "협력을 아예 하지 않는다는 말이 아니라 상대적으로 덜 한다는 비교다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "필요에 의해 → 정보 공유",
+       "anchorIds": [
+        "a7"
+       ],
+       "explanationKo": "'필요에 의해'가 걸린 것은 정보 공유(협력 쪽 행위)다. 경쟁이 필연이라는 말이 아니다."
+      },
+      {
+       "facet": "modality",
+       "valueKo": "공유해야 할 수도 있다",
+       "anchorIds": [
+        "a7"
+       ],
+       "explanationKo": "정보 공유도 가능성으로 완곡하게 말한다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "스포츠 관리자는 성과를 위해 경쟁에 집중하는 것이 바람직하다.",
+      "lostFacet": "quantity",
+      "whyWrongKo": "원문은 흔히 그렇게 기운다는 경향을 관찰할 뿐 그것을 권하지 않는다. 오히려 이 쏠림 때문에 9~10번 문장에서 두 쪽을 함께 챙길 계획이 필요해진다.",
+      "anchorIds": [
+       "a3",
+       "a4",
+       "a9"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      9,
+      10
+     ],
+     "legacyMeaningIds": [
+      "m5",
+      "m6"
+     ],
+     "labelKo": "둘 다 챙기는 계획 (권고)",
+     "exactKo": "이는 협력과 경쟁 둘을 동시에 어떻게 추구할지에 대한 계획을 마련해 두는 편이 나을 수 있다는 뜻이며, 그러면 한쪽 때문에 다른 쪽이 소홀해지지 않게 된다.",
+     "simpleKo": "그러니 둘을 함께 해낼 방법을 미리 계획해 두는 편이 낫겠고, 그래야 어느 한쪽도 밀려나지 않는다.",
+     "propositionIds": [
+      "p4",
+      "p5"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "~하는 편이 나을 수 있다",
+       "anchorIds": [
+        "a9"
+       ],
+       "explanationKo": "강한 명령이 아니라 완곡한 권고다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "둘 = 협력과 경쟁",
+       "anchorIds": [
+        "a10"
+       ],
+       "explanationKo": "'둘'은 앞에서 말한 협력과 경쟁 두 활동을 가리킨다."
+      },
+      {
+       "facet": "time",
+       "valueKo": "동시에",
+       "anchorIds": [
+        "a10"
+       ],
+       "explanationKo": "번갈아가 아니라 함께 추구한다는 시간 한정이다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "한쪽 · 다른 쪽 — 어느 쪽이든",
+       "anchorIds": [
+        "a11"
+       ],
+       "explanationKo": "협력만 지키자는 말이 아니라, 둘 중 어느 쪽도 다른 쪽 때문에 소홀해지지 않게 한다는 범위다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "main",
+        "anchorIds": [
+         "a9"
+        ],
+        "meaningKo": "계획을 마련해 두는 편이 나을 수 있다 — 권고"
+       },
+       {
+        "id": "s2",
+        "role": "clause",
+        "anchorIds": [
+         "a10"
+        ],
+        "meaningKo": "둘을 동시에 어떻게 추구할지 — 계획의 내용"
+       },
+       {
+        "id": "s3",
+        "role": "main",
+        "anchorIds": [
+         "a11"
+        ],
+        "meaningKo": "한쪽이 다른 쪽 때문에 소홀해지지 않는다 — 계획이 가져올 결과"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s2",
+        "toPart": "s1",
+        "whyKo": "무엇에 대한 계획인지를 채워 준다."
+       },
+       {
+        "fromPart": "s3",
+        "toPart": "s1",
+        "whyKo": "10번 문장의 '이것'이 9번 문장의 계획을 받아 그 효과를 말한다."
+       }
+      ],
+      "recombinedKo": "협력과 경쟁을 함께 해낼 방법을 미리 계획해 두면, 둘 중 어느 것도 다른 것에 밀려 소홀해지지 않는다."
+     },
+     "misunderstanding": {
+      "alteredKo": "경쟁 때문에 협력이 소홀해지지 않도록 협력에 더 힘을 쏟아야 한다.",
+      "lostFacet": "reference",
+      "whyWrongKo": "원문의 한쪽·다른 쪽은 어느 쪽이든 가리키며, 둘을 동시에 추구하는 계획을 권한다. 협력 한쪽으로 무게를 옮기라는 말이 아니다.",
+      "anchorIds": [
+       "a10",
+       "a11"
+      ]
+     }
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "cause",
+     "beforeKo": "두 행동이 달라서 비중을 조심스럽게 맞추는 균형이 필요할 수 있다.",
+     "afterKo": "실제로는 흔히 성과 때문에 경쟁 쪽으로 기울고 정보 공유도 조심스럽게만 한다.",
+     "changeKo": "균형이 필요할 수 있다는 일반 진술을 유지한 채, 그 균형이 왜 저절로 되지 않는지 실제 경향으로 보여 준다. 균형을 버리자는 말이 아니라 균형이 깨지기 쉬운 상황을 더한다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a1",
+      "a3",
+      "a4"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "7번 문장의 쏠림은 6번 문장의 비중 맞추기가 어긋난 모습이다"
+     ],
+     "limitKo": "원문은 7번 문장 앞에 연결어를 두지 않는다. 쏠림을 균형이 어려운 이유의 사례로 읽은 것은 연결 추론이다."
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u1",
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "purpose",
+     "beforeKo": "균형이 필요할 수 있지만, 흔히 경쟁 쪽으로 기운다.",
+     "afterKo": "그러니 둘을 동시에 추구할 계획을 세워 두는 편이 낫고, 그러면 어느 쪽도 소홀해지지 않는다.",
+     "changeKo": "쏠림이라는 상황을 인정한 위에서, 그에 대한 해법으로 계획을 권하고 그 목적(어느 쪽도 소홀해지지 않음)을 밝힌다. 6번 문장의 균형 처방이 구체적 계획으로 다시 말해진다.",
+     "propositionIds": [
+      "p4",
+      "p5"
+     ],
+     "anchorIds": [
+      "a9",
+      "a10",
+      "a11"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "whole": {
+    "genre": "argument",
+    "summaryKo": "스포츠 기업은 협력과 경쟁을 함께 해야 하는데 두 행동은 성격이 달라 균형이 필요할 수 있고, 실제로는 흔히 성과 때문에 경쟁 쪽으로 기우므로, 둘을 동시에 추구할 계획을 세워 어느 한쪽도 소홀해지지 않게 하는 편이 낫다. 앞부분은 정의, 7~8번 문장은 진단, 6·9·10번 문장이 필자의 권고다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p4",
+     "p5"
+    ],
+    "relationIds": [
+     "r1",
+     "r2"
+    ],
+    "limitsKo": [
+     "권고는 may·might 로 완곡하게 표현되어 있어 강한 의무로 옮기지 않았다.",
+     "실제 출제 의도는 확인할 수 없다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m2"
+     ],
+     "choiceNumbers": [
+      1,
+      2
+     ],
+     "designClaimIndices": [
+      1,
+      2
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m3",
+      "m4"
+     ],
+     "choiceNumbers": [
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      1,
+      3
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m5",
+      "m6"
+     ],
+     "choiceNumbers": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "designClaimIndices": [
+      1,
+      3
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "fd71443a499a02e7",
+    "reviewer": "ms-rv-2026-22"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 76,
+      "len": 63,
+      "h": "0f0ace0d460ebc"
+     },
+     {
+      "n": 2,
+      "chars": 179,
+      "len": 154,
+      "h": "0e165756d33dd5"
+     },
+     {
+      "n": 3,
+      "chars": 171,
+      "len": 144,
+      "h": "0c0369314ce6b0"
+     },
+     {
+      "n": 4,
+      "chars": 104,
+      "len": 89,
+      "h": "0a4f1643eeddb5"
+     },
+     {
+      "n": 5,
+      "chars": 112,
+      "len": 94,
+      "h": "17615b6ad2d12b"
+     },
+     {
+      "n": 6,
+      "chars": 110,
+      "len": 90,
+      "h": "06cb94f11007eb"
+     },
+     {
+      "n": 7,
+      "chars": 103,
+      "len": 87,
+      "h": "0ffb3370e88fcb"
+     },
+     {
+      "n": 8,
+      "chars": 79,
+      "len": 64,
+      "h": "134d8a4652b5ab"
+     },
+     {
+      "n": 9,
+      "chars": 93,
+      "len": 76,
+      "h": "19fadf7cd1fafc"
+     },
+     {
+      "n": 10,
+      "chars": 66,
+      "len": 53,
+      "h": "15100a11ada2d9"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 6,
+      "s": 9,
+      "e": 42,
+      "h": "08c7b8d3753d08"
+     },
+     "a2": {
+      "n": 5,
+      "s": 58,
+      "e": 94,
+      "h": "0137af0a71f14e"
+     },
+     "a3": {
+      "n": 7,
+      "s": 0,
+      "e": 5,
+      "h": "007099de64ac35"
+     },
+     "a4": {
+      "n": 7,
+      "s": 18,
+      "e": 44,
+      "h": "0fdb3575868dae"
+     },
+     "a5": {
+      "n": 7,
+      "s": 44,
+      "e": 67,
+      "h": "0de4a7d49ab6b7"
+     },
+     "a6": {
+      "n": 7,
+      "s": 70,
+      "e": 87,
+      "h": "16ad7b285c6e5d"
+     },
+     "a7": {
+      "n": 8,
+      "s": 0,
+      "e": 40,
+      "h": "0858ba6096fb2d"
+     },
+     "a8": {
+      "n": 8,
+      "s": 40,
+      "e": 64,
+      "h": "089a55900d14cf"
+     },
+     "a9": {
+      "n": 9,
+      "s": 9,
+      "e": 42,
+      "h": "0c073039441736"
+     },
+     "a10": {
+      "n": 9,
+      "s": 47,
+      "e": 76,
+      "h": "0bbd93e894176e"
+     },
+     "a11": {
+      "n": 10,
+      "s": 19,
+      "e": 53,
+      "h": "15156e74aad8bc"
+     }
+    }
+   }
+  },
+  "2026#23": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#23",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "6a3df5e5826c01bc",
+    "basePublicHash": "d52bf6f0f390f8b2631d121304cb7e76214b55bc55ef45ed953798194cb692f0",
+    "sourceSnapshotHash": "08e3bab86ba923bb"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 23,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u1",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 1,
+     "quote": "Emphasizing speed over frequency can make sense",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 1,
+     "sourceRange": {
+      "start": 48,
+      "end": 115,
+      "spanHash": "6a262b337d78e54d94de1453b1835d093a926284a2931c851f89225c158e956c"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 2,
+     "sourceRange": {
+      "start": 0,
+      "end": 21,
+      "spanHash": "a7ad9e53d1ca0cee4803d5eb6c27ca0ffb858da8cfd1dfd0de76ba86b39099d1"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 2,
+     "quote": "it seems to be a common motorist’s error",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 4,
+     "quote": "transit is only there if it’s coming soon",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 6,
+     "sourceRange": {
+      "start": 54,
+      "end": 80,
+      "spanHash": "90c8379ec7e40f55cadcaa6dcf64283727f7893a789b1587d02ed5bbd5ddb7b8"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 0,
+      "end": 9,
+      "spanHash": "a24ed934b61eb16e5df1a53b391a4545e2f00c4505fe1d887cc8bd5ec905e6ae"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a8",
+     "sentence": 7,
+     "quote": "waiting time will wipe out any time savings",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a9",
+     "sentence": 8,
+     "sourceRange": {
+      "start": 0,
+      "end": 79,
+      "spanHash": "e66bf08bf36fb63121ec95baa572376c13b14e93d9f69ffa7e586eefc2513b32"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a10",
+     "sentence": 8,
+     "quote": "speed is worthless without frequency",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a11",
+     "sentence": 8,
+     "quote": "a transit map that screams about speed",
+     "occurrence": 1,
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "모두가 시간표에 맞춰 움직이리라 기대되는 맥락(출퇴근 시간 전용 노선, 수요가 적은 아주 먼 노선)에서는 빈도보다 속도를 앞세우는 것이 말이 될 수 있다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "그 밖의 모든 맥락에서는 속도를 앞세우는 것이 운전자들이 흔히 저지르는 오류로 보인다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3",
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "도로는 늘 있지만 대중교통은 곧 올 때에만 비로소 쓸 수 있는 것이 된다. 필요할 때 운행하고 곧 와야 하며, 그렇지 않으면 기다리는 시간이 더 빠른 운행으로 아낀 시간을 없앤다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a5",
+      "a6",
+      "a7",
+      "a8"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "특정 시간표에 맞춰 생활하는 것이 편한 사람이 아니라면, 빈도 없는 속도는 가치가 없다. 그래서 속도를 크게 내세우고 빈도는 작게 다루는 노선도는 혼란을 심고 있을 수 있다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a9",
+      "a10",
+      "a11"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p5",
+     "textKo": "1번 문장의 예외 맥락과 8번 문장의 조건절은 같은 경우, 곧 이용자가 시간표에 맞춰 사는 경우를 가리키므로, 글은 처음과 끝에서 같은 예외를 인정하고 나머지에 대해 빈도의 필요를 주장한다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a2",
+      "a9"
+     ],
+     "warrantsKo": [
+      "두 구간 모두 시간표에 맞춰 계획하는 이용자를 조건으로 든다",
+      "2번 문장이 1번의 예외를 뺀 나머지 전부로 범위를 넓힌다"
+     ],
+     "limitKo": "두 조건이 낱말까지 같지는 않다. 1번은 맥락(노선 종류), 8번은 이용자 개인의 생활 방식으로 표현된다."
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      1,
+      2
+     ],
+     "legacyMeaningIds": [
+      "m1",
+      "m2"
+     ],
+     "labelKo": "예외를 인정하고 나머지를 오류로",
+     "exactKo": "모두가 시간표에 맞춰 계획하리라 기대되는 맥락에서는 빈도보다 속도를 강조하는 것이 말이 될 수 있다. 하지만 그 밖의 모든 맥락에서 그것은 운전자들이 흔히 저지르는 오류로 보인다.",
+     "simpleKo": "정해진 시간표에 맞춰 타는 노선이라면 빠른 게 중요할 수 있다. 하지만 그 밖의 경우엔 '빠르면 됐다'는 생각은 운전자식 착각으로 보인다.",
+     "propositionIds": [
+      "p1",
+      "p2",
+      "p5"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "말이 될 수 있다",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "속도 강조가 옳다고 단정하지 않고, 그럴 수 있다는 가능성만 인정한다."
+      },
+      {
+       "facet": "condition",
+       "valueKo": "모두가 시간표에 맞춰 계획하리라 기대되는 맥락에서",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "이 인정은 시간표를 전제로 하는 맥락에만 걸린다. 이 조건을 빼면 속도 강조 전반을 인정하는 말이 된다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "그 밖의 모든 맥락",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "예외를 뺀 나머지 전부로 주장의 범위를 넓힌다. 예외가 오히려 소수라는 점이 드러난다."
+      },
+      {
+       "facet": "modality",
+       "valueKo": "오류로 보인다",
+       "anchorIds": [
+        "a4"
+       ],
+       "explanationKo": "필자는 단정 대신 '그렇게 보인다'로 판단을 낸다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "main",
+        "anchorIds": [
+         "a1"
+        ],
+        "meaningKo": "빈도보다 속도를 강조하는 것이 말이 될 수 있다 — 인정하는 내용"
+       },
+       {
+        "id": "s2",
+        "role": "modifier",
+        "anchorIds": [
+         "a2"
+        ],
+        "meaningKo": "시간표에 맞춰 계획하는 맥락에서 — 인정의 범위"
+       },
+       {
+        "id": "s3",
+        "role": "connector",
+        "anchorIds": [
+         "a3"
+        ],
+        "meaningKo": "그 밖의 모든 맥락에서는, 하지만 — 범위를 바꾸며 판단을 뒤집음"
+       },
+       {
+        "id": "s4",
+        "role": "main",
+        "anchorIds": [
+         "a4"
+        ],
+        "meaningKo": "그것은 흔한 운전자식 오류로 보인다 — 필자가 유지하는 판단"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s2",
+        "toPart": "s1",
+        "whyKo": "인정은 이 맥락 안에서만 성립한다."
+       },
+       {
+        "fromPart": "s3",
+        "toPart": "s4",
+        "whyKo": "앞의 예외 맥락을 뺀 나머지에 대해 반대 판단을 건다."
+       }
+      ],
+      "recombinedKo": "시간표에 맞춰 사는 경우라면 속도 우선도 괜찮을 수 있지만, 그 밖에서는 잘못으로 보인다."
+     },
+     "misunderstanding": {
+      "alteredKo": "필자는 빠른 대중교통이 언제나 쓸모없다고 본다.",
+      "lostFacet": "condition",
+      "whyWrongKo": "필자는 시간표를 전제로 하는 맥락에서는 속도 강조가 말이 될 수 있다고 먼저 인정한다. 비판 대상은 속도 자체가 아니라 그 밖의 맥락에서 빈도 없이 속도를 앞세우는 일이다.",
+      "anchorIds": [
+       "a1",
+       "a2",
+       "a3"
+      ]
+     }
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      4,
+      6,
+      7
+     ],
+     "legacyMeaningIds": [
+      "m3",
+      "m4"
+     ],
+     "labelKo": "곧 와야만 있는 것",
+     "exactKo": "대중교통은 곧 올 때에만 거기 있는 셈이다. 필요할 때 운행해야 하고 곧 와야 하며, 그렇지 않으면 기다리는 시간이 더 빠른 서비스로 아낀 시간을 모두 없앤다.",
+     "simpleKo": "버스나 전철은 금방 와야 탈 수 있는 것이다. 오래 기다리면 빨리 달려서 아낀 시간이 다 사라진다.",
+     "propositionIds": [
+      "p3"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "곧 올 때에만",
+       "anchorIds": [
+        "a5"
+       ],
+       "explanationKo": "대중교통이 쓸모 있게 '있는' 것을 곧 온다는 조건 하나에 묶는다. '곧 오면 좋다' 정도로 약하게 바꾸면 필수 조건이라는 뜻이 사라진다."
+      },
+      {
+       "facet": "condition",
+       "valueKo": "그렇지 않으면",
+       "anchorIds": [
+        "a7",
+        "a6"
+       ],
+       "explanationKo": "기다림이 이점을 없애는 것은 필요할 때 운행하고 곧 온다는 조건이 깨졌을 때에 한한다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "아낀 시간을 모두",
+       "anchorIds": [
+        "a8"
+       ],
+       "explanationKo": "일부가 아니라 빠른 운행의 이점 전체가 사라질 수 있다는 말이다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "기다리는 시간이 있으면 빠른 운행은 언제나 손해다.",
+      "lostFacet": "condition",
+      "whyWrongKo": "원문은 곧 오지 않을 때에 한해 기다림이 이점을 없앤다고 말한다. 자주 오는 노선이라면 빠른 운행의 이점은 그대로 남을 수 있다.",
+      "anchorIds": [
+       "a7",
+       "a8"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      8
+     ],
+     "legacyMeaningIds": [
+      "m5",
+      "m6"
+     ],
+     "labelKo": "빈도 없는 속도는 무가치 (핵심 명제)",
+     "exactKo": "특정 시간표의 운행에 맞춰 생활을 계획하는 것이 편한 경우가 아니라면, 빈도 없는 속도는 가치가 없다. 그러므로 속도는 크게 외치고 빈도는 작게 말하는 노선도는 그저 혼란을 심고 있을 수 있다.",
+     "simpleKo": "시간표대로 사는 사람이 아니라면, 자주 오지 않는 빠른 차는 쓸모가 없다. 그러니 속도만 크게 보여 주는 노선도는 사람들을 헷갈리게 할 수 있다.",
+     "propositionIds": [
+      "p4",
+      "p5"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "특정 시간표에 맞춰 생활하는 것이 편한 경우가 아니라면",
+       "anchorIds": [
+        "a9"
+       ],
+       "explanationKo": "1번 문장의 예외를 다시 열어 둔다. 이 조건을 빼면 '속도는 언제나 무가치'라는 보편 단정이 된다."
+      },
+      {
+       "facet": "condition",
+       "valueKo": "빈도 없이는",
+       "anchorIds": [
+        "a10"
+       ],
+       "explanationKo": "속도 자체를 부정하지 않는다. 빈도가 없을 때 속도의 가치가 사라진다는 종속 관계다."
+      },
+      {
+       "facet": "modality",
+       "valueKo": "혼란을 심고 있을 수 있다",
+       "anchorIds": [
+        "a11"
+       ],
+       "explanationKo": "노선도가 꼭 혼란을 준다고 단정하지 않는다."
+      },
+      {
+       "facet": "causality",
+       "valueKo": "그러므로 — 명제에서 노선도 사례로",
+       "anchorIds": [
+        "a10",
+        "a11"
+       ],
+       "explanationKo": "노선도는 앞 명제를 적용한 귀결이다. 글 전체의 주제가 아니다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "clause",
+        "anchorIds": [
+         "a9"
+        ],
+        "meaningKo": "시간표에 맞춰 사는 게 편한 경우가 아니라면 — 판단의 조건"
+       },
+       {
+        "id": "s2",
+        "role": "main",
+        "anchorIds": [
+         "a10"
+        ],
+        "meaningKo": "빈도 없는 속도는 가치가 없다 — 핵심 판단"
+       },
+       {
+        "id": "s3",
+        "role": "clause",
+        "anchorIds": [
+         "a11"
+        ],
+        "meaningKo": "그래서 속도만 외치는 노선도는 혼란을 줄 수 있다 — 귀결 사례"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s1",
+        "toPart": "s2",
+        "whyKo": "조건절이 핵심 판단의 적용 범위를 정한다."
+       },
+       {
+        "fromPart": "s3",
+        "toPart": "s2",
+        "whyKo": "앞 판단을 노선도에 적용한 결과로 덧붙는다."
+       }
+      ],
+      "recombinedKo": "시간표대로 사는 경우를 빼면 빈도가 있어야 속도가 의미가 있고, 그래서 속도만 강조한 노선도는 오해를 낳을 수 있다."
+     },
+     "misunderstanding": {
+      "alteredKo": "빠른 교통은 언제나 가치가 없다.",
+      "lostFacet": "condition",
+      "whyWrongKo": "원문은 조건절로 시간표에 맞춰 사는 경우를 예외로 두고, 속도를 '빈도가 없을 때' 무가치하다고 한다. 두 조건을 모두 지우면 필자가 1번 문장에서 인정한 내용과도 어긋난다.",
+      "anchorIds": [
+       "a9",
+       "a10"
+      ]
+     }
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "cause",
+     "beforeKo": "예외 맥락을 빼면 속도 우선은 흔한 운전자식 오류다.",
+     "afterKo": "대중교통은 곧 와야만 쓸 수 있고, 기다림이 속도 이점을 없앨 수 있다.",
+     "changeKo": "2번 문장의 판단을 유지한 채 그 이유를 댄다. 도로는 늘 있어서 속도가 중요하지만, 대중교통은 곧 와야 한다는 조건이 먼저라서 운전자의 기준을 그대로 옮기면 틀린다.",
+     "propositionIds": [
+      "p2",
+      "p3"
+     ],
+     "anchorIds": [
+      "a4",
+      "a5",
+      "a8"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "3~4번 문장이 도로와 대중교통을 대비해 '운전자식' 오류의 근거를 보인다",
+      "6~7번 문장이 대중교통에 필요한 조건을 구체화한다"
+     ],
+     "limitKo": "원문에 '왜냐하면' 같은 표지는 없다. 이유 관계는 도로·대중교통 대비에서 읽어 낸 연결이다."
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u1",
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "concession",
+     "beforeKo": "시간표 맥락에서는 속도 강조가 말이 될 수 있고, 그 밖에서는 곧 와야만 대중교통이 쓸모 있다.",
+     "afterKo": "시간표에 맞춰 사는 경우가 아니라면 빈도 없는 속도는 가치가 없다.",
+     "changeKo": "인정한 것: 시간표를 전제로 하는 경우에는 속도를 앞세울 수 있다는 점을 조건절로 다시 남겨 둔다. 유지한 판단: 그 밖에서는 빈도가 있어야 속도 이점이 작동한다는 것을 핵심 명제로 굳힌다. 예외를 지우지 않고 범위를 한정해 주장을 세운다.",
+     "propositionIds": [
+      "p1",
+      "p4",
+      "p5"
+     ],
+     "anchorIds": [
+      "a1",
+      "a2",
+      "a9",
+      "a10"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "1번의 예외 맥락과 8번의 조건절이 모두 시간표에 맞춰 사는 경우를 가리킨다",
+      "8번의 without 이 앞 문장들의 빈도 조건을 한 명제로 모은다"
+     ],
+     "limitKo": "8번 문장이 1번 문장을 직접 가리키는 표지는 없다. 두 조건이 같은 범위라는 것은 내용으로 이은 연결이다."
+    }
+   ],
+   "whole": {
+    "genre": "argument",
+    "summaryKo": "필자는 시간표에 맞춰 이용하는 경우에는 속도 강조가 통할 수 있다고 인정하면서도, 그 밖의 대중교통에서는 자주 와야만 속도가 의미를 가진다고 주장한다. 따라서 이 글의 중심은 대중교통에서 빈도를 중요하게 여겨야 한다는 명제이고, 노선도 이야기는 그 귀결 사례다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "relationIds": [
+     "r1",
+     "r2"
+    ],
+    "limitsKo": [
+     "실제 출제 의도는 확인할 수 없다.",
+     "속도 자체를 무가치하다고 하는 글이 아니다 — 조건(시간표 예외, 빈도 없음)을 보존해야 한다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m1",
+      "m2"
+     ],
+     "choiceNumbers": [
+      4,
+      5
+     ],
+     "designClaimIndices": [
+      1,
+      3
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m3",
+      "m4"
+     ],
+     "choiceNumbers": [
+      3,
+      4
+     ],
+     "designClaimIndices": []
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m5",
+      "m6"
+     ],
+     "choiceNumbers": [
+      1,
+      2,
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      2,
+      3
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "2605c779f098b22f",
+    "reviewer": "ms-rv-2026-23b"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 190,
+      "len": 159,
+      "h": "0f89403f89e2c2"
+     },
+     {
+      "n": 2,
+      "chars": 72,
+      "len": 56,
+      "h": "11c3d63513d9a9"
+     },
+     {
+      "n": 3,
+      "chars": 96,
+      "len": 78,
+      "h": "08e437f419036f"
+     },
+     {
+      "n": 4,
+      "chars": 46,
+      "len": 36,
+      "h": "171940a925301a"
+     },
+     {
+      "n": 5,
+      "chars": 81,
+      "len": 63,
+      "h": "18b58c04fe00b2"
+     },
+     {
+      "n": 6,
+      "chars": 93,
+      "len": 70,
+      "h": "1acd47aeb8dd8e"
+     },
+     {
+      "n": 7,
+      "chars": 77,
+      "len": 63,
+      "h": "1e8a547c7b6c21"
+     },
+     {
+      "n": 8,
+      "chars": 223,
+      "len": 187,
+      "h": "05c236408b9aae"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 1,
+      "s": 0,
+      "e": 41,
+      "h": "04ca009b86f6a0"
+     },
+     "a2": {
+      "n": 1,
+      "s": 41,
+      "e": 98,
+      "h": "01653779c653a5"
+     },
+     "a3": {
+      "n": 2,
+      "s": 0,
+      "e": 18,
+      "h": "0c9b5657040325"
+     },
+     "a4": {
+      "n": 2,
+      "s": 24,
+      "e": 56,
+      "h": "0515d97ada13de"
+     },
+     "a5": {
+      "n": 4,
+      "s": 3,
+      "e": 36,
+      "h": "1d4d1c616cc17d"
+     },
+     "a6": {
+      "n": 6,
+      "s": 40,
+      "e": 61,
+      "h": "11bce99d072f4c"
+     },
+     "a7": {
+      "n": 7,
+      "s": 0,
+      "e": 9,
+      "h": "0fdadaeff984c6"
+     },
+     "a8": {
+      "n": 7,
+      "s": 9,
+      "e": 45,
+      "h": "12b038acdac3a7"
+     },
+     "a9": {
+      "n": 8,
+      "s": 0,
+      "e": 68,
+      "h": "120d917a7c4751"
+     },
+     "a10": {
+      "n": 8,
+      "s": 68,
+      "e": 100,
+      "h": "1d504cb10f2d64"
+     },
+     "a11": {
+      "n": 8,
+      "s": 102,
+      "e": 134,
+      "h": "036e55b61bf61c"
+     }
+    }
+   }
+  },
+  "2026#25": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#25",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "228485b747aa1614",
+    "basePublicHash": "58500ff22de1c769dab1ce00f21f09d4b4c4f472c050a99e9307796dacf01584",
+    "sourceSnapshotHash": "b48bc46a03240454"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 25,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "partial": {
+    "scope": [
+     "language"
+    ],
+    "withheldKo": "원본 도표를 확인하기 전이라 수치 판단은 보류"
+   },
+   "defaultUnitId": "u3",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 2,
+     "quote": "In the category of Every Day",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 3,
+     "quote": "more than twice that of teenagers",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 5,
+     "quote": "emailing was the second highest",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 4,
+     "quote": "in the category of Less Often",
+     "occurrence": 1,
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "2번 문장의 '가장 높다'는 비교는 매일 범주 안의 네 소통 방식끼리만 이루어진다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "3번 문장은 덜 자주 범주에서 전화 비율이 문자 비율의 두 배보다 크다고 말한다 — 정확히 두 배이면 이 진술은 성립하지 않는다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "5번 문장은 덜 자주 범주에 나열된 방식들 가운데 이메일이 두 번째 자리라고 말한다 — 1위도 3위도 아닌 정확히 둘째다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "4·6번 문장은 같은 소통 방식 하나를 두고 매일 범주와 덜 자주 범주의 비율을 맞댄다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      2
+     ],
+     "legacyMeaningIds": [
+      "m1"
+     ],
+     "labelKo": "범주 안 최고",
+     "exactKo": "매일 범주에 한정해, 네 소통 방식 중 문자가 가장 높은 비율이라는 진술",
+     "simpleKo": "'매일' 칸만 놓고 보면 문자가 1등이라는 말",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "매일 범주 안에서만",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "덜 자주 범주나 두 범주 합계는 비교 대상이 아니다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "네 방식 중 최고",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "비교 집합은 네 소통 방식이다."
+      }
+     ]
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      3
+     ],
+     "legacyMeaningIds": [
+      "m2"
+     ],
+     "labelKo": "두 배 초과",
+     "exactKo": "덜 자주 범주에서 전화로 시간을 보낸 비율이 문자로 그런 비율의 두 배보다 크다는 배수 진술",
+     "simpleKo": "'덜 자주' 칸에서 전화가 문자의 두 배를 넘는다는 말",
+     "propositionIds": [
+      "p2"
+     ],
+     "preserves": [
+      {
+       "facet": "comparison",
+       "valueKo": "두 배보다 큼(엄격 초과)",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "비교 기준은 문자 비율의 두 배이고, 그 값과 같으면 '두 배 초과'가 아니다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "전화(비교 대상) 대 문자(기준)",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "that of 는 문자로 시간을 보낸 십대의 비율을 가리키며, 이것이 배수의 기준이다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "전화가 문자의 두 배 이상이기만 하면 맞다",
+      "lostFacet": "comparison",
+      "whyWrongKo": "more than twice 는 두 배와 같은 경우를 포함하지 않는다.",
+      "anchorIds": [
+       "a2"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      5
+     ],
+     "legacyMeaningIds": [
+      "m3"
+     ],
+     "labelKo": "범주 안 순위",
+     "exactKo": "덜 자주 범주에서 나열된 소통 방식 가운데 이메일이 두 번째로 높은 비율이라는 순위 진술",
+     "simpleKo": "'덜 자주' 칸만 줄 세우면 이메일이 둘째라는 말",
+     "propositionIds": [
+      "p3"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "덜 자주 범주 안의 순위",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "순위는 그 범주 숫자끼리만 매기며, 다른 범주 값이나 막대 전체 길이는 기준이 아니다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "두 번째(1위가 아님)",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "second highest 는 바로 위에 하나가 더 있다는 뜻이라, 1위이거나 3위이면 이 진술과 다르다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "이메일이 상위권이기만 하면 맞다",
+      "lostFacet": "comparison",
+      "whyWrongKo": "진술은 '높은 편'이 아니라 정확히 두 번째 자리를 말한다.",
+      "anchorIds": [
+       "a3"
+      ]
+     }
+    },
+    {
+     "id": "u4",
+     "sentences": [
+      4,
+      6
+     ],
+     "legacyMeaningIds": [
+      "m4"
+     ],
+     "labelKo": "범주 간 비교",
+     "exactKo": "같은 소통 방식의 매일 비율과 덜 자주 비율을 맞대는 비교(4번 문장은 전화, 6번 문장은 화상 채팅)",
+     "simpleKo": "한 방식을 두고 '매일' 값과 '덜 자주' 값 중 어느 쪽이 큰지 보는 말",
+     "propositionIds": [
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "comparison",
+       "valueKo": "4번은 매일이 더 낮다, 6번은 덜 자주가 더 높다",
+       "anchorIds": [
+        "a4"
+       ],
+       "explanationKo": "두 문장은 비교 방향(lower / higher)과 주어 범주가 서로 반대이므로 어느 쪽이 기준인지 따로 확인해야 한다."
+      }
+     ]
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1",
+      "u3"
+     ],
+     "to": [
+      "u2",
+      "u4"
+     ],
+     "kind": "contrast",
+     "beforeKo": "범주 하나 안에서 매기는 최고·순위 진술",
+     "afterKo": "두 값의 배수 관계 또는 두 범주 사이의 비교 진술",
+     "changeKo": "판단의 단위가 바뀐다 — 앞은 한 범주 안의 줄 세우기, 뒤는 두 값의 크기 관계라 읽어야 할 숫자 묶음이 다르다.",
+     "propositionIds": [
+      "p1",
+      "p2",
+      "p3",
+      "p4"
+     ],
+     "anchorIds": [
+      "a1",
+      "a2",
+      "a3",
+      "a4"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "whole": {
+    "genre": "visual",
+    "summaryKo": "다섯 진술은 범주 안 최고·배수·범주 간 비교·범주 안 순위로 판단 종류가 다르며, 각 진술이 지정한 대상·범주·비교 기준에 해당하는 값만 골라 읽어야 한다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p3",
+     "p4"
+    ],
+    "relationIds": [
+     "r1"
+    ],
+    "limitsKo": [
+     "원본 도표를 확인하기 전이라 각 진술의 참·거짓과 수치는 판단하지 않는다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m1"
+     ],
+     "choiceNumbers": [
+      1
+     ],
+     "designClaimIndices": [
+      1
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m2"
+     ],
+     "choiceNumbers": [
+      2
+     ],
+     "designClaimIndices": [
+      1
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m3"
+     ],
+     "choiceNumbers": [
+      4
+     ],
+     "designClaimIndices": [
+      1
+     ]
+    },
+    {
+     "unitId": "u4",
+     "meaningIds": [
+      "m4"
+     ],
+     "choiceNumbers": [
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      1
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "0997e224c92ddc6c",
+    "reviewer": "ms-rv-2026-25"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 157,
+      "len": 128,
+      "h": "099a79ed9de898"
+     },
+     {
+      "n": 2,
+      "chars": 162,
+      "len": 134,
+      "h": "087e5f84e1f77f"
+     },
+     {
+      "n": 3,
+      "chars": 190,
+      "len": 155,
+      "h": "0ce9eae6a98f2d"
+     },
+     {
+      "n": 4,
+      "chars": 190,
+      "len": 154,
+      "h": "10bc1f36df0d41"
+     },
+     {
+      "n": 5,
+      "chars": 125,
+      "len": 103,
+      "h": "1fb7f212205215"
+     },
+     {
+      "n": 6,
+      "chars": 185,
+      "len": 151,
+      "h": "1a168279092801"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 2,
+      "s": 1,
+      "e": 24,
+      "h": "1e2d17391de84f"
+     },
+     "a2": {
+      "n": 3,
+      "s": 99,
+      "e": 127,
+      "h": "1bbcdf49bcc4c2"
+     },
+     "a3": {
+      "n": 5,
+      "s": 25,
+      "e": 52,
+      "h": "11ca1af22f253f"
+     },
+     "a4": {
+      "n": 4,
+      "s": 130,
+      "e": 154,
+      "h": "16f0c638bb271e"
+     }
+    }
+   }
+  },
+  "2026#29": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#29",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "a8a8d67346afd05e",
+    "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d",
+    "sourceSnapshotHash": "8eef55ee9132e60a"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 29,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u1",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 3,
+     "sourceRange": {
+      "start": 0,
+      "end": 88,
+      "spanHash": "4e12657923d16ba35753771ad1e5e158a401bf540844e85a2dd7840f77b71dce"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 3,
+     "quote": "used by any group of foragers",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 3,
+     "quote": "being far too complex",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 3,
+     "sourceRange": {
+      "start": 143,
+      "end": 171,
+      "spanHash": "4973491babd7cce9fb27583908170e5b49c9713c0791656f03aa36c11693a0c2"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 4,
+     "sourceRange": {
+      "start": 114,
+      "end": 161,
+      "spanHash": "be27f300552cda5607f3b64d529f4c124228efcff8c973623dc5c27df185ca4c"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 4,
+     "quote": "in which we live",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 2,
+     "quote": "not nearly smart enough as individuals",
+     "occurrence": 1,
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "3번 문장의 주어는 도구·채집 기술·생태 지식·사회적 관계를 하나로 묶은 '꾸러미'이고, 뒤의 분사구는 그 꾸러미가 어떤 채집 집단에서든 쓰이는 것이라고 설명한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "이 꾸러미는 어느 한 개인이 만들어 내기에는 지나치게 복잡하다는 것이 3번 문장이 하려는 말이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3",
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "우리가 여러 환경에서 필요한 것을 다 배울 수 있는 것은 오직 남에게서 정보를 얻기 때문이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a5",
+      "a6"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "인간은 개인으로서는 지구 곳곳으로 퍼지며 맞닥뜨린 적응 문제를 풀 만큼 똑똑하기에 한참 모자란다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a7"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      3
+     ],
+     "legacyMeaningIds": [
+      "m2",
+      "m3"
+     ],
+     "labelKo": "개인이 못 만드는 생존 꾸러미",
+     "exactKo": "어떤 채집 집단이든 사용하는 도구·채집 기술·생태 지식·사회적 관계의 꾸러미는 어느 한 개인이 만들어 내기에는 너무나 복잡하다.",
+     "simpleKo": "집단이 쓰는 생존 지식 묶음은 한 사람이 혼자 만들기엔 너무 복잡하다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "preserves": [
+      {
+       "facet": "agent",
+       "valueKo": "'쓰는' 쪽은 채집 집단, '만들지 못하는' 쪽은 개인",
+       "anchorIds": [
+        "a2",
+        "a4"
+       ],
+       "explanationKo": "사용 주체(집단)와 창조 주체(개인)가 다르다. 둘을 섞으면 '집단도 못 만든다'로 잘못 넓어진다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "어떤 집단이든 / 어느 개인에게든",
+       "anchorIds": [
+        "a2",
+        "a4"
+       ],
+       "explanationKo": "특정 집단의 이야기가 아니라 모든 채집 집단에 해당하고, 어떤 한 사람도 혼자 만들 수 없다는 범위다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "너무나 복잡해서 할 수 없음",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "'복잡하다'에서 그치지 않고 '개인이 만들 수 있는 정도를 훨씬 넘는다'는 정도 표현이다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "main",
+        "anchorIds": [
+         "a1"
+        ],
+        "meaningKo": "주어 덩어리 — 네 가지 명사를 묶은 하나의 '꾸러미'(단수)"
+       },
+       {
+        "id": "s2",
+        "role": "modifier",
+        "anchorIds": [
+         "a2"
+        ],
+        "meaningKo": "꾸러미를 뒤에서 꾸미는 수동 분사구 — '집단이 사용하는'"
+       },
+       {
+        "id": "s3",
+        "role": "main",
+        "anchorIds": [
+         "a3"
+        ],
+        "meaningKo": "술어 자리 — 꾸러미가 '어떠하다'를 말하는 자리"
+       },
+       {
+        "id": "s4",
+        "role": "modifier",
+        "anchorIds": [
+         "a4"
+        ],
+        "meaningKo": "복잡함의 기준 — 개인이 만들기에는"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s2",
+        "toPart": "s1",
+        "whyKo": "분사구는 주어 안에 머물러 꾸러미가 '누가 쓰는 것인지'만 덧붙인다. 그래서 문장을 끝맺는 동사 역할을 하지 않는다."
+       },
+       {
+        "fromPart": "s4",
+        "toPart": "s3",
+        "whyKo": "'너무 복잡하다'의 기준을 개인의 창조 능력으로 정해 준다."
+       }
+      ],
+      "recombinedKo": "[집단이 사용하는] 꾸러미가 → [개인이 만들기엔] 너무 복잡하다. 주어 덩어리를 한 묶음으로 세운 뒤, 그 꾸러미에 대해 무엇을 말하는지를 술어 자리에서 찾는다.",
+      "originalIssueKo": "원문은 술어 자리에 분사 형태가 그대로 놓여 있어, 꾸러미에 대해 '이다'를 말해 주는 정동사가 문장에 없다. 앞의 분사구는 주어를 꾸밀 뿐이라 그 자리를 대신 채우지 못한다.",
+      "correction": {
+       "form": "is",
+       "explanationKo": "단수 주어 '꾸러미'에 맞춘 정동사로 고친 작성 예다. 현재형은 앞뒤 문장의 일반 서술에서 추론한 것이며, 이 문장 하나만으로는 과거형도 문법적으로 가능하다."
+      }
+     },
+     "misunderstanding": {
+      "alteredKo": "어떤 채집 집단이 그 꾸러미를 사용했고, 그 집단은 너무 복잡하다.",
+      "lostFacet": "agent",
+      "whyWrongKo": "by 뒤의 '채집 집단'을 문장 주어로, 분사구를 과거 동사로 읽은 오해다. 집단은 꾸러미를 쓰는 행위자로 분사구 안에 있을 뿐이고, '너무 복잡하다'는 말을 듣는 대상은 꾸러미다. 이렇게 읽으면 '개인이 만들 수 없다'는 핵심도 사라진다.",
+      "anchorIds": [
+       "a2",
+       "a3"
+      ]
+     }
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      4
+     ],
+     "legacyMeaningIds": [
+      "m4"
+     ],
+     "labelKo": "오직 남에게서 배우기 때문에",
+     "exactKo": "우리가 살아가는 여러 다른 환경 각각에서 알아야 할 모든 것을 배울 수 있는 것은 오직 다른 사람에게서 정보를 얻기 때문이다.",
+     "simpleKo": "여러 환경에 필요한 지식을 다 익힐 수 있는 유일한 까닭은 남에게서 배우는 데 있다.",
+     "propositionIds": [
+      "p3"
+     ],
+     "preserves": [
+      {
+       "facet": "causality",
+       "valueKo": "오직 ~ 때문에",
+       "anchorIds": [
+        "a5"
+       ],
+       "explanationKo": "남에게서 배우는 것이 여러 이유 중 하나가 아니라 유일한 이유로 제시된다. '덕분에 도움이 된다' 정도로 약하게 바꾸면 한정이 사라진다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "우리가 사는 그 환경들",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "관계절은 앞의 '여러 다른 환경'을 다시 받아, 배워야 할 범위가 환경마다라는 점을 붙든다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "남에게서 정보를 얻으면 여러 환경에 필요한 것을 배우는 데 도움이 된다.",
+      "lostFacet": "causality",
+      "whyWrongKo": "원문은 '오직 그것 때문에' 배울 수 있다고 한정한다. 도움 정도로 낮추면 개인의 힘만으로는 부족하다는 글의 흐름(2·3번 문장)과의 연결이 약해진다.",
+      "anchorIds": [
+       "a5"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      2
+     ],
+     "legacyMeaningIds": [
+      "m1"
+     ],
+     "labelKo": "개인으로는 한참 모자람",
+     "exactKo": "그러나 우리는 개인으로서는 현생 인류가 지구 곳곳으로 퍼지며 맞닥뜨린 적응 문제를 풀 만큼 똑똑하기에는 한참 못 미친다.",
+     "simpleKo": "사람은 혼자 힘으로는 새 환경의 생존 문제를 풀 만큼 똑똑하지 않다.",
+     "propositionIds": [
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "polarity",
+       "valueKo": "한참 못 미친다",
+       "anchorIds": [
+        "a7"
+       ],
+       "explanationKo": "'충분히 똑똑하다'를 강하게 부정한다. '조금 부족하다'가 아니라 거리가 멀다는 뜻이다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "개인으로서는",
+       "anchorIds": [
+        "a7"
+       ],
+       "explanationKo": "부족함은 개인 단위에 한정된다. 1번 문장의 '우리는 매우 똑똑하다'와 모순이 아니라 범위가 다른 말이다."
+      }
+     ]
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u3"
+     ],
+     "to": [
+      "u1"
+     ],
+     "kind": "example",
+     "beforeKo": "개인으로는 적응 문제를 풀 만큼 똑똑하지 않다.",
+     "afterKo": "집단이 쓰는 생존 꾸러미는 개인이 만들기엔 너무 복잡하다.",
+     "changeKo": "'개인은 부족하다'는 일반 진술을 구체적 대상(도구·기술·지식·관계의 꾸러미)으로 보여 주며, 그 지식이 개인이 아니라 집단 차원에 있다는 점을 더한다.",
+     "propositionIds": [
+      "p4",
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a7",
+      "a4"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "두 문장 모두 '개인'의 능력을 기준으로 삼는다",
+      "3번 문장의 꾸러미가 2번 문장의 적응 문제를 푸는 수단으로 읽힌다"
+     ],
+     "limitKo": "원문에 예시 표지가 없으므로 구체화 관계는 내용 연결로 읽은 것이다."
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u3",
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "cause",
+     "beforeKo": "개인 혼자서는 그 복잡한 지식을 만들 수 없다.",
+     "afterKo": "그런데도 우리가 다 배울 수 있는 것은 오직 남에게서 얻기 때문이다.",
+     "changeKo": "개인의 한계를 인정한 채로, 그 한계를 넘는 길을 '남에게서 배우기' 하나로 제한해 제시한다.",
+     "propositionIds": [
+      "p2",
+      "p3"
+     ],
+     "anchorIds": [
+      "a4",
+      "a5"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "3번 문장은 개인이 못 만든다고 하고, 4번 문장은 그런데도 배울 수 있는 유일한 이유를 든다"
+     ],
+     "limitKo": "두 문장 사이에 접속어가 없어 연결은 내용으로 추론한 것이다."
+    }
+   ],
+   "whole": {
+    "genre": "expository",
+    "summaryKo": "인간은 개인으로서는 다양한 환경의 적응 문제를 풀 만큼 똑똑하지 않으며, 집단이 쓰는 복잡한 생존 지식을 다 익힐 수 있는 것은 오직 남에게서 배우기 때문이다. 이런 배움의 성향 덕분에 집단은 개인의 발명 능력을 크게 넘는 적응 정보를 쌓는다.",
+    "propositionIds": [
+     "p4",
+     "p2",
+     "p3"
+    ],
+    "relationIds": [
+     "r1",
+     "r2"
+    ],
+    "limitsKo": [
+     "5·6번 문장은 unit 으로 따로 다루지 않았다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m2",
+      "m3"
+     ],
+     "choiceNumbers": [
+      2
+     ],
+     "designClaimIndices": [
+      1,
+      2
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m4"
+     ],
+     "choiceNumbers": [
+      3
+     ],
+     "designClaimIndices": []
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m1"
+     ],
+     "choiceNumbers": [
+      1
+     ],
+     "designClaimIndices": []
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "a634c5b49adff382",
+    "reviewer": "ms-rv-2026-29"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 84,
+      "len": 68,
+      "h": "1eb8d56b74649d"
+     },
+     {
+      "n": 2,
+      "chars": 145,
+      "len": 120,
+      "h": "08c848f95cd622"
+     },
+     {
+      "n": 3,
+      "chars": 172,
+      "len": 142,
+      "h": "10af78f456f1a7"
+     },
+     {
+      "n": 4,
+      "chars": 162,
+      "len": 131,
+      "h": "1d88f53f5cd0fe"
+     },
+     {
+      "n": 5,
+      "chars": 187,
+      "len": 150,
+      "h": "0308a553f4e004"
+     },
+     {
+      "n": 6,
+      "chars": 147,
+      "len": 127,
+      "h": "0edd6e3e0c4f45"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 3,
+      "s": 0,
+      "e": 75,
+      "h": "060775bc945f98"
+     },
+     "a2": {
+      "n": 3,
+      "s": 75,
+      "e": 99,
+      "h": "15f789a6b1cd0b"
+     },
+     "a3": {
+      "n": 3,
+      "s": 100,
+      "e": 118,
+      "h": "015790f46949b7"
+     },
+     "a4": {
+      "n": 3,
+      "s": 118,
+      "e": 142,
+      "h": "1e7cb33aa2c769"
+     },
+     "a5": {
+      "n": 4,
+      "s": 90,
+      "e": 131,
+      "h": "1da4a9fa4a0033"
+     },
+     "a6": {
+      "n": 4,
+      "s": 77,
+      "e": 90,
+      "h": "12cc9cea4d44c4"
+     },
+     "a7": {
+      "n": 2,
+      "s": 8,
+      "e": 41,
+      "h": "0189906f56cfb3"
+     }
+    }
+   }
+  },
+  "2026#34": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#34",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "7fb095d3cac4821e",
+    "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+    "sourceSnapshotHash": "570bf3a5cbe78dd3"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 34,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u1",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 6,
+     "sourceRange": {
+      "start": 0,
+      "end": 7,
+      "spanHash": "770eff05caa0ef812ff3418e39750b09da64d743b8e99b94875fcfdb32ea4164"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 6,
+     "quote": "all rational beings would freely choose",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 0,
+      "end": 40,
+      "spanHash": "aa526f6bf2d9f7fdbababb3de3e014d99b0a2eb26a6c079691ccc830a11232ec"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 7,
+     "quote": "they would not rationally choose to do anyway",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 7,
+     "quote": "then the law cannot be",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 1,
+     "quote": "the ultimate guarantee",
+     "occurrence": 1,
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "이상적인 경우에 한해, 법은 이성적 존재 모두가 강요 없이 스스로 고를 정치 원칙을 담은 것이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "7번 문장의 결론은 그런 법이 이성적으로 어차피 하지 않을 일을 금지하는 경우를 조건으로 삼는다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3",
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "cannot be 는 빈칸에 들어갈 표현 전체를 부정하므로, 결론은 「법을 빈칸의 그것으로 볼 수 없다」는 하나의 명제다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a5"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "금지된 일이 원래 이성적으로 고르지 않을 일이라면, 그 금지로 빼앗기는 선택이 없으므로 그 금지에 대해서는 법이 자유를 구속한다고 보기 어렵다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a3",
+      "a4",
+      "a5"
+     ],
+     "warrantsKo": [
+      "6번 문장은 법을 자유로운 선택의 구현으로 보고, 7번 문장의 조건은 금지가 원래 선택과 겹치지 않는 경우를 가정한다 — 두 문장을 이으면 선택이 줄지 않는다는 연결이 나온다."
+     ],
+     "limitKo": "이 조건을 만족하는 법에 대한 결론이다. 현실의 모든 법이 자유를 제한하지 않는다는 주장으로 넓히지 않는다."
+    },
+    {
+     "id": "p5",
+     "textKo": "칸트는 법치를 안전·평화뿐 아니라 자유까지 지키는 최종 보장으로 옹호했다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a6"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      6
+     ],
+     "legacyMeaningIds": [
+      "m3"
+     ],
+     "labelKo": "이상적인 법의 정의",
+     "exactKo": "이상적으로는, 법이란 이성적 존재라면 누구나 강요 없이 스스로 고를 정치 원칙을 구체적으로 담은 것이다.",
+     "simpleKo": "가장 바람직한 경우의 법은, 이성적인 사람이라면 모두 스스로 고를 원칙을 적어 놓은 것이다.",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "이상적인 경우에 한함",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "문장 첫머리의 한정 부사가 이 진술 전체를 이상적인 경우로 좁힌다. 지금 존재하는 모든 법이 그렇다는 말이 아니다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "이성적 존재 모두",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "일부 사람이 아니라 이성적 존재 전원이 고를 원칙이다. 다만 범위는 「이성적」 존재로 제한된다."
+      },
+      {
+       "facet": "modality",
+       "valueKo": "자유롭게 고를 것이다(가정)",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "실제로 투표해 고른 것이 아니라, 강요 없이 판단한다면 고를 것이라는 가정의 뜻이다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "현실의 법은 모두 사람들이 자유롭게 고른 원칙이다.",
+      "lostFacet": "condition",
+      "whyWrongKo": "이상적인 경우라는 한정과 「고를 것이다」라는 가정을 지우면, 원문이 하지 않은 현실 법 전체에 대한 단정이 된다.",
+      "anchorIds": [
+       "a1",
+       "a2"
+      ]
+     }
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      7
+     ],
+     "legacyMeaningIds": [
+      "m2"
+     ],
+     "labelKo": "If 조건 — 어차피 안 할 일을 금지",
+     "exactKo": "그런 법이, 이성적인 사람이라면 법이 없어도 애초에 하지 않기로 할 일을 금지하는 경우를 가정한다.",
+     "simpleKo": "법이 막는 일이 원래 이성적으로 하지 않을 일인 경우라면,",
+     "propositionIds": [
+      "p2"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "~하는 경우라면(가정 조건)",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "뒤 결론은 이 조건이 맞을 때만 성립한다. 모든 금지에 대한 말이 아니다."
+      },
+      {
+       "facet": "polarity",
+       "valueKo": "이성적으로 하지 않을 일",
+       "anchorIds": [
+        "a4"
+       ],
+       "explanationKo": "금지 대상은 「하고 싶은 일」이 아니라 「이성적으로 고르지 않을 일」이다. 부정을 빼면 뜻이 정반대가 된다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "그런 법 = 6번 문장의 이상적인 법",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "조건절의 주어는 아무 법이 아니라 앞 문장에서 말한 이상적인 법을 가리킨다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "법이 사람들이 하고 싶어 하지 않는 일을 금지하면",
+      "lostFacet": "reference",
+      "whyWrongKo": "원문은 「원하지 않음」이 아니라 「이성적으로 선택하지 않음」을 기준으로 삼는다. 둘은 늘 같지 않으므로 이성이라는 기준을 지우면 조건이 바뀐다.",
+      "anchorIds": [
+       "a4"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      7
+     ],
+     "legacyMeaningIds": [
+      "m1"
+     ],
+     "labelKo": "cannot be 가 부정하는 범위",
+     "exactKo": "그 조건이 맞으면, 법을 빈칸에 들어갈 그런 것으로 볼 수 없다 — 부정은 빈칸 표현 전체에 걸린다.",
+     "simpleKo": "이 경우 법은 「빈칸의 그것」이 아니라는 결론이고, 빈칸을 채운 뒤 문장 전체가 앞 조건에서 나오는지 따져야 한다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "polarity",
+       "valueKo": "~일 수 없다",
+       "anchorIds": [
+        "a5"
+       ],
+       "explanationKo": "빈칸에 들어갈 표현 전체를 통째로 부정한다. 빈칸 안 낱말 하나의 느낌이 아니라 완성된 명제가 대상이다."
+      },
+      {
+       "facet": "condition",
+       "valueKo": "앞 조건이 맞을 때의 결론",
+       "anchorIds": [
+        "a3",
+        "a5"
+       ],
+       "explanationKo": "then 이 이끄는 결론은 앞 조건에 매여 있다. 조건 없이 법 일반에 대한 판정으로 읽지 않는다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "clause",
+        "anchorIds": [
+         "a3",
+         "a4"
+        ],
+        "meaningKo": "조건: 이상적인 법이 이성적으로 어차피 하지 않을 일을 금지한다면"
+       },
+       {
+        "id": "s2",
+        "role": "main",
+        "anchorIds": [
+         "a5"
+        ],
+        "meaningKo": "결론: 법은 [빈칸 표현 전체]일 수 없다"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s1",
+        "toPart": "s2",
+        "whyKo": "조건절이 결론의 근거를 제공한다. 결론의 부정은 빈칸 표현 전체를 덮는다."
+       }
+      ],
+      "recombinedKo": "금지가 원래의 이성적 선택과 겹치지 않는다면, 법을 [빈칸 표현]으로 볼 수 없다 — 빈칸을 넣은 이 문장 전체가 조건에서 자연스럽게 따라 나와야 한다."
+     },
+     "misunderstanding": {
+      "alteredKo": "부정어가 있으니 빈칸에는 부정적인 낱말이 든 표현을 넣으면 된다.",
+      "lostFacet": "polarity",
+      "whyWrongKo": "부정은 낱말 하나가 아니라 표현 전체에 걸린다. 표현 안에 정도·방식을 정하는 말이 있으면, 부정 뒤 명제는 「제한은 인정하고 그 방식만 부정」처럼 달라질 수 있다.",
+      "anchorIds": [
+       "a5"
+      ]
+     }
+    },
+    {
+     "id": "u4",
+     "sentences": [
+      1
+     ],
+     "legacyMeaningIds": [
+      "m4"
+     ],
+     "labelKo": "법치는 자유의 보장",
+     "exactKo": "칸트는 법치를 안전과 평화뿐 아니라 자유까지 지켜 주는 최종 보장으로 강하게 옹호했다.",
+     "simpleKo": "칸트에게 법은 안전·평화와 함께 자유도 지켜 주는 마지막 버팀목이다.",
+     "propositionIds": [
+      "p5"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "안전·평화뿐 아니라 자유까지",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "보장 대상이 안전·평화에서 그치지 않고 자유까지 넓어진다. 자유를 빼면 7번 문장과의 연결이 사라진다."
+      },
+      {
+       "facet": "agent",
+       "valueKo": "옹호한 사람은 칸트",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "강력한 옹호자는 칸트이고, 법은 옹호의 대상이다. 둘의 역할을 바꾸지 않는다."
+      }
+     ]
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "condition",
+     "beforeKo": "이상적인 법은 이성적 존재가 자유롭게 고를 원칙을 담는다.",
+     "afterKo": "그런 법이 이성적으로 어차피 하지 않을 일을 금지하는 경우를 가정한다.",
+     "changeKo": "6번 문장의 이상적인 법을 그대로 받아, 그 법의 금지가 원래의 이성적 선택과 겹치지 않는 경우로 범위를 더 좁힌다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a1",
+      "a3"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "condition",
+     "beforeKo": "금지된 일이 원래 이성적으로 하지 않을 일인 경우",
+     "afterKo": "법을 빈칸의 그것으로 볼 수 없다는 결론",
+     "changeKo": "조건이 결론의 근거가 된다. 빼앗기는 선택이 없다는 점에서, 법이 자유를 줄인다는 판단을 부정하는 쪽으로 이어진다. 결론은 이 조건 아래에서만 유지된다.",
+     "propositionIds": [
+      "p2",
+      "p4"
+     ],
+     "anchorIds": [
+      "a4",
+      "a5"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "조건절 내용(원래 선택과 겹치지 않는 금지)이 자유의 감소가 없다는 판단으로 이어진다."
+     ],
+     "limitKo": "조건을 만족하는 이상적인 법에 대한 결론이며, 법 일반으로 넓히지 않는다."
+    },
+    {
+     "id": "r3",
+     "from": [
+      "u4"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "other",
+     "beforeKo": "법치는 자유까지 지키는 최종 보장이다.",
+     "afterKo": "조건을 만족하는 법은 자유를 줄인다고 볼 수 없다.",
+     "changeKo": "1번 문장의 일반 입장(법이 자유를 보장)을 7번 문장이 이상적인 법의 경우로 좁혀, 왜 자유와 충돌하지 않는지 이유를 덧붙인다. 1번의 주장을 수정하지 않고 같은 방향으로 구체화한다.",
+     "propositionIds": [
+      "p5",
+      "p4"
+     ],
+     "anchorIds": [
+      "a6",
+      "a5"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "1번 문장과 7번 문장의 결론이 모두 법과 자유가 충돌하지 않는다는 방향이다."
+     ],
+     "limitKo": "1번은 칸트의 일반 입장 소개이고 7번은 조건부 결론이다. 1번만으로 빈칸이 정해진다고 보지 않는다."
+    }
+   ],
+   "whole": {
+    "genre": "argument",
+    "summaryKo": "칸트는 법치를 자유의 보장으로 보았고, 이상적인 법이 이성적으로 어차피 하지 않을 일을 금지한다면 그 법은 자유를 구속한다고 볼 수 없다고 결론짓는다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p4",
+     "p5"
+    ],
+    "relationIds": [
+     "r1",
+     "r2",
+     "r3"
+    ],
+    "limitsKo": [
+     "2~5번 문장(인간 본성과 법의 필요성)은 이 설명에서 따로 다루지 않았다.",
+     "결론은 이상적인 법과 If 조건에 매인 것으로, 모든 법에 대한 주장이 아니다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m3"
+     ],
+     "choiceNumbers": [
+      1,
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      3
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m2"
+     ],
+     "choiceNumbers": [
+      1,
+      2,
+      3
+     ],
+     "designClaimIndices": [
+      3
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m1"
+     ],
+     "choiceNumbers": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "designClaimIndices": [
+      1,
+      3
+     ]
+    },
+    {
+     "unitId": "u4",
+     "meaningIds": [
+      "m4"
+     ],
+     "choiceNumbers": [
+      3
+     ],
+     "designClaimIndices": []
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "6045ed47e37298dd",
+    "reviewer": "ms-rv-2026-34b"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 125,
+      "len": 99,
+      "h": "1cff82b29355fa"
+     },
+     {
+      "n": 2,
+      "chars": 218,
+      "len": 183,
+      "h": "1d3f4f7f419866"
+     },
+     {
+      "n": 3,
+      "chars": 110,
+      "len": 90,
+      "h": "1b623b1f328a99"
+     },
+     {
+      "n": 4,
+      "chars": 192,
+      "len": 157,
+      "h": "1a2e637fc540b8"
+     },
+     {
+      "n": 5,
+      "chars": 154,
+      "len": 123,
+      "h": "07d67b4b499d0d"
+     },
+     {
+      "n": 6,
+      "chars": 110,
+      "len": 92,
+      "h": "03313c418653f8"
+     },
+     {
+      "n": 7,
+      "chars": 123,
+      "len": 93,
+      "h": "013b6db231c8b2"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 6,
+      "s": 0,
+      "e": 7,
+      "h": "00350408435a7c"
+     },
+     "a2": {
+      "n": 6,
+      "s": 58,
+      "e": 92,
+      "h": "1adf890ec16f94"
+     },
+     "a3": {
+      "n": 7,
+      "s": 0,
+      "e": 33,
+      "h": "0f32710347bbd8"
+     },
+     "a4": {
+      "n": 7,
+      "s": 37,
+      "e": 75,
+      "h": "015e8789f1d183"
+     },
+     "a5": {
+      "n": 7,
+      "s": 75,
+      "e": 93,
+      "h": "0f5df2356a5e6c"
+     },
+     "a6": {
+      "n": 1,
+      "s": 38,
+      "e": 58,
+      "h": "180e64d44ed824"
+     }
+    }
+   }
+  },
+  "2026#36": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#36",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "79c616281a5e44a2",
+    "basePublicHash": "450991f7d0ecdfb7471146e0587f69b8b692bebbd6991831b22d5f6ef209c175",
+    "sourceSnapshotHash": "8ad76ca7dac03572"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 36,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u4",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 2,
+     "quote": "the nature of that process is repetitive",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 8,
+     "quote": "almost any process that repeats itself",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 8,
+     "quote": "almost any",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 4,
+     "quote": "The only example that comes to mind readily",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 5,
+     "quote": "although at first masked",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 6,
+     "quote": "another, much longer scale clock",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 6,
+     "quote": "another",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a8",
+     "sentence": 7,
+     "quote": "gives the appearance of being continuous",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a9",
+     "sentence": 3,
+     "sourceRange": {
+      "start": 18,
+      "end": 55,
+      "spanHash": "ed3bf1d4cc1ada8f56f0a49199a63020b9614915c77d2aeb5b6a86ee28e450bb"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a10",
+     "sentence": 5,
+     "sourceRange": {
+      "start": 34,
+      "end": 74,
+      "spanHash": "16f6505025feea11e2d9c9b7ec5f615868f72d495e671037e52f271bb1539fba"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a11",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 0,
+      "end": 58,
+      "spanHash": "41cdca8be0eb4c585558eb74681604f8d45a9f018cab611e164e547a93efaea6"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a12",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 60,
+      "end": 105,
+      "spanHash": "a8d2de01e45b01c4e94434f2fd40daf0677f9980e7d452d7cb0f0f1d66c24d2c"
+     },
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "시계는 물건이라기보다 기계에 담긴 과정이며, 그 과정의 본질은 반복이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "무한정 계속 되풀이되는 과정이라면 거의 어떤 것이든 시계가 될 수 있고, 물시계와 석영은 그 반복이 눈에 드러나는 예다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a2",
+      "a3"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "반복에 기대지 않는 시계는 떠올리기 거의 불가능하고, 쉽게 떠오르는 유일한 예가 시간 눈금을 새긴 양초다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a9",
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "양초도 실은 왁스 분자가 되풀이해 타는 반복 과정이며, 처음에는 그 반복이 가려져 있을 뿐이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a10",
+      "a5"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p5",
+     "textKo": "방사성 탄소 연대 측정은 매끄러운 시간 척도를 내는 것처럼 보이지만 실제로는 그렇지 않다. 탄소-14 원자의 붕괴는 반복이고, 큰 척도에서 연속처럼 보일 뿐이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a11",
+      "a12",
+      "a8"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p6",
+     "textKo": "6번 문장의 '또 하나의 ~ 이와 같은 시계'는 같은 종류의 사례가 바로 앞에 있어야 성립한다. 7번 문장이 그 종류를 '매끄러워 보이지만 실은 반복'으로 밝히며, 반복이 처음엔 가려져 있다는 5번 문장의 양초가 이에 가장 가깝다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a7",
+      "a6",
+      "a5",
+      "a11"
+     ],
+     "warrantsKo": [
+      "another 는 같은 종류의 앞 사례가 이미 있다는 뜻을 담는다",
+      "7번 문장이 그 종류를 '매끄러워 보이지만 실은 반복'으로 규정한다",
+      "9번 문장의 물시계·석영은 반복이 처음부터 드러나 있어 그 종류에 들지 않는다"
+     ],
+     "limitKo": "양초가 '연속처럼 보인다'는 말은 원문에 없다. 5번은 반복이 처음엔 가려져 있다고만 하므로, 양초와 방사성 탄소를 같은 종류로 묶는 것은 '반복이 겉으로 드러나지 않는다'는 공통점에 기댄 연결 추론이다. like this 가 앞 단락의 일반 규정 전체를 받는다고 읽을 여지도 남는다."
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      2
+     ],
+     "legacyMeaningIds": [
+      "m1"
+     ],
+     "labelKo": "시계 = 반복되는 과정 (주어진 글)",
+     "exactKo": "시계는 사실 기계에 담긴 하나의 과정이며, 그 과정의 본질은 반복적이다.",
+     "simpleKo": "시계의 정체는 물건이 아니라 같은 일이 되풀이되는 과정이다.",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "reference",
+       "valueKo": "그 과정 = 기계에 담긴 과정",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "반복적이라는 성질은 1번 문장의 물건이 아니라, 2번 문장 앞부분에서 새로 세운 '기계에 담긴 과정'에 붙는다. 통념(물건)을 관점(과정)으로 고친 뒤의 진술이다."
+      }
+     ]
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      8,
+      9
+     ],
+     "legacyMeaningIds": [
+      "m2"
+     ],
+     "labelKo": "거의 어떤 반복 과정이든 시계 ((C))",
+     "exactKo": "시계는 무한정 계속해서 되풀이되는 거의 어떤 과정이든 될 수 있다. 물시계는 일정하게 떨어지고 석영은 규칙적으로 진동한다.",
+     "simpleKo": "끝없이 되풀이되기만 하면 거의 무엇이든 시계로 쓸 수 있다.",
+     "propositionIds": [
+      "p2"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "거의 어떤",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "'모든 것' '언제나'가 아니라 '거의 어떤 것이든'이다. 예외가 있을 여지를 남기므로 뒤에서 예외처럼 보이는 사례를 꺼낼 자리가 생긴다."
+      },
+      {
+       "facet": "condition",
+       "valueKo": "무한정 되풀이되는 과정이라면",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "시계가 될 수 있는 조건은 반복이다. 아무 과정이나가 아니다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "어떤 과정이든 언제나 시계가 될 수 있다.",
+      "lostFacet": "quantity",
+      "whyWrongKo": "원문은 '거의'로 범위를 한정하고 '반복하는 과정'이라는 조건을 붙인다. 이를 빼면 규정이 과장되고, 다음 단락이 왜 '유일한 예외처럼 보이는 것'을 검토하는지 설명되지 않는다.",
+      "anchorIds": [
+       "a3",
+       "a2"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      3,
+      4,
+      5
+     ],
+     "legacyMeaningIds": [
+      "m3",
+      "m4"
+     ],
+     "labelKo": "예외처럼 보이는 양초도 실은 반복 ((A))",
+     "exactKo": "반복 주기에 기대지 않는 시계는 떠올리기 거의 불가능하다. 쉽게 떠오르는 유일한 예는 시간 눈금을 새긴 양초인데, 여기에도 왁스 분자가 되풀이해 타는 반복이 있으므로, 처음에는 가려져 있지만 이것 역시 반복 과정이다.",
+     "simpleKo": "반복 없는 시계처럼 보이는 양초조차, 들여다보면 왁스가 계속 되풀이해 타는 반복이다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "거의 불가능하다",
+       "anchorIds": [
+        "a9"
+       ],
+       "explanationKo": "'불가능하다'고 단정하지 않는다. 그래서 바로 예외 후보 하나를 검토한다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "쉽게 떠오르는 유일한 예",
+       "anchorIds": [
+        "a4"
+       ],
+       "explanationKo": "예외 후보가 하나뿐이라는 한정이며, 그것도 '쉽게 떠오르는' 범위에서다."
+      },
+      {
+       "facet": "polarity",
+       "valueKo": "처음에는 가려져 있지만 실은 반복",
+       "anchorIds": [
+        "a5",
+        "a10"
+       ],
+       "explanationKo": "5번 문장은 양초에도 반복(왁스 분자의 연소)이 있고, 그 반복이 처음엔 가려져 있다고만 말한다. 양초가 반복이 아니라는 말이 아니다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "양초는 반복에 기대지 않는 시계의 실제 예외다.",
+      "lostFacet": "polarity",
+      "whyWrongKo": "원문은 양초를 예외 '후보'로 꺼낸 뒤 실은 반복이라고 되돌린다. 가려져 있다는 말은 반복이 없다는 뜻이 아니라 처음에 안 보인다는 뜻이다.",
+      "anchorIds": [
+       "a5",
+       "a10"
+      ]
+     }
+    },
+    {
+     "id": "u4",
+     "sentences": [
+      6,
+      7
+     ],
+     "legacyMeaningIds": [
+      "m5",
+      "m6"
+     ],
+     "labelKo": "또 하나의, 연속처럼 보이는 반복 ((B))",
+     "exactKo": "방사성 탄소 연대 측정은 또 하나의, 훨씬 긴 척도의 시계로서 역시 이와 같아 보인다. 매끄러운 시간 척도를 내는 것 같지만 실은 그렇지 않다. 탄소-14 원자의 붕괴는 반복이지만 큰 척도에서는 연속처럼 보인다.",
+     "simpleKo": "방사성 탄소도 양초처럼 반복이 겉으로 드러나지 않는 시계다. 매끄럽게 흐르는 듯 보여도 실은 반복이다.",
+     "propositionIds": [
+      "p5",
+      "p6"
+     ],
+     "preserves": [
+      {
+       "facet": "reference",
+       "valueKo": "또 하나의 ~ 이와 같은",
+       "anchorIds": [
+        "a7",
+        "a6"
+       ],
+       "explanationKo": "같은 종류의 앞 사례가 이미 나와 있어야 쓸 수 있는 말이다. 7번 문장은 방사성 탄소가 연속처럼 보이지만 실은 반복이라고 밝히며, 앞 사례(양초)와 겹치는 부분은 반복이 겉으로 드러나지 않는다는 점이다."
+      },
+      {
+       "facet": "polarity",
+       "valueKo": "매끄러워 보이지만 실은 아니다",
+       "anchorIds": [
+        "a11",
+        "a12",
+        "a8"
+       ],
+       "explanationKo": "연속은 겉보기이고 실제는 반복이다. 큰 척도에서 그렇게 보인다는 조건도 함께 남긴다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "훨씬 긴 척도",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "앞 사례(양초)보다 시간 척도가 훨씬 길다는 비교다. 반복이 겉으로 드러나지 않는다는 공통점은 그대로 두고 척도만 늘린다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "main",
+        "anchorIds": [
+         "a11"
+        ],
+        "meaningKo": "매끄러운 척도를 내는 것 같지만 실은 그렇지 않다 — 판정"
+       },
+       {
+        "id": "s2",
+        "role": "main",
+        "anchorIds": [
+         "a12"
+        ],
+        "meaningKo": "콜론 뒤: 탄소-14 붕괴는 반복이다 — 판정의 이유"
+       },
+       {
+        "id": "s3",
+        "role": "modifier",
+        "anchorIds": [
+         "a8"
+        ],
+        "meaningKo": "although 절: 큰 척도에서는 연속처럼 보이긴 한다 — 겉보기 인정"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s2",
+        "toPart": "s1",
+        "whyKo": "콜론 뒤 내용이 '실은 그렇지 않다'의 근거를 댄다."
+       },
+       {
+        "fromPart": "s3",
+        "toPart": "s2",
+        "whyKo": "반복이라는 사실에 '그래도 연속처럼 보인다'는 양보를 붙여 겉보기와 실제를 함께 둔다."
+       }
+      ],
+      "recombinedKo": "연속처럼 보이는 건 큰 척도에서의 겉모습이고, 실제로는 붕괴가 반복되므로 매끄러운 척도가 아니다."
+     }
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "add",
+     "beforeKo": "시계의 본질은 반복되는 과정이다.",
+     "afterKo": "끝없이 되풀이되는 과정이라면 거의 무엇이든 시계가 되며, 물시계·석영이 그 예다.",
+     "changeKo": "반복이라는 본질을 유지한 채 '거의 어떤 과정이든'으로 범위를 넓혀 일반 규정으로 만들고, 반복이 눈에 보이는 예시를 붙인다. '거의'가 예외 검토의 여지를 남긴다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a1",
+      "a2",
+      "a3"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "add",
+     "beforeKo": "거의 어떤 반복 과정이든 시계가 된다.",
+     "afterKo": "반복 없는 시계는 거의 떠올릴 수 없고, 유일한 후보인 양초도 실은 가려진 반복이다.",
+     "changeKo": "(A)는 Indeed 로 (C)의 일반 규정을 '반복 없는 시계는 거의 떠올릴 수 없다'로 다시 강조해 규정을 유지·보강한다. 대조는 이 연결이 아니라 (A) 안에서 일어난다: 4번 문장이 유일한 예외 후보(양초)를 꺼내고, 5번 문장이 But 으로 그것도 반복이라고 되돌린다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "anchorIds": [
+      "a9",
+      "a4",
+      "a5"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "'유일한 예'는 일반 규정과 평범한 예가 먼저 있어야 예외로서 의미가 생긴다",
+      "8번 문장의 '거의'가 예외 후보를 검토할 자리를 연다"
+     ],
+     "limitKo": "주어진 글(2번 문장)만으로도 반복 규정은 있으나, 평범한 예시(9번)가 앞서 있어야 '유일한 예'의 대비가 선명해진다는 판단이다."
+    },
+    {
+     "id": "r3",
+     "from": [
+      "u3"
+     ],
+     "to": [
+      "u4"
+     ],
+     "kind": "add",
+     "beforeKo": "양초에도 반복이 있지만 처음엔 그 반복이 가려져 있다.",
+     "afterKo": "방사성 탄소도 또 하나의, 훨씬 긴 척도에서 같은 종류다.",
+     "changeKo": "'반복이 겉으로 드러나지 않는 시계'라는 공통점을 유지한 채 사례를 하나 더하고, 시간 척도를 훨씬 길게 바꾼다. 7번 문장은 그 숨은 반복을 '매끄러워 보이지만 실은 반복'으로 구체화한다. '또 하나'가 받을 앞 사례는 반복이 드러난 물시계·석영이 아니라 양초여야 한다.",
+     "propositionIds": [
+      "p4",
+      "p5",
+      "p6"
+     ],
+     "anchorIds": [
+      "a5",
+      "a7",
+      "a6",
+      "a11"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "another 는 같은 종류의 앞 사례를 요구한다",
+      "5번(처음엔 가려진 반복)과 7번(연속처럼 보이는 반복)은 모두 반복이 겉으로 드러나지 않는다는 점을 공유한다"
+     ],
+     "limitKo": "양초가 연속처럼 보인다는 진술은 원문에 없다. 공통점은 '가려진 반복'까지만이다. like this 가 앞 단락의 일반 규정 전체를 받는다는 읽기는 7번 문장의 대조 때문에 택하지 않았다. 출제 의도는 확인할 수 없다."
+    }
+   ],
+   "whole": {
+    "genre": "expository",
+    "summaryKo": "시계는 반복되는 과정이고 거의 어떤 반복 과정이든 시계가 될 수 있다. 예외처럼 보이는 양초도 반복이 처음에 가려져 있을 뿐이고, 방사성 탄소도 큰 척도에서 연속처럼 보일 뿐 실은 반복이다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p4",
+     "p5"
+    ],
+    "relationIds": [
+     "r1",
+     "r2",
+     "r3"
+    ],
+    "limitsKo": [
+     "단락 표지 (A)·(B)·(C)와 인쇄 문장 번호는 다르다((A)=3~5번, (B)=6~7번, (C)=8~9번).",
+     "실제 출제 의도는 확인할 수 없다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m1"
+     ],
+     "choiceNumbers": [
+      2,
+      4
+     ],
+     "designClaimIndices": []
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m2"
+     ],
+     "choiceNumbers": [
+      3,
+      4
+     ],
+     "designClaimIndices": [
+      2
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m3",
+      "m4"
+     ],
+     "choiceNumbers": [
+      4
+     ],
+     "designClaimIndices": [
+      2
+     ]
+    },
+    {
+     "unitId": "u4",
+     "meaningIds": [
+      "m5",
+      "m6"
+     ],
+     "choiceNumbers": [
+      4,
+      5
+     ],
+     "designClaimIndices": [
+      1,
+      3
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "d927b35de6022d9d",
+    "reviewer": "ms-rv-2026-36c"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 85,
+      "len": 67,
+      "h": "1fe4bc2b570cef"
+     },
+     {
+      "n": 2,
+      "chars": 100,
+      "len": 80,
+      "h": "108e250d808c73"
+     },
+     {
+      "n": 3,
+      "chars": 109,
+      "len": 85,
+      "h": "03690014ed05e7"
+     },
+     {
+      "n": 4,
+      "chars": 72,
+      "len": 58,
+      "h": "18378399a11afc"
+     },
+     {
+      "n": 5,
+      "chars": 139,
+      "len": 110,
+      "h": "06f9696a2d3e60"
+     },
+     {
+      "n": 6,
+      "chars": 104,
+      "len": 82,
+      "h": "0b1d18d67bb074"
+     },
+     {
+      "n": 7,
+      "chars": 177,
+      "len": 141,
+      "h": "06854555edbe2c"
+     },
+     {
+      "n": 8,
+      "chars": 103,
+      "len": 82,
+      "h": "0a80288ea8724e"
+     },
+     {
+      "n": 9,
+      "chars": 70,
+      "len": 58,
+      "h": "1f03fdbe690487"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 2,
+      "s": 46,
+      "e": 80,
+      "h": "11b809c590c508"
+     },
+     "a2": {
+      "n": 8,
+      "s": 12,
+      "e": 45,
+      "h": "089ab30b4d09f8"
+     },
+     "a3": {
+      "n": 8,
+      "s": 12,
+      "e": 21,
+      "h": "10f33aeb31e6dd"
+     },
+     "a4": {
+      "n": 4,
+      "s": 0,
+      "e": 36,
+      "h": "0c8b430ccbba0e"
+     },
+     "a5": {
+      "n": 5,
+      "s": 89,
+      "e": 110,
+      "h": "127dd0f8002d02"
+     },
+     "a6": {
+      "n": 6,
+      "s": 28,
+      "e": 55,
+      "h": "19258bef85a6c4"
+     },
+     "a7": {
+      "n": 6,
+      "s": 28,
+      "e": 35,
+      "h": "08d167626b106f"
+     },
+     "a8": {
+      "n": 7,
+      "s": 106,
+      "e": 141,
+      "h": "05d60b693a9321"
+     },
+     "a9": {
+      "n": 3,
+      "s": 11,
+      "e": 42,
+      "h": "14d9dc76897ee7"
+     },
+     "a10": {
+      "n": 5,
+      "s": 26,
+      "e": 60,
+      "h": "1ce3a6472f7e4a"
+     },
+     "a11": {
+      "n": 7,
+      "s": 0,
+      "e": 46,
+      "h": "04c2054ffc2103"
+     },
+     "a12": {
+      "n": 7,
+      "s": 46,
+      "e": 83,
+      "h": "0f8430f265a3a0"
+     }
+    }
+   }
+  },
+  "2026#38": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#38",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "1f412cc306b16b62",
+    "basePublicHash": "8af9c216426fe22d40108e394c9274a2b53c95fc5e8c9d5aac2c2d1e23313c43",
+    "sourceSnapshotHash": "988da51c7762976b"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 38,
+    "inputRef": "inquiry-origin:chunk-inq-15"
+   },
+   "defaultUnitId": "u3",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 5,
+     "quote": "our minds seek to make sense of them",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 5,
+     "sourceRange": {
+      "start": 6,
+      "end": 68,
+      "spanHash": "ac4f240676a0486f1278edf099437a581dad8aba7a760519736c3448679ea573"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 6,
+     "quote": "you may create a negative narrative",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 7,
+     "quote": "judge everyone from the university",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 7,
+     "sourceRange": {
+      "start": 85,
+      "end": 117,
+      "spanHash": "50d2263f42e5df0f8105ca66619d40f7810d388e378334fe7561e764b8312c74"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 1,
+     "quote": "these internal narratives we form",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 1,
+     "quote": "become deeply rooted in our identity",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a8",
+     "sentence": 1,
+     "sourceRange": {
+      "start": 0,
+      "end": 9,
+      "spanHash": "5bca0e3da0627549815c3b0691247c3722893884bbcccde4af1f23878f6a93e5"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a9",
+     "sentence": 1,
+     "sourceRange": {
+      "start": 44,
+      "end": 92,
+      "spanHash": "e8bf684da99999632aed62e2eca09b92f12c0b7dc34533a5de9e6f168d7d8651"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a10",
+     "sentence": 8,
+     "quote": "who you are as an individual",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a11",
+     "sentence": 8,
+     "sourceRange": {
+      "start": 6,
+      "end": 17,
+      "spanHash": "f85c1f8a053beb8c0b9b83be509bbc7d487cb835f85c837a96b8a34bcac56ea9"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a12",
+     "sentence": 8,
+     "sourceRange": {
+      "start": 91,
+      "end": 139,
+      "spanHash": "50c5789eedc41d3f770f3b8aea168f8f8536002d216158bb57e2207d854ecf24"
+     },
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "여러 사건이나 사실을 접하면 마음은 그것들 둘레에 이야기를 지어 이해하려 한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "특정 대학 졸업생과의 나쁜 경험 몇 번에서 그 학교 출신 전체에 대한 부정적 이야기가 생길 수 있고, 그 결과 모두를 그 몇 번의 경험으로 판단하게 된다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a3",
+      "a4",
+      "a5"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "주어진 문장의 '우리가 만든 그 내면의 서사'는 앞에 이미 만들어진 서사를 가리킨다. 5~7번 문장 다음 자리라면 대학 졸업생 예시에서 실제로 만들어진 부정적 서사가 그 대상이 될 수 있다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a6",
+      "a3"
+     ],
+     "warrantsKo": [
+      "these 는 새 대상을 소개하지 않고 이미 나온 대상을 다시 가리키는 말이다",
+      "6번 문장에서 서사가 만들어지는 장면이 구체적으로 나온다"
+     ],
+     "limitKo": "these 가 6~7번 서사만 가리킨다고 단정하지 않는다. 4~7번에 걸친 '우리가 만드는 서사' 전반을 받는다고 읽어도 된다."
+    },
+    {
+     "id": "p4",
+     "textKo": "주어진 문장은 서사가 신념·의견을 만드는 데서 그치지 않고, 때로는 정체성에까지 뿌리내린다는 새 진술을 더한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a7",
+      "a8",
+      "a9"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p5",
+     "textKo": "총기 규제나 기후 변화에 대해 만든 서사는 정치 이념, 곧 개인으로서의 나와 관련되어 있을 가능성이 매우 높다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a10",
+      "a11",
+      "a12"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p6",
+     "textKo": "8번 문장의 예시가 보여 주는 핵심은 정체성과의 연결인데, 5~7번 문장은 정체성을 말하지 않으므로 이 예시를 받칠 일반 진술은 주어진 문장뿐이다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a7",
+      "a10",
+      "a11"
+     ],
+     "warrantsKo": [
+      "예시 표지는 바로 앞의 일반 진술을 구체화한다",
+      "개인으로서의 나는 정체성을 풀어 쓴 말로 읽힌다"
+     ],
+     "limitKo": "지문 앞부분(2~3번 문장)도 정체성을 일반 진술로 세우지 않는다는 점은 입력 분할 범위 안에서의 관찰이다."
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      5
+     ],
+     "legacyMeaningIds": [
+      "m3"
+     ],
+     "labelKo": "경험을 이야기로 엮는 마음",
+     "exactKo": "서로 다른 사건을 겪거나 여러 사실을 접할 때, 우리 마음은 그것들 둘레에 이야기를 만들어 그 의미를 이해하려 한다.",
+     "simpleKo": "무언가를 겪으면 우리는 그걸 이야기로 엮어서 이해하려 한다.",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "사건을 겪거나 사실을 접할 때",
+       "anchorIds": [
+        "a2"
+       ],
+       "explanationKo": "이야기 만들기는 아무 때나가 아니라 경험·사실을 만났을 때 일어나는 반응으로 제시된다."
+      }
+     ]
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      6,
+      7
+     ],
+     "legacyMeaningIds": [
+      "m4",
+      "m5"
+     ],
+     "labelKo": "몇 번의 경험으로 집단 전체를 판단",
+     "exactKo": "어떤 대학 졸업생들과 나쁜 경험이 몇 번 있었다면, 그 학교 출신 사람들에 대한 부정적 서사를 마음속에 만들 수 있고, 그러면 불운했던 몇 번의 경험만으로 그 대학 출신 모두를 판단하게 된다.",
+     "simpleKo": "몇 번 안 좋았던 기억이 '그 학교 사람들은 다 그래'라는 이야기가 되어, 모두를 그렇게 보게 될 수 있다.",
+     "propositionIds": [
+      "p2"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "만들 수 있다",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "나쁜 경험이 있으면 꼭 부정적 서사가 생긴다는 말이 아니라 그럴 수 있다는 말이다."
+      },
+      {
+       "facet": "quantity",
+       "valueKo": "단지 몇 번 ↔ 그 대학 출신 모두",
+       "anchorIds": [
+        "a4",
+        "a5"
+       ],
+       "explanationKo": "적은 경험 수와 판단 대상 전체의 대비가 이 예시의 핵심이다. '몇 번'을 '자주'로 바꾸면 과잉 일반화라는 뜻이 사라진다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "그 대학 졸업생들과 여러 번 나쁜 경험을 했으니 그 학교 사람 모두를 나쁘게 보는 것은 당연하다.",
+      "lostFacet": "quantity",
+      "whyWrongKo": "원문은 불운했던 단 몇 번의 경험으로 모두를 판단한다고 하여, 이야기가 경험보다 훨씬 넓게 퍼지는 점을 보여 준다. 그것을 정당한 판단으로 바꾸면 예시의 요지가 뒤집힌다.",
+      "anchorIds": [
+       "a4",
+       "a5"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      1
+     ],
+     "legacyMeaningIds": [
+      "m1",
+      "m2"
+     ],
+     "labelKo": "서사가 정체성에 뿌리내림 (주어진 문장)",
+     "exactKo": "때때로, 우리가 형성한 이 내면의 서사들은 우리의 신념과 의견을 형성할 뿐만 아니라 우리의 정체성에 깊이 뿌리내리기도 한다.",
+     "simpleKo": "경험을 엮어 만든 이야기가 때로는 생각만이 아니라 '내가 누구인지'에까지 들어가 박힌다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "quantity",
+       "valueKo": "때때로",
+       "anchorIds": [
+        "a8"
+       ],
+       "explanationKo": "모든 서사가 정체성이 된다는 말이 아니다. 일부 경우에 그렇다는 빈도 한정이다."
+      },
+      {
+       "facet": "comparison",
+       "valueKo": "신념·의견을 형성할 뿐만 아니라 정체성에도",
+       "anchorIds": [
+        "a9",
+        "a7"
+       ],
+       "explanationKo": "앞의 효과를 인정한 채 더 깊은 효과를 덧붙이는 구조다. 신념·의견 대신 정체성이라는 뜻이 아니다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "우리가 만든 이 서사들",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "앞에서 이미 만들어진 서사를 다시 가리키므로, 이 문장 앞에는 서사가 만들어지는 내용이 있어야 한다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "modifier",
+        "anchorIds": [
+         "a8"
+        ],
+        "meaningKo": "때때로 — 문장 전체의 빈도를 한정"
+       },
+       {
+        "id": "s2",
+        "role": "main",
+        "anchorIds": [
+         "a6"
+        ],
+        "meaningKo": "주어: 우리가 만든 그 내면의 서사들"
+       },
+       {
+        "id": "s3",
+        "role": "connector",
+        "anchorIds": [
+         "a9"
+        ],
+        "meaningKo": "~할 뿐 아니라: 신념·의견을 만든다는 첫째 효과"
+       },
+       {
+        "id": "s4",
+        "role": "main",
+        "anchorIds": [
+         "a7"
+        ],
+        "meaningKo": "~도 한다: 정체성에 깊이 뿌리내린다는 둘째 효과"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s1",
+        "toPart": "s4",
+        "whyKo": "빈도 한정은 문장 맨 앞에서 두 효과 전체, 특히 새로 더해지는 정체성 진술에 걸린다."
+       },
+       {
+        "fromPart": "s3",
+        "toPart": "s4",
+        "whyKo": "앞쪽은 인정된 효과, 뒤쪽이 이 문장이 새로 말하는 효과다."
+       }
+      ],
+      "recombinedKo": "우리가 만든 그 서사들은 생각을 만들고, 때로는 그보다 더 나아가 정체성의 일부가 되기도 한다."
+     },
+     "misunderstanding": {
+      "alteredKo": "우리가 만드는 서사는 신념이 아니라 정체성을 형성한다.",
+      "lostFacet": "comparison",
+      "whyWrongKo": "원문은 신념·의견 형성을 부정하지 않고 그 위에 정체성을 더한다. 또 때때로라는 한정을 빼면 모든 서사로 범위가 넓어진다.",
+      "anchorIds": [
+       "a9",
+       "a8"
+      ]
+     }
+    },
+    {
+     "id": "u4",
+     "sentences": [
+      8
+     ],
+     "legacyMeaningIds": [
+      "m6"
+     ],
+     "labelKo": "정치 이념 예시",
+     "exactKo": "예를 들어, 총기 규제나 기후 변화를 둘러싸고 당신이 만든 서사는 당신의 정치 이념, 곧 개인으로서의 당신이 누구인지와 관련되어 있을 가능성이 매우 높다.",
+     "simpleKo": "총기나 기후 문제에 대한 내 이야기는 아마도 내 정치 성향, 즉 '나라는 사람'과 엮여 있을 것이다.",
+     "propositionIds": [
+      "p5",
+      "p6"
+     ],
+     "preserves": [
+      {
+       "facet": "modality",
+       "valueKo": "가능성이 매우 높다",
+       "anchorIds": [
+        "a12"
+       ],
+       "explanationKo": "꼭 관련된다고 단정하지 않는다. 강한 가능성으로 남겨 둔다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "예를 들어 — 앞의 일반 진술을 구체화",
+       "anchorIds": [
+        "a11"
+       ],
+       "explanationKo": "이 예시가 보여 주는 것은 정체성과의 연결이므로, 바로 앞에는 정체성을 말하는 일반 진술이 와야 한다."
+      }
+     ]
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "example",
+     "beforeKo": "경험을 하면 마음이 이야기를 지어 이해하려 한다.",
+     "afterKo": "대학 졸업생과의 나쁜 경험 몇 번이 그 학교 전체에 대한 부정적 이야기가 된다.",
+     "changeKo": "일반 진술을 유지한 채 구체 장면으로 옮기고, 그 이야기가 적은 경험을 집단 전체로 넓힐 수 있다는 점을 덧붙인다. 정체성은 아직 등장하지 않는다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a1",
+      "a3",
+      "a4"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "reference",
+     "beforeKo": "구체적 경험에서 서사가 만들어지는 장면이 제시되었다.",
+     "afterKo": "그렇게 만든 서사들이 때로는 정체성에까지 뿌리내린다.",
+     "changeKo": "앞에서 만들어진 서사를 '이 서사들'로 받아 대상을 유지하면서, 서사의 효과를 판단·신념 수준에서 정체성 수준으로 한 단계 넓힌다. 받을 대상(만들어진 서사)이 앞에 있어야 이 연결이 선다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "anchorIds": [
+      "a6",
+      "a3"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "지시어는 이미 나온 대상을 가리킨다",
+      "6~7번 문장에 우리가 만든 서사의 구체적 사례가 있다"
+     ],
+     "limitKo": "받는 대상을 6~7번 서사 하나로 좁힐 필요는 없다. 4~7번 전체의 '우리가 만드는 서사'를 받는다고 읽을 수도 있다."
+    },
+    {
+     "id": "r3",
+     "from": [
+      "u3"
+     ],
+     "to": [
+      "u4"
+     ],
+     "kind": "example",
+     "beforeKo": "서사가 때로는 정체성에 뿌리내린다.",
+     "afterKo": "총기 규제·기후 변화에 대한 서사는 정치 이념, 곧 '나라는 사람'과 관련될 가능성이 높다.",
+     "changeKo": "정체성이라는 새 진술을 정치 이념이라는 구체 사례로 보여 준다. 8번 문장의 예시는 정체성을 요구하는데 5~7번 문장의 일반 진술은 경험에서 서사가 생기는 데까지만 말하므로, 주어진 문장이 그 사이를 채운다.",
+     "propositionIds": [
+      "p5",
+      "p6"
+     ],
+     "anchorIds": [
+      "a7",
+      "a10",
+      "a11"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "예시 표지는 직전의 일반 진술을 구체화한다",
+      "개인으로서의 나는 정체성을 풀어 쓴 말로 읽힌다"
+     ],
+     "limitKo": "예시 표지 하나만으로 자리를 정하지 않는다. 6번 문장에도 같은 표지가 있으나 그 예시는 5번 문장을 받친다."
+    }
+   ],
+   "whole": {
+    "genre": "expository",
+    "summaryKo": "사람은 경험을 이야기로 엮어 이해하며, 그 이야기는 몇 번의 경험만으로 집단 전체를 판단하게 만들 수도 있고, 때로는 정체성에까지 뿌리내려 정치적 견해와 얽히기도 한다. 앞 예시는 경험에서 서사가 생기는 일을, 뒤 예시는 서사가 정체성과 얽히는 일을 보여 주므로, 주어진 문장은 앞의 서사를 받고 뒤의 예시를 여는 연결 지점이 된다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p4",
+     "p5",
+     "p6"
+    ],
+    "relationIds": [
+     "r1",
+     "r2",
+     "r3"
+    ],
+    "limitsKo": [
+     "2~3번 문장이 주어진 글의 앞부분인지는 입력 분할로만 판단했다.",
+     "실제 출제 의도는 확인할 수 없다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m3"
+     ],
+     "choiceNumbers": [
+      2,
+      3
+     ],
+     "designClaimIndices": []
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m4",
+      "m5"
+     ],
+     "choiceNumbers": [
+      4
+     ],
+     "designClaimIndices": [
+      1
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m1",
+      "m2"
+     ],
+     "choiceNumbers": [
+      5
+     ],
+     "designClaimIndices": [
+      2
+     ]
+    },
+    {
+     "unitId": "u4",
+     "meaningIds": [
+      "m6"
+     ],
+     "choiceNumbers": [
+      5
+     ],
+     "designClaimIndices": [
+      1,
+      2
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "57d19e34caac855c",
+    "reviewer": "ms-rv-2026-38"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 130,
+      "len": 109,
+      "h": "1a377b3a1a6856"
+     },
+     {
+      "n": 2,
+      "chars": 179,
+      "len": 150,
+      "h": "19080fad211d0b"
+     },
+     {
+      "n": 3,
+      "chars": 91,
+      "len": 76,
+      "h": "071395c9486da0"
+     },
+     {
+      "n": 4,
+      "chars": 104,
+      "len": 83,
+      "h": "157c2b01ab507f"
+     },
+     {
+      "n": 5,
+      "chars": 138,
+      "len": 110,
+      "h": "17e2539fd42725"
+     },
+     {
+      "n": 6,
+      "chars": 187,
+      "len": 149,
+      "h": "07d9d9f876c616"
+     },
+     {
+      "n": 7,
+      "chars": 118,
+      "len": 94,
+      "h": "192a8479b53343"
+     },
+     {
+      "n": 8,
+      "chars": 171,
+      "len": 136,
+      "h": "04fedd59d6d246"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 5,
+      "s": 55,
+      "e": 84,
+      "h": "172afbc4ecfc39"
+     },
+     "a2": {
+      "n": 5,
+      "s": 1,
+      "e": 55,
+      "h": "0d6a96c93298a1"
+     },
+     "a3": {
+      "n": 6,
+      "s": 79,
+      "e": 109,
+      "h": "01efe6741f7563"
+     },
+     "a4": {
+      "n": 7,
+      "s": 12,
+      "e": 42,
+      "h": "18759a85b2de2c"
+     },
+     "a5": {
+      "n": 7,
+      "s": 66,
+      "e": 94,
+      "h": "01b84649d03c95"
+     },
+     "a6": {
+      "n": 1,
+      "s": 9,
+      "e": 38,
+      "h": "010fda9664dae3"
+     },
+     "a7": {
+      "n": 1,
+      "s": 78,
+      "e": 109,
+      "h": "147e7f58ab27d7"
+     },
+     "a8": {
+      "n": 1,
+      "s": 0,
+      "e": 9,
+      "h": "0536a62560c206"
+     },
+     "a9": {
+      "n": 1,
+      "s": 38,
+      "e": 78,
+      "h": "0812d9e0fc79eb"
+     },
+     "a10": {
+      "n": 8,
+      "s": 113,
+      "e": 136,
+      "h": "0068b46a19956a"
+     },
+     "a11": {
+      "n": 8,
+      "s": 1,
+      "e": 11,
+      "h": "1453e114ffd055"
+     },
+     "a12": {
+      "n": 8,
+      "s": 71,
+      "e": 113,
+      "h": "02f1bdb31504ea"
+     }
+    }
+   }
+  },
+  "2026#43": {
+   "schema": "meaning-support/1",
+   "itemId": "2026#43",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "ac4a9343a8650153",
+    "basePublicHash": "5a4ba3e56de4e5e614f5ecd1f751b85a08189b84f50147777ec6dd263c06cdf8",
+    "sourceSnapshotHash": "7b27524674de1184"
+   },
+   "sourceRef": {
+    "organizer": "kice",
+    "examId": "2026",
+    "itemNo": 43,
+    "inputRef": "inquiry-origin:chunk-inq-16"
+   },
+   "defaultUnitId": "u2",
+   "anchors": [
+    {
+     "id": "a1",
+     "sentence": 10,
+     "quote": "Sam promised to talk with Mia",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a2",
+     "sentence": 26,
+     "quote": "Mia immediately shook her head",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a3",
+     "sentence": 32,
+     "sourceRange": {
+      "start": 27,
+      "end": 45,
+      "spanHash": "1ad4bcbd5245a3d07e5b89f4989ad6fa02e0752edae91c059378acd9c66c9caa"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a4",
+     "sentence": 34,
+     "quote": "can I choose the first book?",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a5",
+     "sentence": 21,
+     "quote": "a book for my family’s reading club",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a6",
+     "sentence": 12,
+     "quote": "the book Mia had chosen",
+     "occurrence": 1,
+     "mode": "original"
+    },
+    {
+     "id": "a7",
+     "sentence": 15,
+     "sourceRange": {
+      "start": 41,
+      "end": 57,
+      "spanHash": "bd7efd0ab1d5b81d84736b50493d47254265576857d763fc2e7ea7c046faed2e"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a8",
+     "sentence": 16,
+     "sourceRange": {
+      "start": 0,
+      "end": 36,
+      "spanHash": "3ed84e188ed5915e1cfefe358d5ce43d39f0f138c93144f8ee298d6241c42f2b"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a9",
+     "sentence": 13,
+     "sourceRange": {
+      "start": 31,
+      "end": 41,
+      "spanHash": "d69cc26d5cb22b318f18d8328af592805e60319e3dd25d1f7f3aa497b0cfb460"
+     },
+     "mode": "original"
+    },
+    {
+     "id": "a10",
+     "sentence": 33,
+     "sourceRange": {
+      "start": 15,
+      "end": 67,
+      "spanHash": "f1ea570cf6aa163e59c3c179501ed105b63d2f6399ceaf23cc71be598c12102d"
+     },
+     "mode": "original"
+    }
+   ],
+   "propositions": [
+    {
+     "id": "p1",
+     "textKo": "10번 문장에서 Sam 은 Mia 와 독서 모임 이야기를 하겠다고 약속만 한다. 대화는 아직 일어나지 않았다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a1"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p2",
+     "textKo": "26번 문장의 제안 장면에서 Mia 는 처음에 바로 거절하고, 32번 문장에서 설득을 받은 뒤에야 마지못해 동의한다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a2",
+      "a3"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p3",
+     "textKo": "Mia 는 34번 문장에서 첫 책을 자기가 골라도 되는지 묻고 35번 문장에서 허락을 받는다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a4"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "p4",
+     "textKo": "21번 문장의 Mia 는 이미 모임에 참여하기로 한 상태로, 그 모임에서 읽을 책을 찾는다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a5"
+     ],
+     "warrantsKo": [
+      "모임용 책을 찾는다는 말은 참여를 받아들였다는 뜻이고, 참여 동의는 32번 문장에서 처음 나온다."
+     ],
+     "limitKo": "21번 문장 자체는 언제 동의했는지 말하지 않는다. 동의 시점은 (D) 단락에서 확인한다."
+    },
+    {
+     "id": "p5",
+     "textKo": "12번 문장의 그 책은 첫 모임보다 앞서 Mia 가 이미 골라 둔 책이며, 24~25번 문장에서 빌린 Café Paris 로 이어진다.",
+     "basis": "bridging_inference",
+     "anchorIds": [
+      "a6"
+     ],
+     "warrantsKo": [
+      "과거완료 had chosen 은 모임보다 앞선 선택을 가리키고, 13번 문장에 나오는 책 속 이야기가 24번 문장에서 받은 책 제목과 같다."
+     ],
+     "limitKo": "12번 문장은 선택 장면을 다시 보여 주지 않는다. 선택 장면이 앞 단락에 있어야 한다는 것까지만 말할 수 있다."
+    },
+    {
+     "id": "p6",
+     "textKo": "15~16번 문장에서 Mia 가 이해한다고 한 '그'는 책 속 인물 Dr. Duvall 이고, 바리스타를 꿈꾸다 이룬 사람도 그 인물이다.",
+     "basis": "source_observation",
+     "anchorIds": [
+      "a7",
+      "a8",
+      "a9"
+     ],
+     "warrantsKo": [],
+     "limitKo": ""
+    }
+   ],
+   "units": [
+    {
+     "id": "u1",
+     "sentences": [
+      10
+     ],
+     "legacyMeaningIds": [
+      "m1"
+     ],
+     "labelKo": "(A) 끝의 예고",
+     "exactKo": "Sam 은 독서 모임에 대해 Mia 와 이야기해 보겠다고 약속한다.",
+     "simpleKo": "아빠가 딸에게 말해 보겠다고 했을 뿐, 아직 말하지는 않았다.",
+     "propositionIds": [
+      "p1"
+     ],
+     "preserves": [
+      {
+       "facet": "time",
+       "valueKo": "약속한 시점일 뿐 대화는 아직 일어나지 않음",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "약속은 앞으로의 일을 가리킨다. 이 대화가 실제로 벌어지는 장면이 다음 단락으로 와야 한다."
+      },
+      {
+       "facet": "agent",
+       "valueKo": "말을 꺼낼 사람은 Sam",
+       "anchorIds": [
+        "a1"
+       ],
+       "explanationKo": "제안하는 사람이 엄마가 아니라 아빠라는 점이 (D) 단락의 첫 문장과 맞물린다."
+      }
+     ]
+    },
+    {
+     "id": "u2",
+     "sentences": [
+      26,
+      32,
+      33,
+      34,
+      35
+     ],
+     "legacyMeaningIds": [
+      "m2",
+      "m3"
+     ],
+     "labelKo": "(D) 거절에서 동의, 그리고 선택권",
+     "exactKo": "제안을 처음 들은 Mia 는 즉시 거절하지만 설득 끝에 마지못해 동의하고, 첫 책을 직접 고를 권리를 얻는다.",
+     "simpleKo": "처음엔 싫다고 했다가, 내키지 않지만 하기로 하고, 첫 책은 자기가 고르겠다고 했다.",
+     "propositionIds": [
+      "p2",
+      "p3"
+     ],
+     "preserves": [
+      {
+       "facet": "time",
+       "valueKo": "즉시 거절 → 설득 → 동의 → 선택권 요청의 순서",
+       "anchorIds": [
+        "a2",
+        "a3",
+        "a4"
+       ],
+       "explanationKo": "immediately 는 제안을 처음 들었을 때의 반응이다. 그래서 이 단락이 제안이 처음 전달되는 장면이다."
+      },
+      {
+       "facet": "polarity",
+       "valueKo": "동의는 했지만 내키지 않은 채로",
+       "anchorIds": [
+        "a3"
+       ],
+       "explanationKo": "처음의 거부감이 사라진 것이 아니다. 마지못해라는 한정이 남아 있어, 기꺼이 찬성했다고 바꾸면 뜻이 달라진다."
+      },
+      {
+       "facet": "causality",
+       "valueKo": "속으로 휴대전화를 너무 많이 쓴다는 것을 알았기에 첫 책을 골라도 되는지 묻는다",
+       "anchorIds": [
+        "a10"
+       ],
+       "explanationKo": "33번 문장과 34번 문장은 So 로 이어진다. 원문이 직접 밝힌 인과는 이 깨달음이 첫 책 선택 요청으로 이어진다는 것이다. 32번 문장의 동의 이유로 단정하지 않는다."
+      }
+     ],
+     "misunderstanding": {
+      "alteredKo": "Mia 는 설득을 듣고 독서 모임을 기꺼이 반겼다.",
+      "lostFacet": "polarity",
+      "whyWrongKo": "원문은 마지못해 동의했다고 한다. 기꺼움은 (B) 단락 끝에서 모임을 겪은 뒤에 생기는 변화이므로, 여기로 당겨 오면 사건의 변화가 사라진다.",
+      "anchorIds": [
+       "a3"
+      ]
+     }
+    },
+    {
+     "id": "u3",
+     "sentences": [
+      21,
+      24,
+      25
+     ],
+     "legacyMeaningIds": [
+      "m4"
+     ],
+     "labelKo": "(C) 모임용 책 고르기",
+     "exactKo": "Mia 는 가족 독서 모임에서 읽을 책을 찾다가 사서가 건넨 Café Paris 를 빌린다.",
+     "simpleKo": "모임에 나가기로 한 Mia 가, 첫 책을 고르러 도서관에 갔다.",
+     "propositionIds": [
+      "p4"
+     ],
+     "preserves": [
+      {
+       "facet": "condition",
+       "valueKo": "모임 참여와 첫 책 선택권이 이미 정해져 있어야 성립",
+       "anchorIds": [
+        "a5"
+       ],
+       "explanationKo": "모임용 책을 찾는다는 행동 자체가 앞 조건을 전제한다. 그 조건은 (D) 단락의 32·34·35번 문장에서 생긴다."
+      },
+      {
+       "facet": "agent",
+       "valueKo": "책을 건넨 사람은 사서, 빌린 사람은 Mia",
+       "anchorIds": [],
+       "explanationKo": "25번 문장의 그녀(c)는 Mia 가 고마워한 대상, 곧 사서다. 고른 책의 결정에 사서의 추천이 들어 있다."
+      }
+     ]
+    },
+    {
+     "id": "u4",
+     "sentences": [
+      12,
+      13,
+      15,
+      16
+     ],
+     "legacyMeaningIds": [
+      "m5"
+     ],
+     "labelKo": "(B) 이미 고른 책, 책 속 인물의 꿈",
+     "exactKo": "첫 모임에서 가족은 Mia 가 앞서 골라 둔 책을 함께 이야기하고, Mia 는 책 속 인물 Dr. Duvall 의 선택을 이해한다고 말한다.",
+     "simpleKo": "Mia 가 미리 골라 둔 책으로 모임을 열었고, Mia 는 책 속 인물이 꿈을 이룬 것이라고 설명했다.",
+     "propositionIds": [
+      "p5",
+      "p6"
+     ],
+     "preserves": [
+      {
+       "facet": "time",
+       "valueKo": "책을 고른 일은 모임보다 먼저",
+       "anchorIds": [
+        "a6"
+       ],
+       "explanationKo": "had chosen 은 모임 시점보다 앞선 선택을 가리킨다. 그 선택 장면이 앞 단락에 있어야 한다."
+      },
+      {
+       "facet": "reference",
+       "valueKo": "'그'와 바리스타의 꿈은 책 속 인물 Dr. Duvall 의 것",
+       "anchorIds": [
+        "a7",
+        "a8",
+        "a9"
+       ],
+       "explanationKo": "13번 문장은 엄마 Julia 가, 15~16번 문장은 Mia 가 말한다. Mia 는 엄마가 꺼낸 인물을 '그'로 받아 그의 꿈을 설명한다."
+      }
+     ],
+     "syntax": {
+      "parts": [
+       {
+        "id": "s1",
+        "role": "main",
+        "anchorIds": [
+         "a7"
+        ],
+        "meaningKo": "Mia 가 엄마에게 '나는 그를 이해한다'고 말한다."
+       },
+       {
+        "id": "s2",
+        "role": "clause",
+        "anchorIds": [
+         "a8"
+        ],
+        "meaningKo": "그는 늘 바리스타가 되기를 꿈꿨고 그 꿈이 이루어졌다."
+       },
+       {
+        "id": "s3",
+        "role": "modifier",
+        "anchorIds": [
+         "a9"
+        ],
+        "meaningKo": "앞 문장에서 엄마가 말한 책 속 인물"
+       }
+      ],
+      "attachments": [
+       {
+        "fromPart": "s3",
+        "toPart": "s1",
+        "whyKo": "'그'는 바로 앞에서 엄마가 이름을 댄 인물을 받는다."
+       },
+       {
+        "fromPart": "s2",
+        "toPart": "s1",
+        "whyKo": "16번 문장은 왜 그를 이해하는지 이유를 풀어 준다."
+       }
+      ],
+      "recombinedKo": "Mia 는 엄마가 수수께끼라고 한 책 속 인물을 두고, 그가 오랜 꿈을 이룬 것이라 이해된다고 답한다."
+     },
+     "misunderstanding": {
+      "alteredKo": "Mia 는 자기가 늘 바리스타를 꿈꿔 왔다고 털어놓는다.",
+      "lostFacet": "reference",
+      "whyWrongKo": "꿈을 꾼 사람은 책 속 인물이다. Mia 자신의 과거로 바꾸면 화자와 지시 대상이 섞이고, 모임이 책 이야기로 활기를 띠었다는 흐름도 흐려진다.",
+      "anchorIds": [
+       "a8"
+      ]
+     }
+    }
+   ],
+   "relations": [
+    {
+     "id": "r1",
+     "from": [
+      "u1"
+     ],
+     "to": [
+      "u2"
+     ],
+     "kind": "temporal",
+     "beforeKo": "Sam 이 Mia 에게 말하겠다고 약속함",
+     "afterKo": "Sam 이 실제로 제안하고 Mia 가 즉시 거절함",
+     "changeKo": "예고된 대화가 실제 장면이 된다. 즉시 거절은 제안을 처음 듣는 순간이라는 표시라, 이 장면이 약속 바로 다음 사건이다.",
+     "propositionIds": [
+      "p1",
+      "p2"
+     ],
+     "anchorIds": [
+      "a1",
+      "a2"
+     ],
+     "basis": "source_observation",
+     "warrantsKo": [],
+     "limitKo": ""
+    },
+    {
+     "id": "r2",
+     "from": [
+      "u2"
+     ],
+     "to": [
+      "u3"
+     ],
+     "kind": "condition",
+     "beforeKo": "마지못한 동의와 첫 책 선택권",
+     "afterKo": "모임용 책을 찾아 빌림",
+     "changeKo": "동의와 허락이라는 전제가 생겨야 도서관 장면의 행동이 가능해진다. 거부감은 지워지지 않은 채 행동으로 옮겨진다.",
+     "propositionIds": [
+      "p3",
+      "p4"
+     ],
+     "anchorIds": [
+      "a4",
+      "a5"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "첫 책을 고르겠다는 요청이 허락된 뒤, 책을 고르는 장면이 그 요청을 실행한다."
+     ],
+     "limitKo": "두 단락 사이의 정확한 날짜 간격은 원문에 없다."
+    },
+    {
+     "id": "r3",
+     "from": [
+      "u3"
+     ],
+     "to": [
+      "u4"
+     ],
+     "kind": "reference",
+     "beforeKo": "Mia 가 Café Paris 를 빌림",
+     "afterKo": "Mia 가 골라 둔 그 책으로 첫 모임을 엶",
+     "changeKo": "선택된 책이 모임에서 쓰인다. 정관사와 과거완료가 앞의 선택을 가리키고, 모임 끝에 Mia 는 다음 모임을 기다릴 만큼 처음의 거부감에서 달라진다.",
+     "propositionIds": [
+      "p5"
+     ],
+     "anchorIds": [
+      "a6"
+     ],
+     "basis": "bridging_inference",
+     "warrantsKo": [
+      "13번 문장의 책 속 가게 이름과 24번 문장의 책 제목이 같다."
+     ],
+     "limitKo": "책 제목이 (B) 단락에 직접 적히지는 않는다."
+    }
+   ],
+   "whole": {
+    "genre": "narrative",
+    "summaryKo": "휴대전화에 빠진 딸을 걱정한 부모가 독서 모임을 계획하고, 아빠의 제안을 마지못해 받아들인 Mia 가 첫 책을 직접 고른 뒤, 그 책으로 연 첫 모임에서 부모와 다시 가까워진다. 사건은 약속 → 제안과 동의 → 책 선택 → 모임 순서로 앞 사건이 뒤 사건의 전제가 된다.",
+    "propositionIds": [
+     "p1",
+     "p2",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "relationIds": [
+     "r1",
+     "r2",
+     "r3"
+    ],
+    "limitsKo": [
+     "44·45번 문항(지칭·내용 일치)은 이 설명의 범위가 아니다.",
+     "단락 표지 (A)~(D)와 문장 번호는 다르며, 문장 번호는 공통 지문의 원래 번호다."
+    ]
+   },
+   "bridges": [
+    {
+     "unitId": "u1",
+     "meaningIds": [
+      "m1"
+     ],
+     "choiceNumbers": [
+      2,
+      5
+     ],
+     "designClaimIndices": [
+      3
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m2"
+     ],
+     "choiceNumbers": [
+      2,
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      3
+     ]
+    },
+    {
+     "unitId": "u2",
+     "meaningIds": [
+      "m3"
+     ],
+     "choiceNumbers": [
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      3
+     ]
+    },
+    {
+     "unitId": "u3",
+     "meaningIds": [
+      "m4"
+     ],
+     "choiceNumbers": [
+      2,
+      3,
+      5
+     ],
+     "designClaimIndices": [
+      2
+     ]
+    },
+    {
+     "unitId": "u4",
+     "meaningIds": [
+      "m5"
+     ],
+     "choiceNumbers": [
+      1,
+      4,
+      5
+     ],
+     "designClaimIndices": [
+      2
+     ]
+    }
+   ],
+   "review": {
+    "criteria": "meaning-support-v1.0",
+    "contentHash": "db084b4c23301244",
+    "reviewer": "ms-rv-2026-43b"
+   },
+   "alignment": {
+    "v": 1,
+    "sentences": [
+     {
+      "n": 1,
+      "chars": 33,
+      "len": 20,
+      "h": "1c9bd09e5ad1cd"
+     },
+     {
+      "n": 2,
+      "chars": 42,
+      "len": 33,
+      "h": "1a4d7eb96cf5b9"
+     },
+     {
+      "n": 3,
+      "chars": 103,
+      "len": 84,
+      "h": "0ba687b1a0f4c9"
+     },
+     {
+      "n": 4,
+      "chars": 39,
+      "len": 33,
+      "h": "17e65099805b67"
+     },
+     {
+      "n": 5,
+      "chars": 31,
+      "len": 24,
+      "h": "1cec67aed21191"
+     },
+     {
+      "n": 6,
+      "chars": 50,
+      "len": 37,
+      "h": "09ec23b78e8197"
+     },
+     {
+      "n": 7,
+      "chars": 20,
+      "len": 14,
+      "h": "1924f6d349be53"
+     },
+     {
+      "n": 8,
+      "chars": 47,
+      "len": 35,
+      "h": "0668cf4bde3bd3"
+     },
+     {
+      "n": 9,
+      "chars": 43,
+      "len": 32,
+      "h": "16e78235b35b57"
+     },
+     {
+      "n": 10,
+      "chars": 79,
+      "len": 64,
+      "h": "133fc2878beff6"
+     },
+     {
+      "n": 11,
+      "chars": 74,
+      "len": 59,
+      "h": "12f3ebe8ba8416"
+     },
+     {
+      "n": 12,
+      "chars": 41,
+      "len": 34,
+      "h": "1042c642f433af"
+     },
+     {
+      "n": 13,
+      "chars": 139,
+      "len": 109,
+      "h": "152233266c8cb9"
+     },
+     {
+      "n": 14,
+      "chars": 23,
+      "len": 17,
+      "h": "1ad3c7f817d747"
+     },
+     {
+      "n": 15,
+      "chars": 58,
+      "len": 45,
+      "h": "063a250f0875a2"
+     },
+     {
+      "n": 16,
+      "chars": 63,
+      "len": 49,
+      "h": "1c2dc06ba55820"
+     },
+     {
+      "n": 17,
+      "chars": 67,
+      "len": 54,
+      "h": "082597e6032bbf"
+     },
+     {
+      "n": 18,
+      "chars": 120,
+      "len": 100,
+      "h": "004baa5eb9a47b"
+     },
+     {
+      "n": 19,
+      "chars": 102,
+      "len": 80,
+      "h": "011c8b580b537d"
+     },
+     {
+      "n": 20,
+      "chars": 78,
+      "len": 63,
+      "h": "189e3e6a12378e"
+     },
+     {
+      "n": 21,
+      "chars": 59,
+      "len": 44,
+      "h": "16ad1ddd6166b8"
+     },
+     {
+      "n": 22,
+      "chars": 44,
+      "len": 33,
+      "h": "01aeaeccc4cb73"
+     },
+     {
+      "n": 23,
+      "chars": 37,
+      "len": 27,
+      "h": "0302e864f58d5a"
+     },
+     {
+      "n": 24,
+      "chars": 96,
+      "len": 73,
+      "h": "0b9994a5cbd378"
+     },
+     {
+      "n": 25,
+      "chars": 39,
+      "len": 29,
+      "h": "0428a077a6c966"
+     },
+     {
+      "n": 26,
+      "chars": 105,
+      "len": 81,
+      "h": "13288835b2afa2"
+     },
+     {
+      "n": 27,
+      "chars": 32,
+      "len": 24,
+      "h": "05e3c2861b1c4b"
+     },
+     {
+      "n": 28,
+      "chars": 52,
+      "len": 38,
+      "h": "00fb449f4689a3"
+     },
+     {
+      "n": 29,
+      "chars": 18,
+      "len": 13,
+      "h": "07b6e85762e682"
+     },
+     {
+      "n": 30,
+      "chars": 78,
+      "len": 60,
+      "h": "179f348ed8edd5"
+     },
+     {
+      "n": 31,
+      "chars": 69,
+      "len": 55,
+      "h": "18fb070a1415e1"
+     },
+     {
+      "n": 32,
+      "chars": 46,
+      "len": 39,
+      "h": "1b393934d7a8f4"
+     },
+     {
+      "n": 33,
+      "chars": 68,
+      "len": 51,
+      "h": "0008adb50aa4ec"
+     },
+     {
+      "n": 34,
+      "chars": 49,
+      "len": 35,
+      "h": "1695066b14d9bf"
+     },
+     {
+      "n": 35,
+      "chars": 23,
+      "len": 16,
+      "h": "188292a581005d"
+     }
+    ],
+    "spans": {
+     "a1": {
+      "n": 10,
+      "s": 33,
+      "e": 57,
+      "h": "0e427419979612"
+     },
+     "a2": {
+      "n": 26,
+      "s": 43,
+      "e": 69,
+      "h": "0f1a0ce7edd374"
+     },
+     "a3": {
+      "n": 32,
+      "s": 22,
+      "e": 39,
+      "h": "1d4e31eea89547"
+     },
+     "a4": {
+      "n": 34,
+      "s": 13,
+      "e": 35,
+      "h": "0f04aac2180545"
+     },
+     "a5": {
+      "n": 21,
+      "s": 5,
+      "e": 33,
+      "h": "0cfa871f20b1c4"
+     },
+     "a6": {
+      "n": 12,
+      "s": 15,
+      "e": 34,
+      "h": "077d967355bf6a"
+     },
+     "a7": {
+      "n": 15,
+      "s": 31,
+      "e": 45,
+      "h": "10c1b57cc107ae"
+     },
+     "a8": {
+      "n": 16,
+      "s": 0,
+      "e": 30,
+      "h": "0bb0b9f7be2d4f"
+     },
+     "a9": {
+      "n": 13,
+      "s": 23,
+      "e": 31,
+      "h": "04d1e3c4a53072"
+     },
+     "a10": {
+      "n": 33,
+      "s": 9,
+      "e": 51,
+      "h": "04c82ce0675858"
+     }
+    }
+   }
+  }
+ }
+}

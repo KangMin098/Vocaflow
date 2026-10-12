@@ -12,7 +12,7 @@
 //    (`process.env.NODE_ENV` 는 빌드 때 상수로 박힌다) — 학습자는 본인이 받은 PDF 를 놓는다.
 
 import { RotateCcw } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 import { PaperDrop } from '@/components/csat/session/PaperDrop'
 import { cropOf, readPaper } from '@/lib/csat/reflow/read-paper'
@@ -48,13 +48,17 @@ async function devPaper(catalog: LearnerCatalog, examId: string): Promise<Cached
 export interface PaperPassage {
   itemId: string
   passage: string | null
+  /** 여는 중 · 문제지 없음 · 글자를 못 뽑음 · 글자 있음 — v3.1 원문 대조가 「아직」과 「없음」을 가른다 */
+  status?: 'loading' | 'missing' | 'unreadable' | 'ready'
 }
 
-export function ItemPaper({ catalog, examId, no, onPassageChange }: {
+export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = null }: {
   catalog: LearnerCatalog
   examId: string
   no: number
   onPassageChange?: (value: PaperPassage) => void
+  /** v3.1 원문 대조로 찾은 구절(지문 문자열 범위) — 기기 문제지 글자 위에만 표시한다 */
+  highlight?: { start: number; end: number } | null
 }) {
   // null = 여는 중 · 'missing' = 기기에 이 회차 추출본이 없다
   const [paper, setPaper] = useState<CachedPaper | 'missing' | null>(null)
@@ -81,9 +85,14 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
   const item = !paper || paper === 'missing' || paper.exam_id !== examId
     ? null : paper.items.find((i) => i.no === no) ?? null
   const passage = item?.ok ? item.passage : null
+  const status: PaperPassage['status'] = paper === null ? 'loading' : !item ? 'missing' : !item.ok || item.needsOriginal ? 'unreadable' : 'ready'
   useEffect(() => {
-    onPassageChange?.({ itemId: `${examId}#${no}`, passage })
-  }, [examId, no, passage, onPassageChange])
+    onPassageChange?.({ itemId: `${examId}#${no}`, passage, status })
+  }, [examId, no, passage, status, onPassageChange])
+  const markRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    markRef.current?.scrollIntoView({ block: 'nearest' })
+  }, [highlight?.start, highlight?.end])
 
   if (paper === null) {
     return (
@@ -119,7 +128,7 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
 
   const again = (
     <button type="button" className={styles.paperAgain} onClick={() => {
-      onPassageChange?.({ itemId: `${examId}#${no}`, passage: null })
+      onPassageChange?.({ itemId: `${examId}#${no}`, passage: null, status: 'missing' })
       setPaper('missing')
     }}>
       <RotateCcw size={12} aria-hidden /> 문제지 다시 놓기
@@ -152,7 +161,15 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
         <b>{no}.</b> {item.stem}
       </p>
       <p className={styles.paperPassage} lang="en">
-        {item.passage}
+        {highlight && highlight.end > highlight.start && highlight.end <= item.passage.length ? (
+          <>
+            {item.passage.slice(0, highlight.start)}
+            <mark ref={markRef} className={styles.paperMark} data-testid="paper-highlight">{item.passage.slice(highlight.start, highlight.end)}</mark>
+            {item.passage.slice(highlight.end)}
+          </>
+        ) : (
+          item.passage
+        )}
       </p>
       {item.notes.length ? (
         <p className={styles.paperNotes} lang="en">

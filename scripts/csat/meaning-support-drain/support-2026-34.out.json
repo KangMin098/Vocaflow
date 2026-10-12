@@ -1,0 +1,489 @@
+{
+  "writer_run": "ms-wr-2026-34",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#34",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "7fb095d3cac4821e",
+      "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+      "sourceSnapshotHash": "570bf3a5cbe78dd3"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 34,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 0,
+          "end": 7,
+          "spanHash": "770eff05caa0ef812ff3418e39750b09da64d743b8e99b94875fcfdb32ea4164"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 6,
+        "quote": "all rational beings would freely choose",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 0,
+          "end": 40,
+          "spanHash": "aa526f6bf2d9f7fdbababb3de3e014d99b0a2eb26a6c079691ccc830a11232ec"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 7,
+        "quote": "they would not rationally choose to do anyway",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 7,
+        "quote": "then the law cannot be",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 1,
+        "quote": "the ultimate guarantee",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "이상적인 경우에 한해, 법은 이성적 존재 모두가 강요 없이 스스로 고를 정치 원칙을 담은 것이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "7번 문장의 결론은 그런 법이 이성적으로 어차피 하지 않을 일을 금지하는 경우를 조건으로 삼는다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "cannot be 는 빈칸에 들어갈 표현 전체를 부정하므로, 결론은 「법을 빈칸의 그것으로 볼 수 없다」는 하나의 명제다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "금지된 일이 원래 이성적으로 고르지 않을 일이라면, 그 금지로 빼앗기는 선택이 없으므로 그 금지에 대해서는 법이 자유를 구속한다고 보기 어렵다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a3",
+          "a4",
+          "a5"
+        ],
+        "warrantsKo": [
+          "6번 문장은 법을 자유로운 선택의 구현으로 보고, 7번 문장의 조건은 금지가 원래 선택과 겹치지 않는 경우를 가정한다 — 두 문장을 이으면 선택이 줄지 않는다는 연결이 나온다."
+        ],
+        "limitKo": "이 조건을 만족하는 법에 대한 결론이다. 현실의 모든 법이 자유를 제한하지 않는다는 주장으로 넓히지 않는다."
+      },
+      {
+        "id": "p5",
+        "textKo": "칸트는 법치를 안전·평화뿐 아니라 자유까지 지키는 최종 보장으로 옹호했다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a6"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          6
+        ],
+        "legacyMeaningIds": [
+          "m3"
+        ],
+        "labelKo": "이상적인 법의 정의",
+        "exactKo": "이상적으로는, 법이란 이성적 존재라면 누구나 강요 없이 스스로 고를 정치 원칙을 구체적으로 담은 것이다.",
+        "simpleKo": "가장 바람직한 경우의 법은, 이성적인 사람이라면 모두 스스로 고를 원칙을 적어 놓은 것이다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "이상적인 경우에 한함",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "문장 첫머리의 한정 부사가 이 진술 전체를 이상적인 경우로 좁힌다. 지금 존재하는 모든 법이 그렇다는 말이 아니다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "이성적 존재 모두",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "일부 사람이 아니라 이성적 존재 전원이 고를 원칙이다. 다만 범위는 「이성적」 존재로 제한된다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "자유롭게 고를 것이다(가정)",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "실제로 투표해 고른 것이 아니라, 강요 없이 판단한다면 고를 것이라는 가정의 뜻이다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "현실의 법은 모두 사람들이 자유롭게 고른 원칙이다.",
+          "lostFacet": "condition",
+          "whyWrongKo": "이상적인 경우라는 한정과 「고를 것이다」라는 가정을 지우면, 원문이 하지 않은 현실 법 전체에 대한 단정이 된다.",
+          "anchorIds": [
+            "a1",
+            "a2"
+          ]
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          7
+        ],
+        "legacyMeaningIds": [
+          "m2"
+        ],
+        "labelKo": "If 조건 — 어차피 안 할 일을 금지",
+        "exactKo": "그런 법이, 이성적인 사람이라면 법이 없어도 애초에 하지 않기로 할 일을 금지하는 경우를 가정한다.",
+        "simpleKo": "법이 막는 일이 원래 이성적으로 하지 않을 일인 경우라면,",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "~하는 경우라면(가정 조건)",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "뒤 결론은 이 조건이 맞을 때만 성립한다. 모든 금지에 대한 말이 아니다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "이성적으로 하지 않을 일",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "금지 대상은 「하고 싶은 일」이 아니라 「이성적으로 고르지 않을 일」이다. 부정을 빼면 뜻이 정반대가 된다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "그런 법 = 6번 문장의 이상적인 법",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "조건절의 주어는 아무 법이 아니라 앞 문장에서 말한 이상적인 법을 가리킨다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "법이 사람들이 하고 싶어 하지 않는 일을 금지하면",
+          "lostFacet": "reference",
+          "whyWrongKo": "원문은 「원하지 않음」이 아니라 「이성적으로 선택하지 않음」을 기준으로 삼는다. 둘은 늘 같지 않으므로 이성이라는 기준을 지우면 조건이 바뀐다.",
+          "anchorIds": [
+            "a4"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          7
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "cannot be 가 부정하는 범위",
+        "exactKo": "그 조건이 맞으면, 법을 빈칸에 들어갈 그런 것으로 볼 수 없다 — 부정은 빈칸 표현 전체에 걸린다.",
+        "simpleKo": "이 경우 법은 「빈칸의 그것」이 아니라는 결론이고, 빈칸을 채운 뒤 문장 전체가 앞 조건에서 나오는지 따져야 한다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "~일 수 없다",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "빈칸에 들어갈 표현 전체를 통째로 부정한다. 빈칸 안 낱말 하나의 느낌이 아니라 완성된 명제가 대상이다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "앞 조건이 맞을 때의 결론",
+            "anchorIds": [
+              "a3",
+              "a5"
+            ],
+            "explanationKo": "then 이 이끄는 결론은 앞 조건에 매여 있다. 조건 없이 법 일반에 대한 판정으로 읽지 않는다."
+          }
+        ],
+        "syntax": {
+          "parts": [
+            {
+              "id": "s1",
+              "role": "clause",
+              "anchorIds": [
+                "a3",
+                "a4"
+              ],
+              "meaningKo": "조건: 이상적인 법이 이성적으로 어차피 하지 않을 일을 금지한다면"
+            },
+            {
+              "id": "s2",
+              "role": "main",
+              "anchorIds": [
+                "a5"
+              ],
+              "meaningKo": "결론: 법은 [빈칸 표현 전체]일 수 없다"
+            }
+          ],
+          "attachments": [
+            {
+              "fromPart": "s1",
+              "toPart": "s2",
+              "whyKo": "조건절이 결론의 근거를 제공한다. 결론의 부정은 빈칸 표현 전체를 덮는다."
+            }
+          ],
+          "recombinedKo": "금지가 원래의 이성적 선택과 겹치지 않는다면, 법을 [빈칸 표현]으로 볼 수 없다 — 빈칸을 넣은 이 문장 전체가 조건에서 자연스럽게 따라 나와야 한다."
+        },
+        "misunderstanding": {
+          "alteredKo": "부정어가 있으니 빈칸에는 부정적인 낱말이 든 표현을 넣으면 된다.",
+          "lostFacet": "polarity",
+          "whyWrongKo": "부정은 낱말 하나가 아니라 표현 전체에 걸린다. 표현 안에 정도·방식을 정하는 말이 있으면, 부정 뒤 명제는 「제한은 인정하고 그 방식만 부정」처럼 달라질 수 있다.",
+          "anchorIds": [
+            "a5"
+          ]
+        }
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          1
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "법치는 자유의 보장",
+        "exactKo": "칸트는 법치를 안전과 평화뿐 아니라 자유까지 지켜 주는 최종 보장으로 강하게 옹호했다.",
+        "simpleKo": "칸트에게 법은 안전·평화와 함께 자유도 지켜 주는 마지막 버팀목이다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "안전·평화뿐 아니라 자유까지",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "보장 대상이 안전·평화에서 그치지 않고 자유까지 넓어진다. 자유를 빼면 7번 문장과의 연결이 사라진다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "옹호한 사람은 칸트",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "강력한 옹호자는 칸트이고, 법은 옹호의 대상이다. 둘의 역할을 바꾸지 않는다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "condition",
+        "beforeKo": "이상적인 법은 이성적 존재가 자유롭게 고를 원칙을 담는다.",
+        "afterKo": "그런 법이 이성적으로 어차피 하지 않을 일을 금지하는 경우를 가정한다.",
+        "changeKo": "6번 문장의 이상적인 법을 그대로 받아, 그 법의 금지가 원래의 이성적 선택과 겹치지 않는 경우로 범위를 더 좁힌다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a3"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "condition",
+        "beforeKo": "금지된 일이 원래 이성적으로 하지 않을 일인 경우",
+        "afterKo": "법을 빈칸의 그것으로 볼 수 없다는 결론",
+        "changeKo": "조건이 결론의 근거가 된다. 빼앗기는 선택이 없다는 점에서, 법이 자유를 줄인다는 판단을 부정하는 쪽으로 이어진다. 결론은 이 조건 아래에서만 유지된다.",
+        "propositionIds": [
+          "p2",
+          "p4"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "조건절 내용(원래 선택과 겹치지 않는 금지)이 자유의 감소가 없다는 판단으로 이어진다."
+        ],
+        "limitKo": "조건을 만족하는 이상적인 법에 대한 결론이며, 법 일반으로 넓히지 않는다."
+      },
+      {
+        "id": "r3",
+        "from": [
+          "u4"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "other",
+        "beforeKo": "법치는 자유까지 지키는 최종 보장이다.",
+        "afterKo": "조건을 만족하는 법은 자유를 줄인다고 볼 수 없다.",
+        "changeKo": "1번 문장의 일반 입장(법이 자유를 보장)을 7번 문장이 이상적인 법의 경우로 좁혀, 왜 자유와 충돌하지 않는지 이유를 덧붙인다. 1번의 주장을 수정하지 않고 같은 방향으로 구체화한다.",
+        "propositionIds": [
+          "p5",
+          "p4"
+        ],
+        "anchorIds": [
+          "a6",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "1번 문장과 7번 문장의 결론이 모두 법과 자유가 충돌하지 않는다는 방향이다."
+        ],
+        "limitKo": "1번은 칸트의 일반 입장 소개이고 7번은 조건부 결론이다. 1번만으로 빈칸이 정해진다고 보지 않는다."
+      }
+    ],
+    "whole": {
+      "genre": "argument",
+      "summaryKo": "칸트는 법치를 자유의 보장으로 보았고, 이상적인 법이 이성적으로 어차피 하지 않을 일을 금지한다면 그 법은 자유를 구속한다고 볼 수 없다고 결론짓는다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "2~5번 문장(인간 본성과 법의 필요성)은 이 설명에서 따로 다루지 않았다.",
+        "결론은 이상적인 법과 If 조건에 매인 것으로, 모든 법에 대한 주장이 아니다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          1,
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": []
+      }
+    ]
+  }
+}

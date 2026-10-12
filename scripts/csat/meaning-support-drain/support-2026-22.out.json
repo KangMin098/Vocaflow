@@ -1,0 +1,134 @@
+{
+  "writer_run": "ms-wr-2026-22",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#22",
+    "binding": { "analysisVersion": 5, "unitsHash": "0adad76963441a40", "basePublicHash": "2fce7eca281063b0253ab5d02845727cdde4d7c5dcb0adfbac0c16120daf0659", "sourceSnapshotHash": "a9533f55248f0d70" },
+    "sourceRef": { "organizer": "kice", "examId": "2026", "itemNo": 22, "inputRef": "inquiry-origin:chunk-inq-15" },
+    "defaultUnitId": "u3",
+    "anchors": [
+      { "id": "a1", "sentence": 6, "quote": "a careful balancing act may be required", "occurrence": 1, "mode": "original" },
+      { "id": "a2", "sentence": 5, "sourceRange": { "start": 70, "end": 111, "spanHash": "1bfb235c3b351f70bf7e1ad57dccb6822ea07e7e7a0eec28cf04ed5b54ada75f" }, "mode": "original" },
+      { "id": "a3", "sentence": 7, "sourceRange": { "start": 0, "end": 5, "spanHash": "6f6f6b4ab1bd157aa91c23a7431ca3fba2fd776bd21ea5889cb499f2be455d10" }, "mode": "original" },
+      { "id": "a4", "sentence": 7, "quote": "will try to be more competitive", "occurrence": 1, "mode": "original" },
+      { "id": "a5", "sentence": 7, "sourceRange": { "start": 53, "end": 79, "spanHash": "a841c7b2fe5bbbd64926f103d83879faf9ab41c4bb15daa700439f61d7fe46aa" }, "mode": "original" },
+      { "id": "a6", "sentence": 7, "sourceRange": { "start": 84, "end": 102, "spanHash": "9fb6344e5ab8781d973cab06f2b4912f1de2a71afb7b7a8acae6366785874757" }, "mode": "original" },
+      { "id": "a7", "sentence": 8, "quote": "By necessity they may need to share information", "occurrence": 1, "mode": "original" },
+      { "id": "a8", "sentence": 8, "sourceRange": { "start": 48, "end": 78, "spanHash": "1cb01688786126275dc9e037aff1dce4a0b27c3fa474b86aef7b3dfa821c3092" }, "mode": "original" },
+      { "id": "a9", "sentence": 9, "sourceRange": { "start": 11, "end": 52, "spanHash": "f3231a24ab140ae340749e0744c82c3664e6047701c8ee526452e3eaf2bcffdc" }, "mode": "original" },
+      { "id": "a10", "sentence": 9, "quote": "how to pursue both simultaneously", "occurrence": 1, "mode": "original" },
+      { "id": "a11", "sentence": 10, "quote": "not neglected at the expense of the other", "occurrence": 1, "mode": "original" }
+    ],
+    "propositions": [
+      { "id": "p1", "textKo": "협력과 경쟁은 서로 다른 형태의 행동이라 스포츠에서 둘 다 해내기가 어려울 수 있고, 그래서 각 활동에 둘 비중을 조심스럽게 맞추는 균형이 필요할 수 있다.", "basis": "source_observation", "anchorIds": ["a1", "a2"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p2", "textKo": "스포츠 관리자들은 흔히 성과 때문에 더 경쟁적이고 덜 협력적이 되려 한다.", "basis": "source_observation", "anchorIds": ["a3", "a4", "a5", "a6"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p3", "textKo": "필요에 의해 정보를 공유해야 할 수도 있지만, 그때도 조심스럽게 한다.", "basis": "source_observation", "anchorIds": ["a7", "a8"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p4", "textKo": "그래서 둘을 동시에 추구하는 방법에 대한 계획을 미리 세워 두는 편이 나을 수 있고, 그러면 한쪽 때문에 다른 쪽이 소홀해지지 않는다.", "basis": "source_observation", "anchorIds": ["a9", "a10", "a11"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p5", "textKo": "7~8번 문장의 경쟁 쪽 쏠림은 필자가 권하는 해법이 아니라, 9~10번 문장의 계획이 필요해지는 상황이다.", "basis": "bridging_inference", "anchorIds": ["a3", "a4", "a9"], "warrantsKo": ["9번 문장은 앞 내용을 받아 '그러므로 ~하는 편이 낫다'고 결론을 내는 말로 시작한다", "10번 문장은 한쪽이 소홀해지는 것을 막을 대상으로 삼는데, 7번 문장의 쏠림이 바로 협력이 소홀해지는 모습이다"], "limitKo": "필자가 경쟁을 나쁘다고 평가하는 것은 아니다. 쏠림이 흔하다는 관찰을 계획의 이유로 쓸 뿐이다." }
+    ],
+    "units": [
+      {
+        "id": "u1", "sentences": [5, 6], "legacyMeaningIds": ["m2"],
+        "labelKo": "두 행동 사이의 조심스러운 균형",
+        "exactKo": "협력과 경쟁은 서로 다른 형태의 행동이라 스포츠에서 둘 다 하기가 어려울 수 있으며, 이는 각 활동에 얼마나 비중을 둘지 조심스럽게 균형을 맞추는 일이 필요할 수 있다는 뜻이다.",
+        "simpleKo": "협력과 경쟁은 성격이 달라서, 어느 쪽에 얼마나 힘을 줄지 잘 맞춰야 할 수도 있다.",
+        "propositionIds": ["p1"],
+        "preserves": [
+          { "facet": "modality", "valueKo": "필요할 수 있다", "anchorIds": ["a1"], "explanationKo": "균형이 꼭 필요하다고 단정하지 않고 완곡하게 권한다. '꼭 해야 한다'는 의무로 바꾸면 말의 세기가 달라진다." },
+          { "facet": "causality", "valueKo": "서로 다른 형태의 행동이므로", "anchorIds": ["a2"], "explanationKo": "균형이 필요할 수 있는 이유는 두 행동의 성격이 달라 함께 하기 어렵기 때문이다." },
+          { "facet": "quantity", "valueKo": "각 활동에 둘 비중", "anchorIds": ["a1"], "explanationKo": "균형은 상황에 맞게 비중을 조절하는 일이다. 언제나 정확히 반반으로 나눈다는 뜻이 아니다." }
+        ],
+        "misunderstanding": {
+          "alteredKo": "협력과 경쟁에는 언제나 정확히 같은 비중을 두어야 한다.",
+          "lostFacet": "modality",
+          "whyWrongKo": "원문은 균형이 필요할 수 있다고 완곡하게 말하고, 그 균형도 비중을 조심스럽게 조절하는 일이다. '언제나'와 '같은 비중'은 원문에 없는 단정이다.",
+          "anchorIds": ["a1"]
+        }
+      },
+      {
+        "id": "u2", "sentences": [7, 8], "legacyMeaningIds": ["m3", "m4"],
+        "labelKo": "흔한 쏠림: 경쟁 쪽으로 (진단)",
+        "exactKo": "흔히 스포츠 관리자들은 성과 때문에 더 경쟁적이고 덜 협력적이 되려 한다. 필요에 의해 정보를 공유해야 할 수도 있지만, 조심스러운 방식으로 한다.",
+        "simpleKo": "실제로는 성적 때문에 경쟁 쪽으로 기우는 일이 많고, 꼭 필요한 정보 공유도 조심조심 한다.",
+        "propositionIds": ["p2", "p3", "p5"],
+        "preserves": [
+          { "facet": "quantity", "valueKo": "흔히", "anchorIds": ["a3"], "explanationKo": "모든 관리자가 늘 그렇다는 말이 아니라 자주 그렇다는 빈도 한정이다." },
+          { "facet": "causality", "valueKo": "성과 때문에", "anchorIds": ["a5"], "explanationKo": "경쟁 쪽으로 기우는 이유가 성과라는 점이 함께 제시된다." },
+          { "facet": "comparison", "valueKo": "더 경쟁적 · 덜 협력적", "anchorIds": ["a4", "a6"], "explanationKo": "협력을 아예 하지 않는다는 말이 아니라 상대적으로 덜 한다는 비교다." },
+          { "facet": "reference", "valueKo": "필요에 의해 → 정보 공유", "anchorIds": ["a7"], "explanationKo": "'필요에 의해'가 걸린 것은 정보 공유(협력 쪽 행위)다. 경쟁이 필연이라는 말이 아니다." },
+          { "facet": "modality", "valueKo": "공유해야 할 수도 있다", "anchorIds": ["a7"], "explanationKo": "정보 공유도 가능성으로 완곡하게 말한다." }
+        ],
+        "misunderstanding": {
+          "alteredKo": "스포츠 관리자는 성과를 위해 경쟁에 집중하는 것이 바람직하다.",
+          "lostFacet": "quantity",
+          "whyWrongKo": "원문은 흔히 그렇게 기운다는 경향을 관찰할 뿐 그것을 권하지 않는다. 오히려 이 쏠림 때문에 9~10번 문장에서 두 쪽을 함께 챙길 계획이 필요해진다.",
+          "anchorIds": ["a3", "a4", "a9"]
+        }
+      },
+      {
+        "id": "u3", "sentences": [9, 10], "legacyMeaningIds": ["m5", "m6"],
+        "labelKo": "둘 다 챙기는 계획 (권고)",
+        "exactKo": "이는 협력과 경쟁 둘을 동시에 어떻게 추구할지에 대한 계획을 마련해 두는 편이 나을 수 있다는 뜻이며, 그러면 한쪽 때문에 다른 쪽이 소홀해지지 않게 된다.",
+        "simpleKo": "그러니 둘을 함께 해낼 방법을 미리 계획해 두는 편이 낫겠고, 그래야 어느 한쪽도 밀려나지 않는다.",
+        "propositionIds": ["p4", "p5"],
+        "preserves": [
+          { "facet": "modality", "valueKo": "~하는 편이 나을 수 있다", "anchorIds": ["a9"], "explanationKo": "강한 명령이 아니라 완곡한 권고다." },
+          { "facet": "reference", "valueKo": "둘 = 협력과 경쟁", "anchorIds": ["a10"], "explanationKo": "'둘'은 앞에서 말한 협력과 경쟁 두 활동을 가리킨다." },
+          { "facet": "time", "valueKo": "동시에", "anchorIds": ["a10"], "explanationKo": "번갈아가 아니라 함께 추구한다는 시간 한정이다." },
+          { "facet": "reference", "valueKo": "한쪽 · 다른 쪽 — 어느 쪽이든", "anchorIds": ["a11"], "explanationKo": "협력만 지키자는 말이 아니라, 둘 중 어느 쪽도 다른 쪽 때문에 소홀해지지 않게 한다는 범위다." }
+        ],
+        "syntax": {
+          "parts": [
+            { "id": "s1", "role": "main", "anchorIds": ["a9"], "meaningKo": "계획을 마련해 두는 편이 나을 수 있다 — 권고" },
+            { "id": "s2", "role": "clause", "anchorIds": ["a10"], "meaningKo": "둘을 동시에 어떻게 추구할지 — 계획의 내용" },
+            { "id": "s3", "role": "main", "anchorIds": ["a11"], "meaningKo": "한쪽이 다른 쪽 때문에 소홀해지지 않는다 — 계획이 가져올 결과" }
+          ],
+          "attachments": [
+            { "fromPart": "s2", "toPart": "s1", "whyKo": "무엇에 대한 계획인지를 채워 준다." },
+            { "fromPart": "s3", "toPart": "s1", "whyKo": "10번 문장의 '이것'이 9번 문장의 계획을 받아 그 효과를 말한다." }
+          ],
+          "recombinedKo": "협력과 경쟁을 함께 해낼 방법을 미리 계획해 두면, 둘 중 어느 것도 다른 것에 밀려 소홀해지지 않는다."
+        },
+        "misunderstanding": {
+          "alteredKo": "경쟁 때문에 협력이 소홀해지지 않도록 협력에 더 힘을 쏟아야 한다.",
+          "lostFacet": "reference",
+          "whyWrongKo": "원문의 한쪽·다른 쪽은 어느 쪽이든 가리키며, 둘을 동시에 추구하는 계획을 권한다. 협력 한쪽으로 무게를 옮기라는 말이 아니다.",
+          "anchorIds": ["a10", "a11"]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1", "from": ["u1"], "to": ["u2"], "kind": "cause",
+        "beforeKo": "두 행동이 달라서 비중을 조심스럽게 맞추는 균형이 필요할 수 있다.",
+        "afterKo": "실제로는 흔히 성과 때문에 경쟁 쪽으로 기울고 정보 공유도 조심스럽게만 한다.",
+        "changeKo": "균형이 필요할 수 있다는 일반 진술을 유지한 채, 그 균형이 왜 저절로 되지 않는지 실제 경향으로 보여 준다. 균형을 버리자는 말이 아니라 균형이 깨지기 쉬운 상황을 더한다.",
+        "propositionIds": ["p1", "p2"], "anchorIds": ["a1", "a3", "a4"],
+        "basis": "bridging_inference",
+        "warrantsKo": ["7번 문장의 쏠림은 6번 문장의 비중 맞추기가 어긋난 모습이다"],
+        "limitKo": "원문은 7번 문장 앞에 연결어를 두지 않는다. 쏠림을 균형이 어려운 이유의 사례로 읽은 것은 연결 추론이다."
+      },
+      {
+        "id": "r2", "from": ["u1", "u2"], "to": ["u3"], "kind": "purpose",
+        "beforeKo": "균형이 필요할 수 있지만, 흔히 경쟁 쪽으로 기운다.",
+        "afterKo": "그러니 둘을 동시에 추구할 계획을 세워 두는 편이 낫고, 그러면 어느 쪽도 소홀해지지 않는다.",
+        "changeKo": "쏠림이라는 상황을 인정한 위에서, 그에 대한 해법으로 계획을 권하고 그 목적(어느 쪽도 소홀해지지 않음)을 밝힌다. 6번 문장의 균형 처방이 구체적 계획으로 다시 말해진다.",
+        "propositionIds": ["p4", "p5"], "anchorIds": ["a9", "a10", "a11"],
+        "basis": "source_observation", "warrantsKo": [], "limitKo": ""
+      }
+    ],
+    "whole": {
+      "genre": "argument",
+      "summaryKo": "스포츠 기업은 협력과 경쟁을 함께 해야 하는데 두 행동은 성격이 달라 균형이 필요할 수 있고, 실제로는 흔히 성과 때문에 경쟁 쪽으로 기우므로, 둘을 동시에 추구할 계획을 세워 어느 한쪽도 소홀해지지 않게 하는 편이 낫다. 앞부분은 정의, 7~8번 문장은 진단, 6·9·10번 문장이 필자의 권고다.",
+      "propositionIds": ["p1", "p2", "p4", "p5"],
+      "relationIds": ["r1", "r2"],
+      "limitsKo": ["권고는 may·might 로 완곡하게 표현되어 있어 강한 의무로 옮기지 않았다.", "실제 출제 의도는 확인할 수 없다."]
+    },
+    "bridges": [
+      { "unitId": "u1", "meaningIds": ["m2"], "choiceNumbers": [1, 2], "designClaimIndices": [1, 2] },
+      { "unitId": "u2", "meaningIds": ["m3", "m4"], "choiceNumbers": [3, 5], "designClaimIndices": [1, 3] },
+      { "unitId": "u3", "meaningIds": ["m5", "m6"], "choiceNumbers": [1, 2, 3, 4], "designClaimIndices": [1, 3] }
+    ]
+  }
+}

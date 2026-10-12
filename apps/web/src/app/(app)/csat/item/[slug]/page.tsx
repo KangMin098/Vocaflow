@@ -45,6 +45,8 @@ import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
+import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
+import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
 import compareData from '@/lib/csat/compare-data.json'
 import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 
@@ -64,7 +66,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[] }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[] }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -158,6 +160,16 @@ export default async function CsatItemTheaterPage({
   })
   // v3 비교 쌍(M4) — 상대는 같은 유형 siblings 가 아니라 **상대 유형의 공개 목록**에서 확인한다(교차 유형 허용 · 비공개 상대는 뺀다)
   const inquiryHit = lookupInquiry(item.id, item.analysis_version)
+  // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection 만 넘긴다
+  const msHit = lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null })
+  const msParams = msHit.view
+    ? parseMeaningParams(
+        { meaning: first(sp.meaning) ?? null, depth: first(sp.depth) ?? null, rel: first(sp.rel) ?? null, bridge: first(sp.bridge) ?? null },
+        msHit.view.units.map((u) => u.id),
+        msHit.view.defaultUnitId,
+        (u) => relationsOfUnit(msHit.view!, u).map((r) => r.id),
+      )
+    : null
   const revealScope = await loadRevealScope()
   const partnerTypes = [...new Set(v3PairPartners(item.id).map((x) => x.type).filter((t): t is string => Boolean(t)))]
   const openById = new Map<string, { slug: string; label: string }>()
@@ -236,6 +248,12 @@ export default async function CsatItemTheaterPage({
       // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
       inquiry={inquiryHit.state === 'ready' ? inquiryHit.record : null}
       initialScene={parsedScene.scene}
+      meaningSupport={msHit.view}
+      initialMeaning={msParams?.unitId ?? null}
+      initialDepth={msParams?.depth ?? 'brief'}
+      initialRelation={msParams?.relationId ?? null}
+      initialBridge={msParams?.bridge ?? false}
+      meaningNormalized={msParams?.normalized ?? false}
       initialJudgmentView={parsedScene.judgmentView}
       sceneNormalized={parsedScene.normalized}
       map={map}

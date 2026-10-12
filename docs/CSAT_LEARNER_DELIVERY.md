@@ -496,3 +496,17 @@ pnpm csat:drill:check    # 낡았으면 exit 1
 ## 11. v3 탐구 전달 현황 (2026-10-12)
 
 해설 극장은 일곱 장면(평가 과제 · 원문 이해 · 문항 성립 · 설계 재구성 · 기출 비교 · 조건부 원리 · 내 설명)으로 전달한다. 공개 v3 탐구 786문항 · 검수된 비교 749쌍 · 원리 노트(reasoningNotes) · 학습 지도 복귀. 계약 [ITEM_INQUIRY_V2_CONTRACT §7~9](./csat-learner/ITEM_INQUIRY_V2_CONTRACT.md) · 출시 검수표 [M5_RELEASE_CHECK](./csat-learner/v3/M5_RELEASE_CHECK.md)(F01~F16 · 실행 검사 · 교육 효과 미검증 · 다크 범위 제외).
+
+## 12. v3.1 원문 이해 교수 파일럿 (2026-10-12)
+
+- 데이터: `apps/web/src/lib/csat/meaning-support-data.json` — 기존 `inquiry-data.json` 을 고치지 않는 별도 sidecar. 공개 조건은 결속(분석 버전 · units_hash · 배포 레코드 canonical SHA-256) + 작성자와 다른 독립 검수 pass(내용 해시 일치)가 모두 맞을 때. 하나라도 어긋나면 화면은 기존 v3 의미 패널로 돌아간다.
+- 파일럿 8문항 — 2026#34 · #38(C2) · #22 · #23 · #25(도표 — 언어만 부분 공개) · #29 · #36 · #43(C3). 독립 검수 revise 4건(#34 「만」 조건 확대 · #23 seems 단정화 · #43 인과 · 선지 연결 · #36 관계 종류 · 양초 「연속」 원문 밖 주장)을 고친 뒤 재검수 pass.
+- 굽기(재실행 안전): `node scripts/csat/meaning-support-export.mjs`(입력 · 매니페스트) → 작성 `support-<id>.out.json` → `meaning-support-validate.mjs` → 독립 검수 `review-ms-*.json` → `meaning-support-build.mjs`(현재 공개 항목이 빠지면 `--allow-drop` 없이 실패 · 입력이 없으면 기존 유지).
+- 검증: Node 가드 13 · vitest 8(서버↔빌드 해시 동치 전 문항) · e2e `csat-v31-meaning` 1280/1440 라이트 · 기존 M5 · 강의 · 학습 루프 회귀. 실제 학습자 검증 전이라 교육 효과는 입증되지 않았다.
+
+### 12-1. PR #238 병합 전 보강 (2026-10-12)
+
+- 공개 조건에 **검수 재확인**을 더했다: 서버가 schema · 검수 기준 · 검수자 · 지금 본문의 contentHash 를 다시 계산해 판정 해시와 대조한다(어긋나면 invalid — 기존 v3 화면).
+- 빌드: 원문 입력이 하나라도 없으면 full · `--dry` 모두 exit 1(산출물 그대로). 공개 대상은 `pilot-manifest.json` 의 `contract.expectedPublic`(명시 목록 · v31-pilot-1) — 기대 공개 = 검수 판정 public = 산출물 키여야 한다(`scripts/csat/__tests__/meaning-support-artifact.test.mjs`).
+- 원문 대조: 공개 항목마다 빌드가 `alignment`(문장 · 구절 글자 지문 · 오프셋 — 영어 본문 없음)를 붙인다. 서버는 지도 골격(문장 수 · 길이)으로 분할을, 화면은 기기 문제지로 글자를 대조한다. 실측: 기기 문제지 글자 대조 6문항 ok, 2026#25(도표) · #29(어법 — 밑줄 원본 그림) = 원문 글자 없음.
+- 격리 CI: `scripts/csat/meaning-support-isolated-seed.mjs`(namespace csat-v31 · run id · loopback 54321 · 소유 marker · allowlist) + `tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts` A(보류 없음) → B(정본 RPC 로 2026 회차 보류) → C(학습자 해제) — Reveal Gate 정본 마이그레이션 ①–④ · taxonomy v0.1 복원 시드 반입(격리 검증용). fail-closed 는 별도 job `e2e-gate-faultclosed`(게이트 RPC 실제 제거).

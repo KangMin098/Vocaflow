@@ -1,0 +1,147 @@
+{
+  "writer_run": "ms-wr-2026-38",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#38",
+    "binding": { "analysisVersion": 5, "unitsHash": "1f412cc306b16b62", "basePublicHash": "8af9c216426fe22d40108e394c9274a2b53c95fc5e8c9d5aac2c2d1e23313c43", "sourceSnapshotHash": "988da51c7762976b" },
+    "sourceRef": { "organizer": "kice", "examId": "2026", "itemNo": 38, "inputRef": "inquiry-origin:chunk-inq-15" },
+    "defaultUnitId": "u3",
+    "anchors": [
+      { "id": "a1", "sentence": 5, "quote": "our minds seek to make sense of them", "occurrence": 1, "mode": "original" },
+      { "id": "a2", "sentence": 5, "sourceRange": { "start": 6, "end": 68, "spanHash": "ac4f240676a0486f1278edf099437a581dad8aba7a760519736c3448679ea573" }, "mode": "original" },
+      { "id": "a3", "sentence": 6, "quote": "you may create a negative narrative", "occurrence": 1, "mode": "original" },
+      { "id": "a4", "sentence": 7, "quote": "judge everyone from the university", "occurrence": 1, "mode": "original" },
+      { "id": "a5", "sentence": 7, "sourceRange": { "start": 85, "end": 117, "spanHash": "50d2263f42e5df0f8105ca66619d40f7810d388e378334fe7561e764b8312c74" }, "mode": "original" },
+      { "id": "a6", "sentence": 1, "quote": "these internal narratives we form", "occurrence": 1, "mode": "original" },
+      { "id": "a7", "sentence": 1, "quote": "become deeply rooted in our identity", "occurrence": 1, "mode": "original" },
+      { "id": "a8", "sentence": 1, "sourceRange": { "start": 0, "end": 9, "spanHash": "5bca0e3da0627549815c3b0691247c3722893884bbcccde4af1f23878f6a93e5" }, "mode": "original" },
+      { "id": "a9", "sentence": 1, "sourceRange": { "start": 44, "end": 92, "spanHash": "e8bf684da99999632aed62e2eca09b92f12c0b7dc34533a5de9e6f168d7d8651" }, "mode": "original" },
+      { "id": "a10", "sentence": 8, "quote": "who you are as an individual", "occurrence": 1, "mode": "original" },
+      { "id": "a11", "sentence": 8, "sourceRange": { "start": 6, "end": 17, "spanHash": "f85c1f8a053beb8c0b9b83be509bbc7d487cb835f85c837a96b8a34bcac56ea9" }, "mode": "original" },
+      { "id": "a12", "sentence": 8, "sourceRange": { "start": 91, "end": 139, "spanHash": "50c5789eedc41d3f770f3b8aea168f8f8536002d216158bb57e2207d854ecf24" }, "mode": "original" }
+    ],
+    "propositions": [
+      { "id": "p1", "textKo": "여러 사건이나 사실을 접하면 마음은 그것들 둘레에 이야기를 지어 이해하려 한다.", "basis": "source_observation", "anchorIds": ["a1", "a2"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p2", "textKo": "특정 대학 졸업생과의 나쁜 경험 몇 번에서 그 학교 출신 전체에 대한 부정적 이야기가 생길 수 있고, 그 결과 모두를 그 몇 번의 경험으로 판단하게 된다.", "basis": "source_observation", "anchorIds": ["a3", "a4", "a5"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p3", "textKo": "주어진 문장의 '우리가 만든 그 내면의 서사'는 앞에 이미 만들어진 서사를 가리킨다. 5~7번 문장 다음 자리라면 대학 졸업생 예시에서 실제로 만들어진 부정적 서사가 그 대상이 될 수 있다.", "basis": "bridging_inference", "anchorIds": ["a6", "a3"], "warrantsKo": ["these 는 새 대상을 소개하지 않고 이미 나온 대상을 다시 가리키는 말이다", "6번 문장에서 서사가 만들어지는 장면이 구체적으로 나온다"], "limitKo": "these 가 6~7번 서사만 가리킨다고 단정하지 않는다. 4~7번에 걸친 '우리가 만드는 서사' 전반을 받는다고 읽어도 된다." },
+      { "id": "p4", "textKo": "주어진 문장은 서사가 신념·의견을 만드는 데서 그치지 않고, 때로는 정체성에까지 뿌리내린다는 새 진술을 더한다.", "basis": "source_observation", "anchorIds": ["a7", "a8", "a9"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p5", "textKo": "총기 규제나 기후 변화에 대해 만든 서사는 정치 이념, 곧 개인으로서의 나와 관련되어 있을 가능성이 매우 높다.", "basis": "source_observation", "anchorIds": ["a10", "a11", "a12"], "warrantsKo": [], "limitKo": "" },
+      { "id": "p6", "textKo": "8번 문장의 예시가 보여 주는 핵심은 정체성과의 연결인데, 5~7번 문장은 정체성을 말하지 않으므로 이 예시를 받칠 일반 진술은 주어진 문장뿐이다.", "basis": "bridging_inference", "anchorIds": ["a7", "a10", "a11"], "warrantsKo": ["예시 표지는 바로 앞의 일반 진술을 구체화한다", "개인으로서의 나는 정체성을 풀어 쓴 말로 읽힌다"], "limitKo": "지문 앞부분(2~3번 문장)도 정체성을 일반 진술로 세우지 않는다는 점은 입력 분할 범위 안에서의 관찰이다." }
+    ],
+    "units": [
+      {
+        "id": "u1", "sentences": [5], "legacyMeaningIds": ["m3"],
+        "labelKo": "경험을 이야기로 엮는 마음",
+        "exactKo": "서로 다른 사건을 겪거나 여러 사실을 접할 때, 우리 마음은 그것들 둘레에 이야기를 만들어 그 의미를 이해하려 한다.",
+        "simpleKo": "무언가를 겪으면 우리는 그걸 이야기로 엮어서 이해하려 한다.",
+        "propositionIds": ["p1"],
+        "preserves": [
+          { "facet": "condition", "valueKo": "사건을 겪거나 사실을 접할 때", "anchorIds": ["a2"], "explanationKo": "이야기 만들기는 아무 때나가 아니라 경험·사실을 만났을 때 일어나는 반응으로 제시된다." }
+        ]
+      },
+      {
+        "id": "u2", "sentences": [6, 7], "legacyMeaningIds": ["m4", "m5"],
+        "labelKo": "몇 번의 경험으로 집단 전체를 판단",
+        "exactKo": "어떤 대학 졸업생들과 나쁜 경험이 몇 번 있었다면, 그 학교 출신 사람들에 대한 부정적 서사를 마음속에 만들 수 있고, 그러면 불운했던 몇 번의 경험만으로 그 대학 출신 모두를 판단하게 된다.",
+        "simpleKo": "몇 번 안 좋았던 기억이 '그 학교 사람들은 다 그래'라는 이야기가 되어, 모두를 그렇게 보게 될 수 있다.",
+        "propositionIds": ["p2"],
+        "preserves": [
+          { "facet": "modality", "valueKo": "만들 수 있다", "anchorIds": ["a3"], "explanationKo": "나쁜 경험이 있으면 꼭 부정적 서사가 생긴다는 말이 아니라 그럴 수 있다는 말이다." },
+          { "facet": "quantity", "valueKo": "단지 몇 번 ↔ 그 대학 출신 모두", "anchorIds": ["a4", "a5"], "explanationKo": "적은 경험 수와 판단 대상 전체의 대비가 이 예시의 핵심이다. '몇 번'을 '자주'로 바꾸면 과잉 일반화라는 뜻이 사라진다." }
+        ],
+        "misunderstanding": {
+          "alteredKo": "그 대학 졸업생들과 여러 번 나쁜 경험을 했으니 그 학교 사람 모두를 나쁘게 보는 것은 당연하다.",
+          "lostFacet": "quantity",
+          "whyWrongKo": "원문은 불운했던 단 몇 번의 경험으로 모두를 판단한다고 하여, 이야기가 경험보다 훨씬 넓게 퍼지는 점을 보여 준다. 그것을 정당한 판단으로 바꾸면 예시의 요지가 뒤집힌다.",
+          "anchorIds": ["a4", "a5"]
+        }
+      },
+      {
+        "id": "u3", "sentences": [1], "legacyMeaningIds": ["m1", "m2"],
+        "labelKo": "서사가 정체성에 뿌리내림 (주어진 문장)",
+        "exactKo": "때때로, 우리가 형성한 이 내면의 서사들은 우리의 신념과 의견을 형성할 뿐만 아니라 우리의 정체성에 깊이 뿌리내리기도 한다.",
+        "simpleKo": "경험을 엮어 만든 이야기가 때로는 생각만이 아니라 '내가 누구인지'에까지 들어가 박힌다.",
+        "propositionIds": ["p3", "p4"],
+        "preserves": [
+          { "facet": "quantity", "valueKo": "때때로", "anchorIds": ["a8"], "explanationKo": "모든 서사가 정체성이 된다는 말이 아니다. 일부 경우에 그렇다는 빈도 한정이다." },
+          { "facet": "comparison", "valueKo": "신념·의견을 형성할 뿐만 아니라 정체성에도", "anchorIds": ["a9", "a7"], "explanationKo": "앞의 효과를 인정한 채 더 깊은 효과를 덧붙이는 구조다. 신념·의견 대신 정체성이라는 뜻이 아니다." },
+          { "facet": "reference", "valueKo": "우리가 만든 이 서사들", "anchorIds": ["a6"], "explanationKo": "앞에서 이미 만들어진 서사를 다시 가리키므로, 이 문장 앞에는 서사가 만들어지는 내용이 있어야 한다." }
+        ],
+        "syntax": {
+          "parts": [
+            { "id": "s1", "role": "modifier", "anchorIds": ["a8"], "meaningKo": "때때로 — 문장 전체의 빈도를 한정" },
+            { "id": "s2", "role": "main", "anchorIds": ["a6"], "meaningKo": "주어: 우리가 만든 그 내면의 서사들" },
+            { "id": "s3", "role": "connector", "anchorIds": ["a9"], "meaningKo": "~할 뿐 아니라: 신념·의견을 만든다는 첫째 효과" },
+            { "id": "s4", "role": "main", "anchorIds": ["a7"], "meaningKo": "~도 한다: 정체성에 깊이 뿌리내린다는 둘째 효과" }
+          ],
+          "attachments": [
+            { "fromPart": "s1", "toPart": "s4", "whyKo": "빈도 한정은 문장 맨 앞에서 두 효과 전체, 특히 새로 더해지는 정체성 진술에 걸린다." },
+            { "fromPart": "s3", "toPart": "s4", "whyKo": "앞쪽은 인정된 효과, 뒤쪽이 이 문장이 새로 말하는 효과다." }
+          ],
+          "recombinedKo": "우리가 만든 그 서사들은 생각을 만들고, 때로는 그보다 더 나아가 정체성의 일부가 되기도 한다."
+        },
+        "misunderstanding": {
+          "alteredKo": "우리가 만드는 서사는 신념이 아니라 정체성을 형성한다.",
+          "lostFacet": "comparison",
+          "whyWrongKo": "원문은 신념·의견 형성을 부정하지 않고 그 위에 정체성을 더한다. 또 때때로라는 한정을 빼면 모든 서사로 범위가 넓어진다.",
+          "anchorIds": ["a9", "a8"]
+        }
+      },
+      {
+        "id": "u4", "sentences": [8], "legacyMeaningIds": ["m6"],
+        "labelKo": "정치 이념 예시",
+        "exactKo": "예를 들어, 총기 규제나 기후 변화를 둘러싸고 당신이 만든 서사는 당신의 정치 이념, 곧 개인으로서의 당신이 누구인지와 관련되어 있을 가능성이 매우 높다.",
+        "simpleKo": "총기나 기후 문제에 대한 내 이야기는 아마도 내 정치 성향, 즉 '나라는 사람'과 엮여 있을 것이다.",
+        "propositionIds": ["p5", "p6"],
+        "preserves": [
+          { "facet": "modality", "valueKo": "가능성이 매우 높다", "anchorIds": ["a12"], "explanationKo": "꼭 관련된다고 단정하지 않는다. 강한 가능성으로 남겨 둔다." },
+          { "facet": "reference", "valueKo": "예를 들어 — 앞의 일반 진술을 구체화", "anchorIds": ["a11"], "explanationKo": "이 예시가 보여 주는 것은 정체성과의 연결이므로, 바로 앞에는 정체성을 말하는 일반 진술이 와야 한다." }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1", "from": ["u1"], "to": ["u2"], "kind": "example",
+        "beforeKo": "경험을 하면 마음이 이야기를 지어 이해하려 한다.",
+        "afterKo": "대학 졸업생과의 나쁜 경험 몇 번이 그 학교 전체에 대한 부정적 이야기가 된다.",
+        "changeKo": "일반 진술을 유지한 채 구체 장면으로 옮기고, 그 이야기가 적은 경험을 집단 전체로 넓힐 수 있다는 점을 덧붙인다. 정체성은 아직 등장하지 않는다.",
+        "propositionIds": ["p1", "p2"], "anchorIds": ["a1", "a3", "a4"],
+        "basis": "source_observation", "warrantsKo": [], "limitKo": ""
+      },
+      {
+        "id": "r2", "from": ["u2"], "to": ["u3"], "kind": "reference",
+        "beforeKo": "구체적 경험에서 서사가 만들어지는 장면이 제시되었다.",
+        "afterKo": "그렇게 만든 서사들이 때로는 정체성에까지 뿌리내린다.",
+        "changeKo": "앞에서 만들어진 서사를 '이 서사들'로 받아 대상을 유지하면서, 서사의 효과를 판단·신념 수준에서 정체성 수준으로 한 단계 넓힌다. 받을 대상(만들어진 서사)이 앞에 있어야 이 연결이 선다.",
+        "propositionIds": ["p3", "p4"], "anchorIds": ["a6", "a3"],
+        "basis": "bridging_inference",
+        "warrantsKo": ["지시어는 이미 나온 대상을 가리킨다", "6~7번 문장에 우리가 만든 서사의 구체적 사례가 있다"],
+        "limitKo": "받는 대상을 6~7번 서사 하나로 좁힐 필요는 없다. 4~7번 전체의 '우리가 만드는 서사'를 받는다고 읽을 수도 있다."
+      },
+      {
+        "id": "r3", "from": ["u3"], "to": ["u4"], "kind": "example",
+        "beforeKo": "서사가 때로는 정체성에 뿌리내린다.",
+        "afterKo": "총기 규제·기후 변화에 대한 서사는 정치 이념, 곧 '나라는 사람'과 관련될 가능성이 높다.",
+        "changeKo": "정체성이라는 새 진술을 정치 이념이라는 구체 사례로 보여 준다. 8번 문장의 예시는 정체성을 요구하는데 5~7번 문장의 일반 진술은 경험에서 서사가 생기는 데까지만 말하므로, 주어진 문장이 그 사이를 채운다.",
+        "propositionIds": ["p5", "p6"], "anchorIds": ["a7", "a10", "a11"],
+        "basis": "bridging_inference",
+        "warrantsKo": ["예시 표지는 직전의 일반 진술을 구체화한다", "개인으로서의 나는 정체성을 풀어 쓴 말로 읽힌다"],
+        "limitKo": "예시 표지 하나만으로 자리를 정하지 않는다. 6번 문장에도 같은 표지가 있으나 그 예시는 5번 문장을 받친다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "사람은 경험을 이야기로 엮어 이해하며, 그 이야기는 몇 번의 경험만으로 집단 전체를 판단하게 만들 수도 있고, 때로는 정체성에까지 뿌리내려 정치적 견해와 얽히기도 한다. 앞 예시는 경험에서 서사가 생기는 일을, 뒤 예시는 서사가 정체성과 얽히는 일을 보여 주므로, 주어진 문장은 앞의 서사를 받고 뒤의 예시를 여는 연결 지점이 된다.",
+      "propositionIds": ["p1", "p2", "p4", "p5", "p6"],
+      "relationIds": ["r1", "r2", "r3"],
+      "limitsKo": ["2~3번 문장이 주어진 글의 앞부분인지는 입력 분할로만 판단했다.", "실제 출제 의도는 확인할 수 없다."]
+    },
+    "bridges": [
+      { "unitId": "u1", "meaningIds": ["m3"], "choiceNumbers": [2, 3], "designClaimIndices": [] },
+      { "unitId": "u2", "meaningIds": ["m4", "m5"], "choiceNumbers": [4], "designClaimIndices": [1] },
+      { "unitId": "u3", "meaningIds": ["m1", "m2"], "choiceNumbers": [5], "designClaimIndices": [2] },
+      { "unitId": "u4", "meaningIds": ["m6"], "choiceNumbers": [5], "designClaimIndices": [1, 2] }
+    ]
+  }
+}

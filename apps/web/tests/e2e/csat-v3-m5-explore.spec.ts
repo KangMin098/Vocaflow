@@ -128,7 +128,12 @@ for (const width of [1280, 1440]) {
     await page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first().click()
     await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
     await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
-    await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+    // 비교 강조는 꺼진다. v3.1 교수 설명이 있는 문항(2026#38)은 원문 이해 장면이 고른 의미의 문장을 대신 비춘다
+    if (await page.getByTestId('ms-panel').count()) {
+      await expect(page.getByTestId('ms-explain')).toBeVisible()
+    } else {
+      await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+    }
     await page.getByRole('tab', { name: '기출 비교', exact: true }).click()
     await expect(page.getByTestId('v3-pair')).toBeVisible() // 주소의 pair 로 같은 쌍이 다시 열린다
 
