@@ -528,3 +528,5 @@
 .cmpTable th, .cmpTable td { padding: 6px 8px; border-top: 1px solid var(--bd); text-align: left; vertical-align: top; }
 .cmpTable th { font-weight: 600; color: var(--t2); }
 .cmpActions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+/* 목록 항목 배경(--bg3) 위에서는 --t3 라벨이 대비 기준(4.5:1)에 못 미친다(axe color-contrast · M5) — 목록 안 라벨은 한 단계 진하게 */
+.cmpList [role='option'] .diagramLabel { color: var(--t2); }

@@ -25,7 +25,9 @@ export function lookupInquiry(itemId: string, analysisVersion: number | null): I
   return { state: 'ready', record: r }
 }
 
-/** 문항의 공개 v3 문장 분할 결속(units_hash) — 비교 쌍이 쓸 때의 상대 분할과 지금이 같은지 볼 때. 없으면 null */
-export function inquiryUnitsHash(itemId: string): string | null {
-  return RECORDS[itemId]?.v3?.units_hash ?? null
+/** 문항의 공개 v3 결속(문장 분할 · 분석 버전) — 비교 쌍이 쓸 때와 지금이 같은지 볼 때. 공개 탐구가 없으면 null */
+export function inquiryBinding(itemId: string): { units_hash: string | null; analysis_version: number | null } | null {
+  const r = RECORDS[itemId]
+  if (!r) return null
+  return { units_hash: r.v3?.units_hash ?? null, analysis_version: r.analysis_version ?? null }
 }

@@ -81,7 +81,8 @@ for (const p of keep.sort((a, b) => a.pair_id.localeCompare(b.pair_id))) {
   data.pairs[p.pair_id] = {
     kind: p.kind, focus: p.focus, left: p.left.id, right: p.right.id, types: requirePairTypes(p, typeOf), mappings: p.mappings, shared_conditions: p.shared_conditions ?? [],
     decisive_differences: p.decisive_differences ?? [], principle: p.principle ?? null, limitation: p.limitation,
-    binding: { left: { units_hash: p.left.units_hash, inquiry_hash: p.left.inquiry_hash }, right: { units_hash: p.right.units_hash, inquiry_hash: p.right.inquiry_hash } },
+    // 양쪽 결속 — 문장 분할 · 탐구 내용 해시 · 그 탐구가 기댄 분석 버전. 화면은 셋 중 하나라도 지금과 다르면 그 쌍을 뺀다(M5)
+    binding: Object.fromEntries(['left', 'right'].map((k) => [k, { units_hash: p[k].units_hash, inquiry_hash: p[k].inquiry_hash, analysis_version: pub[p[k].id].analysis_version }])),
   }
   for (const id of [p.left.id, p.right.id]) (data.items[id] ??= []).push(p.pair_id)
 }

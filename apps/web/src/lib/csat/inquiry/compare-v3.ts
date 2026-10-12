@@ -13,6 +13,9 @@ import data from '../compare-v3-data.json'
 import type { PairAbsence, PairKind, V3PairView } from './labels'
 
 interface Side { sentences: number[]; choices?: number[] }
+interface SideBinding { units_hash?: string; inquiry_hash?: string; analysis_version?: number }
+/** 문항의 지금 공개 탐구 결속 — 문장 분할 · 분석 버전 */
+export interface CurrentBinding { units_hash: string | null; analysis_version: number | null }
 interface StoredPair {
   kind: PairKind
   focus: string
@@ -24,7 +27,7 @@ interface StoredPair {
   decisive_differences: { text: string; left_sentences: number[]; right_sentences: number[] }[]
   principle: V3PairView['principle']
   limitation: string
-  binding?: { left?: { units_hash?: string }; right?: { units_hash?: string } }
+  binding?: { left?: SideBinding; right?: SideBinding }
 }
 interface CompareV3Data { pairs: Record<string, StoredPair>; items: Record<string, string[]> }
 
@@ -55,8 +58,8 @@ export function projectV3Pairs(
   inquiryReady: boolean,
   partner: (id: string) => PartnerInfo | PartnerState | null,
   d: CompareV3Data = DATA,
-  /** 상대의 지금 공개 v3 문장 분할 결속 — 쌍을 쓸 때와 다르면 changed 로 뺀다(주지 않으면 검사 안 함) */
-  unitsOf?: (id: string) => string | null,
+  /** 문항의 지금 공개 탐구 결속 — **양쪽** 문장 분할 · 분석 버전이 쌍을 쓸 때와 다르면 changed 로 뺀다(주지 않으면 검사 안 함) */
+  currentOf?: (id: string) => CurrentBinding | null,
 ): { pairs: V3PairView[]; absence: PairAbsence | null; withheld: PairWithheld } {
   const withheld: PairWithheld = { held: 0, missing: 0, changed: 0 }
   const ids = d.items[itemId] ?? []
@@ -71,10 +74,18 @@ export function projectV3Pairs(
     const raw = partner(otherId)
     const st: PartnerState = raw == null ? { state: 'held' } : 'state' in raw ? raw : { state: 'open', ...raw }
     if (st.state !== 'open') { withheld[st.state]++; continue }
-    if (unitsOf) {
-      const now = unitsOf(otherId)
-      const bound = selfLeft ? p.binding?.right?.units_hash : p.binding?.left?.units_hash
-      if (!now || (bound && now !== bound)) { withheld.changed++; continue }
+    if (currentOf) {
+      // 양쪽 모두: 지금 공개 탐구가 없거나, 문장 분할 · 분석 버전이 결속과 다르면 근거 번호가 어긋날 수 있다
+      const drift = (id: string, b: SideBinding | undefined) => {
+        const now = currentOf(id)
+        if (!now || !now.units_hash) return true
+        if (b?.units_hash && now.units_hash !== b.units_hash) return true
+        if (b?.analysis_version != null && now.analysis_version !== b.analysis_version) return true
+        return false
+      }
+      const selfB = selfLeft ? p.binding?.left : p.binding?.right
+      const otherB = selfLeft ? p.binding?.right : p.binding?.left
+      if (drift(itemId, selfB) || drift(otherId, otherB)) { withheld.changed++; continue }
     }
     const other = st
     pairs.push({

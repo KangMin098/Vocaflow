@@ -919,6 +919,7 @@ export function AnalysisTheater({
                         fromMap={Boolean(mapReturn)}
                         returnTo={compareReturn}
                         onEvidence={onEvidence}
+                        onClearEvidence={() => setEvidence(null)}
                         linkable={v3Linkable}
                         selectedKey={evidence?.key ?? null}
                       />
