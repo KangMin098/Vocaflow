@@ -79,33 +79,35 @@ async function fresh(browser: Browser, rec: Rec | null): Promise<{ page: Page; c
 
 const report = (id: string, clicks: number, target: number) => console.log(`SCENARIO ${id} clicks=${clicks} target=${target}`)
 
-test('C1/A1 첫 방문 — 처음이라면 카드에서 한 번에 해부 시작', async ({ browser }) => {
+// v3 M1(2026-10-13) — 상시 메뉴는 「내 학습 지도 · 기출 탐구」 두 개. 목적 · 유형 · 회차는 기출 탐구(서가)의 조건이라
+//   아래 도달 경로는 「기출 탐구」 메뉴(`rail-browse`)부터 센다(메뉴 한 번 + 조건 + 칩). 옛 `/csat?need=` · `?tab=trap` 주소는 그대로 열린다.
+test('C1/A1 첫 방문 — 지도 홈의 「처음이라면」 에서 한 번에 해부 시작', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await expect(page.getByTestId('continue-card')).toHaveAttribute('data-state', 'first', { timeout: 15_000 })
-  await click('[data-testid="continue-start"]')
+  await expect(page.getByTestId('csat-home')).toBeVisible({ timeout: 15_000 })
+  await click('[data-testid="home-start"]')
   await page.waitForURL(/\/csat\/dissect/)
   report('C1', clicks(), 1)
   expect(clicks()).toBeLessThanOrEqual(1)
 })
 
-test('A2 킬러 유형 — 목적별 → 빈칸 줄 → 예시 문항', async ({ browser }) => {
+test('A2 킬러 유형 — 기출 탐구 → 목적 킬러 유형 → 번호 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="killer"]')
-  await page.waitForURL(/need=killer/)
-  await expect(page.getByTestId('need-chip')).toBeVisible()
-  await click('button[aria-expanded]:has-text("빈칸 추론")')
-  await click('a:has-text("출제 사고로 열기")')
+  await click('[data-testid="rail-browse"]')
+  await page.waitForURL(/\/csat\/browse/)
+  await click('[data-purpose="killer"]')
+  await expect.poll(() => new URL(page.url()).searchParams.get('purpose')).toBe('killer')
+  await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
   report('A2', clicks(), 3)
   expect(clicks()).toBeLessThanOrEqual(3)
 })
 
-test('A3 오답 선지 설계 — 목적별 → 함정 줄 → 예시 문항', async ({ browser }) => {
+test('A3 오답 선지 설계 — 기출 탐구 → 오답 설계 표 → 함정 줄 → 예시 문항', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="trap"]')
+  await page.goto('/csat/browse', { waitUntil: 'networkidle' })
+  await click('[data-purpose="trap"]')
   await page.waitForURL(/tab=trap/)
   await click('[role="tabpanel"] button[aria-expanded]')
   await click('a:has-text("출제 사고로 열기")')
@@ -114,11 +116,11 @@ test('A3 오답 선지 설계 — 목적별 → 함정 줄 → 예시 문항', a
   expect(clicks()).toBeLessThanOrEqual(3)
 })
 
-test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 칩', async ({ browser }) => {
+test('A4 근거 문장 찾기 — 기출 탐구 → 목적 근거 문장 → 번호 칩 → 근거 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="evidence"]')
-  await page.waitForURL(/status=map/)
+  await page.goto('/csat/browse', { waitUntil: 'networkidle' })
+  await click('[data-purpose="evidence"]')
+  await expect.poll(() => new URL(page.url()).searchParams.get('status')).toBe('map')
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
   await click('[aria-label="근거 고르기"] button')
@@ -127,11 +129,11 @@ test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 
   expect(clicks()).toBeLessThanOrEqual(3)
 })
 
-test('A5 최근 기출부터 — 목적별 → 번호 칩', async ({ browser }) => {
+test('A5 최근 기출부터 — 기출 탐구 → 목적 최근 기출 → 번호 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="recent"]')
-  await page.waitForURL(/from=\d{4}/)
+  await page.goto('/csat/browse', { waitUntil: 'networkidle' })
+  await click('[data-purpose="recent"]')
+  await expect.poll(() => new URL(page.url()).searchParams.get('from')).toMatch(/^\d{4}$/)
   await expect(page.getByTestId('browse-title')).toContainText('최근 기출부터')
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
@@ -139,39 +141,34 @@ test('A5 최근 기출부터 — 목적별 → 번호 칩', async ({ browser }) 
   expect(clicks()).toBeLessThanOrEqual(2)
 })
 
-test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 같은 서가에 닿는다', async ({ browser }) => {
+test('A6 유형 — 기출 탐구 유형 조건 문장 삽입 → 번호 칩 · 옛 목적 화면의 「서가에서 보기」 와 같은 조건', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  // 메뉴는 기본으로 아이콘만 남긴 레일이다(2026-10-12 사용자 요청 · PR #233) — 유형별 · 회차별 목록은 왼쪽 위 표지로 펼쳐야 보인다.
-  //   펼치기는 화면 이동이 아니라 메뉴 열기라 클릭 수(도달 경로)에 세지 않는다.
-  await page.getByTestId('rail-toggle').click()
-  await click('[data-type="R-INSERT"]')
-  await page.waitForURL(/type=R-INSERT/)
+  await page.goto('/csat/browse', { waitUntil: 'networkidle' })
+  // 고르기(select)는 한 번의 조작으로 센다
+  await page.selectOption('#csat-library-type', 'R-INSERT')
+  await expect.poll(() => new URL(page.url()).searchParams.get('type')).toBe('R-INSERT')
   const typeUrl = new URL(page.url())
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
-  report('A6', clicks(), 2)
-  expect(clicks()).toBeLessThanOrEqual(2)
+  report('A6', clicks() + 1, 2)
+  expect(clicks() + 1).toBeLessThanOrEqual(2)
 
-  // 목적 축: 킬러 유형 → 문장 삽입 줄 → 「서가에서 보기」 가 **같은 주소**로 가는가
+  // 옛 목적 화면(킬러 유형 → 문장 삽입 줄 → 「전체 기출 서가」)이 **같은 서가 조건**으로 가는가
   await page.goto('/csat?need=killer', { waitUntil: 'networkidle' })
   await page.locator('button[aria-expanded]:has-text("문장 삽입")').first().click()
   const href = await page.locator('a:has-text("전체 기출 서가")').first().getAttribute('href')
   expect(href).toBe(`${typeUrl.pathname}${typeUrl.search}`)
 })
 
-test('A7 회차별 — 메뉴 2026학년도 수능 → 31번', async ({ browser }) => {
+test('A7 회차 — 기출 탐구 회차 조건 2026학년도 수능 → 31번', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  // 메뉴는 기본으로 아이콘만 남긴 레일이다(2026-10-12 사용자 요청 · PR #233) — 유형별 · 회차별 목록은 왼쪽 위 표지로 펼쳐야 보인다.
-  //   펼치기는 화면 이동이 아니라 메뉴 열기라 클릭 수(도달 경로)에 세지 않는다.
-  await page.getByTestId('rail-toggle').click()
-  await click('[data-exam="2026"]')
-  await page.waitForURL(/exam=2026/)
-  await click('[data-testid="csat-library"] a[href="/csat/item/2026-31"]')
+  await page.goto('/csat/browse', { waitUntil: 'networkidle' })
+  await page.selectOption('#csat-browse-exam', '2026')
+  await expect.poll(() => new URL(page.url()).searchParams.get('exam')).toBe('2026')
+  await click('[data-testid="csat-library"] a[href^="/csat/item/2026-31?"]')
   await page.waitForURL(/\/csat\/item\/2026-31/)
-  report('A7', clicks(), 2)
-  expect(clicks()).toBeLessThanOrEqual(2)
+  report('A7', clicks() + 1, 2)
+  expect(clicks() + 1).toBeLessThanOrEqual(2)
 })
 
 test('C2/C5 재방문 · 다른 기기 — 서버에만 있는 멈춘 세트가 이어서 카드로 선다', async ({ browser }) => {

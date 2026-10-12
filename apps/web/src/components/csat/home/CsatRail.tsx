@@ -2,24 +2,19 @@
 'use client'
 
 //
-// **기출분석공간 메뉴 — 모든 /csat 목록 화면(홈 · 서가 · 내 기록)이 같이 쓴다.** (ia-design §1-1)
+// **기출분석공간 메뉴 — 상시 메뉴 두 개.** (v3 M1 · CSAT_LEARNER_UX_V3 §1 · §7)
 //
-//   홈 · 이어서·복습(n) · 내 기록 · 내 진단 · 전체 서가
-//   목적별  — 니즈 축. 한 줄 = 미리 짠 필터 한 벌(URL). 새 데이터가 없다.
-//   유형별  — 자료 축. 서가를 그 유형으로 연다.
-//   회차별  — 시험지 축. 서가를 그 회차로 연다.
+//   내 학습 지도(/csat)  — 지도 중심 시작점. 기록 · 진단 · 내 공식 · 연습 · 이어서 · 복습은 지도 본문에서 쓸 때 연다.
+//   기출 탐구(/csat/browse) — 목적 · 유형 · 회차는 메뉴가 아니라 서가의 검색 조건이다.
 //
-// 목적별 · 유형별 · 회차별은 **같은 도착지**(서가의 번호 칩 → `/csat/item/[slug]`)로 간다.
-// 어느 축으로 들어왔는지는 `csat_path_chosen` 한 이벤트가 센다(분모를 가르지 않는다).
-// 대응 자료가 없는 니즈(등급 판정 · 구문 · 정답률 · EBS 연계 · 시간 재기)는 메뉴에 두지 않는다 —
-// 없는 것을 있는 것처럼 두지 않는다(ia-design §6).
-
+// 일곱 장면을 사이트 메뉴로 올리지 않는다. 옛 목적별 · 유형별 · 회차별 주소(`/csat?need=` · `?tab=trap` · `/csat/browse?type=` · `?exam=`)는
+// 그대로 열린다(옛 URL 전용) — 레일에서만 내려온다. 어느 메뉴를 골랐는지는 `csat_path_chosen{axis:'menu'}` 가 센다.
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { BookMarked, ChevronDown, Crosshair, FlaskConical, Hash, History, Home, Layers, Library, Microscope, NotebookPen, Search, Stethoscope, Sparkles, Target, Timer } from 'lucide-react'
+import { Crosshair, Home, Library, Map as MapIcon, Microscope, Search, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
-import { ATLAS_TYPES, RECENT_FROM } from '@/lib/csat/trap-atlas'
+import { RECENT_FROM } from '@/lib/csat/trap-atlas'
 
 import styles from '../space/space.module.css'
 
@@ -35,13 +30,13 @@ export const NEEDS: { id: NeedId; label: string; href: string; Icon: typeof Home
 ]
 
 const RAIL_KEY = 'csat-rail'
+/** 기출 탐구 메뉴가 켜지는 자리 — 서가 · 문항 · 옛 목적/유형/회차 조건. 나머지(지도 · 기록 · 진단 · 공식 · 연습 · 세션)는 내 학습 지도 */
+const EXPLORE: RailPlace[] = ['browse', 'item', 'need', 'type', 'exam']
 
 const n = (value: number) => value.toLocaleString('ko-KR')
 
 export function CsatRail({
   place,
-  current,
-  exams,
   dueCount,
 }: {
   place: RailPlace
@@ -51,7 +46,6 @@ export function CsatRail({
   /** 이어서 · 복습 옆 개수. 아직 기록을 못 읽었으면 null */
   dueCount: number | null
 }) {
-  const types = [...ATLAS_TYPES].sort((a, b) => b.items - a.items || a.name.localeCompare(b.name))
   const cur = (on: boolean) => (on ? ('page' as const) : undefined)
   // 메뉴 최소 축소(2026-10-12 사용자 요청) — 기본은 아이콘만 남긴 좁은 레일이라 작업 화면(기출 원문 · 분석)이 넓다.
   // 왼쪽 위 표지를 누르면 펼치고, 다시 누르면 접는다. 고른 상태는 이 기기에 남긴다(첫 그림은 접힌 상태 — 깜빡임 없음).
@@ -96,106 +90,28 @@ export function CsatRail({
       </Link>
 
       <div className={styles.group}>
-        <Link className={styles.railItem} href="/csat" aria-current={cur(place === 'home')}>
-          <Home size={15} aria-hidden="true" />
-          홈
+        <Link
+          className={styles.railItem}
+          href="/csat"
+          aria-current={cur(!EXPLORE.includes(place))}
+          data-testid="rail-map"
+          onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'menu', need: 'none', menu: 'map' } })}
+        >
+          <MapIcon size={15} aria-hidden="true" />
+          내 학습 지도
+          {dueCount ? <span className={styles.railCount} title="이어서 · 복습할 것">{n(dueCount)}</span> : null}
         </Link>
-        <Link className={styles.railItem} href="/csat?view=continue" aria-current={cur(place === 'continue')} data-testid="rail-continue">
-          <History size={15} aria-hidden="true" />
-          이어서 · 복습
-          {dueCount ? <span className={styles.railCount}>{n(dueCount)}</span> : null}
-        </Link>
-        <Link className={styles.railItem} href="/csat/record" aria-current={cur(place === 'record')}>
-          <BookMarked size={15} aria-hidden="true" />
-          내 기록
-        </Link>
-        <Link className={styles.railItem} href="/csat/diagnosis" aria-current={cur(place === 'diagnosis')} data-testid="rail-diagnosis">
-          <Stethoscope size={15} aria-hidden="true" />
-          내 진단
-        </Link>
-        <Link className={styles.railItem} href="/csat/browse" aria-current={cur(place === 'browse' || place === 'item')}>
+        <Link
+          className={styles.railItem}
+          href="/csat/browse"
+          aria-current={cur(EXPLORE.includes(place))}
+          data-testid="rail-browse"
+          onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'menu', need: 'none', menu: 'browse' } })}
+        >
           <Library size={15} aria-hidden="true" />
-          전체 서가
-        </Link>
-        {/* 2026-10-10 1440 통합 — 문항에서 익힌 것을 옮겨 쓰는 두 자리. 일반 앱 셸에만 있던 길을 레일로 */}
-        <Link className={styles.railItem} href="/csat/practice" aria-current={cur(place === 'practice')} data-testid="rail-practice">
-          <FlaskConical size={15} aria-hidden="true" />
-          연습 · 주장과 근거
-        </Link>
-        <Link className={styles.railItem} href="/csat/formulas" aria-current={cur(place === 'formulas')} data-testid="rail-formulas">
-          <NotebookPen size={15} aria-hidden="true" />
-          내 공식
+          기출 탐구
         </Link>
       </div>
-
-      <div className={styles.divider} />
-
-      <div className={styles.group}>
-        <div className={styles.groupHead}>목적별</div>
-        {NEEDS.map(({ id, label, href, Icon }) => (
-          <Link
-            key={id}
-            className={styles.railItem}
-            href={href}
-            aria-current={cur(place === 'need' && current === id)}
-            data-need={id}
-            onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'need', need: id } })}
-          >
-            <Icon size={15} aria-hidden="true" />
-            {label}
-          </Link>
-        ))}
-      </div>
-
-      <div className={styles.divider} />
-
-      <details className={styles.railFold} open>
-        <summary className={styles.groupHead}>
-          <Layers size={13} aria-hidden="true" />
-          유형별
-          <span className={styles.railCount}>{n(types.length)}</span>
-          <ChevronDown size={13} aria-hidden="true" className={styles.foldIcon} />
-        </summary>
-        <div className={styles.railScroll}>
-          {types.map((t) => (
-            <Link
-              key={t.id}
-              className={styles.railItem}
-              href={`/csat/browse?type=${encodeURIComponent(t.id)}`}
-              aria-current={cur(place === 'type' && current === t.id)}
-              data-type={t.id}
-              onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'type', need: 'none' } })}
-            >
-              <span className="truncate">{t.name}</span>
-              <span className={styles.railCount}>{n(t.items)}</span>
-            </Link>
-          ))}
-        </div>
-      </details>
-
-      <details className={styles.railFold} open>
-        <summary className={styles.groupHead}>
-          <Hash size={13} aria-hidden="true" />
-          회차별
-          <span className={styles.railCount}>{n(exams.length)}</span>
-          <ChevronDown size={13} aria-hidden="true" className={styles.foldIcon} />
-        </summary>
-        <div className={styles.railScroll}>
-          {exams.map((exam) => (
-            <Link
-              key={exam.exam_id}
-              className={styles.railItem}
-              href={`/csat/browse?exam=${encodeURIComponent(exam.exam_id)}`}
-              aria-current={cur(place === 'exam' && current === exam.exam_id)}
-              data-exam={exam.exam_id}
-              onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'exam', need: 'none' } })}
-            >
-              <span className="truncate">{exam.label}</span>
-              <span className={styles.railCount}>{n(exam.items)}</span>
-            </Link>
-          ))}
-        </div>
-      </details>
     </nav>
   )
 }

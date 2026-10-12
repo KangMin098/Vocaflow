@@ -227,6 +227,8 @@ export type PublicEvent =
         active: boolean
         /** 서버 사본과 합쳤나(false = 기기 기록만) */
         synced: boolean
+        /** 지도 홈(v3 M1)이 고른 첫 제안 — 판정이 아니라 어떤 안내를 먼저 보였나. 옛 화면(need · tab · view)은 없음 */
+        suggest?: 'error' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
       }
     }
   /** 「이어서」 카드 · 줄을 눌렀다 — 이어하기 사용률의 분자. */
@@ -261,12 +263,17 @@ export type PublicEvent =
       name: 'csat_transfer_submitted'
       props: { relation: 'same_principle' | 'contrast' }
     }
-  /** 어느 축으로 들어왔나 — 목적별 · 유형별 · 회차별(같은 도착지로 가는 두 입구의 비율). */
+  /**
+   * 어느 입구로 들어왔나 — 상시 메뉴(menu: 내 학습 지도 · 기출 탐구, v3 M1) · 서가 목적 조건(purpose) ·
+   * 옛 목적별 · 유형별 · 회차별(need · type · exam — 옛 URL 에서만 남는다).
+   */
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
+        /** axis=menu 일 때만 — 어느 상시 메뉴 */
+        menu?: 'map' | 'browse'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */

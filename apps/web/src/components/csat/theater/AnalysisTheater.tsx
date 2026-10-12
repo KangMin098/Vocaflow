@@ -199,6 +199,7 @@ export function AnalysisTheater({
   map,
   itemId,
   backHref,
+  backTo = 'home',
   mapReturn = null,
   typeHref,
   next,
@@ -250,6 +251,8 @@ export function AnalysisTheater({
   itemId: string
   /** 기출분석공간 홈 */
   backHref: string
+  /** 「뒤로」 가 어디로 가나 — 기출 탐구 서가(같은 조건) · 내 학습 지도 */
+  backTo?: 'home' | 'browse'
   /** 학습 지도에서 들어왔으면 지도로 돌아가는 주소(v3 M4) — 탐구 이력은 독립 진단이 아니다 */
   mapReturn?: string | null
   /** 이 유형의 서가 — 유형을 모르면 null */
@@ -773,7 +776,7 @@ export function AnalysisTheater({
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
       {/* ── 상단: ← 제목 + 태그 칩 · 오른쪽 재생 컨트롤 ─────────────── */}
       <header className={styles.bar}>
-        <Link className={styles.backIcon} href={backHref} onClick={back('home')} data-testid="item-back-home" aria-label="기출분석공간 홈">
+        <Link className={styles.backIcon} href={backHref} onClick={back(backTo)} data-testid="item-back-home" data-back={backTo} aria-label={backTo === 'browse' ? '기출 탐구 — 고른 조건으로' : '내 학습 지도'}>
           <ChevronLeft size={16} aria-hidden />
         </Link>
         <h1 className={styles.docTitle}>{title}</h1>

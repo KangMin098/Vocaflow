@@ -226,7 +226,7 @@
   margin-left: auto;
   font-family: ui-monospace, Consolas, monospace;
   font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
-  color: var(--m-g600);
+  color: var(--m-ink2); /* 작은 글자 대비 4.5:1 — 회색 사다리 600(3.2:1)은 면 · 선에만(v3 M1 · 2026-10-13) */
   letter-spacing: 0.04em;
 }
 .status {
@@ -468,7 +468,7 @@
   }
 }
 .basisSub {
-  color: var(--m-g600);
+  color: var(--m-ink2); /* 작은 글자 대비 4.5:1 — 회색 사다리 600(3.2:1)은 면 · 선에만(v3 M1 · 2026-10-13) */
 }
 .legacyTag {
   margin-left: 6px;

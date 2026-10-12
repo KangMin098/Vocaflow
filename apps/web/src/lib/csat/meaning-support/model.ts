@@ -45,7 +45,8 @@ export function buildItemUrl(
   next: { scene: string; meaning?: string | null; depth?: MsDepth | null; rel?: string | null; bridge?: boolean },
 ): string {
   const u = new URL(current.toString())
-  const keep = new Set(['from', 'check', 'pair', 'back', 'judgmentView'])
+  // ret = 기출 탐구 서가로 돌아갈 주소(v3 M1) — 장면을 옮겨도 「뒤로」 가 같은 조건으로 돌아가게 남긴다
+  const keep = new Set(['from', 'check', 'pair', 'back', 'judgmentView', 'ret'])
   for (const k of [...u.searchParams.keys()]) if (!keep.has(k)) u.searchParams.delete(k)
   u.searchParams.set('scene', next.scene)
   if (next.meaning) u.searchParams.set('meaning', next.meaning)

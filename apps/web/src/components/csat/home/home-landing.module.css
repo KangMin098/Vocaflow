@@ -1,0 +1,33 @@
+/* apps/web/src/components/csat/home/home-landing.module.css
+ * 내 학습 지도(/csat) — 첫 제안 · 지도 · 내 자료 · 기출 탐구. 3B 토큰(--t1 · --t2 · --bd · --bg · --bg3)만 쓴다.
+ */
+.canvas { display: grid; gap: 16px; padding-bottom: 32px; }
+/* 지도 카드(LearnerMap)의 안쪽 여백과 같은 선에 맞춘다 */
+.suggest, .mine, .explore { margin-inline: 26px; }
+.suggest { padding-top: 18px; }
+
+/* 첫 제안 — 옛 띠 위에 떠 있던 카드(home.card · absolute)를 흐름 안으로 */
+.suggest > * { position: static; transform: none; left: auto; top: auto; width: 100%; }
+.lead { margin: 0; font-size: 13.5px; line-height: 1.7; color: var(--t2); }
+.inlineLink { display: inline-flex; align-items: center; min-height: 44px; color: var(--t1); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.map { min-width: 0; }
+
+.mine { display: flex; flex-wrap: wrap; gap: 8px; }
+.mineItem {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--bd); border-radius: 999px; background: var(--bg); color: var(--t1); font-size: 13px;
+  transition: background var(--dur-normal) var(--ease), border-color var(--dur-normal) var(--ease);
+}
+.mineItem:hover { background: var(--bg3); }
+.mineItem:focus-visible, .inlineLink:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.count { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--bg3); font-size: 11.5px; text-align: center; }
+
+.explore {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding: 20px 24px; border: 1px solid var(--bd); border-radius: 12px; background: var(--bg);
+}
+.exploreTitle { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--t1); }
+
+@media (prefers-reduced-motion: reduce) { .mineItem { transition: none; } }
+.exploreActions { display: inline-flex; flex-wrap: wrap; gap: 8px; }

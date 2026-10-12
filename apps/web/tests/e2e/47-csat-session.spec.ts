@@ -35,12 +35,13 @@ for (const width of [1280, 1440, 1728]) test(`Learning Home 실제 패턴과 추
   test.setTimeout(120000)
   await page.setViewportSize({ width, height: 900 })
   // 2026-10-10 다시 씀: 옛 Learning Home(출제 공식 증명 · 원리 고르기)은 cbd5d134c 「기출분석공간 재설계」로 사라졌다.
-  // 지금 홈의 계약 = 기출분석공간 레일 + 들어가는 카드(처음 · 돌아옴 · 이어서) 하나가 시작 행동을 준다.
+  // 2026-10-13 v3 M1: 홈의 계약 = 두 메뉴 레일 + 첫 제안 하나 + 시작 행동(이어서 · 복귀 · 처음이라면).
   await page.goto('/csat')
   await expect(page.getByTestId('csat-rail')).toBeVisible()
-  const card = page.getByTestId('continue-card')
-  await expect(card).not.toHaveAttribute('data-state', 'loading', { timeout: 30000 })
-  const start = card.locator('[data-testid=continue-start], [data-testid=continue-next], [data-testid=continue-comeback], [data-testid=continue-resume]').first()
+  // v3 M1(2026-10-13) — 홈 = 내 학습 지도. 첫 제안 하나 + 언제나 있는 시작 행동(처음이라면 · 기출 탐구) · 진행 중이면 이어서 카드
+  await expect(page.getByTestId('csat-home')).not.toHaveAttribute('data-suggest', 'loading', { timeout: 30000 })
+  await expect(page.getByTestId('home-suggest')).toBeVisible()
+  const start = page.locator('[data-testid=continue-resume], [data-testid=continue-comeback], [data-testid=continue-next], [data-testid=home-return-item], [data-testid=home-start]').first()
   await expect(start).toBeVisible()
   await noOverflow(page)
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([])
@@ -158,7 +159,7 @@ for (const width of [1280, 1440, 1728]) test(`해부 3수·설계도·공식·�
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/csat', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByTestId('continue-card')).toBeVisible({ timeout: 90000 }) // 옛 today-card → 지금 홈 카드(cbd5d134c)
+  await expect(page.getByTestId('csat-home')).toBeVisible({ timeout: 90000 }) // v3 M1 — 홈 = 내 학습 지도(첫 제안 · 지도 · 내 자료)
   await noOverflow(page)
   await page.screenshot({ path: info.outputPath('home.png'), fullPage: true })
   await page.goto('/csat/dissect?set=2026-32,2026-34,2025-31', { waitUntil: 'domcontentloaded' })
@@ -227,7 +228,8 @@ for (const width of [1280, 1440, 1728]) test(`해부 3수·설계도·공식·�
   const started = Date.now()
   await page.goto('/csat')
   // 옛 홈의 「시작」 버튼(testid start) → 지금 홈 카드의 시작 링크(cbd5d134c · 2026-10-10 다시 씀)
-  const entry = page.getByTestId('continue-card').locator('[data-testid=continue-start], [data-testid=continue-next], [data-testid=continue-comeback], [data-testid=continue-resume]').first()
+  // v3 M1 — 진행 중이면 이어서 카드, 아니면 「처음이라면 3문항으로 시작」(home-start)
+  const entry = page.locator('[data-testid=continue-resume], [data-testid=continue-comeback], [data-testid=continue-next], [data-testid=home-start]').first()
   await expect(entry).toBeVisible()
   await entry.click()
   await expect(page.getByTestId('item-screen')).toBeVisible({ timeout: 10000 })

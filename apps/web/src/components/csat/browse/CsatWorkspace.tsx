@@ -7,22 +7,26 @@
 // 결은 홈(`/csat`)과 같다 — 같은 메뉴(`CsatRail`) · 상단 줄 · 흰 카드 · 도구줄. 해설 극장 판은
 // 문항 해설(`/csat/item`)에만 쓴다(2026-09-24 사용자 지적 「극장 스타일 아님」).
 //
-// 세 입구가 여기로 모인다:
-//   목적별 — `?status=map`(근거 문장 찾기) · `?from=<학년도>`(최근 기출부터)
-//   유형별 — `?type=<유형 id>`
-//   회차별 — `?exam=<회차 id>`
-// 어느 쪽으로 들어와도 같은 번호 칩 → 같은 문항 화면(`/csat/item/[slug]`)이다.
+// **기출 탐구(v3 M1)** — 상시 메뉴 「기출 탐구」 의 본문. 목적 · 유형 · 회차는 메뉴가 아니라 이 화면의 검색 조건이다:
+//   목적 — 킬러 유형 · 근거 문장(지도 있음) · 최근 기출(조건) / 처음 시작 · 오답 설계 표(기존 화면으로 가는 링크)
+//   유형 · 회차 · 출처 · 학년도 · 상태 · 검색어
+// 고른 조건은 주소에 replaceState 로 싣는다(새로 고침 · 뒤로가기). 번호 칩은 `?ret=<지금 서가 주소>` 를 들고 가서
+// 문항의 「뒤로」 가 같은 조건으로 돌아온다(browseReturn 이 서가 경로만 받는다). 옛 `?type=` · `?exam=` · `?status=` · `?from=` 주소도 그대로 열린다.
 //
 // ⚠️ 발문·지문은 여기 없다(저작권 경계). 칩이 말하는 것은 번호 · 유형 · 배점뿐이다.
 // ⚠️ 수치는 전부 카탈로그에서 센 값이다(AGENTS I5).
 
 import Link from 'next/link'
-import { Dices, Library, Search, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Crosshair, Dices, Library, Search, Sparkles, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { CsatRail, type NeedId, type RailPlace } from '@/components/csat/home/CsatRail'
 import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
+import { track } from '@/lib/analytics/client'
 import { activeSet, dueNow, touchedItems } from '@/lib/csat/continuity'
+import { browseHref, type BrowseParams, type BrowsePurpose } from '@/lib/csat/browse-url'
+import { killerTypeIds } from '@/lib/csat/space-model'
+import { RECENT_FROM } from '@/lib/csat/trap-atlas'
 import { EMPTY_FILTER, filterBrowse, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import type { RailExam } from '@/lib/csat/rail-data'
@@ -30,13 +34,7 @@ import type { RailExam } from '@/lib/csat/rail-data'
 import home from '../home/home.module.css'
 import styles from '../space/space.module.css'
 
-export interface BrowseEntry {
-  type?: string
-  status?: BrowseFilter['status']
-  from?: number
-  exam?: string
-  query?: string
-}
+export type BrowseEntry = BrowseParams
 
 const isEmpty = (f: BrowseFilter) =>
   f.kind === 'all' && (f.grade ?? 'all') === 'all' && f.year === 'all' && f.type === 'all' && f.status === 'all' && f.query.trim() === '' && (f.exam ?? 'all') === 'all' && (f.from ?? 'all') === 'all'
@@ -50,13 +48,27 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
     from: entry.from ?? 'all',
     exam: entry.exam && browse.exams.some((e) => e.id === entry.exam) ? entry.exam : 'all',
     query: entry.query ?? '',
+    kind: entry.kind ?? 'all',
+    year: entry.year ?? 'all',
+    grade: entry.grade ?? 'all',
   })
+  // 목적 — killer 만 별도 상태(유형 묶음). evidence · recent 는 status · from 조건 그 자체다
+  const [killer, setKiller] = useState(entry.purpose === 'killer')
+  const killers = useMemo(() => new Set(killerTypeIds()), [])
+  // 옛 목적 링크(?purpose=evidence · recent)는 조건으로 펼친다
+  useEffect(() => {
+    if (entry.purpose === 'evidence') setFilter((f) => ({ ...f, status: 'map' }))
+    if (entry.purpose === 'recent') setFilter((f) => ({ ...f, from: RECENT_FROM }))
+  }, [entry.purpose])
   const set = <K extends keyof BrowseFilter>(key: K, value: BrowseFilter[K]) => setFilter((f) => ({ ...f, [key]: value }))
 
   const years = useMemo(() => [...new Set(browse.exams.map((e) => e.year))].sort((a, b) => b - a), [browse.exams])
   const typeName = useMemo(() => new Map(browse.types.map((t) => [t.id, t.name])), [browse.types])
   const examLabel = useMemo(() => new Map(browse.exams.map((e) => [e.id, e.label])), [browse.exams])
-  const items = useMemo(() => filterBrowse(browse, filter), [browse, filter])
+  const items = useMemo(() => {
+    const all = filterBrowse(browse, filter)
+    return killer ? all.filter((i) => killers.has(i.type_id)) : all
+  }, [browse, filter, killer, killers])
   const grouped = useMemo(() => groupByExam(browse, items), [browse, items])
   const seen = useMemo(() => (rec ? touchedItems(rec.record) : new Set<string>()), [rec])
   const random = items.length ? items[Math.floor(Math.random() * items.length)] : null
@@ -65,7 +77,23 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
   // 학력평가가 서가에 있을 때만 출처 칩에 「학력평가」·학년을 보인다(발행된 학평이 없으면 칩도 없다)
   const hasHak = useMemo(() => browse.exams.some((e) => e.kind === 'hakpyeong'), [browse.exams])
   const exam = filter.exam ?? 'all'
-  const reset = () => setFilter(EMPTY_FILTER)
+  const reset = () => {
+    setFilter(EMPTY_FILTER)
+    setKiller(false)
+  }
+  const purpose: BrowsePurpose | null = killer ? 'killer' : null
+  // 지금 조건의 주소 — 새로 고침 · 뒤로가기 · 문항에서 돌아올 자리(history 를 쌓지 않는다)
+  const here = browseHref(filter, purpose)
+  useEffect(() => {
+    const cur = `${window.location.pathname}${window.location.search}`
+    if (cur !== here) window.history.replaceState(window.history.state, '', here)
+  }, [here])
+  const choosePurpose = (p: BrowsePurpose) => {
+    track({ name: 'csat_path_chosen', props: { axis: 'purpose', need: p } })
+    if (p === 'killer') setKiller((k) => !k)
+    if (p === 'evidence') set('status', status === 'map' ? 'all' : 'map')
+    if (p === 'recent') set('from', filter.from === RECENT_FROM ? 'all' : RECENT_FROM)
+  }
 
   // 메뉴에서 어느 줄이 「지금」인가 — 지금 걸린 조건을 그대로 비춘다
   const need: NeedId | null = status === 'map' ? 'evidence' : filter.from && filter.from !== 'all' ? 'recent' : null
@@ -80,7 +108,9 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
           ? '근거 문장 찾기 — 지문 지도가 있는 문항'
           : need === 'recent'
             ? `최근 기출부터 — ${filter.from}학년도 이후`
-            : '전체 서가'
+            : killer
+              ? '킬러 유형'
+              : '기출 탐구 — 전체'
 
   return (
     <div className={styles.root} data-csat-browse data-testid="csat-workspace">
@@ -110,12 +140,33 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                   {items.length}
                 </span>
               </span>
-              {!isEmpty(filter) ? (
+              {!isEmpty(filter) || killer ? (
                 <button type="button" className={styles.tabsRight} onClick={reset} data-testid="browse-reset">
                   <X size={13} aria-hidden="true" />
                   조건 지우기
                 </button>
               ) : null}
+            </div>
+
+            {/* 목적 — 메뉴가 아니라 검색 조건(v3 M1). 처음 시작 · 오답 설계 표는 기존 화면으로 */}
+            <div className={home.tools} role="group" aria-label="목적" data-testid="browse-purpose">
+              {(
+                [
+                  ['killer', '킬러 유형', killer],
+                  ['evidence', '근거 문장 찾기', status === 'map'],
+                  ['recent', '최근 기출부터', filter.from === RECENT_FROM],
+                ] as const
+              ).map(([p, label, on]) => (
+                <button key={p} type="button" className={home.chip} aria-pressed={on} onClick={() => choosePurpose(p)} data-purpose={p}>
+                  {label}
+                </button>
+              ))}
+              <Link className={home.chip} href="/csat/dissect" onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'purpose', need: 'start' } })} data-purpose="start">
+                <Sparkles size={13} aria-hidden="true" /> 처음 시작하기
+              </Link>
+              <Link className={home.chip} href="/csat?tab=trap" onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'purpose', need: 'trap' } })} data-purpose="trap">
+                <Crosshair size={13} aria-hidden="true" /> 오답 설계 표
+              </Link>
             </div>
 
             <div className={home.tools} role="group" aria-label="거르기">
@@ -179,6 +230,18 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                   </option>
                 ))}
               </select>
+              {/* 회차 — 옛 「회차별」 메뉴가 서가 조건으로(v3 M1) */}
+              <label className="sr-only" htmlFor="csat-browse-exam">
+                회차
+              </label>
+              <select id="csat-browse-exam" className={home.chip} value={exam} onChange={(e) => set('exam', e.target.value)} data-testid="browse-exam">
+                <option value="all">회차 전체</option>
+                {browse.exams.map((x) => (
+                  <option key={x.id} value={x.id}>
+                    {x.label}
+                  </option>
+                ))}
+              </select>
               <label className="sr-only" htmlFor="csat-library-type">
                 유형
               </label>
@@ -223,7 +286,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                       {rows.map((i) => (
                         <li key={i.id}>
                           <Link
-                            href={`/csat/item/${toItemSlug(i.id)}`}
+                            href={`/csat/item/${toItemSlug(i.id)}?ret=${encodeURIComponent(here)}`}
                             data-lecture={i.lecture}
                             data-seen={seen.has(i.id)}
                             aria-label={`${e.label} ${i.no}번 · ${typeName.get(i.type_id) ?? i.type_id}${i.points ? ` · ${i.points}점` : ''}${i.lecture ? ' · 강의 있음' : ' · 강의 없음'}${seen.has(i.id) ? ' · 연 문항' : ''}`}
