@@ -1,0 +1,210 @@
+{
+ "reviewer": "rv-v3-1516",
+ "criteria": "inquiry-v1.2",
+ "verdicts": [
+  {
+   "id": "2020#42",
+   "verdict": "pass",
+   "content_hash": "82c8dc2488bffc28"
+  },
+  {
+   "id": "2020#43",
+   "verdict": "pass",
+   "content_hash": "724945b70759f494"
+  },
+  {
+   "id": "2020#44",
+   "verdict": "pass",
+   "content_hash": "390ddff31d643405"
+  },
+  {
+   "id": "2020#45",
+   "verdict": "pass",
+   "content_hash": "dbe087fa21f3b291"
+  },
+  {
+   "id": "2021#18",
+   "verdict": "pass",
+   "content_hash": "7cc5e6abc00168d3"
+  },
+  {
+   "id": "2021#19",
+   "verdict": "pass",
+   "content_hash": "60c6ef79e283bf77"
+  },
+  {
+   "id": "2021#20",
+   "verdict": "pass",
+   "content_hash": "6aab025dd9c55e4c"
+  },
+  {
+   "id": "2021#21",
+   "verdict": "pass",
+   "content_hash": "0c87be1897a19e51"
+  },
+  {
+   "id": "2021#22",
+   "verdict": "pass",
+   "content_hash": "b97f13ca0b769e31"
+  },
+  {
+   "id": "2021#23",
+   "verdict": "pass",
+   "content_hash": "5f28f452959f8ef6"
+  },
+  {
+   "id": "2021#24",
+   "verdict": "pass",
+   "content_hash": "66bddcd3ef6e1cc5"
+  },
+  {
+   "id": "2021#25",
+   "verdict": "pass",
+   "content_hash": "75fcdd4e2afc3fed"
+  },
+  {
+   "id": "2021#26",
+   "verdict": "pass",
+   "content_hash": "7720c9c4ae2eba40"
+  },
+  {
+   "id": "2021#27",
+   "verdict": "pass",
+   "content_hash": "e9731f071560dc32"
+  },
+  {
+   "id": "2021#28",
+   "verdict": "pass",
+   "content_hash": "4e37fbf2f8fffb14"
+  },
+  {
+   "id": "2021#29",
+   "verdict": "pass",
+   "content_hash": "4558540876264f08"
+  },
+  {
+   "id": "2021#30",
+   "verdict": "pass",
+   "content_hash": "9a796f4638f2f8d5"
+  },
+  {
+   "id": "2021#31",
+   "verdict": "pass",
+   "content_hash": "17486d2a7925dae5"
+  },
+  {
+   "id": "2021#32",
+   "verdict": "pass",
+   "content_hash": "3166633f56470890"
+  },
+  {
+   "id": "2021#33",
+   "verdict": "pass",
+   "content_hash": "51fda0e7e892fb65"
+  },
+  {
+   "id": "2021#34",
+   "verdict": "pass",
+   "content_hash": "484606f7eeff7daa"
+  },
+  {
+   "id": "2021#35",
+   "verdict": "pass",
+   "content_hash": "39cd0fee62ef0b89"
+  },
+  {
+   "id": "2021#36",
+   "verdict": "pass",
+   "content_hash": "96e10cd5b2f7d853"
+  },
+  {
+   "id": "2021#37",
+   "verdict": "pass",
+   "content_hash": "4df4f4a49ae508d5"
+  },
+  {
+   "id": "2021#38",
+   "verdict": "pass",
+   "content_hash": "788f6d07131224cd"
+  },
+  {
+   "id": "2021#39",
+   "verdict": "pass",
+   "content_hash": "0bbb733a52824439"
+  },
+  {
+   "id": "2021#40",
+   "verdict": "pass",
+   "content_hash": "fa8160f175ea95f2"
+  },
+  {
+   "id": "2021#41",
+   "verdict": "pass",
+   "content_hash": "c93c80983f1723e5"
+  },
+  {
+   "id": "2021#42",
+   "verdict": "pass",
+   "content_hash": "dd0061c67474d475"
+  },
+  {
+   "id": "2021#43",
+   "verdict": "revise",
+   "content_hash": "2fa52858b80bd27b",
+   "codes": [
+    "R2"
+   ],
+   "why": "선지 5 (D)-(C)-(B) 의 altered 가 from「(A) 바로 다음」→ to「(C) 앞」인데, (C) 자신의 위치를 「(C) 앞」으로 적은 자기 참조라 실제 이동(정답 순서의 첫 자리 → (D) 다음)을 나타내지 못한다. to 는 「(D) 다음」이어야 한다. note(20·26번 문장 근거)와 v3 판정은 맞다."
+  },
+  {
+   "id": "2021#44",
+   "verdict": "pass",
+   "content_hash": "3db757e72a8025e5"
+  },
+  {
+   "id": "2021#45",
+   "verdict": "pass",
+   "content_hash": "c9812c63ab531a47"
+  },
+  {
+   "id": "2022#18",
+   "verdict": "pass",
+   "content_hash": "08ebdc7594e0b86d"
+  },
+  {
+   "id": "2022#19",
+   "verdict": "pass",
+   "content_hash": "196411e4d831a7ba"
+  },
+  {
+   "id": "2022#20",
+   "verdict": "pass",
+   "content_hash": "f66a9f8abc0c90f2"
+  },
+  {
+   "id": "2022#21",
+   "verdict": "pass",
+   "content_hash": "c4daf0a3d28e1310"
+  },
+  {
+   "id": "2022#22",
+   "verdict": "pass",
+   "content_hash": "9b62a7c788c95bb0"
+  },
+  {
+   "id": "2022#23",
+   "verdict": "pass",
+   "content_hash": "8b9ada46cfb9c5e8"
+  },
+  {
+   "id": "2022#24",
+   "verdict": "pass",
+   "content_hash": "66a47c255808050e"
+  },
+  {
+   "id": "2022#25",
+   "verdict": "pass",
+   "content_hash": "67255cc25582303b"
+  }
+ ]
+}

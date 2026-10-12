@@ -1,0 +1,206 @@
+{
+ "reviewer": "rv-v3-1920",
+ "criteria": "inquiry-v1.2",
+ "verdicts": [
+  {
+   "id": "2023#41",
+   "verdict": "pass",
+   "content_hash": "293d31d6c16f2369"
+  },
+  {
+   "id": "2023#42",
+   "verdict": "pass",
+   "content_hash": "6863ac8f069d64aa"
+  },
+  {
+   "id": "2023#43",
+   "verdict": "pass",
+   "content_hash": "6e01f616838d5d36"
+  },
+  {
+   "id": "2023#44",
+   "verdict": "pass",
+   "content_hash": "af2a94a62197332c"
+  },
+  {
+   "id": "2023#45",
+   "verdict": "pass",
+   "content_hash": "af8566e5d44ab1fe"
+  },
+  {
+   "id": "2024#18",
+   "verdict": "pass",
+   "content_hash": "a3eca7053a5629c0"
+  },
+  {
+   "id": "2024#20",
+   "verdict": "pass",
+   "content_hash": "57ccb7a583a68714"
+  },
+  {
+   "id": "2024#21",
+   "verdict": "pass",
+   "content_hash": "f3a347ab8e60a5a5"
+  },
+  {
+   "id": "2024#22",
+   "verdict": "pass",
+   "content_hash": "4c3acc3333dced71"
+  },
+  {
+   "id": "2024#23",
+   "verdict": "pass",
+   "content_hash": "3ffe8e4440dd5088"
+  },
+  {
+   "id": "2024#24",
+   "verdict": "pass",
+   "content_hash": "2a3163ffe5f80ce6"
+  },
+  {
+   "id": "2024#25",
+   "verdict": "pass",
+   "content_hash": "b8808dc266baaa69"
+  },
+  {
+   "id": "2024#26",
+   "verdict": "pass",
+   "content_hash": "a475d8b2dac67e40"
+  },
+  {
+   "id": "2024#27",
+   "verdict": "pass",
+   "content_hash": "2ff6b7eb48d7a88d"
+  },
+  {
+   "id": "2024#28",
+   "verdict": "pass",
+   "content_hash": "e74d3bda6b2d14e0"
+  },
+  {
+   "id": "2024#29",
+   "verdict": "pass",
+   "content_hash": "5450cb7884ed4a31"
+  },
+  {
+   "id": "2024#30",
+   "verdict": "pass",
+   "content_hash": "80d2d2de3708b386"
+  },
+  {
+   "id": "2024#31",
+   "verdict": "pass",
+   "content_hash": "588afe4a24695cbb"
+  },
+  {
+   "id": "2024#32",
+   "verdict": "pass",
+   "content_hash": "68d61bef715ecd6f"
+  },
+  {
+   "id": "2024#33",
+   "verdict": "pass",
+   "content_hash": "7cd0ea61934f4620"
+  },
+  {
+   "id": "2024#34",
+   "verdict": "pass",
+   "content_hash": "2c3b7b203919059b"
+  },
+  {
+   "id": "2024#35",
+   "verdict": "pass",
+   "content_hash": "bf2a4c48bed4de1f"
+  },
+  {
+   "id": "2024#36",
+   "verdict": "pass",
+   "content_hash": "e860c67598c4e1cd"
+  },
+  {
+   "id": "2024#37",
+   "verdict": "pass",
+   "content_hash": "fbcb892aae87437f"
+  },
+  {
+   "id": "2024#38",
+   "verdict": "pass",
+   "content_hash": "f8d39cefbcecf6e2"
+  },
+  {
+   "id": "2024#39",
+   "verdict": "pass",
+   "content_hash": "3bf043b8ed9e6b80"
+  },
+  {
+   "id": "2024#40",
+   "verdict": "pass",
+   "content_hash": "b9d51d593457b14e"
+  },
+  {
+   "id": "2024#41",
+   "verdict": "pass",
+   "content_hash": "7385bf7f2aa74b39"
+  },
+  {
+   "id": "2024#42",
+   "verdict": "pass",
+   "content_hash": "6c9bc0906b70c00f"
+  },
+  {
+   "id": "2024#43",
+   "verdict": "pass",
+   "content_hash": "4140181400ff05ed"
+  },
+  {
+   "id": "2024#44",
+   "verdict": "pass",
+   "content_hash": "8475159fea6867e8"
+  },
+  {
+   "id": "2024#45",
+   "verdict": "pass",
+   "content_hash": "69c7834b6721dfc3"
+  },
+  {
+   "id": "2025#18",
+   "verdict": "pass",
+   "content_hash": "993620a6fc1b0e99"
+  },
+  {
+   "id": "2025#20",
+   "verdict": "pass",
+   "content_hash": "e410964f2a58cd9c"
+  },
+  {
+   "id": "2025#21",
+   "verdict": "pass",
+   "content_hash": "dd878154abe86f3e"
+  },
+  {
+   "id": "2025#22",
+   "verdict": "pass",
+   "content_hash": "344e8cb5413ad29c"
+  },
+  {
+   "id": "2025#23",
+   "verdict": "pass",
+   "content_hash": "256407a303992906"
+  },
+  {
+   "id": "2025#24",
+   "verdict": "pass",
+   "content_hash": "55eee140eb0e8376"
+  },
+  {
+   "id": "2025#25",
+   "verdict": "pass",
+   "content_hash": "b665daff66fed7e3"
+  },
+  {
+   "id": "2025#26",
+   "verdict": "pass",
+   "content_hash": "1df77a72c6674d9c"
+  }
+ ]
+}

@@ -21,7 +21,8 @@ export const OPERATIONS = [
   'paraphrase', 'abstraction', 'compression', 'inference', 'polarity', 'scope', 'agent', 'reference', 'temporal',
   'degree', 'causal_direction', 'syntactic_form', 'order', 'numeric_relation', 'unsupported', 'none',
 ]
-const WORD_SET_TYPES = new Set(['R-BLANK', 'R-BLANK2', 'R-SUMMARY', 'R-VOCAB', 'R-GRAMMAR', 'X-BLANK', 'X-BLANK2'])
+// 낱말 묶음 선지 — 심경(R-MOOD)도 두 낱말 쌍이라 둘 다 틀리면 남은 지문 성분이 없다(2026-10-12 rv-v3-12 · 2019#19)
+const WORD_SET_TYPES = new Set(['R-BLANK', 'R-BLANK2', 'R-SUMMARY', 'R-VOCAB', 'R-GRAMMAR', 'R-MOOD', 'X-BLANK', 'X-BLANK2'])
 const BANNED = /항상|무조건|반드시|출제자(는|가)[^.]{0,20}(생각|의도했|노렸)/
 const LATIN = /[A-Za-z]{2,}/
 const norm = (s) => String(s ?? '').toLowerCase().replace(/[‘’']/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim()
@@ -110,7 +111,9 @@ export function validateItem(input, out) {
 
 // ── v3 칸(의미 · 판단 · 설계) — WRITER_V3.md · docs/csat-learner/v3/CSAT_REASONING_DATA_V3.md §3 ──
 export const SCOPE_KINDS = ['negation', 'condition', 'agent', 'time', 'quantity', 'contrast', 'reference', 'none']
-export const BASES = ['official', 'source_observation', 'design_hypothesis']
+// 부정 · 제한 낱말(어휘적 부정 포함) — 부정 범위 인용 검사용
+const NEG_WORD = /\b(not|no|never|nor|none|nothing|nobody|neither|without|cannot|hardly|rarely|rare|seldom|little|few|fail\w*|lack\w*|unless|absence|absent|missing|myth|too|only|unlikely|impossible|unknown|unfit|nonsensical|non-\w+|un\w+able|eliminat\w*|interfer\w*|declin\w*|beyond|unnecessary|give up)\b|n['’]t\b/i
+export const BASES =['official', 'source_observation', 'design_hypothesis']
 
 export function validateV3(input, out) {
   const errs = []
@@ -144,6 +147,13 @@ export function validateV3(input, out) {
       if (words(ex) > 8) e(`${m.id} expression 8단어 초과`)
       // 인용은 그 문장(들)에 그대로 있어야 한다 — 다른 문장 · 지어낸 영어를 의미 주석으로 위장하지 않는다
       if (okSent(m.sentences) && !m.sentences.some((n) => sentText(n).includes(norm(ex)))) e(`${m.id} expression 「${ex}」 이 ${m.sentences.join(',')}번 문장에 없음`)
+      // 부정 범위는 부정어가 인용 안에 있거나, note 가 그 문장에 실제로 있는 부정어를 영어로 짚어야 한다 —
+      // 8단어로 줄이다 not · only 가 인용 밖으로 빠진 결함(2026-10-12 rv-v3-3738 · 2526, 전량 323건 중 6건)
+      if (m.scope?.kind === 'negation' && !NEG_WORD.test(ex)) {
+        const sent = (m.sentences ?? []).map(sentText).join(' ')
+        const cited = (String(m.scope?.note ?? '').match(/[A-Za-z][A-Za-z’'-]*/g) ?? []).some((w) => NEG_WORD.test(w) && sent.toLowerCase().includes(norm(w).toLowerCase()))
+        if (!cited) e(`${m.id} 부정 범위인데 인용 「${ex}」 에 부정어가 없고 note 도 문장의 부정어를 짚지 않음`)
+      }
     }
     if (BANNED.test(`${m.meaning_ko} ${m.scope?.note ?? ''}`)) e(`${m.id} 금지 표현`)
   }

@@ -1,0 +1,5260 @@
+{
+ "chunk": "v3-05",
+ "writer_run": "wr-v3-05",
+ "items": [
+  {
+   "id": "2014A#23",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "pet shop owners"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "가맹점 운영의 장점"
+      }
+     ],
+     "note": "1번 문장이 부르는 수신자(점주)는 남기고, 지문에 한 번도 없는 가맹 사업을 홍보 대상으로 끼워 넣었다. 점주는 배송 서비스를 살 고객으로 불렸을 뿐이다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "the fish will do just fine"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "물고기 질병 예방법 공지"
+      }
+     ],
+     "note": "물고기 상태를 말하는 표현은 그대로 두되, 그 표현이 6번 문장의 포장 방법이 배송 중 상태를 보장한다는 근거였다는 관계를 지우고 질병 예방이라는 없는 화제로 바꿨다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "pet shop owners"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "애완동물용 먹이"
+      }
+     ],
+     "note": "애완동물 가게라는 수신자만 남기고 상품 자리를 통념(가게는 먹이를 판다)으로 채웠다. 6번 문장의 봉투에 들어가는 것은 먹이가 아니라 물이다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "enjoy the journey"
+      }
+     ],
+     "altered": [
+      {
+       "component": "역할",
+       "from": "상자에 담겨 배송되는 물고기",
+       "to": "애완동물과 함께 여행하는 사람"
+      }
+     ],
+     "note": "여행(journey) 어휘는 유지하고 이동하는 주체를 바꿨다. 지문에서 길을 떠나는 것은 상자 속 물고기이고 도착지는 고객의 현관이라 사람이 동행하는 여행이 아니다."
+    }
+   ],
+   "principle": {
+    "statement": "광고문에서 중간의 방법 설명이 길더라도, 발신자가 자기 이름을 걸고 내놓는 상품과 끝의 연락 유도가 가리키는 대상이 글의 목적을 정한다",
+    "when_applies": [
+     "첫머리에 자사명과 상품이 나오고 끝에 전화·메일 같은 문의 유도가 있는 글",
+     "중간 문장들이 상품이 어떻게 작동하는지만 설명하고 새 화제를 열지 않는 경우"
+    ],
+    "when_not": [
+     "판매자나 연락 유도 없이 절차만 단계별로 안내하는 공지문 — 이때는 방법 안내 자체가 목적일 수 있다",
+     "끝의 연락처가 항의 접수·신청용이라 화행이 홍보가 아닌 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "246c0d053f6496e6",
+    "requirement": {
+     "requested": "광고문의 발신자(ABLE Shipping)가 수신자(점주)에게 무엇을 하려고 글을 썼는지 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "2번 문장에서 발신자와 파는 대상(물고기 배송 시스템)을 특정한다",
+      "9번 문장의 연락 유도가 글의 화행(광고)을 정한다",
+      "6~7번 문장의 포장 설명은 상품 설명이지 별도 목적이 아니다"
+     ],
+     "reading_scope": "1~9번 문장(특히 2번·9번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "the perfect system for shipping fish",
+      "meaning_ko": "고객에게 물고기를 부쳐 주는 배송 시스템 — 파는 상품이 배송 서비스다",
+      "scope": {
+       "kind": "agent",
+       "note": "주어 We, ABLE Shipping 이 개발한 주체, 수신자 your customers 는 점주의 손님이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "the fish will do just fine",
+      "meaning_ko": "살아 있는 물고기가 전국 배송 뒤에도 탈 없이 지낸다 — 배송 품질 약속",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "an oxygen-inflated plastic bag with enough water",
+      "meaning_ko": "산소를 채운 비닐봉지에 물을 충분히 넣어 포장한다 — 안전 배송의 비결",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       8
+      ],
+      "expression": "enjoy the journey all the way",
+      "meaning_ko": "물고기가 손님 현관까지 가는 배송길을 편히 간다",
+      "scope": {
+       "kind": "agent",
+       "note": "journey 를 하는 주체는 Your fish 이고 사람이 동행하지 않는다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       9
+      ],
+      "expression": "Call us",
+      "meaning_ko": "전화·이메일로 문의하라는 광고 마무리",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "1번 문장의 pet shop owners 는 배송 서비스를 살 고객으로 불렸을 뿐, 가맹·지점에 해당하는 말이 지문에 없다",
+      "sentences": [
+       1,
+       2
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "the fish will do just fine 은 3번 문장에서 배송 뒤 상태를 약속하는 말이고 질병·예방 어휘는 없다",
+      "sentences": [
+       3,
+       6
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장에서 봉투에 함께 넣는 것은 enough water 이며 먹이를 소개하는 문장이 없다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "8번 문장의 journey 를 하는 쪽은 상자 속 물고기이고 도착지는 손님 현관이다 — 사람이 애완동물과 여행하는 장면이 아니다",
+      "sentences": [
+       4,
+       8
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "2번 문장의 배송 시스템(물고기 배송), 3·6·7번 문장의 안전 포장(안전), 9번 문장의 Call us(광고)가 선지 세 성분과 하나씩 짝을 이룬다",
+      "sentences": [
+       2,
+       3,
+       9
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "글의 가운데 6~7번 문장이 포장 방법(산소 봉투·완충재·상자)을 길게 설명하고, 상품과 연락 유도는 2번과 9번 문장에 떨어져 있다",
+       "sentences": [
+        2,
+        6,
+        7,
+        9
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "오답들이 pet shop·fish·journey 같은 지문 낱말 하나씩을 붙잡고 있어, 이 문항은 방법 설명에 끌리지 않고 발신자·상품·연락 유도로 목적을 정하는지를 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        1,
+        3,
+        8
+       ]
+      }
+     ],
+     "limitation": "선지가 한국어 요약이라 「안전 배송」의 「안전」이 safe journey(4번 문장)와 포장 설명 중 어디에서 왔는지는 하나로 정할 수 없다. 실제 제작 의도는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#25",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "delete all the games on their PC"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "ten minutes to play a game",
+       "to": "컴퓨터 게임 중독의 심각성"
+      }
+     ],
+     "note": "가장 자주 나오는 소재(게임)는 남기고 평가를 뒤집었다. 지문은 게임을 지우는 행동을 문제로 보고 5번 문장에서 게임 10분을 처방의 예로 든다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "spend time with their friends"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "직장 내 대인 관계"
+      }
+     ],
+     "note": "끊어 버리는 활동 셋 중 하나인 친구 만남을 남기고, 지문에 없는 직장·동료 관계를 주제로 올렸다. 4번 문장의 명령문 목적어는 relaxation 이다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "you will become mentally fitter"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "more creative during the break",
+       "to": "집중력과 학습 능력 간의 관계"
+      }
+     ],
+     "note": "정신 능력 향상 표현은 유지하되, 그것이 휴식에 딸린 효과라는 연결을 끊고 두 능력 사이의 관계라는 다른 대상으로 바꿨다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "scope",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "feelings of guilt"
+      }
+     ],
+     "altered": [
+      {
+       "component": "범위",
+       "from": "처방에 붙은 수식어 하나",
+       "to": "글 전체의 주제"
+      }
+     ],
+     "note": "7번 문장에서 자유 시간을 꾸미는 수식어(죄책감 없는)를 남기고 그 범위를 글 전체로 키웠다. 죄책감이 무엇에 영향을 주는지는 지문이 다루지 않는다."
+    }
+   ],
+   "principle": {
+    "statement": "주제는 반복 소재의 빈도가 아니라 전환 명령문이 겨냥하는 목적어와 그 조건(압박을 받을 때)이 정한다",
+    "when_applies": [
+     "문제 행동을 먼저 묘사하고 Break out of 같은 명령문으로 전환하는 글",
+     "같은 소재가 문제 사례와 처방 사례 양쪽에 등장하는 경우"
+    ],
+    "when_not": [
+     "처방 없이 한 소재의 해악만 서술하는 글 — 그때는 반복 소재가 곧 주제일 수 있다",
+     "명령문이 앞 논지를 바꾸지 않고 덧붙이는 부수 조언인 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "ee08007e81b745c1",
+    "requirement": {
+     "requested": "시간 압박을 받는 사람의 행동과 그에 대한 필자의 처방을 모두 담는 주제를 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "1~3번 문장은 스스로를 벌하는 문제 행동, 4번 문장은 처방(휴식에 주의 기울이기)이다",
+      "5~8번 문장은 처방의 방법과 효과이므로 처방을 뒷받침한다",
+      "주제는 처방 대상(relaxation)과 조건(under pressure)을 함께 담아야 한다"
+     ],
+     "reading_scope": "1~8번 문장(특히 4번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "punish themselves when they are under time pressure",
+      "meaning_ko": "시간에 쫓길 때 스스로에게서 즐거움을 빼앗아 벌한다",
+      "scope": {
+       "kind": "condition",
+       "note": "when 절이 이 행동을 시간 압박 상황으로 한정한다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "their work performance actually declines",
+      "meaning_ko": "즐거움과 균형이 줄면서 오히려 업무 성과까지 떨어진다",
+      "scope": {
+       "kind": "contrast",
+       "note": "actually 가 「일에 몰두하면 성과가 오를 것」이라는 기대와 반대 결과임을 표시한다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "paying more attention to relaxation",
+      "meaning_ko": "휴식에 더 신경 쓰라는 처방",
+      "scope": {
+       "kind": "condition",
+       "note": "같은 문장 when you are under pressure 가 처방이 적용되는 상황을 정한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "ten minutes to play a game",
+      "meaning_ko": "휴식 시간을 정해 두는 예 — 게임 10분은 허용된 휴식이다",
+      "scope": {
+       "kind": "quantity",
+       "note": "clear time periods 로 정해진 짧은 시간에 한정된다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "Free time without feelings of guilt",
+      "meaning_ko": "죄책감 없이 쉬는 자유 시간 — 남은 시간에 질 좋은 일을 할 힘을 준다",
+      "scope": {
+       "kind": "negation",
+       "note": "without 은 guilt 에만 걸려 자유 시간을 꾸민다. 죄책감 자체가 논의 대상은 아니다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "2번 문장에서 게임을 지우는 것은 문제 행동이고 5번 문장은 게임 10분을 처방의 예로 든다 — 중독의 심각성을 말하는 글이 아니다",
+      "sentences": [
+       2,
+       5
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "friends 는 2번 문장에서 끊는 활동 중 하나로 한 번 나올 뿐이고 직장 내 관계를 다루는 문장이 없다",
+      "sentences": [
+       2,
+       4
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장의 more creative·mentally fitter 는 during the break 에 딸린 휴식의 효과이며 집중력과 학습 능력의 관계를 논하지 않는다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "7번 문장의 without feelings of guilt 는 자유 시간을 꾸미는 수식어이고, 죄책감이 정신 건강에 주는 영향은 지문이 다루지 않는다",
+      "sentences": [
+       7
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "4번 문장의 relaxation(휴식)과 when you are under pressure(시간 압박하에서)가 선지 두 성분이고, 3번 문장의 성과 하락과 6~8번 문장의 효과가 필요성을 댄다",
+      "sentences": [
+       3,
+       4,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "처방은 4번 문장 하나의 명령문(Break out of this pattern …)에 있고, 앞 세 문장은 문제, 뒤 네 문장은 방법과 효과다",
+       "sentences": [
+        1,
+        4,
+        8
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "오답이 게임·친구·creative·guilt 처럼 문제나 효과 부분의 낱말 하나를 주제로 올리므로, 이 문항은 명령문의 처방과 주변 근거를 구분하는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        2,
+        6,
+        7
+       ]
+      }
+     ],
+     "limitation": "선지의 「필요성」은 4번 문장 명령문의 형태와 효과 문장에서 추론한 말이며 지문에 need 같은 낱말이 직접 있지는 않다. 실제 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#26",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "scope",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "allergic reactions to common bee stings"
+      }
+     ],
+     "altered": [
+      {
+       "component": "범위",
+       "from": "small dangerous creatures",
+       "to": "How to Deal with Allergies"
+      }
+     ],
+     "note": "가장 강한 사례(벌 쏘임 알레르기)를 남기고 범위를 그 한 사례로 좁혔다. 마지막 문장은 결론을 작은 위험 생물 전체로 되돌리며, 대처 방법은 지문에 없다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "animals"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "hikers should be careful",
+       "to": "Human's True Friends"
+      }
+     ],
+     "note": "동물이라는 소재는 유지하고 평가 방향을 위협에서 우호로 뒤집었다. 5번 문장은 큰 동물 공격이 드물다는 근거일 뿐 동물을 친구로 규정하지 않는다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "attacked by tigers or bears"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(지문에 없음)",
+       "to": "Villages"
+      }
+     ],
+     "note": "공격이라는 관계어는 5번 문장에서 가져오고 장소를 지문에 없는 마을로 바꿨다. 지문의 장면은 등산객이며 공격 빈도도 적다고 말한다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "wild"
+      }
+     ],
+     "altered": [
+      {
+       "component": "역할",
+       "from": "hikers should be careful",
+       "to": "Endangered"
+      }
+     ],
+     "note": "야생동물이라는 대상은 남기고 위험에 처하는 쪽을 사람에서 동물로 바꿨다. 3번 문장과 마지막 문장은 동물이 위협하고 사람이 조심하는 방향을 고정한다."
+    }
+   ],
+   "principle": {
+    "statement": "제목은 가장 극적인 사례가 아니라 결론 문장이 사례들을 묶어 부르는 상위 범주와 위협의 방향을 함께 담아야 한다",
+    "when_applies": [
+     "통념을 But 으로 뒤집은 뒤 사례 둘 이상과 For these reasons 결론이 오는 글",
+     "사례들이 Even more 처럼 같은 주장에 덧붙는 형태로 이어지는 경우"
+    ],
+    "when_not": [
+     "글 전체가 한 사례만 깊이 다루는 경우 — 그 사례가 곧 제목의 범위다",
+     "결론 문장 없이 사례만 나열하고 끝나는 글"
+    ]
+   },
+   "v3": {
+    "units_hash": "cb50a74acef60207",
+    "requirement": {
+     "requested": "큰 동물보다 작은 동물이 더 위험하다는 글의 결론을 담은 제목을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "3번 문장의 But 이후 주장과 8번 문장의 For these reasons 결론이 같은 말을 한다",
+      "5~7번 문장(곰·호랑이 공격은 드묾, 독사·벌)은 결론의 근거다",
+      "제목은 위협하는 쪽(작은 동물)과 조심하는 쪽(등산객)의 방향을 지켜야 한다"
+     ],
+     "reading_scope": "1~8번 문장(특히 3번·8번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "smaller animals are actually more threatening",
+      "meaning_ko": "작은 동물이 실제로는 큰 동물보다 더 위협적이다",
+      "scope": {
+       "kind": "contrast",
+       "note": "But 이 2번 문장의 상식(큰 동물을 피하라)을 뒤집는다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       5
+      ],
+      "expression": "only a few people are attacked",
+      "meaning_ko": "호랑이·곰에게 공격당하는 사람은 해마다 몇 명뿐이다",
+      "scope": {
+       "kind": "quantity",
+       "note": "only a few 가 큰 동물 공격 빈도를 작게 한정한다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "more people are killed by bites",
+      "meaning_ko": "큰 동물보다 작은 독사에 물려 죽는 사람이 더 많다",
+      "scope": {
+       "kind": "contrast",
+       "note": "However 로 5번 문장의 적은 공격과 대비된다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       7
+      ],
+      "expression": "allergic reactions to common bee stings",
+      "meaning_ko": "흔한 벌 쏘임에 대한 알레르기 반응 — 작은 동물 위험의 두 번째 예",
+      "scope": {
+       "kind": "reference",
+       "note": "Even more people 로 앞 예시(독사)에 덧붙는 사례이며 결론 자체가 아니다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       8
+      ],
+      "expression": "hikers should be careful about small dangerous creatures",
+      "meaning_ko": "등산객은 작고 위험한 생물을 조심해야 한다 — 결론",
+      "scope": {
+       "kind": "agent",
+       "note": "조심하는 쪽은 hikers, 조심할 대상은 small dangerous creatures 다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "7번 문장의 벌 쏘임 알레르기는 결론을 받치는 예시 하나이고, 8번 문장은 작은 위험 생물 전체로 결론을 낸다 — 알레르기 대처법은 지문에 없다",
+      "sentences": [
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "8번 문장의 should be careful about 이 Watch Out for, small dangerous creatures 가 Small Animals 에 대응하고 3번 문장이 같은 주장을 먼저 세운다",
+      "sentences": [
+       3,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "5번 문장은 큰 동물 공격이 드물다는 근거일 뿐이고 8번 문장은 조심하라로 끝난다 — 동물을 친구로 보는 글이 아니다",
+      "sentences": [
+       5,
+       8
+      ],
+      "meaning_ids": [
+       "m2",
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "지문의 장면은 등산(hikers)이고 마을이 나오지 않으며 5번 문장은 공격이 only a few 라고 한다",
+      "sentences": [
+       5,
+       8
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "3번·8번 문장에서 위협하는 쪽은 동물, 조심하는 쪽은 사람이다 — 동물이 멸종 위기라는 서술은 없다",
+      "sentences": [
+       3,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "주장이 3번 문장(But …)과 8번 문장(For these reasons …)에 두 번 나오고 그 사이 5~7번 문장이 근거 사례다",
+       "sentences": [
+        3,
+        5,
+        8
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "1번은 가장 인상적인 사례(벌 알레르기)를, 4·5번은 attacked·wild 같은 낱말을 가져가므로, 이 문항은 사례와 결론을 구분해 결론을 제목으로 고르는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        5,
+        7
+       ]
+      }
+     ],
+     "limitation": "1번 문장이 3번 문장과 같은 주장을 미리 말해 글의 첫머리부터 결론이 드러난다. 제목의 Small Animals 가 지문의 creatures(벌 포함)를 넓게 부른 표현인지에 대한 공식 설명은 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#27",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "supplied to us three months ago"
+      }
+     ],
+     "altered": [],
+     "note": "1번 문장의 정동사는 hope·remember 이고, supplied 는 기계를 뒤에서 꾸미는 과거분사다. 기계는 공급된 대상이고 뒤에 목적어가 없으므로 수동 관계가 맞는 정상 형태다."
+    },
+    {
+     "n": 2,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "that you provide spare parts"
+      }
+     ],
+     "altered": [],
+     "note": "says 의 목적어 명사절을 이끄는 that 뒤에 주어·동사·목적어가 갖춰진 완전한 절이 온다. 빠진 성분이 없으니 what 이 아닌 that 이 정상 형태다."
+    },
+    {
+     "n": 3,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "unfair"
+      }
+     ],
+     "altered": [],
+     "note": "sound 는 '~하게 들리다'라는 2형식 동사라 보어 자리에 형용사가 온다. unfair 는 주어 This 의 성질을 서술하는 보어로 정상 형태다."
+    },
+    {
+     "n": 5,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "pay for the labor component"
+      }
+     ],
+     "altered": [],
+     "note": "사역동사 make 의 목적어 us 가 지불하는 주체이므로 목적격보어는 원형부정사 pay 가 정상 형태다. 같은 문장 앞의 to correct 는 별개의 to부정사다."
+    }
+   ],
+   "principle": {
+    "statement": "준동사·보어·접속사 밑줄은 그 자리를 지배하는 동사의 성질(sound·make·stop)과 뒤따르는 절의 완결성으로 판정한다",
+    "when_applies": [
+     "밑줄이 동사 바로 뒤의 보어·목적격보어·준동사 자리에 있는 경우",
+     "stop 처럼 뒤에 오는 형태에 따라 뜻이 갈리는 동사가 있고, 문맥이 '작동을 멈췄다'를 요구하는 경우"
+    ],
+    "when_not": [
+     "stop 뒤 to부정사가 '~하려고 멈추다'라는 목적 부사로 문맥에 맞는 경우",
+     "밑줄이 동사 자체의 수 일치나 시제를 묻는 자리인 경우 — 지배 동사가 아니라 주어를 봐야 한다"
+    ]
+   },
+   "v3": {
+    "units_hash": "2a69be161185e9d6",
+    "requirement": {
+     "requested": "밑줄 다섯 곳 중 어법상 틀린 하나를 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "밑줄마다 그 자리가 요구하는 문법 형태(분사·접속사·보어·목적어·목적격보어)를 확인한다",
+      "④는 stop 뒤 to부정사와 동명사의 뜻 차이를 2번 문장의 no longer working 과 대조한다",
+      "정상 형태 넷은 내용상 맞고 요구(틀린 것)를 충족하지 않는다"
+     ],
+     "reading_scope": "1·2·4·5·7·8번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "the washing machine ① supplied to us",
+      "meaning_ko": "석 달 전 우리에게 공급된 세탁기 — supplied 는 수동 의미의 과거분사 수식",
+      "scope": {
+       "kind": "agent",
+       "note": "공급하는 주체는 상대 회사, 세탁기는 공급받은 대상이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       2
+      ],
+      "expression": "the machine is no longer working",
+      "meaning_ko": "그 기계가 더 이상 작동하지 않는다 — 고장의 끝 상태",
+      "scope": {
+       "kind": "negation",
+       "note": "no longer 가 working(작동) 자체를 부정한다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       5
+      ],
+      "expression": "This sounds ③ unfair",
+      "meaning_ko": "보증 조건이 불공평하게 들린다 — sound 뒤 형용사 보어",
+      "scope": {
+       "kind": "reference",
+       "note": "This 는 4번 문장의 인건비 청구 조건을 가리킨다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       7
+      ],
+      "expression": "it stopped ④ to operate entirely",
+      "meaning_ko": "처음엔 소음이 나다 나중엔 작동을 아예 멈췄다는 맥락 — to operate 면 「작동하려고 멈췄다」가 된다",
+      "scope": {
+       "kind": "time",
+       "note": "Initially … later 가 고장의 두 단계를 차례로 놓는다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       8
+      ],
+      "expression": "not make us ⑤ pay for the labor",
+      "meaning_ko": "우리가 인건비를 내게 하지 않기를 바란다 — 사역 make 뒤 원형부정사",
+      "scope": {
+       "kind": "negation",
+       "note": "not 은 make us pay(지불하게 함) 전체를 부정한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "supplied 는 the washing machine 을 뒤에서 꾸미는 과거분사이고 기계가 공급된 대상이라 수동 형태가 맞다",
+      "sentences": [
+       1
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "says 의 목적어절 that 뒤에 you provide spare parts … 라는 완전한 절이 와서 that 이 맞다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "sound 는 보어를 취하는 동사라 형용사 unfair 가 This 의 성질을 서술하는 형태가 맞다",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "2번 문장 no longer working 처럼 멈춘 것은 작동 자체이므로 stopped operating 이어야 하며, to operate 는 목적(작동하려고)으로 읽혀 맥락과 어긋난다",
+      "sentences": [
+       2,
+       7
+      ],
+      "meaning_ids": [
+       "m2",
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "사역동사 make 의 목적어 us 가 지불하는 주체이므로 목적격보어 원형부정사 pay 가 맞다",
+      "sentences": [
+       8
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "④의 형태 판단에 필요한 의미 정보(기계가 이미 작동하지 않음)가 2번 문장에 먼저 나오고, 7번 문장은 Initially … later 로 고장 경과를 적는다",
+       "sentences": [
+        2,
+        7
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "stopped to operate 는 문장 단독으로는 문법적으로 가능한 구조이므로, 이 문항은 형태만이 아니라 앞 문장의 의미와 맞춰 stop 뒤 준동사를 고르는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        2,
+        7
+       ]
+      }
+     ],
+     "limitation": "stop + to부정사가 「목적」 해석으로 문법상 불가능한 것은 아니어서, 틀림 판정은 2번·7번 문장의 의미 맥락에 기댄다. 출제 의도에 대한 공식 해설 문구는 입력에 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#28",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "distractions"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "rarely",
+       "to": "frequently"
+      }
+     ],
+     "note": "(B)·(C)는 정답과 같고 (A)의 극성만 뒤집었다. 다음 문장의 regularly 는 interrupted 를 꾸미며, 1번 문장이 사무실에서 일하기 쉽지 않다고 못 박아 조용한 시간은 드문 쪽이다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "rarely",
+       "to": "frequently"
+      },
+      {
+       "component": "대상",
+       "from": "distractions",
+       "to": "attractions"
+      },
+      {
+       "component": "극성",
+       "from": "increase",
+       "to": "decrease"
+      }
+     ],
+     "note": "모든 칸이 바뀌어 남은 지문 성분이 없다. 세 칸을 모두 반대쪽으로 바꿔 흔한 재택 반대론으로 글을 다시 짰다. 마지막 문장의 만족과 3번 문장의 사무실 방해 열거가 그 방향과 맞지 않는다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "rarely"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "distractions",
+       "to": "attractions"
+      }
+     ],
+     "note": "어간이 같은 낱말로 바꿔 these 가 받는 대상을 사무실의 방해물에서 집의 유혹으로 옮겼다. these 는 바로 앞 문장의 전화·회의·잡담을 받고 동사도 free you from 이다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "distractions"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "increase",
+       "to": "decrease"
+      }
+     ],
+     "note": "(A)·(B)는 맞게 두고 (C)만 뒤집었다. 앞 문장은 Although 양보절이고 주절이 해결책이 있다고 하며, as will the quality 와 마지막 문장의 만족이 상승을 확정한다."
+    }
+   ],
+   "principle": {
+    "statement": "네모 어휘는 옆 낱말과의 어울림보다 지시어(these)가 받는 앞 문장과 양보절 주절이 이어 주는 논지 방향으로 고른다",
+    "when_applies": [
+     "네모가 these 같은 지시어 뒤에 있어 앞 문장의 열거를 받는 경우",
+     "네모 앞 문장이 Although 양보절로 반대 사정을 잠깐 인정하는 경우"
+    ],
+    "when_not": [
+     "글이 두 입장을 나란히 소개하고 결론을 내리지 않는 경우 — 논지 방향이 하나로 정해지지 않는다",
+     "두 후보가 반의어가 아니라 품사·연어로만 갈리는 경우 — 그때는 문장 안 문법 자리가 먼저다"
+    ]
+   },
+   "v3": {
+    "units_hash": "ad7eb2d65babc701",
+    "requirement": {
+     "requested": "(A)·(B)·(C) 각 네모에서 문맥에 맞는 낱말 조합을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "(A)는 3번 문장의 상시적 방해와 1번 문장의 「사무실에서 일하기 쉽지 않다」에 맞아야 한다",
+      "(B)의 these 는 3번 문장의 전화·회의·잡담을 받는다",
+      "(C)는 같은 문장의 as will the quality 와 8번 문장의 만족과 방향이 같아야 한다"
+     ],
+     "reading_scope": "1~8번 문장(특히 2·3·5·7번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "not always easy to get work done",
+      "meaning_ko": "사무실에서 일을 끝내기가 늘 쉬운 것은 아니다",
+      "scope": {
+       "kind": "negation",
+       "note": "not always 는 부분 부정 — 쉬울 때도 있지만 대체로 어렵다는 뜻이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "regularly interrupted by ringing phones",
+      "meaning_ko": "울리는 전화 등으로 사무실 직원은 늘 방해받는다",
+      "scope": {
+       "kind": "quantity",
+       "note": "regularly 는 interrupted 를 꾸며 방해가 잦음을 말한다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       5
+      ],
+      "expression": "free you from these",
+      "meaning_ko": "재택근무가 앞에 말한 이것들로부터 벗어나게 해 준다",
+      "scope": {
+       "kind": "reference",
+       "note": "these 는 3번 문장의 전화·회의·잡담을 가리킨다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "long blocks of time to focus",
+      "meaning_ko": "일에 집중할 긴 시간 덩어리를 준다 — 방해에서 풀려난 결과",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "as will the quality of your work",
+      "meaning_ko": "생산성과 함께 업무 결과물의 질도 그렇게 된다",
+      "scope": {
+       "kind": "reference",
+       "note": "as will 은 앞 (C) 동사와 같은 방향을 반복한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "3번 문장의 regularly 는 interrupted 를 꾸미므로 조용한 시간은 드문 쪽이어야 하고 frequently 는 1번 문장과도 어긋난다",
+      "sentences": [
+       1,
+       2,
+       3
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "세 칸 모두 반대 방향이다 — these 가 받는 것은 방해이고 7번 문장의 as will the quality 와 8번 문장의 만족이 상승 방향을 정한다",
+      "sentences": [
+       5,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "3번 문장의 잦은 방해로 (A) rarely, these 가 그 방해를 받아 (B) distractions, as will the quality 와 8번 문장으로 (C) increase 가 정해진다",
+      "sentences": [
+       2,
+       3,
+       5,
+       7
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "(B) attractions 는 these 가 받는 전화·회의·잡담을 「매력」으로 바꾸고, free you from 의 벗어날 대상과 맞지 않는다",
+      "sentences": [
+       3,
+       5
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "(C) decrease 는 6번 문장 Although 양보 뒤 해결책이 있다는 흐름과 as will the quality, 8번 문장의 만족과 방향이 어긋난다",
+      "sentences": [
+       6,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 3번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "(A)를 정하는 근거(3번 문장)가 네모 뒤에, (B)의 지시 대상도 3번 문장에 있어 한 문장이 두 칸을 정한다",
+       "sentences": [
+        2,
+        3,
+        5
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "attractions/distractions 처럼 철자가 비슷한 짝과, 양보절(6번 문장)의 problems 를 두어 이 문항은 지시어 these 와 담화 방향으로 낱말을 고르는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        5,
+        6
+       ]
+      }
+     ],
+     "limitation": "네모 낱말의 짝은 입력 원문에 따른 것이며, 9번 줄은 선지 표를 옮긴 것이라 근거 문장으로 쓰지 않았다. 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#29",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "make their own plates or cups"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "for an additional fee",
+       "to": "추가 비용 없이"
+      }
+     ],
+     "note": "체험 활동(접시·컵 만들기)은 그대로 두고 비용 조건을 뒤집었다. 3번 문장 끝과 6번 문장의 체험료 10달러가 추가 비용을 명시한다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "numeric_relation",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "평일·주말 1시간 차이"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "주말 마감이 1시간 이름",
+       "to": "주말이 1시간 더 길다"
+      }
+     ],
+     "note": "시작 시각이 같고 마감이 1시간 차이라는 크기는 유지하되 방향을 바꿨다. 주말은 오후 5시, 평일은 오후 6시에 닫아 주말이 짧다."
+    },
+    {
+     "n": 3,
+     "truth": "unknown",
+     "operation": "none",
+     "preserved": [],
+     "altered": [],
+     "note": "휴관 정보가 있어야 할 Hours 별표 각주가 원문에서 5번 문장 끝 'month.' 조각으로만 남아 휴관 주기를 확인할 수 없다. 기존 분석대로 판정을 보류하고, 모든 성분이 확인되는 선지 5로 답을 정한다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "Children under 12"
+      }
+     ],
+     "altered": [
+      {
+       "component": "수치",
+       "from": "Free",
+       "to": "입장료가 $5"
+      }
+     ],
+     "note": "12세 미만 어린이라는 대상은 유지하고, 바로 윗줄 일반 입장료에 붙은 금액을 이 대상에 옮겨 붙였다. 원문은 어린이 무료다."
+    }
+   ],
+   "principle": {
+    "statement": "안내문 일치는 선지의 대상·조건·수치를 원문 해당 줄에 하나씩 대야 하고, 원문이 잘려 확인할 수 없는 성분은 판정을 보류한다",
+    "when_applies": [
+     "요금·시간이 표처럼 줄마다 이어 적힌 안내문",
+     "선지가 활동이나 대상은 그대로 두고 비용 조건·길이 방향만 바꾼 경우"
+    ],
+    "when_not": [
+     "안내문이 서술형 문단이라 한 성분의 근거가 여러 문장에 흩어진 경우 — 줄 대조보다 문장 간 연결을 봐야 한다",
+     "선지가 원문 수치로 계산한 결과(합계·차이)를 묻는 경우 — 줄 하나로는 판정되지 않는다"
+    ]
+   },
+   "v3": {
+    "units_hash": "1d6344cd649f7f97",
+    "requirement": {
+     "requested": "도자기 박물관 안내문과 내용이 일치하는 선지를 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "선지마다 대상·조건(비용·시간·나이)을 안내문 항목과 하나씩 맞춘다",
+      "휴관 각주는 원문에서 5번 문장 끝 month. 조각으로만 남아 확인할 수 없다",
+      "일치 선지는 모든 성분이 확인되어야 한다"
+     ],
+     "reading_scope": "3~7번 문장(요금·시간·주차 항목)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "for an additional fee",
+      "meaning_ko": "접시·컵 만들기 체험은 별도 요금을 내야 한다",
+      "scope": {
+       "kind": "condition",
+       "note": "추가 요금 조건은 체험(make their own plates or cups)에만 걸린다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       5
+      ],
+      "expression": "Weekends: 9:00 a.m. － 5:00 p.m.",
+      "meaning_ko": "주말은 오후 5시에 닫는다 — 평일(오후 6시)보다 한 시간 이르다",
+      "scope": {
+       "kind": "time",
+       "note": "시작 시각은 평일과 같고 마감만 다르다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "Children under 12: Free",
+      "meaning_ko": "12세 미만 어린이는 입장 무료",
+      "scope": {
+       "kind": "quantity",
+       "note": "under 12 가 무료 대상을 12세 미만으로 한정한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       6
+      ],
+      "expression": "A parking discount is available",
+      "meaning_ko": "박물관 방문객은 주차 할인을 받을 수 있다",
+      "scope": {
+       "kind": "agent",
+       "note": "할인 대상은 museum visitors 다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "must have their parking tickets stamped",
+      "meaning_ko": "할인을 받으려면 안내 데스크에서 주차권에 도장을 받아야 한다",
+      "scope": {
+       "kind": "condition",
+       "note": "도장은 할인을 받는 절차 조건이며 할인 자체를 부정하지 않는다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "3번 문장 for an additional fee 와 6번 문장 Pottery Experience: $10 이 체험에 추가 요금이 있음을 적는다",
+      "sentences": [
+       3,
+       6
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "주말 마감이 5시, 평일 마감이 6시라 주말이 한 시간 짧다 — 차이 크기는 맞고 방향이 반대다",
+      "sentences": [
+       4,
+       5
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "unknown",
+      "requirement_fit": "fails",
+      "decisive": "Hours 의 별표 각주가 5번 문장 끝 month. 조각만 남아 휴관 요일·주기를 원문에서 확인할 수 없어 일치로 고를 근거가 없다",
+      "sentences": [
+       4,
+       5
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장에서 12세 미만은 Free 이고 $5 는 일반 입장료(General Admission)에 붙은 금액이다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "6번 문장 A parking discount is available to museum visitors 가 「방문객·주차 할인·받을 수 있다」 세 성분과 맞고, 7번 문장의 도장은 절차일 뿐이다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "휴관 정보가 들어갈 각주 자리가 5번 문장 끝 month. 로 잘려 있어 3번 선지는 원문 입력만으로 판정할 수 없다",
+       "sentences": [
+        4,
+        5
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "오답들이 체험 비용·운영 시간·어린이 요금처럼 숫자나 조건 한 성분만 바꾸므로, 이 문항은 항목별 조건을 정확히 맞추는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        3,
+        5,
+        6
+       ]
+      }
+     ],
+     "limitation": "원문 안내문의 휴관 각주가 입력에서 잘려 3번 선지의 실제 진위(원 시험지 기준)는 확인하지 못했다. 표 형식 안내문을 문장으로 옮기며 항목 경계가 일부 합쳐졌다."
+    }
+   }
+  },
+  {
+   "id": "2014A#30",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "for only $50 per year"
+      }
+     ],
+     "altered": [],
+     "note": "2번 문장이 all the benefits of membership 을 연회비 50달러에 묶는다. 뒤 묶음(Members also get)도 회원 혜택이므로 '모든 혜택'은 원문과 맞는다."
+    },
+    {
+     "n": 2,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "시점",
+       "text": "Our monthly magazine, Nature World"
+      }
+     ],
+     "altered": [],
+     "note": "잡지에 붙은 주기어는 monthly 이고 기간도 for one year 로 적혀 있어 맞는 진술이다. weekly 는 다음 줄의 뉴스레터에 붙는다."
+    },
+    {
+     "n": 4,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "A 10% discount on books"
+      }
+     ],
+     "altered": [],
+     "note": "도서에 걸린 할인율은 10%이고, 20%는 다음 줄의 다른 잡지에 걸린다. 선지는 도서와 10%를 바르게 짝지었다."
+    },
+    {
+     "n": 5,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "Discounted admission to national parks"
+      }
+     ],
+     "altered": [],
+     "note": "4번 문장 마지막 항목이 국립공원 할인 입장을 혜택으로 적는다. 재단의 권한에 대한 배경지식과 무관하게 원문에 있는 내용이다."
+    }
+   ],
+   "principle": {
+    "statement": "이웃한 줄에 짝으로 놓인 주기어·비율은 각 수치가 붙은 대상과 묶어 대조해야 짝 바꾸기를 잡을 수 있다",
+    "when_applies": [
+     "monthly·weekly, 10%·20% 처럼 같은 종류의 값이 이웃 줄에 나란히 있는 혜택 목록",
+     "선지가 대상은 맞고 붙은 수치만 옆 줄 것으로 바꿀 수 있는 구조"
+    ],
+    "when_not": [
+     "각 항목에 수치가 하나뿐이라 짝을 바꿀 후보가 없는 안내문",
+     "발문이 혜택이 아닌 신청 절차·기한을 묻는 경우 — 그때는 순서와 날짜가 대조 축이다"
+    ]
+   },
+   "v3": {
+    "units_hash": "7528f7123acc1426",
+    "requirement": {
+     "requested": "재단 회원 혜택 안내문과 내용이 일치하지 않는 선지를 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "혜택 항목마다 붙은 주기어(monthly·weekly)와 할인율을 정확한 대상에 맞춘다",
+      "정답은 내용이 원문과 어긋나고, 나머지 넷은 원문과 맞아 요구를 충족하지 않는다"
+     ],
+     "reading_scope": "2~4번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "all the benefits of membership for only $50",
+      "meaning_ko": "연회비 50달러만 내면 회원 혜택 전부를 누린다",
+      "scope": {
+       "kind": "quantity",
+       "note": "all 이 Members receive 와 Members also get 두 묶음 모두에 걸린다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "Our monthly magazine, Nature World, for one year",
+      "meaning_ko": "월간 잡지 Nature World 를 1년 동안 받는다",
+      "scope": {
+       "kind": "time",
+       "note": "monthly 는 잡지에만 붙고 for one year 는 받는 기간이다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       3
+      ],
+      "expression": "A weekly newsletter about upcoming events",
+      "meaning_ko": "재단 행사를 알리는 주간 뉴스레터",
+      "scope": {
+       "kind": "time",
+       "note": "weekly 가 뉴스레터의 발행 주기를 정한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       4
+      ],
+      "expression": "A 10% discount on books",
+      "meaning_ko": "재단 발행 도서 10% 할인",
+      "scope": {
+       "kind": "quantity",
+       "note": "10% 는 도서에, 20% 는 Nature Kids 같은 다른 잡지에 걸린다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       4
+      ],
+      "expression": "Discounted admission to national parks",
+      "meaning_ko": "국립공원 입장 할인",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "2번 문장 all the benefits of membership for only $50 per year 와 맞는 진술이다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "3번 문장 첫 항목에 월간 잡지 Nature World 를 for one year 받는다고 적혀 있어 맞는다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "뉴스레터에 붙은 주기어는 weekly 인데 선지는 월간이라 원문과 어긋난다 — monthly 는 윗줄 잡지의 주기어다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "4번 문장 첫 항목이 재단 발행 도서 10% 할인을 적어 맞는 진술이다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "4번 문장 마지막 항목 Discounted admission to national parks 와 맞는다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 3번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "같은 3번 문장 안에 monthly(잡지)와 weekly(뉴스레터)가 이웃한 항목에 붙어 있다",
+       "sentences": [
+        3
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "정답 선지가 뉴스레터의 내용은 그대로 두고 이웃 항목의 주기어만 옮겨 붙였으므로, 이 문항은 수식어가 어느 항목에 걸리는지 확인하는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        3
+       ]
+      }
+     ],
+     "limitation": "안내문의 글머리표 목록을 한 문장으로 합쳐 입력했으므로 항목 경계는 ∙ 기호에 기댄다. 실제 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#31",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "시점",
+       "text": "December 16th-20th, 2013"
+      }
+     ],
+     "altered": [],
+     "note": "날짜 줄에 붙은 연도는 2013 이고, 2014 는 시즌 이름(For the 2014 Season)이다. 오디션 기간 진술은 원문과 맞는다."
+    },
+    {
+     "n": 2,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "범위",
+       "text": "a middle or high school student"
+      }
+     ],
+     "altered": [],
+     "note": "or 가 중학생과 고등학생을 모두 자격에 넣으므로 '중·고등학생이 지원할 수 있다'는 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "시점",
+       "text": "by November 30th"
+      }
+     ],
+     "altered": [],
+     "note": "2번 문장 둘째 항목에 지원서와 음악 교사 추천서, 기한 11월 30일이 한 문장으로 적혀 있어 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "receive an e-mail with your audition time"
+      }
+     ],
+     "altered": [],
+     "note": "3번 문장 첫 항목이 오디션 시간·장소를 이메일로 받는다고 적어, 수단이 원문과 같다."
+    }
+   ],
+   "principle": {
+    "statement": "안내문 불일치 문항에서는 선지마다 수단·기한·자격 같은 성분 하나가 원문 어느 줄에 붙어 있는지를 찾아 맞춰 본다",
+    "when_applies": [
+     "You must / You will 처럼 항목별 목록으로 조건과 절차가 나뉜 안내문",
+     "같은 수단(이메일)이 두 줄에 나와 각기 다른 정보(시간·결과)를 전하는 경우"
+    ],
+    "when_not": [
+     "원문이 수단을 적지 않은 경우 — 수단을 바꾼 선지는 불일치가 아니라 확인 불가다",
+     "선지가 여러 줄의 정보를 합친 추론을 담은 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "fe1fd40ceaa272ed",
+    "requirement": {
+     "requested": "오케스트라 오디션 안내문과 내용이 일치하지 않는 선지를 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "날짜·자격·제출물·통지 수단을 각 항목과 맞춘다",
+      "정답은 통지 수단이 원문과 어긋나는 선지이고, 나머지 넷은 원문과 맞는다"
+     ],
+     "reading_scope": "1~3번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "Audition Dates: December 16th-20th, 2013",
+      "meaning_ko": "오디션은 2013년 12월 16~20일에 열린다",
+      "scope": {
+       "kind": "time",
+       "note": "2013 은 날짜에, 2014 는 시즌 이름에 붙는다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       2
+      ],
+      "expression": "currently be a middle or high school student",
+      "meaning_ko": "현재 중학생이나 고등학생이어야 한다",
+      "scope": {
+       "kind": "condition",
+       "note": "or 가 두 학교급을 모두 자격에 넣는다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       2
+      ],
+      "expression": "by November 30th",
+      "meaning_ko": "지원서와 음악 교사 추천서를 11월 30일까지 보낸다",
+      "scope": {
+       "kind": "time",
+       "note": "기한은 두 제출물 모두에 걸린다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       3
+      ],
+      "expression": "an e-mail with your audition time and place",
+      "meaning_ko": "오디션 시간·장소를 이메일로 받는다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       3
+      ],
+      "expression": "notified of the final results by e-mail",
+      "meaning_ko": "최종 결과를 이메일로 통지받는다",
+      "scope": {
+       "kind": "condition",
+       "note": "by e-mail 이 통지 수단을 정한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "1번 문장 Audition Dates: December 16th-20th, 2013 과 맞는다",
+      "sentences": [
+       1
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "2번 문장 middle or high school student 가 중·고등학생 자격을 적어 맞는다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "2번 문장 둘째 항목이 지원서·추천서와 기한 11월 30일을 함께 적어 맞는다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "3번 문장 첫 항목이 시간·장소를 이메일로 받는다고 적어 맞는다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "3번 문장 둘째 항목은 최종 결과를 by e-mail 로 통지한다고 하므로 「전화로」는 원문과 어긋난다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 5번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "3번 문장의 두 항목(시간·장소 안내, 최종 결과 통지)이 모두 이메일을 수단으로 적는다",
+       "sentences": [
+        3
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "정답이 통지 대상은 남기고 수단만 바꿨으므로, 이 문항은 항목의 수단 성분까지 대조하는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        3
+       ]
+      }
+     ],
+     "limitation": "안내문 형식을 문장으로 합쳐 입력해 항목 경계는 ∙ 기호에 기댄다. 제작 의도는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#32",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "ranged from 29% to 58%"
+      }
+     ],
+     "altered": [],
+     "note": "막대 계열 일곱 집단 참여율의 최저가 29, 최고가 58이고 캐나다 평균 막대가 46이라 맞는 진술이다(기존 분석의 판독값 기준)."
+    },
+    {
+     "n": 2,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "an average of 133 hours"
+      }
+     ],
+     "altered": [],
+     "note": "꺾은선 계열이 25-34 에서만 138에서 133으로 줄고 이후 계속 늘어, 예외 하나를 둔 증가 진술과 그 값이 맞는다."
+    },
+    {
+     "n": 3,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "the second fewest average annual hours"
+      }
+     ],
+     "altered": [],
+     "note": "15-24 참여율 58은 최고이고 시간 138은 133 다음으로 적어 두 번째 최저다. 두 계열을 함께 묻는 진술이 모두 맞는다."
+    },
+    {
+     "n": 5,
+     "truth": "true",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "their lowest rate of volunteering"
+      }
+     ],
+     "altered": [],
+     "note": "75세 이상은 막대 최저(29)이면서 꺾은선 최고(222)라 두 조건이 다 맞는다. 다른 집단 시간의 최대는 216이다."
+    }
+   ],
+   "principle": {
+    "statement": "막대와 꺾은선이 한 도표에 겹친 문항은 진술의 각 비교가 어느 계열을 가리키는지 먼저 정한 뒤 값을 대조한다",
+    "when_applies": [
+     "참여율(막대)과 시간(꺾은선)처럼 단위가 다른 두 계열이 같은 집단 축을 공유하는 도표",
+     "한 문장 안에 rate 와 hours 를 함께 묻는 진술"
+    ],
+    "when_not": [
+     "계열이 하나뿐인 도표 — 계열 확인보다 순위·차이 계산이 판정 축이다",
+     "진술이 평균선 같은 기준값과의 비교만 묻는 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "bc437ae79fd60393",
+    "requirement": {
+     "requested": "도표(연령대별 자원봉사 참여율·연평균 시간)와 일치하지 않는 진술을 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "진술마다 막대(참여율)와 꺾은선(연평균 시간) 중 어느 계열을 말하는지 구분한다",
+      "도표 값은 기존 분석의 판독값(참여율 58·40·52·48·40·40·29, 시간 138·133·158·170·205·216·222)에 기댄다"
+     ],
+     "reading_scope": "2~6번 문장(선지 ①~⑤)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "ranged from 29% to 58%",
+      "meaning_ko": "일곱 연령대 참여율이 29%에서 58% 사이에 있다",
+      "scope": {
+       "kind": "quantity",
+       "note": "막대 계열(참여율)에 대한 범위다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "increased with age except for the group",
+      "meaning_ko": "25-34세 집단만 빼고 나이가 들수록 연평균 시간이 늘었다",
+      "scope": {
+       "kind": "condition",
+       "note": "except 가 25-34 집단 하나를 증가 진술에서 뺀다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "the second fewest average annual hours",
+      "meaning_ko": "15-24세의 연평균 시간이 두 번째로 적다",
+      "scope": {
+       "kind": "quantity",
+       "note": "꺾은선 계열 순위이며 참여율 최고와 함께 묻는다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "showed the same average annual hours",
+      "meaning_ko": "55-64세와 65-74세의 연평균 시간이 같다는 진술",
+      "scope": {
+       "kind": "reference",
+       "note": "same 이 걸리는 것은 꺾은선(시간)이지 막대(참여율)가 아니다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "gave more hours on average than any other",
+      "meaning_ko": "75세 이상이 다른 어느 집단보다 평균 시간이 많다",
+      "scope": {
+       "kind": "contrast",
+       "note": "Despite 가 참여율 최저와 시간 최고를 대비한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "기존 분석 판독값으로 참여율 최저 29·최고 58, 캐나다 평균 46이라 맞는 진술이다",
+      "sentences": [
+       2
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "판독값 138→133 으로 25-34 에서만 줄고 이후 계속 늘며 그 값이 133 이라 맞는다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "15-24 는 참여율 58로 최고, 시간 138로 133 다음 두 번째 최저라 맞는다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "false",
+      "requirement_fit": "satisfies",
+      "decisive": "55-64(205시간)와 65-74(216시간)의 시간이 달라 same average annual hours 가 성립하지 않는다 — 같은 것은 참여율 40% 다",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "true",
+      "requirement_fit": "fails",
+      "decisive": "75세 이상은 참여율 최저(29)이고 시간 222로 다른 집단 최대 216보다 많아 맞는다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "5번 문장이 두 집단을 「같다」고 하는데, 판독값으로는 두 집단이 참여율 막대에서만 같고 시간 꺾은선에서는 다르다",
+       "sentences": [
+        5
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "두 계열이 한 그래프에 겹쳐 있어, 이 문항은 진술이 가리키는 계열을 정확히 골라 값을 읽는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        1,
+        5
+       ]
+      }
+     ],
+     "limitation": "도표 이미지는 입력에 없고 수치는 기존 분석의 판독값이다. 원 도표에서 판독 오차가 있으면 세부 비교가 달라질 수 있다."
+    }
+   }
+  },
+  {
+   "id": "2014A#33",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "those who are dominant"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "anxiety"
+      }
+     ],
+     "note": "빈칸 주어(지배적인 사람)는 유지하고 시선 연상(불안)을 끼워 넣었다. 지문은 권한(entitled)과 제약(restricted)만 말하고 감정어가 없다."
+    },
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "dominants tend to ignore subordinates visually"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "conflict"
+      }
+     ],
+     "note": "지배·복종이라는 두 집단 구도는 남기고, 지문이 병렬로만 놓은 행동 차이를 충돌로 바꿨다. 5번 문장은 두 집단의 서로 다른 행동을 나란히 적을 뿐이다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "dominant"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "entitled to look wherever they want",
+       "to": "reluctance"
+      }
+     ],
+     "note": "주어는 그대로 두고 시선 사용의 극성을 뒤집었다. 2번 문장은 지배자가 어디든 볼 자격이 있다고 하며, 머리를 숙이는 쪽은 아랫사람이다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "are required to be attentive"
+      }
+     ],
+     "altered": [
+      {
+       "component": "역할",
+       "from": "lower-status persons",
+       "to": "지배적인 사람의 책임"
+      }
+     ],
+     "note": "6번 문장의 의무 표현은 지문에서 가져오되, 그 의무가 걸린 집단을 아랫사람에서 지배자로 옮겼다. 같은 문장에서 윗사람은 무관심해도 된다."
+    }
+   ],
+   "principle": {
+    "statement": "두 집단을 대비하는 글의 빈칸은 빈칸 집단에 걸린 술어로 채우고, 반대 집단에 걸린 낱말을 옮겨 온 선지를 걸러 낸다",
+    "when_applies": [
+     "However · while 로 두 집단의 대비가 문장마다 반복되는 글",
+     "빈칸 다음에 In essence 처럼 같은 집단을 재진술하는 문장이 있는 경우"
+    ],
+    "when_not": [
+     "두 집단이 같은 속성을 공유한다고 말하는 글",
+     "빈칸이 두 집단 사이의 관계 자체를 묻는 경우 — 그때는 conflict 같은 관계어가 답일 수 있다"
+    ]
+   },
+   "v3": {
+    "units_hash": "77137767992a0452",
+    "requirement": {
+     "requested": "지배적 위치의 사람이 시선 사용에서 더 많이 가진 것을 빈칸에 넣는다",
+     "polarity": "positive",
+     "conditions": [
+      "빈칸 주어 those who are dominant 를 2번 문장 these individuals 가 받아 풀어 쓴다",
+      "3번 문장의 subordinates are more restricted 가 대조 값이다",
+      "7번 문장 The king is free to look 이 같은 값을 예시로 반복한다"
+     ],
+     "reading_scope": "1~3번·6~7번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "entitled to look wherever they want",
+      "meaning_ko": "지배적인 사람은 원하는 곳 어디든 볼 자격이 있다",
+      "scope": {
+       "kind": "reference",
+       "note": "these individuals 가 1번 문장 those who are dominant 를 받는다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "subordinates are more restricted",
+      "meaning_ko": "아랫사람은 어디를 언제 볼지 더 제약받는다",
+      "scope": {
+       "kind": "contrast",
+       "note": "However 로 지배자 쪽과 대비된다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "lower-status persons are required to be attentive",
+      "meaning_ko": "지위가 낮은 사람은 시선으로 주의를 기울여야 한다",
+      "scope": {
+       "kind": "agent",
+       "note": "의무(required)는 lower-status persons 에만 걸리고 higher-status 쪽은 can be indifferent 다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       7
+      ],
+      "expression": "The king is free to look",
+      "meaning_ko": "왕은 원하는 누구든 볼 수 있다 — 빈칸 값의 예시",
+      "scope": {
+       "kind": "agent",
+       "note": "free 는 왕(지배자)에게, 방을 나설 때도 왕을 향하는 쪽은 subjects 다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       4
+      ],
+      "expression": "heads are bowed",
+      "meaning_ko": "왕족 앞에서는 겸손으로 고개를 숙인다",
+      "scope": {
+       "kind": "agent",
+       "note": "고개를 숙이는 쪽은 왕족 앞의 사람들(아랫사람)이다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "지문은 권한(entitled)과 제약(restricted)만 말하고 불안 같은 감정어가 없다",
+      "sentences": [
+       2,
+       3
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "5번 문장은 두 집단의 다른 시선 행동을 나란히 적을 뿐 충돌을 말하지 않는다",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 3,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "2번 문장 entitled to look wherever they want 와 7번 문장 free to look 이 지배자의 시선 사용에 제약이 없음을, 3번 문장 restricted 가 대조로 같은 값을 정한다",
+      "sentences": [
+       2,
+       3,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "주저하며 고개를 숙이는 쪽은 아랫사람(4번 문장)이고, 지배자는 2번 문장에서 어디든 볼 자격이 있다",
+      "sentences": [
+       2,
+       4
+      ],
+      "meaning_ids": [
+       "m1",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장에서 의무(required to be attentive)가 걸린 쪽은 지위가 낮은 사람이고 지배자는 무관심해도 된다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 3번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "빈칸 값이 2번 문장(entitled)과 7번 문장(free)에서 두 번 풀어 쓰이고, 3·6번 문장이 반대 집단의 제약과 의무를 적는다",
+       "sentences": [
+        2,
+        3,
+        6,
+        7
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "오답 responsibility·reluctance 가 반대 집단에 걸린 의무·겸손을 지배자 쪽에 옮겨 붙이므로, 이 문항은 행위자를 구분해 빈칸 주어의 속성을 고르는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        4,
+        6
+       ]
+      }
+     ],
+     "limitation": "빈칸 값 freedom 은 entitled·free 에서 추상화한 말이며 지문에 freedom 이라는 낱말이 직접 나오지는 않는다. 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#34",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "feelings"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "brutality of humans"
+      }
+     ],
+     "note": "감정이라는 소재에서 인간의 어두운 면으로 연상을 뻗었다. 빈칸 뒤 문장이 줄어드는 것을 즐거움(enjoyment)으로 못 박는다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "TV"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "turning the color off",
+       "to": "size of the TV screen"
+      }
+     ],
+     "note": "비유 속 사물(TV)은 그대로 두고 비유에서 끈 것을 색에서 화면 크기로 바꿨다. 색에 대응하는 실제 항목은 빈칸 뒤 문장의 감정이다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "more truthful"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "It is not more truthful",
+       "to": "incorrectness of a theory"
+      }
+     ],
+     "note": "진실성이라는 축은 유지하되, 빈칸 문장 첫머리가 부정한 '더 진실하다'를 오류를 줄인다는 긍정 평가로 되돌렸다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "The importance of science"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "criticism of scientific findings"
+      }
+     ],
+     "note": "1번 문장의 과학 화제를 남기고 지문에 없는 과학 비판을 끼워 넣었다. 4번 문장이 as far as life is concerned 로 화제를 삶으로 옮겼다."
+    }
+   ],
+   "principle": {
+    "statement": "비유 바로 뒤의 빈칸은 비유 속 사물이 아니라 그 비유가 대응시키는 실제 항목(감정·삶의 풍부함)으로 채운다",
+    "when_applies": [
+     "it is a bit like 처럼 비유를 연 뒤 It is not ~; it is just 로 평가하는 빈칸",
+     "빈칸 다음 문장이 When you turn down 처럼 비유의 동작을 실제 항목에 옮겨 적는 경우"
+    ],
+    "when_not": [
+     "비유 자체가 글의 대상인 경우 — 예를 들어 TV 기술을 설명하는 글이면 사물 낱말이 답일 수 있다",
+     "빈칸이 비유 앞에 있어 대응 항목이 아직 제시되지 않은 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "0f44b0883e537f2d",
+    "requirement": {
+     "requested": "객관성이라는 필터가 줄이는 것을 빈칸에 넣는다",
+     "polarity": "positive",
+     "conditions": [
+      "빈칸 문장 It is not more truthful 이 「진실성」 축을 먼저 부정한다",
+      "6번 문장이 감정을 낮추면 즐거움의 가능성도 낮아진다고 빈칸 값을 풀어 쓴다",
+      "4번 문장 as far as life is concerned 가 화제를 삶으로 정한다"
+     ],
+     "reading_scope": "3~6번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "deliberately ignores our feelings",
+      "meaning_ko": "객관성은 감정을 일부러 무시하는 해석이다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       4
+      ],
+      "expression": "as far as life is concerned",
+      "meaning_ko": "삶에 관한 한 — 과학 측정이 아니라 삶의 영역으로 화제를 옮긴다",
+      "scope": {
+       "kind": "condition",
+       "note": "뒤의 TV 비유가 삶의 영역에 한정해 적용된다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "turning the color off on your TV",
+      "meaning_ko": "TV 색을 꺼서 흑백으로 보는 것 — 감정을 빼고 보는 것의 비유",
+      "scope": {
+       "kind": "reference",
+       "note": "비유의 색은 실제 항목 feelings 에 대응한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "It is not more truthful",
+      "meaning_ko": "객관성이 더 진실한 것은 아니다",
+      "scope": {
+       "kind": "negation",
+       "note": "not 은 more truthful 을 부정해 진실성 축의 이점을 지운다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "turn down the possibility of enjoyment",
+      "meaning_ko": "감정을 낮추면 즐거움의 가능성도 함께 낮아진다",
+      "scope": {
+       "kind": "condition",
+       "note": "When you turn down the feelings 가 이 결과의 조건이다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "6번 문장에서 줄어드는 것은 감정과 함께 오는 즐거움이고, 4번 문장의 삶이라는 화제와 색을 끈 흑백 비유가 「삶의 풍부함」과 맞는다",
+      "sentences": [
+       4,
+       5,
+       6
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "지문에 인간의 잔혹함을 말한 문장이 없고 6번 문장이 줄어드는 것을 enjoyment 로 정한다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "4번 문장의 TV 는 비유이며 끈 것은 화면 크기가 아니라 색(감정)이다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "5번 문장이 It is not more truthful 로 진실성의 이점을 부정하므로 오류를 줄인다는 긍정 평가와 맞지 않는다",
+      "sentences": [
+       5
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "과학 비판을 뜻하는 말이 없고 4번 문장이 화제를 과학에서 삶으로 옮긴다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 1번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "빈칸 값의 근거가 빈칸 바로 뒤 6번 문장(enjoyment)과 앞 4번 문장의 TV 색 비유에 나뉘어 있다",
+       "sentences": [
+        4,
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "TV·과학·진실성처럼 지문 표면의 낱말에 기댄 오답을 두어, 이 문항은 비유의 매체가 아니라 비유가 가리키는 실제 항목(감정·삶)으로 빈칸을 채우는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        1,
+        4,
+        5
+       ]
+      }
+     ],
+     "limitation": "richness 는 색(풍부함)·즐거움에서 추상화한 말로 지문에 그대로 나오지 않는다. 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#35",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "new product features"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "delay the introduction"
+      }
+     ],
+     "note": "신기능 요청이라는 주어는 남기고 지문에 없는 출시 지연을 결과로 붙였다. 6번 문장의 결과는 늦춤이 아니라 기능이 쓸모없어지는 제품 안의 손상이다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "requests"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "other outcomes",
+       "to": "induce other customers"
+      }
+     ],
+     "note": "1번 문장의 other 를 가져오되 걸리는 대상을 다른 결과에서 다른 고객으로 바꿨다. 지문에 다른 고객이 등장하는 문장은 없다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "scope",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "companies"
+      }
+     ],
+     "altered": [
+      {
+       "component": "범위",
+       "from": "the problems it causes",
+       "to": "excessive competition among companies"
+      }
+     ],
+     "note": "회사라는 낱말은 남기고 작용 범위를 한 제품 안에서 시장 전체로 넓혔다. 6번 문장의 피해는 그 제품 안의 문제다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "listening to"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "reject the resulting product",
+       "to": "discourage companies"
+      }
+     ],
+     "note": "2번 문장의 듣기 표현을 거의 그대로 옮기고 작용 대상을 제품 기능에서 회사의 태도로 바꿨다. 결과는 고객의 제품 거부이지 회사가 듣기를 그만두는 것이 아니다."
+    }
+   ],
+   "principle": {
+    "statement": "빈칸 주어(요청한 해결책)가 무엇에 작용하는지는 앞 사례들의 공통 구조와 뒤 문장의 결과가 함께 가리키는 대상으로 정한다",
+    "when_applies": [
+     "작은 전화기·가벼운 톱처럼 '한 가지 개선이 다른 기능을 해치는' 사례가 둘 이상 나온 뒤의 일반화 빈칸",
+     "빈칸 뒤 문장이 ramifications 처럼 그 작용의 결과를 다시 적는 경우"
+    ],
+    "when_not": [
+     "사례들이 서로 다른 구조를 보여 공통점이 하나로 모이지 않는 글",
+     "빈칸이 고객이 아니라 회사의 대응을 묻는 문장에 있는 경우 — 그때는 회사 쪽 낱말이 답 범위에 들어온다"
+    ]
+   },
+   "v3": {
+    "units_hash": "4d8193a89528e216",
+    "requirement": {
+     "requested": "고객이 요청한 해결책이 무엇을 할지 생각하지 못하는지를 빈칸에 넣는다",
+     "polarity": "positive",
+     "conditions": [
+      "빈칸 주어는 their requested solution 이고 빈칸은 그 작용이다",
+      "1번 문장(한 영역의 성과가 다른 성과에 부정적 영향)과 3·4번 문장 예시가 같은 꼴이다",
+      "6번 문장의 the problems it causes 는 피해가 같은 제품 안에서 생김을 확인한다"
+     ],
+     "reading_scope": "1번·3~6번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "have a negative effect on other outcomes",
+      "meaning_ko": "한 영역에서 원하는 성과가 다른 성과에 나쁜 영향을 준다",
+      "scope": {
+       "kind": "reference",
+       "note": "other 는 같은 제품의 다른 성과(outcomes)에 걸린다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "how hard that tiny phone will be",
+      "meaning_ko": "작아진 전화가 쓰기 얼마나 어려울지",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "no longer have the power",
+      "meaning_ko": "가벼운 톱은 더 이상 어려운 작업을 해낼 힘이 없다",
+      "scope": {
+       "kind": "negation",
+       "note": "no longer 가 절단력(power) 자체를 부정한다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "focused on solving just one problem",
+      "meaning_ko": "고객은 문제 하나만 푸는 데 집중한다",
+      "scope": {
+       "kind": "quantity",
+       "note": "just one 이 고객의 시야를 한 문제로 좁힌다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "because of the problems it causes",
+      "meaning_ko": "추가된 기능이 일으키는 문제 때문에 그 기능이 쓸모없어진다",
+      "scope": {
+       "kind": "reference",
+       "note": "it 은 the added feature 이고 문제는 같은 제품 안에서 생긴다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "1번 문장 have a negative effect on other outcomes 가 impact other … functions 로 옮겨지고, 3·4번 문장 예시와 6번 문장 the problems it causes 가 같은 제품 안의 다른 기능 손상을 확인한다",
+      "sentences": [
+       1,
+       3,
+       4,
+       6
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "지문에 출시·일정 어휘가 없고 6번 문장의 결과는 기능이 쓸모없어지는 것이다",
+      "sentences": [
+       6
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "1번 문장의 other 는 outcomes 에 걸리며 다른 고객이 등장하는 문장이 없다",
+      "sentences": [
+       1
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "companies 는 2번 문장에 고객 목소리를 듣는 주체로만 나오고 회사 간 경쟁은 없다 — 피해 범위는 한 제품 안이다",
+      "sentences": [
+       2,
+       6
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "6번 문장의 결과는 고객이 제품을 거부하는 것(reject the resulting product)이지 회사가 듣기를 그만두는 것이 아니다",
+      "sentences": [
+       2,
+       6
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 1번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "빈칸 값이 1번 문장에 일반 진술로 먼저 나오고 3·4번 문장이 같은 꼴의 예시 둘을 든다",
+       "sentences": [
+        1,
+        3,
+        4
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "2번 문장의 voice of the customer·companies 를 가져온 오답을 두어, 이 문항은 배경 문장이 아니라 빈칸 주어(요청안)의 작용을 첫 문장과 예시에서 찾는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        2,
+        5
+       ]
+      }
+     ],
+     "limitation": "선지의 product or service functions 는 outcomes 를 기능으로 바꿔 말한 것이라 두 낱말의 범위가 완전히 같지는 않다. 제작 의도는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#36",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "inference",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "For example"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "다른 집단을 소개하는 대조",
+       "to": "As a result"
+      }
+     ],
+     "note": "(A)는 정답과 같고 (B)의 관계를 대조에서 결과로 바꿨다. 6번 문장의 주어가 낮은 집단으로 바뀌므로 5번 문장(높은 집단)의 결과가 될 수 없다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "inference",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "4번·6번 문장 머리의 두 연결 자리"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "같은 집단의 구체 사례",
+       "to": "Otherwise"
+      },
+      {
+       "component": "관계",
+       "from": "다른 집단을 소개하는 대조",
+       "to": "As a result"
+      }
+     ],
+     "note": "두 칸의 관계를 모두 바꿨다. 3번 문장은 조건문이 아니라 Otherwise 가 붙을 자리가 없고, (B)도 주어 교체와 결과 관계가 맞지 않는다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "In contrast"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "3번 문장 행동의 회의 장면 사례",
+       "to": "Meanwhile"
+      }
+     ],
+     "note": "(B)는 맞게 두고 (A)를 화제 전환 표지로 바꿨다. 4번 문장은 3번 문장과 같은 집단의 같은 행동을 좁힌 것이라 다른 대상으로 넘어가지 않는다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "inference",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "높은 집단에서 낮은 집단으로의 방향 전환"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "같은 집단의 구체 사례",
+       "to": "Meanwhile"
+      },
+      {
+       "component": "관계",
+       "from": "두 집단의 병렬 대조",
+       "to": "Nevertheless"
+      }
+     ],
+     "note": "(B) 자리에 방향 전환이 있다는 감각은 유지하되 그 전환을 대조가 아닌 양보로 바꿨다. 5·6번 문장은 대상이 다른 두 집단을 나란히 놓은 것이지 앞 진술에도 불구하고 일어나는 관계가 아니다."
+    }
+   ],
+   "principle": {
+    "statement": "연결어 칸은 앞뒤 문장의 주어가 같은 집단인지(사례·구체화) 다른 집단인지(대조)를 먼저 확인한 뒤 표지를 고른다",
+    "when_applies": [
+     "두 유형(높음·낮음)을 차례로 정의하고 각각에 사례를 붙이는 설명문",
+     "빈칸 뒤 문장이 they 를 유지하는지 those who have low 처럼 새 주어를 세우는지가 드러나는 경우"
+    ],
+    "when_not": [
+     "주어는 같지만 앞뒤 서술이 원인과 결과로 이어지는 경우 — 그때는 집단 동일성만으로 As a result 를 배제할 수 없다",
+     "한 집단 안에서 앞 진술과 어긋나는 사실을 덧붙이는 경우 — 양보 표지가 맞을 수 있다"
+    ]
+   },
+   "v3": {
+    "units_hash": "70448841ba5d57ee",
+    "requirement": {
+     "requested": "빈칸 (A)·(B)에 들어갈 연결어 짝을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "(A)는 3번 문장의 일반 진술을 4번 문장의 회의 장면으로 좁히는 관계다",
+      "8번 문장이 같은 틀에 For example 을 달아 (A)의 기능을 보여 준다",
+      "(B)는 6번 문장에서 주어가 low self-monitoring 집단으로 바뀌는 자리다"
+     ],
+     "reading_scope": "2~8번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "adjust themselves to any social signal",
+      "meaning_ko": "높은 자기 감시자는 적절함을 알리는 사회적 신호에 자신을 맞춘다",
+      "scope": {
+       "kind": "agent",
+       "note": "They 는 2번 문장의 high self-monitoring 집단이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       4
+      ],
+      "expression": "try to make suggestions as well",
+      "meaning_ko": "회의에서 남들이 제안하면 자기도 제안하려 한다 — 3번 문장의 구체 장면",
+      "scope": {
+       "kind": "condition",
+       "note": "if they are in a meeting … 이 장면을 회의 상황으로 한정한다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "those who have low self-monitoring",
+      "meaning_ko": "자기 감시가 낮은 사람들 — 앞과 반대 집단",
+      "scope": {
+       "kind": "contrast",
+       "note": "주어가 high 집단에서 low 집단으로 바뀐다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       8
+      ],
+      "expression": "For example, if they are in a meeting",
+      "meaning_ko": "예를 들어 회의에 있으면 — 4번 문장과 같은 틀의 사례 표지",
+      "scope": {
+       "kind": "reference",
+       "note": "they 는 6번 문장의 low 집단이다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "are not very sensitive to signals",
+      "meaning_ko": "사회적으로 적절한 행동을 알리는 신호에 그리 민감하지 않다",
+      "scope": {
+       "kind": "negation",
+       "note": "not very 가 민감도를 낮게 한정한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "(B) As a result 는 5번 문장(high 집단)의 결과를 이어야 하는데 6번 문장은 반대 집단을 새로 소개한다",
+      "sentences": [
+       5,
+       6
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "(A) For example 은 3번 문장을 4번 문장 회의 장면으로 좁히는 관계와 맞고(8번 문장의 같은 틀), (B) In contrast 는 6번 문장의 집단 교체와 맞는다",
+      "sentences": [
+       3,
+       4,
+       6,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "3번 문장은 조건문이 아니어서 Otherwise 가 붙을 자리가 없고 (B) As a result 도 집단 교체와 맞지 않는다",
+      "sentences": [
+       3,
+       6
+      ],
+      "meaning_ids": [
+       "m1",
+       "m3"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "(A) Meanwhile 은 화제 전환인데 4번 문장은 3번 문장과 같은 집단의 같은 행동을 좁힌 것이다",
+      "sentences": [
+       3,
+       4
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "(A) Meanwhile 이 맞지 않고, 5·6번 문장은 두 집단의 나란한 대조라 양보 표지 Nevertheless 도 맞지 않는다",
+      "sentences": [
+       4,
+       5,
+       6
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "4번 문장(빈칸 (A))과 8번 문장(For example)이 「일반 진술 뒤 if they are in a meeting」이라는 같은 틀을 갖는다",
+       "sentences": [
+        4,
+        8
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "글이 high 집단과 low 집단을 같은 구조로 반복하므로, 이 문항은 반복된 틀에서 연결어 기능을 추론하는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        2,
+        6,
+        8
+       ]
+      }
+     ],
+     "limitation": "10번 줄은 선지 표를 옮긴 것이라 근거로 쓰지 않았다. 실제 제작 순서는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#37",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "more than a thousand miles from Europe"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(B) 다음 자리",
+       "to": "주어진 글 바로 뒤"
+      }
+     ],
+     "note": "바다·먼 거리라는 연결감은 유지하고 (A)를 맨 앞으로 옮겼다. (A)의 두려움과 So he wrote 의 이유인 폭풍은 (B) 6번 문장에만 있어 이유보다 귀결이 먼저 온다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "put it in a wooden bottle"
+      }
+     ],
+     "altered": [],
+     "note": "'병' 낱말의 연결은 유지하고 (C) 7번 문장 it 이 받는 대상을 바꿨다. (B) 바로 뒤에 두면 it 앞의 사물이 배뿐이라, 종이가 나오는 (A)가 먼저 와야 한다."
+    },
+    {
+     "n": 4,
+     "truth": "not_applicable",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "More than 300 years later"
+      }
+     ],
+     "altered": [],
+     "note": "도착을 알 수 없다는 주어진 글과의 예증 관계는 남기고, (C)를 맨 앞에 두어 He 와 it 이 받을 인물·사물을 없앴다."
+    },
+    {
+     "n": 5,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "시점",
+       "text": "In 1493"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "종이에 쓴 뒤 병에 넣음",
+       "to": "병에 넣은 뒤 종이에 씀"
+      }
+     ],
+     "note": "1493년이라는 시점 표지로 회상 구성을 그럴듯하게 남기되, 쓰기와 병에 넣기의 시간 순서를 뒤집었다. (A)로 끝나면 이미 던진 종이를 그 뒤에 쓰는 셈이다."
+    }
+   ],
+   "principle": {
+    "statement": "순서 문항에서 대명사(He·it)와 귀결 표지(So)는 받을 대상과 이유가 앞 단락에 이미 있어야 성립한다",
+    "when_applies": [
+     "단락 첫머리가 He·it·So 처럼 앞 정보에 기대는 말로 시작하는 서사문",
+     "같은 낱말(병)이 여러 단락에 흩어져 표면 연결이 여러 갈래로 가능한 경우"
+    ],
+    "when_not": [
+     "단락이 고유명사와 연도로 스스로 장면을 여는 경우 — 그 단락은 앞 단락 없이도 시작할 수 있다",
+     "글이 회상 구성을 명시하는 표지(Years earlier 등)를 둔 경우 — 시간 역순이 허용된다"
+    ]
+   },
+   "v3": {
+    "units_hash": "343d2e27b3447247",
+    "requirement": {
+     "requested": "주어진 글(1~2번 문장) 뒤에 (A)·(B)·(C)를 이어질 순서로 배열한다",
+     "polarity": "positive",
+     "conditions": [
+      "주어진 글의 일반 진술을 사례로 받는 단락이 먼저 온다",
+      "(A)의 두려움과 So 는 (B)의 폭풍을 이유로 받는다",
+      "(C)의 He put it 의 it 은 (A)의 a piece of paper 를 받는다"
+     ],
+     "reading_scope": "1~8번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       2
+      ],
+      "expression": "impossible to tell how long it will take",
+      "meaning_ko": "병 편지가 언제 닿을지 알 수 없다 — 주어진 글의 일반 진술",
+      "scope": {
+       "kind": "negation",
+       "note": "impossible 이 시간과 장소를 아는 것 모두를 부정한다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       5
+      ],
+      "expression": "the earliest and most famous bottled messages",
+      "meaning_ko": "가장 이르고 유명한 병 편지 중 하나 — 일반 진술의 사례 도입",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       6
+      ],
+      "expression": "his ship got caught in a bad storm",
+      "meaning_ko": "귀국하던 콜럼버스의 배가 심한 폭풍을 만났다",
+      "scope": {
+       "kind": "time",
+       "note": "when 절로 귀국 도중의 사건으로 놓인다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       4
+      ],
+      "expression": "wrote the news on a piece of paper",
+      "meaning_ko": "그래서 그는 발견 소식을 종이에 적었다",
+      "scope": {
+       "kind": "reference",
+       "note": "So 는 (A)의 두려움과 (B)의 폭풍을 이유로 받는다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "He put it in a wooden bottle",
+      "meaning_ko": "그는 그것(종이)을 나무 병에 넣었다",
+      "scope": {
+       "kind": "reference",
+       "note": "it 은 4번 문장의 a piece of paper 를 가리킨다"
+      }
+     },
+     {
+      "id": "m6",
+      "sentences": [
+       8
+      ],
+      "expression": "More than 300 years later",
+      "meaning_ko": "300여 년 뒤에야 발견되었다 — 언제 닿을지 모른다는 진술의 확인",
+      "scope": {
+       "kind": "time",
+       "note": "도착 시간의 예측 불가를 사례로 보여 준다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(A)를 맨 앞에 두면 두려움과 So he wrote 의 이유인 폭풍(6번 문장)이 뒤로 가서 귀결이 이유보다 먼저 온다",
+      "sentences": [
+       3,
+       4,
+       6
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "(B)의 사례 도입과 폭풍 → (A)의 두려움·종이 → (C)의 it(종이)을 병에 넣음과 300여 년 뒤 발견으로 세 이음매가 모두 선다",
+      "sentences": [
+       5,
+       6,
+       4,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3",
+       "m4",
+       "m5",
+       "m6"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(B) 바로 뒤에 (C)를 두면 7번 문장의 it 앞에 종이가 없어 배를 병에 넣는 셈이 된다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C)를 주어진 글 바로 뒤에 두면 He 와 it 이 받을 인물·사물이 앞에 없다",
+      "sentences": [
+       2,
+       7
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C)가 (A)보다 앞서면 종이에 쓰기 전에 그것을 병에 넣는 순서가 되고 7번 문장의 it 이 선행사가 없다",
+      "sentences": [
+       4,
+       7
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "단락 사이 연결을 지시어(it, He)와 인과 표지(So)가 맡고, (C) 끝 8번 문장이 주어진 글 2번 문장의 예측 불가를 사례로 확인한다",
+       "sentences": [
+        2,
+        4,
+        7,
+        8
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "(B)가 1493년이라는 시점으로 시작해 회상 순서가 다양하게 그럴듯해 보이므로, 이 문항은 연도가 아니라 지시어와 인과로 순서를 확정하는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        5,
+        7
+       ]
+      }
+     ],
+     "limitation": "순서 문항 선지는 위치 배열이라 내용 진위가 없다(n_a). 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#38",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "life events"
+      }
+     ],
+     "altered": [],
+     "note": "정상 흐름 문장이다. 주어가 놀이기구 부품(track)이지만 괄호 안이 트랙과 인생 사건의 대응을 직접 적어 비유를 그대로 잇는다."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "ups and downs"
+      }
+     ],
+     "altered": [],
+     "note": "정상 흐름 문장이다. 바닥과 꼭대기는 도입의 오르내림을 이어받은 국면이고, 전체 그림을 본다는 말은 마지막 문장의 평가로 되받아진다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "the ride"
+      }
+     ],
+     "altered": [],
+     "note": "정상 흐름 문장이다. 명령문 조언이지만 the ride 가 첫 문장의 탑승을 받고 starting out 이 마지막 문장의 시작과 짝을 이뤄 비유가 겨냥한 결론을 낸다."
+    },
+    {
+     "n": 5,
+     "truth": "not_applicable",
+     "operation": "none",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "When it's over"
+      }
+     ],
+     "altered": [],
+     "note": "정상 흐름 문장이다. it 이 앞 문장의 탑승을 받아 시작과 끝의 짝을 완성하며, 시점이 탑승 중에서 끝난 뒤로 옮겨 간 비유의 마지막 국면이다."
+    }
+   ],
+   "principle": {
+    "statement": "비유로 이어지는 글에서 무관한 문장은 표면 층위(부품 이름·명령문)가 바뀐 문장이 아니라 비유의 대응을 버리고 실제 소재로 화제를 옮긴 문장이다",
+    "when_applies": [
+     "첫 문장이 A can be like B 로 비유를 세우고 이후 문장이 B 의 국면으로 A 를 말하는 글",
+     "후보 문장이 같은 You/When 틀을 공유해 형태로는 갈리지 않는 경우"
+    ],
+    "when_not": [
+     "비유 없이 실제 소재를 직접 설명하는 글 — 그때는 소재 낱말이 흐름을 지키는 근거가 된다",
+     "글 중간에 비유가 끝나고 실제 사례로 전환됨을 표지(In real life 등)로 밝힌 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "8051b4d2a6a5acca",
+    "requirement": {
+     "requested": "인생을 롤러코스터 타기에 빗댄 흐름에서 벗어나는 문장을 고른다",
+     "polarity": "negative",
+     "conditions": [
+      "①~⑤의 you 가 롤러코스터를 타는 사람(인생을 사는 사람)인지 확인한다",
+      "③ the ride 와 ⑤ When it’s over 가 한 번의 탑승 시작과 끝으로 이어지는지 본다"
+     ],
+     "reading_scope": "1~7번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "Life can be like riding a roller coaster",
+      "meaning_ko": "인생은 롤러코스터 타기와 같다 — 글 전체의 비유",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       3
+      ],
+      "expression": "or in this case, life events",
+      "meaning_ko": "트랙이 여기서는 인생 사건을 뜻한다",
+      "scope": {
+       "kind": "reference",
+       "note": "괄호가 track 과 life events 의 대응을 직접 밝힌다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       5
+      ],
+      "expression": "try to enjoy the ride",
+      "meaning_ko": "탑승을 즐기도록 하라 — 비유가 겨냥한 조언",
+      "scope": {
+       "kind": "reference",
+       "note": "the ride 는 1번 문장 riding a roller coaster 를 받는다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       6
+      ],
+      "expression": "When you design an amusement park for children",
+      "meaning_ko": "아이들을 위한 놀이공원을 설계할 때",
+      "scope": {
+       "kind": "agent",
+       "note": "이 문장의 you 는 타는 사람이 아니라 설계자다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       7
+      ],
+      "expression": "When it’s over",
+      "meaning_ko": "탑승이 끝나면 — 시작(starting out)의 짝",
+      "scope": {
+       "kind": "reference",
+       "note": "it 은 5번 문장의 the ride 를 받는다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "괄호 or in this case, life events 가 트랙과 인생 사건의 대응을 밝혀 비유를 잇는 문장이다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m2"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "bottom·top 은 2번 문장 ups and downs 를 잇고, see the whole picture 는 ⑤의 평가로 되받아진다",
+      "sentences": [
+       2,
+       4,
+       7
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "the ride 가 1번 문장의 탑승을 받고 starting out 이 ⑤ when you first started 와 짝을 이룬다",
+      "sentences": [
+       1,
+       5,
+       7
+      ],
+      "meaning_ids": [
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "이 문장만 you 가 놀이공원 설계자이고 롤러코스터가 배치할 실물 설비라 비유에서 벗어난다 — 빼면 ⑤의 it 이 ③의 the ride 로 바로 이어진다",
+      "sentences": [
+       5,
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "When it’s over 의 it 이 ③의 the ride 를 받아 탑승의 마지막 국면을 말하는 정상 문장이다",
+      "sentences": [
+       5,
+       7
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "④만 roller coaster 를 비유의 매체가 아니라 설계 대상으로 쓰고, amusement park·location 은 다른 문장에 나오지 않는다",
+       "sentences": [
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "④가 roller coaster 라는 핵심어와 When you … 문두를 공유하므로, 이 문항은 낱말 반복이 아니라 you 의 역할과 비유 층위로 흐름을 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        5,
+        6,
+        7
+       ]
+      }
+     ],
+     "limitation": "무관한 문장 문항 선지는 위치라 내용 진위를 매기지 않는다(n_a). 제작 의도는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#39",
+   "analysis_version": 4,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "the blind man"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "도움이 끝난 뒤",
+       "to": "도움이 시작되기 전"
+      }
+     ],
+     "note": "등장인물은 그대로 두고 삽입 시점을 앞당겼다. ① 뒤 문장은 아직 차가 많아 위험하다는 상황 서술이라 도움 완료 문장이 올 수 없다."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "cross the street"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "도움 완료",
+       "to": "도움을 제안하기 전"
+      }
+     ],
+     "note": "길 건너기 어휘의 반복은 유지하고 시점을 어긋나게 했다. ② 뒤 문장에서 Tom 은 그제야 도와줄지 묻는다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "readily said yes"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "횡단 과정 서술 뒤",
+       "to": "제안과 대답 사이"
+      }
+     ],
+     "note": "도움 장면의 흐름은 남기되 제안과 그에 대한 응답 사이를 끊는 자리에 넣었다. 실제 횡단은 ③ 뒤 문장에서야 시작된다."
+    },
+    {
+     "n": 5,
+     "truth": "not_applicable",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "book bag"
+      }
+     ],
+     "altered": [],
+     "note": "벤치·가방 어휘는 겹치게 두고, 마지막 문장의 그 남자가 받을 '다른 남자' 도입과의 연결을 끊었다."
+    }
+   ],
+   "principle": {
+    "statement": "완료 시점을 담은 삽입문(When ~ had helped)은 그 행위의 시작·과정 서술이 끝난 바로 뒤, 그리고 새 인물이 도입되기 앞에 놓인다",
+    "when_applies": [
+     "삽입문이 과거완료와 When 절로 앞 행위의 종료를 표시하는 서사문",
+     "삽입 후보 사이에 제안-응답, 도입-지시처럼 끊을 수 없는 짝이 있는 경우"
+    ],
+    "when_not": [
+     "삽입문이 시간 표지 없이 배경 정보만 더하는 경우 — 시점보다 지시어 연결이 판정 축이다",
+     "이야기가 회상으로 전개되어 완료 시점이 앞부분에 놓일 수 있는 경우"
+    ]
+   },
+   "v3": {
+    "units_hash": "fa03efc8f1751bca",
+    "requirement": {
+     "requested": "「길 건너기를 도운 뒤 가방을 벤치에 두고 온 걸 깨달았다」는 문장이 들어갈 자리를 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "주어진 문장의 had helped 는 횡단 과정 서술이 끝난 뒤를 요구한다",
+      "주어진 문장이 his book bag 을 처음 도입해야 뒤 문장이 그 가방을 아는 물건처럼 부를 수 있다"
+     ],
+     "reading_scope": "2~7번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       1
+      ],
+      "expression": "When Tom had helped the blind man",
+      "meaning_ko": "톰이 시각장애인의 길 건너기를 다 도운 뒤 — 완료 시점",
+      "scope": {
+       "kind": "time",
+       "note": "had helped 가 도움이 끝난 시점을 정한다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       1
+      ],
+      "expression": "he had left his book bag",
+      "meaning_ko": "버스 정류장 벤치에 책가방을 두고 왔다 — 가방의 첫 도입",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       4
+      ],
+      "expression": "if he would like help crossing",
+      "meaning_ko": "톰이 도움이 필요한지 묻는다 — 아직 돕기 전",
+      "scope": {
+       "kind": "time",
+       "note": "도움 제안 단계라 완료 시점보다 앞이다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "they began their walk across the street",
+      "meaning_ko": "둘이 길을 건너기 시작했다 — 횡단 과정의 마지막 서술",
+      "scope": {
+       "kind": "time",
+       "note": "began 이후 횡단이 끝나는 지점이 ④ 앞이다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       6
+      ],
+      "expression": "another man sitting next to his book bag",
+      "meaning_ko": "다른 남자가 그의 가방 옆에 앉아 있었다",
+      "scope": {
+       "kind": "reference",
+       "note": "his book bag 은 주어진 문장에서 도입된 가방을 받는다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "① 뒤 문장은 아직 차가 많아 위험하다는 상황 서술이라 도움 완료 문장이 올 수 없다",
+      "sentences": [
+       3
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "② 뒤 문장에서 톰은 그제야 도울지 묻는다 — 완료가 제안보다 앞설 수 없다",
+      "sentences": [
+       4
+      ],
+      "meaning_ids": [
+       "m1",
+       "m3"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "③ 뒤 문장 readily said yes 는 앞 제안에 대한 응답이고, 횡단은 그 문장에서야 시작된다",
+      "sentences": [
+       4,
+       5
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "5번 문장에서 횡단이 시작된 뒤 완료 시점(had helped)이 오고, 주어진 문장이 도입한 가방을 6번 문장 his book bag 이 받는다",
+      "sentences": [
+       5,
+       6
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "⑤에 넣으면 6번 문장의 his book bag 이 도입 없이 먼저 나오고, 7번 문장의 the man 과 another man 의 연결이 끊긴다",
+      "sentences": [
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "④ 앞까지 가방이 한 번도 나오지 않다가 6번 문장이 his book bag 을 아는 물건처럼 부른다",
+       "sentences": [
+        5,
+        6
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "시점(완료)과 신정보(가방)가 같은 자리를 가리키게 되어 있어, 이 문항은 두 단서를 함께 맞춰 자리를 확정하는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        1,
+        6
+       ]
+      }
+     ],
+     "limitation": "삽입 문항 선지는 위치라 내용 진위가 없다(n_a). 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#40",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "I don't feel like going today"
+      }
+     ],
+     "altered": [
+      {
+       "component": "화자",
+       "from": "딸의 싫증",
+       "to": "필자의 지루함"
+      }
+     ],
+     "note": "싫증·지루함의 정서는 지문에서 가져오되 그 주인을 딸에서 필자로 옮겼다. 필자는 재촉하고 시계를 가리키며 조급해 있다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "Ms. Green"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "envious"
+      }
+     ],
+     "note": "다른 인물(Ms. Green)의 등장은 유지하고 지문에 없는 비교·부러움을 붙였다. 그녀는 도와야 할 대상으로만 나온다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "agent",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "I still don't feel like going"
+      }
+     ],
+     "altered": [
+      {
+       "component": "화자",
+       "from": "딸의 무심함",
+       "to": "필자의 무관심"
+      }
+     ],
+     "note": "행사에 대한 무심한 태도는 지문에서 가져오되 그것을 장면 전체, 곧 필자의 상태로 옮겼다. 필자는 남을 생각하라고 강하게 관여한다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "polarity",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "I had volunteered for the charity picnic"
+      }
+     ],
+     "altered": [
+      {
+       "component": "극성",
+       "from": "losing my patience",
+       "to": "delighted"
+      }
+     ],
+     "note": "자원봉사라는 긍정 소재는 남기고 감정의 극성을 뒤집었다. 10번·13번 문장에서 인내를 잃고 목소리가 커진다."
+    }
+   ],
+   "principle": {
+    "statement": "심경 문항은 장면에 나오는 감정 표현이 누구의 것인지 먼저 가른 뒤, 필자의 행동·몸 반응 표현이 쌓이는 방향으로 판단한다",
+    "when_applies": [
+     "필자와 다른 인물(딸)의 감정이 대화로 맞서는 일화",
+     "losing my patience · voice growing louder 처럼 필자의 상태 변화가 점층되는 경우"
+    ],
+    "when_not": [
+     "필자 혼자 등장해 감정 주인을 가를 필요가 없는 글",
+     "필자가 상대의 감정에 공감해 같은 감정을 나누는 장면 — 그때는 상대의 감정어가 필자 심경의 근거가 된다"
+    ]
+   },
+   "v3": {
+    "units_hash": "2af0f1748796eb78",
+    "requirement": {
+     "requested": "딸을 재촉하는 장면에서 필자(I)의 심경을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "감정의 주체는 필자이며 딸(Lily)의 감정과 구분한다",
+      "10번 문장의 직접 진술과 8·13번 문장의 행동·목소리가 같은 방향인지 본다"
+     ],
+     "reading_scope": "6~13번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "I don’t feel like going today",
+      "meaning_ko": "딸은 오늘 가고 싶지 않다고 불평한다",
+      "scope": {
+       "kind": "agent",
+       "note": "가기 싫은 마음의 주인은 Lily 다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       8
+      ],
+      "expression": "pointed at my watch",
+      "meaning_ko": "필자가 문가에 서서 시계를 가리키며 재촉한다",
+      "scope": {
+       "kind": "agent",
+       "note": "재촉하는 주체는 필자(I)다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       10
+      ],
+      "expression": "I started losing my patience",
+      "meaning_ko": "필자는 인내심을 잃기 시작했다 — 짜증이 차오른다",
+      "scope": {
+       "kind": "time",
+       "note": "started 가 짜증이 이제 시작되어 커지는 중임을 보인다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       12
+      ],
+      "expression": "started thinking about other people",
+      "meaning_ko": "이제 남을 생각할 때라고 딸을 꾸짖는다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       13
+      ],
+      "expression": "My voice was growing louder",
+      "meaning_ko": "말할수록 필자의 목소리가 커졌다",
+      "scope": {
+       "kind": "quantity",
+       "note": "with each sentence 로 한 문장마다 강도가 높아진다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "가기 싫어하는 쪽은 딸이고(3·9번 문장), 필자는 시계를 가리키며 조급해 있다",
+      "sentences": [
+       3,
+       8,
+       9
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "10번 문장 losing my patience 가 짜증을 직접 말하고 8번 문장 재촉 동작과 13번 문장 커지는 목소리가 같은 방향이다",
+      "sentences": [
+       8,
+       10,
+       13
+      ],
+      "meaning_ids": [
+       "m2",
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "Ms. Green 은 도와야 할 대상으로만 나오고 부러움을 나타내는 표현이 없다",
+      "sentences": [
+       2,
+       11
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "필자는 12번 문장에서 남을 생각하라며 강하게 관여해 무관심과 반대다",
+      "sentences": [
+       11,
+       12
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "10·13번 문장에서 인내를 잃고 목소리가 커지는 부정적 감정이라 극성이 반대다",
+      "sentences": [
+       10,
+       13
+      ],
+      "meaning_ids": [
+       "m3",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "필자의 감정 직접 진술은 10번 문장 하나이고, 앞뒤 8·13번 문장이 행동과 목소리로 같은 감정을 보탠다",
+       "sentences": [
+        8,
+        10,
+        13
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "딸의 싫증과 Ms. Green 같은 다른 인물을 오답 재료로 쓰므로, 이 문항은 감정의 주체를 필자로 고정해 읽는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        3,
+        9
+       ]
+      }
+     ],
+     "limitation": "irritated 와 「인내심을 잃음」의 강도 차이는 선지 간 비교로만 정했다. 제작 의도는 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#41",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 2,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "moved to a team"
+      }
+     ],
+     "altered": [
+      {
+       "component": "관계",
+       "from": "(지문에 없음)",
+       "to": "Teamwork"
+      }
+     ],
+     "note": "팀 낱말은 4번 문장에서 가져오고 지문에 없는 협업을 주제로 붙였다. 8·9번 문장의 주어는 you 와 your brain 이고 12~14번은 독자 개인에게 말한다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "수치",
+       "text": "60 percent more home runs"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "Is Statistics Necessary"
+      }
+     ],
+     "note": "분석 수치는 남기고 통계의 필요성이라는 없는 쟁점을 세웠다. 5번 문장의 결과는 6번 Why? 로 설명 대상이 되고 답은 목표 달성 가능성에 대한 생각이다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "causal_direction",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "moved to a team"
+      }
+     ],
+     "altered": [
+      {
+       "component": "인과 방향",
+       "from": "what our brains recognize",
+       "to": "Change Your Team"
+      }
+     ],
+     "note": "팀 이동 사례는 유지하고 원인 자리를 인식에서 팀 이동 자체로 바꿨다. 11번 문장은 실제 거리가 아니라 뇌의 인식이 원인이라 하고, 14번 처방도 담장 조정이다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "scope",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "wind"
+      }
+     ],
+     "altered": [
+      {
+       "component": "범위",
+       "from": "your work and your current life",
+       "to": "Size vs. Wind"
+      }
+     ],
+     "note": "2·3번 문장의 구장 조건 낱말만으로 범위를 도입부 전제로 좁혔다. 크기와 바람을 견주는 문장은 없고 12번부터 대상이 일과 삶으로 넓어진다."
+    }
+   ],
+   "principle": {
+    "statement": "실험·사례로 시작해 일반 처방으로 끝나는 글의 제목은 사례의 표면 조건이 아니라 사례를 설명하는 원인과 마지막 처방을 담는다",
+    "when_applies": [
+     "Why? 같은 물음 뒤에 원인을 밝히고 In business and life 처럼 적용 범위를 넓히는 글",
+     "제목 후보가 사례의 낱말(team, park conditions)을 그대로 쓰는 경우"
+    ],
+    "when_not": [
+     "사례 보고 자체가 목적인 글 — 그때는 사례의 조건이 제목 범위가 된다",
+     "마지막 처방이 사례 낱말(fences)을 비유로 다시 쓰지 않고 직접 진술되는 글 — 그때는 사례 낱말을 쓴 제목 후보가 오히려 표면 조건에 머문다"
+    ]
+   },
+   "v3": {
+    "units_hash": "97bd04dcffb8358d",
+    "requirement": {
+     "requested": "야구 사례에서 삶의 처방으로 넘어가는 글 전체의 제목을 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "7·11번 문장이 원인을 실제 조건이 아니라 인식에 둔다",
+      "12~14번 문장이 독자에게 담장(인식된 거리)을 조정하라고 처방한다",
+      "구장 조건·팀 이동은 처방을 끌어내는 사례다"
+     ],
+     "reading_scope": "1~14번 문장(특히 7·11·14번 문장)"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       5
+      ],
+      "expression": "hit 60 percent more home runs",
+      "meaning_ko": "구장이 28% 유리해지자 선수가 홈런을 60% 더 쳤다",
+      "scope": {
+       "kind": "quantity",
+       "note": "구장 조건 차이(28%)보다 결과(60%)가 크다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       7
+      ],
+      "expression": "how achievable you think the goal is",
+      "meaning_ko": "목표가 얼마나 이룰 만하다고 생각하는가에 답이 있다",
+      "scope": {
+       "kind": "reference",
+       "note": "Why? 의 답으로 원인을 생각(인식)에 둔다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       11
+      ],
+      "expression": "not the actual distance to the fence",
+      "meaning_ko": "중요한 것은 실제 담장 거리가 아니다",
+      "scope": {
+       "kind": "negation",
+       "note": "not A but B 로 실제 거리를 지우고 뇌가 인식하는 거리를 남긴다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       12
+      ],
+      "expression": "Consider your work and your current life",
+      "meaning_ko": "독자의 일과 삶을 생각해 보라 — 무대가 야구에서 삶으로 옮겨진다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       14
+      ],
+      "expression": "Simply adjust the fences",
+      "meaning_ko": "담장을 쉬워 보이게 조정하라 — 인식된 목표 거리를 줄이라는 처방",
+      "scope": {
+       "kind": "condition",
+       "note": "so that it seems easier 가 조정의 목적을 「쉬워 보이게」로 정한다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "14번 문장 adjust the fences so that it seems easier 를 「담장을 더 가깝게」로 옮기고, 11번 문장이 그 담장이 인식된 거리임을 받친다",
+      "sentences": [
+       11,
+       12,
+       14
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "team 은 4번 문장의 이적 사례에만 나오고 협력을 말하는 문장이 없다 — 8·9번 문장의 주어는 you 와 your brain 이다",
+      "sentences": [
+       4,
+       8,
+       9
+      ],
+      "meaning_ids": []
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "5번 문장의 분석 결과는 설명 대상이고 7번 문장이 답을 인식에서 찾는다 — 통계의 필요성은 다루지 않는다",
+      "sentences": [
+       5,
+       6,
+       7
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "11번 문장은 원인을 팀 이동이 아니라 인식으로 바로잡고, 14번 문장의 처방도 팀 교체가 아니라 담장 조정이다",
+      "sentences": [
+       4,
+       11,
+       14
+      ],
+      "meaning_ids": [
+       "m3",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "2·3번 문장은 구장 조건이 다르다는 전제일 뿐 크기와 바람을 견주지 않고, 12번 문장부터 대상이 일과 삶으로 넓어진다",
+      "sentences": [
+       2,
+       3,
+       12
+      ],
+      "meaning_ids": [
+       "m4"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 1번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "글이 야구 분석(1~9번 문장) → 일반화(10~11번 문장) → 독자에게 처방(12~14번 문장)으로 나아가고, 제목 1번은 14번 문장의 비유를 그대로 쓴다",
+       "sentences": [
+        10,
+        11,
+        14
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "오답이 앞부분 사례 낱말(team·analysis·wind)에 붙어 있어, 이 문항은 사례가 아니라 비유적 처방을 제목으로 잡는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        3,
+        4,
+        5
+       ]
+      }
+     ],
+     "limitation": "10번 문장은 같은 지문의 빈칸 문항 자리가 비어 있어(our can affect) 근거로 쓰지 않았다. Fences 가 비유라는 해석은 11번 문장에 기대며 공식 해설은 입력에 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#42",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "swing for the fences"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "how achievable you think the goal is",
+       "to": "strengths"
+      }
+     ],
+     "note": "시도 여부를 좌우한다는 관계는 남기고 원인 성분을 인식에서 실제 능력으로 바꿨다. 4·5번 문장은 같은 선수의 실력은 그대로인데 결과가 달라졌음을 보인다."
+    },
+    {
+     "n": 3,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "In business and life"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "incomes"
+      }
+     ],
+     "note": "빈칸 문장의 사업 맥락은 유지하고 지문에 없는 소득을 넣었다. 11번 문장이 시도를 좌우하는 항을 뇌의 인식으로 지정한다."
+    },
+    {
+     "n": 4,
+     "truth": "false",
+     "operation": "unsupported",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "swing for the fences"
+      }
+     ],
+     "altered": [
+      {
+       "component": "대상",
+       "from": "(지문에 없음)",
+       "to": "sacrifices"
+      }
+     ],
+     "note": "시도의 크기라는 관계는 남기고 성취에는 희생이 따른다는 통념을 끼워 넣었다. 9번 문장은 시도 크기를 정하는 것이 뇌의 신호라고 밝힌다."
+    },
+    {
+     "n": 5,
+     "truth": "false",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "형태",
+       "text": "seem too far away"
+      }
+     ],
+     "altered": [
+      {
+       "component": "화자",
+       "from": "our brains recognize",
+       "to": "appearances"
+      }
+     ],
+     "note": "'그렇게 보인다'는 표현은 13·14번 문장에서 가져오되, 판단 주체를 본인의 인식에서 남에게 보이는 외양으로 바꿨다."
+    }
+   ],
+   "principle": {
+    "statement": "빈칸이 결과를 좌우하는 요인을 물을 때는 사례에서 그대로 둔 조건(실력)과 바뀐 조건(인식)을 갈라 바뀐 쪽으로 채운다",
+    "when_applies": [
+     "같은 사람이 환경만 바뀌어 결과가 달라진 사례를 근거로 드는 글",
+     "빈칸 뒤에 not A but B 로 원인을 다시 지정하는 문장이 있는 경우"
+    ],
+    "when_not": [
+     "사례에서 사람과 환경이 함께 바뀌어 원인이 하나로 분리되지 않는 글",
+     "글이 실제 능력 향상을 처방으로 내리는 경우 — 그때는 strengths 같은 능력어가 답이 될 수 있다"
+    ]
+   },
+   "v3": {
+    "units_hash": "13106e52dd3c3f40",
+    "requirement": {
+     "requested": "일과 삶에서도 스윙 여부를 좌우하는 「우리의 ___」를 고른다",
+     "polarity": "positive",
+     "conditions": [
+      "11번 문장의 not A but B 가 빈칸 항을 「뇌가 인식하는 거리」로 지정한다",
+      "7~9번 문장의 you think 가 같은 항을 미리 반복한다"
+     ],
+     "reading_scope": "7~11번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       7
+      ],
+      "expression": "how achievable you think the goal is",
+      "meaning_ko": "목표가 얼마나 이룰 만하다고 생각하는가",
+      "scope": {
+       "kind": "reference",
+       "note": "6번 문장 Why? 의 답이다"
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       8
+      ],
+      "expression": "If you think you are likely",
+      "meaning_ko": "홈런을 더 칠 것 같다고 생각하면",
+      "scope": {
+       "kind": "condition",
+       "note": "If 절이 스윙 크기를 생각(기대)에 묶는다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       9
+      ],
+      "expression": "your brain will send you signals",
+      "meaning_ko": "가능성이 작다고 생각하면 뇌가 단타만 노리라는 신호를 보낸다",
+      "scope": {
+       "kind": "condition",
+       "note": "if you think … smaller 가 신호의 조건이다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       10
+      ],
+      "expression": "can affect whether we swing for the fences",
+      "meaning_ko": "담장을 넘기려 크게 휘두를지를 좌우할 수 있다 — 빈칸 항의 작용",
+      "scope": {
+       "kind": "condition",
+       "note": "just as in baseball 로 야구의 결론을 일과 삶에 옮긴다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       11
+      ],
+      "expression": "what our brains recognize that distance to be",
+      "meaning_ko": "뇌가 그 거리를 얼마로 인식하는가가 중요하다",
+      "scope": {
+       "kind": "contrast",
+       "note": "not the actual distance 와 대조되어 실제 조건을 지운다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "4·5번 문장은 같은 선수가 구장만 바뀌어 홈런이 늘었다고 해 실력은 그대로이고, 7번 문장은 원인을 생각에 둔다",
+      "sentences": [
+       4,
+       5,
+       7
+      ],
+      "meaning_ids": [
+       "m1"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": true,
+      "content_truth": "true",
+      "requirement_fit": "satisfies",
+      "decisive": "11번 문장 what our brains recognize 와 7~9번 문장의 you think 가 스윙을 좌우하는 항을 인식으로 정해 perceptions 가 빈칸에 맞는다",
+      "sentences": [
+       7,
+       8,
+       9,
+       10,
+       11
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "소득을 가리키는 낱말이 지문에 없고 11번 문장이 그 항을 뇌의 인식으로 지정한다",
+      "sentences": [
+       11
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "희생·노력을 말하는 문장이 없고 9번 문장은 시도 크기를 정하는 것이 뇌의 신호라고 한다",
+      "sentences": [
+       9
+      ],
+      "meaning_ids": [
+       "m3"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "false",
+      "requirement_fit": "fails",
+      "decisive": "13·14번 문장의 seem 은 본인에게 느껴지는 것이고 11번 문장이 그 주체를 our brains 로 정한다 — 남에게 보이는 외양이 아니다",
+      "sentences": [
+       11,
+       13,
+       14
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 2번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "빈칸 항이 빈칸 앞(7~9번 문장 you think)과 뒤(11번 문장 recognize)에서 모두 풀어 쓰인다",
+       "sentences": [
+        7,
+        8,
+        9,
+        11
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "strengths·appearances 처럼 「사람이 가진 것」을 가리키는 오답을 두어, 이 문항은 실제 조건과 인식의 대조(11번 문장)를 빈칸 항으로 옮기는지 판단하게 하는 구성으로 볼 수 있다",
+       "sentences": [
+        4,
+        11,
+        13
+       ]
+      }
+     ],
+     "limitation": "perceptions 는 think·recognize 를 묶은 추상어로 지문에 그대로 나오지 않는다. 제작 과정은 확인할 수 없다."
+    }
+   }
+  },
+  {
+   "id": "2014A#43",
+   "analysis_version": 5,
+   "status": "ok",
+   "distractors": [
+    {
+     "n": 1,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "One day"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(B) 앞의 선행 정보 자리",
+       "to": "(D)를 맨 끝"
+      }
+     ],
+     "note": "(B)의 이야기 도입 느낌은 살리고 (D)를 교훈 마무리처럼 맨 뒤로 보냈다. (D)의 할머니 이야기는 (B) 5번 문장 all she had taught me 가 가리키는 선행 정보다."
+    },
+    {
+     "n": 2,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "관계",
+       "text": "only a month later"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "(B) 바로 뒤 (C)",
+       "to": "(B)와 (C) 사이에 (D)"
+      }
+     ],
+     "note": "(C)를 결말로 둔 점은 맞게 두고, 노력과 보상의 짝 사이에 (D)를 끼웠다. 그러면 한 달 뒤가 세는 기준 시점이 사라진다."
+    },
+    {
+     "n": 3,
+     "truth": "not_applicable",
+     "operation": "reference",
+     "preserved": [
+      {
+       "component": "대상",
+       "text": "My efforts were rewarded"
+      }
+     ],
+     "altered": [],
+     "note": "읽기 성취라는 대비는 살리고 (C)를 (A) 바로 뒤에 두어, 이미 아는 것처럼 부르는 노력의 선행 장면을 없앴다."
+    },
+    {
+     "n": 5,
+     "truth": "not_applicable",
+     "operation": "order",
+     "preserved": [
+      {
+       "component": "위치",
+       "text": "(D)가 첫 자리"
+      }
+     ],
+     "altered": [
+      {
+       "component": "위치",
+       "from": "결심과 학습 뒤의 보상",
+       "to": "보상 뒤의 결심"
+      }
+     ],
+     "note": "첫 자리 (D)는 맞게 두고, 생일 보상(C)을 결심·학습(B)보다 앞에 놓아 원인과 결과의 시간 순서를 뒤집었다."
+    }
+   ],
+   "principle": {
+    "statement": "장문 순서 배열에서 명사구로 이미 아는 것처럼 부르는 말(all she had taught me, My efforts)은 그 내용을 처음 보여 주는 단락이 앞에 있어야 한다",
+    "when_applies": [
+     "각 단락이 앞 단락의 내용을 요약 명사구나 기간 표지(a month later)로 받는 서사",
+     "교훈처럼 들리는 문장이 실제로는 뒤 단락의 전제로 쓰이는 경우"
+    ],
+    "when_not": [
+     "단락마다 날짜·장소로 독립된 장면을 여는 일화 모음 — 요약 명사구보다 날짜가 순서를 정한다",
+     "회상 구성이 표지로 명시된 글"
+    ]
+   },
+   "v3": {
+    "units_hash": "cba903058b214f97",
+    "requirement": {
+     "requested": "주어진 글 (A) 뒤에 (B)·(C)·(D)를 순서대로 배열한다",
+     "polarity": "positive",
+     "conditions": [
+      "(D) 첫 문장의 these interesting stories 가 (A)의 traditional stories 를 받는다",
+      "(B)의 in return for all she had taught me 는 (D)의 가르침 서술 뒤에 와야 한다",
+      "(C)의 My efforts … a month later 는 (B)의 함께한 노력을 받는다"
+     ],
+     "reading_scope": "1~19번 문장"
+    },
+    "meanings": [
+     {
+      "id": "m1",
+      "sentences": [
+       3
+      ],
+      "expression": "she knew many traditional stories",
+      "meaning_ko": "할머니는 고향의 전통 이야기를 많이 알았다",
+      "scope": {
+       "kind": "none",
+       "note": ""
+      }
+     },
+     {
+      "id": "m2",
+      "sentences": [
+       15
+      ],
+      "expression": "these interesting stories",
+      "meaning_ko": "이 재미있는 이야기들 — (A)의 전통 이야기를 받는다",
+      "scope": {
+       "kind": "reference",
+       "note": "these 는 3번 문장의 traditional stories 를 가리킨다"
+      }
+     },
+     {
+      "id": "m3",
+      "sentences": [
+       19
+      ],
+      "expression": "taught me how I should live",
+      "meaning_ko": "할머니 이야기의 교훈이 삶의 방식을 가르쳐 주었다",
+      "scope": {
+       "kind": "agent",
+       "note": "가르친 주체는 (e) her stories, 곧 할머니다"
+      }
+     },
+     {
+      "id": "m4",
+      "sentences": [
+       5
+      ],
+      "expression": "in return for all she had taught me",
+      "meaning_ko": "할머니가 가르쳐 준 모든 것에 대한 보답으로",
+      "scope": {
+       "kind": "reference",
+       "note": "all she had taught me 는 앞에 서술된 가르침((D))을 전제한다"
+      }
+     },
+     {
+      "id": "m5",
+      "sentences": [
+       8
+      ],
+      "expression": "My efforts were rewarded only a month later",
+      "meaning_ko": "내 노력이 겨우 한 달 뒤 보상받았다",
+      "scope": {
+       "kind": "time",
+       "note": "a month later 의 기준 시점과 efforts 는 (B) 7번 문장의 함께한 공부다"
+      }
+     }
+    ],
+    "choices": [
+     {
+      "n": 1,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(D)를 맨 뒤에 두면 (B) 5번 문장의 all she had taught me 가 가리킬 가르침 서술이 앞에 없다",
+      "sentences": [
+       5,
+       19
+      ],
+      "meaning_ids": [
+       "m3",
+       "m4"
+      ]
+     },
+     {
+      "n": 2,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(B)와 (C) 사이에 (D)를 끼우면 노력과 보상의 짝이 끊기고 a month later 의 기준이 사라진다",
+      "sentences": [
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 3,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "(C)를 (A) 바로 뒤에 두면 My efforts 가 가리킬 노력 장면이 앞에 없다",
+      "sentences": [
+       8,
+       10
+      ],
+      "meaning_ids": [
+       "m5"
+      ]
+     },
+     {
+      "n": 4,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "(A) traditional stories → (D) these stories·taught me → (B) in return 의 결심과 공부 → (C) My efforts were rewarded 로 세 이음매가 모두 선다",
+      "sentences": [
+       3,
+       15,
+       19,
+       5,
+       7,
+       8
+      ],
+      "meaning_ids": [
+       "m1",
+       "m2",
+       "m3",
+       "m4",
+       "m5"
+      ]
+     },
+     {
+      "n": 5,
+      "selected_as_answer": false,
+      "content_truth": "n_a",
+      "requirement_fit": "fails",
+      "decisive": "보상(C)을 결심·공부(B)보다 먼저 두어 원인과 결과의 시간 순서가 뒤집힌다",
+      "sentences": [
+       5,
+       8
+      ],
+      "meaning_ids": [
+       "m4",
+       "m5"
+      ]
+     }
+    ],
+    "design": {
+     "claims": [
+      {
+       "basis": "official",
+       "text": "공식 정답은 4번이다"
+      },
+      {
+       "basis": "source_observation",
+       "text": "(A)는 할머니가 이야기를 「알았다」까지만 말하고, 「가르쳤다」는 서술은 (D) 19번 문장에만 있다",
+       "sentences": [
+        3,
+        19
+       ]
+      },
+      {
+       "basis": "design_hypothesis",
+       "text": "(D)가 교훈으로 끝나 결말처럼 보이므로, 이 문항은 교훈 문장을 결말로 보지 않고 (B)의 보답 표현이 요구하는 선행 정보로 읽는지 판단하게 하는 과제로 볼 수 있다",
+       "sentences": [
+        5,
+        19
+       ]
+      }
+     ],
+     "limitation": "순서 문항 선지는 위치 배열이라 내용 진위가 없다(n_a). 같은 지문의 지칭·내용 문항과 함께 출제된 장문이지만 이 판단은 순서에만 기댔다."
+    }
+   }
+  }
+ ]
+}
