@@ -102,3 +102,60 @@ export interface LectureStep {
   est_sec: number
   focus?: number[]
 }
+
+// ── schema3 — v3 일곱 장면 강의(docs/csat-learner/v3/CSAT_REASONING_DATA_V3.md §6) ─────────────────────────────
+// 기존 `Lecture`(schemaVersion 없음 = legacy schema1)는 그대로다 — ROLE_ORDER · 8~14큐 · 역할 타깃 규칙을 전역 교체하지 않는다.
+// schema3 은 장면(scene) 순서가 뼈대다: 장면은 아래 순서로 단조 증가하고(데이터 없는 장면은 생략), 장면 안 역할은 표대로만.
+// 새 schema 식별자는 실제 새 승인 콘텐츠에만 붙인다 — 옛 큐에 라벨만 바꿔 schema3 이라 하지 않는다.
+
+export const V3_SCENES = ['task', 'meaning', 'judgment', 'design', 'compare', 'principle', 'explain'] as const
+export type V3Scene = (typeof V3_SCENES)[number]
+export type LectureV3Role = 'task' | 'meaning' | 'vocab' | 'judgment' | 'design' | 'compare' | 'principle' | 'explain'
+
+/** 장면별 허용 역할 — meaning 안 vocab 위치는 자유 */
+export const V3_SCENE_ROLES: Record<V3Scene, readonly LectureV3Role[]> = {
+  task: ['task'],
+  meaning: ['meaning', 'vocab'],
+  judgment: ['judgment'],
+  design: ['design'],
+  compare: ['compare'],
+  principle: ['principle'],
+  explain: ['explain'],
+}
+
+/**
+ * schema3 하이라이트 대상 — legacy 두 종류에 `v3` 를 더한다.
+ * `v3` id: `task` · `meaning:<id>` · `choice:<n>` · `claim:<k>` · `compare` · `principle` · `explain`(탐구 데이터 v3 의 실제 항목만)
+ */
+export interface LectureTargetV3 {
+  kind: 'analysis' | 'anchor' | 'v3'
+  id: string
+}
+
+export interface LectureCueV3 {
+  id: string
+  order: number
+  scene: V3Scene
+  role: LectureV3Role
+  /** 주대상 — 화면에 실제로 있는 요소 하나 */
+  target: LectureTargetV3
+  /** 함께 비출 근거(참조) — 주대상과 달리 DOM 중복을 허용한다 */
+  related?: LectureTargetV3[]
+  /** 이 큐가 설명하는 근거 문장(1-기반 · 탐구 데이터 v3 의 문장 번호) */
+  evidence?: number[]
+  segments: LectureSegment[]
+  est_sec: number
+  pause_after_ms: number
+}
+
+export interface LectureV3 {
+  item_id: string
+  schemaVersion: 3
+  version: number
+  /** 이 강의가 묶인 탐구 데이터(분석 버전 · 문장 분할) — 다르면 stale */
+  binding: { analysis_version: number; units_hash: string }
+  total_sec_est: number
+  generated_by: string
+  rubric_score: number
+  cues: LectureCueV3[]
+}

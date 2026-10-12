@@ -1,0 +1,7 @@
+{
+  "reviewer": "rv-v3-01b",
+  "criteria": "inquiry-v1.2",
+  "verdicts": [
+    { "id": "M2706#36", "verdict": "pass", "content_hash": "c3d77bf2601d6c2e", "why": "정답 (C)-(B)-(A) 기준 배열 재계산: 1=(A)-(C)-(B) 는 3번 The back-and-forth 의 앞말이 1~2번에 없음(9→6 인접은 유지 — 수정된 note·decisive 가 이제 맞음). 2=(B)-(A)-(C) 는 9번 예고가 (B) 뒤에 오고 글 끝이 됨. 3=(B)-(C)-(A) 는 9번 뒤에 (A)가 와 예고 응답 상실. 4=(C)-(A)-(B) 는 9→6 인접 깨짐·5번 총괄 뒤 사례. 단락 범위 (A)3~5 (B)6~7 (C)8~9 정확, meanings 문맥·scope 맞음, design 근거 수준·limitation 적절. 메모: 기존 analysis choice_analysis n=1 의 같은 오류는 원문 분석 쪽에 남아 있음(review_note 에 명시)." }
+  ]
+}

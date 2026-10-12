@@ -20,7 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { validateItem } from './inquiry-drain-validate.mjs'
+import { validateItem, validateV3 } from './inquiry-drain-validate.mjs'
 import { classifyReview } from './lib-inquiry-review.mjs'
 
 const WORK = path.resolve('scripts/csat/inquiry-drain')
@@ -88,6 +88,48 @@ for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-inq-\d+\.out\.json$/.
   }
 }
 
+// ── v3 출력(chunk-v3-NN) — 독립 검수(verified)일 때만 그 문항의 기록을 v3 로 대체한다. 그 밖에는 v1 기록을 그대로 둔다 ──
+// v3 칸은 legacy 경로로 절대 공개하지 않는다(v3 계획 §5). 검증기(v1 + v3) 오류가 하나라도 있으면 싣지 않는다.
+dropped.v3_unverified = []
+dropped.v3_invalid = []
+let v3Count = 0
+for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-v3-\d+\.out\.json$/.test(f)).sort()) {
+  const name = f.replace(/\.out\.json$/, '')
+  const inPath = path.join(WORK, `${name}.json`)
+  const out = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+  if (!fs.existsSync(inPath)) {
+    dropped.no_input.push(...(out.items ?? []).map((r) => `${r.id}(v3)`))
+    continue
+  }
+  const inputs = new Map(JSON.parse(fs.readFileSync(inPath, 'utf8')).items.map((it) => [it.id, it]))
+  for (const r of out.items ?? []) {
+    const input = inputs.get(r.id)
+    if (r.status !== 'ok' || !input) continue
+    const errs = [...validateItem(input, r), ...validateV3(input, r)]
+    if (errs.length) {
+      dropped.v3_invalid.push(`${r.id}(${errs.length})`)
+      continue
+    }
+    const review = classifyReview({ ...r, writer_run: r.writer_run ?? out.writer_run }, verdictsById.get(r.id) ?? [])
+    if (review.state !== 'verified') {
+      dropped.v3_unverified.push(`${r.id}(${review.reason})`)
+      continue
+    }
+    if (items[r.id]?.review) reviewCount[items[r.id].review] -= 1
+    reviewCount.verified += 1
+    v3Count += 1
+    items[r.id] = {
+      analysis_version: r.analysis_version,
+      review: 'verified',
+      distractors: r.distractors
+        .map((d) => ({ n: d.n, truth: d.truth, operation: d.operation, preserved: d.preserved ?? [], altered: d.altered ?? [], note: d.note }))
+        .sort((a, b) => a.n - b.n),
+      principle: r.principle ? { statement: r.principle.statement, when_applies: r.principle.when_applies, when_not: r.principle.when_not } : null,
+      v3: { sentence_count: input.sentences.length, ...r.v3 },
+    }
+  }
+}
+
 const sorted = Object.fromEntries(Object.entries(items).sort(([a], [b]) => a.localeCompare(b)))
 const doc = {
   note: 'vNext2 탐구 데이터 — scripts/csat/inquiry-drain-build.mjs 가 생성. 손으로 고치지 말 것(재생성에 덮인다).',
@@ -96,5 +138,5 @@ const doc = {
   items: sorted,
 }
 if (!DRY) fs.writeFileSync(OUT, JSON.stringify(doc, null, 1) + '\n')
-console.log(`넣음 ${doc.count}(verified ${reviewCount.verified} · legacy ${reviewCount.legacy}) · 뺌: status ${dropped.status.length} · 검증 오류 ${dropped.invalid.length} · 검수 revise ${dropped.revised.length} · 미검수 ${dropped.unreviewed.length} · legacy 제외 ${dropped.legacy_excluded.length} · 입력 없음 ${dropped.no_input.length}${DRY ? ' (dry — 파일 안 씀)' : ''}`)
+console.log(`넣음 ${doc.count}(verified ${reviewCount.verified} · legacy ${reviewCount.legacy}) · 뺌: status ${dropped.status.length} · 검증 오류 ${dropped.invalid.length} · 검수 revise ${dropped.revised.length} · 미검수 ${dropped.unreviewed.length} · legacy 제외 ${dropped.legacy_excluded.length} · v3 수록 ${v3Count} · v3 미검수 ${dropped.v3_unverified.length} · v3 검증 오류 ${dropped.v3_invalid.length} · 입력 없음 ${dropped.no_input.length}${DRY ? ' (dry — 파일 안 씀)' : ''}`)
 for (const [k, v] of Object.entries(dropped)) if (v.length) console.log(`  ${k}: ${v.slice(0, 30).join(' ')}${v.length > 30 ? ' …' : ''}`)

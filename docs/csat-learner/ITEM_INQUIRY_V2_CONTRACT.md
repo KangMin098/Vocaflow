@@ -67,3 +67,14 @@
 - **원문 결함(분석은 정상)**: M2406#38 · #39, M2306#38 · #39 의 발문에 40번 요약문 조각이 섞여 있다(csat_items.stem). 원문 교정 공정 대상.
 - 도표 문항 일부(M2206#25 · M2309#25 · M2406#25)는 입력에 수치가 없어 오답 truth 를 `unknown` 으로 둔다 — 원본 도표 검수가 끝난 문항만 `true`.
 - 공정 개선(파일럿 · 검수에서 나온 것): ① 위치 · 지칭 유형은 `not_applicable` ② 낱말 묶음 선지에서 모든 칸이 틀리면 `preserved: []` 허용 ③ 검증기 따옴표 정규화(‘ ’ “ ”) ④ 도표 원리의 when_not 에 「원본 확인 필요」 같은 데이터 사정을 쓰지 않는다(R5).
+
+## 7. v3 의미 · 판단 · 설계 칸 (2026-10-12 · v3 M2 대표 수직 구현)
+
+- 설계 정본 `docs/csat-learner/v3/`(PR #223). 작성 지침 `scripts/csat/inquiry-drain/WRITER_V3.md` · 검수 R7~R9 `REVIEWER.md`.
+- 기록마다 선택 칸 `v3`: requirement(요구 판단 · 극성 · 조건) · meanings(근거 문장 · 영어 표현 8단어 이하 · 문맥 의미 · 부정/조건 등 범위) ·
+  choices(1~5 전부 — 정답 선정 · 내용 참거짓 · 발문 충족 분리 + 결정 조건 + 근거 문장) · design(공식 / 원문 관찰 / 설계 가설 + 한계) ·
+  `units_hash`(문장 분할 결속) · `sentence_count`.
+- **v3 칸은 verified(현재 내용 해시에 묶인 독립 pass)일 때만** 빌드에 실린다 — legacy 경로로는 절대 공개하지 않는다. 지도 문장 수가 작성 때와 다르면 근거 연결을 끈다.
+- 공정: `inquiry-v3-export.mjs --name v3-NN --ids …`(v1 청크 입력 재사용) → 작성 → `inquiry-drain-validate.mjs --v3` → 해시 결속 독립 검수 → `inquiry-drain-build.mjs`.
+- 1차(대표 6): 2026#34 · 2026#36 · 2026#38 · 2026#29 · 2026#25 · M2706#36 — 1차 검수 5 pass · M2706#36 revise(선지 1 설명이 배열과 모순 — 기존 DB 분석 choice_analysis n=1 의 같은 오류를 옮긴 것) → 고쳐 쓴 뒤 재검수 pass. **DB 분석 n=1 오류는 분석 교정 공정 대상으로 남아 있다.**
+- 강의 schema3: `lecture/types.ts` `LectureV3`(장면 · 역할 · 주대상 · 관련 근거 · 결속) · `validateLecture` 가 schemaVersion 으로 분기(없음=legacy 규칙 그대로 · 3=장면 순서 · 장면별 역할 · 주대상 · 평가 과제/의미/성립 필수 · 그 밖=거부). 낭독 · 인용 · 길이 검사는 두 분기가 같은 함수. **schema3 강의 콘텐츠는 아직 없다.**
