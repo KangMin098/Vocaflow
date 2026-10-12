@@ -445,9 +445,9 @@
 .comparePairs a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 /* 여섯 장면(vNext2 M2) — 자유 이동 탭 · 장면 질문. 조작 칸 44px · 선택은 굵기와 바탕 둘 다로(색만으로 구분하지 않는다) */
-.sceneNav { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 10px; }
+.sceneNav { display: flex; flex-wrap: nowrap; gap: 4px; margin: 0 0 10px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
 .sceneNav button {
-  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px;
+  display: inline-flex; flex: none; align-items: center; gap: 5px; min-height: 44px; padding: 0 10px;
   border: 1px solid var(--bd); border-radius: 10px; background: transparent; color: var(--t2);
   font-size: 13px; white-space: nowrap; cursor: pointer;
   transition: background var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);

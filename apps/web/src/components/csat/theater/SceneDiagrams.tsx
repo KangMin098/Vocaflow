@@ -133,8 +133,8 @@ export function PrincipleDesign({ principle }: { principle: InquiryPrinciple }) 
   return (
     <section className={styles.diagram} aria-label="원리와 적용 경계" data-testid="principle-design">
       <p className={styles.diagramHead}>
-        <b>이 문항이 지지하는 원리</b>
-        <span className={styles.epistemic}>일반화한 원리 · 이 문항 범위</span>
+        <b>이 문항에서 얻은 잠정 원리</b>
+        <span className={styles.epistemic}>잠정 원리 · 검수된 비교 지지 전</span>
       </p>
       <p className="break-keep">{principle.statement}</p>
       <div className={styles.boundary}>
