@@ -1,0 +1,1667 @@
+{
+  "protocol": "1.0.1",
+  "preregistered_protocol": "1.0",
+  "raters": [
+    "A",
+    "B"
+  ],
+  "independence": "two separate AI contexts, same inherited configuration; no human expert evidence",
+  "items": 32,
+  "passage_groups": 30,
+  "quality": {
+    "errors": [],
+    "passed": true,
+    "first_complete_submission_note": "First complete 32-item submissions are frozen and hashed before official-answer disclosure; partial serialization drafts were not final submissions.",
+    "partial_draft_loss": {
+      "rater": "B",
+      "affected_partial_draft_items": 8,
+      "original_broken_file_retained": false,
+      "exact_restoration_diff_available": false,
+      "writer_report": "Answers were unchanged; Korean serialization was restored. Before completed submission, two non-codebook complexity labels were removed while proposition labels were retained, and an overlong anchor shortened. Lost first eight-item draft prevents independent full-diff verification.",
+      "retained_24_item_backup_sha256": "3ceeba23d58f6cce92ce81b1356d2a314d4e12d62564b932af61491f7673d101"
+    }
+  },
+  "axes": {
+    "discourse": {
+      "n": 32,
+      "raw_agreement": 0.9375,
+      "scorable_agreement_over_all": 0.9375,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.9375,
+      "resolved_kappa": 0.9128065395095368,
+      "kappa": 0.9128065395095368,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "argument",
+        "data",
+        "exposition",
+        "mixed",
+        "narrative",
+        "practical"
+      ],
+      "confusion": {
+        "argument": {
+          "argument": 7,
+          "data": 0,
+          "exposition": 1,
+          "mixed": 0,
+          "narrative": 0,
+          "practical": 0
+        },
+        "data": {
+          "argument": 0,
+          "data": 1,
+          "exposition": 0,
+          "mixed": 0,
+          "narrative": 0,
+          "practical": 0
+        },
+        "exposition": {
+          "argument": 0,
+          "data": 0,
+          "exposition": 13,
+          "mixed": 0,
+          "narrative": 0,
+          "practical": 0
+        },
+        "mixed": {
+          "argument": 0,
+          "data": 0,
+          "exposition": 0,
+          "mixed": 0,
+          "narrative": 0,
+          "practical": 0
+        },
+        "narrative": {
+          "argument": 0,
+          "data": 0,
+          "exposition": 0,
+          "mixed": 1,
+          "narrative": 6,
+          "practical": 0
+        },
+        "practical": {
+          "argument": 0,
+          "data": 0,
+          "exposition": 0,
+          "mixed": 0,
+          "narrative": 0,
+          "practical": 3
+        }
+      },
+      "raw_agreement_interval": {
+        "low": 0.8387096774193549,
+        "high": 1,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "unresolved_rate": 0
+    },
+    "task": {
+      "n": 32,
+      "raw_agreement": 0.96875,
+      "scorable_agreement_over_all": 0.96875,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.96875,
+      "resolved_kappa": 0.9651416122004357,
+      "kappa": 0.9651416122004357,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "affect",
+        "coherence_insert",
+        "coherence_order",
+        "coherence_remove",
+        "complete",
+        "grammar",
+        "lexical_context",
+        "macro_compress",
+        "purpose",
+        "quantitative",
+        "referent",
+        "retrieve",
+        "stance"
+      ],
+      "confusion": {
+        "affect": {
+          "affect": 2,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "coherence_insert": {
+          "affect": 0,
+          "coherence_insert": 2,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "coherence_order": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 3,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "coherence_remove": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 1,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "complete": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 5,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "grammar": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 1,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "lexical_context": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 1,
+          "grammar": 0,
+          "lexical_context": 2,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "macro_compress": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 5,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "purpose": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 2,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "quantitative": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 1,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "referent": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 2,
+          "retrieve": 0,
+          "stance": 0
+        },
+        "retrieve": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 4,
+          "stance": 0
+        },
+        "stance": {
+          "affect": 0,
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0,
+          "referent": 0,
+          "retrieve": 0,
+          "stance": 1
+        }
+      },
+      "raw_agreement_interval": {
+        "low": 0.9032258064516129,
+        "high": 1,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "unresolved_rate": 0
+    },
+    "complexity": {
+      "n": 32,
+      "mean_jaccard": 0.8385416666666666,
+      "missing_pairs": 0,
+      "empty_set_policy": "zero similarity, reported as missing; never positive agreement",
+      "interval": {
+        "low": 0.7553763440860213,
+        "high": 0.9166666666666667,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "per_label": {
+        "anaphora": {
+          "n": 32,
+          "raw_agreement": 0.875,
+          "scorable_agreement_over_all": 0.875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.875,
+          "resolved_kappa": 0.4482758620689655,
+          "kappa": 0.4482758620689655,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 2,
+              "yes": 4
+            },
+            "yes": {
+              "no": 0,
+              "yes": 26
+            }
+          }
+        },
+        "ellipsis": {
+          "n": 32,
+          "raw_agreement": 0.96875,
+          "scorable_agreement_over_all": 0.96875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.96875,
+          "resolved_kappa": 0.6521739130434783,
+          "kappa": 0.6521739130434783,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 30,
+              "yes": 0
+            },
+            "yes": {
+              "no": 1,
+              "yes": 1
+            }
+          }
+        },
+        "embedding": {
+          "n": 32,
+          "raw_agreement": 0.90625,
+          "scorable_agreement_over_all": 0.90625,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.90625,
+          "resolved_kappa": 0.5294117647058824,
+          "kappa": 0.5294117647058824,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 2,
+              "yes": 3
+            },
+            "yes": {
+              "no": 0,
+              "yes": 27
+            }
+          }
+        },
+        "polysemy": {
+          "n": 32,
+          "raw_agreement": 0.96875,
+          "scorable_agreement_over_all": 0.96875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.96875,
+          "resolved_kappa": 0.7837837837837838,
+          "kappa": 0.7837837837837838,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 29,
+              "yes": 1
+            },
+            "yes": {
+              "no": 0,
+              "yes": 2
+            }
+          }
+        },
+        "scope": {
+          "n": 32,
+          "raw_agreement": 0.78125,
+          "scorable_agreement_over_all": 0.78125,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.78125,
+          "resolved_kappa": 0.3253012048192771,
+          "kappa": 0.3253012048192771,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 3,
+              "yes": 3
+            },
+            "yes": {
+              "no": 4,
+              "yes": 22
+            }
+          }
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "proposition": {
+      "n": 32,
+      "mean_jaccard": 0.7166666666666667,
+      "missing_pairs": 0,
+      "empty_set_policy": "zero similarity, reported as missing; never positive agreement",
+      "interval": {
+        "low": 0.6494444444444444,
+        "high": 0.7828125000000002,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "per_label": {
+        "agent": {
+          "n": 32,
+          "raw_agreement": 0.84375,
+          "scorable_agreement_over_all": 0.84375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.84375,
+          "resolved_kappa": 0.6638655462184874,
+          "kappa": 0.6638655462184874,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 9,
+              "yes": 1
+            },
+            "yes": {
+              "no": 4,
+              "yes": 18
+            }
+          }
+        },
+        "condition": {
+          "n": 32,
+          "raw_agreement": 0.84375,
+          "scorable_agreement_over_all": 0.84375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.84375,
+          "resolved_kappa": 0.6721311475409836,
+          "kappa": 0.6721311475409836,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 17,
+              "yes": 3
+            },
+            "yes": {
+              "no": 2,
+              "yes": 10
+            }
+          }
+        },
+        "modality": {
+          "n": 32,
+          "raw_agreement": 0.84375,
+          "scorable_agreement_over_all": 0.84375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.84375,
+          "resolved_kappa": 0.6460176991150443,
+          "kappa": 0.6460176991150443,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 19,
+              "yes": 3
+            },
+            "yes": {
+              "no": 2,
+              "yes": 8
+            }
+          }
+        },
+        "object": {
+          "n": 32,
+          "raw_agreement": 0.65625,
+          "scorable_agreement_over_all": 0.65625,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.65625,
+          "resolved_kappa": 0.2903225806451613,
+          "kappa": 0.2903225806451613,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 6,
+              "yes": 2
+            },
+            "yes": {
+              "no": 9,
+              "yes": 15
+            }
+          }
+        },
+        "polarity": {
+          "n": 32,
+          "raw_agreement": 0.6875,
+          "scorable_agreement_over_all": 0.6875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.6875,
+          "resolved_kappa": 0.3220338983050847,
+          "kappa": 0.3220338983050847,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 17,
+              "yes": 9
+            },
+            "yes": {
+              "no": 1,
+              "yes": 5
+            }
+          }
+        },
+        "predicate": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": -0.03225806451612903,
+          "kappa": -0.03225806451612903,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 0,
+              "yes": 1
+            },
+            "yes": {
+              "no": 1,
+              "yes": 30
+            }
+          }
+        },
+        "quantifier": {
+          "n": 32,
+          "raw_agreement": 0.875,
+          "scorable_agreement_over_all": 0.875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.875,
+          "resolved_kappa": 0.673469387755102,
+          "kappa": 0.673469387755102,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 22,
+              "yes": 0
+            },
+            "yes": {
+              "no": 4,
+              "yes": 6
+            }
+          }
+        },
+        "time": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.8709677419354839,
+          "kappa": 0.8709677419354839,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 18,
+              "yes": 0
+            },
+            "yes": {
+              "no": 2,
+              "yes": 12
+            }
+          }
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "relations": {
+      "n": 32,
+      "mean_jaccard": 0.6524553571428571,
+      "missing_pairs": 0,
+      "empty_set_policy": "zero similarity, reported as missing; never positive agreement",
+      "interval": {
+        "low": 0.5791090629800307,
+        "high": 0.7263888888888891,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "per_label": {
+        "cause": {
+          "n": 32,
+          "raw_agreement": 0.78125,
+          "scorable_agreement_over_all": 0.78125,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.78125,
+          "resolved_kappa": 0.5625,
+          "kappa": 0.5625,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 9,
+              "yes": 7
+            },
+            "yes": {
+              "no": 0,
+              "yes": 16
+            }
+          }
+        },
+        "concession": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.7647058823529411,
+          "kappa": 0.7647058823529411,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 26,
+              "yes": 0
+            },
+            "yes": {
+              "no": 2,
+              "yes": 4
+            }
+          }
+        },
+        "condition": {
+          "n": 32,
+          "raw_agreement": 0.875,
+          "scorable_agreement_over_all": 0.875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.875,
+          "resolved_kappa": 0.4336283185840708,
+          "kappa": 0.4336283185840708,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 26,
+              "yes": 1
+            },
+            "yes": {
+              "no": 3,
+              "yes": 2
+            }
+          }
+        },
+        "contrast": {
+          "n": 32,
+          "raw_agreement": 0.84375,
+          "scorable_agreement_over_all": 0.84375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.84375,
+          "resolved_kappa": 0.6825396825396826,
+          "kappa": 0.6825396825396826,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 11,
+              "yes": 1
+            },
+            "yes": {
+              "no": 4,
+              "yes": 16
+            }
+          }
+        },
+        "elaboration": {
+          "n": 32,
+          "raw_agreement": 0.78125,
+          "scorable_agreement_over_all": 0.78125,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.78125,
+          "resolved_kappa": 0.5087719298245614,
+          "kappa": 0.5087719298245614,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 18,
+              "yes": 2
+            },
+            "yes": {
+              "no": 5,
+              "yes": 7
+            }
+          }
+        },
+        "example": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.8735177865612648,
+          "kappa": 0.8735177865612648,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 17,
+              "yes": 0
+            },
+            "yes": {
+              "no": 2,
+              "yes": 13
+            }
+          }
+        },
+        "list": {
+          "n": 32,
+          "raw_agreement": 0.96875,
+          "scorable_agreement_over_all": 0.96875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.96875,
+          "resolved_kappa": 0.84,
+          "kappa": 0.84,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 28,
+              "yes": 1
+            },
+            "yes": {
+              "no": 0,
+              "yes": 3
+            }
+          }
+        },
+        "problem_solution": {
+          "n": 32,
+          "raw_agreement": 0.90625,
+          "scorable_agreement_over_all": 0.90625,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.90625,
+          "resolved_kappa": 0.6129032258064516,
+          "kappa": 0.6129032258064516,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 26,
+              "yes": 1
+            },
+            "yes": {
+              "no": 2,
+              "yes": 3
+            }
+          }
+        },
+        "reference": {
+          "n": 32,
+          "raw_agreement": 0.875,
+          "scorable_agreement_over_all": 0.875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.875,
+          "resolved_kappa": 0.7241379310344828,
+          "kappa": 0.7241379310344828,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 19,
+              "yes": 3
+            },
+            "yes": {
+              "no": 1,
+              "yes": 9
+            }
+          }
+        },
+        "restatement": {
+          "n": 32,
+          "raw_agreement": 0.90625,
+          "scorable_agreement_over_all": 0.90625,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.90625,
+          "resolved_kappa": 0.7142857142857143,
+          "kappa": 0.7142857142857143,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 24,
+              "yes": 3
+            },
+            "yes": {
+              "no": 0,
+              "yes": 5
+            }
+          }
+        },
+        "result": {
+          "n": 32,
+          "raw_agreement": 0.59375,
+          "scorable_agreement_over_all": 0.59375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.59375,
+          "resolved_kappa": 0.1875,
+          "kappa": 0.1875,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 16,
+              "yes": 0
+            },
+            "yes": {
+              "no": 13,
+              "yes": 3
+            }
+          }
+        },
+        "sequence": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.8454106280193237,
+          "kappa": 0.8454106280193237,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 22,
+              "yes": 1
+            },
+            "yes": {
+              "no": 1,
+              "yes": 8
+            }
+          }
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "inference": {
+      "n": 32,
+      "mean_jaccard": 0.8307291666666667,
+      "missing_pairs": 0,
+      "empty_set_policy": "zero similarity, reported as missing; never positive agreement",
+      "interval": {
+        "low": 0.7424242424242423,
+        "high": 0.9065656565656566,
+        "method": "fixed-seed percentile cluster bootstrap, 1000 resamples; purposive pilot, not population inference"
+      },
+      "per_label": {
+        "contextual": {
+          "n": 32,
+          "raw_agreement": 0.875,
+          "scorable_agreement_over_all": 0.875,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.875,
+          "resolved_kappa": 0.7333333333333333,
+          "kappa": 0.7333333333333333,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 18,
+              "yes": 2
+            },
+            "yes": {
+              "no": 2,
+              "yes": 10
+            }
+          }
+        },
+        "explicit": {
+          "n": 32,
+          "raw_agreement": 0.84375,
+          "scorable_agreement_over_all": 0.84375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.84375,
+          "resolved_kappa": 0.6875,
+          "kappa": 0.6875,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 16,
+              "yes": 5
+            },
+            "yes": {
+              "no": 0,
+              "yes": 11
+            }
+          }
+        },
+        "global": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.8672199170124482,
+          "kappa": 0.8672199170124482,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 11,
+              "yes": 0
+            },
+            "yes": {
+              "no": 2,
+              "yes": 19
+            }
+          }
+        },
+        "local": {
+          "n": 32,
+          "raw_agreement": 0.90625,
+          "scorable_agreement_over_all": 0.90625,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.90625,
+          "resolved_kappa": 0.808,
+          "kappa": 0.808,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 17,
+              "yes": 1
+            },
+            "yes": {
+              "no": 2,
+              "yes": 12
+            }
+          }
+        },
+        "structural_grammar": {
+          "n": 32,
+          "raw_agreement": 0.9375,
+          "scorable_agreement_over_all": 0.9375,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 0.9375,
+          "resolved_kappa": 0.47540983606557374,
+          "kappa": 0.47540983606557374,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 29,
+              "yes": 0
+            },
+            "yes": {
+              "no": 2,
+              "yes": 1
+            }
+          }
+        },
+        "visual_numeric": {
+          "n": 32,
+          "raw_agreement": 1,
+          "scorable_agreement_over_all": 1,
+          "resolved_pair_n": 32,
+          "resolved_pair_agreement": 1,
+          "resolved_kappa": 1,
+          "kappa": 1,
+          "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+          "labels": [
+            "no",
+            "yes"
+          ],
+          "confusion": {
+            "no": {
+              "no": 30,
+              "yes": 0
+            },
+            "yes": {
+              "no": 0,
+              "yes": 2
+            }
+          }
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "choice_status": {
+      "n": 160,
+      "raw_agreement": 0.95625,
+      "scorable_agreement_over_all": 0.95625,
+      "resolved_pair_n": 160,
+      "resolved_pair_agreement": 0.95625,
+      "resolved_kappa": 0.9421905646743058,
+      "kappa": 0.9421905646743058,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "coherence_failure",
+        "contradicted",
+        "entailed",
+        "malformed",
+        "numeric_error",
+        "task_mismatch",
+        "unsupported"
+      ],
+      "confusion": {
+        "coherence_failure": {
+          "coherence_failure": 25,
+          "contradicted": 0,
+          "entailed": 0,
+          "malformed": 0,
+          "numeric_error": 0,
+          "task_mismatch": 0,
+          "unsupported": 0
+        },
+        "contradicted": {
+          "coherence_failure": 0,
+          "contradicted": 28,
+          "entailed": 0,
+          "malformed": 0,
+          "numeric_error": 0,
+          "task_mismatch": 0,
+          "unsupported": 1
+        },
+        "entailed": {
+          "coherence_failure": 0,
+          "contradicted": 0,
+          "entailed": 62,
+          "malformed": 0,
+          "numeric_error": 0,
+          "task_mismatch": 0,
+          "unsupported": 0
+        },
+        "malformed": {
+          "coherence_failure": 0,
+          "contradicted": 2,
+          "entailed": 0,
+          "malformed": 1,
+          "numeric_error": 0,
+          "task_mismatch": 0,
+          "unsupported": 0
+        },
+        "numeric_error": {
+          "coherence_failure": 0,
+          "contradicted": 0,
+          "entailed": 0,
+          "malformed": 0,
+          "numeric_error": 1,
+          "task_mismatch": 0,
+          "unsupported": 0
+        },
+        "task_mismatch": {
+          "coherence_failure": 1,
+          "contradicted": 2,
+          "entailed": 0,
+          "malformed": 0,
+          "numeric_error": 0,
+          "task_mismatch": 13,
+          "unsupported": 0
+        },
+        "unsupported": {
+          "coherence_failure": 0,
+          "contradicted": 0,
+          "entailed": 0,
+          "malformed": 0,
+          "numeric_error": 0,
+          "task_mismatch": 1,
+          "unsupported": 23
+        }
+      },
+      "unit": "160 paired choice labels within 32 items; dependent observations, descriptive only",
+      "interpretation": "Code-label agreement does not validate truth versus task-fit distinctions",
+      "differences": [
+        {
+          "id": "M2409#18",
+          "n": 3,
+          "a": "unsupported",
+          "b": "task_mismatch"
+        },
+        {
+          "id": "M1809#30",
+          "n": 5,
+          "a": "task_mismatch",
+          "b": "contradicted"
+        },
+        {
+          "id": "2017#29",
+          "n": 1,
+          "a": "malformed",
+          "b": "contradicted"
+        },
+        {
+          "id": "2017#29",
+          "n": 2,
+          "a": "malformed",
+          "b": "contradicted"
+        },
+        {
+          "id": "2016#42",
+          "n": 4,
+          "a": "task_mismatch",
+          "b": "coherence_failure"
+        },
+        {
+          "id": "2014A#44",
+          "n": 3,
+          "a": "task_mismatch",
+          "b": "contradicted"
+        },
+        {
+          "id": "M2106#31",
+          "n": 5,
+          "a": "contradicted",
+          "b": "unsupported"
+        }
+      ]
+    }
+  },
+  "strategies": {
+    "contrast": {
+      "n": 32,
+      "raw_agreement": 0.84375,
+      "scorable_agreement_over_all": 0.84375,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.84375,
+      "resolved_kappa": 0.750390015600624,
+      "kappa": 0.750390015600624,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "applicable",
+        "insufficient",
+        "not_applicable"
+      ],
+      "confusion": {
+        "applicable": {
+          "applicable": 5,
+          "insufficient": 4,
+          "not_applicable": 0
+        },
+        "insufficient": {
+          "applicable": 0,
+          "insufficient": 14,
+          "not_applicable": 0
+        },
+        "not_applicable": {
+          "applicable": 0,
+          "insufficient": 1,
+          "not_applicable": 8
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "core_sentence": {
+      "n": 32,
+      "raw_agreement": 0.96875,
+      "scorable_agreement_over_all": 0.96875,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.96875,
+      "resolved_kappa": 0.9036144578313253,
+      "kappa": 0.9036144578313253,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "applicable",
+        "insufficient"
+      ],
+      "confusion": {
+        "applicable": {
+          "applicable": 6,
+          "insufficient": 0
+        },
+        "insufficient": {
+          "applicable": 1,
+          "insufficient": 25
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "incremental": {
+      "n": 32,
+      "raw_agreement": 0.96875,
+      "scorable_agreement_over_all": 0.96875,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.96875,
+      "resolved_kappa": 0,
+      "kappa": 0,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "applicable",
+        "insufficient"
+      ],
+      "confusion": {
+        "applicable": {
+          "applicable": 31,
+          "insufficient": 0
+        },
+        "insufficient": {
+          "applicable": 1,
+          "insufficient": 0
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "syntax": {
+      "n": 32,
+      "raw_agreement": 0.90625,
+      "scorable_agreement_over_all": 0.90625,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 0.90625,
+      "resolved_kappa": 0.3684210526315789,
+      "kappa": 0.3684210526315789,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "applicable",
+        "insufficient"
+      ],
+      "confusion": {
+        "applicable": {
+          "applicable": 1,
+          "insufficient": 3
+        },
+        "insufficient": {
+          "applicable": 0,
+          "insufficient": 28
+        }
+      },
+      "unresolved_rate": 0
+    },
+    "selective": {
+      "n": 32,
+      "raw_agreement": 1,
+      "scorable_agreement_over_all": 1,
+      "resolved_pair_n": 32,
+      "resolved_pair_agreement": 1,
+      "resolved_kappa": null,
+      "kappa": null,
+      "kappa_note": "undefined: both marginals degenerate",
+      "labels": [
+        "applicable"
+      ],
+      "confusion": {
+        "applicable": {
+          "applicable": 32
+        }
+      },
+      "unresolved_rate": 0
+    }
+  },
+  "disagreements": [
+    {
+      "id": "M2406#31",
+      "fields": [
+        "relations",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2014B#37",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2024#25",
+      "fields": [
+        "relations",
+        "inference",
+        "strategy_incremental"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2019#26",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2022#22",
+      "fields": [
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2019#29",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2022#21",
+      "fields": [
+        "task",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2020#38",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M2306#35",
+      "fields": [
+        "relations",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2020#19",
+      "fields": [
+        "relations",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2023#27",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M2206#36",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M2409#18",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M1809#30",
+      "fields": [
+        "discourse",
+        "relations",
+        "inference",
+        "strategy_contrast",
+        "strategy_syntax"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2017#40",
+      "fields": [
+        "relations",
+        "strategy_contrast"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2019#24",
+      "fields": [
+        "relations",
+        "strategy_contrast"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2020#23",
+      "fields": [
+        "discourse",
+        "strategy_contrast"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2016#42",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2014A#45",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2021#43",
+      "fields": [
+        "relations",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2014A#44",
+      "fields": [
+        "relations",
+        "inference",
+        "strategy_syntax"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2017#41",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2022#42",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2014A#23",
+      "fields": [
+        "relations",
+        "strategy_core_sentence"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2019#19",
+      "fields": [
+        "relations",
+        "inference"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2023#37",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "2022#38",
+      "fields": [
+        "relations"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M2106#31",
+      "fields": [
+        "relations",
+        "inference",
+        "strategy_contrast"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    },
+    {
+      "id": "M2006#26",
+      "fields": [
+        "relations",
+        "strategy_syntax"
+      ],
+      "status": "unadjudicated_initial_difference_preserved"
+    }
+  ],
+  "expansion": {
+    "discourse": false,
+    "task": false,
+    "relations": false,
+    "inference": false,
+    "strategy_contrast": false,
+    "strategy_core_sentence": false,
+    "strategy_incremental": false,
+    "strategy_syntax": false,
+    "strategy_selective": false
+  },
+  "answer_check": {
+    "source": "Pinned DB stored answer; official PDF corroboration is separate",
+    "raters": {
+      "a": {
+        "answered": 32,
+        "matched": 32,
+        "mismatches": []
+      },
+      "b": {
+        "answered": 32,
+        "matched": 32,
+        "mismatches": []
+      }
+    }
+  },
+  "minimum_pilot_met": true,
+  "numeric_and_record_gate_met": {
+    "discourse": true,
+    "task": true,
+    "relations": false,
+    "inference": true,
+    "strategy_contrast": true,
+    "strategy_core_sentence": true,
+    "strategy_incremental": true,
+    "strategy_syntax": true,
+    "strategy_selective": true
+  },
+  "confirmatory_admission": {
+    "allowed": false,
+    "verified_source_items": 0,
+    "required": 32,
+    "reason": "Confirmatory admission requires original presentation and same-form key verification for the complete pilot; text screening is insufficient",
+    "source_summary": {
+      "pilot_items": 32,
+      "text_screened": 32,
+      "whole_verbatim_source_verified": 0,
+      "local_primary_key_pdf_text_matches": 27,
+      "derived_key_matches_original_pdf_not_located": 5,
+      "visually_inspected_pilot_items": 7,
+      "shared_group_conflicts_resolved_from_PDF": 5,
+      "holdout_2025_2026_body_or_choices_inspected": false
+    }
+  }
+}

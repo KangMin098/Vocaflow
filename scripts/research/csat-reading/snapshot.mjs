@@ -31,6 +31,9 @@ const items=await response.json()
 const expected=exams.reduce((s,e)=>s+e.n,0)
 if(items.length!==expected)throw new Error(`Snapshot denominator mismatch ${items.length}/${expected}`)
 const out={report:{source:'current-db-read-only',as_of:arg('as-of')||'2026-10-12'},items:items.map(i=>({...i,exam:i.exam_id,body_suspect:!i.body_ok}))}
-const target=path.resolve('scripts/research/csat-reading/local/db-corpus.json')
+const snapshotId=arg('snapshot-id')||'20261012-r1'
+if(!/^[A-Za-z0-9_-]{1,64}$/.test(snapshotId))throw new Error('Invalid snapshot identifier')
+const target=path.resolve('scripts/research/csat-reading/local/snapshots',snapshotId,'db-corpus.json')
+if(fs.existsSync(target))throw new Error('Snapshot already exists; use a new snapshot ID. Existing originals are immutable.')
 fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(out)+'\n')
-console.log(`Read-only private original snapshot: ${items.length} items. Bodies remain in ignored local/.`)
+console.log(`Read-only private original snapshot: ${items.length} items, ${snapshotId}. Bodies remain in ignored local/.`)

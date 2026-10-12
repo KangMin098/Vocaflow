@@ -1,0 +1,116 @@
+{
+    "as_of":  "2026-10-12",
+    "research_base_commit":  "0a2244d4dc94083aa5a8509a362d15c54d2521d8",
+    "preregistration_commit":  "59fba8cec",
+    "preregistered_protocol_sha256":  "694e9ca994f215eb4571dbdbef69b4710d4468a3a779190fef2dc26a4006115d",
+    "current_protocol_sha256":  "fa7f477354b82af6e78880cde7490b23f7c3c06d3deb17f7637f720a2a7b10f8",
+    "source_snapshot":  {
+                            "id":  "20261012-r0",
+                            "private_path":  "scripts/research/csat-reading/local/snapshots/20261012-r0/db-corpus.json",
+                            "sha256":  "a8c7f5dc33cac1197b22dc3d683ce94be04efdc819c7424a3270c7b6b304a374"
+                        },
+    "pilot_manifest_sha256":  "618d183e8e54591a51b3d458af12c1a4a7faeb4f380e6af7e8485c37dd80355b",
+    "private_blind_input_sha256":  "402b412bb7b16f1d99a4ffcc422fc2152fc88bbb4d4d44c9e76183b13bb1d050",
+    "private_answer_key_sha256":  "9e279412c776192e89af9986c22840ea63edcf35ac3b63daaf1f03a79d4298d7",
+    "raters":  {
+                   "A":  {
+                             "agent_run":  "/root/pilot_a",
+                             "fork_turns":  "none",
+                             "inherited_configuration":  true,
+                             "official_answer_not_disclosed_before_complete_submission":  true,
+                             "initial_completed_items":  32,
+                             "blindness_evidence_scope":  "Answer omitted from generated input; rater reports no answer-PDF access before complete submission; no comprehensive filesystem access audit"
+                         },
+                   "B":  {
+                             "agent_run":  "/root/pilot_b",
+                             "fork_turns":  "none",
+                             "inherited_configuration":  true,
+                             "official_answer_not_disclosed_before_complete_submission":  true,
+                             "initial_completed_items":  32,
+                             "blindness_evidence_scope":  "Answer omitted from generated input; rater reports no answer-PDF access before complete submission; no comprehensive filesystem access audit"
+                         }
+               },
+    "first_complete_submission_note":  "First complete 32-item submissions are frozen and hashed before official-answer disclosure; partial serialization drafts were not final submissions.",
+    "partial_draft_loss":  {
+                               "rater":  "B",
+                               "affected_partial_draft_items":  8,
+                               "original_broken_file_retained":  false,
+                               "exact_restoration_diff_available":  false,
+                               "writer_report":  "Answers were unchanged; Korean serialization was restored. Before completed submission, two non-codebook complexity labels were removed while proposition labels were retained, and an overlong anchor shortened. Lost first eight-item draft prevents independent full-diff verification.",
+                               "retained_24_item_backup_sha256":  "3ceeba23d58f6cce92ce81b1356d2a314d4e12d62564b932af61491f7673d101"
+                           },
+    "claude_method_review":  {
+                                 "session":  "bb1609cc-7297-4fdc-93b2-e07ed58b4802",
+                                 "kind":  "independent_AI_method_review_not_human_expert",
+                                 "findings":  [
+                                                  "exploratory_examples_not_independently_adjudicated",
+                                                  "damaged_partial_draft_integrity",
+                                                  "empty_multilabel_sets",
+                                                  "expansion_quality_guards",
+                                                  "mutual_unresolved_inflates_agreement",
+                                                  "unfinished_output_existence",
+                                                  "mutable_snapshot_and_source_pinning",
+                                                  "extra_prior_exposure_log"
+                                              ],
+                                 "status":  "addressed_with_nonrecoverable_limits_preserved"
+                             },
+    "complete_submission_hashes":  {
+                                       "B":  "9ff38d8a4821c65b1c1954cbac7a44d98124e36b40e3a3ca719684c1af283a33",
+                                       "note":  "First complete validated rater submissions before answer disclosure; incomplete serialization/schema drafts are separate and limitations disclosed.",
+                                       "A":  "39900809a2956922a76f108139c6630830018d9a983603f480edeb3989010d54"
+                                   },
+    "protocol_amendment":  {
+                               "scope":  "32 pilot items; two additional prior-exposure IDs; post-hoc choice-label metrics",
+                               "version":  "1.0.1",
+                               "registered_version":  "1.0",
+                               "interpretation":  "exploratory execution amendments, not fully preregistered confirmatory results",
+                               "exact_submission_relative_timing":  "not_independently_established",
+                               "date":  "2026-10-12"
+                           },
+    "final_claude_review":  {
+                                "status":  "concrete_corrections_applied; final_recheck_did_not_complete",
+                                "findings":  [
+                                                 "unversioned_execution_amendment",
+                                                 "visual_PDF_input_exception",
+                                                 "prevalence_and_strategy_discrimination",
+                                                 "one_rater_post_key_and_choice_axis_coverage",
+                                                 "stale_execution_record",
+                                                 "unpinned_inputs_and_optional_answer_key"
+                                             ],
+                                "session":  "f1473b28-db8c-4ddb-899d-30ea05c203c4",
+                                "kind":  "independent_AI_method_review_not_human_expert"
+                            },
+    "post_key_b":  {
+                       "sha256":  "c30e10fbf5ccf0d2fc1547ef3af8253b4507612d8e405d46c67345b59d6c8166",
+                       "phase":  "post_stored_key_reveal_not_blind",
+                       "revision_candidates":  15,
+                       "path":  "docs/research/csat-reading/data/pilot-post-key.json",
+                       "items":  32,
+                       "read_other_rater":  false
+                   },
+    "visual_input_exception":  {
+                                   "key_pdf_access":  "both reported no answer-PDF viewing before initial submission; no comprehensive access audit",
+                                   "exact_viewing_timestamp":  "not_recorded",
+                                   "id":  "2024#25",
+                                   "filename":  "2024_영어영역_문제지.pdf",
+                                   "pdf_sha256":  "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+                                   "raters":  [
+                                                  "A",
+                                                  "B"
+                                              ],
+                                   "equal_input_limitation":  "Same question artifact, separate rendering/tool access; outside original field-only input list",
+                                   "page":  4,
+                                   "relative_order":  "both reported question-chart viewing before initial answer submission"
+                               },
+    "incomplete_reviews":  [
+                               "A post-stored-key self-review not completed",
+                               "Final Claude recheck not completed; no independent final approval claimed"
+                           ],
+    "verification":  {
+                         "node_tests_passed":  5,
+                         "pinned_audit_and_agreement_reproduced":  true,
+                         "agent_config_checks":  "15/15",
+                         "db_write":  false,
+                         "ui_change":  false
+                     }
+}

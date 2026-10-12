@@ -10786,7 +10786,7 @@
     "public_v3": true,
     "ai_review_label": "verified",
     "existing_status": "ok",
-    "previously_exposed": false,
+    "previously_exposed": true,
     "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
     "source_binding_sha256": "0252143a54e114327f746539286431c41971a9f0ba9f16ac5843cc3e3820ee71"
   },
@@ -24679,7 +24679,7 @@
     "public_v3": true,
     "ai_review_label": "verified",
     "existing_status": "ok",
-    "previously_exposed": false,
+    "previously_exposed": true,
     "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
     "source_binding_sha256": "ecb86871aacb4b81a2813718f3f2be08af32efbf12c5a9b8e08441f492a547e2"
   },

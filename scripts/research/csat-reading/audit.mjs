@@ -35,7 +35,7 @@ const drain=path.join(root,'scripts/csat/inquiry-drain')
 for(const f of fs.readdirSync(drain).filter(f=>/^chunk-(inq|v3)-[\w-]+\.out\.json$/.test(f)).sort()){
  for(const item of read(path.join(drain,f)).items||[]){const prev=outs.get(item.id);if(!prev||(item.v3&&!prev.v3)||f.startsWith('chunk-v3'))outs.set(item.id,{...item,file:f})}
 }
-const previouslyExposed=new Set(['2026#34','2026#19','M2606#19','M2609#18'])
+const previouslyExposed=new Set(['2026#34','2026#19','M2606#19','M2609#18','2025#18','M2609#19'])
 const rows=corpus.map(it=>{
  const meta=parseExamId(it.exam);if(!meta||meta.organizer!=='kice')throw new Error(`Unrecognized KICE id ${it.id}`)
  const live=db.get(it.id);if(!live)throw new Error(`Missing DB item ${it.id}`)

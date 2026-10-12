@@ -1,0 +1,2628 @@
+{
+  "rater": "B",
+  "protocol": "1.0",
+  "independence": "separate_ai_context_same_model",
+  "answer_blind": true,
+  "items": [
+    {
+      "id": "M2406#31",
+      "binding": "5750ffbf30d537a722aa7639d53436c6e19ea059cde6971c305f9af9f3472c55",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "polarity"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "restatement"
+      ],
+      "inference": [
+        "explicit",
+        "local",
+        "contextual"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "contradicted",
+          "reason": "수량적 측면은 경험·생활양식 예시의 내용이 아니다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "경험·생활양식·윤리적 선택은 생존·실용을 넘어서는 비물질적 가치이다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "영양은 줄어드는 생존 중심 측면에 해당한다."
+        },
+        {
+          "n": 4,
+          "status": "contradicted",
+          "reason": "점점 변하는 소비 지향을 불변이라 할 수 없다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "경제적은 돈을 내는 사실에는 맞지만 뒤 경험·상징의 종류를 특정하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "경제활동 존재와 소비 가치의 비물질적 측면을 구분하도록 구성했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "applicable",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "less and less a matter of sustenance",
+          "why": "생존 중심에서 멀어지는 방향이다."
+        },
+        {
+          "anchor": "more and more a question of life-style",
+          "why": "생활양식으로 이동해 비물질적이 대응한다."
+        },
+        {
+          "anchor": "an interesting experience",
+          "why": "뒤 예시가 영양·수량과 다른 가치를 보여준다."
+        }
+      ],
+      "strategy_note": "대립 단독은 생존·실용 대 생활양식 방향으로 보기를 구분한다. 핵심문장은 마지막 소비 명제와 보기만으로 2를 지지하고 영양·수량·불변 및 범위가 모호한 경제적을 배제한다. 선택적 읽기는 빈칸·뒤 예시에서 마지막 환언까지 넓힌다. 구문만으로 가치의 의미를 정하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2014B#37",
+      "binding": "4e968a026c915867fb6472233197cca783a51fec8d4eecc23affa17b5243b824",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "object",
+        "polarity",
+        "modality"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "cause"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "coherence_failure",
+          "reason": "A의 대조는 맞지만 B는 접근성 변화의 예시라 역접 근거가 없다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "자원 자체와 접근성 변화는 대조이며 시베리아는 접근 문제의 사례이다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "자원 불변이 접근성 변화의 원인이 아니므로 결과 연결이 틀리다."
+        },
+        {
+          "n": 4,
+          "status": "coherence_failure",
+          "reason": "A의 인과와 B의 역접이 모두 앞뒤 명제에 맞지 않는다."
+        },
+        {
+          "n": 5,
+          "status": "coherence_failure",
+          "reason": "자원 불변과 접근성 변화는 환언이 아니며 시베리아도 앞 진술의 결론이 아니다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "자원 생성과 접근 조건의 차이를 연결어 선택에 반영하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "may affect access to these resources",
+          "why": "자원 자체와 접근 가능성을 분리한다."
+        },
+        {
+          "anchor": "In Siberia",
+          "why": "일반 접근 문제를 지역 사례로 좁힌다."
+        },
+        {
+          "anchor": "Warming may ease extreme environmental conditions",
+          "why": "사례가 기후·접근성 연결을 뒷받침한다."
+        }
+      ],
+      "strategy_note": "대립만 알면 A는 고르지만 B의 예시 기능을 추가해야 한다. 한 문장으로 두 위치 연결을 확정하지 못한다. 선택적 읽기는 두 빈칸 앞뒤와 자원·접근성 구별까지 필요하다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2024#25",
+      "binding": "6fc0668d5b2e954f58e8c2fc66540b22580d7d6a4dfa051a1902e326e77b2290",
+      "solved_answer": 4,
+      "discourse": "data",
+      "complexity": [
+        "scope",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "time",
+        "quantifier"
+      ],
+      "relations": [
+        "list",
+        "reference"
+      ],
+      "inference": [
+        "explicit",
+        "visual_numeric"
+      ],
+      "task": "quantitative",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "Ireland 30/32/41은 각 연도 다른 네 나라보다 높다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "Germany 24/25/29는 모두 30 미만이다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "Denmark 14/15/20은 2017<2019<2022이다."
+        },
+        {
+          "n": 4,
+          "status": "numeric_error",
+          "reason": "Finland는 18에서 17로 감소하지만 Japan은 6에서 11로 증가하여 같지 않다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "Japan 6/11/14는 모두 15 이하이다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "두 나라 감소 방향을 한 명제로 묶어 수치 불일치를 판별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "which was also true for Japan",
+          "why": "두 나라 두 연도의 변화가 같은지 확인한다."
+        },
+        {
+          "anchor": "did not exceed 15%",
+          "why": "15라는 경계와 일본의 세 막대를 비교한다."
+        }
+      ],
+      "strategy_note": "제시순 읽기는 비교·범위를 구성하지만 도표와 결합해야 진위를 정한다. 대립·한 문장·구문만으로 막대값을 얻지 못한다. 선택적 읽기는 나라·연도 막대로 시작하며 최고 여부는 모든 나라로 넓힌다. 홀수형 PDF 4쪽의 시각자료와 5보기를 직접 확인했다.",
+      "source_status": "stored_text_db_hash_checked_pdf_page4_visual_and_item_checked_answer_not_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2309#20",
+      "binding": "8a446d5f12805642d3dfc840624de2fd1237227b0f9bd03738f1adc5b72edd4a",
+      "solved_answer": 1,
+      "discourse": "argument",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "modality",
+        "condition"
+      ],
+      "relations": [
+        "contrast",
+        "cause",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "stance",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "성공적인 교류를 위해 표면 아래 가치·신념을 봐야 한다는 직접 주장이다."
+        },
+        {
+          "n": 2,
+          "status": "unsupported",
+          "reason": "공정한 업무 배분은 제시하지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "공동체 의식 형성은 주장한 목표가 아니다."
+        },
+        {
+          "n": 4,
+          "status": "unsupported",
+          "reason": "공통점 우선 파악이라는 순서를 제시하지 않는다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "소통 활성화보다 숨은 가치 이해를 요구한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "일반적인 협업·갈등 처방과 실제 요구를 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "applicable",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "we must go below the surface",
+          "why": "상호작용 성공 조건으로 이면 이해를 요구한다."
+        },
+        {
+          "anchor": "attitudes, beliefs, and values",
+          "why": "행동을 동기화하는 이해 대상이다."
+        }
+      ],
+      "strategy_note": "표면 대 숨은 기반의 대립은 1의 방법에 대응한다. 성공적 교류 조건을 말하는 must 문장 하나와 보기로 다른 처방을 배제한다. 선택적 읽기는 주장 문장과 첫 문장의 대상을 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2019#26",
+      "binding": "1ac8459bc67fddd447b7ded9636d1557c8cae710b53febcad2d29c6a43f788ed",
+      "solved_answer": 4,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "polarity",
+        "time"
+      ],
+      "relations": [
+        "sequence",
+        "reference"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "retrieve",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "첫 문장에 Washington, D.C. 태생 미국 작가라고 한다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "어릴 때 이야기 하나가 The Washington Post에 실렸다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "대학 졸업 후 저널리스트로 일했다."
+        },
+        {
+          "n": 4,
+          "status": "contradicted",
+          "reason": "영화는 같은 제목이라 다른 제목이라는 말이 틀리다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "Cross Creek 소유 땅이 업적을 기리는 주립공원이 되었다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "영화화 여부와 제목 동일성을 분리하도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "a film of the same name",
+          "why": "다른 제목과 충돌한다."
+        },
+        {
+          "anchor": "After graduating from university",
+          "why": "시점과 직업을 확인한다."
+        },
+        {
+          "anchor": "a Florida State Park honoring her achievements",
+          "why": "땅의 후속 상태를 확인한다."
+        }
+      ],
+      "strategy_note": "생애 순서로 조직된 전기이다. 영화 문장 하나로 오류는 찾지만 나머지 네 보기 확인에는 다른 사실도 필요하다. 선택적 읽기는 장소·직업·작품·토지 표지별 국소 문장을 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2022#22",
+      "binding": "f52ff88cde9452ab9fc12e4c2b19e51a2f619de1ea8af4c183650ee4cdaeda9b",
+      "solved_answer": 2,
+      "discourse": "argument",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "modality",
+        "condition"
+      ],
+      "relations": [
+        "cause",
+        "example",
+        "contrast",
+        "problem_solution"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "task": "macro_compress",
+      "choices": [
+        {
+          "n": 1,
+          "status": "unsupported",
+          "reason": "피해 보상이라는 대응은 언급하지 않는다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "개인이 회피하기 힘든 비자발적 노출을 줄이려면 사회적 조치가 필요하다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "도덕적 분노는 있으나 비난 이상의 행위를 일반적으로 요구하지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "unsupported",
+          "reason": "사후와 예방의 우선순위를 비교하지 않는다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "인접 국가 협력은 제시하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "일반 환경 처방과 개인 회피 불가능성에 따른 사회적 대응을 구분하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "exposure is largely involuntary",
+          "why": "개인이 피하기 힘든 노출이라는 조건이다."
+        },
+        {
+          "anchor": "may require societal action",
+          "why": "이러한 요인의 사회적 대응 필요성을 말한다."
+        },
+        {
+          "anchor": "the personal choice of whether an individual smokes tobacco",
+          "why": "비자발적 노출과 자발적 선택을 비교한다."
+        }
+      ],
+      "strategy_note": "비자발 대 자발 대립만으로 사회적 대응 술어가 나오지 않는다. 조치 문장의 these factors를 앞에서 복원해야 하므로 한 문장만으로 조건을 확정하지 못한다. 선택적 읽기는 조치 문장에서 앞 노출 조건과 뒤 사례까지 넓힌다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2019#29",
+      "binding": "cac140f1ef01122259290311a00a9d8ba0f4ce75c2a6ffd50fc5b54139c56016",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "complexity": [
+        "embedding",
+        "anaphora",
+        "ellipsis",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "polarity"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "restatement"
+      ],
+      "inference": [
+        "structural_grammar"
+      ],
+      "task": "grammar",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "come close to의 전치사 뒤 expressing 동명사가 가능하다."
+        },
+        {
+          "n": 2,
+          "status": "malformed",
+          "reason": "has been achieved를 받는 비교절의 did는 수동 달성 서술을 대용하지 못한다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "those는 앞의 작품·구조물을 받는 복수 대용어이다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "that은 돌무더기를 받는 주격 관계대명사이다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "is의 보어와 수동 상태 carved in wood가 병렬될 수 있다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "능동 대용 did와 수동태 형식을 구분하도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "applicable",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "has the quality of monumentality been achieved",
+          "why": "기준 서술이 수동태이다."
+        },
+        {
+          "anchor": "as fully as it ② did in Egypt",
+          "why": "did는 기준 수동태를 보존하지 못한다."
+        },
+        {
+          "anchor": "comes very close to ① expressing",
+          "why": "전치사 목적어 동명사로 1을 배제한다."
+        }
+      ],
+      "strategy_note": "크기 대 기념비성 대립은 어법과 별개다. 구문독해는 비교절 대용·전치사·대용명사·관계절·병렬을 국소 검사한다. 한 문장으로 모든 위치를 검수하지 못한다. 선택적 읽기는 각 표시의 의존 구조와 필요한 선행명사까지 읽는다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2022#21",
+      "binding": "726821f9b4bbfd25e0e90b788c5cf55626894aecca41d4c0f9567adceb214e20",
+      "solved_answer": 1,
+      "discourse": "argument",
+      "complexity": [
+        "polysemy",
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "modality",
+        "condition"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "concession",
+        "cause"
+      ],
+      "inference": [
+        "global",
+        "contextual"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "전문가를 제한적으로 신뢰하되 신뢰 없이는 출근 준비 같은 실용 판단이 마비된다는 문맥에 가장 맞는다."
+        },
+        {
+          "n": 2,
+          "status": "unsupported",
+          "reason": "비전문가가 퍼뜨린 의심스러운 사실을 말미가 지칭하지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "결정을 거의 좌우하지 않는 정보라면 판단 마비라는 결론과 충돌한다."
+        },
+        {
+          "n": 4,
+          "status": "unsupported",
+          "reason": "일반인 사례는 있으나 말미는 지정된 전문가 신뢰의 필요성을 설명한다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "편향된 지역 지식의 유통을 말미에서 논하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "분야 한정 신뢰의 필요성과 무조건 신뢰를 구별하는 추론을 요구했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "without some degree of trust in our designated experts",
+          "why": "말미의 주체와 조건을 한정한다."
+        },
+        {
+          "anchor": "we are paralyzed",
+          "why": "전문가 불신의 결과가 일상 판단 불능이다."
+        },
+        {
+          "anchor": "trust needs to be limited, and focused",
+          "why": "무조건 신뢰가 아닌 분야 제한이라는 맥락이다."
+        }
+      ],
+      "strategy_note": "신뢰·불신 대립만으로 정보 제공자의 범위를 확정하지 못한다. 마지막 문장만으로 1은 유력하나 일반인을 포함한 4를 검수하려면 앞 사례의 기능도 읽는다. 선택적 읽기는 말미에서 신뢰 제한·일반인 경험까지 넓힌다. 입력 밑줄 절과 정보 명사구 보기의 범주 차이는 PDF 확인이 필요하다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": [
+        "발문 밑줄 범위는 출근 준비 여부의 절이고 보기들은 정보 종류 명사구이다. 원본 밑줄 범위 미확인으로 답 1은 잠정 문맥 해석이다."
+      ]
+    },
+    {
+      "id": "2020#38",
+      "binding": "fa676bfa41ff2538b3deebc4c96cdc286ac2cfad4f029db442fb8111ad3e0039",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "complexity": [
+        "embedding",
+        "anaphora",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "condition",
+        "time",
+        "modality"
+      ],
+      "relations": [
+        "contrast",
+        "cause",
+        "sequence",
+        "reference"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "coherence_insert",
+      "choices": [
+        {
+          "n": 1,
+          "status": "coherence_failure",
+          "reason": "아직 생존·번식 요구 충돌이 소개되지 않아 Thus의 결론 근거가 없다."
+        },
+        {
+          "n": 2,
+          "status": "coherence_failure",
+          "reason": "먹이·은신처 단계 바로 뒤에서는 번식 장소 유지의 대가가 도출되지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "두 요구를 충족해야 한다는 선언 뒤에는 아직 두 서식지가 다를 수 있다는 비용 원인이 없다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "생존과 번식 최적 서식지의 차이 뒤에 정주조의 선택 비용을 설명한 뒤 철새의 자유와 대조한다."
+        },
+        {
+          "n": 5,
+          "status": "coherence_failure",
+          "reason": "철새의 자유 뒤에 정주조 결론을 넣으면 Thus가 철새에서 정주조 비용을 도출해 결속이 약해지고 앞의 however 대조 연결도 빠진다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "정주조의 생존·번식 양립 제약을 결론과 철새 대조 사이에 놓도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "may not be the same habitat",
+          "why": "정주조가 비용을 감수할 수밖에 없는 선행 이유이다."
+        },
+        {
+          "anchor": "by remaining in the specific habitat",
+          "why": "삽입문은 번식지 잔류의 비용을 결론으로 말한다."
+        },
+        {
+          "anchor": "Migrants, however, are free to choose",
+          "why": "정주조 제약의 결론 다음에 철새를 대비한다."
+        }
+      ],
+      "strategy_note": "정주·철새 대립만으로 Thus의 비용 근거 위치를 확정하지 못한다. 삽입문 한 문장만으로 다섯 경계를 구분하지 못한다. 제시순 읽기는 생존→번식→충돌→잔류 비용→철새라는 의미를 갱신한다. 선택적 읽기는 삽입문의 Thus·remaining에서 충돌 문장과 뒤 철새 문장으로 넓힌다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2306#35",
+      "binding": "faae903f125ec4cb1bf8e56d908b1e1b6344a1e49f175db1380318841fcd72f7",
+      "solved_answer": 3,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "condition"
+      ],
+      "relations": [
+        "condition",
+        "contrast",
+        "cause",
+        "reference"
+      ],
+      "inference": [
+        "global"
+      ],
+      "task": "coherence_remove",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "강한 상대에게 물러나는 선택은 정보에 따른 결정의 한 경우이다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "약한 상대와 싸우는 이득은 반대 조건의 결정을 설명한다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "체중·규칙적 섭취는 상대 평가와 공격·도주 선택이라는 논지를 잇지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "정보 수집 시간이 더 나은 선택을 돕는다는 일반 설명이다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "신호의 평가 기능은 상대 결과에 대한 정보를 공급한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "동물이라는 소재 공유를 담화 목적의 연결과 혼동하지 않게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "between attacking a rival and fleeing",
+          "why": "글의 결정 대상은 충돌 상황의 행동 선택이다."
+        },
+        {
+          "anchor": "maintain a very constant body weight",
+          "why": "문제 문장은 상대평가와 다른 생리 조절 사실이다."
+        },
+        {
+          "anchor": "information gathering or ‘assessment’ function",
+          "why": "말미까지 상대 정보·결정의 공통 내용이 이어진다."
+        }
+      ],
+      "strategy_note": "강한 상대 대 약한 상대의 대립만으로 3의 무관성을 판정하지 못한다. 첫 문장을 후보 주제로 삼을 수 있으나 나머지 문장의 기능 확인이 있어야 모든 보기를 검수한다. 선택적 읽기는 3 앞뒤에서 시작하지만 전체 흐름 제거 판단에는 다섯 문장의 주제 연결까지 읽는다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2020#19",
+      "binding": "ab81634ff4ffb23d00413f73971845539d7315d6815c655296bb0a6ae6053428",
+      "solved_answer": 1,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "time",
+        "polarity"
+      ],
+      "relations": [
+        "sequence",
+        "concession",
+        "cause"
+      ],
+      "inference": [
+        "explicit",
+        "contextual",
+        "global"
+      ],
+      "task": "affect",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "열성적 신청과 기대가 현장의 지루한 들판을 본 실망으로 바뀐다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "처음 무관심하지 않았고 마지막도 전율이 아니라 실망이다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "공포를 느낀다는 근거가 없다."
+        },
+        {
+          "n": 4,
+          "status": "contradicted",
+          "reason": "끝에서 안도한 것이 아니라 기대가 무너졌다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "처음 걱정하거나 끝에서 자신감을 얻는 내용이 없다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "전후 사건의 평가와 감정 방향을 대응시키도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "signed up enthusiastically",
+          "why": "초기의 적극적인 기대이다."
+        },
+        {
+          "anchor": "hardly appealed to him",
+          "why": "현장이 매력 없이 느껴진다."
+        },
+        {
+          "anchor": "these boring fields",
+          "why": "마지막의 실망을 확인한다."
+        }
+      ],
+      "strategy_note": "기대했던 성·기념물 대 실제 들판의 양쪽 명제와 방향은 흥분→실망을 판별한다. 한 문장만으로 전후 심경 모두를 확인하지 못한다. 선택적 읽기는 처음 기대와 마지막 평가·한숨을 읽고 기대와 실제의 차이까지 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2023#27",
+      "binding": "635a07f75713823b7546f6521c4145ff7d4253fd9d8f536f1623559290c87df1",
+      "solved_answer": 2,
+      "discourse": "practical",
+      "complexity": [
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "time",
+        "quantifier",
+        "modality"
+      ],
+      "relations": [
+        "list",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "retrieve",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "보수 기간 시작 날짜가 2022년 11월 21일이다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "every day이므로 주말에만 한다는 범위가 틀리다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "폐쇄 구역은 체육관·실내 수영장이다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "모든 야외 레저 활동이 평소처럼 가능하다고 한다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "테니스장을 무료로 쓸 수 있다고 한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "기간의 시작과 공사 요일의 범위를 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "every day from 9:00 a.m. to 5:00 p.m.",
+          "why": "매일이라는 양화 범위가 2번 주말 한정과 충돌한다."
+        },
+        {
+          "anchor": "Gym and indoor swimming pool",
+          "why": "3번 폐쇄 대상이다."
+        },
+        {
+          "anchor": "may use the tennis courts for free",
+          "why": "5번 무료 이용과 직접 대응한다."
+        }
+      ],
+      "strategy_note": "안내문의 항목별 사실 대응으로 해결한다. 매일 문장만으로 2를 찾지만 나머지 보기 사실 확인은 다른 항목도 필요하다. 선택적 읽기는 보기의 날짜·기간·시설·활동·요금 표지별 항목만 확인한다. 구문독해만으로 매일과 주말의 의미를 대체할 수 없다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2206#36",
+      "binding": "1446776cf038961dd7e8746d53ac3baf083e7235bafee26d21ecc39b3bac5c5b",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "polarity"
+      ],
+      "relations": [
+        "sequence",
+        "example",
+        "reference",
+        "contrast",
+        "result"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "coherence_order",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "A 실험 절차→C 발견·예시→B 그 비대칭의 함의로 이어진다."
+        },
+        {
+          "n": 2,
+          "status": "coherence_failure",
+          "reason": "B의 This asymmetry는 아직 소개되지 않은 비대칭을 전제한다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "B가 비대칭 설명 전이고 C 발견도 A의 측정 절차보다 먼저이다."
+        },
+        {
+          "n": 4,
+          "status": "coherence_failure",
+          "reason": "발견 C와 그 함의 B 사이에 절차 A를 끼워 This asymmetry의 직접 연결을 끊는다."
+        },
+        {
+          "n": 5,
+          "status": "coherence_failure",
+          "reason": "발견과 함의 뒤에 연구 절차가 와서 finding의 근거 소개가 뒤집힌다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "실험 절차·관찰 결과·이론적 함의의 결속 순서를 확인하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "researchers first collect a list",
+          "why": "A는 연구 절차를 소개한다."
+        },
+        {
+          "anchor": "The remarkable finding",
+          "why": "C는 그 절차의 결과를 말한다."
+        },
+        {
+          "anchor": "This asymmetry of distance estimates",
+          "why": "B는 C의 방향별 거리 차이를 받아 해석한다."
+        }
+      ],
+      "strategy_note": "랜드마크로 향하는 거리와 역방향 거리의 대립만으로 연구 절차 위치를 정하지 못한다. 한 문장으로 세 단락의 순서를 검수하지 못한다. 선택적 읽기는 finding과 This asymmetry에서 시작해 측정 절차까지 넓혀 세 단락을 모두 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2409#18",
+      "binding": "eae5379e3fd2dfa8c31f320576ae994cc1436cab7b31df7ac30054532579837d",
+      "solved_answer": 1,
+      "discourse": "practical",
+      "complexity": [
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "modality",
+        "condition"
+      ],
+      "relations": [
+        "cause",
+        "result",
+        "problem_solution"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "purpose",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "부모 자원봉사자에게 교통 안내 참여를 직접 요청한다."
+        },
+        {
+          "n": 2,
+          "status": "unsupported",
+          "reason": "봉사 시간 안내는 있으나 교육 일정 공지는 없다."
+        },
+        {
+          "n": 3,
+          "status": "task_mismatch",
+          "reason": "도로 공사는 요청의 배경이고 시설 공사 양해가 발신 목적은 아니다."
+        },
+        {
+          "n": 4,
+          "status": "task_mismatch",
+          "reason": "공사 필요성을 설명하지 않고 예정된 공사를 위험 배경으로 둔다."
+        },
+        {
+          "n": 5,
+          "status": "task_mismatch",
+          "reason": "차량 수칙 준수 대신 부모의 봉사 참여를 요구한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "요청 행동과 그 배경의 도로 공사를 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "we are asking for parent volunteers",
+          "why": "직접 요청의 수신자와 행동을 제시한다."
+        },
+        {
+          "anchor": "help with directing traffic",
+          "why": "교통안전 봉사의 구체적 내용이다."
+        },
+        {
+          "anchor": "This raises safety concerns",
+          "why": "공사가 봉사 요청의 이유로 기능한다."
+        }
+      ],
+      "strategy_note": "요청 문장 하나와 보기로 1을 판별하고 교육·양해·공사 필요성·수칙 준수를 배제한다. 선택적 읽기는 asking 문장과 요청의 행동 목적어까지 확인한다. 이유를 추가로 읽으면 공사 소재를 발신 목적과 구별할 수 있다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M1809#30",
+      "binding": "2b3ebd1f831946eed81acffa2245d96beac6216c5f79aa76260e09ba08ef3bee",
+      "solved_answer": 5,
+      "discourse": "mixed",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "condition",
+        "time"
+      ],
+      "relations": [
+        "reference",
+        "cause",
+        "example",
+        "condition"
+      ],
+      "inference": [
+        "local",
+        "contextual"
+      ],
+      "task": "referent",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "① 전체 표시가 her mother라면 Louise의 어머니를 가리킨다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "위협의 인용문 I는 말하는 Louise의 어머니이다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "실제로 위협을 실행하지 않은 she는 Louise의 어머니이다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "자신의 어머니에게 배운 her의 기준 인물은 Louise의 어머니이다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "마지막 가정문 she는 세미나에서 기술을 배운 Louise여서 앞의 어머니와 다르다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "인용문 화자·세대별 소유 표현·가정절의 주체를 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "Louise said her mother’s infamous threat",
+          "why": "위협 인용문의 화자는 어머니이다."
+        },
+        {
+          "anchor": "If Louise had not learned",
+          "why": "마지막 가정문의 주어 Louise가 뒤 she를 정한다."
+        },
+        {
+          "anchor": "① her mother dealt with sibling fighting",
+          "why": "①이 전체 명사구인지 her만인지에 따라 지시 대상이 달라진다."
+        }
+      ],
+      "strategy_note": "양육 전승과 세미나 학습의 차이는 있어도 지시 대상은 개별 문맥을 추적해야 한다. 한 문장은 모든 대명사를 배제하지 못한다. 국소 구문만으로 직접 인용 I의 화자까지 모두 결정하지 못한다. 선택적 읽기는 각 번호의 선행인물과 인용 화자·조건절까지 확인한다. 최초 답 5는 ① 밑줄이 her mother 전체라는 잠정 읽기에 의존한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": [
+        "입력은 번호 이후 긴 문자열을 보기로 보존해 ①의 정확한 밑줄 끝을 알 수 없다. her만이면 Louise이고 her mother 전체이면 어머니여서 PDF 범위 확인이 필요하다."
+      ]
+    },
+    {
+      "id": "2017#40",
+      "binding": "88d2bce32480fe8a8e678cbe78a271ccc79f5e9654d075008e673a3d82f8ca97",
+      "solved_answer": 3,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "polarity",
+        "quantifier"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "cause",
+        "restatement"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "task": "macro_compress",
+      "choices": [
+        {
+          "n": 1,
+          "status": "contradicted",
+          "reason": "평가는 같지 않고 입장도 공통적이라고 할 수 없다."
+        },
+        {
+          "n": 2,
+          "status": "unsupported",
+          "reason": "입장 차이는 있지만 각 입장이 균형 잡혔다고 하지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "주민은 여러 요인에 따라 서로 다른 입장에서 환경영향을 평가한다."
+        },
+        {
+          "n": 4,
+          "status": "contradicted",
+          "reason": "주민의 평가를 영향 통제라 바꾸었고 우려하는 주민도 있어 일괄 호의적이지 않다."
+        },
+        {
+          "n": 5,
+          "status": "task_mismatch",
+          "reason": "상충 입장은 일부 대응하나 control은 원문의 느낌·평가라는 행위를 바꾼다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "동일한 환경영향에 대한 평가 행위와 주민 입장의 차이를 두 성분으로 압축하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "their reactions to environmental impacts are mixed",
+          "why": "입장의 차이를 직접 말한다."
+        },
+        {
+          "anchor": "variations in residents’ feelings",
+          "why": "주민 감정의 변이가 종합 대상이다."
+        },
+        {
+          "anchor": "are related to the type of tourism",
+          "why": "변이에 영향을 주는 조건을 명시한다."
+        }
+      ],
+      "strategy_note": "긍정·우려 대립만으로 A의 평가 행위를 정하는 것은 부족하다. 마지막 본문 문장 하나는 주민 감정 차이와 여러 요인을 함께 말해 weigh/dissimilar를 고르고 나머지 입장·행위 조합을 배제한다. 선택적 읽기는 요약문의 빈칸에서 마지막 요인 문장과 앞의 혼합 반응으로 확장한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2019#24",
+      "binding": "ba659c8f4d7790dbbbd3926418bc1388b06a61a49ad9b15835180ee20a26a58f",
+      "solved_answer": 5,
+      "discourse": "argument",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "polarity",
+        "condition"
+      ],
+      "relations": [
+        "contrast",
+        "cause",
+        "problem_solution"
+      ],
+      "inference": [
+        "global",
+        "contextual"
+      ],
+      "task": "macro_compress",
+      "choices": [
+        {
+          "n": 1,
+          "status": "contradicted",
+          "reason": "숫자가 감정을 증폭한다는 주장이 아니라 큰 숫자는 감정 없이는 의미를 못 준다고 한다."
+        },
+        {
+          "n": 2,
+          "status": "task_mismatch",
+          "reason": "기술을 통한 손실 평가·전달은 출발 배경이고 그 방법에 대한 의문이 중심이다."
+        },
+        {
+          "n": 3,
+          "status": "task_mismatch",
+          "reason": "개인을 돕는 행위는 집단 피해에 둔감한 역설의 한쪽이지 도움 방법 안내가 아니다."
+        },
+        {
+          "n": 4,
+          "status": "unsupported",
+          "reason": "재난 분류법을 숫자로 정한다는 내용은 없다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "큰 수의 의미 결여와 집단 비극에 대한 둔감성을 함께 포괄한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "손실 평가 기술의 소개와 그 숫자를 이해한다는 가정에 대한 비판을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "large numbers have been found to lack meaning",
+          "why": "큰 숫자의 인지적 문제를 명시한다."
+        },
+        {
+          "anchor": "unless they convey affect (feeling)",
+          "why": "감정 연결이 필요한 조건이다."
+        },
+        {
+          "anchor": "we often fail to prevent mass tragedies",
+          "why": "개인 도움과 대비되는 집단 피해 대응 실패이다."
+        }
+      ],
+      "strategy_note": "개인 도움 대 집단 비극 대응 실패의 대립만으로 큰 수라는 원인을 특정하지 못한다. 큰 수 문장만으로는 재난 맥락을 배제·선정하는 범위가 부족하다. 선택적 읽기는 제목 후보의 large numbers·mass tragedy에 해당하는 중간과 말미를 모두 확인하며 앞 기술 배경도 중심과 구분한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2020#23",
+      "binding": "47e13b193a563defb938c138c35dd8aea9f658224e502c24111216422d3fa0b9",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "modality"
+      ],
+      "relations": [
+        "cause",
+        "elaboration",
+        "restatement",
+        "contrast"
+      ],
+      "inference": [
+        "global",
+        "explicit"
+      ],
+      "task": "macro_compress",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "도덕 발달에서 유전자와 환경의 복잡한 상호작용이 전 글을 묶는다."
+        },
+        {
+          "n": 2,
+          "status": "task_mismatch",
+          "reason": "nature versus nurture 논쟁을 소개하기보다 양자 분리가 부적절하다고 설명한다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "도덕 교육의 필요성이 점점 증가한다는 처방이나 시계열은 없다."
+        },
+        {
+          "n": 4,
+          "status": "task_mismatch",
+          "reason": "설명 미완성은 있으나 대상은 유전자 진화만이 아니라 도덕 발달의 상호작용이다."
+        },
+        {
+          "n": 5,
+          "status": "task_mismatch",
+          "reason": "문화는 한 요소이지만 문화 관점만으로 도덕 진화를 설명하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "nature/nurture라는 소재어 일치와 실제 관계인 상호작용을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "Genes and environment interact",
+          "why": "유전자·환경의 관계를 직접 말한다."
+        },
+        {
+          "anchor": "the process of moral development in children",
+          "why": "그 관계가 다루는 대상이다."
+        },
+        {
+          "anchor": "it is really both, or nature through nurture",
+          "why": "양자 대립 대신 통합임을 환언한다."
+        }
+      ],
+      "strategy_note": "유전자 단독 대 상호작용의 방향은 유용하지만 도덕 발달 대상과 복잡성을 대립만으로 모두 명시하지 못한다. Genes and environment 문장 하나는 상호작용과 도덕 발달 및 분리 불가능을 함께 담아 1을 지지하고 2~5의 범위·행위 변형을 배제한다. 선택적 읽기는 주제 문장을 찾고 전후 복잡성·교육 처방 부재를 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2017#29",
+      "binding": "1452d4c2d185c0a0e392aa9a54bd20f27f2872a46b3a58196ffff88207b13f83",
+      "solved_answer": 4,
+      "discourse": "argument",
+      "complexity": [
+        "polysemy",
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "polarity",
+        "condition"
+      ],
+      "relations": [
+        "cause",
+        "contrast",
+        "example"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual"
+      ],
+      "task": "lexical_context",
+      "choices": [
+        {
+          "n": 1,
+          "status": "contradicted",
+          "reason": "based on은 이 문맥에서 다른 교사의 성과를 모른다는 뜻을 만들지 못한다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "based와 forbids는 단절 설명에 맞지 않고 mostly도 공동 활동이 없었다는 뒤 문맥과 충돌한다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "lost와 allows는 맞지만 공동 계획이 대체로 떠올랐다는 mostly가 Rather 뒤 불평 행동과 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "lost on은 모름, allows의 부재는 비교 기회 없음, never는 공동 계획 부재를 나타낸다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "forbids의 부재는 비교 금지가 없다는 뜻이므로 한 관점에 갇히는 원인을 설명하지 못한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "숙어 의미·부재 조건의 극성·역접 행동을 동시에 일관되게 조합하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "teachers work in isolation",
+          "why": "다른 교사 성과를 알지 못하는 첫 조건이다."
+        },
+        {
+          "anchor": "In the absence of a process",
+          "why": "allows/forbids 선택에 부재의 극성을 적용한다."
+        },
+        {
+          "anchor": "Rather, we spent much time",
+          "why": "공동 계획 대신 불평했으므로 never를 지지한다."
+        }
+      ],
+      "strategy_note": "고립 대 협업의 방향만으로 lost on의 의미와 absence 아래 허용·금지 극성을 정하지 못한다. 한 문장은 A/B/C를 함께 검수하지 못한다. 선택적 읽기는 각 빈칸의 문장과 앞뒤 결과까지 넓힌다. 국소 구문은 부재 범위에 도움되지만 단독으로 세 어휘의 문맥을 정하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2016#42",
+      "binding": "acb10bfc4108ed2c25feee9b4ee3b4f6b51c25434bcb425a566f65316cfa0bc1",
+      "solved_answer": 2,
+      "discourse": "argument",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "polarity",
+        "modality"
+      ],
+      "relations": [
+        "concession",
+        "example",
+        "cause",
+        "elaboration"
+      ],
+      "inference": [
+        "global",
+        "contextual"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "contradicted",
+          "reason": "실용적이라는 표면 성질이 아니라 당장 실용적이지 않아 보이는 지식의 가치를 옹호한다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "우주 탐사 지식은 표면상 비실용적이지만 존재 의미를 알려 가치 있다고 한다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "정확성이 낮다는 비판은 글에 없다."
+        },
+        {
+          "n": 4,
+          "status": "coherence_failure",
+          "reason": "실제로 가치를 주장하므로 seemingly priceless라 하면 겉보기 가치와 실제 가치의 전환이 약해진다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "resourceful은 지식의 무실용성 논점과 대응하지 않으며 풍부한 수완을 주장하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "즉각적 실용성의 부재와 지식 가치의 부재를 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "has no known practical value",
+          "why": "기초 과학을 처음 비실용적이라 정의한다."
+        },
+        {
+          "anchor": "seems an insult to refer to it as merely functional",
+          "why": "기능 이상의 가치로 논점을 넓힌다."
+        },
+        {
+          "anchor": "that knowledge is beyond value",
+          "why": "비실용적으로 보여도 최종적 가치는 높다는 방향이다."
+        }
+      ],
+      "strategy_note": "겉보기 비실용성 대 실제·존재적 가치의 양쪽 명제와 방향은 2를 고르고 나머지 속성 변형을 배제한다. 빈칸 문장 하나로 겉보기 속성을 확정하기는 부족하다. 선택적 읽기는 seemingly 문장과 전후 존재 가치에서 시작해 처음 기초과학 정의까지 확대한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2017#42",
+      "binding": "5e1a7e7e19b520f85b62197da64fdb748d3bde6923e8e624c63e7637a4dd0fe2",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "time",
+        "quantifier"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "restatement"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual",
+        "visual_numeric"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "unsupported",
+          "reason": "faster는 맞으나 심리시계가 지연된다고 일반 진술하지 않는다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "internal은 가능한 의미이나 4초마다 공이 온다고 느끼는 첫 타자에게 slower는 틀리다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "심리적 시간의 부정확성이 있고 B slower도 반대이다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "물리시간과 달리 심리시간은 부정확하며 첫 타자는 동일한 공 수를 40초로 느껴 더 빠른 템포이다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "신비롭다는 속성은 근거가 없고 slower는 첫 타자의 간격과 반대이다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "시간 측정의 정확성과 체감 사건 간격을 서로 다른 두 기준으로 결합하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "a considerably clumsier operation",
+          "why": "A는 물리초와 달리 심리시간 측정의 부정확성을 반영한다."
+        },
+        {
+          "anchor": "time sense breaks down",
+          "why": "imprecise를 지지한다."
+        },
+        {
+          "anchor": "every four seconds while the second sees it as every six",
+          "why": "첫 타자가 더 짧은 간격을 느껴 B는 faster이다."
+        }
+      ],
+      "strategy_note": "물리·심리 대립만으로 A 후보는 좁혀도 첫 타자 템포를 정하는 수량 관계가 추가로 필요하다. 한 문장으로 두 빈칸을 확정하지 못한다. 선택적 읽기는 A 인접의 시간감각과 B 앞 4초/6초를 확인한다. 수량 추론은 텍스트 간격 비교이며 외부 그림은 필요하지 않다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2014A#45",
+      "binding": "90663ef369b41229cb1a004ecd62e0827f9341fa0a2bbc5720692a06b330d06d",
+      "solved_answer": 5,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "time",
+        "polarity"
+      ],
+      "relations": [
+        "sequence",
+        "reference",
+        "cause",
+        "concession"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "retrieve",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "18세 그리스 이민자로 미국에 왔다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "학교에서 읽기를 배우지 못했다고 직접 말한다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "손녀와 초보자 책으로 함께 공부했다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "손녀 18세 생일 케이크에 축하 문구를 직접 썼다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "할머니가 손녀에게 이야기를 들려주기 좋아했다. 듣기를 좋아했다는 것은 역할을 뒤집는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "같은 사건의 주체와 행위 방향을 바꾼 보기를 구분하도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "liked to tell me these interesting stories at night",
+          "why": "할머니는 이야기의 청자가 아니라 화자이다."
+        },
+        {
+          "anchor": "using books for beginners",
+          "why": "초보자용 책 공부가 직접 대응한다."
+        },
+        {
+          "anchor": "decorated a cake with “HAPPY BIRTHDAY BETTY.”",
+          "why": "케이크 문구 사실을 확인한다."
+        }
+      ],
+      "strategy_note": "생애와 읽기 학습의 서사로 주요 대립이 정오의 근거는 아니다. 이야기 문장 하나로 5의 역할 오류는 찾지만 나머지 네 보기 성립은 다른 단락도 확인한다. 선택적 읽기는 각 보기의 이민·학교·공부·생일·이야기 동사로 해당 구간을 읽는다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2021#43",
+      "binding": "7f6e1b415c0a24542d25bbb4f7868b55ffe2859135b7f859b225a15c759ee840",
+      "solved_answer": 3,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "time"
+      ],
+      "relations": [
+        "sequence",
+        "reference",
+        "cause"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "coherence_order",
+      "choices": [
+        {
+          "n": 1,
+          "status": "coherence_failure",
+          "reason": "B의 Mom replied는 질문·해명 이전에 올 수 없으며 D의 분노도 C의 방해보다 앞선다."
+        },
+        {
+          "n": 2,
+          "status": "coherence_failure",
+          "reason": "C의 고자질 뒤 D의 해명 전에 B의 인정이 와서 대화 순서를 끊는다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "C의 방해·고자질→D의 어머니 질문과 Felix 해명→B의 인정·Sean 호출이다."
+        },
+        {
+          "n": 4,
+          "status": "coherence_failure",
+          "reason": "D의 분노와 해명이 C의 방해·고자질보다 먼저 온다."
+        },
+        {
+          "n": 5,
+          "status": "coherence_failure",
+          "reason": "D 해명 뒤 C 고자질을 배치하면 해명의 계기가 사후에 제시된다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "대화 응답과 방해의 원인을 사건 순서로 연결하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "Mom, Felix isn’t studying",
+          "why": "C에서 Sean이 고자질하여 질문을 유발한다."
+        },
+        {
+          "anchor": "I’m watching a lecture video for my science class",
+          "why": "D의 해명이 B의 대답 대상이다."
+        },
+        {
+          "anchor": "All right. I’m sure you’re doing your work.",
+          "why": "B는 D 해명을 수용한다."
+        }
+      ],
+      "strategy_note": "Sean의 의심과 Felix의 실제 수업 대립만으로 사건·발화 순서를 정하지 못한다. 한 문장은 모든 전이를 검수하지 못한다. 선택적 읽기는 replied의 앞 발화와 분노 원인에서 출발해 A의 인물소개 및 세 단락을 모두 읽는다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2014A#44",
+      "binding": "b3a2a994ff82811f25a00b95d22f4f75177acf2059942a75ed71a91e342fce3a",
+      "solved_answer": 3,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate"
+      ],
+      "relations": [
+        "reference",
+        "sequence"
+      ],
+      "inference": [
+        "explicit",
+        "local"
+      ],
+      "task": "referent",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "가족을 부양해야 했던 her는 grandmother이다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "영어 표지 읽기 어려웠던 she는 grandmother이다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "계획 이야기를 듣고 기뻐한 she는 직전에 대화한 mom이다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "축하 글을 스스로 쓴 she는 grandmother이다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "들려준 이야기의 her는 grandmother이다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "국소적으로 바뀐 선행 인물과 계속 유지된 인물을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "I talked to my mom about it, and (c) she",
+          "why": "(c)는 mom으로 국소 연결한다."
+        },
+        {
+          "anchor": "my grandmother came to America",
+          "why": "이후 (a)의 인물이다."
+        },
+        {
+          "anchor": "The morals of (e) her stories",
+          "why": "(D)의 이야기 화자인 할머니를 받는다."
+        }
+      ],
+      "strategy_note": "인물의 다른 지시를 찾는 과제는 담화 대립을 요구하지 않는다. mom 문장 하나로 3의 대상은 정하지만 다른 네 대상의 동일성은 각 문맥을 검수해야 한다. 선택적 읽기는 다섯 지시어의 직전 주어·화자를 읽는다. 구문만으로 다른 단락의 의미상 선행인물까지 확정하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2017#41",
+      "binding": "142170cfa2108aca015624d98d523912d3c27f8e235953e6c2cde03c6ed5769b",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "time",
+        "condition"
+      ],
+      "relations": [
+        "contrast",
+        "example",
+        "restatement"
+      ],
+      "inference": [
+        "global",
+        "contextual"
+      ],
+      "task": "macro_compress",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "지속시간과 사건 템포의 체감 관계를 설명하는 전체 범위이다."
+        },
+        {
+          "n": 2,
+          "status": "task_mismatch",
+          "reason": "야구는 체감시간 예시이고 과학·야구의 평화 공존이 논지가 아니다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "물리학의 새로운 방향이나 시간으로부터 탈출을 주장하지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "task_mismatch",
+          "reason": "정밀한 물리시간 대 체감시간은 있으나 제목은 지속시간과 템포의 지각 관계를 충분히 포괄하지 못한다."
+        },
+        {
+          "n": 5,
+          "status": "task_mismatch",
+          "reason": "시계는 실제시간 단서 중 하나이며 시계가 삶에 주는 혜택을 설명하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "예시 소재인 야구와 중심 개념인 시간·템포 지각을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "Duration refers to the time that events last",
+          "why": "지속시간 개념을 소개한다."
+        },
+        {
+          "anchor": "should experience a slower tempo",
+          "why": "지속시간 지각 변화가 템포 지각으로 연결된다."
+        },
+        {
+          "anchor": "every four seconds while the second sees it as every six",
+          "why": "예시의 중심은 동일 사건의 다른 지각이다."
+        }
+      ],
+      "strategy_note": "물리시간 대 심리시간의 대립만으로 템포 관계와 예시 위계를 확정하지 못한다. 이론 문장 하나는 관계를 제시해 1이 유력하나 4의 precision/duration을 중심에서 배제하려면 글의 설명 범위를 확인한다. 선택적 읽기는 duration·tempo 정의와 이론 문장, 마지막 두 타자의 예시까지 넓힌다. 전체 제목 범위의 확인에는 앞뒤 통합이 필요하다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2022#42",
+      "binding": "55d179714ad02c1bc096b639fd7652511a51ca5c175be2c1b2ddebf76c10adcc",
+      "solved_answer": 3,
+      "discourse": "exposition",
+      "complexity": [
+        "polysemy",
+        "embedding",
+        "scope",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "polarity",
+        "condition"
+      ],
+      "relations": [
+        "example",
+        "elaboration",
+        "cause",
+        "reference",
+        "restatement"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual"
+      ],
+      "task": "lexical_context",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "무작위 진열에서 물품 찾기가 어렵고 시간이 걸린다는 설명에 맞다."
+        },
+        {
+          "n": 2,
+          "status": "entailed",
+          "reason": "매장 진열은 누군가 분류 체계를 설계해야 한다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "이미 단어를 습득했기 때문에 분류가 너무 당연하거나 단순해 보인다는 설명에서 abstract는 그 방향과 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "어린 시절 부모의 분류 체계를 배우느라 노력했다는 내용과 맞다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "언어 습득 전에는 낯선 개체를 구분할 체계가 없어 무조직 매장과 같은 세계이다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "분류의 실제 난점과 숙달 뒤의 주관적 단순함을 문맥에 맞게 구분하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "because you have already mastered the word",
+          "why": "분류를 분류로 느끼지 못하는 이유는 숙달에 따른 당연함이다."
+        },
+        {
+          "anchor": "you had to work hard to (d) learn",
+          "why": "원래 분류 습득에는 노력이 필요해 추상적이라서 분류가 아니라는 설명과 다르다."
+        },
+        {
+          "anchor": "arranged in random order",
+          "why": "첫 매장 비유가 time-consuming·unorganized를 지지한다."
+        }
+      ],
+      "strategy_note": "조직·무조직 대립만으로 숙달한 분류가 추상적으로 보이는지까지 정하지 못한다. 한 문장은 다섯 어휘의 적합성을 검수하지 못한다. 선택적 읽기는 c의 because에서 어린 시절 학습으로 넓히며 a/b/e는 매장 비유와 마지막 비유의 전후를 각각 확인한다. 구문만으로 적절한 의미 속성을 결정하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2014A#23",
+      "binding": "9809a3f3a68f97a70a27c4e494897559cbcb042c449fa86d000c60510d6bf431",
+      "solved_answer": 5,
+      "discourse": "practical",
+      "complexity": [
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "modality"
+      ],
+      "relations": [
+        "elaboration",
+        "sequence",
+        "cause"
+      ],
+      "inference": [
+        "explicit",
+        "contextual"
+      ],
+      "task": "purpose",
+      "choices": [
+        {
+          "n": 1,
+          "status": "unsupported",
+          "reason": "가맹점 운영이나 그 이점에 대한 내용은 없다."
+        },
+        {
+          "n": 2,
+          "status": "task_mismatch",
+          "reason": "안전한 배송을 설명하지만 질병 예방법을 공지하지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "unsupported",
+          "reason": "애완동물 먹이 종류를 소개하지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "task_mismatch",
+          "reason": "배송의 journey는 운송 경험이며 반려동물 동반 여행 수칙이 아니다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "배송 회사가 살아 있는 물고기를 안전히 운송하는 방법을 소개하고 연락을 권유한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "서비스 특성의 설명을 광고 목적과 연결하고 소재가 비슷한 안내 목적을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "the perfect system for shipping fish to your customers",
+          "why": "기업이 제공하는 물고기 배송 시스템이라는 목적 대상이다."
+        },
+        {
+          "anchor": "Call us at 1-800-456-4959",
+          "why": "연락을 권유해 광고의 기능을 확인한다."
+        },
+        {
+          "anchor": "an oxygen-inflated plastic bag",
+          "why": "안전 운송을 위한 서비스 특성이다."
+        }
+      ],
+      "strategy_note": "서비스 제공 명제 하나와 보기로 가맹점·질병·먹이·여행의 대상을 배제해 5를 판별한다. 광고 기능을 더 확실히 확인하려면 연락 권유까지 읽는다. 선택적 읽기는 회사·서비스 소개와 마지막 권유를 확인한다. 배송 방법의 국소 구문만으로 발신 목적을 대신하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2019#19",
+      "binding": "db61f16265f7a427beb24bde9e3560e7dc96a8a2d7faa433b944ff04e90e0e35",
+      "solved_answer": 1,
+      "discourse": "narrative",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "time",
+        "polarity"
+      ],
+      "relations": [
+        "sequence",
+        "contrast",
+        "cause"
+      ],
+      "inference": [
+        "explicit",
+        "global",
+        "contextual"
+      ],
+      "task": "affect",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "계속 실패하여 포기하려던 답답함에서 성공 후 환희로 변한다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "실패로 좌절했지 지루해하지 않으며 끝은 위로가 아니라 성공의 기쁨이다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "초기 평정·마지막 짜증은 이야기 방향과 반대이다."
+        },
+        {
+          "n": 4,
+          "status": "contradicted",
+          "reason": "안도에서 공포로 가는 변화가 없다."
+        },
+        {
+          "n": 5,
+          "status": "contradicted",
+          "reason": "처음 즐거움에서 끝 불쾌함으로 가는 변화는 실제 방향과 반대이다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "사건 결과의 변화와 그 인물의 감정을 함께 대응시키도록 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "He felt that he would never succeed",
+          "why": "실패 누적으로 좌절하고 있다."
+        },
+        {
+          "anchor": "he battled the wave all the way back to shore",
+          "why": "마지막 도전에서 성공한다."
+        },
+        {
+          "anchor": "Walking out of the water joyfully",
+          "why": "성공 뒤의 기쁨을 직접 말한다."
+        }
+      ],
+      "strategy_note": "실패·포기 직전과 성공·환호의 대립 방향으로 1을 구분한다. 한 문장으로 전후 감정 모두를 확인하지 못한다. 선택적 읽기는 초기의 실패 평가와 마지막 joyful·성공 사건을 확인한다. 중간의 파도 의인화는 재도전의 계기이며 감정의 양 끝만으로도 보기 배제가 가능하다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2023#37",
+      "binding": "4bdab182a62d8d8e7b9898c07b27ba6ab43059ddf79791dd860d216c4ae53a40",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "condition",
+        "time"
+      ],
+      "relations": [
+        "condition",
+        "result",
+        "cause",
+        "reference",
+        "elaboration"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "coherence_order",
+      "choices": [
+        {
+          "n": 1,
+          "status": "coherence_failure",
+          "reason": "A의 Therefore가 전제하는 성공 후 보수 규칙을 C가 아직 제시하지 않았다."
+        },
+        {
+          "n": 2,
+          "status": "coherence_failure",
+          "reason": "B가 최종적 요약 성격인데 C의 제도 정의가 마지막에 와서 정의→결론의 연결을 뒤집는다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "B는 아직 소개하지 않은 수임료·합의 규칙을 보증하고 마지막 A는 일반적 마무리 뒤 세부 설명으로 돌아간다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "C의 보수 규칙→A의 유리한 결과만 보상·고객 두려움→B의 비용 보장·위험보상 공유이다."
+        },
+        {
+          "n": 5,
+          "status": "coherence_failure",
+          "reason": "C 뒤 B의 종합이 A의 고객 두려움 설명보다 먼저 와서 A→B의 두려움 해결 연결을 끊는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "보수 조건과 고객의 위험, 해결 보장의 설명 순서를 연결하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "when they are paid a percentage",
+          "why": "C에서 합의금에 비례하는 지급 규칙을 제시한다."
+        },
+        {
+          "anchor": "Therefore, only an outcome in the client’s favor",
+          "why": "A는 C의 지급 규칙의 결과이다."
+        },
+        {
+          "anchor": "Their biggest fears are high fees",
+          "why": "A의 두려움을 B의 비용 보장이 해결한다."
+        }
+      ],
+      "strategy_note": "주요 관계는 조건·결과·불안 해결이며 양쪽 대립은 순서의 필요 근거가 아니다. 한 문장은 세 단락의 전이를 정하지 못한다. 선택적 읽기는 Therefore와 fees의 선행 근거에서 시작해 C 규칙과 A 두려움, B의 보장·종합까지 전체 단락 기능을 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "2022#38",
+      "binding": "141d5f44338b8dc658143c9aebd3c351af7fcedd28425c1127e35376f13bd9d6",
+      "solved_answer": 5,
+      "discourse": "argument",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "modality"
+      ],
+      "relations": [
+        "problem_solution",
+        "cause",
+        "elaboration",
+        "list"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "task": "coherence_insert",
+      "choices": [
+        {
+          "n": 1,
+          "status": "coherence_failure",
+          "reason": "경영진 책임이라는 일반 원칙 앞에 구체적인 재교육 조치를 넣어 원칙→사례 순서를 끊는다."
+        },
+        {
+          "n": 2,
+          "status": "coherence_failure",
+          "reason": "재교육 뒤 For example의 신규공장 도입은 그 재교육의 사례가 아니어서 연결을 흐린다."
+        },
+        {
+          "n": 3,
+          "status": "coherence_failure",
+          "reason": "신규공장 도입 사례와 노동자의 공동 계획 참여 사이에 재교육을 끼우면 공동 계획의 전개가 분산된다."
+        },
+        {
+          "n": 4,
+          "status": "coherence_failure",
+          "reason": "직원 계획 참여와 노동·경영진 공동 계획이라는 환언 사이를 끊는다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "공동계획 방안 뒤 재교육을 추가하고 다음 Since 문장이 재배치되는 직무 특성의 근거를 제시한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "두려움 완화 방안의 묶음과 새 직무·재배치 연결을 구별하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "Retraining current employees for new positions",
+          "why": "주어진 문장이 두려움 완화 방안에 재교육을 추가한다."
+        },
+        {
+          "anchor": "planning for such cost reductions should be done jointly",
+          "why": "공동 계획 방안의 묶음을 마무리한다."
+        },
+        {
+          "anchor": "the replaced human workers should be moved to positions",
+          "why": "재교육·새 직무와 다음 문장의 재배치가 직접 연결된다."
+        }
+      ],
+      "strategy_note": "로봇·사람 차이만으로 재교육 문장의 위치를 확정하지 못한다. 한 문장은 경계 다섯 곳의 결속을 검수하지 못한다. 제시순 읽기는 책임→도입 방식→공동계획→재교육→재배치 근거의 구조를 구성한다. 선택적 읽기는 new positions와 다음 moved to positions 연결에서 출발하되 For example 및 공동계획의 두 문장 결속도 확인한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2106#31",
+      "binding": "5ca1d126b65a3a3d2cea952ae91a8714abb4a80e431d986627a7814057202b0d",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "polarity",
+        "quantifier",
+        "condition"
+      ],
+      "relations": [
+        "cause",
+        "contrast",
+        "restatement"
+      ],
+      "inference": [
+        "explicit",
+        "local"
+      ],
+      "task": "complete",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "다양한 표면에서도 충격력이 매우 유사하므로 변화가 작다는 뜻이다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "표면 전환에 따라 크게 줄었다면 폭넓은 표면에서 유사하다는 결과와 맞지 않는다."
+        },
+        {
+          "n": 3,
+          "status": "contradicted",
+          "reason": "갑자기 정점에 올랐다는 변화는 거의 유사한 충격력과 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "status": "unsupported",
+          "reason": "충격이 점차 나타나기 시작했다는 시간적 출현은 서술하지 않는다."
+        },
+        {
+          "n": 5,
+          "status": "unsupported",
+          "reason": "충격 크기의 표면 간 유사성은 충격이 거의 생기지 않는다는 절대량 명제를 지지하지 않는다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "표면 강도의 변화와 신체를 지나는 충격량의 변화를 동일시하지 않게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "insufficient",
+        "core_sentence": "applicable",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "are strikingly similar",
+          "why": "충격력의 표면 간 변화가 작다는 빈칸의 직접 환언이다."
+        },
+        {
+          "anchor": "over a wide range of running surface types",
+          "why": "유사성의 범위가 다양한 표면임을 확인한다."
+        },
+        {
+          "anchor": "runners create soft legs",
+          "why": "능동적 강성 조절이 결과를 설명한다."
+        }
+      ],
+      "strategy_note": "딱딱한 표면 대 부드러운 표면의 조절 방향만으로 충격력이 얼마나 변하는지 정하지 못한다. 유사성을 진술한 문장 하나는 varied little에 대응하고 감소·정점·출현·거의 무발생을 배제한다. 선택적 읽기는 빈칸 뒤 결과의 similar와 범위 문장으로 좁힐 수 있다. 마지막 통념 반박은 추가 확인이며 필수 최소 근거와 구별한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    },
+    {
+      "id": "M2006#26",
+      "binding": "01c995ca8a22b2c13c91b5bb2788b098785269840b53122762316927f08ff291",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "complexity": [
+        "scope",
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object",
+        "quantifier"
+      ],
+      "relations": [
+        "list",
+        "elaboration",
+        "cause",
+        "reference"
+      ],
+      "inference": [
+        "explicit"
+      ],
+      "task": "retrieve",
+      "choices": [
+        {
+          "n": 1,
+          "status": "entailed",
+          "reason": "첫 문장에 British Columbia의 해안에 위치한다고 한다."
+        },
+        {
+          "n": 2,
+          "status": "contradicted",
+          "reason": "Ireland 또는 Nova Scotia 정도이지 두 지역의 합친 크기가 아니다."
+        },
+        {
+          "n": 3,
+          "status": "entailed",
+          "reason": "이 지역의 독특한 동물로 Kermode bear를 소개한다."
+        },
+        {
+          "n": 4,
+          "status": "entailed",
+          "reason": "연어는 다양한 동물·사람의 먹이로 생태계의 중요한 역할을 한다."
+        },
+        {
+          "n": 5,
+          "status": "entailed",
+          "reason": "이 열대우림은 Western Red Cedar의 서식지라고 한다."
+        }
+      ],
+      "design": {
+        "level": "hypothesis",
+        "statement": "대안적 크기 비교를 두 지역의 합계로 바꾸는 범위 오류를 구분하게 했을 수 있다."
+      },
+      "strategies": {
+        "contrast": "not_applicable",
+        "core_sentence": "insufficient",
+        "incremental": "applicable",
+        "syntax": "insufficient",
+        "selective": "applicable"
+      },
+      "evidence": [
+        {
+          "anchor": "about the size of Ireland or Nova Scotia",
+          "why": "or의 대안 비교를 합산으로 바꾼 2가 틀리다."
+        },
+        {
+          "anchor": "play a vital role in this area’s ecosystem",
+          "why": "4의 중요 역할과 직접 대응한다."
+        },
+        {
+          "anchor": "home to the Western Red Cedar",
+          "why": "5의 서식지와 직접 대응한다."
+        }
+      ],
+      "strategy_note": "지역 소개의 열거로 해결하며 논지 대립이 필요하지 않다. 크기 문장 하나로 오류를 찾지만 다섯 보기 성립을 모두 검수하려면 다른 위치·서식종·생태계 문장도 읽는다. 선택적 읽기는 보기 키워드별 국소 문장을 확인한다. 구문은 or의 범위를 돕지만 다섯 사실 내용을 대신하지 못한다.",
+      "source_status": "stored_text_db_hash_checked_pdf_not_yet_checked",
+      "unresolved": []
+    }
+  ]
+}

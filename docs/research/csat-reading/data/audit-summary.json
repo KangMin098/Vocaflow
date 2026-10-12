@@ -578,10 +578,317 @@
   "pilot_items": 32,
   "pilot_types": 26,
   "holdout_exposed": [
+    "2025#18",
     "2026#19",
     "2026#34",
     "M2606#19",
-    "M2609#18"
+    "M2609#18",
+    "M2609#19"
   ],
-  "minimum_evidence_note": "Corpus structure and legacy AI content audit; no semantic classification or expert validation inferred."
+  "minimum_evidence_note": "Corpus structure and legacy AI content audit; no semantic classification or expert validation inferred.",
+  "expected_inventory": {
+    "as_of": "2026-10-12",
+    "method": "expected regular June/September and main examination booklets, 2014 A/B separate; official complete PDF catalogue not independently traversed",
+    "booklets": [
+      {
+        "year": 2014,
+        "month": 11,
+        "form": "A",
+        "kind": "suneung",
+        "observed": "2014A"
+      },
+      {
+        "year": 2014,
+        "month": 6,
+        "form": "A",
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2014,
+        "month": 9,
+        "form": "A",
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2014,
+        "month": 11,
+        "form": "B",
+        "kind": "suneung",
+        "observed": "2014B"
+      },
+      {
+        "year": 2014,
+        "month": 6,
+        "form": "B",
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2014,
+        "month": 9,
+        "form": "B",
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2015,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2015"
+      },
+      {
+        "year": 2015,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2015,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2016,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2016"
+      },
+      {
+        "year": 2016,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2016,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2017,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2017"
+      },
+      {
+        "year": 2017,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2017,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2018,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2018"
+      },
+      {
+        "year": 2018,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2018,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M1809"
+      },
+      {
+        "year": 2019,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2019"
+      },
+      {
+        "year": 2019,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2019,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2020,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2020"
+      },
+      {
+        "year": 2020,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2006"
+      },
+      {
+        "year": 2020,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": null
+      },
+      {
+        "year": 2021,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2021"
+      },
+      {
+        "year": 2021,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2106"
+      },
+      {
+        "year": 2021,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2109"
+      },
+      {
+        "year": 2022,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2022"
+      },
+      {
+        "year": 2022,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2206"
+      },
+      {
+        "year": 2022,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2209"
+      },
+      {
+        "year": 2023,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2023"
+      },
+      {
+        "year": 2023,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2306"
+      },
+      {
+        "year": 2023,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2309"
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2024"
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2406"
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2409"
+      },
+      {
+        "year": 2025,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2025"
+      },
+      {
+        "year": 2025,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2506"
+      },
+      {
+        "year": 2025,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2509"
+      },
+      {
+        "year": 2026,
+        "month": 11,
+        "form": null,
+        "kind": "suneung",
+        "observed": "2026"
+      },
+      {
+        "year": 2026,
+        "month": 6,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2606"
+      },
+      {
+        "year": 2026,
+        "month": 9,
+        "form": null,
+        "kind": "mock",
+        "observed": "M2609"
+      }
+    ],
+    "expected_count": 42,
+    "observed_in_scope_count": 28,
+    "missing_count": 14,
+    "reading_count_if_templates_hold": 1146,
+    "missing_reading_count_if_templates_hold": 372
+  }
 }

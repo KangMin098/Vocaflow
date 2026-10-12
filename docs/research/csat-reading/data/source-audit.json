@@ -1,0 +1,2041 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-10-12",
+  "auditor": "Codex independent source/literature agent",
+  "scope": "Read-only PDF/source audit; no DB changes or public content changes",
+  "input": {
+    "corpus_sha256": "a8c7f5dc33cac1197b22dc3d683ce94be04efdc819c7424a3270c7b6b304a374",
+    "pilot_items": 32,
+    "exam_ids": [
+      "2014A",
+      "2014B",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026",
+      "M1809",
+      "M2006",
+      "M2106",
+      "M2109",
+      "M2206",
+      "M2209",
+      "M2306",
+      "M2309",
+      "M2406",
+      "M2409",
+      "M2506",
+      "M2509",
+      "M2606",
+      "M2609",
+      "M2706"
+    ]
+  },
+  "summary": {
+    "pilot_items": 32,
+    "text_screened": 32,
+    "whole_verbatim_source_verified": 0,
+    "local_primary_key_pdf_text_matches": 27,
+    "derived_key_matches_original_pdf_not_located": 5,
+    "visually_inspected_pilot_items": 7,
+    "shared_group_conflicts_resolved_from_PDF": 5,
+    "holdout_2025_2026_body_or_choices_inspected": false
+  },
+  "expected_framework": {
+    "academic_years": "2014-2026",
+    "main_test_booklets": 14,
+    "mock_test_booklets": 28,
+    "calculation": "2014: main A/B=2; June/September A/B=4. 2015-2026: main=12; June/September=24.",
+    "level_vs_form": "A/B denotes level-specific tests in 2014. Odd/even denotes option-order forms and must not count as independent exams.",
+    "evidence": [
+      {
+        "url": "https://www.korea.kr/briefing/policyBriefingView.do?newsId=148770380",
+        "confirmed": "2014 academic-year June and September English A/B shown in official scoring tables."
+      },
+      {
+        "url": "https://moe.go.kr/boardCnts/view.do?boardID=339&boardSeq=57553&lev=0&m=02&opType=N&page=80&s=moe",
+        "confirmed": "Official 2015 English integrated examination references June/September integrated mock evaluations."
+      }
+    ],
+    "status": "Framework confirmed; full official per-booklet manifest not yet independently downloaded."
+  },
+  "holdout_form_risk": {
+    "exam": "2025",
+    "status": "metadata_risk_open",
+    "local_question_filename": "2025_영어영역_문제지(짝수형).pdf",
+    "required": "Bind DB question/choice/answer numbering to the actual odd/even paper form when holdout evaluation is opened.",
+    "body_read": false
+  },
+  "shared_groups": [
+    {
+      "candidate_group": "2014A:41-42",
+      "members": [
+        "2014A#41",
+        "2014A#42"
+      ],
+      "judgment": "same_original_PDF_passage; retain_group",
+      "basis": "Original PDF has an explicit [41~42] shared-passage header; rendered page directly inspected.",
+      "pdf_page": 8,
+      "variant_issue": "blank_placeholder_missing_in_41",
+      "db_changed": false,
+      "correction_recommendation": "Keep immutable original extraction variants; derive a passage-unit record from the original displayed passage and explicit blank locations. Do not equate exact-string hash with independent text identity."
+    },
+    {
+      "candidate_group": "2014B:41-42",
+      "members": [
+        "2014B#41",
+        "2014B#42"
+      ],
+      "judgment": "same_original_PDF_passage; retain_group",
+      "basis": "Original PDF has an explicit [41~42] shared-passage header; rendered page directly inspected.",
+      "pdf_page": 7,
+      "variant_issue": "blank_placeholder_missing_in_41",
+      "db_changed": false,
+      "correction_recommendation": "Keep immutable original extraction variants; derive a passage-unit record from the original displayed passage and explicit blank locations. Do not equate exact-string hash with independent text identity."
+    },
+    {
+      "candidate_group": "2016:41-42",
+      "members": [
+        "2016#41",
+        "2016#42"
+      ],
+      "judgment": "same_original_PDF_passage; retain_group",
+      "basis": "Original PDF has an explicit [41~42] shared-passage header; rendered page directly inspected.",
+      "pdf_page": 8,
+      "variant_issue": "blank_placeholder_missing_in_41",
+      "db_changed": false,
+      "correction_recommendation": "Keep immutable original extraction variants; derive a passage-unit record from the original displayed passage and explicit blank locations. Do not equate exact-string hash with independent text identity."
+    },
+    {
+      "candidate_group": "2017:41-42",
+      "members": [
+        "2017#41",
+        "2017#42"
+      ],
+      "judgment": "same_original_PDF_passage; retain_group",
+      "basis": "Original PDF has an explicit [41~42] shared-passage header; rendered page directly inspected.",
+      "pdf_page": 8,
+      "variant_issue": "option_column_header_contamination_in_42_and_blank_lines_missing",
+      "db_changed": false,
+      "correction_recommendation": "Keep immutable original extraction variants; derive a passage-unit record from the original displayed passage and explicit blank locations. Do not equate exact-string hash with independent text identity."
+    },
+    {
+      "candidate_group": "M1809:41-42",
+      "members": [
+        "M1809#41",
+        "M1809#42"
+      ],
+      "judgment": "same_original_PDF_passage; retain_group",
+      "basis": "Original PDF has an explicit [41~42] shared-passage header; rendered page directly inspected.",
+      "pdf_page": 8,
+      "variant_issue": "blank_placeholder_missing_in_41",
+      "db_changed": false,
+      "correction_recommendation": "Keep immutable original extraction variants; derive a passage-unit record from the original displayed passage and explicit blank locations. Do not equate exact-string hash with independent text identity."
+    }
+  ],
+  "items": [
+    {
+      "id": "M2406#31",
+      "input_binding": "5750ffbf30d537a722aa7639d53436c6e19ea059cde6971c305f9af9f3472c55",
+      "exam_id": "M2406",
+      "pdf": {
+        "filename": "202406_영어영역_문제지.pdf",
+        "sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+        "page": 5,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": null,
+        "status": "derived_KICE_supplement_matches_original_PDF_not_located",
+        "matches": true,
+        "supplement_answer": 2,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_derived_key_requires_primary_PDF",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2014B#37",
+      "input_binding": "4e968a026c915867fb6472233197cca783a51fec8d4eecc23affa17b5243b824",
+      "exam_id": "2014B",
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 6,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+          "page": 1,
+          "answer": 2,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2024#25",
+      "input_binding": "6fc0668d5b2e954f58e8c2fc66540b22580d7d6a4dfa051a1902e326e77b2290",
+      "exam_id": "2024",
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "page": 4,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 4,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2309#20",
+      "input_binding": "8a446d5f12805642d3dfc840624de2fd1237227b0f9bd03738f1adc5b72edd4a",
+      "exam_id": "M2309",
+      "pdf": {
+        "filename": "202309_영어영역_문제지.pdf",
+        "sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+        "page": 2,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": null,
+        "status": "derived_KICE_supplement_matches_original_PDF_not_located",
+        "matches": true,
+        "supplement_answer": 1,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_derived_key_requires_primary_PDF",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2019#26",
+      "input_binding": "1ac8459bc67fddd447b7ded9636d1557c8cae710b53febcad2d29c6a43f788ed",
+      "exam_id": "2019",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 4,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 4,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2022#22",
+      "input_binding": "f52ff88cde9452ab9fc12e4c2b19e51a2f619de1ea8af4c183650ee4cdaeda9b",
+      "exam_id": "2022",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 3,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 2,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2019#29",
+      "input_binding": "cac140f1ef01122259290311a00a9d8ba0f4ce75c2a6ffd50fc5b54139c56016",
+      "exam_id": "2019",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 5,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 2,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2022#21",
+      "input_binding": "726821f9b4bbfd25e0e90b788c5cf55626894aecca41d4c0f9567adceb214e20",
+      "exam_id": "2022",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 3,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 1,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2020#38",
+      "input_binding": "fa676bfa41ff2538b3deebc4c96cdc286ac2cfad4f029db442fb8111ad3e0039",
+      "exam_id": "2020",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 7,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2020영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 4,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "Inline insertion-site choices contain following passage chunks, footnotes and page-number 7; these are not independent distractor propositions."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2306#35",
+      "input_binding": "faae903f125ec4cb1bf8e56d908b1e1b6344a1e49f175db1380318841fcd72f7",
+      "exam_id": "M2306",
+      "pdf": {
+        "filename": "202306_영어영역_문제지.pdf",
+        "sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+        "page": 6,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 3,
+        "key_pdf": null,
+        "status": "derived_KICE_supplement_matches_original_PDF_not_located",
+        "matches": true,
+        "supplement_answer": 3,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_derived_key_requires_primary_PDF",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2020#19",
+      "input_binding": "ab81634ff4ffb23d00413f73971845539d7315d6815c655296bb0a6ae6053428",
+      "exam_id": "2020",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 2,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "2020영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 1,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2023#27",
+      "input_binding": "635a07f75713823b7546f6521c4145ff7d4253fd9d8f536f1623559290c87df1",
+      "exam_id": "2023",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "page": 4,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 2,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2206#36",
+      "input_binding": "1446776cf038961dd7e8746d53ac3baf083e7235bafee26d21ecc39b3bac5c5b",
+      "exam_id": "M2206",
+      "pdf": {
+        "filename": "202206_영어영역_문제지.pdf",
+        "sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+        "page": 6,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": null,
+        "status": "derived_KICE_supplement_matches_original_PDF_not_located",
+        "matches": true,
+        "supplement_answer": 1,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_derived_key_requires_primary_PDF",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2409#18",
+      "input_binding": "eae5379e3fd2dfa8c31f320576ae994cc1436cab7b31df7ac30054532579837d",
+      "exam_id": "M2409",
+      "pdf": {
+        "filename": "202409_영어영역_문제지.pdf",
+        "sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+        "page": 2,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": null,
+        "status": "derived_KICE_supplement_matches_original_PDF_not_located",
+        "matches": true,
+        "supplement_answer": 1,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_derived_key_requires_primary_PDF",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M1809#30",
+      "input_binding": "2b3ebd1f831946eed81acffa2245d96beac6216c5f79aa76260e09ba08ef3bee",
+      "exam_id": "M1809",
+      "pdf": {
+        "filename": "201809_영어영역_문제지.pdf",
+        "sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+        "page": 5,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 5,
+        "key_pdf": {
+          "filename": "201809_영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 5,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "Inline referent choices contain following passage chunks; choice 5 includes a footnote and page-number 5."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2017#40",
+      "input_binding": "88d2bce32480fe8a8e678cbe78a271ccc79f5e9654d075008e673a3d82f8ca97",
+      "exam_id": "2017",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 7,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 0.9777777777777777,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 3,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 3,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2019#24",
+      "input_binding": "ba659c8f4d7790dbbbd3926418bc1388b06a61a49ad9b15835180ee20a26a58f",
+      "exam_id": "2019",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 3,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 5,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 5,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2020#23",
+      "input_binding": "47e13b193a563defb938c138c35dd8aea9f658224e502c24111216422d3fa0b9",
+      "exam_id": "2020",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 3,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "2020영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 1,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2017#29",
+      "input_binding": "1452d4c2d185c0a0e392aa9a54bd20f27f2872a46b3a58196ffff88207b13f83",
+      "exam_id": "2017",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 5,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 4,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2016#42",
+      "input_binding": "acb10bfc4108ed2c25feee9b4ee3b4f6b51c25434bcb425a566f65316cfa0bc1",
+      "exam_id": "2016",
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "page": 8,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "2016영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 2,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2017#42",
+      "input_binding": "5e1a7e7e19b520f85b62197da64fdb748d3bde6923e8e624c63e7637a4dd0fe2",
+      "exam_id": "2017",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 8,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 4,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "Passage ends with duplicated option-column headers (A) (B) (A) (B); both blanks have labels but no underscore placeholders."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2014A#45",
+      "input_binding": "90663ef369b41229cb1a004ecd62e0827f9341fa0a2bbc5720692a06b330d06d",
+      "exam_id": "2014A",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 8,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 5,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "page": 1,
+          "answer": 5,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2021#43",
+      "input_binding": "7f6e1b415c0a24542d25bbb4f7868b55ffe2859135b7f859b225a15c759ee840",
+      "exam_id": "2021",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "page": 8,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 0.9682539682539683,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 3,
+        "key_pdf": {
+          "filename": "2021영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 3,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2014A#44",
+      "input_binding": "b3a2a994ff82811f25a00b95d22f4f75177acf2059942a75ed71a91e342fce3a",
+      "exam_id": "2014A",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 8,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 3,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "page": 1,
+          "answer": 3,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2017#41",
+      "input_binding": "142170cfa2108aca015624d98d523912d3c27f8e235953e6c2cde03c6ed5769b",
+      "exam_id": "2017",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 8,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "target_page_visually_inspected_and_text_screened",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": true
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": true
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 1,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "Shared passage blanks retain (A)/(B) labels but their line placeholders are absent."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2022#42",
+      "input_binding": "55d179714ad02c1bc096b639fd7652511a51ca5c175be2c1b2ddebf76c10adcc",
+      "exam_id": "2022",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 8,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 3,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 3,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2014A#23",
+      "input_binding": "9809a3f3a68f97a70a27c4e494897559cbcb042c449fa86d000c60510d6bf431",
+      "exam_id": "2014A",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 3,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 5,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "page": 1,
+          "answer": 5,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2019#19",
+      "input_binding": "db61f16265f7a427beb24bde9e3560e7dc96a8a2d7faa433b944ff04e90e0e35",
+      "exam_id": "2019",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 2,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 1,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2023#37",
+      "input_binding": "4bdab182a62d8d8e7b9898c07b27ba6ab43059ddf79791dd860d216c4ae53a40",
+      "exam_id": "2023",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "page": 7,
+        "paper_form": "odd"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": false,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 4,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 4,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "DB stores a generic shared question instruction; the extraction inserts page-specific 3-point mark before the block instruction. Manual whole-field comparison remains open."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "2022#38",
+      "input_binding": "141d5f44338b8dc658143c9aebd3c351af7fcedd28425c1127e35376f13bd9d6",
+      "exam_id": "2022",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 7,
+        "paper_form": "even"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 5,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "page": 2,
+          "answer": 5,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [
+        "Inline insertion-site choices contain following passage chunks and page-number 7; these are not independent distractor propositions."
+      ],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2106#31",
+      "input_binding": "5ca1d126b65a3a3d2cea952ae91a8714abb4a80e431d986627a7814057202b0d",
+      "exam_id": "M2106",
+      "pdf": {
+        "filename": "202106_영어영역_문제지.pdf",
+        "sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+        "page": 5,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 1,
+        "key_pdf": {
+          "filename": "202106_영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 1,
+          "points": 3
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    },
+    {
+      "id": "M2006#26",
+      "input_binding": "01c995ca8a22b2c13c91b5bb2788b098785269840b53122762316927f08ff291",
+      "exam_id": "M2006",
+      "pdf": {
+        "filename": "202006_영어영역_문제지.pdf",
+        "sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+        "page": 4,
+        "paper_form": "single"
+      },
+      "source_chain": "local_pdf_with_KICE_attribution; official_download_transaction_not_reconstructed",
+      "body_check": {
+        "status": "text_screened_only",
+        "method": "NFKC letter/number normalization; nonoverlapping 24-character segment containment in PDF page. This is screening, not full source verification.",
+        "segment_coverage": 1,
+        "full_verbatim_comparison_completed": false
+      },
+      "stem_check": {
+        "normalized_containment": true,
+        "visual_checked": false
+      },
+      "choice_check": {
+        "normalized_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "label_and_content_found": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "full_visual_mapping_completed": false
+      },
+      "answer_check": {
+        "db_answer": 2,
+        "key_pdf": {
+          "filename": "202006_영어영역_정답표.pdf",
+          "page": 1,
+          "answer": 2,
+          "points": 2
+        },
+        "status": "same_form_local_key_pdf_text_matches",
+        "matches": true,
+        "supplement_answer": null,
+        "key_page_visually_inspected": false
+      },
+      "issues": [],
+      "research_source_status": "provisional_primary_artifact_text_checked",
+      "remaining": [
+        "Complete whole-field body comparison including blank/underline positions and diagram values.",
+        "Verify official download URL and version chain.",
+        "Independent human expert review is absent."
+      ]
+    }
+  ],
+  "key_asset_findings": {
+    "misnamed_listening_scripts": [
+      "M2206",
+      "M2306",
+      "M2309",
+      "M2406",
+      "M2409"
+    ],
+    "full_pdf_pages": 17,
+    "key_table_in_these_local_files": false,
+    "supplement": "scripts/csat/data/mock-answers-kice.json",
+    "supplement_source_claim": "KICE official keys mechanically extracted by scripts/csat/ingest-kice-keys.mjs (repository provenance claim, not current independent original-PDF confirmation).",
+    "original_supplement_key_pdfs_located": false
+  },
+  "limitations": [
+    "No global primary-source verification claim is made.",
+    "Text segment/choice containment can miss order, spacing, marker, image and transcription errors.",
+    "PDF hash binds a local artifact, not proof of the official acquisition chain.",
+    "Source inspection is AI agent inspection, not independent human expert certification.",
+    "Rendered question images and extracted original text remain ignored local artifacts; no original passages are re-published in tracked research files."
+  ]
+}
