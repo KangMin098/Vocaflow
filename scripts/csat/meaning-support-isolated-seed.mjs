@@ -16,11 +16,11 @@
 //   공개 2026#34 = 분석 v5(= 배포 탐구/교수 설명 결속 버전) · stale 2026#38 = 분석 v6(record+1 → lookupInquiry stale)
 //   2026#22 = 분석 v5. 보류(access_withheld)는 정본 Reveal Gate(20261005170000)의 회차 단위 capture 로만 — 앱 플래그 · 테스트 전용 API 없음.
 //   --commit 은 적재 뒤 게이트 RPC 셋(embargoed_items/exams · reveal_state)이 있고 2026 에 활성 보류 · 열린 묘비가 없는지 확인한다.
-//   ⚠️ 보류 시작(csat_ec_record_session_held)에 필요한 sealed taxonomy 는 만들지 않는다 — 정본 경로(마이그레이션 시드 + csat_ec_taxonomy_seal ·
-//      is_admin())가 격리 DB 에서 서지 않는다(is_admin 정의 마이그레이션 20260706010000 이 known-failure). 우회 금지라 멈춤(보고서 참고).
+//   보류 시작(csat_ec_record_session_held)에 필요한 sealed taxonomy 는 seed 가 만들지 않는다 — 정본 복원 시드 마이그레이션 20261005140000(v0.1)이
+//      만든다. seed 는 그것이 봉인값 그대로인지 정본 읽기 경로(authenticated SELECT · fixture 학습자)로 확인만 한다. 소유 학습자 1명(iso-csat-v31-<run>)을 marker 에 결속.
 // 재실행 안전: 예(같은 run/manifest). 되돌리기: 러너 폐기(공유 DB 에는 marker 를 만들지 않는다 — 가드가 막는다).
 
-import { createHash } from 'node:crypto'
+import { createHash, randomBytes } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -133,7 +133,7 @@ export const fileMarkerIo = (file = MARKER_PATH) => ({
 })
 
 // ── DB 어댑터(supabase-js) — 테스트는 같은 모양의 가짜를 주입한다 ─────────────
-export function supabaseDb(client) {
+export function supabaseDb(client, { url, anonKey, createClient } = {}) {
   const must = (r, what) => {
     if (r.error) throw new Error(`${what} 실패: ${r.error.message}`)
     return r.data
@@ -153,6 +153,33 @@ export function supabaseDb(client) {
       if (ids.length === 0) return
       must(await client.from('csat_item_analyses').update({ status }).in('id', ids).select('id'), '분석 상태 갱신')
     },
+    /** 이메일로 auth 사용자 찾기(로컬 service role admin API) — 없으면 null */
+    async learnerByEmail(email) {
+      for (let page = 1; page <= 20; page += 1) {
+        const { data, error } = await client.auth.admin.listUsers({ page, perPage: 200 })
+        if (error) throw new Error(`사용자 조회 실패: ${error.message}`)
+        const hit = data.users.find((u) => u.email === email)
+        if (hit) return { id: hit.id, email: hit.email }
+        if (data.users.length < 200) return null
+      }
+      throw new Error('사용자 조회 페이지 초과')
+    },
+    async createLearner(email) {
+      const { data, error } = await client.auth.admin.createUser({ email, password: randomPassword(), email_confirm: true })
+      if (error) throw new Error(`fixture 학습자 생성 실패: ${error.message}`)
+      return { id: data.user.id, email }
+    },
+    /** 정본 읽기 경로 — taxonomy 표는 authenticated SELECT 만 열려 있다(service_role 은 회수). fixture 학습자로 로그인해 읽는다 */
+    async taxonomyAs(learner, version) {
+      if (!anonKey || !createClient) throw new Error('NEXT_PUBLIC_SUPABASE_ANON_KEY 미설정 — taxonomy 를 정본 경로로 읽을 수 없다')
+      const password = randomPassword()
+      const up = await client.auth.admin.updateUserById(learner.id, { password })
+      if (up.error) throw new Error(`fixture 학습자 갱신 실패: ${up.error.message}`)
+      const asLearner = createClient(url, anonKey, { auth: { persistSession: false } })
+      const si = await asLearner.auth.signInWithPassword({ email: learner.email, password })
+      if (si.error) throw new Error(`fixture 학습자 로그인 실패: ${si.error.message}`)
+      return must(await asLearner.from('csat_ec_taxonomy_version').select('version, status, definitions_hash, note').eq('version', version).maybeSingle(), 'taxonomy 조회')
+    },
     async gate(itemIds, examIds) {
       const e = (r) => (r.error ? `${r.error.code ?? ''} ${r.error.message ?? ''}`.trim() : null)
       const a = await client.rpc('csat_ec_embargoed_items', { p_items: itemIds })
@@ -162,6 +189,20 @@ export function supabaseDb(client) {
       return { items: a.error ? null : a.data, exams: b.error ? null : b.data, error: e(a) ?? e(b) ?? e(c) }
     },
   }
+}
+
+const randomPassword = () => `Iso-${randomBytes(18).toString('base64url')}-Aa1`
+
+/** 정본 taxonomy 복원 시드(20261005140000)의 봉인값 — 보류 경로(csat_ec_record_session_held)가 요구한다 */
+export const TAXONOMY = Object.freeze({ version: 'v0.1', definitions_hash: '303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced' })
+export const learnerEmail = (runId) => `iso-csat-v31-${runId}@example.com`
+
+/** taxonomy 행이 보류 경로 조건(봉인 · v99 아님 · TEST 아님) + 복원 봉인값과 같은지 */
+export function checkTaxonomy(row) {
+  if (!row) throw new SeedRefusal('taxonomy v0.1 없음 — 마이그레이션 20261005140000 적용 실패')
+  if (row.status !== 'sealed') throw new SeedRefusal('taxonomy v0.1 이 봉인 상태가 아니다')
+  if (row.definitions_hash !== TAXONOMY.definitions_hash) throw new SeedRefusal('taxonomy v0.1 봉인 해시가 정본과 다르다')
+  if (/^v99[.]/.test(row.version) || /TEST/.test(row.note ?? '')) throw new SeedRefusal('taxonomy 가 Pilot 조건(v99 아님 · TEST 아님)에 맞지 않는다')
 }
 
 /** PostgREST 의 「함수 없음」 오류(PGRST202 · schema cache · does not exist)인가 */
@@ -200,12 +241,13 @@ export async function runSeed({ env, commit = false, ids = ALLOWED_ITEM_IDS, rec
   const marker = {
     namespace: g.namespace, runId: g.runId, manifestHash: hash, targetFingerprint: g.fingerprint,
     examIds: [p.exam.id], typeIds: p.types.map((t) => t.id), itemIds: p.items.map((i) => i.id),
-    states: Object.fromEntries(fixture.items.map((i) => [i.id, i.state])), accounts: 'spec-created(this run only)',
+    states: Object.fromEntries(fixture.items.map((i) => [i.id, i.state])), learner: null,
   }
   log(`계획: 회차 ${p.exam.id} · 유형 ${marker.typeIds.join(',')} · 문항 ${fixture.items.map((i) => `${i.id}=${i.state}(v${i.analysis_version})`).join(' · ')} · marker ${state}`)
   if (!commit) return { mode: 'dry-run', marker, counts: null }
 
   const db = await makeDb(g)
+  const prior = state === 'same' ? markerIo.read() : null
   if (state === 'fresh') {
     // marker 없는데 대상 ID 가 이미 있으면 남의 행 — 소유를 주장하지 않는다
     const pre = [
@@ -214,7 +256,15 @@ export async function runSeed({ env, commit = false, ids = ALLOWED_ITEM_IDS, rec
       ...(await db.existing('csat_items', marker.itemIds)),
     ]
     if (pre.length > 0) throw new SeedRefusal(`marker 없이 이미 존재하는 fixture ID: ${pre.join(', ')} — 중단`)
+    if (await db.learnerByEmail(learnerEmail(g.runId))) throw new SeedRefusal('marker 없이 이미 존재하는 fixture 학습자 — 중단')
+    // 소유 학습자(이 run 전용) — marker 에 결속한다(비밀번호는 저장하지 않는다 · spec 이 service role 로 재설정)
+    marker.learner = await db.createLearner(learnerEmail(g.runId))
     markerIo.write(marker)
+  } else {
+    if (!prior?.learner?.id || prior.learner.email !== learnerEmail(g.runId)) throw new SeedRefusal('소유 marker 에 이 run 의 fixture 학습자가 없다 — 중단')
+    const found = await db.learnerByEmail(prior.learner.email)
+    if (!found || found.id !== prior.learner.id) throw new SeedRefusal('marker 의 fixture 학습자가 DB 와 다르다 — 중단')
+    marker.learner = prior.learner
   }
   await db.upsert('csat_exams', [p.exam], 'id')
   await db.upsert('csat_types', p.types, 'id')
@@ -237,6 +287,8 @@ export async function runSeed({ env, commit = false, ids = ALLOWED_ITEM_IDS, rec
   if (gate.items.length > 0 || gate.exams.length > 0) {
     throw new SeedRefusal(`2026 회차에 활성 보류 또는 열린 묘비가 있다(보류 문항 ${gate.items.length} · 회차 ${gate.exams.length}) — fixture 시작 상태가 아니다`)
   }
+  // 보류 경로 전제 — 정본 taxonomy v0.1(복원 시드)이 봉인 상태로 있다. seed 는 taxonomy 행을 만들지 않는다
+  checkTaxonomy(await db.taxonomyAs(marker.learner, TAXONOMY.version))
   return { mode: 'committed', marker, counts: { exams: 1, types: p.types.length, items: p.items.length, analyses: rows.length, reviews: rows.length * 3 } }
 }
 
@@ -249,7 +301,7 @@ async function main() {
     log: (m) => console.log(m),
     makeDb: async (g) => {
       const { createClient } = await import('@supabase/supabase-js')
-      return supabaseDb(createClient(g.url, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } }))
+      return supabaseDb(createClient(g.url, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } }), { url: g.url, anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, createClient })
     },
   })
   if (r.mode === 'dry-run') console.log('dry-run — DB 에 쓰지 않았다. 적용은 --commit.')

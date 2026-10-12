@@ -16,9 +16,11 @@ const OK_ENV = Object.freeze({
 const RECORDS = { '2026#22': { analysis_version: 5 }, '2026#34': { analysis_version: 5 }, '2026#38': { analysis_version: 5 } }
 
 /** 가짜 DB — 쓰기를 기록하고 행을 메모리에 둔다. gate 기본 = 정본 RPC 있음 · 보류 없음 */
-function fakeDb({ preexisting = [], gate } = {}) {
+const SEALED = { version: 'v0.1', status: 'sealed', definitions_hash: '303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced', note: 'v0.1 conditional seed candidate' }
+function fakeDb({ preexisting = [], gate, taxonomy = SEALED, users = [] } = {}) {
   const rows = new Map()
   for (const id of preexisting) rows.set(id, { id })
+  const authUsers = new Map(users.map((u) => [u.email, u]))
   const writes = []
   let created = 0
   const db = {
@@ -40,6 +42,14 @@ function fakeDb({ preexisting = [], gate } = {}) {
       for (const [k, v] of rows) if (k.startsWith('csat_item_analyses:') && ids.includes(v.id)) v.status = status
     },
     async gate() { return gate ?? { items: [], exams: [], error: null } },
+    async learnerByEmail(email) { return authUsers.get(email) ?? null },
+    async createLearner(email) {
+      writes.push({ op: 'createUser', table: 'auth.users', n: 1 })
+      const u = { id: `u-${authUsers.size + 1}`, email }
+      authUsers.set(email, u)
+      return u
+    },
+    async taxonomyAs() { return taxonomy },
   }
   return {
     db, writes, rows,
@@ -172,4 +182,34 @@ test('manifest 버전은 배포 탐구 결속과 맞아야 한다(stale = +1)', 
 test('IPv6 loopback · localhost 허용', () => {
   assert.equal(guardEnv({ ...OK_ENV, NEXT_PUBLIC_SUPABASE_URL: 'http://[::1]:54321' }).runId, '123456-1')
   assert.equal(guardEnv({ ...OK_ENV, NEXT_PUBLIC_SUPABASE_URL: 'http://localhost:54321/' }).namespace, 'csat-v31')
+})
+
+test('fixture 학습자 — marker 에 결속(이메일 · id, 비밀번호 없음) · 재실행은 같은 학습자', async () => {
+  const f = fakeDb()
+  const mk = memMarker()
+  const a = await runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: f.makeDb, markerIo: mk.io })
+  assert.deepEqual(a.marker.learner, { id: 'u-1', email: 'iso-csat-v31-123456-1@example.com' })
+  assert.ok(!JSON.stringify(mk.value).toLowerCase().includes('password'))
+  const b = await runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: f.makeDb, markerIo: mk.io })
+  assert.deepEqual(b.marker.learner, a.marker.learner)
+  assert.equal(f.writes.filter((w) => w.op === 'createUser').length, 1)
+})
+
+test('marker 없는 기존 fixture 학습자 거부 — 쓰기 0', async () => {
+  await expectRefusedZeroWrites({ fake: { users: [{ id: 'x', email: 'iso-csat-v31-123456-1@example.com' }] } }, /fixture 학습자/)
+})
+
+test('같은 run marker 인데 학습자가 없거나 DB 와 다르면 거부 — 쓰기 0', async () => {
+  const base = { namespace: 'csat-v31', runId: '123456-1', manifestHash: manifestHash(FIXTURE) }
+  await expectRefusedZeroWrites({ marker: base }, /fixture 학습자가 없다/)
+  await expectRefusedZeroWrites({ marker: { ...base, learner: { id: 'u-9', email: 'iso-csat-v31-123456-1@example.com' } } }, /DB 와 다르다/)
+})
+
+test('taxonomy v0.1 — 없음 · 미봉인 · 해시 다름 · TEST 는 실패(seed 는 taxonomy 를 만들지 않는다)', async () => {
+  const cases = [[null, /없음/], [{ ...SEALED, status: 'draft' }, /봉인 상태/], [{ ...SEALED, definitions_hash: 'f'.repeat(64) }, /해시/], [{ ...SEALED, note: 'TEST smoke' }, /Pilot 조건/]]
+  for (const [taxonomy, re] of cases) {
+    const f = fakeDb({ taxonomy })
+    await assert.rejects(runSeed({ env: OK_ENV, commit: true, records: RECORDS, makeDb: f.makeDb, markerIo: memMarker().io }), re)
+    assert.ok(!f.writes.some((w) => /taxonomy/.test(w.table)), 'taxonomy 쓰기 0')
+  }
 })
