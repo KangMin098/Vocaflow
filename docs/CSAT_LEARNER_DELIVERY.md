@@ -492,3 +492,7 @@ pnpm csat:drill:check    # 낡았으면 exit 1
 
 ⚠️ 이 머신에서 node 가 Supabase 에 못 붙고 Cloudflare 5xx HTML 을 토해 내면
 **`node --tls-max-v1.2`** 로 붙는다(실측 2026-09-15 · 같은 시각 `curl` 은 붙었다).
+
+## 11. v3 탐구 전달 현황 (2026-10-12)
+
+해설 극장은 일곱 장면(평가 과제 · 원문 이해 · 문항 성립 · 설계 재구성 · 기출 비교 · 조건부 원리 · 내 설명)으로 전달한다. 공개 v3 탐구 786문항 · 검수된 비교 749쌍 · 원리 노트(reasoningNotes) · 학습 지도 복귀. 계약 [ITEM_INQUIRY_V2_CONTRACT §7~9](./csat-learner/ITEM_INQUIRY_V2_CONTRACT.md) · 출시 검수표 [M5_RELEASE_CHECK](./csat-learner/v3/M5_RELEASE_CHECK.md)(F01~F16 · 실행 검사 · 교육 효과 미검증 · 다크 범위 제외).

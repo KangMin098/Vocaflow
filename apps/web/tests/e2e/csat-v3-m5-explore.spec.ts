@@ -182,3 +182,16 @@ for (const width of [1280, 1440]) {
     expect(errors, '페이지 오류').toEqual([])
   })
 }
+
+test('로그인 없이 비교 · 노트 주소로 오면 로그인으로 보내고 돌아올 곳을 지킨다(원문 · 비교 미노출)', async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+  const page = await ctx.newPage()
+  const res = await page.goto('/csat/item/2026-38?scene=compare&pair=x', { waitUntil: 'domcontentloaded' })
+  await page.waitForURL(/\/login/, { timeout: 60_000 })
+  const next = new URL(page.url()).searchParams.get('next') ?? ''
+  expect(next).toContain('/csat/item/2026-38')
+  expect(res?.status() ?? 0).toBeLessThan(500)
+  await expect(page.getByTestId('v3-compare')).toHaveCount(0)
+  await expect(page.getByTestId('reasoning-note')).toHaveCount(0)
+  await ctx.close()
+})
