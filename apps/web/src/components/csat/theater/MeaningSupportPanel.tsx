@@ -250,7 +250,7 @@ export function MeaningSupportPanel({
         <p className={`${styles.msCard} ${styles.quiet}`}>위에서 탐구할 의미를 고르거나, 왼쪽 지문 지도에서 문장 번호를 눌러 보세요.</p>
       )}
 
-      {showDeep && view.whole.limitsKo.length ? (
+      {showDeep && (view.whole.limitsKo ?? []).length ? (
         <p className={`${styles.msCard} break-keep`} data-testid="ms-limits"><span className={styles.diagramLabel}>이 설명이 다루지 않는 것</span>{view.whole.limitsKo.join(' · ')}</p>
       ) : null}
     </section>

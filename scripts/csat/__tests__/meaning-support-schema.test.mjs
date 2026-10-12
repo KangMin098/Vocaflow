@@ -50,6 +50,14 @@ test('dangling 참조 · 빈 의미 · unknown schema 는 막힌다', () => {
   const q = ok(); q.bridges = [{ unitId: 'u1', meaningIds: [meaningId], choiceNumbers: [], designClaimIndices: [99] }]; assert.ok(has(v(q), 'designClaimIndex 99'))
 })
 
+test('필수 배열 누락 · 타입 오류는 막힌다(화면이 길이로 읽는 필드)', () => {
+  const a = ok(); delete a.whole.limitsKo; assert.ok(has(v(a), 'whole.limitsKo 배열 아님/없음'))
+  const b = ok(); b.whole.relationIds = 'r1'; assert.ok(has(v(b), 'whole.relationIds 배열 아님/없음'))
+  const c = ok(); delete c.units[0].preserves; assert.ok(has(v(c), `${c.units[0].id}.preserves 배열 아님/없음`))
+  const d = ok(); delete d.bridges; assert.ok(has(v(d), 'support.bridges 배열 아님/없음'))
+  const e = ok(); delete e.relations[0].warrantsKo; assert.ok(has(v(e), `${e.relations[0].id}.warrantsKo 배열 아님/없음`))
+})
+
 test('새 영어 인용 · 8단어 초과 · 원문에 없는 구절 · 잘못된 occurrence 는 막힌다', () => {
   const s = ok(); s.anchors[0].quote = 'a brand new English phrase'; assert.ok(has(v(s), '새 영어 인용 금지'))
   const t = ok(); t.anchors[0].quote = 'one two three four five six seven eight nine'; assert.ok(has(v(t), '단어 이하'))

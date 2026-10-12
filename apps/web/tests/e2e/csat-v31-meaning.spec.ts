@@ -74,6 +74,13 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('ms-panel')).toHaveAttribute('data-split', 'ok')
     await expect(page.getByTestId('ms-explain')).toHaveAttribute('data-unit', 'u1')
     expect(await litSentences(page)).toEqual([6])
+    // 지도의 근거 칩을 고르면 원문 이해 강조를 내려놓는다(칩과 의미를 동시에 비추지 않는다) → 의미를 다시 고르면 돌아온다
+    await page.locator('[data-lecture-target^="analysis:reject:"]').first().click()
+    await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+    expect(await litSentences(page)).toEqual([])
+    await page.locator('[data-testid="ms-unit"][data-unit="u1"]').click()
+    await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
+    expect(await litSentences(page)).toEqual([6])
 
     // 2) 구절 대응 — 원문 위치(sourceRange)로만 가리키던 구절도 기기 문제지 글자로 보이고, 누르면 문제지에 그 글자가 표시된다
     const fromPaper = page.locator('[data-testid="ms-phrase"]:has([data-from="paper"])')

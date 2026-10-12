@@ -220,6 +220,15 @@ export function validateSupport(s, { input = null, record = null } = {}) {
   refProps('whole', w.propositionIds)
   for (const id of arr(w.relationIds)) if (!relIds.has(id)) e(`whole 의 relation ${id} 없음`)
 
+  // 필수 배열 — 화면이 길이 · 순회로 바로 읽는다(빠지면 패널이 런타임에 실패한다 · Codex P2 2026-10-13)
+  const needArr = (where, obj, keys) => { for (const k of keys) if (!Array.isArray(obj?.[k])) e(`${where}.${k} 배열 아님/없음`) }
+  needArr('support', s, ['anchors', 'propositions', 'units', 'relations', 'bridges'])
+  needArr('whole', w, ['propositionIds', 'relationIds', 'limitsKo'])
+  for (const u of arr(s.units)) needArr(u.id ?? 'unit', u, ['sentences', 'legacyMeaningIds', 'propositionIds', 'preserves'])
+  for (const r of arr(s.relations)) needArr(r.id ?? 'relation', r, ['from', 'to', 'propositionIds', 'anchorIds', 'warrantsKo'])
+  for (const p of arr(s.propositions)) needArr(p.id ?? 'proposition', p, ['anchorIds', 'warrantsKo'])
+  for (const b of arr(s.bridges)) needArr(`bridge ${b.unitId}`, b, ['meaningIds', 'choiceNumbers', 'designClaimIndices'])
+
   const nClaims = arr(v3?.design?.claims).length
   for (const br of arr(s.bridges)) {
     if (!unitIds.has(br.unitId)) e(`bridge unit ${br.unitId} 없음`)

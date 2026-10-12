@@ -472,6 +472,9 @@ export function AnalysisTheater({
   const [msPick, setMsPick] = useState<{ n: number; unitIds: string[] } | null>(null)
   // 고른 구절(앵커 id) — 대조가 맞을 때만 문제지 · 지도에 표시
   const [msPhrase, setMsPhrase] = useState<string | null>(null)
+  // 지도의 근거 칩(정답 · 오답 근거)을 고르면 원문 이해 강조를 내려놓는다 — 지도가 칩과 의미를 동시에 비추지 않게(Codex P2 · 2026-10-13).
+  //   의미 · 관계 · 구절 · 문장을 다시 고르거나 장면을 옮기면 원문 이해 강조로 돌아온다
+  const [msChip, setMsChip] = useState(false)
   // 원문 대조 — 기기 문제지(ItemPaper)와 빌드 대조 자료. 여는 중 · 없음 · 다름 · 맞음
   const paperStatus = quotePassage?.itemId === itemId ? (quotePassage.status ?? (quotePassage.passage ? 'ready' : 'loading')) : 'loading'
   const msText = useMemo(() => alignPassage(ms?.alignment, paperStatus, currentPassage), [ms, paperStatus, currentPassage])
@@ -485,18 +488,21 @@ export function AnalysisTheater({
     setMsUnit(id)
     setMsRelation(null)
     setMsPick(null)
+    setMsChip(false)
     setMsPhrase(null)
     writeMs({ unit: id, depth: msDepth, rel: null })
   }
   const pickMsRelation = (id: string | null) => {
     setMsRelation(id)
     setMsPick(null)
+    setMsChip(false)
     setMsPhrase(null)
     writeMs({ unit: msUnit, depth: msDepth, rel: id })
   }
   // 구절 — 고르면 관계 선택을 푼다(문제지 · 지도가 같은 구절 하나를 가리키게)
   const pickMsPhrase = (id: string | null) => {
     setMsPhrase(id)
+    setMsChip(false)
     if (id && msRelation) {
       setMsRelation(null)
       writeMs({ unit: msUnit, depth: msDepth, rel: null })
@@ -509,6 +515,7 @@ export function AnalysisTheater({
   // 지도 문장 — 한 의미면 그 의미로. 0 · 여러 개면 관계 선택을 풀고 이전 설명을 접는다(옛 설명 · 관계 강조와 섞이지 않게)
   const onMapSentence = (n: number) => {
     if (!ms) return
+    setMsChip(false)
     const hits = unitsForSentence(ms, n)
     if (hits.length === 1) return pickMsUnit(hits[0].id)
     setMsPick({ n, unitIds: hits.map((u) => u.id) })
@@ -527,6 +534,7 @@ export function AnalysisTheater({
     setScene(id)
     setEvidence(null)
     setMsPick(null)
+    setMsChip(false)
     setMsPhrase(null)
     setMsBridge(false)
     if (ms) {
@@ -544,6 +552,7 @@ export function AnalysisTheater({
     setScene(target)
     setEvidence(null)
     setMsPick(null)
+    setMsChip(false)
     setMsPhrase(null)
     setMsBridge(true)
     window.history.pushState(window.history.state, '', msHref(target, { unit: msUnit, depth: msDepth, rel: msRelation, bridge: true }))
@@ -571,6 +580,7 @@ export function AnalysisTheater({
       setMsRelation(p.relationId)
       setMsBridge(p.bridge)
       setMsPick(null)
+      setMsChip(false)
       setMsPhrase(null)
     }
     window.addEventListener('popstate', onPop)
@@ -935,8 +945,9 @@ export function AnalysisTheater({
                         anchors={map.anchors}
                         placements={map.placements}
                         focusSentences={
-                          msActive ? (msMapOk && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
+                          msActive ? (msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
                         }
+                        onSelect={msActive ? () => { setMsChip(true); setMsPhrase(null) } : undefined}
                         onSentenceSelect={msActive && msMapOk ? onMapSentence : undefined}
                       />
                     </>
