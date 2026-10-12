@@ -885,7 +885,7 @@ export function AnalysisTheater({
                     {sceneChecks.length ? (
                       <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
                     ) : null}
-                    {scene === 'compare' ? <V3Compare pairs={v3Pairs} absence={v3Pairs.length || !comparePairs.length ? pairAbsence : null} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                    {scene === 'compare' ? <V3Compare pairs={v3Pairs} absence={pairAbsence === 'none' && comparePairs.length ? null : pairAbsence} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
                     {scene === 'compare' ? (
                       comparePairs.length ? (
                         <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">

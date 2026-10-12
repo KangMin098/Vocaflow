@@ -9,8 +9,8 @@
    "left": "2014A#23",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -103,8 +103,8 @@
    "left": "2014A#23",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -197,8 +197,8 @@
    "left": "2014A#25",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -267,8 +267,8 @@
    "left": "2014A#25",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -347,8 +347,8 @@
    "left": "2014A#26",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -426,8 +426,8 @@
    "left": "2014A#26",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -494,8 +494,8 @@
    "left": "2014A#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -574,8 +574,8 @@
    "left": "2014A#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -641,8 +641,8 @@
    "left": "2014A#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -710,8 +710,8 @@
    "left": "2014A#35",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -790,8 +790,8 @@
    "left": "2014A#36",
    "right": "2014B#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK2",
+    "right": "R-BLANK2"
    },
    "mappings": [
     {
@@ -870,8 +870,8 @@
    "left": "2014A#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -951,8 +951,8 @@
    "left": "2014A#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -1032,8 +1032,8 @@
    "left": "2014A#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -1125,8 +1125,8 @@
    "left": "2014A#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -1208,8 +1208,8 @@
    "left": "2014A#40",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -1257,8 +1257,8 @@
    "left": "2014A#42",
    "right": "2016#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -1328,8 +1328,8 @@
    "left": "2014A#42",
    "right": "2018#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -1411,8 +1411,8 @@
    "left": "2014A#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -1496,8 +1496,8 @@
    "left": "2014B#24",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -1568,8 +1568,8 @@
    "left": "2014B#25",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -1642,8 +1642,8 @@
    "left": "2014B#25",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -1691,8 +1691,8 @@
    "left": "2014B#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -1763,8 +1763,8 @@
    "left": "2014B#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -1822,8 +1822,8 @@
    "left": "2014B#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -1869,8 +1869,8 @@
    "left": "2014B#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -1957,8 +1957,8 @@
    "left": "2014B#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -2028,8 +2028,8 @@
    "left": "2014B#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -2109,8 +2109,8 @@
    "left": "2014B#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -2181,8 +2181,8 @@
    "left": "2014B#35",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -2260,8 +2260,8 @@
    "left": "2014B#35",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -2308,8 +2308,8 @@
    "left": "2014B#38",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -2380,8 +2380,8 @@
    "left": "2014B#38",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -2453,8 +2453,8 @@
    "left": "2014B#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -2534,8 +2534,8 @@
    "left": "2014B#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -2607,8 +2607,8 @@
    "left": "2014B#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -2690,8 +2690,8 @@
    "left": "2014B#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -2774,8 +2774,8 @@
    "left": "2014B#42",
    "right": "2016#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -2848,8 +2848,8 @@
    "left": "2014B#42",
    "right": "2018#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -2922,8 +2922,8 @@
    "left": "2014B#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -3010,8 +3010,8 @@
    "left": "2015#18",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -3079,8 +3079,8 @@
    "left": "2015#18",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -3149,8 +3149,8 @@
    "left": "2015#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -3222,8 +3222,8 @@
    "left": "2015#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -3296,8 +3296,8 @@
    "left": "2015#20",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -3367,8 +3367,8 @@
    "left": "2015#20",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -3451,8 +3451,8 @@
    "left": "2015#21",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -3522,8 +3522,8 @@
    "left": "2015#21",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -3596,8 +3596,8 @@
    "left": "2015#22",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -3668,8 +3668,8 @@
    "left": "2015#22",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -3739,8 +3739,8 @@
    "left": "2015#23",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -3812,8 +3812,8 @@
    "left": "2015#23",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -3882,8 +3882,8 @@
    "left": "2015#26",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -3949,8 +3949,8 @@
    "left": "2015#26",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -4025,8 +4025,8 @@
    "left": "2015#30",
    "right": "M2406#30",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-VOCAB",
+    "right": "R-VOCAB"
    },
    "mappings": [
     {
@@ -4108,8 +4108,8 @@
    "left": "2015#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -4179,8 +4179,8 @@
    "left": "2015#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -4258,8 +4258,8 @@
    "left": "2015#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -4329,8 +4329,8 @@
    "left": "2015#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -4408,8 +4408,8 @@
    "left": "2015#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -4479,8 +4479,8 @@
    "left": "2015#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -4563,8 +4563,8 @@
    "left": "2015#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -4637,8 +4637,8 @@
    "left": "2015#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -4715,8 +4715,8 @@
    "left": "2015#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -4793,8 +4793,8 @@
    "left": "2015#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -4873,8 +4873,8 @@
    "left": "2015#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -4945,8 +4945,8 @@
    "left": "2015#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -5019,8 +5019,8 @@
    "left": "2015#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -5093,8 +5093,8 @@
    "left": "2015#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -5175,8 +5175,8 @@
    "left": "2015#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -5245,8 +5245,8 @@
    "left": "2015#42",
    "right": "2016#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -5319,8 +5319,8 @@
    "left": "2015#42",
    "right": "2018#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -5403,8 +5403,8 @@
    "left": "2015#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -5482,8 +5482,8 @@
    "left": "2015#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -5559,8 +5559,8 @@
    "left": "2016#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -5632,8 +5632,8 @@
    "left": "2016#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -5704,8 +5704,8 @@
    "left": "2016#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -5789,8 +5789,8 @@
    "left": "2016#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -5860,8 +5860,8 @@
    "left": "2016#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -5930,8 +5930,8 @@
    "left": "2016#21",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -6011,8 +6011,8 @@
    "left": "2016#21",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -6080,8 +6080,8 @@
    "left": "2016#22",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -6154,8 +6154,8 @@
    "left": "2016#23",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -6226,8 +6226,8 @@
    "left": "2016#23",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -6305,8 +6305,8 @@
    "left": "2016#26",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -6363,8 +6363,8 @@
    "left": "2016#26",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -6411,8 +6411,8 @@
    "left": "2016#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -6485,8 +6485,8 @@
    "left": "2016#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -6554,8 +6554,8 @@
    "left": "2016#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -6628,8 +6628,8 @@
    "left": "2016#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -6711,8 +6711,8 @@
    "left": "2016#35",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -6785,8 +6785,8 @@
    "left": "2016#35",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -6858,8 +6858,8 @@
    "left": "2016#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -6930,8 +6930,8 @@
    "left": "2016#37",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -7013,8 +7013,8 @@
    "left": "2016#37",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -7085,8 +7085,8 @@
    "left": "2016#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -7159,8 +7159,8 @@
    "left": "2016#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -7233,8 +7233,8 @@
    "left": "2016#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -7304,8 +7304,8 @@
    "left": "2016#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -7375,8 +7375,8 @@
    "left": "2016#42",
    "right": "M1809#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -7449,8 +7449,8 @@
    "left": "2016#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -7524,8 +7524,8 @@
    "left": "2016#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -7575,8 +7575,8 @@
    "left": "2017#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -7647,8 +7647,8 @@
    "left": "2017#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -7726,8 +7726,8 @@
    "left": "2017#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -7803,8 +7803,8 @@
    "left": "2017#20",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -7874,8 +7874,8 @@
    "left": "2017#20",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -7923,8 +7923,8 @@
    "left": "2017#21",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -7995,8 +7995,8 @@
    "left": "2017#21",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -8069,8 +8069,8 @@
    "left": "2017#22",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -8142,8 +8142,8 @@
    "left": "2017#22",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -8212,8 +8212,8 @@
    "left": "2017#23",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -8284,8 +8284,8 @@
    "left": "2017#23",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -8332,8 +8332,8 @@
    "left": "2017#27",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -8380,8 +8380,8 @@
    "left": "2017#27",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -8428,8 +8428,8 @@
    "left": "2017#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -8510,8 +8510,8 @@
    "left": "2017#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -8569,8 +8569,8 @@
    "left": "2017#35",
    "right": "M2606#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -8643,8 +8643,8 @@
    "left": "2017#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -8692,8 +8692,8 @@
    "left": "2017#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -8767,8 +8767,8 @@
    "left": "2017#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -8841,8 +8841,8 @@
    "left": "2017#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -8917,8 +8917,8 @@
    "left": "2017#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -8989,8 +8989,8 @@
    "left": "2017#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -9039,8 +9039,8 @@
    "left": "2017#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -9113,8 +9113,8 @@
    "left": "2017#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -9163,8 +9163,8 @@
    "left": "2017#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -9236,8 +9236,8 @@
    "left": "2017#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -9308,8 +9308,8 @@
    "left": "2017#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -9384,8 +9384,8 @@
    "left": "2017#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -9436,8 +9436,8 @@
    "left": "2018#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -9506,8 +9506,8 @@
    "left": "2018#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -9587,8 +9587,8 @@
    "left": "2018#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -9664,8 +9664,8 @@
    "left": "2018#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -9758,8 +9758,8 @@
    "left": "2018#21",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -9841,8 +9841,8 @@
    "left": "2018#22",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -9914,8 +9914,8 @@
    "left": "2018#23",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -9963,8 +9963,8 @@
    "left": "2018#23",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -10033,8 +10033,8 @@
    "left": "2018#27",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -10081,8 +10081,8 @@
    "left": "2018#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -10155,8 +10155,8 @@
    "left": "2018#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -10237,8 +10237,8 @@
    "left": "2018#36",
    "right": "M2409#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -10314,8 +10314,8 @@
    "left": "2018#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -10385,8 +10385,8 @@
    "left": "2018#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -10460,8 +10460,8 @@
    "left": "2018#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -10542,8 +10542,8 @@
    "left": "2018#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -10614,8 +10614,8 @@
    "left": "2018#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -10686,8 +10686,8 @@
    "left": "2018#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -10758,8 +10758,8 @@
    "left": "2018#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -10830,8 +10830,8 @@
    "left": "2018#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -10902,8 +10902,8 @@
    "left": "2018#42",
    "right": "M1809#42",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-BLANK",
+    "right": "X-BLANK"
    },
    "mappings": [
     {
@@ -10976,8 +10976,8 @@
    "left": "2018#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -11048,8 +11048,8 @@
    "left": "2018#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -11119,8 +11119,8 @@
    "left": "2019#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -11189,8 +11189,8 @@
    "left": "2019#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -11259,8 +11259,8 @@
    "left": "2019#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -11336,8 +11336,8 @@
    "left": "2019#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -11409,8 +11409,8 @@
    "left": "2019#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -11480,8 +11480,8 @@
    "left": "2019#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -11548,8 +11548,8 @@
    "left": "2019#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -11620,8 +11620,8 @@
    "left": "2019#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -11690,8 +11690,8 @@
    "left": "2019#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -11760,8 +11760,8 @@
    "left": "2019#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -11830,8 +11830,8 @@
    "left": "2019#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -11901,8 +11901,8 @@
    "left": "2019#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -11974,8 +11974,8 @@
    "left": "2019#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -12047,8 +12047,8 @@
    "left": "2019#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -12116,8 +12116,8 @@
    "left": "2019#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -12182,8 +12182,8 @@
    "left": "2019#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -12255,8 +12255,8 @@
    "left": "2019#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -12326,8 +12326,8 @@
    "left": "2019#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -12395,8 +12395,8 @@
    "left": "2019#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -12469,8 +12469,8 @@
    "left": "2019#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -12543,8 +12543,8 @@
    "left": "2019#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -12619,8 +12619,8 @@
    "left": "2019#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -12692,8 +12692,8 @@
    "left": "2019#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -12765,8 +12765,8 @@
    "left": "2019#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -12841,8 +12841,8 @@
    "left": "2019#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -12912,8 +12912,8 @@
    "left": "2019#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -12983,8 +12983,8 @@
    "left": "2019#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -13057,8 +13057,8 @@
    "left": "2019#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -13128,8 +13128,8 @@
    "left": "2019#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -13204,8 +13204,8 @@
    "left": "2019#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -13281,8 +13281,8 @@
    "left": "2020#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -13353,8 +13353,8 @@
    "left": "2020#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -13424,8 +13424,8 @@
    "left": "2020#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -13514,8 +13514,8 @@
    "left": "2020#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -13591,8 +13591,8 @@
    "left": "2020#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -13662,8 +13662,8 @@
    "left": "2020#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -13733,8 +13733,8 @@
    "left": "2020#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -13806,8 +13806,8 @@
    "left": "2020#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -13877,8 +13877,8 @@
    "left": "2020#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -13949,8 +13949,8 @@
    "left": "2020#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -14023,8 +14023,8 @@
    "left": "2020#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -14095,8 +14095,8 @@
    "left": "2020#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -14166,8 +14166,8 @@
    "left": "2020#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -14241,8 +14241,8 @@
    "left": "2020#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -14311,8 +14311,8 @@
    "left": "2020#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -14378,8 +14378,8 @@
    "left": "2020#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -14446,8 +14446,8 @@
    "left": "2020#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -14516,8 +14516,8 @@
    "left": "2020#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -14599,8 +14599,8 @@
    "left": "2020#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -14681,8 +14681,8 @@
    "left": "2020#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -14764,8 +14764,8 @@
    "left": "2020#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -14815,8 +14815,8 @@
    "left": "2020#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -14897,8 +14897,8 @@
    "left": "2020#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -14970,8 +14970,8 @@
    "left": "2020#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -15042,8 +15042,8 @@
    "left": "2020#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -15115,8 +15115,8 @@
    "left": "2020#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -15188,8 +15188,8 @@
    "left": "2020#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -15261,8 +15261,8 @@
    "left": "2020#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -15334,8 +15334,8 @@
    "left": "2020#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -15407,8 +15407,8 @@
    "left": "2020#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -15480,8 +15480,8 @@
    "left": "2020#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -15551,8 +15551,8 @@
    "left": "2020#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -15633,8 +15633,8 @@
    "left": "2020#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -15712,8 +15712,8 @@
    "left": "2020#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -15786,8 +15786,8 @@
    "left": "2020#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -15860,8 +15860,8 @@
    "left": "2021#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -15933,8 +15933,8 @@
    "left": "2021#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -16006,8 +16006,8 @@
    "left": "2021#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -16083,8 +16083,8 @@
    "left": "2021#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -16158,8 +16158,8 @@
    "left": "2021#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -16228,8 +16228,8 @@
    "left": "2021#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -16298,8 +16298,8 @@
    "left": "2021#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -16377,8 +16377,8 @@
    "left": "2021#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -16446,8 +16446,8 @@
    "left": "2021#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -16517,8 +16517,8 @@
    "left": "2021#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -16594,8 +16594,8 @@
    "left": "2021#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -16674,8 +16674,8 @@
    "left": "2021#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -16748,8 +16748,8 @@
    "left": "2021#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -16819,8 +16819,8 @@
    "left": "2021#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -16890,8 +16890,8 @@
    "left": "2021#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -16972,8 +16972,8 @@
    "left": "2021#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -17044,8 +17044,8 @@
    "left": "2021#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -17125,8 +17125,8 @@
    "left": "2021#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -17196,8 +17196,8 @@
    "left": "2021#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -17267,8 +17267,8 @@
    "left": "2021#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -17340,8 +17340,8 @@
    "left": "2021#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -17413,8 +17413,8 @@
    "left": "2021#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -17488,8 +17488,8 @@
    "left": "2021#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -17560,8 +17560,8 @@
    "left": "2021#38",
    "right": "M2606#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -17635,8 +17635,8 @@
    "left": "2021#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -17710,8 +17710,8 @@
    "left": "2021#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -17783,8 +17783,8 @@
    "left": "2021#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -17856,8 +17856,8 @@
    "left": "2021#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -17929,8 +17929,8 @@
    "left": "2021#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -18002,8 +18002,8 @@
    "left": "2021#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -18074,8 +18074,8 @@
    "left": "2021#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -18144,8 +18144,8 @@
    "left": "2021#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -18218,8 +18218,8 @@
    "left": "2021#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -18291,8 +18291,8 @@
    "left": "2022#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -18362,8 +18362,8 @@
    "left": "2022#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -18432,8 +18432,8 @@
    "left": "2022#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -18510,8 +18510,8 @@
    "left": "2022#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -18585,8 +18585,8 @@
    "left": "2022#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -18656,8 +18656,8 @@
    "left": "2022#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -18727,8 +18727,8 @@
    "left": "2022#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -18796,8 +18796,8 @@
    "left": "2022#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -18866,8 +18866,8 @@
    "left": "2022#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -18938,8 +18938,8 @@
    "left": "2022#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -19019,8 +19019,8 @@
    "left": "2022#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -19070,8 +19070,8 @@
    "left": "2022#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -19140,8 +19140,8 @@
    "left": "2022#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -19220,8 +19220,8 @@
    "left": "2022#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -19291,8 +19291,8 @@
    "left": "2022#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -19364,8 +19364,8 @@
    "left": "2022#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -19437,8 +19437,8 @@
    "left": "2022#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -19513,8 +19513,8 @@
    "left": "2022#38",
    "right": "M2606#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -19566,8 +19566,8 @@
    "left": "2022#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -19652,8 +19652,8 @@
    "left": "2022#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -19723,8 +19723,8 @@
    "left": "2022#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -19794,8 +19794,8 @@
    "left": "2022#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -19865,8 +19865,8 @@
    "left": "2022#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -19933,8 +19933,8 @@
    "left": "2022#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -20005,8 +20005,8 @@
    "left": "2022#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -20077,8 +20077,8 @@
    "left": "2022#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -20152,8 +20152,8 @@
    "left": "2022#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -20228,8 +20228,8 @@
    "left": "2023#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -20311,8 +20311,8 @@
    "left": "2023#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -20390,8 +20390,8 @@
    "left": "2023#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -20462,8 +20462,8 @@
    "left": "2023#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -20535,8 +20535,8 @@
    "left": "2023#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -20604,8 +20604,8 @@
    "left": "2023#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -20671,8 +20671,8 @@
    "left": "2023#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -20719,8 +20719,8 @@
    "left": "2023#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -20791,8 +20791,8 @@
    "left": "2023#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -20863,8 +20863,8 @@
    "left": "2023#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -20936,8 +20936,8 @@
    "left": "2023#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -21010,8 +21010,8 @@
    "left": "2023#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -21083,8 +21083,8 @@
    "left": "2023#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -21154,8 +21154,8 @@
    "left": "2023#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -21224,8 +21224,8 @@
    "left": "2023#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -21296,8 +21296,8 @@
    "left": "2023#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -21366,8 +21366,8 @@
    "left": "2023#43",
    "right": "M2606#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -21443,8 +21443,8 @@
    "left": "2023#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -21516,8 +21516,8 @@
    "left": "2024#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -21587,8 +21587,8 @@
    "left": "2024#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -21659,8 +21659,8 @@
    "left": "2024#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -21730,8 +21730,8 @@
    "left": "2024#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -21803,8 +21803,8 @@
    "left": "2024#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -21876,8 +21876,8 @@
    "left": "2024#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -21947,8 +21947,8 @@
    "left": "2024#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -22014,8 +22014,8 @@
    "left": "2024#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -22062,8 +22062,8 @@
    "left": "2024#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -22133,8 +22133,8 @@
    "left": "2024#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -22204,8 +22204,8 @@
    "left": "2024#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -22275,8 +22275,8 @@
    "left": "2024#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -22350,8 +22350,8 @@
    "left": "2024#38",
    "right": "M2606#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -22423,8 +22423,8 @@
    "left": "2024#39",
    "right": "M2606#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -22494,8 +22494,8 @@
    "left": "2024#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -22567,8 +22567,8 @@
    "left": "2024#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -22664,8 +22664,8 @@
    "left": "2024#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -22753,8 +22753,8 @@
    "left": "2024#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -22824,8 +22824,8 @@
    "left": "2024#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -22896,8 +22896,8 @@
    "left": "2025#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -23011,8 +23011,8 @@
    "left": "2025#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -23080,8 +23080,8 @@
    "left": "2025#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -23172,8 +23172,8 @@
    "left": "2025#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -23263,8 +23263,8 @@
    "left": "2025#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -23332,8 +23332,8 @@
    "left": "2025#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -23402,8 +23402,8 @@
    "left": "2025#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -23472,8 +23472,8 @@
    "left": "2025#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -23542,8 +23542,8 @@
    "left": "2025#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -23612,8 +23612,8 @@
    "left": "2025#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -23682,8 +23682,8 @@
    "left": "2025#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -23752,8 +23752,8 @@
    "left": "2025#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -23845,8 +23845,8 @@
    "left": "2025#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -23914,8 +23914,8 @@
    "left": "2025#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -23982,8 +23982,8 @@
    "left": "2025#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -24056,8 +24056,8 @@
    "left": "2025#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -24129,8 +24129,8 @@
    "left": "2025#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -24202,8 +24202,8 @@
    "left": "2025#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -24274,8 +24274,8 @@
    "left": "2025#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -24345,8 +24345,8 @@
    "left": "2025#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -24415,8 +24415,8 @@
    "left": "2025#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -24486,8 +24486,8 @@
    "left": "2025#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -24557,8 +24557,8 @@
    "left": "2025#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -24625,8 +24625,8 @@
    "left": "2025#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -24713,8 +24713,8 @@
    "left": "2025#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -24782,8 +24782,8 @@
    "left": "2025#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -24854,8 +24854,8 @@
    "left": "2025#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -24924,8 +24924,8 @@
    "left": "2026#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -24993,8 +24993,8 @@
    "left": "2026#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -25061,8 +25061,8 @@
    "left": "2026#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -25130,8 +25130,8 @@
    "left": "2026#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -25197,8 +25197,8 @@
    "left": "2026#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -25267,8 +25267,8 @@
    "left": "2026#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -25335,8 +25335,8 @@
    "left": "2026#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -25406,8 +25406,8 @@
    "left": "2026#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -25474,8 +25474,8 @@
    "left": "2026#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -25545,8 +25545,8 @@
    "left": "2026#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -25615,8 +25615,8 @@
    "left": "2026#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -25681,8 +25681,8 @@
    "left": "2026#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -25748,8 +25748,8 @@
    "left": "2026#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -25819,8 +25819,8 @@
    "left": "2026#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -25888,8 +25888,8 @@
    "left": "2026#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -25969,8 +25969,8 @@
    "left": "2026#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -26038,8 +26038,8 @@
    "left": "2026#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -26112,8 +26112,8 @@
    "left": "2026#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -26183,8 +26183,8 @@
    "left": "2026#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -26253,8 +26253,8 @@
    "left": "2026#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -26325,8 +26325,8 @@
    "left": "2026#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -26396,8 +26396,8 @@
    "left": "2026#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -26485,8 +26485,8 @@
    "left": "2026#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -26554,8 +26554,8 @@
    "left": "2026#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -26625,8 +26625,8 @@
    "left": "2026#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -26698,8 +26698,8 @@
    "left": "M1809#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -26766,8 +26766,8 @@
    "left": "M1809#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -26835,8 +26835,8 @@
    "left": "M1809#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -26918,8 +26918,8 @@
    "left": "M1809#21",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -26988,8 +26988,8 @@
    "left": "M1809#21",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -27060,8 +27060,8 @@
    "left": "M1809#22",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -27141,8 +27141,8 @@
    "left": "M1809#23",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -27213,8 +27213,8 @@
    "left": "M1809#23",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -27282,8 +27282,8 @@
    "left": "M1809#27",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -27349,8 +27349,8 @@
    "left": "M1809#27",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -27416,8 +27416,8 @@
    "left": "M1809#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -27496,8 +27496,8 @@
    "left": "M1809#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -27568,8 +27568,8 @@
    "left": "M1809#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -27647,8 +27647,8 @@
    "left": "M1809#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -27718,8 +27718,8 @@
    "left": "M1809#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -27791,8 +27791,8 @@
    "left": "M1809#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -27863,8 +27863,8 @@
    "left": "M1809#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -27938,8 +27938,8 @@
    "left": "M1809#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -28016,8 +28016,8 @@
    "left": "M1809#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -28092,8 +28092,8 @@
    "left": "M1809#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -28142,8 +28142,8 @@
    "left": "M1809#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -28215,8 +28215,8 @@
    "left": "M1809#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -28287,8 +28287,8 @@
    "left": "M1809#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -28360,8 +28360,8 @@
    "left": "M1809#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -28431,8 +28431,8 @@
    "left": "M1809#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -28502,8 +28502,8 @@
    "left": "M1809#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -28573,8 +28573,8 @@
    "left": "M1809#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -28653,8 +28653,8 @@
    "left": "M1809#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -28733,8 +28733,8 @@
    "left": "M2006#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -28805,8 +28805,8 @@
    "left": "M2006#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -28888,8 +28888,8 @@
    "left": "M2006#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -28960,8 +28960,8 @@
    "left": "M2006#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -29039,8 +29039,8 @@
    "left": "M2006#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -29110,8 +29110,8 @@
    "left": "M2006#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -29182,8 +29182,8 @@
    "left": "M2006#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -29254,8 +29254,8 @@
    "left": "M2006#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -29328,8 +29328,8 @@
    "left": "M2006#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -29399,8 +29399,8 @@
    "left": "M2006#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -29466,8 +29466,8 @@
    "left": "M2006#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -29533,8 +29533,8 @@
    "left": "M2006#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -29607,8 +29607,8 @@
    "left": "M2006#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -29688,8 +29688,8 @@
    "left": "M2006#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -29760,8 +29760,8 @@
    "left": "M2006#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -29834,8 +29834,8 @@
    "left": "M2006#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -29907,8 +29907,8 @@
    "left": "M2006#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -29985,8 +29985,8 @@
    "left": "M2006#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -30058,8 +30058,8 @@
    "left": "M2006#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -30133,8 +30133,8 @@
    "left": "M2006#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -30212,8 +30212,8 @@
    "left": "M2006#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -30284,8 +30284,8 @@
    "left": "M2006#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -30356,8 +30356,8 @@
    "left": "M2006#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -30428,8 +30428,8 @@
    "left": "M2006#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -30500,8 +30500,8 @@
    "left": "M2006#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -30573,8 +30573,8 @@
    "left": "M2006#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -30645,8 +30645,8 @@
    "left": "M2006#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -30717,8 +30717,8 @@
    "left": "M2006#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -30796,8 +30796,8 @@
    "left": "M2006#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -30875,8 +30875,8 @@
    "left": "M2106#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -30947,8 +30947,8 @@
    "left": "M2106#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -31044,8 +31044,8 @@
    "left": "M2106#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -31158,8 +31158,8 @@
    "left": "M2106#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -31253,8 +31253,8 @@
    "left": "M2106#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -31342,8 +31342,8 @@
    "left": "M2106#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -31433,8 +31433,8 @@
    "left": "M2106#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -31504,8 +31504,8 @@
    "left": "M2106#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -31574,8 +31574,8 @@
    "left": "M2106#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -31654,8 +31654,8 @@
    "left": "M2106#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -31727,8 +31727,8 @@
    "left": "M2106#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -31796,8 +31796,8 @@
    "left": "M2106#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -31881,8 +31881,8 @@
    "left": "M2106#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -31947,8 +31947,8 @@
    "left": "M2106#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32018,8 +32018,8 @@
    "left": "M2106#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32089,8 +32089,8 @@
    "left": "M2106#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32158,8 +32158,8 @@
    "left": "M2106#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32229,8 +32229,8 @@
    "left": "M2106#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32300,8 +32300,8 @@
    "left": "M2106#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32370,8 +32370,8 @@
    "left": "M2106#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -32441,8 +32441,8 @@
    "left": "M2106#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -32515,8 +32515,8 @@
    "left": "M2106#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -32588,8 +32588,8 @@
    "left": "M2106#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -32664,8 +32664,8 @@
    "left": "M2106#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -32741,8 +32741,8 @@
    "left": "M2106#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -32816,8 +32816,8 @@
    "left": "M2106#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -32892,8 +32892,8 @@
    "left": "M2106#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -32965,8 +32965,8 @@
    "left": "M2106#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -33037,8 +33037,8 @@
    "left": "M2106#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -33108,8 +33108,8 @@
    "left": "M2106#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -33178,8 +33178,8 @@
    "left": "M2106#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -33253,8 +33253,8 @@
    "left": "M2106#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -33325,8 +33325,8 @@
    "left": "M2106#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -33397,8 +33397,8 @@
    "left": "M2106#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -33469,8 +33469,8 @@
    "left": "M2106#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -33547,8 +33547,8 @@
    "left": "M2106#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -33624,8 +33624,8 @@
    "left": "M2109#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -33694,8 +33694,8 @@
    "left": "M2109#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -33764,8 +33764,8 @@
    "left": "M2109#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -33838,8 +33838,8 @@
    "left": "M2109#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -33911,8 +33911,8 @@
    "left": "M2109#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -33982,8 +33982,8 @@
    "left": "M2109#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -34051,8 +34051,8 @@
    "left": "M2109#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -34124,8 +34124,8 @@
    "left": "M2109#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -34192,8 +34192,8 @@
    "left": "M2109#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -34262,8 +34262,8 @@
    "left": "M2109#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -34331,8 +34331,8 @@
    "left": "M2109#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -34403,8 +34403,8 @@
    "left": "M2109#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -34476,8 +34476,8 @@
    "left": "M2109#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -34546,8 +34546,8 @@
    "left": "M2109#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -34618,8 +34618,8 @@
    "left": "M2109#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -34698,8 +34698,8 @@
    "left": "M2109#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -34768,8 +34768,8 @@
    "left": "M2109#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -34839,8 +34839,8 @@
    "left": "M2109#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -34911,8 +34911,8 @@
    "left": "M2109#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -34985,8 +34985,8 @@
    "left": "M2109#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -35058,8 +35058,8 @@
    "left": "M2109#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -35135,8 +35135,8 @@
    "left": "M2109#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -35211,8 +35211,8 @@
    "left": "M2109#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -35287,8 +35287,8 @@
    "left": "M2109#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -35354,8 +35354,8 @@
    "left": "M2109#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -35422,8 +35422,8 @@
    "left": "M2109#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -35496,8 +35496,8 @@
    "left": "M2109#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -35568,8 +35568,8 @@
    "left": "M2206#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -35640,8 +35640,8 @@
    "left": "M2206#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -35714,8 +35714,8 @@
    "left": "M2206#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -35783,8 +35783,8 @@
    "left": "M2206#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -35851,8 +35851,8 @@
    "left": "M2206#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -35931,8 +35931,8 @@
    "left": "M2206#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -36001,8 +36001,8 @@
    "left": "M2206#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -36069,8 +36069,8 @@
    "left": "M2206#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -36141,8 +36141,8 @@
    "left": "M2206#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -36209,8 +36209,8 @@
    "left": "M2206#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36281,8 +36281,8 @@
    "left": "M2206#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36350,8 +36350,8 @@
    "left": "M2206#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36441,8 +36441,8 @@
    "left": "M2206#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36523,8 +36523,8 @@
    "left": "M2206#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36596,8 +36596,8 @@
    "left": "M2206#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -36668,8 +36668,8 @@
    "left": "M2206#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -36739,8 +36739,8 @@
    "left": "M2206#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -36812,8 +36812,8 @@
    "left": "M2206#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -36888,8 +36888,8 @@
    "left": "M2206#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -36964,8 +36964,8 @@
    "left": "M2206#37",
    "right": "M2306#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -37047,8 +37047,8 @@
    "left": "M2206#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -37115,8 +37115,8 @@
    "left": "M2206#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -37183,8 +37183,8 @@
    "left": "M2206#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -37254,8 +37254,8 @@
    "left": "M2206#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -37328,8 +37328,8 @@
    "left": "M2206#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -37401,8 +37401,8 @@
    "left": "M2209#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -37471,8 +37471,8 @@
    "left": "M2209#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -37544,8 +37544,8 @@
    "left": "M2209#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -37617,8 +37617,8 @@
    "left": "M2209#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -37687,8 +37687,8 @@
    "left": "M2209#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -37755,8 +37755,8 @@
    "left": "M2209#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -37826,8 +37826,8 @@
    "left": "M2209#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -37895,8 +37895,8 @@
    "left": "M2209#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -37965,8 +37965,8 @@
    "left": "M2209#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -38036,8 +38036,8 @@
    "left": "M2209#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -38103,8 +38103,8 @@
    "left": "M2209#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -38174,8 +38174,8 @@
    "left": "M2209#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -38245,8 +38245,8 @@
    "left": "M2209#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -38338,8 +38338,8 @@
    "left": "M2209#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -38410,8 +38410,8 @@
    "left": "M2209#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -38482,8 +38482,8 @@
    "left": "M2209#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -38556,8 +38556,8 @@
    "left": "M2209#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -38630,8 +38630,8 @@
    "left": "M2209#37",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -38704,8 +38704,8 @@
    "left": "M2209#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -38803,8 +38803,8 @@
    "left": "M2209#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -38864,8 +38864,8 @@
    "left": "M2209#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -38916,8 +38916,8 @@
    "left": "M2209#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -39002,8 +39002,8 @@
    "left": "M2209#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -39077,8 +39077,8 @@
    "left": "M2209#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -39152,8 +39152,8 @@
    "left": "M2209#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -39225,8 +39225,8 @@
    "left": "M2209#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -39304,8 +39304,8 @@
    "left": "M2209#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -39387,8 +39387,8 @@
    "left": "M2306#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -39458,8 +39458,8 @@
    "left": "M2306#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -39535,8 +39535,8 @@
    "left": "M2306#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -39605,8 +39605,8 @@
    "left": "M2306#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -39677,8 +39677,8 @@
    "left": "M2306#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -39747,8 +39747,8 @@
    "left": "M2306#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -39819,8 +39819,8 @@
    "left": "M2306#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -39890,8 +39890,8 @@
    "left": "M2306#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -39960,8 +39960,8 @@
    "left": "M2306#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -40027,8 +40027,8 @@
    "left": "M2306#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -40102,8 +40102,8 @@
    "left": "M2306#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -40176,8 +40176,8 @@
    "left": "M2306#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -40233,8 +40233,8 @@
    "left": "M2306#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -40290,8 +40290,8 @@
    "left": "M2306#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -40362,8 +40362,8 @@
    "left": "M2306#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -40437,8 +40437,8 @@
    "left": "M2306#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -40513,8 +40513,8 @@
    "left": "M2306#36",
    "right": "M2406#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -40591,8 +40591,8 @@
    "left": "M2306#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -40670,8 +40670,8 @@
    "left": "M2306#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -40745,8 +40745,8 @@
    "left": "M2306#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -40796,8 +40796,8 @@
    "left": "M2306#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -40871,8 +40871,8 @@
    "left": "M2306#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -40945,8 +40945,8 @@
    "left": "M2306#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -41023,8 +41023,8 @@
    "left": "M2306#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -41098,8 +41098,8 @@
    "left": "M2306#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -41168,8 +41168,8 @@
    "left": "M2306#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -41248,8 +41248,8 @@
    "left": "M2306#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -41328,8 +41328,8 @@
    "left": "M2309#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -41401,8 +41401,8 @@
    "left": "M2309#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -41472,8 +41472,8 @@
    "left": "M2309#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -41542,8 +41542,8 @@
    "left": "M2309#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -41612,8 +41612,8 @@
    "left": "M2309#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -41684,8 +41684,8 @@
    "left": "M2309#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -41755,8 +41755,8 @@
    "left": "M2309#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -41829,8 +41829,8 @@
    "left": "M2309#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -41904,8 +41904,8 @@
    "left": "M2309#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -41971,8 +41971,8 @@
    "left": "M2309#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -42038,8 +42038,8 @@
    "left": "M2309#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -42112,8 +42112,8 @@
    "left": "M2309#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -42186,8 +42186,8 @@
    "left": "M2309#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -42261,8 +42261,8 @@
    "left": "M2309#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -42335,8 +42335,8 @@
    "left": "M2309#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -42396,8 +42396,8 @@
    "left": "M2309#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -42471,8 +42471,8 @@
    "left": "M2309#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -42532,8 +42532,8 @@
    "left": "M2309#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -42614,8 +42614,8 @@
    "left": "M2309#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -42684,8 +42684,8 @@
    "left": "M2309#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -42753,8 +42753,8 @@
    "left": "M2309#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -42822,8 +42822,8 @@
    "left": "M2309#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -42891,8 +42891,8 @@
    "left": "M2309#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -42971,8 +42971,8 @@
    "left": "M2309#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -43042,8 +43042,8 @@
    "left": "M2406#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -43109,8 +43109,8 @@
    "left": "M2406#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -43179,8 +43179,8 @@
    "left": "M2406#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -43248,8 +43248,8 @@
    "left": "M2406#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -43315,8 +43315,8 @@
    "left": "M2406#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -43383,8 +43383,8 @@
    "left": "M2406#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -43452,8 +43452,8 @@
    "left": "M2406#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -43522,8 +43522,8 @@
    "left": "M2406#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -43592,8 +43592,8 @@
    "left": "M2406#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -43661,8 +43661,8 @@
    "left": "M2406#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -43737,8 +43737,8 @@
    "left": "M2406#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -43829,8 +43829,8 @@
    "left": "M2406#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -43900,8 +43900,8 @@
    "left": "M2406#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -43969,8 +43969,8 @@
    "left": "M2406#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -44040,8 +44040,8 @@
    "left": "M2406#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -44111,8 +44111,8 @@
    "left": "M2406#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -44183,8 +44183,8 @@
    "left": "M2406#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -44263,8 +44263,8 @@
    "left": "M2406#37",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -44337,8 +44337,8 @@
    "left": "M2406#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -44410,8 +44410,8 @@
    "left": "M2406#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -44483,8 +44483,8 @@
    "left": "M2406#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -44556,8 +44556,8 @@
    "left": "M2406#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -44628,8 +44628,8 @@
    "left": "M2406#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -44699,8 +44699,8 @@
    "left": "M2406#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -44770,8 +44770,8 @@
    "left": "M2406#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -44841,8 +44841,8 @@
    "left": "M2409#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -44911,8 +44911,8 @@
    "left": "M2409#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -44981,8 +44981,8 @@
    "left": "M2409#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -45052,8 +45052,8 @@
    "left": "M2409#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -45123,8 +45123,8 @@
    "left": "M2409#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -45196,8 +45196,8 @@
    "left": "M2409#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -45268,8 +45268,8 @@
    "left": "M2409#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -45339,8 +45339,8 @@
    "left": "M2409#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -45410,8 +45410,8 @@
    "left": "M2409#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -45484,8 +45484,8 @@
    "left": "M2409#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -45577,8 +45577,8 @@
    "left": "M2409#36",
    "right": "M2506#36",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -45662,8 +45662,8 @@
    "left": "M2409#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -45736,8 +45736,8 @@
    "left": "M2409#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -45807,8 +45807,8 @@
    "left": "M2409#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -45878,8 +45878,8 @@
    "left": "M2409#41",
    "right": "M2606#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -45950,8 +45950,8 @@
    "left": "M2409#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -46022,8 +46022,8 @@
    "left": "M2409#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -46103,8 +46103,8 @@
    "left": "M2409#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -46174,8 +46174,8 @@
    "left": "M2506#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -46246,8 +46246,8 @@
    "left": "M2506#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -46316,8 +46316,8 @@
    "left": "M2506#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -46391,8 +46391,8 @@
    "left": "M2506#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -46465,8 +46465,8 @@
    "left": "M2506#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -46533,8 +46533,8 @@
    "left": "M2506#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -46603,8 +46603,8 @@
    "left": "M2506#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -46694,8 +46694,8 @@
    "left": "M2506#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -46766,8 +46766,8 @@
    "left": "M2506#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -46836,8 +46836,8 @@
    "left": "M2506#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -46916,8 +46916,8 @@
    "left": "M2506#23",
    "right": "M2606#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -46994,8 +46994,8 @@
    "left": "M2506#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -47073,8 +47073,8 @@
    "left": "M2506#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -47153,8 +47153,8 @@
    "left": "M2506#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -47232,8 +47232,8 @@
    "left": "M2506#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -47308,8 +47308,8 @@
    "left": "M2506#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -47384,8 +47384,8 @@
    "left": "M2506#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47465,8 +47465,8 @@
    "left": "M2506#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47544,8 +47544,8 @@
    "left": "M2506#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47626,8 +47626,8 @@
    "left": "M2506#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47715,8 +47715,8 @@
    "left": "M2506#33",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47795,8 +47795,8 @@
    "left": "M2506#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -47877,8 +47877,8 @@
    "left": "M2506#35",
    "right": "M2509#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -47959,8 +47959,8 @@
    "left": "M2506#35",
    "right": "M2606#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -48041,8 +48041,8 @@
    "left": "M2506#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -48123,8 +48123,8 @@
    "left": "M2506#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -48205,8 +48205,8 @@
    "left": "M2506#36",
    "right": "M2609#37",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-ORDER",
+    "right": "R-ORDER"
    },
    "mappings": [
     {
@@ -48288,8 +48288,8 @@
    "left": "M2506#38",
    "right": "M2609#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -48370,8 +48370,8 @@
    "left": "M2506#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -48450,8 +48450,8 @@
    "left": "M2506#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -48530,8 +48530,8 @@
    "left": "M2506#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -48612,8 +48612,8 @@
    "left": "M2506#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -48692,8 +48692,8 @@
    "left": "M2506#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -48775,8 +48775,8 @@
    "left": "M2506#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -48857,8 +48857,8 @@
    "left": "M2506#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -48937,8 +48937,8 @@
    "left": "M2506#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -49023,8 +49023,8 @@
    "left": "M2506#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -49108,8 +49108,8 @@
    "left": "M2509#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -49189,8 +49189,8 @@
    "left": "M2509#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -49268,8 +49268,8 @@
    "left": "M2509#19",
    "right": "M2609#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -49351,8 +49351,8 @@
    "left": "M2509#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -49433,8 +49433,8 @@
    "left": "M2509#21",
    "right": "M2606#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -49512,8 +49512,8 @@
    "left": "M2509#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -49592,8 +49592,8 @@
    "left": "M2509#21",
    "right": "M2706#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -49673,8 +49673,8 @@
    "left": "M2509#22",
    "right": "M2606#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -49752,8 +49752,8 @@
    "left": "M2509#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -49832,8 +49832,8 @@
    "left": "M2509#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -49912,8 +49912,8 @@
    "left": "M2509#24",
    "right": "M2606#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -49994,8 +49994,8 @@
    "left": "M2509#24",
    "right": "M2609#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -50075,8 +50075,8 @@
    "left": "M2509#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -50155,8 +50155,8 @@
    "left": "M2509#28",
    "right": "M2606#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -50231,8 +50231,8 @@
    "left": "M2509#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -50308,8 +50308,8 @@
    "left": "M2509#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50390,8 +50390,8 @@
    "left": "M2509#31",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50473,8 +50473,8 @@
    "left": "M2509#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50556,8 +50556,8 @@
    "left": "M2509#32",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50638,8 +50638,8 @@
    "left": "M2509#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50719,8 +50719,8 @@
    "left": "M2509#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -50802,8 +50802,8 @@
    "left": "M2509#35",
    "right": "M2606#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -50884,8 +50884,8 @@
    "left": "M2509#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -50968,8 +50968,8 @@
    "left": "M2509#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -51050,8 +51050,8 @@
    "left": "M2509#38",
    "right": "M2606#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -51132,8 +51132,8 @@
    "left": "M2509#38",
    "right": "M2606#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -51214,8 +51214,8 @@
    "left": "M2509#38",
    "right": "M2609#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -51297,8 +51297,8 @@
    "left": "M2509#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -51379,8 +51379,8 @@
    "left": "M2509#40",
    "right": "M2609#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -51461,8 +51461,8 @@
    "left": "M2509#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -51543,8 +51543,8 @@
    "left": "M2509#41",
    "right": "M2606#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -51622,8 +51622,8 @@
    "left": "M2509#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -51700,8 +51700,8 @@
    "left": "M2509#43",
    "right": "M2606#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -51769,8 +51769,8 @@
    "left": "M2509#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -51838,8 +51838,8 @@
    "left": "M2509#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -51910,8 +51910,8 @@
    "left": "M2606#18",
    "right": "M2609#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -51981,8 +51981,8 @@
    "left": "M2606#18",
    "right": "M2706#18",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-PURPOSE",
+    "right": "R-PURPOSE"
    },
    "mappings": [
     {
@@ -52061,8 +52061,8 @@
    "left": "M2606#20",
    "right": "M2609#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -52131,8 +52131,8 @@
    "left": "M2606#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -52201,8 +52201,8 @@
    "left": "M2606#21",
    "right": "M2609#21",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IMPLY",
+    "right": "R-IMPLY"
    },
    "mappings": [
     {
@@ -52280,8 +52280,8 @@
    "left": "M2606#22",
    "right": "M2609#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -52349,8 +52349,8 @@
    "left": "M2606#23",
    "right": "M2609#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -52420,8 +52420,8 @@
    "left": "M2606#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -52491,8 +52491,8 @@
    "left": "M2606#28",
    "right": "M2609#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -52558,8 +52558,8 @@
    "left": "M2606#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -52625,8 +52625,8 @@
    "left": "M2606#31",
    "right": "M2609#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -52697,8 +52697,8 @@
    "left": "M2606#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -52768,8 +52768,8 @@
    "left": "M2606#32",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -52848,8 +52848,8 @@
    "left": "M2606#33",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -52929,8 +52929,8 @@
    "left": "M2606#34",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -53002,8 +53002,8 @@
    "left": "M2606#35",
    "right": "M2609#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -53076,8 +53076,8 @@
    "left": "M2606#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -53148,8 +53148,8 @@
    "left": "M2606#39",
    "right": "M2609#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -53221,8 +53221,8 @@
    "left": "M2606#39",
    "right": "M2609#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -53291,8 +53291,8 @@
    "left": "M2606#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -53361,8 +53361,8 @@
    "left": "M2606#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -53433,8 +53433,8 @@
    "left": "M2606#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -53515,8 +53515,8 @@
    "left": "M2606#41",
    "right": "M2609#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -53586,8 +53586,8 @@
    "left": "M2606#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -53656,8 +53656,8 @@
    "left": "M2606#43",
    "right": "M2609#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -53728,8 +53728,8 @@
    "left": "M2606#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
@@ -53801,8 +53801,8 @@
    "left": "M2609#19",
    "right": "M2706#19",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-MOOD",
+    "right": "R-MOOD"
    },
    "mappings": [
     {
@@ -53875,8 +53875,8 @@
    "left": "M2609#20",
    "right": "M2706#20",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-CLAIM",
+    "right": "R-CLAIM"
    },
    "mappings": [
     {
@@ -53946,8 +53946,8 @@
    "left": "M2609#22",
    "right": "M2706#22",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-GIST",
+    "right": "R-GIST"
    },
    "mappings": [
     {
@@ -54017,8 +54017,8 @@
    "left": "M2609#23",
    "right": "M2706#23",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TOPIC",
+    "right": "R-TOPIC"
    },
    "mappings": [
     {
@@ -54091,8 +54091,8 @@
    "left": "M2609#24",
    "right": "M2706#24",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-TITLE",
+    "right": "R-TITLE"
    },
    "mappings": [
     {
@@ -54163,8 +54163,8 @@
    "left": "M2609#28",
    "right": "M2706#28",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-NOTICE",
+    "right": "R-NOTICE"
    },
    "mappings": [
     {
@@ -54238,8 +54238,8 @@
    "left": "M2609#31",
    "right": "M2706#31",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -54311,8 +54311,8 @@
    "left": "M2609#31",
    "right": "M2706#34",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -54384,8 +54384,8 @@
    "left": "M2609#32",
    "right": "M2706#33",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -54457,8 +54457,8 @@
    "left": "M2609#34",
    "right": "M2706#32",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-BLANK",
+    "right": "R-BLANK"
    },
    "mappings": [
     {
@@ -54528,8 +54528,8 @@
    "left": "M2609#35",
    "right": "M2706#35",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-IRRELEVANT",
+    "right": "R-IRRELEVANT"
    },
    "mappings": [
     {
@@ -54602,8 +54602,8 @@
    "left": "M2609#38",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -54675,8 +54675,8 @@
    "left": "M2609#38",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -54747,8 +54747,8 @@
    "left": "M2609#39",
    "right": "M2706#38",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -54817,8 +54817,8 @@
    "left": "M2609#39",
    "right": "M2706#39",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-INSERT",
+    "right": "R-INSERT"
    },
    "mappings": [
     {
@@ -54889,8 +54889,8 @@
    "left": "M2609#40",
    "right": "M2706#40",
    "types": {
-    "left": null,
-    "right": null
+    "left": "R-SUMMARY",
+    "right": "R-SUMMARY"
    },
    "mappings": [
     {
@@ -54962,8 +54962,8 @@
    "left": "M2609#41",
    "right": "M2706#41",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-TITLE",
+    "right": "X-TITLE"
    },
    "mappings": [
     {
@@ -55033,8 +55033,8 @@
    "left": "M2609#43",
    "right": "M2706#43",
    "types": {
-    "left": null,
-    "right": null
+    "left": "X-ORDER",
+    "right": "X-ORDER"
    },
    "mappings": [
     {
