@@ -90,7 +90,8 @@ import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
 import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
-import { V3Compare, V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
+import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
+import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
@@ -183,6 +184,10 @@ export function AnalysisTheater({
   comparePairs = [],
   v3Pairs = [],
   pairAbsence = null,
+  pairWithheld = { held: 0, missing: 0, changed: 0 },
+  initialPairId = null,
+  compareReturn = null,
+  currentSlug = '',
   initialScene = 'task',
   initialJudgmentView = 'answer',
   sceneNormalized = false,
@@ -214,6 +219,14 @@ export function AnalysisTheater({
   v3Pairs?: V3PairView[]
   /** v3 비교가 없을 때 그 이유(쌍 없음 · 상대 비공개 · stale) */
   pairAbsence?: PairAbsence | null
+  /** 화면에서 뺀 검수 쌍의 이유별 수 */
+  pairWithheld?: PairWithheldView
+  /** 주소 `?pair=` 로 열 쌍 */
+  initialPairId?: string | null
+  /** 다른 문항의 비교에서 넘어왔으면 돌아갈 곳(`?back=`) */
+  compareReturn?: { href: string; label: string } | null
+  /** 이 문항 slug — 상대로 넘어갈 때 back 으로 넘긴다 */
+  currentSlug?: string
   /** 일곱 장면 중 처음 열 장면(URL `?scene=` · 서버가 parseScene 으로 정규화) */
   initialScene?: SceneId
   /** 문항 성립 장면의 처음 보기 — 옛 `distractor` 링크면 options */
@@ -263,10 +276,14 @@ export function AnalysisTheater({
   // 원리 노트(v3 M4) — 이 문항 것만. 저장은 id 단위 교체(대조 표시도 같은 경로)
   const [notes, setNotes] = useState<ReasoningNote[]>([])
   const pickNotes = (r: DissectionRecord) => setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
-  const saveNote = (x: ReasoningNote) => {
-    setNotes((xs) => [...xs.filter((y) => y.id !== x.id), x])
-    void persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() })).then(({ record }) => pickNotes(record))
-  }
+  // 실제 저장 결과를 돌려준다 — 실패면 화면이 입력을 지키고 「다시 저장」을 연다(낙관적 완료 표시 금지 · M5)
+  const saveNote = (x: ReasoningNote): Promise<boolean> =>
+    persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
+      .then(({ record, saved }) => {
+        if (saved) pickNotes(record)
+        return saved
+      })
+      .catch(() => false)
   // 이 문항의 이해 확인 시도(M4)
   const [checked, setChecked] = useState<CheckAttempt[]>([])
   const pickChecked = (r: DissectionRecord) => setChecked((r.checks ?? []).filter((x) => x.item === itemId))
@@ -891,7 +908,21 @@ export function AnalysisTheater({
                     {sceneChecks.length ? (
                       <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
                     ) : null}
-                    {scene === 'compare' ? <V3Compare pairs={v3Pairs} absence={pairAbsence === 'none' && comparePairs.length ? null : pairAbsence} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                    {scene === 'compare' ? (
+                      <V3CompareExplorer
+                        key={`cmp-${itemId}`}
+                        pairs={v3Pairs}
+                        absence={pairAbsence === 'none' && comparePairs.length ? null : pairAbsence}
+                        withheld={pairWithheld}
+                        initialPairId={initialPairId}
+                        currentSlug={currentSlug}
+                        fromMap={Boolean(mapReturn)}
+                        returnTo={compareReturn}
+                        onEvidence={onEvidence}
+                        linkable={v3Linkable}
+                        selectedKey={evidence?.key ?? null}
+                      />
+                    ) : null}
                     {scene === 'compare' ? (
                       comparePairs.length ? (
                         <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">

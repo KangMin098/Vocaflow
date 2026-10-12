@@ -141,9 +141,11 @@ export interface V3PairView {
 }
 
 /** 비교가 없는 이유 — 서로 다른 absence reason(REASONING_DATA §pair) */
-export type PairAbsence = 'none' | 'partner_hidden' | 'stale'
+export type PairAbsence = 'none' | 'partner_hidden' | 'partner_missing' | 'partner_changed' | 'stale'
 export const PAIR_ABSENCE_TEXT: Record<PairAbsence, string> = {
   none: '이 문항과 독립 검수를 통과한 비교 쌍이 아직 없어요. 같은 유형이라는 이유만으로 채우지 않아요.',
   partner_hidden: '검수된 비교가 있지만 상대 문항이 지금 공개되지 않아 보여 드릴 수 없어요.',
+  partner_missing: '검수된 비교의 상대 문항이 지금 공개 목록에 없어 보여 드릴 수 없어요.',
+  partner_changed: '상대 문항의 분석이 바뀌어, 예전 분석으로 만든 비교는 다시 검수할 때까지 숨겨요.',
   stale: '이 문항의 분석이 새로 바뀌어, 예전 분석으로 만든 비교는 다시 검수할 때까지 숨겨요.',
 }

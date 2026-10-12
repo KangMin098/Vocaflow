@@ -115,3 +115,12 @@
   - kind 판정이 검수자마다 흔들려(「근거 종류가 다르다」를 contrast 로) 정의를 REVIEWER_PAIR 에 고정 · 작성 규칙 7~10 추가(v3 근거 대조 · contrast 는 판정이 갈릴 때만 · 내부 참조 금지 · 다른 선지 조합 확인).
   - **반복 차단 결정**: not_applicable(비공개)로 둔 쌍을 최종 재검수가 「다른 선지 조합이면 대응 성립」으로 뒤집은 12쌍은 이번 회차에 고치지 않는다(이전 검수는 not_applicable 을 요구 — 판정이 오가는 반복). 학습자에게 틀린 설명이 나가지 않는 보수적 결과다. 다음 회차 후보:
     2024#22~M2706#22 · M1809#22~M2706#23 · M1809#31~M2706#32 · M2006#21~M2706#21 · M2006#31~M2706#31 · M2109#41~M2706#41 · M2306#21~M2609#21 · 2014A#33~M2706#31 · 2014A#40~M2609#19 · 2014B#24~M2706#23 · 2014B#43~M2706#43 · 2016#19~M2706#19 (조합 제안은 `review-v3p-final-a/b.json`).
+
+## 9. v3 M5 보강 — 비교 공개 경로 · 비교 탐구 · 노트 저장 결과 (2026-10-12)
+
+- **유형 정본**: 상대 유형은 커밋된 공개 골격(`skeleton-data`)에서 읽는다(PR #231 cherry-pick — gitignore 입력이 없는 checkout 에서도 재빌드). 누락 · 충돌이면 빌드 실패(`lib-compare-types.mjs`).
+- **상대 상태 쌍마다 구별**(`projectV3Pairs` · `PartnerState`): 공개 · 보류/접근 제한(골격엔 있으나 공개 목록 밖) · 골격에 없음(삭제 · 미발행) · 분석 바뀜(상대의 지금 공개 `units_hash` ≠ 쌍 결속). 뺀 쌍은 이유별 수를 화면에 밝힌다(`withheld`). 남은 쌍이 없으면 absence: none · partner_hidden · partner_missing · partner_changed · stale.
+- **비교 탐구 화면**(`V3CompareExplorer`): 종류 필터 → 목록(listbox, ↑/↓ · Enter · Esc)에서 한 쌍 선택(주소 `?pair=`) → 대응 표(이 문항 근거 강조/해제 ↔ 관계 ↔ 상대 문장 · 선지 번호) · 공통/가르는 조건 · 한계. 상대 원문은 복제하지 않고 「상대 문항에서 이 비교 보기」(`?scene=compare&pair=&back=` · 지도 맥락이면 `from=map`) → `back` 으로 복귀. legacy 「검수 전 1차 비교」와 분리 표시.
+- **원리 노트 저장 결과**: 저장은 실제 기기 저장 결과(`updateDissectionRecord().saved`)를 돌려주고, 실패면 입력을 비우지 않고 같은 id 로 「다시 저장」, 상태를 `role=status` 로 알린다. 서버 동기화는 기존 경로(기기 우선) 그대로.
+- **실제 공개 자료 현황**: 749쌍 · 477문항 · bounded 원리 110 · **교차 유형 공개 쌍 0**(교차 유형 조회는 기능 · 픽스처로만 검증) · 한 문항 최대 70쌍.
+- 회귀: `compare-v3.test.ts`(실제 정본 결속 · 상대 상태) · `V3CompareExplorer.test.tsx` · E2E `csat-v3-m5-explore`(로컬 — CI e2e 잡은 smoke 5종만 실행).

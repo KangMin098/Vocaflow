@@ -51,10 +51,34 @@ describe('projectV3Pairs', () => {
   })
   it('쌍 없음 · 탐구 stale · 상대 비공개는 서로 다른 이유', () => {
     expect(projectV3Pairs('Z#9', true, open, d).absence).toBe('none')
-    expect(projectV3Pairs('A#1', false, open, d)).toEqual({ pairs: [], absence: 'stale' })
-    expect(projectV3Pairs('A#1', true, () => null, d)).toEqual({ pairs: [], absence: 'partner_hidden' })
+    expect(projectV3Pairs('A#1', false, open, d)).toMatchObject({ pairs: [], absence: 'stale' })
+    expect(projectV3Pairs('A#1', true, () => null, d)).toMatchObject({ pairs: [], absence: 'partner_hidden' })
   })
   it('상대는 상대 유형으로 확인한다(같은 유형 siblings 에 묶지 않음)', () => {
     expect(v3PairPartners('A#1', d)).toEqual([{ id: 'B#2', type: 'R-CLAIM' }])
+  })
+})
+
+describe('상대 상태 구별 · 실제 공개 정본 결속(M5)', () => {
+  it('보류 · 골격에 없음 · 분석 바뀜을 따로 세고, 남은 쌍이 없으면 서로 다른 이유를 낸다', () => {
+    const held = projectV3Pairs('A#1', true, () => ({ state: 'held' }), d)
+    expect(held).toMatchObject({ absence: 'partner_hidden', withheld: { held: 1, missing: 0, changed: 0 } })
+    expect(projectV3Pairs('A#1', true, () => ({ state: 'missing' }), d)).toMatchObject({ absence: 'partner_missing', withheld: { missing: 1 } })
+    const bound = { ...d, pairs: { 'A#1~B#2': { ...d.pairs['A#1~B#2'], binding: { left: { units_hash: 'ua' }, right: { units_hash: 'ub' } } } } }
+    expect(projectV3Pairs('A#1', true, open, bound, () => 'ub-new')).toMatchObject({ absence: 'partner_changed', withheld: { changed: 1 } })
+    expect(projectV3Pairs('A#1', true, open, bound, () => 'ub').pairs).toHaveLength(1)
+    expect(projectV3Pairs('A#1', true, open, bound, () => null)).toMatchObject({ absence: 'partner_changed' })
+  })
+
+  it('실제 공개 정본: 모든 쌍의 상대 문장 분할이 지금 공개 탐구와 같다(빌드 ↔ 탐구 정본 일치)', async () => {
+    const { inquiryUnitsHash } = await import('../data')
+    let total = 0
+    for (const itemId of Object.keys(published.items)) {
+      const r = projectV3Pairs(itemId, true, (id) => ({ state: 'open', slug: id, label: id }), undefined, inquiryUnitsHash)
+      expect(r.withheld, itemId).toEqual({ held: 0, missing: 0, changed: 0 })
+      total += r.pairs.length
+    }
+    // 쌍 하나가 양쪽 문항에 한 번씩 보인다
+    expect(total).toBe(Object.keys(published.pairs).length * 2)
   })
 })

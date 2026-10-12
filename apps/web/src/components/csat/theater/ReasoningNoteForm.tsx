@@ -39,28 +39,43 @@ export function ReasoningNoteForm({
   pairs: V3PairView[]
   /** 이 문항에서 이미 쓴 노트 */
   saved: ReasoningNote[]
-  onSave: (x: ReasoningNote) => void
+  /** 실제 저장 결과(기기 저장 성공 여부) */
+  onSave: (x: ReasoningNote) => Promise<boolean>
   /** 시각 주입(테스트) */
   now?: () => number
 }) {
   const [draft, setDraft] = useState<Record<Key, string>>({ statement: '', grounds: '', applicability: '', limit: '' })
   const [pairIds, setPairIds] = useState<string[]>([])
   const [shownId, setShownId] = useState<string | null>(null)
+  // 저장 상태 — 실패하면 입력을 비우지 않고 같은 노트(같은 id)로 다시 저장한다
+  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'failed'>('idle')
+  const [pending, setPending] = useState<ReasoningNote | null>(null)
   const shown = shownId ? saved.find((x) => x.id === shownId) ?? null : null
   const last = saved.length ? saved[saved.length - 1] : null
 
-  const save = () => {
-    const t = now()
-    const x = normalizeReasoningNote({
-      id: globalThis.crypto?.randomUUID?.() ?? `${t.toString(36)}-${Math.random().toString(36).slice(2)}`,
-      item: itemId, pairIds, binding: { analysisVersion }, ...draft, evidence: [],
-      afterExplanation: true, comparedWithModel: false, at: t, updatedAt: t,
-    })
-    if (!x) return
-    onSave(x)
+  const commit = async (x: ReasoningNote) => {
+    setStatus('saving')
+    setPending(x)
+    const ok = await onSave(x)
+    if (!ok) {
+      setStatus('failed')
+      return
+    }
+    setStatus('saved')
+    setPending(null)
     setShownId(x.id)
     setDraft({ statement: '', grounds: '', applicability: '', limit: '' })
     setPairIds([])
+  }
+  const save = () => {
+    const t = now()
+    const x = normalizeReasoningNote({
+      // 다시 시도면 같은 id — 병합이 한 건으로 합친다
+      id: pending?.id ?? globalThis.crypto?.randomUUID?.() ?? `${t.toString(36)}-${Math.random().toString(36).slice(2)}`,
+      item: itemId, pairIds, binding: { analysisVersion }, ...draft, evidence: [],
+      afterExplanation: true, comparedWithModel: false, at: pending?.at ?? t, updatedAt: t,
+    })
+    if (x) void commit(x)
   }
 
   return (
@@ -85,10 +100,13 @@ export function ReasoningNoteForm({
         </fieldset>
       ) : null}
       <div className={styles.explainActions}>
-        <button type="button" onClick={save} disabled={!draft.statement.trim()} data-testid="note-save">
-          노트 저장
+        <button type="button" onClick={save} disabled={!draft.statement.trim() || status === 'saving'} data-testid="note-save">
+          {status === 'failed' ? '다시 저장' : status === 'saving' ? '저장하는 중…' : '노트 저장'}
         </button>
       </div>
+      <p role="status" aria-live="polite" className="break-keep text-[12.5px]" data-testid="note-status" data-status={status}>
+        {status === 'saved' ? '이 기기에 저장했어요.' : status === 'failed' ? '저장하지 못했어요. 쓴 내용은 그대로 두었으니 다시 저장해 주세요.' : ''}
+      </p>
 
       {shown ? (
         <div className={styles.explainCompare} data-testid="note-compare">
@@ -109,7 +127,7 @@ export function ReasoningNoteForm({
                   <p className="break-keep">쓰면 안 되는 조건: {principle.when_not.join(' · ')}</p>
                 </>
               ) : (
-                <button type="button" onClick={() => onSave({ ...shown, comparedWithModel: true, updatedAt: now() })} data-testid="note-open-model">
+                <button type="button" onClick={() => void onSave({ ...shown, comparedWithModel: true, updatedAt: now() })} data-testid="note-open-model">
                   검수된 원리 펼쳐 비교하기
                 </button>
               )
