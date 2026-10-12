@@ -1,0 +1,210 @@
+{
+ "reviewer": "rv-v3-0708",
+ "criteria": "inquiry-v1.2",
+ "verdicts": [
+  {
+   "id": "2014B#44",
+   "verdict": "pass",
+   "content_hash": "724aa2a040af6d59"
+  },
+  {
+   "id": "2014B#45",
+   "verdict": "pass",
+   "content_hash": "cacd256ead2d3787"
+  },
+  {
+   "id": "2015#18",
+   "verdict": "pass",
+   "content_hash": "286492db65b3db2f"
+  },
+  {
+   "id": "2015#19",
+   "verdict": "pass",
+   "content_hash": "b56eec11706a2134"
+  },
+  {
+   "id": "2015#20",
+   "verdict": "pass",
+   "content_hash": "542ffbe1fabb3838"
+  },
+  {
+   "id": "2015#21",
+   "verdict": "pass",
+   "content_hash": "dbe1b7571e3e091a"
+  },
+  {
+   "id": "2015#22",
+   "verdict": "pass",
+   "content_hash": "d9ee17f0eeb7523a"
+  },
+  {
+   "id": "2015#23",
+   "verdict": "pass",
+   "content_hash": "0ee4355cefa42a6d"
+  },
+  {
+   "id": "2015#24",
+   "verdict": "pass",
+   "content_hash": "4752c52e7f78ef81"
+  },
+  {
+   "id": "2015#25",
+   "verdict": "pass",
+   "content_hash": "50f78d656e495221"
+  },
+  {
+   "id": "2015#26",
+   "verdict": "pass",
+   "content_hash": "177f8dfea9eb5cf1"
+  },
+  {
+   "id": "2015#27",
+   "verdict": "pass",
+   "content_hash": "4ba8d6167e8163c2"
+  },
+  {
+   "id": "2015#28",
+   "verdict": "pass",
+   "content_hash": "af6080ea23703830"
+  },
+  {
+   "id": "2015#29",
+   "verdict": "pass",
+   "content_hash": "a8e8dd42c8c63ec1"
+  },
+  {
+   "id": "2015#30",
+   "verdict": "pass",
+   "content_hash": "252be7aff9484e9d"
+  },
+  {
+   "id": "2015#31",
+   "verdict": "pass",
+   "content_hash": "2bab846aef01a206"
+  },
+  {
+   "id": "2015#32",
+   "verdict": "pass",
+   "content_hash": "d2b059bc13346fee"
+  },
+  {
+   "id": "2015#33",
+   "verdict": "pass",
+   "content_hash": "c5ca64966923c9f4"
+  },
+  {
+   "id": "2015#35",
+   "verdict": "pass",
+   "content_hash": "c2634b1f63d44325"
+  },
+  {
+   "id": "2015#36",
+   "verdict": "pass",
+   "content_hash": "da35660e5f3bd115"
+  },
+  {
+   "id": "2015#37",
+   "verdict": "pass",
+   "content_hash": "acf8c4707f95c970"
+  },
+  {
+   "id": "2015#38",
+   "verdict": "pass",
+   "content_hash": "6c181b73752ff9ed"
+  },
+  {
+   "id": "2015#39",
+   "verdict": "pass",
+   "content_hash": "7aa92af04f63e37b"
+  },
+  {
+   "id": "2015#40",
+   "verdict": "pass",
+   "content_hash": "780415074bcf3769"
+  },
+  {
+   "id": "2015#41",
+   "verdict": "pass",
+   "content_hash": "1efa6b084a4580fe"
+  },
+  {
+   "id": "2015#42",
+   "verdict": "pass",
+   "content_hash": "8e66662f08a0b53a"
+  },
+  {
+   "id": "2015#43",
+   "verdict": "revise",
+   "content_hash": "3aa5dc9fa6fb2574",
+   "codes": [
+    "R8"
+   ],
+   "why": "v3 choices[1].decisive 가 '(B)가 먼저 오면 his classroom·a math test 를 소개하는 (C)보다 지칭이 앞서고' 라 했으나 a math test 는 (B) 8번 문장에서 부정관사로 처음 나오는 것이고 (C)가 소개하지 않는다. (C)가 도입하는 것은 13번 문장의 배정 학교와 14번 문장의 his math class 다(v1 note 처럼 '교실과 수학 수업'). 근거 낱말을 14번 문장 math class 로 고칠 것."
+  },
+  {
+   "id": "2015#45",
+   "verdict": "pass",
+   "content_hash": "b11cc77d27f6ac93"
+  },
+  {
+   "id": "2016#18",
+   "verdict": "pass",
+   "content_hash": "5ef28fff773f695c"
+  },
+  {
+   "id": "2016#19",
+   "verdict": "pass",
+   "content_hash": "1ce9f9e3c8b06595"
+  },
+  {
+   "id": "2016#20",
+   "verdict": "pass",
+   "content_hash": "8f8defe6664c7b4c"
+  },
+  {
+   "id": "2016#21",
+   "verdict": "pass",
+   "content_hash": "ab440e3fd2674e69"
+  },
+  {
+   "id": "2016#22",
+   "verdict": "pass",
+   "content_hash": "28f201064ab997d2"
+  },
+  {
+   "id": "2016#23",
+   "verdict": "pass",
+   "content_hash": "8be6ad75e4fc30c1"
+  },
+  {
+   "id": "2016#24",
+   "verdict": "pass",
+   "content_hash": "782120adabd1543b"
+  },
+  {
+   "id": "2016#25",
+   "verdict": "pass",
+   "content_hash": "f3c6db2959fb3669"
+  },
+  {
+   "id": "2016#26",
+   "verdict": "pass",
+   "content_hash": "6be9fcf8132590ec"
+  },
+  {
+   "id": "2016#27",
+   "verdict": "pass",
+   "content_hash": "38d68045ec25c667"
+  },
+  {
+   "id": "2016#28",
+   "verdict": "pass",
+   "content_hash": "93d9d6132461139e"
+  },
+  {
+   "id": "2016#29",
+   "verdict": "pass",
+   "content_hash": "f48fa9bc20bc5f36"
+  }
+ ]
+}

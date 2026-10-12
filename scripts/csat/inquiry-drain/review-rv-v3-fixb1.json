@@ -1,0 +1,7 @@
+{"reviewer":"rv-v3-fixb1","criteria":"inquiry-v1.2","verdicts":[
+{"id":"2015#43","verdict":"pass","content_hash":"1c17b442bd98609b","why":"v1 not_applicable과 v3 n_a가 맞음. 1번 decisive가 이제 배정(13번)과 his math class(14번)를 7·11번의 소유격 지칭과 묶어, 고친 사실(a math test는 8번에서 처음 나옴)과 맞음. 이음매 근거 5→12, 16→6, (B)→17, 3→22가 원문과 맞음."},
+{"id":"2021#43","verdict":"pass","content_hash":"c16408c1d0545fc3","why":"v1 5번 altered가 이제 (C)의 실제 이동(A 바로 다음 → D 다음)을 가리킴. 고발 20~21 → 반박 29 → 해명 28 → 대답 9의 사슬이 원문과 맞음. 4번 decisive(D가 앞에 오면 accusation이 가리킬 것이 없음)도 맞음."},
+{"id":"2018#41","verdict":"pass","content_hash":"d70effe3602466a0","why":"v1 5번에서 complicated makeup(10번 문장)을 altered(→Simplicity)로 옮긴 것이 맞음. preserved의 fiction(6번 문장)은 선지의 Novels로 남아 있음. v3 처방 11·14번 문장과 content_truth가 v1과 맞음. 메모: 2번 preserved의 성분 「관계」는 「대상」이 더 정확하나 사소함."},
+{"id":"2019#19","verdict":"pass","content_hash":"e939ac6ffc7cce16","why":"R-MOOD 낱말 쌍 예외를 맞게 적용함. 선지 2~5는 두 칸 모두 틀렸으므로 preserved []와 예외 문구가 맞음. 「앞 칸 자리는 지켰지만」 오기도 지워짐. 문장 번호(심호흡 8번, joyfully 13번)가 입력 분할과 맞음. v1 false와 v3 content_truth false가 맞음."},
+{"id":"2022#36","verdict":"pass","content_hash":"c2cdadc96cd27db4","why":"v1 4번 note와 v3 4번 decisive가 이제 6번 문장 The results가 3번 문장의 조치를 요구한다는 점에 기대며, 7번 문장에 정관사가 있다는 잘못된 주장은 지워짐. such(2번)→Taxing(4번), The results(6번)→3번 연결이 원문과 맞음."}
+]}

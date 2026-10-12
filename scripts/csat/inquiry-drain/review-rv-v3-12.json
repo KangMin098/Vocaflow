@@ -1,0 +1,115 @@
+{
+ "reviewer": "rv-v3-12",
+ "criteria": "inquiry-v1.2",
+ "verdicts": [
+  {
+   "id": "2018#37",
+   "verdict": "pass",
+   "content_hash": "eb0a571154e7d3ed"
+  },
+  {
+   "id": "2018#38",
+   "verdict": "pass",
+   "content_hash": "2503db1f53554ccf"
+  },
+  {
+   "id": "2018#39",
+   "verdict": "pass",
+   "content_hash": "43011039f96f9eea"
+  },
+  {
+   "id": "2018#40",
+   "verdict": "pass",
+   "content_hash": "46fdc81d1782f9d6"
+  },
+  {
+   "id": "2018#41",
+   "verdict": "revise",
+   "content_hash": "104c0ef3de03ae02",
+   "codes": [
+    "R1"
+   ],
+   "why": "distractor 5: preserved 의 'complicated makeup'(10번 문장)이 선지 5 'Simplicity: The Essence of Great Novels' 에 남아 있지 않다 — 오히려 반대말(Simplicity)로 바뀐 성분이다. 선지에 실제 남은 성분(소설이라는 소재 등)으로 고치거나 altered 로 옮겨야 한다. 나머지(v3 choices·decisive·meanings·design)는 원문 8·9~11·14번 문장과 맞다."
+  },
+  {
+   "id": "2018#43",
+   "verdict": "pass",
+   "content_hash": "62db923ac2f29b5c"
+  },
+  {
+   "id": "2018#44",
+   "verdict": "pass",
+   "content_hash": "22d3cc835abd90b9"
+  },
+  {
+   "id": "2018#45",
+   "verdict": "pass",
+   "content_hash": "c744895237937123"
+  },
+  {
+   "id": "2019#18",
+   "verdict": "pass",
+   "content_hash": "f3ff92d03b562a85"
+  },
+  {
+   "id": "2019#19",
+   "verdict": "revise",
+   "content_hash": "5a0f86e6e72899b8",
+   "codes": [
+    "R1",
+    "R4"
+   ],
+   "why": "감정 쌍 선지(②~⑤)는 두 칸 모두 틀린 낱말 묶음인데 preserved 에 'He was about to give up'(5번)·'Taking a deep breath'(8번)·'The swelling waves'(6번)·'The waves were perfect for surfing'(1번) 같은 지문 문장을 넣었다 — 이 성분들은 선지 'bored → comforted' 등에 남아 있지 않다(WRITER 규칙1 예외: preserved [] + 「모든 칸이 바뀌었다」 note). 또 D2 note 「앞 칸 자리는 지켰지만」은 사실과 다르다(bored 는 frustrated 를 대체한 틀린 칸). v3 칸(choices·meanings·13번 문장 번호 정정)은 원문과 맞다."
+  },
+  {
+   "id": "2019#20",
+   "verdict": "pass",
+   "content_hash": "179cf5596394e15c"
+  },
+  {
+   "id": "2019#21",
+   "verdict": "pass",
+   "content_hash": "2c00605cf81966e1"
+  },
+  {
+   "id": "2019#22",
+   "verdict": "pass",
+   "content_hash": "626ac35d66354494"
+  },
+  {
+   "id": "2019#23",
+   "verdict": "pass",
+   "content_hash": "d35176f8d3475200"
+  },
+  {
+   "id": "2019#24",
+   "verdict": "pass",
+   "content_hash": "6e825b4269f82a77"
+  },
+  {
+   "id": "2019#25",
+   "verdict": "pass",
+   "content_hash": "58cb8b9de6857634"
+  },
+  {
+   "id": "2019#26",
+   "verdict": "pass",
+   "content_hash": "cde0f293fb804fb0"
+  },
+  {
+   "id": "2019#27",
+   "verdict": "pass",
+   "content_hash": "4fb5ddb78165627b"
+  },
+  {
+   "id": "2019#28",
+   "verdict": "pass",
+   "content_hash": "65a5c595b993cf8a"
+  },
+  {
+   "id": "2019#29",
+   "verdict": "pass",
+   "content_hash": "d54ab965023e428a"
+  }
+ ]
+}

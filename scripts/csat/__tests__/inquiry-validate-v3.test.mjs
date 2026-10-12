@@ -94,3 +94,25 @@ test('설계에 가설이 없으면 오류', () => {
   o.v3.design.claims = o.v3.design.claims.filter((c) => c.basis !== 'design_hypothesis')
   assert.ok(validateV3(input, o).some((x) => x.includes('설계 가설')))
 })
+
+test('심경(R-MOOD) 두 낱말이 모두 틀린 선지는 preserved 를 비울 수 있다(note 에 사유 필수)', () => {
+  const mood = { ...input, type_id: 'R-MOOD' }
+  const o = out({ v3: undefined })
+  o.distractors[0] = { ...o.distractors[0], preserved: [], note: '두 칸 모두 틀린 감정이라 모든 칸이 바뀌어 남은 지문 성분이 없다' }
+  assert.deepEqual(validateItem(mood, o), [])
+  o.distractors[0] = { ...o.distractors[0], note: '두 칸 모두 틀린 감정이다(사유 문구 없음)' }
+  assert.ok(validateItem(mood, o).some((x) => x.includes('preserved 없음')))
+})
+
+test('부정 범위인데 부정어가 인용 밖이면 오류 — note 가 문장의 부정어를 짚으면 통과(rv-v3-3738 M2606#21)', () => {
+  const neg = { ...input, sentences: [input.sentences[0], { n: 2, text: 'These feelings are not based on something you can take credit for.' }] }
+  const o = out()
+  o.v3.meanings[1] = { id: 'm2', sentences: [2], expression: 'something you can take credit for', meaning_ko: '내 공으로 돌릴 수 있는 것에 근거하지 않는다', scope: { kind: 'negation', note: '부정이 근거 전체에 걸린다' } }
+  o.v3.choices = o.v3.choices.map((c) => ({ ...c, sentences: [1] }))
+  assert.ok(validateV3(neg, o).some((x) => x.includes('m2 부정 범위인데')))
+  o.v3.meanings[1].scope.note = 'not 이 근거 전체를 부정한다'
+  assert.ok(!validateV3(neg, o).some((x) => x.includes('부정 범위인데')))
+  o.v3.meanings[1].expression = 'are not based on something'
+  o.v3.meanings[1].scope.note = '부정이 근거 전체에 걸린다'
+  assert.ok(!validateV3(neg, o).some((x) => x.includes('부정 범위인데')))
+})

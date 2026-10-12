@@ -1,0 +1,206 @@
+{
+ "reviewer": "rv-v3-0911",
+ "criteria": "inquiry-v1.2",
+ "verdicts": [
+  {
+   "id": "2016#30",
+   "verdict": "pass",
+   "content_hash": "88314a7b3e7b419b"
+  },
+  {
+   "id": "2016#31",
+   "verdict": "pass",
+   "content_hash": "ac7e6fb740e40c61"
+  },
+  {
+   "id": "2016#32",
+   "verdict": "pass",
+   "content_hash": "23d66f0d04c3868d"
+  },
+  {
+   "id": "2016#33",
+   "verdict": "pass",
+   "content_hash": "86b57028ae94fe8f"
+  },
+  {
+   "id": "2016#34",
+   "verdict": "pass",
+   "content_hash": "bf15e9413341b82f"
+  },
+  {
+   "id": "2016#35",
+   "verdict": "pass",
+   "content_hash": "8c80ff4815e71c38"
+  },
+  {
+   "id": "2016#36",
+   "verdict": "pass",
+   "content_hash": "e4319dcdc76f029d"
+  },
+  {
+   "id": "2016#37",
+   "verdict": "pass",
+   "content_hash": "eab3e378ec27dafe"
+  },
+  {
+   "id": "2016#38",
+   "verdict": "pass",
+   "content_hash": "46a9e12d51773f50"
+  },
+  {
+   "id": "2016#39",
+   "verdict": "pass",
+   "content_hash": "14c99ed898f56a53"
+  },
+  {
+   "id": "2016#40",
+   "verdict": "pass",
+   "content_hash": "26a469c6264885d4"
+  },
+  {
+   "id": "2016#41",
+   "verdict": "pass",
+   "content_hash": "01805abc65040970"
+  },
+  {
+   "id": "2016#42",
+   "verdict": "pass",
+   "content_hash": "bc5938e224dda081"
+  },
+  {
+   "id": "2016#43",
+   "verdict": "pass",
+   "content_hash": "a705b90087f7cbde"
+  },
+  {
+   "id": "2016#45",
+   "verdict": "pass",
+   "content_hash": "d932065a2a414ba2"
+  },
+  {
+   "id": "2017#18",
+   "verdict": "pass",
+   "content_hash": "e20501fa8155a356"
+  },
+  {
+   "id": "2017#19",
+   "verdict": "pass",
+   "content_hash": "f6e0bc1fcdebf926"
+  },
+  {
+   "id": "2017#20",
+   "verdict": "pass",
+   "content_hash": "765abcfb72e3718f"
+  },
+  {
+   "id": "2017#21",
+   "verdict": "pass",
+   "content_hash": "0639893152b923a3"
+  },
+  {
+   "id": "2017#22",
+   "verdict": "pass",
+   "content_hash": "d50795abab867fd0"
+  },
+  {
+   "id": "2017#44",
+   "verdict": "pass",
+   "content_hash": "e0bcfdcca3803fe6"
+  },
+  {
+   "id": "2017#45",
+   "verdict": "pass",
+   "content_hash": "d125ef3210efb143"
+  },
+  {
+   "id": "2018#18",
+   "verdict": "pass",
+   "content_hash": "f6fe3020bad8e1b0"
+  },
+  {
+   "id": "2018#19",
+   "verdict": "pass",
+   "content_hash": "db8b7d8fea2b9315"
+  },
+  {
+   "id": "2018#20",
+   "verdict": "pass",
+   "content_hash": "905933f1a34c5434"
+  },
+  {
+   "id": "2018#21",
+   "verdict": "pass",
+   "content_hash": "81b416ca96015e69"
+  },
+  {
+   "id": "2018#22",
+   "verdict": "pass",
+   "content_hash": "7cb39242a113b3db"
+  },
+  {
+   "id": "2018#23",
+   "verdict": "pass",
+   "content_hash": "3ba4d2983b849a65"
+  },
+  {
+   "id": "2018#24",
+   "verdict": "pass",
+   "content_hash": "0d6997d34d39fa2a"
+  },
+  {
+   "id": "2018#25",
+   "verdict": "pass",
+   "content_hash": "bae4a208e5b3f504"
+  },
+  {
+   "id": "2018#26",
+   "verdict": "pass",
+   "content_hash": "58b2519d1e785023"
+  },
+  {
+   "id": "2018#27",
+   "verdict": "pass",
+   "content_hash": "4c01a149560a217d"
+  },
+  {
+   "id": "2018#28",
+   "verdict": "pass",
+   "content_hash": "9e44052a34af2a61"
+  },
+  {
+   "id": "2018#29",
+   "verdict": "pass",
+   "content_hash": "60e0f91eb162aaad"
+  },
+  {
+   "id": "2018#31",
+   "verdict": "pass",
+   "content_hash": "e9dfee29a2837677"
+  },
+  {
+   "id": "2018#32",
+   "verdict": "pass",
+   "content_hash": "ca727fd1b22607cc"
+  },
+  {
+   "id": "2018#33",
+   "verdict": "pass",
+   "content_hash": "1e61e8f916c30fc7"
+  },
+  {
+   "id": "2018#34",
+   "verdict": "pass",
+   "content_hash": "121af1a943d2c4dd"
+  },
+  {
+   "id": "2018#35",
+   "verdict": "pass",
+   "content_hash": "72d10500b54df350"
+  },
+  {
+   "id": "2018#36",
+   "verdict": "pass",
+   "content_hash": "3c12357fe214cf57"
+  }
+ ]
+}

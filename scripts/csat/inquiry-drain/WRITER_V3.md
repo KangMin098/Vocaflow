@@ -31,6 +31,7 @@
 
 1. `meanings` 2~6개: 판단에 필요한 핵심 영어 표현만. `expression` 은 그 문장에 **그대로 있는** 영어(8단어 이하). `meaning_ko` 는 사전 뜻이 아니라 **이 문맥의 뜻**,
    `scope` 는 부정 · 조건 · 행위자 · 시점 · 수량 · 대조 · 지시가 **어디까지 미치는지**(예: `cannot be` 가 빈칸 표현 전체를 부정한다). 전체 번역을 줄줄이 쓰지 않는다.
+   **판정을 가르는 낱말(not · only · 비교 · 조건/대조 접속어 · 수치)은 인용 안에 둔다** — 8단어로 줄이다 그 낱말을 잘라 내고 `meaning_ko`·`scope` 가 인용 밖에 기대면 R7 revise(2026-10-12 2차분 revise 43건 중 다수). 넣을 수 없으면 `meaning_ko` 를 인용 범위로 줄이거나 `scope.kind` 를 `none` 으로. 부정 범위는 검증기가 강제한다.
 2. `choices` 는 **1~5번 전부**. 세 칸을 분리한다: `selected_as_answer`(공식 정답 번호인가) · `content_truth`(선지 내용이 원문과 맞는가) · `requirement_fit`(발문 요구를 충족하는가).
    - 부정형 발문(어법 · 불일치 · 무관한 문장 등): 정답은 `requirement_fit: satisfies` 이지만 `content_truth: false` 일 수 있다. 비선정 선지는 내용이 참(`true`)이고 요구는 `fails`.
    - 위치 · 지칭 선지(slot_type)는 `content_truth: n_a`.
