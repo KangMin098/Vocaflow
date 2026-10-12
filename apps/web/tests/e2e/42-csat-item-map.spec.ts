@@ -24,9 +24,26 @@
 //   · 읽기 전용 — DB 에 아무것도 쓰지 않는다. 계측 이벤트는 **누르므로 남는다**(funnel_events).
 
 import fs from 'node:fs';
+import path from 'node:path';
 
 import AxeBuilder from '@axe-core/playwright';
 import { test, expect, type Page } from '@playwright/test';
+
+/** 앵커 수 1~5 각각, 모든 앵커가 문장 자리를 가진 평가원 문항 하나(회차 · 번호 순 첫 문항). 커밋된 skeleton-data 정본에서 센다 */
+function pickByAnchorCount(): (readonly [string, number])[] {
+  const dir = path.resolve('src/lib/csat/skeleton-data')
+  const files = fs.readdirSync(dir).filter((f) => /^(20\d\d[AB]?|M\d{4})\.json$/.test(f)).sort()
+  const out = new Map<number, string>()
+  for (const f of files) {
+    const doc = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) as { items: { id: string; no: number; anchors: { sentences: number[] }[] }[] }
+    for (const it of [...doc.items].sort((x, y) => x.no - y.no)) {
+      const n = it.anchors.length
+      if (n < 1 || n > 5 || out.has(n) || !it.anchors.every((a) => a.sentences.length > 0)) continue
+      out.set(n, it.id.replace('#', '-'))
+    }
+  }
+  return [1, 2, 3, 4, 5].filter((n) => out.has(n)).map((n) => [out.get(n)!, n] as const)
+}
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -223,13 +240,9 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
   // 문항씩 덮어, 중복 제거(칩이 든 선지는 글에서 뺀다)와 누락 방지를 같은 식으로 잠근다.
   // 2026-10-10 다시 고름: 끌리는 구절 드레인(PR #180)으로 오답 앵커가 늘어 옛 문항이 모두 5개가 됐다.
   // 골격의 모든 앵커가 자리를 가진 문항 중 앵커 수 1~5 를 하나씩(skeleton-data 에서 셈).
-  for (const [slug, anchors] of [
-    ['2014A-32', 1],
-    ['2014B-39', 2],
-    ['2014A-36', 3],
-    ['2014A-29', 4],
-    ['2014A-23', 5],
-  ] as const) {
+  // 2026-10-12: 고정 slug 가 골격 재빌드(오답 지도 연결 · 도표 재작성)로 앵커 수가 바뀌어 3건이 거짓 실패했다
+  //   (2014B-39 2→5 · 2014A-29 4→3 · 2014A-23 5→3). 숫자를 다시 박지 않고 **커밋된 골격에서 매번 고른다**.
+  for (const [slug, anchors] of pickByAnchorCount()) {
     test(`앵커 ${anchors}개 문항 — 오답 넷이 칩이거나 글이거나`, async ({ page }) => {
       await page.goto(`/admin/kice/item/${slug}`, { waitUntil: 'networkidle', timeout: 45_000 });
 

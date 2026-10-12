@@ -142,6 +142,9 @@ test('A5 최근 기출부터 — 목적별 → 번호 칩', async ({ browser }) 
 test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 같은 서가에 닿는다', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
+  // 메뉴는 기본으로 아이콘만 남긴 레일이다(2026-10-12 사용자 요청 · PR #233) — 유형별 · 회차별 목록은 왼쪽 위 표지로 펼쳐야 보인다.
+  //   펼치기는 화면 이동이 아니라 메뉴 열기라 클릭 수(도달 경로)에 세지 않는다.
+  await page.getByTestId('rail-toggle').click()
   await click('[data-type="R-INSERT"]')
   await page.waitForURL(/type=R-INSERT/)
   const typeUrl = new URL(page.url())
@@ -160,6 +163,9 @@ test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 �
 test('A7 회차별 — 메뉴 2026학년도 수능 → 31번', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
+  // 메뉴는 기본으로 아이콘만 남긴 레일이다(2026-10-12 사용자 요청 · PR #233) — 유형별 · 회차별 목록은 왼쪽 위 표지로 펼쳐야 보인다.
+  //   펼치기는 화면 이동이 아니라 메뉴 열기라 클릭 수(도달 경로)에 세지 않는다.
+  await page.getByTestId('rail-toggle').click()
   await click('[data-exam="2026"]')
   await page.waitForURL(/exam=2026/)
   await click('[data-testid="csat-library"] a[href="/csat/item/2026-31"]')
