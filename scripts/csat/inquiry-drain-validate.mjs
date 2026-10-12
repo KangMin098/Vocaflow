@@ -49,7 +49,10 @@ export function validateItem(input, out) {
 
   for (const d of out.distractors ?? []) {
     const tag = `선지 ${d.n}`
-    const want = input.slot_type ? ['not_applicable', 'unknown'] : input.distractors_are_true ? ['true', 'unknown'] : ['false', 'unknown']
+    // v3 가 붙은 문항은 「내용은 지문과 맞지만 요구를 충족하지 못하는」 비선정 선지를 v1 에서도 true 로 쓸 수 있다(요지 · 주제류) —
+    // v1 의 false 강제가 v3 판정과 충돌한 결함(2026-10-12 검수 rv-v3-02). 대신 v1 · v3 의 내용 판정이 같아야 한다(validateV3 일관성 검사).
+    const v3True = Boolean(out.v3) && !input.slot_type
+    const want = input.slot_type ? ['not_applicable', 'unknown'] : input.distractors_are_true || v3True ? ['true', 'false', 'unknown'].filter((t) => input.distractors_are_true ? t !== 'false' : true) : ['false', 'unknown']
     if (!want.includes(d.truth)) e(`${tag} truth=${d.truth} — 이 유형은 ${want.join('/')}`)
     if (!OPERATIONS.includes(d.operation)) e(`${tag} operation 값 ${d.operation}`)
     if (!String(d.note ?? '').trim() || String(d.note).length < 12) e(`${tag} note 가 비었거나 너무 짧음`)
@@ -63,7 +66,8 @@ export function validateItem(input, out) {
       if (d.operation === 'none') e(`${tag} 거짓 오답인데 operation=none`)
     }
     if (d.truth === 'not_applicable' && !['order', 'reference', 'none'].includes(d.operation)) e(`${tag} 위치·지칭 선지인데 operation=${d.operation}`)
-    if (d.truth === 'true') {
+    // 부정형 선택 유형의 맞는 선지는 왜곡을 지어내지 않는다. v3 문항의 「내용 참 · 요구 미충족」은 범위 · 추상 수준 같은 바뀐 조건을 적을 수 있다
+    if (d.truth === 'true' && input.distractors_are_true) {
       if (alt.length) e(`${tag} 맞는 선지에 altered 를 지어냄`)
       if (d.operation !== 'none') e(`${tag} 맞는 선지인데 operation=${d.operation}`)
     }
@@ -160,6 +164,12 @@ export function validateV3(input, out) {
     if (BANNED.test(c.decisive ?? '')) e(`${tag} decisive 금지 표현`)
     if (!okSent(c.sentences)) e(`${tag} sentences 범위 밖/비어 있음`)
     for (const id of c.meaning_ids ?? []) if (!ids.has(id)) e(`${tag} 없는 meaning_id ${id}`)
+  }
+  // v1 · v3 내용 판정 일관성 — 같은 문항 안에서 한 선지가 v1 은 거짓, v3 는 참이면 학습자가 모순을 본다
+  const V1_OF = { true: 'true', false: 'false', n_a: 'not_applicable', unknown: 'unknown' }
+  for (const c of choices) {
+    const d1 = (out.distractors ?? []).find((x) => x.n === c.n)
+    if (d1 && V1_OF[c.content_truth] && d1.truth !== V1_OF[c.content_truth]) e(`선지 ${c.n} 내용 판정이 v1(${d1.truth}) 과 v3(${c.content_truth}) 에서 다름`)
   }
   const d = v.design
   if (!d || !Array.isArray(d.claims) || !d.claims.length) e('design.claims 없음')

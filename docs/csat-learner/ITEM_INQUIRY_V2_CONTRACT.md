@@ -78,3 +78,7 @@
 - 공정: `inquiry-v3-export.mjs --name v3-NN --ids …`(v1 청크 입력 재사용) → 작성 → `inquiry-drain-validate.mjs --v3` → 해시 결속 독립 검수 → `inquiry-drain-build.mjs`.
 - 1차(대표 6): 2026#34 · 2026#36 · 2026#38 · 2026#29 · 2026#25 · M2706#36 — 1차 검수 5 pass · M2706#36 revise(선지 1 설명이 배열과 모순 — 기존 DB 분석 choice_analysis n=1 의 같은 오류를 옮긴 것) → 고쳐 쓴 뒤 재검수 pass. **DB 분석 n=1 오류는 분석 교정 공정 대상으로 남아 있다.**
 - 강의 schema3: `lecture/types.ts` `LectureV3`(장면 · 역할 · 주대상 · 관련 근거 · 결속) · `validateLecture` 가 schemaVersion 으로 분기(없음=legacy 규칙 그대로 · 3=장면 순서 · 장면별 역할 · 주대상 · 평가 과제/의미/성립 필수 · 그 밖=거부). 낭독 · 인용 · 길이 검사는 두 분기가 같은 함수. **schema3 강의 콘텐츠는 아직 없다.**
+- 2차(26유형 대표, 2026-10-12): 남은 21유형 각 1문항(v3-02~04) — 1차 검수 18/21 pass, revise 3(2026#21 · 2026#22 v1/v3 내용 판정 모순, 2014B#37 v1 변환 라벨) →
+  **계약 결함 수정**: v3 문항은 v1 에도 「내용 참 · 요구 미충족」을 허용하고, v1 · v3 내용 판정이 다르면 검증기 오류(같은 결함이 이미 verified 였던 2026#34 · 2026#23 에서도 드러나 함께 고침) → 고친 5문항 재검수 pass.
+  결과: **평가원 26유형 전부 v3 대표 ≥1 · verified 27**(legacy 759). 회귀 `scripts/csat/__tests__/inquiry-validate-v3.test.mjs`.
+- 열린 과제: 연결 관계 반전 전용 변환 라벨이 없어 2014B#37 은 `polarity` 를 넓혀 썼다(정의표 확장 검토). 학평은 보류(공개 정책).
