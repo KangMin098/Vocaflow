@@ -494,6 +494,14 @@ export function AnalysisTheater({
     setMsPhrase(null)
     writeMs({ unit: msUnit, depth: msDepth, rel: id })
   }
+  // 구절 — 고르면 관계 선택을 푼다(문제지 · 지도가 같은 구절 하나를 가리키게)
+  const pickMsPhrase = (id: string | null) => {
+    setMsPhrase(id)
+    if (id && msRelation) {
+      setMsRelation(null)
+      writeMs({ unit: msUnit, depth: msDepth, rel: null })
+    }
+  }
   const pickMsDepth = (d: MsDepth) => {
     setMsDepth(d)
     writeMs({ unit: msUnit, depth: d, rel: msRelation })
@@ -1009,7 +1017,7 @@ export function AnalysisTheater({
                         splitOk={Boolean(v3Linkable && ms.splitOk)}
                         onSelectUnit={pickMsUnit}
                         onSelectRelation={pickMsRelation}
-                        onPhrase={setMsPhrase}
+                        onPhrase={pickMsPhrase}
                         onDepth={pickMsDepth}
                         onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
                         onGo={goBridge}

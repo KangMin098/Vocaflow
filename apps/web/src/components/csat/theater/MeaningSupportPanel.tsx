@@ -106,7 +106,7 @@ export function MeaningSupportPanel({
       {/* 탐구할 의미 고르기 — 시작 의미는 추천일 뿐(가장 중요한 문장 · 취약점 판정 아님) */}
       <div className={styles.cmpFilters} role="group" aria-label="탐구할 의미" data-testid="ms-units">
         {view.units.map((u) => (
-          <button key={u.id} type="button" aria-pressed={u.id === unit?.id} onClick={() => onSelectUnit(u.id === unit?.id ? null : u.id)} data-testid="ms-unit" data-unit={u.id}>
+          <button key={u.id} type="button" aria-pressed={u.id === unit?.id} onClick={() => onSelectUnit(u.id)} data-testid="ms-unit" data-unit={u.id}>
             {u.labelKo} <span className={styles.quiet}>({u.sentences.join(' · ')}번)</span>
           </button>
         ))}

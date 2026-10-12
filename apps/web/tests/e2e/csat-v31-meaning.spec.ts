@@ -94,6 +94,18 @@ for (const width of [1280, 1440]) {
     const rel = await page.getByTestId('ms-relation').getAttribute('data-relation')
     expect(q(page, 'rel')).toBe(rel)
     expect((await litSentences(page)).length).toBeGreaterThan(1)
+    // 관계를 연 채 구절을 고르면 관계가 풀린다 — 문제지 · 지도가 같은 구절 하나를 가리킨다
+    await page.getByTestId('ms-phrase').first().click()
+    await expect(page.getByTestId('ms-relation')).toHaveCount(0)
+    expect(q(page, 'rel')).toBeNull()
+    await expect(page.getByTestId('paper-highlight')).toBeVisible()
+    expect((await litSentences(page)).length).toBe(1)
+    // 의미는 라디오처럼 — 열린 의미를 다시 눌러도 접히지 않고 주소의 meaning 이 남는다
+    await page.locator('[data-testid="ms-unit"][data-unit="u1"]').click()
+    await expect(page.getByTestId('ms-explain')).toHaveAttribute('data-unit', 'u1')
+    expect(q(page, 'meaning')).toBe('u1')
+    await page.getByTestId('ms-relation-pick').first().click()
+    await expect(page.getByTestId('ms-relation')).toBeVisible()
 
     // 4) 관계 선택 뒤 다중 대응 문장(7번 — u2 · u3) → 관계 해제 · 이전 설명 접힘 · 그 문장만 강조 · 의미 고르기
     await page.locator('[data-testid="map-sentence-pick"][data-sentence="7"]').click()
@@ -264,8 +276,7 @@ for (const width of [1280, 1440]) {
       // 관계 — 모든 파일럿 문항에 관계가 있다(건너뛰지 않는다). 첫 관계의 앞쪽 의미를 고르고 그 관계를 연다
       expect(v.relations.length, id).toBeGreaterThan(0)
       const r0 = v.relations[0]
-      // 이미 열린 의미를 다시 누르면 접힌다 — 시작 의미와 다를 때만 고른다(데이터로 정해진 분기)
-      if (v.defaultUnitId !== r0.from[0]) await page.locator(`[data-testid="ms-unit"][data-unit="${r0.from[0]}"]`).click()
+      await page.locator(`[data-testid="ms-unit"][data-unit="${r0.from[0]}"]`).click()
       await expect(page.getByTestId('ms-explain'), id).toHaveAttribute('data-unit', r0.from[0])
       await page.locator(`[data-testid="ms-relation-pick"][data-relation="${r0.id}"]`).click()
       await expect(page.getByTestId('ms-relation'), id).toHaveAttribute('data-relation', r0.id)

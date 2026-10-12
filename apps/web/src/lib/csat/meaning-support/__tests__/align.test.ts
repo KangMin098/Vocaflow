@@ -47,6 +47,13 @@ describe('alignPassage', () => {
     const noisy = `(A) ${input.sentences[0].text}  ${input.sentences[1].text.replace(/ /g, '\n')} “${input.sentences[2].text}”`
     expect(alignPassage(alignment, 'ready', noisy).state).toBe('ok')
   })
+  it('문장 앞 · 끝에 낱말이 끼어든 원문은 표지가 아니다 → mismatch', () => {
+    expect(alignPassage(alignment, 'ready', passage.replace('Rules can', 'No Rules can')).state).toBe('mismatch')
+    expect(alignPassage(alignment, 'ready', passage.replace('So rational', 'And So rational')).state).toBe('mismatch')
+    expect(alignPassage(alignment, 'ready', `${passage} Not`).state).toBe('mismatch')
+    // 표지 · 기호는 허용
+    expect(alignPassage(alignment, 'ready', `[B] ${passage} *`).state).toBe('ok')
+  })
   it('같은 문장 수 · 같은 길이 · 다른 글자 → mismatch(그 문장 번호)', () => {
     const swapped = passage.replace('forbids what', 'permits what')
     expect(swapped.length).toBe(passage.length)

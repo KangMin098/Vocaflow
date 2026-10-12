@@ -52,8 +52,14 @@ export function textHash(str: string): string {
   return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16).padStart(14, '0')
 }
 
-/** 문장 사이 글자 건너뛰기 한도 — 추출본의 단락 표지 · 번호 등. 넘으면 다른 원문으로 본다 */
+/** 문장 사이 글자 건너뛰기 한도 — 추출본의 단락 표지 (A) · [B] 같은 것만. 넘으면 다른 원문으로 본다 */
 const MAX_SKIP = 8
+/**
+ * 건너뛴 글자가 **단락 표지뿐인가** — 괄호로 싼 1~2글자((A) · [B] · (1))와 기호 · 공백만 허용한다.
+ * 문장 앞에 낱말이 끼어든 원문(예: "No rules …")은 표지가 아니므로 대조가 실패한다(Codex P2 · 2026-10-13).
+ */
+const LABEL_GAP = /^[^A-Za-z0-9]*(?:[([]\s*[A-Za-z0-9]{1,2}\s*[)\]][^A-Za-z0-9]*)*$/
+const gapIsLabel = (raw: string) => LABEL_GAP.test(raw)
 
 /** 기기 지문과 대조. 문장 하나 · 구절 하나라도 지문이 다르면 mismatch(부분 강조도 하지 않는다) */
 export function alignPassage(a: MsAlignment | null | undefined, status: PaperStatus, passage: string | null): TextAlign {
@@ -64,15 +70,25 @@ export function alignPassage(a: MsAlignment | null | undefined, status: PaperSta
   const starts: Record<number, number> = {}
   const sentences: Record<number, { start: number; end: number }> = {}
   let cur = 0
+  // 원문 위치 — 앞 문장 끝 다음 글자부터(처음은 0)
+  const rawAfter = (li: number) => (li === 0 ? 0 : map[li - 1] + 1)
   for (const sen of a.sentences) {
     let at = -1
     for (let k = 0; k <= MAX_SKIP && cur + k + sen.len <= L.length; k++) {
-      if (textHash(L.slice(cur + k, cur + k + sen.len)) === sen.h) { at = cur + k; break }
+      if (textHash(L.slice(cur + k, cur + k + sen.len)) !== sen.h) continue
+      // 건너뛴 글자가 있으면 그 원문 구간이 단락 표지뿐이어야 한다
+      if (k > 0 && !gapIsLabel(passage.slice(rawAfter(cur), map[cur + k]))) continue
+      at = cur + k
+      break
     }
     if (at < 0) return { state: 'mismatch', sentence: sen.n, why: 'sentence' }
     starts[sen.n] = at
     sentences[sen.n] = { start: map[at], end: map[at + sen.len - 1] + 1 }
     cur = at + sen.len
+  }
+  // 끝 — 마지막 문장 뒤에 낱말이 더 붙은 원문도 다른 원문이다(표지 · 기호만 허용)
+  if (cur < L.length && !gapIsLabel(passage.slice(rawAfter(cur)))) {
+    return { state: 'mismatch', sentence: a.sentences[a.sentences.length - 1]?.n ?? null, why: 'sentence' }
   }
   const spans: Record<string, { start: number; end: number }> = {}
   for (const [id, sp] of Object.entries(a.spans)) {
