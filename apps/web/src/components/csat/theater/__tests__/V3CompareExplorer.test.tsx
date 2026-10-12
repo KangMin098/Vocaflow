@@ -12,7 +12,7 @@ const pair = (id: string, kind: V3PairView['kind'] = 'same_structure'): V3PairVi
   mappings: [{ self: { sentences: [5, 6], choices: [3] }, other: { sentences: [5, 6], choices: [2] }, relation: '지시어가 받을 앞 문장을 끊는다' }],
   shared: ['주어진 문장과 근거 사이에 끼우면 연결이 끊긴다'], differences: [], principle: null, limitation: '두 문항 범위',
 })
-const base = { withheld: { held: 0, missing: 0, changed: 0 }, initialPairId: null, currentSlug: '2026-38', fromMap: false, returnTo: null, onEvidence: () => {}, linkable: true, selectedKey: null, absence: null }
+const base = { withheld: { held: 0, missing: 0, changed: 0 }, initialPairId: null, currentSlug: '2026-38', fromMap: false, returnTo: null, onEvidence: () => {}, onClearEvidence: () => {}, linkable: true, selectedKey: null, absence: null }
 const render = (over: Partial<Parameters<typeof V3CompareExplorer>[0]> = {}) => renderToStaticMarkup(<V3CompareExplorer pairs={[pair('a~b'), pair('a~c', 'boundary')]} {...base} {...over} />)
 
 describe('V3CompareExplorer', () => {

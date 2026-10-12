@@ -42,6 +42,7 @@ export function V3CompareExplorer({
   fromMap,
   returnTo,
   onEvidence,
+  onClearEvidence,
   linkable,
   selectedKey,
 }: {
@@ -54,13 +55,26 @@ export function V3CompareExplorer({
   /** 다른 문항의 비교에서 넘어왔으면 그 문항으로 돌아가는 링크 */
   returnTo: { href: string; label: string } | null
   onEvidence: Evidence
+  /** 지도의 근거 강조를 끈다 — 고른 쌍이 바뀌거나 풀리면 옛 쌍의 강조가 남지 않게 */
+  onClearEvidence: () => void
   linkable: boolean
   selectedKey: string | null
 }) {
   const counts = useMemo(() => Object.fromEntries(KINDS.map((k) => [k, pairs.filter((p) => p.kind === k).length])) as Record<PairKind, number>, [pairs])
   const [kind, setKind] = useState<PairKind | 'all'>('all')
   const shown = kind === 'all' ? pairs : pairs.filter((p) => p.kind === kind)
-  const [selectedId, setSelectedId] = useState<string | null>(initialPairId && pairs.some((p) => p.pairId === initialPairId) ? initialPairId : null)
+  // 고른 쌍 — 장면을 떠났다 돌아오면 이 컴포넌트가 다시 그려진다. 그때는 서버가 처음 준 값이 아니라 **지금 주소의 `?pair=`** 를 따른다
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    let want = initialPairId
+    if (typeof window !== 'undefined') {
+      try {
+        want = new URL(window.location.href).searchParams.get('pair') ?? initialPairId
+      } catch {
+        // 주소를 못 읽으면 서버 값
+      }
+    }
+    return want && pairs.some((p) => p.pairId === want) ? want : null
+  })
   const [active, setActive] = useState(0)
   const listRef = useRef<HTMLUListElement>(null)
   const detailRef = useRef<HTMLElement>(null)
@@ -71,7 +85,18 @@ export function V3CompareExplorer({
     if (active >= shown.length) setActive(Math.max(0, shown.length - 1))
   }, [shown.length, active])
 
+  // 이 비교 화면이 켠 강조인가(쌍 대응 · 가르는 조건) — 다른 장면의 근거 강조는 건드리지 않는다
+  const ownsEvidence = (key: string | null) => Boolean(key && /^(pair|diff)-/.test(key))
+  const keyRef = useRef(selectedKey)
+  keyRef.current = selectedKey
+  // 비교 장면을 떠나면 이 화면이 켠 강조를 끈다(보이지 않는 버튼이 지도를 계속 비추지 않게)
+  useEffect(() => () => {
+    if (ownsEvidence(keyRef.current)) onClearEvidence()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const choose = (id: string | null) => {
+    // 고른 쌍이 바뀌거나 풀리면 옛 쌍의 근거 강조를 끈다 — 강조된 문장과 보이는 비교가 어긋나지 않게
+    if (id !== selectedId && ownsEvidence(selectedKey)) onClearEvidence()
     setSelectedId(id)
     setPairParam(id)
     if (id) requestAnimationFrame(() => detailRef.current?.focus())

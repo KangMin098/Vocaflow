@@ -8,6 +8,7 @@
 //   PLAYWRIGHT_BASE_URL=http://localhost:3218 pnpm --filter web exec playwright test csat-v3-m5-explore
 import { mkdirSync } from 'node:fs'
 import path from 'node:path'
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 const USER = {
@@ -30,6 +31,12 @@ async function login(page: Page) {
   await page.fill('input[type="password"]', USER.password)
   await page.click('button[type="submit"]')
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 60_000 })
+}
+/** 접근성(WCAG 2.1 A/AA) — 이번에 만든 패널 영역만, serious · critical 위반 0 */
+async function axeClean(page: Page, selector: string) {
+  const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).include(selector).analyze()
+  const bad = res.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => `${v.impact}/${v.id} ×${v.nodes.length} ${v.nodes[0]?.target?.join(' ') ?? ''}`)
+  expect(bad, `${selector} 접근성`).toEqual([])
 }
 async function noOverflow(page: Page, what: string) {
   const o = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
@@ -99,24 +106,44 @@ for (const width of [1280, 1440]) {
     await ev.click()
     await expect(ev).toHaveAttribute('aria-pressed', 'false')
     await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
-    // Esc(목록에서) 로 선택 해제 → 다시 선택
+    // 강조를 켠 채 다른 쌍으로 바꾸면 옛 쌍의 강조가 꺼진다(보이는 비교 ↔ 지도 강조 일치)
+    await detail.getByTestId('v3-mapping-self').first().click()
+    await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
+    if ((await options.count()) > 1) {
+      await options.nth(1).click()
+      await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+      await expect(page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first()).toHaveAttribute('aria-pressed', 'false')
+      await options.first().click()
+    }
+    // 강조를 켠 채 Esc(목록에서) 로 선택 해제 → 강조도 꺼진다 → 다시 선택
+    await page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first().click()
+    await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
     await options.first().focus()
     await page.keyboard.press('Escape')
     await expect(page.getByTestId('v3-pair')).toHaveCount(0)
+    await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
     await page.keyboard.press('Enter')
     await expect(page.getByTestId('v3-pair')).toBeVisible()
+    // 강조를 켠 채 다른 장면으로 가면 꺼진다(보이지 않는 비교가 지도를 계속 비추지 않음)
+    await page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first().click()
+    await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
+    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+    await page.getByRole('tab', { name: '기출 비교', exact: true }).click()
+    await expect(page.getByTestId('v3-pair')).toBeVisible() // 주소의 pair 로 같은 쌍이 다시 열린다
 
     // 상대 문항으로 이동 → 같은 쌍이 열려 있고 · 학습 지도 복귀 유지 · 돌아오기
     await page.getByTestId('v3-pair-go-other').click()
-    await page.waitForURL(/back=2026-38/)
+    await page.waitForURL(/back=2026-38/, { waitUntil: 'commit', timeout: 90_000 })
     await expect(page.getByTestId('v3-pair')).toBeVisible({ timeout: 60_000 })
     expect(new URL(page.url()).searchParams.get('pair')).toBe(pairId)
     await expect(page.getByTestId('item-back-map')).toBeVisible()
     await page.getByTestId('v3-compare-return').first().click()
-    await page.waitForURL(/\/csat\/item\/2026-38/)
+    await page.waitForURL(/\/csat\/item\/2026-38/, { waitUntil: 'commit', timeout: 90_000 })
     await expect(page.getByTestId('v3-pair')).toBeVisible({ timeout: 60_000 })
     expect(new URL(page.url()).searchParams.get('pair')).toBe(pairId)
     await noOverflow(page, '2026#38 비교')
+    await axeClean(page, '[data-testid="v3-compare"]')
 
     // ④ 조건부 원리 — 수준 · 성립/금지 조건
     await page.getByRole('tab', { name: '조건부 원리', exact: true }).click()
@@ -141,6 +168,7 @@ for (const width of [1280, 1440]) {
     await note.getByTestId('note-save').click()
     await expect(note.getByTestId('note-status')).toHaveAttribute('data-status', 'saved')
     await expect(note.getByTestId('note-compare')).toContainText(statement)
+    await axeClean(page, '[data-testid="reasoning-note"]')
     await note.getByTestId('note-open-model').click()
     // 재진입 — 새로 고침 뒤에도 노트가 남아 있다
     await page.reload({ waitUntil: 'domcontentloaded' })

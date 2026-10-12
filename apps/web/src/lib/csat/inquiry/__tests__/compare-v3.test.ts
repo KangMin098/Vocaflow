@@ -64,17 +64,28 @@ describe('상대 상태 구별 · 실제 공개 정본 결속(M5)', () => {
     const held = projectV3Pairs('A#1', true, () => ({ state: 'held' }), d)
     expect(held).toMatchObject({ absence: 'partner_hidden', withheld: { held: 1, missing: 0, changed: 0 } })
     expect(projectV3Pairs('A#1', true, () => ({ state: 'missing' }), d)).toMatchObject({ absence: 'partner_missing', withheld: { missing: 1 } })
-    const bound = { ...d, pairs: { 'A#1~B#2': { ...d.pairs['A#1~B#2'], binding: { left: { units_hash: 'ua' }, right: { units_hash: 'ub' } } } } }
-    expect(projectV3Pairs('A#1', true, open, bound, () => 'ub-new')).toMatchObject({ absence: 'partner_changed', withheld: { changed: 1 } })
-    expect(projectV3Pairs('A#1', true, open, bound, () => 'ub').pairs).toHaveLength(1)
-    expect(projectV3Pairs('A#1', true, open, bound, () => null)).toMatchObject({ absence: 'partner_changed' })
+    const bound = { ...d, pairs: { 'A#1~B#2': { ...d.pairs['A#1~B#2'], binding: { left: { units_hash: 'ua', analysis_version: 3 }, right: { units_hash: 'ub', analysis_version: 5 } } } } }
+    const cur = (over: Record<string, { units_hash: string | null; analysis_version: number | null } | null> = {}) => (id: string) =>
+      id in over ? over[id] : id === 'A#1' ? { units_hash: 'ua', analysis_version: 3 } : { units_hash: 'ub', analysis_version: 5 }
+    expect(projectV3Pairs('A#1', true, open, bound, cur()).pairs).toHaveLength(1)
+    // 상대 문장 분할 · 상대 분석 버전 · 이 문항 분석 버전 · 공개 탐구 없음 — 어느 쪽이 바뀌어도 그 쌍을 뺀다
+    expect(projectV3Pairs('A#1', true, open, bound, cur({ 'B#2': { units_hash: 'ub-new', analysis_version: 5 } }))).toMatchObject({ absence: 'partner_changed', withheld: { changed: 1 } })
+    expect(projectV3Pairs('A#1', true, open, bound, cur({ 'B#2': { units_hash: 'ub', analysis_version: 6 } }))).toMatchObject({ withheld: { changed: 1 } })
+    expect(projectV3Pairs('A#1', true, open, bound, cur({ 'A#1': { units_hash: 'ua', analysis_version: 4 } }))).toMatchObject({ withheld: { changed: 1 } })
+    expect(projectV3Pairs('A#1', true, open, bound, cur({ 'B#2': null }))).toMatchObject({ absence: 'partner_changed' })
+    // 상대 쪽에서 봐도 같은 결속을 본다(방향 대칭)
+    expect(projectV3Pairs('B#2', true, open, bound, cur({ 'A#1': { units_hash: 'ua', analysis_version: 9 } }))).toMatchObject({ withheld: { changed: 1 } })
   })
 
-  it('실제 공개 정본: 모든 쌍의 상대 문장 분할이 지금 공개 탐구와 같다(빌드 ↔ 탐구 정본 일치)', async () => {
-    const { inquiryUnitsHash } = await import('../data')
+  it('실제 공개 정본: 모든 쌍의 양쪽 문장 분할 · 분석 버전이 지금 공개 탐구와 같다(빌드 ↔ 탐구 정본 일치)', async () => {
+    const { inquiryBinding } = await import('../data')
+    for (const p of Object.values(published.pairs) as { binding: Record<'left' | 'right', { analysis_version?: number; units_hash?: string }> }[]) {
+      expect(p.binding.left.analysis_version, '결속에 분석 버전').toEqual(expect.any(Number))
+      expect(p.binding.right.analysis_version).toEqual(expect.any(Number))
+    }
     let total = 0
     for (const itemId of Object.keys(published.items)) {
-      const r = projectV3Pairs(itemId, true, (id) => ({ state: 'open', slug: id, label: id }), undefined, inquiryUnitsHash)
+      const r = projectV3Pairs(itemId, true, (id) => ({ state: 'open', slug: id, label: id }), undefined, inquiryBinding)
       expect(r.withheld, itemId).toEqual({ held: 0, missing: 0, changed: 0 })
       total += r.pairs.length
     }

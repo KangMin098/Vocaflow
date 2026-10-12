@@ -44,7 +44,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
-import { inquiryUnitsHash, lookupInquiry } from '@/lib/csat/inquiry/data'
+import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
 import compareData from '@/lib/csat/compare-data.json'
 import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 
@@ -177,7 +177,7 @@ export default async function CsatItemTheaterPage({
       return o ? { state: 'open' as const, ...o } : knownIds.has(id) ? { state: 'held' as const } : { state: 'missing' as const }
     },
     undefined,
-    inquiryUnitsHash,
+    inquiryBinding,
   )
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
