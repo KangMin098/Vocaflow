@@ -103,7 +103,9 @@ function BridgeBanner({ focus, what }: { focus: MeaningBridgeFocus; what: string
 export function V3Judgment({ v3, onEvidence, linkable, selectedKey, focus = null }: { v3: InquiryV3; onEvidence: Evidence; linkable: boolean; selectedKey: string | null; focus?: MeaningBridgeFocus | null }) {
   const answer = v3.choices.find((c) => c.selected_as_answer)?.n ?? v3.choices[0]?.n ?? 1
   // 원문 이해에서 왔으면 그 의미가 걸린 첫 선택지부터 연다(부모가 focus 마다 key 를 바꿔 다시 연다)
-  const [pick, setPick] = useState<number>(focus?.choices.find((n) => v3.choices.some((c) => c.n === n)) ?? answer)
+  const restored = selectedKey ? /^choice-(\d)$/.exec(selectedKey) : null
+  const restoredPick = restored && v3.choices.some((c) => c.n === Number(restored[1])) ? Number(restored[1]) : null
+  const [pick, setPick] = useState<number>(focus?.choices.find((n) => v3.choices.some((c) => c.n === n)) ?? restoredPick ?? answer)
   const c = v3.choices.find((x) => x.n === pick) ?? v3.choices[0]
   if (!c) return null
   const meanings = v3.meanings.filter((m) => (c.meaning_ids ?? []).includes(m.id))
