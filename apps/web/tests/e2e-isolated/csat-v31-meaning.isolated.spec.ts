@@ -159,11 +159,37 @@ async function expectStale38(page: Page) {
   await expect(page.locator('[data-testid="item-held"]')).toHaveCount(0)
 }
 
+/**
+ * 기출 찾기(2026-10-13) — 같은 실제 보류 · 해제 상태에서 목록 API · 열기 직전 재검증 · 서가 팝업이 관문을 따르는가.
+ *   open: 목록에 2026 세 문항 · verify=open / held: 목록에서 빠지고(회차 · 유형 수도 다시 셈) verify=held · 서가 팝업 검색 0.
+ *   목록 원본은 프로세스 캐시(10분)지만 보류는 요청마다 판정한다 — B 는 A 가 캐시를 채운 뒤에 돈다.
+ */
+async function expectFinder(page: Page, state: 'open' | 'held') {
+  const list = await page.request.get('/api/csat/item-finder')
+  expect(list.status(), '기출 찾기 목록').toBe(200)
+  expect(list.headers()['cache-control']).toBe('private, no-store')
+  const ids = ((await list.json()) as { catalog: { items: { id: string }[]; exams: { id: string }[] } }).catalog
+  for (const id of ITEMS) expect(ids.items.some((i) => i.id === id), `${id} 목록(${state})`).toBe(state === 'open')
+  expect(ids.exams.some((e) => e.id === '2026'), '2026 회차').toBe(state === 'open')
+  const v = await page.request.get(`/api/csat/item-finder?verify=${encodeURIComponent('2026#34')}`)
+  expect(v.status()).toBe(200)
+  expect(((await v.json()) as { verify: string }).verify, '열기 직전 재검증').toBe(state)
+  await page.goto('/csat/browse', { waitUntil: 'domcontentloaded' })
+  await page.getByTestId('browse-finder-open').click()
+  await expect(page.getByTestId('item-finder')).toHaveAttribute('data-state', 'ready', { timeout: 60_000 })
+  await page.getByTestId('item-finder-search').fill('2026#34')
+  if (state === 'open') await expect(page.locator('[data-testid="item-finder-items"] [data-item="2026#34"]')).toBeVisible()
+  else await expect(page.getByTestId('item-finder-empty')).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByTestId('item-finder')).toHaveCount(0)
+}
+
 test('A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback', async ({ page }) => {
   await expectNoHold2026()
   await loginLearner(page)
   await expectPublic34(page, { switchUnit: true })
   await expectStale38(page)
+  await expectFinder(page, 'open')
 })
 
 test('B — 실제 보류(record_session_held): 세 문항 item-held · 교수 설명 비노출', async ({ page }) => {
@@ -201,6 +227,7 @@ test('B — 실제 보류(record_session_held): 세 문항 item-held · 교수 �
     await expect(page.locator('[data-testid="item-held"]'), `${r.id} 보류 안내`).toBeVisible({ timeout: 60_000 })
     await expect(page.locator('[data-testid="ms-panel"]')).toHaveCount(0)
   }
+  await expectFinder(page, 'held')
 })
 
 test('C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 · 38 stale 유지 · 정리 단언', async ({ page }) => {
@@ -219,6 +246,7 @@ test('C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 
   await loginLearner(page)
   await expectPublic34(page, { switchUnit: false })
   await expectStale38(page)
+  await expectFinder(page, 'open')
 
   // 정리 단언 — 활성 capture · 열린 묘비 없음 + 이 세션 capture completed
   await expectNoHold2026()

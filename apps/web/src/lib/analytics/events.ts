@@ -266,15 +266,20 @@ export type PublicEvent =
     }
   /**
    * 어느 입구로 들어왔나 — 상시 메뉴(menu: 내 학습 지도 · 기출 탐구, v3 M1) · 서가 목적 조건(purpose) ·
-   * 옛 목적별 · 유형별 · 회차별(need · type · exam — 옛 URL 에서만 남는다).
+   * 옛 목적별 · 유형별 · 회차별(need · type · exam — 옛 URL 에서만 남는다) ·
+   * 기출 찾기 팝업(finder — 어디서 열었고 어떻게 닫았나. 검색어 · 문항 id · 주소는 싣지 않는다 · 2026-10-13).
    */
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
         menu?: 'map' | 'browse'
+        /** axis=finder 일 때만 — 연 자리 */
+        origin?: 'item' | 'compare' | 'browse' | 'home'
+        /** axis=finder 일 때만 — open(열기) · cancel(취소/닫기/뒤로) · same(지금 문항) · go(다른 문항 탐구) · apply(서가에 적용) · browse(전체 서가로) */
+        action?: 'open' | 'cancel' | 'same' | 'go' | 'apply' | 'browse'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */

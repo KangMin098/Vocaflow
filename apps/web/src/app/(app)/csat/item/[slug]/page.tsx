@@ -266,6 +266,8 @@ export default async function CsatItemTheaterPage({
       itemId={item.id}
       // 문항 사이를 옮길 때(비교 상대) 이어 갈 문맥 — 서가 조건(ret) · 지도 복귀(from=map · task · ws · step). 모두 검증한 값
       carry={carry}
+      // 기출 찾기 — 독립 확인(check=1) 중에는 숨긴다(지정 문항을 임의 선택으로 바꾸지 않는다). 지도 복귀 조각은 위에서 검증한 값
+      finder={checkMode ? null : { fromMap, mapCtxQuery: mapCtxQ }}
       // 기출 탐구에서 왔으면 같은 서가 조건으로(서가 경로만 · browseReturn), 아니면 내 학습 지도(v3 M1)
       backHref={browseReturn(first(sp.ret)) ?? '/csat'}
       backTo={browseReturn(first(sp.ret)) ? 'browse' : 'home'}
@@ -346,7 +348,8 @@ export default async function CsatItemTheaterPage({
   return (
     <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
       {meta ? (
-        <LectureStage slug={toItemSlug(item.id)} meta={meta} keys={false}>
+        // key = 문항 — 다른 문항으로 옮기면 강의 무대를 새로 세운다(앞 문항의 발화 · 자동 강조가 이어지지 않게 · 기출 찾기 FND3)
+        <LectureStage key={item.id} slug={toItemSlug(item.id)} meta={meta} keys={false}>
           {body}
         </LectureStage>
       ) : (

@@ -1267,6 +1267,10 @@
       "class": "PUBLIC_CONTENT",
       "gate": "해설 유무만(정답 · 해설 본문 없음) — 학습자 RLS 로 읽어 보류 문항은 정책이 이미 뺀다"
     },
+    "lib/csat/item-finder-server.ts": {
+      "class": "PUBLIC_CONTENT",
+      "gate": "기출 찾기(2026-10-13) — 회차 · 번호 · 유형 · 배점 메타데이터만(allowlist), 학습자 RLS 로 읽고 요청마다 loadRevealScope · itemRevealDecision 으로 보류 문항을 한 번 더 뺀다. 판정 실패는 503(빈 집합 아님)"
+    },
     "lib/csat/client.ts": {
       "class": "ADMIN_ONLY",
       "gate": "앱 구현 확인(2026-10-06): 서비스 클라이언트 팩토리 + 관리자 개요(loadCsatOverview). selectScopeItems 는 유형 · 시험 id 만 읽고, 학습자 소비자(learner · heatmap)가 각자 gate — 학습자 경로 없음(호출부 → 라우트 인증 근거). 학습자 경로가 생기면 embargo-gate 를 거쳐 다시 분류"

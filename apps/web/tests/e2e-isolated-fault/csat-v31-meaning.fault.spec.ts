@@ -86,3 +86,23 @@ test('v3.1 원문 이해 — 게이트 RPC 부재(고장 주입) · fail-closed 
     await expect(page.locator('[data-testid="map-sentence-pick"]')).toHaveCount(0)
   }
 })
+
+test('기출 찾기 — 게이트 RPC 부재: 목록 503 gate(빈 목록 아님) · 재검증 error · 팝업은 판정 실패를 말하고 열기 비활성', async ({ page }) => {
+  // 전제: 고장 주입이 그대로다(RPC 부재)
+  const gi = await admin().rpc('csat_ec_embargoed_items', { p_items: ['2026#34'] })
+  expect(gi.error, '게이트 RPC 가 없어야 한다(고장 주입)').not.toBeNull()
+  await login(page)
+  const list = await page.request.get('/api/csat/item-finder')
+  expect(list.status(), '판정 실패는 빈 정상 목록이 아니다').toBe(503)
+  expect(list.headers()['cache-control']).toBe('private, no-store')
+  expect(((await list.json()) as { error?: string; catalog?: unknown }).error).toBe('gate')
+  const v = await page.request.get(`/api/csat/item-finder?verify=${encodeURIComponent('2026#34')}`)
+  expect(v.status()).toBe(200)
+  expect(((await v.json()) as { verify: string }).verify).toBe('error')
+  await page.goto('/csat/browse', { waitUntil: 'domcontentloaded' })
+  await page.getByTestId('browse-finder-open').click()
+  await expect(page.getByTestId('item-finder-error')).toHaveAttribute('data-reason', 'gate', { timeout: 60_000 })
+  await expect(page.getByTestId('item-finder-status')).toHaveText('목록을 받지 못했어요')
+  await expect(page.getByTestId('item-finder-open')).toHaveAttribute('aria-disabled', 'true')
+  await expect(page.locator('[data-testid="item-finder-items"] [data-row]')).toHaveCount(0)
+})

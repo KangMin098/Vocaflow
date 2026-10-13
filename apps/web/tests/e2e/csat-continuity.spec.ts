@@ -144,14 +144,18 @@ test('A5 최근 기출부터 — 기출 탐구 → 목적 최근 기출 → 번�
 test('A6 유형 — 기출 탐구 유형 조건 문장 삽입 → 번호 칩 · 옛 목적 화면의 「서가에서 보기」 와 같은 조건', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat/browse', { waitUntil: 'networkidle' })
-  // 고르기(select)는 한 번의 조작으로 센다
-  await page.selectOption('#csat-library-type', 'R-INSERT')
+  // 기출 찾기(2026-10-13) — 유형 · 회차 같은 상세 조건은 서가 도구줄이 아니라 「기출 찾기」 팝업에서 고친다(설계 §2).
+  //   그래서 경로가 「찾기 → 유형 → 서가에 적용 → 칩」 4번이다(옛 선택 상자 경로 2번에서 늘었다 — DECISIONS 2026-10-13 기출 찾기).
+  await click('[data-testid="browse-finder-open"]')
+  await expect(page.getByTestId('item-finder')).toHaveAttribute('data-state', 'ready', { timeout: 60_000 })
+  await click('[data-cond="type-R-INSERT"]')
+  await click('[data-testid="item-finder-apply"]')
   await expect.poll(() => new URL(page.url()).searchParams.get('type')).toBe('R-INSERT')
   const typeUrl = new URL(page.url())
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
-  report('A6', clicks() + 1, 2)
-  expect(clicks() + 1).toBeLessThanOrEqual(2)
+  report('A6', clicks(), 4)
+  expect(clicks()).toBeLessThanOrEqual(4)
 
   // 옛 목적 화면(킬러 유형 → 문장 삽입 줄 → 「전체 기출 서가」)이 **같은 서가 조건**으로 가는가
   await page.goto('/csat?need=killer', { waitUntil: 'networkidle' })
@@ -163,12 +167,16 @@ test('A6 유형 — 기출 탐구 유형 조건 문장 삽입 → 번호 칩 · 
 test('A7 회차 — 기출 탐구 회차 조건 2026학년도 수능 → 31번', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat/browse', { waitUntil: 'networkidle' })
-  await page.selectOption('#csat-browse-exam', '2026')
+  // 회차 조건 = 기출 찾기 팝업의 회차 열 → 「서가에 적용」(A6 와 같은 이유로 4번)
+  await click('[data-testid="browse-finder-open"]')
+  await expect(page.getByTestId('item-finder')).toHaveAttribute('data-state', 'ready', { timeout: 60_000 })
+  await click('[data-testid="item-finder-exams"] [data-exam="2026"]')
+  await click('[data-testid="item-finder-apply"]')
   await expect.poll(() => new URL(page.url()).searchParams.get('exam')).toBe('2026')
   await click('[data-testid="csat-library"] a[href^="/csat/item/2026-31?"]')
   await page.waitForURL(/\/csat\/item\/2026-31/)
-  report('A7', clicks() + 1, 2)
-  expect(clicks() + 1).toBeLessThanOrEqual(2)
+  report('A7', clicks(), 4)
+  expect(clicks()).toBeLessThanOrEqual(4)
 })
 
 test('C2/C5 재방문 · 다른 기기 — 서버에만 있는 멈춘 세트가 이어서 카드로 선다', async ({ browser }) => {
