@@ -513,13 +513,7 @@ export function AnalysisTheater({
   //   저장 위치는 모듈 탭 메모리(item-tab-memory) — 문항 주소가 바뀌면 이 컴포넌트가 다시 마운트되므로 컴포넌트 안에 두면 문항 왕복에서 사라진다
   const sceneMem = useRef(tabMemory.scene)
   const memKey = (sc: SceneId) => `${itemId}|${sc}`
-  // 첫 진입 — 이 문항 · 장면을 전에 봤으면 두 판 스크롤도 되살린다
-  const pendingScroll = useRef<{ explain: number; evidence: number } | null>(
-    (() => {
-      const m = tabMemory.scene.get(sceneKey(itemId, initialScene))
-      return m ? { explain: m.scroll, evidence: m.evScroll } : null
-    })(),
-  )
+  const pendingScroll = useRef<{ explain: number; evidence: number } | null>(null)
   const evidencePaneRef = useRef<HTMLDivElement>(null)
   // 뒤로가기(popstate)는 이전 렌더의 클로저로 불리므로 최신 장면 · 근거를 ref 로 둔다
   const live = useRef<{ scene: SceneId; evidence: { sentences: number[]; key: string } | null }>({ scene: initialScene, evidence })
@@ -741,6 +735,15 @@ export function AnalysisTheater({
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
   live.current = { scene, evidence }
+  // 문항 재진입(기출 찾기 왕복 · 뒤로가기) — 이 문항 · 장면을 전에 봤으면 두 판 스크롤을 되살린다. 마운트 때 한 번만,
+  //   프레임의 pendingScroll 흐름(장면 전환 · 근거 판 접힘)과 섞지 않는다
+  useEffect(() => {
+    const m = tabMemory.scene.get(sceneKey(itemId, initialScene))
+    if (!m) return
+    if (blocksRef.current) blocksRef.current.scrollTop = m.scroll
+    if (evidencePaneRef.current) evidencePaneRef.current.scrollTop = m.evScroll
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 마운트 때 한 번(그 문항 · 첫 장면)
+  }, [])
   useEffect(() => {
     setLastByGroup((l) => rememberScene(l, scene))
     const to = pendingScroll.current
