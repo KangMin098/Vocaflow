@@ -1238,7 +1238,7 @@ export function AnalysisTheater({
                     <ul className={styles.siblings}>
                       {siblings.map((s) => (
                         <li key={s.slug}>
-                          <Link href={`/csat/item/${s.slug}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
+                          <Link href={`/csat/item/${s.slug}${backTo === 'browse' ? `?ret=${encodeURIComponent(backHref)}` : ''}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
                             <b>{s.no}</b>
                             <span>{s.label}</span>
                           </Link>

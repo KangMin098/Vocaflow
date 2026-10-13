@@ -232,7 +232,7 @@ export function HomeLanding({
               <p className={`${l.lead} break-keep`}>목적 · 유형 · 회차로 골라 문항 하나를 원문 근거부터 끝까지 탐구해요.</p>
             </div>
             <span className={l.exploreActions}>
-              <Link className={home.secondary} href="/csat/dissect" data-testid="home-start">
+              <Link className={home.secondary} href="/csat/dissect" onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'start', from: 'home' } })} data-testid="home-start">
                 처음이라면 3문항으로 시작
               </Link>
               <Link className={`${home.primary} ${l.primary}`} href="/csat/browse" data-testid="home-explore-go">

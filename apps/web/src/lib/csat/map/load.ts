@@ -536,7 +536,7 @@ async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>)
   const counts = Object.fromEntries([...confirmOf.keys()].map((k) => [k, [...(byKey.get(k) ?? [])].filter((i) => !gate.held.has(i)).length]))
   const targets: Record<string, { target: string; href: string; label: string }[]> = {}
   if (confirmOf.has(PRACTICE_SLUG)) targets[PRACTICE_SLUG] = [...transferPhase].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/practice/${PRACTICE_SLUG}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' }))
-  for (const [k, ids] of roleTransfer) targets[k] = [...ids].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/item/${toItemSlug(i)}?check=1&task=${encodeURIComponent(k)}#principle`, label: '다른 글에 적용' }))
+  for (const [k, ids] of roleTransfer) targets[k] = [...ids].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/item/${toItemSlug(i)}?check=1#principle`, label: '다른 글에 적용' }))
   return { counts, targets }
 }
 
