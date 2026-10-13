@@ -6,6 +6,7 @@
 // 거기 같이 있으면 **화면과 회귀가 서버 모듈을 import 하게 된다** — 이 저장소가
 // `item-slug.ts` 머리말에 적어 둔 사고가 정확히 그것이다. 그래서 갈라 둔다.
 
+import { matchesQuery, parseQuery } from './browse-search'
 import { parseExamId } from './exam-id'
 
 /** 수능 본시험 · 평가원 모의평가 · 교육청 학력평가 — 학습자가 가장 먼저 가르는 축(출처 필터) */
@@ -102,7 +103,8 @@ export const EMPTY_FILTER: BrowseFilter = { kind: 'all', grade: 'all', year: 'al
 export function filterBrowse(catalog: BrowseCatalog, filter: BrowseFilter): BrowseItem[] {
   const exams = new Map(catalog.exams.map((e) => [e.id, e]))
   const names = new Map(catalog.types.map((t) => [t.id, t.name]))
-  const needle = filter.query.trim().toLowerCase()
+  // 검색어는 토큰 AND(browse-search) — 서가와 기출 찾기가 같은 해석을 쓴다
+  const parsed = parseQuery(filter.query)
   return catalog.items.filter((i) => {
     const exam = exams.get(i.exam_id)
     if (!exam) return false
@@ -114,9 +116,7 @@ export function filterBrowse(catalog: BrowseCatalog, filter: BrowseFilter): Brow
     if (filter.type !== 'all' && i.type_id !== filter.type) return false
     if (filter.status === 'lecture' && !i.lecture) return false
     if (filter.status === 'map' && !i.map) return false
-    if (!needle) return true
-    const name = (names.get(i.type_id) ?? i.type_id).toLowerCase()
-    return name.includes(needle) || exam.label.toLowerCase().includes(needle) || String(i.no) === needle
+    return matchesQuery(parsed, i, exam, names.get(i.type_id) ?? i.type_id)
   })
 }
 

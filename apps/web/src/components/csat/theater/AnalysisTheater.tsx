@@ -36,6 +36,7 @@ import {
   NotebookText,
   Pause,
   Play,
+  Search,
   Terminal,
   Volume2,
   VolumeX,
@@ -100,6 +101,10 @@ import { MeaningSupportPanel } from './MeaningSupportPanel'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
 import { alignPassage } from '@/lib/csat/meaning-support/align'
 import { bridgeOf, buildItemUrl, parseMeaningParams, relationSentences, relationsOfUnit, sentencesOf, unitsForSentence } from '@/lib/csat/meaning-support/model'
+import { ItemFinderDialog, type FinderOrigin } from '@/components/csat/browse/ItemFinderDialog'
+import finderStyles from '@/components/csat/browse/item-finder.module.css'
+import { EMPTY_FILTER } from '@/lib/csat/browse-model'
+import { EMPTY_SELECTION, finderItemHref, finderOriginFor, selectionFromBrowseHref, type FinderSelection } from '@/lib/csat/item-finder'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -217,6 +222,7 @@ export function AnalysisTheater({
   initialRelation = null,
   initialBridge = false,
   meaningNormalized = false,
+  finder = null,
 }: {
   title: string
   typeName: string | null
@@ -283,8 +289,29 @@ export function AnalysisTheater({
   initialBridge?: boolean
   /** 주소의 meaning · depth · rel · bridge 중 무효값이 있었다 — 첫 렌더 뒤 정규형 주소로 바꾼다 */
   meaningNormalized?: boolean
+  /** 기출 찾기(문항 머리 · 비교 없음 안내). null = 숨김(독립 확인 중). mapCtxQuery = 서버가 검증한 지도 복귀 조각 */
+  finder?: { fromMap: boolean; mapCtxQuery: string } | null
 }) {
   const lec = useLecture()
+  // ── 기출 찾기(FND2 · FND3) — 학습 상태(장면 · 근거 · 초안)와 분리된 팝업 상태 ──────────────
+  const [finderOpen, setFinderOpen] = useState<FinderOrigin | null>(null)
+  // 「찾기 전 문항으로」 — 찾기로 이 문항에 왔을 때만(탭 메모리 · 첫 렌더 뒤에 읽는다: 서버 렌더와 어긋나지 않게)
+  const [finderBack, setFinderBack] = useState<string | null>(null)
+  useEffect(() => setFinderBack(finderOriginFor(itemId)), [itemId])
+  const pauseLecture = () => {
+    // 위치는 그대로 두고 멈춘다 — 닫아도 저절로 다시 틀지 않는다(재생 버튼으로 명시적으로 잇는다)
+    if (lec?.status === 'playing') lec.toggle()
+  }
+  const openFinder = (o: 'item' | 'compare') => {
+    pauseLecture()
+    track({ name: 'csat_path_chosen', props: { axis: 'finder', need: 'none', origin: o, action: 'open' } })
+    setFinderOpen(o)
+  }
+  const finderRet = backTo === 'browse' ? backHref : null
+  const finderInitial: FinderSelection =
+    finderOpen === 'compare' && typeId
+      ? { filter: { ...EMPTY_FILTER, type: typeId }, purpose: null }
+      : selectionFromBrowseHref(finderRet) ?? EMPTY_SELECTION
   const isReviewPhase = (s: LearningSession | null | undefined) => s?.phase === 'review'
   const goal = teachingModelOf(typeId)
   const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
@@ -792,6 +819,11 @@ export function AnalysisTheater({
         {typeName ? <span className={styles.tag}>{typeName}</span> : null}
         {points ? <span className={styles.tag}>{points}점</span> : null}
         <nav className={styles.crumbs} aria-label="목록으로">
+          {finderBack ? (
+            <Link className={styles.back} href={finderBack} data-testid="item-finder-back">
+              찾기 전 문항으로
+            </Link>
+          ) : null}
           {mapReturn ? (
             <Link className={styles.back} href={mapReturn} data-testid="item-back-map">
               학습 지도로
@@ -806,6 +838,12 @@ export function AnalysisTheater({
             서가
           </Link>
         </nav>
+        {finder ? (
+          <button type="button" className={finderStyles.trigger} onClick={() => openFinder('item')} aria-haspopup="dialog" data-testid="item-finder-open-btn">
+            <span className={finderStyles.triggerFace}><Search size={14} aria-hidden />
+            기출 찾기</span>
+          </button>
+        ) : null}
         <div className={styles.barRight}>
           <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음" aria-label="효과음">
             {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
@@ -1097,6 +1135,7 @@ export function AnalysisTheater({
                         onClearEvidence={() => setEvidence(null)}
                         linkable={v3Linkable}
                         selectedKey={evidence?.key ?? null}
+                        onFindOther={finder ? () => openFinder('compare') : undefined}
                       />
                     ) : null}
                     {scene === 'compare' ? (
@@ -1309,6 +1348,18 @@ export function AnalysisTheater({
           )}
         </section>
       </div>
+      {finder && finderOpen ? (
+        <ItemFinderDialog
+          origin={finderOpen}
+          initial={finderInitial}
+          currentItemId={itemId}
+          // 다른 문항은 기본 장면에서 · 검증된 복귀 문맥(서가 ret · 지도 from/task/ws/step)만 — 비교 pair/back · 원문 이해 · check 는 넘기지 않는다
+          hrefFor={(id) => finderItemHref(id, { ret: finderRet, fromMap: finder.fromMap, mapCtxQuery: finder.mapCtxQuery })}
+          originHref={`${window.location.pathname}${window.location.search}`}
+          onClose={() => setFinderOpen(null)}
+          onBeforeLeave={pauseLecture}
+        />
+      ) : null}
     </div>
   )
 }

@@ -32,7 +32,7 @@
 
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type MutableRefObject } from 'react'
 
 /**
  * 되감기 예약 — **StrictMode 안전장치.**
@@ -51,12 +51,25 @@ import { useEffect, useRef } from 'react'
 let pendingUnwind: ReturnType<typeof setTimeout> | null = null
 
 /**
+ * 닫힌 **뒤에** 할 일(선택) — 팝업에서 다른 주소로 이동하거나 주소를 바꿀 때.
+ *
+ * ⚠️ 닫으면서 곧바로 `router.push` 하면 안 된다: 정리(cleanup)가 예약한 `history.back()` 이 한 틱 뒤에 돌아
+ *    **방금 간 새 페이지를 되돌린다.** 그래서 호출부는 닫기 전에 이 ref 에 할 일을 넣고, 훅은 우리 표식을
+ *    정확히 한 번 걷어낸 것을 확인한 뒤(되감기의 popstate · 이미 뒤로가기로 걷혔으면 그 자리에서) 실행한다.
+ *    타이머로 몇 ms 기다리지 않고, back 을 두 번 부르지 않는다. ref 를 안 주면 동작은 예전 그대로다.
+ */
+export interface CloseOnBackOptions {
+  afterUnwindRef?: MutableRefObject<(() => void) | null>
+}
+
+/**
  * @param open   팝업이 열려 있는가
  * @param onClose 닫는 함수 (매 렌더 새 참조여도 된다)
  */
-export function useCloseOnBack(open: boolean, onClose: () => void): void {
+export function useCloseOnBack(open: boolean, onClose: () => void, options?: CloseOnBackOptions): void {
   const closeRef = useRef(onClose)
   closeRef.current = onClose
+  const afterRef = options?.afterUnwindRef
 
   useEffect(() => {
     if (!open) return
@@ -81,13 +94,21 @@ export function useCloseOnBack(open: boolean, onClose: () => void): void {
 
     return () => {
       window.removeEventListener('popstate', onPop)
+      // 닫힌 뒤 할 일 — 정리 시점에 한 번만 꺼낸다(StrictMode 의 가짜 정리에는 아직 비어 있다)
+      const after = afterRef?.current ?? null
+      if (afterRef) afterRef.current = null
       // 뒤로가기가 아닌 방법으로 닫혔으면 우리가 쌓은 항목을 직접 걷어낸다 — 다만
       // 곧바로 다시 열리는 경우(StrictMode)를 위해 한 틱 미룬다.
-      if (unwound) return
+      if (unwound) {
+        after?.()
+        return
+      }
       pendingUnwind = setTimeout(() => {
         pendingUnwind = null
+        // 우리 되감기의 popstate 를 받은 뒤에 이동한다 — 그 전에 가면 back 이 새 페이지를 되돌린다
+        if (after) window.addEventListener('popstate', () => after(), { once: true })
         window.history.back()
       }, 0)
     }
-  }, [open])
+  }, [open, afterRef])
 }

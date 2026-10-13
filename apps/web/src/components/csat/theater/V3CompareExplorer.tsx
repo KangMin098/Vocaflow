@@ -46,6 +46,7 @@ export function V3CompareExplorer({
   onClearEvidence,
   linkable,
   selectedKey,
+  onFindOther,
 }: {
   pairs: V3PairView[]
   absence: PairAbsence | null
@@ -62,6 +63,8 @@ export function V3CompareExplorer({
   onClearEvidence: () => void
   linkable: boolean
   selectedKey: string | null
+  /** 비교 쌍이 없을 때의 보조 행동 — 일반 기출 찾기를 연다(검수된 비교 쌍을 만들지 않는다) */
+  onFindOther?: () => void
 }) {
   const counts = useMemo(() => Object.fromEntries(KINDS.map((k) => [k, pairs.filter((p) => p.kind === k).length])) as Record<PairKind, number>, [pairs])
   const [kind, setKind] = useState<PairKind | 'all'>('all')
@@ -143,6 +146,14 @@ export function V3CompareExplorer({
           </p>
         ) : null}
         {withheldNote}
+        {onFindOther ? (
+          <p className="break-keep text-[13px] text-[var(--t2)]">
+            검수된 비교 쌍은 아니지만, 다른 기출을 직접 골라 따로 탐구할 수 있어요.{' '}
+            <button type="button" className={styles.back} onClick={onFindOther} aria-haspopup="dialog" data-testid="v3-compare-find">
+              다른 기출 찾기
+            </button>
+          </p>
+        ) : null}
       </>
     )
   }

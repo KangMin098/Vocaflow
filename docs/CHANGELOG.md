@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 기출 찾기 팝업 — 문항 머리 「기출 찾기」 · 비교 없음 「다른 기출 찾기」 · 서가 도구줄 · 지도 홈 입구에서 여는 4구획(조건 · 회차 · 문항 · 요약) 팝업. 조합 검색(`2026 34` · `2026#34` · `빈칸 2026`, 서가와 같은 토큰 AND `lib/csat/browse-search.ts`) · 목적(killer · evidence · recent) 보존 · 열기 직전 재검증 · 취소 시 장면 · 근거 · 초안 · 스크롤 · 주소 그대로 · 다른 문항은 기본 장면 + 검증된 복귀 문맥만 · 「찾기 전 문항으로」 · 강의 멈춤(자동 재개 없음). 새 API `GET /api/csat/item-finder`(인증 · 메타데이터 allowlist · 요청마다 보류 판정 · 실패 503 · private/no-store). 서가의 유형 · 회차 · 학년도 · 학년 선택은 팝업으로 이동(요약 칩). `useCloseOnBack` 선택적 `afterUnwindRef`. 이벤트는 `csat_path_chosen` 속성 확장만 — DB 변경 없음.
+
 - feat(csat): v3 F08 — 근거로 고른 선지의 밑줄을 원본 크롭 위에 표시(함축은 평가 과제 장면에서 밑줄 어구). 문제지 PDF 의 그린 선 · 글자 좌표로만 계산(`lib/csat/reflow/paper-marks.ts`), 대응이 확실할 때만 그리고 아니면 이유 한 줄. 크롭과 좌표는 같은 PDF 해시 · 회차 · 문항의 탭 메모리 — 추출 버전 · 기기 캐시 그대로. 위치용 선 4pt · 빈칸 복원 12pt 분리(빈칸 1,305문항 main 과 동일). 전량 감사 29회차 137문항 중 130 완전 대응 · 미대응 7(네모 문항 6 · 그린 선 없는 밑줄 1) · 오탐 0(눈 대조). DB 변경 없음.
 
 - feat(csat): v3 M1 후속 — 지도 홈 첫 제안에 「지도에서 하던 일」(확인 문항을 풀기 시작했지만 확인 판정 전인 과제 → 계획량에 못 미친 저장 학습계획, 지도와 같은 `composeV4` · `applySaved` 계산 · 과거 기준/목표 미설정/읽기 실패는 추정 안 함). 지도의 확인 · 활동 문항 링크가 `from=map` + 과제 · 학습 묶음 · 단계를 싣고, 「학습 지도로」 복귀 시 그 묶음 · 단계 시트를 다시 연다(`lib/csat/map-return.ts`). 비교 상대 문항 링크도 서가 조건(`ret`) · 지도 문맥 유지 · 지도 오류 「다시 열기」 = `router.refresh()`. 이벤트는 속성만 확장(`csat_resume_clicked.kind=map_check|map_plan` · `csat_home_viewed.suggest`) — DB 변경 없음.

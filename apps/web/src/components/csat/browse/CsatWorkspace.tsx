@@ -13,11 +13,15 @@
 // 고른 조건은 주소에 replaceState 로 싣는다(새로 고침 · 뒤로가기). 번호 칩은 `?ret=<지금 서가 주소>` 를 들고 가서
 // 문항의 「뒤로」 가 같은 조건으로 돌아온다(browseReturn 이 서가 경로만 받는다). 옛 `?type=` · `?exam=` · `?status=` · `?from=` 주소도 그대로 열린다.
 //
+// **기출 찾기(2026-10-13)** — 유형 · 회차 · 학년도 · 학년 같은 상세 조건 편집은 도구줄의 「기출 찾기」 팝업으로 모았다.
+//   도구줄에는 지금 걸린 상세 조건이 요약 칩(× 로 해제)으로 남는다. 팝업 안 조작은 주소 · 목록을 바꾸지 않고,
+//   「서가에 적용」 에서만 조건을 확정한다(취소 = 원래 주소 · 목록 · 스크롤 그대로). 주소 계약(browse-url)은 그대로다.
+//
 // ⚠️ 발문·지문은 여기 없다(저작권 경계). 칩이 말하는 것은 번호 · 유형 · 배점뿐이다.
 // ⚠️ 수치는 전부 카탈로그에서 센 값이다(AGENTS I5).
 
 import Link from 'next/link'
-import { Crosshair, Dices, Library, Search, Sparkles, X } from 'lucide-react'
+import { Crosshair, Dices, Library, Search, SlidersHorizontal, Sparkles, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import { CsatRail, type NeedId, type RailPlace } from '@/components/csat/home/CsatRail'
@@ -25,14 +29,16 @@ import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueNow, touchedItems } from '@/lib/csat/continuity'
 import { browseHref, type BrowseParams, type BrowsePurpose } from '@/lib/csat/browse-url'
-import { killerTypeIds } from '@/lib/csat/space-model'
 import { RECENT_FROM } from '@/lib/csat/trap-atlas'
-import { EMPTY_FILTER, filterBrowse, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
+import { EMPTY_FILTER, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
+import { applySelection, finderItemHref, sameSelection, selectionFromParams, selectionHref, type FinderSelection } from '@/lib/csat/item-finder'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import type { RailExam } from '@/lib/csat/rail-data'
 
 import home from '../home/home.module.css'
 import bc from './browse-conditions.module.css'
+import fs from './item-finder.module.css'
+import { ItemFinderDialog } from './ItemFinderDialog'
 import styles from '../space/space.module.css'
 
 export type BrowseEntry = BrowseParams
@@ -42,53 +48,40 @@ const isEmpty = (f: BrowseFilter) =>
 
 export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog; exams: RailExam[]; entry: BrowseEntry }) {
   const rec = useCsatRecord()
-  const [filter, setFilter] = useState<BrowseFilter>({
-    ...EMPTY_FILTER,
-    type: entry.type && browse.types.some((t) => t.id === entry.type) ? entry.type : 'all',
-    status: entry.status ?? 'all',
-    from: entry.from ?? 'all',
-    exam: entry.exam && browse.exams.some((e) => e.id === entry.exam) ? entry.exam : 'all',
-    query: entry.query ?? '',
-    kind: entry.kind ?? 'all',
-    year: entry.year ?? 'all',
-    grade: entry.grade ?? 'all',
-  })
-  // 목적 — killer 만 별도 상태(유형 묶음). evidence · recent 는 status · from 조건 그 자체다
-  const [killer, setKiller] = useState(entry.purpose === 'killer')
-  const killers = useMemo(() => new Set(killerTypeIds()), [])
-  // 옛 목적 링크(?purpose=evidence · recent)는 조건으로 펼친다
-  useEffect(() => {
-    if (entry.purpose === 'evidence') setFilter((f) => ({ ...f, status: 'map' }))
-    if (entry.purpose === 'recent') setFilter((f) => ({ ...f, from: RECENT_FROM }))
-  }, [entry.purpose])
+  // 첫 조건 — 주소 → 선택(필터 + 목적). 기출 찾기 팝업과 같은 변환(item-finder.selectionFromParams):
+  //   killer 만 필터 밖 별도 상태(유형 묶음), 옛 목적 링크(?purpose=evidence · recent)는 status · from 조건으로 펼친다
+  const [start] = useState(() => selectionFromParams(entry, browse))
+  const [filter, setFilter] = useState<BrowseFilter>(start.filter)
+  const [killer, setKiller] = useState(start.purpose === 'killer')
+  const [finderOpen, setFinderOpen] = useState(false)
   const set = <K extends keyof BrowseFilter>(key: K, value: BrowseFilter[K]) => setFilter((f) => ({ ...f, [key]: value }))
 
-  const years = useMemo(() => [...new Set(browse.exams.map((e) => e.year))].sort((a, b) => b - a), [browse.exams])
   const typeName = useMemo(() => new Map(browse.types.map((t) => [t.id, t.name])), [browse.types])
   const examLabel = useMemo(() => new Map(browse.exams.map((e) => [e.id, e.label])), [browse.exams])
-  const items = useMemo(() => {
-    const all = filterBrowse(browse, filter)
-    return killer ? all.filter((i) => killers.has(i.type_id)) : all
-  }, [browse, filter, killer, killers])
+  const purpose: BrowsePurpose | null = killer ? 'killer' : null
+  const selection: FinderSelection = useMemo(() => ({ filter, purpose }), [filter, purpose])
+  // 서가와 팝업이 같은 함수로 거른다(필터 AND → 목적 killer 제한)
+  const items = useMemo(() => applySelection(browse, selection), [browse, selection])
   const grouped = useMemo(() => groupByExam(browse, items), [browse, items])
   const seen = useMemo(() => (rec ? touchedItems(rec.record) : new Set<string>()), [rec])
   const random = items.length ? items[Math.floor(Math.random() * items.length)] : null
-  const { kind, year, type, status, query } = filter
+  const { kind, type, status, query } = filter
   const grade = filter.grade ?? 'all'
-  // 학력평가가 서가에 있을 때만 출처 칩에 「학력평가」·학년을 보인다(발행된 학평이 없으면 칩도 없다)
+  // 학력평가가 서가에 있을 때만 출처 칩에 「학력평가」를 보인다(발행된 학평이 없으면 칩도 없다)
   const hasHak = useMemo(() => browse.exams.some((e) => e.kind === 'hakpyeong'), [browse.exams])
   const exam = filter.exam ?? 'all'
   const reset = () => {
     setFilter(EMPTY_FILTER)
     setKiller(false)
   }
-  const purpose: BrowsePurpose | null = killer ? 'killer' : null
   // 지금 조건의 주소 — 새로 고침 · 뒤로가기 · 문항에서 돌아올 자리(history 를 쌓지 않는다)
   const here = browseHref(filter, purpose)
   useEffect(() => {
+    // 팝업이 열린 동안에는 오버레이 이력 칸이 맨 위다 — 그 칸의 주소를 바꾸지 않는다(서가에 적용은 닫힌 뒤에 온다)
+    if (finderOpen) return
     const cur = `${window.location.pathname}${window.location.search}`
     if (cur !== here) window.history.replaceState(window.history.state, '', here)
-  }, [here])
+  }, [here, finderOpen])
   // 스크롤 위치 복귀(v3 M1) — 문항 칩을 누를 때 지금 조건 주소를 열쇠로 위치를 남기고, 같은 조건으로 돌아오면 그 자리로.
   //   sessionStorage(탭 단위 · 조건 주소별)라 다른 조건 · 다른 탭에는 남지 않는다. 저장소를 못 쓰면 맨 위에서 시작한다.
   const scrollKey = (href: string) => `csat-browse-scroll:${href}`
@@ -120,6 +113,25 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
     if (p === 'evidence') set('status', status === 'map' ? 'all' : 'map')
     if (p === 'recent') set('from', filter.from === RECENT_FROM ? 'all' : RECENT_FROM)
   }
+  const openFinder = () => {
+    track({ name: 'csat_path_chosen', props: { axis: 'finder', need: 'none', origin: 'browse', action: 'open' } })
+    setFinderOpen(true)
+  }
+  // 팝업에서 확정한 조건 — 오버레이 이력을 걷어낸 뒤에 온다(그래야 replaceState 가 서가 칸의 주소를 고친다)
+  const applyFinder = (sel: FinderSelection) => {
+    if (sel.filter.exam && sel.filter.exam !== 'all' && sel.filter.exam !== exam) track({ name: 'csat_path_chosen', props: { axis: 'exam', need: 'none' } })
+    if (sel.filter.type !== 'all' && sel.filter.type !== type) track({ name: 'csat_path_chosen', props: { axis: 'type', need: 'none' } })
+    setFilter(sel.filter)
+    setKiller(sel.purpose === 'killer')
+  }
+
+  // 도구줄의 상세 조건 요약 — 팝업에서 고친 유형 · 회차 · 학년도 · 학년. × 로 바로 해제
+  const detail: { key: 'type' | 'exam' | 'year' | 'grade'; label: string; clear: () => void }[] = [
+    ...(type !== 'all' ? [{ key: 'type' as const, label: `유형 ${typeName.get(type) ?? type}`, clear: () => set('type', 'all') }] : []),
+    ...(exam !== 'all' ? [{ key: 'exam' as const, label: `회차 ${examLabel.get(exam) ?? exam}`, clear: () => set('exam', 'all') }] : []),
+    ...(filter.year !== 'all' ? [{ key: 'year' as const, label: `${filter.year}학년도`, clear: () => set('year', 'all') }] : []),
+    ...(kind === 'hakpyeong' && grade !== 'all' ? [{ key: 'grade' as const, label: `고${grade}`, clear: () => set('grade', 'all') }] : []),
+  ]
 
   // 메뉴에서 어느 줄이 「지금」인가 — 지금 걸린 조건을 그대로 비춘다
   const need: NeedId | null = status === 'map' ? 'evidence' : filter.from && filter.from !== 'all' ? 'recent' : null
@@ -200,7 +212,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
               <label className={home.search}>
                 <Search size={14} aria-hidden="true" />
                 <span className="sr-only">유형 · 회차 · 번호로 찾기</span>
-                <input id="csat-library-search" type="search" value={query} placeholder="예: 빈칸 · 2026 · 31" onChange={(e) => set('query', e.target.value)} />
+                <input id="csat-library-search" type="search" value={query} maxLength={40} placeholder="예: 빈칸 · 2026 34 · M2606" onChange={(e) => set('query', e.target.value)} />
               </label>
               {(
                 [['all', hasHak ? '출처 전부' : '수능·모의'], ['suneung', '수능'], ['mock', '모의평가'], ...(hasHak ? ([['hakpyeong', '학력평가']] as const) : [])] as const
@@ -216,87 +228,21 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                   {label}
                 </button>
               ))}
-              {kind === 'hakpyeong' ? (
-                <>
-                  <label className="sr-only" htmlFor="csat-browse-grade">
-                    학년
-                  </label>
-                  <select
-                    id="csat-browse-grade"
-                    className={home.chip}
-                    value={String(grade)}
-                    onChange={(e) => set('grade', e.target.value === 'all' ? 'all' : (Number(e.target.value) as 1 | 2 | 3))}
-                  >
-                    <option value="all">학년 전체</option>
-                    {([3, 2, 1] as const).map((g) => (
-                      <option key={g} value={g}>
-                        고{g}
-                      </option>
-                    ))}
-                  </select>
-                </>
-              ) : null}
               {([['all', '상태 전부'], ['lecture', '강의 있음'], ['map', '지도 있음']] as const).map(([value, label]) => (
                 <button key={value} type="button" className={home.chip} aria-pressed={status === value} onClick={() => set('status', value as BrowseFilter['status'])}>
                   {label}
                 </button>
               ))}
-              <label className="sr-only" htmlFor="csat-browse-year">
-                학년도
-              </label>
-              <select
-                id="csat-browse-year"
-                className={home.chip}
-                value={year === 'all' ? 'all' : String(year)}
-                onChange={(e) => set('year', e.target.value === 'all' ? 'all' : Number(e.target.value))}
-              >
-                <option value="all">학년도 전체</option>
-                {years.map((y) => (
-                  <option key={y} value={y}>
-                    {y}학년도
-                  </option>
-                ))}
-              </select>
-              {/* 회차 — 옛 「회차별」 메뉴가 서가 조건으로(v3 M1) */}
-              <label className="sr-only" htmlFor="csat-browse-exam">
-                회차
-              </label>
-              <select
-                id="csat-browse-exam"
-                className={home.chip}
-                value={exam}
-                onChange={(e) => {
-                  set('exam', e.target.value)
-                  if (e.target.value !== 'all') track({ name: 'csat_path_chosen', props: { axis: 'exam', need: 'none' } })
-                }}
-                data-testid="browse-exam"
-              >
-                <option value="all">회차 전체</option>
-                {browse.exams.map((x) => (
-                  <option key={x.id} value={x.id}>
-                    {x.label}
-                  </option>
-                ))}
-              </select>
-              <label className="sr-only" htmlFor="csat-library-type">
-                유형
-              </label>
-              <select
-                id="csat-library-type"
-                className={home.chip}
-                value={type}
-                onChange={(e) => {
-                  set('type', e.target.value)
-                  if (e.target.value !== 'all') track({ name: 'csat_path_chosen', props: { axis: 'type', need: 'none' } })
-                }}
-              >
-                <option value="all">유형 전체</option>
-                {browse.types.map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name} ({t.items}){t.status === 'retired' ? ' · 폐지' : ''}
-                  </option>
-                ))}
-              </select>
+              {/* 상세 조건(유형 · 회차 · 학년도 · 학년)은 기출 찾기 팝업에서 — 여기에는 걸린 것만 요약 칩으로 */}
+              <button type="button" className={fs.trigger} onClick={openFinder} aria-haspopup="dialog" data-testid="browse-finder-open">
+                <span className={fs.triggerFace}><SlidersHorizontal size={14} aria-hidden="true" />
+                기출 찾기</span>
+              </button>
+              {detail.map((d) => (
+                <button key={d.key} type="button" className={home.chip} aria-pressed onClick={d.clear} data-testid={`browse-detail-${d.key}`} aria-label={`${d.label} 조건 해제`}>
+                  {d.label} <X size={12} aria-hidden="true" />
+                </button>
+              ))}
               <p className={home.breadth} role="status">
                 <b>{items.length}</b>문항 · <b>{grouped.length}</b>회차
                 {rec ? (
@@ -359,6 +305,21 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
           </div>
         </div>
       </div>
+
+      {finderOpen ? (
+        <ItemFinderDialog
+          origin="browse"
+          initial={selection}
+          // 서가에서 고른 문항 — 팝업의 확정 조건 주소를 ret 로(목적 포함). 기본 장면에서 시작한다
+          hrefFor={(id, sel) => finderItemHref(id, { ret: selectionHref(sel) })}
+          onClose={() => setFinderOpen(false)}
+          onApply={applyFinder}
+          // 조건이 지금 서가와 같을 때만 스크롤을 남긴다 — 다른 조건으로 돌아오면 처음 위치에서 시작한다
+          onBeforeLeave={(sel) => {
+            if (sameSelection(sel, selection)) keepScroll()
+          }}
+        />
+      ) : null}
     </div>
   )
 }
