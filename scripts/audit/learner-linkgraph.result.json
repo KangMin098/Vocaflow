@@ -1,13 +1,14 @@
 {
-  "generatedAt": "2026-10-13T00:45:04.318Z",
+  "generatedAt": "2026-10-08T06:39:42.158Z",
   "totals": {
-    "pageRoutes": 198,
-    "learnerPages": 101,
-    "apiRoutes": 96,
-    "linkedLearnerPages": 71
+    "pageRoutes": 188,
+    "learnerPages": 100,
+    "apiRoutes": 89,
+    "linkedLearnerPages": 69
   },
   "deadLinks": [],
   "orphanLearnerPages": [
+    "/csat/practice/[slug]",
     "/hub-lab",
     "/join/[code]"
   ],
@@ -15,7 +16,6 @@
     "/comics",
     "/csat/diagnosis/attempts/new",
     "/csat/space",
-    "/csat/practice",
     "/library",
     "/my",
     "/my/texts",
