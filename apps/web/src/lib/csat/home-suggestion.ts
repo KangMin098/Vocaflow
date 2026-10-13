@@ -12,8 +12,8 @@
 
 import type { Focus } from './map/learner-path'
 
-export type MapLoadState = 'ok' | 'preparing' | 'error'
-export type HomeSuggestion = 'error' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
+export type MapLoadState = 'ok' | 'preparing' | 'error' | 'withheld'
+export type HomeSuggestion = 'error' | 'withheld' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
 /** 지도 초점 + 목표 미설정(지도 초점 카드가 「목표 정하기」 를 먼저 보이는 상태) */
 export type HomeFocusKind = Focus['kind'] | 'goal'
 
@@ -49,6 +49,8 @@ export function focusSuggestion(kind: HomeFocusKind | null): HomeSuggestion {
 
 export function pickHomeSuggestion(i: HomeSuggestionInput): HomeSuggestion {
   if (i.map === 'error') return 'error'
+  // 보류 시험 기록이 있어 관찰값을 싣지 않았다 — 권한 · 보류 안내(기록 없음으로 말하지 않는다)
+  if (i.map === 'withheld') return 'withheld'
   if (i.returned) return 'return'
   if (i.activeSet) return 'resume'
   if (i.map === 'preparing') return 'preparing'

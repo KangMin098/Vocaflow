@@ -119,6 +119,18 @@ export function HomeLanding({
                   </div>
                 </div>
               </div>
+            ) : suggest === 'withheld' ? (
+              <div className={home.card} role="status" data-testid="home-map-withheld">
+                <p className={home.cardBack}>
+                  <AlertTriangle size={13} aria-hidden="true" /> 지금은 지도의 관찰값을 보여 드릴 수 없어요
+                </p>
+                <div className={home.cardFront}>
+                  <p className={`${home.cardLead} break-keep`}>풀이 기록을 모으는 기간인 회차가 기록에 있어 그동안 점수 · 정오에서 나온 관찰은 잠시 닫아 두었어요. 기록이 없다는 뜻이 아니에요. 기출 탐구는 그대로 쓸 수 있어요.</p>
+                  <div className={home.cardActions}>
+                    <Link className={home.secondary} href="/csat/browse">기출 탐구</Link>
+                  </div>
+                </div>
+              </div>
             ) : suggest === 'return' && returned ? (
               <div className={home.card} data-testid="home-return">
                 <p className={home.cardBack}>
@@ -186,7 +198,7 @@ export function HomeLanding({
 
           {/* ② 핵심 학습 지도 */}
           <section className={l.map} aria-label="학습 지도" data-testid="home-map" data-map={map}>
-            {map === 'ok' && mapData ? (
+            {(map === 'ok' || map === 'withheld') && mapData ? (
               <MapScreen data={mapData} view="core" base={MAP_BASE} />
             ) : map === 'preparing' ? (
               <MapPreparing />

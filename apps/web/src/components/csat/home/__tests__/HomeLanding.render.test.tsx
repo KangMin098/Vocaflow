@@ -27,6 +27,12 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(html).toContain('href="/csat/item/2026-34?from=map"')
     expect(html).not.toContain('role="alert"')
   })
+  it('보류 시험 기록(권한 · 보류)은 기록 없음이 아니라고 말한다', () => {
+    const html = renderToStaticMarkup(<HomeLanding exams={exams} map="withheld" mapData={null} focusKind={null} returned={null} />)
+    expect(html).toContain('data-kind="withheld"')
+    expect(html).toContain('기록이 없다는 뜻이 아니에요')
+    expect(html).not.toContain('role="alert"')
+  })
   it('복귀 문맥이 없으면 지도 초점 안내(확인 필요 · 목표 · 기록 없음)', () => {
     expect(renderToStaticMarkup(<HomeLanding exams={exams} map="preparing" mapData={null} focusKind={null} returned={null} />)).toContain('data-kind="preparing"')
   })

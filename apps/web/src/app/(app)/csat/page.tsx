@@ -86,7 +86,8 @@ async function MapHome({ from, item, task }: { from?: string; item?: string; tas
   let mapData: MapPageData | null = null
   try {
     mapData = await loadMapPage(createAdminClient() as unknown as SupabaseClient, userId, new Date())
-    map = mapData ? 'ok' : 'preparing'
+    // 보류 판정 실패는 오류(기록 0 으로 삼키지 않는다) · 보류 시험 기록은 권한 · 보류 안내
+    map = !mapData ? 'preparing' : mapData.heldGate === 'failed' ? 'error' : mapData.heldGate === 'held' ? 'withheld' : 'ok'
   } catch {
     map = 'error'
   }

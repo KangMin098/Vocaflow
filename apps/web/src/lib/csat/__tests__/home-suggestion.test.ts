@@ -11,6 +11,10 @@ describe('pickHomeSuggestion — 우선순위', () => {
   it('오류가 가장 먼저 — 복귀 · 진행 중 세트가 있어도', () => {
     expect(pickHomeSuggestion({ ...base, map: 'error', returned: true, activeSet: true })).toBe('error')
   })
+  it('보류 판정 실패는 오류 · 보류 시험 기록은 권한/보류 — 둘 다 복귀 · 이어서보다 먼저(기록 없음으로 말하지 않는다)', () => {
+    expect(pickHomeSuggestion({ ...base, map: 'withheld', returned: true, activeSet: true })).toBe('withheld')
+    expect(pickHomeSuggestion({ ...base, map: 'error', returned: true })).toBe('error')
+  })
   it('복귀 → 진행 중 세트 → 지도 초점 순', () => {
     expect(pickHomeSuggestion({ ...base, returned: true, activeSet: true })).toBe('return')
     expect(pickHomeSuggestion({ ...base, activeSet: true })).toBe('resume')

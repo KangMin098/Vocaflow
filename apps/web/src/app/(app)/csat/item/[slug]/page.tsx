@@ -304,7 +304,7 @@ export default async function CsatItemTheaterPage({
           </p>
           {panel}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
-            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}${parseHomeTask(first(sp.task)) ? `&task=${encodeURIComponent(parseHomeTask(first(sp.task))!)}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
               확인을 마쳤으면 해설 보기 →
             </a>
           </p>

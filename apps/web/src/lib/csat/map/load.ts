@@ -12,7 +12,7 @@ import { selectByChunks, selectSmall } from '../diagnosis/fetch'
 import { isDiagnosable, recordQuality } from '../diagnosis/engine/record-quality'
 import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
-import { embargoedExamIds, itemRevealDecision, userHasHeldSession } from '../embargo-gate'
+import { embargoedExamIds, itemRevealDecision, userHeldSessionDecision } from '../embargo-gate'
 
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
@@ -48,6 +48,8 @@ export interface MapSourceRow {
 export interface MapPageData {
   /** 서버가 이 화면을 계산한 시각(ISO) — 화면의 기한 판정은 이 값으로만(시계를 직접 읽지 않는다) */
   now?: string
+  /** 관찰값 보류 사유 — none · held(보류 시험 기록) · failed(판정 실패 = 오류). 없으면 none 으로 읽는다 */
+  heldGate?: 'none' | 'held' | 'failed'
   model: MapModel
   nodes: MapNodeRow[]
   edges: MapEdgeRow[]
@@ -339,7 +341,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   //   옛 엔진 버전(예: Record Quality Layer 전 rule-v1) · 지도 계산이 꺼졌거나 실패한 채 저장(mapStatus ≠ ok — 시드 전 기록 등) ·
   //   순위 축소 추정의 분모(den)가 없는 2026-10-08 이전 지표(없으면 k=8 보정을 건너뛰어 행동이 달라진다)
   // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중) 기록이 있는 학습자는 관찰값(정오 · 점수 파생)을 싣지 않는다(embargo-gate · 판정 실패면 보류)
-  const heldUser = await userHasHeldSession(userId)
+  const heldDecision = await userHeldSessionDecision(userId)
+  const heldUser = heldDecision.held || heldDecision.failed
   const [stored] = heldUser ? [] : await loadSnapshots(db, userId, 1)
   let snap = stored
   if (stored && staleMapEvidence(stored)) {
@@ -426,6 +429,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
   return {
     now: now.toISOString(),
+    // 관찰값을 싣지 않은 이유 — 보류 시험 기록(held) · 판정 실패(failed). 화면이 「기록 없음」 으로 오해하지 않게(v3 M1)
+    heldGate: heldDecision.failed ? 'failed' : heldDecision.held ? 'held' : 'none',
     v4: {
       sessions: v4Sessions,
       proxyCovers: snap ? (ev?.trend ?? []).map((t) => t.sessionId) : [],

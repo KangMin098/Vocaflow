@@ -228,7 +228,7 @@ export type PublicEvent =
         /** 서버 사본과 합쳤나(false = 기기 기록만) */
         synced: boolean
         /** 지도 홈(v3 M1)이 고른 첫 제안 — 판정이 아니라 어떤 안내를 먼저 보였나. 옛 화면(need · tab · view)은 없음 */
-        suggest?: 'error' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
+        suggest?: 'error' | 'withheld' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
       }
     }
   /** 「이어서」 카드 · 줄을 눌렀다 — 이어하기 사용률의 분자. */

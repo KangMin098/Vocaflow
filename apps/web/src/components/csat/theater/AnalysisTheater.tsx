@@ -650,8 +650,10 @@ export function AnalysisTheater({
       () => true,
       seen,
     )
-    return pick ? { href: `/csat/item/${pick.item.slug}`, label: `${pick.item.exam_label} ${pick.item.no}번`, revisit: pick.revisit } : null
-  }, [seen, next, siblings, itemId])
+    // 기출 탐구에서 왔으면(backTo=browse · backHref = 검증된 서가 주소) 다음 문항도 같은 조건(ret)을 이어 간다(v3 M1)
+    const ret = backTo === 'browse' ? `?ret=${encodeURIComponent(backHref)}` : ''
+    return pick ? { href: `/csat/item/${pick.item.slug}${ret}`, label: `${pick.item.exam_label} ${pick.item.no}번`, revisit: pick.revisit } : null
+  }, [seen, next, siblings, itemId, backTo, backHref])
   const done =
     finished && session ? (
       <SessionDone

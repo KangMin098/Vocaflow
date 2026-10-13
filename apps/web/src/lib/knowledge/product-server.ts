@@ -269,7 +269,8 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
       // 「다른 글에 적용」 용도로 승인된 문항(audience.role='transfer')은 확인 문항이 아니다 — 지도 라인 대상 목록에 있어도 끌어오지 않는다
       //   (5차 실측: a4-4 대상에 있던 2026#23 을 전이로 출시하자 확인 묶음으로 끌려 들어가 승인 범위 밖 노출 · 전이 풀에서 빠졌다)
       if (isTransferRole(live.app.audience)) continue
-      confirm.push({ href: `/csat/item/${toItemSlug(target)}?check=1#principle`, label: itemLabel(target), target, taskKey: task.def.key })
+      // task = 지도 과제 복귀 문맥(v3 M1) — 확인 → 해설 → 「학습 지도로」 가 이 과제로 돌아오게
+      confirm.push({ href: `/csat/item/${toItemSlug(target)}?check=1&task=${encodeURIComponent(task.def.key)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
     }
     if (confirm.length === 0) continue
     out[taskId] = { ...confirm[0], itemId: confirm[0].target, confirm, chain: stepChainOf(verdict.path), application: { id: app.id, version: app.version, audience: app.audience ?? {} } }
