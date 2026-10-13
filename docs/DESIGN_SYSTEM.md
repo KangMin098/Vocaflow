@@ -331,6 +331,14 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 
 ---
 
+## 기출 탐구 작업공간 — 컴팩트 도크 패턴 (2026-10-13)
+
+- 위치: `/csat/item/[slug]`(3B 스킨 · `theater.module.css` `.workspace` 토큰). 고유 기하는 `--csat-workspace-*` 변수 하나로 · 값의 정본은 [docs/design/refs/3b/workspace/spec.json](./design/refs/3b/workspace/spec.json)(가드 `workspace-geometry.test.ts`).
+- 하단 도크: 요소 48px · 도크 65px · 네 요소 동일 폭 한 줄 · 이름 11px + 아이콘 13px(선택 면 23px) 가로 배치. **작은 시각 요소와 44×44 조작 영역을 구분**한다 — 아이콘 단추는 44×44, 보이는 면은 23px.
+- 선택 표현은 면색 + 테두리 + aria 상태(색만으로 전달하지 않음). 아이콘 이름은 호버 · 포커스 툴팁(`title` 만으로 키보드 이름을 주지 않는다).
+- 판: 프레임 머리 · 판 머리 44px · 판 간격/바깥 여백 10px · 본문 여백 15px · 질문 17px · 판 제목 12px · 한국어 설명 13.5px/1.72.
+- 원문 열 최대 폭 = 본문 − 메인 최소 712px(도크 제목이 잘리지 않는 폭). 선호 폭 ≠ 표시 폭.
+
 ## 컴포넌트 규약
 
 - **구획 컴포넌트**: 판면 어휘 `components/ui/press`(F4)와 iOS 프리미티브(`@/components/ui/ios` — Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen) 두 벌이 있고, 후자는 토큰 교체로 판면 톤을 받는다.

@@ -24,7 +24,6 @@
 import Link from 'next/link'
 import {
   BookOpen,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Code2,
@@ -34,6 +33,8 @@ import {
   Headphones,
   Layers,
   NotebookText,
+  PanelLeftClose,
+  PanelLeftOpen,
   Pause,
   Play,
   Search,
@@ -41,13 +42,12 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { PassageMap, type MapAnchor, type MapPlacement } from '@/components/csat/PassageMap'
 import { useLecture } from '@/components/csat/lecture/LectureStage'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import {
-  BLOCK_TINT,
   blockKeyForTarget,
   theaterClock,
   theaterTimeline,
@@ -80,6 +80,8 @@ import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/re
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
 import type { CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
+import { groupOf, rememberScene, type DockGroupId } from '@/lib/csat/inquiry/dock'
+import { EMPTY_EXPLAIN, EMPTY_NOTE, linkableEvidence, type ExplainDraft, type NoteDraft } from '@/lib/csat/explain-draft'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
@@ -89,7 +91,7 @@ import { ComparePairs, type ComparePair } from './ComparePairs'
 import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-check'
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
-import { SceneNav } from './SceneNav'
+import { InquiryDock } from './InquiryDock'
 import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
 import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
@@ -425,10 +427,14 @@ export function AnalysisTheater({
     void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
   const finished = session?.stage === 'finished'
-  const saveExplanation = (x: SelfExplanation) => {
-    setExplained((xs) => [...xs, x])
-    void persist((r) => ({ ...r, explanations: [...(r.explanations ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
-  }
+  // 자기 설명 — 같은 id 는 교체(다시 저장이 두 건이 되지 않게) · 실제 기기 저장이 성공했을 때만 목록 · 대조를 갱신한다(낙관적 완료 표시 금지 · 작업공간 W3)
+  const saveExplanation = (x: SelfExplanation): Promise<boolean> =>
+    persist((r) => ({ ...r, explanations: [...(r.explanations ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
+      .then(({ record, saved }) => {
+        if (saved) pickExplained(record)
+        return saved
+      })
+      .catch(() => false)
   // 원리 저장(M4) — 유형 관계 · 적용 조건 · 한계 · 출처 문항을 함께. 같은 유형 원리는 한 줄로 모이고 출처만 늘어난다
   const principleTag = goal ? hashTag(`theater|${typeId}|${goal.relation}`) : null
   const [principleSaved, setPrincipleSaved] = useState(false)
@@ -493,7 +499,32 @@ export function AnalysisTheater({
   const v3 = inquiry?.v3 ?? null
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
-  const onEvidence = (sentences: number[], key: string) => setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
+  // 마지막으로 고른 근거 — 내 설명 장면의 「이 근거를 노트에 연결」 후보(앞 장면의 선택을 미리 보여 줄 뿐 자동 저장하지 않는다)
+  const [recentEvidence, setRecentEvidence] = useState<number[] | null>(null)
+  const onEvidence = (sentences: number[], key: string) => {
+    setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
+    setRecentEvidence(sentences)
+  }
+  // 작업공간 W2/W3 — 장면별 근거 선택 · 오른쪽 판 스크롤을 이 탭 메모리에 문항별로 기억한다. 주소 · 뒤로가기가 장면을 정하고, 메모리는 그 장면의 선택만 되살린다.
+  //   기억이 없으면(미방문) 선택 없음, 학습자가 해제했으면 해제(null) 그대로 — 자동 선택으로 덮지 않는다.
+  const sceneMem = useRef(new Map<string, { evidence: { sentences: number[]; key: string } | null; scroll: number }>())
+  const memKey = (sc: SceneId) => `${itemId}|${sc}`
+  const pendingScroll = useRef<number | null>(null)
+  const stashScene = () => sceneMem.current.set(memKey(scene), { evidence, scroll: blocksRef.current?.scrollTop ?? 0 })
+  const recallScene = (sc: SceneId) => {
+    const m = sceneMem.current.get(memKey(sc))
+    setEvidence(m ? m.evidence : null)
+    pendingScroll.current = m ? m.scroll : 0
+  }
+  // 요소별 마지막 장면(제목 클릭이 여는 곳) · 가운데 판 접힘 · 근거 판 보기(위치 · 관계)
+  const [lastByGroup, setLastByGroup] = useState<Partial<Record<DockGroupId, SceneId>>>(() => rememberScene({}, initialScene))
+  const [evidenceCollapsed, setEvidenceCollapsed] = useState(false)
+  const [evidenceView, setEvidenceView] = useState<'map' | 'relation'>('map')
+  // 자기 설명 · 원리 노트 초안 — 문항별 탭 메모리(장면 왕복에도 남고, 새로고침 · 탭 종료면 사라진다)
+  const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>({})
+  const [noteDrafts, setNoteDrafts] = useState<Record<string, NoteDraft>>({})
+  const draftExplain = (fn: (d: ExplainDraft) => ExplainDraft) => setExplainDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_EXPLAIN) }))
+  const draftNote = (fn: (d: NoteDraft) => NoteDraft) => setNoteDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_NOTE) }))
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
   //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
   const ms = meaningSupport
@@ -568,8 +599,9 @@ export function AnalysisTheater({
   const msPaperMark = msActive && msText.state === 'ok' && msPhrase ? msText.spans[msPhrase] ?? null : null
   // 장면 이동 — 학습자가 고른 것은 history 에 쌓고(뒤로가기), 강의가 따라 옮긴 것은 주소만 바꾼다
   const selectScene = (id: SceneId, how: 'push' | 'replace' = 'push') => {
+    stashScene()
     setScene(id)
-    setEvidence(null)
+    recallScene(id)
     setMsPick(null)
     setMsChip(false)
     setMsPhrase(null)
@@ -586,8 +618,11 @@ export function AnalysisTheater({
   }
   // 원문 이해 → 문항 성립 · 설계 재구성: 이 의미가 걸린 선택지 · 설계 근거를 들고 간다(주소 bridge=1 — 뒤로가기로 원래 의미에 돌아온다)
   const goBridge = (target: 'judgment' | 'design') => {
+    stashScene()
     setScene(target)
+    // 이어 온 맥락(bridge)이 근거를 대신 짚는다 — 이 장면의 지난 선택은 되살리지 않는다
     setEvidence(null)
+    pendingScroll.current = 0
     setMsPick(null)
     setMsChip(false)
     setMsPhrase(null)
@@ -603,8 +638,9 @@ export function AnalysisTheater({
     // 뒤로가기 · 앞으로가기 — 장면 · 의미 · 깊이 · 관계 · 이어 온 맥락을 **주소에서** 되살린다(서버와 같은 파서 · allowlist)
     const onPop = () => {
       const q = new URL(window.location.href).searchParams
-      setScene(parseScene(q.get('scene')).scene)
-      setEvidence(null)
+      const sc = parseScene(q.get('scene')).scene
+      setScene(sc)
+      recallScene(sc)
       if (!ms) return
       const p = parseMeaningParams(
         { meaning: q.get('meaning'), depth: q.get('depth'), rel: q.get('rel'), bridge: q.get('bridge') },
@@ -622,6 +658,7 @@ export function AnalysisTheater({
     }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 장면 메모리는 ref · 문항 id 로 충분
   }, [ms])
   // 원문 이해 주소의 무효값(모르는 의미 · 깊이 · 관계 · bridge) — 화면 상태뿐 아니라 **주소도** 정규형으로(history 를 쌓지 않는다)
   useEffect(() => {
@@ -644,6 +681,12 @@ export function AnalysisTheater({
   }, [initialScene, initialJudgmentView])
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    setLastByGroup((l) => rememberScene(l, scene))
+    const to = pendingScroll.current
+    pendingScroll.current = null
+    if (to != null && blocksRef.current) blocksRef.current.scrollTop = to
+  }, [scene])
   const played = useRef(-1)
 
   const playing = Boolean(lec && (lec.status === 'playing' || lec.status === 'paused'))
@@ -740,17 +783,7 @@ export function AnalysisTheater({
     if (playing && lec) lec.start(index, 'cue')
     else setCursor(index)
   }
-  const jumpToBlock = (key: string) => {
-    setTab('analysis')
-    const kind = blocks.find((b) => b.key === key)?.kind
-    if (kind && sceneOfBlock(kind) !== scene) selectScene(sceneOfBlock(kind))
-    const index = steps.findIndex((s) => blockKeyForTarget(s.targetKey, blockKeys) === key)
-    if (index >= 0) goto(index)
-    window.setTimeout(
-      () => blocksRef.current?.querySelector(`[data-block="${CSS.escape(key)}"]`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }),
-      0,
-    )
-  }
+
 
   // 읽기 강의 탭을 열면 대본을 불러온다(재생하지 않는다) — 음성이 없어도 같은 설명을 읽는다
   useEffect(() => {
@@ -768,7 +801,7 @@ export function AnalysisTheater({
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t?.isContentEditable) return
       // 기출 원문 폭 손잡이 위의 ←/→ 는 폭 조절이다
       if (t?.getAttribute('role') === 'separator') return
-      if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.metaKey || e.ctrlKey || e.altKey || e.defaultPrevented) return
       if (e.key === ' ') {
         // 단추 위의 Space 는 그 단추의 일이다
         if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || !lec) return
@@ -808,9 +841,34 @@ export function AnalysisTheater({
   // 중간 시작 · 반복 · 배속 · 멈춤은 이 값을 바꾸지 않는다. 실제 청취는 LectureStage 의 heard 가 센다.
   const position = timeline.segments.slice(0, cursor).reduce((sum, s) => sum + s.sec, 0)
 
+  // ── 작업공간 W1~W3: 원문 열 → 메인 프레임(근거·관계 판 + 설명·판단 판) → 하단 탐구 도크 ───────────────
+  const group = groupOf(scene)
+  const sceneDef = SCENES.find((x) => x.id === scene)
+  // 근거·관계 판의 「관계」 보기 — 이 장면에 검수된 설계 도식이 있을 때만(없으면 지도 · 빈 상태). 관계선을 새로 만들지 않는다
+  const relation =
+    !gate.design ? null
+      : scene === 'meaning' ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} />
+        : scene === 'judgment' ? <TransformDiagram design={gate.design} />
+          : scene === 'design' ? <DesignSelection design={gate.design} />
+            : null
+  const showRelation = Boolean(relation && evidenceView === 'relation')
+  // 지도에 비출 근거 — 원문 이해는 v3.1 의미 대조, 그 밖은 검수된 v3 근거(분할이 같을 때만)
+  const mapFocus = msActive ? (msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
+  const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
+  const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
+  // 노트에 연결할 수 있는 근거 — 지금 고른 문장 근거 중 이 문항 지도 범위 안(결속 확인된 v3 근거만)
+  const noteCandidate = linkableEvidence(v3Linkable ? evidence?.sentences ?? recentEvidence : null, v3Linkable && map ? map.sentences.length : null)
+  // 하단 도크 · 다음 장면 — 학습자의 직접 선택이 강의의 자동 따라가기보다 먼저다(재생 중이면 멈춘다 · 재개는 학습자가)
+  const pickScene = (id: SceneId) => {
+    setTab('analysis')
+    if (lec && lec.status === 'playing') lec.toggle()
+    if (id !== scene) selectScene(id)
+  }
+  const toolTabs = TABS.filter((t) => t.id !== 'analysis')
+
   return (
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
-      {/* ── 상단: ← 제목 + 태그 칩 · 오른쪽 재생 컨트롤 ─────────────── */}
+      {/* ── 문항 머리: ← · 회차/번호/유형 · 학습 지도/목록 복귀 · 강의 도구 ─────────────── */}
       <header className={styles.bar}>
         <Link className={styles.backIcon} href={backHref} onClick={back(backTo)} data-testid="item-back-home" data-back={backTo} aria-label={backTo === 'browse' ? '기출 탐구 — 고른 조건으로' : '내 학습 지도'}>
           <ChevronLeft size={16} aria-hidden />
@@ -844,7 +902,13 @@ export function AnalysisTheater({
             기출 찾기</span>
           </button>
         ) : null}
-        <div className={styles.barRight}>
+        {/* 강의 도구 — 재생 · 속도 · 대본 · 진행(차례) · 같은 유형. 분석 장면을 강의 진행에 묶지 않는다 */}
+        <div className={styles.barRight} role="group" aria-label="강의 도구" data-testid="lecture-tools">
+          {toolTabs.map(({ id, label, Icon }) => (
+            <button key={id} type="button" className={styles.toolBtn} aria-pressed={tab === id} onClick={() => setTab(tab === id ? 'analysis' : id)} data-testid={`tool-${id}`}>
+              <Icon size={13} aria-hidden /> {label}
+            </button>
+          ))}
           <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음" aria-label="효과음">
             {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
           </button>
@@ -854,6 +918,7 @@ export function AnalysisTheater({
               className={styles.rate}
               onClick={() => lec.setRate(RATES[(RATES.indexOf(lec.rate as (typeof RATES)[number]) + 1) % RATES.length])}
               title="말하기 속도"
+              aria-label={`말하기 속도 ${lec.rate.toFixed(2).replace(/0$/, '')}배`}
             >
               {lec.rate.toFixed(2).replace(/0$/, '')}×
             </button>
@@ -871,8 +936,8 @@ export function AnalysisTheater({
       </header>
 
       <div className={styles.body} ref={bodyRef}>
-        {/* ── ① 왼쪽 열: 기출문제 원본 + 행동 상자 ───────────────── */}
-        <aside className={styles.rail} aria-label="기출문제 원본">
+        {/* ── 원문 열: 기출문제 원본(기기 문제지) + 문항 행동 줄 ───────────────── */}
+        <aside className={styles.rail} aria-label="기출문제 원본" data-testid="workspace-paper">
           <PaperResizer bodyRef={bodyRef} />
           <p className={styles.railTop}>
             <FileText size={13} aria-hidden />
@@ -882,14 +947,8 @@ export function AnalysisTheater({
           <div className={styles.stream}>
             <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} highlight={msPaperMark} mark={paperMarkReq} />
           </div>
-
-          <div className={styles.composer}>
-            <p className={styles.composerHead}>
-              <span className={styles.avatar} aria-hidden>
-                V
-              </span>
-              이 문항으로 무엇을 할까요?
-            </p>
+          {/* 문항 단위 행동 — 「마치기」 는 열람 종료이지 이해 판정이 아니다 */}
+          <div className={styles.itemActions} data-testid="workspace-actions">
             {saveFailed ? (
               <p className={styles.resumeNote} role="status" data-testid="save-failed">
                 이 기기에 기록을 저장하지 못했어요 — 이 탭을 닫으면 학습 기록이 사라져요.
@@ -900,7 +959,7 @@ export function AnalysisTheater({
                 지난번 {resumedAt + 1}단계에서 이어서 봐요
               </p>
             ) : null}
-            <div className={styles.composerActions}>
+            <div className={styles.itemActionRow}>
               {session && !finished ? (
                 <button type="button" className={styles.finishBtn} onClick={finish} data-testid="finish-item">
                   이 문항 마치기
@@ -911,12 +970,6 @@ export function AnalysisTheater({
                   마친 문항
                 </span>
               ) : null}
-              <button type="button" onClick={() => move(1)} disabled={cursor >= steps.length - 1}>
-                다음 단계
-              </button>
-              <button type="button" onClick={() => setTab('run')}>
-                진행 보기
-              </button>
               {nextLive ? (
                 <Link href={nextLive.href} data-testid="next-item" data-revisit={nextLive.revisit}>
                   {nextLive.revisit ? `이 유형을 다 봤어요 · ${nextLive.label} 다시 보기` : '같은 유형 다음 문항'}
@@ -925,36 +978,20 @@ export function AnalysisTheater({
                 <Link href={typeHref ?? '/csat/browse'}>이 유형 목록</Link>
               )}
             </div>
-            <div className={styles.composerFoot}>
-              <span className={styles.pill}>
-                {cursor + 1} / {Math.max(1, steps.length)} · 약 {theaterClock(position)} 지점
-              </span>
-              <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계" aria-label="이전 단계">
-                <ChevronLeft size={15} aria-hidden />
-              </button>
-              <button type="button" className={styles.round} onClick={() => move(1)} disabled={cursor >= steps.length - 1} title="다음 단계" aria-label="다음 단계">
-                <ChevronRight size={15} aria-hidden />
-              </button>
-            </div>
           </div>
         </aside>
 
-        {/* ── ② 본문: 탭 + 두 판 ─────────────────────────────── */}
-        <section className={styles.main}>
-          <div className={styles.stageHead}>
-            <nav className={styles.tabs} aria-label="보기">
-              {TABS.map(({ id, label, Icon }) => (
-                <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
-                  <Icon size={13} aria-hidden /> {label}
-                </button>
-              ))}
-            </nav>
-            <p className={styles.legend}>
-              <span className={styles.legendAnswer}>정답 근거</span>
-              <span className={styles.legendReject}>오답 지우는 자리</span>
-              <span className={styles.clock}>
-                약 {theaterClock(position)} 지점 / {theaterClock(timeline.total)}
-              </span>
+        {/* ── 메인 작업 프레임 ─────────────────────────────── */}
+        <section className={styles.main} data-testid="workspace-frame" data-scene={scene} data-group={group.id}>
+          <div className={styles.frameHead} data-testid="workspace-head">
+            <p className={styles.frameCrumb}>
+              <span>{group.label}</span>
+              {sceneDef && sceneDef.label !== group.label ? (
+                <>
+                  <span aria-hidden>/</span>
+                  <b>{sceneDef.label}</b>
+                </>
+              ) : null}
             </p>
             {lec?.error ? (
               <p className={styles.notice} role="status">
@@ -965,49 +1002,64 @@ export function AnalysisTheater({
                 한국어 음성이 없어 강조만 넘어가요
               </p>
             ) : null}
+            {evidenceCollapsed ? (
+              <p className={styles.frameEvidence} data-testid="evidence-summary">
+                근거: {evidenceLabel}
+              </p>
+            ) : null}
+            <button type="button" className={styles.toolBtn} aria-pressed={evidenceCollapsed} onClick={() => setEvidenceCollapsed((v) => !v)} data-testid="evidence-toggle">
+              {evidenceCollapsed ? <PanelLeftOpen size={13} aria-hidden /> : <PanelLeftClose size={13} aria-hidden />} {evidenceCollapsed ? '근거 판 열기' : '근거 판 접기'}
+            </button>
           </div>
 
-          <div className={styles.view}>
-            <div className={styles.panes}>
-              {/* ── 왼쪽 판: 원문 · 지문 지도 · 정답 근거 ── */}
-              <section className={styles.pane} aria-label="지문 지도">
-                <p className={styles.paneHead}>
+          <div className={styles.panes} data-collapsed={evidenceCollapsed}>
+            {/* ── 근거·관계 판: 선택한 근거의 위치 · 관계 ── */}
+            {!evidenceCollapsed ? (
+              <section className={styles.pane} aria-label="근거·관계" data-testid="pane-evidence" data-view={showRelation ? 'relation' : 'map'}>
+                <div className={styles.paneHead}>
                   <Code2 size={13} aria-hidden />
-                  <span className={styles.file}>지문 지도</span>
-                  <ChevronDown size={12} aria-hidden />
-                  <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
-                </p>
+                  <span className={styles.file}>근거·관계</span>
+                  {relation ? (
+                    <span className={styles.viewSwitch} role="group" aria-label="근거 판 보기">
+                      <button type="button" aria-pressed={!showRelation} onClick={() => setEvidenceView('map')} data-testid="evidence-view-map">
+                        위치
+                      </button>
+                      <button type="button" aria-pressed={showRelation} onClick={() => setEvidenceView('relation')} data-testid="evidence-view-relation">
+                        관계
+                      </button>
+                    </span>
+                  ) : null}
+                  <em>{map ? `${map.sentences.length}문장` : '지도 없음'}</em>
+                </div>
                 <div className={styles.paneBody}>
-                  <p className={styles.lead}>
-                    <b>{step ? label(step.name) : '분석 읽기'}</b>{' '}
-                    <code>
-                      {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
-                    </code>
-                  </p>
-                  {session === undefined ? (
-                    <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p>
+                  {session === undefined ? <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p> : null}
+                  {done}
+                  {diff}
+                  {showRelation ? (
+                    relation
                   ) : map ? (
-                    <>
-                      {done}
-                      {diff}
-                      <PassageMap
-                        sentences={map.sentences}
-                        anchors={map.anchors}
-                        placements={map.placements}
-                        focusSentences={
-                          msActive ? (msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
-                        }
-                        onSelect={msActive ? () => { setMsChip(true); setMsPhrase(null) } : undefined}
-                        onSentenceSelect={msActive && msMapOk ? onMapSentence : undefined}
-                      />
-                    </>
+                    <PassageMap
+                      sentences={map.sentences}
+                      anchors={map.anchors}
+                      placements={map.placements}
+                      focusSentences={mapFocus}
+                      onSelect={msActive ? () => { setMsChip(true); setMsPhrase(null) } : undefined}
+                      onSentenceSelect={msActive && msMapOk ? onMapSentence : undefined}
+                    />
                   ) : (
-                    <>
-                      {done}
-                      {diff}
-                      <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
-                    </>
+                    <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 설명은 오른쪽에서 그대로 읽을 수 있어요.</p>
                   )}
+                  {scene === 'meaning' ? (
+                    <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
+                      {map
+                        ? '지도에서 문장을 골라 실제 의미와 범위를 확인하세요. 역할 라벨은 의미를 대조하는 도구이고, 문장 길이는 위치를 보여 줄 뿐 중요도가 아닙니다.'
+                        : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 오른쪽 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
+                    </p>
+                  ) : null}
+                  <p className={styles.legend}>
+                    <span className={styles.legendAnswer}>정답 근거</span>
+                    <span className={styles.legendReject}>오답 지우는 자리</span>
+                  </p>
                   <dl className={styles.kv}>
                     <div>
                       <dt>문제지</dt>
@@ -1025,327 +1077,298 @@ export function AnalysisTheater({
                   {source.reason ? <p className={styles.quiet}>{source.reason}</p> : null}
                 </div>
               </section>
+            ) : null}
 
-              {/* ── 오른쪽 판: 분석 / 진행 / 같은 유형 ── */}
-              <section className={styles.pane} aria-label="해설">
-                <p className={styles.paneHead}>
-                  <Terminal size={13} aria-hidden />
-                  <span className={styles.file}>{TABS.find((t) => t.id === tab)?.label}</span>
-                  <ChevronDown size={12} aria-hidden />
-                  <em>
-                    {tab === 'analysis'
-                      ? `${sceneBlocks.length} / ${blocks.length} BLOCKS`
-                      : tab === 'script'
-                        ? `${lec?.cues.length || steps.length} CUES`
-                        : tab === 'run'
-                        ? `${steps.length} STEPS`
-                        : `${siblings.length} ITEMS`}
-                  </em>
-                </p>
-
+            {/* ── 설명·판단 판: 지금 장면의 의미 · 판단 설명(또는 강의 도구의 보조 보기) ── */}
+            <section className={styles.pane} aria-label={tab === 'analysis' ? '설명·판단' : '강의 도구'} data-testid="pane-explain">
+              <div className={styles.paneHead}>
+                <Terminal size={13} aria-hidden />
+                <span className={styles.file}>{tab === 'analysis' ? sceneDef?.label ?? '설명' : TABS.find((t) => t.id === tab)?.label}</span>
                 {tab === 'analysis' ? (
-                  <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
-                    <SceneNav current={scene} onSelect={(id) => selectScene(id)} />
-                    <p className={styles.sceneQuestion} data-testid="scene-question">
-                      {SCENES.find((x) => x.id === scene)?.question}
-                    </p>
-                    {scene === 'task' && goal ? (
-                      <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
-                        <b>이 문항에서 확인할 관계</b>
-                        <p className="break-keep">{goal.relation}</p>
-                        {distractorsAreTrue(typeId, itemId) ? (
-                          <p className="break-keep">
-                            이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 비선정 선지의 설명은 「왜 맞는 말인가」입니다.
-                          </p>
-                        ) : null}
-                        {goal.visual ? (
-                          <p className="break-keep">수치 판단은 원본 도표를 직접 읽어야 확정됩니다. 도표를 못 보면 계산 방법만 확인하세요.</p>
-                        ) : null}
-                      </section>
-                    ) : null}
-                    {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
-                    {scene === 'meaning' && ms ? (
-                      <MeaningSupportPanel
-                        view={ms}
-                        unitId={msUnit}
-                        relationId={msRelation}
-                        depth={msDepth}
-                        draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
-                        pick={msPick}
-                        phraseId={msPhrase}
-                        textAlign={msText}
-                        passage={msText.state === 'ok' ? currentPassage : null}
-                        splitOk={Boolean(v3Linkable && ms.splitOk)}
-                        onSelectUnit={pickMsUnit}
-                        onSelectRelation={pickMsRelation}
-                        onPhrase={pickMsPhrase}
-                        onDepth={pickMsDepth}
-                        onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
-                        onGo={goBridge}
-                      />
-                    ) : null}
-                    {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
-                    {scene === 'meaning' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
-                    {scene === 'meaning' ? (
-                      <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
-                        {map
-                          ? '왼쪽 지문 지도에서 문장을 골라 실제 의미와 범위를 확인하세요. 역할 라벨은 의미를 대조하는 도구이고, 문장 길이는 위치를 보여 줄 뿐 중요도가 아닙니다.'
-                          : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 아래 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
-                      </p>
-                    ) : null}
-                    {scene === 'judgment' && v3 ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
-                    {scene === 'judgment' && gate.design ? <TransformDiagram design={gate.design} /> : null}
-                    {scene === 'design' ? (
-                      <p className={styles.quiet} data-testid="design-epistemic">
-                        아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
-                      </p>
-                    ) : null}
-                    {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
-                    {scene === 'design' && gate.design ? <DesignSelection design={gate.design} /> : null}
-                    <p className={styles.status}>
-                      <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
-                      {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
-                    </p>
-                    {scene === 'judgment' ? (
-                      <>
-                        {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
-                        <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
-                          {inquiry ? <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
-                          {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
-                        </section>
-                      </>
-                    ) : (
-                      sceneBlocks.map(renderBlock)
-                    )}
-                    {sceneChecks.length ? (
-                      <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
-                    ) : null}
-                    {scene === 'compare' ? (
-                      <V3CompareExplorer
-                        key={`cmp-${itemId}`}
-                        pairs={v3Pairs}
-                        absence={pairAbsence === 'none' && comparePairs.length ? null : pairAbsence}
-                        withheld={pairWithheld}
-                        initialPairId={initialPairId}
-                        currentSlug={currentSlug}
-                        fromMap={Boolean(mapReturn)}
-                        carry={carry}
-                        returnTo={compareReturn}
-                        onEvidence={onEvidence}
-                        onClearEvidence={() => setEvidence(null)}
-                        linkable={v3Linkable}
-                        selectedKey={evidence?.key ?? null}
-                        onFindOther={finder ? () => openFinder('compare') : undefined}
-                      />
-                    ) : null}
-                    {scene === 'compare' ? (
-                      comparePairs.length ? (
-                        <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
-                          <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
-                          <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} carry={carry} />
-                        </section>
-                      ) : v3Pairs.length || pairAbsence ? null : (
-                        <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="compare-empty">
-                          이 문항과 짝지은 검수된 비교 문항을 준비 중이에요. 같은 유형이라는 이유만으로 같은 원리라고 잇지 않아요 — 「같은 유형」 탭에서 목록은 볼 수 있어요.
-                        </p>
-                      )
-                    ) : null}
-                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} review={inquiry.review} /> : null}
-                    {scene === 'principle' ? <V3PrincipleLevels hasCandidate={Boolean(inquiry?.principle)} pairs={v3Pairs} /> : null}
-                    {scene === 'principle' && goal ? (
-                      <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
-                        <b>이 문항에서 확인한 관계</b>
-                        <p className="break-keep">{goal.relation}</p>
+                  <em>요점 → 근거 → 상세</em>
+                ) : (
+                  <button type="button" className={styles.paneBack} onClick={() => setTab('analysis')} data-testid="tool-close">
+                    탐구로 돌아가기
+                  </button>
+                )}
+              </div>
+
+              {tab === 'analysis' ? (
+                <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
+                  <h2 className={styles.sceneQuestion} data-testid="scene-question">
+                    {sceneDef?.question}
+                  </h2>
+                  {scene === 'task' && goal ? (
+                    <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
+                      <b>이 문항에서 확인할 관계</b>
+                      <p className="break-keep">{goal.relation}</p>
+                      {distractorsAreTrue(typeId, itemId) ? (
                         <p className="break-keep">
-                          이 문항 하나에서 얻은 잠정 원리예요. 다른 문항에도 통하는지는 성립 조건이 같을 때만입니다 — 「기출 비교」에서 검수된 사례로 경계를 확인하세요.
+                          이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 비선정 선지의 설명은 「왜 맞는 말인가」입니다.
                         </p>
-                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
-                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
-                        </button>
+                      ) : null}
+                      {goal.visual ? (
+                        <p className="break-keep">수치 판단은 원본 도표를 직접 읽어야 확정됩니다. 도표를 못 보면 계산 방법만 확인하세요.</p>
+                      ) : null}
+                    </section>
+                  ) : null}
+                  {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
+                  {scene === 'meaning' && ms ? (
+                    <MeaningSupportPanel
+                      view={ms}
+                      unitId={msUnit}
+                      relationId={msRelation}
+                      depth={msDepth}
+                      draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
+                      pick={msPick}
+                      phraseId={msPhrase}
+                      textAlign={msText}
+                      passage={msText.state === 'ok' ? currentPassage : null}
+                      splitOk={Boolean(v3Linkable && ms.splitOk)}
+                      onSelectUnit={pickMsUnit}
+                      onSelectRelation={pickMsRelation}
+                      onPhrase={pickMsPhrase}
+                      onDepth={pickMsDepth}
+                      onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
+                      onGo={goBridge}
+                    />
+                  ) : null}
+                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                  {scene === 'judgment' && v3 ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {scene === 'design' ? (
+                    <p className={styles.quiet} data-testid="design-epistemic">
+                      아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
+                    </p>
+                  ) : null}
+                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {relation && !showRelation && !evidenceCollapsed ? (
+                    <p className={styles.quiet} data-testid="relation-hint">
+                      이 장면의 설계 도식은 왼쪽 근거 판의 「관계」 보기에 있어요.
+                    </p>
+                  ) : null}
+                  {relation && evidenceCollapsed ? relation : null}
+                  <p className={styles.status}>
+                    <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
+                    {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
+                  </p>
+                  {scene === 'judgment' ? (
+                    <>
+                      {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
+                      <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
+                        {inquiry ? <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
+                        {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
                       </section>
-                    ) : null}
-                    {scene === 'explain' ? (
-                      <SelfExplain
-                        key={itemId}
-                        itemId={itemId}
-                        rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                        choiceTruth={distractorsAreTrue(typeId, itemId)}
-                        saved={explained}
-                        onSave={saveExplanation}
-                        onCompare={compareExplanation}
-                      />
-                    ) : null}
-                    {scene === 'explain' ? (
-                      <ReasoningNoteForm key={`note-${itemId}`} itemId={itemId} analysisVersion={inquiry?.analysis_version ?? null} principle={inquiry?.principle ?? null} pairs={v3Pairs} saved={notes} onSave={saveNote} />
-                    ) : null}
-                    {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
-                      <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
-                        이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
+                    </>
+                  ) : (
+                    sceneBlocks.map(renderBlock)
+                  )}
+                  {sceneChecks.length ? (
+                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
+                  ) : null}
+                  {scene === 'compare' ? (
+                    <V3CompareExplorer
+                      key={`cmp-${itemId}`}
+                      pairs={v3Pairs}
+                      absence={pairAbsence === 'none' && comparePairs.length ? null : pairAbsence}
+                      withheld={pairWithheld}
+                      initialPairId={initialPairId}
+                      currentSlug={currentSlug}
+                      fromMap={Boolean(mapReturn)}
+                      carry={carry}
+                      returnTo={compareReturn}
+                      onEvidence={onEvidence}
+                      onClearEvidence={() => setEvidence(null)}
+                      linkable={v3Linkable}
+                      selectedKey={evidence?.key ?? null}
+                      onFindOther={finder ? () => openFinder('compare') : undefined}
+                    />
+                  ) : null}
+                  {scene === 'compare' ? (
+                    comparePairs.length ? (
+                      <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
+                        <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
+                        <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} carry={carry} />
+                      </section>
+                    ) : v3Pairs.length || pairAbsence ? null : (
+                      <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="compare-empty">
+                        이 문항과 짝지은 검수된 비교 문항을 준비 중이에요. 같은 유형이라는 이유만으로 같은 원리라고 잇지 않아요 — 강의 도구의 「같은 유형」에서 목록은 볼 수 있어요.
                       </p>
-                    ) : null}
-                    {nextScene(scene) ? (
-                      <button type="button" className={styles.back} onClick={() => selectScene(nextScene(scene)!)} data-testid="scene-next">
-                        다음 장면 · {SCENES.find((x) => x.id === nextScene(scene))?.label} →
+                    )
+                  ) : null}
+                  {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} review={inquiry.review} /> : null}
+                  {scene === 'principle' ? <V3PrincipleLevels hasCandidate={Boolean(inquiry?.principle)} pairs={v3Pairs} /> : null}
+                  {scene === 'principle' && goal ? (
+                    <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
+                      <b>이 문항에서 확인한 관계</b>
+                      <p className="break-keep">{goal.relation}</p>
+                      <p className="break-keep">
+                        이 문항 하나에서 얻은 잠정 원리예요. 다른 문항에도 통하는지는 성립 조건이 같을 때만입니다 — 「기출 비교」에서 검수된 사례로 경계를 확인하세요.
+                      </p>
+                      <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
+                        {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
                       </button>
-                    ) : null}
-                  </div>
-                ) : null}
+                    </section>
+                  ) : null}
+                  {scene === 'explain' ? (
+                    <SelfExplain
+                      key={itemId}
+                      itemId={itemId}
+                      rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
+                      choiceTruth={distractorsAreTrue(typeId, itemId)}
+                      saved={explained}
+                      draft={explainDrafts[itemId]}
+                      onDraft={draftExplain}
+                      onSave={saveExplanation}
+                      onCompare={compareExplanation}
+                    />
+                  ) : null}
+                  {scene === 'explain' ? (
+                    <ReasoningNoteForm
+                      key={`note-${itemId}`}
+                      itemId={itemId}
+                      analysisVersion={inquiry?.analysis_version ?? null}
+                      principle={inquiry?.principle ?? null}
+                      pairs={v3Pairs}
+                      saved={notes}
+                      onSave={saveNote}
+                      draft={noteDrafts[itemId]}
+                      onDraft={draftNote}
+                      candidate={noteCandidate}
+                      onShowEvidence={v3Linkable ? (sentences) => { setEvidence({ sentences, key: 'note-evidence' }); setEvidenceCollapsed(false); setEvidenceView('map') } : undefined}
+                    />
+                  ) : null}
+                  {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
+                    <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
+                      이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
+                    </p>
+                  ) : null}
+                  {nextScene(scene) ? (
+                    <button type="button" className={styles.back} onClick={() => pickScene(nextScene(scene)!)} data-testid="scene-next">
+                      다음 장면 · {SCENES.find((x) => x.id === nextScene(scene))?.label} →
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
 
-                {tab === 'script' ? (
-                  <div className={styles.paneBody} data-testid="reading-lecture">
-                    {!lec || !steps.length ? (
-                      <p className={styles.quiet}>이 문항은 아직 강의 대본이 없어요. 분석 탭의 설명은 그대로 읽을 수 있어요.</p>
-                    ) : lec.status === 'error' && !lec.cues.length ? (
-                      <p className={styles.quiet} role="status">
-                        대본을 불러오지 못했어요. 분석 탭의 설명은 그대로 읽을 수 있어요.{' '}
-                        <button type="button" className={styles.back} onClick={lec.load}>
-                          다시 불러오기
-                        </button>
-                      </p>
-                    ) : !lec.cues.length ? (
-                      <p className={styles.quiet} aria-busy="true">대본을 여는 중…</p>
-                    ) : (
-                      <ol className={styles.script}>
-                        {lec.cues.map((c, i) => (
-                          <li key={c.id} data-live={i === cursor}>
-                            <button type="button" onClick={() => goto(i)} aria-current={i === cursor ? 'step' : undefined}>
-                              <span className={styles.scriptNo}>{String(i + 1).padStart(2, '0')}</span>
-                              <span className="break-keep">{c.text}</span>
-                            </button>
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-                  </div>
-                ) : null}
-
-                {tab === 'run' ? (
-                  <div className={styles.paneBody}>
-                    <div className={styles.metrics}>
-                      <div>
-                        <dt>차례</dt>
-                        <dd>{steps.length}</dd>
-                      </div>
-                      <div>
-                        <dt>지금</dt>
-                        <dd>
-                          {String(cursor + 1).padStart(2, '0')}
-                          <span className={styles.badge} data-on={playing}>
-                            {playing ? '● 상영 중' : '멈춤'}
-                          </span>
-                        </dd>
-                      </div>
-                      <div>
-                        <dt>추정 위치</dt>
-                        <dd>{theaterClock(position)}</dd>
-                      </div>
-                      <div>
-                        <dt>전체</dt>
-                        <dd>{theaterClock(timeline.total)}</dd>
-                      </div>
-                    </div>
-                    <div className={styles.gantt}>
-                      <div className={styles.track} role="group" aria-label="차례별 길이">
-                        {timeline.segments.map((seg) => (
-                          <button
-                            key={seg.index}
-                            type="button"
-                            className={styles.seg}
-                            style={{ width: `${seg.pct}%` }}
-                            data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
-                            onClick={() => goto(seg.index)}
-                            title={`${seg.kind} · ${label(seg.name)} · ${Math.round(seg.sec)}초`}
-                            aria-label={`${seg.index + 1}단계 ${label(seg.name)} · ${Math.round(seg.sec)}초`}
-                          />
-                        ))}
-                      </div>
-                      <div className={styles.axis}>
-                        {timeline.marks.map((m) => (
-                          <span key={m}>{m}s</span>
-                        ))}
-                      </div>
-                    </div>
-                    <ol className={styles.runList}>
-                      {timeline.segments.map((seg) => (
-                        <li key={seg.index} data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}>
-                          <button type="button" onClick={() => goto(seg.index)}>
-                            <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
-                            <span className={styles.runKind}>{seg.kind}</span>
-                            <span className={styles.runName}>{label(seg.name)}</span>
-                            <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
+              {tab === 'script' ? (
+                <div className={styles.paneBody} data-testid="reading-lecture">
+                  {!lec || !steps.length ? (
+                    <p className={styles.quiet}>이 문항은 아직 강의 대본이 없어요. 탐구 장면의 설명은 그대로 읽을 수 있어요.</p>
+                  ) : lec.status === 'error' && !lec.cues.length ? (
+                    <p className={styles.quiet} role="status">
+                      대본을 불러오지 못했어요. 탐구 장면의 설명은 그대로 읽을 수 있어요.{' '}
+                      <button type="button" className={styles.back} onClick={lec.load}>
+                        다시 불러오기
+                      </button>
+                    </p>
+                  ) : !lec.cues.length ? (
+                    <p className={styles.quiet} aria-busy="true">대본을 여는 중…</p>
+                  ) : (
+                    <ol className={styles.script}>
+                      {lec.cues.map((c, i) => (
+                        <li key={c.id} data-live={i === cursor}>
+                          <button type="button" onClick={() => goto(i)} aria-current={i === cursor ? 'step' : undefined}>
+                            <span className={styles.scriptNo}>{String(i + 1).padStart(2, '0')}</span>
+                            <span className="break-keep">{c.text}</span>
                           </button>
                         </li>
                       ))}
                     </ol>
-                  </div>
-                ) : null}
+                  )}
+                </div>
+              ) : null}
 
-                {tab === 'siblings' ? (
-                  <div className={styles.paneBody}>
-                    <ul className={styles.siblings}>
-                      {siblings.map((s) => (
-                        <li key={s.slug}>
-                          <Link href={`/csat/item/${s.slug}${backTo === 'browse' ? `?ret=${encodeURIComponent(backHref)}` : ''}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
-                            <b>{s.no}</b>
-                            <span>{s.label}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+              {tab === 'run' ? (
+                <div className={styles.paneBody}>
+                  <div className={styles.metrics}>
+                    <div>
+                      <dt>차례</dt>
+                      <dd>{steps.length}</dd>
+                    </div>
+                    <div>
+                      <dt>지금</dt>
+                      <dd>
+                        {String(cursor + 1).padStart(2, '0')}
+                        <span className={styles.badge} data-on={playing}>
+                          {playing ? '● 상영 중' : '멈춤'}
+                        </span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>추정 위치</dt>
+                      <dd>{theaterClock(position)}</dd>
+                    </div>
+                    <div>
+                      <dt>전체</dt>
+                      <dd>{theaterClock(timeline.total)}</dd>
+                    </div>
                   </div>
-                ) : null}
-              </section>
-            </div>
-          </div>
-
-          {/* ── ③ 하단 도크: 강의 차례(예전 왼쪽 레일) — 강의가 없으면 분석 블록 ── */}
-          <div className={styles.dockHead}>
-            <span className={styles.liveDot} data-on={playing} aria-hidden />
-            <b>{steps.length ? `강의 · 차례 ${steps.length}` : `분석 블록 ${blocks.length}`}</b>
-            <span className={styles.railTime}>{steps.length ? theaterClock(timeline.total) : '상영 없음'}</span>
-          </div>
-          {steps.length ? (
-            <nav className={styles.cards} aria-label="이 문항을 읽는 차례" ref={railRef}>
-              {steps.map((s) => {
-                const state = s.index === cursor ? 'live' : s.index < cursor ? 'done' : 'wait'
-                const key = blockKeyForTarget(s.targetKey, blockKeys)
-                const kind = blocks.find((b) => b.key === key)?.kind
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    className={styles.card}
-                    data-state={state}
-                    data-tint={kind ? BLOCK_TINT[kind] : 'peach'}
-                    onClick={() => goto(s.index)}
-                    aria-current={state === 'live' ? 'step' : undefined}
-                  >
-                    <b>{label(s.name)}</b>
-                    <span>
-                      <em>{String(s.index + 1).padStart(2, '0')}</em>
-                      <i>{s.kind}</i>
-                      <i>{Math.round(s.sec)}초</i>
+                  <p className={styles.runNav}>
+                    <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} aria-label="이전 차례">
+                      <ChevronLeft size={15} aria-hidden />
+                    </button>
+                    <span className={styles.pill}>
+                      {cursor + 1} / {Math.max(1, steps.length)} · 약 {theaterClock(position)} 지점
                     </span>
-                    {state === 'live' ? <u aria-hidden /> : null}
-                  </button>
-                )
-              })}
-            </nav>
-          ) : (
-            <nav className={styles.cards} aria-label="분석 블록으로 이동">
-              {blocks.map((b) => (
-                <button key={b.key} type="button" className={styles.card} data-state="done" data-tint={BLOCK_TINT[b.kind]} onClick={() => jumpToBlock(b.key)}>
-                  <b>{b.title}</b>
-                  <span>
-                    <em>{b.body.length || 1}</em>
-                    {b.chips.slice(0, 2).map((c) => (
-                      <i key={c.text}>{c.text}</i>
+                    <button type="button" className={styles.round} onClick={() => move(1)} disabled={cursor >= steps.length - 1} aria-label="다음 차례">
+                      <ChevronRight size={15} aria-hidden />
+                    </button>
+                  </p>
+                  <div className={styles.gantt}>
+                    <div className={styles.track} role="group" aria-label="차례별 길이">
+                      {timeline.segments.map((seg) => (
+                        <button
+                          key={seg.index}
+                          type="button"
+                          className={styles.seg}
+                          style={{ width: `${seg.pct}%` }}
+                          data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
+                          onClick={() => goto(seg.index)}
+                          title={`${seg.kind} · ${label(seg.name)} · ${Math.round(seg.sec)}초`}
+                          aria-label={`${seg.index + 1}단계 ${label(seg.name)} · ${Math.round(seg.sec)}초`}
+                        />
+                      ))}
+                    </div>
+                    <div className={styles.axis}>
+                      {timeline.marks.map((m) => (
+                        <span key={m}>{m}s</span>
+                      ))}
+                    </div>
+                  </div>
+                  <ol className={styles.runList} ref={railRef as RefObject<HTMLOListElement>}>
+                    {timeline.segments.map((seg) => (
+                      <li key={seg.index} data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}>
+                        <button type="button" onClick={() => goto(seg.index)} aria-current={seg.index === cursor ? 'step' : undefined}>
+                          <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
+                          <span className={styles.runKind}>{seg.kind}</span>
+                          <span className={styles.runName}>{label(seg.name)}</span>
+                          <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
+                        </button>
+                      </li>
                     ))}
-                  </span>
-                </button>
-              ))}
-            </nav>
-          )}
+                  </ol>
+                </div>
+              ) : null}
+
+              {tab === 'siblings' ? (
+                <div className={styles.paneBody}>
+                  <ul className={styles.siblings}>
+                    {siblings.map((s) => (
+                      <li key={s.slug}>
+                        <Link href={`/csat/item/${s.slug}${backTo === 'browse' ? `?ret=${encodeURIComponent(backHref)}` : ''}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
+                          <b>{s.no}</b>
+                          <span>{s.label}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </section>
+          </div>
+
+          {/* ── 하단 탐구 도크: 네 요소 · 일곱 장면(강의 큐 카드를 대신한다 — 차례는 강의 도구의 「진행」) ── */}
+          <InquiryDock current={scene} last={lastByGroup} onSelect={(id) => pickScene(id)} />
         </section>
       </div>
       {finder && finderOpen ? (

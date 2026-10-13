@@ -62,11 +62,11 @@ for (const width of [1280, 1440]) {
     // ① 장면 이동 — 2026#34 일곱 장면 탭을 직접 누른다
     await page.goto('/csat/item/2026-34?scene=task', { waitUntil: 'domcontentloaded' })
     for (const label of ['원문 이해', '문항 성립', '설계 재구성', '기출 비교', '조건부 원리', '내 설명', '평가 과제']) {
-      await page.getByRole('tab', { name: label, exact: true }).click()
+      await page.locator(`[data-testid="dock-scene"][aria-label="${label}"]`).click()
       await expect(page).toHaveURL(/scene=/)
     }
     // 2026#34 는 검수된 비교가 없다 — 데이터 없는 상태를 이유와 함께
-    await page.getByRole('tab', { name: '기출 비교', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="기출 비교"]').click()
     await expect(page.getByTestId('v3-compare-absent')).toHaveAttribute('data-reason', 'none')
     await noOverflow(page, '2026#34')
 
@@ -127,14 +127,14 @@ for (const width of [1280, 1440]) {
     // 강조를 켠 채 다른 장면으로 가면 꺼진다(보이지 않는 비교가 지도를 계속 비추지 않음)
     await page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first().click()
     await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
-    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="원문 이해"]').click()
     // 비교 강조는 꺼진다. v3.1 교수 설명이 있는 문항(2026#38)은 원문 이해 장면이 고른 의미의 문장을 대신 비춘다
     if (await page.getByTestId('ms-panel').count()) {
       await expect(page.getByTestId('ms-explain')).toBeVisible()
     } else {
       await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
     }
-    await page.getByRole('tab', { name: '기출 비교', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="기출 비교"]').click()
     await expect(page.getByTestId('v3-pair')).toBeVisible() // 주소의 pair 로 같은 쌍이 다시 열린다
 
     // 상대 문항으로 이동 → 같은 쌍이 열려 있고 · 학습 지도 복귀 유지 · 돌아오기
@@ -151,13 +151,13 @@ for (const width of [1280, 1440]) {
     await axeClean(page, '[data-testid="v3-compare"]')
 
     // ④ 조건부 원리 — 수준 · 성립/금지 조건
-    await page.getByRole('tab', { name: '조건부 원리', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="조건부 원리"]').click()
     const levels = page.getByTestId('v3-principle-levels')
     await expect(levels).toBeVisible()
     await expect(levels).toContainText('이 문항에서 얻은 잠정 원리')
 
     // ⑤ 원리 노트 — 저장 실패 주입 → 입력 보존 → 다시 저장 → 재진입
-    await page.getByRole('tab', { name: '내 설명', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="내 설명"]').click()
     const note = page.getByTestId('reasoning-note')
     await expect(note).toBeVisible()
     const statement = `M5 노트 ${width} — 주어진 문장은 기대는 문장과 근거 사이에 넣지 않는다`
@@ -177,13 +177,14 @@ for (const width of [1280, 1440]) {
     await note.getByTestId('note-open-model').click()
     // 재진입 — 새로 고침 뒤에도 노트가 남아 있다
     await page.reload({ waitUntil: 'domcontentloaded' })
-    await page.getByRole('tab', { name: '내 설명', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="내 설명"]').click()
     await expect(page.getByTestId('note-show-last')).toBeVisible({ timeout: 60_000 })
     await page.getByTestId('note-show-last').click()
     await expect(page.getByTestId('note-compare')).toContainText(statement)
 
     // ⑥ 학습 지도 복귀 — 링크가 지도로 간다
-    await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', '/csat/diagnosis')
+    // v3 M1(7c91e0c7e)부터 「학습 지도로」 는 지도 홈(/csat)에 복귀 문맥을 싣는다 — 이 기대값은 M1 이전 값이었다(main 에서도 같은 실패)
+    await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', /^\/csat\?from=item&item=2026-38/)
     expect(errors, '페이지 오류').toEqual([])
   })
 }

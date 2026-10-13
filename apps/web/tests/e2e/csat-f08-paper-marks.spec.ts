@@ -108,7 +108,7 @@ for (const width of [1280, 1440]) {
     // 장면 이동 — 근거 선택이 풀리고 밑줄도 사라진다
     await choose(page, 3)
     await expect(page.getByTestId('paper-underline')).toHaveCount(1)
-    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="원문 이해"]').click()
     await expect(page.getByTestId('paper-underline')).toHaveCount(0)
 
     // ② 세트 2026#44 — 선지 ③ = (c) (선지 구조로 연결)
@@ -131,7 +131,7 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('paper-underline')).toHaveCount(1)
     expect((await relPos(page)).inside).toBe(true)
     await page.getByTestId('paper-crop-frame').screenshot({ path: `${SHOTS}/${width}-4-implied.png` })
-    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="원문 이해"]').click()
     await expect(page.getByTestId('paper-underline')).toHaveCount(0)
 
     // ④ 다른 회차 PDF 를 놓으면 이 회차 크롭 · 좌표가 남지 않는다(같은 PDF 해시에 묶임)

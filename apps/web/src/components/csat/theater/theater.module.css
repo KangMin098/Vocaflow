@@ -20,7 +20,7 @@
   --on-p: #ffffff;
   --ju: #16a34a;
   --ju-light: #e8f5ec;
-  --ju-ink: #15803d;
+  --ju-ink: #166534; /* #15803d 는 --ju-light 위 4.46:1 — AA 미달(axe · 작업공간 W4). 한 단계 진하게 */
   --success: #16a34a;
   --code: #c2410c;
   --tint-lavender: #efeafd;
@@ -589,3 +589,140 @@
 .msBridged { box-shadow: inset 3px 0 0 var(--p); padding-left: 10px; background: var(--bg3); border-radius: 0 8px 8px 0; }
 .choicePick button[data-bridge='true'] { box-shadow: 0 0 0 2px var(--p); }
 @media (prefers-reduced-motion: reduce) { .msPhrase { transition: none; } }
+
+/* ── 기출 탐구 작업공간(컴팩트 · 2026-10-13 · docs/csat-learner/WORKSPACE_COMPACT.md) ─────────────────
+   원문 열 → 메인 프레임(근거·관계 판 + 설명·판단 판) → 하단 탐구 도크. 색 · 서체는 위 3B 토큰 그대로,
+   고유 기하만 --csat-workspace-* 로 둔다(측정 명세 docs/design/refs/3b/workspace/spec.json 과 같은 값).
+   작은 시각 요소(아이콘 13px · 선택 면 23px)와 조작 영역(44×44)을 구분한다. */
+.workspace {
+  --csat-workspace-dock-item: 48px;
+  --csat-workspace-dock: 65px;
+  --csat-workspace-head: 44px;
+  --csat-workspace-gap: 10px;
+  --csat-workspace-pad: 15px;
+  --csat-workspace-target: 44px;
+  --csat-workspace-icon: 13px;
+  --csat-workspace-icon-face: 23px;
+  --csat-workspace-name: 11px;
+  --csat-workspace-question: 17px;
+  --csat-workspace-title: 13px;
+  --csat-workspace-pane-title: 12px;
+  --csat-workspace-split: 36fr 64fr;
+}
+/* 조작 영역 44px — 머리의 링크 · 단추 · 강의 도구 */
+.bar { gap: 4px 8px; padding: 0 12px; min-height: 52px; }
+.docTitle { font-size: var(--csat-workspace-title); }
+.back, .backIcon, .iconBtn, .rate, .play { min-height: var(--csat-workspace-target); }
+.backIcon, .iconBtn { min-width: var(--csat-workspace-target); }
+.toolBtn {
+  display: inline-flex; align-items: center; gap: 5px; min-height: var(--csat-workspace-target); padding: 0 9px;
+  border: 1px solid transparent; border-radius: 8px; font-size: 12px; color: var(--t2); white-space: nowrap;
+  transition: background var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
+}
+.toolBtn:hover { background: var(--bg3); color: var(--t1); }
+.toolBtn[aria-pressed='true'] { border-color: var(--p); background: var(--p-light); color: var(--t1); font-weight: 500; }
+
+/* 원문 열의 문항 행동 줄 — 강의 차례 · 시간 · 진행 버튼은 강의 도구로 옮겼다 */
+.itemActions { padding: 8px 12px 10px; border-top: 1px solid var(--bd); background: var(--bg2); }
+.itemActions .resumeNote { padding: 0 0 6px; }
+.itemActionRow { display: flex; flex-wrap: wrap; gap: 6px; }
+.itemActionRow :is(button, a, span) {
+  display: inline-flex; align-items: center; min-height: var(--csat-workspace-target); padding: 0 12px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); font-size: 12px; color: var(--t1);
+}
+.itemActionRow :is(button, a):hover { border-color: var(--p); color: var(--p); }
+
+/* 메인 프레임 — 머리 44 · 두 판(독립 스크롤) · 도크 65 */
+.main { margin: 0 var(--csat-workspace-gap) var(--csat-workspace-gap) var(--csat-workspace-gap); }
+.frameHead {
+  display: flex; align-items: center; gap: 8px 12px; min-height: var(--csat-workspace-head); padding: 0 8px 0 14px;
+  border-bottom: 1px solid var(--bd); flex-shrink: 0;
+}
+.frameCrumb { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: var(--csat-workspace-pane-title); color: var(--t2); }
+.frameCrumb b { font-weight: 600; color: var(--t1); }
+.frameHead .notice { width: auto; flex: 1; min-width: 0; }
+.frameEvidence { font-size: 12px; color: var(--t2); }
+.frameHead > .toolBtn { margin-left: auto; }
+.panes {
+  flex: 1; height: auto; min-height: 0; padding: var(--csat-workspace-gap);
+  grid-template-columns: var(--csat-workspace-split); gap: var(--csat-workspace-gap);
+}
+.panes[data-collapsed='true'] { grid-template-columns: minmax(0, 1fr); }
+.paneHead { min-height: var(--csat-workspace-head); padding: 0 6px 0 12px; font-family: var(--font-sans), system-ui, sans-serif; font-size: var(--csat-workspace-pane-title); flex-shrink: 0; }
+.paneBody { padding: 14px var(--csat-workspace-pad); font-size: 13.5px; line-height: 1.72; }
+.blockPane .sceneQuestion { margin: 0 0 12px; font-size: var(--csat-workspace-question); line-height: 1.45; font-weight: 600; }
+.viewSwitch { display: inline-flex; gap: 2px; margin-left: 6px; }
+.viewSwitch button {
+  min-height: var(--csat-workspace-target); min-width: var(--csat-workspace-target); padding: 0 8px; border-radius: 7px;
+  font-size: 12px; color: var(--t2); border: 1px solid transparent;
+}
+.viewSwitch button[aria-pressed='true'] { color: var(--p); border-color: var(--p); background: var(--p-light); font-weight: 500; }
+.paneBack { margin-left: auto; min-height: var(--csat-workspace-target); padding: 0 10px; border-radius: 8px; font-size: 12px; color: var(--t2); }
+.paneBack:hover { background: var(--bg2); color: var(--t1); }
+.pane .legend { margin: 12px 0 6px; }
+.runNav { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+.runNav .round { width: var(--csat-workspace-target); height: var(--csat-workspace-target); }
+.runList button { min-height: var(--csat-workspace-target); }
+.script button { min-height: var(--csat-workspace-target); }
+
+/* 하단 탐구 도크 — 네 요소 동일 폭 한 줄 · 요소 48px · 이름과 아이콘 가로 배치 */
+.dock {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; align-items: center;
+  height: var(--csat-workspace-dock); padding: 0 var(--csat-workspace-gap); border-top: 1px solid var(--bd); flex-shrink: 0;
+}
+.dockGroup {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 4px; min-width: 0;
+  height: var(--csat-workspace-dock-item); padding: 0 0 0 3px; border: 1px solid transparent; border-radius: 10px;
+  background: var(--dock-tint); box-shadow: inset 3px 0 0 var(--dock-ink);
+}
+.dockGroup[data-tint='blue'] { --dock-tint: #e9eef3; --dock-ink: #4f6b84; }
+.dockGroup[data-tint='lavender'] { --dock-tint: #efeafd; --dock-ink: #6d4fd8; }
+.dockGroup[data-tint='mint'] { --dock-tint: #e7f1ea; --dock-ink: #2f7a4b; }
+.dockGroup[data-tint='peach'] { --dock-tint: #f3ece4; --dock-ink: #8a5a2b; }
+.dockGroup[data-active='true'] { border-color: var(--dock-ink); background: var(--bg); }
+.dockTitle {
+  flex: 1; min-width: var(--csat-workspace-target); min-height: var(--csat-workspace-target); padding: 0 2px 0 7px; text-align: left;
+  font-size: var(--csat-workspace-name); font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 8px;
+}
+.dockTitle[aria-pressed='true'] { font-weight: 600; }
+.dockIcons { display: inline-flex; flex-shrink: 0; }
+.dockIcon {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: var(--csat-workspace-target); height: var(--csat-workspace-target); border-radius: 8px; color: var(--t2);
+}
+.dockIconFace {
+  display: inline-flex; align-items: center; justify-content: center; width: var(--csat-workspace-icon-face); height: var(--csat-workspace-icon-face);
+  border: 1px solid transparent; border-radius: 6px;
+}
+.dockIcon:hover .dockIconFace { background: var(--bg); color: var(--t1); }
+.dockIcon[data-on='true'] { color: var(--dock-ink); }
+.dockIcon[data-on='true'] .dockIconFace { border-color: var(--dock-ink); background: var(--bg); }
+/* 아이콘 이름 — 호버 · 키보드 포커스에서 보인다(title 만으로 이름을 주지 않는다) */
+.dockTip {
+  position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); z-index: 6;
+  padding: 3px 7px; border-radius: 6px; background: var(--t1); color: #fff; font-size: 11px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-fast, 120ms) var(--ease);
+}
+.dockIcon:hover .dockTip, .dockIcon:focus-visible .dockTip { opacity: 1; }
+
+/* 초안 · 노트 근거 연결 */
+.draftNote { margin-top: 6px; font-size: 12px; color: var(--t2); }
+.noteEvidence { display: flex; flex-direction: column; gap: 4px; margin: 8px 0; padding: 8px 10px; border: 1px dashed var(--bd); border-radius: 8px; font-size: 12.5px; }
+.noteEvidence .back { align-self: flex-start; }
+
+@media (prefers-reduced-motion: reduce) { .dockTip { transition: none; } }
+.paperClamp { padding: 6px 16px; border-bottom: 1px solid var(--bd); background: var(--p-light); font-size: 11.5px; color: var(--t2); }
+/* 작업공간 조작 영역 보강 — 링크 · 원문 다시 놓기 · 문제지 링크 · 폭 손잡이(시각 선은 2px, 잡는 자리는 44px) */
+.crumbs .back { min-width: var(--csat-workspace-target); justify-content: center; }
+.paperAgain { min-height: var(--csat-workspace-target); }
+.kv a { display: inline-flex; align-items: center; min-height: var(--csat-workspace-target); }
+.paperResizer { right: -22px; width: var(--csat-workspace-target); }
+.paperResizer::after { left: 21px; }
+/* 좁은 폭(설계 대상 아님) — 넘치지만 않게: 도크는 두 줄, 두 판은 위아래 */
+@media (max-width: 1000px) {
+  .dock { grid-template-columns: repeat(2, minmax(0, 1fr)); height: auto; padding: 8px var(--csat-workspace-gap); }
+  .panes { grid-template-columns: minmax(0, 1fr); }
+  .bar { flex-wrap: wrap; }
+  .barRight { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+}
+.paperPassage { font-size: 15px; } /* 작업공간 원문 15px(spec.json paperFont) */

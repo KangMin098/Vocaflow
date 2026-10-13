@@ -10,8 +10,9 @@ import { SelfExplain } from '../SelfExplain'
 
 const reject = (n: number): TheaterBlock => ({ key: `analysis:reject:${n}`, kind: 'reject', title: `${n}`, chips: [], body: [`분석 설명 ${n}`], quote: null })
 const noop = () => {}
+const saveOk = async () => true
 const render = (over: Partial<Parameters<typeof SelfExplain>[0]> = {}) =>
-  renderToStaticMarkup(<SelfExplain itemId="2026#31" rejects={[reject(1), reject(4)]} choiceTruth={false} saved={[]} onSave={noop} onCompare={noop} {...over} />)
+  renderToStaticMarkup(<SelfExplain itemId="2026#31" rejects={[reject(1), reject(4)]} choiceTruth={false} saved={[]} onDraft={noop} onSave={saveOk} onCompare={noop} {...over} />)
 
 describe('자기 설명 카드', () => {
   it('선택 참여다 — 건너뛰기가 있고 점수를 말하지 않는다', () => {
