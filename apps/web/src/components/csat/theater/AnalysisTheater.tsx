@@ -754,14 +754,19 @@ export function AnalysisTheater({
   const played = useRef(-1)
 
   const playing = Boolean(lec && (lec.status === 'playing' || lec.status === 'paused'))
+  // 강의 도구를 여는 동안 설명 판은 내려간다 — 돌아오면 그 스크롤로
+  const explainScroll = useRef<number | null>(null)
+  useEffect(() => {
+    if (tab !== 'analysis' || explainScroll.current == null) return
+    if (blocksRef.current) blocksRef.current.scrollTop = explainScroll.current
+    explainScroll.current = null
+  }, [tab])
   // 강의가 열리는 중에 학습자가 장면을 골랐다 — 열리면 곧바로 멈춘다(재개는 학습자가)
   const holdLecture = useRef(false)
   useEffect(() => {
     if (!lec || !holdLecture.current) return
-    if (lec.status === 'playing') {
-      holdLecture.current = false
-      lec.toggle()
-    } else if (lec.status !== 'loading') holdLecture.current = false
+    if (lec.status === 'playing') lec.toggle()
+    else if (lec.status !== 'loading') holdLecture.current = false
   }, [lec, lec?.status])
   const blockKeys = useMemo(() => blocks.map((b) => b.key), [blocks])
   const timeline = useMemo(() => theaterTimeline(steps), [steps])
@@ -939,6 +944,10 @@ export function AnalysisTheater({
     if (id !== scene) selectScene(id)
   }
   const toolTabs = TABS.filter((t) => t.id !== 'analysis')
+  const openTool = (id: TabId) => {
+    if (tab === 'analysis') explainScroll.current = blocksRef.current?.scrollTop ?? 0
+    setTab(tab === id ? 'analysis' : id)
+  }
 
   return (
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
@@ -979,7 +988,7 @@ export function AnalysisTheater({
         {/* 강의 도구 — 재생 · 속도 · 대본 · 진행(차례) · 같은 유형. 분석 장면을 강의 진행에 묶지 않는다 */}
         <div className={styles.barRight} role="group" aria-label="강의 도구" data-testid="lecture-tools">
           {toolTabs.map(({ id, label, Icon }) => (
-            <button key={id} type="button" className={styles.toolBtn} aria-pressed={tab === id} onClick={() => setTab(tab === id ? 'analysis' : id)} data-testid={`tool-${id}`}>
+            <button key={id} type="button" className={styles.toolBtn} aria-pressed={tab === id} onClick={() => openTool(id)} data-testid={`tool-${id}`}>
               <Icon size={13} aria-hidden /> {label}
             </button>
           ))}
@@ -1263,7 +1272,10 @@ export function AnalysisTheater({
                       carry={carry}
                       returnTo={compareReturn}
                       onEvidence={onEvidence}
-                      onClearEvidence={() => setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))}
+                      onClearEvidence={() => {
+                        if (evidence && /^(pair|diff)-/.test(evidence.key)) setRecentEvidence(null)
+                        setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))
+                      }}
                       linkable={v3Linkable}
                       selectedKey={evidence?.key ?? null}
                       onFindOther={finder ? () => openFinder('compare') : undefined}
