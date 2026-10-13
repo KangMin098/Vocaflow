@@ -144,8 +144,24 @@ export async function canRevealSession(sessionId: string, deps?: GateDeps): Prom
 }
 
 /** 학습자 본인 기록 중 보류 시험이 하나라도 있나 — 스냅샷 정책(user_has_embargoed_session)과 같은 판정. 실패면 true */
-export async function userHasHeldSession(userId: string, deps?: GateDeps): Promise<boolean> {
+/** 본인 기록 보류 판정 — held(보류 시험 기록 있음)와 failed(판정 실패)를 가른다. 화면이 「기록 없음」 과 「판정 실패」 를 구별할 때 쓴다(v3 M1) */
+export async function userHeldSessionDecision(userId: string, deps?: GateDeps): Promise<{ held: boolean; failed: boolean }> {
   try {
+    return { held: await heldSessionStrict(userId, deps), failed: false }
+  } catch (e) {
+    gateLog('gate_failure', { fn: 'userHeldSessionDecision', reason: e instanceof Error ? e.message : String(e) })
+    return { held: true, failed: true }
+  }
+}
+
+export async function userHasHeldSession(userId: string, deps?: GateDeps): Promise<boolean> {
+  const d = await userHeldSessionDecision(userId, deps)
+  return d.held || d.failed
+}
+
+/** 판정 본체 — 실패는 throw(호출자가 fail-closed 로 바꾼다) */
+async function heldSessionStrict(userId: string, deps?: GateDeps): Promise<boolean> {
+  {
     const db = gateDb(deps)
     const rows = await withTimeout(keysetSelect<{ id: string; exam_id: string | null }, string>(
       (cursor, limit) => {
@@ -166,9 +182,6 @@ export async function userHasHeldSession(userId: string, deps?: GateDeps): Promi
       if ((await embargoedItemIds(items, deps)).size > 0) return true
     }
     return false
-  } catch (e) {
-    gateLog('gate_failure', { fn: 'userHasHeldSession', reason: e instanceof Error ? e.message : String(e) })
-    return true
   }
 }
 

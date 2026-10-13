@@ -510,3 +510,8 @@ pnpm csat:drill:check    # 낡았으면 exit 1
 - 빌드: 원문 입력이 하나라도 없으면 full · `--dry` 모두 exit 1(산출물 그대로). 공개 대상은 `pilot-manifest.json` 의 `contract.expectedPublic`(명시 목록 · v31-pilot-1) — 기대 공개 = 검수 판정 public = 산출물 키여야 한다(`scripts/csat/__tests__/meaning-support-artifact.test.mjs`).
 - 원문 대조: 공개 항목마다 빌드가 `alignment`(문장 · 구절 글자 지문 · 오프셋 — 영어 본문 없음)를 붙인다. 서버는 지도 골격(문장 수 · 길이)으로 분할을, 화면은 기기 문제지로 글자를 대조한다. 실측: 기기 문제지 글자 대조 6문항 ok, 2026#25(도표) · #29(어법 — 밑줄 원본 그림) = 원문 글자 없음.
 - 격리 CI: `scripts/csat/meaning-support-isolated-seed.mjs`(namespace csat-v31 · run id · loopback 54321 · 소유 marker · allowlist) + `tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts` A(보류 없음) → B(정본 RPC 로 2026 회차 보류) → C(학습자 해제) — Reveal Gate 정본 마이그레이션 ①–④ · taxonomy v0.1 복원 시드 반입(격리 검증용). fail-closed 는 별도 job `e2e-gate-faultclosed`(게이트 RPC 실제 제거).
+
+## 13. v3 M1 — 두 메뉴 · 지도 중심 홈 (2026-10-13)
+
+- `/csat` = 내 학습 지도(첫 제안 · 핵심 학습 지도 · 내 자료 · 기출 탐구 입구), `/csat/browse` = 기출 탐구(목적 · 회차 · 유형 · 출처 · 학년도 · 상태 · 검색어 조건, 주소 동기화). 계획 · N0 현황: [v3/M1_PLAN](./csat-learner/v3/M1_PLAN.md).
+- 검증: 단위 `home-suggestion` · `browse-url` · `route-query-params`, e2e `csat-v3-m1`(1280 · 1440) · `csat-continuity`(새 경로로 갱신) · 기존 CSAT 회귀. 교육 효과는 미검증.

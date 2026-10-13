@@ -1,0 +1,50 @@
+/* apps/web/src/components/csat/home/home-landing.module.css
+ * 내 학습 지도(/csat) — 첫 제안 · 지도 · 내 자료 · 기출 탐구. 3B 토큰(--t1 · --t2 · --bd · --bg · --bg3)만 쓴다.
+ */
+/* 3B 참조 대응(docs/design/refs/3b/home-browse/spec.json) — 값은 여기 변수로만. home-browse-geometry.test.ts 가 명세와 대조 */
+.canvas {
+  --hl-card-bg: #fbf9f7;
+  --hl-card-border: #e2e1e0;
+  --hl-card-radius: 12px;
+  --hl-card-pad-y: 26px;
+  --hl-card-inset-x: 24px;
+  --hl-pill-soft-bg: #f4f1ed;
+  --hl-primary-bg: #0d0d17;
+  --hl-primary-fg: #fcf9f5;
+  --hl-radius-pill: 9999px;
+  --hl-min-target: 44px;
+  display: grid; gap: 16px; padding-bottom: 32px;
+}
+/* 지도 카드(LearnerMap)의 안쪽 여백과 같은 선에 맞춘다 */
+.suggest, .mine, .explore { margin-inline: 26px; }
+.suggest { padding-top: 18px; }
+
+/* 첫 제안 — 옛 띠 위에 떠 있던 카드(home.card · absolute)를 흐름 안으로 */
+.suggest > * { position: static; transform: none; left: auto; top: auto; width: 100%; }
+.lead { margin: 0; font-size: 13.5px; line-height: 1.7; color: var(--t2); }
+.inlineLink { display: inline-flex; align-items: center; min-height: 44px; color: var(--t1); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.map { min-width: 0; }
+
+.mine { display: flex; flex-wrap: wrap; gap: 8px; }
+.mineItem {
+  display: inline-flex; align-items: center; gap: 7px; min-height: var(--hl-min-target); padding: 0 14px;
+  border: 1px solid transparent; border-radius: var(--hl-radius-pill); background: var(--hl-pill-soft-bg); color: var(--t1); font-size: 13px;
+  transition: background var(--dur-normal) var(--ease), border-color var(--dur-normal) var(--ease);
+}
+.mineItem:hover { border-color: var(--hl-card-border); }
+.mineItem:focus-visible, .inlineLink:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
+.count { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--bg3); font-size: 11.5px; text-align: center; }
+
+.explore {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding: var(--hl-card-pad-y) var(--hl-card-inset-x); border: 1px solid var(--hl-card-border); border-radius: var(--hl-card-radius); background: var(--hl-card-bg);
+}
+/* 1차 행동 = 3B 먹색 알약 */
+.primary { background: var(--hl-primary-bg) !important; color: var(--hl-primary-fg) !important; border-radius: var(--hl-radius-pill) !important; min-height: var(--hl-min-target); }
+.exploreTitle { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--t1); }
+
+@media (prefers-reduced-motion: reduce) { .mineItem { transition: none; } }
+.exploreActions { display: inline-flex; flex-wrap: wrap; gap: 8px; }
+/* 지도에서 시작한 과제로 돌아왔을 때 그 과제 칸 — 색 + 굵은 윤곽(색만으로 알리지 않고 위 안내 문장과 함께) */
+.map :global([data-returned='true']) { outline: 3px solid var(--hl-primary-bg); outline-offset: 4px; border-radius: 8px; }

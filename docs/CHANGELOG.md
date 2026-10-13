@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): v3 M1 — 상시 메뉴 두 개(내 학습 지도 `/csat` · 기출 탐구 `/csat/browse`), `/csat` 지도 중심 홈(첫 제안 `pickHomeSuggestion` · 핵심 학습 지도 · 내 자료 · 기출 탐구 입구), 서가 목적 · 회차 조건과 주소 동기화 · 문항 「뒤로」 의 서가 조건 복귀(`?ret=`) · 「학습 지도로」 → 지도 홈 복귀 문맥. 옛 `?need=` · `?tab=trap` · `?view=continue` · `?type=` · `?exam=` 주소 보존. 이벤트는 기존 이름의 속성만 확장(`csat_path_chosen.axis=menu|purpose` · `csat_home_viewed.suggest`) — DB 변경 없음.
+
 - chore(db)+test(csat): PR #238 격리 검증 완료 — Reveal Gate 정본 마이그레이션 ①–④(cc32a3632 원본) · taxonomy v0.1 봉인 정본 복원 시드(`20261005140000`) 반입, 격리 CI 에서 A(보류 없음 공개 · stale) → B(`csat_ec_record_session_held` 로 2026 회차 보류 · SSR/Flight/화면 비노출) → C(학습자 `capture_open` → `capture_finish` · 공개 복귀 · stale 유지 · 정리 단언) 통과 + 게이트 RPC 실제 제거 job(fail-closed). 공유 DB 적용 · main 병합 별도.
 
 - fix(csat): v3.1 PR #238 보강 — 공개 조회가 schema · 검수 기준 · 검수자 · 현재 본문 contentHash 재검증(어긋나면 invalid → 기존 v3) · 원문 입력 누락 빌드 exit 1(산출물 보존) · 파일럿 계약(`manifest.contract`) 대조 · 원문 대조 자료(글자 지문)로 기기 문제지와 문장 · 구절 대조(다른 글자면 강조 금지) · 구절 대응(영어 구절 → 역할 → 뜻) · 문항 성립/설계로 선택지 · 근거 전달(`bridge=1`) · 뒤로/앞으로 전체 복원 · 무효 주소 정규화 · 격리 seed/CI · 3B 패널 대응 실측 12/12. 결함 대장 docs/csat-learner/v31/PR238_HARDENING.md. DB 변경 없음.

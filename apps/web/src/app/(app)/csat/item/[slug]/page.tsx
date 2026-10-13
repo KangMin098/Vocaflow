@@ -45,6 +45,8 @@ import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
+import { browseReturn } from '@/lib/csat/browse-url'
+import { parseHomeTask } from '@/lib/csat/home-suggestion'
 import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
 import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
 import compareData from '@/lib/csat/compare-data.json'
@@ -66,7 +68,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[] }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[]; ret?: string | string[]; task?: string | string[] }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -258,10 +260,14 @@ export default async function CsatItemTheaterPage({
       sceneNormalized={parsedScene.normalized}
       map={map}
       itemId={item.id}
-      backHref="/csat"
-      mapReturn={fromMap ? '/csat/diagnosis' : null}
+      // 기출 탐구에서 왔으면 같은 서가 조건으로(서가 경로만 · browseReturn), 아니면 내 학습 지도(v3 M1)
+      backHref={browseReturn(first(sp.ret)) ?? '/csat'}
+      backTo={browseReturn(first(sp.ret)) ? 'browse' : 'home'}
+      // 「학습 지도로」 — 지도 홈(/csat)에 복귀 문맥(이 문항)을 싣는다. 홈의 첫 제안이 「탐구에서 돌아왔어요」 를 보인다
+      mapReturn={fromMap ? `/csat?from=item&item=${toItemSlug(item.id)}${parseHomeTask(first(sp.task)) ? `&task=${encodeURIComponent(parseHomeTask(first(sp.task))!)}` : ''}` : null}
       typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
-      next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
+      // 같은 유형 다음 문항도 기출 탐구 조건(ret)을 이어 간다 — 「뒤로」 가 처음 고른 서가 조건으로 돌아가게
+      next={nextPick ? { href: `/csat/item/${nextPick.item.slug}${browseReturn(first(sp.ret)) ? `?ret=${encodeURIComponent(browseReturn(first(sp.ret))!)}` : ''}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
       paper={{ catalog: paperCatalog, examId, no: item.no }}
       gate={{
         answer: item.answer != null && !item.answer_unknown ? item.answer : null,
@@ -298,7 +304,7 @@ export default async function CsatItemTheaterPage({
           </p>
           {panel}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
-            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}${parseHomeTask(first(sp.task)) ? `&task=${encodeURIComponent(parseHomeTask(first(sp.task))!)}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
               확인을 마쳤으면 해설 보기 →
             </a>
           </p>

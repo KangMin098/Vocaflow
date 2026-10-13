@@ -164,7 +164,11 @@ test.describe('재설계 뒤에만', () => {
   test('홈에 제작 공정 지표가 없다(채움 현황 · 갖춘 것 · 계열 이름 %)', async ({ browser }) => {
     const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
     const page = await ctx.newPage()
+    // v3 M1 — /csat 는 지도 홈, 유형 · 함정 표는 옛 주소(?need= · ?tab=trap)에만 남았다. 둘 다 제작 공정 지표가 없어야 한다
     await page.goto('/csat', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('csat-home')).toBeVisible({ timeout: 90_000 })
+    for (const t of ['채움 현황', '갖춘 것', '계열 이름', '예시 있음', '오답 3']) await expect(page.getByText(t, { exact: false })).toHaveCount(0)
+    await page.goto('/csat?need=killer', { waitUntil: 'domcontentloaded' })
     await expect(page.getByRole('tab', { name: /유형/ }).first()).toBeVisible({ timeout: 90_000 })
     for (const t of ['채움 현황', '갖춘 것', '계열 이름', '예시 있음', '오답 3']) await expect(page.getByText(t, { exact: false })).toHaveCount(0)
     await page.screenshot({ path: path.join(SHOTS, 'after-csat-home-1440.png'), fullPage: true })

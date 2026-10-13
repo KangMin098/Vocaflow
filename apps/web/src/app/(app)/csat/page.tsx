@@ -11,14 +11,26 @@
 //    풀스크린 목록에 없으므로 그 프레임은 그대로 통과한다(= 화면이 뷰포트를 통째로 갖는다).
 //    진입 계측은 그 layout 의 `ScreenViewTracker group="app"` 이 맡는다(D2).
 //
+// **v3 M1(2026-10-13) — 쿼리 없는 `/csat` 는 「내 학습 지도」 홈**(HomeLanding · 첫 제안 + 핵심 학습 지도 + 내 자료 + 기출 탐구).
+//   옛 주소 `?need=<목적>` · `?tab=trap` · `?view=continue` 는 옛 URL 전용으로 기존 SpaceScreen 그대로 연다. 무효 need 는 지도 홈.
+//   지도 loader 오류는 오류로(기록 0 으로 삼키지 않는다) · null(미설치 · 시드 전)은 준비 중.
+//
 // 서버가 하는 일: 회차 이름 목록(구운 JSON) + 문항 → 유형 표(서가 카탈로그, 캐시). 표의 수치는
 // 클라이언트가 구운 `trap-atlas.json` 에서 읽는다. 학습 기록은 브라우저가 기기 + `/api/csat/state` 에서 읽는다.
 
 import type { Metadata } from 'next'
 
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { redirect } from 'next/navigation'
+
 import type { NeedId } from '@/components/csat/home/CsatRail'
+import { HomeLanding } from '@/components/csat/home/HomeLanding'
 import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
-import { loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
+import { learnerSession, loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
+import { parseHomeReturn, parseHomeTask, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
+import { learnerPath } from '@/lib/csat/map/learner-path'
+import { loadMapPage, type MapPageData } from '@/lib/csat/map/load'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
 import { spaceHeadline } from '@/lib/csat/space-model'
 import { loadTrapExamples } from '@/lib/csat/trap-atlas-examples'
@@ -42,6 +54,9 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const params = await searchParams
   const needParam = one(params.need)
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
+  // 옛 URL 전용 — 목적(need) · 함정 탭(tab=trap) · 유형 탭(tab=type) · 이어서(view=continue). 하나라도 있으면 옛 화면 그대로
+  const legacy = need !== null || one(params.view) === 'continue' || one(params.tab) === 'type'
+  if (!legacy) return <MapHome from={one(params.from)} item={one(params.item)} task={one(params.task)} />
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
   const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
   // 함정 예시는 서버에서 보류 필터 뒤 — 식별 칸(문항 · 회차 · 번호 · 유형)만 넘긴다(오답 번호 · 이유는 싣지 않는다 · Reveal Gate G3)
@@ -60,4 +75,28 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
       trapExamples={trapExamples}
     />
   )
+}
+
+/** 내 학습 지도 홈 — 지도 데이터는 진단 화면과 같은 loader(관리 클라이언트 · 본인 id) */
+async function MapHome({ from, item, task }: { from?: string; item?: string; task?: string }) {
+  const { userId } = await learnerSession()
+  if (!userId) redirect('/login?next=/csat')
+  const exams = await railExams()
+  let map: MapLoadState = 'preparing'
+  let mapData: MapPageData | null = null
+  try {
+    mapData = await loadMapPage(createAdminClient() as unknown as SupabaseClient, userId, new Date())
+    // 보류 판정 실패는 오류(기록 0 으로 삼키지 않는다) · 보류 시험 기록은 권한 · 보류 안내
+    map = !mapData ? 'preparing' : mapData.heldGate === 'failed' ? 'error' : mapData.heldGate === 'held' ? 'withheld' : 'ok'
+  } catch {
+    map = 'error'
+  }
+  // 핵심 지도가 이미 고른 초점(목표가 없으면 지도 카드가 「목표 정하기」 를 먼저 보인다) — 홈은 다시 판정하지 않는다
+  const focusKind: HomeFocusKind | null = mapData ? (mapData.model.goalSet ? learnerPath(mapData.model, mapData.settings).focus.kind : 'goal') : null
+  const slug = parseHomeReturn(from, item)
+  const exam = slug ? exams.find((e) => e.exam_id === slug.slice(0, slug.lastIndexOf('-'))) : null
+  const returned = slug ? { slug, label: exam ? `${exam.label} ${slug.slice(slug.lastIndexOf('-') + 1)}번` : '방금 본 문항' } : null
+  // 지도에서 시작한 과제로 돌아온다(과제 키 형식만 · 지도에 그 과제 칸이 있으면 홈이 그 자리로 스크롤 · 표시)
+  const returnTask = returned ? parseHomeTask(task) : null
+  return <HomeLanding exams={exams} map={map} mapData={mapData} focusKind={focusKind} returned={returned} returnTask={returnTask} />
 }

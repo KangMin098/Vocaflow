@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 
 import { CsatWorkspace, type BrowseEntry } from '@/components/csat/browse/CsatWorkspace'
 import { loadBrowseCatalog } from '@/lib/csat/browse'
+import { parseBrowseParams } from '@/lib/csat/browse-url'
 import { railExams } from '@/lib/csat/rail-data'
 
 export const metadata: Metadata = { title: '전체 서가 — 기출분석공간', description: '수능·모의평가 기출을 유형·회차·목적으로 골라 근거와 오답 설계를 봅니다.' }
@@ -16,15 +17,8 @@ const one = (v: string | string[] | undefined) => (typeof v === 'string' ? v : u
 
 export default async function CsatBrowsePage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const [browse, params] = await Promise.all([loadBrowseCatalog(), searchParams])
-  const status = one(params.status)
-  const from = Number(one(params.from))
-  const entry: BrowseEntry = {
-    type: one(params.type),
-    exam: one(params.exam),
-    status: status === 'map' || status === 'lecture' ? status : undefined,
-    from: Number.isInteger(from) && from > 2000 && from < 2100 ? from : undefined,
-    query: one(params.q)?.slice(0, 40),
-  }
+  // 기출 탐구 조건(v3 M1) — 목적 · 유형 · 회차 · 상태 · 학년도 · 출처 · 학년 · 검색어. 닫힌 값만(browse-url)
+  const entry: BrowseEntry = parseBrowseParams(Object.fromEntries(Object.entries(params).map(([k, v]) => [k, one(v)])))
   // 쿼리가 바뀌면 다시 세운다 — 메뉴의 유형 · 회차 · 목적 링크는 같은 경로 안의 이동이다
   return <CsatWorkspace key={JSON.stringify(entry)} browse={browse} exams={await railExams()} entry={entry} />
 }

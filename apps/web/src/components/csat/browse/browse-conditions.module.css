@@ -1,0 +1,23 @@
+/* apps/web/src/components/csat/browse/browse-conditions.module.css
+ * 기출 탐구 조건(목적 · 거르기) — 3B 참조 대응(docs/design/refs/3b/home-browse/spec.json). 값은 변수로만.
+ * 공용 home.module.css 의 .chip 은 다른 화면도 쓰므로 이 범위 안에서만 덮는다(누름 대상 44px · 알약 반경 · 테두리 · 먹색 선택).
+ */
+.conditions {
+  --bc-field-bg: #ffffff;
+  --bc-field-border: #e2e1e0;
+  --bc-primary-bg: #0d0d17;
+  --bc-primary-fg: #fcf9f5;
+  --bc-radius-pill: 9999px;
+  --bc-min-target: 44px;
+}
+.conditions :is(button, a, select) {
+  min-height: var(--bc-min-target);
+  border-radius: var(--bc-radius-pill);
+  border-color: var(--bc-field-border);
+  background-color: var(--bc-field-bg);
+}
+.conditions button[aria-pressed='true'] {
+  background-color: var(--bc-primary-bg);
+  border-color: var(--bc-primary-bg);
+  color: var(--bc-primary-fg);
+}

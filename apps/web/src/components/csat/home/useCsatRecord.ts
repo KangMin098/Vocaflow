@@ -45,7 +45,9 @@ export function useCsatRecord({ readOnly = false }: { readOnly?: boolean } = {})
     let alive = true
     void loadSyncedDissectionRecord().then(async ({ record, synced }) => {
       const now = Date.now()
-      const settled = await settleRecord(record, now, { readOnly, save: saveDissectionRecord })
+      // 정리된(언마운트 · 개발 StrictMode 의 첫) 실행은 압축본을 저장하지 않는다 — 저장하면 다음 실행이 압축본을 다시 읽어
+      // 「밀린 9개 중 오늘은 3개」 가 「오늘 3개」 로 줄어든다(csat-continuity C4 · 2026-10-13 원인 확인). 저장은 살아 있는 실행 한 번만.
+      const settled = await settleRecord(record, now, { readOnly: readOnly || !alive, save: saveDissectionRecord })
       if (alive) setState({ record: settled.record, synced, dueBefore: settled.dueBefore, now })
     })
     return () => {
