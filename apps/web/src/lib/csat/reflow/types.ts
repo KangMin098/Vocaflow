@@ -30,6 +30,8 @@ export interface PageFrags {
   frags: PdfFrag[]
   /** 그리기 명령에서 모은 가로 선 — 없으면(옛 호출) 빈칸을 복원하지 않는다 */
   lines?: HLine[]
+  /** 밑줄 위치용 가로 선(4pt 이상 · F08) — 원본 크롭 위 표시에만 쓴다. 없으면 lines 로 계산한다 */
+  markLines?: HLine[]
 }
 
 /** 커밋된 좌표 색인(`anchor-data/<회차>.json`)에서 reflow 가 쓰는 부분 */

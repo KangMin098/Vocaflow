@@ -15,7 +15,8 @@ import { RotateCcw } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 
 import { PaperDrop } from '@/components/csat/session/PaperDrop'
-import { cropOf, readPaper } from '@/lib/csat/reflow/read-paper'
+import { cropEntryOf, readPaper } from '@/lib/csat/reflow/read-paper'
+import { cropMarkView, type CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
 import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
 import type { CachedPaper } from '@/lib/csat/reflow/types'
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
@@ -52,13 +53,15 @@ export interface PaperPassage {
   status?: 'loading' | 'missing' | 'unreadable' | 'ready'
 }
 
-export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = null }: {
+export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = null, mark = null }: {
   catalog: LearnerCatalog
   examId: string
   no: number
   onPassageChange?: (value: PaperPassage) => void
   /** v3.1 원문 대조로 찾은 구절(지문 문자열 범위) — 기기 문제지 글자 위에만 표시한다 */
   highlight?: { start: number; end: number } | null
+  /** F08 — 원본 크롭 위에 짚을 밑줄: 고른 선지(choice) 또는 함축 밑줄 어구(implied). 대응이 확실할 때만 그린다 */
+  mark?: CropMarkRequest | null
 }) {
   // null = 여는 중 · 'missing' = 기기에 이 회차 추출본이 없다
   const [paper, setPaper] = useState<CachedPaper | 'missing' | null>(null)
@@ -90,6 +93,11 @@ export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = nu
     onPassageChange?.({ itemId: `${examId}#${no}`, passage, status })
   }, [examId, no, passage, status, onPassageChange])
   const markRef = useRef<HTMLElement>(null)
+  const underlineRef = useRef<HTMLSpanElement>(null)
+  const markKey = mark ? (mark.kind === 'choice' ? `c${mark.n}` : 'i') : ''
+  useEffect(() => {
+    underlineRef.current?.scrollIntoView({ block: 'nearest' })
+  }, [markKey, paper])
   useEffect(() => {
     markRef.current?.scrollIntoView({ block: 'nearest' })
   }, [highlight?.start, highlight?.end])
@@ -136,12 +144,28 @@ export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = nu
   )
 
   if (!item.ok || item.needsOriginal) {
-    const crop = cropOf(examId, no)
+    // 크롭과 밑줄 위치는 같은 PDF(해시)에서 함께 만든 것만 — 다른 문제지의 좌표를 이 크롭에 얹지 않는다
+    const entry = cropEntryOf(examId, no)
+    const crop = entry && paper !== 'missing' && entry.sha === paper.sha256 ? entry : null
+    const view = cropMarkView(crop?.marks ?? null, mark, item.choices)
     return (
       <div data-testid="item-paper-crop">
         {crop ? (
-          // eslint-disable-next-line @next/next/no-img-element -- 탭 메모리의 data URL(서버 이미지 아님)
-          <img className={styles.paperCrop} src={crop} alt={`${no}번 문항 — 문제지 그대로`} />
+          <div className={styles.paperCropWrap} data-testid="paper-crop-frame">
+            {/* eslint-disable-next-line @next/next/no-img-element -- 탭 메모리의 data URL(서버 이미지 아님) */}
+            <img className={styles.paperCrop} src={crop.url} alt={`${no}번 문항 — 문제지 그대로`} />
+            {/* 위치는 크롭 이미지 비율(%) — 확대 · 축소 · 문제지 폭 조절에도 같은 자리 */}
+            {view.rects.map((r, i) => (
+              <span
+                key={i}
+                ref={i === 0 ? underlineRef : undefined}
+                className={styles.paperUnderline}
+                style={{ left: `${r.left * 100}%`, top: `${r.top * 100}%`, width: `${r.width * 100}%`, height: `${r.height * 100}%` }}
+                data-testid="paper-underline"
+                aria-hidden="true"
+              />
+            ))}
+          </div>
         ) : (
           <p className={styles.quiet}>{item.originalUnavailable
             ? '원본 문제 영역을 표시하지 못했어요. PDF를 직접 열어 확인하거나 다른 문제지를 놓아 주세요.'
@@ -149,6 +173,11 @@ export function ItemPaper({ catalog, examId, no, onPassageChange, highlight = nu
               ? '밑줄·도표를 원본으로 확인하려면 문제지를 다시 놓아 주세요.'
               : '이 문항은 글자를 온전히 뽑지 못했어요. 문제지를 다시 놓으면 종이 그대로 보여 줘요.'}</p>
         )}
+        {crop && view.label ? (
+          <p className={view.rects.length ? styles.paperMarkNote : styles.quiet} data-testid="paper-underline-note" data-state={view.state} role="status">
+            {view.label}
+          </p>
+        ) : null}
         {again}
       </div>
     )

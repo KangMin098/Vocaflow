@@ -56,7 +56,11 @@ const apply = (m: number[], x: number, y: number) => [m[0] * x + m[2] * y + m[4]
  * 그리기 명령 → 쪽 좌표의 가로 선. pdf.js 6.x 는 선을 **가는 채움 사각형**으로 그리고
  * `constructPath` 인자의 마지막에 경계 상자 `[x0, y0, x1, y1]` 를 준다(지역 좌표 — CTM 을 따라간다).
  */
-export function hlinesOfOps(ops: Ops, OPS: OpCodes): HLine[] {
+/** 빈칸 복원용 선 최소 폭(기존 값 그대로) · 밑줄 위치용 최소 폭(한 글자 밑줄 he · I 가 8pt 안팎 — F08 파일럿) */
+export const BLANK_LINE_MIN = 12
+export const MARK_LINE_MIN = 4
+
+export function hlinesOfOps(ops: Ops, OPS: OpCodes, minWidth = BLANK_LINE_MIN): HLine[] {
   const out: HLine[] = []
   const stack: number[][] = []
   let ctm = [1, 0, 0, 1, 0, 0]
@@ -73,7 +77,7 @@ export function hlinesOfOps(ops: Ops, OPS: OpCodes): HLine[] {
       const [bx, by] = apply(ctm, mm[2], mm[3])
       const w = Math.abs(bx - ax)
       const h = Math.abs(by - ay)
-      if (h < 1.6 && w >= 12) out.push({ x0: Math.min(ax, bx), x1: Math.max(ax, bx), y: (ay + by) / 2 })
+      if (h < 1.6 && w >= minWidth) out.push({ x0: Math.min(ax, bx), x1: Math.max(ax, bx), y: (ay + by) / 2 })
     }
   }
   return out

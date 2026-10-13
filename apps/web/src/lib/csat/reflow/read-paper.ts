@@ -10,8 +10,9 @@
 // 그 그림은 이 탭의 메모리에만 둔다 — 기기에 남기는 것은 글과 해시뿐이다(C7).
 
 import { detectAnchors, examIdFromText } from './detect'
-import { fragsOfContent, hlinesOfOps } from './pdf-frags'
-import { REFLOW_VERSION, reflowExam } from './reflow'
+import { MARK_LINE_MIN, fragsOfContent, hlinesOfOps } from './pdf-frags'
+import { CROP_PAD, CROP_PAD_TOP, CROP_SCALE, cropRects, markerKindOf, paperMarks, type CropRect, type MarkerKind } from './paper-marks'
+import { REFLOW_VERSION, VISUAL_PAPER_TYPES, reflowExam } from './reflow'
 import type { CachedPaper, PageFrags, ReflowAnchors, ReflowBox, ReflowItem } from './types'
 
 type PdfDoc = {
@@ -29,8 +30,48 @@ type PdfPage = {
 }
 
 /** 탭 메모리의 크롭 — `exam#no` → data URL */
-const crops = new Map<string, string>()
-export const cropOf = (examId: string, no: number) => crops.get(`${examId}#${no}`) ?? null
+/** 원본 크롭 + 그 크롭 위 밑줄 위치(F08) — 탭 메모리만. 같은 PDF 해시 · 회차 · 문항에 묶여 함께 생기고 함께 지워진다 */
+export interface CropEntry {
+  sha: string
+  url: string
+  /** 크롭 이미지 비율 좌표. null = 계산하지 않음(여러 쪽 문항 · 계산 실패) — 화면은 이유를 말한다 */
+  marks: CropMarks | null
+}
+export interface CropMarks {
+  kind: MarkerKind
+  /** 기호 번호(①~⑤ 또는 (a)~(e) 순번) → 그 밑줄 사각형들. 대응 확정분만 */
+  byMarker: Record<number, CropRect[]>
+  /** 함축 밑줄(기호 없음) — 묶음이 정확히 하나일 때만 */
+  implied: CropRect[] | null
+  /** 기호 번호 → 표시하지 않은 이유 */
+  issues: Record<number, 'no_underline' | 'ambiguous_underline'>
+  /** 문항 단위 이유(implied_groups · marker_count · unclaimed_underline · multi_page) */
+  itemIssues: string[]
+}
+const crops = new Map<string, CropEntry>()
+/** 원본 위 밑줄을 짚는 유형 — 원본 크롭 유형(VISUAL_PAPER_TYPES)에서 도표를 뺀 것 */
+export const UNDERLINE_TYPES: ReadonlySet<string> = new Set([...VISUAL_PAPER_TYPES].filter((t) => !t.endsWith('CHART')))
+export const cropOf = (examId: string, no: number) => crops.get(`${examId}#${no}`)?.url ?? null
+export const cropEntryOf = (examId: string, no: number): CropEntry | null => crops.get(`${examId}#${no}`) ?? null
+
+/** 원본 크롭 위 밑줄 위치 — 여러 쪽에 걸친 문항은 검증 전이라 계산하지 않는다(F08 수용 기준 5) */
+export function cropMarksOf(pages: PageFrags[], boxes: ReflowBox[], gutter: number, type: string | null): CropMarks | null {
+  const kind = markerKindOf(type)
+  // 밑줄 유형만 — 도표(R-CHART)는 원본 표시만(선지 근처 수평선이 조건을 채워도 강조하지 않는다)
+  if (!type || !UNDERLINE_TYPES.has(type)) return { kind: 'none', byMarker: {}, implied: null, issues: {}, itemIssues: ['not_underline_type'] }
+  if (new Set(boxes.map((b) => b.p)).size > 1) return { kind, byMarker: {}, implied: null, issues: {}, itemIssues: ['multi_page'] }
+  const r = paperMarks(pages, boxes, gutter, kind)
+  const byMarker: Record<number, CropRect[]> = {}
+  const issues: CropMarks['issues'] = {}
+  let implied: CropRect[] | null = null
+  for (const m of r.marks) {
+    const rects = m.segs.length ? cropRects(m.segs, boxes, pages, gutter, 'underline') : []
+    if (m.n === null) implied = rects.length === m.segs.length && rects.length ? rects : null
+    else if (m.state === 'exact' && rects.length === m.segs.length && rects.length) byMarker[m.n] = rects
+    else issues[m.n] = m.issue ?? 'no_underline'
+  }
+  return { kind, byMarker, implied, issues, itemIssues: r.issues }
+}
 
 export async function sha256Hex(buf: ArrayBuffer): Promise<string> {
   const d = await crypto.subtle.digest('SHA-256', buf)
@@ -55,13 +96,17 @@ async function framesOf(doc: PdfDoc): Promise<PageFrags[]> {
     const content = await page.getTextContent()
     // 빈칸은 그린 선이다 — 선을 함께 모아야 reflow 가 빈칸을 복원한다(REFLOW_VERSION 2)
     const { OPS } = await import('pdfjs-dist')
-    const lines = hlinesOfOps(await page.getOperatorList(), OPS)
-    pages.push({ p, w: vp.width, h: vp.height, frags: fragsOfContent(content.items), lines })
+    const ops = await page.getOperatorList()
+    const lines = hlinesOfOps(ops, OPS)
+    // 밑줄 위치용(4pt) — 같은 변환 · 최소 폭만 다르다. 빈칸 복원은 위 lines(12pt) 그대로
+    const markLines = hlinesOfOps(ops, OPS, MARK_LINE_MIN)
+    pages.push({ p, w: vp.width, h: vp.height, frags: fragsOfContent(content.items), lines, markLines })
   }
   return pages
 }
 
-const SCALE = 2.5
+// 크롭 배율 · 여백은 밑줄 위치 계산(paper-marks.cropRects)과 한 출처 — 어긋나면 표시가 빗나간다
+const SCALE = CROP_SCALE
 
 /** 추출 실패 문항 — 그 문항이 차지한 단 조각을 2.5배로 그린다. 여러 조각이면 세로로 잇는다. */
 async function renderCrop(doc: PdfDoc, pages: PageFrags[], boxes: ReflowBox[], gutter: number): Promise<string | null> {
@@ -74,7 +119,7 @@ async function renderCrop(doc: PdfDoc, pages: PageFrags[], boxes: ReflowBox[], g
     const left = b.col === 0 ? 0 : gutter
     const right = b.col === 0 ? gutter : pg.w
     const w = Math.max(1, (right - left) * SCALE)
-    const h = Math.max(1, (b.top - b.bottom + 8) * SCALE)
+    const h = Math.max(1, (b.top - b.bottom + CROP_PAD) * SCALE)
     const c = document.createElement('canvas')
     c.width = Math.round(w)
     c.height = Math.round(h)
@@ -82,7 +127,7 @@ async function renderCrop(doc: PdfDoc, pages: PageFrags[], boxes: ReflowBox[], g
     if (!ctx) continue
     const vp = page.getViewport({ scale: SCALE })
     // PDF 좌표(왼아래 원점) → 캔버스: 위 끝(top)이 0 이 되게 옮긴다
-    const topPx = (pg.h - b.top - 4) * SCALE
+    const topPx = (pg.h - b.top - CROP_PAD_TOP) * SCALE
     await page.render({ canvasContext: ctx, viewport: vp, transform: [1, 0, 0, 1, -left * SCALE, -topPx] }).promise
     parts.push(c)
   }
@@ -122,6 +167,8 @@ export async function readPaper(file: File, opt: ReadOptions): Promise<ReadResul
     return { kind: 'error', reason: 'not-pdf', message: 'PDF 파일이 아니에요.' }
   }
   const sha = await sha256Hex(buf)
+  // 다른 문제지를 읽기 시작했다 — 성공 여부와 무관하게 이전 크롭 · 좌표는 버린다(같은 PDF 해시 결속 · F08 수용 기준 2)
+  crops.clear()
 
   let known: { exam_id: string; anchors: ReflowAnchors } | null = null
   try {
@@ -159,7 +206,16 @@ export async function readPaper(file: File, opt: ReadOptions): Promise<ReadResul
         } catch {
           // One failed original crop must not discard other readable items.
         }
-        if (url) crops.set(`${examId}#${it.no}`, url)
+        // 위치는 크롭이 생겼을 때만 · 같은 PDF 의 같은 쪽 조각으로(계산 실패는 위치 없이 크롭만)
+        let marks: CropMarks | null = null
+        if (url) {
+          try {
+            marks = cropMarksOf(pages, it.boxes, gutterX, opt.typeOf(examId, it.no))
+          } catch {
+            marks = null
+          }
+        }
+        if (url) crops.set(`${examId}#${it.no}`, { sha, url, marks })
         else {
           it.originalUnavailable = true
           if (it.ok) failed += 1

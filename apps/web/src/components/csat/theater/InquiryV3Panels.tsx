@@ -24,7 +24,7 @@ function EvidenceButton({ sentences, label, onEvidence, linkable, selected }: { 
   const text = `${sentences.join(' · ')}번 문장`
   if (!linkable) return <span className={styles.quiet}>{text}(문장 대응 확인 중)</span>
   return (
-    <button type="button" className={styles.evidenceBtn} aria-pressed={selected} onClick={() => onEvidence(sentences, label)} data-testid="v3-evidence">
+    <button type="button" className={styles.evidenceBtn} aria-pressed={selected} onClick={() => onEvidence(sentences, label)} data-testid="v3-evidence" data-key={label}>
       근거 {text} 보기
     </button>
   )

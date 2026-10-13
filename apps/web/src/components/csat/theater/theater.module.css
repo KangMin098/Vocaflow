@@ -124,6 +124,12 @@
 .paperChoices li:hover { background: var(--bg3); }
 .paperChoices li > span:first-child { flex-shrink: 0; color: var(--t3); }
 .paperCrop { width: 100%; height: auto; border: 1px solid var(--bd); border-radius: 10px; background: #fff; }
+/* F08 — 원본 크롭 위 밑줄 강조(크롭 비율 좌표 · 확대/축소 무관). 색 + 아래 굵은 선(형태)으로 */
+.paperCropWrap { position: relative; }
+.paperCropWrap .paperCrop { display: block; }
+.paperUnderline { position: absolute; pointer-events: none; border-radius: 3px; background: color-mix(in srgb, var(--p) 20%, transparent); box-shadow: inset 0 -3px 0 var(--p), 0 0 0 1.5px color-mix(in srgb, var(--p) 45%, transparent); }
+.paperMarkNote { margin-top: 6px; font-size: 12.5px; color: var(--t2); }
+@media (prefers-reduced-motion: no-preference) { .paperUnderline { transition: opacity var(--dur-normal) var(--ease); } }
 .paperAgain {
   display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; min-height: 32px; margin-top: 4px;
   padding: 0 10px; border-radius: 999px; font-size: 11.5px; color: var(--t3);
