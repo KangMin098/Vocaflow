@@ -22,7 +22,7 @@ const USER = {
     })(),
 }
 const SHOTS = path.resolve('test-results-csat-learner/v3-m1')
-const KINDS = ['error', 'return', 'resume', 'goal', 'check', 'no_records', 'records_only', 'preparing']
+const KINDS = ['error', 'withheld', 'return', 'resume', 'continue_check', 'continue_plan', 'goal', 'check', 'no_records', 'records_only', 'preparing']
 
 test.describe.configure({ mode: 'serial' })
 test.setTimeout(300_000)
@@ -141,6 +141,38 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('home-return-task')).toHaveAttribute('data-found', 'true', { timeout: 60_000 })
     await expect(page.locator(`[data-task="${taskKey}"][data-returned="true"]`).first()).toBeInViewport()
     await page.screenshot({ path: `${SHOTS}/${width}-3b-return-task.png` })
+
+    // M1 후속 — 지도 활동 복원: 지도에서 나가는 확인 · 활동 문항 링크는 from=map 을 싣는다
+    await page.goto('/csat', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('home-map')).toHaveAttribute('data-map', 'ok', { timeout: 60_000 })
+    const outs = await page.locator('[data-testid="home-map"] a[href^="/csat/item/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')!))
+    for (const h of outs.filter((x) => /[?&](check=1|task=)/.test(x))) expect(h, h).toContain('from=map')
+    // 실제 학습 묶음 · 단계 하나로 왕복: 문항 → 「학습 지도로」 가 ws · step 을 싣고, 홈이 그 단계 시트 · 묶음을 다시 연다
+    const ws = await page.locator('[data-testid="home-map"] [data-ws^="ws."]').last().getAttribute('data-ws')
+    const step = await page.locator('[data-testid="home-map"] [data-step]').first().getAttribute('data-step')
+    expect(ws, '테스트 계정 지도에 학습 묶음이 있어야 한다').toBeTruthy()
+    expect(step, '테스트 계정 지도에 단계가 있어야 한다').toBeTruthy()
+    await page.goto(`/csat/item/2026-34?scene=task&from=map&task=${encodeURIComponent(taskKey!)}&ws=${ws}&step=${step}`, { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', `/csat?from=item&item=2026-34&task=${encodeURIComponent(taskKey!)}&ws=${ws}&step=${step}`, { timeout: 90_000 })
+    await page.getByTestId('item-back-map').click()
+    await page.waitForURL(/step=/)
+    await expect(page.locator(`[data-step-sheet="${step}"]`)).toBeVisible({ timeout: 60_000 })
+    await page.screenshot({ path: `${SHOTS}/${width}-3c-restore-step.png` })
+    await page.keyboard.press('Escape')
+    await expect(page.locator('[data-step-sheet]')).toHaveCount(0)
+    if (await page.getByTestId('plan-section').count()) await expect(page.getByTestId('plan-section')).toHaveAttribute('data-ws', ws!)
+    // 형식이 다른 문맥은 무시 — 시트가 열리지 않고 홈은 그대로
+    await page.goto('/csat?ws=https://evil.example&step=admin', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('home-map')).toHaveAttribute('data-map', 'ok', { timeout: 60_000 })
+    await expect(page.locator('[data-step-sheet]')).toHaveCount(0)
+
+    // 서가에서 들어온 문항의 비교 상대 링크도 서가 조건(ret)을 잇는다
+    const shelf = '/csat/browse?need=killer'
+    await page.goto(`/csat/item/2026-38?scene=compare&ret=${encodeURIComponent(shelf)}`, { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('v3-pair-list')).toBeVisible({ timeout: 60_000 })
+    await page.getByTestId('v3-pair-option').first().click()
+    const other = await page.getByTestId('v3-pair-go-other').getAttribute('href')
+    expect(new URL(other!, 'http://x').searchParams.get('ret')).toBe(shelf)
 
     // 복귀 문맥은 문항 slug 형식만 — 다른 값이면 일반 지도 홈
     await page.goto('/csat?from=item&item=https://evil.example', { waitUntil: 'domcontentloaded' })

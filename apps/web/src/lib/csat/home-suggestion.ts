@@ -13,7 +13,7 @@
 import type { Focus } from './map/learner-path'
 
 export type MapLoadState = 'ok' | 'preparing' | 'error' | 'withheld'
-export type HomeSuggestion = 'error' | 'withheld' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
+export type HomeSuggestion = 'error' | 'withheld' | 'return' | 'resume' | 'continue_check' | 'continue_plan' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
 /** 지도 초점 + 목표 미설정(지도 초점 카드가 「목표 정하기」 를 먼저 보이는 상태) */
 export type HomeFocusKind = Focus['kind'] | 'goal'
 
@@ -25,6 +25,8 @@ export interface HomeSuggestionInput {
   returned: boolean
   /** 기기 기록의 진행 중 세트 — 아직 못 읽었으면 null(이어서 판정을 미룬다) */
   activeSet: boolean | null
+  /** 지도에서 하던 일(lib/csat/map/home-progress) — 확인 중 과제 · 계획량에 못 미친 저장 계획. 지도가 ok 일 때만 의미 */
+  mapProgress?: { check: boolean; plan: boolean } | null
 }
 
 /** 핵심 지도 초점 → 홈 제안 종류. 초점 카드가 행동을 맡는다 */
@@ -53,6 +55,9 @@ export function pickHomeSuggestion(i: HomeSuggestionInput): HomeSuggestion {
   if (i.map === 'withheld') return 'withheld'
   if (i.returned) return 'return'
   if (i.activeSet) return 'resume'
+  // 지도에서 하던 일 — 확인을 시작한 과제가 저장 계획보다 먼저(확인 판정이 계획을 바꾼다)
+  if (i.map === 'ok' && i.mapProgress?.check) return 'continue_check'
+  if (i.map === 'ok' && i.mapProgress?.plan) return 'continue_plan'
   if (i.map === 'preparing') return 'preparing'
   return focusSuggestion(i.focusKind)
 }

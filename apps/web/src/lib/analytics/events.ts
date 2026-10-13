@@ -228,13 +228,14 @@ export type PublicEvent =
         /** 서버 사본과 합쳤나(false = 기기 기록만) */
         synced: boolean
         /** 지도 홈(v3 M1)이 고른 첫 제안 — 판정이 아니라 어떤 안내를 먼저 보였나. 옛 화면(need · tab · view)은 없음 */
-        suggest?: 'error' | 'withheld' | 'return' | 'resume' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
+        suggest?: 'error' | 'withheld' | 'return' | 'resume' | 'continue_check' | 'continue_plan' | 'goal' | 'check' | 'no_records' | 'records_only' | 'preparing'
       }
     }
   /** 「이어서」 카드 · 줄을 눌렀다 — 이어하기 사용률의 분자. */
   | {
       name: 'csat_resume_clicked'
-      props: { kind: 'set' | 'review' | 'comeback' | 'start'; from: 'home' | 'today' | 'record' }
+      /** map_check · map_plan = 지도 홈 첫 제안의 「지도에서 하던 일」(v3 M1 후속) */
+      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' }
     }
   /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
   | {

@@ -16,6 +16,7 @@ import type { DistinguishActivity } from '@/lib/csat/map/distinguish'
 import { CORE_AXES, GRADE_EXPOSURE_GUIDE } from '@/lib/csat/map/core'
 import { EVIDENCE_LABEL, JOURNEY, learnerPath, stepByKey, type StepKey, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
+import type { MapReturnCtx } from '@/lib/csat/map-return'
 
 import { EVIDENCE_GROUP_LABEL, evidenceCounts, goalSummary } from '@/lib/csat/map/goal-view'
 
@@ -26,12 +27,13 @@ import { NeedPanel } from './NeedPanel'
 import { StepSheet } from './StepSheet'
 import { useTaskDone } from './useTaskDone'
 
-export function LearnerMap({ data, detailHref, recordHref, recordsHref, asOf }: { data: MapPageData; detailHref: string; recordHref: string; recordsHref: string; asOf?: string }) {
+export function LearnerMap({ data, detailHref, recordHref, recordsHref, asOf, restore = null }: { data: MapPageData; detailHref: string; recordHref: string; recordsHref: string; asOf?: string; restore?: MapReturnCtx | null }) {
   const path = learnerPath(data.model, data.settings)
   const g = useGoal(data)
   const tasks = useTaskDone(data.doneTaskIds)
-  const [open, setOpen] = useState<{ key: StepKey; startAt?: 'check' } | null>(null)
   const all = [...path.read, ...path.listen]
+  // 지도 활동 복귀(v3 M1 후속) — 문항에서 돌아오면 나갔던 단계 시트를 다시 연다(지금 지도에 그 단계가 있을 때만)
+  const [open, setOpen] = useState<{ key: StepKey; startAt?: 'check' } | null>(() => (restore?.step && all.some((s) => s.key === restore.step) ? { key: restore.step, startAt: 'check' } : null))
   const viewOf = (k: StepKey) => all.find((s) => s.key === k) as StepView
   const focus = path.focus
 
@@ -261,7 +263,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref, asOf }: 
       </div>
 
       {/* ③ rev4 목표까지 필요한 학습 — 읽기 전용(As-Is · To-Be · 대표 Workspace). 위의 길 · 지금 할 일은 그대로 둔다 */}
-      <NeedPanel data={data} goal={g.goal} goalSet={gs.goalSet} recordHref={recordHref} asOf={asOf} />
+      <NeedPanel data={data} goal={g.goal} goalSet={gs.goalSet} recordHref={recordHref} asOf={asOf} restoreWs={restore?.ws ?? null} />
 
       {open && <StepSheet data={data} step={viewOf(open.key)} tasks={tasks} startAt={open.startAt} onClose={() => setOpen(null)} />}
     </div>

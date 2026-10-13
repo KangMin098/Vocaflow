@@ -201,6 +201,7 @@ export function AnalysisTheater({
   backHref,
   backTo = 'home',
   mapReturn = null,
+  carry = '',
   typeHref,
   next,
   source,
@@ -255,6 +256,8 @@ export function AnalysisTheater({
   backTo?: 'home' | 'browse'
   /** 학습 지도에서 들어왔으면 지도로 돌아가는 주소(v3 M4) — 탐구 이력은 독립 진단이 아니다 */
   mapReturn?: string | null
+  /** 비교 상대 문항으로 옮길 때 이어 갈 문맥(서가 조건 · 지도 복귀) — 문항 화면이 검증해 만든 쿼리 조각(`&…`) */
+  carry?: string
   /** 이 유형의 서가 — 유형을 모르면 null */
   typeHref: string | null
   next: { href: string; label: string } | null
@@ -1084,6 +1087,7 @@ export function AnalysisTheater({
                         initialPairId={initialPairId}
                         currentSlug={currentSlug}
                         fromMap={Boolean(mapReturn)}
+                        carry={carry}
                         returnTo={compareReturn}
                         onEvidence={onEvidence}
                         onClearEvidence={() => setEvidence(null)}
@@ -1095,7 +1099,7 @@ export function AnalysisTheater({
                       comparePairs.length ? (
                         <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
                           <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
-                          <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
+                          <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} carry={carry} />
                         </section>
                       ) : v3Pairs.length || pairAbsence ? null : (
                         <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="compare-empty">

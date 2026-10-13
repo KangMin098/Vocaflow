@@ -5,7 +5,10 @@
 //   정상 복귀: 「탐구에서 돌아왔어요」 · 그 문항으로 다시 가기 링크 · 오류 문구 없음
 //   e2e(csat-v3-m1)는 실제 지도 loader 로 정상 복귀만 단언한다 — loader 오류는 앱 플래그 없이 실화면에서 만들 수 없다.
 import { renderToStaticMarkup } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+// 오류 안내의 「다시 열기」 가 router.refresh 를 쓴다 — 정적 렌더에는 앱 라우터가 없으니 대역
+vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: () => undefined }) }))
 
 import { HomeLanding } from '../HomeLanding'
 
@@ -20,6 +23,22 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(html).toContain('기록이 없다는 뜻이 아니에요')
     expect(html).toContain('href="/csat/browse"')
     expect(html).not.toContain('data-testid="home-return"')
+    // 같은 주소 Link 가 아니라 다시 조회하는 버튼(라우터 캐시의 오류 화면을 다시 쓰지 않게)
+    expect(html).toMatch(/<button type="button"[^>]*data-testid="home-map-retry"/)
+  })
+  it('지도에서 하던 일 — 확인 중 과제 카드는 그 과제 · 묶음으로 지도를 다시 여는 링크', () => {
+    const progress = { check: { task: 'claim-support', name: '주장과 근거', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
+    expect(html).toContain('data-kind="continue_check"')
+    expect(html).toContain('href="/csat?task=claim-support&amp;ws=ws.evidence-locate"')
+    expect(html).not.toContain('data-testid="home-continue-plan"')
+  })
+  it('지도에서 하던 일 — 확인 중 과제가 없으면 저장 계획 카드(진행 수 · 그 묶음으로)', () => {
+    const progress = { check: null, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
+    expect(html).toContain('data-kind="continue_plan"')
+    expect(html).toContain('6개 중 2개')
+    expect(html).toContain('href="/csat?ws=ws.cohesion"')
   })
   it('정상 복귀는 탐구 복귀 카드 · 그 문항 링크 · 오류 문구 없음', () => {
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="preparing" mapData={null} focusKind={null} returned={returned} />)

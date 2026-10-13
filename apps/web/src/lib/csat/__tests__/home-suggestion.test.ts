@@ -20,6 +20,20 @@ describe('pickHomeSuggestion — 우선순위', () => {
     expect(pickHomeSuggestion({ ...base, activeSet: true })).toBe('resume')
     expect(pickHomeSuggestion(base)).toBe('check')
   })
+  it('지도에서 하던 일(v3 M1 후속) — 이어서 다음 · 지도 초점 앞, 확인 중 과제가 저장 계획보다 먼저', () => {
+    const both = { check: true, plan: true }
+    expect(pickHomeSuggestion({ ...base, mapProgress: both })).toBe('continue_check')
+    expect(pickHomeSuggestion({ ...base, mapProgress: { check: false, plan: true } })).toBe('continue_plan')
+    expect(pickHomeSuggestion({ ...base, activeSet: true, mapProgress: both })).toBe('resume')
+    expect(pickHomeSuggestion({ ...base, returned: true, mapProgress: both })).toBe('return')
+    expect(pickHomeSuggestion({ ...base, mapProgress: { check: false, plan: false } })).toBe('check')
+  })
+  it('지도가 ok 가 아니면 지도에서 하던 일을 주장하지 않는다', () => {
+    const both = { check: true, plan: true }
+    expect(pickHomeSuggestion({ ...base, map: 'preparing', mapProgress: both })).toBe('preparing')
+    expect(pickHomeSuggestion({ ...base, map: 'withheld', mapProgress: both })).toBe('withheld')
+    expect(pickHomeSuggestion({ ...base, map: 'error', mapProgress: both })).toBe('error')
+  })
   it('지도 준비 중은 오류가 아니다 — 진행 중 세트가 있으면 이어서가 먼저', () => {
     expect(pickHomeSuggestion({ ...base, map: 'preparing', focusKind: null })).toBe('preparing')
     expect(pickHomeSuggestion({ ...base, map: 'preparing', focusKind: null, activeSet: true })).toBe('resume')

@@ -27,6 +27,7 @@ import { STEP_ICON } from './icons'
 import { LifecycleStrip, PRACTICE_HREF, SkillPrescription, SkillStatusLine, StepReadiness } from './SkillPrescription'
 import p from './popup.module.css'
 import { stepGoalLink } from '@/lib/csat/map/goal-view'
+import { withMapReturn } from '@/lib/csat/map-return'
 import l from './learner.module.css'
 import type { useTaskDone } from './useTaskDone'
 
@@ -167,7 +168,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                 {decision.href && (
                   <>
                     {' '}
-                    <a href={decision.href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="learning-decision-link">
+                    <a href={withMapReturn(decision.href, { task: decision.trace.taskId ?? null, step: step.key })} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="learning-decision-link">
                       {decision.hrefLabel} →
                     </a>
                   </>
@@ -193,7 +194,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                           {t.done_when} · {t.cadence}
                         </span>
                         {(data.practiceLinks?.[t.id]?.confirm ?? (data.practiceLinks?.[t.id] ? [data.practiceLinks[t.id]] : [])).map((c) => (
-                          <a key={c.target} href={c.href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id} data-item={c.target}>
+                          <a key={c.target} href={withMapReturn(c.href, { task: t.id, step: step.key })} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id} data-item={c.target}>
                             {c.label} →
                           </a>
                         ))}

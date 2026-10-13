@@ -40,6 +40,7 @@ export function V3CompareExplorer({
   initialPairId,
   currentSlug,
   fromMap,
+  carry = '',
   returnTo,
   onEvidence,
   onClearEvidence,
@@ -52,6 +53,8 @@ export function V3CompareExplorer({
   initialPairId: string | null
   currentSlug: string
   fromMap: boolean
+  /** 문항을 옮길 때 이어 갈 문맥(`&ret=…&from=map&task=…`) — 문항 화면이 검증해 만든 값. 없으면 fromMap 만 */
+  carry?: string
   /** 다른 문항의 비교에서 넘어왔으면 그 문항으로 돌아가는 링크 */
   returnTo: { href: string; label: string } | null
   onEvidence: Evidence
@@ -118,7 +121,7 @@ export function V3CompareExplorer({
     }
   }
   const otherHref = (p: V3PairView) =>
-    `/csat/item/${p.otherSlug}?scene=compare&pair=${encodeURIComponent(p.pairId)}&back=${encodeURIComponent(currentSlug)}${fromMap ? '&from=map' : ''}`
+    `/csat/item/${p.otherSlug}?scene=compare&pair=${encodeURIComponent(p.pairId)}&back=${encodeURIComponent(currentSlug)}${carry || (fromMap ? '&from=map' : '')}`
 
   const withheldNote = hidden ? (
     <p className="break-keep text-[12.5px] text-[var(--t2)]" data-testid="v3-compare-withheld">

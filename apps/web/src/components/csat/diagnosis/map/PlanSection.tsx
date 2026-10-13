@@ -20,6 +20,7 @@ import { REASON_LABEL, applySaved, keyFor, planDrift, requestSignature, type Pla
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
+import { withMapReturn } from '@/lib/csat/map-return'
 
 import n from './needs.module.css'
 
@@ -227,7 +228,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                   </div>
                 )}
                 {p.next && !past && (
-                  <Link href={p.next.href} className={n.go} data-testid="plan-go">
+                  <Link href={withMapReturn(p.next.href, { task: p.task, ws: view.workspace })} className={n.go} data-testid="plan-go">
                     활동 시작
                   </Link>
                 )}

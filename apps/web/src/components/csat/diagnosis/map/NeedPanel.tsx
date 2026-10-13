@@ -16,6 +16,7 @@ import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { TASK_EVIDENCE_LABEL, ms, type AsIsMap, type TaskEvidence } from '@/lib/csat/map/v4/as-is'
 import { composeV4 } from '@/lib/csat/map/v4/compose'
+import { withMapReturn } from '@/lib/csat/map-return'
 import { CANON_EFFECTIVE_FROM, DOMAIN_NAME, taskOf, templateOf, type Domain } from '@/lib/csat/map/v4/definition'
 import { NEED_LABEL, type Need } from '@/lib/csat/map/v4/to-be'
 import { STAGE_BLOCKED_LABEL, STAGE_LABEL, type StageKey, type WorkspacePlan, type WorkspaceView } from '@/lib/csat/map/v4/workspace'
@@ -63,13 +64,14 @@ const wsSlug = (id: string): WsId | null => {
   return s === 'central-meaning' || s === 'option-match' || s === 'evidence-locate' || s === 'cohesion' ? s : null
 }
 
-export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: MapPageData; goal: number; goalSet: boolean; recordHref: string; asOf?: string }) {
+export function NeedPanel({ data, goal, goalSet, recordHref, asOf, restoreWs = null }: { data: MapPageData; goal: number; goalSet: boolean; recordHref: string; asOf?: string; restoreWs?: string | null }) {
   const v = useMemo(() => composeV4(data, { score: goal, set: goalSet }, asOf), [data, goal, goalSet, asOf])
   const primaryId = v?.plan.primary ? wsSlug(v.plan.primary.id) : null
   const reason = v?.plan.reason ?? null
   const shown = v !== null
   // 열린 학습계획 — 기본은 대표 묶음. TASK 를 누르면 그 TASK 를 중심으로 하는 묶음(없으면 처음 연결된 묶음)
-  const [wsSel, setWsSel] = useState<string | null>(null)
+  // 문항에서 돌아오면(v3 M1 후속) 나갔던 학습 묶음부터 — 지금 계획에 없는 id 면 아래 openWs 가 대표 묶음으로 되돌린다
+  const [wsSel, setWsSel] = useState<string | null>(restoreWs)
   // 보인 묶음 · 이유가 바뀔 때만 — 목표를 바꿔 같은 묶음이 다시 계산될 때마다 세지 않는다
   useEffect(() => {
     if (!shown) return
@@ -207,7 +209,7 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
                   </span>
                 </span>
                 {x.executable && !past ? (
-                  <Link href={x.executable.href} className={n.go} data-testid="need-go">
+                  <Link href={withMapReturn(x.executable.href, { task: x.task, ws: homeOf(x.task) })} className={n.go} data-testid="need-go">
                     확인하기
                     <ArrowRight size={13} aria-hidden="true" />
                   </Link>
@@ -306,7 +308,7 @@ function PrimaryWorkspace({ w, reason, past }: { w: WorkspaceView; reason: Works
         </Link>
       ) : w.next && slug ? (
         <Link
-          href={w.next.href}
+          href={withMapReturn(w.next.href, { ws: w.id })}
           className={n.cta}
           data-testid="need-next"
           onClick={() => track({ name: 'csat_workspace_suggestion_applied', props: { workspace: slug, stage: nextStage } })}
