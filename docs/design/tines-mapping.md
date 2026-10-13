@@ -912,3 +912,12 @@ A 단계의 끝 판정은 「같은 라우트 2회 캡처 픽셀 차 0」이었�
 
 **규칙 하나로 남긴다**: 뜨기·시차는 **자기 transform 을 이미 쓰고 있는 요소에 겹쳐 걸지 않는다**
 (겹치면 덮는다 — 합쳐지지 않는다). 한 층 안쪽의 그림에 걸거나, 자를 액자를 하나 두른다.
+
+## 30. spot 48장 개념 아이콘 재생성 — 20장만 교체 (2026-10-13)
+
+`STYLE_OBJECT` 를 개념 아이콘 구성으로 바꾼 뒤(5회차 교체 0 의 후속) Kaggle `illo-kaggle.mjs --quality` 로 48장 전부 다시 그렸다(커널 `vocaflow-spot-r6a` · `r6b` 각 24장, 약 7시간).
+기준은 **원본보다 확실히 나은 것만 개별 교체** — 원본과 새 그림 · 96px 축소를 나란히 놓은 비교판으로 골랐다.
+
+- **교체 20**: cat-cert · cat-high · cat-middle · cat-theme · comic · dictionary · loading · pat-condition · pat-contrast · pat-negate · pat-purpose · pat-trade · quiz · settings · teacher · topic-data · topic-easy · topic-talk · topic-travel · vault (바탕 투명 61–88%).
+- **유지 28** — 새 그림의 결함 유형: 바탕 사각 면이 남음(calendar · business · elem · roots · empty-page · empty-shelf · locked · spellforge · topic-science · review-done · flashcard) · 바닥 띠 · 방 장면(echomatch · memory · offline · welcome · reading · lost · error) · 원형 배경(direction) · 얼굴(pat-restate) · 원본보다 의미가 약함(pairflip · pat-examples · dashboard · listening · search · wordblitz · empty-vault · topic-radio).
+- 개념 구성 문구에도 **장면 바탕(바닥 · 벽 · 사각 면)** 은 계속 나온다 — 다음 회차는 유지 28장만 `--variants 3` 로 고르기.
