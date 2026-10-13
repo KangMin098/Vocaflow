@@ -25,7 +25,7 @@
 | F05 lure · preserved/altered | 786문항 v1 · v3 선지 칸 독립 검수 verified | `inquiry-validate-v3` · 공개 가드 | 문항 성립 장면(순서 · 어법 · 도표) | 실제 학생 유인 효과 미확인 | 교육 검증(§4) |
 | F06 앵커 · 근거 참조 | 의미 · 판단 · 설계 · 비교의 근거 버튼 → 지도 문장 강조 | `42-csat-item-map` 12/12 | 비교 근거 강조/해제 · 선택 변경 시 해제 | — | 유지 |
 | F07 문장 분할 결속 | units_hash 결속 · 분할 다르면 연결 끔 · 비교 양쪽 결속 대조 | `compare-v3-binding`(CI) · `compare-v3.test` | — | — | 유지 |
-| F08 focus/target 범위 | 지도 강조 · 학습자 선택 우선 | `42-csat-item-map` · m5 E2E | 강조 상태 문구 | 밑줄 · 도표 영역 강조 미구현 | 후속 |
+| F08 focus/target 범위 | 지도 강조 · 학습자 선택 우선 · **원본 크롭 위 밑줄 강조(고른 선지 · 함축 밑줄 어구, 2026-10-13)** | `42-csat-item-map` · m5 E2E · `csat-f08-paper-marks`(직접 놓기 · 1280/1440 · 확대/폭 조절) · `paper-marks` · `crop-mark-view` 단위 | 선지 ③ · 세트 (c) · 함축 캡처 | 여러 쪽에 걸친 문항 미검증(표시 안 함 · 이유) · 그린 선이 없는 밑줄(2016#28 ③④)은 미대응 | 도표 영역 강조는 범위 밖(원본 표시만) · 감사 [F08_PILOT](./F08_PILOT.md) |
 | F09 학평 | 계약만 · 공개 보류 | — | — | 학평 v3 0 | 사용자 결정 대기 |
 | F10 도식 · 의미→발문→선지 | v3 패널 4종 + 원리 수준 · 비교 탐구 | `SceneDiagrams` · `V3CompareExplorer.test` | 7장면 · 비교 · 원리 | — | 유지 |
 | F11 도표 판독 | 도표 수치는 분석 값 근거 · limitation 명시 · 입력에 값 없으면 unknown | 공개 가드 | 2026#25 문항 성립 | 원본 도표 독립 판독 · visualHash 없음 | 도표 원본 검수 |

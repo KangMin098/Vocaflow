@@ -78,6 +78,7 @@ import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/re
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
+import type { CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
@@ -530,6 +531,9 @@ export function AnalysisTheater({
     writeMs({ unit: msUnit, depth: msDepth, rel: null })
   }
   const msActive = Boolean(ms && scene === 'meaning')
+  // F08 — 원본 크롭 위에 짚을 밑줄: 근거로 고른 선지(choice-n) · 평가 과제 장면의 함축 밑줄 어구. 대응 판정은 ItemPaper(crop-mark-view)
+  const choicePick = evidence ? /^choice-([1-5])$/.exec(evidence.key) : null
+  const paperMarkReq: CropMarkRequest | null = choicePick ? { kind: 'choice', n: Number(choicePick[1]) } : scene === 'task' ? { kind: 'implied' } : null
   const msPhraseSentence = ms && msPhrase ? ms.anchors.find((a) => a.id === msPhrase)?.sentence ?? null : null
   const msFocus = ms
     ? msPick ? [msPick.n] : msRelation ? relationSentences(ms, msRelation) : msPhraseSentence ? [msPhraseSentence] : sentencesOf(ms, msUnit)
@@ -838,7 +842,7 @@ export function AnalysisTheater({
             <span className={styles.railTime}>{examLabel}</span>
           </p>
           <div className={styles.stream}>
-            <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} highlight={msPaperMark} />
+            <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} highlight={msPaperMark} mark={paperMarkReq} />
           </div>
 
           <div className={styles.composer}>

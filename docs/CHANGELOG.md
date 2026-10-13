@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): v3 F08 — 근거로 고른 선지의 밑줄을 원본 크롭 위에 표시(함축은 평가 과제 장면에서 밑줄 어구). 문제지 PDF 의 그린 선 · 글자 좌표로만 계산(`lib/csat/reflow/paper-marks.ts`), 대응이 확실할 때만 그리고 아니면 이유 한 줄. 크롭과 좌표는 같은 PDF 해시 · 회차 · 문항의 탭 메모리 — 추출 버전 · 기기 캐시 그대로. 위치용 선 4pt · 빈칸 복원 12pt 분리(빈칸 1,305문항 main 과 동일). 전량 감사 29회차 137문항 중 130 완전 대응 · 미대응 7(네모 문항 6 · 그린 선 없는 밑줄 1) · 오탐 0(눈 대조). DB 변경 없음.
+
 - feat(csat): v3 M1 후속 — 지도 홈 첫 제안에 「지도에서 하던 일」(확인 문항을 풀기 시작했지만 확인 판정 전인 과제 → 계획량에 못 미친 저장 학습계획, 지도와 같은 `composeV4` · `applySaved` 계산 · 과거 기준/목표 미설정/읽기 실패는 추정 안 함). 지도의 확인 · 활동 문항 링크가 `from=map` + 과제 · 학습 묶음 · 단계를 싣고, 「학습 지도로」 복귀 시 그 묶음 · 단계 시트를 다시 연다(`lib/csat/map-return.ts`). 비교 상대 문항 링크도 서가 조건(`ret`) · 지도 문맥 유지 · 지도 오류 「다시 열기」 = `router.refresh()`. 이벤트는 속성만 확장(`csat_resume_clicked.kind=map_check|map_plan` · `csat_home_viewed.suggest`) — DB 변경 없음.
 
 - feat(csat): v3 M1 — 상시 메뉴 두 개(내 학습 지도 `/csat` · 기출 탐구 `/csat/browse`), `/csat` 지도 중심 홈(첫 제안 `pickHomeSuggestion` · 핵심 학습 지도 · 내 자료 · 기출 탐구 입구), 서가 목적 · 회차 조건과 주소 동기화 · 문항 「뒤로」 의 서가 조건 복귀(`?ret=`) · 「학습 지도로」 → 지도 홈 복귀 문맥. 옛 `?need=` · `?tab=trap` · `?view=continue` · `?type=` · `?exam=` 주소 보존. 이벤트는 기존 이름의 속성만 확장(`csat_path_chosen.axis=menu|purpose` · `csat_home_viewed.suggest`) — DB 변경 없음.

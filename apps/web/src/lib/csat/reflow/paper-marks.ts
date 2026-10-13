@@ -128,7 +128,7 @@ export function paperMarks(pages: PageFrags[], boxes: ReflowBox[], gutter: numbe
       r.textLeft = [...freq.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0])[0][0]
       r.textRight = Math.max(...frags.map((f) => f.x + f.w))
     }
-    const lines = (pg.lines ?? []).filter((l) => inRegion(r, r.p, (l.x0 + l.x1) / 2, l.y))
+    const lines = (pg.markLines ?? pg.lines ?? []).filter((l) => inRegion(r, r.p, (l.x0 + l.x1) / 2, l.y))
     segs.push(...underlineSegs(frags, lines, r.p, r.right - r.left))
     markers.push(...markersOf(frags, r.p, kind))
   }
@@ -175,6 +175,13 @@ export function paperMarks(pages: PageFrags[], boxes: ReflowBox[], gutter: numbe
     const c = chain(cands[0])
     c.forEach((s) => claimed.add(s))
     marks.push({ n, marker: m, segs: c, state: 'exact', issue: null })
+  }
+  // 한 밑줄 조각이 여러 기호에 붙었으면 그 기호들은 모두 모호(어느 선지의 밑줄인지 단정하지 않는다)
+  const owners = new Map<MarkSeg, PaperMark[]>()
+  for (const m of marks) for (const s of m.segs) owners.set(s, [...(owners.get(s) ?? []), m])
+  for (const ms of owners.values()) {
+    if (ms.length < 2) continue
+    for (const m of ms) Object.assign(m, { segs: [], state: 'marker_only', issue: 'ambiguous_underline' })
   }
   if (segs.some((s) => !claimed.has(s))) issues.push('unclaimed_underline')
   return { marks, issues }
