@@ -32,6 +32,7 @@ import { toItemSlug } from '@/lib/csat/item-slug'
 import type { RailExam } from '@/lib/csat/rail-data'
 
 import home from '../home/home.module.css'
+import bc from './browse-conditions.module.css'
 import styles from '../space/space.module.css'
 
 export type BrowseEntry = BrowseParams
@@ -88,6 +89,31 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
     const cur = `${window.location.pathname}${window.location.search}`
     if (cur !== here) window.history.replaceState(window.history.state, '', here)
   }, [here])
+  // 스크롤 위치 복귀(v3 M1) — 문항 칩을 누를 때 지금 조건 주소를 열쇠로 위치를 남기고, 같은 조건으로 돌아오면 그 자리로.
+  //   sessionStorage(탭 단위 · 조건 주소별)라 다른 조건 · 다른 탭에는 남지 않는다. 저장소를 못 쓰면 맨 위에서 시작한다.
+  const scrollKey = (href: string) => `csat-browse-scroll:${href}`
+  const keepScroll = () => {
+    try {
+      sessionStorage.setItem(scrollKey(here), String(Math.round(window.scrollY)))
+    } catch {
+      // 저장 실패 — 돌아오면 맨 위부터
+    }
+  }
+  useEffect(() => {
+    let y: number | null = null
+    try {
+      const raw = sessionStorage.getItem(scrollKey(`${window.location.pathname}${window.location.search}`))
+      if (raw !== null) y = Number(raw)
+      if (raw !== null) sessionStorage.removeItem(scrollKey(`${window.location.pathname}${window.location.search}`))
+    } catch {
+      y = null
+    }
+    if (y !== null && Number.isFinite(y) && y > 0) {
+      const target = y
+      requestAnimationFrame(() => window.scrollTo(0, target))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 처음 그릴 때 한 번(돌아온 조건 주소 기준)
+  }, [])
   const choosePurpose = (p: BrowsePurpose) => {
     track({ name: 'csat_path_chosen', props: { axis: 'purpose', need: p } })
     if (p === 'killer') setKiller((k) => !k)
@@ -148,6 +174,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
               ) : null}
             </div>
 
+            <div className={bc.conditions} data-testid="browse-conditions">
             {/* 목적 — 메뉴가 아니라 검색 조건(v3 M1). 처음 시작 · 오답 설계 표는 기존 화면으로 */}
             <div className={home.tools} role="group" aria-label="목적" data-testid="browse-purpose">
               {(
@@ -264,6 +291,8 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
               </p>
             </div>
 
+            </div>
+
             <div data-testid="csat-library" id="csat-results">
               {browse.error ? <p className={`${home.section} ${home.empty}`}>목록 일부를 읽지 못했어요: {browse.error}</p> : null}
               {grouped.length === 0 ? (
@@ -287,6 +316,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                         <li key={i.id}>
                           <Link
                             href={`/csat/item/${toItemSlug(i.id)}?ret=${encodeURIComponent(here)}`}
+                            onClick={keepScroll}
                             data-lecture={i.lecture}
                             data-seen={seen.has(i.id)}
                             aria-label={`${e.label} ${i.no}번 · ${typeName.get(i.type_id) ?? i.type_id}${i.points ? ` · ${i.points}점` : ''}${i.lecture ? ' · 강의 있음' : ' · 강의 없음'}${seen.has(i.id) ? ' · 연 문항' : ''}`}

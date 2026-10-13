@@ -173,7 +173,7 @@ export function HomeLanding({
               <Link className={home.secondary} href="/csat/dissect" data-testid="home-start">
                 처음이라면 3문항으로 시작
               </Link>
-              <Link className={home.primary} href="/csat/browse" data-testid="home-explore-go">
+              <Link className={`${home.primary} ${l.primary}`} href="/csat/browse" data-testid="home-explore-go">
                 기출 탐구로 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </span>

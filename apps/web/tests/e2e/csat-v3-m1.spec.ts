@@ -81,7 +81,16 @@ for (const width of [1280, 1440]) {
     await expect.poll(() => q(page, 'status')).toBe('map')
     await page.screenshot({ path: `${SHOTS}/${width}-2-browse.png` })
     const browseUrl = new URL(page.url())
-    const chip = page.locator('[data-testid="csat-library"] a').first()
+    // 목록 아래쪽 칩을 고른다 — 돌아왔을 때 스크롤 위치가 남는지 보려고
+    // 페이지를 아래로 내린 뒤 화면 가운데의 칩을 고른다 — 돌아왔을 때 스크롤 위치가 남는지 보려고
+    await page.evaluate(() => window.scrollTo(0, 1200))
+    await expect.poll(() => page.evaluate(() => Math.round(window.scrollY))).toBeGreaterThan(600)
+    const savedY = await page.evaluate(() => Math.round(window.scrollY))
+    const chipIndex = await page.locator('[data-testid="csat-library"] a').evaluateAll((els) =>
+      els.findIndex((el) => { const r = el.getBoundingClientRect(); return r.top > 120 && r.bottom < window.innerHeight - 40 }),
+    )
+    expect(chipIndex).toBeGreaterThanOrEqual(0)
+    const chip = page.locator('[data-testid="csat-library"] a').nth(chipIndex)
     const chipHref = await chip.getAttribute('href')
     expect(chipHref).toContain(`ret=${encodeURIComponent(`${browseUrl.pathname}${browseUrl.search}`)}`)
     await chip.click()
@@ -96,6 +105,10 @@ for (const width of [1280, 1440]) {
     await page.waitForURL(/\/csat\/browse/)
     await expect(page.locator('[data-purpose="killer"]')).toHaveAttribute('aria-pressed', 'true')
     await expect(page.locator('[data-purpose="evidence"]')).toHaveAttribute('aria-pressed', 'true')
+    // 스크롤 위치 복귀 — 같은 조건 주소로 돌아오면 떠날 때 자리(±40px)
+    await expect.poll(() => page.evaluate(() => Math.round(window.scrollY)), { timeout: 10_000 }).toBeGreaterThan(savedY - 40)
+    expect(Math.abs((await page.evaluate(() => Math.round(window.scrollY))) - savedY)).toBeLessThanOrEqual(40)
+    await page.screenshot({ path: `${SHOTS}/${width}-2b-browse-restored.png` })
 
     // ④ 지도에서 온 문항 → 「학습 지도로」 → 홈 복귀 첫 제안
     await page.goto('/csat/item/2026-34?scene=task&from=map', { waitUntil: 'domcontentloaded' })
@@ -105,10 +118,11 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('item-back-home')).toHaveAttribute('data-back', 'home')
     await toMap.click()
     await page.waitForURL(/\/csat\?from=item/)
-    await expect(page.getByTestId('home-suggest')).toHaveAttribute('data-kind', /^(return|error)$/, { timeout: 60_000 })
-    if ((await page.getByTestId('home-suggest').getAttribute('data-kind')) === 'return') {
-      await expect(page.getByTestId('home-return-item')).toHaveAttribute('href', '/csat/item/2026-34?from=map')
-    }
+    // 정상 복귀만 단언한다(실제 지도 loader). 지도 오류 분기는 HomeLanding.render.test 가 따로 본다
+    await expect(page.getByTestId('home-suggest')).toHaveAttribute('data-kind', 'return', { timeout: 60_000 })
+    await expect(page.getByTestId('home-map')).toHaveAttribute('data-map', 'ok')
+    await expect(page.getByTestId('home-return-item')).toHaveAttribute('href', '/csat/item/2026-34?from=map')
+    await expect(page.getByTestId('home-map-error')).toHaveCount(0)
     await page.screenshot({ path: `${SHOTS}/${width}-3-return.png` })
     // 복귀 문맥은 문항 slug 형식만 — 다른 값이면 일반 지도 홈
     await page.goto('/csat?from=item&item=https://evil.example', { waitUntil: 'domcontentloaded' })
