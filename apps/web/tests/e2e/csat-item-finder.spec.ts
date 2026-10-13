@@ -177,12 +177,27 @@ test('2. 2026#34 원문 이해 상태 · 초안 · 스크롤 — 찾기 취소 �
   await login(page)
   await page.goto('/csat/item/2026-34?scene=meaning', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('ms-panel')).toBeVisible({ timeout: 120_000 })
-  await page.locator('[data-testid="ms-unit"][data-unit="u2"]').click()
-  await page.getByTestId('ms-depth').locator('[data-depth="deep"]').click()
+  // 준비 조작은 실제로 반영될 때까지(하이드레이션 전 클릭은 버려진다) — 반영 안 된 상태끼리 비교하면 보존 검사가 공허해진다
+  await expect(async () => {
+    await page.locator('[data-testid="ms-unit"][data-unit="u2"]').click()
+    await expect(page.getByTestId('ms-explain')).toHaveAttribute('data-unit', 'u2', { timeout: 1000 })
+  }).toPass({ timeout: 60_000 })
+  await expect(async () => {
+    await page.getByTestId('ms-depth').locator('[data-depth="deep"]').click()
+    await expect(page.getByTestId('ms-depth').locator('[data-depth="deep"]')).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+  }).toPass({ timeout: 30_000 })
   await page.getByTestId('ms-draft-open').click()
   await page.getByTestId('ms-draft-text').fill('찾기 전 초안 — 남아 있어야 한다')
   await page.evaluate(() => window.scrollTo(0, 240))
   const before = { url: page.url(), y: await page.evaluate(() => Math.round(window.scrollY)), unit: await page.getByTestId('ms-explain').getAttribute('data-unit') }
+  expect(new URL(before.url).searchParams.get('meaning'), '준비: 의미 u2 가 주소에').toBe('u2')
+  expect(new URL(before.url).searchParams.get('depth'), '준비: 깊이 deep 이 주소에').toBe('deep')
+  // 컴팩트 프레임은 창이 아니라 판이 스크롤된다 — 판 위치도 보존 대상
+  const paneSel = '[data-testid="pane-explain"] [class*="blockPane"]'
+  const paneY = await page.locator(paneSel).evaluate((el) => {
+    el.scrollTop = Math.min(120, el.scrollHeight - el.clientHeight)
+    return Math.round(el.scrollTop)
+  })
 
   // 스크롤을 움직이지 않는 클릭(DOM click) — Playwright 클릭은 버튼을 먼저 화면으로 끌어와 기준 위치를 바꾼다
   await page.getByTestId('item-finder-open-btn').evaluate((el) => (el as HTMLButtonElement).click())
@@ -206,6 +221,7 @@ test('2. 2026#34 원문 이해 상태 · 초안 · 스크롤 — 찾기 취소 �
   await expect(page.getByTestId('ms-depth').locator('[data-depth="deep"]')).toHaveAttribute('aria-pressed', 'true')
   await expect(page.getByTestId('ms-draft-text')).toHaveValue('찾기 전 초안 — 남아 있어야 한다')
   expect(await page.evaluate(() => Math.round(window.scrollY))).toBe(before.y)
+  expect(await page.locator(paneSel).evaluate((el) => Math.round(el.scrollTop)), '판 스크롤').toBe(paneY)
   // 배경 클릭 · 뒤로가기도 취소
   await page.getByTestId('item-finder-open-btn').click()
   await ready(page)
@@ -301,6 +317,14 @@ test('4. 서가 — 취소 · 조건 초기화 → 적용 · 별칭 · 팝업에
   expect(page.url()).toBe(before.url)
   expect(await page.evaluate(() => Math.round(window.scrollY))).toBe(before.y)
   await expect(page.getByTestId('browse-count')).toHaveText(before.count!)
+  // 재열기 — 같은 자리 · 같은 시작 조건이면 마지막 조건(모의평가)과 검색 필드 포커스가 돌아온다(서가 주소는 그대로)
+  await page.getByTestId('browse-finder-open').evaluate((el) => (el as HTMLButtonElement).click())
+  await ready(page)
+  await expect(page.locator('[data-cond="kind-mock"]')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('item-finder-search')).toBeFocused()
+  await page.getByTestId('item-finder-cancel').click()
+  await closedClean(page)
+  expect(page.url()).toBe(before.url)
 
   // 조건 초기화(목적까지) → 서가에 적용
   await page.getByTestId('browse-finder-open').click()
@@ -574,5 +598,76 @@ test('9. 열고 닫기 반복 · 뒤로/앞으로 — history 한 칸 · 역이�
   expect(new URL(page.url()).pathname).toBe('/csat/item/2026-34')
   await page.waitForTimeout(800)
   expect(new URL(page.url()).pathname).toBe('/csat/item/2026-34')
+  saveEvidence()
+})
+
+// ── 10. 문항 왕복 뒤 복원(프레임 W3 통합) — 2번(취소 보존)과 다른 사례 ─────────────────
+test('10. 다른 문항 → 찾기 전 문항으로 · 브라우저 뒤로 — 장면 · 근거 · 판 스크롤 · 무저장 초안 복원', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await login(page)
+  await page.goto('/csat/item/2026-34?scene=explain', { waitUntil: 'domcontentloaded' })
+  const card = page.getByTestId('self-explain')
+  await expect(card).toBeVisible({ timeout: 120_000 })
+  const pick = card.locator('[role="group"] button').first()
+  await expect(async () => {
+    await pick.click()
+    await expect(pick).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+  }).toPass({ timeout: 30_000 })
+  const draft = `왕복 초안 ${Date.now()}`
+  await card.locator('textarea').first().fill(draft)
+  // 문항 성립 장면에서 근거 하나 고르고 판을 내린다
+  await page.locator('[data-testid="dock-scene"][data-scene="judgment"]').click()
+  await page.locator('button[data-choice="3"]').first().click()
+  const ev = page.locator('[data-testid="v3-evidence"][data-key="choice-3"]')
+  await ev.click()
+  await expect(ev).toHaveAttribute('aria-pressed', 'true')
+  const pane = page.locator('[data-testid="pane-explain"] [class*="blockPane"]')
+  const scrolled = await pane.evaluate((el) => {
+    el.scrollTop = Math.min(160, el.scrollHeight - el.clientHeight)
+    return Math.round(el.scrollTop)
+  })
+  const origin = page.url()
+  const target = await otherItem(page, '2026#34')
+
+  const checkRestored = async (how: string) => {
+    await theaterReady(page)
+    expect(new URL(page.url()).searchParams.get('scene'), how).toBe('judgment')
+    await expect(page.locator('[data-testid="v3-evidence"][data-key="choice-3"]'), `${how} 근거`).toHaveAttribute('aria-pressed', 'true', { timeout: 30_000 })
+    await expect(page.getByTestId('map-chosen-evidence'), `${how} 지도 강조`).toBeVisible()
+    if (scrolled > 0) {
+      await expect.poll(() => page.locator('[data-testid="pane-explain"] [class*="blockPane"]').evaluate((el) => Math.round(el.scrollTop)), { message: `${how} 판 스크롤` }).toBeGreaterThanOrEqual(scrolled - 4)
+    }
+    await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
+    await expect(page.getByTestId('self-explain').locator('textarea').first(), `${how} 무저장 초안`).toHaveValue(draft)
+    await page.locator('[data-testid="dock-scene"][data-scene="judgment"]').click()
+  }
+
+  // (a) 기출 찾기 → 다른 문항 → 「찾기 전 문항으로」
+  await page.getByTestId('item-finder-open-btn').click()
+  await ready(page)
+  await search(page, target.id)
+  await row(page, target.id).click()
+  await page.getByTestId('item-finder-open').click()
+  await page.waitForURL((u) => u.pathname === `/csat/item/${target.slug}`, { timeout: 120_000 })
+  await theaterReady(page)
+  // 다른 문항에는 원래 문항의 초안 · 근거가 넘어오지 않는다
+  await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
+  await page.getByTestId('item-finder-back').click()
+  await page.waitForURL((u) => u.pathname === '/csat/item/2026-34', { timeout: 120_000 })
+  expect(new URL(page.url()).searchParams.get('scene')).toBe('judgment')
+  await checkRestored('찾기 전 문항으로')
+
+  // (b) 다시 다른 문항 → 브라우저 뒤로
+  await page.getByTestId('item-finder-open-btn').click()
+  await ready(page)
+  await search(page, target.id)
+  await row(page, target.id).click()
+  await page.getByTestId('item-finder-open').click()
+  await page.waitForURL((u) => u.pathname === `/csat/item/${target.slug}`, { timeout: 120_000 })
+  await theaterReady(page)
+  await page.goBack()
+  await page.waitForURL((u) => u.pathname === '/csat/item/2026-34', { timeout: 120_000 })
+  await checkRestored('브라우저 뒤로')
+  evidence.roundTrip = { origin: new URL(origin).search, scrolled }
   saveEvidence()
 })

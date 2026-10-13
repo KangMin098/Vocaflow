@@ -87,6 +87,8 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('v3-pair')).toHaveCount(0) // 고르기 전에는 상세 없음
 
     // 키보드: 첫 항목에 초점 → Enter 로 선택
+    // 서버가 그린 목록에 React 처리기가 붙기 전 Enter 는 버려진다(1440 에서 간헐 실패 — 2026-10-13 측정) — 붙은 뒤 키보드 조작
+    await expect.poll(() => options.first().evaluate((el) => Object.keys(el).some((k) => k.startsWith('__reactProps'))), { timeout: 60_000 }).toBe(true)
     await options.first().focus()
     await page.keyboard.press('Enter')
     const detail = page.getByTestId('v3-pair')
@@ -118,6 +120,8 @@ for (const width of [1280, 1440]) {
     // 강조를 켠 채 Esc(목록에서) 로 선택 해제 → 강조도 꺼진다 → 다시 선택
     await page.getByTestId('v3-pair').getByTestId('v3-mapping-self').first().click()
     await expect(page.getByTestId('map-chosen-evidence')).toBeVisible({ timeout: 30_000 })
+    // 서버가 그린 목록에 React 처리기가 붙기 전 Enter 는 버려진다(1440 에서 간헐 실패 — 2026-10-13 측정) — 붙은 뒤 키보드 조작
+    await expect.poll(() => options.first().evaluate((el) => Object.keys(el).some((k) => k.startsWith('__reactProps'))), { timeout: 60_000 }).toBe(true)
     await options.first().focus()
     await page.keyboard.press('Escape')
     await expect(page.getByTestId('v3-pair')).toHaveCount(0)
@@ -185,6 +189,18 @@ for (const width of [1280, 1440]) {
     // ⑥ 학습 지도 복귀 — 링크가 지도로 간다
     // v3 M1(7c91e0c7e)부터 「학습 지도로」 는 지도 홈(/csat)에 복귀 문맥을 싣는다 — 이 기대값은 M1 이전 값이었다(main 에서도 같은 실패)
     await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', /^\/csat\?from=item&item=2026-38/)
+    // 주소만이 아니라 지도 과제 맥락(task · ws · step)이 「학습 지도로」 에 실려 홈까지 이어지는지(2026-10-13 기출 찾기 통합 검수)
+    await page.goto('/csat/item/2026-38?scene=compare&from=map&task=t.m5-check&ws=ws.read&step=evidence', { waitUntil: 'domcontentloaded' })
+    const back = page.getByTestId('item-back-map')
+    await expect(back).toBeVisible({ timeout: 60_000 })
+    const href = new URL((await back.getAttribute('href'))!, 'http://x')
+    expect(href.pathname).toBe('/csat')
+    expect(Object.fromEntries(['from', 'item', 'task', 'ws', 'step'].map((k) => [k, href.searchParams.get(k)]))).toEqual({ from: 'item', item: '2026-38', task: 't.m5-check', ws: 'ws.read', step: 'evidence' })
+    await back.click()
+    await page.waitForURL((u) => u.pathname === '/csat' && u.searchParams.get('task') === 't.m5-check', { timeout: 60_000 })
+    // 홈은 그 과제 칸을 찾거나 「못 찾았다」 고 말한다(대기로 남지 않는다) — 이 과제 id 는 지도에 없으므로 found=false 가 정상
+    await expect(page.getByTestId('home-return')).toBeVisible({ timeout: 60_000 })
+    await expect(page.getByTestId('home-return-task')).toHaveAttribute('data-found', 'false', { timeout: 30_000 })
     expect(errors, '페이지 오류').toEqual([])
   })
 }

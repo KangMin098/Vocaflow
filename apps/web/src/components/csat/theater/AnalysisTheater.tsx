@@ -81,6 +81,7 @@ import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
 import type { CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
 import { groupOf, rememberScene, type DockGroupId } from '@/lib/csat/inquiry/dock'
+import { sceneKey, tabMemory } from '@/lib/csat/item-tab-memory'
 import { EMPTY_EXPLAIN, EMPTY_NOTE, linkableEvidence, type ExplainDraft, type NoteDraft } from '@/lib/csat/explain-draft'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
@@ -495,7 +496,8 @@ export function AnalysisTheater({
   const [tab, setTab] = useState<TabId>('analysis')
   const [scene, setScene] = useState<SceneId>(initialScene)
   // v3 근거 연결 — 패널에서 고른 근거 문장(1-기반). 장면을 옮기면 비운다(다른 장면의 근거가 남아 비추지 않게)
-  const [evidence, setEvidence] = useState<{ sentences: number[]; key: string } | null>(null)
+  // 처음 근거 선택 — 이 문항 · 장면을 전에 봤으면 탭 메모리에서(문항을 다녀와도 남는다 · item-tab-memory)
+  const [evidence, setEvidence] = useState<{ sentences: number[]; key: string } | null>(() => tabMemory.scene.get(sceneKey(itemId, initialScene))?.evidence ?? null)
   const v3 = inquiry?.v3 ?? null
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
@@ -507,10 +509,32 @@ export function AnalysisTheater({
   }
   // 작업공간 W2/W3 — 장면별 근거 선택 · 오른쪽 판 스크롤을 이 탭 메모리에 문항별로 기억한다. 주소 · 뒤로가기가 장면을 정하고, 메모리는 그 장면의 선택만 되살린다.
   //   기억이 없으면(미방문) 선택 없음, 학습자가 해제했으면 해제(null) 그대로 — 자동 선택으로 덮지 않는다.
-  const sceneMem = useRef(new Map<string, { evidence: { sentences: number[]; key: string } | null; scroll: number }>())
+  //   저장 위치는 모듈 탭 메모리 — 문항 주소가 바뀌면 이 컴포넌트가 다시 마운트되므로 컴포넌트 안에 두면 왕복에서 사라진다
+  const sceneMem = useRef(tabMemory.scene)
   const memKey = (sc: SceneId) => `${itemId}|${sc}`
-  const pendingScroll = useRef<number | null>(null)
+  const pendingScroll = useRef<number | null>(tabMemory.scene.get(sceneKey(itemId, initialScene))?.scroll ?? null)
   const stashScene = () => sceneMem.current.set(memKey(scene), { evidence, scroll: blocksRef.current?.scrollTop ?? 0 })
+  // 문항을 떠날 때(언마운트) 지금 장면을 남긴다 — 판 DOM 은 이미 떨어졌으므로 스크롤은 지켜본 마지막 값, 못 봤으면 전에 남긴 값
+  const leaveState = useRef({ scene, evidence })
+  leaveState.current = { scene, evidence }
+  const seenScroll = useRef<number | null>(null)
+  useEffect(() => {
+    const el = blocksRef.current
+    if (!el) return
+    const onScroll = () => {
+      seenScroll.current = el.scrollTop
+    }
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  })
+  useEffect(
+    () => () => {
+      const k = memKey(leaveState.current.scene)
+      sceneMem.current.set(k, { evidence: leaveState.current.evidence, scroll: seenScroll.current ?? sceneMem.current.get(k)?.scroll ?? 0 })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 떠날 때 한 번(마운트 시점의 문항 키)
+    [],
+  )
   const recallScene = (sc: SceneId) => {
     const m = sceneMem.current.get(memKey(sc))
     setEvidence(m ? m.evidence : null)
@@ -521,8 +545,14 @@ export function AnalysisTheater({
   const [evidenceCollapsed, setEvidenceCollapsed] = useState(false)
   const [evidenceView, setEvidenceView] = useState<'map' | 'relation'>('map')
   // 자기 설명 · 원리 노트 초안 — 문항별 탭 메모리(장면 왕복에도 남고, 새로고침 · 탭 종료면 사라진다)
-  const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>({})
-  const [noteDrafts, setNoteDrafts] = useState<Record<string, NoteDraft>>({})
+  const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>(() => tabMemory.explain)
+  const [noteDrafts, setNoteDrafts] = useState<Record<string, NoteDraft>>(() => tabMemory.note)
+  useEffect(() => {
+    tabMemory.explain = explainDrafts
+  }, [explainDrafts])
+  useEffect(() => {
+    tabMemory.note = noteDrafts
+  }, [noteDrafts])
   const draftExplain = (fn: (d: ExplainDraft) => ExplainDraft) => setExplainDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_EXPLAIN) }))
   const draftNote = (fn: (d: NoteDraft) => NoteDraft) => setNoteDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_NOTE) }))
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
@@ -532,7 +562,11 @@ export function AnalysisTheater({
   const [msRelation, setMsRelation] = useState<string | null>(initialRelation)
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
   const [msBridge, setMsBridge] = useState(initialBridge)
-  const [msDrafts, setMsDrafts] = useState<Record<string, string>>({})
+  //   원문 이해 초안은 의미 단위 id(u1 …)가 문항마다 겹치므로 문항 키 아래에 둔다
+  const [msDrafts, setMsDrafts] = useState<Record<string, string>>(() => tabMemory.meaning[itemId] ?? {})
+  useEffect(() => {
+    tabMemory.meaning[itemId] = msDrafts
+  }, [itemId, msDrafts])
   // 지도 문장 선택 결과 — unit 이 0 개 · 여러 개일 때 이전 설명 · 관계를 접고 그 문장만 말한다(설명을 지어내지 않는다)
   const [msPick, setMsPick] = useState<{ n: number; unitIds: string[] } | null>(null)
   // 고른 구절(앵커 id) — 대조가 맞을 때만 문제지 · 지도에 표시
@@ -1380,7 +1414,11 @@ export function AnalysisTheater({
           hrefFor={(id) => finderItemHref(id, { ret: finderRet, fromMap: finder.fromMap, mapCtxQuery: finder.mapCtxQuery })}
           originHref={`${window.location.pathname}${window.location.search}`}
           onClose={() => setFinderOpen(null)}
-          onBeforeLeave={pauseLecture}
+          // 떠나기 전에 강의를 멈추고 지금 장면(근거 · 판 스크롤)을 탭 메모리에 남긴다 — 「찾기 전 문항으로」 가 되살린다
+          onBeforeLeave={() => {
+            pauseLecture()
+            stashScene()
+          }}
         />
       ) : null}
     </div>
