@@ -334,3 +334,37 @@ test('2026#38 — 비교 한 쌍 · 상대 이동 링크가 같은 쌍 · 서가
   await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-group', 'transfer')
   await page.screenshot({ path: `${SHOTS}/38-compare.png` })
 })
+
+test('검수 회귀 — 뒤로/앞으로 근거 유지 · 해제한 근거는 노트 후보 아님 · 접힌 채 마치기도 완료 안내', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await login(page)
+  await page.goto('/csat/item/2026-34?scene=judgment', { waitUntil: 'domcontentloaded' })
+  await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 120_000 })
+  const ev = page.locator('[data-testid="v3-evidence"][data-key="choice-3"]')
+  await press(page, 'button[data-choice="3"]', async () => expect(ev).toBeVisible({ timeout: 1000 }))
+  await ev.click()
+  await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
+  // 뒤로가기로 떠나도 그 장면의 선택은 기억된다
+  await page.locator('[data-testid="dock-scene"][data-scene="design"]').click()
+  await page.goBack()
+  await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment')
+  await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
+  await page.goForward()
+  await page.goBack()
+  await expect(page.getByTestId('map-chosen-evidence')).toBeVisible()
+  // 해제하면 내 설명의 「지금 고른 근거」 후보도 사라진다
+  await page.locator('button[data-choice="3"]').first().click()
+  await ev.click()
+  await expect(ev).toHaveAttribute('aria-pressed', 'false')
+  await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
+  await expect(page.getByTestId('reasoning-note')).toBeVisible()
+  await expect(page.getByTestId('note-evidence-link')).toHaveCount(0)
+  // 근거 판을 접은 채 마쳐도 완료 안내가 설명 판에 보인다
+  await page.getByTestId('evidence-toggle').click()
+  await expect(page.getByTestId('pane-evidence')).toHaveCount(0)
+  const finish = page.getByTestId('finish-item')
+  if (await finish.count()) {
+    await finish.click()
+    await expect(page.getByTestId('session-done')).toBeVisible({ timeout: 30_000 })
+  }
+})

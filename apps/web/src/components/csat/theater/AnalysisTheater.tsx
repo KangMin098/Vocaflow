@@ -504,45 +504,69 @@ export function AnalysisTheater({
   // 마지막으로 고른 근거 — 내 설명 장면의 「이 근거를 노트에 연결」 후보(앞 장면의 선택을 미리 보여 줄 뿐 자동 저장하지 않는다)
   const [recentEvidence, setRecentEvidence] = useState<number[] | null>(null)
   const onEvidence = (sentences: number[], key: string) => {
-    setEvidence((cur) => (cur?.key === key ? null : { sentences, key }))
-    setRecentEvidence(sentences)
+    const off = evidence?.key === key
+    setEvidence(off ? null : { sentences, key })
+    setRecentEvidence(off ? null : sentences)
   }
   // 작업공간 W2/W3 — 장면별 근거 선택 · 오른쪽 판 스크롤을 이 탭 메모리에 문항별로 기억한다. 주소 · 뒤로가기가 장면을 정하고, 메모리는 그 장면의 선택만 되살린다.
   //   기억이 없으면(미방문) 선택 없음, 학습자가 해제했으면 해제(null) 그대로 — 자동 선택으로 덮지 않는다.
-  //   저장 위치는 모듈 탭 메모리 — 문항 주소가 바뀌면 이 컴포넌트가 다시 마운트되므로 컴포넌트 안에 두면 왕복에서 사라진다
+  //   저장 위치는 모듈 탭 메모리(item-tab-memory) — 문항 주소가 바뀌면 이 컴포넌트가 다시 마운트되므로 컴포넌트 안에 두면 문항 왕복에서 사라진다
   const sceneMem = useRef(tabMemory.scene)
   const memKey = (sc: SceneId) => `${itemId}|${sc}`
-  const pendingScroll = useRef<number | null>(tabMemory.scene.get(sceneKey(itemId, initialScene))?.scroll ?? null)
-  const stashScene = () => sceneMem.current.set(memKey(scene), { evidence, scroll: blocksRef.current?.scrollTop ?? 0 })
-  // 문항을 떠날 때(언마운트) 지금 장면을 남긴다 — 판 DOM 은 이미 떨어졌으므로 스크롤은 지켜본 마지막 값, 못 봤으면 전에 남긴 값
-  const leaveState = useRef({ scene, evidence })
-  leaveState.current = { scene, evidence }
-  const seenScroll = useRef<number | null>(null)
-  useEffect(() => {
-    const el = blocksRef.current
-    if (!el) return
-    const onScroll = () => {
-      seenScroll.current = el.scrollTop
-    }
-    el.addEventListener('scroll', onScroll, { passive: true })
-    return () => el.removeEventListener('scroll', onScroll)
-  })
-  useEffect(
-    () => () => {
-      const k = memKey(leaveState.current.scene)
-      sceneMem.current.set(k, { evidence: leaveState.current.evidence, scroll: seenScroll.current ?? sceneMem.current.get(k)?.scroll ?? 0 })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- 떠날 때 한 번(마운트 시점의 문항 키)
-    [],
+  // 첫 진입 — 이 문항 · 장면을 전에 봤으면 두 판 스크롤도 되살린다
+  const pendingScroll = useRef<{ explain: number; evidence: number } | null>(
+    (() => {
+      const m = tabMemory.scene.get(sceneKey(itemId, initialScene))
+      return m ? { explain: m.scroll, evidence: m.evScroll } : null
+    })(),
   )
+  const evidencePaneRef = useRef<HTMLDivElement>(null)
+  // 뒤로가기(popstate)는 이전 렌더의 클로저로 불리므로 최신 장면 · 근거를 ref 로 둔다
+  const live = useRef<{ scene: SceneId; evidence: { sentences: number[]; key: string } | null }>({ scene: initialScene, evidence })
+  const stashScene = () => {
+    const prev = sceneMem.current.get(memKey(live.current.scene))
+    sceneMem.current.set(memKey(live.current.scene), {
+      evidence: live.current.evidence,
+      scroll: blocksRef.current?.scrollTop ?? seenScroll.current.explain ?? prev?.scroll ?? 0,
+      evScroll: evidencePaneRef.current?.scrollTop ?? seenScroll.current.evidence ?? prev?.evScroll ?? 0,
+    })
+  }
+  // 문항을 떠날 때(언마운트) 지금 장면을 남긴다 — 판 DOM 은 이미 떨어졌으므로 스크롤은 지켜본 마지막 값, 못 봤으면 전에 남긴 값
+  const seenScroll = useRef<{ explain: number | null; evidence: number | null }>({ explain: null, evidence: null })
+  useEffect(() => {
+    const pairs = [
+      [blocksRef.current, 'explain'],
+      [evidencePaneRef.current, 'evidence'],
+    ] as const
+    const offs = pairs.map(([el, k]) => {
+      if (!el) return () => {}
+      const on = () => {
+        seenScroll.current[k] = el.scrollTop
+      }
+      el.addEventListener('scroll', on, { passive: true })
+      return () => el.removeEventListener('scroll', on)
+    })
+    return () => offs.forEach((off) => off())
+  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- 떠날 때 한 번(마운트 시점의 문항 키)
+  useEffect(() => () => stashScene(), [])
   const recallScene = (sc: SceneId) => {
     const m = sceneMem.current.get(memKey(sc))
-    setEvidence(m ? m.evidence : null)
-    pendingScroll.current = m ? m.scroll : 0
+    // 비교 쌍의 근거는 그 비교 화면이 다시 열려 쌍을 고를 때만 — 쌍 선택 없이 강조만 되살리지 않는다
+    const ev = m?.evidence && !(sc === 'compare' && /^(pair|diff)-/.test(m.evidence.key)) ? m.evidence : null
+    setEvidence(ev)
+    pendingScroll.current = { explain: m?.scroll ?? 0, evidence: m?.evScroll ?? 0 }
   }
   // 요소별 마지막 장면(제목 클릭이 여는 곳) · 가운데 판 접힘 · 근거 판 보기(위치 · 관계)
   const [lastByGroup, setLastByGroup] = useState<Partial<Record<DockGroupId, SceneId>>>(() => rememberScene({}, initialScene))
   const [evidenceCollapsed, setEvidenceCollapsed] = useState(false)
+  // 다시 열린 근거 판에 기억한 스크롤을 놓는다
+  useEffect(() => {
+    if (evidenceCollapsed) return
+    const to = pendingScroll.current
+    if (to && evidencePaneRef.current) evidencePaneRef.current.scrollTop = to.evidence
+    pendingScroll.current = null
+  }, [evidenceCollapsed])
   const [evidenceView, setEvidenceView] = useState<'map' | 'relation'>('map')
   // 자기 설명 · 원리 노트 초안 — 문항별 탭 메모리(장면 왕복에도 남고, 새로고침 · 탭 종료면 사라진다)
   const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>(() => tabMemory.explain)
@@ -656,7 +680,7 @@ export function AnalysisTheater({
     setScene(target)
     // 이어 온 맥락(bridge)이 근거를 대신 짚는다 — 이 장면의 지난 선택은 되살리지 않는다
     setEvidence(null)
-    pendingScroll.current = 0
+    pendingScroll.current = { explain: 0, evidence: 0 }
     setMsPick(null)
     setMsChip(false)
     setMsPhrase(null)
@@ -673,6 +697,7 @@ export function AnalysisTheater({
     const onPop = () => {
       const q = new URL(window.location.href).searchParams
       const sc = parseScene(q.get('scene')).scene
+      stashScene()
       setScene(sc)
       recallScene(sc)
       if (!ms) return
@@ -715,15 +740,26 @@ export function AnalysisTheater({
   }, [initialScene, initialJudgmentView])
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
+  live.current = { scene, evidence }
   useEffect(() => {
     setLastByGroup((l) => rememberScene(l, scene))
     const to = pendingScroll.current
     pendingScroll.current = null
-    if (to != null && blocksRef.current) blocksRef.current.scrollTop = to
+    if (to && blocksRef.current) blocksRef.current.scrollTop = to.explain
+    if (to && evidencePaneRef.current) evidencePaneRef.current.scrollTop = to.evidence
   }, [scene])
   const played = useRef(-1)
 
   const playing = Boolean(lec && (lec.status === 'playing' || lec.status === 'paused'))
+  // 강의가 열리는 중에 학습자가 장면을 골랐다 — 열리면 곧바로 멈춘다(재개는 학습자가)
+  const holdLecture = useRef(false)
+  useEffect(() => {
+    if (!lec || !holdLecture.current) return
+    if (lec.status === 'playing') {
+      holdLecture.current = false
+      lec.toggle()
+    } else if (lec.status !== 'loading') holdLecture.current = false
+  }, [lec, lec?.status])
   const blockKeys = useMemo(() => blocks.map((b) => b.key), [blocks])
   const timeline = useMemo(() => theaterTimeline(steps), [steps])
 
@@ -801,7 +837,7 @@ export function AnalysisTheater({
   // 강의가 다른 장면의 블록을 설명하기 시작하면 그 장면으로 따라간다(재생 중에만 · history 는 쌓지 않는다)
   const liveScene = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
   useEffect(() => {
-    if (lec?.status !== 'playing' || !liveScene) return
+    if (lec?.status !== 'playing' || !liveScene || holdLecture.current) return
     const target = sceneOfBlock(liveScene)
     if (target !== scene) selectScene(target, 'replace')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -896,6 +932,7 @@ export function AnalysisTheater({
   const pickScene = (id: SceneId) => {
     setTab('analysis')
     if (lec && lec.status === 'playing') lec.toggle()
+    else if (lec && lec.status === 'loading') holdLecture.current = true
     if (id !== scene) selectScene(id)
   }
   const toolTabs = TABS.filter((t) => t.id !== 'analysis')
@@ -1041,7 +1078,17 @@ export function AnalysisTheater({
                 근거: {evidenceLabel}
               </p>
             ) : null}
-            <button type="button" className={styles.toolBtn} aria-pressed={evidenceCollapsed} onClick={() => setEvidenceCollapsed((v) => !v)} data-testid="evidence-toggle">
+            <button
+              type="button"
+              className={styles.toolBtn}
+              aria-pressed={evidenceCollapsed}
+              onClick={() => {
+                if (!evidenceCollapsed) stashScene()
+                else pendingScroll.current = { explain: blocksRef.current?.scrollTop ?? 0, evidence: sceneMem.current.get(memKey(scene))?.evScroll ?? 0 }
+                setEvidenceCollapsed((v) => !v)
+              }}
+              data-testid="evidence-toggle"
+            >
               {evidenceCollapsed ? <PanelLeftOpen size={13} aria-hidden /> : <PanelLeftClose size={13} aria-hidden />} {evidenceCollapsed ? '근거 판 열기' : '근거 판 접기'}
             </button>
           </div>
@@ -1065,7 +1112,7 @@ export function AnalysisTheater({
                   ) : null}
                   <em>{map ? `${map.sentences.length}문장` : '지도 없음'}</em>
                 </div>
-                <div className={styles.paneBody}>
+                <div className={styles.paneBody} ref={evidencePaneRef}>
                   {session === undefined ? <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p> : null}
                   {done}
                   {diff}
@@ -1129,6 +1176,8 @@ export function AnalysisTheater({
 
               {tab === 'analysis' ? (
                 <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
+                  {evidenceCollapsed ? done : null}
+                  {evidenceCollapsed ? diff : null}
                   <h2 className={styles.sceneQuestion} data-testid="scene-question">
                     {sceneDef?.question}
                   </h2>
@@ -1211,7 +1260,7 @@ export function AnalysisTheater({
                       carry={carry}
                       returnTo={compareReturn}
                       onEvidence={onEvidence}
-                      onClearEvidence={() => setEvidence(null)}
+                      onClearEvidence={() => setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))}
                       linkable={v3Linkable}
                       selectedKey={evidence?.key ?? null}
                       onFindOther={finder ? () => openFinder('compare') : undefined}

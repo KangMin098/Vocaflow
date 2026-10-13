@@ -13,6 +13,8 @@ import type { ExplainDraft, NoteDraft } from './explain-draft'
 export interface SceneMemory {
   evidence: { sentences: number[]; key: string } | null
   scroll: number
+  /** 근거 판 스크롤 */
+  evScroll: number
 }
 
 export const tabMemory = {
