@@ -1,0 +1,322 @@
+[
+  {
+    "id": "2014A#36",
+    "exam": "2014A",
+    "school_year": 2014,
+    "type": "R-BLANK2",
+    "passage_group": "2014A:36",
+    "binding": "b8fe6088fd7aed080e248edc65b2e7dc18173265c22993aa939ada1267eac0e4",
+    "passage_sha256": "3c68be56465243372dd21fbbdab06d6efd4852958bd09f58fb7a2a177a326d10",
+    "normalized_passage_sha256": "3c68be56465243372dd21fbbdab06d6efd4852958bd09f58fb7a2a177a326d10"
+  },
+  {
+    "id": "2014B#42",
+    "exam": "2014B",
+    "school_year": 2014,
+    "type": "X-BLANK",
+    "passage_group": "2014B:41-42",
+    "binding": "126ba108a3eb6995f09f95e754880ea3ed856cff83c872d2d9a9f3e194a5665b",
+    "passage_sha256": "f7ca6926297e22fef75121360cfa94df9d4156a25cbe5ad2fbb4a3bab3239ab3",
+    "normalized_passage_sha256": "f7ca6926297e22fef75121360cfa94df9d4156a25cbe5ad2fbb4a3bab3239ab3"
+  },
+  {
+    "id": "2024#21",
+    "exam": "2024",
+    "school_year": 2024,
+    "type": "R-IMPLY",
+    "passage_group": "2024:21",
+    "binding": "5f9ac878c28b7016c71179996c1f9523bf3d0546ae6ec8bf4f6dbb84dc768e59",
+    "passage_sha256": "9ed0c677b99d0d9366b69863f9bd1d15a06c4268a613dcc29aa18545b343747c",
+    "normalized_passage_sha256": "9ed0c677b99d0d9366b69863f9bd1d15a06c4268a613dcc29aa18545b343747c"
+  },
+  {
+    "id": "2016#30",
+    "exam": "2016",
+    "school_year": 2016,
+    "type": "R-REFER",
+    "passage_group": "2016:30",
+    "binding": "70fb68ad795b3c68fcf471f12f86d671c2156f0e3ab474de4a0d5e1d61800ae0",
+    "passage_sha256": "48e0db38c5ca02f3d0c9586b121ca55887eca208e6cb25c5bf4fa533785f6712",
+    "normalized_passage_sha256": "48e0db38c5ca02f3d0c9586b121ca55887eca208e6cb25c5bf4fa533785f6712"
+  },
+  {
+    "id": "2021#42",
+    "exam": "2021",
+    "school_year": 2021,
+    "type": "X-VOCAB",
+    "passage_group": "2021:41-42",
+    "binding": "cb583dff2dd87cfeae62ee23af41edcfcbd3908d936b524db0c0ca63db70c2a7",
+    "passage_sha256": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc",
+    "normalized_passage_sha256": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc"
+  },
+  {
+    "id": "2018#19",
+    "exam": "2018",
+    "school_year": 2018,
+    "type": "R-MOOD",
+    "passage_group": "2018:19",
+    "binding": "09ce5c5a97a80bb3549ed05f4922ced2097253486572d32a8ddbdf8e1b6a7b5c",
+    "passage_sha256": "00ef1d078d14b667fb8d9d377de9893839f33154f4af7916241cd2f82a85bdbb",
+    "normalized_passage_sha256": "00ef1d078d14b667fb8d9d377de9893839f33154f4af7916241cd2f82a85bdbb"
+  },
+  {
+    "id": "2020#20",
+    "exam": "2020",
+    "school_year": 2020,
+    "type": "R-CLAIM",
+    "passage_group": "2020:20",
+    "binding": "23052c0009e7ed7f8869c9bbd130c8ea90f7d8fe7a9339803553bcef1df67496",
+    "passage_sha256": "c3ed30c20f4dfc3adcaa4c5530175211d7e8bf626deda7e1bf1d3ce231a33365",
+    "normalized_passage_sha256": "c3ed30c20f4dfc3adcaa4c5530175211d7e8bf626deda7e1bf1d3ce231a33365"
+  },
+  {
+    "id": "2022#18",
+    "exam": "2022",
+    "school_year": 2022,
+    "type": "R-PURPOSE",
+    "passage_group": "2022:18",
+    "binding": "64785711ad66d40f79e418ffd001370393507b17aa22134fab06048b3e223831",
+    "passage_sha256": "1ff95cac382471f0540b79fe317cb4c4d7533b66720666eda4bb7ad06e9098e7",
+    "normalized_passage_sha256": "1ff95cac382471f0540b79fe317cb4c4d7533b66720666eda4bb7ad06e9098e7"
+  },
+  {
+    "id": "2019#44",
+    "exam": "2019",
+    "school_year": 2019,
+    "type": "X-REFER",
+    "passage_group": "2019:43-45",
+    "binding": "e2b1955f8c57c86d4bdb872f4895440d5a75307225df1b11a0784d530650c0d1",
+    "passage_sha256": "475a4d667010b3783333fa3b6afc4569f3659b8fb32cff5731f04d3dac764c52",
+    "normalized_passage_sha256": "475a4d667010b3783333fa3b6afc4569f3659b8fb32cff5731f04d3dac764c52"
+  },
+  {
+    "id": "2015#18",
+    "exam": "2015",
+    "school_year": 2015,
+    "type": "R-GIST",
+    "passage_group": "2015:18",
+    "binding": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+    "passage_sha256": "6d9049ac26e19054731a8c3950720f689f883676e38cb810cf9831a9b2376168",
+    "normalized_passage_sha256": "6d9049ac26e19054731a8c3950720f689f883676e38cb810cf9831a9b2376168"
+  },
+  {
+    "id": "2023#41",
+    "exam": "2023",
+    "school_year": 2023,
+    "type": "X-TITLE",
+    "passage_group": "2023:41-42",
+    "binding": "13ce39556888020557d3fa2f247922d983373467c8f797ab3a53568e85873ea3",
+    "passage_sha256": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08",
+    "normalized_passage_sha256": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08"
+  },
+  {
+    "id": "2017#25",
+    "exam": "2017",
+    "school_year": 2017,
+    "type": "R-FACT",
+    "passage_group": "2017:25",
+    "binding": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+    "passage_sha256": "93c53a666e600aa5747c3be5ce7451769df897691ffbf376a957fd8a5a97d56d",
+    "normalized_passage_sha256": "93c53a666e600aa5747c3be5ce7451769df897691ffbf376a957fd8a5a97d56d"
+  },
+  {
+    "id": "2021#40",
+    "exam": "2021",
+    "school_year": 2021,
+    "type": "R-SUMMARY",
+    "passage_group": "2021:40",
+    "binding": "c2cd9bc973b6c02ddccac776e179eb65d62717b4bda5f76665585314024396d9",
+    "passage_sha256": "f80270bf93f6d6cae362c67a3d5da790df33799d51ef6dc98df1e96238fb5473",
+    "normalized_passage_sha256": "f80270bf93f6d6cae362c67a3d5da790df33799d51ef6dc98df1e96238fb5473"
+  },
+  {
+    "id": "2014B#45",
+    "exam": "2014B",
+    "school_year": 2014,
+    "type": "X-FACT",
+    "passage_group": "2014B:43-45",
+    "binding": "885c0dd36192c7742cc062497514bacdb92e4718ad87096581cdeaff5a9eb27e",
+    "passage_sha256": "297be1241a9eef62fac0c78ec0eb5e1cf894bb21471cebbfa4a2434760e71be3",
+    "normalized_passage_sha256": "297be1241a9eef62fac0c78ec0eb5e1cf894bb21471cebbfa4a2434760e71be3"
+  },
+  {
+    "id": "2018#43",
+    "exam": "2018",
+    "school_year": 2018,
+    "type": "X-ORDER",
+    "passage_group": "2018:43-45",
+    "binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+    "passage_sha256": "9a116ebcf9768d09ff031f6c849cf9e944025dbabed1b7357f80688d812956c1",
+    "normalized_passage_sha256": "9a116ebcf9768d09ff031f6c849cf9e944025dbabed1b7357f80688d812956c1"
+  },
+  {
+    "id": "2019#25",
+    "exam": "2019",
+    "school_year": 2019,
+    "type": "R-CHART",
+    "passage_group": "2019:25",
+    "binding": "6379ade5e777ec3350f6b35585753af88a7ca7426ec95aa74ec73a3b63d69ace",
+    "passage_sha256": "8d90afe389039f8a6a0a79ba105eeba321b537d663dc11ca6c6b14ef6ad1b2dd",
+    "normalized_passage_sha256": "8d90afe389039f8a6a0a79ba105eeba321b537d663dc11ca6c6b14ef6ad1b2dd"
+  },
+  {
+    "id": "2023#29",
+    "exam": "2023",
+    "school_year": 2023,
+    "type": "R-GRAMMAR",
+    "passage_group": "2023:29",
+    "binding": "31e0507296555f10d54751df947258f7f9b410f826f734de4386a51ca65c3b19",
+    "passage_sha256": "353c0105f1bfd43174a1aa581c5897d821091bafd282ff115533ac945b7bce8a",
+    "normalized_passage_sha256": "353c0105f1bfd43174a1aa581c5897d821091bafd282ff115533ac945b7bce8a"
+  },
+  {
+    "id": "2022#35",
+    "exam": "2022",
+    "school_year": 2022,
+    "type": "R-IRRELEVANT",
+    "passage_group": "2022:35",
+    "binding": "1e0f088f1f28b4bd184d41872aaf9b383aacf4bcc0ccbb4acfc4c86419d5a847",
+    "passage_sha256": "42f57e00eb71045bf9da95ff74b7a63e24cc4ae1d5d185c1f677394bb7492b11",
+    "normalized_passage_sha256": "42f57e00eb71045bf9da95ff74b7a63e24cc4ae1d5d185c1f677394bb7492b11"
+  },
+  {
+    "id": "2015#30",
+    "exam": "2015",
+    "school_year": 2015,
+    "type": "R-VOCAB",
+    "passage_group": "2015:30",
+    "binding": "703ec14047e67a71c0cda6f5bdcad9b2330f6b88ea6a8a184b402210b83d66fc",
+    "passage_sha256": "387f623fdbe4ca3ba00c59bd847279b2e6982e427c5072ef9044f1f05924db9d",
+    "normalized_passage_sha256": "387f623fdbe4ca3ba00c59bd847279b2e6982e427c5072ef9044f1f05924db9d"
+  },
+  {
+    "id": "2017#21",
+    "exam": "2017",
+    "school_year": 2017,
+    "type": "R-TOPIC",
+    "passage_group": "2017:21",
+    "binding": "c93f7547fbf732acaf6629a6358af4d9f5aabd092cf1dde15d84fc95fa75346b",
+    "passage_sha256": "33b2e3c4832aed05335b1c9fe068d17e4b5d98928ca2b83b7c83269c1affc187",
+    "normalized_passage_sha256": "33b2e3c4832aed05335b1c9fe068d17e4b5d98928ca2b83b7c83269c1affc187"
+  },
+  {
+    "id": "2016#23",
+    "exam": "2016",
+    "school_year": 2016,
+    "type": "R-TITLE",
+    "passage_group": "2016:23",
+    "binding": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+    "passage_sha256": "660e8be91a92332c1da319c1481c6a7e83ad15b368a70970a4d6dac7eb8579c6",
+    "normalized_passage_sha256": "660e8be91a92332c1da319c1481c6a7e83ad15b368a70970a4d6dac7eb8579c6"
+  },
+  {
+    "id": "2014A#39",
+    "exam": "2014A",
+    "school_year": 2014,
+    "type": "R-INSERT",
+    "passage_group": "2014A:39",
+    "binding": "bfa8570fcc6224c6bf027f8eb9d918244e2357a22c97a1d9ca2147a0ca941301",
+    "passage_sha256": "013f2c646517beb563575cbe2035f8ea1cb474cedbb2944196ddd816b0ca57af",
+    "normalized_passage_sha256": "013f2c646517beb563575cbe2035f8ea1cb474cedbb2944196ddd816b0ca57af"
+  },
+  {
+    "id": "2020#37",
+    "exam": "2020",
+    "school_year": 2020,
+    "type": "R-ORDER",
+    "passage_group": "2020:37",
+    "binding": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+    "passage_sha256": "5cf605a4a34fa5801f5c7e920e27dd6d3d906d0cba81502eb4ac046cef2c0719",
+    "normalized_passage_sha256": "5cf605a4a34fa5801f5c7e920e27dd6d3d906d0cba81502eb4ac046cef2c0719"
+  },
+  {
+    "id": "2024#28",
+    "exam": "2024",
+    "school_year": 2024,
+    "type": "R-NOTICE",
+    "passage_group": "2024:28",
+    "binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+    "passage_sha256": "6b3da6ca9179648ea67f56a1498760b43589606b54f295cf33ee26a6427046f0",
+    "normalized_passage_sha256": "6b3da6ca9179648ea67f56a1498760b43589606b54f295cf33ee26a6427046f0"
+  },
+  {
+    "id": "2024#34",
+    "exam": "2024",
+    "school_year": 2024,
+    "type": "R-BLANK",
+    "passage_group": "2024:34",
+    "binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+    "passage_sha256": "27dd3e27f78e159763a01833c13c5a4b6c82f1053a614583a3c806a1ca3ed46f",
+    "normalized_passage_sha256": "27dd3e27f78e159763a01833c13c5a4b6c82f1053a614583a3c806a1ca3ed46f"
+  },
+  {
+    "id": "2014B#34",
+    "exam": "2014B",
+    "school_year": 2014,
+    "type": "R-BLANK",
+    "passage_group": "2014B:34",
+    "binding": "eab3af702087e15637777a240e90d5ff7b10903bdcc85a501b29bdbc2c0eb33e",
+    "passage_sha256": "c2a26e8bf970b06597624b692ded317ca0e8a5b0ede496549a208576cc41927d",
+    "normalized_passage_sha256": "c2a26e8bf970b06597624b692ded317ca0e8a5b0ede496549a208576cc41927d"
+  },
+  {
+    "id": "2018#36",
+    "exam": "2018",
+    "school_year": 2018,
+    "type": "R-ORDER",
+    "passage_group": "2018:36",
+    "binding": "2fbf829ae6da7c7b1b2fb6422a2eef592a99505b4d0cd7aaedb64c25f8313f78",
+    "passage_sha256": "4b9c349867aa52c6468e46cf214349526a8ed788494692acd93f7c8b1149b1f1",
+    "normalized_passage_sha256": "4b9c349867aa52c6468e46cf214349526a8ed788494692acd93f7c8b1149b1f1"
+  },
+  {
+    "id": "2023#39",
+    "exam": "2023",
+    "school_year": 2023,
+    "type": "R-INSERT",
+    "passage_group": "2023:39",
+    "binding": "321e3f448c0d8865ca7d385d1a8e57106c6cf8d60639532dc67cc60a1043da28",
+    "passage_sha256": "74ad7e67d8ad62344680ab42eceb959a6b32aec0a94ec8b4985ade2647b38829",
+    "normalized_passage_sha256": "74ad7e67d8ad62344680ab42eceb959a6b32aec0a94ec8b4985ade2647b38829"
+  },
+  {
+    "id": "2019#23",
+    "exam": "2019",
+    "school_year": 2019,
+    "type": "R-TOPIC",
+    "passage_group": "2019:23",
+    "binding": "a57c949e34857dcf792d9e622602d1b8fa900b5a5e9c48f8f19cad0c3c049ca5",
+    "passage_sha256": "a540069c0eb98af59db454cba3432a3b9796697d8971a3a6de398fe3279131b7",
+    "normalized_passage_sha256": "a540069c0eb98af59db454cba3432a3b9796697d8971a3a6de398fe3279131b7"
+  },
+  {
+    "id": "2021#26",
+    "exam": "2021",
+    "school_year": 2021,
+    "type": "R-FACT",
+    "passage_group": "2021:26",
+    "binding": "71436a07c66cec37d02d71d8c86bfcf6e4cc01b58bf0097aa8c7fcd49bdc320e",
+    "passage_sha256": "0c91686aa61a27dbace76bd193e8270620b3d5792a8992a5e4a2b2b239919865",
+    "normalized_passage_sha256": "0c91686aa61a27dbace76bd193e8270620b3d5792a8992a5e4a2b2b239919865"
+  },
+  {
+    "id": "2016#29",
+    "exam": "2016",
+    "school_year": 2016,
+    "type": "R-VOCAB",
+    "passage_group": "2016:29",
+    "binding": "4d1218e6ce02cbfc1cb260aa10227af7503da2808a96ce53e43e424c9aee83c8",
+    "passage_sha256": "86315340721fdb22c6615c68f767285e821ae95dc23601ce8d3abfe6dbfdb256",
+    "normalized_passage_sha256": "86315340721fdb22c6615c68f767285e821ae95dc23601ce8d3abfe6dbfdb256"
+  },
+  {
+    "id": "2015#24",
+    "exam": "2015",
+    "school_year": 2015,
+    "type": "R-FACT",
+    "passage_group": "2015:24",
+    "binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+    "passage_sha256": "e1e81a47d56471f59cc02935478d490ea2fccfce94c98b53da3bffaf8c61b2f1",
+    "normalized_passage_sha256": "e1e81a47d56471f59cc02935478d490ea2fccfce94c98b53da3bffaf8c61b2f1"
+  }
+]

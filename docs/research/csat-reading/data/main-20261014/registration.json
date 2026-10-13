@@ -1,0 +1,41 @@
+{
+    "run":  "main-20261014",
+    "protocol":  "1.1",
+    "date":  "2026-10-14",
+    "task":  "T-0025",
+    "base_commit":  "4917c67ae",
+    "source_snapshot":  {
+                            "id":  "20261012-r0",
+                            "sha256":  "a8c7f5dc33cac1197b22dc3d683ce94be04efdc819c7424a3270c7b6b304a374",
+                            "data_as_of":  "2026-10-12"
+                        },
+    "selection_rule":  "main discovery only; old pilot groups/normalized duplicates/exposures removed; public-v3 operational eligibility only, no v3 meaning read; rarest type first; least-selected exam then SHA256 fixed seed; six specified type supplements to32",
+    "pool_n":  287,
+    "items":  32,
+    "types":  25,
+    "passage_groups":  32,
+    "by_exam":  {
+                    "2015":  3,
+                    "2016":  3,
+                    "2017":  2,
+                    "2018":  3,
+                    "2019":  3,
+                    "2020":  2,
+                    "2021":  3,
+                    "2022":  2,
+                    "2023":  3,
+                    "2024":  3,
+                    "2014A":  2,
+                    "2014B":  3
+                },
+    "manifest_sha256":  "a1c976ede625178097ba5d086596182fd82b02a517ddc0a7e58a884df7339513",
+    "blind_input_sha256":  "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+    "key_sha256":  "891563ac5f624e5e41209ec8a51374d25ba948a4f97ee60df6bf68cf89d00e38",
+    "first_submissions":  {
+
+                          },
+    "holdout_opened":  false,
+    "protocol_sha256":  "37385311d142e1409c3fe771713ad4b52e7f49ccd3ae171e65d978e356df7b38",
+    "selection_script_sha256":  "3facd17dda4a122ca9748ca86b13509559ae4bd95f55d00cf17ad72eada90fe1",
+    "registration_order":  "Protocol, manifest, frozen input/key hashes committed before launching either new rater or source judge"
+}
