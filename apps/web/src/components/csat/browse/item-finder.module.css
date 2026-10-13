@@ -455,12 +455,16 @@
  *    보이는 높이 32px, 조작 영역은 투명하게 44px 로 늘린다(학습 지도 팝업과 같은 방식). */
 .trigger {
   /* 버튼 자체가 조작 영역 44px(투명) — 보이는 32px 면은 안쪽 .triggerFace 가 그린다.
-     처음엔 ::after 로 영역만 넓혔으나 문항 머리 아래 판이 그 아래쪽을 덮었다(e2e 실측 2026-10-13). */
+     처음엔 ::after 로 영역만 넓혔으나 문항 머리 아래 판이 그 아래쪽을 덮었다(e2e 실측 2026-10-13).
+     머리가 두 줄로 접히면(1280 · 레일 펼침 · 강의 도구 묶음이 둘째 줄) 둘째 줄 묶음 상자가 −6px 여백 부분을 덮었다 → 위에 그린다.
+     투명 영역은 줄 간격(6px) 안이라 둘째 줄 버튼과 겹치지 않는다(e2e 실측 2026-10-13 2차 통합). */
   display: inline-flex;
   flex: none;
   align-items: center;
   min-width: 44px;
   height: 44px;
+  position: relative;
+  z-index: 1;
   margin: -6px 0;
   padding: 0;
   border: 0;
