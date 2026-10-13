@@ -98,8 +98,8 @@ for (const width of [1280, 1440]) {
     await chip.click()
     await page.waitForURL(/\/csat\/item\//)
     // 문항 안에서 장면을 옮겨도 ret 는 남는다
-    await expect(page.getByTestId('scene-nav')).toBeVisible({ timeout: 90_000 })
-    await page.getByRole('tab', { name: '문항 성립', exact: true }).click()
+    await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 90_000 })
+    await page.locator('[data-testid="dock-scene"][aria-label="문항 성립"]').click()
     await expect.poll(() => q(page, 'ret')).toBe(`${browseUrl.pathname}${browseUrl.search}`)
     const backLink = page.getByTestId('item-back-home')
     await expect(backLink).toHaveAttribute('data-back', 'browse')
@@ -134,7 +134,7 @@ for (const width of [1280, 1440]) {
     await page.goto(`/csat/item/2026-34?scene=task&from=map&task=${encodeURIComponent(taskKey!)}`, { waitUntil: 'domcontentloaded' })
     await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', `/csat?from=item&item=2026-34&task=${encodeURIComponent(taskKey!)}`, { timeout: 90_000 })
     // 장면을 옮겨도 task 는 남는다
-    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await page.locator('[data-testid="dock-scene"][aria-label="원문 이해"]').click()
     await expect.poll(() => q(page, 'task')).toBe(taskKey)
     await page.getByTestId('item-back-map').click()
     await page.waitForURL(/task=/)

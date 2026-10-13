@@ -246,7 +246,7 @@ for (const width of [1280, 1440]) {
 
     // 11) 교수 설명이 없는 문항 — 기존 v3 의미 화면 그대로
     await page.goto('/csat/item/2026-31?scene=meaning', { waitUntil: 'domcontentloaded' })
-    await expect(page.getByTestId('scene-nav')).toBeVisible({ timeout: 90_000 })
+    await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 90_000 })
     await expect(page.getByTestId('ms-panel')).toHaveCount(0)
     await expect(page.getByTestId('map-sentence-pick')).toHaveCount(0)
 
