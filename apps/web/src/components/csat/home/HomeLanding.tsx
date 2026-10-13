@@ -9,15 +9,18 @@
 // 기출 탐구는 언제나 열려 있다(진단이 탐구의 입장권이 아니다). 지도를 못 읽으면 오류로 말하고 기록 0 으로 추정하지 않는다.
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { AlertTriangle, ArrowRight, BookMarked, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Stethoscope } from 'lucide-react'
+import { AlertTriangle, ArrowRight, BookMarked, ClipboardCheck, ListChecks, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Stethoscope } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
 import { pickHomeSuggestion, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { reviewsDue, unfinishedSessions } from '@/lib/csat/learning-session'
+import type { MapProgress } from '@/lib/csat/map/home-progress'
 import type { MapPageData } from '@/lib/csat/map/load'
+import { mapReturnQuery, type MapReturnCtx } from '@/lib/csat/map-return'
 
 import { MapPreparing } from '../diagnosis/map/MapPreparing'
 import { MapScreen } from '../diagnosis/map/MapScreen'
@@ -37,7 +40,8 @@ export function HomeLanding({
   mapData,
   focusKind,
   returned,
-  returnTask = null,
+  restore = null,
+  progress = null,
 }: {
   exams: { exam_id: string; label: string; items: number }[]
   map: MapLoadState
@@ -45,9 +49,13 @@ export function HomeLanding({
   focusKind: HomeFocusKind | null
   /** 문항에서 돌아왔으면 그 문항(slug · 라벨) */
   returned: { slug: string; label: string } | null
-  /** 지도에서 시작한 과제 키 — 있으면 그 과제 칸으로 스크롤 · 표시(원래 과제로 복귀) */
-  returnTask?: string | null
+  /** 지도 활동 복귀 문맥(검증된 과제 · 학습 묶음 · 단계) — 지도가 그 묶음 · 단계 시트를 열고, 홈이 그 과제 칸을 표시한다 */
+  restore?: MapReturnCtx | null
+  /** 지도에서 하던 일(확인 중 과제 · 계획량에 못 미친 저장 계획) */
+  progress?: MapProgress | null
 }) {
+  const router = useRouter()
+  const returnTask = restore?.task ?? null
   const rec = useCsatRecord()
   const due = rec ? dueNow(rec.record, rec.now).length : null
   const set = rec ? activeSet(rec.record) !== null : null
@@ -70,7 +78,7 @@ export function HomeLanding({
     el.scrollIntoView({ block: 'center' })
     setTaskFound(true)
   }, [returnTask, map])
-  const suggest = pickHomeSuggestion({ map, focusKind, returned: returned !== null, activeSet: ongoing })
+  const suggest = pickHomeSuggestion({ map, focusKind, returned: returned !== null, activeSet: ongoing, mapProgress: progress ? { check: !!progress.check, plan: !!progress.plan } : null })
 
   // 홈 상태는 기록을 읽은 **뒤** 한 번만 센다(지속 학습 지표 분모 · ia-design §5) — 이번엔 고른 첫 제안도 함께(닫힌 열거형)
   const sent = useRef(false)
@@ -114,7 +122,8 @@ export function HomeLanding({
                 <div className={home.cardFront}>
                   <p className={`${home.cardLead} break-keep`}>잠시 뒤 다시 열어 주세요. 기록이 없다는 뜻이 아니에요. 기출 탐구는 그대로 쓸 수 있어요.</p>
                   <div className={home.cardActions}>
-                    <Link className={home.primary} href="/csat">다시 열기</Link>
+                    {/* 같은 주소로의 Link 는 라우터 캐시의 오류 화면을 다시 쓸 수 있다 — 서버에서 다시 조회한다 */}
+                    <button type="button" className={home.primary} onClick={() => router.refresh()} data-testid="home-map-retry">다시 열기</button>
                     <Link className={home.secondary} href="/csat/browse">기출 탐구</Link>
                   </div>
                 </div>
@@ -180,6 +189,38 @@ export function HomeLanding({
               </div>
             ) : suggest === 'resume' ? (
               <ContinueCard state={rec} />
+            ) : suggest === 'continue_check' && progress?.check ? (
+              <div className={home.card} data-testid="home-continue-check" data-target-task={progress.check.task}>
+                <p className={home.cardBack}>
+                  <ClipboardCheck size={13} aria-hidden="true" /> 확인하던 항목
+                </p>
+                <div className={home.cardFront}>
+                  <p className={`${home.cardLead} break-keep`}>
+                    <b>{progress.check.name}</b> 확인 문항을 풀기 시작했어요. 아직 확인 결과가 나오지 않았어요.
+                  </p>
+                  <div className={home.cardActions}>
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ task: progress.check.task, ws: progress.check.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_check', from: 'home' } })} data-testid="home-continue-check-go">
+                      지도에서 이어서 확인 <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ) : suggest === 'continue_plan' && progress?.plan ? (
+              <div className={home.card} data-testid="home-continue-plan" data-target-ws={progress.plan.ws}>
+                <p className={home.cardBack}>
+                  <ListChecks size={13} aria-hidden="true" /> 저장한 학습계획
+                </p>
+                <div className={home.cardFront}>
+                  <p className={`${home.cardLead} break-keep`}>
+                    <b>{progress.plan.name}</b> 계획에서 {progress.plan.planned}개 중 {progress.plan.done}개를 했어요.
+                  </p>
+                  <div className={home.cardActions}>
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
+                      계획 이어서 보기 <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
             ) : suggest === 'preparing' ? (
               <p className={`${l.lead} break-keep`} data-testid="home-preparing">학습 지도는 아직 준비 중이에요. 그동안 기출 탐구에서 문항을 살펴볼 수 있어요.</p>
             ) : (
@@ -199,7 +240,7 @@ export function HomeLanding({
           {/* ② 핵심 학습 지도 */}
           <section className={l.map} aria-label="학습 지도" data-testid="home-map" data-map={map}>
             {(map === 'ok' || map === 'withheld') && mapData ? (
-              <MapScreen data={mapData} view="core" base={MAP_BASE} />
+              <MapScreen key={`${restore?.ws ?? ""}|${restore?.step ?? ""}|${restore?.task ?? ""}`} data={mapData} view="core" base={MAP_BASE} restore={restore} />
             ) : map === 'preparing' ? (
               <MapPreparing />
             ) : null}

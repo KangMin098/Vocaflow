@@ -46,7 +46,7 @@ import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
 import { browseReturn } from '@/lib/csat/browse-url'
-import { parseHomeTask } from '@/lib/csat/home-suggestion'
+import { mapReturnQuery, parseMapReturn } from '@/lib/csat/map-return'
 import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
 import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
 import compareData from '@/lib/csat/compare-data.json'
@@ -68,7 +68,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[]; ret?: string | string[]; task?: string | string[] }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[]; ret?: string | string[]; task?: string | string[]; ws?: string | string[]; step?: string | string[] }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -81,6 +81,10 @@ export default async function CsatItemTheaterPage({
   const checkMode = sp.check === '1'
   // 학습 지도에서 온 학습자(확인 링크 → 해설 보기)는 지도로 돌아갈 수 있다(v3 M4). 지도의 확인 링크는 모두 check=1 로 온다
   const fromMap = sp.from === 'map' || checkMode
+  // 지도 활동 복귀 문맥(v3 M1 후속) — 과제 · 학습 묶음 · 단계. 형식만 검증(lib/csat/map-return)
+  const mapCtxQ = mapReturnQuery(parseMapReturn({ task: first(sp.task), ws: first(sp.ws), step: first(sp.step) }))
+  const retQ = browseReturn(first(sp.ret)) ? `&ret=${encodeURIComponent(browseReturn(first(sp.ret))!)}` : ''
+  const carry = `${retQ}${fromMap ? `&from=map${mapCtxQ}` : ''}`
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
@@ -245,7 +249,7 @@ export default async function CsatItemTheaterPage({
         const bid = fromItemSlug(b)
         const label = openById.get(bid)?.label ?? bid.replace('#', ' ') + '번'
         const pr = first(sp.pair)
-        return { href: `/csat/item/${b}?scene=compare${pr ? `&pair=${encodeURIComponent(pr)}` : ''}${fromMap ? '&from=map' : ''}`, label }
+        return { href: `/csat/item/${b}?scene=compare${pr ? `&pair=${encodeURIComponent(pr)}` : ''}${carry}`, label }
       })()}
       // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
       inquiry={inquiryHit.state === 'ready' ? inquiryHit.record : null}
@@ -260,11 +264,13 @@ export default async function CsatItemTheaterPage({
       sceneNormalized={parsedScene.normalized}
       map={map}
       itemId={item.id}
+      // 문항 사이를 옮길 때(비교 상대) 이어 갈 문맥 — 서가 조건(ret) · 지도 복귀(from=map · task · ws · step). 모두 검증한 값
+      carry={carry}
       // 기출 탐구에서 왔으면 같은 서가 조건으로(서가 경로만 · browseReturn), 아니면 내 학습 지도(v3 M1)
       backHref={browseReturn(first(sp.ret)) ?? '/csat'}
       backTo={browseReturn(first(sp.ret)) ? 'browse' : 'home'}
       // 「학습 지도로」 — 지도 홈(/csat)에 복귀 문맥(이 문항)을 싣는다. 홈의 첫 제안이 「탐구에서 돌아왔어요」 를 보인다
-      mapReturn={fromMap ? `/csat?from=item&item=${toItemSlug(item.id)}${parseHomeTask(first(sp.task)) ? `&task=${encodeURIComponent(parseHomeTask(first(sp.task))!)}` : ''}` : null}
+      mapReturn={fromMap ? `/csat?from=item&item=${toItemSlug(item.id)}${mapCtxQ}` : null}
       typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
       // 같은 유형 다음 문항도 기출 탐구 조건(ret)을 이어 간다 — 「뒤로」 가 처음 고른 서가 조건으로 돌아가게
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}${browseReturn(first(sp.ret)) ? `?ret=${encodeURIComponent(browseReturn(first(sp.ret))!)}` : ''}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
@@ -304,7 +310,7 @@ export default async function CsatItemTheaterPage({
           </p>
           {panel}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
-            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}${parseHomeTask(first(sp.task)) ? `&task=${encodeURIComponent(parseHomeTask(first(sp.task))!)}` : ''}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+            <a href={`/csat/item/${toItemSlug(item.id)}?from=map${first(sp.scene) ? `&scene=${parsedScene.scene}` : ''}${mapCtxQ}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
               확인을 마쳤으면 해설 보기 →
             </a>
           </p>

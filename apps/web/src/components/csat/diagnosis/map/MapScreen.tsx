@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 import { LEGACY_DETAIL_NOTE } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
+import type { MapReturnCtx } from '@/lib/csat/map-return'
 
 import c from './core.module.css'
 import { InfoTip } from './PopupParts'
@@ -18,7 +19,7 @@ import s from './map.module.css'
 export type MapView = 'core' | 'full'
 export const parseMapView = (v?: string): MapView => (v === 'full' ? 'full' : 'core')
 
-export function MapScreen({ data, view, base, asOf }: { data: MapPageData; view: MapView; base: string; asOf?: string }) {
+export function MapScreen({ data, view, base, asOf, restore = null }: { data: MapPageData; view: MapView; base: string; asOf?: string; restore?: MapReturnCtx | null }) {
   const coreHref = `${base}?tab=map`
   return (
     <div className={s.root} data-testid="csat-map-screen" data-view={view}>
@@ -41,7 +42,7 @@ export function MapScreen({ data, view, base, asOf }: { data: MapPageData; view:
           <LearningMap data={data} />
         </>
       ) : (
-        <LearnerMap data={data} detailHref={`${base}?tab=map&view=full`} recordHref={`${base}?tab=records&modal=new`} recordsHref={`${base}?tab=records`} asOf={asOf} />
+        <LearnerMap data={data} detailHref={`${base}?tab=map&view=full`} recordHref={`${base}?tab=records&modal=new`} recordsHref={`${base}?tab=records`} asOf={asOf} restore={restore} />
       )}
     </div>
   )

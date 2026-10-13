@@ -33,18 +33,18 @@ const COPY = {
   contrast: { title: '비슷해 보이지만 조건이 다른 글', lead: '함정 이름은 같지만 판단을 가르는 조건이 다른 문항이에요. 같은 요령이 어디서 통하고 어디서 안 통하는지 확인해 보세요.', testid: 'contrast-pairs' },
 } as const
 
-export function ComparePairs({ pairs, compared, onCompared }: { pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void }) {
+export function ComparePairs({ pairs, compared, onCompared, carry = '' }: { pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void; carry?: string }) {
   if (!pairs.length) return null
   return (
     <>
       {(['same', 'contrast'] as const).map((kind) => (
-        <PairGroup key={kind} kind={kind} pairs={pairs.filter((p) => (p.kind ?? 'same') === kind)} compared={compared} onCompared={onCompared} />
+        <PairGroup key={kind} kind={kind} pairs={pairs.filter((p) => (p.kind ?? 'same') === kind)} compared={compared} onCompared={onCompared} carry={carry} />
       ))}
     </>
   )
 }
 
-function PairGroup({ kind, pairs, compared, onCompared }: { kind: 'same' | 'contrast'; pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void }) {
+function PairGroup({ kind, pairs, compared, onCompared, carry }: { kind: 'same' | 'contrast'; pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void; carry: string }) {
   if (!pairs.length) return null
   const copy = COPY[kind]
   return (
@@ -58,7 +58,7 @@ function PairGroup({ kind, pairs, compared, onCompared }: { kind: 'same' | 'cont
           <li key={`${p.other}:${p.otherChoice}`}>
             <p className="break-keep">
               <b>
-                이 문항 {CIRCLED[p.choice] ?? p.choice} ↔ <Link href={`/csat/item/${p.otherSlug}`}>{p.otherLabel}</Link> {CIRCLED[p.otherChoice] ?? p.otherChoice}
+                이 문항 {CIRCLED[p.choice] ?? p.choice} ↔ <Link href={`/csat/item/${p.otherSlug}${carry ? `?${carry.slice(1)}` : ''}`}>{p.otherLabel}</Link> {CIRCLED[p.otherChoice] ?? p.otherChoice}
               </b>{' '}
               · {p.trap}
               {TRAP_GLOSS[p.trap] ? ` (${TRAP_GLOSS[p.trap]})` : ''}

@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): v3 M1 후속 — 지도 홈 첫 제안에 「지도에서 하던 일」(확인 문항을 풀기 시작했지만 확인 판정 전인 과제 → 계획량에 못 미친 저장 학습계획, 지도와 같은 `composeV4` · `applySaved` 계산 · 과거 기준/목표 미설정/읽기 실패는 추정 안 함). 지도의 확인 · 활동 문항 링크가 `from=map` + 과제 · 학습 묶음 · 단계를 싣고, 「학습 지도로」 복귀 시 그 묶음 · 단계 시트를 다시 연다(`lib/csat/map-return.ts`). 비교 상대 문항 링크도 서가 조건(`ret`) · 지도 문맥 유지 · 지도 오류 「다시 열기」 = `router.refresh()`. 이벤트는 속성만 확장(`csat_resume_clicked.kind=map_check|map_plan` · `csat_home_viewed.suggest`) — DB 변경 없음.
+
 - feat(csat): v3 M1 — 상시 메뉴 두 개(내 학습 지도 `/csat` · 기출 탐구 `/csat/browse`), `/csat` 지도 중심 홈(첫 제안 `pickHomeSuggestion` · 핵심 학습 지도 · 내 자료 · 기출 탐구 입구), 서가 목적 · 회차 조건과 주소 동기화 · 문항 「뒤로」 의 서가 조건 복귀(`?ret=`) · 「학습 지도로」 → 지도 홈 복귀 문맥. 옛 `?need=` · `?tab=trap` · `?view=continue` · `?type=` · `?exam=` 주소 보존. 이벤트는 기존 이름의 속성만 확장(`csat_path_chosen.axis=menu|purpose` · `csat_home_viewed.suggest`) — DB 변경 없음.
 
 - chore(db)+test(csat): PR #238 격리 검증 완료 — Reveal Gate 정본 마이그레이션 ①–④(cc32a3632 원본) · taxonomy v0.1 봉인 정본 복원 시드(`20261005140000`) 반입, 격리 CI 에서 A(보류 없음 공개 · stale) → B(`csat_ec_record_session_held` 로 2026 회차 보류 · SSR/Flight/화면 비노출) → C(학습자 `capture_open` → `capture_finish` · 공개 복귀 · stale 유지 · 정리 단언) 통과 + 게이트 RPC 실제 제거 job(fail-closed). 공유 DB 적용 · main 병합 별도.
