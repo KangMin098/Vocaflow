@@ -83,7 +83,7 @@
 | e2e `csat-item-finder` 1~10(13건) — 치수(1280/1440 × 레일 두 상태, 위 표와 같은 값) · axe · 이동/복귀 · 서가 · 지도 홈 · 비교 · TTS · 오류 · 이력 | 13/13 |
 | 기존 e2e: `csat-workspace-compact`(프레임) · `csat-v31-meaning` · `csat-f08-paper-marks` · `csat-v3-m1` · `csat-continuity` A6/A7 · `csat-v3-m5-explore` · `31-popup-return` | 전부 통과(팝업 회귀 17 통과 · 5 기존 조건부 건너뜀). 팝업 회귀의 `/arcade` 설명 팝업은 한 차례 9회 반복 중 2회 Esc 미닫힘 — 다음 실행 17/17 에서 재현 안 됨(간헐 · 옵션 없는 공통 훅 경로는 코드상 이전과 같다) |
 | `csat-v3-m5-explore` 수정 | 지도 복귀 기대값을 현재 계약(`/csat?from=item…`)으로 맞추고, `task · ws · step` 이 「학습 지도로」 에 실려 홈이 그 과제 칸을 찾거나 못 찾았다고 말하는지까지 확인. 1440 목록 Enter 는 하이드레이션 뒤에 누르도록 |
-| 단위 · lint · typecheck · CI | web 단위 4,954 통과 · lint 0 · typecheck 0 · 통합 전 HEAD 의 필수 CI 전부 통과(통합 HEAD 의 CI 는 PR 본문에 기록) |
+| 단위 · lint · typecheck · CI | web 단위 4,954 통과 · lint 0 · typecheck 0 · 통합 HEAD `356ef35b3` CI 전부 통과 — build · e2e(격리 A/B/C 보류 · 해제 + 기출 찾기 단언 4/4) · e2e-gate-faultclosed(고장 + 기출 찾기 2/2, 첫 시도는 러너의 Supabase 포트 충돌로 기동 실패 → 재실행 통과) · verify · TypeScript · 문서 검사 |
 
 **관문 검증 — 두 종류를 구분한다**
 
