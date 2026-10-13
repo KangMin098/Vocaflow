@@ -81,11 +81,12 @@ test.describe('재설계 뒤에만', () => {
     await expect(
       page.getByTestId('item-paper').or(page.getByTestId('item-paper-crop')).or(page.getByTestId('item-paper-missing')),
     ).toBeVisible({ timeout: 90_000 })
-    await expect(page.getByText('이 문항으로 무엇을 할까요?')).toBeVisible()
+    await expect(page.getByTestId('workspace-actions')).toBeVisible()
 
-    // 도크 = 강의 차례 — 누르면 그 차례로, 화살표로 다음
-    const dock = page.getByRole('navigation', { name: '이 문항을 읽는 차례' })
-    const cards = dock.getByRole('button')
+    // 강의 차례 — 강의 도구의 「진행」 목록(작업공간: 하단은 탐구 도크). 누르면 그 차례로, 화살표로 다음
+    const tools = page.getByRole('group', { name: '강의 도구' })
+    await tools.getByRole('button', { name: '진행' }).click()
+    const cards = page.getByTestId('pane-explain').locator('ol button')
     expect(await cards.count()).toBeGreaterThan(3)
     await cards.nth(2).click()
     await expect(cards.nth(2)).toHaveAttribute('aria-current', 'step')
@@ -102,12 +103,12 @@ test.describe('재설계 뒤에만', () => {
     await expect(page.getByText('정답 근거').first()).toBeVisible()
     await page.screenshot({ path: path.join(SHOTS, 'after-gate-revealed-1440.png') })
 
-    // 탭 전환
-    const tabs = page.getByRole('navigation', { name: '보기' })
-    await tabs.getByRole('button', { name: '진행' }).click()
+    // 보기 전환 — 강의 도구 「진행」 ↔ 탐구 장면
+    await page.getByTestId('tool-close').click()
+    await tools.getByRole('button', { name: '진행' }).click()
     await expect(page.getByRole('group', { name: '차례별 길이' })).toBeVisible()
-    await tabs.getByRole('button', { name: '분석' }).click()
-    await expect(page.getByText(/BLOCKS/)).toBeVisible()
+    await page.getByTestId('tool-close').click()
+    await expect(page.getByTestId('scene-question')).toBeVisible()
 
     // 상영 — 누르면 상태가 바뀐다(음성이 없는 환경이면 알림이 뜬다)
     const play = page.getByRole('button', { name: /상영 시작|하이라이트만/ })
@@ -117,7 +118,7 @@ test.describe('재설계 뒤에만', () => {
     }
 
     // 같은 유형 이동
-    await tabs.getByRole('button', { name: '같은 유형' }).click()
+    await tools.getByRole('button', { name: '같은 유형' }).click()
     const other = page.locator('a[data-current="false"]').first()
     const href = await other.getAttribute('href')
     await other.click()
@@ -179,8 +180,8 @@ test.describe('재설계 뒤에만', () => {
     for (const slug of ['2025-24', 'M2609-40', '2024-37']) {
       const page = await open(browser, slug)
       await expect(page.getByRole('complementary', { name: '기출문제 원본' })).toBeVisible()
-      await expect(page.getByRole('navigation', { name: '보기' })).toBeVisible()
-      await expect(page.getByRole('navigation', { name: /이 문항을 읽는 차례|분석 블록으로 이동/ })).toBeVisible()
+      await expect(page.getByRole('group', { name: '강의 도구' })).toBeVisible()
+      await expect(page.getByRole('navigation', { name: '탐구 요소' })).toBeVisible()
       expect(await noOverflow(page)).toBe(true)
       await page.context().close()
     }

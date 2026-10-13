@@ -138,7 +138,7 @@ async function openItem(p: Probe, slug: string) {
 /** 예측 관문은 없다(F01 · 2026-10-10) — 열자마자 여섯 장면이 잠금 없이 열리고 상영할 수 있다(vNext2 M2) */
 async function expectOpen(page: Page) {
   await expect(page.getByTestId('predict-gate')).toHaveCount(0)
-  await expect(page.getByTestId('scene-nav')).toBeVisible({ timeout: 30_000 })
+  await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 30_000 })
   // 정답 설계는 제출 없이 한 번 눌러 바로 연다
   await openScene(page, 'judgment')
   await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
@@ -147,7 +147,7 @@ async function expectOpen(page: Page) {
 }
 
 async function openScene(page: Page, id: string) {
-  await page.getByTestId('scene-nav').locator(`[data-scene="${id}"]`).click()
+  await page.getByTestId('inquiry-dock').locator(`[data-scene="${id}"]`).click()
   await expect(page).toHaveURL(new RegExp(`scene=${id}`))
 }
 
@@ -176,7 +176,10 @@ test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸�
   // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
   await stepTo(p.page, 3)
   // 세 번 눌러 4단계 — 전체 단계 수는 강의 재작성(2026-10-11 교정 강의)으로 바뀌므로 「4 / N」 만 본다
+  // 차례 표시는 강의 도구 「진행」 안에 있다(작업공간 — 원문 아래 단계 알약을 걷었다). 화살표가 옮긴 차례를 거기서 본다
+  await p.page.getByTestId('tool-run').click()
   await expect(p.page.getByText(/(^|\s)4 \/ \d+/).first()).toBeVisible()
+  await p.page.getByTestId('tool-close').click()
   // 추정 위치를 「지난 시간」이라 하지 않는다(F13)
   await expect(p.page.getByText(/지난 시간|지남/)).toHaveCount(0)
   await p.page.getByTestId('finish-item').click() // 마지막 단계까지 넘기지 않아도 마칠 수 있다
@@ -200,8 +203,9 @@ test('2 강의 없는 학평 문항 — 열자마자 읽고 마친다 (guided)',
   await openItem(p, HP)
   await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
   // 학평도 지문 지도가 있다(F09 · 2026-10-11 학평 골격 2,299행 적재 — 전엔 37문항뿐이었다)
-  await expect(p.page.getByText(/\d+ SENTENCES/).first()).toBeVisible({ timeout: 30_000 })
-  await expect(p.page.getByText('NO MAP')).toHaveCount(0)
+  // 근거·관계 판 머리의 문장 수(작업공간 — 옛 「N SENTENCES / NO MAP」 표기)
+  await expect(p.page.getByTestId('pane-evidence').getByText(/^\d+문장$/)).toBeVisible({ timeout: 30_000 })
+  await expect(p.page.getByTestId('pane-evidence').getByText('지도 없음')).toHaveCount(0)
   await p.page.getByTestId('finish-item').click()
   const done = p.page.getByTestId('session-done')
   await expect(done).toHaveAttribute('data-completion', 'guided')
@@ -223,7 +227,10 @@ test('3 중도 이탈 → 재접속 → 이전 단계 복원', async ({ browser 
   await p.page.reload({ waitUntil: 'domcontentloaded' })
   await expect(p.page.getByTestId('resume-notice')).toContainText('6단계', { timeout: 60_000 })
   await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
+  // 되살린 차례는 강의 도구 「진행」 에서 본다(작업공간)
+  await p.page.getByTestId('tool-run').click()
   await expect(p.page.getByText(/(^|\s)6 \/ \d+/).first()).toBeVisible()
+  await p.page.getByTestId('tool-close').click()
   await shot(p.page, '3-resumed')
   expect(sessionsFor(await readRecord(p.page), KICE_ID)).toHaveLength(1)
   await p.ctx.close()
@@ -428,23 +435,23 @@ test('13 v3 일곱 장면 — 옛 장면 주소는 정규형으로 · 수동 이
   const p = await device(browser, server)
   // 옛 `distractor` 링크 → 문항 성립(judgment) · 비선정 선지 구역부터
   await p.page.goto(`/csat/item/${KICE}?scene=distractor`, { waitUntil: 'domcontentloaded' })
-  await expect(p.page.getByTestId('scene-nav')).toBeVisible({ timeout: 90_000 })
+  await expect(p.page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 90_000 })
   await expect(p.page).toHaveURL(/scene=judgment/)
   await expect(p.page).toHaveURL(/judgmentView=options/)
   await expect(p.page.getByTestId('judgment-options')).toBeVisible()
-  await expect(p.page.locator('[data-scene="judgment"]')).toHaveAttribute('aria-selected', 'true')
+  await expect(p.page.locator('[data-testid="dock-scene"][data-scene="judgment"]')).toHaveAttribute('aria-current', 'page')
   // 일곱 장면 모두 제출 없이 열린다
   for (const id of ['task', 'meaning', 'judgment', 'design', 'compare', 'principle', 'explain']) {
     await openScene(p.page, id)
-    await expect(p.page.locator(`[data-scene="${id}"]`)).toHaveAttribute('aria-selected', 'true')
+    await expect(p.page.locator(`[data-testid="dock-scene"][data-scene="${id}"]`)).toHaveAttribute('aria-current', 'page')
   }
   // 수동 이동은 history 에 쌓인다 — 뒤로가기는 직전 장면
   await p.page.goBack()
   await expect(p.page).toHaveURL(/scene=principle/)
-  await expect(p.page.locator('[data-scene="principle"]')).toHaveAttribute('aria-selected', 'true')
+  await expect(p.page.locator('[data-testid="dock-scene"][data-scene="principle"]')).toHaveAttribute('aria-current', 'page')
   // 새로고침해도 같은 장면
   await p.page.reload({ waitUntil: 'domcontentloaded' })
-  await expect(p.page.locator('[data-scene="principle"]')).toHaveAttribute('aria-selected', 'true', { timeout: 90_000 })
+  await expect(p.page.locator('[data-testid="dock-scene"][data-scene="principle"]')).toHaveAttribute('aria-current', 'page', { timeout: 90_000 })
   await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
   await p.ctx.close()
 })
