@@ -1,0 +1,79 @@
+{
+  "rater": "B",
+  "phase": "post_key_self_review_not_blind",
+  "original_sha256": "ff5698a9f7bfb7e8fe07de62c6487c0c1cfe24a0f11b06400ee67149e95c0815",
+  "items": [
+    {
+      "id": "2014B#42",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["selective applicable→insufficient 검토: 인간 목소리와 로봇 부적합만으로 대면 방식까지 확정한 설명"],
+      "sufficiency_limit": "선택한 연속 두 문장은 인간 대화를 지지하지만 전화 등과 대면을 구별하지 않아, 3의 상대적 최선과 전략 단독 충분성은 분리해야 한다.",
+      "source_limit": "source의 본문·발문·보기·제시·정답 complete는 입력 결함 미발견이며 이 전략 가설의 검증은 아니다."
+    },
+    {
+      "id": "2022#18",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["syntax 근거의 범위 명료화: ask 보어뿐 아니라 workshop 수식까지 포함", "나머지 목적의 unsupported 유지: 반대 사실이 입증된 contradicted로 변경 금지"],
+      "sufficiency_limit": "워크숍 특별 강연을 부탁하는 완성문장은 목적 3을 직접 지지하지만, 축약한 ask 보어만으로 워크숍의 세부 범위까지 입증했다고 쓰면 과장이다.",
+      "source_limit": "source complete는 직접 요청문과 다섯 보기의 보존을 확인하며, 정답 일치가 목적·구문 코드 모두를 확정하지 않는다."
+    },
+    {
+      "id": "2015#18",
+      "initial_answer": 5,
+      "stored_answer": 5,
+      "answer_matches": true,
+      "revision_candidates": ["syntax applicable 재검토: 일반 계사 해석을 결정적 국소 의존으로 센 경계", "core_sentence와 selective의 마지막 완성문장 근거 유지 후보"],
+      "sufficiency_limit": "마지막 문장만으로 실패 회복과 성취라는 요지는 얻지만, 모든 문장 이해에 필요한 주어·보어 해석을 별도의 결정적 syntax 전략 성공으로 세는지는 미확정이다.",
+      "source_limit": "source complete이며 다른 요지 후보의 내용 부재는 unsupported로 유지하고 정답 5 일치로 contradicted에 올리지 않는다."
+    },
+    {
+      "id": "2022#35",
+      "initial_answer": 4,
+      "stored_answer": 4,
+      "answer_matches": true,
+      "revision_candidates": ["보기4 content unsupported→entailed 검토: 전체 제시문 기준이면 문장 자체는 명시됨", "보기4 fit fits 유지 후보: 내용의 거짓이 아니라 중심 흐름의 이탈"],
+      "sufficiency_limit": "기업 간 협력망의 누적 범위로 4의 이탈을 판단할 수 있으나, 문장에 적힌 사실의 지지와 제거 과제 적합성을 섞으면 안 된다.",
+      "source_limit": "source complete이며 실제 전체 문장 후보 경계도 확인되어 이 내용/과제 코드 문제를 전사 결함으로 돌릴 근거가 없다."
+    },
+    {
+      "id": "2020#37",
+      "initial_answer": 2,
+      "stored_answer": 2,
+      "answer_matches": true,
+      "revision_candidates": ["보기3 실패 설명 보완: Nor 자체보다 B 질문→A 응답과 C의 최종 비판 위치", "제시 순서 누적만으로 재배열 성공을 소급하지 않는 제한 유지"],
+      "sufficiency_limit": "Nor는 B의 faults도 받을 수 있어 그 연결어만으로 C→A를 배제하기보다, 발견자 질문의 응답과 마지막 Most importantly의 전개를 함께 확인해야 한다.",
+      "source_limit": "source complete는 직전 쪽 공유 발문까지 확인한 상태이며 블록·발문 누락과 관계 코드의 타당성 문제를 구별한다."
+    },
+    {
+      "id": "2024#28",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["selective/core_sentence의 충분성 경계 검토: 한 항목의 정답 지지와 다섯 후보 전체 검증", "보기1·2·4·5 contradicted는 각각의 주제·기간·개수·주체 항목에 근거"],
+      "sufficiency_limit": "3분 상한 한 항목은 3의 entailed·fits를 직접 지지하지만, 나머지 네 보기의 모순까지 검증하려면 다른 항목이 필요하므로 단일 정답 관행에 의존한 충분성과 구별해야 한다.",
+      "source_limit": "source complete이며 글머리 기호 서체 대체는 수치·항목 대응 결함으로 보고되지 않았다."
+    },
+    {
+      "id": "2019#25",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["selective applicable의 범위 제한: 두 행의 직접 반례와 다른 네 결합 보기 검증 분리"],
+      "sufficiency_limit": "새 표 China·India 두 행은 3의 순위 절을 반박하지만 나머지 네 보기의 content까지 검증하지 않으며, 배수·순위 판단은 구문 해독만으로 대체되지 않는다.",
+      "source_limit": "수치 오기는 미발견이나 표의 행·열 평탄화로 presentation partial이며, B가 문제지에서 표를 본 사실도 저장 입력 자체를 complete로 바꾸지 않는다."
+    },
+    {
+      "id": "2023#29",
+      "initial_answer": 2,
+      "stored_answer": 2,
+      "answer_matches": true,
+      "revision_candidates": ["syntax/core_sentence/selective applicable→insufficient 검토: them이 people 자신이라는 의미적 결속의 외부 근거", "not_propositional과 오류 선택 fit 유지 후보"],
+      "sufficiency_limit": "people과 them의 동일 지시가 확정되면 재귀형이 필요하지만 국소 문법만으로 동일 지시를 강제하지 않으므로, 자기표현 맥락을 몰래 추가한 단독 전략 판정인지 재검토해야 한다.",
+      "source_limit": "각주 누락·5번 각주 혼입·장문 보기 조각·밑줄 범위 손실로 body/choices/presentation partial이며, 정답 2 일치와 원래 후보 범위의 완전성은 별개다."
+    }
+  ]
+}

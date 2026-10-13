@@ -32,10 +32,36 @@
     "blind_input_sha256":  "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
     "key_sha256":  "891563ac5f624e5e41209ec8a51374d25ba948a4f97ee60df6bf68cf89d00e38",
     "first_submissions":  {
-
+                              "A":  {
+                                        "agent":  "/root/main_rater_a",
+                                        "fork_turns":  "none",
+                                        "model":  "same inherited configuration",
+                                        "sha256":  "21eaad5cb7659ff1542c6e5d1b96180492839158ea0f2f86858b3f7678a53273",
+                                        "answer_blind":  true,
+                                        "completed_items":  32
+                                    },
+                              "B":  {
+                                        "agent":  "/root/main_rater_b",
+                                        "fork_turns":  "none",
+                                        "model":  "same inherited configuration",
+                                        "sha256":  "ff5698a9f7bfb7e8fe07de62c6487c0c1cfe24a0f11b06400ee67149e95c0815",
+                                        "answer_blind":  true,
+                                        "completed_items":  32
+                                    }
                           },
     "holdout_opened":  false,
     "protocol_sha256":  "37385311d142e1409c3fe771713ad4b52e7f49ccd3ae171e65d978e356df7b38",
     "selection_script_sha256":  "3facd17dda4a122ca9748ca86b13509559ae4bd95f55d00cf17ad72eada90fe1",
-    "registration_order":  "Protocol, manifest, frozen input/key hashes committed before launching either new rater or source judge"
+    "registration_order":  "Protocol, manifest, frozen input/key hashes committed before launching either new rater or source judge",
+    "preregistration_commit":  "a3a32f405",
+    "frozen_recorded_at_utc":  "2026-10-13 23:27:59 UTC",
+    "freeze_order":  "Both complete submissions received and SHA256 matched before root computes agreement or reveals pinned keys to either rater",
+    "source_audit_sha256":  "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+    "limits":  [
+                   "Separate AI contexts with same inherited settings; no human expert review or training-exposure guarantee",
+                   "Additional original question PDF visual access is permitted and reported; no comprehensive file-access audit",
+                   "Only source snapshot as of2026-10-12 reused; no fresh DB audit",
+                   "Root directly read all32 frozen inputs and2019 question page4; root is not an independent blind third coder",
+                   "Root also exposed to nonselected neighbouring discovery items2019#27/28 on page4; future blind sampling must preserve this exposure"
+               ]
 }

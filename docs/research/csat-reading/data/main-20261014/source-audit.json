@@ -1,0 +1,3071 @@
+{
+  "run": "main-20261014",
+  "protocol": "1.1",
+  "as_of": "2026-10-14",
+  "method": {
+    "auditor": "AI source auditor; A/B outputs not read",
+    "input_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+    "key_sha256": "891563ac5f624e5e41209ec8a51374d25ba948a4f97ee60df6bf68cf89d00e38",
+    "manifest_sha256": "a1c976ede625178097ba5d086596182fd82b02a517ddc0a7e58a884df7339513",
+    "protocol_sha256": "37385311d142e1409c3fe771713ad4b52e7f49ccd3ae171e65d978e356df7b38",
+    "snapshot": "source-snapshot-20261012-r0; no current DB query or modification",
+    "scope": "fixed 32 main-exam items only; 2014A/B and 2015–2024; 2025/2026 blocked before reads",
+    "pdf_skill": "C:/Users/Administrator/.agents/skills/synced/9424e6e6-5423-4bef-be40-8c1980a0b643_c3634d56-3a51-4aa3-8d61-3b34ce5bf020/pdf/SKILL.md",
+    "extraction": "pdfjs-dist full page text+coordinates; full-input normalized contiguous comparison, not 24-character sampling. Sampling used only to locate pages and never determines status.",
+    "visual": "rendered question pages containing all32 items, two previous shared-stem pages, and12 selected same-form answer pages personally viewed via view_image; text originals/images stay local.",
+    "status_definition": {
+      "complete": "전체 해당 필드와 후보/표시 경계를 직접 확인했고 저장 입력의 완전성 결함 없음",
+      "partial": "직접 확인했으나 누락/혼입/평탄화 등 저장 입력의 완전성 결함 있음; 풀이 왜곡과는 구분",
+      "failed": "직접 대조에서 잘못된 원문/형/정답 등 실패",
+      "unavailable": "해당 대조자료를 확보하지 못함"
+    },
+    "normalization_limitations": "NFKC/alphanumeric normalization ignores punctuation/spacing/underline/blank lines and can match prefixes or overextended inline choices. Actual full-field/presentation statuses override substring successes. Full prose comparison does not excuse missing printed vocabulary footnotes.",
+    "presentation_scope": "과제에 필요한 표시와 선택된 공유지문에 함께 인쇄된 표시 포함; 장식·인쇄 배점·저작권 푸터 자체는 학습 입력 필드로 요구하지 않음.",
+    "limitations": [
+      "local KICE-identifying titles/forms/footers and hashes checked; official download transaction chain not reconstructed",
+      "no human expert verification performed",
+      "AI training exposure and exhaustive file access audit not guaranteed",
+      "the frozen input was never corrected or replaced; source defects remain in the original32 denominator"
+    ]
+  },
+  "items": [
+    {
+      "id": "2014A#36",
+      "binding": "b8fe6088fd7aed080e248edc65b2e7dc18173265c22993aa939ada1267eac0e4",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 7,
+        "paper_form": "A형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "본문 끝에 보기표 열 제목 (A)/(B)가 혼입됨."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 649,
+        "normalized_sha256": "c79c0d23a014aceb2f22a0d159ca5a7b8a9dddd59326c50c3699c69e36c967a1",
+        "token_comparison": {
+          "query_token_count": 135,
+          "page_token_count": 846,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 135,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 7,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "두 연결어 빈칸의 위치는 (A)/(B)로 남았으나 빈칸 선이 제거되고 보기표 머리말과 본문 경계가 합쳐짐."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 2,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "page": 1,
+          "paper_form": "A형 홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "본문 끝에 보기표 열 제목 (A)/(B)가 혼입됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "두 연결어 빈칸의 위치는 (A)/(B)로 남았으나 빈칸 선이 제거되고 보기표 머리말과 본문 경계가 합쳐짐.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2014B#42",
+      "binding": "126ba108a3eb6995f09f95e754880ea3ed856cff83c872d2d9a9f3e194a5665b",
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 7,
+        "paper_form": "B형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1086,
+        "normalized_sha256": "57f46379b513cf703c30914efac69db03b08325940944c2c4495773753e3a507",
+        "token_comparison": {
+          "query_token_count": 258,
+          "page_token_count": 767,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 258,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 7,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-7.png",
+        "notes": [
+          "41–42 공유지문 범위와 단일 빈칸 위치를 확인; 저장 밑줄 대체자와 실제 위치가 대응함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+          "sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+          "page": 1,
+          "paper_form": "B형 홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2024#21",
+      "binding": "5f9ac878c28b7016c71179996c1f9523bf3d0546ae6ec8bf4f6dbb84dc768e59",
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "page": 3,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 747,
+        "normalized_sha256": "559998f09ea7ebedd1742950b41a57dcce50bcb878bf235e65a1798fe02606f8",
+        "token_comparison": {
+          "query_token_count": 162,
+          "page_token_count": 932,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 162,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 3,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "선택 과제의 핵심 구절은 발문에서 특정되지만 본문에서 그 구절의 실제 밑줄이 보존되지 않음.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-3.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "선택 과제의 핵심 구절은 발문에서 특정되지만 본문에서 그 구절의 실제 밑줄이 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2016#30",
+      "binding": "70fb68ad795b3c68fcf471f12f86d671c2156f0e3ab474de4a0d5e1d61800ae0",
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "page": 5,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 750,
+        "normalized_sha256": "df357a520d7adf2728cefca0b037220b5c4a7489caf0d17fd7e56ae61930384e",
+        "token_comparison": {
+          "query_token_count": 172,
+          "page_token_count": 804,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 172,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "partial",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [
+          "실제 다섯 후보는 번호별 밑줄 친 대명사지만 저장 보기들은 다음 후보 직전까지의 문장 조각으로 확장됨. 5번에는 각주와 인쇄 쪽수까지 혼입됨."
+        ],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "다섯 번호와 대명사 위치는 확인했으나 실제 밑줄의 범위가 저장 입력에 없음.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2016영어영역_정답표.pdf",
+          "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "choices",
+          "kind": "candidate_boundary_or_contamination",
+          "why": "실제 다섯 후보는 번호별 밑줄 친 대명사지만 저장 보기들은 다음 후보 직전까지의 문장 조각으로 확장됨. 5번에는 각주와 인쇄 쪽수까지 혼입됨.",
+          "task_distortion": "possible_material_effect; exact_target_scope_not_preserved"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "다섯 번호와 대명사 위치는 확인했으나 실제 밑줄의 범위가 저장 입력에 없음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2021#42",
+      "binding": "cb583dff2dd87cfeae62ee23af41edcfcbd3908d936b524db0c0ca63db70c2a7",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "page": 8,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1112,
+        "normalized_sha256": "43354c18e7c9079dedd6916126b1e3aa0363711ff9014cb14b35351eb1c872ab",
+        "token_comparison": {
+          "query_token_count": 236,
+          "page_token_count": 814,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 236,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 8,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "41–42 공유지문과 (a)–(e) 위치·5개 후보 번호는 맞으나 실제 밑줄은 저장 입력에서 소실됨.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-8.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2021영어영역_정답표.pdf",
+          "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "41–42 공유지문과 (a)–(e) 위치·5개 후보 번호는 맞으나 실제 밑줄은 저장 입력에서 소실됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2018#19",
+      "binding": "09ce5c5a97a80bb3549ed05f4922ced2097253486572d32a8ddbdf8e1b6a7b5c",
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "page": 2,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 502,
+        "normalized_sha256": "b2ea510a516599d1532b5630c69986e2fffb3880ef10ec2f871298eadf0b1d36",
+        "token_comparison": {
+          "query_token_count": 121,
+          "page_token_count": 830,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 121,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 2,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-2.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 2,
+        "key_pdf": {
+          "filename": "2018영어영역_정답표.pdf",
+          "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2020#20",
+      "binding": "23052c0009e7ed7f8869c9bbd130c8ea90f7d8fe7a9339803553bcef1df67496",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 2,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 715,
+        "normalized_sha256": "34849c462b4ad546f765c549abdf4ec71cedb807a4f875207adedb4abbbb994a",
+        "token_comparison": {
+          "query_token_count": 145,
+          "page_token_count": 893,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 145,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 2,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2020-q-2.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 1,
+        "key_pdf": {
+          "filename": "2020영어영역_정답표.pdf",
+          "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2022#18",
+      "binding": "64785711ad66d40f79e418ffd001370393507b17aa22134fab06048b3e223831",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 2,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 515,
+        "normalized_sha256": "c9f53c979607c453902ad075c8cfeea1c0a718ef087a6db72d941cc600e4768c",
+        "token_comparison": {
+          "query_token_count": 110,
+          "page_token_count": 839,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 110,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 2,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2022-q-2.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "sha256": "cd1687afd0da13a54ab59b5eb89faf4f9f6f70ef97930dbdfc940d6f1e558aac",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2019#44",
+      "binding": "e2b1955f8c57c86d4bdb872f4895440d5a75307225df1b11a0784d530650c0d1",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 8,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": false,
+        "normalized_chars": 1610,
+        "normalized_sha256": "806e02cda2a7387c044475c6d0e6cbff2c28c4c7120bfed767baca8ea4dee8b9",
+        "token_comparison": {
+          "query_token_count": 357,
+          "page_token_count": 848,
+          "whole_query_contiguous_token_match": false,
+          "ordered_lcs_tokens": 357,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 8,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "43–45 공유지문 (A)–(D)의 순서와 (a)–(e)의 위치는 맞으나 다섯 대명사 밑줄이 소실됨.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-8.png",
+        "notes": [
+          "정규화 연속 일치 실패는 공유지문 블록 사이 각주가 PDF 문자층에 삽입되기 때문이며 영어 본문 블록 자체의 문장 누락은 발견하지 못함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "sha256": "392d06847f4fed9e9b75115caddf6c14e991731a62b6eb01955dd1a471df3f80",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "43–45 공유지문 (A)–(D)의 순서와 (a)–(e)의 위치는 맞으나 다섯 대명사 밑줄이 소실됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2015#18",
+      "binding": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+      "pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "page": 2,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 513,
+        "normalized_sha256": "a20c1d96e92e5506a42d63619788fd932ec4c3cd24f5d2a35d6f2dd5c3405851",
+        "token_comparison": {
+          "query_token_count": 108,
+          "page_token_count": 733,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 108,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 2,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-2.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2015영어영역_정답표_홀수.pdf",
+          "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2023#41",
+      "binding": "13ce39556888020557d3fa2f247922d983373467c8f797ab3a53568e85873ea3",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "page": 8,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1170,
+        "normalized_sha256": "80aff1cd87cc22348b19173f77c5f592c4cb386d3b7e6b4d438b38c590558406",
+        "token_comparison": {
+          "query_token_count": 229,
+          "page_token_count": 785,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 229,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 8,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "41–42 공유지문의 (a)–(e) 후보 표시는 남아 있으나 함께 인쇄된 밑줄과 각주가 저장 입력에 없음. 제목 문항의 5보기는 원문과 맞음.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2023-q-8.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 1,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "41–42 공유지문의 (a)–(e) 후보 표시는 남아 있으나 함께 인쇄된 밑줄과 각주가 저장 입력에 없음. 제목 문항의 5보기는 원문과 맞음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2017#25",
+      "binding": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 4,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 682,
+        "normalized_sha256": "2894d6b8bffb61f551bffabcb4eac293ea18b9aebe75df77219c4747ddf861e5",
+        "token_comparison": {
+          "query_token_count": 151,
+          "page_token_count": 684,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 151,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 4,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2017-q-4.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "sha256": "8ef2e2eaa814d9c792383a279c5c6994f5023c4c0fb723d89eb3863ca22646e8",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2021#40",
+      "binding": "c2cd9bc973b6c02ddccac776e179eb65d62717b4bda5f76665585314024396d9",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "page": 7,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": false,
+        "normalized_chars": 1001,
+        "normalized_sha256": "9b1897c9473573c5904aafb9d7f3a50a7b8017d5008ba9113b886cac07bb9e87",
+        "token_comparison": {
+          "query_token_count": 207,
+          "page_token_count": 841,
+          "whole_query_contiguous_token_match": false,
+          "ordered_lcs_tokens": 207,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 7,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문 본문과 별도 요약문 사이의 화살표·상자 경계가 합쳐졌고 각주가 소실됨. (A)/(B) 빈칸 순서·위치는 대응함.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-7.png",
+        "notes": [
+          "연속 정규화 불일치는 원문 본문과 요약문 사이 각주 때문이며 본문 및 요약문의 영어 문장들을 직접 대조함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2021영어영역_정답표.pdf",
+          "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문 본문과 별도 요약문 사이의 화살표·상자 경계가 합쳐졌고 각주가 소실됨. (A)/(B) 빈칸 순서·위치는 대응함.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2014B#45",
+      "binding": "885c0dd36192c7742cc062497514bacdb92e4718ad87096581cdeaff5a9eb27e",
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 8,
+        "paper_form": "B형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1691,
+        "normalized_sha256": "6a107ee02c39eb2af1b7909216b7b3c2432be1d5f5de64149053a7e0b75192d8",
+        "token_comparison": {
+          "query_token_count": 411,
+          "page_token_count": 544,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 411,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 8,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "43–45 공유지문 블록 및 (a)–(e) 위치는 맞지만 함께 인쇄된 대명사 밑줄을 저장 입력이 보존하지 않음. 해당 내용 일치 과제에 필요한 대명사 문맥 자체는 남아 있음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-8.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+          "sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+          "page": 1,
+          "paper_form": "B형 홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "43–45 공유지문 블록 및 (a)–(e) 위치는 맞지만 함께 인쇄된 대명사 밑줄을 저장 입력이 보존하지 않음. 해당 내용 일치 과제에 필요한 대명사 문맥 자체는 남아 있음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2018#43",
+      "binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "page": 8,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1733,
+        "normalized_sha256": "d209b9a715229ad0378f3c4423260d993c897ffe38f6e1e0e22bfb939f2fa078",
+        "token_comparison": {
+          "query_token_count": 424,
+          "page_token_count": 902,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 424,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 8,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "43–45 공유지문 (A)–(D)의 블록 순서·경계 표지는 남아 있으나 함께 인쇄된 (a)–(e) 대명사의 밑줄이 소실됨. 순서 과제의 블록 텍스트와 5개 배열은 맞음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-8.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2018영어영역_정답표.pdf",
+          "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "43–45 공유지문 (A)–(D)의 블록 순서·경계 표지는 남아 있으나 함께 인쇄된 (a)–(e) 대명사의 밑줄이 소실됨. 순서 과제의 블록 텍스트와 5개 배열은 맞음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2019#25",
+      "binding": "6379ade5e777ec3350f6b35585753af88a7ca7426ec95aa74ec73a3b63d69ace",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 4,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": false,
+        "normalized_chars": 1228,
+        "normalized_sha256": "6c659dc9c29b26dbc63831f053d68bb351c649c5cc681a1ac93425ea2b5e31bd",
+        "token_comparison": {
+          "query_token_count": 283,
+          "page_token_count": 768,
+          "whole_query_contiguous_token_match": false,
+          "ordered_lcs_tokens": 242,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 4,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "두 표의 공간적 열·행 경계가 한 줄 텍스트로 평탄화됨. 수치/국가/연도는 직접 확인했으나 저장 입력 자체에 구조화된 표나 그림은 없으므로 제시 형식 완전성은 partial."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-4.png",
+        "notes": [
+          "PDF 문자층은 좌표별 표를 열 단위로 읽고 저장 입력은 좌우 표를 행별 교차로 읽으므로 연속 문자열은 불일치. 두 표 전24행의 국가·수치, 제목/연도/반올림 주석과 5보기 번호 대응을 시각 대조하여 수치 오기는 발견하지 못함."
+        ],
+        "table_audit": {
+          "status": "complete",
+          "source_cells_checked": 24,
+          "header_groups_checked": 2,
+          "choice_number_mapping_checked": 5,
+          "numeric_and_country_mismatches": 0,
+          "method": "실제 좌우 두 표의 전행·연도·단위·반올림 주석과 각 후보 조건 대조",
+          "data_transcription": "local_only; no table originals in tracked audit"
+        }
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "sha256": "392d06847f4fed9e9b75115caddf6c14e991731a62b6eb01955dd1a471df3f80",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "두 표의 공간적 열·행 경계가 한 줄 텍스트로 평탄화됨. 수치/국가/연도는 직접 확인했으나 저장 입력 자체에 구조화된 표나 그림은 없으므로 제시 형식 완전성은 partial.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2023#29",
+      "binding": "31e0507296555f10d54751df947258f7f9b410f826f734de4386a51ca65c3b19",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "page": 5,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 887,
+        "normalized_sha256": "54a1818bf911740c1f1112fd032bf7ea3448e00b30106e06662715256f0b6db2",
+        "token_comparison": {
+          "query_token_count": 171,
+          "page_token_count": 796,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 171,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "partial",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [
+          "실제 다섯 후보는 번호별 밑줄 친 표현이지만 저장 보기들은 다음 후보까지의 장문 조각임. 5번은 불완전한 각주까지 포함함."
+        ],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "①–⑤ 위치는 맞으나 원래의 단어별 밑줄 범위가 입력에서 없음.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2023-q-5.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 2,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "choices",
+          "kind": "candidate_boundary_or_contamination",
+          "why": "실제 다섯 후보는 번호별 밑줄 친 표현이지만 저장 보기들은 다음 후보까지의 장문 조각임. 5번은 불완전한 각주까지 포함함.",
+          "task_distortion": "possible_material_effect; exact_target_scope_not_preserved"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "①–⑤ 위치는 맞으나 원래의 단어별 밑줄 범위가 입력에서 없음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2022#35",
+      "binding": "1e0f088f1f28b4bd184d41872aaf9b383aacf4bcc0ccbb4acfc4c86419d5a847",
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 6,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 737,
+        "normalized_sha256": "c673f946a4d3a2f8104d80f6773a28dab93070740429972bb3561f8069f0e5c2",
+        "token_comparison": {
+          "query_token_count": 138,
+          "page_token_count": 777,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 138,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 6,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2022-q-6.png",
+        "notes": [
+          "①–⑤ 표시를 전체 문장 후보로 복원한 입력과 실제 다섯 문장의 경계·번호가 일치함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2022영어영역_정답표.pdf",
+          "sha256": "cd1687afd0da13a54ab59b5eb89faf4f9f6f70ef97930dbdfc940d6f1e558aac",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2015#30",
+      "binding": "703ec14047e67a71c0cda6f5bdcad9b2330f6b88ea6a8a184b402210b83d66fc",
+      "pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "page": 5,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문 본문 뒤에 별도 5보기표가 본문 문자열로 중복 혼입됨.",
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": false,
+        "normalized_chars": 963,
+        "normalized_sha256": "eb80e46b5af73f409dfd605bd19e899e27020caa9c58f216aed11e10bdb4d7e3",
+        "token_comparison": {
+          "query_token_count": 204,
+          "page_token_count": 810,
+          "whole_query_contiguous_token_match": false,
+          "ordered_lcs_tokens": 204,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "partial",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [
+          "5번 보기 끝의 인쇄 쪽수 5가 후보 텍스트에 혼입됨. 나머지 네 조합과 5번의 어휘 조합 자체는 일치함."
+        ],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "(A)/(B)/(C) 네모와 후보표 경계가 소실됨. 세 위치와 슬래시 후보 순서는 일치함.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-5.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2015영어영역_정답표_홀수.pdf",
+          "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문 본문 뒤에 별도 5보기표가 본문 문자열로 중복 혼입됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "choices",
+          "kind": "candidate_boundary_or_contamination",
+          "why": "5번 보기 끝의 인쇄 쪽수 5가 후보 텍스트에 혼입됨. 나머지 네 조합과 5번의 어휘 조합 자체는 일치함.",
+          "task_distortion": "possible_material_effect; exact_target_scope_not_preserved"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "(A)/(B)/(C) 네모와 후보표 경계가 소실됨. 세 위치와 슬래시 후보 순서는 일치함.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2017#21",
+      "binding": "c93f7547fbf732acaf6629a6358af4d9f5aabd092cf1dde15d84fc95fa75346b",
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 3,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 847,
+        "normalized_sha256": "2a91df42298e7f8a9fb0f77fd3196d4c6792c5a743eb1eb05c68ffc5fc9b3d92",
+        "token_comparison": {
+          "query_token_count": 168,
+          "page_token_count": 818,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 168,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 3,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2017영어영역_정답표.pdf",
+          "sha256": "8ef2e2eaa814d9c792383a279c5c6994f5023c4c0fb723d89eb3863ca22646e8",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2016#23",
+      "binding": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "page": 3,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 795,
+        "normalized_sha256": "0247309e349ca11354548a7cff343f422ba69d7df7a6f1c534d7b2c088f3aea2",
+        "token_comparison": {
+          "query_token_count": 165,
+          "page_token_count": 761,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 165,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 3,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-3.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 1,
+        "key_pdf": {
+          "filename": "2016영어영역_정답표.pdf",
+          "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2014A#39",
+      "binding": "bfa8570fcc6224c6bf027f8eb9d918244e2357a22c97a1d9ca2147a0ca941301",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 7,
+        "paper_form": "A형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 611,
+        "normalized_sha256": "a0ed93907c4a3f20ea2b9141145b407d598118ae5c0bb790f2600dfb67c54ecf",
+        "token_comparison": {
+          "query_token_count": 165,
+          "page_token_count": 846,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 165,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 7,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "partial",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [
+          "실제 후보는 다섯 삽입 위치인데 저장 보기들은 각 위치 이후의 문장 조각임. 5번에는 각주가 혼입됨."
+        ],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "별도 삽입문 상자와 본문의 경계가 합쳐짐. 첫 문장이 상자문이고 ①–⑤ 각각 뒤 문장 앞에 있는 것은 실제 페이지에서 확인됨.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "page": 1,
+          "paper_form": "A형 홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "choices",
+          "kind": "candidate_boundary_or_contamination",
+          "why": "실제 후보는 다섯 삽입 위치인데 저장 보기들은 각 위치 이후의 문장 조각임. 5번에는 각주가 혼입됨.",
+          "task_distortion": "possible_material_effect; exact_target_scope_not_preserved"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "별도 삽입문 상자와 본문의 경계가 합쳐짐. 첫 문장이 상자문이고 ①–⑤ 각각 뒤 문장 앞에 있는 것은 실제 페이지에서 확인됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2020#37",
+      "binding": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 7,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 1057,
+        "normalized_sha256": "eaeedaf24e5772251fbefd6cdddc95898b4833372af45504dc5ed9dfeaf45560",
+        "token_comparison": {
+          "query_token_count": 192,
+          "page_token_count": 857,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 192,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 6,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2020-q-7.png",
+        "notes": [
+          "공유 발문 [36–37]은 직전6쪽에 있으며 37번은7쪽. 두 페이지에서 전체 발문과 블록 순서·5배열을 확인함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 2,
+        "key_pdf": {
+          "filename": "2020영어영역_정답표.pdf",
+          "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2024#28",
+      "binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "page": 4,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "complete",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 483,
+        "normalized_sha256": "a45dd63cec91997b7d9001671bc795394f22ba7e003fdb40a617b7112252181a",
+        "token_comparison": {
+          "query_token_count": 97,
+          "page_token_count": 656,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 97,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 4,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "complete",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-4.png",
+        "notes": [
+          "안내문 제목·Guidelines/Prizes 소제목·하위 항목의 대응 및 금액/기간/제한 수치를 직접 대조함. 글머리 기호의 서체 대체는 과제 조건을 바꾸지 않음."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": true,
+        "why": "원문·전체 발문·5보기·과제 제시·동일형 정답표의 직접 대조 완료; 저장 입력에 확인된 완전성 결함 없음."
+      },
+      "issues": []
+    },
+    {
+      "id": "2024#34",
+      "binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "page": 6,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 875,
+        "normalized_sha256": "e48df8611fe5bf49caa88e37c3798dffc9b7e33ca268f7b0486d7997817e4400",
+        "token_comparison": {
+          "query_token_count": 187,
+          "page_token_count": 853,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 187,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png",
+        "notes": [
+          "공유 발문 [31–34]은5쪽에 있고 34번은6쪽. 두 페이지를 직접 확인한 후 전체 발문을 결속함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2014B#34",
+      "binding": "eab3af702087e15637777a240e90d5ff7b10903bdcc85a501b29bdbc2c0eb33e",
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 5,
+        "paper_form": "B형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 785,
+        "normalized_sha256": "59dddce421a61e600220523c82f2eee35956b903cab2ae0a845ecead8b29e629",
+        "token_comparison": {
+          "query_token_count": 153,
+          "page_token_count": 844,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 153,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-5.png",
+        "notes": [
+          "같은5쪽 공유 발문 [31–35]을 34번과 결속하여 확인함. 단일 빈칸은 저장 대체자 위치와 대응함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 1,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+          "sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+          "page": 1,
+          "paper_form": "B형 홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2018#36",
+      "binding": "2fbf829ae6da7c7b1b2fb6422a2eef592a99505b4d0cd7aaedb64c25f8313f78",
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "page": 6,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 884,
+        "normalized_sha256": "000f35ddef88236ee826a2031f6fa1cc3d32df9b163ae4112d42614d3c58740b",
+        "token_comparison": {
+          "query_token_count": 151,
+          "page_token_count": 801,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 151,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 6,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-6.png",
+        "notes": [
+          "같은6쪽 공유 발문 [36–37], 주어진 글 상자와 (A)/(B)/(C) 블록, 5개 배열의 번호 순서를 확인함."
+        ]
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2018영어영역_정답표.pdf",
+          "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2023#39",
+      "binding": "321e3f448c0d8865ca7d385d1a8e57106c6cf8d60639532dc67cc60a1043da28",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "page": 7,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 793,
+        "normalized_sha256": "8399f4a638d06b2dff6ae9bb5331de4d4f776a8ad0b57a682365aa13c29ec290",
+        "token_comparison": {
+          "query_token_count": 177,
+          "page_token_count": 832,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 177,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 7,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "partial",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [
+          "실제 다섯 후보는 삽입 위치지만 저장 보기들은 각 위치 이후의 문장 조각임. 5번에는 배점 및 두 각주가 혼입됨."
+        ],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "공유 발문 [38–39] 및 상자 속 삽입문과 본문이 하나의 문자열로 합쳐짐. 실제 상자문·①–⑤ 위치는 직접 확인함.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2023-q-7.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 4,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "choices",
+          "kind": "candidate_boundary_or_contamination",
+          "why": "실제 다섯 후보는 삽입 위치지만 저장 보기들은 각 위치 이후의 문장 조각임. 5번에는 배점 및 두 각주가 혼입됨.",
+          "task_distortion": "possible_material_effect; exact_target_scope_not_preserved"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "공유 발문 [38–39] 및 상자 속 삽입문과 본문이 하나의 문자열로 합쳐짐. 실제 상자문·①–⑤ 위치는 직접 확인함.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2019#23",
+      "binding": "a57c949e34857dcf792d9e622602d1b8fa900b5a5e9c48f8f19cad0c3c049ca5",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "page": 3,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 993,
+        "normalized_sha256": "9d12d91592bb40d748457a464bfce762b71ad9a535c464b74604007319b60d36",
+        "token_comparison": {
+          "query_token_count": 180,
+          "page_token_count": 881,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 180,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 3,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-3.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 2,
+        "key_pdf": {
+          "filename": "2019영어영역_정답표.pdf",
+          "sha256": "392d06847f4fed9e9b75115caddf6c14e991731a62b6eb01955dd1a471df3f80",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 3개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2021#26",
+      "binding": "71436a07c66cec37d02d71d8c86bfcf6e4cc01b58bf0097aa8c7fcd49bdc320e",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "page": 4,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 691,
+        "normalized_sha256": "da89397136abba3d8a71e7fd6a8278526151db8544d66e9247b253621534a6a0",
+        "token_comparison": {
+          "query_token_count": 140,
+          "page_token_count": 627,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 140,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "partial",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [
+          "발문 끝의 “것은?”이 잘려 있음. 부정 방향은 남아 있으나 전체 발문 일치가 아님."
+        ],
+        "page": 4,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-4.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 5,
+        "key_pdf": {
+          "filename": "2021영어영역_정답표.pdf",
+          "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+          "page": 2,
+          "paper_form": "짝수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "stem",
+          "kind": "truncation",
+          "why": "발문 끝의 “것은?”이 잘려 있음. 부정 방향은 남아 있으나 전체 발문 일치가 아님.",
+          "task_distortion": "task_direction_preserved; full_wording_incomplete"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2016#29",
+      "binding": "4d1218e6ce02cbfc1cb260aa10227af7503da2808a96ce53e43e424c9aee83c8",
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "page": 5,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "별도 5보기표가 본문 문자열로 중복 혼입됨.",
+          "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": false,
+        "normalized_chars": 1024,
+        "normalized_sha256": "dcf345cd152c4da7eddc3e3ee6b8e211952ff544fa72f3a7f10d7aeabf26fd22",
+        "token_comparison": {
+          "query_token_count": 200,
+          "page_token_count": 804,
+          "whole_query_contiguous_token_match": false,
+          "ordered_lcs_tokens": 200,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "complete",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [],
+        "page": 5,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "(A)/(B)/(C) 네모 표시와 본문/후보표 경계가 소실됨. 각 위치와 5개 어휘 조합·번호는 실제 페이지와 일치함.",
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2016영어영역_정답표.pdf",
+          "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "별도 5보기표가 본문 문자열로 중복 혼입됨.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 2개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "(A)/(B)/(C) 네모 표시와 본문/후보표 경계가 소실됨. 각 위치와 5개 어휘 조합·번호는 실제 페이지와 일치함.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    },
+    {
+      "id": "2015#24",
+      "binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+      "pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "page": 3,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "body": {
+        "status": "partial",
+        "method": "전체 저장 passage의 NFKC/소문자/문자숫자 정규화 문자열·전체 토큰열/LCS 대조 + 실제 페이지 전체 문장/각주/경계 대조",
+        "issues": [
+          "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음."
+        ],
+        "whole_input_normalized_contiguous_match": true,
+        "normalized_chars": 604,
+        "normalized_sha256": "478c2d2bf69642761137e751bcf9a6f58f066065cf818752320eb53794674cb5",
+        "token_comparison": {
+          "query_token_count": 111,
+          "page_token_count": 721,
+          "whole_query_contiguous_token_match": true,
+          "ordered_lcs_tokens": 111,
+          "normalization": "NFKC/lowercase/Unicode letter-number runs; token boundaries from PDF extraction may differ from printed words; containment is not a source-completeness verdict"
+        },
+        "prose_checked_in_full": true
+      },
+      "stem": {
+        "status": "partial",
+        "method": "전체 발문 및 공유 발문 범위 결속을 실제 페이지에서 확인; 배점은 발문 내용과 분리",
+        "issues": [
+          "발문 끝의 “것은?”이 잘려 있음. 부정 방향은 남아 있으나 전체 발문 일치가 아님."
+        ],
+        "page": 3,
+        "whole_input_normalized_found_on_bound_page": true
+      },
+      "choices": {
+        "status": "complete",
+        "method": "다섯 번호 각각 전체 보기와 실제 후보 경계/표시를 대조; 위치·대명사·문법 후보를 문장 조각 일치와 구분",
+        "issues": [],
+        "normalized_contiguous_matches": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "number_mapping_checked": 5
+      },
+      "presentation": {
+        "status": "partial",
+        "method": "로컬 문제지 렌더를 view_image로 직접 확인: 밑줄/빈칸/상자/블록/공유 범위/표와 후보 번호",
+        "issues": [
+          "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음."
+        ],
+        "visual_checked": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png",
+        "notes": []
+      },
+      "answer": {
+        "status": "complete",
+        "matches": true,
+        "answer": 3,
+        "key_pdf": {
+          "filename": "2015영어영역_정답표_홀수.pdf",
+          "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "method": "같은 형 정답표의 전체 해당 행을 문자층에서 읽고 렌더된 실제 표/형/번호/정답셀을 직접 시각 확인",
+        "issues": []
+      },
+      "admission": {
+        "original_artifact_complete": false,
+        "why": "직접 대조는 수행했으나 저장 입력의 일부 필드가 원문 전체/제시 형식을 보존하지 못하므로 확인적 원문 완전성 분모에 넣지 않음."
+      },
+      "issues": [
+        {
+          "field": "body",
+          "kind": "original_completeness",
+          "why": "원문에 인쇄된 어휘 각주 1개가 passage에서 누락됨; 각주가 일부 choices에 혼입되어도 올바른 위치의 보존으로 세지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        },
+        {
+          "field": "stem",
+          "kind": "truncation",
+          "why": "발문 끝의 “것은?”이 잘려 있음. 부정 방향은 남아 있으나 전체 발문 일치가 아님.",
+          "task_distortion": "task_direction_preserved; full_wording_incomplete"
+        },
+        {
+          "field": "presentation",
+          "kind": "presentation_completeness",
+          "why": "원문에 인쇄된 어휘 각주의 제시·위치가 저장 입력에서 보존되지 않음.",
+          "task_distortion": "not_demonstrated; original_completeness_defect_is_separate_from_solution_error"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "count": 32,
+    "fields": {
+      "body": {
+        "complete": 11,
+        "partial": 21,
+        "failed": 0,
+        "unavailable": 0
+      },
+      "stem": {
+        "complete": 30,
+        "partial": 2,
+        "failed": 0,
+        "unavailable": 0
+      },
+      "choices": {
+        "complete": 27,
+        "partial": 5,
+        "failed": 0,
+        "unavailable": 0
+      },
+      "presentation": {
+        "complete": 8,
+        "partial": 24,
+        "failed": 0,
+        "unavailable": 0
+      },
+      "answer": {
+        "complete": 32,
+        "partial": 0,
+        "failed": 0,
+        "unavailable": 0
+      }
+    },
+    "same_form_key_matches": 32,
+    "original_artifact_complete": 8,
+    "admitted_ids": [
+      "2014B#42",
+      "2022#18",
+      "2015#18",
+      "2017#25",
+      "2022#35",
+      "2016#23",
+      "2020#37",
+      "2024#28"
+    ],
+    "visual_required_count": 1,
+    "visual_required_verified_ids": [
+      "2019#25"
+    ],
+    "raw_page_contiguous_normalized_body_matches": 27,
+    "raw_page_contiguous_normalized_choice_matches": 158,
+    "full_comparison_performed": 32,
+    "full_comparison_performed_is_not_complete_artifact_count": true,
+    "glossary_omission_ids": [
+      "2024#21",
+      "2016#30",
+      "2021#42",
+      "2018#19",
+      "2020#20",
+      "2019#44",
+      "2023#41",
+      "2021#40",
+      "2023#29",
+      "2015#30",
+      "2017#21",
+      "2014A#39",
+      "2024#34",
+      "2014B#34",
+      "2018#36",
+      "2023#39",
+      "2019#23",
+      "2021#26",
+      "2016#29",
+      "2015#24"
+    ],
+    "input_defects_preserved": true
+  }
+}

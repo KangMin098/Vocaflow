@@ -1,0 +1,79 @@
+{
+  "rater": "A",
+  "phase": "post_key_self_review_not_blind",
+  "original_sha256": "21eaad5cb7659ff1542c6e5d1b96180492839158ea0f2f86858b3f7678a53273",
+  "items": [
+    {
+      "id": "2014B#42",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["명사구 후보를 독립 사실로 읽은 content 코드 재검토: 표현 후보 자체라면 not_propositional이며, 완성 명제로 읽더라도 기술적 폭발 후보의 contradicted는 unsupported보다 강한 판정일 수 있음."],
+      "sufficiency_limit": "빈칸과 인간 음성의 연속 두 문장만으로 대면성을 강제하거나 다섯 후보를 모두 배제하기 어렵다는 제한은 정답 일치와 별개로 유지한다.",
+      "source_limit": "원문 감사의 전체 완전성 8문항에 포함되며 공유 범위·빈칸·5보기·동일형 키가 complete지만, 이것이 content 코드나 단독 전략의 타당성을 보장하지는 않는다."
+    },
+    {
+      "id": "2022#18",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["특강 요청은 직접 명시되어 entailed/fits가 타당하고, 다른 목적의 unsupported를 contradicted로 강화하지 않음; syntax의 허용 단위가 워크숍 수식까지 포함하는지 명료화 후보."],
+      "sufficiency_limit": "완성 요청 문장은 목적을 판별하지만 짧은 ask-to 구문만으로는 워크숍이라는 대상 범위까지 입증하지 못하므로 core_sentence와 syntax의 근거 범위를 구별해야 한다.",
+      "source_limit": "전체 완전성 8문항에 포함되어 모든 필드와 동일형 키가 complete이며 확인된 각주 누락·보기 혼입은 없지만 교수 효과나 실제 행동의 근거는 아니다."
+    },
+    {
+      "id": "2015#18",
+      "initial_answer": 5,
+      "stored_answer": 5,
+      "answer_matches": true,
+      "revision_candidates": ["마지막 문장의 회복과 앞의 recover quickly를 분리하여 core_sentence가 보기의 빨리까지 지지한다고 과장했는지 재검토."],
+      "sufficiency_limit": "마지막 완성 문장은 주어진 경쟁 주제들과 회복 요지를 구별하지만 빠른 회복이라는 세부 뜻은 앞 문장에 있어 단독 판별과 보기 전체 명제의 입증을 동일시할 수 없다.",
+      "source_limit": "전체 완전성 8문항에 포함되어 원문·발문·보기·제시·동일형 키가 complete이며, 자료 완전성은 마지막 한 문장의 충분성에 대한 반례를 제거하지 않는다."
+    },
+    {
+      "id": "2022#35",
+      "initial_answer": 4,
+      "stored_answer": 4,
+      "answer_matches": true,
+      "revision_candidates": ["④도 원문이 직접 진술한 독립 명제이므로 content=entailed와 제거 과제 fit=fits의 공존 검토; unsupported는 주변 흐름의 지지 부재를 사실 부재와 혼동했을 가능성."],
+      "sufficiency_limit": "생태계·수익 단위의 연속 두 문장만으로 이탈을 확정하기보다 뒤의 협력 지시까지 확인해야 하므로 selective와 core_sentence의 부족 판정은 별도 근거로 유지한다.",
+      "source_limit": "전체 완전성 8문항에 포함되며 다섯 문장 경계·번호가 complete여서 확인된 입력 결함으로 content 혼동을 설명할 수 없다."
+    },
+    {
+      "id": "2020#37",
+      "initial_answer": 2,
+      "stored_answer": 2,
+      "answer_matches": true,
+      "revision_candidates": ["B 첫 위치와 B→A 연결만으로 경쟁 배열이 제거되면 A→C의 list는 결정 필수보다 배경·검산 관계인지 재검토."],
+      "sufficiency_limit": "한 지시 문장이나 제시 순서의 누적만으로 전체 배열이 정해지지는 않으며, 별도 블록 재배열을 incremental 단독 성공으로 소급하지 않는다.",
+      "source_limit": "전체 완전성 8문항에 포함되고 직전 쪽 공유 발문까지 결속해 complete로 감사되었으므로 발문 누락을 이 문항의 제한으로 추가하지 않는다."
+    },
+    {
+      "id": "2024#28",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["길이 항목은 entailed/fits이고 나머지는 실제 기간·수량·주체와 충돌하므로 content와 fit의 분리를 유지하되 단일 항목의 충분성을 전 보기의 개별 검증으로 표현하지 않음."],
+      "sufficiency_limit": "한 길이 항목은 보기 3을 직접 지지해 선택을 설명하지만 다른 네 보기의 반증까지 그 항목만으로 입증한 것은 아니다.",
+      "source_limit": "전체 완전성 8문항에 포함되며 제목·소제목·하위 항목·수치가 complete이고 글머리 서체 대체의 과제 왜곡은 확인되지 않았다."
+    },
+    {
+      "id": "2019#25",
+      "initial_answer": 3,
+      "stored_answer": 3,
+      "answer_matches": true,
+      "revision_candidates": ["수치 조회를 담화 contrast의 부족으로 기록한 경계 재검토; 보기 3은 증가율이 맞아도 순위 절이 반박되어 contradicted/fits가 가능함."],
+      "sufficiency_limit": "2016년 China·India 두 행은 순위 절을 직접 반박하지만 다른 보기의 전체 수량 검증까지 수행하지는 않는다.",
+      "source_limit": "표 수치·전24행은 대조되었으나 저장 입력의 행·열 평탄화로 presentation은 partial이며 전체 완전성 8문항 밖이다; 수치 오기나 풀이 왜곡은 확인되지 않았다."
+    },
+    {
+      "id": "2023#29",
+      "initial_answer": 2,
+      "stored_answer": 2,
+      "answer_matches": true,
+      "revision_candidates": ["결정 관계 none과 외부 자기표현 문맥이 필요하다는 설명의 양립 재검토; 정확한 밑줄 후보로도 not_propositional/fits와 표현의 부적합성은 구별해야 함."],
+      "sufficiency_limit": "them의 people 지시가 국소 형식만으로 강제되지 않는다는 문제는 키 일치로 해결되지 않아 syntax 부족·selective 보류를 확정적으로 해제하지 않는다.",
+      "source_limit": "각주 누락·⑤의 각주 혼입·장문 보기와 밑줄 범위 소실로 전체 완전성 8문항 밖이며, 후보 경계 오염은 실제 영향 가능성이 있지만 각주 누락 자체의 풀이 왜곡은 입증되지 않았다."
+    }
+  ]
+}

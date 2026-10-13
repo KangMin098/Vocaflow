@@ -1,0 +1,54 @@
+{
+  "run": "main-20261014",
+  "task": "T-0025",
+  "date": "2026-10-14",
+  "phase": "limited_main_expansion_completed; confirmation_not_admitted",
+  "preregistration_commit": "a3a32f405",
+  "freeze_recorded_at_utc": "2026-10-13 23:27:59 UTC",
+  "checks": {
+    "node_regression_tests": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "agent_config_checks": "15/15",
+    "quality_errors": [],
+    "original_question_and_key_pdf_byte_hashes_checked": 24,
+    "first_rater_hashes_unchanged": true,
+    "post_key_initial_answer_bindings_checked": 16,
+    "original_reading_inputs_changed": false,
+    "holdout_2025_2026_read": false,
+    "db_actions": "none",
+    "learner_ui_changes": false
+  },
+  "evidence_gate": {
+    "source_complete": 8,
+    "source_required": 32,
+    "contrast_numeric_gate": false,
+    "any_confirmatory_expansion_allowed": false
+  },
+  "first_calculation": {
+    "sha256": "c3655c08f4478e9481ae7165a6d855cb54af24c38f3ccc9a90ce81b2686f60bf",
+    "private_path": "scripts/research/csat-reading/local/main-20261014/agreement-first-reviewed.json",
+    "later_change": "post-hoc descriptive_intervals only; all original metrics preserved"
+  },
+  "artifacts": {
+    "rater-a.json": "21eaad5cb7659ff1542c6e5d1b96180492839158ea0f2f86858b3f7678a53273",
+    "rater-b.json": "ff5698a9f7bfb7e8fe07de62c6487c0c1cfe24a0f11b06400ee67149e95c0815",
+    "source-audit.json": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+    "agreement.json": "0a6b12587cbe8ba178c5a2b02f59fb148d5b7235e7e060301604bf7a2752f7a4",
+    "post-key-a.json": "89511cb5ca691bcc6eaf5603cab97805d518cc0c01b5c36dc9f62e418681ca11",
+    "post-key-b.json": "3a2d2233bc6aeb85b0156e4897d727def43550756e2799acd70a0b22843f9c57",
+    "interpretation-review.json": "0f34901c60a70f1b2735f640224e7855cad52830b128e88e56f0c047635da6b0"
+  },
+  "analysis_script_sha256": "27203233c5e19659ee93681defab89a0a5031931946ff4816d789e243f0d4466",
+  "interpretation": "Independent AI source/content review and self-reviews are recorded separately; no human expert validation or teaching-effectiveness measurement.",
+  "outstanding": [
+    "24 incomplete frozen research inputs",
+    "all5 sufficiency versus single-answer detection",
+    "content baseline and decisive/background boundaries",
+    "full-corpus semantic analysis",
+    "recent-year confirmatory validation",
+    "human expert review and student experiment"
+  ]
+}
