@@ -37,7 +37,8 @@ export function mapProgressOf(data: MapPageData): MapProgress {
 
   let plan: MapProgress['plan'] = null
   const saved = data.v4?.saved
-  if (saved && saved.status === 'installed' && !saved.error) {
+  // 수행 기록을 못 읽었으면(undefined) 진행을 0 으로 세게 된다 — 다 한 계획을 미완료로 제안하지 않게 판정하지 않는다
+  if (data.lifecycleActivity && saved && saved.status === 'installed' && !saved.error) {
     for (const id of ids) {
       const sw = saved.byTemplate[id]
       if (!sw) continue

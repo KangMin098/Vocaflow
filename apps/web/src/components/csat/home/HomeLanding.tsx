@@ -240,7 +240,7 @@ export function HomeLanding({
           {/* ② 핵심 학습 지도 */}
           <section className={l.map} aria-label="학습 지도" data-testid="home-map" data-map={map}>
             {(map === 'ok' || map === 'withheld') && mapData ? (
-              <MapScreen data={mapData} view="core" base={MAP_BASE} restore={restore} />
+              <MapScreen key={`${restore?.ws ?? ""}|${restore?.step ?? ""}|${restore?.task ?? ""}`} data={mapData} view="core" base={MAP_BASE} restore={restore} />
             ) : map === 'preparing' ? (
               <MapPreparing />
             ) : null}

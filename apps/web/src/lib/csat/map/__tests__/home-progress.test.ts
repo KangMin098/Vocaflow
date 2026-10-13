@@ -23,10 +23,11 @@ const view = (o: { mode?: string; tasks?: Record<string, unknown>; needs?: strin
     'ws.cohesion': { core: ['B'], tasks: [{ task: 'B' }], progress: null },
   },
 })
-const data = (o: { goalSet?: boolean; findAttempts?: unknown[] | undefined; saved?: unknown } = {}) =>
+const data = (o: { goalSet?: boolean; findAttempts?: unknown[] | undefined; activity?: unknown[] | undefined; saved?: unknown } = {}) =>
   ({
     model: { goal: 80, goalSet: o.goalSet ?? true },
     findAttempts: 'findAttempts' in o ? o.findAttempts : [],
+    lifecycleActivity: 'activity' in o ? o.activity : [],
     v4: { saved: o.saved ?? { status: 'installed', byTemplate: {}, goalVersionId: null } },
   }) as unknown as MapPageData
 
@@ -59,6 +60,8 @@ describe('mapProgressOf — 저장 계획', () => {
     expect(mapProgressOf(data({ saved: saved(null) })).plan).toBeNull()
     expect(mapProgressOf(data({ saved: { status: 'not_installed', byTemplate: {}, goalVersionId: null } })).plan).toBeNull()
     expect(mapProgressOf(data({ saved: { ...saved({ planned: 6, done: 1 }), error: true } })).plan).toBeNull()
+    // 수행 기록을 못 읽었으면 진행을 셀 수 없다 — 미완료로 제안하지 않는다
+    expect(mapProgressOf(data({ activity: undefined, saved: saved({ planned: 6, done: 0 }) })).plan).toBeNull()
   })
 })
 
