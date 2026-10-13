@@ -29,6 +29,7 @@ export function markerOfChoice(marks: Pick<CropMarks, 'kind'>, n: number, choice
 export function cropMarkView(marks: CropMarks | null, req: CropMarkRequest | null, choices: readonly string[]): CropMarkView {
   if (!req) return { rects: [], state: 'none', label: null }
   const subject = req.kind === 'choice' ? `선지 ${CIRCLED[req.n] ?? req.n}` : '밑줄 친 어구'
+  if (marks?.itemIssues.includes('not_underline_type')) return { rects: [], state: 'none', label: null }
   if (!marks) return { rects: [], state: 'unavailable', label: `${subject}의 원본 위치를 이 문제지에서 계산하지 못해 표시하지 않았어요.` }
   if (marks.itemIssues.includes('multi_page')) return { rects: [], state: 'unavailable', label: '여러 쪽에 걸친 문항이라 원본 위 위치는 아직 표시하지 않아요.' }
   if (req.kind === 'implied') {

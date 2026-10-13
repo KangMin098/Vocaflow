@@ -38,6 +38,11 @@ describe('cropMarkView', () => {
     expect(cropMarkView(circled, { kind: 'implied' }, [])).toEqual({ rects: [], state: 'none', label: null })
     expect(cropMarkView({ ...implied, implied: null }, { kind: 'implied' }, [])).toMatchObject({ rects: [], state: 'unavailable' })
   })
+  it('도표 · 밑줄 유형 아님은 조용히(도표 영역 강조 금지)', () => {
+    const chart: CropMarks = { kind: 'none', byMarker: {}, implied: null, issues: {}, itemIssues: ['not_underline_type'] }
+    expect(cropMarkView(chart, { kind: 'choice', n: 2 }, [])).toEqual({ rects: [], state: 'none', label: null })
+    expect(cropMarkView(chart, { kind: 'implied' }, [])).toEqual({ rects: [], state: 'none', label: null })
+  })
   it('여러 쪽 문항 · 위치 계산 없음은 이유만', () => {
     expect(cropMarkView({ ...circled, itemIssues: ['multi_page'] }, { kind: 'choice', n: 1 }, [])).toMatchObject({ rects: [], label: expect.stringContaining('여러 쪽') })
     expect(cropMarkView(null, { kind: 'choice', n: 1 }, [])).toMatchObject({ rects: [], state: 'unavailable' })

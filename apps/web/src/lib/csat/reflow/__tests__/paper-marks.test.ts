@@ -58,6 +58,19 @@ describe('paperMarks — 기호 ↔ 밑줄 대응', () => {
     const r = paperMarks(page(frags, [line(102, 106, 776.8), line(108.5, 125, 776.8)]), BOX, GUTTER, 'circled')
     expect(r.marks[0]).toMatchObject({ state: 'marker_only', issue: 'ambiguous_underline' })
   })
+  it('후보가 둘이면 거리 차가 커도 모호(가까운 쪽으로 단정하지 않는다)', () => {
+    const frags = [f('①', 90, 780, 10), f('aa bb cc dd', 102, 780, 200)]
+    const r = paperMarks(page(frags, [line(102, 110, 776.8), line(125, 140, 776.8)]), BOX, GUTTER, 'circled')
+    expect(r.marks[0]).toMatchObject({ state: 'marker_only', issue: 'ambiguous_underline' })
+  })
+  it('두 줄 밑줄 잇기는 같은 단 안에서만 — 다른 단의 같은 높이 선을 잇지 않는다', () => {
+    const boxes: ReflowBox[] = [{ p: 1, col: 0, top: 800, bottom: 600 }, { p: 1, col: 1, top: 800, bottom: 600 }]
+    const frags = [f('aaa bbb ccc ddd eee', 460, 780, 340), f('fff', 460, 765, 300), f('left col text here', 40, 765, 300)]
+    const r = paperMarks(page(frags, [line(700, 800, 776.8), line(40, 120, 761.8)]), boxes, GUTTER, 'none')
+    // 잇지 않으면 묶음이 둘(오른쪽 단 · 왼쪽 단) — 함축 밑줄을 하나로 정할 수 없어 표시하지 않는다
+    expect(r.marks).toEqual([])
+    expect(r.issues).toContain('implied_groups')
+  })
   it('한 밑줄이 두 기호에 붙으면 둘 다 모호(어느 선지의 밑줄인지 단정하지 않는다)', () => {
     const frags = [f('①', 90, 780, 10), f('②', 104, 780, 10), f('word word', 116, 780, 60)]
     const r = paperMarks(page(frags, [line(116, 170, 776.8)]), BOX, GUTTER, 'circled')
@@ -124,5 +137,15 @@ describe('hlinesOfOps — 빈칸 12pt · 위치 4pt 분리(같은 변환)', () =
   it('위치용(4pt)은 한 글자 밑줄(8pt)도 모은다', () => {
     expect(MARK_LINE_MIN).toBe(4)
     expect(hlinesOfOps(ops, OPS, MARK_LINE_MIN)).toHaveLength(2)
+  })
+})
+
+describe('cropMarksOf — 밑줄 유형만', () => {
+  it('도표(R-CHART)는 선지 근처 수평선이 있어도 계산하지 않는다', async () => {
+    const { cropMarksOf } = await import('../read-paper')
+    const frags = [f('①', 90, 780, 10), f('word tail', 102, 780, 200)]
+    const m = cropMarksOf(page(frags, [line(102, 140, 776.8)]), BOX, GUTTER, 'R-CHART')
+    expect(m).toMatchObject({ byMarker: {}, implied: null, itemIssues: ['not_underline_type'] })
+    expect(cropMarksOf(page(frags, [line(102, 140, 776.8)]), BOX, GUTTER, 'R-GRAMMAR')?.byMarker[1]).toHaveLength(1)
   })
 })

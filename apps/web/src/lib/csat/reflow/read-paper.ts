@@ -12,7 +12,7 @@
 import { detectAnchors, examIdFromText } from './detect'
 import { MARK_LINE_MIN, fragsOfContent, hlinesOfOps } from './pdf-frags'
 import { CROP_PAD, CROP_PAD_TOP, CROP_SCALE, cropRects, markerKindOf, paperMarks, type CropRect, type MarkerKind } from './paper-marks'
-import { REFLOW_VERSION, reflowExam } from './reflow'
+import { REFLOW_VERSION, VISUAL_PAPER_TYPES, reflowExam } from './reflow'
 import type { CachedPaper, PageFrags, ReflowAnchors, ReflowBox, ReflowItem } from './types'
 
 type PdfDoc = {
@@ -49,12 +49,16 @@ export interface CropMarks {
   itemIssues: string[]
 }
 const crops = new Map<string, CropEntry>()
+/** 원본 위 밑줄을 짚는 유형 — 원본 크롭 유형(VISUAL_PAPER_TYPES)에서 도표를 뺀 것 */
+export const UNDERLINE_TYPES: ReadonlySet<string> = new Set([...VISUAL_PAPER_TYPES].filter((t) => !t.endsWith('CHART')))
 export const cropOf = (examId: string, no: number) => crops.get(`${examId}#${no}`)?.url ?? null
 export const cropEntryOf = (examId: string, no: number): CropEntry | null => crops.get(`${examId}#${no}`) ?? null
 
 /** 원본 크롭 위 밑줄 위치 — 여러 쪽에 걸친 문항은 검증 전이라 계산하지 않는다(F08 수용 기준 5) */
 export function cropMarksOf(pages: PageFrags[], boxes: ReflowBox[], gutter: number, type: string | null): CropMarks | null {
   const kind = markerKindOf(type)
+  // 밑줄 유형만 — 도표(R-CHART)는 원본 표시만(선지 근처 수평선이 조건을 채워도 강조하지 않는다)
+  if (!type || !UNDERLINE_TYPES.has(type)) return { kind: 'none', byMarker: {}, implied: null, issues: {}, itemIssues: ['not_underline_type'] }
   if (new Set(boxes.map((b) => b.p)).size > 1) return { kind, byMarker: {}, implied: null, issues: {}, itemIssues: ['multi_page'] }
   const r = paperMarks(pages, boxes, gutter, kind)
   const byMarker: Record<number, CropRect[]> = {}
@@ -163,6 +167,8 @@ export async function readPaper(file: File, opt: ReadOptions): Promise<ReadResul
     return { kind: 'error', reason: 'not-pdf', message: 'PDF 파일이 아니에요.' }
   }
   const sha = await sha256Hex(buf)
+  // 다른 문제지를 읽기 시작했다 — 성공 여부와 무관하게 이전 크롭 · 좌표는 버린다(같은 PDF 해시 결속 · F08 수용 기준 2)
+  crops.clear()
 
   let known: { exam_id: string; anchors: ReflowAnchors } | null = null
   try {

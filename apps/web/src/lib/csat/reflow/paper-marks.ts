@@ -105,7 +105,7 @@ function continuation(seg: MarkSeg, all: MarkSeg[], r: Region): MarkSeg | null {
   const right = r.textRight ?? r.right
   const left = r.textLeft ?? r.left
   if (seg.x1 < right - 30) return null
-  return all.find((s) => s !== seg && s.p === seg.p && s.y < seg.y && seg.y - s.y < seg.h * 2.2 && s.x0 < left + 12) ?? null
+  return all.find((s) => s !== seg && inRegion(r, s.p, (s.x0 + s.x1) / 2, s.y) && s.y < seg.y && seg.y - s.y < seg.h * 2.2 && s.x0 < left + 12) ?? null
 }
 
 /**
@@ -166,9 +166,9 @@ export function paperMarks(pages: PageFrags[], boxes: ReflowBox[], gutter: numbe
       continue
     }
     const m = withSeg[0]
-    const cands = candsOf(m).sort((a, b) => Math.abs(a.x0 - m.x1) - Math.abs(b.x0 - m.x1))
-    // 가장 가까운 것과 다음 것이 비슷하게 가까우면 모호
-    if (cands.length > 1 && Math.abs(cands[1].x0 - m.x1) - Math.abs(cands[0].x0 - m.x1) < 8) {
+    const cands = candsOf(m)
+    // 후보가 둘 이상이면 거리와 무관하게 모호 — 어느 밑줄인지 단정하지 않는다(F08 수용 기준 3)
+    if (cands.length !== 1) {
       marks.push({ n, marker: m, segs: [], state: 'marker_only', issue: 'ambiguous_underline' })
       continue
     }
