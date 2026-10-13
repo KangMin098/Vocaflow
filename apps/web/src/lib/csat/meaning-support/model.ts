@@ -46,7 +46,8 @@ export function buildItemUrl(
 ): string {
   const u = new URL(current.toString())
   // ret = 기출 탐구 서가로 돌아갈 주소(v3 M1) — 장면을 옮겨도 「뒤로」 가 같은 조건으로 돌아가게 남긴다
-  const keep = new Set(['from', 'check', 'pair', 'back', 'judgmentView', 'ret'])
+  // task = 지도 과제 복귀 문맥(v3 M1) — 장면을 옮겨도 「학습 지도로」 가 원래 과제로 돌아가게 남긴다
+  const keep = new Set(['from', 'check', 'pair', 'back', 'judgmentView', 'ret', 'task'])
   for (const k of [...u.searchParams.keys()]) if (!keep.has(k)) u.searchParams.delete(k)
   u.searchParams.set('scene', next.scene)
   if (next.meaning) u.searchParams.set('meaning', next.meaning)

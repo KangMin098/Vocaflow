@@ -9,12 +9,14 @@
 // 기출 탐구는 언제나 열려 있다(진단이 탐구의 입장권이 아니다). 지도를 못 읽으면 오류로 말하고 기록 0 으로 추정하지 않는다.
 
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AlertTriangle, ArrowRight, BookMarked, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Stethoscope } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
 import { pickHomeSuggestion, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
+import { toItemSlug } from '@/lib/csat/item-slug'
+import { reviewsDue, unfinishedSessions } from '@/lib/csat/learning-session'
 import type { MapPageData } from '@/lib/csat/map/load'
 
 import { MapPreparing } from '../diagnosis/map/MapPreparing'
@@ -35,6 +37,7 @@ export function HomeLanding({
   mapData,
   focusKind,
   returned,
+  returnTask = null,
 }: {
   exams: { exam_id: string; label: string; items: number }[]
   map: MapLoadState
@@ -42,12 +45,31 @@ export function HomeLanding({
   focusKind: HomeFocusKind | null
   /** 문항에서 돌아왔으면 그 문항(slug · 라벨) */
   returned: { slug: string; label: string } | null
+  /** 지도에서 시작한 과제 키 — 있으면 그 과제 칸으로 스크롤 · 표시(원래 과제로 복귀) */
+  returnTask?: string | null
 }) {
   const rec = useCsatRecord()
   const due = rec ? dueNow(rec.record, rec.now).length : null
   const set = rec ? activeSet(rec.record) !== null : null
   // 이어서 = 진행 중 세트 또는 오늘 할 복습(기기 기록의 실제 과제) — 둘 다 ContinueCard 가 행동을 맡는다
-  const ongoing = rec ? Boolean(set) || (due ?? 0) > 0 : null
+  // 해설 극장 세션(G0) — 다시 볼 때가 된 문항 · 하다 만 문항. 세트 · 복습이 없을 때 이것으로 이어 간다
+  const itemAgain = rec ? reviewsDue(rec.record, rec.now)[0] ?? null : null
+  const itemHalf = rec ? unfinishedSessions(rec.record)[0] ?? null : null
+  const itemResume = itemAgain ?? itemHalf
+  const ongoing = rec ? Boolean(set) || (due ?? 0) > 0 || itemResume !== null : null
+  // 지도 과제 복귀 — 그 과제 칸을 찾아 화면에 들이고 표시한다(없으면 찾지 못했다고 말한다)
+  const [taskFound, setTaskFound] = useState<boolean | null>(null)
+  useEffect(() => {
+    if (!returnTask) return
+    const el = document.querySelector<HTMLElement>(`[data-task="${CSS.escape(returnTask)}"]`)
+    if (!el) {
+      setTaskFound(false)
+      return
+    }
+    el.setAttribute('data-returned', 'true')
+    el.scrollIntoView({ block: 'center' })
+    setTaskFound(true)
+  }, [returnTask, map])
   const suggest = pickHomeSuggestion({ map, focusKind, returned: returned !== null, activeSet: ongoing })
 
   // 홈 상태는 기록을 읽은 **뒤** 한 번만 센다(지속 학습 지표 분모 · ia-design §5) — 이번엔 고른 첫 제안도 함께(닫힌 열거형)
@@ -106,6 +128,11 @@ export function HomeLanding({
                   <p className={`${home.cardLead} break-keep`}>
                     방금 본 <b>{returned.label}</b>로 다시 가거나, 아래 지도에서 다음에 할 일을 이어서 보세요. 탐구를 본 것만으로 지도의 판정이 바뀌지는 않아요.
                   </p>
+                  {returnTask ? (
+                    <p className={`${home.cardLead} break-keep`} data-testid="home-return-task" data-found={taskFound === null ? 'pending' : String(taskFound)}>
+                      {taskFound === false ? '시작했던 과제를 지금 지도에서 찾지 못했어요. 지도의 다음 할 일에서 이어 가세요.' : '시작했던 과제를 지도에 표시해 두었어요.'}
+                    </p>
+                  ) : null}
                   <div className={home.cardActions}>
                     <Link className={home.secondary} href={`/csat/item/${returned.slug}?from=map`} data-testid="home-return-item">
                       {returned.label} 다시 보기
@@ -113,6 +140,29 @@ export function HomeLanding({
                     <a className={home.primary} href="#focus-h">
                       지도의 다음 할 일 <ArrowRight size={14} aria-hidden="true" />
                     </a>
+                  </div>
+                </div>
+              </div>
+            ) : suggest === 'resume' && !set && !(due ?? 0) && itemResume ? (
+              <div className={home.card} data-testid="home-resume-item">
+                <p className={home.cardBack}>
+                  <CornerUpLeft size={13} aria-hidden="true" /> {itemAgain ? '다시 볼 때가 된 문항' : '하다 만 문항'}
+                </p>
+                <div className={home.cardFront}>
+                  <p className={`${home.cardLead} break-keep`}>
+                    <b>{itemResume.item.replace('#', ' · ')}번</b>
+                    {itemAgain ? ' — 다시 볼 때예요.' : ' — 이어서 볼 수 있어요.'}
+                  </p>
+                  <div className={home.cardActions}>
+                    <Link
+                      className={home.primary}
+                      href={`/csat/item/${toItemSlug(itemResume.item)}`}
+                      onClick={() => track({ name: 'csat_resume_clicked', props: { kind: itemAgain ? 'review' : 'set', from: 'home' } })}
+                      data-testid="home-resume-item-go"
+                    >
+                      이어서 보기 <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                    <Link className={home.secondary} href="/csat?view=continue">이어서 · 복습 전체</Link>
                   </div>
                 </div>
               </div>

@@ -149,7 +149,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
             서가 <b>{browse.items.length.toLocaleString('ko-KR')}</b>문항 · <b>{browse.exams.length}</b>회차 · <b>{browse.types.length}</b>유형
           </span>
           {random ? (
-            <Link className={styles.topLink} href={`/csat/item/${toItemSlug(random.id)}`}>
+            <Link className={styles.topLink} href={`/csat/item/${toItemSlug(random.id)}?ret=${encodeURIComponent(here)}`} onClick={keepScroll} data-testid="browse-random">
               <Dices size={14} aria-hidden="true" />
               아무거나 한 문항
             </Link>
@@ -261,7 +261,16 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
               <label className="sr-only" htmlFor="csat-browse-exam">
                 회차
               </label>
-              <select id="csat-browse-exam" className={home.chip} value={exam} onChange={(e) => set('exam', e.target.value)} data-testid="browse-exam">
+              <select
+                id="csat-browse-exam"
+                className={home.chip}
+                value={exam}
+                onChange={(e) => {
+                  set('exam', e.target.value)
+                  if (e.target.value !== 'all') track({ name: 'csat_path_chosen', props: { axis: 'exam', need: 'none' } })
+                }}
+                data-testid="browse-exam"
+              >
                 <option value="all">회차 전체</option>
                 {browse.exams.map((x) => (
                   <option key={x.id} value={x.id}>
@@ -272,7 +281,15 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
               <label className="sr-only" htmlFor="csat-library-type">
                 유형
               </label>
-              <select id="csat-library-type" className={home.chip} value={type} onChange={(e) => set('type', e.target.value)}>
+              <select
+                id="csat-library-type"
+                className={home.chip}
+                value={type}
+                onChange={(e) => {
+                  set('type', e.target.value)
+                  if (e.target.value !== 'all') track({ name: 'csat_path_chosen', props: { axis: 'type', need: 'none' } })
+                }}
+              >
                 <option value="all">유형 전체</option>
                 {browse.types.map((t) => (
                   <option key={t.id} value={t.id}>

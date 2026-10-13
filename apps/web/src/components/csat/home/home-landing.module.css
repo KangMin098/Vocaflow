@@ -46,3 +46,5 @@
 
 @media (prefers-reduced-motion: reduce) { .mineItem { transition: none; } }
 .exploreActions { display: inline-flex; flex-wrap: wrap; gap: 8px; }
+/* 지도에서 시작한 과제로 돌아왔을 때 그 과제 칸 — 색 + 굵은 윤곽(색만으로 알리지 않고 위 안내 문장과 함께) */
+.map :global([data-returned='true']) { outline: 3px solid var(--hl-primary-bg); outline-offset: 4px; border-radius: 8px; }

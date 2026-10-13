@@ -91,6 +91,8 @@ for (const width of [1280, 1440]) {
     )
     expect(chipIndex).toBeGreaterThanOrEqual(0)
     const chip = page.locator('[data-testid="csat-library"] a').nth(chipIndex)
+    // 아무거나 한 문항도 같은 조건(ret)을 들고 간다
+    expect(await page.getByTestId('browse-random').getAttribute('href')).toContain(`ret=${encodeURIComponent(`${browseUrl.pathname}${browseUrl.search}`)}`)
     const chipHref = await chip.getAttribute('href')
     expect(chipHref).toContain(`ret=${encodeURIComponent(`${browseUrl.pathname}${browseUrl.search}`)}`)
     await chip.click()
@@ -124,18 +126,34 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('home-return-item')).toHaveAttribute('href', '/csat/item/2026-34?from=map')
     await expect(page.getByTestId('home-map-error')).toHaveCount(0)
     await page.screenshot({ path: `${SHOTS}/${width}-3-return.png` })
+    // 지도에서 시작한 과제로 복귀 — 지도에 있는 실제 과제 키 하나로: 문항 → 「학습 지도로」 주소가 task 를 싣고, 홈이 그 칸을 표시한다
+    await page.goto('/csat', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('home-map')).toHaveAttribute('data-map', 'ok', { timeout: 60_000 })
+    const taskKey = await page.locator('[data-testid="home-map"] [data-task]').first().getAttribute('data-task')
+    expect(taskKey).toBeTruthy()
+    await page.goto(`/csat/item/2026-34?scene=task&from=map&task=${encodeURIComponent(taskKey!)}`, { waitUntil: 'domcontentloaded' })
+    await expect(page.getByTestId('item-back-map')).toHaveAttribute('href', `/csat?from=item&item=2026-34&task=${encodeURIComponent(taskKey!)}`, { timeout: 90_000 })
+    // 장면을 옮겨도 task 는 남는다
+    await page.getByRole('tab', { name: '원문 이해', exact: true }).click()
+    await expect.poll(() => q(page, 'task')).toBe(taskKey)
+    await page.getByTestId('item-back-map').click()
+    await page.waitForURL(/task=/)
+    await expect(page.getByTestId('home-return-task')).toHaveAttribute('data-found', 'true', { timeout: 60_000 })
+    await expect(page.locator(`[data-task="${taskKey}"][data-returned="true"]`).first()).toBeInViewport()
+    await page.screenshot({ path: `${SHOTS}/${width}-3b-return-task.png` })
+
     // 복귀 문맥은 문항 slug 형식만 — 다른 값이면 일반 지도 홈
     await page.goto('/csat?from=item&item=https://evil.example', { waitUntil: 'domcontentloaded' })
     await expect(page.getByTestId('csat-home')).toBeVisible({ timeout: 60_000 })
     await expect(page.getByTestId('home-return')).toHaveCount(0)
 
     // ⑤ 옛 주소
-    for (const legacy of ['/csat?need=killer', '/csat?tab=trap', '/csat?view=continue']) {
+    for (const legacy of ['/csat?need=killer', '/csat?tab=trap', '/csat?tab=type', '/csat?view=continue']) {
       await page.goto(legacy, { waitUntil: 'domcontentloaded' })
       await expect(page.locator('[data-csat-space]'), legacy).toBeVisible({ timeout: 60_000 })
       await expect(page.getByTestId('csat-home'), legacy).toHaveCount(0)
-      // 옛 목적 조건(need · tab)은 탐구 조건이라 「기출 탐구」, 이어서 · 복습은 「내 학습 지도」
-      await expect(page.getByTestId(legacy.includes('view=continue') ? 'rail-map' : 'rail-browse'), legacy).toHaveAttribute('aria-current', 'page')
+      // 옛 목적 조건(need · tab=trap)은 탐구 조건이라 「기출 탐구」, 옛 유형 표(tab=type) · 이어서 · 복습은 「내 학습 지도」
+      await expect(page.getByTestId(legacy.includes('view=continue') || legacy.includes('tab=type') ? 'rail-map' : 'rail-browse'), legacy).toHaveAttribute('aria-current', 'page')
     }
     await page.goto('/csat?need=evil', { waitUntil: 'domcontentloaded' })
     await expect(page.getByTestId('csat-home')).toBeVisible({ timeout: 60_000 })

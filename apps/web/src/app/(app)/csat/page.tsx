@@ -27,7 +27,7 @@ import type { NeedId } from '@/components/csat/home/CsatRail'
 import { HomeLanding } from '@/components/csat/home/HomeLanding'
 import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
 import { learnerSession, loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
-import { parseHomeReturn, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
+import { parseHomeReturn, parseHomeTask, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
 import { learnerPath } from '@/lib/csat/map/learner-path'
 import { loadMapPage, type MapPageData } from '@/lib/csat/map/load'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -54,8 +54,9 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const params = await searchParams
   const needParam = one(params.need)
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
-  const legacy = need !== null || one(params.view) === 'continue'
-  if (!legacy) return <MapHome from={one(params.from)} item={one(params.item)} />
+  // 옛 URL 전용 — 목적(need) · 함정 탭(tab=trap) · 유형 탭(tab=type) · 이어서(view=continue). 하나라도 있으면 옛 화면 그대로
+  const legacy = need !== null || one(params.view) === 'continue' || one(params.tab) === 'type'
+  if (!legacy) return <MapHome from={one(params.from)} item={one(params.item)} task={one(params.task)} />
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
   const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
   // 함정 예시는 서버에서 보류 필터 뒤 — 식별 칸(문항 · 회차 · 번호 · 유형)만 넘긴다(오답 번호 · 이유는 싣지 않는다 · Reveal Gate G3)
@@ -77,7 +78,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
 }
 
 /** 내 학습 지도 홈 — 지도 데이터는 진단 화면과 같은 loader(관리 클라이언트 · 본인 id) */
-async function MapHome({ from, item }: { from?: string; item?: string }) {
+async function MapHome({ from, item, task }: { from?: string; item?: string; task?: string }) {
   const { userId } = await learnerSession()
   if (!userId) redirect('/login?next=/csat')
   const exams = await railExams()
@@ -94,5 +95,7 @@ async function MapHome({ from, item }: { from?: string; item?: string }) {
   const slug = parseHomeReturn(from, item)
   const exam = slug ? exams.find((e) => e.exam_id === slug.slice(0, slug.lastIndexOf('-'))) : null
   const returned = slug ? { slug, label: exam ? `${exam.label} ${slug.slice(slug.lastIndexOf('-') + 1)}번` : '방금 본 문항' } : null
-  return <HomeLanding exams={exams} map={map} mapData={mapData} focusKind={focusKind} returned={returned} />
+  // 지도에서 시작한 과제로 돌아온다(과제 키 형식만 · 지도에 그 과제 칸이 있으면 홈이 그 자리로 스크롤 · 표시)
+  const returnTask = returned ? parseHomeTask(task) : null
+  return <HomeLanding exams={exams} map={map} mapData={mapData} focusKind={focusKind} returned={returned} returnTask={returnTask} />
 }

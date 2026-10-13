@@ -61,3 +61,8 @@ export function parseHomeReturn(from: string | undefined, item: string | undefin
   // 회차 id 는 영숫자뿐(`2026` · `2014A` · `M2309` · `H2603G3`), 번호는 숫자 — toItemSlug 형식
   return /^[0-9A-Z]{4,12}-[0-9]{1,2}$/.test(item) ? item : null
 }
+
+/** 지도 과제 키(복귀 문맥) — 영숫자 · 하이픈 · 밑줄 · 점 · 콜론만, 80자 이하. 자유 문자열 · 주소를 받지 않는다 */
+export function parseHomeTask(task: string | undefined): string | null {
+  return task && /^[A-Za-z0-9_.:-]{1,80}$/.test(task) ? task : null
+}

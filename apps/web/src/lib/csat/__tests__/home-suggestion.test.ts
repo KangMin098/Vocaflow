@@ -3,7 +3,7 @@
 // 지도 홈 첫 제안 — UX §7 우선순위 · 오류를 기록 0 으로 삼키지 않음 · 초점 매핑 · 복귀 문맥 검증
 import { describe, expect, it } from 'vitest'
 
-import { focusSuggestion, parseHomeReturn, pickHomeSuggestion } from '../home-suggestion'
+import { focusSuggestion, parseHomeReturn, parseHomeTask, pickHomeSuggestion } from '../home-suggestion'
 
 const base = { map: 'ok' as const, focusKind: 'step' as const, returned: false, activeSet: false }
 
@@ -46,5 +46,13 @@ describe('parseHomeReturn — 문항 slug 형식만', () => {
     expect(parseHomeReturn('item', '../admin')).toBeNull()
     expect(parseHomeReturn('item', '2026-34&x=1')).toBeNull()
     expect(parseHomeReturn('map', '2026-34')).toBeNull()
+  })
+})
+
+describe('parseHomeTask — 지도 과제 키 형식만', () => {
+  it('허용 · 거부', () => {
+    expect(parseHomeTask('LP3.relation_v2')).toBe('LP3.relation_v2')
+    expect(parseHomeTask('task:abc-1')).toBe('task:abc-1')
+    for (const bad of [undefined, '', 'a b', '<x>', 'https://evil.example', 'x'.repeat(81)]) expect(parseHomeTask(bad as string | undefined)).toBeNull()
   })
 })
