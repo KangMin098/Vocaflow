@@ -57,6 +57,7 @@ import {
 } from '@/components/library/textbooks/VolumeDossier'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
+import { PUBLISH_STATE_NOTE, canShow, loadPublishGate, stateOf } from '@/lib/textbook/publish-gate'
 import { STAGE_LABEL, neighborsOf, stageOf } from '@/lib/textbook/shelf-stage'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 import {
@@ -161,8 +162,11 @@ export default async function TextbookVolumePage({
   // ⚠️ **시리즈를 반드시 넘긴다.** 2026-09-23 까지 V레벨만 넘겨서, 계단이 겹치는
   //   어휘·구문 권이 **독해 권의 목차를 자기 것으로 인쇄했다**(실측: `/library/textbooks/vocab/5`
   //   가 20단원 120문항짜리 권인데 화면은 10단원 60문항의 독해 목차를 적었다).
-  const contents = contentsOf(v.seriesId, v.vLevels)
-  const contentsIssue = contentsProblem(v.seriesId, v.vLevels)
+  // 발행 게이트(v6.2 P-F4a) — 발행된 권만 목차 · 미리보기 · 단어 목록 · 연습. 상태를 못 읽으면 막는다
+  const publish = stateOf(await loadPublishGate(v.seriesId), v.step)
+  const shown = canShow(publish)
+  const contents = shown ? contentsOf(v.seriesId, v.vLevels) : null
+  const contentsIssue = shown ? contentsProblem(v.seriesId, v.vLevels) : null
 
   const { prev, next } = neighborsOf(shelf.volumes, v.step)
   const stage = stageOf(v.schoolBand)
@@ -179,6 +183,7 @@ export default async function TextbookVolumePage({
         </Link>
 
         <VolumeHero volume={v} dossier={dossier} brand={shelf.brand}>
+          {shown ? (
           <Link
             href={`/library/textbooks/${v.seriesId}/${v.step}/practice`}
             className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
@@ -186,6 +191,11 @@ export default async function TextbookVolumePage({
             <ArrowRight size={15} aria-hidden />
             문항 풀어 보기
           </Link>
+          ) : (
+            <p className="break-keep text-[13px] text-[var(--t2)]" role="status" data-testid="volume-unpublished" data-state={publish}>
+              {PUBLISH_STATE_NOTE[publish as 'unpublished' | 'unknown']}
+            </p>
+          )}
           {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
           {mine.available && (
             <TextbookPickButton
