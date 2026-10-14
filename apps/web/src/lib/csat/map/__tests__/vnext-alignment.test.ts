@@ -17,6 +17,8 @@ import { READ_PATH } from '../learner-path'
 
 const MAP_DIR = path.resolve(__dirname, '../../../../components/csat/diagnosis/map')
 const read = (f: string) => fs.readFileSync(path.join(MAP_DIR, f), 'utf8')
+// v6.2 단일 지도(2026-10-14) — 학생 메인 화면 원문(옛 LearnerMap 자리)
+const main = () => ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx'].map(read).join('\n')
 
 describe('학습 지도 vNext 정렬', () => {
   it('① 핵심 카드 표시명은 vNext 이름', () => {
@@ -36,7 +38,7 @@ describe('학습 지도 vNext 정렬', () => {
     for (const a of CORE_AXES) expect(a.legacyNote ?? '').not.toMatch(/vNext/)
     // 현재 계산 라벨은 학생 메인이 아니라 단계 시트의 「상세 근거」 안에만(2026-10-07 학습자 관점 재구성)
     expect(read('StepSheet.tsx')).toContain('{LEGACY_PROXY_LABEL}')
-    expect(read('LearnerMap.tsx')).not.toContain('LEGACY_PROXY_LABEL')
+    expect(main()).not.toContain('LEGACY_PROXY_LABEL')
   })
 
   // v6.2 D-02(2026-10-14): 기본 · 전체(view=full) 지도는 같은 교육 그래프 · 같은 판정 출처 하나 — 54라인 상세 지도를 따로 그리지 않는다
@@ -51,12 +53,12 @@ describe('학습 지도 vNext 정렬', () => {
   it('④ 관찰 구분선은 표시 기준 — 학생 메인에 내지 않고 상세 근거에만', () => {
     expect(THRESHOLD_NOTE).toMatch(/검증된 기준이 아니라/)
     expect(read('StepSheet.tsx')).toContain('{THRESHOLD_NOTE}')
-    expect(read('LearnerMap.tsx')).not.toContain('THRESHOLD_NOTE')
+    expect(main()).not.toContain('THRESHOLD_NOTE')
   })
 
   it('⑤ 원인 확인 전에는 약점 · 처방을 확정하지 않는다 — 학생 말로', () => {
     expect(CAUSE_NOTE).toMatch(/바로 바뀌지 않아요/)
-    expect(read('LearnerMap.tsx')).toContain('아직 약점으로 확정된 것은 아니에요')
+    expect(main()).toContain('부족하다는 뜻이 아니에요')
   })
 
   it('⑥ 성장 경로 — 8단계 순서, 핵심 축 V · S · R · E · X 를 모두 지나고 값은 없다', () => {
@@ -79,12 +81,9 @@ describe('학습 지도 vNext 정렬', () => {
     expect(AXIS_ROLE.J.label).toMatch(/실전/)
   })
 
-  it('팝업 — 「현 상태」 대신 「학습 활동」, 과제 ≠ 능력 상태 · 목표 점수 = 시험 전략', () => {
-    const popup = read('NodePopup.tsx')
-    expect(popup).toContain("label: '학습 활동'")
-    expect(popup).not.toContain("label: '현 상태'")
-    expect(popup).toContain('${TASK_NOTE}')
-    expect(popup).toContain('GOAL_STRATEGY_NOTE')
+  // 옛 54라인 팝업(NodePopup)은 v6.2 단일 지도에서 빠졌다 — 문구 상수 계약만 남긴다. 학생 화면은 수행량 ≠ 실력 문구를 직접 쓴다
+  it('과제 ≠ 능력 상태 · 목표 점수 = 시험 전략', () => {
+    expect(main()).toContain('수행량은 실력 점수가 아니에요')
     expect(TASK_NOTE).toMatch(/바뀌지 않아요/)
     expect(GOAL_STRATEGY_NOTE).toMatch(/시험 수행 전략/)
   })
@@ -128,20 +127,15 @@ describe('학습 지도 vNext 정렬', () => {
     for (const b of GRADE_EXPOSURE_GUIDE.bands) for (const lp of [...b.main, ...b.preview]) expect(stepKeys.has(lp)).toBe(false)
   })
 
-  it('T3 지도는 세 학교급을 모두 보이고 참고 · 진단 결정 · 듣기 별도 문구를 화면과 접근성 트리에 둔다', () => {
-    const main = read('LearnerMap.tsx')
-    expect(main).toContain('GRADE_EXPOSURE_GUIDE.bands.map(')
-    expect(main).toMatch(/aria-labelledby="grade-guide-h"/)
-    expect(main).toContain('학년별 권장 참고')
-    expect(main).toContain('실제 경로는 진단 결과가 결정')
-    expect(main).toContain('듣기는 별도 트랙')
+  // v6.2 D-01(2026-10-14): 대상은 연령 무관 기출 학습자 — 학년 · 연령으로 지도 · 진입을 나누거나 잠그지 않는다(옛 T3 학교급 안내는 단일 지도에서 뺐다)
+  it('T3 단일 지도는 학년 · 학교급으로 TASK 를 숨기거나 잠그지 않는다', () => {
+    expect(main()).not.toMatch(/GRADE_EXPOSURE_GUIDE|SchoolBand|SchoolStage|data-band/)
+    // 듣기는 같은 지도에 보류로 남는다(별도 트랙 · 0점 아님)
+    expect(main()).toContain('측정 방법을 정하는 중')
   })
 
   it('T4 학교급은 카드 표시 · 학습 길 · 행동 계산에 들어가지 않는다(숨김 · 비활성 · 재정렬 · 강조 없음)', () => {
-    const main = read('LearnerMap.tsx')
-    // 단계 카드는 학교급 값을 받지 않는다
-    expect(main).toContain('function StepNode({ s, i, last, onOpen }')
-    expect(main).not.toMatch(/exposureOf|SchoolBand|data-band|step-exposure/)
+    expect(main()).not.toMatch(/exposureOf|SchoolBand|data-band|step-exposure/)
     for (const f of ['learner-path.ts', 'axis-routing.ts', 'skill-diagnosis.ts', 'curriculum.ts']) {
       expect(lib(f)).not.toMatch(/GRADE_EXPOSURE_GUIDE|SchoolStage/)
     }

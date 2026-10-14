@@ -298,7 +298,7 @@ export type PublicEvent =
    * 질문: 목표를 정하고 노드를 열어 과제까지 가는가. goal 은 학습자가 정한 목표 점수(0~100).
    */
   | { name: 'csat_map_viewed'; props: { goal: number } }
-  | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' } }
+  | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' | 'task' } }
   | { name: 'csat_map_goal_set'; props: { goal: number } }
   | { name: 'csat_map_task_toggled'; props: { done: boolean } }
   /**

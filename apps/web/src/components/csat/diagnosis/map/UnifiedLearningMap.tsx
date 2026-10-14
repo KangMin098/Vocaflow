@@ -75,7 +75,13 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   const priority = new Set(ranks?.actionRank.slice(0, 3).map((e) => e.task) ?? [])
   const needOf = new Map(ranks?.needRank.map((e) => [e.task, e]) ?? [])
+  // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
+  useEffect(() => {
+    track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const choose = (id: TaskId) => {
+    if (id !== selected) track({ name: 'csat_map_node_opened', props: { kind: 'task' } })
     setSelected(id)
     if (mode !== 'full') setFocus(taskOf(id).axis)
   }
