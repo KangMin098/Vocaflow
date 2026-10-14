@@ -24,9 +24,10 @@ import {
 } from '@/lib/learner/dcp'
 
 import { isChoiceDcpType } from '@/lib/learner/dcp-types'
+import { isUnderlineChoiceDcpType, type DcpUnderlinePayload } from '@/lib/learner/dcp-underline'
 import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
-import { DcpChoiceItem, DcpInsertItem, DcpOrderItem } from './DcpItems'
+import { DcpChoiceItem, DcpInsertItem, DcpOrderItem, DcpUnderlineChoiceItem } from './DcpItems'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
@@ -34,11 +35,19 @@ export function DcpPlayer({
   items,
   backHref = '/hub',
   backCta = '홈으로',
+  grade = gradeDcpItem,
+  recordCause = recordDcpErrorCause,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
   backHref?: string
   backCta?: string
+  /**
+   * 채점 · 오답 원인 기록 — 기본은 서버(`grade_dcp_item` · attempt 기록). 격리 개발 화면(/dev/vocab-practice)만
+   * 합성 문항용 로컬 채점을 넣는다(v6.2 P-F8d). 학습자 화면은 기본값을 쓴다.
+   */
+  grade?: typeof gradeDcpItem
+  recordCause?: typeof recordDcpErrorCause
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -64,7 +73,7 @@ export function DcpPlayer({
     //   새로고침이 유일한 탈출이었고, 그러면 1번 문항부터 다시였다.
     let res
     try {
-      res = await gradeDcpItem(item.id, answer)
+      res = await grade(item.id, answer)
     } catch (e) {
       // 학습자가 고른 답은 그대로 둔다(입력 유실 금지) — 화면을 'answering' 으로 되돌리면
       // 문항 컴포넌트가 언마운트되지 않으므로 배열·선택이 남는다.
@@ -84,7 +93,7 @@ export function DcpPlayer({
 
   async function handleCause(next: DcpErrorCause) {
     setCause(next)
-    if (result?.attemptId) await recordDcpErrorCause(result.attemptId, next)
+    if (result?.attemptId) await recordCause(result.attemptId, next)
   }
 
   function handleNext() {
@@ -113,7 +122,9 @@ export function DcpPlayer({
           <Gwonjeom size={26} strokeWidth={2} />
         </span>
         <div>
-          <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">오늘 구문 연습을 마쳤어요</h2>
+          <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">
+            {items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
+          </h2>
           <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
             {total}문항 중 {correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.
           </p>
@@ -177,6 +188,12 @@ export function DcpPlayer({
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
           <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+        ) : isUnderlineChoiceDcpType(item.type) ? (
+          <DcpUnderlineChoiceItem
+            payload={item.payload as DcpUnderlinePayload}
+            submitting={phase === 'grading'}
+            onSubmit={handleSubmit}
+          />
         ) : isChoiceDcpType(item.type) ? (
           <DcpChoiceItem
             payload={item.payload as DcpChoicePayload}
@@ -237,10 +254,12 @@ function Feedback({
         <p className="font-display text-[14px] font-[700]">
           {/* 유형마다 '무엇을 잘했는지' 가 다르다 — 한 문장으로 뭉개면 선택지 유형에서 어색해진다. */}
           {correct
-            ? isChoiceDcpType(item.type)
+            ? isUnderlineChoiceDcpType(item.type)
+              ? '정확해요! 문맥에 맞지 않는 낱말을 찾았어요.'
+              : isChoiceDcpType(item.type)
               ? '정확해요! 근거를 잘 찾았어요.'
               : '정확해요! 문장 흐름을 잘 잡았어요.'
-            : isChoiceDcpType(item.type)
+            : isChoiceDcpType(item.type) || isUnderlineChoiceDcpType(item.type)
               ? '아쉬워요 — 정답과 근거를 함께 볼게요.'
               : '아쉬워요 — 정답 흐름을 함께 볼게요.'}
         </p>
@@ -342,6 +361,28 @@ function ExplanationNote({ answerKey }: { answerKey: Record<string, unknown> }) 
 
 // 정답 공개 — order: 원래 순서 문장 / insert: 삽입 위치에 문장 배치
 function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, unknown> }) {
+  // ── 밑줄 선택(어휘) — 어색한 자리 번호 · 그 자리에 와야 할 낱말 · 해설 ──
+  if (isUnderlineChoiceDcpType(item.type)) {
+    const pos = Number(answerKey.position)
+    const u = (item.payload as DcpUnderlinePayload).underlines[pos - 1]
+    if (!u) return null
+    const original = typeof answerKey.original === 'string' ? answerKey.original : null
+    return (
+      <div className="flex flex-col gap-2">
+        <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답</p>
+        <div className="flex items-start gap-3 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-3">
+          <span className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--success)] font-mono text-[12px] font-[700] text-[var(--bg)]" aria-hidden>
+            {pos}
+          </span>
+          <p className="min-w-0 flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]">
+            {u.label} <span className="font-serif line-through">{u.word}</span>
+            {original ? <> → <span className="font-serif font-[700]">{original}</span> 가 와야 뜻이 이어져요</> : null}
+          </p>
+        </div>
+        <ExplanationNote answerKey={answerKey} />
+      </div>
+    )
+  }
   // ── 선택지 9종 — 정답 번호 + 해설 ──
   if (isChoiceDcpType(item.type)) {
     const answer = answerKey.answer
