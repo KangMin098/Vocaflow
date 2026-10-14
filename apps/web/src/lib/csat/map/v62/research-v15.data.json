@@ -1,0 +1,169 @@
+{
+  "source": {
+    "branch": "research/csat-reading-v15",
+    "commit": "56876763a",
+    "files": [
+      "handoff.json",
+      "content-candidates-revision1.json",
+      "content-delivery-revision3.json",
+      "exam-sources.json"
+    ],
+    "importedAt": "2026-10-14"
+  },
+  "counts": {
+    "priorityActivities": 8,
+    "newActivities": 2,
+    "materialRoleUses": 14,
+    "publicQualified": 0,
+    "assessmentQualified": 0,
+    "students": 0,
+    "humanOrRightsApproved": false
+  },
+  "workspaces": [
+    "ws.vocab-context",
+    "ws.grammar-scope"
+  ],
+  "candidates": [
+    {
+      "id": "v14-s.form_scope-1",
+      "item": "2024#28",
+      "task": "s.form_scope",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2024,
+        "form": "홀수형",
+        "no": 28
+      },
+      "sharedPassageGroup": "2024:28",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v14-s.form_scope-2",
+      "item": "2015#21",
+      "task": "s.form_scope",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2015,
+        "form": "홀수형",
+        "no": 21
+      },
+      "sharedPassageGroup": "2015:21",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v14-s.form_scope-3",
+      "item": "2014A#32",
+      "task": "s.form_scope",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2014,
+        "form": "A형 홀수형",
+        "no": 32
+      },
+      "sharedPassageGroup": "2014A:32",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v14-v.contextual_sense-1",
+      "item": "2016#23",
+      "task": "v.contextual_sense",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2016,
+        "form": "홀수형",
+        "no": 23
+      },
+      "sharedPassageGroup": "2016:23",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v14-v.contextual_sense-2",
+      "item": "2024#34",
+      "task": "v.contextual_sense",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2024,
+        "form": "홀수형",
+        "no": 34
+      },
+      "sharedPassageGroup": "2024:34",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v14-v.contextual_sense-3",
+      "item": "2024#23",
+      "task": "v.contextual_sense",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2024,
+        "form": "홀수형",
+        "no": 23
+      },
+      "sharedPassageGroup": "2024:23",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.4-revision3-preserved"
+    },
+    {
+      "id": "v15-v.contextual_sense-transfer-1",
+      "item": "2021#22",
+      "task": "v.contextual_sense",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2021,
+        "form": "짝수형",
+        "no": 22
+      },
+      "sharedPassageGroup": "2021:22",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.5-derived-overlay"
+    },
+    {
+      "id": "v15-s.form_scope-transfer-1",
+      "item": "2023#20",
+      "task": "s.form_scope",
+      "exam": {
+        "kind": "CSAT_main",
+        "year": 2023,
+        "form": "홀수형",
+        "no": 20
+      },
+      "sharedPassageGroup": "2023:20",
+      "derivedRelevance": "direct_investigator_source_read",
+      "originalRelevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysisVersion": "1.5-derived-overlay"
+    }
+  ],
+  "roles": {
+    "uses": 14,
+    "qualifiedPublic": 0,
+    "qualifiedDirectAssessment": 0,
+    "actualStudents": 0
+  },
+  "examSources": {
+    "counts": {
+      "exams": 30,
+      "body_catalog_exams": 29,
+      "db_full_key_exams": 27,
+      "db_unsupported_exams": 3,
+      "diagnosis_ready": 5
+    },
+    "unsupported": [
+      "2014A",
+      "2014B",
+      "M2009"
+    ],
+    "denominator": "csat_exams organizer=kice; includes invalid M2009 and 2027 mock, not the 2014–2026 research core"
+  }
+}
