@@ -16,6 +16,21 @@ import { learnerPath, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
+import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
+
+/** 코드북 설계 문구(conditions · evidence) 중 영어 내부 용어 조각(facet · Anchor 등)을 뺀 학습자 문구 — 「·」 로 나뉜 조각 단위 */
+function learnerText(s: string | null | undefined): string {
+  // 괄호 속 영어 설명(「(Evidence Anchor 결속)」)은 괄호째 빼고, 남은 조각에 영어 용어가 있으면 그 조각을 뺀다
+  return (s ?? '').replace(/\s*\([^)]*[A-Za-z]{4,}[^)]*\)/g, '').split('·').map((x) => x.trim()).filter((x) => x && !/[A-Za-z]{4,}/.test(x)).join(' · ')
+}
+
+const REL_LABEL: Record<string, string> = { direct: '직접 관련', indirect: '간접 관련', not_applicable: '관련 없음', unknown: '판단 보류' }
+const ROLE_LABEL: Record<string, string> = { model_explanation: '모델 설명', guided_practice: '지도 연습', independent_check: '독립 확인', transfer: '전이', delayed_check: '지연 확인', source_analysis: '원문 분석' }
+// 문항 유형 코드 → 학습자 말(연구 원장 코드 그대로 보이지 않게)
+const TYPE_LABEL: Record<string, string> = {
+  'R-TOPIC': '주제', 'R-TITLE': '제목', 'R-CLAIM': '주장', 'R-GIST': '요지', 'R-PURPOSE': '목적', 'R-MOOD': '심경', 'R-FACT': '내용 일치', 'R-CHART': '도표',
+  'R-BLANK': '빈칸', 'R-BLANK2': '빈칸', 'R-ORDER': '순서', 'R-INSERT': '삽입', 'R-GRAMMAR': '어법', 'R-VOCAB': '어휘', 'R-SUMMARY': '요약', 'R-IRRELEVANT': '무관한 문장',
+}
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import { DOMAIN_NAME, linesOfTask, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -89,6 +104,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const need = view.toBe?.needs.find((n) => n.task === t.id) ?? null
   const unknownRel = view.toBe?.relevanceUnknown.includes(t.id) ?? false
   const home = homeWsOf(t.id, view, restoreWs)
+  const behaviors = BEHAVIORS[t.id] ?? []
+  const research = researchFor(t.id)
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
   const step = legacyStepOf(t.id, [...path.read, ...path.listen])
@@ -152,9 +169,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
           <p className={u.p}>{def.goal}</p>
           <dl className={u.kv}>
             <dt>어떤 기출에서</dt>
-            <dd>{def.conditions || '정하는 중'}</dd>
+            <dd>{learnerText(def.conditions) || '정하는 중'}</dd>
             <dt>무엇을 보면 아나</dt>
-            <dd>{def.evidence || '정하는 중'}</dd>
+            <dd>{learnerText(def.evidence) || '정하는 중'}</dd>
             <dt>목표 시험과의 연결</dt>
             <dd data-testid="inspector-relevance">
               {unknownRel ? '기준 시험 문항과의 연결을 아직 검토하지 않았어요(무관하다는 뜻 아님)' : need ? `목표 점수에 꼭 필요한 기출 문항 중 연결된 문항 ${need.relevance.items}개 · 라인 수준 연결(문항별 검토 전)` : view.toBe ? '연결은 있지만 이 목표에서 먼저 할 문항은 아니에요' : '목표를 정하면 보여요'}
@@ -165,6 +182,45 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               <BookOpenCheck size={14} aria-hidden="true" />
               기출 근거 자세히 · 「{step.name}」
             </button>
+          )}
+          {behaviors.length > 0 && (
+            <div className={u.sub} data-testid="inspector-behaviors">
+              <p className={u.subH}>이 TASK 에서 하는 일 — 서로 다른 연습이에요</p>
+              <ul className={u.behaviors}>
+                {behaviors.map((b) => (
+                  <li key={b.id} data-behavior={b.id} data-status={b.status}>
+                    <span className={u.bName}>{b.name}</span>
+                    <span className={u.bDoes}>{b.does}</span>
+                    <span className={u.bStatus}>{BEHAVIOR_STATUS_LABEL[b.status]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {research && (
+            <details className={u.sub} data-testid="inspector-research">
+              <summary className={u.subH}>연구 근거 v1.4 · 사람 검수 전</summary>
+              {research.definition && <p className={u.fine}>연구 정의: {research.definition}</p>}
+              {research.reviews.length > 0 && (
+                <>
+                  <p className={u.fine}>원문을 확인한 AI 두 명이 이 TASK 와 기출의 관련을 따로 판정했어요(사람 검수 · 학생 자료 아님). 갈린 판정은 그대로 둬요.</p>
+                  <ul className={u.ledger}>
+                    {research.reviews.map((r) => (
+                      <li key={r.item} data-agree={r.agree}>
+                        <span>{r.item} · {TYPE_LABEL[r.type] ?? r.type}</span>
+                        <span className={u.ledgerVal}>{r.agree ? REL_LABEL[r.first] : `${REL_LABEL[r.first]} / ${r.second ? REL_LABEL[r.second] : '?'} · 갈림`}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {research.activities.length > 0 && (
+                <p className={u.fine}>
+                  설계된 학습 활동 {research.activities.length}개({research.activities.map((a) => ROLE_LABEL[a.role] ?? a.role).join(' · ')}) · 채점 기준 {research.activities.reduce((s, a) => s + a.facets, 0)}개 — 콘텐츠 검수(R2) · 채점 독립성(R3) 전이라 아직 학습자에게 내보내지 않아요.
+                </p>
+              )}
+              <p className={u.fine}>출처 {research.source.branch}@{research.source.commit} · 자동 후보는 쓰지 않아요.</p>
+            </details>
           )}
         </section>
 
