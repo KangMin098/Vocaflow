@@ -7,7 +7,9 @@
 //   ④ V2 · S5 — 수요는 있으나 공급 경로 없음(무관 · 결손으로 바꾸지 않음) · 보류 TASK 는 수요 없음
 //   ⑤ 다른 학습자 계정은 첫 학습자의 수요 키 · 공급 이력을 보지 않는다(학습자별 계산)
 // 합성 계정(끝에 삭제) — 학습 효과의 증거가 아니다.
-//   node --tls-max-v1.2 --env-file=<main apps/web/.env.local> scripts/csat/map/v62/e2e-map-supply.mjs --base http://localhost:3005
+//   node --tls-max-v1.2 --env-file=<main apps/web/.env.local> scripts/csat/map/v62/e2e-map-supply.mjs --base http://localhost:3005 [--evidence <dir>]
+// --evidence: 단계별 Inspector 화면 · results.json(HEAD · 대상 서버 · 시작/종료 · 항목별 PASS/FAIL · 합성 계정 정리 확인)을 남긴다.
+//   계정 이메일 · 비밀번호 · 사용자 id 는 남기지 않는다(개수와 정리 결과만).
 import crypto from 'node:crypto'
 import path from 'node:path'
 import { createRequire } from 'node:module'
@@ -17,9 +19,13 @@ const req = createRequire(path.join(ROOT, 'apps/web/package.json'))
 const { chromium } = req('@playwright/test')
 const { createClient } = req('@supabase/supabase-js')
 const BASE = process.argv.includes('--base') ? process.argv[process.argv.indexOf('--base') + 1] : 'http://localhost:3005'
+const EVID = process.argv.includes('--evidence') ? path.resolve(process.argv[process.argv.indexOf('--evidence') + 1]) : null
+if (EVID) (await import('node:fs')).mkdirSync(EVID, { recursive: true })
+const startedAt = new Date().toISOString()
+let shot = 0
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const results = []
-const rec = (name, ok, detail) => { results.push({ name, ok }); console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail !== undefined ? ` — ${JSON.stringify(detail)}` : ''}`) }
+const rec = (name, ok, detail) => { results.push({ name, ok, detail: detail ?? null }); console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail !== undefined ? ` — ${JSON.stringify(detail)}` : ''}`) }
 const users = []
 const browser = await chromium.launch()
 
@@ -43,6 +49,7 @@ const view = async (page, task) => {
   await page.goto(`${BASE}/csat/diagnosis?tab=map&map_task=${task}`, { waitUntil: 'domcontentloaded' })
   await page.waitForSelector(`[data-testid="task-inspector"][data-task="${task}"]`)
   await page.waitForTimeout(300)
+  if (EVID) await page.locator(`[data-testid="task-inspector"][data-task="${task}"]`).screenshot({ path: path.join(EVID, `${String(++shot).padStart(2, '0')}-${task}.png`) })
   return page.evaluate(() => ({
     demand: document.querySelector('[data-testid="inspector-supply"]')?.getAttribute('data-demand') ?? null,
     rows: [...document.querySelectorAll('[data-testid="inspector-supply"] li')].map((e) => ({ role: e.getAttribute('data-role'), state: e.getAttribute('data-state'), step: e.getAttribute('data-step'), text: e.textContent })),
@@ -93,10 +100,25 @@ try {
   const b = await learner('b')
   const rb = await view(b, 'r.central_meaning')
   rec('⑤ 다른 학습자는 자기 수요 · 공급(첫 학습자가 푼 문항이 그에게는 미노출 그대로)', slug(rb.next) === first, { bNext: slug(rb.next), aSolved: first })
+} catch (e) {
+  rec('실행 오류', false, { error: String(e).slice(0, 300) })
 } finally {
   await browser.close()
   for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {})
 }
 const failed = results.filter((r) => !r.ok).length
+if (EVID) {
+  // 정리 확인 — 만든 합성 계정이 남아 있지 않은가(id 는 기록하지 않는다)
+  let remaining = 0
+  for (const id of users) { const { data } = await db.auth.admin.getUserById(id); if (data?.user) remaining++ }
+  const head = (await import('node:child_process')).execFileSync('git', ['-C', ROOT, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+  const dirty = (await import('node:child_process')).execFileSync('git', ['-C', ROOT, 'status', '--porcelain', '--untracked-files=no'], { encoding: 'utf8' }).trim().split(/\r?\n/).filter(Boolean).length
+  ;(await import('node:fs')).writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({
+    suite: 'R5 기존 콘텐츠 재사용 수직 경로(e2e-map-supply.mjs)', head, trackedFilesModified: dirty, base: BASE, startedAt, endedAt: new Date().toISOString(),
+    browser: 'chromium(@playwright/test) · 1440×1000', population: '합성 계정 2(끝에 삭제) — 학습 효과의 증거가 아니다',
+    results, pass: results.length - failed, fail: failed, skip: 0, screenshots: shot,
+    cleanup: { syntheticAccountsCreated: users.length, remainingAfterDelete: remaining },
+  }, null, 2) + String.fromCharCode(10))
+}
 console.log(failed ? `FAIL ${failed}` : 'ALL PASS')
 process.exit(failed ? 1 : 0)
