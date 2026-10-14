@@ -22,6 +22,7 @@ import { goalCoverageLedger } from '@/lib/csat/map/v62/coverage'
 import { domainTaskGraph, taskInspector, type GraphTask } from '@/lib/csat/map/v62/graph'
 import type { WorkspacePlan } from '@/lib/csat/map/v4/workspace'
 import { ranksOf } from '@/lib/csat/map/v62/rank'
+import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 
 import { useGoal } from './GoalBar'
 import { GoalRecordBar } from './GoalRecordBar'
@@ -32,6 +33,12 @@ import u from './unified.module.css'
 export type UnifiedMode = 'core' | 'full'
 
 const FALLBACK_TASK: TaskId = 'r.central_meaning'
+
+/**
+ * 이 탭(브라우저 문서) 동안만 남는 지도 문맥 — 서버 렌더 · 다른 탭 · 새로 고침(문서 다시 읽기)에는 없다.
+ * 계획 저장 뒤 라우터 새로 고침으로 지도가 다시 올라올 때 고른 TASK · 열린 계획을 잇는 데만 쓴다. 복귀 링크 문맥(map_task · ws)이 있으면 그것이 먼저다.
+ */
+const SESSION_CTX: { selected: TaskId | null; planWs: string | null } = { selected: null, planWs: null }
 
 /** 대표 학습 묶음을 고른 이유(계획 머리에 한 줄) — 약점 확정 문구가 아니다 */
 const REASON_LABEL: Record<NonNullable<WorkspacePlan['reason']>, string> = {
@@ -62,19 +69,29 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     return goalCoverageLedger({ view, exams: [], confirmItems, transferItems: data.v4?.transferItems ?? {} })
   }, [view, data])
 
-  // 처음 고를 TASK — 복귀한 TASK(정의에 있을 때만) → 지금 할 수 있는 첫 행동 → 첫 학습 요구 → 글의 핵심
+  // 처음 고를 TASK — 복귀한 TASK(정의에 있을 때만) → 이 탭에서 방금 보던 TASK → 지금 할 수 있는 첫 행동 → 첫 학습 요구 → 글의 핵심
   const initial = useMemo<TaskId>(() => {
-    const back = restore?.mapTask && graph.tasks.some((t) => t.id === restore.mapTask) ? restore.mapTask : null
-    return back ?? ranks?.actionRank[0]?.task ?? ranks?.needRank[0]?.task ?? FALLBACK_TASK
+    const known = (id: string | null | undefined) => (id && graph.tasks.some((t) => t.id === id) ? id : null)
+    return known(restore?.mapTask) ?? known(SESSION_CTX.selected) ?? ranks?.actionRank[0]?.task ?? ranks?.needRank[0]?.task ?? FALLBACK_TASK
   }, [restore?.mapTask, graph.tasks, ranks])
   const [selected, setSelected] = useState<TaskId>(initial)
   const [focus, setFocus] = useState<Domain | null>(() => (mode === 'full' ? null : taskOf(initial).axis))
   const [query, setQuery] = useState('')
   // 열린 학습계획 — 문항에서 돌아오면(복귀 문맥 ws) 그 묶음 계획을 다시 연다
-  const [planWs, setPlanWs] = useState<string | null>(() => (restore?.ws && view?.plans[restore.ws] ? restore.ws : null))
+  const [planWs, setPlanWs] = useState<string | null>(() => {
+    if (restore?.ws) return view?.plans[restore.ws] ? restore.ws : null
+    // 복귀 문맥이 TASK 만 줄 때는 탭 기억의 묶음을 쓰지 않는다(다른 TASK 의 묶음이 열리지 않게)
+    return !restore?.mapTask && SESSION_CTX.planWs && view?.plans[SESSION_CTX.planWs] ? SESSION_CTX.planWs : null
+  })
 
   const priority = new Set(ranks?.actionRank.slice(0, 3).map((e) => e.task) ?? [])
   const needOf = new Map(ranks?.needRank.map((e) => [e.task, e]) ?? [])
+  // 고른 TASK · 열린 계획 묶음을 이 탭의 기억에 남긴다 — 계획 저장 뒤 서버가 화면을 다시 그려 지도가 새로 올라와도 같은 문맥으로 이어진다
+  // (저장하면 선택이 첫 추천으로 바뀌고 계획이 닫히던 결함 · 2026-10-14 실측). 주소를 몰래 바꾸면 라우터가 옛 주소로 되돌리므로 쓰지 않는다
+  useEffect(() => {
+    SESSION_CTX.selected = selected
+    SESSION_CTX.planWs = planWs
+  }, [selected, planWs])
   // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
   useEffect(() => {
     track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })
@@ -137,6 +154,8 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   if (!view || !ranks) return null
   const ins = taskInspector(selected, view, ranks, ledger)
+  // 돌아온 문맥 vs 지금 저장 상태 — 바뀐 점만 알린다(옛 계획 · Workspace 를 되살리지 않는다)
+  const notes = returnNotes(data.v4?.saved, restore)
   const past = view.asIs.mode === 'past_reanalysis'
 
   return (
@@ -157,6 +176,11 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
             </label>
             {viewToggle}
           </div>
+          {notes.length > 0 && (
+            <ul className={u.returnNote} data-testid="umap-return-note" role="status">
+              {notes.map((n) => <li key={n.kind} data-kind={n.kind}>{RETURN_NOTE_LABEL[n.kind]}</li>)}
+            </ul>
+          )}
           {past && <p className={u.pastNote} data-testid="umap-past">과거 기준({view.asIs.asOf.slice(0, 10)})으로 다시 분석한 지도예요 — 보기 전용이고 학습 활동은 지금 기준에서 해요.</p>}
 
           <div className={u.canvas} data-focus={focus ?? 'all'} data-mode={mode} data-testid="umap-canvas">
@@ -201,7 +225,8 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           </p>
           {planWs && view.plans[planWs] && (
             <div id="umap-plan" className={u.planBox} data-testid="umap-plan" data-ws={planWs}>
-              <PlanSection view={view.plans[planWs]} reason={planWs === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null} past={past} saved={data.v4?.saved ?? null} viewer={data.v4?.viewer ?? 'anon'} goal={g.goal} />
+              {/* 묶음마다 다른 인스턴스 — 다른 묶음 저장의 늦은 응답 · 초안이 지금 묶음을 덮지 않는다 */}
+              <PlanSection key={planWs} view={view.plans[planWs]} reason={planWs === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null} past={past} saved={data.v4?.saved ?? null} viewer={data.v4?.viewer ?? 'anon'} goal={g.goal} />
             </div>
           )}
         </section>

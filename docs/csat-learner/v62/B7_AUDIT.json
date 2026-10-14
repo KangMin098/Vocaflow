@@ -1,0 +1,145 @@
+{
+  "measuredAt": "2026-10-14T08:20:44.785Z",
+  "items": [
+    {
+      "item": "2024#31",
+      "annotation": {
+        "role": "transfer",
+        "evidence": [
+          6,
+          3
+        ],
+        "disputed": [
+          4
+        ],
+        "blank": 5,
+        "sentenceCount": 7,
+        "sourceBound": true,
+        "skeletonSigMatch": true
+      },
+      "applications": [
+        {
+          "status": "draft",
+          "role": "transfer",
+          "releaseApproved": false,
+          "trials": [
+            "planned"
+          ]
+        }
+      ],
+      "activeConfirmSameItem": false,
+      "answerKey": {
+        "answers": [
+          2
+        ],
+        "points": 2
+      },
+      "firstAttemptUsers": 0
+    },
+    {
+      "item": "2024#33",
+      "annotation": {
+        "role": "transfer",
+        "evidence": [
+          4
+        ],
+        "disputed": [
+          5
+        ],
+        "blank": 3,
+        "sentenceCount": 7,
+        "sourceBound": true,
+        "skeletonSigMatch": true
+      },
+      "applications": [
+        {
+          "status": "draft",
+          "role": "transfer",
+          "releaseApproved": false,
+          "trials": [
+            "planned"
+          ]
+        }
+      ],
+      "activeConfirmSameItem": false,
+      "answerKey": {
+        "answers": [
+          5
+        ],
+        "points": 3
+      },
+      "firstAttemptUsers": 0
+    },
+    {
+      "item": "2023#32",
+      "annotation": {
+        "role": "transfer",
+        "evidence": [
+          4
+        ],
+        "disputed": [
+          2
+        ],
+        "blank": 5,
+        "sentenceCount": 7,
+        "sourceBound": true,
+        "skeletonSigMatch": true
+      },
+      "applications": [
+        {
+          "status": "draft",
+          "role": "transfer",
+          "releaseApproved": false,
+          "trials": [
+            "planned"
+          ]
+        }
+      ],
+      "activeConfirmSameItem": false,
+      "answerKey": {
+        "answers": [
+          2
+        ],
+        "points": 2
+      },
+      "firstAttemptUsers": 0
+    },
+    {
+      "item": "2025#34",
+      "annotation": {
+        "role": "transfer",
+        "evidence": [
+          2
+        ],
+        "disputed": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "blank": 0,
+        "sentenceCount": 8,
+        "sourceBound": true,
+        "skeletonSigMatch": true
+      },
+      "applications": [
+        {
+          "status": "draft",
+          "role": "transfer",
+          "releaseApproved": false,
+          "trials": [
+            "planned"
+          ]
+        }
+      ],
+      "activeConfirmSameItem": false,
+      "answerKey": {
+        "answers": [
+          5
+        ],
+        "points": 3
+      },
+      "firstAttemptUsers": 0
+    }
+  ]
+}

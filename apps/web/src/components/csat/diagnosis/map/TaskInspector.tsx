@@ -15,6 +15,7 @@ import { track } from '@/lib/analytics/client'
 import { learnerPath, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
+import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import { DOMAIN_NAME, linesOfTask, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -106,7 +107,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
           <p className={u.insBlocked}>과거 기준 보기에서는 학습 활동을 시작하지 않아요.</p>
         ) : ins.next ? (
           <Link
-            href={withMapReturn(ins.next.href, { mapTask: t.id, ws: home })}
+            href={withMapReturn(ins.next.href, outgoingCtx(data.v4?.saved, t.id, home))}
             className={u.cta}
             data-testid="inspector-next"
             onClick={() => {
