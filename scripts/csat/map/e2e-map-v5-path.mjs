@@ -70,14 +70,18 @@ try {
     await new Promise((r) => setTimeout(r, 1000))
   }
 
-  /** 지도를 열고 중심 TASK 계획 줄을 읽는다(대표 Workspace 가 아니면 그 묶음 탭을 연다) */
+  /**
+   * 지도를 열고 중심 TASK 계획 줄을 읽는다 — v6.2 단일 지도: 복귀 문맥(map_task · ws)으로 그 TASK 를 고르고 그 묶음 계획을 연 채로 연다.
+   * 「As-Is 영역 근거」는 Inspector 의 근거 상태(data-evidence) + 그 TASK 노드 상태 글자로 읽는다(옛 영역 표 need-domains 대신).
+   */
   const row = async (tag) => {
-    await page.goto(`${BASE}/csat/diagnosis?tab=map`, { waitUntil: 'domcontentloaded' })
-    const sec = page.locator('[data-testid="plan-section"]')
+    await page.goto(`${BASE}/csat/diagnosis?tab=map&map_task=${TASK}&ws=ws.${WS}`, { waitUntil: 'domcontentloaded' })
+    const sec = page.locator('[data-testid="umap-plan"] [data-testid="plan-section"]')
     await sec.waitFor()
     await page.waitForLoadState('networkidle').catch(() => {})
-    if ((await sec.getAttribute('data-ws')) !== `ws.${WS}`) await page.locator(`[data-testid="plan-tab"][data-ws="ws.${WS}"]`).click()
-    const li = page.locator(`[data-testid="plan-section"] li[data-task="${TASK}"]`)
+    if ((await sec.getAttribute('data-ws')) !== `ws.${WS}`) throw new Error(`복귀 문맥으로 연 계획 묶음이 다르다: ${await sec.getAttribute('data-ws')}`)
+    if ((await page.getAttribute('[data-testid="task-inspector"]', 'data-task')) !== TASK) throw new Error('복귀 문맥으로 고른 TASK 가 다르다')
+    const li = sec.locator(`li[data-task="${TASK}"]`)
     await li.waitFor()
     const go = li.locator('[data-testid="plan-go"]')
     const info = {
@@ -86,10 +90,10 @@ try {
       planned: (await li.getAttribute('data-planned')) || null,
       achievement: await li.getAttribute('data-achievement'),
       href: (await go.count()) ? await go.getAttribute('href') : null,
-      domains: await page.locator('[data-testid="need-domains"]').innerText(),
-      transferBlocked: await page.locator('[data-testid="need-workspace"] li[data-stage="transfer"]').getAttribute('data-blocked').catch(() => null),
+      domains: `${await page.getAttribute('[data-testid="inspector-evidence"]', 'data-evidence')}|${await page.locator(`[data-node="${TASK}"]`).innerText()}`,
+      transferBlocked: (await page.locator('[data-testid="task-inspector"] li[data-stage="transfer"]').getAttribute('data-blocked').catch(() => null)) || null,
     }
-    await page.locator('[data-testid="plan-section"]').screenshot({ path: path.join(OUT, `${tag}.png`) })
+    await sec.screenshot({ path: path.join(OUT, `${tag}.png`) })
     return info
   }
   const attempts = async () => must(db.from('learning_task_attempts').select('item_ref, phase, activity, is_correct, answered_at').eq('user_id', u.user.id).order('answered_at'), 'attempts')

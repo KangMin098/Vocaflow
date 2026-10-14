@@ -139,6 +139,9 @@ export function taskInspector(id: TaskId, view: V4View, ranks: Ranks, ledger: Go
   const na = ranks.notActionable.find((e) => e.task === id) ?? null
   const p = view.taskPlans.find((x) => x.task === id) ?? null
   const cov = ledger?.tasks.find((t) => t.task === id) ?? null
+  // 목표 없는 자율 연습 — 계획의 다음 활동, 없으면 이 TASK 를 중심으로 하는 묶음의 다음 확인 문항(Workspace 가 이미 미노출 규칙을 거쳤다)
+  const homeWs = [view.plan.primary, ...view.plan.others].find((w) => w?.core.includes(id)) ?? null
+  const free = view.toBe ? null : p?.next ?? homeWs?.next ?? null
   return {
     task: graph,
     goal: def.goal,
@@ -150,8 +153,9 @@ export function taskInspector(id: TaskId, view: V4View, ranks: Ranks, ledger: Go
       needRank: nr?.rank ?? null,
     },
     plan: p ? { stage: p.stage, done: p.quantity.done, planned: p.quantity.planned, workspaces: p.workspaces } : null,
-    next: ar ? { href: ar.href, label: ar.label } : null,
-    blocked: ar ? null : na?.reason ?? null,
+    // 목표가 없으면 NeedRank 가 비어도 탐색 · 자율 연습은 된다(§6.1) — 그때는 계획이 고른 다음 활동(단계 · 미노출 규칙을 이미 거친 것)
+    next: ar ? { href: ar.href, label: ar.label } : free ? { href: free.href, label: free.label } : null,
+    blocked: ar || free ? null : na?.reason ?? (graph.hold ? 'canon_hold' : 'no_next_activity'),
     coverage: cov ? { gaps: cov.gaps, ledgers: cov.ledgers } : null,
     versions: { canon: CANON_VERSION, v62: V62_CANON_VERSION, asOf: view.asIs.asOf, mode: view.asIs.mode },
   }

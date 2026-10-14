@@ -39,13 +39,13 @@ describe('학습 지도 vNext 정렬', () => {
     expect(read('LearnerMap.tsx')).not.toContain('LEGACY_PROXY_LABEL')
   })
 
-  it('③ 54라인 화면은 「기출 상세 분석」 — 학습 순서가 아니라 판단 근거를 보는 곳', () => {
+  // v6.2 D-02(2026-10-14): 기본 · 전체(view=full) 지도는 같은 교육 그래프 · 같은 판정 출처 하나 — 54라인 상세 지도를 따로 그리지 않는다
+  it('③ 지도 화면은 단일 지도 하나 — 옛 학습자 지도 · 54라인 상세 지도를 따로 그리지 않는다', () => {
     expect(LEGACY_DETAIL_NOTE).toMatch(/기출 상세 분석/)
     expect(LEGACY_DETAIL_NOTE).toMatch(/학습 순서는 아니에요/)
-    const main = read('LearnerMap.tsx')
-    expect(main).toContain('기출 상세 분석')
-    expect(main).not.toMatch(/기존 상세 지도|전체 지도 보기/)
-    expect(read('MapScreen.tsx')).toContain('{LEGACY_DETAIL_NOTE}')
+    const screen = read('MapScreen.tsx')
+    expect(screen).toContain('UnifiedLearningMap')
+    expect(screen).not.toMatch(/from '\.\/LearnerMap'|from '\.\/LearningMap'|<LearnerMap|<LearningMap/)
   })
 
   it('④ 관찰 구분선은 표시 기준 — 학생 메인에 내지 않고 상세 근거에만', () => {

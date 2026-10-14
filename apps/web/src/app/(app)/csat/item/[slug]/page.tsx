@@ -68,7 +68,7 @@ export default async function CsatItemTheaterPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[]; ret?: string | string[]; task?: string | string[]; ws?: string | string[]; step?: string | string[] }>
+  searchParams: Promise<{ scene?: string | string[]; judgmentView?: string | string[]; check?: string; from?: string; pair?: string | string[]; back?: string | string[]; meaning?: string | string[]; depth?: string | string[]; rel?: string | string[]; bridge?: string | string[]; ret?: string | string[]; task?: string | string[]; ws?: string | string[]; step?: string | string[]; map_task?: string | string[] }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -82,7 +82,7 @@ export default async function CsatItemTheaterPage({
   // 학습 지도에서 온 학습자(확인 링크 → 해설 보기)는 지도로 돌아갈 수 있다(v3 M4). 지도의 확인 링크는 모두 check=1 로 온다
   const fromMap = sp.from === 'map' || checkMode
   // 지도 활동 복귀 문맥(v3 M1 후속) — 과제 · 학습 묶음 · 단계. 형식만 검증(lib/csat/map-return)
-  const mapCtxQ = mapReturnQuery(parseMapReturn({ task: first(sp.task), ws: first(sp.ws), step: first(sp.step) }))
+  const mapCtxQ = mapReturnQuery(parseMapReturn({ task: first(sp.task), map_task: first(sp.map_task), ws: first(sp.ws), step: first(sp.step) }))
   const retQ = browseReturn(first(sp.ret)) ? `&ret=${encodeURIComponent(browseReturn(first(sp.ret))!)}` : ''
   const carry = `${retQ}${fromMap ? `&from=map${mapCtxQ}` : ''}`
   const itemId = fromItemSlug(slug)
