@@ -1,0 +1,987 @@
+{
+  "version": "1.3-post-seal-supplement",
+  "first_outcomes_modified": false,
+  "paths_checked": 58,
+  "flagged_paths": 3,
+  "rows": [
+    {
+      "rater": "A",
+      "id": "2017#38",
+      "path_id": "p1",
+      "flags": [
+        {
+          "kind": "required_relation_vs_removal_conflict",
+          "relation": "causal"
+        }
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "n": 9,
+        "unknown": [],
+        "semantic_stimulus_is_paid_once": true
+      }
+    },
+    {
+      "rater": "A",
+      "id": "2019#35",
+      "path_id": "p1",
+      "flags": [
+        {
+          "kind": "required_relation_vs_removal_conflict",
+          "relation": "causal"
+        }
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "n": 7,
+        "unknown": [],
+        "semantic_stimulus_is_paid_once": true
+      }
+    },
+    {
+      "rater": "B",
+      "id": "2015#32",
+      "path_id": "p4",
+      "flags": [
+        {
+          "kind": "unanchored_FOV_candidate",
+          "option": 2,
+          "interpretation": "Review missing source anchors; not an automatic semantic verdict"
+        },
+        {
+          "kind": "unanchored_FOV_candidate",
+          "option": 3,
+          "interpretation": "Review missing source anchors; not an automatic semantic verdict"
+        },
+        {
+          "kind": "unanchored_FOV_candidate",
+          "option": 4,
+          "interpretation": "Review missing source anchors; not an automatic semantic verdict"
+        }
+      ],
+      "paid_union": {
+        "ids": [
+          "s6",
+          "s7"
+        ],
+        "n": 2,
+        "unknown": [],
+        "semantic_stimulus_is_paid_once": true
+      }
+    }
+  ],
+  "paid_unions": [
+    {
+      "rater": "A",
+      "id": "2016#18",
+      "path_id": "p1",
+      "ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 4,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2016#18",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2016#18",
+      "path_id": "p3",
+      "ids": [
+        "s6"
+      ],
+      "n": 1,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2024#23",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2024#23",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2014B#25",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2014B#25",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2015#32",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2015#32",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2020#36",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2020#36",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2017#38",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "n": 9,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2017#38",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "n": 9,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2023#40",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2023#40",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2021#30",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "n": 11,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2021#30",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "n": 11,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2018#28",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2018#28",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2018#28",
+      "path_id": "p3",
+      "ids": [
+        "s2"
+      ],
+      "n": 1,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2014A#32",
+      "path_id": "p1",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2014A#32",
+      "path_id": "p2",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2014A#32",
+      "path_id": "p3",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2019#35",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "A",
+      "id": "2019#35",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2016#18",
+      "path_id": "p1",
+      "ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2016#18",
+      "path_id": "p2",
+      "ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2016#18",
+      "path_id": "p3",
+      "ids": [
+        "s6"
+      ],
+      "n": 1,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2016#18",
+      "path_id": "p4",
+      "ids": [
+        "s6"
+      ],
+      "n": 1,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2024#23",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2024#23",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2024#23",
+      "path_id": "p3",
+      "ids": [
+        "s5",
+        "s6"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014B#25",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014B#25",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014B#25",
+      "path_id": "p3",
+      "ids": [
+        "s3",
+        "s4"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2015#32",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2015#32",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2015#32",
+      "path_id": "p3",
+      "ids": [
+        "s6",
+        "s7"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2015#32",
+      "path_id": "p4",
+      "ids": [
+        "s6",
+        "s7"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2020#36",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2020#36",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2017#38",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "n": 9,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2017#38",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "n": 9,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2017#38",
+      "path_id": "p3",
+      "ids": [
+        "s5",
+        "s6"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2023#40",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2023#40",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "n": 8,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2021#30",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "n": 11,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2021#30",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "n": 11,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2021#30",
+      "path_id": "p3",
+      "ids": [
+        "s10",
+        "s11"
+      ],
+      "n": 2,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2018#28",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2018#28",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "n": 6,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2018#28",
+      "path_id": "p3",
+      "ids": [
+        "s2"
+      ],
+      "n": 1,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014A#32",
+      "path_id": "p1",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014A#32",
+      "path_id": "p2",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014A#32",
+      "path_id": "p3",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2014A#32",
+      "path_id": "p5",
+      "ids": [],
+      "n": 0,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2019#35",
+      "path_id": "p1",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    },
+    {
+      "rater": "B",
+      "id": "2019#35",
+      "path_id": "p2",
+      "ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "n": 7,
+      "unknown": [],
+      "semantic_stimulus_is_paid_once": true
+    }
+  ],
+  "meaning": "Mechanical source-containment/explicit-removal contradictions only; cannot prove semantics or repair target mismatch"
+}

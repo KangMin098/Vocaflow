@@ -1,0 +1,9 @@
+{
+ "version":"1.3","reviewer":"root_AI_source_cross_check_not_human","timing":"after_source_freeze_while_separate_blind_raters_work","input_modified":false,"key_read":false,
+ "items":[
+ {"id":"2014A#32","render":"local/v13/source-2014A-q-6.png","checked":"Original odd A-form dual-axis bar/line graphic, eight category labels including national-average comparator,16 printed numerical values, stem and five indexed claims visually inspected. Rate and annual-hours axes must stay separate. Derived matrix admission inherited; not a real-world data verification."},
+ {"id":"2018#28","render":"local/v13/source-2018-q-4.png","checked":"Original even-form page grammar stem, five numbered underline targets and full body region visually inspected. Candidate-excluded dependencies and meaning are separate from field completeness."},
+ {"id":"2023#40","render":"local/main-20261014/source-2023-q-7.png","checked":"Original odd-form boxed body, one glossary, arrow, complete summary task stimulus and two-column paired candidates visually inspected. Summary information is not a free additional body premise."}],
+ "root_adjacent_exposure":["2014A#33","2014A#34","2014A#35","2018#25","2018#26","2018#27","2023#37","2023#38","2023#39"],
+ "independence":"Source-only root cross-check; blind A/B did not receive these images. No human/expert or official download lineage claim. Previous adjacent exposures remain preserved."
+}

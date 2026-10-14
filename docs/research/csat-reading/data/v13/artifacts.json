@@ -1,0 +1,405 @@
+{
+  "version": "1.3",
+  "date": "2026-10-14",
+  "task": "T-0027",
+  "branch": "research/csat-reading-20261012",
+  "preregistration_commit": "ca6e5a1cb",
+  "source_freeze_commit": "811e45a1b",
+  "first_outcomes_commit": "c602b299c",
+  "files": {
+    "docs/CHANGELOG.md": {
+      "sha256": "f6d367d844844db3ed9c225b592e80344e8aad2be073397c27fb02ba1f2bbf08",
+      "bytes": 2955874
+    },
+    "docs/research/csat-reading/PLAN.md": {
+      "sha256": "e83e5070561e86b5731599a363264f13d0d1f991610c9dceea4977745f2b52e1",
+      "bytes": 10656
+    },
+    "docs/research/csat-reading/PROTOCOL-v1.3.md": {
+      "sha256": "294814852af3471a41c4a70e28fcb79ef471d1990d21b7cc97990ef8870ef878",
+      "bytes": 7051
+    },
+    "docs/research/csat-reading/README.md": {
+      "sha256": "bd0dc05198ea96cf429884097dce5328ea6f147c28585533214781510e4c2d8b",
+      "bytes": 2084
+    },
+    "docs/research/csat-reading/V13-COVERAGE.md": {
+      "sha256": "732393df13d24e25e7b7d487b411f42a02b10fda05e37e27d52a25a91744a3ce",
+      "bytes": 2461
+    },
+    "docs/research/csat-reading/V13-CROSS-TYPE.md": {
+      "sha256": "7c3955bb390d81116dd7ef6270c184cc0986fc7eb9dfe3a42c2743921ea4d522",
+      "bytes": 3410
+    },
+    "docs/research/csat-reading/V13-HANDOFF.md": {
+      "sha256": "285ef03724bd0c76777ddf6b8c85af79725458a7f3f423e22500d4393404eae1",
+      "bytes": 5003
+    },
+    "docs/research/csat-reading/V13-PRINCIPLES.md": {
+      "sha256": "136051e81ef46925d80db985213e73f4b377806227d41e5d0317a19534e05a1e",
+      "bytes": 6823
+    },
+    "docs/research/csat-reading/V13-RELATIONS.md": {
+      "sha256": "35aa41161e42173639631d7cd04e1fbfc2ad6639c54f774e3fafa010f8b4a7bf",
+      "bytes": 3709
+    },
+    "docs/research/csat-reading/V13-REPORT.md": {
+      "sha256": "fea86ef045e602a6761831957083f9538d7f1395fbe381c54a2a059cad641012",
+      "bytes": 12391
+    },
+    "docs/research/csat-reading/V13-SOURCE.md": {
+      "sha256": "1e2556e2f2b856c45a0f6a20e45e677e1f25a6aee831a4f99eb02df44d266caf",
+      "bytes": 6034
+    },
+    "docs/research/csat-reading/V13-TASKS.md": {
+      "sha256": "98a3d447d1af4a508e200e8e1cfa4d16b12712c754f11d2df1e694ae7fb9e21b",
+      "bytes": 5878
+    },
+    "docs/research/csat-reading/V13-TEACHING.md": {
+      "sha256": "70046fa9bf2039a2747fc76ce2a1542b703ea980881705628c33ac6b7d5634ff",
+      "bytes": 6036
+    },
+    "docs/research/csat-reading/V13-THEORY.md": {
+      "sha256": "73898150fb9b9ed791ab23a968f4ebdf652e53ff2af6b72336074c4d99845688",
+      "bytes": 2709
+    },
+    "docs/research/csat-reading/V13-VALIDATION.md": {
+      "sha256": "458179fa12988bdfe8c096b5af33a22699dd55099d89e90da0720845803f18dd",
+      "bytes": 15548
+    },
+    "docs/research/csat-reading/data/v13/agreement.json": {
+      "sha256": "bd756c070a82d4269fda6a3858b9dbbee9cc0c51575a7910526eddd351f99c19",
+      "bytes": 15204
+    },
+    "docs/research/csat-reading/data/v13/coverage.json": {
+      "sha256": "5bc749369366ddc0f57bf7448e8a0ff1a1b1dc01450c659eed2bf44b8c83a6b7",
+      "bytes": 6985
+    },
+    "docs/research/csat-reading/data/v13/db-audit.json": {
+      "sha256": "334ecdd82b1386f181fafcf3b01b19cd6c6d563cb6ae0cc0af4874943920e816",
+      "bytes": 584
+    },
+    "docs/research/csat-reading/data/v13/eligibility-addendum.json": {
+      "sha256": "8ca4b3bf19b66836f469a69b59af579f6271620cb675c852d2a65df39dd313ea",
+      "bytes": 939
+    },
+    "docs/research/csat-reading/data/v13/exposure.json": {
+      "sha256": "3b6f11756610c6acdbcbe0467571fe1ae97d0df214412fe0a8ecbf09303302fe",
+      "bytes": 5753
+    },
+    "docs/research/csat-reading/data/v13/final-gate.json": {
+      "sha256": "b482a19b52289ded13cf89e7c7b9a49fe86b599804d56bcec4400e62b1e24a9b",
+      "bytes": 1872
+    },
+    "docs/research/csat-reading/data/v13/final-integrity.json": {
+      "sha256": "4a8872f9855a2e016a9e2f75610898252396838fd38057f358a3b27645b8cc47",
+      "bytes": 421
+    },
+    "docs/research/csat-reading/data/v13/handoff.json": {
+      "sha256": "0290eacd7ed2020608720c6b47e22556edde297f1aa0b601565b1ac86c470f74",
+      "bytes": 5074
+    },
+    "docs/research/csat-reading/data/v13/logic-review.json": {
+      "sha256": "8762d1e4ad3b245c54fc4cf4df2383e4a9456e602468b2d664bd0ae25bfff1a4",
+      "bytes": 288214
+    },
+    "docs/research/csat-reading/data/v13/next-target-contract.json": {
+      "sha256": "ee289d98f5253641c7045263480941a13b8e17d24417b7442d392c84f98b9d09",
+      "bytes": 1508
+    },
+    "docs/research/csat-reading/data/v13/path-guard.json": {
+      "sha256": "989d9eb5dcbd9ee27ec1ad16336470b325b7a9b230b91cc4cc0d4ee5d259c57a",
+      "bytes": 17123
+    },
+    "docs/research/csat-reading/data/v13/pilot-execution.json": {
+      "sha256": "2abdeda895aeb4d0f382079c14e897a073345f94f9140a06e330f02a69dcff38",
+      "bytes": 1335
+    },
+    "docs/research/csat-reading/data/v13/pilot-registration.json": {
+      "sha256": "dce2fb02f397c817ccba5314b7a5b07e0efea6bc68cf6f4c2997aae3e4c4a8f8",
+      "bytes": 1716
+    },
+    "docs/research/csat-reading/data/v13/pilot-selection.json": {
+      "sha256": "17ea9ec835e6b5cf72d9771b7d9ecb2293779720a42c5a74df5d9c1dc06abdb4",
+      "bytes": 2348
+    },
+    "docs/research/csat-reading/data/v13/pilot-source.json": {
+      "sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+      "bytes": 44660
+    },
+    "docs/research/csat-reading/data/v13/principle-binding-audit.json": {
+      "sha256": "01c48e04c5fac0f8f8dd0a7782310fb1cb316c7552dbdd945fa2bafcebe8251d",
+      "bytes": 1407
+    },
+    "docs/research/csat-reading/data/v13/principle-control-registration.json": {
+      "sha256": "0a22b09436b6faddb4e5346906a11bd597561a4bb82860474ca21ff697f5ba62",
+      "bytes": 670
+    },
+    "docs/research/csat-reading/data/v13/principle-control-review.json": {
+      "sha256": "615f5976af0bbb2b8de153bf92b8f0bdce41ba8212d1d2dc9afdd851efa69f81",
+      "bytes": 5390
+    },
+    "docs/research/csat-reading/data/v13/principle-cross-type.json": {
+      "sha256": "fa18178f9065724d67bda235a9c8e0b729c729183785f60b7dd6024267b76a66",
+      "bytes": 23826
+    },
+    "docs/research/csat-reading/data/v13/principle-current-ledger.json": {
+      "sha256": "662212bf4a51504994d653d5154ce1ea0be1ae239cac2907044b4c3664cbf947",
+      "bytes": 23533
+    },
+    "docs/research/csat-reading/data/v13/principle-extension-registration.json": {
+      "sha256": "7a70013f1e4ccf55e403091f768ed89a5e7ad8e4a12dd8df91d2d80d2cfcbc23",
+      "bytes": 12430
+    },
+    "docs/research/csat-reading/data/v13/principle-key-recovery.json": {
+      "sha256": "f0622e7b2f8d6caf5215bfd7488c560ea9b58daf7e6ecadcf912031db289f615",
+      "bytes": 3723
+    },
+    "docs/research/csat-reading/data/v13/principle-ledger.json": {
+      "sha256": "2d12eb961586b4df5897e49720b534b29c47a19d830188f766ceb00d6c87bf14",
+      "bytes": 14659
+    },
+    "docs/research/csat-reading/data/v13/principle-review.json": {
+      "sha256": "9383255fdaee809f2e7914bf336bb94f50ccf5a723a64da476a244bbf71a0204",
+      "bytes": 8228
+    },
+    "docs/research/csat-reading/data/v13/principle-selection.json": {
+      "sha256": "3d47578ce6b53a28dd981e39d827bc37abd121d68b759e749b0fd01970654ead",
+      "bytes": 15079
+    },
+    "docs/research/csat-reading/data/v13/principle-writer-bindings.json": {
+      "sha256": "8b117be3c6a4087f3b633e928efac4b366554ae90c7744c7502dc397fd11ab35",
+      "bytes": 730
+    },
+    "docs/research/csat-reading/data/v13/rater-a.json": {
+      "sha256": "f27d7a61653a37ae305efb523315c044e2a71378e607acf4285bd9a22aaf23d0",
+      "bytes": 127744
+    },
+    "docs/research/csat-reading/data/v13/rater-b.json": {
+      "sha256": "8102aae9f06ad7b586995d1e16c0497889b0a69fcc50d1e6445a802c94b31ebe",
+      "bytes": 172220
+    },
+    "docs/research/csat-reading/data/v13/receipt-a-first6.json": {
+      "sha256": "d99ff3066a37bb0df7a1672be5aaff495b9fc8777cc332714f71f58c127f2ea5",
+      "bytes": 278
+    },
+    "docs/research/csat-reading/data/v13/receipt-b-first6.json": {
+      "sha256": "9037ffa0a9f8bb50fa1dc7b494d655dcd9ad2d9035e16c8ec144bcdfa9f2e23e",
+      "bytes": 274
+    },
+    "docs/research/csat-reading/data/v13/registration.json": {
+      "sha256": "d3169a65ada5b53fcb1695307707242deed0d35d6163da15241fd1d08a5baf95",
+      "bytes": 10185
+    },
+    "docs/research/csat-reading/data/v13/self-review-notices.json": {
+      "sha256": "f13e48c948d43bac30aa27c31209cc004bf397927ddff996f5e3e354db113f78",
+      "bytes": 733
+    },
+    "docs/research/csat-reading/data/v13/source-critical-review.json": {
+      "sha256": "e25646ddf39365c64dc978d1bb36db6ac05ef5a4362b324e9a3cd8d4f531b6c5",
+      "bytes": 1416
+    },
+    "docs/research/csat-reading/data/v13/source-mechanical-draft.json": {
+      "sha256": "629ea53073c610412fc0ba492c04ec47f61409622ccdb9a6581dd8ad27ab087e",
+      "bytes": 58055
+    },
+    "docs/research/csat-reading/data/v13/source-pilot-finalization.json": {
+      "sha256": "a321094014f4c42349cceed03001f582b9146a88a98c115fb197f67d2be00ad1",
+      "bytes": 1032
+    },
+    "docs/research/csat-reading/data/v13/source-pilot-first-admission.json": {
+      "sha256": "cbd988fa972cb26154d374eba786454a1b3a298f3ed180e1cb1cc13109ea92b2",
+      "bytes": 39908
+    },
+    "docs/research/csat-reading/data/v13/source-repair.json": {
+      "sha256": "cdfbcffffc31892968a4d94c3af7efb5111617f45d9503ec33f937591eed7884",
+      "bytes": 58275
+    },
+    "docs/research/csat-reading/data/v13/source-review.json": {
+      "sha256": "117a354d201875f2a42573d71b9d3e7ec010b881d2db125c62e0c06e445cff76",
+      "bytes": 18411
+    },
+    "docs/research/csat-reading/data/v13/task-education-draft.json": {
+      "sha256": "ec2fcda9d4c85a7c4ffb7ee1c7ea7d941fa0b6036c2b3cdab8b55ebe7907d17b",
+      "bytes": 86637
+    },
+    "docs/research/csat-reading/data/v13/task-education.json": {
+      "sha256": "868fdc38e14edca9466b4577295c159ee3faefc30c6dd91b1be88869e91e5dcf",
+      "bytes": 86701
+    },
+    "docs/research/csat-reading/data/v13/task-evidence.json": {
+      "sha256": "cdbe0455441cff32e6e6eda463ac61746136396f4e9fb3e8167914e450fda2eb",
+      "bytes": 1140
+    },
+    "docs/research/csat-reading/data/v13/task-relations-draft.json": {
+      "sha256": "26ea715f76de82ca93779102694b90859153201fdff3503e7c3508e50d15ffbb",
+      "bytes": 64816
+    },
+    "docs/research/csat-reading/data/v13/task-relations.json": {
+      "sha256": "76938101af0185d32ce3bf878e2006006879d91bcf9f2a5bf1ae1416cd30611c",
+      "bytes": 64854
+    },
+    "docs/research/csat-reading/data/v13/task-review.json": {
+      "sha256": "ac11aeec2be39bbcd1f0c811e671a2f327d61cd5d2e5738e3a2c26c7d00e43ca",
+      "bytes": 100619
+    },
+    "docs/research/csat-reading/data/v13/task-selection.json": {
+      "sha256": "7ada57a3900144a6be7e7bd859a99ddb8d254be77fb702d04725b826ee893c16",
+      "bytes": 11985
+    },
+    "docs/research/csat-reading/data/v13/task-summary.json": {
+      "sha256": "a707e21f0bff338e62769c3e499a2cfe03bd5bdbbb811326521e221c4751d474",
+      "bytes": 2240
+    },
+    "docs/research/csat-reading/data/v13/window-registration.json": {
+      "sha256": "fb6cf4113bb4b9947cb63f5ef662900fcc6dcad7a37b31be822a9bf3e2c77092",
+      "bytes": 1920
+    },
+    "docs/research/csat-reading/data/v13/window-review.json": {
+      "sha256": "2e3f173542636dce00d8f138d2470686f55882d44c5cb569938ffde0afa537e3",
+      "bytes": 32905
+    },
+    "scripts/research/csat-reading/v13-analysis.mjs": {
+      "sha256": "811665fb2fab29f3049c92285b5687f98c451d57005e50961f053fe300fac42d",
+      "bytes": 8108
+    },
+    "scripts/research/csat-reading/v13-exposure.mjs": {
+      "sha256": "bd2fb431be1deb920a49be6d7a8766e17a368ee3757c1b35379af8b8aff57ab3",
+      "bytes": 2134
+    },
+    "scripts/research/csat-reading/v13-finalize.mjs": {
+      "sha256": "f93ce7ac4e8e38d272eaeae84d60cea3d9bba6516aaea89d8f2486cc3c1ee772",
+      "bytes": 6225
+    },
+    "scripts/research/csat-reading/v13-freeze.mjs": {
+      "sha256": "945275ffcf92100ec04d5b53aab4953870abdd912ad611996e1059e2afa51518",
+      "bytes": 1840
+    },
+    "scripts/research/csat-reading/v13-handoff.mjs": {
+      "sha256": "e85353b149b59573a22f4a7c724b58499223ef2b7215538a017fc0f8a7c5e8b0",
+      "bytes": 6781
+    },
+    "scripts/research/csat-reading/v13-integrity.mjs": {
+      "sha256": "339be8c98a0eb60fcaa07c428d59a79ccc34ddf5fb3aa7d984c3781aef50f8e3",
+      "bytes": 2649
+    },
+    "scripts/research/csat-reading/v13-path-guard.mjs": {
+      "sha256": "a8e0c3e49f9e8e9a730e4b0330cfad892e447bc68c15a2523be073446b7c2ca6",
+      "bytes": 2980
+    },
+    "scripts/research/csat-reading/v13-path-guard.test.mjs": {
+      "sha256": "9c9b74dd23aaad26cf628bad1e700d2cd955a6901430cd6c9f76ee3a6f33c07d",
+      "bytes": 1698
+    },
+    "scripts/research/csat-reading/v13-prepare.mjs": {
+      "sha256": "401094b0eff2d321d07f05749dfaf247cc385e1efa2fff725d8f0e71527b8c1e",
+      "bytes": 4193
+    },
+    "scripts/research/csat-reading/v13-principle-binding-audit.mjs": {
+      "sha256": "2d93ce622e6e439fb2503ead13d8199904d82753b9bf9157dfb312cd58bb94cd",
+      "bytes": 1549
+    },
+    "scripts/research/csat-reading/v13-principle-control-review.mjs": {
+      "sha256": "b3c5aa8dcc41e56fc78371b7400ae972bcedf9345da503bc4f715c14c09bbcd0",
+      "bytes": 4155
+    },
+    "scripts/research/csat-reading/v13-principle-control.mjs": {
+      "sha256": "e40935f26a5ce6d6b973382d60506fcd2c412959e4e8f587db1de15b0b44dec7",
+      "bytes": 3167
+    },
+    "scripts/research/csat-reading/v13-principle-cross.mjs": {
+      "sha256": "79941f95466b35a1bab1d82905e5202b4bf2b7179d6a334ce0d3e1553d52a7f7",
+      "bytes": 8464
+    },
+    "scripts/research/csat-reading/v13-principle-current-ledger.mjs": {
+      "sha256": "a6994d8638cfe52dafc3ae1f2b9f46054ae3e416ab8b5f06135c5b41f72c2661",
+      "bytes": 1221
+    },
+    "scripts/research/csat-reading/v13-principle-extension-audit.mjs": {
+      "sha256": "0ecfedb45670c17bef28d8b748652ca6f5e31f768bb823e9ead1d4bb78b009c5",
+      "bytes": 452
+    },
+    "scripts/research/csat-reading/v13-principle-extension-select.mjs": {
+      "sha256": "5635c3761ca32fdb1bdc273c2a1adea205fa4331f68ac6c787b618e8107f54b1",
+      "bytes": 2956
+    },
+    "scripts/research/csat-reading/v13-principle-key-recovery.mjs": {
+      "sha256": "6979c37893110900973217a0449f3d00f4a6167fb2b20cd5c37e1cc43c3892fb",
+      "bytes": 4153
+    },
+    "scripts/research/csat-reading/v13-principle-review.mjs": {
+      "sha256": "0c8cd53bd58c052ca10ebc2b6eace764fe2efd7348855b7f63dc2eb7752d808d",
+      "bytes": 7270
+    },
+    "scripts/research/csat-reading/v13-principle-select.mjs": {
+      "sha256": "8db01c1ad554fbea003b06cea3207213847218943b19ce14122f5767e3db32fe",
+      "bytes": 1750
+    },
+    "scripts/research/csat-reading/v13-principle-validate.mjs": {
+      "sha256": "2d62dfd517589dd4096edcc5099cd141022bfd73000a8c14e4875bd7ce3eb381",
+      "bytes": 3958
+    },
+    "scripts/research/csat-reading/v13-principle-writer-bindings.mjs": {
+      "sha256": "5ec5110591fb0b69954d0906ff6ad6d23cb11ae01ca672f715045c7349f37469",
+      "bytes": 1474
+    },
+    "scripts/research/csat-reading/v13-source-locate.mjs": {
+      "sha256": "4d68141b2b5dac1a50601af52702c702412403724e5eb8145e011b06db27112d",
+      "bytes": 698
+    },
+    "scripts/research/csat-reading/v13-source-pilot-finalize.mjs": {
+      "sha256": "725e660fd7e3e46e7e53de70bf739b4121597b823e04ca37ea29b627335e8a74",
+      "bytes": 4642
+    },
+    "scripts/research/csat-reading/v13-source-pilot.mjs": {
+      "sha256": "49a56e60fe013469e35a6343ac606fbd8f315e72cc486dfc2ed851834f0b1019",
+      "bytes": 10789
+    },
+    "scripts/research/csat-reading/v13-source-repair.mjs": {
+      "sha256": "21e5ca463556c401e5729aeb64cac90de279a32e98419784c92ac56dc97d0d28",
+      "bytes": 4959
+    },
+    "scripts/research/csat-reading/v13-source-review.mjs": {
+      "sha256": "2f43550688d6d7c63303cdcfd12bb02e49a01a70d8ad82d8abbccd5120a5af56",
+      "bytes": 4890
+    },
+    "scripts/research/csat-reading/v13-source-units.mjs": {
+      "sha256": "4ea2067737fb274405f1aeca2c50d2a0f32d56a9415f3b8cc4fac3724f290a83",
+      "bytes": 3392
+    },
+    "scripts/research/csat-reading/v13-source.test.mjs": {
+      "sha256": "096327355a60f87e97f99e9e72a04fec6721ff06edcd75bb0639f7f949a61349",
+      "bytes": 1960
+    },
+    "scripts/research/csat-reading/v13-task-education.mjs": {
+      "sha256": "56e7f1084c10e5fd0d69829da3509f4b739307337e39ee574a1c83f7d5864b80",
+      "bytes": 21811
+    },
+    "scripts/research/csat-reading/v13-task-finalize.mjs": {
+      "sha256": "84705a51f57f9ea214275035903c7414fa61340f8e277db1620b30e04cb8e124",
+      "bytes": 4217
+    },
+    "scripts/research/csat-reading/v13-task-read.mjs": {
+      "sha256": "0e4d2d35741c565fcdf38f7467c383ba30765fa32907177e6e93f12c49ea59e7",
+      "bytes": 1188
+    },
+    "scripts/research/csat-reading/v13-task-review.mjs": {
+      "sha256": "afbe99e4b9a34d59dcf80024a7e4ab70f5a962b46793b2430462e546278d5873",
+      "bytes": 20829
+    },
+    "scripts/research/csat-reading/v13-task-sample.mjs": {
+      "sha256": "c885e7007945bbca9cc24e2b0aa5cec6dfc2fe6fd58bec6e85c4148ff47a7575",
+      "bytes": 3643
+    },
+    "scripts/research/csat-reading/v13-window.mjs": {
+      "sha256": "4c21af719da2df2c08b1fa6928b953516e976ccc739f62e2ec8a0d7d243a5a2f",
+      "bytes": 2640
+    },
+    "scripts/research/csat-reading/v13.test.mjs": {
+      "sha256": "c2d5046c7ade7859ac0bb71b26302d81338e6807d324db8c2c6d787520c83ed9",
+      "bytes": 2875
+    }
+  },
+  "index_self_excluded": true,
+  "private_sources_required_for_semantic_reproduction": true
+}

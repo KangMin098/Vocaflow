@@ -1,0 +1,152 @@
+{
+  "version": "1.3-v6.2-research-handoff",
+  "main_commit": "5e1415a913e864faf722766f117587d24faefb24",
+  "sourceRefs": [
+    {
+      "path": "docs/research/csat-reading/data/v13/task-summary.json",
+      "sha256": "a707e21f0bff338e62769c3e499a2cfe03bd5bdbbb811326521e221c4751d474"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/task-review.json",
+      "sha256": "ac11aeec2be39bbcd1f0c811e671a2f327d61cd5d2e5738e3a2c26c7d00e43ca"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/task-education.json",
+      "sha256": "868fdc38e14edca9466b4577295c159ee3faefc30c6dd91b1be88869e91e5dcf"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/task-relations.json",
+      "sha256": "76938101af0185d32ce3bf878e2006006879d91bcf9f2a5bf1ae1416cd30611c"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/principle-current-ledger.json",
+      "sha256": "662212bf4a51504994d653d5154ce1ea0be1ae239cac2907044b4c3664cbf947"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/pilot-source.json",
+      "sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09"
+    }
+  ],
+  "verified_inputs": {
+    "tier": "R1_AI_source_bound_only",
+    "reviewed_task_combinations": 74,
+    "latest_states": {
+      "indirect": 39,
+      "direct": 30,
+      "not_applicable": 5
+    },
+    "source_admitted_fresh": 11,
+    "complete_original_principle_pairs": 1,
+    "meaning": "Individual limited semantic review; not human-reviewed/student evidence/public approval"
+  },
+  "needs_additional_review": [
+    "Human content/rights/public eligibility",
+    "Same-target textual support and path necessity/sufficiency where unresolved",
+    "Direct exercise/scorer qualification",
+    "Student-specific exposure/difficulty/transfer/delay eligibility",
+    "Runtime availability audited by product owner"
+  ],
+  "unresolved": [
+    "Remaining23506 item×TASK combinations",
+    "Principles108unattempted/1missing-identical-formkeys",
+    "Psychometric independence of21active candidates",
+    "TASK-specific causal score gain or individual optimal methods"
+  ],
+  "implementation_fields": {
+    "identity": [
+      "item_id",
+      "passage_group",
+      "exam/form/year",
+      "source_revision",
+      "presentation_sha256",
+      "analysis_version",
+      "units_hash",
+      "definition_version"
+    ],
+    "relevance": [
+      "candidate_relevance",
+      "reviewed_relevance",
+      "review_revision",
+      "claim_scope",
+      "source_anchors",
+      "reviewer_kind",
+      "logic_status"
+    ],
+    "path": [
+      "goal_AI_or_FOV",
+      "semantic_target",
+      "textual_support",
+      "task_fit",
+      "world_truth",
+      "used_units_offsets",
+      "stimulus_units",
+      "visual_cells",
+      "candidate_copy_union",
+      "operations",
+      "assumptions",
+      "relation_removal_test"
+    ],
+    "education": [
+      "InterventionUnit.role",
+      "core/supportTASKs",
+      "expected_response",
+      "rubric_version",
+      "allowed_alternatives",
+      "effectiveness_status",
+      "public_rights_eligibility"
+    ],
+    "observation": [
+      "research_exposure",
+      "learner_exposure",
+      "attempt_id",
+      "first_independent",
+      "hint/reveal/support",
+      "answered_at",
+      "rubric_validity",
+      "valid_response_unit",
+      "transfer_condition",
+      "actual_delay"
+    ],
+    "coverage": [
+      "ledger_id",
+      "denominator_definition",
+      "unknown_or_unsupported",
+      "as_of",
+      "source_ref",
+      "readiness",
+      "claim_tier"
+    ]
+  },
+  "main_conflicts": [
+    {
+      "path": "apps/web/src/lib/csat/map/v4/to-be.ts",
+      "observed": "splitMust relevance0 for non-REPAIR adds unrelated",
+      "recommendation": "Preserve operational legacy status/version; do not treat missing reviewed mapping as educational not_applicable",
+      "changed": false
+    },
+    {
+      "path": "docs/csat-learner/v4/workspaces.json",
+      "observed": "central meaning criterion two passages then two consecutive rechecks within120days",
+      "recommendation": "Execution policy only; not universal mastery/retention threshold. Add response/condition qualification separately",
+      "changed": false
+    },
+    {
+      "path": "docs/csat-learner/v4/workspaces.json",
+      "observed": "static readiness live3/ready1/content_needed4/blocked1",
+      "recommendation": "Product team measure runtime and eligible pools separately from research validation",
+      "changed": false
+    }
+  ],
+  "forbidden_student_uses": [
+    "Automatic weakness/mastery/level assignment from R1links or answer alone",
+    "R1→R3promotion",
+    "Candidate6310 as validated links or NeedRankweights",
+    "40method candidates as measured efficacy",
+    "Preset total-needed item count or target-grade probability",
+    "Synthetic E2E/plan completion as transfer/delay success"
+  ],
+  "authority": "Separate product/content/measurement review; no code injection or external message sent",
+  "approved_relation_changes": 0,
+  "retained_profiles": 30,
+  "relation_catalog_count": 34
+}

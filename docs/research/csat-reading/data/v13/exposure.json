@@ -1,0 +1,228 @@
+{
+  "version": "1.3",
+  "prior_exposure_preserved": {
+    "path": "docs/research/csat-reading/data/v12/exposure.json",
+    "sha256": "5e088995bddefddd4c8e57a3ff4ba4f9208df1e55df5d0840322ab524e1688cd",
+    "recent_propagated_n": 70
+  },
+  "excluded_before_classification": [
+    {
+      "id": "2022#26",
+      "reason": "Recorded adjacent full-page exposure to root context in v1.2 source-critical-review.json; cannot satisfy project-unexposed selection contract",
+      "source": "docs/research/csat-reading/data/v12/source-critical-review.json",
+      "rater_context_exposure": "fresh fork-none raters not exposed, but project-level eligibility still fails"
+    }
+  ],
+  "project_admitted_fresh_ids": [
+    "2016#18",
+    "2024#23",
+    "2014B#25",
+    "2015#32",
+    "2020#36",
+    "2017#38",
+    "2023#40",
+    "2021#30",
+    "2018#28",
+    "2014A#32",
+    "2019#35"
+  ],
+  "source_role_all_selected_ids": [
+    "2016#18",
+    "2024#23",
+    "2014B#25",
+    "2015#32",
+    "2020#36",
+    "2017#38",
+    "2023#40",
+    "2021#30",
+    "2018#28",
+    "2022#26",
+    "2014A#32",
+    "2019#35"
+  ],
+  "source_role_incidental_page_exposure": [
+    {
+      "source_item": "2016#18",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2016#12",
+        "2016#13",
+        "2016#14",
+        "2016#15",
+        "2016#16",
+        "2016#17",
+        "2016#18",
+        "2016#19",
+        "2016#20"
+      ]
+    },
+    {
+      "source_item": "2024#23",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2024#21",
+        "2024#22",
+        "2024#23",
+        "2024#24"
+      ]
+    },
+    {
+      "source_item": "2014B#25",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2014B#23",
+        "2014B#24",
+        "2014B#25",
+        "2014B#26"
+      ]
+    },
+    {
+      "source_item": "2015#32",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2015#29",
+        "2015#30",
+        "2015#31",
+        "2015#32"
+      ]
+    },
+    {
+      "source_item": "2020#36",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2020#33",
+        "2020#34",
+        "2020#35",
+        "2020#36"
+      ]
+    },
+    {
+      "source_item": "2017#38",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2017#37",
+        "2017#38",
+        "2017#39",
+        "2017#40"
+      ]
+    },
+    {
+      "source_item": "2023#40",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2023#37",
+        "2023#38",
+        "2023#39",
+        "2023#40"
+      ]
+    },
+    {
+      "source_item": "2021#30",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2021#29",
+        "2021#30",
+        "2021#31",
+        "2021#32"
+      ]
+    },
+    {
+      "source_item": "2018#28",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2018#25",
+        "2018#26",
+        "2018#27",
+        "2018#28"
+      ]
+    },
+    {
+      "source_item": "2022#26",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2022#25",
+        "2022#26",
+        "2022#27",
+        "2022#28"
+      ]
+    },
+    {
+      "source_item": "2014A#32",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2014A#32",
+        "2014A#33",
+        "2014A#34",
+        "2014A#35"
+      ]
+    },
+    {
+      "source_item": "2019#35",
+      "role": "source_judge",
+      "scope": "full_page_render_incidental_access_not_independent_rater_input",
+      "ids": [
+        "2019#33",
+        "2019#34",
+        "2019#35",
+        "2019#36"
+      ]
+    }
+  ],
+  "root_new_incidental_page_exposure": [
+    "2014A#33",
+    "2014A#34",
+    "2014A#35",
+    "2018#25",
+    "2018#26",
+    "2018#27",
+    "2023#37",
+    "2023#38",
+    "2023#39"
+  ],
+  "principle_role": {
+    "main_pages": [
+      "2014A#36–40",
+      "2014B#35–38"
+    ],
+    "key_page_exposure": "whole2014A/Bkeypages potentially visible to source reviewer only",
+    "mock_pages": [
+      "M2206#37–40",
+      "M2306#33–36"
+    ],
+    "full_text_layers_programmatically_loaded": true,
+    "question_regions_directly_read": 4,
+    "answer_key_missing_for_mock": true
+  },
+  "rater_A_B": {
+    "fork_turns": "none",
+    "inputs_only": [
+      "PROTOCOL-v1.3.md",
+      "local/v13/rater-instructions.md",
+      "local/v13/pilot-input.json"
+    ],
+    "source_input_n": 11,
+    "prior_semantic_inputs_delivered": false,
+    "key_delivered_before_first_complete": false,
+    "model_pretraining_unexposed_guaranteed": false,
+    "source_role_context_reused_as_rater": false
+  },
+  "learner_exposure": {
+    "collected": false,
+    "student_n": 0,
+    "research_exposure_is_not_student_exposure": true,
+    "content_phase_eligible_for_real_unseen_assessment": "not_audited"
+  },
+  "recent_2025_2026_originals_newly_opened_in_this_run": false,
+  "limits": "Full-page images/answer sheets can incidentally expose neighbouring material. Do not interpret recorded fresh AI contexts as globally unseen model knowledge or future student-unexposed stock."
+}

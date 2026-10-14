@@ -1,0 +1,82 @@
+{
+  "version": "v1.3-key-recovery-attempt",
+  "observed_at": "2026-10-14T07:15:30Z",
+  "scope": "M2206#37 and M2306#36 only; academic-year/calendar-year conversion retained; no recent2025/2026 originals or keys opened",
+  "search_attempts": [
+    {
+      "queries": [
+        "site.ebsi.co.kr 2023학년도 6월 모의평가 영어 정답 해설 2022",
+        "site.ebsi.co.kr 2022학년도 6월 모의평가 영어 정답 해설"
+      ],
+      "result": "primary EBS trend analysis pages, no target answer PDF"
+    },
+    {
+      "queries": [
+        "site.wdown.ebsi.co.kr/W61001/01exam 2022학년도 37 shipbuilding",
+        "site.wdown.ebsi.co.kr/W61001/01exam 2023학년도 The fossil record",
+        "site.wdown.ebsi.co.kr 2021 6월 영어 정답"
+      ],
+      "result": "non-target high1/high2 answer PDFs and secondary mirrors; none adopted as target key evidence"
+    },
+    {
+      "queries": [
+        "site.wdown.ebsi.co.kr/W61001/01exam/20210603/go3 eng_hsj",
+        "site.wdown.ebsi.co.kr/W61001/01exam/20220609/go3 eng_hsj",
+        "site.ebsi.co.kr 2022학년도_대수능_6월 영어영역"
+      ],
+      "result": "primary press release, generic EBS page; no target key PDF"
+    }
+  ],
+  "web_opens": [
+    {
+      "url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202106033&targetCd=D300",
+      "result": "EBS generic service/nav rendered; target key link absent in extracted web state"
+    },
+    {
+      "url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202206093&targetCd=D300",
+      "result": "EBS generic service/nav rendered; target key link absent in extracted web state"
+    }
+  ],
+  "http_attempts": [
+    {
+      "id": "M2206#37",
+      "academic_year": 2022,
+      "calendar_exam_date": "2021-06-03",
+      "url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202106033&targetCd=D300",
+      "observed_at": "2026-10-14T07:15:30Z",
+      "status": 200,
+      "final_url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202106033&targetCd=D300",
+      "content_type": "text/html;charset=UTF-8",
+      "artifact_path": "scripts/research/csat-reading/local/v13/key-recovery/M2206-ebsi-service.html",
+      "artifact_sha256": "10f54568c8039fd5870bd2a35bd4c0f1bb70e9df62e50c6d382e52d370fc3fa7",
+      "english_or_pdf_links": [],
+      "body_title": "EBSi | 풀서비스",
+      "eligible_key_obtained": false
+    },
+    {
+      "id": "M2306#36",
+      "academic_year": 2023,
+      "calendar_exam_date": "2022-06-09",
+      "url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202206093&targetCd=D300",
+      "observed_at": "2026-10-14T07:15:30Z",
+      "status": 200,
+      "final_url": "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202206093&targetCd=D300",
+      "content_type": "text/html;charset=UTF-8",
+      "artifact_path": "scripts/research/csat-reading/local/v13/key-recovery/M2306-ebsi-service.html",
+      "artifact_sha256": "62bb8624e90e1ed00048b06606b07bf1e286c0c4174bef2784cece69a49ce042",
+      "english_or_pdf_links": [],
+      "body_title": "EBSi | 풀서비스",
+      "eligible_key_obtained": false
+    }
+  ],
+  "result": "key_not_recovered",
+  "original_kice_same_form_answer_rows_verified": 0,
+  "ebs_explanation_answer_rows_verified": 0,
+  "source_tier_policy": "EBS own explanation keys would remain separate from original KICE answer sheet; no substitution occurred",
+  "previous_verdicts_modified": false,
+  "limitations": [
+    "bounded lookup stopped after3search calls/2raw HTTP attempts",
+    "does not prove primary keys do not exist elsewhere",
+    "secondary copies and non-target exam search hits excluded"
+  ]
+}

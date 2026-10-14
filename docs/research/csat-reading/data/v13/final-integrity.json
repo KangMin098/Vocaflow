@@ -1,0 +1,18 @@
+{
+  "version": "1.3",
+  "pass": true,
+  "first_outcomes_unchanged": true,
+  "old_artifacts_unchanged": true,
+  "research_docs": 12,
+  "source_n": 11,
+  "logical_paths": 58,
+  "relations": 77,
+  "choice_pairs": 55,
+  "task_union": 74,
+  "link_errors": [],
+  "full_passage_leaks": [],
+  "regression_tests": 38,
+  "agent_config_checks": 15,
+  "product_build": "not_run_research_only",
+  "handoff_student_promotion": false
+}

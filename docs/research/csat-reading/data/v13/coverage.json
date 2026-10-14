@@ -1,0 +1,204 @@
+{
+  "version": "1.3",
+  "main_as_of_commit": "5e1415a913e864faf722766f117587d24faefb24",
+  "research_scope": "KICE reading; not full45 or listening/execution",
+  "ledger": [
+    {
+      "id": "ExamInventoryCoverage",
+      "denominator": "per-booklet official full inventory/points",
+      "n": null,
+      "status": "unknown",
+      "why": "802filtered IDs/774core are research cohort, not full exams; no complete inventory validation added"
+    },
+    {
+      "id": "ReasoningCoverage",
+      "denominator": "admitted fresh11 and old development16 required source/choice/path fields",
+      "n": 11,
+      "status": "partial",
+      "why": "source admission and AI analysis; logical sufficiency gated separately"
+    },
+    {
+      "id": "TaskLinkCoverage",
+      "denominator": "23580 operational combinations as audit frame, not compulsory links",
+      "reviewed": 74,
+      "reviewed_states": {
+        "indirect": 39,
+        "direct": 30,
+        "not_applicable": 5
+      },
+      "unreviewed": 23506,
+      "status": "partial",
+      "why": "Only 69direct/indirect reviewed;5actual not_applicable; no global necessity estimate"
+    },
+    {
+      "id": "InstructionCoverage",
+      "denominator": "priority4×14contracts/10method design cells/6roles",
+      "packages": 4,
+      "methods": 40,
+      "material_roles": 24,
+      "status": "partial",
+      "why": "Design candidates R0, actual links R1; not40validated effects or public-readyUnits"
+    },
+    {
+      "id": "AssessmentCoverage",
+      "denominator": "TASK×response×condition intended measurement claims",
+      "validated_direct_tasks": 0,
+      "rubric_candidates": 4,
+      "status": "partial",
+      "why": "Rubric/response/exposure contracts present; independent scorer/student tool validation absent"
+    },
+    {
+      "id": "GoalSupportCoverage",
+      "denominator": null,
+      "status": "unknown",
+      "why": "No learner TargetSpec/full inventory/phase eligible public unseen pool audited; cannot compute goal completion probability"
+    }
+  ],
+  "gaps": [
+    {
+      "task_id": "r.central_meaning",
+      "CONCEPT_GAP": {
+        "status": "partial",
+        "evidence": "task-review.json /task-relations.json"
+      },
+      "ASSESSMENT_GAP": {
+        "status": "partial",
+        "evidence": "task-education.json rubric candidates, no validated scoring"
+      },
+      "LEVEL_GAP": {
+        "status": "unsupported",
+        "evidence": "No empirical level interpretation"
+      },
+      "METHOD_GAP": {
+        "status": "partial",
+        "evidence": "Ten methods condition candidates, effectiveness not_tested"
+      },
+      "CONTENT_GAP": {
+        "status": "partial",
+        "evidence": "Source-bound research inputs; public/rights qualification not established"
+      },
+      "EXECUTION_GAP": {
+        "status": "unknown",
+        "evidence": "No runtime product tests in research; static live != unavailable/learner success"
+      },
+      "TRANSFER_GAP": {
+        "status": "unsupported",
+        "evidence": "Student-unexposed pool and valid actual transfer not demonstrated"
+      },
+      "VERIFICATION_GAP": {
+        "status": "unsupported",
+        "evidence": "No actual student delayed/repeated validation"
+      }
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "CONCEPT_GAP": {
+        "status": "partial",
+        "evidence": "task-review.json /task-relations.json"
+      },
+      "ASSESSMENT_GAP": {
+        "status": "partial",
+        "evidence": "task-education.json rubric candidates, no validated scoring"
+      },
+      "LEVEL_GAP": {
+        "status": "unsupported",
+        "evidence": "No empirical level interpretation"
+      },
+      "METHOD_GAP": {
+        "status": "partial",
+        "evidence": "Ten methods condition candidates, effectiveness not_tested"
+      },
+      "CONTENT_GAP": {
+        "status": "partial",
+        "evidence": "Source-bound research inputs; public/rights qualification not established"
+      },
+      "EXECUTION_GAP": {
+        "status": "unknown",
+        "evidence": "No runtime product tests in research; static live != unavailable/learner success"
+      },
+      "TRANSFER_GAP": {
+        "status": "unsupported",
+        "evidence": "Student-unexposed pool and valid actual transfer not demonstrated"
+      },
+      "VERIFICATION_GAP": {
+        "status": "unsupported",
+        "evidence": "No actual student delayed/repeated validation"
+      }
+    },
+    {
+      "task_id": "s.form_scope",
+      "CONCEPT_GAP": {
+        "status": "partial",
+        "evidence": "task-review.json /task-relations.json"
+      },
+      "ASSESSMENT_GAP": {
+        "status": "partial",
+        "evidence": "task-education.json rubric candidates, no validated scoring"
+      },
+      "LEVEL_GAP": {
+        "status": "unsupported",
+        "evidence": "No empirical level interpretation"
+      },
+      "METHOD_GAP": {
+        "status": "partial",
+        "evidence": "Ten methods condition candidates, effectiveness not_tested"
+      },
+      "CONTENT_GAP": {
+        "status": "partial",
+        "evidence": "Source-bound research inputs; public/rights qualification not established"
+      },
+      "EXECUTION_GAP": {
+        "status": "unknown",
+        "evidence": "No runtime product tests in research; static live != unavailable/learner success"
+      },
+      "TRANSFER_GAP": {
+        "status": "unsupported",
+        "evidence": "Student-unexposed pool and valid actual transfer not demonstrated"
+      },
+      "VERIFICATION_GAP": {
+        "status": "unsupported",
+        "evidence": "No actual student delayed/repeated validation"
+      }
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "CONCEPT_GAP": {
+        "status": "partial",
+        "evidence": "task-review.json /task-relations.json"
+      },
+      "ASSESSMENT_GAP": {
+        "status": "partial",
+        "evidence": "task-education.json rubric candidates, no validated scoring"
+      },
+      "LEVEL_GAP": {
+        "status": "unsupported",
+        "evidence": "No empirical level interpretation"
+      },
+      "METHOD_GAP": {
+        "status": "partial",
+        "evidence": "Ten methods condition candidates, effectiveness not_tested"
+      },
+      "CONTENT_GAP": {
+        "status": "partial",
+        "evidence": "Source-bound research inputs; public/rights qualification not established"
+      },
+      "EXECUTION_GAP": {
+        "status": "unknown",
+        "evidence": "No runtime product tests in research; static live != unavailable/learner success"
+      },
+      "TRANSFER_GAP": {
+        "status": "unsupported",
+        "evidence": "Student-unexposed pool and valid actual transfer not demonstrated"
+      },
+      "VERIFICATION_GAP": {
+        "status": "unsupported",
+        "evidence": "No actual student delayed/repeated validation"
+      }
+    }
+  ],
+  "product_not_changed": true,
+  "student_n": 0,
+  "learner_outcome_probabilities": null,
+  "mastery_cutpoints": null,
+  "estimated_total_learning_quantity": null
+}
