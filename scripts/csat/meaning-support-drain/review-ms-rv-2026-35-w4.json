@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-35-w4",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#35",
+      "verdict": "revise",
+      "content_hash": "30ee73e6899542d1",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "8caef659ab8b5e82",
+        "basePublicHash": "434b6e79ffcaaf96bdebc5aef04ebc41956bcc96176ed9d40630a8e19332dbf5",
+        "sourceSnapshotHash": "8b83816f8ea882bd"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS05"
+      ],
+      "why": "u1.simpleKo 는 고쳐졌으나 whole.summaryKo 첫머리 「누구나 자기 관리를 원하지만」이 같은 quantity(원하지 않는 사람은 드물다 — 전원 단정 금지)를 다시 전칭으로 바꾼다. 수정안 whole.summaryKo: 「자기 관리를 원하지 않는 사람은 거의 없지만 바쁜 날에는 그것이 흔히 먼저 밀리고, 단기적으로는 마감이 더 클 수도 있다. 그러나 길게 보면 미루는 일의 영향이 쌓이므로 자기 관리를 미루는 일은 예외로 남겨야 한다.」 나머지(u1~u4, p1~p5, r1~r3)는 문제없다."
+    }
+  ]
+}

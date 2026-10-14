@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-18-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#18",
+      "verdict": "pass",
+      "content_hash": "1cc32c53e8f80ed4",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "d9da3df3b80606c4",
+        "basePublicHash": "a9d958acee841177fbe544401d7e19b6154ac5c4f7c50d019de4eb8d55314214",
+        "sourceSnapshotHash": "550059ac7fe3a6e2"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u3 쉬운 말이 권유 주체(담당자)·제출 주체(학생)·권유 성격·이번 주 말 기한을 보존. 배경(이미 한 결정·가능)과 요구 구분, r2 cause 의 의미 변화 설명, bridges 선지 2 정확. 새 영어 없음."
+    }
+  ]
+}

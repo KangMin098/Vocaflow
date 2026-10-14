@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-35-w5",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#35",
+      "verdict": "pass",
+      "content_hash": "0d29b516aced963a",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "8caef659ab8b5e82",
+        "basePublicHash": "434b6e79ffcaaf96bdebc5aef04ebc41956bcc96176ed9d40630a8e19332dbf5",
+        "sourceSnapshotHash": "8b83816f8ea882bd"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "whole.summaryKo 가 「원하지 않는 사람은 거의 없지만」「흔히 먼저 밀리고」로 범위·빈도를 바로잡았고, 단기 양보(클 수도)·장기 결론(예외)·6번 문장 제외가 원문 흐름과 맞는다. u1~u4·p1~p5·r1~r3 는 앞선 검수대로 문제없다."
+    }
+  ]
+}

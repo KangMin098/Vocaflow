@@ -1,5 +1,5 @@
 {
-  "writer_run": "ms-wr-2026-44-w2",
+  "writer_run": "ms-wr-2026-44-w3",
   "status": "ok",
   "support": {
     "schema": "meaning-support/1",
@@ -254,7 +254,7 @@
           "m6"
         ],
         "labelKo": "(b) 그의 딸 · (e) 그녀",
-        "exactKo": "17번 문장에서 Sam 이 편든 그의 딸은 방금 말한 Mia 이고, 33번 문장에서 휴대전화를 너무 많이 쓴다는 것을 안 그녀도 32번 문장에서 동의한 Mia 다.",
+        "exactKo": "눈을 반짝이며 엄마에게 답한 Mia 를 Sam 은 편들었다 — (b) 그의 딸은 Mia 다. 설득 끝에 Mia 는 마지못해 동의했고, 속으로 (e) 그녀, 곧 Mia 는 자신이 휴대전화에 너무 많은 시간을 쓴다는 것을 알았다. 그래서 Mia 는 아빠에게 첫 책을 골라도 되는지 물었다.",
         "simpleKo": "아빠가 편든 딸도, 속으로 휴대전화를 너무 쓴다고 느낀 사람도 Mia 다.",
         "propositionIds": [
           "p5"

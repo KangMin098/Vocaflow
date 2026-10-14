@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-37-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#37",
+      "verdict": "pass",
+      "content_hash": "ef20ecd5e957aa08",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "3adc09f62f16b6d7",
+        "basePublicHash": "54c3b2dd7253b1abb519fbf18cc806d4c89812198b5e2777f3170fa5a4ec2cf7",
+        "sourceSnapshotHash": "eaa118b85f1d3f4d"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1·u4 simpleKo 가 비교(훨씬, 다른 많은 과학 분야)·가능성·조건(더 포괄적으로 이해하려면)을 보존. (C)-(B)-(A) 순서·This 지시·추론 한계 명시 정확."
+    }
+  ]
+}

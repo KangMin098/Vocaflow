@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-42-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#42",
+      "verdict": "pass",
+      "content_hash": "7fe52cf791eef940",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+        "sourceSnapshotHash": "49945168bf2ab839"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u4 exactKo 가 문장 뜻 그대로(원문 오류 낱말 유지), simpleKo 에 '문장에 쓰인 그대로' 표시로 오류와 교정 구별(MS03). 이중부정 규칙 삭제, 방향 설명 정확."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-34-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#34",
+      "verdict": "revise",
+      "content_hash": "c2f5ca77bb14ca05",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "7fb095d3cac4821e",
+        "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+        "sourceSnapshotHash": "570bf3a5cbe78dd3"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS07"
+      ],
+      "why": "(1) u2.simpleKo 「법이 막는 일이…」가 preserves reference(그런 법 = 6번 문장의 이상적인 법)를 지워 아무 법으로 넓힌다. 수정안 u2.simpleKo: 「그런 이상적인 법이 막는 일이 원래 이성적으로 하지 않을 일이라면,」 (2) 빈칸 답 노출: p4.textKo 「법이 자유를 구속한다고 보기 어렵다」, r2.changeKo 「법이 자유를 줄인다는 판단을 부정하는 쪽」, r3.afterKo 「자유를 줄인다고 볼 수 없다」, whole.summaryKo 「그 법은 자유를 구속한다고 볼 수 없다고 결론짓는다」는 정답 ③을 그대로 말한다. 수정안: 결론을 「빼앗기는 선택이 없다」까지만 쓰고 빈칸 명제는 「(빈칸)으로 볼 수 없다」로 둔다. 예: summary → 「…이상적인 법이 이성적으로 어차피 하지 않을 일을 금지한다면 그 금지로 빼앗기는 선택은 없으며, 그 법은 (빈칸)일 수 없다고 결론짓는다.」 u3.simpleKo(수정 대상)는 부정 범위·조건을 보존해 문제없다."
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "writer_run": "ms-wr-2026-26-w2",
+  "writer_run": "ms-wr-2026-26-w3",
   "status": "ok",
   "support": {
     "schema": "meaning-support/1",
@@ -120,7 +120,7 @@
         ],
         "labelKo": "두 상, 두 해",
         "exactKo": "1952년에 Borden Award 를 받았고, 그로부터 한 해 뒤에 Morrison Award 를 받았다.",
-        "simpleKo": "첫 번째 상은 1952년, 두 번째 상은 그다음 해에 받았다.",
+        "simpleKo": "Borden Award 는 1952년에, Morrison Award 는 그다음 해에 받았다.",
         "propositionIds": [
           "p1",
           "p2"
@@ -199,7 +199,7 @@
         ],
         "labelKo": "졸업과 박사 학위",
         "exactKo": "1920년에 졸업했고, 1924년에 박사 학위를 받았다.",
-        "simpleKo": "박사 학위는 1924년에 받았다.",
+        "simpleKo": "1920년에 졸업하고, 박사 학위는 1924년에 받았다.",
         "propositionIds": [
           "p3"
         ],

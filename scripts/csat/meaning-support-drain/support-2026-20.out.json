@@ -1,5 +1,5 @@
 {
-  "writer_run": "ms-wr-2026-20-w2",
+  "writer_run": "ms-wr-2026-20-w3",
   "status": "ok",
   "support": {
     "schema": "meaning-support/1",
@@ -162,7 +162,7 @@
         ],
         "labelKo": "근거 — 가사로 이룬 기여",
         "exactKo": "작사가들은 음악을 통해 언어를 다루고 이야기를 들려주며 언어와 문학을 풍부하게 했고, 독특하고 복잡한 이미지의 가사로 큰 문학적 영향을 끼쳐 왔다.",
-        "simpleKo": "작사가들은 가사로 이미 언어와 문학에 큰 기여를 해 왔다.",
+        "simpleKo": "작사가들은 가사 속 독특한 이미지와 이야기로 이미 언어와 문학을 풍부하게 해 왔다.",
         "propositionIds": [
           "p3"
         ],
@@ -226,7 +226,7 @@
           },
           {
             "facet": "condition",
-            "valueKo": "현대 문학 분야 안에서",
+            "valueKo": "인정할 곳 = 현대 문학 분야",
             "anchorIds": [
               "a5"
             ],
