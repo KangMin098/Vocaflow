@@ -50,6 +50,7 @@ vocaflow/
 | `eslint-config-next` | 14.2.35 | |
 | `typescript` | 5.x | |
 | `vitest` | 1.6.0 | 단위 테스트 |
+| `@electric-sql/pglite` | 0.5.8 | 보류 마이그레이션 격리 실행 테스트(프로세스 안 WASM Postgres 17 · 개발 DB 무관, `*.pglite.test.ts`) |
 | `@playwright/test` | 1.60.0 | E2E |
 | `@axe-core/playwright` | 4.12.x | 접근성 자동 감사(WCAG 2.1 AA) — 14-learner-quality 게이트 |
 
