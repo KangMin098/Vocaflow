@@ -10,6 +10,12 @@ const PRODUCT = process.env.FQ11_PRODUCT_ROOT ?? 'D:/workspace/Vocaflow-map-v62'
 const OUT = path.join(ROOT, 'docs/research/factory-qualification-v11/data/product-audit.json');
 const sha = (v) => crypto.createHash('sha256').update(v).digest('hex');
 const git = (...args) => execFileSync('git', ['-C', PRODUCT, ...args], { encoding: 'utf8' }).trim();
+if(process.argv.includes('--check')) {
+  const old=JSON.parse(fs.readFileSync(OUT,'utf8'));
+  const drift=old.files.filter(x=>!fs.existsSync(path.join(PRODUCT,x.path))||sha(fs.readFileSync(path.join(PRODUCT,x.path)))!==x.sha256).map(x=>x.path);
+  console.log(JSON.stringify({snapshot_files_unchanged:drift.length===0,changed_since_observation:drift,current_head:git('rev-parse','HEAD'),recorded_head:old.product_head,live_product_may_change:true,DB_requeried:false,meaning:'Recorded audit is historical; this read-only check observes mutable product file drift, never renews SQL or approval evidence.'}));
+  process.exit(0);
+}
 const files = [
   'docs/csat-learner/v62/P-F4b_PERSIST_MODEL.md',
   'docs/csat-learner/v62/P-F4a_TEXTBOOK_PUBLISH_GATE.md',

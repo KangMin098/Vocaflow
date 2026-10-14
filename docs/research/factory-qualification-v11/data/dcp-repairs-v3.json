@@ -1,0 +1,33 @@
+{
+  "version": "FQ11-DCP-repairs-3",
+  "old_item_id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+  "content_id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+  "prior_revision": "FQ11-DCP-candidate-2",
+  "prior_revision_sha256": "34fd67fe94552f8352f570e4a05c323b38a105a8fd9e3466c14fe308a3b66927",
+  "new_revision": "FQ11-DCP-candidate-3",
+  "new_content_sha256": "0eb639b6fbf3b4743f748fdc567e22b70ab2936c3eed669638a87498eacae716",
+  "task_id": "s.form_scope",
+  "role": "guided_practice",
+  "original_source_body_sha256": "968b39a93bb5c53ec031c6f8f02aa0a74b034fa29054681d1076020bc391e8d2",
+  "original_generation_provenance": "unknown",
+  "prior_second_independent_seal": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033",
+  "hashes": {
+    "candidates_sha256": "8d6b02a9b657348b09b09ef397f8605d881c1faaaf6e6edc393ddf16577340bb",
+    "blind_sha256": "ec2318b885de8ee5f77c2526bebaa37bec3c54d7b505f63ad877461a7b0c2d10",
+    "authored_cases_sha256": "7311895c645e2c5b39a497bfe9c4184844782529825f80843bf6cf62e3f173d1"
+  },
+  "new_content_revisions": 1,
+  "new_development_synthetic_cases": 8,
+  "exact_prior_response_reused": 1,
+  "new_confirmatory_cases": 0,
+  "original_key_restoration_match": true,
+  "original_key_wrong_confirmed": false,
+  "original_unique_error_role": "HOLD",
+  "changed_subject_alternative": "possible_parse_not_universal_wrong",
+  "sourcewide_validation": "HOLD",
+  "independent_AI_revalidated": 0,
+  "human_validated": 0,
+  "actual_students": 0,
+  "public_qualified": 0,
+  "assessment_qualified": 0
+}

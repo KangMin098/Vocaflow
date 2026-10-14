@@ -1,0 +1,253 @@
+{
+  "version": "FQ1.1-research-repair2",
+  "previous": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-packet.json",
+    "sha256": "6c155d761f614cb0ef05a048acacc59533c24c3febc131ec89bdaa09c9868cd4"
+  },
+  "independent_first": {
+    "path": "scripts/research/factory-qualification-v11/local/independent-research-first.json",
+    "sha256": "0c792fc0d4280121eaf3b9b07be883cf1e72918faf430051c2c913040c0b31e0",
+    "first_status": "4HOLD preserved"
+  },
+  "config": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v2-config.json",
+    "sha256": "2e1d38924c16dcf18b022d172b5d9377746f70cd58e17ce601704a723df38d06"
+  },
+  "repair_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v2-packet.json",
+    "sha256": "c64b9b5cbb13388dc240a2e833a023443684ba146a795aaf1055b40185934939"
+  },
+  "blind_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v2-blind.json",
+    "sha256": "5243da916753f1e18e555d5ced4f82d7edb120e613a67abc37c13680363f99ef"
+  },
+  "activities": [
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "task_id": "s.form_scope",
+      "previous_artifact_sha256": "cbfd8a408f2da254db64ccf19a6ac9067857c7500b9741259d1876cd3a88b53c",
+      "new_artifact_sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 350,
+          "end": 388
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "IR-R05"
+      ],
+      "modified_facets": [
+        "boundary"
+      ],
+      "cases": [
+        {
+          "id": "r2v-a1",
+          "facet": "boundary",
+          "expected": "defer",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r2v-n1",
+          "facet": "boundary",
+          "expected": "defer",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n2",
+          "facet": "boundary",
+          "expected": "partial",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n3",
+          "facet": "boundary",
+          "expected": "defect",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "General propositions may entail case relations, but entailment is not a separately observed explicit case classification. Other facets may use the same proposition as actual semantic evidence."
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "task_id": "s.form_scope",
+      "previous_artifact_sha256": "873565fda622ab3e0d3d9769ef81921887f85f8949923b1d522a319c19829dee",
+      "new_artifact_sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "IR-R02"
+      ],
+      "modified_facets": [
+        "examples"
+      ],
+      "cases": [
+        {
+          "id": "r2v-a2",
+          "facet": "examples",
+          "expected": "defer",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r2v-n4",
+          "facet": "examples",
+          "expected": "defect",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n5",
+          "facet": "examples",
+          "expected": "partial",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n6",
+          "facet": "examples",
+          "expected": "meets",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "Immediate danger is stipulated in the synthetic example; no legal or actual child-safety recommendation is inferred. Unknown danger is an unobserved example classification, not a claimed logical reversal."
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "task_id": "s.form_scope",
+      "previous_artifact_sha256": "d3bf4e8a18d56c5127338ea835cffe92c79de354b92a13c67251ec708766322a",
+      "new_artifact_sha256": "6adaae37c1ba178ceb95759bb43d1007401aa77472c005f513dd1971fae3057d",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "anchor": {
+          "field": "passage",
+          "start": 557,
+          "end": 593
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "IR-R01",
+        "IR-R04"
+      ],
+      "modified_facets": [
+        "conjunction",
+        "units"
+      ],
+      "cases": [
+        {
+          "id": "r2v-a3",
+          "facet": "conjunction",
+          "expected": "partial",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r2v-a4",
+          "facet": "units",
+          "expected": "partial",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r2v-n7",
+          "facet": "conjunction",
+          "expected": "partial",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n8",
+          "facet": "conjunction",
+          "expected": "defect",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n9",
+          "facet": "units",
+          "expected": "meets",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n10",
+          "facet": "units",
+          "expected": "defect",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "Clause relations may support conjunction logic, but explicit overall judgment is required for full conjunction. Annual-hours without a year is observable partial, not missing input or defect. Derived numeric tasks do not certify chart visual reading."
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "task_id": "v.contextual_sense",
+      "previous_artifact_sha256": "d6b517a67e3bfc7dafdac3944d2bd9d63433b9d0a7b40b584e589a57154bbde2",
+      "new_artifact_sha256": "9735ffa9bb8a89851bec005580681254400791b2003f31277d43b003ef427466",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 921,
+          "end": 937
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "IR-R03"
+      ],
+      "modified_facets": [],
+      "cases": [
+        {
+          "id": "r2v-a5",
+          "facet": "limit",
+          "expected": "meets",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r2v-n11",
+          "facet": "limit",
+          "expected": "partial",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r2v-n12",
+          "facet": "limit",
+          "expected": "defect",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "Prompt no longer asks operational differences, so bare two non-entailment judgments satisfy this auxiliary facet. Core V2 contextual sense still requires sense/arguments/cue. Student independence remains a separate log-based gate."
+    }
+  ],
+  "counts": {
+    "activities": 4,
+    "new_issues_resolved_by_author": 5,
+    "prior_independent_HOLD": 4,
+    "used_countercases": 5,
+    "novel_synthetic_cases": 12,
+    "new_independent_reviews": 0,
+    "human_reviewers": 0,
+    "learners": 0,
+    "public_qualified": 0,
+    "assessment_qualified": 0
+  },
+  "status": "second repair revision sealed; fresh independent verification pending; previous firsts unchanged"
+}

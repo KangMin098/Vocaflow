@@ -1,0 +1,32 @@
+{
+  "version": "FQ11-DCP-repairs-4",
+  "old_item_id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+  "content_id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+  "prior_revision": "FQ11-DCP-candidate-3",
+  "prior_revision_sha256": "0eb639b6fbf3b4743f748fdc567e22b70ab2936c3eed669638a87498eacae716",
+  "new_revision": "FQ11-DCP-candidate-4",
+  "new_content_sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea",
+  "hashes": {
+    "candidates_sha256": "ec459970f3353c828d46ec3531ab61c468672fcd06ee97ec1c882a369686d687",
+    "blind_sha256": "6918ebf4ef652638a2c5a47ec031527872c6fddf018a3192cd7afd7abe7cd25a"
+  },
+  "new_content_revisions": 1,
+  "new_unique_content_items": 0,
+  "repair_scope": "complete_served_four_output_explanation_only",
+  "instruction_unchanged": true,
+  "task_unchanged": true,
+  "rubric_unchanged": true,
+  "feedback_components": 4,
+  "development_cases": 5,
+  "exact_prior_response_reused": 5,
+  "new_confirmatory_cases": 0,
+  "prior_third_independent_seal": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947",
+  "original_key_wrong_confirmed": false,
+  "original_unique_error_role": "HOLD",
+  "sourcewide_validation": "HOLD",
+  "independent_AI_revalidated": 0,
+  "human_validated": 0,
+  "actual_students": 0,
+  "public_qualified": 0,
+  "assessment_qualified": 0
+}

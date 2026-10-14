@@ -1,6 +1,7 @@
 // scripts/research/factory-qualification-v11/role-gates.test.mjs
 import test from 'node:test';import assert from 'node:assert/strict';
-import {supplyGate,approvalGate,productCSummary} from './role-gates.mjs';
+import {supplyGate as supplyBoundary,approvalGate,productCSummary} from './role-gates.mjs';
+const supplyGate=q=>supplyBoundary(q,{boundary:'product_server_qualification_context',review:q.review,approval_registry:q.server_approval_registry,learner:q.learner,provenance:q.provenance,runtime:q.runtime,delivery:q.delivery});
 const h='a'.repeat(64);
 export function fixture(role='guided_practice'){
  const subject={id:'unit-test-only-artifact',revision:'r2',sha256:h},source={id:'unit-source',revision:'s1',sha256:h},gold={id:'unit-gold',revision:'g2',sha256:h};
@@ -29,3 +30,4 @@ test('review method/hash cannot be omitted even when status is pass',()=>{const 
 test('Gold-free source explanation and assessment have different qualifications',()=>{const q=fixture('source_analysis');q.includes_gold=false;q.gold=null;q.review.gold=null;q.review.axes.E.state='not_applicable';assert.equal(supplyGate(q).product_supply_allowed,true);q.role='independent_check';q.demand.role=q.role;assert.equal(supplyGate(q).assessment_allowed,false);});
 test('current analysis or source policy changes invalidate old approval scope',()=>{for(const name of ['analysis','source_policy']){const q=fixture();q[name]={...q[name],revision:'next'};assert.equal(supplyGate(q).product_supply_allowed,false);}});
 test('axis review revision and evidence reference cannot be silently replaced',()=>{const q=fixture();q.review.axes.B.review_revision='other';assert.equal(supplyGate(q).product_supply_allowed,false);q.review.axes.B.review_revision='unit-review1';q.review.evidence=q.review.evidence.filter(e=>e.id!=='unit-B');assert.equal(supplyGate(q).product_supply_allowed,false);});
+test('client JSON cannot become trusted server context by asserting registry and learner fields',()=>{assert.equal(supplyBoundary(fixture()).product_supply_allowed,false);});

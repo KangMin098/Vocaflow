@@ -1,0 +1,193 @@
+{
+    "version":  "FQ11-DCP-feedback-independent-review-1",
+    "review_id":  "FQ11-DCP-feedback-fourth-fresh-AI",
+    "review_scope":  "same_case_revised_content_AI_QA",
+    "input_sha256":  "6918ebf4ef652638a2c5a47ec031527872c6fddf018a3192cd7afd7abe7cd25a",
+    "candidate_id":  "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+    "candidate_revision":  "FQ11-DCP-candidate-4",
+    "candidate_sha256":  "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea",
+    "feedback_revision":  "FQ11-DCP-served-feedback-4",
+    "rubric_revision":  "FQ11-DCP-rubric-3",
+    "task_id":  "s.form_scope",
+    "requested_role":  "guided_practice",
+    "source_id":  "ef55d014-1beb-4c66-9b0f-5e0d93c4ce2b",
+    "source_object_sha256":  "918ba5e698b6ee2dc4de6a88202be1561db906b14f78f00aabd4f459ec38931c",
+    "source_body_sha256":  "968b39a93bb5c53ec031c6f8f02aa0a74b034fa29054681d1076020bc391e8d2",
+    "target_sha256":  "17f58fc10042efcd250ac855214383edb6874cf2117e124c4e2681b2265b5215",
+    "status":  "PASS_BOUNDED_AI_FEEDBACK_QA",
+    "axis_status":  {
+                        "served_four_output_coverage":  "PASS",
+                        "source_clause_function":  "PASS",
+                        "full_clause_boundaries":  "PASS",
+                        "subject_action_and_predicate":  "PASS",
+                        "evidence_and_modal_strength":  "PASS",
+                        "scientific_overclaim_absent":  "PASS",
+                        "unchanged_development_case_review":  "PASS",
+                        "legacy_unique_error_role":  "HOLD",
+                        "optional_legacy_contextual_reference":  "HOLD",
+                        "sourcewide_scientific_validation":  "HOLD",
+                        "external_source_lineage":  "HOLD",
+                        "historical_generation_provenance":  "HOLD",
+                        "human_gold_validation":  "HOLD",
+                        "student_measurement":  "HOLD",
+                        "rights_and_release":  "HOLD",
+                        "learner_exposure":  "HOLD",
+                        "actual_workspace_execution":  "HOLD",
+                        "independent_unseen_confirmation":  "HOLD",
+                        "public_qualification":  "HOLD",
+                        "assessment_qualification":  "HOLD"
+                    },
+    "coverage":  {
+                     "inputs_read":  [
+                                         "PROTOCOL",
+                                         "supplied_blind_candidate",
+                                         "instruction",
+                                         "rubric",
+                                         "actual_explanation",
+                                         "served_feedback_outputs",
+                                         "learner_display",
+                                         "target_source_context",
+                                         "legacy_variant",
+                                         "five_development_responses"
+                                     ],
+                     "source_reading_scope":  "local_target_and_supplied_contiguous_discussion_context_not_whole_source_scientific_review",
+                     "display_source_contiguous_match":  true,
+                     "display_normalized_start":  33965,
+                     "display_normalized_end":  35003,
+                     "target_source_match":  true,
+                     "target_character_count":  301,
+                     "spans_unit":  "zero_based_characters_in_target_without_terminal_sentence_punctuation",
+                     "content_clause_span":  [
+                                                 96,
+                                                 300
+                                             ],
+                     "subject_span":  [
+                                          96,
+                                          189
+                                      ],
+                     "predicate_span":  [
+                                            190,
+                                            300
+                                        ],
+                     "all_served_outputs_present_in_actual_explanation":  true,
+                     "c1":  {
+                                "status":  "covered",
+                                "served_output_id":  "c1",
+                                "explanation_section":  1,
+                                "function_explained":  true,
+                                "non_demonstrative_function_explained":  true
+                            },
+                     "c2":  {
+                                "status":  "covered",
+                                "served_output_id":  "c2",
+                                "explanation_section":  2,
+                                "whole_content_clause_marked":  true,
+                                "includes_parenthetical":  true,
+                                "includes_both_coordinated_outcomes":  true
+                            },
+                     "c3":  {
+                                "status":  "covered",
+                                "served_output_id":  "c3",
+                                "explanation_section":  3,
+                                "full_subject_marked":  true,
+                                "full_predicate_marked":  true,
+                                "action_denotation_explained":  true,
+                                "people_denotation_rejected_for_actual_source":  true
+                            },
+                     "c4":  {
+                                "status":  "covered",
+                                "served_output_id":  "c4",
+                                "explanation_section":  4,
+                                "evidence_strength_explained":  true,
+                                "model_context_preserved":  true,
+                                "possibility_explained":  true,
+                                "confirmed_clinical_effect_not_inferred":  true,
+                                "permanent_cure_not_inferred":  true
+                            }
+                 },
+    "issues":  [
+
+               ],
+    "case_judgments":  [
+                           {
+                               "case_id":  "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394-v4-case-1",
+                               "status":  "meets",
+                               "component_status":  {
+                                                        "c1":  "meets",
+                                                        "c2":  "meets",
+                                                        "c3":  "meets",
+                                                        "c4":  "meets"
+                                                    },
+                               "optional_reference_status":  "not_applicable"
+                           },
+                           {
+                               "case_id":  "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394-v4-case-2",
+                               "status":  "partial",
+                               "component_status":  {
+                                                        "c1":  "meets",
+                                                        "c2":  "defer",
+                                                        "c3":  "defer",
+                                                        "c4":  "defer"
+                                                    },
+                               "optional_reference_status":  "not_applicable"
+                           },
+                           {
+                               "case_id":  "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394-v4-case-3",
+                               "status":  "defect",
+                               "component_status":  {
+                                                        "c1":  "defer",
+                                                        "c2":  "defer",
+                                                        "c3":  "defer",
+                                                        "c4":  "defect"
+                                                    },
+                               "contradiction_axes":  [
+                                                          "evidence_strength",
+                                                          "modal_force",
+                                                          "confirmed_clinical_effect",
+                                                          "permanent_cure"
+                                                      ],
+                               "optional_reference_status":  "not_applicable"
+                           },
+                           {
+                               "case_id":  "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394-v4-case-4",
+                               "status":  "defer",
+                               "component_status":  {
+                                                        "c1":  "defer",
+                                                        "c2":  "defer",
+                                                        "c3":  "defer",
+                                                        "c4":  "defer"
+                                                    },
+                               "optional_reference_status":  "not_applicable"
+                           },
+                           {
+                               "case_id":  "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394-v4-case-5",
+                               "status":  "meets",
+                               "component_status":  {
+                                                        "c1":  "meets",
+                                                        "c2":  "meets",
+                                                        "c3":  "meets",
+                                                        "c4":  "meets"
+                                                    },
+                               "optional_grammar_status":  "possible_qualified_alternative",
+                               "optional_reference_status":  "HOLD",
+                               "optional_comment_is_required_output":  false,
+                               "optional_comment_creates_source_contradiction":  false
+                           }
+                       ],
+    "population":  {
+                       "case_count":  5,
+                       "development_synthetic_count":  5,
+                       "unseen_confirmation_count":  0,
+                       "student_attempt_count":  0
+                   },
+    "approvals":  {
+                      "human":  false,
+                      "student":  false,
+                      "rights":  false,
+                      "external_provenance":  false,
+                      "whole_source_science":  false,
+                      "runtime":  false
+                  },
+    "first_review_preserved":  true,
+    "first_review_sha256":  "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+}

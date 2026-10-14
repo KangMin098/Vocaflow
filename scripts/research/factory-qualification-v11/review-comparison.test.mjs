@@ -1,0 +1,4 @@
+// scripts/research/factory-qualification-v11/review-comparison.test.mjs
+import test from 'node:test';import assert from 'node:assert/strict';import {compareStates,buildComparison} from './review-comparison.mjs';
+test('disagreements stay disagreements and omissions do not become matches',()=>{const a=[{id:'1',state:'partial'},{id:'2',state:'defer'}];assert.equal(compareStates(a,[{id:'1',state:'meets'},{id:'2',state:'defer'}]).matches,1);assert.throws(()=>compareStates(a,[{id:'1',state:'partial'}]),/Incomplete/);});
+test('actual first comparison preserves separate20 and60 denominators',()=>{const x=buildComparison();assert.equal(x.research_target_facets.cases,20);assert.equal(x.DCP_whole_responses.cases,60);assert.equal(x.first_results_rewritten,false);assert.equal(x.assessment_qualified,0);});

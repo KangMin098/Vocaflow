@@ -18,6 +18,8 @@
 
 연구용 `true`나 `verified` 하나를 승인으로 보지 않는다. 제품 서버가 권한 있는 실제 actor·유효한 record·정확한 artifact/source/analysis/Gold/policy revision/hash·TASK·role을 확인한 원장 snapshot을 제공해야 한다. 연구 검사기의 입력 신뢰 경계는 서버에 있다. 연구 JSON을 클라이언트가 보내 원장 snapshot으로 인정하는 구현은 금한다.
 
+`supplyGate(request, serverContext)`는 요청 본문의 registry/learner/runtime/delivery 값을 신뢰하지 않는다. 별도 두 번째 인수는 서버 내부에서 검증한 검수 원장·승인자·학습자·원천·실행기·원자적 공급 상태로 구성한다. 두 번째 인수가 없거나 서버 검수 snapshot과 요청 검수가 다르면 차단한다. 테스트는 서버 경계의 명시적 fixture를 주입하며 실제 인증이나 암호학적 서명을 구현하지 않는다.
+
 학습자 접근과 노출 snapshot은 공급 요청 user/artifact/현재 시각과 같아야 한다. 과거 캐시 또는 다른 사용자 기록을 재사용하지 않는다. 중복 공급은 서버의 원자적 unique claim과 기존 공급 여부로 보장해야 한다. 이 검사기는 DB 트랜잭션·RLS·실제 권리 승인을 구현하지 않는다.
 
 승인안 C의 `producible/rights/content/teaching/gold/assessment/runnable`을 파생 요약한다. `learner`는 이 7열에 없으며 공급 시점 검증으로 분리한다. F pass도 실제 rights record가 없으면 요약 rights는 null이다. content에 A/B/C를 축약하더라도 각 축 이유·evidence·검수 revision을 보존한다. unknown/NA를 true로 바꾸지 않는다.

@@ -52,3 +52,16 @@ node scripts/research/factory-qualification-v11/integrity.mjs --check
 ```
 
 전문·키·Gold·합성 응답은 ignored local에만 있다. 해당 봉인 입력 없는 환경에서는 metadata만으로 내용 검토를 재현할 수 없다. 제품 worktree는 다른 작업에서 계속 변할 수 있으므로 감사 시각/HEAD/파일 hash에 한정해 읽는다. 이후 실행은 새 감사와 실제 제품 권한 검증에서 시작한다.
+
+최종 선택: 연구 revision2의 S5-1/2와 revision3의 S5-3/V2-3, 공장 revision2의 11개와 해설 revision4의 1개. [최종 자격 원장](data/final-qualification.json)은 정확한 artifact/TASK/role 및 실제 독립 첫 근거를 결속한다. B/C/D의 제한적 지지와 A/E/F/G/H unknown을 함께 보존한다. 공개·직접 평가·인간·학생 승인0이다. 기존49+새73의 총122회귀와 설정15검사 통과.
+
+```powershell
+node scripts/research/factory-qualification-v11/research-repairs-v2.mjs --check
+node scripts/research/factory-qualification-v11/research-repairs-v3.mjs --check
+node scripts/research/factory-qualification-v11/dcp-repairs-v2.mjs --check
+node scripts/research/factory-qualification-v11/dcp-repairs-v3.mjs --check
+node scripts/research/factory-qualification-v11/dcp-repairs-v4.mjs --check
+node scripts/research/factory-qualification-v11/final-qualification.mjs --check
+node scripts/research/factory-qualification-v11/review-comparison.mjs --check
+node scripts/research/factory-qualification-v11/handoff-contract.mjs --check
+```

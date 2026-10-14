@@ -77,3 +77,5 @@ FQ1.0의 supply 요약을 승인안 C의 7열로 그대로 복사하면 **learne
 e2e-map-supply는 합성 사용자 생성·목표/응답 저장·삭제를 수행하므로 이번 제품/DB 불변 연구에서는 실행하지 않았다. FQ1.1 연구용 gate 테스트 통과를 제품 E2E 실행이나 학생 효과로 표시하지 않는다.
 
 재현: `node scripts/research/factory-qualification-v11/product-audit.mjs --check`는 저장된 제품 파일 snapshot과 현재 파일의 변화를 보고한다. 변경은 다른 작업자의 정상 진행일 수 있으며 기존 관찰을 현재 승인으로 승격하는 근거가 아니다. 등록된 출력이 있으면 재수집으로 덮어쓰는 실행을 거절한다. 새 감사는 별도 revision 출력 경로와 새 SQL receipt를 마련한 뒤 수행한다.
+
+최종 관찰 추가: [별도 원장](data/product-final-state.json)의 main/Claude HEAD는 `c0a0b7ca2`이고 검토했던 17파일의 byte는 동일했다. qualification/importer는 이제 HEAD에 포함돼 위 최초 untracked 관찰과 구별된다. 같은 5개 제안 DB 관계는 마지막 읽기 전용 `to_regclass` 재조회에서도 부재였다. code 편입은 원장·승인 범위·실제 공급 권한의 완성을 증명하지 않으며 현재 byte의 결속/권한 경계 검토 결과는 유지된다.

@@ -1,0 +1,87 @@
+{
+    "activities":  [
+                       {
+                           "source_sha256":  null,
+                           "status":  "HOLD",
+                           "opaque_id":  "IR-R-A01",
+                           "artifact_sha256":  "cbfd8a408f2da254db64ccf19a6ac9067857c7500b9741259d1876cd3a88b53c"
+                       },
+                       {
+                           "source_sha256":  "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+                           "status":  "HOLD",
+                           "opaque_id":  "IR-R-A02",
+                           "artifact_sha256":  "873565fda622ab3e0d3d9769ef81921887f85f8949923b1d522a319c19829dee"
+                       },
+                       {
+                           "source_sha256":  "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+                           "status":  "HOLD",
+                           "opaque_id":  "IR-R-A03",
+                           "artifact_sha256":  "d3bf4e8a18d56c5127338ea835cffe92c79de354b92a13c67251ec708766322a"
+                       },
+                       {
+                           "source_sha256":  "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+                           "status":  "HOLD",
+                           "opaque_id":  "IR-R-A04",
+                           "artifact_sha256":  "d6b517a67e3bfc7dafdac3944d2bd9d63433b9d0a7b40b584e589a57154bbde2"
+                       }
+                   ],
+    "version":  "FQ1.1-independent-research-first-metadata",
+    "counts":  {
+                   "stress_cases":  6,
+                   "cases":  20,
+                   "activities":  4,
+                   "target_states":  {
+                                         "meets":  2,
+                                         "partial":  5,
+                                         "defect":  8,
+                                         "defer":  5
+                                     },
+                   "facet_states":  {
+                                        "meets":  3,
+                                        "partial":  14,
+                                        "defect":  11,
+                                        "defer":  52
+                                    },
+                   "facets":  80
+               },
+    "input_sha256":  "560872546dbdd945df9aa53ddf772275fa6500848fb6deac6e4d872a17350666",
+    "issues":  [
+                   {
+                       "activity_opaque_id":  "IR-R-A03",
+                       "opaque_id":  "IR-R01",
+                       "status":  "HOLD",
+                       "kind":  "state_overlap"
+                   },
+                   {
+                       "activity_opaque_id":  "IR-R-A02",
+                       "opaque_id":  "IR-R02",
+                       "status":  "HOLD",
+                       "kind":  "condition_example_underspecification"
+                   },
+                   {
+                       "activity_opaque_id":  "IR-R-A04",
+                       "opaque_id":  "IR-R03",
+                       "status":  "HOLD",
+                       "kind":  "instruction_rubric_mismatch"
+                   },
+                   {
+                       "activity_opaque_id":  "IR-R-A03",
+                       "opaque_id":  "IR-R04",
+                       "status":  "HOLD",
+                       "kind":  "missing_component_threshold"
+                   },
+                   {
+                       "activity_opaque_id":  "IR-R-A01",
+                       "opaque_id":  "IR-R05",
+                       "status":  "HOLD",
+                       "kind":  "implicit_vs_explicit_evidence"
+                   }
+               ],
+    "first_review_sha256":  "0c792fc0d4280121eaf3b9b07be883cf1e72918faf430051c2c913040c0b31e0",
+    "states":  {
+                   "student_validity":  "HOLD",
+                   "human_gold":  "HOLD",
+                   "unseen_exam_confirmation":  "HOLD",
+                   "review":  "completed_with_HOLD"
+               }
+}

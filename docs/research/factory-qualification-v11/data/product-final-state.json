@@ -1,0 +1,21 @@
+{
+  "version": "FQ1.1-product-final-readonly-observation-1",
+  "observed_at": "2026-10-14T14:55:06Z",
+  "remote_main": "c0a0b7ca2359abc749735f943864ed1b7f4831dd",
+  "product_worktree_HEAD": "c0a0b7ca2359abc749735f943864ed1b7f4831dd",
+  "initial_product_observation_preserved": true,
+  "initial_audited_17_file_bytes_unchanged": true,
+  "qualification_code_now_in_HEAD": true,
+  "qualification_and_import_fq1_working_copy_changes": 0,
+  "schema_method": "Final readonly Supabase execute_sql to_regclass; absence explicitly observed, not inferred from query error or missing count",
+  "schema_relations": {
+    "content_qualification": null,
+    "workspace_content_demand": null,
+    "factory_order": null,
+    "factory_order_event": null,
+    "workspace_content_delivery": null
+  },
+  "DB_changes_by_this_research": 0,
+  "product_changes_by_this_research": 0,
+  "interpretation": "Qualification proposal code was incorporated into main during independent research; its reviewed bytes are unchanged. Initial untracked status is historical and no longer current. Persisted ledger/delivery relations are still absent at this final readonly observation. No DB approval or product gate integration is inferred from main inclusion."
+}

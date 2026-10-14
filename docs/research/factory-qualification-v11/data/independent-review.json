@@ -1,0 +1,689 @@
+{
+  "version": "FQ1.1-independent-first-metadata",
+  "reviewer": "new_separate_AI_context",
+  "first_review_sha256": "bd428eea8f54698f1653c36f18bb36f86e0dd241b0d1b939a2b0d14e64d2b803",
+  "input_sha256": {
+    "research": "560872546dbdd945df9aa53ddf772275fa6500848fb6deac6e4d872a17350666",
+    "dcp": "9e7c0f3731236f492b3fd13b33308d2a6f041cf8582756bb5678d77067b97bcb"
+  },
+  "states": {
+    "independent_same_source_AI_rereview": "completed_with_HOLD",
+    "confirmatory_unseen_exam_generalization": "HOLD",
+    "human_gold": "HOLD",
+    "student_validity": "HOLD",
+    "rights_release": "HOLD",
+    "runtime": "not_tested"
+  },
+  "counts": {
+    "research": {
+      "activities": 4,
+      "synthetic_cases": 20,
+      "facets": 80,
+      "target_states": {
+        "meets": 2,
+        "partial": 5,
+        "defect": 8,
+        "defer": 5
+      },
+      "all_facet_states": {
+        "meets": 3,
+        "partial": 14,
+        "defect": 11,
+        "defer": 52
+      },
+      "judge_generated_stress_cases": 6,
+      "issues": 5
+    },
+    "dcp": {
+      "activities": 12,
+      "synthetic_cases": 60,
+      "components": 240,
+      "whole_states": {
+        "meets": 8,
+        "partial": 16,
+        "defect": 24,
+        "defer": 12
+      },
+      "component_states": {
+        "meets": 68,
+        "partial": 21,
+        "defect": 66,
+        "defer": 85
+      },
+      "full_source_bodies_read": 5,
+      "bounded_source_contexts_read": 7,
+      "issues": 7
+    }
+  },
+  "research_activities": [
+    {
+      "opaque_id": "IR-R-A01",
+      "artifact_sha256": "cbfd8a408f2da254db64ccf19a6ac9067857c7500b9741259d1876cd3a88b53c",
+      "status": "HOLD"
+    },
+    {
+      "opaque_id": "IR-R-A02",
+      "artifact_sha256": "873565fda622ab3e0d3d9769ef81921887f85f8949923b1d522a319c19829dee",
+      "source_sha256": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+      "status": "HOLD"
+    },
+    {
+      "opaque_id": "IR-R-A03",
+      "artifact_sha256": "d3bf4e8a18d56c5127338ea835cffe92c79de354b92a13c67251ec708766322a",
+      "source_sha256": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+      "status": "HOLD"
+    },
+    {
+      "opaque_id": "IR-R-A04",
+      "artifact_sha256": "d6b517a67e3bfc7dafdac3944d2bd9d63433b9d0a7b40b584e589a57154bbde2",
+      "source_sha256": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+      "status": "HOLD"
+    }
+  ],
+  "dcp_activities": [
+    {
+      "opaque_id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "artifact_sha256": "7318a1961aa9841687be1ed012a600ce4e07cb176c8eed4ad6b37a256bab0e83",
+      "status": "HOLD",
+      "source_coverage_state": "full",
+      "case_states": [
+        "partial",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "partial"
+        ],
+        [
+          "meets",
+          "partial",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "artifact_sha256": "1d7c631efd79ce232133e7f074128b54a8ebf8b396a97cb5d9f167377d78890d",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "meets",
+          "defer",
+          "partial",
+          "defer"
+        ],
+        [
+          "defect",
+          "defer",
+          "defect",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "defect",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "artifact_sha256": "b7b4842f3fa0f27f50b9620c11bef61a8e663b1952e3ee610b3e345792df9635",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "meets",
+          "partial",
+          "partial",
+          "defer"
+        ],
+        [
+          "defect",
+          "defer",
+          "defect",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "defect",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "artifact_sha256": "5437ebcf78533902bc7c474d9ec37f104acb53559cbedbf08bb83f2844cab5e3",
+      "status": "HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "partial",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "partial"
+        ],
+        [
+          "meets",
+          "partial",
+          "defer",
+          "defer"
+        ],
+        [
+          "defer",
+          "defect",
+          "defect",
+          "defer"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "meets",
+          "defect",
+          "defect",
+          "partial"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "artifact_sha256": "35d426435665def3b97bd5ce4f855e76bc891dc080227c0ac009dba2a3e5a5c5",
+      "status": "HOLD",
+      "source_coverage_state": "full",
+      "case_states": [
+        "partial",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "partial"
+        ],
+        [
+          "meets",
+          "meets",
+          "defer",
+          "defer"
+        ],
+        [
+          "partial",
+          "defect",
+          "defect",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "meets",
+          "defect",
+          "defect",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "artifact_sha256": "2c7ee10a03bb462bb58eba6f7adf7e02ccd1c02490dc2b1aa0b413230b7ca9f2",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "meets",
+          "partial",
+          "defer",
+          "partial"
+        ],
+        [
+          "defect",
+          "defer",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "artifact_sha256": "72db80115e0b27bfbbef60a30949cf2c40c6305e8a4436484c68799f8dc68756",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "defer",
+          "defer",
+          "meets",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "artifact_sha256": "3c063bd68cbdb2a59e0b3ec333aa1f1c9f8dcdd12406c972e6933ffbf4a4962e",
+      "status": "locally_consistent",
+      "source_coverage_state": "full",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "meets",
+          "defer",
+          "meets",
+          "defer"
+        ],
+        [
+          "defect",
+          "defer",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "artifact_sha256": "419cc9aab92207b080b8d1556a70f1e49507e337287549475ebb27962da844db",
+      "status": "HOLD",
+      "source_coverage_state": "full",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "partial",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "artifact_sha256": "c0a6130452a5bbbe2c3dbcb7fb3d5f5b6f7ce440af5798ff1c743c6578a56604",
+      "status": "HOLD",
+      "source_coverage_state": "full",
+      "case_states": [
+        "partial",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "partial",
+          "meets",
+          "partial"
+        ],
+        [
+          "partial",
+          "partial",
+          "meets",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "defect",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defect",
+          "defect",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+      "artifact_sha256": "dce2f39fddf47d159f8c9ab5ef95280bbed95489a9354a09ba05768a5b49e38d",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "partial",
+          "partial",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "defer",
+          "defer",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "meets",
+          "defect"
+        ]
+      ]
+    },
+    {
+      "opaque_id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "artifact_sha256": "1f5f5e099f5209e355f947fdbc22523db47b0f0c71e411eea3d0c20b834f42bf",
+      "status": "locally_consistent_sourcewide_HOLD",
+      "source_coverage_state": "bounded_context_only",
+      "case_states": [
+        "meets",
+        "partial",
+        "defect",
+        "defer",
+        "defect"
+      ],
+      "component_states": [
+        [
+          "meets",
+          "meets",
+          "meets",
+          "meets"
+        ],
+        [
+          "partial",
+          "defer",
+          "partial",
+          "defer"
+        ],
+        [
+          "defect",
+          "defer",
+          "defect",
+          "defect"
+        ],
+        [
+          "defer",
+          "defer",
+          "defer",
+          "defer"
+        ],
+        [
+          "defect",
+          "meets",
+          "defect",
+          "defect"
+        ]
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "opaque_id": "IR-R01",
+      "status": "HOLD",
+      "kind": "state_overlap"
+    },
+    {
+      "opaque_id": "IR-R02",
+      "status": "HOLD",
+      "kind": "condition_example_underspecification"
+    },
+    {
+      "opaque_id": "IR-R03",
+      "status": "HOLD",
+      "kind": "instruction_rubric_mismatch"
+    },
+    {
+      "opaque_id": "IR-R04",
+      "status": "HOLD",
+      "kind": "missing_component_threshold"
+    },
+    {
+      "opaque_id": "IR-R05",
+      "status": "HOLD",
+      "kind": "implicit_vs_explicit_evidence"
+    },
+    {
+      "opaque_id": "IR-D01",
+      "status": "HOLD",
+      "kind": "instruction_rubric_mismatch"
+    },
+    {
+      "opaque_id": "IR-D02",
+      "status": "HOLD",
+      "kind": "instruction_rubric_mismatch"
+    },
+    {
+      "opaque_id": "IR-D03",
+      "status": "HOLD",
+      "kind": "full_reference_incomplete"
+    },
+    {
+      "opaque_id": "IR-D04",
+      "status": "HOLD",
+      "kind": "stimulus_sentence_boundaries"
+    },
+    {
+      "opaque_id": "IR-D05",
+      "status": "HOLD",
+      "kind": "TASK_instruction_terminology"
+    },
+    {
+      "opaque_id": "IR-D06",
+      "status": "HOLD",
+      "kind": "observed_vs_asserted_preservation"
+    },
+    {
+      "opaque_id": "IR-D07",
+      "status": "HOLD",
+      "kind": "source_reading_coverage_limit"
+    }
+  ],
+  "comparison_status": "first_frozen_before_author_feedback",
+  "limits_state": "same_source_AI_only_no_human_or_student_or_unseen_item_evidence"
+}

@@ -1,0 +1,26 @@
+{
+  "version": "FQ1.1-independent-revision2-first",
+  "reviewer_id": "R2R-NEW",
+  "status": "HOLD",
+  "private_first_path": "scripts/research/factory-qualification-v11/local/revision2-review-first.json",
+  "private_first_sha256": "7da1d79cc869c855a7f882a994060a1ca9a5794359a5c7f302e4d163a2b92fa3",
+  "input_sha256": "5243da916753f1e18e555d5ced4f82d7edb120e613a67abc37c13680363f99ef",
+  "counts": {
+    "meets": 3,
+    "partial": 6,
+    "defer": 3,
+    "defect": 5
+  },
+  "activity_count": 4,
+  "response_count": 17,
+  "finding_ids": [
+    "R2R-F01",
+    "R2R-F02",
+    "R2R-F03"
+  ],
+  "stress_ids": [
+    "R2R-S01",
+    "R2R-S02",
+    "R2R-S03"
+  ]
+}

@@ -60,3 +60,62 @@ node --test scripts/research/factory-qualification-v11/dcp-repairs.test.mjs
 ```
 
 10개 검사가 통과했다. 실제 B/E 중복, 대상 토큰 오결속, 원천·본문·revision 변이, 승인 부당 승격, TASK 변경, 원문 유일성의 부당 복구, 수식의 임의 복원, blind 입력의 예상 판정 혼입을 검사했다. 재실행은 봉인 값이 같을 때만 허용하고 값이 달라지면 덮어쓰기를 거부한다. 검사 통과는 의미나 교수 효과의 자동 증명이 아니다.
+
+## 독립 첫 판정 이후 revision 2 — 추가 원장
+
+첫 독립 AI 검토는 `local/independent-review-first.json`, SHA256 `bd428eea8f54698f1653c36f18bb36f86e0dd241b0d1b939a2b0d14e64d2b803`로 봉인했다. 저자가 full로 예상한 개발 응답 중 4개는 실제 요구된 의미를 모두 쓰지 않아 partial로 판정됐다. 첫 60응답은 meets 8·partial 16·defect 24·defer 12로 보존하며 저자의 예상 판정으로 덮지 않는다.
+
+독립 분석자가 드러낸 문제는 지시-루브릭 불일치, 요구하지 않은 연구자 자격 메타 용어, 뜻을 풀지 않고 해당 표현을 ‘보존한다’고만 선언한 응답, 명사구 계층·내용 연결 설명의 누락, 약어를 문장 경계로 잘못 나눈 제시형이었다. 독립 검토는 짧은 전체 원천 5개와 긴 원천의 한정 문맥 7개를 읽은 범위다. 긴 전체 원천의 검토 완료로 표시하지 않았다.
+
+이에 **같은 12자료에 revision 2를 추가**했다. 학생 지시는 (1)~(4)의 구체적인 산출물로 나누고 루브릭의 네 구성 요소에 결속했다. 새 응답 기준에서 빠진 구성 요소를 저자의 의도로 채워 넣지 않으며, 올바른 일부 수행은 partial로 남긴다. 연구자에게 필요한 TASK 인증·권리 승인·전문 과학 검수 등의 메타 조건은 학생이 그 용어를 쓰지 않았다는 이유로 감점하는 기준에서 분리했다.
+
+제시형은 현재 원천의 공백 정규화 연속 구간을 paragraph로 보여 주도록 별도 결속했다. 자동 분절 배열의 항목을 완전한 문장으로 표시하지 않으며 약어 단편과 인용 미완결 세 자료를 복원했다. 수식 자리 표시 한 자료는 원천의 누락 표시를 제시할 뿐 삭제된 식이나 수치를 만들지 않았다. 비교 의미를 갖지 않는 속성 결합은 비교라고 지시하지 않고 결합 관계를 요구한다.
+
+수정 후보 12개를 새 blind packet으로 봉인했다. 60응답은 기존 개발 응답을 그대로 쓴 42개와 수정한 18개다. **새 확인적 표본 0**이며 이들을 이미 본 자료의 개발 재검토로 보고한다. 긴 원천 7개에 대한 전체 원천 미검토 HOLD, 생성 당시 provenance, 권리·출시, 인간·학생·실행 보류는 그대로 유지한다.
+
+| revision 2 봉인 파일 | SHA256 |
+|---|---|
+| `local/dcp-repairs-v2-candidates-first.json` | `7a46aa6911a4c5cf72766d5bbbee840281401ae317051776913f6d61dc9a8182` |
+| `local/dcp-repairs-v2-blind-first.json` | `9f7dd7809e1f56414d896c85bee87b7b3fc8a1b1b64c5ece1a30376cd09acdb1` |
+| `local/dcp-repairs-v2-author-cases-first.json` | `b458e8c5d0007b762d0980b16d39fe18e6ed717b95dee95ef6bfd966275a9ca7` |
+
+봉인 후 저자 사전 반증에서 한 문법 대체문의 다른 주어 해석·생략된 내용절 연결 가능성이 남았다. 잘못된 수 일치 해설을 반박하는 것과 그 대체문이 모든 문법 해석에서 비문임을 증명하는 것은 별개다. revision 2를 조용히 고치지 않았으며 독립 재검토에서 이 주장도 반증 대상으로 유지한다. 필요하면 해당 설명·역할만 HOLD해야 한다.
+
+```powershell
+node scripts/research/factory-qualification-v11/dcp-repairs-v2.mjs
+node --test scripts/research/factory-qualification-v11/dcp-repairs-v2.test.mjs
+```
+
+새 검사 8/8 통과. 지시-루브릭 산출 결속, 원천 제시 구간 변이, 이전 revision hash, 구성 요소 누락, 신규 자격의 부당 승격, 개발 응답을 새 확인 자료로 오표시하는 경계를 검사했다. 이 추가 원장의 독립 재검토 완료는 **0·대기**, 인간·학생 검증과 공개·직접 평가 자격도 **0**이다. 이후 독립 첫 판정은 별도 기록으로 추가한다. revision 1의 독립 첫 결과와 revision 2의 후속 결과를 하나의 성공률로 합치지 않는다.
+
+## 단일 문법 자료 revision 3·4 — 추가 원장
+
+두 번째 독립 AI 첫 결과는 SHA256 `f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033`로 봉인했다. 60개 개발 응답은 meets 11·partial 12·defect 25·defer 12였다. 앞에서 저자가 발견한 대체문의 다른 주어 해석 가능성을 두 번째 분석자도 독립적으로 발견했다. 이 판정은 의미 수정의 실패를 숨기거나 첫 응답을 소급해 다시 매기지 않고 별도로 보존했다.
+
+해당 한 자료에 revision 3를 추가했다. 기존 대체문이 반드시 비문이라는 주장을 제거하고, 사람들을 가리키는 주어와 생략된 내용절 표지로 읽는 가능성을 인정했다. 기존 원문과 그 해석의 주어 의미는 다르며 맥락의 지시 대상은 미확정이다. **원문 복원 키가 맞는 것·기존 보기의 유일 문법 오류가 성립하는 것·원문 의미를 설명할 수 있는 것**은 서로 다른 판정이다. 키 오류를 만들어 내지 않았고 기존 유일오답 역할은 HOLD했다.
+
+revision 3의 새 독립 검토는 로컬 전체 본문 35,774자를 읽고 원문 문장의 네 산출물과 루브릭의 국소 타당성을 지지했다. 새 개발 응답 8개는 meets 3·partial 1·defect 3·defer 1이었다. 그러나 학생에게 제공할 explanation은 완전한 절 표시와 증거·가능성 강도 설명을 모두 담지 못했다. 루브릭이 옳다는 이유로 학생이 받을 설명도 완전하다고 승격하지 않았다. 세 번째 독립 결합 첫 결과는 SHA256 `61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947`로 보존했다. 로컬 텍스트 전체를 읽은 것과 빠진 그림·수식·외부 과학 정본·권리를 검증한 것은 별개다.
+
+이에 **같은 한 자료에 revision 4를 추가**했다. 학생 지시·TASK·루브릭을 바꾸지 않고 실제 제공할 explanation을 네 번호의 완결 답으로 구성했다. 연결 기능, 원문 전체 내용절의 괄호 표시, 원문에서 직접 결속한 주어·서술부와 결합 행위의 의미, 예비 증거·가능성 및 확정 임상 효과/영구 완치 비입증을 모두 제시했다. 구간·구성 요소·의미 계약은 연구 산출물 검사에 쓰이며 학생 자연어 응답의 자동 판정기가 아니다.
+
+| 단일 자료 봉인 | SHA256 |
+|---|---|
+| revision 3 후보 파일 | `8d6b02a9b657348b09b09ef397f8605d881c1faaaf6e6edc393ddf16577340bb` |
+| revision 3 blind 파일 | `ec2318b885de8ee5f77c2526bebaa37bec3c54d7b505f63ad877461a7b0c2d10` |
+| revision 4 후보 파일 | `ec459970f3353c828d46ec3531ab61c468672fcd06ee97ec1c882a369686d687` |
+| revision 4 blind 파일 | `6918ebf4ef652638a2c5a47ec031527872c6fddf018a3192cd7afd7abe7cd25a` |
+
+revision 4 blind 파일은 `local/dcp-v4-blind-first.json`이며 기존 revision 3의 개발 응답 5개를 그대로 제공한다. 저자 예상이나 앞 분석자의 응답 판정은 포함하지 않았다. 이 다섯 개는 새로운 학생·확인적 자료가 아니다. 한 문항에 revision을 두 번 더 만든 것이며 새 고유 내용 문항 수는 **0**이다.
+
+```powershell
+node scripts/research/factory-qualification-v11/dcp-repairs-v3.mjs
+node --test scripts/research/factory-qualification-v11/dcp-repairs-v3.test.mjs
+node scripts/research/factory-qualification-v11/dcp-repairs-v4.mjs
+node --test scripts/research/factory-qualification-v11/dcp-repairs-v4.test.mjs
+```
+
+revision 3 검사 7/7, revision 4 검사 6/6와 봉인 값 재실행이 통과했다. 누락된 실제 제공 설명, 잘린 절 표시, 잘못된 증거 강도 승격, 이전 revision 불일치, 대체문의 보편적 문법 불가 주장, 기존 유일오답 역할의 부당 재승격을 검사한다. revision 4의 독립 내용 검토는 이 기록 시점에 **대기**다. 최초 판정·revision 1~3의 후보·각 독립 첫 결과를 덮어쓰지 않았으며 인간·학생·공개·직접 평가 자격은 모두 **0**이다.
+
+## 최종 독립 해설 검토와 선택
+
+네 번째 새 AI 문맥은 revision4의 실제 제공 해설이 네 요청 산출물을 모두 설명한다고 제한적 PASS를 부여했다. 첫 검토 SHA `1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891`과 [공개 원장](data/feedback-review.json)을 보존했다. 최종 선택은 revision2의 11개와 revision4의 1개이며, 이전 실패·HOLD·저자 기대값을 덮지 않는다. 기존 유일오답 역할·원천 계보·권리·인간·학생·실행은 여전히 보류다. 전체 선택과 A–H는 [최종 원장](data/final-qualification.json)을 따른다.

@@ -33,8 +33,11 @@ export function learnerGate(snapshot,request){
  if(request.role==='delayed_check')for(const name of ['actual_elapsed_observed','intermediate_exposure_observed','same_item_recognition_separated'])if(snapshot?.[name]!==true)fail.push(name);
  return {ok:fail.length===0,fail};
 }
-export function supplyGate(request){
+export function supplyGate(request,serverContext){
  const blocked=[];const add=(gate,reason)=>blocked.push({gate,reason});
+ const trusted=serverContext?.boundary==='product_server_qualification_context'?serverContext:null;
+ if(!trusted)add('server','trusted_supply_context_missing');
+ if(!trusted?.review||!isDeepStrictEqual(trusted.review,request.review))add('server','review_not_in_server_snapshot');
  if(!ROLES.includes(request.role)||request.demand?.role!==request.role||!request.demand?.task_id||request.review?.task_id!==request.demand.task_id||request.review?.roles?.includes(request.role)!==true)add('demand','TASK_or_role_mismatch');
  if(!sameSubject(request.review?.artifact,request.artifact))add('review','artifact_revision_or_hash_mismatch');
  for(const name of ['source','analysis','source_policy',...(request.includes_gold||measured.has(request.role)?['gold']:[])])if(!sameSubject(request.review?.[name],request[name]))add('review',name+'_binding_mismatch');
@@ -42,11 +45,11 @@ export function supplyGate(request){
  for(const a of AXES){const x=request.review?.axes?.[a],e=request.review?.evidence?.find(e=>e.id===x?.evidence_ref);if(!x||!['pass','fail','unknown','not_applicable'].includes(x.state)||!x.method||!x.reason||!x.review_revision||x.review_revision!==request.review?.review_revision||!hash(x.evidence_sha256)||!sameSubject(x.subject,request.artifact)||!e||e.sha256!==x.evidence_sha256||e.review_revision!==x.review_revision||!sameSubject(e.subject,request.artifact))add('evidence',a+'_missing_or_unbound');}
  const required=measured.has(request.role)?AXES:['A','B','C','D','F','G','H',...(request.includes_gold?['E']:[])];
  for(const a of required)if(request.review?.axes?.[a]?.state!=='pass')add(a,request.review?.axes?.[a]?.state??'unknown');
- const source=sourceGuard(request.provenance??{});if(source.state!=='pass')add('provenance',source.state);
- const approvals={};for(const kind of ['rights','release',...(measured.has(request.role)?['human_gold','scorer_validation','student_measurement']:[])]){approvals[kind]=approvalGate(request.approvals?.[kind],request.server_approval_registry,request,kind);if(!approvals[kind].ok)add('approval',approvals[kind].reason);}
- const learner=learnerGate(request.learner,request);for(const reason of learner.fail)add('learner',reason);
+ const source=sourceGuard(trusted?.provenance??{});if(source.state!=='pass')add('provenance',source.state);
+ const approvals={};for(const kind of ['rights','release',...(measured.has(request.role)?['human_gold','scorer_validation','student_measurement']:[])]){approvals[kind]=approvalGate(request.approvals?.[kind],trusted?.approval_registry,request,kind);if(!approvals[kind].ok)add('approval',approvals[kind].reason);}
+ const learner=learnerGate(trusted?.learner,request);for(const reason of learner.fail)add('learner',reason);
  if(request.role==='guided_practice')for(const name of ['hint_log_contract','Gold_after_final_guided_freeze','assisted_label'])if(request.role_context?.[name]!==true)add('guided',name);
- if(request.runtime?.supported_roles?.includes(request.role)!==true||request.runtime?.artifact_sha256!==request.artifact?.sha256)add('runtime','artifact_or_role_support_unverified');
- if(request.delivery?.user_id!==request.user_id||request.delivery?.demand_key!==request.demand?.key||request.delivery?.atomic_unique_claim!==true||request.delivery?.already_delivered!==false)add('delivery','identity_demand_or_atomic_dedupe_unverified');
+ if(trusted?.runtime?.supported_roles?.includes(request.role)!==true||trusted?.runtime?.artifact_sha256!==request.artifact?.sha256)add('runtime','artifact_or_role_support_unverified');
+ if(trusted?.delivery?.user_id!==request.user_id||trusted?.delivery?.demand_key!==request.demand?.key||trusted?.delivery?.atomic_unique_claim!==true||trusted?.delivery?.already_delivered!==false)add('delivery','identity_demand_or_atomic_dedupe_unverified');
  return {rules_version:'FQ1.1',role:request.role,research_candidate:request.research_candidate===true,product_supply_allowed:blocked.length===0,assessment_allowed:measured.has(request.role)&&blocked.length===0,blocked,approval_checks:approvals,learner_check:learner,summary:productCSummary({axes:request.review?.axes,producible:request.producible,rights_verified:approvals.rights?.ok===true?true:null,measurement_validated:['human_gold','scorer_validation','student_measurement'].every(k=>approvals[k]?.ok===true)}),scope:'pure boundary check; caller must obtain trusted registry, exposure, runtime and atomic delivery attestations from product server; no actual authorization created'};
 }

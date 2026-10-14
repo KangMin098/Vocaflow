@@ -1,0 +1,23 @@
+{
+    "first_sha256":  "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947",
+    "status":  "BOUNDED_WITH_RESIDUAL_HOLDS",
+    "version":  "FQ1.1-independent-third-review-v3",
+    "records":  [
+                    {
+                        "status":  "PASS_BOUNDED",
+                        "id":  "R3-A01",
+                        "input_sha256":  "d5af81c6525248892b053601bbb4fb010274a02ca4e6e66838fe7496605f5311"
+                    },
+                    {
+                        "status":  "PASS_BOUNDED_WORDING_AMBIGUITY",
+                        "id":  "R3-A02",
+                        "input_sha256":  "d5af81c6525248892b053601bbb4fb010274a02ca4e6e66838fe7496605f5311"
+                    },
+                    {
+                        "artifact_sha256":  "0eb639b6fbf3b4743f748fdc567e22b70ab2936c3eed669638a87498eacae716",
+                        "status":  "PASS_BOUNDED_TASK_RUBRIC_EXPLANATION_HOLD",
+                        "id":  "R3-D01",
+                        "input_sha256":  "ec2318b885de8ee5f77c2526bebaa37bec3c54d7b505f63ad877461a7b0c2d10"
+                    }
+                ]
+}

@@ -1,0 +1,153 @@
+{
+  "version": "FQ1.1-research-repair3",
+  "previous": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v2-packet.json",
+    "sha256": "c64b9b5cbb13388dc240a2e833a023443684ba146a795aaf1055b40185934939"
+  },
+  "second_independent_first": {
+    "path": "scripts/research/factory-qualification-v11/local/revision2-review-first.json",
+    "sha256": "7da1d79cc869c855a7f882a994060a1ca9a5794359a5c7f302e4d163a2b92fa3"
+  },
+  "configuration": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v3-config.json",
+    "sha256": "c4b225c78674033abb205ccbc4e131e00411e306408c0af4df432d730b969bb5"
+  },
+  "repair_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v3-packet.json",
+    "sha256": "44eb70150d871e326bdc96bf63f72c5a40d246be4eac090cbbd7271411ec4b78"
+  },
+  "blind_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-v3-blind.json",
+    "sha256": "d5af81c6525248892b053601bbb4fb010274a02ca4e6e66838fe7496605f5311"
+  },
+  "unchanged_supported_activities": [
+    "v14-s.form_scope-1",
+    "v14-s.form_scope-2"
+  ],
+  "activities": [
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "task_id": "s.form_scope",
+      "previous_artifact_sha256": "6adaae37c1ba178ceb95759bb43d1007401aa77472c005f513dd1971fae3057d",
+      "new_artifact_sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "anchor": {
+          "field": "passage",
+          "start": 557,
+          "end": 593
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "R2R-F01",
+        "R2R-F03"
+      ],
+      "scored_facets": [
+        "comparison",
+        "conjunction",
+        "units",
+        "boundary"
+      ],
+      "case_states": [
+        {
+          "id": "r3v-a1",
+          "facet": "units",
+          "state": "meets",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r3v-a2",
+          "facet": "comparison",
+          "state": "partial",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r3v-n1",
+          "facet": "comparison",
+          "state": "meets",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r3v-n2",
+          "facet": "comparison",
+          "state": "defect",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "No requirement for an extra participation-rate contrast; explicit rate/hour confusion still invalid. Actual values are required under comparison while conjunction separately observes logical judgments. Derived cells do not certify original visual graph reading."
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "task_id": "v.contextual_sense",
+      "previous_artifact_sha256": "9735ffa9bb8a89851bec005580681254400791b2003f31277d43b003ef427466",
+      "new_artifact_sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 921,
+          "end": 937
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "independent_issue_ids": [
+        "R2R-F02"
+      ],
+      "scored_facets": [
+        "sense",
+        "arguments",
+        "cue",
+        "limit"
+      ],
+      "case_states": [
+        {
+          "id": "r3v-a3",
+          "facet": "sense",
+          "state": "partial",
+          "provenance": "used_discovery_countercase"
+        },
+        {
+          "id": "r3v-n3",
+          "facet": "sense",
+          "state": "partial",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r3v-n4",
+          "facet": "sense",
+          "state": "meets",
+          "provenance": "novel_synthetic"
+        },
+        {
+          "id": "r3v-n5",
+          "facet": "sense",
+          "state": "defect",
+          "provenance": "novel_synthetic"
+        }
+      ],
+      "remaining": "Economic-guidance equivalent alternatives allowed; technical model label and strict synonym not required. Sense, arguments, cue and auxiliary limit remain distinct; none certifies independent learner performance."
+    }
+  ],
+  "counts": {
+    "new_artifacts": 2,
+    "unchanged_supported_prior_artifacts": 2,
+    "new_issue_ids": 3,
+    "used_countercases": 3,
+    "novel_synthetic_cases": 5,
+    "new_independent_reviews": 0,
+    "human_reviews": 0,
+    "students": 0,
+    "public_qualified": 0,
+    "assessment_qualified": 0
+  },
+  "status": "third repair revision sealed; fresh independent review pending; previous artifacts/first statuses retained"
+}

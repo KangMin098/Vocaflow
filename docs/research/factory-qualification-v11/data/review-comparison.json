@@ -1,0 +1,72 @@
+{
+  "version": "FQ1.1-post-first-review-comparison-1",
+  "references": [
+    {
+      "path": "scripts/research/factory-qualification-v11/local/independent-review-first.json",
+      "sha256": "bd428eea8f54698f1653c36f18bb36f86e0dd241b0d1b939a2b0d14e64d2b803"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/independent-research-first.json",
+      "sha256": "0c792fc0d4280121eaf3b9b07be883cf1e72918faf430051c2c913040c0b31e0"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/research-repairs-blind.json",
+      "sha256": "560872546dbdd945df9aa53ddf772275fa6500848fb6deac6e4d872a17350666"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/dcp-repairs-blind-first.json",
+      "sha256": "9e7c0f3731236f492b3fd13b33308d2a6f041cf8582756bb5678d77067b97bcb"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/dcp-repairs-author-cases-first.json",
+      "sha256": "131d22dfbe41ec05e20ca3d55b4741270471f8d90c48c78bb1b4b8aeb465ddfc"
+    }
+  ],
+  "research_target_facets": {
+    "cases": 20,
+    "matches": 20,
+    "differences": [],
+    "difference_count": 0,
+    "agreement": 1
+  },
+  "DCP_whole_responses": {
+    "cases": 60,
+    "matches": 56,
+    "differences": [
+      {
+        "id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca-case-1",
+        "author": "meets",
+        "reviewer": "partial"
+      },
+      {
+        "id": "1b7659a4-3874-4722-84a2-c38e3c5ad620-case-1",
+        "author": "meets",
+        "reviewer": "partial"
+      },
+      {
+        "id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40-case-1",
+        "author": "meets",
+        "reviewer": "partial"
+      },
+      {
+        "id": "33a6e5c1-5079-4180-bb95-88c496edaa58-case-1",
+        "author": "meets",
+        "reviewer": "partial"
+      }
+    ],
+    "difference_count": 4,
+    "agreement": 0.9333333333333333
+  },
+  "research_activity_HOLD": 4,
+  "source_reading": {
+    "full": 5,
+    "bounded": 7,
+    "source_wide_approval": false
+  },
+  "first_results_rewritten": false,
+  "public_qualified": 0,
+  "assessment_qualified": 0,
+  "human_experts": 0,
+  "actual_students": 0,
+  "interpretation": "Post-seal descriptive synthetic comparison. Target facets and whole responses are different scopes, not combined; neither AI agreement nor unit tests provide human/student/rights validity. Revision2 addresses discovery findings, not unseen exam confirmation."
+}

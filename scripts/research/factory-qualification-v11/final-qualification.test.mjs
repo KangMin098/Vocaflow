@@ -1,0 +1,4 @@
+// scripts/research/factory-qualification-v11/final-qualification.test.mjs
+import test from 'node:test';import assert from 'node:assert/strict';import {buildFinal} from './final-qualification.mjs';
+test('actual selected16 contents never inflate to36 unique items or release authorizations',()=>{const x=buildFinal();assert.equal(x.selected.length,16);assert.equal(x.counts.artifact_versions_created,36);assert.equal(x.selected.filter(r=>r.public_qualified||r.assessment_qualified).length,0);});
+test('bounded content review retains unknown source/Gold/rights/learner/runtime and C gold column',()=>{const x=buildFinal();for(const r of x.selected){for(const a of ['A','E','F','G','H'])assert.equal(r.axes[a].state,'unknown');assert.equal(r.product_C_summary.gold,null);assert.equal(r.product_C_summary.rights,null);assert.equal(r.approval_refs.length,0);}});

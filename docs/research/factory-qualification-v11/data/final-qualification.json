@@ -1,0 +1,2705 @@
+{
+  "version": "FQ1.1-final-qualification-1",
+  "references": [
+    {
+      "path": "docs/research/factory-qualification-v11/data/research-repairs.json",
+      "sha256": "781a6f22652e44f321e8ca7948286122e093127fe864cdbc42fce854a2ccea07"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/research-repairs-v2.json",
+      "sha256": "32856acfb6f9393a274dafed648720d5174e428db6f4b8cae333f6e81e49302d"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/research-repairs-v3.json",
+      "sha256": "774cc86103b2cc9d208ae7e9bd645f2e52e50852a9c4ea97d1545f069751958b"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/dcp-repairs.json",
+      "sha256": "567c11f45cb0e943d2e3765edcf0d21349fdd2148733c9603a52de479a960cb5"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/dcp-repairs-v2.json",
+      "sha256": "44944885150c5aa488f05a0e8f01272a02fe0790ec81660e00f9ee49356bc793"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/dcp-repairs-v3.json",
+      "sha256": "5b6f2c8e9d557d393aa5080816d6219cef3f63e16ae245dc0323ba3a6b59086a"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/dcp-repairs-v4.json",
+      "sha256": "8a13f725114cac92cb2467a9afa8261405c3b634332c4678440252df38a4e8e9"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/revision2-review.json",
+      "sha256": "8d45ae6b7ed9fd4ef67ca6b5c59ddb80d83222eaad8b8f2899bd5a01bd232aba"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/revision3-review.json",
+      "sha256": "07a07487f91a0fac019f22872a5bba30e295791c55581a2c9969ce7de2cdb6bc"
+    },
+    {
+      "path": "docs/research/factory-qualification-v11/data/feedback-review.json",
+      "sha256": "a8c11630b96872ee0cffb5db704bc5758ffc91f4d2a2fd40079618df42b4d6aa"
+    }
+  ],
+  "independent_firsts": [
+    {
+      "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+      "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+      "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+    },
+    {
+      "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+      "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+    }
+  ],
+  "selected": [
+    {
+      "content_id": "v14-s.form_scope-1",
+      "revision": "FQ1.1-research-repair2",
+      "artifact_sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09",
+      "task_id": "s.form_scope",
+      "requested_role": "model_explanation",
+      "cohort": "research",
+      "original_issue_ids": [
+        "RQ-E01"
+      ],
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "remaining_ambiguity": null,
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-1",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "cb43d37e84130f1fdf8caec43789772ea46a283a219e4b8ad41367c3f4155d09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "v14-s.form_scope-2",
+      "revision": "FQ1.1-research-repair2",
+      "artifact_sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778",
+      "task_id": "s.form_scope",
+      "requested_role": "model_explanation",
+      "cohort": "research",
+      "original_issue_ids": [
+        "RQ-E02",
+        "RQ-E03"
+      ],
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "remaining_ambiguity": null,
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-2",
+            "revision": "FQ1.1-research-repair2",
+            "sha256": "4015bde7f7ba93a62d448e915215aebc44a565dd2a933e853d9a913799ebb778"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "v14-s.form_scope-3",
+      "revision": "FQ1.1-research-repair3",
+      "artifact_sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317",
+      "task_id": "s.form_scope",
+      "requested_role": "model_explanation",
+      "cohort": "research",
+      "original_issue_ids": [
+        "RQ-E04"
+      ],
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+        "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "remaining_ambiguity": null,
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-s.form_scope-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "f6fe528a548b6ddb3bfc03cbc91367b48abe8b36ea89b7c641bb10a3c909f317"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "v14-v.contextual_sense-3",
+      "revision": "FQ1.1-research-repair3",
+      "artifact_sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7",
+      "task_id": "v.contextual_sense",
+      "requested_role": "model_explanation",
+      "cohort": "research",
+      "original_issue_ids": [
+        "RQ-D01"
+      ],
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+        "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "remaining_ambiguity": "Generic guidance partial-credit paraphrase requires adjudication; no automatic free-text scorer.",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "v14-v.contextual_sense-3",
+            "revision": "FQ1.1-research-repair3",
+            "sha256": "ebbc304378f881bdfa52b496605c12d4344fa3395ca9ccd7f8faa121cf9a9fb7"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision3-review-combined-first.json",
+            "sha256": "61732f0c9d615ab05d0c3c12dc027840543eb9e8e9269259b7f6a8577af94947"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09",
+      "task_id": "s.chunk_boundary",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "source_body_sha256": "b52eba6d2016a6bd8121bd7e8ffd8165faa9b6c334d28014bb73cee68091a802",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "ce8437b1a0ece6c57f8be7fbab1ef0d8beb0cc72274fca3cc780fa9d78062a09"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "revision": "FQ11-DCP-candidate-4",
+      "artifact_sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea",
+      "task_id": "s.form_scope",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "source_body_sha256": "968b39a93bb5c53ec031c6f8f02aa0a74b034fa29054681d1076020bc391e8d2",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+        "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "HOLD_alternative_grammar_not_universally_wrong",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+            "revision": "FQ11-DCP-candidate-4",
+            "sha256": "a804188ba787db3fefe52f3cbf32c36eb296bc9c7bd6b245d878fb72c1ff47ea"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/feedback-review-first.json",
+            "sha256": "1ff5a5004133881c05ef286fbac4643d780b3e71e7a90d4d7444bccf7e752891"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067",
+      "task_id": "s.form_scope",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "source_body_sha256": "b649d8c430fb6661dd0ff3332509e77b1e66e2afd26dca991d5e1aa935fe8f10",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "c1e13736e34aa39d2bd7f5b58b13b0c02ff19bf368af0b357cea0d1ac7531067"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0",
+      "task_id": "s.chunk_boundary",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "source_body_sha256": "7ee8e351044d58fe15463c1df0c0c802f0a1535d42e8699b991294ae1432b7c3",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-1b7659a4-3874-4722-84a2-c38e3c5ad620",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "67abf59a4ed3675009fa450deaceb3e49b5f0564a63096b872a6a419c497a8e0"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "source_body_sha256": "154e10fb68df2e08b4ad3e491e6031c385994046ebe0a31b284c7c36dbf5339c",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "retired_nonunique",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "86c0fc4558c97f17f28e0d1b215405cc16a9b355b3944847ed7810ae5e5b753d"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "source_body_sha256": "409d45892a07852e309d957be72b9517bd169ea5add73f205f556451ddbc2a67",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "a0d83e0437be085af53dfb0cd8692664847c7b68a67852e9285f5e07b4487482"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "source_body_sha256": "adb9bc48a8491559f7e4161079a20e64438c130fec4d7ba76bfb76013feab6c1",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "retired_nonunique",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-0133b75c-ff45-4519-8801-7a1a36f2081c",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cedb01bc5942a77b5b23f289df1b9a425cdde2e04d27c18a51433cf18eadaec4"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "source_body_sha256": "6a2b9eb5377a5d279ccebfc9767cf21e3bfa9f4a69086bf2a50c3f415d24beb7",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "797926881fcd6aabbd912e4415b7f5169bb1d7d3cd7f2c0ae3a343142132029c"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66",
+      "task_id": "s.chunk_boundary",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "source_body_sha256": "4c05fe96ef12ab51b16b7ae92c952819987d5797dcf1d3aff2217ca39513d2f3",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "73ee8f450f5296f7aac5ebd8d533ff4e52daa597428ff3f4c7d1b38eb0fa2a66"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68",
+      "task_id": "s.chunk_boundary",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "source_body_sha256": "90d69a2be57ba2efd18ef7d6e45887fb58ef971a7c3a9f6a91a62e6b5f0d4ae8",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-33a6e5c1-5079-4180-bb95-88c496edaa58",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "027b0cc87dda646396a64298aa8620c351f04b7e65240321520949d8c5c65f68"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "b172230f-a008-4528-ae02-c5a036879a0a",
+      "source_body_sha256": "58e20d26f0b035201cdbdec119225ee874a2dd6fea4ad5b4fe32e79a14da9bf8",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-b172230f-a008-4528-ae02-c5a036879a0a",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "cefd6a53b706564d732d7c034459cbb6e1f09166fb17c9f90e831ed6a116e5c3"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "content_id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "revision": "FQ11-DCP-candidate-2",
+      "artifact_sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100",
+      "task_id": "v.contextual_sense",
+      "requested_role": "guided_practice",
+      "cohort": "DCP",
+      "original_item_id": "9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "source_body_sha256": "4d08c5fbfe866620e8bdf9c364181eecb4bc2cd0c06ff44369b116e96b9b521b",
+      "independent_evidence": {
+        "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+        "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+      },
+      "bounded_review_status": "supported_in_supplied_source_and_task",
+      "original_generation_provenance": "unknown",
+      "original_unique_error_role": "not_promoted",
+      "sourcewide_validation": "not_external_source_or_science_approval",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Local snapshot/display binding observed, official lineage and historical generation provenance not renewed."
+        },
+        "B": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "C": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "D": {
+          "state": "pass",
+          "method": "independent_AI_bounded_target_review",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Bounded revised task/content review only; source-wide and human effectiveness not inferred."
+        },
+        "E": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Registered cases/rubric reviewed; full equivalent-answer adjudication, human scorer and student validity remain unverified."
+        },
+        "F": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "Actual rights/release record and authority scope absent."
+        },
+        "G": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual learner supply-time access/exposure/response/timing record."
+        },
+        "H": {
+          "state": "unknown",
+          "method": "unobserved_external_or_full_scope_qualification",
+          "review_revision": "FQ1.1-final-selection-1",
+          "subject": {
+            "id": "FQ11-DCP-9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+            "revision": "FQ11-DCP-candidate-2",
+            "sha256": "350723ec1b88160b483bdeea93142f4c3a98e01ce3c2511cdfc5def6554f0100"
+          },
+          "evidence_ref": {
+            "path": "scripts/research/factory-qualification-v11/local/revision2-combined-review-first.json",
+            "sha256": "f3e10c7c7a24af78ae2fe778caa52da6adf7ba303412f42bcb4557d1d1970033"
+          },
+          "reason": "No actual product artifact renderer/execution validation."
+        }
+      },
+      "Gold_content_subreview": "bounded_supported_with_recorded_paraphrase_limits",
+      "product_C_summary": {
+        "producible": null,
+        "rights": null,
+        "content": null,
+        "teaching": true,
+        "gold": null,
+        "assessment": null,
+        "runnable": null
+      },
+      "approval_refs": [],
+      "eligible_roles": [],
+      "blocked_roles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false
+    }
+  ],
+  "counts": {
+    "original_issues": 5,
+    "author_repaired_issues": 5,
+    "bounded_AI_supported_original_issues": 5,
+    "selected_unique_contents": 16,
+    "research_contents": 4,
+    "DCP_contents": 12,
+    "artifact_versions_created": 36,
+    "source_lineage_or_history_qualified": 0,
+    "TASK_bounded_supported": 16,
+    "Gold_registered_case_subreviews": 16,
+    "Gold_human_or_student_validated": 0,
+    "full_AH_qualified": 0,
+    "public_qualified": 0,
+    "assessment_qualified": 0,
+    "human_experts": 0,
+    "actual_students": 0,
+    "unseen_exam_confirmatory_cases": 0,
+    "actual_product_E2E": 0
+  },
+  "axis_counts": {
+    "A": {
+      "pass": 0,
+      "unknown": 16
+    },
+    "B": {
+      "pass": 16,
+      "unknown": 0
+    },
+    "C": {
+      "pass": 16,
+      "unknown": 0
+    },
+    "D": {
+      "pass": 16,
+      "unknown": 0
+    },
+    "E": {
+      "pass": 0,
+      "unknown": 16
+    },
+    "F": {
+      "pass": 0,
+      "unknown": 16
+    },
+    "G": {
+      "pass": 0,
+      "unknown": 16
+    },
+    "H": {
+      "pass": 0,
+      "unknown": 16
+    }
+  },
+  "scope": "Research revision selection with bounded AI support. Initial failed revisions, all first HOLDs and mutable product audit are retained. No legal, human, learner or runtime authority created."
+}
