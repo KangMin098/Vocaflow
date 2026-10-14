@@ -21,6 +21,7 @@ import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
 import { withMapReturn } from '@/lib/csat/map-return'
+import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 
 import n from './needs.module.css'
 
@@ -228,7 +229,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                   </div>
                 )}
                 {p.next && !past && (
-                  <Link href={withMapReturn(p.next.href, { task: p.task, ws: view.workspace })} className={n.go} data-testid="plan-go">
+                  <Link href={withMapReturn(p.next.href, outgoingCtx(saved, p.task, view.workspace))} className={n.go} data-testid="plan-go">
                     활동 시작
                   </Link>
                 )}

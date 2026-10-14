@@ -528,3 +528,14 @@ summary.insH {
     max-height: none;
   }
 }
+
+/* 지도로 돌아왔을 때 떠날 때와 달라진 점(계획 · 목표 · Workspace) */
+.returnNote {
+  margin: 0;
+  padding: 8px 12px 8px 28px;
+  border-radius: 8px;
+  background: var(--m-canvas);
+  border: 1px solid var(--m-line);
+  color: var(--m-ink2);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+}

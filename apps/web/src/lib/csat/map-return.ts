@@ -4,6 +4,8 @@
 // 문항의 「학습 지도로」 가 그 문맥을 홈(/csat)으로 돌려준다. 홈은 그 학습 묶음 · 단계 시트 · 과제 칸을 다시 연다.
 //   task = 과제 id(지도의 data-task) · ws = 학습 묶음 id(data-ws, `ws.<slug>`) · step = 단계 키(data-step)
 //   map_task = 영구 TASK id(v6.2 §9.3 — 활동 id `task` 와 구별 · r.central_meaning 같은 slug). 지도 정의에 없는 id 는 화면이 무시한다
+//   map_ws = 학습자 Workspace UUID(템플릿 slug `ws` 와 구별) · map_plan = 떠날 때 계획 버전 · map_goal = 떠날 때 목표 이력 id
+//     — 돌아온 화면은 이 값으로 「떠날 때와 지금이 같은가」만 비교한다. 이 값으로 조회하지 않는다(다른 사람 UUID 를 넣어도 읽히는 것이 없다)
 // 받는 쪽은 모두 형식만 검증한다 — 자유 문자열 · 주소를 받지 않는다(열린 리디렉트 방지). 없는 값은 화면이 조용히 무시한다.
 
 import { parseHomeTask } from './home-suggestion'
@@ -14,6 +16,9 @@ export interface MapReturnCtx {
   mapTask?: string | null
   ws?: string | null
   step?: StepKey | null
+  mapWs?: string | null
+  mapPlan?: string | null
+  mapGoal?: string | null
 }
 
 const STEPS: readonly StepKey[] = ['vocab', 'sentence', 'relation', 'structure', 'option', 'evidence', 'integrate', 'l-sound', 'l-sentence', 'l-retain', 'l-respond']
@@ -33,15 +38,49 @@ export function parseMapTask(v: string | undefined | null): string | null {
   return v && /^[a-z]{1,2}(\.[a-z_]{1,40}){1,2}$/.test(v) ? v : null
 }
 
-/** 검증한 문맥만 남긴다 */
-export function parseMapReturn(q: { task?: string; ws?: string; step?: string; map_task?: string }): Required<MapReturnCtx> {
-  return { task: parseHomeTask(q.task), mapTask: parseMapTask(q.map_task), ws: parseMapWs(q.ws), step: parseMapStep(q.step) }
+/** 학습자 Workspace UUID — 소문자 16진 UUID 만 */
+export function parseMapUuid(v: string | undefined | null): string | null {
+  return v && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v) ? v : null
 }
 
-const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step']] as const
-const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({ task: ctx.task ?? undefined, map_task: ctx.mapTask ?? undefined, ws: ctx.ws ?? undefined, step: ctx.step ?? undefined })
+/** 버전 · 이력 id — 1 이상의 정수(9자리 이하)만 */
+export function parseMapVersion(v: string | undefined | null): string | null {
+  return v && /^[1-9][0-9]{0,8}$/.test(v) ? v : null
+}
 
-/** 문맥 쿼리 조각(`&task=…&map_task=…&ws=…&step=…`) — 검증을 통과한 값만. 없으면 빈 문자열 */
+type ReturnQuery = { task?: string; ws?: string; step?: string; map_task?: string; map_ws?: string; map_plan?: string; map_goal?: string }
+
+/** 검증한 문맥만 남긴다 */
+export function parseMapReturn(q: ReturnQuery): Required<MapReturnCtx> {
+  return {
+    task: parseHomeTask(q.task),
+    mapTask: parseMapTask(q.map_task),
+    ws: parseMapWs(q.ws),
+    step: parseMapStep(q.step),
+    mapWs: parseMapUuid(q.map_ws),
+    mapPlan: parseMapVersion(q.map_plan),
+    mapGoal: parseMapVersion(q.map_goal),
+  }
+}
+
+const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step'], ['mapWs', 'map_ws'], ['mapPlan', 'map_plan'], ['mapGoal', 'map_goal']] as const
+const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({
+  task: ctx.task ?? undefined,
+  map_task: ctx.mapTask ?? undefined,
+  ws: ctx.ws ?? undefined,
+  step: ctx.step ?? undefined,
+  map_ws: ctx.mapWs ?? undefined,
+  map_plan: ctx.mapPlan ?? undefined,
+  map_goal: ctx.mapGoal ?? undefined,
+})
+
+/** 주소 검색값(searchParams · 배열 허용)에서 복귀 문맥 쿼리 키만 뽑는다 — 페이지마다 같은 키 목록을 다시 쓰지 않게 */
+export function returnQueryOf(sp: Record<string, string | string[] | undefined>): ReturnQuery {
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
+  return Object.fromEntries(KEYS.map(([, q]) => [q, one(sp[q])])) as ReturnQuery
+}
+
+/** 문맥 쿼리 조각(`&task=…&map_task=…&ws=…&step=…&map_ws=…`) — 검증을 통과한 값만. 없으면 빈 문자열 */
 export function mapReturnQuery(ctx: MapReturnCtx): string {
   const c = parseCtx(ctx)
   return KEYS.map(([k, q]) => (c[k] ? `&${q}=${encodeURIComponent(c[k]!)}` : '')).join('')

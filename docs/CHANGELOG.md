@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): 학습지도 v6.2 P-M2 복귀 안정성 — 복귀 문맥에 학습자 Workspace UUID · 계획 · 목표 버전(돌아오면 바뀐 점만 알림 · 옛 계획 되살리기 없음) · 계획 저장 뒤 선택 TASK · 열린 계획 유지(소실 결함 수정) · `/csat` 홈 첫 제안 = ActionRank · B7 전이 4문항 읽기 전용 검수(PASS 3 · HOLD 1, 승인 · 활성화 안 함) · 복귀 E2E 7/7. DB 변경 없음
 - feat(map): 학습지도 v6.2 P-M1 단일 지도 — `/csat` · `?tab=map` · `&view=full` 이 `UnifiedLearningMap` 하나(영역 6 · TASK 30 관계도 + TASK Inspector · 학습계획은 관계도 아래) · 옛 학습자 지도/54라인 상세 지도 분기 제거 · 복귀 문맥 `map_task` · 목표 없는 자율 연습 다음 활동 · 1280/1440 실측(페이지 가로 넘침 0 · 노드 넘침 0 · Inspector 360) · 학습 경로 E2E 실패/성공 두 경로 ALL PASS. DB 변경 없음
 - feat(map): 학습지도 v6.2 정본 · 핸드오프 반입과 P-M0 계약 — `lib/csat/map/v62`(영역·TASK 그래프 DTO · TASK Inspector · NeedRank/ActionRank 분리 · 6 Ledger/8 공백 커버리지 · 시험 인벤토리 분모 가드 · 관련성 4값과 후보 분리 · TargetSpec) · To-Be `relevanceUnknown`(연결 없음 ≠ 무관) · 제품 가용 실측 스크립트. DB 변경 없음
 

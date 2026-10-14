@@ -29,8 +29,8 @@ import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
 import { learnerSession, loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
 import { parseHomeReturn, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
 import { mapProgressOf, type MapProgress } from '@/lib/csat/map/home-progress'
-import { learnerPath } from '@/lib/csat/map/learner-path'
-import { parseMapReturn } from '@/lib/csat/map-return'
+import { homeFocusOf } from '@/lib/csat/map/v62/home-focus'
+import { parseMapReturn, returnQueryOf, type MapReturnCtx } from '@/lib/csat/map-return'
 import { loadMapPage, type MapPageData } from '@/lib/csat/map/load'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
@@ -58,7 +58,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
   // 옛 URL 전용 — 목적(need) · 함정 탭(tab=trap) · 유형 탭(tab=type) · 이어서(view=continue). 하나라도 있으면 옛 화면 그대로
   const legacy = need !== null || one(params.view) === 'continue' || one(params.tab) === 'type'
-  if (!legacy) return <MapHome from={one(params.from)} item={one(params.item)} task={one(params.task)} mapTask={one(params.map_task)} ws={one(params.ws)} step={one(params.step)} />
+  if (!legacy) return <MapHome from={one(params.from)} item={one(params.item)} restore={parseMapReturn(returnQueryOf(params))} />
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
   const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
   // 함정 예시는 서버에서 보류 필터 뒤 — 식별 칸(문항 · 회차 · 번호 · 유형)만 넘긴다(오답 번호 · 이유는 싣지 않는다 · Reveal Gate G3)
@@ -80,7 +80,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
 }
 
 /** 내 학습 지도 홈 — 지도 데이터는 진단 화면과 같은 loader(관리 클라이언트 · 본인 id) */
-async function MapHome({ from, item, task, mapTask, ws, step }: { from?: string; item?: string; task?: string; mapTask?: string; ws?: string; step?: string }) {
+async function MapHome({ from, item, restore }: { from?: string; item?: string; restore: Required<MapReturnCtx> }) {
   const { userId } = await learnerSession()
   if (!userId) redirect('/login?next=/csat')
   const exams = await railExams()
@@ -94,12 +94,12 @@ async function MapHome({ from, item, task, mapTask, ws, step }: { from?: string;
     map = 'error'
   }
   // 핵심 지도가 이미 고른 초점(목표가 없으면 지도 카드가 「목표 정하기」 를 먼저 보인다) — 홈은 다시 판정하지 않는다
-  const focusKind: HomeFocusKind | null = mapData ? (mapData.model.goalSet ? learnerPath(mapData.model, mapData.settings).focus.kind : 'goal') : null
+  // 첫 제안 = 지도와 같은 판정(composeV4 → ActionRank) — 옛 읽기 7단계 초점으로 두 번째 판정을 하지 않는다(v6.2 §9.1)
+  const focusKind: HomeFocusKind | null = mapData ? homeFocusOf(mapData).kind : null
   const slug = parseHomeReturn(from, item)
   const exam = slug ? exams.find((e) => e.exam_id === slug.slice(0, slug.lastIndexOf('-'))) : null
   const returned = slug ? { slug, label: exam ? `${exam.label} ${slug.slice(slug.lastIndexOf('-') + 1)}번` : '방금 본 문항' } : null
   // 지도 활동 복귀(v3 M1 후속) — 과제 · 학습 묶음 · 단계(형식만 검증 · 지도에 없으면 화면이 무시). 문항 복귀와 「이어서」 카드가 같은 문맥을 쓴다
-  const restore = parseMapReturn({ task, map_task: mapTask, ws, step })
   // 지도에서 하던 일 — 지도와 같은 순수 계산. 계산이 실패해도 홈은 열린다(첫 제안만 지도 초점으로)
   let progress: MapProgress | null = null
   if (map === 'ok' && mapData) {
