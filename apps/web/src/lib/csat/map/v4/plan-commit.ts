@@ -142,6 +142,35 @@ export function requestSignature(req: Omit<PlanCommitRequest, 'clientKey'>): str
   return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? ''].join('|')
 }
 
+/** 같은 clientKey 로 이미 저장된 행(서버가 만든 계획) — 재시도 판단용 */
+export interface PriorCommit {
+  template: string
+  version: number
+  workspaceId: string
+  plan: PlanPayload
+  reason: PlanReason
+  note: string | null
+  restoredFrom: number | null
+}
+
+const normNote = (n: string | null | undefined) => (n && n.trim() ? n.trim() : null)
+
+/**
+ * v6.2 P-M2b — 같은 clientKey 의 재전송이 「처음 성공한 바로 그 요청」인지. 같으면 처음 결과를 그대로 돌려주고(멱등 재시도),
+ * 다르면 충돌로 막는다(같은 키 · 다른 본문을 조용히 처음 결과로 바꿔 치우지 않는다). 서버가 지금 다시 계산한 가용량 · 단계는 비교하지 않는다 —
+ * 첫 성공 뒤 콘텐츠 · 목표가 바뀌어도 그 재시도는 성공 결과를 받아야 한다(정본 §10.3).
+ */
+export function sameCommitRequest(prior: PriorCommit, req: PlanCommitRequest): boolean {
+  if (prior.template !== req.template || prior.reason !== req.reason) return false
+  if (normNote(prior.note) !== normNote(req.note)) return false
+  if (prior.version !== req.expectedVersion + 1) return false
+  if ((req.reason === 'restore' ? req.restoreOf ?? null : null) !== (prior.reason === 'restore' ? prior.restoredFrom : null)) return false
+  if (prior.plan.order.length !== req.order.length || prior.plan.order.some((t, i) => t !== req.order[i])) return false
+  const tasks = new Set(prior.plan.tasks.map((t) => t.task))
+  if (Object.keys(req.planned).some((k) => !tasks.has(k))) return false
+  return prior.plan.tasks.every((t) => (req.planned[t.task] ?? null) === t.planned)
+}
+
 /** 이전 시도의 키를 다시 쓸지 — 서명이 같을 때만 */
 export function keyFor(pending: { key: string; sig: string } | null, sig: string, fresh: () => string): { key: string; sig: string } {
   return pending && pending.sig === sig ? pending : { key: fresh(), sig }
