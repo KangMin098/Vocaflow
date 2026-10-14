@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): v6.2 학습지도×Workspace×교재공장 연계 계약 — WorkspaceDemand→FactoryRequest(생산 단위 지원 구분·멱등) · FactoryResultManifest(MOCK/REAL/EXISTING·검사) · FQ 자격 연결 · WorkspaceContentBinding · mock 공장 · 시나리오 A~H 19. 공장 내부·DB·실제 생산 변경 없음(MOCK_ONLY)
 - feat(map): v6.2 P-F8e 학습지도 공급 단계 — 실제 주문·공급 행이 있을 때만 「주문됨·공급 완료」, 기록 없음·미저장·못 읽음을 다르게 표시 · 서버 읽기(supply-store, 사용자·Workspace 필터) · R5 e2e 6/6 · 관리자 화면은 기존 주문 마법사 재사용 설계
 - feat(practice): v6.2 P-F8d 어휘 교재 연습 첫 수직 경로 vocab_choice — 기존 DcpPlayer 재사용 + 밑줄 선택 컴포넌트 · 격리 화면 /dev/vocab-practice(합성 문항) · grade_dcp_item 확장 보류 SQL(승인안 A3, 기존 choice NULL 통과 결함 함께) · 학습자 화면 비공개
 - fix(map): v6.2 P-F8b·c 승인안 B·C 보강(보류 SQL) — 없는 산출물·원천 null·검수 뒤 내용 변경 공급 거절 · R5 노출(응답·같은 회차·정규화 동일 지문) · 새 DCP 직접 평가 HOLD · 같은 요청 키 다른 본문 거절 · 직접 INSERT 가드 · 계정 삭제 cascade 허용 · 실제 PostgreSQL 17 다중 연결 동시성 7/7 · FQ1.1 16개 원장 인수(승인 0). DB 변경 없음
