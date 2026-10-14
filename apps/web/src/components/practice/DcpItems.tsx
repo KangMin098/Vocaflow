@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
 import type { DcpChoicePayload, DcpInsertPayload, DcpOrderPayload } from '@/lib/learner/dcp'
+import { splitSentence, type DcpUnderlinePayload } from '@/lib/learner/dcp-underline'
 
 // ────────────────────────────────────────────────────────────
 // order — presented 문장을 원래 순서로 배열 (이동 버튼)
@@ -276,5 +277,87 @@ function SubmitButton({ disabled, onClick }: { disabled: boolean; onClick: () =>
     >
       제출
     </button>
+  )
+}
+
+// ────────────────────────────────────────────────────────────
+// 밑줄 다섯 중 하나(v6.2 P-F8d · 첫 유형 vocab_choice) — 지문 속 밑줄 ①~⑤ 를 고른다.
+// 선택지 버튼과 지문의 밑줄이 같은 번호를 쓴다 — 번호를 누르면 지문의 그 낱말이 함께 강조된다(색 + 굵기 이중부호).
+// 제출은 선택지 계약 그대로 {choice: 1..5}.
+// ────────────────────────────────────────────────────────────
+export function DcpUnderlineChoiceItem({
+  payload,
+  submitting,
+  onSubmit,
+}: {
+  payload: DcpUnderlinePayload
+  submitting: boolean
+  onSubmit: (answer: { choice: number }) => void
+}) {
+  const { sentences, underlines, stemKo } = payload
+  const [picked, setPicked] = useState<number | null>(null)
+
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="break-keep font-display text-[13.5px] font-[700] leading-relaxed text-[var(--t1)]">{stemKo}</p>
+
+      <p className="rounded-[var(--r-md)] bg-[var(--bg)] p-3 font-serif text-[14px] leading-[1.9] text-[var(--t1)]">
+        {sentences.map((s, si) => (
+          <span key={si}>
+            {splitSentence(s, underlines.filter((u) => u.sentenceIdx === si)).map((part, pi) => {
+              if (!part.mark) return <span key={pi}>{part.text}</span>
+              const no = underlines.indexOf(part.mark) + 1
+              const on = picked === no
+              return (
+                <span key={pi} className="whitespace-nowrap">
+                  <sup className="mr-[1px] font-mono text-[10px] font-[700] text-[var(--p)]" aria-hidden>
+                    {part.mark.label}
+                  </sup>
+                  <u
+                    className="decoration-2 underline-offset-4"
+                    style={{ textDecorationColor: on ? 'var(--p)' : 'var(--t3)', fontWeight: on ? 700 : 400 }}
+                  >
+                    {part.text}
+                  </u>
+                </span>
+              )
+            })}
+            {si < sentences.length - 1 ? ' ' : ''}
+          </span>
+        ))}
+      </p>
+
+      <ol className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="밑줄 친 낱말">
+        {underlines.map((u, i) => {
+          const no = i + 1
+          const selected = picked === no
+          return (
+            <li key={no}>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                aria-label={`${u.label} ${u.word}`}
+                disabled={submitting}
+                onClick={() => setPicked(no)}
+                className="flex min-h-[44px] w-full flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] border px-1 py-2 text-center transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+                // 고른 칸은 면 채움 + aria-checked + 지문 속 낱말 굵게(색만으로 정보 전달 금지). 스킨에 따라 테두리 색만으로는 구분이 안 됐다(실측)
+                style={selected ? { borderColor: 'var(--p)', background: 'var(--p)', color: 'var(--on-p)' } : { borderColor: 'var(--bd)', background: 'var(--bg)', color: 'var(--t1)' }}
+              >
+                <span className="font-mono text-[12px] font-[700]" aria-hidden>
+                  {u.label}
+                </span>
+                <span className="max-w-full truncate font-serif text-[13px]">{u.word}</span>
+              </button>
+            </li>
+          )
+        })}
+      </ol>
+
+      <SubmitButton
+        disabled={submitting || picked === null}
+        onClick={() => picked !== null && onSubmit({ choice: picked })}
+      />
+    </div>
   )
 }

@@ -7,12 +7,14 @@
 //   선택지 9종 : payload.{passage, choices[5], stem_ko, …} · 제출 {choice:1..5}
 
 import type { ChoiceDcpType } from './dcp-types'
+import type { DcpUnderlinePayload, UnderlineChoiceDcpType } from './dcp-underline'
 
 /**
  * 화면이 그릴 수 있는 유형. 갈래 목록의 정본은 `dcp-types.ts` 다 — 여기서 다시 적으면
  * 두 목록이 조용히 어긋난다(이 저장소가 이름 레지스트리에서 이미 겪은 실패다).
  */
-export type DcpItemType = 'order' | 'insert' | ChoiceDcpType
+// 밑줄 선택(UnderlineChoiceDcpType)은 화면 계약만 있다 — DB 채점 확장 승인 전에는 parseItem 이 만들지 않는다(dcp-underline.ts)
+export type DcpItemType = 'order' | 'insert' | ChoiceDcpType | UnderlineChoiceDcpType
 
 export interface DcpOrderPayload {
   presented: string[]
@@ -45,7 +47,7 @@ export interface DcpItem {
   id: string
   type: DcpItemType
   paragraphIdx: number
-  payload: DcpOrderPayload | DcpInsertPayload | DcpChoicePayload
+  payload: DcpOrderPayload | DcpInsertPayload | DcpChoicePayload | DcpUnderlinePayload
 }
 
 /** 채점이 실제로 끝난 결과. 오답이면 answerKey 동봉(정답 공개용). */
