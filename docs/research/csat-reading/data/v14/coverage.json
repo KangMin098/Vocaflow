@@ -1,0 +1,87 @@
+{
+  "version": "1.4",
+  "new_independent_items": 8,
+  "previous_independent_items": 91,
+  "cumulative_independent_items": 99,
+  "main_items": 91,
+  "mock_items": 8,
+  "pooled_distribution_allowed": false,
+  "reason": "different codebooks and purposive cohorts",
+  "mappings": {
+    "all_combinations": 23580,
+    "automatic_candidates": 6310,
+    "previous_reviewed": 74,
+    "new_reviewed": 24,
+    "cumulative_reviewed": 98,
+    "unreviewed": 23482,
+    "first_states": {
+      "direct": 11,
+      "indirect": 9,
+      "not_applicable": 4,
+      "unknown": 0
+    },
+    "new_disagreements": 6,
+    "new_agreement": 0.75,
+    "kappa": 0.5813953488372092,
+    "consensus_relationships_not_claimed": true
+  },
+  "education": {
+    "packages": 4,
+    "contracts_per_package": 14,
+    "activities": 12,
+    "facets": 48,
+    "material_roles": 24,
+    "method_cells": 40,
+    "latest_revision": 3,
+    "latest_AI_review": {
+      "actual_activities": 12,
+      "actual_facets": 48,
+      "actual_fov_rows": 15,
+      "activity_content_status": {
+        "supported": 12,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "facet_specification_status": {
+        "supported": 48,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "fov_row_status": {
+        "supported": 15,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "prior_boundary_defects_resolved": 14,
+      "prior_normalization_defects_resolved": 3,
+      "source_files": 4,
+      "source_hash_mismatches": 0,
+      "damaged_reviewed_fields": 0,
+      "R3_approved": 0,
+      "human_validation": 0,
+      "student_validation": 0,
+      "effect_trials": 0
+    },
+    "public_qualified_content": 0,
+    "qualified_R3_direct_assessments": 0,
+    "human_reviews": 0,
+    "student_observations": 0,
+    "effect_trials": 0
+  },
+  "principles": {
+    "historical_bounded_denominator": 110,
+    "new_verified_in_denominator": 0,
+    "prior_verified": 1,
+    "prior_key_deferred": 1,
+    "not_attempted": 108,
+    "new_development_cross_pairs": 4
+  },
+  "gaps": [
+    "human source/Gold/rights assessment",
+    "blind rubric scorer validation",
+    "independent student transfer and delay observations",
+    "target normalization recovery on fresh cohort",
+    "identifiable relation-only ablations",
+    "representative full-period distributions"
+  ]
+}

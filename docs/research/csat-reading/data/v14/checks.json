@@ -1,0 +1,16 @@
+{
+  "version": "1.4",
+  "research_regressions": {
+    "tests": 48,
+    "pass": 48,
+    "fail": 0,
+    "skipped": 0,
+    "command": "node --test scripts/research/csat-reading/agreement.test.mjs scripts/research/csat-reading/main-agreement.test.mjs scripts/research/csat-reading/v12.test.mjs scripts/research/csat-reading/v13.test.mjs scripts/research/csat-reading/v13-source.test.mjs scripts/research/csat-reading/v13-path-guard.test.mjs scripts/research/csat-reading/v14.test.mjs scripts/research/csat-reading/v14-integrity.test.mjs"
+  },
+  "agent_configuration_checks": {"pass": 15, "fail": 0},
+  "principle_integrity": {"status": "pass", "historical_records": 110, "new_development_cross_pairs": 4},
+  "first_education_and_mapping_reproduction": "pass",
+  "unicode_regression_added": "Literal question-mark replacement and Unicode replacement character are rejected in current educational criteria; damaged revision2 is separately preserved",
+  "scientific_meaning": "Execution, preservation and calculation checks only; no human, student, rights, scorer or efficacy validation implied",
+  "product_tests": "not_run_research_only"
+}

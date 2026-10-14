@@ -1,0 +1,646 @@
+{
+  "version": "1.4-education-revision1",
+  "first_package": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+    "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be"
+  },
+  "first_independent_review": {
+    "path": "scripts/research/csat-reading/local/v14/education-review-first.json",
+    "sha256": "032ff8f255fb2f92e6455ed0aab8bc6308ff0c68a8317a6e74b823d2358c53fe"
+  },
+  "revision_specifications": {
+    "path": "scripts/research/csat-reading/local/v14/education-specifications-revision1.json",
+    "sha256": "50ef76b543ec8439f05c76509704360ac50bfbcfe0e29c95b6cb6f35bb820686"
+  },
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision1.json",
+    "sha256": "f9a228da97033eadbf5e3ff051714c50f51334b42abd4e76523984efb301746a",
+    "access": "ignored restricted research artifact; no actual Gold in public Git"
+  },
+  "changes": [
+    {
+      "activity_id": "v14-r.central_meaning-1",
+      "item_id": "2023#20",
+      "review_defect_kinds": [
+        "full_response_incomplete",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "gold.partial",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "central",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "scope",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "evidence",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "generation",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "procedural_eligibility_not_ability_score"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-r.central_meaning-2",
+      "item_id": "2015#21",
+      "review_defect_kinds": [
+        "alternative_strength_loss",
+        "full_response_incomplete",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.full",
+        "gold.equivalent",
+        "gold.partial",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "central",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "scope",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "support",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "independence",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "procedural_eligibility_not_ability_score"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-r.central_meaning-3",
+      "item_id": "2024#23",
+      "review_defect_kinds": [
+        "full_response_incomplete",
+        "independent_prompt_scaffold",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "central",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "scope",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "support",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "generation",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "procedural_eligibility_not_ability_score"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-1",
+      "item_id": "2017#25",
+      "review_defect_kinds": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "gold.fov_rows",
+        "response_schema",
+        "information_contract.phase_protocol",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "target",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "support",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "fit",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "coverage",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-2",
+      "item_id": "2024#28",
+      "review_defect_kinds": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "facet_prompt_mismatch",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "gold.wrong",
+        "gold.defer",
+        "gold.fov_rows",
+        "response_schema",
+        "information_contract.phase_protocol",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "target",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "scope",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "fit",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "coverage",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-3",
+      "item_id": "2015#24",
+      "review_defect_kinds": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "ai_fov_order_unspecified",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "gold.fov_rows",
+        "response_schema",
+        "information_contract.phase_protocol",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "target",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "support",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "fit",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "coverage",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "review_defect_kinds": [
+        "alternative_response_incomplete",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "operator",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "domain",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "boundary",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "countermodel",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "review_defect_kinds": [
+        "full_response_incomplete",
+        "partial_error_conflation",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.full",
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "condition",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "strength",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "reverse",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "examples",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "review_defect_kinds": [
+        "full_response_incomplete",
+        "facet_prompt_mismatch",
+        "visual_delivery_unresolved",
+        "independent_prompt_scaffold",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "comparison",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "conjunction",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "units",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "boundary",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "review_defect_kinds": [
+        "alternative_response_incomplete",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "sense",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "arguments",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "cue",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "limit",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "review_defect_kinds": [
+        "association_to_causation",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.full",
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "target",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "sense",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "cue",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "separation",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "review_defect_kinds": [
+        "full_response_incomplete",
+        "alternative_response_incomplete",
+        "same_body_exposure_unresolved",
+        "partial_facet_underdetermined"
+      ],
+      "first_package_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+      "source_binding_preserved": true,
+      "fields_changed": [
+        "gold.full",
+        "gold.equivalent",
+        "all_four_facet_partial_and_defer"
+      ],
+      "facets": [
+        {
+          "facet": "sense",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "arguments",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "cue",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        },
+        {
+          "facet": "limit",
+          "partial_specific": true,
+          "defer_specific": true,
+          "facet_kind": "semantic_content_or_response_scope"
+        }
+      ],
+      "review_status": "revision_not_independently_accepted",
+      "recheck_questions": [
+        "Does full semantic Gold answer every prompt component?",
+        "Is the alternative truly equivalent without strength/scope/causal inflation?",
+        "Can meets/partial/defect/unobserved be separated on this facet with source-based counterresponses?",
+        "Are procedural eligibility and semantic performance separate?"
+      ]
+    }
+  ],
+  "counts": {
+    "activities": 12,
+    "facet_specific_partial": 48,
+    "facet_specific_defer": 48,
+    "FOV_reference_rows": 15,
+    "human_reviews": 0,
+    "student_observations": 0,
+    "effect_trials": 0
+  },
+  "review_status": "pending_separate_AI_recheck",
+  "independent_check_qualification": "unsupported; learner exposure and scoring/rights not established",
+  "R3": false,
+  "nonclaims": [
+    "Revision execution is not validity confirmation",
+    "AI recheck does not establish human reliability or student effects",
+    "Procedural eligibility facets are not ability partial scores",
+    "Original source and first review preserved"
+  ]
+}

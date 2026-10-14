@@ -1,0 +1,85 @@
+{
+  "version": "1.4",
+  "prior_recent_exposure": {
+    "path": "docs/research/csat-reading/data/v13/exposure.json",
+    "sha256": "3b6f11756610c6acdbcbe0467571fe1ae97d0df214412fe0a8ecbf09303302fe",
+    "preserved": true,
+    "recent_originals_reopened_in_v14": false
+  },
+  "source_role": "source/key pages reviewed; cannot act as answer-blind independent rater",
+  "fresh_raters": {
+    "contexts": 2,
+    "key_before_first_seal": false,
+    "inherited_prior_results": false,
+    "limit": "same model family; pretraining exposure uncontrolled"
+  },
+  "fresh_items": [
+    {
+      "id": "2018#22",
+      "pdf": "2018_영어_짝.pdf",
+      "pages": [
+        3
+      ],
+      "source_binding": "4f53724a2f7f6586b854858af297acdd9a47815b426f53d79c6c81eb671bcb36"
+    },
+    {
+      "id": "2020#24",
+      "pdf": "2020_영어_짝.pdf",
+      "pages": [
+        3
+      ],
+      "source_binding": "d54cf4c139f46530f492172b04df5d0075ec627432037c9be37e0c828ba17a2a"
+    },
+    {
+      "id": "2017#33",
+      "pdf": "2017_영어_짝.pdf",
+      "pages": [
+        6
+      ],
+      "source_binding": "baaede23715bca1474646a7c270c8315c6a5ff705171dac5f4397be90d4075a2"
+    },
+    {
+      "id": "2024#37",
+      "pdf": "2024_영어영역_문제지.pdf",
+      "pages": [
+        7
+      ],
+      "source_binding": "0d1cb689cfc55c57dd7193e6ae4beb5e786cb8486bf4c3fe676995efa05d38dd"
+    },
+    {
+      "id": "2016#38",
+      "pdf": "2016_영어영역-홀수.pdf",
+      "pages": [
+        7
+      ],
+      "source_binding": "ec02e9b376c907b30386c8bd5b28dc14a6ec43ecebd7d5724654526d339f144f"
+    },
+    {
+      "id": "2023#35",
+      "pdf": "2023_영어영역_문제지.pdf",
+      "pages": [
+        6
+      ],
+      "source_binding": "16c165e3603c766d78b80d3b1b81bce2778327c7998012763effb5465d895fe5"
+    },
+    {
+      "id": "2022#30",
+      "pdf": "2022_영어영역_짝수형.pdf",
+      "pages": [
+        5
+      ],
+      "source_binding": "96f775f612dd17af0122630a6a43fc2852bf1b9b7b3da1346515273c84bd4862"
+    },
+    {
+      "id": "2015#40",
+      "pdf": "2015_영어영역-홀수.pdf",
+      "pages": [
+        7
+      ],
+      "source_binding": "e549a54b4f192bfa399ea927fe3fa73d7d43cb35a03d1f27dcf9680da05aa27c"
+    }
+  ],
+  "incidental_exposure": "Selection excludes declared previous full-page exposures; source/key/page-neighbour exposure metadata is retained in source-pilot.json and principle-cross-review.json. No unseen student or model-pretraining claim.",
+  "new_development_cross_pairs": 4,
+  "new_student_observations": 0
+}

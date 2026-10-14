@@ -1,0 +1,135 @@
+{
+  "version": "1.4-revision2",
+  "created_utc": "2026-10-14T09:02:00.741Z",
+  "review_type": "separate_AI_source_bound_content_scrutiny",
+  "input_sha256": "21485f20e8aa2908619ff133ddbb2b1696660188025559f09d9784bd8d3b1e73",
+  "private_review_sha256": "1c381afefe34b09627921e6fc262ce1aa632492cf03e74f52aae433a393d98c6",
+  "counts": {
+    "actual_activities": 12,
+    "actual_facets": 48,
+    "actual_fov_rows": 15,
+    "activity_status": {
+      "supported": 4,
+      "defect": 8,
+      "unresolved": 0
+    },
+    "facet_artifact_status": {
+      "supported": 34,
+      "defect": 14,
+      "unresolved": 0
+    },
+    "facet_semantic_boundary": {
+      "supported": 34,
+      "defect": 0,
+      "unresolved": 14
+    },
+    "fov_normalization": {
+      "supported": 12,
+      "defect": 0,
+      "unresolved": 3
+    },
+    "damaged_student_prompts": 2,
+    "damaged_gold_fields": 2,
+    "source_files": 4,
+    "source_hash_mismatches": 0,
+    "R3_approved": 0,
+    "human_validation": 0,
+    "student_validation": 0,
+    "effect_trials": 0
+  },
+  "activities": [
+    {
+      "opaque_id": "ED14-01",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-02",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-03",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-04",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-05",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-06",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-07",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-08",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-09",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-10",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-11",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    },
+    {
+      "opaque_id": "ED14-12",
+      "status": "defect",
+      "defect_kind": [
+        "text_encoding_corruption"
+      ]
+    }
+  ],
+  "conclusion": "Cannot certify the 14 boundary or 3 normalization repairs: every affected replacement has literal question-mark damage. Readable unchanged content remains logically supported; semantic state of destroyed text is unresolved. This is a concrete artifact defect, not speculative pedagogical disagreement.",
+  "fixed": [
+    "New activity-level procedure policy explicitly separates semantic scores from missing exposure/freeze/feedback eligibility records.",
+    "Readable prior revisions preserve their corrected semantics."
+  ],
+  "remaining": [
+    "Fourteen repaired facet texts cannot be logically judged from actual corrupted bytes.",
+    "Three normalized candidate replacements cannot be checked for exact raw equivalence.",
+    "Two prompts and two reference fields are unreadable."
+  ],
+  "nonclaims": {
+    "rights": false,
+    "R3": false,
+    "human": false,
+    "student": false,
+    "effect": false
+  }
+}

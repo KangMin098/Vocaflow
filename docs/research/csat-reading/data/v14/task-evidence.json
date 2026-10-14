@@ -1,0 +1,17 @@
+{
+  "type": "analysis",
+  "command_or_protocol": "v1.4 prereg87ea2672d/sourcefreeze c86299b84; 8 fresh main-exam sources, two blind first classifications, separate logical scrutiny; 24 new source-bound TASK reviews with independent second context; 4 packages/12 activities/48 facets, preserved first and revisions1–3; four development cross comparisons, original110 ledger unchanged; 48 regression tests and15 agent checks; final hash/privacy/artifact validation",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-csat-reading-v14/docs/research/csat-reading/V14-REPORT.md",
+  "observed_at": "2026-10-14T09:06:25.079Z",
+  "covers": [0, 1, 2, 3, 4],
+  "interpretation": "Pass means requested research execution, preservation, critical reporting and deliverables. R-A meaning-preservation gate failed; R-B necessity remains unknown; mapping disagreements are preserved. Latest education content specification is AI-supported, not human/scorer/student/effect validated.",
+  "scientific_status": "Strong confirmation expansion blocked; public rights/content and direct assessment qualifications held",
+  "handoff": "A–E ready for separate research review; no product injection or NeedRank promotion",
+  "human_experts": 0,
+  "student_data": 0,
+  "effect_trials": 0,
+  "DB_UI_v3_changed": false,
+  "main_merged": false
+}

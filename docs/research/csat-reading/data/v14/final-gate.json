@@ -1,0 +1,55 @@
+{
+  "version": "1.4",
+  "research_execution": "completed_with_explicit_holds",
+  "R_A": "first validation executed; semantic preservation failed",
+  "R_B": "paths reviewed; necessity unknown, zero valid ablations",
+  "R_C": {
+    "specification": "four packages and versioned repairs produced",
+    "latest_revision": 3,
+    "independent_AI_counts": {
+      "actual_activities": 12,
+      "actual_facets": 48,
+      "actual_fov_rows": 15,
+      "activity_content_status": {
+        "supported": 12,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "facet_specification_status": {
+        "supported": 48,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "fov_row_status": {
+        "supported": 15,
+        "defect": 0,
+        "unresolved": 0
+      },
+      "prior_boundary_defects_resolved": 14,
+      "prior_normalization_defects_resolved": 3,
+      "source_files": 4,
+      "source_hash_mismatches": 0,
+      "damaged_reviewed_fields": 0,
+      "R3_approved": 0,
+      "human_validation": 0,
+      "student_validation": 0,
+      "effect_trials": 0
+    },
+    "release": "hold",
+    "student_or_effect_validation": "not_done"
+  },
+  "R_D": "24 added reviews; 6 unresolved differences, not consensus truth",
+  "R_E": "4 new development cross comparisons; historical110 newly verified0",
+  "confirmation_expansion_allowed": false,
+  "original_first_results_modified": false,
+  "production_changes": false,
+  "forbidden": [
+    "student_deficit_or_mastery",
+    "individual_expected_score_gain",
+    "total_required_questions_per_learner",
+    "automatic_NeedRank_promotion",
+    "unvalidated_teaching_effect",
+    "AI_agreement_as_human_validation",
+    "official_item_author_intent"
+  ]
+}

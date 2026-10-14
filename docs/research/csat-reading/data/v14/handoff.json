@@ -1,0 +1,63 @@
+{
+  "version": "1.4",
+  "branch": "research/csat-reading-v14",
+  "base_commit": "0810d44ef",
+  "production_target": "v6.2 reference only; no product write or injection",
+  "A": {
+    "educational_structure": "docs/research/csat-reading/data/v14/education-packages.json",
+    "latest_revision": "docs/research/csat-reading/data/v14/education-revision3.json",
+    "distinction": "TASK definition and educational relation candidates do not establish prerequisite causality or learner deficit"
+  },
+  "B": {
+    "judgment": "docs/research/csat-reading/data/v14/logic-review-summary.json",
+    "information_paths": "docs/research/csat-reading/data/v14/strategy-information.json",
+    "revised_target_contract": "docs/research/csat-reading/data/v14/target-revision-contract.json",
+    "condition": "source support, question fit and comparison standard stay separate; revised contract not retroactively used for first gate"
+  },
+  "C": {
+    "packages": "docs/research/csat-reading/data/v14/education-revision3.json",
+    "review": "docs/research/csat-reading/data/v14/education-revision3-review-summary.json",
+    "actual_gold_access": "ignored local only; restricted research review, not publicly licensed content",
+    "qualification": "R3/public release held; source-bound AI content review is not scorer/student validation"
+  },
+  "D": {
+    "coverage": "docs/research/csat-reading/data/v14/coverage.json",
+    "actual_mapping_first": "docs/research/csat-reading/data/v14/map-review.json",
+    "actual_mapping_second": "docs/research/csat-reading/data/v14/map-second-review.json",
+    "disagreement": "docs/research/csat-reading/data/v14/map-agreement.json",
+    "availability": "research references only; 6310 tags stay automatic candidates"
+  },
+  "E": {
+    "forbidden_interpretations": [
+      "student_deficit_or_mastery",
+      "individual_expected_score_gain",
+      "total_required_questions_per_learner",
+      "automatic_NeedRank_promotion",
+      "unvalidated_teaching_effect",
+      "AI_agreement_as_human_validation",
+      "official_item_author_intent"
+    ]
+  },
+  "immediately_usable_design": [
+    "Separate raw candidate reproduction from source support and task fit",
+    "Keep AI answer detection and five-candidate FOV as different exercises",
+    "Display source and reasoning provenance in future authorized design",
+    "Keep modeled/guided/independent-check candidate material roles separate",
+    "Preserve rubric uncertainty rather than turn it into a learner score"
+  ],
+  "after_content_and_rights_review": [
+    "Release specific prompts and licensed source-bound Gold only after appropriate review",
+    "Test rubric scorer consistency on actual responses before capability decisions"
+  ],
+  "requires_student_data": [
+    "TASK deficit/mastery",
+    "independent transfer and delay",
+    "teaching efficacy",
+    "NeedRank evidence promotion"
+  ],
+  "current_product_read_only_reference": {
+    "worktree": "D:/workspace/Vocaflow-map-v62",
+    "observed_head": "a7aabd989",
+    "verification": "P-M0/P-M1 and availability documents read only; product tests not re-executed here"
+  }
+}

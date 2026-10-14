@@ -1,0 +1,108 @@
+{
+  "version": "1.4-revision3",
+  "review_type": "separate_AI_source_bound_logical_content_review",
+  "created_utc": "2026-10-14T09:06:25.079Z",
+  "input_sha256": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e",
+  "private_review_sha256": "b2b0ad1525607990663508fa2d3b9c4085a729c4f111a1b3d2e4dd2bd2cd1893",
+  "counts": {
+    "actual_activities": 12,
+    "actual_facets": 48,
+    "actual_fov_rows": 15,
+    "activity_content_status": {
+      "supported": 12,
+      "defect": 0,
+      "unresolved": 0
+    },
+    "facet_specification_status": {
+      "supported": 48,
+      "defect": 0,
+      "unresolved": 0
+    },
+    "fov_row_status": {
+      "supported": 15,
+      "defect": 0,
+      "unresolved": 0
+    },
+    "prior_boundary_defects_resolved": 14,
+    "prior_normalization_defects_resolved": 3,
+    "source_files": 4,
+    "source_hash_mismatches": 0,
+    "damaged_reviewed_fields": 0,
+    "R3_approved": 0,
+    "human_validation": 0,
+    "student_validation": 0,
+    "effect_trials": 0
+  },
+  "activities": [
+    {
+      "opaque_id": "ED14-01",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-02",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-03",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-04",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-05",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-06",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-07",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-08",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-09",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-10",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-11",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-12",
+      "status": "supported",
+      "defect_kind": []
+    }
+  ],
+  "conclusion": "No remaining concrete content/specification defect identified within this 12-activity/48-facet/15-row scope. This supports logical content quality of the current version only, not publication qualification or learner assessment validity.",
+  "scope_limits": [
+    "Rights not qualified by this review",
+    "R3 not approved",
+    "No human expert or learner validation",
+    "No efficacy evidence",
+    "No actual independent exposure/procedure/scorer observation",
+    "Original chart visual reading not validated by derived cells",
+    "Method efficacy is not inferred from source-bound task coherence"
+  ]
+}

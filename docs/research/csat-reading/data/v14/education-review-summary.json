@@ -1,0 +1,151 @@
+{
+  "version": "1.4",
+  "review_type": "separate_AI_logical_scrutiny",
+  "created_utc": "2026-10-14T08:30:49.504Z",
+  "input_sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+  "private_review_sha256": "032ff8f255fb2f92e6455ed0aab8bc6308ff0c68a8317a6e74b823d2358c53fe",
+  "counts": {
+    "actual_activities": 12,
+    "actual_facets": 48,
+    "activity_status": {
+      "supported": 0,
+      "defect": 12,
+      "unresolved": 0
+    },
+    "facet_overall_status": {
+      "supported": 0,
+      "defect": 48,
+      "unresolved": 0
+    },
+    "facet_meets_status": {
+      "supported": 46,
+      "defect": 2,
+      "unresolved": 0
+    },
+    "facet_partial_status": {
+      "supported": 0,
+      "defect": 48,
+      "unresolved": 0
+    },
+    "human_review": 0,
+    "student_validation": 0
+  },
+  "activities": [
+    {
+      "opaque_id": "ED14-01",
+      "status": "defect",
+      "defect_kind": [
+        "full_response_incomplete",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-02",
+      "status": "defect",
+      "defect_kind": [
+        "alternative_strength_loss",
+        "full_response_incomplete",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-03",
+      "status": "defect",
+      "defect_kind": [
+        "full_response_incomplete",
+        "independent_prompt_scaffold",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-04",
+      "status": "defect",
+      "defect_kind": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-05",
+      "status": "defect",
+      "defect_kind": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "facet_prompt_mismatch",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-06",
+      "status": "defect",
+      "defect_kind": [
+        "fov_reference_incomplete",
+        "alternative_coverage_loss",
+        "ai_fov_order_unspecified",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-07",
+      "status": "defect",
+      "defect_kind": [
+        "alternative_response_incomplete",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-08",
+      "status": "defect",
+      "defect_kind": [
+        "full_response_incomplete",
+        "partial_error_conflation",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-09",
+      "status": "defect",
+      "defect_kind": [
+        "full_response_incomplete",
+        "facet_prompt_mismatch",
+        "visual_delivery_unresolved",
+        "independent_prompt_scaffold",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-10",
+      "status": "defect",
+      "defect_kind": [
+        "alternative_response_incomplete",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-11",
+      "status": "defect",
+      "defect_kind": [
+        "association_to_causation",
+        "partial_facet_underdetermined"
+      ]
+    },
+    {
+      "opaque_id": "ED14-12",
+      "status": "defect",
+      "defect_kind": [
+        "full_response_incomplete",
+        "alternative_response_incomplete",
+        "same_body_exposure_unresolved",
+        "partial_facet_underdetermined"
+      ]
+    }
+  ],
+  "limitations": [
+    "AI logical scrutiny only",
+    "No student or human/expert efficacy validation",
+    "No R3 approval",
+    "Original graphic delivery not inspected",
+    "All activity/facet defects include scoring specification issues, not universal source-semantic failure"
+  ]
+}

@@ -1,0 +1,341 @@
+{
+  "version": "1.4-education-revision2",
+  "previous_package": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision1.json",
+    "sha256": "f9a228da97033eadbf5e3ff051714c50f51334b42abd4e76523984efb301746a"
+  },
+  "previous_independent_review": {
+    "path": "scripts/research/csat-reading/local/v14/education-revision1-review.json",
+    "sha256": "909f35896052cd384a8ba7db7ffeb19f22fa58bdec704f0e3efab5b39bb1c80a"
+  },
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision2.json",
+    "sha256": "21485f20e8aa2908619ff133ddbb2b1696660188025559f09d9784bd8d3b1e73",
+    "access": "ignored research input; no actual Gold public"
+  },
+  "changes": [
+    {
+      "activity_id": "v14-r.central_meaning-1",
+      "item_id": "2023#20",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "evidence",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "evidence"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-r.central_meaning-2",
+      "item_id": "2015#21",
+      "revision1_activity_status": "supported",
+      "revision1_defect_facets": [],
+      "updated_facets": [],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-r.central_meaning-3",
+      "item_id": "2024#23",
+      "revision1_activity_status": "supported",
+      "revision1_defect_facets": [],
+      "updated_facets": [],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-1",
+      "item_id": "2017#25",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "target",
+          "defect_kind": [
+            "target_scope_mismatch"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "target"
+      ],
+      "updated_candidate_rows": [
+        2
+      ],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility",
+        "raw_candidate_binding",
+        "AI_FOV_target_scoring_separated"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-2",
+      "item_id": "2024#28",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "target",
+          "defect_kind": [
+            "candidate_source_contamination"
+          ]
+        },
+        {
+          "facet": "scope",
+          "defect_kind": [
+            "candidate_support_conflation"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "target",
+        "scope"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility",
+        "raw_candidate_binding",
+        "AI_FOV_target_scoring_separated"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-3",
+      "item_id": "2015#24",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "target",
+          "defect_kind": [
+            "candidate_source_contamination"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "target"
+      ],
+      "updated_candidate_rows": [
+        1,
+        4
+      ],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "student_prompt",
+        "gold.full",
+        "gold.equivalent",
+        "states_disjoint_contract",
+        "separate_procedural_eligibility",
+        "raw_candidate_binding",
+        "AI_FOV_target_scoring_separated"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "revision1_activity_status": "supported",
+      "revision1_defect_facets": [],
+      "updated_facets": [],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "revision1_activity_status": "supported",
+      "revision1_defect_facets": [],
+      "updated_facets": [],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "conjunction",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        },
+        {
+          "facet": "units",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        },
+        {
+          "facet": "boundary",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "conjunction",
+        "units",
+        "boundary"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "sense",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        },
+        {
+          "facet": "cue",
+          "defect_kind": [
+            "defect_defer_overlap"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "sense",
+        "cue"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "target",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        },
+        {
+          "facet": "separation",
+          "defect_kind": [
+            "meets_partial_overlap"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "target",
+        "separation"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "student_prompt",
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "revision1_activity_status": "defect",
+      "revision1_defect_facets": [
+        {
+          "facet": "cue",
+          "defect_kind": [
+            "defect_defer_overlap"
+          ]
+        },
+        {
+          "facet": "limit",
+          "defect_kind": [
+            "semantic_procedure_mixed"
+          ]
+        }
+      ],
+      "updated_facets": [
+        "cue",
+        "limit"
+      ],
+      "updated_candidate_rows": [],
+      "source_hash_preserved": true,
+      "field_changes": [
+        "states_disjoint_contract",
+        "separate_procedural_eligibility"
+      ],
+      "recheck_status": "not_independently_accepted"
+    }
+  ],
+  "counts": {
+    "activities": 12,
+    "facets": 48,
+    "prior_review_defect_facets": 14,
+    "corrected_normalized_rows": 3,
+    "FOV_rows": 15,
+    "learner_observations": 0,
+    "human_reviews": 0,
+    "effect_trials": 0
+  },
+  "states_disjoint_contract": {
+    "defer": "Required supplied input missing or no interpretable facet response; retain reason input/response separately.",
+    "defect": "With sufficient supplied input, the response explicitly reverses/adds/strengthens the target meaning or supplies an invalid claimed support.",
+    "meets": "All this facet required semantic components are correctly present, with no explicit target distortion.",
+    "partial": "At least one required component is correctly present, at least one other required component is omitted, and no explicit target distortion is asserted."
+  },
+  "level_decision_order": [
+    "input_or_response_unobservable -> defer",
+    "explicit_semantic_distortion_or_invalid_ground -> defect",
+    "all_required_components -> meets",
+    "nonempty_correct_proper_subset_with_no_distortion -> partial"
+  ],
+  "procedural_eligibility": "Separate field; missing logs do not make a correct semantic limit explanation partially wrong.",
+  "revision_review_status": "pending_new_independent_recheck",
+  "direct_assessment_R3": false,
+  "public_Gold": false
+}

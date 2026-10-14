@@ -1,0 +1,126 @@
+{
+  "version": "1.4-revision1",
+  "review_type": "separate_AI_source_bound_logical_scrutiny",
+  "created_utc": "2026-10-14T08:49:31.451Z",
+  "input_sha256": "f9a228da97033eadbf5e3ff051714c50f51334b42abd4e76523984efb301746a",
+  "first_review_sha256": "032ff8f255fb2f92e6455ed0aab8bc6308ff0c68a8317a6e74b823d2358c53fe",
+  "private_review_sha256": "909f35896052cd384a8ba7db7ffeb19f22fa58bdec704f0e3efab5b39bb1c80a",
+  "counts": {
+    "actual_activities": 12,
+    "actual_facets": 48,
+    "actual_fov_rows": 15,
+    "activity_status": {
+      "supported": 4,
+      "defect": 8,
+      "unresolved": 0
+    },
+    "facet_status": {
+      "supported": 34,
+      "defect": 14,
+      "unresolved": 0
+    },
+    "normalized_candidate_defects": 3,
+    "source_file_count": 4,
+    "source_file_hash_mismatches": 0,
+    "direct_assessment_R3_approved": 0,
+    "human_reviews": 0,
+    "student_validation": 0,
+    "effect_trials": 0
+  },
+  "activities": [
+    {
+      "opaque_id": "ED14-01",
+      "status": "defect",
+      "defect_kind": [
+        "meets_partial_overlap"
+      ]
+    },
+    {
+      "opaque_id": "ED14-02",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-03",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-04",
+      "status": "defect",
+      "defect_kind": [
+        "target_scope_mismatch",
+        "normalized_candidate_strengthened"
+      ]
+    },
+    {
+      "opaque_id": "ED14-05",
+      "status": "defect",
+      "defect_kind": [
+        "candidate_source_contamination",
+        "candidate_support_conflation"
+      ]
+    },
+    {
+      "opaque_id": "ED14-06",
+      "status": "defect",
+      "defect_kind": [
+        "candidate_source_contamination",
+        "normalized_candidate_strengthened"
+      ]
+    },
+    {
+      "opaque_id": "ED14-07",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-08",
+      "status": "supported",
+      "defect_kind": []
+    },
+    {
+      "opaque_id": "ED14-09",
+      "status": "defect",
+      "defect_kind": [
+        "meets_partial_overlap"
+      ]
+    },
+    {
+      "opaque_id": "ED14-10",
+      "status": "defect",
+      "defect_kind": [
+        "meets_partial_overlap",
+        "defect_defer_overlap"
+      ]
+    },
+    {
+      "opaque_id": "ED14-11",
+      "status": "defect",
+      "defect_kind": [
+        "meets_partial_overlap"
+      ]
+    },
+    {
+      "opaque_id": "ED14-12",
+      "status": "defect",
+      "defect_kind": [
+        "defect_defer_overlap",
+        "semantic_procedure_mixed"
+      ]
+    }
+  ],
+  "fixed": [
+    "All 48 generic partial strings replaced by local boundaries; replacement is real but 14 facet boundaries retain logical conflicts.",
+    "Reference output completeness substantially repaired; all 15 FOV rows inspected against raw candidates and full sources.",
+    "Association-to-causation fixed.",
+    "Neutral source-before-choice generation and AI-first/no-feedback conditions now explicit.",
+    "Original graphic versus derived-cell task and same-body learner exposure separated by policy, not actual validation."
+  ],
+  "remaining": [
+    "14 facet logical/operational boundary defects.",
+    "3 normalized FOV propositions import source-only qualifiers absent from raw candidates.",
+    "Actual learner/rights/R3/human/efficacy claims remain unvalidated; no promotion authorized."
+  ],
+  "validation_scope": "Content specification AI quality only. No rights admission, R3 approval, independent students, human Gold validation or effect evidence. Original graphic not inspected; preserved derived-cell task reviewed as such."
+}
