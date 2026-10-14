@@ -1,0 +1,3116 @@
+{
+  "version": "1.4",
+  "prior_path": "docs/research/csat-reading/data/v13/task-education.json",
+  "prior_sha256": "868fdc38e14edca9466b4577295c159ee3faefc30c6dd91b1be88869e91e5dcf",
+  "retained_profiles": 30,
+  "packages": [
+    {
+      "task_id": "r.central_meaning",
+      "display": "R5",
+      "retained_profile_reference": "docs/research/csat-reading/data/v12/task-relation-review.json",
+      "contracts": {
+        "educational_definition": "후보를 보기 전에 주제 대상과 중심 서술, 조건·범위, 근거·부연을 구성한다. 의미가 같은 자연스러운 대안 표현을 허용한다.",
+        "actual_types_and_evidence": [
+          {
+            "item_id": "2023#20",
+            "activity_id": "v14-r.central_meaning-1",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/development-input.json",
+              "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+              "row_sha256": "bb281c43828847ac488b82c7d47e63d160031892ed599b088b00a0ffe96bc123",
+              "binding": "8b135bbcdbe714ec02fa691c235e057a0b087b9395f8ebb10fd90512aa73ba63",
+              "anchor": {
+                "field": "passage",
+                "start": 427,
+                "end": 465
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2015#21",
+            "activity_id": "v14-r.central_meaning-2",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/development-input.json",
+              "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+              "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+              "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+              "anchor": {
+                "field": "passage",
+                "start": 465,
+                "end": 498
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2024#23",
+            "activity_id": "v14-r.central_meaning-3",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+              "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+              "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+              "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+              "anchor": {
+                "field": "passage",
+                "start": 893,
+                "end": 916
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          }
+        ],
+        "distinct_output": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+        "student_action": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-r.central_meaning-1",
+            "v14-r.central_meaning-2",
+            "v14-r.central_meaning-3"
+          ],
+          "contract": "Concrete source-specific student prompts are present in the private package; no original answers or source-specific Gold published."
+        },
+        "observable_response": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+        "full_partial_alternative": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-r.central_meaning-1",
+            "v14-r.central_meaning-2",
+            "v14-r.central_meaning-3"
+          ],
+          "status": "investigator_authored_full_partial_alternative_answers_present; human_scoring_not_validated"
+        },
+        "wrong_defer_differential": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "status": "activity_specific_wrong_defer_minimal_contrasts_present; not learner_error_frequencies"
+        },
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "method_prerequisites_limits": "First secure word/statement access and distinguish access support from answer hints; each method is a conditional design candidate, not a prerequisite lock or established effect. See preserved-and-refined method rows.",
+        "actual_material_composition": [
+          {
+            "activity_id": "v14-r.central_meaning-1",
+            "role": "model_explanation"
+          },
+          {
+            "activity_id": "v14-r.central_meaning-2",
+            "role": "guided_practice"
+          },
+          {
+            "activity_id": "v14-r.central_meaning-3",
+            "role": "independent_check"
+          }
+        ],
+        "independent_check_conditions": "Named independent_check activity is a content candidate. Before use, human/content/rights/Gold/rubric qualification, learner-specific shared/normalized body and hint exposure, input version, first unaided response freeze, assistance conditions and independent scoring must be validated. No student unseen stock currently counted.",
+        "transfer_task": "Use a different source/topic/type where the same performance is required; record changed/constant conditions and learner exposure. Candidate source refs are development-exposed, not actual successful transfer observations.",
+        "delayed_task": "Use a previously qualified performance prompt on an actual later occasion; record elapsed time, intervening study, supports and memory exposure. Repeated identical source is retention on that source, not automatically transfer.",
+        "evidence_and_unverified_effects": "Source binding + investigator-authored logical Gold only; no human expert/learner/scorer reliability/comparative teaching effects. R3/R4/R5 promotion blocked."
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "주요 술어의 주체·조건을 풀어 쓴다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "주요 술어의 주체·조건을 풀어 쓴다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional",
+          "why": "핵심 명제와 부연을 의미 단위로 묶는다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "핵심 명제와 부연을 의미 단위로 묶는다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "읽은 명제를 누적하고 마지막에 중심 범위를 다시 점검한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "읽은 명제를 누적하고 마지막에 중심 범위를 다시 점검한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "정말 대립하는 대상·기준을 기록한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "정말 대립하는 대상·기준을 기록한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional",
+          "why": "후보 문장이 글 전체를 대표하는지 다른 구간에 대조한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "후보 문장이 글 전체를 대표하는지 다른 구간에 대조한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "주장·근거·부연 관계를 화살표와 방향으로 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "주장·근거·부연 관계를 화살표와 방향으로 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional",
+          "why": "조직도를 그린 뒤 중심·범위를 별도 생성한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "조직도를 그린 뒤 중심·범위를 별도 생성한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "support_only",
+          "why": "자기 요지를 먼저 확정한 다음 후보의 누락/추가를 비교한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "자기 요지를 먼저 확정한 다음 후보의 누락/추가를 비교한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "support_only",
+          "why": "좁은 사례/과장된 일반화의 변경점을 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "좁은 사례/과장된 일반화의 변경점을 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "자기 요지의 반례와 더 나은 대안 표현을 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2017#25",
+            "why": "Autobiography coauthorship contradicts a solo claim locally; a central-meaning generation is not demanded by that original mismatch question."
+          },
+          "learner_action": "자기 요지의 반례와 더 나은 대안 표현을 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [
+            "v14-r.central_meaning-1",
+            "v14-r.central_meaning-2",
+            "v14-r.central_meaning-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [
+            "v14-r.central_meaning-1"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [
+            "v14-r.central_meaning-2"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [
+            "2024#23"
+          ],
+          "unseen_pool": "not_admitted_yet",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [
+            "v14-r.central_meaning-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        }
+      ],
+      "activity_ids": [
+        "v14-r.central_meaning-1",
+        "v14-r.central_meaning-2",
+        "v14-r.central_meaning-3"
+      ],
+      "transfer_candidates": [
+        {
+          "item_id": "2023#20",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2015#21",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2024#23",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        }
+      ],
+      "scoring_categories": [
+        "meets_semantic_contract",
+        "partial",
+        "meaning_scope_defect",
+        "defer"
+      ],
+      "numeric_weights": "not_established",
+      "promotion_gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "synthetic_minimal_contrast": {
+        "origin": "new investigator-authored Korean toy text, not KICE original",
+        "stimulus": "반복 연습은 실수를 알아차리는 데 도움될 수 있다. 다만 휴식 없이 반복하면 피로 때문에 집중이 떨어질 수도 있다.",
+        "target": "도움 가능성과 휴식 조건을 보존한 중심 설명",
+        "counter": "연습을 많이 하면 반드시 실수가 사라진다는 전면 보장"
+      }
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "display": "E3",
+      "retained_profile_reference": "docs/research/csat-reading/data/v12/task-relation-review.json",
+      "contracts": {
+        "educational_definition": "실제 후보와 자료 명제의 주체·극성·강도·범위·관계를 비교하고 textual_support와 task_fit를 구별한다. 위치 표지 자체는 명제가 아니다.",
+        "actual_types_and_evidence": [
+          {
+            "item_id": "2017#25",
+            "activity_id": "v14-e.option_correspondence-1",
+            "source": {
+              "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+              "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+              "row_sha256": "9288f0d03969b895baff23a3ea4ae25170e5c4ade752ff9c45d80eb74e90310e",
+              "binding": null,
+              "anchor": {
+                "field": "passage",
+                "start": 760,
+                "end": 774
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2024#28",
+            "activity_id": "v14-e.option_correspondence-2",
+            "source": {
+              "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+              "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+              "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+              "binding": null,
+              "anchor": {
+                "field": "passage",
+                "start": 305,
+                "end": 345
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2015#24",
+            "activity_id": "v14-e.option_correspondence-3",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+              "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+              "row_sha256": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+              "binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+              "anchor": {
+                "field": "passage",
+                "start": 300,
+                "end": 315
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          }
+        ],
+        "distinct_output": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+        "student_action": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-e.option_correspondence-1",
+            "v14-e.option_correspondence-2",
+            "v14-e.option_correspondence-3"
+          ],
+          "contract": "Concrete source-specific student prompts are present in the private package; no original answers or source-specific Gold published."
+        },
+        "observable_response": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+        "full_partial_alternative": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-e.option_correspondence-1",
+            "v14-e.option_correspondence-2",
+            "v14-e.option_correspondence-3"
+          ],
+          "status": "investigator_authored_full_partial_alternative_answers_present; human_scoring_not_validated"
+        },
+        "wrong_defer_differential": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "status": "activity_specific_wrong_defer_minimal_contrasts_present; not learner_error_frequencies"
+        },
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "method_prerequisites_limits": "First secure word/statement access and distinguish access support from answer hints; each method is a conditional design candidate, not a prerequisite lock or established effect. See preserved-and-refined method rows.",
+        "actual_material_composition": [
+          {
+            "activity_id": "v14-e.option_correspondence-1",
+            "role": "model_explanation"
+          },
+          {
+            "activity_id": "v14-e.option_correspondence-2",
+            "role": "guided_practice"
+          },
+          {
+            "activity_id": "v14-e.option_correspondence-3",
+            "role": "independent_check"
+          }
+        ],
+        "independent_check_conditions": "Named independent_check activity is a content candidate. Before use, human/content/rights/Gold/rubric qualification, learner-specific shared/normalized body and hint exposure, input version, first unaided response freeze, assistance conditions and independent scoring must be validated. No student unseen stock currently counted.",
+        "transfer_task": "Use a different source/topic/type where the same performance is required; record changed/constant conditions and learner exposure. Candidate source refs are development-exposed, not actual successful transfer observations.",
+        "delayed_task": "Use a previously qualified performance prompt on an actual later occasion; record elapsed time, intervening study, supports and memory exposure. Repeated identical source is retention on that source, not automatically transfer.",
+        "evidence_and_unverified_effects": "Source binding + investigator-authored logical Gold only; no human expert/learner/scorer reliability/comparative teaching effects. R3/R4/R5 promotion blocked."
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "본문·후보의 주체와 조건을 각각 풀어 쓴다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "본문·후보의 주체와 조건을 각각 풀어 쓴다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional",
+          "why": "두 텍스트의 대응 명제를 나란히 둔다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "두 텍스트의 대응 명제를 나란히 둔다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "후보를 읽기 전 자료 의미를 누적 확정한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "후보를 읽기 전 자료 의미를 누적 확정한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "양극 표현만이 아니라 실제 비교 기준을 말한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "양극 표현만이 아니라 실제 비교 기준을 말한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional",
+          "why": "전역 후보에서 중심 근거의 대표성을 검사한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "전역 후보에서 중심 근거의 대표성을 검사한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "후보가 관계 방향을 보존하는지 비교한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "후보가 관계 방향을 보존하는지 비교한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional",
+          "why": "전체 대표성 후보에서 구조 범위를 검사한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "전체 대표성 후보에서 구조 범위를 검사한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "relevant",
+          "why": "support와fit를 별도 기록하고 사용 정보창을 제출한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "support와fit를 별도 기록하고 사용 정보창을 제출한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant",
+          "why": "주체·극성·강도·수량 변경을 표시하고 적합성을 설명한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "주체·극성·강도·수량 변경을 표시하고 적합성을 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "선택/배제 경로와 부족한 정보를 스스로 설명한다",
+          "source_case_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "Bare underlined grammar forms are not self-contained propositional choices; identify syntactic function before considering a semantic E3 activity."
+          },
+          "learner_action": "선택/배제 경로와 부족한 정보를 스스로 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [
+            "v14-e.option_correspondence-1",
+            "v14-e.option_correspondence-2",
+            "v14-e.option_correspondence-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [
+            "v14-e.option_correspondence-1"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2017#25",
+            "2024#28",
+            "2015#24"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [
+            "v14-e.option_correspondence-2"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [
+            "2015#24"
+          ],
+          "unseen_pool": "not_admitted_yet",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [
+            "v14-e.option_correspondence-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        }
+      ],
+      "activity_ids": [
+        "v14-e.option_correspondence-1",
+        "v14-e.option_correspondence-2",
+        "v14-e.option_correspondence-3"
+      ],
+      "transfer_candidates": [
+        {
+          "item_id": "2017#25",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2024#28",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2015#24",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        }
+      ],
+      "scoring_categories": [
+        "meets_semantic_contract",
+        "partial",
+        "meaning_scope_defect",
+        "defer"
+      ],
+      "numeric_weights": "not_established",
+      "promotion_gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "synthetic_minimal_contrast": {
+        "origin": "new investigator-authored toy text, not KICE original",
+        "stimulus": "워크숍은 참가자 한 명당 신청서 두 장 이하를 받는다.",
+        "target": "한 사람 세 장이라는 명제의 본문 지지와 일치/불일치 발문 적합성을 각각 설명",
+        "counter": "내용 모순을 항상 과제 부적합으로 처리"
+      }
+    },
+    {
+      "task_id": "s.form_scope",
+      "display": "S5",
+      "retained_profile_reference": "docs/research/csat-reading/data/v12/task-relation-review.json",
+      "contracts": {
+        "educational_definition": "부정·양화·비교·조건·형태의 작용 대상을 보존하여 완성 명제를 구성한다. 모든 어법 라벨 판정을 S5라고 부르지 않는다.",
+        "actual_types_and_evidence": [
+          {
+            "item_id": "2024#28",
+            "activity_id": "v14-s.form_scope-1",
+            "source": {
+              "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+              "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+              "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+              "binding": null,
+              "anchor": {
+                "field": "passage",
+                "start": 350,
+                "end": 388
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2015#21",
+            "activity_id": "v14-s.form_scope-2",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/development-input.json",
+              "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+              "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+              "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+              "anchor": {
+                "field": "passage",
+                "start": 465,
+                "end": 498
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2014A#32",
+            "activity_id": "v14-s.form_scope-3",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+              "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+              "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+              "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+              "anchor": {
+                "field": "passage",
+                "start": 557,
+                "end": 593
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          }
+        ],
+        "distinct_output": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+        "student_action": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-s.form_scope-1",
+            "v14-s.form_scope-2",
+            "v14-s.form_scope-3"
+          ],
+          "contract": "Concrete source-specific student prompts are present in the private package; no original answers or source-specific Gold published."
+        },
+        "observable_response": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+        "full_partial_alternative": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-s.form_scope-1",
+            "v14-s.form_scope-2",
+            "v14-s.form_scope-3"
+          ],
+          "status": "investigator_authored_full_partial_alternative_answers_present; human_scoring_not_validated"
+        },
+        "wrong_defer_differential": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "status": "activity_specific_wrong_defer_minimal_contrasts_present; not learner_error_frequencies"
+        },
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "method_prerequisites_limits": "First secure word/statement access and distinguish access support from answer hints; each method is a conditional design candidate, not a prerequisite lock or established effect. See preserved-and-refined method rows.",
+        "actual_material_composition": [
+          {
+            "activity_id": "v14-s.form_scope-1",
+            "role": "model_explanation"
+          },
+          {
+            "activity_id": "v14-s.form_scope-2",
+            "role": "guided_practice"
+          },
+          {
+            "activity_id": "v14-s.form_scope-3",
+            "role": "independent_check"
+          }
+        ],
+        "independent_check_conditions": "Named independent_check activity is a content candidate. Before use, human/content/rights/Gold/rubric qualification, learner-specific shared/normalized body and hint exposure, input version, first unaided response freeze, assistance conditions and independent scoring must be validated. No student unseen stock currently counted.",
+        "transfer_task": "Use a different source/topic/type where the same performance is required; record changed/constant conditions and learner exposure. Candidate source refs are development-exposed, not actual successful transfer observations.",
+        "delayed_task": "Use a previously qualified performance prompt on an actual later occasion; record elapsed time, intervening study, supports and memory exposure. Repeated identical source is retention on that source, not automatically transfer.",
+        "evidence_and_unverified_effects": "Source binding + investigator-authored logical Gold only; no human expert/learner/scorer reliability/comparative teaching effects. R3/R4/R5 promotion blocked."
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "relevant",
+          "why": "부정·조건·양화의 작용 대상을 명시한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "부정·조건·양화의 작용 대상을 명시한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant",
+          "why": "범위 표현과 제한 대상을 하나의 명제로 묶는다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "범위 표현과 제한 대상을 하나의 명제로 묶는다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "나중 절의 한정이 이전 이해를 바꾸는지 수정한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "나중 절의 한정이 이전 이해를 바꾸는지 수정한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "긍정/부정 또는 경계 안/밖 최소쌍을 비교한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "긍정/부정 또는 경계 안/밖 최소쌍을 비교한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only",
+          "why": "중심 문장과 별개인 국소 조건을 보존한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "중심 문장과 별개인 국소 조건을 보존한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "and/or·조건 결과를 완성 명제로 재구성한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "and/or·조건 결과를 완성 명제로 재구성한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only",
+          "why": "글 전체 조직 없이도 국소 범위를 먼저 설명한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "글 전체 조직 없이도 국소 범위를 먼저 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional",
+          "why": "본문/후보의 범위 차이를 각각 말한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "본문/후보의 범위 차이를 각각 말한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant",
+          "why": "초과불가→정확히·단독→공저·일부→전부 변경을 검사한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "초과불가→정확히·단독→공저·일부→전부 변경을 검사한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "경계에 들어가는 사례와 안 들어가는 반례를 생성한다",
+          "source_case_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2018#28",
+            "why": "The problematic what introduces a clause without the required gap; this is not evidence that quantifier/negation/comparison scope is the central grammar demand."
+          },
+          "learner_action": "경계에 들어가는 사례와 안 들어가는 반례를 생성한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [
+            "v14-s.form_scope-1",
+            "v14-s.form_scope-2",
+            "v14-s.form_scope-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [
+            "v14-s.form_scope-1"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2024#28",
+            "2015#21",
+            "2014A#32"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [
+            "v14-s.form_scope-2"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [
+            "2014A#32"
+          ],
+          "unseen_pool": "not_admitted_yet",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [
+            "v14-s.form_scope-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        }
+      ],
+      "activity_ids": [
+        "v14-s.form_scope-1",
+        "v14-s.form_scope-2",
+        "v14-s.form_scope-3"
+      ],
+      "transfer_candidates": [
+        {
+          "item_id": "2024#28",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2015#21",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2014A#32",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        }
+      ],
+      "scoring_categories": [
+        "meets_semantic_contract",
+        "partial",
+        "meaning_scope_defect",
+        "defer"
+      ],
+      "numeric_weights": "not_established",
+      "promotion_gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "synthetic_minimal_contrast": {
+        "origin": "new investigator-authored toy text, not KICE original",
+        "stimulus": "모든 작품이 추천된 것은 아니다.",
+        "target": "적어도 한 작품은 추천되지 않았으나 모든 작품의 추천 여부가 개별 확정되는 것은 아님",
+        "contrast": "모든 작품이 추천되지 않았다와 구별; 수식 대상을 같게 두고 부정의 범위만 비교"
+      }
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "display": "V2",
+      "retained_profile_reference": "docs/research/csat-reading/data/v12/task-relation-review.json",
+      "contracts": {
+        "educational_definition": "지정 낱말/표현의 뜻 후보를 실제 문맥에서 고르고 지지 단서와 배제한 뜻을 설명한다. 기본 뜻과 담화 최적합을 구별한다.",
+        "actual_types_and_evidence": [
+          {
+            "item_id": "2016#23",
+            "activity_id": "v14-v.contextual_sense-1",
+            "source": {
+              "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+              "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+              "row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+              "binding": null,
+              "anchor": {
+                "field": "passage",
+                "start": 578,
+                "end": 617
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2024#34",
+            "activity_id": "v14-v.contextual_sense-2",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+              "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+              "row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+              "binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+              "anchor": {
+                "field": "passage",
+                "start": 154,
+                "end": 178
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          },
+          {
+            "item_id": "2024#23",
+            "activity_id": "v14-v.contextual_sense-3",
+            "source": {
+              "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+              "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+              "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+              "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+              "anchor": {
+                "field": "passage",
+                "start": 921,
+                "end": 937
+              },
+              "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+            },
+            "research_use": "derived TASK activity; actual original-item relevance is a separate mapping record"
+          }
+        ],
+        "distinct_output": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+        "student_action": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-v.contextual_sense-1",
+            "v14-v.contextual_sense-2",
+            "v14-v.contextual_sense-3"
+          ],
+          "contract": "Concrete source-specific student prompts are present in the private package; no original answers or source-specific Gold published."
+        },
+        "observable_response": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+        "full_partial_alternative": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "activity_ids": [
+            "v14-v.contextual_sense-1",
+            "v14-v.contextual_sense-2",
+            "v14-v.contextual_sense-3"
+          ],
+          "status": "investigator_authored_full_partial_alternative_answers_present; human_scoring_not_validated"
+        },
+        "wrong_defer_differential": {
+          "private_binding": {
+            "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+            "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+            "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+            "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+            "access": "ignored restricted research input; not in public Git"
+          },
+          "status": "activity_specific_wrong_defer_minimal_contrasts_present; not learner_error_frequencies"
+        },
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "method_prerequisites_limits": "First secure word/statement access and distinguish access support from answer hints; each method is a conditional design candidate, not a prerequisite lock or established effect. See preserved-and-refined method rows.",
+        "actual_material_composition": [
+          {
+            "activity_id": "v14-v.contextual_sense-1",
+            "role": "model_explanation"
+          },
+          {
+            "activity_id": "v14-v.contextual_sense-2",
+            "role": "guided_practice"
+          },
+          {
+            "activity_id": "v14-v.contextual_sense-3",
+            "role": "independent_check"
+          }
+        ],
+        "independent_check_conditions": "Named independent_check activity is a content candidate. Before use, human/content/rights/Gold/rubric qualification, learner-specific shared/normalized body and hint exposure, input version, first unaided response freeze, assistance conditions and independent scoring must be validated. No student unseen stock currently counted.",
+        "transfer_task": "Use a different source/topic/type where the same performance is required; record changed/constant conditions and learner exposure. Candidate source refs are development-exposed, not actual successful transfer observations.",
+        "delayed_task": "Use a previously qualified performance prompt on an actual later occasion; record elapsed time, intervening study, supports and memory exposure. Repeated identical source is retention on that source, not automatically transfer.",
+        "evidence_and_unverified_effects": "Source binding + investigator-authored logical Gold only; no human expert/learner/scorer reliability/comparative teaching effects. R3/R4/R5 promotion blocked."
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "수식·논항이 가능한 뜻을 어떻게 제한하는지 말한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "수식·논항이 가능한 뜻을 어떻게 제한하는지 말한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant",
+          "why": "대상 표현을 포함한 단위로 자연스럽게 풀어 쓴다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "대상 표현을 포함한 단위로 자연스럽게 풀어 쓴다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "처음 뜻 가설을 후속 문맥으로 유지/수정한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "처음 뜻 가설을 후속 문맥으로 유지/수정한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "실제 경쟁 뜻이 있을 때 같은 구간에 대입한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "실제 경쟁 뜻이 있을 때 같은 구간에 대입한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only",
+          "why": "대상 표현의 국소 뜻과 전체 중심을 구별한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "대상 표현의 국소 뜻과 전체 중심을 구별한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "conditional",
+          "why": "단서 명제와 뜻 후보의 적합 관계를 설명한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "단서 명제와 뜻 후보의 적합 관계를 설명한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only",
+          "why": "전역 정보가 필요한 뜻일 때만 조직을 참고한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "전역 정보가 필요한 뜻일 때만 조직을 참고한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional",
+          "why": "후보 속 표현인지 본문 표현인지 구분하고 해석한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "후보 속 표현인지 본문 표현인지 구분하고 해석한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "conditional",
+          "why": "뜻을 바꾼 후보와 내용 조건만 바꾼 후보를 분리한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "뜻을 바꾼 후보와 내용 조건만 바꾼 후보를 분리한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "자신의 뜻 해석·단서와 다른 뜻이 맞는 새 문맥을 제안한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "source_claim": "Investigator-created tasks and semantic targets grounded in admitted source inputs, not observed teaching efficacy.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2016#29",
+            "why": "Choosing competing versus cooperating concerns semantic relation and discourse fit; its lexical format does not itself demonstrate selecting a polysemous word sense."
+          },
+          "learner_action": "자신의 뜻 해석·단서와 다른 뜻이 맞는 새 문맥을 제안한다",
+          "independent_check": "Use the named direct-check candidate only after response/Gold/rights/exposure qualification. Record the target TASK response independently of the method label.",
+          "effectiveness_status": "not_tested",
+          "prior_method_preserved": true,
+          "version": "1.4-design-refinement"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [
+            "v14-v.contextual_sense-1",
+            "v14-v.contextual_sense-2",
+            "v14-v.contextual_sense-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [
+            "v14-v.contextual_sense-1"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34",
+            "2024#23"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [
+            "v14-v.contextual_sense-2"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [
+            "2024#23"
+          ],
+          "unseen_pool": "not_admitted_yet",
+          "status": "concrete_prompt_and_semantic_gold_candidate",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [
+            "v14-v.contextual_sense-3"
+          ],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "unsupported_qualified_stock; contract_only",
+          "student_exposure_policy": "Research exposure and learner exposure are independent records; reuse across roles does not create new independent evidence.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+          "activity_ids": [],
+          "learner_unseen_available": "unknown",
+          "scoring_qualification": "not_validated"
+        }
+      ],
+      "activity_ids": [
+        "v14-v.contextual_sense-1",
+        "v14-v.contextual_sense-2",
+        "v14-v.contextual_sense-3"
+      ],
+      "transfer_candidates": [
+        {
+          "item_id": "2016#23",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2024#34",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        },
+        {
+          "item_id": "2024#23",
+          "status": "development_reference_only; may not be assigned after teaching this source",
+          "qualification": "requires different unseen source for an actual transfer design"
+        }
+      ],
+      "scoring_categories": [
+        "meets_semantic_contract",
+        "partial",
+        "meaning_scope_defect",
+        "defer"
+      ],
+      "numeric_weights": "not_established",
+      "promotion_gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "synthetic_minimal_contrast": {
+        "origin": "new investigator-authored toy text, not KICE original",
+        "stimulus": [
+          "그의 날카로운 지적이 회의 분위기를 바꾸었다.",
+          "날카로운 칼을 조심히 다루었다."
+        ],
+        "target": "문맥에서 비유적 지적과 물리적 날의 뜻을 선택하고 근거를 설명",
+        "contrast": "두 표현의 의미 관계 설명 V4와 문맥 뜻 선택 V2를 구별"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "activity_id": "v14-r.central_meaning-1",
+      "task_id": "r.central_meaning",
+      "item_id": "2023#20",
+      "material_role": "model_explanation",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "bb281c43828847ac488b82c7d47e63d160031892ed599b088b00a0ffe96bc123",
+        "binding": "8b135bbcdbe714ec02fa691c235e057a0b087b9395f8ebb10fd90512aa73ba63",
+        "anchor": {
+          "field": "passage",
+          "start": 427,
+          "end": 465
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "hidden_until_first_response_frozen",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "central",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "scope",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "evidence",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "generation",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-r.central_meaning-2",
+      "task_id": "r.central_meaning",
+      "item_id": "2015#21",
+      "material_role": "guided_practice",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "hidden_until_first_response_frozen",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "central",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "scope",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "support",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "independence",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-r.central_meaning-3",
+      "task_id": "r.central_meaning",
+      "item_id": "2024#23",
+      "material_role": "independent_check",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 893,
+          "end": 916
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "hidden_until_first_response_frozen",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "central",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "scope",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "support",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "generation",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-1",
+      "task_id": "e.option_correspondence",
+      "item_id": "2017#25",
+      "material_role": "model_explanation",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "9288f0d03969b895baff23a3ea4ae25170e5c4ade752ff9c45d80eb74e90310e",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 760,
+          "end": 774
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "all_five_shown_and_logged",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "target",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "support",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "fit",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "coverage",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-2",
+      "task_id": "e.option_correspondence",
+      "item_id": "2024#28",
+      "material_role": "guided_practice",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 305,
+          "end": 345
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "all_five_shown_and_logged",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "target",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "scope",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "fit",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "coverage",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-3",
+      "task_id": "e.option_correspondence",
+      "item_id": "2015#24",
+      "material_role": "independent_check",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+        "row_sha256": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+        "binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+        "anchor": {
+          "field": "passage",
+          "start": 300,
+          "end": 315
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "all_five_shown_and_logged",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "target",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "support",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "fit",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "coverage",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "task_id": "s.form_scope",
+      "item_id": "2024#28",
+      "material_role": "model_explanation",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 350,
+          "end": 388
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "not_needed_for_derived_TASK_prompt",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "operator",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "domain",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "boundary",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "countermodel",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "task_id": "s.form_scope",
+      "item_id": "2015#21",
+      "material_role": "guided_practice",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "not_needed_for_derived_TASK_prompt",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "condition",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "strength",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "reverse",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "examples",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "task_id": "s.form_scope",
+      "item_id": "2014A#32",
+      "material_role": "independent_check",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "anchor": {
+          "field": "passage",
+          "start": 557,
+          "end": 593
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "not_needed_for_derived_TASK_prompt",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "comparison",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "conjunction",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "units",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "boundary",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-1",
+      "task_id": "v.contextual_sense",
+      "item_id": "2016#23",
+      "material_role": "model_explanation",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 578,
+          "end": 617
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "not_needed_for_derived_TASK_prompt",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "sense",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "arguments",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "cue",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "limit",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-2",
+      "task_id": "v.contextual_sense",
+      "item_id": "2024#34",
+      "material_role": "guided_practice",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+        "row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+        "binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+        "anchor": {
+          "field": "passage",
+          "start": 154,
+          "end": 178
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "one_expression_candidate_is_explicitly_given; guided_only",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "target",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "sense",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "cue",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "separation",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "task_id": "v.contextual_sense",
+      "item_id": "2024#23",
+      "material_role": "independent_check",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 921,
+          "end": 937
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "information_contract": {
+        "body": "complete_original_body_and_printed_glosses",
+        "original_options": "not_needed_for_derived_TASK_prompt",
+        "presentation": "retain chart axes/labels/given sentences/source annotations where applicable",
+        "research_exposure": "previously_exposed_development",
+        "student_unseen": "unknown_not_asserted"
+      },
+      "private_response_and_rubric_binding": {
+        "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+        "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+        "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+        "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+        "access": "ignored restricted research input; not in public Git"
+      },
+      "analytic_rubric_facets": [
+        {
+          "facet": "sense",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "arguments",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "cue",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        },
+        {
+          "facet": "limit",
+          "levels": [
+            "meets",
+            "partial",
+            "defect",
+            "defer"
+          ],
+          "weight": "not_established",
+          "rater_reliability": "not_tested"
+        }
+      ],
+      "learner_response_unit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+      "qualification": {
+        "research_design": "R0_with_R1_source_links",
+        "public_content": "not_reviewed",
+        "direct_assessment_R3": false,
+        "student_data": 0,
+        "human_gold_review": 0,
+        "effectiveness": "not_tested"
+      }
+    }
+  ],
+  "counts": {
+    "packages": 4,
+    "contracts_per_package": 14,
+    "concrete_activities": 12,
+    "analytic_facets": 48,
+    "method_comparisons": 40,
+    "material_roles": 24,
+    "qualified_public_stock": 0,
+    "qualified_independent_stock": 0,
+    "observed_transfer": 0,
+    "observed_delayed": 0,
+    "student_count": 0,
+    "human_review_count": 0,
+    "effect_trials": 0
+  },
+  "scope": "Specification completion is not content publication, direct assessment validity, learner measurement or instructional effect.",
+  "forbidden_interpretations": [
+    "automatic NeedRank/mastery/deficit promotion",
+    "individual score gain",
+    "total required question count",
+    "R0/R1 to learner evidence",
+    "research exposure implies learner exposure"
+  ],
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages.json",
+    "sha256": "a2250ac4726f05b1a152a4f555aa06524369ea54431d3f97204623f6af15c6be",
+    "specifications_path": "scripts/research/csat-reading/local/v14/education-specifications.json",
+    "specifications_sha256": "5c9dd0a09e32c5258aa73bb1036bdb105b1432cea8c506b9f076e181bc7fd5f2",
+    "access": "ignored restricted research input; not in public Git"
+  },
+  "public_artifact_policy": "Detailed source-specific prompts/Gold/partial/alternative/wrong/defer and boundaries are restricted. Public package provides contracts, own synthetic contrasts, qualification and content-addressed private references."
+}

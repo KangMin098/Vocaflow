@@ -1,0 +1,22 @@
+{
+  "version": "1.4-post-draft-self-falsification",
+  "first_detailed_package_preserved": true,
+  "reviewer": "same education AI context; not independent expert",
+  "scope": "Draft response alternatives are design candidates and can fail meaning preservation even when source binding is complete.",
+  "findings": [
+    {
+      "activity_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "target": "private gold.semantic_equivalent",
+      "status": "hold_ambiguity",
+      "why": "One alternative formulation can be interpreted causally, while the target expression licenses close correspondence. Do not promote association to a proven causal relation.",
+      "proposed_revision_contract": "Preserve correspondence of viewpoint and travel mode; causal determination is not a required equivalent.",
+      "first_bytes_changed": false,
+      "public_response_gold_present": false,
+      "automatic_assessment_use": false
+    }
+  ],
+  "human_Gold_review": 0,
+  "scorer_reliability": "not_tested",
+  "effectiveness": "not_tested"
+}

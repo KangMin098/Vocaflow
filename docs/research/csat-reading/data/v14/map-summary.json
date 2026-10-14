@@ -1,0 +1,586 @@
+{
+  "version": "1.4",
+  "prior_reviewed_unique": 74,
+  "new_reviewed_unique": 24,
+  "cumulative_reviewed_unique": 98,
+  "all_item_task_combinations": 23580,
+  "unreviewed_combinations": 23482,
+  "automatic_candidates": 6310,
+  "source_available_items": 59,
+  "restricted_frame_combinations": 197,
+  "purposeful_n": 8,
+  "uniform_n": 16,
+  "first_AI_states": {
+    "direct": 11,
+    "indirect": 9,
+    "not_applicable": 4,
+    "unknown": 0
+  },
+  "strata": [
+    {
+      "task_id": "r.central_meaning",
+      "restricted_denominator": 48,
+      "random_denominator": 46,
+      "reviewed": 6,
+      "states": {
+        "direct": 2,
+        "indirect": 2,
+        "not_applicable": 2,
+        "unknown": 0
+      },
+      "purposeful": {
+        "direct": 1,
+        "indirect": 0,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "uniform": {
+        "direct": 1,
+        "indirect": 2,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "categories": [
+        {
+          "category": "direct_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2019#23",
+            "2015#32"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-BLANK"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "indirect_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014B#38",
+            "2020#36"
+          ],
+          "types": [
+            "R-ORDER"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "candidate_overlink",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": "Direct automatic proposal compared against actual direct status; indirect may still be useful support."
+        },
+        {
+          "category": "candidate_omission",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2015#32"
+          ],
+          "types": [
+            "R-BLANK"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "not_related",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2015#24",
+            "2017#25"
+          ],
+          "types": [
+            "R-FACT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "defer",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": "No unresolved verdict was forced to populate this target category."
+        },
+        {
+          "category": "TASK_confusion",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2019#23",
+            "2015#24",
+            "2015#32",
+            "2017#25",
+            "2014B#38",
+            "2020#36"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-FACT",
+            "R-BLANK",
+            "R-ORDER"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "cross_type_performance",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2019#23",
+            "2015#32"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-BLANK"
+          ],
+          "limitations": "Different original types with a related solution performance; not student transfer."
+        }
+      ]
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "restricted_denominator": 49,
+      "random_denominator": 47,
+      "reviewed": 6,
+      "states": {
+        "direct": 5,
+        "indirect": 1,
+        "not_applicable": 0,
+        "unknown": 0
+      },
+      "purposeful": {
+        "direct": 1,
+        "indirect": 1,
+        "not_applicable": 0,
+        "unknown": 0
+      },
+      "uniform": {
+        "direct": 4,
+        "indirect": 0,
+        "not_applicable": 0,
+        "unknown": 0
+      },
+      "categories": [
+        {
+          "category": "direct_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2022#25",
+            "2018#19",
+            "2015#21",
+            "2016#18"
+          ],
+          "types": [
+            "R-CHART",
+            "R-MOOD",
+            "R-TOPIC",
+            "R-PURPOSE"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "indirect_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#28"
+          ],
+          "types": [
+            "R-GRAMMAR"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "candidate_overlink",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#28"
+          ],
+          "types": [
+            "R-GRAMMAR"
+          ],
+          "limitations": "Direct automatic proposal compared against actual direct status; indirect may still be useful support."
+        },
+        {
+          "category": "candidate_omission",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": null
+        },
+        {
+          "category": "not_related",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": null
+        },
+        {
+          "category": "defer",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": "No unresolved verdict was forced to populate this target category."
+        },
+        {
+          "category": "TASK_confusion",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#28",
+            "2014A#32",
+            "2022#25",
+            "2018#19",
+            "2015#21",
+            "2016#18"
+          ],
+          "types": [
+            "R-GRAMMAR",
+            "R-CHART",
+            "R-MOOD",
+            "R-TOPIC",
+            "R-PURPOSE"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "cross_type_performance",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2022#25",
+            "2018#19",
+            "2015#21",
+            "2016#18"
+          ],
+          "types": [
+            "R-CHART",
+            "R-MOOD",
+            "R-TOPIC",
+            "R-PURPOSE"
+          ],
+          "limitations": "Different original types with a related solution performance; not student transfer."
+        }
+      ]
+    },
+    {
+      "task_id": "s.form_scope",
+      "restricted_denominator": 50,
+      "random_denominator": 48,
+      "reviewed": 6,
+      "states": {
+        "direct": 2,
+        "indirect": 3,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "purposeful": {
+        "direct": 1,
+        "indirect": 0,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "uniform": {
+        "direct": 1,
+        "indirect": 3,
+        "not_applicable": 0,
+        "unknown": 0
+      },
+      "categories": [
+        {
+          "category": "direct_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2021#26"
+          ],
+          "types": [
+            "R-CHART",
+            "R-FACT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "indirect_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#18",
+            "2014A#36",
+            "2017#38"
+          ],
+          "types": [
+            "R-PURPOSE",
+            "R-BLANK2",
+            "R-INSERT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "candidate_overlink",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#28"
+          ],
+          "types": [
+            "R-GRAMMAR"
+          ],
+          "limitations": "Direct automatic proposal compared against actual direct status; indirect may still be useful support."
+        },
+        {
+          "category": "candidate_omission",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2021#26"
+          ],
+          "types": [
+            "R-CHART",
+            "R-FACT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "not_related",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2018#28"
+          ],
+          "types": [
+            "R-GRAMMAR"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "defer",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": "No unresolved verdict was forced to populate this target category."
+        },
+        {
+          "category": "TASK_confusion",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2018#28",
+            "2018#18",
+            "2021#26",
+            "2014A#36",
+            "2017#38"
+          ],
+          "types": [
+            "R-CHART",
+            "R-GRAMMAR",
+            "R-PURPOSE",
+            "R-FACT",
+            "R-BLANK2",
+            "R-INSERT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "cross_type_performance",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#32",
+            "2021#26"
+          ],
+          "types": [
+            "R-CHART",
+            "R-FACT"
+          ],
+          "limitations": "Different original types with a related solution performance; not student transfer."
+        }
+      ]
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "restricted_denominator": 50,
+      "random_denominator": 48,
+      "reviewed": 6,
+      "states": {
+        "direct": 2,
+        "indirect": 3,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "purposeful": {
+        "direct": 0,
+        "indirect": 1,
+        "not_applicable": 1,
+        "unknown": 0
+      },
+      "uniform": {
+        "direct": 2,
+        "indirect": 2,
+        "not_applicable": 0,
+        "unknown": 0
+      },
+      "categories": [
+        {
+          "category": "direct_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2024#23",
+            "2020#20"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-CLAIM"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "indirect_support",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2016#29",
+            "2020#37",
+            "2015#24"
+          ],
+          "types": [
+            "R-VOCAB",
+            "R-ORDER",
+            "R-FACT"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "candidate_overlink",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2016#29"
+          ],
+          "types": [
+            "R-VOCAB"
+          ],
+          "limitations": "Direct automatic proposal compared against actual direct status; indirect may still be useful support."
+        },
+        {
+          "category": "candidate_omission",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2024#23",
+            "2020#20"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-CLAIM"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "not_related",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2014A#36"
+          ],
+          "types": [
+            "R-BLANK2"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "defer",
+          "status": "not_observed_in_new_sample",
+          "item_ids": [],
+          "types": [],
+          "limitations": "No unresolved verdict was forced to populate this target category."
+        },
+        {
+          "category": "TASK_confusion",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2016#29",
+            "2014A#36",
+            "2020#37",
+            "2024#23",
+            "2015#24",
+            "2020#20"
+          ],
+          "types": [
+            "R-VOCAB",
+            "R-BLANK2",
+            "R-ORDER",
+            "R-TOPIC",
+            "R-FACT",
+            "R-CLAIM"
+          ],
+          "limitations": null
+        },
+        {
+          "category": "cross_type_performance",
+          "status": "observed_AI_case_candidate",
+          "item_ids": [
+            "2024#23",
+            "2020#20"
+          ],
+          "types": [
+            "R-TOPIC",
+            "R-CLAIM"
+          ],
+          "limitations": "Different original types with a related solution performance; not student transfer."
+        }
+      ]
+    }
+  ],
+  "candidate_disagreement": {
+    "direct_proposals": 9,
+    "direct_proposal_not_direct": [
+      {
+        "item_id": "2018#28",
+        "task_id": "e.option_correspondence",
+        "relevance": "indirect"
+      },
+      {
+        "item_id": "2018#28",
+        "task_id": "s.form_scope",
+        "relevance": "not_applicable"
+      },
+      {
+        "item_id": "2016#29",
+        "task_id": "v.contextual_sense",
+        "relevance": "indirect"
+      }
+    ],
+    "unknown_proposal_direct": [
+      {
+        "item_id": "2015#32",
+        "task_id": "r.central_meaning"
+      },
+      {
+        "item_id": "2014A#32",
+        "task_id": "s.form_scope"
+      },
+      {
+        "item_id": "2021#26",
+        "task_id": "s.form_scope"
+      },
+      {
+        "item_id": "2024#23",
+        "task_id": "v.contextual_sense"
+      },
+      {
+        "item_id": "2020#20",
+        "task_id": "v.contextual_sense"
+      }
+    ]
+  },
+  "source_qualification": {
+    "all24": "inherited complete question/source/gloss/mark/key admission; direct re-reading of all selected research inputs by this analyst",
+    "new_PDF_audit": false,
+    "graph_derived_table": "2014A#32/2022#25 are original charts with inherited derived cells; chart and derived reading remain distinct",
+    "rights_publication": "unresolved"
+  },
+  "independent_AI_review": "pending_separate_first_ledger; do not call single_AI counts consensus",
+  "human_review": 0,
+  "student_observations": 0,
+  "population_precision": false,
+  "population_omission_rate": false,
+  "limitations": [
+    "Old exposed development materials; this expansion is not a fresh blinded confirmation.",
+    "Purposeful strata do not estimate distributions. The uniform audit pertains only to the remaining available restricted TASK frame.",
+    "E3 automatic rule covers all choices so a candidate-outside E3 stratum is absent; absence cannot establish zero omissions.",
+    "Unknown and not-applicable targets are not manufactured to meet an eight-category quota.",
+    "Item-TASK relevance is not a learner deficit or an assessment qualification."
+  ]
+}

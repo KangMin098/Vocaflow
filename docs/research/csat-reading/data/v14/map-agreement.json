@@ -1,0 +1,111 @@
+{
+  "version": "1.4",
+  "n": 24,
+  "first_hash": "9a6bbe2194f5698fd8356fc19d8669eb955e7f7e4d4491edf0147f86aac1c4e6",
+  "second_hash": "c053d34200eefbf3101f6779a5fa0cd68d3451246d7fe235ff6c87ad61586071",
+  "first_second_preserved": true,
+  "first_states": {
+    "direct": 11,
+    "not_applicable": 4,
+    "indirect": 9
+  },
+  "second_states": {
+    "direct": 13,
+    "indirect": 9,
+    "not_applicable": 2
+  },
+  "agreement": {
+    "n": 24,
+    "raw_agreement": 0.75,
+    "scorable_agreement_over_all": 0.75,
+    "resolved_pair_n": 24,
+    "resolved_pair_agreement": 0.75,
+    "resolved_kappa": 0.5813953488372092,
+    "kappa": 0.5813953488372092,
+    "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+    "labels": [
+      "direct",
+      "indirect",
+      "not_applicable"
+    ],
+    "confusion": {
+      "direct": {
+        "direct": 11,
+        "indirect": 0,
+        "not_applicable": 0
+      },
+      "indirect": {
+        "direct": 2,
+        "indirect": 6,
+        "not_applicable": 1
+      },
+      "not_applicable": {
+        "direct": 0,
+        "indirect": 3,
+        "not_applicable": 1
+      }
+    }
+  },
+  "disagreements": [
+    {
+      "item_id": "2015#24",
+      "task_id": "r.central_meaning",
+      "first": "not_applicable",
+      "second": "indirect",
+      "first_why": "생애 사실의 여행 방식 한 항목을 비교할 수 있다. 전체 생애 요지를 생성할 요구는 원래 과제에 없다.",
+      "second_why": "인물의 활동을 전체적으로 파악하면 세부 진술 확인을 돕지만 중심 명제 생성이 원문 요구는 아니다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "r.central_meaning",
+      "first": "not_applicable",
+      "second": "indirect",
+      "first_why": "공동 집필 정보와 단독 집필 후보의 대응으로 판정할 수 있어 중심 생성 요구를 인정하지 않는다.",
+      "second_why": "영화인의 일생을 묶어 이해하면 탐색을 돕지만 개별 사건·행위자 대조를 중심 명제 생성으로 보지 않는다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    },
+    {
+      "item_id": "2018#28",
+      "task_id": "e.option_correspondence",
+      "first": "indirect",
+      "second": "not_applicable",
+      "first_why": "밑줄 형식의 문장 기능을 검사하는 과제다. 고립 표현은 사실 명제가 아니며 S 계열 분석이 직접 요구된다.",
+      "second_why": "밑줄 후보는 본문과 대조할 독립 명제가 아니라 어법 점검 대상인 형태들이다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    },
+    {
+      "item_id": "2018#28",
+      "task_id": "s.form_scope",
+      "first": "not_applicable",
+      "second": "indirect",
+      "first_why": "문제의 what 절은 목적어 공백 없는 완전 절에 대한 연결 형식이다. 부정·비교·양화·조건의 의미 범위가 핵심 판정이 아니다.",
+      "second_why": "조건과 양적 비교 문장이 의미 이해를 돕지만 밑줄 오류 판별의 형태·절 연결을 범위 수행과 동일시할 수 없다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    },
+    {
+      "item_id": "2014A#36",
+      "task_id": "s.form_scope",
+      "first": "indirect",
+      "second": "direct",
+      "first_why": "조건부 상황 예를 일반 성향과 구분하는 의미 범위가 관계 판단을 지원한다. 원래 빈칸은 예시·대조 기능 요구가 중심이다.",
+      "second_why": "두 집단의 성향을 구별하는 부정 정도와 가정 상황의 범위를 읽는 것이 연결 관계를 결정하는 실제 경로다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    },
+    {
+      "item_id": "2016#29",
+      "task_id": "v.contextual_sense",
+      "first": "indirect",
+      "second": "direct",
+      "first_why": "동일 먹이 이용을 후보 의미와 연결한다. 핵심은 경쟁·협력의 의미 관계와 문맥 적합성이며 하나의 다의어 뜻 선택을 직접 요구한다고 할 증거는 부족하다.",
+      "second_why": "단순 후보 적합성뿐 아니라 생태 서술에서 다의 동사가 어떤 의미 영역을 갖는지 정하는 경로가 있다.",
+      "resolution": "unresolved_preserve_both_no_forced_consensus"
+    }
+  ],
+  "same_label_semantic_justification_not_automatically_validated": true,
+  "unique_reviewed_opportunities": 98,
+  "latest_single_first_view": "map-summary.json",
+  "unknown_remaining": 23482,
+  "student_use": false,
+  "rights_public_eligibility_not_inferred": true
+}

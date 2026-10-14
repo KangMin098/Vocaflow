@@ -1,0 +1,10 @@
+{
+  "version": "1.4",
+  "n": 24,
+  "purpose": "Separate AI second source review after first24 sealed; no first labels/candidates/education Gold provided",
+  "input_sha256": "55c998553e41197d8b9bffdacbf20b3e361a243b1da6d4865aad26cb4a96d4d0",
+  "first_hash": "9a6bbe2194f5698fd8356fc19d8669eb955e7f7e4d4491edf0147f86aac1c4e6",
+  "first_modified": false,
+  "source_role": "inherited_complete_59_frame",
+  "fresh_passage_confirmation": false
+}
