@@ -1,0 +1,62 @@
+{
+  "version": "1.5",
+  "recorded_utc": "2026-10-14T09:57:55Z",
+  "method": "read-only aggregate SQL knowledge_applications surface=csat_item_task; same key/item dedup and role split as product availability; no learner records",
+  "rows": [
+    {
+      "content_key": "claim-support",
+      "status": "active",
+      "role": "confirm",
+      "items": 9,
+      "rows": 9,
+      "release_marked": 9
+    },
+    {
+      "content_key": "claim-support",
+      "status": "active",
+      "role": "transfer",
+      "items": 4,
+      "rows": 4,
+      "release_marked": 4
+    },
+    {
+      "content_key": "cohesion-link",
+      "status": "draft",
+      "role": "confirm",
+      "items": 1,
+      "rows": 1,
+      "release_marked": 0
+    },
+    {
+      "content_key": "evidence-locate",
+      "status": "active",
+      "role": "confirm",
+      "items": 5,
+      "rows": 5,
+      "release_marked": 5
+    },
+    {
+      "content_key": "evidence-locate",
+      "status": "draft",
+      "role": "transfer",
+      "items": 4,
+      "rows": 4,
+      "release_marked": 0
+    },
+    {
+      "content_key": "option-restate",
+      "status": "active",
+      "role": "confirm",
+      "items": 6,
+      "rows": 6,
+      "release_marked": 6
+    }
+  ],
+  "zero_keys": [
+    "vocab-context",
+    "grammar-scope",
+    "sentence-core",
+    "inference"
+  ],
+  "meaning": "active application inventory; not independent researcher rights/admission or assessment validity"
+}

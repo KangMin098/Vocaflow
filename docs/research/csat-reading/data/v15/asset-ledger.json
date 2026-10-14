@@ -1,0 +1,1017 @@
+{
+  "version": "1.5",
+  "source_activities": 12,
+  "source_facets": 48,
+  "priority_activities": 6,
+  "new_source_audits": 0,
+  "rewritten_activities": 0,
+  "rows": [
+    {
+      "activity_id": "v14-r.central_meaning-1",
+      "item_id": "2023#20",
+      "exam_id": "2023",
+      "academic_year": 2023,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2023:20",
+      "task_id": "r.central_meaning",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "bb281c43828847ac488b82c7d47e63d160031892ed599b088b00a0ffe96bc123",
+        "binding": "8b135bbcdbe714ec02fa691c235e057a0b087b9395f8ebb10fd90512aa73ba63",
+        "anchor": {
+          "field": "passage",
+          "start": 427,
+          "end": 465
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-r.central_meaning-1"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "eecc3157-3981-4195-9e3b-109b758d06a9",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:51:39.308+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-r.central_meaning-2",
+      "item_id": "2015#21",
+      "exam_id": "2015",
+      "academic_year": 2015,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2015:21",
+      "task_id": "r.central_meaning",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-r.central_meaning-2"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "6777ed13-d279-4178-b33a-733fdad4308e",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:53:34.203+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-r.central_meaning-3",
+      "item_id": "2024#23",
+      "exam_id": "2024",
+      "academic_year": 2024,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2024:23",
+      "task_id": "r.central_meaning",
+      "original_item_task_relevance": {
+        "state": "unknown",
+        "reason": "No matching actual relationship row; derived question relevance is separate"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 893,
+          "end": 916
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-r.central_meaning-3"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "32d5e20e-f85b-4e34-ac5d-a46f86fa4cb3",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:53:39.443+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "unknown_original_path",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-1",
+      "item_id": "2017#25",
+      "exam_id": "2017",
+      "academic_year": 2017,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2017:25",
+      "task_id": "e.option_correspondence",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "9288f0d03969b895baff23a3ea4ae25170e5c4ade752ff9c45d80eb74e90310e",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 760,
+          "end": 774
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": false,
+        "presentation_field": false
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-e.option_correspondence-1"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "state": "not_read_in_v15",
+        "reason": "outside priority six activities; previous connection preserved"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-2",
+      "item_id": "2024#28",
+      "exam_id": "2024",
+      "academic_year": 2024,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2024:28",
+      "task_id": "e.option_correspondence",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 305,
+          "end": 345
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": false,
+        "presentation_field": false
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-e.option_correspondence-2"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "9a13aa12-1eff-42e6-bf99-261664b04586",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:52:47.023+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-e.option_correspondence-3",
+      "item_id": "2015#24",
+      "exam_id": "2015",
+      "academic_year": 2015,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "normalized body SHA e1e81a47d56471f59cc02935478d490ea2fccfce94c98b53da3bffaf8c61b2f1",
+      "task_id": "e.option_correspondence",
+      "original_item_task_relevance": {
+        "state": "unknown",
+        "reason": "No matching actual relationship row; derived question relevance is separate"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+        "row_sha256": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+        "binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+        "anchor": {
+          "field": "passage",
+          "start": 300,
+          "end": 315
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-e.option_correspondence-3"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "state": "not_read_in_v15",
+        "reason": "outside priority six activities; previous connection preserved"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "unknown_original_path",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "exam_id": "2024",
+      "academic_year": 2024,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2024:28",
+      "task_id": "s.form_scope",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 350,
+          "end": 388
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": false,
+        "presentation_field": false
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-s.form_scope-1"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "9a13aa12-1eff-42e6-bf99-261664b04586",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:52:47.023+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "exam_id": "2015",
+      "academic_year": 2015,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2015:21",
+      "task_id": "s.form_scope",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-s.form_scope-2"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "6777ed13-d279-4178-b33a-733fdad4308e",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:53:34.203+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "exam_id": "2014A",
+      "academic_year": 2014,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2014A:32",
+      "task_id": "s.form_scope",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "anchor": {
+          "field": "passage",
+          "start": 557,
+          "end": 593
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-s.form_scope-3"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "07e27dac-b0b0-4d11-aad2-6d69ed87b63a",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:51:30.087+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "exam_id": "2016",
+      "academic_year": 2016,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2016:23",
+      "task_id": "v.contextual_sense",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 578,
+          "end": 617
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": false,
+        "presentation_field": false
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-v.contextual_sense-1"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "9896e494-fcbd-4887-8911-71048e6a8118",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:53:26.448+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "exam_id": "2024",
+      "academic_year": 2024,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "normalized body SHA 27dd3e27f78e159763a01833c13c5a4b6c82f1053a614583a3c806a1ca3ed46f",
+      "task_id": "v.contextual_sense",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+        "row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+        "binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+        "anchor": {
+          "field": "passage",
+          "start": 154,
+          "end": 178
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-v.contextual_sense-2"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "ce4ca4a2-e5ea-4fcb-8215-b560932590b6",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:51:22.037+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "exam_id": "2024",
+      "academic_year": 2024,
+      "paper_form": "inherited same-form source admission; precise PDF metadata retained in original source ledger",
+      "passage_group": "2024:23",
+      "task_id": "v.contextual_sense",
+      "original_item_task_relevance": {
+        "state": "direct",
+        "classification": "source-bound AI reviewed path, not every sufficient route"
+      },
+      "derived_task_relevance": "specific observable educational question in v14 revision3",
+      "analysis_version": "v14 education revision3",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 921,
+          "end": 937
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "field_presence": {
+        "body": true,
+        "stem": true,
+        "choices": 5,
+        "gloss_field": true,
+        "presentation_field": true
+      },
+      "completeness": "inherited source admission, field presence alone does not certify PDF completeness",
+      "information_and_response": {
+        "private_activity_reference": {
+          "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+          "activity_id": "v14-v.contextual_sense-3"
+        },
+        "scope_fields": [
+          "student_prompt",
+          "source.anchor",
+          "response_schema",
+          "analytic_rubric",
+          "gold"
+        ],
+        "first_bytes_unchanged": true
+      },
+      "v3_connection": {
+        "analysis_id": "32d5e20e-f85b-4e34-ac5d-a46f86fa4cb3",
+        "version": 3,
+        "status": "published",
+        "updated_at": "2026-09-04 00:53:39.443+00",
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI reconstruction, not official intention/educational-effect/Gold proof"
+      },
+      "roles": "original v14 modeled/guided/direct-check candidate; new overlays separately listed",
+      "exposure": {
+        "researcher": "exposed development",
+        "student": "unknown",
+        "same_shared_normalized_body_exclusion_required": true
+      },
+      "rights": "unresolved_not_publicly_qualified",
+      "stages": {
+        "source_verified": "inherited AI PDF/same-form-key binding",
+        "task_relevance_reviewed": "AI original path reviewed",
+        "education_spec_reviewed": "AI revision3 supported",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": [
+          "rights_release",
+          "human_Gold",
+          "scorer_validation",
+          "student_exposure"
+        ]
+      }
+    }
+  ],
+  "source_stage_not_final_rights": true
+}

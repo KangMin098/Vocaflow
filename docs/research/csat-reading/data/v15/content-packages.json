@@ -1,0 +1,401 @@
+{
+  "version": "1.5-content-overlay-first",
+  "prior": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+    "sha256": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e"
+  },
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+    "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+  },
+  "counts": {
+    "prior_all_activities": 12,
+    "prior_all_facets": 48,
+    "reused_priority_activities": 6,
+    "new_activities": 2,
+    "new_unique_exam_passages": 0,
+    "additional_passages_to_priority_task_packages": 2,
+    "material_role_uses": 14,
+    "total_priority_activities": 8,
+    "public_qualified": 0,
+    "direct_assessment_qualified": 0,
+    "actual_students": 0
+  },
+  "packages": [
+    {
+      "task_id": "v.contextual_sense",
+      "workspace_id": "ws.vocab-context",
+      "retained_activity_ids": [
+        "v14-v.contextual_sense-1",
+        "v14-v.contextual_sense-2",
+        "v14-v.contextual_sense-3"
+      ],
+      "new_activity_ids": [
+        "v15-v.contextual_sense-transfer-1"
+      ],
+      "roles": [
+        {
+          "role": "original_analysis",
+          "activity_ids": [
+            "v14-v.contextual_sense-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "principle_explanation",
+          "activity_ids": [
+            "v14-v.contextual_sense-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "semantic_contrast",
+          "activity_ids": [
+            "v14-v.contextual_sense-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "guided_practice",
+          "activity_ids": [
+            "v14-v.contextual_sense-2"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "direct_check",
+          "activity_ids": [
+            "v14-v.contextual_sense-3"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "other_passage_transfer",
+          "activity_ids": [
+            "v15-v.contextual_sense-transfer-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "delayed_retrieval",
+          "activity_ids": [
+            "v14-v.contextual_sense-3"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "concrete_existing_prompt_reused_under_delayed_delivery_contract",
+          "delivery": {
+            "interval_days": 7,
+            "interval_status": "design_choice_not_effect_optimum",
+            "required_records": [
+              "actual elapsed time",
+              "intervening study",
+              "same/shared/normalized passage and answer exposure",
+              "assistance",
+              "first response before feedback"
+            ],
+            "meaning": "same-source retention only; not automatically transfer"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        }
+      ],
+      "coverage": {
+        "basic_context_relation": [
+          "mirror",
+          "signal",
+          "reflect"
+        ],
+        "polysemy": [
+          "mirror",
+          "reflect"
+        ],
+        "conventional_vs_compositional": "tracks completed-candidate idiomatic/correspondence contrast; productive composition compared; comprehensive idiom inventory absent",
+        "local_vs_discourse": [
+          "mirror local arguments",
+          "reflect prior/current contrast",
+          "signal reward and non-market contrast"
+        ],
+        "equivalent_vs_nonequivalent": "each preserved or new Gold includes equivalent/wrong responses",
+        "conditions_and_rejected_sense": "explicit source ranges and alternative exclusion for all four activities",
+        "uncovered": "sense family diversity limited; no independent learner trial or broad lexicon coverage"
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": "six inherited activities accepted in v14 AI content review; two new activities investigator only",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualification": {
+        "public_qualified_count": 0,
+        "direct_assessment_qualified_count": 0,
+        "actual_student_count": 0
+      }
+    },
+    {
+      "task_id": "s.form_scope",
+      "workspace_id": "ws.grammar-scope",
+      "retained_activity_ids": [
+        "v14-s.form_scope-1",
+        "v14-s.form_scope-2",
+        "v14-s.form_scope-3"
+      ],
+      "new_activity_ids": [
+        "v15-s.form_scope-transfer-1"
+      ],
+      "roles": [
+        {
+          "role": "original_analysis",
+          "activity_ids": [
+            "v14-s.form_scope-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "principle_explanation",
+          "activity_ids": [
+            "v14-s.form_scope-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "semantic_contrast",
+          "activity_ids": [
+            "v14-s.form_scope-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "guided_practice",
+          "activity_ids": [
+            "v14-s.form_scope-2"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "provided_after_initial_attempt_or_modelled"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "direct_check",
+          "activity_ids": [
+            "v14-s.form_scope-3"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "other_passage_transfer",
+          "activity_ids": [
+            "v15-s.form_scope-transfer-1"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "source_bound_content_candidate",
+          "delivery": {
+            "feedback": "withheld_until_first_response_seal"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        },
+        {
+          "role": "delayed_retrieval",
+          "activity_ids": [
+            "v14-s.form_scope-3"
+          ],
+          "detail": {
+            "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+            "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+          },
+          "status": "concrete_existing_prompt_reused_under_delayed_delivery_contract",
+          "delivery": {
+            "interval_days": 7,
+            "interval_status": "design_choice_not_effect_optimum",
+            "required_records": [
+              "actual elapsed time",
+              "intervening study",
+              "same/shared/normalized passage and answer exposure",
+              "assistance",
+              "first response before feedback"
+            ],
+            "meaning": "same-source retention only; not automatically transfer"
+          },
+          "new_independent_evidence": false,
+          "learner_unseen": "unknown",
+          "qualified_public": false,
+          "qualified_direct_assessment": false
+        }
+      ],
+      "coverage": {
+        "negation": [
+          "2024#28 length upper bound",
+          "2023#20 elimination negation"
+        ],
+        "quantification": [
+          "2024#28 per-student maximum; participation obligation not implied"
+        ],
+        "condition": [
+          "2015#21 no immediate danger; converse not licensed"
+        ],
+        "comparison": [
+          "2014A#32 same indicator/year",
+          "2023#20 more vs most synthetic contrast"
+        ],
+        "restriction": [
+          "2024#28 per-student distribution"
+        ],
+        "time": [
+          "2023#20 present-result vs perpetual-future synthetic contrast"
+        ],
+        "attachment_vs_scope": "existing minimum TASK contrasts kept; no attachment-only success accepted as scope mastery",
+        "minimal_contrast": [
+          "length equal/above boundary",
+          "risk-free/danger case",
+          "synthetic equal/unequal cells",
+          "hasn’t/has",
+          "more/most"
+        ],
+        "uncovered": "universal-existential nested quantifier and complex tense/aspect inventory not covered"
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": "six inherited activities accepted in v14 AI content review; two new activities investigator only",
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualification": {
+        "public_qualified_count": 0,
+        "direct_assessment_qualified_count": 0,
+        "actual_student_count": 0
+      }
+    }
+  ]
+}

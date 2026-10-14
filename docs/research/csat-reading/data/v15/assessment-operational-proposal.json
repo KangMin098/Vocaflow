@@ -1,0 +1,17 @@
+{
+  "version": "1.5-post-first-proposal",
+  "use": "development supplement only; no retroactive first changes or qualified student scorer",
+  "preserved_rubric": "v14 revision3 original Gold and 48 facets unchanged",
+  "boundaries": [
+    {"facet": "conjunction", "issue": "partial for correct individual clauses without whole conjunction overlaps defer wording", "proposal": "defer only when no interpretable individual/whole conjunction judgment is supplied; partial when correct component judgments form an observable proper subset but whole conjunction judgment is absent; meets requires whole result and conjunctive condition"},
+    {"facet": "comparison", "issue": "repeating group names and actual numeric values versus unambiguous supplied comparison reference", "proposal": "record identification and numeric-ground completeness separately; permit referential ellipsis only when it uniquely binds provided groups/claims; never infer a new referent or convert missing requested numeric evidence into full evidence"},
+    {"facet": "units", "issue": "actual value completeness can be incorrectly charged to units", "proposal": "units scores indicator, year/period, scale and unit; numeric evidence completeness belongs to comparison evidence; implicit year/period acceptance requires a separately frozen coding rule"},
+    {"facet": "cross_facet", "issue": "correct conclusion with wrong explanation", "proposal": "explicit wrong grounds fail the corresponding evidence facet; retain correct formal conjunction separately if observable; do not infer single overall mastery from mixed facet results"},
+    {"facet": "procedure", "issue": "correct copied prose versus independent performance", "proposal": "semantic quality remains observable; explicit pre-answer exposure is ineligible and absent reliable logs is defer, independently of meaning score"}
+  ],
+  "validation": "not yet independent student-response/scorer validated",
+  "future_required": ["human adjudication of observed boundary cases", "new diverse synthetic responses with frozen explicit rules", "blind actual-response scoring", "student exposure and independent/transfer/delay logs"],
+  "public_qualified": 0,
+  "assessment_qualified": 0,
+  "students": 0
+}

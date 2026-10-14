@@ -1,0 +1,65 @@
+{
+  "version": "1.5",
+  "counts": {
+    "inherited_all_activities": 12,
+    "inherited_all_facets": 48,
+    "reused_priority_activities": 6,
+    "new_activity_candidates": 2,
+    "total_priority_activities": 8,
+    "new_exam_originals": 0,
+    "source_bound_priority_activities": 8,
+    "material_role_uses": 14,
+    "new_content_activities_reviewed": 2,
+    "new_content_facets_reviewed": 8,
+    "source_bound_followup_questions": 3,
+    "synthetic_responses": 16,
+    "synthetic_facet_pairs": 64,
+    "public_qualified": 0,
+    "assessment_qualified": 0,
+    "students": 0,
+    "human_or_rights_approved": false,
+    "mastery_verified": false
+  },
+  "role_and_activity_denominators_separate": true,
+  "latest_content_QA": {
+    "path": "docs/research/csat-reading/data/v15/content-review-revision3-summary.json",
+    "sha256": "0db1003a9aac15b1e05811a973e784c0ccdef0b163157ee36c3a4558cbb30766"
+  },
+  "product_inventory": {
+    "path": "docs/research/csat-reading/data/v15/product-inventory.json",
+    "sha256": "d4332ffc83604f83396efa0ddd07aed29fe45edc054f0d46f913a17d0aa3a8ac"
+  },
+  "published_type_inventory": {
+    "path": "docs/research/csat-reading/data/v15/published-type-inventory.json",
+    "sha256": "daa2a1a48385cbad074e0c2dccd6b6a304a2e9412ef3f9b337838f1d61d0636f"
+  },
+  "source_exams": {
+    "denominator": "csat_exams organizer=kice; includes invalid M2009 and 2027 mock, not the 2014–2026 research core",
+    "exams": 30,
+    "body_catalog_exams": 29,
+    "db_full_key_exams": 27,
+    "db_unsupported_exams": 3,
+    "diagnosis_ready": 5,
+    "unsupported_ids": [
+      "2014A",
+      "2014B",
+      "M2009"
+    ],
+    "interpretation": "M2009 invalidity is the registered misclassified source, not a claim that the historical exam did not exist; 27/30 DB-key coverage is not full regime/provenance validation"
+  },
+  "remaining_gates": [
+    "human source/Gold/content review",
+    "publication rights/release",
+    "actual-response scorer validation",
+    "student unseen/explanation exposure",
+    "independent student transfer/delay",
+    "teaching efficacy"
+  ],
+  "v14_failed_claims_preserved": [
+    "target equivalence/normalization",
+    "support versus task fit",
+    "relation necessity",
+    "restricted reading sufficiency",
+    "learner effects"
+  ]
+}

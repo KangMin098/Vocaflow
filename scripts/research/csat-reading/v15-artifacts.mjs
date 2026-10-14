@@ -1,0 +1,7 @@
+// scripts/research/csat-reading/v15-artifacts.mjs
+import fs from 'node:fs';import path from 'node:path';import {digest,frozen} from './v15-guard.mjs';
+const b='docs/research/csat-reading/',d=b+'data/v15/',index=d+'artifacts.json';
+const files=[...fs.readdirSync(b).filter(f=>f.startsWith('V15-')&&f.endsWith('.md')).map(f=>b+f),b+'PROTOCOL-v1.5.md',...fs.readdirSync(d).filter(f=>f.endsWith('.json')&&f!=='artifacts.json').map(f=>d+f),...fs.readdirSync('scripts/research/csat-reading/').filter(f=>f.startsWith('v15-')).map(f=>'scripts/research/csat-reading/'+f)].sort();
+if(process.argv.includes('--check')){const old=JSON.parse(fs.readFileSync(index,'utf8'));if(JSON.stringify(Object.keys(old.files))!==JSON.stringify(files))throw Error('Artifact list drift');frozen(old.files);console.log(JSON.stringify({status:'pass',artifacts:files.length}));}
+else{fs.writeFileSync(index,JSON.stringify({version:'1.5',scope:'research artifacts only; original indices unchanged',files:Object.fromEntries(files.map(p=>[p,digest(p)])),private_sources:'ignored local originals/keys/Gold/response data excluded; metadata refs bind exact private bytes'},null,2)+'\n');console.log(JSON.stringify({indexed:files.length}));}
+for(const f of files.filter(f=>f.endsWith('.md'))){const text=fs.readFileSync(f,'utf8');for(const m of text.matchAll(/\]\(([^)]+)\)/g)){const target=m[1].split('#')[0];if(target&&!/^https?:|^\//.test(target)&&!fs.existsSync(path.resolve(path.dirname(f),target)))throw Error('Missing link '+f+': '+target);}}

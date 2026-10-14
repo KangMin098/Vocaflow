@@ -1,0 +1,164 @@
+{
+  "version": "1.5-current-published-supplement",
+  "preserved_old": {
+    "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+    "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+  },
+  "latest_private": {
+    "path": "scripts/research/csat-reading/local/v15/v3-latest-published.json",
+    "sha256": "07b1a5ea9d5ac5100426d6a8595c3b87ab266297547bb6305447741c87061759"
+  },
+  "rows": [
+    {
+      "item_id": "2014A#32",
+      "preserved_reference_version": 3,
+      "latest_published_version": 5,
+      "latest_uuid": "773bf706-01ab-4110-8216-986db498cf7a",
+      "latest_updated_at": "2026-10-11 07:39:03.729+00",
+      "latest_row_sha256": "97012ac45660a7c94374df49cca675e890a50e2376a62eccff079c46e9398305",
+      "changed_fields": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest interpretation changed; historical version3 risk must not be attributed to current published text"
+    },
+    {
+      "item_id": "2015#21",
+      "preserved_reference_version": 3,
+      "latest_published_version": 4,
+      "latest_uuid": "e55dd11f-8bc5-4fa3-9363-b982a6c54147",
+      "latest_updated_at": "2026-09-15 19:39:46.332+00",
+      "latest_row_sha256": "d0b9df103dc8cc7942b040010e52f8656716375d92b4eeb414d10636e16241a9",
+      "changed_fields": [
+        "answer_locus"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    },
+    {
+      "item_id": "2016#23",
+      "preserved_reference_version": 3,
+      "latest_published_version": 4,
+      "latest_uuid": "6b9e1960-892f-4714-9ed3-6bae085c2269",
+      "latest_updated_at": "2026-09-15 19:39:41.85+00",
+      "latest_row_sha256": "70e71e39ed94fdcc89059d1cfce74e2b24fc6824bdb88e01ce51d9079e05e9e0",
+      "changed_fields": [
+        "answer_locus"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    },
+    {
+      "item_id": "2021#22",
+      "preserved_reference_version": 3,
+      "latest_published_version": 5,
+      "latest_uuid": "780a491e-a01b-4364-b1cb-f9c4195f59fc",
+      "latest_updated_at": "2026-10-01 03:10:48.214+00",
+      "latest_row_sha256": "81305655dc9de5168a40f98767034966799d0a1e4b1e4c4cbe672fc0faa38e08",
+      "changed_fields": [
+        "answer_locus"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    },
+    {
+      "item_id": "2023#20",
+      "preserved_reference_version": 3,
+      "latest_published_version": 4,
+      "latest_uuid": "a5fac627-ef78-4ba8-a73b-254a28fdde46",
+      "latest_updated_at": "2026-09-15 19:39:05.369+00",
+      "latest_row_sha256": "57e2b87a485eb877e37a427856274d7b892092a5d2a56d9a821e5b5310065da8",
+      "changed_fields": [
+        "answer_locus"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    },
+    {
+      "item_id": "2024#23",
+      "preserved_reference_version": 3,
+      "latest_published_version": 6,
+      "latest_uuid": "7c887a95-8e66-4e08-a824-acb022e23aff",
+      "latest_updated_at": "2026-10-11 02:35:47.837+00",
+      "latest_row_sha256": "8c840e39cbe2cb4efedbb6623be625f60ceb579e69c88e538abc0735077b1802",
+      "changed_fields": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest interpretation changed; historical version3 risk must not be attributed to current published text"
+    },
+    {
+      "item_id": "2024#28",
+      "preserved_reference_version": 3,
+      "latest_published_version": 4,
+      "latest_uuid": "723e89f3-803b-46c1-bd7d-fe980cd11c3c",
+      "latest_updated_at": "2026-09-15 19:39:29.601+00",
+      "latest_row_sha256": "58bcc47b1b4a63fbbfffd9cc7818237b0d8ddd533d995a56d8016e0b487153ee",
+      "changed_fields": [],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    },
+    {
+      "item_id": "2024#34",
+      "preserved_reference_version": 3,
+      "latest_published_version": 4,
+      "latest_uuid": "42852f3e-6d50-4eaf-93dd-d4793ac66ede",
+      "latest_updated_at": "2026-09-15 19:38:55.544+00",
+      "latest_row_sha256": "55d05e25c8079d8d767a07aa3ee1904040fbc0ee13be9db7565df29c0de78ec2",
+      "changed_fields": [
+        "answer_locus"
+      ],
+      "fields_read": [
+        "measured_ability",
+        "design_intent",
+        "answer_locus",
+        "solve_procedure"
+      ],
+      "interpretation": "latest fields reread; retained interpretation is still AI reconstruction, not official author/effect or assessment Gold"
+    }
+  ],
+  "UI_actual_selection_reexecuted": false,
+  "old_content_and_assessment_inputs_modified": false,
+  "note": "v3 is also a product name; DB version3 and latest published analysis revision must be kept separate. New max-version fields were read without changing earlier connections or Gold."
+}

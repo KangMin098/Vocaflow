@@ -1,0 +1,123 @@
+{
+  "version": "1.5",
+  "branch": "research/csat-reading-v15",
+  "base": "67070e430",
+  "task": "T-0029",
+  "counts": {
+    "inherited_all_activities": 12,
+    "inherited_all_facets": 48,
+    "reused_priority_activities": 6,
+    "new_activity_candidates": 2,
+    "total_priority_activities": 8,
+    "new_exam_originals": 0,
+    "source_bound_priority_activities": 8,
+    "material_role_uses": 14,
+    "new_content_activities_reviewed": 2,
+    "new_content_facets_reviewed": 8,
+    "source_bound_followup_questions": 3,
+    "synthetic_responses": 16,
+    "synthetic_facet_pairs": 64,
+    "public_qualified": 0,
+    "assessment_qualified": 0,
+    "students": 0,
+    "human_or_rights_approved": false,
+    "mastery_verified": false
+  },
+  "education_content_packet": {
+    "TASKs": [
+      "v.contextual_sense",
+      "s.form_scope"
+    ],
+    "workspace_ids": [
+      "ws.vocab-context",
+      "ws.grammar-scope"
+    ],
+    "inherited_assets": {
+      "path": "docs/research/csat-reading/data/v15/asset-ledger.json",
+      "sha256": "aa9bf3e864607d0581acaeecea4bb78386f430b0fe2dcf20ac57b8757f9a3bae"
+    },
+    "source_candidates": {
+      "path": "docs/research/csat-reading/data/v15/content-candidates-revision1.json",
+      "sha256": "67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20"
+    },
+    "content_revision": {
+      "path": "docs/research/csat-reading/data/v15/content-revision2.json",
+      "sha256": "8f1e31624677923f285a3abad283fa15033c0c4388f6d96edcf7cba032e985c6"
+    },
+    "delivery_revision": {
+      "path": "docs/research/csat-reading/data/v15/content-delivery-revision3.json",
+      "sha256": "2e1522490b77dcf3d6ef61cc469436ed5d7979fe5d35ed92e9ea32ae916af310"
+    },
+    "latest_review": {
+      "path": "docs/research/csat-reading/data/v15/content-review-revision3-summary.json",
+      "sha256": "0db1003a9aac15b1e05811a973e784c0ccdef0b163157ee36c3a4558cbb30766"
+    },
+    "private_materials": [
+      {
+        "path": "scripts/research/csat-reading/local/v15/content-packages-revision2.json",
+        "sha256": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+        "sha256": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6"
+      }
+    ],
+    "access": "restricted session-readable, not public license",
+    "latest_published_analysis": {
+      "path": "docs/research/csat-reading/data/v15/v3-latest-connection.json",
+      "sha256": "42b46a5c3f3f14d867cbd6f695bc06056238ef63916252f92bee013a9c5a3e3a"
+    }
+  },
+  "direct_confirmation_packet": {
+    "first_synthetic_agreement": {
+      "path": "docs/research/csat-reading/data/v15/assessment-agreement.json",
+      "sha256": "73e53cc35bea5aebcf8f7015048ce375cdba7b0ea4cafa90876a4073bd4bd49c"
+    },
+    "post_first_review": {
+      "path": "docs/research/csat-reading/data/v15/assessment-review.json",
+      "sha256": "220d5e225e17cf5b0bf80a91a6e4368ca07415904a141233d18b908c1219f7b3"
+    },
+    "operational_proposal": {
+      "path": "docs/research/csat-reading/data/v15/assessment-operational-proposal.json",
+      "sha256": "bb02a2375c55c0cbfd1bd3b65bf0fa41c55a25acdb5e1f521fff720e9bb75b81"
+    },
+    "response_format": "separate semantic facet and procedural eligibility",
+    "qualification": "assessment_pending; not a product diagnostic classifier"
+  },
+  "support_gaps_packet": {
+    "workspaces": {
+      "path": "docs/research/csat-reading/data/v15/workspace-gaps.json",
+      "sha256": "165b150c2b835019f0a2f3764fe2772b7e24647570b6523dec2cd9f28806a2e9"
+    },
+    "exam_sources": {
+      "path": "docs/research/csat-reading/data/v15/exam-sources.json",
+      "sha256": "559fbaeb0119ad57bc5c010a3025058b0da1388c7784831975dd29d562ef92a6"
+    }
+  },
+  "product_read_only": {
+    "observed_main": "7cb87ec791f0c1f0bbf1941fa2fa983a64cb58d1",
+    "observed_v62_head": "a4ad79fa0",
+    "P_M0_to_M2b_documents_read": true,
+    "P_M3": "user-reported ongoing; not runtime-verified here"
+  },
+  "use_now": "design/reference and further review only",
+  "requires_further_review": [
+    "human source/Gold/content review",
+    "publication rights/release",
+    "actual-response scorer validation",
+    "student unseen/explanation exposure",
+    "independent student transfer/delay",
+    "teaching efficacy"
+  ],
+  "forbidden": [
+    "automatic NeedRank promotion",
+    "student deficit/mastery",
+    "expected score gain",
+    "total needed questions",
+    "teaching effect",
+    "official author intention",
+    "listening/timed ability from reading"
+  ],
+  "DB_UI_public_v3_learner_records_changed": false,
+  "main_merged": false
+}

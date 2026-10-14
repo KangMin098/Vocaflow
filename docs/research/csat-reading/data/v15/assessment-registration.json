@@ -1,0 +1,26 @@
+{
+  "version": "1.5",
+  "classification": "not_started",
+  "first_required": 2,
+  "expected_labels_not_provided_to_raters": true,
+  "hashes": {
+    "docs/research/csat-reading/PROTOCOL-v1.5.md": "a0bdf930367b1fef5f30721fbbe6820d8f8e1e53137709e92249aa2ba30f1019",
+    "scripts/research/csat-reading/local/v15/assessment-input.json": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+    "scripts/research/csat-reading/local/v15/assessment-expected.json": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38",
+    "scripts/research/csat-reading/local/v15/rater-instructions.md": "a32eb57da03f535150d17cd552507aa63919b1cfa7930d5b0f27c5782d1ee7b1",
+    "scripts/research/csat-reading/v15-assessment.mjs": "c8c65b67345d8d7b69d5fdbb3c58a176dcfe139554d770a093a4185d6637ff1b"
+  },
+  "meaning_states": [
+    "meets",
+    "partial",
+    "defect",
+    "defer"
+  ],
+  "procedural_states": [
+    "eligible",
+    "ineligible",
+    "defer"
+  ],
+  "expected_procedure_unknown_mapping": "unknown maps to defer only for comparison; original expected bytes preserved",
+  "students": 0
+}

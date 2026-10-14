@@ -1,0 +1,170 @@
+{
+  "version": "1.5-role-overlay-revision1",
+  "first_public": {
+    "path": "docs/research/csat-reading/data/v15/content-packages.json",
+    "sha256": "52d28a454164da88e263a48938e832636ebf31869aadbb6ede2985c9bcdc770b"
+  },
+  "private_role_detail": {
+    "path": "scripts/research/csat-reading/local/v15/content-roles-revision1.json",
+    "sha256": "c173661d74dfa8e9c244d0e2fe149e7e2fc2d36a09c4627ea68ec5abea62719f"
+  },
+  "role_uses": 14,
+  "roles": [
+    {
+      "material_id": "v14-v.contextual_sense-1--original_analysis",
+      "task_id": "v.contextual_sense",
+      "role": "original_analysis",
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "mode": "worked_original_passage_example",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-v.contextual_sense-1--principle_explanation",
+      "task_id": "v.contextual_sense",
+      "role": "principle_explanation",
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "mode": "explicit_principle_plus_actual_source_instantiation",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-v.contextual_sense-1--semantic_contrast",
+      "task_id": "v.contextual_sense",
+      "role": "semantic_contrast",
+      "activity_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "mode": "actual_semantic_contrast_not_original_exam_options",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-v.contextual_sense-2--guided_practice",
+      "task_id": "v.contextual_sense",
+      "role": "guided_practice",
+      "activity_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-v.contextual_sense-3--direct_check",
+      "task_id": "v.contextual_sense",
+      "role": "direct_check",
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v15-v.contextual_sense-transfer-1--other_passage_transfer",
+      "task_id": "v.contextual_sense",
+      "role": "other_passage_transfer",
+      "activity_id": "v15-v.contextual_sense-transfer-1",
+      "item_id": "2021#22",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-v.contextual_sense-3--delayed_retrieval",
+      "task_id": "v.contextual_sense",
+      "role": "delayed_retrieval",
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-1--original_analysis",
+      "task_id": "s.form_scope",
+      "role": "original_analysis",
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "mode": "worked_original_passage_example",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-1--principle_explanation",
+      "task_id": "s.form_scope",
+      "role": "principle_explanation",
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "mode": "explicit_principle_plus_actual_source_instantiation",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-1--semantic_contrast",
+      "task_id": "s.form_scope",
+      "role": "semantic_contrast",
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "mode": "actual_semantic_contrast_not_original_exam_options",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-2--guided_practice",
+      "task_id": "s.form_scope",
+      "role": "guided_practice",
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-3--direct_check",
+      "task_id": "s.form_scope",
+      "role": "direct_check",
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v15-s.form_scope-transfer-1--other_passage_transfer",
+      "task_id": "s.form_scope",
+      "role": "other_passage_transfer",
+      "activity_id": "v15-s.form_scope-transfer-1",
+      "item_id": "2023#20",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    },
+    {
+      "material_id": "v14-s.form_scope-3--delayed_retrieval",
+      "task_id": "s.form_scope",
+      "role": "delayed_retrieval",
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "mode": "same_prompt_reused_with_role_specific_feedback",
+      "new_scored_activity": false,
+      "public_qualified": false,
+      "direct_assessment_qualified": false
+    }
+  ],
+  "new_activity_content_review": "investigator_only_pending_independent_QA",
+  "new_actual_student_observations": 0
+}

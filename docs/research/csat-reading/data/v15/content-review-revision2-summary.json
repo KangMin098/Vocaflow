@@ -1,0 +1,20 @@
+{
+  "version":"1.5-content-review-revision2-summary",
+  "first_freeze_utc":"2026-10-14 10:31:54 UTC",
+  "decision":"content_spec_acceptable_with_delivery_conditions",
+  "private_review":{"path":"scripts/research/csat-reading/local/v15/content-review-revision2.json","sha256":"f8067d8cc116bc4a9f88d571885591fe518ff6ce18f3a72054f0c7245c65687e"},
+  "first_review":{"path":"scripts/research/csat-reading/local/v15/content-review-first.json","sha256":"a274a336120bc04aa7f4bc03bec7036b586991a824f8bed83ec50453092baf20","unchanged":true},
+  "inputs":[
+    {"path":"scripts/research/csat-reading/local/v15/content-packages-revision2.json","sha256":"ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf"},
+    {"path":"scripts/research/csat-reading/local/v15/content-roles-revision2.json","sha256":"a42b0b7319f8279d42e817097e946b2a228bf3205cebc87c79023fd5fa386112"}
+  ],
+  "counts":{"new_activities_reviewed":2,"new_facets_reviewed":8,"role_uses_reviewed":14,"unique_priority_activities":8,"retained_priority_activities":6,"retained_priority_facets":24,"prior_all_activities":12,"prior_all_facets":48,"new_unique_exam_passages":0,"additional_passages_to_task_packages":2,"resolved_first_requests":4,"remaining_semantic_content_defects":0,"remaining_provider_handoff_requests":1,"affected_handoff_roles":2,"prior_unresolved_conditions":8},
+  "resolved_ids":["CR-D01","CR-D02","CR-D03","CR-D04"],
+  "remaining_handoff_ids":["CR-H01"],
+  "prior_unresolved_ids":["CR-U01","CR-U02","CR-U03","CR-U04","CR-U05","CR-U06","CR-U07","CR-U08"],
+  "activity_decisions":[{"review_id":"CR-A01","decision":"semantic_spec_acceptable"},{"review_id":"CR-A02","decision":"semantic_spec_acceptable"}],
+  "checks":{"input_hashes_match":true,"first_review_unchanged":true,"six_retained_objects_unchanged":true,"two_source_rows_match":true,"ten_evidence_ranges_match":true,"four_role_source_bodies_and_hashes_match":true},
+  "qualification":{"AI_content_spec_review":"acceptable_with_delivery_conditions","provider_execution":"conditional_on_CR-H01","public_qualified":0,"direct_assessment_qualified":0,"human_approved":0,"actual_students":0,"student_effect_approved":0},
+  "blind_boundary":{"assessment_input_read":false,"expected_read":false,"rater_outputs_read":false},
+  "publication_policy":"Opaque IDs, counts, references and hashes; concrete content and handoff repair details remain private. First/revision2 reviews are frozen separately."
+}

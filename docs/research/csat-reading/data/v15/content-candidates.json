@@ -1,0 +1,1061 @@
+{
+  "version": "1.5-candidate-ledger-first",
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+    "sha256": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e"
+  },
+  "candidates": [
+    {
+      "candidate_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2024,
+        "form": "홀수형",
+        "question_number": 28
+      },
+      "shared_passage_group": "2024:28",
+      "shared_question_ids": [],
+      "task_id": "s.form_scope",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "pdf": {
+          "filename": "2024_영어영역_문제지.pdf",
+          "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+          "page": 4,
+          "paper_form": "홀수형",
+          "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+          "provenance_level": "local_KICE_identified_question_paper",
+          "official_download_chain": "unresolved"
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "sha256": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-1",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 616
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-1",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-1"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "9a13aa12-1eff-42e6-bf99-261664b04586",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "26dc2f18bcfe162375485e422cb7cda60131d113edff50186f0ecc3670f6d7a5",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "original choice path does not itself measure this TASK separately"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2015,
+        "form": "홀수형",
+        "question_number": 21
+      },
+      "shared_passage_group": "2015:21",
+      "shared_question_ids": [
+        "2015#20",
+        "2015#21"
+      ],
+      "task_id": "s.form_scope",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "pdf": {
+          "filename": "2015_영어영역-홀수.pdf",
+          "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+          "pages": [
+            2,
+            3
+          ],
+          "paper_form": "홀수형",
+          "source_header": {
+            "form": null,
+            "paper_form": "홀수"
+          },
+          "actual_paper_form": "홀수형",
+          "source_header_matches_actual": true,
+          "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png",
+          "provenance_limitations": [
+            "official_download_chain_unresolved",
+            "AI_PDF_source_admission_not_human"
+          ],
+          "shared_stem_render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-2.png"
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true,
+          "units": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2015영어영역_정답표_홀수.pdf",
+          "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+          "page": 1,
+          "paper_form": "홀수형",
+          "number": 21,
+          "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2015-key-1.png"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-2",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 724
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-2",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-2"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "6777ed13-d279-4178-b33a-733fdad4308e",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "984fa162578c01ff07ca55ebc16bc33b3a0aecd0c21fc3375bff9e08f4ae4750",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "original choice path does not itself measure this TASK separately"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2014,
+        "form": "A형 홀수형",
+        "question_number": 32
+      },
+      "shared_passage_group": "2014A:32",
+      "shared_question_ids": [],
+      "task_id": "s.form_scope",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "pdf": {
+          "filename": "2014_영어A-홀수형_문제.pdf",
+          "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "pages": [
+            6
+          ],
+          "paper_form": "A형 홀수형",
+          "render": "scripts/research/csat-reading/local/v13/source-2014A-q-6.png",
+          "provenance_limitations": [
+            "official_download_chain_unresolved",
+            "AI_source_admission_not_human"
+          ]
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+          "sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "page": 1,
+          "paper_form": "A형 홀수형",
+          "number": 32,
+          "render": "scripts/research/csat-reading/local/main-20261014/source-2014A-key-1.png"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-3",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 718
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-3",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-s.form_scope-3"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "07e27dac-b0b0-4d11-aad2-6d69ed87b63a",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "ed984a7b6fa1130e7e6bb41247a24f0f295ecdde540c26330ab413e5f493fba3",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "candidate-to-candidate consistency and reading-time claims do not establish graphic truth or student speed"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v14-v.contextual_sense-1",
+      "item_id": "2016#23",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2016,
+        "form": "홀수형",
+        "question_number": 23
+      },
+      "shared_passage_group": "2016:23",
+      "shared_question_ids": [],
+      "task_id": "v.contextual_sense",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+        "binding": null,
+        "pdf": {
+          "filename": "2016_영어영역-홀수.pdf",
+          "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+          "page": 3,
+          "paper_form": "홀수형",
+          "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+          "provenance_level": "local_KICE_identified_question_paper",
+          "official_download_chain": "unresolved"
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "sha256": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2016영어영역_정답표.pdf",
+          "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-1",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 976
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-1",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-1"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "9896e494-fcbd-4887-8911-71048e6a8118",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "ae8115d5c764bc01e4031ac8631587287bd87f94ba98bb45262f58cbd9c01be6",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "original choice path does not itself measure this TASK separately"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v14-v.contextual_sense-2",
+      "item_id": "2024#34",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2024,
+        "form": "홀수형",
+        "question_number": 34
+      },
+      "shared_passage_group": "2024:34",
+      "shared_question_ids": [
+        "2024#31",
+        "2024#32",
+        "2024#33",
+        "2024#34"
+      ],
+      "task_id": "v.contextual_sense",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+        "row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+        "binding": null,
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v12/restoration-b.json",
+          "sha256": "a7255edb058a15eaf4429e5840514121d641d11977c6fc19f9e76d106e509e1e"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-2",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 1084
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "candidate supplied to interpret a completed sentence"
+      },
+      "observable_output": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-2",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-2"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "ce4ca4a2-e5ea-4fcb-8215-b560932590b6",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "d837b21955c1c171c06ca1c35ad86d1fd978510482ed05b9da25c56c66becbc8",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "unique locus and causal-direction assertions do not prove causal entailment of a supplied lexical candidate"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2024,
+        "form": "홀수형",
+        "question_number": 23
+      },
+      "shared_passage_group": "2024:23",
+      "shared_question_ids": [],
+      "task_id": "v.contextual_sense",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.4-revision3-preserved",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "pdf": {
+          "filename": "2024_영어영역_문제지.pdf",
+          "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+          "pages": [
+            3
+          ],
+          "paper_form": "홀수형",
+          "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-3.png",
+          "provenance_limitations": [
+            "official_download_chain_unresolved",
+            "AI_source_admission_not_human"
+          ]
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2024영어영역_정답표.pdf",
+          "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+          "page": 1,
+          "paper_form": "홀수형",
+          "number": 23,
+          "render": "scripts/research/csat-reading/local/main-20261014/source-2024-key-1.png"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-3",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 987
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-3",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v14-v.contextual_sense-3"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "32d5e20e-f85b-4e34-ac5d-a46f86fa4cb3",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "73d2feef07bf3187fbd9c9e52934b73ecb9b41c0afd6642368bac0b926333cfe",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "comparison cue alone does not establish whole title choice or full contextual sense"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": true,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v15-v.contextual_sense-transfer-1",
+      "item_id": "2021#22",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2021,
+        "form": "짝수형",
+        "question_number": 22
+      },
+      "shared_passage_group": "2021:22",
+      "shared_question_ids": [],
+      "task_id": "v.contextual_sense",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.5-derived-overlay",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "4082155ac7aee1435d6b6a4008ce58bd6ef2203cc800002b25da48f244c1bf32",
+        "binding": "5c9759f39ba543669739a21f0468a25b0812444f0ff34d938b0fb5ddcae9418d",
+        "pdf": {
+          "filename": "2021_3교시_영어영역_짝.pdf",
+          "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+          "pages": [
+            3
+          ],
+          "paper_form": "짝수형",
+          "source_header": {
+            "form": null,
+            "paper_form": "짝수"
+          },
+          "actual_paper_form": "짝수형",
+          "source_header_matches_actual": true,
+          "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2021-q-3.png",
+          "provenance_limitations": [
+            "official_download_chain_unresolved",
+            "AI_PDF_source_admission_not_human"
+          ]
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true,
+          "units": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2021영어영역_정답표.pdf",
+          "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+          "page": 2,
+          "paper_form": "짝수형",
+          "number": 22,
+          "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-key-2.png"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-v.contextual_sense-transfer-1",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 1044
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "four separate semantic facets and performance-limit explanation",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-v.contextual_sense-transfer-1",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-v.contextual_sense-transfer-1"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "ed6a0a67-452a-435f-8eef-34c895b27ca2",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "f91da4ec8052f3e87a16f303097765ac95645d8c8d907d9459510f1b0a1a5dc1",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "original choice path does not itself measure this TASK separately"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": false,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    },
+    {
+      "candidate_id": "v15-s.form_scope-transfer-1",
+      "item_id": "2023#20",
+      "exam": {
+        "institution": "KICE",
+        "exam_kind": "CSAT_main",
+        "academic_year": 2023,
+        "form": "홀수형",
+        "question_number": 20
+      },
+      "shared_passage_group": "2023:20",
+      "shared_question_ids": [],
+      "task_id": "s.form_scope",
+      "derived_task_relevance": "direct_investigator_source_read",
+      "original_exam_task_relevance": "indirect; original answer does not uniquely observe this derived performance",
+      "analysis_version": "1.5-derived-overlay",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "bb281c43828847ac488b82c7d47e63d160031892ed599b088b00a0ffe96bc123",
+        "binding": "8b135bbcdbe714ec02fa691c235e057a0b087b9395f8ebb10fd90512aa73ba63",
+        "pdf": {
+          "filename": "2023_영어영역_문제지.pdf",
+          "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+          "pages": [
+            2
+          ],
+          "paper_form": "홀수형",
+          "source_header": {
+            "form": null,
+            "paper_form": "홀수"
+          },
+          "actual_paper_form": "홀수형",
+          "source_header_matches_actual": true,
+          "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2023-q-2.png",
+          "provenance_limitations": [
+            "official_download_chain_unresolved",
+            "AI_PDF_source_admission_not_human"
+          ]
+        },
+        "admission_ledger": {
+          "path": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65"
+        },
+        "fields_complete": {
+          "body": true,
+          "stem": true,
+          "options": true,
+          "glosses": true,
+          "presentation": true,
+          "units": true
+        },
+        "same_form_key": true,
+        "key_pdf": {
+          "filename": "2023영어영역_정답표.pdf",
+          "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+          "page": 1,
+          "paper_form": "홀수형",
+          "number": 20,
+          "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2023-key-1.png"
+        },
+        "verification_scope": "existing AI/PDF/same-form-key admission read and linked; not a fresh visual/human audit"
+      },
+      "provided_information": {
+        "private_detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-s.form_scope-transfer-1",
+        "body_range": {
+          "field": "passage",
+          "start": 0,
+          "end": 795
+        },
+        "glosses": "all printed preserved",
+        "presentation": "preserved original plus marked derived cells if graph",
+        "original_candidates": "not needed for derived TASK task"
+      },
+      "observable_output": "four separate semantic facets and performance-limit explanation",
+      "allowed_partial": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-s.form_scope-transfer-1",
+        "facet_specific": true
+      },
+      "counterexample_defer": {
+        "detail": {
+          "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+          "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+        },
+        "activity_id": "v15-s.form_scope-transfer-1"
+      },
+      "v3_connection": {
+        "read": true,
+        "version": 3,
+        "status": "published",
+        "row_uuid": "eecc3157-3981-4195-9e3b-109b758d06a9",
+        "file": {
+          "path": "scripts/research/csat-reading/local/v15/v3-current.json",
+          "sha256": "8fd4736f9bc2db4e0f3f92fc7122f8631e17eca27fad62b3da1049909c523744"
+        },
+        "row_sha256": "c622de8cbda7b2512c919299a650d4ccd0687e406e134e8139d772f62e2e6428",
+        "fields_read": [
+          "measured_ability",
+          "design_intent",
+          "answer_locus",
+          "solve_procedure"
+        ],
+        "epistemic_status": "existing AI interpretation; not official intent, Gold or effect evidence",
+        "risk": "original choice path does not itself measure this TASK separately"
+      },
+      "research_exposure": "author read preserved body, v14 Gold and current v3; development exposed",
+      "learner_exposure": {
+        "same_shared_normalized_body": "unknown",
+        "answer_Gold_hint": "unknown",
+        "first_response": "none"
+      },
+      "rights": {
+        "local_access_confirmed": true,
+        "external_publication": "unresolved",
+        "source_and_Gold_public": false
+      },
+      "stages": {
+        "source_verified": true,
+        "task_relevance_reviewed": true,
+        "education_spec_reviewed": false,
+        "content_qa_pending": true,
+        "assessment_pending": true,
+        "held": false
+      },
+      "qualified": {
+        "public": false,
+        "direct_assessment": false,
+        "student_effect": false
+      }
+    }
+  ]
+}

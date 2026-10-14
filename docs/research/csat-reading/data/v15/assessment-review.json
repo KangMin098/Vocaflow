@@ -1,0 +1,73 @@
+{
+  "version": "1.5-post-first-review",
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v15/assessment-review-first.json",
+    "sha256": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8"
+  },
+  "firsts_preserved": true,
+  "comparisons": [
+    {
+      "rater": "A",
+      "author_expectation_matches": 64,
+      "facet_denominator": 64,
+      "procedure_matches": 16,
+      "procedure_denominator": 16,
+      "expectation_disagreements": [],
+      "issues": [
+        {
+          "kind": "rubric_ambiguity",
+          "response_id": "z77",
+          "facet": "conjunction"
+        },
+        {
+          "kind": "facet_attribution_boundary",
+          "response_id": "z31",
+          "facet": null
+        },
+        {
+          "kind": "response_scope",
+          "response_id": "z03",
+          "facet": null
+        },
+        {
+          "kind": "response_scope",
+          "response_id": "z69",
+          "facet": null
+        }
+      ]
+    },
+    {
+      "rater": "B",
+      "author_expectation_matches": 64,
+      "facet_denominator": 64,
+      "procedure_matches": 16,
+      "procedure_denominator": 16,
+      "expectation_disagreements": [],
+      "issues": [
+        {
+          "kind": "rubric_ambiguity",
+          "response_id": "z77",
+          "facet": "conjunction"
+        },
+        {
+          "kind": "response_scope",
+          "response_id": "z69",
+          "facet": null
+        },
+        {
+          "kind": "rubric_scope_interpretation",
+          "response_id": "z03",
+          "facet": null
+        },
+        {
+          "kind": "rubric_scope_interpretation",
+          "response_id": "z31",
+          "facet": null
+        }
+      ]
+    }
+  ],
+  "interpretation": "100% first AI agreement can coexist with shared rubric ambiguity; no student reliability/validity, no Gold truth or teaching effect inferred",
+  "assessment_qualified": 0,
+  "students": 0
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1.5-role-overlay-revision3",
+  "previous_roles": {
+    "path": "scripts/research/csat-reading/local/v15/content-roles-revision2.json",
+    "sha256": "a42b0b7319f8279d42e817097e946b2a228bf3205cebc87c79023fd5fa386112"
+  },
+  "revision2_independent_review": {
+    "path": "scripts/research/csat-reading/local/v15/content-review-revision2.json",
+    "sha256": "f8067d8cc116bc4a9f88d571885591fe518ff6ce18f3a72054f0c7245c65687e"
+  },
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+    "sha256": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6"
+  },
+  "issue_id": "CR-H01",
+  "guided_roles_changed": 2,
+  "role_uses": 14,
+  "priority_activities": 8,
+  "event_order": [
+    "initial_guided_attempt_freeze",
+    "optional_staged_hint_release_with_exposure_log",
+    "further_guided_attempts_with_assistance_log",
+    "final_guided_response_freeze",
+    "Gold_explanatory_feedback_release"
+  ],
+  "guided_assistance_status": "assisted_guided; never independent confirmation or unaided performance",
+  "questions_Gold_unchanged": true,
+  "frozen_assessment_and_content": [
+    {
+      "path": "scripts/research/csat-reading/local/v15/content-packages-revision2.json",
+      "sha256": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v15/assessment-input.json",
+      "sha256": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v15/assessment-expected.json",
+      "sha256": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38"
+    }
+  ],
+  "independent_revision_review": "pending",
+  "qualified_public": 0,
+  "qualified_direct_assessment": 0,
+  "actual_students": 0
+}

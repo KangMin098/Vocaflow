@@ -1,0 +1,23 @@
+{
+  "version":"1.5-content-review-summary-first",
+  "date":"2026-10-14",
+  "reviewer":"independent_AI_content_QA",
+  "decision":"revision_requested",
+  "private_review":{"path":"scripts/research/csat-reading/local/v15/content-review-first.json","sha256":"a274a336120bc04aa7f4bc03bec7036b586991a824f8bed83ec50453092baf20"},
+  "input_refs":[
+    {"path":"scripts/research/csat-reading/local/v15/content-packages.json","sha256":"dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"},
+    {"path":"scripts/research/csat-reading/local/v15/content-roles-revision1.json","sha256":"c173661d74dfa8e9c244d0e2fe149e7e2fc2d36a09c4627ea68ec5abea62719f"},
+    {"path":"docs/research/csat-reading/data/v15/content-candidates-revision1.json","sha256":"67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20"},
+    {"path":"scripts/research/csat-reading/local/v14/education-packages-revision3.json","sha256":"eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e"}
+  ],
+  "counts":{"new_activities_reviewed":2,"new_facets_reviewed":8,"retained_priority_activities_checked":6,"retained_priority_facets_preserved":24,"prior_all_activities":12,"prior_all_facets":48,"role_uses_reviewed":14,"unique_priority_activities":8,"new_unique_exam_passages":0,"additional_passages_to_task_packages":2,"revision_requests":4,"unresolved_conditions":8},
+  "mechanical_checks":{"prior_registered_hash":true,"six_retained_objects_unchanged":true,"two_source_rows_match":true,"ten_evidence_ranges_match":true,"two_supplied_scopes_sufficient":true,"minimal_scope_established":false},
+  "activity_decisions":[{"review_id":"CR-A01","decision":"semantic_spec_acceptable_with_delivery_conditions"},{"review_id":"CR-A02","decision":"revision_requested"}],
+  "revision_request_ids":["CR-D01","CR-D02","CR-D03","CR-D04"],
+  "unresolved_condition_ids":["CR-U01","CR-U02","CR-U03","CR-U04","CR-U05","CR-U06","CR-U07","CR-U08"],
+  "role_review":{"candidate_functions_defined":10,"delivery_revision_required":4,"independent_evidence_observed":0},
+  "qualification":{"source_admission":"inherited_exact_row_AI_PDF_admission; local question renders corroborated","new_same_form_key_audit":false,"new_original_pdf_byte_audit":false,"AI_spec_QA":"revision_requested","rights":"unresolved","public_qualified":0,"direct_assessment_qualified":0,"human_approved":0,"actual_students":0,"student_effect_approved":0},
+  "blind_boundary":{"assessment_input_read":false,"expected_read":false,"rater_outputs_read":false},
+  "publication_policy":"Opaque review IDs, counts and references only; source bodies, answer numbers, Gold, exact contrast content and repair details remain private.",
+  "first_review_policy":"First private submission immutable. Repairs and subsequent review require distinct versions and hashes."
+}

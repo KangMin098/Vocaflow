@@ -1,0 +1,81 @@
+{
+  "version": "1.5",
+  "synthetic_responses": 16,
+  "facets_per_response": 4,
+  "facet_pairs": 64,
+  "student_observations": 0,
+  "first_hashes": {
+    "scripts/research/csat-reading/local/v15/rater-a-first.json": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c",
+    "scripts/research/csat-reading/local/v15/rater-b-first.json": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530"
+  },
+  "semantic": {
+    "n": 64,
+    "raw_agreement": 1,
+    "scorable_agreement_over_all": 1,
+    "resolved_pair_n": 64,
+    "resolved_pair_agreement": 1,
+    "resolved_kappa": 1,
+    "kappa": 1,
+    "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+    "labels": [
+      "defect",
+      "defer",
+      "meets",
+      "partial"
+    ],
+    "confusion": {
+      "defect": {
+        "defect": 8,
+        "defer": 0,
+        "meets": 0,
+        "partial": 0
+      },
+      "defer": {
+        "defect": 0,
+        "defer": 8,
+        "meets": 0,
+        "partial": 0
+      },
+      "meets": {
+        "defect": 0,
+        "defer": 0,
+        "meets": 43,
+        "partial": 0
+      },
+      "partial": {
+        "defect": 0,
+        "defer": 0,
+        "meets": 0,
+        "partial": 5
+      }
+    }
+  },
+  "procedure": {
+    "n": 16,
+    "raw_agreement": 1,
+    "scorable_agreement_over_all": 1,
+    "resolved_pair_n": 16,
+    "resolved_pair_agreement": 1,
+    "resolved_kappa": 1,
+    "kappa": 1,
+    "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+    "labels": [
+      "defer",
+      "ineligible"
+    ],
+    "confusion": {
+      "defer": {
+        "defer": 14,
+        "ineligible": 0
+      },
+      "ineligible": {
+        "defer": 0,
+        "ineligible": 2
+      }
+    }
+  },
+  "disagreements": [],
+  "not_student_reliability": true,
+  "public_qualification": 0,
+  "direct_assessment_qualification": 0
+}

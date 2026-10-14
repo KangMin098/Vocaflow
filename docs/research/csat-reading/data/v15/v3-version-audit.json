@@ -1,0 +1,49 @@
+{
+  "version": "1.5",
+  "query": "published version=3 reference versus max published version per selected ID; metadata only",
+  "rows": [
+    {
+      "item_id": "2014A#32",
+      "latest_published_version": 5,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2015#21",
+      "latest_published_version": 4,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2016#23",
+      "latest_published_version": 4,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2021#22",
+      "latest_published_version": 5,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2023#20",
+      "latest_published_version": 4,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2024#23",
+      "latest_published_version": 6,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2024#28",
+      "latest_published_version": 4,
+      "published_version3_rows": 1
+    },
+    {
+      "item_id": "2024#34",
+      "latest_published_version": 4,
+      "published_version3_rows": 1
+    }
+  ],
+  "read_connection_version": 3,
+  "interpretation": "Version3 is the explicitly requested preserved analysis connection; it must not be assumed to be the latest UI-selected analysis when higher published versions exist",
+  "actual_ui_selection_reexecuted": false
+}

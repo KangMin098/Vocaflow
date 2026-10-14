@@ -1,0 +1,209 @@
+{
+  "version": "1.5",
+  "public_product_basis": {
+    "path": "D:/workspace/Vocaflow-map-v62/docs/csat-learner/v4/workspaces.json",
+    "sha256": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+    "read_only": true
+  },
+  "inventory_reference": "docs/research/csat-reading/data/v15/product-inventory.json",
+  "actual_sources_read": 3,
+  "new_questions": 3,
+  "qualified_direct_assessments": 0,
+  "students": 0,
+  "rows": [
+    {
+      "workspace": "ws.sentence-core",
+      "task": "s.o.sentence_meaning_model",
+      "item": "2016#30",
+      "observable": [
+        "event participant and referent",
+        "main predicate and two destination phrases",
+        "time condition and modifying subject"
+      ],
+      "confusions": [
+        "s.sentence_core",
+        "s.chunk_boundary",
+        "s.structural_relation",
+        "s.attachment",
+        "s.form_scope"
+      ],
+      "components": [
+        "exact original sentence with marks/gloss",
+        "core participant and predicate",
+        "pronoun referent and attachment",
+        "whole proposition preserving time and direction",
+        "component-specific Gold and ambiguity checks"
+      ],
+      "next": [
+        "subject/referent versus attachment versus scope errors separately annotated",
+        "human Gold review",
+        "response scorer calibration",
+        "new-topic independent sentence and delayed repeat"
+      ],
+      "direct_task": "derived integrated proposition question; original referent question is not single-TASK sentence integration assessment",
+      "source": {
+        "path": "scripts/research/csat-reading/local/v12/restore-a.json",
+        "file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+        "row_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+        "anchor": {
+          "field": "passage",
+          "start": 556,
+          "end": 594
+        },
+        "status": "inherited AI source-complete admission; actual full passage reread, no new PDF audit"
+      },
+      "original_prompt_and_Gold": "not promoted; next TASK question is new design candidate",
+      "product": {
+        "readiness": "content_needed",
+        "content_keys": [],
+        "active_confirm": 0,
+        "active_transfer": 0,
+        "draft": 0
+      },
+      "right_and_assessment": "pending",
+      "student_transfer_observed": false,
+      "question_private_reference": {
+        "path": "scripts/research/csat-reading/local/v15/workspace-questions.json",
+        "row_workspace": "ws.sentence-core"
+      }
+    },
+    {
+      "workspace": "ws.cohesion",
+      "task": "r.relation",
+      "item": "2020#37",
+      "observable": [
+        "antecedent proposition",
+        "relation kind and direction",
+        "what the link licenses and does not license"
+      ],
+      "confusions": [
+        "r.reference",
+        "r.discourse_function",
+        "r.discourse_structure",
+        "e.option_correspondence"
+      ],
+      "components": [
+        "both linked spans and ordering stimulus",
+        "antecedent proposition",
+        "directional relation with alternatives",
+        "explicit information and inferential bridge separated",
+        "same-goal alternative route"
+      ],
+      "next": [
+        "audit existing draft cohesion-link item before release",
+        "at least one new source-bound relation task with different referent form",
+        "relation-only ablation if identifiable; otherwise unknown",
+        "human scoring and student unseen exposure"
+      ],
+      "direct_task": "actual relation constraints can support order; no universal prerequisite or full order sufficiency claim",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "ffbb29918012589a4a6326f2eb19d047e721c9aa32b9403da39622ff44a936b6",
+        "anchor": {
+          "field": "passage",
+          "start": 490,
+          "end": 503
+        },
+        "status": "inherited AI source-complete admission; actual full passage reread, no new PDF audit"
+      },
+      "original_prompt_and_Gold": "not promoted; next TASK question is new design candidate",
+      "product": {
+        "readiness": "ready",
+        "content_keys": [
+          "cohesion-link"
+        ],
+        "active_confirm": 0,
+        "active_transfer": 0,
+        "draft": 1
+      },
+      "right_and_assessment": "pending",
+      "student_transfer_observed": false,
+      "question_private_reference": {
+        "path": "scripts/research/csat-reading/local/v15/workspace-questions.json",
+        "row_workspace": "ws.cohesion"
+      }
+    },
+    {
+      "workspace": "ws.inference",
+      "task": "r.inference",
+      "item": "2014B#42",
+      "observable": [
+        "explicit information",
+        "bounded inferred proposition",
+        "bridge and excluded stronger inference"
+      ],
+      "confusions": [
+        "v.contextual_sense",
+        "s.o.sentence_meaning_model",
+        "r.central_meaning",
+        "e.option_correspondence"
+      ],
+      "components": [
+        "complete actual context and blank presentation",
+        "explicit premise versus inferred conclusion",
+        "modality and scope",
+        "multiple plausible inference Gold/defeaters",
+        "unsupported stronger conclusion"
+      ],
+      "next": [
+        "underlined-inference original input with exact marked span",
+        "review possible versus necessary entailment",
+        "independent human Gold/counterexamples",
+        "new-topic inference and delayed response without prior explanations"
+      ],
+      "direct_task": "derived inference contrast; original blank answer is not R6-alone mastery evidence",
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "b0d76f27fa34764d0db039e2e39d0a6d0505feffb3424cfd47a066644aed2ab8",
+        "anchor": {
+          "field": "passage",
+          "start": 823,
+          "end": 846
+        },
+        "status": "inherited AI source-complete admission; actual full passage reread, no new PDF audit"
+      },
+      "original_prompt_and_Gold": "not promoted; next TASK question is new design candidate",
+      "product": {
+        "readiness": "content_needed",
+        "content_keys": [],
+        "active_confirm": 0,
+        "active_transfer": 0,
+        "draft": 0
+      },
+      "right_and_assessment": "pending",
+      "student_transfer_observed": false,
+      "question_private_reference": {
+        "path": "scripts/research/csat-reading/local/v15/workspace-questions.json",
+        "row_workspace": "ws.inference"
+      }
+    }
+  ],
+  "package_reuse": [
+    "source binding and staged status",
+    "semantic facets and exposure eligibility separated",
+    "full/partial/equivalent/wrong/defer contracts",
+    "role-specific source and disclosure conditions"
+  ],
+  "cannot_reuse_unchanged": [
+    "V2 meaning alternatives do not specify R6 inferential bridges",
+    "S5 single operator scope does not specify complete S-O1 proposition",
+    "R2 relations require linked proposition direction and alternative-path logic"
+  ],
+  "listening_and_execution": {
+    "L": [
+      "licensed exact audio and version",
+      "matching transcript timing and permitted playback",
+      "per-item auditory response with exposure/support logs",
+      "human listening content/Gold and student measurement"
+    ],
+    "X": [
+      "whole-test input including actual exam regime",
+      "start/end/pause/item sequence/revisions and external help",
+      "timed response/accuracy conditions and repeated tasks",
+      "measurement validation before time allocation or stability claims"
+    ],
+    "reading_analysis_not_proxy": true
+  }
+}

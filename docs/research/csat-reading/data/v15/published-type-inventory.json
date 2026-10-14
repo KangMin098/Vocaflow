@@ -1,0 +1,113 @@
+{
+  "version": "1.5",
+  "cohort": "2014–2027 KICE reading item IDs, explicit ID regex; not all table versions",
+  "rows": [
+    {
+      "type_id": "R-BLANK",
+      "published_v3_items": 115
+    },
+    {
+      "type_id": "R-BLANK2",
+      "published_v3_items": 4
+    },
+    {
+      "type_id": "R-CHART",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "R-CLAIM",
+      "published_v3_items": 25
+    },
+    {
+      "type_id": "R-FACT",
+      "published_v3_items": 28
+    },
+    {
+      "type_id": "R-GIST",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "R-GRAMMAR",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "R-IMPLY",
+      "published_v3_items": 22
+    },
+    {
+      "type_id": "R-INSERT",
+      "published_v3_items": 56
+    },
+    {
+      "type_id": "R-IRRELEVANT",
+      "published_v3_items": 28
+    },
+    {
+      "type_id": "R-MOOD",
+      "published_v3_items": 28
+    },
+    {
+      "type_id": "R-NOTICE",
+      "published_v3_items": 57
+    },
+    {
+      "type_id": "R-ORDER",
+      "published_v3_items": 56
+    },
+    {
+      "type_id": "R-PURPOSE",
+      "published_v3_items": 27
+    },
+    {
+      "type_id": "R-REFER",
+      "published_v3_items": 6
+    },
+    {
+      "type_id": "R-SUMMARY",
+      "published_v3_items": 28
+    },
+    {
+      "type_id": "R-TITLE",
+      "published_v3_items": 31
+    },
+    {
+      "type_id": "R-TOPIC",
+      "published_v3_items": 30
+    },
+    {
+      "type_id": "R-VOCAB",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "X-BLANK",
+      "published_v3_items": 6
+    },
+    {
+      "type_id": "X-BLANK2",
+      "published_v3_items": 1
+    },
+    {
+      "type_id": "X-FACT",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "X-ORDER",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "X-REFER",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "X-TITLE",
+      "published_v3_items": 29
+    },
+    {
+      "type_id": "X-VOCAB",
+      "published_v3_items": 22
+    }
+  ],
+  "total": 802,
+  "meaning": "Published v3 analysis items by item type, not licensed education materials or direct TASK assessment inventory",
+  "body_resnapshot": false
+}

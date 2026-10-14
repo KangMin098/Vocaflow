@@ -1,0 +1,79 @@
+{
+  "version": "1.5-content-revision2",
+  "previous_content": {
+    "path": "scripts/research/csat-reading/local/v15/content-packages.json",
+    "sha256": "dd5c27d6f2f87313594d0ab87d875373badaa87e54134f73c12a726d424f1322"
+  },
+  "previous_roles": {
+    "path": "scripts/research/csat-reading/local/v15/content-roles-revision1.json",
+    "sha256": "c173661d74dfa8e9c244d0e2fe149e7e2fc2d36a09c4627ea68ec5abea62719f"
+  },
+  "first_independent_review": {
+    "path": "scripts/research/csat-reading/local/v15/content-review-first.json",
+    "sha256": "a274a336120bc04aa7f4bc03bec7036b586991a824f8bed83ec50453092baf20"
+  },
+  "private_content": {
+    "path": "scripts/research/csat-reading/local/v15/content-packages-revision2.json",
+    "sha256": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf"
+  },
+  "private_roles": {
+    "path": "scripts/research/csat-reading/local/v15/content-roles-revision2.json",
+    "sha256": "a42b0b7319f8279d42e817097e946b2a228bf3205cebc87c79023fd5fa386112"
+  },
+  "changes": [
+    {
+      "activity_id": "v15-s.form_scope-transfer-1",
+      "fields": [
+        "student_prompt",
+        "gold.full",
+        "gold.semantic_equivalent",
+        "comparison_rubric"
+      ],
+      "claim": "contextual comparison set; no unrestricted universe imported"
+    },
+    {
+      "role": "semantic_contrast",
+      "count": 2,
+      "fields": [
+        "learner_input.candidate_responses",
+        "hidden_feedback"
+      ],
+      "claim": "actual two candidate responses are supplied before comparison attempt"
+    },
+    {
+      "role": "guided_practice",
+      "count": 2,
+      "fields": [
+        "learner_input.steps",
+        "learner_input.hints",
+        "hidden_feedback"
+      ],
+      "claim": "actual progressive directions/hints, full reference hidden before final attempt"
+    }
+  ],
+  "counts": {
+    "retained_v14_activities": 12,
+    "retained_v14_facets": 48,
+    "priority_activities": 8,
+    "role_uses": 14,
+    "new_activities_still": 2,
+    "public_qualified": 0,
+    "direct_assessment_qualified": 0,
+    "students": 0
+  },
+  "assessment_first_bytes_preserved": [
+    {
+      "path": "scripts/research/csat-reading/local/v15/assessment-input.json",
+      "sha256": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v15/assessment-expected.json",
+      "sha256": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38"
+    }
+  ],
+  "prior_v14": {
+    "path": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+    "sha256": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e"
+  },
+  "independent_revision_review": "pending; no automatic pass"
+}
