@@ -1,0 +1,14 @@
+// scripts/research/csat-reading/v13-principle-extension-select.mjs
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const r=p=>JSON.parse(fs.readFileSync(p,'utf8')),sha=x=>createHash('sha256').update(x).digest('hex');
+const old='docs/research/csat-reading/data/v12/principle-task-review.json',x=r(old),d='docs/research/csat-reading/data/v13/';
+const tasks=new Set(['r.central_meaning','e.option_correspondence','s.form_scope','v.contextual_sense']);
+const root='C:/Users/Administrator/Documents/영어/모의평가',files=fs.readdirSync(root),valid=id=>/^20(1[4-9]|2[0-4])[AB]?#/.test(id)||/^M(1[4-9]|2[0-4])(06|09)#/.test(id);
+const available=id=>{if(!id.startsWith('M'))return true;const prefix='20'+id.split('#')[0].slice(1);return files.some(f=>f.startsWith(prefix)&&f.includes('문제'))&&files.some(f=>f.startsWith(prefix)&&f.includes('정답'));};
+const e=x.items.filter(i=>i.pair_id!=='2014A#36~2014B#37'&&i.pair_id.split('~').every(valid)&&i.pair_id.split('~').every(available)&&i.task_links.some(t=>tasks.has(t.ID)));
+// Fixed seed hashes for within-type order, round-robin type strata; purposive, no inclusion probability claim.
+const groups=new Map();for(const i of e){const k=i.original_types.left;groups.set(k,[...(groups.get(k)??[]),i]);}for(const a of groups.values())a.sort((a,b)=>sha('20261014-v13-principle'+a.pair_id).localeCompare(sha('20261014-v13-principle'+b.pair_id)));
+const chosen=[];while(chosen.length<7){let added=false;for(const k of [...groups.keys()].sort()){const i=groups.get(k).shift();if(i){chosen.push(i);added=true;if(chosen.length===7)break;}}if(!added)break;}
+const out={version:'v1.3-exploratory-extension',registration_timing:'after original main-only selection/review; before these endpoint semantic/PDF reads',request:'parent delegated additional mock-exam comparison layer on user-authorized principle research',frozen_main_selection_unchanged:true,rule:'Exclude already reviewed main pair; both endpoints2014–2024KICE main/mock, priority4TASKcandidate; local question/key filenames present; max7 type-round-robin seeded order20261014-v13-principle; filename presence does not certify actual answer-sheet contents',denominator:110,eligible:e.length,source:{path:old,sha256:sha(fs.readFileSync(old))},selected:chosen.map(i=>({pair_id:i.pair_id,ordinal:i.source_ordinal,types:i.original_types,principle_sha256:i.original_principle_sha256,task_ids:i.task_links.map(t=>t.ID)})),ledger:x.items.map(i=>({pair_id:i.pair_id,status:chosen.some(c=>c.pair_id===i.pair_id)?'selected_pending_source':e.some(c=>c.pair_id===i.pair_id)?'eligible_not_selected':'excluded_scope_priority_or_filename'})),not_pooled_with_main_confirmatory_distribution:true};
+const target=d+'principle-extension-registration.json';if(fs.existsSync(target))throw Error('Registration exists');fs.writeFileSync(target,JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({eligible:e.length,selected:out.selected},null,2));

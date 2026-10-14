@@ -1,0 +1,239 @@
+{
+  "version": "v1.3",
+  "reviewer": "one AI context, source PDFs and identical-form answer sheets directly inspected; prior v1.2 development evidence exposed; not independent confirmation",
+  "selected_pair": "2014A#36~2014B#37",
+  "source": {
+    "compare": {
+      "path": "apps/web/src/lib/csat/compare-v3-data.json",
+      "sha256": "010608adbdfc0141eb575c9cb1e7bf04fa3b261fc2ff667ca0293b271708422d"
+    },
+    "inquiry": {
+      "path": "apps/web/src/lib/csat/inquiry-data.json",
+      "sha256": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534"
+    },
+    "selection_sha256": "3d47578ce6b53a28dd981e39d827bc37abd121d68b759e749b0fd01970654ead"
+  },
+  "endpoints": [
+    {
+      "id": "2014A#36",
+      "input_path": "scripts/research/csat-reading/local/v13/principle-2014A-input.json",
+      "input_sha256": "bbcec5fd2ce3a0ba9630f34c8429e2a3ae68eea76a3ec596f74aadc0b7ddf701",
+      "question": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "page": 7,
+        "form": "A형 홀수형"
+      },
+      "key": {
+        "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+        "sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+        "page": 1,
+        "number": 36,
+        "answer": 2,
+        "visual_row_checked": true
+      },
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "all_five_options": true,
+        "blank_and_column_mapping": true,
+        "glosses": true
+      },
+      "new_visual_review": true,
+      "changes": [
+        "보기 열 제목을 본문 밖으로 분리"
+      ],
+      "public_inquiry": {
+        "item_sha256": "ed214d237daee4d08d6041823d7b0cd26890f044ddb523f9fa698180c67a840f",
+        "compare_binding": {
+          "units_hash": "70448841ba5d57ee",
+          "inquiry_hash": "b2c56d4d18a4434b"
+        }
+      }
+    },
+    {
+      "id": "2014B#37",
+      "input_path": "scripts/research/csat-reading/local/v13/principle-2014B-input.json",
+      "input_sha256": "7ad9e1f58e473155b016b1c807b1e8d8bf47baf82879ba4080f0c566aa3636db",
+      "question": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 6,
+        "form": "B형 홀수형"
+      },
+      "key": {
+        "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+        "sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+        "page": 1,
+        "number": 37,
+        "answer": 2,
+        "visual_row_checked": true
+      },
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "all_five_options": true,
+        "blank_and_column_mapping": true,
+        "glosses": true
+      },
+      "new_visual_review": true,
+      "changes": [
+        "보기 열 제목을 본문 밖으로 분리",
+        "원천 추출의 빈칸 밑줄 중복 제거"
+      ],
+      "public_inquiry": {
+        "item_sha256": "442ef1e9e1aebae9cbdbeae16f7f55f4b436f55a1d085a49a61b5b3eecfc9010",
+        "compare_binding": {
+          "units_hash": "956a53986f374501",
+          "inquiry_hash": "28082afacdb21185"
+        }
+      }
+    }
+  ],
+  "source_comparison_status": "both_originals_and_same_form_keys_checked",
+  "logic_status": "supported_with_narrowed_conditions",
+  "promotion": "R1",
+  "original_principle_not_changed": true,
+  "shared_performance": "두 칸의 결합 후보를 각 위치의 명제 관계와 대조한다. 첫 칸이 참이라고 두 번째 칸까지 적합해지는 것은 아니다.",
+  "endpoint_paths": [
+    {
+      "id": "2014A#36",
+      "A": {
+        "information": "고 자기감시의 사회적 신호 조정 진술→회의 발언 모방 사례",
+        "relation": "general_to_instance",
+        "allows": [
+          1,
+          2
+        ]
+      },
+      "B": {
+        "information": "고 집단의 타인 인상 관리→저 집단의 사회적 신호 둔감",
+        "relation": "contrast",
+        "allows": [
+          2,
+          4
+        ]
+      },
+      "intersection": [
+        2
+      ],
+      "all5": [
+        {
+          "n": 1,
+          "A": "fits",
+          "B": "fails"
+        },
+        {
+          "n": 2,
+          "A": "fits",
+          "B": "fits"
+        },
+        {
+          "n": 3,
+          "A": "fails",
+          "B": "fails"
+        },
+        {
+          "n": 4,
+          "A": "fails",
+          "B": "fits"
+        },
+        {
+          "n": 5,
+          "A": "fails",
+          "B": "fails"
+        }
+      ],
+      "minimum_scope_note": "A는 직전 일반진술/사례, B는 직전의 타인 인상 관리/저 집단 비민감 진술이 대조를 허용한다. 모든 문장 이해량을 이 국소 경로와 동일시하지 않는다."
+    },
+    {
+      "id": "2014B#37",
+      "A": {
+        "information": "자원 자체의 지질학적 형성/고정성→기후가 생산·탐사 접근성을 바꿀 가능성",
+        "relation": "qualified_contrast",
+        "allows": [
+          1,
+          2
+        ]
+      },
+      "B": {
+        "information": "기후 조건이 접근성에 영향을 준다는 진술→시베리아의 극한 환경 탐사·생산·전달 사례",
+        "relation": "general_to_instance",
+        "allows": [
+          2,
+          3
+        ]
+      },
+      "intersection": [
+        2
+      ],
+      "all5": [
+        {
+          "n": 1,
+          "A": "fits",
+          "B": "fails"
+        },
+        {
+          "n": 2,
+          "A": "fits",
+          "B": "fits"
+        },
+        {
+          "n": 3,
+          "A": "fails",
+          "B": "fits"
+        },
+        {
+          "n": 4,
+          "A": "fails",
+          "B": "fails"
+        },
+        {
+          "n": 5,
+          "A": "fails",
+          "B": "fails"
+        }
+      ],
+      "minimum_scope_note": "B는 직전 문장의 자원/접근성 구분을 보존한 채 시베리아 사례를 연결한다. 자원 자체가 영향받지 않음과 접근 가능성이 영향받음은 같은 대상의 사실적 모순이 아니다."
+    }
+  ],
+  "conditions": [
+    "첫 칸 적합성이 실제 의미 관계로 먼저 판정됨",
+    "남은 후보의 두 번째 칸이 구별 가능한 다른 관계를 제안함",
+    "인접 문장에 필요한 선행 대상과 관계 정보가 실제 포함됨",
+    "두 칸의 적합 후보 교집합이 하나임"
+  ],
+  "counterexamples": [
+    {
+      "kind": "actual_same_items",
+      "why": "2014A의 B만 보면2/4,2014B의 B만 보면2/3이 남는다. 나머지 칸 판정이 전체 정답 독립 판정과 같다는 확대 해석은 반박된다."
+    },
+    {
+      "kind": "minimal_model_not_actual_exam",
+      "why": "두 후보가 A도 B도 같은 연결사라면 A 중복만으로 나머지 칸 배제를 보장하지 않는다. 원래 when_applies의 A 중복 조건은 충분조건이 아니다."
+    },
+    {
+      "kind": "scope_boundary",
+      "why": "직전 지시어의 선행 명제가 더 앞에 있으면 앞뒤 문장만이라는 정보 예산은 부족해진다. 이것은 논리적 범위 경계이며 새 실기출 재현 수로 세지 않는다."
+    }
+  ],
+  "narrowed_principle": "각 칸의 의미 관계를 각각 검토할 수 있고 남은 후보의 다른 칸이 구별되는 경우, 두 적합 집합의 교집합으로 결합 후보를 결정할 수 있다.",
+  "binding_status": "public pair/inquiry complete object hashes recorded; legacy short units/inquiry hashes retained, not rewritten or claimed equivalent to restored source SHA",
+  "summary": {
+    "bounded_denominator": 110,
+    "metadata_eligible": 1,
+    "selected": 1,
+    "both_originals_checked": 1,
+    "logical_support_narrowed": 1,
+    "unchanged_full_original_wording_confirmed": 0,
+    "unresolved_selected": 0,
+    "unreviewed": 109,
+    "student_transfer_trials": 0,
+    "teaching_effect_trials": 0
+  },
+  "limitations": [
+    "공식 다운로드 거래·권리 계보 미복원",
+    "AI 단일 문맥 개발자료 재검토이며 인간 전문가 검수가 아님",
+    "R2공개·R3채점과제·R4학생전이·R5효과 승격 없음"
+  ]
+}

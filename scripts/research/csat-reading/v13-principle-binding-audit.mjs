@@ -1,0 +1,7 @@
+// scripts/research/csat-reading/v13-principle-binding-audit.mjs
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const r=p=>JSON.parse(fs.readFileSync(p,'utf8')),sha=x=>createHash('sha256').update(x).digest('hex');
+const i=r('apps/web/src/lib/csat/inquiry-data.json'),c=r('apps/web/src/lib/csat/compare-v3-data.json'),pair=c.pairs['2014A#36~2014B#37'];
+const out={version:'v1.3',supplement_to:'principle-review.json; original first review preserved',correction:'public inquiry units_hash resides under v3; first source-review metadata used top-level path and omitted undefined field. Original whole-object SHA and legacy compare binding remain intact.',items:[['left',pair.left],['right',pair.right]].map(([side,id])=>{const item=i.items[id],hash=sha(JSON.stringify(item));return {id,analysis_version:item.analysis_version,actual_v3_units_hash:item.v3?.units_hash??null,legacy_units_hash:pair.binding[side].units_hash,units_match:item.v3?.units_hash===pair.binding[side].units_hash,full_inquiry_sha256:hash,legacy_inquiry_hash:pair.binding[side].inquiry_hash,whole_object_short_sha_match:hash.slice(0,16)===pair.binding[side].inquiry_hash,interpretation:'whole-object short SHA equality is checked descriptively; a mismatch is not repaired or declared equivalent to restored original SHA'}})};
+const target='docs/research/csat-reading/data/v13/principle-binding-audit.json';if(fs.existsSync(target))throw Error('No overwrite');fs.writeFileSync(target,JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify(out.items,null,2));

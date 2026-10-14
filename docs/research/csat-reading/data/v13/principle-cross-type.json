@@ -1,0 +1,433 @@
+{
+  "version": "v1.3",
+  "method": "single AI source-bound development re-analysis; these ten inputs were already exposed; historical identical-form PDF admission/keys reused; no fresh independent confirmation",
+  "existing_public_cross_type_pairs": 0,
+  "existing_pairs_modified": false,
+  "input_files": [
+    {
+      "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16"
+    }
+  ],
+  "cases": [
+    {
+      "id": "title_blank",
+      "claim": "후보가 글이 설명하는 의미와 그 미해결/요구 상태를 보존해야 한다.",
+      "support": "생물학적 노화의 대표 측정 지표를 탐색하는 제목과 가상 연결의 한계에서 실제 인간 교류를 선호하는 빈칸은 소재 단어 이상의 의미 적합성을 요구한다.",
+      "contrast": "제목은 글 전체의 탐색 목적을 대표하고 빈칸은 삽입 후 해당 명제와 후속 전개를 완성한다. 대표 제목 선택과 명사구 삽입의 충분 정보 범위가 같지는 않다.",
+      "option_notes": [
+        "2016#23:1의 지표 탐색은 지지;2느린노화 원인,3연대기나이 추정,4이미 비밀 해결,5영생 탐색은 본문의 주장 범위를 각각 바꾼다.",
+        "2014B#42:3은 실제 인간 교류 선호에 상대적으로 적합;1모험,2기술폭발,4로봇대화,5초자연은 해당 명제/전개를 지지받지 못한다. 인간목소리 단독이 반드시 대면 방식까지 함의한다는 뜻은 아니다."
+      ],
+      "items": [
+        {
+          "id": "2016#23",
+          "type_id": "R-TITLE",
+          "input_binding": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+          "input_object_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+          "source_audit": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "source_audit_object_sha256": "482f7729e4e550a59114c1090a33141e20ee3c3557a4675f11f71a28296e42e9",
+          "source_pdf": {
+            "filename": "2016_영어영역-홀수.pdf",
+            "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+            "page": 3,
+            "paper_form": "홀수형",
+            "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+            "provenance_level": "local_KICE_identified_question_paper",
+            "official_download_chain": "unresolved"
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 1,
+          "anchor": {
+            "field": "passage",
+            "start": 429,
+            "end": 805
+          },
+          "all_five_candidates_read": true
+        },
+        {
+          "id": "2014B#42",
+          "type_id": "X-BLANK",
+          "input_binding": "126ba108a3eb6995f09f95e754880ea3ed856cff83c872d2d9a9f3e194a5665b",
+          "input_object_sha256": "b0d76f27fa34764d0db039e2e39d0a6d0505feffb3424cfd47a066644aed2ab8",
+          "source_audit": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "source_audit_object_sha256": "2b564eb1da75fe18203d8c2eaf3f38ee53e10a3562d36584ee7ceab24e5dbd49",
+          "source_pdf": {
+            "filename": "2014_영어B-홀수형_문제.pdf",
+            "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+            "page": 7,
+            "paper_form": "B형 홀수형",
+            "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+            "provenance_level": "local_KICE_identified_question_paper",
+            "official_download_chain": "unresolved"
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 3,
+          "anchor": {
+            "field": "passage",
+            "start": 452,
+            "end": 1365
+          },
+          "all_five_candidates_read": true
+        }
+      ],
+      "logical_reproduction": "conditional_shared_performance_R1",
+      "negative_reproduction": "제목은 글 전체의 탐색 목적을 대표하고 빈칸은 삽입 후 해당 명제와 후속 전개를 완성한다. 대표 제목 선택과 명사구 삽입의 충분 정보 범위가 같지는 않다.",
+      "student_transfer": "not_tested",
+      "promotion": "R1"
+    },
+    {
+      "id": "blank_summary",
+      "claim": "빈칸은 후보 단어의 뜻만이 아니라 삽입된 명제의 범위·극성·비교 관계로 판정한다.",
+      "support": "읽기는 단순 단어재인이 아니라는 제한과 현재 산출 선호에 따른 화석연료의 시간상 이점은 부정/비교의 방향을 후보 삽입 뒤 점검한다.",
+      "contrast": "2024는 여러 표상 해석의 의미 범위를 구성한다.2019는 요약 상자의 원인/비교 틀이 판단 정보를 추가한다. 본문 두 문장만이라는 예산으로 요약 틀을 숨겨 쓰면 동일 전략 재현이 아니다.",
+      "option_notes": [
+        "2024#31:2를 단순함 부정의 대상으로 넣으면 설명과 맞는다.1지식습득,3상상놀이,4주관해석,5이미지대응의 각각을 동일한 제한 대상으로 확정할 근거는 부족하다.",
+        "2019#40:1의 즉시 산출/경쟁력은 현재선호·시간상 이점을 보존.2/4는 비쌈을 주장;3지연 선호는 방향 변경;5풍부함은 산출 시점 조건 변경."
+      ],
+      "items": [
+        {
+          "id": "2024#31",
+          "type_id": "R-BLANK",
+          "input_binding": "cffb5e801ca12c8490cb9c77717106d49177ed4a4d98a0156a2defbd2f785f43",
+          "input_object_sha256": "ef44ac747f22d4e06f2ef93018cb775adbcc93b6386c40b575714741131bf3dc",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "d6def4377fdfbecf3cc2174ea1ab2973c5d0e07376eaddcc0823a4cde63fbdc9",
+          "source_pdf": {
+            "filename": "2024_영어영역_문제지.pdf",
+            "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+            "pages": [
+              5
+            ],
+            "paper_form": "홀수형",
+            "source_header": {
+              "form": null,
+              "paper_form": "홀수"
+            },
+            "actual_paper_form": "홀수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 2,
+          "anchor": {
+            "field": "passage",
+            "start": 566,
+            "end": 917
+          },
+          "all_five_candidates_read": true
+        },
+        {
+          "id": "2019#40",
+          "type_id": "R-SUMMARY",
+          "input_binding": "c49d43d7abc03fabb94395ebd54fb587a04e5fc3f93ebcd6317a8a8b628cef09",
+          "input_object_sha256": "cf3b448c564db851224070d9afb2005fd89ce89876314db374e03ae7575a2c6d",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "31af8d7b74ed17b6996efe313290cbcb0368dc7b1e602d281f9d48c7cfb84ab3",
+          "source_pdf": {
+            "filename": "2019_영어_짝.pdf",
+            "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+            "pages": [
+              7
+            ],
+            "paper_form": "짝수형",
+            "source_header": {
+              "form": null,
+              "paper_form": "짝수"
+            },
+            "actual_paper_form": "짝수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-7.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 1,
+          "anchor": {
+            "field": "passage",
+            "start": 762,
+            "end": 1070
+          },
+          "all_five_candidates_read": true
+        }
+      ],
+      "logical_reproduction": "conditional_shared_performance_R1",
+      "negative_reproduction": "2024는 여러 표상 해석의 의미 범위를 구성한다.2019는 요약 상자의 원인/비교 틀이 판단 정보를 추가한다. 본문 두 문장만이라는 예산으로 요약 틀을 숨겨 쓰면 동일 전략 재현이 아니다.",
+      "student_transfer": "not_tested",
+      "promotion": "R1"
+    },
+    {
+      "id": "order_insert",
+      "claim": "지시 표현의 선행 내용과 전개 관계를 만족하는 배열 제약을 검토한다.",
+      "support": "순서의 사다리꼴 도입→그 사다리꼴 축소, 삽입의 원거리 수은오염→그 오염의 대기이동 가설→그 배출원 규제는 선행 대상과 연결을 요구한다.",
+      "contrast": "순서는 여러 블록의 전체 배열, 삽입은 고정 본문 안 주어진 문장의 위치다. 지시 선행성만 맞는다는 사실이 모든 후보의 완전한 의미 배제를 보장하지 않는다.",
+      "option_notes": [
+        "2014B#38:4 C-A-B는 도입→축소→유사 사례.1/2/3은 A가 사다리꼴 도입보다 앞서고5는 유사사례B가 C-A의 연속을 분리한다.",
+        "2018#39:4는 원거리오염 뒤 대기이동 가설을 두고such sources의 배출원을 공급.1/2는 직접배출 사건/질환 전개에 끼고3은however의 문제 제기 전,5는such sources 규제 후라 두 방향 연결이 약하다. 최적 적합성 설명이며 대안의 현실적 불가능 선언이 아니다."
+      ],
+      "items": [
+        {
+          "id": "2014B#38",
+          "type_id": "R-ORDER",
+          "input_binding": "5327c519bacbbf23f4e920bb0c0eb7cf4de7bb58918e8e7d14a3d93d743e69d5",
+          "input_object_sha256": "582d775fff06081014f5938d702ba6070dbde5af764725a7cbb5423ca9d1a776",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "aaf42161026647dcc985cfaa94a9f1b0546d8c90d56e40b6c99ff7321fdcacac",
+          "source_pdf": {
+            "filename": "2014_영어B-홀수형_문제.pdf",
+            "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+            "pages": [
+              6
+            ],
+            "paper_form": "B형 홀수형",
+            "source_header": {
+              "form": "B",
+              "paper_form": "홀수"
+            },
+            "actual_paper_form": "B형 홀수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2014B-q-6.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 4,
+          "anchor": {
+            "field": "passage",
+            "start": 737,
+            "end": 813
+          },
+          "all_five_candidates_read": true
+        },
+        {
+          "id": "2018#39",
+          "type_id": "R-INSERT",
+          "input_binding": "55a4d381be9fe5252e0c2e44574d7c4104a105002dabb79b3ea663a97ac6c2b1",
+          "input_object_sha256": "4dfc9d4c1b6488f0d44f41de87ddf3ef9fb975c6423c2f20c2f443536c8ccdfd",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "41acadcd5734c572a5b37f4a0e3d0ce1de2fb67f00171c6ce971d8621f431536",
+          "source_pdf": {
+            "filename": "2018_영어_짝.pdf",
+            "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+            "pages": [
+              7
+            ],
+            "paper_form": "짝수형",
+            "source_header": {
+              "form": null,
+              "paper_form": "짝수"
+            },
+            "actual_paper_form": "짝수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2018-q-7.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 4,
+          "anchor": {
+            "field": "passage",
+            "start": 680,
+            "end": 845
+          },
+          "all_five_candidates_read": true
+        }
+      ],
+      "logical_reproduction": "conditional_shared_performance_R1",
+      "negative_reproduction": "순서는 여러 블록의 전체 배열, 삽입은 고정 본문 안 주어진 문장의 위치다. 지시 선행성만 맞는다는 사실이 모든 후보의 완전한 의미 배제를 보장하지 않는다.",
+      "student_transfer": "not_tested",
+      "promotion": "R1"
+    },
+    {
+      "id": "fact_notice",
+      "claim": "본문 내용 성립과 발문 적합성의 극성을 분리한다.",
+      "support": "공저를 단독으로 바꾼 후보는 내용 모순이면서 불일치 정답이고,3분 상한을 보존한 후보는 내용 지지이면서 일치 정답이다.",
+      "contrast": "두 문항의 정답 내용 성립 상태는 반대다. 불일치 문항에서 모순을 고르는 절차를 안내문 일치에 그대로 적용하면 실패한다. 한 항목으로 답 발견과 다섯 후보 검수는 다르다.",
+      "option_notes": [
+        "2017#25:1성장지/2학업/3이주후제작/4감독상 지지→불일치 과제fails;5단독 집필 모순→fits.",
+        "2024#28:1주제없음/2한달접수/4인당두개/5학생회선정 모순→일치 과제fails;3길이상한 지지→fits."
+      ],
+      "items": [
+        {
+          "id": "2017#25",
+          "type_id": "R-FACT",
+          "input_binding": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+          "input_object_sha256": "9288f0d03969b895baff23a3ea4ae25170e5c4ade752ff9c45d80eb74e90310e",
+          "source_audit": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "source_audit_object_sha256": "0f83cc3027c2af01daf0bbe14f08c1b0935b88e764d030d364eba17120ea30a1",
+          "source_pdf": {
+            "filename": "2017_영어_짝.pdf",
+            "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+            "page": 4,
+            "paper_form": "짝수형",
+            "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+            "provenance_level": "local_KICE_identified_question_paper",
+            "official_download_chain": "unresolved"
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 5,
+          "anchor": {
+            "field": "passage",
+            "start": 760,
+            "end": 858
+          },
+          "all_five_candidates_read": true
+        },
+        {
+          "id": "2024#28",
+          "type_id": "R-NOTICE",
+          "input_binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+          "input_object_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+          "source_audit": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "source_audit_object_sha256": "2c8c0ddf4931a2a02cd589a73d5e67147fcd63379fb0866a9445b1ca5dbcc106",
+          "source_pdf": {
+            "filename": "2024_영어영역_문제지.pdf",
+            "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+            "page": 4,
+            "paper_form": "홀수형",
+            "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+            "provenance_level": "local_KICE_identified_question_paper",
+            "official_download_chain": "unresolved"
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 3,
+          "anchor": {
+            "field": "passage",
+            "start": 305,
+            "end": 389
+          },
+          "all_five_candidates_read": true
+        }
+      ],
+      "logical_reproduction": "conditional_shared_performance_R1",
+      "negative_reproduction": "두 문항의 정답 내용 성립 상태는 반대다. 불일치 문항에서 모순을 고르는 절차를 안내문 일치에 그대로 적용하면 실패한다. 한 항목으로 답 발견과 다섯 후보 검수는 다르다.",
+      "student_transfer": "not_tested",
+      "promotion": "R1"
+    },
+    {
+      "id": "lexical_option",
+      "claim": "표현의 문맥 의미와 후보가 부여하는 명제 의미를 구별하여 적합성을 비교한다.",
+      "support": "수렵상 이점의 문맥에 수고롭게라는 표현이 얼마나 맞는지와 감독이 현실을 재구성한다는 제목의 의미가 글에 얼마나 대응하는지는 표현→명제→담화 적합성의 구분이 필요하다.",
+      "contrast": "어휘의 상대적 문맥 부적합은 사실적 모순과 같지 않다. 배로 더 쉽게 사냥해도 여전히 수고가 들 수 있다. 제목5의현실불변은 본문의 변화 허용과 직접 충돌한다. 따라서 두 오답 모두 엄밀한 모순이라는 동일 원리는 비재현이다.",
+      "option_notes": [
+        "2019#30:1불확실 사냥/2수영 약점/3취약/4사냥 이점은 인접 설명과 조응.5는 이점 전개에 상대적으로 부적합한 공식 후보이나 수고의 절대 부재를 논리적으로 도출하지 않는다.",
+        "2017#23:4감독손의현실은 재조합/새현실을 대표.1미지탐험/2길잃음/3편집기술발명은 글의초점이나감독행위를 변형;5현실불변은 변화명제와충돌."
+      ],
+      "items": [
+        {
+          "id": "2019#30",
+          "type_id": "R-VOCAB",
+          "input_binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+          "input_object_sha256": "721372f0d8c7aeb7a11b8e92d2c2f33bebf1414f5dee40d13d20e0ae3e23c654",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "3192f550e688894b52f71fc4a6a54fffd076cc5c5f8a807a575726095352630c",
+          "source_pdf": {
+            "filename": "2019_영어_짝.pdf",
+            "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+            "pages": [
+              5
+            ],
+            "paper_form": "짝수형",
+            "source_header": {
+              "form": null,
+              "paper_form": "짝수"
+            },
+            "actual_paper_form": "짝수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-5.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 5,
+          "anchor": {
+            "field": "passage",
+            "start": 462,
+            "end": 746
+          },
+          "all_five_candidates_read": true
+        },
+        {
+          "id": "2017#23",
+          "type_id": "R-TITLE",
+          "input_binding": "af4013523b74aa6828cf2e5f7da4a73cc25d8bcedb1aba5c32dc3aa0a9f7d522",
+          "input_object_sha256": "6c7b15e9e037ac6557aedd0cd43e821e64a5287016beec4f31fb92387c2ca525",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_object_sha256": "c685f8920d919e0da49064be12fafcdc86dfb93989e40a8de8eb943054c7ba4b",
+          "source_pdf": {
+            "filename": "2017_영어_짝.pdf",
+            "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+            "pages": [
+              3
+            ],
+            "paper_form": "짝수형",
+            "source_header": {
+              "form": null,
+              "paper_form": "짝수"
+            },
+            "actual_paper_form": "짝수형",
+            "source_header_matches_actual": true,
+            "render": "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png",
+            "provenance_limitations": [
+              "official_download_chain_unresolved",
+              "AI_PDF_source_admission_not_human"
+            ]
+          },
+          "source_status": "historical_complete_source_admission_reused; original body/stem/all5/presentation reread in this AI context",
+          "key_reused_from_source_audit": true,
+          "answer": 4,
+          "anchor": {
+            "field": "passage",
+            "start": 582,
+            "end": 892
+          },
+          "all_five_candidates_read": true
+        }
+      ],
+      "logical_reproduction": "conditional_shared_performance_R1",
+      "negative_reproduction": "어휘의 상대적 문맥 부적합은 사실적 모순과 같지 않다. 배로 더 쉽게 사냥해도 여전히 수고가 들 수 있다. 제목5의현실불변은 본문의 변화 허용과 직접 충돌한다. 따라서 두 오답 모두 엄밀한 모순이라는 동일 원리는 비재현이다.",
+      "student_transfer": "not_tested",
+      "promotion": "R1"
+    }
+  ],
+  "summary": {
+    "categories": 5,
+    "cases": 5,
+    "unique_items": 10,
+    "conditional_supports": 5,
+    "nonreproduced_stronger_claims": 5,
+    "independent_new_sample": 0,
+    "student_transfer_trials": 0,
+    "teaching_effect_trials": 0
+  },
+  "limitations": [
+    "AI 단일 문맥 개발자료 재독이며 인간 전문가 검수 없음",
+    "공식 다운로드·권리 계보 미확정",
+    "공통 수행의 논리 재현은 학생 전이 효과가 아님"
+  ]
+}

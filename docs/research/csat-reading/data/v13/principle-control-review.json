@@ -1,0 +1,138 @@
+{
+  "version": "v1.3",
+  "pair_id": "M2206#37~M2306#36",
+  "layer": "mock boundary control; not pooled with main distribution",
+  "input": {
+    "path": "scripts/research/csat-reading/local/v13/principle-control-input.json",
+    "sha256": "4edd3fadd483f4c76b1ea1c077e732c73a4406df0acde2c706fc242a93f8ff96"
+  },
+  "registration_sha256": "0a22b09436b6faddb4e5346906a11bd597561a4bb82860474ca21ff697f5ba62",
+  "source_status": "partial_defer_key",
+  "source_complete_pair_count": 0,
+  "question_originals_read": 2,
+  "same_form_answer_sheets_verified": 0,
+  "endpoints": [
+    {
+      "id": "M2206#37",
+      "question": {
+        "filename": "202206_영어영역_문제지.pdf",
+        "sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+        "page": 7,
+        "body_stem_five_options_blocks_visually_checked": true,
+        "gloss": "equilibrium footnote present"
+      },
+      "named_answer_file": {
+        "filename": "202206_영어영역_정답표.pdf",
+        "sha256": "79d7eebb86209f184e50a705ee19b61042da73517e5f5cfa9ff2f059e5188478",
+        "pages": 17,
+        "actual_content": "listening script pages1–17, not an answer table; all page text checked; no original reading-answer row"
+      },
+      "key_status": "unavailable",
+      "stored_answer_not_officially_reverified": 5
+    },
+    {
+      "id": "M2306#36",
+      "question": {
+        "filename": "202306_영어영역_문제지.pdf",
+        "sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+        "page": 6,
+        "body_stem_five_options_blocks_visually_checked": true,
+        "gloss": "none printed in item"
+      },
+      "named_answer_file": {
+        "filename": "202306_영어영역_정답표.pdf",
+        "sha256": "f6a3cf7bb6d86f6ddf643fbe8a6a15efbea847de543aa0a23a1de532fea7af0a",
+        "pages": 17,
+        "actual_content": "listening script pages1–17, not an answer table; all page text checked; no original reading-answer row"
+      },
+      "key_status": "unavailable",
+      "stored_answer_not_officially_reverified": 5
+    }
+  ],
+  "logic_status": "exploratory_source_prose_support_but_original_pair_validation_deferred",
+  "paths": [
+    {
+      "id": "M2206#37",
+      "reasoning": "제시문의 조선투자→C의저가인근강철필요/철강투자자전환→B의철강판매조건/두균형선언→A의좋은/나쁜균형상세",
+      "candidate_fit": [
+        {
+          "n": 1,
+          "status": "fails",
+          "why": "A가두투자·결과설명에앞서도입됨"
+        },
+        {
+          "n": 2,
+          "status": "fails",
+          "why": "조선조건에서철강조건전환C가마지막으로밀림"
+        },
+        {
+          "n": 3,
+          "status": "fails",
+          "why": "철강판매B보다C의투자자전환이뒤임"
+        },
+        {
+          "n": 4,
+          "status": "fails",
+          "why": "A의두균형구체화가B의두결과선언앞에옴"
+        },
+        {
+          "n": 5,
+          "status": "best_coherence_candidate_not_key_verified",
+          "why": "C-B-A는필요조건/투자자전환/결과구체화를보존"
+        }
+      ]
+    },
+    {
+      "id": "M2306#36",
+      "reasoning": "제시문의진화증거→C의이론예측검사/단세포선행예측→B의this prediction지지/반대가능성→A의다세포선행가정과이론기각",
+      "candidate_fit": [
+        {
+          "n": 1,
+          "status": "fails",
+          "why": "A의반대가정이예측도입보다먼저임"
+        },
+        {
+          "n": 2,
+          "status": "fails",
+          "why": "B의this prediction선행예측C가마지막임"
+        },
+        {
+          "n": 3,
+          "status": "fails",
+          "why": "B의지시대상예측이뒤에옴"
+        },
+        {
+          "n": 4,
+          "status": "fails",
+          "why": "B의opposite가능성뒤에A의반대가정구체화가와야함"
+        },
+        {
+          "n": 5,
+          "status": "best_coherence_candidate_not_key_verified",
+          "why": "C-B-A는예측/지지/반대가정검토를연결"
+        }
+      ]
+    }
+  ],
+  "shared_supported_scope": "앞 단락 끝의 결과/가능성 선언과 다음 단락의 구체화가 전개 제약을 제공한다. 실제 사용되는 지시 내용도 별도로 보존한다.",
+  "boundary": "M2206은B의두결과→A좋은/나쁜결과. M2306은B의반대가능성→A역전가정. 수/가능성만일치한다고같은최소정보나전체배열필연성을보장하지않는다. C→B 연결과제시문의위치도읽었다.",
+  "counterclaim": "한 선언→구체화 연결만으로 전체배열검수완료라는강한주장은두사례의추가C-B제약을생략한다.",
+  "unknown": [
+    "실제독립답안표의⑤여부와시험형결속",
+    "공식배포계보·권리",
+    "인간검수·학생전이·교수효과"
+  ],
+  "promotion": "R0 candidate for original bounded pair because required answer-sheet gate unavailable; source-prose AI notes are limited R1 observations, not full pair confirmation",
+  "student_trials": 0,
+  "exposure": {
+    "pages": [
+      "M2206 questionp7 items37–40",
+      "M2306 questionp6 items33–36"
+    ],
+    "full_program_extracted_exams": [
+      "M2206",
+      "M2306"
+    ],
+    "answer_files": "listening scripts read; no official reading key recovered"
+  }
+}

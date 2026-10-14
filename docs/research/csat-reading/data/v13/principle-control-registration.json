@@ -1,0 +1,13 @@
+{
+  "version": "v1.3",
+  "layer": "priority-external mock boundary control",
+  "selected": [
+    "M2206#37~M2306#36"
+  ],
+  "denominator_old_scope_remaining": 1,
+  "rule": "唯一 remaining both-end2014–2024 bounded pair excluded by priority4TASKcandidate; selected for user-required cohesion/structure boundary control; not pooled with main-only/prior priority extension",
+  "principle_sha256": "5e721717757a4f7f590a895407c6bd1bf875b1f887f6c7f9b61c7af307e2f29d",
+  "compare_sha256": "010608adbdfc0141eb575c9cb1e7bf04fa3b261fc2ff667ca0293b271708422d",
+  "source_read_timing": "registration before full original/key extraction",
+  "old_registrations_unchanged": true
+}

@@ -1,0 +1,457 @@
+{
+  "version": "v1.3-exploratory-extension",
+  "registration_timing": "after original main-only selection/review; before these endpoint semantic/PDF reads",
+  "request": "parent delegated additional mock-exam comparison layer on user-authorized principle research",
+  "frozen_main_selection_unchanged": true,
+  "rule": "Exclude already reviewed main pair; both endpoints2014–2024KICE main/mock, priority4TASKcandidate; local question/key filenames present; max7 type-round-robin seeded order20261014-v13-principle; filename presence does not certify actual answer-sheet contents",
+  "denominator": 110,
+  "eligible": 0,
+  "source": {
+    "path": "docs/research/csat-reading/data/v12/principle-task-review.json",
+    "sha256": "a18739101addf39c1cc10bba37d855c8077755206262a658cd2da77072e71905"
+  },
+  "selected": [],
+  "ledger": [
+    {
+      "pair_id": "2014A#23~M2609#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#23~M2706#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#25~M2706#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#26~M2609#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#33~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#35~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#36~2014B#37",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#37~M2506#36",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#37~M2609#37",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014A#39~M2706#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2014B#33~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2016#23~M2706#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2016#26~M2609#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2016#32~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2016#37~M2706#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2018#20~M2609#20",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2018#35~M2706#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2018#38~M2706#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2020#19~M2609#19",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2020#33~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2020#35~M2609#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2020#36~M2506#36",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2022#23~M2706#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2024#40~M2609#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2025#18~M2609#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "2025#31~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M1809#20~M2706#20",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M1809#22~M2609#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2006#20~M2609#20",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2006#22~M2609#22",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2106#18~M2706#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2106#19~M2609#19",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2106#22~M2706#22",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2109#40~M2609#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2206#21~M2706#21",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2206#32~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2206#37~M2306#36",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2209#32~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2309#39~M2706#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2309#43~M2609#43",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2406#28~M2609#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2406#31~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2406#35~M2706#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2409#35~M2706#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2409#36~M2506#36",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2409#43~M2609#43",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#21~M2609#21",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#22~M2706#22",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#23~M2606#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#23~M2609#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#23~M2706#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#24~M2609#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#28~M2609#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#28~M2706#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#31~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#31~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#32~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#33~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#33~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#34~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#35~M2509#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#35~M2606#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#35~M2609#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#35~M2706#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#36~M2609#37",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#38~M2609#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#38~M2706#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#38~M2706#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#39~M2706#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#39~M2706#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#40~M2609#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#40~M2706#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#41~M2609#41",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#43~M2609#43",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2506#43~M2706#43",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#18~M2609#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#18~M2706#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#19~M2609#19",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#19~M2706#19",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#21~M2606#21",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#21~M2609#21",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#21~M2706#21",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#22~M2606#22",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#22~M2609#22",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#23~M2706#23",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#24~M2606#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#24~M2609#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#24~M2706#24",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#28~M2606#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#28~M2706#28",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#31~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#31~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#32~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#32~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#33~M2706#31",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#34~M2706#32",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#35~M2606#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#35~M2609#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#35~M2706#35",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#38~M2606#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#38~M2606#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#38~M2609#38",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#38~M2706#39",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#40~M2609#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#40~M2706#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#41~M2606#41",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2509#41~M2706#41",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2606#18~M2706#18",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2606#40~M2706#40",
+      "status": "excluded_scope_priority_or_filename"
+    },
+    {
+      "pair_id": "M2609#28~M2706#28",
+      "status": "excluded_scope_priority_or_filename"
+    }
+  ],
+  "not_pooled_with_main_confirmatory_distribution": true
+}

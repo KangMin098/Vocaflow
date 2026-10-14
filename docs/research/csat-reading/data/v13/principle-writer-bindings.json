@@ -1,0 +1,22 @@
+{
+  "version": "v1.3",
+  "algorithm": "scripts/csat/lib-inquiry-review.mjs contentHash on latest selected writer output using compare-v3-build selection; not whole public object SHA",
+  "items": [
+    {
+      "id": "2014A#36",
+      "writer_file": "scripts/csat/inquiry-drain/chunk-v3-05.out.json",
+      "content_hash": "b2c56d4d18a4434b",
+      "compare_inquiry_hash": "b2c56d4d18a4434b",
+      "match": true,
+      "status": "writer_source_available"
+    },
+    {
+      "id": "2014B#37",
+      "writer_file": "scripts/csat/inquiry-drain/chunk-v3-03.out.json",
+      "content_hash": "28082afacdb21185",
+      "compare_inquiry_hash": "28082afacdb21185",
+      "match": true,
+      "status": "writer_source_available"
+    }
+  ]
+}

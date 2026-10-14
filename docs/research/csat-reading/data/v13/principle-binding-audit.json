@@ -1,0 +1,29 @@
+{
+  "version": "v1.3",
+  "supplement_to": "principle-review.json; original first review preserved",
+  "correction": "public inquiry units_hash resides under v3; first source-review metadata used top-level path and omitted undefined field. Original whole-object SHA and legacy compare binding remain intact.",
+  "items": [
+    {
+      "id": "2014A#36",
+      "analysis_version": 5,
+      "actual_v3_units_hash": "70448841ba5d57ee",
+      "legacy_units_hash": "70448841ba5d57ee",
+      "units_match": true,
+      "full_inquiry_sha256": "ed214d237daee4d08d6041823d7b0cd26890f044ddb523f9fa698180c67a840f",
+      "legacy_inquiry_hash": "b2c56d4d18a4434b",
+      "whole_object_short_sha_match": false,
+      "interpretation": "whole-object short SHA equality is checked descriptively; a mismatch is not repaired or declared equivalent to restored original SHA"
+    },
+    {
+      "id": "2014B#37",
+      "analysis_version": 5,
+      "actual_v3_units_hash": "956a53986f374501",
+      "legacy_units_hash": "956a53986f374501",
+      "units_match": true,
+      "full_inquiry_sha256": "442ef1e9e1aebae9cbdbeae16f7f55f4b436f55a1d085a49a61b5b3eecfc9010",
+      "legacy_inquiry_hash": "28082afacdb21185",
+      "whole_object_short_sha_match": false,
+      "interpretation": "whole-object short SHA equality is checked descriptively; a mismatch is not repaired or declared equivalent to restored original SHA"
+    }
+  ]
+}
