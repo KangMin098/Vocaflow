@@ -1,0 +1,86 @@
+[
+  {
+    "id": "2016#18",
+    "exam": "2016",
+    "type": "R-PURPOSE",
+    "passage_group": "2016:18",
+    "source_binding": "0187486c1aa2d9ae0ad82725ae8e5bc13b66dd02c99134201c4c07f3f385ed90"
+  },
+  {
+    "id": "2024#23",
+    "exam": "2024",
+    "type": "R-TOPIC",
+    "passage_group": "2024:23",
+    "source_binding": "e5791b171decd18e746322465b511204f0422f9c719a72c40de5a570ef9bad3c"
+  },
+  {
+    "id": "2014B#25",
+    "exam": "2014B",
+    "type": "R-TITLE",
+    "passage_group": "2014B:25",
+    "source_binding": "5eddd4260c9964819f9d95570e2655f89ec2babf2fc0df8452daabc616db8859"
+  },
+  {
+    "id": "2015#32",
+    "exam": "2015",
+    "type": "R-BLANK",
+    "passage_group": "2015:32",
+    "source_binding": "c3f62becbf87f79f1200e2bd433805b153349f3e1ce73f0e0a75e03074371930"
+  },
+  {
+    "id": "2020#36",
+    "exam": "2020",
+    "type": "R-ORDER",
+    "passage_group": "2020:36",
+    "source_binding": "5ff1dbe9977eea52e3cab659857ef85ab8eac538ed86a0d6f0d9c7a4a768f01a"
+  },
+  {
+    "id": "2017#38",
+    "exam": "2017",
+    "type": "R-INSERT",
+    "passage_group": "2017:38",
+    "source_binding": "60e631eab6b9f9c26947b6356fe038da44bb471f3fdd0bd8dac2bd26f7564508"
+  },
+  {
+    "id": "2023#40",
+    "exam": "2023",
+    "type": "R-SUMMARY",
+    "passage_group": "2023:40",
+    "source_binding": "1d3073191b2253540ae46ecb2c5f6a926b68eb3a96e730facf58278bb6fdf044"
+  },
+  {
+    "id": "2021#30",
+    "exam": "2021",
+    "type": "R-VOCAB",
+    "passage_group": "2021:30",
+    "source_binding": "45cab400d1df29f432dbb0c453e72f6a4d7cbf4982025811fdbaee0527ab5ce8"
+  },
+  {
+    "id": "2018#28",
+    "exam": "2018",
+    "type": "R-GRAMMAR",
+    "passage_group": "2018:28",
+    "source_binding": "6e0a8133f9388cff20974d02713bc5ed79aed4d47f5f66872738aa22aafb6095"
+  },
+  {
+    "id": "2022#26",
+    "exam": "2022",
+    "type": "R-FACT",
+    "passage_group": "2022:26",
+    "source_binding": "fb26b717221de6c7d9c4586be718612b78a16600842948604021d6ea5be7fbd6"
+  },
+  {
+    "id": "2014A#32",
+    "exam": "2014A",
+    "type": "R-CHART",
+    "passage_group": "2014A:32",
+    "source_binding": "aac77c1715c378680fe96183684478830f1627440c9bc0a458e56c5a55fa5312"
+  },
+  {
+    "id": "2019#35",
+    "exam": "2019",
+    "type": "R-IRRELEVANT",
+    "passage_group": "2019:35",
+    "source_binding": "04b2edf166d92259c064ea0565044244b27e9f87e3cbc23f2b04c9178a094e5e"
+  }
+]

@@ -1,0 +1,434 @@
+{
+  "version": "1.3",
+  "seed": 202610143,
+  "selection_method": "Independent within-task uniform sampling without replacement; six per task; seeded Fisher-Yates using 32-bit LCG. No candidate outcome stratification imposed.",
+  "source_available_unique_items": 48,
+  "published_priority_denominator": 3144,
+  "restricted_denominator": 181,
+  "exclusions": "Previously reviewed item/task combinations; unavailable complete research inputs; non-main or outside2014–2024. All are previously researcher-exposed development items.",
+  "source_hashes": [
+    {
+      "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3"
+    },
+    {
+      "path": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16"
+    }
+  ],
+  "map_hash": "976f096b189da971ce2825e7cfd6f45069c85262c0e56d72903dff040fc31daf",
+  "old_review_hash": "2cee0b04240be4d8719afd191d5ee96d7974e30bfac404db5c251f47ad1abbda",
+  "strata": [
+    {
+      "task_id": "r.central_meaning",
+      "denominator": 45,
+      "denominator_ids": [
+        "2014A#36",
+        "2014A#39",
+        "2014A#40",
+        "2014B#34",
+        "2014B#38",
+        "2014B#42",
+        "2014B#45",
+        "2015#18",
+        "2015#21",
+        "2015#24",
+        "2015#30",
+        "2016#25",
+        "2016#29",
+        "2016#30",
+        "2017#23",
+        "2017#25",
+        "2018#18",
+        "2018#19",
+        "2018#36",
+        "2018#39",
+        "2018#43",
+        "2019#23",
+        "2019#25",
+        "2019#30",
+        "2019#40",
+        "2019#44",
+        "2020#20",
+        "2020#29",
+        "2020#37",
+        "2021#22",
+        "2021#26",
+        "2021#40",
+        "2021#42",
+        "2022#18",
+        "2022#25",
+        "2022#35",
+        "2022#44",
+        "2023#20",
+        "2023#29",
+        "2023#39",
+        "2024#21",
+        "2024#28",
+        "2024#31",
+        "2024#34",
+        "2024#35"
+      ],
+      "candidate_counts": {
+        "unknown": 38,
+        "direct": 7
+      },
+      "sample": [
+        {
+          "item_id": "2022#35",
+          "type_id": "R-IRRELEVANT",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2019#30",
+          "type_id": "R-VOCAB",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2022#18",
+          "type_id": "R-PURPOSE",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2021#26",
+          "type_id": "R-FACT",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2018#43",
+          "type_id": "X-ORDER",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2023#20",
+          "type_id": "R-CLAIM",
+          "candidate_relevance": "direct",
+          "candidate_rule": "macro_task_type_candidate_requires_original_check",
+          "inclusion_probability": 0.13333333333333333
+        }
+      ]
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "denominator": 45,
+      "denominator_ids": [
+        "2014A#36",
+        "2014A#39",
+        "2014A#40",
+        "2014B#34",
+        "2014B#38",
+        "2014B#42",
+        "2014B#45",
+        "2015#18",
+        "2015#21",
+        "2015#24",
+        "2015#30",
+        "2016#23",
+        "2016#25",
+        "2016#29",
+        "2016#30",
+        "2017#21",
+        "2017#23",
+        "2018#18",
+        "2018#19",
+        "2018#36",
+        "2018#39",
+        "2018#43",
+        "2019#23",
+        "2019#30",
+        "2019#40",
+        "2019#44",
+        "2020#20",
+        "2020#29",
+        "2020#37",
+        "2021#22",
+        "2021#26",
+        "2021#40",
+        "2021#42",
+        "2022#18",
+        "2022#25",
+        "2022#35",
+        "2022#44",
+        "2023#20",
+        "2023#29",
+        "2023#39",
+        "2023#41",
+        "2024#21",
+        "2024#31",
+        "2024#34",
+        "2024#35"
+      ],
+      "candidate_counts": {
+        "direct": 45
+      },
+      "sample": [
+        {
+          "item_id": "2022#44",
+          "type_id": "X-REFER",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2019#40",
+          "type_id": "R-SUMMARY",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2014A#36",
+          "type_id": "R-BLANK2",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2015#18",
+          "type_id": "R-GIST",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2014B#42",
+          "type_id": "X-BLANK",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2014A#40",
+          "type_id": "R-MOOD",
+          "candidate_relevance": "direct",
+          "candidate_rule": "v3_five_candidate_judgments",
+          "inclusion_probability": 0.13333333333333333
+        }
+      ]
+    },
+    {
+      "task_id": "s.form_scope",
+      "denominator": 45,
+      "denominator_ids": [
+        "2014A#36",
+        "2014A#39",
+        "2014A#40",
+        "2014B#34",
+        "2014B#38",
+        "2014B#42",
+        "2014B#45",
+        "2015#18",
+        "2015#21",
+        "2015#24",
+        "2015#30",
+        "2016#23",
+        "2016#25",
+        "2016#29",
+        "2016#30",
+        "2017#21",
+        "2017#23",
+        "2017#25",
+        "2018#18",
+        "2018#19",
+        "2018#36",
+        "2018#39",
+        "2018#43",
+        "2019#23",
+        "2019#25",
+        "2019#30",
+        "2019#40",
+        "2019#44",
+        "2020#20",
+        "2020#29",
+        "2020#37",
+        "2021#22",
+        "2021#26",
+        "2021#40",
+        "2022#18",
+        "2022#25",
+        "2022#35",
+        "2022#44",
+        "2023#20",
+        "2023#39",
+        "2023#41",
+        "2024#21",
+        "2024#31",
+        "2024#34",
+        "2024#35"
+      ],
+      "candidate_counts": {
+        "unknown": 44,
+        "direct": 1
+      },
+      "sample": [
+        {
+          "item_id": "2014B#38",
+          "type_id": "R-ORDER",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2019#25",
+          "type_id": "R-CHART",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2015#21",
+          "type_id": "R-TOPIC",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2017#25",
+          "type_id": "R-FACT",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2014B#45",
+          "type_id": "X-FACT",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13333333333333333
+        },
+        {
+          "item_id": "2020#29",
+          "type_id": "R-GRAMMAR",
+          "candidate_relevance": "direct",
+          "candidate_rule": "grammar_type_candidate_requires_form_scope_facet",
+          "inclusion_probability": 0.13333333333333333
+        }
+      ]
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "denominator": 46,
+      "denominator_ids": [
+        "2014A#36",
+        "2014A#39",
+        "2014A#40",
+        "2014B#34",
+        "2014B#38",
+        "2014B#42",
+        "2014B#45",
+        "2015#18",
+        "2015#21",
+        "2015#24",
+        "2016#23",
+        "2016#25",
+        "2016#29",
+        "2016#30",
+        "2017#21",
+        "2017#23",
+        "2017#25",
+        "2018#18",
+        "2018#19",
+        "2018#36",
+        "2018#39",
+        "2018#43",
+        "2019#23",
+        "2019#25",
+        "2019#30",
+        "2019#40",
+        "2019#44",
+        "2020#20",
+        "2020#29",
+        "2020#37",
+        "2021#22",
+        "2021#26",
+        "2021#40",
+        "2021#42",
+        "2022#18",
+        "2022#25",
+        "2022#35",
+        "2022#44",
+        "2023#20",
+        "2023#29",
+        "2023#39",
+        "2023#41",
+        "2024#21",
+        "2024#28",
+        "2024#31",
+        "2024#35"
+      ],
+      "candidate_counts": {
+        "unknown": 42,
+        "direct": 4
+      },
+      "sample": [
+        {
+          "item_id": "2016#30",
+          "type_id": "R-REFER",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        },
+        {
+          "item_id": "2023#29",
+          "type_id": "R-GRAMMAR",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        },
+        {
+          "item_id": "2016#23",
+          "type_id": "R-TITLE",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        },
+        {
+          "item_id": "2018#43",
+          "type_id": "X-ORDER",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        },
+        {
+          "item_id": "2017#21",
+          "type_id": "R-TOPIC",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        },
+        {
+          "item_id": "2022#18",
+          "type_id": "R-PURPOSE",
+          "candidate_relevance": "unknown",
+          "candidate_rule": "no_explicit_annotation",
+          "inclusion_probability": 0.13043478260869565
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Inference is restricted to these source-available development strata, not all786 or all23580.",
+    "Repeated items within task are absent; cross-task repeats are dependent.",
+    "Single AI post-key semantic review, not blind independent raters.",
+    "Candidate positive/unknown strata may be absent when rule covers all items; E3 allpositive is an identifiability limitation."
+  ],
+  "semantic_review_started": false
+}
