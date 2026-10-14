@@ -8,6 +8,8 @@
 
 import { useState } from 'react'
 
+import { track } from '@/lib/analytics/client'
+
 import type { MsUnit } from '@/lib/csat/meaning-support/labels'
 import { FACET_LABEL } from '@/lib/csat/meaning-support/labels'
 import { DRAFT_MAX, draftTooLong } from '@/lib/csat/meaning-support/model'
@@ -50,7 +52,11 @@ export function MeaningDraft({ unit, text, onChange }: { unit: MsUnit; text: str
             <p className={styles.quiet}>이 조건들이 내 말에도 남아 있는지 스스로 확인해 보세요. 점수는 매기지 않아요.</p>
           </div>
         ) : (
-          <button type="button" className={styles.back} onClick={() => setCompared(true)} data-testid="ms-draft-compare-open">
+          <button type="button" className={styles.back} onClick={() => {
+            const n = [...text].length
+            track({ name: 'csat_meaning_draft_compared', props: { length: n < 50 ? 'lt50' : n < 200 ? 'lt200' : 'gte200' } })
+            setCompared(true)
+          }} data-testid="ms-draft-compare-open">
             검수된 설명과 나란히 보기
           </button>
         )

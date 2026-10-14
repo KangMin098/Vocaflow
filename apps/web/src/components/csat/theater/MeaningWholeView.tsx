@@ -130,14 +130,14 @@ export function MeaningWholeView({
   )
 }
 
-export function MeaningBoundaryView({ view, onTrace }: { view: MeaningSupportView; onTrace: (unitId: string, relationId: string | null) => void }) {
+export function MeaningBoundaryView({ view, onTrace }: { view: MeaningSupportView; onTrace: (unitId: string, relationId: string | null, target?: 'step' | 'link' | 'boundary') => void }) {
   const observed = view.propositions.filter((p) => p.basis === 'source_observation')
   const inferred = view.propositions.filter((p) => p.basis !== 'source_observation')
   const stretched = view.units.filter((u) => u.misunderstanding)
   const limits = view.whole.limitsKo ?? []
   const traceProp = (pid: string) => {
     const u = unitOfProp(view, pid)
-    if (u) onTrace(u.id, null)
+    if (u) onTrace(u.id, null, 'boundary')
   }
   return (
     <section className={styles.msCard} aria-label="읽기의 경계" data-testid="ms-boundary">
@@ -174,7 +174,7 @@ export function MeaningBoundaryView({ view, onTrace }: { view: MeaningSupportVie
           <ul className="break-keep">
             {stretched.map((u) => (
               <li key={u.id}>
-                <button type="button" className={styles.msInline} onClick={() => onTrace(u.id, null)}>「{u.misunderstanding!.alteredKo}」</button>
+                <button type="button" className={styles.msInline} onClick={() => onTrace(u.id, null, 'boundary')}>「{u.misunderstanding!.alteredKo}」</button>
                 <span className={styles.quiet}> — {FACET_LABEL[u.misunderstanding!.lostFacet]}이(가) 바뀐다. {u.misunderstanding!.whyWrongKo}</span>
               </li>
             ))}

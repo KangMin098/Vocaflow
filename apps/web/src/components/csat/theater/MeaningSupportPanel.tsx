@@ -75,7 +75,7 @@ export function MeaningSupportPanel({
   /** 다른 장면으로 이어가기 — 이 의미가 걸린 선택지 · 설계 근거를 들고 간다 */
   onGo: (scene: 'judgment' | 'design') => void
   /** 전체 통합 · 경계에서 거슬러 오르기 — 의미(와 관계)를 한 번에 고른다 */
-  onTrace: (unitId: string, relationId: string | null) => void
+  onTrace: (unitId: string, relationId: string | null, target?: 'step' | 'link' | 'boundary') => void
 }) {
   const unit = pick ? null : view.units.find((u) => u.id === unitId) ?? null
   const relation = view.relations.find((r) => r.id === relationId) ?? null

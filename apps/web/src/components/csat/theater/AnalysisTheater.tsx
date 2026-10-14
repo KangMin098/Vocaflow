@@ -601,7 +601,8 @@ export function AnalysisTheater({
     buildItemUrl(new URL(window.location.href), { scene: sceneId, meaning: o.unit, depth: o.depth, rel: o.rel, bridge: o.bridge })
   const writeMs = (o: { unit: string | null; depth: MsDepth; rel: string | null }) =>
     window.history.replaceState(window.history.state, '', msHref(scene, { ...o, bridge: false }))
-  const pickMsUnit = (id: string | null) => {
+  const pickMsUnit = (id: string | null, from: 'chip' | 'map' | 'relation' = 'chip') => {
+    if (id) track({ name: 'csat_meaning_unit_selected', props: { from, depth: msDepth } })
     setMsUnit(id)
     setMsRelation(null)
     setMsPick(null)
@@ -610,7 +611,11 @@ export function AnalysisTheater({
     writeMs({ unit: id, depth: msDepth, rel: null })
   }
   // 전체 통합 · 경계에서 거슬러 오르기 — 의미와 관계를 한 번에(관계는 그 의미에 이어진 것만 주소에 실린다)
-  const traceMs = (unitId: string, relationId: string | null) => {
+  const traceMs = (unitId: string, relationId: string | null, target: 'step' | 'link' | 'boundary' = relationId ? 'link' : 'step') => {
+    track({ name: 'csat_meaning_whole_traced', props: { target } })
+    const rk = relationId ? ms?.relations.find((r) => r.id === relationId)?.kind : undefined
+    if (rk) track({ name: 'csat_meaning_relation_opened', props: { kind: rk, from: 'trace' } })
+    else track({ name: 'csat_meaning_unit_selected', props: { from: 'trace', depth: msDepth } })
     setMsUnit(unitId)
     setMsRelation(relationId)
     setMsPick(null)
@@ -619,6 +624,8 @@ export function AnalysisTheater({
     writeMs({ unit: unitId, depth: msDepth, rel: relationId })
   }
   const pickMsRelation = (id: string | null) => {
+    const rk = id ? ms?.relations.find((r) => r.id === id)?.kind : undefined
+    if (rk) track({ name: 'csat_meaning_relation_opened', props: { kind: rk, from: 'unit' } })
     setMsRelation(id)
     setMsPick(null)
     setMsChip(false)
@@ -635,6 +642,7 @@ export function AnalysisTheater({
     }
   }
   const pickMsDepth = (d: MsDepth) => {
+    if (d !== msDepth) track({ name: 'csat_meaning_depth_changed', props: { depth: d } })
     setMsDepth(d)
     writeMs({ unit: msUnit, depth: d, rel: msRelation })
   }
@@ -643,7 +651,7 @@ export function AnalysisTheater({
     if (!ms) return
     setMsChip(false)
     const hits = unitsForSentence(ms, n)
-    if (hits.length === 1) return pickMsUnit(hits[0].id)
+    if (hits.length === 1) return pickMsUnit(hits[0].id, 'map')
     setMsPick({ n, unitIds: hits.map((u) => u.id) })
     setMsRelation(null)
     setMsPhrase(null)
@@ -679,6 +687,7 @@ export function AnalysisTheater({
   }
   // 원문 이해 → 문항 성립 · 설계 재구성: 이 의미가 걸린 선택지 · 설계 근거를 들고 간다(주소 bridge=1 — 뒤로가기로 원래 의미에 돌아온다)
   const goBridge = (target: 'judgment' | 'design') => {
+    track({ name: 'csat_meaning_bridge_followed', props: { scene: target } })
     stashScene()
     setScene(target)
     // 이어 온 맥락(bridge)이 근거를 대신 짚는다 — 이 장면의 지난 선택은 되살리지 않는다
