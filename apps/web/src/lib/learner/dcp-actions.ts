@@ -248,7 +248,14 @@ export async function fetchTextbookPracticeItems(
   //   RPC 상한이 50 이므로 그 안에서 넉넉히 잡는다(실측 반려율 약 8%).
   const overFetch = Math.min(50, Math.max(limit * 3, limit + 10))
   // v6.2 P-F7a — 권 단위 함수가 V레벨 · 권 유형 · 발행을 DB 에서 정한다(함수 없을 때만 옛 V레벨 함수 · `practice-rpc.ts`).
-  const { data, error } = await fetchVolumePracticeRows((fn, args) => loose.rpc(fn, args), volume, overFetch)
+  const { data, error } = await fetchVolumePracticeRows(
+    {
+      volume: (series, step, n) => loose.rpc('textbook_practice_items_for', { p_series: series, p_step: step, p_limit: n }),
+      legacy: (vLevel, n) => loose.rpc('textbook_practice_items', { p_v_level: vLevel, p_limit: n }),
+    },
+    volume,
+    overFetch,
+  )
   // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
   if (error) return { items: [], unavailable: true, signedOut: false }
 
