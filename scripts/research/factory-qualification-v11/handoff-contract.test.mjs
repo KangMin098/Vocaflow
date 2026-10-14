@@ -1,0 +1,4 @@
+// scripts/research/factory-qualification-v11/handoff-contract.test.mjs
+import test from 'node:test';import assert from 'node:assert/strict';import {buildContract} from './handoff-contract.mjs';
+test('payload retains eight axes and four separately bound version types',()=>{const c=buildContract();assert.equal(c.schema.properties.axes.required.length,8);assert.deepEqual(c.schema.properties.versions.required,['source','analysis','gold','source_policy']);assert.equal(c.example.approval_refs.length,0);});
+test('C ledger fields preserve gold and leave learner to the server supply context',()=>{const c=buildContract();assert.equal(c.summary_fields.includes('gold'),true);assert.equal(c.summary_fields.includes('learner'),false);assert.equal(c.actual_product_e2e_executed,0);assert.equal(c.actual_rights_or_release_created,0);});

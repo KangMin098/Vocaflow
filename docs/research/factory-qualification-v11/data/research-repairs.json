@@ -1,0 +1,274 @@
+{
+  "version": "FQ1.1-research-repair1",
+  "original_package": {
+    "path": "scripts/research/csat-reading/local/v15/content-packages-revision2.json",
+    "sha256": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf"
+  },
+  "first_review": {
+    "path": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+    "sha256": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e"
+  },
+  "configuration": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-config.json",
+    "sha256": "224f4b9e55a3a2e961015039185f3be15e789e28586bf340ff25fe2f91cee6a6"
+  },
+  "repair_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-packet.json",
+    "sha256": "6c155d761f614cb0ef05a048acacc59533c24c3febc131ec89bdaa09c9868cd4"
+  },
+  "blind_packet": {
+    "path": "scripts/research/factory-qualification-v11/local/research-repairs-blind.json",
+    "sha256": "560872546dbdd945df9aa53ddf772275fa6500848fb6deac6e4d872a17350666"
+  },
+  "activities": [
+    {
+      "activity_id": "v14-s.form_scope-1",
+      "item_id": "2024#28",
+      "task_id": "s.form_scope",
+      "old_revision": "3",
+      "new_revision": "FQ1.1-research-repair1",
+      "old_activity_sha256": "9d40400ade9bfd3d3abf1afc5f70d0edc1d866d1c49869cc42294e5524097887",
+      "new_activity_sha256": "cbfd8a408f2da254db64ccf19a6ac9067857c7500b9741259d1876cd3a88b53c",
+      "issue_ids": [
+        "RQ-E01"
+      ],
+      "source": {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+        "row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+        "binding": null,
+        "anchor": {
+          "field": "passage",
+          "start": 350,
+          "end": 388
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "unchanged_facets": [
+        "domain",
+        "boundary",
+        "countermodel"
+      ],
+      "author_cases": [
+        {
+          "id": "r1-a1",
+          "facet": "operator",
+          "state": "defer"
+        },
+        {
+          "id": "r1-a2",
+          "facet": "operator",
+          "state": "defect"
+        }
+      ],
+      "novel_cases": [
+        {
+          "id": "r1-n1",
+          "facet": "operator",
+          "state": "partial"
+        },
+        {
+          "id": "r1-n2",
+          "facet": "operator",
+          "state": "defect"
+        },
+        {
+          "id": "r1-n3",
+          "facet": "operator",
+          "state": "defer"
+        }
+      ],
+      "remaining_ambiguity": "No automatic free-text grading; equivalent paraphrases require component interpretation. Other facets are judged separately; right length does not establish student-wise domain or boundary examples."
+    },
+    {
+      "activity_id": "v14-s.form_scope-2",
+      "item_id": "2015#21",
+      "task_id": "s.form_scope",
+      "old_revision": "3",
+      "new_revision": "FQ1.1-research-repair1",
+      "old_activity_sha256": "77b9a51a7e1efecb522e0ff1b57d519b1162cd7ce6cc32e4258062c1434104e9",
+      "new_activity_sha256": "873565fda622ab3e0d3d9769ef81921887f85f8949923b1d522a319c19829dee",
+      "issue_ids": [
+        "RQ-E02",
+        "RQ-E03"
+      ],
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/development-input.json",
+        "file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+        "row_sha256": "f6ad27807302892603216cbfcdad44ca46c7edeb11228239a4ecaca0a4447949",
+        "binding": "1d2bc0d6bed28d3c4afbfec2c5e293ec9ba9ff5352a23c51b0ff133853c087c3",
+        "anchor": {
+          "field": "passage",
+          "start": 465,
+          "end": 498
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "unchanged_facets": [
+        "condition",
+        "reverse"
+      ],
+      "author_cases": [
+        {
+          "id": "r2-a1",
+          "facet": "strength",
+          "state": "defect"
+        },
+        {
+          "id": "r2-a2",
+          "facet": "examples",
+          "state": "defer"
+        }
+      ],
+      "novel_cases": [
+        {
+          "id": "r2-n1",
+          "facet": "strength",
+          "state": "partial"
+        },
+        {
+          "id": "r2-n2",
+          "facet": "strength",
+          "state": "defect"
+        },
+        {
+          "id": "r2-n3",
+          "facet": "examples",
+          "state": "partial"
+        },
+        {
+          "id": "r2-n4",
+          "facet": "examples",
+          "state": "defect"
+        }
+      ],
+      "remaining_ambiguity": "Response-level partial is descriptive only; facet states differ. Source-undetermined outside-condition action is not learner silence. Actual child-safety action needs separate evidence."
+    },
+    {
+      "activity_id": "v14-s.form_scope-3",
+      "item_id": "2014A#32",
+      "task_id": "s.form_scope",
+      "old_revision": "3",
+      "new_revision": "FQ1.1-research-repair1",
+      "old_activity_sha256": "ffeae4f20c408e9761fd50215179c6daedb41fbdc7392e79615150d9684516d4",
+      "new_activity_sha256": "d3bf4e8a18d56c5127338ea835cffe92c79de354b92a13c67251ec708766322a",
+      "issue_ids": [
+        "RQ-E04"
+      ],
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c7db576625845ab750d317f2fba5d570e8d8e50540f383eeb86c47a95f9f9b37",
+        "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+        "anchor": {
+          "field": "passage",
+          "start": 557,
+          "end": 593
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "unchanged_facets": [
+        "comparison",
+        "conjunction",
+        "units"
+      ],
+      "author_cases": [
+        {
+          "id": "r3-a1",
+          "facet": "boundary",
+          "state": "defer"
+        },
+        {
+          "id": "r3-a2",
+          "facet": "boundary",
+          "state": "defect"
+        }
+      ],
+      "novel_cases": [
+        {
+          "id": "r3-n1",
+          "facet": "boundary",
+          "state": "partial"
+        },
+        {
+          "id": "r3-n2",
+          "facet": "boundary",
+          "state": "meets"
+        },
+        {
+          "id": "r3-n3",
+          "facet": "boundary",
+          "state": "defect"
+        }
+      ],
+      "remaining_ambiguity": "Synthetic boundary judgments do not validate original graph visual reading. Unit/time/group assertions belong to other facets; consistent boundary prose alone does not satisfy them."
+    },
+    {
+      "activity_id": "v14-v.contextual_sense-3",
+      "item_id": "2024#23",
+      "task_id": "v.contextual_sense",
+      "old_revision": "3",
+      "new_revision": "FQ1.1-research-repair1",
+      "old_activity_sha256": "e88c0f6895212bdd73ce6b5d0613a49fbd20459bdef34af9e99501d84f2141b1",
+      "new_activity_sha256": "d6b517a67e3bfc7dafdac3944d2bd9d63433b9d0a7b40b584e589a57154bbde2",
+      "issue_ids": [
+        "RQ-D01"
+      ],
+      "source": {
+        "path": "scripts/research/csat-reading/local/v13/pilot-input.json",
+        "file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+        "row_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+        "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+        "anchor": {
+          "field": "passage",
+          "start": 921,
+          "end": 937
+        },
+        "admission": "inherited source-complete AI/PDF/same-form-key ledger; not new human audit"
+      },
+      "unchanged_facets": [
+        "sense",
+        "arguments",
+        "cue",
+        "limit"
+      ],
+      "author_cases": [
+        {
+          "id": "r4-a1",
+          "facet": "limit",
+          "state": "meets"
+        }
+      ],
+      "novel_cases": [
+        {
+          "id": "r4-n1",
+          "facet": "limit",
+          "state": "partial"
+        },
+        {
+          "id": "r4-n2",
+          "facet": "limit",
+          "state": "defect"
+        },
+        {
+          "id": "r4-n3",
+          "facet": "limit",
+          "state": "defer"
+        }
+      ],
+      "remaining_ambiguity": "The added limit output is explicit but metacognitive scope reporting is distinct from the core contextual-sense performance. No actual successful center-generation or five-choice audit is required; exposure eligibility still requires logs."
+    }
+  ],
+  "counts": {
+    "activities": 4,
+    "issues": 5,
+    "author_cases": 7,
+    "novel_cases": 13,
+    "independent_reviews": 0,
+    "human_reviews": 0,
+    "learners": 0,
+    "public_qualified": 0,
+    "assessment_qualified": 0
+  },
+  "status": "repair artifacts sealed; independent revalidation pending; original first results unchanged"
+}

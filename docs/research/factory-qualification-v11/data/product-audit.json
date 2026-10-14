@@ -1,0 +1,245 @@
+{
+  "method": "read_only_git_files_github_and_separate_readonly_sql_receipts",
+  "observed_at": "2026-10-14T14:21:46.072Z",
+  "product_root": "D:/workspace/Vocaflow-map-v62",
+  "product_head": "5b3b84433f4e7c22b32b22fb48f78be969fc3935",
+  "origin_main": "431e2895644a36d7749b91c7406f5f15ee2047ef",
+  "prs": [
+    {
+      "mergeCommit": {
+        "oid": "8ed086aaae3df3008d861530929cc985ce7ca851"
+      },
+      "mergedAt": "2026-10-14T11:42:01Z",
+      "number": 253,
+      "state": "MERGED",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/253"
+    },
+    {
+      "mergeCommit": {
+        "oid": "e53a7aadd8c17758d3995ce0f9b37f68311cba16"
+      },
+      "mergedAt": "2026-10-14T12:08:55Z",
+      "number": 254,
+      "state": "MERGED",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/254"
+    },
+    {
+      "mergeCommit": {
+        "oid": "431e2895644a36d7749b91c7406f5f15ee2047ef"
+      },
+      "mergedAt": "2026-10-14T12:26:02Z",
+      "number": 255,
+      "state": "MERGED",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/255"
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/csat-learner/v62/P-F4b_PERSIST_MODEL.md",
+      "sha256": "d8e2dab333d289dcef104a786aab141affe193694b07454cbf27d14564d0ecd2",
+      "bytes": 6222,
+      "main_sha256": "d8e2dab333d289dcef104a786aab141affe193694b07454cbf27d14564d0ecd2",
+      "status": "main_identical"
+    },
+    {
+      "path": "docs/csat-learner/v62/P-F4a_TEXTBOOK_PUBLISH_GATE.md",
+      "sha256": "d2ca4d773a509902b26d4a0bd01fd6be349b4baab15d87bb3b90e42e92d321ff",
+      "bytes": 3754,
+      "main_sha256": "d2ca4d773a509902b26d4a0bd01fd6be349b4baab15d87bb3b90e42e92d321ff",
+      "status": "main_identical"
+    },
+    {
+      "path": "docs/csat-learner/v62/P-F5_PRODUCTION_PILOT.md",
+      "sha256": "13a49bfd0cfc3d59115321cb718aea116daa3e0e06fd7e94ce797e09af62af85",
+      "bytes": 3215,
+      "main_sha256": "13a49bfd0cfc3d59115321cb718aea116daa3e0e06fd7e94ce797e09af62af85",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "sha256": "1e79cabfa5374159c09b2b1119de0d1860391e9fde4645310442da251ddf2c9a",
+      "bytes": 4537,
+      "main_sha256": "1e79cabfa5374159c09b2b1119de0d1860391e9fde4645310442da251ddf2c9a",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "bytes": 9572,
+      "main_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "bytes": 7668,
+      "main_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "bytes": 3309,
+      "main_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/production-pilot.ts",
+      "sha256": "ac9cfd255282b99c5d6206a55fa659589e1296de56a912624fff9e8f3a01f6aa",
+      "bytes": 3848,
+      "main_sha256": "ac9cfd255282b99c5d6206a55fa659589e1296de56a912624fff9e8f3a01f6aa",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/study-items.ts",
+      "sha256": "d4bc3824b071fa21a1dd0feb755d7951d1e76b1a36aa0d93ef1e20802e6b7a73",
+      "bytes": 2870,
+      "main_sha256": "d4bc3824b071fa21a1dd0feb755d7951d1e76b1a36aa0d93ef1e20802e6b7a73",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/qualification.ts",
+      "sha256": "b0978fec8de2d47709179f3c7024f2f82b2ffbf31eddd68d99bb56efc80f494c",
+      "bytes": 3971,
+      "main_sha256": null,
+      "status": "untracked_proposal"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/qualification.test.ts",
+      "sha256": "56a314c7750c3f91c9d3bfb0af75a6566b71e3cfc8da6e56a6fe36a7958aa750",
+      "bytes": 3816,
+      "main_sha256": null,
+      "status": "untracked_proposal"
+    },
+    {
+      "path": "scripts/csat/map/v62/import-fq1.mjs",
+      "sha256": "6fd853a6dc795ded6657ebd84e40571efa847352e3852b49ef630e0457b2eb2d",
+      "bytes": 2104,
+      "main_sha256": null,
+      "status": "untracked_proposal"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/as-is.ts",
+      "sha256": "5f896640852cc7633699854e5c6cdb3d6e40cb30a78d208b8ca6e37cc04e5873",
+      "bytes": 15783,
+      "main_sha256": "5f896640852cc7633699854e5c6cdb3d6e40cb30a78d208b8ca6e37cc04e5873",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "sha256": "1882728dba732395112a0a91f3ba4f3f2e6f09ae8ffbf844c5f4f2acd874d475",
+      "bytes": 21445,
+      "main_sha256": "1882728dba732395112a0a91f3ba4f3f2e6f09ae8ffbf844c5f4f2acd874d475",
+      "status": "main_identical"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/route-helpers.ts",
+      "sha256": "7036574cbaccb525180946f91295f32357da3aeb28d567ce1b20f63995a1d06f",
+      "bytes": 1458,
+      "main_sha256": "7036574cbaccb525180946f91295f32357da3aeb28d567ce1b20f63995a1d06f",
+      "status": "main_identical"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-map-supply.mjs",
+      "sha256": "91007fad01fd405212fa8dd3408a4d7e3d3930265f787e4d19a61c1a7c4f0ed1",
+      "bytes": 6295,
+      "main_sha256": "91007fad01fd405212fa8dd3408a4d7e3d3930265f787e4d19a61c1a7c4f0ed1",
+      "status": "main_identical"
+    },
+    {
+      "path": "supabase/migrations/_pending_textbook_practice_publish_gate.sql",
+      "sha256": "77ca45694446a47ea8ca92f11b39e14a07c6390b0537ade3dc3907f9b5aa24af",
+      "bytes": 3902,
+      "main_sha256": null,
+      "status": "untracked_proposal"
+    }
+  ],
+  "sql_receipt": {
+    "observed_at": "2026-10-14",
+    "method": "Supabase execute_sql read_only; to_regclass then information_schema, pg_proc, pg_policies; aggregate only",
+    "tables": {
+      "content_qualification": "absent",
+      "workspace_content_demand": "absent",
+      "factory_order": "absent",
+      "factory_order_event": "absent",
+      "workspace_content_delivery": "absent"
+    },
+    "existing_learner_workspace": "present",
+    "proposed_functions_found": 0,
+    "proposed_policies_found": 0,
+    "content_qualification_rows": "not_countable_table_absent",
+    "knowledge_applications_csat_item_task": [
+      {
+        "status": "active",
+        "rows": 24,
+        "rows_with_named_release_fields": 24
+      },
+      {
+        "status": "draft",
+        "rows": 5,
+        "rows_with_named_release_fields": 0
+      }
+    ],
+    "limitations": [
+      "Named release fields do not independently establish authority, legal scope, or student efficacy.",
+      "No individual user IDs, raw payloads, keys, or approval identities exported.",
+      "No DB change or product E2E executed."
+    ]
+  },
+  "flag_sets": {
+    "supply": [
+      "producible",
+      "rights",
+      "content",
+      "teaching",
+      "assessment",
+      "learner",
+      "runnable"
+    ],
+    "proposed_approval_C": [
+      "producible",
+      "rights",
+      "content",
+      "teaching",
+      "gold",
+      "assessment",
+      "runnable"
+    ]
+  },
+  "implementation_gaps": [
+    "proposed_ledger_absent",
+    "approval_authority_and_scope_not_verified_by_pure_adapter",
+    "evidence_hashes_and_methods_dropped_by_snapshot_import",
+    "source_analysis_gold_revisions_not_independently_bound",
+    "supplyEligible_omits_learner_caller_boundary",
+    "delivery_transition_checks_only_qualificationId_presence",
+    "no_atomic_factory_delivery_RPC_or_RLS",
+    "shared_normalized_body_exposure_ledger_unchecked"
+  ],
+  "e2e_scenarios": [
+    {
+      "id": "unqualified_factory_blocked",
+      "current": "pure proposal tests plus factory_candidate stock path; no delivery server E2E"
+    },
+    {
+      "id": "existing_R5_preserved",
+      "current": "existing R5 supply path and e2e-map-supply script; not rerun in this readonly research"
+    },
+    {
+      "id": "V2_guided_waits_review",
+      "current": "production pilot release hold, factory_candidate; no learner activity-unit renderer"
+    },
+    {
+      "id": "revision_change_revalidated",
+      "current": "pure bindResult proposal rejects content revision; no persisted invalidation server"
+    },
+    {
+      "id": "other_user_history_denied",
+      "current": "learnerContext session identity and existing APIs; no factory-delivery table/policy"
+    },
+    {
+      "id": "same_demand_duplicate_blocked",
+      "current": "canonical/signature pure contract and proposed unique; no atomic delivery persistence"
+    }
+  ]
+}
