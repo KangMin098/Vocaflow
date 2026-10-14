@@ -1,0 +1,369 @@
+{
+  "version": "research-input-v1.2",
+  "reviewer": "restoration-agent-A independently reviews restoration-agent-B inputs only",
+  "method": "Actual full-page local-PDF renders independently inspected for all 12 B items (13 rendered pages including shared instruction page). SHA256 of original PDF bytes, original snapshot/source-audit binding, public row hash, full stem/body/candidates/glosses source-text containment, every recorded offset substring, and printed presentation were crosschecked. Compatibility Unicode and whitespace normalization were used for text containment only; visual inspection determines candidate/box/footnote boundaries. No B files, original input, DB, or git were modified.",
+  "scope": "Research task-input completeness only. No human review, official-download provenance certification, answer/effectiveness/generalization claim. This report does not review agent A's own restoration rows.",
+  "limitations": [
+    "official_download_chain_unresolved",
+    "AI_independent_PDF_crosscheck_not_human"
+  ],
+  "items": [
+    {
+      "id": "2023#29",
+      "reviewed_input_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "실제 어법 후보 다섯 단어의 밑줄 범위, ② 후보의 인쇄 주변 두 문장, 실제 단수 각주를 확인했다. 정답을 추정하여 대명사를 고치지 않고 인쇄된 형태를 그대로 보존했다.",
+      "evidence": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          5
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2023-q-5.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 6
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2015#30",
+      "reviewed_input_sha256": "beeff0e75672dbb466b72abc558da8b0f873bd9c2826b0bfd9904c4ba64214ac",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "실제 세 네모의 각 양자택일 순서와 (A)/(B)/(C) 보기표 다섯 행을 확인했다. 후보 조합은 행별로 일치하며 보기표·쪽수 혼입이 제거되었다.",
+      "evidence": {
+        "pdf_filename": "2015_영어영역-홀수.pdf",
+        "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          5
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2015-q-5.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 4
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2017#21",
+      "reviewed_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "전체 본문·다섯 주제 보기 및 실제 각주 두 개의 순서와 의미를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2017_영어_짝.pdf",
+        "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "pages": [
+          3
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png"
+        ],
+        "gloss_count": 2,
+        "candidate_count": 5,
+        "offset_ranges_checked": 0
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2014A#39",
+      "reviewed_input_sha256": "7557cd960a50e2d79d4461d59840ff06ce68ae957b8cea01385ea22fa0eae4a4",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "별도 상자의 제시문, 다섯 괄호형 삽입 위치, 전체 본문과 실제 각주를 확인했다. 삽입 후보는 문장 조각이 아니라 인쇄 번호에 연결되어 있다.",
+      "evidence": {
+        "pdf_filename": "2014_영어A-홀수형_문제.pdf",
+        "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 5
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2024#34",
+      "reviewed_input_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "5쪽 공유 빈칸 발문과 6쪽 문항의 전체 본문·빈칸·다섯 보기 및 각주 세 개를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2024_영어영역_문제지.pdf",
+        "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          5,
+          6
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+          "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png"
+        ],
+        "gloss_count": 3,
+        "candidate_count": 5,
+        "offset_ranges_checked": 1
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2014B#34",
+      "reviewed_input_sha256": "49d5b463423ae51d688e5b88816c67264852832d9d2db06fdad0668f9b311e7c",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "같은 5쪽 공유 빈칸 발문, 전체 본문·빈칸·다섯 보기 및 실제 각주를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2014_영어B-홀수형_문제.pdf",
+        "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          5
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2014B-q-5.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 1
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2018#36",
+      "reviewed_input_sha256": "60037b7462ab6e3704925935cac2bab6cbf5a4a25ae5fc1fc40b4d8dff074ad9",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "공유 순서 발문, 상자형 주어진 글, 인쇄 (A)/(B)/(C) 블록 순서와 경계, 다섯 순열 및 블록 뒤 각주를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          6
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2018-q-6.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 5
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2023#39",
+      "reviewed_input_sha256": "792a571dd3c7c527b9aef065ec190bdb7e533368347ccef06e2b980035e0af31",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "공유 삽입 발문, 별도 상자 제시문, 전체 본문·다섯 괄호형 삽입 위치 및 각주 두 개를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          7
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2023-q-7.png"
+        ],
+        "gloss_count": 2,
+        "candidate_count": 5,
+        "offset_ranges_checked": 6
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2019#23",
+      "reviewed_input_sha256": "9af9292c308e508e91b9813a4bad10824efb0be7eb7962f19cd36b4fc91dff76",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "전체 본문·다섯 주제 보기와 인쇄 각주 세 개의 정확한 항목·의미·순서를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2019_영어_짝.pdf",
+        "pdf_sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          3
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2019-q-3.png"
+        ],
+        "gloss_count": 3,
+        "candidate_count": 5,
+        "offset_ranges_checked": 0
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2021#26",
+      "reviewed_input_sha256": "ae934c66ac4e47de1991368ea3290d37575fdf4ff28a958612ec182bca4c667e",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "인명으로 시작하는 발문의 마지막 선택 조건 및 물음표를 포함한 전체 발문, 본문·다섯 보기·각주와 두 책 제목 강조를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2021_3교시_영어영역_짝.pdf",
+        "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          4
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2021-q-4.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 4
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2016#29",
+      "reviewed_input_sha256": "b253733396991c3110b42e5ac7560a976043712bcf55a8398101b2ab0f991f73",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "실제 세 네모의 두 후보와 (A)/(B)/(C) 보기표 다섯 행의 연결, 전체 본문 및 각주 두 개를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2016_영어영역-홀수.pdf",
+        "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          5
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png"
+        ],
+        "gloss_count": 2,
+        "candidate_count": 5,
+        "offset_ranges_checked": 3
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2015#24",
+      "reviewed_input_sha256": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "인명으로 시작하는 발문의 마지막 선택 조건 및 물음표를 포함한 전체 발문, 본문·다섯 보기·실제 각주를 확인했다.",
+      "evidence": {
+        "pdf_filename": "2015_영어영역-홀수.pdf",
+        "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          3
+        ],
+        "renders": [
+          "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png"
+        ],
+        "gloss_count": 1,
+        "candidate_count": 5,
+        "offset_ranges_checked": 1
+      },
+      "verified_by": "AI_independent_PDF_crosscheck_not_human"
+    }
+  ],
+  "summary": {
+    "items": 12,
+    "matched": 12,
+    "defect": 0,
+    "unresolved": 0,
+    "glosses_checked": 19
+  }
+}

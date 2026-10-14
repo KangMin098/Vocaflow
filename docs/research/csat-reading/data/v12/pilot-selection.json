@@ -1,0 +1,130 @@
+[
+  {
+    "id": "2018#18",
+    "exam": "2018",
+    "type": "R-PURPOSE",
+    "passage_group": "2018:18",
+    "old_snapshot_binding": "5e7e0807aa303aefcc9359ec4ea36002eea42a243ea4909698d1a19097553673",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2014A#40",
+    "exam": "2014A",
+    "type": "R-MOOD",
+    "passage_group": "2014A:40",
+    "old_snapshot_binding": "88efd55a2e4f9328065b8beb7c11575e8c41c9550251c51aadf856eaae6d9665",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2023#20",
+    "exam": "2023",
+    "type": "R-CLAIM",
+    "passage_group": "2023:20",
+    "old_snapshot_binding": "a8367978ac4d97a78f67c8edde8ab0c0483c9d846374dc004fcb2a7009eaabb5",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2021#22",
+    "exam": "2021",
+    "type": "R-GIST",
+    "passage_group": "2021:22",
+    "old_snapshot_binding": "993efac42c04b1723650f00254fe69ea40475186e1a57e55629c426ff018b63f",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2015#21",
+    "exam": "2015",
+    "type": "R-TOPIC",
+    "passage_group": "2015:21",
+    "old_snapshot_binding": "d1720531e77675741d6b7863e10f6ddcf7dd6892fd2d07308b04ed5e9a21ced7",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2017#23",
+    "exam": "2017",
+    "type": "R-TITLE",
+    "passage_group": "2017:23",
+    "old_snapshot_binding": "aecd39a72f1bee96a6a233eeb27c9d17fe5de391b5c647e814a64cdd54dd6888",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2020#29",
+    "exam": "2020",
+    "type": "R-GRAMMAR",
+    "passage_group": "2020:29",
+    "old_snapshot_binding": "113538f539e3e046bf8ae9a08ed3a29cc6b1595b9f7e3966bd392a667dcf86d4",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2019#30",
+    "exam": "2019",
+    "type": "R-VOCAB",
+    "passage_group": "2019:30",
+    "old_snapshot_binding": "6006aecbf66e2657fd5e422ee0d07c44b494bc74e5c51e254e8adf15fa656bad",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2016#25",
+    "exam": "2016",
+    "type": "R-FACT",
+    "passage_group": "2016:25",
+    "old_snapshot_binding": "f395bc2af6d501c1b5d208c2907872a135071ef4eddeac0459761f0fc111dd38",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2022#25",
+    "exam": "2022",
+    "type": "R-CHART",
+    "passage_group": "2022:25",
+    "old_snapshot_binding": "e8af17e67f26d819ed82527238a23edca2e617cec843d4809769bb70b0714d0e",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2024#31",
+    "exam": "2024",
+    "type": "R-BLANK",
+    "passage_group": "2024:31",
+    "old_snapshot_binding": "2b0830c03e338f317e7004fd61a528522527b3c2224156477e4fa4a2a52c1400",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2014B#38",
+    "exam": "2014B",
+    "type": "R-ORDER",
+    "passage_group": "2014B:38",
+    "old_snapshot_binding": "4ec5a8cbb4088c6272e9b39087a9ed0973c5e779ec089958ac943aef96cc49e5",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2018#39",
+    "exam": "2018",
+    "type": "R-INSERT",
+    "passage_group": "2018:39",
+    "old_snapshot_binding": "aecf1850a5c771774cc2fd464d8e8f4603623a58c9fd783cb9890698bbf11c21",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2024#35",
+    "exam": "2024",
+    "type": "R-IRRELEVANT",
+    "passage_group": "2024:35",
+    "old_snapshot_binding": "3f9f2db8a373d3cdcd6a8d858372b258ec35336afb2e5c84318c72d18187028e",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2019#40",
+    "exam": "2019",
+    "type": "R-SUMMARY",
+    "passage_group": "2019:40",
+    "old_snapshot_binding": "82d824da6777aee904563d8b867d89879a0e864783873c836d915a46d605cf26",
+    "pdf_preflight": "pending"
+  },
+  {
+    "id": "2022#44",
+    "exam": "2022",
+    "type": "X-REFER",
+    "passage_group": "2022:43-45",
+    "old_snapshot_binding": "d0baf72a2a3c686a1a7f64d9c21b0d874c2a793d3f05f9cdf17836a0e5be4e38",
+    "pdf_preflight": "pending"
+  }
+]

@@ -1,0 +1,406 @@
+{
+  "version": "research-input-v1.2",
+  "hash_method": "SHA256 of UTF-8 bytes of JSON.stringify(restored item object), with no replacer and no pretty-print indentation, in the property insertion order written to restore-b.json; includes id, old_binding, passage, stem, choices, glosses, presentation, provenance, status, remaining, changes; new_input_sha256 is not part of the item.",
+  "source_manifest": "main-20261014 manifest order; last 12 of 24 original_artifact_complete=false items",
+  "items": [
+    {
+      "id": "2023#29",
+      "old_binding": "31e0507296555f10d54751df947258f7f9b410f826f734de4386a51ca65c3b19",
+      "new_input_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "provenance": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "source_page": 5,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2023-q-5.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered one printed glossary footnote in a separate field.",
+        "Replaced five contaminated sentence fragments with the five visually verified underlined words.",
+        "Recorded exact five word ranges in the restored passage and reference context separately."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2015#30",
+      "old_binding": "703ec14047e67a71c0cda6f5bdcad9b2330f6b88ea6a8a184b402210b83d66fc",
+      "new_input_sha256": "beeff0e75672dbb466b72abc558da8b0f873bd9c2826b0bfd9904c4ba64214ac",
+      "provenance": {
+        "pdf_filename": "2015_영어영역-홀수.pdf",
+        "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "source_page": 5,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2015-q-5.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Removed duplicated candidate table from passage.",
+        "Removed printed page number from choice 5.",
+        "Recovered printed glossary footnote, three inline word-pair boxes and separate five-row candidate table."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2017#21",
+      "old_binding": "c93f7547fbf732acaf6629a6358af4d9f5aabd092cf1dde15d84fc95fa75346b",
+      "new_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "provenance": {
+        "pdf_filename": "2017_영어_짝.pdf",
+        "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "source_page": 3,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered both printed glossary footnotes separately with their printed order and position."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2014A#39",
+      "old_binding": "bfa8570fcc6224c6bf027f8eb9d918244e2357a22c97a1d9ca2147a0ca941301",
+      "new_input_sha256": "7557cd960a50e2d79d4461d59840ff06ce68ae957b8cea01385ea22fa0eae4a4",
+      "provenance": {
+        "pdf_filename": "2014_영어A-홀수형_문제.pdf",
+        "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "paper_form": "A형 홀수형",
+        "source_page": 7,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Separated the boxed given sentence from the body.",
+        "Replaced five following-sentence fragments with exact numbered insertion-site labels.",
+        "Recorded all five printed parenthesized insertion-site ranges in the body.",
+        "Recovered printed glossary footnote separately."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2024#34",
+      "old_binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+      "new_input_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "provenance": {
+        "pdf_filename": "2024_영어영역_문제지.pdf",
+        "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          5,
+          6
+        ],
+        "paper_form": "홀수형",
+        "source_page": 6,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered all three printed glossary footnotes separately.",
+        "Recorded printed blank location and verified the shared instruction on PDF page 5."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2014B#34",
+      "old_binding": "eab3af702087e15637777a240e90d5ff7b10903bdcc85a501b29bdbc2c0eb33e",
+      "new_input_sha256": "49d5b463423ae51d688e5b88816c67264852832d9d2db06fdad0668f9b311e7c",
+      "provenance": {
+        "pdf_filename": "2014_영어B-홀수형_문제.pdf",
+        "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          5
+        ],
+        "paper_form": "B형 홀수형",
+        "source_page": 5,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2014B-q-5.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered printed glossary footnote separately.",
+        "Recorded printed blank location and shared instruction range."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2018#36",
+      "old_binding": "2fbf829ae6da7c7b1b2fb6422a2eef592a99505b4d0cd7aaedb64c25f8313f78",
+      "new_input_sha256": "60037b7462ab6e3704925935cac2bab6cbf5a4a25ae5fc1fc40b4d8dff074ad9",
+      "provenance": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          6
+        ],
+        "paper_form": "짝수형",
+        "source_page": 6,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2018-q-6.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered printed glossary footnote separately.",
+        "Separated boxed given text and the three labeled blocks, retaining original printed A/B/C order.",
+        "Recorded original five candidate permutations."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2023#39",
+      "old_binding": "321e3f448c0d8865ca7d385d1a8e57106c6cf8d60639532dc67cc60a1043da28",
+      "new_input_sha256": "792a571dd3c7c527b9aef065ec190bdb7e533368347ccef06e2b980035e0af31",
+      "provenance": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          7
+        ],
+        "paper_form": "홀수형",
+        "source_page": 7,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2023-q-7.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Separated the boxed given sentence from the body.",
+        "Replaced contaminated sentence fragments with exact numbered insertion-site labels.",
+        "Recorded all five printed parenthesized insertion-site ranges in the body and the shared instruction range.",
+        "Recovered both glossary footnotes separately; removed choice-contaminating score and footnote text."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2019#23",
+      "old_binding": "a57c949e34857dcf792d9e622602d1b8fa900b5a5e9c48f8f19cad0c3c049ca5",
+      "new_input_sha256": "9af9292c308e508e91b9813a4bad10824efb0be7eb7962f19cd36b4fc91dff76",
+      "provenance": {
+        "pdf_filename": "2019_영어_짝.pdf",
+        "pdf_sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "source_page": 3,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2019-q-3.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Recovered all three printed glossary footnotes separately with their printed order and position."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2021#26",
+      "old_binding": "71436a07c66cec37d02d71d8c86bfcf6e4cc01b58bf0097aa8c7fcd49bdc320e",
+      "new_input_sha256": "ae934c66ac4e47de1991368ea3290d37575fdf4ff28a958612ec182bca4c667e",
+      "provenance": {
+        "pdf_filename": "2021_3교시_영어영역_짝.pdf",
+        "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          4
+        ],
+        "paper_form": "짝수형",
+        "source_page": 4,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2021-q-4.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Restored the missing final words and question mark in the stem.",
+        "Recovered printed glossary footnote separately.",
+        "Recorded printed italic book-title ranges in body and choice 4."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2016#29",
+      "old_binding": "4d1218e6ce02cbfc1cb260aa10227af7503da2808a96ce53e43e424c9aee83c8",
+      "new_input_sha256": "b253733396991c3110b42e5ac7560a976043712bcf55a8398101b2ab0f991f73",
+      "provenance": {
+        "pdf_filename": "2016_영어영역-홀수.pdf",
+        "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "source_page": 5,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Removed duplicated five-row candidate table from passage.",
+        "Recovered both glossary footnotes, three inline word-pair boxes and separate five-row candidate table."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2015#24",
+      "old_binding": "69209820e7b8173a2d9c44ed398e8aaf5e48707727c43f6409024ea94a202b99",
+      "new_input_sha256": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+      "provenance": {
+        "pdf_filename": "2015_영어영역-홀수.pdf",
+        "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          3
+        ],
+        "paper_form": "홀수형",
+        "source_page": 3,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "status": "complete",
+      "changes": [
+        "Restored the missing final words and question mark in the stem.",
+        "Recovered printed glossary footnote separately."
+      ],
+      "remaining": [],
+      "verified_by": "AI_PDF_restoration_not_human"
+    }
+  ],
+  "summary": {
+    "assigned": 12,
+    "complete": 12,
+    "partial": 0,
+    "unavailable": 0,
+    "remaining_input_defects": 0
+  }
+}

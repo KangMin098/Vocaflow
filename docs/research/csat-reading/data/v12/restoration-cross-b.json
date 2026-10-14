@@ -1,0 +1,315 @@
+{
+  "version": "research-input-v1.2",
+  "method": "Independent complete-page view_image reading for all 12 A assignments, full source text crosscheck, exact restored substring/label adjacency verification, original SHA256 rebinding and metadata hash verification. The 16 printed glosses were compared term-by-term and meaning-by-meaning. The paired-table item was checked against all 48 country/value cells, 24 source rows, both year labels and ranks. Six underscore stand-ins are accepted only with an explicit verified blank-line position; an unbound placeholder alone is a defect.",
+  "scope": "Task-input completeness against identified local PDFs only; not official-download provenance, educational-effect validation, or human verification.",
+  "items": [
+    {
+      "id": "2014A#36",
+      "old_binding": "b8fe6088fd7aed080e248edc65b2e7dc18173265c22993aa939ada1267eac0e4",
+      "reviewed_input_sha256": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Full question on left of page 7: two connector blanks and five numbered two-column pairs matched.",
+      "source": {
+        "pdf_filename": "2014_영어A-홀수형_문제.pdf",
+        "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2024#21",
+      "old_binding": "5f9ac878c28b7016c71179996c1f9523bf3d0546ae6ec8bf4f6dbb84dc768e59",
+      "reviewed_input_sha256": "1a7dfa5fe42750040adcb086026a765c3fffc02570489aa10410bfdbb7c98287",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Full question on left of page 3: printed target phrase and its exact passage occurrence matched; full stem and five choices verified.",
+      "source": {
+        "pdf_filename": "2024_영어영역_문제지.pdf",
+        "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          3
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-3.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2016#30",
+      "old_binding": "70fb68ad795b3c68fcf471f12f86d671c2156f0e3ab474de4a0d5e1d61800ae0",
+      "reviewed_input_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Full question on left of page 5: all five numbered pronouns and their actual immediately following occurrences matched.",
+      "source": {
+        "pdf_filename": "2016_영어영역-홀수.pdf",
+        "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          5
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2021#42",
+      "old_binding": "cb583dff2dd87cfeae62ee23af41edcfcbd3908d936b524db0c0ca63db70c2a7",
+      "reviewed_input_sha256": "d3939d75d870e365a4ac85f4951e07f226c490f4f356e0e7d3e44cd53d0b56f6",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Left boxed shared passage on page 8: shared 41–42 instruction, five word underlines and complete passage matched.",
+      "source": {
+        "pdf_filename": "2021_3교시_영어영역_짝.pdf",
+        "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          8
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-8.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2018#19",
+      "old_binding": "09ce5c5a97a80bb3549ed05f4922ced2097253486572d32a8ddbdf8e1b6a7b5c",
+      "reviewed_input_sha256": "4bc34ed452f1681b37741c446d67d0e1f682b454f50fe51a9f007ff91b858b98",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Full question on right of page 2: passage, complete mood-change instruction, arrows and five options matched.",
+      "source": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          2
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-2.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2020#20",
+      "old_binding": "23052c0009e7ed7f8869c9bbd130c8ea90f7d8fe7a9339803553bcef1df67496",
+      "reviewed_input_sha256": "6a98b98f131b4eb2e34e4d3f6b64c4d72bbf6a9faf66b8336f022d40fbd8b7bd",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Full question on right of page 2: complete passage, instruction, numbered options and both separate printed glossary footnotes matched.",
+      "source": {
+        "pdf_filename": "2020_영어_짝.pdf",
+        "pdf_sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          2
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2020-q-2.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2019#44",
+      "old_binding": "e2b1955f8c57c86d4bdb872f4895440d5a75307225df1b11a0784d530650c0d1",
+      "reviewed_input_sha256": "3e9c73561132023815b732f9369c8dc55233260c6a34cbdeb13a4bb6320d973b",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Shared 43–45: printed A block on left and B/C/D on right, complete blocks in labeled order, five pronoun targets and block-specific glossary locations matched.",
+      "source": {
+        "pdf_filename": "2019_영어_짝.pdf",
+        "pdf_sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          8
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-8.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2023#41",
+      "old_binding": "13ce39556888020557d3fa2f247922d983373467c8f797ab3a53568e85873ea3",
+      "reviewed_input_sha256": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Left boxed shared 41–42 passage on page 8: title-task stem and all five complete choices matched; printed companion-task word underlines and three footnotes retained.",
+      "source": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          8
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2023-q-8.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2021#40",
+      "old_binding": "c2cd9bc973b6c02ddccac776e179eb65d62717b4bda5f76665585314024396d9",
+      "reviewed_input_sha256": "3f52479933d7c463022d16adefcd4685acf0b0db7d17423e578accac1dd2d39c",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Right of page 7: separate body box, inside-box glossary, downward arrow, summary box, two blank locations and five two-column combinations matched.",
+      "source": {
+        "pdf_filename": "2021_3교시_영어영역_짝.pdf",
+        "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          7
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-7.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2014B#45",
+      "old_binding": "885c0dd36192c7742cc062497514bacdb92e4718ad87096581cdeaff5a9eb27e",
+      "reviewed_input_sha256": "c389f2d0065384d57357bca61bf8bf3e6ca9280a738a9f9547ff29238b434b42",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Shared 43–45: all four full boxes on left in A/B/C/D printed order; correct five companion pronoun ranges; complete fact-task stem and options matched.",
+      "source": {
+        "pdf_filename": "2014_영어B-홀수형_문제.pdf",
+        "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          8
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-8.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2018#43",
+      "old_binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+      "reviewed_input_sha256": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Shared 43–45: A on left and B/C/D on right; all complete labeled blocks and five companion pronoun ranges matched; ordering stem and five permutations matched.",
+      "source": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          8
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-8.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    },
+    {
+      "id": "2019#25",
+      "old_binding": "6379ade5e777ec3350f6b35585753af88a7ca7426ec95aa74ec73a3b63d69ace",
+      "reviewed_input_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "status": "matched",
+      "checks": {
+        "stem": "matched",
+        "body": "matched",
+        "options": "matched",
+        "glosses": "matched",
+        "presentation": "matched",
+        "offsets": "matched"
+      },
+      "defects": [],
+      "why": "Page 4 left: two side-by-side year tables, every country/value cell, row order/rank, totals, four column assignments, title/subtitle and rounding note matched; all five inline statement boundaries verified.",
+      "source": {
+        "pdf_filename": "2019_영어_짝.pdf",
+        "pdf_sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          4
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-4.png"
+      },
+      "verified_by": "independent_AI_PDF_crosscheck_not_human"
+    }
+  ],
+  "summary": {
+    "items": 12,
+    "matched": 12,
+    "defect": 0,
+    "unresolved": 0,
+    "printed_glosses_checked": 16,
+    "paired_table_cells_checked": 48
+  }
+}

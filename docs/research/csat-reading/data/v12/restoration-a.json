@@ -1,0 +1,396 @@
+{
+  "version": "research-input-v1.2",
+  "method": {
+    "verified_by": "AI_PDF_restoration_not_human",
+    "verification_scope": "Printed body, full stem, five exact candidates, glosses, underline spans and task presentation checked against actual full-page local question-PDF render; original PDF byte SHA256 rechecked.",
+    "complete_definition": "complete means the restored research input content/task presentation matches the available local PDF; it does not mean official download chain, human review, educational effectiveness or generalization has been established.",
+    "new_input_hash": "SHA256 of UTF-8 JSON.stringify(entire private item row), including all row fields in saved insertion order, without indentation or trailing newline.",
+    "original_input_unchanged": true,
+    "holdout": "2025/2026 PDFs were not opened"
+  },
+  "items": [
+    {
+      "id": "2014A#36",
+      "old_binding": "b8fe6088fd7aed080e248edc65b2e7dc18173265c22993aa939ada1267eac0e4",
+      "new_input_sha256": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "paper_form": "A형 홀수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png"
+      },
+      "status": "complete",
+      "changes": [
+        "본문 끝 보기표 열 제목 혼입 삭제",
+        "두 연결어 빈칸 선 및 번호별 (A)/(B) 보기 열 대응 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2024#21",
+      "old_binding": "5f9ac878c28b7016c71179996c1f9523bf3d0546ae6ec8bf4f6dbb84dc768e59",
+      "new_input_sha256": "1a7dfa5fe42750040adcb086026a765c3fffc02570489aa10410bfdbb7c98287",
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          3
+        ],
+        "paper_form": "홀수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-3.png"
+      },
+      "status": "complete",
+      "changes": [
+        "누락된 인쇄 각주 1개 복원",
+        "발문 및 본문 동일 구절의 실제 밑줄 범위 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2016#30",
+      "old_binding": "70fb68ad795b3c68fcf471f12f86d671c2156f0e3ab474de4a0d5e1d61800ae0",
+      "new_input_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png"
+      },
+      "status": "complete",
+      "changes": [
+        "누락된 인쇄 각주 1개 복원",
+        "5개 대명사만 실제 후보로 복원; 보기의 장문 조각·각주·인쇄 쪽수 혼입 삭제",
+        "번호별 대명사 밑줄 범위와 본문 위치 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2021#42",
+      "old_binding": "cb583dff2dd87cfeae62ee23af41edcfcbd3908d936b524db0c0ca63db70c2a7",
+      "new_input_sha256": "d3939d75d870e365a4ac85f4951e07f226c490f4f356e0e7d3e44cd53d0b56f6",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-8.png"
+      },
+      "status": "complete",
+      "changes": [
+        "공유 발문·문항 범위 및 인쇄 상자/블록 경계 복원",
+        "누락된 인쇄 각주 2개 및 다섯 실제 밑줄 범위 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2018#19",
+      "old_binding": "09ce5c5a97a80bb3549ed05f4922ced2097253486572d32a8ddbdf8e1b6a7b5c",
+      "new_input_sha256": "4bc34ed452f1681b37741c446d67d0e1f682b454f50fe51a9f007ff91b858b98",
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          2
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-2.png"
+      },
+      "status": "complete",
+      "changes": [
+        "누락된 인쇄 각주 1개 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2020#20",
+      "old_binding": "23052c0009e7ed7f8869c9bbd130c8ea90f7d8fe7a9339803553bcef1df67496",
+      "new_input_sha256": "6a98b98f131b4eb2e34e4d3f6b64c4d72bbf6a9faf66b8336f022d40fbd8b7bd",
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          2
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2020-q-2.png"
+      },
+      "status": "complete",
+      "changes": [
+        "누락된 인쇄 각주 2개 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2019#44",
+      "old_binding": "e2b1955f8c57c86d4bdb872f4895440d5a75307225df1b11a0784d530650c0d1",
+      "new_input_sha256": "3e9c73561132023815b732f9369c8dc55233260c6a34cbdeb13a4bb6320d973b",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-8.png"
+      },
+      "status": "complete",
+      "changes": [
+        "공유 발문·문항 범위 및 인쇄 상자/블록 경계 복원",
+        "블록별 각주 3개 및 다섯 대명사 밑줄 범위 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2023#41",
+      "old_binding": "13ce39556888020557d3fa2f247922d983373467c8f797ab3a53568e85873ea3",
+      "new_input_sha256": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          8
+        ],
+        "paper_form": "홀수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2023-q-8.png"
+      },
+      "status": "complete",
+      "changes": [
+        "공유 발문·문항 범위 및 인쇄 상자/블록 경계 복원",
+        "누락된 각주 3개 및 함께 인쇄된 어휘 후보의 실제 밑줄 범위 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2021#40",
+      "old_binding": "c2cd9bc973b6c02ddccac776e179eb65d62717b4bda5f76665585314024396d9",
+      "new_input_sha256": "3f52479933d7c463022d16adefcd4685acf0b0db7d17423e578accac1dd2d39c",
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          7
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-q-7.png"
+      },
+      "status": "complete",
+      "changes": [
+        "누락된 인쇄 각주 3개 복원",
+        "본문과 별도 요약문 분리; 두 상자·아래 화살표·요약문 (A)/(B) 빈칸과 보기 열 대응 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2014B#45",
+      "old_binding": "885c0dd36192c7742cc062497514bacdb92e4718ad87096581cdeaff5a9eb27e",
+      "new_input_sha256": "c389f2d0065384d57357bca61bf8bf3e6ca9280a738a9f9547ff29238b434b42",
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          8
+        ],
+        "paper_form": "B형 홀수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-8.png"
+      },
+      "status": "complete",
+      "changes": [
+        "공유 발문·문항 범위 및 인쇄 상자/블록 경계 복원",
+        "함께 인쇄된 다섯 대명사 밑줄 범위 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2018#43",
+      "old_binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+      "new_input_sha256": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-8.png"
+      },
+      "status": "complete",
+      "changes": [
+        "공유 발문·문항 범위 및 인쇄 상자/블록 경계 복원",
+        "함께 인쇄된 다섯 대명사 밑줄 범위 및 주어진 (A) 연결 조건 복원"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    },
+    {
+      "id": "2019#25",
+      "old_binding": "6379ade5e777ec3350f6b35585753af88a7ca7426ec95aa74ec73a3b63d69ace",
+      "new_input_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          4
+        ],
+        "paper_form": "짝수형"
+      },
+      "provenance": {
+        "local_pdf_exists": true,
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ],
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-4.png"
+      },
+      "status": "complete",
+      "changes": [
+        "평탄화된 표 제목·연도·좌우 2표/24행/열 및 반올림 주석을 본문과 분리하여 복원",
+        "본문의 다섯 조건문 번호와 보기 범위 결속"
+      ],
+      "remaining": [],
+      "provenance_remaining": [
+        "official_download_chain_unresolved"
+      ],
+      "verified_by": "AI_PDF_restoration_not_human"
+    }
+  ]
+}
