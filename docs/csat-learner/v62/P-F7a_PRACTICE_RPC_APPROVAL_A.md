@@ -75,3 +75,14 @@
 함수 본문을 CTE 로 바꿔 대응 표 · 발행 상태를 가짜로 둔 조회(DDL 없음):
 발행 독해 5단 50(상한) · **draft 로 바꾼 독해 5단 0** · 없는 단 0 · 없는 시리즈 0 · 어휘 5단 0 · 발행 독해 2단 40.
 V레벨 위조: 매개변수가 없어 구조적으로 불가(테스트).
+
+## 8. P-F8a 마감(2026-10-15)
+
+- **호출자 이전 완료**: 옛 함수를 부르는 곳은 앱 `dcp-actions.ts` 의 「함수 없음」 폴백과 통합 시험 `dcp-grade-records.integration.test.ts` 뿐이었다 — 시험도 앱과 같은 경로 선택(`fetchVolumePracticeRows`)으로 옮겼다. 관리자 · 배치 · 패키지에는 호출 없음(주석 · 생성 타입만).
+- **안전한 순서**(하나의 작업 계약):
+  1. `/db-checkpoint practice-gate-a2 before` → 보류 SQL ① 적용 → `sql/practice-gate-verify.sql`(발행 · 미발행 fixture · 없는 권 · 어휘 권 0 · 대응 표 직접 조회 거부, 트랜잭션 rollback)
+  2. 앱은 이미 새 함수 우선 — 배포 즉시 새 경로(배포 불필요, 이미 main)
+  3. 서버 로그 · `pg_stat_user_functions` 로 옛 함수 호출 0 확인 → ③ 회수문 실행 → authenticated 로 옛 함수 직접 호출 = permission denied 확인
+  4. `/db-checkpoint practice-gate-a2 after` · 19권 published 그대로 · `csat_item_attempts` 행 수 전후 동일
+  5. 오류 시: 회수했으면 grant 복원 → 새 함수 · 표 drop(파일 머리말) — 앱은 「함수 없음」 폴백으로 자동 복귀
+- **채점 · 처방 유지**: `grade_dcp_item` · `prescribe_today` 는 이 승인에서 바꾸지 않는다(교재 발행 게이트를 독립 처방에 걸지 않는다).

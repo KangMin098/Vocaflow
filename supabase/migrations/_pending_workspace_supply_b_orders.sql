@@ -183,6 +183,7 @@ returns uuid language plpgsql security definer set search_path to 'public' as $$
 declare v_uid uuid := auth.uid(); b jsonb; v_sig text; v_id uuid; v_stored text; l jsonb; i int := 0;
 begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
   b := p_canonical::jsonb;
   if (b->>'v') <> '1' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
   if (b->>'workspaceId') is null or (b->>'planVersion') is null then raise exception 'demand: workspace and plan required'; end if;
@@ -218,10 +219,19 @@ returns uuid language plpgsql security definer set search_path to 'public' as $$
 declare v_uid uuid := auth.uid(); ln record; v_id uuid; v_prev record; v_seq smallint;
 begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
-  select id into v_id from factory_order where user_id = v_uid and request_key = p_request_key;
-  if found then return v_id; end if;
-  select * into ln from workspace_content_demand_line where id = p_line and user_id = v_uid for update;   -- 줄 잠금 = 같은 줄 동시 주문 직렬화
-  if not found then raise exception 'order: line not found or not owned' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  -- 줄 잠금 먼저 = 같은 줄 동시 주문 직렬화. 잠근 **뒤에** 요청 키를 본다 — 같은 키 동시 재전송이
+  -- 먼저 커밋된 주문을 보고 같은 결과를 받게 한다(잠금 전에 보면 둘째가 「열린 주문 있음」으로 실패할 수 있다 — 설계 검토로 고침, 고친 뒤 실제 Postgres 동시 재전송 20/20 같은 id).
+  select * into ln from workspace_content_demand_line where id = p_line and user_id = v_uid for update;
+  -- 같은 요청 키 재전송: **같은 본문(줄 · 이유 · 수량)일 때만** 이전 결과. 다른 본문이면 거절(P-M2b 계획 저장 결함과 같은 종류 방지)
+  select id, line_id, reason, quantity into v_prev from factory_order where user_id = v_uid and request_key = p_request_key;
+  if found then
+    if (v_prev.line_id, v_prev.reason, v_prev.quantity) is distinct from (p_line, p_reason, p_quantity) then
+      raise exception 'order: request_key reused with a different body' using errcode = '23505';
+    end if;
+    return v_prev.id;
+  end if;
+  if ln.id is null then raise exception 'order: line not found or not owned' using errcode = '42501'; end if;
   select * into v_prev from factory_order where line_id = p_line order by order_seq desc limit 1;
   if found and v_prev.state not in ('delivered','failed') then raise exception 'order: open order exists' using errcode = '23505'; end if;
   if not found and p_reason <> 'initial' then raise exception 'order: first order must be initial'; end if;
@@ -241,13 +251,21 @@ end $$;
 create or replace function public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text,
   p_run_id text, p_qualification uuid, p_request_key uuid)
 returns integer language plpgsql security definer set search_path to 'public' as $$
-declare o record; v_seq int; ok boolean;
+declare o record; v_seq int; ok boolean; e record;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
   select * into o from factory_order where id = p_order for update;
   if not found then raise exception 'order: not found'; end if;
-  select seq into v_seq from factory_order_event where order_id = p_order and request_key = p_request_key;
-  if found then return v_seq; end if;                                   -- 같은 요청 재전송
+  -- 같은 요청 재전송: 같은 본문(기대 상태 · 목표 · 이유 · 실행 · 자격)일 때만 이전 seq
+  select * into e from factory_order_event where order_id = p_order and request_key = p_request_key;
+  if found then
+    if (e.from_state, e.to_state, e.reason, e.production_run_id, e.qualification_id)
+       is distinct from (p_expected, p_to, p_reason, p_run_id, p_qualification) then
+      raise exception 'order: request_key reused with a different body' using errcode = '23505';
+    end if;
+    return e.seq;
+  end if;
   if o.state <> p_expected then raise exception 'order: conflict (expected %, is %)', p_expected, o.state using errcode = '40001'; end if;
   ok := (o.state, p_to) in (
     ('requested','stock_search'),('requested','held'),('requested','failed'),
@@ -271,19 +289,80 @@ begin
 end $$;
 
 /**
+ * 산출물 현재 revision — 종류별 **실제 행**에서 계산한다(없으면 null = 공급 불가).
+ *   dcp_item : csat_dcp_items 행의 type · payload · answer_key 해시. 원천(ref_id)이 null 이거나 기사 원천이 아니면 null.
+ *   csat_item: csat_items 행의 stem · passage · choices · answer 해시(R5 확인 · 전이 과제).
+ *   그 외(textbook_activity · workspace_bundle): 제품 표가 아직 없다 → null(공급 불가 · 지원 공백으로 문서화).
+ * 자격 행의 artifact_revision 이 이 값과 다르면 「검수 뒤 내용이 바뀐 것」 — 이전 검수를 상속하지 않는다.
+ */
+create or replace function public.supply_artifact_revision(p_kind text, p_ref text)
+returns text language plpgsql stable security definer set search_path to 'public' as $$
+declare v text;
+begin
+  if p_kind = 'dcp_item' then
+    if p_ref !~ '^[0-9a-f-]{36}$' then return null; end if;
+    select encode(sha256(convert_to(i.type || '|' || i.payload::text || '|' || coalesce(i.answer_key::text, ''), 'UTF8')), 'hex') into v
+      from csat_dcp_items i where i.id = p_ref::uuid and i.kind = 'article' and i.ref_id is not null;
+    return v;
+  elsif p_kind = 'csat_item' then
+    select encode(sha256(convert_to(coalesce(c.stem, '') || '|' || coalesce(c.passage, '') || '|' || coalesce(c.choices::text, '') || '|' || coalesce(c.answer::text, ''), 'UTF8')), 'hex') into v
+      from csat_items c where c.id = p_ref;
+    return v;
+  end if;
+  return null;
+end $$;
+
+/**
+ * 학습자 노출(G) — 공급 시점에 학습자별로. 'none' 만 평가 역할 공급 가능. 판정 불가는 'unknown'(= 거절).
+ *   csat_item(R5): 그 문항 응답 · **같은 시험 회차 응시**(전체 시험을 본 것) · **정규화 동일 지문**의 다른 문항 응답 → 노출.
+ *                  해설은 P-M3b 규칙상 응답 뒤에만 열리므로 응답 검사에 포함된다. 힌트 기능은 없다.
+ *   dcp_item     : 시도 기록은 있으나 해설 열람 · 힌트 · 같은 기사 다른 문항(공유 지문) 노출 기록이 없다 → 'unknown'.
+ *                  ⇒ 새 DCP 직접 평가 공급은 HOLD(노출 기록 표가 생길 때까지).
+ */
+create or replace function public.supply_learner_exposure(p_kind text, p_ref text, p_uid uuid)
+returns text language plpgsql stable security definer set search_path to 'public' as $$
+declare c record;
+begin
+  if p_kind = 'csat_item' then
+    select * into c from csat_items where id = p_ref;
+    if not found then return 'unknown'; end if;
+    if exists (select 1 from csat_dx_response r join csat_dx_session s on s.id = r.session_id
+               where s.user_id = p_uid and r.item_id = p_ref) then return 'attempted'; end if;
+    if exists (select 1 from csat_dx_session s where s.user_id = p_uid and s.exam_id = c.exam_id) then return 'exam_seen'; end if;
+    if c.passage is not null and exists (
+      select 1 from csat_dx_response r join csat_dx_session s on s.id = r.session_id join csat_items j on j.id = r.item_id
+      where s.user_id = p_uid and j.passage is not null
+        and md5(regexp_replace(lower(j.passage), '\s+', ' ', 'g')) = md5(regexp_replace(lower(c.passage), '\s+', ' ', 'g'))) then
+      return 'shared_passage_seen';
+    end if;
+    return 'none';
+  elsif p_kind = 'dcp_item' then
+    if exists (select 1 from csat_item_attempts t where t.user_id = p_uid and t.dcp_item_id = p_ref::uuid) then return 'attempted'; end if;
+    return 'unknown';
+  end if;
+  return 'unknown';
+end $$;
+
+/**
  * 공급 기록 — 학습자 본인 호출. **공급 시점 재검증**(과거 자격이 있다는 사실만으로 공급하지 않는다):
- *   ① 줄 소유 ② 자격이 현재 행(대체 없음) · 정체성 일치 ③ 승인 존재 · 철회 없음 · 범위(평가 역할은 assessment)
- *   ④ 역할 필수 축 pass ⑤ 원천 적격(기사 원천이면 csat_source_is_eligible) ⑥ Workspace active
- *   ⑦ G(학습자 노출): 그 산출물을 이미 시도했으면 확인 · 전이 · 지연 확인 역할로 공급하지 않는다(독립 첫 시도 보존)
- *      — 공유 지문 · 해설 열람 기록은 아직 DB 에 없어 판정 불가 → 해당 역할은 G 를 실패로 본다(fail-closed, 문서 §G)
+ *   ① 같은 요청 키 = 같은 본문일 때만 이전 결과 ② 줄 소유 · Workspace active ③ 주문이 이 줄 것
+ *   ④ 자격 정체성 = 줄 TASK · 역할 · 현재 행(대체 없음) · 역할 필수 축 pass
+ *   ⑤ 산출물 **실제 행 존재** · 현재 revision = 자격 revision ⑥ 승인 존재 · 철회 없음 · 평가 역할은 assessment
+ *   ⑦ 원천이 지금 적격(DCP: 기사 원천 · null 원천 거절) ⑧ G — 평가 역할은 노출 'none' 일 때만
  */
 create or replace function public.workspace_delivery_record(p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid)
 returns uuid language plpgsql security definer set search_path to 'public' as $$
-declare v_uid uuid := auth.uid(); ln record; q record; a record; v_id uuid; v_art uuid;
+declare v_uid uuid := auth.uid(); ln record; q record; a record; d record; v_id uuid; v_src uuid; v_rev text; v_exp text;
 begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
-  select id into v_id from workspace_content_delivery where user_id = v_uid and request_key = p_request_key;
-  if found then return v_id; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  select * into d from workspace_content_delivery where user_id = v_uid and request_key = p_request_key;
+  if found then
+    if (d.line_id, d.order_id, d.qualification_id, d.approval_id) is distinct from (p_line, p_order, p_qualification, p_approval) then
+      raise exception 'delivery: request_key reused with a different body' using errcode = '23505';
+    end if;
+    return d.id;
+  end if;
   select * into ln from workspace_content_demand_line where id = p_line and user_id = v_uid;
   if not found then raise exception 'delivery: line not found or not owned' using errcode = '42501'; end if;
   if not exists (select 1 from learner_workspace w where w.id = ln.workspace_id and w.user_id = v_uid and w.status = 'active') then
@@ -296,19 +375,20 @@ begin
   if not found or q.task_id <> ln.task_id or q.role <> ln.role then raise exception 'delivery: qualification identity mismatch'; end if;
   if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception 'delivery: qualification superseded'; end if;
   if not public.fq_role_ok(q.axes, q.role) then raise exception 'delivery: required axes not pass'; end if;
+  v_rev := public.supply_artifact_revision(q.artifact_kind, q.artifact_ref);
+  if v_rev is null then raise exception 'delivery: artifact not found or kind unsupported (%)', q.artifact_kind; end if;
+  if v_rev <> q.artifact_revision then raise exception 'delivery: artifact changed since qualification'; end if;
   select * into a from content_release_approval where id = p_approval and qualification_id = q.id;
   if not found then raise exception 'delivery: approval missing'; end if;
   if exists (select 1 from content_release_revocation r where r.approval_id = a.id) then raise exception 'delivery: approval revoked'; end if;
   if q.role in ('independent_check','transfer','delayed_check') and a.scope <> 'assessment' then raise exception 'delivery: assessment approval required'; end if;
   if q.artifact_kind = 'dcp_item' then
-    select i.ref_id into v_art from csat_dcp_items i where i.id = q.artifact_ref::uuid and i.kind = 'article';
-    if v_art is not null and not public.csat_source_is_eligible(v_art) then raise exception 'delivery: source no longer eligible'; end if;
-    if q.role in ('independent_check','transfer','delayed_check') and exists (
-      select 1 from csat_item_attempts t where t.user_id = v_uid and t.dcp_item_id = q.artifact_ref::uuid) then
-      raise exception 'delivery: G — learner already attempted this item';
-    end if;
-  elsif q.role in ('independent_check','transfer','delayed_check') then
-    raise exception 'delivery: G — exposure unknown for %', q.artifact_kind;   -- 노출 기록이 없는 종류는 평가 역할 공급 불가
+    select i.ref_id into v_src from csat_dcp_items i where i.id = q.artifact_ref::uuid;
+    if v_src is null or not public.csat_source_is_eligible(v_src) then raise exception 'delivery: source not eligible'; end if;
+  end if;
+  if q.role in ('independent_check','transfer','delayed_check') then
+    v_exp := public.supply_learner_exposure(q.artifact_kind, q.artifact_ref, v_uid);
+    if v_exp <> 'none' then raise exception 'delivery: G — exposure %', v_exp; end if;
   end if;
   insert into workspace_content_delivery (line_id, user_id, workspace_id, role, task_id, order_id, artifact_kind, artifact_ref,
     artifact_revision, qualification_id, approval_id, request_key)
@@ -316,6 +396,39 @@ begin
   returning id into v_id;
   return v_id;
 end $$;
+
+-- ── 6. 직접 쓰기 차단 — 위 함수 밖의 INSERT(서비스 키 포함)는 거부 ─────────────────
+-- 함수는 트랜잭션 범위 설정 vocaflow.supply_writer='rpc' 를 켠 뒤 쓴다. 서비스 키가 이 설정을 일부러 켜면 우회되므로
+-- 그 경우는 「의도된 수동 복구」로만 쓰고 사유를 운영 기록에 남긴다(문서 §B-5).
+create or replace function public.supply_writer_guard() returns trigger
+language plpgsql set search_path to 'public' as $$
+begin
+  if coalesce(current_setting('vocaflow.supply_writer', true), '') <> 'rpc' then
+    raise exception '%: insert only via supply functions', tg_table_name using errcode = '42501';
+  end if;
+  -- plpgsql 은 AND 를 단락 평가하지 않는다 — 표마다 다른 열은 중첩 IF 안에서만 읽는다
+  if tg_table_name = 'factory_order' then
+    if new.state <> 'requested' or new.event_seq <> 0 then
+      raise exception 'factory_order: new orders start at requested/0' using errcode = '42501';
+    end if;
+  elsif tg_table_name = 'factory_order_event' then
+    if not exists (select 1 from factory_order o where o.id = new.order_id and o.event_seq + 1 = new.seq
+                   and o.state is not distinct from new.from_state) then
+      raise exception 'factory_order_event: seq/from_state must continue the order' using errcode = '42501';
+    end if;
+  end if;
+  return new;
+end $$;
+create trigger workspace_content_demand_writer before insert on public.workspace_content_demand for each row execute function public.supply_writer_guard();
+create trigger workspace_content_demand_line_writer before insert on public.workspace_content_demand_line for each row execute function public.supply_writer_guard();
+create trigger factory_order_writer before insert on public.factory_order for each row execute function public.supply_writer_guard();
+create trigger factory_order_event_writer before insert on public.factory_order_event for each row execute function public.supply_writer_guard();
+create trigger workspace_content_delivery_writer before insert on public.workspace_content_delivery for each row execute function public.supply_writer_guard();
+create trigger workspace_content_demand_no_update before update or delete on public.workspace_content_demand for each row execute function public.forbid_ledger_mutation();
+create trigger workspace_content_demand_line_no_update before update or delete on public.workspace_content_demand_line for each row execute function public.forbid_ledger_mutation();
+
+revoke all on function public.supply_artifact_revision(text, text) from public, anon, authenticated;
+revoke all on function public.supply_learner_exposure(text, text, uuid) from public, anon, authenticated;
 
 revoke all on function public.workspace_demand_record(text) from public, anon;
 revoke all on function public.factory_order_open(uuid, text, smallint, uuid) from public, anon;
