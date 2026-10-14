@@ -8,7 +8,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import type { PlanPayload, PlanReason, SavedPlanVersion } from './plan-commit'
+import type { PlanPayload, PlanReason, PriorCommit, SavedPlanVersion } from './plan-commit'
 
 type Db = SupabaseClient
 const MISSING = new Set(['42P01', 'PGRST205', '42883', 'PGRST202'])
@@ -106,4 +106,20 @@ export async function setGoal(db: Db, userId: string, score: number, clientKey: 
   const up = await db.from('csat_map_goal').upsert({ user_id: userId, target_score: score, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
   if (up.error) throw new Error(`목표 저장 실패: ${up.error.message}`)
   return { mode: 'latest_only', goalVersionId: null }
+}
+
+/**
+ * 같은 clientKey 로 이미 저장된 본인 계획(재시도 판단 · v6.2 P-M2b). 본인 행만(user_id 조건) — 남의 키를 넣어도 읽히지 않는다.
+ * 없으면 null. 읽기 실패는 던진다(「없음」으로 삼키면 재시도가 새 버전을 만들 수 있다).
+ */
+export async function findCommitByKey(db: Db, userId: string, clientKey: string): Promise<PriorCommit | null> {
+  const { data, error } = await db.from('learner_workspace_plan')
+    .select('workspace_id, plan_version, plan, reason, note, restored_from, learner_workspace!inner(template_id)')
+    .eq('user_id', userId).eq('client_key', clientKey).limit(1)
+  if (error) throw new Error(`계획 재시도 확인 실패: ${error.message}`)
+  type Row = { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; learner_workspace: { template_id: string } | { template_id: string }[] }
+  const r = (data ?? [])[0] as unknown as Row | undefined
+  if (!r) return null
+  const ws = Array.isArray(r.learner_workspace) ? r.learner_workspace[0] : r.learner_workspace
+  return { template: ws.template_id, version: r.plan_version, workspaceId: r.workspace_id, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from }
 }

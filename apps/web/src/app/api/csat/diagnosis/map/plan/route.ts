@@ -12,8 +12,8 @@ import { NextResponse } from 'next/server'
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { loadMapPage } from '@/lib/csat/map/load'
 import { composeV4 } from '@/lib/csat/map/v4/compose'
-import { buildCommitPayload, parseCommitRequest } from '@/lib/csat/map/v4/plan-commit'
-import { commitPlan, loadSavedPlans, storeStatus } from '@/lib/csat/map/v4/plan-store'
+import { buildCommitPayload, parseCommitRequest, sameCommitRequest } from '@/lib/csat/map/v4/plan-commit'
+import { commitPlan, findCommitByKey, loadSavedPlans, storeStatus } from '@/lib/csat/map/v4/plan-store'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -35,6 +35,13 @@ export async function POST(req: Request) {
     const parsed = parseCommitRequest(await readJson(req))
     if (!parsed.ok) return NextResponse.json({ error: 'invalid', code: parsed.code }, { status: 400 })
     if ((await storeStatus(ctx.db)) === 'not_installed') return NextResponse.json({ error: 'not_installed', code: 'not_installed' }, { status: 503 })
+    // 재시도 먼저(v6.2 P-M2b) — 같은 clientKey 가 이미 성공했으면 지금 상태로 다시 검사하지 않는다(그사이 콘텐츠 · 목표가 바뀌어도 처음 결과).
+    // 본문이 다르면 409 — RPC 는 키만 보고 처음 결과를 돌려주므로 여기서 막지 않으면 다른 본문이 「저장됨」이 된다
+    const prior = await findCommitByKey(ctx.db, ctx.userId, parsed.req.clientKey)
+    if (prior) {
+      if (!sameCommitRequest(prior, parsed.req)) return NextResponse.json({ error: 'client_key_reused', code: 'client_key_reused' }, { status: 409 })
+      return NextResponse.json({ version: prior.version, reused: true, workspaceId: prior.workspaceId })
+    }
     // 서버가 지금 계획 보기를 다시 계산한다 — 화면과 같은 함수(composeV4) · 같은 입력(loadMapPage)
     const data = await loadMapPage(ctx.db, ctx.userId, new Date())
     if (!data) return NextResponse.json({ error: 'map_not_ready', code: 'map_not_ready' }, { status: 422 })
