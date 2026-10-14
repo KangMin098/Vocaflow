@@ -1,0 +1,4699 @@
+{
+  "protocol": "1.2",
+  "source_profile_sha256": "0741e60ba99a89cba8f380e51d114ec3f85b34c54fb381641f2e933428ee17da",
+  "rows": [
+    {
+      "item_id": "2015#30",
+      "task_id": "v.core_meaning",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2015#30",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "beeff0e75672dbb466b72abc558da8b0f873bd9c2826b0bfd9904c4ba64214ac",
+      "why": "fuses/replaces, precision/diversity의 어휘 의미가 후보 비교의 언어 자원이다. 기본 뜻을 독립 인출했다는 학생 증거는 아니다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2015#30",
+          "locator": {
+            "source_ref": "restored-v1.2:2015#30",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 150,
+                "end": 170,
+                "unit_note": "두 기능을 결합/대체하는 어휘 후보 구간"
+              },
+              {
+                "field": "passage",
+                "start": 219,
+                "end": 305,
+                "unit_note": "색 구별과 소리의 정확한 수치 비교"
+              },
+              {
+                "field": "passage",
+                "start": 356,
+                "end": 381,
+                "unit_note": "비교 차원의 의미 후보 구간"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 45,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#29",
+          "why": "기본 뜻을 알아도 reeds 제거·물고기 도입·먹이 경쟁의 문맥을 연결해야 적합성을 판정한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2016#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 270,
+                "end": 296,
+                "unit_note": "갈대 제거의 의미 근거"
+              },
+              {
+                "field": "passage",
+                "start": 601,
+                "end": 623,
+                "unit_note": "어업 대상 부재/존재 후보"
+              },
+              {
+                "field": "passage",
+                "start": 901,
+                "end": 928,
+                "unit_note": "새 물고기와 새의 먹이 관계 후보"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 45,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#34",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2024#34",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "why": "tracks pretty closely는 실제 추적 동작보다 관점과 이동 방식의 긴밀한 대응으로 해석해야 한다. 한 표현의 뜻 해석은 V3와도 겹친다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2024#34",
+          "locator": {
+            "source_ref": "restored-v1.2:2024#34",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 154,
+                "end": 178,
+                "unit_note": "빈칸의 관점 대상"
+              },
+              {
+                "field": "passage",
+                "start": 966,
+                "end": 1001,
+                "unit_note": "개인적 이동/주차 이해의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 29,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "choices[3]",
+                "unit_note": "tracks 문맥 의미는 빈칸 후보를 삽입한 해석이다; 인쇄 본문에 그 표현 자체가 있었던 것으로 주장하지 않음"
+              }
+            ]
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2021#42",
+          "why": "complex의 사전 뜻을 정확히 알아도 단순 규칙과 복잡한 결과의 글 논리에 비춰 부적합을 판단하는 요구가 남는다. 이 문항 정오는 순수 다의어 뜻 선택 측정이 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 165,
+                "end": 211,
+                "unit_note": "부정의 서로 다른 층"
+              },
+              {
+                "field": "passage",
+                "start": 296,
+                "end": 347,
+                "unit_note": "내적 복잡성 단독 원인이 아니라는 한정"
+              },
+              {
+                "field": "passage",
+                "start": 1041,
+                "end": 1063,
+                "unit_note": "문맥 어휘 부적합 후보"
+              },
+              {
+                "field": "passage",
+                "start": 1075,
+                "end": 1122,
+                "unit_note": "복잡한 결과의 결합 설명"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 40,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2015#30",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2015#30",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "beeff0e75672dbb466b72abc558da8b0f873bd9c2826b0bfd9904c4ba64214ac",
+      "why": "precision은 소리의 수치를 특정한다는 설명에 맞고 diversity는 그 비교 차원을 보존하지 않는다. 문맥상 어휘 적합성을 다의어 선택 그 자체로 자동 코딩하지 않는다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2015#30",
+          "locator": {
+            "source_ref": "restored-v1.2:2015#30",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 150,
+                "end": 170,
+                "unit_note": "두 기능을 결합/대체하는 어휘 후보 구간"
+              },
+              {
+                "field": "passage",
+                "start": 219,
+                "end": 305,
+                "unit_note": "색 구별과 소리의 정확한 수치 비교"
+              },
+              {
+                "field": "passage",
+                "start": 356,
+                "end": 381,
+                "unit_note": "비교 차원의 의미 후보 구간"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 45,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2021#42",
+          "why": "complex의 사전 뜻을 정확히 알아도 단순 규칙과 복잡한 결과의 글 논리에 비춰 부적합을 판단하는 요구가 남는다. 이 문항 정오는 순수 다의어 뜻 선택 측정이 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 165,
+                "end": 211,
+                "unit_note": "부정의 서로 다른 층"
+              },
+              {
+                "field": "passage",
+                "start": 296,
+                "end": 347,
+                "unit_note": "내적 복잡성 단독 원인이 아니라는 한정"
+              },
+              {
+                "field": "passage",
+                "start": 1041,
+                "end": 1063,
+                "unit_note": "문맥 어휘 부적합 후보"
+              },
+              {
+                "field": "passage",
+                "start": 1075,
+                "end": 1122,
+                "unit_note": "복잡한 결과의 결합 설명"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 40,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#30",
+      "task_id": "v.multiword",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2016#30",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "why": "call out은 이름을 부르는 표면 뜻보다 배틀 상대로 지목하는 행위로 이 장면에서 해석된다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2016#30",
+          "locator": {
+            "source_ref": "restored-v1.2:2016#30",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 272,
+                "end": 297,
+                "unit_note": "배틀 대상 지목의 표현"
+              },
+              {
+                "field": "passage",
+                "start": 661,
+                "end": 700,
+                "unit_note": "인물과 위치의 수식 연결"
+              },
+              {
+                "field": "passage",
+                "start": 741,
+                "end": 769,
+                "unit_note": "다른 대명사 대상의 속성 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#34",
+          "why": "tracks pretty closely는 V2의 문맥 용법과 V3의 관습 표현을 함께 포함할 수 있어 한 응답으로 경계를 확정하지 못한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2024#34",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 154,
+                "end": 178,
+                "unit_note": "빈칸의 관점 대상"
+              },
+              {
+                "field": "passage",
+                "start": 966,
+                "end": 1001,
+                "unit_note": "개인적 이동/주차 이해의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 29,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "choices[3]",
+                "unit_note": "tracks 문맥 의미는 빈칸 후보를 삽입한 해석이다; 인쇄 본문에 그 표현 자체가 있었던 것으로 주장하지 않음"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2015#18",
+      "task_id": "v.multiword",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2015#18",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+      "why": "bouncing back을 튀는 동작 그대로가 아니라 실패 후 회복으로 해석해야 요지와 연결된다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2015#18",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#34",
+          "why": "tracks pretty closely는 V2의 문맥 용법과 V3의 관습 표현을 함께 포함할 수 있어 한 응답으로 경계를 확정하지 못한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2024#34",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 154,
+                "end": 178,
+                "unit_note": "빈칸의 관점 대상"
+              },
+              {
+                "field": "passage",
+                "start": 966,
+                "end": 1001,
+                "unit_note": "개인적 이동/주차 이해의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 29,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "choices[3]",
+                "unit_note": "tracks 문맥 의미는 빈칸 후보를 삽입한 해석이다; 인쇄 본문에 그 표현 자체가 있었던 것으로 주장하지 않음"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2015#18",
+      "task_id": "v.semantic_relation",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2015#18",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+      "why": "회복을 말하는 recover와 bounce back을 연결할 수 있다. quickly의 속도 성분은 별도로 보존해야 한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2015#18",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "공저 사실과 단독 집필 후보의 모순은 with/단독의 언어 차이뿐 아니라 인물·책·행위의 명제 대응을 요구한다. V4 정오만으로 E3까지 확인 못 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#23",
+      "task_id": "v.semantic_relation",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2016#23",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "why": "제목의 mirror는 전체 나이 변화를 대표하는 측정 지표의 표현과 연결되며 실제 거울로 좁히면 안 된다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2016#23",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "공저 사실과 단독 집필 후보의 모순은 with/단독의 언어 차이뿐 아니라 인물·책·행위의 명제 대응을 요구한다. V4 정오만으로 E3까지 확인 못 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#29",
+      "task_id": "s.sentence_core",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#29",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "why": "긴 explanation 명사구 뒤 that절이 보어로 연결되는 구조와 clothes can be purchased의 주체·서술을 분리할 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#29",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#28",
+          "why": "cannot exceed의 주어·동사를 표시해도 3분 상한과 부정의 범위를 정확히 말한 증거는 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#21",
+      "task_id": "s.sentence_core",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2017#21",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "why": "여러 지도 요소가 병렬 주어로 모여 지도에 권위의 인상을 준다는 핵심 서술을 찾는다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2017#21",
+          "locator": {
+            "source_ref": "restored-v1.2:2017#21",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 0,
+                "end": 37,
+                "unit_note": "병렬 주어군의 시작"
+              },
+              {
+                "field": "passage",
+                "start": 226,
+                "end": 289,
+                "unit_note": "주요 서술 및 객관성 인상"
+              },
+              {
+                "field": "passage",
+                "start": 291,
+                "end": 352,
+                "unit_note": "종속절/주절 대조의 조건"
+              },
+              {
+                "field": "passage",
+                "start": 584,
+                "end": 613,
+                "unit_note": "권위의 이데올로기 전달 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#28",
+          "why": "cannot exceed의 주어·동사를 표시해도 3분 상한과 부정의 범위를 정확히 말한 증거는 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#21",
+      "task_id": "s.chunk_boundary",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2017#21",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "why": "subjective interpretation이 although절 안에 들어가고 주절은 finished map의 권위 인상을 말한다. 절 경계를 분절할 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2017#21",
+          "locator": {
+            "source_ref": "restored-v1.2:2017#21",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 0,
+                "end": 37,
+                "unit_note": "병렬 주어군의 시작"
+              },
+              {
+                "field": "passage",
+                "start": 226,
+                "end": 289,
+                "unit_note": "주요 서술 및 객관성 인상"
+              },
+              {
+                "field": "passage",
+                "start": 291,
+                "end": 352,
+                "unit_note": "종속절/주절 대조의 조건"
+              },
+              {
+                "field": "passage",
+                "start": 584,
+                "end": 613,
+                "unit_note": "권위의 이데올로기 전달 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#23",
+          "why": "changes that mirror ...에서 관계절 경계를 알아도 어떤 changes를 꾸미는지 틀릴 수 있다. S3와 구별 응답이 필요하다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#29",
+      "task_id": "s.chunk_boundary",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#29",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "why": "explanation offered ... as to why ... 뒤의 that보어절을 경계로 구별하는 과제 후보다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#29",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#23",
+          "why": "changes that mirror ...에서 관계절 경계를 알아도 어떤 changes를 꾸미는지 틀릴 수 있다. S3와 구별 응답이 필요하다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#23",
+      "task_id": "s.attachment",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2016#23",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "why": "measurable biological changes를 꾸미는 mirror ... 관계절이 측정 지표의 조건을 준다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2016#23",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2023#29",
+          "why": "associated with specific pieces는 meanings를 꾸미는 구조지만 수식 대상을 찾는 것과 모든 어법 후보를 판정하는 것은 다르다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#30",
+      "task_id": "s.attachment",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2016#30",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "why": "standing among the spectators는 Dan Tres의 위치를 말하며 Linx나 arm을 꾸미는 것으로 읽으면 장면 관계가 바뀐다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2016#30",
+          "locator": {
+            "source_ref": "restored-v1.2:2016#30",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 272,
+                "end": 297,
+                "unit_note": "배틀 대상 지목의 표현"
+              },
+              {
+                "field": "passage",
+                "start": 661,
+                "end": 700,
+                "unit_note": "인물과 위치의 수식 연결"
+              },
+              {
+                "field": "passage",
+                "start": 741,
+                "end": 769,
+                "unit_note": "다른 대명사 대상의 속성 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2023#29",
+          "why": "associated with specific pieces는 meanings를 꾸미는 구조지만 수식 대상을 찾는 것과 모든 어법 후보를 판정하는 것은 다르다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#21",
+      "task_id": "s.structural_relation",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2017#21",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "why": "지도 요소 여러 개를 나열한 병렬 주어와 although 종속절/주절을 복원한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2017#21",
+          "locator": {
+            "source_ref": "restored-v1.2:2017#21",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 0,
+                "end": 37,
+                "unit_note": "병렬 주어군의 시작"
+              },
+              {
+                "field": "passage",
+                "start": 226,
+                "end": 289,
+                "unit_note": "주요 서술 및 객관성 인상"
+              },
+              {
+                "field": "passage",
+                "start": 291,
+                "end": 352,
+                "unit_note": "종속절/주절 대조의 조건"
+              },
+              {
+                "field": "passage",
+                "start": 584,
+                "end": 613,
+                "unit_note": "권위의 이데올로기 전달 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2014A#36",
+          "why": "두 빈칸은 예시와 대조의 문장 사이 관계이다. 접속 표현 위치의 문법만으로 S4 성취와 R2 판단을 동일시 못 한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2014A#36",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 183,
+                "end": 226,
+                "unit_note": "높은 자기감시 일반 설명"
+              },
+              {
+                "field": "passage",
+                "start": 293,
+                "end": 351,
+                "unit_note": "구체 사례"
+              },
+              {
+                "field": "passage",
+                "start": 469,
+                "end": 526,
+                "unit_note": "같은 민감성 차원의 다른 집단"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2021#42",
+      "task_id": "s.structural_relation",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2021#42",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d3939d75d870e365a4ac85f4951e07f226c490f4f356e0e7d3e44cd53d0b56f6",
+      "why": "첫 문장의 삽입 설명과 does not mean ... not 구조를 구별하면 이중 부정의 명제를 재구성할 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2021#42",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 165,
+                "end": 211,
+                "unit_note": "부정의 서로 다른 층"
+              },
+              {
+                "field": "passage",
+                "start": 296,
+                "end": 347,
+                "unit_note": "내적 복잡성 단독 원인이 아니라는 한정"
+              },
+              {
+                "field": "passage",
+                "start": 1041,
+                "end": 1063,
+                "unit_note": "문맥 어휘 부적합 후보"
+              },
+              {
+                "field": "passage",
+                "start": 1075,
+                "end": 1122,
+                "unit_note": "복잡한 결과의 결합 설명"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 40,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2014A#36",
+          "why": "두 빈칸은 예시와 대조의 문장 사이 관계이다. 접속 표현 위치의 문법만으로 S4 성취와 R2 판단을 동일시 못 한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2014A#36",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 183,
+                "end": 226,
+                "unit_note": "높은 자기감시 일반 설명"
+              },
+              {
+                "field": "passage",
+                "start": 293,
+                "end": 351,
+                "unit_note": "구체 사례"
+              },
+              {
+                "field": "passage",
+                "start": 469,
+                "end": 526,
+                "unit_note": "같은 민감성 차원의 다른 집단"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2024#28",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "why": "동영상 길이의 cannot exceed는 3분을 포함하는 상한이며 3분 이상 금지로 바꾸면 경계값이 달라진다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2024#28",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2019#25",
+          "why": "인도 수의 배율은 참이어도 중국보다 높다는 순위 절이 거짓이면 결합 후보는 불일치한다. 문장 접속의 이해와 표 근거/E3 판정을 분리해야 한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2021#42",
+      "task_id": "s.form_scope",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2021#42",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d3939d75d870e365a4ac85f4951e07f226c490f4f356e0e7d3e44cd53d0b56f6",
+      "why": "행동이 복잡하지 않다는 결론을 부정하는 첫 문장과 internal complexity만의 산물은 아니라는 한정은 서로 다른 부정 범위이다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2021#42",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 165,
+                "end": 211,
+                "unit_note": "부정의 서로 다른 층"
+              },
+              {
+                "field": "passage",
+                "start": 296,
+                "end": 347,
+                "unit_note": "내적 복잡성 단독 원인이 아니라는 한정"
+              },
+              {
+                "field": "passage",
+                "start": 1041,
+                "end": 1063,
+                "unit_note": "문맥 어휘 부적합 후보"
+              },
+              {
+                "field": "passage",
+                "start": 1075,
+                "end": 1122,
+                "unit_note": "복잡한 결과의 결합 설명"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 40,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2019#25",
+          "why": "인도 수의 배율은 참이어도 중국보다 높다는 순위 절이 거짓이면 결합 후보는 불일치한다. 문장 접속의 이해와 표 근거/E3 판정을 분리해야 한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#29",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#29",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "why": "자기표현 문맥이 동일 지시를 제공할 때 them/themselves 형태 판정을 설명할 수 있다. 국소 문장만으로 동일 지시가 강제되는지는 미해결이다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#29",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2019#25",
+          "why": "인도 수의 배율은 참이어도 중국보다 높다는 순위 절이 거짓이면 결합 후보는 불일치한다. 문장 접속의 이해와 표 근거/E3 판정을 분리해야 한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "s.o.sentence_meaning_model",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2017#25",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "why": "공저자의 이름·책·집필 행위를 한 명제로 구성해야 단독 집필과 비교할 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2017#25",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2023#29",
+          "why": "어법 후보 ②를 맞혀도 모든 절/행위/부가 의미를 정확히 구성한 기록은 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#23",
+      "task_id": "s.o.sentence_meaning_model",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2016#23",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "why": "측정 희망을 표현한 관계절·조건절이 실제로 측정을 완수했다는 명제로 바뀌지 않아야 한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2016#23",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2023#29",
+          "why": "어법 후보 ②를 맞혀도 모든 절/행위/부가 의미를 정확히 구성한 기록은 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#29",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 261,
+                "end": 313,
+                "unit_note": "긴 주어/수식 및 보어절 연결"
+              },
+              {
+                "field": "passage",
+                "start": 429,
+                "end": 463,
+                "unit_note": "표현 행위와 대명사 후보"
+              },
+              {
+                "field": "passage",
+                "start": 675,
+                "end": 733,
+                "unit_note": "의미에 걸리는 수식구"
+              },
+              {
+                "field": "passage",
+                "start": 806,
+                "end": 846,
+                "unit_note": "주체·주요 서술·부사 형태"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 27,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#30",
+      "task_id": "r.reference",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2016#30",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "why": "④ he는 Dan Tres의 가족/오랜 비활동 속성과 연결되고 나머지 he/his는 Linx의 행동과 이어진다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2016#30",
+          "locator": {
+            "source_ref": "restored-v1.2:2016#30",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 272,
+                "end": 297,
+                "unit_note": "배틀 대상 지목의 표현"
+              },
+              {
+                "field": "passage",
+                "start": 661,
+                "end": 700,
+                "unit_note": "인물과 위치의 수식 연결"
+              },
+              {
+                "field": "passage",
+                "start": 741,
+                "end": 769,
+                "unit_note": "다른 대명사 대상의 속성 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2020#37",
+          "why": "This의 선행 명제를 맞혀도 B-A-C 전체 배열은 발견 질문·답·추가 비판까지 연결해야 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2020#37",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 490,
+                "end": 512,
+                "unit_note": "도입 명제를 받는 지시/연결"
+              },
+              {
+                "field": "passage",
+                "start": 820,
+                "end": 902,
+                "unit_note": "발견 질문"
+              },
+              {
+                "field": "passage",
+                "start": 197,
+                "end": 260,
+                "unit_note": "질문의 구체 응답"
+              },
+              {
+                "field": "passage",
+                "start": 908,
+                "end": 947,
+                "unit_note": "추가 비판의 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2019#44",
+      "task_id": "r.reference",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2019#44",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "3e9c73561132023815b732f9369c8dc55233260c6a34cbdeb13a4bb6320d973b",
+      "why": "Olivia realized she was right의 she는 앞 화자인 Grandma와 연결된다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2019#44",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#44",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 1608,
+                "end": 1638,
+                "unit_note": "화자와 뒤 발화의 선행 인물"
+              },
+              {
+                "field": "passage",
+                "start": 1770,
+                "end": 1803,
+                "unit_note": "다른 지시 대상을 묻는 구간"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 39,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2020#37",
+          "why": "This의 선행 명제를 맞혀도 B-A-C 전체 배열은 발견 질문·답·추가 비판까지 연결해야 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2020#37",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 490,
+                "end": 512,
+                "unit_note": "도입 명제를 받는 지시/연결"
+              },
+              {
+                "field": "passage",
+                "start": 820,
+                "end": 902,
+                "unit_note": "발견 질문"
+              },
+              {
+                "field": "passage",
+                "start": 197,
+                "end": 260,
+                "unit_note": "질문의 구체 응답"
+              },
+              {
+                "field": "passage",
+                "start": 908,
+                "end": 947,
+                "unit_note": "추가 비판의 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2014A#36",
+      "task_id": "r.relation",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2014A#36",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "why": "회의에서 다른 사람을 따라 제안하는 것은 높은 자기감시의 예시, 낮은 집단은 같은 민감성 차원의 대조이다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2014A#36",
+          "locator": {
+            "source_ref": "restored-v1.2:2014A#36",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 183,
+                "end": 226,
+                "unit_note": "높은 자기감시 일반 설명"
+              },
+              {
+                "field": "passage",
+                "start": 293,
+                "end": 351,
+                "unit_note": "구체 사례"
+              },
+              {
+                "field": "passage",
+                "start": 469,
+                "end": 526,
+                "unit_note": "같은 민감성 차원의 다른 집단"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "단독 집필 불일치는 한 명제와 후보의 대응으로 탐지할 수 있다. 글 전체의 담화 관계가 모든 문항에 필수는 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2020#37",
+      "task_id": "r.relation",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2020#37",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+      "why": "발견일·발견자 식별 질문에 여러 단계/사람이라는 응답이 이어지고 다음 단락은 추가 비판을 제공한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2020#37",
+          "locator": {
+            "source_ref": "main-v1.1:2020#37",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 490,
+                "end": 512,
+                "unit_note": "도입 명제를 받는 지시/연결"
+              },
+              {
+                "field": "passage",
+                "start": 820,
+                "end": 902,
+                "unit_note": "발견 질문"
+              },
+              {
+                "field": "passage",
+                "start": 197,
+                "end": 260,
+                "unit_note": "질문의 구체 응답"
+              },
+              {
+                "field": "passage",
+                "start": 908,
+                "end": 947,
+                "unit_note": "추가 비판의 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "단독 집필 불일치는 한 명제와 후보의 대응으로 탐지할 수 있다. 글 전체의 담화 관계가 모든 문항에 필수는 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2014A#36",
+      "task_id": "r.discourse_function",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2014A#36",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "why": "회의 사례는 높은 자기감시 설명을 구체화한다. 국소 예시 역할을 R4 전체 비교 구조 없이 묻는 과제 후보다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2014A#36",
+          "locator": {
+            "source_ref": "restored-v1.2:2014A#36",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 183,
+                "end": 226,
+                "unit_note": "높은 자기감시 일반 설명"
+              },
+              {
+                "field": "passage",
+                "start": 293,
+                "end": 351,
+                "unit_note": "구체 사례"
+              },
+              {
+                "field": "passage",
+                "start": 469,
+                "end": 526,
+                "unit_note": "같은 민감성 차원의 다른 집단"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2023#41",
+          "why": "“예시가 있다”는 역할 라벨만으로 예측 공식에서 체크리스트로 확장되는 전체 조직을 재구성한 것은 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#41",
+      "task_id": "r.discourse_function",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#41",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "why": "가석방·채용 예시는 단순 알고리즘의 예측 효과를, 체크리스트 의료 예시는 일관된 절차의 유용성을 보인다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#41",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2023#41",
+          "why": "“예시가 있다”는 역할 라벨만으로 예측 공식에서 체크리스트로 확장되는 전체 조직을 재구성한 것은 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2020#37",
+      "task_id": "r.discourse_structure",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2020#37",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+      "why": "전통 목표 설명→그 접근의 결함 등장→발견 단위/기준/외적 요인 비판의 조직을 재구성한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2020#37",
+          "locator": {
+            "source_ref": "main-v1.1:2020#37",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 490,
+                "end": 512,
+                "unit_note": "도입 명제를 받는 지시/연결"
+              },
+              {
+                "field": "passage",
+                "start": 820,
+                "end": 902,
+                "unit_note": "발견 질문"
+              },
+              {
+                "field": "passage",
+                "start": 197,
+                "end": 260,
+                "unit_note": "질문의 구체 응답"
+              },
+              {
+                "field": "passage",
+                "start": 908,
+                "end": 947,
+                "unit_note": "추가 비판의 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2015#18",
+          "why": "회복과 고성취를 요약한 명시문으로 중심 의미를 구성할 수 있다. 모든 글에 먼저 완전한 구조도를 요구할 논거는 없다.",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#41",
+      "task_id": "r.discourse_structure",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#41",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "why": "단순 예측 공식의 사례·일반 설명 뒤 체크리스트라는 유사 조직 원리로 확장한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#41",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2015#18",
+          "why": "회복과 고성취를 요약한 명시문으로 중심 의미를 구성할 수 있다. 모든 글에 먼저 완전한 구조도를 요구할 논거는 없다.",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#21",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2017#21",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "why": "지도의 정확성 요소가 객관성의 인상을 주지만 그 권위 아래 이데올로기가 전달된다는 중심 의미를 구성한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2017#21",
+          "locator": {
+            "source_ref": "restored-v1.2:2017#21",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 0,
+                "end": 37,
+                "unit_note": "병렬 주어군의 시작"
+              },
+              {
+                "field": "passage",
+                "start": 226,
+                "end": 289,
+                "unit_note": "주요 서술 및 객관성 인상"
+              },
+              {
+                "field": "passage",
+                "start": 291,
+                "end": 352,
+                "unit_note": "종속절/주절 대조의 조건"
+              },
+              {
+                "field": "passage",
+                "start": 584,
+                "end": 613,
+                "unit_note": "권위의 이데올로기 전달 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "약력 불일치는 공저 사실만으로 답 후보를 반박할 수 있어 R5 전체 중심 구성의 직접 측정이 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        },
+        {
+          "item": "2015#18",
+          "why": "마지막 요약문이 핵심 후보를 구별하는 경로가 있을 수 있다. R4 전체 조직 구성이 항상 선행 필수라는 주장에 한계다.",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2023#41",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2023#41",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "why": "예측 공식만/의료 체크리스트만을 따로 제목으로 삼으면 글의 포괄 중심인 단순 공식/일관 절차의 판단 도움을 좁힐 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2023#41",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "약력 불일치는 공저 사실만으로 답 후보를 반박할 수 있어 R5 전체 중심 구성의 직접 측정이 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        },
+        {
+          "item": "2015#18",
+          "why": "마지막 요약문이 핵심 후보를 구별하는 경로가 있을 수 있다. R4 전체 조직 구성이 항상 선행 필수라는 주장에 한계다.",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2016#23",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2016#23",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "why": "생물학적 노화의 측정 어려움과 대표 지표 탐색이라는 상태를 보존해야 이미 비밀을 밝힌 결론과 구별된다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2016#23",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2017#25",
+          "why": "약력 불일치는 공저 사실만으로 답 후보를 반박할 수 있어 R5 전체 중심 구성의 직접 측정이 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        },
+        {
+          "item": "2015#18",
+          "why": "마지막 요약문이 핵심 후보를 구별하는 경로가 있을 수 있다. R4 전체 조직 구성이 항상 선행 필수라는 주장에 한계다.",
+          "locator": {
+            "source_ref": "main-v1.1:2015#18",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 314,
+                "end": 344,
+                "unit_note": "빠른 회복의 의미/속도 근거"
+              },
+              {
+                "field": "passage",
+                "start": 565,
+                "end": 614,
+                "unit_note": "요약의 회복과 성취 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 20,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#21",
+      "task_id": "r.inference",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2024#21",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "1a7dfa5fe42750040adcb086026a765c3fffc02570489aa10410bfdbb7c98287",
+      "why": "비유의 달걀이 계속 요리되지만 달라붙지 않는다는 대응을 스트레스 경험을 없애는 것이 아닌 넓은 관점으로의 대응으로 해석한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2024#21",
+          "locator": {
+            "source_ref": "restored-v1.2:2024#21",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 583,
+                "unit_note": "좁은 관점과 스트레스"
+              },
+              {
+                "field": "passage",
+                "start": 608,
+                "end": 651,
+                "unit_note": "넓은 관점과 스트레스"
+              },
+              {
+                "field": "passage",
+                "start": 840,
+                "end": 859,
+                "unit_note": "표적 비유"
+              },
+              {
+                "field": "passage",
+                "start": 891,
+                "end": 921,
+                "unit_note": "비유의 대응 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 53,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2014B#42",
+          "why": "인간 목소리가 그립다는 두 문장만으로 대면 교류가 논리적으로 필연이라고 단정 못 한다. 전화라는 대안이 남아 전체 비교와 상대적 최적합을 구별해야 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2014B#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 693,
+                "end": 718,
+                "unit_note": "빈칸의 의미/빈도 한정"
+              },
+              {
+                "field": "passage",
+                "start": 823,
+                "end": 846,
+                "unit_note": "인간 교류 근거"
+              },
+              {
+                "field": "passage",
+                "start": 915,
+                "end": 976,
+                "unit_note": "로봇의 한계"
+              },
+              {
+                "field": "passage",
+                "start": 1304,
+                "end": 1344,
+                "unit_note": "전체 실제 세계 한정"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 26,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#34",
+      "task_id": "r.inference",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2024#34",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "why": "이동 방식과 개인적 이해가 거리 인식을 좌우한다는 의미를 후속 주차/통근 사례와 연결해 빈칸을 해석한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2024#34",
+          "locator": {
+            "source_ref": "restored-v1.2:2024#34",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 154,
+                "end": 178,
+                "unit_note": "빈칸의 관점 대상"
+              },
+              {
+                "field": "passage",
+                "start": 966,
+                "end": 1001,
+                "unit_note": "개인적 이동/주차 이해의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 29,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "choices[3]",
+                "unit_note": "tracks 문맥 의미는 빈칸 후보를 삽입한 해석이다; 인쇄 본문에 그 표현 자체가 있었던 것으로 주장하지 않음"
+              }
+            ]
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2014B#42",
+          "why": "인간 목소리가 그립다는 두 문장만으로 대면 교류가 논리적으로 필연이라고 단정 못 한다. 전화라는 대안이 남아 전체 비교와 상대적 최적합을 구별해야 한다.",
+          "locator": {
+            "source_ref": "main-v1.1:2014B#42",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 693,
+                "end": 718,
+                "unit_note": "빈칸의 의미/빈도 한정"
+              },
+              {
+                "field": "passage",
+                "start": 823,
+                "end": 846,
+                "unit_note": "인간 교류 근거"
+              },
+              {
+                "field": "passage",
+                "start": 915,
+                "end": 976,
+                "unit_note": "로봇의 한계"
+              },
+              {
+                "field": "passage",
+                "start": 1304,
+                "end": 1344,
+                "unit_note": "전체 실제 세계 한정"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 26,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2020#37",
+      "task_id": "r.o.global_meaning_model",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2020#37",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+      "why": "전통 과학사 목표부터 발견 단위와 기준의 변화까지 하나의 비판 모델로 연결한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2020#37",
+          "locator": {
+            "source_ref": "main-v1.1:2020#37",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 490,
+                "end": 512,
+                "unit_note": "도입 명제를 받는 지시/연결"
+              },
+              {
+                "field": "passage",
+                "start": 820,
+                "end": 902,
+                "unit_note": "발견 질문"
+              },
+              {
+                "field": "passage",
+                "start": 197,
+                "end": 260,
+                "unit_note": "질문의 구체 응답"
+              },
+              {
+                "field": "passage",
+                "start": 908,
+                "end": 947,
+                "unit_note": "추가 비판의 연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 36,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              2
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#28",
+          "why": "길이 상한 하나로 답을 찾아도 전체 안내 구조를 이해한 관찰은 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2018#43",
+      "task_id": "r.o.global_meaning_model",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2018#43",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "why": "후보 등록→갈등→아버지 조언→승리/우정 회복의 사건·인물·시점이 일관된 모델을 이룬다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2018#43",
+          "locator": {
+            "source_ref": "restored-v1.2:2018#43",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 1362,
+                "end": 1395,
+                "unit_note": "두 친구 경쟁의 사건"
+              },
+              {
+                "field": "passage",
+                "start": 2085,
+                "end": 2129,
+                "unit_note": "관계 회복을 돕는 조언"
+              },
+              {
+                "field": "passage",
+                "start": 466,
+                "end": 488,
+                "unit_note": "결과 사건"
+              },
+              {
+                "field": "passage",
+                "start": 828,
+                "end": 851,
+                "unit_note": "우정 회복"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 44,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2024#28",
+          "why": "길이 상한 하나로 답을 찾아도 전체 안내 구조를 이해한 관찰은 아니다.",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "e.task_demand",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2017#25",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "why": "본문과 모순되는 단독 집필 후보가 “일치하지 않는 것” 과제에는 정답이 된다. 내용 진리와 선택 적합성의 방향을 구별한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2017#25",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2023#41",
+          "why": "“제목” 라벨을 말해도 전체를 대표하는 제목과 일부 사실 제목의 차이를 판단했다는 증거는 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "e.task_demand",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2024#28",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "why": "일치하는 것 요구는 상한 문장 지지와 연결되고 불일치 과제와 방향이 다르다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2024#28",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2023#41",
+          "why": "“제목” 라벨을 말해도 전체를 대표하는 제목과 일부 사실 제목의 차이를 판단했다는 증거는 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2022#35",
+      "task_id": "e.task_demand",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2022#35",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "1e0f088f1f28b4bd184d41872aaf9b383aacf4bcc0ccbb4acfc4c86419d5a847",
+      "why": "전체 흐름과 무관한 문장을 찾으라는 요구는 세계 사실이 거짓인 문장 찾기와 다르다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2022#35",
+          "locator": {
+            "source_ref": "main-v1.1:2022#35",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 170,
+                "end": 195,
+                "unit_note": "전체 협력 범위"
+              },
+              {
+                "field": "passage",
+                "start": 627,
+                "end": 649,
+                "unit_note": "이탈 후보 문장"
+              },
+              {
+                "field": "passage",
+                "start": 789,
+                "end": 836,
+                "unit_note": "뒤 지시와 협력 재연결"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 24,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2023#41",
+          "why": "“제목” 라벨을 말해도 전체를 대표하는 제목과 일부 사실 제목의 차이를 판단했다는 증거는 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2023#41",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 33,
+                "end": 82,
+                "unit_note": "예측 공식의 중심 명제"
+              },
+              {
+                "field": "passage",
+                "start": 114,
+                "end": 149,
+                "unit_note": "예측 사례의 국소 기능"
+              },
+              {
+                "field": "passage",
+                "start": 925,
+                "end": 981,
+                "unit_note": "체크리스트로의 유사 적용"
+              },
+              {
+                "field": "passage",
+                "start": 1119,
+                "end": 1154,
+                "unit_note": "의료 사례의 기능"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 19,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "e.evidence_location",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2017#25",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "why": "공저 정보의 마지막 문장은 후보5를 반박하는 위치이다. 다른 네 후보의 검수까지 대표하지 않는다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2017#25",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#23",
+          "why": "제목에는 국소 측정 희망 문장을 잡는 것 외 전체 대표성과 탐색 상태 해석이 필요할 수 있다. anchor 하나가 E3 성공을 보장하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2019#25",
+      "task_id": "e.evidence_location",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2019#25",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "why": "2016-2017 중국·인도 행이 순위 절을 반박하지만 배율 절에는 1979-1980 인도 행도 필요하다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2019#25",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#23",
+          "why": "제목에는 국소 측정 희망 문장을 잡는 것 외 전체 대표성과 탐색 상태 해석이 필요할 수 있다. anchor 하나가 E3 성공을 보장하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "e.evidence_location",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2024#28",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "why": "길이 항목과 출품 수/기간/선정자 항목을 후보별로 각각 찾아야 all5 근거가 된다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2024#28",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2016#23",
+          "why": "제목에는 국소 측정 희망 문장을 잡는 것 외 전체 대표성과 탐색 상태 해석이 필요할 수 있다. anchor 하나가 E3 성공을 보장하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2017#25",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "why": "공저 명제와 단독 집필의 충돌은 contradicted인 내용과 불일치 선택 과제 fits를 동시에 설명한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2017#25",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2021#40",
+          "why": "두 낱말 후보 자체는 독립 사실 명제가 아니다. 요약 문장에 삽입한 뒤 not의 범위와 문화 간 동일성을 함께 확인한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#40",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 34,
+                "end": 102,
+                "unit_note": "문화 간 정치 개념 문제"
+              },
+              {
+                "field": "passage",
+                "start": 623,
+                "end": 641,
+                "unit_note": "전칭 범위의 부정"
+              },
+              {
+                "field": "passage",
+                "start": 1052,
+                "end": 1073,
+                "unit_note": "자문화 개념 적용 한계"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 57,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "presentation.summary_sentence",
+                "unit_note": "A/B를 삽입한 뒤 not의 범위를 판단하는 요약 명제"
+              }
+            ]
+          }
+        },
+        {
+          "item": "2016#23",
+          "why": "다른 제목이 주제를 벗어난다고 그 제목의 사실 내용을 세계의 거짓으로 단정하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2024#28",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "why": "3분 초과 불가를 동일 상한 후보와 대응하고 기간/출품 수/선정자를 바꾼 후보들을 각 항목으로 배제한다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2024#28",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2021#40",
+          "why": "두 낱말 후보 자체는 독립 사실 명제가 아니다. 요약 문장에 삽입한 뒤 not의 범위와 문화 간 동일성을 함께 확인한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#40",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 34,
+                "end": 102,
+                "unit_note": "문화 간 정치 개념 문제"
+              },
+              {
+                "field": "passage",
+                "start": 623,
+                "end": 641,
+                "unit_note": "전칭 범위의 부정"
+              },
+              {
+                "field": "passage",
+                "start": 1052,
+                "end": 1073,
+                "unit_note": "자문화 개념 적용 한계"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 57,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "presentation.summary_sentence",
+                "unit_note": "A/B를 삽입한 뒤 not의 범위를 판단하는 요약 명제"
+              }
+            ]
+          }
+        },
+        {
+          "item": "2016#23",
+          "why": "다른 제목이 주제를 벗어난다고 그 제목의 사실 내용을 세계의 거짓으로 단정하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2019#25",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "source_checked": true,
+      "source_ref": "restored-v1.2:2019#25",
+      "research_input_version": "research-input-v1.2",
+      "research_input_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "why": "후보3의 배율 절은 186000/9000>20으로 맞지만 순위 절은 China351000>India186000과 충돌한다. 결합 후보의 한 절 오류와 전체 검수 범위를 구별한다.",
+      "evidence": [
+        {
+          "source_ref": "restored-v1.2:2019#25",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_component_relevance_not_student_performance_or_whole_item_necessity",
+      "counterexample": [
+        {
+          "item": "2021#40",
+          "why": "두 낱말 후보 자체는 독립 사실 명제가 아니다. 요약 문장에 삽입한 뒤 not의 범위와 문화 간 동일성을 함께 확인한다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2021#40",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 34,
+                "end": 102,
+                "unit_note": "문화 간 정치 개념 문제"
+              },
+              {
+                "field": "passage",
+                "start": 623,
+                "end": 641,
+                "unit_note": "전칭 범위의 부정"
+              },
+              {
+                "field": "passage",
+                "start": 1052,
+                "end": 1073,
+                "unit_note": "자문화 개념 적용 한계"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 57,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "presentation_units": [
+              {
+                "field": "presentation.summary_sentence",
+                "unit_note": "A/B를 삽입한 뒤 not의 범위를 판단하는 요약 명제"
+              }
+            ]
+          }
+        },
+        {
+          "item": "2016#23",
+          "why": "다른 제목이 주제를 벗어난다고 그 제목의 사실 내용을 세계의 거짓으로 단정하지 않는다.",
+          "locator": {
+            "source_ref": "main-v1.1:2016#23",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 457,
+                "end": 498,
+                "unit_note": "측정 어려움"
+              },
+              {
+                "field": "passage",
+                "start": 500,
+                "end": 526,
+                "unit_note": "완료가 아닌 측정 희망"
+              },
+              {
+                "field": "passage",
+                "start": 554,
+                "end": 617,
+                "unit_note": "변화/관계절과 대표 지표의 조건"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              3,
+              4
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "e.o.final_judgment",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2017#25",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "why": "단독 집필을 반박하는 공저 근거와 불일치 요구를 함께 설명하는 최종 판단을 구성할 수 있다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2017#25",
+          "locator": {
+            "source_ref": "main-v1.1:2017#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 760,
+                "end": 806,
+                "unit_note": "공저자·인물·집필 행위의 근거"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 38,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2019#25",
+          "why": "순위 한 절 반박으로 정답 탐지는 가능하지만 다른 네 후보 및 배율 절 검수가 없으면 all5 최종 판단 관찰이 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "e.o.final_judgment",
+      "relevance": "indirect",
+      "source_checked": true,
+      "source_ref": "main-v1.1:2024#28",
+      "research_input_version": "main-v1.1",
+      "research_input_sha256": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "why": "일치 길이 항목과 다른 후보의 기간·출품 수·선정자 배제 근거를 함께 내는 all5 최종 판단 과제 후보다.",
+      "evidence": [
+        {
+          "source_ref": "main-v1.1:2024#28",
+          "locator": {
+            "source_ref": "main-v1.1:2024#28",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 305,
+                "end": 346,
+                "unit_note": "3분 포함 상한"
+              },
+              {
+                "field": "passage",
+                "start": 350,
+                "end": 389,
+                "unit_note": "출품 수 조건"
+              },
+              {
+                "field": "passage",
+                "start": 214,
+                "end": 244,
+                "unit_note": "기간 조건"
+              },
+              {
+                "field": "passage",
+                "start": 542,
+                "end": 565,
+                "unit_note": "선정 주체"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 69,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다."
+          }
+        }
+      ],
+      "sufficiency": "source_grounded_teaching_affordance_not_actual_necessity",
+      "counterexample": [
+        {
+          "item": "2019#25",
+          "why": "순위 한 절 반박으로 정답 탐지는 가능하지만 다른 네 후보 및 배율 절 검수가 없으면 all5 최종 판단 관찰이 아니다.",
+          "locator": {
+            "source_ref": "restored-v1.2:2019#25",
+            "offset_convention": "UTF-16 code units; start inclusive/end exclusive; offsets bind to used input row, not PDF extracted text",
+            "passage_ranges": [
+              {
+                "field": "passage",
+                "start": 528,
+                "end": 563,
+                "unit_note": "배율과 순위가 결합된 후보 시작"
+              },
+              {
+                "field": "passage",
+                "start": 629,
+                "end": 672,
+                "unit_note": "반박되는 순위 절"
+              }
+            ],
+            "stem": {
+              "field": "stem",
+              "start": 0,
+              "end": 21,
+              "unit_note": "실제 발문의 요구 대상·판정 방향 결속"
+            },
+            "candidate_numbers": [
+              3
+            ],
+            "locator_limit": "위 범위는 명제/표현·발문·후보에 연구 주장을 결속하는 locator이다. 전략에 실제 허용된 읽기 창 또는 전체 정답 판정의 충분 범위를 자동 보증하지 않는다.",
+            "table_cells": [
+              {
+                "field": "presentation.table.rows[0][2:4]",
+                "unit_note": "2016-2017 중국 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[1][2:4]",
+                "unit_note": "2016-2017 인도 국가·수치"
+              },
+              {
+                "field": "presentation.table.rows[8][0:2]",
+                "unit_note": "1979-1980 인도 국가·수치"
+              }
+            ]
+          }
+        }
+      ],
+      "disagreement": "single_AI_case_review_not_double_rated",
+      "human_review": false
+    }
+  ]
+}

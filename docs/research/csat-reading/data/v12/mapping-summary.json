@@ -1,0 +1,389 @@
+{
+  "date": "2026-10-14",
+  "protocol": "1.2",
+  "n_items": 786,
+  "n_tasks": 30,
+  "n_combinations": 23580,
+  "sha256": "976f096b189da971ce2825e7cfd6f45069c85262c0e56d72903dff040fc31daf",
+  "relevance": {
+    "unknown": 23534,
+    "direct": 18,
+    "indirect": 28
+  },
+  "candidate_relevance": {
+    "unknown": 17270,
+    "indirect": 3432,
+    "direct": 2878
+  },
+  "review_status": {
+    "automatic_candidate_not_reviewed": 23534,
+    "source_checked_ai_case_review": 46
+  },
+  "reviewed_rows": 46,
+  "unseen_recent_semantic_output": false,
+  "source_files": {
+    "codebook": {
+      "path": "docs/csat-learner/v4/codebook.json",
+      "sha256": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
+      "version": "rev4.0-draft-1"
+    },
+    "relations": {
+      "path": "docs/csat-learner/v4/relations.json",
+      "sha256": "716b0b940cd96013e12303ddc3555b362abb345b6cfb1ad252952c4704521b24"
+    },
+    "inquiry": {
+      "path": "apps/web/src/lib/csat/inquiry-data.json",
+      "sha256": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534"
+    },
+    "compare": {
+      "path": "apps/web/src/lib/csat/compare-v3-data.json",
+      "sha256": "010608adbdfc0141eb575c9cb1e7bf04fa3b261fc2ff667ca0293b271708422d"
+    },
+    "v61": {
+      "path": "D:/workspace/vocaflow-learning-map-v61-20261014/design.md",
+      "sha256": "0b3a4fc56b8aac5420adaf95265d6bbc5d8441880601fecfa034df3297bbc9d5"
+    },
+    "user_v61": {
+      "path": "C:/Users/Administrator/Downloads/Vocaflow_CSAT_Learning_Map_v6_1_Goal_Coverage_Spec.md",
+      "sha256": "f86b3d406ad1b0c0748d5704431fcb2260b9346aea99fa63ae786378dbe0b95a"
+    }
+  },
+  "per_task": [
+    {
+      "id": "v.core_meaning",
+      "display": "V1",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 1,
+      "actual_unknown": 785,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "v.contextual_sense",
+      "display": "V2",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 72,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "v.multiword",
+      "display": "V3",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "v.semantic_relation",
+      "display": "V4",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "s.sentence_core",
+      "display": "S1",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 786
+    },
+    {
+      "id": "s.chunk_boundary",
+      "display": "S2",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "s.attachment",
+      "display": "S3",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "s.structural_relation",
+      "display": "S4",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "s.form_scope",
+      "display": "S5",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 2,
+      "actual_indirect": 1,
+      "actual_unknown": 783,
+      "candidate_direct": 29,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "s.o.sentence_meaning_model",
+      "display": "S-O1",
+      "kind": "integrated",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 786
+    },
+    {
+      "id": "r.reference",
+      "display": "R1",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 2,
+      "actual_indirect": 0,
+      "actual_unknown": 784,
+      "candidate_direct": 138,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "r.relation",
+      "display": "R2",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 2,
+      "actual_indirect": 0,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 288
+    },
+    {
+      "id": "r.discourse_function",
+      "display": "R3",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 1,
+      "actual_indirect": 1,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "r.discourse_structure",
+      "display": "R4",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 139,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "r.central_meaning",
+      "display": "R5",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 3,
+      "actual_indirect": 0,
+      "actual_unknown": 783,
+      "candidate_direct": 142,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "r.inference",
+      "display": "R6",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 2,
+      "actual_indirect": 0,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "r.o.global_meaning_model",
+      "display": "R-O1",
+      "kind": "integrated",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 786
+    },
+    {
+      "id": "e.task_demand",
+      "display": "E1",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 3,
+      "actual_indirect": 0,
+      "actual_unknown": 783,
+      "candidate_direct": 786,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "e.evidence_location",
+      "display": "E2",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 3,
+      "actual_unknown": 783,
+      "candidate_direct": 786,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "e.option_correspondence",
+      "display": "E3",
+      "kind": "atomic",
+      "status": "canon_candidate",
+      "actual_direct": 3,
+      "actual_indirect": 0,
+      "actual_unknown": 783,
+      "candidate_direct": 786,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "e.o.final_judgment",
+      "display": "E-O1",
+      "kind": "integrated",
+      "status": "canon_candidate",
+      "actual_direct": 0,
+      "actual_indirect": 2,
+      "actual_unknown": 784,
+      "candidate_direct": 0,
+      "candidate_indirect": 786
+    },
+    {
+      "id": "l.sound",
+      "display": "L1",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "l.sentence",
+      "display": "L2",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "l.retain",
+      "display": "L3",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "l.respond",
+      "display": "L4",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "x.time_allocation",
+      "display": "X1",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "x.sequence",
+      "display": "X2",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "x.recovery_adaptation",
+      "display": "X3",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "x.attention_stamina",
+      "display": "X4",
+      "kind": "atomic",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    },
+    {
+      "id": "x.o.whole_test_stability",
+      "display": "X-O1",
+      "kind": "integrated",
+      "status": "hold",
+      "actual_direct": 0,
+      "actual_indirect": 0,
+      "actual_unknown": 786,
+      "candidate_direct": 0,
+      "candidate_indirect": 0
+    }
+  ],
+  "limitations": [
+    "Automatic rules summarize stored AI annotations/type, not original item demands.",
+    "Source-reviewed AI links do not establish human validation or learner proficiency.",
+    "No untagged combination is converted to not_applicable.",
+    "No score gain, mastery probability or two-item universal criterion."
+  ]
+}

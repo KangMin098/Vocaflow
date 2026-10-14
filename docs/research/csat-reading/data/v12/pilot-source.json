@@ -1,0 +1,1671 @@
+{
+  "version": "1.2",
+  "method": "All 16 complete question regions were directly visually inspected using full-page local-PDF renders. Same-form original answer-key rows and paper-form headers were independently viewed. Source character layer corroborates complete stem/body/candidates/glosses. Original PDF and key-file byte SHA256 rechecked. Source metadata has no originals or answer numbers.",
+  "hash_method": "source_binding = SHA256 UTF-8 JSON.stringify(cleaned item in saved insertion order before adding source_binding); includes PDF SHA/form/pages, units, glosses and presentation, excludes all answers. Verification: delete source_binding from parsed row then JSON.stringify and SHA256.",
+  "units_method": "Exact nonoverlapping passage slices. Sentence boundaries retain source punctuation, protect honorific abbreviations, and merge multi-sentence quotation turns to block units; shared 43–45 printed blocks remain block units. Given and summary texts remain in cleaned passage and also have boxed presentation ranges, so all evidence text can use unit IDs.",
+  "limitations": [
+    "official_download_chain_unresolved",
+    "AI_PDF_source_admission_not_human",
+    "educational_effectiveness_not_tested"
+  ],
+  "items": [
+    {
+      "id": "2018#18",
+      "old_binding": "5e7e0807aa303aefcc9359ec4ea36002eea42a243ea4909698d1a19097553673",
+      "source_binding": "4c1d3dae58730174523a48b82ad75d9ffdc32699410595fc0d3db2a9d5ad3c3c",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          2
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-2.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2018영어영역_정답표.pdf",
+        "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 18,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 23,
+          "kind": "block"
+        },
+        {
+          "id": "u2",
+          "start": 24,
+          "end": 71,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 72,
+          "end": 204,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 205,
+          "end": 304,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 305,
+          "end": 394,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 395,
+          "end": 512,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 513,
+          "end": 558,
+          "kind": "sentence"
+        },
+        {
+          "id": "u8",
+          "start": 559,
+          "end": 599,
+          "kind": "sentence"
+        },
+        {
+          "id": "u9",
+          "start": 600,
+          "end": 626,
+          "kind": "block"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2014A#40",
+      "old_binding": "88efd55a2e4f9328065b8beb7c11575e8c41c9550251c51aadf856eaae6d9665",
+      "source_binding": "938d568e90a0135e4e163f241f4afbd9ae6ceee35c3a81ec305c594cb30ca616",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "paper_form": "A형 홀수형",
+        "source_header": {
+          "form": "A",
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "A형 홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2014영어영역_정답표_A형_홀수형.pdf",
+        "sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+        "page": 1,
+        "paper_form": "A형 홀수형",
+        "number": 40,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014A-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 75,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 76,
+          "end": 79,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 80,
+          "end": 154,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 155,
+          "end": 259,
+          "kind": "block"
+        },
+        {
+          "id": "u5",
+          "start": 260,
+          "end": 293,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 294,
+          "end": 395,
+          "kind": "block"
+        },
+        {
+          "id": "u7",
+          "start": 396,
+          "end": 440,
+          "kind": "sentence"
+        },
+        {
+          "id": "u8",
+          "start": 441,
+          "end": 516,
+          "kind": "sentence"
+        },
+        {
+          "id": "u9",
+          "start": 517,
+          "end": 546,
+          "kind": "sentence"
+        },
+        {
+          "id": "u10",
+          "start": 547,
+          "end": 683,
+          "kind": "block"
+        },
+        {
+          "id": "u11",
+          "start": 684,
+          "end": 731,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2023#20",
+      "old_binding": "a8367978ac4d97a78f67c8edde8ab0c0483c9d846374dc004fcb2a7009eaabb5",
+      "source_binding": "f4a230590e94bab8fca31694626907e2cb12ab2fe82e8f40232e107153b093e7",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          2
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2023-q-2.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2023영어영역_정답표.pdf",
+        "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 20,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2023-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 120,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 121,
+          "end": 204,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 205,
+          "end": 296,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 297,
+          "end": 426,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 427,
+          "end": 544,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 545,
+          "end": 688,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 689,
+          "end": 795,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "누락된 인쇄 각주 2개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2021#22",
+      "old_binding": "993efac42c04b1723650f00254fe69ea40475186e1a57e55629c426ff018b63f",
+      "source_binding": "d6c32c9251e32096f9e2f217ea40e59dcf70eca718a57e764ee82116376fd239",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2021_3교시_영어영역_짝.pdf",
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2021-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2021영어영역_정답표.pdf",
+        "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 22,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2021-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 115,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 116,
+          "end": 248,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 249,
+          "end": 468,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 469,
+          "end": 544,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 545,
+          "end": 737,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 738,
+          "end": 861,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 862,
+          "end": 1044,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "누락된 인쇄 각주 1개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2015#21",
+      "old_binding": "d1720531e77675741d6b7863e10f6ddcf7dd6892fd2d07308b04ed5e9a21ced7",
+      "source_binding": "cfbdaf8a835b08c1dc9dbf9b23e885afc9d13cd570bb06958c5648faafcd6624",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          2,
+          3
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ],
+        "shared_stem_render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-2.png"
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2015영어영역_정답표_홀수.pdf",
+        "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 21,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2015-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 96,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 97,
+          "end": 185,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 186,
+          "end": 350,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 351,
+          "end": 464,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 465,
+          "end": 570,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 571,
+          "end": 724,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2017#23",
+      "old_binding": "aecd39a72f1bee96a6a233eeb27c9d17fe5de391b5c647e814a64cdd54dd6888",
+      "source_binding": "af4013523b74aa6828cf2e5f7da4a73cc25d8bcedb1aba5c32dc3aa0a9f7d522",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2017영어영역_정답표.pdf",
+        "sha256": "8ef2e2eaa814d9c792383a279c5c6994f5023c4c0fb723d89eb3863ca22646e8",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 23,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2017-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 110,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 111,
+          "end": 364,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 365,
+          "end": 581,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 582,
+          "end": 826,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 827,
+          "end": 892,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2020#29",
+      "old_binding": "113538f539e3e046bf8ae9a08ed3a29cc6b1595b9f7e3966bd392a667dcf86d4",
+      "source_binding": "65c12c17ce5c25c726ff6c2f922f7ed2f0cd5c683600861d93399ba620c8f8c9",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2020-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2020영어영역_정답표.pdf",
+        "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 29,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2020-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 138,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 139,
+          "end": 362,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 363,
+          "end": 614,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 615,
+          "end": 691,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 692,
+          "end": 846,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 847,
+          "end": 976,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 977,
+          "end": 1094,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "각 후보를 실제 인쇄된 밑줄 target로 제한; 장문 조각·각주·쪽수 혼입 제거",
+        "누락된 인쇄 각주 3개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2019#30",
+      "old_binding": "6006aecbf66e2657fd5e422ee0d07c44b494bc74e5c51e254e8adf15fa656bad",
+      "source_binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2019영어영역_정답표.pdf",
+        "sha256": "392d06847f4fed9e9b75115caddf6c14e991731a62b6eb01955dd1a471df3f80",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 30,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 81,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 82,
+          "end": 192,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 193,
+          "end": 288,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 289,
+          "end": 418,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 419,
+          "end": 583,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 584,
+          "end": 746,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 747,
+          "end": 827,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "잘린 발문의 선택 조건과 물음표 복원",
+        "각 후보를 실제 인쇄된 밑줄 target로 제한; 장문 조각·각주·쪽수 혼입 제거",
+        "누락된 인쇄 각주 2개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2016#25",
+      "old_binding": "f395bc2af6d501c1b5d208c2907872a135071ef4eddeac0459761f0fc111dd38",
+      "source_binding": "06e4a17b5768a4231ad16cb182cb9d0a3146e1e0a7350ce61bdbd6e18409f248",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          4
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2016-q-4.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2016영어영역_정답표.pdf",
+        "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 25,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2016-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 112,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 113,
+          "end": 196,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 197,
+          "end": 225,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 226,
+          "end": 271,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 272,
+          "end": 339,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 340,
+          "end": 453,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 454,
+          "end": 531,
+          "kind": "sentence"
+        },
+        {
+          "id": "u8",
+          "start": 532,
+          "end": 569,
+          "kind": "sentence"
+        },
+        {
+          "id": "u9",
+          "start": 570,
+          "end": 668,
+          "kind": "sentence"
+        },
+        {
+          "id": "u10",
+          "start": 669,
+          "end": 763,
+          "kind": "sentence"
+        },
+        {
+          "id": "u11",
+          "start": 764,
+          "end": 852,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2022#25",
+      "old_binding": "e8af17e67f26d819ed82527238a23edca2e617cec843d4809769bb70b0714d0e",
+      "source_binding": "ec7675fdd6715609b9164c24e13c80f7dca1a26cad1c4f04c2c0e848ef0e5009",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "pages": [
+          4
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2022-q-4.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2022영어영역_정답표.pdf",
+        "sha256": "cd1687afd0da13a54ab59b5eb89faf4f9f6f70ef97930dbdfc940d6f1e558aac",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 25,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2022-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 120,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 121,
+          "end": 257,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 258,
+          "end": 397,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 398,
+          "end": 596,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 597,
+          "end": 709,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 710,
+          "end": 833,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [
+        {
+          "id": "c1",
+          "row": 0,
+          "col": 1,
+          "role": "header"
+        },
+        {
+          "id": "c2",
+          "row": 0,
+          "col": 2,
+          "role": "header"
+        },
+        {
+          "id": "c3",
+          "row": 1,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c4",
+          "row": 1,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c5",
+          "row": 1,
+          "col": 2,
+          "role": "printed_data"
+        },
+        {
+          "id": "c6",
+          "row": 2,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c7",
+          "row": 2,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c8",
+          "row": 2,
+          "col": 2,
+          "role": "printed_data"
+        },
+        {
+          "id": "c9",
+          "row": 3,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c10",
+          "row": 3,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c11",
+          "row": 3,
+          "col": 2,
+          "role": "printed_data"
+        },
+        {
+          "id": "c12",
+          "row": 4,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c13",
+          "row": 4,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c14",
+          "row": 4,
+          "col": 2,
+          "role": "printed_data"
+        },
+        {
+          "id": "c15",
+          "row": 5,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c16",
+          "row": 5,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c17",
+          "row": 5,
+          "col": 2,
+          "role": "printed_data"
+        },
+        {
+          "id": "c18",
+          "row": 6,
+          "col": 0,
+          "role": "region_label"
+        },
+        {
+          "id": "c19",
+          "row": 6,
+          "col": 1,
+          "role": "printed_data"
+        },
+        {
+          "id": "c20",
+          "row": 6,
+          "col": 2,
+          "role": "printed_data"
+        }
+      ],
+      "remaining": [],
+      "changes": [
+        "실제 도표 제목·두 연도·6지역·12비율·반올림 주석 및 셀 ID 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2024#31",
+      "old_binding": "2b0830c03e338f317e7004fd61a528522527b3c2224156477e4fa4a2a52c1400",
+      "source_binding": "cffb5e801ca12c8490cb9c77717106d49177ed4a4d98a0156a2defbd2f785f43",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2024영어영역_정답표.pdf",
+        "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 31,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2024-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 199,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 200,
+          "end": 380,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 381,
+          "end": 565,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 566,
+          "end": 741,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 742,
+          "end": 844,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 845,
+          "end": 874,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 875,
+          "end": 952,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "누락된 인쇄 각주 1개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2014B#38",
+      "old_binding": "4ec5a8cbb4088c6272e9b39087a9ed0973c5e779ec089958ac943aef96cc49e5",
+      "source_binding": "5327c519bacbbf23f4e920bb0c0eb7cf4de7bb58918e8e7d14a3d93d743e69d5",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          6
+        ],
+        "paper_form": "B형 홀수형",
+        "source_header": {
+          "form": "B",
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "B형 홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2014B-q-6.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2014영어영역_정답표_B형_홀수형.pdf",
+        "sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+        "page": 1,
+        "paper_form": "B형 홀수형",
+        "number": 38,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014B-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 99,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 100,
+          "end": 236,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 241,
+          "end": 386,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 387,
+          "end": 459,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 464,
+          "end": 587,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 588,
+          "end": 732,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 737,
+          "end": 792,
+          "kind": "sentence"
+        },
+        {
+          "id": "u8",
+          "start": 793,
+          "end": 873,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "누락된 인쇄 각주 2개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2018#39",
+      "old_binding": "aecf1850a5c771774cc2fd464d8e8f4603623a58c9fd783cb9890698bbf11c21",
+      "source_binding": "55a4d381be9fe5252e0c2e44574d7c4104a105002dabb79b3ea663a97ac6c2b1",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          7
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2018-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2018영어영역_정답표.pdf",
+        "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 39,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 127,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 128,
+          "end": 233,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 234,
+          "end": 352,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 353,
+          "end": 480,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 481,
+          "end": 565,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 566,
+          "end": 673,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 674,
+          "end": 800,
+          "kind": "sentence"
+        },
+        {
+          "id": "u8",
+          "start": 801,
+          "end": 899,
+          "kind": "sentence"
+        },
+        {
+          "id": "u9",
+          "start": 900,
+          "end": 1078,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "제시문 상자·본문 삽입 위치 분리; 후보를 실제 다섯 위치 라벨로 복원",
+        "누락된 인쇄 각주 2개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2024#35",
+      "old_binding": "3f9f2db8a373d3cdcd6a8d858372b258ec35336afb2e5c84318c72d18187028e",
+      "source_binding": "d44862aa6b887fdb5ad878e066f5bf8ea2e72b660e229b5ba0e898cc49c3ff14",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          6
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2024영어영역_정답표.pdf",
+        "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 35,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2024-key-1.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 41,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 42,
+          "end": 197,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 198,
+          "end": 337,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 338,
+          "end": 493,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 494,
+          "end": 612,
+          "kind": "sentence"
+        },
+        {
+          "id": "u6",
+          "start": 613,
+          "end": 801,
+          "kind": "sentence"
+        },
+        {
+          "id": "u7",
+          "start": 802,
+          "end": 882,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2019#40",
+      "old_binding": "82d824da6777aee904563d8b867d89879a0e864783873c836d915a46d605cf26",
+      "source_binding": "c49d43d7abc03fabb94395ebd54fb587a04e5fc3f93ebcd6317a8a8b628cef09",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          7
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2019영어영역_정답표.pdf",
+        "sha256": "392d06847f4fed9e9b75115caddf6c14e991731a62b6eb01955dd1a471df3f80",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 40,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 0,
+          "end": 203,
+          "kind": "sentence"
+        },
+        {
+          "id": "u2",
+          "start": 204,
+          "end": 366,
+          "kind": "sentence"
+        },
+        {
+          "id": "u3",
+          "start": 367,
+          "end": 761,
+          "kind": "sentence"
+        },
+        {
+          "id": "u4",
+          "start": 762,
+          "end": 1054,
+          "kind": "sentence"
+        },
+        {
+          "id": "u5",
+          "start": 1055,
+          "end": 1244,
+          "kind": "sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1"
+      ],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "별도 본문/요약문 상자·아래화살표·두 빈칸과 보기 열 대응 복원",
+        "누락된 인쇄 각주 1개를 별도 ID 필드로 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    },
+    {
+      "id": "2022#44",
+      "old_binding": "d0baf72a2a3c686a1a7f64d9c21b0d874c2a793d3f05f9cdf17836a0e5be4e38",
+      "source_binding": "38ef5037f3a3c2f7576d23afad7ee9725b72a97ca8ae01983be163be907ff24e",
+      "status": "complete",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2022-q-8.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2022영어영역_정답표.pdf",
+        "sha256": "cd1687afd0da13a54ab59b5eb89faf4f9f6f70ef97930dbdfc940d6f1e558aac",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 44,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2022-key-2.png"
+      },
+      "units": [
+        {
+          "id": "u1",
+          "start": 4,
+          "end": 480,
+          "kind": "block"
+        },
+        {
+          "id": "u2",
+          "start": 485,
+          "end": 969,
+          "kind": "block"
+        },
+        {
+          "id": "u3",
+          "start": 974,
+          "end": 1428,
+          "kind": "block"
+        },
+        {
+          "id": "u4",
+          "start": 1433,
+          "end": 1954,
+          "kind": "block"
+        }
+      ],
+      "gloss_ids": [],
+      "table_cells": [],
+      "remaining": [],
+      "changes": [
+        "공유 (A)–(D) 상자·발문 및 다섯 대명사 밑줄 범위 복원"
+      ],
+      "verified_by": "AI_PDF_source_admission_not_human"
+    }
+  ],
+  "summary": {
+    "items": 16,
+    "complete": 16,
+    "keymatched": 16,
+    "glosses": 14,
+    "units": 116,
+    "graph_numeric_cells": 12
+  }
+}
