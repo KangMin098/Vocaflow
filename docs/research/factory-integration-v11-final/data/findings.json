@@ -1,0 +1,59 @@
+{
+  "version": "FIC-v11-final-findings-1",
+  "population": "synthetic_contract_test",
+  "issues": [
+    {
+      "id": "V11-P1-01",
+      "priority": "P1",
+      "reopens": "I05",
+      "function": "qualifyArtifact / subjectOf / TrustedQualificationContext",
+      "fixture_ids": [
+        "test-fixture-hold-positive",
+        "new-lifecycle-declaration-bypass"
+      ],
+      "input": "Same simulated trusted server subject and receipt; lifecycleTransitionApproved=false. artifact.lifecycle is changed from test_fixture to product only.",
+      "expected": "Remain review_pending and candidate0 unless server-verified current lifecycle/product transition is approved",
+      "actual": "before review_pending/candidate0; after accept/candidate1",
+      "cause": "ArtifactSubject/context omit server-held lifecycle; transition guard only inspects current caller-supplied lifecycle==test_fixture",
+      "minimal_repair": "Bind original/current lifecycle to trusted server subject/registry. Enforce test_fixture-origin transition approval independently of manifest lifecycle; reject declared lifecycle mismatch.",
+      "production_scope": "No real reader/callers; future contract safety reproduction, not actual test book released."
+    },
+    {
+      "id": "V11-P1-02",
+      "priority": "P1",
+      "reopens": "I06",
+      "function": "existingAssetManifest",
+      "fixture_ids": [
+        "existing-empty_object",
+        "existing-missing_rights",
+        "existing-all_missing"
+      ],
+      "input": "Available matching-role SupplyLine with qualification={} or rights property deleted; synthetic hash callback unchanged",
+      "expected": "All fixed seven required fields must be exactly true; missing field is unknown and candidate0",
+      "actual": "accept/candidate1 while manifest rights remains unknown,quality unreviewed",
+      "cause": "Object.keys(q).filter checks only present properties, empty/missing entries are never tested",
+      "minimal_repair": "Use explicit required list producible/rights/content/teaching/assessment/learner/runnable and check q?.[key]===true; missing must hold. Keep server reader boundary and legacy approved-path positive control.",
+      "production_scope": "Malformed synthetic input, no existing asset registry or DB approval created."
+    }
+  ],
+  "counts": {
+    "new_P1_groups": 2,
+    "new_P2_groups": 0,
+    "failed_probes": 4,
+    "duplicate_empty_qualification_case": true,
+    "actual_invalid_released_assets": 0
+  },
+  "old_issue_status": {
+    "I01": "CLOSED_WITHIN_PURE_CONTRACT",
+    "I02": "CLOSED_WITHIN_PURE_CONTRACT",
+    "I03": "CLOSED_WITHIN_PURE_CONTRACT",
+    "I04": "CLOSED_WITHIN_PURE_CONTRACT",
+    "I05": "REOPENED_V11_P1_01",
+    "I06": "REOPENED_V11_P1_02",
+    "I07": "CLOSED_BINDING_ONLY_SERVER_READER_BLOCKED",
+    "I08": "CLOSED_SHAPE_JSON",
+    "I09": "CLOSED_V2_SIGNATURE_PENDING_DB",
+    "I10": "CLOSED_CANDIDATE_DELIVERY_SEPARATION",
+    "I11": "CLOSED_TRUSTED_PATH_TESTED"
+  }
+}

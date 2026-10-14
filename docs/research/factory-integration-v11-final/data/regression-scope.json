@@ -1,0 +1,27 @@
+{
+  "version": "FIC-v11-regression-scope-1",
+  "PR_HEAD": "8af914add3d7efa845e645b798a1ae8284a8a5b8",
+  "ci_run": 38611709984,
+  "ci_url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984",
+  "verified": [
+    "verify lint/typecheck/test SUCCESS",
+    "build SUCCESS",
+    "isolated e2e SUCCESS with real browser and DB assertions",
+    "e2e-gate-faultclosed SUCCESS"
+  ],
+  "shared_dev_e2e": "SKIPPED_NOT_PASS",
+  "isolated_test_scope": [
+    "map-goal.isolated.spec.ts",
+    "csat-v31-meaning.isolated.spec.ts"
+  ],
+  "legacy_R5": {
+    "route_supply_components_changed": false,
+    "wrapper_live_callers": 0,
+    "reader_live_callers": 0,
+    "existing_path": "TaskInspector -> supplyFor, not existingAssetManifest/qualifyArtifact/bindToWorkspace",
+    "claimed_Claude_browser6": "Reported by V11 document, not independently bound to a retained test artifact",
+    "independently_verified_R5_browser_cases": 0
+  },
+  "B_gate": "HOLD_for_full_R5_browser_acceptance; static_dependency_and_recorded_CI_regression_PASS",
+  "scope": "No product E2E/DB/user fixture created by final reviewer; existing CI evidence inspected"
+}

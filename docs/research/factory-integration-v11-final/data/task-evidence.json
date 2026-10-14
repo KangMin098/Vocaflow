@@ -1,0 +1,53 @@
+{
+  "version": "FIC-v11-final-task-evidence-1",
+  "type": "analysis",
+  "command_or_protocol": "Frozen PR265/main; immutable r1 first82; independent r1/r2 replay; corrected3 and unchanged79/expectations82 verified; original19/wire7;46 extra positive/adversarial diagnostics; CI/R5/pending SQL boundary audit",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-factory-integration-v11-final/docs/research/factory-integration-v11-final/FINAL-REVIEW.md",
+  "observed_at": "2026-10-14T18:42:27Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "interpretation": "Audit deliverables completed. Final contract acceptance FAIL, GateA FAIL, GateB HOLD, GateC MOCK_ONLY/NOT_CONNECTED. No user design acceptance or product qualification granted.",
+  "main_SHA": "6ddd1909a761d942c74f68a12d189518e2c1858e",
+  "PR_HEAD": "8af914add3d7efa845e645b798a1ae8284a8a5b8",
+  "historical_first": {
+    "pass": 42,
+    "fail": 40
+  },
+  "original_inputs_current": {
+    "pass": 79,
+    "fail": 3
+  },
+  "corrected82": {
+    "pass": 82,
+    "fail": 0
+  },
+  "fixture_correction": "ACCEPT",
+  "expectations_unchanged": 82,
+  "generated_cases_unchanged": 79,
+  "original_regression_pass": 19,
+  "wire_pass": 7,
+  "additional": {
+    "pass": 42,
+    "fail": 4,
+    "total": 46,
+    "new_P1_groups": 2
+  },
+  "old_P1_closed": 4,
+  "old_P1_reopened": 2,
+  "old_P2_closed": 5,
+  "reader": "BLOCKED_NOT_IMPLEMENTED",
+  "CI": "PR_HEAD_SUCCESS",
+  "independent_R5_browser_cases": 0,
+  "configuration_pass": 15,
+  "product_DB_UI_factory_changes": 0,
+  "actual_qualified_products": 0,
+  "actual_students": 0,
+  "actual_factory_calls": 0,
+  "main_merge": false
+}

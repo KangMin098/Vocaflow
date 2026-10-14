@@ -1,0 +1,307 @@
+{
+  "population": "synthetic_contract_test",
+  "scope": "Constructor deliberately simulates preverified server context; these are not actual approval records",
+  "cases": [
+    {
+      "id": "V11-P1-01",
+      "request": {
+        "schema": "vf.factory-request/1",
+        "requestId": "2dcf5ee2d1cc7748cd40212d19ef4c5a",
+        "idempotencyKey": "267edfadd4f4a3670f50cdbdba0438a6f1fbca719a7c2f3863ef92ea717bf54e:0",
+        "demandKey": "synthetic-demand",
+        "workspaceId": "ws-synthetic",
+        "versions": {
+          "goal": 7,
+          "plan": 2,
+          "definition": "v6.2"
+        },
+        "task": "r.central_meaning",
+        "supportTasks": [],
+        "role": "guided_practice",
+        "lineNo": 0,
+        "education": {
+          "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+          "learnerOutput": "선택 · 단답 · 배열 응답",
+          "teachingStage": "지도 연습",
+          "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+          "reason": "stage_repair"
+        },
+        "content": {
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "factoryTypes": [
+            "topic"
+          ]
+        },
+        "quantity": {
+          "n": 3,
+          "unit": "문항",
+          "basis": "plan_stage_quantity"
+        },
+        "source": {
+          "rightsUsable": true,
+          "excludeUnsupportedExams": true
+        },
+        "constraints": {
+          "gold": false,
+          "unseenByLearner": false,
+          "noExplanationBefore": false,
+          "versionBinding": "exact_revision"
+        },
+        "postReview": [
+          "unit_mismatch",
+          "item_level_rights",
+          "task_fit_review",
+          "workspace_runner"
+        ],
+        "reuseAllowed": true,
+        "productionUnit": {
+          "support": "convertible_to_volume",
+          "why": "activity_unit_unsupported",
+          "commands": [
+            "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+            "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+            "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+            "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+          ]
+        },
+        "connection": "MOCK_ONLY",
+        "approvalsNeeded": [
+          "bulk_generation_cost",
+          "db_schema_orders",
+          "content_release"
+        ]
+      },
+      "artifact_before": {
+        "id": "synthetic-artifact",
+        "kind": "dcp_item",
+        "revision": "synthetic-r1",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "refs": {
+          "source": "synthetic-source-r1",
+          "analysis": "synthetic-analysis-r1",
+          "gold": "synthetic-Gold-r1"
+        },
+        "contentType": "topic",
+        "tasks": [
+          "r.central_meaning"
+        ],
+        "roleCandidates": [
+          "guided_practice"
+        ],
+        "access": "synthetic:reference",
+        "rights": "cleared",
+        "quality": "passed",
+        "provenance": {
+          "runId": "synthetic-run",
+          "mock": false
+        },
+        "lifecycle": "test_fixture"
+      },
+      "artifact_after": {
+        "id": "synthetic-artifact",
+        "kind": "dcp_item",
+        "revision": "synthetic-r1",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "refs": {
+          "source": "synthetic-source-r1",
+          "analysis": "synthetic-analysis-r1",
+          "gold": "synthetic-Gold-r1"
+        },
+        "contentType": "topic",
+        "tasks": [
+          "r.central_meaning"
+        ],
+        "roleCandidates": [
+          "guided_practice"
+        ],
+        "access": "synthetic:reference",
+        "rights": "cleared",
+        "quality": "passed",
+        "provenance": {
+          "runId": "synthetic-run",
+          "mock": false
+        },
+        "lifecycle": "product"
+      },
+      "simulated_server_constructor_input": {
+        "subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          }
+        },
+        "qualification": {
+          "id": "synthetic-q",
+          "rulesVersion": "synthetic-rules",
+          "evidenceIds": [
+            "synthetic-evidence"
+          ],
+          "result": {
+            "content": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "task": "r.central_meaning",
+            "role": "guided_practice",
+            "axes": {
+              "A": {
+                "state": "pass"
+              },
+              "B": {
+                "state": "pass"
+              },
+              "C": {
+                "state": "pass"
+              },
+              "D": {
+                "state": "pass"
+              },
+              "E": {
+                "state": "pass"
+              },
+              "F": {
+                "state": "pass"
+              },
+              "G": {
+                "state": "pass"
+              },
+              "H": {
+                "state": "pass"
+              }
+            },
+            "eligibleRoles": [],
+            "publicQualified": false,
+            "assessmentQualified": false
+          }
+        },
+        "approvals": [
+          {
+            "id": "synthetic-approval",
+            "qualificationId": "synthetic-q",
+            "scope": "public",
+            "approverRole": "admin",
+            "revoked": false
+          },
+          {
+            "id": "synthetic-assess",
+            "qualificationId": "synthetic-q",
+            "scope": "assessment",
+            "approverRole": "admin",
+            "revoked": false
+          }
+        ],
+        "provenance": "real_run_verified",
+        "lifecycleTransitionApproved": false
+      },
+      "expected_after": {
+        "verdict": "review_pending",
+        "candidate": 0
+      },
+      "actual_after": {
+        "verdict": "accept",
+        "candidate": 1
+      }
+    },
+    {
+      "id": "V11-P1-02",
+      "request": {
+        "schema": "vf.factory-request/1",
+        "requestId": "2dcf5ee2d1cc7748cd40212d19ef4c5a",
+        "idempotencyKey": "267edfadd4f4a3670f50cdbdba0438a6f1fbca719a7c2f3863ef92ea717bf54e:0",
+        "demandKey": "synthetic-demand",
+        "workspaceId": "ws-synthetic",
+        "versions": {
+          "goal": 7,
+          "plan": 2,
+          "definition": "v6.2"
+        },
+        "task": "r.central_meaning",
+        "supportTasks": [],
+        "role": "independent_check",
+        "lineNo": 0,
+        "education": {
+          "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+          "learnerOutput": "선택 · 단답 · 배열 응답",
+          "teachingStage": "지도 연습",
+          "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+          "reason": "stage_repair"
+        },
+        "content": {
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "factoryTypes": [
+            "topic"
+          ]
+        },
+        "quantity": {
+          "n": 3,
+          "unit": "문항",
+          "basis": "plan_stage_quantity"
+        },
+        "source": {
+          "rightsUsable": true,
+          "excludeUnsupportedExams": true
+        },
+        "constraints": {
+          "gold": false,
+          "unseenByLearner": false,
+          "noExplanationBefore": false,
+          "versionBinding": "exact_revision"
+        },
+        "postReview": [
+          "unit_mismatch",
+          "item_level_rights",
+          "task_fit_review",
+          "workspace_runner"
+        ],
+        "reuseAllowed": true,
+        "productionUnit": {
+          "support": "convertible_to_volume",
+          "why": "activity_unit_unsupported",
+          "commands": [
+            "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+            "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+            "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+            "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+          ]
+        },
+        "connection": "MOCK_ONLY",
+        "approvalsNeeded": [
+          "bulk_generation_cost",
+          "db_schema_orders",
+          "content_release"
+        ]
+      },
+      "supply": {
+        "role": "independent_check",
+        "state": "available",
+        "delivered": [
+          {
+            "ref": "synthetic-existing-ref",
+            "source": "check_task"
+          }
+        ],
+        "shortfall": 0,
+        "qualification": {},
+        "reason": "synthetic missing required axes"
+      },
+      "hashOf_return": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expected": {
+        "candidate": 0
+      },
+      "actual": {
+        "verdict": "accept",
+        "candidate": 1
+      },
+      "additional_mutation": "delete rights only from all-seven-true qualification; also accepts"
+    }
+  ]
+}

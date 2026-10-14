@@ -1,0 +1,6 @@
+// scripts/research/factory-integration-v11-final/run.mjs
+import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';import {spawnSync} from 'node:child_process';
+const dep=process.env.VF_REVIEW_DEP_ROOT??process.cwd(),require=createRequire(path.join(dep,'apps/web/package.json')),cli=path.join(path.dirname(require.resolve('vitest/package.json')),'vitest.mjs');
+for(const [mode,corrected]of [['replay','0'],['replay','1'],['capture','1'],['product','1'],['new','0']]){const r=spawnSync(process.execPath,[cli,'run','--config','scripts/research/factory-integration-v11-final/vitest.config.mjs'],{stdio:'inherit',env:{...process.env,VF_REVIEW_DEP_ROOT:dep,VF_FINAL_SUITE:mode,VF_FINAL_CORRECTED:corrected}});if(r.status!==0)process.exit(r.status??1);}
+const compare=spawnSync(process.execPath,['scripts/research/factory-integration-v11-final/compare.mjs'],{stdio:'inherit'});if(compare.status!==0)process.exit(compare.status??1);
+const x=JSON.parse(fs.readFileSync('docs/research/factory-integration-v11-final/data/adversarial.json','utf8'));console.log(JSON.stringify({diagnostic_execution:'PASS',corrected82:'PASS',additional_expectations:x.counts,contract_acceptance:x.counts.fail?'FAIL':'PASS'}));if(process.argv.includes('--acceptance')&&x.counts.fail)process.exitCode=1;

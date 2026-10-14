@@ -1,0 +1,48 @@
+{
+  "version": "fixture-correction-independent-1",
+  "historical_first": {
+    "pass": 42,
+    "fail": 40
+  },
+  "original_inputs_current": {
+    "pass": 79,
+    "fail": 3
+  },
+  "corrected_inputs_current": {
+    "pass": 82,
+    "fail": 0
+  },
+  "unchanged_current_generated_cases": 79,
+  "expectations_unchanged": 82,
+  "safety_predicates_unchanged": 82,
+  "changes": [
+    {
+      "id": "G-three-one-candidate",
+      "input_changed": true,
+      "binding_input_changed": true,
+      "expected_unchanged": true,
+      "safety_predicate_unchanged": true
+    },
+    {
+      "id": "G-assessment-fulfillment",
+      "input_changed": true,
+      "binding_input_changed": true,
+      "expected_unchanged": true,
+      "safety_predicate_unchanged": true
+    },
+    {
+      "id": "G-candidate-not-delivery",
+      "input_changed": true,
+      "binding_input_changed": true,
+      "expected_unchanged": true,
+      "safety_predicate_unchanged": true
+    }
+  ],
+  "correction_verdict": "ACCEPT",
+  "limits": [
+    "Original stale and positive manifests are not literally identical; conflict concerns absent verdict subject evidence and role preconditions",
+    "Does not assert no possible heuristic can distinguish arbitrary revision strings",
+    "Computed request signatures differ from historical r1 due canonicalDemand v2; fixture operations preserved",
+    "Corrected positive cases simulate bound server verdicts; no real qualification/approval proved"
+  ]
+}

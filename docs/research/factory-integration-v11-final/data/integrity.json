@@ -1,0 +1,109 @@
+{
+  "version": "FIC-v11-final-integrity-1",
+  "bindings": [
+    {
+      "path": "docs/research/factory-integration-v11-final/FINAL-HANDOFF.md",
+      "sha256": "ebd11f71c1877241a1cf1310c6169bb52fd072b63fb767cd2e7f113d5fa81db3"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/FINAL-REVIEW.md",
+      "sha256": "8bfb48993756f29b01100d6584fc6be8ed37401a2c6e17bd203227fb79cc4750"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/FIXTURE-CORRECTION.md",
+      "sha256": "7b10a8388aa53a62d1a5095c56b1f66221036b34fd55f3b9e7a8189f0eb09667"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/TEST-MATRIX.md",
+      "sha256": "1cbc4bac01e07273cab0d7765b3f9fae2905d841af982ddcc77ff87c58cdcd90"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/adversarial.json",
+      "sha256": "de3b32a0339bf460c15cba14dc6611546934f8e6b449151a8f10dacdb3172b8d"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/claude-corrected82.json",
+      "sha256": "73a68ce29f2ebc5a70fcc68cbdf0512b4521e35fce3feb4621b45f9a56f39049"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/closing-revision.json",
+      "sha256": "e12978b965a4d6fa4a9243172acd68add624fba76f8f12a5a0e3ca388505c685"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/findings.json",
+      "sha256": "ae97d26e16db91542d0a42e346e9d72429a508d5af25fa15cf49423948f0d1df"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/fixture-comparison.json",
+      "sha256": "d645d6cdc4379893c36fefb568ebb28dec2cfcecdd18ec0e4157f8e176407f8f"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/new-counterexample-fixtures.json",
+      "sha256": "4333c0c802094d87d370002be00841355f26703be13d6f2e3f5f1bb8649eb84b"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/r1-first82.json",
+      "sha256": "bffe139067bc164f0f598b43f06f344d524fba2a07ff80d10e4c3bee4c7408dc"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/r1-inputs-on-v11.json",
+      "sha256": "a81bc14703ff5aecf8e7c48ecb35c027157e958e7f383c6fb5eb5b371866a79b"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/r2-corrected82.json",
+      "sha256": "a1e4d815a2315ab94e7830de0388783d9a06a2def7fcd7baf85530a5fa6a894e"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/regression-scope.json",
+      "sha256": "0c0bab8ae038e01475984fef01244bd9b29457da384fb0c2cb82e31e4a30b0c1"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/revision.json",
+      "sha256": "3eb5fc5729a5d2be02f3680c3501858092147faf0ee02f4a4061eb92809f1cf2"
+    },
+    {
+      "path": "docs/research/factory-integration-v11-final/data/task-evidence.json",
+      "sha256": "1b9aa5c42c60b3a00ff766d1ffbddb6c0bed17dee5759b1da8c7efc59e6808ce"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/adversarial.test.ts",
+      "sha256": "c0e8449e4559669b19602c9ea8f511ba3d6b32a04b51374a4e292a96836eecdf"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/check.mjs",
+      "sha256": "3beb799eeeedf60c6dd03651e6bc96133f027eb13de77f6311bc5227b8192610"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/claude-capture.test.ts",
+      "sha256": "688af6ce6b3d4bc2dda49c849fae688d818d2861f84e3a6ebfe99b136899b3c5"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/compare.mjs",
+      "sha256": "f03925c1b0873fa48adfb100ef7fc9d3ee0a3e9edb2962fe7f01155ff06c6ea0"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/freeze.mjs",
+      "sha256": "be1439658582f6291eaada71b37545a6d2fa051190868d240dd95d7096c35caa"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/replay.test.ts",
+      "sha256": "ce5459135e9f50a0c6de93246cb13edec31eaeaf62c22b8c362000bd6ec02694"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/run.mjs",
+      "sha256": "b9562fd8e59c090212bbddb38078dfee7105b45a29296643f4efea75697ec3fd"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/vitest.config.mjs",
+      "sha256": "39e14d3a64115466bf9ed119d6cabe2fe40cccb9cc0a702c6cb386abf9573b23"
+    },
+    {
+      "path": "scripts/research/factory-integration-v11-final/local/r1-original.test.ts.txt",
+      "sha256": "8bab775ec166bd7b0e64c0171bdaa4defb027eb4660e03ce74175f01c13713d0"
+    }
+  ],
+  "prior_first_unchanged": true,
+  "product_files_changed": 0,
+  "contract_acceptance": "FAIL",
+  "scope": "Hash/denominator/link/scope integrity only; no real rights/reader/student validation"
+}

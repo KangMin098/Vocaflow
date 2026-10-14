@@ -1,0 +1,826 @@
+{
+  "version": "final-independent-adversarial-r1",
+  "scope": "Synthetic pure-function diagnostics. Branded contexts are explicitly simulated verified-server inputs, not actual approval or authentication evidence.",
+  "rows": [
+    {
+      "id": "positive-trusted-receipt",
+      "issue": "I05/I07",
+      "population": "synthetic_contract_test",
+      "description": "Explicit synthetic verified-server fixture, not actual approval",
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "suppliable": 1,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 1,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "partially_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-spec_created",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "artifacts_in_non_output_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-order_received",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "artifacts_in_non_output_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-awaiting_production",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "artifacts_in_non_output_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-produced",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": []
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-review_pending",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": []
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-review_failed",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": []
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-failed",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "artifacts_in_non_output_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-unsupported",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "artifacts_in_non_output_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-state-UNKNOWN",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "description": "Bound legitimate synthetic qualification cannot override unusable manifest state",
+      "actual": {
+        "suppliable": 0,
+        "errors": [
+          "unknown_status"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-id",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:id"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-kind",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:kind"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 0,
+          "reviewPassedCount": 0,
+          "runnableCount": 0,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-revision",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:revision"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-sha256",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:sha256"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-source",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:source"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-analysis",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:analysis"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-subject-change-gold",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "description": "Current artifact subject changes after server receipt freeze",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:gold"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-duplicate",
+      "issue": "I02",
+      "population": "synthetic_contract_test",
+      "description": "Bound receipts cannot inflate duplicate artifacts",
+      "actual": {
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-manifest-change-run",
+      "issue": "I03/I04",
+      "population": "synthetic_contract_test",
+      "description": "Bound receipt does not bypass provenance or request role/TASK",
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 0,
+          "reviewPassedCount": 0,
+          "runnableCount": 0,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-manifest-change-role",
+      "issue": "I03/I04",
+      "population": "synthetic_contract_test",
+      "description": "Bound receipt does not bypass provenance or request role/TASK",
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 0,
+          "reviewPassedCount": 0,
+          "runnableCount": 0,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-manifest-change-task",
+      "issue": "I03/I04",
+      "population": "synthetic_contract_test",
+      "description": "Bound receipt does not bypass provenance or request role/TASK",
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 0,
+          "reviewPassedCount": 0,
+          "runnableCount": 0,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-MOCK-test_fixture",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-MOCK-product",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-REAL-test_fixture",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-REAL-product",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-EXISTING-test_fixture",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "untrusted-EXISTING-product",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Plain manifest and approval boolean never authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "suppliable": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-json_roundtrip",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "untrusted_qualification_context"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-brand_string",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "untrusted_qualification_context"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-unverified_provenance",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "provenance_unverified"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-revoked_approval",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "axis_unknown:rights"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-unknown_rights",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "axis_unknown:rights"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-missing_approval",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "axis_unknown:rights"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "trusted-boundary-teaching_fail",
+      "issue": "I05/I11",
+      "population": "synthetic_contract_test",
+      "description": "JSON brands, missing actual permission, unknown F or failed D do not authorize",
+      "actual": {
+        "verdict": "ineligible",
+        "reasons": [
+          "axis_fail:teaching"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "test-fixture-hold-positive",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "description": "Server context explicitly has no lifecycle transition approval",
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "test_fixture"
+        ],
+        "suppliable": 0,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 0,
+          "learnerSuppliableCount": null,
+          "deliveredCount": null
+        },
+        "fulfillment": "not_supplied",
+        "deliveryFulfillment": "unknown"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "new-lifecycle-declaration-bypass",
+      "issue": "NEW-P1-LIFECYCLE",
+      "population": "synthetic_contract_test",
+      "description": "Same trusted subject, lifecycleTransitionApproved=false; factory only flips test_fixture to product",
+      "actual": {
+        "before": {
+          "verdict": "review_pending",
+          "reasons": [
+            "test_fixture"
+          ],
+          "suppliable": 0,
+          "counts": {
+            "producedCount": 1,
+            "reviewPassedCount": 1,
+            "runnableCount": 1,
+            "commonQualifiedCandidateCount": 0,
+            "learnerSuppliableCount": null,
+            "deliveredCount": null
+          },
+          "fulfillment": "not_supplied",
+          "deliveryFulfillment": "unknown"
+        },
+        "after": {
+          "verdict": "accept",
+          "reasons": [],
+          "suppliable": 1,
+          "counts": {
+            "producedCount": 1,
+            "reviewPassedCount": 1,
+            "runnableCount": 1,
+            "commonQualifiedCandidateCount": 1,
+            "learnerSuppliableCount": null,
+            "deliveredCount": null
+          },
+          "fulfillment": "partially_supplied",
+          "deliveryFulfillment": "unknown"
+        },
+        "mutation": "lifecycle only",
+        "transition_approved": false
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "existing-normal",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 1,
+        "verdict": "accept",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "existing-rights_false",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 0,
+        "verdict": "review_pending",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "existing-rights_unknown",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 0,
+        "verdict": "review_pending",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "existing-empty_object",
+      "issue": "NEW-P1-REQUIRED-AXES",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 1,
+        "verdict": "accept",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "existing-missing_rights",
+      "issue": "NEW-P1-REQUIRED-AXES",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 1,
+        "verdict": "accept",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "existing-all_missing",
+      "issue": "NEW-P1-REQUIRED-AXES",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 1,
+        "verdict": "accept",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "existing-wrong_role",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "description": "Existing wrapper must require all seven fields explicitly true, not all supplied keys true",
+      "actual": {
+        "suppliable": 0,
+        "verdict": "review_pending",
+        "rights": "unknown",
+        "quality": "unreviewed"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "delivery-zero-separated",
+      "issue": "I10",
+      "population": "synthetic_contract_test",
+      "description": "Common candidate1 with actual server asserted zero delivery retains not_delivered",
+      "actual": {
+        "suppliable": 1,
+        "counts": {
+          "producedCount": 1,
+          "reviewPassedCount": 1,
+          "runnableCount": 1,
+          "commonQualifiedCandidateCount": 1,
+          "learnerSuppliableCount": null,
+          "deliveredCount": 0
+        },
+        "delivery": "not_delivered"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "demand-v2-stability",
+      "issue": "I09",
+      "population": "synthetic_contract_test",
+      "description": "Nested property order same; support/PLAN change new signature; v1 body not reused",
+      "actual": {
+        "version": 2,
+        "same": true,
+        "support_new": true,
+        "plan_new": true,
+        "legacy_body_match": false
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "request-json-positive",
+      "issue": "I08",
+      "population": "synthetic_contract_test",
+      "description": "JSON parsing and repeat reconciliation remain stable",
+      "actual": {
+        "parsed": true,
+        "reuse": "reuse"
+      },
+      "safety": "PASS"
+    }
+  ],
+  "counts": {
+    "total": 46,
+    "pass": 42,
+    "fail": 4,
+    "actual_factory_calls": 0,
+    "actual_delivery_rows": 0
+  }
+}

@@ -1,0 +1,6245 @@
+{
+  "version": "FIC-review-counterexamples-1",
+  "scope": "Synthetic pure-function diagnostic execution; passing Vitest means probes executed. Per-row safety is actual contract acceptance; no DB/production/learner/release evidence.",
+  "rows": [
+    {
+      "id": "A-status-spec_created",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "spec_created",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-order_received",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "order_received",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-awaiting_production",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "awaiting_production",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-failed",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "failed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": {
+            "code": "synthetic-failure",
+            "reason": "synthetic"
+          },
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [
+          "factory:synthetic-failure"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-review_failed",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_failed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-review_pending",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_pending",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-unsupported",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "unsupported",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": {
+            "code": "synthetic-failure",
+            "reason": "synthetic"
+          },
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [
+          "factory:synthetic-failure"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-status-UNKNOWN_STATUS",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "UNKNOWN_STATUS",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Nonusable or contradictory state must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-missing_run",
+      "axis": "A",
+      "issue": "I03",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": null,
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [
+          "real_status_without_run"
+        ],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "manifest:real_status_without_run"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "A-artifact_run_mismatch",
+      "axis": "A",
+      "issue": "I03",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "other-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-role_mismatch",
+      "axis": "A",
+      "issue": "I04",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "independent_check"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-duplicate",
+      "axis": "A",
+      "issue": "I02",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 2,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            },
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 2,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          },
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-mixed_revision",
+      "axis": "A",
+      "issue": "I02",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 2,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            },
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r2",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 2,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          },
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r2"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-count_mismatch",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 9,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [
+          "count_mismatch"
+        ],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "manifest:count_mismatch"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "A-unknown_kind",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "UNKNOWN_KIND",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "runner:none"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "none"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "A-unknown_type",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "csat_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "UNKNOWN_TYPE",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-unknown_mode",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "UNKNOWN_MODE",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-missing_failure_reason",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "failed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": {
+            "code": "failure",
+            "reason": ""
+          },
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [
+          "factory:failure"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-empty_id",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "A-empty_hash",
+      "axis": "A",
+      "issue": "I01",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "bad",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Malformed/contradictory manifest must supply0",
+      "actual": {
+        "errors": [
+          "artifact_without_hash:synthetic-artifact"
+        ],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "manifest:artifact_without_hash:synthetic-artifact"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "A-quantity-unit",
+      "axis": "A",
+      "issue": "I04",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "volume",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Unsupported request unit blocks",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "B-MOCK-test_fixture",
+      "axis": "B",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "MOCK",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": true
+              },
+              "lifecycle": "test_fixture"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "mock_only",
+          "test_fixture"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "review_pending",
+              "reasons": [
+                "test_fixture"
+              ]
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "review_pending",
+          "reasons": [
+            "test_fixture"
+          ]
+        }
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "B-MOCK-product",
+      "axis": "B",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "MOCK",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": true
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "mock_only"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "accept",
+          "reasons": []
+        }
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "B-REAL-test_fixture",
+      "axis": "B",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "test_fixture"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "test_fixture"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "review_pending",
+              "reasons": [
+                "test_fixture"
+              ]
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "review_pending",
+          "reasons": [
+            "test_fixture"
+          ]
+        }
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "B-REAL-product",
+      "axis": "B",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "accept",
+          "reasons": []
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "B-EXISTING-test_fixture",
+      "axis": "B",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "EXISTING",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "test_fixture"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 0,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [
+          "test_fixture"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "review_pending",
+              "reasons": [
+                "test_fixture"
+              ]
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "review_pending",
+          "reasons": [
+            "test_fixture"
+          ]
+        }
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "B-EXISTING-product",
+      "axis": "B",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "EXISTING",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Untrusted synthetic declaration is not real authorized supply",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3,
+        "qualified": {
+          "state": "accept",
+          "reasons": []
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "B-existing-mock-contradiction",
+      "axis": "B",
+      "issue": "I03",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "EXISTING",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": true
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Mode/mock conflict supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "B-rights-without-approval",
+      "axis": "B",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "expected": "rights claim alone must not accept",
+      "actual": {
+        "state": "review_pending",
+        "reasons": [
+          "axis_unknown:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "C-unreleased",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-unreleased",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-unreleased"
+        },
+        "condition": "unreleased",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-unreleased",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-unreleased",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-unreleased",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-unreleased",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-review_hold",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-review_hold",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-review_hold"
+        },
+        "condition": "review_hold",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-review_hold",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-review_hold",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-review_hold",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-review_hold",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-wrong_TASK",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "transfer",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-wrong_TASK",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-wrong_TASK"
+        },
+        "condition": "wrong_TASK",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-wrong_TASK",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-wrong_TASK",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-wrong_TASK",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-wrong_TASK",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-attempted",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-attempted",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-attempted"
+        },
+        "condition": "attempted",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-attempted",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-attempted",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-attempted",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-attempted",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-wrong_revision",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-wrong_revision",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-wrong_revision"
+        },
+        "condition": "wrong_revision",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-wrong_revision",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-wrong_revision",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-wrong_revision",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-wrong_revision",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-nonexistent",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-nonexistent",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-nonexistent"
+        },
+        "condition": "nonexistent",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-nonexistent",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-nonexistent",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-nonexistent",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-nonexistent",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-arbitrary_hash",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-arbitrary_hash",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-arbitrary_hash"
+        },
+        "condition": "arbitrary_hash",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-arbitrary_hash",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-arbitrary_hash",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-arbitrary_hash",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-arbitrary_hash",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-arbitrary_rights_quality",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-arbitrary_rights_quality",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-arbitrary_rights_quality"
+        },
+        "condition": "arbitrary_rights_quality",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-arbitrary_rights_quality",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-arbitrary_rights_quality",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-arbitrary_rights_quality",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-arbitrary_rights_quality",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-shared_passage_seen",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-shared_passage_seen",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-shared_passage_seen"
+        },
+        "condition": "shared_passage_seen",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-shared_passage_seen",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-shared_passage_seen",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-shared_passage_seen",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-shared_passage_seen",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-whole_exam_seen",
+      "axis": "C",
+      "issue": "I06",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        },
+        "supply": {
+          "role": "independent_check",
+          "state": "available",
+          "delivered": [
+            {
+              "ref": "synthetic-whole_exam_seen",
+              "source": "check_task"
+            }
+          ],
+          "shortfall": 0,
+          "qualification": {
+            "producible": true,
+            "rights": false,
+            "content": null,
+            "teaching": null,
+            "assessment": null,
+            "learner": false,
+            "runnable": true
+          },
+          "reason": "synthetic-unverified-whole_exam_seen"
+        },
+        "condition": "whole_exam_seen",
+        "evidence": "no_server_records"
+      },
+      "expected": "No trusted existing asset receipt means supply0",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-whole_exam_seen",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3,
+        "artifact": {
+          "id": "synthetic-whole_exam_seen",
+          "kind": "csat_item",
+          "revision": "released",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-whole_exam_seen",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:synthetic-whole_exam_seen",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "C-wrapper-positive-control",
+      "axis": "C",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "boundary": "synthetic upstream prevalidated SupplyLine assumption, NOT actual approved asset"
+      },
+      "expected": "Under explicit prevalidated input assumption wrapper preserves candidate1; no real release proved",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-approved-shape",
+              "revision": "released"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": [
+                "existing_release_contract"
+              ]
+            },
+            "runner": "csat_item_screen"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-binding-id",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "changed-id",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "review_pending",
+        "reasons": [
+          "revision_mismatch"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-binding-revision",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "changed-rev",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "review_pending",
+        "reasons": [
+          "revision_mismatch"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-binding-sha256",
+      "axis": "D",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "D-binding-source",
+      "axis": "D",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "changed-source",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "D-binding-analysis",
+      "axis": "D",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "changed-analysis",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "D-binding-gold",
+      "axis": "D",
+      "issue": "I07",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "changed-gold"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Changed identity or evidence revision/hash cannot inherit approval",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "D-fq-task",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "other-task",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Other TASK/role rejected",
+      "actual": {
+        "state": "review_pending",
+        "reasons": [
+          "task_mismatch"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-fq-role",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "other-role",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "pass"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Other TASK/role rejected",
+      "actual": {
+        "state": "review_pending",
+        "reasons": [
+          "role_mismatch"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-untrusted-approval-booleans",
+      "axis": "D",
+      "issue": "I05",
+      "population": "synthetic_contract_test",
+      "input": {
+        "approvals": {
+          "public": true,
+          "assessment": true
+        },
+        "ledger_receipts": []
+      },
+      "expected": "No actual server approval receipt: hold",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "D-revoked-and-other-scope-control",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "qualification": "synthetic-q"
+      },
+      "expected": "Revoked/other qualification approvals not used",
+      "actual": {
+        "public": false,
+        "assessment": false
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-delivery-attempted",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "exposure": "attempted"
+      },
+      "expected": "Assessment exposure must block at delivery",
+      "actual": {
+        "ok": false,
+        "missing": [
+          "learner:attempted"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-delivery-explanation_seen",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "exposure": "explanation_seen"
+      },
+      "expected": "Assessment exposure must block at delivery",
+      "actual": {
+        "ok": false,
+        "missing": [
+          "learner:explanation_seen"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-delivery-shared_passage_seen",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "exposure": "shared_passage_seen"
+      },
+      "expected": "Assessment exposure must block at delivery",
+      "actual": {
+        "ok": false,
+        "missing": [
+          "learner:shared_passage_seen"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "D-delivery-unknown",
+      "axis": "D",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "exposure": "unknown"
+      },
+      "expected": "Assessment exposure must block at delivery",
+      "actual": {
+        "ok": false,
+        "missing": [
+          "learner:unknown"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-standard-JSON",
+      "axis": "E",
+      "issue": "I08",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Request body must parse standard JSON",
+      "actual": {
+        "parseable": false,
+        "contains_undefined": true
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "E-request-property-order",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "mutation": "reverse request education keys"
+      },
+      "expected": "Same object values reuse",
+      "actual": {
+        "same": true,
+        "action": "reuse"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-user",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "76762140f97d389f02e006a89a20a664",
+          "idempotencyKey": "7ca510e2fa3e5f45dc1994c161925554dfc435977ace5e7b873ebb12a081ac9e:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-workspace",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "280bc74cb4c29e179a9e8bbca69e3739",
+          "idempotencyKey": "f326152fd276f66b5c5a9198532a3f6aa3c884ffec5495b21bb189880b24280a:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "other-ws",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-goal",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "a797397eb8b32b9b1bb74aa90028e267",
+          "idempotencyKey": "4e5c52065f06dc73acb7a38087d0cc07aa78681b18c9d248cd5afa2446197257:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 8,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-plan",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "1eff4ff2af9753ec778161b1a242f580",
+          "idempotencyKey": "1a29d810e4a183833b8918684621356fcedf232207e2c02d39253fafdd42624c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 3,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-TASK",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "fa44c139d1eb7ad8f2cd561590d9a7c1",
+          "idempotencyKey": "1335457dcc43929e41e1c26f8502a78697cae27391cdf6f109341c5b828c090d:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "s.form_scope",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-role",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "8639a0e7579c00af73ec092103201d3f",
+          "idempotencyKey": "4a632121d793935211cff7d7cc7303381c6b196ef71a26394787e9a15ae37a29:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "model_explanation",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "풀이 과정을 따라 이해한다",
+            "learnerOutput": "없음(설명 읽기)",
+            "teachingStage": "모델링",
+            "exposure": "해설 공개 허용",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "unit_support_needed",
+            "why": "explanation_activity_unit",
+            "commands": []
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-quantity",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "d5d4371b89bee02aed3b33326db8b8e9",
+          "idempotencyKey": "551f3e7b551d5980ed609e4ea23a1ec5909adf2415945753c74fd6c86176d9ef:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 4,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": false,
+        "same_id": false,
+        "action": "create"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-support",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "9c62c9cfcc25332d0ee611efac49a82e",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [
+            "s.form_scope"
+          ],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": true,
+        "same_id": false,
+        "action": "reject"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-source",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": false
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": true,
+        "same_id": true,
+        "action": "reject"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-education",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "other-purpose",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": true,
+        "same_id": true,
+        "action": "reject"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-request-same_body",
+      "axis": "E",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "guided_practice",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Same body reuse; changed same key reject; changed scope new create",
+      "actual": {
+        "same_key": true,
+        "same_id": true,
+        "action": "reuse"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "E-demand-nested-order",
+      "axis": "E",
+      "issue": "I09",
+      "population": "synthetic_contract_test",
+      "input": {
+        "mutation": "reverse requires keys"
+      },
+      "expected": "Semantically same nested demand yields same key",
+      "actual": {
+        "same_key": false
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "F-unit-guided",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "guided_practice",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "convertible_to_volume",
+        "why": "activity_unit_unsupported"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "F-unit-model",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "model_explanation",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "unit_support_needed",
+        "why": "explanation_activity_unit"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "F-unit-analysis",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "source_analysis",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "unit_support_needed",
+        "why": "explanation_activity_unit"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "F-unit-assessment",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "independent_check",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [
+            "R-TOPIC"
+          ],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "unsupported",
+        "why": "assessment_not_from_factory"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "F-unit-unknown",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "guided_practice",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "unconfirmed",
+        "why": "csat_type_unconfirmed"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "F-unit-no_factory",
+      "axis": "F",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "line": {
+          "role": "guided_practice",
+          "task": "r.central_meaning",
+          "taskKeys": [
+            "synthetic-key"
+          ],
+          "csatTypes": [
+            "UNKNOWN_TYPE"
+          ],
+          "quantity": {
+            "n": 3,
+            "unit": "문항"
+          },
+          "requires": {
+            "rightsUsable": true,
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false
+          },
+          "reuse": true,
+          "reason": "stage_repair"
+        }
+      },
+      "expected": "Exact declared current unit status",
+      "actual": {
+        "support": "unsupported",
+        "why": "no_factory_type"
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "G-three-one-candidate",
+      "axis": "G",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 3,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            },
+            {
+              "id": "synthetic-held",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            },
+            {
+              "id": "synthetic-adapter",
+              "kind": "dcp_item",
+              "revision": "synthetic-r1",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "unit_vocab",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        }
+      },
+      "expected": "Produced3, eligible runnable candidate1",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [
+          "runner:adapter_needed",
+          "unknown"
+        ],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          },
+          {
+            "artifact": {
+              "id": "synthetic-held",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "review_pending",
+              "reasons": [
+                "unknown"
+              ]
+            },
+            "runner": "dcp_existing"
+          },
+          {
+            "artifact": {
+              "id": "synthetic-adapter",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "adapter_needed"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "G-assessment-fulfillment",
+      "axis": "G",
+      "issue": "I10",
+      "population": "synthetic_contract_test",
+      "input": {
+        "request": {
+          "schema": "vf.factory-request/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+          "demandKey": "synthetic-demand",
+          "workspaceId": "ws-synthetic",
+          "versions": {
+            "goal": 7,
+            "plan": 2,
+            "definition": "v6.2"
+          },
+          "task": "r.central_meaning",
+          "supportTasks": [],
+          "role": "independent_check",
+          "lineNo": 0,
+          "education": {
+            "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+            "learnerOutput": "선택 · 단답 · 배열 응답",
+            "teachingStage": "지도 연습",
+            "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+            "reason": "stage_repair"
+          },
+          "content": {
+            "csatTypes": [
+              "R-TOPIC"
+            ],
+            "factoryTypes": [
+              "topic"
+            ]
+          },
+          "quantity": {
+            "n": 3,
+            "unit": "문항",
+            "basis": "plan_stage_quantity"
+          },
+          "source": {
+            "rightsUsable": true,
+            "excludeUnsupportedExams": true
+          },
+          "constraints": {
+            "gold": false,
+            "unseenByLearner": false,
+            "noExplanationBefore": false,
+            "versionBinding": "exact_revision"
+          },
+          "postReview": [
+            "unit_mismatch",
+            "item_level_rights",
+            "task_fit_review",
+            "workspace_runner"
+          ],
+          "reuseAllowed": true,
+          "productionUnit": {
+            "support": "convertible_to_volume",
+            "why": "activity_unit_unsupported",
+            "commands": [
+              "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+              "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+              "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+              "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+            ]
+          },
+          "connection": "MOCK_ONLY",
+          "approvalsNeeded": [
+            "bulk_generation_cost",
+            "db_schema_orders",
+            "content_release"
+          ]
+        }
+      },
+      "expected": "Accepted runnable candidate1/need3 means partial candidate fulfillment, not zero",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "not_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "G-candidate-not-delivery",
+      "axis": "G",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "delivery_rows": 0
+      },
+      "expected": "Candidate count may1 but learner gate stays explicit; NOT delivery",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "synthetic-r1"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "G-stale-verdict-id-only",
+      "axis": "G",
+      "issue": "I02",
+      "population": "synthetic_contract_test",
+      "input": {
+        "manifest": {
+          "schema": "vf.factory-manifest/1",
+          "requestId": "88cb5d687380cfcf55ffea03fe5fcc31",
+          "mode": "REAL",
+          "status": "review_passed",
+          "runId": "synthetic-run",
+          "producedCount": 1,
+          "artifacts": [
+            {
+              "id": "synthetic-artifact",
+              "kind": "dcp_item",
+              "revision": "new-revision",
+              "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "refs": {
+                "source": "synthetic-source-r1",
+                "analysis": "synthetic-analysis-r1",
+                "gold": "synthetic-Gold-r1"
+              },
+              "contentType": "topic",
+              "tasks": [
+                "r.central_meaning"
+              ],
+              "roleCandidates": [
+                "guided_practice"
+              ],
+              "access": "synthetic:reference",
+              "rights": "cleared",
+              "quality": "passed",
+              "provenance": {
+                "runId": "synthetic-run",
+                "mock": false
+              },
+              "lifecycle": "product"
+            }
+          ],
+          "failure": null,
+          "factory": {
+            "name": "synthetic-factory",
+            "version": "synthetic-v1"
+          }
+        },
+        "verdict_revision": "old-revision"
+      },
+      "expected": "Stale ID-only verdict must not bind new revision",
+      "actual": {
+        "errors": [],
+        "suppliable": 1,
+        "fulfillment": "partially_supplied",
+        "blockedReasons": [],
+        "learnerGate": "check_at_delivery",
+        "items": [
+          {
+            "artifact": {
+              "id": "synthetic-artifact",
+              "revision": "new-revision"
+            },
+            "verdict": {
+              "state": "accept",
+              "reasons": []
+            },
+            "runner": "dcp_existing"
+          }
+        ],
+        "planned": 3
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "H-teaching-fail-source_analysis",
+      "axis": "H",
+      "issue": "I11",
+      "population": "synthetic_contract_test",
+      "input": {
+        "role": "source_analysis",
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "source_analysis",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "fail"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Teaching defect blocks instructional roles",
+      "actual": {
+        "state": "accept",
+        "reasons": []
+      },
+      "safety": "FAIL"
+    },
+    {
+      "id": "H-teaching-fail-model_explanation",
+      "axis": "H",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "role": "model_explanation",
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "model_explanation",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "fail"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Teaching defect blocks instructional roles",
+      "actual": {
+        "state": "ineligible",
+        "reasons": [
+          "axis_fail:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "H-teaching-fail-guided_practice",
+      "axis": "H",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "role": "guided_practice",
+        "FQ": {
+          "content": {
+            "id": "synthetic-artifact",
+            "revision": "synthetic-r1"
+          },
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "axes": {
+            "A": {
+              "state": "pass"
+            },
+            "B": {
+              "state": "pass"
+            },
+            "C": {
+              "state": "pass"
+            },
+            "D": {
+              "state": "fail"
+            },
+            "E": {
+              "state": "pass"
+            },
+            "F": {
+              "state": "pass"
+            },
+            "G": {
+              "state": "pass"
+            },
+            "H": {
+              "state": "pass"
+            }
+          },
+          "eligibleRoles": [],
+          "publicQualified": false,
+          "assessmentQualified": false
+        }
+      },
+      "expected": "Teaching defect blocks instructional roles",
+      "actual": {
+        "state": "ineligible",
+        "reasons": [
+          "axis_fail:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "H-need-stock-independent",
+      "axis": "H",
+      "issue": null,
+      "population": "synthetic_contract_test",
+      "input": {
+        "factoryStock": {}
+      },
+      "expected": "No stock keeps educational demand and plan-stage quantity",
+      "actual": {
+        "demand_preserved": true,
+        "requests": 1,
+        "available": false,
+        "quantity": "plan_stage_quantity"
+      },
+      "safety": "PASS"
+    }
+  ],
+  "counts": {
+    "total": 82,
+    "safety_pass": 42,
+    "safety_fail": 40,
+    "actual_factory_calls": 0,
+    "actual_delivery_rows": 0
+  }
+}

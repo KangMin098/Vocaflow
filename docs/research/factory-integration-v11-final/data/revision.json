@@ -1,0 +1,408 @@
+{
+  "version": "FIC-v11-final-r1",
+  "main_SHA": "6ddd1909a761d942c74f68a12d189518e2c1858e",
+  "PR265_HEAD": "8af914add3d7efa845e645b798a1ae8284a8a5b8",
+  "PR265_state": "MERGED",
+  "PR265_merged_at": "2026-10-14T18:11:58Z",
+  "observed_at_UTC": "2026-10-14T18:35:18Z",
+  "bindings": [
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "main_blob_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "PR_blob_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "working_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "snapshot_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_V11.md",
+      "main_blob_sha256": "5c065dfe2aa827d9636c33aeac54ce756432f0338d24a4bcd6be56dcc533da88",
+      "PR_blob_sha256": "5c065dfe2aa827d9636c33aeac54ce756432f0338d24a4bcd6be56dcc533da88",
+      "working_sha256": "5c065dfe2aa827d9636c33aeac54ce756432f0338d24a4bcd6be56dcc533da88",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/docs/csat-learner/v62/FACTORY_INTEGRATION_V11.md",
+      "snapshot_sha256": "5c065dfe2aa827d9636c33aeac54ce756432f0338d24a4bcd6be56dcc533da88",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "main_blob_sha256": "8a81cce4c5feeeb651fe2a6c386e350338ea2c87b0f15eff486ecd3e8dc39aa2",
+      "PR_blob_sha256": "8a81cce4c5feeeb651fe2a6c386e350338ea2c87b0f15eff486ecd3e8dc39aa2",
+      "working_sha256": "8a81cce4c5feeeb651fe2a6c386e350338ea2c87b0f15eff486ecd3e8dc39aa2",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "snapshot_sha256": "8a81cce4c5feeeb651fe2a6c386e350338ea2c87b0f15eff486ecd3e8dc39aa2",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "main_blob_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "PR_blob_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "working_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "snapshot_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/canonical-json.ts",
+      "main_blob_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "PR_blob_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "working_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/canonical-json.ts",
+      "snapshot_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "main_blob_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "PR_blob_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "working_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "snapshot_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/qualification.ts",
+      "main_blob_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "PR_blob_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "working_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/qualification.ts",
+      "snapshot_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "main_blob_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "PR_blob_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "working_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/supply.ts",
+      "snapshot_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "main_blob_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "PR_blob_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "working_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/demand.ts",
+      "snapshot_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "main_blob_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "PR_blob_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "working_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "snapshot_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "main_blob_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "PR_blob_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "working_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "snapshot_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/fic-review-probes.test.ts",
+      "main_blob_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "PR_blob_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "working_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/fic-review-probes.test.ts",
+      "snapshot_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/factory-wire.test.ts",
+      "main_blob_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "PR_blob_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "working_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/factory-wire.test.ts",
+      "snapshot_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "supabase/migrations/_pending_workspace_supply_b_orders.sql",
+      "main_blob_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+      "PR_blob_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+      "working_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/supabase/migrations/_pending_workspace_supply_b_orders.sql",
+      "snapshot_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "supabase/migrations/_pending_workspace_supply_c_qualification.sql",
+      "main_blob_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+      "PR_blob_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+      "working_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/supabase/migrations/_pending_workspace_supply_c_qualification.sql",
+      "snapshot_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+      "same_PR_main": true,
+      "same_previous_PR": false
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "main_blob_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "PR_blob_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "working_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "snapshot_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/load.ts",
+      "main_blob_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "PR_blob_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "working_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/load.ts",
+      "snapshot_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/compose.ts",
+      "main_blob_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "PR_blob_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "working_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/src/lib/csat/map/v4/compose.ts",
+      "snapshot_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "main_blob_sha256": "5af74acee9a81c69150d0085a8d97b7af949900950bc7f4d2bb9fd7034508b94",
+      "PR_blob_sha256": "5af74acee9a81c69150d0085a8d97b7af949900950bc7f4d2bb9fd7034508b94",
+      "working_sha256": "5af74acee9a81c69150d0085a8d97b7af949900950bc7f4d2bb9fd7034508b94",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/.github/workflows/ci.yml",
+      "snapshot_sha256": "5af74acee9a81c69150d0085a8d97b7af949900950bc7f4d2bb9fd7034508b94",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/playwright.isolated.config.ts",
+      "main_blob_sha256": "3ad99b31c912c0c9d3a6e971a6e5fb72512fc13fc6ddcb44b5d0b2665dd93471",
+      "PR_blob_sha256": "3ad99b31c912c0c9d3a6e971a6e5fb72512fc13fc6ddcb44b5d0b2665dd93471",
+      "working_sha256": "3ad99b31c912c0c9d3a6e971a6e5fb72512fc13fc6ddcb44b5d0b2665dd93471",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/playwright.isolated.config.ts",
+      "snapshot_sha256": "3ad99b31c912c0c9d3a6e971a6e5fb72512fc13fc6ddcb44b5d0b2665dd93471",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    },
+    {
+      "file": "apps/web/tests/e2e-isolated/map-goal.isolated.spec.ts",
+      "main_blob_sha256": "813144e5518b874bffcf3c8d72e39e92fb3ede68752333baf173b1913220a409",
+      "PR_blob_sha256": "813144e5518b874bffcf3c8d72e39e92fb3ede68752333baf173b1913220a409",
+      "working_sha256": "813144e5518b874bffcf3c8d72e39e92fb3ede68752333baf173b1913220a409",
+      "snapshot": "scripts/research/factory-integration-v11-final/local/main/apps/web/tests/e2e-isolated/map-goal.isolated.spec.ts",
+      "snapshot_sha256": "813144e5518b874bffcf3c8d72e39e92fb3ede68752333baf173b1913220a409",
+      "same_PR_main": true,
+      "same_previous_PR": true
+    }
+  ],
+  "prior_first": {
+    "commit": "8e705307b",
+    "path": "docs/research/factory-integration-review/data/counterexamples.json",
+    "sha256": "bffe139067bc164f0f598b43f06f344d524fba2a07ff80d10e4c3bee4c7408dc",
+    "first82_preserved": true,
+    "prior_integrity_all_bindings_preserved": true
+  },
+  "ci": {
+    "run": {
+      "conclusion": "success",
+      "event": "pull_request",
+      "head_sha": "8af914add3d7efa845e645b798a1ae8284a8a5b8",
+      "html_url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984",
+      "id": 38611709984
+    },
+    "e2e_job": {
+      "conclusion": "success",
+      "name": "e2e",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm/action-setup@v3"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run supabase/setup-cli@v1"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 Supabase 기동(빈 DB)"
+        },
+        {
+          "conclusion": "success",
+          "name": "저장소 마이그레이션 적용(파일별)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm install --frozen-lockfile"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm --filter web exec playwright install --with-deps chromium"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 환경 변수(로컬 데모 키 — 비밀값 아님)"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 fixture 적재(학습 지도 정의)"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 fixture 적재(v3.1 원문 이해 문항)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm --filter web build"
+        },
+        {
+          "conclusion": "success",
+          "name": "앱 기동 후 대기"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 E2E(실제 브라우저 + DB 단언)"
+        },
+        {
+          "conclusion": "success",
+          "name": "서버 로그"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "격리 환경 폐기"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run pnpm/action-setup@v3"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    },
+    "checks": [
+      {
+        "name": "verify",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984/job/116016439528"
+      },
+      {
+        "name": "TypeScript 0 error",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611710013/job/116016439310"
+      },
+      {
+        "name": "TypeScript 0 error",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611679440/job/116016333582"
+      },
+      {
+        "name": "build",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984/job/116016439219"
+      },
+      {
+        "name": "docs/*.md broken link check",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611710013/job/116016439234"
+      },
+      {
+        "name": "docs/*.md broken link check",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611679440/job/116016334172"
+      },
+      {
+        "name": "e2e-shared-dev",
+        "conclusion": "SKIPPED",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984/job/116016441639"
+      },
+      {
+        "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+        "conclusion": "SKIPPED",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611679440/job/116016335753"
+      },
+      {
+        "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611710013/job/116016439418"
+      },
+      {
+        "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+        "conclusion": "SKIPPED",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611679440/job/116016335529"
+      },
+      {
+        "name": "e2e",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984/job/116016439416"
+      },
+      {
+        "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611710013/job/116016439278"
+      },
+      {
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611709984/job/116016439630"
+      },
+      {
+        "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611710013/job/116016439489"
+      },
+      {
+        "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/KangMin098/Vocaflow/actions/runs/38611679440/job/116016333953"
+      }
+    ]
+  },
+  "scope": "Frozen source and observed CI metadata. No DB query/apply/production/real rights or learner-supply verification."
+}
