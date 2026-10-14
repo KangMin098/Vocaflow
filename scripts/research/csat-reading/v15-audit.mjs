@@ -1,0 +1,9 @@
+// scripts/research/csat-reading/v15-audit.mjs
+import fs from 'node:fs';import {createHash} from 'node:crypto';
+const b='docs/research/csat-reading/',d=b+'data/v15/',sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex'),read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+fs.mkdirSync(d,{recursive:true});fs.mkdirSync('scripts/research/csat-reading/local/v15/',{recursive:true});
+if(fs.existsSync(d+'registration.json'))throw Error('Existing registration preserved');
+const index=read(b+'data/v14/artifacts.json');const hashes={...index.files,[b+'data/v14/artifacts.json']:sha(b+'data/v14/artifacts.json')};for(const[p,h]of Object.entries(hashes))if(sha(p)!==h)throw Error('Prior drift '+p);
+const detail='scripts/research/csat-reading/local/v14/education-packages-revision3.json',review=read(b+'data/v14/education-revision3-review-summary.json');if(sha(detail)!==review.input_sha256)throw Error('Inaccessible or changed Gold');const packet=read(detail);
+const result={version:'1.5',branch:'research/csat-reading-v15',base:'67070e430',task:'T-0029',prior_hashes:hashes,protocol_sha256:sha(b+'PROTOCOL-v1.5.md'),private_access:{path:detail,sha256:sha(detail),session_readable:true,external_public_rights:false},activities:packet.activities.map(a=>({activity_id:a.activity_id,task_id:a.task_id,item_id:a.item_id,facets:a.analytic_rubric.length,source:a.source,education_spec_reviewed:'v14 revision3 AI content supported',new_student_validation:false})),counts:{inherited_activities:12,inherited_facets:48,priority_activities:6,original_rewritten:0,public_qualified:0,direct_assessment_qualified:0,student_responses:0}};
+fs.writeFileSync(d+'registration.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({preserved:Object.keys(hashes).length,activities:12,facets:48,Gold_access:'readable'}));
