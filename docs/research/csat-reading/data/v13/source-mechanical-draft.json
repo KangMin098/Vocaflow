@@ -1,0 +1,2507 @@
+{
+  "version": "1.3",
+  "old_input_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+  "derived_input_sha256": "1d48d0e13e2ddc09958c99bb815d837f7bc0a408a7cb61e24e18a24e0b9430c0",
+  "helper_sha256": "cfce6d92634b9e3062a58fb08c5f8f4132ef3b601506bc69d543077fc7e1ee0b",
+  "old_inputs_unchanged": true,
+  "items": [
+    {
+      "id": "2018#18",
+      "previous_binding": "4c1d3dae58730174523a48b82ad75d9ffdc32699410595fc0d3db2a9d5ad3c3c",
+      "new_binding": "50a5f2568d15e0cdbea759ecff6189849fc2adfa5bded9ddf9f27f1623abd9d0",
+      "passage_sha256": "9a1c172c5d94b10652cb737b611cac6ea5906b41d0152dabadf966d97bbf00b4",
+      "passage_unchanged": true,
+      "old_units": 9,
+      "new_units": 9,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "salutation": 1,
+        "body": 7,
+        "signature": 1
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 23,
+          "role": "salutation",
+          "block_label": null,
+          "kind": "paratext",
+          "sentence_count": 0
+        },
+        {
+          "id": "s2",
+          "start": 24,
+          "end": 71,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 72,
+          "end": 204,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 205,
+          "end": 304,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 305,
+          "end": 394,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 395,
+          "end": 512,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 513,
+          "end": 558,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 559,
+          "end": 599,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s9",
+          "start": 600,
+          "end": 626,
+          "role": "signature",
+          "block_label": null,
+          "kind": "paratext",
+          "sentence_count": 0
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        },
+        {
+          "old": "u8",
+          "new": [
+            "s8"
+          ]
+        },
+        {
+          "old": "u9",
+          "new": [
+            "s9"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2014A#40",
+      "previous_binding": "938d568e90a0135e4e163f241f4afbd9ae6ceee35c3a81ec305c594cb30ca616",
+      "new_binding": "a4615fe24879c610c0dfe92977c4dabe988fbf1f9eb51016e0e818125b2f0b0a",
+      "passage_sha256": "89eb2bb3c410bdc36c53a1a4b9ad9c53c3a9d2d7f36e969db946701f9bc3b37d",
+      "passage_unchanged": true,
+      "old_units": 11,
+      "new_units": 13,
+      "punctuation_sentence_units": 13,
+      "role_counts": {
+        "body": 13
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 75,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 76,
+          "end": 154,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 155,
+          "end": 208,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 209,
+          "end": 259,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 260,
+          "end": 293,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 294,
+          "end": 374,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 375,
+          "end": 395,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 396,
+          "end": 440,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s9",
+          "start": 441,
+          "end": 516,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s10",
+          "start": 517,
+          "end": 546,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s11",
+          "start": 547,
+          "end": 631,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s12",
+          "start": 632,
+          "end": 683,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s13",
+          "start": 684,
+          "end": 731,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6",
+            "s7"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s8"
+          ]
+        },
+        {
+          "old": "u8",
+          "new": [
+            "s9"
+          ]
+        },
+        {
+          "old": "u9",
+          "new": [
+            "s10"
+          ]
+        },
+        {
+          "old": "u10",
+          "new": [
+            "s11",
+            "s12"
+          ]
+        },
+        {
+          "old": "u11",
+          "new": [
+            "s13"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2023#20",
+      "previous_binding": "f4a230590e94bab8fca31694626907e2cb12ab2fe82e8f40232e107153b093e7",
+      "new_binding": "7301feaa3aaf757216108498dda43eab169f2be19a62a0928370af3a2306d472",
+      "passage_sha256": "0475ea9d027bf3da57f50204d1a06a100ebc8cf67b2de46882e2307f71547461",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 120,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 121,
+          "end": 204,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 205,
+          "end": 296,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 297,
+          "end": 426,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 427,
+          "end": 544,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 545,
+          "end": 688,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 689,
+          "end": 795,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2021#22",
+      "previous_binding": "d6c32c9251e32096f9e2f217ea40e59dcf70eca718a57e764ee82116376fd239",
+      "new_binding": "8f968915cf943697a1c13af595fa27a1e0bf338daa6d21f50a44d24d9bc028de",
+      "passage_sha256": "f112a111b5b9fb4c5cc567943aa11bb42a1cd766ef80364c7b935e28d7e573c0",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 115,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 116,
+          "end": 248,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 249,
+          "end": 468,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 469,
+          "end": 544,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 545,
+          "end": 737,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 738,
+          "end": 861,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 862,
+          "end": 1044,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2015#21",
+      "previous_binding": "cfbdaf8a835b08c1dc9dbf9b23e885afc9d13cd570bb06958c5648faafcd6624",
+      "new_binding": "d0da80b91a052cdd0367d55383bd31026780e86fac47a74ad4d507208a0db69e",
+      "passage_sha256": "6597eaaa51331ad17cd862f45e8b6c13e39e6e0677186efc00fff7e25b790049",
+      "passage_unchanged": true,
+      "old_units": 6,
+      "new_units": 6,
+      "punctuation_sentence_units": 6,
+      "role_counts": {
+        "body": 6
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 96,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 97,
+          "end": 185,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 186,
+          "end": 350,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 351,
+          "end": 464,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 465,
+          "end": 570,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 571,
+          "end": 724,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2017#23",
+      "previous_binding": "af4013523b74aa6828cf2e5f7da4a73cc25d8bcedb1aba5c32dc3aa0a9f7d522",
+      "new_binding": "dd5b50dcf9ff7140c68555dfe684621f70faa2d3e1649315c8d46d1c2b7954e4",
+      "passage_sha256": "c0677d069bdaa0ef232d6784039ecd6196cfcf51880763f9d181a5194055e099",
+      "passage_unchanged": true,
+      "old_units": 5,
+      "new_units": 5,
+      "punctuation_sentence_units": 5,
+      "role_counts": {
+        "body": 5
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 110,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 111,
+          "end": 364,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 365,
+          "end": 581,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 582,
+          "end": 826,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 827,
+          "end": 892,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2020#29",
+      "previous_binding": "65c12c17ce5c25c726ff6c2f922f7ed2f0cd5c683600861d93399ba620c8f8c9",
+      "new_binding": "28ea295282a75d3eb55b0247fff4175fc032a66aaf1b2cf18c1bb143979ca7aa",
+      "passage_sha256": "2c2b44ac16be6532f56e6bda41bfaf4932838cc2a940f0d950a86366cc6855c7",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 138,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 139,
+          "end": 362,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 363,
+          "end": 614,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 615,
+          "end": 691,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 692,
+          "end": 846,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 847,
+          "end": 976,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 977,
+          "end": 1094,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2019#30",
+      "previous_binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+      "new_binding": "d469e4232cd39c7a6be2096037e973750a8ae1b95466a2bbb3d5015d6c2e603f",
+      "passage_sha256": "7b1ae40de11c1fff273766b17166953e91225a9cb69b6003ef07c026e6ac71ac",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 81,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 82,
+          "end": 192,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 193,
+          "end": 288,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 289,
+          "end": 418,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 419,
+          "end": 583,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 584,
+          "end": 746,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 747,
+          "end": 827,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2016#25",
+      "previous_binding": "06e4a17b5768a4231ad16cb182cb9d0a3146e1e0a7350ce61bdbd6e18409f248",
+      "new_binding": "43074f01902b44ea3b5b6ad67b0af2910b109b0cb2a7c22d0a943244992ebae4",
+      "passage_sha256": "0f9962cd667a88553175bc857be982ce8556dcbd17e6f7e297d70373d027778d",
+      "passage_unchanged": true,
+      "old_units": 11,
+      "new_units": 10,
+      "punctuation_sentence_units": 10,
+      "role_counts": {
+        "body": 10
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 112,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 113,
+          "end": 196,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 197,
+          "end": 225,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 226,
+          "end": 271,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 272,
+          "end": 339,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 340,
+          "end": 453,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 454,
+          "end": 531,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 532,
+          "end": 569,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s9",
+          "start": 570,
+          "end": 763,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s10",
+          "start": 764,
+          "end": 852,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        },
+        {
+          "old": "u8",
+          "new": [
+            "s8"
+          ]
+        },
+        {
+          "old": "u9",
+          "new": [
+            "s9"
+          ]
+        },
+        {
+          "old": "u10",
+          "new": [
+            "s9"
+          ]
+        },
+        {
+          "old": "u11",
+          "new": [
+            "s10"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2022#25",
+      "previous_binding": "ec7675fdd6715609b9164c24e13c80f7dca1a26cad1c4f04c2c0e848ef0e5009",
+      "new_binding": "523e3b4498036b62a51310e33e1962cb506caa754b432bd133a128f8695502f8",
+      "passage_sha256": "0f2b6e699865a98595b813598042ff91de8fda03f5027d362ed72ddd893e67c0",
+      "passage_unchanged": true,
+      "old_units": 6,
+      "new_units": 6,
+      "punctuation_sentence_units": 6,
+      "role_counts": {
+        "candidate_claim_layer": 6
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 120,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 121,
+          "end": 257,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 258,
+          "end": 397,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 398,
+          "end": 596,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 597,
+          "end": 709,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 710,
+          "end": 833,
+          "role": "candidate_claim_layer",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2024#31",
+      "previous_binding": "cffb5e801ca12c8490cb9c77717106d49177ed4a4d98a0156a2defbd2f785f43",
+      "new_binding": "be5138a6473138b7a9e0b8a58bb5389588384536ba5780dfdbf13dd4a39784d6",
+      "passage_sha256": "b328db7e1212529ff1b9e9627da9eccde782ef817e80bcbd950efba1e136a602",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 199,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 200,
+          "end": 380,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 381,
+          "end": 565,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 566,
+          "end": 741,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 742,
+          "end": 844,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 845,
+          "end": 874,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 875,
+          "end": 952,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2014B#38",
+      "previous_binding": "5327c519bacbbf23f4e920bb0c0eb7cf4de7bb58918e8e7d14a3d93d743e69d5",
+      "new_binding": "6bcb4e2111b2ad18901f1868f24b748c4d3144c028a591433ed8a711dee2f758",
+      "passage_sha256": "8f1c05959f679d953e4fa0177d51f2381ab45bee5ed0a7f60959df1d6df1bb5e",
+      "passage_unchanged": true,
+      "old_units": 8,
+      "new_units": 8,
+      "punctuation_sentence_units": 8,
+      "role_counts": {
+        "given_stimulus": 2,
+        "body": 6
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 99,
+          "role": "given_stimulus",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 100,
+          "end": 236,
+          "role": "given_stimulus",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 241,
+          "end": 386,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 387,
+          "end": 459,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 464,
+          "end": 587,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 588,
+          "end": 732,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 737,
+          "end": 792,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 793,
+          "end": 873,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        },
+        {
+          "old": "u8",
+          "new": [
+            "s8"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2018#39",
+      "previous_binding": "55a4d381be9fe5252e0c2e44574d7c4104a105002dabb79b3ea663a97ac6c2b1",
+      "new_binding": "d36d42562c0f187cead8e891c52c99e961f813394455566aaf354b4823f0766e",
+      "passage_sha256": "5024d1036bdfce4b80fc1df1768be6accde829c0bff9eedb40e07320e6a20f42",
+      "passage_unchanged": true,
+      "old_units": 9,
+      "new_units": 9,
+      "punctuation_sentence_units": 9,
+      "role_counts": {
+        "given_stimulus": 1,
+        "body": 8
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 127,
+          "role": "given_stimulus",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 128,
+          "end": 233,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 234,
+          "end": 352,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 353,
+          "end": 480,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 481,
+          "end": 565,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 566,
+          "end": 673,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 674,
+          "end": 800,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 801,
+          "end": 899,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s9",
+          "start": 900,
+          "end": 1078,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        },
+        {
+          "old": "u8",
+          "new": [
+            "s8"
+          ]
+        },
+        {
+          "old": "u9",
+          "new": [
+            "s9"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2024#35",
+      "previous_binding": "d44862aa6b887fdb5ad878e066f5bf8ea2e72b660e229b5ba0e898cc49c3ff14",
+      "new_binding": "2b9359b0bd4888811d5788ef82682fa2e3eaf922cbb7caadae66dbcecabf407f",
+      "passage_sha256": "51adfbab43c9a98a05193dd9326e904566a53d4fe7f4089322013e537af5affb",
+      "passage_unchanged": true,
+      "old_units": 7,
+      "new_units": 7,
+      "punctuation_sentence_units": 7,
+      "role_counts": {
+        "body": 7
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 41,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 42,
+          "end": 197,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 198,
+          "end": 337,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 338,
+          "end": 493,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 494,
+          "end": 612,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 613,
+          "end": 801,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 802,
+          "end": 882,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        },
+        {
+          "old": "u6",
+          "new": [
+            "s6"
+          ]
+        },
+        {
+          "old": "u7",
+          "new": [
+            "s7"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2019#40",
+      "previous_binding": "c49d43d7abc03fabb94395ebd54fb587a04e5fc3f93ebcd6317a8a8b628cef09",
+      "new_binding": "8a338552a1b52b553b72a316e528b5853266f1a5b3367e5b43e320c75bb5f2bc",
+      "passage_sha256": "ce12247b7567f290c9d4ae5f6801fcdfa148f3a9a2c0ca0923ba08826a4e4806",
+      "passage_unchanged": true,
+      "old_units": 5,
+      "new_units": 5,
+      "punctuation_sentence_units": 5,
+      "role_counts": {
+        "body": 4,
+        "task_stimulus": 1
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 203,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 204,
+          "end": 366,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 367,
+          "end": 761,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 762,
+          "end": 1054,
+          "role": "body",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 1055,
+          "end": 1244,
+          "role": "task_stimulus",
+          "block_label": null,
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s2"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s3"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s4"
+          ]
+        },
+        {
+          "old": "u5",
+          "new": [
+            "s5"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    },
+    {
+      "id": "2022#44",
+      "previous_binding": "38ef5037f3a3c2f7576d23afad7ee9725b72a97ca8ae01983be163be907ff24e",
+      "new_binding": "36b36eb6008b639fdcf9e5a8d2d2b4646477b504a8a50a202a38997433b559d8",
+      "passage_sha256": "5748b2cc8bbd21725c0cdd8537d47afb90ee3a6a1099d6c7a40f0d16360e117f",
+      "passage_unchanged": true,
+      "old_units": 4,
+      "new_units": 30,
+      "punctuation_sentence_units": 30,
+      "role_counts": {
+        "body": 30
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 4,
+          "end": 67,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s2",
+          "start": 68,
+          "end": 156,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s3",
+          "start": 157,
+          "end": 226,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s4",
+          "start": 227,
+          "end": 272,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s5",
+          "start": 273,
+          "end": 341,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s6",
+          "start": 342,
+          "end": 377,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s7",
+          "start": 378,
+          "end": 480,
+          "role": "body",
+          "block_label": "(A)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s8",
+          "start": 485,
+          "end": 558,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s9",
+          "start": 559,
+          "end": 631,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s10",
+          "start": 632,
+          "end": 676,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s11",
+          "start": 677,
+          "end": 747,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s12",
+          "start": 748,
+          "end": 798,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s13",
+          "start": 799,
+          "end": 832,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s14",
+          "start": 833,
+          "end": 866,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s15",
+          "start": 867,
+          "end": 969,
+          "role": "body",
+          "block_label": "(B)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s16",
+          "start": 974,
+          "end": 1021,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s17",
+          "start": 1022,
+          "end": 1070,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s18",
+          "start": 1071,
+          "end": 1144,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s19",
+          "start": 1145,
+          "end": 1171,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s20",
+          "start": 1172,
+          "end": 1240,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s21",
+          "start": 1241,
+          "end": 1342,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s22",
+          "start": 1343,
+          "end": 1428,
+          "role": "body",
+          "block_label": "(C)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s23",
+          "start": 1433,
+          "end": 1513,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s24",
+          "start": 1514,
+          "end": 1604,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s25",
+          "start": 1605,
+          "end": 1662,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s26",
+          "start": 1663,
+          "end": 1695,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s27",
+          "start": 1696,
+          "end": 1823,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s28",
+          "start": 1824,
+          "end": 1872,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s29",
+          "start": 1873,
+          "end": 1939,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        },
+        {
+          "id": "s30",
+          "start": 1940,
+          "end": 1954,
+          "role": "body",
+          "block_label": "(D)",
+          "kind": "punctuation_sentence",
+          "sentence_count": 1
+        }
+      ],
+      "old_to_new": [
+        {
+          "old": "u1",
+          "new": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ]
+        },
+        {
+          "old": "u2",
+          "new": [
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14",
+            "s15"
+          ]
+        },
+        {
+          "old": "u3",
+          "new": [
+            "s16",
+            "s17",
+            "s18",
+            "s19",
+            "s20",
+            "s21",
+            "s22"
+          ]
+        },
+        {
+          "old": "u4",
+          "new": [
+            "s23",
+            "s24",
+            "s25",
+            "s26",
+            "s27",
+            "s28",
+            "s29",
+            "s30"
+          ]
+        }
+      ],
+      "status": "mechanically_valid_manual_review_required"
+    }
+  ],
+  "workspaces": {
+    "path": "docs/csat-learner/v4/workspaces.json",
+    "sha256": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+    "templates": 9,
+    "task_catalog": 30,
+    "missing_task_refs": [],
+    "missing_relation_refs": [],
+    "readiness": {
+      "live": 3,
+      "ready": 1,
+      "content_needed": 4,
+      "blocked": 1
+    },
+    "runtime_verified": false,
+    "learner_validated": false,
+    "templates_summary": [
+      {
+        "id": "ws.central-meaning",
+        "core": [
+          "r.central_meaning"
+        ],
+        "support": [
+          "r.discourse_function",
+          "r.discourse_structure"
+        ],
+        "readiness": "live",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "서로 다른 지문 2개 독립 정답 → 120일 안 재확인 2연속 정답(resolved)"
+      },
+      {
+        "id": "ws.option-match",
+        "core": [
+          "e.option_correspondence"
+        ],
+        "support": [
+          "v.semantic_relation",
+          "r.central_meaning"
+        ],
+        "readiness": "live",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "skill-diagnosis 와 같다"
+      },
+      {
+        "id": "ws.evidence-locate",
+        "core": [
+          "e.evidence_location"
+        ],
+        "support": [
+          "e.task_demand"
+        ],
+        "readiness": "live",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "skill-diagnosis"
+      },
+      {
+        "id": "ws.cohesion",
+        "core": [
+          "r.relation"
+        ],
+        "support": [
+          "r.reference"
+        ],
+        "readiness": "ready",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "skill-diagnosis"
+      },
+      {
+        "id": "ws.sentence-core",
+        "core": [
+          "s.o.sentence_meaning_model"
+        ],
+        "support": [
+          "s.sentence_core",
+          "s.chunk_boundary",
+          "s.structural_relation"
+        ],
+        "readiness": "content_needed",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "미정 — 직접 확인 도구 필요"
+      },
+      {
+        "id": "ws.vocab-context",
+        "core": [
+          "v.contextual_sense"
+        ],
+        "support": [
+          "v.core_meaning",
+          "v.multiword"
+        ],
+        "readiness": "content_needed",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "미정"
+      },
+      {
+        "id": "ws.grammar-scope",
+        "core": [
+          "s.form_scope"
+        ],
+        "support": [],
+        "readiness": "content_needed",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "미정"
+      },
+      {
+        "id": "ws.inference",
+        "core": [
+          "r.inference"
+        ],
+        "support": [
+          "s.o.sentence_meaning_model",
+          "v.contextual_sense"
+        ],
+        "readiness": "content_needed",
+        "hold": false,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "미정"
+      },
+      {
+        "id": "ws.timed",
+        "core": [
+          "x.o.whole_test_stability"
+        ],
+        "support": [
+          "x.time_allocation",
+          "x.sequence"
+        ],
+        "readiness": "blocked",
+        "hold": true,
+        "quantities_and_criteria": "static_design_candidates_not_validated_measurement",
+        "criterion_source_field": "—"
+      }
+    ]
+  },
+  "budget_examples": [
+    {
+      "item": "2024#35",
+      "declared_body_units": 0,
+      "effective_sentence_union": 5,
+      "effective_unit_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "candidate_overlap": [
+        {
+          "candidate": "c1",
+          "unit": "s3"
+        },
+        {
+          "candidate": "c2",
+          "unit": "s4"
+        },
+        {
+          "candidate": "c3",
+          "unit": "s5"
+        },
+        {
+          "candidate": "c4",
+          "unit": "s6"
+        },
+        {
+          "candidate": "c5",
+          "unit": "s7"
+        }
+      ],
+      "other_information_required": [
+        "stem",
+        "candidate_meanings",
+        "labels_and_correspondence",
+        "glosses_if_accessed",
+        "given_or_summary_stimulus_if_accessed",
+        "visual_cells_and_axes_if_accessed",
+        "external_reference_if_used"
+      ],
+      "reading_time_estimate": null
+    }
+  ],
+  "limits": [
+    "Punctuation units are an operational budget unit, not guaranteed independent propositions or syntactically complete sentences.",
+    "No new item classification or strategy success inference.",
+    "Original source admission inherited; selected boundary regions require new PDF comparison.",
+    "Table transcription is derived from bars; a cell budget is not the visual reading cost.",
+    "Independent reference access must be explicitly declared; no automatic resolution."
+  ]
+}

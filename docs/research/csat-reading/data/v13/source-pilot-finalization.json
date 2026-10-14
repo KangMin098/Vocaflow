@@ -1,0 +1,21 @@
+{
+  "version": "1.3",
+  "first_source_input_sha256": "5d8028e69e656d0bce184347c2dce1e5c92e780918a356d9ca6399756b7d5697",
+  "first_source_metadata_sha256": "cbd988fa972cb26154d374eba786454a1b3a298f3ed180e1cb1cc13109ea92b2",
+  "final_input_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+  "final_source_metadata_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+  "source_judge_admitted": 12,
+  "eligible_independent_input": 11,
+  "excluded": [
+    "2022#26"
+  ],
+  "reason": "2022#26 recorded adjacent-page exposure in v1.2 source-critical-review; selection retained and exclusion separately registered by coordinator",
+  "changes": [
+    "manual boundary review completed without changed sentence boundaries",
+    "points and source stem underlines explicitly recorded",
+    "chart candidate claims separated from data evidence role",
+    "2022#26 moved to exposed-development input, not replaced"
+  ],
+  "no_semantic_classification": true,
+  "first_draft_preserved": true
+}

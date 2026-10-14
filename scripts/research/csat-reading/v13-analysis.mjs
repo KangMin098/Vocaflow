@@ -7,13 +7,19 @@ export const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 export function setAgreement(a,b){const x=new Set(a),y=new Set(b),union=new Set([...x,...y]);return {score:union.size?[...x].filter(z=>y.has(z)).length/union.size:null,both_empty:!union.size};}
 export function limitedBudget(item,path,method){
  const by=new Map(item.units.map(x=>[x.id,x]));const used=path.used_units??[];
+ const supplied=new Set(used);
+ const copied=[];
+ for(const n of path.candidate_information??[]){const span=item.presentation?.inline_candidates?.[n-1];if(span)for(const u of item.units)if(u.end>span.start&&u.start<span.end){supplied.add(u.id);copied.push(u.id);}}
  const unknown=used.filter(id=>!by.has(id));const sentenceN=used.reduce((n,id)=>n+(by.get(id)?.sentence_count??1),0);
  const stimulusN=(path.stimulus_units??[]).reduce((n,id)=>n+(by.get(id)?.sentence_count??1),0);
  const complete=used.every(id=>by.get(id)?.syntactic_completeness==='complete'||(path.complete_sentences??[]).includes(id));
  const positions=used.map(id=>item.units.findIndex(x=>x.id===id)).sort((a,b)=>a-b);
  const consecutive=positions.every((p,i)=>!i||p===positions[i-1]+1);
  const limit=method==='core_sentence'?1:2;
- return {unknown,sentenceN,stimulusN,total_sentenceN:sentenceN+stimulusN,complete,consecutive,budget_ok:!unknown.length&&sentenceN>0&&sentenceN+stimulusN<=limit&&complete&&(method==='core_sentence'||consecutive),semantic_task_stimulus_is_free:false};
+ const effectiveN=[...supplied].reduce((n,id)=>n+(by.get(id)?.sentence_count??1),0)+stimulusN;
+ const visual=path.visual_budget;
+ const visualOk=Boolean(method==='selective'&&visual&&visual.source_bound===true&&((visual.rows?.length>0&&visual.rows.length<=2)||(visual.columns?.length>0&&visual.columns.length<=2)));
+ return {unknown,sentenceN,stimulusN,total_sentenceN:sentenceN+stimulusN,effective_sentenceN:effectiveN,candidate_copy_units:[...new Set(copied)],complete,consecutive,visual_budget:visual??null,budget_ok:!unknown.length&&((sentenceN>0&&effectiveN<=limit&&complete&&(method==='core_sentence'||consecutive))||visualOk),semantic_task_stimulus_is_free:false,visual_semantic_sufficiency_not_proven_by_budget:true};
 }
 export function validateRater(r,input){
  const errors=[],sources=new Map(input.items.map(x=>[x.id,x]));
@@ -47,7 +53,7 @@ function main(){
  const numeric={discourse:metrics.discourse.raw_agreement>=.8,task:metrics.task.raw_agreement>=.8,inference:metrics.inference.mean_jaccard>=.7,relations_required:metrics.relation_required.mean_jaccard>=.7,textual_support:comparable.length===choicePairs.length&&metrics.textual_support.raw_agreement>=.8&&metrics.textual_support.kappa!==null&&metrics.textual_support.kappa>=.6};
  for(const [k,v] of Object.entries(metrics.limited))numeric[k]=v.raw_agreement>=.8&&v.positive_agreement>=.7&&v.positive_a>=3&&v.positive_b>=3;
  const guards=paired.flatMap(([x,y])=>[x,y].flatMap((row,ri)=>['core_sentence','selective'].flatMap(m=>['AI','FOV'].flatMap(g=>{const l=row.limited[m][g];if(l.status!=='sufficient')return [];const p=row.paths.find(p=>p.id===l.path_id);return p?[{id:row.id,rater:ri?'B':'A',method:m,goal:g,path_id:p.id,...limitedBudget(input.items.find(i=>i.id===row.id),p,m)}]:[{id:row.id,rater:ri?'B':'A',method:m,goal:g,missing_path:true,budget_ok:false}];}))));
- const key=read(local+'pilot-key.json');const solved={A:a.items.filter(r=>key.find(k=>k.id===r.id).answer===r.solved_answer).length,B:b.items.filter(r=>key.find(k=>k.id===r.id).answer===r.solved_answer).length,n:key.length,interpretation:'Answer agreement is not sufficiency validity'};
+ const eligibleIds=new Set(input.items.map(x=>x.id)),key=read(local+'pilot-key.json').filter(x=>eligibleIds.has(x.id));const solved={A:a.items.filter(r=>key.find(k=>k.id===r.id).answer===r.solved_answer).length,B:b.items.filter(r=>key.find(k=>k.id===r.id).answer===r.solved_answer).length,n:key.length,interpretation:'Answer agreement is not sufficiency validity'};
  const result={version:'1.3',n:input.items.length,groups:new Set(input.items.map(x=>x.passage_group)).size,metrics,numeric_gate:numeric,logical_gate:'requires_separate_review',solved,positive_scope_guards:guards,disagreements:paired.filter(([x,y])=>JSON.stringify({...x,binding:null})!==JSON.stringify({...y,binding:null})).map(([x])=>x.id),population_inference:false};
  fs.writeFileSync(base+'agreement.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({n:result.n,metrics,numeric,solved},null,2));
 }

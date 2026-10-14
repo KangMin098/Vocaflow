@@ -1,0 +1,26 @@
+{
+  "version": "1.3",
+  "preregistration_commit": "ca6e5a1cb",
+  "eligibility_commit": "54266da1a",
+  "planned_n": 12,
+  "source_eligible_n": 11,
+  "source_groups": 11,
+  "first_classification": "not_started",
+  "hashes": {
+    "docs/research/csat-reading/PROTOCOL-v1.3.md": "294814852af3471a41c4a70e28fcb79ef471d1990d21b7cc97990ef8870ef878",
+    "docs/research/csat-reading/data/v13/registration.json": "d3169a65ada5b53fcb1695307707242deed0d35d6163da15241fd1d08a5baf95",
+    "docs/research/csat-reading/data/v13/pilot-selection.json": "17ea9ec835e6b5cf72d9771b7d9ecb2293779720a42c5a74df5d9c1dc06abdb4",
+    "docs/research/csat-reading/data/v13/eligibility-addendum.json": "8ca4b3bf19b66836f469a69b59af579f6271620cb675c852d2a65df39dd313ea",
+    "docs/research/csat-reading/data/v13/pilot-source.json": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+    "scripts/research/csat-reading/local/v13/pilot-input.json": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+    "scripts/research/csat-reading/local/v13/pilot-key.json": "390361554797db9fa69d1bc1f83553ed7961f8d82c3fd4b3260196429e457d48",
+    "scripts/research/csat-reading/local/v13/rater-instructions.md": "e6197aadcc41d1448d3ddfb72daee67558bb6b4e6b182d06b9d5e6b97fbaaf9b",
+    "scripts/research/csat-reading/v13-analysis.mjs": "811665fb2fab29f3049c92285b5687f98c451d57005e50961f053fe300fac42d",
+    "scripts/research/csat-reading/v13-source-units.mjs": "4ea2067737fb274405f1aeca2c50d2a0f32d56a9415f3b8cc4fac3724f290a83"
+  },
+  "limitations": [
+    "AI contexts only, not human experts",
+    "Project source-role exposure distinct from fresh rater input",
+    "Original PDF download lineage/rights not established"
+  ]
+}
