@@ -1,0 +1,751 @@
+{
+  "source": {
+    "branch": "research/factory-qualification-v1",
+    "commit": "e5b24b1eb",
+    "file": "data/qualification-results.json",
+    "rulesVersion": "FQ1.0",
+    "importedAt": "2026-10-14"
+  },
+  "results": [
+    {
+      "content": {
+        "id": "v14-s.form_scope-1",
+        "revision": "3"
+      },
+      "task": "s.form_scope",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v14-s.form_scope-2",
+        "revision": "3"
+      },
+      "task": "s.form_scope",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v14-s.form_scope-3",
+        "revision": "3"
+      },
+      "task": "s.form_scope",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v14-v.contextual_sense-1",
+        "revision": "3"
+      },
+      "task": "v.contextual_sense",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v14-v.contextual_sense-2",
+        "revision": "3"
+      },
+      "task": "v.contextual_sense",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v14-v.contextual_sense-3",
+        "revision": "3"
+      },
+      "task": "v.contextual_sense",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "fail"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v15-v.contextual_sense-transfer-1",
+        "revision": "inherited-v14-r3"
+      },
+      "task": "v.contextual_sense",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "v15-s.form_scope-transfer-1",
+        "revision": "2"
+      },
+      "task": "s.form_scope",
+      "role": "model_explanation",
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+        "revision": "sealed-snapshot:0b51e96e38dc5137cfa038e5e32fd499df45ad03ac7fc2c4fec396607ca94dfe"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+        "revision": "sealed-snapshot:84983d317c1c9fd1c1f2d411130d720acd13ad0f76320c9502c9cc6132831cea"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "fail"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+        "revision": "sealed-snapshot:eb7e540b2cc5b75912dff48374756389f15f57456bbe2cb811b151375c488c44"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "fail"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "1b7659a4-3874-4722-84a2-c38e3c5ad620",
+        "revision": "sealed-snapshot:2ffc7b9d3a7676c161a0fec682858fc44f03b49fb79f07aa2d8b440a35573bd8"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "fail"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+        "revision": "sealed-snapshot:47250f77a05c8ad47af9a061f129b8575bc6e0959b1bd8f8a7fe97764ba3a9be"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+        "revision": "sealed-snapshot:b5d3efe485bb95772b742565d882caa5e702b1f4614ac0459ddc082a8f3ce96a"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "unknown"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "0133b75c-ff45-4519-8801-7a1a36f2081c",
+        "revision": "sealed-snapshot:03670c445c9d53ce6962ca21e5636e2afb748c9c39316fe32794e1358b111278"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "fail"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+        "revision": "sealed-snapshot:786d006774e55e8b877b2a41abbb3f523839d5ba71dc0b54ce23d3cbceb56749"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "unknown"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "fail"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+        "revision": "sealed-snapshot:3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "33a6e5c1-5079-4180-bb95-88c496edaa58",
+        "revision": "sealed-snapshot:bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17"
+      },
+      "task": "s.form_scope",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "fail"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "b172230f-a008-4528-ae02-c5a036879a0a",
+        "revision": "sealed-snapshot:c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    },
+    {
+      "content": {
+        "id": "9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+        "revision": "sealed-snapshot:f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63"
+      },
+      "task": "v.contextual_sense",
+      "role": "guided_practice",
+      "axes": {
+        "A": {
+          "state": "unknown"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "unknown"
+        },
+        "E": {
+          "state": "unknown"
+        },
+        "F": {
+          "state": "unknown"
+        },
+        "G": {
+          "state": "unknown"
+        },
+        "H": {
+          "state": "unknown"
+        }
+      },
+      "eligibleRoles": [],
+      "publicQualified": false,
+      "assessmentQualified": false
+    }
+  ]
+}
