@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-21-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#21",
+      "verdict": "revise",
+      "content_hash": "cd146da3e1491542",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "dd5f994711abc1e0",
+        "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+        "sourceSnapshotHash": "1df8a04025ad30fb"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS06"
+      ],
+      "why": "MS02(한정어 삭제): 5번 문장은 no local taxes are paid 앞에 in most cases(대부분의 경우)를 둔다. 그런데 r2.afterKo 「규제·세금을 피하고 클릭으로 일할 곳을 바꾼다」는 이 한정을 지우고 세금 미납을 전면 단정하며, 「피하고」는 원문에 없는 의도까지 더한다(원문은 수동 서술: 지켜지지 않는다·내지 않는다). whole.limitsKo 에 한정을 다루지 않았다고 적은 것과도 어긋난다. 수정: 「현지 규제를 지키지 않고, 대부분의 경우 현지 세금도 내지 않으며, 클릭 몇 번으로 일할 곳을 바꾼다.」 또는 세금을 빼고 「현지 규제를 지키지 않고 클릭 몇 번으로 일할 곳을 바꾼다」. MS06: p5 는 basis source_observation 인데 첫머리 「그 결과」는 5~6번 문장에 없는 인과 표지다(결과 관계는 r2 의 bridging_inference 가 맡는다). 수정: p5 에서 「그 결과」를 빼 「사무실이나 공장이 필요 없고 현지 규제가 지켜지지 않으며, 생산망 전환이 이메일 몇 통이나 클릭 몇 번으로 일어난다.」 경미: whole.propositionIds 가 p1,p3,p2 순이라 비유 해석(p3)이 그 근거(p2)보다 먼저 나온다 — p1,p2,p3,p4,p5 가 단계적 통합에 맞다. 그 외 — MS01 플랫폼=원인, 결속=업무와 장소 정확 · u2 의 can be disconnected 가능성 보존 · MS04 r1 limit 정직 · MS07 bridges(u3→4·5, claims 2·3) 일치 · MS08 a1~a6 위치 확인 · MS10 문제 없음."
+    }
+  ]
+}

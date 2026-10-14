@@ -1,0 +1,356 @@
+{
+  "writer_run": "ms-wr-2026-20-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#20",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "8965cdd326c69d54",
+      "basePublicHash": "47461f05409209b6cf35950f0a030a6ce3e5c905291f1b50acb992709cce1f4e",
+      "sourceSnapshotHash": "f968e4e73935970e"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 20,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "has repeatedly failed to recognize",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 2,
+        "quote": "Unlike Shakespeare",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "quote": "through their music",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 4,
+        "quote": "Producing lyrics of distinct and complex imagery",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 5,
+        "quote": "must be recognized in the field",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "문학 연구는 현대 작사가들이 언어 발전에 기여한 바를 거듭 알아보지 못해 왔다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "셰익스피어는 영어 발전에 기여한 점으로 연구되고 찬양받았지만, 현대 작사가들의 기여는 대체로 무시되어 왔다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "작사가들은 음악, 곧 가사를 통해 언어와 문학을 풍부하게 해 왔다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "작사가들의 작품과 그것이 언어 발전에 준 영향은 현대 문학 분야에서 인정받아야 한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1,
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "문제 제기 — 인정받지 못한 쪽",
+        "exactKo": "문학 연구는 현대 작사가의 기여를 거듭 인정하지 못했고, 이미 인정받은 셰익스피어와 달리 작사가들은 대체로 무시되어 왔다.",
+        "simpleKo": "셰익스피어는 인정받았는데, 요즘 작사가들은 문학 연구에서 대체로 무시당해 왔다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "인정하지 못했다",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "필자가 문제 삼는 상황은 인정의 부족이다. 부정을 빼면 필자가 비판하는 대상이 사라진다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "거듭(여러 번)",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "한 번의 실수가 아니라 반복된 상태라는 점이 문제의 크기를 정한다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "셰익스피어(인정받음) 대 현대 작사가(무시됨)",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "셰익스피어는 비교 기준이고, 필자가 편드는 대상은 현대 작사가다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "셰익스피어의 영향을 더 연구해야 한다.",
+          "lostFacet": "comparison",
+          "whyWrongKo": "셰익스피어는 이미 충분히 연구된 비교 기준으로 나온다. 비교 대상과 옹호 대상을 바꾸면 필자의 방향이 뒤집힌다.",
+          "anchorIds": [
+            "a2"
+          ]
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          3,
+          4
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4"
+        ],
+        "labelKo": "근거 — 가사로 이룬 기여",
+        "exactKo": "작사가들은 음악을 통해 언어를 다루고 이야기를 들려주며 언어와 문학을 풍부하게 했고, 독특하고 복잡한 이미지의 가사로 큰 문학적 영향을 끼쳐 왔다.",
+        "simpleKo": "작사가들은 가사로 이미 언어와 문학에 큰 기여를 해 왔다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "이미 해 온 일",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "이미지 기법은 작사가들이 해 온 일의 서술이다. 앞으로 그 기법을 쓰라는 요구가 아니다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "음악(가사)을 통해",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "기여가 이루어진 수단이 가사라는 점을 보존해야 주장과 이어진다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "작사할 때 복잡한 이미지 기법을 써야 한다.",
+          "lostFacet": "time",
+          "whyWrongKo": "원문은 작사가들이 이미 그런 가사를 만들어 왔다고 서술할 뿐이다. 서술을 당위로 바꾸면 필자의 주장이 아닌 것이 된다.",
+          "anchorIds": [
+            "a4"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          5
+        ],
+        "legacyMeaningIds": [
+          "m5"
+        ],
+        "labelKo": "주장 — 인정해야 한다",
+        "exactKo": "작사가들의 뛰어난 작품과 그것이 언어 발전에 준 영향은 현대 문학 분야 안에서 인정받아야 한다.",
+        "simpleKo": "작사가들의 기여를 문학에서 제대로 인정해야 한다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "modality",
+            "valueKo": "인정받아야 한다(당위)",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "글에서 당위를 나타내는 곳은 이 문장이다. 필자의 주장이 여기 모인다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "그들의 = 현대 작사가들",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "문장 첫 대명사는 셰익스피어가 아니라 3~4번 문장의 작사가들을 가리킨다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "현대 문학 분야 안에서",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "인정할 자리가 문학 분야로 정해져 있다. 대중의 인기 같은 다른 인정이 아니다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "contrast",
+        "beforeKo": "작사가들의 기여는 무시되어 왔다.",
+        "afterKo": "작사가들은 실제로 큰 기여를 해 왔다.",
+        "changeKo": "무시당한 상태와 실제 기여를 맞세워, 그 무시가 부당하다는 판단의 바탕을 만든다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a2",
+          "a3"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "1~2번 문장은 인정 부족을, 3~4번 문장은 실제 영향을 말한다. 두 내용을 나란히 놓으면 차이가 드러난다."
+        ],
+        "limitKo": "부당하다는 낱말은 원문에 직접 없다. 두 진술을 이은 해석이다."
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "cause",
+        "beforeKo": "작사가들은 가사로 언어와 문학에 큰 기여를 했다.",
+        "afterKo": "그 기여를 문학에서 인정해야 한다.",
+        "changeKo": "서술된 기여를 근거로 삼아, 인정 부족이라는 문제를 고치는 당위로 넘어간다. 서술이 주장으로 바뀌는 지점이다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "5번 문장의 주어(그들의 뛰어난 작품)가 3~4번 문장의 작품을 받아 당위의 주어가 된다."
+        ],
+        "limitKo": "원문은 '그러므로'에 해당하는 말을 직접 쓰지 않는다."
+      }
+    ],
+    "whole": {
+      "genre": "argument",
+      "summaryKo": "현대 작사가들은 가사로 언어와 문학에 큰 기여를 했는데도 셰익스피어와 달리 문학 연구에서 무시되어 왔으므로, 그 기여를 문학 분야에서 인정해야 한다는 주장이다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "필자는 작사가 개인 이름이나 구체적 작품을 들지 않는다. 주장은 작사가 전체의 기여에 대한 것이다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          2,
+          3
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3",
+          "m4"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          4
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      }
+    ]
+  }
+}

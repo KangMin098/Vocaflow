@@ -1,0 +1,532 @@
+{
+  "writer_run": "ms-wr-2026-33-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#33",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "e3b063c3f4169175",
+      "basePublicHash": "497fd93f5f06eb934b8abecf0a6c238499c32701dc5b34d66e3c6542e3e6953f",
+      "sourceSnapshotHash": "03971581fa526ae8"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 33,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u4",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "opportunity to react to your designs",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 2,
+        "quote": "involving prospective building users",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 4,
+        "quote": "will differ significantly from those of doctors",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 6,
+        "quote": "how each reacts to your prospective designs",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 7,
+        "quote": "more satisfied with a new building",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 2,
+        "sourceRange": {
+          "start": 70,
+          "end": 104,
+          "spanHash": "23a8b4f86e5cba318c4134a1f6936744c1ef0fc9e52d98f0953e815ebf8b7d84"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 135,
+          "end": 172,
+          "spanHash": "01012eb0d6e37dd2a9526ea080fc272ce5defe5f8092bf45cf718d92913ec199"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 7,
+          "end": 23,
+          "spanHash": "08ce44eed9428d529923d0b31e55a1f607344343d079bd5486d3dd55994365fa"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 25,
+          "end": 82,
+          "spanHash": "911dc4264ef900846c5daa1c8ab3c6ae71d206bac3a55007678f41057c5bc64d"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 139,
+          "end": 171,
+          "spanHash": "06554e31854fc350218e2c692ca030fdfc3a4a32d6a537b979a4f55edca5a0c5"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 34,
+          "end": 58,
+          "spanHash": "01e5b6be5c5a229ae5f82081b8832876d21ebf3b0b3f9b226ccad7d7ea87f528"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a12",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 88,
+          "end": 137,
+          "spanHash": "c1ca6744b3725c352f0d1d4baf8af27f50797e2e866d9ead58d27cbd88fc789c"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "진행 중인 설계안에 고객이 반응할 기회를 충분히 주는 것이 전문가로서 성공하는 열쇠이고, 고객뿐 아니라 앞으로 건물을 쓸 사용자까지 참여시키는 것은 장기적으로 더 가치 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a6"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "병원처럼 큰 기관이 고객일 때, 고객 역할을 하는 관리 부서의 관점은 건물을 늘 쓰는 의료진의 관점과 크게 다르고, 건물을 가끔, 흔히 생명이 걸린 응급 상황 때문에 쓰는 환자·방문객의 경험은 또 완전히 다르다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a11",
+          "a3",
+          "a10",
+          "a12"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "각 유형의 사용자가 지금의 의료 환경을 어떻게 겪는지, 그리고 설계 중인 안에 어떻게 반응하는지를 (설계자가) 이해하면 더 나은 건물이 나온다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4",
+          "a7"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "사람들은 빈칸의 조건이 갖춰지면 새 건물에 더 만족할 가능성이 크고, 큰 기관에서는 그 만족이 생산성 향상·결근 감소·이직 감소·비용 절감으로 이어질 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a8",
+          "a5",
+          "a9"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "빈칸 문장은 2·6번 문장에서 설계자가 하는 일(사용자를 참여시키고 그 반응을 이해함)을 사용자 쪽에서 다시 말하는 자리다. 사용자 쪽에서 보면 그 일은 설계 과정에서 의견을 질문받는 경험이 된다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a2",
+          "a4",
+          "a5"
+        ],
+        "warrantsKo": [
+          "7번 문장의 주어 they 는 앞에서 말한 건물 사용자들을 가리킨다",
+          "6번 문장이 더 나은 건물의 원인으로 든 것이 사용자의 경험·반응을 이해하는 일이다",
+          "8번 문장의 this 는 7번 문장의 만족을 받아 기관의 이익으로 넓힌다"
+        ],
+        "limitKo": "6번 문장은 설계자 쪽에서, 7번 문장은 사용자 쪽에서 말한다. 둘을 같은 내용으로 묶는 것은 주어를 바꿔 읽는 연결 추론이다. 지문은 사용자가 직접 설계하거나 훈련받는다고 말하지 않는다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1,
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "설계안에 반응할 기회 → 사용자까지 참여",
+        "exactKo": "진행 중인 설계안에 고객이 반응할 기회를 충분히 주는 것이 성공의 열쇠이고, 마찬가지로 고객뿐 아니라 앞으로 건물을 쓸 사용자까지 참여시키는 것은 장기적으로 훨씬 더 가치 있다.",
+        "simpleKo": "설계하는 동안 고객에게 보여 주고 반응을 듣는 게 중요하고, 실제로 쓸 사람들까지 끌어들이면 길게 보아 더 좋다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "설계안은 설계자의 것, 고객은 반응하는 쪽",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "설계안은 your(설계자)의 것이다. 고객이 하는 일은 그 안을 보고 반응하는 것이지 안을 그리는 것이 아니다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "고객뿐 아니라 사용자까지 — 훨씬 더 가치",
+            "anchorIds": [
+              "a2",
+              "a6"
+            ],
+            "explanationKo": "고객 참여를 버리는 것이 아니라 거기에 사용자를 더하고, 그쪽이 더 가치 있다고 비교한다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "장기적으로",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "더 가치 있다는 판단은 길게 볼 때의 이야기다. 당장 이득이 크다는 말이 아니다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          3,
+          4,
+          5
+        ],
+        "legacyMeaningIds": [
+          "m3"
+        ],
+        "labelKo": "병원 사례: 사용자마다 관점이 다르다",
+        "exactKo": "고객이 병원 같은 큰 기관이라면, 병원 관리 부서가 고객 역할을 할 수 있지만 관리 인력의 관점은 건물을 늘 쓰는 의료진의 관점과 크게 다를 것이 분명하다. 건물을 가끔, 흔히 생명이 걸린 응급 상황의 결과로 쓰는 환자·방문객의 경험도 완전히 다르다.",
+        "simpleKo": "돈을 내는 고객(관리 부서)과 건물을 실제로 쓰는 사람들(의료진, 환자, 방문객)은 서로 보는 눈이 다르다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "modality",
+            "valueKo": "고객 역할을 할 수 있다",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "관리 부서가 고객이 될 수 있다는 가정이다. 이 사례는 3번 문장의 가정(Say ~)에서 출발한다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "크게 다르다 · 완전히 다르다",
+            "anchorIds": [
+              "a3",
+              "a10"
+            ],
+            "explanationKo": "관리 부서 대 의료진, 그리고 늘 쓰는 사람 대 가끔 쓰는 사람의 차이다. 고객 한쪽의 관점만으로는 사용자 관점을 대신할 수 없다는 근거가 된다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "흔히 — 전부가 아님",
+            "anchorIds": [
+              "a12"
+            ],
+            "explanationKo": "환자·방문객이 건물을 쓰는 계기가 생명이 걸린 응급 상황인 경우가 많다는 말이다. 모두가 응급 상황 때문에 온다는 뜻은 아니다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          6
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "각 사용자의 반응을 이해하면 더 나은 건물",
+        "exactKo": "각 유형의 사용자가 지금의 의료 환경을 어떻게 겪는지, 그리고 각자가 설계 중인 안에 어떻게 반응하는지를 이해하면 틀림없이 더 나은 건물이 나온다.",
+        "simpleKo": "쓰는 사람마다 지금 어떻게 지내고 새 설계안을 어떻게 받아들이는지 알면 건물이 더 좋아진다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "이해하는 쪽은 설계자, 반응하는 쪽은 사용자",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "설계안은 여전히 your(설계자)의 것이고, 사용자는 그 안에 반응한다. 반응을 이해하는 주체는 설계자다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "이해 → 더 나은 건물",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "원인은 사용자의 경험과 반응을 이해하는 일이고, 결과는 더 나은 건물이다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          7,
+          8
+        ],
+        "legacyMeaningIds": [
+          "m5"
+        ],
+        "labelKo": "사용자 쪽에서 본 만족의 조건 (빈칸)",
+        "exactKo": "사람들은 빈칸의 조건이 갖춰지면 새 건물이나 증축 건물에 더 만족할 가능성이 크다. 큰 기관에서는 이것이 업무 생산성 향상, 결근 감소, 이직 감소, 비용 절감으로 이어질 수 있다.",
+        "simpleKo": "빈칸은 「사람들이 새 건물을 더 마음에 들어 하게 되는 조건」이고, 주어는 설계자가 아니라 건물을 쓰는 사람들이다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "빈칸 = 만족의 조건",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "빈칸은 if 절 안에 있다. 만족이라는 결과를 낳는 조건을 채워야 한다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "빈칸 문장의 주어는 사용자",
+            "anchorIds": [
+              "a5",
+              "a4"
+            ],
+            "explanationKo": "6번 문장까지는 설계자가 주어였지만 7번 문장의 they 는 건물을 쓰는 사람들이다. 같은 내용을 사용자 쪽에서 말하면 「의견을 질문받는다」가 되고, 「직접 설계한다」가 되지는 않는다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "만족할 가능성이 크다",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "꼭 만족한다는 단정이 아니라 가능성이 크다는 말이다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "이것 = 사람들이 더 만족하는 것",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "8번 문장의 this 는 7번 문장의 만족을 받아, 큰 기관에서 얻는 이익으로 넓힌다. 모두 가능성(can)으로 말한다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "사람들은 직접 새 설계안을 그릴 기회를 얻으면 더 만족한다.",
+          "lostFacet": "agent",
+          "whyWrongKo": "지문에서 설계안을 만드는 쪽은 설계자이고 사용자는 그 안에 반응하는 쪽이다. 사용자를 그리는 주체로 바꾸면 1·6번 문장의 역할이 뒤바뀐다.",
+          "anchorIds": [
+            "a1",
+            "a4"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a2",
+          "a11",
+          "a3"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "example",
+        "beforeKo": "고객뿐 아니라 사용자까지 참여시키는 것이 장기적으로 더 가치 있다.",
+        "afterKo": "병원에서는 고객인 관리 부서와 실제 사용자들의 관점이 크게 다르다.",
+        "changeKo": "일반 주장을 병원 사례로 바꿔 보이며, 왜 고객만으로는 부족한지 근거를 더한다: 고객의 관점과 사용자의 관점이 다르기 때문에 사용자를 따로 참여시킬 이유가 생긴다."
+      },
+      {
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a3",
+          "a10",
+          "a4",
+          "a7"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "6번 문장의 each type of user 가 4~5번 문장에서 나눈 사용자 유형을 받는다"
+        ],
+        "limitKo": "6번 문장에 「그러므로」 같은 표지는 없다. 관점 차이를 이해의 이유로 잇는 것은 연결 추론이다.",
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "cause",
+        "beforeKo": "사용자 유형마다 관점과 경험이 다르다.",
+        "afterKo": "각 유형의 경험과 설계안에 대한 반응을 이해하면 더 나은 건물이 나온다.",
+        "changeKo": "관점이 다르다는 사실을 유지한 채, 그렇다면 한 유형이 아니라 각 유형을 하나하나 이해해야 한다는 결론으로 옮긴다. 이해하는 주체는 계속 설계자다."
+      },
+      {
+        "propositionIds": [
+          "p3",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5",
+          "a9"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "7번 문장의 they 는 앞의 건물 사용자들이다",
+          "2번 문장의 사용자 참여와 6번 문장의 반응 이해가 지문이 내세우는 원인이다"
+        ],
+        "limitKo": "빈칸의 실제 말은 지문에 없다. 사용자 쪽에서 다시 말한다는 것은 주어 전환에 기댄 연결 추론이며, 사용자가 무엇을 직접 만든다는 근거는 없다.",
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "reference",
+        "beforeKo": "설계자가 각 사용자의 반응을 이해하면 더 나은 건물이 나온다.",
+        "afterKo": "사용자 쪽에서는 그런 과정을 거치면 새 건물에 더 만족할 가능성이 크다.",
+        "changeKo": "내용은 유지하고 말하는 쪽만 바꾼다: 설계자가 사용자를 참여시키고 반응을 듣는 일이, 사용자 주어 문장에서는 사용자가 설계 과정에서 의견을 질문받는 경험이 된다. 결과도 「더 나은 건물」에서 「사람들의 만족」으로 옮겨 가고, 8번 문장이 그것을 기관의 이익으로 넓힌다."
+      }
+    ],
+    "whole": {
+      "genre": "argument",
+      "summaryKo": "설계 중에 고객뿐 아니라 실제로 건물을 쓸 여러 사용자를 참여시켜 그들의 경험과 반응을 이해하면 더 나은 건물이 나온다. 사용자 쪽에서 보면, 설계 과정에서 의견을 질문받은 사람들이 새 건물에 더 만족할 가능성이 크다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p5",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "빈칸 문장(7번)은 사용자 주어이고, 2·6번 문장은 설계자 주어다.",
+        "출제 과정은 확인할 수 없다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1,
+          2
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          2,
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          4
+        ],
+        "designClaimIndices": [
+          1,
+          2
+        ]
+      }
+    ]
+  }
+}

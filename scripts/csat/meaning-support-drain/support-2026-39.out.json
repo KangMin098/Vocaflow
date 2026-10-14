@@ -1,0 +1,480 @@
+{
+  "writer_run": "ms-wr-2026-39-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#39",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "61ab9c3e9c947652",
+      "basePublicHash": "45ebfe515d93de4fc7dd8b25ccd352fda20cf7d141debfca069fbfd46c59675e",
+      "sourceSnapshotHash": "05bc91ab97ac6ac4"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 39,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u3",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "The difference is that",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 1,
+        "quote": "can only be explored through",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 4,
+        "quote": "As in the real world",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 5,
+        "quote": "encompassing the available actions of the avatar",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 6,
+        "quote": "is now one step removed",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 1,
+        "sourceRange": {
+          "start": 81,
+          "end": 119,
+          "spanHash": "15527727de17b75fdc25399a80c24b91962ec00b7dfb6a56b1c58e67f46cb706"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 88,
+          "end": 112,
+          "spanHash": "85f4f30c6b9348dfe2b5c05ef9c8a0d80b2fdcbaf5522aea2f9376c127a60ebd"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 28,
+          "end": 54,
+          "spanHash": "4d322a365313ac5bbadf42372fe8e69c11977c7ba11843a6b11f4d73aa54117b"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 124,
+          "end": 216,
+          "spanHash": "bf87de87e550d41143fef29c5fe3d8d861149034b44ead4874ea7b2974ac1438"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 2,
+        "sourceRange": {
+          "start": 66,
+          "end": 109,
+          "spanHash": "148314bfa0f79fd2fdb20dbca2bbc4881fa2548abfeefac26d29685d6bf8d9dc"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 6,
+          "end": 52,
+          "spanHash": "868b918430c6140addee966a2de2596165cbcb5525c9565d06a088e404203801"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "비디오 게임은 그 안에 갇힌 자기만의 현실 모형을 가지며, 그것은 플레이어의 바깥 현실·플레이어의 신체 공간·아바타의 신체 공간과 분리되어 있다. 아바타의 신체 공간, 곧 게임 세계에서 아바타가 할 수 있는 행동이 게임 세계를 지각하는 유일한 길이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a10",
+          "a7"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "현실 세계에서처럼, 게임에서도 지각은 행동을 요구한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a8"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "(주어진 문장) 차이는, 게임 세계의 행동은 아바타의 가상 신체 공간을 통해서만 탐색될 수 있다는 점이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a6"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "플레이어는 지각 범위를 게임 안으로 넓혀 아바타가 할 수 있는 행동까지 품는다. 지각-행동 순환은 한 단계 떨어지게 되어, 주로 자기 몸으로 지각하는 대신 아바타의 상호작용을 통해 게임 세계를 지각한다. 지각 체계 전체가 게임 세계로 확장된 것이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4",
+          "a5",
+          "a9",
+          "a11"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "주어진 문장의 「차이」는 비교 기준인 같은 점이 앞에 있어야 성립하고, 그 같은 점은 4번 문장(현실처럼 지각은 행동을 요구한다)에 있다. 주어진 문장이 말한 아바타의 가상 신체 공간은 5번 문장이 아바타가 할 수 있는 행동으로 이어받는다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a1",
+          "a3",
+          "a6",
+          "a4"
+        ],
+        "warrantsKo": [
+          "The difference 는 앞에 같은 점이 서 있어야 대조가 된다",
+          "4번 문장이 지문에서 게임과 현실의 같은 점을 말하는 유일한 문장이다",
+          "5번 문장의 아바타의 행동이 주어진 문장의 아바타 신체 공간을 받는다"
+        ],
+        "limitKo": "주어진 문장의 위치는 원문에 표시되어 있지 않다. 이 판단은 차이 표지와 표현 이어받기에 기댄 연결 추론이다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          2,
+          3
+        ],
+        "legacyMeaningIds": [],
+        "labelKo": "게임의 현실은 따로 있고, 아바타가 유일한 창구",
+        "exactKo": "비디오 게임은 자기 안에 갇힌 자기만의 현실 모형을 가지며, 그것은 플레이어의 바깥 현실, 플레이어의 신체 공간, 아바타의 신체 공간과 분리되어 있다. 아바타의 신체 공간, 즉 게임 세계에서 아바타가 할 수 있는 행동이 게임 세계의 현실을 지각할 수 있는 유일한 길이다.",
+        "simpleKo": "게임 속 세계는 현실과 따로 있고, 그 세계를 알 수 있는 길은 아바타가 할 수 있는 행동뿐이다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "바깥 현실과 분리되어 있다",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "게임의 현실은 플레이어의 현실과 따로 있다. 아직 둘의 같은 점은 말하지 않는다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "유일한 길",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "게임 세계를 지각하는 길을 아바타 하나로 한정한다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          4
+        ],
+        "legacyMeaningIds": [
+          "m3"
+        ],
+        "labelKo": "같은 점: 현실처럼 지각은 행동을 요구한다",
+        "exactKo": "현실 세계에서와 마찬가지로, 지각은 행동을 요구한다.",
+        "simpleKo": "현실에서도 게임에서도, 무언가를 알려면 움직여 봐야 한다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "comparison",
+            "valueKo": "현실 세계에서와 마찬가지로",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "게임과 현실의 같은 점을 세운다. 지문에서 같은 점을 말하는 문장은 이것 하나다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          1
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "주어진 문장: 차이는 아바타로만 탐색된다는 점",
+        "exactKo": "차이는, 게임 세계의 행동은 아바타의 가상 신체 공간을 통해서만 탐색될 수 있다는 점이다.",
+        "simpleKo": "현실과 다른 점은, 게임에서는 내 몸이 아니라 아바타를 통해서만 행동해 볼 수 있다는 것이다.",
+        "propositionIds": [
+          "p3",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "차이 — 앞의 같은 점과 대비",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "무엇과 무엇의 차이인지는 이 문장에 없다. 앞에 같은 점(현실처럼 지각은 행동을 요구)이 와 있어야 뜻이 선다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "~을 통해서만",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "only 가 탐색 경로를 아바타의 가상 신체 공간 하나로 묶는다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "게임 세계의 행동은 아바타를 통해서도 탐색할 수 있다.",
+          "lostFacet": "quantity",
+          "whyWrongKo": "「~을 통해서만」을 「~을 통해서도」로 바꾸면 다른 경로가 있다는 뜻이 되어, 현실과 달라지는 점(자기 몸으로는 탐색할 수 없음)이 사라진다.",
+          "anchorIds": [
+            "a2"
+          ]
+        }
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          5,
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m4",
+          "m5"
+        ],
+        "labelKo": "지각이 아바타까지 넓어진다",
+        "exactKo": "플레이어는 지각 범위를 게임 안으로 넓혀 아바타가 할 수 있는 행동까지 품는다. 주변 세계를 다니게 해 주는 지각-행동 순환은 이제 한 단계 떨어져, 주로 자기 몸과 바깥 세계의 상호작용으로 지각하는 대신 아바타의 상호작용으로 게임 세계를 지각한다. 지각 체계 전체가 게임 세계로 확장되었다.",
+        "simpleKo": "플레이어는 아바타가 할 수 있는 일을 마치 자기 감각처럼 받아들이고, 자기 몸 대신 아바타를 거쳐 게임 세계를 느낀다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "아바타가 할 수 있는 행동 = 아바타의 신체 공간",
+            "anchorIds": [
+              "a4",
+              "a6"
+            ],
+            "explanationKo": "5번 문장은 주어진 문장의 아바타 가상 신체 공간을 「아바타가 할 수 있는 행동」으로 받는다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "이제 한 단계 떨어진다",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "now 는 게임 안에서 달라진 상태를 가리킨다. 지각-행동 순환이 사라진 것이 아니라 아바타를 한 겹 거치게 된다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "주로 자기 몸으로 지각하는 대신",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "primarily 가 들어 있어, 평소의 주된 경로를 말한다. 게임에서는 그 자리를 아바타가 대신한다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a7",
+          "a3",
+          "a8"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "add",
+        "beforeKo": "게임 세계를 지각하는 유일한 길은 아바타가 할 수 있는 행동이다.",
+        "afterKo": "현실 세계에서처럼, 지각은 행동을 요구한다.",
+        "changeKo": "아바타의 행동이 지각의 길이라는 주장에, 그것이 현실과 같은 원리(지각은 행동을 요구)라는 일반 진술을 더한다. 게임과 현실이 분리되어 있다는 말 뒤에 처음으로 둘의 같은 점이 선다."
+      },
+      {
+        "propositionIds": [
+          "p2",
+          "p3",
+          "p5"
+        ],
+        "anchorIds": [
+          "a3",
+          "a1",
+          "a2"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "The difference 는 앞의 같은 점을 요구한다",
+          "4번 문장이 지문에서 유일하게 같은 점을 말한다"
+        ],
+        "limitKo": "주어진 문장이 4번 문장 바로 뒤에 온다는 것은 원문에 표시되지 않은 위치 판단이다.",
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "contrast",
+        "beforeKo": "현실처럼, 지각은 행동을 요구한다.",
+        "afterKo": "차이는, 게임에서는 그 행동이 아바타의 가상 신체 공간을 통해서만 이루어진다는 점이다.",
+        "changeKo": "「지각은 행동을 요구한다」는 같은 점은 그대로 인정하고, 그 행동이 일어나는 경로를 아바타로 한정해 현실과 갈라놓는다."
+      },
+      {
+        "propositionIds": [
+          "p3",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a6",
+          "a4",
+          "a5",
+          "a9",
+          "a11"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "5번 문장의 아바타가 할 수 있는 행동이 주어진 문장의 아바타 신체 공간을 받는다"
+        ],
+        "limitKo": "5번 문장에 지시어나 연결어는 없다. 이어받기는 표현이 같은 대상을 가리킨다는 판단에 기댄다.",
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "add",
+        "beforeKo": "게임 세계의 행동은 아바타의 가상 신체 공간을 통해서만 탐색된다.",
+        "afterKo": "플레이어는 지각을 아바타의 행동까지 넓히고, 자기 몸 대신 아바타를 거쳐 지각한다.",
+        "changeKo": "아바타로만 탐색한다는 차이를 유지하면서, 그 결과 플레이어의 지각이 어떻게 바뀌는지 펼친다: 지각 범위가 아바타까지 넓어지고, 지각-행동 순환이 한 겹 멀어지며, 끝내 지각 체계 전체가 게임으로 확장된다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "게임 세계는 현실과 분리되어 있고 아바타의 행동으로만 지각된다. 현실처럼 지각은 행동을 요구하지만, 게임에서는 그 행동이 아바타를 통해서만 가능해서, 플레이어의 지각 체계가 아바타를 거쳐 게임 세계로 확장된다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "입력 1번 문장은 주어진 문장이며 지문의 첫 문장이 아니다. 지문은 2~7번이고, 읽기 순서는 2·3·4번 → 주어진 문장 → 5·6·7번이다.",
+        "출제 의도는 확인할 수 없다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          2,
+          3,
+          4
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m4",
+          "m5"
+        ],
+        "choiceNumbers": [
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": []
+      }
+    ]
+  }
+}

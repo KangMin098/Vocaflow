@@ -1,0 +1,540 @@
+{
+  "writer_run": "ms-wr-2026-37-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#37",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "3adc09f62f16b6d7",
+      "basePublicHash": "54c3b2dd7253b1abb519fbf18cc806d4c89812198b5e2777f3170fa5a4ec2cf7",
+      "sourceSnapshotHash": "eaa118b85f1d3f4d"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 37,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u2",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 2,
+        "quote": "relationships between different areas of knowledge",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 6,
+        "quote": "bridge gaps between different disciplines",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 7,
+        "quote": "philosophizing is a non-empirical approach",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 4,
+        "quote": "ask questions rather than provide definitive answers",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 5,
+        "quote": "close collaboration between philosophy and neuroscience",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 3,
+        "quote": "needs to be supplemented by empirical findings",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 1,
+        "sourceRange": {
+          "start": 28,
+          "end": 89,
+          "spanHash": "6abd51fdf3a5e1f076cc3425dc3baf1a49eaaddab271c1fe330c19c4f301799d"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 9,
+          "end": 78,
+          "spanHash": "bd0d98cd67017629db84c6d5dd195ca4a73f87fa6b649095244e88fd96c31e1d"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 4,
+          "end": 19,
+          "spanHash": "041259ea12f12eb18f933aa1e8d8e689e381c18f1f462e7a4542e2bc357126de"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 190,
+          "end": 233,
+          "spanHash": "95384bf0efa85be12ee905cad4e0b5d5ad3a168085cce975169a7c2a0ca8e2bc"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 17,
+          "end": 38,
+          "spanHash": "b69bbe848149f81e86f3270ad0129b63fcc721e9430f2ddca07eaef74d37a306"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a12",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 0,
+          "end": 25,
+          "spanHash": "20e8f6ad4b6b8e1ff504ea95cc4ea6d3551f520ad384dedbb119bc74ab44081c"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a13",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 20,
+          "end": 66,
+          "spanHash": "a627534c443867eb7d917ae559183d48fbfe3ff27b0c143e28fbe6af9550574d"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "철학은 다른 많은 과학 분야보다 훨씬 넓은 질문을 던질 수 있고, 더 큰 그림을 보며 서로 다른 지식 영역 사이의 관계에 대한 통찰을 줄 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a7",
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "철학은 인지과학의 학제 간 노력에서 특히 중요해 학문 사이의 간극을 잇고 새 연구 방식을 연다. 과학적 방법과 달리, 철학하기는 논리적 사고와 논증으로 개념을 검증하려는 비경험적 접근이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2",
+          "a12",
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "철학자는 확답을 주기보다 질문을 던지는 경향이 있고, 흔히 기존 가정에 도전하고 새 연구 방식을 제안하는 식으로 기여한다. 그러나 의식의 본성을 더 포괄적으로 이해하려면 철학과 신경과학의 긴밀한 협업이 필요하다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a11",
+          "a4",
+          "a8",
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "이는 곧, 철학이 이론적 개념과 넓은 윤리적 질문에 귀한 통찰을 줄 수 있지만, 더 포괄적인 이해에 이르려면 경험적 발견과 실험으로 보완되어야 한다는 뜻이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a9",
+          "a13",
+          "a6",
+          "a10"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "실제 읽기 순서는 주어진 글(1~2번) → (C)(6~7번) → (B)(4~5번) → (A)(3번)이다. (A)의 This 는 (B) 끝 5번 문장의 협업 요구를 받고, (B)의 질문 중심 기여는 (C)가 규정한 비경험적 접근을 전제로 읽힌다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a9",
+          "a5",
+          "a3",
+          "a4"
+        ],
+        "warrantsKo": [
+          "3번 문장과 5번 문장이 「더 포괄적인 이해」를 함께 쓴다",
+          "(A)는 This means 로 시작해 앞의 진술을 풀어 쓰는 자리다",
+          "6번 문장이 2번 문장의 서로 다른 지식 영역을 서로 다른 학문으로 받는다"
+        ],
+        "limitKo": "인쇄 순서는 (A) 3번, (B) 4~5번, (C) 6~7번이다. 이 순서 판단은 이음매 표지와 공유 표현에 기댄 연결 추론이다. 출제 의도는 확인할 수 없다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1,
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "철학은 넓은 질문을 던진다 (주어진 글)",
+        "exactKo": "철학은 다른 많은 과학 분야보다 훨씬 넓은 질문을 던질 수 있게 해 준다. 더 큰 그림을 보고, 서로 다른 지식 영역 사이의 관계에 대한 중요한 통찰을 줄 수 있다.",
+        "simpleKo": "철학은 한 분야에 갇히지 않고, 여러 지식이 서로 어떻게 이어지는지 크게 볼 수 있다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "comparison",
+            "valueKo": "다른 많은 과학 분야보다 훨씬 넓은",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "모든 분야가 아니라 「많은」 분야와의 비교다. 질문의 폭을 비교할 뿐 우열 전체를 말하지 않는다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "~할 수 있다",
+            "anchorIds": [
+              "a7",
+              "a1"
+            ],
+            "explanationKo": "철학이 넓은 질문을 던질 수 있고 통찰을 줄 수 있다는 가능성의 진술이다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3"
+        ],
+        "labelKo": "(C) 학문 간 가교, 그리고 비경험적 접근",
+        "exactKo": "철학은 인지과학의 학제 간 노력에서 특히 중요해, 서로 다른 학문 사이의 간극을 잇고 새 연구 방식을 개척한다. 과학적 방법과 달리, 철학하기는 논리적 사고와 논증으로 개념을 검증하려는 비경험적 접근이다.",
+        "simpleKo": "철학은 인지과학에서 여러 학문을 이어 주는 다리 역할을 하는데, 실험이 아니라 논리와 논증으로 일한다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "서로 다른 지식 영역 → 서로 다른 학문",
+            "anchorIds": [
+              "a1",
+              "a2"
+            ],
+            "explanationKo": "6번 문장은 주어진 글의 넓은 관계 통찰을 인지과학이라는 구체적 장으로 좁혀 받는다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "과학적 방법과 달리 비경험적",
+            "anchorIds": [
+              "a12",
+              "a3"
+            ],
+            "explanationKo": "철학과 과학의 방법 차이를 처음 규정한다. 뒤의 (B)·(A)가 이 차이를 전제로 한다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          4,
+          5
+        ],
+        "legacyMeaningIds": [
+          "m4",
+          "m5"
+        ],
+        "labelKo": "(B) 질문 중심의 기여, 그러나 협업이 필요",
+        "exactKo": "철학자는 확답을 주기보다 질문을 던지는 경향이 있고, 그 기여는 흔히 기존 가정에 도전하고 새 연구 방식을 제안하는 데 있다. 그러나 의식의 본성을 더 포괄적으로 이해하려면 철학과 신경과학의 긴밀한 협업이 필요하다.",
+        "simpleKo": "철학자는 답을 정해 주기보다 질문을 던진다. 하지만 의식을 더 포괄적으로 이해하려면 신경과학과 손을 잡아야 한다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "경향이 있다 · 흔히",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "철학자가 답을 전혀 주지 않는다는 말이 아니라, 대체로 질문 쪽에 무게가 있다는 말이다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "확답보다 질문",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "rather than 이 질문과 확답을 맞세운다. 확답보다 질문에 무게를 둔다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "더 포괄적으로 이해하려면",
+            "anchorIds": [
+              "a8",
+              "a5"
+            ],
+            "explanationKo": "협업 요구는 무조건이 아니라 「의식의 본성을 더 포괄적으로 이해한다」는 목적 아래에서의 요구다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          3
+        ],
+        "legacyMeaningIds": [
+          "m6"
+        ],
+        "labelKo": "(A) 즉, 경험적 발견으로 보완되어야 한다",
+        "exactKo": "이는 곧, 철학이 이론적 개념과 넓은 윤리적 질문에 귀한 통찰을 줄 수 있지만, 더 포괄적인 이해에 이르려면 경험적 발견과 실험으로 보완되어야 한다는 뜻이다.",
+        "simpleKo": "철학이 주는 통찰은 값지지만, 그것만으로는 모자라서 실험 결과로 채워야 한다는 뜻이다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "이는 = (B) 끝의 협업 요구",
+            "anchorIds": [
+              "a9",
+              "a5"
+            ],
+            "explanationKo": "This means 는 앞의 진술을 풀어 쓰는 표지다. 「철학과 신경과학의 협업이 필요하다」를 「경험적 발견으로 보완해야 한다」로 다시 말한다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "통찰을 줄 수 있지만 보완이 필요",
+            "anchorIds": [
+              "a13",
+              "a6"
+            ],
+            "explanationKo": "while 절은 철학의 가치를 인정하고, 주절은 그 한계를 말한다. 철학을 버리라는 뜻이 아니다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "더 포괄적인 이해에 이르려면",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "보완이 필요한 조건은 5번 문장과 같은 목적(더 포괄적인 이해)이다. 이 공유 표현이 (B) 다음에 (A)가 온다는 단서다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "철학은 통찰을 주지 못하므로 경험적 발견으로 대체되어야 한다.",
+          "lostFacet": "polarity",
+          "whyWrongKo": "원문은 철학의 통찰을 인정한 뒤 「보완」을 요구한다. 인정 부분을 지우고 「대체」로 바꾸면 주어진 글과 (C)의 철학 역할 설명과도 어긋난다.",
+          "anchorIds": [
+            "a13",
+            "a6"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "6번 문장 different disciplines 가 2번 문장 different areas of knowledge 를 받는다"
+        ],
+        "limitKo": "(C)에는 지시어가 없다. 주어진 글 바로 뒤에 온다는 판단은 표현의 이어받기와 정보 순서에 기댄다.",
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "reference",
+        "beforeKo": "철학은 서로 다른 지식 영역 사이의 관계를 크게 본다.",
+        "afterKo": "인지과학에서 철학은 학문 사이의 간극을 잇고, 과학과 달리 비경험적 방법을 쓴다.",
+        "changeKo": "넓은 관계 통찰이라는 내용을 유지한 채 인지과학이라는 구체적 장으로 좁힌다. 그리고 철학의 방법이 과학과 다르다(비경험적)는 새 규정을 더해, 뒤 단락들이 기댈 전제를 세운다."
+      },
+      {
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a3",
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "확답 대신 질문을 던진다는 4번 문장은 실험으로 확인하지 않는 비경험적 방법과 맞물린다"
+        ],
+        "limitKo": "(B)에 「그러므로」 같은 표지는 없다. 원인-결과로 읽는 것은 내용에 기댄 연결 추론이다.",
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "cause",
+        "beforeKo": "철학은 실험이 아니라 논리와 논증으로 개념을 검증한다.",
+        "afterKo": "그래서 철학자는 확답보다 질문을 던진다. 하지만 의식을 더 포괄적으로 이해하려면 신경과학과의 협업이 필요하다.",
+        "changeKo": "비경험적이라는 규정을 유지하면서 그 결과를 끌어낸다: 철학의 기여는 질문과 가정 도전 쪽이다. 이어 5번 문장이 However 로 그 기여만으로는 부족하다고 제한하고 협업을 요구한다."
+      },
+      {
+        "propositionIds": [
+          "p3",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a5",
+          "a8",
+          "a9",
+          "a6",
+          "a10"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "This means 의 This 가 받을 요구문이 5번 문장에 있다",
+          "3번과 5번 문장이 「더 포괄적인 이해」를 공유한다"
+        ],
+        "limitKo": "This 가 무엇을 받는지는 원문에 표시되지 않는다. 공유 표현과 내용 일치에 기댄 판단이다.",
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "reference",
+        "beforeKo": "더 포괄적인 이해를 위해 철학과 신경과학의 협업이 필요하다.",
+        "afterKo": "즉, 철학은 통찰을 주지만 경험적 발견과 실험으로 보완되어야 한다.",
+        "changeKo": "협업 요구를 일반화해 다시 말한다: 신경과학이라는 특정 분야를 「경험적 발견과 실험」으로 넓히고, 철학의 통찰은 인정하되 그것만으로는 모자란다는 결론으로 글을 맺는다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "철학은 넓은 질문으로 지식 영역 사이의 관계를 보고 인지과학에서 학문을 잇지만, 과학과 달리 비경험적 접근이라 확답보다 질문 쪽에 기여한다. 그래서 의식처럼 포괄적 이해가 필요한 문제에서는 경험적 발견·실험으로 보완되어야 한다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "인쇄 순서와 읽기 순서가 다르다: 인쇄는 (A) 3번 → (B) 4~5번 → (C) 6~7번이고, 읽기 순서는 1~2번 → (C) 6~7번 → (B) 4~5번 → (A) 3번이다.",
+        "(B)의 5번 문장에는 기호가 따로 없으며 4번 문장과 한 덩어리다.",
+        "출제 의도는 확인할 수 없다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2",
+          "m3"
+        ],
+        "choiceNumbers": [
+          2,
+          5
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4",
+          "m5"
+        ],
+        "choiceNumbers": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m6"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          2
+        ]
+      }
+    ]
+  }
+}

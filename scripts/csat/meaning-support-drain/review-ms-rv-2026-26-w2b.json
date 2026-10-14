@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-26-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#26",
+      "verdict": "pass",
+      "content_hash": "25d58cd1e003efff",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "6d3946110368189d",
+        "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+        "sourceSnapshotHash": "d6aaf7955660942b"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. w2 수정 반영 확인. MS06: r2.beforeKo/changeKo 에서 수상 이유(연구 업적)가 빠져 source_observation 이 정당하다. p1 은 「1952년이 붙은 수상은 Borden Award」로 범위 단정이 없다. MS01: summaryKo 가 1번 문장의 두 서술(동물 생물학의 개척자 / 영양·대사 연구로 가장 잘 알려짐)을 구분한다. MS03/MS08: u1.syntax s2(connector)의 anchorIds 를 비운 것은 허용한다. and 를 포함하는 기존 v3 표현이 없고, 새 영어 인용을 만들면 MS10 에 걸린다. 연결어 역할은 meaningKo 「그리고 (받았다)」와 attachments 가 설명하므로 앵커 없이도 재결합(recombinedKo)이 정확하다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

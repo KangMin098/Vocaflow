@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-45-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#45",
+      "verdict": "revise",
+      "content_hash": "b477384c9750e67e",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "ac4a9343a8650153",
+        "basePublicHash": "89646b0e7b1d57d78beb70017a4a8da7a28e0d3db23c90afa89ed48508445bdc",
+        "sourceSnapshotHash": "5f6c7161e1f7ee33"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS04",
+        "MS06"
+      ],
+      "why": "MS04/MS06(근거 없는 연결): r2.changeKo 둘째 문장 「마지못했던 태도는 막막하게 책장을 훑는 모습으로 이어진다」는 32번 문장의 reluctantly 와 19번 문장의 feeling lost 를 이어 붙인 해석인데, warrantsKo 는 책 고르기 허락(34~35번 → 21번)만 뒷받침하고 이 연결은 뒷받침하지 않는다. limitKo 도 「원문이 직접 말하지 않는다 … 끝없는 책 제목이 원문에 적힌 이유다」라고 스스로 부정한다. 수정: 이 문장을 삭제하고 changeKo 를 「동의와 첫 책 선택 허락이 있어야 도서관 장면의 행동이 성립한다. 19번 문장에서 Mia 가 막막해한 이유로 원문이 적은 것은 끝없는 책 제목이다.」로 쓴다(limitKo 는 그에 맞게 「도서관에 간 날짜는 원문에 없다」 등으로). 그 외 축 문제 없음 — MS01 4번 문장 걱정 주체 Julia, 23번 화자 Mia, 12번 고른 사람 Mia 정확 · MS02 nearly an hour(거의), reluctantly(마지못해), immediately/After some persuasion 시점 보존 · p5 책 동일성은 bridging_inference + warrant(Café Paris 이름 일치)·limit 정직 · MS05 서사 흐름 일관, 단락/사건 순서 한계 명시 · MS07 bridges(u4→5, claims 1·3; 1~4번 선지→claim 2) 일치 · MS08 a1~a6 위치 확인 · MS09 공유 지문 처리 적절 · MS10 문제 없음."
+    }
+  ]
+}

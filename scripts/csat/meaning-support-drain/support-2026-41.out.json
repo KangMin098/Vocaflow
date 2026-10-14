@@ -1,0 +1,370 @@
+{
+  "writer_run": "ms-wr-2026-41-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#41",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "450799188f6ecd9f",
+      "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+      "sourceSnapshotHash": "fa5ad2c0f157f192"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 41,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "do not provide an uninterrupted flow of evidence",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 2,
+        "quote": "other areas would provide much of the source",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "quote": "only starts in the 17th century",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 7,
+        "quote": "painted, printed, photographed and filmed sources of evidence",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 8,
+        "quote": "provide evidence about how a garment was worn",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "1번 문장: 직물은 이른 시기부터 남아 있지만, 실제 옷은 같은 긴 기간에 걸쳐 끊기지 않고 이어지는 증거를 주지 못한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "2번 문장: 그래서 복식 연구가 건축·회화 같은 다른 영역과 같은 무게를 가지려면, 그 다른 영역이 자료의 상당 부분을 댈 수밖에 없었다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "3번 문장: 남아 있는 실물 옷의 역사는 사실상 17세기에야 시작된다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "7~8번 문장: 1660년 이후에는 움직이는 사람의 옷차림을 담은 그림·인쇄물·사진·영상 자료가 많고, 여러 도판이 흔히 옷이 그 시대에 어떻게 입혔는지의 증거가 된다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4",
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "글 전체의 중심은 실물 옷이 남긴 증거의 빈자리를 시각 자료가 채운다는 것이다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a5"
+        ],
+        "warrantsKo": [
+          "1번 문장의 문제를 2번 문장이 Therefore 로 받아 다른 영역의 자료로 넘기고, 7~8번 문장이 그 자료가 실제로 무엇을 보여 주는지 구체화한다."
+        ],
+        "limitKo": "9번 문장은 42번의 낱말 오류 자리가 있어 그대로 읽은 결론으로 쓰지 않는다. 요지는 1·2·7·8번 문장의 흐름에서만 잡는다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "문제: 끊긴 실물 증거",
+        "exactKo": "직물은 이른 시기의 것도 남아 있지만, 실제 옷은 같은 긴 기간 전체에 걸쳐 끊기지 않는 증거를 주지 못한다.",
+        "simpleKo": "옛 옷감은 남아 있어도, 옷 자체의 증거는 중간중간 비어 있다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "증거가 아예 없다는 것이 아니라 끊기지 않고 이어지지 않는다는 부정",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "부정되는 것은 「끊기지 않은 흐름」이다. 옷이 하나도 없다는 말이 아니라 빈 구간이 있다는 말이다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "직물은 남아 있지만 실제 옷은 그렇지 못함",
+            "anchorIds": [],
+            "explanationKo": "1번 문장 안의 양보 부분이 직물과 완성된 옷을 나눈다. 둘을 하나로 묶으면 문제가 무엇인지 흐려진다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "옛날 옷은 하나도 남아 있지 않다.",
+          "lostFacet": "polarity",
+          "whyWrongKo": "원문이 부정하는 것은 증거의 연속성이다. 3번·7번 문장처럼 17세기 이후로는 실물 옷이 남아 있다고 말하므로, 「전혀 없다」로 바꾸면 뒤 문장과 어긋난다.",
+          "anchorIds": [
+            "a1"
+          ]
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          2
+        ],
+        "legacyMeaningIds": [
+          "m2"
+        ],
+        "labelKo": "그래서: 다른 영역의 자료",
+        "exactKo": "그 결과, 복식 연구에 다른 영역과 같은 무게를 주려면 건축·회화·판화·소묘·조각 같은 영역이 자료의 상당 부분을 댈 수밖에 없었다.",
+        "simpleKo": "옷 증거가 모자라니, 복식 연구를 다른 예술만큼 중요하게 다루려면 그림이나 조각 같은 다른 영역이 자료를 많이 채울 수밖에 없었다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "자료의 전부가 아니라 상당 부분",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "much 는 「많은 부분」이다. 다른 영역이 모든 자료를 댄다고 바꾸면 범위가 넓어진다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "1번 문장의 증거 공백이 이유",
+            "anchorIds": [],
+            "explanationKo": "문장 앞의 Therefore 가 1번 문장의 문제를 이 결과의 이유로 묶는다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          3,
+          7,
+          8
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m3",
+          "m4"
+        ],
+        "labelKo": "1660년 이후: 시각 자료가 보여 주는 것",
+        "exactKo": "실물 옷의 역사는 사실상 17세기에야 시작되며, 1660년 이후에는 움직이는 사람의 옷차림을 담은 여러 시각 자료가 많아, 흔히 옷이 그 시대에 어떻게 입혔는지의 증거가 된다.",
+        "simpleKo": "1660년 이후엔 그림·사진·영상이 많아서, 옷을 실제로 어떻게 입었는지 보여 주는 경우가 많다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "실물 옷은 17세기부터, 시각 자료가 풍부한 것은 1660년 이후",
+            "anchorIds": [
+              "a3",
+              "a4"
+            ],
+            "explanationKo": "두 시점이 글이 다루는 범위를 정한다. 인류가 옷을 입기 시작한 기원 같은 더 이른 시기로 넓히지 않는다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "도판이 흔히 증거를 준다 — 언제나가 아님",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "8번 문장 앞의 Often 이 빈도를 한정한다. 모든 도판이 늘 증거가 된다고 바꾸지 않는다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "증거의 내용은 옷의 디자인이 아니라 그 시대에 입혔던 방식",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "시각 자료가 알려 주는 것은 옷을 몸에 어떻게 입었는가이다. 옷을 새로 디자인하는 일과는 다르다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "cause",
+        "beforeKo": "실물 옷이 끊기지 않는 증거를 주지 못함",
+        "afterKo": "다른 예술 영역이 자료의 상당 부분을 댐",
+        "changeKo": "문제가 해결 방향을 정한다. 실물 증거가 모자라다는 사실을 인정한 채, 연구 자료의 출처를 옷 밖의 영역으로 옮긴다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "add",
+        "beforeKo": "다른 영역이 자료를 댈 수밖에 없음",
+        "afterKo": "1660년 이후 움직이는 옷차림을 담은 시각 자료가 입는 방식을 보여 줌",
+        "changeKo": "일반적인 「다른 영역의 자료」가 구체적인 시기와 역할로 좁혀진다. 자료가 많다는 데서 그치지 않고, 그 자료가 옷을 입은 방식의 증거가 된다는 데까지 나아간다.",
+        "propositionIds": [
+          "p2",
+          "p4"
+        ],
+        "anchorIds": [
+          "a2",
+          "a4",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "7번 문장의 Fortunately 는 4~6번 문장의 어려움(옷은 움직여야 제대로 보인다)에 대한 해결로 시각 자료를 들고, 그 자료는 2번 문장이 말한 다른 영역에 속한다."
+        ],
+        "limitKo": "2번 문장은 시기를 말하지 않는다. 1660년이라는 시점은 7번 문장에서 처음 나온다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "실물 옷은 긴 시간에 걸친 증거를 끊김 없이 남기지 못하므로, 복식사는 그림·사진 같은 시각 자료로 그 빈자리를 채우고, 그 자료는 옷이 어떻게 입혔는지를 보여 준다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "9번 문장에는 42번 문항의 낱말 오류 자리가 있어 이 요약의 근거로 쓰지 않았다.",
+        "4~6번 문장(옷은 움직이는 상태로 봐야 한다는 어려움)은 42번 설명에서 다룬다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          2,
+          4
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          2,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          1,
+          4
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      }
+    ]
+  }
+}

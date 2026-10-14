@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-41-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#41",
+      "verdict": "revise",
+      "content_hash": "101354686a0bbbb1",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+        "sourceSnapshotHash": "fa5ad2c0f157f192"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02"
+      ],
+      "why": "MS02(조건·필연 삭제): 2번 문장은 to give the study of dress equal significance to other areas ...(복식 연구에 다른 영역과 같은 무게를 주려면)라는 목적 조건 아래 it was inevitable(피할 수 없었다)이라고 말한다. u2.simpleKo 「옷 증거가 모자라니, 그림이나 조각 같은 다른 예술이 자료를 많이 채워 주게 되었다」는 조건을 지우고 필연을 단순 결과로 바꿨다. 수정: 「옷 증거가 모자라니, 복식 연구를 다른 예술만큼 중요하게 다루려면 그림이나 조각 같은 다른 영역이 자료를 많이 채울 수밖에 없었다.」 MS02(시점 확대): u3.simpleKo 「17세기 이후엔 그림·사진·영상이 많아서」는 7번 문장의 in the period after 1660 을 17세기 전체(1600~)로 넓혔다. 3번 문장의 17세기는 실물 옷의 시작이고 시각 자료가 풍부한 것은 1660년 이후다(u3.preserves time 이 이를 구분하면서 simpleKo 만 어긋남). 수정: 「1660년 이후엔 그림·사진·영상이 많아서, 옷을 실제로 어떻게 입었는지 보여 주는 경우가 많다.」 그 외 — MS01 p1 직물/실제 옷 구분 정확 · u1 polarity(연속성 부정) 정확 · MS04 r1 Therefore 원인, r2 Fortunately warrant·limit 적절 · MS05 p5 bridging + 9번 문장 제외 한계 명시 · MS07 bridges(u3 m5→1·4 claim 3) 일치 · MS08 a1~a5 위치 확인(preserves 두 항목의 빈 anchorIds 는 원문 구절을 인용하지 않는 설명이라 허용) · MS09 41·42 공유 지문의 (e) 오류 자리 처리 적절 · MS10 문제 없음."
+    }
+  ]
+}

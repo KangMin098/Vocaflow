@@ -1,0 +1,456 @@
+{
+  "writer_run": "ms-wr-2026-44-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#44",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "ac4a9343a8650153",
+      "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+      "sourceSnapshotHash": "dfde740f671b3244"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 44,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u2",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 7,
+        "quote": "Sam nodded",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 15,
+        "quote": "Mia responded, her eyes sparkling",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 20,
+        "quote": "a librarian approached and asked",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 25,
+        "quote": "Mia thanked (c) her",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 26,
+        "quote": "Mia immediately shook her head and said",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 32,
+        "quote": "Mia reluctantly agreed",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "7~9번 문장은 Sam 이 아내 Julia 에게 하는 말이고, 그 안의 (a) 그녀는 대화 밖에서 6번 문장에 휴대전화 속에 산다고 한 Mia 다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [
+          "말하는 사람(Sam)과 듣는 사람(Julia)은 대화 안에 있으므로, 3인칭 여성 대명사는 바로 앞 6번 문장에서 이야기된 Mia 로 이어진다."
+        ],
+        "limitKo": "8번 문장 자체는 이름을 다시 말하지 않는다. 6번 문장과 이어 읽어야 정해진다."
+      },
+      {
+        "id": "p2",
+        "textKo": "20번 문장에서 이름 없는 사서가 처음 등장해 Mia 에게 말을 걸고, 22번 문장의 그녀와 24번 문장의 그 사서로 이어진다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "25번 문장의 (c) 그녀는 Mia 가 고마워한 상대, 곧 24번 문장에서 책을 건넨 사서다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a4"
+        ],
+        "warrantsKo": [
+          "주어가 Mia 이고 목적어 대명사가 재귀형이 아니므로 Mia 자신이 아니다.",
+          "바로 앞 24번 문장에서 Mia 에게 책을 건넨 사람이 사서다."
+        ],
+        "limitKo": "25번 문장 안에는 사서라는 말이 없다. 24번 문장과의 연결로 정해진다."
+      },
+      {
+        "id": "p4",
+        "textKo": "26~28번 문장 인용의 화자는 Mia 이므로 (d) 나는 Mia 다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "17번 문장의 (b) 그의 딸은 15번 문장에서 발언한 Mia 이고, 33번 문장의 (e) 그녀는 32번 문장에서 동의한 Mia 를 잇는다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a2",
+          "a6"
+        ],
+        "warrantsKo": [
+          "17번 문장의 그의는 주어 Sam 이고, 그의 딸은 3번 문장부터 Mia 로 정해져 있다.",
+          "33번 문장의 (e) 는 32번 문장의 주어 Mia 를 잇고, 34번 문장에서 아빠에게 묻는 화자도 Mia 다."
+        ],
+        "limitKo": "17번·33번 문장 자체는 Mia 라는 이름을 다시 쓰지 않는다. 앞뒤 문장과 이어 읽어야 정해진다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          6,
+          7,
+          8
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "(a) 부부의 대화 속 그녀",
+        "exactKo": "Sam 은 Julia 의 말에 고개를 끄덕이며, 그녀(Mia)가 자신들에게서 멀어지는 것 같다고 말한다.",
+        "simpleKo": "아빠가 엄마에게 「딸이 우리랑 멀어지는 것 같아」라고 맞장구친다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "말하는 사람은 Sam, 듣는 사람은 Julia",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "7번 문장의 전달 부분이 화자를 Sam 으로 정한다. 듣는 Julia 는 대화 안의 사람이라 그녀가 될 수 없다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "(a) 그녀 = 6번 문장의 Mia",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "부부가 이야기하는 대화 밖의 여성은 바로 앞에서 걱정한 딸이다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          20,
+          22,
+          24,
+          25
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4"
+        ],
+        "labelKo": "(c) 새로 나온 인물, 사서",
+        "exactKo": "이름 없는 사서가 Mia 에게 다가와 취향을 묻고 책을 건네며, Mia 는 그 사서에게 고마워하고 책을 빌린다.",
+        "simpleKo": "도서관에서 처음 나온 사서가 책을 골라 주었고, Mia 는 그 사서에게 고맙다고 했다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "(c) 그녀 = 책을 건넨 사서",
+            "anchorIds": [
+              "a3",
+              "a4"
+            ],
+            "explanationKo": "24번 문장의 밑줄 없는 her 는 Mia, 25번 문장의 (c) her 는 사서다. 같은 낱말이 연달아 다른 사람을 가리킨다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "고마워한 사람은 Mia, 고마움을 받은 사람은 사서",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "주어와 목적어가 다른 사람이다. 목적어가 재귀형이었다면 Mia 자신이 되었겠지만 여기는 아니다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "Mia 가 고마워한 (c) 그녀는 Mia 자신이다.",
+          "lostFacet": "reference",
+          "whyWrongKo": "목적어 대명사가 재귀형이 아니므로 주어 Mia 와 같은 사람일 수 없다. 감사의 상대는 바로 앞에서 책을 건넨 사서다.",
+          "anchorIds": [
+            "a4"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          26,
+          27,
+          28
+        ],
+        "legacyMeaningIds": [
+          "m5"
+        ],
+        "labelKo": "(d) 인용 속 나",
+        "exactKo": "Sam 의 제안을 들은 Mia 가 곧바로 고개를 저으며, 학기 내내 시험으로 바빠 책 읽을 시간이 없다고 말한다.",
+        "simpleKo": "딸이 아빠에게 「나 시험 때문에 바빠서 안 돼」라고 거절한다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "인용 전체의 화자는 Mia",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "26번 문장의 전달 부분 주어가 Mia 이고, 인용 첫머리에서 아빠를 부르므로 듣는 사람은 Sam 이다. 27~28번 문장까지 같은 인용이 이어진다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "제안을 듣자마자의 첫 반응",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "immediately 는 처음 들은 순간의 반응이다. 이 거절은 뒤의 동의보다 앞선다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          15,
+          17,
+          32,
+          33,
+          34
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m6"
+        ],
+        "labelKo": "(b) 그의 딸 · (e) 그녀",
+        "exactKo": "17번 문장에서 Sam 이 편든 그의 딸은 방금 말한 Mia 이고, 33번 문장에서 휴대전화를 너무 많이 쓴다는 것을 안 그녀도 32번 문장에서 동의한 Mia 다.",
+        "simpleKo": "아빠가 편든 딸도, 속으로 휴대전화를 너무 쓴다고 느낀 사람도 Mia 다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "reference",
+            "valueKo": "(b) 그의 딸 = Mia, (e) 그녀 = Mia",
+            "anchorIds": [
+              "a2",
+              "a6"
+            ],
+            "explanationKo": "그의는 Sam 을 가리키고 그 딸은 3번 문장부터 정해진 Mia 다. (e) 는 32번 문장의 주어 Mia 를 잇고, 34번 문장에서 아빠에게 묻는 사람도 같은 Mia 다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "32번 문장에서 주어가 Sam 에서 Mia 로 넘어옴",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "29~31번 문장은 Sam 의 설득이다. 32번 문장부터 행동하는 사람이 Mia 로 바뀌어 33~34번 문장까지 이어진다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "temporal",
+        "beforeKo": "부부가 멀어지는 딸을 걱정하며 독서 모임을 떠올림",
+        "afterKo": "Sam 이 Mia 에게 제안하고 Mia 가 곧바로 거절함",
+        "changeKo": "걱정의 대상이던 Mia 가 이제 직접 말하는 사람이 된다. (a) 에서는 남이 말하는 3인칭이었던 Mia 가 (d) 에서는 1인칭 화자로 등장한다.",
+        "propositionIds": [
+          "p1",
+          "p4"
+        ],
+        "anchorIds": [
+          "a1",
+          "a5"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "10번 문장에서 Sam 이 Mia 와 이야기하겠다고 약속하고, 26번 문장에서 그 제안이 실제로 전해진다."
+        ],
+        "limitKo": "두 장면 사이의 시간 간격은 원문에 없다. (A)와 (D) 단락은 지면에서 떨어져 있다."
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "temporal",
+        "beforeKo": "Mia 가 거절함",
+        "afterKo": "설득 뒤 Mia 가 마지못해 동의하고 첫 책을 고르겠다고 함",
+        "changeKo": "말하는 사람과 행동하는 사람이 Sam 과 Mia 사이를 오가지만, 밑줄 (d)와 (e)는 모두 Mia 에 남는다. 태도는 거절에서 동의로 바뀌어도 가리키는 사람은 바뀌지 않는다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a5",
+          "a6"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r3",
+        "from": [
+          "u4"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "condition",
+        "beforeKo": "Mia 가 첫 책을 직접 고르기로 함",
+        "afterKo": "도서관에서 사서의 도움으로 책을 고름",
+        "changeKo": "책을 고를 권리가 생겨야 도서관 장면이 성립한다. 이 장면에 새 인물 사서가 들어오면서, 가족이 아닌 다른 여성이 지칭 대상에 처음 끼어든다.",
+        "propositionIds": [
+          "p5",
+          "p2"
+        ],
+        "anchorIds": [
+          "a6",
+          "a3"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "34번 문장에서 허락받은 첫 책 고르기를 21번 문장의 모임용 책 찾기가 실행한다."
+        ],
+        "limitKo": "도서관에 간 날짜는 원문에 없다."
+      }
+    ],
+    "whole": {
+      "genre": "narrative",
+      "summaryKo": "휴대전화에 빠진 Mia 를 부모가 걱정하고, 아빠의 제안을 거절했던 Mia 가 설득 끝에 동의해 도서관에서 사서의 도움으로 첫 책을 고른다. 밑줄 다섯 가운데 넷은 장면마다 화자와 주어가 바뀌어도 Mia 에 머물고, (c)만 도서관 장면에 새로 나온 사서를 가리킨다.",
+      "propositionIds": [
+        "p1",
+        "p4",
+        "p5",
+        "p2",
+        "p3"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "문장 번호는 43~45번 공통 지문의 원래 번호이고, 단락 표지 (A)~(D)는 사건 순서와 다르다.",
+        "지칭 판단은 각 밑줄 문장과 앞뒤 문장의 화자·주어·목적어 관계만으로 했고, 단락 배열(43번)에 기대지 않았다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          4
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m6"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "reviewer": "ms-rv-2026-26-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#26",
+      "verdict": "revise",
+      "content_hash": "3387e055789ce708",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "6d3946110368189d",
+        "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+        "sourceSnapshotHash": "d6aaf7955660942b"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS01",
+        "MS03",
+        "MS06",
+        "MS08"
+      ],
+      "why": "MS06(원문 밖 주장): r2.beforeKo 「연구 업적으로 상을 받았다」와 changeKo 「연구에 대한 상에 더해」는 basis source_observation 인데 5번 문장은 수상 사실만 적고 수상 이유를 말하지 않는다. 수정: beforeKo 「1952년과 그 한 해 뒤에 두 상을 받았다」, changeKo 「수상에 더해 책의 번역과 교육자로서의 평판이라는 다른 측면을 덧붙여 인물 소개를 넓힌다」. 또 p1 「1952년에 받은 상은 Borden Award 하나다」의 「하나다」는 원문이 닫아 두지 않은 범위 단정이다 — 「5번 문장에서 1952년이 붙은 수상은 Borden Award 이다」로 고친다. MS01: whole.summaryKo 「동물 영양과 대사 연구의 개척자인 Kleiber」는 1번 문장(a pioneer in the study of animal biology, best known for his research on animal nutrition and metabolism)의 두 서술을 합쳐 개척 분야를 바꿨다. 수정: 「동물 생물학 연구의 개척자로 동물 영양과 대사 연구로 가장 잘 알려진 Kleiber 의…」. MS03/MS08: u1.syntax 의 s2(role connector, 「그리고」)가 anchorIds [a2] 를 갖지만 a2(a year later, the Morrison Award)에는 and 가 없다. s2 의 anchorIds 를 비우거나, and 를 포함하는 원문 구절 앵커로 바꾼다. 그 외 — MS02 u1 시점 분리(1952 / 한 해 뒤), u2 연도 짝(1920 졸업 / 1924 박사), u3 「양쪽 모두」 보존 정확 · p2 1953 계산은 bridging_inference + limit 로 정직 · MS07 bridges(u1→3, claims 1·2·3; u2→2, claim 3) 일치 · MS10 문제 없음."
+    }
+  ]
+}
