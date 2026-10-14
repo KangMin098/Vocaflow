@@ -9,7 +9,9 @@
 // 영어 구절은 두 길로만 보인다: 기존 공개 표현(quote · 8단어 이하) 또는 **학습자 기기 문제지에서 대조로 찾은 글자**.
 // 기기 원문이 설명을 쓸 때의 원문과 다르면 구절 표시 · 지도 강조를 끄고 그 이유를 말한다(잘못된 자리를 비추지 않는다).
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+import { isStaleMeaningNote, markCompared, meaningNoteId, reviseMeaningNote, writeMeaningNote, type MeaningNote } from '@/lib/csat/meaning-note'
 
 import type { TextAlign } from '@/lib/csat/meaning-support/align'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
@@ -44,6 +46,9 @@ export function MeaningSupportPanel({
   relationId,
   depth,
   draft,
+  notes,
+  analysisVersion,
+  onSaveNote,
   pick,
   phraseId,
   textAlign,
@@ -63,6 +68,12 @@ export function MeaningSupportPanel({
   relationId: string | null
   depth: MsDepth
   draft: string
+  /** 이 문항의 「내 말로」 노트(내 기록) */
+  notes: MeaningNote[]
+  /** 지금 분석 버전 — 노트 결속 */
+  analysisVersion: number | null
+  /** 노트 저장 — 실제 저장 결과를 돌려준다(실패면 화면이 글을 지킨다) */
+  onSaveNote: (note: MeaningNote) => Promise<boolean>
   /** 지도에서 고른 문장이 검수 unit 0 개 · 여러 개에 걸렸을 때 — 이전 설명을 접고 이것만 보인다 */
   pick: { n: number; unitIds: string[] } | null
   /** 고른 구절(앵커 id) */
@@ -85,6 +96,8 @@ export function MeaningSupportPanel({
   onSpeaking?: (sentences: number[]) => void
 }) {
   const narration = useMeaningNarration(view.itemId)
+  const [wholeOpen, setWholeOpen] = useState(false)
+  const binding = { analysisVersion, contentHash: view.contentHash ?? null }
   const speakKey = narration.currentSentences.join(',')
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { onSpeaking?.(narration.currentSentences) }, [speakKey])
@@ -118,7 +131,7 @@ export function MeaningSupportPanel({
         <span className={styles.epistemic}>독립 검수 · 원문 대조</span>
       </p>
       <p className="break-keep" data-testid="ms-whole">{view.whole.summaryKo}</p>
-      <MeaningWholeView view={view} depth={depth} activeUnitId={unit?.id ?? null} activeRelationId={relationId} onTrace={onTrace} narration={narration} />
+      <MeaningWholeView view={view} depth={depth} activeUnitId={unit?.id ?? null} activeRelationId={relationId} onTrace={onTrace} narration={narration} open={wholeOpen} onOpenChange={setWholeOpen} />
       {view.partial ? <p className={`${styles.quiet} break-keep`} data-testid="ms-partial">{view.partial.withheldKo}</p> : null}
       <p className={`${styles.quiet} break-keep`} role="status" data-testid="ms-align-status">{alignMessage(textAlign, splitOk)}</p>
 
@@ -264,7 +277,34 @@ export function MeaningSupportPanel({
           ) : null}
           {relation ? <MeaningRelationView view={view} relation={relation} onPickUnit={(id) => onSelectUnit(id)} /> : null}
 
-          <MeaningDraft key={unit.id} unit={unit} text={draft} onChange={onDraft} />
+          {(() => {
+            const note = notes.find((n) => n.id === meaningNoteId(view.itemId, unit.id)) ?? null
+            return (
+              <MeaningDraft
+                key={unit.id}
+                unit={unit}
+                note={note}
+                stale={note ? isStaleMeaningNote(note, binding) : false}
+                text={draft}
+                onChange={onDraft}
+                onSave={async (text) => {
+                  const next = writeMeaningNote(note, { item: view.itemId, unitId: unit.id, text, binding }, Date.now())
+                  if (!next) return false
+                  const ok = await onSaveNote(next)
+                  if (ok) onDraft('')
+                  return ok
+                }}
+                onRevise={(text, change) => (note ? onSaveNote(reviseMeaningNote(note, { text, change, binding }, Date.now())) : Promise.resolve(false))}
+                onCompared={() => { if (note && !note.compared) void onSaveNote(markCompared(note, Date.now())) }}
+                relations={rels.map((r) => ({ relation: r, side: r.from.includes(unit.id) ? ('after' as const) : ('before' as const) }))}
+                onRelation={(id) => onSelectRelation(id)}
+                onWhole={() => {
+                  setWholeOpen(true)
+                  requestAnimationFrame(() => document.querySelector('[data-testid="ms-whole-steps-wrap"]')?.scrollIntoView({ block: 'start' }))
+                }}
+              />
+            )
+          })()}
 
           <p className={styles.cmpActions}>
             <button type="button" className={styles.back} onClick={() => onGo('judgment')} data-testid="ms-go-judgment" data-choices={bridge.choices.join(',')}>

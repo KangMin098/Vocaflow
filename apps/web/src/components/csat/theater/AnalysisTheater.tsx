@@ -56,6 +56,7 @@ import {
 } from '@/lib/csat/theater'
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
+import type { MeaningNote } from '@/lib/csat/meaning-note'
 import { touchedItems, withView } from '@/lib/csat/continuity'
 import { pickNextItem } from '@/lib/csat/next-item'
 import { distractorsAreTrue, teachingModelOf } from '@/lib/csat/teaching-contract'
@@ -333,7 +334,19 @@ export function AnalysisTheater({
   const pickExplained = (r: DissectionRecord) => setExplained((r.explanations ?? []).filter((x) => x.item === itemId))
   // 원리 노트(v3 M4) — 이 문항 것만. 저장은 id 단위 교체(대조 표시도 같은 경로)
   const [notes, setNotes] = useState<ReasoningNote[]>([])
-  const pickNotes = (r: DissectionRecord) => setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
+  const pickNotes = (r: DissectionRecord) => {
+    setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
+    setMeaningNotes((r.meaningNotes ?? []).filter((x) => x.item === itemId))
+  }
+  // 원문 이해 「내 말로」 노트(v3.2) — 이 문항 것만. 저장은 id(문항|의미) 단위 교체 · 실제 저장 결과를 돌려준다
+  const [meaningNotes, setMeaningNotes] = useState<MeaningNote[]>([])
+  const saveMeaningNote = (x: MeaningNote): Promise<boolean> =>
+    persist((r) => ({ ...r, meaningNotes: [...(r.meaningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
+      .then(({ record, saved }) => {
+        if (saved) pickNotes(record)
+        return saved
+      })
+      .catch(() => false)
   // 실제 저장 결과를 돌려준다 — 실패면 화면이 입력을 지키고 「다시 저장」을 연다(낙관적 완료 표시 금지 · M5)
   const saveNote = (x: ReasoningNote): Promise<boolean> =>
     persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
@@ -1235,6 +1248,9 @@ export function AnalysisTheater({
                       relationId={msRelation}
                       depth={msDepth}
                       draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
+                      notes={meaningNotes}
+                      analysisVersion={inquiry?.analysis_version ?? null}
+                      onSaveNote={saveMeaningNote}
                       pick={msPick}
                       phraseId={msPhrase}
                       textAlign={msText}

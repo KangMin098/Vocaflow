@@ -52,6 +52,8 @@ export function MeaningWholeView({
   activeRelationId,
   onTrace,
   narration,
+  open: openProp,
+  onOpenChange,
 }: {
   view: MeaningSupportView
   depth: 'brief' | 'why' | 'deep'
@@ -61,8 +63,13 @@ export function MeaningWholeView({
   onTrace: (unitId: string, relationId: string | null) => void
   /** 읽어 주기(검수된 단계 본문 그대로) — 지금 읽는 단계 · 연결을 강조한다 */
   narration?: ReturnType<typeof useMeaningNarration>
+  /** 부모가 여닫을 때(「내 말로」 대조 뒤 「글 전체 단계에서 보기」) */
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }) {
-  const [open, setOpen] = useState(false)
+  const [openLocal, setOpenLocal] = useState(false)
+  const open = openProp ?? openLocal
+  const setOpen = (fn: (v: boolean) => boolean) => { const next = fn(open); setOpenLocal(next); onOpenChange?.(next) }
   const shown = open || depth === 'deep'
   const { props, links, rest } = integrationSteps(view)
   if (!props.length) return null

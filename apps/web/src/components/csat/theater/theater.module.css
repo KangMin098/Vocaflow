@@ -759,3 +759,8 @@
 /* 원문 이해 읽어 주기(2026-10-14) — 지금 읽는 자리. 색만으로 알리지 않게 왼쪽 굵은 선 + 배경 */
 .msSpeakRow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0; }
 .msPanel [data-speaking='true'] { box-shadow: inset 3px 0 0 var(--p); background: var(--p-light); border-radius: 8px; }
+
+/* 「내 말로」 대조 · 이어지는 곳(v3.2) */
+.msKeep { grid-column: 1 / -1; display: grid; gap: 4px; padding: 8px 10px; border: 1px dashed var(--bd); border-radius: 8px; }
+.msKeep ul { margin: 0; padding-left: 16px; display: grid; gap: 4px; font-size: 13px; }
+.msNext { display: grid; gap: 4px; padding-top: 6px; border-top: 1px solid var(--bd); }
