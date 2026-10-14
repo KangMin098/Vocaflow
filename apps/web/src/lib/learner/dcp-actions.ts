@@ -16,6 +16,7 @@ import { remainingAfterAttempts, utcDayStartIso } from './dcp'
 import { SERIES_SPINE, cleanItemPayload, isTooShortForPractice, itemHygieneReject, itemWordSpec } from '@vocaflow/library-pipeline'
 
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
+import { fetchVolumePracticeRows } from '@/lib/textbook/practice-rpc'
 
 import { isChoiceDcpType, isPlayableDcpType } from './dcp-types'
 
@@ -211,7 +212,7 @@ export async function fetchDcpPracticeItems(): Promise<{
  *   손실은 생기지 않는다. 판정·정제는 `item-hygiene.ts` 한 벌이고 조판이 쓰는 것과 같다.
  */
 export async function fetchTextbookPracticeItems(
-  vLevel: number,
+  volume: { series: string; step: number; vLevel: number },
   limit = 10,
 ): Promise<{ items: DcpItem[]; unavailable: boolean; signedOut: boolean }> {
   const client = await createClient()
@@ -246,10 +247,15 @@ export async function fetchTextbookPracticeItems(
   //   "8문항 달라고 했는데 3개만 뜨는 조용한 손실" 을 만들지 않기 위해서다.
   //   RPC 상한이 50 이므로 그 안에서 넉넉히 잡는다(실측 반려율 약 8%).
   const overFetch = Math.min(50, Math.max(limit * 3, limit + 10))
-  const { data, error } = await loose.rpc('textbook_practice_items', {
-    p_v_level: vLevel,
-    p_limit: overFetch,
-  })
+  // v6.2 P-F7a — 권 단위 함수가 V레벨 · 권 유형 · 발행을 DB 에서 정한다(함수 없을 때만 옛 V레벨 함수 · `practice-rpc.ts`).
+  const { data, error } = await fetchVolumePracticeRows(
+    {
+      volume: (series, step, n) => loose.rpc('textbook_practice_items_for', { p_series: series, p_step: step, p_limit: n }),
+      legacy: (vLevel, n) => loose.rpc('textbook_practice_items', { p_v_level: vLevel, p_limit: n }),
+    },
+    volume,
+    overFetch,
+  )
   // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
   if (error) return { items: [], unavailable: true, signedOut: false }
 

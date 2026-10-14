@@ -316,20 +316,25 @@ Claude Code 에서 Supabase MCP 사용 시 `project_id=jajenrevcbmrpaliomxv` (vo
 
 ---
 
-## 폰트 (Google Fonts)
+## 폰트 (자체 호스팅 · @fontsource 5.3.0 · OFL-1.1)
+
+> 2026-10-15(v6.2 P-F7e)부터 `next/font/google` 을 쓰지 않는다 — 빌드가 Google 다운로드 실패로 간헐 실패했다.
+> 같은 글꼴 · 굵기를 npm `@fontsource/*` · `@fontsource-variable/inter` 에서 읽고(정확한 버전 고정), 변수는 `app/fonts.css` 의 html 클래스가 정의한다.
+> 한글은 굵기마다 unicode-range 조각 약 90개 — 쓰인 글자 조각만 받는다. preload 없음(`learning-tone.test.ts`).
 
 ```
 # 기본 (v07 — apps/web/src/app/layout.tsx)
 IBM Plex Sans KR   300–700   --font-display (UI · 본문, --font-body 별칭)
-Hahmlet            300–700   --font-ko-display (한글 세리프)
+Hahmlet            300–800   --font-ko-display (한글 세리프)
 Lora               400–700   --font-serif (영어 원문)
 JetBrains Mono     400/500/700 --font-mono
 
-# Tines 스킨 (DD-68 — <html data-skin="tines">, 전부 preload: false)
+# Tines 스킨 (DD-68 — <html data-skin="tines">)
 Figtree            400–700   --font-tines-sans   (Roobert 대체 · 픽셀 비교 1위)
 Petrona            300/400/700 --font-tines-serif (Reckless 대체)
 Space Mono         400/700   --font-tines-mono   (Roobert Mono 대체)
-Pretendard Variable (jsdelivr pretendard@1.3.9 동적 서브셋 CSS) — 스킨의 한글 산세리프
+Inter Variable     wght      --font-admin-sans  (Admin 3B 스킨 · DD-82) · 고정폭은 JetBrains Mono(--font-admin-mono)
+Pretendard Variable (런타임 jsdelivr pretendard@1.3.9 동적 서브셋 CSS) — 스킨의 한글 산세리프
 ```
 
 > 참조 사이트 서체(Roobert · Reckless)는 상용이라 쓰지 않는다. 대체 근거: `docs/design/refs/tines/font-lookalike.md`.

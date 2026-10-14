@@ -1,0 +1,42 @@
+/* apps/web/src/app/fonts.css
+ *
+ * 루트 글꼴 변수 — 자체 호스팅(@fontsource, OFL-1.1). 2026-10-14 v6.2 P-F7e.
+ *
+ * 왜: next/font/google 은 **빌드 중** fonts.googleapis.com 에서 받는다. CI 가 그 다운로드 실패로
+ *     간헐적으로 깨졌다(PR #246 · #254 재실행). 같은 글꼴 · 같은 굵기를 npm 패키지에서 읽으면
+ *     빌드는 설치된 파일만 쓰고 외부 글꼴 서버에 묻지 않는다.
+ * 무게: 한글 글꼴은 굵기마다 unicode-range 조각 약 90개로 나뉘어 있다 — 브라우저는 화면에 쓰인 글자의 조각만 받는다.
+ *       `preload` 하지 않는다(이전 next/font 설정의 preload:false 와 같다 — learning-tone.test.ts).
+ * 클래스: html 에 붙어 변수를 정의한다. 이름은 이전 next/font `variable` 과 같은 변수를 낸다.
+ * 폴백: 이전 next/font 가 넣던 대체 글꼴(라틴 Arial · Times New Roman · Courier New)만 둔다 — 한글이 없는 글꼴이라
+ *       한글 폴백은 그대로 각 스킨의 스택(tines.css 의 Pretendard · system-ui 등)으로 이어진다. 제네릭(system-ui)을
+ *       여기 넣으면 스킨 스택보다 먼저 한글을 잡아 이전과 달라진다(실측 2026-10-15).
+ */
+
+.vf-font-ui {
+  --font-display: 'IBM Plex Sans KR', Arial;
+}
+.vf-font-ko-display {
+  --font-ko-display: 'Hahmlet', 'Times New Roman';
+}
+.vf-font-serif {
+  --font-serif: 'Lora', 'Times New Roman';
+}
+.vf-font-mono {
+  --font-mono: 'JetBrains Mono', 'Courier New';
+}
+.vf-font-tines-sans {
+  --font-tines-sans: 'Figtree', Arial;
+}
+.vf-font-tines-serif {
+  --font-tines-serif: 'Petrona', 'Times New Roman';
+}
+.vf-font-tines-mono {
+  --font-tines-mono: 'Space Mono', 'Courier New';
+}
+.vf-font-admin-sans {
+  --font-admin-sans: 'Inter Variable', Arial;
+}
+.vf-font-admin-mono {
+  --font-admin-mono: 'JetBrains Mono', 'Courier New';
+}
