@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 - feat(map): v6.2 P-F8e 학습지도 공급 단계 — 실제 주문·공급 행이 있을 때만 「주문됨·공급 완료」, 기록 없음·미저장·못 읽음을 다르게 표시 · 서버 읽기(supply-store, 사용자·Workspace 필터) · R5 e2e 6/6 · 관리자 화면은 기존 주문 마법사 재사용 설계
+- feat(practice): v6.2 P-F8d 어휘 교재 연습 첫 수직 경로 vocab_choice — 기존 DcpPlayer 재사용 + 밑줄 선택 컴포넌트 · 격리 화면 /dev/vocab-practice(합성 문항) · grade_dcp_item 확장 보류 SQL(승인안 A3, 기존 choice NULL 통과 결함 함께) · 학습자 화면 비공개
+- fix(map): v6.2 P-F8b·c 승인안 B·C 보강(보류 SQL) — 없는 산출물·원천 null·검수 뒤 내용 변경 공급 거절 · R5 노출(응답·같은 회차·정규화 동일 지문) · 새 DCP 직접 평가 HOLD · 같은 요청 키 다른 본문 거절 · 직접 INSERT 가드 · 계정 삭제 cascade 허용 · 실제 PostgreSQL 17 다중 연결 동시성 7/7 · FQ1.1 16개 원장 인수(승인 0). DB 변경 없음
 - feat(map): v6.2 P-F7b·c·d 영속 수요·주문·공급·자격 원장 보류 SQL(승인안 B·C) — 복합 FK 소유권 · 줄 단위 주문(열린 주문 하나 · 이유·부모) · 원자 이벤트(직접 UPDATE 거부) · 공급 시점 재검증(현재 자격·승인 철회·원천·G) · 격리 Postgres(PGlite) 35건 실행 검증 · 연구 플래그 승인 불인정 · 실패 주문 종결. DB 변경 없음
 - fix(textbook): v6.2 P-F7a 연습 문항 조회를 권 단위 함수 우선으로 전환(함수 없을 때만 옛 V레벨 함수 · 권한 오류는 우회 안 함) · 승인안 A 2판 SQL(권 유형까지 결속 — 어휘·구문 12권이 독해 문항을 내던 결함) · 접근 경로 8종 감사. DB 변경 없음
 - fix(ci): 루트 글꼴 9벌을 next/font/google → @fontsource 5.3.0 자체 호스팅(OFL-1.1, 같은 글꼴·굵기) — 외부 프록시 차단 상태 clean build 통과 · 외부 글꼴 요청 0 · 한글 unicode-range 조각 유지 · preload 없음

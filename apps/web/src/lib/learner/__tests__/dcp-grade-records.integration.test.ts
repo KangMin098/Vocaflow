@@ -23,6 +23,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { CHOICE_DCP_TYPES } from '../dcp-types'
+import { fetchVolumePracticeRows } from '@/lib/textbook/practice-rpc'
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const ANON_KEY = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
@@ -138,7 +139,15 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
   })
 
   it('교재 연습 RPC 는 정답 계열 키를 하나도 내주지 않는다', async () => {
-    const { data, error } = await learner.rpc('textbook_practice_items', { p_v_level: 3, p_limit: 50 })
+    // 앱과 같은 경로 선택(v6.2 P-F8a) — 권 단위 함수 우선, 승인안 A 적용 전에만 옛 V레벨 함수. 옛 함수 회수 뒤에도 이 시험이 돈다.
+    const { data, error } = await fetchVolumePracticeRows(
+      {
+        volume: (series, step, n) => learner.rpc('textbook_practice_items_for', { p_series: series, p_step: step, p_limit: n }),
+        legacy: (vLevel, n) => learner.rpc('textbook_practice_items', { p_v_level: vLevel, p_limit: n }),
+      },
+      { series: 'reading', step: 3, vLevel: 3 },
+      50,
+    )
     expect(error).toBeNull()
     const rows = (data ?? []) as { type: string; payload: Record<string, unknown> }[]
     expect(rows.length).toBeGreaterThan(0)

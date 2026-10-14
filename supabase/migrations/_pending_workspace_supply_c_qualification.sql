@@ -15,6 +15,8 @@
 create or replace function public.forbid_ledger_mutation() returns trigger
 language plpgsql set search_path to 'public' as $$
 begin
+  -- 계정 삭제 등 **부모 FK cascade** 로 오는 DELETE 만 허용(pg_trigger_depth > 1). 직접 UPDATE · DELETE 는 거부.
+  if tg_op = 'DELETE' and pg_trigger_depth() > 1 then return old; end if;
   raise exception 'append-only ledger: % on % is not allowed', tg_op, tg_table_name using errcode = '42501';
 end $$;
 
@@ -111,6 +113,7 @@ returns uuid language plpgsql security definer set search_path to 'public' as $$
 declare v_id uuid; prev record;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
   if p_supersedes is not null then
     select * into prev from content_qualification where id = p_supersedes for update;
     if not found then raise exception 'supersedes: not found'; end if;
@@ -133,6 +136,7 @@ returns uuid language plpgsql security definer set search_path to 'public' as $$
 declare q record; v_id uuid;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
   select * into q from content_qualification where id = p_qualification;
   if not found then raise exception 'qualification: not found'; end if;
   if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception 'qualification: superseded'; end if;
@@ -148,3 +152,29 @@ revoke all on function public.content_qualification_record(text,text,text,text,t
 revoke all on function public.content_release_approve(uuid, text, text) from public, anon;
 grant execute on function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) to authenticated;
 grant execute on function public.content_release_approve(uuid, text, text) to authenticated;
+
+/** 승인 철회 — 관리자 · 큐레이터만. 이유 필수. 철회는 되돌리지 않는다(다시 쓰려면 새 자격 · 새 승인) */
+create or replace function public.content_release_revoke(p_approval uuid, p_reason text)
+returns void language plpgsql security definer set search_path to 'public' as $$
+begin
+  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  insert into content_release_revocation (approval_id, revoked_by, reason) values (p_approval, auth.uid(), p_reason)
+  on conflict (approval_id) do nothing;   -- 이미 철회됨 = 같은 결과
+end $$;
+revoke all on function public.content_release_revoke(uuid, text) from public, anon;
+grant execute on function public.content_release_revoke(uuid, text) to authenticated;
+
+-- ── 직접 INSERT 차단(서비스 키 포함) — 위 함수가 검사한 뒤에만 행이 생긴다 ─────────────
+-- 함수는 트랜잭션 범위 설정 vocaflow.supply_writer='rpc' 를 켜고 쓴다. 서비스 키가 일부러 켜는 것은 「의도된 수동 복구」뿐(문서 §B-5).
+create or replace function public.ledger_writer_guard() returns trigger
+language plpgsql set search_path to 'public' as $$
+begin
+  if coalesce(current_setting('vocaflow.supply_writer', true), '') <> 'rpc' then
+    raise exception '%: insert only via ledger functions', tg_table_name using errcode = '42501';
+  end if;
+  return new;
+end $$;
+create trigger content_qualification_writer before insert on public.content_qualification for each row execute function public.ledger_writer_guard();
+create trigger content_release_approval_writer before insert on public.content_release_approval for each row execute function public.ledger_writer_guard();
+create trigger content_release_revocation_writer before insert on public.content_release_revocation for each row execute function public.ledger_writer_guard();
