@@ -63,7 +63,7 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
       const got = input.unseenCheckItems.slice(0, n)
       const q = Q({ producible: true, rights: true, content: true, teaching: true, assessment: true, learner: true, runnable: true })
       if (line.role === 'delayed_check') return { role: line.role, state: got.length ? 'available' : 'unsupported', delivered: got.map((ref) => ({ ref, source: 'check_task' })), shortfall: Math.max(0, n - got.length), qualification: q, reason: '지연 재확인 = 다른 날 안 본 확인 문항(경과 시간 판정은 기존 규칙)' }
-      return { role: line.role, state: got.length >= n ? 'available' : got.length ? 'available' : 'unsupported', delivered: got.map((ref) => ({ ref, source: 'check_task' })), shortfall: Math.max(0, n - got.length), qualification: q, reason: got.length ? '검수된 확인 과제 · 학습자 미노출' : '안 본 확인 문항이 남지 않았다(공장 문항은 평가 자격이 없어 대신 쓰지 않는다)' }
+      return { role: line.role, state: got.length ? 'available' : 'unsupported', delivered: got.map((ref) => ({ ref, source: 'check_task' })), shortfall: Math.max(0, n - got.length), qualification: q, reason: got.length ? '검수된 확인 과제 · 학습자 미노출' : '안 본 확인 문항이 남지 않았다(공장 문항은 평가 자격이 없어 대신 쓰지 않는다)' }
     }
     case 'transfer': {
       const got = input.transferItems.slice(0, n)
@@ -94,9 +94,22 @@ export interface SupplyResult {
   anyAvailable: boolean
 }
 
+export type Fulfillment = 'fully_supplied' | 'partially_supplied' | 'not_supplied'
+
+/**
+ * 충족도(파생 · v6.2 P-F6) — `available` 은 「지금 하나라도 쓸 수 있다」이지 수량 충족이 아니다. 공급 수 · 부족 수로 따로 가른다.
+ * 자격 필드가 null(모름)이면 true 로 치지 않는다 — 평가 역할(독립 확인 · 전이 · 지연)은 assessment === true 일 때만 공급으로 센다.
+ */
+export function fulfillmentOf(line: SupplyLine): Fulfillment {
+  const assessmentRole = line.role === 'independent_check' || line.role === 'transfer' || line.role === 'delayed_check'
+  const counted = assessmentRole && line.qualification.assessment !== true ? 0 : line.delivered.length
+  if (counted === 0) return 'not_supplied'
+  return line.shortfall > 0 ? 'partially_supplied' : 'fully_supplied'
+}
+
 export function supplyFor(demand: WorkspaceDemand, input: SupplyInput): SupplyResult {
   const lines = demand.lines.map((l) => supplyLine(l, input))
-  return { demandKey: demand.key, lines, anyAvailable: lines.some((l) => l.state === 'available') }
+  return { demandKey: demand.key, lines, anyAvailable: lines.some((l) => l.state === 'available' && fulfillmentOf(l) !== 'not_supplied') }
 }
 
 export const SUPPLY_STATE_LABEL: Record<SupplyState, string> = {
