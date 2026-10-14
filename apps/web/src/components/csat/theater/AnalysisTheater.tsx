@@ -609,6 +609,15 @@ export function AnalysisTheater({
     setMsPhrase(null)
     writeMs({ unit: id, depth: msDepth, rel: null })
   }
+  // 전체 통합 · 경계에서 거슬러 오르기 — 의미와 관계를 한 번에(관계는 그 의미에 이어진 것만 주소에 실린다)
+  const traceMs = (unitId: string, relationId: string | null) => {
+    setMsUnit(unitId)
+    setMsRelation(relationId)
+    setMsPick(null)
+    setMsChip(false)
+    setMsPhrase(null)
+    writeMs({ unit: unitId, depth: msDepth, rel: relationId })
+  }
   const pickMsRelation = (id: string | null) => {
     setMsRelation(id)
     setMsPick(null)
@@ -1226,6 +1235,7 @@ export function AnalysisTheater({
                       onDepth={pickMsDepth}
                       onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
                       onGo={goBridge}
+                      onTrace={traceMs}
                     />
                   ) : null}
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}

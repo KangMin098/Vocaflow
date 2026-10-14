@@ -16,6 +16,7 @@ import { bridgeOf, DEPTHS, phraseRowsOf, relationsOfUnit } from '@/lib/csat/mean
 
 import { MeaningDraft } from './MeaningDraft'
 import { MeaningRelationView } from './MeaningRelationView'
+import { MeaningBoundaryView, MeaningWholeView } from './MeaningWholeView'
 import styles from './theater.module.css'
 
 const ROLE_LABEL: Record<string, string> = { main: '핵심 줄기', modifier: '꾸밈', clause: '절', connector: '연결어' }
@@ -50,6 +51,7 @@ export function MeaningSupportPanel({
   onDepth,
   onDraft,
   onGo,
+  onTrace,
 }: {
   view: MeaningSupportView
   unitId: string | null
@@ -72,6 +74,8 @@ export function MeaningSupportPanel({
   onDraft: (t: string) => void
   /** 다른 장면으로 이어가기 — 이 의미가 걸린 선택지 · 설계 근거를 들고 간다 */
   onGo: (scene: 'judgment' | 'design') => void
+  /** 전체 통합 · 경계에서 거슬러 오르기 — 의미(와 관계)를 한 번에 고른다 */
+  onTrace: (unitId: string, relationId: string | null) => void
 }) {
   const unit = pick ? null : view.units.find((u) => u.id === unitId) ?? null
   const relation = view.relations.find((r) => r.id === relationId) ?? null
@@ -100,6 +104,7 @@ export function MeaningSupportPanel({
         <span className={styles.epistemic}>독립 검수 · 원문 대조</span>
       </p>
       <p className="break-keep" data-testid="ms-whole">{view.whole.summaryKo}</p>
+      <MeaningWholeView view={view} depth={depth} activeUnitId={unit?.id ?? null} activeRelationId={relationId} onTrace={onTrace} />
       {view.partial ? <p className={`${styles.quiet} break-keep`} data-testid="ms-partial">{view.partial.withheldKo}</p> : null}
       <p className={`${styles.quiet} break-keep`} role="status" data-testid="ms-align-status">{alignMessage(textAlign, splitOk)}</p>
 
@@ -250,9 +255,8 @@ export function MeaningSupportPanel({
         <p className={`${styles.msCard} ${styles.quiet}`}>위에서 탐구할 의미를 고르거나, 왼쪽 지문 지도에서 문장 번호를 눌러 보세요.</p>
       )}
 
-      {showDeep && (view.whole.limitsKo ?? []).length ? (
-        <p className={`${styles.msCard} break-keep`} data-testid="ms-limits"><span className={styles.diagramLabel}>이 설명이 다루지 않는 것</span>{view.whole.limitsKo.join(' · ')}</p>
-      ) : null}
+      {/* 깊이 탐구 — 원문 · 가능한 해석 · 지원되지 않는 확대를 나눠 본다(다루지 않는 범위는 확대 칸에 함께) */}
+      {showDeep ? <MeaningBoundaryView view={view} onTrace={onTrace} /> : null}
     </section>
   )
 }

@@ -3,7 +3,7 @@
 //
 // **내 말로 — 메모리 초안.** (v3.1 · 설계 §4)
 // 저장 버튼 · 저장 완료 · 서버 동기화가 없다. 같은 문항 안 의미 · 장면 이동에는 부모가 의미별로 지키고,
-// 새로 고침 · 문항 이탈 · 로그아웃에는 사라진다는 점을 쓰기 전에 알린다. 600자를 넘으면 잘라내지 않고 알리기만 한다.
+// 같은 탭에서는 다른 문항에 갔다 와도 문항별 탭 메모리(item-tab-memory)가 지키고, 새로 고침 · 탭 닫기 · 로그아웃에는 사라진다는 점을 쓰기 전에 알린다. 600자를 넘으면 잘라내지 않고 알리기만 한다.
 // 자동 판정 · 이해도 점수 없음. 검수된 쉬운 말 · 보존 조건과 나란히 놓고 스스로 대조할 뿐이다.
 
 import { useState } from 'react'
@@ -28,7 +28,7 @@ export function MeaningDraft({ unit, text, onChange }: { unit: MsUnit; text: str
   return (
     <div className={styles.msDraft} data-testid="ms-draft">
       <label className={styles.explainField}>
-        <span className="break-keep">이 의미를 내 말로 — 저장되지 않아요. 새로 고침하거나 다른 문항으로 가면 사라져요.</span>
+        <span className="break-keep">이 의미를 내 말로 — 서버에 저장되지 않아요. 이 탭에서는 다른 문항에 갔다 와도 남지만, 새로 고침하거나 탭을 닫으면 사라져요.</span>
         <textarea value={text} rows={3} onChange={(e) => onChange(e.target.value)} aria-invalid={over} aria-describedby="ms-draft-count" data-testid="ms-draft-text" />
       </label>
       <p id="ms-draft-count" className={over ? styles.msWarn : styles.quiet} role={over ? 'alert' : undefined}>
