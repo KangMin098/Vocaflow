@@ -45,8 +45,9 @@ const view = async (page, task) => {
   await page.waitForTimeout(300)
   return page.evaluate(() => ({
     demand: document.querySelector('[data-testid="inspector-supply"]')?.getAttribute('data-demand') ?? null,
-    rows: [...document.querySelectorAll('[data-testid="inspector-supply"] li')].map((e) => ({ role: e.getAttribute('data-role'), state: e.getAttribute('data-state'), text: e.textContent })),
+    rows: [...document.querySelectorAll('[data-testid="inspector-supply"] li')].map((e) => ({ role: e.getAttribute('data-role'), state: e.getAttribute('data-state'), step: e.getAttribute('data-step'), text: e.textContent })),
     next: document.querySelector('[data-testid="inspector-next"]')?.getAttribute('href') ?? null,
+    ledger: document.querySelector('[data-testid="inspector-ledger-note"]')?.getAttribute('data-ledger') ?? null,
   }))
 }
 const slug = (href) => href?.split('#')[0].split('?')[0].split('/').pop() ?? null
@@ -56,6 +57,9 @@ try {
   const r1 = await view(a, 'r.central_meaning')
   const check = r1.rows.find((r) => r.role === 'independent_check')
   rec('① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음', !!r1.demand && check?.state === 'available' && !!r1.next, r1)
+  // P-F8e — 영속 주문 표(승인안 B)가 없으므로 어떤 줄도 「주문됨 · 만드는 중 · 검수 중 · 보류 · 공급 완료」가 아니다
+  const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered'])
+  rec('①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음', r1.rows.length > 0 && r1.rows.every((r) => r.step && !ORDERISH.has(r.step)) && ['not_installed', 'no_workspace'].includes(r1.ledger), { steps: r1.rows.map((r) => r.step), ledger: r1.ledger })
   const r1b = await view(a, 'r.central_meaning')
   rec('② 새로 고쳐도 같은 수요 키', r1b.demand === r1.demand, { a: r1.demand, b: r1b.demand })
 
