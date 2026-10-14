@@ -174,7 +174,8 @@ revoke insert, update, delete on public.workspace_content_demand, public.workspa
 
 -- ── 5. 함수 ─────────────────────────────────────────────────────────────
 /**
- * 수요 기록(멱등). 본문은 앱 `canonicalDemand()` 출력 그대로(text). DB 가 서명을 다시 계산하고,
+ * 수요 기록(멱등). 본문은 앱 `canonicalDemand()` 출력 그대로(text).
+ * 본문 버전 v2(Factory Integration v1.1 — 표준 정규 JSON · 중첩 키 정렬 · 지원 TASK 포함). 다른 버전은 거절. DB 가 서명을 다시 계산하고,
  * 본문의 user 가 auth.uid() 와 같고 Workspace · 목표 · PLAN 이 그 사용자 것인지(복합 FK) 확인한다.
  * 같은 서명이 이미 있으면 본문 비교 — 같으면 그 id, 다르면 거절.
  */
@@ -185,7 +186,7 @@ begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   b := p_canonical::jsonb;
-  if (b->>'v') <> '1' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
+  if (b->>'v') <> '2' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
   if (b->>'workspaceId') is null or (b->>'planVersion') is null then raise exception 'demand: workspace and plan required'; end if;
   v_sig := encode(sha256(convert_to(p_canonical, 'UTF8')), 'hex');
   select id, canonical into v_id, v_stored from workspace_content_demand where user_id = v_uid and signature = v_sig;

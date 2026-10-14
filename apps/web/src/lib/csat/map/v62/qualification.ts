@@ -96,7 +96,8 @@ export const ASSESSMENT_ROLES: ReadonlySet<MaterialRole> = new Set(['independent
  */
 export function supplyEligible(q: Qualification, role: MaterialRole): { ok: boolean; missing: (keyof Qualification)[] } {
   const need: (keyof Qualification)[] = ['rights', 'content', 'runnable']
-  if (role === 'model_explanation' || role === 'guided_practice') need.push('teaching')
+  // 교수 역할 — 원문 분석도 교수 적합성(D) 필수(FQ1.1 역할 기준 · Codex I11). D not_applicable 은 null 이라 통과가 아니다
+  if (role === 'source_analysis' || role === 'model_explanation' || role === 'guided_practice') need.push('teaching')
   if (ASSESSMENT_ROLES.has(role)) need.push('assessment')
   const missing = need.filter((k) => q[k] !== true)
   return { ok: missing.length === 0, missing }

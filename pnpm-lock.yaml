@@ -226,6 +226,9 @@ importers:
       '@types/three':
         specifier: ^0.184.0
         version: 0.184.0
+      ajv:
+        specifier: 8.20.0
+        version: 8.20.0
       eslint:
         specifier: ^8
         version: 8.57.1

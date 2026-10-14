@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import type { DemandLine, MaterialRole, WorkspaceDemand } from '../demand'
 import {
   bindToWorkspace, buildFactoryRequests, existingAssetManifest, FACTORY_CONNECTION, qualifyArtifact, reconcileRequest,
-  reportableStatus, runnerFor, validateManifest, type FactoryRequest, type FactoryResultManifest,
+  reportableStatus, runnerFor, subjectOf, trustedQualificationContext, validateManifest, type FactoryRequest, type FactoryResultManifest, type ManifestArtifact,
 } from '../factory-integration'
 import { mockFactory } from '../factory-mock'
 import type { Axis, AxisState, FqResult } from '../qualification'
@@ -30,7 +30,7 @@ const fq = (id: string, rev: string, task: string, role: MaterialRole, axes: Par
   axes: Object.fromEntries((['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as Axis[]).map((k) => [k, { state: axes[k] ?? 'pass' }])) as FqResult['axes'],
 })
 const real = (m: FactoryResultManifest): FactoryResultManifest => ({
-  ...m, mode: 'REAL', runId: 'run-1', artifacts: m.artifacts.map((a) => ({ ...a, provenance: { runId: 'run-1', mock: false }, lifecycle: 'product', quality: 'passed', rights: 'cleared' })),
+  ...m, mode: 'REAL', runId: 'run-1', status: 'review_passed', artifacts: m.artifacts.map((a) => ({ ...a, provenance: { runId: 'run-1', mock: false }, lifecycle: 'product', quality: 'passed', rights: 'cleared' })),
 })
 
 describe('공장 연결 상태 — 실제 지원 범위를 그대로', () => {
@@ -107,44 +107,60 @@ describe('FactoryResultManifest 형식', () => {
   })
 })
 
-describe('자격 연결 · 결속 — 시나리오', () => {
+describe('자격 연결 · 결속 — 시나리오(v1.1 신뢰 경계: 승인 근거는 서버 Trusted Qualification Context 만)', () => {
   const v2 = buildFactoryRequests(USER, demand('v.contextual_sense', ['R-VOCAB'], [req('guided_practice')]))[0]!
-  const APPROVED = { public: true, assessment: true }
+  const APPROVED_BOOLEANS = { public: true, assessment: true }
+  /** 서버가 원장에서 검증했다고 가정한 문맥(시험용) — 실제 reader 는 승인안 B · C 뒤 */
+  const ctxFor = (a: ManifestArtifact, r: FactoryRequest, axes: Partial<Record<Axis, AxisState>> = {}, o: Partial<Parameters<typeof trustedQualificationContext>[0]> = {}) =>
+    trustedQualificationContext({
+      subject: subjectOf(a),
+      qualification: { id: 'q-1', rulesVersion: 'FQ1.1', evidenceIds: ['ev-1'], result: fq(a.id, a.revision, r.task, r.role, axes) },
+      approvals: [{ id: 'ap-1', qualificationId: 'q-1', scope: 'public', approverRole: 'admin', revoked: false }, { id: 'ap-2', qualificationId: 'q-1', scope: 'assessment', approverRole: 'admin', revoked: false }],
+      provenance: 'real_run_verified',
+      lifecycleTransitionApproved: false,
+      ...o,
+    })
 
-  it('D — 테스트 교재는 제품 콘텐츠로 자동 공급되지 않는다(test_fixture 유지 · 보류)', () => {
+  it('D — 테스트 교재는 제품 콘텐츠로 자동 공급되지 않는다(test_fixture 유지 · 보류) — 신뢰 문맥이 있어도 전환 승인 없이는 보류', () => {
     const m = mockFactory(v2, 'test_fixture')
     for (const a of m.artifacts) {
       expect(a.lifecycle).toBe('test_fixture')
-      expect(qualifyArtifact(a, v2, fq(a.id, a.revision, v2.task, v2.role), APPROVED)).toEqual({ state: 'review_pending', reasons: ['test_fixture'] })
+      expect(qualifyArtifact(a, v2, null, APPROVED_BOOLEANS).reasons).toContain('test_fixture')
+      expect(qualifyArtifact(a, v2, null, ctxFor(a, v2))).toMatchObject({ state: 'review_pending', reasons: ['test_fixture'] })
     }
   })
-  it('E — 원천 · 권리 · Gold · 실행 미확정은 목적별 보류 이유 · fail 축은 부적격 · 공장 검수 실패는 부적격', () => {
-    const m = real(mockFactory(v2, 'produced_unreviewed'))
-    const a = m.artifacts[0]!
-    expect(qualifyArtifact(a, v2, null, APPROVED)).toEqual({ state: 'review_pending', reasons: ['no_qualification_record'] })
-    expect(qualifyArtifact(a, v2, fq(a.id, a.revision, v2.task, v2.role, { A: 'unknown', H: 'unknown' }), APPROVED))
-      .toEqual({ state: 'review_pending', reasons: ['axis_unknown:content', 'axis_unknown:runnable'] })
-    expect(qualifyArtifact(a, v2, fq(a.id, a.revision, v2.task, v2.role, { B: 'fail' }), APPROVED)).toEqual({ state: 'ineligible', reasons: ['axis_fail:content'] })
-    expect(qualifyArtifact(a, v2, fq(a.id, a.revision, v2.task, v2.role), { public: false, assessment: false })).toEqual({ state: 'review_pending', reasons: ['axis_unknown:rights'] })
-    const failed = real(mockFactory(v2, 'review_failed')).artifacts[0]!
-    expect(qualifyArtifact({ ...failed, quality: 'failed' }, v2, fq(failed.id, failed.revision, v2.task, v2.role), APPROVED).state).toBe('ineligible')
-  })
-  it('F — revision 이 바뀌면 이전 검수를 상속하지 않는다', () => {
+  it('E — 원천 · 권리 · Gold · 실행 미확정은 목적별 보류 이유 · fail 축은 부적격 · 공장 검수 실패는 부적격 · boolean 승인은 보류', () => {
     const a = real(mockFactory(v2, 'produced_unreviewed')).artifacts[0]!
-    expect(qualifyArtifact({ ...a, revision: 'r2' }, v2, fq(a.id, a.revision, v2.task, v2.role), APPROVED)).toEqual({ state: 'review_pending', reasons: ['revision_mismatch'] })
+    expect(qualifyArtifact(a, v2, null, APPROVED_BOOLEANS)).toMatchObject({ state: 'review_pending', reasons: ['untrusted_qualification_context'] })
+    expect(qualifyArtifact(a, v2, null, ctxFor(a, v2, { A: 'unknown', H: 'unknown' }))).toMatchObject({ state: 'review_pending', reasons: ['axis_unknown:content', 'axis_unknown:runnable'] })
+    expect(qualifyArtifact(a, v2, null, ctxFor(a, v2, { B: 'fail' }))).toMatchObject({ state: 'ineligible', reasons: ['axis_fail:content'] })
+    expect(qualifyArtifact(a, v2, null, ctxFor(a, v2, {}, { approvals: [] }))).toMatchObject({ state: 'review_pending', reasons: ['axis_unknown:rights'] })
+    expect(qualifyArtifact(a, v2, null, ctxFor(a, v2, {}, { provenance: 'unverified' }))).toMatchObject({ state: 'review_pending', reasons: ['provenance_unverified'] })
+    const failed = real(mockFactory(v2, 'review_failed')).artifacts[0]!
+    expect(qualifyArtifact({ ...failed, quality: 'failed' }, v2, null, ctxFor(failed, v2)).state).toBe('ineligible')
+  })
+  it('F — revision · 해시 · 원천 · 분석 · Gold 중 하나라도 바뀌면 이전 검수를 상속하지 않는다', () => {
+    const a = real(mockFactory(v2, 'produced_unreviewed')).artifacts[0]!
+    const ctx = ctxFor(a, v2)
+    expect(qualifyArtifact({ ...a, revision: 'r2' }, v2, null, ctx).reasons).toContain('subject_mismatch:revision')
+    expect(qualifyArtifact({ ...a, sha256: 'b'.repeat(64) }, v2, null, ctx).reasons).toEqual(['subject_mismatch:sha256'])
+    for (const k of ['source', 'analysis', 'gold'] as const) {
+      expect(qualifyArtifact({ ...a, refs: { ...a.refs, [k]: 'changed' } }, v2, null, ctx).reasons, k).toEqual([`subject_mismatch:${k}`])
+    }
   })
   it('C — S5: 공장 유형 대응(grammar_choice)이 있어도 TASK 적합성은 자동 PASS 아님(검수 기록 없으면 보류 · TASK 다른 기록은 상속 안 함)', () => {
     const s5 = buildFactoryRequests(USER, demand('s.form_scope', ['R-GRAMMAR'], [req('guided_practice')]))[0]!
     expect(s5.content.factoryTypes).toContain('grammar_choice')
     expect(s5.postReview).toContain('task_fit_review')
     const a = real(mockFactory(s5, 'produced_unreviewed')).artifacts[0]!
-    expect(qualifyArtifact(a, s5, null, APPROVED).state).toBe('review_pending')
+    expect(qualifyArtifact(a, s5, null, APPROVED_BOOLEANS).state).toBe('review_pending')
     // 형태 선택(다른 TASK)으로 받은 자격을 의미 범위 수행(s.form_scope)에 쓰지 않는다
-    expect(qualifyArtifact(a, s5, fq(a.id, a.revision, 's.chunk_boundary', 'guided_practice'), APPROVED)).toEqual({ state: 'review_pending', reasons: ['task_mismatch'] })
+    const other = trustedQualificationContext({ ...ctxFor(a, s5), qualification: { id: 'q-1', rulesVersion: 'FQ1.1', evidenceIds: [], result: fq(a.id, a.revision, 's.chunk_boundary', 'guided_practice') } })
+    expect(qualifyArtifact(a, s5, null, other)).toMatchObject({ state: 'review_pending', reasons: ['task_mismatch'] })
   })
-  it('B — 적격이어도 실행기가 없는 교재 유형은 공급 0(어댑터 필요) · vocab_choice 는 개발 화면 전용', () => {
+  it('B — 적격이어도 실행기가 없는 교재 유형은 후보 0(어댑터 필요) · vocab_choice 는 개발 화면 전용', () => {
     const m = real(mockFactory(v2, 'produced_unreviewed'))
-    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, qualifyArtifact(a, v2, fq(a.id, a.revision, v2.task, v2.role), APPROVED)]))
+    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, qualifyArtifact(a, v2, null, ctxFor(a, v2))]))
     expect(Object.values(verdicts).every((v) => v.state === 'accept')).toBe(true)
     const b = bindToWorkspace(v2, m, verdicts, 'stage_repair')
     expect(b.suppliable).toBe(0)
@@ -152,25 +168,31 @@ describe('자격 연결 · 결속 — 시나리오', () => {
     expect(runnerFor({ kind: 'dcp_item', contentType: 'unit_vocab' })).toBe('adapter_needed')
     expect(runnerFor({ kind: 'dcp_item', contentType: 'topic' })).toBe('dcp_existing')
   })
-  it('H — mock manifest 는 산출물이 accept 여도 공급 수 0 · 막힌 이유 mock_only', () => {
+  it('H — mock manifest 는 산출물이 accept 여도 후보 0 · 막힌 이유 mock_only', () => {
     const r = buildFactoryRequests(USER, demand('r.central_meaning', ['R-TOPIC'], [req('guided_practice')]))[0]!
-    const m = { ...mockFactory(r, 'produced_unreviewed'), artifacts: mockFactory(r, 'produced_unreviewed').artifacts.map((a) => ({ ...a, contentType: 'topic' })) }
-    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, { state: 'accept' as const, reasons: [] }]))
+    const m0 = mockFactory(r, 'produced_unreviewed')
+    const m = { ...m0, status: 'review_passed' as const, artifacts: m0.artifacts.map((a) => ({ ...a, contentType: 'topic' })) }
+    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, qualifyArtifact(a, r, null, ctxFor(a, r))]))
     const b = bindToWorkspace(r, m, verdicts, 'stage_repair')
     expect(b.suppliable).toBe(0)
     expect(b.blockedReasons).toContain('mock_only')
     expect(b.fulfillment).toBe('not_supplied')
   })
-  it('실제 실행 기록 · 적격 · 실행기 있는 산출물만 공급 수에 든다(계약상 · 실제 공장 응답은 아직 없음)', () => {
+  it('실제 실행 기록 · 검수 통과 · 신뢰 문맥 accept · 실행기 있는 산출물만 후보 — 납품 수는 미확인(null), 후보를 납품으로 세지 않는다', () => {
     const r = buildFactoryRequests(USER, demand('r.central_meaning', ['R-TOPIC'], [req('guided_practice', 2)]))[0]!
     const m0 = real(mockFactory(r, 'produced_unreviewed'))
     const m = { ...m0, artifacts: m0.artifacts.map((a) => ({ ...a, contentType: 'topic' })) }
-    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, qualifyArtifact(a, r, fq(a.id, a.revision, r.task, r.role), APPROVED)]))
+    const verdicts = Object.fromEntries(m.artifacts.map((a) => [a.id, qualifyArtifact(a, r, null, ctxFor(a, r))]))
     const b = bindToWorkspace(r, m, verdicts, 'stage_repair')
+    expect(b.counts).toEqual({ producedCount: 2, reviewPassedCount: 2, runnableCount: 2, commonQualifiedCandidateCount: 2, learnerSuppliableCount: null, deliveredCount: null })
     expect(b.suppliable).toBe(2)
     expect(b.fulfillment).toBe('fully_supplied')
+    expect(b.deliveryFulfillment).toBe('unknown')
+    expect(bindToWorkspace(r, m, verdicts, 'stage_repair', 0).deliveryFulfillment).toBe('not_delivered')
     expect(b.learnerGate).toBe('check_at_delivery')
     expect(b.returnTo).toEqual({ planVersion: 2, task: 'r.central_meaning' })
+    // 같은 manifest 의 상태가 검수 통과가 아니면 후보 0
+    expect(bindToWorkspace(r, { ...m, status: 'review_pending' }, verdicts, 'stage_repair').suppliable).toBe(0)
   })
 })
 

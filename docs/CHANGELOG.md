@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(map): Factory Integration v1.1 — Codex 독립 검토 P1 6·P2 5 수정(manifest 상태/출처/역할/중복 검사 · 산출물 주체 결속 판정 · Trusted Qualification Context · 기존 자산 래퍼 엄격화 · 표준 JSON·수요 서명 v2 · 수량 6단계 · 원문 분석 D 필수) · 82/82(입력 정정 3, 근거 문서) · Schema·예시. 실제 공장 연결은 MOCK_ONLY
 - feat(map): v6.2 학습지도×Workspace×교재공장 연계 계약 — WorkspaceDemand→FactoryRequest(생산 단위 지원 구분·멱등) · FactoryResultManifest(MOCK/REAL/EXISTING·검사) · FQ 자격 연결 · WorkspaceContentBinding · mock 공장 · 시나리오 A~H 19. 공장 내부·DB·실제 생산 변경 없음(MOCK_ONLY)
 - feat(map): v6.2 P-F8e 학습지도 공급 단계 — 실제 주문·공급 행이 있을 때만 「주문됨·공급 완료」, 기록 없음·미저장·못 읽음을 다르게 표시 · 서버 읽기(supply-store, 사용자·Workspace 필터) · R5 e2e 6/6 · 관리자 화면은 기존 주문 마법사 재사용 설계
 - feat(practice): v6.2 P-F8d 어휘 교재 연습 첫 수직 경로 vocab_choice — 기존 DcpPlayer 재사용 + 밑줄 선택 컴포넌트 · 격리 화면 /dev/vocab-practice(합성 문항) · grade_dcp_item 확장 보류 SQL(승인안 A3, 기존 choice NULL 통과 결함 함께) · 학습자 화면 비공개

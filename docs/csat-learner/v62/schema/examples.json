@@ -1,0 +1,226 @@
+{
+  "population": "synthetic_contract_example — 실제 공장 호출 · 실제 산출물 · 승인 0",
+  "request": {
+    "schema": "vf.factory-request/1",
+    "requestId": "9c119385a88c965c2553f2f38b5a8f37",
+    "idempotencyKey": "3b84dcb6d4cecc4dbe7eaf3fddf9f602c05ccf9fd33a06bc8d71b4cbbf6d8820:0",
+    "demandKey": "example-demand",
+    "workspaceId": "ws-example",
+    "versions": {
+      "goal": 7,
+      "plan": 2,
+      "definition": "v6.2"
+    },
+    "task": "r.central_meaning",
+    "supportTasks": [],
+    "role": "guided_practice",
+    "lineNo": 0,
+    "education": {
+      "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+      "learnerOutput": "선택 · 단답 · 배열 응답",
+      "teachingStage": "지도 연습",
+      "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+      "reason": "stage_repair"
+    },
+    "content": {
+      "csatTypes": [
+        "R-TOPIC"
+      ],
+      "factoryTypes": [
+        "topic"
+      ]
+    },
+    "quantity": {
+      "n": 3,
+      "unit": "문항",
+      "basis": "plan_stage_quantity"
+    },
+    "source": {
+      "rightsUsable": true,
+      "excludeUnsupportedExams": true
+    },
+    "constraints": {
+      "gold": false,
+      "unseenByLearner": false,
+      "noExplanationBefore": false,
+      "versionBinding": "exact_revision"
+    },
+    "postReview": [
+      "unit_mismatch",
+      "item_level_rights",
+      "task_fit_review",
+      "workspace_runner"
+    ],
+    "reuseAllowed": true,
+    "productionUnit": {
+      "support": "convertible_to_volume",
+      "why": "activity_unit_unsupported",
+      "commands": [
+        "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+        "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+        "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+        "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+      ]
+    },
+    "connection": "MOCK_ONLY",
+    "approvalsNeeded": [
+      "bulk_generation_cost",
+      "db_schema_orders",
+      "content_release"
+    ]
+  },
+  "requestBody": "{\"approvalsNeeded\":[\"bulk_generation_cost\",\"db_schema_orders\",\"content_release\"],\"connection\":\"MOCK_ONLY\",\"constraints\":{\"gold\":false,\"noExplanationBefore\":false,\"unseenByLearner\":false,\"versionBinding\":\"exact_revision\"},\"content\":{\"csatTypes\":[\"R-TOPIC\"],\"factoryTypes\":[\"topic\"]},\"demandKey\":\"example-demand\",\"education\":{\"exposure\":\"힌트 · 해설 허용(독립 수행으로 세지 않음)\",\"learnerOutput\":\"선택 · 단답 · 배열 응답\",\"performanceGoal\":\"도움을 받으며 같은 수행을 해 본다\",\"reason\":\"stage_repair\",\"teachingStage\":\"지도 연습\"},\"idempotencyKey\":\"3b84dcb6d4cecc4dbe7eaf3fddf9f602c05ccf9fd33a06bc8d71b4cbbf6d8820:0\",\"lineNo\":0,\"postReview\":[\"unit_mismatch\",\"item_level_rights\",\"task_fit_review\",\"workspace_runner\"],\"productionUnit\":{\"commands\":[\"node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크\",\"node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)\",\"node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설\",\"node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수\"],\"support\":\"convertible_to_volume\",\"why\":\"activity_unit_unsupported\"},\"quantity\":{\"basis\":\"plan_stage_quantity\",\"n\":3,\"unit\":\"문항\"},\"reuseAllowed\":true,\"role\":\"guided_practice\",\"schema\":\"vf.factory-request/1\",\"source\":{\"excludeUnsupportedExams\":true,\"rightsUsable\":true},\"supportTasks\":[],\"task\":\"r.central_meaning\",\"versions\":{\"definition\":\"v6.2\",\"goal\":7,\"plan\":2},\"workspaceId\":\"ws-example\"}",
+  "manifests": {
+    "mock_test_fixture": {
+      "schema": "vf.factory-manifest/1",
+      "requestId": "9c119385a88c965c2553f2f38b5a8f37",
+      "mode": "MOCK",
+      "runId": null,
+      "factory": {
+        "name": "mock-factory",
+        "version": "0"
+      },
+      "status": "produced",
+      "producedCount": 3,
+      "artifacts": [
+        {
+          "id": "mock-9c119385-0",
+          "kind": "dcp_item",
+          "revision": "mock-r1",
+          "sha256": "4e1cb26132ca2d660b5ac4d44624dc1d7a5e5c8473af57bc47b68d98733278f5",
+          "refs": {
+            "source": null,
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "mock://mock-9c119385-0",
+          "rights": "unknown",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": true
+          },
+          "lifecycle": "test_fixture"
+        },
+        {
+          "id": "mock-9c119385-1",
+          "kind": "dcp_item",
+          "revision": "mock-r1",
+          "sha256": "ea9cba35bda1826ecc7f33b65c8530ef704a455e3245c1c039dcdf3c2b2454fd",
+          "refs": {
+            "source": null,
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "mock://mock-9c119385-1",
+          "rights": "unknown",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": true
+          },
+          "lifecycle": "test_fixture"
+        },
+        {
+          "id": "mock-9c119385-2",
+          "kind": "dcp_item",
+          "revision": "mock-r1",
+          "sha256": "59aeb2e693773888fba453456f5800c2094b0406f153834c86002676eea54266",
+          "refs": {
+            "source": null,
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "mock://mock-9c119385-2",
+          "rights": "unknown",
+          "quality": "passed",
+          "provenance": {
+            "runId": null,
+            "mock": true
+          },
+          "lifecycle": "test_fixture"
+        }
+      ],
+      "failure": null
+    },
+    "mock_unsupported_assessment": {
+      "schema": "vf.factory-manifest/1",
+      "requestId": "75f4ac009b761ef9c1d8a924b99ca4a7",
+      "mode": "MOCK",
+      "runId": null,
+      "factory": {
+        "name": "mock-factory",
+        "version": "0"
+      },
+      "status": "unsupported",
+      "producedCount": 0,
+      "artifacts": [],
+      "failure": {
+        "code": "production_unit_unsupported",
+        "reason": "assessment_not_from_factory"
+      }
+    },
+    "existing_r5": {
+      "schema": "vf.factory-manifest/1",
+      "requestId": "75f4ac009b761ef9c1d8a924b99ca4a7",
+      "mode": "EXISTING",
+      "status": "review_passed",
+      "runId": null,
+      "producedCount": 1,
+      "artifacts": [
+        {
+          "id": "2022-20",
+          "kind": "csat_item",
+          "revision": "sha256:53fe1779ff57f59183f0ca8500fb7a5a09c252dd187311367be710ce9965168e",
+          "sha256": "53fe1779ff57f59183f0ca8500fb7a5a09c252dd187311367be710ce9965168e",
+          "refs": {
+            "source": "2022-20",
+            "analysis": null,
+            "gold": null
+          },
+          "contentType": "check_task",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "independent_check"
+          ],
+          "access": "csat_items:2022-20",
+          "rights": "unknown",
+          "quality": "unreviewed",
+          "provenance": {
+            "runId": null,
+            "mock": false
+          },
+          "lifecycle": "product"
+        }
+      ],
+      "failure": null,
+      "factory": {
+        "name": "existing-assets",
+        "version": "v6.2"
+      }
+    }
+  }
+}

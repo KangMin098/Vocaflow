@@ -8,12 +8,17 @@
 
 import { createHash } from 'node:crypto'
 
+import { canonicalJson } from './canonical-json'
 import type { WorkspaceDemand } from './demand'
 
-/** 정규 본문 — 키 순서 고정 · 시각(asOf) 제외 · 학습자 id 는 서버가 넣는다 */
+/**
+ * 정규 본문 — 표준 정규 JSON(중첩 키까지 정렬 · Factory Integration v1.1 Codex I09) · 시각(asOf) 제외 · 학습자 id 는 서버가 넣는다.
+ * v2: 중첩 `requires` 의 속성 순서가 서명을 바꾸던 결함 수정 · 지원 TASK(support)를 수요 revision 에 포함(바뀌면 새 수요).
+ * 영속 서명이 아직 저장된 적이 없어(승인안 B 미적용) v1 → v2 로 옮길 데이터는 없다.
+ */
 export function canonicalDemand(userId: string, d: WorkspaceDemand): string {
-  return JSON.stringify({
-    v: 1,
+  return canonicalJson({
+    v: 2,
     user: userId,
     template: d.template,
     workspaceId: d.workspaceId,
@@ -21,7 +26,8 @@ export function canonicalDemand(userId: string, d: WorkspaceDemand): string {
     planVersion: d.planVersion,
     definitionVersion: d.definitionVersion,
     core: d.core,
-    lines: d.lines.map((l) => ({ role: l.role, task: l.task, n: l.quantity.n, types: [...l.csatTypes].sort(), keys: [...l.taskKeys].sort(), requires: l.requires, reason: l.reason })),
+    support: [...d.support].sort(),
+    lines: d.lines.map((l) => ({ role: l.role, task: l.task, n: l.quantity.n, types: [...l.csatTypes].sort(), keys: [...l.taskKeys].sort(), requires: { ...l.requires }, reason: l.reason })),
   })
 }
 
