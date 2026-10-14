@@ -1,0 +1,1567 @@
+{
+  "protocol": "1.2",
+  "purpose": "exploratory_reclassification_of32_development_inputs_only_on_passed_axes",
+  "is_new_confirmation": false,
+  "axes": [
+    "discourse",
+    "task"
+  ],
+  "decisive_relations_admission": "withheld_after_logic_review",
+  "failed_axes_not_reclassified": true,
+  "method": {
+    "classifier_count": 1,
+    "classification_kind": "single_AI_initial_exploratory_classification",
+    "meaning_read_scope": "All 32 admitted inputs: complete passages, stems, five choices, and available restored glosses/task presentations were read directly; no type-name-only classification.",
+    "answer_blind": false,
+    "key_exposure": "Existing source-audit metadata for the eight unrevised complete inputs exposed embedded audited answer fields during provenance review. No new key verification was conducted or claimed.",
+    "old_or_new_rater_outputs_read": false,
+    "new16_inputs_read": false,
+    "recent2025_2026_prose_read": false,
+    "evidence_role": "Content and task-presentation anchors explaining discourse/task classification only; not decisive-relation labels or a limited-window sufficiency claim.",
+    "admission_correction": "The initial assignment included relations after a numerical gate. The parent then withheld relation expansion following an independent logic review requiring a clearer present-versus-necessary distinction per alternative path. Relations drafted before that correction were retained only in ignored local material and excluded from this public extension.",
+    "limitations": [
+      "Single AI exploratory reclassification of previously exposed development items; no independent AI agreement or new confirmation.",
+      "These 32 are already represented within the existing 80 unique-item accounting and add zero unique items.",
+      "Decisive relations, inference, strategy/sufficiency and language complexity are not reclassified or expanded in this public artifact.",
+      "No new answer-key verification, human review, student behavior, teaching effect, mastery estimate, DB operation or product implementation is claimed.",
+      "Full passages, stems, five choices and restored task presentation were read; anchor offsets are explanations, not a claim about the minimum reading window.",
+      "Source admission inherits prior AI PDF-source checks; it does not establish a human review or official download transaction chain."
+    ]
+  },
+  "source_basis": {
+    "restored_v1_2": 24,
+    "unchanged_main_v1_1_complete": 8,
+    "restored_hash_method": "SHA256 of UTF-8 JSON.stringify(entire private restored item object), saved field insertion order; no indentation or trailing newline.",
+    "main_binding_method": "Existing frozen v1.1 item binding retained and matched to main manifest and source-audit metadata; no input or key artifact was rewritten.",
+    "unchanged_input_status_note": "The eight private v1.1 rows retain their historical PDF_verification_pending source_status strings. Admission here inherits later source-audit complete body/stem/choices/presentation statuses and original_artifact_complete=true; this is source admission only and upgrades no historical semantic classification.",
+    "source_files": [
+      {
+        "path": "scripts/research/csat-reading/local/v12/restore-a.json",
+        "sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v12/restore-b.json",
+        "sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/main-20261014/input.json",
+        "sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6"
+      }
+    ],
+    "protocol_sha256": "4a1c5aa72ed3b6a34ff244ff51f2c71c6dc940b9b653e2ea3c28efbeed5f0786"
+  },
+  "offset_convention": {
+    "unit": "JavaScript UTF-16 code units",
+    "start": "inclusive",
+    "end": "exclusive",
+    "passage": "relative to the exact selected private input.passage",
+    "stem": "relative to the exact selected private input.stem",
+    "choice": "relative to input.choices[choice_n-1], with choice_n one-based",
+    "presentation": "relative to JSON.stringify(input.presentation) with saved property insertion order and no indentation; applies to the restored presentation object only",
+    "public_source_prose": "not included; public artifact contains offsets/hash and own explanations only"
+  },
+  "summary": {
+    "items": 32,
+    "input_refs": {
+      "restored-v1.2": 24,
+      "main-v1.1": 8
+    },
+    "discourse": {
+      "exposition": 13,
+      "argument": 9,
+      "narrative": 6,
+      "practical": 3,
+      "data": 1
+    },
+    "task": {
+      "complete": 4,
+      "retrieve": 6,
+      "referent": 2,
+      "lexical_context": 3,
+      "affect": 1,
+      "stance": 1,
+      "purpose": 1,
+      "macro_compress": 6,
+      "coherence_order": 3,
+      "quantitative": 1,
+      "grammar": 1,
+      "coherence_remove": 1,
+      "coherence_insert": 2
+    },
+    "content_evidence": 127,
+    "source_admitted": 32,
+    "added_unique_items": 0,
+    "independent_validation_runs": 0,
+    "new_key_verifications": 0,
+    "unresolved_discourse": 0,
+    "admitted_axis_count": 2,
+    "decisive_relations_reclassified": 0
+  },
+  "items": [
+    {
+      "id": "2014A#36",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "discourse": "exposition",
+      "task": "complete",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 183,
+          "end": 280,
+          "choice_n": null,
+          "why": "일반적 조정 성향이 뒤의 회의 행동 사례를 포괄하는 상위 설명이다."
+        },
+        {
+          "field": "passage",
+          "start": 293,
+          "end": 395,
+          "choice_n": null,
+          "why": "회의에서 타인을 따라 제안한다는 구체 장면이 앞 일반 설명을 예시한다."
+        },
+        {
+          "field": "passage",
+          "start": 100,
+          "end": 182,
+          "choice_n": null,
+          "why": "높은 집단은 사회적으로 허용되는 행동을 지향한다는 비교축을 고정한다."
+        },
+        {
+          "field": "passage",
+          "start": 469,
+          "end": 578,
+          "choice_n": null,
+          "why": "같은 사회 신호에 대한 낮은 집단의 덜 민감한 반응이 비교 방향을 바꾼다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 36,
+          "choice_n": null,
+          "why": "발문에서 요구하는 complete 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "자기감시의 개념과 두 성향 집단의 행동을 설명하는 글이므로 exposition이다. 과제는 일반 특성과 회의 장면, 높은 성향과 낮은 성향을 이어 줄 두 연결 표현을 완성하는 complete이며 성향의 정오나 인물 사실을 회수하는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "두 표현이 각각 글을 잇는 역할을 갖더라도 이번 행은 연결 표현 조합의 완성 과제로 기록한다. 각 담화관계의 필수성은 공개 확대 축에서 보류한다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2014B#42",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "126ba108a3eb6995f09f95e754880ea3ed856cff83c872d2d9a9f3e194a5665b",
+      "discourse": "argument",
+      "task": "complete",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 332,
+          "end": 451,
+          "choice_n": null,
+          "why": "많은 약한 온라인 관계가 예상 욕구 쪽의 비교항이다."
+        },
+        {
+          "field": "passage",
+          "start": 452,
+          "end": 604,
+          "choice_n": null,
+          "why": "실제 욕구는 끊임없는 접속과 구별되며 빈칸의 드묾을 이 방향에 놓는다."
+        },
+        {
+          "field": "passage",
+          "start": 978,
+          "end": 1059,
+          "choice_n": null,
+          "why": "의미 있는 대화가 인간의 언어와 신체 경험을 요구한다는 내용이 빈칸의 접촉 종류를 구체화한다."
+        },
+        {
+          "field": "passage",
+          "start": 1060,
+          "end": 1267,
+          "choice_n": null,
+          "why": "필요한 상대가 직접 살아온 사람임을 명시해 로봇과의 대화나 추상적 사건 후보를 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 26,
+          "choice_n": null,
+          "why": "발문에서 요구하는 complete 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "많은 디지털 접촉을 원하는 듯한 상태와 실제 원하는 인간적 접촉을 구별하고 현실의 관계를 지켜야 한다는 논지를 전개하므로 argument이다. 문장 속 빈칸에 의미 있는 접촉의 종류를 채우는 complete이며 전체 제목을 고르는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "전반 논지의 주제 요약과 빈칸 완성은 구별한다. 표준 과제명 complete가 실제 선택적 읽기 경로나 다섯 보기 검증을 뜻하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2024#21",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "1a7dfa5fe42750040adcb086026a765c3fffc02570489aa10410bfdbb7c98287",
+      "discourse": "exposition",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 729,
+          "end": 800,
+          "choice_n": null,
+          "why": "불안을 일으키는 일부보다 전체 관점에 비중을 둔다는 비유의 선행 의미다."
+        },
+        {
+          "field": "passage",
+          "start": 801,
+          "end": 922,
+          "choice_n": null,
+          "why": "대상을 경험하면서 달라붙게 두지 않는 장면이 선행 설명을 비유로 다시 제시한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 53,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "주의의 폭이 스트레스 처리에 미치는 영향을 설명하므로 exposition이다. 과제는 지정된 비유의 문맥상 의미를 회수해 표현 후보와 대조하는 retrieve이다. 글 전체의 주제 요약과 구별해 특정 표현을 해석하는 요구로 보았다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "지정 비유의 뜻 찾기를 위한 별도 과제 코드가 없으므로 retrieve를 적용했다. 어휘 오류 찾기나 글 전체 요약으로 바꾸지 않으며, 요구 코드 경계는 향후 직접 검토할 수 있다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2016#30",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "discourse": "narrative",
+      "task": "referent",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 260,
+          "end": 321,
+          "choice_n": null,
+          "why": "대결을 요청하고 회전하는 주체를 확립하는 선행 명시 인물이다."
+        },
+        {
+          "field": "passage",
+          "start": 596,
+          "end": 701,
+          "choice_n": null,
+          "why": "회전한 주체의 팔과 그 팔이 가리킨 별도 인물을 한 문장에서 구별한다."
+        },
+        {
+          "field": "passage",
+          "start": 741,
+          "end": 859,
+          "choice_n": null,
+          "why": "연령·이력이 붙은 대명사는 젊은 주체가 아닌 선택된 연장자를 가리킨다."
+        },
+        {
+          "field": "passage",
+          "start": 860,
+          "end": 947,
+          "choice_n": null,
+          "why": "마지막 대명사가 앞의 주체로 돌아가는 결속을 확인한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 36,
+          "choice_n": null,
+          "why": "발문에서 요구하는 referent 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "무작위 상대 선택과 대결 요청이라는 사건을 인물 행동에 따라 전개하므로 narrative이다. 다섯 대명사가 같은 인물을 가리키는지 구별하는 referent이며, 춤 대결의 순서나 승자를 고르는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "대명사 후보를 고르는 과제라도 형태의 옳고 그름을 묻지 않으므로 grammar와 구별했다. 지시 대상 비교를 근거로 복잡성 축을 재분류하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2021#42",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "d3939d75d870e365a4ac85f4951e07f226c490f4f356e0e7d3e44cd53d0b56f6",
+      "discourse": "exposition",
+      "task": "lexical_context",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 873,
+          "end": 998,
+          "choice_n": null,
+          "why": "복잡성의 원천을 개미 내부와 해변 표면 사이에서 구별한다."
+        },
+        {
+          "field": "passage",
+          "start": 1065,
+          "end": 1188,
+          "choice_n": null,
+          "why": "복잡한 이동 결과를 만드는 것은 규칙과 환경의 상호작용이라는 확정 설명이다."
+        },
+        {
+          "field": "passage",
+          "start": 1249,
+          "end": 1387,
+          "choice_n": null,
+          "why": "행동 복잡성과 기제 복잡성의 자동 등치를 부정하므로 내부 규칙의 복잡성을 당연시하는 후보를 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 40,
+          "choice_n": null,
+          "why": "발문에서 요구하는 lexical_context 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "행동의 복잡성이 내부 기제의 복잡성만을 뜻하지 않음을 개미와 환경의 사례로 설명하므로 exposition이다. 과제는 확정된 주변 설명을 기준으로 표시 어휘의 문맥 적합성을 판단하는 lexical_context이다. 어휘 후보 자체를 사실 판단의 근거로 삼지 않았다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "생물 사례의 과학적 사실 확인과 표시 낱말의 문맥 적합성은 다른 요구다. 이번 결과는 후자만 분류하며 인간 독자의 실제 난도는 판정하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2018#19",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "4bc34ed452f1681b37741c446d67d0e1f682b454f50fe51a9f007ff91b858b98",
+      "discourse": "narrative",
+      "task": "affect",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 0,
+          "end": 133,
+          "choice_n": null,
+          "why": "초기 관광 경험을 부정적으로 평가하는 시작 상태다."
+        },
+        {
+          "field": "passage",
+          "start": 202,
+          "end": 347,
+          "choice_n": null,
+          "why": "새 경관의 출현이 초기 상태 뒤에 놓인 전환 사건이다."
+        },
+        {
+          "field": "passage",
+          "start": 430,
+          "end": 500,
+          "choice_n": null,
+          "why": "새 경관의 긍정적 정서가 초기의 실망 평가와 반대 방향이다."
+        },
+        {
+          "field": "passage",
+          "start": 601,
+          "end": 643,
+          "choice_n": null,
+          "why": "후반의 적극적 감탄이 단순한 안도나 혼란 대신 흥분 쪽을 지지한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 32,
+          "choice_n": null,
+          "why": "발문에서 요구하는 affect 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "관광에 대한 초기 실망에서 새로운 자연 경관에 대한 긍정적 반응으로 바뀌는 체험을 전개하므로 narrative이다. 감정 두 상태의 전후 방향을 고르는 affect이며 후반 감정 하나만 고르는 요구와 구별된다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "단일 심경 판단과 심경 변화는 affect 아래에 함께 들어갈 수 있다. 이 문항의 요구는 초기·후기 상태의 방향까지 포함한다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2020#20",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "6a98b98f131b4eb2e34e4d3f6b64c4d72bbf6a9faf66b8336f022d40fbd8b7bd",
+      "discourse": "argument",
+      "task": "stance",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 784,
+          "end": 879,
+          "choice_n": null,
+          "why": "자신에게 자유로운 행위를 허용하라는 직접 권고가 주장 후보를 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 29,
+          "choice_n": null,
+          "why": "발문에서 요구하는 stance 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "성인의 놀이를 막는 체면·사회 규범에 반박하고 자유로운 놀이를 스스로 허용하라고 권고하므로 argument이다. 필자의 당위적 입장을 고르는 stance이며, 장애 요인만 요약하거나 프로그램 제안을 만드는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "일반적인 글 요지 찾기와 당위적 주장 선택의 경계가 있다. 이 문항은 명시적 권고를 묻는 발문을 기준으로 stance를 채택했다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2022#18",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "64785711ad66d40f79e418ffd001370393507b17aa22134fab06048b3e223831",
+      "discourse": "practical",
+      "task": "purpose",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 344,
+          "end": 438,
+          "choice_n": null,
+          "why": "직접 요청의 행위와 행사가 함께 명시되어 워크숍 강연 부탁을 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 21,
+          "choice_n": null,
+          "why": "발문에서 요구하는 purpose 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "특정 수신인에게 예정된 교사 워크숍 강연을 부탁하는 편지이므로 practical이다. 목적은 직접 수행하려는 요청 행위를 구별하는 purpose이며 예정된 행사의 세부 사항만 회수하는 과제와 다르다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "강연 일정이나 교사 직업을 찾는 사실 요구와 편지의 요청 목적은 구별된다. 이번 행은 purpose이며 편지 배경 전체가 반드시 필요하다는 주장을 포함하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2019#44",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "3e9c73561132023815b732f9369c8dc55233260c6a34cbdeb13a4bb6320d973b",
+      "discourse": "narrative",
+      "task": "referent",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 154,
+          "end": 252,
+          "choice_n": null,
+          "why": "말한 인물 표시가 첫 인칭 후보의 지시 대상을 확정한다."
+        },
+        {
+          "field": "passage",
+          "start": 649,
+          "end": 738,
+          "choice_n": null,
+          "why": "바로 앞의 놀림 대상과 해당 대명사가 결속된다."
+        },
+        {
+          "field": "passage",
+          "start": 847,
+          "end": 930,
+          "choice_n": null,
+          "why": "바로 앞에서 계속 싸운다고 기술된 인물의 행동을 이어 받는다."
+        },
+        {
+          "field": "passage",
+          "start": 1546,
+          "end": 1603,
+          "choice_n": null,
+          "why": "두 자매 중 별도로 이름이 적힌 인물과 대명사의 대상을 분리한다."
+        },
+        {
+          "field": "passage",
+          "start": 1608,
+          "end": 1804,
+          "choice_n": null,
+          "why": "생각을 깨달은 사람과 옳다고 인정된 발화자를 구별해야 마지막 후보가 결속된다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 39,
+          "choice_n": null,
+          "why": "발문에서 요구하는 referent 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "자매가 할머니와 애벌레를 골라내고 자연의 균형을 깨닫는 사건 서사이므로 narrative이다. 표시 대명사의 공통 지시 대상에서 벗어나는 대상을 고르는 referent이며, 섞여 제시된 블록의 사건 배열을 요구하지 않는다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "같은 공유지문을 읽더라도 다른 문항의 배열·사실 과제를 이 문항에 합치지 않았다. 읽은 서사 전체와 해당 대명사 요구를 구별한다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2015#18",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+      "discourse": "argument",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 559,
+          "end": 635,
+          "choice_n": null,
+          "why": "성공과 실패 극복을 연결한 명시적 결론이 중심 요지 후보를 직접 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 20,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "성공의 조건으로 실패 뒤 회복을 강조하고 사례와 결론으로 그 주장을 뒷받침하므로 argument이다. 글 전체 요지를 포괄하는 후보를 고르는 macro_compress이며 회사·경기 사례 중 하나의 사실만 고르는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "회복을 권하는 기능 때문에 stance와 닿는 경계가 있으나, 발문은 글의 요지를 요구하여 macro_compress를 채택했다. 두 코드의 일반 동등성을 주장하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2023#41",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "7027875be1dcf5718e3abbcf7d49252e436a8933bd3a0cbee62ecda6f6e3cb70",
+      "discourse": "argument",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 0,
+          "end": 113,
+          "choice_n": null,
+          "why": "단순한 알고리즘과 전문가의 상대적 성과를 비교하는 중심 주장이다."
+        },
+        {
+          "field": "passage",
+          "start": 666,
+          "end": 871,
+          "choice_n": null,
+          "why": "성과 차이의 비교 방향을 유지하여 인간 판단 우위나 알고리즘 오류를 중심으로 삼는 후보를 구별한다."
+        },
+        {
+          "field": "passage",
+          "start": 872,
+          "end": 1003,
+          "choice_n": null,
+          "why": "후반 체크리스트의 기능이 앞의 단순한 판단 보조와 같은 논지를 확장하므로 후반만 제목으로 삼는 것을 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 19,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "단순한 공식이 전문가 판단보다 낫거나 뒤지지 않는다는 성과 비교 주장을 여러 영역의 증거로 뒷받침하므로 argument이다. 제목은 알고리즘과 체크리스트를 같은 판단 보조 논지 안에 포괄하는 macro_compress이며, 후반 체크리스트만 제목으로 삼는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "후반 체크리스트만 압축하는 부분 요약과 전체 제목 요구를 구별한다. 같은 공유지문의 어휘 오류를 새로 검증하지 않았고 오류 후보를 참인 근거로 쓰지 않았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2017#25",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "discourse": "exposition",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 760,
+          "end": 858,
+          "choice_n": null,
+          "why": "저술의 동반자가 명시되므로 단독 집필 주장과 국소 사실 대조가 가능하다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 32,
+          "choice_n": 5,
+          "why": "후보가 제한한 저술 방식이 직접 진술의 공저 여부와 어긋난다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 38,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "영화감독의 성장·학업·작품·저술 이력을 제공하는 전기적 설명이므로 exposition이다. 날짜가 순서대로 등장해도 사건의 긴장과 해소보다 인물 정보 제공이 우세하다. 발문은 후보의 사실 불일치를 찾는 retrieve이다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "연대 순서의 형식을 강조하면 narrative 대안이 있다. 독립적 인물 사실 제공을 우세 목적으로 보았으며, 이 선택이 실제 독자의 처리 방식을 뜻하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2021#40",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "3f52479933d7c463022d16adefcd4685acf0b0db7d17423e578accac1dd2d39c",
+      "discourse": "argument",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 532,
+          "end": 642,
+          "choice_n": null,
+          "why": "강제력과 정치 권력의 결합이 모든 문화에 공통적이라는 전제를 부정한다."
+        },
+        {
+          "field": "passage",
+          "start": 704,
+          "end": 922,
+          "choice_n": null,
+          "why": "그 전제가 맞지 않는 문화에서는 동일한 지배 추론이 불안정하다는 조건부 논증이 평가어의 방향을 정한다."
+        },
+        {
+          "field": "presentation",
+          "start": 137,
+          "end": 299,
+          "choice_n": null,
+          "why": "요약 제시가 해석의 평가와 문화 간 개념의 동일성 여부를 하나의 이유 구조로 결합하도록 요구한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 57,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "서구식 정치 권력 개념을 다른 문화에 그대로 적용하는 추론을 비판하므로 argument이다. 제시된 요약문 두 빈칸에 해석의 평가와 문화 간 개념의 동일성 여부를 함께 보존하는 macro_compress이며, 임의 문장의 빈칸 완성과 구별된다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "요약문이 빈칸 형태여도 전체 글의 한 문장 압축이 요구되어 macro_compress로 기록했다. 임의 부분 완성과 구별하며 두 후보 의미 축의 새로운 일치 검증은 없다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2014B#45",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "c389f2d0065384d57357bca61bf8bf3e6ca9280a738a9f9547ff29238b434b42",
+      "discourse": "narrative",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 1800,
+          "end": 1879,
+          "choice_n": null,
+          "why": "조부를 포함한 두 사람이 변화를 알아차렸다는 사실이 명시된다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 25,
+          "choice_n": 5,
+          "why": "후보의 부정 진술은 해당 국소 사실과 어긋난다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 32,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "가족의 집 건축과 주변 변화를 기억과 사건으로 회고하므로 narrative를 우세 코드로 채택했다. 이번 과제는 할아버지에 관한 사실 불일치를 찾는 retrieve이며, 단순한 삶의 가치에 찬성하는지를 고르는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "회고가 단순한 삶의 가치를 지지하는 예로 조직되어 argument 또는 mixed를 우세로 보는 대안이 있다. 사실 요구 자체는 그 담화 경계에 의존하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2018#43",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "discourse": "narrative",
+      "task": "coherence_order",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 384,
+          "end": 461,
+          "choice_n": null,
+          "why": "출마를 결정하는 제시 블록의 마지막 사건이다."
+        },
+        {
+          "field": "passage",
+          "start": 1127,
+          "end": 1299,
+          "choice_n": null,
+          "why": "출마 계획을 친구에게 알리는 사건은 결과 발표보다 앞선다."
+        },
+        {
+          "field": "passage",
+          "start": 1688,
+          "end": 1793,
+          "choice_n": null,
+          "why": "선거 당일 등교 사건이 출마 등록 뒤이며 결과 발표 전인 시간 제약을 준다."
+        },
+        {
+          "field": "passage",
+          "start": 466,
+          "end": 583,
+          "choice_n": null,
+          "why": "결과와 축하는 선거 당일 진행 뒤의 사건이다."
+        },
+        {
+          "field": "passage",
+          "start": 2207,
+          "end": 2265,
+          "choice_n": null,
+          "why": "뒤에 실제 사과가 이루어지는 블록과 선행·후행 연결을 만든다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 44,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_order 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "친구들이 함께 선거에 나가 긴장과 사과를 거쳐 관계를 회복하는 사건 서사이므로 narrative이다. 출마 결정·경쟁 등록·선거 당일·결과와 사과에 맞게 블록을 배열하는 coherence_order이며, 감정 변화를 직접 묻는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "친구의 감정과 대명사가 포함되지만 직접 발문은 블록 배열이다. 심경·지시 과제를 자동으로 추가하지 않았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2019#25",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "discourse": "data",
+      "task": "quantitative",
+      "content_evidence": [
+        {
+          "field": "presentation",
+          "start": 462,
+          "end": 523,
+          "choice_n": null,
+          "why": "후반 학년도의 중국과 인도 행 값·순위가 비교 후보의 순위 방향을 직접 판별한다."
+        },
+        {
+          "field": "presentation",
+          "start": 739,
+          "end": 768,
+          "choice_n": null,
+          "why": "앞 학년도의 인도 값을 후반 값과 대응시켜 배수 조건을 계산할 수 있다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 143,
+          "choice_n": 3,
+          "why": "하나의 후보에 배수와 순위 조건이 함께 있어 수치에 맞는 부분과 어긋난 부분을 나누어 대조해야 한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 21,
+          "choice_n": null,
+          "why": "발문에서 요구하는 quantitative 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "두 학년도의 국가별 유학생 수와 순위를 표로 제시하므로 data이다. 국가·학년도·값·순위를 대응시키고 비율과 순위를 비교하여 불일치 진술을 찾는 quantitative이며, 일반 산문 속 인물 사실 회수와 구별된다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "한 후보의 순위 오류 식별과 다섯 수치 진술의 전체 검증은 다른 수행 범위다. 이번 행은 quantitative 요구만 분류하며 두 범위의 충분성을 판정하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2023#29",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "discourse": "exposition",
+      "task": "grammar",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 405,
+          "end": 464,
+          "choice_n": null,
+          "why": "같은 국소 절의 주어와 제시 대상에 맞는 대명사 형태를 검토해야 하는 문법 의존 구간이다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 4,
+          "choice_n": 2,
+          "why": "주변 절의 문법 제약과 후보 형태를 대조하며 오류 후보 자체를 세계 사실 근거로 삼지 않는다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 27,
+          "choice_n": null,
+          "why": "발문에서 요구하는 grammar 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "유행과 의복이 자기 표현과 행위 가능성을 제공하는 방식을 설명하므로 exposition이다. 과제는 표시된 형태가 주변 절의 문법 제약에 맞는지를 판단하는 grammar이며, 사람을 가리키는 대상만 서로 비교하는 referent와 구별된다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "대명사가 보인다는 이유로 referent를 부여하지 않았다. 발문은 같은 절에서 요구되는 문법 형태의 오류를 고르게 하며, 형태 검토와 의미 복잡성은 별도 축이다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2022#35",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "1e0f088f1f28b4bd184d41872aaf9b383aacf4bcc0ccbb4acfc4c86419d5a847",
+      "discourse": "exposition",
+      "task": "coherence_remove",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 170,
+          "end": 263,
+          "choice_n": null,
+          "why": "정보 시스템의 변화를 기업 간 여러 단위의 협력으로 좁히는 중심 설명이다."
+        },
+        {
+          "field": "passage",
+          "start": 543,
+          "end": 626,
+          "choice_n": null,
+          "why": "관련 설명이 내부 조직을 넘어 주변 단위 전체로 확장되는 동일 주제를 유지한다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 139,
+          "choice_n": 4,
+          "why": "수익성에 따른 내부 선별은 기업 간 협력 생태계를 구체화하지 않으므로 흐름 적합성에서 벗어난다."
+        },
+        {
+          "field": "passage",
+          "start": 771,
+          "end": 884,
+          "choice_n": null,
+          "why": "공통 플랫폼이라는 뒤 문장은 앞의 단위 간 협력을 계속 구체화한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 24,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_remove 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "정보 시스템이 기업 간 협력과 여러 단위의 생태계를 만든 변화를 설명하므로 exposition이다. 과제는 이 협력 주제를 계속 구체화하지 않는 문장을 찾아 흐름에서 제거하는 coherence_remove이다. 제거 후보의 현실적 참·거짓을 판단하는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "내용이 현실에서 참일 수 있어도 글의 협력 주제를 잇지 않으면 제거 대상이 될 수 있다. coherence_remove를 사실 불일치 retrieve로 바꾸지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2015#30",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "beeff0e75672dbb466b72abc558da8b0f873bd9c2826b0bfd9904c4ba64214ac",
+      "discourse": "exposition",
+      "task": "lexical_context",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 119,
+          "end": 218,
+          "choice_n": null,
+          "why": "첫 슬롯은 두 능력을 함께 갖게 하는 국소 결합 의미와 구문을 요구한다."
+        },
+        {
+          "field": "passage",
+          "start": 219,
+          "end": 383,
+          "choice_n": null,
+          "why": "시각의 색 구별과 청각의 정확한 수치 대응을 같은 감각 차원에서 대조해 둘째 슬롯의 방향을 정한다."
+        },
+        {
+          "field": "passage",
+          "start": 688,
+          "end": 890,
+          "choice_n": null,
+          "why": "보이지 않는 기저 질서와 주변을 기초 짓는 진동의 표현이 같은 의미 방향으로 이어져 셋째 슬롯을 구별한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 45,
+          "choice_n": null,
+          "why": "발문에서 요구하는 lexical_context 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "시각과 청각의 차이, 청각의 수치적 정밀성과 보이지 않는 질서에 대한 접근을 설명하므로 exposition이다. 과제는 각 상자의 두 낱말 중 문맥에 맞는 조합을 고르는 lexical_context이며, 형태의 문법적 오류를 찾는 요구와 다르다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "세 상자에 문법적으로 가능한 단어들이 제시되어도 주변 설명과의 의미 적합성을 고르는 요구다. 정답 조합의 새 공식 검증은 수행하지 않았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2017#21",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "discourse": "argument",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 291,
+          "end": 504,
+          "choice_n": null,
+          "why": "제작 과정의 주관성과 완성본의 객관적으로 보이는 외관이 직접 대조된다."
+        },
+        {
+          "field": "passage",
+          "start": 637,
+          "end": 828,
+          "choice_n": null,
+          "why": "겉보기 객관성 아래에 실제 관점·정치 사회 조건이 반영된다는 반대쪽 내용이 주제의 범위를 정한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 20,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "지도 제작의 객관적으로 보이는 외관 아래 관점과 이념이 반영된다는 주장을 드러내므로 argument이다. 주제는 그 외관과 내재된 관점을 같은 지도 대상으로 포괄하는 macro_compress이며, 정확한 지도 제작의 요건만 고르는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "정확한 지도 제작 지침을 묻는 실용 과제와 이념에 관한 전체 주제를 압축하는 과제는 구별된다. 주제 제목 간 차이는 macro_compress 내부 형식 메모로 남긴다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2016#23",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "discourse": "exposition",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 429,
+          "end": 499,
+          "choice_n": null,
+          "why": "제목이 다룰 문제는 생물학적 노화를 쉽게 측정하기 어렵다는 점이다."
+        },
+        {
+          "field": "passage",
+          "start": 500,
+          "end": 659,
+          "choice_n": null,
+          "why": "필요한 대응은 달력 시간 대신 전체 노화를 대표할 소수의 측정 변화를 찾는 것이다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 21,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "생물학적 노화의 속도 차이와 측정 지표가 필요한 이유를 설명하므로 exposition이다. 제목은 전체 노화를 대표할 기준을 찾는 연구 목표를 압축하는 macro_compress이며, 노화가 이미 해결되었다거나 노화를 예방하는 방법을 고르는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "측정 목표를 설명하는 연구 소개에는 argument 경계도 있다. 해결책을 주장하기보다 노화의 특성과 원하는 측정 도구를 설명하는 목적을 우세로 보았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2014A#39",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "7557cd960a50e2d79d4461d59840ff06ce68ae957b8cea01385ea22fa0eae4a4",
+      "discourse": "narrative",
+      "task": "coherence_insert",
+      "content_evidence": [
+        {
+          "field": "presentation",
+          "start": 276,
+          "end": 390,
+          "choice_n": null,
+          "why": "삽입 대상 문장이 도움의 완료 이후에 놓여야 한다는 시간 제약을 명시한다."
+        },
+        {
+          "field": "passage",
+          "start": 399,
+          "end": 462,
+          "choice_n": null,
+          "why": "건너기를 시작한 사건이 삽입문의 완료·깨달음보다 먼저 있어야 한다."
+        },
+        {
+          "field": "presentation",
+          "start": 331,
+          "end": 390,
+          "choice_n": null,
+          "why": "가방과 벤치의 위치를 제시하여 뒤의 가방 지시가 이어질 대상을 도입한다."
+        },
+        {
+          "field": "passage",
+          "start": 469,
+          "end": 561,
+          "choice_n": null,
+          "why": "뒤 문장에 있는 벤치와 가방이 삽입문에서 도입된 대상·상황을 이어 받는다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 36,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_insert 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "길을 건너도록 돕고 두고 온 가방을 돌아보며 다른 사람의 도움을 받는 사건 서사이므로 narrative이다. 과제는 도움의 완료와 가방을 깨닫는 문장을 주변 사건·대상 소개에 맞는 위치에 넣는 coherence_insert이다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "삽입문을 넣은 뒤의 사건·대상 연결을 확인하는 요구이며 배열 과제와 형식상 다르다. 최적 읽기창이나 최소 필요 문장 수를 새로 확정하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2020#37",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "80dd3a1a56fcbb1c0284b5eb1b11110611303bd9c2d2bea28ebe8959c714e148",
+      "discourse": "argument",
+      "task": "coherence_order",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 28,
+          "end": 192,
+          "choice_n": null,
+          "why": "제시문이 뒤에서 받아야 할 전통적 역사 서술 목표를 확립한다."
+        },
+        {
+          "field": "passage",
+          "start": 490,
+          "end": 575,
+          "choice_n": null,
+          "why": "이 지시 표현은 제시된 목표를 받아 그 목표가 수반한 서술 방식을 구체화한다."
+        },
+        {
+          "field": "passage",
+          "start": 798,
+          "end": 903,
+          "choice_n": null,
+          "why": "발견 시점과 발견자의 특정 가능성이라는 다음 설명의 질문을 만든다."
+        },
+        {
+          "field": "passage",
+          "start": 197,
+          "end": 308,
+          "choice_n": null,
+          "why": "여러 단계·발견자 때문에 한 시점·한 사람을 확정하기 어렵다는 내용이 바로 앞 질문을 구체화한다."
+        },
+        {
+          "field": "passage",
+          "start": 908,
+          "end": 1070,
+          "choice_n": null,
+          "why": "이미 열거된 전통적 관점의 결함에 또 다른 결함을 이어 붙인다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 36,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_order 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "현대 개념의 축적만 추적하는 전통적 과학사 관점의 한계를 여러 근거로 비판하므로 argument를 우세 코드로 보았다. 과제는 제시된 목표 설명·발견 시점의 특정 문제·추가 결함을 이어 블록을 배열하는 coherence_order이다. 역사적 날짜의 단순 오름차순 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "학설과 연구사 정보를 제공하는 목적을 우세로 보면 exposition 대안이 있다. 전통적 관점의 결함을 누적해 비판하는 논증 조직을 우세로 보았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2024#28",
+      "research_input_ref": "main-v1.1",
+      "research_input_binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "discourse": "practical",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 305,
+          "end": 346,
+          "choice_n": null,
+          "why": "영상 길이의 상한을 직접 명시하는 조건 항목이다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 26,
+          "choice_n": 3,
+          "why": "후보가 해당 항목의 제한을 같은 범위로 옮겼다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 69,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "공모전의 제출 조건·상·선정 절차를 알려 참가 행동을 돕는 안내문이므로 practical이다. 과제는 해당 항목과 일치하는 내용 후보를 고르는 retrieve이며, 당첨 가능성이나 상금 비율을 계산하는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "일치 항목의 회수와 다섯 항목의 전부 검증은 다른 수행 범위다. 이번 결과는 retrieve 요구를 기록하며 제한된 항목 읽기의 충분성을 새로 판정하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2024#34",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "discourse": "exposition",
+      "task": "complete",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 0,
+          "end": 149,
+          "choice_n": null,
+          "why": "운전·도보·대중교통 사용의 경험이 관점의 주체를 구체화한다."
+        },
+        {
+          "field": "passage",
+          "start": 187,
+          "end": 282,
+          "choice_n": null,
+          "why": "서로 다른 도로 관점이 시민들이 엇갈리게 주장하는 이유가 된다는 연결이다."
+        },
+        {
+          "field": "passage",
+          "start": 860,
+          "end": 1084,
+          "choice_n": null,
+          "why": "논쟁의 뿌리가 개인의 이동·주차·안전·사업 영향이라고 구체화되어 관점이 개인 이동 방식에 연동되는 방향을 지지한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 29,
+          "choice_n": null,
+          "why": "발문에서 요구하는 complete 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "도시 교통 논쟁이 개인의 이동 방식과 이해관계에서 생기는 이유를 설명하므로 exposition을 우세 코드로 보았다. 과제는 도로 관점이 무엇에 연동되는지 문장의 빈칸을 완성하는 complete이며, 특정 교통 정책의 찬반 입장을 고르는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "정책 논쟁에 관한 통념 반박을 우세로 보면 argument 대안이 있다. 이번에는 논쟁 원인의 설명을 우세로 보았고 사람의 정책 선호를 분류하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2014B#34",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "49d5b463423ae51d688e5b88816c67264852832d9d2db06fdad0668f9b311e7c",
+      "discourse": "argument",
+      "task": "complete",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 192,
+          "end": 412,
+          "choice_n": null,
+          "why": "의도적 오차가 위험 상황의 안전 여유를 제공하는 기능이 선택의 근거다."
+        },
+        {
+          "field": "passage",
+          "start": 582,
+          "end": 764,
+          "choice_n": null,
+          "why": "빈칸은 앞의 위험 회피 이점 때문에 자연 선택이 부여한 성질을 받아야 한다."
+        },
+        {
+          "field": "passage",
+          "start": 765,
+          "end": 962,
+          "choice_n": null,
+          "why": "실험실적 정확성·합리성과 현실의 안전 효과를 분리하여 정확하지만 위험을 무시한다는 방향을 배제한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 29,
+          "choice_n": null,
+          "why": "발문에서 요구하는 complete 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "부정확하게 보이는 청각 편향이 진화적 안전에 유리하여 현실에서는 합리적일 수 있다는 주장을 펼치므로 argument이다. 과제는 위험 회피 이점으로 선택된 뇌의 성질을 빈칸에 완성하는 complete이며, 정확성과 유용성을 그대로 동일시하지 않도록 주변 의미를 읽어야 한다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "비합리적으로 보이는 현상의 작동 원리를 소개하는 exposition 대안도 있지만, 정확성이 곧 현명함이라는 평가를 반박하는 조직을 argument로 보았다. 과제는 그 입장에 대한 찬반 선택이 아니다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2018#36",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "60037b7462ab6e3704925935cac2bab6cbf5a4a25ae5fc1fc40b4d8dff074ad9",
+      "discourse": "exposition",
+      "task": "coherence_order",
+      "content_evidence": [
+        {
+          "field": "presentation",
+          "start": 388,
+          "end": 517,
+          "choice_n": null,
+          "why": "제시문은 구독 우세와 단권 판매의 작은 비중을 정한다."
+        },
+        {
+          "field": "passage",
+          "start": 279,
+          "end": 361,
+          "choice_n": null,
+          "why": "작은 비중에도 수입 측면에서 중요하다는 같은 판매 수단의 평가 전환이 제시문 뒤를 연결한다."
+        },
+        {
+          "field": "passage",
+          "start": 474,
+          "end": 549,
+          "choice_n": null,
+          "why": "단권 판매의 추가 역할을 바로 앞의 수입상 중요성에 더한다."
+        },
+        {
+          "field": "passage",
+          "start": 708,
+          "end": 869,
+          "choice_n": null,
+          "why": "뒤의 특정 전문 잡지 사례가 구체화할 일반 범주와 광고 특성을 확립한다."
+        },
+        {
+          "field": "passage",
+          "start": 4,
+          "end": 171,
+          "choice_n": null,
+          "why": "전문 독자와 특정 광고주의 조합이 바로 앞 일반 범주를 실제 사례로 잇는다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 36,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_order 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "잡지의 구독·단권 판매·광고라는 유통과 수입 구조를 설명하므로 exposition이다. 과제는 판매 방식의 설명에서 전문 잡지의 광고 사례까지 이어 블록을 배열하는 coherence_order이며, 제시된 비율 수치를 계산하는 과제가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "판매 비율이 제시되어도 발문은 정량 진술의 일치가 아니라 블록 배열이다. 수치 출현만으로 quantitative를 부여하지 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2023#39",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "792a571dd3c7c527b9aef065ec190bdb7e533368347ccef06e2b980035e0af31",
+      "discourse": "practical",
+      "task": "coherence_insert",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 410,
+          "end": 540,
+          "choice_n": null,
+          "why": "시행 시점·기간을 조절하는 일반 방법이 삽입문의 상위 설명이다."
+        },
+        {
+          "field": "presentation",
+          "start": 320,
+          "end": 437,
+          "choice_n": null,
+          "why": "몇 달 뒤까지 시행을 미루는 구체 경우가 시간 지평 방법을 예시한다."
+        },
+        {
+          "field": "passage",
+          "start": 547,
+          "end": 628,
+          "choice_n": null,
+          "why": "다음 문장은 시간 지평과 다른 방법으로 이동하여 시간 예시가 속할 범위를 닫는다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 41,
+          "choice_n": null,
+          "why": "발문에서 요구하는 coherence_insert 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "협상 의제를 작게 나누어 당사자가 실행할 수 있는 방법을 조언하므로 practical을 우세 코드로 보았다. 과제는 시행 지연에 관한 문장을 시간 지평 방법의 설명에 맞는 위치에 넣는 coherence_insert이며, 조언의 효과를 시험하거나 정량 계산하는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "협상 기법을 개념적으로 설명하는 목적을 우세로 보면 exposition 대안이 있다. 당사자가 실행할 방법의 조언을 practical로 보았으며 같은 발문이 그 담화 경계를 해소하지는 않는다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2019#23",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "9af9292c308e508e91b9813a4bad10824efb0be7eb7962f19cd36b4fc91dff76",
+      "discourse": "argument",
+      "task": "macro_compress",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 14,
+          "end": 169,
+          "choice_n": null,
+          "why": "기후 변화의 보호 대상과 정책 대응 목적을 처음부터 결합한다."
+        },
+        {
+          "field": "passage",
+          "start": 406,
+          "end": 502,
+          "choice_n": null,
+          "why": "원조 확대가 기후 완화 대응의 한 부분으로 제시된다."
+        },
+        {
+          "field": "passage",
+          "start": 710,
+          "end": 870,
+          "choice_n": null,
+          "why": "원조 이외에도 보조금 개혁이 같은 기후 대응 정책 범위를 이루므로 주제의 포괄 범위를 정한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 20,
+          "choice_n": null,
+          "why": "발문에서 요구하는 macro_compress 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "기후 변화에서 취약한 나라와 세대를 보호해야 한다는 입장을 바탕으로 원조·보전 지원·보조금 개혁을 제안하므로 argument이다. 주제는 그 여러 정책 조정을 기후 대응으로 포괄하는 macro_compress이며, 원조나 경제 평등만 따로 요약하는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "정책 권고를 묻는 stance와 전체 주제를 묻는 macro_compress는 구별된다. 이번 발문은 원조를 포함한 여러 대응의 공통 주제를 요구한다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2021#26",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "ae934c66ac4e47de1991368ea3290d37575fdf4ff28a958612ec182bca4c667e",
+      "discourse": "exposition",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 780,
+          "end": 851,
+          "choice_n": null,
+          "why": "은퇴 이후의 두 활동이 한 문장에 함께 명시된다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 34,
+          "choice_n": 5,
+          "why": "후보가 교수 활동을 제외하여 직접 진술과 어긋난다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 46,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "경제학자의 교육·경력·저술·사상을 사실 항목으로 제공하는 전기적 설명이므로 exposition이다. 은퇴 시점이 등장해도 사건의 긴장과 해소보다 인물 정보 제공이 우세하다. 과제는 은퇴 뒤 활동을 포함한 후보의 사실 불일치를 찾는 retrieve이다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "경력의 시간 전개를 형식으로 강조하면 narrative 대안이 있다. 시간순 이력 제공과 사건 전개의 우세 목적을 구별해 exposition을 채택했다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2016#29",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "b253733396991c3110b42e5ac7560a976043712bcf55a8398101b2ab0f991f73",
+      "discourse": "exposition",
+      "task": "lexical_context",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 239,
+          "end": 415,
+          "choice_n": null,
+          "why": "첫 지시 표현이 바로 앞 갈대 제거를 명명하므로 그 사건과 맞는 명사를 골라야 한다."
+        },
+        {
+          "field": "passage",
+          "start": 592,
+          "end": 780,
+          "choice_n": null,
+          "why": "새 어종 도입이 메우려는 결함과 맞는 낚시 어종의 존재·부재 방향을 골라야 한다."
+        },
+        {
+          "field": "passage",
+          "start": 781,
+          "end": 968,
+          "choice_n": null,
+          "why": "도입 어종이 기존 조류와 같은 먹이를 소비하는 원인에서 먹이 관계의 방향을 도출한다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 45,
+          "choice_n": null,
+          "why": "발문에서 요구하는 lexical_context 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "서식지 변화와 도입 어종이 조류 개체 감소에 관여하는 과정을 설명하므로 exposition이다. 과제는 갈대 제거를 명명하는 말, 낚시 어종 존재 여부, 같은 먹이를 소비하는 생물의 관계에 맞는 세 낱말을 고르는 lexical_context이다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "도입 어종의 영향을 묻는 사실 과제나 인과 지식을 평가하는 별도 요구로 확장하지 않았다. 각 상자의 문맥 적합성 조합을 lexical_context로 기록한다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    },
+    {
+      "id": "2015#24",
+      "research_input_ref": "restored-v1.2",
+      "research_input_binding": "d280bf358c63c9ad50fc612d051fd75fbece81f328180594da9700327930b7c2",
+      "discourse": "exposition",
+      "task": "retrieve",
+      "content_evidence": [
+        {
+          "field": "passage",
+          "start": 254,
+          "end": 369,
+          "choice_n": null,
+          "why": "젊은 시절 여행의 주된 이동 방식이 직접 명시된다."
+        },
+        {
+          "field": "choice",
+          "start": 0,
+          "end": 23,
+          "choice_n": 3,
+          "why": "후보의 주된 이동 방식이 해당 진술과 어긋난다."
+        },
+        {
+          "field": "stem",
+          "start": 0,
+          "end": 47,
+          "choice_n": null,
+          "why": "발문에서 요구하는 retrieve 과제를 확인하는 범위다. 분류 근거는 위의 개별 내용·제시 조건 설명에 함께 기록했다."
+        }
+      ],
+      "why": "식물 화가의 출신·학습·여행·협업·작품·정착지를 제공하는 인물 정보 설명이므로 exposition이다. 과제는 여행 방식 등 후보의 사실 불일치를 찾는 retrieve이며, 인물의 전 생애를 사건 배열로 재구성하는 요구가 아니다.",
+      "alternative_paths_or_unresolved": [
+        {
+          "kind": "discourse_or_task_boundary_and_scope",
+          "explanation": "생애 순서를 형식으로 보면 narrative 대안이 있다. 독립적인 인물 사실을 제공하는 우세 목적을 exposition으로 채택했으며 시간 배열을 별도 과제로 세지 않았다.",
+          "independent_test": false
+        }
+      ],
+      "claim_level": "logical"
+    }
+  ]
+}

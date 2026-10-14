@@ -1,0 +1,291 @@
+{
+  "protocol": "1.2",
+  "first_windows": {
+    "n": 16,
+    "valid_packet_n": 14,
+    "packet_incomplete_ids": [
+      "2014B#38",
+      "2019#40"
+    ],
+    "AI": {
+      "conditional": 12,
+      "insufficient": 3,
+      "sufficient": 1
+    },
+    "FOV": {
+      "insufficient": 14,
+      "sufficient": 1,
+      "conditional": 1
+    },
+    "identified_n": 13,
+    "key_match_when_identified": 13,
+    "not_a_success_rate": true
+  },
+  "corrected_separate": {
+    "n": 2,
+    "matched": 2,
+    "first_results_not_overwritten": true,
+    "questions_explicitly_added": true,
+    "not_a_new_independent_item_sample": true
+  },
+  "effective_information_overlap": [
+    {
+      "id": "2018#18",
+      "declared_body_units": [
+        "u6"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u6"
+      ],
+      "source_n": 9,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2014A#40",
+      "declared_body_units": [
+        "u9"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u9"
+      ],
+      "source_n": 11,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2023#20",
+      "declared_body_units": [
+        "u6"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u6"
+      ],
+      "source_n": 7,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2021#22",
+      "declared_body_units": [
+        "u7"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u7"
+      ],
+      "source_n": 7,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2015#21",
+      "declared_body_units": [
+        "u5",
+        "u6"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u5",
+        "u6"
+      ],
+      "source_n": 6,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2017#23",
+      "declared_body_units": [
+        "u3"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u3"
+      ],
+      "source_n": 5,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2020#29",
+      "declared_body_units": [
+        "u5"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u5"
+      ],
+      "source_n": 7,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2019#30",
+      "declared_body_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7"
+      ],
+      "source_n": 7,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2016#25",
+      "declared_body_units": [
+        "u10"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u10"
+      ],
+      "source_n": 11,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2022#25",
+      "declared_body_units": [],
+      "option_overlapping_source_units": [
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6"
+      ],
+      "effective_known_unit_union": [
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6"
+      ],
+      "source_n": 6,
+      "note": "Options duplicate original body sentences; a body-field count is not total semantic reading amount."
+    },
+    {
+      "id": "2024#31",
+      "declared_body_units": [
+        "u6",
+        "u7"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u6",
+        "u7"
+      ],
+      "source_n": 7,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2014B#38",
+      "declared_body_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8"
+      ],
+      "source_n": 8,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2018#39",
+      "declared_body_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8",
+        "u9"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8",
+        "u9"
+      ],
+      "source_n": 9,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2024#35",
+      "declared_body_units": [
+        "u4",
+        "u5"
+      ],
+      "option_overlapping_source_units": [
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7"
+      ],
+      "effective_known_unit_union": [
+        "u4",
+        "u5",
+        "u3",
+        "u6",
+        "u7"
+      ],
+      "source_n": 7,
+      "note": "Options duplicate original body sentences; a body-field count is not total semantic reading amount."
+    },
+    {
+      "id": "2019#40",
+      "declared_body_units": [
+        "u4"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u4"
+      ],
+      "source_n": 5,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    },
+    {
+      "id": "2022#44",
+      "declared_body_units": [
+        "u3"
+      ],
+      "option_overlapping_source_units": [],
+      "effective_known_unit_union": [
+        "u3"
+      ],
+      "source_n": 4,
+      "note": "Exact-text duplicate detector only, not all semantic information or student reading behavior."
+    }
+  ],
+  "student_trials": 0
+}

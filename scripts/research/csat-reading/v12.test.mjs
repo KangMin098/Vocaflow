@@ -3,6 +3,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {sufficientGate,assertPreserved,validateRater} from './v12-analysis.mjs'
 import {mappingRow} from './v12-map.mjs'
+import {narrowBudget,derivedUnitIssues} from './v12-scope-guard.mjs'
 test('unanimous negatives are not evidence of positive sufficiency',()=>{
  const x=sufficientGate(Array(16).fill('insufficient'),Array(16).fill('insufficient'),Array(16).fill('grammar'))
  assert.equal(x.raw_agreement,1);assert.equal(x.positive_agreement,null);assert.equal(x.numeric_pass,false)
@@ -32,4 +33,13 @@ test('five option verification and window containment are guarded',()=>{
  const input={items:[{id:'x',source_binding:'bound',passage:'abc def',units:[{id:'u1',text:'abc',start:0,end:3,kind:'sentence'},{id:'u2',text:'def',start:4,end:7,kind:'sentence'}],glosses:[]}]}
  const r={protocol:'1.2',answer_blind:true,rater:'A',items:[{id:'x',binding:'bound',solved_answer:1,discourse:'exposition',task:'retrieve',complexity:[],proposition:[],decisive_relations:['none'],background_relations:[],inference:['explicit'],choices:[],paths:[{id:'p',used_units:['u1'],ranges:[{start:0,end:7}],gloss_ids:[],cells:[],assumptions:['unique_correct_option'],why:'proof',option_verification:[{n:1,units:['u2'],fit:'fits',why:'outside'}]}],methods:{core_sentence:{AI:'sufficient',FOV:'sufficient',path_id:'p',why:'candidate',educational_effect:'not_tested'}},design:{level:'logical',statement:'hypothesis'}}]}
  const errors=validateRater(r,input);assert.ok(errors.some(x=>x.includes('ranges not contained')));assert.ok(errors.some(x=>x.includes('outside window')));assert.ok(errors.some(x=>x.includes('five resolved proofs')));assert.ok(errors.some(x=>x.includes('requires conditional')))
+})
+test('one multisentence block cannot authorize a two-sentence selective claim',()=>{
+ const item={units:[{id:'u1',kind:'block',text:'A. B. C.'}],presentation:{}}
+ assert.equal(narrowBudget(item,{used_units:['u1'],cells:[]}).passed,false)
+ assert.deepEqual(narrowBudget(item,{used_units:['u1'],cells:[]}).unknown_block_ids,['u1'])
+})
+test('honorific fragments remain a separate derived defect, not missing source text',()=>{
+ const errors=derivedUnitIssues({items:[{id:'sample',units:[{id:'u1',kind:'sentence',text:'Ms.'}]}]})
+ assert.equal(errors.length,1);assert.equal(errors[0].source_text_missing,false)
 })

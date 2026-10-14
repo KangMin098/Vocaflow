@@ -1,0 +1,12 @@
+{
+  "n": 2,
+  "first_input_sha256": "68bc2fb3b1edbbb4db1153fdec529e3280b5691a3bb566311540cfb15e45faec",
+  "first_review_sha256": "8919888f06747ff8b1f2dde55df85fafab12a57dc2274d863d31aab5326c78f7",
+  "corrected_input_sha256": "ddf3daad230f4c2a78ca1fd932c95af4c985945f35756a57d4f66c1e847c75bf",
+  "originals_changed": false,
+  "reason": "Generator omitted block-label mapping and summary template. First outcomes must not be interpreted as failures of the underlying original methods.",
+  "timing": "after_first_window_result",
+  "new_ai_context": true,
+  "question_fields_explicit": true,
+  "method_budget_definition_for_summary": "unresolved; corrected packet treats boxed template as supplied task condition; no retrospective rater-status change"
+}

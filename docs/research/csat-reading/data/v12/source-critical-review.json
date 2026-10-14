@@ -1,0 +1,15 @@
+{
+  "version": "1.2",
+  "reviewer": "root_AI_not_human",
+  "timing": "after_source_input_freeze_before_first_rater_complete_key_review",
+  "items": [
+    {"id":"2022#25","render":"local/v12/a-cross-pilot-2022-q-4.png","result":"matched","checked":"Same even-form page, stacked bars, six regions, two years,12 printed numerical cells, rounding note, stem and five candidate sentences directly visually corroborated. No claim that projection is real-world truth."},
+    {"id":"2020#29","render":"local/v12/a-cross-pilot-2020-q-5.png","result":"matched","checked":"Same even-form page, five numbered underlined expressions, complete candidate-excluded syntax context, three glossary entries and stem visually corroborated. Source integrity does not establish local-syntax FOV sufficiency."},
+    {"id":"2018#39","render":"local/v12/a-cross-pilot-2018-q-7.png","result":"matched","checked":"Same even-form page, shared38–39 instruction, boxed given sentence, five insertion positions and two glossary entries visually corroborated. Given sentence and body anchors must both be declared in a reasoning path."}
+  ],
+  "adjacent_page_exposure": "Full-page images also show neighbouring questions (2022#26–28,2020#30–32,2018#37–38/#40); do not later describe this root context as fully unexposed to those development items. Fresh A/B contexts did not receive these images. Source judge full-page inspections likewise do not guarantee unrecorded-neighbour absence.",
+  "key_read": false,
+  "input_modified": false,
+  "official_download_chain": "unresolved",
+  "human_review": false
+}

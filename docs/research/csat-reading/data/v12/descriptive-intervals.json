@@ -1,0 +1,39 @@
+{
+  "protocol": "1.2",
+  "timing": "post_first_freeze_post_hoc_descriptive",
+  "method": "1000 fixed-seed20261014 passage-cluster percentile resamples; all5choices kept within each selected item",
+  "n_items": 16,
+  "n_groups": 16,
+  "intervals": {
+    "discourse": {
+      "low": 1,
+      "high": 1
+    },
+    "task": {
+      "low": 1,
+      "high": 1
+    },
+    "decisive_relations": {
+      "low": 0.6458333333333333,
+      "high": 1
+    },
+    "inference": {
+      "low": 0.5625,
+      "high": 0.7916666666666666
+    },
+    "option_textual_support": {
+      "low": 0.5,
+      "high": 0.8875
+    },
+    "option_task_fit": {
+      "low": 1,
+      "high": 1
+    }
+  },
+  "limitations": [
+    "Purposeful pilot; intervals are not population confidence intervals.",
+    "A degenerate bootstrap interval at1 is not certainty about future exams.",
+    "Intervals do not override point-based preregistered gates or prove teaching effects.",
+    "No causal comparison to v1.0/v1.1."
+  ]
+}

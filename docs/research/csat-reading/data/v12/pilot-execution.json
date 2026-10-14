@@ -1,0 +1,33 @@
+{
+  "protocol": "1.2",
+  "preregistration_commit": "bc4649287",
+  "source_frozen_at": "2026-10-14T04:26:00Z",
+  "hashes": {
+    "docs/research/csat-reading/PROTOCOL-v1.2.md": "4a1c5aa72ed3b6a34ff244ff51f2c71c6dc940b9b653e2ea3c28efbeed5f0786",
+    "scripts/research/csat-reading/v12-analysis.mjs": "b82c1b53dfed3ff352d685f107c1614c9a97708f07d44b3ebb4da0d73136ce50",
+    "scripts/research/csat-reading/local/v12/rater-instructions.md": "e32cf50c11a6579b238f0bbe5b31894ea941328f0da0ed1da1b284a047696346",
+    "scripts/research/csat-reading/local/v12/pilot-input.json": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+    "docs/research/csat-reading/data/v12/pilot-source.json": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+    "scripts/research/csat-reading/local/v12/pilot-key.json": "ea850083ba9e74bacd44dcffb2bfc09ba70d0325cc39e34a55cce1e63980ef8c",
+    "docs/research/csat-reading/data/v12/rater-a.json": "930df6412138f207e0e3b32429731faf9b6aaeb7cf1f4c7b2d4df3260dc09b5c",
+    "docs/research/csat-reading/data/v12/rater-b.json": "15bb32a0c3fc033dc83dfa501e34098b516f23d7901969688082e1ebd3397a35"
+  },
+  "source_complete": 16,
+  "raters_started": true,
+  "first_complete_frozen_at": "2026-10-14T04:38:15Z",
+  "key_review_after_this_record": true,
+  "first_submissions": {
+    "A": {
+      "sha256": "930df6412138f207e0e3b32429731faf9b6aaeb7cf1f4c7b2d4df3260dc09b5c",
+      "fork_turns": "none",
+      "context": "fresh AI, inherited configuration; pretraining unverified",
+      "complete_file_mtime": "2026-10-14T04:38:00.323Z"
+    },
+    "B": {
+      "sha256": "15bb32a0c3fc033dc83dfa501e34098b516f23d7901969688082e1ebd3397a35",
+      "fork_turns": "none",
+      "context": "fresh AI, inherited configuration; pretraining unverified",
+      "complete_file_mtime": "2026-10-14T04:36:46.646Z"
+    }
+  }
+}

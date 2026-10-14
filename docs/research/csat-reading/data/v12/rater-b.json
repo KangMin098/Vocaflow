@@ -1,0 +1,6237 @@
+{
+  "protocol": "1.2",
+  "rater": "B",
+  "answer_blind": true,
+  "independence": "fresh context, same inherited settings; model pretraining exposure unknown",
+  "items": [
+    {
+      "id": "2018#18",
+      "binding": "4c1d3dae58730174523a48b82ad75d9ffdc32699410595fc0d3db2a9d5ad3c3c",
+      "solved_answer": 3,
+      "discourse": "practical",
+      "task": "purpose",
+      "complexity": [
+        "embedding",
+        "anaphora"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "modality"
+      ],
+      "decisive_relations": [
+        "problem_solution"
+      ],
+      "background_relations": [
+        "elaboration",
+        "reference"
+      ],
+      "inference": [
+        "explicit",
+        "local"
+      ],
+      "relation_edges": [
+        {
+          "from": "u5",
+          "to": "u6",
+          "relation": "problem_solution",
+          "why": "희망 인원과 프로그램 참가를 실현하기 위해 예약 가능 여부의 답을 구한다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u6"
+          ],
+          "why": "유의 사항을 제공하는 안내가 아니라 박물관 측의 답을 요구한다."
+        },
+        {
+          "n": 2,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u6"
+          ],
+          "why": "교사라는 신분은 있지만 강사 추천이나 교내 초청 요청은 없다."
+        },
+        {
+          "n": 3,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u6"
+          ],
+          "why": "단체 예약 가능 여부를 알려 달라는 직접 질문이 있다."
+        },
+        {
+          "n": 4,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u6"
+          ],
+          "why": "프로그램을 언급하지만 수신자의 기존 공지를 읽었다는 배경이며 새 프로그램을 소개하는 발신 목적은 아니다."
+        },
+        {
+          "n": 5,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u5",
+            "u6"
+          ],
+          "why": "희망 인원 추산은 최초 문의의 배경이다. 기존 예정 인원 변경은 요청하지 않는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 23
+            },
+            {
+              "start": 24,
+              "end": 71
+            },
+            {
+              "start": 72,
+              "end": 204
+            },
+            {
+              "start": 205,
+              "end": 304
+            },
+            {
+              "start": 305,
+              "end": 394
+            },
+            {
+              "start": 395,
+              "end": 512
+            },
+            {
+              "start": 513,
+              "end": 558
+            },
+            {
+              "start": 559,
+              "end": 599
+            },
+            {
+              "start": 600,
+              "end": 626
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u6",
+              "to": "u3",
+              "why": "예약 대상 프로그램은 앞서 읽은 박물관 공지의 프로그램이다."
+            }
+          ],
+          "required_relations": [
+            "problem_solution"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u6"
+              ],
+              "why": "유의 사항을 제공하는 안내가 아니라 박물관 측의 답을 요구한다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u6"
+              ],
+              "why": "교사라는 신분은 있지만 강사 추천이나 교내 초청 요청은 없다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u6"
+              ],
+              "why": "단체 예약 가능 여부를 알려 달라는 직접 질문이 있다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u6"
+              ],
+              "why": "프로그램을 언급하지만 수신자의 기존 공지를 읽었다는 배경이며 새 프로그램을 소개하는 발신 목적은 아니다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u5",
+                "u6"
+              ],
+              "why": "희망 인원 추산은 최초 문의의 배경이다. 기존 예정 인원 변경은 요청하지 않는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "교사의 참가 희망과 인원 추산은 예약 가능 여부를 묻는 요청의 배경이다. 요청의 목적어와 의문절을 확인하고 다른 네 목적에 필요한 행위가 없는지 편지 전체로 검토한다."
+        },
+        {
+          "id": "request",
+          "used_units": [
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 395,
+              "end": 512
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [
+            {
+              "start": 395,
+              "end": 512,
+              "why": "알려 달라는 요청의 목적절이 단체 예약 가능 여부를 담는다."
+            }
+          ],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "예약 정보 질문이므로 유의 사항 안내의 발화가 아니다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "질문의 대상은 단체 예약이며 강사 추천이 아니다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u6"
+              ],
+              "why": "가능 여부를 알려 달라는 의문절과 일치한다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "알려 달라는 질문이므로 새로운 프로그램 소개 행위가 아니다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "인원 변경을 요구하는 동사나 대상이 없고 예약 가능 여부를 묻는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "요청 동사와 그 목적 의문절만으로 예약 문의라는 발화 행위를 구별한다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "참가 희망과 문의는 대립이 아니라 요청의 배경과 실행이다.",
+          "why": "같은 차원에서 반대 방향인 두 명제가 목적을 결정하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "request",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 요청 문장이 목적과 네 대체 발화 행위를 구별한다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "request",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 한 문장의 직접 문의만 사용한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "제시 순서대로 신분·공지·참가 희망·요청을 누적하면 문의의 목적이 드러난다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "request",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "요청 동사에 결합한 의문 목적절의 범위를 분석한다. 프로그램의 고유 정체는 목적 식별에 불필요하다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "문의 주체, 예약 대상, 가능 여부 요청을 의미 단위로 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "참가 희망과 이를 실현할 예약 문의의 관계를 구별한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "소개·배경·직접 요청·맺음의 편지 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 목적 후보의 행위를 요청 문장 및 편지 배경과 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "목적 문제에서 직접 요청을 찾되 인원 추산을 변경 요청으로 오인하지 않는 의미 확인을 더한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "행사 정보와 희망 인원을 목적 자체와 구별하고 직접 요청의 발화 행위를 식별하는 구성이다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2014A#40",
+      "binding": "938d568e90a0135e4e163f241f4afbd9ae6ceee35c3a81ec305c594cb30ca616",
+      "solved_answer": 2,
+      "discourse": "narrative",
+      "task": "affect",
+      "complexity": [
+        "anaphora",
+        "polysemy"
+      ],
+      "proposition": [
+        "agent",
+        "predicate"
+      ],
+      "decisive_relations": [
+        "causal"
+      ],
+      "background_relations": [
+        "sequence",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit",
+        "local"
+      ],
+      "relation_edges": [
+        {
+          "from": "u8",
+          "to": "u9",
+          "relation": "causal",
+          "why": "딸의 계속되는 지연과 거부 뒤에 필자의 인내 상실이 이어진다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u6",
+            "u9"
+          ],
+          "why": "시간을 재촉하며 참을성을 잃는 상황이지 무료함이 중심이 아니다. 반복 봉사에 대한 불평의 주체는 딸이다."
+        },
+        {
+          "n": 2,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u9",
+            "u11"
+          ],
+          "why": "인내를 잃고 목소리가 커지는 필자의 반응은 짜증을 뒷받침한다."
+        },
+        {
+          "n": 3,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u6",
+            "u9"
+          ],
+          "why": "타인의 소유나 성취를 부러워하는 대상이 없다."
+        },
+        {
+          "n": 4,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "units": [
+            "u7",
+            "u9",
+            "u11"
+          ],
+          "why": "시계를 가리키고 재촉하며 목소리가 커져 무관심과 반대다."
+        },
+        {
+          "n": 5,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "units": [
+            "u9",
+            "u11"
+          ],
+          "why": "인내 상실과 강한 꾸짖음은 기쁨을 나타내지 않는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 75
+            },
+            {
+              "start": 76,
+              "end": 79
+            },
+            {
+              "start": 80,
+              "end": 154
+            },
+            {
+              "start": 155,
+              "end": 259
+            },
+            {
+              "start": 260,
+              "end": 293
+            },
+            {
+              "start": 294,
+              "end": 395
+            },
+            {
+              "start": 396,
+              "end": 440
+            },
+            {
+              "start": 441,
+              "end": 516
+            },
+            {
+              "start": 517,
+              "end": 546
+            },
+            {
+              "start": 547,
+              "end": 683
+            },
+            {
+              "start": 684,
+              "end": 731
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "causal"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u6",
+                "u9"
+              ],
+              "why": "시간을 재촉하며 참을성을 잃는 상황이지 무료함이 중심이 아니다. 반복 봉사에 대한 불평의 주체는 딸이다."
+            },
+            {
+              "n": 2,
+              "fit": "fits",
+              "units": [
+                "u9",
+                "u11"
+              ],
+              "why": "인내를 잃고 목소리가 커지는 필자의 반응은 짜증을 뒷받침한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u6",
+                "u9"
+              ],
+              "why": "타인의 소유나 성취를 부러워하는 대상이 없다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u7",
+                "u9",
+                "u11"
+              ],
+              "why": "시계를 가리키고 재촉하며 목소리가 커져 무관심과 반대다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u9",
+                "u11"
+              ],
+              "why": "인내 상실과 강한 꾸짖음은 기쁨을 나타내지 않는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "필자의 약속 이행 압박과 딸의 지연이 충돌한다. 필자가 인내를 잃는다는 직접 진술과 커지는 목소리를 결합해 짜증을 판별하며 딸의 불평과 필자의 심경을 혼동하지 않는다."
+        },
+        {
+          "id": "patience",
+          "used_units": [
+            "u9"
+          ],
+          "ranges": [
+            {
+              "start": 517,
+              "end": 546
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [
+            {
+              "start": 517,
+              "end": 546,
+              "why": "일인칭 주어의 시작 동사와 인내 상실 보어가 필자의 상태를 직접 지정한다."
+            }
+          ],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u9"
+              ],
+              "why": "인내 상실은 자극에 대한 짜증이며 무료함을 진술하지 않는다."
+            },
+            {
+              "n": 2,
+              "fit": "fits",
+              "units": [
+                "u9"
+              ],
+              "why": "인내 상실의 감정 의미와 일치한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u9"
+              ],
+              "why": "질투의 대상이나 욕망이 없는 인내 상실 진술이다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u9"
+              ],
+              "why": "인내 상실은 상황에 감정적으로 관여함을 뜻한다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u9"
+              ],
+              "why": "인내 상실은 즐거움의 긍정 감정과 맞지 않는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "필자의 인내 상실이라는 직접 감정 진술을 다섯 감정 의미와 비교한다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "딸이 가기 싫다는 말과 어머니의 약속은 동일 차원의 감정 대비가 아니다.",
+          "why": "두 명제의 대비만으로 필자의 감정과 딸의 감정을 안전하게 분리하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "patience",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "필자가 직접 진술한 인내 상실의 의미가 다섯 감정을 구별한다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "patience",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 문장에서 심경의 주체와 술어가 함께 명시된다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "지연·재촉·감정 표출을 제시 순서로 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "patience",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 국소 주어-술어 의존과 술어의 감정 의미로 판단한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "딸의 불평과 필자의 재촉·인내 상실의 주체를 분리한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "지연이 재촉과 감정 격화로 이어지는 관계를 이해한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "갈등 발단과 점차 격해지는 반응을 사건 역할로 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "필자의 발화와 행동을 다섯 감정 의미와 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "심경 유형의 감정 술어를 찾고 주체가 필자라는 점을 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "인내 상실의 직접 표현과 재촉 행동이 같은 감정을 재확인한다. 딸의 심경을 필자의 심경으로 바꾸는 오독을 구별한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [
+        {
+          "kind": "source_segmentation",
+          "units": [
+            "u2",
+            "u3"
+          ],
+          "why": "존칭 약어 뒤에서 한 실제 문장이 두 단위로 잘렸다. 핵심 경로는 온전한 u9를 사용하므로 답 및 제한 창 판정에 영향이 없다."
+        }
+      ],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2023#20",
+      "binding": "f4a230590e94bab8fca31694626907e2cb12ab2fe82e8f40232e107153b093e7",
+      "solved_answer": 3,
+      "discourse": "argument",
+      "task": "stance",
+      "complexity": [
+        "embedding",
+        "anaphora",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "modality"
+      ],
+      "decisive_relations": [
+        "contrast",
+        "problem_solution"
+      ],
+      "background_relations": [
+        "elaboration",
+        "causal"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u3",
+          "to": "u4",
+          "relation": "contrast",
+          "why": "같은 선택 문제에 대해 직관은 차선 결과를 낳고 수치화는 경로 분석을 개선한다."
+        },
+        {
+          "from": "u2",
+          "to": "u6",
+          "relation": "problem_solution",
+          "why": "선택의 불확실성에 시나리오와 성공 비율 분석으로 대응한다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u4",
+            "u6",
+            "u7"
+          ],
+          "why": "구체적인 미래 계획 일반이 아니라 선택 대안의 성공·실패 비율 분석이 주장이다."
+        },
+        {
+          "n": 2,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "units": [
+            "u3"
+          ],
+          "why": "직관을 신뢰한 선택은 차선 결과를 낳는다고 한다."
+        },
+        {
+          "n": 3,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "why": "확률과 성공·실패 비율을 이용해 더 나은 결정을 내리는 전략이다."
+        },
+        {
+          "n": 4,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u4",
+            "u5"
+          ],
+          "why": "지름길을 경계하라는 규범 대신 수치 분석으로 효과적으로 경로를 찾으라고 한다."
+        },
+        {
+          "n": 5,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u6",
+            "u7"
+          ],
+          "why": "결과에 대한 도덕적 책임이 아니라 선택을 위한 분석 방식이 중심이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 120
+            },
+            {
+              "start": 121,
+              "end": 204
+            },
+            {
+              "start": 205,
+              "end": 296
+            },
+            {
+              "start": 297,
+              "end": 426
+            },
+            {
+              "start": 427,
+              "end": 544
+            },
+            {
+              "start": 545,
+              "end": 688
+            },
+            {
+              "start": 689,
+              "end": 795
+            }
+          ],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u7",
+              "to": "u6",
+              "why": "좋은 미래 지도를 준다는 지시는 시나리오 분석 전략을 받는다."
+            }
+          ],
+          "required_relations": [
+            "contrast",
+            "problem_solution"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u4",
+                "u6",
+                "u7"
+              ],
+              "why": "구체적인 미래 계획 일반이 아니라 선택 대안의 성공·실패 비율 분석이 주장이다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3"
+              ],
+              "why": "직관을 신뢰한 선택은 차선 결과를 낳는다고 한다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u5",
+                "u6",
+                "u7"
+              ],
+              "why": "확률과 성공·실패 비율을 이용해 더 나은 결정을 내리는 전략이다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u4",
+                "u5"
+              ],
+              "why": "지름길을 경계하라는 규범 대신 수치 분석으로 효과적으로 경로를 찾으라고 한다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u6",
+                "u7"
+              ],
+              "why": "결과에 대한 도덕적 책임이 아니라 선택을 위한 분석 방식이 중심이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "불확실한 선택에서 직관의 실패와 수치화의 이점을 대비한다. 확률은 위험을 없애지 않고 성공·실패 시나리오의 비율을 분석해 선택을 개선한다는 주장으로 압축한다."
+        },
+        {
+          "id": "intuition_numbers",
+          "used_units": [
+            "u3",
+            "u4"
+          ],
+          "ranges": [
+            {
+              "start": 205,
+              "end": 296
+            },
+            {
+              "start": 297,
+              "end": 426
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "contrast"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u3",
+                "u4"
+              ],
+              "why": "직관보다 수치 분석이 경로 선택에 유리하다는 대조와 부합한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "같은 선택 문제의 직관 대 수치화라는 두 명제를 대비하여 수치적 분석 후보를 식별한다. 전체 주장 후보 검수에는 나머지 문장의 범위 확인이 남는다."
+        },
+        {
+          "id": "scenario",
+          "used_units": [
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 545,
+              "end": 688
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u6"
+              ],
+              "why": "성공 가능성을 비율로 분석하는 선택 전략과 일치한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "한 문장이 성공·실패 시나리오의 비율 분석을 제시한다. 다른 네 주장 전체의 중심 여부를 이 문장 하나로 확정하지 않는다."
+        },
+        {
+          "id": "risk_strategy",
+          "used_units": [
+            "u5",
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 427,
+              "end": 544
+            },
+            {
+              "start": 545,
+              "end": 688
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u5",
+                "u6"
+              ],
+              "why": "위험을 확률적으로 관리하고 성공 비율을 검토한다는 주장이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연속 두 문장에서 확률의 위험 관리 역할과 성공 비율 분석을 연결한다. 다른 주장 전체의 지문 역할은 추가 확인이 필요하다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "intuition_numbers",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "동일 선택 문제의 반대 평가만으로 후보를 찾되 미검수 후보는 유일정답 조건으로 남긴다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "scenario",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "비율 분석 전략이 명시된 한 문장으로 후보 3을 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "risk_strategy",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장에서 확률과 성공 비율의 관계를 읽는다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "비유에서 직관의 문제와 확률 전략의 결론까지 제시 순서로 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "직관 평가 문장만 분석하면 수치적 대안의 내용이 창 밖이다.",
+          "why": "한 국소 의존만으로 주장 전체의 규범 방향과 다른 후보의 지문 역할을 검증할 수 없다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "선택 문제·분석 도구·성공 비율·결정 개선을 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "직관과 수치화의 대비 및 불확실성에 대한 해결 관계를 분석한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "문제 제시·기존 방식 평가·대안 전략·결과의 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "후보의 직관·계획·주의·책임·확률 속성을 전체 근거와 각각 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "주장 유형에서 권장 전략을 찾고 위험 제거와 위험 관리의 차이를 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "직관에 맡긴 선택과 확률을 이용한 선택 개선을 구별하며 지름길 비유를 신중함 주장으로 바꾸지 않는 구조다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2021#22",
+      "binding": "d6c32c9251e32096f9e2f217ea40e59dcf70eca718a57e764ee82116376fd239",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "task": "macro_compress",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "time"
+      ],
+      "decisive_relations": [
+        "contrast",
+        "causal"
+      ],
+      "background_relations": [
+        "restatement",
+        "elaboration",
+        "sequence"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u3",
+          "to": "u6",
+          "relation": "causal",
+          "why": "접근과 공개 의견의 확산이 비평가의 사전 대중 의견 접근을 가능하게 한다."
+        },
+        {
+          "from": "u2",
+          "to": "u7",
+          "relation": "contrast",
+          "why": "비평이 대중을 이끌던 역할에서 대중을 반영하는 역할로 바뀐다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u3",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "why": "온라인 접근·의견 공개가 비평의 대중 반영으로 이어지는 변화다."
+        },
+        {
+          "n": 2,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u7"
+          ],
+          "why": "음악 접근의 변화는 근거이나 장르 다양성의 증가가 요지는 아니다."
+        },
+        {
+          "n": 3,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u6",
+            "u7"
+          ],
+          "why": "비평가 개인의 경험이 아니라 대중 의견이 비평에 미치는 영향이 중심이다."
+        },
+        {
+          "n": 4,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u6"
+          ],
+          "why": "음악의 선공개와 비평의 작성 시점을 설명하며 대중 기호 확인 후 음악을 공개한다는 순서는 주장하지 않는다."
+        },
+        {
+          "n": 5,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u7"
+          ],
+          "why": "비평이 대중을 반영한다는 방향 변화는 질의 전반적 상승 평가와 다르다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 115
+            },
+            {
+              "start": 116,
+              "end": 248
+            },
+            {
+              "start": 249,
+              "end": 468
+            },
+            {
+              "start": 469,
+              "end": 544
+            },
+            {
+              "start": 545,
+              "end": 737
+            },
+            {
+              "start": 738,
+              "end": 861
+            },
+            {
+              "start": 862,
+              "end": 1044
+            }
+          ],
+          "gloss_ids": [
+            "g1"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u2",
+              "to": "u1",
+              "why": "비평가와 선공개 음반을 이어받는다."
+            }
+          ],
+          "required_relations": [
+            "contrast",
+            "causal"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u3",
+                "u5",
+                "u6",
+                "u7"
+              ],
+              "why": "온라인 접근·의견 공개가 비평의 대중 반영으로 이어지는 변화다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u7"
+              ],
+              "why": "음악 접근의 변화는 근거이나 장르 다양성의 증가가 요지는 아니다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u6",
+                "u7"
+              ],
+              "why": "비평가 개인의 경험이 아니라 대중 의견이 비평에 미치는 영향이 중심이다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u6"
+              ],
+              "why": "음악의 선공개와 비평의 작성 시점을 설명하며 대중 기호 확인 후 음악을 공개한다는 순서는 주장하지 않는다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u7"
+              ],
+              "why": "비평이 대중을 반영한다는 방향 변화는 질의 전반적 상승 평가와 다르다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "발매 전 접근 독점이 인터넷으로 사라지고 대중의 의견도 먼저 공개된다. 비평가가 그 의견을 읽게 되어 과거의 대중 지도와 현재의 대중 반영이라는 방향 변화가 결론이다."
+        },
+        {
+          "id": "review_direction",
+          "used_units": [
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 862,
+              "end": 1044
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "contrast"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u7"
+              ],
+              "why": "과거와 달리 비평이 대중 의견을 반영하게 된 변화와 일치한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "한 문장 내부에서 과거의 대중 지도와 현재의 의견 반영을 대비한다. 온라인 접근 원인과 나머지 후보 검수는 이 창으로 완결되지 않는다."
+        },
+        {
+          "id": "opinion_access",
+          "used_units": [
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 738,
+              "end": 861
+            },
+            {
+              "start": 862,
+              "end": 1044
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u6",
+                "u7"
+              ],
+              "why": "비평가가 대중 의견을 접하고 비평에 반영하는 인과가 부합한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연속 두 문장의 의견 접근과 비평 방향 변화로 후보를 찾는다. 매체 변화의 세부 근거 및 모든 오답 판정은 창 밖에 남는다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "review_direction",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "같은 비평 행위와 대중 의견의 영향 방향을 시대별로 대비한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "review_direction",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "결론 한 문장으로 대중 반영이라는 결과를 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "opinion_access",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 결론 두 문장으로 비평에 대한 대중 영향 후보를 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "선접근 독점에서 접근 민주화·의견 공개·비평 변화까지 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "결론의 동사 목적어만 분석하면 온라인 환경 변화의 근거를 읽지 않은 것이다.",
+          "why": "한 국소 의존만으로 과거 접근 구조와 현재 의견 영향의 전체 인과를 복원하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "비평가·대중·접근 시점·의견 흐름을 의미 단위로 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "접근 변화와 의견 공개의 인과 및 지도/반영의 대비를 읽는다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "과거 상황·환경 변화·결과·결론의 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "다섯 후보에서 접근 변화와 요지의 역할을 따로 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "요지 유형의 결론을 찾고 원인과 결과를 함께 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "미디어 변화에 따른 비평과 대중의 영향 방향을 설명하며 접근성·질 평가·발표 시점으로 요지를 치환한 후보를 구별한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2015#21",
+      "binding": "cfbdaf8a835b08c1dc9dbf9b23e885afc9d13cd570bb06958c5648faafcd6624",
+      "solved_answer": 3,
+      "discourse": "argument",
+      "task": "macro_compress",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "condition",
+        "modality"
+      ],
+      "decisive_relations": [
+        "causal",
+        "condition"
+      ],
+      "background_relations": [
+        "concession",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u2",
+          "to": "u6",
+          "relation": "causal",
+          "why": "놀이가 아이의 해결 과정이므로 개입은 그가 스스로 해결책을 찾는 흐름을 다른 데로 돌릴 수 있다."
+        },
+        {
+          "from": "u5",
+          "to": "u6",
+          "relation": "condition",
+          "why": "비간섭 권고는 즉각적 위험이 없다는 범위에서 적용한다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u5"
+          ],
+          "why": "폭력 게임과 정신 건강은 다루지 않으며 위험이 없을 때 놀이를 허용하라는 취지다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u3"
+          ],
+          "why": "놀이의 문제 대처 기능이지 실외 활동의 이점이 아니다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u1",
+            "u2",
+            "u5",
+            "u6"
+          ],
+          "why": "놀이로 문제를 풀게 하고 위험이 없으면 최소 간섭을 권한다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u5",
+            "u6"
+          ],
+          "why": "형제 분쟁 해결이 없고 비간섭을 권고한다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u5",
+            "u6"
+          ],
+          "why": "아이의 문제 해결과 놀이가 대상이며 신체 발달은 논점이 아니다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 96
+            },
+            {
+              "start": 97,
+              "end": 185
+            },
+            {
+              "start": 186,
+              "end": 350
+            },
+            {
+              "start": 351,
+              "end": 464
+            },
+            {
+              "start": 465,
+              "end": 570
+            },
+            {
+              "start": 571,
+              "end": 724
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u2",
+              "to": "u1",
+              "why": "놀이로 다루는 대상은 아이가 겪는 생활 문제다."
+            },
+            {
+              "from": "u6",
+              "to": "u5",
+              "why": "도움의 대상은 앞 문장의 아이다."
+            }
+          ],
+          "required_relations": [
+            "causal",
+            "condition"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u5"
+              ],
+              "why": "폭력 게임과 정신 건강은 다루지 않으며 위험이 없을 때 놀이를 허용하라는 취지다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u3"
+              ],
+              "why": "놀이의 문제 대처 기능이지 실외 활동의 이점이 아니다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u1",
+                "u2",
+                "u5",
+                "u6"
+              ],
+              "why": "놀이로 문제를 풀게 하고 위험이 없으면 최소 간섭을 권한다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u5",
+                "u6"
+              ],
+              "why": "형제 분쟁 해결이 없고 비간섭을 권고한다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u5",
+                "u6"
+              ],
+              "why": "아이의 문제 해결과 놀이가 대상이며 신체 발달은 논점이 아니다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "아이의 놀이는 당면 문제에 대처하는 과정이다. 상징 놀이의 목적을 성인이 이해하기 어렵더라도 즉각적 위험이 없으면 간섭하지 않는 편이 낫고 도움을 주려는 개입이 해결책 탐색을 방해할 수 있다."
+        },
+        {
+          "id": "nonintervention",
+          "used_units": [
+            "u5",
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 465,
+              "end": 570
+            },
+            {
+              "start": 571,
+              "end": 724
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u6",
+              "to": "u5",
+              "why": "도움의 대상과 해결책을 찾는 주체는 아이다."
+            }
+          ],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u5",
+                "u6"
+              ],
+              "why": "간섭을 줄여 아이의 해결책 탐색을 보존하는 주제와 부합한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "위험이 없는 경우의 비간섭 권고와 개입에 따른 해결 탐색 방해를 두 문장으로 읽는다. 놀이의 문제 대처 기능을 제시하는 앞 문장은 밖에 남는다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "비간섭 자체를 놀이의 문제 해결 기능과 동일시하면 u1/u2를 숨겨 쓴다.",
+          "why": "비간섭 권고와 개입의 결과를 대비만으로 제한하면 놀이가 생활 문제를 다루는 근거를 제외하게 된다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u5만으로는 후보 3의 문제 해결이라는 기능이 근거 부족이다.",
+          "why": "한 문장은 놀이의 대처 기능 또는 비간섭 조건만 담아 두 요소의 주제를 모두 결정하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "nonintervention",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장으로 최소 개입과 해결책 탐색에 관한 후보를 조건부 식별한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "생활 문제·상징 놀이·이해 한계·비간섭 권고를 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "위험 없음 조건만 분석하면 왜 놀이를 허용하는지 미정이다.",
+          "why": "한 국소 조건절 분석은 주제의 놀이 기능과 개입 효과 전체를 확보하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "아이의 생활 문제·놀이·위험 조건·개입의 결과를 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "놀이의 해결 과정과 개입의 방해 인과를 조건 범위와 함께 분석한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "문제와 대처 방식 설명에서 성인의 행동 권고까지 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 주제의 놀이 기능·개입 범위·발달 영역을 실제 본문과 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "주제 유형에서 반복 대상과 결론 권고를 결합하고 위험 예외를 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "이해하기 어려운 놀이도 문제 해결 기능을 가진다는 설명과 위험이 없는 경우의 비간섭 권고를 함께 압축하게 한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2017#23",
+      "binding": "af4013523b74aa6828cf2e5f7da4a73cc25d8bcedb1aba5c32dc3aa0a9f7d522",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "macro_compress",
+      "complexity": [
+        "embedding",
+        "anaphora",
+        "scope"
+      ],
+      "proposition": [
+        "agent",
+        "predicate",
+        "object"
+      ],
+      "decisive_relations": [
+        "contrast",
+        "causal"
+      ],
+      "background_relations": [
+        "elaboration",
+        "restatement"
+      ],
+      "inference": [
+        "explicit",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u2",
+          "to": "u3",
+          "relation": "causal",
+          "why": "기록된 이미지가 수정과 조합 가능하므로 감독 고유의 시간과 공간을 구성할 수 있다."
+        },
+        {
+          "from": "u4",
+          "to": "u5",
+          "relation": "restatement",
+          "why": "기존 현실을 사용하는 창작은 영화에만 속하는 새 현실이라는 결론으로 다시 표현된다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u3",
+            "u4"
+          ],
+          "why": "미지 탐험보다 기존 현실 이미지를 의도적으로 조합하는 제작 통제가 중심이다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u4"
+          ],
+          "why": "시간·공간에서 길을 잃는 것이 아니라 감독이 고유한 질서를 만든다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u4"
+          ],
+          "why": "편집의 기술 혁신이나 새 장비가 아니라 감독이 현실을 창조하는 성격을 설명한다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u2",
+            "u3",
+            "u4"
+          ],
+          "why": "이미지와 시간·공간을 감독의 의도 아래 조정하는 내용을 포괄한다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "why": "조합과 길이 변경으로 새 현실을 만든다는 핵심과 반대 방향이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 110
+            },
+            {
+              "start": 111,
+              "end": 364
+            },
+            {
+              "start": 365,
+              "end": 581
+            },
+            {
+              "start": 582,
+              "end": 826
+            },
+            {
+              "start": 827,
+              "end": 892
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u2",
+              "to": "u1",
+              "why": "재료는 영화 감독의 기록된 필름이다."
+            },
+            {
+              "from": "u4",
+              "to": "u3",
+              "why": "새 현실의 창조 주체는 이미지 순서와 길이를 조정하는 감독이다."
+            }
+          ],
+          "required_relations": [
+            "contrast",
+            "causal"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u3",
+                "u4"
+              ],
+              "why": "미지 탐험보다 기존 현실 이미지를 의도적으로 조합하는 제작 통제가 중심이다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u4"
+              ],
+              "why": "시간·공간에서 길을 잃는 것이 아니라 감독이 고유한 질서를 만든다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u4"
+              ],
+              "why": "편집의 기술 혁신이나 새 장비가 아니라 감독이 현실을 창조하는 성격을 설명한다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u2",
+                "u3",
+                "u4"
+              ],
+              "why": "이미지와 시간·공간을 감독의 의도 아래 조정하는 내용을 포괄한다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u4",
+                "u5"
+              ],
+              "why": "조합과 길이 변경으로 새 현실을 만든다는 핵심과 반대 방향이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "감독의 재료는 살아 있는 현실이 아닌 가공 가능한 이미지다. 순서와 길이를 감독 의도대로 바꾸면 현실의 시간·공간 법칙이 따르는 새로운 영화적 현실을 만든다. 제목은 감독의 통제를 포괄해야 한다."
+        },
+        {
+          "id": "director_control",
+          "used_units": [
+            "u3"
+          ],
+          "ranges": [
+            {
+              "start": 365,
+              "end": 581
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u3"
+              ],
+              "why": "감독의 의도대로 현실을 만드는 제목과 일치한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "한 문장이 감독이 이미지 순서·길이로 자신의 영화 시간과 공간을 만드는 내용을 담는다. 다른 제목의 지문 전체 포괄 여부는 창 밖에 남는다."
+        },
+        {
+          "id": "image_construction",
+          "used_units": [
+            "u2",
+            "u3"
+          ],
+          "ranges": [
+            {
+              "start": 111,
+              "end": 364
+            },
+            {
+              "start": 365,
+              "end": 581
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u3",
+              "to": "u2",
+              "why": "필름 조각은 수정 가능한 이미지 스트립을 받는다."
+            }
+          ],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u2",
+                "u3"
+              ],
+              "why": "감독의 손에 있는 조절 가능한 영화 현실이라는 제목을 지지한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연속 두 문장에서 수정 가능한 이미지와 감독의 의도적 조합을 연결한다. 새 현실이라는 전체 결론은 창 밖에 있다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "감독이라는 선행 주체를 숨겨 들이면 두 명제만의 충분성이 아니다.",
+          "why": "u4의 현실 적응과 현실 창조는 대비를 포함하지만 주어와 재료의 정체를 외부에서 회복해야 한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "director_control",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "감독의 선택과 자기 영화 세계 구축이 한 문장에 있다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "image_construction",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장의 이미지 가공과 감독 의도를 묶어 제목 후보를 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "재료의 차이에서 가공·조합·새 현실 결론까지 순서대로 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "자기 의도라는 수식구만으로 기술 혁신 제목의 적합성을 배제하지 못한다.",
+          "why": "한 국소 의존으로 제목의 전체 포괄성과 필름 재료의 통제 의미를 함께 검수할 수 없다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "재료·가공 행위·감독 의도·영화 시간과 공간을 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "실제 현실과 이미지의 대비 및 가공에서 새 현실로 가는 관계를 분석한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "재료 소개·조작 방법·창조의 성격·결론의 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "제목의 미지·상실·기술·통제·불변 속성을 각각 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "제목 유형에서 전개를 포괄하는 표현을 찾고 시간·공간 단어 일치만으로 고르지 않는다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "현실을 기록한 재료를 통제해 영화만의 현실을 만드는 감독의 역할을 제목으로 압축하도록 구성한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2020#29",
+      "binding": "65c12c17ce5c25c726ff6c2f922f7ed2f0cd5c683600861d93399ba620c8f8c9",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "grammar",
+      "complexity": [
+        "embedding",
+        "anaphora",
+        "scope"
+      ],
+      "proposition": [
+        "predicate",
+        "agent"
+      ],
+      "decisive_relations": [
+        "none"
+      ],
+      "background_relations": [
+        "elaboration",
+        "causal"
+      ],
+      "inference": [
+        "structural_grammar",
+        "local"
+      ],
+      "relation_edges": [],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1"
+          ],
+          "why": "복수 주어에 원형 현재동사가 결합하므로 틀린 어법 후보가 아니다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2"
+          ],
+          "why": "주절 사이에 삽입된 말의 인용·부연 as절이 성립한다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u3"
+          ],
+          "why": "앞서 병렬로 제시된 두 현상을 전치사 포함 관계절이 받는다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u5"
+          ],
+          "why": "주절의 동사 앞 명사구에 접속 없는 유한동사가 추가된다. 동물의 능동 동작을 수식하는 분사 형태가 필요하다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u7"
+          ],
+          "why": "인류라는 주어가 자기 자신과 자연에서의 위치를 생각하므로 단수 재귀형이 성립한다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 138
+            },
+            {
+              "start": 139,
+              "end": 362
+            },
+            {
+              "start": 363,
+              "end": 614
+            },
+            {
+              "start": 615,
+              "end": 691
+            },
+            {
+              "start": 692,
+              "end": 846
+            },
+            {
+              "start": 847,
+              "end": 976
+            },
+            {
+              "start": 977,
+              "end": 1094
+            }
+          ],
+          "gloss_ids": [
+            "g1",
+            "g2",
+            "g3"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "none"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u1"
+              ],
+              "why": "복수 주어에 원형 현재동사가 결합하므로 틀린 어법 후보가 아니다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2"
+              ],
+              "why": "주절 사이에 삽입된 말의 인용·부연 as절이 성립한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u3"
+              ],
+              "why": "앞서 병렬로 제시된 두 현상을 전치사 포함 관계절이 받는다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u5"
+              ],
+              "why": "주절의 동사 앞 명사구에 접속 없는 유한동사가 추가된다. 동물의 능동 동작을 수식하는 분사 형태가 필요하다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u7"
+              ],
+              "why": "인류라는 주어가 자기 자신과 자연에서의 위치를 생각하므로 단수 재귀형이 성립한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "각 표시를 포함한 국소 문법 구조를 독립 검사한다. 주어 수 일치, 삽입 as절, 선행 명사 두 항목을 받는 관계절, 명사구를 수식해야 하는 동사 형태, 재귀대명사의 동일 주체를 확인한다. u5의 유한동사는 주절의 동사와 연결 장치 없이 충돌하며 현재분사 수식이 필요하다."
+        },
+        {
+          "id": "modifier_error",
+          "used_units": [
+            "u5"
+          ],
+          "ranges": [
+            {
+              "start": 692,
+              "end": 846
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [
+            {
+              "start": 692,
+              "end": 846,
+              "why": "주어 명사구의 동물 수식 구간과 주절 동사 사이의 의존을 검사한다."
+            }
+          ],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u5"
+              ],
+              "why": "연결 장치 없는 유한 동사 때문에 주절이 완성되지 않는 국소 오류다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "한 문장의 명사구 끝과 주절 동사 사이에서 수식어와 유한 동사를 구별한다. 다른 표시의 정확성은 이 창에 없으므로 유일정답 조건으로만 식별한다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "인간과 동물의 비교는 유한동사 중복의 문법 근거가 아니다.",
+          "why": "옳고 틀림은 두 의미 명제의 대비가 아니라 국소 형태 의존으로 판별한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "modifier_error",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 문장에서 오류 표시를 발견하지만 네 표시의 문법은 미검수다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "modifier_error",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 문장 오류 탐지는 가능하며 다른 표시를 검수했다는 뜻은 아니다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "의미상 동물이 그곳에 살았다는 내용을 이해해도 어법 오류는 남는다.",
+          "why": "의미를 누적하는 것만으로 수식 분사와 접속 없는 유한동사의 형태를 확정하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "modifier_error",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 국소 명사 수식과 주절 동사 의존에서 오류를 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "잘못된 형태를 정상 수식처럼 의미만 이해할 수 있다.",
+          "why": "주체·행위·대상을 의미 단위로 묶어도 시제 형태와 분사 수식의 적합성은 별도 검사다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "자연을 사회관계로 이해한다는 인과는 수식 분사 형태와 독립이다.",
+          "why": "담화 명제 관계로 문장 내부 형태 오류를 결정하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "문단의 전개가 자연스러워도 u5의 형태 오류는 남는다.",
+          "why": "글의 설명 역할과 배열은 문장 내 형태 오류를 검증하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "다섯 표시마다 주어·접속·선행사·수식·재귀 의존을 각각 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "어법 유형의 표시를 문장 단위로 검사하고 각 국소 문법 규칙을 실제 적용한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "내용 이해와 별도로 여러 국소 의존을 검사하게 하며 능동 의미를 가진 명사 수식의 분사 형태를 구별한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2019#30",
+      "binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+      "solved_answer": 5,
+      "discourse": "exposition",
+      "task": "lexical_context",
+      "complexity": [
+        "anaphora",
+        "embedding",
+        "polysemy"
+      ],
+      "proposition": [
+        "predicate",
+        "condition"
+      ],
+      "decisive_relations": [
+        "contrast",
+        "causal"
+      ],
+      "background_relations": [
+        "sequence",
+        "elaboration",
+        "reference"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual"
+      ],
+      "relation_edges": [
+        {
+          "from": "u2",
+          "to": "u4",
+          "relation": "contrast",
+          "why": "같은 순록 사냥에 대해 육지의 빠름과 물의 느림은 포획 난도를 반대로 만든다."
+        },
+        {
+          "from": "u4",
+          "to": "u5",
+          "relation": "causal",
+          "why": "물의 취약성을 이용해 수상 이동 수단의 사냥 이점이 생긴다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u2"
+          ],
+          "why": "빠른 동물을 창이나 활로 사냥한다는 주변 조건은 결과의 불확실성을 지지한다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u3"
+          ],
+          "why": "헤엄을 못한다는 뒤 설명이 이용할 수 있는 약점을 지지한다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u4"
+          ],
+          "why": "수중의 느린 이동과 코를 물 위로 유지하려는 고군분투가 취약함을 지지한다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "why": "수상 이동을 통해 수중의 취약성을 이용하는 것은 사냥 이점이다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "units": [
+            "u3",
+            "u4",
+            "u5",
+            "u6"
+          ],
+          "why": "수중의 느림과 배를 통한 포획 이점은 쉽게 따라잡는 방향을 요구한다. 힘겹게 따라잡았다는 부사는 그 설명의 방향을 거스른다. 세계의 모든 사냥이 쉬움을 입증하는 것은 아니다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 81
+            },
+            {
+              "start": 82,
+              "end": 192
+            },
+            {
+              "start": 193,
+              "end": 288
+            },
+            {
+              "start": 289,
+              "end": 418
+            },
+            {
+              "start": 419,
+              "end": 583
+            },
+            {
+              "start": 584,
+              "end": 746
+            },
+            {
+              "start": 747,
+              "end": 827
+            }
+          ],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u4",
+              "to": "u3",
+              "why": "떠 있는 동물은 헤엄을 못하는 순록이다."
+            },
+            {
+              "from": "u7",
+              "to": "u6",
+              "why": "다른 물건에도 적용할 이점은 배로 운반하는 용이함이다."
+            }
+          ],
+          "required_relations": [
+            "contrast",
+            "causal"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u2"
+              ],
+              "why": "빠른 동물을 창이나 활로 사냥한다는 주변 조건은 결과의 불확실성을 지지한다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3"
+              ],
+              "why": "헤엄을 못한다는 뒤 설명이 이용할 수 있는 약점을 지지한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u4"
+              ],
+              "why": "수중의 느린 이동과 코를 물 위로 유지하려는 고군분투가 취약함을 지지한다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u4",
+                "u5"
+              ],
+              "why": "수상 이동을 통해 수중의 취약성을 이용하는 것은 사냥 이점이다."
+            },
+            {
+              "n": 5,
+              "fit": "fits",
+              "units": [
+                "u3",
+                "u4",
+                "u5",
+                "u6"
+              ],
+              "why": "수중의 느림과 배를 통한 포획 이점은 쉽게 따라잡는 방향을 요구한다. 힘겹게 따라잡았다는 부사는 그 설명의 방향을 거스른다. 세계의 모든 사냥이 쉬움을 입증하는 것은 아니다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "육지에서 빠른 순록을 사냥하는 어려움과 물에서 느리고 헤엄을 못하는 취약함을 대비한다. 배의 발명은 수상 사냥과 운반의 이점을 만든다. 힘겹게 따라잡았다는 부사는 수상에서 이용하는 취약성의 문맥 방향과 맞지 않는다. 세계 사실의 불가능성을 주장하지 않는다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u2/u4만 보고 u6의 사냥 대상과 수단을 몰래 가져오면 제한을 넘는다.",
+          "why": "육지/물의 포획 난도 대비 두 명제에 오류 후보의 적용 상황까지 포함되지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "운반이 쉬운 것과 포획이 쉬운 것은 같은 명제가 아니다.",
+          "why": "오류 부사가 포함된 한 문장에는 수중 순록의 취약함이 충분히 없다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u5/u6의 사냥 이점만으로 모든 힘든 포획을 논리적으로 부정할 수 없다.",
+          "why": "연속 두 문장만으로 오류 부사와 순록의 수중 취약성, 다른 네 표시의 조건을 동시에 확보하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "육지 사냥의 어려움에서 수중 약점·배 발명·운반까지 누적하며 문맥 방향을 갱신한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "부사가 포획 분사를 수식하는 구조 자체는 성립한다.",
+          "why": "부사는 문법적으로 가능하다. 국소 수식 관계만으로 문맥상 방향을 검증하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "동물·수중 조건·이동 속도·수단·포획과 운반 행위를 분리한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "육지와 수중의 대비 및 취약성 이용의 인과로 문맥 방향을 판단한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "배가 사냥과 운반의 이점을 제공하는 설명 전개를 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "후보 표현 자신을 근거로 삼지 않고 주변의 확정 조건으로 다섯 사용을 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "어휘 오류 유형에서 문법성 대신 주변 명제의 평가 방향을 읽고 포획과 운반을 구별한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "수중 약점의 이용이라는 설명과 포획 난도를 나타내는 부사의 방향을 대조하게 한다. 사냥의 실제 역사를 검증하는 문제로 보지 않는다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2016#25",
+      "binding": "06e4a17b5768a4231ad16cb182cb9d0a3146e1e0a7350ce61bdbd6e18409f248",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "retrieve",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "object",
+        "predicate",
+        "time"
+      ],
+      "decisive_relations": [
+        "none"
+      ],
+      "background_relations": [
+        "sequence",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit",
+        "local"
+      ],
+      "relation_edges": [],
+      "choices": [
+        {
+          "n": 1,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u1"
+          ],
+          "why": "고대 그리스 화가라는 신분을 명시하므로 불일치 후보가 아니다."
+        },
+        {
+          "n": 2,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u2"
+          ],
+          "why": "출생지와 별개로 삶의 대부분을 Rhodes에서 보냈다고 한다."
+        },
+        {
+          "n": 3,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u6"
+          ],
+          "why": "해당 작품을 그리는 데 대략 일곱 해를 보냈다고 한다."
+        },
+        {
+          "n": 4,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "units": [
+            "u10"
+          ],
+          "why": "작업 정원은 적군 진영 한가운데이다. 멀리 떨어져 있다는 공간 방향과 반대다."
+        },
+        {
+          "n": 5,
+          "context": "sentence",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u11"
+          ],
+          "why": "작품 완성 때 약 칠십 세였다고 전해진다고 한다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 112
+            },
+            {
+              "start": 113,
+              "end": 196
+            },
+            {
+              "start": 197,
+              "end": 225
+            },
+            {
+              "start": 226,
+              "end": 271
+            },
+            {
+              "start": 272,
+              "end": 339
+            },
+            {
+              "start": 340,
+              "end": 453
+            },
+            {
+              "start": 454,
+              "end": 531
+            },
+            {
+              "start": 532,
+              "end": 569
+            },
+            {
+              "start": 570,
+              "end": 668
+            },
+            {
+              "start": 669,
+              "end": 763
+            },
+            {
+              "start": 764,
+              "end": 852
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "none"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u1"
+              ],
+              "why": "고대 그리스 화가라는 신분을 명시하므로 불일치 후보가 아니다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2"
+              ],
+              "why": "출생지와 별개로 삶의 대부분을 Rhodes에서 보냈다고 한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "해당 작품을 그리는 데 대략 일곱 해를 보냈다고 한다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u10"
+              ],
+              "why": "작업 정원은 적군 진영 한가운데이다. 멀리 떨어져 있다는 공간 방향과 반대다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u11"
+              ],
+              "why": "작품 완성 때 약 칠십 세였다고 전해진다고 한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "화가의 신분, 거주지, 작품 소요 기간, 작업 장소, 완성 때 나이를 후보별로 확인한다. 정원은 적군 진영 한가운데라는 장소 표현이 적진에서 멀리라는 후보를 직접 부정한다. 다른 네 후보는 각각 별도 사실로 확인한다."
+        },
+        {
+          "id": "camp_location",
+          "used_units": [
+            "u10"
+          ],
+          "ranges": [
+            {
+              "start": 669,
+              "end": 763
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [
+            {
+              "start": 669,
+              "end": 763,
+              "why": "정원이라는 주어에 붙는 관계절이 작품 작업 장소를 특정하고 주절의 위치 보어가 적진 한가운데를 지정한다."
+            }
+          ],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u10"
+              ],
+              "why": "적진 한가운데라는 위치가 멀리 떨어졌다는 후보를 반박한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "한 문장이 그림과 작업 정원, 적진 내 위치를 함께 명시한다. 다른 네 사실의 확인은 창 밖이다."
+        },
+        {
+          "id": "location_age",
+          "used_units": [
+            "u10",
+            "u11"
+          ],
+          "ranges": [
+            {
+              "start": 669,
+              "end": 763
+            },
+            {
+              "start": 764,
+              "end": 852
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u10",
+                "u11"
+              ],
+              "why": "장소의 공간 방향이 명시적으로 반대다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연속 두 문장에서 장소 후보의 모순과 나이 후보의 일치를 확인한다. 신분·거주·기간은 아직 미검수다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "본문 장소와 오답 후보를 대비 두 원문 명제인 것처럼 세면 방법 경계를 바꾼다.",
+          "why": "본문 두 명제의 대비가 아니라 후보의 공간 방향을 본문 사실과 대조한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "camp_location",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "국소 사실 한 문장으로 불일치 후보를 찾는다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "location_age",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장은 장소 오류 탐지에 충분하지만 네 정문을 모두 검수하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "제시 순서대로 신분·거주·작품·장소·나이의 사실을 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "camp_location",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "작업 장소를 한 국소 관계절과 위치 보어의 의존으로 특정한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "인물·작품·장소·기간·나이를 분리해 사실을 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "작품의 시간 순서를 알아도 정원이 적진 어디인지 명제 내용이 필요하다.",
+          "why": "결정 근거는 다섯 사실 각각의 회수이며 담화 관계를 조작할 필요가 없다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "생애와 작품을 구별한 구조도 사실의 공간 방향을 제공하지 않는다.",
+          "why": "전기의 배열과 역할만으로 작품 장소·기간·나이의 세부값을 검증하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "후보별로 별도 본문 단위를 찾아 일치 네 개와 불일치 한 개를 검증한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "불일치 문제에서 정문을 회수하고 장소의 반대 표현을 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "전기의 여러 사실 중 작업 장소의 공간 관계를 반대로 바꾼 후보를 구별하도록 구성한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2022#25",
+      "binding": "ec7675fdd6715609b9164c24e13c80f7dca1a26cad1c4f04c2c0e848ef0e5009",
+      "solved_answer": 4,
+      "discourse": "data",
+      "task": "quantitative",
+      "complexity": [
+        "scope"
+      ],
+      "proposition": [
+        "object",
+        "time",
+        "quantifier",
+        "predicate"
+      ],
+      "decisive_relations": [
+        "none"
+      ],
+      "background_relations": [
+        "none"
+      ],
+      "inference": [
+        "visual_numeric",
+        "explicit"
+      ],
+      "relation_edges": [],
+      "choices": [
+        {
+          "n": 1,
+          "context": "diagram",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [],
+          "why": "c4/c5에서 아시아태평양은 46에서 60으로 증가한다."
+        },
+        {
+          "n": 2,
+          "context": "diagram",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [],
+          "why": "c5의 60은 c8/c11/c14/c17/c20보다 크고 c8의 16에 3을 곱한 48보다 크다."
+        },
+        {
+          "n": 3,
+          "context": "diagram",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [],
+          "why": "c7/c8은 24에서 16, c10/c11은 11에서 8로 각각 줄어든다."
+        },
+        {
+          "n": 4,
+          "context": "diagram",
+          "content_truth": "not_assessed",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "units": [],
+          "why": "c13/c14의 중남미 지분은 9에서 7로 줄어든다. 변하지 않는다는 서술과 충돌한다."
+        },
+        {
+          "n": 5,
+          "context": "diagram",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [],
+          "why": "c16/c19와 c17/c20을 비교하면 두 연도 모두 6이 4보다 크다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 120
+            },
+            {
+              "start": 121,
+              "end": 257
+            },
+            {
+              "start": 258,
+              "end": 397
+            },
+            {
+              "start": 398,
+              "end": 596
+            },
+            {
+              "start": 597,
+              "end": 709
+            },
+            {
+              "start": 710,
+              "end": 833
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5",
+            "c6",
+            "c7",
+            "c8",
+            "c9",
+            "c10",
+            "c11",
+            "c12",
+            "c13",
+            "c14",
+            "c15",
+            "c16",
+            "c17",
+            "c18",
+            "c19",
+            "c20"
+          ],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "none"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [],
+              "why": "c4/c5에서 아시아태평양은 46에서 60으로 증가한다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [],
+              "why": "c5의 60은 c8/c11/c14/c17/c20보다 크고 c8의 16에 3을 곱한 48보다 크다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [],
+              "why": "c7/c8은 24에서 16, c10/c11은 11에서 8로 각각 줄어든다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [],
+              "why": "c13/c14의 중남미 지분은 9에서 7로 줄어든다. 변하지 않는다는 서술과 충돌한다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [],
+              "why": "c16/c19와 c17/c20을 비교하면 두 연도 모두 6이 4보다 크다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "calculate",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "표의 지역 행과 연도 열을 먼저 고정한다. 아시아태평양은 46에서 60, 유럽은 24에서 16, 북미는 11에서 8, 중남미는 9에서 7, 중동/북아프리카는 6에서 6, 사하라 이남은 4에서 4이다. 아시아의 60은 최댓값이며 유럽 16의 세 배 48보다 크다. 중남미의 불변 서술만 값과 충돌한다. 후보 문장을 자신에 대한 참 근거로 삼지 않는다."
+        },
+        {
+          "id": "south_america_row",
+          "used_units": [],
+          "ranges": [],
+          "gloss_ids": [],
+          "cells": [
+            "c1",
+            "c2",
+            "c12",
+            "c13",
+            "c14"
+          ],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "none"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [],
+              "why": "같은 지역의 두 연도 값이 9에서 7로 달라져 불변이 아니다."
+            }
+          ],
+          "operations": [
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연도 머리글과 중남미 행의 두 수치만 읽는다. 지분이 줄어들므로 불변 후보를 반박하되 다른 지역의 네 후보는 미확인이다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "중남미 두 수치를 대비라고 이름 붙여도 지역·연도·단위 대응을 별도로 읽어야 한다.",
+          "why": "수치 비교는 담화의 반대 명제 두 개로 강제할 관계가 아니다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "후보 4의 불변 서술을 자신의 참 근거로 삼으면 실제 표의 변화를 놓친다.",
+          "why": "본문의 한 후보 문장을 읽는 것은 도표 검증의 근거가 아니다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "south_america_row",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "머리글과 중남미 한 행의 제한 창에서 후보 4의 모순만 확인한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "60과 16을 읽기만 한 상태에서는 60>3×16을 아직 계산하지 않았다.",
+          "why": "읽은 의미의 누적만으로 최대값 검수와 세 배 비교 계산을 완료할 수 없다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "불변 문장의 문법이 올바른 것과 표와 일치하는 것은 독립이다.",
+          "why": "지역·연도·수치의 실제값은 문장 내부 문법 의존으로 얻지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "south_america_row",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "지역과 연도별 지분을 의미 단위로 묶어 불변 후보의 모순을 확인한다. 나머지 행은 사용하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "같은 연도라고 관계를 표시해도 각 지역의 인쇄값을 읽지 않은 상태다.",
+          "why": "담화 관계 분석만으로 그림의 값과 배수 계산을 확보하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "지역 행과 연도 열의 구조를 이해해도 중남미의 값이 무엇인지 읽어야 한다.",
+          "why": "표의 행·열 구조만으로 각 수치의 크기와 배수 비교는 완성되지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "도표 셀에서 값·증감·최대값·배수를 실제로 계산하며 다섯 서술을 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "도표 유형에서 지역과 연도 열을 고정하고 각 서술의 비교 연산을 수행한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "도표의 동일 지역 두 연도 값에 대한 불변 표현을 구별하게 한다. 배수·최대값 검수는 숫자 읽기와 별개 연산을 요구한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2024#31",
+      "binding": "cffb5e801ca12c8490cb9c77717106d49177ed4a4d98a0156a2defbd2f785f43",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "task": "complete",
+      "complexity": [
+        "scope",
+        "polysemy",
+        "embedding"
+      ],
+      "proposition": [
+        "predicate",
+        "object",
+        "polarity"
+      ],
+      "decisive_relations": [
+        "contrast",
+        "elaboration"
+      ],
+      "background_relations": [
+        "example",
+        "causal"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual"
+      ],
+      "relation_edges": [
+        {
+          "from": "u2",
+          "to": "u4",
+          "relation": "causal",
+          "why": "다양한 표현 형태의 읽기는 해석의 복잡성을 늘린다."
+        },
+        {
+          "from": "u6",
+          "to": "u7",
+          "relation": "elaboration",
+          "why": "문장 표면과 의미의 불일치가 단순 인식 이상의 해석을 설명한다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u2",
+            "u5",
+            "u7"
+          ],
+          "why": "지식 획득을 단순 과정으로 부정하는 것보다 문자 인식 이상의 해석이라는 논지에 맞아야 한다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u2",
+            "u4",
+            "u5",
+            "u7"
+          ],
+          "why": "글·그림의 상호 작용과 표면 발화 이상의 의미는 읽기를 단어 인식으로 축소할 수 없게 한다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u4",
+            "u7"
+          ],
+          "why": "상상 놀이를 읽기의 단순 기본 형태로 제시하지 않는다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u4",
+            "u7"
+          ],
+          "why": "해석의 복잡성은 긍정 설명이다. 주관적 해석을 부정할 단순 기본 과정으로 놓는 것은 논점을 바꾼다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u4",
+            "u5"
+          ],
+          "why": "이미지 대응에 대한 한계가 아니라 문자 중심에서 다양한 표현과 해석으로 확장되는 내용이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 199
+            },
+            {
+              "start": 200,
+              "end": 380
+            },
+            {
+              "start": 381,
+              "end": 565
+            },
+            {
+              "start": 566,
+              "end": 741
+            },
+            {
+              "start": 742,
+              "end": 844
+            },
+            {
+              "start": 845,
+              "end": 874
+            },
+            {
+              "start": 875,
+              "end": 952
+            }
+          ],
+          "gloss_ids": [
+            "g1"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "contrast",
+            "elaboration"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u2",
+                "u5",
+                "u7"
+              ],
+              "why": "지식 획득을 단순 과정으로 부정하는 것보다 문자 인식 이상의 해석이라는 논지에 맞아야 한다."
+            },
+            {
+              "n": 2,
+              "fit": "fits",
+              "units": [
+                "u2",
+                "u4",
+                "u5",
+                "u7"
+              ],
+              "why": "글·그림의 상호 작용과 표면 발화 이상의 의미는 읽기를 단어 인식으로 축소할 수 없게 한다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u4",
+                "u7"
+              ],
+              "why": "상상 놀이를 읽기의 단순 기본 형태로 제시하지 않는다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u4",
+                "u7"
+              ],
+              "why": "해석의 복잡성은 긍정 설명이다. 주관적 해석을 부정할 단순 기본 과정으로 놓는 것은 논점을 바꾼다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u4",
+                "u5"
+              ],
+              "why": "이미지 대응에 대한 한계가 아니라 문자 중심에서 다양한 표현과 해석으로 확장되는 내용이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "읽기의 대상이 문자 이외의 여러 표현 형태로 넓어지고 글과 그림은 서로 보완한다. 쉽고 짧은 문장에서도 문자 그대로의 발화와 의미는 다르다. 따라서 단순한 단어 인식으로 읽기를 축소할 수 없다는 문장을 완성한다."
+        },
+        {
+          "id": "surface_meaning",
+          "used_units": [
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 845,
+              "end": 874
+            },
+            {
+              "start": 875,
+              "end": 952
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "elaboration"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 2,
+              "fit": "fits",
+              "units": [
+                "u6",
+                "u7"
+              ],
+              "why": "단어 표면의 인식만으로 문장의 의미를 얻을 수 없다는 방향과 맞는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "빈칸 문장과 바로 뒤 설명만 읽어 표면 발화 이상의 의미라는 방향을 확인한다. 앞선 복합 표현 형태와 다른 후보의 전체 적합성 검수는 하지 않는다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "단어와 이미지가 모두 텍스트라는 사실만으로 빈칸에 무엇을 넣을지 결정되지 않는다.",
+          "why": "읽기의 확장과 빈칸의 부정 대상을 두 명제 대비만으로 확정하려면 빈칸 문장과 해석 범위를 더 읽어야 한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u7만 선택한 뒤 u6의 부정 구문을 숨겨 사용하면 한 문장 제한을 넘는다.",
+          "why": "빈칸 문장 자체는 부정할 대상을 주지 않고 뒤 한 문장만으로는 빈칸의 위치·극성까지 읽은 것이 아니다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "surface_meaning",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장에서 부정 범위와 표면/의미 차이를 확인한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "읽기 대상의 확장·디자인·글과 그림의 관계·표면과 의미 차이를 순서대로 누적한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "부정 구문에 다섯 명사구 모두 문법적으로 들어갈 수 있다.",
+          "why": "부정 범위는 문법으로 알 수 있으나 어떤 과정이 단순 수준인지 설명 근거가 필요하다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "읽기 대상·해석·글과 그림·표면 의미를 구분해 부정할 축소 과정을 구성한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "다양한 표현과 해석의 확장, 표면 발화와 의미의 대비를 분석한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "확장된 읽기의 설명에서 일반화와 후속 부연의 역할을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "후보를 빈칸에 대입해 부정 방향과 앞뒤 설명의 관계를 각각 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "빈칸 유형에서 부정의 대상을 주변 명제로 제한하고 단어 연상만으로 결정하지 않는다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "읽기의 해석적 성격을 단순 문자 인식과 구별하고 부정문 빈칸의 논리 방향을 지키는 구성이다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2014B#38",
+      "binding": "5327c519bacbbf23f4e920bb0c0eb7cf4de7bb58918e8e7d14a3d93d743e69d5",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "coherence_order",
+      "complexity": [
+        "anaphora",
+        "scope"
+      ],
+      "proposition": [
+        "object",
+        "predicate",
+        "condition"
+      ],
+      "decisive_relations": [
+        "reference",
+        "sequence"
+      ],
+      "background_relations": [
+        "example",
+        "contrast"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u2",
+          "to": "u7",
+          "relation": "sequence",
+          "why": "정면 조건을 제시한 뒤 다른 각도의 망막상을 도입한다."
+        },
+        {
+          "from": "u7",
+          "to": "u3",
+          "relation": "reference",
+          "why": "A에서 얇아지는 정관사 사다리꼴은 C가 처음 도입한 상이다."
+        },
+        {
+          "from": "u4",
+          "to": "u5",
+          "relation": "example",
+          "why": "망막상 변화를 받아들이지 않는 지각 설명 뒤 동전이 같은 지각 유지의 사례다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u3",
+            "u7"
+          ],
+          "why": "A를 먼저 놓으면 정면 직사각형 뒤에 도입되지 않은 사다리꼴을 정관사로 받는다."
+        },
+        {
+          "n": 2,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u5",
+            "u7"
+          ],
+          "why": "B의 유사성 사례를 먼저 놓아 다른 각도의 문 이미지 설명을 뒤로 미룬다. A도 C보다 먼저라 사다리꼴 선행 설명이 없다."
+        },
+        {
+          "n": 3,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u5",
+            "u7",
+            "u3"
+          ],
+          "why": "B가 최초 다른 각도 설명보다 먼저 와 유사성의 전개를 끊는다."
+        },
+        {
+          "n": 4,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u2",
+            "u7",
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "why": "정면-다른 각도-사다리꼴의 변화-같은 지각 사례라는 선행과 참조가 연결된다."
+        },
+        {
+          "n": 5,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u7",
+            "u3",
+            "u5"
+          ],
+          "why": "C의 사다리꼴 뒤에 B의 동전·바퀴가 끼면 A의 점진적 사다리꼴 변화와 선행 설명의 연속성이 깨진다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 99
+            },
+            {
+              "start": 100,
+              "end": 236
+            },
+            {
+              "start": 241,
+              "end": 386
+            },
+            {
+              "start": 387,
+              "end": 459
+            },
+            {
+              "start": 464,
+              "end": 587
+            },
+            {
+              "start": 588,
+              "end": 732
+            },
+            {
+              "start": 737,
+              "end": 792
+            },
+            {
+              "start": 793,
+              "end": 873
+            }
+          ],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u3",
+              "to": "u7",
+              "why": "A의 사다리꼴은 C의 다른 각도 이미지다."
+            },
+            {
+              "from": "u4",
+              "to": "u3",
+              "why": "변화들은 사다리꼴이 얇아져 선이 되는 변화를 가리킨다."
+            }
+          ],
+          "required_relations": [
+            "reference",
+            "sequence"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u3",
+                "u7"
+              ],
+              "why": "A를 먼저 놓으면 정면 직사각형 뒤에 도입되지 않은 사다리꼴을 정관사로 받는다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u5",
+                "u7"
+              ],
+              "why": "B의 유사성 사례를 먼저 놓아 다른 각도의 문 이미지 설명을 뒤로 미룬다. A도 C보다 먼저라 사다리꼴 선행 설명이 없다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u5",
+                "u7",
+                "u3"
+              ],
+              "why": "B가 최초 다른 각도 설명보다 먼저 와 유사성의 전개를 끊는다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u2",
+                "u7",
+                "u3",
+                "u4",
+                "u5"
+              ],
+              "why": "정면-다른 각도-사다리꼴의 변화-같은 지각 사례라는 선행과 참조가 연결된다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u7",
+                "u3",
+                "u5"
+              ],
+              "why": "C의 사다리꼴 뒤에 B의 동전·바퀴가 끼면 A의 점진적 사다리꼴 변화와 선행 설명의 연속성이 깨진다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "reorder",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "주어진 문장은 정면에서의 직사각형 망막상이다. 다른 각도의 사다리꼴을 도입하는 C가 먼저 와야 한다. A의 정관사 사다리꼴과 점차 얇아지는 변화는 C를 받고, A의 변화를 받아들이지 않는 지각 설명 뒤 B의 동전·바퀴 사례가 유사성으로 이어진다. 주어진 글-C-A-B가 완성된다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "대비는 B에도 존재하므로 반대 명제를 찾는 것만으로 C-A-B가 나오지 않는다.",
+          "why": "실제 이미지와 지각의 대비만으로 C/A/B의 참조 선행 순서를 확정하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "A의 정관사 명사만으로는 그 선행 설명이 어느 블록인지 창 밖이다.",
+          "why": "한 문장만으로 블록 세 개의 선행 도입과 후속 유사성을 검수할 수 없다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u7/u8만 보면 A의 정관사와 B의 유사성 후속을 검수하지 않았다.",
+          "why": "연속 두 문장은 표시 순서상 필요한 C와 A의 선행 관계 및 B의 역할 전체를 담지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "표시 순서대로 읽으면 사다리꼴의 최초 도입이 A보다 뒤에 남는다.",
+          "why": "제시 순서 의미 누적은 A/B/C를 다시 놓는 작업을 포함하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "정관사 사다리꼴의 선행 명제는 같은 국소 구문 밖이다.",
+          "why": "국소 명사구 의존만으로 외부 선행 블록과 대안 배열을 확정하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "각 문장을 이해해도 B가 C/A 사이에 들어갈 수 있는지 배열 조건을 더 확인해야 한다.",
+          "why": "문장 의미를 나누는 것만으로 참조에 따른 블록 재배열과 다섯 순서 검증을 완료하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "정면 조건·다른 각도·변화·유사 사례의 선행 관계를 명시하고 재배열한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "도입·각도 변화·점진 변화·유사 사례의 블록 역할로 배열을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "다섯 배열마다 최초 사다리꼴 도입과 정관사 참조, 유사성 연결을 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "순서 유형의 정관사와 유사성 단서를 실제 선행 내용과 대응시키고 재배열한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "정면과 다른 각도의 조건 전환 및 처음 도입된 사다리꼴의 후속 참조를 통해 블록 순서를 구별한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2018#39",
+      "binding": "55a4d381be9fe5252e0c2e44574d7c4104a105002dabb79b3ea663a97ac6c2b1",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "coherence_insert",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "object",
+        "condition",
+        "predicate"
+      ],
+      "decisive_relations": [
+        "reference",
+        "causal"
+      ],
+      "background_relations": [
+        "sequence",
+        "contrast",
+        "problem_solution"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u7",
+          "to": "u1",
+          "relation": "causal",
+          "why": "직접 산업 배출이 없는 호수의 오염에 공기 이동이라는 원인 설명을 붙인다."
+        },
+        {
+          "from": "u1",
+          "to": "u8",
+          "relation": "reference",
+          "why": "배출 기준을 적용할 해당 발생원은 새로 도입된 발전소와 소각로다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u4",
+            "u5",
+            "u8"
+          ],
+          "why": "중독 증상과 병명 설명 사이에 새 오염원을 넣으면 직접 사건의 결속을 끊고 후속 해당 발생원 앞에 먼 호수 설명이 끼게 된다."
+        },
+        {
+          "n": 2,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ],
+          "why": "병명 뒤의 직접 배출 통제 앞에 원격 공기 오염을 넣으면 이후 먼 호수 문제 도입 이전에 원인이 먼저 나오고 직접 통제와 새 발생원 규제가 분리된다."
+        },
+        {
+          "n": 3,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u6",
+            "u7",
+            "u8"
+          ],
+          "why": "직접 배출 통제와 반전의 먼 호수 오염 사이에 삽입하면 주어진 해당 오염이 아직 먼 호수 상황을 받지 못한다."
+        },
+        {
+          "n": 4,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u7",
+            "u1",
+            "u8"
+          ],
+          "why": "먼 호수 오염-공기 이동 원인과 발생원-그 발생원의 배출 기준이 연속 참조된다."
+        },
+        {
+          "n": 5,
+          "context": "task",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u7",
+            "u8",
+            "u9"
+          ],
+          "why": "규제 문장의 해당 발생원보다 발전소·소각로 도입이 늦어져 선행 참조가 뒤집힌다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 127
+            },
+            {
+              "start": 128,
+              "end": 233
+            },
+            {
+              "start": 234,
+              "end": 352
+            },
+            {
+              "start": 353,
+              "end": 480
+            },
+            {
+              "start": 481,
+              "end": 565
+            },
+            {
+              "start": 566,
+              "end": 673
+            },
+            {
+              "start": 674,
+              "end": 800
+            },
+            {
+              "start": 801,
+              "end": 899
+            },
+            {
+              "start": 900,
+              "end": 1078
+            }
+          ],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u1",
+              "to": "u7",
+              "why": "주어진 문장의 해당 오염은 먼 호수의 수은을 받는다."
+            },
+            {
+              "from": "u8",
+              "to": "u1",
+              "why": "해당 발생원은 공기 중 수은의 원천인 발전소와 소각로다."
+            }
+          ],
+          "required_relations": [
+            "reference",
+            "causal"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u4",
+                "u5",
+                "u8"
+              ],
+              "why": "중독 증상과 병명 설명 사이에 새 오염원을 넣으면 직접 사건의 결속을 끊고 후속 해당 발생원 앞에 먼 호수 설명이 끼게 된다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u5",
+                "u6",
+                "u7",
+                "u8"
+              ],
+              "why": "병명 뒤의 직접 배출 통제 앞에 원격 공기 오염을 넣으면 이후 먼 호수 문제 도입 이전에 원인이 먼저 나오고 직접 통제와 새 발생원 규제가 분리된다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u6",
+                "u7",
+                "u8"
+              ],
+              "why": "직접 배출 통제와 반전의 먼 호수 오염 사이에 삽입하면 주어진 해당 오염이 아직 먼 호수 상황을 받지 못한다."
+            },
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u7",
+                "u1",
+                "u8"
+              ],
+              "why": "먼 호수 오염-공기 이동 원인과 발생원-그 발생원의 배출 기준이 연속 참조된다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u7",
+                "u8",
+                "u9"
+              ],
+              "why": "규제 문장의 해당 발생원보다 발전소·소각로 도입이 늦어져 선행 참조가 뒤집힌다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "insert",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "본문은 공장 직접 배출의 사례와 통제에서 멀리 떨어진 호수의 수은으로 논점을 확장한다. 주어진 문장은 그 먼 호수 오염의 공기 이동 원인을 설명하고 발전소·소각로를 도입한다. 다음 문장의 해당 발생원 배출 기준은 그 두 발생원을 받아야 하므로 u7 뒤 u8 앞에 삽입한다."
+        },
+        {
+          "id": "two_sided_bridge",
+          "used_units": [
+            "u1",
+            "u7",
+            "u8"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 127
+            },
+            {
+              "start": 674,
+              "end": 800
+            },
+            {
+              "start": 801,
+              "end": 899
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u1",
+              "to": "u7",
+              "why": "해당 오염의 선행 상황은 먼 호수의 수은이다."
+            },
+            {
+              "from": "u8",
+              "to": "u1",
+              "why": "후속 발생원은 주어진 발전소·소각로다."
+            }
+          ],
+          "required_relations": [
+            "reference",
+            "causal"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 4,
+              "fit": "fits",
+              "units": [
+                "u1",
+                "u7",
+                "u8"
+              ],
+              "why": "오염의 선행 대상과 발생원의 후속 참조를 동시에 맞추는 위치다."
+            }
+          ],
+          "operations": [
+            "insert",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "주어진 문장도 정보 창에 포함하고 먼 호수 오염의 역방향 참조와 발생원의 순방향 참조를 함께 검수한다. 모든 다른 위치의 전후 관계는 전체 경로에서 검수한다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u6/u7의 대비에는 발전소·소각로를 도입하는 주어진 문장이 없다.",
+          "why": "직접 배출과 원격 오염의 대비만으로 주어진 문장 앞뒤 참조를 모두 검수하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u8의 발생원을 풀려면 외부의 주어진 문장을 반드시 추가해야 한다.",
+          "why": "한 문장으로 주어진 문장의 두 방향 참조와 다섯 위치를 검수하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u7/u8만으로는 삽입문의 발생원 내용이 창 밖이다.",
+          "why": "주어진 문장과 앞뒤 두 본문 문장은 세 정보 단위이고 제시 순서상 연속 두 단위가 아니다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "상자 문장을 먼저 누적하면 해당 오염의 선행 상황이 아직 나오지 않는다.",
+          "why": "제시 순서 의미 누적은 별도 상자 문장을 본문 위치에 이동하여 연결하는 삽입 연산을 포함하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "발생원을 문법적으로 해석해도 발전소·소각로가 외부에 있다.",
+          "why": "두 지시 표현은 문장 밖 선행 대상이 필요하여 한 국소 구문만으로는 충분하지 않다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "각 단위의 뜻을 이해해도 병명 설명과 통제 사이에 들어가는지 추가 관계 검사가 필요하다.",
+          "why": "오염·이동·발생원 단위를 이해하는 것만으로 위치별 앞뒤 결속 검수를 완수하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "직접 통제에서 원격 오염으로의 전환과 원인·참조 관계로 삽입한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "사례·직접 배출 대책·남은 문제·새 원인·발생원 규제의 구조로 위치를 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 위치에서 오염 선행 대상과 발생원 후행 참조를 실제로 삽입해 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "삽입 유형의 양방향 지시 표현을 찾아 실제 명제의 선행/후행 대상과 연결한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "먼 호수 오염과 발전소·소각로 발생원을 잇는 양방향 참조가 삽입 위치를 제한한다."
+      },
+      "alternative_paths": [
+        {
+          "path_id": "two_sided_bridge",
+          "why": "양방향 참조의 좁은 논리 창은 가능하나 제한 두 단위 방법으로 재분류하지 않는다."
+        }
+      ],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2024#35",
+      "binding": "d44862aa6b887fdb5ad878e066f5bf8ea2e72b660e229b5ba0e898cc49c3ff14",
+      "solved_answer": 3,
+      "discourse": "exposition",
+      "task": "coherence_remove",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "predicate",
+        "condition"
+      ],
+      "decisive_relations": [
+        "causal",
+        "elaboration"
+      ],
+      "background_relations": [
+        "example",
+        "restatement"
+      ],
+      "inference": [
+        "local",
+        "global",
+        "contextual"
+      ],
+      "relation_edges": [
+        {
+          "from": "u4",
+          "to": "u6",
+          "relation": "causal",
+          "why": "뇌의 선택 지연과 멈추지 않는 입의 속도 불일치가 군말을 만든다."
+        },
+        {
+          "from": "u6",
+          "to": "u7",
+          "relation": "example",
+          "why": "군말의 일반 설명 뒤 실제 표현 예시가 이어진다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "remove_before_after",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u4"
+          ],
+          "why": "뇌의 효율적 결정 한계는 다음 선택 지연 설명을 준비하므로 제거 대상이 아니다."
+        },
+        {
+          "n": 2,
+          "context": "remove_before_after",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u6"
+          ],
+          "why": "뇌가 선택을 기다리는 상황은 입의 빠른 움직임과 불일치하는 원인에 필요하다."
+        },
+        {
+          "n": 3,
+          "context": "remove_before_after",
+          "content_truth": "not_assessed",
+          "textual_support": "not_determined",
+          "task_fit": "fits",
+          "units": [
+            "u1",
+            "u2",
+            "u4",
+            "u6"
+          ],
+          "why": "좋은 결정이 빠른 발화를 돕는다는 진위는 주변 본문으로 확정하지 않는다. 하지만 빠른 발화의 위험과 뇌의 선택 지연이 군말을 낳는 설명에 필요한 역할이 없어 제거하면 u4-u6의 인과가 연결된다."
+        },
+        {
+          "n": 4,
+          "context": "remove_before_after",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u2",
+            "u4",
+            "u7"
+          ],
+          "why": "뇌의 지연과 입의 속도 불일치를 군말로 잇는 결과 설명이므로 제거 대상이 아니다."
+        },
+        {
+          "n": 5,
+          "context": "remove_before_after",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u6"
+          ],
+          "why": "군말이 발생하는 상황의 구체 표현 예시로 결론 설명에 결속한다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 41
+            },
+            {
+              "start": 42,
+              "end": 197
+            },
+            {
+              "start": 198,
+              "end": 337
+            },
+            {
+              "start": 338,
+              "end": 493
+            },
+            {
+              "start": 494,
+              "end": 612
+            },
+            {
+              "start": 613,
+              "end": 801
+            },
+            {
+              "start": 802,
+              "end": 882
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "causal",
+            "elaboration"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u4"
+              ],
+              "why": "뇌의 효율적 결정 한계는 다음 선택 지연 설명을 준비하므로 제거 대상이 아니다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u6"
+              ],
+              "why": "뇌가 선택을 기다리는 상황은 입의 빠른 움직임과 불일치하는 원인에 필요하다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u1",
+                "u2",
+                "u4",
+                "u6"
+              ],
+              "why": "좋은 결정이 빠른 발화를 돕는다는 진위는 주변 본문으로 확정하지 않는다. 하지만 빠른 발화의 위험과 뇌의 선택 지연이 군말을 낳는 설명에 필요한 역할이 없어 제거하면 u4-u6의 인과가 연결된다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u2",
+                "u4",
+                "u7"
+              ],
+              "why": "뇌의 지연과 입의 속도 불일치를 군말로 잇는 결과 설명이므로 제거 대상이 아니다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u6"
+              ],
+              "why": "군말이 발생하는 상황의 구체 표현 예시로 결론 설명에 결속한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options",
+            "remove"
+          ],
+          "window_test": "not_run",
+          "why": "빠른 발화는 위험하고 뇌는 선택에 시간이 걸린다는 설명에서 뇌와 입의 속도 불일치가 군말을 낳는 인과로 이어진다. 좋은 결정이 말하기를 빠르게 만든다는 후보는 이 원인 설명을 빠른 발화의 긍정 효과로 바꾸어 흐름을 벗어난다. 제거 전후를 비교해 u4-u6의 원인 연결이 복원되는지 확인한다."
+        },
+        {
+          "id": "local_detour",
+          "used_units": [
+            "u4",
+            "u5"
+          ],
+          "ranges": [
+            {
+              "start": 338,
+              "end": 493
+            },
+            {
+              "start": 494,
+              "end": 612
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [
+            "elaboration"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u4",
+                "u5"
+              ],
+              "why": "뇌의 지연 설명 도중 빠른 발화의 이점으로 주제를 바꾸는 후보다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "직전 문장의 선택 지연 설명과 후보의 좋은 결정에 따른 빠른 발화 이점의 방향 전환을 확인한다. 후보 네 개의 제거 전후는 이 창에 없다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "좋은 결정이 빠른 발화를 돕는 것과 뇌가 결정에 시간을 쓰는 것은 세계 사실로 공존할 수 있다.",
+          "why": "지연과 빠른 발화 이점은 동일 조건에서 서로 배타적인 두 명제가 아니므로 대비만으로 주제 이탈을 입증하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "좋은 결정 문장만 읽으면 왜 전체 흐름에서 이탈하는지 판단 기준이 없다.",
+          "why": "한 후보 문장 자체의 의미는 알 수 있어도 글 전체 역할과 제거 전후 관계는 밖에 있다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "local_detour",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 직전 설명과 후보의 방향 전환으로 제거 대상을 조건부 식별한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "느낌상 방향 전환을 찾는 것만으로 나머지 후보를 없앤 흐름을 검수하지 않았다.",
+          "why": "제시 순서 누적에서 어색함을 감지할 수 있어도 다섯 후보 각각의 제거 전후 검수는 별도 제거 연산이다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "각 문장 자체가 완성되어 있어 국소 어법은 후보를 가르지 못한다.",
+          "why": "문법적 의존은 정상이고 제거 판단은 문장 밖 담화 기능에 달린다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "빠르게라는 말이 같은 단위에 있어도 설명 역할은 다르다.",
+          "why": "단위별 발화 속도·뇌 선택·군말 의미를 구성해도 제거 전후의 인과 결속 검수가 더 필요하다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "선택 지연과 속도 불일치의 인과 및 군말 예시를 연결하여 이탈을 검증한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "위험 주장·인지 한계·군말 원인·예시의 역할에서 후보 제거 후 연결을 복원한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 후보를 제외한 주변 확정 텍스트로 전후 역할과 결속을 별도 검수한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "무관 문장 유형에서 단어 일치 대신 설명 방향과 제거 후 인과 복원을 확인한다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "빠른 발화의 위험을 설명하는 인과 도중 긍정 효과로 방향을 전환한 문장을 구별한다. 주제 이탈을 세계의 거짓으로 분류하지 않는다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2019#40",
+      "binding": "c49d43d7abc03fabb94395ebd54fb587a04e5fc3f93ebcd6317a8a8b628cef09",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "task": "complete",
+      "complexity": [
+        "embedding",
+        "scope",
+        "anaphora"
+      ],
+      "proposition": [
+        "time",
+        "predicate",
+        "object"
+      ],
+      "decisive_relations": [
+        "causal",
+        "contrast"
+      ],
+      "background_relations": [
+        "example",
+        "elaboration"
+      ],
+      "inference": [
+        "explicit",
+        "local",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u1",
+          "to": "u4",
+          "relation": "causal",
+          "why": "현재 반환의 선호가 화석 연료의 시간적 이점을 평가상의 장점으로 만든다."
+        },
+        {
+          "from": "u3",
+          "to": "u4",
+          "relation": "contrast",
+          "why": "재생 기술과 화석 연료의 투입-산출 시점 차이가 시간적 이점을 만든다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fits",
+          "units": [
+            "u1",
+            "u3",
+            "u4"
+          ],
+          "why": "현재 가까운 산출을 선호하고 화석 연료가 시간상의 장점을 갖는 두 요약 자리와 맞는다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u3",
+            "u4"
+          ],
+          "why": "이용 가능성은 즉시성보다 넓고 비싸다는 비용 평가가 시간적 장점이라는 B의 방향과 맞지 않는다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u4"
+          ],
+          "why": "지연된 산출의 선호는 현재 소비·반환 선호와 반대다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u3",
+            "u4"
+          ],
+          "why": "편리함과 비쌈은 현재 시점 선호와 투입-산출 거리의 장점을 요약하지 않는다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "not_propositional",
+          "task_fit": "fails",
+          "units": [
+            "u1",
+            "u3",
+            "u4"
+          ],
+          "why": "산출의 풍부함은 산출 시점의 빠름과 다른 차원이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "ranges": [
+            {
+              "start": 0,
+              "end": 203
+            },
+            {
+              "start": 204,
+              "end": 366
+            },
+            {
+              "start": 367,
+              "end": 761
+            },
+            {
+              "start": 762,
+              "end": 1054
+            },
+            {
+              "start": 1055,
+              "end": 1244
+            }
+          ],
+          "gloss_ids": [
+            "g1"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u4",
+              "to": "u3",
+              "why": "시간적 이점은 앞서 비교한 투입과 산출 시차를 받는다."
+            }
+          ],
+          "required_relations": [
+            "causal",
+            "contrast"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u1",
+                "u3",
+                "u4"
+              ],
+              "why": "현재 가까운 산출을 선호하고 화석 연료가 시간상의 장점을 갖는 두 요약 자리와 맞는다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u3",
+                "u4"
+              ],
+              "why": "이용 가능성은 즉시성보다 넓고 비싸다는 비용 평가가 시간적 장점이라는 B의 방향과 맞지 않는다."
+            },
+            {
+              "n": 3,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u4"
+              ],
+              "why": "지연된 산출의 선호는 현재 소비·반환 선호와 반대다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u3",
+                "u4"
+              ],
+              "why": "편리함과 비쌈은 현재 시점 선호와 투입-산출 거리의 장점을 요약하지 않는다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u1",
+                "u3",
+                "u4"
+              ],
+              "why": "산출의 풍부함은 산출 시점의 빠름과 다른 차원이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "먼 미래 산출을 할인하는 현재 선호가 출발점이다. 재생 에너지는 생산 전 투자가 많고 화석 연료는 산출이 빨리 오며 투자도 추출 중 일부 진행되어 시간적 이점이 있다. 요약의 A는 현재 가까운 산출, B는 시간 차원에서 상대적 경쟁력으로 완성한다."
+        },
+        {
+          "id": "temporal_advantage",
+          "used_units": [
+            "u4"
+          ],
+          "ranges": [
+            {
+              "start": 762,
+              "end": 1054
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u4"
+              ],
+              "why": "현재 가까운 산출의 선호와 상대적 장점이라는 쌍에 부합한다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "현재 소비·반환 선호와 화석 연료의 시간적 이점이 한 문장에 함께 있다. 시차의 구체 설명과 다섯 요약쌍 전체 검수는 읽지 않는다."
+        },
+        {
+          "id": "timing_comparison",
+          "used_units": [
+            "u3",
+            "u4"
+          ],
+          "ranges": [
+            {
+              "start": 367,
+              "end": 761
+            },
+            {
+              "start": 762,
+              "end": 1054
+            }
+          ],
+          "gloss_ids": [
+            "g1"
+          ],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u4",
+              "to": "u3",
+              "why": "화석 연료의 시간적 이점은 앞의 투입-산출 시차 비교다."
+            }
+          ],
+          "required_relations": [
+            "causal",
+            "contrast"
+          ],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fits",
+              "units": [
+                "u3",
+                "u4"
+              ],
+              "why": "산출이 빨리 오고 현재 반환을 선호하므로 시간상 경쟁력이 있다는 방향이다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "연속 두 문장의 투입-산출 시점 비교와 현재 반환 선호를 읽어 요약쌍을 찾는다. 보편 선호의 출발 명제와 전체 후보 검수는 밖에 남긴다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u3의 시간 비교에 현재 선호를 숨겨 넣으면 두 비교 명제 제한을 넘는다.",
+          "why": "두 에너지 기술의 대비만으로 인간의 산출 시점 선호를 추가할 수 없다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "temporal_advantage",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "한 문장에 현재 반환 선호와 시간적 장점이 공존한다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "timing_comparison",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "연속 두 문장에서 빠른 산출과 현재 선호를 결합한다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "현재 선호에서 기술별 시차와 시간적 이점으로 누적한 뒤 요약 두 자리를 완성한다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "두 명사·형용사 자리에는 여러 후보가 문법적으로 들어갈 수 있다.",
+          "why": "요약문 인과 구조는 보여도 산출 시점과 평가 방향의 값은 본문 외부에 있다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "선호 시점·투입 시점·산출 시점·상대 평가를 구분해 요약한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "시점 대비가 인간 선호 조건에서 평가상 장점이 되는 인과를 읽는다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "일반 선호·평가 필요·기술 비교·결론을 요약문 원인과 결과로 대응한다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "두 빈칸에 각각 들어갈 시점과 평가 차원을 다섯 쌍별로 확인한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "요약 유형의 두 자리 관계를 본문 인과와 맞추고 양·편리·비용으로 시점을 바꾸지 않는다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "인간의 현재 선호와 화석 연료의 투입-산출 시차 장점을 원인-결과 요약쌍으로 연결하는 구성이다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    },
+    {
+      "id": "2022#44",
+      "binding": "38ef5037f3a3c2f7576d23afad7ee9725b72a97ca8ae01983be163be907ff24e",
+      "solved_answer": 3,
+      "discourse": "narrative",
+      "task": "referent",
+      "complexity": [
+        "anaphora",
+        "embedding"
+      ],
+      "proposition": [
+        "agent",
+        "object"
+      ],
+      "decisive_relations": [
+        "reference"
+      ],
+      "background_relations": [
+        "sequence",
+        "contrast",
+        "causal"
+      ],
+      "inference": [
+        "local",
+        "global"
+      ],
+      "relation_edges": [
+        {
+          "from": "u1",
+          "to": "u3",
+          "relation": "reference",
+          "why": "Anna가 대답하는 질문은 Jane이 Cora를 기다리는지 물은 질문이다."
+        },
+        {
+          "from": "u4",
+          "to": "u2",
+          "relation": "sequence",
+          "why": "문이 열린 뒤 Cora가 들어와 부상의 이유를 설명한다. 이 시간 순서는 대상 비교의 보조이다."
+        }
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u1"
+          ],
+          "why": "Anna가 쉬자 Jane이 그녀에게 다가가 질문하므로 a는 Anna다. 다른 네 개와 다른 대상이 아니다."
+        },
+        {
+          "n": 2,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u2"
+          ],
+          "why": "Jane이 Anna에게 미안한 표정을 짓고 그 응답으로 Jane의 어깨를 두드리는 주체는 Anna다."
+        },
+        {
+          "n": 3,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "units": [
+            "u3"
+          ],
+          "why": "Anna가 직접 가입을 권한 새 회원 Cora를 좋아한다고 하므로 c는 Cora다."
+        },
+        {
+          "n": 4,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u4"
+          ],
+          "why": "Jane이 기다리고 있는 Anna에게 실망하지 않느냐고 묻고 Anna가 답하므로 d는 Anna다."
+        },
+        {
+          "n": 5,
+          "context": "expression",
+          "content_truth": "not_assessed",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "units": [
+            "u4"
+          ],
+          "why": "Anna의 답변 뒤 Jane이 응답하려던 상대는 Anna다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "full",
+          "used_units": [
+            "u1",
+            "u2",
+            "u3",
+            "u4"
+          ],
+          "ranges": [
+            {
+              "start": 4,
+              "end": 480
+            },
+            {
+              "start": 485,
+              "end": 969
+            },
+            {
+              "start": 974,
+              "end": 1428
+            },
+            {
+              "start": 1433,
+              "end": 1954
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [
+            {
+              "from": "u3",
+              "to": "u1",
+              "why": "답하는 Anna와 질문하는 Jane의 대화 주체가 이어진다."
+            }
+          ],
+          "required_relations": [
+            "reference"
+          ],
+          "assumptions": [],
+          "option_verification": [
+            {
+              "n": 1,
+              "fit": "fails",
+              "units": [
+                "u1"
+              ],
+              "why": "Anna가 쉬자 Jane이 그녀에게 다가가 질문하므로 a는 Anna다. 다른 네 개와 다른 대상이 아니다."
+            },
+            {
+              "n": 2,
+              "fit": "fails",
+              "units": [
+                "u2"
+              ],
+              "why": "Jane이 Anna에게 미안한 표정을 짓고 그 응답으로 Jane의 어깨를 두드리는 주체는 Anna다."
+            },
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u3"
+              ],
+              "why": "Anna가 직접 가입을 권한 새 회원 Cora를 좋아한다고 하므로 c는 Cora다."
+            },
+            {
+              "n": 4,
+              "fit": "fails",
+              "units": [
+                "u4"
+              ],
+              "why": "Jane이 기다리고 있는 Anna에게 실망하지 않느냐고 묻고 Anna가 답하므로 d는 Anna다."
+            },
+            {
+              "n": 5,
+              "fit": "fails",
+              "units": [
+                "u4"
+              ],
+              "why": "Anna의 답변 뒤 Jane이 응답하려던 상대는 Anna다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "다섯 표시의 발화와 반응 주체를 각각 확인한다. a는 Jane이 다가가는 Anna, b는 Jane의 사과 표정에 어깨를 두드려 답하는 Anna, c는 Anna가 좋아하는 Cora, d는 Jane이 질문하는 Anna, e는 Jane의 답을 받을 Anna이다. 네 Anna와 하나 Cora를 실제로 비교한다. 이 요구에는 사건의 전체 시간 재배열이 필수는 아니다."
+        },
+        {
+          "id": "local_cora",
+          "used_units": [
+            "u3"
+          ],
+          "ranges": [
+            {
+              "start": 974,
+              "end": 1428
+            }
+          ],
+          "gloss_ids": [],
+          "cells": [],
+          "syntax_ranges": [],
+          "references": [],
+          "required_relations": [],
+          "assumptions": [
+            "unique_correct_option"
+          ],
+          "option_verification": [
+            {
+              "n": 3,
+              "fit": "fits",
+              "units": [
+                "u3"
+              ],
+              "why": "표시 c의 대상은 Cora로 국소 회복된다. 다름은 나머지 후보 검수 없이 확정하지 않는다."
+            }
+          ],
+          "operations": [
+            "read_shown_order",
+            "compare_options"
+          ],
+          "window_test": "not_run",
+          "why": "C 블록 안에서 Anna가 좋아하는 대상이 새 회원 Cora임을 확인한다. 나머지 네 표시의 대상은 창 밖이므로 다름 판정은 유일정답 조건이 필요하다."
+        }
+      ],
+      "methods": {
+        "contrast": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "Anna와 Jane의 의견 차이를 대비해도 c의 Cora 대상이 나오지 않는다.",
+          "why": "Anna와 Cora의 인물 차이는 두 대립 명제의 의미 대비가 아니라 다섯 지시 대상의 동일성 비교다.",
+          "educational_effect": "not_tested"
+        },
+        "core_sentence": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "u3 전체를 핵심 한 문장으로 사용하면 여러 문장의 정보를 밀어 넣는다.",
+          "why": "원문 단위가 네 블록으로 제공되어 한 실제 완성문장 경로를 블록 전체로 주장하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "selective": {
+          "AI": "conditional",
+          "FOV": "insufficient",
+          "path_id": "local_cora",
+          "preconditions": [
+            "발문과 보기 의미 이해",
+            "블록 단위 selective 허용; 한 완성문장 방법으로 간주하지 않음"
+          ],
+          "counterexample": "u3 안의 대상만으로 네 외부 대상의 동일성을 독립 입증할 수 없다.",
+          "why": "연속 한 블록의 국소 대상 회복은 가능하지만 블록 안에 여러 문장이 있으며 나머지 네 대상은 미검수다.",
+          "educational_effect": "not_tested"
+        },
+        "incremental": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "표시 순서대로 각 블록에서 대화 주체와 반응 상대를 누적하면 네 Anna와 하나 Cora가 확인된다. 사건 재배열을 하지 않는다.",
+          "educational_effect": "not_tested"
+        },
+        "syntax": {
+          "AI": "insufficient",
+          "FOV": "insufficient",
+          "path_id": null,
+          "preconditions": [],
+          "counterexample": "c의 목적어 대명사는 앞 문장의 Cora를 외부 정보로 요구한다.",
+          "why": "한 국소 의존으로 다섯 지시 대상의 선행 인물과 발화 상대를 비교하지 못한다.",
+          "educational_effect": "not_tested"
+        },
+        "meaning_units": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 대화의 질문자·응답자·행위 대상과 좋아하는 대상을 구분한다.",
+          "educational_effect": "not_tested"
+        },
+        "proposition_relations": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "지시 명제와 인물의 참조 관계를 실제로 연결하여 다섯 대상을 비교한다.",
+          "educational_effect": "not_tested"
+        },
+        "structure_reconstruction": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "각 블록의 대화와 반응 역할을 복원하여 표시 대상의 인물 집단을 비교한다. 사건의 시간 재배열은 불필요하다.",
+          "educational_effect": "not_tested"
+        },
+        "evidence_option_comparison": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "a~e의 지시 대상을 각각 회복한 뒤 동일/상이 여부를 비교한다.",
+          "educational_effect": "not_tested"
+        },
+        "type_specific": {
+          "AI": "sufficient",
+          "FOV": "sufficient",
+          "path_id": "full",
+          "preconditions": [
+            "발문과 다섯 보기의 의미 이해"
+          ],
+          "counterexample": "선언한 창의 의미와 발문을 이해하지 못하면 경로가 성립하지 않는다.",
+          "why": "대상 상이 유형에서 다섯 선행 인물과 대화 상대를 독립 확인하고 한 후보만의 선행사를 찾는 데서 끝내지 않는다.",
+          "educational_effect": "not_tested"
+        }
+      },
+      "design": {
+        "level": "logical",
+        "statement": "발화 상대·응답 주체·좋아하는 목적어의 참조를 구별해 한 Cora와 네 Anna의 대상 집단을 비교하도록 구성한다."
+      },
+      "alternative_paths": [],
+      "unresolved": [],
+      "source_status": "complete",
+      "window_test": "not_run"
+    }
+  ]
+}

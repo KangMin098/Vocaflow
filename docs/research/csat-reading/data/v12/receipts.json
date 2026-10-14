@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-14",
+  "A_first8": "3c500adf414e3d9ac07820ff87516d801ed31f9dbfd289b651d4b6056068a9b1",
+  "B_first8": "93435fe69ba6e244517349dc3a7098f94e5ff7eeb738b8e59f11986be2fae8d2",
+  "A_complete": "930df6412138f207e0e3b32429731faf9b6aaeb7cf1f4c7b2d4df3260dc09b5c",
+  "B_complete": "15bb32a0c3fc033dc83dfa501e34098b516f23d7901969688082e1ebd3397a35",
+  "window_first": "8919888f06747ff8b1f2dde55df85fafab12a57dc2274d863d31aab5326c78f7",
+  "window_corrected": "49cd579691662aa8e2c7b1d069ed228c39f1850969d0fe8e9be636abb280f426",
+  "logic": "3d84a9d0bd165c700567f920a77843852364bd5018a9697c7e17ee2d3b696725",
+  "extension": "3b77f556bd7bdf3ffd47b3dff1440063c1d0e24443187a269515d5fc8ae6a172",
+  "source_input": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+  "source_audit": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+  "context_independence": "fresh AI contexts with same inherited settings; tool-use limits self-reported plus assigned input boundaries; not human independence or model-pretraining nonexposure",
+  "first_judgments_overwritten": false
+}

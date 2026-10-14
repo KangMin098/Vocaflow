@@ -1,0 +1,62 @@
+{
+  "protocol": "1.2",
+  "stage": "post_first_freeze_supplement_not_revised_initial_validator",
+  "frozen_validator_errors": 0,
+  "supplementary_budget_flags": [
+    {
+      "rater": "A",
+      "id": "2022#44",
+      "method": "selective",
+      "path_id": "three_referents",
+      "original_AI": "conditional",
+      "original_FOV": "insufficient",
+      "budget": {
+        "passed": false,
+        "sentence_count": 0,
+        "unknown_block_ids": [
+          "u3",
+          "u4"
+        ],
+        "basis": "Actual sentence budget required; unannotated multisentence blocks never count as one sentence. Notice items require a separate defined item-budget annotation."
+      },
+      "status": "blocked_positive_claim_original_preserved"
+    },
+    {
+      "rater": "B",
+      "id": "2022#44",
+      "method": "selective",
+      "path_id": "local_cora",
+      "original_AI": "conditional",
+      "original_FOV": "insufficient",
+      "budget": {
+        "passed": false,
+        "sentence_count": 0,
+        "unknown_block_ids": [
+          "u3"
+        ],
+        "basis": "Actual sentence budget required; unannotated multisentence blocks never count as one sentence. Notice items require a separate defined item-budget annotation."
+      },
+      "status": "blocked_positive_claim_original_preserved"
+    }
+  ],
+  "derived_unit_issues": [
+    {
+      "id": "2014A#40",
+      "unit": "u2",
+      "issue": "honorific abbreviation split as a complete sentence",
+      "source_text_missing": false,
+      "scope": "derived segmentation defect; original characters are present"
+    }
+  ],
+  "countermodel": {
+    "id": "2022#44",
+    "rater": "B",
+    "known": "Only(c)=Cora",
+    "model1": "(a),(b),(d),(e)=Anna, so(c)isodd",
+    "model2": "(a),(b),(c),(d)=Cora and(e)=Anna, so(e)isodd",
+    "conclusion": "Unique four-plus-one assumption alone does not identify(c) from a single known target.",
+    "scope": "Window information, not alternative reinterpretation of the actual full original"
+  },
+  "first_states_changed": false,
+  "DB_or_product_changed": false
+}

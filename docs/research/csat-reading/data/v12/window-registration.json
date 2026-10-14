@@ -1,0 +1,302 @@
+{
+  "method": "Post-first-submission exploratory verification; B first positive method in fixed preference order. Keys and first claims omitted. Source all text already read by A/B, fresh verifier sees supplied windows only.",
+  "n": 16,
+  "partial_windows": 13,
+  "input_sha256": "68bc2fb3b1edbbb4db1153fdec529e3280b5691a3bb566311540cfb15e45faec",
+  "manifest": [
+    {
+      "id": "2018#18",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "request",
+      "used_units": [
+        "u6"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 9,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "sufficient",
+      "first_claim_FOV": "sufficient"
+    },
+    {
+      "id": "2014A#40",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "patience",
+      "used_units": [
+        "u9"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 11,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "sufficient",
+      "first_claim_FOV": "sufficient"
+    },
+    {
+      "id": "2023#20",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "scenario",
+      "used_units": [
+        "u6"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 7,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2021#22",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "review_direction",
+      "used_units": [
+        "u7"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 7,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2015#21",
+      "source_rater": "B",
+      "method": "selective",
+      "path_id": "nonintervention",
+      "used_units": [
+        "u5",
+        "u6"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 6,
+      "supplied_units": 2,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2017#23",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "director_control",
+      "used_units": [
+        "u3"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 5,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2020#29",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "modifier_error",
+      "used_units": [
+        "u5"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 7,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2019#30",
+      "source_rater": "B",
+      "method": "incremental",
+      "path_id": "full",
+      "used_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7"
+      ],
+      "cells": [],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "original_units": 7,
+      "supplied_units": 7,
+      "partial": false,
+      "first_claim_AI": "sufficient",
+      "first_claim_FOV": "sufficient"
+    },
+    {
+      "id": "2016#25",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "camp_location",
+      "used_units": [
+        "u10"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 11,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2022#25",
+      "source_rater": "B",
+      "method": "selective",
+      "path_id": "south_america_row",
+      "used_units": [],
+      "cells": [
+        "c1",
+        "c2",
+        "c12",
+        "c13",
+        "c14"
+      ],
+      "gloss_ids": [],
+      "original_units": 6,
+      "supplied_units": 0,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2024#31",
+      "source_rater": "B",
+      "method": "selective",
+      "path_id": "surface_meaning",
+      "used_units": [
+        "u6",
+        "u7"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 7,
+      "supplied_units": 2,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2014B#38",
+      "source_rater": "B",
+      "method": "proposition_relations",
+      "path_id": "full",
+      "used_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8"
+      ],
+      "cells": [],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "original_units": 8,
+      "supplied_units": 8,
+      "partial": false,
+      "first_claim_AI": "sufficient",
+      "first_claim_FOV": "sufficient"
+    },
+    {
+      "id": "2018#39",
+      "source_rater": "B",
+      "method": "proposition_relations",
+      "path_id": "full",
+      "used_units": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6",
+        "u7",
+        "u8",
+        "u9"
+      ],
+      "cells": [],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "original_units": 9,
+      "supplied_units": 9,
+      "partial": false,
+      "first_claim_AI": "sufficient",
+      "first_claim_FOV": "sufficient"
+    },
+    {
+      "id": "2024#35",
+      "source_rater": "B",
+      "method": "selective",
+      "path_id": "local_detour",
+      "used_units": [
+        "u4",
+        "u5"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 7,
+      "supplied_units": 2,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2019#40",
+      "source_rater": "B",
+      "method": "core_sentence",
+      "path_id": "temporal_advantage",
+      "used_units": [
+        "u4"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 5,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    },
+    {
+      "id": "2022#44",
+      "source_rater": "B",
+      "method": "selective",
+      "path_id": "local_cora",
+      "used_units": [
+        "u3"
+      ],
+      "cells": [],
+      "gloss_ids": [],
+      "original_units": 4,
+      "supplied_units": 1,
+      "partial": true,
+      "first_claim_AI": "conditional",
+      "first_claim_FOV": "insufficient"
+    }
+  ],
+  "student_effect_test": false
+}
