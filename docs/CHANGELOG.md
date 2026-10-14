@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): v6.2 P-F0~F3 — 교재공장 감사(영속 주문 · P01~P20 · Academic Reading 계약 없음, 권 단위 생산, 교재 화면의 발행 승인 미적용 결함) · WorkspaceDemand 계약(R5/E3/V2/S5 같은 계약, 재고 0 ≠ 무관) · 기존 자산 공급 판정(A~G 자격) · 공장 명세 dry-run · Inspector 「지금 단계에 필요한 자료」. DB 변경 없음(승인 계약 문서화)
 - feat(map): v6.2 P-M3b 기출 해부 연결 — Inspector 「기출 해부로 공부하기」(이미 푼 확인 문항 · 확인/전이 묶음 밖 연구 사례만 해설 링크, 안 푼 확인 · 전이는 보류) · 확인 모드 HTML/Flight 정답 선노출 0 실측 · E2E 6/6. DB 변경 없음
 - feat(map): v6.2 P-M3a — TASK Inspector 에 학습 행동 구분(R5 선지 없는 중심 가리기/만들기 · E3 정답 찾기 AI ↔ 다섯 선지 검증 FOV, 제품에 있는 것만 「지금 할 수 있어요」) · 연구 v1.4 읽기 전용 스냅샷(활동 12 · 채점 기준 48 · AI 검토 24행, 원문 · Gold 미반입 · R1 · 승격 금지) · 코드북 내부 영어 용어를 학습자 문구에서 제거. DB 변경 없음
 - fix(map): v6.2 P-M2b 계획 저장 재시도 — 같은 clientKey 를 재계산 전에 확인해 같은 요청은 처음 결과 재사용 · 다른 본문은 409 client_key_reused(이전엔 RPC 가 본문을 안 보고 처음 결과를 돌려줌) · 실제 API 9 시나리오 ALL PASS. DB 변경 없음(DB 이중 방어는 승인안)
