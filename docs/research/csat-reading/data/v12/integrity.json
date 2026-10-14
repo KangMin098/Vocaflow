@@ -1,0 +1,20 @@
+{
+  "version": "1.2",
+  "old_frozen_18_preserved": true,
+  "first_frozen_input_and_raters_preserved": true,
+  "all786x30_combinations_unique": true,
+  "actual_source_case_links": 46,
+  "unknown": 23534,
+  "task_profiles": 30,
+  "relations": 34,
+  "independence_pairs": 7,
+  "principle_reviews": 110,
+  "coverage_axes": 8,
+  "passed_axis_exploratory_items": 32,
+  "documents": 11,
+  "local_link_errors": 0,
+  "new_full_passage_leaks_in_exact_text_probe": 0,
+  "rights_or_official_download_approval": false,
+  "confirmatory_expansion": false,
+  "human_or_student_validation": false
+}

@@ -1,0 +1,574 @@
+{
+  "version": "1.2",
+  "prior_recent_ids": [
+    "2025#18",
+    "2026#19",
+    "2026#34",
+    "M2606#19",
+    "M2609#18",
+    "M2609#19"
+  ],
+  "postfreeze_recent_principle_ids": [
+    "2025#18",
+    "2025#31",
+    "M2506#21",
+    "M2506#22",
+    "M2506#23",
+    "M2506#24",
+    "M2506#28",
+    "M2506#31",
+    "M2506#32",
+    "M2506#33",
+    "M2506#34",
+    "M2506#35",
+    "M2506#36",
+    "M2506#38",
+    "M2506#39",
+    "M2506#40",
+    "M2506#41",
+    "M2506#43",
+    "M2509#18",
+    "M2509#19",
+    "M2509#21",
+    "M2509#22",
+    "M2509#23",
+    "M2509#24",
+    "M2509#28",
+    "M2509#31",
+    "M2509#32",
+    "M2509#33",
+    "M2509#34",
+    "M2509#35",
+    "M2509#38",
+    "M2509#40",
+    "M2509#41",
+    "M2606#18",
+    "M2606#21",
+    "M2606#22",
+    "M2606#23",
+    "M2606#24",
+    "M2606#28",
+    "M2606#35",
+    "M2606#38",
+    "M2606#39",
+    "M2606#40",
+    "M2606#41",
+    "M2609#18",
+    "M2609#19",
+    "M2609#20",
+    "M2609#21",
+    "M2609#22",
+    "M2609#23",
+    "M2609#24",
+    "M2609#28",
+    "M2609#35",
+    "M2609#37",
+    "M2609#38",
+    "M2609#39",
+    "M2609#40",
+    "M2609#41",
+    "M2609#43"
+  ],
+  "union_seed_n": 62,
+  "validation_exposure_records": [
+    {
+      "id": "2025#18",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "0252143a54e114327f746539286431c41971a9f0ba9f16ac5843cc3e3820ee71"
+    },
+    {
+      "id": "2025#31",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "355607012718d21d588b9dac66ce3ba744162a83bef921ec07452d8609306e46"
+    },
+    {
+      "id": "2026#19",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "c88a5f866dfb924c976d650c5375f74db0cfe44fbb31fd5c7b7a722d8c82182f"
+    },
+    {
+      "id": "2026#34",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "610dab84a9035ef0b98f0cf67b54ae35e23b2cdefe77b72b83490ec9ab02ebf1"
+    },
+    {
+      "id": "M2506#21",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "b1b5f9bf19f9f1473bed214da8fe05cba0ce59fd6493e5d9cc53bb719ed7c4d1"
+    },
+    {
+      "id": "M2506#22",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "e2669d727eaf70bc188af8110283e2cca9b0e81908eb868667e0735e4167c760"
+    },
+    {
+      "id": "M2506#23",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "d8e2d8cc741fb9e609916070c4204104249ed679d790bf79f98f1ef72805f0ae"
+    },
+    {
+      "id": "M2506#24",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "4bad5d1e96a5f635e1dde08e78645b9dbe58f80055a72748c55ece50dfc0f015"
+    },
+    {
+      "id": "M2506#28",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "4d2d0ed2e5743c29ab7856988e29e9df59a4c72ec5ebb9539de78979316756ea"
+    },
+    {
+      "id": "M2506#31",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "870e5ba233e01276b314c5ea12172bbf00a204ab555f843d81d4b8b895f3da6c"
+    },
+    {
+      "id": "M2506#32",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "542ab75ec572058f60b47528ca60245b65a631908bd0f9fb5020a9ece5ff9c0c"
+    },
+    {
+      "id": "M2506#33",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "41e04b66c085b8af7239eb072056b664fcd04c39f36ca8a9b4ffb5c7d0966379"
+    },
+    {
+      "id": "M2506#34",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "60ba85f46a5fafc7a83a8898946f1b0b0cb3caf44dfc79932abacccb97e4c8a1"
+    },
+    {
+      "id": "M2506#35",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "31fd4b1a4c939489d20afac5d85bc6a003cad605f3504cffa81d64c17c8c5d36"
+    },
+    {
+      "id": "M2506#36",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "90a01909b3f4c0b2b9a27da77c2185b4a35f436265d3fd1187679d549db38108"
+    },
+    {
+      "id": "M2506#38",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "f0509366c1c634c0f8ac13d3de33818284716853d87c9e97bdbc21222fcec6c6"
+    },
+    {
+      "id": "M2506#39",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "6bb0a0177d8c008866bde4176a7779467a4142374e572e7221e52b972495c44c"
+    },
+    {
+      "id": "M2506#40",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "8f4bc963454cdd5be551cba7464ec7738bd85fb44d819752443a6df526c174fd"
+    },
+    {
+      "id": "M2506#41",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "40f6aa5331a1b7166da40daf867b210c803f1447a87286b16936b19e5b3ec7ed"
+    },
+    {
+      "id": "M2506#42",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "d7502c8affef79344fb7854c214d8de93598a84513a8a9fa85c78cede979241a"
+    },
+    {
+      "id": "M2506#43",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "77a2c3db431d006333fb5fceb21fc101fa8c18278d79d52c00f956f74c02d959"
+    },
+    {
+      "id": "M2506#44",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "9512595cf75dab195f0d977602f3e6383a9f8d489279a285e17381fad6e695a1"
+    },
+    {
+      "id": "M2506#45",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "26b006185b72375a61d4995d00b538808e4ce4e0f7cd42d63643f37cde630da8"
+    },
+    {
+      "id": "M2509#18",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "dc86e01fc8c8edcd030334583a3a27cdf9bf22606bcb133956ac7e46c46b046f"
+    },
+    {
+      "id": "M2509#19",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "3ba7b4c216a508a4a41f0c98223055a99b151ed0abafa1ce9a6e3ce76f7336d9"
+    },
+    {
+      "id": "M2509#21",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "e6d3790550a9d149e3b2b5e2d3db0d76e7850364a89ac9691f16d891292306f0"
+    },
+    {
+      "id": "M2509#22",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "33a99a340518bd41ce67b1d23adb01eedda1f269b2d8d0cd1c95ae240cf0334b"
+    },
+    {
+      "id": "M2509#23",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "71b7741017491afad19bcd103b51d87a2685b29eb9d9fea0621eb92de980cbe2"
+    },
+    {
+      "id": "M2509#24",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "84df29bedd2548c52fca7876637d88430e206adadbd65f6975645480624c6a64"
+    },
+    {
+      "id": "M2509#28",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "5df0d11046078c95acda8b37ac427e72a2ee9d60138ad37007dc535bfa7a2961"
+    },
+    {
+      "id": "M2509#31",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "dfe38d602ff8e8fad05ce7a182b0cd03fb833b1dacd16f121e4e68ea266dd4e7"
+    },
+    {
+      "id": "M2509#32",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "bf60cb2eed9c09603a377b8b0dd5e007455676e341075a469fa98b2055a5603d"
+    },
+    {
+      "id": "M2509#33",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "eb557322a4533dd92e68fdaa9c248e4a67514c26cf79d4c488c276a91e44d025"
+    },
+    {
+      "id": "M2509#34",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "87e3c3914874cc7677c4195344003dc174ba17c67cfe9a485beb4db32ab67185"
+    },
+    {
+      "id": "M2509#35",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "3065c2c59ef64e61c542831283d6842cc49e2afe6eb958803d63651c963ad727"
+    },
+    {
+      "id": "M2509#38",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "8756e16e450136b9776d468b3242114e750c0bfe29cb0a102309d3c5f4aa126a"
+    },
+    {
+      "id": "M2509#40",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "20f13c67aad1d39e7eeda522ecf05884a1640af1888573b73b0bd95587f69efe"
+    },
+    {
+      "id": "M2509#41",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "71e66b24e43c0802402633a28bb7d55faf7170465495e8d20cf4417eff1a319c"
+    },
+    {
+      "id": "M2509#42",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "dfa9dfd1ec23be7d53b61979963d49e35d60eb8ceef6aaffa5697b2fa889f7de"
+    },
+    {
+      "id": "M2606#18",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "a93fe7fb3545aae55eef1428345069bf0bc49652c6954faec8062e855c9ef653"
+    },
+    {
+      "id": "M2606#19",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "0d4cb5357fbdba2cb24f1972ce6a87ba7689657f22b5101dbc6de5769bc0bb05"
+    },
+    {
+      "id": "M2606#21",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "a078db1ecedb9ad36a6181eaf9e1f6fe6e2dde7ec6c9b532b32280db0556a7e7"
+    },
+    {
+      "id": "M2606#22",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "5e123dc668c28e6cce088f0bb5cb28292d43cfaf9e94461fe06873e85a95ad58"
+    },
+    {
+      "id": "M2606#23",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "14818f2131ddbbeec9ae4df75b837a0bce45ff8db06f27d02faeee9b369608d3"
+    },
+    {
+      "id": "M2606#24",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "cc0adc6d1a1cbe996d8f58e28cf7f132f01d3df9fe3e780f73551dabd9b41e35"
+    },
+    {
+      "id": "M2606#28",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "ac8146af0d85f981293098e99fe787e2f326090d8f6af67f7de97f6ebc0a0559"
+    },
+    {
+      "id": "M2606#35",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "7ddbe198264aa9b7971ef097e8b7a9e941636041628fa501b77a46457e160438"
+    },
+    {
+      "id": "M2606#38",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "c67e94fd236d14804a0ee99873e4fc595c360244ec9f757145afd972937a7428"
+    },
+    {
+      "id": "M2606#39",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "3a8477cc2790f734b876d1104701d8213e20c9d300e30d9db1c7c40dd8a879af"
+    },
+    {
+      "id": "M2606#40",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "d83c1c121c93e5eac645e5aaa42c538a63e5694e2239a3fce581a3813fb6e24e"
+    },
+    {
+      "id": "M2606#41",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "21539da39ab85d4f031e7ad39475b5166270a0c8deb844bb4c905a9bb5e9417d"
+    },
+    {
+      "id": "M2606#42",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "34ac4d7c84909be599f02379592c5b5444ee542b305490494d0d04d546da85eb"
+    },
+    {
+      "id": "M2609#18",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "6d03580b799b61a621569e9e5eb519d3d5a4c52a4507fe911eae6aae04aa4481"
+    },
+    {
+      "id": "M2609#19",
+      "prior_direct_semantic": true,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "ecb86871aacb4b81a2813718f3f2be08af32efbf12c5a9b8e08441f492a547e2"
+    },
+    {
+      "id": "M2609#20",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "f6c34352cb8dd9e522ef9193e3c38237fd80b73fff2e1d70a3fabcc06beedc93"
+    },
+    {
+      "id": "M2609#21",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "35f7b4dd004fcef7f38ee3868e7efb6cc6a7200bf75c525e3ed10811cc7df7ef"
+    },
+    {
+      "id": "M2609#22",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "48c639fa873aed08dfe26a4567ae9aab6d6fb7f7e013d1e5486ae7b7ef14e693"
+    },
+    {
+      "id": "M2609#23",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "2e2c17b5dda1403eedacc46d7feea9bd6bac75c9f9158afdcb11de343d3b15dc"
+    },
+    {
+      "id": "M2609#24",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "fd77fae1c0715dd21738e0055f5095536868e42b3bd0b089788bf9b178c920b2"
+    },
+    {
+      "id": "M2609#28",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "b965712eca99935c59430d232e6e2160aca561bf112d7f981ca4ffd25af98942"
+    },
+    {
+      "id": "M2609#35",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "40370f4b1fd598ba681758f878470cdb9c0c902f37793703b674042fbd35df73"
+    },
+    {
+      "id": "M2609#37",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "3a953f304cf8e2e75463875b1f3bd393a0973f80944eb3a44eade8cc3169c67c"
+    },
+    {
+      "id": "M2609#38",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "6d91907371950a2797b3a026bb1f8fa604738991e05c7f667ddff5c08fc0f87a"
+    },
+    {
+      "id": "M2609#39",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "3c1e8b010135589f93b1a2359cc78faca29f215df0a0a8169928785ad8dacf6e"
+    },
+    {
+      "id": "M2609#40",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "8649f5d76c8424b938857abefe5972a0bbcbec0e8771106d608e3062b7aacda7"
+    },
+    {
+      "id": "M2609#41",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "b2b22bf9de4f3074a2aa514ee765e2e97e9b0d0c2bc76ee0599df108046f7414"
+    },
+    {
+      "id": "M2609#42",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "59747ea3095401bc46cf871a7693cf44d5e4470d9b77a5f2fa9a521235989967"
+    },
+    {
+      "id": "M2609#43",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": true,
+      "shared_or_normalized_propagation": false,
+      "source_binding": "f326144c61c72e18a2c2cb8c5839692ab46bccb10e68c6fe7ab5ada8f379f1c7"
+    },
+    {
+      "id": "M2609#44",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "ba21171620f27a281ebc4439461c936611b5074397730cecf4bab584ff3df1f5"
+    },
+    {
+      "id": "M2609#45",
+      "prior_direct_semantic": false,
+      "postfreeze_principle_fields": false,
+      "shared_or_normalized_propagation": true,
+      "source_binding": "0a55de3e365ffaa7aac4d77cf5d63bfce717bc06b1467ab7a118bf6c73c4dbea"
+    }
+  ],
+  "propagated_n": 70,
+  "new_2025_2026_originals_or_keys_read_before_v12_freeze": false,
+  "prior_exposure_erased": false,
+  "automatic_all786_processing_after_freeze": true,
+  "automatic_prose_display_to_root": false,
+  "programmatic_JSON_loading_not_denied": true,
+  "model_pretraining_unexposed_guaranteed": false,
+  "latest_holdout_confirmed": false,
+  "note": "Protocol holdout_read_before_freeze=false refers to new reopening during this run, not absence of earlier recorded exposure. Source input for new16 remains only2014–2024. Human/AI validators of recent items require separate fresh context and recorded exclusions."
+}

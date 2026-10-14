@@ -5,6 +5,8 @@
 
 전수 조합 원장은 [item-task-map.jsonl](./data/v12/item-task-map.jsonl), 요약은 [mapping-summary.json](./data/v12/mapping-summary.json), 실제 사례 검토는 [item-task-reviewed.json](./data/v12/item-task-reviewed.json)이다. **786×30=23,580조합**을 모두 표현하지만 후보와 실제 검토 결과를 별도 필드로 저장한다. 한 행은 문항ID/시험ID/유형/analysis_version/units_hash/source binding/TASK ID/relevance/candidate_relevance/reason/evidence/sufficiency/counterexample/review_status/disagreement/public_learning_use를 가진다.
 
+실제 관련성은direct18·indirect28·unknown23,534이며not_applicable을자동생성하지않았다. 별도자동후보는direct2,878·indirect3,432·unknown17,270이다. 이두분포는같은뜻이아니며자동후보를실검토분포에더하지않는다.46행의검토자는한AI이며PDF복원자의원천검증을상속한논리사례검토다.
+
 ## 네 상태와 승격 조건
 
 `direct`는 실제 판정에 직접 요구되는 수행, `indirect`는 지원 수행, `not_applicable`은 직접 검토 후 관련성이 없다고 판정한 상태, `unknown`은 근거 부족·미검토다. 원문을 확인한 AI 사례 검토도 인간 검증과는 구별한다. 아직 공개·학습 사용 승인을 받은 원장이 아니므로public_learning_use=false다.

@@ -16,6 +16,10 @@
 
 원문 자료: item_id/exam_id/school_year/provider/paper_form/question_no/passage_group/source_revision/source_sha256/presentation_sha256/gloss_ids/rights_state/source_completeness를 결속한다. 연구 입력 complete와공식배포계보확정은 별도 상태다. 발문·선지·표셀·지시 대상은 각 source의unit/offset에 묶는다. 수정 시 원본을 덮지 않고 revision을 늘린다.
 
+shared_stem_ids와passage_group은다르다. 여러문항이같은발문표제를쓰는것을같은지문이라고묶지않는다. 복원본의body/표시/offset이달라지면기존v3 units_hash의하이라이트와비교쌍binding을그대로새입력에붙이지않고재결속·재검증필요로표시한다. 현재원장은옛분석버전/units_hash와새연구입력hash를둘다보존하며자동일치/공개승격하지않는다.
+
+이번검증의다문장block/한문장예산,질문요약틀,원문문장을반복하는후보문장은별도정보역할로표현한다. 본문unit수만으로총읽기량을계산하지않으며 stem/choice/question_fields도실제사용정보에기록한다. 유일정답가정과전역대표성가정은서로다른조건이다.
+
 논리 자료: claim_level(O/L/H), context, textual_support, task_fit, content_truth, methods, AI/FOV, assumptions, alternative_paths, used_units/offsets/cells/glosses, first_review/후속검토, unresolved를 구별한다. 누락값은unknown이며 전체 글을 읽은 분석자의 짧은 anchor를 실제 좁은 읽기 행동 기록으로 사용하지 않는다.
 
 학습 자료: material_role=source_analysis/model_explanation/guided_practice/independent_check/transfer/delayed_check, target_task/facet, response_mode, rubric_version, allowed_help, exposure_rule, difficulty_dimensions, rights, validation_status를 둔다. 교재역할이 달라지면 같은원문을다른학습자에게 쓸수있지만 이미본학습자에게 unseen이라고 배정하지 않는다.

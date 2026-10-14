@@ -1,0 +1,15 @@
+{
+  "type": "analysis",
+  "command_or_protocol": "PROTOCOL-v1.2 preregistered bc4649287; actual PDF restoration24/cross24; fresh16 first submissions; independent window16+corrected2 and logic16; passed discourse/task development extension32; mapping23580/profile30/relation34/principle110; regression17 and integrity checks",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-csat-reading-research/docs/research/csat-reading/V12-REPORT.md",
+  "observed_at": "2026-10-14T05:40:24Z",
+  "covers": [0, 1, 2, 3, 4],
+  "interpretation": "Pass means the research-task audit, execution, preservation, critical reporting and A–J deliverables were produced and checked. It is not a claim that scientific confirmation, every strategy or learner efficacy passed.",
+  "confirmatory_expansion": "blocked_by_numeric_or_logical_gates",
+  "human_expert_validation": "not_available_not_claimed",
+  "student_effect_or_mastery": "not_tested_not_claimed",
+  "DB_UI_public_v3_changed": false,
+  "main_merged": false
+}

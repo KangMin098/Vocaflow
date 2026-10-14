@@ -7,6 +7,10 @@ if(x.tasks.length!==30||x.relations.length!==34||x.pair_audits.length!==7||x.tas
 const write=(file,lines)=>fs.writeFileSync(base+file,`<!-- ${base+file} -->\n`+lines.join('\n')+'\n')
 const cases=xs=>xs.map(c=>`${c.item}: ${c.why} (${c.source_ref}; ${c.relevance||'L'})`).join(' / ')||'읽기 자료에서 지지 사례 미확보'
 const scalar=x=>typeof x==='string'?x:JSON.stringify(x)
+const rubricLines=r=>Array.isArray(r)?r.map(s=>`- ${s}`):[
+ `평가 차원: ${r.dimensions?.join(' / ')||'개별 프로필 정의'}`,'',
+ ...(r.levels||[]).map(l=>`- ${l.level}: ${l.description}`),'',r.scope||'',r.separate_axes||''
+]
 const E=['# E. TASK 구조·관계 감사','',`2026-10-14 · [정본 원장](./data/v12/task-relation-review.json). 원천 rev4 영구ID 유지.21비보류=18원자후보+3통합관찰, hold9=L4+X5. 단일 AI의 원문 결속 논리 감사이며 심리측정 독립성·학생 효과 검증은 아니다.`,``,`## TASK30 판정`,``,`| TASK | 영구ID | 종류/기존상태 | 연구판정 | 근거와 제한 |`,`|---|---|---|---|---|`]
 for(const t of x.tasks)E.push(`| ${t.display} | ${t.id} | ${t.kind}/${t.status} | ${t.independence_verdict} | ${t.atomic_vs_integrated_limit.replace(/\|/g,'/')} |`)
 E.push('','## 특히 구별해야 할7쌍','')
@@ -20,8 +24,8 @@ const H=['# H. 직접 확인·평가 명세','','2026-10-14 · 문항 요구(L),
 for(const t of x.tasks){
  G.push(`## ${t.display} · ${t.id}`,'',`수행 목표: ${t.teaching.goal}`,'',`기출 지지: ${cases(t.support_cases)}`,'',`경계/반례: ${cases(t.contrast_or_countercases)}`,'',`설명 방법: ${t.teaching.method}`,'',`선행 수행/조건: ${t.teaching.prerequisite}`,'',`자료 역할: ${t.teaching.materials_roles}`,'',`지도 연습: ${t.teaching.practice}`,'',`독립 확인: ${t.teaching.independent_check}`,'',`전이: ${t.teaching.transfer}`,'',`지연: ${t.teaching.delayed_check}`,'',`효과: ${t.teaching.effect}`,'')
  if(t.teaching.sequence_AF)G.push('상세A~F 설계:','',...t.teaching.sequence_AF.map(p=>`- ${p.phase}: ${p.instruction} (${p.status})`),'')
- H.push(`## ${t.display} · ${t.id}`,'',`목표: ${t.definition}`,'',`과제 조건: ${t.assessment.conditions}`,'',`허용 응답/근거: ${t.assessment.response}`,'',`루브릭 후보: ${scalar(t.assessment.rubric_candidate)}`,'',`부분·대안 응답: ${t.assessment.alternative}`,'',`판정 보류: ${t.assessment.withhold}`,'',`힌트/노출/독립성: ${t.assessment.exposure_rule}`,'',`지원 공백: ${t.coverage_gap.join('; ')}`,'')
- if(t.assessment.parallel_task_spec)H.push(`평행/전이 과제 조건: ${scalar(t.assessment.parallel_task_spec)}`,'')
+ H.push(`## ${t.display} · ${t.id}`,'',`목표: ${t.definition}`,'',`과제 조건: ${t.assessment.conditions}`,'',`허용 응답/근거: ${t.assessment.response}`,'','루브릭 후보:','',...rubricLines(t.assessment.rubric_candidate),'',`부분·대안 응답: ${t.assessment.alternative}`,'',`판정 보류: ${t.assessment.withhold}`,'',`힌트/노출/독립성: ${t.assessment.exposure_rule}`,'',`지원 공백: ${t.coverage_gap.join('; ')}`,'')
+ if(t.assessment.parallel_task_spec)H.push('평행/전이 과제 조건:','',...Object.entries(t.assessment.parallel_task_spec).map(([k,v])=>`- ${k}: ${scalar(v)}`),'')
 }
 G.push('## 난도와 역할 결속','','어휘지원·문장길이·종속/수식·지시거리·담화암시성·후보유사성·숫자복합절·응답생성부담·허용시간을 독립 기록한다. 자료가 어려워 보인다는 인상과 실제학생 난도는 다르다. 원문 사례는 원문/해설/예제로 사용할 후보이지 이미 검수된 미노출 교재 풀은 아니다. 권리·허용답·학생 노출을 확인한 뒤 역할을 배정한다.')
 H.push('## 정량 관찰 계약','','응답별로attempt_id/task/facet/item/source_revision/response/validity/help/exposure/elapsed_time/rubric_version/채점자별판정/불일치를 기록할 설계를 제안한다. 유효 응답 수 n과 조건별 관찰 수는 실제응답을 수집한 뒤 계산한다. 전이·지연은 별도분모이며 동일문항 재풀이는 미노출확인으로 세지 않는다.','', '문항정답률을TASK숙달확률로 바꾸지 않는다. 모든TASK에2문항 기준을 공통적용하지 않는다. 현재 코드북의2개/3문장 등은 기존 설계문구이며 검증된 필요량·성취문턱이 아니다. atomic과integrated를 평균내거나 영역의숙달막대를 계산하지 않는다.')
