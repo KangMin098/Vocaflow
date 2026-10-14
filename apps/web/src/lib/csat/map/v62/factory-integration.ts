@@ -267,8 +267,10 @@ export interface ArtifactSubject {
   revision: string
   sha256: string
   refs: ManifestArtifact['refs']
+  /** v1.2(V11-P1-01) — lifecycle 도 주체에 든다: 서버 스냅숏과 다른 lifecycle 선언은 다른 주체(보류) */
+  lifecycle: ManifestArtifact['lifecycle']
 }
-export const subjectOf = (a: ManifestArtifact): ArtifactSubject => ({ id: a.id, kind: a.kind, revision: a.revision, sha256: a.sha256, refs: { ...a.refs } })
+export const subjectOf = (a: ManifestArtifact): ArtifactSubject => ({ id: a.id, kind: a.kind, revision: a.revision, sha256: a.sha256, refs: { ...a.refs }, lifecycle: a.lifecycle })
 export const sameSubject = (x: ArtifactSubject, y: ArtifactSubject): boolean => canonicalJson(x) === canonicalJson(y)
 
 const TRUSTED = Symbol('vf.trusted-qualification-context')
@@ -288,8 +290,20 @@ export interface TrustedQualificationContext {
   approvals: ReleaseApproval[]
   /** 생산 이력: REAL 실행 원장 확인 · EXISTING 등록부 확인 · 미확인 */
   provenance: 'real_run_verified' | 'existing_registry_verified' | 'unverified'
-  /** test_fixture → product 전환 승인(정확한 revision) */
-  lifecycleTransitionApproved: boolean
+  /**
+   * v1.2(V11-P1-01) — 서버 등록부의 **권위 있는** lifecycle 스냅숏. 없으면 subject.lifecycle(서버가 읽은 주체)로 본다.
+   * original 이 test_fixture 이면 current 가 product 여도 정확한 revision · 해시의 전환 승인(철회 없음)이 있어야 한다.
+   */
+  lifecycle?: LifecycleSnapshot | null
+  /** @deprecated v1.1 의 boolean — **증거로 쓰지 않는다**(전환 승인은 lifecycle.transition 기록만). 남겨 둔 것은 v1.1 입력 호환 */
+  lifecycleTransitionApproved?: boolean
+}
+
+export interface LifecycleSnapshot {
+  original: ManifestArtifact['lifecycle']
+  current: ManifestArtifact['lifecycle']
+  /** test_fixture → product 전환 승인 기록(서버 원장) — 대상 산출물 · revision · 해시 · 범위 · 철회 */
+  transition: { approvalId: string; subjectId: string; subjectRevision: string; subjectSha256: string; scope: 'product_release'; revoked: boolean } | null
 }
 
 /** 서버 전용 — 원장 reader 가 검증을 마친 뒤에만 부른다(지금 호출부 없음). 순수 시험은 검증된 원장을 흉내 내는 데만 쓴다 */
@@ -297,6 +311,31 @@ export function trustedQualificationContext(c: Omit<TrustedQualificationContext,
   return { ...c, [TRUSTED]: true }
 }
 export const isTrusted = (x: unknown): x is TrustedQualificationContext => !!x && typeof x === 'object' && (x as Record<symbol, unknown>)[TRUSTED] === true
+
+/**
+ * v1.2(V11-P1-01) — lifecycle 은 공장 · 호출자 선언이 아니라 **서버 스냅숏**으로 판단한다. 막히면 이유 목록, 통과면 null.
+ *   · 서버 current 를 모름 → lifecycle_unknown · 선언이 서버 current 와 다름 → lifecycle_declaration_mismatch
+ *   · current = test_fixture → test_fixture(테스트 교재는 그대로는 공급 불가)
+ *   · original = test_fixture → product: 전환 기록 없음 · 철회 · 다른 산출물 · 다른 revision/해시 · 범위 아님 → 보류
+ */
+function lifecycleGate(a: ManifestArtifact, ctx: TrustedQualificationContext): string[] | null {
+  const snap = ctx.lifecycle ?? null
+  const current = snap?.current ?? ctx.subject?.lifecycle
+  const original = snap?.original ?? ctx.subject?.lifecycle
+  if (current !== 'product' && current !== 'test_fixture') return ['lifecycle_unknown']
+  if (original !== 'product' && original !== 'test_fixture') return ['lifecycle_unknown']
+  if (a.lifecycle !== current) return current === 'test_fixture' ? ['test_fixture', 'lifecycle_declaration_mismatch'] : ['lifecycle_declaration_mismatch']
+  if (current === 'test_fixture') return ['test_fixture']
+  if (original === 'test_fixture') {
+    const t = snap?.transition ?? null
+    if (!t) return ['lifecycle_transition_missing']
+    if (t.revoked) return ['lifecycle_transition_revoked']
+    if (t.scope !== 'product_release') return ['lifecycle_transition_scope']
+    if (t.subjectId !== a.id) return ['lifecycle_transition_other_artifact']
+    if (t.subjectRevision !== a.revision || t.subjectSha256 !== a.sha256) return ['lifecycle_transition_other_revision']
+  }
+  return null
+}
 
 export type VerdictState = 'accept' | 'review_pending' | 'ineligible'
 /** 판정 — 반드시 산출물 주체에 결속. 주체가 없거나 다른 판정은 결속 단계가 쓰지 않는다 */
@@ -322,10 +361,11 @@ export function qualifyArtifact(a: ManifestArtifact, req: FactoryRequest, fq: Fq
   if (a.rights === 'restricted') return verdict(a, 'ineligible', ['rights_restricted'])
   if (!isTrusted(ctx)) return verdict(a, 'review_pending', a.lifecycle === 'test_fixture' ? ['test_fixture', 'untrusted_qualification_context'] : ['untrusted_qualification_context'])
   const basis = { qualificationId: ctx.qualification.id, rulesVersion: ctx.qualification.rulesVersion, evidenceIds: [...ctx.qualification.evidenceIds] }
-  if (a.lifecycle === 'test_fixture' && !ctx.lifecycleTransitionApproved) return verdict(a, 'review_pending', ['test_fixture'], basis)
+  const life = lifecycleGate(a, ctx)
+  if (life) return verdict(a, 'review_pending', life, basis)
   if (!sameSubject(subjectOf(a), ctx.subject)) {
     const s = subjectOf(a)
-    const diff = (['id', 'kind', 'revision', 'sha256'] as const).filter((k) => s[k] !== ctx.subject[k]).map((k) => `subject_mismatch:${k}`)
+    const diff = (['id', 'kind', 'revision', 'sha256', 'lifecycle'] as const).filter((k) => s[k] !== ctx.subject[k]).map((k) => `subject_mismatch:${k}`)
     const refs = (['source', 'analysis', 'gold'] as const).filter((k) => s.refs[k] !== ctx.subject.refs[k]).map((k) => `subject_mismatch:${k}`)
     return verdict(a, 'review_pending', [...diff, ...refs], basis)
   }
@@ -467,6 +507,9 @@ export function bindToWorkspace(
  *   · revision 은 지어낸 'released' 가 아니라 호출자가 준 현재 내용 해시(`hashOf`)로 결속, 권리 · 품질은 공장 주장 칸이라 'unknown' · 'unreviewed'
  *   · 실제 기존 자산 등록부 reader(서버)가 없으면 이 결과는 「기존 계약 위 후보」일 뿐 실제 출시를 증명하지 않는다.
  */
+/** 기존 자산 긍정 조건의 필수 자격 — supply.ts Qualification 의 7 필드 전부 */
+export const EXISTING_REQUIRED = ['producible', 'rights', 'content', 'teaching', 'assessment', 'learner', 'runnable'] as const
+
 export function existingAssetManifest(req: FactoryRequest, supply: SupplyLine, hashOf: (ref: string) => string): { manifest: FactoryResultManifest; verdicts: Record<string, ArtifactVerdict> } {
   const artifacts: ManifestArtifact[] = supply.delivered.map((d) => {
     const h = hashOf(d.ref)
@@ -476,8 +519,9 @@ export function existingAssetManifest(req: FactoryRequest, supply: SupplyLine, h
       provenance: { runId: null, mock: false }, lifecycle: 'product',
     }
   })
-  const q = supply.qualification
-  const missing = (Object.keys(q) as (keyof typeof q)[]).filter((k) => q[k] !== true)
+  // v1.2(V11-P1-02) — 넘겨받은 키가 아니라 **고정 7개**를 하나씩: 정확히 boolean true 만 통과(누락 · null · undefined · 'true' · 상속값 = 미확인)
+  const q = (supply.qualification ?? null) as Record<string, unknown> | null
+  const missing = EXISTING_REQUIRED.filter((k) => !(q !== null && Object.prototype.hasOwnProperty.call(q, k) && q[k] === true))
   const reasons = [
     ...(supply.role !== req.role ? ['existing_role_mismatch'] : []),
     ...(supply.state !== 'available' ? ['existing_not_available'] : []),
