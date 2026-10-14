@@ -1,19 +1,9 @@
 // apps/web/src/app/layout.tsx
-// Root Layout — next/font/google 4종 폰트 + ToastProvider
+// Root Layout — 자체 호스팅 글꼴(@fontsource) + ToastProvider
 // CLAUDE.md v06.2 §Typography 기준
 // ─────────────────────────────────────────────────────────────
 
 import type { Metadata, Viewport } from "next";
-import {
-  Figtree,
-  Hahmlet,
-  IBM_Plex_Sans_KR,
-  Inter,
-  Lora,
-  JetBrains_Mono,
-  Petrona,
-  Space_Mono,
-} from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
 import { DevicePreferences } from "@/components/layout/DevicePreferences";
 import { SITE_URL } from "@/lib/seo/site";
@@ -39,98 +29,73 @@ import "./globals.css";
 //    Pretendard 를 일부러 피했다: 안전하지만 지금 한국 웹의 절반이 그 얼굴이라
 //    "스크린샷 한 장으로 알아보기" 라는 목표와 정반대로 간다(docs/design/01-research.md §1-1).
 //
-// ⚠️ **한글 폰트에 `preload` 를 켜면 안 된다.** Google Fonts 의 한글은 `unicode-range` 로
-//    수백 조각으로 쪼개져 오고, next/font 의 preload 기본값(true)은 그 조각을 전부 preload 한다
-//    (공개 사례: 281조각 2.32MB 가 모든 페이지에서). 브라우저가 필요한 조각만 가져가게 둔다.
-// ⚠️ `subsets` 를 주지 않는다 — next/font 의 폰트 목록에 이 둘의 `korean` 서브셋이 등재돼
-//    있지 않아서, 지정하면 오히려 라틴만 받아 온다. 미지정 + preload:false 가 Google 의
-//    전체 CSS(= 한글 unicode-range 포함)를 쓰는 경로다.
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * UI·본문 — 한글과 라틴을 한 벌로. 이전 `--font-display`(Plus Jakarta) 자리를 물려받는다.
- *
- * ⚠️ **한 번만 선언한다.** 처음에는 `--font-display` 와 `--font-body` 를 각각
- *    `IBM_Plex_Sans_KR({...})` 로 선언했는데, `next/font` 는 호출마다 별도 페이스를 만들어
- *    **같은 글꼴을 두 번 내려받는다**(실측 2026-09-16: `/pricing` 폰트 요청 37건 · 373KB).
- *    같은 글꼴을 가리키는 변수가 둘 필요할 뿐이지 페이스가 둘 필요한 게 아니다 —
- *    `variable` 하나로 선언하고 두 번째 이름은 CSS 에서 별칭으로 잇는다(globals.css).
- */
-const fontUI = IBM_Plex_Sans_KR({
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-display",
-  display: "swap",
-  preload: false,
-});
+// ═══════════════════════════════════════════════════════════════════════════
+// 자체 호스팅(v6.2 P-F7e · 2026-10-14) — 빌드가 외부 글꼴 서버에 묻지 않는다.
+//
+// 이전에는 아래 9벌을 `next/font/google` 로 선언했다. next/font 는 **빌드 중** Google 에서 받으므로
+// CI 빌드가 그 다운로드 실패로 간헐적으로 깨졌다(PR #246 · #254 · 재실행으로만 통과).
+// 같은 글꼴 · 같은 굵기를 @fontsource(OFL-1.1, 정확한 버전 고정) 에서 읽는다 — 글꼴 · 화면은 그대로다.
+//
+// ⚠️ **한글 글꼴은 preload 하지 않는다.** 한글은 굵기마다 unicode-range 조각 약 90개로 나뉘고,
+//    브라우저는 화면에 쓰인 글자의 조각만 받는다. CSS @font-face 는 preload 를 만들지 않는다
+//    (이전 next/font 의 preload:false 와 같은 동작 — learning-tone.test.ts 가 지킨다).
+// 변수 이름은 이전 next/font `variable` 과 같다. 정의는 ./fonts.css(html 클래스).
+// ═══════════════════════════════════════════════════════════════════════════
 
-/** 한글 디스플레이 — 제목·뜻·감성 문장. Lora 가 못 그리는 한글을 같은 세리프 정서로 받는다. */
-const fontKoDisplay = Hahmlet({
-  // 800 — 참조 선언 제목의 굵은 둘째 줄(tines-mapping §21). 없으면 700 으로 대체돼 두 굵기 대비가 줄었다.
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-ko-display",
-  display: "swap",
-  preload: false,
-});
+// UI·본문 — IBM Plex Sans KR(한글+라틴 한 벌). `--font-body` 는 globals.css 에서 별칭으로 잇는다.
+import "@fontsource/ibm-plex-sans-kr/300.css";
+import "@fontsource/ibm-plex-sans-kr/400.css";
+import "@fontsource/ibm-plex-sans-kr/500.css";
+import "@fontsource/ibm-plex-sans-kr/600.css";
+import "@fontsource/ibm-plex-sans-kr/700.css";
+// 한글 디스플레이 — Hahmlet. 800 은 참조 선언 제목의 굵은 둘째 줄(tines-mapping §21).
+import "@fontsource/hahmlet/300.css";
+import "@fontsource/hahmlet/400.css";
+import "@fontsource/hahmlet/500.css";
+import "@fontsource/hahmlet/600.css";
+import "@fontsource/hahmlet/700.css";
+import "@fontsource/hahmlet/800.css";
+// 영어 원문·표제어 — Lora(정체 · 이탤릭). 라틴만 싣는다(이전 subsets: latin).
+import "@fontsource/lora/latin-400.css";
+import "@fontsource/lora/latin-500.css";
+import "@fontsource/lora/latin-600.css";
+import "@fontsource/lora/latin-700.css";
+import "@fontsource/lora/latin-400-italic.css";
+import "@fontsource/lora/latin-500-italic.css";
+import "@fontsource/lora/latin-600-italic.css";
+import "@fontsource/lora/latin-700-italic.css";
+// 숫자·코드 라벨 — JetBrains Mono(관리자 고정폭도 같은 글꼴).
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/jetbrains-mono/latin-700.css";
+// Tines 스킨(DD-68) — 참조 서체(상용)의 픽셀 비교 1위 무료 대체.
+import "@fontsource/figtree/latin-400.css";
+import "@fontsource/figtree/latin-500.css";
+import "@fontsource/figtree/latin-600.css";
+import "@fontsource/figtree/latin-700.css";
+import "@fontsource/petrona/latin-300.css";
+import "@fontsource/petrona/latin-400.css";
+import "@fontsource/petrona/latin-700.css";
+import "@fontsource/space-mono/latin-400.css";
+import "@fontsource/space-mono/latin-700.css";
+// Admin 앱 스킨(DD-82) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
+import "@fontsource-variable/inter/wght.css";
+import "./fonts.css";
 
-const fontSerif = Lora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-// ── Tines 스킨(DD-68) — 참조 서체(상용)의 픽셀 비교 1위 무료 대체 ─────────────────
-// docs/design/refs/tines/font-lookalike.md · 변수는 skins/tines.css 가 읽는다.
-// preload 를 끈다 — 스킨이 꺼진 화면에서는 한 바이트도 받지 않는다.
-const fontTinesSans = Figtree({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-tines-sans",
-  display: "swap",
-  preload: false,
-});
-
-const fontTinesSerif = Petrona({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  variable: "--font-tines-serif",
-  display: "swap",
-  preload: false,
-});
-
-const fontTinesMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-tines-mono",
-  display: "swap",
-  preload: false,
-});
-
-// ── Admin 앱 스킨(DD-82) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
-// 고정폭(Geist Mono)은 next 14.2 폰트 목록에 없어 이미 싣는 JetBrains Mono 로 대체한다. preload 를 끈다 — /admin 밖에서는 받지 않는다.
-const fontAdminSans = Inter({
-  subsets: ["latin"],
-  variable: "--font-admin-sans",
-  display: "swap",
-  preload: false,
-});
-
-// admin-app.css 가 `--font-mono` 자체를 덮으므로 원래 JetBrains Mono 변수를 가리킬 수 없다 — 별도 변수로 한 번 더 선언한다.
-const fontAdminMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-admin-mono",
-  display: "swap",
-  preload: false,
-});
+/** html 에 붙는 변수 클래스(./fonts.css) — 이전 next/font 의 `.variable` 자리 */
+const FONT_VARIABLE_CLASSES = [
+  "vf-font-ui",
+  "vf-font-ko-display",
+  "vf-font-serif",
+  "vf-font-mono",
+  "vf-font-tines-sans",
+  "vf-font-tines-serif",
+  "vf-font-tines-mono",
+  "vf-font-admin-sans",
+  "vf-font-admin-mono",
+].join(" ");
 
 /**
  * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
@@ -188,7 +153,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable} ${fontAdminSans.variable} ${fontAdminMono.variable}`}
+      className={FONT_VARIABLE_CLASSES}
       data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
       suppressHydrationWarning
     >

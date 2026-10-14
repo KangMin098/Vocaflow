@@ -265,10 +265,10 @@
   }
 }
 
-/* ── Font Families (next/font가 주입하는 변수) ── */
+/* ── Font Families (app/fonts.css 의 html 클래스가 정의하는 변수 · 자체 호스팅) ── */
 /* --font-display (= IBM Plex Sans KR · UI/본문), --font-body (= 같은 글꼴),
    --font-ko-display (= Hahmlet · 한글 제목/뜻/감성), --font-serif (= Lora · 영어 원문), --font-mono
-   → app/layout.tsx 의 next/font/google 설정에서 정의됨.
+   → app/fonts.css 에서 정의(글꼴 파일은 app/layout.tsx 가 @fontsource 에서 싣는다).
    Tailwind 에서는 font-display / font-body / font-english (= font-serif) / font-mono 로 사용. */
 
 /* ══════════════════════════════════════════════════════════════
