@@ -114,3 +114,8 @@ Workspace · TASK · 역할 · 교육 목적 · 산출물(id/revision) · 판정
 ## 11. 이번 작업의 0
 
 실제 공장 생산 연동 0 · 실제 콘텐츠 생성 0 · 실제 검수 · 공급 0 · 학생 학습 실행 · 효과 검증 0 · DB · RPC 변경 0.
+
+## 12. v1.1(2026-10-15) — Codex 독립 검토 반영
+
+Codex 검토(`8e705307b`)에서 전체 수용 FAIL(신규 82 중 40 실패, P1 6 · P2 5). 수정 · 근거 · 수용 판정은 [FACTORY_INTEGRATION_V11.md](./FACTORY_INTEGRATION_V11.md).
+위 §4~§6 의 규칙 중 바뀐 것: 후보는 검수 통과 manifest 만 · 판정은 산출물 주체 결속 · 승인 근거는 서버 Trusted Qualification Context 만 · 수량 6단계 분리 · 원문 분석도 D 필수 · 요청 본문 표준 JSON.

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vocaflow:factory-request:1:review-proposal",
+  "$comment": "Factory Integration v1.1 — Codex 독립 검토 제안(review/factory-integration-contract-v1 · 8e705307b · data/request.schema.json)을 그대로 채택. 형식(shape)만 검사한다 — 상태 전이 · 교차 run · 승인 · 권리 · 학습자 노출은 factory-integration.ts 의 validateManifest · qualifyArtifact · bindToWorkspace 가 본다.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "requestId",
+    "idempotencyKey",
+    "demandKey",
+    "workspaceId",
+    "versions",
+    "task",
+    "supportTasks",
+    "role",
+    "lineNo",
+    "education",
+    "content",
+    "quantity",
+    "source",
+    "constraints",
+    "postReview",
+    "reuseAllowed",
+    "productionUnit",
+    "connection",
+    "approvalsNeeded"
+  ],
+  "properties": {
+    "schema": {
+      "const": "vf.factory-request/1"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "type": "string"
+    },
+    "demandKey": {
+      "type": "string"
+    },
+    "workspaceId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal",
+        "plan",
+        "definition"
+      ],
+      "properties": {
+        "goal": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "plan": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "definition": {
+          "type": "string"
+        }
+      }
+    },
+    "task": {
+      "type": "string"
+    },
+    "supportTasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "role": {
+      "enum": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ]
+    },
+    "lineNo": {
+      "type": "integer"
+    },
+    "education": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "performanceGoal",
+        "learnerOutput",
+        "teachingStage",
+        "exposure",
+        "reason"
+      ],
+      "properties": {
+        "performanceGoal": {
+          "type": "string"
+        },
+        "learnerOutput": {
+          "type": "string"
+        },
+        "teachingStage": {
+          "type": "string"
+        },
+        "exposure": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "csatTypes",
+        "factoryTypes"
+      ],
+      "properties": {
+        "csatTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "factoryTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "unit",
+        "basis"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unit": {
+          "const": "문항"
+        },
+        "basis": {
+          "type": "string"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rightsUsable",
+        "excludeUnsupportedExams"
+      ],
+      "properties": {
+        "rightsUsable": {
+          "type": "boolean"
+        },
+        "excludeUnsupportedExams": {
+          "type": "boolean"
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gold",
+        "unseenByLearner",
+        "noExplanationBefore",
+        "versionBinding"
+      ],
+      "properties": {
+        "gold": {
+          "type": "boolean"
+        },
+        "unseenByLearner": {
+          "type": "boolean"
+        },
+        "noExplanationBefore": {
+          "type": "boolean"
+        },
+        "versionBinding": {
+          "type": "string"
+        }
+      }
+    },
+    "postReview": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reuseAllowed": {
+      "type": "boolean"
+    },
+    "productionUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "support",
+        "why",
+        "commands"
+      ],
+      "properties": {
+        "support": {
+          "enum": [
+            "supported",
+            "convertible_to_volume",
+            "unit_support_needed",
+            "unsupported",
+            "unconfirmed"
+          ]
+        },
+        "why": {
+          "type": "string"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "connection": {
+      "type": "string"
+    },
+    "approvalsNeeded": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "title": "Proposed external FactoryRequest shape; not production API"
+}

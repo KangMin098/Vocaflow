@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vocaflow:factory-manifest:1:review-proposal",
+  "$comment": "Factory Integration v1.1 — Codex 독립 검토 제안(review/factory-integration-contract-v1 · 8e705307b · data/manifest.schema.json)을 그대로 채택. 형식(shape)만 검사한다 — 상태 전이 · 교차 run · 승인 · 권리 · 학습자 노출은 factory-integration.ts 의 validateManifest · qualifyArtifact · bindToWorkspace 가 본다.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "requestId",
+    "mode",
+    "status",
+    "runId",
+    "producedCount",
+    "artifacts",
+    "failure",
+    "factory"
+  ],
+  "properties": {
+    "schema": {
+      "const": "vf.factory-manifest/1"
+    },
+    "requestId": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "MOCK",
+        "REAL",
+        "EXISTING"
+      ]
+    },
+    "status": {
+      "enum": [
+        "spec_created",
+        "order_received",
+        "unsupported",
+        "awaiting_production",
+        "produced",
+        "review_pending",
+        "review_failed",
+        "review_passed",
+        "failed"
+      ]
+    },
+    "runId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "producedCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "revision",
+          "sha256",
+          "refs",
+          "contentType",
+          "tasks",
+          "roleCandidates",
+          "access",
+          "rights",
+          "quality",
+          "provenance",
+          "lifecycle"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "dcp_item",
+              "csat_item",
+              "textbook_activity",
+              "volume"
+            ]
+          },
+          "revision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "refs": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source",
+              "analysis",
+              "gold"
+            ],
+            "properties": {
+              "source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "analysis": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "gold": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "roleCandidates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "access": {
+            "type": "string"
+          },
+          "rights": {
+            "enum": [
+              "unknown",
+              "cleared",
+              "restricted"
+            ]
+          },
+          "quality": {
+            "enum": [
+              "unreviewed",
+              "passed",
+              "failed"
+            ]
+          },
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "runId",
+              "mock"
+            ],
+            "properties": {
+              "runId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "mock": {
+                "type": "boolean"
+              }
+            }
+          },
+          "lifecycle": {
+            "enum": [
+              "test_fixture",
+              "product"
+            ]
+          }
+        }
+      }
+    },
+    "failure": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "reason"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "factory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "title": "Proposed external FactoryResultManifest shape; semantic/trusted-context checks also required"
+}

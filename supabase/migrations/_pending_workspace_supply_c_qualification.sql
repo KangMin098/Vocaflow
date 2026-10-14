@@ -36,7 +36,7 @@ create or replace function public.fq_role_ok(p jsonb, p_role text) returns boole
 language sql immutable set search_path to 'public' as $$
   select (p->'A'->>'state') = 'pass' and (p->'B'->>'state') = 'pass' and (p->'C'->>'state') = 'pass'
      and (p->'F'->>'state') = 'pass' and (p->'H'->>'state') = 'pass'
-     and (p_role not in ('model_explanation','guided_practice') or (p->'D'->>'state') = 'pass')
+     and (p_role not in ('source_analysis','model_explanation','guided_practice') or (p->'D'->>'state') = 'pass')
      and (p_role not in ('independent_check','transfer','delayed_check') or (p->'E'->>'state') = 'pass')
 $$;
 
