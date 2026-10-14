@@ -18,6 +18,8 @@ import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
 import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
+import { buildDemand } from '@/lib/csat/map/v62/demand'
+import { ROLE_LABEL_KO, SUPPLY_STATE_LABEL, supplyFor } from '@/lib/csat/map/v62/supply'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
 import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
 import { toItemSlug } from '@/lib/csat/item-slug'
@@ -113,12 +115,21 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // 기출 해부로 열어도 되는 문항(노출 규칙) — 이 TASK 를 직접 확인하는 과제 키의 확인 · 전이 문항을 대조한다
   const keys = checkKeysOfTask(t.id)
   const confirmAll = confirmLinksOf(data)
-  const study = studyItemsFor(
-    t.id,
-    view.asIs.tasks[t.id]?.check ?? null,
-    keys.flatMap((k) => confirmAll[k] ?? []),
-    keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? []),
-  )
+  const confirmMine = keys.flatMap((k) => confirmAll[k] ?? [])
+  const transferMine = keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? [])
+  const check = view.asIs.tasks[t.id]?.check ?? null
+  const study = studyItemsFor(t.id, check, confirmMine, transferMine)
+  // P-F1 · P-F2 — 이 TASK · 묶음의 자료 수요와 기존 자산 공급 상태(판정 · 생산 없음). 공장 재고는 이 화면에서 조회하지 않는다(null)
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  const demand = buildDemand(view, t.id, home, { workspaceId: savedWs?.workspaceId ?? null, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null })
+  const unseen = new Set(check?.unseen ?? [])
+  const supply = supplyFor(demand, {
+    unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
+    transferItems: transferMine.map((l) => l.target),
+    transferDrafts: 0,
+    study,
+    factoryStock: null,
+  })
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
   const step = legacyStepOf(t.id, [...path.read, ...path.listen])
@@ -267,6 +278,20 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
 
         <section className={u.insSec} aria-labelledby="ins-plan">
           <h3 id="ins-plan" className={u.insH}>교재 · 학습 · 계획</h3>
+          {supply.lines.length > 0 && (
+            <div className={u.sub} data-testid="inspector-supply" data-demand={supply.demandKey}>
+              <p className={u.subH}>지금 단계에 필요한 자료</p>
+              <ul className={u.ledger}>
+                {supply.lines.map((l) => (
+                  <li key={l.role} data-role={l.role} data-state={l.state} title={l.reason}>
+                    <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
+                    <span className={u.ledgerVal}>{SUPPLY_STATE_LABEL[l.state]}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
+            </div>
+          )}
           {ws && home ? (
             <>
               <p className={u.p}><strong>{templateOf(home)?.name ?? ws.name}</strong> — {ws.goal}</p>
