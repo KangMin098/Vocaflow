@@ -1,0 +1,97 @@
+{
+  "version": "FQR1-final-verification-1",
+  "observed_at": "2026-10-14T16:41:12Z",
+  "references": [
+    {
+      "path": "scripts/research/factory-learning-runtime/activity.mjs",
+      "sha256": "2eb320fff265bebac128787605a102159a3934b5897ee534bd28dcaa470aed3e"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/activity.test.mjs",
+      "sha256": "38ef602965aaba0defee8cf2993e27cd1a697082c5cde96476dca920496e7e52"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/code-audit.mjs",
+      "sha256": "136aec6effb1c27fd9dfdd15c3d7b172bcc9e3186778c50de5cc1b437e7990f8"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/content-review.mjs",
+      "sha256": "94155bd4bf6f0b91bc5a3467345b00f29d5e93d1919c13b0cebb3bf7ecff1241"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/content-review.test.mjs",
+      "sha256": "9d19794a1e558c128afeff44423f6d09a9166064c70ff0673b9e020551d174ef"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/contracts.mjs",
+      "sha256": "61648147658efbaa028e3cfbbd6b7f31ee991767a29d3eadfb04de74c64d106a"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/contracts.test.mjs",
+      "sha256": "c4a3bb24294713b3796547144edce340cd49b556d62e4142a6f88ccaaf7297e5"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/integrity.mjs",
+      "sha256": "4dd597f8cfffbbfc70eb51ab430443f0c35aa573ecd48bf7737c546ff4e6faf2"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/integrity.test.mjs",
+      "sha256": "f6bd3e048ce417b48475b1693d79089f658d9660ff1b0b06c5f09f6ae10cb221"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/inventory.mjs",
+      "sha256": "b7b9ed9505ef0ac5a5f1789bc80266cafc9d37d2b294a36d84e34d921b46b8d3"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/register.mjs",
+      "sha256": "62b33d84e1e023b2785471475f4f9bf011f12b0512c3d00623e8488fa5659682"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/review-comparison.mjs",
+      "sha256": "913e4af6c939bbcd8ddd55df3cab10134cd4a266a9562317361cfcae880fd304"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/review-comparison.test.mjs",
+      "sha256": "10a4ea34319bf0df1954820cc2c2e9bc3444e255433aad8f2c0198e0acbd78be"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/sample-export.mjs",
+      "sha256": "e8d31751fa2b9c636fdec176040c9ce65197994d9185ed3ea7bb30066d161789"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/sample-freeze.mjs",
+      "sha256": "7e78f8a3be40346efdafc759a8063ee9fcdcb62a0fdb498ae4e7a59326e99d1c"
+    }
+  ],
+  "inherited_tests": 122,
+  "new_tests": 63,
+  "total_pass": 185,
+  "failed": 0,
+  "skipped": 0,
+  "agent_configuration_pass": 15,
+  "independent_followup": {
+    "mode": "read_only_synthetic_in_memory_probes_after_actual_first_seal",
+    "initial_defects": 4,
+    "residual_defects": 1,
+    "closed_tested_defects": 5,
+    "categories": [
+      "type_input_binding",
+      "token_presentation_binding",
+      "nested_public_field_exclusion",
+      "RPC_failure_not_incorrect",
+      "residual_nested_expected_text"
+    ],
+    "final_recheck": "tested_defects_closed_and_actual14_regeneration_hash_unchanged",
+    "limits": [
+      "scalar_content_needs_semantic_exposure_review",
+      "no_student_or_product_E2E",
+      "schema_field_declaration_is_not_complete_runtime_security_validation"
+    ]
+  },
+  "actual_specification_sha256": "485ea80910917ed8c2f34bbc5fa6fcebd1397c3f74b1fc0fc4cf58dd4ceb073b",
+  "first_reviews_unchanged": true,
+  "actual_grading_RPC_calls": 0,
+  "product_changes": 0,
+  "public_qualified": 0,
+  "assessment_qualified": 0
+}

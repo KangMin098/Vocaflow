@@ -1,0 +1,3665 @@
+{
+  "version": "FQR1-inventory-1",
+  "observed_at": "2026-10-14T16:06:23.789Z",
+  "sql_receipts_sha256": "620fa0de4cdbdb8ea540d04c5dd5d8f8b8fd3f096b8474703b14e230feee4dd8",
+  "sql_receipts": {
+    "renders": {
+      "query": "select band,step,series,status,items,units,published_at,render_count from textbook_volume_renders order by series,step",
+      "rows": [
+        {
+          "band": 1,
+          "step": 1,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-13 14:31:12.696+00",
+          "render_count": 37
+        },
+        {
+          "band": 2,
+          "step": 2,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-13 08:23:13.382+00",
+          "render_count": 41
+        },
+        {
+          "band": 3,
+          "step": 3,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-23 01:27:54.93+00",
+          "render_count": 47
+        },
+        {
+          "band": 4,
+          "step": 4,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-08 07:04:02.976+00",
+          "render_count": 33
+        },
+        {
+          "band": 5,
+          "step": 5,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-08 07:03:42.297+00",
+          "render_count": 44
+        },
+        {
+          "band": 6,
+          "step": 6,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-07 11:29:40.8+00",
+          "render_count": 37
+        },
+        {
+          "band": 7,
+          "step": 7,
+          "series": "reading",
+          "status": "published",
+          "items": 60,
+          "units": 10,
+          "published_at": "2026-09-08 08:59:43.054+00",
+          "render_count": 41
+        },
+        {
+          "band": 2,
+          "step": 2,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:41:51.045+00",
+          "render_count": 1
+        },
+        {
+          "band": 3,
+          "step": 3,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:42:14.102+00",
+          "render_count": 1
+        },
+        {
+          "band": 4,
+          "step": 4,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:42:44.417+00",
+          "render_count": 1
+        },
+        {
+          "band": 5,
+          "step": 5,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:44:04.971+00",
+          "render_count": 1
+        },
+        {
+          "band": 6,
+          "step": 6,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:46:41.183+00",
+          "render_count": 1
+        },
+        {
+          "band": 7,
+          "step": 7,
+          "series": "syntax",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:50:28.147+00",
+          "render_count": 1
+        },
+        {
+          "band": 2,
+          "step": 2,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:35:12.491+00",
+          "render_count": 1
+        },
+        {
+          "band": 3,
+          "step": 3,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:35:22.724+00",
+          "render_count": 1
+        },
+        {
+          "band": 4,
+          "step": 4,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:35:49.814+00",
+          "render_count": 1
+        },
+        {
+          "band": 5,
+          "step": 5,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:34:25.678+00",
+          "render_count": 1
+        },
+        {
+          "band": 6,
+          "step": 6,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:38:44.948+00",
+          "render_count": 1
+        },
+        {
+          "band": 7,
+          "step": 7,
+          "series": "vocab",
+          "status": "published",
+          "items": 120,
+          "units": 20,
+          "published_at": "2026-09-06 10:41:37.963+00",
+          "render_count": 1
+        }
+      ],
+      "read_at": "2026-10-14T16:06:23.789Z"
+    },
+    "type_level": {
+      "query": "select type,v_level,count(*) rows,count(distinct ref_id) sources,count(*) filter(where coalesce(length(answer_key->>'explanation_ko'),0)>0) explained from csat_dcp_items group by type,v_level order by type,v_level",
+      "rows": [
+        {
+          "type": "blank",
+          "v_level": 2,
+          "rows": 142,
+          "sources": 142,
+          "explained": 0
+        },
+        {
+          "type": "blank",
+          "v_level": 3,
+          "rows": 59,
+          "sources": 59,
+          "explained": 0
+        },
+        {
+          "type": "blank",
+          "v_level": 4,
+          "rows": 59,
+          "sources": 59,
+          "explained": 0
+        },
+        {
+          "type": "blank",
+          "v_level": 5,
+          "rows": 31,
+          "sources": 31,
+          "explained": 0
+        },
+        {
+          "type": "blank",
+          "v_level": 6,
+          "rows": 84,
+          "sources": 84,
+          "explained": 0
+        },
+        {
+          "type": "blank",
+          "v_level": 7,
+          "rows": 71,
+          "sources": 71,
+          "explained": 0
+        },
+        {
+          "type": "blank_word",
+          "v_level": 1,
+          "rows": 74,
+          "sources": 70,
+          "explained": 74
+        },
+        {
+          "type": "blank_word",
+          "v_level": 2,
+          "rows": 513,
+          "sources": 293,
+          "explained": 513
+        },
+        {
+          "type": "blank_word",
+          "v_level": 3,
+          "rows": 552,
+          "sources": 255,
+          "explained": 552
+        },
+        {
+          "type": "blank_word",
+          "v_level": 4,
+          "rows": 4358,
+          "sources": 1061,
+          "explained": 4358
+        },
+        {
+          "type": "blank_word",
+          "v_level": 5,
+          "rows": 44242,
+          "sources": 7346,
+          "explained": 44242
+        },
+        {
+          "type": "blank_word",
+          "v_level": 6,
+          "rows": 72437,
+          "sources": 7299,
+          "explained": 72437
+        },
+        {
+          "type": "blank_word",
+          "v_level": 7,
+          "rows": 92287,
+          "sources": 3436,
+          "explained": 92287
+        },
+        {
+          "type": "blank_word",
+          "v_level": 8,
+          "rows": 117,
+          "sources": 89,
+          "explained": 117
+        },
+        {
+          "type": "blank_word",
+          "v_level": 9,
+          "rows": 10,
+          "sources": 7,
+          "explained": 10
+        },
+        {
+          "type": "blank_word",
+          "v_level": null,
+          "rows": 1,
+          "sources": 1,
+          "explained": 1
+        },
+        {
+          "type": "claim",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "claim",
+          "v_level": 5,
+          "rows": 5,
+          "sources": 5,
+          "explained": 0
+        },
+        {
+          "type": "claim",
+          "v_level": 6,
+          "rows": 10,
+          "sources": 10,
+          "explained": 0
+        },
+        {
+          "type": "claim",
+          "v_level": 7,
+          "rows": 11,
+          "sources": 11,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 2,
+          "rows": 4,
+          "sources": 4,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 4,
+          "rows": 6,
+          "sources": 6,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 5,
+          "rows": 7,
+          "sources": 7,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 6,
+          "rows": 15,
+          "sources": 15,
+          "explained": 0
+        },
+        {
+          "type": "content_match",
+          "v_level": 7,
+          "rows": 13,
+          "sources": 13,
+          "explained": 0
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 1,
+          "rows": 34,
+          "sources": 34,
+          "explained": 34
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 2,
+          "rows": 132,
+          "sources": 116,
+          "explained": 132
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 3,
+          "rows": 146,
+          "sources": 120,
+          "explained": 146
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 4,
+          "rows": 449,
+          "sources": 372,
+          "explained": 449
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 5,
+          "rows": 3361,
+          "sources": 2735,
+          "explained": 2677
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 6,
+          "rows": 5833,
+          "sources": 3836,
+          "explained": 5833
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 7,
+          "rows": 5265,
+          "sources": 2202,
+          "explained": 5265
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 8,
+          "rows": 35,
+          "sources": 35,
+          "explained": 35
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 9,
+          "rows": 3,
+          "sources": 2,
+          "explained": 3
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 1,
+          "rows": 63,
+          "sources": 62,
+          "explained": 63
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 2,
+          "rows": 449,
+          "sources": 281,
+          "explained": 449
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 3,
+          "rows": 481,
+          "sources": 243,
+          "explained": 481
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 4,
+          "rows": 2709,
+          "sources": 1005,
+          "explained": 2709
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 5,
+          "rows": 25238,
+          "sources": 7108,
+          "explained": 25238
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 6,
+          "rows": 44853,
+          "sources": 7071,
+          "explained": 44853
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 7,
+          "rows": 55996,
+          "sources": 3383,
+          "explained": 55996
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 8,
+          "rows": 102,
+          "sources": 85,
+          "explained": 102
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 9,
+          "rows": 9,
+          "sources": 6,
+          "explained": 9
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": null,
+          "rows": 1,
+          "sources": 1,
+          "explained": 1
+        },
+        {
+          "type": "implication",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "implication",
+          "v_level": 5,
+          "rows": 11,
+          "sources": 11,
+          "explained": 0
+        },
+        {
+          "type": "implication",
+          "v_level": 6,
+          "rows": 10,
+          "sources": 10,
+          "explained": 0
+        },
+        {
+          "type": "insert",
+          "v_level": 2,
+          "rows": 265,
+          "sources": 154,
+          "explained": 265
+        },
+        {
+          "type": "insert",
+          "v_level": 3,
+          "rows": 258,
+          "sources": 146,
+          "explained": 258
+        },
+        {
+          "type": "insert",
+          "v_level": 4,
+          "rows": 650,
+          "sources": 296,
+          "explained": 650
+        },
+        {
+          "type": "insert",
+          "v_level": 5,
+          "rows": 5999,
+          "sources": 1885,
+          "explained": 5999
+        },
+        {
+          "type": "insert",
+          "v_level": 6,
+          "rows": 90767,
+          "sources": 11366,
+          "explained": 90744
+        },
+        {
+          "type": "insert",
+          "v_level": 7,
+          "rows": 23700,
+          "sources": 2575,
+          "explained": 23692
+        },
+        {
+          "type": "insert",
+          "v_level": 8,
+          "rows": 281,
+          "sources": 28,
+          "explained": 281
+        },
+        {
+          "type": "insert",
+          "v_level": 9,
+          "rows": 3,
+          "sources": 1,
+          "explained": 3
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 2,
+          "rows": 17,
+          "sources": 17,
+          "explained": 17
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 16
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 4,
+          "rows": 255,
+          "sources": 248,
+          "explained": 255
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 5,
+          "rows": 2945,
+          "sources": 2317,
+          "explained": 2945
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 6,
+          "rows": 5319,
+          "sources": 3170,
+          "explained": 5319
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 7,
+          "rows": 6911,
+          "sources": 2339,
+          "explained": 6911
+        },
+        {
+          "type": "irrelevant",
+          "v_level": 8,
+          "rows": 30,
+          "sources": 30,
+          "explained": 30
+        },
+        {
+          "type": "long_match",
+          "v_level": 4,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_match",
+          "v_level": 5,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_order",
+          "v_level": 4,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_order",
+          "v_level": 5,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_reference",
+          "v_level": 2,
+          "rows": 3,
+          "sources": 3,
+          "explained": 0
+        },
+        {
+          "type": "long_reference",
+          "v_level": 4,
+          "rows": 23,
+          "sources": 23,
+          "explained": 0
+        },
+        {
+          "type": "long_reference",
+          "v_level": 5,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_reference",
+          "v_level": 6,
+          "rows": 11,
+          "sources": 11,
+          "explained": 0
+        },
+        {
+          "type": "long_reference",
+          "v_level": 7,
+          "rows": 4,
+          "sources": 4,
+          "explained": 0
+        },
+        {
+          "type": "long_title",
+          "v_level": 4,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_title",
+          "v_level": 5,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_vocab",
+          "v_level": 4,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "long_vocab",
+          "v_level": 5,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "main_point",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "main_point",
+          "v_level": 4,
+          "rows": 14,
+          "sources": 14,
+          "explained": 0
+        },
+        {
+          "type": "main_point",
+          "v_level": 5,
+          "rows": 11,
+          "sources": 11,
+          "explained": 0
+        },
+        {
+          "type": "main_point",
+          "v_level": 6,
+          "rows": 23,
+          "sources": 23,
+          "explained": 0
+        },
+        {
+          "type": "main_point",
+          "v_level": 7,
+          "rows": 18,
+          "sources": 18,
+          "explained": 0
+        },
+        {
+          "type": "mood",
+          "v_level": 4,
+          "rows": 22,
+          "sources": 22,
+          "explained": 0
+        },
+        {
+          "type": "mood",
+          "v_level": 5,
+          "rows": 23,
+          "sources": 23,
+          "explained": 0
+        },
+        {
+          "type": "order",
+          "v_level": 2,
+          "rows": 265,
+          "sources": 154,
+          "explained": 265
+        },
+        {
+          "type": "order",
+          "v_level": 3,
+          "rows": 251,
+          "sources": 144,
+          "explained": 251
+        },
+        {
+          "type": "order",
+          "v_level": 4,
+          "rows": 586,
+          "sources": 278,
+          "explained": 586
+        },
+        {
+          "type": "order",
+          "v_level": 5,
+          "rows": 4807,
+          "sources": 1763,
+          "explained": 4807
+        },
+        {
+          "type": "order",
+          "v_level": 6,
+          "rows": 66315,
+          "sources": 11054,
+          "explained": 66292
+        },
+        {
+          "type": "order",
+          "v_level": 7,
+          "rows": 16081,
+          "sources": 2509,
+          "explained": 16073
+        },
+        {
+          "type": "order",
+          "v_level": 8,
+          "rows": 231,
+          "sources": 27,
+          "explained": 231
+        },
+        {
+          "type": "order",
+          "v_level": 9,
+          "rows": 3,
+          "sources": 1,
+          "explained": 3
+        },
+        {
+          "type": "purpose",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "purpose",
+          "v_level": 5,
+          "rows": 36,
+          "sources": 36,
+          "explained": 0
+        },
+        {
+          "type": "purpose",
+          "v_level": 6,
+          "rows": 41,
+          "sources": 41,
+          "explained": 0
+        },
+        {
+          "type": "purpose",
+          "v_level": 7,
+          "rows": 41,
+          "sources": 41,
+          "explained": 0
+        },
+        {
+          "type": "summary",
+          "v_level": 3,
+          "rows": 16,
+          "sources": 16,
+          "explained": 0
+        },
+        {
+          "type": "summary",
+          "v_level": 5,
+          "rows": 6,
+          "sources": 6,
+          "explained": 0
+        },
+        {
+          "type": "summary",
+          "v_level": 6,
+          "rows": 11,
+          "sources": 11,
+          "explained": 0
+        },
+        {
+          "type": "summary",
+          "v_level": 7,
+          "rows": 15,
+          "sources": 15,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 2,
+          "rows": 46,
+          "sources": 46,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 3,
+          "rows": 107,
+          "sources": 107,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 4,
+          "rows": 106,
+          "sources": 106,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 5,
+          "rows": 49,
+          "sources": 49,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 6,
+          "rows": 43,
+          "sources": 43,
+          "explained": 0
+        },
+        {
+          "type": "title",
+          "v_level": 7,
+          "rows": 44,
+          "sources": 44,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 2,
+          "rows": 105,
+          "sources": 105,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 3,
+          "rows": 96,
+          "sources": 96,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 4,
+          "rows": 98,
+          "sources": 98,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 5,
+          "rows": 48,
+          "sources": 48,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 6,
+          "rows": 39,
+          "sources": 39,
+          "explained": 0
+        },
+        {
+          "type": "topic",
+          "v_level": 7,
+          "rows": 27,
+          "sources": 27,
+          "explained": 0
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 1,
+          "rows": 42,
+          "sources": 42,
+          "explained": 42
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 2,
+          "rows": 295,
+          "sources": 201,
+          "explained": 295
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 3,
+          "rows": 313,
+          "sources": 192,
+          "explained": 313
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 4,
+          "rows": 789,
+          "sources": 548,
+          "explained": 789
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 5,
+          "rows": 6671,
+          "sources": 3977,
+          "explained": 6671
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 6,
+          "rows": 12056,
+          "sources": 4735,
+          "explained": 12056
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 7,
+          "rows": 10177,
+          "sources": 2748,
+          "explained": 10177
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 8,
+          "rows": 44,
+          "sources": 43,
+          "explained": 44
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 9,
+          "rows": 3,
+          "sources": 2,
+          "explained": 3
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 1,
+          "rows": 69,
+          "sources": 69,
+          "explained": 69
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 2,
+          "rows": 452,
+          "sources": 282,
+          "explained": 452
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 3,
+          "rows": 441,
+          "sources": 241,
+          "explained": 441
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 4,
+          "rows": 2628,
+          "sources": 1000,
+          "explained": 2628
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 5,
+          "rows": 28185,
+          "sources": 7208,
+          "explained": 28185
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 6,
+          "rows": 39015,
+          "sources": 7137,
+          "explained": 39015
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 7,
+          "rows": 52681,
+          "sources": 3415,
+          "explained": 52681
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 8,
+          "rows": 98,
+          "sources": 85,
+          "explained": 98
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 9,
+          "rows": 8,
+          "sources": 5,
+          "explained": 8
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": null,
+          "rows": 1,
+          "sources": 1,
+          "explained": 1
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 1,
+          "rows": 43,
+          "sources": 43,
+          "explained": 43
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 2,
+          "rows": 195,
+          "sources": 170,
+          "explained": 195
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 3,
+          "rows": 216,
+          "sources": 172,
+          "explained": 216
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 4,
+          "rows": 795,
+          "sources": 630,
+          "explained": 795
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 5,
+          "rows": 8475,
+          "sources": 4984,
+          "explained": 5349
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 6,
+          "rows": 16601,
+          "sources": 6571,
+          "explained": 16601
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 7,
+          "rows": 23071,
+          "sources": 3328,
+          "explained": 23071
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 8,
+          "rows": 83,
+          "sources": 80,
+          "explained": 83
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 9,
+          "rows": 4,
+          "sources": 4,
+          "explained": 4
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": null,
+          "rows": 1,
+          "sources": 1,
+          "explained": 1
+        },
+        {
+          "type": "word_order",
+          "v_level": 1,
+          "rows": 67,
+          "sources": 63,
+          "explained": 67
+        },
+        {
+          "type": "word_order",
+          "v_level": 2,
+          "rows": 253,
+          "sources": 196,
+          "explained": 253
+        },
+        {
+          "type": "word_order",
+          "v_level": 3,
+          "rows": 380,
+          "sources": 225,
+          "explained": 380
+        },
+        {
+          "type": "word_order",
+          "v_level": 4,
+          "rows": 1215,
+          "sources": 680,
+          "explained": 1215
+        },
+        {
+          "type": "word_order",
+          "v_level": 5,
+          "rows": 8573,
+          "sources": 4069,
+          "explained": 8573
+        },
+        {
+          "type": "word_order",
+          "v_level": 6,
+          "rows": 14144,
+          "sources": 4204,
+          "explained": 14144
+        },
+        {
+          "type": "word_order",
+          "v_level": 7,
+          "rows": 18596,
+          "sources": 2847,
+          "explained": 18596
+        },
+        {
+          "type": "word_order",
+          "v_level": 8,
+          "rows": 34,
+          "sources": 33,
+          "explained": 34
+        },
+        {
+          "type": "word_order",
+          "v_level": 9,
+          "rows": 3,
+          "sources": 3,
+          "explained": 3
+        },
+        {
+          "type": "word_order",
+          "v_level": null,
+          "rows": 1,
+          "sources": 1,
+          "explained": 1
+        }
+      ],
+      "read_at": "2026-10-14T16:06:48.047Z"
+    },
+    "dictionary": {
+      "query": "select list_tag,count(*) words from shared_dictionary cross join lateral unnest(list_tags) list_tag where list_tag in ('kcurr2022_1','kcurr2022_2','kcurr2022_0') group by list_tag order by list_tag",
+      "rows": [
+        {
+          "list_tag": "kcurr2022_0",
+          "words": 1006
+        },
+        {
+          "list_tag": "kcurr2022_1",
+          "words": 808
+        },
+        {
+          "list_tag": "kcurr2022_2",
+          "words": 1211
+        }
+      ],
+      "read_at": "2026-10-14T16:07:02.374Z"
+    },
+    "source_strata": {
+      "query": "select d.type,d.v_level,count(*) rows,count(*) filter(where a.status in ('ready','published')) ready_or_published_source,count(*) filter(where e.article_id is null) cache_missing,count(*) filter(where e.source_updated_at=a.updated_at) cache_fresh,count(*) filter(where e.article_id is not null and e.source_updated_at<>a.updated_at) cache_stale from csat_dcp_items d left join library_articles a on d.kind='article' and a.id=d.ref_id left join csat_source_eligibility e on e.article_id=d.ref_id where d.type in ('vocab_choice','unit_vocab','blank_word','grammar_choice','grammar_fix','unit_grammar','word_order','rhyme','word_meaning','spell_blank') group by d.type,d.v_level order by d.type,d.v_level",
+      "rows": [
+        {
+          "type": "blank_word",
+          "v_level": 1,
+          "rows": 74,
+          "ready_or_published_source": 74,
+          "cache_missing": 0,
+          "cache_fresh": 74,
+          "cache_stale": 0
+        },
+        {
+          "type": "blank_word",
+          "v_level": 2,
+          "rows": 513,
+          "ready_or_published_source": 484,
+          "cache_missing": 29,
+          "cache_fresh": 482,
+          "cache_stale": 2
+        },
+        {
+          "type": "blank_word",
+          "v_level": 3,
+          "rows": 552,
+          "ready_or_published_source": 506,
+          "cache_missing": 46,
+          "cache_fresh": 506,
+          "cache_stale": 0
+        },
+        {
+          "type": "blank_word",
+          "v_level": 4,
+          "rows": 4358,
+          "ready_or_published_source": 3850,
+          "cache_missing": 507,
+          "cache_fresh": 3850,
+          "cache_stale": 1
+        },
+        {
+          "type": "blank_word",
+          "v_level": 5,
+          "rows": 44242,
+          "ready_or_published_source": 41544,
+          "cache_missing": 2647,
+          "cache_fresh": 34239,
+          "cache_stale": 7356
+        },
+        {
+          "type": "blank_word",
+          "v_level": 6,
+          "rows": 72437,
+          "ready_or_published_source": 71528,
+          "cache_missing": 817,
+          "cache_fresh": 29019,
+          "cache_stale": 42601
+        },
+        {
+          "type": "blank_word",
+          "v_level": 7,
+          "rows": 92287,
+          "ready_or_published_source": 92234,
+          "cache_missing": 38,
+          "cache_fresh": 12541,
+          "cache_stale": 79708
+        },
+        {
+          "type": "blank_word",
+          "v_level": 8,
+          "rows": 117,
+          "ready_or_published_source": 108,
+          "cache_missing": 9,
+          "cache_fresh": 80,
+          "cache_stale": 28
+        },
+        {
+          "type": "blank_word",
+          "v_level": 9,
+          "rows": 10,
+          "ready_or_published_source": 4,
+          "cache_missing": 6,
+          "cache_fresh": 4,
+          "cache_stale": 0
+        },
+        {
+          "type": "blank_word",
+          "v_level": null,
+          "rows": 1,
+          "ready_or_published_source": 1,
+          "cache_missing": 0,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 1,
+          "rows": 34,
+          "ready_or_published_source": 34,
+          "cache_missing": 0,
+          "cache_fresh": 34,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 2,
+          "rows": 132,
+          "ready_or_published_source": 130,
+          "cache_missing": 2,
+          "cache_fresh": 129,
+          "cache_stale": 1
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 3,
+          "rows": 146,
+          "ready_or_published_source": 132,
+          "cache_missing": 14,
+          "cache_fresh": 132,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 4,
+          "rows": 449,
+          "ready_or_published_source": 373,
+          "cache_missing": 75,
+          "cache_fresh": 373,
+          "cache_stale": 1
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 5,
+          "rows": 3361,
+          "ready_or_published_source": 2893,
+          "cache_missing": 439,
+          "cache_fresh": 2459,
+          "cache_stale": 463
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 6,
+          "rows": 5833,
+          "ready_or_published_source": 5655,
+          "cache_missing": 132,
+          "cache_fresh": 3420,
+          "cache_stale": 2281
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 7,
+          "rows": 5265,
+          "ready_or_published_source": 5248,
+          "cache_missing": 8,
+          "cache_fresh": 838,
+          "cache_stale": 4419
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 8,
+          "rows": 35,
+          "ready_or_published_source": 34,
+          "cache_missing": 1,
+          "cache_fresh": 34,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_choice",
+          "v_level": 9,
+          "rows": 3,
+          "ready_or_published_source": 1,
+          "cache_missing": 2,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 1,
+          "rows": 63,
+          "ready_or_published_source": 63,
+          "cache_missing": 0,
+          "cache_fresh": 63,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 2,
+          "rows": 449,
+          "ready_or_published_source": 428,
+          "cache_missing": 21,
+          "cache_fresh": 426,
+          "cache_stale": 2
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 3,
+          "rows": 481,
+          "ready_or_published_source": 446,
+          "cache_missing": 35,
+          "cache_fresh": 446,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 4,
+          "rows": 2709,
+          "ready_or_published_source": 2365,
+          "cache_missing": 343,
+          "cache_fresh": 2365,
+          "cache_stale": 1
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 5,
+          "rows": 25238,
+          "ready_or_published_source": 23501,
+          "cache_missing": 1690,
+          "cache_fresh": 19031,
+          "cache_stale": 4517
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 6,
+          "rows": 44853,
+          "ready_or_published_source": 44244,
+          "cache_missing": 520,
+          "cache_fresh": 18425,
+          "cache_stale": 25908
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 7,
+          "rows": 55996,
+          "ready_or_published_source": 55954,
+          "cache_missing": 27,
+          "cache_fresh": 7727,
+          "cache_stale": 48242
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 8,
+          "rows": 102,
+          "ready_or_published_source": 94,
+          "cache_missing": 8,
+          "cache_fresh": 77,
+          "cache_stale": 17
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 9,
+          "rows": 9,
+          "ready_or_published_source": 4,
+          "cache_missing": 5,
+          "cache_fresh": 4,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": null,
+          "rows": 1,
+          "ready_or_published_source": 1,
+          "cache_missing": 0,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 1,
+          "rows": 42,
+          "ready_or_published_source": 42,
+          "cache_missing": 0,
+          "cache_fresh": 42,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 2,
+          "rows": 295,
+          "ready_or_published_source": 289,
+          "cache_missing": 6,
+          "cache_fresh": 288,
+          "cache_stale": 1
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 3,
+          "rows": 313,
+          "ready_or_published_source": 296,
+          "cache_missing": 17,
+          "cache_fresh": 296,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 4,
+          "rows": 789,
+          "ready_or_published_source": 693,
+          "cache_missing": 95,
+          "cache_fresh": 693,
+          "cache_stale": 1
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 5,
+          "rows": 6671,
+          "ready_or_published_source": 6065,
+          "cache_missing": 575,
+          "cache_fresh": 4877,
+          "cache_stale": 1219
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 6,
+          "rows": 12056,
+          "ready_or_published_source": 11811,
+          "cache_missing": 187,
+          "cache_fresh": 5828,
+          "cache_stale": 6041
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 7,
+          "rows": 10177,
+          "ready_or_published_source": 10154,
+          "cache_missing": 13,
+          "cache_fresh": 1483,
+          "cache_stale": 8681
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 8,
+          "rows": 44,
+          "ready_or_published_source": 43,
+          "cache_missing": 1,
+          "cache_fresh": 41,
+          "cache_stale": 2
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 9,
+          "rows": 3,
+          "ready_or_published_source": 1,
+          "cache_missing": 2,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 1,
+          "rows": 69,
+          "ready_or_published_source": 69,
+          "cache_missing": 0,
+          "cache_fresh": 69,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 2,
+          "rows": 452,
+          "ready_or_published_source": 432,
+          "cache_missing": 20,
+          "cache_fresh": 430,
+          "cache_stale": 2
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 3,
+          "rows": 441,
+          "ready_or_published_source": 404,
+          "cache_missing": 37,
+          "cache_fresh": 404,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 4,
+          "rows": 2628,
+          "ready_or_published_source": 2267,
+          "cache_missing": 360,
+          "cache_fresh": 2267,
+          "cache_stale": 1
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 5,
+          "rows": 28185,
+          "ready_or_published_source": 26042,
+          "cache_missing": 2093,
+          "cache_fresh": 21565,
+          "cache_stale": 4527
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 6,
+          "rows": 39015,
+          "ready_or_published_source": 38228,
+          "cache_missing": 696,
+          "cache_fresh": 16965,
+          "cache_stale": 21354
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 7,
+          "rows": 52681,
+          "ready_or_published_source": 52636,
+          "cache_missing": 30,
+          "cache_fresh": 7562,
+          "cache_stale": 45089
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 8,
+          "rows": 98,
+          "ready_or_published_source": 94,
+          "cache_missing": 4,
+          "cache_fresh": 80,
+          "cache_stale": 14
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 9,
+          "rows": 8,
+          "ready_or_published_source": 4,
+          "cache_missing": 4,
+          "cache_fresh": 4,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": null,
+          "rows": 1,
+          "ready_or_published_source": 1,
+          "cache_missing": 0,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 1,
+          "rows": 43,
+          "ready_or_published_source": 43,
+          "cache_missing": 0,
+          "cache_fresh": 43,
+          "cache_stale": 0
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 2,
+          "rows": 195,
+          "ready_or_published_source": 186,
+          "cache_missing": 9,
+          "cache_fresh": 184,
+          "cache_stale": 2
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 3,
+          "rows": 216,
+          "ready_or_published_source": 198,
+          "cache_missing": 18,
+          "cache_fresh": 198,
+          "cache_stale": 0
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 4,
+          "rows": 795,
+          "ready_or_published_source": 634,
+          "cache_missing": 160,
+          "cache_fresh": 634,
+          "cache_stale": 1
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 5,
+          "rows": 8475,
+          "ready_or_published_source": 7307,
+          "cache_missing": 1120,
+          "cache_fresh": 5620,
+          "cache_stale": 1735
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 6,
+          "rows": 16601,
+          "ready_or_published_source": 16180,
+          "cache_missing": 334,
+          "cache_fresh": 8267,
+          "cache_stale": 8000
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 7,
+          "rows": 23071,
+          "ready_or_published_source": 23040,
+          "cache_missing": 18,
+          "cache_fresh": 3420,
+          "cache_stale": 19633
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 8,
+          "rows": 83,
+          "ready_or_published_source": 80,
+          "cache_missing": 3,
+          "cache_fresh": 76,
+          "cache_stale": 4
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 9,
+          "rows": 4,
+          "ready_or_published_source": 4,
+          "cache_missing": 0,
+          "cache_fresh": 4,
+          "cache_stale": 0
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": null,
+          "rows": 1,
+          "ready_or_published_source": 1,
+          "cache_missing": 0,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        },
+        {
+          "type": "word_order",
+          "v_level": 1,
+          "rows": 67,
+          "ready_or_published_source": 67,
+          "cache_missing": 0,
+          "cache_fresh": 67,
+          "cache_stale": 0
+        },
+        {
+          "type": "word_order",
+          "v_level": 2,
+          "rows": 253,
+          "ready_or_published_source": 236,
+          "cache_missing": 17,
+          "cache_fresh": 234,
+          "cache_stale": 2
+        },
+        {
+          "type": "word_order",
+          "v_level": 3,
+          "rows": 380,
+          "ready_or_published_source": 357,
+          "cache_missing": 23,
+          "cache_fresh": 357,
+          "cache_stale": 0
+        },
+        {
+          "type": "word_order",
+          "v_level": 4,
+          "rows": 1215,
+          "ready_or_published_source": 1048,
+          "cache_missing": 166,
+          "cache_fresh": 1048,
+          "cache_stale": 1
+        },
+        {
+          "type": "word_order",
+          "v_level": 5,
+          "rows": 8573,
+          "ready_or_published_source": 7740,
+          "cache_missing": 809,
+          "cache_fresh": 6309,
+          "cache_stale": 1455
+        },
+        {
+          "type": "word_order",
+          "v_level": 6,
+          "rows": 14144,
+          "ready_or_published_source": 13856,
+          "cache_missing": 242,
+          "cache_fresh": 6082,
+          "cache_stale": 7820
+        },
+        {
+          "type": "word_order",
+          "v_level": 7,
+          "rows": 18596,
+          "ready_or_published_source": 18577,
+          "cache_missing": 13,
+          "cache_fresh": 2656,
+          "cache_stale": 15927
+        },
+        {
+          "type": "word_order",
+          "v_level": 8,
+          "rows": 34,
+          "ready_or_published_source": 32,
+          "cache_missing": 2,
+          "cache_fresh": 30,
+          "cache_stale": 2
+        },
+        {
+          "type": "word_order",
+          "v_level": 9,
+          "rows": 3,
+          "ready_or_published_source": 2,
+          "cache_missing": 1,
+          "cache_fresh": 2,
+          "cache_stale": 0
+        },
+        {
+          "type": "word_order",
+          "v_level": null,
+          "rows": 1,
+          "ready_or_published_source": 1,
+          "cache_missing": 0,
+          "cache_fresh": 1,
+          "cache_stale": 0
+        }
+      ],
+      "read_at": "2026-10-14T16:07:40.496Z"
+    },
+    "function_definitions": {
+      "query": "select proname,pg_get_functiondef(p.oid) definition from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('textbook_shelf_inventory','textbook_practice_items_for','textbook_shelf_sources')",
+      "rows": [
+        {
+          "proname": "textbook_shelf_inventory",
+          "definition": "CREATE OR REPLACE FUNCTION public.textbook_shelf_inventory()\n RETURNS TABLE(item_type text, v_level integer, item_count bigint, explained_count bigint)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  SELECT item_type, v_level, item_count, explained_count\n    FROM public.textbook_shelf_inventory_mv;\n$function$\n"
+        },
+        {
+          "proname": "textbook_shelf_sources",
+          "definition": "CREATE OR REPLACE FUNCTION public.textbook_shelf_sources()\n RETURNS TABLE(v_level integer, source_family text, item_count bigint)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  SELECT v_level, source_family, item_count\n    FROM public.textbook_shelf_sources_mv;\n$function$\n"
+        }
+      ],
+      "read_at": "2026-10-14T16:06:48.765Z"
+    },
+    "legacy_function": {
+      "query": "select proname,pg_get_functiondef(p.oid) definition from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='textbook_practice_items'",
+      "rows": [
+        {
+          "proname": "textbook_practice_items",
+          "definition": "CREATE OR REPLACE FUNCTION public.textbook_practice_items(p_v_level smallint, p_limit integer DEFAULT 10)\n RETURNS TABLE(id uuid, type text, paragraph_idx integer, payload jsonb, ref_title text)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  SELECT i.id, i.type, i.paragraph_idx, i.payload, a.title\n  FROM csat_dcp_items i\n  JOIN library_articles a ON a.id = i.ref_id\n  WHERE i.kind = 'article'\n    AND i.type IN ('order','insert',\n                   'topic','blank','main_point','title','summary',\n                   'purpose','implication','content_match','claim','mood',\n                   'long_order','long_reference','long_match',\n                   'long_title','long_vocab')\n    AND i.v_level = p_v_level\n    AND a.status IN ('ready','published')\n    AND a.display_only = false\n    AND public.csat_source_is_eligible(a.id)\n    AND NOT EXISTS (\n      SELECT 1 FROM csat_item_attempts t\n      WHERE t.dcp_item_id = i.id AND t.user_id = auth.uid()\n    )\n  ORDER BY i.id\n  LIMIT greatest(1, least(p_limit, 50));\n$function$\n"
+        }
+      ],
+      "read_at": "2026-10-14T16:07:04.446Z"
+    }
+  },
+  "catalog_snapshot": [
+    {
+      "file": "D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/series-catalog.ts",
+      "sha256": "cfacf552d55005b418d53c7a0acadf07e4b205fe3b0f11c46b6d27379320c604",
+      "scope": "read-only observed working-tree snapshot, not main completion"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/series.ts",
+      "sha256": "966e9c5b131a9bfc1806174d9c88056f9d5556047612af1e35119d4b32332bd7",
+      "scope": "read-only observed working-tree snapshot, not main completion"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/elementary.ts",
+      "sha256": "c81f88ee36ea57cec32a4c1f0880022ea6b6709b6359f19b5d34ce84f419c2b2",
+      "scope": "read-only observed working-tree snapshot, not main completion"
+    }
+  ],
+  "type_inventory": [
+    {
+      "kind": "article",
+      "type": "blank",
+      "rows": 446,
+      "sources": 446
+    },
+    {
+      "kind": "article",
+      "type": "blank_word",
+      "rows": 214591,
+      "sources": 19857
+    },
+    {
+      "kind": "article",
+      "type": "claim",
+      "rows": 42,
+      "sources": 42
+    },
+    {
+      "kind": "article",
+      "type": "content_match",
+      "rows": 61,
+      "sources": 61
+    },
+    {
+      "kind": "article",
+      "type": "grammar_choice",
+      "rows": 15258,
+      "sources": 9452
+    },
+    {
+      "kind": "article",
+      "type": "grammar_fix",
+      "rows": 129901,
+      "sources": 19244
+    },
+    {
+      "kind": "article",
+      "type": "implication",
+      "rows": 37,
+      "sources": 37
+    },
+    {
+      "kind": "article",
+      "type": "insert",
+      "rows": 121519,
+      "sources": 16399
+    },
+    {
+      "kind": "book",
+      "type": "insert",
+      "rows": 404,
+      "sources": 17
+    },
+    {
+      "kind": "article",
+      "type": "irrelevant",
+      "rows": 15493,
+      "sources": 8137
+    },
+    {
+      "kind": "article",
+      "type": "long_match",
+      "rows": 32,
+      "sources": 32
+    },
+    {
+      "kind": "article",
+      "type": "long_order",
+      "rows": 32,
+      "sources": 32
+    },
+    {
+      "kind": "article",
+      "type": "long_reference",
+      "rows": 57,
+      "sources": 57
+    },
+    {
+      "kind": "article",
+      "type": "long_title",
+      "rows": 32,
+      "sources": 32
+    },
+    {
+      "kind": "article",
+      "type": "long_vocab",
+      "rows": 32,
+      "sources": 32
+    },
+    {
+      "kind": "article",
+      "type": "main_point",
+      "rows": 82,
+      "sources": 82
+    },
+    {
+      "kind": "article",
+      "type": "mood",
+      "rows": 45,
+      "sources": 45
+    },
+    {
+      "kind": "article",
+      "type": "order",
+      "rows": 88135,
+      "sources": 15878
+    },
+    {
+      "kind": "book",
+      "type": "order",
+      "rows": 404,
+      "sources": 17
+    },
+    {
+      "kind": "article",
+      "type": "purpose",
+      "rows": 134,
+      "sources": 134
+    },
+    {
+      "kind": "article",
+      "type": "summary",
+      "rows": 48,
+      "sources": 48
+    },
+    {
+      "kind": "article",
+      "type": "title",
+      "rows": 395,
+      "sources": 395
+    },
+    {
+      "kind": "article",
+      "type": "topic",
+      "rows": 413,
+      "sources": 413
+    },
+    {
+      "kind": "article",
+      "type": "unit_grammar",
+      "rows": 30390,
+      "sources": 12488
+    },
+    {
+      "kind": "article",
+      "type": "unit_vocab",
+      "rows": 123578,
+      "sources": 19443
+    },
+    {
+      "kind": "article",
+      "type": "vocab_choice",
+      "rows": 49484,
+      "sources": 15982
+    },
+    {
+      "kind": "article",
+      "type": "word_order",
+      "rows": 43266,
+      "sources": 12321
+    }
+  ],
+  "payload_field_inventory": [
+    {
+      "type": "blank_word",
+      "field": "context",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "hint",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "prompt_ko",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "sentence_idx",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "stem",
+      "rows": 214591
+    },
+    {
+      "type": "grammar_choice",
+      "field": "sentences",
+      "rows": 15258
+    },
+    {
+      "type": "grammar_choice",
+      "field": "underlines",
+      "rows": 15258
+    },
+    {
+      "type": "grammar_fix",
+      "field": "context",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "hint",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "prompt_ko",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "sentence_idx",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "stem",
+      "rows": 129901
+    },
+    {
+      "type": "unit_grammar",
+      "field": "choices",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "prompt_ko",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "sentences",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "underlines",
+      "rows": 30390
+    },
+    {
+      "type": "unit_vocab",
+      "field": "choices",
+      "rows": 123578
+    },
+    {
+      "type": "unit_vocab",
+      "field": "prompt_ko",
+      "rows": 123578
+    },
+    {
+      "type": "unit_vocab",
+      "field": "sentences",
+      "rows": 123578
+    },
+    {
+      "type": "unit_vocab",
+      "field": "target",
+      "rows": 123578
+    },
+    {
+      "type": "vocab_choice",
+      "field": "sentences",
+      "rows": 49484
+    },
+    {
+      "type": "vocab_choice",
+      "field": "underlines",
+      "rows": 49484
+    },
+    {
+      "type": "word_order",
+      "field": "bank",
+      "rows": 43266
+    },
+    {
+      "type": "word_order",
+      "field": "context",
+      "rows": 43266
+    },
+    {
+      "type": "word_order",
+      "field": "sentence_idx",
+      "rows": 43266
+    }
+  ],
+  "answer_field_inventory": [
+    {
+      "type": "blank_word",
+      "field": "explanation_ko",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "explanation_writer",
+      "rows": 214591
+    },
+    {
+      "type": "blank_word",
+      "field": "text",
+      "rows": 214591
+    },
+    {
+      "type": "grammar_choice",
+      "field": "explanation_ko",
+      "rows": 14574
+    },
+    {
+      "type": "grammar_choice",
+      "field": "explanation_writer",
+      "rows": 14574
+    },
+    {
+      "type": "grammar_choice",
+      "field": "original",
+      "rows": 15258
+    },
+    {
+      "type": "grammar_choice",
+      "field": "position",
+      "rows": 15258
+    },
+    {
+      "type": "grammar_choice",
+      "field": "rule",
+      "rows": 15258
+    },
+    {
+      "type": "grammar_fix",
+      "field": "explanation_ko",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "explanation_writer",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "rule",
+      "rows": 129901
+    },
+    {
+      "type": "grammar_fix",
+      "field": "text",
+      "rows": 129901
+    },
+    {
+      "type": "unit_grammar",
+      "field": "answer",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "explanation_ko",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "explanation_writer",
+      "rows": 30390
+    },
+    {
+      "type": "unit_grammar",
+      "field": "original",
+      "rows": 30390
+    },
+    {
+      "type": "unit_vocab",
+      "field": "answer",
+      "rows": 123578
+    },
+    {
+      "type": "unit_vocab",
+      "field": "explanation_ko",
+      "rows": 123578
+    },
+    {
+      "type": "unit_vocab",
+      "field": "explanation_writer",
+      "rows": 123578
+    },
+    {
+      "type": "vocab_choice",
+      "field": "explanation_ko",
+      "rows": 46358
+    },
+    {
+      "type": "vocab_choice",
+      "field": "explanation_writer",
+      "rows": 46358
+    },
+    {
+      "type": "vocab_choice",
+      "field": "original",
+      "rows": 49484
+    },
+    {
+      "type": "vocab_choice",
+      "field": "position",
+      "rows": 49484
+    },
+    {
+      "type": "word_order",
+      "field": "explanation_ko",
+      "rows": 43266
+    },
+    {
+      "type": "word_order",
+      "field": "explanation_writer",
+      "rows": 43266
+    },
+    {
+      "type": "word_order",
+      "field": "sentence",
+      "rows": 43266
+    }
+  ],
+  "sample": {
+    "registration_sha256": "e4c919d9e34c5ab5e6a317dcdd288abc4d42a3ecba33138d23b305d304b5631c",
+    "n": 14,
+    "distinct_refs": 14,
+    "strata": [
+      {
+        "type": "blank_word",
+        "stratum": "normal_metadata",
+        "eligible_rows": 80763
+      },
+      {
+        "type": "blank_word",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 133563
+      },
+      {
+        "type": "grammar_choice",
+        "stratum": "normal_metadata",
+        "eligible_rows": 6862
+      },
+      {
+        "type": "grammar_choice",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 8373
+      },
+      {
+        "type": "grammar_fix",
+        "stratum": "normal_metadata",
+        "eligible_rows": 48547
+      },
+      {
+        "type": "grammar_fix",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 81180
+      },
+      {
+        "type": "unit_grammar",
+        "stratum": "normal_metadata",
+        "eligible_rows": 13541
+      },
+      {
+        "type": "unit_grammar",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 16795
+      },
+      {
+        "type": "unit_vocab",
+        "stratum": "normal_metadata",
+        "eligible_rows": 49331
+      },
+      {
+        "type": "unit_vocab",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 74083
+      },
+      {
+        "type": "vocab_choice",
+        "stratum": "normal_metadata",
+        "eligible_rows": 16046
+      },
+      {
+        "type": "vocab_choice",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 33371
+      },
+      {
+        "type": "word_order",
+        "stratum": "normal_metadata",
+        "eligible_rows": 16781
+      },
+      {
+        "type": "word_order",
+        "stratum": "problematic_metadata",
+        "eligible_rows": 26436
+      }
+    ],
+    "shortages": []
+  },
+  "volumes": [
+    {
+      "series": "vocab",
+      "step": 2,
+      "v_levels": [
+        2
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 1160,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 195,
+          "explanation_present_rows": 195
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 452,
+          "explanation_present_rows": 452
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 513,
+          "explanation_present_rows": 513
+        }
+      ],
+      "render_record": {
+        "band": 2,
+        "step": 2,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:35:12.491+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 2,
+          "rows": 513,
+          "ready_or_published_source": 484,
+          "cache_missing": 29,
+          "cache_fresh": 482,
+          "cache_stale": 2
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 2,
+          "rows": 452,
+          "ready_or_published_source": 432,
+          "cache_missing": 20,
+          "cache_fresh": 430,
+          "cache_stale": 2
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 2,
+          "rows": 195,
+          "ready_or_published_source": 186,
+          "cache_missing": 9,
+          "cache_fresh": 184,
+          "cache_stale": 2
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "vocab",
+      "step": 3,
+      "v_levels": [
+        3
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 1209,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 216,
+          "explanation_present_rows": 216
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 441,
+          "explanation_present_rows": 441
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 552,
+          "explanation_present_rows": 552
+        }
+      ],
+      "render_record": {
+        "band": 3,
+        "step": 3,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:35:22.724+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 3,
+          "rows": 552,
+          "ready_or_published_source": 506,
+          "cache_missing": 46,
+          "cache_fresh": 506,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 3,
+          "rows": 441,
+          "ready_or_published_source": 404,
+          "cache_missing": 37,
+          "cache_fresh": 404,
+          "cache_stale": 0
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 3,
+          "rows": 216,
+          "ready_or_published_source": 198,
+          "cache_missing": 18,
+          "cache_fresh": 198,
+          "cache_stale": 0
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "vocab",
+      "step": 4,
+      "v_levels": [
+        4
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 7781,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 795,
+          "explanation_present_rows": 795
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 2628,
+          "explanation_present_rows": 2628
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 4358,
+          "explanation_present_rows": 4358
+        }
+      ],
+      "render_record": {
+        "band": 4,
+        "step": 4,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:35:49.814+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 4,
+          "rows": 4358,
+          "ready_or_published_source": 3850,
+          "cache_missing": 507,
+          "cache_fresh": 3850,
+          "cache_stale": 1
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 4,
+          "rows": 2628,
+          "ready_or_published_source": 2267,
+          "cache_missing": 360,
+          "cache_fresh": 2267,
+          "cache_stale": 1
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 4,
+          "rows": 795,
+          "ready_or_published_source": 634,
+          "cache_missing": 160,
+          "cache_fresh": 634,
+          "cache_stale": 1
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "vocab",
+      "step": 5,
+      "v_levels": [
+        5
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 80902,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 8475,
+          "explanation_present_rows": 5349
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 28185,
+          "explanation_present_rows": 28185
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 44242,
+          "explanation_present_rows": 44242
+        }
+      ],
+      "render_record": {
+        "band": 5,
+        "step": 5,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:34:25.678+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 5,
+          "rows": 44242,
+          "ready_or_published_source": 41544,
+          "cache_missing": 2647,
+          "cache_fresh": 34239,
+          "cache_stale": 7356
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 5,
+          "rows": 28185,
+          "ready_or_published_source": 26042,
+          "cache_missing": 2093,
+          "cache_fresh": 21565,
+          "cache_stale": 4527
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 5,
+          "rows": 8475,
+          "ready_or_published_source": 7307,
+          "cache_missing": 1120,
+          "cache_fresh": 5620,
+          "cache_stale": 1735
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "vocab",
+      "step": 6,
+      "v_levels": [
+        6
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 128053,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 16601,
+          "explanation_present_rows": 16601
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 39015,
+          "explanation_present_rows": 39015
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 72437,
+          "explanation_present_rows": 72437
+        }
+      ],
+      "render_record": {
+        "band": 6,
+        "step": 6,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:38:44.948+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 6,
+          "rows": 72437,
+          "ready_or_published_source": 71528,
+          "cache_missing": 817,
+          "cache_fresh": 29019,
+          "cache_stale": 42601
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 6,
+          "rows": 39015,
+          "ready_or_published_source": 38228,
+          "cache_missing": 696,
+          "cache_fresh": 16965,
+          "cache_stale": 21354
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 6,
+          "rows": 16601,
+          "ready_or_published_source": 16180,
+          "cache_missing": 334,
+          "cache_fresh": 8267,
+          "cache_stale": 8000
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "vocab",
+      "step": 7,
+      "v_levels": [
+        7
+      ],
+      "catalog_types": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word"
+      ],
+      "candidate_quantity": 168039,
+      "by_type": [
+        {
+          "type": "vocab_choice",
+          "stored_rows": 23071,
+          "explanation_present_rows": 23071
+        },
+        {
+          "type": "unit_vocab",
+          "stored_rows": 52681,
+          "explanation_present_rows": 52681
+        },
+        {
+          "type": "blank_word",
+          "stored_rows": 92287,
+          "explanation_present_rows": 92287
+        }
+      ],
+      "render_record": {
+        "band": 7,
+        "step": 7,
+        "series": "vocab",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:41:37.963+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "blank_word",
+          "v_level": 7,
+          "rows": 92287,
+          "ready_or_published_source": 92234,
+          "cache_missing": 38,
+          "cache_fresh": 12541,
+          "cache_stale": 79708
+        },
+        {
+          "type": "unit_vocab",
+          "v_level": 7,
+          "rows": 52681,
+          "ready_or_published_source": 52636,
+          "cache_missing": 30,
+          "cache_fresh": 7562,
+          "cache_stale": 45089
+        },
+        {
+          "type": "vocab_choice",
+          "v_level": 7,
+          "rows": 23071,
+          "ready_or_published_source": 23040,
+          "cache_missing": 18,
+          "cache_fresh": 3420,
+          "cache_stale": 19633
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 2,
+      "v_levels": [
+        2
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 1129,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 132,
+          "explanation_present_rows": 132
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 449,
+          "explanation_present_rows": 449
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 295,
+          "explanation_present_rows": 295
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 253,
+          "explanation_present_rows": 253
+        }
+      ],
+      "render_record": {
+        "band": 2,
+        "step": 2,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:41:51.045+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 2,
+          "rows": 132,
+          "ready_or_published_source": 130,
+          "cache_missing": 2,
+          "cache_fresh": 129,
+          "cache_stale": 1
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 2,
+          "rows": 449,
+          "ready_or_published_source": 428,
+          "cache_missing": 21,
+          "cache_fresh": 426,
+          "cache_stale": 2
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 2,
+          "rows": 295,
+          "ready_or_published_source": 289,
+          "cache_missing": 6,
+          "cache_fresh": 288,
+          "cache_stale": 1
+        },
+        {
+          "type": "word_order",
+          "v_level": 2,
+          "rows": 253,
+          "ready_or_published_source": 236,
+          "cache_missing": 17,
+          "cache_fresh": 234,
+          "cache_stale": 2
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 3,
+      "v_levels": [
+        3
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 1320,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 146,
+          "explanation_present_rows": 146
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 481,
+          "explanation_present_rows": 481
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 313,
+          "explanation_present_rows": 313
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 380,
+          "explanation_present_rows": 380
+        }
+      ],
+      "render_record": {
+        "band": 3,
+        "step": 3,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:42:14.102+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 3,
+          "rows": 146,
+          "ready_or_published_source": 132,
+          "cache_missing": 14,
+          "cache_fresh": 132,
+          "cache_stale": 0
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 3,
+          "rows": 481,
+          "ready_or_published_source": 446,
+          "cache_missing": 35,
+          "cache_fresh": 446,
+          "cache_stale": 0
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 3,
+          "rows": 313,
+          "ready_or_published_source": 296,
+          "cache_missing": 17,
+          "cache_fresh": 296,
+          "cache_stale": 0
+        },
+        {
+          "type": "word_order",
+          "v_level": 3,
+          "rows": 380,
+          "ready_or_published_source": 357,
+          "cache_missing": 23,
+          "cache_fresh": 357,
+          "cache_stale": 0
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 4,
+      "v_levels": [
+        4
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 5162,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 449,
+          "explanation_present_rows": 449
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 2709,
+          "explanation_present_rows": 2709
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 789,
+          "explanation_present_rows": 789
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 1215,
+          "explanation_present_rows": 1215
+        }
+      ],
+      "render_record": {
+        "band": 4,
+        "step": 4,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:42:44.417+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 4,
+          "rows": 449,
+          "ready_or_published_source": 373,
+          "cache_missing": 75,
+          "cache_fresh": 373,
+          "cache_stale": 1
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 4,
+          "rows": 2709,
+          "ready_or_published_source": 2365,
+          "cache_missing": 343,
+          "cache_fresh": 2365,
+          "cache_stale": 1
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 4,
+          "rows": 789,
+          "ready_or_published_source": 693,
+          "cache_missing": 95,
+          "cache_fresh": 693,
+          "cache_stale": 1
+        },
+        {
+          "type": "word_order",
+          "v_level": 4,
+          "rows": 1215,
+          "ready_or_published_source": 1048,
+          "cache_missing": 166,
+          "cache_fresh": 1048,
+          "cache_stale": 1
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 5,
+      "v_levels": [
+        5
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 43843,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 3361,
+          "explanation_present_rows": 2677
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 25238,
+          "explanation_present_rows": 25238
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 6671,
+          "explanation_present_rows": 6671
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 8573,
+          "explanation_present_rows": 8573
+        }
+      ],
+      "render_record": {
+        "band": 5,
+        "step": 5,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:44:04.971+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 5,
+          "rows": 3361,
+          "ready_or_published_source": 2893,
+          "cache_missing": 439,
+          "cache_fresh": 2459,
+          "cache_stale": 463
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 5,
+          "rows": 25238,
+          "ready_or_published_source": 23501,
+          "cache_missing": 1690,
+          "cache_fresh": 19031,
+          "cache_stale": 4517
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 5,
+          "rows": 6671,
+          "ready_or_published_source": 6065,
+          "cache_missing": 575,
+          "cache_fresh": 4877,
+          "cache_stale": 1219
+        },
+        {
+          "type": "word_order",
+          "v_level": 5,
+          "rows": 8573,
+          "ready_or_published_source": 7740,
+          "cache_missing": 809,
+          "cache_fresh": 6309,
+          "cache_stale": 1455
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 6,
+      "v_levels": [
+        6
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 76886,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 5833,
+          "explanation_present_rows": 5833
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 44853,
+          "explanation_present_rows": 44853
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 12056,
+          "explanation_present_rows": 12056
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 14144,
+          "explanation_present_rows": 14144
+        }
+      ],
+      "render_record": {
+        "band": 6,
+        "step": 6,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:46:41.183+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 6,
+          "rows": 5833,
+          "ready_or_published_source": 5655,
+          "cache_missing": 132,
+          "cache_fresh": 3420,
+          "cache_stale": 2281
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 6,
+          "rows": 44853,
+          "ready_or_published_source": 44244,
+          "cache_missing": 520,
+          "cache_fresh": 18425,
+          "cache_stale": 25908
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 6,
+          "rows": 12056,
+          "ready_or_published_source": 11811,
+          "cache_missing": 187,
+          "cache_fresh": 5828,
+          "cache_stale": 6041
+        },
+        {
+          "type": "word_order",
+          "v_level": 6,
+          "rows": 14144,
+          "ready_or_published_source": 13856,
+          "cache_missing": 242,
+          "cache_fresh": 6082,
+          "cache_stale": 7820
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "syntax",
+      "step": 7,
+      "v_levels": [
+        7
+      ],
+      "catalog_types": [
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ],
+      "candidate_quantity": 90034,
+      "by_type": [
+        {
+          "type": "grammar_choice",
+          "stored_rows": 5265,
+          "explanation_present_rows": 5265
+        },
+        {
+          "type": "grammar_fix",
+          "stored_rows": 55996,
+          "explanation_present_rows": 55996
+        },
+        {
+          "type": "unit_grammar",
+          "stored_rows": 10177,
+          "explanation_present_rows": 10177
+        },
+        {
+          "type": "word_order",
+          "stored_rows": 18596,
+          "explanation_present_rows": 18596
+        }
+      ],
+      "render_record": {
+        "band": 7,
+        "step": 7,
+        "series": "syntax",
+        "status": "published",
+        "items": 120,
+        "units": 20,
+        "published_at": "2026-09-06 10:50:28.147+00",
+        "render_count": 1
+      },
+      "published_status_observed": "published",
+      "render_record_items": 120,
+      "render_record_units": 20,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [
+        {
+          "type": "grammar_choice",
+          "v_level": 7,
+          "rows": 5265,
+          "ready_or_published_source": 5248,
+          "cache_missing": 8,
+          "cache_fresh": 838,
+          "cache_stale": 4419
+        },
+        {
+          "type": "grammar_fix",
+          "v_level": 7,
+          "rows": 55996,
+          "ready_or_published_source": 55954,
+          "cache_missing": 27,
+          "cache_fresh": 7727,
+          "cache_stale": 48242
+        },
+        {
+          "type": "unit_grammar",
+          "v_level": 7,
+          "rows": 10177,
+          "ready_or_published_source": 10154,
+          "cache_missing": 13,
+          "cache_fresh": 1483,
+          "cache_stale": 8681
+        },
+        {
+          "type": "word_order",
+          "v_level": 7,
+          "rows": 18596,
+          "ready_or_published_source": 18577,
+          "cache_missing": 13,
+          "cache_fresh": 2656,
+          "cache_stale": 15927
+        }
+      ],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": null,
+      "gaps": [
+        "Legacy database RPC excludes all catalog target types",
+        "Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately",
+        "Full current per-volume assigned item ID lineage unverified",
+        "Rights/source/assessment approved quantities unmeasured"
+      ]
+    },
+    {
+      "series": "reading",
+      "step": 1,
+      "v_levels": [
+        1
+      ],
+      "catalog_types": [
+        "rhyme",
+        "word_meaning",
+        "spell_blank"
+      ],
+      "candidate_quantity": 0,
+      "by_type": [
+        {
+          "type": "rhyme",
+          "stored_rows": 0,
+          "explanation_present_rows": 0
+        },
+        {
+          "type": "word_meaning",
+          "stored_rows": 0,
+          "explanation_present_rows": 0
+        },
+        {
+          "type": "spell_blank",
+          "stored_rows": 0,
+          "explanation_present_rows": 0
+        }
+      ],
+      "render_record": {
+        "band": 1,
+        "step": 1,
+        "series": "reading",
+        "status": "published",
+        "items": 60,
+        "units": 10,
+        "published_at": "2026-09-13 14:31:12.696+00",
+        "render_count": 37
+      },
+      "published_status_observed": "published",
+      "render_record_items": 60,
+      "render_record_units": 10,
+      "assigned_item_ids_verified": false,
+      "assigned_item_count": null,
+      "source_metadata": [],
+      "cached_status_not_release_approval": true,
+      "legacy_rpc_target_types_included": false,
+      "volume_scoped_rpc_exists": false,
+      "runtime_support_status": "See separate live code/runner audit; stored stock does not establish runner support",
+      "rights_approved_quantity": null,
+      "source_content_reviewed_quantity": null,
+      "qualification_approved_quantity": null,
+      "elementary_generation_material": {
+        "dictionary_tag": "kcurr2022_1",
+        "dictionary_rows": 808,
+        "three_types_generated_from_dictionary": true,
+        "generation_count_not_actual_assigned_count": true
+      },
+      "gaps": [
+        "Stored DCP count is measured zero because three elementary types are generated deterministically from dictionary",
+        "Legacy RPC requires article and reading types; elementary generation needs a separate runner path",
+        "Render count is not current assigned stock or verified grading"
+      ]
+    }
+  ],
+  "denominators": {
+    "book_combinations": 13,
+    "vocab": 6,
+    "syntax": 6,
+    "reading_step1": 1
+  },
+  "db_writes": 0,
+  "public_qualified": 0,
+  "assessment_qualified": 0,
+  "limits": [
+    "Inventory counts measure availability by type and V-level, not actual assigned/current book item IDs",
+    "Source counts can overlap across types; do not sum sources as distinct population",
+    "Published render status is an operational publication record, not rights or educational qualification",
+    "Null approved stock means unmeasured, not zero",
+    "Dictionary count is generation material, not item quantity or learning evidence"
+  ]
+}

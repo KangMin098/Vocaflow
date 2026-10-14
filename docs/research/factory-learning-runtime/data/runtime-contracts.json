@@ -1,0 +1,1117 @@
+{
+  "version": "FQR1-runtime-contracts1",
+  "references": {
+    "packet": {
+      "path": "scripts\\research\\factory-learning-runtime\\local\\sample-content-first.json",
+      "sha256": "9402ac97ded10926f2e17901a0755ed2b07c5571dab48899d54ae6306faeda9f"
+    },
+    "author": {
+      "path": "docs\\research\\factory-learning-runtime\\data\\content-review.json",
+      "sha256": "ff3efb5d89f131230d4b9350a3d4c4672474bd8db6ab95af4a9f971b4bc529c2"
+    },
+    "independent": {
+      "path": "docs\\research\\factory-learning-runtime\\data\\independent-content-review.json",
+      "sha256": "81635e3b29ad148f7b0b1bbf8be304543a68456b0644d9bd84c2c4c6dc203188"
+    }
+  },
+  "private_specification_sha256": "485ea80910917ed8c2f34bbc5fa6fcebd1397c3f74b1fc0fc4cf58dd4ceb073b",
+  "schema_sha256": "e6db5ced7e2962d978d731af8cd417f5046fafe8263548af27137a0ee48b5066",
+  "canonical_codebook_version": "rev4.0-draft-1",
+  "canonical_TASK_count": 30,
+  "actual_content_count": 14,
+  "structural_valid_count": 14,
+  "semantic_approval_claim": false,
+  "items": [
+    {
+      "sample_id": "FQR1-01",
+      "content": {
+        "id": "4c9d5175-7507-4b31-93b5-1fad1ada728a",
+        "revision": "FQR1-sealed-snapshot:c5dd58f1d346cc11a52f1566425b7db89f60daa5019999966822a74b642e5a25",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "3786d28e-a579-43c5-982f-6ccd5a115a63",
+        "revision": null,
+        "sha256": "d45a7dba6aa80f0e3ab0ce2d1ce41e63e8295a7ba1ca418150b6d1ed3ebd7347",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "c5dd58f1d346cc11a52f1566425b7db89f60daa5019999966822a74b642e5a25",
+      "generated_stimulus_sha256": "8cc8dc7352a92a61dc4a08f324a2ec7a7f11f77ffd8e099d6ede505c26f372e1",
+      "specification_sha256": "f84025d92460ebf9ebbe26a57541e7fcf79d0ae80cd744700fef500f354270d7",
+      "dcp_type": "vocab_choice",
+      "input": {
+        "kind": "marked_selection",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Identify the marked contextual word that is inappropriate; no rationale response elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "disagreement": false,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": true,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-02",
+      "content": {
+        "id": "d8c7799a-8bca-458c-b56f-529cddd5c2c0",
+        "revision": "FQR1-sealed-snapshot:2777ca246b5a328b8aaa3eb31e9773f30f13739917fb01e8b32f9c88856224ce",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "fec866d6-83aa-407e-b2b5-b95acb517fbf",
+        "revision": null,
+        "sha256": "f1e9993f10ab9793ab6d04fff229b437e6c705f55efd5e120705acaf3dbea13b",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "2777ca246b5a328b8aaa3eb31e9773f30f13739917fb01e8b32f9c88856224ce",
+      "generated_stimulus_sha256": "57f57557f4050502ce40de68f8317bad32839b971d2820fc4026b984d0e36e08",
+      "specification_sha256": "35ce499ca7486f4d849d721be8479f718aa52bad5c1b547ead339dfe9609364c",
+      "dcp_type": "vocab_choice",
+      "input": {
+        "kind": "marked_selection",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Identify the marked contextual word that is inappropriate; no rationale response elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "fail"
+        },
+        "disagreement": true,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-03",
+      "content": {
+        "id": "931e8350-cc5a-4b36-8bd7-705de9268cd3",
+        "revision": "FQR1-sealed-snapshot:49630d486b09d489a89190896e71baaff068b742c57870e91a10f51aa5fba562",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "f6374413-ad3c-4f20-acd6-6338952695c7",
+        "revision": null,
+        "sha256": "5a6bfba3b65a67d7c3716e18710e2da690255b95ae54c189fc51b9060c90b305",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "49630d486b09d489a89190896e71baaff068b742c57870e91a10f51aa5fba562",
+      "generated_stimulus_sha256": "ba375cd1c020476f517b601620819d3d28e2934686603e2cdd35a61b9cfaf6c6",
+      "specification_sha256": "f2bb8c4e84544a2cab42b3ef7fe24d502575294bcd7106b9f541b2fc460246cf",
+      "dcp_type": "unit_vocab",
+      "input": {
+        "kind": "choice",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Recognize one supplied word meaning; contextual-sense rationale not elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "disagreement": false,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": true,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-04",
+      "content": {
+        "id": "f73dfb47-a06e-4f75-a55d-c40b143dfcbe",
+        "revision": "FQR1-sealed-snapshot:c71f62552ef35c75c72fd57a370819ceb63701749fbc1c2fad861e861881125e",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "516faff0-4f49-467b-98f5-d4094a66d4c5",
+        "revision": null,
+        "sha256": "7f6f32adf3fe251f71189755f8cbcf2bd191374153445c39007220e863db7b43",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "c71f62552ef35c75c72fd57a370819ceb63701749fbc1c2fad861e861881125e",
+      "generated_stimulus_sha256": "198b4105ef2bc9351dd0d0f0883529983c89d400d620666c6e54334e77b99d50",
+      "specification_sha256": "2cdc14b1e5f173e18c80a031bf24e574c377470b107fcf2b88e9e0b0ef155fd7",
+      "dcp_type": "unit_vocab",
+      "input": {
+        "kind": "choice",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Recognize one supplied word meaning; contextual-sense rationale not elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": false,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-05",
+      "content": {
+        "id": "dfb36aa8-1ca2-49b3-a040-d6fde6af3c21",
+        "revision": "FQR1-sealed-snapshot:8331fa326d105f5d13439d24cf40b8994b866974a625fc2e2e623156aad56387",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "8775cb8a-f2ef-496e-8334-1d8f878292c6",
+        "revision": null,
+        "sha256": "b2fccfd9701067d6fe12521ba7aa16020d2cef2cde21a223012325efef6c037f",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "8331fa326d105f5d13439d24cf40b8994b866974a625fc2e2e623156aad56387",
+      "generated_stimulus_sha256": "23d882356a01cdfc61563c14db2a0a48065f8870146c1607b83cb33347931183",
+      "specification_sha256": "44dba5d20173d73dd042ba7871658319db3a4b0cfb73f13e8d3e90c9633cee77",
+      "dcp_type": "blank_word",
+      "input": {
+        "kind": "short_text",
+        "actual_choice_count": null,
+        "id_basis": "text"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Retrieve a word under the displayed cue and sentence constraints.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "unknown",
+          "independent": "pass"
+        },
+        "disagreement": true,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "text"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-06",
+      "content": {
+        "id": "32392655-92f1-43ad-bd0c-1020c83dd822",
+        "revision": "FQR1-sealed-snapshot:fb9360b64d46a9612428a48c05930904f5cd31809c301355c6a6d2d5e3a17804",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "fb3b2661-e7f6-42fc-9291-03e02c24d9c2",
+        "revision": null,
+        "sha256": "f2e7da5c1f2daaa19effbc48773bdcf4d3c700be6892fb10982db8b15e40c97f",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "fb9360b64d46a9612428a48c05930904f5cd31809c301355c6a6d2d5e3a17804",
+      "generated_stimulus_sha256": "b0cbd335faf3dfa671816a601851b975f2882eac40e0688748379f6afa2cdb74",
+      "specification_sha256": "1a6479c83a54d045c3f26f9ad83c38385394ac83f418747629fb93464e471f83",
+      "dcp_type": "blank_word",
+      "input": {
+        "kind": "short_text",
+        "actual_choice_count": null,
+        "id_basis": "text"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Retrieve a word under the displayed cue and sentence constraints.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": false,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "text"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-07",
+      "content": {
+        "id": "e8146c84-33b3-4e43-b778-d4f13b24f608",
+        "revision": "FQR1-sealed-snapshot:c0828ef1498888f56f43798f06fce5aa0d9005851e9afa36b64a87fb7833b732",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "3dee429c-8646-47fd-8a09-eb24a6d3c392",
+        "revision": null,
+        "sha256": "998e645c7e31c691f55f2e19c1fa3ce817605c45c1f16475c5ece899112304c7",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "c0828ef1498888f56f43798f06fce5aa0d9005851e9afa36b64a87fb7833b732",
+      "generated_stimulus_sha256": "e1a93a2dadcc00bcf752da00b0a7a910f6b08630a1c26550faf4ebc0fa60f2da",
+      "specification_sha256": "eeeebaa72fec4790d9b1aee5722ed6c2af3c9a50d19911e42b720ef64a33ee73",
+      "dcp_type": "grammar_choice",
+      "input": {
+        "kind": "marked_selection",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Identify one marked form error; attachment/scope explanation not elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "disagreement": true,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-08",
+      "content": {
+        "id": "94ccf22a-c98c-4786-89bf-fd5bd9ce081f",
+        "revision": "FQR1-sealed-snapshot:20b28d8037c515f90f0ddf8e4927357c784182329fc9a6fdb19dec668a832ec4",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "64f3105c-fea8-4b6d-a49e-f1bfa061f328",
+        "revision": null,
+        "sha256": "84a4c5d86dc9c422f4038277e7b74c48b1ddb9673101cbc093a9d23b0774c1ee",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "20b28d8037c515f90f0ddf8e4927357c784182329fc9a6fdb19dec668a832ec4",
+      "generated_stimulus_sha256": "b1976d37420c7de88cf1d73c09be290ce8dbb7851bc6988d2cef494b89008b1b",
+      "specification_sha256": "c4b4c6870ce3f516b1dab6a27a513f4a59cd6f0dbe582e8a7190c5595af31cc8",
+      "dcp_type": "grammar_choice",
+      "input": {
+        "kind": "marked_selection",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Identify one marked form error; attachment/scope explanation not elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": true,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-09",
+      "content": {
+        "id": "ab1dd2b4-6d01-49ae-88f9-df56156d9e7a",
+        "revision": "FQR1-sealed-snapshot:1b504b5c058a40d19a0f016e14a1458d5d67ebffe03c7d0fa164e8fb485a1279",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "70878e95-358d-4fe8-aff4-80fd35e961fb",
+        "revision": null,
+        "sha256": "15c0411fa8fbf0f97a3d3fe2443589c2d20cc1d885dbb568190ef0fcb0e592d5",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "1b504b5c058a40d19a0f016e14a1458d5d67ebffe03c7d0fa164e8fb485a1279",
+      "generated_stimulus_sha256": "f9022d57b68a36a4f8ca1994274f7187276bf7fb7af789ad03d3a7987b8f319f",
+      "specification_sha256": "283831a579fca97d6b4e7c756aa5098546eeaf93251f04026295d5ec26ea54f8",
+      "dcp_type": "grammar_fix",
+      "input": {
+        "kind": "short_text",
+        "actual_choice_count": null,
+        "id_basis": "text"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Write the corrected word; sentence equivalence and alternatives need review.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": true,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "text"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-10",
+      "content": {
+        "id": "41b81d08-d74f-48ce-872b-5037a30b127a",
+        "revision": "FQR1-sealed-snapshot:9958decbac4d5511b07bffb71b68b90226feb48be3416529da7064888f02a1b5",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "64eaa4ee-e99d-4b49-862e-723cda99ce1c",
+        "revision": null,
+        "sha256": "f8190fff0446934e3c419909074c0bda305359a30411d9d825e19132bda00735",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "9958decbac4d5511b07bffb71b68b90226feb48be3416529da7064888f02a1b5",
+      "generated_stimulus_sha256": "872a6bdd72385408d9ea67f85913cec7ae56b1f40afa808bd214a21fdfd4fcb1",
+      "specification_sha256": "86a291a9c584eea57ed91823e4a1655c2f739d77310b3e8ddc07c72276caeb61",
+      "dcp_type": "grammar_fix",
+      "input": {
+        "kind": "short_text",
+        "actual_choice_count": null,
+        "id_basis": "text"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Write the corrected word; sentence equivalence and alternatives need review.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "unknown",
+          "independent": "pass"
+        },
+        "disagreement": true,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "text"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-11",
+      "content": {
+        "id": "27b6c255-02d3-4655-8e8b-b51377c3f8ce",
+        "revision": "FQR1-sealed-snapshot:6c58b6955c7611a0e1794bcbc8a1f9ca0cb143fe88c1cdd8b7794b217a1b3755",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "25a51373-d9be-4b78-90c1-1642b2fb267f",
+        "revision": null,
+        "sha256": "65073f6f019aa527e688a5067130689d1c08ed97594ab16063d8dc93ad67877e",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "6c58b6955c7611a0e1794bcbc8a1f9ca0cb143fe88c1cdd8b7794b217a1b3755",
+      "generated_stimulus_sha256": "616b71a7992f503cd4f894acec4f5f016d90f57ce8ad38e664b517e24854ca27",
+      "specification_sha256": "5f13d231c7fb1beaca24192b345c61aeb5ecbf5a52a6486f54a761bb8327aa82",
+      "dcp_type": "unit_grammar",
+      "input": {
+        "kind": "choice",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Select a form-correction candidate; no independent scope explanation elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "disagreement": false,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": true,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-12",
+      "content": {
+        "id": "bfccb1ec-d1ad-4e3f-b27c-e7552b808095",
+        "revision": "FQR1-sealed-snapshot:9c9dc35475c1194e976aa0b2f67d9100ff7e369f0b8eb86de73a62a980ffee1c",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "4d3572ad-33a0-47ca-9dcc-59f79a7a4d88",
+        "revision": null,
+        "sha256": "fd5f39633db51bc749eef5692006aa568f2d8b79d2976cf5860a29ea4eb55eaa",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "9c9dc35475c1194e976aa0b2f67d9100ff7e369f0b8eb86de73a62a980ffee1c",
+      "generated_stimulus_sha256": "083cce0d63e76af53708ad281eb7340a47d072f14bc191c4b9cc6851997d5ca4",
+      "specification_sha256": "a91880ecedfa34ed12174732414630e50a12221b625aa15f787d7a956bb3dc69",
+      "dcp_type": "unit_grammar",
+      "input": {
+        "kind": "choice",
+        "actual_choice_count": 5,
+        "id_basis": "one_based_key_to_zero_based_option_id"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Select a form-correction candidate; no independent scope explanation elicited.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "E": {
+          "author": "pass",
+          "independent": "pass"
+        },
+        "disagreement": false,
+        "content_repair_required": false,
+        "author_and_independent_B_E_pass": true,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "option_id"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-13",
+      "content": {
+        "id": "aa37d9c3-d929-413e-9b0b-3d0b8f88f718",
+        "revision": "FQR1-sealed-snapshot:701611eef583218eb930777529a6adcb18cc8c925728d8d6b57eb4ec676fc534",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "33a8c4b8-93b8-4d41-8026-4d860ff4e394",
+        "revision": null,
+        "sha256": "dd7fdfa70ea6fdf875ecd2993e220d6fb57995fc0206310f3cbce6099f85c421",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "701611eef583218eb930777529a6adcb18cc8c925728d8d6b57eb4ec676fc534",
+      "generated_stimulus_sha256": "fb330472d60cdc02a3a358ec69e7c7b32e6221bc4621183e530c8f8eea506099",
+      "specification_sha256": "b34899bf220e82c39288670ee4d871c419b54dc2653a3548c708949109debf3b",
+      "dcp_type": "word_order",
+      "input": {
+        "kind": "token_order",
+        "actual_choice_count": null,
+        "id_basis": "bank_occurrence_index"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Reconstruct a sentence from token occurrences; source meaning and alternative order need review.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": false,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_new_input_contract",
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "token_ids"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    },
+    {
+      "sample_id": "FQR1-14",
+      "content": {
+        "id": "3f8f85c0-10b1-48e5-9bb8-3eb69a9c3b8f",
+        "revision": "FQR1-sealed-snapshot:c6da99c40799e5826a00977f8920ad2f1443b83a4e3f074e996b1b9bccea47cb",
+        "revision_kind": "sealed_observation_not_generation_revision"
+      },
+      "source": {
+        "id": "94c7bd43-e7a0-47d8-ba5d-4102cada9392",
+        "revision": null,
+        "sha256": "cc9631940260858311963a5d56c9734d3cbf170f69557709a62ecab9a8903a12",
+        "historical_generation_revision": null,
+        "kind": "article"
+      },
+      "generated_sha256": "c6da99c40799e5826a00977f8920ad2f1443b83a4e3f074e996b1b9bccea47cb",
+      "generated_stimulus_sha256": "21245c394c9f10f4d4baa754445c782381a089e4e32aa54fd33d40abb766ccfd",
+      "specification_sha256": "8a543a5c5685160446a8de15597b90cc1869117666f26d52057165f22c263b50",
+      "dcp_type": "word_order",
+      "input": {
+        "kind": "token_order",
+        "actual_choice_count": null,
+        "id_basis": "bank_occurrence_index"
+      },
+      "series": {
+        "id": null,
+        "step": null,
+        "assignment_status": "unassigned"
+      },
+      "TASK": {
+        "core": null,
+        "support": [],
+        "observed_performance": "Reconstruct a sentence from token occurrences; source meaning and alternative order need review.",
+        "missing_direct_evidence": [
+          "No bound TASK/role demand; no actual learner response or validated direct rubric."
+        ],
+        "direct_mastery_evidence": false
+      },
+      "role": "guided_practice",
+      "review_requirements": {
+        "B": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "E": {
+          "author": "fail",
+          "independent": "fail"
+        },
+        "disagreement": false,
+        "content_repair_required": true,
+        "author_and_independent_B_E_pass": false,
+        "policy": "Any fail requires repair; unknown or disagreement retained. This is a conservative requirement union, not adjudication or original relabeling."
+      },
+      "runtime": {
+        "status": "requires_runner_adapter",
+        "additional_requirements": [
+          "requires_new_input_contract",
+          "requires_scoring_contract",
+          "requires_qualification",
+          "requires_book_assignment",
+          "requires_content_repair"
+        ]
+      },
+      "scoring": {
+        "method": "requires_scoring_contract",
+        "required_output_ids": [
+          "primary_response"
+        ],
+        "partial_supported": false,
+        "normalization_policy_ref": null
+      },
+      "response_keys": [
+        "token_ids"
+      ],
+      "public_qualified": false,
+      "assessment_qualified": false,
+      "legacy_RPC_supported": false,
+      "prototype_scope": "Research proposed reference comparison only; no production server scorer or learner execution."
+    }
+  ],
+  "counts": {
+    "requires_runner_adapter": 14,
+    "requires_scoring_contract": 14,
+    "requires_qualification": 14,
+    "requires_book_assignment": 14,
+    "requires_content_repair": 8,
+    "author_and_independent_B_E_pass": 4,
+    "B_or_E_disagreement": 6,
+    "existing_runner_supported": 0,
+    "existing_scoring_supported": 0,
+    "public_qualified": 0,
+    "assessment_qualified": 0,
+    "human_validation": 0,
+    "student_validation": 0,
+    "product_application": 0
+  },
+  "denominator_warning": "14 newly sampled unique DCP contents; multiple requirements overlap, no role/test/student denominator merge."
+}

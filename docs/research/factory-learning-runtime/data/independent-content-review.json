@@ -1,0 +1,370 @@
+{
+    "version":  "FQR1-independent-public-1",
+    "reviewer":  "fresh-independent-ai-context",
+    "input_sha256":  "a6056dee08492c193cfea3ad701aa366994162c2e0376021cdf3c2d14a968866",
+    "sealed_first_sha256":  "85e3eaff09aecfebfe28a397c3d6c493c59e0c38643e9a0bd24e07aa1c1a5dac",
+    "author_feedback_read":  false,
+    "actual_sample_count":  14,
+    "actual_per_type_count":  2,
+    "actual_student_response_count":  0,
+    "human_review_count":  0,
+    "grading_rpc_call_count":  0,
+    "actual_axis_counts":  {
+                               "A_structure":  {
+                                                   "pass":  14
+                                               },
+                               "B_meaning":  {
+                                                 "pass":  10,
+                                                 "fail":  4
+                                             },
+                               "E_key_explanation":  {
+                                                         "pass":  7,
+                                                         "fail":  7
+                                                     },
+                               "TASK_direct":  {
+                                                   "hold":  14
+                                               },
+                               "source_policy":  {
+                                                     "hold":  14
+                                                 },
+                               "runtime":  {
+                                               "unsupported":  14
+                                           },
+                               "scoring":  {
+                                               "unsupported":  14
+                                           },
+                               "input_feedback_contract":  {
+                                                               "hold":  8,
+                                                               "fail":  6
+                                                           }
+                           },
+    "items":  [
+                  {
+                      "sample_id":  "FQR1-01",
+                      "item_id":  "4c9d5175-7507-4b31-93b5-1fad1ada728a",
+                      "type":  "vocab_choice",
+                      "item_sha256":  "c5dd58f1d346cc11a52f1566425b7db89f60daa5019999966822a74b642e5a25",
+                      "source_sha256":  "d45a7dba6aa80f0e3ab0ce2d1ce41e63e8295a7ba1ca418150b6d1ed3ebd7347",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I01",
+                                               "I02"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-02",
+                      "item_id":  "d8c7799a-8bca-458c-b56f-529cddd5c2c0",
+                      "type":  "vocab_choice",
+                      "item_sha256":  "2777ca246b5a328b8aaa3eb31e9773f30f13739917fb01e8b32f9c88856224ce",
+                      "source_sha256":  "f1e9993f10ab9793ab6d04fff229b437e6c705f55efd5e120705acaf3dbea13b",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I01",
+                                               "I03"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-03",
+                      "item_id":  "931e8350-cc5a-4b36-8bd7-705de9268cd3",
+                      "type":  "unit_vocab",
+                      "item_sha256":  "49630d486b09d489a89190896e71baaff068b742c57870e91a10f51aa5fba562",
+                      "source_sha256":  "5a6bfba3b65a67d7c3716e18710e2da690255b95ae54c189fc51b9060c90b305",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I04",
+                                               "I02"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-04",
+                      "item_id":  "f73dfb47-a06e-4f75-a55d-c40b143dfcbe",
+                      "type":  "unit_vocab",
+                      "item_sha256":  "c71f62552ef35c75c72fd57a370819ceb63701749fbc1c2fad861e861881125e",
+                      "source_sha256":  "7f6f32adf3fe251f71189755f8cbcf2bd191374153445c39007220e863db7b43",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "fail",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I05",
+                                               "I04"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-05",
+                      "item_id":  "dfb36aa8-1ca2-49b3-a040-d6fde6af3c21",
+                      "type":  "blank_word",
+                      "item_sha256":  "8331fa326d105f5d13439d24cf40b8994b866974a625fc2e2e623156aad56387",
+                      "source_sha256":  "b2fccfd9701067d6fe12521ba7aa16020d2cef2cde21a223012325efef6c037f",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I06",
+                                               "I07"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-06",
+                      "item_id":  "32392655-92f1-43ad-bd0c-1020c83dd822",
+                      "type":  "blank_word",
+                      "item_sha256":  "fb9360b64d46a9612428a48c05930904f5cd31809c301355c6a6d2d5e3a17804",
+                      "source_sha256":  "f2e7da5c1f2daaa19effbc48773bdcf4d3c700be6892fb10982db8b15e40c97f",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "fail",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I08",
+                                               "I07"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-07",
+                      "item_id":  "e8146c84-33b3-4e43-b778-d4f13b24f608",
+                      "type":  "grammar_choice",
+                      "item_sha256":  "c0828ef1498888f56f43798f06fce5aa0d9005851e9afa36b64a87fb7833b732",
+                      "source_sha256":  "998e645c7e31c691f55f2e19c1fa3ce817605c45c1f16475c5ece899112304c7",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I01",
+                                               "I02"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-08",
+                      "item_id":  "94ccf22a-c98c-4786-89bf-fd5bd9ce081f",
+                      "type":  "grammar_choice",
+                      "item_sha256":  "20b28d8037c515f90f0ddf8e4927357c784182329fc9a6fdb19dec668a832ec4",
+                      "source_sha256":  "84a4c5d86dc9c422f4038277e7b74c48b1ddb9673101cbc093a9d23b0774c1ee",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I09"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-09",
+                      "item_id":  "ab1dd2b4-6d01-49ae-88f9-df56156d9e7a",
+                      "type":  "grammar_fix",
+                      "item_sha256":  "1b504b5c058a40d19a0f016e14a1458d5d67ebffe03c7d0fa164e8fb485a1279",
+                      "source_sha256":  "15c0411fa8fbf0f97a3d3fe2443589c2d20cc1d885dbb568190ef0fcb0e592d5",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I09",
+                                               "I10"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-10",
+                      "item_id":  "41b81d08-d74f-48ce-872b-5037a30b127a",
+                      "type":  "grammar_fix",
+                      "item_sha256":  "9958decbac4d5511b07bffb71b68b90226feb48be3416529da7064888f02a1b5",
+                      "source_sha256":  "f8190fff0446934e3c419909074c0bda305359a30411d9d825e19132bda00735",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I10",
+                                               "I11"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-11",
+                      "item_id":  "27b6c255-02d3-4655-8e8b-b51377c3f8ce",
+                      "type":  "unit_grammar",
+                      "item_sha256":  "6c58b6955c7611a0e1794bcbc8a1f9ca0cb143fe88c1cdd8b7794b217a1b3755",
+                      "source_sha256":  "65073f6f019aa527e688a5067130689d1c08ed97594ab16063d8dc93ad67877e",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I11",
+                                               "I02"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-12",
+                      "item_id":  "bfccb1ec-d1ad-4e3f-b27c-e7552b808095",
+                      "type":  "unit_grammar",
+                      "item_sha256":  "9c9dc35475c1194e976aa0b2f67d9100ff7e369f0b8eb86de73a62a980ffee1c",
+                      "source_sha256":  "fd5f39633db51bc749eef5692006aa568f2d8b79d2976cf5860a29ea4eb55eaa",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "pass",
+                                   "E_key_explanation":  "pass",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "hold"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I12",
+                                               "I02"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-13",
+                      "item_id":  "aa37d9c3-d929-413e-9b0b-3d0b8f88f718",
+                      "type":  "word_order",
+                      "item_sha256":  "701611eef583218eb930777529a6adcb18cc8c925728d8d6b57eb4ec676fc534",
+                      "source_sha256":  "dd7fdfa70ea6fdf875ecd2993e220d6fb57995fc0206310f3cbce6099f85c421",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "fail",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I13",
+                                               "I14"
+                                           ]
+                  },
+                  {
+                      "sample_id":  "FQR1-14",
+                      "item_id":  "3f8f85c0-10b1-48e5-9bb8-3eb69a9c3b8f",
+                      "type":  "word_order",
+                      "item_sha256":  "c6da99c40799e5826a00977f8920ad2f1443b83a4e3f074e996b1b9bccea47cb",
+                      "source_sha256":  "cc9631940260858311963a5d56c9734d3cbf170f69557709a62ecab9a8903a12",
+                      "axes":  {
+                                   "A_structure":  "pass",
+                                   "B_meaning":  "fail",
+                                   "E_key_explanation":  "fail",
+                                   "TASK_direct":  "hold",
+                                   "source_policy":  "hold",
+                                   "runtime":  "unsupported",
+                                   "scoring":  "unsupported",
+                                   "input_feedback_contract":  "fail"
+                               },
+                      "opaque_issue_ids":  [
+                                               "I15",
+                                               "I14"
+                                           ]
+                  }
+              ],
+    "synthetic_stress_count":  6,
+    "synthetic_stress":  [
+                             {
+                                 "id":  "FQR1-IC-S01",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "contextual_sense"
+                             },
+                             {
+                                 "id":  "FQR1-IC-S02",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "complementizer_vs_demonstrative"
+                             },
+                             {
+                                 "id":  "FQR1-IC-S03",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "repair_alternative_meaning"
+                             },
+                             {
+                                 "id":  "FQR1-IC-S04",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "duplicate_token_identity"
+                             },
+                             {
+                                 "id":  "FQR1-IC-S05",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "incomplete_abbreviation_fragment"
+                             },
+                             {
+                                 "id":  "FQR1-IC-S06",
+                                 "origin":  "judger-authored-synthetic",
+                                 "category":  "hint_sense_and_exposure"
+                             }
+                         ],
+    "stress_tests_executed":  0
+}

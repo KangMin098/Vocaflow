@@ -1,0 +1,305 @@
+{
+  "version": "FQR1-post-seal-comparison-1",
+  "first_review_path": "scripts/research/factory-learning-runtime/local/independent-content-first.json",
+  "first_review_sha256": "85e3eaff09aecfebfe28a397c3d6c493c59e0c38643e9a0bd24e07aa1c1a5dac",
+  "blind_input_path": "scripts/research/factory-learning-runtime/local/blind-content-input.json",
+  "blind_input_sha256": "a6056dee08492c193cfea3ad701aa366994162c2e0376021cdf3c2d14a968866",
+  "references": [
+    {
+      "path": "scripts/research/factory-learning-runtime/local/content-review-first.json",
+      "sha256": "5f51199624e82b2c09bee50b31bfa7bdb5c85c96ebe0ce7ad13a2fadc8fc6e45"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/local/independent-content-first.json",
+      "sha256": "85e3eaff09aecfebfe28a397c3d6c493c59e0c38643e9a0bd24e07aa1c1a5dac"
+    },
+    {
+      "path": "scripts/research/factory-learning-runtime/local/blind-content-input.json",
+      "sha256": "a6056dee08492c193cfea3ad701aa366994162c2e0376021cdf3c2d14a968866"
+    },
+    {
+      "path": "docs/research/factory-learning-runtime/data/content-review.json",
+      "sha256": "ff3efb5d89f131230d4b9350a3d4c4672474bd8db6ab95af4a9f971b4bc529c2"
+    },
+    {
+      "path": "docs/research/factory-learning-runtime/data/independent-content-review.json",
+      "sha256": "81635e3b29ad148f7b0b1bbf8be304543a68456b0644d9bd84c2c4c6dc203188"
+    }
+  ],
+  "rows": [
+    {
+      "sample_id": "FQR1-01",
+      "type": "vocab_choice",
+      "item_id": "4c9d5175-7507-4b31-93b5-1fad1ada728a",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "disagreement": false,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": true,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-02",
+      "type": "vocab_choice",
+      "item_id": "d8c7799a-8bca-458c-b56f-529cddd5c2c0",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "fail"
+      },
+      "disagreement": true,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-03",
+      "type": "unit_vocab",
+      "item_id": "931e8350-cc5a-4b36-8bd7-705de9268cd3",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "disagreement": false,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": true,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-04",
+      "type": "unit_vocab",
+      "item_id": "f73dfb47-a06e-4f75-a55d-c40b143dfcbe",
+      "B": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": false,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-05",
+      "type": "blank_word",
+      "item_id": "dfb36aa8-1ca2-49b3-a040-d6fde6af3c21",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "unknown",
+        "independent": "pass"
+      },
+      "disagreement": true,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-06",
+      "type": "blank_word",
+      "item_id": "32392655-92f1-43ad-bd0c-1020c83dd822",
+      "B": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": false,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-07",
+      "type": "grammar_choice",
+      "item_id": "e8146c84-33b3-4e43-b778-d4f13b24f608",
+      "B": {
+        "author": "fail",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "disagreement": true,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-08",
+      "type": "grammar_choice",
+      "item_id": "94ccf22a-c98c-4786-89bf-fd5bd9ce081f",
+      "B": {
+        "author": "fail",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": true,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-09",
+      "type": "grammar_fix",
+      "item_id": "ab1dd2b4-6d01-49ae-88f9-df56156d9e7a",
+      "B": {
+        "author": "fail",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": true,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-10",
+      "type": "grammar_fix",
+      "item_id": "41b81d08-d74f-48ce-872b-5037a30b127a",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "unknown",
+        "independent": "pass"
+      },
+      "disagreement": true,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-11",
+      "type": "unit_grammar",
+      "item_id": "27b6c255-02d3-4655-8e8b-b51377c3f8ce",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "disagreement": false,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": true,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-12",
+      "type": "unit_grammar",
+      "item_id": "bfccb1ec-d1ad-4e3f-b27c-e7552b808095",
+      "B": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "E": {
+        "author": "pass",
+        "independent": "pass"
+      },
+      "disagreement": false,
+      "requires_content_repair": false,
+      "both_content_and_key_pass": true,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-13",
+      "type": "word_order",
+      "item_id": "aa37d9c3-d929-413e-9b0b-3d0b8f88f718",
+      "B": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": false,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "sample_id": "FQR1-14",
+      "type": "word_order",
+      "item_id": "3f8f85c0-10b1-48e5-9bb8-3eb69a9c3b8f",
+      "B": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "E": {
+        "author": "fail",
+        "independent": "fail"
+      },
+      "disagreement": false,
+      "requires_content_repair": true,
+      "both_content_and_key_pass": false,
+      "public_qualified": false,
+      "assessment_qualified": false
+    }
+  ],
+  "counts": {
+    "actual_new_items": 14,
+    "structure_pass": 14,
+    "structure_fail": 0,
+    "requires_content_repair": 8,
+    "both_content_and_key_pass": 4,
+    "disagreement_items": 6,
+    "existing_runner_supported": 0,
+    "requires_runner_adapter": 14,
+    "requires_new_token_order_contract": 2,
+    "existing_scorer_supported": 0,
+    "requires_scoring_contract": 14,
+    "qualification_hold": 14,
+    "public_qualified": 0,
+    "assessment_qualified": 0,
+    "human_experts": 0,
+    "actual_student_responses": 0
+  },
+  "scope": "Raw same-case labels retained. B scopes differ (author includes explanation meaning; critic also evaluates explanation under E). No kappa/reliability/consensus validity inferred; conservative union is supply hold policy.",
+  "independent_synthetic_stress_cases": 6,
+  "actual_RPC_grading_calls": 0,
+  "first_results_overwritten": false
+}

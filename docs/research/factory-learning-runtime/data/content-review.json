@@ -1,0 +1,1128 @@
+{
+  "version": "FQR1-content-review1",
+  "first_sha256": "5f51199624e82b2c09bee50b31bfa7bdb5c85c96ebe0ce7ad13a2fadc8fc6e45",
+  "input_sha256": "9402ac97ded10926f2e17901a0755ed2b07c5571dab48899d54ae6306faeda9f",
+  "denominator": {
+    "items": 14,
+    "new_actual_items_only": true
+  },
+  "items": [
+    {
+      "id": "FQR1-01",
+      "type": "vocab_choice",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 1377,
+            "end": 3177
+          }
+        ],
+        "source_total_chars": 10077,
+        "external_original": "not_verified",
+        "source_sha256": "d45a7dba6aa80f0e3ab0ce2d1ce41e63e8295a7ba1ca418150b6d1ed3ebd7347",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "ARRAY_FRAGMENT_DISPLAY_BOUNDARY"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-02",
+      "type": "vocab_choice",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 2036,
+            "end": 3836
+          }
+        ],
+        "source_total_chars": 42906,
+        "external_original": "not_verified",
+        "source_sha256": "f1e9993f10ab9793ab6d04fff229b437e6c705f55efd5e120705acaf3dbea13b",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "ABBREVIATION_FRAGMENT_DISPLAY_BOUNDARY"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-03",
+      "type": "unit_vocab",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 556,
+            "end": 2356
+          }
+        ],
+        "source_total_chars": 20668,
+        "external_original": "not_verified",
+        "source_sha256": "5a6bfba3b65a67d7c3716e18710e2da690255b95ae54c189fc51b9060c90b305",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": 5,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "LEXICAL_RECOGNITION_NOT_DIRECT_V2"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-04",
+      "type": "unit_vocab",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 15582,
+            "end": 17382
+          }
+        ],
+        "source_total_chars": 43754,
+        "external_original": "not_verified",
+        "source_sha256": "7f6f32adf3fe251f71189755f8cbcf2bd191374153445c39007220e863db7b43",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": 5,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "WRONG_CONTEXTUAL_SENSE",
+        "NO_VALID_GIVEN_CHOICE"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-05",
+      "type": "blank_word",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 14413,
+            "end": 15575
+          }
+        ],
+        "source_total_chars": 31763,
+        "external_original": "not_verified",
+        "source_sha256": "b2fccfd9701067d6fe12521ba7aa16020d2cef2cde21a223012325efef6c037f",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "typed_correction_or_completion"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "unknown",
+          "reason": "Source-restored key candidate exists, but accepted response forms/alternatives unspecified."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "TYPED_ALTERNATIVES_UNREGISTERED",
+        "BUILT_IN_HINT_ASSISTED"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-06",
+      "type": "blank_word",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 31431,
+            "end": 32627
+          }
+        ],
+        "source_total_chars": 36822,
+        "external_original": "not_verified",
+        "source_sha256": "f2e7da5c1f2daaa19effbc48773bdcf4d3c700be6892fb10982db8b15e40c97f",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "typed_correction_or_completion"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "HINT_SENSE_MISMATCH",
+        "TYPED_ALTERNATIVES_UNREGISTERED",
+        "BUILT_IN_HINT_ASSISTED"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "vocabulary_recognition_or_cued_recall",
+        "missing": "Learner contextual sense rationale/evidence not elicited."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-07",
+      "type": "grammar_choice",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 12232,
+            "end": 15032
+          }
+        ],
+        "source_total_chars": 17275,
+        "external_original": "not_verified",
+        "source_sha256": "998e645c7e31c691f55f2e19c1fa3ce817605c45c1f16475c5ece899112304c7",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "HEADING_MERGED_WITH_SENTENCE"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-08",
+      "type": "grammar_choice",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 20391,
+            "end": 22191
+          }
+        ],
+        "source_total_chars": 54634,
+        "external_original": "not_verified",
+        "source_sha256": "84a4c5d86dc9c422f4038277e7b74c48b1ddb9673101cbc093a9d23b0774c1ee",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "COMPLEMENTIZER_MISCLASSIFIED",
+        "REQUIRED_EXAMPLE_CONTEXT_OMITTED"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-09",
+      "type": "grammar_fix",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 2854,
+            "end": 4030
+          }
+        ],
+        "source_total_chars": 4030,
+        "external_original": "not_verified",
+        "source_sha256": "15c0411fa8fbf0f97a3d3fe2443589c2d20cc1d885dbb568190ef0fcb0e592d5",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "typed_correction_or_completion"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "COMPLEMENTIZER_MISCLASSIFIED",
+        "CORRECTION_TARGET_NOT_STRUCTURED"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-10",
+      "type": "grammar_fix",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 38737,
+            "end": 39917
+          }
+        ],
+        "source_total_chars": 64214,
+        "external_original": "not_verified",
+        "source_sha256": "f8190fff0446934e3c419909074c0bda305359a30411d9d825e19132bda00735",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "typed_correction_or_completion"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "unknown",
+          "reason": "Source-restored key candidate exists, but accepted response forms/alternatives unspecified."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "TYPED_ALTERNATIVES_UNREGISTERED",
+        "CORRECTION_TARGET_NOT_STRUCTURED"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-11",
+      "type": "unit_grammar",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "all_supplied_local_body",
+        "source_ranges": [
+          {
+            "start": 0,
+            "end": 2004
+          }
+        ],
+        "source_total_chars": 2004,
+        "external_original": "not_verified",
+        "source_sha256": "65073f6f019aa527e688a5067130689d1c08ed97594ab16063d8dc93ad67877e",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": 5,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "GRAMMAR_RECOGNITION_NOT_DIRECT_S5"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-12",
+      "type": "unit_grammar",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "all_supplied_local_body",
+        "source_ranges": [
+          {
+            "start": 0,
+            "end": 2084
+          }
+        ],
+        "source_total_chars": 2084,
+        "external_original": "not_verified",
+        "source_sha256": "fd5f39633db51bc749eef5692006aa568f2d8b79d2976cf5860a29ea4eb55eaa",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": 5,
+        "actual_underlines": 5,
+        "actual_bank": null,
+        "choice_padding": false,
+        "response_mode": "choice_label"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "Bounded target semantics supported; no claim of full-source scientific validation."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "pass",
+          "reason": "Present or established type-level recognition/correction demand interpretable; semantic defects judged separately."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Only the stated constrained key/position locally supported; not human rubric or scoring reliability."
+        },
+        "F": {
+          "state": "fail",
+          "reason": "Current source is archived; operational hold, separate from legal rights judgment."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "ARCHIVED_SOURCE_OPERATIONAL_HOLD",
+        "GRAMMAR_RECOGNITION_NOT_DIRECT_S5"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "grammar_recognition_or_correction",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_runner_adapter",
+      "grading_support": "requires_scoring_contract",
+      "feedback_support": "requires_feedback_adapter",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-13",
+      "type": "word_order",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 11760,
+            "end": 13560
+          }
+        ],
+        "source_total_chars": 23000,
+        "external_original": "not_verified",
+        "source_sha256": "dd7fdfa70ea6fdf875ecd2993e220d6fb57995fc0206310f3cbce6099f85c421",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": 7,
+        "choice_padding": false,
+        "response_mode": "token_order"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "Payload lacks explicit learner instruction; observed reconstruction purpose insufficient to invent a command."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "HEADING_NOT_FINITE_CLAUSE",
+        "MULTIPLE_ORDERINGS_NOT_REGISTERED",
+        "INSTRUCTION_MISSING"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "structure_reconstruction_candidate",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    },
+    {
+      "id": "FQR1-14",
+      "type": "word_order",
+      "kind": "article",
+      "coverage": {
+        "payload": "all",
+        "answer_key": "all",
+        "explanation": "all",
+        "source_body": "bounded_context",
+        "source_ranges": [
+          {
+            "start": 2453,
+            "end": 4253
+          }
+        ],
+        "source_total_chars": 57863,
+        "external_original": "not_verified",
+        "source_sha256": "cc9631940260858311963a5d56c9734d3cbf170f69557709a62ecab9a8903a12",
+        "generation_revision": "unknown"
+      },
+      "structure": {
+        "actual_choices": null,
+        "actual_underlines": null,
+        "actual_bank": 7,
+        "choice_padding": false,
+        "response_mode": "token_order"
+      },
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Current local source context read and hashed; generation-time revision and external lineage not verified."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Concrete stimulus, meaning, or explanation defect preserved in private first evidence."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "No exact immutable TASK/role demand binding; recognition or reconstruction candidate only."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "Payload lacks explicit learner instruction; observed reconstruction purpose insufficient to invent a command."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Key/feedback or unique-answer validity defect; original key presence is insufficient."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "No actual rights/release approval record."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "Actual learner exposure, attempt/hint/finalization evidence absent."
+        },
+        "H": {
+          "state": "fail",
+          "reason": "Observed existing DCP classification/parse/grade contract excludes this textbook-only type; no live runtime acceptance performed."
+        }
+      },
+      "failure_codes": [
+        "ABBREVIATION_TRUNCATES_REQUIRED_CLAUSE",
+        "INCOMPLETE_TOKEN_BANK",
+        "INSTRUCTION_MISSING"
+      ],
+      "task_fit": {
+        "direct_TASK_evidence": false,
+        "candidate": "structure_reconstruction_candidate",
+        "missing": "Learner structure/scope rationale not elicited; exact TASK-specific revision binding absent."
+      },
+      "runner_support": "requires_content_repair",
+      "grading_support": "requires_content_repair",
+      "feedback_support": "requires_content_repair",
+      "public_qualified": false,
+      "assessment_qualified": false
+    }
+  ],
+  "counts": {
+    "A": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 14,
+      "not_applicable": 0
+    },
+    "B": {
+      "pass": 7,
+      "fail": 7,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "C": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 14,
+      "not_applicable": 0
+    },
+    "D": {
+      "pass": 12,
+      "fail": 0,
+      "unknown": 2,
+      "not_applicable": 0
+    },
+    "E": {
+      "pass": 6,
+      "fail": 6,
+      "unknown": 2,
+      "not_applicable": 0
+    },
+    "F": {
+      "pass": 0,
+      "fail": 1,
+      "unknown": 13,
+      "not_applicable": 0
+    },
+    "G": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 14,
+      "not_applicable": 0
+    },
+    "H": {
+      "pass": 0,
+      "fail": 14,
+      "unknown": 0,
+      "not_applicable": 0
+    }
+  },
+  "limits": [
+    "AI content review only",
+    "No human/student/rights authorization",
+    "Purposive sample: no population defect-rate inference"
+  ]
+}

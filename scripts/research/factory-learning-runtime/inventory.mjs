@@ -1,0 +1,26 @@
+// scripts/research/factory-learning-runtime/inventory.mjs
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
+const base='scripts/research/factory-learning-runtime/local';
+const receiptsPath=`${base}/sample-inventory-receipts.json`;
+const regPath='docs/research/factory-learning-runtime/data/sample-registration.json';
+const receipts=JSON.parse(fs.readFileSync(receiptsPath,'utf8'));
+const registration=JSON.parse(fs.readFileSync(regPath,'utf8'));
+const catalogPath='D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/series-catalog.ts';
+const seriesPath='D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/series.ts';
+const elementaryPath='D:/workspace/Vocaflow-map-v62/packages/library-pipeline/src/textbook/elementary.ts';
+const catalog=fs.readFileSync(catalogPath,'utf8');
+function typesOf(name){const block=catalog.match(new RegExp(`const ${name}_RUNGS:[\\s\\S]*?\\n\\)\\n`))?.[0];if(!block)throw Error('Catalog block not observed');const list=block.match(/\['(?:vocab_choice|grammar_choice)'[^\]]+\]/)?.[0];if(!list)throw Error('Catalog types absent');return [...list.matchAll(/'([^']+)'/g)].map(x=>x[1]);}
+const catalogTypes={vocab:typesOf('VOCAB'),syntax:typesOf('SYNTAX'),reading:['rhyme','word_meaning','spell_blank']};
+const volumes=[];
+for(const series of ['vocab','syntax','reading'])for(const step of series==='reading'?[1]:[2,3,4,5,6,7]){
+ const types=catalogTypes[series];
+ const pools=receipts.type_level.rows.filter(x=>x.v_level===step&&types.includes(x.type));
+ const render=receipts.renders.rows.find(x=>x.series===series&&x.step===step)??null;
+ const rows=pools.reduce((sum,x)=>sum+Number(x.rows),0);
+ const sourceGroups=receipts.source_strata.rows.filter(x=>x.v_level===step&&types.includes(x.type));
+ volumes.push({series,step,v_levels:[step],catalog_types:types,candidate_quantity:rows,by_type:types.map(type=>({type,stored_rows:Number(pools.find(x=>x.type===type)?.rows??0),explanation_present_rows:Number(pools.find(x=>x.type===type)?.explained??0)})),render_record:render,published_status_observed:render?.status??null,render_record_items:render?.items??null,render_record_units:render?.units??null,assigned_item_ids_verified:false,assigned_item_count:null,source_metadata:sourceGroups,cached_status_not_release_approval:true,legacy_rpc_target_types_included:false,volume_scoped_rpc_exists:false,runtime_support_status:'See separate live code/runner audit; stored stock does not establish runner support',rights_approved_quantity:null,source_content_reviewed_quantity:null,qualification_approved_quantity:null,elementary_generation_material:series==='reading'?{dictionary_tag:'kcurr2022_1',dictionary_rows:receipts.dictionary.rows.find(x=>x.list_tag==='kcurr2022_1')?.words??null,three_types_generated_from_dictionary:true,generation_count_not_actual_assigned_count:true}:null,gaps:series==='reading'?['Stored DCP count is measured zero because three elementary types are generated deterministically from dictionary','Legacy RPC requires article and reading types; elementary generation needs a separate runner path','Render count is not current assigned stock or verified grading']:['Legacy database RPC excludes all catalog target types','Volume-scoped RPC absent at read receipt; current product adapter proposal tracked separately','Full current per-volume assigned item ID lineage unverified','Rights/source/assessment approved quantities unmeasured']});
+}
+const metadata={version:'FQR1-inventory-1',observed_at:receipts.renders.read_at,sql_receipts_sha256:hash(fs.readFileSync(receiptsPath)),sql_receipts:{renders:receipts.renders,type_level:receipts.type_level,dictionary:receipts.dictionary,source_strata:receipts.source_strata,function_definitions:receipts.functions,legacy_function:receipts.legacy_function},catalog_snapshot:[catalogPath,seriesPath,elementaryPath].map(file=>({file,sha256:hash(fs.readFileSync(file)),scope:'read-only observed working-tree snapshot, not main completion'})),type_inventory:receipts.type_counts,payload_field_inventory:receipts.payload_fields,answer_field_inventory:receipts.answer_fields,sample:{registration_sha256:hash(fs.readFileSync(regPath)),n:registration.selected.length,distinct_refs:new Set(registration.selected.map(x=>x.ref_id)).size,strata:registration.strata,shortages:registration.shortages},volumes,denominators:{book_combinations:13,vocab:6,syntax:6,reading_step1:1},db_writes:0,public_qualified:0,assessment_qualified:0,limits:['Inventory counts measure availability by type and V-level, not actual assigned/current book item IDs','Source counts can overlap across types; do not sum sources as distinct population','Published render status is an operational publication record, not rights or educational qualification','Null approved stock means unmeasured, not zero','Dictionary count is generation material, not item quantity or learning evidence']};
+fs.writeFileSync('docs/research/factory-learning-runtime/data/inventory.json',JSON.stringify(metadata,null,2)+'\n');console.log(JSON.stringify({volumes:volumes.map(x=>({series:x.series,step:x.step,candidates:x.candidate_quantity,published:x.published_status_observed})),sample:metadata.sample.n,sha256:hash(fs.readFileSync('docs/research/factory-learning-runtime/data/inventory.json'))}));

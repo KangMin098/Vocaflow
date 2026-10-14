@@ -1,0 +1,681 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vocaflow:research:FQR1:LearningActivitySpecification:1",
+  "title": "FQR1 research LearningActivitySpecification; schema validation is not release or assessment authorization",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "content",
+    "source",
+    "generated_sha256",
+    "series",
+    "dcp_type",
+    "TASK",
+    "purpose",
+    "role",
+    "presentation",
+    "input",
+    "answer_qualification",
+    "scoring",
+    "feedback",
+    "help",
+    "learner_exposure",
+    "runtime",
+    "FQ",
+    "qualified_public",
+    "qualified_assessment"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "FQR1-LearningActivitySpecification-1"
+    },
+    "content": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision",
+        "revision_kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_kind": {
+          "const": "sealed_observation_not_generation_revision"
+        }
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "revision",
+        "sha256",
+        "historical_generation_revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "article",
+            "book"
+          ]
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "historical_generation_revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "generated_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generated_stimulus_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "series": {
+      "type": "object",
+      "required": [
+        "id",
+        "step",
+        "assignment_status"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "assignment_status": {
+          "enum": [
+            "bound",
+            "unassigned"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "dcp_type": {
+      "enum": [
+        "vocab_choice",
+        "unit_vocab",
+        "blank_word",
+        "grammar_choice",
+        "grammar_fix",
+        "unit_grammar",
+        "word_order"
+      ]
+    },
+    "TASK": {
+      "type": "object",
+      "required": [
+        "core",
+        "support",
+        "observed_performance",
+        "missing_direct_evidence",
+        "direct_mastery_evidence"
+      ],
+      "properties": {
+        "core": {
+          "anyOf": [
+            {
+              "enum": [
+                "v.core_meaning",
+                "v.contextual_sense",
+                "v.multiword",
+                "v.semantic_relation",
+                "s.sentence_core",
+                "s.chunk_boundary",
+                "s.attachment",
+                "s.structural_relation",
+                "s.form_scope",
+                "s.o.sentence_meaning_model",
+                "r.reference",
+                "r.relation",
+                "r.discourse_function",
+                "r.discourse_structure",
+                "r.central_meaning",
+                "r.inference",
+                "r.o.global_meaning_model",
+                "e.task_demand",
+                "e.evidence_location",
+                "e.option_correspondence",
+                "e.o.final_judgment",
+                "l.sound",
+                "l.sentence",
+                "l.retain",
+                "l.respond",
+                "x.time_allocation",
+                "x.sequence",
+                "x.recovery_adaptation",
+                "x.attention_stamina",
+                "x.o.whole_test_stability"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "v.core_meaning",
+              "v.contextual_sense",
+              "v.multiword",
+              "v.semantic_relation",
+              "s.sentence_core",
+              "s.chunk_boundary",
+              "s.attachment",
+              "s.structural_relation",
+              "s.form_scope",
+              "s.o.sentence_meaning_model",
+              "r.reference",
+              "r.relation",
+              "r.discourse_function",
+              "r.discourse_structure",
+              "r.central_meaning",
+              "r.inference",
+              "r.o.global_meaning_model",
+              "e.task_demand",
+              "e.evidence_location",
+              "e.option_correspondence",
+              "e.o.final_judgment",
+              "l.sound",
+              "l.sentence",
+              "l.retain",
+              "l.respond",
+              "x.time_allocation",
+              "x.sequence",
+              "x.recovery_adaptation",
+              "x.attention_stamina",
+              "x.o.whole_test_stability"
+            ]
+          }
+        },
+        "observed_performance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "missing_direct_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "direct_mastery_evidence": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "enum": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ]
+    },
+    "presentation": {
+      "type": "object",
+      "required": [
+        "stimulus",
+        "prompt",
+        "options",
+        "required_output_ids"
+      ],
+      "properties": {
+        "stimulus": {
+          "type": "object"
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "text"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required_output_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "input": {
+      "type": "object",
+      "required": [
+        "kind",
+        "id_basis",
+        "token_ids",
+        "actual_choice_count"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "marked_selection",
+            "choice",
+            "short_text",
+            "token_order"
+          ]
+        },
+        "id_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "token_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "actual_choice_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 2
+        }
+      },
+      "additionalProperties": true
+    },
+    "answer_qualification": {
+      "type": "object",
+      "required": [
+        "server_secret_ref",
+        "status",
+        "accepted_alternatives"
+      ],
+      "properties": {
+        "server_secret_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "requires_validation"
+        },
+        "accepted_alternatives": {
+          "const": "explicit_versioned_only"
+        }
+      },
+      "additionalProperties": true
+    },
+    "scoring": {
+      "type": "object",
+      "required": [
+        "method",
+        "required_output_ids",
+        "partial_supported",
+        "normalization_policy_ref"
+      ],
+      "properties": {
+        "method": {
+          "const": "requires_scoring_contract"
+        },
+        "required_output_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "partial_supported": {
+          "const": false
+        },
+        "normalization_policy_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "feedback": {
+      "type": "object",
+      "required": [
+        "explanation_ref",
+        "Gold_after_final_freeze",
+        "required_output_ids",
+        "completeness_status"
+      ],
+      "properties": {
+        "explanation_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Gold_after_final_freeze": {
+          "const": true
+        },
+        "required_output_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "completeness_status": {
+          "const": "requires_content_review"
+        }
+      },
+      "additionalProperties": true
+    },
+    "help": {
+      "type": "object",
+      "required": [
+        "assisted_label",
+        "hint_log_required",
+        "original_question_cue_present",
+        "optional_added_hint_requires_review"
+      ],
+      "properties": {
+        "assisted_label": {
+          "const": true
+        },
+        "hint_log_required": {
+          "const": true
+        },
+        "original_question_cue_present": {
+          "type": "boolean"
+        },
+        "optional_added_hint_requires_review": {
+          "const": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "learner_exposure": {
+      "type": "object",
+      "required": [
+        "server_supply_time_required",
+        "independent_evidence"
+      ],
+      "properties": {
+        "server_supply_time_required": {
+          "const": true
+        },
+        "independent_evidence": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "status",
+        "additional_requirements"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "requires_runner_adapter",
+            "requires_new_input_contract",
+            "requires_scoring_contract",
+            "requires_content_repair",
+            "requires_qualification",
+            "unsupported"
+          ]
+        },
+        "additional_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "FQ": {
+      "type": "object",
+      "required": [
+        "reference",
+        "state"
+      ],
+      "properties": {
+        "reference": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "state": {
+          "const": "requires_qualification"
+        }
+      },
+      "additionalProperties": true
+    },
+    "qualified_public": {
+      "const": false
+    },
+    "qualified_assessment": {
+      "const": false
+    }
+  },
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "vocab_choice"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "marked_selection"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "unit_vocab"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "choice"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "blank_word"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "short_text"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "grammar_choice"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "marked_selection"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "grammar_fix"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "short_text"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "unit_grammar"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "choice"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dcp_type": {
+            "const": "word_order"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "const": "token_order"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "x-future-input-contracts": [
+    "span_selection",
+    "meaning_explanation",
+    "meaning_comparison",
+    "guided_steps"
+  ],
+  "x-future-input-status": "Not implemented or admitted by current schema: requires new input and validated scoring contract.",
+  "x-additional-semantic-validator": "validateLearningContract enforces output agreement, key secrecy, original cardinality, unknown book hold, source binding and non-promotion. JSON schema alone is insufficient."
+}

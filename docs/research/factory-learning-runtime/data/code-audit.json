@@ -1,0 +1,371 @@
+{
+  "version": "FQR1-code-audit1",
+  "observed_date": "2026-10-15",
+  "product_worktree": "D:/workspace/Vocaflow-map-v62",
+  "product_head": "0f2915b4a3534dfa14da8c8ddecf7780f02b85d8",
+  "product_branch": "feat/pf8-bc-hardening",
+  "product_dirty_paths": [
+    "M apps/web/src/lib/csat/map/v62/__tests__/supply-b-orders.pglite.test.ts",
+    " M apps/web/src/lib/csat/map/v62/__tests__/supply-sql-harness.ts",
+    " M supabase/migrations/_pending_workspace_supply_b_orders.sql",
+    " M supabase/migrations/_pending_workspace_supply_c_qualification.sql",
+    "?? apps/web/src/lib/csat/map/v62/__tests__/supply-stub.sql"
+  ],
+  "code_files": [
+    {
+      "path": "apps/web/src/lib/learner/dcp-types.ts",
+      "sha256": "319a59e63829e55f6a938977f352aa661fe1afbd47562e24530b2ca77a1628e6",
+      "bytes": 6270
+    },
+    {
+      "path": "apps/web/src/lib/learner/dcp.ts",
+      "sha256": "1fdf06a30046474bcbfb1961708ae1dec52f901116bd32fe25ef1e27327e7e08",
+      "bytes": 9540
+    },
+    {
+      "path": "apps/web/src/lib/learner/dcp-actions.ts",
+      "sha256": "d505b26f373456b8b69582622e17568846fadd93962f310a18ed4b26931e4d61",
+      "bytes": 17576
+    },
+    {
+      "path": "apps/web/src/lib/textbook/practice-rpc.ts",
+      "sha256": "9ea05319fc70f4eee8cb8541b09ca9211504c5f921c48871df2924403841dd7d",
+      "bytes": 2014
+    },
+    {
+      "path": "apps/web/src/lib/textbook/publish-gate.ts",
+      "sha256": "add3dfb8af349801ab89028fb02583807bae0333849ad8450c51d769cb435ced",
+      "bytes": 2937
+    },
+    {
+      "path": "apps/web/src/components/practice/DcpPlayer.tsx",
+      "sha256": "ed1653ccbad1158df5f603037bb0d956af27becc96c8a4d29c93aa95e7dd0624",
+      "bytes": 18205
+    },
+    {
+      "path": "apps/web/src/components/practice/DcpItems.tsx",
+      "sha256": "51f62e1a7000f2bb98c91950d8df802d3fa0728a8e77ed44733bb2971ac37987",
+      "bytes": 11801
+    },
+    {
+      "path": "apps/web/src/components/wordvault/StudyMode.tsx",
+      "sha256": "0b18f1e59be17a4b05279c2d924b0aed3ee680e38b6a7060670d26fa5e357e53",
+      "bytes": 16757
+    },
+    {
+      "path": "apps/web/src/components/wordvault/WordVaultStudyClient.tsx",
+      "sha256": "e0485906f54138bc460624f6b386c2efac70ac7115c4f675938b53fd7694fb26",
+      "bytes": 6084
+    },
+    {
+      "path": "apps/web/src/components/game/scriptquiz/ScriptQuiz.tsx",
+      "sha256": "8309fcc10d45bbe95c0bb537f4076a515174ae39c3f8b7c40b183e8b872e7440",
+      "bytes": 47020
+    },
+    {
+      "path": "apps/web/src/components/game/scriptquiz/types.ts",
+      "sha256": "cc4eb414a56914ccea89a8f7d5135cc7bd5a521547dff4d42ed56b7fe2f0911a",
+      "bytes": 3430
+    },
+    {
+      "path": "apps/web/src/lib/scriptquiz/grade-actions.ts",
+      "sha256": "836c7f032a142d0bb39f1b978243d78e127dd1c617fba9ad8c0739036f3f0ce9",
+      "bytes": 5387
+    },
+    {
+      "path": "apps/web/src/lib/scores/record-score.ts",
+      "sha256": "4567f98adb2bd47078acadbd62a87e8f2a24d67b638ab65b7875a21cc35bfa98",
+      "bytes": 4108
+    },
+    {
+      "path": "apps/web/src/lib/layout/session-return.ts",
+      "sha256": "516272595d3e111ddf62c8dc2ebc8c7bfe5b8fe622f68f1f2275d45675862251",
+      "bytes": 1226
+    },
+    {
+      "path": "apps/web/src/app/(main)/library/textbooks/[series]/[step]/practice/page.tsx",
+      "sha256": "94aa280d439ce34024d77f673bc908b0ffe12666855df71c1c516ad32b4c2764",
+      "bytes": 8383
+    },
+    {
+      "path": "apps/web/src/lib/admin/help/textbook.ts",
+      "sha256": "899819ffeec6218a17839cca208d32b9a67ba7cf1759d7ea97aa5fd9dc9a4d07",
+      "bytes": 57005
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/definition.data.ts",
+      "sha256": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+      "bytes": 43138
+    },
+    {
+      "path": "packages/library-pipeline/src/dcp/generate-items.ts",
+      "sha256": "e0f872ab23d5f87b8b42f9f220037ba2ff0f2668e053312c5faf9ce9b872afc4",
+      "bytes": 10415
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/series-catalog.ts",
+      "sha256": "cfacf552d55005b418d53c7a0acadf07e4b205fe3b0f11c46b6d27379320c604",
+      "bytes": 11687
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/compose-unit.ts",
+      "sha256": "90b24223ceaf8fed0489be1eb49d08e780636c834ccd2957ae95ddb433371483",
+      "bytes": 47644
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/school-types.ts",
+      "sha256": "6c5dcb8414074c8a443b7ecf8966707d1a6f884841103c53568396b31738db82",
+      "bytes": 14651
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/vocab-choice.ts",
+      "sha256": "4d59b79c76f1a47c59cecf38c204fd5f5ad63349ef5fdd8e015c6fca73c3de62",
+      "bytes": 23326
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/grammar-choice.ts",
+      "sha256": "5d2287cea82fbd3c6e24ef3151e2c5abd6ca1059608e273ef5c99ad28ced42fe",
+      "bytes": 17389
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/middle-choice.ts",
+      "sha256": "25327f9e9efea06c9366bc9d465a36b9ad03ef2cb92c2b56ae157a1f3b239e36",
+      "bytes": 11353
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/middle-short.ts",
+      "sha256": "2ba2d3df0fb646831218515d72967f6d9070460240e9435440523b465571ae0e",
+      "bytes": 10169
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/word-order.ts",
+      "sha256": "b1e9ccbf3cdd67cea3a105be2dbe30dcef1c0fc4747a90977e7035dde0f766a2",
+      "bytes": 10596
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/elementary.ts",
+      "sha256": "c81f88ee36ea57cec32a4c1f0880022ea6b6709b6359f19b5d34ce84f419c2b2",
+      "bytes": 14704
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/explain-items.ts",
+      "sha256": "bf8f6b17b468b9e76c56aafa334dc3aaa2bf20058fd20e7b16e35f4fbbd9f927",
+      "bytes": 43085
+    },
+    {
+      "path": "packages/library-pipeline/src/textbook/explain.ts",
+      "sha256": "5f56ea0ac3f411eb44111964318d71de5e724586b118f2e9bb7e5e79567309a9",
+      "bytes": 25522
+    },
+    {
+      "path": "scripts/textbook/store-new-types.mjs",
+      "sha256": "e92a61670243bb08d988e9168915d88577608408b0bdfd88e11bc7f39df9a1a9",
+      "bytes": 42838
+    },
+    {
+      "path": "supabase/migrations/_pending_textbook_practice_publish_gate.sql",
+      "sha256": "f25101478ac6ba67ec5e7aadcdaa6db11bdeed6da00899086c9834019ce498d0",
+      "bytes": 9126
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "bytes": 9572
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/production-pilot.ts",
+      "sha256": "ac9cfd255282b99c5d6206a55fa659589e1296de56a912624fff9e8f3a01f6aa",
+      "bytes": 3848
+    }
+  ],
+  "types": [
+    {
+      "type": "vocab_choice",
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_key_fields": [
+        "position",
+        "original"
+      ],
+      "proposed_input": "select_marked_span",
+      "observable": "reject_contextual_word",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "unit_vocab",
+      "payload_fields": [
+        "sentences",
+        "choices",
+        "prompt_ko",
+        "target"
+      ],
+      "answer_key_fields": [
+        "answer"
+      ],
+      "proposed_input": "select_choice",
+      "observable": "recognize_word_meaning",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "blank_word",
+      "payload_fields": [
+        "stem",
+        "hint",
+        "context",
+        "prompt_ko",
+        "sentence_idx"
+      ],
+      "answer_key_fields": [
+        "text"
+      ],
+      "proposed_input": "short_text",
+      "observable": "retrieve_constrained_word",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "grammar_choice",
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_key_fields": [
+        "position",
+        "original",
+        "rule"
+      ],
+      "proposed_input": "select_marked_span",
+      "observable": "recognize_form_error",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "grammar_fix",
+      "payload_fields": [
+        "stem",
+        "hint",
+        "context",
+        "prompt_ko",
+        "sentence_idx"
+      ],
+      "answer_key_fields": [
+        "text",
+        "rule"
+      ],
+      "proposed_input": "short_text",
+      "observable": "repair_sentence_form",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "unit_grammar",
+      "payload_fields": [
+        "sentences",
+        "choices",
+        "prompt_ko",
+        "underlines"
+      ],
+      "answer_key_fields": [
+        "answer",
+        "original"
+      ],
+      "proposed_input": "select_choice",
+      "observable": "recognize_form_error",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    },
+    {
+      "type": "word_order",
+      "payload_fields": [
+        "bank",
+        "context",
+        "sentence_idx"
+      ],
+      "answer_key_fields": [
+        "sentence"
+      ],
+      "proposed_input": "token_order",
+      "observable": "reconstruct_sentence",
+      "current_runner_supported": false,
+      "current_db_scorer_supported": false,
+      "task_direct_evidence": "item-specific performance review required",
+      "runtime_status": "requires_runner_adapter",
+      "scoring_status": "requires_scoring_contract"
+    }
+  ],
+  "rpc_snapshot": {
+    "sha256": "123d857826e9c7335f54fc7d538edddee047dba8c68dfbda68ddad3849499313",
+    "read_only": true,
+    "executed_grading_calls": 0,
+    "observed_functions": [
+      {
+        "name": "grade_dcp_item",
+        "args": "p_item_id uuid, p_answer jsonb",
+        "definition_sha256": "145aacf90b921a57963816ef8fbca7defb8f96adbed3a2970969c7ca95d5a9ea"
+      },
+      {
+        "name": "textbook_practice_items",
+        "args": "p_v_level smallint, p_limit integer",
+        "definition_sha256": "8a89795cbbbf16c68acc0005f0c6b37a28c59a090be3f79073199ebcc0b2ddc9"
+      }
+    ],
+    "textbook_practice_items_for_present": false,
+    "requested_seven_supported": 0,
+    "current_grade_types_count": 17
+  },
+  "canonical_tasks": {
+    "S3": "s.attachment",
+    "S4": "s.structural_relation",
+    "S5": "s.form_scope",
+    "V2": "v.contextual_sense"
+  },
+  "storage": {
+    "table": "csat_item_attempts",
+    "schema_snapshot_sha256": "2fadc9e19d74b337e30bbbdce07adef2008acdbea2a37781f4aea543c262dd72",
+    "observed_columns": [
+      "id",
+      "user_id",
+      "question_id",
+      "text_id",
+      "is_correct",
+      "error_cause",
+      "item_role",
+      "responded_at",
+      "dcp_item_id"
+    ],
+    "raw_response": false,
+    "revision": false,
+    "hint_exposure": false,
+    "feedback_text": false
+  },
+  "boundaries": {
+    "inventory_counts_from_comments_used": false,
+    "supported_by_existing_runner_not_qualified": true,
+    "source_rights_not_inferred": true,
+    "actual_product_changes": 0,
+    "actual_student_tests": 0,
+    "human_validation": 0
+  }
+}
