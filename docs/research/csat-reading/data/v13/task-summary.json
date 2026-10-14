@@ -1,0 +1,68 @@
+{
+  "version": "1.3",
+  "historical": {
+    "reviewed": 46,
+    "direct": 18,
+    "indirect": 28
+  },
+  "new_revision_rows": 30,
+  "new_unique": 28,
+  "prior_revisions": 2,
+  "latest_unique": 74,
+  "latest_status_counts": {
+    "indirect": 39,
+    "direct": 30,
+    "not_applicable": 5
+  },
+  "unreviewed_combinations": 23506,
+  "automatic_candidates_unchanged": 6310,
+  "probability_audit": {
+    "restricted_denominator": 181,
+    "sample": 24,
+    "positive_candidate_n": 8,
+    "positive_reviewed_states": {
+      "direct": 5,
+      "indirect": 3
+    },
+    "candidate_unknown_n": 16,
+    "unknown_reviewed_states": {
+      "indirect": 8,
+      "not_applicable": 4,
+      "direct": 4
+    },
+    "population_precision_reported": false,
+    "population_omission_rate_reported": false,
+    "confidence_intervals_reported": false
+  },
+  "item_pdf_provenance": "Local source admission inherited from old source-audit/restoration/pilot source files; this analyst directly read admitted full research inputs, did not repeat image/key audit. Exact file/row/stem/choice hashes and anchor ranges bind this revision.",
+  "source_audit_hashes": [
+    {
+      "path": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+      "sha256": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v12/restoration-a.json",
+      "sha256": "829fcb4ef2515a1724bc90a9a4b1af80948f8a4ee4954f90677551be1791ccba"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v12/restoration-b.json",
+      "sha256": "a7255edb058a15eaf4429e5840514121d641d11977c6fc19f9e76d106e509e1e"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v12/pilot-source.json",
+      "sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65"
+    }
+  ],
+  "validation": {
+    "candidate_to_learner_promotion": false,
+    "old46_hash_preserved": true,
+    "source_hashes": true,
+    "source_anchors": true,
+    "contracts14_each": true,
+    "methods10_each": true,
+    "materials6_each": true,
+    "relations34_status_preserved": true,
+    "pairs7": true
+  },
+  "results_scope": "Single AI semantic development review; no human independent validity or student effects."
+}

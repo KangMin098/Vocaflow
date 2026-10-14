@@ -1,0 +1,2152 @@
+{
+  "version": "1.3",
+  "selection_sha256": "7ada57a3900144a6be7e7bd859a99ddb8d254be77fb702d04725b826ee893c16",
+  "selection_frozen_before_semantic_read": true,
+  "script_sha256": "afbe99e4b9a34d59dcf80024a7e4ab70f5a962b46793b2430462e546278d5873",
+  "old_46_sha256": "2cee0b04240be4d8719afd191d5ee96d7974e30bfac404db5c251f47ad1abbda",
+  "definitions": {
+    "direct": "실제 문항 판단 경로에서 고유 TASK 수행과 사용 근거를 설명할 수 있음. 모든 경로에서 필수라는 뜻/학생 측정은 아님.",
+    "indirect": "실제 의미 구성·판정의 도움을 설명하되 고유 수행이 직접 요구됐거나 독립 관찰됐다고 주장하지 않음.",
+    "not_applicable": "검토한 원래 문항의 판단 범위에서 고유 TASK 요구가 성립하지 않음; 그 글로 새 교수 과제를 만들 가능성은 별개.",
+    "unknown": "입력/정의/논증이 부족해 관련성을 확정할 수 없음."
+  },
+  "denominators": {
+    "all_items": 786,
+    "all_tasks": 30,
+    "all_combinations": 23580,
+    "priority_combinations": 3144,
+    "source_complete_available_items": 48,
+    "probability_restricted_combinations": 181,
+    "prior_actual": 46,
+    "new_revision_rows": 30,
+    "new_unique_combinations": 28,
+    "revisions_of_prior_combinations": 2,
+    "probability_audit": 24,
+    "purposive_additional": 6
+  },
+  "actual_counts": {
+    "indirect": 12,
+    "not_applicable": 5,
+    "direct": 13
+  },
+  "probability_counts": {
+    "indirect": 11,
+    "not_applicable": 4,
+    "direct": 9
+  },
+  "probability_strata": [
+    {
+      "task_id": "r.central_meaning",
+      "denominator": 45,
+      "inclusion_probability": 0.13333333333333333,
+      "candidate_counts": {
+        "unknown": 38,
+        "direct": 7
+      },
+      "observed": {
+        "indirect": 4,
+        "not_applicable": 1,
+        "direct": 1
+      },
+      "population_estimate_reported": false
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "denominator": 45,
+      "inclusion_probability": 0.13333333333333333,
+      "candidate_counts": {
+        "direct": 45
+      },
+      "observed": {
+        "indirect": 2,
+        "direct": 4
+      },
+      "population_estimate_reported": false
+    },
+    {
+      "task_id": "s.form_scope",
+      "denominator": 45,
+      "inclusion_probability": 0.13333333333333333,
+      "candidate_counts": {
+        "unknown": 44,
+        "direct": 1
+      },
+      "observed": {
+        "indirect": 2,
+        "direct": 3,
+        "not_applicable": 1
+      },
+      "population_estimate_reported": false
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "denominator": 46,
+      "inclusion_probability": 0.13043478260869565,
+      "candidate_counts": {
+        "unknown": 42,
+        "direct": 4
+      },
+      "observed": {
+        "indirect": 3,
+        "not_applicable": 2,
+        "direct": 1
+      },
+      "population_estimate_reported": false
+    }
+  ],
+  "cases": [
+    {
+      "task_id": "r.central_meaning",
+      "category": "direct",
+      "item_ids": [
+        "2023#20"
+      ],
+      "status": "supported",
+      "why": "확률 분석 주장 범위를 통합한다."
+    },
+    {
+      "task_id": "r.central_meaning",
+      "category": "indirect",
+      "item_ids": [
+        "2022#18"
+      ],
+      "status": "supported",
+      "why": "요청문 국소 행위로도 목적 정답을 찾는다."
+    },
+    {
+      "task_id": "r.central_meaning",
+      "category": "auto_overlink",
+      "item_ids": [],
+      "status": "not_found_in_available_stratum",
+      "why": "source-complete R5 직접후보7개는 주제/요지/제목/주장 과제. 이 표본에서 과잉을 찾지 못했으며 모집단0으로 일반화 금지."
+    },
+    {
+      "task_id": "r.central_meaning",
+      "category": "false_negative",
+      "item_ids": [
+        "2024#34"
+      ],
+      "status": "supported_path_conditional",
+      "why": "빈칸 유형에 자동 R5 태그가 없으나 중심 의미 충분 경로를 지지."
+    },
+    {
+      "task_id": "r.central_meaning",
+      "category": "confound",
+      "item_ids": [
+        "2018#43"
+      ],
+      "status": "supported",
+      "why": "전체 주제 요약과 시간/인과 배열을 분리."
+    },
+    {
+      "task_id": "r.central_meaning",
+      "category": "cross_type",
+      "item_ids": [
+        "2015#21",
+        "2024#34"
+      ],
+      "status": "logical_candidate",
+      "why": "주제/빈칸의 전체 범위 통합. 학생 전이 없음."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "direct",
+      "item_ids": [
+        "2015#18",
+        "2019#40"
+      ],
+      "status": "supported",
+      "why": "요지와 요약의 의미 보존 대응."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "indirect",
+      "item_ids": [
+        "2022#44",
+        "2014A#36"
+      ],
+      "status": "boundary_limited",
+      "why": "표지/연결어 자체를 명제 대응으로 부르지 않는다."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "auto_overlink",
+      "item_ids": [
+        "2020#29"
+      ],
+      "status": "supported_definition_sensitive",
+      "why": "모든5후보→E3직접 규칙은 순수 어법 위치 후보에서 과잉."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "false_negative",
+      "item_ids": [],
+      "status": "not_identifiable",
+      "why": "786 전부 E3 직접후보이므로 자동미후보 영역0; 누락 반례를 만들어낼 수 없음."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "confound",
+      "item_ids": [
+        "2015#18"
+      ],
+      "status": "supported",
+      "why": "선지 없는 R5 요지 생성과 후보 E3 대응 응답을 분리."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "category": "cross_type",
+      "item_ids": [
+        "2019#40",
+        "2014A#40"
+      ],
+      "status": "logical_candidate",
+      "why": "요약 빈칸의 완성 의미와 심경 표현의 자료 대응. 세부 추론 요구는 다름."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "direct",
+      "item_ids": [
+        "2019#25",
+        "2014B#45"
+      ],
+      "status": "supported",
+      "why": "양화/결합 비교와 부정 극성."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "indirect",
+      "item_ids": [
+        "2020#29"
+      ],
+      "status": "supported",
+      "why": "전체 검수의 재귀형 설명은 돕지만 수식 분사 결정은S3/S4."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "auto_overlink",
+      "item_ids": [
+        "2020#29"
+      ],
+      "status": "supported_definition_sensitive",
+      "why": "어법이라는 유형만으로S5직접으로 판정한 과잉."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "false_negative",
+      "item_ids": [
+        "2019#25",
+        "2024#28"
+      ],
+      "status": "supported",
+      "why": "도표의 비교양화·안내문의 상한이 어법외 실제S5요구."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "confound",
+      "item_ids": [
+        "2017#25",
+        "2020#29"
+      ],
+      "status": "supported",
+      "why": "공저 명제 E3/S1, 부착 S3/S4를 S5 전체에 흡수하지 않는다."
+    },
+    {
+      "task_id": "s.form_scope",
+      "category": "cross_type",
+      "item_ids": [
+        "2019#25",
+        "2024#28",
+        "2014B#45"
+      ],
+      "status": "logical_candidate",
+      "why": "도표·안내문·사실에서 비교/수량/부정 범위 보존. 같은facet라는 과장은 금지."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "direct",
+      "item_ids": [
+        "2016#23",
+        "2024#34"
+      ],
+      "status": "supported",
+      "why": "mirror/tracks의 문맥 뜻을 분리해 표현 의미를 비교."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "indirect",
+      "item_ids": [
+        "2016#30",
+        "2018#43"
+      ],
+      "status": "supported",
+      "why": "관습표현·비유 뜻은 사건 이해 지원이며 배열/지칭의 필수 뜻선택 아님."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "auto_overlink",
+      "item_ids": [
+        "2019#30"
+      ],
+      "status": "supported_definition_sensitive",
+      "why": "laboriously는 보통 뜻을 알아도 담화 최적합 비교가 남는다."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "false_negative",
+      "item_ids": [
+        "2016#23",
+        "2024#34"
+      ],
+      "status": "supported_path_conditional",
+      "why": "제목/빈칸 후보의 문맥 의미 해석을 자동어휘유형규칙이 놓친다."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "confound",
+      "item_ids": [
+        "2019#30",
+        "2016#30"
+      ],
+      "status": "supported",
+      "why": "V2문맥 뜻/V3관습표현/E3적합성/R1지시를 별도 응답."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "category": "cross_type",
+      "item_ids": [
+        "2016#23",
+        "2024#34"
+      ],
+      "status": "logical_candidate",
+      "why": "제목/빈칸의 후보 표현 의미 문맥화. 학생 전이 미검증."
+    }
+  ],
+  "rows": [
+    {
+      "item_id": "2022#35",
+      "task_id": "r.central_meaning",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "b827b504d69948b20ffd8ada7bd5ada8ca185824c31f689f1932138de39d5142",
+      "input_binding": "1e0f088f1f28b4bd184d41872aaf9b383aacf4bcc0ccbb4acfc4c86419d5a847",
+      "source_pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 6,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 213,
+          "end": 240,
+          "quote": "integration of value chains"
+        },
+        {
+          "field": "passage",
+          "start": 857,
+          "end": 872,
+          "quote": "common platform"
+        }
+      ],
+      "stem_binding": "3b90bd2d32ee7bc3168fb0d90eb494a7a2388bb98f0d4cf06f6d3b88821eb85d",
+      "candidate_bindings": [
+        "aeb775f8d867000d5999d2f03bb0d8fd37bac910ab47a5af1e01572dde131744",
+        "7fad31dea17223983f8938ba6611e3399474eec06d3f03adf06dadf8e41e1244",
+        "b2d2b532bbe1f19e5181cc0f118a8043446dac80e39eee203a3ee872b7cce60d",
+        "4e10671e30d58f90e1e9ff16e568d2ffb650318b3d55bc256a4b043a94653ea0",
+        "8212c16421b4da7a54dbe2450928a4b534a9ca35cfa48e277741189664778ea3"
+      ],
+      "why": "협력 네트워크라는 중심 범위를 구성하면 수익성 단위 절단 문장의 이탈을 설명할 수 있다. 그러나 인접 주제·지시 연결(R2/R4)로도 제거 후보를 찾을 수 있어 R5가 필수라는 주장은 보류한다.",
+      "limits": "R4 흐름 판정과 R5 중심 요약을 같은 응답으로 성공 처리하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2019#30",
+      "task_id": "r.central_meaning",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "721372f0d8c7aeb7a11b8e92d2c2f33bebf1414f5dee40d13d20e0ae3e23c654",
+      "input_binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+      "source_pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 466,
+          "end": 482,
+          "quote": "enormous hunting"
+        },
+        {
+          "field": "passage",
+          "start": 714,
+          "end": 732,
+          "quote": "far easier by boat"
+        }
+      ],
+      "stem_binding": "ef6febcc3c4cd655d1d81c5b154f3014ee0a356a827582b0be8464ca090cb1a9",
+      "candidate_bindings": [
+        "96642b36a83c4c78c5dc7a3019ab2c4c7138ff513fad4ffd669f5c65ab4ae178",
+        "448545189b00ee87d2fd8cb163908468081b9fcc5cd0f5942fd3cf9658250a12",
+        "f2b826b18b9de86628dd9b798f3cb6cfd582fb7cee4ea68489387c0b19dc09c1",
+        "7db0558a5cdaa5ff8773356736e4c3689c49a97b9b2c8cfee94a739b78419ea7",
+        "4e8e100ab07db908bada60cb16646cf6b745ca300d717e29ca6854e502c5ba41"
+      ],
+      "why": "배의 사냥·운반 이익이라는 중심 의미가 어휘 적합성 검토를 돕는다. laboriously의 절대 노동량은 상대 운반 이익만으로 엄밀히 부정되지 않으므로 중심 요약이 해당 낱말의 논리 모순을 증명한다고 하지 않는다.",
+      "limits": "문맥 최적합과 문자 모순을 분리한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2022#18",
+      "task_id": "r.central_meaning",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "f298a83f0fedf4fa6833ca648c12ed06c091f8e881666ade5c8f0ce1574b69b8",
+      "input_binding": "64785711ad66d40f79e418ffd001370393507b17aa22134fab06048b3e223831",
+      "source_pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 2,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 371,
+          "end": 396,
+          "quote": "deliver a special lecture"
+        },
+        {
+          "field": "passage",
+          "start": 99,
+          "end": 115,
+          "quote": "special workshop"
+        }
+      ],
+      "stem_binding": "e396f23b38533f424535c434a22b379e3e17e20a8cca2f91db2e26e8a0626e91",
+      "candidate_bindings": [
+        "1165389a6583b167b7ba9bf71a91c851975f4a29bc7595baab25381b22444ad6",
+        "f2dc6cde4d1d62efcd307284842efdc06f3108967668ea344f8f9f1fbc0ade3a",
+        "66dbb8f09975322d6e840bb2da34aedce2aaaa8f78b9cafe1dbc80f5c8e2a5bb",
+        "9dcd72b2e7128fff9e928fdb202faa69538c80cfcf0f802f6c547c77d0844720",
+        "e6f691cffc94a6e5e1f2f8ea22e07621ad8c5f64e63d5c2fc7265150fffe882b"
+      ],
+      "why": "글의 중심 행위는 특강 요청이다. 하지만 목적 정답은 완성 요청문에서 행위·대상을 읽는 경로로 찾을 수 있어 전체 요지 구성 R5의 직접 요구로 확대하지 않는다.",
+      "limits": "요청 행위 인식은 전역 중심 의미의 독립 수행을 보장하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2021#26",
+      "task_id": "r.central_meaning",
+      "relevance": "not_applicable",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "source_file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "source_row_sha256": "ae934c66ac4e47de1991368ea3290d37575fdf4ff28a958612ec182bca4c667e",
+      "input_binding": "71436a07c66cec37d02d71d8c86bfcf6e4cc01b58bf0097aa8c7fcd49bdc320e",
+      "source_pdf": {
+        "pdf_filename": "2021_3교시_영어영역_짝.pdf",
+        "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "pages": [
+          4
+        ],
+        "paper_form": "짝수형",
+        "source_page": 4,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2021-q-4.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 811,
+          "end": 850,
+          "quote": "remained active in teaching and writing"
+        }
+      ],
+      "stem_binding": "b61cc537665b878d8a6d8ddc4838f4deef03dd988ea023d0c797b900c88bf55c",
+      "candidate_bindings": [
+        "c3cce8172c4828ac2f84ca439806067acd268b95a8da84a9c380d2d9736f16cb",
+        "1e595d00f76dcf53db3fc085259f768913c3738bb7f17e0f961e8c0b3a4301b7",
+        "74705e5f4429fb5f94190de698b9a4338113b5d55b8ead998143d46736ce0dd8",
+        "b29a6f2aa318bd32e566d8459c68bb65c9e1622830f4e2b98a4547af25a73e3b",
+        "8c80d9fcbbd9e183460177f1f246f69894bf95d976a25c50639bf3d82eb1abef"
+      ],
+      "why": "불일치 과제의 후보5는 은퇴 후 가르침·집필을 계속했다는 개별 사실과 대응한다. 생애 전체 중심 의미를 생성하지 않아도 각 사실을 검수할 수 있다.",
+      "limits": "비해당은 본 문항의 AI/FOV 판단 경로에 대한 R5 판정이며 이 글로 요약 연습을 만들 수 없다는 뜻이 아니다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2018#43",
+      "task_id": "r.central_meaning",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "input_binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+      "source_pdf": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-8.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 1372,
+          "end": 1390,
+          "quote": "registered my name"
+        },
+        {
+          "field": "passage",
+          "start": 2221,
+          "end": 2238,
+          "quote": "need to apologize"
+        },
+        {
+          "field": "passage",
+          "start": 466,
+          "end": 488,
+          "quote": "Steve won the election"
+        }
+      ],
+      "stem_binding": "b4531ed77285b265840efe0c5038895d84f9688ba1dc3a3d22469a861f7ae904",
+      "candidate_bindings": [
+        "99cb942c2d7dbeb6266e7f1a0d1481fcebac28714388171f5b909d139160bddb",
+        "53a6cef7283a9031792686603cd26589cd2c4fe47843c0fb6de75d47383532ce",
+        "795a021ed51cb48fe3dc2a90f2e6fae5af14f432f42c2b65f42ed20dd9dd5dae",
+        "12780f409fb7521c0e9e1021c3930d6a96ea6495822e056478b329a433066fd0",
+        "c9529dc01b77e6e402d8d59c758896e750b9aeb1bb57e695b93acb99fb9b55c0"
+      ],
+      "why": "경쟁을 겪고 우정을 회복하는 전체 의미는 서사 배열 설명을 돕지만 후보 배열은 등록→선거 당일→승리 뒤 사과의 시간·인과 제약으로 판단할 수 있다.",
+      "limits": "중심 주제와 사건 순서 조직은 구별한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2023#20",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "199b958b2aaf616c3fdb6cd6826ae016a48f5e18b0a57eaaf874cde496b8b80f",
+      "input_binding": "f4a230590e94bab8fca31694626907e2cb12ab2fe82e8f40232e107153b093e7",
+      "source_pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          2
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2023-q-2.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 297,
+          "end": 333,
+          "quote": "Turning the uncertainty into numbers"
+        },
+        {
+          "field": "passage",
+          "start": 510,
+          "end": 543,
+          "quote": "manage that risk more effectively"
+        },
+        {
+          "field": "passage",
+          "start": 642,
+          "end": 687,
+          "quote": "proportion of them lead to success or failure"
+        }
+      ],
+      "stem_binding": "a17140466d7944e9f12d77b788498d6bba576f05a59755748582a8b4f485de3b",
+      "candidate_bindings": [
+        "0ef9786178153194d6885f13e7c89596e37e971259145a09d2e6f8cef9e8550b",
+        "6436f13b59f52dab2a467579bcd28f03665dc6d7acb6926fc43d853c9dbefb3f",
+        "82fdb5999d72e73107b5437538c69d095929dc0159525c19b9d21fc460d2beae",
+        "c246b412895972f6760cfcd400942a8daf298da6ab0f32623e3e858948e77b93",
+        "93469926c7ae495af01387169cbebec7c6c4b58a59c1257edff17e74217253c4"
+      ],
+      "why": "직관의 한계와 확률 분석의 이점을 묶어 더 나은 선택을 위한 확률 분석이라는 주장 범위를 구성해야 성공 계획·지름길·책임 후보와 구별된다.",
+      "limits": "위험을 제거한다는 무제한 주장은 원문이 부정한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2022#44",
+      "task_id": "e.option_correspondence",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "3c37a9aa7a436534f17be66b2879152fa6ed0b83ce54a09a571d659f599b68a3",
+      "input_binding": "38ef5037f3a3c2f7576d23afad7ee9725b72a97ca8ae01983be163be907ff24e",
+      "source_pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2022-q-8.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 1145,
+          "end": 1170,
+          "quote": "Anna really liked (c) her"
+        },
+        {
+          "field": "passage",
+          "start": 1899,
+          "end": 1917,
+          "quote": "respond to (e) her"
+        }
+      ],
+      "stem_binding": "f942f859717f9657dbc140162a571bcb62432d33665a53cef9f6af76010dcad9",
+      "candidate_bindings": [
+        "f89bf797c3b1dda4ee48380783e5e979067686a6a9540c5a40e8d75ae5f3d199",
+        "8cca9bdc836007edec9df387444bbca0513dcdc3c3b8317206b9c53d045554f2",
+        "be0b40ece2d098d9277f0f1945e6f9b92358ce7b649703e7d0f909b626e145ec",
+        "77cabbc309c46f7e2566a5f5f08dcedfa929a25a035379353cd33328580f940b",
+        "82386a7ffd73036c423c10fbbd8a61c31b5510c282088c8e828a7cf52ec474e2"
+      ],
+      "why": "대명사별 실제 지시 대상을 비교하는 수행은 R1의 직접 요구다. E3의 본문-후보 명제 대응은 후보가 (a)–(e) 위치 표지라는 점에서 직접 요구와 구별하고 최종 후보 적합성 비교를 돕는 간접 관련으로 남긴다.",
+      "limits": "표지 자체는 명제가 아니다. 한 지시 대상과 4+1 관행만으로 정답을 고를 수 없다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2019#40",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "cf3b448c564db851224070d9afb2005fd89ce89876314db374e03ae7575a2c6d",
+      "input_binding": "c49d43d7abc03fabb94395ebd54fb587a04e5fc3f93ebcd6317a8a8b628cef09",
+      "source_pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          7
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 86,
+          "end": 110,
+          "quote": "discount distant outputs"
+        },
+        {
+          "field": "passage",
+          "start": 954,
+          "end": 972,
+          "quote": "temporal advantage"
+        }
+      ],
+      "stem_binding": "b00899c5a163cbedb6fd5e7a50ab083e2dd268bf65894938eeb4a01ecdeb5d40",
+      "candidate_bindings": [
+        "4d0af62514ac1322b7cd052ad60f6d192e0855b0cfe20e08ddea5e2dc3431120",
+        "1d717fa18854ffb34dde6011d543b5c350824a91132253bd8b81252d766e0565",
+        "3b5c8a3f7d79c15e4a036836950b2158a3bd5894f80d2e09e1d43f3eb99f40f9",
+        "84713f07e99988b66fa85403ffaab4a3a6369ae54a47d16a4647ee4fce3ba193",
+        "2c6c418186612e0ce1f34088dfe0e7fc2366847c9d67c5f4369e9cbacdfd1050"
+      ],
+      "why": "요약 틀에 immediate/competitive를 넣어 완성한 명제가 본문의 현재 산출 선호와 화석연료 시간 이점을 보존하는지 비교한다.",
+      "limits": "원래 단어 쌍은 비명제이며 요약 틀은 공짜가 아닌 사용 정보다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2014A#36",
+      "task_id": "e.option_correspondence",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "0ca143ef6877c9cc2edcaf218b9843e1909525b2a646c941e95829ad1807f208",
+      "input_binding": "b8fe6088fd7aed080e248edc65b2e7dc18173265c22993aa939ada1267eac0e4",
+      "source_pdf": {
+        "pdf_filename": "2014_영어A-홀수형_문제.pdf",
+        "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "paper_form": "A형 홀수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 322,
+          "end": 351,
+          "quote": "see others making suggestions"
+        },
+        {
+          "field": "passage",
+          "start": 484,
+          "end": 503,
+          "quote": "low self-monitoring"
+        }
+      ],
+      "stem_binding": "fd3b2d498e42d522dbfefb14219fac239914069a888e2c85ed8d0cb7b65556e5",
+      "candidate_bindings": [
+        "4bccf5aeeec22a2a054a3e53a855102447a2fb6376105202cc2fc6bb804829c3",
+        "4978bde4aebbdaa146586215cc379314ba979d344155b198bb4d67e99aed54ca",
+        "9dedf73391f4ce4bc9ec788c4100c4eb3704bbc321826903a6cae94f5f7b2fbc",
+        "b6fa9ccd652d74d048c85fbd4cd24b7b69846f90e3e8800db56a6852042c8b42",
+        "cac1bf936b8ad2e5692b70c4f48a30fa3096a9432b5778002ef8e02ce5a8323e"
+      ],
+      "why": "예시·대조 관계를 판정하는 R2가 직접 요구다. 연결어 쌍은 명제가 아니므로 E3 명제 대응으로 직접 태깅하지 않고 삽입 뒤 관계 적합성 비교의 간접 관련으로 제한한다.",
+      "limits": "E3 정의를 모든 선택 행동으로 넓히면 R2와 구별이 사라진다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2015#18",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "b3e9f5c90bf0dd79ca0050cb377aec4730ffa86772e51f66618380234e01418e",
+      "input_binding": "cf47ac83501f02bf9a8e765762103f159b7af00eb1df66e8b1d81973bdec7757",
+      "source_pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "page": 2,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 329,
+          "end": 344,
+          "quote": "recover quickly"
+        },
+        {
+          "field": "passage",
+          "start": 601,
+          "end": 634,
+          "quote": "bouncing back from the low points"
+        }
+      ],
+      "stem_binding": "a5bb36a3a0878278852786729a26a13b462795c2cd332de1720fa07dc075008d",
+      "candidate_bindings": [
+        "f782b0d1959a7331c4c496453b736db3dfbd28adeb16c9b7cc8451abf43f9ff4",
+        "877e86068fb61458ba75fdabe26d1bc05891b0d2da2effd2e00647cfc231d776",
+        "6db01d251af45beeb8f9469b43017a55292fdda3f2adceef6166a62367840406",
+        "420db3add0fd0c7e145aaf91d186009dd2c9cd288f00f0fcf8c7373d0d330daa",
+        "b67ad6626273b297d0bc228d6b94fbe2431f5b8ed43172da13904ae46ff2ddb3"
+      ],
+      "why": "실패 뒤 빠른 회복의 의미를 한국어 후보5와 대응하고 다른 후보의 전문화·조언·소비·인간관계 도입을 본문과 비교한다.",
+      "limits": "중심 의미 생성 R5와 후보의 의미 대응 E3는 별도 산출물이 필요하다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2014B#42",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "b0d76f27fa34764d0db039e2e39d0a6d0505feffb3424cfd47a066644aed2ab8",
+      "input_binding": "126ba108a3eb6995f09f95e754880ea3ed856cff83c872d2d9a9f3e194a5665b",
+      "source_pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "page": 7,
+        "paper_form": "B형 홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 693,
+          "end": 718,
+          "quote": "infrequent but meaningful"
+        },
+        {
+          "field": "passage",
+          "start": 826,
+          "end": 846,
+          "quote": "miss the human voice"
+        },
+        {
+          "field": "passage",
+          "start": 1040,
+          "end": 1058,
+          "quote": "language and flesh"
+        }
+      ],
+      "stem_binding": "57a234a04fa5eed1aecca7178eea144b3397cbd9cec5f927dba120139e903757",
+      "candidate_bindings": [
+        "115f891aaa1c2a31b9eebcaf2e7aa10925751fd66221d46ee469c4d05d34d9ca",
+        "134aee2e85d136a86517d67811fded52f5e6686a9d8303511d2c4fa008d7980c",
+        "b63cf5ce57c87bd3a17ad42ece1865e28a1c372810bf9919062a1f13309b1787",
+        "c419e33ea219a71b92d7869f2209170b2e4ee333037d6cc33d031ec391ee7d84",
+        "29acd749a4928cc94d7850bf7e4f957507948d4112d1e65d5f3acd03ec43c138"
+      ],
+      "why": "빈칸에 후보를 넣은 완성 표현이 드문 의미 있는 인간 교류와 이후 실제 사람·현실 강조를 보존하는지 비교한다. face-to-face는 최적 적합 논리 후보이며 목소리 한 구절만으로 대면을 필연 도출했다고 하지 않는다.",
+      "limits": "적합도 비교와 모든 대안의 엄밀한 모순 증명은 다르다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2014A#40",
+      "task_id": "e.option_correspondence",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "99abb764e812bdda382ff251d41dca19a3f4c1a4a1c5f09211fa9fe070b95c7f",
+      "input_binding": "938d568e90a0135e4e163f241f4afbd9ae6ceee35c3a81ec305c594cb30ca616",
+      "source_pdf": {
+        "filename": "2014_영어A-홀수형_문제.pdf",
+        "sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+        "pages": [
+          7
+        ],
+        "paper_form": "A형 홀수형",
+        "source_header": {
+          "form": "A",
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "A형 홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2014A-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 527,
+          "end": 545,
+          "quote": "losing my patience"
+        },
+        {
+          "field": "passage",
+          "start": 687,
+          "end": 711,
+          "quote": "voice was growing louder"
+        }
+      ],
+      "stem_binding": "2a327447c50464d66950da411685c67fed1ba4e920419f7c4911dcfce3c9dfab",
+      "candidate_bindings": [
+        "60e6aa4ad2d315ff8ab59a827637d123fdb7af4107f97c9344a1863a59568aca",
+        "085673f33aed518391a96181b776e01448af896ffd92c328d04b4d81fc30d025",
+        "74c4a5de72fc1bbaed63a930f090d0d713afeefd8d347ddc3f3668334399b93a",
+        "37825ceb9b7e3e1d5bb68eeaef90d85495b14f6b973454f2c65a46e3ec71a7cf",
+        "0e3c2fa7db9010cdb00bed04c5257f6b7ca6d9e786a0e4e3a286b0aefc5c21a8"
+      ],
+      "why": "필자의 행동·감정 신호를 irritated와 대응하고 지루함·질투·무관심·기쁨 후보와 비교한다.",
+      "limits": "심경 추론에서 후보 표현의 뜻 이해 V2와 발화자 동일성 R1을 분리한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2014B#38",
+      "task_id": "s.form_scope",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "582d775fff06081014f5938d702ba6070dbde5af764725a7cbb5423ca9d1a776",
+      "input_binding": "5327c519bacbbf23f4e920bb0c0eb7cf4de7bb58918e8e7d14a3d93d743e69d5",
+      "source_pdf": {
+        "filename": "2014_영어B-홀수형_문제.pdf",
+        "sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          6
+        ],
+        "paper_form": "B형 홀수형",
+        "source_header": {
+          "form": "B",
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "B형 홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2014B-q-6.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 59,
+          "end": 85,
+          "quote": "no matter from which angle"
+        },
+        {
+          "field": "passage",
+          "start": 633,
+          "end": 670,
+          "quote": "even though the retinal image is oval"
+        }
+      ],
+      "stem_binding": "4535832dbedf837a211692f0ae4834e29aad505b1c2ce73c30405a46ff742cf5",
+      "candidate_bindings": [
+        "a74f52264e600daa234ad5ebbc7424df5d10b71cf5d348c93153de8fa191b8d5",
+        "281f351be2e0c0b5bdd8534635e10e09bf0f45716237e0d5c95c1a261515d105",
+        "9edc933de26c60819851d133ea7e8452edb18ff12b0e65c79826a1357177b17d",
+        "2c3641e4da0e11b7c7b41918ba209334df0929f0cd68dfe614df99613ea9591a",
+        "ea8542121ad9629e3e63bb5796863aabf9c22f755ffc10b911afacaf09d89542"
+      ],
+      "why": "시점·각도와 양보 범위를 보존하면 일정한 지각과 달라지는 망막상을 이해하는 데 도움이 된다. 그러나 배열 결정은 trapezoid 선행 대상과 변화→유사 사례 연결로 가능하여 S5 단독 필수는 아니다.",
+      "limits": "순서 유형에 부정·조건 표현이 있다는 사실만으로 S5 직접 태깅하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2019#25",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790",
+      "input_binding": "6379ade5e777ec3350f6b35585753af88a7ca7426ec95aa74ec73a3b63d69ace",
+      "source_pdf": {
+        "pdf_filename": "2019_영어_짝.pdf",
+        "pdf_sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          4
+        ],
+        "paper_form": "짝수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2019-q-4.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 568,
+          "end": 592,
+          "quote": "over twenty times larger"
+        },
+        {
+          "field": "passage",
+          "start": 629,
+          "end": 659,
+          "quote": "India ranked higher than China"
+        }
+      ],
+      "stem_binding": "547a9adabf035080a500f08690ffbe36353ddb3aaca13c574bfc6ed09eb29b42",
+      "candidate_bindings": [
+        "90a66febfcf1ba46891f8cc728d43e2378bd873c56d3259baa2dfb7064a8b537",
+        "fd0edd0206ec5987a7d174f94196a72e884a243e4639f65f4c2806faaba80949",
+        "f75f666c1db9873f1636cf3b62912bebfdaa9b1d5efb144c05eeb572bb35eedf",
+        "bc11849c9f41de6350d983a69312947f7066b39b27cff77261dfbb1adf179c5e",
+        "b3a56a3bba484819de4ce4da42463bc3fb74a507cde2fef37f2c1afa6f11238c"
+      ],
+      "why": "후보3의 배율 절과 순위 절을 분리하고 and 결합의 성립 범위를 판단한다. 표에서 India186000/9000은20초과지만 순위는 China351000>India186000이다. 단일 실패 절로 불일치 후보를 찾는 것과 다른 모든 절 검수는 구별한다.",
+      "limits": "수치 연산 자체는 S5가 아니며 비교·양화의 의미와 E3 대응을 따로 관찰한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2015#21",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "4a6c4d96d6b51d3125077fab6d1b69eef2a1b4332c9fd4662a76032b9b4f4071",
+      "input_binding": "cfbdaf8a835b08c1dc9dbf9b23e885afc9d13cd570bb06958c5648faafcd6624",
+      "source_pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          2,
+          3
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ],
+        "shared_stem_render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-2.png"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 465,
+          "end": 498,
+          "quote": "When there is no immediate danger"
+        },
+        {
+          "field": "passage",
+          "start": 506,
+          "end": 518,
+          "quote": "usually best"
+        },
+        {
+          "field": "passage",
+          "start": 550,
+          "end": 569,
+          "quote": "without interfering"
+        }
+      ],
+      "stem_binding": "2dcbe23f8c535053416672a46ff2e240c38be25b869b3cf1ba6e68da824dd630",
+      "candidate_bindings": [
+        "618704585a55b6858290543ddfdbdb3c79735f922a73b08ce1c216942d7ea77c",
+        "752ed79bb32028ae023b09292420324e5c90478ece2fd6a9e6bc678df6ecbf17",
+        "fbbd4be74b531fb196dd11571d37be4b01f1616ab3b715d51a08aa9373d5e530",
+        "affc84639655a3120d544de4574c0f774eb367016ee4ee26428581cf418e00cc",
+        "f7ed2c722e33ee58e77949e2903f0d2738a67009a58b881c35ae60d677a36e3b"
+      ],
+      "why": "개입 자제 권고의 조건·빈도·범위를 보존해야 모든 위험 상황의 개입 금지로 과장하거나 형제 분쟁의 개입 필요로 바꾸지 않는다.",
+      "limits": "선택한 주제의 조건 생략은 중심 축약으로 허용되는지 별도 검수하며 무조건 금지로 확대하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2017#25",
+      "task_id": "s.form_scope",
+      "relevance": "not_applicable",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "9288f0d03969b895baff23a3ea4ae25170e5c4ade752ff9c45d80eb74e90310e",
+      "input_binding": "46299dbb1f0b89c4708a7f2a66514b8ae8330ad22a7a243c4e27fc5dfc3feff5",
+      "source_pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "page": 4,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 760,
+          "end": 788,
+          "quote": "With Jan Novák, Forman wrote"
+        }
+      ],
+      "stem_binding": "1053014ca9e5a5b0e11a4349acd452fd4d6f79b758dfca54871001d0c6ac579b",
+      "candidate_bindings": [
+        "e7104888b4f61588136135c89e4fe2f2375b5e931d3c5e5ab921a5c7f87eec0d",
+        "b2874ca7c00d6190bc425c77e14c34c7dec14720cff417755cc5122507a8387d",
+        "505b6881f40deefacc36ee4a595debdedfb46a94dd1f20482b3b6ef570c8af1d",
+        "befdac8fdbe5c3469930ed8f7103726250f6009ef15ad1381e32af62d62847bf",
+        "d060080b83d2b8a245dac33f3d1ab74aff19ab153e5df87b93ad406c5ff995dc"
+      ],
+      "why": "공저와 단독 집필의 불일치는 공동 행위 주체의 명제 대응(E3/S1)이다. 범위·양화·조건 형태 S5로 모든 with 의미를 흡수하지 않는다. 직접 답 경로에 S5 고유 요구는 확인되지 않는다.",
+      "limits": "초두 not a U.S. born 등의 형태가 있다고 해서 선택 후보 판정의 직접 요구로 집계하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2014B#45",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "c389f2d0065384d57357bca61bf8bf3e6ca9280a738a9f9547ff29238b434b42",
+      "input_binding": "885c0dd36192c7742cc062497514bacdb92e4718ad87096581cdeaff5a9eb27e",
+      "source_pdf": {
+        "pdf_filename": "2014_영어B-홀수형_문제.pdf",
+        "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+        "pages": [
+          8
+        ],
+        "paper_form": "B형 홀수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2014B-q-8.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 1835,
+          "end": 1859,
+          "quote": "noticed dramatic changes"
+        }
+      ],
+      "stem_binding": "6b854628c366f810b3f8e30c96cde40850ae1aef4d51de7d7b95bb00860e59b5",
+      "candidate_bindings": [
+        "396fffe9fef2e2f0b986fbf478716b5d9d28ae952b50c2fd7b62b4a1c740445a",
+        "b3ef7204cbb120622df7aa8f76e4bfb09111b640e78835d3553cf6752124ec06",
+        "7b6247e4b2ca0ff22e74a643a62414cd2c971e9cd21db269391953de367352ec",
+        "6e14e5e9c82eda1309875d4e03885e7e5b1f24342c8a6006ab5cdd53465af88f",
+        "476fd623408f41b7be8e93e039c449820a7cb73b574f864f54886fb73fe6af4a"
+      ],
+      "why": "본문의 알아차림 명제와 후보5의 알아차리지 못함은 동일 주체·대상에 대한 부정 극성이 바뀐다.",
+      "limits": "부정어 위치 클릭만으로는 범위가 이해됐다고 채점하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2020#29",
+      "task_id": "s.form_scope",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "d4a531dd14a9bec5a912e5608481f34cfe44de43f64d2414f6779f7f7026ce40",
+      "input_binding": "65c12c17ce5c25c726ff6c2f922f7ed2f0cd5c683600861d93399ba620c8f8c9",
+      "source_pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2020-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 773,
+          "end": 791,
+          "quote": "nonhuman creatures"
+        },
+        {
+          "field": "passage",
+          "start": 794,
+          "end": 815,
+          "quote": "inhabited their world"
+        },
+        {
+          "field": "passage",
+          "start": 1048,
+          "end": 1059,
+          "quote": "broods upon"
+        }
+      ],
+      "stem_binding": "0ffdd71828c4cfde7e8200d27b9ef3051d79a7acaa44b1bad74118d74c52496f",
+      "candidate_bindings": [
+        "b1f7124c563597b0c429fd784d086487fe919a60f9f9480a90648b2c0f0f2be9",
+        "f4bf9f7fcbedaba0392f108c59d8f4a38b3838efb64877380171b54475c2ade8",
+        "77bc06c55d29ee3cfa295b4592e4b2a85a16bb06a8974726b7bfa3d4ca36d5ae",
+        "dbf8af44ef6f0b45e6e6caad83ab7f600f8d3f9970f3c6e75a7fbb4fca6c0c3c",
+        "5a41ac42ee7e1b07e44b0166fac711fa507652ec7eb631ce1f45d7ea20a4bab4"
+      ],
+      "why": "inhabited 위치의 유한/분사 수식과 주절 becomes 관계는 S3/S4의 직접 요구다. itself의 동일 지시·형태 의미는 전체5개 어법 검수에 도움을 주지만 결정 후보의 S5 단독 직접 요구로 코딩하지 않는다.",
+      "limits": "S5를 모든 문법 정오로 자동 연결한 후보 규칙의 과잉 직접 연결 사례.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2016#30",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "bff56e05d1780ee2f442988eccb775ac20b6545533e673841f8d3f4cce8d3598",
+      "input_binding": "70fb68ad795b3c68fcf471f12f86d671c2156f0e3ab474de4a0d5e1d61800ae0",
+      "source_pdf": {
+        "pdf_filename": "2016_영어영역-홀수.pdf",
+        "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2016-q-5.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 272,
+          "end": 297,
+          "quote": "“call out” another dancer"
+        },
+        {
+          "field": "passage",
+          "start": 443,
+          "end": 459,
+          "quote": "human spin-wheel"
+        }
+      ],
+      "stem_binding": "f2c0b0fba771111adda7cbf865ea08982fc8b071f78302b62842453efed37eed",
+      "candidate_bindings": [
+        "372f7e2fd2d01ce2a1d71dc072acbba4c6fd25a1087cd7f153f4ec0ce37e1ede",
+        "73c9c98668a34c54d131ff609d0bf129068d1b5ed3efd7cdfe753f909596456c",
+        "73c9c98668a34c54d131ff609d0bf129068d1b5ed3efd7cdfe753f909596456c",
+        "372f7e2fd2d01ce2a1d71dc072acbba4c6fd25a1087cd7f153f4ec0ce37e1ede",
+        "372f7e2fd2d01ce2a1d71dc072acbba4c6fd25a1087cd7f153f4ec0ce37e1ede"
+      ],
+      "why": "call out을 상대 지목 행위로 해석하면 사건 이해를 돕지만 지칭 후보 판정은 Linx/DanTres 인물 추적으로 가능하다.",
+      "limits": "복합 표현 V3와 문맥 뜻 V2를 동일 응답으로 독립 성공 처리하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2023#29",
+      "task_id": "v.contextual_sense",
+      "relevance": "not_applicable",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "source_file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "source_row_sha256": "4f24127939663621073f1655b38eaf33768f200f0afcac3f3d1a28e5bd4e8f12",
+      "input_binding": "31e0507296555f10d54751df947258f7f9b410f826f734de4386a51ca65c3b19",
+      "source_pdf": {
+        "pdf_filename": "2023_영어영역_문제지.pdf",
+        "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          5
+        ],
+        "paper_form": "홀수형",
+        "source_page": 5,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2023-q-5.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 778,
+          "end": 804,
+          "quote": "methods of self-expression"
+        },
+        {
+          "field": "passage",
+          "start": 436,
+          "end": 463,
+          "quote": "present ② them to the world"
+        }
+      ],
+      "stem_binding": "0ffdd71828c4cfde7e8200d27b9ef3051d79a7acaa44b1bad74118d74c52496f",
+      "candidate_bindings": [
+        "8e7fc0236af43df9340685fc16f1efe36543cc1707051220a103ad99cf69a2df",
+        "c9a8dc336964db7fd6c764f1ff23925d6f281ece50472c0c7699b8eb0f8ac227",
+        "de38e0881e31dde689abdc0bf1aaeb73f574613924c446959331a425642985ae",
+        "0442ba2e8a4ef28a76c650d6693b4bbb78ef20d53452e18ab9b9f3279cf14474",
+        "2b3fdf05c4dda454998927370bf2cf20b0c17bcf1e3d3f294a550e341033ed61"
+      ],
+      "why": "결정 과제는 자기표현 문맥에서 목적어와 주어의 동일 지시·재귀형의 적합성이다. 이 입력에서 특정 다의어 뜻 후보를 고르는 고유 V2 요구는 확인하지 못했다.",
+      "limits": "현실 모든 문장에 문맥이 있다는 이유만으로 모든 문항을 V2 직접으로 태깅하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2016#23",
+      "task_id": "v.contextual_sense",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba",
+      "input_binding": "f20a13bafa0a635a5a594cc2e71a2d9688ccb41b3099b5ab7540cdc2486ef3ae",
+      "source_pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "page": 3,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 578,
+          "end": 617,
+          "quote": "mirror all other biological age changes"
+        }
+      ],
+      "stem_binding": "eae989c9ee89433cdff7e701d17c34f87931796dad1b94190a178ecd3065e282",
+      "candidate_bindings": [
+        "68dbb2cf606f30e47e185b92a7eebe8ade7a3fc3b9a9d1c9f912574b057123d3",
+        "aa9d3cbbeecd41b9013eea37694917aa2755b140321e6fc46a4dbc20b1de99e3",
+        "50148eacff6b9f0ce0a853503d320d0275505dfd784d2cde864e2135d89af4e2",
+        "9668e149351a121e925c3fec45024b3216a0b98cd01d5a32a40c0426741d9662",
+        "761b915a0a4b27c476906b4538487f6b6c823af3d5859fffca5b8aff5bb3f7e2"
+      ],
+      "why": "mirror를 실제 거울이 아니라 여러 나이 변화의 대표 지표/반영 의미로 해석하여 제목 후보1을 대응한다.",
+      "limits": "V2 표현 해석과 제목 전체 범위 E3/R5를 분리한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2018#43",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+      "source_file_sha256": "de2c17d50205baba60249e1af8e914fea67816ae0f624817088eba91ebe9ab36",
+      "source_row_sha256": "33c969fb5ec37ed4792e429502a8378a619a59df8cc8aa2b716a1c8ac0f6cfc0",
+      "input_binding": "5f31e42ed6322213ff054238b5022c30fdad405ea3aa92834da3d1a66d3cb51e",
+      "source_pdf": {
+        "pdf_filename": "2018_영어_짝.pdf",
+        "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          8
+        ],
+        "paper_form": "짝수형",
+        "local_pdf_exists": true,
+        "visual_render": "scripts/research/csat-reading/local/main-20261014/source-2018-q-8.png",
+        "verification": "AI read complete printed question region in existing full-page PDF render; source file bytes SHA256 matched previous extraction",
+        "limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_restoration_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 1099,
+          "end": 1120,
+          "quote": "won two battles today"
+        }
+      ],
+      "stem_binding": "b4531ed77285b265840efe0c5038895d84f9688ba1dc3a3d22469a861f7ae904",
+      "candidate_bindings": [
+        "99cb942c2d7dbeb6266e7f1a0d1481fcebac28714388171f5b909d139160bddb",
+        "53a6cef7283a9031792686603cd26589cd2c4fe47843c0fb6de75d47383532ce",
+        "795a021ed51cb48fe3dc2a90f2e6fae5af14f432f42c2b65f42ed20dd9dd5dae",
+        "12780f409fb7521c0e9e1021c3930d6a96ea6495822e056478b329a433066fd0",
+        "c9529dc01b77e6e402d8d59c758896e750b9aeb1bb57e695b93acb99fb9b55c0"
+      ],
+      "why": "두 battles는 선거 승리와 우정 회복을 가리키는 비유적 의미로 읽을 수 있다. 하지만 마지막 블록의 won the election과 사과 결과만으로 배열을 판단할 수 있어 어휘 해석은 간접 지원이다.",
+      "limits": "실제 전투의 뜻을 배제하는 학생 응답을 별도로 받기 전 V2 성공 추론 금지.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2017#21",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "source_file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "source_row_sha256": "d29db2c254f64adab03a91c459ab11fa32a311bb6b459a8fca26a4ac7fa9dd54",
+      "input_binding": "c93f7547fbf732acaf6629a6358af4d9f5aabd092cf1dde15d84fc95fa75346b",
+      "source_pdf": {
+        "pdf_filename": "2017_영어_짝.pdf",
+        "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "source_page": 3,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2017-q-3.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 243,
+          "end": 273,
+          "quote": "an aura of scientific accuracy"
+        },
+        {
+          "field": "passage",
+          "start": 593,
+          "end": 613,
+          "quote": "carriers of ideology"
+        }
+      ],
+      "stem_binding": "556d0f5ee899e23163773b8b700e653f68032238de3271f9a49aafdc4dba0d98",
+      "candidate_bindings": [
+        "f0a8df27cd8a8175e0420495eb9c62cf63aecdf7b979c8f29129ca7963c16e88",
+        "68602d14af8772377d9d5890156283a506ee107d987bec80c92ede3fe7bb24ee",
+        "8a8693238607601cf7029c8d5ae27d8800361440f1074541d335acd3e7157b20",
+        "8dbbbf8bd046b0437d0bd6fd7c9fce35c696da7dbf5394e022f6fcf795675920",
+        "d73d83d9186ad1d70de56278fb65cf8473e7ae16b5d7461a013eb55c2bd4d742"
+      ],
+      "why": "aura/carriers의 문맥 용법은 지도 객관성 외양과 이데올로기 전달 명제의 이해를 돕는다. aura는 인쇄 각주 지원이 있으므로 연구 입력에서 그 도움을 제외하지 않는다.",
+      "limits": "다의어 뜻 선택·담화 논리·선지 대응의 혼입이 남는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2022#18",
+      "task_id": "v.contextual_sense",
+      "relevance": "not_applicable",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "probability_audit"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "f298a83f0fedf4fa6833ca648c12ed06c091f8e881666ade5c8f0ce1574b69b8",
+      "input_binding": "64785711ad66d40f79e418ffd001370393507b17aa22134fab06048b3e223831",
+      "source_pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "page": 2,
+        "paper_form": "짝수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 371,
+          "end": 396,
+          "quote": "deliver a special lecture"
+        }
+      ],
+      "stem_binding": "e396f23b38533f424535c434a22b379e3e17e20a8cca2f91db2e26e8a0626e91",
+      "candidate_bindings": [
+        "1165389a6583b167b7ba9bf71a91c851975f4a29bc7595baab25381b22444ad6",
+        "f2dc6cde4d1d62efcd307284842efdc06f3108967668ea344f8f9f1fbc0ade3a",
+        "66dbb8f09975322d6e840bb2da34aedce2aaaa8f78b9cafe1dbc80f5c8e2a5bb",
+        "9dcd72b2e7128fff9e928fdb202faa69538c80cfcf0f802f6c547c77d0844720",
+        "e6f691cffc94a6e5e1f2f8ea22e07621ad8c5f64e63d5c2fc7265150fffe882b"
+      ],
+      "why": "deliver는 강의를 하다의 관습 문맥으로 읽히지만 목적 후보는 ask·special lecture·workshop의 행위 대상 대응으로 판별된다. 별도 다의어 뜻 구별이 결정적으로 요구된다는 증거는 없다.",
+      "limits": "새 deliver 뜻 대비 교수 과제를 만드는 가용성은 원문 문항의 실제 V2 요구와 다르다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2024#34",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "source_file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "source_row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "input_binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+      "source_pdf": {
+        "pdf_filename": "2024_영어영역_문제지.pdf",
+        "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          5,
+          6
+        ],
+        "paper_form": "홀수형",
+        "source_page": 6,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 541,
+          "end": 591,
+          "quote": "all transportation is local and intensely personal"
+        },
+        {
+          "field": "passage",
+          "start": 913,
+          "end": 934,
+          "quote": "emotional assumptions"
+        }
+      ],
+      "stem_binding": "96977797bf83e2eb9fb632af1701b33d201a4a2e26ca0bcb11b57a4997b7d1c1",
+      "candidate_bindings": [
+        "97f9518bc49f12ed3035d02c89146d198a40f42a79b3ba74325bf1d587cc6b76",
+        "86221f9c584d4e56dbfeb97cb3e72412cacfcc31208ad5b1ea3956b7aeb03c8d",
+        "92b89b7f288878a2eef7efb952cfa4ef7f6d48022b7cba1adcecefa22344afb6",
+        "3fe98b558ea0f003a5dc9c328daf120ad3fa78f597bcc39ba10d997f1360c7f1",
+        "6a64f1bab8c4752883953bac48c1e0bed50c1fe4f5931dcb04a4bac903520565"
+      ],
+      "why": "통근·주차·안전·지역 사업 사례를 개인 이동 관점의 공통 범위로 통합하면 빈칸의 개인 이동 방식 대응 후보를 지지한다.",
+      "limits": "R5 직접 관련 충분 경로이며 모든 정답 경로에서 전역 요약을 강제한다는 뜻은 아니다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2015#21",
+      "task_id": "r.central_meaning",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "4a6c4d96d6b51d3125077fab6d1b69eef2a1b4332c9fd4662a76032b9b4f4071",
+      "input_binding": "cfbdaf8a835b08c1dc9dbf9b23e885afc9d13cd570bb06958c5648faafcd6624",
+      "source_pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          2,
+          3
+        ],
+        "paper_form": "홀수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "홀수"
+        },
+        "actual_paper_form": "홀수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ],
+        "shared_stem_render": "scripts/research/csat-reading/local/main-20261014/source-2015-q-2.png"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 104,
+          "end": 120,
+          "quote": "playing them out"
+        },
+        {
+          "field": "passage",
+          "start": 550,
+          "end": 569,
+          "quote": "without interfering"
+        }
+      ],
+      "stem_binding": "2dcbe23f8c535053416672a46ff2e240c38be25b869b3cf1ba6e68da824dd630",
+      "candidate_bindings": [
+        "618704585a55b6858290543ddfdbdb3c79735f922a73b08ce1c216942d7ea77c",
+        "752ed79bb32028ae023b09292420324e5c90478ece2fd6a9e6bc678df6ecbf17",
+        "fbbd4be74b531fb196dd11571d37be4b01f1616ab3b715d51a08aa9373d5e530",
+        "affc84639655a3120d544de4574c0f774eb367016ee4ee26428581cf418e00cc",
+        "f7ed2c722e33ee58e77949e2903f0d2738a67009a58b881c35ae60d677a36e3b"
+      ],
+      "why": "문제 해결을 위한 놀이와 최소 개입 권고를 함께 중심 범위로 구성하는 주제 과제다.",
+      "limits": "outdoors·physical development로 좁히는 후보는 일부 단어가 아니라 전체 범위로 배제한다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2020#29",
+      "task_id": "e.option_correspondence",
+      "relevance": "not_applicable",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "d4a531dd14a9bec5a912e5608481f34cfe44de43f64d2414f6779f7f7026ce40",
+      "input_binding": "65c12c17ce5c25c726ff6c2f922f7ed2f0cd5c683600861d93399ba620c8f8c9",
+      "source_pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2020-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 794,
+          "end": 815,
+          "quote": "inhabited their world"
+        },
+        {
+          "field": "passage",
+          "start": 816,
+          "end": 845,
+          "quote": "becomes profoundly meaningful"
+        }
+      ],
+      "stem_binding": "0ffdd71828c4cfde7e8200d27b9ef3051d79a7acaa44b1bad74118d74c52496f",
+      "candidate_bindings": [
+        "b1f7124c563597b0c429fd784d086487fe919a60f9f9480a90648b2c0f0f2be9",
+        "f4bf9f7fcbedaba0392f108c59d8f4a38b3838efb64877380171b54475c2ade8",
+        "77bc06c55d29ee3cfa295b4592e4b2a85a16bb06a8974726b7bfa3d4ca36d5ae",
+        "dbf8af44ef6f0b45e6e6caad83ab7f600f8d3f9970f3c6e75a7fbb4fca6c0c3c",
+        "5a41ac42ee7e1b07e44b0166fac711fa507652ec7eb631ce1f45d7ea20a4bab4"
+      ],
+      "why": "정답 위치는 문장 내부의 수식 구조와 유한 동사 관계에 대한 어법 판단이다. 위치 후보는 본문과 대응할 독립 명제가 아니므로 E3 명제 대응 직접 태그를 허용하지 않는다.",
+      "limits": "문법 판단 역시 후보를 선택한다는 넓은 정의는 E3를 시험 선택 행동 전체로 만든다. 정의 경계의 단일 AI 제안이며 전문가 미검수.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2024#28",
+      "task_id": "s.form_scope",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": true,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "source_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "source_row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+      "input_binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+      "source_pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "page": 4,
+        "paper_form": "홀수형",
+        "form_verified": "실제 선택 문제쪽 상단 표시; 해당쪽에 형 표시가 없으면 동일 PDF의 다른 선택 문제쪽 표시 및 문자층으로 결속. 2023/2024 실제 홀수형 확인.",
+        "provenance_level": "local_KICE_identified_question_paper",
+        "official_download_chain": "unresolved"
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 318,
+          "end": 345,
+          "quote": "cannot exceed three minutes"
+        },
+        {
+          "field": "passage",
+          "start": 373,
+          "end": 388,
+          "quote": "one per student"
+        }
+      ],
+      "stem_binding": "ef71ce9e9bf1ea08b7235742af88c10736c318062ee2b9d3acc438dc70667a52",
+      "candidate_bindings": [
+        "2d9494cc44457e5f0cc7feea4b84644bcb16e1218bc5d7b1302ccbe3a2a767f9",
+        "fe3b5bdc4cd20f8ec52caa5b82de94333ad0bd79c3c3fa9dcc7a87c335bdb6ce",
+        "2a200ab4c1f4f9149d5e947c64af8b8c9b656291ba40b0e19ba54f6a47672194",
+        "d9936818b5f906c0e2dbd8752ea664da2f41acce949f854474b987483eaf4c34",
+        "7477303c42ce87d643b4bd388bd48e4dc553e0b0b0b46b5d18234f48cc1af143"
+      ],
+      "why": "길이 상한과 학생당1편의 양화 범위를 보존하여 해당 후보와 수량 변경 후보를 구별한다.",
+      "limits": "3분 정확히와3분 이하를 구별; 문항5보기를 독립 n=5로 세지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2019#30",
+      "task_id": "v.contextual_sense",
+      "relevance": "indirect",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "direct",
+      "previously_reviewed": false,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+      "source_file_sha256": "659e5c34fc3ea8cb59ab22f4a1f6be3454d46140e72f9a76c93bd6a623db9b16",
+      "source_row_sha256": "721372f0d8c7aeb7a11b8e92d2c2f33bebf1414f5dee40d13d20e0ae3e23c654",
+      "input_binding": "da5043e102ef631647cce732a1483e383450b80b7eb38f9a8ddea554b64cc0cc",
+      "source_pdf": {
+        "filename": "2019_영어_짝.pdf",
+        "sha256": "46e7d1014c4935cff43096e8431d4146f86ce666b37126cc7722e2d2f0949447",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "source_header": {
+          "form": null,
+          "paper_form": "짝수"
+        },
+        "actual_paper_form": "짝수형",
+        "source_header_matches_actual": true,
+        "render": "scripts/research/csat-reading/local/v12/a-cross-pilot-2019-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_PDF_source_admission_not_human"
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "passage",
+          "start": 595,
+          "end": 627,
+          "quote": "laboriously overtaken and killed"
+        },
+        {
+          "field": "passage",
+          "start": 714,
+          "end": 732,
+          "quote": "far easier by boat"
+        }
+      ],
+      "stem_binding": "ef6febcc3c4cd655d1d81c5b154f3014ee0a356a827582b0be8464ca090cb1a9",
+      "candidate_bindings": [
+        "96642b36a83c4c78c5dc7a3019ab2c4c7138ff513fad4ffd669f5c65ab4ae178",
+        "448545189b00ee87d2fd8cb163908468081b9fcc5cd0f5942fd3cf9658250a12",
+        "f2b826b18b9de86628dd9b798f3cb6cfd582fb7cee4ea68489387c0b19dc09c1",
+        "7db0558a5cdaa5ff8773356736e4c3689c49a97b9b2c8cfee94a739b78419ea7",
+        "4e8e100ab07db908bada60cb16646cf6b745ca300d717e29ca6854e502c5ba41"
+      ],
+      "why": "낱말의 보통 뜻은 힘들게이며 문맥상 적합성은 사냥·운반 장점과의 담화 비교다. 뜻을 다르게 선택하는 다의어 요구로 단정하지 않는다.",
+      "limits": "어휘 유형→V2직접 후보의 과잉 사례이며 상대적 용이함이 절대 쉬움을 논리 함의하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    },
+    {
+      "item_id": "2024#34",
+      "task_id": "v.contextual_sense",
+      "relevance": "direct",
+      "scope": "Original item AI/FOV demands and at least one explicitly described solution path; not learner performance or instructional affordance alone",
+      "candidate_relevance": "unknown",
+      "previously_reviewed": true,
+      "sampling_roles": [
+        "purposive_case"
+      ],
+      "source_checked": true,
+      "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "source_file_sha256": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "source_row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7",
+      "input_binding": "4b481c0ea0d38d4338b18c7e20916fc4d3bdbc65f0241ab5b43a007bafb18c24",
+      "source_pdf": {
+        "pdf_filename": "2024_영어영역_문제지.pdf",
+        "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          5,
+          6
+        ],
+        "paper_form": "홀수형",
+        "source_page": 6,
+        "visual_verification": {
+          "method": "AI direct view_image inspection of full rendered local PDF pages; text extraction used only for crosscheck",
+          "renders": [
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-5.png",
+            "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png"
+          ]
+        },
+        "limitations": [
+          "Official-download provenance chain remains unresolved.",
+          "AI PDF restoration; no human verification.",
+          "Complete means restored task input matches the identified local paper; it does not establish educational effectiveness or official distribution provenance."
+        ]
+      },
+      "source_admission": "Previously complete local-PDF-bound research input directly read now; no new direct PDF image/key re-audit by this analyst; official chain/rights/human review unresolved",
+      "anchors": [
+        {
+          "field": "choices[3]",
+          "start": 0,
+          "end": 46,
+          "quote": "tracks pretty closely with how she gets around"
+        }
+      ],
+      "stem_binding": "96977797bf83e2eb9fb632af1701b33d201a4a2e26ca0bcb11b57a4997b7d1c1",
+      "candidate_bindings": [
+        "97f9518bc49f12ed3035d02c89146d198a40f42a79b3ba74325bf1d587cc6b76",
+        "86221f9c584d4e56dbfeb97cb3e72412cacfcc31208ad5b1ea3956b7aeb03c8d",
+        "92b89b7f288878a2eef7efb952cfa4ef7f6d48022b7cba1adcecefa22344afb6",
+        "3fe98b558ea0f003a5dc9c328daf120ad3fa78f597bcc39ba10d997f1360c7f1",
+        "6a64f1bab8c4752883953bac48c1e0bed50c1fe4f5931dcb04a4bac903520565"
+      ],
+      "why": "후보 속 tracks를 실제 추적 이동이 아닌 대응·연동 의미로 해석해야 삽입 후 명제를 개인 교통 관점과 대응할 수 있다.",
+      "limits": "표현은 인쇄 본문이 아니라 후보4에 있다; 본문에 있었던 것으로 표시하지 않는다.",
+      "reviewer": "Single AI source-grounded analyst; post-key development, not independent pilot",
+      "research_tier": "R1",
+      "learner_use": false,
+      "first_v12_preserved": true
+    }
+  ],
+  "limitations": [
+    "Purposeful examples are not population accuracy estimates.",
+    "Probability audit denominator is181 source-available development links; finite sampling rates recorded, no extrapolation to23580.",
+    "Source availability and prior research exposure cause selection bias.",
+    "All classifications single AI; no independent human/learner/effect/rights approval.",
+    "Potential definition-sensitive overlinks require additional expert review before product application.",
+    "Original46 and candidate6310 remain unchanged."
+  ]
+}

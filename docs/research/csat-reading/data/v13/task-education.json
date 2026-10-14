@@ -1,0 +1,1468 @@
+{
+  "version": "1.3",
+  "retained_profile_count": 30,
+  "retained_profiles_path": "docs/research/csat-reading/data/v12/task-relation-review.json",
+  "retained_profiles_sha256": "0741e60ba99a89cba8f380e51d114ec3f85b34c54fb381641f2e933428ee17da",
+  "refined_packages": 4,
+  "method_comparisons": 40,
+  "material_role_contracts": 24,
+  "packages": [
+    {
+      "task_id": "r.central_meaning",
+      "display": "R5",
+      "definition_version": "v1.3-research-candidate",
+      "research_tier": "R1_item_links_R0_instruction_assessment",
+      "contracts": {
+        "educational_definition": "후보를 보기 전에 주제 대상과 중심 서술, 조건·범위, 근거·부연을 구성한다. 의미가 같은 자연스러운 대안 표현을 허용한다.",
+        "actual_item_relevance": [
+          {
+            "item_id": "2023#20",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+            "source_row_sha256": "199b958b2aaf616c3fdb6cd6826ae016a48f5e18b0a57eaaf874cde496b8b80f"
+          },
+          {
+            "item_id": "2024#34",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+            "source_row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7"
+          },
+          {
+            "item_id": "2015#21",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+            "source_row_sha256": "4a6c4d96d6b51d3125077fab6d1b69eef2a1b4332c9fd4662a76032b9b4f4071"
+          }
+        ],
+        "related_tasks": [
+          "r.discourse_structure",
+          "r.discourse_function",
+          "e.option_correspondence"
+        ],
+        "item_side_error_candidates": "부분 예시만 중심으로 선택/위험이 제거된다고 과장/무조건 개입 금지로 변형. 학생 빈도 미측정.",
+        "direct_performance": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "material_roles": [
+          "source_analysis",
+          "model_explanation",
+          "guided_practice",
+          "independent_check",
+          "transfer",
+          "delayed_check"
+        ],
+        "learner_output": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개.",
+        "qualitative_rubric": {
+          "criteria": [
+            "주제 대상·중심 서술 보존",
+            "조건·강도 과장 없음",
+            "근거가 중심을 지지하며 예시를 과대 일반화하지 않음",
+            "반후보·대안 요약의 성립/실패 설명"
+          ],
+          "result_categories": [
+            "조건을 충족한 응답",
+            "부분적으로 타당한 응답",
+            "근거/범위 결함이 있는 응답",
+            "판정 보류"
+          ],
+          "alternative_expression": "의미/범위를 보존하는 자연스러운 대안 표현 허용",
+          "numeric_score": "not_established"
+        },
+        "quantitative_response_unit": "고유 공유본문×중심 생성 응답. 문장·근거 개수를 독립 n으로 세지 않음.",
+        "unseen_independent_conditions": "공유지문/정규화본문/표/해설·힌트·정답의 학생별 노출을 확인하고 첫 독립 응답을 먼저 동결. 연구자 노출은 별도 필드. 채점루브릭·Gold 검수 전R3승격금지.",
+        "transfer_delayed_conditions": "새 주제/유형/구조를 분리 기록하고 다른 날 실제 경과·도움·반복노출을 수집. 예약/합성 성공/같은 지문 기억을 전이·지연 성공으로 처리하지 않음.",
+        "available_content": "연구용 source-complete 원문 사례와 후보설계만 있음. 공개·권리·실행·학습자 미노출재고는 미감사.",
+        "unverified_scope": "교수 효과/학생원인/숙달절단점/능력수준/개인최적법/총필요학습량/전이·지연 효과 없음"
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "주요 술어의 주체·조건을 풀어 쓴다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "주요 술어의 주체·조건을 풀어 쓴다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional",
+          "why": "핵심 명제와 부연을 의미 단위로 묶는다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "핵심 명제와 부연을 의미 단위로 묶는다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "읽은 명제를 누적하고 마지막에 중심 범위를 다시 점검한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "읽은 명제를 누적하고 마지막에 중심 범위를 다시 점검한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "정말 대립하는 대상·기준을 기록한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "정말 대립하는 대상·기준을 기록한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional",
+          "why": "후보 문장이 글 전체를 대표하는지 다른 구간에 대조한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "후보 문장이 글 전체를 대표하는지 다른 구간에 대조한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "주장·근거·부연 관계를 화살표와 방향으로 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "주장·근거·부연 관계를 화살표와 방향으로 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional",
+          "why": "조직도를 그린 뒤 중심·범위를 별도 생성한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "조직도를 그린 뒤 중심·범위를 별도 생성한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "support_only",
+          "why": "자기 요지를 먼저 확정한 다음 후보의 누락/추가를 비교한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "자기 요지를 먼저 확정한 다음 후보의 누락/추가를 비교한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "support_only",
+          "why": "좁은 사례/과장된 일반화의 변경점을 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "좁은 사례/과장된 일반화의 변경점을 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "자기 요지의 반례와 더 나은 대안 표현을 설명한다",
+          "source_case_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "중심 의미 구성이 판단 경로에 필요한 글. 단일 세부 사실 판단은 R5 직접 관찰로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2021#26",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "자기 요지의 반례와 더 나은 대안 표현을 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2023#20",
+            "2015#21",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "선지 없는 중심 한 문장＋근거 구간＋조건/부연 설명. 선지는 제출 이후 공개."
+        }
+      ],
+      "promotion_gate": {
+        "R0": true,
+        "R1_item_links": true,
+        "R2_content": false,
+        "R3_scoring_and_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "quantity": "실행계획과응답단위설계만가능. 공통필수문항수/120일/2연속을본연구로검증하지않음."
+    },
+    {
+      "task_id": "e.option_correspondence",
+      "display": "E3",
+      "definition_version": "v1.3-research-candidate",
+      "research_tier": "R1_item_links_R0_instruction_assessment",
+      "contracts": {
+        "educational_definition": "실제 후보와 자료 명제의 주체·극성·강도·범위·관계를 비교하고 textual_support와 task_fit를 구별한다. 위치 표지 자체는 명제가 아니다.",
+        "actual_item_relevance": [
+          {
+            "item_id": "2019#40",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+            "source_row_sha256": "cf3b448c564db851224070d9afb2005fd89ce89876314db374e03ae7575a2c6d"
+          },
+          {
+            "item_id": "2015#18",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+            "source_row_sha256": "b3e9f5c90bf0dd79ca0050cb377aec4730ffa86772e51f66618380234e01418e"
+          },
+          {
+            "item_id": "2014A#40",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/pilot-input.json",
+            "source_row_sha256": "99abb764e812bdda382ff251d41dca19a3f4c1a4a1c5f09211fa9fe070b95c7f"
+          }
+        ],
+        "related_tasks": [
+          "e.task_demand",
+          "e.evidence_location",
+          "r.central_meaning",
+          "v.semantic_relation"
+        ],
+        "item_side_error_candidates": "같은 단어를 보고 범위 차이 무시/내용 모순과 불일치 fit 실패 혼동/단일 정답 근거를 FOV로 승격. 학생 원인 미확정.",
+        "direct_performance": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "material_roles": [
+          "source_analysis",
+          "model_explanation",
+          "guided_practice",
+          "independent_check",
+          "transfer",
+          "delayed_check"
+        ],
+        "learner_output": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출.",
+        "qualitative_rubric": {
+          "criteria": [
+            "비교 대상을 완성 명제로 정규화",
+            "주체/범위/극성/관계의 변경점 보존",
+            "지지/모순/미결정/비명제 구별",
+            "발문 방향과fit 대응",
+            "AI와FOV 정보량 구별"
+          ],
+          "result_categories": [
+            "조건을 충족한 응답",
+            "부분적으로 타당한 응답",
+            "근거/범위 결함이 있는 응답",
+            "판정 보류"
+          ],
+          "alternative_expression": "의미/범위를 보존하는 자연스러운 대안 표현 허용",
+          "numeric_score": "not_established"
+        },
+        "quantitative_response_unit": "공유본문×지정 AI 또는 FOV 응답. 다섯 후보는 관찰 내 부분응답이며 독립n=5 아님.",
+        "unseen_independent_conditions": "공유지문/정규화본문/표/해설·힌트·정답의 학생별 노출을 확인하고 첫 독립 응답을 먼저 동결. 연구자 노출은 별도 필드. 채점루브릭·Gold 검수 전R3승격금지.",
+        "transfer_delayed_conditions": "새 주제/유형/구조를 분리 기록하고 다른 날 실제 경과·도움·반복노출을 수집. 예약/합성 성공/같은 지문 기억을 전이·지연 성공으로 처리하지 않음.",
+        "available_content": "연구용 source-complete 원문 사례와 후보설계만 있음. 공개·권리·실행·학습자 미노출재고는 미감사.",
+        "unverified_scope": "교수 효과/학생원인/숙달절단점/능력수준/개인최적법/총필요학습량/전이·지연 효과 없음"
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "본문·후보의 주체와 조건을 각각 풀어 쓴다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "본문·후보의 주체와 조건을 각각 풀어 쓴다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional",
+          "why": "두 텍스트의 대응 명제를 나란히 둔다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "두 텍스트의 대응 명제를 나란히 둔다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "후보를 읽기 전 자료 의미를 누적 확정한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "후보를 읽기 전 자료 의미를 누적 확정한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "양극 표현만이 아니라 실제 비교 기준을 말한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "양극 표현만이 아니라 실제 비교 기준을 말한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional",
+          "why": "전역 후보에서 중심 근거의 대표성을 검사한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "전역 후보에서 중심 근거의 대표성을 검사한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "후보가 관계 방향을 보존하는지 비교한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "후보가 관계 방향을 보존하는지 비교한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional",
+          "why": "전체 대표성 후보에서 구조 범위를 검사한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "전체 대표성 후보에서 구조 범위를 검사한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "relevant",
+          "why": "support와fit를 별도 기록하고 사용 정보창을 제출한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "support와fit를 별도 기록하고 사용 정보창을 제출한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant",
+          "why": "주체·극성·강도·수량 변경을 표시하고 적합성을 설명한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "주체·극성·강도·수량 변경을 표시하고 적합성을 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "선택/배제 경로와 부족한 정보를 스스로 설명한다",
+          "source_case_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 대응 후보가 있는 판단. 순수 어법 위치/블록 순서를 같은 E3 명제 진단으로 자동 변환하지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "선택/배제 경로와 부족한 정보를 스스로 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2015#18",
+            "2019#40",
+            "2014A#40"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "AI: 선택＋필요 근거＋fit 설명. FOV: 모든 후보의 내용 상태/fit/사용 정보 범위를 별도로 제출."
+        }
+      ],
+      "promotion_gate": {
+        "R0": true,
+        "R1_item_links": true,
+        "R2_content": false,
+        "R3_scoring_and_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "quantity": "실행계획과응답단위설계만가능. 공통필수문항수/120일/2연속을본연구로검증하지않음."
+    },
+    {
+      "task_id": "s.form_scope",
+      "display": "S5",
+      "definition_version": "v1.3-research-candidate",
+      "research_tier": "R1_item_links_R0_instruction_assessment",
+      "contracts": {
+        "educational_definition": "부정·양화·비교·조건·형태의 작용 대상을 보존하여 완성 명제를 구성한다. 모든 어법 라벨 판정을 S5라고 부르지 않는다.",
+        "actual_item_relevance": [
+          {
+            "item_id": "2019#25",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+            "source_row_sha256": "229d56ad6eb5f452711473c3f9d17f82f74cd88bce4ddc5c6770597654f51790"
+          },
+          {
+            "item_id": "2014B#45",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/restore-a.json",
+            "source_row_sha256": "c389f2d0065384d57357bca61bf8bf3e6ca9280a738a9f9547ff29238b434b42"
+          },
+          {
+            "item_id": "2024#28",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+            "source_row_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd"
+          }
+        ],
+        "related_tasks": [
+          "s.structural_relation",
+          "s.attachment",
+          "e.option_correspondence"
+        ],
+        "item_side_error_candidates": "3분 이하를 정확히3분으로 해석/결합절 중 한 절만 검수/주체 대응을 S5 전체에 흡수. 학생 원인 미확정.",
+        "direct_performance": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "material_roles": [
+          "source_analysis",
+          "model_explanation",
+          "guided_practice",
+          "independent_check",
+          "transfer",
+          "delayed_check"
+        ],
+        "learner_output": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례.",
+        "qualitative_rubric": {
+          "criteria": [
+            "작용 대상 정확",
+            "수량/시점/비교 대상 보존",
+            "부정/조건/결합을 과대화하지 않음",
+            "새 예와 반례의 귀속 설명"
+          ],
+          "result_categories": [
+            "조건을 충족한 응답",
+            "부분적으로 타당한 응답",
+            "근거/범위 결함이 있는 응답",
+            "판정 보류"
+          ],
+          "alternative_expression": "의미/범위를 보존하는 자연스러운 대안 표현 허용",
+          "numeric_score": "not_established"
+        },
+        "quantitative_response_unit": "새 명제×범위 재구성 응답. 수치 계산/같은 문장 facet를 독립 능력수로 세지 않음.",
+        "unseen_independent_conditions": "공유지문/정규화본문/표/해설·힌트·정답의 학생별 노출을 확인하고 첫 독립 응답을 먼저 동결. 연구자 노출은 별도 필드. 채점루브릭·Gold 검수 전R3승격금지.",
+        "transfer_delayed_conditions": "새 주제/유형/구조를 분리 기록하고 다른 날 실제 경과·도움·반복노출을 수집. 예약/합성 성공/같은 지문 기억을 전이·지연 성공으로 처리하지 않음.",
+        "available_content": "연구용 source-complete 원문 사례와 후보설계만 있음. 공개·권리·실행·학습자 미노출재고는 미감사.",
+        "unverified_scope": "교수 효과/학생원인/숙달절단점/능력수준/개인최적법/총필요학습량/전이·지연 효과 없음"
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "relevant",
+          "why": "부정·조건·양화의 작용 대상을 명시한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "부정·조건·양화의 작용 대상을 명시한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant",
+          "why": "범위 표현과 제한 대상을 하나의 명제로 묶는다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "범위 표현과 제한 대상을 하나의 명제로 묶는다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "나중 절의 한정이 이전 이해를 바꾸는지 수정한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "나중 절의 한정이 이전 이해를 바꾸는지 수정한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "긍정/부정 또는 경계 안/밖 최소쌍을 비교한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "긍정/부정 또는 경계 안/밖 최소쌍을 비교한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only",
+          "why": "중심 문장과 별개인 국소 조건을 보존한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "중심 문장과 별개인 국소 조건을 보존한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant",
+          "why": "and/or·조건 결과를 완성 명제로 재구성한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "and/or·조건 결과를 완성 명제로 재구성한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only",
+          "why": "글 전체 조직 없이도 국소 범위를 먼저 설명한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "글 전체 조직 없이도 국소 범위를 먼저 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional",
+          "why": "본문/후보의 범위 차이를 각각 말한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "본문/후보의 범위 차이를 각각 말한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant",
+          "why": "초과불가→정확히·단독→공저·일부→전부 변경을 검사한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "초과불가→정확히·단독→공저·일부→전부 변경을 검사한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "경계에 들어가는 사례와 안 들어가는 반례를 생성한다",
+          "source_case_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "의미 범위가 실제 후보 구별을 제약할 때. 분사 부착만의 어법 판단을 S5 직접으로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2020#29",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "경계에 들어가는 사례와 안 들어가는 반례를 생성한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2019#25",
+            "2014B#45",
+            "2024#28"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "작용 표현·대상·긍정/부정·경계를 보존한 풀어쓰기＋범위에 속하는 예/벗어나는 최소 반례."
+        }
+      ],
+      "promotion_gate": {
+        "R0": true,
+        "R1_item_links": true,
+        "R2_content": false,
+        "R3_scoring_and_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "quantity": "실행계획과응답단위설계만가능. 공통필수문항수/120일/2연속을본연구로검증하지않음."
+    },
+    {
+      "task_id": "v.contextual_sense",
+      "display": "V2",
+      "definition_version": "v1.3-research-candidate",
+      "research_tier": "R1_item_links_R0_instruction_assessment",
+      "contracts": {
+        "educational_definition": "지정 낱말/표현의 뜻 후보를 실제 문맥에서 고르고 지지 단서와 배제한 뜻을 설명한다. 기본 뜻과 담화 최적합을 구별한다.",
+        "actual_item_relevance": [
+          {
+            "item_id": "2016#23",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/main-20261014/input.json",
+            "source_row_sha256": "51a167fbfcccc13cbcdd4ebe849f659eae356c0f42afe6f19f281e49aab151ba"
+          },
+          {
+            "item_id": "2024#34",
+            "relevance": "direct",
+            "source_ref": "scripts/research/csat-reading/local/v12/restore-b.json",
+            "source_row_sha256": "a295fc5e29ea7b0b547627ee54d5fb9d0c9dcb05466f4435ea088e96677004d7"
+          }
+        ],
+        "related_tasks": [
+          "v.core_meaning",
+          "v.multiword",
+          "v.semantic_relation",
+          "e.option_correspondence"
+        ],
+        "item_side_error_candidates": "mirror를 실물 거울/tracks를 실제 추적으로 해석/기본 뜻 성공에서 담화 적합성 추정. 학생 원인 미확정.",
+        "direct_performance": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+        "instruction_candidates": [
+          "syntax",
+          "meaning_units",
+          "incremental",
+          "contrast",
+          "core_sentence",
+          "proposition_relations",
+          "structure",
+          "text_option",
+          "distractor_changes",
+          "self_explanation"
+        ],
+        "material_roles": [
+          "source_analysis",
+          "model_explanation",
+          "guided_practice",
+          "independent_check",
+          "transfer",
+          "delayed_check"
+        ],
+        "learner_output": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건.",
+        "qualitative_rubric": {
+          "criteria": [
+            "문맥 의미 보존",
+            "뜻 후보 차이 설명",
+            "필요 문장/앞뒤 단서 특정",
+            "뜻 선택과 담화 적합성/관습 표현 구별"
+          ],
+          "result_categories": [
+            "조건을 충족한 응답",
+            "부분적으로 타당한 응답",
+            "근거/범위 결함이 있는 응답",
+            "판정 보류"
+          ],
+          "alternative_expression": "의미/범위를 보존하는 자연스러운 대안 표현 허용",
+          "numeric_score": "not_established"
+        },
+        "quantitative_response_unit": "새 본문에서 하나의 대상 표현에 대한 뜻 선택 응답. 같은 낱말 반복은 독립 미노출 증거 아님.",
+        "unseen_independent_conditions": "공유지문/정규화본문/표/해설·힌트·정답의 학생별 노출을 확인하고 첫 독립 응답을 먼저 동결. 연구자 노출은 별도 필드. 채점루브릭·Gold 검수 전R3승격금지.",
+        "transfer_delayed_conditions": "새 주제/유형/구조를 분리 기록하고 다른 날 실제 경과·도움·반복노출을 수집. 예약/합성 성공/같은 지문 기억을 전이·지연 성공으로 처리하지 않음.",
+        "available_content": "연구용 source-complete 원문 사례와 후보설계만 있음. 공개·권리·실행·학습자 미노출재고는 미감사.",
+        "unverified_scope": "교수 효과/학생원인/숙달절단점/능력수준/개인최적법/총필요학습량/전이·지연 효과 없음"
+      },
+      "methods": [
+        {
+          "method_id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional",
+          "why": "수식·논항이 가능한 뜻을 어떻게 제한하는지 말한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "수식·논항이 가능한 뜻을 어떻게 제한하는지 말한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant",
+          "why": "대상 표현을 포함한 단위로 자연스럽게 풀어 쓴다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "대상 표현을 포함한 단위로 자연스럽게 풀어 쓴다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional",
+          "why": "처음 뜻 가설을 후속 문맥으로 유지/수정한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "처음 뜻 가설을 후속 문맥으로 유지/수정한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional",
+          "why": "실제 경쟁 뜻이 있을 때 같은 구간에 대입한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "실제 경쟁 뜻이 있을 때 같은 구간에 대입한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only",
+          "why": "대상 표현의 국소 뜻과 전체 중심을 구별한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "대상 표현의 국소 뜻과 전체 중심을 구별한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "conditional",
+          "why": "단서 명제와 뜻 후보의 적합 관계를 설명한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "단서 명제와 뜻 후보의 적합 관계를 설명한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only",
+          "why": "전역 정보가 필요한 뜻일 때만 조직을 참고한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "전역 정보가 필요한 뜻일 때만 조직을 참고한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional",
+          "why": "후보 속 표현인지 본문 표현인지 구분하고 해석한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "후보 속 표현인지 본문 표현인지 구분하고 해석한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "conditional",
+          "why": "뜻을 바꾼 후보와 내용 조건만 바꾼 후보를 분리한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "뜻을 바꾼 후보와 내용 조건만 바꾼 후보를 분리한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        },
+        {
+          "method_id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant",
+          "why": "자신의 뜻 해석·단서와 다른 뜻이 맞는 새 문맥을 제안한다",
+          "source_case_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "source_claim": "위 사례의 수행/표현에 논리적으로 결속한 교수 설계 후보; 실제 이 교수법으로 학생이 성공한 기록 아님.",
+          "applicability": "다의/비유/문맥 용법이 실제 경쟁할 때. 낱말이 인쇄돼 있다는 사실만으로 V2 직접 요구로 세지 않음.",
+          "prerequisite_observation": "필요 낱말·기본 명제·접근 지원을 제공/미제공 구별. 선수잠금으로 사용하지 않음.",
+          "counterexample": {
+            "item_id": "2019#30",
+            "why": "국소/형태/담화 요구가 달라 단일 방법이 목표TASK를 독립 측정하거나 정답 전체를 보장하지 않음."
+          },
+          "learner_action": "자신의 뜻 해석·단서와 다른 뜻이 맞는 새 문맥을 제안한다",
+          "independent_check": "새 미노출 입력에서 해당 TASK의 산출물과 근거를 도움 없이 먼저 확정; 방법을 썼다는 자기보고와 결과 수행을 분리.",
+          "effectiveness_status": "not_tested"
+        }
+      ],
+      "materials": [
+        {
+          "role": "source_analysis",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "source_bound_research_input",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        },
+        {
+          "role": "model_explanation",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        },
+        {
+          "role": "guided_practice",
+          "planned_source_ids": [
+            "2016#23",
+            "2024#34"
+          ],
+          "unseen_pool": "not_applicable",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        },
+        {
+          "role": "independent_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        },
+        {
+          "role": "transfer",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        },
+        {
+          "role": "delayed_check",
+          "planned_source_ids": [],
+          "unseen_pool": "not_admitted_yet",
+          "status": "design_candidate_not_executed",
+          "student_exposure_policy": "학생별 노출 결속 필요; 수업에 쓴 문항을 새로운 독립 확인으로 재배정 금지.",
+          "rights_publication": "unresolved",
+          "response_contract": "뜻 후보 선택＋문맥 풀어쓰기＋지지 단서＋다른 뜻 배제 조건."
+        }
+      ],
+      "promotion_gate": {
+        "R0": true,
+        "R1_item_links": true,
+        "R2_content": false,
+        "R3_scoring_and_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "quantity": "실행계획과응답단위설계만가능. 공통필수문항수/120일/2연속을본연구로검증하지않음."
+    }
+  ],
+  "student_data_count": 0,
+  "human_expert_count": 0,
+  "teaching_effect_trials": 0,
+  "research_exposure": "All cited items are researcher-exposed development materials; no learner exposure records read or created.",
+  "learner_state_engine_created": false
+}
