@@ -1,0 +1,13 @@
+{
+ "version":"1.4","protocol_commit":"87ea2672d","source_freeze_commit":"c86299b84","n":8,"candidate_pairs":40,
+ "raters":{"A":{"fork_turns":"none","first_complete_at":"2026-10-14T08:30:23.297876Z","key_before_complete":false},"B":{"fork_turns":"none","first_complete_at":"2026-10-14T08:31:52.111Z","key_before_complete":false}},
+ "first_hashes":{
+ "scripts/research/csat-reading/local/v14/rater-a-first-complete.json":"b0c14ff673d549028f4491b629078b14257548911ec7f9c46b5c8d5bf8da7536",
+ "scripts/research/csat-reading/local/v14/rater-b-first-complete.json":"d626bac1b9e9e9bf697b034fd57f49fb275433f51cfc493c1b32d6c84953cb90",
+ "scripts/research/csat-reading/local/v14/rater-a-first4.json":"ccc6aeb5c38a849dcc63c0966167ba5c1edd1850db5ae98b050aa90c3a357e85",
+ "scripts/research/csat-reading/local/v14/rater-b-first4.json":"160424d30472ad47550c7126f8fe6fee1ad9d37e084aebb9175c755406c2e28c"
+ },
+ "partial_history":{"A":"Judgment labels unchanged; preserved-proposition phrasing replaced with own short abstracts before first whole; partial bytes retained","B":"First4 equals corresponding first complete rows"},
+ "key_opening_allowed_after":"2026-10-14T08:31:52.111Z","first_results_modified":false,
+ "public_original_answers":false,"first_details_private":true,"independence_limit":"separateAIcontexts, same inherited model family/pretraining not controlled, not human/student validation"
+}

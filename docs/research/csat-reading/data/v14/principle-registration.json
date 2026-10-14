@@ -1,0 +1,70 @@
+{
+  "version": "v1.4",
+  "selection": "purposeful source-complete development cases; all eight previously exposed; item text/stem/options have already been read during selection; this is pre-claim registration, not preregistered fresh blind selection",
+  "cases": [
+    {
+      "id": "topic_blank",
+      "ids": [
+        "2024#23",
+        "2015#32"
+      ],
+      "category": "주제↔빈칸",
+      "status": "new_pair_old_development_items"
+    },
+    {
+      "id": "order_insert",
+      "ids": [
+        "2020#36",
+        "2017#38"
+      ],
+      "category": "순서↔삽입",
+      "status": "new_pair_old_development_items"
+    },
+    {
+      "id": "fact_notice",
+      "ids": [
+        "2016#25",
+        "2024#28"
+      ],
+      "category": "사실↔안내",
+      "status": "new_pair_old_development_items"
+    },
+    {
+      "id": "lexical_blank",
+      "ids": [
+        "2021#30",
+        "2024#31"
+      ],
+      "category": "어휘↔빈칸",
+      "status": "new_pair_old_development_items"
+    }
+  ],
+  "criteria": {
+    "positive": "both originals support explicitly bounded common performance",
+    "negative": "stronger identical target/information scope/operation claim fails in one endpoint",
+    "defer": "key/source missing or normalized target underdetermined",
+    "relation": "distinguish direct observed item demand from support task; no causal/latent independence inference"
+  },
+  "preserved_baselines": [
+    {
+      "path": "docs/research/csat-reading/data/v13/principle-current-ledger.json",
+      "sha256": "662212bf4a51504994d653d5154ce1ea0be1ae239cac2907044b4c3664cbf947"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/principle-cross-type.json",
+      "sha256": "fa18178f9065724d67bda235a9c8e0b729c729183785f60b7dd6024267b76a66"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v13/principle-key-recovery.json",
+      "sha256": "f0622e7b2f8d6caf5215bfd7488c560ea9b58daf7e6ecadcf912031db289f615"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v12/principle-task-review.json",
+      "sha256": "a18739101addf39c1cc10bba37d855c8077755206262a658cd2da77072e71905"
+    }
+  ],
+  "exposure": "source-bound single AI development re-analysis; no human review, student trial, or fully unseen item claim",
+  "bounded_110_new_verified_numerator": 0,
+  "key_recovery_plan": "One new KICE CDN historical-year endpoint approach, after v1.3 EBS service-page failure. Stop if inaccessible; do not substitute stored answer as official key.",
+  "registration_sequence": "before new cross-pair claim records and source re-read receipts"
+}

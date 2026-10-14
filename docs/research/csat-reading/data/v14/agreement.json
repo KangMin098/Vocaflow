@@ -1,0 +1,78 @@
+{
+  "version": "1.4",
+  "n": 8,
+  "candidate_pairs": 40,
+  "propositional_pairs": 30,
+  "placement_pairs": 10,
+  "structural_errors": [],
+  "task_fit": {
+    "n": 40,
+    "raw_agreement": 1,
+    "scorable_agreement_over_all": 1,
+    "resolved_pair_n": 40,
+    "resolved_pair_agreement": 1,
+    "resolved_kappa": 1,
+    "kappa": 1,
+    "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+    "labels": [
+      "fails",
+      "fits"
+    ],
+    "confusion": {
+      "fails": {
+        "fails": 32,
+        "fits": 0
+      },
+      "fits": {
+        "fails": 0,
+        "fits": 8
+      }
+    }
+  },
+  "provisional_support_same_target_not_yet_confirmed": {
+    "n": 30,
+    "raw_agreement": 0.9,
+    "scorable_agreement_over_all": 0.9,
+    "resolved_pair_n": 30,
+    "resolved_pair_agreement": 0.9,
+    "resolved_kappa": 0.7783251231527094,
+    "kappa": 0.7783251231527094,
+    "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+    "labels": [
+      "contradicts",
+      "not_determined",
+      "supports"
+    ],
+    "confusion": {
+      "contradicts": {
+        "contradicts": 4,
+        "not_determined": 0,
+        "supports": 0
+      },
+      "not_determined": {
+        "contradicts": 0,
+        "not_determined": 20,
+        "supports": 0
+      },
+      "supports": {
+        "contradicts": 0,
+        "not_determined": 3,
+        "supports": 3
+      }
+    }
+  },
+  "necessary_relations": {
+    "nonempty": 0,
+    "both_empty": 8,
+    "mean_jaccard": null
+  },
+  "key_agreement": {
+    "A": 8,
+    "B": 8,
+    "n": 8,
+    "interpretation": "Aggregate answer alignment only; no original answer values published"
+  },
+  "target_equivalence": "requires_independent_semantic_review_not_key_strings",
+  "semantic_validity": "not_proven_by_code",
+  "learner_effects": "not_tested"
+}

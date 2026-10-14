@@ -1,0 +1,55 @@
+{
+  "version": "1.4",
+  "development_items": 3,
+  "candidate_targets": 15,
+  "independent_new_items": 0,
+  "private_detail": {
+    "path": "scripts/research/csat-reading/local/v14/development-targets-first.json",
+    "sha256": "0bbdeee264dcba29c1183de3360db238ce1ecb28e7f76be5c511417643a1b646"
+  },
+  "cases": [
+    {
+      "id": "2019#35",
+      "action": "content_evaluation",
+      "target_class": "content_assertion",
+      "boundaries": [
+        "문장 내용과 삭제해야 한다는 조작 판단을 다른필드에 둔다",
+        "tested후보 자신을 그후보의 독립지지근거로 사용하지 않는다",
+        "원인 중 하나라는 한정을 유일원인으로 확대하지 않는다"
+      ],
+      "synthetic_counter": {
+        "kind": "synthetic_not_actual_student",
+        "contrast": "내용의 지지와 삭제 적합성은 반대방향일 수 있으며 같은 명제가 아니다"
+      }
+    },
+    {
+      "id": "2021#30",
+      "action": "lexical_evaluation",
+      "target_class": "lexical_assertion",
+      "boundaries": [
+        "when은 사건의 시간·조건 연결이며 because로 정규화하지 않는다",
+        "only라는 제한과 보편적 인과 필연은 다르다",
+        "어휘의 통상적 의미/맥락상 비교 판단/논리적 모순을 별도로 검토한다"
+      ],
+      "synthetic_counter": {
+        "kind": "synthetic_logic_model",
+        "contrast": "센서가 고장날 때 경보가 울렸다는 관찰은 센서 고장이 경보의 유일원인이라는 명제를 함의하지 않는다"
+      }
+    },
+    {
+      "id": "2015#32",
+      "action": "completion_evaluation",
+      "target_class": "completion_assertion",
+      "boundaries": [
+        "accumulate=enhance라는 수행 동일시와 축적이 향상을 초래한다는 인과는 별도 대상이다",
+        "원래 표현·완성명제·세계사실을 구별한다",
+        "도덕중립과 어떤 적용에서도 무효라는 주장은 같지 않다"
+      ],
+      "synthetic_counter": {
+        "kind": "synthetic_not_original_exam",
+        "contrast": "자료 축적과 개선 적용의 동일성/도움/필연효과를 각각 별도문장으로 정규화하고 원표현이 허용하는 범위를 비교한다"
+      }
+    }
+  ],
+  "claim_level": "R0operational_definition_development; not independent confirmation or correct-answer publication"
+}

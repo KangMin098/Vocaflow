@@ -1,0 +1,382 @@
+{
+  "version": "v1.4-public-metadata-revision",
+  "revision": "prepublication privacy redaction; private first submission preserved by SHA256; not a scientific judgment correction",
+  "first_sha256": "b9ca9701a11ec39d6caeeba4c234f1cdd77e9dacea484895449cdab045fbbf04",
+  "registration_sha256": "f54ae2cdcf4e93f9d9018cbff785fece2677d6dd6c4849f62832451e6d1e3ead",
+  "method": "single AI development cross-pair re-analysis; all8source text and printed question/key images reread, prior exposure declared",
+  "cases": [
+    {
+      "id": "topic_blank",
+      "ids": [
+        "2024#23",
+        "2015#32"
+      ],
+      "category": "주제↔빈칸",
+      "status": "new_pair_old_development_items",
+      "claim": "글 의미의 구별과 범위를 보존한 후보 대응",
+      "counter": "소재 대립만으로 판단 방향·강도·대표 범위가 확정되지 않는다.",
+      "conditions": "전체 글 대표와 빈칸 삽입 명제의 판단 대상을 분리한다.",
+      "source_refs": [
+        {
+          "id": "2024#23",
+          "type_id": "R-TOPIC",
+          "input_file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+          "input_object_sha256": "c8976738f881f43f994856b7811b996bceeb35153ab1569d4ddc2d83d058f418",
+          "source_binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+          "source_audit": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "source_audit_file_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "45572c1af70e1512a2543630c403e5d93d6ac904f0255aa68ea87474308c81b2",
+          "key_image_sha256": "efadb04b9332b65b011419921ce30b474e5a895cbb630c964d85f58447193c2f",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+            "paper_form": "홀수형",
+            "pages": [
+              3
+            ]
+          },
+          "key_pdf": {
+            "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+            "paper_form": "홀수형",
+            "page": 1
+          }
+        },
+        {
+          "id": "2015#32",
+          "type_id": "R-BLANK",
+          "input_file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+          "input_object_sha256": "536c2c51f6629e7cb0076b96975b14787cd06e3cafe252b7b40dec443401056e",
+          "source_binding": "c7e505afdc1396c059d304c07659d1c024a24b672863c23b2495968cbebd8398",
+          "source_audit": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "source_audit_file_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "6de3502cf98500a177964f43ffd9910d7dd5b687465ba04faa0758ea6e64528f",
+          "key_image_sha256": "b197175a679815ae84c60f26ad5068671003505842ad0da628e989d5c688eda8",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+            "paper_form": "홀수형",
+            "pages": [
+              5
+            ]
+          },
+          "key_pdf": {
+            "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+            "paper_form": "홀수형",
+            "page": 1
+          }
+        }
+      ],
+      "verdict": "bounded_common_performance_candidate_R1",
+      "stronger_claim_result": "not_reproduced",
+      "student_transfer": "not_observed",
+      "latent_task_independence": "not_established",
+      "human_review": false,
+      "public_learning_use": false
+    },
+    {
+      "id": "order_insert",
+      "ids": [
+        "2020#36",
+        "2017#38"
+      ],
+      "category": "순서↔삽입",
+      "status": "new_pair_old_development_items",
+      "claim": "선행 정보와 후행 관계를 배열 제약으로 사용",
+      "counter": "지시 선행성 하나를 만족하는 대안이 남을 수 있다.",
+      "conditions": "주어진 문장·블록 라벨·전후 연결과 배열 연산을 정보 예산에 포함한다.",
+      "source_refs": [
+        {
+          "id": "2020#36",
+          "type_id": "R-ORDER",
+          "input_file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+          "input_object_sha256": "49837994ef556c0b54d2ff21808bdc727ff6f769fb36cc8f29c8f6cf6282f6e9",
+          "source_binding": "598626e955de46c0da8e390c3af86cb02de0c0b73c7d09497d3e3f40b5a9c593",
+          "source_audit": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "source_audit_file_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "8110fde91710a7bc74a4568c5171c94803b6fb78de862cb981317e0679306e89",
+          "key_image_sha256": "a9597d44b3fd90624ee74db19619fa70d8001183178337e0d14f1ff74ae00b6c",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+            "paper_form": "짝수형",
+            "pages": [
+              6
+            ]
+          },
+          "key_pdf": {
+            "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+            "paper_form": "짝수형",
+            "page": 2
+          }
+        },
+        {
+          "id": "2017#38",
+          "type_id": "R-INSERT",
+          "input_file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+          "input_object_sha256": "e4854d9f56c99aa38f205817a49bad9c3ce4636d8d499b1263e2e69414684f4b",
+          "source_binding": "d32870a067afe7c6e8f4ecb137603713031a9ad7eea34ca02c05a3d11d788a19",
+          "source_audit": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "source_audit_file_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "bfae8c83eef7ad926155f44241c16fec4c55bccd8184a0d1f28ac77501444e83",
+          "key_image_sha256": "7e941321109d6cea3df61b0ef8b07cc666c3f69f4b10fd5107003763f92ef816",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+            "paper_form": "짝수형",
+            "pages": [
+              7
+            ]
+          },
+          "key_pdf": {
+            "sha256": "8ef2e2eaa814d9c792383a279c5c6994f5023c4c0fb723d89eb3863ca22646e8",
+            "paper_form": "짝수형",
+            "page": 2
+          }
+        }
+      ],
+      "verdict": "bounded_common_performance_candidate_R1",
+      "stronger_claim_result": "not_reproduced",
+      "student_transfer": "not_observed",
+      "latent_task_independence": "not_established",
+      "human_review": false,
+      "public_learning_use": false
+    },
+    {
+      "id": "fact_notice",
+      "ids": [
+        "2016#25",
+        "2024#28"
+      ],
+      "category": "사실↔안내",
+      "status": "new_pair_old_development_items",
+      "claim": "본문 내용 성립과 발문 극성을 분리",
+      "counter": "불일치 과제의 선택 규칙을 일치 과제에 적용할 수 없다.",
+      "conditions": "주체·기간·수량·장소 의미와 정답 탐지/전체 검수를 별도 판정한다.",
+      "source_refs": [
+        {
+          "id": "2016#25",
+          "type_id": "R-FACT",
+          "input_file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+          "input_object_sha256": "052c85b76dad2027cb8f6f7eb40a83459480e9fdb987033b0a795a8f5045fe7d",
+          "source_binding": "4a876a488c43ad91f1d6279521c2aadefb614dd63c8cfdec8605411d57e6ac09",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_file_sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "56ff720725bb96afe3ae055677742782d2cdee457a4ef96bd5dcf76353822efb",
+          "key_image_sha256": "fb960a8c61434a902231708db7f5c3fcbbed9e7c8a9876b764ff4cf5ffef79b8",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+            "paper_form": "홀수형",
+            "pages": [
+              4
+            ]
+          },
+          "key_pdf": {
+            "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+            "paper_form": "홀수형",
+            "page": 1
+          }
+        },
+        {
+          "id": "2024#28",
+          "type_id": "R-NOTICE",
+          "input_file_sha256": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+          "input_object_sha256": "c281f53f3e595ef5948c7e987dd5d5b178f623d830c02f493a67b06e6c688efd",
+          "source_binding": "874a767b54a1e7619026bb116cf92abd64fc7444db88faae711d8ec05b3fe199",
+          "source_audit": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+          "source_audit_file_sha256": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "e6101cee5f986cd745f20b86226c148612c4546f5fc1189b168a8a4ef2b41af3",
+          "key_image_sha256": "efadb04b9332b65b011419921ce30b474e5a895cbb630c964d85f58447193c2f",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+            "paper_form": "홀수형",
+            "pages": [
+              4
+            ]
+          },
+          "key_pdf": {
+            "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+            "paper_form": "홀수형",
+            "page": 1
+          }
+        }
+      ],
+      "verdict": "bounded_common_performance_candidate_R1",
+      "stronger_claim_result": "not_reproduced",
+      "student_transfer": "not_observed",
+      "latent_task_independence": "not_established",
+      "human_review": false,
+      "public_learning_use": false
+    },
+    {
+      "id": "lexical_blank",
+      "ids": [
+        "2021#30",
+        "2024#31"
+      ],
+      "category": "어휘↔빈칸",
+      "status": "new_pair_old_development_items",
+      "claim": "어휘 의미와 완성 명제의 문맥 역할을 분리",
+      "counter": "조건을 인과로 승격하거나 상대적 문맥 적합성을 세계 참거짓으로 바꾸면 안 된다.",
+      "conditions": "용례 판단과 빈칸 삽입의 수행 및 범위 차이를 유지한다.",
+      "source_refs": [
+        {
+          "id": "2021#30",
+          "type_id": "R-VOCAB",
+          "input_file_sha256": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+          "input_object_sha256": "15f09a16202409ff77ec46e56a21df0bd38a0bf254196b8821662f9e2d7bc62f",
+          "source_binding": "945120b59d2d9449cad9d477e945670513dc1176a54c30e9e13e6fa1ecdc33d0",
+          "source_audit": "docs/research/csat-reading/data/v13/pilot-source.json",
+          "source_audit_file_sha256": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "6afd289e54eb5f9b2a6941494c4f3dcfe8aff5056be719751d3a9ec9c652d7e8",
+          "key_image_sha256": "80e2da3b1bac7d5fa285041737785c5219c4781666b2eec0dfdcd9acf986a126",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+            "paper_form": "짝수형",
+            "pages": [
+              5
+            ]
+          },
+          "key_pdf": {
+            "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+            "paper_form": "짝수형",
+            "page": 2
+          }
+        },
+        {
+          "id": "2024#31",
+          "type_id": "R-BLANK",
+          "input_file_sha256": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+          "input_object_sha256": "ca29dfac8ababf86fbd126c75dec3ba5c213f36bf5260057caeae791b55ad398",
+          "source_binding": "42cd1b9f5684247b57640d728697c2bfd9ec64bd6340243e8764af64e6923796",
+          "source_audit": "docs/research/csat-reading/data/v12/pilot-source.json",
+          "source_audit_file_sha256": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+          "new_v14_question_image_reread": true,
+          "new_v14_key_image_reread": true,
+          "new_pdf_download": false,
+          "question_image_sha256": "7ff6eafe19ebe2bc4930a86af6539ac25b738829e9305b58d3c86446bcc6a689",
+          "key_image_sha256": "efadb04b9332b65b011419921ce30b474e5a895cbb630c964d85f58447193c2f",
+          "read_fields": [
+            "body",
+            "stem",
+            "all_five_candidates",
+            "presentation",
+            "glosses"
+          ],
+          "source_complete": "historical admission reused and eight question/key rows visually reread; not new unseen source admission",
+          "public_rights": "not_reviewed",
+          "pdf": {
+            "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+            "paper_form": "홀수형",
+            "pages": [
+              5
+            ]
+          },
+          "key_pdf": {
+            "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+            "paper_form": "홀수형",
+            "page": 1
+          }
+        }
+      ],
+      "verdict": "bounded_common_performance_candidate_R1",
+      "stronger_claim_result": "not_reproduced",
+      "student_transfer": "not_observed",
+      "latent_task_independence": "not_established",
+      "human_review": false,
+      "public_learning_use": false
+    }
+  ],
+  "summary": {
+    "pairs": 4,
+    "unique_items": 8,
+    "source_refs": 8,
+    "new_pair_combinations": 4,
+    "identical_previous_pair_reanalyses": 0,
+    "bounded110_new_verified": 0,
+    "bounded_common_candidates": 4,
+    "stronger_claim_nonreproductions": 4,
+    "independent_new_item_confirmations": 0,
+    "student_trials": 0
+  },
+  "private_details": "original text targets, option-by-option reasoning, keys and full scope bindings are retained only in ignored local/v14 first record"
+}

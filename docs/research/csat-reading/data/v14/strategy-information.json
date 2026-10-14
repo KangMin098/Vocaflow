@@ -1,0 +1,2212 @@
+{
+  "version": "1.4",
+  "methods": [
+    {
+      "id": "core",
+      "condition": "A complete proposition covers the requested scope; preceding referents and global representativeness must be paid",
+      "counter": "Same sentence can occur in different whole-text purposes; one supported detail is not global FOV",
+      "actual_path_refs": [
+        {
+          "item_id": "2018#22",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "contrast",
+      "condition": "Real propositions contrast on the same dimension with preserved agents and scopes",
+      "counter": "Marker/antonym without propositions does not establish candidate fit or necessity",
+      "actual_path_refs": [
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "incremental",
+      "condition": "Accumulate meaning in printed order and update later qualifications",
+      "counter": "Reordering/insertion/calculation is an additional operation, not printed-order reading alone",
+      "actual_path_refs": [],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "syntax",
+      "condition": "Actual attachment, negation, quantity and conditional scope preserve meaning",
+      "counter": "Grammar labels or isolated form do not fix outside referents or discourse fit",
+      "actual_path_refs": [
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "selective",
+      "condition": "Declared paid union includes task stimuli, copied candidates, labels and external anchors",
+      "counter": "Outcome success is not minimum information; reading whole source then selecting anchors is not learner selective reading",
+      "actual_path_refs": [],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "proposition_relations",
+      "condition": "Linked propositions, direction and conditions are explicitly bound",
+      "counter": "Existing/used relations with no independently valid ablation remain unknown as necessary",
+      "actual_path_refs": [
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "structure",
+      "condition": "Role/order hierarchy is reconstructed with reference constraints and permissible alternatives",
+      "counter": "Correct structure does not automatically produce central scope or full candidate verification",
+      "actual_path_refs": [
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    },
+    {
+      "id": "evidence_compare",
+      "condition": "Same semantic target and separate support/fit/world comparison, all5anchors for FOV",
+      "counter": "Best fit does not entail literal contradiction; heterogeneous comparison standards cannot be pooled",
+      "actual_path_refs": [
+        {
+          "item_id": "2018#22",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "A",
+          "path_id": "ai-whole",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "A",
+          "path_id": "fov-whole",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2018#22",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2020#24",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2017#33",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2024#37",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2016#38",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2023#35",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2022#30",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-ai",
+          "goal": "AI"
+        },
+        {
+          "item_id": "2015#40",
+          "rater": "B",
+          "path_id": "p-fov",
+          "goal": "FOV"
+        }
+      ],
+      "effectiveness": "not_tested"
+    }
+  ],
+  "paths": [
+    {
+      "rater": "A",
+      "item_id": "2018#22",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 959,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2018#22",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 959,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2020#24",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1137,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2020#24",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1137,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2017#33",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ],
+        "unknown": [],
+        "sentences": 8
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 891,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2017#33",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ],
+        "unknown": [],
+        "sentences": 8
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 891,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2024#37",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "stimulus_unit_ids": [
+        "s1",
+        "s2"
+      ],
+      "paid_union": {
+        "ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s10",
+          "s11",
+          "s1",
+          "s2"
+        ],
+        "unknown": [],
+        "sentences": 11
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 8,
+      "source_characters_in_paid_union": 965,
+      "operations": [
+        "read",
+        "compare_options",
+        "reorder"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "evidence_compare",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2024#37",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "stimulus_unit_ids": [
+        "s1",
+        "s2"
+      ],
+      "paid_union": {
+        "ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s10",
+          "s11",
+          "s1",
+          "s2"
+        ],
+        "unknown": [],
+        "sentences": 11
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 8,
+      "source_characters_in_paid_union": 965,
+      "operations": [
+        "read",
+        "compare_options",
+        "reorder"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "evidence_compare",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2016#38",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "stimulus_unit_ids": [
+        "s1"
+      ],
+      "paid_union": {
+        "ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s1"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 944,
+      "operations": [
+        "read",
+        "compare_options",
+        "insert"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "evidence_compare",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2016#38",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "stimulus_unit_ids": [
+        "s1"
+      ],
+      "paid_union": {
+        "ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s1"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 944,
+      "operations": [
+        "read",
+        "compare_options",
+        "insert"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "evidence_compare",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2023#35",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 0,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 980,
+      "operations": [
+        "read",
+        "compare_options",
+        "remove"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2023#35",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 0,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 980,
+      "operations": [
+        "read",
+        "compare_options",
+        "remove"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2022#30",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "conditional",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1088,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 1,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2022#30",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "conditional",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1088,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 1,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2015#40",
+      "path_id": "ai-whole",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s9"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 0,
+      "visual_cells": 10,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1043,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "A",
+      "item_id": "2015#40",
+      "path_id": "fov-whole",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s9"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 0,
+      "visual_cells": 10,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1043,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 0,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2018#22",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 959,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2018#22",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 959,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2020#24",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1137,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2020#24",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1137,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2017#33",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s7"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s8",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 8
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 891,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare",
+        "syntax",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2017#33",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s7"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s8",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 8
+      },
+      "glosses": 2,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 891,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare",
+        "syntax",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2024#37",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "stimulus_unit_ids": [
+        "s1",
+        "s2"
+      ],
+      "paid_union": {
+        "ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s10",
+          "s11",
+          "s1",
+          "s2"
+        ],
+        "unknown": [],
+        "sentences": 11
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 8,
+      "source_characters_in_paid_union": 965,
+      "operations": [
+        "read",
+        "compare_options",
+        "reorder"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "syntax",
+        "proposition_relations",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2024#37",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "stimulus_unit_ids": [
+        "s1",
+        "s2"
+      ],
+      "paid_union": {
+        "ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s10",
+          "s11",
+          "s1",
+          "s2"
+        ],
+        "unknown": [],
+        "sentences": 11
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 8,
+      "source_characters_in_paid_union": 965,
+      "operations": [
+        "read",
+        "compare_options",
+        "reorder"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "syntax",
+        "proposition_relations",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2016#38",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "stimulus_unit_ids": [
+        "s1"
+      ],
+      "paid_union": {
+        "ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s1"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 944,
+      "operations": [
+        "read",
+        "compare_options",
+        "insert"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "syntax",
+        "proposition_relations",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2016#38",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "stimulus_unit_ids": [
+        "s1"
+      ],
+      "paid_union": {
+        "ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9",
+          "s1"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 1,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 944,
+      "operations": [
+        "read",
+        "compare_options",
+        "insert"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "structure",
+        "syntax",
+        "proposition_relations",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2023#35",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 0,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 980,
+      "operations": [
+        "read",
+        "compare_options",
+        "remove"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "contrast",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2023#35",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ],
+        "unknown": [],
+        "sentences": 7
+      },
+      "glosses": 0,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 980,
+      "operations": [
+        "read",
+        "compare_options",
+        "remove"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "contrast",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2022#30",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1088,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "contrast",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2022#30",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "stimulus_unit_ids": [],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "unknown": [],
+        "sentences": 6
+      },
+      "glosses": 3,
+      "visual_cells": 0,
+      "candidate_information_n": 5,
+      "presentation_information_n": 5,
+      "source_characters_in_paid_union": 1088,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "contrast",
+        "evidence_compare"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2015#40",
+      "path_id": "p-ai",
+      "goal": "AI",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s9"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 0,
+      "visual_cells": 10,
+      "candidate_information_n": 5,
+      "presentation_information_n": 7,
+      "source_characters_in_paid_union": 1043,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare",
+        "syntax",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    },
+    {
+      "rater": "B",
+      "item_id": "2015#40",
+      "path_id": "p-fov",
+      "goal": "FOV",
+      "claimed_status": "sufficient",
+      "used_unit_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "stimulus_unit_ids": [
+        "s9"
+      ],
+      "paid_union": {
+        "ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ],
+        "unknown": [],
+        "sentences": 9
+      },
+      "glosses": 0,
+      "visual_cells": 10,
+      "candidate_information_n": 5,
+      "presentation_information_n": 7,
+      "source_characters_in_paid_union": 1043,
+      "operations": [
+        "read",
+        "compare_options"
+      ],
+      "assumption_count": 2,
+      "external_reference_count": 0,
+      "strategy_ids": [
+        "core",
+        "evidence_compare",
+        "syntax",
+        "proposition_relations"
+      ],
+      "minimum_information_demonstrated": false,
+      "actual_student_reading_measured": false
+    }
+  ],
+  "paths_n": 32,
+  "source_binding_sha256": "15fe105b8a3cf0878ec3adcf39a0430a3fb7c36c9a2eafd3ee18cb77b8780f61",
+  "relationship_necessity": "all74records unknown/not_identifiable; no positive necessity evidence",
+  "first_judgments_changed": false,
+  "rights_or_R3_promotion": false
+}

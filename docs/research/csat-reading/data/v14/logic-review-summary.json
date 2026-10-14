@@ -1,0 +1,270 @@
+{
+  "version": "1.4",
+  "sealed_at": "2026-10-14T08:40:55.214Z",
+  "private_review": {
+    "path": "scripts/research/csat-reading/local/v14/logic-review-first.json",
+    "sha256": "c71024e72ec9b9066ce895ff2e2fdc17768f4bd5bdc363622284f916028bfca0"
+  },
+  "first_output_hashes": {
+    "scripts/research/csat-reading/local/v14/rater-a-first-complete.json": "b0c14ff673d549028f4491b629078b14257548911ec7f9c46b5c8d5bf8da7536",
+    "scripts/research/csat-reading/local/v14/rater-b-first-complete.json": "d626bac1b9e9e9bf697b034fd57f49fb275433f51cfc493c1b32d6c84953cb90",
+    "scripts/research/csat-reading/local/v14/rater-a-first4.json": "ccc6aeb5c38a849dcc63c0966167ba5c1edd1850db5ae98b050aa90c3a357e85",
+    "scripts/research/csat-reading/local/v14/rater-b-first4.json": "160424d30472ad47550c7126f8fe6fee1ad9d37e084aebb9175c755406c2e28c"
+  },
+  "first_outputs_modified": false,
+  "counts": {
+    "fresh_items": 8,
+    "candidate_pairs": 40,
+    "target_records": 80,
+    "same": 23,
+    "different": 17,
+    "unresolved": 0,
+    "content_comparable_n": 13,
+    "placement_pairs_excluded": 10,
+    "primary_paths": 32,
+    "AI_paths": 16,
+    "FOV_paths": 16,
+    "relation_records": 37,
+    "necessity_records": 74,
+    "valid_necessity_tests": 0,
+    "relation_items": 8,
+    "nonempty_necessary_set_pairs": 0,
+    "both_empty_necessary_set_pairs": 8
+  },
+  "gates": {
+    "determinate_target_coverage": {
+      "value": 1,
+      "threshold": 0.9,
+      "status": "pass",
+      "interpretation": "40 pairs can be decided same/different; not the same-target fraction"
+    },
+    "same_target_comparable_coverage": {
+      "value": 0.575,
+      "status": "fails_if_registered_coverage_means_equivalent_targets",
+      "threshold": 0.9
+    },
+    "support": {
+      "n": 13,
+      "agreement_n": 13,
+      "raw_agreement": 1,
+      "kappa": 1,
+      "types": 3,
+      "status": "numeric_pass_only_logical_gate_failed",
+      "threshold_agreement": 0.8,
+      "threshold_kappa": 0.6,
+      "threshold_types": 3
+    },
+    "task_fit": {
+      "n": 40,
+      "agreement_n": 40,
+      "raw_agreement": 1,
+      "kappa": 1,
+      "status": "numeric_pass_source_bound_only",
+      "threshold": 0.8
+    },
+    "necessary_relations": {
+      "mean_jaccard": null,
+      "threshold": 0.7,
+      "status": "unresolved_no_nonempty_denominator",
+      "both_empty": 8,
+      "nonempty": 0
+    },
+    "source_completeness": {
+      "status": "metadata_complete_only",
+      "human": 0,
+      "rights": 0
+    },
+    "normalization_meaning_preservation": {
+      "status": "failed"
+    },
+    "sufficient_scope": {
+      "status": "full_scopes_paid_positive_but_FOV_defects_remain"
+    },
+    "FOV_unique_five": {
+      "status": "structural_pass_not_logical_validation",
+      "n": 16,
+      "total": 16
+    },
+    "relation_removal_invariance": {
+      "status": "unresolved_not_identifiable",
+      "valid": 0
+    }
+  },
+  "key_alignment": {
+    "n": 8,
+    "A": 8,
+    "B": 8,
+    "meaning": "Aggregate key alignment only; no official-error verdict or logical/human/student proof"
+  },
+  "claims": {
+    "n": 14,
+    "distinct_items": 8,
+    "by_type": {
+      "strict_support_overclaim": {
+        "n": 3,
+        "distinct_items": 3
+      },
+      "attribution_modality_loss": {
+        "n": 1,
+        "distinct_items": 1
+      },
+      "comparison_standard_mismatch": {
+        "n": 3,
+        "distinct_items": 3
+      },
+      "completion_entailment_overclaim": {
+        "n": 1,
+        "distinct_items": 1
+      },
+      "context_contract_omission": {
+        "n": 2,
+        "distinct_items": 2
+      },
+      "relation_type_disagreement": {
+        "n": 2,
+        "distinct_items": 2
+      },
+      "quantifier_loss": {
+        "n": 1,
+        "distinct_items": 1
+      },
+      "hidden_discourse_assumption": {
+        "n": 1,
+        "distinct_items": 1
+      }
+    }
+  },
+  "items": [
+    {
+      "opaque_id": "pilot-01",
+      "target_counts": {
+        "same": 5,
+        "different": 0,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "strict_support_overclaim"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 4
+    },
+    {
+      "opaque_id": "pilot-02",
+      "target_counts": {
+        "same": 4,
+        "different": 1,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "attribution_modality_loss",
+        "strict_support_overclaim"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 4
+    },
+    {
+      "opaque_id": "pilot-03",
+      "target_counts": {
+        "same": 0,
+        "different": 5,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "comparison_standard_mismatch",
+        "completion_entailment_overclaim"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 4
+    },
+    {
+      "opaque_id": "pilot-04",
+      "target_counts": {
+        "same": 5,
+        "different": 0,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "context_contract_omission",
+        "relation_type_disagreement"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 6
+    },
+    {
+      "opaque_id": "pilot-05",
+      "target_counts": {
+        "same": 5,
+        "different": 0,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "context_contract_omission",
+        "relation_type_disagreement"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 5
+    },
+    {
+      "opaque_id": "pilot-06",
+      "target_counts": {
+        "same": 4,
+        "different": 1,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "quantifier_loss"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 4
+    },
+    {
+      "opaque_id": "pilot-07",
+      "target_counts": {
+        "same": 0,
+        "different": 5,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "comparison_standard_mismatch",
+        "strict_support_overclaim",
+        "hidden_discourse_assumption"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 6
+    },
+    {
+      "opaque_id": "pilot-08",
+      "target_counts": {
+        "same": 0,
+        "different": 5,
+        "unresolved": 0
+      },
+      "claim_types": [
+        "comparison_standard_mismatch"
+      ],
+      "status": "source_bound_reviewed_with_limits",
+      "paths_reviewed": 4,
+      "relation_records": 4
+    }
+  ],
+  "overall": "hold_confirmation_expansion",
+  "development_91_included": 0,
+  "student_responses": 0,
+  "student_effects": 0,
+  "human_experts": 0,
+  "rights_clearance": 0,
+  "limits": [
+    "same model family/pretraining uncontrolled",
+    "purpose-selected eight-item pilot; no population estimate",
+    "key agreement does not validate logic",
+    "all-empty necessity sets are missing evidence, not successful ablation",
+    "no public original values or candidate fit records"
+  ]
+}

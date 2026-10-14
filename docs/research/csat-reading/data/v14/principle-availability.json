@@ -1,0 +1,69 @@
+{
+  "version": "v1.4",
+  "denominator": 110,
+  "availability_basis": "all110 historical v1.3 endpoint-scope ledger re-audited; local KICE-identified question/key admission reused for old verified pair; no assumption that PDF filenames prove answer sheets",
+  "historical_ledger_sha256": "662212bf4a51504994d653d5154ce1ea0be1ae239cac2907044b4c3664cbf947",
+  "scope_counts": {
+    "both_2014_2024_main_or_mock": 2,
+    "both_2014_2024_main": 1,
+    "outside_historical_scope": 108
+  },
+  "new_bounded_pairs_verified": 0,
+  "cumulative_original_and_key_verified_pairs": 1,
+  "cumulative_partial_key_deferred_pairs": 1,
+  "cumulative_not_attempted": 108,
+  "existing_verified_pair": {
+    "id": "2014A#36~2014B#37",
+    "status": "historical_v13_one_pair_preserved_not_new",
+    "source": "docs/research/csat-reading/data/v13/principle-review.json"
+  },
+  "key_recovery": {
+    "id": "M2206#37~M2306#36",
+    "approach": "new historical KICE CDN year-directory answer endpoint lookup; unlike v1.3 EBS service-page extraction",
+    "exam_dates": {
+      "M2206": "2021-06-03",
+      "M2306": "2022-06-09"
+    },
+    "attempts": [
+      {
+        "url": "https://cdn.kice.re.kr/22suneung-06mo/22suneung-06mo_3a.pdf",
+        "web_result": "inaccessible",
+        "http_head_status": 404,
+        "answer_obtained": false
+      },
+      {
+        "url": "https://cdn.kice.re.kr/23suneung-06mo/23suneung-06mo_3a.pdf",
+        "web_result": "inaccessible",
+        "http_head_status": 404,
+        "answer_obtained": false
+      }
+    ],
+    "result": "still_partial_defer_key",
+    "interpretation": "404 for these inferred endpoints does not prove absence elsewhere; no mirror/stored-answer substitution",
+    "original_key_rows_newly_verified": 0
+  },
+  "new_cross_type_candidates": {
+    "count": 4,
+    "unique_items": 8,
+    "bounded110_numerator_inclusion": false
+  },
+  "exposure": {
+    "question_pages": [
+      "2024#21–24",
+      "2015#29–32",
+      "2020#33–36",
+      "2017#37–40",
+      "2016#25–28",
+      "2024#25–28",
+      "2021#29–32",
+      "2024#29–32"
+    ],
+    "key_pages": "all45answers six historical year/form sheets were visible; not a fresh rater context",
+    "research_new_unseen_items": 0
+  },
+  "limitations": [
+    "Source availability is scope-bounded, not a universal search of all110 endpoint files.",
+    "Local official-looking KICE headers/form/key rows verified; official download transaction/version genealogy unresolved.",
+    "No human expert, publication-rights, learner transfer/delay or pedagogical effect validation."
+  ]
+}

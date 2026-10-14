@@ -1,0 +1,31 @@
+{
+  "version": "v1.4-prepublication-redaction",
+  "reason": "User §8 prohibits original passages and answers in public Git.",
+  "previous_first_records_edited": false,
+  "public_uncommitted_draft_replaced": true,
+  "private_first_receipts": [
+    {
+      "original_path": "docs/research/csat-reading/data/v14/principle-cross-review.json",
+      "private_path": "scripts/research/csat-reading/local/v14/principle-cross-first.json",
+      "first_sha256": "b9ca9701a11ec39d6caeeba4c234f1cdd77e9dacea484895449cdab045fbbf04"
+    },
+    {
+      "original_path": "docs/research/csat-reading/V14-CROSS.md",
+      "private_path": "scripts/research/csat-reading/local/v14/principle-cross-doc-first.md",
+      "first_sha256": "e9e07ae5d1198f5cf02185e1f1d060fbb65368a879d181c39779ff16204bf8f1"
+    },
+    {
+      "original_path": "docs/research/csat-reading/../../../scripts/research/csat-reading/v14-principle-build.mjs",
+      "private_path": "scripts/research/csat-reading/local/v14/principle-builder-first.mjs",
+      "first_sha256": "082365d1ec0ca86621b507adb214901df0e62646bb9a417a3252d2a611bd6b87"
+    }
+  ],
+  "removed_fields": [
+    "official_answer_observed",
+    "option_analysis",
+    "detailed support/targets/information_scope",
+    "private file paths and render paths"
+  ],
+  "redacted_public_sha256": "b32da46da5ec87906539cc4a8f9a561272473c3968607f1c6100ffb7333f83ab",
+  "historical_v13_modified": false
+}
