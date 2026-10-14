@@ -1,0 +1,18 @@
+{
+  "type": "analysis",
+  "command_or_protocol": "FQ1.0 frozen protocol; actual research8/14roles and metadata-first DCP main8/counter4; blind Gold10/40; qualification/source/revision/exposure/release boundaries; 49 regression tests and readonly hash/privacy checks",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-factory-qualification-v1/docs/research/factory-qualification/FQ1-REPORT.md",
+  "observed_at": "2026-10-14T12:05:40Z",
+  "covers": [0, 1, 2, 3, 4],
+  "interpretation": "Pass is research execution, preserved first verdicts, executable contracts and honest holds. It is not content publication, legal approval, human scoring validity or student assessment qualification.",
+  "content_cases": 20,
+  "research_role_uses": 14,
+  "public_qualified": 0,
+  "direct_assessment_qualified": 0,
+  "actual_students": 0,
+  "human_experts": 0,
+  "DB_UI_public_v3_records_changed": false,
+  "main_merged": false
+}

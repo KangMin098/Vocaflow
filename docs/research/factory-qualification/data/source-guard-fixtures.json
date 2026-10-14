@@ -1,0 +1,453 @@
+{
+  "version": "FQ1-source-guard-fixtures1",
+  "evidence": [
+    {
+      "path": "docs/research/csat-reading/data/v15/exam-sources.json",
+      "sha256": "559fbaeb0119ad57bc5c010a3025058b0da1388c7784831975dd29d562ef92a6",
+      "observed_at_utc": "2026-10-14T09:57:58Z"
+    },
+    {
+      "path": "docs/research/csat-reading/data/v15/v3-version-audit.json",
+      "sha256": "28d2f682774bc2d323386f6b0fde774b95709b622edd5728de61ba05c5144d7f"
+    }
+  ],
+  "guard_function_sha256": "7de83a7228119aa3bb1b6c5dd50e02a6bb6c11ab171660a2c79f873066a38785",
+  "fixture_count": 9,
+  "all_expected_states_reproduced": true,
+  "fixtures": [
+    {
+      "id": "SG01",
+      "description": "Incorrect 17 listening / 18 reading split imposed on 2014A",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014A",
+          "header_exam_id": "2014A",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 17,
+          "reading_start": 18,
+          "reading_end": 45,
+          "expected_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "actual_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "exam_id": "2014A",
+          "form": "홀수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        },
+        "require_exam_key": true
+      },
+      "expected": {
+        "state": "fail",
+        "code": "2014_regime_mismatch"
+      },
+      "evidence": {
+        "metadata_exam": "2014A",
+        "observed_listening_end": 22,
+        "observed_reading_start": 23
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "2014_regime_mismatch"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG02",
+      "description": "Incorrect split imposed on separately preserved 2014B",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014B",
+          "header_exam_id": "2014B",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 17,
+          "reading_start": 18,
+          "reading_end": 45,
+          "expected_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+          "actual_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+          "exam_id": "2014B",
+          "form": "홀수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        }
+      },
+      "expected": {
+        "state": "fail",
+        "code": "2014_regime_mismatch"
+      },
+      "evidence": {
+        "metadata_exam": "2014B",
+        "observed_listening_end": 22,
+        "observed_reading_start": 23
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "2014_regime_mismatch"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG03",
+      "description": "Mix A question with B key",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014A",
+          "header_exam_id": "2014A",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 22,
+          "reading_start": 23,
+          "reading_end": 45,
+          "expected_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "actual_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "2d05140e8060a19cb12efdc9178d569aecd874c96369ea7ec939d1c3183b6785",
+          "exam_id": "2014B",
+          "form": "홀수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        },
+        "require_exam_key": true
+      },
+      "expected": {
+        "state": "fail",
+        "code": "key_exam_mismatch"
+      },
+      "evidence": {
+        "source_exam": "2014A",
+        "key_exam": "2014B"
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "key_exam_mismatch"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG04",
+      "description": "Contrafactual odd/even key mix while exam ID stays same",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014A",
+          "header_exam_id": "2014A",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 22,
+          "reading_start": 23,
+          "reading_end": 45,
+          "expected_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "actual_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "exam_id": "2014A",
+          "form": "짝수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        },
+        "require_exam_key": true
+      },
+      "expected": {
+        "state": "fail",
+        "code": "key_form_mismatch"
+      },
+      "evidence": {
+        "metadata_exam": "2014A",
+        "observed_paper_form": "홀수",
+        "contrafactual_key_form": "짝수"
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "key_form_mismatch"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG05",
+      "description": "M2009 catalog body is same hash as adjudicated M2106 body",
+      "input": {
+        "source": {
+          "expected_exam_id": "M2009",
+          "header_exam_id": "M2106",
+          "listening_end": 17,
+          "reading_start": null,
+          "reading_end": null,
+          "expected_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+          "actual_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "14597cff412570209c69536fe50a456a301b6d490a04841f126c742d6cd0e497",
+          "exam_id": "M2009",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        }
+      },
+      "expected": {
+        "state": "fail",
+        "code": "exam_header_mismatch"
+      },
+      "evidence": {
+        "catalog_exam": "M2009",
+        "adjudicated_exam": "M2106",
+        "shared_question_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+        "historical_adjudication": "exam-sources M2009 source_note; no new PDF/header inspection"
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "exam_header_mismatch"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG06",
+      "description": "Named answer file is actually listening script",
+      "input": {
+        "source": {
+          "expected_exam_id": "M2109",
+          "header_exam_id": "M2109",
+          "expected_form": "단일",
+          "observed_form": "단일",
+          "listening_end": 17,
+          "reading_start": 18,
+          "reading_end": 45,
+          "expected_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+          "actual_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e"
+        },
+        "key": {
+          "kind": "listening_transcript",
+          "content_verified": true,
+          "exam_id": "M2109",
+          "actual_sha256": "19be97b4cdcf11430fd779612c078d101fe704fbf8baa1c6026c24d82b6ab238"
+        }
+      },
+      "expected": {
+        "state": "fail",
+        "code": "transcript_is_not_answer_key"
+      },
+      "evidence": {
+        "metadata_exam": "M2109",
+        "observed_document_kind": "listening_script"
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "transcript_is_not_answer_key"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG07",
+      "description": "Preserved analysis revision3 compared with observed latest5",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014A",
+          "header_exam_id": "2014A",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 22,
+          "reading_start": 23,
+          "reading_end": 45,
+          "expected_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "actual_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "exam_id": "2014A",
+          "form": "홀수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        },
+        "require_exam_key": true,
+        "declared": {
+          "analysis": {
+            "id": "2014A#32:analysis",
+            "revision": 3,
+            "sha256": null
+          }
+        },
+        "generated_binding": {
+          "analysis": {
+            "id": "2014A#32:analysis",
+            "revision": 3,
+            "sha256": null
+          }
+        },
+        "latest_analysis": {
+          "revision": 5
+        }
+      },
+      "expected": {
+        "state": "unknown",
+        "code": "newer_analysis_requires_conflict_review"
+      },
+      "evidence": {
+        "metadata_item": "2014A#32",
+        "preserved_analysis_revision": 3,
+        "latest_observed_revision": 5,
+        "analysis_content_hash_available": false
+      },
+      "observed": {
+        "state": "unknown",
+        "fail": [],
+        "unknown": [
+          "newer_analysis_requires_conflict_review"
+        ]
+      }
+    },
+    {
+      "id": "SG08",
+      "description": "Generated artifact incorrectly binds latest5 while Gold declares preserved3",
+      "input": {
+        "source": {
+          "expected_exam_id": "2014A",
+          "header_exam_id": "2014A",
+          "expected_form": "홀수",
+          "observed_form": "홀수",
+          "listening_end": 22,
+          "reading_start": 23,
+          "reading_end": 45,
+          "expected_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+          "actual_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+        },
+        "key": {
+          "kind": "answer_key",
+          "content_verified": true,
+          "actual_sha256": "492dd4a3e7af220344ef8736eec607d6af3890b3832610cafb7d74c452f25517",
+          "exam_id": "2014A",
+          "form": "홀수",
+          "row_count": 45,
+          "distinct_numbers": 45,
+          "min_no": 1,
+          "max_no": 45,
+          "total_points": 100
+        },
+        "require_exam_key": true,
+        "declared": {
+          "analysis": {
+            "id": "2014A#32:analysis",
+            "revision": 3,
+            "sha256": null
+          }
+        },
+        "generated_binding": {
+          "analysis": {
+            "id": "2014A#32:analysis",
+            "revision": 5,
+            "sha256": null
+          }
+        }
+      },
+      "expected": {
+        "state": "fail",
+        "code": "analysis_binding_conflict"
+      },
+      "evidence": {
+        "metadata_item": "2014A#32",
+        "preserved_analysis_revision": 3,
+        "latest_observed_revision": 5,
+        "analysis_content_hash_available": false
+      },
+      "observed": {
+        "state": "fail",
+        "fail": [
+          "analysis_binding_conflict"
+        ],
+        "unknown": []
+      }
+    },
+    {
+      "id": "SG09",
+      "description": "Unresolved named-key document kind stays unknown",
+      "input": {
+        "source": {
+          "expected_exam_id": "2025",
+          "header_exam_id": "2025",
+          "expected_form": "단일",
+          "observed_form": "단일",
+          "listening_end": 17,
+          "reading_start": 18,
+          "reading_end": 45,
+          "expected_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+          "actual_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4"
+        },
+        "key": {
+          "kind": "decode_unresolved",
+          "content_verified": false,
+          "exam_id": "2025",
+          "actual_sha256": "65b52a6719e9caf250c7ade6ede24eb824abb0ee689bf7526f208b8cb2c0eb3e"
+        }
+      },
+      "expected": {
+        "state": "unknown",
+        "code": "key_document_kind_unverified"
+      },
+      "evidence": {
+        "metadata_exam": "2025",
+        "observed_document_kind": "decode_unresolved"
+      },
+      "observed": {
+        "state": "unknown",
+        "fail": [],
+        "unknown": [
+          "key_document_kind_unverified"
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "Metadata-grounded negative and positive controls, not new corpus/PDF/key audit",
+    "Correcting one injected mismatch only removes that mismatch; guard pass is not public/source/legal/assessment qualification",
+    "No answer values, original passages or individual Gold emitted",
+    "Latest revision alone does not invalidate preserved Gold; conflict review remains unknown"
+  ],
+  "public_qualified": 0,
+  "assessment_qualified": 0
+}

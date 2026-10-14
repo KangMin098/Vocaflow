@@ -1,0 +1,113 @@
+{
+  "version": "fq1-product-audit-1",
+  "observed_at": "2026-10-14T11:41:59.413Z",
+  "readonly_worktree": "D:\\workspace\\Vocaflow-map-v62",
+  "head": "f76f3898e547d680cd2244d56011405eb3d419da",
+  "branch": "feat/map-v62-persist-contract",
+  "files": [
+    {
+      "file": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "exists": true,
+      "sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "exists": true,
+      "sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "exists": true,
+      "sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "exists": true,
+      "sha256": "1e79cabfa5374159c09b2b1119de0d1860391e9fde4645310442da251ddf2c9a",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-model.ts",
+      "exists": true,
+      "sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-view.ts",
+      "exists": true,
+      "sha256": "cf82fd0814b7f939b3f1a0b8e054152c80e014a7d8582e9c193109310a617dc3",
+      "tracked": true
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F0_FACTORY_AUDIT.md",
+      "exists": true,
+      "sha256": "ed1c6571b2f5b82a8073e871718d4a526d93bef99dad9690f23378125b92ce39",
+      "tracked": true
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F1-F3_DEMAND_SUPPLY.md",
+      "exists": true,
+      "sha256": "50286ebfa169b905dcb329bcee679dc065e2c6e4955cfbcb86ec9180f355fe5e",
+      "tracked": true
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F4b_PERSIST_MODEL.md",
+      "exists": true,
+      "sha256": "d8e2dab333d289dcef104a786aab141affe193694b07454cbf27d14564d0ecd2",
+      "tracked": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/production-pilot.ts",
+      "exists": true,
+      "sha256": "ac9cfd255282b99c5d6206a55fa659589e1296de56a912624fff9e8f3a01f6aa",
+      "tracked": false
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F5_PRODUCTION_PILOT.md",
+      "exists": true,
+      "sha256": "13a49bfd0cfc3d59115321cb718aea116daa3e0e06fd7e94ce797e09af62af85",
+      "tracked": false
+    },
+    {
+      "file": "scripts/csat/map/v62/import-research-v15.mjs",
+      "exists": true,
+      "sha256": "b0b032c9cf101afefbf11a6588af722b558a9e99faa9db554d6650e256bf7990",
+      "tracked": false
+    }
+  ],
+  "mapping": {
+    "vocab_choice": [
+      "R-VOCAB",
+      "X-VOCAB"
+    ],
+    "grammar_choice": [
+      "R-GRAMMAR"
+    ]
+  },
+  "contracts": {
+    "WorkspaceDemand": "implemented pure demand.ts; explicit roles/tasks/version/requires; no production",
+    "SupplyResult": "implemented supply.ts; Qualification boolean|null; factory_candidate excludes independent assessment",
+    "FactoryOrder": "pure state machine implemented persist-contract.ts; persistent DB design is not evidence of applied schema",
+    "ContentArtifact": "design reuses artifact_kind/ref/revision existing asset references; no dedicated table required",
+    "WorkspaceDelivery": "persistent design in P-F4b; runtime implementation not proven by design",
+    "production_pilot": "untracked evolving read-only file snapshot; not qualified release or learner evidence"
+  },
+  "qualification_fields": [
+    "producible",
+    "rights",
+    "content",
+    "teaching",
+    "assessment",
+    "learner",
+    "runnable"
+  ],
+  "research_boundary": {
+    "db_writes": 0,
+    "production_runs": 0,
+    "release_approvals": 0,
+    "learner_observations": 0
+  }
+}

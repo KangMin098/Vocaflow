@@ -1,0 +1,1758 @@
+{
+  "version": "fq1-integrity-1",
+  "checks": [
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/PROTOCOL-v1.5.md",
+      "expected": "a0bdf930367b1fef5f30721fbbe6820d8f8e1e53137709e92249aa2ba30f1019",
+      "actual": "a0bdf930367b1fef5f30721fbbe6820d8f8e1e53137709e92249aa2ba30f1019",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-ASSESSMENT-REVIEW.md",
+      "expected": "959eee4a2f930de8aabd8145951de46adc298cbde683c088e9619b0ea134bcb6",
+      "actual": "959eee4a2f930de8aabd8145951de46adc298cbde683c088e9619b0ea134bcb6",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-CONTENT-REVIEW.md",
+      "expected": "b7345357d63a19646fc702578c59987a136b3b0272a8c17f1362fa99b3a6b242",
+      "actual": "b7345357d63a19646fc702578c59987a136b3b0272a8c17f1362fa99b3a6b242",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-EXAM-SOURCES.md",
+      "expected": "a80c9f3e3180e0f0c39981ea838a68714a413ea74aeb3b100c7cd3e266ec0b03",
+      "actual": "a80c9f3e3180e0f0c39981ea838a68714a413ea74aeb3b100c7cd3e266ec0b03",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-HANDOFF.md",
+      "expected": "7cc279df18ba4d2d53a4ea981f367c8de04a3e8fec30e666227d19560e9fba67",
+      "actual": "7cc279df18ba4d2d53a4ea981f367c8de04a3e8fec30e666227d19560e9fba67",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-REPORT.md",
+      "expected": "72fcc6a35d17af8b1452a7b6b9ec7869ccda88f05102e71a2c2b0ff5c78caae3",
+      "actual": "72fcc6a35d17af8b1452a7b6b9ec7869ccda88f05102e71a2c2b0ff5c78caae3",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-S5-CONTENT.md",
+      "expected": "d1f4d72de73de7237c7438ee094c0ad57d9e89cafd5513dd3aca42de64e75e6b",
+      "actual": "d1f4d72de73de7237c7438ee094c0ad57d9e89cafd5513dd3aca42de64e75e6b",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-V2-CONTENT.md",
+      "expected": "1ba8ac034a198a2b2713ffc2b5d2adc42abde62fadc792348851f7bdef7c5325",
+      "actual": "1ba8ac034a198a2b2713ffc2b5d2adc42abde62fadc792348851f7bdef7c5325",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/V15-WORKSPACE-GAPS.md",
+      "expected": "4e8fa31b98682f4291115f838f4dec82c799552a7cdd5da3dcea037963a416fa",
+      "actual": "4e8fa31b98682f4291115f838f4dec82c799552a7cdd5da3dcea037963a416fa",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/assessment-agreement.json",
+      "expected": "73e53cc35bea5aebcf8f7015048ce375cdba7b0ea4cafa90876a4073bd4bd49c",
+      "actual": "73e53cc35bea5aebcf8f7015048ce375cdba7b0ea4cafa90876a4073bd4bd49c",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/assessment-execution.json",
+      "expected": "dfbace64a8804d12ec644c0426942f930585f2de3ff08e48f0162f63f4bbc656",
+      "actual": "dfbace64a8804d12ec644c0426942f930585f2de3ff08e48f0162f63f4bbc656",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/assessment-operational-proposal.json",
+      "expected": "bb02a2375c55c0cbfd1bd3b65bf0fa41c55a25acdb5e1f521fff720e9bb75b81",
+      "actual": "bb02a2375c55c0cbfd1bd3b65bf0fa41c55a25acdb5e1f521fff720e9bb75b81",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/assessment-registration.json",
+      "expected": "e479bab53e5b8acac87adeb65b237f196765299c2aea85bb43f89009499bf9f9",
+      "actual": "e479bab53e5b8acac87adeb65b237f196765299c2aea85bb43f89009499bf9f9",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/assessment-review.json",
+      "expected": "220d5e225e17cf5b0bf80a91a6e4368ca07415904a141233d18b908c1219f7b3",
+      "actual": "220d5e225e17cf5b0bf80a91a6e4368ca07415904a141233d18b908c1219f7b3",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/asset-ledger.json",
+      "expected": "aa9bf3e864607d0581acaeecea4bb78386f430b0fe2dcf20ac57b8757f9a3bae",
+      "actual": "aa9bf3e864607d0581acaeecea4bb78386f430b0fe2dcf20ac57b8757f9a3bae",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/checks.json",
+      "expected": "2a83185e8d4579e3f839d0d85c8865bfdb88e5bfaa4a834e2aca63083f648951",
+      "actual": "2a83185e8d4579e3f839d0d85c8865bfdb88e5bfaa4a834e2aca63083f648951",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-candidates-revision1.json",
+      "expected": "67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20",
+      "actual": "67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-candidates.json",
+      "expected": "b523f9c0f2c0aa930b9c5908df96a757fc6022110c9b208f1b0a679e2bae1efe",
+      "actual": "b523f9c0f2c0aa930b9c5908df96a757fc6022110c9b208f1b0a679e2bae1efe",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-delivery-revision3.json",
+      "expected": "2e1522490b77dcf3d6ef61cc469436ed5d7979fe5d35ed92e9ea32ae916af310",
+      "actual": "2e1522490b77dcf3d6ef61cc469436ed5d7979fe5d35ed92e9ea32ae916af310",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-packages.json",
+      "expected": "52d28a454164da88e263a48938e832636ebf31869aadbb6ede2985c9bcdc770b",
+      "actual": "52d28a454164da88e263a48938e832636ebf31869aadbb6ede2985c9bcdc770b",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-review-revision2-summary.json",
+      "expected": "6e884bdd3b00ac506e17f2bc24958a6506105b67e0af2852624d700176b46f57",
+      "actual": "6e884bdd3b00ac506e17f2bc24958a6506105b67e0af2852624d700176b46f57",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-review-revision3-summary.json",
+      "expected": "0db1003a9aac15b1e05811a973e784c0ccdef0b163157ee36c3a4558cbb30766",
+      "actual": "0db1003a9aac15b1e05811a973e784c0ccdef0b163157ee36c3a4558cbb30766",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-review-summary.json",
+      "expected": "20edf232cb4fd9bf9460048ed0cf8616bcbd34349669db601e775e6d37b46eb1",
+      "actual": "20edf232cb4fd9bf9460048ed0cf8616bcbd34349669db601e775e6d37b46eb1",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-revision2.json",
+      "expected": "8f1e31624677923f285a3abad283fa15033c0c4388f6d96edcf7cba032e985c6",
+      "actual": "8f1e31624677923f285a3abad283fa15033c0c4388f6d96edcf7cba032e985c6",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/content-roles-revision1.json",
+      "expected": "544621e4afbd267f05b171d74674197dd552895da935dcda08ca486d5089dd20",
+      "actual": "544621e4afbd267f05b171d74674197dd552895da935dcda08ca486d5089dd20",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/coverage.json",
+      "expected": "ac3886dd21efc6ea23495430ad4c3754734f0d1b25909a5d8802da0bdbbc158d",
+      "actual": "ac3886dd21efc6ea23495430ad4c3754734f0d1b25909a5d8802da0bdbbc158d",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/exam-sources.json",
+      "expected": "559fbaeb0119ad57bc5c010a3025058b0da1388c7784831975dd29d562ef92a6",
+      "actual": "559fbaeb0119ad57bc5c010a3025058b0da1388c7784831975dd29d562ef92a6",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/final-gate.json",
+      "expected": "3519465611e84647beb36faaaa97e86e83f715f08940bda20109192220f99335",
+      "actual": "3519465611e84647beb36faaaa97e86e83f715f08940bda20109192220f99335",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/handoff.json",
+      "expected": "a69b7c525b34c2fb25d6a12167b86af61b7c176ea3641a41a91e15d66287a3d2",
+      "actual": "a69b7c525b34c2fb25d6a12167b86af61b7c176ea3641a41a91e15d66287a3d2",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/integrity.json",
+      "expected": "bef74ce352f1d0e3ddba47a8066f85a347affcc4c02413513631e261d1e4c30b",
+      "actual": "bef74ce352f1d0e3ddba47a8066f85a347affcc4c02413513631e261d1e4c30b",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/product-inventory.json",
+      "expected": "d4332ffc83604f83396efa0ddd07aed29fe45edc054f0d46f913a17d0aa3a8ac",
+      "actual": "d4332ffc83604f83396efa0ddd07aed29fe45edc054f0d46f913a17d0aa3a8ac",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/published-type-inventory.json",
+      "expected": "daa2a1a48385cbad074e0c2dccd6b6a304a2e9412ef3f9b337838f1d61d0636f",
+      "actual": "daa2a1a48385cbad074e0c2dccd6b6a304a2e9412ef3f9b337838f1d61d0636f",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/registration.json",
+      "expected": "aa440829937b56a9c0f119ffdceecd72118c0e062f6fd50e23c03f70d390af13",
+      "actual": "aa440829937b56a9c0f119ffdceecd72118c0e062f6fd50e23c03f70d390af13",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/task-evidence.json",
+      "expected": "f5d5d9e38070c33b5911be26a870b72c2b6bb5a33f35d13beb659c4e85cc2f94",
+      "actual": "f5d5d9e38070c33b5911be26a870b72c2b6bb5a33f35d13beb659c4e85cc2f94",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/v3-latest-connection.json",
+      "expected": "42b46a5c3f3f14d867cbd6f695bc06056238ef63916252f92bee013a9c5a3e3a",
+      "actual": "42b46a5c3f3f14d867cbd6f695bc06056238ef63916252f92bee013a9c5a3e3a",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/v3-version-audit.json",
+      "expected": "28d2f682774bc2d323386f6b0fde774b95709b622edd5728de61ba05c5144d7f",
+      "actual": "28d2f682774bc2d323386f6b0fde774b95709b622edd5728de61ba05c5144d7f",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/workspace-gaps.json",
+      "expected": "165b150c2b835019f0a2f3764fe2772b7e24647570b6523dec2cd9f28806a2e9",
+      "actual": "165b150c2b835019f0a2f3764fe2772b7e24647570b6523dec2cd9f28806a2e9",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-artifacts.mjs",
+      "expected": "84a179f8b560778f0401661fb4b3f66f8817462e61b572268e6adfc6141dbcf3",
+      "actual": "84a179f8b560778f0401661fb4b3f66f8817462e61b572268e6adfc6141dbcf3",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-assessment-freeze.mjs",
+      "expected": "3ff7484e471023502d54e52896e1ccb06ef6d51b948eb565f67df930ecb9b1e6",
+      "actual": "3ff7484e471023502d54e52896e1ccb06ef6d51b948eb565f67df930ecb9b1e6",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-assessment-review.mjs",
+      "expected": "10c376e2abf15bfd18148cf8517f48ec7f914ac0c1d08bade4f1415213369824",
+      "actual": "10c376e2abf15bfd18148cf8517f48ec7f914ac0c1d08bade4f1415213369824",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-assessment.mjs",
+      "expected": "c8c65b67345d8d7b69d5fdbb3c58a176dcfe139554d770a093a4185d6637ff1b",
+      "actual": "c8c65b67345d8d7b69d5fdbb3c58a176dcfe139554d770a093a4185d6637ff1b",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-assessment.test.mjs",
+      "expected": "5f127a2a681c3f92047de791d332167e1d386346208e254d66984b8662fbdd75",
+      "actual": "5f127a2a681c3f92047de791d332167e1d386346208e254d66984b8662fbdd75",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-assets.mjs",
+      "expected": "170fe169d8a87ae813f15c4ab9cd9b4f528eb2a617e0ded13f4307beb21df786",
+      "actual": "170fe169d8a87ae813f15c4ab9cd9b4f528eb2a617e0ded13f4307beb21df786",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-audit.mjs",
+      "expected": "a0af8a4a9e39f742abb0b198f877e780ed796c7c1e58905062b23a5031aac4fa",
+      "actual": "a0af8a4a9e39f742abb0b198f877e780ed796c7c1e58905062b23a5031aac4fa",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content-build.mjs",
+      "expected": "e840f53fbe9eada0bdb35b62282ef3e84c2272afbec4c418735dc6f2f747cabf",
+      "actual": "e840f53fbe9eada0bdb35b62282ef3e84c2272afbec4c418735dc6f2f747cabf",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content-delivery.mjs",
+      "expected": "3e6febff76897d021e6cac655d3d857b5ee0d7f674e1227ce05f61a6c221df16",
+      "actual": "3e6febff76897d021e6cac655d3d857b5ee0d7f674e1227ce05f61a6c221df16",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content-revise.mjs",
+      "expected": "ae3193e11d4490f12a7d04abc52304f683b50cb07ebc1a5288809889c96d48eb",
+      "actual": "ae3193e11d4490f12a7d04abc52304f683b50cb07ebc1a5288809889c96d48eb",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content-roles.mjs",
+      "expected": "22def39b932bf61dd2abfc876439471285700bb819984c952bd2619450e271fc",
+      "actual": "22def39b932bf61dd2abfc876439471285700bb819984c952bd2619450e271fc",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content-source-revision.mjs",
+      "expected": "ad0e5e03c012aa06c3ee05e2a51a1805594b8e70ee32165ca11304057745e397",
+      "actual": "ad0e5e03c012aa06c3ee05e2a51a1805594b8e70ee32165ca11304057745e397",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-content.test.mjs",
+      "expected": "97bd4cdda3355a352eb702cb4ee98648f24f448605b6e5a45c2326e5ae816c80",
+      "actual": "97bd4cdda3355a352eb702cb4ee98648f24f448605b6e5a45c2326e5ae816c80",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-db-audit.sql",
+      "expected": "90e51ab34f6b090f2db3243c2af69dbeb6922ae89675ff5e368f607eedf11ce1",
+      "actual": "90e51ab34f6b090f2db3243c2af69dbeb6922ae89675ff5e368f607eedf11ce1",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-deliver.mjs",
+      "expected": "9fc093a44ba80ef4b44b5e0d16eba8bd611ccd96b6fffef96f568e1b282a0c80",
+      "actual": "9fc093a44ba80ef4b44b5e0d16eba8bd611ccd96b6fffef96f568e1b282a0c80",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-guard.mjs",
+      "expected": "c51046f582d19982526f509a9de42e90024ee04cfd616083d5b870823f55f589",
+      "actual": "c51046f582d19982526f509a9de42e90024ee04cfd616083d5b870823f55f589",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-guard.test.mjs",
+      "expected": "14a0b845227440cc6808d0fe417084a0f07721303c3a8019d7756d7d0d0fdf79",
+      "actual": "14a0b845227440cc6808d0fe417084a0f07721303c3a8019d7756d7d0d0fdf79",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-source-audit.mjs",
+      "expected": "34445d989324aa048c688ecfe28fbb56bdc627265daa22c48f91a5f75cd4b79f",
+      "actual": "34445d989324aa048c688ecfe28fbb56bdc627265daa22c48f91a5f75cd4b79f",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-v3-link.mjs",
+      "expected": "d836d5db7bdab2f0ce5eae8cc96817621110434a88988461e706574ad58a43cb",
+      "actual": "d836d5db7bdab2f0ce5eae8cc96817621110434a88988461e706574ad58a43cb",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-workspace-read.mjs",
+      "expected": "5c08a49f88fb7e5833f19695973e51f47bf2b5cfb1d9b64dddc1b603da86cb30",
+      "actual": "5c08a49f88fb7e5833f19695973e51f47bf2b5cfb1d9b64dddc1b603da86cb30",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "scripts/research/csat-reading/v15-workspaces.mjs",
+      "expected": "d22e243e7f1eeff5ee2bed8c05580a9570406a04b4d4fe7d6238af8faa963795",
+      "actual": "d22e243e7f1eeff5ee2bed8c05580a9570406a04b4d4fe7d6238af8faa963795",
+      "ok": true
+    },
+    {
+      "category": "v15_public",
+      "file": "docs/research/csat-reading/data/v15/artifacts.json",
+      "expected": "4970005bef7c991196dd7b9cb9fce046e9c43526b0c5ba837ab1306b2d4db02e",
+      "actual": "4970005bef7c991196dd7b9cb9fce046e9c43526b0c5ba837ab1306b2d4db02e",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "docs/research/csat-reading/PROTOCOL-v1.5.md",
+      "expected": "a0bdf930367b1fef5f30721fbbe6820d8f8e1e53137709e92249aa2ba30f1019",
+      "actual": "a0bdf930367b1fef5f30721fbbe6820d8f8e1e53137709e92249aa2ba30f1019",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/local/v15/assessment-input.json",
+      "expected": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "actual": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/local/v15/assessment-expected.json",
+      "expected": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38",
+      "actual": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/local/v15/rater-instructions.md",
+      "expected": "a32eb57da03f535150d17cd552507aa63919b1cfa7930d5b0f27c5782d1ee7b1",
+      "actual": "a32eb57da03f535150d17cd552507aa63919b1cfa7930d5b0f27c5782d1ee7b1",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/v15-assessment.mjs",
+      "expected": "c8c65b67345d8d7b69d5fdbb3c58a176dcfe139554d770a093a4185d6637ff1b",
+      "actual": "c8c65b67345d8d7b69d5fdbb3c58a176dcfe139554d770a093a4185d6637ff1b",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/local/v15/rater-a-first.json",
+      "expected": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c",
+      "actual": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c",
+      "ok": true
+    },
+    {
+      "category": "v15_private",
+      "file": "scripts/research/csat-reading/local/v15/rater-b-first.json",
+      "expected": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530",
+      "actual": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530",
+      "ok": true
+    },
+    {
+      "category": "protocol",
+      "file": "docs/research/factory-qualification/PROTOCOL.md",
+      "expected": "7880aaf8799d9aec93468ba37229f3a3ec950a4d7d56da329cf33dcc36b1dde5",
+      "actual": "7880aaf8799d9aec93468ba37229f3a3ec950a4d7d56da329cf33dcc36b1dde5",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/PROTOCOL-v1.4.md",
+      "expected": "e173a64885a82d625585f27ad3ba8816be3677922196c87fe89b60216f1a3e1e",
+      "actual": "e173a64885a82d625585f27ad3ba8816be3677922196c87fe89b60216f1a3e1e",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-CROSS.md",
+      "expected": "2edb341adbe2b128c24ae16d89ef7b6df4efe97518b03adaf27384f22d398fed",
+      "actual": "2edb341adbe2b128c24ae16d89ef7b6df4efe97518b03adaf27384f22d398fed",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-EDUCATION-REVIEW.md",
+      "expected": "25a46e4bf9e4a9ea193fadf316a6bdd5e9fe061c11638c171958317299a2c0cc",
+      "actual": "25a46e4bf9e4a9ea193fadf316a6bdd5e9fe061c11638c171958317299a2c0cc",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-EDUCATION-REVISION.md",
+      "expected": "24a90493b9893e006ae63333f64d1b66b6149c553ba1d9d3b5fd2c58ca709d80",
+      "actual": "24a90493b9893e006ae63333f64d1b66b6149c553ba1d9d3b5fd2c58ca709d80",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-EDUCATION.md",
+      "expected": "94563ae98e142412cbaae212c2edb1850a5cac61338a5237db2523c4916e77ee",
+      "actual": "94563ae98e142412cbaae212c2edb1850a5cac61338a5237db2523c4916e77ee",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-HANDOFF.md",
+      "expected": "529b65e07a15cc31e0082c411aca9d641bde8ccba62a115e27687306197e6d1d",
+      "actual": "529b65e07a15cc31e0082c411aca9d641bde8ccba62a115e27687306197e6d1d",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-MAPPING.md",
+      "expected": "2ce07fa4f73e29d3b65fa1bb7277e121e5c87f6bc987f8f4590845cc1e0842c3",
+      "actual": "2ce07fa4f73e29d3b65fa1bb7277e121e5c87f6bc987f8f4590845cc1e0842c3",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-PRINCIPLES.md",
+      "expected": "807ec7b5a482bcf572ed8830ad294f19305d03997e6f3de4a590abd09652b4bb",
+      "actual": "807ec7b5a482bcf572ed8830ad294f19305d03997e6f3de4a590abd09652b4bb",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-RELATIONS.md",
+      "expected": "ec312195fcb4e3795203e814e1d9e5cc2e8e0051992e9bbab918301d485bafef",
+      "actual": "ec312195fcb4e3795203e814e1d9e5cc2e8e0051992e9bbab918301d485bafef",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-REPORT.md",
+      "expected": "a60a4f80ea6cfb2733c8bbe2ebeffe083e5faa5a5bdfc520b3cb2d2302063282",
+      "actual": "a60a4f80ea6cfb2733c8bbe2ebeffe083e5faa5a5bdfc520b3cb2d2302063282",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-SOURCE.md",
+      "expected": "32fb51eb77ae1647ab272cee7108e0e05c579b5d2f39c385368b82492c8ca056",
+      "actual": "32fb51eb77ae1647ab272cee7108e0e05c579b5d2f39c385368b82492c8ca056",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/V14-VALIDATION.md",
+      "expected": "a5834757aca843ce9c30f4bb2eeb2849f9d03a12df640266fc6c2047177bd390",
+      "actual": "a5834757aca843ce9c30f4bb2eeb2849f9d03a12df640266fc6c2047177bd390",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/agreement.json",
+      "expected": "3be7c0dfb338a3726d0b8be8f1c23e4ece9dd5680a71b7fc90ca82de1793d7ec",
+      "actual": "3be7c0dfb338a3726d0b8be8f1c23e4ece9dd5680a71b7fc90ca82de1793d7ec",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/checks.json",
+      "expected": "c999afb2579a21452ddfe8d6d177427cab669478490b51fd09fde92e37d254b5",
+      "actual": "c999afb2579a21452ddfe8d6d177427cab669478490b51fd09fde92e37d254b5",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/coverage.json",
+      "expected": "9363bcdb0777b1f5393808edd19d1a9a469a0e21d95231264d8305d46d7a859a",
+      "actual": "9363bcdb0777b1f5393808edd19d1a9a469a0e21d95231264d8305d46d7a859a",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/development-targets.json",
+      "expected": "571b33420d6132051b8b926cc230cdc7b68521822104cc06e1722b429614c4e5",
+      "actual": "571b33420d6132051b8b926cc230cdc7b68521822104cc06e1722b429614c4e5",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-logic-notes.json",
+      "expected": "ecffeb11cd0210cb3946b509b2dd254d4a8016763c953afc20d4f052e367cb64",
+      "actual": "ecffeb11cd0210cb3946b509b2dd254d4a8016763c953afc20d4f052e367cb64",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-packages.json",
+      "expected": "4b19b1c0586d04e3d16db40300d449c531a5b7cb03d24950074a53811451c556",
+      "actual": "4b19b1c0586d04e3d16db40300d449c531a5b7cb03d24950074a53811451c556",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-review-summary.json",
+      "expected": "22eb1a9bcba3d6c0f57af9df8d3b11081729117f7d0c3e0e4438519375a307e1",
+      "actual": "22eb1a9bcba3d6c0f57af9df8d3b11081729117f7d0c3e0e4438519375a307e1",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision1-review-summary.json",
+      "expected": "096d3978f99dbdd3f887762aa8e8065f21de3eda71365c88529c46b4878f6103",
+      "actual": "096d3978f99dbdd3f887762aa8e8065f21de3eda71365c88529c46b4878f6103",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision1.json",
+      "expected": "8491c4b4e6b1c95092dde631b5b318a7420be596539c4bdb1c743debd90283c6",
+      "actual": "8491c4b4e6b1c95092dde631b5b318a7420be596539c4bdb1c743debd90283c6",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision2-review-summary.json",
+      "expected": "17a07ee18f92bb352346185422de8c5dd57886b3e4e34cdbcba644b637cbf332",
+      "actual": "17a07ee18f92bb352346185422de8c5dd57886b3e4e34cdbcba644b637cbf332",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision2.json",
+      "expected": "69c9910c1fb4efda7b65fa4f24579a19e467ef9ee0404e610e0f64d7732552f7",
+      "actual": "69c9910c1fb4efda7b65fa4f24579a19e467ef9ee0404e610e0f64d7732552f7",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision3-review-summary.json",
+      "expected": "09ca62d4a5189ea1c0b1e5384b126795e823eb78ca4b8c8b22ab004cabc81ccf",
+      "actual": "09ca62d4a5189ea1c0b1e5384b126795e823eb78ca4b8c8b22ab004cabc81ccf",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/education-revision3.json",
+      "expected": "1a365a1a46df81bd5d415982d4e4db24636edb27f04d10148bf1dc8e97075009",
+      "actual": "1a365a1a46df81bd5d415982d4e4db24636edb27f04d10148bf1dc8e97075009",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/exposure.json",
+      "expected": "b3c7a96174510be0c76b98e265b307fd78bef550229ae1e5b41939bb5f99e024",
+      "actual": "b3c7a96174510be0c76b98e265b307fd78bef550229ae1e5b41939bb5f99e024",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/final-gate.json",
+      "expected": "721179388de92e871c6d159fc36a8a56ce6150c31ca0331458da250743d8644f",
+      "actual": "721179388de92e871c6d159fc36a8a56ce6150c31ca0331458da250743d8644f",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/final-integrity.json",
+      "expected": "7b5ef1613c643e0bd2125c58a26ffdbb1bf980b37b166c1345584433f984f5fc",
+      "actual": "7b5ef1613c643e0bd2125c58a26ffdbb1bf980b37b166c1345584433f984f5fc",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/handoff.json",
+      "expected": "e2d42741764999676202bc1666973a774ea32d6c5a9f2f8cc00b68fd45144a20",
+      "actual": "e2d42741764999676202bc1666973a774ea32d6c5a9f2f8cc00b68fd45144a20",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/logic-review-summary.json",
+      "expected": "7f087f1adff1194d7add4c1aed4572e852d3f9e0dbe80a370c1aa00e7890b1b1",
+      "actual": "7f087f1adff1194d7add4c1aed4572e852d3f9e0dbe80a370c1aa00e7890b1b1",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-agreement.json",
+      "expected": "f74a2a6c8454b33f5ad8547cbd89c9d5986230882381d5042f246236e30f997f",
+      "actual": "f74a2a6c8454b33f5ad8547cbd89c9d5986230882381d5042f246236e30f997f",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-review.json",
+      "expected": "9a6bbe2194f5698fd8356fc19d8669eb955e7f7e4d4491edf0147f86aac1c4e6",
+      "actual": "9a6bbe2194f5698fd8356fc19d8669eb955e7f7e4d4491edf0147f86aac1c4e6",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-second-registration.json",
+      "expected": "cfb834a4de2fff9c4f5263c4cf3f74d932c30a2bb2c479b58becdc2e0ef45cf8",
+      "actual": "cfb834a4de2fff9c4f5263c4cf3f74d932c30a2bb2c479b58becdc2e0ef45cf8",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-second-review.json",
+      "expected": "c053d34200eefbf3101f6779a5fa0cd68d3451246d7fe235ff6c87ad61586071",
+      "actual": "c053d34200eefbf3101f6779a5fa0cd68d3451246d7fe235ff6c87ad61586071",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-selection.json",
+      "expected": "b41a06d6d0532a044625218b5960435fb9fe7b01a5c2383552ad547cf8adba54",
+      "actual": "b41a06d6d0532a044625218b5960435fb9fe7b01a5c2383552ad547cf8adba54",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/map-summary.json",
+      "expected": "72cabc3dc2e1c82c553470d8335800f3203ffcea1f61aece5fb1bd96b395ee39",
+      "actual": "72cabc3dc2e1c82c553470d8335800f3203ffcea1f61aece5fb1bd96b395ee39",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/pilot-execution.json",
+      "expected": "ede1ff1599aa13a3809a685c2c60b19d4108eb396cb86ab0b04b0ff81dab9578",
+      "actual": "ede1ff1599aa13a3809a685c2c60b19d4108eb396cb86ab0b04b0ff81dab9578",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/pilot-registration.json",
+      "expected": "bf1e4bacf66f5fc36921fd3238a2badb3c5db833d8a51f87525133e4bb976dfd",
+      "actual": "bf1e4bacf66f5fc36921fd3238a2badb3c5db833d8a51f87525133e4bb976dfd",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/principle-availability.json",
+      "expected": "52109f670701a4f1af17879ecc6c5a0107abe3dd028550dda9a5f0827aa212ed",
+      "actual": "52109f670701a4f1af17879ecc6c5a0107abe3dd028550dda9a5f0827aa212ed",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/principle-cross-review.json",
+      "expected": "b32da46da5ec87906539cc4a8f9a561272473c3968607f1c6100ffb7333f83ab",
+      "actual": "b32da46da5ec87906539cc4a8f9a561272473c3968607f1c6100ffb7333f83ab",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/principle-redaction.json",
+      "expected": "a2c4a61c4c378d426ab49b020153d9387cdc54e1e524acfd7a216af0221207f1",
+      "actual": "a2c4a61c4c378d426ab49b020153d9387cdc54e1e524acfd7a216af0221207f1",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/principle-registration.json",
+      "expected": "f54ae2cdcf4e93f9d9018cbff785fece2677d6dd6c4849f62832451e6d1e3ead",
+      "actual": "f54ae2cdcf4e93f9d9018cbff785fece2677d6dd6c4849f62832451e6d1e3ead",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/registration.json",
+      "expected": "3ac462400d246bbb094ab31583905466aaa7855eb67eb239d418664140cefb27",
+      "actual": "3ac462400d246bbb094ab31583905466aaa7855eb67eb239d418664140cefb27",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-availability-v2.json",
+      "expected": "67535260197740432a684352ccc368d0fea5c054616841dd4cefdd36817dd2b7",
+      "actual": "67535260197740432a684352ccc368d0fea5c054616841dd4cefdd36817dd2b7",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-availability-v3.json",
+      "expected": "3fafe2bdf584b667b3cac38e5752fd6761dd9af98d38387021809a93328533c0",
+      "actual": "3fafe2bdf584b667b3cac38e5752fd6761dd9af98d38387021809a93328533c0",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-availability-v4.json",
+      "expected": "c91eb7b6ffcdb108e8b266d15d783b1ff116a1dc26155b417aa11ba2671d4b3c",
+      "actual": "c91eb7b6ffcdb108e8b266d15d783b1ff116a1dc26155b417aa11ba2671d4b3c",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-availability.json",
+      "expected": "8a1680ac7389369a4d3b433728806bc97be8c9840079ad6a8442f5d26a6efca3",
+      "actual": "8a1680ac7389369a4d3b433728806bc97be8c9840079ad6a8442f5d26a6efca3",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-finalization.json",
+      "expected": "db824bb12976474ae860e9cba15191ccd6a8f3b368679836fc682ac31a16359b",
+      "actual": "db824bb12976474ae860e9cba15191ccd6a8f3b368679836fc682ac31a16359b",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/source-pilot.json",
+      "expected": "444317475d759d36e10826def90e1c8fea281aa04d7c4f325f690844d63eabbf",
+      "actual": "444317475d759d36e10826def90e1c8fea281aa04d7c4f325f690844d63eabbf",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/strategy-information.json",
+      "expected": "6eaf57e68b3d0e32fb18e9200c96822d1a637e3c3c701f94cefcdd47635f5dc5",
+      "actual": "6eaf57e68b3d0e32fb18e9200c96822d1a637e3c3c701f94cefcdd47635f5dc5",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/target-revision-contract.json",
+      "expected": "5b8113c78eef6abdba8f013c2992937a1dbd93b5ef969dd35856e3affffa1047",
+      "actual": "5b8113c78eef6abdba8f013c2992937a1dbd93b5ef969dd35856e3affffa1047",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "docs/research/csat-reading/data/v14/task-evidence.json",
+      "expected": "86743f5d597919c5f27096a50c1c274862458802f803af84be6c55253e2c840b",
+      "actual": "86743f5d597919c5f27096a50c1c274862458802f803af84be6c55253e2c840b",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-analysis.mjs",
+      "expected": "b209cd2b6811a765a79a2d15c9da599eff27bc2a26d49e2ea2cc8c10bd620c62",
+      "actual": "b209cd2b6811a765a79a2d15c9da599eff27bc2a26d49e2ea2cc8c10bd620c62",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-artifacts.mjs",
+      "expected": "e448195a2e3c8b90e7ef38f6d5f1cb920162b7ff3fb4ef4c3a5f30e59529b4b1",
+      "actual": "e448195a2e3c8b90e7ef38f6d5f1cb920162b7ff3fb4ef4c3a5f30e59529b4b1",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-deliver.mjs",
+      "expected": "a3c5ea2e108108bde0412c1d78020d5ce5e76ed687814641c1a3ebb4bdaca118",
+      "actual": "a3c5ea2e108108bde0412c1d78020d5ce5e76ed687814641c1a3ebb4bdaca118",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-development.mjs",
+      "expected": "7a3fba808c21bcc8f28e2e75e8ee274a644922b66ac4bf405945e752f64eaade",
+      "actual": "7a3fba808c21bcc8f28e2e75e8ee274a644922b66ac4bf405945e752f64eaade",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-education-privatize.mjs",
+      "expected": "39d788d8b32df5ff66d3f36b43a0853a734f0d65650353a7c9b96220ea2bbdf9",
+      "actual": "39d788d8b32df5ff66d3f36b43a0853a734f0d65650353a7c9b96220ea2bbdf9",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-education-revise.mjs",
+      "expected": "e8210a895fca89c988f83560cb9d852ebd4e4cd1dc852060cf2ed419057ca058",
+      "actual": "e8210a895fca89c988f83560cb9d852ebd4e4cd1dc852060cf2ed419057ca058",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-education-revise2.mjs",
+      "expected": "cf50a09a820ce6c2615fc815740ef217807c13420b0159e17d611641f24c3c49",
+      "actual": "cf50a09a820ce6c2615fc815740ef217807c13420b0159e17d611641f24c3c49",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-education-revise3.mjs",
+      "expected": "1c0dd0fbde3c790e922bf674272c16761231b9844d5124e528664e55cc94108a",
+      "actual": "1c0dd0fbde3c790e922bf674272c16761231b9844d5124e528664e55cc94108a",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-education.mjs",
+      "expected": "2ca4a29bb7d68279925bd6b7e8c9f8b92de204b079ba97159a6828154e02f777",
+      "actual": "2ca4a29bb7d68279925bd6b7e8c9f8b92de204b079ba97159a6828154e02f777",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-freeze.mjs",
+      "expected": "9ab5a80f250e50f71fbe5f9e178a180de7f53f8938cd751e949b4ccf70cbd013",
+      "actual": "9ab5a80f250e50f71fbe5f9e178a180de7f53f8938cd751e949b4ccf70cbd013",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-integrity.mjs",
+      "expected": "c9b810e4ef1000e9d69042abe3ca29ba2c8ba86e435c8cf1b972eb697bc9b1fe",
+      "actual": "c9b810e4ef1000e9d69042abe3ca29ba2c8ba86e435c8cf1b972eb697bc9b1fe",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-integrity.test.mjs",
+      "expected": "975db95d396ce16d6c6fdd96b7d01de777d6d0001ccdef5f60793fb12aa7b479",
+      "actual": "975db95d396ce16d6c6fdd96b7d01de777d6d0001ccdef5f60793fb12aa7b479",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-agreement.mjs",
+      "expected": "87b1b8b1bc7e9b24e8fad9eb93b664f123da91efdffc068ef7a48d169d5d236c",
+      "actual": "87b1b8b1bc7e9b24e8fad9eb93b664f123da91efdffc068ef7a48d169d5d236c",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-blind.mjs",
+      "expected": "74f98307b4351d058ef193b8a17ed1154b8b4b095710caaa7199b78077750f5e",
+      "actual": "74f98307b4351d058ef193b8a17ed1154b8b4b095710caaa7199b78077750f5e",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-read.mjs",
+      "expected": "d4fc75be69d327c7a882f21cd5c1ce05040e073e8a12120fad81527e69323a0f",
+      "actual": "d4fc75be69d327c7a882f21cd5c1ce05040e073e8a12120fad81527e69323a0f",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-review.mjs",
+      "expected": "21e477e3213baa6535a9cc22009a2c0cde5380108347e78e4100d3b6350f87ac",
+      "actual": "21e477e3213baa6535a9cc22009a2c0cde5380108347e78e4100d3b6350f87ac",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-select.mjs",
+      "expected": "1017cb0e64c1ba972993623f8943d07360609a5d383689c71ab84b4b2b924aed",
+      "actual": "1017cb0e64c1ba972993623f8943d07360609a5d383689c71ab84b4b2b924aed",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-map-summary.mjs",
+      "expected": "102ae852b75085ba0a2db304cf355a8969d0b9d87a8530f1d29f28764c91202a",
+      "actual": "102ae852b75085ba0a2db304cf355a8969d0b9d87a8530f1d29f28764c91202a",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-prepare.mjs",
+      "expected": "05f8e8de4e36db2ce43b029c04bff3192a0ba88044cbc783c45301dd726599a4",
+      "actual": "05f8e8de4e36db2ce43b029c04bff3192a0ba88044cbc783c45301dd726599a4",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-principle-build.mjs",
+      "expected": "0372f787c245cb8e8568a420f6d122e6e0ce307c11839de45246785c954d333b",
+      "actual": "0372f787c245cb8e8568a420f6d122e6e0ce307c11839de45246785c954d333b",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-principle-redact.mjs",
+      "expected": "2297dbcffcf144f3823146b5fa2525b42fba32b66633d3abeaddddd32828bb48",
+      "actual": "2297dbcffcf144f3823146b5fa2525b42fba32b66633d3abeaddddd32828bb48",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-principle-register.mjs",
+      "expected": "dd41459b61684d4a17b4e9e658331358d8c8a25f7e7a303f49dfa11ebd1467e1",
+      "actual": "dd41459b61684d4a17b4e9e658331358d8c8a25f7e7a303f49dfa11ebd1467e1",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-principle-validate.mjs",
+      "expected": "039de2b79c535c399a3c6eaed8fa4b1ad59db654793ca3b60ca4d46cb42fedf8",
+      "actual": "039de2b79c535c399a3c6eaed8fa4b1ad59db654793ca3b60ca4d46cb42fedf8",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-source-availability-v2.mjs",
+      "expected": "9a6a311d4789a167421e444ec4aaaa9b5472054ff47cd885a1d6d012f0e58b60",
+      "actual": "9a6a311d4789a167421e444ec4aaaa9b5472054ff47cd885a1d6d012f0e58b60",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-source-availability.mjs",
+      "expected": "021d99ad252331f70c00e29d557efe24f70576b1c231f6495636d3d36d3530f3",
+      "actual": "021d99ad252331f70c00e29d557efe24f70576b1c231f6495636d3d36d3530f3",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-source-finalize.mjs",
+      "expected": "1d4a62415efb1b8a98bcb41d4175b4d3c401f008dcb299703ee5504b8f2052cd",
+      "actual": "1d4a62415efb1b8a98bcb41d4175b4d3c401f008dcb299703ee5504b8f2052cd",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-source-locate.mjs",
+      "expected": "a3d0e96dbcb697d1d4f779975c5520248f7709a507ef13dc9c758f18cba49b87",
+      "actual": "a3d0e96dbcb697d1d4f779975c5520248f7709a507ef13dc9c758f18cba49b87",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-source-pilot.mjs",
+      "expected": "ca48a5f5d0b8074010f778b7168e735189817e36894914efc97149a423ed3b7a",
+      "actual": "ca48a5f5d0b8074010f778b7168e735189817e36894914efc97149a423ed3b7a",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14-strategies.mjs",
+      "expected": "e74990006b252f24760333a3d0cea9257d298054bbbedba5753f605c5117677a",
+      "actual": "e74990006b252f24760333a3d0cea9257d298054bbbedba5753f605c5117677a",
+      "ok": true
+    },
+    {
+      "category": "v14_public",
+      "file": "scripts/research/csat-reading/v14.test.mjs",
+      "expected": "662f51c3221b0fc2ea1405966e6cae2778719faca1c1a8a723a69c8acdb3a7bb",
+      "actual": "662f51c3221b0fc2ea1405966e6cae2778719faca1c1a8a723a69c8acdb3a7bb",
+      "ok": true
+    },
+    {
+      "category": "sample_registration",
+      "file": "docs/research/factory-qualification/data/sample-registration.json",
+      "expected": "9a2478a0e331ff3ccc8a3e0158882d7a12751e8e37484737d6ba27ea88b137ad",
+      "actual": "9a2478a0e331ff3ccc8a3e0158882d7a12751e8e37484737d6ba27ea88b137ad",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-0.json",
+      "expected": "2aa3356ceef4aeaace43845964423bffeb0d1c221fac54f7a1c74f36cb72c36b",
+      "actual": "2aa3356ceef4aeaace43845964423bffeb0d1c221fac54f7a1c74f36cb72c36b",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-5000.json",
+      "expected": "7f9b3f118f31575723a5d8ab0d7dd2de95a701735ca6ba520a03749cfcb0c806",
+      "actual": "7f9b3f118f31575723a5d8ab0d7dd2de95a701735ca6ba520a03749cfcb0c806",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-10000.json",
+      "expected": "b2d01a1caf765978f255ec76207d8e466e9dcc196c5e938d71593dc5d412035c",
+      "actual": "b2d01a1caf765978f255ec76207d8e466e9dcc196c5e938d71593dc5d412035c",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-15000.json",
+      "expected": "b9841031edc6d057a9184c1bc7674cb30b5935629a3a5eb3527502862dec5a01",
+      "actual": "b9841031edc6d057a9184c1bc7674cb30b5935629a3a5eb3527502862dec5a01",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-20000.json",
+      "expected": "9eec7ca19f999ce01b5b76b83eb089924bf8828384bb93c27abe65cb546de31d",
+      "actual": "9eec7ca19f999ce01b5b76b83eb089924bf8828384bb93c27abe65cb546de31d",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-25000.json",
+      "expected": "107b19fa028b540785fbfd79d7a58d4bae165044770e5c182c870e02a7edc70a",
+      "actual": "107b19fa028b540785fbfd79d7a58d4bae165044770e5c182c870e02a7edc70a",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-30000.json",
+      "expected": "338ff424dd10c0ac3dbecbe14fa7ff6886ff0b77994d14d87ff825fa178450c7",
+      "actual": "338ff424dd10c0ac3dbecbe14fa7ff6886ff0b77994d14d87ff825fa178450c7",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-35000.json",
+      "expected": "e401ac6ab552bb94adb8271ed5c026784964a5b40a0e6dd60933e7b6803ff271",
+      "actual": "e401ac6ab552bb94adb8271ed5c026784964a5b40a0e6dd60933e7b6803ff271",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-40000.json",
+      "expected": "739927ca05aa653d2f369322c02d28e29403e2dda00dee3cd9eb199f3ff81408",
+      "actual": "739927ca05aa653d2f369322c02d28e29403e2dda00dee3cd9eb199f3ff81408",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-45000.json",
+      "expected": "d8369b7cf89722c4a917d7316d00c4ac5839c676dab2418eaccbcbb3c2ab41b1",
+      "actual": "d8369b7cf89722c4a917d7316d00c4ac5839c676dab2418eaccbcbb3c2ab41b1",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-50000.json",
+      "expected": "116a2c5dc1eed1237c8bfe970b5fdda9f2843bfd857921d4b85b8568f9486f7d",
+      "actual": "116a2c5dc1eed1237c8bfe970b5fdda9f2843bfd857921d4b85b8568f9486f7d",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-55000.json",
+      "expected": "a8f6da8972d39f9cb0838752518e2cf71a37d4d855c049d0a161ddae8586699c",
+      "actual": "a8f6da8972d39f9cb0838752518e2cf71a37d4d855c049d0a161ddae8586699c",
+      "ok": true
+    },
+    {
+      "category": "metadata_chunks",
+      "file": "scripts/research/factory-qualification/local/sample-metadata-60000.json",
+      "expected": "b66effe1f1d06b07c0e42d4ab936ce18dbe37bdf76975141b754a2cffcc5dcfe",
+      "actual": "b66effe1f1d06b07c0e42d4ab936ce18dbe37bdf76975141b754a2cffcc5dcfe",
+      "ok": true
+    },
+    {
+      "category": "dcp_inputs",
+      "file": "scripts/research/factory-qualification/local/dcp-main-input.json",
+      "expected": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "actual": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "ok": true
+    },
+    {
+      "category": "dcp_inputs",
+      "file": "scripts/research/factory-qualification/local/dcp-counter-input.json",
+      "expected": "b91160b193c979117b2f6a181d696e5b3e41a65eb3800221afeef38a95f5c288",
+      "actual": "b91160b193c979117b2f6a181d696e5b3e41a65eb3800221afeef38a95f5c288",
+      "ok": true
+    },
+    {
+      "category": "main_review",
+      "file": "scripts/research/factory-qualification/local/dcp-main-review-first.json",
+      "expected": "baaf40723e2d3b21bd450f28cf88a5b86a57a819bad150654519fbe6efce4728",
+      "actual": "baaf40723e2d3b21bd450f28cf88a5b86a57a819bad150654519fbe6efce4728",
+      "ok": true
+    },
+    {
+      "category": "gold_critic",
+      "file": "scripts/research/factory-qualification/local/gold-critic-first.json",
+      "expected": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+      "actual": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+      "ok": true
+    },
+    {
+      "category": "gold_blind",
+      "file": "scripts/research/factory-qualification/local/gold-blind-input.json",
+      "expected": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c",
+      "actual": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c",
+      "ok": true
+    },
+    {
+      "category": "gold_rules",
+      "file": "docs/research/factory-qualification/data/gold-rules.json",
+      "expected": "21c5cd6b0fedb5547b2982bad7bd1f24a285045ea7d00b93d50fd602e65efa93",
+      "actual": "21c5cd6b0fedb5547b2982bad7bd1f24a285045ea7d00b93d50fd602e65efa93",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-packages-revision2.json",
+      "expected": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf",
+      "actual": "ae5c1592fae93aad4c22873e57e313ac9fef7421257344c47fb74040d906d3cf",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v15/content-candidates-revision1.json",
+      "expected": "67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20",
+      "actual": "67b339511070da494c6eae6e529e7a87f8fa4fbf971285af35d45aa435a9fd20",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-review-first.json",
+      "expected": "a274a336120bc04aa7f4bc03bec7036b586991a824f8bed83ec50453092baf20",
+      "actual": "a274a336120bc04aa7f4bc03bec7036b586991a824f8bed83ec50453092baf20",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-review-revision2.json",
+      "expected": "f8067d8cc116bc4a9f88d571885591fe518ff6ce18f3a72054f0c7245c65687e",
+      "actual": "f8067d8cc116bc4a9f88d571885591fe518ff6ce18f3a72054f0c7245c65687e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-review-revision3.json",
+      "expected": "c079edb90241f4ad4a20101188935b6f36e6772b328db8aa0bf729d297a2439a",
+      "actual": "c079edb90241f4ad4a20101188935b6f36e6772b328db8aa0bf729d297a2439a",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v14/education-packages-revision3.json",
+      "expected": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e",
+      "actual": "eef808793a8b5acf6a1af16775470fd103c8a7c28ca960e982750d97ab890a2e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/assessment-input.json",
+      "expected": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "actual": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/assessment-review-first.json",
+      "expected": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8",
+      "actual": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v14/education-revision3-review.json",
+      "expected": "b2b0ad1525607990663508fa2d3b9c4085a729c4f111a1b3d2e4dd2bd2cd1893",
+      "actual": "b2b0ad1525607990663508fa2d3b9c4085a729c4f111a1b3d2e4dd2bd2cd1893",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "expected": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "actual": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+      "expected": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+      "actual": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v13/development-input.json",
+      "expected": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "actual": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v12/pilot-source.json",
+      "expected": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "actual": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v13/pilot-input.json",
+      "expected": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+      "actual": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v13/pilot-source.json",
+      "expected": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+      "actual": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/main-20261014/input.json",
+      "expected": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "actual": "fcb69fca6fa199367c0467e6b0ca5464b093e6caa23c8aba341421035ceacde6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/main-20261014/source-audit.json",
+      "expected": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+      "actual": "05926987e02cf3b53ada72ce1c31b400f882293e9d14e36a0aecb7c921e117a9",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v12/restore-b.json",
+      "expected": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "actual": "f95e8516fcb9010e5addb5edfe601f119f959e1deb03c15938dd56c7498941a3",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v12/restoration-b.json",
+      "expected": "a7255edb058a15eaf4429e5840514121d641d11977c6fc19f9e76d106e509e1e",
+      "actual": "a7255edb058a15eaf4429e5840514121d641d11977c6fc19f9e76d106e509e1e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v13/pilot-input.json",
+      "expected": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+      "actual": "c8d0330d73ab4cb200543b827ff419232fe1d5336188124cbb2f587e601545e5",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v13/pilot-source.json",
+      "expected": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+      "actual": "4429f2db449d20e55f317b1613ad140c7d0402e22949e614c9c3b8a7892eac09",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v13/development-input.json",
+      "expected": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "actual": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v12/pilot-source.json",
+      "expected": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "actual": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v13/development-input.json",
+      "expected": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "actual": "3b7e0778f35855503ee460b341f525bf38109b77902cef0c2e7d7901a73ccb89",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/csat-reading/data/v12/pilot-source.json",
+      "expected": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "actual": "a4a1aee4334a1777e74f2144341472c09fec194ebe8e370b56bf6cf8a5a8eb65",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "expected": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "actual": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/content-roles-revision3.json",
+      "expected": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "actual": "746ce2e585788bef911202a7ccc4f6a94ce830681d1f927f4308bd0839da65b6",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/gold-countercases-first.json",
+      "expected": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf",
+      "actual": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/gold-critic-first.json",
+      "expected": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+      "actual": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/gold-reconciliation.json",
+      "expected": "6debcab88eb045ac2df8832cd29e181803334fcf6b3b7c1b5dddc8591ee88f54",
+      "actual": "6debcab88eb045ac2df8832cd29e181803334fcf6b3b7c1b5dddc8591ee88f54",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "docs/research/factory-qualification/data/gold-rules.json",
+      "expected": "21c5cd6b0fedb5547b2982bad7bd1f24a285045ea7d00b93d50fd602e65efa93",
+      "actual": "21c5cd6b0fedb5547b2982bad7bd1f24a285045ea7d00b93d50fd602e65efa93",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/gold-countercases-first.json",
+      "expected": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf",
+      "actual": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/factory-qualification/local/gold-blind-input.json",
+      "expected": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c",
+      "actual": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/assessment-input.json",
+      "expected": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "actual": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/assessment-expected.json",
+      "expected": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38",
+      "actual": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/assessment-review-first.json",
+      "expected": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8",
+      "actual": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/rater-a-first.json",
+      "expected": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c",
+      "actual": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c",
+      "ok": true
+    },
+    {
+      "category": "public_reference",
+      "file": "scripts/research/csat-reading/local/v15/rater-b-first.json",
+      "expected": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530",
+      "actual": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530",
+      "ok": true
+    }
+  ],
+  "private_first_seals": [
+    {
+      "file": "scripts/research/factory-qualification/local/research-activity-review-first.json",
+      "sha256": "ffa4c17b109bc898ac8f75b16be9c28638a1c9f6d4e67613516fccef6f1e732e",
+      "basis": "checked against supplied public references where present"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/dcp-main-review-first.json",
+      "sha256": "baaf40723e2d3b21bd450f28cf88a5b86a57a819bad150654519fbe6efce4728",
+      "basis": "checked against supplied public references where present"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/dcp-counter-review-first.json",
+      "sha256": "e2d4503ed495c8664a5e87d4414e9500c8d7cb46e5c22464a9c9568a9e12770f",
+      "basis": "initial observed seal; no prior public byte seal supplied"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/gold-countercases-first.json",
+      "sha256": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf",
+      "basis": "checked against supplied public references where present"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/gold-critic-first.json",
+      "sha256": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+      "basis": "checked against supplied public references where present"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/gold-blind-input.json",
+      "sha256": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c",
+      "basis": "checked against supplied public references where present"
+    },
+    {
+      "file": "scripts/research/factory-qualification/local/gold-reconciliation.json",
+      "sha256": "6debcab88eb045ac2df8832cd29e181803334fcf6b3b7c1b5dddc8591ee88f54",
+      "basis": "checked against supplied public references where present"
+    }
+  ],
+  "structural": [
+    {
+      "id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "b172230f-a008-4528-ae02-c5a036879a0a",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    },
+    {
+      "id": "9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "item_hash_ok": true,
+      "source_hash_ok": true,
+      "source_present": true,
+      "payload_sentences": true,
+      "answer_object": true
+    }
+  ],
+  "split_source_overlap": [],
+  "public_leaks": [],
+  "failures": [],
+  "coverage": {
+    "v15_public": 59,
+    "v15_private": 7,
+    "v14_public": 82,
+    "metadata_chunks": 13,
+    "private_first_seals": 7,
+    "dcp_inputs": 12,
+    "public_reference_bindings": 60,
+    "structural_failures": 0
+  },
+  "pass": true,
+  "scope": "hash/shape/privacy integrity only; no meaning, rights, learner or assessment approval"
+}

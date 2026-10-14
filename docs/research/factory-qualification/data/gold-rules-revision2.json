@@ -1,0 +1,16 @@
+{
+  "version": "FQ1-gold2-proposal",
+  "prior_version": "FQ1-gold1",
+  "status": "post-first operational clarification proposal, not validated student Gold and not retrospectively applied",
+  "changes": [
+    {"id":"G2a", "contract":"Exact numeric addresses may identify a supplied source row only when the analyst records exactly one compatible ordered argument tuple in the proper source role, indicator and scope. Matching an answer-like pattern or borrowing synthetic-boundary values is forbidden. Record all compatible antecedents, not only the preferred answer. Bare numeric address does not by itself submit a unit/period/scale response."},
+    {"id":"G3a", "contract":"Explicit recognizable indicator/unit wording is an observable units component even if period/scale and numeric evidence are absent. Unresolved comparison target defers only target-dependent components; it does not erase unrelated explicit unit content. Missing values remain comparison partial independently."},
+    {"id":"G4a", "contract":"Each required component must declare source/response scope and all reasoning dependencies before scoring. The indicator-distinction boundary component depends on relevant reasoning across the response; an explicit rate-to-hours substitution contradicts that component even when a correct separate unit statement remains. The same ground can damage multiple expressly registered dependent components, but never unspecified facets."}
+  ],
+  "requirements_before_confirmatory_use": ["Independent review of numeric address evidence and full dependency map", "Frozen task-specific component scopes", "New responses scored under this version before labels are seen", "Human and actual learner-response validation for assessment use"],
+  "old_firsts_unchanged": true,
+  "public_qualified": 0,
+  "assessment_qualified": 0,
+  "students": 0,
+  "human_reviewers": 0
+}

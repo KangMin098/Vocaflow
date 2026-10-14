@@ -1,0 +1,23 @@
+{
+  "version": "FQ1-gold1",
+  "scope": "New research operational supplement; v15 first rubric, 16 responses and 64 facet results remain unchanged. Structured flags require direct semantic analyst judgment; this is not a free-response student grader.",
+  "meaning_states": ["meets", "partial", "defect", "defer"],
+  "procedure_states": ["eligible", "ineligible", "defer"],
+  "precedence": ["unavailable required source or nonunique response target -> defer", "observable explicit contradiction or invalid claimed ground attributable to this facet -> defect", "all required components observable and correct -> meets", "nonempty proper correct component subset -> partial", "no interpretable component -> defer"],
+  "rules": [
+    {"id":"G1", "boundary":"partial_vs_defer", "contract":"An individual clause judgment is an observable conjunction component. Correct individual judgments without whole-result/AND condition are partial. Nonunique target or no interpretable component is defer. Empty response is not automatically wrong. Explicit contradictory whole-result is defect when target is identifiable."},
+    {"id":"G2", "boundary":"referential_ellipsis", "contract":"Allow only analyst-verified one unique antecedent in supplied task/source, compatible with indicator, scope and argument order. Two possible antecedents require defer for dependent components. Supplying a missing numeric ground or disambiguating a referent by presumed intended answer is forbidden. Exact repeated noun wording is not required."},
+    {"id":"G3", "boundary":"numeric_ground_vs_units", "contract":"S5 comparison separately records target identification, relation and actual numeric grounds. Requested missing values cause partial comparison when the relation/target is correct. Units records indicator, year/period, scale and unit, independently of numeric-ground completeness. Period inference is disabled unless a separately explicit task fixed-period binding is recorded; no implicit global year credit."},
+    {"id":"G4", "boundary":"wrong_reasoning_propagation", "contract":"Invalid grounds damage only facets whose stated components depend on those grounds. Correct observed formal AND logic may remain meets despite invalid empirical support. Correct unit identification is not erased by missing values. Explicit mixing of indicators damages comparison grounds; units fails only when its own unit/indicator/period claim is wrong. A response's contradictory statement within one facet is defect, not resolved by selecting the correct half."},
+    {"id":"G5", "boundary":"meaning_vs_eligibility", "contract":"Copied correct prose can meet semantic components. Observed solution access or disqualifying source exposure makes requested unaided check ineligible; missing reliable logs yields defer. Style similarity never establishes copying. Eligible requires explicit verified first unaided freeze, no solution access, required source/shared-stem exposure clearance and role-specific records; no case here supplies real learner eligibility."}
+  ],
+  "task_facets": {
+    "s.form_scope": {"comparison":["target_identification","relation","numeric_ground"], "conjunction":["clause_A_judgment","clause_B_judgment","whole_result","AND_condition"], "units":["indicator","period","scale","unit"], "boundary":["synthetic_equal_vs_unequal","indicator_distinction","derived_vs_visual"]},
+    "v.contextual_sense": {"sense":["contextual_gloss","alternative_sense_exclusion"],"arguments":["agent_action","scope_modality_preservation"],"cue":["source_cue_A","source_cue_B","valid_link_to_sense"],"limit":["no_other_TASK_success_claim","no_causal_or_universal_extension"]}
+  },
+  "unresolved": ["Human adjudication and actual learner-response boundaries absent", "Prompt-specific required components and eligibility prerequisites must be bound by revision", "A shared mistaken AI interpretation can remain despite inter-rater agreement"],
+  "public_qualified": 0,
+  "assessment_qualified": 0,
+  "students": 0,
+  "human_reviewers": 0
+}

@@ -1,0 +1,1031 @@
+{
+  "version": "fq1-dcp-main-review-1",
+  "protocol": "docs/research/factory-qualification/PROTOCOL.md",
+  "reviewer": "Codex independent main content review",
+  "split": "main",
+  "input_sha256": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+  "registration_sha256": "9a2478a0e331ff3ccc8a3e0158882d7a12751e8e37484737d6ba27ea88b137ad",
+  "item_count": 8,
+  "type_counts": {
+    "grammar_choice": 4,
+    "vocab_choice": 4
+  },
+  "review_scope": "All eight complete supplied local source bodies, article metadata, empty ancestry, generated sentences, underlines, keys and explanations read. Only supplied packet and protocol used. Counter and prior verdicts not read.",
+  "not_release_approval": true,
+  "sampling": "Purposive sealed sample; descriptive counts only, no rate/generalization claim.",
+  "counts": {
+    "A": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 8,
+      "not_applicable": 0
+    },
+    "B": {
+      "pass": 6,
+      "fail": 2,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "C": {
+      "pass": 0,
+      "fail": 6,
+      "unknown": 2,
+      "not_applicable": 0
+    },
+    "D": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 8,
+      "not_applicable": 0
+    },
+    "E": {
+      "pass": 4,
+      "fail": 4,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "F": {
+      "pass": 0,
+      "fail": 2,
+      "unknown": 6,
+      "not_applicable": 0
+    },
+    "G": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 8,
+      "not_applicable": 0
+    },
+    "H": {
+      "pass": 0,
+      "fail": 0,
+      "unknown": 8,
+      "not_applicable": 0
+    }
+  },
+  "classifications": {
+    "guided_practice_candidate": 4,
+    "explanation_candidate": 4,
+    "requires_task_redesign": 6,
+    "rights_or_source_hold": 8,
+    "assessment_not_qualified": 8,
+    "unusable_for_requested_role": 6,
+    "requires_semantic_repair": 2
+  },
+  "relevance": {
+    "supported_direct": 2,
+    "indirect_or_redesign": 6,
+    "unsupported": 0,
+    "unknown": 0
+  },
+  "issue_kind_counts": {
+    "scope_not_observable": 4,
+    "instruction_absent": 8,
+    "rubric_unobserved": 8,
+    "explanation_function_mismatch": 2,
+    "source_operational_block": 2,
+    "contextual_nonuniqueness": 1,
+    "comparison_scope_nonuniqueness": 1,
+    "explanation_shortcut": 1
+  },
+  "qualified_public": 0,
+  "qualified_assessment": 0,
+  "human_validated": 0,
+  "actual_students": 0,
+  "private": false,
+  "first_review_sha256": "baaf40723e2d3b21bd450f28cf88a5b86a57a819bad150654519fbe6efce4728",
+  "first_review_path": "scripts/research/factory-qualification/local/dcp-main-review-first.json",
+  "public_redaction": "No raw source, generated sentence, answer key, Gold, response, proposed instruction, actual task observation or private detailed issue evidence included.",
+  "items": [
+    {
+      "id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "type": "grammar_choice",
+      "requested_task": "s.form_scope",
+      "requested_workspace": "ws.grammar-scope",
+      "evidence_id": "FQ1-DCP-MAIN-1",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "0b51e96e38dc5137cfa038e5e32fd499df45ad03ac7fc2c4fec396607ca94dfe",
+      "source_sha256": "c71ab7417e1240c25b7be6fa488e5b2da9486f04701f745a62d4af2bd5df3645",
+      "source_revision": {
+        "updated_at": "2026-09-08T06:23:22.275327+00:00",
+        "content_hash": "4552c3330d91b2fd52bb4e90cea2ac42089e9d9b0c7d4c051564e6fcaf4200ce"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-09-07T11:23:07.25814+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Private review supports inferred recognition Gold quality; task and rubric qualification remain separate.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-1",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "scope_not_observable",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "pass"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": true,
+        "cache_grade": "usable",
+        "cache_current": true,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "type": "grammar_choice",
+      "requested_task": "s.form_scope",
+      "requested_workspace": "ws.grammar-scope",
+      "evidence_id": "FQ1-DCP-MAIN-2",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "84983d317c1c9fd1c1f2d411130d720acd13ad0f76320c9502c9cc6132831cea",
+      "source_sha256": "918ba5e698b6ee2dc4de6a88202be1561db906b14f78f00aabd4f459ec38931c",
+      "source_revision": {
+        "updated_at": "2026-09-25T07:34:46.460558+00:00",
+        "content_hash": "177c2752a4dbf5e7f6a3f82c75becb4c2b5b06ea1f7cb80a66e4504aba096129"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-09-01T12:07:55.154765+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Private review identifies explanatory semantic issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Private review identifies Gold-quality issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-2",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "requires_semantic_repair",
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "explanation_function_mismatch",
+        "scope_not_observable",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "fail"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": false,
+        "cache_grade": "unjudged",
+        "cache_current": false,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "type": "grammar_choice",
+      "requested_task": "s.form_scope",
+      "requested_workspace": "ws.grammar-scope",
+      "evidence_id": "FQ1-DCP-MAIN-3",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "eb7e540b2cc5b75912dff48374756389f15f57456bbe2cb811b151375c488c44",
+      "source_sha256": "40a9b6c0cbdb449693e1774889aa1ae330cdcb3662a468d64259a208cdaef44a",
+      "source_revision": {
+        "updated_at": "2026-09-25T07:36:16.163414+00:00",
+        "content_hash": "91ca2a056ef1dc4895cb503f5e4fa78999e639fbbe8a9bd5a036475319a628d2"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-09-01T12:06:46.643499+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "fail",
+          "reason": "Private review identifies explanatory semantic issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Private review identifies Gold-quality issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-3",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "requires_semantic_repair",
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "explanation_function_mismatch",
+        "scope_not_observable",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "fail"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": false,
+        "cache_grade": "unjudged",
+        "cache_current": false,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "type": "grammar_choice",
+      "requested_task": "s.form_scope",
+      "requested_workspace": "ws.grammar-scope",
+      "evidence_id": "FQ1-DCP-MAIN-4",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "2ffc7b9d3a7676c161a0fec682858fc44f03b49fb79f07aa2d8b440a35573bd8",
+      "source_sha256": "747ad4fb4778d8646d647cb37f3a6d54802ac6ed671a035e7f603259204d97c4",
+      "source_revision": {
+        "updated_at": "2026-09-08T05:45:25.443772+00:00",
+        "content_hash": "5de84239cc523106ffc04f25f30f370e6ba521471810a8cc234cd17c1bd65093"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-08-21T02:42:39.287469+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Private review supports inferred recognition Gold quality; task and rubric qualification remain separate.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "fail",
+          "reason": "Observed current local source record is archived with reject/nonpublishable gate: operational source-release failure. Legal permissions and release approval separately remain unknown.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-4",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "scope_not_observable",
+        "source_operational_block",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "pass"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "archived",
+        "source_gate_publishable": false,
+        "cache_grade": "missing",
+        "cache_current": false,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "type": "vocab_choice",
+      "requested_task": "v.contextual_sense",
+      "requested_workspace": "ws.vocab-context",
+      "evidence_id": "FQ1-DCP-MAIN-5",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "47250f77a05c8ad47af9a061f129b8575bc6e0959b1bd8f8a7fe97764ba3a9be",
+      "source_sha256": "4d44b7ce3a89c6fc467053ad5e20549c496cb6a7858e04187f7f724c533a258d",
+      "source_revision": {
+        "updated_at": "2026-09-08T06:36:04.074174+00:00",
+        "content_hash": "4c3a0fedb327613cbf32248ad52c620fbf346f2ed69d51768e44f20f05d49cb5"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-09-07T06:26:54.388786+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Private review identifies Gold-quality issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-5",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "contextual_nonuniqueness",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "fail"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": true,
+        "cache_grade": "usable",
+        "cache_current": true,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "type": "vocab_choice",
+      "requested_task": "v.contextual_sense",
+      "requested_workspace": "ws.vocab-context",
+      "evidence_id": "FQ1-DCP-MAIN-6",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "b5d3efe485bb95772b742565d882caa5e702b1f4614ac0459ddc082a8f3ce96a",
+      "source_sha256": "e5c5e8912ca35ddb285948a4b2205be708046988ad0f9d9467403a5613e4b92d",
+      "source_revision": {
+        "updated_at": "2026-09-15T15:34:28.717546+00:00",
+        "content_hash": "00d16cadb80ab776f0fe78d52d811495650e1a6682e642c489ba164204d9552f"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-08-30T01:37:58.275932+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "Actual task qualification is not established by supplied evidence.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Private review supports inferred recognition Gold quality; task and rubric qualification remain separate.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-6",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "supported_direct",
+      "relevance_reason": "Requested-task relevance supported by the private review; actual task observations withheld.",
+      "classifications": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_kinds": [
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "pass"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": false,
+        "cache_grade": "unjudged",
+        "cache_current": true,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "type": "vocab_choice",
+      "requested_task": "v.contextual_sense",
+      "requested_workspace": "ws.vocab-context",
+      "evidence_id": "FQ1-DCP-MAIN-7",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "03670c445c9d53ce6962ca21e5636e2afb748c9c39316fe32794e1358b111278",
+      "source_sha256": "699308e6a50292969d67410a1c24bb12361e9109f11284c92762edbe654c633b",
+      "source_revision": {
+        "updated_at": "2026-09-25T07:11:31.721051+00:00",
+        "content_hash": "61c522dc7f5b64ae3ad7ec4a58fffe90bdca92fbe3b4cfa336f22ffe088b584b"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-09-01T12:06:35.206765+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "fail",
+          "reason": "Private review identifies requested-task qualification issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "fail",
+          "reason": "Private review identifies Gold-quality issues; see opaque issue kinds.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "unknown",
+          "reason": "Usable/unjudged cache and license labels do not establish legal-release approval. Unjudged or stale cache is uncertainty rather than a current legal denial.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-7",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "indirect_or_redesign",
+      "relevance_reason": "Requested-task relevance requires redesign; actual task observations withheld.",
+      "classifications": [
+        "requires_task_redesign",
+        "rights_or_source_hold",
+        "assessment_not_qualified",
+        "unusable_for_requested_role"
+      ],
+      "issue_kinds": [
+        "comparison_scope_nonuniqueness",
+        "explanation_shortcut",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "fail"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "ready",
+        "source_gate_publishable": false,
+        "cache_grade": "unjudged",
+        "cache_current": false,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    },
+    {
+      "id": "9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "type": "vocab_choice",
+      "requested_task": "v.contextual_sense",
+      "requested_workspace": "ws.vocab-context",
+      "evidence_id": "FQ1-DCP-MAIN-8",
+      "version": "fq1-dcp-first-input-1",
+      "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+      "item_sha256": "786d006774e55e8b877b2a41abbb3f523839d5ba71dc0b54ce23d3cbceb56749",
+      "source_sha256": "b34d1d718c72b32eda43c11e45962eec387d35b5079f3522b2bf8eafc3a26491",
+      "source_revision": {
+        "updated_at": "2026-09-06T11:50:18.677867+00:00",
+        "content_hash": "e80fe1bde6825ada5a1815beddfcf7167e1b12cf6628663cfcff33d3bfa72d82"
+      },
+      "generation_revision": null,
+      "generation_timestamp": "2026-08-30T01:38:12.474877+00:00",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "reason": "Local identifier/body/revision binding is available. External-original completeness, historical generation body and missing dedicated generation revision are not independently established.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "B": {
+          "state": "pass",
+          "reason": "No unintentional semantic preservation issue identified in the private review.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "C": {
+          "state": "unknown",
+          "reason": "Actual task qualification is not established by supplied evidence.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "D": {
+          "state": "unknown",
+          "reason": "No actual learner-facing instruction is included. Payload/type/key does not prove instruction completeness; a reviewer reconstruction is private and hypothetical.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "E": {
+          "state": "pass",
+          "reason": "Private review supports inferred recognition Gold quality; task and rubric qualification remain separate.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "F": {
+          "state": "fail",
+          "reason": "Observed current local source record is archived with reject/nonpublishable gate: operational source-release failure. Legal permissions and release approval separately remain unknown.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "G": {
+          "state": "unknown",
+          "reason": "No human learner, student response, unaided first response, exposure history, assessor or learning-outcome validation is supplied.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        },
+        "H": {
+          "state": "unknown",
+          "reason": "No execution of this item in the actual requested Workspace artifact is observed; local JSON readability is not runtime qualification.",
+          "evidence_id": "FQ1-DCP-MAIN-8",
+          "version": "fq1-dcp-first-input-1",
+          "hash": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a",
+          "method": "Independent AI review of all supplied local source, ancestry and item fields, bound to input seal; actual task observations and detailed issue evidence remain private."
+        }
+      },
+      "relevance": "supported_direct",
+      "relevance_reason": "Requested-task relevance supported by the private review; actual task observations withheld.",
+      "classifications": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_kinds": [
+        "source_operational_block",
+        "instruction_absent",
+        "rubric_unobserved"
+      ],
+      "E_key_quality": {
+        "state": "pass"
+      },
+      "E_rubric_unknown": {
+        "state": "unknown",
+        "reason": "No partial-credit, equivalent-response, defer, accepted-variant or human scoring rubric provided."
+      },
+      "external_original": "unknown",
+      "source_operational": {
+        "source_status": "archived",
+        "source_gate_publishable": false,
+        "cache_grade": "missing",
+        "cache_current": false,
+        "legal_release": "unknown"
+      },
+      "qualified_public": false,
+      "qualified_assessment": false,
+      "human_validated": false,
+      "actual_students": 0
+    }
+  ]
+}
+

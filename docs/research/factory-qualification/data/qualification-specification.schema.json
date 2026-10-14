@@ -1,0 +1,447 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vocaflow:fq1:QualificationSpecification",
+  "type": "object",
+  "required": [
+    "rules_version",
+    "content",
+    "demand",
+    "task_id",
+    "role",
+    "versions",
+    "axes",
+    "evidence",
+    "approvals",
+    "learner",
+    "role_context"
+  ],
+  "properties": {
+    "rules_version": {
+      "const": "FQ1.0"
+    },
+    "content": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "demand": {
+      "type": "object",
+      "required": [
+        "key",
+        "definitionVersion",
+        "task",
+        "role"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definitionVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task": {
+          "enum": [
+            "v.core_meaning",
+            "v.contextual_sense",
+            "v.multiword",
+            "v.semantic_relation",
+            "s.sentence_core",
+            "s.chunk_boundary",
+            "s.attachment",
+            "s.structural_relation",
+            "s.form_scope",
+            "s.o.sentence_meaning_model",
+            "r.reference",
+            "r.relation",
+            "r.discourse_function",
+            "r.discourse_structure",
+            "r.central_meaning",
+            "r.inference",
+            "r.o.global_meaning_model",
+            "e.task_demand",
+            "e.evidence_location",
+            "e.option_correspondence",
+            "e.o.final_judgment",
+            "l.sound",
+            "l.sentence",
+            "l.retain",
+            "l.respond",
+            "x.time_allocation",
+            "x.sequence",
+            "x.recovery_adaptation",
+            "x.attention_stamina",
+            "x.o.whole_test_stability"
+          ]
+        },
+        "role": {
+          "enum": [
+            "source_analysis",
+            "model_explanation",
+            "guided_practice",
+            "independent_check",
+            "transfer",
+            "delayed_check"
+          ]
+        }
+      }
+    },
+    "task_id": {
+      "enum": [
+        "v.core_meaning",
+        "v.contextual_sense",
+        "v.multiword",
+        "v.semantic_relation",
+        "s.sentence_core",
+        "s.chunk_boundary",
+        "s.attachment",
+        "s.structural_relation",
+        "s.form_scope",
+        "s.o.sentence_meaning_model",
+        "r.reference",
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure",
+        "r.central_meaning",
+        "r.inference",
+        "r.o.global_meaning_model",
+        "e.task_demand",
+        "e.evidence_location",
+        "e.option_correspondence",
+        "e.o.final_judgment",
+        "l.sound",
+        "l.sentence",
+        "l.retain",
+        "l.respond",
+        "x.time_allocation",
+        "x.sequence",
+        "x.recovery_adaptation",
+        "x.attention_stamina",
+        "x.o.whole_test_stability"
+      ]
+    },
+    "role": {
+      "enum": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ]
+    },
+    "axes": {
+      "type": "object",
+      "required": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "A": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "B": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "C": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "D": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "E": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "F": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "G": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "H": {
+          "type": "object",
+          "required": [
+            "state",
+            "method",
+            "reason",
+            "evidence_id"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown",
+                "not_applicable"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "versions": {
+      "type": "object",
+      "required": [
+        "source",
+        "analysis",
+        "gold"
+      ]
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "approvals": {
+      "type": "object"
+    },
+    "learner": {
+      "type": "object"
+    },
+    "role_context": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "version": "FQ1-gold1-post-seal-reconciliation",
+  "author": {
+    "path": "scripts/research/factory-qualification/local/gold-countercases-first.json",
+    "sha256": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf"
+  },
+  "critic": {
+    "path": "scripts/research/factory-qualification/local/gold-critic-first.json",
+    "sha256": "c77f5e6ad750f735b31827b91a080045af3bc4be752ab58c116ba625ac4d0f8a",
+    "sealed_at_utc": "2026-10-14T11:45:55Z"
+  },
+  "private_reconciliation": {
+    "path": "scripts/research/factory-qualification/local/gold-reconciliation.json",
+    "sha256": "6debcab88eb045ac2df8832cd29e181803334fcf6b3b7c1b5dddc8591ee88f54"
+  },
+  "meaning": {
+    "responses": 10,
+    "facets": 40,
+    "matches": 36,
+    "agreement": 0.9,
+    "kappa": 0.8403193612774451,
+    "author_counts": {
+      "meets": 22,
+      "partial": 4,
+      "defect": 4,
+      "defer": 10
+    },
+    "critic_counts": {
+      "meets": 22,
+      "partial": 6,
+      "defect": 5,
+      "defer": 7
+    },
+    "disagreement_count": 4,
+    "disagreement_response_count": 3,
+    "disagreements": [
+      {
+        "response_id": "g01",
+        "facet": "units"
+      },
+      {
+        "response_id": "g04",
+        "facet": "comparison"
+      },
+      {
+        "response_id": "g04",
+        "facet": "conjunction"
+      },
+      {
+        "response_id": "g06",
+        "facet": "boundary"
+      }
+    ],
+    "interpretation": "Descriptive AI author-versus-blind-critic agreement on 10 synthetic responses; 40 facets are dependent observations. No Gold accuracy, human reliability or student effect inferred."
+  },
+  "procedure": {
+    "responses": 10,
+    "matches": 10,
+    "agreement": 1,
+    "eligible": 0,
+    "ineligible": 1,
+    "defer": 9
+  },
+  "analysis": [
+    {
+      "id": "R1",
+      "response_ids": [
+        "g01"
+      ],
+      "facets": [
+        "units"
+      ],
+      "status": "author_component_omission_acknowledged"
+    },
+    {
+      "id": "R2",
+      "response_ids": [
+        "g04"
+      ],
+      "facets": [
+        "comparison",
+        "conjunction"
+      ],
+      "status": "referent_rule_precision_unresolved"
+    },
+    {
+      "id": "R3",
+      "response_ids": [
+        "g06"
+      ],
+      "facets": [
+        "boundary"
+      ],
+      "status": "dependency_map_underspecified"
+    }
+  ],
+  "firsts_unchanged": true,
+  "actual_students": 0,
+  "human_reviewers": 0,
+  "assessment_qualified": 0,
+  "public_qualified": 0
+}

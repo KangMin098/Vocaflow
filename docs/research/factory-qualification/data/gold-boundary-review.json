@@ -1,0 +1,123 @@
+{
+  "version": "FQ1-gold1-author-review",
+  "rules": {
+    "path": "docs/research/factory-qualification/data/gold-rules.json",
+    "sha256": "21c5cd6b0fedb5547b2982bad7bd1f24a285045ea7d00b93d50fd602e65efa93"
+  },
+  "private_author_expected": {
+    "path": "scripts/research/factory-qualification/local/gold-countercases-first.json",
+    "sha256": "d101c88514444f6aef997950f7e35b9b8a3256213d5816b94eaff90e38dc85cf"
+  },
+  "blind_input": {
+    "path": "scripts/research/factory-qualification/local/gold-blind-input.json",
+    "sha256": "be3d58511e39865cda505f6acf510fdd7feb104a7eece6c9b79224f56787c79c"
+  },
+  "historical": {
+    "preserved": [
+      {
+        "path": "scripts/research/csat-reading/local/v15/assessment-input.json",
+        "sha256": "31f193b64bcc690997032e5a7cea104bfedc16cfa1d19189e205649b6c8a6ce8"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v15/assessment-expected.json",
+        "sha256": "0a40014daf2a424c9c380eef676461a1ee0b426d8f6cdc1b49a73bb01135fb38"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v15/assessment-review-first.json",
+        "sha256": "2fb866a82f12c267bf2d2bf47404dbfbe992f701c7f7044e5c0207ad1b1df7f8"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v15/rater-a-first.json",
+        "sha256": "b9606870186edca8b0e9c2eac8dfedde960322f1b35a7feeafc999ac20bfee5c"
+      },
+      {
+        "path": "scripts/research/csat-reading/local/v15/rater-b-first.json",
+        "sha256": "5d32d80411cea89957859a886d5829d05154b10e7b094aaa770130cd3c4ea530"
+      }
+    ],
+    "responses": 16,
+    "facets": 64,
+    "first_facet_agreement": "64/64",
+    "first_procedure_agreement": "16/16",
+    "first_independent_eligible": 0,
+    "recounted_as_new": 0
+  },
+  "new_countercases": {
+    "responses": 10,
+    "facets": 40,
+    "task_counts": {
+      "V2": 4,
+      "S5": 6
+    },
+    "response_ids": [
+      "g01",
+      "g02",
+      "g03",
+      "g04",
+      "g05",
+      "g06",
+      "g07",
+      "g08",
+      "g09",
+      "g10"
+    ],
+    "author_expected_facet_counts": {
+      "meets": 22,
+      "partial": 4,
+      "defect": 4,
+      "defer": 10
+    },
+    "author_expected_procedure_counts": {
+      "eligible": 0,
+      "ineligible": 1,
+      "defer": 9
+    },
+    "independent_review": "pending; author expectations are not independently validated Gold"
+  },
+  "boundary_coverage": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
+  ],
+  "historical_ambiguity_ids": [
+    "z77",
+    "z03",
+    "z69",
+    "z31"
+  ],
+  "interpretation": {
+    "script": "Validates schema, blinded separation, versions and aggregates only. Semantic judgments were directly made by AI researcher from actual responses.",
+    "original_gold": "unchanged; new rules not applied retroactively to original 16/64",
+    "assessment_qualified": 0,
+    "public_qualified": 0,
+    "students": 0,
+    "human_reviewers": 0
+  },
+  "unresolved": [
+    {
+      "id": "U1",
+      "kind": "referent_judgment",
+      "response_ids": [
+        "g03",
+        "g04"
+      ],
+      "reason": "Analyst must judge unique antecedent; numeric resemblance alone is not binding evidence."
+    },
+    {
+      "id": "U2",
+      "kind": "dependency_boundary",
+      "response_ids": [
+        "g06"
+      ],
+      "reason": "Explicit invalid grounds and retained correct unit specification require component-level attribution; no single whole-response score."
+    },
+    {
+      "id": "U3",
+      "kind": "external_validity",
+      "response_ids": [],
+      "reason": "Human independent scoring and learner-response data absent."
+    }
+  ]
+}

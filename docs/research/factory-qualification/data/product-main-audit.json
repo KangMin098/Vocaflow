@@ -1,0 +1,70 @@
+{
+  "version": "fq1-main-audit-1",
+  "ref": "origin/main",
+  "head": "8ed086aaae3df3008d861530929cc985ce7ca851",
+  "observed_at": "2026-10-14T11:49:57.542Z",
+  "method": "git show pinned HEAD read-only",
+  "files": [
+    {
+      "file": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "exists": true,
+      "sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "exists": true,
+      "sha256": "7fe7b784fa6b4ddf231608132b8fee7e720a868b1899e47744c07119c67ac64a"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "exists": true,
+      "sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-model.ts",
+      "exists": true,
+      "sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6"
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-view.ts",
+      "exists": true,
+      "sha256": "cf82fd0814b7f939b3f1a0b8e054152c80e014a7d8582e9c193109310a617dc3"
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F0_FACTORY_AUDIT.md",
+      "exists": true,
+      "sha256": "ed1c6571b2f5b82a8073e871718d4a526d93bef99dad9690f23378125b92ce39"
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F1-F3_DEMAND_SUPPLY.md",
+      "exists": true,
+      "sha256": "50286ebfa169b905dcb329bcee679dc065e2c6e4955cfbcb86ec9180f355fe5e"
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F4b_PERSIST_MODEL.md",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/production-pilot.ts",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "file": "docs/csat-learner/v62/P-F5_PRODUCTION_PILOT.md",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "file": "scripts/csat/map/v62/import-research-v15.mjs",
+      "exists": false,
+      "sha256": null
+    }
+  ],
+  "not_runtime_verification": true
+}

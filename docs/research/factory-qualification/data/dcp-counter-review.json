@@ -1,0 +1,482 @@
+{
+  "version": "fq1-dcp-counter-review-first-1",
+  "input_sha256": "b91160b193c979117b2f6a181d696e5b3e41a65eb3800221afeef38a95f5c288",
+  "registration_sha256": "9a2478a0e331ff3ccc8a3e0158882d7a12751e8e37484737d6ba27ea88b137ad",
+  "split": "counter",
+  "independence": {
+    "main_reviews_read": false,
+    "main_packet_read": false,
+    "research8_read": false,
+    "gold_author_verdicts_read": false,
+    "all_four_source_bodies_read": true,
+    "all_payload_sentences_underlines_keys_explanations_read": true,
+    "all_ancestry_read": true,
+    "ancestry_count": 0,
+    "selection": "metadata-first sealed input; disjoint source IDs internally, split disjointness from main not independently verified here",
+    "student_unexposed_guaranteed": false,
+    "model_pretraining_unexposed_guaranteed": false
+  },
+  "counts": {
+    "cases": 4,
+    "types": {
+      "grammar_choice": 2,
+      "vocab_choice": 2
+    },
+    "task_relevance": {
+      "supported_direct": 2,
+      "indirect_or_redesign": 2,
+      "unsupported": 0,
+      "unknown": 0
+    },
+    "axes": {
+      "A": {
+        "pass": 2,
+        "fail": 0,
+        "unknown": 2,
+        "not_applicable": 0
+      },
+      "B": {
+        "pass": 4,
+        "fail": 0,
+        "unknown": 0,
+        "not_applicable": 0
+      },
+      "C": {
+        "pass": 2,
+        "fail": 2,
+        "unknown": 0,
+        "not_applicable": 0
+      },
+      "D": {
+        "pass": 0,
+        "fail": 0,
+        "unknown": 4,
+        "not_applicable": 0
+      },
+      "E": {
+        "pass": 0,
+        "fail": 0,
+        "unknown": 4,
+        "not_applicable": 0
+      },
+      "F": {
+        "pass": 0,
+        "fail": 0,
+        "unknown": 4,
+        "not_applicable": 0
+      },
+      "G": {
+        "pass": 0,
+        "fail": 0,
+        "unknown": 4,
+        "not_applicable": 0
+      },
+      "H": {
+        "pass": 0,
+        "fail": 0,
+        "unknown": 4,
+        "not_applicable": 0
+      }
+    },
+    "categories": {
+      "guided_practice_candidate": 4,
+      "explanation_candidate": 3,
+      "requires_semantic_repair": 0,
+      "requires_task_redesign": 2,
+      "rights_or_source_hold": 4,
+      "assessment_not_qualified": 4,
+      "unusable_for_requested_role": 2
+    },
+    "qualified_public": 0,
+    "qualified_assessment": 0,
+    "human": 0,
+    "student": 0
+  },
+  "not_release_approval": true,
+  "private": false,
+  "first_review_frozen": true,
+  "items": [
+    {
+      "id": "d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "type": "grammar_choice",
+      "task": "s.form_scope",
+      "source_id": "60f8db31-25bd-4925-8ad5-d9b1cba8d522",
+      "item_sha256": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+      "source_sha256": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+      "source_revision": {
+        "updated_at": "2026-09-08T05:58:18.506607+00:00",
+        "content_hash": "d3336847a750c4590399b196fc305cdfaf5065630366a7806c1e3835a09d8c95"
+      },
+      "task_relevance": "indirect_or_redesign",
+      "categories": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "requires_task_redesign",
+        "unusable_for_requested_role",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_ids": [
+        "I01",
+        "I02",
+        "I03"
+      ],
+      "axes": {
+        "A": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "B": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "C": {
+          "state": "fail",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "D": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "E": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "F": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "G": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        },
+        "H": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C1",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "3a1e3ecf0828d4d7868a54e3540af9aed6c7c3e649250d734435a138c1efb97c",
+          "source_hash": "49071db187bc1952ee2a8ace0aee81b9fa6e0b97f365864adc25a07f5f4501cd",
+          "method": "independent restricted AI counter review"
+        }
+      },
+      "qualified_public": false,
+      "qualified_assessment": false
+    },
+    {
+      "id": "33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "type": "grammar_choice",
+      "task": "s.form_scope",
+      "source_id": "ed196b6e-afb5-4db0-b96a-32ee6bf9cf20",
+      "item_sha256": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+      "source_sha256": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+      "source_revision": {
+        "updated_at": "2026-09-08T06:34:08.723195+00:00",
+        "content_hash": "247272454b29dfcc8b851b6f8bf6818ded57b76fc495686c2eb9d51f96b845a9"
+      },
+      "task_relevance": "indirect_or_redesign",
+      "categories": [
+        "guided_practice_candidate",
+        "requires_task_redesign",
+        "unusable_for_requested_role",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_ids": [
+        "I01",
+        "I03",
+        "I04"
+      ],
+      "axes": {
+        "A": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "B": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "C": {
+          "state": "fail",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "D": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "E": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "F": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "G": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        },
+        "H": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C2",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "bbc0cbd43b4814a127ca036ede54993b0c233c887397a4727be4be4ab7beca17",
+          "source_hash": "3d57d80e0cb18b1542bc00fac861a5c7820c0f5425b2837604891c6480da9eb8",
+          "method": "independent restricted AI counter review"
+        }
+      },
+      "qualified_public": false,
+      "qualified_assessment": false
+    },
+    {
+      "id": "b172230f-a008-4528-ae02-c5a036879a0a",
+      "type": "vocab_choice",
+      "task": "v.contextual_sense",
+      "source_id": "3a48b1e9-2d0e-4f72-ad4e-33feaad53b7b",
+      "item_sha256": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+      "source_sha256": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+      "source_revision": {
+        "updated_at": "2026-09-25T07:35:16.274967+00:00",
+        "content_hash": "70cc1e9a128f2bb06c7bc8a24b73ded9b2f36e2b05664b00dc46189e3fcd1cb2"
+      },
+      "task_relevance": "supported_direct",
+      "categories": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_ids": [
+        "I02",
+        "I03",
+        "I05",
+        "I06"
+      ],
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "B": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "C": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "D": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "E": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "F": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "G": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        },
+        "H": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C3",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "c39d27b68e65f45b1a0aefef73511ca9d40ec0fedece8064f94305d55b113358",
+          "source_hash": "3b85212294722beb5492bd9eaeeb2efaa25d0302b334edd8511586e8e5b97340",
+          "method": "independent restricted AI counter review"
+        }
+      },
+      "qualified_public": false,
+      "qualified_assessment": false
+    },
+    {
+      "id": "9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "type": "vocab_choice",
+      "task": "v.contextual_sense",
+      "source_id": "7bfe097e-952a-47ca-aa22-0fd90b2b2599",
+      "item_sha256": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+      "source_sha256": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+      "source_revision": {
+        "updated_at": "2026-09-25T07:29:51.994795+00:00",
+        "content_hash": "3e265f83dddf67b5e8d549a0bde5284712c80746ef06d36ee61eb5954fdf50de"
+      },
+      "task_relevance": "supported_direct",
+      "categories": [
+        "guided_practice_candidate",
+        "explanation_candidate",
+        "rights_or_source_hold",
+        "assessment_not_qualified"
+      ],
+      "issue_ids": [
+        "I02",
+        "I03",
+        "I05",
+        "I07"
+      ],
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "B": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "C": {
+          "state": "pass",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "D": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "E": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "F": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "G": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        },
+        "H": {
+          "state": "unknown",
+          "evidence_id": "FQ1-DCP-C4",
+          "version": "fq1-dcp-counter-review-first-1",
+          "hash": "f2b6c80a35cefe19af45a061d8c002023c7a9aa7511c3b3c432cec9c07003f63",
+          "source_hash": "a3355d542dd0cc11363a23e8b65077aeeb7e88153c49edaee79323d00053b2d2",
+          "method": "independent restricted AI counter review"
+        }
+      },
+      "qualified_public": false,
+      "qualified_assessment": false
+    }
+  ],
+  "issue_dictionary": {
+    "I01": "task family mismatch",
+    "I02": "explanation coverage limitation",
+    "I03": "required evidence absent",
+    "I04": "explanation absent",
+    "I05": "eligibility revision stale",
+    "I06": "numeric evidence and shortcut limitation",
+    "I07": "source completeness and specialist validation limitation"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "version": "fq1-product-db-audit-1",
+  "method": "read-only execute_sql/to_regclass",
+  "tables": [
+    {
+      "name": "workspace_content_demand",
+      "relation": null
+    },
+    {
+      "name": "factory_order",
+      "relation": null
+    },
+    {
+      "name": "factory_order_event",
+      "relation": null
+    },
+    {
+      "name": "workspace_content_delivery",
+      "relation": null
+    },
+    {
+      "name": "content_qualification",
+      "relation": null
+    },
+    {
+      "name": "learner_workspace",
+      "relation": "learner_workspace"
+    },
+    {
+      "name": "csat_item_reviews",
+      "relation": "csat_item_reviews"
+    }
+  ],
+  "notes": [
+    "Five proposed persistent demand/order/delivery/qualification relations absent in observed DB",
+    "Schema existence is not runtime or learner evidence"
+  ],
+  "dcp_counts": {
+    "grammar_choice": {
+      "items": 15258,
+      "sources": 9452
+    },
+    "vocab_choice": {
+      "items": 49484,
+      "sources": 15982
+    }
+  },
+  "rights_metadata_null_rows": 0,
+  "rights_metadata_null_definition": "license_class or copyright_safe_in_kr or display_only is SQL null",
+  "rights_approval_claim": false
+}

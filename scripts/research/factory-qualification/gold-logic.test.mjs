@@ -1,0 +1,14 @@
+// scripts/research/factory-qualification/gold-logic.test.mjs
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {facetState,procedureState,propagateGroundContradiction} from './gold-logic.mjs';
+const full={required:['a','b','whole','condition'],correct:['a','b','whole','condition']};
+test('proper observable subset differs from unobservable conjunction',()=>{assert.equal(facetState({...full,correct:['a','b']}),'partial');assert.equal(facetState({...full,correct:[]}),'defer');});
+test('deleting whole-result component mutates meets to partial',()=>{assert.equal(facetState(full),'meets');assert.equal(facetState({...full,correct:['a','b','condition']}),'partial');});
+test('second possible antecedent prevents presumed-answer credit',()=>{assert.equal(facetState(full),'meets');assert.equal(facetState({...full,antecedentCount:2}),'defer');});
+test('missing numeric grounds does not erase complete unit specification',()=>{assert.equal(facetState({required:['target','relation','values'],correct:['target','relation']}),'partial');assert.equal(facetState({required:['indicator','period','scale','unit'],correct:['indicator','period','scale','unit']}),'meets');});
+test('invalid empirical grounds propagate only along registered dependencies',()=>{const f={comparison:{required:['ground'],correct:['ground']},conjunction:full,units:{required:['unit'],correct:['unit']}};const p=propagateGroundContradiction(f,'g',[{facet:'comparison',component:'ground',ground:'g'}]);assert.equal(facetState(p.comparison),'defect');assert.equal(facetState(p.conjunction),'meets');assert.equal(facetState(p.units),'meets');assert.deepEqual(f.comparison.contradictions,undefined);});
+test('contradiction inside full facet defeats cherry-picked correct component',()=>assert.equal(facetState({...full,contradictions:['whole']}),'defect'));
+test('copied accurate content has independent procedural result',()=>{assert.equal(facetState(full),'meets');assert.equal(procedureState({solutionAccess:'yes',sourceExposureCleared:'unknown',firstUnaidedFreeze:'no',roleRecordsComplete:'unknown'}),'ineligible');assert.equal(procedureState({solutionAccess:'unknown',sourceExposureCleared:'unknown',firstUnaidedFreeze:'unknown',roleRecordsComplete:'unknown'}),'defer');});
+test('mutation to missing role record blocks otherwise eligible procedure fixture',()=>{const p={solutionAccess:'no',sourceExposureCleared:'yes',firstUnaidedFreeze:'yes',roleRecordsComplete:'yes'};assert.equal(procedureState(p),'eligible');assert.equal(procedureState({...p,roleRecordsComplete:'unknown'}),'defer');});
+test('unknown component and undefined procedure cannot silently pass',()=>{assert.throws(()=>facetState({...full,correct:['invented']}));assert.throws(()=>procedureState({}));assert.throws(()=>facetState({...full,antecedentCount:-1}));});

@@ -1,0 +1,280 @@
+{
+  "version": "fq1-export-first-1",
+  "read_at": "2026-10-14T11:46:46.511Z",
+  "registration_sha256": "9a2478a0e331ff3ccc8a3e0158882d7a12751e8e37484737d6ba27ea88b137ad",
+  "packets": [
+    {
+      "split": "main",
+      "n": 8,
+      "file": "scripts/research/factory-qualification/local/dcp-main-input.json",
+      "sha256": "758558f756b72f04527e9578fac3b5dc3e39e28dff95beba676816426e96907a"
+    },
+    {
+      "split": "counter",
+      "n": 4,
+      "file": "scripts/research/factory-qualification/local/dcp-counter-input.json",
+      "sha256": "b91160b193c979117b2f6a181d696e5b3e41a65eb3800221afeef38a95f5c288"
+    }
+  ],
+  "structural_metadata": [
+    {
+      "id": "65040e34-acd0-4f37-9f2b-44a5fd1b91ca",
+      "source_ref": "c359d555-470e-4e9f-87ae-baeba0c45580",
+      "original_hash": "4552c3330d91b2fd52bb4e90cea2ac42089e9d9b0c7d4c051564e6fcaf4200ce",
+      "normalized_source_hash": "2e55363728096366803db48e24375a240392d4ccec0a0c13dd5df64aad5bef35",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "e8f42fd3-5f80-4b12-92e7-68ac8e5bb394",
+      "source_ref": "ef55d014-1beb-4c66-9b0f-5e0d93c4ce2b",
+      "original_hash": "177c2752a4dbf5e7f6a3f82c75becb4c2b5b06ea1f7cb80a66e4504aba096129",
+      "normalized_source_hash": "0a4d7522f724096c153286fdc6c4a323e5c649655ddc2ab5023341f589e91af3",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "e3dedbe4-69a6-491a-baf1-dd08c9e09e4f",
+      "source_ref": "961b265e-70d6-4416-9841-fffa7c73e647",
+      "original_hash": "91ca2a056ef1dc4895cb503f5e4fa78999e639fbbe8a9bd5a036475319a628d2",
+      "normalized_source_hash": "c39b00bb34f78c89e63652fc836ce29939e788a8d849f2db9f933d114d62e63e",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "1b7659a4-3874-4722-84a2-c38e3c5ad620",
+      "source_ref": "36b6dbf4-5c4b-49d6-80a0-cc747b73a64f",
+      "original_hash": "5de84239cc523106ffc04f25f30f370e6ba521471810a8cc234cd17c1bd65093",
+      "normalized_source_hash": "6d07e43470b9692e808e96bdc767aa4e0d9656ea3b7f46ca1fceab93bdd11e9d",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "d3e042ad-13a1-4e9a-9e4a-ccc08f580913",
+      "source_ref": "60f8db31-25bd-4925-8ad5-d9b1cba8d522",
+      "original_hash": "d3336847a750c4590399b196fc305cdfaf5065630366a7806c1e3835a09d8c95",
+      "normalized_source_hash": "616a89ed3a84a61aef0fd2ed10e6a8287cf2226e2ead6e346302ee60d6c959e3",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "33a6e5c1-5079-4180-bb95-88c496edaa58",
+      "source_ref": "ed196b6e-afb5-4db0-b96a-32ee6bf9cf20",
+      "original_hash": "247272454b29dfcc8b851b6f8bf6818ded57b76fc495686c2eb9d51f96b845a9",
+      "normalized_source_hash": "bf25526bc747cd6e19a85bd5da05db7c075082b18f5a94d51c8f4329c6803d03",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "rule",
+        "original",
+        "position"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "3469a514-1c67-42ad-9ab8-2f9d82fb8f40",
+      "source_ref": "f426ce78-2fad-46d2-922e-c5d5d8fb5189",
+      "original_hash": "4c3a0fedb327613cbf32248ad52c620fbf346f2ed69d51768e44f20f05d49cb5",
+      "normalized_source_hash": "1a9849284640d8d509f5b3a69501044e7dd6180cd23450e4c5f20a7023fca958",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "aa5b1cb3-df4d-4dda-b901-fe8be57b8d6a",
+      "source_ref": "962cab19-15ff-473d-b1d5-d3dc27d194ab",
+      "original_hash": "00d16cadb80ab776f0fe78d52d811495650e1a6682e642c489ba164204d9552f",
+      "normalized_source_hash": "f3e7cd9492efb495a470ed509ba1dfdc8a75214b99aaebf1b093dd6c66d57b71",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "0133b75c-ff45-4519-8801-7a1a36f2081c",
+      "source_ref": "89b96656-3dbf-4761-bc9f-aad52cb92d25",
+      "original_hash": "61c522dc7f5b64ae3ad7ec4a58fffe90bdca92fbe3b4cfa336f22ffe088b584b",
+      "normalized_source_hash": "4577d790ed2bfab1c20c1afd14d3e6386a4139e2d657a7f793160c2aac72a4fb",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "9f638f13-8ca8-4b2e-b618-a62d49f3e656",
+      "source_ref": "efd28163-62b4-49c9-bbf5-6837ff72ed01",
+      "original_hash": "e80fe1bde6825ada5a1815beddfcf7167e1b12cf6628663cfcff33d3bfa72d82",
+      "normalized_source_hash": "a7fdf7e4d8cb93d17665a8c02c427ef2b498e9f0e64e843f910db72296ca9e64",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "b172230f-a008-4528-ae02-c5a036879a0a",
+      "source_ref": "3a48b1e9-2d0e-4f72-ad4e-33feaad53b7b",
+      "original_hash": "70cc1e9a128f2bb06c7bc8a24b73ded9b2f36e2b05664b00dc46189e3fcd1cb2",
+      "normalized_source_hash": "9dd73700fc4fc1cefb8d02e1e58564390b15159314fff16687895d98d64b2d25",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    },
+    {
+      "id": "9c7396dc-c5f4-4ba3-b908-8e1ecb7aa3df",
+      "source_ref": "7bfe097e-952a-47ca-aa22-0fd90b2b2599",
+      "original_hash": "3e265f83dddf67b5e8d549a0bde5284712c80746ef06d36ee61eb5954fdf50de",
+      "normalized_source_hash": "5b78fcb0f2708452cb52abea30759e7695e6b9d199013ce5c9aef8e4738c4b5a",
+      "normalized_generated_passage_hash": null,
+      "payload_fields": [
+        "sentences",
+        "underlines"
+      ],
+      "answer_fields": [
+        "original",
+        "position",
+        "explanation_ko",
+        "explanation_writer"
+      ],
+      "source_present": true,
+      "source_content_present": true,
+      "ancestry_n": 0,
+      "source_metadata_changed": false
+    }
+  ],
+  "duplicates": [],
+  "answer_values_public": false,
+  "db_writes": 0
+}

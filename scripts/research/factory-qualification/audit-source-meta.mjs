@@ -1,0 +1,7 @@
+// scripts/research/factory-qualification/audit-source-meta.mjs
+import fs from 'node:fs';
+const base='scripts/research/factory-qualification/local';
+const records=['main','counter'].flatMap(s=>JSON.parse(fs.readFileSync(`${base}/dcp-${s}-input.json`,'utf8')).items);
+const rows=records.map(r=>({id:r.id,split:r.split,type:r.type,source_ref:r.item.ref_id,source_revision:r.source_revision,generation_revision:r.generation_revision,source_sha256:r.source_sha256,item_sha256:r.item_sha256,eligibility_grade:r.eligibility?.result?.grade??null,policy_version:r.eligibility?.policy_version??null,eligibility_source_updated_at:r.eligibility?.source_updated_at??null,eligibility_fresh:r.eligibility?Date.parse(r.eligibility.source_updated_at)===Date.parse(r.source.updated_at):null,license_class:r.source.license_class,copyright_safe_in_kr:r.source.copyright_safe_in_kr,display_only:r.source.display_only,legal_approval:'unknown',source_revision_metadata_change:r.source_metadata_changed}));
+const dest='docs/research/factory-qualification/data/source-binding-audit.json';if(fs.existsSync(dest))throw Error('preserve initial source metadata audit');
+const out={version:'fq1-source-binding-audit-1',items:rows,live_cache_fresh:rows.filter(x=>x.eligibility_fresh===true).length,stale:rows.filter(x=>x.eligibility_fresh===false).length,cache_missing:rows.filter(x=>x.eligibility_fresh===null).length,rights_approvals:0};fs.writeFileSync(dest,JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({fresh:out.live_cache_fresh,stale:out.stale,missing:out.cache_missing}));
