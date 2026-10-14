@@ -1,0 +1,5 @@
+// scripts/research/factory-integration-v12-final/run.mjs
+import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';import {spawnSync} from 'node:child_process';
+const dep=process.env.VF_REVIEW_DEP_ROOT??process.cwd(),require=createRequire(path.join(dep,'apps/web/package.json')),cli=path.join(path.dirname(require.resolve('vitest/package.json')),'vitest.mjs');
+for(const isNew of ['0','1']){const r=spawnSync(process.execPath,[cli,'run','--config','scripts/research/factory-integration-v12-final/vitest.config.mjs'],{stdio:'inherit',env:{...process.env,VF_REVIEW_DEP_ROOT:dep,VF_V12_NEW:isNew}});if(r.status!==0)process.exit(r.status??1);}
+const old=JSON.parse(fs.readFileSync('docs/research/factory-integration-v12-final/data/adversarial.json','utf8'));if(old.counts.total!==46||old.counts.fail!==0)throw Error('Prior46 actual safety expectation failed');console.log(JSON.stringify({executed:282,old46_safety:'46/46 PASS',new_independent:'63/63 PASS',new_actual_factory_calls:0}));

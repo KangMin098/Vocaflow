@@ -1,0 +1,84 @@
+{
+  "version": "V12-R5-readonly-evidence-review-1",
+  "method": "Read raw results/test source and inspect seven supplied PNGs; not a new browser/DB run",
+  "HEAD": "be97543e9058c1660bcae17739daeaccdee2b968",
+  "code_correspondence": true,
+  "results_count": 6,
+  "recorded_pass": 6,
+  "recorded_fail": 0,
+  "recorded_skip": 0,
+  "images": [
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/01-r.central_meaning.png",
+      "sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/02-r.central_meaning.png",
+      "sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/03-r.central_meaning.png",
+      "sha256": "2dbc262ba0f873c84f0992dc008e80bfeba51c85a63826c1b141b14d4e4a1b5d",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/04-v.contextual_sense.png",
+      "sha256": "86b59f27302bbc4ccf82a0ffe1db6b59a9f4b76bf0bbd1732883769d49a0fc5f",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/05-s.form_scope.png",
+      "sha256": "ce7310b68130fc0f7c7712a679fcfc0222c1488faf98d0d8e90743d392b65e2d",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/06-l.sound.png",
+      "sha256": "327259ed0998087fe68b72ad81aa7d87f796eb80c9317dec109074c20710a8dc",
+      "width": 360,
+      "height": 691,
+      "visually_inspected": true
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/07-r.central_meaning.png",
+      "sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "width": 360,
+      "height": 969,
+      "visually_inspected": true
+    }
+  ],
+  "observations": [
+    "01/02/07 R5 central-meaning link2022-20",
+    "03 same R5 Inspector link2025-20 after attempt",
+    "04 V2 and05 S5 content-not-ready controls",
+    "06 L1 held; no immediate need"
+  ],
+  "existing_R5": "PASS_WITHIN_RECORDED_ROUTE_SCOPE",
+  "same_TASK": "PASS_REOPENED_INSPECTOR",
+  "saved_PLAN_version_return": "NOT_TESTED",
+  "PLAN_gap_blocks_this_design_scope": false,
+  "cleanup": {
+    "recorded_created": 2,
+    "recorded_remaining": 0,
+    "live_DB_rechecked": false
+  },
+  "limits": [
+    "BrowserHEAD is recorded by script checkout, supported by tracked0 and identical code blobs; not independent server attestation",
+    "Inspector PNGs are element crops, not full1440x1000 browser screenshots",
+    "SameTASK was reopened via view(), not a clicked savedPLAN return button",
+    "Isolation is two-account next-item behavior, not exhaustive RLS/security verification",
+    "S5 probe predicate only required rows, but recorded details explicitly unsupported; final review independently checked detail",
+    "Cleanup record says0, live DB and ignored API errors not re-audited; no claim of forensic cleanup proof"
+  ]
+}

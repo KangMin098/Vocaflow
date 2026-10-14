@@ -1,0 +1,97 @@
+{
+  "version": "V12-review-integrity-1",
+  "bindings": [
+    {
+      "path": "docs/research/factory-integration-v12-final/CLOSURE.md",
+      "sha256": "7ca985f964fc7d6e28b4797ba39f2f901b2696a697e39bd245c56e60f0e52930"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/FINAL-REVIEW.md",
+      "sha256": "539221d8cff898534fbbedc7cf9b6283128727db18894c1157a2e44cd87ce012"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/R5-EVIDENCE-REVIEW.md",
+      "sha256": "393cd2476f85e2fa5b6253a09f277324a9a343e05ac745442b3866229ab6bafc"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/TEST-MATRIX.md",
+      "sha256": "a412a7d85ea55aaef1ef7f21776eadf3757f365d9bc79bddce7bfb5493ec690c"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/adversarial.json",
+      "sha256": "543d7a245e0d39b2518afd59c5269ab68914205384bafb5417a752a159941bd6"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/closing-revision.json",
+      "sha256": "79797490ae9b889c504288b3c05f791015cbf1acd65b24e99f87a02f4e28c404"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/decision.json",
+      "sha256": "8da1ff6d19fc540cd4a408f951ab114fbe434ba3c7c6977d466c1c590b4f96f3"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/independent.json",
+      "sha256": "58af11890de5a129d2120214dea46b51f919249ee976778cb7cc98a4f0e89a6f"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/r5-evidence-review.json",
+      "sha256": "73f67cbba003473bbd5391730b0941d45d810774d0e9e2ac7c1aa39939bebc38"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/revision.json",
+      "sha256": "85fe83774edd52e296776a4b9836e0627f5cf26f27736e6dc3af54d3e2c46099"
+    },
+    {
+      "path": "docs/research/factory-integration-v12-final/data/task-evidence.json",
+      "sha256": "4a2c433a740539ff93daf6cb07b381c57d26de82eb9d0194e3c6bccaa5cab677"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/check.mjs",
+      "sha256": "b23944faaeb9dc92dbea392dfd4f3ca0567ed6fa7db3c1af154f82c970233f35"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/evidence-audit.mjs",
+      "sha256": "d8d19a1385463e563518f3375ce15a1f568576b9bd53575ba26a970c5862c92a"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/freeze.mjs",
+      "sha256": "3bffb72d7565120edba34a6690c9b070b42b45f2a8d12b2778cc18f1ee81d131"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/independent.test.ts",
+      "sha256": "a3ea002ec6764912c114f38b997e44368baecfa770a22c7b61841f6399952986"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/prior46.test.ts",
+      "sha256": "7f63f1bd368ea439718f90e7210f22dddbdc635c523f2fadeb43d0fbf4283461"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/run.mjs",
+      "sha256": "ececbc7302b8ba6ac75491245e1e631e38577c9f555290ba6f972872b22b10dd"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/vitest.config.mjs",
+      "sha256": "f6b7ac84a85f73551860c0bacbc71d561c5347d70166978271ce0aed2bc91fc7"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/local/prior-r2.json",
+      "sha256": "a1e4d815a2315ab94e7830de0388783d9a06a2def7fcd7baf85530a5fa6a894e"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/local/prior/FINAL-HANDOFF.md",
+      "sha256": "ebd11f71c1877241a1cf1310c6169bb52fd072b63fb767cd2e7f113d5fa81db3"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/local/prior/data/findings.json",
+      "sha256": "ae97d26e16db91542d0a42e346e9d72429a508d5af25fa15cf49423948f0d1df"
+    },
+    {
+      "path": "scripts/research/factory-integration-v12-final/local/independent-first62.json",
+      "sha256": "b5c8c2aa36360967118568d0428412fb0e6d94729b137f542e5c7ff60b61236c"
+    }
+  ],
+  "prior_first_unchanged": true,
+  "product_changes": 0,
+  "design_decision": "ACCEPT",
+  "not_real_production_approval": true
+}

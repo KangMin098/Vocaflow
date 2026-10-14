@@ -1,0 +1,264 @@
+{
+  "version": "V12-final-review-r1",
+  "main_SHA": "9ca696e1da1f6af8fb1c87614bf4c05a7693ca3a",
+  "PR266_HEAD": "7194caab58475d37ac7a7be233a9961f260f3e32",
+  "product_HEAD": "be97543e9058c1660bcae17739daeaccdee2b968",
+  "observed_at_UTC": "2026-10-14T19:14:01Z",
+  "bindings": [
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "main_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "PR_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "snapshot_sha256": "038806f4d2f76ad4744a60d826e60207d6a678a49af4b0e57c50b03be5726586"
+    },
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_V11.md",
+      "main_sha256": "a377241e42c229967209d2045ea316c082353ccda8a1acd6cd279b8f7196f7bd",
+      "PR_sha256": "a377241e42c229967209d2045ea316c082353ccda8a1acd6cd279b8f7196f7bd",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "a377241e42c229967209d2045ea316c082353ccda8a1acd6cd279b8f7196f7bd",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/FACTORY_INTEGRATION_V11.md",
+      "snapshot_sha256": "a377241e42c229967209d2045ea316c082353ccda8a1acd6cd279b8f7196f7bd"
+    },
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_V12.md",
+      "main_sha256": "2ecd82fd16d70ce4353866f26297f899b46c96d6eed10c1cac9e28707651f17f",
+      "PR_sha256": "2ecd82fd16d70ce4353866f26297f899b46c96d6eed10c1cac9e28707651f17f",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "2ecd82fd16d70ce4353866f26297f899b46c96d6eed10c1cac9e28707651f17f",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/FACTORY_INTEGRATION_V12.md",
+      "snapshot_sha256": "2ecd82fd16d70ce4353866f26297f899b46c96d6eed10c1cac9e28707651f17f"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "main_sha256": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73",
+      "PR_sha256": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "snapshot_sha256": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "main_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "PR_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "snapshot_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/canonical-json.ts",
+      "main_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "PR_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/canonical-json.ts",
+      "snapshot_sha256": "06110b2e659111f47e4e28c1591cf00bc84381ddcdee7dc8560e744c209f79be"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "main_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "PR_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "snapshot_sha256": "291f8f1a9187cfad7b6e31fff0c79778e6a467659747764af94040e6373d6daf"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/qualification.ts",
+      "main_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "PR_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/qualification.ts",
+      "snapshot_sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "main_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "PR_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/supply.ts",
+      "snapshot_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "main_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "PR_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/demand.ts",
+      "snapshot_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "main_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "PR_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "snapshot_sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/factory-wire.test.ts",
+      "main_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "PR_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/factory-wire.test.ts",
+      "snapshot_sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/fic-review-probes.test.ts",
+      "main_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "PR_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/fic-review-probes.test.ts",
+      "snapshot_sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/fic-final-probes.test.ts",
+      "main_sha256": "cd371a4234f06df65e532ad2658e252c1e51b55f0e494e37846aa720d5ff56f2",
+      "PR_sha256": "cd371a4234f06df65e532ad2658e252c1e51b55f0e494e37846aa720d5ff56f2",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "cd371a4234f06df65e532ad2658e252c1e51b55f0e494e37846aa720d5ff56f2",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/lib/csat/map/v62/__tests__/fic-final-probes.test.ts",
+      "snapshot_sha256": "cd371a4234f06df65e532ad2658e252c1e51b55f0e494e37846aa720d5ff56f2"
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "main_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "PR_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "snapshot_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb"
+    },
+    {
+      "file": "scripts/csat/map/v62/e2e-map-supply.mjs",
+      "main_sha256": "71d210eb02e39a08dbc80e26e641afcafd3edd0ca0d9285f8f33c28dbfe54ffb",
+      "PR_sha256": "71d210eb02e39a08dbc80e26e641afcafd3edd0ca0d9285f8f33c28dbfe54ffb",
+      "same_PR_main": true,
+      "product_code_same": true,
+      "working_sha256": "71d210eb02e39a08dbc80e26e641afcafd3edd0ca0d9285f8f33c28dbfe54ffb",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/scripts/csat/map/v62/e2e-map-supply.mjs",
+      "snapshot_sha256": "71d210eb02e39a08dbc80e26e641afcafd3edd0ca0d9285f8f33c28dbfe54ffb"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/01-r.central_meaning.png",
+      "main_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "PR_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/01-r.central_meaning.png",
+      "snapshot_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/02-r.central_meaning.png",
+      "main_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "PR_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/02-r.central_meaning.png",
+      "snapshot_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/03-r.central_meaning.png",
+      "main_sha256": "2dbc262ba0f873c84f0992dc008e80bfeba51c85a63826c1b141b14d4e4a1b5d",
+      "PR_sha256": "2dbc262ba0f873c84f0992dc008e80bfeba51c85a63826c1b141b14d4e4a1b5d",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "2dbc262ba0f873c84f0992dc008e80bfeba51c85a63826c1b141b14d4e4a1b5d",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/03-r.central_meaning.png",
+      "snapshot_sha256": "2dbc262ba0f873c84f0992dc008e80bfeba51c85a63826c1b141b14d4e4a1b5d"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/04-v.contextual_sense.png",
+      "main_sha256": "86b59f27302bbc4ccf82a0ffe1db6b59a9f4b76bf0bbd1732883769d49a0fc5f",
+      "PR_sha256": "86b59f27302bbc4ccf82a0ffe1db6b59a9f4b76bf0bbd1732883769d49a0fc5f",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "86b59f27302bbc4ccf82a0ffe1db6b59a9f4b76bf0bbd1732883769d49a0fc5f",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/04-v.contextual_sense.png",
+      "snapshot_sha256": "86b59f27302bbc4ccf82a0ffe1db6b59a9f4b76bf0bbd1732883769d49a0fc5f"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/05-s.form_scope.png",
+      "main_sha256": "ce7310b68130fc0f7c7712a679fcfc0222c1488faf98d0d8e90743d392b65e2d",
+      "PR_sha256": "ce7310b68130fc0f7c7712a679fcfc0222c1488faf98d0d8e90743d392b65e2d",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "ce7310b68130fc0f7c7712a679fcfc0222c1488faf98d0d8e90743d392b65e2d",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/05-s.form_scope.png",
+      "snapshot_sha256": "ce7310b68130fc0f7c7712a679fcfc0222c1488faf98d0d8e90743d392b65e2d"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/06-l.sound.png",
+      "main_sha256": "327259ed0998087fe68b72ad81aa7d87f796eb80c9317dec109074c20710a8dc",
+      "PR_sha256": "327259ed0998087fe68b72ad81aa7d87f796eb80c9317dec109074c20710a8dc",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "327259ed0998087fe68b72ad81aa7d87f796eb80c9317dec109074c20710a8dc",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/06-l.sound.png",
+      "snapshot_sha256": "327259ed0998087fe68b72ad81aa7d87f796eb80c9317dec109074c20710a8dc"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/07-r.central_meaning.png",
+      "main_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "PR_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/07-r.central_meaning.png",
+      "snapshot_sha256": "91bef223e432174cf7319a06bb8cb3f11426f57316f071c24a284eaa0f111b7d"
+    },
+    {
+      "file": "docs/csat-learner/v62/evidence/r5-e2e-20261015/results.json",
+      "main_sha256": "ba72b727bcc218c228897d350eead8cf4dfd4309eb25101965ae022e65dc72f8",
+      "PR_sha256": "ba72b727bcc218c228897d350eead8cf4dfd4309eb25101965ae022e65dc72f8",
+      "same_PR_main": true,
+      "product_code_same": false,
+      "working_sha256": "ba72b727bcc218c228897d350eead8cf4dfd4309eb25101965ae022e65dc72f8",
+      "snapshot": "scripts/research/factory-integration-v12-final/local/main/docs/csat-learner/v62/evidence/r5-e2e-20261015/results.json",
+      "snapshot_sha256": "ba72b727bcc218c228897d350eead8cf4dfd4309eb25101965ae022e65dc72f8"
+    }
+  ],
+  "preserved_prior": [
+    {
+      "root": "D:/workspace/Vocaflow-factory-integration-review-v1",
+      "integrity_sha256": "e5be4b4e2c74be3e03d42a9f5912c9a0fcda7927acba2c9f5d15d9b98e36874b",
+      "all_bindings_unchanged": true
+    },
+    {
+      "root": "D:/workspace/Vocaflow-factory-integration-v11-final",
+      "integrity_sha256": "84b845300e7f9f5c8ebce4d63e9cf320f1bbb42998ca4cf34dc7095bcac53856",
+      "all_bindings_unchanged": true
+    }
+  ],
+  "raw_R5_head": "be97543e9058c1660bcae17739daeaccdee2b968",
+  "R5_code_correspondence": true,
+  "scope": "Frozen source/raw historical E2E evidence only. No browser/user/DB test rerun or live reader verification."
+}

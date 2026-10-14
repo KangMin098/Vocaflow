@@ -1,0 +1,1697 @@
+{
+  "version": "V12-independent-matrix-1",
+  "scope": "Synthetic verified-server assumptions only; no actual release/student/reader verification",
+  "rows": [
+    {
+      "id": "lifecycle-fixture",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "test_fixture"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "test_fixture"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "test_fixture",
+          "transition": null
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "test_fixture"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-product_disguise",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "test_fixture"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "test_fixture",
+          "transition": null
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "test_fixture",
+          "lifecycle_declaration_mismatch"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-declaration_mismatch",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "product",
+          "current": "test_fixture",
+          "transition": null
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "test_fixture",
+          "lifecycle_declaration_mismatch"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-no_server_lifecycle",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          }
+        },
+        "lifecycle_snapshot": null
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_unknown"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-other_artifact",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "other",
+            "subjectRevision": "synthetic-r1",
+            "subjectSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope": "product_release",
+            "revoked": false
+          }
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_other_artifact"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-other_revision",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "synthetic-artifact",
+            "subjectRevision": "old",
+            "subjectSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope": "product_release",
+            "revoked": false
+          }
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_other_revision"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-other_hash",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "synthetic-artifact",
+            "subjectRevision": "synthetic-r1",
+            "subjectSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "scope": "product_release",
+            "revoked": false
+          }
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_other_revision"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-revoked",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "synthetic-artifact",
+            "subjectRevision": "synthetic-r1",
+            "subjectSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope": "product_release",
+            "revoked": true
+          }
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_revoked"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-wrong_scope",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "synthetic-artifact",
+            "subjectRevision": "synthetic-r1",
+            "subjectSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope": "public",
+            "revoked": false
+          }
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_scope"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-transition_missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": null
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "lifecycle_transition_missing"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-subject_mismatch",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "other-source",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "product",
+          "current": "product",
+          "transition": null
+        }
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "verdict": "review_pending",
+        "reasons": [
+          "subject_mismatch:source"
+        ],
+        "candidate": 0,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-normal_product",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "product",
+          "current": "product",
+          "transition": null
+        }
+      },
+      "expected_candidate": 1,
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "candidate": 1,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "lifecycle-approved_transition",
+      "population": "synthetic_contract_test",
+      "input": {
+        "artifact": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "contentType": "topic",
+          "tasks": [
+            "r.central_meaning"
+          ],
+          "roleCandidates": [
+            "guided_practice"
+          ],
+          "access": "synthetic:reference",
+          "rights": "cleared",
+          "quality": "passed",
+          "provenance": {
+            "runId": "synthetic-run",
+            "mock": false
+          },
+          "lifecycle": "product"
+        },
+        "server_subject": {
+          "id": "synthetic-artifact",
+          "kind": "dcp_item",
+          "revision": "synthetic-r1",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "refs": {
+            "source": "synthetic-source-r1",
+            "analysis": "synthetic-analysis-r1",
+            "gold": "synthetic-Gold-r1"
+          },
+          "lifecycle": "product"
+        },
+        "lifecycle_snapshot": {
+          "original": "test_fixture",
+          "current": "product",
+          "transition": {
+            "approvalId": "synthetic-transition",
+            "subjectId": "synthetic-artifact",
+            "subjectRevision": "synthetic-r1",
+            "subjectSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope": "product_release",
+            "revoked": false
+          }
+        }
+      },
+      "expected_candidate": 1,
+      "actual": {
+        "verdict": "accept",
+        "reasons": [],
+        "candidate": 1,
+        "learner": null,
+        "delivered": null
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-missing",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "missing",
+        "own": false,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-false",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "false",
+        "own": true,
+        "value": false
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "null",
+        "own": true,
+        "value": "missing"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "undefined",
+        "own": true,
+        "value": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-string_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "string_true",
+        "own": true,
+        "value": "true"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-producible-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "producible",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:producible"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-rights-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "rights",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:rights"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-content-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "content",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:content"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-teaching-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "teaching",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:teaching"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-assessment-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "assessment",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:assessment"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-learner-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "learner",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:learner"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-runnable-inherited_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "key": "runnable",
+        "mutation": "inherited_true",
+        "own": false,
+        "value": true
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0,
+        "verdict": "review_pending",
+        "reasons": [
+          "existing_unverified:runnable"
+        ]
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-absent",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "absent"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-empty",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "empty"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-null",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "null"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-undefined",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "undefined"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-inherited_all",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "inherited_all"
+      },
+      "expected_candidate": 0,
+      "actual": {
+        "candidate": 0
+      },
+      "safety": "PASS"
+    },
+    {
+      "id": "qualification-object-own_seven_true",
+      "population": "synthetic_contract_test",
+      "input": {
+        "shape": "own_seven_true"
+      },
+      "expected_candidate": 1,
+      "actual": {
+        "candidate": 1
+      },
+      "safety": "PASS"
+    }
+  ],
+  "counts": {
+    "safety_rows": 61,
+    "pass": 61,
+    "fail": 0,
+    "assertion_tests": 63
+  }
+}
