@@ -170,12 +170,18 @@ for (const width of [1280, 1440]) {
     await page.screenshot({ path: `${SHOTS}/A-${width}-1b-whole-boundary.png`, fullPage: false })
     await page.locator('[data-testid="ms-unit"][data-unit="u1"]').click()
     await expect(page.getByTestId('ms-explain')).toHaveAttribute('data-unit', 'u1')
-    await page.getByTestId('ms-draft-open').click()
-    const draft = page.getByTestId('ms-draft-text')
-    await draft.fill('가'.repeat(605))
-    await expect(draft).toHaveValue('가'.repeat(605))
-    await expect(draft).toHaveAttribute('aria-invalid', 'true')
-    await draft.fill('이성적인 법은 어차피 안 할 일만 막는다')
+    // 「내 말로」(v3.2) — 같은 테스트 계정에 저장된 노트가 있으면 노트가 보이고(저장 흐름은 csat-v32-my-words 스펙),
+    // 없으면 저장 전 입력(300자 넘으면 경고만 · 자르지 않음)이 장면 왕복에도 탭 메모리로 남는지 본다
+    const hasNote = (await page.getByTestId('ms-note').count()) > 0
+    if (!hasNote) {
+      await page.getByTestId('ms-draft-open').click()
+      const draft = page.getByTestId('ms-draft-text')
+      await draft.fill('가'.repeat(305))
+      await expect(draft).toHaveValue('가'.repeat(305))
+      await expect(draft).toHaveAttribute('aria-invalid', 'true')
+      await expect(page.getByTestId('ms-draft-save')).toBeDisabled()
+      await draft.fill('이성적인 법은 어차피 안 할 일만 막는다')
+    }
 
     // 6) 문항 성립 — 그 의미가 걸린 선택지를 들고 간다
     const choices = (await page.getByTestId('ms-go-judgment').getAttribute('data-choices'))!.split(',').filter(Boolean).map(Number)
@@ -197,7 +203,8 @@ for (const width of [1280, 1440]) {
     expect(q(page, 'depth')).toBe('deep')
     expect(q(page, 'bridge')).toBeNull()
     await expect(page.getByTestId('ms-depth').locator('[data-depth="deep"]')).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.getByTestId('ms-draft-text')).toHaveValue('이성적인 법은 어차피 안 할 일만 막는다')
+    if (hasNote) await expect(page.getByTestId('ms-note')).toBeVisible()
+    else await expect(page.getByTestId('ms-draft-text')).toHaveValue('이성적인 법은 어차피 안 할 일만 막는다')
     await page.goForward()
     await expect(page.getByTestId('ms-bridge')).toBeVisible()
     await expect(page.getByTestId('v3-judgment').locator(`[data-choice="${choices[0]}"]`)).toHaveAttribute('aria-pressed', 'true')
