@@ -17,17 +17,28 @@ import { CURRENT_ENGLISH_BLUEPRINT, examInventoryCoverage } from '../../../../ap
 const ROOT = path.resolve(import.meta.dirname, '../../../..')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } })
 
-async function all<T>(q: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>): Promise<T[]> {
+type Res<T> = PromiseLike<{ data: T[] | null; error: { message: string } | null }>
+/** 키셋 페이징(id 오름차순) — OFFSET 페이징 금지(offset-paging-budget 가드) */
+async function all<T extends { id: string }>(q: (after: string | null) => Res<T>): Promise<T[]> {
   const out: T[] = []
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await q(from, from + 999)
+  for (let after: string | null = null; ; ) {
+    const { data, error } = await q(after)
     if (error) throw new Error(error.message)
     out.push(...(data ?? []))
     if (!data || data.length < 1000) return out
+    after = data[data.length - 1].id
   }
 }
+async function one<T>(q: Res<T>): Promise<T[]> {
+  const { data, error } = await q
+  if (error) throw new Error(error.message)
+  return data ?? []
+}
 
-const apps = await all<{ surface_ref: string; status: string; audience: unknown }>((a, b) => db.from('knowledge_applications').select('surface_ref, status, audience').eq('surface', 'csat_item_task').range(a, b))
+const apps = await all<{ id: string; surface_ref: string; status: string; audience: unknown }>((after) => {
+  const q = db.from('knowledge_applications').select('id, surface_ref, status, audience').eq('surface', 'csat_item_task').order('id').limit(1000)
+  return after ? q.gt('id', after) : q
+})
 const isTransfer = (aud: unknown) => !!aud && typeof aud === 'object' && (aud as { role?: unknown }).role === 'transfer'
 const byKey = new Map<string, { confirmActive: Set<string>; transferActive: Set<string>; draft: Set<string>; paused: Set<string> }>()
 for (const a of apps) {
@@ -46,8 +57,10 @@ const workspaces = templates().map((t) => {
   return { id: t.id, name: t.name, core: t.core, readiness: t.readiness, hold: t.hold, contentKeys: keys, confirmActive: sum('confirmActive'), transferActive: sum('transferActive'), draftUnreleased: sum('draft'), pausedOrRolledBack: sum('paused') }
 })
 
-const exams = await all<{ id: string; label: string; organizer: string; diagnosis_ready: boolean | null }>((a, b) => db.from('csat_exams').select('id, label, organizer, diagnosis_ready').eq('organizer', 'kice').range(a, b))
-const keys = await all<{ exam_id: string; no: number; points: number }>((a, b) => db.from('csat_dx_answer_key').select('exam_id, no, points').range(a, b))
+// 평가원 시험은 수십 개 — 한 번에. 정답표는 시험 10개씩(≤ 450행)
+const exams = await one<{ id: string; label: string; organizer: string; diagnosis_ready: boolean | null }>(db.from('csat_exams').select('id, label, organizer, diagnosis_ready').eq('organizer', 'kice'))
+const keys: { exam_id: string; no: number; points: number }[] = []
+for (let i = 0; i < exams.length; i += 10) keys.push(...(await one<{ exam_id: string; no: number; points: number }>(db.from('csat_dx_answer_key').select('exam_id, no, points').in('exam_id', exams.slice(i, i + 10).map((e) => e.id)))))
 const keyByExam = new Map<string, { no: number; points: number }[]>()
 for (const k of keys) keyByExam.set(k.exam_id, [...(keyByExam.get(k.exam_id) ?? []), { no: k.no, points: k.points }])
 const inventory = exams.map((e) => examInventoryCoverage(e.id, CURRENT_ENGLISH_BLUEPRINT, keyByExam.get(e.id) ?? []))
