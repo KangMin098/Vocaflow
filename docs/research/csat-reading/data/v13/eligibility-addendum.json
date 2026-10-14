@@ -1,0 +1,12 @@
+{
+ "version":"1.3-source-admission-addendum-1",
+ "timing":"after_selection_before_any_new_pilot_semantic_classification",
+ "planned_n":12,
+ "eligible_fresh_n":11,
+ "excluded":[{"id":"2022#26","reason":"Recorded adjacent full-page exposure to root context in v1.2 source-critical-review.json; cannot satisfy project-unexposed selection contract","source":"docs/research/csat-reading/data/v12/source-critical-review.json","rater_context_exposure":"fresh fork-none raters not exposed, but project-level eligibility still fails"}],
+ "replacement":false,
+ "first_selection_unchanged":true,
+ "classification_scope":"11 source-admitted items only; factual-biography stratum missing",
+ "gate_denominator":"11 classified items /55 candidates, reported alongside planned12 and exposure exclusion1",
+ "interpretation":"preclassification eligibility repair, not post-outcome cherry-picking; smaller purposive exploratory pilot; no count as fresh12"
+}
