@@ -53,7 +53,9 @@ const NEXT: Record<OrderState, readonly OrderState[]> = {
   reviewing: ['delivered', 'held', 'failed'],
   delivered: [],
   held: ['stock_search', 'awaiting_production', 'failed'],
-  failed: ['requested'],
+  // 실패는 그 주문의 끝이다 — 재생산은 같은 주문을 되살리지 않고 **새 주문**(이유 retry_after_failure · 부모 = 실패 주문).
+  // SQL `factory_order_open` 과 같다(P-F7b).
+  failed: [],
 }
 
 export interface TransitionEvidence {
@@ -71,6 +73,21 @@ export function canTransition(from: OrderState, to: OrderState, ev: TransitionEv
   if (to === 'producing' && !ev.productionRunId) return { ok: false, why: '실제 생산 실행 기록 없이 생산 중으로 갈 수 없다' }
   if (to === 'delivered' && !ev.qualificationId) return { ok: false, why: '자격 기록 없이 공급 완료로 갈 수 없다' }
   if ((to === 'held' || to === 'failed') && !ev.reason) return { ok: false, why: '보류 · 실패는 이유가 필요하다' }
+  return { ok: true }
+}
+
+/** 주문을 여는 이유 — 첫 주문은 initial, 그 뒤는 이유 · 부모가 필수(P-F7b, SQL `factory_order_open`) */
+export type OrderReason = 'initial' | 'shortfall' | 'retry_after_failure' | 'plan_revision'
+
+/**
+ * 한 수요 줄에서 새 주문을 열 수 있는가. 열린 주문(delivered · failed 아님)이 있으면 불가(중복 주문 0).
+ * 부분 공급 뒤 부족분은 shortfall, 실패 뒤 재생산은 retry_after_failure(직전이 failed 일 때만), PLAN 개정은 plan_revision.
+ */
+export function canOpenOrder(prev: { state: OrderState } | null, reason: OrderReason): { ok: true } | { ok: false; why: string } {
+  if (!prev) return reason === 'initial' ? { ok: true } : { ok: false, why: '첫 주문은 initial 이어야 한다' }
+  if (prev.state !== 'delivered' && prev.state !== 'failed') return { ok: false, why: '열린 주문이 있다' }
+  if (reason === 'initial') return { ok: false, why: '재주문은 이유가 필요하다' }
+  if (reason === 'retry_after_failure' && prev.state !== 'failed') return { ok: false, why: '재생산은 실패한 주문 뒤에만' }
   return { ok: true }
 }
 

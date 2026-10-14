@@ -1,9 +1,12 @@
 // apps/web/src/lib/csat/map/v62/__tests__/persist-contract.test.ts
 // v6.2 P-F4b · P-F6 — 영속 계약(서명 · 본문 비교 · 상태 기계) · 공급 충족도
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import type { WorkspaceDemand } from '../demand'
-import { canTransition, canonicalDemand, demandSignature, sameStoredDemand } from '../persist-contract'
+import { canOpenOrder, canTransition, canonicalDemand, demandSignature, sameStoredDemand, type OrderState } from '../persist-contract'
 import { fulfillmentOf, type SupplyLine } from '../supply'
 
 const demand = (o: Partial<WorkspaceDemand> = {}): WorkspaceDemand => ({
@@ -46,6 +49,38 @@ describe('주문 상태 기계', () => {
     expect(canTransition('reviewing', 'held').ok).toBe(false)
     expect(canTransition('requested', 'delivered', { qualificationId: 'q' }).ok).toBe(false)
     expect(canTransition('delivered', 'producing', { productionRunId: 'r' }).ok).toBe(false)
+  })
+  it('실패는 그 주문의 끝 — 되살리지 않는다(재생산은 새 주문)', () => {
+    expect(canTransition('failed', 'requested').ok).toBe(false)
+  })
+  it('앱 상태 기계 = 보류 SQL factory_order_transition 의 허용 전이(어긋나면 실패)', () => {
+    const sql = fs.readFileSync(path.resolve(__dirname, '../../../../../../../../supabase/migrations/_pending_workspace_supply_b_orders.sql'), 'utf8')
+    const body = sql.slice(sql.indexOf('ok := (o.state, p_to) in ('), sql.indexOf('if not ok then'))
+    const fromSql = [...body.matchAll(/\('([a-z_]+)','([a-z_]+)'\)/g)].map((m) => `${m[1]}>${m[2]}`).sort()
+    const STATES: OrderState[] = ['requested', 'stock_search', 'awaiting_production', 'producing', 'reviewing', 'delivered', 'held', 'failed']
+    const ev = { productionRunId: 'r', qualificationId: 'q', reason: 'x' }
+    const fromTs = STATES.flatMap((a) => STATES.filter((z) => canTransition(a, z, ev).ok).map((z) => `${a}>${z}`)).sort()
+    expect(fromSql.length).toBeGreaterThan(10)
+    expect(fromTs).toEqual(fromSql)
+  })
+})
+
+describe('주문 열기 — 열린 주문 하나 · 재주문은 이유(P-F7b)', () => {
+  it('첫 주문은 initial 만', () => {
+    expect(canOpenOrder(null, 'initial').ok).toBe(true)
+    expect(canOpenOrder(null, 'shortfall').ok).toBe(false)
+  })
+  it('열린 주문이 있으면 어떤 이유로도 새 주문 불가(중복 주문 0)', () => {
+    for (const s of ['requested', 'stock_search', 'awaiting_production', 'producing', 'reviewing', 'held'] as const) {
+      expect(canOpenOrder({ state: s }, 'shortfall').ok, s).toBe(false)
+    }
+  })
+  it('부분 공급 뒤 부족분 · PLAN 개정 재주문 · 실패 뒤 재생산', () => {
+    expect(canOpenOrder({ state: 'delivered' }, 'shortfall').ok).toBe(true)
+    expect(canOpenOrder({ state: 'delivered' }, 'plan_revision').ok).toBe(true)
+    expect(canOpenOrder({ state: 'failed' }, 'retry_after_failure').ok).toBe(true)
+    expect(canOpenOrder({ state: 'delivered' }, 'retry_after_failure').ok).toBe(false)
+    expect(canOpenOrder({ state: 'failed' }, 'initial').ok).toBe(false)
   })
 })
 
