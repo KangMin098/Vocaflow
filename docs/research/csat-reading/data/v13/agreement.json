@@ -1,0 +1,573 @@
+{
+  "version": "1.3",
+  "n": 11,
+  "groups": 11,
+  "metrics": {
+    "discourse": {
+      "n": 11,
+      "raw_agreement": 0.9090909090909091,
+      "scorable_agreement_over_all": 0.9090909090909091,
+      "resolved_pair_n": 11,
+      "resolved_pair_agreement": 0.9090909090909091,
+      "resolved_kappa": 0.8571428571428571,
+      "kappa": 0.8571428571428571,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "argument",
+        "data",
+        "exposition",
+        "practical"
+      ],
+      "confusion": {
+        "argument": {
+          "argument": 3,
+          "data": 0,
+          "exposition": 0,
+          "practical": 0
+        },
+        "data": {
+          "argument": 0,
+          "data": 1,
+          "exposition": 0,
+          "practical": 0
+        },
+        "exposition": {
+          "argument": 1,
+          "data": 0,
+          "exposition": 5,
+          "practical": 0
+        },
+        "practical": {
+          "argument": 0,
+          "data": 0,
+          "exposition": 0,
+          "practical": 1
+        }
+      }
+    },
+    "task": {
+      "n": 11,
+      "raw_agreement": 1,
+      "scorable_agreement_over_all": 1,
+      "resolved_pair_n": 11,
+      "resolved_pair_agreement": 1,
+      "resolved_kappa": 1,
+      "kappa": 1,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "coherence_insert",
+        "coherence_order",
+        "coherence_remove",
+        "complete",
+        "grammar",
+        "lexical_context",
+        "macro_compress",
+        "purpose",
+        "quantitative"
+      ],
+      "confusion": {
+        "coherence_insert": {
+          "coherence_insert": 1,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "coherence_order": {
+          "coherence_insert": 0,
+          "coherence_order": 1,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "coherence_remove": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 1,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "complete": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 1,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "grammar": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 1,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "lexical_context": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 1,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "macro_compress": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 3,
+          "purpose": 0,
+          "quantitative": 0
+        },
+        "purpose": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 1,
+          "quantitative": 0
+        },
+        "quantitative": {
+          "coherence_insert": 0,
+          "coherence_order": 0,
+          "coherence_remove": 0,
+          "complete": 0,
+          "grammar": 0,
+          "lexical_context": 0,
+          "macro_compress": 0,
+          "purpose": 0,
+          "quantitative": 1
+        }
+      }
+    },
+    "inference": {
+      "n": 11,
+      "nonempty_n": 11,
+      "both_empty": 0,
+      "mean_jaccard": 1
+    },
+    "relation_presence": {
+      "n": 11,
+      "nonempty_n": 11,
+      "both_empty": 0,
+      "mean_jaccard": 0.6846320346320346
+    },
+    "relation_required": {
+      "n": 11,
+      "nonempty_n": 8,
+      "both_empty": 3,
+      "mean_jaccard": 0.6875
+    },
+    "choice_target_context_match": {
+      "n": 55,
+      "comparable": 55
+    },
+    "textual_support": {
+      "n": 55,
+      "raw_agreement": 0.7636363636363637,
+      "scorable_agreement_over_all": 0.7636363636363637,
+      "resolved_pair_n": 55,
+      "resolved_pair_agreement": 0.7636363636363637,
+      "resolved_kappa": 0.645513138324244,
+      "kappa": 0.645513138324244,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "contradicts",
+        "not_determined",
+        "supports"
+      ],
+      "confusion": {
+        "contradicts": {
+          "contradicts": 10,
+          "not_determined": 1,
+          "supports": 1
+        },
+        "not_determined": {
+          "contradicts": 7,
+          "not_determined": 13,
+          "supports": 0
+        },
+        "supports": {
+          "contradicts": 2,
+          "not_determined": 2,
+          "supports": 19
+        }
+      }
+    },
+    "task_fit": {
+      "n": 55,
+      "raw_agreement": 1,
+      "scorable_agreement_over_all": 1,
+      "resolved_pair_n": 55,
+      "resolved_pair_agreement": 1,
+      "resolved_kappa": 1,
+      "kappa": 1,
+      "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+      "labels": [
+        "fails",
+        "fits"
+      ],
+      "confusion": {
+        "fails": {
+          "fails": 44,
+          "fits": 0
+        },
+        "fits": {
+          "fails": 0,
+          "fits": 11
+        }
+      }
+    },
+    "limited": {
+      "core_sentence_AI": {
+        "n": 11,
+        "raw_agreement": 0.9090909090909091,
+        "scorable_agreement_over_all": 0.9090909090909091,
+        "resolved_pair_n": 11,
+        "resolved_pair_agreement": 0.9090909090909091,
+        "resolved_kappa": 0.7105263157894735,
+        "kappa": 0.7105263157894735,
+        "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+        "labels": [
+          "conditional",
+          "insufficient",
+          "sufficient"
+        ],
+        "confusion": {
+          "conditional": {
+            "conditional": 1,
+            "insufficient": 0,
+            "sufficient": 1
+          },
+          "insufficient": {
+            "conditional": 0,
+            "insufficient": 9,
+            "sufficient": 0
+          },
+          "sufficient": {
+            "conditional": 0,
+            "insufficient": 0,
+            "sufficient": 0
+          }
+        },
+        "positive_a": 0,
+        "positive_b": 1,
+        "positive_agreement": 0
+      },
+      "core_sentence_FOV": {
+        "n": 11,
+        "raw_agreement": 0.9090909090909091,
+        "scorable_agreement_over_all": 0.9090909090909091,
+        "resolved_pair_n": 11,
+        "resolved_pair_agreement": 0.9090909090909091,
+        "resolved_kappa": 0,
+        "kappa": 0,
+        "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+        "labels": [
+          "insufficient",
+          "sufficient"
+        ],
+        "confusion": {
+          "insufficient": {
+            "insufficient": 10,
+            "sufficient": 1
+          },
+          "sufficient": {
+            "insufficient": 0,
+            "sufficient": 0
+          }
+        },
+        "positive_a": 0,
+        "positive_b": 1,
+        "positive_agreement": 0
+      },
+      "selective_AI": {
+        "n": 11,
+        "raw_agreement": 0.45454545454545453,
+        "scorable_agreement_over_all": 0.45454545454545453,
+        "resolved_pair_n": 11,
+        "resolved_pair_agreement": 0.45454545454545453,
+        "resolved_kappa": 0.1645569620253165,
+        "kappa": 0.1645569620253165,
+        "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+        "labels": [
+          "conditional",
+          "insufficient",
+          "sufficient"
+        ],
+        "confusion": {
+          "conditional": {
+            "conditional": 2,
+            "insufficient": 0,
+            "sufficient": 1
+          },
+          "insufficient": {
+            "conditional": 4,
+            "insufficient": 3,
+            "sufficient": 1
+          },
+          "sufficient": {
+            "conditional": 0,
+            "insufficient": 0,
+            "sufficient": 0
+          }
+        },
+        "positive_a": 0,
+        "positive_b": 2,
+        "positive_agreement": 0
+      },
+      "selective_FOV": {
+        "n": 11,
+        "raw_agreement": 0.8181818181818182,
+        "scorable_agreement_over_all": 0.8181818181818182,
+        "resolved_pair_n": 11,
+        "resolved_pair_agreement": 0.8181818181818182,
+        "resolved_kappa": 0.42105263157894746,
+        "kappa": 0.42105263157894746,
+        "kappa_note": "descriptive small-sample estimate; unresolved included only in conventional full confusion, not expansion agreement",
+        "labels": [
+          "insufficient",
+          "sufficient"
+        ],
+        "confusion": {
+          "insufficient": {
+            "insufficient": 8,
+            "sufficient": 2
+          },
+          "sufficient": {
+            "insufficient": 0,
+            "sufficient": 1
+          }
+        },
+        "positive_a": 1,
+        "positive_b": 3,
+        "positive_agreement": 0.5
+      }
+    }
+  },
+  "numeric_gate": {
+    "discourse": true,
+    "task": true,
+    "inference": true,
+    "relations_required": false,
+    "textual_support": false,
+    "core_sentence_AI": false,
+    "core_sentence_FOV": false,
+    "selective_AI": false,
+    "selective_FOV": false
+  },
+  "logical_gate": "requires_separate_review",
+  "solved": {
+    "A": 11,
+    "B": 11,
+    "n": 11,
+    "interpretation": "Answer agreement is not sufficiency validity"
+  },
+  "positive_scope_guards": [
+    {
+      "id": "2016#18",
+      "rater": "B",
+      "method": "core_sentence",
+      "goal": "AI",
+      "path_id": "p3",
+      "unknown": [],
+      "sentenceN": 1,
+      "stimulusN": 0,
+      "total_sentenceN": 1,
+      "effective_sentenceN": 1,
+      "candidate_copy_units": [],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": true,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2016#18",
+      "rater": "B",
+      "method": "core_sentence",
+      "goal": "FOV",
+      "path_id": "p4",
+      "unknown": [],
+      "sentenceN": 1,
+      "stimulusN": 0,
+      "total_sentenceN": 1,
+      "effective_sentenceN": 1,
+      "candidate_copy_units": [],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": true,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2016#18",
+      "rater": "B",
+      "method": "selective",
+      "goal": "AI",
+      "path_id": "p3",
+      "unknown": [],
+      "sentenceN": 1,
+      "stimulusN": 0,
+      "total_sentenceN": 1,
+      "effective_sentenceN": 1,
+      "candidate_copy_units": [],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": true,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2016#18",
+      "rater": "B",
+      "method": "selective",
+      "goal": "FOV",
+      "path_id": "p4",
+      "unknown": [],
+      "sentenceN": 1,
+      "stimulusN": 0,
+      "total_sentenceN": 1,
+      "effective_sentenceN": 1,
+      "candidate_copy_units": [],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": true,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2015#32",
+      "rater": "B",
+      "method": "selective",
+      "goal": "AI",
+      "path_id": "p3",
+      "unknown": [],
+      "sentenceN": 2,
+      "stimulusN": 0,
+      "total_sentenceN": 2,
+      "effective_sentenceN": 2,
+      "candidate_copy_units": [],
+      "complete": false,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": false,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2015#32",
+      "rater": "B",
+      "method": "selective",
+      "goal": "FOV",
+      "path_id": "p4",
+      "unknown": [],
+      "sentenceN": 2,
+      "stimulusN": 0,
+      "total_sentenceN": 2,
+      "effective_sentenceN": 2,
+      "candidate_copy_units": [],
+      "complete": false,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": false,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2014A#32",
+      "rater": "A",
+      "method": "selective",
+      "goal": "FOV",
+      "path_id": "p2",
+      "unknown": [],
+      "sentenceN": 0,
+      "stimulusN": 0,
+      "total_sentenceN": 0,
+      "effective_sentenceN": 5,
+      "candidate_copy_units": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": false,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    },
+    {
+      "id": "2014A#32",
+      "rater": "B",
+      "method": "selective",
+      "goal": "FOV",
+      "path_id": "p5",
+      "unknown": [],
+      "sentenceN": 0,
+      "stimulusN": 0,
+      "total_sentenceN": 0,
+      "effective_sentenceN": 5,
+      "candidate_copy_units": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "complete": true,
+      "consecutive": true,
+      "visual_budget": null,
+      "budget_ok": false,
+      "semantic_task_stimulus_is_free": false,
+      "visual_semantic_sufficiency_not_proven_by_budget": true
+    }
+  ],
+  "disagreements": [
+    "2016#18",
+    "2024#23",
+    "2014B#25",
+    "2015#32",
+    "2020#36",
+    "2017#38",
+    "2023#40",
+    "2021#30",
+    "2018#28",
+    "2014A#32",
+    "2019#35"
+  ],
+  "population_inference": false
+}

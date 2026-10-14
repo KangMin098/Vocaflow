@@ -1,0 +1,3716 @@
+{
+  "version": "1.3",
+  "answer_blind": true,
+  "source_paths": [
+    "docs/research/csat-reading/PROTOCOL-v1.3.md",
+    "scripts/research/csat-reading/local/v13/rater-instructions.md",
+    "scripts/research/csat-reading/local/v13/pilot-input.json"
+  ],
+  "items": [
+    {
+      "id": "2016#18",
+      "binding": "cd420698d9621d5d0e86259ab3d9bb08ba754d24b3f31c96a78c363f18d84e0f",
+      "solved_answer": 2,
+      "discourse": "practical",
+      "task": "purpose",
+      "inference": [
+        {
+          "code": "explicit_recognition",
+          "target_result": "이미 예약한 캠프 참가 주차의 변경 가능성을 문의함",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s6",
+            "s7"
+          ],
+          "derivation": "예약한 주차와 귀가일의 충돌을 밝힌 뒤 다른 주차로 바꿀 수 있는지 직접 묻고 회신을 요청한다. 변경 가능성 문의가 목적이다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "causal",
+        "contrast",
+        "reference"
+      ],
+      "relations_required": [],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "여행 날짜를 바꾸려는 요청",
+          "context_key": "candidate_in_context",
+          "context_description": "발신자가 수신자에게 이 편지로 하려는 행위",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5",
+            "s6"
+          ],
+          "why": "여행 귀가일은 변경할 대상이 아니라 캠프 변경 사유이다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "캠프 참가 주차 변경 가능성 질문",
+          "context_key": "candidate_in_context",
+          "context_description": "발신자가 수신자에게 이 편지로 하려는 행위",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s6",
+            "s7"
+          ],
+          "why": "발신자가 다른 주차 참가가 가능한지 묻는다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "예치금 반환 요구",
+          "context_key": "candidate_in_context",
+          "context_description": "발신자가 수신자에게 이 편지로 하려는 행위",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s6"
+          ],
+          "why": "예치금 납부 언급은 있지만 반환 요구는 없고 주차 변경을 요청한다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "불명확한 일정에 대한 항의",
+          "context_key": "candidate_in_context",
+          "context_description": "발신자가 수신자에게 이 편지로 하려는 행위",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "why": "날짜를 알고 있으며 자신의 일정 충돌을 설명한다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "이미 바뀐 프로그램 내용 확인",
+          "context_key": "candidate_in_context",
+          "context_description": "발신자가 수신자에게 이 편지로 하려는 행위",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s6",
+            "s7"
+          ],
+          "why": "아직 변경되지 않은 주차의 변경 가능성을 묻는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "예약한 주차와 귀가일의 충돌을 밝힌 뒤 다른 주차로 바꿀 수 있는지 직접 묻고 회신을 요청한다. 변경 가능성 문의가 목적이다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s5",
+                "s6"
+              ],
+              "why": "여행 귀가일은 변경할 대상이 아니라 캠프 변경 사유이다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s6",
+                "s7"
+              ],
+              "why": "발신자가 다른 주차 참가가 가능한지 묻는다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s4",
+                "s6"
+              ],
+              "why": "예치금 납부 언급은 있지만 반환 요구는 없고 주차 변경을 요청한다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "why": "날짜를 알고 있으며 자신의 일정 충돌을 설명한다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s6",
+                "s7"
+              ],
+              "why": "아직 변경되지 않은 주차의 변경 가능성을 묻는다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p3",
+          "goal": "AI",
+          "status": "conditional",
+          "used_units": [
+            "s6"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s6"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [
+            "해당 창이 전체 과제판단을 대표한다는 전제 또는 유일정답 전제; 본문만으로 확정하지 않음"
+          ],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "직접 발화행위에 맞는 후보는2; 글 전체 주목적 대표성을 추가 가정한다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "reference",
+          "from_units": [
+            "s6"
+          ],
+          "to_units": [
+            "s7"
+          ],
+          "direction": "변경 요청→가능성의 지시대상",
+          "condition": "that의 대상",
+          "removal_test": "s7 지시를 이용하지 않아도 s6 직접 문의로 주목적을 파악할 수 있다.",
+          "necessary": false,
+          "alternative_path": "s6의 직접 요청",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "conditional",
+            "path_id": "p3",
+            "why": "s6만으로 후보2가 직접 대응하지만 그것이 글 전체 주목적이라는 전제가 남는다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "한 문장의 직접 요청은 강한 단서이나 글 전체의 주된 목적 대표성을 제한창만으로 확정하지 않는다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "conditional",
+            "path_id": "p3",
+            "why": "s6–s7의 요청과 회신 요구가 같은 목적을 보이나 전체 목적 대표성을 전제한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "한 문장의 직접 요청은 강한 단서이나 글 전체의 주된 목적 대표성을 제한창만으로 확정하지 않는다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2024#23",
+      "binding": "dbd381dcf5bd044fed34ffba385d69d5afdd550a8a787acf0fb4554afcac82bc",
+      "solved_answer": 2,
+      "discourse": "argument",
+      "task": "macro_compress",
+      "inference": [
+        {
+          "code": "global_integration",
+          "target_result": "시장가격에 반영되지 않은 산림 서비스의 경제가치를 고려해야 함",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s1",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "derivation": "벌채를 보상하는 시장유인과 실제로 더 큰 비시장 편익을 대조하고 잘못된 시장신호라는 결론을 결합하여 비시장가치 고려의 중요성을 도출한다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "example",
+        "causal",
+        "contrast",
+        "reference"
+      ],
+      "relations_required": [
+        "contrast",
+        "causal"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "생태서비스 시장가격 계산 필요",
+          "context_key": "candidate_in_context",
+          "context_description": "확정된 글의 전체 논지로 후보 주제를 해석함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s3",
+            "s4",
+            "s6"
+          ],
+          "why": "비시장가치를 무시하는 문제이지 시장가격 계산법을 제안하지 않는다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "산림 비시장 편익 고려의 중요성",
+          "context_key": "candidate_in_context",
+          "context_description": "확정된 글의 전체 논지로 후보 주제를 해석함",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "why": "무시되는 편익이 더 커서 시장신호가 틀리다는 논지를 포괄한다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "금전이익 극대화를 위한 산림사용의 영향",
+          "context_key": "candidate_in_context",
+          "context_description": "확정된 글의 전체 논지로 후보 주제를 해석함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s4",
+            "s6"
+          ],
+          "why": "배경 유인에 머무르고 비시장 편익을 놓친다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "시장·비시장가치 균형의 장점",
+          "context_key": "candidate_in_context",
+          "context_description": "확정된 글의 전체 논지로 후보 주제를 해석함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s6"
+          ],
+          "why": "두 가치를 균형화하는 장점이 아니라 비시장가치 우위를 반영하지 못하는 문제이다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "자원관리 효율을 높이는 여러 방법",
+          "context_key": "candidate_in_context",
+          "context_description": "확정된 글의 전체 논지로 후보 주제를 해석함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s6"
+          ],
+          "why": "경제적 비효율 진단은 있지만 관리 방법 목록이나 절차가 없다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "벌채를 보상하는 시장유인과 실제로 더 큰 비시장 편익을 대조하고 잘못된 시장신호라는 결론을 결합하여 비시장가치 고려의 중요성을 도출한다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s3",
+                "s4",
+                "s6"
+              ],
+              "why": "비시장가치를 무시하는 문제이지 시장가격 계산법을 제안하지 않는다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s3",
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "why": "무시되는 편익이 더 커서 시장신호가 틀리다는 논지를 포괄한다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s1",
+                "s4",
+                "s6"
+              ],
+              "why": "배경 유인에 머무르고 비시장 편익을 놓친다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s4",
+                "s6"
+              ],
+              "why": "두 가치를 균형화하는 장점이 아니라 비시장가치 우위를 반영하지 못하는 문제이다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s6"
+              ],
+              "why": "경제적 비효율 진단은 있지만 관리 방법 목록이나 절차가 없다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s3"
+          ],
+          "to_units": [
+            "s4"
+          ],
+          "direction": "사적 수입 부재→큰 사회경제 편익",
+          "condition": "시장수입과 비시장 경제가치 구별",
+          "removal_test": "대조를 이용하지 않으면 계산 필요나 균형화라는 후보와 핵심 논지를 가를 근거가 약해진다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "causal",
+          "from_units": [
+            "s4",
+            "s5"
+          ],
+          "to_units": [
+            "s6"
+          ],
+          "direction": "편익 우위→벌채 비효율·시장신호 오류",
+          "condition": "편익에 맞춘 경제적 비교",
+          "removal_test": "숫자 자체보다 그 우위가 결론의 이유라는 연결을 제거하면 비시장가치 고려라는 주장 도출이 빠진다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "example",
+          "from_units": [
+            "s4"
+          ],
+          "to_units": [
+            "s5"
+          ],
+          "direction": "일반 가능성→열대림 추정 사례",
+          "condition": "같은 비시장 편익 범주",
+          "removal_test": "사례 역할을 이용하지 않아도 s3,s4,s6 논증으로 주제를 도출한다.",
+          "necessary": false,
+          "alternative_path": "s3,s4,s6",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s4–s6에서 지시대상과 시장 유인의 역할을 확정하려면 앞부분이 필요하다. 한 문장이나 연속 두 문장으로 전체 논지 및 다섯 후보를 모두 검증하지 않았다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s4–s6에서 지시대상과 시장 유인의 역할을 확정하려면 앞부분이 필요하다. 한 문장이나 연속 두 문장으로 전체 논지 및 다섯 후보를 모두 검증하지 않았다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s4–s6에서 지시대상과 시장 유인의 역할을 확정하려면 앞부분이 필요하다. 한 문장이나 연속 두 문장으로 전체 논지 및 다섯 후보를 모두 검증하지 않았다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s4–s6에서 지시대상과 시장 유인의 역할을 확정하려면 앞부분이 필요하다. 한 문장이나 연속 두 문장으로 전체 논지 및 다섯 후보를 모두 검증하지 않았다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2014B#25",
+      "binding": "91fff6ffe79c2efbdc177f08260411b54bfe5cd83cbe2b7f8bedfc8dd5fbbe2e",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "task": "macro_compress",
+      "inference": [
+        {
+          "code": "global_integration",
+          "target_result": "A440이라는 기준은 고정 의무인가라는 제목",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s2",
+            "s3",
+            "s4",
+            "s6",
+            "s7"
+          ],
+          "derivation": "현행 기준 소개, 임의성, 역사적 대체 기준, 현대 밴드·고음악의 다른 조율 사례를 결합하면 현행440 기준의 절대성을 질문하는 제목이 맞는다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "restatement",
+        "example",
+        "causal",
+        "list",
+        "reference"
+      ],
+      "relations_required": [
+        "example"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "440 조율 기준이 늘 의무인지 질문",
+          "context_key": "candidate_in_context",
+          "context_description": "글 전체가 다루는 중심 문제를 제목의 질문으로 재진술함",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2",
+            "s3",
+            "s4",
+            "s6",
+            "s7"
+          ],
+          "why": "임의 기준과 다른 조율 선택들을 포괄한다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "임의 조율이 새로운 유행이라는 주장",
+          "context_key": "candidate_in_context",
+          "context_description": "글 전체가 다루는 중심 문제를 제목의 질문으로 재진술함",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s7"
+          ],
+          "why": "과거에도 다른 기준을 쓰고 원래 기준을 중시하므로 신규 유행이라는 범위가 틀린다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "주파수의 정확한 측정 방법",
+          "context_key": "candidate_in_context",
+          "context_description": "글 전체가 다루는 중심 문제를 제목의 질문으로 재진술함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2"
+          ],
+          "why": "주파수 값을 언급하지만 측정 절차를 설명하지 않는다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "음악가의 음높이 차이 감지 방법",
+          "context_key": "candidate_in_context",
+          "context_description": "글 전체가 다루는 중심 문제를 제목의 질문으로 재진술함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5",
+            "s6"
+          ],
+          "why": "소리 차이는 다루지만 감지 방법은 설명하지 않는다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "불안정한 음높이가 음악의 공통 본질",
+          "context_key": "candidate_in_context",
+          "context_description": "글 전체가 다루는 중심 문제를 제목의 질문으로 재진술함",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2",
+            "s4"
+          ],
+          "why": "조율 기준을 달리 선택하는 것과 불안정한 음높이는 다르다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "현행 기준 소개, 임의성, 역사적 대체 기준, 현대 밴드·고음악의 다른 조율 사례를 결합하면 현행440 기준의 절대성을 질문하는 제목이 맞는다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s2",
+                "s3",
+                "s4",
+                "s6",
+                "s7"
+              ],
+              "why": "임의 기준과 다른 조율 선택들을 포괄한다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s4",
+                "s7"
+              ],
+              "why": "과거에도 다른 기준을 쓰고 원래 기준을 중시하므로 신규 유행이라는 범위가 틀린다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s1",
+                "s2"
+              ],
+              "why": "주파수 값을 언급하지만 측정 절차를 설명하지 않는다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s5",
+                "s6"
+              ],
+              "why": "소리 차이는 다루지만 감지 방법은 설명하지 않는다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s2",
+                "s4"
+              ],
+              "why": "조율 기준을 달리 선택하는 것과 불안정한 음높이는 다르다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "example",
+          "from_units": [
+            "s3",
+            "s4"
+          ],
+          "to_units": [
+            "s6",
+            "s7"
+          ],
+          "direction": "기준 비절대성→실제 다른 기준 선택",
+          "condition": "현행 표준과 대체 조율 비교",
+          "removal_test": "사례를 글 중심의 구체화로 읽지 않으면 후반 소리 차이 설명을 별도 중심으로 볼 가능성을 해소하지 못한다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "causal",
+          "from_units": [
+            "s6"
+          ],
+          "to_units": [
+            "s6"
+          ],
+          "direction": "독특한 소리 추구→표준과 다른 조율",
+          "condition": "밴드 사례 내부 목적",
+          "removal_test": "목적 연결 없이도 다른 조율 기준이 사용되었다는 사실로 제목을 판별한다.",
+          "necessary": false,
+          "alternative_path": "사례의 조율 차이 사실만 이용",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s3–s4만으로 기준 임의성은 읽히지만 A의 지시·440 기준과 후반 사례의 역할이 빠진다. 전체 제목 및 신규성 후보까지 확인하려면 더 넓은 범위가 필요하다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s3–s4만으로 기준 임의성은 읽히지만 A의 지시·440 기준과 후반 사례의 역할이 빠진다. 전체 제목 및 신규성 후보까지 확인하려면 더 넓은 범위가 필요하다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s3–s4만으로 기준 임의성은 읽히지만 A의 지시·440 기준과 후반 사례의 역할이 빠진다. 전체 제목 및 신규성 후보까지 확인하려면 더 넓은 범위가 필요하다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s3–s4만으로 기준 임의성은 읽히지만 A의 지시·440 기준과 후반 사례의 역할이 빠진다. 전체 제목 및 신규성 후보까지 확인하려면 더 넓은 범위가 필요하다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2015#32",
+      "binding": "c7e505afdc1396c059d304c07659d1c024a24b672863c23b2495968cbebd8398",
+      "solved_answer": 1,
+      "discourse": "argument",
+      "task": "complete",
+      "inference": [
+        {
+          "code": "local_bridge",
+          "target_result": "사회문제 미해결의 실망과 지식 자체의 진보를 혼동하면 안 됨",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "derivation": "지식의 도덕중립성과 사용의 별개성을 확정한 뒤 s6의 양보된 실망과 s7의 진보 부정을 연결한다. 허용된 실망에서 지식 진보 부정으로 넘어가면 범주를 혼동한다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "contrast",
+        "concession",
+        "restatement",
+        "causal",
+        "example"
+      ],
+      "relations_required": [
+        "contrast",
+        "concession"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "사회문제 실망을 지식 진보와 혼동함은 부당",
+          "context_key": "candidate_in_context",
+          "context_description": "s6 빈칸을 후보로 채운 완성 주장; 후보 내용은 독립 전제로 쓰지 않음",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5",
+            "s7",
+            "s8"
+          ],
+          "why": "지식과 사용은 별개이며 분쟁으로 지식 진보를 부정하는 것은 논점을 놓친다고 확정한다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "지식 본성을 아는 것은 도덕가치 실천",
+          "context_key": "candidate_in_context",
+          "context_description": "s6 빈칸을 후보로 채운 완성 주장; 후보 내용은 독립 전제로 쓰지 않음",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s3",
+            "s8"
+          ],
+          "why": "도덕중립성과 정해진 적용 부재에 어긋난다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "불평등 제거는 지식의 본래 목적",
+          "context_key": "candidate_in_context",
+          "context_description": "s6 빈칸을 후보로 채운 완성 주장; 후보 내용은 독립 전제로 쓰지 않음",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s3",
+            "s8"
+          ],
+          "why": "특정 사회적 목적이 내재하지 않는다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "지식 축적은 사회적 적용 개선 자체",
+          "context_key": "candidate_in_context",
+          "context_description": "s6 빈칸을 후보로 채운 완성 주장; 후보 내용은 독립 전제로 쓰지 않음",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s5"
+          ],
+          "why": "가능한 사용과 반드시 개선되는 적용을 동일시하지 못한다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "과학 진보가 곧 사회질병 치유",
+          "context_key": "candidate_in_context",
+          "context_description": "s6 빈칸을 후보로 채운 완성 주장; 후보 내용은 독립 전제로 쓰지 않음",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2",
+            "s5",
+            "s7"
+          ],
+          "why": "바로 그 기대를 지식 본성에 대한 오해로 규정한다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s7",
+            "s8"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "지식의 도덕중립성과 사용의 별개성을 확정한 뒤 s6의 양보된 실망과 s7의 진보 부정을 연결한다. 허용된 실망에서 지식 진보 부정으로 넘어가면 범주를 혼동한다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s7",
+            "s8"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s5",
+                "s7",
+                "s8"
+              ],
+              "why": "지식과 사용은 별개이며 분쟁으로 지식 진보를 부정하는 것은 논점을 놓친다고 확정한다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s3",
+                "s8"
+              ],
+              "why": "도덕중립성과 정해진 적용 부재에 어긋난다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s3",
+                "s8"
+              ],
+              "why": "특정 사회적 목적이 내재하지 않는다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s4",
+                "s5"
+              ],
+              "why": "가능한 사용과 반드시 개선되는 적용을 동일시하지 못한다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s1",
+                "s2",
+                "s5",
+                "s7"
+              ],
+              "why": "바로 그 기대를 지식 본성에 대한 오해로 규정한다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s5"
+          ],
+          "to_units": [
+            "s7"
+          ],
+          "direction": "지식/사용 별개→사회문제로 진보 부정 불가",
+          "condition": "지식의 성질과 활용 결과를 구별",
+          "removal_test": "범주 구별 없이 적용 개선과 지식 진보를 같은 것으로 읽으면 후보1 대4,5의 구별을 잃는다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "concession",
+          "from_units": [
+            "s6"
+          ],
+          "to_units": [
+            "s7"
+          ],
+          "direction": "실망 정당성 인정→진보 부정은 논점 이탈",
+          "condition": "but가 연결하는 두 판단",
+          "removal_test": "양보 관계를 빼면 후보1의 혼동 비판이 앞부분의 실망 정당성을 취소하는지 남긴 것인지 확정하기 어렵다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "빈칸을 포함한 s6은 의미 자극으로 예산에 포함한다. s7–s8에 s6을 무료 추가하면 세 문장이다. s5–s6만으로 나머지 도덕·사회목적 후보의 전범위 검증은 하지 못한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "빈칸을 포함한 s6은 의미 자극으로 예산에 포함한다. s7–s8에 s6을 무료 추가하면 세 문장이다. s5–s6만으로 나머지 도덕·사회목적 후보의 전범위 검증은 하지 못한다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "빈칸을 포함한 s6은 의미 자극으로 예산에 포함한다. s7–s8에 s6을 무료 추가하면 세 문장이다. s5–s6만으로 나머지 도덕·사회목적 후보의 전범위 검증은 하지 못한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "빈칸을 포함한 s6은 의미 자극으로 예산에 포함한다. s7–s8에 s6을 무료 추가하면 세 문장이다. s5–s6만으로 나머지 도덕·사회목적 후보의 전범위 검증은 하지 못한다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2020#36",
+      "binding": "598626e955de46c0da8e390c3af86cb02de0c0b73c7d09497d3e3f40b5a9c593",
+      "solved_answer": 5,
+      "discourse": "exposition",
+      "task": "coherence_order",
+      "inference": [
+        {
+          "code": "local_bridge",
+          "target_result": "주어진 문장 이후 C–B–A",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s1",
+            "s6",
+            "s7",
+            "s4",
+            "s5",
+            "s2",
+            "s3"
+          ],
+          "derivation": "s1 문화적 재생산 주장에 C가 즐거움의 이유를 질문하고 B의 이 질문에 대한 답이 뒤따른다. B의 만족스러운 이야기 진술을 A의 이상적 결말들이 구체화한다. 두 연결을 만족하는 C–B–A를 고른다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "contrast",
+        "reference",
+        "example",
+        "causal",
+        "list"
+      ],
+      "relations_required": [
+        "reference",
+        "example"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "A 뒤 C 뒤 B로 연결",
+          "context_key": "candidate_operation",
+          "context_description": "각 순서대로 블록을 재배치했을 때 질문·응답·구체화의 연결",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "why": "A를 문화 재생산 주장 직후에 놓으면 설명될 만족스러운 이야기 주장에 앞서 사례를 두고 B 답변 뒤 구체화가 끊긴다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "B 뒤 A 뒤 C로 연결",
+          "context_key": "candidate_operation",
+          "context_description": "각 순서대로 블록을 재배치했을 때 질문·응답·구체화의 연결",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s4",
+            "s6"
+          ],
+          "why": "B의 이 질문이라는 표현에 선행 질문이 없고 C가 너무 늦다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "B 뒤 C 뒤 A로 연결",
+          "context_key": "candidate_operation",
+          "context_description": "각 순서대로 블록을 재배치했을 때 질문·응답·구체화의 연결",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s4",
+            "s6"
+          ],
+          "why": "질문이 나오기 전에 이 질문의 답을 놓는다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "C 뒤 A 뒤 B로 연결",
+          "context_key": "candidate_operation",
+          "context_description": "각 순서대로 블록을 재배치했을 때 질문·응답·구체화의 연결",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s5",
+            "s6",
+            "s2",
+            "s3"
+          ],
+          "why": "C 질문을 A가 직접 답할 수는 있어도 B의 질문 지시와 추가 이야기 진술이 사례 뒤로 밀려 응답→구체화 연결보다 약하다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "C 뒤 B 뒤 A로 연결",
+          "context_key": "candidate_operation",
+          "context_description": "각 순서대로 블록을 재배치했을 때 질문·응답·구체화의 연결",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s6",
+            "s4",
+            "s5",
+            "s2",
+            "s3"
+          ],
+          "why": "문화 재생산→왜 재미있는가→만족스러운 이야기→바람직한 결말 사례 순서이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [
+            "s1"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "주어진 s1 상자",
+            "A=s2–s3",
+            "B=s4–s5",
+            "C=s6–s7"
+          ],
+          "operations": [
+            "read",
+            "reorder",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "s1 문화적 재생산 주장에 C가 즐거움의 이유를 질문하고 B의 이 질문에 대한 답이 뒤따른다. B의 만족스러운 이야기 진술을 A의 이상적 결말들이 구체화한다. 두 연결을 만족하는 C–B–A를 고른다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [
+            "s1"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "주어진 s1 상자",
+            "A=s2–s3",
+            "B=s4–s5",
+            "C=s6–s7"
+          ],
+          "operations": [
+            "read",
+            "reorder",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s1",
+                "s2",
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "why": "A를 문화 재생산 주장 직후에 놓으면 설명될 만족스러운 이야기 주장에 앞서 사례를 두고 B 답변 뒤 구체화가 끊긴다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s1",
+                "s4",
+                "s6"
+              ],
+              "why": "B의 이 질문이라는 표현에 선행 질문이 없고 C가 너무 늦다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s1",
+                "s4",
+                "s6"
+              ],
+              "why": "질문이 나오기 전에 이 질문의 답을 놓는다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s4",
+                "s5",
+                "s6",
+                "s2",
+                "s3"
+              ],
+              "why": "C 질문을 A가 직접 답할 수는 있어도 B의 질문 지시와 추가 이야기 진술이 사례 뒤로 밀려 응답→구체화 연결보다 약하다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s1",
+                "s6",
+                "s4",
+                "s5",
+                "s2",
+                "s3"
+              ],
+              "why": "문화 재생산→왜 재미있는가→만족스러운 이야기→바람직한 결말 사례 순서이다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "reference",
+          "from_units": [
+            "s6"
+          ],
+          "to_units": [
+            "s4"
+          ],
+          "direction": "질문→이 질문의 답",
+          "condition": "선행 질문이 필요한 B 첫문장",
+          "removal_test": "이 지시관계를 쓰지 않으면 B로 시작하는 후보2,3을 배제할 수 없다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "example",
+          "from_units": [
+            "s5"
+          ],
+          "to_units": [
+            "s2",
+            "s3"
+          ],
+          "direction": "만족스러운 이야기→이상적 결말들",
+          "condition": "전체가 만족감 이유의 설명 흐름",
+          "removal_test": "이 구체화 관계 없이 C–A–B와 C–B–A를 충분히 구별하기 어렵다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "상자 s1도 한 문장 예산을 쓴다. C의 질문과 B의 응답은 인쇄상 연속창이 아니고 A 구체화까지 더 필요하다. 블록 하나를 문장 하나로 세지 않는다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "상자 s1도 한 문장 예산을 쓴다. C의 질문과 B의 응답은 인쇄상 연속창이 아니고 A 구체화까지 더 필요하다. 블록 하나를 문장 하나로 세지 않는다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "상자 s1도 한 문장 예산을 쓴다. C의 질문과 B의 응답은 인쇄상 연속창이 아니고 A 구체화까지 더 필요하다. 블록 하나를 문장 하나로 세지 않는다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "상자 s1도 한 문장 예산을 쓴다. C의 질문과 B의 응답은 인쇄상 연속창이 아니고 A 구체화까지 더 필요하다. 블록 하나를 문장 하나로 세지 않는다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [
+        "C–A–B는 문법적 불가능이 아니라 담화상 덜 적합하다; 선지4를 사실모순으로 분류하지 않음."
+      ],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2017#38",
+      "binding": "d32870a067afe7c6e8f4ecb137603713031a9ad7eea34ca02c05a3d11d788a19",
+      "solved_answer": 2,
+      "discourse": "argument",
+      "task": "coherence_insert",
+      "inference": [
+        {
+          "code": "local_bridge",
+          "target_result": "주어진 독자 지식 문장을 s5 뒤 s6 앞에 삽입",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s1",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "derivation": "s5는 이전연구로 시작하는 습관을 약하다고 평가한다. 독자가 이미 주제를 안다는 s1을 놓으면 s6의 them 선행사와 불필요한 반복이라는 결론의 이유가 동시에 생긴다. s4–s5의 this 연결도 보존되는 위치2가 가장 맞다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "reference",
+        "causal",
+        "contrast",
+        "condition"
+      ],
+      "relations_required": [
+        "reference",
+        "causal"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "location",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "s5 앞에 독자 지식문장 삽입",
+          "context_key": "candidate_operation",
+          "context_description": "s1을 각 위치에 삽입한 문장 순서에서 선행지시와 논거가 연결되는가",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "why": "s4의 보고서 시작 습관→s5의 this 평가를 끊고 s1의 독자지식이 약하다는 오지시 가능성을 만든다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "location",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "s6 앞에 독자 지식문장 삽입",
+          "context_key": "candidate_operation",
+          "context_description": "s1을 각 위치에 삽입한 문장 순서에서 선행지시와 논거가 연결되는가",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "why": "습관의 약점 평가를 유지하고 s6에 독자 선행사와 반복이 지루한 이유를 준다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "location",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "s7 앞에 독자 지식문장 삽입",
+          "context_key": "candidate_operation",
+          "context_description": "s1을 각 위치에 삽입한 문장 순서에서 선행지시와 논거가 연결되는가",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s6",
+            "s7"
+          ],
+          "why": "s6의 them과 따라서라는 결론이 독자 지식 소개보다 먼저 나와 연결되지 않는다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "location",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "s8 앞에 독자 지식문장 삽입",
+          "context_key": "candidate_operation",
+          "context_description": "s1을 각 위치에 삽입한 문장 순서에서 선행지시와 논거가 연결되는가",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "why": "s6의 them 문제가 남고 s7 새 정보→s8 those pieces 연결을 불필요하게 끊는다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "location",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "s9 앞에 독자 지식문장 삽입",
+          "context_key": "candidate_operation",
+          "context_description": "s1을 각 위치에 삽입한 문장 순서에서 선행지시와 논거가 연결되는가",
+          "textual_support": "not_determined",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "why": "독자 지식이 s6의 지시와 이유보다 늦으며 연대순이 필요한 예외와 직접 연결되지 않는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "stimulus_units": [
+            "s1"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "s1 주어진 상자",
+            "삽입위치①=s5앞,②=s6앞,③=s7앞,④=s8앞,⑤=s9앞"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "s5는 이전연구로 시작하는 습관을 약하다고 평가한다. 독자가 이미 주제를 안다는 s1을 놓으면 s6의 them 선행사와 불필요한 반복이라는 결론의 이유가 동시에 생긴다. s4–s5의 this 연결도 보존되는 위치2가 가장 맞다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "stimulus_units": [
+            "s1"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "s1 주어진 상자",
+            "삽입위치①=s5앞,②=s6앞,③=s7앞,④=s8앞,⑤=s9앞"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s1",
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "why": "s4의 보고서 시작 습관→s5의 this 평가를 끊고 s1의 독자지식이 약하다는 오지시 가능성을 만든다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s1",
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "why": "습관의 약점 평가를 유지하고 s6에 독자 선행사와 반복이 지루한 이유를 준다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s1",
+                "s6",
+                "s7"
+              ],
+              "why": "s6의 them과 따라서라는 결론이 독자 지식 소개보다 먼저 나와 연결되지 않는다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s1",
+                "s6",
+                "s7",
+                "s8"
+              ],
+              "why": "s6의 them 문제가 남고 s7 새 정보→s8 those pieces 연결을 불필요하게 끊는다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s1",
+                "s6",
+                "s7",
+                "s8",
+                "s9"
+              ],
+              "why": "독자 지식이 s6의 지시와 이유보다 늦으며 연대순이 필요한 예외와 직접 연결되지 않는다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "reference",
+          "from_units": [
+            "s1"
+          ],
+          "to_units": [
+            "s6"
+          ],
+          "direction": "독자들→them",
+          "condition": "s1 삽입 후 선행사 정합성",
+          "removal_test": "독자 지시 연결을 이용하지 않으면 s6 이전에 넣어야 하는 제약을 잃는다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "reference",
+          "from_units": [
+            "s4"
+          ],
+          "to_units": [
+            "s5"
+          ],
+          "direction": "보고서 시작 습관→this",
+          "condition": "중간 삽입의 지시 간섭 여부",
+          "removal_test": "이 연결 없이 후보1도 s6 이전 위치라 남으므로 후보2와 구별이 충분하지 않다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "causal",
+          "from_units": [
+            "s1"
+          ],
+          "to_units": [
+            "s6"
+          ],
+          "direction": "독자 사전지식→반복은 지루함",
+          "condition": "따라서의 근거 충족",
+          "removal_test": "지시만으로도 s6앞 제약은 있으나 삽입이 평가 뒤 이유라는 담화상 역할을 보강한다. 후보1 배제는 s4–s5 지시만으로 가능하다.",
+          "necessary": false,
+          "alternative_path": "두 지시관계로 판별",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "좁은 s5–s6에 상자 s1을 더하면 세 문장이다. s1+s6 두 문장만으로 후보2 단서는 생겨도 후보1의 this 연결 및 전체 위치 비교가 빠진다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "좁은 s5–s6에 상자 s1을 더하면 세 문장이다. s1+s6 두 문장만으로 후보2 단서는 생겨도 후보1의 this 연결 및 전체 위치 비교가 빠진다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "좁은 s5–s6에 상자 s1을 더하면 세 문장이다. s1+s6 두 문장만으로 후보2 단서는 생겨도 후보1의 this 연결 및 전체 위치 비교가 빠진다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "좁은 s5–s6에 상자 s1을 더하면 세 문장이다. s1+s6 두 문장만으로 후보2 단서는 생겨도 후보1의 this 연결 및 전체 위치 비교가 빠진다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2023#40",
+      "binding": "8eba09908300bad7456507aa4fa51437fdb9efe187f9b030da00247dfb50eb75",
+      "solved_answer": 1,
+      "discourse": "exposition",
+      "task": "macro_compress",
+      "inference": [
+        {
+          "code": "global_integration",
+          "target_result": "시대와 영역을 넘어 지속되는 장인정신이 발전을 제한하는 요인을 만남",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "derivation": "s2의 지속적 인간 충동과 s3의 영역 확장을 결합해 A를 지속으로 채운다. s5의 사회적 장애와 s7의 약화 요인으로 B를 제한으로 채워 후보1을 도출한다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "contrast",
+        "elaboration",
+        "example",
+        "concession",
+        "list",
+        "reference"
+      ],
+      "relations_required": [
+        "elaboration",
+        "contrast"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "지속해 온 욕구의 온전한 발달이 제한됨",
+          "context_key": "candidate_in_context",
+          "context_description": "s8 요약틀의 두 빈칸을 후보쌍으로 채운 완성 해석; 틀 자체는 본문지지 전제가 아님",
+          "textual_support": "supports",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2",
+            "s3",
+            "s5",
+            "s7"
+          ],
+          "why": "지속성과 여러 장애의 조합에 맞는다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "지속 욕구의 발달을 요인이 길러냄",
+          "context_key": "candidate_in_context",
+          "context_description": "s8 요약틀의 두 빈칸을 후보쌍으로 채운 완성 해석; 틀 자체는 본문지지 전제가 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5",
+            "s7"
+          ],
+          "why": "B의 성장 촉진은 방해·약화와 반대이다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "변화해 온 욕구의 발달이 빨라짐",
+          "context_key": "candidate_in_context",
+          "context_description": "s8 요약틀의 두 빈칸을 후보쌍으로 채운 완성 해석; 틀 자체는 본문지지 전제가 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2",
+            "s5",
+            "s7"
+          ],
+          "why": "변천이 중심이 아니며 발달 가속은 장애와 반대이다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "줄어든 욕구의 발달 형태가 만들어짐",
+          "context_key": "candidate_in_context",
+          "context_description": "s8 요약틀의 두 빈칸을 후보쌍으로 채운 완성 해석; 틀 자체는 본문지지 전제가 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2"
+          ],
+          "why": "산업사회 이후 쇠퇴한 삶이라는 인상을 명시적으로 오해라 하고 지속되는 욕구라 한다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "줄어든 욕구의 발달이 제약됨",
+          "context_key": "candidate_in_context",
+          "context_description": "s8 요약틀의 두 빈칸을 후보쌍으로 채운 완성 해석; 틀 자체는 본문지지 전제가 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2",
+            "s5"
+          ],
+          "why": "B는 맞지만 A의 쇠퇴가 지속성과 반대이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "stimulus_units": [
+            "s8"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "s8 요약 상자도 문장예산 포함",
+            "A·B 열 대응"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "s2의 지속적 인간 충동과 s3의 영역 확장을 결합해 A를 지속으로 채운다. s5의 사회적 장애와 s7의 약화 요인으로 B를 제한으로 채워 후보1을 도출한다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "stimulus_units": [
+            "s8"
+          ],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "s8 요약 상자도 문장예산 포함",
+            "A·B 열 대응"
+          ],
+          "operations": [
+            "read",
+            "insert",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s2",
+                "s3",
+                "s5",
+                "s7"
+              ],
+              "why": "지속성과 여러 장애의 조합에 맞는다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s5",
+                "s7"
+              ],
+              "why": "B의 성장 촉진은 방해·약화와 반대이다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s2",
+                "s5",
+                "s7"
+              ],
+              "why": "변천이 중심이 아니며 발달 가속은 장애와 반대이다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s1",
+                "s2"
+              ],
+              "why": "산업사회 이후 쇠퇴한 삶이라는 인상을 명시적으로 오해라 하고 지속되는 욕구라 한다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s1",
+                "s2",
+                "s5"
+              ],
+              "why": "B는 맞지만 A의 쇠퇴가 지속성과 반대이다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "elaboration",
+          "from_units": [
+            "s2"
+          ],
+          "to_units": [
+            "s3"
+          ],
+          "direction": "지속 욕구→영역의 넓음",
+          "condition": "s8 시간·여러 맥락 두 수식에 대응",
+          "removal_test": "지속성만으로 A단어는 고를 수 있지만 요약 전체의 다양한 맥락 지지를 확인하려면 영역 확장 연결이 필요하다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s2",
+            "s3"
+          ],
+          "to_units": [
+            "s5",
+            "s7"
+          ],
+          "direction": "지속 욕구·역량→실현을 막는 조건",
+          "condition": "내재 욕구와 실현조건 구별",
+          "removal_test": "두 내용을 긍정적 욕구와 방해요인으로 결합하지 않으면 B의 촉진 대 제한을 확정한 요약으로 연결하지 못한다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "A근거 s2와 B근거 s5 또는s7이 비연속이고 요약 s8도 의미 자극이다. 한 문장 또는 연속두문장의 예산으로 두 축과 모든 후보를 확인하지 못한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "A근거 s2와 B근거 s5 또는s7이 비연속이고 요약 s8도 의미 자극이다. 한 문장 또는 연속두문장의 예산으로 두 축과 모든 후보를 확인하지 못한다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "A근거 s2와 B근거 s5 또는s7이 비연속이고 요약 s8도 의미 자극이다. 한 문장 또는 연속두문장의 예산으로 두 축과 모든 후보를 확인하지 못한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "A근거 s2와 B근거 s5 또는s7이 비연속이고 요약 s8도 의미 자극이다. 한 문장 또는 연속두문장의 예산으로 두 축과 모든 후보를 확인하지 못한다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2021#30",
+      "binding": "945120b59d2d9449cad9d477e945670513dc1176a54c30e9e13e6fa1ecdc33d0",
+      "solved_answer": 5,
+      "discourse": "exposition",
+      "task": "lexical_context",
+      "inference": [
+        {
+          "code": "local_bridge",
+          "target_result": "실측 보고로 편향이 바뀌려면 용기의 부재가 아니라 용기 발휘가 필요함",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "derivation": "기대에 맞는 결과만 유지하고 다른 결과를 버리는 행동이 편향을 유지했다. 실측을 기대 대신 보고해 패턴을 바꾼 행위는 그런 압력에 저항하는 쪽이다. 그 행위를 용기가 없었다로 기술하는 lacks는 반대 방향이다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "causal",
+        "contrast",
+        "condition",
+        "restatement",
+        "sequence",
+        "reference"
+      ],
+      "relations_required": [
+        "causal",
+        "contrast"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "광속은 과학의 측정 대상량",
+          "context_key": "candidate_in_context",
+          "context_description": "해당 밑줄 낱말을 넣은 문맥상 주장. 해당 낱말 자체를 지지 근거로 삼지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2"
+          ],
+          "why": "빛의 속도 측정이라는 주제 및 측정되는 대상 의미와 맞는다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "높게 측정된 때와 반대로 낮게 측정됨",
+          "context_key": "candidate_in_context",
+          "context_description": "해당 밑줄 낱말을 넣은 문맥상 주장. 해당 낱말 자체를 지지 근거로 삼지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4",
+            "s5"
+          ],
+          "why": "너무 높음에서 너무 낮음으로 바뀌어 반대라는 단어가 맞는다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "기대값에 맞도록 결과 조정",
+          "context_key": "candidate_in_context",
+          "context_description": "해당 밑줄 낱말을 넣은 문맥상 주장. 해당 낱말 자체를 지지 근거로 삼지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s8",
+            "s9"
+          ],
+          "why": "기대에 맞으면 유지하고 아니면 버리므로 기대에 일치시키는 조정이다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "기존 믿음에 영향받는 실험자",
+          "context_key": "candidate_in_context",
+          "context_description": "해당 밑줄 낱말을 넣은 문맥상 주장. 해당 낱말 자체를 지지 근거로 삼지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "why": "고의적 부정 대신 무의식적으로 기대를 따르는 모습이다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "실측을 보고하는 전환자는 용기가 없었음",
+          "context_key": "candidate_in_context",
+          "context_description": "해당 밑줄 낱말을 넣은 문맥상 주장. 해당 낱말 자체를 지지 근거로 삼지 않음",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "why": "기대에서 벗어난 측정 결과를 보고하는 행위와 용기 부재는 문맥 방향이 맞지 않는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "기대에 맞는 결과만 유지하고 다른 결과를 버리는 행동이 편향을 유지했다. 실측을 기대 대신 보고해 패턴을 바꾼 행위는 그런 압력에 저항하는 쪽이다. 그 행위를 용기가 없었다로 기술하는 lacks는 반대 방향이다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s1",
+                "s2"
+              ],
+              "why": "빛의 속도 측정이라는 주제 및 측정되는 대상 의미와 맞는다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s4",
+                "s5"
+              ],
+              "why": "너무 높음에서 너무 낮음으로 바뀌어 반대라는 단어가 맞는다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s8",
+                "s9"
+              ],
+              "why": "기대에 맞으면 유지하고 아니면 버리므로 기대에 일치시키는 조정이다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s7",
+                "s8",
+                "s9"
+              ],
+              "why": "고의적 부정 대신 무의식적으로 기대를 따르는 모습이다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s7",
+                "s8",
+                "s9",
+                "s10"
+              ],
+              "why": "기대에서 벗어난 측정 결과를 보고하는 행위와 용기 부재는 문맥 방향이 맞지 않는다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "causal",
+          "from_units": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "to_units": [
+            "s11"
+          ],
+          "direction": "기대 추종에 따른 편향→실측보고로 전환",
+          "condition": "사회적 압력에 따름과 벗어남 구별",
+          "removal_test": "전환의 이유를 연결하지 않으면 lacking의 반대 극성을 단순 상식으로 넣게 되어 본문기반 판단이 아니다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "to_units": [
+            "s11"
+          ],
+          "direction": "기대 추종→기대 대신 실측 보고",
+          "condition": "패턴 유지와 전환 행동의 대비",
+          "removal_test": "두 행동의 대조를 제거하면 용기의 방향을 글 흐름에서 판별할 수 없다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s11 하나는 시험대상 lacking을 포함하므로 자기지지 불가하다. s10–s11만으로 기대 추종의 구체적 기제를 모두 확정하지 못하며 나머지 낱말 판단은 앞부분이 필요하다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s11 하나는 시험대상 lacking을 포함하므로 자기지지 불가하다. s10–s11만으로 기대 추종의 구체적 기제를 모두 확정하지 못하며 나머지 낱말 판단은 앞부분이 필요하다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s11 하나는 시험대상 lacking을 포함하므로 자기지지 불가하다. s10–s11만으로 기대 추종의 구체적 기제를 모두 확정하지 못하며 나머지 낱말 판단은 앞부분이 필요하다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "s11 하나는 시험대상 lacking을 포함하므로 자기지지 불가하다. s10–s11만으로 기대 추종의 구체적 기제를 모두 확정하지 못하며 나머지 낱말 판단은 앞부분이 필요하다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [
+        "용기 표현의 문맥 반대는 사실세계에서 모든 보고자에게 용기가 있다는 보편 명제의 증명이 아니다."
+      ],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2018#28",
+      "binding": "7320c2e8b271c650b434e7c6d6a85ea4f295eb3d6c6f0d5341e753ad9ede4362",
+      "solved_answer": 2,
+      "discourse": "exposition",
+      "task": "grammar",
+      "inference": [
+        {
+          "code": "syntax_semantics",
+          "target_result": "② what은 완성 절을 이끄는 위치에서 부적합하며 whether가 맞음",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s2"
+          ],
+          "derivation": "about 뒤 병렬 절은 자선단체가 무엇을 하는지와 긍정적 영향을 주는지의 증거이다. 두번째 절은 주어 it과 술부 is having a positive impact가 완성되어 what의 명사성 결손자리가 없다. ②가 어법상 부적합하다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "contrast",
+        "condition",
+        "causal",
+        "elaboration"
+      ],
+      "relations_required": [],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "복수 심리학자 주어와 완료형 have의 결합",
+          "context_key": "candidate_operation",
+          "context_description": "해당 밑줄 형식을 포함한 구문이 문장 내 통사·의미 역할에 맞는가; 사실진위 판정이 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1"
+          ],
+          "why": "주어 핵은 복수 psychologists이며 관계절이 수 일치를 바꾸지 않는다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "완성된 영향 여부 절 앞 what의 사용",
+          "context_key": "candidate_operation",
+          "context_description": "해당 밑줄 형식을 포함한 구문이 문장 내 통사·의미 역할에 맞는가; 사실진위 판정이 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2"
+          ],
+          "why": "impact의 목적어 구조까지 완성되어 what을 명사절 결손 성분으로 해석할 자리가 없다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "진행형 are 뒤 doing의 분사 형태",
+          "context_key": "candidate_operation",
+          "context_description": "해당 밑줄 형식을 포함한 구문이 문장 내 통사·의미 역할에 맞는가; 사실진위 판정이 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4"
+          ],
+          "why": "what 명사절 안에서 are doing이 진행형을 이룬다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "사역동사 makes 뒤 목적격 them",
+          "context_key": "candidate_operation",
+          "context_description": "해당 밑줄 형식을 포함한 구문이 문장 내 통사·의미 역할에 맞는가; 사실진위 판정이 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5"
+          ],
+          "why": "목적어 them과 원형보어 feel good의 사역 구조가 맞는다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "fragment",
+          "raw_support": "not_propositional",
+          "normalized_proposition": "잠시 멈추어 생각한다는 목적 to think",
+          "context_key": "candidate_operation",
+          "context_description": "해당 밑줄 형식을 포함한 구문이 문장 내 통사·의미 역할에 맞는가; 사실진위 판정이 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s6"
+          ],
+          "why": "생각을 하려고 멈춘다면 처리비용을 깨닫는다는 가정이므로 stop+목적부정사가 맞는다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "about 뒤 병렬 절은 자선단체가 무엇을 하는지와 긍정적 영향을 주는지의 증거이다. 두번째 절은 주어 it과 술부 is having a positive impact가 완성되어 what의 명사성 결손자리가 없다. ②가 어법상 부적합하다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s1"
+              ],
+              "why": "주어 핵은 복수 psychologists이며 관계절이 수 일치를 바꾸지 않는다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s2"
+              ],
+              "why": "impact의 목적어 구조까지 완성되어 what을 명사절 결손 성분으로 해석할 자리가 없다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s4"
+              ],
+              "why": "what 명사절 안에서 are doing이 진행형을 이룬다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s5"
+              ],
+              "why": "목적어 them과 원형보어 feel good의 사역 구조가 맞는다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s6"
+              ],
+              "why": "생각을 하려고 멈춘다면 처리비용을 깨닫는다는 가정이므로 stop+목적부정사가 맞는다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p3",
+          "goal": "AI",
+          "status": "conditional",
+          "used_units": [
+            "s2"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s2"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응"
+          ],
+          "operations": [
+            "read",
+            "compare_options"
+          ],
+          "assumptions": [
+            "해당 창이 전체 과제판단을 대표한다는 전제 또는 유일정답 전제; 본문만으로 확정하지 않음"
+          ],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "② 오류 발견은 직접 가능; 유일 오류라는 조건으로 AI를 얻는다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s1"
+          ],
+          "to_units": [
+            "s4"
+          ],
+          "direction": "기부자 두 유형 대비",
+          "condition": "문단 내용 이해",
+          "removal_test": "유형 대조를 이용하지 않아도 각 후보 문장의 통사 구조로 오류와 나머지 문법을 확인한다.",
+          "necessary": false,
+          "alternative_path": "개별 문장 통사검사",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "conditional",
+            "path_id": "p3",
+            "why": "s2가 ②의 부적합을 입증한다. 오답이 하나라는 과제관행을 추가해야 다른 후보 미검증 상태에서 정답을 유일 식별한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "①③④⑤의 구조는 s1,s4,s5,s6에 흩어져 있다. 한 문장의 틀림 발견으로 나머지 네 개의 맞음을 확인했다고 하지 않는다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "conditional",
+            "path_id": "p3",
+            "why": "s2의 잘못된 구조를 확인할 수 있지만 다른 네 형식까지 확인하지 못한다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "①③④⑤의 구조는 s1,s4,s5,s6에 흩어져 있다. 한 문장의 틀림 발견으로 나머지 네 개의 맞음을 확인했다고 하지 않는다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [
+        "textual_support는 문법 후보의 적합성으로 정규화하였다. 실제 기부행동의 세계사실 지지와 비교하면 판단대상이 달라진다."
+      ],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2014A#32",
+      "binding": "37ab2f0202d67536fecf03acaafadef20d2b86d6996d9fcdc69da26ea51b173f",
+      "solved_answer": 4,
+      "discourse": "data",
+      "task": "quantitative",
+      "inference": [
+        {
+          "code": "numeric_operation",
+          "target_result": "55–64와65–74의 연간 시간이 같다는 후보4가 도표와 불일치",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [],
+          "derivation": "c15=205시간과c18=216시간을 비교하면 같지 않다. 후보4의 다른 비교158<170은 참이지만 등시 주장 부분이 거짓이므로 복합명제가 도표와 불일치한다. 전체 값 순위·증가·범위를 별도로 확인해 나머지 후보도 검증한다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "contrast",
+        "concession",
+        "sequence"
+      ],
+      "relations_required": [],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "일곱 연령 비율의 범위29–58·전체 평균46",
+          "context_key": "candidate_fact",
+          "context_description": "원그래프에서 전사한 printed cells의 값과 후보의 수량 주장; 전사 행렬은 원래 인쇄된 표가 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [],
+          "why": "c2,c5,c8,c11,c14,c17,c20의 최소29 최대58; c23=46. 후보 자체를 기준값으로 쓰지 않았다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "시간은25–34의133을 제외하고 나이순 증가",
+          "context_key": "candidate_fact",
+          "context_description": "원그래프에서 전사한 printed cells의 값과 후보의 수량 주장; 전사 행렬은 원래 인쇄된 표가 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [],
+          "why": "시간열 c3=138,c6=133,c9=158,c12=170,c15=205,c18=216,c21=222를 비교. 첫 전이 외 모두 증가한다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "15–24는 비율 최고·시간 두번째로 적음",
+          "context_key": "candidate_fact",
+          "context_description": "원그래프에서 전사한 printed cells의 값과 후보의 수량 주장; 전사 행렬은 원래 인쇄된 표가 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [],
+          "why": "비율열 최대 c2=58. 시간은 c6=133 다음 c3=138이며 나머지는 더 높다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "proposition",
+          "raw_support": "contradicts",
+          "normalized_proposition": "35–44 시간은45–54보다 적고55–64와65–74 시간은 같음",
+          "context_key": "candidate_fact",
+          "context_description": "원그래프에서 전사한 printed cells의 값과 후보의 수량 주장; 전사 행렬은 원래 인쇄된 표가 아님",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [],
+          "why": "c9=158<c12=170은 참이지만 c15=205와c18=216은 다르다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "75이상은 비율최저이면서 시간최고",
+          "context_key": "candidate_fact",
+          "context_description": "원그래프에서 전사한 printed cells의 값과 후보의 수량 주장; 전사 행렬은 원래 인쇄된 표가 아님",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [],
+          "why": "c20=29는 비율열 최소, c21=222는 시간열 최대."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [],
+          "stimulus_units": [],
+          "complete_sentences": [],
+          "visual_cells": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5",
+            "c6",
+            "c7",
+            "c8",
+            "c9",
+            "c10",
+            "c11",
+            "c12",
+            "c13",
+            "c14",
+            "c15",
+            "c16",
+            "c17",
+            "c18",
+            "c19",
+            "c20",
+            "c21",
+            "c22",
+            "c23",
+            "c24"
+          ],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "막대=비율,선=시간",
+            "연도2007",
+            "두 축 단위 %·시간",
+            "전사행렬은 원시각 그래프와 구별"
+          ],
+          "operations": [
+            "read",
+            "calculate",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "c15=205시간과c18=216시간을 비교하면 같지 않다. 후보4의 다른 비교158<170은 참이지만 등시 주장 부분이 거짓이므로 복합명제가 도표와 불일치한다. 전체 값 순위·증가·범위를 별도로 확인해 나머지 후보도 검증한다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [],
+          "stimulus_units": [],
+          "complete_sentences": [],
+          "visual_cells": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5",
+            "c6",
+            "c7",
+            "c8",
+            "c9",
+            "c10",
+            "c11",
+            "c12",
+            "c13",
+            "c14",
+            "c15",
+            "c16",
+            "c17",
+            "c18",
+            "c19",
+            "c20",
+            "c21",
+            "c22",
+            "c23",
+            "c24"
+          ],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "막대=비율,선=시간",
+            "연도2007",
+            "두 축 단위 %·시간",
+            "전사행렬은 원시각 그래프와 구별"
+          ],
+          "operations": [
+            "read",
+            "calculate",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [],
+              "why": "c2,c5,c8,c11,c14,c17,c20의 최소29 최대58; c23=46. 후보 자체를 기준값으로 쓰지 않았다."
+            },
+            {
+              "n": 2,
+              "units": [],
+              "why": "시간열 c3=138,c6=133,c9=158,c12=170,c15=205,c18=216,c21=222를 비교. 첫 전이 외 모두 증가한다."
+            },
+            {
+              "n": 3,
+              "units": [],
+              "why": "비율열 최대 c2=58. 시간은 c6=133 다음 c3=138이며 나머지는 더 높다."
+            },
+            {
+              "n": 4,
+              "units": [],
+              "why": "c9=158<c12=170은 참이지만 c15=205와c18=216은 다르다."
+            },
+            {
+              "n": 5,
+              "units": [],
+              "why": "c20=29는 비율열 최소, c21=222는 시간열 최대."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p3",
+          "goal": "AI",
+          "status": "conditional",
+          "used_units": [],
+          "stimulus_units": [],
+          "complete_sentences": [],
+          "visual_cells": [
+            "c13",
+            "c15",
+            "c16",
+            "c18"
+          ],
+          "gloss_ids": [],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "막대=비율,선=시간",
+            "연도2007",
+            "두 축 단위 %·시간",
+            "전사행렬은 원시각 그래프와 구별"
+          ],
+          "operations": [
+            "read",
+            "calculate",
+            "compare_options"
+          ],
+          "assumptions": [
+            "해당 창이 전체 과제판단을 대표한다는 전제 또는 유일정답 전제; 본문만으로 확정하지 않음"
+          ],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "55–64/65–74 두 행의 시간값 차이로 후보4 반증; 유일정답 전제하에 AI.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "concession",
+          "from_units": [],
+          "to_units": [],
+          "direction": "최저 비율에도 최고 시간",
+          "condition": "후보5의 두 수량 속성",
+          "removal_test": "두 속성을 별도로 수치 검증하면 되고 양보 담화관계 자체를 이용할 필요는 없다.",
+          "necessary": false,
+          "alternative_path": "최소·최대값 독립 비교",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "수치 전제가 산문이 아니라 그래프 cells이다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "한 산문문장으로 도표 수치 판단 불가. 두 연령행의 205 대216만으로 후보4의 거짓은 확인되지만 유일정답 전제가 없으면 다른 후보까지 배제하지 못한다. FOV는 두 데이터열 전량과 나이행 대응을 사용한다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "conditional",
+            "path_id": "p3",
+            "why": "두 행 c13,c15,c16,c18로 후보4를 반증하나 유일 불일치라는 조건을 추가한다."
+          },
+          "FOV": {
+            "status": "sufficient",
+            "path_id": "p2",
+            "why": "나이 라벨이 보존된 두 데이터열(비율·시간)의 전량 16값과 전체평균값으로 다섯 후보를 모두 비교한다. 이는 두 열의 그래프 유래 행렬 예산이고 원그래프 읽기와 동등함은 주장하지 않는다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [
+        "p2 selective 양성은 전사행렬의 두 데이터열 범위에 한정한다. 원그래프 시선이나 읽기행동의 양성 결과가 아니다."
+      ],
+      "claim_level": "AI_source_bound_not_student"
+    },
+    {
+      "id": "2019#35",
+      "binding": "392b11b0fa1565e9501639576b00b98bb225a72fcfdce147eabc8849e1499069",
+      "solved_answer": 4,
+      "discourse": "exposition",
+      "task": "coherence_remove",
+      "inference": [
+        {
+          "code": "global_integration",
+          "target_result": "재현에서 추상·내면표현으로 전환된 흐름에 현실 재현 강화 문장이 이탈",
+          "missing_information": "외부 정보 불필요; 본문과 후보의 의미 비교를 수행한다.",
+          "premise_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s7"
+          ],
+          "derivation": "사진의 재현 우위가 회화 위기를 만들고 일부 사진 활용과 달리 전반적으로 추상회화로 이동했으며 내면·상상을 표현하게 되었다. 현실 그대로 재현하는 데 더 집중했다는 s6은 그 전환 방향과 반대여서 제거한다.",
+          "external_assumption": null
+        }
+      ],
+      "relations_present": [
+        "causal",
+        "contrast",
+        "example",
+        "reference",
+        "sequence"
+      ],
+      "relations_required": [
+        "contrast",
+        "causal"
+      ],
+      "choices": [
+        {
+          "n": 1,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "일부 화가가 사진을 실제 활용함",
+          "context_key": "candidate_operation",
+          "context_description": "각 후보를 제거 대상으로 보아 그 후보를 제외한 확정된 주변 글의 설명흐름과 비교. 후보 자신을 지지 전제로 쓰지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s4"
+          ],
+          "why": "다음 문장의 사진을 모델·풍경 대신 쓴 화가 사례가 후보1을 구체화한다. 제거 대상에 맞지 않는다."
+        },
+        {
+          "n": 2,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "인상주의 일부가 사진을 참고 자료로 씀",
+          "context_key": "candidate_operation",
+          "context_description": "각 후보를 제거 대상으로 보아 그 후보를 제외한 확정된 주변 글의 설명흐름과 비교. 후보 자신을 지지 전제로 쓰지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s3"
+          ],
+          "why": "사진의 실용적 활용이라는 확정된 일반진술의 구체적 사례로 맞는다; 인상주의 역사 자체의 외부검증은 안 했다."
+        },
+        {
+          "n": 3,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "사진의 도전 때문에 회화가 직접재현에서 추상으로 이동",
+          "context_key": "candidate_operation",
+          "context_description": "각 후보를 제거 대상으로 보아 그 후보를 제외한 확정된 주변 글의 설명흐름과 비교. 후보 자신을 지지 전제로 쓰지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s1",
+            "s2",
+            "s7"
+          ],
+          "why": "사진의 재현 우위와 내면표현 자유를 잇는 일반 전환 설명이다."
+        },
+        {
+          "n": 4,
+          "raw_expression_kind": "proposition",
+          "raw_support": "contradicts",
+          "normalized_proposition": "20세기 화가가 현실 그대로 표현하는 데 더 집중",
+          "context_key": "candidate_operation",
+          "context_description": "각 후보를 제거 대상으로 보아 그 후보를 제외한 확정된 주변 글의 설명흐름과 비교. 후보 자신을 지지 전제로 쓰지 않음",
+          "textual_support": "contradicts",
+          "task_fit": "fits",
+          "world_truth": "not_assessed",
+          "units": [
+            "s5",
+            "s7"
+          ],
+          "why": "직접재현을 떠나 추상과 내면·상상을 표현했다는 확정 문맥의 전반 방향과 반대이다."
+        },
+        {
+          "n": 5,
+          "raw_expression_kind": "proposition",
+          "raw_support": "supports",
+          "normalized_proposition": "사진의 좋은 재현 덕에 화가가 상상·감정을 표현",
+          "context_key": "candidate_operation",
+          "context_description": "각 후보를 제거 대상으로 보아 그 후보를 제외한 확정된 주변 글의 설명흐름과 비교. 후보 자신을 지지 전제로 쓰지 않음",
+          "textual_support": "supports",
+          "task_fit": "fails",
+          "world_truth": "not_assessed",
+          "units": [
+            "s2",
+            "s5"
+          ],
+          "why": "사진이 재현을 잘하며 회화는 직접재현을 떠났다는 두 확정 진술에 맞는 설명이다."
+        }
+      ],
+      "paths": [
+        {
+          "id": "p1",
+          "goal": "AI",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "①–⑤ inline 문장=s3–s7",
+            "후보본문 복제 공급범위 union s3–s7"
+          ],
+          "operations": [
+            "read",
+            "remove",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [],
+          "why": "사진의 재현 우위가 회화 위기를 만들고 일부 사진 활용과 달리 전반적으로 추상회화로 이동했으며 내면·상상을 표현하게 되었다. 현실 그대로 재현하는 데 더 집중했다는 s6은 그 전환 방향과 반대여서 제거한다.",
+          "alternative_path": null
+        },
+        {
+          "id": "p2",
+          "goal": "FOV",
+          "status": "sufficient",
+          "used_units": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "stimulus_units": [],
+          "complete_sentences": [
+            "s1",
+            "s2",
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "visual_cells": [],
+          "gloss_ids": [
+            "g1",
+            "g2"
+          ],
+          "candidate_information": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "presentation_information": [
+            "발문 극성",
+            "①–⑤ 후보 대응",
+            "①–⑤ inline 문장=s3–s7",
+            "후보본문 복제 공급범위 union s3–s7"
+          ],
+          "operations": [
+            "read",
+            "remove",
+            "compare_options"
+          ],
+          "assumptions": [],
+          "external_reference": [],
+          "option_evidence": [
+            {
+              "n": 1,
+              "units": [
+                "s4"
+              ],
+              "why": "다음 문장의 사진을 모델·풍경 대신 쓴 화가 사례가 후보1을 구체화한다. 제거 대상에 맞지 않는다."
+            },
+            {
+              "n": 2,
+              "units": [
+                "s3"
+              ],
+              "why": "사진의 실용적 활용이라는 확정된 일반진술의 구체적 사례로 맞는다; 인상주의 역사 자체의 외부검증은 안 했다."
+            },
+            {
+              "n": 3,
+              "units": [
+                "s1",
+                "s2",
+                "s7"
+              ],
+              "why": "사진의 재현 우위와 내면표현 자유를 잇는 일반 전환 설명이다."
+            },
+            {
+              "n": 4,
+              "units": [
+                "s5",
+                "s7"
+              ],
+              "why": "직접재현을 떠나 추상과 내면·상상을 표현했다는 확정 문맥의 전반 방향과 반대이다."
+            },
+            {
+              "n": 5,
+              "units": [
+                "s2",
+                "s5"
+              ],
+              "why": "사진이 재현을 잘하며 회화는 직접재현을 떠났다는 두 확정 진술에 맞는 설명이다."
+            }
+          ],
+          "why": "각 후보를 확정된 주변정보와 개별 대조한다. 후보 자체는 그 후보의 지지 전제가 아니다.",
+          "alternative_path": null
+        }
+      ],
+      "relation_tests": [
+        {
+          "path_id": "p1",
+          "relation": "contrast",
+          "from_units": [
+            "s3",
+            "s4"
+          ],
+          "to_units": [
+            "s5",
+            "s7"
+          ],
+          "direction": "일부 실용사용→전반적 회화 전환",
+          "condition": "일부 사례와 전체 방향 구별",
+          "removal_test": "일부가 사진으로 현실을 그렸다는 사실과 전체 회화의 추상화 방향을 구별하지 않으면 후보2와4의 적합성 판단을 혼동한다.",
+          "necessary": true,
+          "alternative_path": null,
+          "extra_information": []
+        },
+        {
+          "path_id": "p1",
+          "relation": "causal",
+          "from_units": [
+            "s2"
+          ],
+          "to_units": [
+            "s5",
+            "s7"
+          ],
+          "direction": "사진 재현 우위→회화의 다른 표현방향",
+          "condition": "사진과 회화의 역할 분화",
+          "removal_test": "전환 방향의 대비만으로도 s6 이탈은 발견하나 사진이 그 전환의 원인이라는 전체 설명의 FOV는 인과 연결을 이용한다.",
+          "necessary": false,
+          "alternative_path": "s5와s7의 전환 방향 비교로 AI",
+          "extra_information": []
+        }
+      ],
+      "limited": {
+        "core_sentence": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "선택지1–5가 본문의 s3–s7 전체를 복제한다. s5–s6 두문장 창만 읽었다고 주장해도 후보를 모두 공급하면 실제 union은 s3–s7 다섯문장이다. AI/FOV의 좁은창 긍정을 선언하지 않는다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "선택지1–5가 본문의 s3–s7 전체를 복제한다. s5–s6 두문장 창만 읽었다고 주장해도 후보를 모두 공급하면 실제 union은 s3–s7 다섯문장이다. AI/FOV의 좁은창 긍정을 선언하지 않는다."
+          }
+        },
+        "selective": {
+          "AI": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "선택지1–5가 본문의 s3–s7 전체를 복제한다. s5–s6 두문장 창만 읽었다고 주장해도 후보를 모두 공급하면 실제 union은 s3–s7 다섯문장이다. AI/FOV의 좁은창 긍정을 선언하지 않는다."
+          },
+          "FOV": {
+            "status": "insufficient",
+            "path_id": null,
+            "why": "선택지1–5가 본문의 s3–s7 전체를 복제한다. s5–s6 두문장 창만 읽었다고 주장해도 후보를 모두 공급하면 실제 union은 s3–s7 다섯문장이다. AI/FOV의 좁은창 긍정을 선언하지 않는다."
+          }
+        }
+      },
+      "source_status": "complete",
+      "unresolved": [
+        "관계 필요 집합은 전체 설명을 사용하는 주 경로 기준이다. 인과를 쓰지 않는 s5/s7 방향 비교 AI 대안이 있어 그 관계의 최소필요성은 추가 검토 대상이다."
+      ],
+      "claim_level": "AI_source_bound_not_student"
+    }
+  ]
+}
