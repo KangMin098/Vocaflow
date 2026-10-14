@@ -14,7 +14,10 @@ import { useState } from 'react'
 import type { MeaningSupportView, MsProposition, MsRelation } from '@/lib/csat/meaning-support/labels'
 import { BASIS_LABEL_MS, FACET_LABEL, RELATION_KIND_LABEL, WHOLE_TITLE } from '@/lib/csat/meaning-support/labels'
 
+import { wholeNarration } from '@/lib/csat/meaning-support/narration'
+
 import styles from './theater.module.css'
+import type { useMeaningNarration } from './useMeaningNarration'
 
 /** 명제가 가리키는 원문 문장 번호(앵커 → 문장) */
 function sentencesOfProp(view: MeaningSupportView, p: MsProposition): number[] {
@@ -48,6 +51,7 @@ export function MeaningWholeView({
   activeUnitId,
   activeRelationId,
   onTrace,
+  narration,
 }: {
   view: MeaningSupportView
   depth: 'brief' | 'why' | 'deep'
@@ -55,6 +59,8 @@ export function MeaningWholeView({
   activeRelationId: string | null
   /** 역추적 — 그 의미(와 관계)를 고르면 원문 판 · 지도가 같은 문장을 비춘다 */
   onTrace: (unitId: string, relationId: string | null) => void
+  /** 읽어 주기(검수된 단계 본문 그대로) — 지금 읽는 단계 · 연결을 강조한다 */
+  narration?: ReturnType<typeof useMeaningNarration>
 }) {
   const [open, setOpen] = useState(false)
   const shown = open || depth === 'deep'
@@ -69,6 +75,7 @@ export function MeaningWholeView({
         type="button"
         className={styles.msWholeLink}
         aria-pressed={r.id === activeRelationId}
+        data-speaking={narration?.currentKey === `link:${r.id}` ? 'true' : undefined}
         onClick={() => from && onTrace(from, r.id)}
         data-testid="ms-whole-link"
         data-relation={r.id}
@@ -81,6 +88,21 @@ export function MeaningWholeView({
 
   return (
     <div className={styles.msWhole} data-testid="ms-whole-steps-wrap">
+      {shown && narration ? (
+        <p className={styles.msSpeakRow}>
+          <button
+            type="button"
+            className={styles.back}
+            aria-pressed={narration.group === 'whole' && narration.status === 'playing'}
+            onClick={() => void narration.play('whole', wholeNarration(view, { props, links }))}
+            data-testid="ms-whole-speak"
+          >
+            {narration.group === 'whole' ? (narration.status === 'loading' ? '음성 준비 중…' : narration.status === 'playing' ? '멈춤' : '이어서 듣기') : '단계 읽어 주기'}
+          </button>
+          {narration.group === 'whole' ? <button type="button" className={styles.back} onClick={narration.stop} data-testid="ms-speak-stop">그만 듣기</button> : null}
+          {narration.group === 'whole' && narration.silent ? <span className={styles.quiet}>이 기기에 한국어 음성이 없어 강조만 넘어가요</span> : null}
+        </p>
+      ) : null}
       <button type="button" className={styles.back} aria-expanded={shown} onClick={() => setOpen((v) => !v)} disabled={depth === 'deep'} data-testid="ms-whole-toggle">
         {shown ? `${WHOLE_TITLE[view.whole.genre]}이 만들어지는 과정` : `이 ${WHOLE_TITLE[view.whole.genre]}은 어떻게 나오나 — 단계로 펼치기`}
       </button>
@@ -96,6 +118,7 @@ export function MeaningWholeView({
                   type="button"
                   className={styles.msWholeStep}
                   aria-pressed={u?.id === activeUnitId && !activeRelationId}
+                  data-speaking={narration?.currentKey === `step:${p.id}` ? 'true' : undefined}
                   disabled={!u}
                   onClick={() => u && onTrace(u.id, null)}
                   data-testid="ms-whole-step"
@@ -113,7 +136,7 @@ export function MeaningWholeView({
             )
           })}
           <li>
-            <p className={`${styles.msWholeResult} break-keep`} data-testid="ms-whole-result">
+            <p className={`${styles.msWholeResult} break-keep`} data-testid="ms-whole-result" data-speaking={narration?.currentKey === 'result' ? 'true' : undefined}>
               <span className={styles.diagramLabel}>그래서 → {WHOLE_TITLE[view.whole.genre]}</span>
               {view.whole.summaryKo}
             </p>

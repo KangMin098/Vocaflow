@@ -9,14 +9,18 @@
 // 영어 구절은 두 길로만 보인다: 기존 공개 표현(quote · 8단어 이하) 또는 **학습자 기기 문제지에서 대조로 찾은 글자**.
 // 기기 원문이 설명을 쓸 때의 원문과 다르면 구절 표시 · 지도 강조를 끄고 그 이유를 말한다(잘못된 자리를 비추지 않는다).
 
+import { useEffect } from 'react'
+
 import type { TextAlign } from '@/lib/csat/meaning-support/align'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
 import { BASIS_LABEL_MS, DEPTH_LABEL, FACET_LABEL, WHOLE_TITLE } from '@/lib/csat/meaning-support/labels'
 import { bridgeOf, DEPTHS, phraseRowsOf, relationsOfUnit } from '@/lib/csat/meaning-support/model'
+import { unitNarration } from '@/lib/csat/meaning-support/narration'
 
 import { MeaningDraft } from './MeaningDraft'
 import { MeaningRelationView } from './MeaningRelationView'
 import { MeaningBoundaryView, MeaningWholeView } from './MeaningWholeView'
+import { useMeaningNarration } from './useMeaningNarration'
 import styles from './theater.module.css'
 
 const ROLE_LABEL: Record<string, string> = { main: '핵심 줄기', modifier: '꾸밈', clause: '절', connector: '연결어' }
@@ -52,6 +56,7 @@ export function MeaningSupportPanel({
   onDraft,
   onGo,
   onTrace,
+  onSpeaking,
 }: {
   view: MeaningSupportView
   unitId: string | null
@@ -76,7 +81,16 @@ export function MeaningSupportPanel({
   onGo: (scene: 'judgment' | 'design') => void
   /** 전체 통합 · 경계에서 거슬러 오르기 — 의미(와 관계)를 한 번에 고른다 */
   onTrace: (unitId: string, relationId: string | null, target?: 'step' | 'link' | 'boundary') => void
+  /** 읽어 주는 동안 그 설명이 걸린 원문 문장(1부터) — 지도 강조가 말을 따라간다. 끝나면 빈 배열 */
+  onSpeaking?: (sentences: number[]) => void
 }) {
+  const narration = useMeaningNarration(view.itemId)
+  const speakKey = narration.currentSentences.join(',')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { onSpeaking?.(narration.currentSentences) }, [speakKey])
+  // 학습자가 다른 의미를 직접 고르면 그 의미 읽기를 멈춘다(말과 화면이 어긋나지 않게)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { if (narration.group?.startsWith('unit:')) narration.stop() }, [unitId])
   const unit = pick ? null : view.units.find((u) => u.id === unitId) ?? null
   const relation = view.relations.find((r) => r.id === relationId) ?? null
   const rels = relationsOfUnit(view, unit?.id ?? null)
@@ -104,7 +118,7 @@ export function MeaningSupportPanel({
         <span className={styles.epistemic}>독립 검수 · 원문 대조</span>
       </p>
       <p className="break-keep" data-testid="ms-whole">{view.whole.summaryKo}</p>
-      <MeaningWholeView view={view} depth={depth} activeUnitId={unit?.id ?? null} activeRelationId={relationId} onTrace={onTrace} />
+      <MeaningWholeView view={view} depth={depth} activeUnitId={unit?.id ?? null} activeRelationId={relationId} onTrace={onTrace} narration={narration} />
       {view.partial ? <p className={`${styles.quiet} break-keep`} data-testid="ms-partial">{view.partial.withheldKo}</p> : null}
       <p className={`${styles.quiet} break-keep`} role="status" data-testid="ms-align-status">{alignMessage(textAlign, splitOk)}</p>
 
@@ -144,8 +158,18 @@ export function MeaningSupportPanel({
         </div>
       ) : unit ? (
         <article className={styles.msCard} data-testid="ms-explain" data-unit={unit.id}>
-          <p className="break-keep">
+          <p className={`${styles.msSpeakRow} break-keep`}>
             <span className={styles.diagramLabel}>{unit.sentences.join(' · ')}번 문장</span>
+            <button
+              type="button"
+              className={styles.back}
+              aria-pressed={narration.group === `unit:${unit.id}` && narration.status === 'playing'}
+              onClick={() => void narration.play(`unit:${unit.id}`, unitNarration(view, unit))}
+              data-testid="ms-unit-speak"
+            >
+              {narration.group === `unit:${unit.id}` ? (narration.status === 'loading' ? '음성 준비 중…' : narration.status === 'playing' ? '멈춤' : '이어서 듣기') : '이 의미 읽어 주기'}
+            </button>
+            {narration.group === `unit:${unit.id}` ? <button type="button" className={styles.back} onClick={narration.stop}>그만 듣기</button> : null}
           </p>
 
           {/* 구절 대응 — 영어 구절 → 문장 속 역할 → 뜻. 고르면 문제지 · 지도에 그 자리가 표시된다(대조된 경우만) */}
@@ -184,10 +208,10 @@ export function MeaningSupportPanel({
               {unit.syntax ? <p className="break-keep"><span className={styles.diagramLabel}>구절을 다시 합친 뜻</span>{unit.syntax.recombinedKo}</p> : null}
             </div>
           ) : null}
-          <p className="break-keep"><span className={styles.diagramLabel}>정확한 뜻</span>{unit.exactKo}</p>
-          <p className="break-keep"><span className={styles.diagramLabel}>쉬운 말</span>{unit.simpleKo}</p>
+          <p className="break-keep" data-speaking={narration.currentKey === `unit:${unit.id}:exact` ? 'true' : undefined}><span className={styles.diagramLabel}>정확한 뜻</span>{unit.exactKo}</p>
+          <p className="break-keep" data-speaking={narration.currentKey === `unit:${unit.id}:simple` ? 'true' : undefined}><span className={styles.diagramLabel}>쉬운 말</span>{unit.simpleKo}</p>
           {unit.preserves.length ? (
-            <div data-testid="ms-preserves">
+            <div data-testid="ms-preserves" data-speaking={narration.currentKey === `unit:${unit.id}:preserve` ? 'true' : undefined}>
               <span className={styles.diagramLabel}>쉬운 말에서도 지킬 조건</span>
               <ul className="break-keep">
                 {unit.preserves.map((p, i) => (

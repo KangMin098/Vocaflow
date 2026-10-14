@@ -581,6 +581,8 @@ export function AnalysisTheater({
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
   const [msBridge, setMsBridge] = useState(initialBridge)
   //   원문 이해 초안은 의미 단위 id(u1 …)가 문항마다 겹치므로 문항 키 아래에 둔다
+  // 원문 이해 읽어 주기 — 지금 말하는 설명의 원문 문장(지도 강조가 따라간다)
+  const [msSpeak, setMsSpeak] = useState<number[]>([])
   const [msDrafts, setMsDrafts] = useState<Record<string, string>>(() => tabMemory.meaning[itemId] ?? {})
   useEffect(() => {
     tabMemory.meaning[itemId] = msDrafts
@@ -949,7 +951,7 @@ export function AnalysisTheater({
             : null
   const showRelation = Boolean(relation && evidenceView === 'relation')
   // 지도에 비출 근거 — 원문 이해는 v3.1 의미 대조, 그 밖은 검수된 v3 근거(분할이 같을 때만)
-  const mapFocus = msActive ? (msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
+  const mapFocus = msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
   const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
   const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
   // 노트에 연결할 수 있는 근거 — 지금 고른 문장 근거 중 이 문항 지도 범위 안(결속 확인된 v3 근거만)
@@ -1245,6 +1247,7 @@ export function AnalysisTheater({
                       onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
                       onGo={goBridge}
                       onTrace={traceMs}
+                      onSpeaking={setMsSpeak}
                     />
                   ) : null}
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
