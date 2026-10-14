@@ -1,0 +1,174 @@
+{
+  "version": "FIC-review-r1",
+  "PR": 264,
+  "PR_state_at_start": "MERGED",
+  "review_HEAD": "8b4289f8196be3c7e81ab6393f60eee46d243e88",
+  "main_HEAD": "70776bb0c5230a04fdac96068fa7c326efc62cd9",
+  "bindings": [
+    {
+      "file": "docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "PR_sha256": "e79c29119fbda5cdf68a078dbba1390c64fbeb8d1cca5c69c632d7f6631233c9",
+      "main_sha256": "e79c29119fbda5cdf68a078dbba1390c64fbeb8d1cca5c69c632d7f6631233c9",
+      "working_sha256": "e79c29119fbda5cdf68a078dbba1390c64fbeb8d1cca5c69c632d7f6631233c9",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/docs/csat-learner/v62/FACTORY_INTEGRATION_CONTRACT.md",
+      "snapshot_sha256": "e79c29119fbda5cdf68a078dbba1390c64fbeb8d1cca5c69c632d7f6631233c9"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "PR_sha256": "6a07f496cb8ad6f1297c8b94d006f5cb414e9cc4ace30fd4e9d02ab91a4de122",
+      "main_sha256": "6a07f496cb8ad6f1297c8b94d006f5cb414e9cc4ace30fd4e9d02ab91a4de122",
+      "working_sha256": "6a07f496cb8ad6f1297c8b94d006f5cb414e9cc4ace30fd4e9d02ab91a4de122",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "snapshot_sha256": "6a07f496cb8ad6f1297c8b94d006f5cb414e9cc4ace30fd4e9d02ab91a4de122"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "PR_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "main_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "working_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/factory-mock.ts",
+      "snapshot_sha256": "cbe5207c828c92b497f8f6592ce570f37d159cfc788c2a4c36442d7b8b5a4385"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/demand.ts",
+      "PR_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "main_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "working_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/demand.ts",
+      "snapshot_sha256": "491915b8714f59689a244c0fb739dcb54c9b957ebb7fd0ec428015019aca7ffe"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "PR_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "main_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "working_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/order-spec.ts",
+      "snapshot_sha256": "18a35f80d3f30283145a65b634865fde5e92a4d7659f584ac21f0b411af4df86"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "PR_sha256": "74f0fc011a1b9375d411cbf76e39afb9b65ddc8651c3ca272f52dafefdb1bde0",
+      "main_sha256": "74f0fc011a1b9375d411cbf76e39afb9b65ddc8651c3ca272f52dafefdb1bde0",
+      "working_sha256": "74f0fc011a1b9375d411cbf76e39afb9b65ddc8651c3ca272f52dafefdb1bde0",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "snapshot_sha256": "74f0fc011a1b9375d411cbf76e39afb9b65ddc8651c3ca272f52dafefdb1bde0"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/qualification.ts",
+      "PR_sha256": "dcf36ddd03ec6ca62ec244907f3a020483df72241f36c101d89aeb4ec5323846",
+      "main_sha256": "dcf36ddd03ec6ca62ec244907f3a020483df72241f36c101d89aeb4ec5323846",
+      "working_sha256": "dcf36ddd03ec6ca62ec244907f3a020483df72241f36c101d89aeb4ec5323846",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/qualification.ts",
+      "snapshot_sha256": "dcf36ddd03ec6ca62ec244907f3a020483df72241f36c101d89aeb4ec5323846"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "PR_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "main_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "working_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/supply.ts",
+      "snapshot_sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "PR_sha256": "788c3e747f35c98687c9fc165cc383a06730a5f80a24aac296da922e748f51be",
+      "main_sha256": "788c3e747f35c98687c9fc165cc383a06730a5f80a24aac296da922e748f51be",
+      "working_sha256": "788c3e747f35c98687c9fc165cc383a06730a5f80a24aac296da922e748f51be",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "snapshot_sha256": "788c3e747f35c98687c9fc165cc383a06730a5f80a24aac296da922e748f51be"
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-model.ts",
+      "PR_sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6",
+      "main_sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6",
+      "working_sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/order-model.ts",
+      "snapshot_sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6"
+    },
+    {
+      "file": "packages/library-pipeline/src/textbook/series.ts",
+      "PR_sha256": "966e9c5b131a9bfc1806174d9c88056f9d5556047612af1e35119d4b32332bd7",
+      "main_sha256": "966e9c5b131a9bfc1806174d9c88056f9d5556047612af1e35119d4b32332bd7",
+      "working_sha256": "966e9c5b131a9bfc1806174d9c88056f9d5556047612af1e35119d4b32332bd7",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/packages/library-pipeline/src/textbook/series.ts",
+      "snapshot_sha256": "966e9c5b131a9bfc1806174d9c88056f9d5556047612af1e35119d4b32332bd7"
+    },
+    {
+      "file": "apps/web/src/lib/learner/dcp-types.ts",
+      "PR_sha256": "319a59e63829e55f6a938977f352aa661fe1afbd47562e24530b2ca77a1628e6",
+      "main_sha256": "319a59e63829e55f6a938977f352aa661fe1afbd47562e24530b2ca77a1628e6",
+      "working_sha256": "319a59e63829e55f6a938977f352aa661fe1afbd47562e24530b2ca77a1628e6",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/learner/dcp-types.ts",
+      "snapshot_sha256": "319a59e63829e55f6a938977f352aa661fe1afbd47562e24530b2ca77a1628e6"
+    },
+    {
+      "file": "apps/web/src/lib/learner/dcp-underline.ts",
+      "PR_sha256": "5c3fe5290e55dbbb8074092e8dbc0f302ff5fcb1cbe9a4f1b28b7a018acc1536",
+      "main_sha256": "5c3fe5290e55dbbb8074092e8dbc0f302ff5fcb1cbe9a4f1b28b7a018acc1536",
+      "working_sha256": "5c3fe5290e55dbbb8074092e8dbc0f302ff5fcb1cbe9a4f1b28b7a018acc1536",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/learner/dcp-underline.ts",
+      "snapshot_sha256": "5c3fe5290e55dbbb8074092e8dbc0f302ff5fcb1cbe9a4f1b28b7a018acc1536"
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "PR_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "main_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "working_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "snapshot_sha256": "1c2efa19834e1932b227bfeb3bb520ff46647bce4a91b69fc292a3bde76cd3fb"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/load.ts",
+      "PR_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "main_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "working_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "same_PR_main": true,
+      "snapshot": "scripts/research/factory-integration-review/local/pr264/apps/web/src/lib/csat/map/load.ts",
+      "snapshot_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2"
+    }
+  ],
+  "research": [
+    {
+      "observed_external_path": "D:/workspace/Vocaflow-factory-qualification-v11/docs/research/factory-qualification-v11/FQ11-HANDOFF.md",
+      "sha256": "5e67ae20175edbecf14544ed6acf8709db32fb0de961821f8c497424acce9f6c",
+      "snapshot": "scripts/research/factory-integration-review/local/research/FQ11-HANDOFF.md",
+      "snapshot_sha256": "5e67ae20175edbecf14544ed6acf8709db32fb0de961821f8c497424acce9f6c"
+    },
+    {
+      "observed_external_path": "D:/workspace/Vocaflow-factory-qualification-v11/docs/research/factory-qualification-v11/FQ11-ROLE-GATES.md",
+      "sha256": "2c54a0ae48dba10a7c37d001f8666971dad27c28a7bb80b6c0d15bcb5bf3afd7",
+      "snapshot": "scripts/research/factory-integration-review/local/research/FQ11-ROLE-GATES.md",
+      "snapshot_sha256": "2c54a0ae48dba10a7c37d001f8666971dad27c28a7bb80b6c0d15bcb5bf3afd7"
+    },
+    {
+      "observed_external_path": "D:/workspace/Vocaflow-factory-learning-runtime-v1/docs/research/factory-learning-runtime/FQR1-HANDOFF.md",
+      "sha256": "b6a41eb9ea2d4ad11342cb4814f9dd13c0bd046257fd8d2882f531d23b1bb5bc",
+      "snapshot": "scripts/research/factory-integration-review/local/research/FQR1-HANDOFF.md",
+      "snapshot_sha256": "b6a41eb9ea2d4ad11342cb4814f9dd13c0bd046257fd8d2882f531d23b1bb5bc"
+    },
+    {
+      "observed_external_path": "D:/workspace/Vocaflow-factory-learning-runtime-v1/docs/research/factory-learning-runtime/FQR1-RUNNER-CONTRACT.md",
+      "sha256": "2fc2636cc7b78f7d1db3b0a319778e053512ba0dc82eec9ac1f9c24b5525adbd",
+      "snapshot": "scripts/research/factory-integration-review/local/research/FQR1-RUNNER-CONTRACT.md",
+      "snapshot_sha256": "2fc2636cc7b78f7d1db3b0a319778e053512ba0dc82eec9ac1f9c24b5525adbd"
+    }
+  ],
+  "product_functions_have_no_live_callers": true,
+  "scope": "Frozen code/research docs; no DB query/write, no real asset or rights assertion.",
+  "recorded_at_clock_UTC": "2026-10-14T17:29:47Z",
+  "reviewed_at_UTC_label": "2026-10-14T17:29:00Z approximate capture label, not authoritative clock"
+}

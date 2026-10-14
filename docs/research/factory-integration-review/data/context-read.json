@@ -1,0 +1,15 @@
+{
+  "version": "FIC-context-read-1",
+  "main_HEAD": "70776bb0c5230a04fdac96068fa7c326efc62cd9",
+  "files": [
+    {
+      "file": "apps/web/src/lib/csat/map/v62/rank.ts",
+      "sha256": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/study-items.ts",
+      "sha256": "d4bc3824b071fa21a1dd0feb755d7951d1e76b1a36aa0d93ef1e20802e6b7a73"
+    }
+  ],
+  "method": "static source reading; no DB/live learner validation"
+}

@@ -1,0 +1,120 @@
+{
+  "version": "review_only_proposed_JSON_examples",
+  "population": "synthetic_contract_test",
+  "request": {
+    "schema": "vf.factory-request/1",
+    "idempotencyKey": "995e0dbe17eec1a6b79d4ce77436cd2ed1669279d20231f6d41a5cae3fa01e7c:0",
+    "demandKey": "synthetic-demand",
+    "workspaceId": "ws-synthetic",
+    "versions": {
+      "goal": 7,
+      "plan": 2,
+      "definition": "v6.2"
+    },
+    "task": "r.central_meaning",
+    "supportTasks": [],
+    "role": "guided_practice",
+    "lineNo": 0,
+    "education": {
+      "performanceGoal": "도움을 받으며 같은 수행을 해 본다",
+      "learnerOutput": "선택 · 단답 · 배열 응답",
+      "teachingStage": "지도 연습",
+      "exposure": "힌트 · 해설 허용(독립 수행으로 세지 않음)",
+      "reason": "stage_repair"
+    },
+    "content": {
+      "csatTypes": [
+        "R-TOPIC"
+      ],
+      "factoryTypes": [
+        "topic"
+      ]
+    },
+    "quantity": {
+      "n": 3,
+      "unit": "문항",
+      "basis": "plan_stage_quantity"
+    },
+    "source": {
+      "rightsUsable": true,
+      "excludeUnsupportedExams": true
+    },
+    "constraints": {
+      "gold": false,
+      "unseenByLearner": false,
+      "noExplanationBefore": false,
+      "versionBinding": "exact_revision"
+    },
+    "postReview": [
+      "unit_mismatch",
+      "item_level_rights",
+      "task_fit_review",
+      "workspace_runner"
+    ],
+    "reuseAllowed": true,
+    "productionUnit": {
+      "support": "convertible_to_volume",
+      "why": "activity_unit_unsupported",
+      "commands": [
+        "node scripts/textbook/write-drain-export.mjs   # 그 유형 문항 초안 청크",
+        "node scripts/textbook/write-drain-import.mjs --commit   # csat_dcp_items 적재(승인 · 비용 확인 뒤)",
+        "node scripts/textbook/explain-drain-export.mjs → -import.mjs --commit   # 해설",
+        "node scripts/textbook/item-review-drain-export.mjs → -import.mjs --commit   # 페르소나 검수"
+      ]
+    },
+    "connection": "MOCK_ONLY",
+    "approvalsNeeded": [
+      "bulk_generation_cost",
+      "db_schema_orders",
+      "content_release"
+    ],
+    "requestId": "552c5d124ae0393395a2424896539574"
+  },
+  "manifest": {
+    "schema": "vf.factory-manifest/1",
+    "requestId": "552c5d124ae0393395a2424896539574",
+    "mode": "MOCK",
+    "status": "produced",
+    "runId": null,
+    "producedCount": 1,
+    "artifacts": [
+      {
+        "id": "synthetic-artifact",
+        "kind": "dcp_item",
+        "revision": "synthetic-r1",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "refs": {
+          "source": "synthetic-source-r1",
+          "analysis": "synthetic-analysis-r1",
+          "gold": "synthetic-Gold-r1"
+        },
+        "contentType": "topic",
+        "tasks": [
+          "r.central_meaning"
+        ],
+        "roleCandidates": [
+          "guided_practice"
+        ],
+        "access": "synthetic:reference",
+        "rights": "unknown",
+        "quality": "unreviewed",
+        "provenance": {
+          "runId": null,
+          "mock": true
+        },
+        "lifecycle": "test_fixture"
+      }
+    ],
+    "failure": null,
+    "factory": {
+      "name": "synthetic-factory",
+      "version": "synthetic-v1"
+    }
+  },
+  "limitations": [
+    "Corrected omit-requestId canonical body proposed, not original requestBody output",
+    "Not a production API",
+    "No actual run/release/rights/learner receipt",
+    "Schemas describe shape; cross-field and trust verification remains mandatory"
+  ]
+}

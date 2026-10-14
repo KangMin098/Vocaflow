@@ -1,0 +1,218 @@
+{
+  "version": "FIC-findings-r1",
+  "issues": [
+    {
+      "id": "I01",
+      "priority": "P1",
+      "title": "manifest 상태·열거값·실패 사유 검사와 공급 차단 불완전",
+      "functions": "validateManifest / bindToWorkspace",
+      "evidence": "사용 불가 상태·unknown enum·빈 ID/실패 이유에도 supplied candidate가1로 계산된다. failure.code를 blockedReasons에 넣어도 수량 계산은 막지 않는다.",
+      "minimal_repair": "상태별 허용 산출물/실행/검수 조합과 runtime enum/ID 검사를 추가하고, usable 상태 및 failure==null만 후보 계산한다.",
+      "counterexample_ids": [
+        "A-status-spec_created",
+        "A-status-order_received",
+        "A-status-awaiting_production",
+        "A-status-failed",
+        "A-status-review_failed",
+        "A-status-review_pending",
+        "A-status-unsupported",
+        "A-status-UNKNOWN_STATUS",
+        "A-unknown_type",
+        "A-unknown_mode",
+        "A-missing_failure_reason",
+        "A-empty_id"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I02",
+      "priority": "P1",
+      "title": "중복 산출물과 revision 없는 판정 재사용",
+      "functions": "bindToWorkspace",
+      "evidence": "중복/동일ID 다른revision은2로 세고, old verdict를 같은ID의 new revision에 사용하면1로 센다.",
+      "minimal_repair": "ID/revision/hash/요청/TASK/role로 판정 결속; 동일 산출물 dedupe, 동일ID 다중revision은 명시 선택 정책 전 차단.",
+      "counterexample_ids": [
+        "A-duplicate",
+        "A-mixed_revision",
+        "G-stale-verdict-id-only"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I03",
+      "priority": "P1",
+      "title": "실행·mock provenance의 부분 결속",
+      "functions": "validateManifest",
+      "evidence": "manifest run과 artifact run이 다르거나 EXISTING에 mock artifact가 들어도1로 센다.",
+      "minimal_repair": "mode/provenance/runId 교차 검사; REAL run은 서버 실행 원장과 request/artifact에 결속하고 EXISTING은 서버 승인 자산 receipt만 허용.",
+      "counterexample_ids": [
+        "A-artifact_run_mismatch",
+        "B-existing-mock-contradiction"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I04",
+      "priority": "P2",
+      "title": "요청 역할·단위와 산출물의 결속 누락",
+      "functions": "validateManifest / bindToWorkspace",
+      "evidence": "roleCandidates가 요청과 다르거나 요청 unit을 volume으로 바꾸어도1로 센다.",
+      "minimal_repair": "허용 quantity/unit을 검사하고 공장 역할 주장 충돌을 검수 기록과 대조하여 보류.",
+      "counterexample_ids": [
+        "A-role_mismatch",
+        "A-quantity-unit"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I05",
+      "priority": "P1",
+      "title": "선언형 lifecycle·REAL·승인 boolean을 신뢰하는 경계",
+      "functions": "qualifyArtifact",
+      "evidence": "같은 합성 산출물을 product+REAL/EXISTING으로 선언하고 FQ pass/approval true를 주면 accept·후보1. 실제 승인 원장은 주지 않았다.",
+      "minimal_repair": "Trusted Qualification Context를 서버 내부에서 해석; lifecycle 전환 승인·실행/기존자산 receipt·권한/대상/범위/철회 검증 없는 boolean은 승인 아님.",
+      "counterexample_ids": [
+        "B-REAL-product",
+        "B-EXISTING-product",
+        "D-untrusted-approval-booleans"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I06",
+      "priority": "P1",
+      "title": "existingAssetManifest의 available 입력을 출시 승인으로 재작성",
+      "functions": "existingAssetManifest",
+      "evidence": "임의 delivered ref와 임의64자 hash를 available로 입력하면 revision=released,rights=cleared,quality=passed,accept를 만들어 후보1. supply.qualification의 false/null도 무시한다.",
+      "minimal_repair": "실제 기존 자산 reader의 검증된 receipt를 받고 ID/currentrevision/hash/TASK/role/release를 전달; 임의 SupplyLine만으로 승인 생성 금지.",
+      "counterexample_ids": [
+        "C-unreleased",
+        "C-review_hold",
+        "C-wrong_TASK",
+        "C-attempted",
+        "C-wrong_revision",
+        "C-nonexistent",
+        "C-arbitrary_hash",
+        "C-arbitrary_rights_quality",
+        "C-shared_passage_seen",
+        "C-whole_exam_seen"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I07",
+      "priority": "P1",
+      "title": "원천·분석·Gold·artifact hash 변경이 FQ 결속에서 빠짐",
+      "functions": "qualifyArtifact / bindResult",
+      "evidence": "ID/revision/TASK/role이 같으면 artifact hash·source/analysis/Gold refs를 바꿔도 accept.",
+      "minimal_repair": "전체 immutable subject와 규칙/근거/승인 결속을 검사; null evidence는 role별 명시 NA 근거 없으면 HOLD.",
+      "counterexample_ids": [
+        "D-binding-sha256",
+        "D-binding-source",
+        "D-binding-analysis",
+        "D-binding-gold"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I08",
+      "priority": "P2",
+      "title": "requestBody가 표준 JSON이 아님",
+      "functions": "requestBody / canonical",
+      "evidence": "requestId:undefined를 문자열에 포함하여 JSON.parse가 실패한다. 내부 해시 일치는 외부 호환성 증거가 아니다.",
+      "minimal_repair": "requestId를 객체에서 실제 제거하고 JSON canonical serialization; unsupported values를 reject/JSON 정책으로 처리, Schema/예시·consumer parse 테스트 추가.",
+      "counterexample_ids": [
+        "E-standard-JSON"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I09",
+      "priority": "P2",
+      "title": "nested demand property order가 멱등 키를 변경",
+      "functions": "canonicalDemand / demandSignature",
+      "evidence": "requires의 속성 순서만 바꾸면 idempotencyKey가 달라진다. FactoryRequest 자체 property-order canonicalization은 통과했다.",
+      "minimal_repair": "공유 canonicalizer 또는 requires 고정 순서 직렬화; 배열의 의미 순서 정책 명시. support 변경 시 현재 같은key/body충돌은 안전 거절이나 revision 설계 검토 필요.",
+      "counterexample_ids": [
+        "E-demand-nested-order"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I10",
+      "priority": "P2",
+      "title": "평가 역할의 후보 수와 fulfillment가 충돌",
+      "functions": "bindToWorkspace / fulfillmentOf",
+      "evidence": "independent_check에서 suppliable1·planned3인데 assessment:null로 만들어 fulfillment=not_supplied.",
+      "minimal_repair": "후보 충족도와 실제delivery 충족도를 분리; 공통 역할 자격은 계산 값 그대로 보존하고 fake delivered 배열로 DB공급을 표현하지 않음.",
+      "counterexample_ids": [
+        "G-assessment-fulfillment"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    },
+    {
+      "id": "I11",
+      "priority": "P2",
+      "title": "source_analysis의 교수 적합성 실패가 허용됨",
+      "functions": "supplyEligible / qualifyArtifact",
+      "evidence": "D fail을 주어도 source_analysis는 accept; model_explanation/guided_practice는 차단.",
+      "minimal_repair": "FQ11 역할 기준에 맞춰 source_analysis D 필수 또는 비교수 사용의 명시 NA 기준을 문서/코드에 함께 고정.",
+      "counterexample_ids": [
+        "H-teaching-fail-source_analysis"
+      ],
+      "scope": [
+        "synthetic_pure_function_reproduction",
+        "no_live_integration_callers_found",
+        "not_verified_production_exploit"
+      ]
+    }
+  ],
+  "counts": {
+    "P1": 6,
+    "P2": 5,
+    "P3_confirmed": 0,
+    "unique_issues": 11,
+    "safety_failed_cases": 40,
+    "actual_invalid_released_assets_proven": 0
+  }
+}
