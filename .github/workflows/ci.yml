@@ -185,7 +185,7 @@ jobs:
         run: |
           mv supabase/migrations supabase/_all_migrations
           mkdir supabase/migrations
-          supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector,supavisor,realtime,storage-api
+          supabase start -x studio,imgproxy,inbucket,mailpit,edge-runtime,logflare,vector,supavisor,realtime,storage-api
           supabase status -o env > /tmp/sb.env
           grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY|DB_URL)=' /tmp/sb.env | sed 's/^/LOCAL_/' >> "$GITHUB_ENV"
 
@@ -271,7 +271,7 @@ jobs:
         run: |
           mv supabase/migrations supabase/_all_migrations
           mkdir supabase/migrations
-          supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector,supavisor,realtime,storage-api
+          supabase start -x studio,imgproxy,inbucket,mailpit,edge-runtime,logflare,vector,supavisor,realtime,storage-api
           supabase status -o env > /tmp/sb.env
           grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY|DB_URL)=' /tmp/sb.env | sed 's/^/LOCAL_/' >> "$GITHUB_ENV"
 

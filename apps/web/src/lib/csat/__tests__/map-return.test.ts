@@ -21,8 +21,17 @@ describe('parseMapWs · parseMapStep', () => {
     expect(parseMapStep('')).toBeNull()
   })
   it('과제 키는 홈 과제 형식 그대로(공백 · 주소 거부)', () => {
-    expect(parseMapReturn({ task: 'B6-FIND-1', ws: 'ws.cohesion', step: 'relation' })).toEqual({ task: 'B6-FIND-1', ws: 'ws.cohesion', step: 'relation' })
-    expect(parseMapReturn({ task: 'a b', ws: 'x', step: 'y' })).toEqual({ task: null, ws: null, step: null })
+    expect(parseMapReturn({ task: 'B6-FIND-1', ws: 'ws.cohesion', step: 'relation' })).toEqual({ task: 'B6-FIND-1', mapTask: null, ws: 'ws.cohesion', step: 'relation' })
+    expect(parseMapReturn({ task: 'a b', ws: 'x', step: 'y' })).toEqual({ task: null, mapTask: null, ws: null, step: null })
+  })
+  it('map_task 는 영구 TASK slug 형식만(v6.2 §9.3 — 활동 id task 와 구별)', () => {
+    expect(parseMapReturn({ map_task: 'r.central_meaning' }).mapTask).toBe('r.central_meaning')
+    expect(parseMapReturn({ map_task: 's.o.sentence_meaning_model' }).mapTask).toBe('s.o.sentence_meaning_model')
+    expect(parseMapReturn({ map_task: 'B6-FIND-1' }).mapTask).toBeNull()
+    expect(parseMapReturn({ map_task: 'r.central meaning' }).mapTask).toBeNull()
+    expect(parseMapReturn({ map_task: 'https://evil.example' }).mapTask).toBeNull()
+    expect(mapReturnQuery({ mapTask: 'e.evidence_location', ws: 'ws.evidence-locate' })).toBe('&map_task=e.evidence_location&ws=ws.evidence-locate')
+    expect(withMapReturn('/csat/item/2026-31?check=1#principle', { mapTask: 'e.evidence_location' })).toBe('/csat/item/2026-31?check=1&from=map&map_task=e.evidence_location#principle')
   })
 })
 

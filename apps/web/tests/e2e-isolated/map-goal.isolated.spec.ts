@@ -38,14 +38,15 @@ test('학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB
   await page.waitForURL((u) => !u.pathname.startsWith('/login'))
 
   await page.goto('/csat/diagnosis?tab=map', { waitUntil: 'domcontentloaded' })
-  const map = page.locator('[data-testid="learner-map"]')
+  // v6.2 단일 지도(2026-10-14) — 옛 학습자 지도(learner-map · focus-card) 대신 unified-map · 목표 · 기록 줄
+  const map = page.locator('[data-testid="unified-map"]')
   await expect(map).toBeVisible({ timeout: 60_000 })
   await expect(map).toHaveAttribute('data-goal-set', 'false')
-  await expect(page.locator('[data-testid="goal-header"]')).toContainText('아직 정하지 않았어요')
+  await expect(page.locator('[data-testid="umap-top"]')).toContainText('아직 정하지 않았어요')
 
-  // 목표가 없을 때의 할 일 = 「목표 정하기」 CTA 가 목표 고르기를 연다(scripts/csat/map/e2e-map-goal.mjs A 와 같은 경로)
-  await expect(page.locator('[data-testid="focus-card"]')).toHaveAttribute('data-focus', 'goal')
-  await page.locator('[data-testid="focus-cta"]').click()
+  // 목표가 없을 때 = 목표 줄의 「목표 정하기」가 목표 고르기를 연다
+  await expect(page.locator('[data-testid="map-goal-edit"]')).toContainText('목표 정하기')
+  await page.locator('[data-testid="map-goal-edit"]').click()
   const group = page.getByRole('group', { name: '목표 점수 정하기' })
   await expect(group).toBeVisible()
   await group.getByRole('button', { name: /^80/ }).first().click()
@@ -55,7 +56,7 @@ test('학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB
   await expect.poll(async () => (await admin().from('csat_map_goal').select('target_score').eq('user_id', a.id)).data?.[0]?.target_score ?? null, { timeout: 15_000 }).toBe(80)
 
   await page.reload({ waitUntil: 'domcontentloaded' })
-  await expect(page.locator('[data-testid="learner-map"]')).toHaveAttribute('data-goal-set', 'true', { timeout: 60_000 })
+  await expect(page.locator('[data-testid="unified-map"]')).toHaveAttribute('data-goal-set', 'true', { timeout: 60_000 })
 
   // RLS — 다른 학습자는 a 의 목표를 못 본다
   const b = await makeUser('b')

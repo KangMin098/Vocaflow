@@ -47,7 +47,8 @@ await page.keyboard.press('Enter')
 await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 150_000 })
 // 기하는 전체 지도(상세 보기)에서 잰다 — 첫 화면은 핵심 요약(2026-10-03)
 await page.goto(`${BASE}/csat/diagnosis?tab=map&view=full`, { waitUntil: 'domcontentloaded' })
-await page.waitForSelector('[data-map-cols]')
+// v6.2 단일 지도(2026-10-14): 전체 펼침의 영역 열 · TASK 노드를 잰다. 옛 54라인 지도의 ⋯ 팝업 모달은 없어졌다(Inspector 는 모달이 아니다) — 모달 항목은 재지 않는다
+await page.waitForSelector('[data-testid="umap-node"]')
 await page.waitForTimeout(1500)
 
 const ours = await page.evaluate(() => {
@@ -55,39 +56,28 @@ const ours = await page.evaluate(() => {
     const r = el.getBoundingClientRect()
     return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height }
   }
-  const nodes = [...document.querySelectorAll('[data-map-node]')].map((el) => ({ code: el.getAttribute('data-map-node'), ...rect(el) }))
-  const heads = document.querySelector('[data-map-heads]')
-  const cols = document.querySelector('[data-map-cols]')
-  // 열 머리 글자의 실제 왼쪽(Range) · 종류별 열의 왼쪽 — 참조의 「머리 글자는 노드 열보다 일정하게 안쪽」을 잰다(spec.layout)
-  const headText = [...document.querySelectorAll('[data-map-heads] > *')].map((el) => {
+  const nodes = [...document.querySelectorAll('[data-testid="umap-node"]')].map((el) => ({ code: el.getAttribute('data-node'), ...rect(el) }))
+  const headEls = [...document.querySelectorAll('[data-testid="umap-domain"]')]
+  // 열 머리 글자의 실제 왼쪽(Range) · 영역 열의 왼쪽 — 참조의 「머리 글자는 노드 열보다 일정하게 안쪽」을 잰다(spec.layout)
+  const headText = headEls.map((el) => {
     const r = document.createRange()
     r.selectNodeContents(el)
     return r.getBoundingClientRect().left + window.scrollX
   })
-  const layerXs = [...document.querySelectorAll('[data-map-layer]')].map((el) => el.getBoundingClientRect().left + window.scrollX)
-  return { nodes, heads: heads ? rect(heads) : null, cols: cols ? rect(cols) : null, headText, layerXs }
+  const layerXs = [...document.querySelectorAll('section[data-domain]')].map((el) => el.getBoundingClientRect().left + window.scrollX)
+  return { nodes, heads: headEls[0] ? rect(headEls[0]) : null, headText, layerXs }
 })
-// 팝업 — 첫 라인 노드의 ⋯ 를 눌러 모달 기하를 잰다
-// 노드 클릭 = 경로 강조, 상세 팝업은 오른쪽 ⋯(2026-10-07)
-await page.locator('[data-map-node="A1"]').hover()
-await page.locator('[data-map-node="A1"] + button').click()
-await page.waitForSelector('[data-map-modal]')
-await page.waitForTimeout(500)
-const modal = await page.evaluate(() => {
-  const r = (el) => (el ? (({ left, top, width, height }) => ({ x: left, y: top, w: width, h: height }))(el.getBoundingClientRect()) : null)
-  const cards = [...document.querySelectorAll('[data-map-card]')].map(r)
-  return { box: r(document.querySelector('[data-map-modal]')), head: r(document.querySelector('[data-map-modal-head]')), foot: r(document.querySelector('[data-map-modal-foot]')), cards }
-})
+const modal = { box: null, head: null, foot: null, cards: [] }
 if (shot) await page.screenshot({ path: path.resolve(ROOT, shot), fullPage: false })
 await browser.close()
 
 const median = (xs) => (xs.length ? [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)] : NaN)
-const normal = ours.nodes.filter((n) => n.code !== 'GOAL')
+const normal = ours.nodes
 const colXs = [...new Set(normal.map((n) => Math.round(n.x)))].sort((a, b) => a - b)
 const pitchX = colXs.length > 1 ? median(colXs.slice(1).map((x, i) => x - colXs[i])) : NaN
 // 같은 열(라인 열)의 연속 노드 간격 — 같은 묶음 안에서만(묶음 사이 여백은 제외하려고 최빈 간격)
 // 라인 열은 A1 이 있는 열 — 열 수가 바뀌어도(원리 · 트랙 열 제거) 순번에 기대지 않는다
-const lineX = Math.round(normal.find((n) => n.code === 'A1')?.x ?? NaN)
+const lineX = Math.round(normal.find((n) => n.code === 'r.reference')?.x ?? NaN)
 const lineCol = normal.filter((n) => Math.round(n.x) === lineX).sort((a, b) => a.y - b.y)
 const gaps = lineCol.slice(1).map((n, i) => Math.round(n.y - lineCol[i].y))
 const mode = (xs) => {
@@ -105,14 +95,14 @@ const rows = [
   ['머리 줄 → 첫 노드', spec.panel?.firstGap ?? 25, firstLine && ours.heads ? firstLine.y - (ours.heads.y + ours.heads.h) : NaN],
 ]
 if (spec.layout) {
-  // 머리 0 은 최종 목표 — 종류별 열(머리 1..)과 짝지어 잰다
-  const offs = ours.layerXs.map((x, i) => ours.headText[i + 1] - x)
+  // 영역 열 머리와 그 열을 짝지어 잰다. 열 수는 참조(종류 5)와 다르게 영역 6 — 정본 v6.2 의 영역 수라 비교 항목에서 뺀다
+  const offs = ours.layerXs.map((x, i) => ours.headText[i] - x)
   const hp = ours.headText.slice(1).map((x, i) => x - ours.headText[i])
   rows.push(
     ['열 머리 글자 → 노드 열', spec.layout.headerTextOffset, median(offs)],
     ['열 머리 피치', spec.layout.headerPitch, median(hp)],
-    ['종류별 열 수', LAYERS, ours.layerXs.length],
   )
+  void LAYERS
 }
 const m = spec.modal
 if (m && modal.box && modal.head && modal.foot && modal.cards.length >= 2) {

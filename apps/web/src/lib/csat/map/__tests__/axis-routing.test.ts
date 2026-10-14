@@ -96,9 +96,11 @@ describe('불변식', () => {
       expect(f.kind === 'step' && f.step === 'vocab').toBe(false)
     }
   })
-  it('학생 화면 CTA 는 하나 — 「먼저 확인」 카드는 focus 하나만 그린다(LearnerMap 정적 검사)', () => {
-    const src = fs.readFileSync(path.resolve(__dirname, '../../../../components/csat/diagnosis/map/LearnerMap.tsx'), 'utf8')
-    expect((src.match(/data-testid="focus-cta"/g) ?? []).length).toBeGreaterThan(0)
+  // v6.2 단일 지도(2026-10-14): 학생 메인 = UnifiedLearningMap · TaskInspector · GoalRecordBar. 다음 행동은 Inspector 상단 하나
+  it('학생 화면 다음 행동은 하나 — Inspector 상단 고정 링크(단일 지도 정적 검사)', () => {
+    const dir = path.resolve(__dirname, '../../../../components/csat/diagnosis/map')
+    const src = ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx'].map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n')
+    expect((src.match(/data-testid="inspector-next"/g) ?? []).length).toBe(1)
     // 내부 용어가 학생 화면에 없다
     expect(src).not.toMatch(/exam_observable|exam_assisted|direct_diagnostic|confounded/)
   })
