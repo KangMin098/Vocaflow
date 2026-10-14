@@ -1,0 +1,6 @@
+// scripts/research/factory-learning-runtime/register.mjs
+import fs from 'node:fs';import crypto from 'node:crypto';import {execFileSync} from 'node:child_process';
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex'),p='docs/research/factory-learning-runtime/data/registration.json';
+const dirs=['docs/research/csat-reading','scripts/research/csat-reading','docs/research/factory-qualification','scripts/research/factory-qualification','docs/research/factory-qualification-v11','scripts/research/factory-qualification-v11'];
+const files=execFileSync('git',['ls-files','--',...dirs],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean);
+const out={version:'FQR1-preregistered',task:'T-0032',base:'a658fa39a0cd986506eac5c1aec68ebbb0aa2bac',seed:'FQR1-20261015',protocol:{path:'docs/research/factory-learning-runtime/PROTOCOL.md',sha256:hash('docs/research/factory-learning-runtime/PROTOCOL.md')},frozen:Object.fromEntries(files.map(f=>[f,hash(f)])),primary_types:['vocab_choice','unit_vocab','blank_word','grammar_choice','grammar_fix','unit_grammar','word_order'],target_per_type:2,actual_product_changes:0,actual_DB_changes:0};if(fs.existsSync(p))throw Error('Preserve registration');fs.writeFileSync(p,JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({frozen:files.length,protocol_sha256:out.protocol.sha256}));
