@@ -28,13 +28,16 @@
 'use client'
 
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import { DIALOG, TINT_PANEL } from './tines-kit'
 import { cn } from '@/lib/utils/cn'
 import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 import { useFocusTrap } from '@/lib/ui/use-focus-trap'
+
+/** 서버 렌더에서는 레이아웃 effect 가 없다 — 경고 없이 useEffect 로(서버에선 어차피 돌지 않는다) */
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 // ══════════════════════════════════════════════════════════════
 // 크기 — 참조 예제 모달은 1142px(xl). 결정만 받는 팝업은 좁게.
@@ -119,7 +122,9 @@ export function Dialog({
   // 포커스는 패널 자체로 들어간다(긴 팝업에서 첫 버튼으로 뛰면 제목을 건너뛴다).
   useFocusTrap(true, panelRef)
 
-  useEffect(() => {
+  // Esc 처리기 · 배경 스크롤 잠금은 **그리기 전에** 건다(useLayoutEffect) — useEffect 로 두면 팝업이 보인 직후
+  //   passive effect 가 돌기 전에 누른 Esc 가 버려진다(e2e 31-popup-return 의 /arcade 간헐 「Esc 로 안 닫힌다」 · 2026-10-14).
+  useIsoLayoutEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.stopPropagation()
