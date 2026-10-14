@@ -1,0 +1,8 @@
+// scripts/research/factory-qualification/register.mjs
+import fs from 'node:fs';import {createHash} from 'node:crypto';
+const b='docs/research/',d=b+'factory-qualification/data/',sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex'),read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+fs.mkdirSync(d,{recursive:true});if(fs.existsSync(d+'registration.json'))throw Error('FQ registration exists');
+const idx=b+'csat-reading/data/v15/artifacts.json',files={...read(idx).files,[idx]:sha(idx)};for(const[p,h]of Object.entries(files))if(sha(p)!==h)throw Error('V15 drift '+p);
+const pilot=read(b+'csat-reading/data/v15/assessment-registration.json').hashes,firsts=Object.fromEntries(Object.values(read(b+'csat-reading/data/v15/assessment-execution.json').firsts).map(x=>[x.path,x.sha256]));for(const[p,h]of Object.entries({...pilot,...firsts}))if(sha(p)!==h)throw Error('Private first drift');
+const codebook='D:/workspace/Vocaflow-map-v62/docs/csat-learner/v4/codebook.json',ids=read(codebook).tasks.map(x=>x.id);
+const out={version:'FQ1.0',task:'T-0030',branch:'research/factory-qualification-v1',base:'56876763a3a5af4276a7b63aa60f1632eb3fdc8e',v15_frozen:files,v15_private_frozen:{...pilot,...firsts},protocol_sha256:sha(b+'factory-qualification/PROTOCOL.md'),canonical_TASKs:{path:codebook,observed_sha256:sha(codebook),ids},old_originals_rewritten:false,public_and_assessment_approvals:0};fs.writeFileSync(d+'registration.json',JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({old_public:Object.keys(files).length,private_bound:Object.keys({...pilot,...firsts}).length,canonical_TASKs:ids.length}));
