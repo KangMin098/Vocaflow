@@ -1,0 +1,150 @@
+{
+  "measuredAt": "2026-10-14T06:59:40.358Z",
+  "note": "읽기 전용 실측 — 플랫폼 지원 상태이며 학생 능력 · 학습 효과가 아니다",
+  "workspaces": [
+    {
+      "id": "ws.central-meaning",
+      "name": "글의 핵심 잡기",
+      "core": [
+        "r.central_meaning"
+      ],
+      "readiness": "live",
+      "hold": false,
+      "contentKeys": [
+        "claim-support"
+      ],
+      "confirmActive": 9,
+      "transferActive": 4,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.option-match",
+      "name": "선지와 본문 맞대기",
+      "core": [
+        "e.option_correspondence"
+      ],
+      "readiness": "live",
+      "hold": false,
+      "contentKeys": [
+        "option-restate"
+      ],
+      "confirmActive": 6,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.evidence-locate",
+      "name": "근거 문장 찾기",
+      "core": [
+        "e.evidence_location"
+      ],
+      "readiness": "live",
+      "hold": false,
+      "contentKeys": [
+        "evidence-locate"
+      ],
+      "confirmActive": 5,
+      "transferActive": 0,
+      "draftUnreleased": 4,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.cohesion",
+      "name": "문장 잇기",
+      "core": [
+        "r.relation"
+      ],
+      "readiness": "ready",
+      "hold": false,
+      "contentKeys": [
+        "cohesion-link"
+      ],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 1,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.sentence-core",
+      "name": "긴 문장 뼈대",
+      "core": [
+        "s.o.sentence_meaning_model"
+      ],
+      "readiness": "content_needed",
+      "hold": false,
+      "contentKeys": [],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.vocab-context",
+      "name": "문맥 속 어휘",
+      "core": [
+        "v.contextual_sense"
+      ],
+      "readiness": "content_needed",
+      "hold": false,
+      "contentKeys": [],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.grammar-scope",
+      "name": "어법 포인트",
+      "core": [
+        "s.form_scope"
+      ],
+      "readiness": "content_needed",
+      "hold": false,
+      "contentKeys": [],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.inference",
+      "name": "함축·추론",
+      "core": [
+        "r.inference"
+      ],
+      "readiness": "content_needed",
+      "hold": false,
+      "contentKeys": [],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    },
+    {
+      "id": "ws.timed",
+      "name": "실전 운영(보류 템플릿)",
+      "core": [
+        "x.o.whole_test_stability"
+      ],
+      "readiness": "blocked",
+      "hold": true,
+      "contentKeys": [],
+      "confirmActive": 0,
+      "transferActive": 0,
+      "draftUnreleased": 0,
+      "pausedOrRolledBack": 0
+    }
+  ],
+  "exams": {
+    "kice": 30,
+    "diagnosisReady": 5,
+    "inventory": {
+      "supported": 27,
+      "partial": 0,
+      "unsupported": 3
+    }
+  },
+  "inventoryPartial": []
+}

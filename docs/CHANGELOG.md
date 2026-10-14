@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): 학습지도 v6.2 정본 · 핸드오프 반입과 P-M0 계약 — `lib/csat/map/v62`(영역·TASK 그래프 DTO · TASK Inspector · NeedRank/ActionRank 분리 · 6 Ledger/8 공백 커버리지 · 시험 인벤토리 분모 가드 · 관련성 4값과 후보 분리 · TargetSpec) · To-Be `relevanceUnknown`(연결 없음 ≠ 무관) · 제품 가용 실측 스크립트. DB 변경 없음
 
 - feat(csat): 기출 탐구 작업공간 컴팩트 프레임(W0~W5) — `/csat/item/[slug]` 를 원문 열 → 근거·관계 판(36%) + 설명·판단 판(64%) → 하단 탐구 도크(네 요소 48px · 일곱 장면 아이콘 · 도크 65px)로. 옛 장면 가로 탭 · 하단 강의 큐 카드는 도크 · 강의 도구(읽기 강의 · 진행 · 같은 유형)로 대체, 직접 장면 선택이 강의 자동 따라가기보다 먼저. 장면별 근거 · 스크롤 탭 메모리, 자기 설명 저장을 실제 결과로(실패 시 입력 · 같은 id 보존 · 다시 저장 — 수정 전 실패 재현), 자기 설명 · 원리 노트 초안 장면 왕복 보존, 원리 노트 근거 연결(`evidence`), 원문 폭 선호 ≠ 표시 · 레일 전환 관찰, 44px 조작 영역 · 정답 칩 대비 보강. 라우트 · DB · 데이터 변경 없음. 계약 [WORKSPACE_COMPACT](./csat-learner/WORKSPACE_COMPACT.md).
 

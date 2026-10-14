@@ -67,8 +67,13 @@ export interface ToBeMap {
   /** 기준 시험 회수 — 관련도 단위 */
   exams: number
   needs: Need[]
-  /** 목표 기준 문항에 걸리지 않은 TASK(요구 없음 — 목표와 무관하다는 사실) */
+  /** 기준 시험 문항과 연결은 있지만 목표 「반드시」 문항에 걸리지 않은 TASK(요구 없음 — 이 목표 점수 전략에서 우선하지 않는다는 사실) */
   unrelated: TaskId[]
+  /**
+   * 기준 시험 문항과의 연결 자체가 없는 TASK — 관련성 **미확인(unknown)**. 목표와 무관하다는 뜻이 아니다(v6.2 §3 · §6.2).
+   * 요구를 만들지 않지만 지도는 「관련성 확인 전」으로 보인다(무관 · 0 으로 보이지 않는다).
+   */
+  relevanceUnknown: TaskId[]
   /** 지금 계산할 수 없는 요구 */
   notComputable: { task: TaskId; reason: 'canon_hold' | 'integrated_waits_parts' }[]
   deferred: { type: 'EXAM_PRACTICE'; reason: 'x_execution_model_deferred' }[]
@@ -87,6 +92,13 @@ export function goalRelevance(task: TaskId, must: ReadonlySet<ItemKey>, lineRefI
   }
   const points = [...seen.values()].reduce((s, p) => s + p, 0)
   return { items: seen.size, pointsPerExam: exams > 0 ? Math.round((points / exams) * 10) / 10 : 0 }
+}
+
+/** 기준 시험에서 이 TASK 의 기존 라인에 연결된 서로 다른 문항 수(목표와 무관) — 0 이면 관련성 미확인 */
+export function taskLinkedItems(task: TaskId, lineRefItems: ToBeInput['lineRefItems']): number {
+  const seen = new Set<string>()
+  for (const line of linesOfTask(task)) for (const it of lineRefItems[line] ?? []) seen.add(itemKey(it))
+  return seen.size
 }
 
 export function mustSet(refItems: readonly RefItem[], goal: number): { must: Set<ItemKey>; exams: number } {
@@ -126,6 +138,7 @@ export function toBeMap(input: ToBeInput): ToBeMap | null {
 
   const needs: Omit<Need, 'priority'>[] = []
   const unrelated: TaskId[] = []
+  const relevanceUnknown: TaskId[] = []
   const notComputable: ToBeMap['notComputable'] = []
   for (const def of tasks()) {
     const t = asIs.tasks[def.id]
@@ -142,7 +155,9 @@ export function toBeMap(input: ToBeInput): ToBeMap | null {
     const relevance = goalRelevance(def.id, must, input.lineRefItems, exams)
     // 직접 확인된 요구(REPAIR)는 목표 관련도와 무관하게 남긴다 — 확인된 근거를 목표 설정으로 지우지 않는다
     if (relevance.items === 0 && n.type !== 'REPAIR') {
-      unrelated.push(def.id)
+      // 기준 시험에 이 TASK 의 라인 연결 문항이 하나도 없으면 「무관」이 아니라 「미확인」(v6.2 unknown ≠ not_applicable)
+      if (taskLinkedItems(def.id, input.lineRefItems) === 0) relevanceUnknown.push(def.id)
+      else unrelated.push(def.id)
       continue
     }
     const keys = checkKeysOfTask(def.id)
@@ -179,6 +194,7 @@ export function toBeMap(input: ToBeInput): ToBeMap | null {
     exams,
     needs: needs.map((n, i) => ({ ...n, priority: i + 1 })),
     unrelated,
+    relevanceUnknown,
     notComputable,
     deferred: [{ type: 'EXAM_PRACTICE', reason: 'x_execution_model_deferred' }],
   }
