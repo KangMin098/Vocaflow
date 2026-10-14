@@ -1,0 +1,21 @@
+{
+  "version": "1.4",
+  "task": "T-0028",
+  "protocol_commit": "87ea2672d",
+  "selected_n": 8,
+  "source_n": 8,
+  "first_classification": "not_started",
+  "hashes": {
+    "docs/research/csat-reading/PROTOCOL-v1.4.md": "e173a64885a82d625585f27ad3ba8816be3677922196c87fe89b60216f1a3e1e",
+    "docs/research/csat-reading/data/v14/registration.json": "3ac462400d246bbb094ab31583905466aaa7855eb67eb239d418664140cefb27",
+    "docs/research/csat-reading/data/v14/source-availability-v4.json": "c91eb7b6ffcdb108e8b266d15d783b1ff116a1dc26155b417aa11ba2671d4b3c",
+    "docs/research/csat-reading/data/v14/source-pilot.json": "444317475d759d36e10826def90e1c8fea281aa04d7c4f325f690844d63eabbf",
+    "docs/research/csat-reading/data/v14/source-finalization.json": "db824bb12976474ae860e9cba15191ccd6a8f3b368679836fc682ac31a16359b",
+    "scripts/research/csat-reading/local/v14/pilot-input.json": "15fe105b8a3cf0878ec3adcf39a0430a3fb7c36c9a2eafd3ee18cb77b8780f61",
+    "scripts/research/csat-reading/local/v14/pilot-key.json": "820824c7327aa790596d0249404fb87421fdab7e50aa775257b74d198f959beb",
+    "scripts/research/csat-reading/local/v14/rater-instructions.md": "1b90041675c6d581b1a80bb41e17bb6bdb7ef1233668b6cebd524f3e77efabfb",
+    "scripts/research/csat-reading/v14-analysis.mjs": "b209cd2b6811a765a79a2d15c9da599eff27bc2a26d49e2ea2cc8c10bd620c62"
+  },
+  "private_sources_keys_first_outputs": true,
+  "source_binding_recipe": "Remove source_binding and target_scaffold candidate_id derived from binding before hashing; exact file hashes independently seal bytes"
+}

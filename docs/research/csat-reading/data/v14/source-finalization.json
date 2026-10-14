@@ -1,0 +1,17 @@
+{
+  "version": "1.4",
+  "source_input_sha256": "15fe105b8a3cf0878ec3adcf39a0430a3fb7c36c9a2eafd3ee18cb77b8780f61",
+  "source_public_sha256": "444317475d759d36e10826def90e1c8fea281aa04d7c4f325f690844d63eabbf",
+  "source_raw_first_sha256": "b94b8bd01cf1699f2d427881287c6f48d0fed2877c1d37e4020f2675f3c9c840",
+  "private_key_sha256": "820824c7327aa790596d0249404fb87421fdab7e50aa775257b74d198f959beb",
+  "classification_not_started_in_source_role": true,
+  "independent_blind_role_not_source_role": true,
+  "selected_n": 8,
+  "source_complete_n": 8,
+  "unit_n": 63,
+  "gloss_n": 12,
+  "limits": [
+    "AI source review only; no expert/rights/official download lineage certification",
+    "all source-role key pages potentially exposed; no unseen source-role answer classification"
+  ]
+}

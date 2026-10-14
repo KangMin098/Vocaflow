@@ -1,0 +1,1120 @@
+{
+  "version": "1.4",
+  "role": "AI_source_admission_not_independent_rater_or_human",
+  "method": "Selected8 actual local PDF question pages and same-form key rows visually viewed; every source field/atomic unit and presentation boundary checked. Original byte hash and full normalized character inclusion corroborate, not replace, visual review.",
+  "input_sha256": "15fe105b8a3cf0878ec3adcf39a0430a3fb7c36c9a2eafd3ee18cb77b8780f61",
+  "private_key_sha256": "820824c7327aa790596d0249404fb87421fdab7e50aa775257b74d198f959beb",
+  "raw_first_sha256": "b94b8bd01cf1699f2d427881287c6f48d0fed2877c1d37e4020f2675f3c9c840",
+  "items": [
+    {
+      "id": "2018#22",
+      "status": "complete",
+      "source_binding": "4f53724a2f7f6586b854858af297acdd9a47815b426f53d79c6c81eb671bcb36",
+      "old_binding": "ba5c1879d963895a7e49a195c4470aa3fc256e53143a1c0f0d089dfce1b914db",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2018_영어_짝.pdf",
+        "sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2018-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2018영어영역_정답표.pdf",
+        "sha256": "85b53740564873e3a62d16d509ed3830bb35d27c50a5c549ace385e0cfb90079",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 22
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 170,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 171,
+          "end": 273,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 274,
+          "end": 351,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 352,
+          "end": 406,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 407,
+          "end": 680,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 681,
+          "end": 769,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 770,
+          "end": 965,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "source_changes": []
+    },
+    {
+      "id": "2020#24",
+      "status": "complete",
+      "source_binding": "d54cf4c139f46530f492172b04df5d0075ec627432037c9be37e0c828ba17a2a",
+      "old_binding": "c8b859d64ded72c06741fe5805d8d9897c712e3c2f72314ff7ec7eeba854321c",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2020_영어_짝.pdf",
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "pages": [
+          3
+        ],
+        "paper_form": "짝수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2020-q-3.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2020영어영역_정답표.pdf",
+        "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 24
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 144,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 145,
+          "end": 369,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 370,
+          "end": 544,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 545,
+          "end": 747,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 748,
+          "end": 1003,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 1004,
+          "end": 1142,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "source_changes": []
+    },
+    {
+      "id": "2017#33",
+      "status": "complete",
+      "source_binding": "baaede23715bca1474646a7c270c8315c6a5ff705171dac5f4397be90d4075a2",
+      "old_binding": "ddbc1a72966027bc2b1292f8281540b99c89ea0a1bda0bcb9e255bf95ac648a5",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2017_영어_짝.pdf",
+        "sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+        "pages": [
+          6
+        ],
+        "paper_form": "짝수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2017-q-6.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ],
+        "stem_page": 5,
+        "stem_render": "scripts/research/csat-reading/local/v14/source-2017-q-5.png"
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2017영어영역_정답표.pdf",
+        "sha256": "8ef2e2eaa814d9c792383a279c5c6994f5023c4c0fb723d89eb3863ca22646e8",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 33
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 20,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 21,
+          "end": 76,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 77,
+          "end": 118,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 119,
+          "end": 235,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 236,
+          "end": 551,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 552,
+          "end": 682,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 683,
+          "end": 786,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "incomplete_source_blank"
+        },
+        {
+          "id": "s8",
+          "start": 787,
+          "end": 898,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2"
+      ],
+      "source_changes": []
+    },
+    {
+      "id": "2024#37",
+      "status": "complete",
+      "source_binding": "0d1cb689cfc55c57dd7193e6ae4beb5e786cb8486bf4c3fe676995efa05d38dd",
+      "old_binding": "61d4bb872f1302d436154d80e512fecce09fe926b90ec6d66343380445db5591",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2024_영어영역_문제지.pdf",
+        "sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+        "pages": [
+          7
+        ],
+        "paper_form": "홀수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2024-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ],
+        "stem_page": 6,
+        "stem_render": "scripts/research/csat-reading/local/main-20261014/source-2024-q-6.png"
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2024영어영역_정답표.pdf",
+        "sha256": "9b9fa391818c7f39f09963ad8cd1f6d8bcbd15706d8620a27c68f4e2734a72a3",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 37
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 82,
+          "kind": "punctuation_sentence",
+          "role": "given_stimulus",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 83,
+          "end": 218,
+          "kind": "punctuation_sentence",
+          "role": "given_stimulus",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 223,
+          "end": 324,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(A)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 325,
+          "end": 421,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(A)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 422,
+          "end": 500,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(A)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 501,
+          "end": 567,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(A)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 572,
+          "end": 642,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(B)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s8",
+          "start": 643,
+          "end": 739,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(B)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s9",
+          "start": 740,
+          "end": 792,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(B)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s10",
+          "start": 797,
+          "end": 862,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(C)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s11",
+          "start": 863,
+          "end": 987,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": "(C)",
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1"
+      ],
+      "source_changes": []
+    },
+    {
+      "id": "2016#38",
+      "status": "complete",
+      "source_binding": "ec02e9b376c907b30386c8bd5b28dc14a6ec43ecebd7d5724654526d339f144f",
+      "old_binding": "71d52946aab8dfe33a30b20c9fa09012c412295c0e2303845c2d82acfa736cfa",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2016_영어영역-홀수.pdf",
+        "sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+        "pages": [
+          7
+        ],
+        "paper_form": "홀수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2016-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2016영어영역_정답표.pdf",
+        "sha256": "f4237f804d3ab237565a545524453e4ec250d3d55a0d3fb280c8d132357ff348",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 38
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 123,
+          "kind": "punctuation_sentence",
+          "role": "given_stimulus",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 124,
+          "end": 228,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 229,
+          "end": 318,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 319,
+          "end": 444,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 445,
+          "end": 545,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 546,
+          "end": 648,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 649,
+          "end": 775,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s8",
+          "start": 776,
+          "end": 846,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s9",
+          "start": 847,
+          "end": 952,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1"
+      ],
+      "source_changes": [
+        "Stored overextended choices replaced with original insertion-position labels; original given-stimulus boxed range retained."
+      ]
+    },
+    {
+      "id": "2023#35",
+      "status": "complete",
+      "source_binding": "16c165e3603c766d78b80d3b1b81bce2778327c7998012763effb5465d895fe5",
+      "old_binding": "5af004438e5b95e76f71570c3f34256cf56f10b3aed15d4b66dc7904db8ff900",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2023_영어영역_문제지.pdf",
+        "sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+        "pages": [
+          6
+        ],
+        "paper_form": "홀수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2023-q-6.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2023영어영역_정답표.pdf",
+        "sha256": "0397a4fe92ff4ea4a384439ddda5beb2aa36c3b13c95caccf85bb69d56ca2e72",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 35
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 171,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 172,
+          "end": 323,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 324,
+          "end": 421,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 422,
+          "end": 636,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 637,
+          "end": 760,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 761,
+          "end": 886,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 887,
+          "end": 986,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [],
+      "source_changes": []
+    },
+    {
+      "id": "2022#30",
+      "status": "complete",
+      "source_binding": "96f775f612dd17af0122630a6a43fc2852bf1b9b7b3da1346515273c84bd4862",
+      "old_binding": "7ed843f41b55081c658ac895e29afad6a392bc0b8942eb8bf0a494a30dc49581",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2022_영어영역_짝수형.pdf",
+        "sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a",
+        "pages": [
+          5
+        ],
+        "paper_form": "짝수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2022-q-5.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2022영어영역_정답표.pdf",
+        "sha256": "cd1687afd0da13a54ab59b5eb89faf4f9f6f70ef97930dbdfc940d6f1e558aac",
+        "page": 2,
+        "paper_form": "짝수형",
+        "number": 30
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 157,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 158,
+          "end": 291,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 292,
+          "end": 566,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 567,
+          "end": 674,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 675,
+          "end": 858,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 859,
+          "end": 1093,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        }
+      ],
+      "gloss_ids": [
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "source_changes": [
+        "Stem ending restored; five underline targets separated from body/footnote/page contamination."
+      ]
+    },
+    {
+      "id": "2015#40",
+      "status": "complete",
+      "source_binding": "e549a54b4f192bfa399ea927fe3fa73d7d43cb35a03d1f27dcf9680da05aa27c",
+      "old_binding": "9f5d27c50355e68ca8ea42ee220bcbc6d2c532e1953d9d66537b83f1344c7002",
+      "field_complete": {
+        "body": true,
+        "stem": true,
+        "options": true,
+        "glosses": true,
+        "presentation": true,
+        "units": true
+      },
+      "pdf": {
+        "filename": "2015_영어영역-홀수.pdf",
+        "sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+        "pages": [
+          7
+        ],
+        "paper_form": "홀수형",
+        "render": "scripts/research/csat-reading/local/v14/source-2015-q-7.png",
+        "provenance_limitations": [
+          "official_download_chain_unresolved",
+          "AI_source_admission_not_human"
+        ]
+      },
+      "keymatch": true,
+      "key_pdf": {
+        "filename": "2015영어영역_정답표_홀수.pdf",
+        "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
+        "page": 1,
+        "paper_form": "홀수형",
+        "number": 40
+      },
+      "units": [
+        {
+          "id": "s1",
+          "start": 0,
+          "end": 104,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s2",
+          "start": 105,
+          "end": 253,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s3",
+          "start": 254,
+          "end": 433,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s4",
+          "start": 434,
+          "end": 508,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s5",
+          "start": 509,
+          "end": 623,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s6",
+          "start": 624,
+          "end": 741,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s7",
+          "start": 742,
+          "end": 812,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s8",
+          "start": 813,
+          "end": 879,
+          "kind": "punctuation_sentence",
+          "role": "body",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "manually_reviewed_source_sentence"
+        },
+        {
+          "id": "s9",
+          "start": 881,
+          "end": 1052,
+          "kind": "punctuation_sentence",
+          "role": "task_stimulus",
+          "block_label": null,
+          "sentence_count": 1,
+          "syntactic_completeness": "incomplete_source_blank"
+        }
+      ],
+      "gloss_ids": [],
+      "source_changes": []
+    }
+  ],
+  "summary": {
+    "selected": 8,
+    "admitted": 8,
+    "source_complete": 8,
+    "keymatched": 8,
+    "glosses": 12,
+    "units": 63
+  },
+  "source_role_incidental_page_exposure": [
+    {
+      "exam": "2015",
+      "ids": [
+        "2015#37",
+        "2015#38",
+        "2015#39",
+        "2015#40"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2016",
+      "ids": [
+        "2016#37",
+        "2016#38",
+        "2016#39",
+        "2016#40"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2017",
+      "ids": [
+        "2017#33",
+        "2017#34",
+        "2017#35",
+        "2017#36"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2018",
+      "ids": [
+        "2018#21",
+        "2018#22",
+        "2018#23",
+        "2018#24"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2020",
+      "ids": [
+        "2020#21",
+        "2020#22",
+        "2020#23",
+        "2020#24"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2022",
+      "ids": [
+        "2022#29",
+        "2022#30",
+        "2022#31",
+        "2022#32"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2023",
+      "ids": [
+        "2023#33",
+        "2023#34",
+        "2023#35",
+        "2023#36"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2024",
+      "ids": [
+        "2024#37",
+        "2024#38",
+        "2024#39",
+        "2024#40"
+      ],
+      "timing": "postselection_source_preflight",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2017",
+      "ids": [
+        "2017#29",
+        "2017#30",
+        "2017#31",
+        "2017#32"
+      ],
+      "timing": "postselection_shared_stem_p5",
+      "not_delivered_to_blind_raters": true
+    },
+    {
+      "exam": "2024",
+      "ids": [
+        "2024#33",
+        "2024#34",
+        "2024#35",
+        "2024#36"
+      ],
+      "timing": "postselection_shared_stem_p6",
+      "not_delivered_to_blind_raters": true
+    }
+  ],
+  "source_role_key_page_exposure": {
+    "scope": "full same-form answer pages eight booklets; all key rows potentially visible to source role; no independent blinded source-role classification"
+  },
+  "limits": [
+    "official_download_chain_unresolved",
+    "no_human_expert_or_rights_review",
+    "no_learner_exposure_or_effect_observation",
+    "no_model_pretraining_unexposed_guarantee"
+  ],
+  "source_binding_recipe": "SHA256 UTF-8 JSON.stringify saved insertion-order source item after deleting source_binding and target_scaffold[].candidate_id. candidate_id is derived source_binding:cN and omitted from preimage to avoid circularity.",
+  "manual_unit_review": {
+    "all_units": 63,
+    "source_source_sentences_read": true,
+    "quotation_boundary": "2017#33 Spinoza quotation one punctuation sentence; no honorific/abbreviation fragments found.",
+    "incomplete_source_sentences": [
+      "2017#33:s7",
+      "2015#40:s9"
+    ],
+    "blocks_not_sentence_budgets": true,
+    "duplicate_candidate_body_information": "2023#35 five candidate sentences duplicate body ranges; exact inline ranges recorded and must be unioned.",
+    "order_choice_mapping": "2024#37 actual numbered rows directly viewed; PDF character layer interleaves columns and does not independently validate row mapping."
+  }
+}
