@@ -19,7 +19,8 @@ import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
 import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
 import { buildDemand } from '@/lib/csat/map/v62/demand'
-import { ROLE_LABEL_KO, SUPPLY_STATE_LABEL, supplyFor } from '@/lib/csat/map/v62/supply'
+import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
+import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
 import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
 import { toItemSlug } from '@/lib/csat/item-slug'
@@ -123,6 +124,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
   const demand = buildDemand(view, t.id, home, { workspaceId: savedWs?.workspaceId ?? null, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null })
   const unseen = new Set(check?.unseen ?? [])
+  // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
+  const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
   const supply = supplyFor(demand, {
     unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
     transferItems: transferMine.map((l) => l.target),
@@ -283,12 +286,13 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               <p className={u.subH}>지금 단계에 필요한 자료</p>
               <ul className={u.ledger}>
                 {supply.lines.map((l) => (
-                  <li key={l.role} data-role={l.role} data-state={l.state} title={l.reason}>
+                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger)} title={l.reason}>
                     <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
-                    <span className={u.ledgerVal}>{SUPPLY_STATE_LABEL[l.state]}</span>
+                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger)]}</span>
                   </li>
                 ))}
               </ul>
+              <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
               <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
             </div>
           )}

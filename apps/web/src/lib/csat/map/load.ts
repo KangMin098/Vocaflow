@@ -34,6 +34,8 @@ import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/kn
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
+import { loadSupplyLedger } from './v62/supply-store'
+import type { SupplyLedger } from './v62/supply-ledger'
 
 type Db = SupabaseClient
 
@@ -93,6 +95,8 @@ export interface MapV4Input {
   transferTargets: Record<string, { target: string; href: string; label: string }[]>
   /** 저장된 학습계획(4차) — 저장 구조가 없으면 status 'not_installed'(화면은 이 기기 초안 모드) */
   saved: SavedPlans
+  /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
+  supplyLedger: Record<string, SupplyLedger>
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
   viewer: string
 }
@@ -426,6 +430,10 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return { counts: {} as Record<string, number>, targets: {} as Record<string, { target: string; href: string; label: string }[]> } })
   // 저장된 계획 — 못 읽으면 지도는 그리고 저장 기능만 끈다(저장됨으로 보이지 않게 not_installed 가 아니라 오류 표시)
   const saved: SavedPlans = await loadSavedPlans(db, userId).catch((e) => { console.error('[csat-map v4 saved plans]', e); return { status: 'not_installed' as const, byTemplate: {}, goalVersionId: null, error: true } as SavedPlans })
+  // v6.2 P-F8e — 저장된 Workspace 마다 주문 · 공급 기록(읽기만). 못 읽으면 error — 화면은 주문 단계를 표시하지 않는다
+  const supplyLedger: Record<string, SupplyLedger> = Object.fromEntries(await Promise.all(
+    Object.values(saved.byTemplate).map(async (w) => [w.workspaceId, await loadSupplyLedger(db, userId, w.workspaceId).catch((e) => { console.error('[csat-map v62 supply ledger]', e); return { status: 'error' } as SupplyLedger })] as const),
+  ))
 
   return {
     now: now.toISOString(),
@@ -438,6 +446,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       transferItems,
       transferTargets,
       saved,
+      supplyLedger,
       viewer: userId,
     },
     model: buildMapModel(raw, examLabels),
