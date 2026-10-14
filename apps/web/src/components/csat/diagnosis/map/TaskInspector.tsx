@@ -17,6 +17,10 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
+import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
+import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
+import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
+import { toItemSlug } from '@/lib/csat/item-slug'
 
 /** 코드북 설계 문구(conditions · evidence) 중 영어 내부 용어 조각(facet · Anchor 등)을 뺀 학습자 문구 — 「·」 로 나뉜 조각 단위 */
 function learnerText(s: string | null | undefined): string {
@@ -106,6 +110,15 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const home = homeWsOf(t.id, view, restoreWs)
   const behaviors = BEHAVIORS[t.id] ?? []
   const research = researchFor(t.id)
+  // 기출 해부로 열어도 되는 문항(노출 규칙) — 이 TASK 를 직접 확인하는 과제 키의 확인 · 전이 문항을 대조한다
+  const keys = checkKeysOfTask(t.id)
+  const confirmAll = confirmLinksOf(data)
+  const study = studyItemsFor(
+    t.id,
+    view.asIs.tasks[t.id]?.check ?? null,
+    keys.flatMap((k) => confirmAll[k] ?? []),
+    keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? []),
+  )
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
   const step = legacyStepOf(t.id, [...path.read, ...path.listen])
@@ -195,6 +208,34 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+          {(study.items.length > 0 || study.withheld > 0) && (
+            <div className={u.sub} data-testid="inspector-study">
+              <p className={u.subH}>기출 해부로 공부하기 — 출제 의도 · 정답 · 오답 설계</p>
+              {study.items.length > 0 ? (
+                <ul className={u.studyList}>
+                  {study.items.map((s) => (
+                    <li key={s.item} data-basis={s.basis}>
+                      <Link
+                        href={past ? `/csat/item/${toItemSlug(s.item)}` : withMapReturn(`/csat/item/${toItemSlug(s.item)}`, outgoingCtx(data.v4?.saved, t.id, home))}
+                        className={u.studyLink}
+                        data-testid="inspector-study-link"
+                      >
+                        {s.item.replace('#', ' · ')}번
+                        <span className={u.bStatus}>{s.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항' : `연구 사례(AI 2명 ${s.research === 'direct' ? '직접' : '간접'} 관련 · 사람 검수 전)`}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={u.fine}>확인 문항을 하나 풀면 그 문항의 출제 의도와 정답 · 오답 설계를 여기서 볼 수 있어요.</p>
+              )}
+              {study.withheld > 0 && (
+                <p className={u.fine} data-testid="inspector-study-withheld">
+                  아직 안 푼 확인 · 다른 글 적용 문항 {study.withheld}개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.
+                </p>
+              )}
             </div>
           )}
           {research && (

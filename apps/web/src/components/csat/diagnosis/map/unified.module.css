@@ -585,3 +585,30 @@ summary.subH {
   font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
   color: var(--m-ink2);
 }
+
+/* 기출 해부로 공부하기 */
+.studyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.studyLink {
+  display: grid;
+  gap: 2px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--m-line);
+  color: var(--m-ink);
+  text-decoration: none;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+}
+.studyLink:hover {
+  background: var(--m-hover);
+}
+.studyLink:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
