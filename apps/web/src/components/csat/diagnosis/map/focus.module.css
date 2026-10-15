@@ -189,8 +189,9 @@
   color: var(--m-ink2);
 }
 .blocked summary {
+  /* H01 — 실측 기준 44px(터치 타깃) */
   cursor: pointer;
-  min-height: 32px;
+  min-height: 44px;
   display: flex;
   align-items: center;
 }
@@ -206,7 +207,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 10px;
   border: 1px dashed var(--m-g400);
   border-radius: 8px;

@@ -161,7 +161,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   return (
     <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-goal-set={goalSet}>
-      <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} recordHref={recordHref} />
+      <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} />
       <FocusStrip view={view} ranks={ranks} data={data} goalSet={goalSet} past={past} recordHref={recordHref} selected={selected} onSelect={choose} />
 
       <div className={u.body}>
@@ -197,7 +197,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
                 const wide = mode === 'full' || focus === d.id
                 return (
                   <section key={d.id} className={u.col} data-domain={d.id} data-wide={wide} data-hold={d.hold} aria-label={`${d.id} ${d.name}`}>
-                    <button type="button" className={u.colHead} onClick={() => setFocus(focus === d.id && mode !== 'full' ? null : d.id)} aria-pressed={wide} data-testid="umap-domain" title={d.question}>
+                    <button type="button" className={u.colHead} onClick={() => setFocus(focus === d.id && mode !== 'full' ? null : d.id)} aria-pressed={wide} data-testid="umap-domain" title={`${d.id} ${d.name} — ${d.question}`}>
                       <span className={u.colCode}>{d.id}</span>
                       <span className={u.colName}>{d.name}</span>
                       {d.hold ? (
