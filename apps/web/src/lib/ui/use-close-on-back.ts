@@ -32,7 +32,15 @@
 
 'use client'
 
-import { useEffect, useRef, type MutableRefObject } from 'react'
+import { useEffect, useLayoutEffect, useRef, type MutableRefObject } from 'react'
+
+/**
+ * 표식은 **그리기 전에** 쌓는다(useLayoutEffect) — useEffect 로 두면 팝업이 화면에 보인 뒤 passive effect 가
+ * 돌기 전까지 틈이 생기고, 그 틈에 누른 뒤로가기는 팝업을 닫는 대신 화면을 떠난다
+ * (e2e 31-popup-return 의 /arcade 간헐 실패 원인 · 2026-10-14 실측: 팝업 DOM 삽입 직후 len 그대로, 이후 effect 에서 +1).
+ * 서버 렌더에서는 레이아웃 effect 가 없으므로 useEffect(경고 방지 · 서버에선 어차피 아무것도 안 한다).
+ */
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 /**
  * 되감기 예약 — **StrictMode 안전장치.**
@@ -71,7 +79,7 @@ export function useCloseOnBack(open: boolean, onClose: () => void, options?: Clo
   closeRef.current = onClose
   const afterRef = options?.afterUnwindRef
 
-  useEffect(() => {
+  useIsoLayoutEffect(() => {
     if (!open) return
     if (typeof window === 'undefined') return
 
@@ -87,6 +95,14 @@ export function useCloseOnBack(open: boolean, onClose: () => void, options?: Clo
     let unwound = false
     const onPop = () => {
       // 뒤로가기가 우리 표식을 이미 걷어냈다 — 되감을 것이 없다.
+      unwound = true
+      closeRef.current()
+    }
+    // 이어 쓰려던 표식이 이미 걷혔다 — StrictMode 재실행 직전에 뒤로가기가 들어오면, history 는 이미 앞 칸으로 돌아갔는데
+    //   그 popstate 는 떼어 낸 앞 처리기 몫이라 아무도 받지 못한다(표식은 없고 팝업만 남음 · e2e 31-popup-return /arcade
+    //   간헐 실패 · 2026-10-14 수명주기 계측: mount → back → cleanup(unwound=false) → 재마운트 ov=false → onPop 없음).
+    //   그 뒤로가기를 여기서 받아 닫는다.
+    if (reusedEntry && (window.history.state as { vocaflowOverlay?: boolean } | null)?.vocaflowOverlay !== true) {
       unwound = true
       closeRef.current()
     }
