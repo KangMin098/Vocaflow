@@ -238,10 +238,12 @@
   ],
   "protocol_hashes": {
     "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
-    "scripts/research/lm-g1-1-independent/browser.mjs": "fb897d77e1c5c26a39b22812376a802bc4b600a981936ae03d72cd91315b35fb",
+    "scripts/research/lm-g1-1-independent/browser.mjs": "030eb62da10807000f820bf9590ae86cc1b3d0d7a62945f8ed5f3809a6dee473",
     "scripts/research/lm-g1-1-independent/workspace-boundary.mjs": "fb0fb4564b1548aee5943b69b6caa70e1a69568253b68e708341c394a03722cc",
     "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
-    "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21"
+    "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21",
+    "scripts/research/lm-g1-1-independent/cleanup.mjs": "4040fa080c88bbff188ff232de145385c5d59b46f9474f34792404167f8f5f7f",
+    "scripts/research/lm-g1-1-independent/cleanup.test.mjs": "8b37edb79409e500bf968fd1676aff830813d6743b150c3f5722bea3eea72ae9"
   },
   "execution_protocol_hashes": {
     "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
@@ -250,5 +252,5 @@
     "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
     "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21"
   },
-  "harness_followup": "After the successful browser runs, purpose review required nonzero exit on failed assertions/account cleanup and mkdir for ignored local logs. Inputs, UI assertions and product source unchanged; completed result JSON remains source evidence, not a claim of rerunning those branches."
+  "harness_followup": "After the successful browser runs, purpose review required nonzero exit on failed assertions/account cleanup and mkdir for ignored local logs. Inputs, UI assertions and product source unchanged; completed result JSON remains source evidence, not a claim of rerunning those branches. Cleanup errors now fail closed; explicit user_not_found confirms absence; fault-injection5/5 and live read-only absence6/6 separately documented."
 }

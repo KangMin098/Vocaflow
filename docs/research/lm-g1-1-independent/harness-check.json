@@ -1,13 +1,13 @@
 {
-  "scope": "Execute actual extracted completion guard and mkdir statement in isolated JS contexts; not a rerun of browser paths",
-  "pass": 4,
+  "scope": "Actual extracted failure guard and mkdir statements; cleanup fault injection via node --test cleanup.test.mjs; not browser rerun",
+  "pass": 9,
   "fail": 0,
-  "cases": [
-    "all pass / no accounts => exit0",
-    "failed assertion => exit1",
-    "remaining account => exit1",
-    "missing nested local log directory created"
-  ],
-  "browser_sha256": "fb897d77e1c5c26a39b22812376a802bc4b600a981936ae03d72cd91315b35fb",
-  "runner_sha256": "e57ca33d5403513394c0ded5167d66a92ed47a04296a9239b63ced96d702c644"
+  "guardCases": 4,
+  "cleanupFaultCases": 5,
+  "sources": {
+    "browser.mjs": "030eb62da10807000f820bf9590ae86cc1b3d0d7a62945f8ed5f3809a6dee473",
+    "regression.mjs": "e57ca33d5403513394c0ded5167d66a92ed47a04296a9239b63ced96d702c644",
+    "cleanup.mjs": "4040fa080c88bbff188ff232de145385c5d59b46f9474f34792404167f8f5f7f",
+    "cleanup.test.mjs": "8b37edb79409e500bf968fd1676aff830813d6743b150c3f5722bea3eea72ae9"
+  }
 }

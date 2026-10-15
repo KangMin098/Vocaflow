@@ -10,6 +10,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
+import { cleanupOwnedAccounts } from './cleanup.mjs'
 
 const ROOT = path.resolve(import.meta.dirname, '../../..')
 const req = createRequire(path.join(ROOT, 'apps/web/package.json'))
@@ -166,12 +167,11 @@ try {
   await shot(page, 'T19-past')
   await ctx.close()
 } finally {
-  for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {})
-  let left = 0
-  for (const id of users) { const { data } = await db.auth.admin.getUserById(id); if (data?.user) left++ }
-  await browser.close()
-  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ base: BASE, pass: results.filter((r) => r.ok).length, fail: results.filter((r) => !r.ok).length, accountsLeft: left, results }, null, 2))
-  console.log(`accounts created ${users.length} · left ${left}`)
+  const cleanup = await cleanupOwnedAccounts(db.auth.admin, users)
+  const left = cleanup.accountsLeft
+  try { await browser.close() } catch { cleanup.ok = false; cleanup.errors.push('browser_close_failed') }
+  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ base: BASE, pass: results.filter((r) => r.ok).length, fail: results.filter((r) => !r.ok).length, accountsLeft: left, cleanup, results }, null, 2))
+  console.log(`accounts created ${users.length} · left ${left} · cleanup ${cleanup.ok ? 'confirmed' : 'failed'}`)
   console.log(`PASS ${results.filter((r) => r.ok).length} · FAIL ${results.filter((r) => !r.ok).length}`)
-  if (results.some((r) => !r.ok) || left !== 0) process.exitCode = 1
+  if (results.some((r) => !r.ok) || !cleanup.ok) process.exitCode = 1
 }
