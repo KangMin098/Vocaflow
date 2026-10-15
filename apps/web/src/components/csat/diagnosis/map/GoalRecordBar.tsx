@@ -104,7 +104,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           <h3 className={u.topLabel}>시험 기록{past ? ` · ${asOf} 기준` : ''}</h3>
           <p className={u.topBig} title={excluded.length > 0 ? `빠진 기록: ${excluded.map((x) => `${EXCLUDED_LABEL[x.k]} ${x.n}`).join(' · ')}` : undefined}>
             전체 <strong>{total}</strong> · 진단에 씀 <strong>{used}</strong>
-            {gs.latest && <span className={u.topSub}> · 최근 {gs.latest.raw}점{goalSet && gs.gap !== null && !past ? ` · 목표까지 ${gs.gap}점` : ''}</span>}
+            {gs.latest && <span className={u.topSub}> · {past ? '전체 기록의 최근' : '최근'} {gs.latest.raw}점{goalSet && gs.gap !== null && !past ? ` · 목표까지 ${gs.gap}점` : ''}</span>}
           </p>
         </div>
         {past ? (

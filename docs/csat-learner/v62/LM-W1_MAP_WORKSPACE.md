@@ -134,3 +134,10 @@
 - **알려진 한계**: 1280 · 1440 의 `view=full` 은 여전히 캔버스 안 가로 스크롤(L · X 열) — 30 TASK 접근은 스크롤 · 검색으로 된다(W02 는 DOM 30 개 확인 · 화면에 한 번에 다 보이지는 않음). 리스트의 「다음 행동」 문구는 길면 말줄임(전체는 title).
 - 실제 사이트 하위 화면 조사는 인증 때문에 못 했다 — 사용자가 저장 페이지 · 로그인 상태 파일을 주면([CAPTURE.md](../../design/refs/3b/CAPTURE.md)) DOM 실측으로 대조를 넓힐 수 있다.
 - 저장 PLAN 의 납품 연동 E2E · 실제 교재공장(MOCK_ONLY) — 범위 밖 그대로.
+
+
+## Codex 독립 수용 보강 — 2026-10-15
+
+최초 검토 HEAD `cd6a83974c911072d457d1989cec2044794321c2`를 보존하고, Workspace 발견·양방향 이동·팝업 키보드 진입·과거 화면의 전체 최근 기록 표시에 관한 P2 네 건을 최소 수정했다. 지도 크기와 교육 판정 엔진은 유지했다. 수정본의 DESIGN_FIDELITY / UX_INTEGRATION / FUNCTIONAL_REGRESSION / GOAL_ALIGNMENT는 이번 화면 범위에서 PASS다. 최신 HEAD 필수 CI 및 safe-merge 결과는 PR #270에 기록한다.
+
+독립 브라우저 42/42, 기존 Workspace 36/36·복귀 7/7·해부 6/6·공급 6/6, 단위 검사 94/94, 타입 검사·대상 lint를 통과했다. 실제 1280/1440 측정, 옛 테스트의 기능 대체표, 최초 실패와 수정 증거, 복귀 검증의 한계는 [독립 수용 보고서](../../research/lm-w1-design-review/LM-W1-INDEPENDENT-ACCEPTANCE.md)를 따른다. R5 전체 원자 수행 환류·V2/S5·실제 Factory·학습 효과를 완료로 승격하지 않는다.

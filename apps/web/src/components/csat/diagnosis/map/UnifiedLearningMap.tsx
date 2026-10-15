@@ -258,6 +258,12 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           <h2 id="umap-h" className={u.h}>학습지도</h2>
           <p className={u.headNote}>
             영역 6 · TASK {graph.counts.tasks}(측정 중 {graph.counts.nonHold} · 보류 {graph.counts.hold}) · 번호 = 먼저 볼 순서
+            <a href="#ws-h" className={u.wsJump} data-testid="umap-ws-jump" onClick={(e) => {
+              e.preventDefault()
+              const heading = document.getElementById('ws-h')
+              heading?.scrollIntoView({ block: 'center' })
+              heading?.focus({ preventScroll: true })
+            }}>Workspace {rows.length}개 ↓</a>
           </p>
           <label className={u.search}>
             <Search size={14} strokeWidth={1.9} aria-hidden="true" />
@@ -357,7 +363,16 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
         past={past}
         selectedTask={lit ? selected : null}
         selectedWs={lit ? ws : null}
-        onSelectWs={chooseWs}
+        onSelectWs={(id) => {
+          const chosen = rows.find((r) => r.id === id)
+          const target = chosen ? taskForWs(chosen, selected) : null
+          chooseWs(id)
+          if (target) requestAnimationFrame(() => {
+            const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
+            node?.scrollIntoView({ block: 'center', inline: 'nearest' })
+            node?.focus({ preventScroll: true })
+          })
+        }}
         onOpenWs={(id, el) => openWs(id, el)}
         onSelectTask={(id) => chooseTask(id, true)}
       />
@@ -372,7 +387,10 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           past={past}
           goalSet={!!view.toBe}
           onClose={closePop}
-          onSelectWs={chooseWs}
+          onSelectWs={(id) => {
+            chooseWs(id)
+            requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-testid="ws-row"][data-ws="${CSS.escape(id)}"] [data-testid="ws-select"]`)?.focus())
+          }}
           onDetail={() => {
             opener.current = anchor
             setPop(false)
@@ -437,13 +455,14 @@ function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onCl
       data-testid="umap-node"
       aria-pressed={selected}
       aria-haspopup="dialog"
-      aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''}`}
+      aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · ${selected ? '다시 누르면 자세히 · Esc 초점 해제' : '누르면 초점 · 다시 누르면 자세히'}`}
       onClick={onClick}
     >
       <span className={u.nodeName}>
         <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
       {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
       {order !== null && <span className={u.nodeOrder} aria-hidden="true">{order}</span>}
+      {selected && <span className={u.nodeMore} data-testid="node-more" aria-hidden="true"><MoreVertical size={12} /></span>}
     </button>
   )
 }

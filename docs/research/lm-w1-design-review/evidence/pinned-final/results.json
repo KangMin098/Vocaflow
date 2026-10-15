@@ -1,0 +1,188 @@
+{
+  "scope": "synthetic actual Chromium; no learning effect evidence",
+  "results": [
+    {
+      "id": "1280-geometry",
+      "ok": true,
+      "detail": {
+        "ws": {
+          "x": 94,
+          "y": 991,
+          "w": 1126,
+          "h": 428.6875
+        },
+        "canvas": {
+          "x": 111,
+          "y": 362,
+          "w": 1092,
+          "h": 596
+        },
+        "help": {
+          "x": 123,
+          "y": 914,
+          "w": 273.8125,
+          "h": 32
+        },
+        "legend": {
+          "x": 662.21875,
+          "y": 874,
+          "w": 528.78125,
+          "h": 32
+        },
+        "jump": null,
+        "nodes": 30,
+        "domains": 6,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "1280-workspace-discovery",
+      "ok": false,
+      "detail": {
+        "wsY": 991,
+        "visibleExplicitCue": null
+      }
+    },
+    {
+      "id": "1280-first-click",
+      "ok": true,
+      "detail": {
+        "lit": "true"
+      }
+    },
+    {
+      "id": "1280-keyboard-popup-entry",
+      "ok": false,
+      "detail": {
+        "inPopup": false,
+        "node": "r.central_meaning",
+        "role": null
+      }
+    },
+    {
+      "id": "1280-popup-tab-distance",
+      "ok": false,
+      "detail": {
+        "tabs": 34
+      }
+    },
+    {
+      "id": "1280-popup-escape",
+      "ok": true,
+      "detail": {
+        "restored": "r.central_meaning"
+      }
+    },
+    {
+      "id": "1280-task-to-workspace-perceptible",
+      "ok": false,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "selectedRow": 1046.546875,
+        "popup": false
+      }
+    },
+    {
+      "id": "1280-workspace-to-task",
+      "ok": true,
+      "detail": {
+        "core": 1
+      }
+    },
+    {
+      "id": "1440-geometry",
+      "ok": true,
+      "detail": {
+        "ws": {
+          "x": 94,
+          "y": 895.4375,
+          "w": 1286,
+          "h": 428.6875
+        },
+        "canvas": {
+          "x": 111,
+          "y": 306.4375,
+          "w": 1252,
+          "h": 556
+        },
+        "help": {
+          "x": 123,
+          "y": 818.4375,
+          "w": 273.8125,
+          "h": 32
+        },
+        "legend": {
+          "x": 822.21875,
+          "y": 818.4375,
+          "w": 528.78125,
+          "h": 32
+        },
+        "jump": null,
+        "nodes": 30,
+        "domains": 6,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "1440-workspace-discovery",
+      "ok": false,
+      "detail": {
+        "wsY": 895.4375,
+        "visibleExplicitCue": null
+      }
+    },
+    {
+      "id": "1440-first-click",
+      "ok": true,
+      "detail": {
+        "lit": "true"
+      }
+    },
+    {
+      "id": "1440-keyboard-popup-entry",
+      "ok": false,
+      "detail": {
+        "inPopup": false,
+        "node": "r.central_meaning",
+        "role": null
+      }
+    },
+    {
+      "id": "1440-popup-tab-distance",
+      "ok": false,
+      "detail": {
+        "tabs": 34
+      }
+    },
+    {
+      "id": "1440-popup-escape",
+      "ok": true,
+      "detail": {
+        "restored": "r.central_meaning"
+      }
+    },
+    {
+      "id": "1440-task-to-workspace-perceptible",
+      "ok": false,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "selectedRow": 950.984375,
+        "popup": false
+      }
+    },
+    {
+      "id": "1440-workspace-to-task",
+      "ok": true,
+      "detail": {
+        "core": 1
+      }
+    },
+    {
+      "id": "owned-account-cleanup",
+      "ok": true,
+      "detail": {
+        "deleted": true
+      }
+    }
+  ]
+}

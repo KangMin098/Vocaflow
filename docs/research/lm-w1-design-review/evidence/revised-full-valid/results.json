@@ -1,0 +1,421 @@
+{
+  "scope": "synthetic actual Chromium; no learning effect evidence",
+  "results": [
+    {
+      "id": "legacy-no-goal",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "legacy-no-record",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "1280-geometry",
+      "ok": true,
+      "detail": {
+        "ws": {
+          "x": 94,
+          "y": 991,
+          "w": 1126,
+          "h": 428.6875
+        },
+        "canvas": {
+          "x": 111,
+          "y": 362,
+          "w": 1092,
+          "h": 596
+        },
+        "help": {
+          "x": 123,
+          "y": 914,
+          "w": 273.8125,
+          "h": 32
+        },
+        "legend": {
+          "x": 662.21875,
+          "y": 874,
+          "w": 528.78125,
+          "h": 32
+        },
+        "jump": {
+          "x": 483.875,
+          "y": 308,
+          "w": 91.3125,
+          "h": 44
+        },
+        "nodes": 30,
+        "domains": 6,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "1280-workspace-discovery",
+      "ok": true,
+      "detail": {
+        "wsY": 991,
+        "visibleExplicitCue": {
+          "x": 483.875,
+          "y": 308,
+          "w": 91.3125,
+          "h": 44
+        }
+      }
+    },
+    {
+      "id": "1280-workspace-jump-action",
+      "ok": true,
+      "detail": {
+        "focus": "ws-h",
+        "y": 440
+      }
+    },
+    {
+      "id": "1280-first-click",
+      "ok": true,
+      "detail": {
+        "lit": "true"
+      }
+    },
+    {
+      "id": "1280-selected-affordance",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "1280-keyboard-popup-entry",
+      "ok": true,
+      "detail": {
+        "inPopup": true,
+        "node": null,
+        "role": "dialog"
+      }
+    },
+    {
+      "id": "1280-popup-tab-distance",
+      "ok": true,
+      "detail": {
+        "tabs": 0
+      }
+    },
+    {
+      "id": "1280-popup-first-action",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "1280-popup-escape",
+      "ok": true,
+      "detail": {
+        "restored": "r.central_meaning"
+      }
+    },
+    {
+      "id": "1280-task-to-workspace-perceptible",
+      "ok": true,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "selectedRow": 481.546875,
+        "popup": false
+      }
+    },
+    {
+      "id": "1280-workspace-to-task",
+      "ok": true,
+      "detail": {
+        "core": 1
+      }
+    },
+    {
+      "id": "1280-all-workspace-reverse-visible",
+      "ok": false,
+      "detail": [
+        {
+          "id": "ws.central-meaning",
+          "visible": true
+        },
+        {
+          "id": "ws.option-match",
+          "visible": false
+        },
+        {
+          "id": "ws.evidence-locate",
+          "visible": false
+        },
+        {
+          "id": "ws.cohesion",
+          "visible": false
+        }
+      ]
+    },
+    {
+      "id": "1280-legacy-inspector-disclosure",
+      "ok": false,
+      "detail": {
+        "order": [
+          "inspector-detail",
+          "inspector-coverage"
+        ],
+        "detail": false
+      }
+    },
+    {
+      "id": "1440-geometry",
+      "ok": true,
+      "detail": {
+        "ws": {
+          "x": 94,
+          "y": 895.4375,
+          "w": 1286,
+          "h": 428.6875
+        },
+        "canvas": {
+          "x": 111,
+          "y": 306.4375,
+          "w": 1252,
+          "h": 556
+        },
+        "help": {
+          "x": 123,
+          "y": 818.4375,
+          "w": 273.8125,
+          "h": 32
+        },
+        "legend": {
+          "x": 822.21875,
+          "y": 818.4375,
+          "w": 528.78125,
+          "h": 32
+        },
+        "jump": {
+          "x": 483.875,
+          "y": 252.4375,
+          "w": 91.3125,
+          "h": 44
+        },
+        "nodes": 30,
+        "domains": 6,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "1440-workspace-discovery",
+      "ok": true,
+      "detail": {
+        "wsY": 895.4375,
+        "visibleExplicitCue": {
+          "x": 483.875,
+          "y": 252.4375,
+          "w": 91.3125,
+          "h": 44
+        }
+      }
+    },
+    {
+      "id": "1440-workspace-jump-action",
+      "ok": true,
+      "detail": {
+        "focus": "ws-h",
+        "y": 439.4375
+      }
+    },
+    {
+      "id": "1440-first-click",
+      "ok": true,
+      "detail": {
+        "lit": "true"
+      }
+    },
+    {
+      "id": "1440-selected-affordance",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "1440-keyboard-popup-entry",
+      "ok": true,
+      "detail": {
+        "inPopup": true,
+        "node": null,
+        "role": "dialog"
+      }
+    },
+    {
+      "id": "1440-popup-tab-distance",
+      "ok": true,
+      "detail": {
+        "tabs": 0
+      }
+    },
+    {
+      "id": "1440-popup-first-action",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "1440-popup-escape",
+      "ok": true,
+      "detail": {
+        "restored": "r.central_meaning"
+      }
+    },
+    {
+      "id": "1440-task-to-workspace-perceptible",
+      "ok": true,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "selectedRow": 481.984375,
+        "popup": false
+      }
+    },
+    {
+      "id": "1440-workspace-to-task",
+      "ok": true,
+      "detail": {
+        "core": 1
+      }
+    },
+    {
+      "id": "1440-all-workspace-reverse-visible",
+      "ok": false,
+      "detail": [
+        {
+          "id": "ws.central-meaning",
+          "visible": true
+        },
+        {
+          "id": "ws.option-match",
+          "visible": true
+        },
+        {
+          "id": "ws.evidence-locate",
+          "visible": false
+        },
+        {
+          "id": "ws.cohesion",
+          "visible": false
+        }
+      ]
+    },
+    {
+      "id": "1440-legacy-inspector-disclosure",
+      "ok": false,
+      "detail": {
+        "order": [
+          "inspector-detail",
+          "inspector-coverage"
+        ],
+        "detail": false
+      }
+    },
+    {
+      "id": "ref-geometry-2094",
+      "ok": true,
+      "detail": {
+        "rows": [
+          {
+            "name": "노드 폭",
+            "reference": 206,
+            "actual": 206,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "노드 높이",
+            "reference": 46,
+            "actual": 46,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "열 피치",
+            "reference": 272,
+            "actual": 272,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "행 피치",
+            "reference": 60,
+            "actual": 60,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "머리 줄 높이",
+            "reference": 49,
+            "actual": 49,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "머리 줄 → 첫 노드",
+            "reference": 25,
+            "actual": 25,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "열 머리 글자 → 노드 열",
+            "reference": 8,
+            "actual": 8,
+            "delta": 0,
+            "ok": true
+          },
+          {
+            "name": "열 머리 피치",
+            "reference": 272,
+            "actual": 272,
+            "delta": 0,
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "legacy-past-readonly",
+      "ok": true,
+      "detail": {
+        "edit": false,
+        "add": false,
+        "actions": 0,
+        "records": "시험 기록 · 2026-10-14 기준전체 1 · 진단에 씀 0 · 전체 기록의 최근 70점현재 기준에서 기록하기"
+      }
+    },
+    {
+      "id": "legacy-past-current-record-label",
+      "ok": true,
+      "detail": {
+        "records": "시험 기록 · 2026-10-14 기준전체 1 · 진단에 씀 0 · 전체 기록의 최근 70점현재 기준에서 기록하기"
+      }
+    },
+    {
+      "id": "legacy-past-plan-no-save",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "legacy-past-reload",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "legacy-current-goal-edit",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "legacy-back-past",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "id": "owned-account-cleanup",
+      "ok": true,
+      "detail": {
+        "deleted": true
+      }
+    }
+  ]
+}

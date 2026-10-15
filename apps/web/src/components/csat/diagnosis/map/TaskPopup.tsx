@@ -41,6 +41,10 @@ export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, 
   const ref = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null)
   const t = ins.task
+  const placed = pos !== null
+
+  // 비모달도 열릴 때 대화상자를 알리고 바로 동작에 접근한다. 지도 밖으로 Tab 을 가두지는 않는다.
+  useEffect(() => { if (placed) ref.current?.focus({ preventScroll: true }) }, [placed])
 
   // 노드 오른쪽 → 안 되면 왼쪽 → 위아래는 화면 안으로
   useLayoutEffect(() => {
@@ -94,6 +98,7 @@ export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, 
       ref={ref}
       className={u.pop}
       role="dialog"
+      tabIndex={-1}
       aria-modal="false"
       aria-labelledby="pop-h"
       data-testid="task-pop"

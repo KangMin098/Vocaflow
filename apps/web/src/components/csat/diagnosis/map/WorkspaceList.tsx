@@ -145,7 +145,7 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
   return (
     <section className={u.wsList} aria-labelledby="ws-h" data-testid="ws-list" data-count={rows.length}>
       <header className={u.wsHead}>
-        <h2 id="ws-h" className={u.h}>학습 Workspace</h2>
+        <h2 id="ws-h" className={u.h} tabIndex={-1}>학습 Workspace</h2>
         <span className={u.wsCount}>{live.length}개 · 준비 중 {prep.length}</span>
         {selectedTask && (
           <span className={u.wsFocus} data-testid="ws-focus-note">

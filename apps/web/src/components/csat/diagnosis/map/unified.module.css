@@ -159,6 +159,27 @@
   font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-ink2);
 }
+.wsJump {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-left: 12px;
+  color: var(--m-ink);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.wsJump:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
+.nodeMore {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  display: grid;
+  place-items: center;
+}
 .search {
   display: flex;
   align-items: center;
