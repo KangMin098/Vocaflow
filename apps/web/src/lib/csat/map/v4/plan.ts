@@ -182,7 +182,9 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
     return pick ? { href: pick.href, label: pick.label } : null
   }
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
-  const did = new Set(activity.filter((a) => a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' : a.phase !== 'transfer')).map((a) => a.itemRef))
+  // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
+  const keys = new Set(checkKeysOfTask(t.id))
+  const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => a.itemRef))
   const pick = home.stageItems[stage].find((l) => !did.has(l.target)) ?? null
   return pick ? { href: pick.href, label: pick.label } : null
 }

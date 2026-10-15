@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(map): PR #272 독립 수용 보강 — TASK가 다른 전이 수행이 R5 다음 링크를 소진하던 반례 수정, 1280/1440 단계·실행 URL 및 실존 타인 Workspace 경계 검증. 최초 G02/G03와 revision 2 보존, 독립 revision 3·TRANSFER/노출 후속 계약 기록.
 - fix(map): LM-G1.1 R5 다음 행동 단일 출처 — 바로잡기 단계는 수행량이 아니라 성공 근거(이번 회차 막힌 문항 정답 · lifecycle 과 같은 repairWindow/repairAttempts)로만 넘어감 · 실패 재시도 링크 유지 · Workspace 행이 막힌 단계를 확인 문항으로 대체하지 않음 · resolved 문구를 실제 근거로(판정 불변). G02 revision 2 · 단위 2,366 · 브라우저 9/0 · LM-W1 36/0 · 복귀 7/7 · DB 변경 없음
 - fix(map): PR #270 독립 수용 P2 보강 — Workspace 발견/양방향 실제 이동, TASK 상세 affordance·팝업 키보드 진입, 과거 점수 기준 표시. 기존 테스트 대체 원장·실측·LM-G1 경계 보존.
 - feat(map): LM-W1 학습지도 × Workspace 화면 통합 — 상단 한 줄 띠(목표·기록·상태·다음 행동) · 지도 캔버스 화면 폭 전체 · 지도 바로 아래 Workspace 리스트(대표→나머지→준비 중 · 단계 점 · 수행량 · 상태 · 행동) · TASK 빠른 팝업 · Workspace 상세 모달(개요/학습계획=PlanSection 재사용) · 근거 드로어 · TASK↔Workspace 양방향 강조 · map_task/ws 주소 보존. FocusStrip 삭제 · 판정 엔진·DB 변경 없음 · 3B 실제 사이트 조사 반영(초점 · 떠 있는 알약) · 첫 화면 지도 면적 15.5→53.7%(1440) · 통합 e2e 36/0 · 복귀 7/7 · ref-compare 8/8

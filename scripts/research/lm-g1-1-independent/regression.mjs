@@ -1,0 +1,12 @@
+// scripts/research/lm-g1-1-independent/regression.mjs
+// Serial local checks on the owned review server; raw logs stay ignored.
+import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';import {spawnSync} from 'node:child_process';
+const root=path.resolve(import.meta.dirname,'../../..'),req=createRequire(root+'/apps/web/package.json'),local=import.meta.dirname+'/local';
+const report=root+'/docs/research/lm-g1-1-independent';const base=process.argv[2]??'http://localhost:3007';
+const run=(name,args,cwd=root)=>{const r=spawnSync(process.execPath,args,{cwd,encoding:'utf8',maxBuffer:32<<20,windowsHide:true,timeout:900000});const log=(r.stdout??'')+'\n'+(r.stderr??'');fs.writeFileSync(local+'/'+name+'.log',log);const passes=log.split(/\r?\n/).filter(l=>(name==='workspace-boundary'?/^PASS /:/^\[PASS\]/).test(l));const failures=log.split(/\r?\n/).filter(l=>(name==='workspace-boundary'?/^FAIL /:/^\[FAIL\]/).test(l));console.log(name+': exit '+r.status+', PASS '+passes.length+', FAIL '+failures.length);return {name,exit:r.status,error:r.error?.message??null,passed:passes.length,failed:failures.length,lines:[...passes,...failures].map(l=>l.replace(/[0-9a-f]{8}-[0-9a-f-]{27,}/gi,'<synthetic-uuid>'))}};
+const results=[];
+const vitest=path.dirname(req.resolve('vitest/package.json'))+'/vitest.mjs';
+if(!process.argv.includes('--browser-only'))results.push(run('unit',[vitest,'run','src/lib/csat/map','src/components/csat/diagnosis/map','--pool','forks','--maxWorkers','1','--minWorkers','1','--reporter=json','--outputFile='+report+'/regression-unit.json'],root+'/apps/web'));
+results.push(run('workspace-boundary',['--tls-max-v1.2','scripts/research/lm-g1-1-independent/workspace-boundary.mjs',base]));
+for(const [name,file] of [['workspace','e2e-map-workspace.mjs'],['return','e2e-map-return.mjs'],['study','e2e-map-study.mjs'],['supply','e2e-map-supply.mjs']]){const args=['--tls-max-v1.2','scripts/csat/map/v62/'+file,'--base',base];if(name==='workspace')args.push('--evidence','docs/research/lm-g1-1-independent/evidence/workspace');results.push(run(name,args));fs.writeFileSync(report+'/regressions.json',JSON.stringify({scope:'Owned synthetic accounts; existing browser assertions unchanged; no learning-effect evidence',results},null,2))}
+fs.writeFileSync(report+'/regressions.json',JSON.stringify({scope:'Owned synthetic accounts; existing browser assertions unchanged; no learning-effect evidence',results},null,2));if(results.some(r=>r.exit!==0||r.failed))process.exitCode=1;

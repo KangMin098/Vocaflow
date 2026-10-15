@@ -98,6 +98,26 @@ describe('LM-G1.1 R5 단계 판정 — 수행량 ≠ 단계 준비', () => {
     expect(p.stage).toBe('repair')
   })
 
+  it('T21 다른 TASK의 동일 문항 전이 기록은 현재 TASK의 다음 링크를 소진하지 않는다', () => {
+    const { p } = build(asIs({ attempts: VERIFIED }), [
+      act('i1', true, '2026-09-13T00:00:00Z'),
+      act('x1', true, '2026-09-14T00:00:00Z', { taskKey: 'evidence-locate', phase: 'transfer' }),
+      act('x2', true, '2026-09-15T00:00:00Z', { taskKey: 'evidence-locate', phase: 'transfer' }),
+    ])
+    expect(p.stage).toBe('transfer')
+    expect(p.quantity.done).toBe(0)
+    expect(p.next?.href).toBe('/csat/practice/claim-support?item=x1')
+  })
+
+  it('T22 같은 TASK의 완료한 전이 문항만 제외하고 다음 문항을 연다', () => {
+    const { p } = build(asIs({ attempts: VERIFIED }), [
+      act('i1', true, '2026-09-13T00:00:00Z'),
+      act('x1', true, '2026-09-14T00:00:00Z', { phase: 'transfer' }),
+    ])
+    expect(p.quantity.done).toBe(1)
+    expect(p.next?.href).toBe('/csat/practice/claim-support?item=x2')
+  })
+
   it('T08 다시 확인 실패(still_needed) → 그 막힌 문항을 그 뒤에 맞혀야 바로잡기 완료(이전 성공 승계 없음)', () => {
     const a = asIs({ attempts: [...VERIFIED, attempt('i3', false, '2026-09-15T00:00:00Z')] })
     expect(a.tasks[T].check?.status).toBe('still_needed')

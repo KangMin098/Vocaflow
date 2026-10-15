@@ -2,7 +2,7 @@
 
 > 기준 main `914c16096`(PR #270 병합 뒤) · 브랜치 `fix/lm-g1-1-r5-next-action`.
 > 범위: R5(`r.central_meaning`) REPAIR 단계의 **다음 행동 판정**만. 화면 구조 · 디자인(PR #270) · DB/RPC/RLS · 기존 기록 · CHECK `resolved` 정책 · 지연 정책 · TargetSpec · V2/S5 · 교재공장 변경 없음.
-> 합성 계정 · 순수 함수 검증 — **학습 효과 증거가 아니다.** 독립 검증(Codex) 전 — ACCEPT · 제품 완성을 선언하지 않는다.
+> 합성 계정 · 순수 함수 검증 — **학습 효과 증거가 아니다.** 최초 제출 당시 독립 검증(Codex) 전의 기록이다. 최신 T1 판정은 아래 독립 수용 보강을 따른다. 제품 전체 완성을 뜻하지 않는다.
 
 ## 1. 기존 G02 재현
 
@@ -135,3 +135,12 @@ lifecycle-evidence.repairAttempts ─▶ plan.repairGate ─▶ stageNow · stag
 2. 모든 표면이 `taskPlan` 하나에서 나오는가 — 특히 `workspace-list` 의 대체 금지 조건.
 3. 바꾼 기존 테스트 3개의 기대가 정당한가(정오 추가 · 날짜 두 자리).
 4. `resolved` 문구가 판정을 바꾸지 않고 근거만 정확히 말하는가.
+
+
+## 8. Codex 독립 수용 보강 — 2026-10-15
+
+지정 HEAD `4a5d2e98f`를 독립 검토해 G02 수정과 기존 테스트 세 건의 입력 정정을 수용했다. 별도 P2(다른 TASK의 전이 기록이 현재 TASK의 실행 링크를 소진)를 재현해 `stageLink`를 기존 `doneOf`와 동일한 과제 범위로 제한하고 T21/T22를 추가했다. 원본 G02/G03 및 revision 2는 보존했고 독립 revision 3에 재계산을 남겼다.
+
+**T1 ACCEPT:** 단위 회귀 722/722, 독립 반례/revision 15/15, 1280·1440 각각 9/9, 실존 타인 Workspace 5/5, 기존 화면/복귀/해부/공급 36/7/6/6 통과. 타입·대상 lint 통과. 최신 HEAD CI와 병합은 PR #272 원장을 따른다. 최초판의 1280 LM-G1.1 NOT_TESTED는 이 보강 실행으로 해소했다.
+
+[독립 보고서](../../research/lm-g1-1-independent/ACCEPTANCE.md)에 실행 URL·원장·화면과 노출 근접시각 관찰을 구분했다. TRANSFER 경험1/운영량2의 차이는 유지했으며 LM-G1.2 선행 계약으로 기록했다. 저장 PLAN의 모든 수직 복원·전체 원자 수행 환류·실학생 효과를 완료로 승격하지 않는다.
