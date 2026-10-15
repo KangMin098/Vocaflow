@@ -1,8 +1,8 @@
 {
-  "startedAt": "2026-10-15T04:38:20.766Z",
-  "endedAt": "2026-10-15T04:39:08.476Z",
+  "startedAt": "2026-10-15T05:12:11.352Z",
+  "endedAt": "2026-10-15T05:13:01.326Z",
   "base": "http://localhost:3005",
-  "pass": 30,
+  "pass": 36,
   "fail": 0,
   "accountsLeft": 0,
   "results": [
@@ -14,13 +14,13 @@
           "x": 111,
           "y": 306,
           "w": 1252,
-          "h": 510
+          "h": 556
         },
         "wsList": {
           "x": 94,
-          "y": 875,
+          "y": 895,
           "w": 1286,
-          "h": 414
+          "h": 429
         },
         "inspector": null,
         "overflowX": 0
@@ -39,13 +39,13 @@
       "detail": [
         {
           "id": "ws.central-meaning",
-          "link": "core",
+          "link": "none",
           "state": "runnable",
-          "sel": "true"
+          "sel": "false"
         },
         {
           "id": "ws.option-match",
-          "link": "support",
+          "link": "none",
           "state": "runnable",
           "sel": "false"
         },
@@ -92,6 +92,17 @@
           "sel": "false"
         }
       ]
+    },
+    {
+      "name": "W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1440)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "help": true,
+        "legend": true,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
     },
     {
       "name": "W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1440)",
@@ -141,6 +152,16 @@
         "modal": false,
         "focus": "ws-open",
         "lock": "visible"
+      }
+    },
+    {
+      "name": "W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1440)",
+      "ok": true,
+      "detail": {
+        "lit": true,
+        "popup": null,
+        "dock": "r.central_meaning",
+        "faded": 24
       }
     },
     {
@@ -206,9 +227,9 @@
         ],
         "pbox": {
           "l": 886,
-          "t": 177,
+          "t": 143,
           "r": 1206,
-          "b": 557,
+          "b": 523,
           "ok": true
         }
       }
@@ -268,6 +289,15 @@
       }
     },
     {
+      "name": "W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1440)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
+    },
+    {
       "name": "W12 뒤로가기 뒤 페이지 정상 · 가로 넘침 0(1440)",
       "ok": true,
       "detail": null
@@ -298,13 +328,13 @@
           "x": 111,
           "y": 362,
           "w": 1092,
-          "h": 510
+          "h": 596
         },
         "wsList": {
           "x": 94,
-          "y": 931,
+          "y": 991,
           "w": 1126,
-          "h": 414
+          "h": 429
         },
         "inspector": null,
         "overflowX": 0
@@ -323,13 +353,13 @@
       "detail": [
         {
           "id": "ws.central-meaning",
-          "link": "core",
+          "link": "none",
           "state": "runnable",
-          "sel": "true"
+          "sel": "false"
         },
         {
           "id": "ws.option-match",
-          "link": "support",
+          "link": "none",
           "state": "runnable",
           "sel": "false"
         },
@@ -376,6 +406,17 @@
           "sel": "false"
         }
       ]
+    },
+    {
+      "name": "W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1280)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "help": true,
+        "legend": true,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
     },
     {
       "name": "W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1280)",
@@ -425,6 +466,16 @@
         "modal": false,
         "focus": "ws-open",
         "lock": "visible"
+      }
+    },
+    {
+      "name": "W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1280)",
+      "ok": true,
+      "detail": {
+        "lit": true,
+        "popup": null,
+        "dock": "r.central_meaning",
+        "faded": 24
       }
     },
     {
@@ -490,9 +541,9 @@
         ],
         "pbox": {
           "l": 886,
-          "t": 178,
+          "t": 103,
           "r": 1206,
-          "b": 558,
+          "b": 483,
           "ok": true
         }
       }
@@ -549,6 +600,15 @@
         "url": "/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning",
         "selected": "r.central_meaning",
         "ws": "ws.central-meaning"
+      }
+    },
+    {
+      "name": "W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1280)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "url": "/csat/diagnosis?tab=map&view=full"
       }
     },
     {

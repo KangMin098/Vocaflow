@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-10-15T04:41:09.327Z",
+  "startedAt": "2026-10-15T05:15:17.418Z",
   "base": "http://localhost:3005",
   "measure": {
     "1280-core": {
@@ -7,13 +7,13 @@
         "w": 1280,
         "h": 900
       },
-      "pageHeight": 1405,
+      "pageHeight": 1480,
       "overflowX": 0,
       "root": {
         "x": 78,
         "y": 128,
         "w": 1158,
-        "h": 1233
+        "h": 1308
       },
       "goalBar": {
         "x": 94,
@@ -26,35 +26,35 @@
         "x": 111,
         "y": 362,
         "w": 1092,
-        "h": 510
+        "h": 596
       },
       "inspector": null,
       "wsList": {
         "x": 94,
-        "y": 931,
+        "y": 991,
         "w": 1126,
-        "h": 414
+        "h": 429
       },
-      "canvasAboveFold": 48.3,
-      "wsListTop": 931,
+      "canvasAboveFold": 51,
+      "wsListTop": 991,
       "nodes": 30,
       "cards": 0,
       "sections": 11,
       "buttons": 76,
-      "textChars": 839
+      "textChars": 842
     },
     "1280-full": {
       "viewport": {
         "w": 1280,
         "h": 900
       },
-      "pageHeight": 1405,
+      "pageHeight": 1480,
       "overflowX": 0,
       "root": {
         "x": 78,
         "y": 128,
         "w": 1158,
-        "h": 1233
+        "h": 1308
       },
       "goalBar": {
         "x": 94,
@@ -67,35 +67,35 @@
         "x": 111,
         "y": 362,
         "w": 1092,
-        "h": 510
+        "h": 596
       },
       "inspector": null,
       "wsList": {
         "x": 94,
-        "y": 931,
+        "y": 991,
         "w": 1126,
-        "h": 414
+        "h": 429
       },
-      "canvasAboveFold": 48.3,
-      "wsListTop": 931,
+      "canvasAboveFold": 51,
+      "wsListTop": 991,
       "nodes": 30,
       "cards": 0,
       "sections": 11,
       "buttons": 76,
-      "textChars": 1072
+      "textChars": 1075
     },
     "1440-core": {
       "viewport": {
         "w": 1440,
         "h": 900
       },
-      "pageHeight": 1350,
+      "pageHeight": 1384,
       "overflowX": 0,
       "root": {
         "x": 78,
         "y": 128,
         "w": 1318,
-        "h": 1178
+        "h": 1212
       },
       "goalBar": {
         "x": 94,
@@ -108,35 +108,35 @@
         "x": 111,
         "y": 306,
         "w": 1252,
-        "h": 510
+        "h": 556
       },
       "inspector": null,
       "wsList": {
         "x": 94,
-        "y": 875,
+        "y": 895,
         "w": 1286,
-        "h": 414
+        "h": 429
       },
-      "canvasAboveFold": 49.3,
-      "wsListTop": 875,
+      "canvasAboveFold": 53.7,
+      "wsListTop": 895,
       "nodes": 30,
       "cards": 0,
       "sections": 11,
       "buttons": 76,
-      "textChars": 839
+      "textChars": 842
     },
     "1440-full": {
       "viewport": {
         "w": 1440,
         "h": 900
       },
-      "pageHeight": 1350,
+      "pageHeight": 1384,
       "overflowX": 0,
       "root": {
         "x": 78,
         "y": 128,
         "w": 1318,
-        "h": 1178
+        "h": 1212
       },
       "goalBar": {
         "x": 94,
@@ -149,22 +149,22 @@
         "x": 111,
         "y": 306,
         "w": 1252,
-        "h": 510
+        "h": 556
       },
       "inspector": null,
       "wsList": {
         "x": 94,
-        "y": 875,
+        "y": 895,
         "w": 1286,
-        "h": 414
+        "h": 429
       },
-      "canvasAboveFold": 49.3,
-      "wsListTop": 875,
+      "canvasAboveFold": 53.7,
+      "wsListTop": 895,
       "nodes": 30,
       "cards": 0,
       "sections": 11,
       "buttons": 76,
-      "textChars": 1072
+      "textChars": 1075
     }
   }
 }

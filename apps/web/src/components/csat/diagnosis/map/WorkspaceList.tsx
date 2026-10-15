@@ -158,6 +158,11 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
         </span>
       </header>
       <div className={u.wsScroll}>
+        {live.length > 0 && (
+          <div className={u.wsCols} aria-hidden="true">
+            <span>Workspace · 연결 TASK</span><span>지금 단계</span><span>이번 계획 수행</span><span>상태</span><span>다음 행동</span>
+          </div>
+        )}
         {live.length > 0 ? <ol className={u.wsRows}>{live.map(row)}</ol> : <p className={u.fine}>지금 실행할 수 있는 Workspace 가 없어요. 아래 준비 상태를 확인해요.</p>}
         {prep.length > 0 && (
           <details className={u.wsPrep} data-testid="ws-preparing" open={linkedPrep || undefined}>

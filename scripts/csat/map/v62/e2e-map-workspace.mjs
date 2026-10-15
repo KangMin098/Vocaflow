@@ -94,6 +94,11 @@ async function seed(page) {
 const wsState = (page) => page.evaluate(() => ({
   selected: document.querySelector('[data-testid="unified-map"]')?.getAttribute('data-selected') ?? null,
   selectedWs: document.querySelector('[data-testid="unified-map"]')?.getAttribute('data-ws') ?? null,
+  lit: document.querySelector('[data-testid="unified-map"]')?.getAttribute('data-lit') === 'true',
+  faded: document.querySelectorAll('[data-testid="umap-node"][data-faded="true"]').length,
+  help: !!document.querySelector('[data-testid="umap-dock-help"]'),
+  dock: document.querySelector('[data-testid="umap-dock"]')?.getAttribute('data-task') ?? null,
+  legend: !!document.querySelector('[data-testid="umap-legend"]'),
   rows: [...document.querySelectorAll('[data-testid="ws-row"]')].map((e) => ({ id: e.getAttribute('data-ws'), link: e.getAttribute('data-link'), state: e.getAttribute('data-state'), sel: e.getAttribute('aria-pressed') ?? e.getAttribute('data-selected') })),
   nodes: Object.fromEntries([...document.querySelectorAll('[data-testid="umap-node"]')].filter((e) => e.getAttribute('data-link') && e.getAttribute('data-link') !== 'none').map((e) => [e.getAttribute('data-node'), e.getAttribute('data-link')])),
   popup: document.querySelector('[data-testid="task-pop"]')?.getAttribute('data-task') ?? null,
@@ -139,6 +144,7 @@ try {
       rec(`W02 30 TASK 노드(${width})`, m.nodes === 30, { nodes: m.nodes })
       const first = s0.rows[0]
       rec(`W03 대표 Workspace 가 첫 줄 · 행마다 상태(${width})`, !!first && s0.rows.every((r) => r.state), s0.rows)
+      rec(`W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(${width})`, !s0.lit && s0.faded === 0 && s0.help && s0.legend && !page.url().includes('map_task='), { lit: s0.lit, faded: s0.faded, help: s0.help, legend: s0.legend, url: page.url().replace(BASE, '') })
       if (width === 1440) await shot(page, 'W-1440-initial')
       // Workspace → TASK
       if (first) {
@@ -165,6 +171,14 @@ try {
       // TASK → Workspace
       const coreTask = await page.evaluate(() => document.querySelector('[data-testid="umap-node"][data-link="core"]')?.getAttribute('data-node') ?? null)
       const t = coreTask ?? 'r.central_meaning'
+      // 첫 누름 = 초점(팝업 없음) · 같은 노드를 다시 누르면 빠른 팝업
+      if ((await wsState(page)).selected !== t || !(await wsState(page)).lit) {
+        await page.click(`[data-node="${t}"]`)
+        await page.waitForTimeout(400)
+      }
+      const f1 = await wsState(page)
+      rec(`W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(${width})`, f1.lit && f1.popup === null && f1.dock === t && f1.faded > 0 && f1.faded < 30, { lit: f1.lit, popup: f1.popup, dock: f1.dock, faded: f1.faded })
+      if (width === 1440) await shot(page, 'W-1440-task-focus')
       await page.click(`[data-node="${t}"]`)
       await page.waitForSelector(`[data-testid="task-pop"][data-task="${t}"]`)
       await page.waitForTimeout(300)
@@ -209,6 +223,11 @@ try {
       await page.waitForTimeout(600)
       const s4 = await wsState(page)
       rec(`W11 새로 고침 뒤 같은 TASK · Workspace 선택(${width})`, s4.selected === t && urlBefore.includes('map_task=') , { url: urlBefore.replace(BASE, ''), selected: s4.selected, ws: s4.selectedWs })
+      // Esc(열린 팝업 없음) → 초점 해제 · 주소에서 map_task 제거
+      await page.keyboard.press('Escape')
+      await page.waitForTimeout(400)
+      const e1 = await wsState(page)
+      rec(`W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(${width})`, !e1.lit && e1.faded === 0 && e1.help && !page.url().includes('map_task='), { lit: e1.lit, faded: e1.faded, url: page.url().replace(BASE, '') })
       // 뒤로가기 — 이전 선택으로
       await page.goBack({ waitUntil: 'domcontentloaded' }).catch(() => {})
       await page.waitForTimeout(800)
