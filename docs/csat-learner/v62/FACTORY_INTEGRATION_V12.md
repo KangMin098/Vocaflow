@@ -51,3 +51,7 @@
 - 학습자 G · 납품은 계속 `check_at_delivery` · null.
 - 수요 서명 v2 — 실제 v1 저장 데이터 0 은 「승인안 B 미적용」 사용자 상태에 근거(DB 실측으로 확정하지 않음).
 - 실제 교재공장 연결: **MOCK_ONLY / NOT_CONNECTED**(주문 API · 결과 manifest · 활동 단위 생산 없음).
+
+## 5. 최종 독립 판정(2026-10-15)
+
+Codex **ACCEPT**(`review/factory-integration-v12-final` · `9733a7003`): Gate A PASS · Gate B PASS(R5 원시 증거 범위 — 저장 PLAN 버전 복귀 NOT_TESTED) · Gate C MOCK_ONLY / NOT_CONNECTED. 설계 범위 종료 — 서버 reader · 실제 공장 연결 · 승인안 적용은 별도 과제. 제품 상태 정본: [P-M4](./P-M4_LEARNER_WORKSPACE.md) §1.
