@@ -1,0 +1,152 @@
+[
+  {
+    "id": "v.core_meaning",
+    "display": "V1",
+    "name": "기본 의미 접근"
+  },
+  {
+    "id": "v.contextual_sense",
+    "display": "V2",
+    "name": "문맥 의미 선택"
+  },
+  {
+    "id": "v.multiword",
+    "display": "V3",
+    "name": "덩어리 표현"
+  },
+  {
+    "id": "v.semantic_relation",
+    "display": "V4",
+    "name": "표현 사이 의미 관계"
+  },
+  {
+    "id": "s.sentence_core",
+    "display": "S1",
+    "name": "문장 뼈대"
+  },
+  {
+    "id": "s.chunk_boundary",
+    "display": "S2",
+    "name": "의미 단위 경계"
+  },
+  {
+    "id": "s.attachment",
+    "display": "S3",
+    "name": "수식 관계"
+  },
+  {
+    "id": "s.structural_relation",
+    "display": "S4",
+    "name": "구조 관계"
+  },
+  {
+    "id": "s.form_scope",
+    "display": "S5",
+    "name": "형태·의미 범위"
+  },
+  {
+    "id": "s.o.sentence_meaning_model",
+    "display": "S-O1",
+    "name": "문장 의미 구성(통합 관찰)"
+  },
+  {
+    "id": "r.reference",
+    "display": "R1",
+    "name": "지시·응집 추적"
+  },
+  {
+    "id": "r.relation",
+    "display": "R2",
+    "name": "문장 사이 관계"
+  },
+  {
+    "id": "r.discourse_function",
+    "display": "R3",
+    "name": "문장·문단 기능"
+  },
+  {
+    "id": "r.discourse_structure",
+    "display": "R4",
+    "name": "글 전개 구조"
+  },
+  {
+    "id": "r.central_meaning",
+    "display": "R5",
+    "name": "중심 의미"
+  },
+  {
+    "id": "r.inference",
+    "display": "R6",
+    "name": "추론"
+  },
+  {
+    "id": "r.o.global_meaning_model",
+    "display": "R-O1",
+    "name": "글 전체 의미 모델(통합 관찰)"
+  },
+  {
+    "id": "e.task_demand",
+    "display": "E1",
+    "name": "발문 요구 파악"
+  },
+  {
+    "id": "e.evidence_location",
+    "display": "E2",
+    "name": "근거 위치"
+  },
+  {
+    "id": "e.option_correspondence",
+    "display": "E3",
+    "name": "선지-본문 대응"
+  },
+  {
+    "id": "e.o.final_judgment",
+    "display": "E-O1",
+    "name": "최종 판단(통합 관찰)"
+  },
+  {
+    "id": "l.sound",
+    "display": "L1",
+    "name": "소리 인식"
+  },
+  {
+    "id": "l.sentence",
+    "display": "L2",
+    "name": "들은 문장 이해"
+  },
+  {
+    "id": "l.retain",
+    "display": "L3",
+    "name": "정보 유지"
+  },
+  {
+    "id": "l.respond",
+    "display": "L4",
+    "name": "응답 판단"
+  },
+  {
+    "id": "x.time_allocation",
+    "display": "X1",
+    "name": "시간 배분"
+  },
+  {
+    "id": "x.sequence",
+    "display": "X2",
+    "name": "풀이 순서"
+  },
+  {
+    "id": "x.recovery_adaptation",
+    "display": "X3",
+    "name": "막힘 회복"
+  },
+  {
+    "id": "x.attention_stamina",
+    "display": "X4",
+    "name": "집중 유지"
+  },
+  {
+    "id": "x.o.whole_test_stability",
+    "display": "X-O1",
+    "name": "전체 시험 안정성(통합 관찰)"
+  }
+]

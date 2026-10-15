@@ -1,0 +1,1096 @@
+{
+  "main": "e33f08da7792300c699f9055861cde650d362bae",
+  "prHead": "6786c13c25a416269465b3c811b659ce9385d1ae",
+  "implementationAndBrowserHead": "922222a2b5a5bcedb2212395a977d5ade632ca7d",
+  "priorReviewCommit": "dbdfc7a81cbc8c23126816bafad83f50ecf1c9d7",
+  "sourceAndEvidence": [
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+      "sha256": "200e1d4eae7f614ffcf59a8bbe4248e5aee4997cc06dbf810893f8a5b356edd0"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+      "sha256": "5da1677ec09d0a48cb9d934be1914d0d9f9f012ed577146694ed441d42c3abbb"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/focus.module.css",
+      "sha256": "99cdc9b957940418e5813f278a1ebf58227852c0e4d8ad187008cdc549e66252"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+      "sha256": "537560fd8157c7b04304bbba5a9c0dc350c0e8e525f16a6229b1af4769fed3d4"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/FocusStrip.tsx",
+      "sha256": "44f4cbfa9023d333257c1c1663f2c99d28eb8b6bc5a5adf5cc3d307ed19b0066"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "sha256": "ebe88c6245a27cfb440985a24bf226727a33ad152b27fb76debce9dfdd8a52c9"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+      "sha256": "8c76ba763a27800f03138ca4e54359969394ec9f5baf52c35904c2d63994d8e4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/rank.ts",
+      "sha256": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply-ledger.ts",
+      "sha256": "3a46079ca4b28126000f38eb66f5ffe63f1c7b47c348ce0a56ff45d90cb41479"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/qualification.ts",
+      "sha256": "c33de16bab0800f28b181c3446cc9ecbe777af16570212238d1d7a41ecfcf958"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/return-ctx.ts",
+      "sha256": "31d34840e2bac153d62cde1100fdf15e18b6afc18eb81981e07c32840a3c95ff"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/pm4b-e-isolated.test.ts",
+      "sha256": "56d64702bccbf07ac5bcd53abd3793371d49d49c10d4a1c05863fffd4227d425"
+    },
+    {
+      "path": "docs/csat-learner/v62/P-M4b_UX_ACCEPTANCE.md",
+      "sha256": "41b8ddd60d00b6f9228f811359eac6772df827e1a8146562a70261109552594a"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-pm4b-acceptance.mjs",
+      "sha256": "48c5778e7348a22a40f9f3a78cd778b54581c4420b74879ec8a6f1982cbb4c86"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-learner-focus.mjs",
+      "sha256": "6a6cb45e7fdb0c2bd2d95cb083425616eb18240e73583745634faa3c58df6ca0"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-map-supply.mjs",
+      "sha256": "71d210eb02e39a08dbc80e26e641afcafd3edd0ca0d9285f8f33c28dbfe54ffb"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-map-return.mjs",
+      "sha256": "a2160e764750aa01b524a8e1c06b4463e092596541780716ba5b651333e96a30"
+    },
+    {
+      "path": "scripts/csat/map/v62/e2e-map-study.mjs",
+      "sha256": "3cdc7e4d51317e130b10a30b6257481700bdbfb581bdc838970943994b377292"
+    },
+    {
+      "path": "scripts/design/ref-compare.mjs",
+      "sha256": "c68d5ea146cd20469351d2694fbd93931cb6c48f41d5263f5e02a35f40fcacd4"
+    },
+    {
+      "path": "docs/design/refs/3b/access-map/spec.json",
+      "sha256": "bf31a2e46e47efd3aa592f1b46de3f11381cfd320f28724ae216d0171953b0a5"
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/01-P2-01-domains-1280-core.png",
+      "sha256": "1458da556ba335790740a0662432e151a680bf53979cb44035176adabbd601b7",
+      "width": 716,
+      "height": 511
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/02-P2-01-domains-1280-full.png",
+      "sha256": "7a256a0510505627aa391efd439eff5be533dbde2e48eb461fe3563a0a747efe",
+      "width": 716,
+      "height": 511
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/03-P2-01-page-1280.png",
+      "sha256": "3c90a640a3006dc5202c2e9c6cb4828a8bd0d06dc5deab70ae88db9fb0be9075",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/04-P2-01-domains-1440-core.png",
+      "sha256": "8b92c94d433fa174ac66af52ef9c12506170d55463eff894132668af2598ff1e",
+      "width": 876,
+      "height": 511
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/05-P2-01-domains-1440-full.png",
+      "sha256": "b56884c84cc4f0685ff399a31d152f77e79a60e27b19d7f620e597092a916196",
+      "width": 876,
+      "height": 511
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/06-P2-01-page-1440.png",
+      "sha256": "ba129210545f21915b7bc7fa981817de4a79857944aa252819b6aec052f47d2d",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/07-P2-02-past-1440.png",
+      "sha256": "9f8faf01e5f70ffaa59d2cacf468dafa28ad5ef49e55c4adc3bb8ee7e0357852",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/08-P2-02-current-goal-88-1440.png",
+      "sha256": "c24e4848fcc6c03fe48451fd4e358c3fd303e21b96d2d332b91cef41360f262f",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/09-H05-keyboard-focus-1440.png",
+      "sha256": "b6e0c275ae466b15f3a3b8636b240dabe42d5f85a2614c8ac103c46eb21566a5",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/10-H05-full-scrolled-1440.png",
+      "sha256": "c58bd6d70dc724e68dc9c86372f589ba45008216c1a91ea6026e10f55a11d670",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/11-OBS-1024.png",
+      "sha256": "f8d2dcc902e744a30903fd12ed0a5b4a7e5f9cfd8eaa7e244c51085d6d6336b5",
+      "width": 1024,
+      "height": 2558
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/12-OBS-390.png",
+      "sha256": "f1ba142bf67690924037c5635b38f718ec3c67f99f72e431a6391dc346b30f0a",
+      "width": 390,
+      "height": 3282
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-acceptance-20261015/results.json",
+      "sha256": "491872157e8c93810ef047cdd4c70c3121747c5b24cc9a6848148644e3290383"
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/01-A-no-goal-1280.png",
+      "sha256": "3f1263a619be3583a0fe23ed01f70b3a43b7a8a85b60970e2eb359b3bbe951ff",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/02-A-no-goal-1440.png",
+      "sha256": "a9c10d0fc69a40e0c96d1262d76ca969c3775223ec34d6b0ab06187e79442323",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/03-A2-goal-no-record-1440.png",
+      "sha256": "311e0e74fec128e107822ae8f45c43de7cd714019a31da1629830811fd790ec0",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/04-B-ready-1440.png",
+      "sha256": "4b4a4a02d1315e821ec86e2f7d3334a8c833cd48f7e9cbb67ec8569c4691d3fe",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/05-B-card2-selected-1440.png",
+      "sha256": "00f64dddb42892532c2959846a726af97573d3885a91f506c9acb3efa66e815b",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/06-G-plan-open-1440.png",
+      "sha256": "72cacb78ab548887830779d7741762c1684a64dcdcaaa1f3a6608826c41049eb",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/07-C-item-opened-1440.png",
+      "sha256": "c00423ae64a1b368304626ddbe0d34749190bdfdc85e71c5f33518c56a511975",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/08-C-returned-1440.png",
+      "sha256": "dde2d5dcae28e0b357309cbd6f834ced681889ff0f1bfd9a6c39afa3b07bad06",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/09-D-v.contextual_sense-1440.png",
+      "sha256": "341dad8714038915779aedae5e57bc027de303d7a1e3606b899937dc3f05ee71",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/10-D-s.form_scope-1440.png",
+      "sha256": "d379f790d98b494a2871029b3359f3339816da7272655876bb8fc76f05a24630",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/11-F-past-1440.png",
+      "sha256": "9f8faf01e5f70ffaa59d2cacf468dafa28ad5ef49e55c4adc3bb8ee7e0357852",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/12-F-goal-92-1440.png",
+      "sha256": "26512689e41c621097db137c77e19bc79aae874f6175f2f6a247f0b61cfb71cb",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/13-B-ready-1280.png",
+      "sha256": "72e3062892a8131b24f71b776807653ddb0e8441bc31d12ac5611b2656a11338",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-learner-20261015/results.json",
+      "sha256": "04765f1e38e358e2882def7340a3d961542ac4ef82ebdb256dd96f925d7699aa"
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/01-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/02-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/03-r.central_meaning.png",
+      "sha256": "e94d9aa051101bed5a5ee3581c13a186078a9502f7a0e1a85b9e41757c1ce79b",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/04-v.contextual_sense.png",
+      "sha256": "8576da0982c43afc31d6706f3a7eddfd2babbba98b78fc9e855ffd680d9a7dd2",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/05-s.form_scope.png",
+      "sha256": "9bc466453ebf9770a2806c72d0a1d95356dca3d776c99d76281a44e861f74409",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/06-l.sound.png",
+      "sha256": "26d3d863d5aacb6eeee7f8435470779ed59bdb5a6f8d3723d698450191477409",
+      "width": 360,
+      "height": 568
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/07-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4b-r5-20261015/results.json",
+      "sha256": "789fcf32a0915d37bcb2e8f768f8ab523eca41626a33f555365534bb385cf7b9"
+    }
+  ],
+  "priorReview": [
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/PM4-UX-REVIEW.md",
+      "sha256": "6fea17145270387e09860819792d8061be9bcdceebce35117bc02b82d6d6948e"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/PM4-UX-FINDINGS.md",
+      "sha256": "72c9ef4977fe64904a31f8463ec10c5fa0ab0f0f795d9756f47e0f714183c576"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/PM4-UX-VISUAL-AUDIT.md",
+      "sha256": "743775e85cea4ca6f5ea6cde10467454eb63794103b8eb4dbfcf6322cecf0101"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/PM4-UX-REGRESSION.md",
+      "sha256": "e8b4b967e6db53e6e01793b4177a8801ebcedf4e050f86e6c322b19af8a48677"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/PM4-CLAUDE-HANDOFF.md",
+      "sha256": "e1c23bb90f9d624309e0e9795a533cfeb53b208bf19d927a7f0b2789c3963703"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/data/acceptance-ledger.json",
+      "sha256": "6301247270004eea4857612139359d5223700d617b5b606b609f1bacc2e82455"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/data/input-manifest.json",
+      "sha256": "ca5bcea6d2c2a4dcd6a24e4ba8b1196261aa59d4659f5532a59db67f4e603d4b"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-map-v62-pm4-ux-final/docs/research/pm4-ux-review/data/unit-results.json",
+      "sha256": "69fa6ffddaed0a47de58a00ff63de24111c30c59c0dc42a98d70875be8bff8ff"
+    }
+  ],
+  "reference": {
+    "path": "D:/workspace/Vocaflow/docs/design/refs/3b/access-map/access-map-page.png",
+    "sha256": "a1b7b32c187b3c40c82916f0aec6073d8492f6639215493876cacb2cce831937",
+    "redistributed": false
+  },
+  "browser": {
+    "independentRerun": false,
+    "state": {
+      "apps": [],
+      "browsers": []
+    },
+    "newScreenshots": 0,
+    "method": "user-authorized evidence audit fallback"
+  },
+  "productChangesVsEvidenceHead": [],
+  "note": "No product, DB, account, factory, content changes; external reference read only",
+  "independentProductCohort": [
+    {
+      "path": "apps/web/src/lib/csat/__tests__/axes-steps.test.ts",
+      "sha256": "6e7ec00fd042050cd2a25744e356f9613e7ff89f655e59e5f831daf8c964c970"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/browse-model.test.ts",
+      "sha256": "9db3a5646ae69d7022b1207be4797da4d666e34d9d302ab3768c9d5e3ecac35a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/browse-url.test.ts",
+      "sha256": "224beb9d9d60d0ed72bbcdab7d0fa0df26e80fa6745b273fd0aabb973ec6d51a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/choice-polarity-fresh.integration.test.ts",
+      "sha256": "8d6e987edb6757f561a97f70163c170f2e4f5f9d514829c5a837787142ca3e64"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/continuity.test.ts",
+      "sha256": "6db747c913428ee7b6269b7440743ade66739a9bd0a8c998b5c56a988da8a1ff"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "sha256": "618b4bd2d0120016eee12bdea0ee6c67927ba2e97d859b7792b5bd2ee7289bd5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/design.test.ts",
+      "sha256": "ebafd07648a39bd11171ef55771a155400b4341b0940af068fc9c442c44790cb"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/drill-feedback.test.ts",
+      "sha256": "76260a3d2aedb9ab53361887cac1003eacfd8b4bdbbff95b7375b9c797d4b59d"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/embargo-gate-coverage.test.ts",
+      "sha256": "56948c7b2cd311b2c67eaabd8d9290755c0153fa77f53f3d1c99b8a497463587"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/embargo-gate-failure.test.ts",
+      "sha256": "1d2e77c3d9dde95e1f3953198fe891ab3cb1cd924ecce8d4e9da9c2901c72165"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/embargo-gate.test.ts",
+      "sha256": "fd46e054a38d02ebaefbc3ebe239652e5c163df2be8566629bb4d4253f6ae0fd"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/eval-dimensions.test.ts",
+      "sha256": "cd1fabfbec1c08a623e66ba8f329ec5e4de334f650924ec8ec6a57b5a45a861f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/evidence-operations-loader.test.ts",
+      "sha256": "e5751645626521cd48eabbd69f7028950f57bbc4da2a8a5c2e92e7d3fdf42f57"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/evidence-scope.integration.test.ts",
+      "sha256": "00000cb0a57aa9d00e4ad6d0c37b32a007819c09045ba202c08fc9c6ebbc0c2e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/evidence-scope.test.ts",
+      "sha256": "fc6f8fa6f76a7427a5bf4437c98003a4e7788293595b17f59b63c56d2beb0243"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/exam-id.test.ts",
+      "sha256": "ce250952c12a53b8276b8de4222d08ea58acfb2663095d258ad5c6402d8bef46"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/factory-model.test.ts",
+      "sha256": "15bca42ba2524030522d496c64e56ced5cfab2861120d34aa45fd6d4df1307a2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/factory-plain.test.tsx",
+      "sha256": "d9e31674378dce6e5ee614388302ae33521d53ae9ac2068806a2a43f685258e4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "sha256": "f8c881b232af602261366a249a6bcb1ac409e48d1e9a3aa4785792bb4e280b3d"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/guide-fold.test.ts",
+      "sha256": "b963116751bdcb54be391dfa3d0a76713f2bc7db405b67ee42005ce9e5246538"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "sha256": "4397b013c7762cf2372e9a420bd6362b0c3515ed8e2b682a93450d885b5d8127"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/hakpyeong-review.test.ts",
+      "sha256": "ae2801596afc9f70fa25970c59da0fd098d3a9859483b9cf1475aff207ef9116"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/home-suggestion.test.ts",
+      "sha256": "d158d20974ccb46f71de723cb16da49ebb5aeb7623a94c5c258efbac4cda10f4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/item-finder-server.test.ts",
+      "sha256": "a22c094162b43a841d78ae95deca723f9c71db7131605000ba72241bd99fc80e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/item-finder.test.ts",
+      "sha256": "5c743674c0fefe8bc848fbba3d7eafc0deb4c2145dfd43cf320a55b95a84c171"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/item-layers.test.ts",
+      "sha256": "64b2d36666206c5cd73d9df12990eab1d05bfe2bce922eca4244cc76078738cb"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/items-fold.test.ts",
+      "sha256": "87e1b5cddcb7565a104db2418a3f24fbc1eb662e4affaaed98d6c82c02512e91"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/learner-text.test.ts",
+      "sha256": "acc9d38d4c329d5f20ccb00ab7acd99cbc9047a5f5d6d3f4a2a27c38147b70f6"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/learning-session.test.ts",
+      "sha256": "0641f86275c1692f36102211c5752ec7b0084a0aae374b2783169d63b93730f5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/lecture-no-answer-key-inference.test.ts",
+      "sha256": "5bf47790d75e2bcd32bc530331738c7e8e8e46a824739a73f27eae91691da9b6"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/lecture-sentence-range.test.ts",
+      "sha256": "e3503a1d394d0331d71961a2e0b1d367eed497685a9b8545a9a23f94a664c822"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/lecture-spoken-ordinal.test.ts",
+      "sha256": "3123289a07469a70c4fed06c87f04ef0adb840bb09ea2396b214242368af61f3"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/locus-model.test.ts",
+      "sha256": "68536c8de3bacdc5b477f28c726bdd43c473f439e79762a62cd9ba53ea7d05ad"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/make-guide.test.ts",
+      "sha256": "e84a19ef9ae2f2223b0f9604465a5fdd755cd3746c7212d936a82a51be918eb1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/map-return.test.ts",
+      "sha256": "3379512afbc693908f82e0126798cb5e17311391a638400b4c1ab8030512b8d5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/market-gate.test.ts",
+      "sha256": "c7ebeb0822836d9ee111d3dc77f21e778a550b5fdcb99567b238d4743a8c0b52"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/my-traps.test.ts",
+      "sha256": "d5c7ac9689b72cedb1b17c8b5866f208234343f51eb20dc2cc2125d6b461f41e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/next-item.test.ts",
+      "sha256": "9cc652866454c935f21ba016eecedc9fb68f3ecc9df4aef6294558644c86949f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/overlay-reveal.test.ts",
+      "sha256": "1aad51761506b06c7dceeb09e457332f68f8505a08a66918807c1b0e2e83d0bf"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/overlay.test.ts",
+      "sha256": "ba8e03e76f34b502bedf75573dcfc4ccd7c9552a6fa15879f9824e2e92e86e10"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/passage-map-model.test.ts",
+      "sha256": "a582be82f43a88ac84fd66b129f116a5b5cc5d321a528349624eebc9e4fa08ed"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/passage-skeleton.test.ts",
+      "sha256": "798f0db3adbce9f41e9d249a59b0371077dad9983a29becb87f0acf0aacb963c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/pdf-text-locate.test.ts",
+      "sha256": "4e8b56eb4e97ae4e9820d227c538739651fe35b1daae713bf3e7694ea5fbf00e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/plan-order.test.ts",
+      "sha256": "a3e25bdfb9251c4b22bcc55678adbb0b920d9a400137825b4869a334302cb46d"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/plan-timeline.test.ts",
+      "sha256": "62d1979a4c8d4a726483cdf2846231b3138a4d6f19301fc979f02110c81dbaac"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/quote-match.test.ts",
+      "sha256": "46a324af08b0d0d963ca6c6db10df49ba2ba4278cc014eaa3caf360128ec0c86"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/reasoning-notes.test.ts",
+      "sha256": "3d902e9454d6d1289399feb7ad6489c041e8ac63b05d7723fedf2eec88863412"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+      "sha256": "db7b22b676e7ddbd368c186784db5d2e099838c84b29f3d9e7a3e30981ea62ae"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/report-markup.test.ts",
+      "sha256": "179c54fd3b0c11c1571c043afa4b28d393715dfa9c7f11271985a14fc32ed28a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/reveal-gate.test.ts",
+      "sha256": "60dcbad16cef0b812b9915dc970a445811201622e1c5dd693d13c77cbd69d59f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/scope.test.ts",
+      "sha256": "1b4e6417b69aae9b3112e10d8668aa23401a9cc784a7b554b6f81a5c1b825901"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/skeleton-data.test.ts",
+      "sha256": "db2b2a070dc15d9afc9b00fd56da8933e6f3b529608986b712d7a365fbfb69b9"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/skeleton.test.ts",
+      "sha256": "95ed64585264b517433eeaf4a02733f257820d28d3678a07f6a919cea392c25a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/space-model.test.ts",
+      "sha256": "87f436eba9937f08cd810f81ce5c1b78f815a555ad3f753071aaaf66b4d752ac"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/teaching-contract.test.ts",
+      "sha256": "181581a248257e8f957e7dcdf8e4c6ae8c96b1092d55df8db946cdc477962c8e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/theater.test.ts",
+      "sha256": "52c42ddab0996418975378691ee66598484ca8e9d00302589e568374d69ca45b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/topic-classifier.test.ts",
+      "sha256": "fbe33ee6f3f595a01797804a6e6cad677e19502ce04af6b7e2d481add929033c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/trap-atlas-fresh.integration.test.ts",
+      "sha256": "eda374cd588cf55cb7bdff8521fc4ccdbff67d41e74ed631efcb0da977d09199"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/trap-atlas.test.ts",
+      "sha256": "e06158ceacc53e9622a8ceed4a44dfd2cb450861dd4c933956effb2e49825f69"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/trap-drill-fresh.integration.test.ts",
+      "sha256": "1f76d38d60aba2986934ee2fde16bd363a6bc06172bf4b3151df3c0fa6fa5e69"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/trap-drill-pool.test.ts",
+      "sha256": "63d2d31c179a6411741390fccd3c247213d53d67e94c4c579d86b19d62c61263"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/trap-drill.test.ts",
+      "sha256": "4975efc75d91ccd4b3e2e7950d181eaf477fba7dd59942dd17cf0a309cf2173c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/type-locus.test.ts",
+      "sha256": "f2ded494f836d3ea21523b681ad3e8905ccd3fcf5f205c5e232641f8881082dc"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/understanding-check.test.ts",
+      "sha256": "ef21fbf32c9931bd5132cfcaca97e74cd9946bcbc9b7b93e9a24a171a3e01c27"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/with-timeout.test.ts",
+      "sha256": "62df5463dac8dadab106fb3938e60db31680f667504602a5a66581e00cb270a8"
+    },
+    {
+      "path": "apps/web/src/lib/csat/__tests__/workspace-state.test.ts",
+      "sha256": "bdaf15dbcc4b0c05dd415bcc5f30f051e91ecfab8dc8caca3ec5e5a35d66850d"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/__tests__/observability.test.ts",
+      "sha256": "905b0bda38124dc5b46f97942f96caa06dfff9672a3ff20c96f0c52c7a350811"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/__tests__/readiness.test.ts",
+      "sha256": "7de588f468c38b8bd4ce00a61d780b9e986fd1c230f3b551e7dca89fb2086b20"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/__tests__/seed-rules.test.ts",
+      "sha256": "771254ad185acee156e4ee6c797c6ca39a8e6d1e3eae864c1289491fcae5fd75"
+    },
+    {
+      "path": "apps/web/src/lib/csat/lecture/__tests__/core.test.ts",
+      "sha256": "763b33145f7d8c18d6bb0ecfba32cbf99a97abb469b0b719a763e9fd3bf3b2f0"
+    },
+    {
+      "path": "apps/web/src/lib/csat/lecture/__tests__/schema-v3.test.ts",
+      "sha256": "cc2eff34ec432ab7fd7b8b4a5b3eb9edaf2950c0fd1b645b108233a20862dad4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/inquiry/__tests__/compare-v3.test.ts",
+      "sha256": "8c6432252bbd98a4ac118cdb7cde73c89a530114436bce07ca8a762f3a5fe9d1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/inquiry/__tests__/data.test.ts",
+      "sha256": "b3b8b8d579f02eef7f077f61660206a29c694f2ed1aadd4cbe58a98f6d0cc2ff"
+    },
+    {
+      "path": "apps/web/src/lib/csat/inquiry/__tests__/scenes.test.ts",
+      "sha256": "e1d6f9822f5ddb00dbbeb7ebac7db38f3a7b7f16a5b1363662ec5dd985bb342f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/axis-routing.test.ts",
+      "sha256": "71513bf1915f60d80eb1fbded72caa7cc77ba8240bf33e7a80418500c4f3992c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/core.test.ts",
+      "sha256": "e23dc39ddeea5b20f57bfc9b64afe3b97a433432d2bf1f3273e86d42af8c5fc8"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/curriculum.test.ts",
+      "sha256": "db559c93310b8e8170e4c8de771905d3e45f75cd00c0d82d43a018c14df212d3"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/evidence-anchor.test.ts",
+      "sha256": "608f0d2efbd3be046fee69961e3b548ebc17fe3655dfc6c39cbaf7a37b718640"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/evidence.test.ts",
+      "sha256": "6344f030b696eae2f75c27d7272785ad26d1e5d9b6ead6a55d5f09147277286c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/goal-view.test.ts",
+      "sha256": "403aa421743d852d4251efb4ea146bec0f90c6dd59ca357f48eeafc4fed75e36"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/graph.test.ts",
+      "sha256": "5d7a810b54b0b16901b3d44c7c3a80dd8b98ddd1ff35846c8f44d5561b2c62f9"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/held-links.test.ts",
+      "sha256": "f08e1dec91fe831c5ea63081d9fd490640819e7c0a31aa44e69e689da10b62cd"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+      "sha256": "7e46f08c297a2b458060c693810f8f90f33ceafa27d7f115d81126fba0cac830"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/learner-path.test.ts",
+      "sha256": "9b020e75e8e62311a0df75668aa7f50d1b9d7abbf8990b4fa2014c845b3b4433"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/lifecycle-evidence.test.ts",
+      "sha256": "aa3553361dc2b350af2b7901fd306250cd2c48b836d2080c39891b08b2d0ddb0"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/load.live.test.ts",
+      "sha256": "b8db1f1cf539395fd61803058de44ca271c13bf27a60e977509a3f315dad6ce5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/memberships.test.ts",
+      "sha256": "0e7b4934770590168dab509cd2e2e54e0c708a6747afab7b8785ea31e55fe2a1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/model.test.ts",
+      "sha256": "8a6c6c88407ba08b69596d615087b03048c8c38a97defe40e37868892f6ffc9c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/payload.test.ts",
+      "sha256": "9bd881d71df7bbc3c70c5ef192b202ade848d0ad43ad5b4e9f7e49b68578f29b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/practice-results.test.ts",
+      "sha256": "dbd6d91bb655164fe2a832c4e810cf2d9de43dc92e0f4db7ab3ce3747f71a93b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/prescription.test.ts",
+      "sha256": "f9fa3cb995d87d8d04b188844640e757ca511564da1626ffc7cced746a3a7e21"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/quality.live.test.ts",
+      "sha256": "464633603ea05b21631f0689103fafd62a4533d3c98cc3415e9a6ba57b169872"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/ranking-gate.test.ts",
+      "sha256": "186bc58976fd4625fd9b75da6d97d91d848ba4e8a364f773d27ad68aeaded4e6"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/skill-diagnosis.test.ts",
+      "sha256": "786a91a848d55f4f6a60f97c2076ec2db7220811213165b3e7dfb92c8b757547"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/stale.test.ts",
+      "sha256": "7ac5de11f3d73ab244048871e193d3e17b3e70a2ba603b6d2f7d36b0b008f9d6"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/target.test.ts",
+      "sha256": "5288e938569550d8645ebe71942198427d4120fbca2e0c51d40176c480cae037"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/__tests__/vnext-alignment.test.ts",
+      "sha256": "8306227deec21a3a81036907c89d72ae6314b082f0a9c6f56625d01fb1cb4d58"
+    },
+    {
+      "path": "apps/web/src/lib/csat/meaning-support/__tests__/align.test.ts",
+      "sha256": "6929451bed48fc64e18d8aa619def1f3b431df45874ab3bdc708d22ddb7a43c8"
+    },
+    {
+      "path": "apps/web/src/lib/csat/meaning-support/__tests__/model.test.ts",
+      "sha256": "63d29957c1e4636176d5e3720898115381dbfe7fba24cc787922888e33c4fbda"
+    },
+    {
+      "path": "apps/web/src/lib/csat/meaning-support/__tests__/public-guard.test.ts",
+      "sha256": "35d62b7df344fc0b89fa8ff8378d6cdd70cc3083bc1e4d7a2fc0d26311afa5f1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/blanks.test.ts",
+      "sha256": "1f2be7897c73cf23636e54287fe5a5146d31c48d0767bd09cab9f4da6100bbe9"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/crop-mark-view.test.ts",
+      "sha256": "8fdb977e22eaa44347d632ec9b233a93588d33d1537626d33f2484b1e30823a5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/dev-paper.test.ts",
+      "sha256": "360e04f473a8510ed10da7d84564aae9a8f246c5cba22421e34b698de4e4f9f2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/original-crop.test.ts",
+      "sha256": "620cae30a7d73be8076a9d09030ca5590c6de29ddd98f41fb439a32e969e0662"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/paper-marks.test.ts",
+      "sha256": "18087a52ca597ca1091a15732daf9a14ac693c168947e077a95c796baaa1fbc8"
+    },
+    {
+      "path": "apps/web/src/lib/csat/reflow/__tests__/reflow.test.ts",
+      "sha256": "0c3db9ca6c8c768bd70660c4760f9ab2facc46ca53cebe0e19cacd8e1fdcd54a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/dissect-catalog.test.ts",
+      "sha256": "f7aff865216e40e7974ad8fc09ac18a970a456bd8f56df85b3502592a4c27b03"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/dissect.test.ts",
+      "sha256": "5cde07afa7eb998080f17a62e59f1f8e0492ce94119850ccc81dd1fa0c5f5442"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/dissection-passage.test.ts",
+      "sha256": "7d5982ab860443190aa99227b69e4d1ab2bf2f64f9cc631f61690bc8bd56c89b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/model.test.ts",
+      "sha256": "5810db5f05e9279a6951ff842c9c05ca383c1a19d2000001c5870c0ce1ffc61c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/sync.test.ts",
+      "sha256": "33edf9f1a09244ae7a9ce70d04f0ec104e876b4e4c64daf4ba56c2db9c7cf7ed"
+    },
+    {
+      "path": "apps/web/src/lib/csat/session/__tests__/text.test.ts",
+      "sha256": "1df937d43e4e52aa07f0d9efd47603ea3f5a08689728010f6b1c0a284d99aa53"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/engine/__tests__/exam-report.test.ts",
+      "sha256": "764618b2908b0a9b9987a4129743aa8e5670ed12ceb553900b02ed80e71ea74c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/engine/__tests__/map-evidence.test.ts",
+      "sha256": "879f525f7f90e243ea34867e5a538a1e116feb3ad226f83d6955f960b7d62b25"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/engine/__tests__/payload-compose.test.ts",
+      "sha256": "ce058067f42f4475c2f418c48e94201ff70775c7c5f37003ffac833231aea761"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/engine/__tests__/record-quality.test.ts",
+      "sha256": "658562209645aecdfc28462deafa35f8336c2104b699cfd7a26d9ba059ab8e61"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/engine/__tests__/rule-v1.test.ts",
+      "sha256": "fbbf2a3b305523002cec0a809c9f9b83ae9557c810cc02e35899e01d2e7441a5"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/content-drafts.test.ts",
+      "sha256": "88208cdfac7aaab845c61162512af2ad442b1dba239eebd150aa0a754847d774"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/definition.test.ts",
+      "sha256": "8c4034a3025a72f12104d9524fb9cc8291ee6d2cf5425085316bcb1857557239"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/plan-commit.test.ts",
+      "sha256": "43dd0e3368469d49088a02d64ca84c91a6932c2bffb5ba6d97285dce0375d279"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/plan-retry.test.ts",
+      "sha256": "f2951ea37d4ccc1ce2f6f75aafca9a0960eb09f60e531b4f4eec11337e5b632f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/plan-store.test.ts",
+      "sha256": "70a71979a507c6a25210e5950d2acd32a95dd96ef7319dbdcc7cd0a694d57478"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/plan.test.ts",
+      "sha256": "6d6a24b43b01de0c4c461019eebf8095a83c0fdca060d818101e68f184db90f1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/state-transitions.test.ts",
+      "sha256": "0ce3a4a70e66415902345ed6e9437be2819eb9b1800f3e190d19e262c1d5a59d"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/__tests__/v4.test.ts",
+      "sha256": "5b76a3ae27707866f6ef32ad66a30ee979411c4584704a917cf39952f59fcf13"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/contracts.test.ts",
+      "sha256": "57889280780ee4f8cef95a0d45bbfd210664a6f5550176c94fb7e0782230f467"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/demand-supply.test.ts",
+      "sha256": "a7dd3422aef2ca6d06e07530fe6ccd2f2f36a733dafb70128722cfd2350874dc"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/factory-integration.test.ts",
+      "sha256": "46656fbab32e71c150dd32844fa054dd179cf6bce8965e8d1dfb15156382ee78"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/factory-wire.test.ts",
+      "sha256": "749eb6f93d4f33cf0a5411e36488418bddd1e2e888d88d4195ba27faccfd45c2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/fic-final-probes.test.ts",
+      "sha256": "cd371a4234f06df65e532ad2658e252c1e51b55f0e494e37846aa720d5ff56f2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/fic-review-probes.test.ts",
+      "sha256": "ae61d742ef8a89d178fc9ddf5d579c35d6343a80b0c26328103ab20a110c0f62"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/fq11.pglite.test.ts",
+      "sha256": "d84b857dd15ab2d8c6aa2971068045193d06f04e18d953605bc0e542938d8819"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/order-spec.test.ts",
+      "sha256": "bed5e32467cc603cf4e0aedb7caee3e0e92ba02658b9f84a1d057c42daa66438"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/persist-contract.test.ts",
+      "sha256": "37ca9d302ae3fb49587dd9bf71c9a93e0335a59e68362c5d2cff7e8a3c2c4e34"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/pm4b-e-isolated.test.ts",
+      "sha256": "56d64702bccbf07ac5bcd53abd3793371d49d49c10d4a1c05863fffd4227d425"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/production-pilot.test.ts",
+      "sha256": "c4c4ec087068a71666617c8eda4e88414b88881f6c7bda72d47d89866e97c029"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/qualification.test.ts",
+      "sha256": "3f720a285e5cadc3a2616601e08e6ac47fc4d67451a8e3e2ad44905249cd0681"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/research.test.ts",
+      "sha256": "982fb365a293dc89f9d715a2b0dd8423c1cdcf53dc1620775fdafa29169fee92"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/return-ctx.test.ts",
+      "sha256": "80065fc2d63c54c75e7d1aef1cf4700a550f594db8b7dffb94f492ac34236932"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/study-items.test.ts",
+      "sha256": "7004a3458b8371e09a6aecacf0d042fe35ce74724eebea45c870a7f0de0ca3ec"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-b-orders.pglite.test.ts",
+      "sha256": "ec215942f8882da027dd4f11dc67d6762a46cba8eea6b9675f46faa21b4a1ee3"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-c-qualification.pglite.test.ts",
+      "sha256": "e567ee8d1580702f619acd7c213f4aaff44a408b782565fb2cbc8b9d08287795"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-ledger.test.ts",
+      "sha256": "e07b9733d075cb46d308601116e0b096adb5bd489db3ba708f39ae80449255a6"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-store.test.ts",
+      "sha256": "6bffcb3214b8e4c4340a87075b4e90e42c51bfc1ab84e32ce01834b7b0294f37"
+    },
+    {
+      "path": "apps/web/src/components/csat/__tests__/PassageMap.test.tsx",
+      "sha256": "9a385c9d0892cfbfd3b3d5b46bd9971af7a7c4c0fb63842ff39e358f2c64014b"
+    },
+    {
+      "path": "apps/web/src/components/csat/__tests__/theater-delivery-guard.test.ts",
+      "sha256": "dfa4a7abdb64371db41673f1625f78c8e7655b6fa82e622cd2c9611052b81b2a"
+    },
+    {
+      "path": "apps/web/src/components/csat/home/__tests__/home-browse-geometry.test.ts",
+      "sha256": "1b451993da9c4de426dc879b4eeca06654a8e322b54e628e759fecd94f14fb88"
+    },
+    {
+      "path": "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+      "sha256": "03f23d7a620bf827317dc0bc476ea4664cad04cdf9cf363b5bb81e14cb21deab"
+    },
+    {
+      "path": "apps/web/src/components/csat/home/__tests__/useCsatRecord.test.ts",
+      "sha256": "f04151f21891d4a0d7f81e231b092c372e19582ef250b5808fda0778e0420f57"
+    },
+    {
+      "path": "apps/web/src/components/csat/session/__tests__/original-paper.test.tsx",
+      "sha256": "a8364a330fefde9de68cc3820713acf6aef6ce5ecf611c2410e910022aa6df07"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/EvidenceQuote.test.tsx",
+      "sha256": "1866dcfb432a78f1585d425801f5e816db047659c8d20c0201d53e89cf9168ef"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/InquiryDock.test.tsx",
+      "sha256": "4458982ce05c0d53fbb69f64cf969aaa4e8b0ea84b228e834286277264dfca86"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/InquiryV3Panels.test.tsx",
+      "sha256": "45f256e532bdbc6bc437465da91d7c747c0f5ea41100eb06942b25150090c627"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/meaning-panel-geometry.test.ts",
+      "sha256": "d39a45e1553f846c79e7bed44815c65d499c2633a8f23be05d26659883b7447f"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/SceneDiagrams.test.tsx",
+      "sha256": "5450f0cfc5b4351d96b2569fe4a9d683c5807e60baa774c05502c0e4c76d5f33"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/SelfExplain.test.tsx",
+      "sha256": "3e0868a5eb2d8a6b6616eff03a22c3848bba10dbfe27d31c79f716f802b52e4a"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/UnderstandingChecks.test.tsx",
+      "sha256": "ef532d9bdcd267af96923df0f73067516a60db133790a881f8bd6209ba3e5b1c"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/V3CompareExplorer.test.tsx",
+      "sha256": "ff40bc09342b66063084daa87342098ad79791e335fc1b4c3c8d1c04ae041f07"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/__tests__/workspace-geometry.test.ts",
+      "sha256": "115c4d0e1b9de8e063207d8626c490517e11ae7123741d2cbdcdd9eec3f2477c"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/__tests__/format.test.ts",
+      "sha256": "a4719773d08cf930914ae797403c174febc4b41a7f8273432b52b7982f63c90f"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/__tests__/geometry.test.ts",
+      "sha256": "3113b099a025cb13a3c0f1809ee6ae3d77f3f39f737baf6211844f5ab919a95a"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/__tests__/lifecycle-records.test.tsx",
+      "sha256": "d3cfe64a5b7677fbd277cae48d36fb8baf027cbfd3e914db4c2bc142c44a90ee"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/__tests__/skill-prescription.test.tsx",
+      "sha256": "82a82a4e67ae95682b62d59e755640a6bac2167ddc9431cbcec51253f035c4a0"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/__tests__/type-scale.test.ts",
+      "sha256": "85c8f0f0a61fecca3e1daafbafb524ded6b2f3f301ddec29dae38a4f52b7e48f"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/anchor-source.test.ts",
+      "sha256": "89ee57e50831bc3afaea745ace12d601a38d8aa1e6903a7f212c533254054c1e"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/claim-support-annotations.test.ts",
+      "sha256": "7f4e1e57fadabc24eb396d77ff20333834931bae29b030bf65d241d27a20e8e3"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/decision-log.test.ts",
+      "sha256": "2b71f69e59c161eb79ab625ed86585011f62534af4decaefd54ced9b261ef4f7"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/effect-signals-paging.test.ts",
+      "sha256": "ff4d8356a4e24376fc37d97e449ae833b85d6c8519388ed4b5829a3d46770ec9"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/effect-signals.test.ts",
+      "sha256": "e66a3529925d33097bfd208d5f6c8e7e8cb57d2d151502c861d18e0d6e830369"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/find-feedback.test.ts",
+      "sha256": "8bb189952f0b4f6a424b78a52f5a291b096b926469a2f69349889502fa1d28f6"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/find-outcome.test.ts",
+      "sha256": "98ce668a62802bbfc1365395132d8744957d57a6aa171e2c6415905853a58910"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/find-targets.test.ts",
+      "sha256": "0844f04540f08e09e482159387c500444f69e078339e044bdc1aae41d9466855"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/grid.test.ts",
+      "sha256": "11ebfa912600d1acee0a314a2a4a9801ad3469beda0a75e591678e2b5a9fa495"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/item-task-ref.test.ts",
+      "sha256": "ecb284e2e16835b6ca40b27adc6559e1101a3451e8a124e4cc2a106ba8e53e93"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/labels.test.ts",
+      "sha256": "d8309cc631a01dd983d6e1c019154ee1988719a500952aee9229cf1737cf1a3e"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/learning-decision.test.ts",
+      "sha256": "0e234ad4f0582bc8d050a408bc3b5fe99a6e6ff61e3344df8500d37722dee3ef"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/practice-focus.test.ts",
+      "sha256": "4654c7b9d23413a3fd8d058c1076500a1ea7b46f740a89484baf893e76a2deba"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/practice-server.test.ts",
+      "sha256": "b53325d7c9928e89e8abd144245e7d233bbc421aea83d996512e3030692dce07"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/practice.test.ts",
+      "sha256": "fde9f8b1f81189b886a1b77bce5330c0b4d872694dffbc5a0fbc5f789255b357"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/prior-help.test.ts",
+      "sha256": "3b12e47d0775fd2f3c2ecb5223fdb882c0dd859c29e52a46d5dc08f4aa1a03f5"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/research-compare.test.ts",
+      "sha256": "811c06d26a5fe8d437454eb83cc4df2c9a113738aaa0a0a3cefef0eff1eb3fa1"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/review-date.test.ts",
+      "sha256": "efa01d80624e0fb569cf688c8baca7073b0b33cae00a16044a3752ab4abdcfeb"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/rules.test.ts",
+      "sha256": "6f7aa63659fb5cf171f603383422215dc7679b366938ca1f346f6b562b6810c1"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/vertical-claim-support.test.ts",
+      "sha256": "02e88b5cdab29c931ef5317b9ea4bd1163ce67bbef2a538f698ba5d7a00f6ae3"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/vertical-cohesion-link.test.ts",
+      "sha256": "6f1a4a2367649feeec827b8af3297b9036e2d26e3fd597f10ea3fda023d3b577"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/vertical-evidence-locate.test.ts",
+      "sha256": "15720bcd9990f99aa190b481dc7c5d691f768a3977f4d36c82e263244ba044a1"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/__tests__/vnext.test.ts",
+      "sha256": "6876ef255d2ec420e91c367a681fc922159c003f3b1af5b4a570220fb1521ab1"
+    }
+  ]
+}

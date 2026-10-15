@@ -1,0 +1,276 @@
+{
+  "method": "Derived union by file, latest retry supersedes only that file; no double counting. Raw reports retained.",
+  "reports": [
+    "product-initial-environment-errors.json",
+    "product-retry.json",
+    "product-factory-retry.json"
+  ],
+  "files": 187,
+  "counts": {
+    "passed": 2184,
+    "skipped": 52
+  },
+  "collectionErrors": [],
+  "skips": [
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/choice-polarity-fresh.integration.test.ts",
+      "test": " 구운 긍정형 발문 목록이 DB 와 맞는가 (실 DB) 선택≠참거짓 유형의 긍정형 발문 문항 id 가 지금 DB 와 같다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) service_role 은 지문을 읽는다 — 대조군이 없으면 아래 단언이 무의미하다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) anon 은 csat_items 를 읽지 못한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) anon 은 지문 컬럼을 이름으로 콕 집어도 못 읽는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) learner 은 csat_items 를 읽지 못한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) learner 은 지문 컬럼을 이름으로 콕 집어도 못 읽는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) 학습자용 뷰는 지문·선지 컬럼 자체를 갖지 않고, 발문은 읽히지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) 학습자가 읽는 분석·검수는 published 만 보인다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 기출 원문 저작권 경계 (실 DB) 학습자가 분석을 고쳐 쓰지 못한다 — 검수를 우회하는 가장 짧은 길이다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 학평 학습자 경계 (실 DB) 학습자 뷰의 학평 문항은 전부 발행된 분석이 있다(미발행은 안 보인다)",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 학평 학습자 경계 (실 DB) 학평 골격 — 학습자는 발행된 문항 행만, 비로그인은 0행",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+      "test": " 학평 학습자 경계 (실 DB) 학평 문항도 stem 은 학습자에게 막혀 있다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/evidence-scope.integration.test.ts",
+      "test": " evidence 학평 범위 (실 DB) 학평 고3 — 그 학년 회차·문항만, 평가원은 섞이지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/evidence-scope.integration.test.ts",
+      "test": " evidence 학평 범위 (실 DB) 평가원 범위(기본)에는 학평이 없다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 공정 8칸이 모두 서고, 눈금 없는 칸이 없다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 해설 보유를 잰다 — 그리고 **언제 잰 값인지**를 함께 말한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 집계표가 살아 있고 빠르다 — 공정 ⑤·⑥ 이 여기 하나에 기댄다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 검수 L2 는 현황판과 검수 화면이 **같은 수**를 말한다 — 한쪽만 고치면 여기서 깨진다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 자유도 패널은 공정 ⑤·⑥과 같은 집계표를 읽는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) ⑦ 검수는 네 층을 **전부** 푸는 명령을 들고 있다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 공정 눈금 중 「못 잼」이 남아 있으면 그 이유가 반드시 적혀 있다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 사다리 칸은 초등 3종을 빼고 센다 — 넣으면 초등 계단이 거짓으로 비어 보인다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 기획 눈금은 목표 1.200 을 들고 있고, 못 읽었으면 0 이 아니라 null 이다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) ② 의 판정 구속점은 목표에 닿을 수 있는 출판사다 — 못 닿는 곳은 「증거 부족」으로 선다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 교재 공장 공정 현황판 (실 DB) 검수는 층이 넷이다 — 한 층만 통과한 것을 통과라고 부르지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 전략 연구소 두 화면 (실 DB · 실 파일) 설계 표는 사다리 7단을 그대로 편다 — 계단이 사라지면 그 학년 책이 없어진다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 전략 연구소 두 화면 (실 DB · 실 파일) 초등 3종은 「셀 수 없음」이지 재고 0 이 아니다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 전략 연구소 두 화면 (실 DB · 실 파일) 설계 표와 현황판이 같은 칸을 말한다 — 칸 목록은 정확히, 수는 움직임만 허용",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 전략 연구소 두 화면 (실 DB · 실 파일) 두 화면이 같은 세기 함수를 쓴다 — 방법이 갈라지면 값도 갈라진다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 전략 연구소 두 화면 (실 DB · 실 파일) 기획 화면은 벤치마크 파일을 읽고, 못 읽으면 0 이 아니라 오류를 말한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 집필 표의 총계는 칸을 더한 값이고, 플래너 통계와 허용 오차 안에 있다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 집필 표의 사다리 칸이 설계 화면과 같은 수를 말한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 소재 화면의 밴드는 실제 게이트 정의에서 오고, 재고는 스냅샷에서 온다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 검수 층은 넷이고, 층마다 무엇을 보는지 적혀 있다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 검수 L2 는 **교재** 문항을 세고, 통과율이 100%를 넘지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+      "test": " 생산 라인 네 화면 (실 DB) 조판 화면은 옛 행의 없는 항목을 0 이 아니라 null 로 둔다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 분석 전량을 읽는다 — 1000행에서 잘리면 안 된다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 콘솔의 「검수 통과 문항」이 DB 실측과 같다 — 페이징이 빠지면 여기가 먼저 어긋난다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 유형별 함정 라벨을 실제로 줄인다 — 라벨 그대로는 교재 목차가 안 된다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 어휘 원천이 사전 등재 여부를 함께 싣는다 — 교재에 실을 뜻이 없는 낱말을 가려낸다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 해소되는 낱말을 사전 빈칸으로 세지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 빈칸 판정이 정본 해소기와 같다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 근거 서술에 섞인 분석자 작업 로그를 세어 내놓는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+      "test": " 기출 가이드 원천 자료 (실 DB) 내보내는 Markdown 에 평가원 지문이 섞이지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+      "test": " 유형 리포트 파서 — 실제 26개 (실 DB) 리포트가 실제로 있다 — 없으면 아래 단언이 아무것도 안 지킨다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+      "test": " 유형 리포트 파서 — 실제 26개 (실 DB) 어느 필드에서도 글자를 잃지 않는다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+      "test": " 유형 리포트 파서 — 실제 26개 (실 DB) 문항 인용이 실제로 링크가 된다 — 0 이면 배선이 끊긴 것이다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+      "test": " 유형 리포트 파서 — 실제 26개 (실 DB) 가장 긴 문단이 원문 덩어리보다 훨씬 짧다 — 나열을 쪼갠 것이 목적이다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/trap-atlas-fresh.integration.test.ts",
+      "test": " 구운 오답 지도가 DB 와 맞는가 (실 DB) 오답 선지 수·유형별 분포가 지금 DB 와 같다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/__tests__/trap-drill-fresh.integration.test.ts",
+      "test": " 구운 훈련 풀이 분석과 맞는가 (실 DB) 모든 카드의 정답이 지금 DB 의 최신 분석과 같다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/map/__tests__/load.live.test.ts",
+      "test": " loadMapPage (live) 실제 DB 에서 지도를 조립한다",
+      "status": "skipped"
+    },
+    {
+      "file": "D:/workspace/Vocaflow-map-v62-pm4b-final/apps/web/src/lib/csat/map/__tests__/quality.live.test.ts",
+      "test": " Record Quality Layer (live) 일괄 입력 기록은 지도 관찰 집계에서 빠진다 — 전후 비교",
+      "status": "skipped"
+    }
+  ]
+}
