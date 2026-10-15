@@ -1,0 +1,256 @@
+{
+  "date": "2026-10-15",
+  "pinned_head": "4a5d2e98f6b677b3ec21c4b38e5bf2c6dd3b0017",
+  "base_main": "914c16096aa23c8cff81a64c8f84c3450d727edf",
+  "environment": "Next14 dev owned port3007; Playwright Chromium; Node24; PC1280/1440; synthetic accounts; no migrations",
+  "files": [
+    {
+      "path": "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+      "pinned_sha256": "0a56b9f1330416b4b87f99f7f1ab1c146f1faee80f01e01ce28bad7a2939b04f",
+      "current_sha256": "0a56b9f1330416b4b87f99f7f1ab1c146f1faee80f01e01ce28bad7a2939b04f",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan.ts",
+      "pinned_sha256": "1830e4a414662d1a9cb640382909a854cb934860bf0826638d566e55a65fef85",
+      "current_sha256": "20dc85203fd9f2b9b62ed8dd512cdf54f89fb14d24e105bd7c3d003ba0a720cd",
+      "unchanged": false,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/as-is.ts",
+      "pinned_sha256": "36bf2c51b0b3a416d907f36e9b22115a66af5440e7c4a42bf84891cbb187a842",
+      "current_sha256": "36bf2c51b0b3a416d907f36e9b22115a66af5440e7c4a42bf84891cbb187a842",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+      "pinned_sha256": "69e4ff8c7d7d55a8e8b95d71e7b1df1baa2fdbf8d958ce19ce7f490c2db65d67",
+      "current_sha256": "69e4ff8c7d7d55a8e8b95d71e7b1df1baa2fdbf8d958ce19ce7f490c2db65d67",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/workspace-list.ts",
+      "pinned_sha256": "066e41ff50866c40336dcdc7bd9bf5788a3edfde1345fc8874c4d284b0eb8669",
+      "current_sha256": "066e41ff50866c40336dcdc7bd9bf5788a3edfde1345fc8874c4d284b0eb8669",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/load.ts",
+      "pinned_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "current_sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/compose.ts",
+      "pinned_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "current_sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-store.ts",
+      "pinned_sha256": "56127f3332a8c513b598a3cad860c69648e74f46e8e4f3582ec1f8abde33fa08",
+      "current_sha256": "56127f3332a8c513b598a3cad860c69648e74f46e8e4f3582ec1f8abde33fa08",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-commit.ts",
+      "pinned_sha256": "3e936fc7b28175d6c9d2f82c4f63eb54213c8b3095570209c2a5dd544a51c5ab",
+      "current_sha256": "3e936fc7b28175d6c9d2f82c4f63eb54213c8b3095570209c2a5dd544a51c5ab",
+      "unchanged": true,
+      "scope": "engine"
+    },
+    {
+      "path": "docs/csat-learner/v62/lm-g1/probes.json",
+      "pinned_sha256": "0b5e9b7be3198cf9bf4b0f7a8ca4c9cfedda97ed854bfd4ff660e716a21dff5e",
+      "current_sha256": "0b5e9b7be3198cf9bf4b0f7a8ca4c9cfedda97ed854bfd4ff660e716a21dff5e",
+      "unchanged": true,
+      "scope": "historical_ledger"
+    },
+    {
+      "path": "docs/csat-learner/v62/lm-g1/tests.json",
+      "pinned_sha256": "57c2f534c36c81b4a9cb58d292633f4473d078880998bb53ab13b8c4a2c63552",
+      "current_sha256": "57c2f534c36c81b4a9cb58d292633f4473d078880998bb53ab13b8c4a2c63552",
+      "unchanged": true,
+      "scope": "historical_ledger"
+    },
+    {
+      "path": "docs/csat-learner/v62/lm-g1-1/probes-r2.json",
+      "pinned_sha256": "4365fc99808d875e2cf656aba31009f244567f1292ca69749bc64cc2cdbd3bda",
+      "current_sha256": "4365fc99808d875e2cf656aba31009f244567f1292ca69749bc64cc2cdbd3bda",
+      "unchanged": true,
+      "scope": "historical_ledger"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/GoalBar.tsx",
+      "pinned_sha256": "4172122740909d4d8dacc9f30244da72b0d09248a3ad6efc515fd18f071a52f2",
+      "current_sha256": "4172122740909d4d8dacc9f30244da72b0d09248a3ad6efc515fd18f071a52f2",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+      "pinned_sha256": "2871c4bdb57e4cad990bcb4ee0f0ce8645875fdd3563238da50ca912500172c0",
+      "current_sha256": "2871c4bdb57e4cad990bcb4ee0f0ce8645875fdd3563238da50ca912500172c0",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/MapDialog.tsx",
+      "pinned_sha256": "45fc81f3d7363e80aea92cc7f8ce21b00e20b50eb51c5fc275f9d2c990f486a3",
+      "current_sha256": "45fc81f3d7363e80aea92cc7f8ce21b00e20b50eb51c5fc275f9d2c990f486a3",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/MapPreparing.tsx",
+      "pinned_sha256": "49262c0ca8086e7fedcb258b22b7d0ed33adf10207bb033ede065d680c35ed3a",
+      "current_sha256": "49262c0ca8086e7fedcb258b22b7d0ed33adf10207bb033ede065d680c35ed3a",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/MapScreen.tsx",
+      "pinned_sha256": "32b8a5155a9585fcaa4a6ac4d321c3210c917d0b9f0476bf45b59965d053ff42",
+      "current_sha256": "32b8a5155a9585fcaa4a6ac4d321c3210c917d0b9f0476bf45b59965d053ff42",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+      "pinned_sha256": "8c76ba763a27800f03138ca4e54359969394ec9f5baf52c35904c2d63994d8e4",
+      "current_sha256": "8c76ba763a27800f03138ca4e54359969394ec9f5baf52c35904c2d63994d8e4",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/SkillPrescription.tsx",
+      "pinned_sha256": "44faefe78f53f37e7cec331b2f1880465b80873d687a267c1f25ca184dd08301",
+      "current_sha256": "44faefe78f53f37e7cec331b2f1880465b80873d687a267c1f25ca184dd08301",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
+      "pinned_sha256": "2a86968f57772f17bafdf9e42580f58e25129a96d7d4e7c9d52c54486c46c911",
+      "current_sha256": "2a86968f57772f17bafdf9e42580f58e25129a96d7d4e7c9d52c54486c46c911",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "pinned_sha256": "0f7d70cce97a65b82ad7a1730544b8806e6983cee0458bb3511993e857dec833",
+      "current_sha256": "0f7d70cce97a65b82ad7a1730544b8806e6983cee0458bb3511993e857dec833",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskPopup.tsx",
+      "pinned_sha256": "13ebdd8ba127041536c3c67aa97aa3ee3abf73d23423ac39df0331fb3d818c77",
+      "current_sha256": "13ebdd8ba127041536c3c67aa97aa3ee3abf73d23423ac39df0331fb3d818c77",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+      "pinned_sha256": "ebfb1f53de546d66966fd4bef3672bcd086bc5c03a2b7f45bb9df622eb9e92c6",
+      "current_sha256": "ebfb1f53de546d66966fd4bef3672bcd086bc5c03a2b7f45bb9df622eb9e92c6",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+      "pinned_sha256": "38188e1713415e864213bf7dcb62357ee4d9f6faee590afb6750e040ce2b0333",
+      "current_sha256": "38188e1713415e864213bf7dcb62357ee4d9f6faee590afb6750e040ce2b0333",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+      "pinned_sha256": "78848a6d89fc167cc908809a26a5e1f5276544abaa71d820e85b86f866f7e96c",
+      "current_sha256": "78848a6d89fc167cc908809a26a5e1f5276544abaa71d820e85b86f866f7e96c",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/format.ts",
+      "pinned_sha256": "8ddc47566a57f8d9dd89bc9564c34df547ef1721d602329192d328d924dc69bb",
+      "current_sha256": "8ddc47566a57f8d9dd89bc9564c34df547ef1721d602329192d328d924dc69bb",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/icons.ts",
+      "pinned_sha256": "48b7c9eec7f7847c0673b67479d6946a74d63a29d03f49c7eb27c8fa36383971",
+      "current_sha256": "48b7c9eec7f7847c0673b67479d6946a74d63a29d03f49c7eb27c8fa36383971",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/learner.module.css",
+      "pinned_sha256": "c6a55b846981264162cfbe0c8279806ea8d3f766ff8f21cd2cbc0a7aaa678c6f",
+      "current_sha256": "c6a55b846981264162cfbe0c8279806ea8d3f766ff8f21cd2cbc0a7aaa678c6f",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/map.module.css",
+      "pinned_sha256": "1c193960d04bdadd356d07cc797f00ba29c6b559fd8235198d2a8877ead3c7f4",
+      "current_sha256": "1c193960d04bdadd356d07cc797f00ba29c6b559fd8235198d2a8877ead3c7f4",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/needs.module.css",
+      "pinned_sha256": "ec71f3c27dcb4b9b80f2c2739ef59a047a9b43695e9374d9519ea9d39e20a567",
+      "current_sha256": "ec71f3c27dcb4b9b80f2c2739ef59a047a9b43695e9374d9519ea9d39e20a567",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/popup.module.css",
+      "pinned_sha256": "5488fea424055b7ec0a64d9ecbc81fe1ba1f0bc07c4ab391f93edbd7dbfd6da7",
+      "current_sha256": "5488fea424055b7ec0a64d9ecbc81fe1ba1f0bc07c4ab391f93edbd7dbfd6da7",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+      "pinned_sha256": "943a8b6a4fc4678291bcddb9859316f2f2baed47b45e3b95b60b745a638389fc",
+      "current_sha256": "943a8b6a4fc4678291bcddb9859316f2f2baed47b45e3b95b60b745a638389fc",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/useTaskDone.ts",
+      "pinned_sha256": "f02acd377e437805148d6231413d9312848c6daaebfa02e48f417ace144210a7",
+      "current_sha256": "f02acd377e437805148d6231413d9312848c6daaebfa02e48f417ace144210a7",
+      "unchanged": true,
+      "scope": "preserved_UI"
+    }
+  ],
+  "protocol_hashes": {
+    "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
+    "scripts/research/lm-g1-1-independent/browser.mjs": "030eb62da10807000f820bf9590ae86cc1b3d0d7a62945f8ed5f3809a6dee473",
+    "scripts/research/lm-g1-1-independent/workspace-boundary.mjs": "df725be9c806be38aef0147a4c40dd11ca39fcf6bb1616d10121eecb3d2ba9f0",
+    "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21",
+    "scripts/research/lm-g1-1-independent/cleanup.mjs": "4040fa080c88bbff188ff232de145385c5d59b46f9474f34792404167f8f5f7f",
+    "scripts/research/lm-g1-1-independent/cleanup.test.mjs": "8af38c85f89acd1216a571489c94b0aafcb68bf40f134ea3d655b19b950bbbce"
+  },
+  "execution_protocol_hashes": {
+    "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
+    "scripts/research/lm-g1-1-independent/browser.mjs": "54066bfda2a8c60d4c141a81ea018623de7993df830adf0587c3f957c28e6bec",
+    "scripts/research/lm-g1-1-independent/workspace-boundary.mjs": "fb0fb4564b1548aee5943b69b6caa70e1a69568253b68e708341c394a03722cc",
+    "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21"
+  },
+  "harness_followup": "After the successful browser runs, purpose review required nonzero exit on failed assertions/account cleanup and mkdir for ignored local logs. Inputs, UI assertions and product source unchanged; completed result JSON remains source evidence, not a claim of rerunning those branches. Cleanup errors now fail closed; explicit user_not_found confirms absence; fault-injection5/5 and live read-only absence6/6 separately documented. The A/B boundary harness also reuses the same cleanup function, continues after a first account error, always closes the browser and records failure; cleanup fault cases now6."
+}

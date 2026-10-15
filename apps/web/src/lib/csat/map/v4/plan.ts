@@ -8,6 +8,8 @@
 //   · 학습자 조정(순서 · 계획량)은 계획만 바꾼다. 근거 상태 · 직접 확인 판정 · 요구 유형은 바뀌지 않는다(adjust 는 그 칸을 읽지도 쓰지도 않는다).
 // 순수 함수(DB · 시계 없음).
 
+import { repairAttempts, repairWindow } from '../lifecycle-evidence'
+
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
 import { checkKeysOfTask, taskOf, tasks, type TaskId } from './definition'
 import type { Need, ToBeMap } from './to-be'
@@ -84,6 +86,8 @@ export interface PlanActivity {
   taskKey: string
   phase: string
   answeredAt: string | null
+  /** 정오(G2 원장 is_correct 그대로) — 바로잡기 성공은 true 만. 없거나 null 이면 성공 근거가 아니다(LM-G1.1) */
+  isCorrect?: boolean | null
 }
 
 export interface WorkspacePlanView {
@@ -127,34 +131,60 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
   }
 }
 
+/**
+ * 바로잡기 단계 준비(LM-G1.1) — **수행량이 아니라 성공 근거**로 단계를 넘긴다. lifecycle-evidence 의 같은 창(repairWindow)을 쓴다:
+ *   이번 회차(확정 뒤 · 다시 확인에서 막혔으면 그 뒤)의 막힌 문항 시도 중 정답(true)이 하나라도 있으면 성공.
+ *   retry = 아직 이번 회차에 맞히지 못한 막힌 문항(시도했다가 틀린 문항도 포함 — 재시도 대상).
+ */
+export function repairGate(t: AsIsTask, activity: readonly PlanActivity[]): { succeeded: boolean; tried: number; retry: string[] } {
+  const c = t.check
+  if (!c?.verifiedAt) return { succeeded: false, tried: 0, retry: [] }
+  const skill = { status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } }
+  const keys = new Set(checkKeysOfTask(t.id))
+  const tries = repairAttempts(skill, keys, activity.map((a) => ({ ...a, taskKey: a.taskKey.replace(/-skeleton$/, '') })))
+  const right = new Set(tries.filter((a) => a.isCorrect === true).map((a) => a.itemRef))
+  const blocked = repairWindow(skill)?.blocked ?? []
+  return { succeeded: right.size > 0, tried: new Set(tries.map((a) => a.itemRef)).size, retry: blocked.filter((i) => !right.has(i)) }
+}
+
 const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', repair: 'blocked_items', transfer: 'transfer_pool', recheck: 'recheck_items' }
 
 /**
- * 지금 단계(5차) — 확정된 요구(REPAIR) 안에서는 정본 순서(workspaces.json quantity_policy)대로 실제 수행에 따라 넘어간다:
- *   바로잡기(막힌 문항 수만큼) → 다른 글에 적용(전이 2지문) → 다시 확인. 수행이 단계를 넘기지만 **성취는 바꾸지 않는다** —
+ * 지금 단계 — 확정된 요구(REPAIR) 안에서는 정본 순서(workspaces.json quantity_policy): 바로잡기 → 다른 글에 적용(전이 2지문) → 다시 확인.
+ *   LM-G1.1: 바로잡기는 **성공 근거(repairGate)** 가 생겨야 넘어간다 — 틀린 · 정오 없는 시도는 수행량(doneOf)으로만 남고 단계를 넘기지 않는다
+ *   (G02: 2회 실패 → 수행 2 · 다음도 바로잡기). 바로잡기 자료가 없으면 다른 단계로 건너뛰지 않고 바로잡기(링크 없음 = 실제 막힘)에 머문다.
+ *   적용 · 다시 확인은 기존 정책 그대로(적용 = 계획량만큼 · 문항이 없으면 건너뜀). 단계가 넘어가도 **성취는 바꾸지 않는다** —
  *   「다시 확인 통과(resolved)」는 As-Is 의 독립 첫 시도 판정에서만 나온다(수행량 ≠ 검증된 성취).
- *   단계가 열려 있지 않으면(문항 없음) 건너뛴다 — 없는 활동으로 묶어 두지 않는다.
  */
 export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[]): StageKey | null {
   if (!need) return null
   const base = STAGE_OF_NEED[need.type]
   if (need.type !== 'REPAIR' || !home) return base
-  const left = (k: 'repair' | 'transfer') => {
-    const st = home.stages[k]
-    return st.ready && st.count !== null && doneOf(k, t, activity) < st.count
-  }
-  if (left('repair')) return 'repair'
-  if (left('transfer')) return 'transfer'
+  if (!repairGate(t, activity).succeeded) return 'repair'
+  const st = home.stages.transfer
+  if (st.ready && st.count !== null && doneOf('transfer', t, activity) < st.count) return 'transfer'
   if (home.stages.recheck.ready) return 'recheck'
   return base
 }
 
-/** 단계의 다음 활동 하나 — 아직 안 한 대상만(확정 뒤 수행 기준). 확인 · 다시 확인은 Workspace 의 안 본 확인 문항 */
+/**
+ * 단계의 다음 활동 하나. 확인 · 다시 확인은 Workspace 의 안 본 확인 문항.
+ *   바로잡기(LM-G1.1): 이번 회차에 아직 **맞히지 못한** 막힌 문항 — 틀린 시도가 있어도 재시도 대상으로 남긴다(시도했다고 빼지 않는다).
+ *   자료가 없거나 단계가 닫혀 있으면 null(실제 막힘) — 다른 단계의 자료로 바꿔 열지 않는다.
+ *   적용: 아직 안 한 적용 문항.
+ */
 function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[]): { href: string; label: string } | null {
   if (!home || !stage || !home.stages[stage].ready) return null
   if (stage === 'check' || stage === 'recheck') return home.next ? { href: home.next.href, label: home.next.label } : null
+  if (stage === 'repair') {
+    const retry = new Set(repairGate(t, activity).retry)
+    const pick = home.stageItems.repair.find((l) => retry.has(l.target)) ?? null
+    return pick ? { href: pick.href, label: pick.label } : null
+  }
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
-  const did = new Set(activity.filter((a) => a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' : a.phase !== 'transfer')).map((a) => a.itemRef))
+  // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
+  const keys = new Set(checkKeysOfTask(t.id))
+  const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => a.itemRef))
   const pick = home.stageItems[stage].find((l) => !did.has(l.target)) ?? null
   return pick ? { href: pick.href, label: pick.label } : null
 }

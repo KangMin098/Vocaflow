@@ -93,6 +93,8 @@ export interface AsIsTask {
     /** 확인 과제로는 안 봤지만 학습자가 그 시험을 기록해 이미 푼 확인 문항 — 새 문항으로 내밀지 않는다 */
     examSeen: string[]
     verifiedAt: string | null
+    /** 다시 확인에서 마지막으로 막힌 시각(skillDiagnosis 그대로) — 그 뒤의 바로잡기만 이번 회차로 센다(LM-G1.1 · lifecycle-evidence 와 같은 창) */
+    lastWrongAt?: string | null
   } | null
   /** 근거 출처와 개수 */
   sources: { kind: 'exam_sessions' | 'independent_attempts'; count: number }[]
@@ -222,6 +224,7 @@ export function asIsMap(input: AsIsInput): AsIsMap {
         unseen: [...new Set(targets.map((x) => x.itemRef))].filter((i) => !seen.has(i) && !examSeen.includes(i)),
         examSeen,
         verifiedAt: d.verifiedAt,
+        lastWrongAt: d.check.lastWrongAt ?? null,
       }
       fromCheck = SKILL_TO_TASK[d.status] ?? (independent.size > 0 ? 'checking' : null)
     }

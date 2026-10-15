@@ -1,0 +1,14 @@
+{
+  "scope": "Actual extracted failure guard and mkdir statements; cleanup fault injection via node --test cleanup.test.mjs; not browser rerun",
+  "pass": 10,
+  "fail": 0,
+  "guardCases": 4,
+  "cleanupFaultCases": 6,
+  "sources": {
+    "browser.mjs": "030eb62da10807000f820bf9590ae86cc1b3d0d7a62945f8ed5f3809a6dee473",
+    "regression.mjs": "e57ca33d5403513394c0ded5167d66a92ed47a04296a9239b63ced96d702c644",
+    "cleanup.mjs": "4040fa080c88bbff188ff232de145385c5d59b46f9474f34792404167f8f5f7f",
+    "cleanup.test.mjs": "8af38c85f89acd1216a571489c94b0aafcb68bf40f134ea3d655b19b950bbbce",
+    "workspace-boundary.mjs": "df725be9c806be38aef0147a4c40dd11ca39fcf6bb1616d10121eecb3d2ba9f0"
+  }
+}

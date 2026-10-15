@@ -120,8 +120,9 @@ describe('E — MAP · PLAN · Workspace 가 같은 상태를 말한다', () => 
 describe('F — 계획 수행량은 성취를 바꾸지 않는다', () => {
   it('바로잡기 · 적용을 아무리 해도(계획 조정 포함) 성취 · MAP 상태는 직접 확인 판정 그대로', () => {
     const act: PlanActivity[] = [
-      { itemRef: 'i1', taskKey: KEY, phase: 'practice', answeredAt: day(12) },
-      { itemRef: 'i2', taskKey: KEY, phase: 'practice', answeredAt: day(13) },
+      // LM-G1.1 — 바로잡기 성공(정답)이어야 적용 단계로 넘어간다
+      { itemRef: 'i1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: day(12) },
+      { itemRef: 'i2', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: day(13) },
       { itemRef: 't1', taskKey: KEY, phase: 'transfer', answeredAt: day(14) },
       { itemRef: 't2', taskKey: KEY, phase: 'transfer', answeredAt: day(15) },
     ]

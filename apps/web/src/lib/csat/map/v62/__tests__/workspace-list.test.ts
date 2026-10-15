@@ -82,3 +82,28 @@ describe('TASK ↔ Workspace 연결 · 양방향 선택(튀지 않음)', () => {
     }
   })
 })
+
+describe('LM-G1.1 — 막힌 계획 단계를 Workspace 확인 문항으로 대체하지 않는다(T16 · T17)', () => {
+  const W = ws('ws.central-meaning', ['r.central_meaning'], [], true) // Workspace 자체는 확인 문항 링크(next)가 있다
+  const mk = (stage: StageKey | null, next: string | null) => workspaceRows({
+    plan: { primary: W, reason: 'verified_need', others: [], preparing: [] },
+    plans: { 'ws.central-meaning': { workspace: W.id, core: W.core, tasks: [tp('r.central_meaning', stage, next, 2, 2)], progress: { planned: 2, done: 2 } } },
+  } as unknown as V4View)[0]
+  it('바로잡기 단계 · 링크 없음(실제 막힘) → 행 다음 행동 없음 · 「앞 단계 뒤」 — 확인 문항으로 열지 않는다', () => {
+    const r = mk('repair', null)
+    expect(r.stage).toBe('repair')
+    expect(r.next).toBeNull()
+    expect(r.state).toBe('locked')
+  })
+  it('바로잡기 재시도 링크가 있으면 그 링크 그대로(수행 2 · 진행 중)', () => {
+    const r = mk('repair', '/csat/item/i1')
+    expect(r.next?.href).toBe('/csat/item/i1')
+    expect(r.state).toBe('in_progress')
+  })
+  it('적용 단계 · 링크 없음 → 대체 없음', () => {
+    expect(mk('transfer', null).next).toBeNull()
+  })
+  it('확인 단계는 같은 출처(확인 문항)라 Workspace 다음 확인으로 이어도 된다', () => {
+    expect(mk('check', null).next?.href).toMatch(/ws\.central-meaning/)
+  })
+})

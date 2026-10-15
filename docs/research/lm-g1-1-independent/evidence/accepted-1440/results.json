@@ -1,0 +1,208 @@
+{
+  "base": "http://localhost:3007",
+  "pass": 9,
+  "fail": 0,
+  "accountsLeft": 0,
+  "results": [
+    {
+      "name": "T01 직접 확인 2 실패 → 모든 표면이 바로잡기 · 막힌 문항 링크",
+      "ok": true,
+      "detail": {
+        "checked": [
+          {
+            "slug": "2022-20",
+            "status": 200,
+            "isCorrect": false
+          },
+          {
+            "slug": "2025-20",
+            "status": 200,
+            "isCorrect": false
+          }
+        ],
+        "s1": {
+          "selected": "r.central_meaning",
+          "ws": "ws.central-meaning",
+          "top": {
+            "task": "r.central_meaning",
+            "href": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+          },
+          "row": {
+            "state": "runnable",
+            "stage": "바로잡기",
+            "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+          },
+          "pop": {
+            "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+            "blocked": null,
+            "stage": "바로잡기 · 수행 0 / 2"
+          },
+          "drawer": {
+            "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+            "current": "repair"
+          },
+          "modal": {
+            "now": "repair",
+            "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+          },
+          "plan": {
+            "stage": "repair",
+            "done": "0",
+            "go": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+          },
+          "overflowX": 0
+        }
+      }
+    },
+    {
+      "name": "T02 (G02) 바로잡기 2 실패 → 수행 2 유지 · PLAN · 모달 · 행 모두 바로잡기(TRANSFER 아님)",
+      "ok": true,
+      "detail": {
+        "repairs": [
+          {
+            "slug": "2022-20",
+            "status": 200,
+            "isCorrect": false
+          },
+          {
+            "slug": "2025-20",
+            "status": 200,
+            "isCorrect": false
+          }
+        ],
+        "plan": {
+          "stage": "repair",
+          "done": "2",
+          "go": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+        },
+        "modal": {
+          "now": "repair",
+          "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+        },
+        "row": {
+          "state": "in_progress",
+          "stage": "바로잡기",
+          "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+        }
+      }
+    },
+    {
+      "name": "T16 · T03 실패한 바로잡기 재시도 링크가 실제로 있고 막힌 문항이다",
+      "ok": true,
+      "detail": {
+        "pop": {
+          "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+          "blocked": null,
+          "stage": "바로잡기 · 수행 2 / 2"
+        }
+      }
+    },
+    {
+      "name": "T13 · T14 · T15 지도 팝업 = Workspace 행 = 상세 모달 = PLAN 탭 = 근거 드로어(같은 다음 행동)",
+      "ok": true,
+      "detail": {
+        "pop": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+        "drawer": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+        "row": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+        "modal": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+        "plan": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle",
+        "top": {
+          "task": "r.central_meaning",
+          "href": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=238#principle"
+        }
+      }
+    },
+    {
+      "name": "T20 페이지 가로 넘침 0(1440)",
+      "ok": true,
+      "detail": {
+        "overflowX": 0
+      }
+    },
+    {
+      "name": "T04 적격 바로잡기 성공 → PLAN 단계가 바로잡기를 벗어나고 모든 표면이 같은 단계 · 같은 링크",
+      "ok": true,
+      "detail": {
+        "fix": {
+          "status": 200,
+          "isCorrect": true
+        },
+        "plan": {
+          "stage": "transfer",
+          "done": "0",
+          "go": "/csat/practice/claim-support?item=M2609%2323"
+        },
+        "modal": {
+          "now": "transfer",
+          "next": "/csat/practice/claim-support?item=M2609%2323"
+        },
+        "pop": {
+          "next": "/csat/practice/claim-support?item=M2609%2323",
+          "blocked": null,
+          "stage": "다른 글에 적용 · 수행 0 / 2"
+        },
+        "row": {
+          "state": "runnable",
+          "stage": "다른 글에 적용",
+          "next": "/csat/practice/claim-support?item=M2609%2323"
+        }
+      }
+    },
+    {
+      "name": "T17 링크가 없는 단계는 학습 가능으로 보이지 않는다(행 상태 · 링크 일치)",
+      "ok": true,
+      "detail": {
+        "row": {
+          "state": "runnable",
+          "stage": "다른 글에 적용",
+          "next": "/csat/practice/claim-support?item=M2609%2323"
+        }
+      }
+    },
+    {
+      "name": "T18 학습 후 지도 복귀 → 같은 TASK · Workspace 문맥",
+      "ok": true,
+      "detail": {
+        "back": "r.central_meaning",
+        "selected": "r.central_meaning",
+        "ws": "ws.central-meaning"
+      }
+    },
+    {
+      "name": "T19 과거 asof → 학습 시작 링크 0(팝업 · 행 · 띠 · 드로어 · 모달 · PLAN)",
+      "ok": true,
+      "detail": {
+        "past": 0,
+        "surfaces": {
+          "selected": "r.central_meaning",
+          "ws": "ws.central-meaning",
+          "top": null,
+          "row": {
+            "state": "runnable",
+            "stage": "확인하기",
+            "next": null
+          },
+          "pop": {
+            "next": null,
+            "blocked": null,
+            "stage": "확인하기 · 수행 0 / 9"
+          },
+          "drawer": {
+            "next": null,
+            "current": "check"
+          },
+          "modal": {
+            "now": "check",
+            "next": null
+          },
+          "plan": {
+            "stage": "check",
+            "done": "0",
+            "go": null
+          },
+          "overflowX": 0
+        }
+      }
+    }
+  ]
+}
