@@ -1,0 +1,80 @@
+{
+  "reviewedMain": "ea3f052986fa8d56b01d781aabe74ac4197df08f",
+  "framework": {
+    "tests": 122,
+    "passed": 122,
+    "failed": 0,
+    "ownProbes": 6,
+    "existingRegression": 116
+  },
+  "gates": {
+    "A": "PASS",
+    "B": "FAIL",
+    "C": "HOLD",
+    "overall": "HOLD"
+  },
+  "claims": [
+    {
+      "id": "E-stock-pure",
+      "method": "real supplyFor; synthetic guided role substitution",
+      "expected": "factory_candidate, no delivery, not runnable, not assessment, not learn_now",
+      "actual": "matches",
+      "status": "PASS"
+    },
+    {
+      "id": "E-stock-render",
+      "method": "actual TaskInspector SSR; supply DTO injected; learnerPath/useTaskDone/StepSheet mocked",
+      "expected": "stock_review_wait label and no next link",
+      "actual": "matches",
+      "status": "PASS",
+      "browser": "HOLD"
+    },
+    {
+      "id": "fixture-block",
+      "method": "existing factory-integration.test.ts independently rerun",
+      "expected": "test_fixture blocked even with trusted context lacking transition approval",
+      "actual": "matches",
+      "status": "PASS"
+    },
+    {
+      "id": "past-header",
+      "method": "actual GoalRecordBar SSR; GoalPopover trigger stub; source traced to actual goal PUT path",
+      "expected": "past mode controls readonly or explicitly outside past scope",
+      "actual": "goal edit and record-add visible; no past prop or scope label",
+      "status": "FAIL",
+      "severity": "P2",
+      "persistence": "not executed"
+    },
+    {
+      "id": "1280-domain-labels",
+      "method": "independent visual inspection of existing 1280 PNGs",
+      "expected": "primary domain names understandable without guessing",
+      "actual": "V 어휘… / S 문장… / E 근…선… / L 듣… truncated",
+      "status": "FAIL",
+      "severity": "P2"
+    },
+    {
+      "id": "minimum-target",
+      "method": "CSS source bounds only",
+      "expected": "44px guaranteed for summary and blocked TASK buttons",
+      "actual": "32px and 36px minimum; actual browser rectangles unmeasured",
+      "status": "HOLD",
+      "severity": "P2 candidate"
+    },
+    {
+      "id": "browser-independent",
+      "status": "HOLD",
+      "reason": "no browser surfaces enabled; iab unavailable"
+    },
+    {
+      "id": "3b-actual-comparison",
+      "status": "HOLD",
+      "reason": "no archived PNG in inspected reference directories and no browser; spec alone insufficient"
+    },
+    {
+      "id": "full-map-1024-390-keyboard",
+      "status": "HOLD",
+      "reason": "existing screenshots do not cover these; R5 360px images are Inspector crops, not responsive viewport tests"
+    }
+  ]
+}

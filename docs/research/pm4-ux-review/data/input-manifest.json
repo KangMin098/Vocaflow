@@ -1,0 +1,189 @@
+{
+  "reviewDate": "2026-10-15",
+  "main": "ea3f052986fa8d56b01d781aabe74ac4197df08f",
+  "pr267": "40227bf6125a39fcae04b47a6c4fb306dcfcaa12",
+  "browserEvidenceHead": "24c746929ad4b8672283d848724d0bb7a6a455f4",
+  "code": [
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/FocusStrip.tsx",
+      "sha256": "44f4cbfa9023d333257c1c1663f2c99d28eb8b6bc5a5adf5cc3d307ed19b0066"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/focus.module.css",
+      "sha256": "ce6d9cb5572229583c2fc0c2ac699d58ae2f40f7087a35c682288f0342af8e08"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+      "sha256": "f0140a55df66a286581620b9a309561efab30703523c6f9018fb61e38747297a"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "sha256": "ebe88c6245a27cfb440985a24bf226727a33ad152b27fb76debce9dfdd8a52c9"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+      "sha256": "8c76ba763a27800f03138ca4e54359969394ec9f5baf52c35904c2d63994d8e4"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+      "sha256": "e13015eb3ca0d9d36cc599331318b7486bedf8e42106b66cbe9f56bd5b14375e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply-ledger.ts",
+      "sha256": "3a46079ca4b28126000f38eb66f5ffe63f1c7b47c348ce0a56ff45d90cb41479"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/rank.ts",
+      "sha256": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af"
+    },
+    {
+      "path": "docs/csat-learner/v62/P-M4_LEARNER_WORKSPACE.md",
+      "sha256": "df7756ea75cb5d22cae0d0d527afaef2f3fb950240e159b72c65967f64ecd667"
+    },
+    {
+      "path": "docs/design/refs/3b/access-map/spec.json",
+      "sha256": "bf31a2e46e47efd3aa592f1b46de3f11381cfd320f28724ae216d0171953b0a5"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/01-A-no-goal-1280.png",
+      "sha256": "5823b2e5e98e28047eebfc9e824fb636940df0ad1f73d56463d9a4fd3e2b178b",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/02-A-no-goal-1440.png",
+      "sha256": "9eeb83a9dbfa15904942c6166d6272d861ed3cd84c1e7fb31674f8cb7e91d321",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/03-A2-goal-no-record-1440.png",
+      "sha256": "5cc8f86c08dae603b9c6e3a60176a4176a8246b478c287a44a58646886a8073a",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/04-B-ready-1440.png",
+      "sha256": "cf937f127e8474e33e87952bbc74b628e24b83fcf5f416099f4950843d7e863c",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/05-B-card2-selected-1440.png",
+      "sha256": "5451ceb2883a8f2715f15f3fa9557cf4180a636d238dc37cc347c131baff02a8",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/06-G-plan-open-1440.png",
+      "sha256": "c5f599ff733a20ec83c5de2c82d6befa9abc2c7b3fbd1e196446d65a9f73e34b",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/07-C-item-opened-1440.png",
+      "sha256": "c00423ae64a1b368304626ddbe0d34749190bdfdc85e71c5f33518c56a511975",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/08-C-returned-1440.png",
+      "sha256": "00a1f801f459f8fd0de271e806e7443892381bd40c4ae49f148b9a6116a1aaea",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/09-D-v.contextual_sense-1440.png",
+      "sha256": "68b03040499179c0e342cc19dcf09cf52fc70e00d59e18d4603087e2f75817e1",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/10-D-s.form_scope-1440.png",
+      "sha256": "42689a4faa7e2846afe17360529dc0204ed8d9fe43bb192cabddb596a1b21db8",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/11-F-past-1440.png",
+      "sha256": "fa42b91c4f163f24e639ec757159885c21519ef5d822d65f9053cbd4f0eb98e9",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/12-F-goal-92-1440.png",
+      "sha256": "1a7dc707bfed5f9ee00e857a23fe3f54fa58204f49a65b04f72bc0ba759cd51c",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/13-B-ready-1280.png",
+      "sha256": "d8204b7e2c96009bb3eb239e637d9b25ceedcb4c98cd1cf7401f7b004d6d29ab",
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-learner-20261015/results.json",
+      "sha256": "07e339f14b30acddddea84c9189cd3a52fc56e4c3872e0b5cd3c7dab4d94d632"
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/01-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/02-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/03-r.central_meaning.png",
+      "sha256": "e94d9aa051101bed5a5ee3581c13a186078a9502f7a0e1a85b9e41757c1ce79b",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/04-v.contextual_sense.png",
+      "sha256": "29b2d1c6807c750c1c3483fb951bb79d85e1fb0117d2dd1c26f6abc3d91a97c3",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/05-s.form_scope.png",
+      "sha256": "4ee3baf04c291cd9242831febe3416fc920b52401d5f80e0b3df4fb298ba9465",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/06-l.sound.png",
+      "sha256": "b4b8a80108b1dc224a7f9fa5a7efcee753fad83b11485e2728599fa17996483b",
+      "width": 360,
+      "height": 544
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/07-r.central_meaning.png",
+      "sha256": "3b20ac96b4571847ad0a737a92f66c0fe827e983a7c7f18db355a5735f2bcb16",
+      "width": 360,
+      "height": 969
+    },
+    {
+      "path": "docs/csat-learner/v62/evidence/pm4-r5-20261015/results.json",
+      "sha256": "faef4d58f24133985c648df954c6cbde665c3465aa3ddac1f4054bb099c0af02"
+    }
+  ],
+  "independentBrowser": {
+    "available": false,
+    "inventory": {
+      "apps": [],
+      "browsers": []
+    },
+    "attempt": "cua.createBrowserTab iab localhost:3005/csat/diagnosis?tab=map",
+    "error": "Browser is not available: iab",
+    "newScreenshots": 0
+  },
+  "independentProbes": "SSR and pure functions; synthetic inputs; no server or DB mutations"
+}
