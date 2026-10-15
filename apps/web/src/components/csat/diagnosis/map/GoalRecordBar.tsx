@@ -81,16 +81,18 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           <p className={u.topBig} data-testid="goal-value">{goalSet ? <>수능 영어 <strong>{gs.goal}점</strong> · {gs.goalGrade}등급</> : '아직 정하지 않았어요'}</p>
         </div>
         {past ? (
-          <Link href={now} className={u.iconBtn} data-testid="map-goal-to-current" aria-label="현재 기준에서 목표 바꾸기" title="현재 기준에서 목표 바꾸기">
-            <Pencil size={14} strokeWidth={1.9} aria-hidden="true" />
+          <Link href={now} className={u.ghost} data-testid="map-goal-to-current">
+            <Pencil size={13} strokeWidth={1.9} aria-hidden="true" />
+            현재 기준에서 목표 바꾸기
           </Link>
         ) : (
           <GoalPopover
             data={data}
             g={g}
             trigger={({ open, toggle, id }) => (
-              <button type="button" className={u.iconBtn} onClick={toggle} aria-expanded={open} aria-controls={id} data-testid="map-goal-edit" aria-label={goalSet ? '목표 바꾸기' : '목표 정하기'} title={goalSet ? '목표 바꾸기' : '목표 정하기'}>
-                <Pencil size={14} strokeWidth={1.9} aria-hidden="true" />
+              <button type="button" className={u.ghost} onClick={toggle} aria-expanded={open} aria-controls={id} data-testid="map-goal-edit">
+                <Pencil size={13} strokeWidth={1.9} aria-hidden="true" />
+                {goalSet ? '목표 바꾸기' : '목표 정하기'}
               </button>
             )}
           />
