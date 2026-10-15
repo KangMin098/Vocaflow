@@ -55,7 +55,7 @@ function StepDots({ model }: { model: WayfinderModel }) {
       // 지금은 점만 그린다(철학 ④ — 퍼센트·분수 금지). 텍스트를 되살리는 대신
       // 기계가 읽을 자리를 따로 둔다 — 안 그러면 그 회귀가 조용히 skip 으로 바뀐다.
       data-today-progress={`${model.done}/${model.total}`}
-      className="group flex min-h-11 shrink-0 items-center gap-[5px] rounded-[var(--r-md)] px-1.5 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="group flex min-h-11 shrink-0 items-center gap-[5px] rounded-[var(--r-md)] px-1.5 transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--on-deep)_12%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--on-deep)]"
     >
       {model.steps.map((s) => (
         <span
@@ -73,7 +73,7 @@ function StepDots({ model }: { model: WayfinderModel }) {
                 }
               : s.done
                 ? { width: 7, height: 7, background: 'var(--ju)' }
-                : { width: 5, height: 5, background: 'var(--t4)' }
+                : { width: 5, height: 5, background: 'color-mix(in srgb, var(--on-deep) 40%, transparent)' }
           }
         />
       ))}
@@ -119,9 +119,12 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
 
   return (
     <div className="border-b border-[var(--bd)] bg-[var(--bg)]">
+      {/* 2026-10-12 — 공개 헤더의 공지 띠(짙은 잉크 면 · 크림 글자 · 흰 알약)와 같은 면으로. 토큰은
+          `.tone-deep-ink` 가 면 안에서만 다시 매긴다 — 펼친 패널(아래)은 원래 면 그대로다. */}
+      <div className="tone-deep-ink">
       <div
         aria-label="오늘 상태"
-        className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 md:px-6"
+        className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-10"
       >
         {/* ① 나는 어디에 있나 — 데스크톱에서만. 모바일은 하단 탭이 이미 위치를 말한다 */}
         {model.surface && (
@@ -135,10 +138,10 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
 
         {/* ③ 지금 누를 한 개 */}
         <p className="flex min-w-0 flex-1 items-baseline gap-2">
-          <span className="shrink-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
+          <span className="shrink-0 font-mono text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t1)] opacity-75">
             {model.now.kicker}
           </span>
-          <span className="min-w-0 truncate break-keep font-display text-[13px] font-[600] text-[var(--t1)]">
+          <span className="min-w-0 truncate break-keep font-display text-[13.5px] font-[500] text-[var(--t1)]">
             {model.now.headline}
           </span>
         </p>
@@ -148,7 +151,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           onClick={() =>
             track({ name: 'wayfinder_cta_clicked', props: { phase: model.phase, done: model.done } })
           }
-          className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[12.5px] font-[600] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:translate-y-[1px]"
+          className="inline-flex min-h-11 shrink-0 items-center rounded-full bg-[var(--on-deep)] px-4 font-display text-[12.5px] font-[700] text-[var(--deep-ink)] transition-[filter,transform] duration-[var(--dur-fast)] ease-[var(--ease)] hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--on-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--deep-ink)] active:translate-y-[1px]"
         >
           {model.now.cta}
         </Link>
@@ -158,7 +161,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           onClick={toggle}
           aria-expanded={open}
           aria-controls={panelId}
-          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-[var(--r-md)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--on-deep)_12%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--on-deep)]"
         >
           나의 자리
           {/*
@@ -169,7 +172,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           */}
           {model.past.streak > 0 && (
             <span
-              className="inline-flex items-center gap-1 text-[var(--active-ink)]"
+              className="inline-flex items-center gap-1 text-[var(--t1)]"
               aria-label={`연속 ${model.past.streak}일`}
             >
               <Flame size={12} strokeWidth={2} aria-hidden />
@@ -184,6 +187,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
             style={{ transform: open ? 'rotate(180deg)' : 'none' }}
           />
         </button>
+      </div>
       </div>
 
       {open && <WayfinderPanel model={model} unavailable={data.unavailable} id={panelId} />}

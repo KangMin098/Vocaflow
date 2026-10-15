@@ -36,6 +36,8 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
+import { PILL } from '@/components/marketing/pill'
+import { LogoMark } from '@/components/marketing/site/LogoMark'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 import { pickCurrent } from './nav-match'
@@ -120,36 +122,27 @@ export function AppHeader() {
       ref={root}
       aria-label="주 메뉴"
       onMouseLeave={hoverClose}
-      className="sticky top-0 z-40 hidden border-b border-[var(--bd)] bg-[var(--bg)] md:block"
+      className="sticky top-0 z-40 hidden bg-[var(--bg)] md:block"
     >
-      <div className="mx-auto flex h-[64px] w-full max-w-[1600px] items-center gap-3 px-4 lg:px-6">
-        {/* 로고 — 라틴은 Lora, 뒤에 주묵 권점 하나(사이드바 머리에서 그대로 옮겼다). */}
-        <div className="flex min-w-0 flex-1 items-center">
+      {/* 2026-10-12 — 공개 헤더(SiteHeader)와 같은 골격으로 맞췄다(사용자: 「비로그인 상단메뉴 품질과 동일 수준」):
+          1360 폭 · 72px · 원형 워드마크 · 로고 옆 텍스트 내비 · 오른쪽 채움 알약. 항목·주소·순서는 그대로. */}
+      <div className="mx-auto flex h-[72px] w-full max-w-[1360px] items-center justify-between gap-3 px-4 lg:px-10">
+        <div className="flex min-w-0 items-center gap-6">
           <Link
             href="/hub"
             aria-label="Vocaflow 홈"
-            className={`flex min-h-[44px] shrink-0 items-center gap-2.5 rounded-full pr-2 transition-opacity duration-[var(--dur-normal)] hover:opacity-90 ${FOCUS}`}
+            className={`flex min-h-[44px] shrink-0 items-center gap-2 rounded-full pr-1 ${FOCUS}`}
           >
-            <span
-              aria-hidden="true"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--ju)] font-english text-[16px] font-[500] leading-none text-[var(--on-ju)]"
-            >
-              V
-            </span>
-            <span className="hidden font-english text-[18px] font-[500] tracking-[0.01em] text-[var(--t1)] lg:inline">
-              Vocaflow
-              <span
-                aria-hidden
-                className="ml-[3px] inline-block h-[5px] w-[5px] rounded-full bg-[var(--ju)] align-[3px]"
-              />
+            <LogoMark />
+            <span className="hidden font-display text-[22px] font-[500] tracking-[-0.02em] text-[var(--ju)] lg:inline">
+              vocaflow
             </span>
           </Link>
-        </div>
 
-        {/* 가운데 알약 다섯 — 참조의 `SiteNav` 와 같은 자리. 순서가 곧 화면의 순서다. */}
+        {/* 알약 다섯 — 공개 헤더의 내비와 같은 자리(로고 바로 옆). 순서가 곧 화면의 순서다. */}
         <nav
           aria-label="주요 화면 메뉴"
-          className="flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--bg2)] px-1.5 py-1"
+          className="flex shrink-0 items-center gap-1"
         >
           {BAR_ENTRIES.map((e) => (
             <BarEntry
@@ -165,10 +158,11 @@ export function AppHeader() {
             />
           ))}
         </nav>
+        </div>
 
-        {/* 오른쪽 — 참조의 「Book a demo」 자리. 학습자 동선이 아니라 역할이 바뀌는 곳이라
-            가운데 다섯에 끼우지 않는다. */}
-        <div className="flex min-w-0 flex-1 items-center justify-end">
+        {/* 오른쪽 — 공개 헤더의 「무료로 시작」 채움 알약 자리. 학습자 동선이 아니라 역할이 바뀌는 곳이라
+            다섯에 끼우지 않는다. */}
+        <div className="flex min-w-0 items-center justify-end">
           <Link
             href={CLASS_ENTRY.kind === 'link' ? CLASS_ENTRY.item.href : '/teacher'}
             aria-current={
@@ -176,7 +170,7 @@ export function AppHeader() {
             }
             aria-label={CLASS_ENTRY.kind === 'link' ? CLASS_ENTRY.item.ariaLabel : undefined}
             onMouseEnter={close}
-            className={`inline-flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full border border-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--ju)] hover:text-[var(--on-ju)] ${FOCUS}`}
+            className={`${PILL} shrink-0 gap-1.5 bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]`}
           >
             {CLASS_ENTRY.label}
             <ArrowUpRight size={14} aria-hidden className="shrink-0" />
@@ -247,10 +241,9 @@ function BarEntry({
   const here = hereKey === entry.key
   // 지금 있는 구역은 **면**이 찬다(참조도 고른 알약만 면을 갖는다). 색만으로 알리지 않으므로
   // 글자도 굵어지고, 메뉴 칸에는 sr-only 「(현재 구역)」 이 붙는다.
-  const base = `inline-flex min-h-[40px] shrink-0 items-center gap-1 rounded-full px-3.5 font-display text-[14px] transition-colors duration-[var(--dur-quick)] ${
-    here
-      ? 'bg-[var(--bg)] font-[700] text-[var(--t1)] shadow-[var(--sh-sm)]'
-      : 'font-[500] text-[var(--t2)] hover:bg-[color-mix(in_srgb,var(--t1)_7%,transparent)] hover:text-[var(--t1)]'
+  // 공개 헤더 내비와 같은 글자(14px 600 · 보라) · 같은 옅은 면. 지금 구역은 면이 늘 차고 굵어진다.
+  const base = `inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-full px-3 font-display text-[14px] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] aria-expanded:bg-[var(--bg3)] ${
+    here ? 'bg-[var(--bg3)] font-[700]' : 'font-[600]'
   } ${FOCUS}`
 
   if (entry.kind === 'link') {
@@ -336,7 +329,7 @@ function Panel({
               </p>
             )}
             {c.features.map((f) => (
-              <Feature key={f.item.href} feature={f} current={current} onNavigate={onNavigate} />
+              <Feature key={f.item.href} feature={f} deep={deepOf(panel.tone)} current={current} onNavigate={onNavigate} />
             ))}
             {c.rows.length > 0 && (
               <ul>
@@ -406,13 +399,31 @@ function StepBadge({ step }: { step: Step }) {
   )
 }
 
-/** 큰 블록 — 제목 + 한 줄 + 그림(참조 첫 열의 「By product」 자리). */
+/** 패널 면(옅은 색) → 같은 계열의 진한 면. 큰 블록이 공개 헤더 Product 카드처럼 진한 면 위에 선다. */
+const DEEP_OF: Record<string, string> = {
+  'tone-green': 'tone-deep-green',
+  'tone-peach': 'tone-deep-orange',
+  'tone-pink': 'tone-deep-magenta',
+  'tone-yellow': 'tone-deep-orange',
+  'tone-teal': 'tone-deep-green',
+  'tone-lavender': 'tone-deep-purple',
+}
+function deepOf(tone: string): string {
+  return DEEP_OF[tone] ?? 'tone-deep-purple'
+}
+
+/**
+ * 큰 블록 — 공개 헤더 Product 카드와 같은 문법: 진한 면 · 큰 제목 + 한 줄 · 가운데 소품 · 아래 꽃밭 띠.
+ * 진한 면 위 글자는 `.tone-deep-*` 가 주는 `--t1` 이다(색만 바꾸지 않고 면 단위로 바꾼다).
+ */
 function Feature({
   feature,
+  deep,
   current,
   onNavigate,
 }: {
   feature: PanelFeature
+  deep: string
   current: string | null
   onNavigate: () => void
 }) {
@@ -423,29 +434,30 @@ function Feature({
       aria-current={isCurrent ? 'page' : undefined}
       aria-label={feature.item.ariaLabel ?? feature.title}
       onClick={onNavigate}
-      className={`group relative flex min-h-[112px] items-start gap-3 rounded-[14px] p-3 pr-2 text-[var(--t1)] transition-colors hover:bg-[color-mix(in_srgb,var(--t1)_8%,transparent)] ${
-        isCurrent ? 'bg-[color-mix(in_srgb,var(--t1)_10%,transparent)]' : ''
-      } ${FOCUS}`}
+      className={`${deep} group relative mb-2 flex min-h-[188px] flex-col overflow-hidden rounded-[14px] p-4 text-[var(--t1)] transition-[filter] duration-[var(--dur-quick)] hover:brightness-110 ${FOCUS}`}
     >
-      <span className="min-w-0 flex-1">
-        <span className="flex items-center gap-1.5">
-          {feature.step && <StepBadge step={feature.step} />}
-          <span className="break-keep font-serif text-[21px] font-[500] leading-tight">
-            {feature.title}
+      <span className="relative z-10 flex items-center gap-1.5">
+        {feature.step && <StepBadge step={feature.step} />}
+        <span className="break-keep font-display text-[24px] font-[500] leading-tight">
+          {feature.title}
+        </span>
+        {isCurrent && (
+          <span className="ml-1 inline-flex h-[18px] items-center rounded-full bg-[color-mix(in_srgb,var(--t1)_20%,transparent)] px-1.5 font-mono text-[9.5px] font-[700] uppercase tracking-[0.04em]">
+            지금
           </span>
-          {isCurrent && (
-            <span className="ml-1 inline-flex h-[18px] items-center rounded-full bg-[color-mix(in_srgb,var(--t1)_18%,transparent)] px-1.5 font-mono text-[9.5px] font-[700] uppercase tracking-[0.04em]">
-              지금
-            </span>
-          )}
-        </span>
-        <span className="mt-1.5 block max-w-[30ch] break-keep font-body text-[12.5px] leading-snug opacity-85">
-          {feature.body}
-        </span>
-        <span className="mt-2 inline-flex items-center gap-1 font-mono text-[11px] font-[700] uppercase tracking-[0.04em] opacity-0 transition-opacity duration-[var(--dur-quick)] group-hover:opacity-80">
-          열기 {feature.arrow === 'out' ? <ArrowUpRight size={12} /> : <ArrowRight size={12} />}
-        </span>
+        )}
       </span>
+      <span className="relative z-10 mt-1 block max-w-[30ch] break-keep font-body text-[13px] leading-snug">
+        {feature.body}
+      </span>
+      <Image
+        loading="eager"
+        src={`${ILLO}/bed-flowers.webp`}
+        alt=""
+        width={1664}
+        height={928}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[72px] w-full select-none object-cover object-bottom [mask-image:linear-gradient(to_bottom,transparent,black_55%)]"
+      />
       {feature.art && (
         <Image
           loading="eager"
@@ -453,9 +465,12 @@ function Feature({
           alt=""
           width={1328}
           height={1328}
-          className="mt-1 w-[76px] shrink-0 select-none rounded-[12px]"
+          className="pointer-events-none absolute bottom-4 right-10 w-[84px] select-none rounded-[14px] shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
         />
       )}
+      <span className="absolute bottom-3 right-3 z-10">
+        {feature.arrow === 'out' ? <ArrowUpRight size={15} aria-hidden /> : <ArrowRight size={15} aria-hidden />}
+      </span>
     </Link>
   )
 }
