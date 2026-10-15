@@ -428,14 +428,10 @@
   font-weight: 600;
   cursor: default;
 }
-/* H01 — 접는 근거 · 지원 상태 제목은 누르는 조작이다: 실측 44px 이상 · 손가락 모양 */
+/* H01 — 접는 근거 · 지원 상태 제목은 누르는 조작이다: 실측 44px 이상(옛 32px 규칙이 뒤에서 덮던 것을 하나로) */
 summary.insH {
+  cursor: pointer;
   min-height: 44px;
-  cursor: pointer;
-}
-summary.insH {
-  cursor: pointer;
-  min-height: 32px;
 }
 .p {
   margin: 0;
