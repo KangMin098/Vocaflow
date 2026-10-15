@@ -1,0 +1,40 @@
+{
+  "kind": "synthetic pure-function observations; no DB/learner writes",
+  "observations": [
+    {
+      "id": "G01",
+      "stateBefore": "check_first",
+      "stateAfter": "verified_need",
+      "need": "REPAIR",
+      "claim": "recalculation is implemented; no proof of live write/refresh here"
+    },
+    {
+      "id": "G02",
+      "planStage": "transfer",
+      "planNext": {
+        "href": "/csat/practice/claim-support?item=t1",
+        "label": "t1"
+      },
+      "lifecycleNext": "repair",
+      "repairSuccess": null,
+      "claim": "progress remains attempts; stage readiness and successful repair must be distinguished"
+    },
+    {
+      "id": "G03",
+      "status": "resolved",
+      "recordedRepair": 0,
+      "recordedTransfer": 0,
+      "claim": "current-policy recheck is not evidence of completing teaching/transfer/delayed retention"
+    },
+    {
+      "id": "G04",
+      "unsaved": [
+        "examScope",
+        "grade",
+        "targetDate",
+        "timeBudget"
+      ],
+      "goalVersion": 7
+    }
+  ]
+}
