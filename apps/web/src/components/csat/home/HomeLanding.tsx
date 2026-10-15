@@ -238,7 +238,7 @@ export function HomeLanding({
                   : suggest === 'no_records'
                     ? '아직 시험 기록이 없어요. 지도는 기록을 넣으면 그려져요. 기출 탐구는 기록 없이도 쓸 수 있어요.'
                     : '기록이 쌓이는 중이에요. 지도에서 지금 근거로 보이는 것을 확인하세요.'}{' '}
-                <a href="#ins-h" className={l.inlineLink}>지도에서 보기</a>
+                <a href="#umap-h" className={l.inlineLink}>지도에서 보기</a>
               </p>
             )}
           </section>

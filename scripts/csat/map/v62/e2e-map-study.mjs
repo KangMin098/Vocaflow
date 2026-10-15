@@ -23,6 +23,26 @@ const results = []
 const rec = (name, ok, detail) => { results.push({ name, ok }); console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail !== undefined ? ` — ${JSON.stringify(detail)}` : ''}`) }
 
 const users = []
+
+// LM-W1 — Inspector 는 상시 열이 아니라 「노드 → 빠른 팝업 → 자세한 근거 보기」 드로어 안에 있다(내용 · testid 그대로)
+async function openInspector(page, task) {
+  await page.waitForSelector(`[data-node="${task}"]`)
+  if (!(await page.$(`[data-testid="ins-drawer"] [data-testid="task-inspector"][data-task="${task}"]`))) {
+    if (await page.$('[data-testid="ins-drawer"]')) { await page.keyboard.press('Escape'); await page.waitForTimeout(200) }
+    if (await page.$('[data-testid="ws-modal"]')) { await page.keyboard.press('Escape'); await page.waitForTimeout(200) }
+    // 홈 복귀는 그 칸으로 부드럽게 스크롤한다 — 스크롤이 멈춘 뒤 누르고, 팝업이 안 떴으면 다시(움직이는 칸을 놓친 클릭)
+    for (let i = 0; i < 3 && !(await page.$(`[data-testid="task-pop"][data-task="${task}"]`)); i++) {
+      await page.locator(`[data-node="${task}"]`).scrollIntoViewIfNeeded()
+      await page.waitForTimeout(600)
+      await page.click(`[data-node="${task}"]`)
+      await page.waitForTimeout(300)
+    }
+    await page.waitForSelector(`[data-testid="task-pop"][data-task="${task}"]`)
+    await page.click('[data-testid="pop-detail"]')
+  }
+  await page.waitForSelector(`[data-testid="ins-drawer"] [data-testid="task-inspector"][data-task="${task}"]`)
+}
+
 const browser = await chromium.launch()
 try {
   const email = `map-v62-study-${Date.now()}@example.com`
@@ -45,7 +65,7 @@ try {
 
   const open = async (task) => {
     await page.goto(`${BASE}/csat/diagnosis?tab=map&map_task=${task}`, { waitUntil: 'domcontentloaded' })
-    await page.waitForSelector(`[data-testid="task-inspector"][data-task="${task}"]`)
+    await openInspector(page, task)
     await page.waitForTimeout(400)
     return page.evaluate(() => ({
       links: [...document.querySelectorAll('[data-testid="inspector-study-link"]')].map((a) => ({ href: a.getAttribute('href'), basis: a.closest('li')?.getAttribute('data-basis') })),
@@ -96,6 +116,7 @@ try {
   rec('③ 해부 링크는 해설 화면(확인 모드 아님) · 문맥(map_task · ws) 실림 · 「학습 지도로」 → 같은 TASK', explainShown && q.get('map_task') === 'r.central_meaning' && sel === 'r.central_meaning', { explainShown, mapTask: q.get('map_task'), selected: sel })
 
   // ④ 해설 · 연구 근거 열람만으로는 상태 불변
+  await openInspector(page, 'r.central_meaning')
   await page.click('[data-testid="inspector-detail"] > summary').catch(() => {}) // P-M4d — 자세한 근거(접힘)를 먼저 연다
   await page.click('[data-testid="inspector-research"] summary').catch(() => {})
   const r4 = await open('r.central_meaning')
