@@ -12,7 +12,8 @@ const id='r.central_meaning',key='claim-support';
 const links=Object.fromEntries([[key,['i1','i2','i3','i4','i5','i6'].map(target=>({target,href:'/csat/item/'+target,label:target}))]]);
 const at=(n:number)=>new Date(Date.UTC(2026,8,n)).toISOString();
 const findings:any[]=[];
-const observe=(x:any)=>{findings.push(x);writeFileSync('docs/csat-learner/v62/lm-g1/probes.json',JSON.stringify({kind:'synthetic pure-function observations; no DB/learner writes',observations:findings},null,2)+'\n');};
+const output=new URL('../../../docs/csat-learner/v62/lm-g1/probes.json',import.meta.url);
+const observe=(x:any)=>{findings.push(x);writeFileSync(output,JSON.stringify({kind:'synthetic pure-function observations; no DB/learner writes',observations:findings},null,2)+'\n');};
 
 it('successful write-shaped evidence recomputes R5 need and ranks; engine path exists',()=>{
  const before=view([],12),after=view([att('i1',false,10),att('i2',false,11)],12);
