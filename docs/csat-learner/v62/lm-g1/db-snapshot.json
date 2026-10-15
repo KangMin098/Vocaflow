@@ -1,0 +1,392 @@
+{
+  "observed_at": "2026-10-15",
+  "mode": "MCP read-only SELECT; catalog and aggregate only",
+  "audit": {
+    "rpcs": [
+      {
+        "args": "p_user uuid, p_score smallint, p_grade smallint, p_exam text, p_date date, p_client_key uuid",
+        "name": "csat_map_goal_set",
+        "auth_execute": false,
+        "vocab_branch": null,
+        "definition_md5": "600556562b819b8755096d09b9e157d8",
+        "service_execute": true,
+        "security_definer": true
+      },
+      {
+        "args": "p_item_id uuid, p_answer jsonb",
+        "name": "grade_dcp_item",
+        "auth_execute": true,
+        "vocab_branch": false,
+        "definition_md5": "ad87205aad5fbd59b1a4d12ba85b339f",
+        "service_execute": true,
+        "security_definer": true
+      },
+      {
+        "args": "p_user uuid, p_template text, p_template_tasks text[], p_canon text, p_plan jsonb, p_reason text, p_note text, p_as_of timestamp with time zone, p_goal_version bigint, p_expected_version integer, p_client_key uuid, p_restore_of integer",
+        "name": "learner_workspace_plan_commit",
+        "auth_execute": false,
+        "vocab_branch": null,
+        "definition_md5": "93765f694c4e98caf69fe1072ad33114",
+        "service_execute": true,
+        "security_definer": true
+      },
+      {
+        "args": "p_user uuid, p_mutation uuid, p_reveal_mutation uuid, p_client_session_id uuid, p_activity text, p_phase text, p_item_ref text, p_help_level text, p_answered_at timestamp with time zone, p_synthetic boolean, p_task_key text, p_application_id uuid, p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_trial_id uuid",
+        "name": "learning_attempt_submit",
+        "auth_execute": false,
+        "vocab_branch": null,
+        "definition_md5": "8e940948b90506ece9d87848b182b881",
+        "service_execute": true,
+        "security_definer": false
+      },
+      {
+        "args": "p_v_level smallint, p_limit integer",
+        "name": "textbook_practice_items",
+        "auth_execute": true,
+        "vocab_branch": null,
+        "definition_md5": "e05ddb7fe21b5d340119ab749bddd825",
+        "service_execute": true,
+        "security_definer": true
+      }
+    ],
+    "counts": {
+      "workspace": 0,
+      "goal_versions": 1,
+      "plan_versions": 0
+    },
+    "columns": [
+      {
+        "type": "uuid",
+        "table": "csat_map_goal",
+        "column": "user_id",
+        "nullable": "NO"
+      },
+      {
+        "type": "smallint",
+        "table": "csat_map_goal",
+        "column": "target_score",
+        "nullable": "NO"
+      },
+      {
+        "type": "timestamp with time zone",
+        "table": "csat_map_goal",
+        "column": "updated_at",
+        "nullable": "NO"
+      },
+      {
+        "type": "bigint",
+        "table": "csat_map_goal_version",
+        "column": "id",
+        "nullable": "NO"
+      },
+      {
+        "type": "uuid",
+        "table": "csat_map_goal_version",
+        "column": "user_id",
+        "nullable": "NO"
+      },
+      {
+        "type": "smallint",
+        "table": "csat_map_goal_version",
+        "column": "target_score",
+        "nullable": "NO"
+      },
+      {
+        "type": "smallint",
+        "table": "csat_map_goal_version",
+        "column": "target_grade",
+        "nullable": "YES"
+      },
+      {
+        "type": "text",
+        "table": "csat_map_goal_version",
+        "column": "target_exam",
+        "nullable": "YES"
+      },
+      {
+        "type": "date",
+        "table": "csat_map_goal_version",
+        "column": "target_date",
+        "nullable": "YES"
+      },
+      {
+        "type": "uuid",
+        "table": "csat_map_goal_version",
+        "column": "client_key",
+        "nullable": "NO"
+      },
+      {
+        "type": "timestamp with time zone",
+        "table": "csat_map_goal_version",
+        "column": "created_at",
+        "nullable": "NO"
+      },
+      {
+        "type": "bigint",
+        "table": "learner_workspace_plan",
+        "column": "id",
+        "nullable": "NO"
+      },
+      {
+        "type": "uuid",
+        "table": "learner_workspace_plan",
+        "column": "workspace_id",
+        "nullable": "NO"
+      },
+      {
+        "type": "uuid",
+        "table": "learner_workspace_plan",
+        "column": "user_id",
+        "nullable": "NO"
+      },
+      {
+        "type": "integer",
+        "table": "learner_workspace_plan",
+        "column": "plan_version",
+        "nullable": "NO"
+      },
+      {
+        "type": "jsonb",
+        "table": "learner_workspace_plan",
+        "column": "plan",
+        "nullable": "NO"
+      },
+      {
+        "type": "text",
+        "table": "learner_workspace_plan",
+        "column": "reason",
+        "nullable": "NO"
+      },
+      {
+        "type": "text",
+        "table": "learner_workspace_plan",
+        "column": "note",
+        "nullable": "YES"
+      },
+      {
+        "type": "integer",
+        "table": "learner_workspace_plan",
+        "column": "restored_from",
+        "nullable": "YES"
+      },
+      {
+        "type": "timestamp with time zone",
+        "table": "learner_workspace_plan",
+        "column": "as_of",
+        "nullable": "NO"
+      },
+      {
+        "type": "text",
+        "table": "learner_workspace_plan",
+        "column": "canon_version",
+        "nullable": "NO"
+      },
+      {
+        "type": "bigint",
+        "table": "learner_workspace_plan",
+        "column": "goal_version_id",
+        "nullable": "YES"
+      },
+      {
+        "type": "uuid",
+        "table": "learner_workspace_plan",
+        "column": "client_key",
+        "nullable": "NO"
+      },
+      {
+        "type": "timestamp with time zone",
+        "table": "learner_workspace_plan",
+        "column": "created_at",
+        "nullable": "NO"
+      }
+    ],
+    "objects": [
+      {
+        "name": "csat_map_goal_version",
+        "exists": true
+      },
+      {
+        "name": "learner_workspace",
+        "exists": true
+      },
+      {
+        "name": "learner_workspace_plan",
+        "exists": true
+      },
+      {
+        "name": "learning_first_attempts",
+        "exists": true
+      },
+      {
+        "name": "learning_sessions",
+        "exists": true
+      },
+      {
+        "name": "learning_task_attempts",
+        "exists": true
+      },
+      {
+        "name": "content_qualification",
+        "exists": false
+      },
+      {
+        "name": "content_release_approval",
+        "exists": false
+      },
+      {
+        "name": "workspace_content_demand",
+        "exists": false
+      },
+      {
+        "name": "workspace_content_order",
+        "exists": false
+      },
+      {
+        "name": "workspace_content_delivery",
+        "exists": false
+      },
+      {
+        "name": "workspace_material_demand",
+        "exists": false
+      },
+      {
+        "name": "workspace_material_order",
+        "exists": false
+      },
+      {
+        "name": "workspace_delivery_record",
+        "exists": false
+      },
+      {
+        "name": "textbook_rung_level",
+        "exists": false
+      },
+      {
+        "name": "textbook_rung_type",
+        "exists": false
+      }
+    ],
+    "policies": [
+      {
+        "roles": [
+          "authenticated"
+        ],
+        "table": "csat_map_goal_version",
+        "using": "(user_id = ( SELECT auth.uid() AS uid))",
+        "command": "SELECT"
+      },
+      {
+        "roles": [
+          "authenticated"
+        ],
+        "table": "learner_workspace",
+        "using": "(user_id = ( SELECT auth.uid() AS uid))",
+        "command": "SELECT"
+      },
+      {
+        "roles": [
+          "authenticated"
+        ],
+        "table": "learner_workspace_plan",
+        "using": "(user_id = ( SELECT auth.uid() AS uid))",
+        "command": "SELECT"
+      },
+      {
+        "roles": [
+          "authenticated"
+        ],
+        "table": "learning_sessions",
+        "using": "(user_id = auth.uid())",
+        "command": "SELECT"
+      },
+      {
+        "roles": [
+          "authenticated"
+        ],
+        "table": "learning_task_attempts",
+        "using": "(user_id = auth.uid())",
+        "command": "SELECT"
+      }
+    ],
+    "applications": [
+      {
+        "n": 4,
+        "role": "transfer",
+        "status": "active",
+        "surface": "csat_item_task",
+        "task_or_line": "claim-support"
+      },
+      {
+        "n": 9,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "csat_item_task",
+        "task_or_line": "claim-support"
+      },
+      {
+        "n": 5,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "csat_item_task",
+        "task_or_line": "evidence-locate"
+      },
+      {
+        "n": 6,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "csat_item_task",
+        "task_or_line": "option-restate"
+      },
+      {
+        "n": 1,
+        "role": "unspecified",
+        "status": "draft",
+        "surface": "csat_item_task",
+        "task_or_line": "cohesion-link"
+      },
+      {
+        "n": 4,
+        "role": "transfer",
+        "status": "draft",
+        "surface": "csat_item_task",
+        "task_or_line": "evidence-locate"
+      },
+      {
+        "n": 1,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "learning_map_find",
+        "task_or_line": "a4-4"
+      },
+      {
+        "n": 1,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "learning_map_find",
+        "task_or_line": "a5-4"
+      },
+      {
+        "n": 1,
+        "role": "unspecified",
+        "status": "active",
+        "surface": "learning_map_find",
+        "task_or_line": "b6-3"
+      },
+      {
+        "n": 1,
+        "role": "unspecified",
+        "status": "draft",
+        "surface": "learning_map_find",
+        "task_or_line": "a3-4"
+      }
+    ],
+    "goal_constraints": [
+      "PRIMARY KEY (id)",
+      "CHECK ((target_exam = ANY (ARRAY['suneung'::text, 'kice6'::text, 'kice9'::text, 'hakpyeong'::text])))",
+      "CHECK (((target_grade >= 1) AND (target_grade <= 9)))",
+      "CHECK (((target_score >= 0) AND (target_score <= 100)))",
+      "UNIQUE (user_id, client_key)",
+      "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    ]
+  }
+}

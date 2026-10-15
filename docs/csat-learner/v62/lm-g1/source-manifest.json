@@ -1,0 +1,122 @@
+{
+  "main": "e33f08da7792300c699f9055861cde650d362bae",
+  "observed_at": "2026-10-15",
+  "files": [
+    {
+      "path": "docs/csat-learner/v62/LEARNING_MAP_V6_2_CANON.md",
+      "sha256": "b9a5cc93d11bf118522b40a4fe66eda388fbb284e140cfc8e0395acc59f4fc67"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/load.ts",
+      "sha256": "b4aed8bd7841096cacbb2c7f6433cc6bef5114a930d792cf4f4814d000fbeee2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+      "sha256": "70f162f22c6e636afd9c2fce6689acd4f74c1802be6d48d5cd518f9ba8e0d152"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+      "sha256": "1b4cd7e1850e5466cf36d0420890f4c8bea9f1ed330f724808d7046b9c15928a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/definition.ts",
+      "sha256": "7e354bde7f9dae6423ae805d6db8778e861948ffa83a996d83b22e8a86ab0d1b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/as-is.ts",
+      "sha256": "5f896640852cc7633699854e5c6cdb3d6e40cb30a78d208b8ca6e37cc04e5873"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/to-be.ts",
+      "sha256": "3b471b9f9acc34e08e90069e3401c5cfb82a6b4d9434c4589932ede71263baf4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/compose.ts",
+      "sha256": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/workspace.ts",
+      "sha256": "58e602df9f70352940cc4f43b98071f9f9a7779a67d91e448edfe326a5e975d1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan.ts",
+      "sha256": "62d3a04538aa88da5f35e01b6cfb3c8ae9b7168c0eb726645b6f79fb5ebc78b9"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-store.ts",
+      "sha256": "56127f3332a8c513b598a3cad860c69648e74f46e8e4f3582ec1f8abde33fa08"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-commit.ts",
+      "sha256": "3e936fc7b28175d6c9d2f82c4f63eb54213c8b3095570209c2a5dd544a51c5ab"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/target-spec.ts",
+      "sha256": "469bea38dfb3f1017b8ba850ceb63b0905b2c5f208964607ede0529df0e38d07"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/rank.ts",
+      "sha256": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/coverage.ts",
+      "sha256": "a335a21c854cf3ede7b4835269feedc3083e05a080ed4264c27ce040843cf22e"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/inventory.ts",
+      "sha256": "32d7252bbf6dc9e222268749faa871f20cac350ec416f19ec16dd7c731a6c5f0"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/research.ts",
+      "sha256": "6b551e66c0f02c6d2086f66a25d8fbb58dcb13745754ceb79077bca23726c44f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/study-items.ts",
+      "sha256": "d4bc3824b071fa21a1dd0feb755d7951d1e76b1a36aa0d93ef1e20802e6b7a73"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "sha256": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply-ledger.ts",
+      "sha256": "3a46079ca4b28126000f38eb66f5ffe63f1c7b47c348ce0a56ff45d90cb41479"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "sha256": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/return-ctx.ts",
+      "sha256": "31d34840e2bac153d62cde1100fdf15e18b6afc18eb81981e07c32840a3c95ff"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/product-server.ts",
+      "sha256": "177376d894659a80edebfb91a81192f62e78e212778bcec72810da93c6159765"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-server.ts",
+      "sha256": "0bf63f411665208296c15fbb4eba044e96d31d123ac874ad0d860f8cc97a0acc"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-writer.ts",
+      "sha256": "6531098fe8b2fc019b8a467482f72843cc25e61c57cb96e9c153f016c0b58032"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/find-outcome.ts",
+      "sha256": "0d5c5a1da29291036211882576128bae4c83a7881259d173be9a99a90270f557"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/item-tasks.ts",
+      "sha256": "c2caadef65875b97fec83b16f19b5bb99560f2fdee66756ce2fd77a2d0a56991"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/prior-help.ts",
+      "sha256": "6d03f2b66abd79c87512d1b95368228b175e72bd8ac80f9d393d6bd4e2416e7d"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/claim-support.ts",
+      "sha256": "12fdddfff927e7d3efd158a09131d6217d4fdceff499f696a79e977a5da3ec22"
+    }
+  ]
+}
