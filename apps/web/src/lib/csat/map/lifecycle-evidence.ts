@@ -30,8 +30,32 @@ export interface LifecycleEvidence {
 
 export const NO_EVIDENCE: LifecycleEvidence = { repairAt: null, repairTried: false, transferAt: null }
 
+type SkillLike = { status?: string; verifiedAt: string | null; verifiedItems: readonly string[]; check?: { wrongItems?: readonly string[]; lastWrongAt?: string | null } }
+
+/**
+ * 이번 회차의 바로잡기 창(LM-G1.1 — lifecycle · 계획이 같이 쓴다) — 바로잡을(막힌) 문항과 기록을 세기 시작하는 시각.
+ *   다시 확인에서 막혔으면 바로잡을 문항은 그 막힌 문항들이고 그 뒤의 시도만 센다 — 예전 확정 문항 · 이전 성공은 승계하지 않는다(Codex P2).
+ *   해소된 회차는 그 회차 안의 바로잡기 기록을 그대로 보인다(통과 뒤에 「다시 바로잡기」 를 요구하지 않는다).
+ */
+export function repairWindow(skill: SkillLike): { blocked: string[]; since: string } | null {
+  if (!skill.verifiedAt) return null
+  const recheck = skill.status !== 'resolved' && !!skill.check?.lastWrongAt && skill.check.lastWrongAt > skill.verifiedAt
+  const blocked = recheck ? [...(skill.check?.wrongItems ?? [])] : [...new Set([...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])]
+  return { blocked, since: recheck ? (skill.check!.lastWrongAt as string) : skill.verifiedAt }
+}
+
+/** 이번 회차 바로잡기 시도(시각 순) — 같은 과제 키 · 막힌 문항 · 창 시작 뒤. 정오는 그대로 둔다(성공은 호출부가 `=== true` 로만) */
+export function repairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): A[] {
+  const w = repairWindow(skill)
+  if (!w) return []
+  const blocked = new Set(w.blocked)
+  return activity
+    .filter((a) => a.answeredAt && a.answeredAt > w.since && taskKeys.has(a.taskKey) && a.itemRef !== null && blocked.has(a.itemRef))
+    .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
+}
+
 export function lifecycleEvidence(
-  skill: { status?: string; verifiedAt: string | null; verifiedItems: readonly string[]; check?: { wrongItems?: readonly string[]; lastWrongAt?: string | null } } | null,
+  skill: SkillLike | null,
   targets: readonly { itemRef: string; taskKey: string }[],
   activity: readonly ActivityRow[],
 ): LifecycleEvidence {
@@ -39,16 +63,11 @@ export function lifecycleEvidence(
   const since = skill.verifiedAt
   const keys = new Set(targets.map((t) => t.taskKey))
   const inBundle = new Set(targets.map((t) => t.itemRef))
-  // 다시 확인에서 막혔으면 바로잡을 문항은 그 막힌 문항들이다 — 예전 확정 문항을 다시 맞혀도 재바로잡기가 아니다(Codex P2)
-  const recheck = skill.status !== 'resolved' && !!skill.check?.lastWrongAt && skill.check.lastWrongAt > since
-  const blocked = new Set(recheck ? (skill.check?.wrongItems ?? []) : [...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])
-  // 다시 확인에서 막혔으면 그 뒤의 바로잡기만 센다 — 「한 번 더 바로잡기」 가 새로 필요하다(안내 문구와 4칸이 어긋나지 않게)
-  // 해소된 회차는 그 회차 안의 바로잡기 기록을 그대로 보인다(통과 뒤에 「다시 바로잡기」 를 요구하지 않는다)
-  const repairSince = skill.status !== 'resolved' && skill.check?.lastWrongAt && skill.check.lastWrongAt > since ? skill.check.lastWrongAt : since
   const after = activity
     .filter((a) => a.answeredAt && a.answeredAt > since && keys.has(a.taskKey))
     .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
-  const repair = after.filter((a) => a.itemRef && blocked.has(a.itemRef) && (a.answeredAt as string) > repairSince)
+  const repair = repairAttempts(skill, keys, activity)
+  // 성공 = 정답(true) 만. 틀림 · 정오 없음(null) 은 「바로잡는 중」 이다
   const repairAt = repair.find((a) => a.isCorrect === true)?.answeredAt ?? null
   const transferAt = after.find((a) => a.phase === 'transfer' || (a.itemRef !== null && !inBundle.has(a.itemRef)))?.answeredAt ?? null
   return { repairAt, repairTried: repair.length > 0, transferAt }

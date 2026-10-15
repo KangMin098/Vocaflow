@@ -48,7 +48,10 @@ export function workspaceRows(view: V4View): WsRow[] {
     const coreTask = w.core[0] ?? null
     const tp = coreTask ? plan?.tasks.find((t) => t.task === coreTask) ?? null : null
     const preparing = view.plan.preparing.some((p) => p.id === w.id)
-    const link = tp?.next ?? (w.next ? { href: w.next.href, label: w.next.label } : null)
+    // LM-G1.1 단일 출처 — 계획이 바로잡기 · 적용 단계인데 링크가 없으면(실제 막힘) Workspace 의 확인 문항으로 바꿔 열지 않는다.
+    //   Workspace.next 로 대신하는 것은 계획 단계가 없거나 확인 · 다시 확인 단계(같은 확인 문항 출처)일 때만
+    const blockedStage = tp?.stage === 'repair' || tp?.stage === 'transfer'
+    const link = tp?.next ?? (!blockedStage && w.next ? { href: w.next.href, label: w.next.label } : null)
     const next = !preparing && link && coreTask ? { ...link, task: coreTask } : null
     const progress = plan?.progress ?? null
     out.push({

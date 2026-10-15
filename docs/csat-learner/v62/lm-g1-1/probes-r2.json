@@ -1,0 +1,65 @@
+{
+  "kind": "LM-G1 G02/G03 revision 2 — synthetic pure-function observations after LM-G1.1; original lm-g1/probes.json untouched",
+  "observations": [
+    {
+      "id": "G02",
+      "revision": 2,
+      "before": {
+        "id": "G02",
+        "planStage": "transfer",
+        "planNext": {
+          "href": "/csat/practice/claim-support?item=t1",
+          "label": "t1"
+        },
+        "lifecycleNext": "repair",
+        "repairSuccess": null,
+        "claim": "progress remains attempts; stage readiness and successful repair must be distinguished"
+      },
+      "after": {
+        "repairAttempts": 2,
+        "planStage": "repair",
+        "planNext": {
+          "href": "/csat/item/i1",
+          "label": "i1"
+        },
+        "lifecycleNext": "repair",
+        "repairSuccess": null
+      },
+      "verdict": "FIXED — progress kept as attempts; PLAN no longer advances without a successful repair"
+    },
+    {
+      "id": "G02-contrast",
+      "revision": 2,
+      "nullRetry": {
+        "planStage": "repair",
+        "lifecycleNext": "repair"
+      },
+      "correctRetry": {
+        "planStage": "transfer",
+        "planNext": {
+          "href": "/csat/practice/claim-support?item=t1",
+          "label": "t1"
+        },
+        "lifecycleNext": "transfer"
+      }
+    },
+    {
+      "id": "G03",
+      "revision": 2,
+      "before": {
+        "id": "G03",
+        "status": "resolved",
+        "recordedRepair": 0,
+        "recordedTransfer": 0,
+        "claim": "current-policy recheck is not evidence of completing teaching/transfer/delayed retention"
+      },
+      "after": {
+        "status": "resolved",
+        "recordedRepair": 0,
+        "recordedTransfer": 0,
+        "message": "처음 확인 뒤, 풀지 않았던 확인 문항 2개를 혼자 해냈어요. 이번 확인 기준으로는 다시 확인됐어요 — 다음 단계로 넘어가도 돼요. 능력이 늘었다는 판정은 아니에요."
+      },
+      "verdict": "POLICY KEPT (resolved unchanged); wording no longer claims practice/transfer completion or delayed retention"
+    }
+  ]
+}
