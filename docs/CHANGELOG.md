@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): v6.2 P-M4 학습자 경험 — 「지금 무엇부터」(우선 TASK 1~3 · 왜 · 지금 · 다음 행동 · 할 수 없는 TASK 이유) · Inspector 기본(지금·목표 → 학습 경로·자료) / 근거 상세 접힘 · 학습자 시나리오 e2e 12 PASS·1 SKIP · Factory Integration v1.2 Codex ACCEPT 정본 기록(Gate C MOCK_ONLY)
 - fix(map): Factory Integration v1.2 — Codex 최종 P1 2건(lifecycle 위장: 주체·서버 lifecycle 스냅숏·정확한 전환 기록 / 기존 자산 필수 7자격 own true) · 최종 진단 46/46 · 정정 82/82 · R5 브라우저 e2e 6/6 원시 증거(evidence/r5-e2e-20261015). 실제 공장 MOCK_ONLY
 - fix(map): Factory Integration v1.1 — Codex 독립 검토 P1 6·P2 5 수정(manifest 상태/출처/역할/중복 검사 · 산출물 주체 결속 판정 · Trusted Qualification Context · 기존 자산 래퍼 엄격화 · 표준 JSON·수요 서명 v2 · 수량 6단계 · 원문 분석 D 필수) · 82/82(입력 정정 3, 근거 문서) · Schema·예시. 실제 공장 연결은 MOCK_ONLY
 - feat(map): v6.2 학습지도×Workspace×교재공장 연계 계약 — WorkspaceDemand→FactoryRequest(생산 단위 지원 구분·멱등) · FactoryResultManifest(MOCK/REAL/EXISTING·검사) · FQ 자격 연결 · WorkspaceContentBinding · mock 공장 · 시나리오 A~H 19. 공장 내부·DB·실제 생산 변경 없음(MOCK_ONLY)
