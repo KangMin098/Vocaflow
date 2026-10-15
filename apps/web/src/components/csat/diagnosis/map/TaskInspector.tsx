@@ -191,8 +191,82 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
           <p className={u.fine}>근거 상태는 실력 점수가 아니에요. 확인 전 · 보류는 부족하다는 뜻이 아니에요.</p>
         </section>
 
-        <section className={u.insSec} aria-labelledby="ins-exam">
-          <h3 id="ins-exam" className={u.insH}><FileSearch size={14} aria-hidden="true" />기출과 출제 논리</h3>
+        <section className={u.insSec} aria-labelledby="ins-plan">
+          <h3 id="ins-plan" className={u.insH}>학습 경로 · 필요한 자료</h3>
+          {ws && home ? (
+            <>
+              <p className={u.p}><strong>{templateOf(home)?.name ?? ws.name}</strong> — {ws.goal}</p>
+              <ol className={u.stages} aria-label="학습 단계">
+                {(['check', 'repair', 'transfer', 'recheck'] as StageKey[]).map((k) => {
+                  const s = ws.stages[k]
+                  const done = !s.ready && s.blocked === null
+                  return (
+                    <li key={k} className={u.stage} data-stage={k} data-ready={s.ready} data-blocked={s.blocked ?? ''} data-current={ins.plan?.stage === k}>
+                      <span className={u.stageName}>{STAGE_LABEL[k]}</span>
+                      <span className={u.stageNote}>{s.ready ? (s.count !== null ? `할 수 있어요 · ${s.count}문항` : '할 수 있어요') : done ? '마쳤어요' : STAGE_BLOCKED_LABEL[s.blocked!]}</span>
+                    </li>
+                  )
+                })}
+              </ol>
+              {ins.plan && <p className={u.fine}>이번 계획 수행 {ins.plan.done}{ins.plan.planned !== null ? ` / ${ins.plan.planned}` : ''} — 수행량은 실력 점수가 아니에요.</p>}
+              {view.plans[home] && (
+                <button type="button" className={u.ghost} aria-expanded={planOpen} aria-controls="umap-plan" onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
+                  <ChevronDown size={14} aria-hidden="true" className={u.chev} data-open={planOpen} />
+                  학습계획 {planOpen ? '접기' : '열기 · 조정(관계도 아래)'}
+                </button>
+              )}
+            </>
+          ) : (
+            <p className={u.p} data-testid="inspector-no-ws">{t.hold ? '측정 방법이 정해지면 학습 묶음이 생겨요.' : '이 TASK 를 다루는 학습 묶음의 확인 콘텐츠를 준비하고 있어요. 준비 전이라도 부족하다는 뜻은 아니에요.'}</p>
+          )}
+          {supply.lines.length > 0 && (
+            <div className={u.sub} data-testid="inspector-supply" data-demand={supply.demandKey}>
+              <p className={u.subH}>이 TASK 에 필요한 자료 · 준비 상태</p>
+              <ul className={u.ledger}>
+                {supply.lines.map((l) => (
+                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger)} title={l.reason}>
+                    <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
+                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger)]}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
+              <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
+            </div>
+          )}
+          {(study.items.length > 0 || study.withheld > 0) && (
+            <div className={u.sub} data-testid="inspector-study">
+              <p className={u.subH}>기출 해부로 공부하기 — 출제 의도 · 정답 · 오답 설계</p>
+              {study.items.length > 0 ? (
+                <ul className={u.studyList}>
+                  {study.items.map((s) => (
+                    <li key={s.item} data-basis={s.basis}>
+                      <Link
+                        href={past ? `/csat/item/${toItemSlug(s.item)}` : withMapReturn(`/csat/item/${toItemSlug(s.item)}`, outgoingCtx(data.v4?.saved, t.id, home))}
+                        className={u.studyLink}
+                        data-testid="inspector-study-link"
+                      >
+                        {s.item.replace('#', ' · ')}번
+                        <span className={u.bStatus}>{s.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항' : `연구 사례(AI 2명 ${s.research === 'direct' ? '직접' : '간접'} 관련 · 사람 검수 전)`}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={u.fine}>확인 문항을 하나 풀면 그 문항의 출제 의도와 정답 · 오답 설계를 여기서 볼 수 있어요.</p>
+              )}
+              {study.withheld > 0 && (
+                <p className={u.fine} data-testid="inspector-study-withheld">
+                  아직 안 푼 확인 · 다른 글 적용 문항 {study.withheld}개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.
+                </p>
+              )}
+            </div>
+          )}
+        </section>
+
+        {/* P-M4d — 자세한 근거(기출 · 출제 논리 · 판정 범위 · 연구)는 접어 둔다. 기본 화면은 「지금 · 목표 · 다음 행동 · 학습 경로 · 자료」 */}
+        <details className={u.insSec} data-testid="inspector-detail" aria-labelledby="ins-exam">
+          <summary id="ins-exam" className={u.insH}><FileSearch size={14} aria-hidden="true" />자세한 근거 — 기출 · 출제 논리 · 연구</summary>
           <p className={u.p}>{def.goal}</p>
           <dl className={u.kv}>
             <dt>어떤 기출에서</dt>
@@ -224,34 +298,6 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               </ul>
             </div>
           )}
-          {(study.items.length > 0 || study.withheld > 0) && (
-            <div className={u.sub} data-testid="inspector-study">
-              <p className={u.subH}>기출 해부로 공부하기 — 출제 의도 · 정답 · 오답 설계</p>
-              {study.items.length > 0 ? (
-                <ul className={u.studyList}>
-                  {study.items.map((s) => (
-                    <li key={s.item} data-basis={s.basis}>
-                      <Link
-                        href={past ? `/csat/item/${toItemSlug(s.item)}` : withMapReturn(`/csat/item/${toItemSlug(s.item)}`, outgoingCtx(data.v4?.saved, t.id, home))}
-                        className={u.studyLink}
-                        data-testid="inspector-study-link"
-                      >
-                        {s.item.replace('#', ' · ')}번
-                        <span className={u.bStatus}>{s.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항' : `연구 사례(AI 2명 ${s.research === 'direct' ? '직접' : '간접'} 관련 · 사람 검수 전)`}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className={u.fine}>확인 문항을 하나 풀면 그 문항의 출제 의도와 정답 · 오답 설계를 여기서 볼 수 있어요.</p>
-              )}
-              {study.withheld > 0 && (
-                <p className={u.fine} data-testid="inspector-study-withheld">
-                  아직 안 푼 확인 · 다른 글 적용 문항 {study.withheld}개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.
-                </p>
-              )}
-            </div>
-          )}
           {research && (
             <details className={u.sub} data-testid="inspector-research">
               <summary className={u.subH}>연구 근거 v1.4 · 사람 검수 전</summary>
@@ -277,52 +323,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               <p className={u.fine}>출처 {research.source.branch}@{research.source.commit} · 자동 후보는 쓰지 않아요.</p>
             </details>
           )}
-        </section>
-
-        <section className={u.insSec} aria-labelledby="ins-plan">
-          <h3 id="ins-plan" className={u.insH}>교재 · 학습 · 계획</h3>
-          {supply.lines.length > 0 && (
-            <div className={u.sub} data-testid="inspector-supply" data-demand={supply.demandKey}>
-              <p className={u.subH}>지금 단계에 필요한 자료</p>
-              <ul className={u.ledger}>
-                {supply.lines.map((l) => (
-                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger)} title={l.reason}>
-                    <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
-                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger)]}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
-              <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
-            </div>
-          )}
-          {ws && home ? (
-            <>
-              <p className={u.p}><strong>{templateOf(home)?.name ?? ws.name}</strong> — {ws.goal}</p>
-              <ol className={u.stages} aria-label="학습 단계">
-                {(['check', 'repair', 'transfer', 'recheck'] as StageKey[]).map((k) => {
-                  const s = ws.stages[k]
-                  const done = !s.ready && s.blocked === null
-                  return (
-                    <li key={k} className={u.stage} data-stage={k} data-ready={s.ready} data-blocked={s.blocked ?? ''} data-current={ins.plan?.stage === k}>
-                      <span className={u.stageName}>{STAGE_LABEL[k]}</span>
-                      <span className={u.stageNote}>{s.ready ? (s.count !== null ? `할 수 있어요 · ${s.count}문항` : '할 수 있어요') : done ? '마쳤어요' : STAGE_BLOCKED_LABEL[s.blocked!]}</span>
-                    </li>
-                  )
-                })}
-              </ol>
-              {ins.plan && <p className={u.fine}>이번 계획 수행 {ins.plan.done}{ins.plan.planned !== null ? ` / ${ins.plan.planned}` : ''} — 수행량은 실력 점수가 아니에요.</p>}
-              {view.plans[home] && (
-                <button type="button" className={u.ghost} aria-expanded={planOpen} aria-controls="umap-plan" onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
-                  <ChevronDown size={14} aria-hidden="true" className={u.chev} data-open={planOpen} />
-                  학습계획 {planOpen ? '접기' : '열기 · 조정(관계도 아래)'}
-                </button>
-              )}
-            </>
-          ) : (
-            <p className={u.p} data-testid="inspector-no-ws">{t.hold ? '측정 방법이 정해지면 학습 묶음이 생겨요.' : '이 TASK 를 다루는 학습 묶음의 확인 콘텐츠를 준비하고 있어요. 준비 전이라도 부족하다는 뜻은 아니에요.'}</p>
-          )}
-        </section>
+        </details>
 
         <details className={u.insSec} data-testid="inspector-coverage">
           <summary className={u.insH}>결과와 개선 · 지원 상태</summary>

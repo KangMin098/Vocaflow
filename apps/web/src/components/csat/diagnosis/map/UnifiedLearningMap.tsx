@@ -25,6 +25,7 @@ import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 
 import { useGoal } from './GoalBar'
+import { FocusStrip } from './FocusStrip'
 import { GoalRecordBar } from './GoalRecordBar'
 import { PlanSection } from './PlanSection'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, TaskInspector, homeWsOf } from './TaskInspector'
@@ -161,6 +162,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
   return (
     <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-goal-set={goalSet}>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} recordHref={recordHref} />
+      <FocusStrip view={view} ranks={ranks} data={data} goalSet={goalSet} past={past} recordHref={recordHref} selected={selected} onSelect={choose} />
 
       <div className={u.body}>
         <section className={u.canvasCard} aria-labelledby="umap-h">

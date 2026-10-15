@@ -96,6 +96,7 @@ try {
   rec('③ 해부 링크는 해설 화면(확인 모드 아님) · 문맥(map_task · ws) 실림 · 「학습 지도로」 → 같은 TASK', explainShown && q.get('map_task') === 'r.central_meaning' && sel === 'r.central_meaning', { explainShown, mapTask: q.get('map_task'), selected: sel })
 
   // ④ 해설 · 연구 근거 열람만으로는 상태 불변
+  await page.click('[data-testid="inspector-detail"] > summary').catch(() => {}) // P-M4d — 자세한 근거(접힘)를 먼저 연다
   await page.click('[data-testid="inspector-research"] summary').catch(() => {})
   const r4 = await open('r.central_meaning')
   rec('④ 해설 · 연구 근거를 본 것만으로 근거 상태 · 요구가 바뀌지 않는다', r4.evidence === r2.evidence && r4.need === r2.need, { before: { e: r2.evidence, n: r2.need }, after: { e: r4.evidence, n: r4.need } })
