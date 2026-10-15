@@ -27,7 +27,10 @@ import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
 
+import type { CoreCode } from '@/lib/csat/map/core'
+
 import { useGoal } from './GoalBar'
+import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
 import { MapDialog } from './MapDialog'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, TaskInspector } from './TaskInspector'
@@ -439,6 +442,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 }
 
 function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onClick }: { t: GraphTask; wide: boolean; selected: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: () => void }) {
+  const Icon = AXIS_ICON[t.domain as CoreCode]
   return (
     <button
       type="button"
@@ -458,9 +462,13 @@ function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onCl
       aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · ${selected ? '다시 누르면 자세히 · Esc 초점 해제' : '누르면 초점 · 다시 누르면 자세히'}`}
       onClick={onClick}
     >
-      <span className={u.nodeName}>
-        <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
-      {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
+      {/* 3B Access map 노드 — 아이콘 타일(영역) + 이름 한 줄 + 보조 한 줄. 좁은 개요 열에서는 타일 · 보조 줄 없이 이름만 */}
+      {wide && <span className={u.nodeTile} data-domain={t.domain} aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>}
+      <span className={u.nodeText}>
+        <span className={u.nodeName}>
+          <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
+        {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
+      </span>
       {order !== null && <span className={u.nodeOrder} aria-hidden="true">{order}</span>}
       {selected && <span className={u.nodeMore} data-testid="node-more" aria-hidden="true"><MoreVertical size={12} /></span>}
     </button>
