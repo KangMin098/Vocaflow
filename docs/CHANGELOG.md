@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(map): v6.2 P-M4b — 1280 영역 이름 잘림 제거(2줄 머리) · 과거 기준 보기 읽기 전용 경계(현재 기준 링크) · 클릭 영역 44px 실측(뒤에서 덮던 32px 규칙 정리) · 브라우저 수용 16/0 · 학습자 12/0/1 SKIP · R5 6/6 · 3B ref-compare 8/8 · E 격리 계약
 - feat(map): v6.2 P-M4 학습자 경험 — 「지금 무엇부터」(우선 TASK 1~3 · 왜 · 지금 · 다음 행동 · 할 수 없는 TASK 이유) · Inspector 기본(지금·목표 → 학습 경로·자료) / 근거 상세 접힘 · 학습자 시나리오 e2e 12 PASS·1 SKIP · Factory Integration v1.2 Codex ACCEPT 정본 기록(Gate C MOCK_ONLY)
 - fix(map): Factory Integration v1.2 — Codex 최종 P1 2건(lifecycle 위장: 주체·서버 lifecycle 스냅숏·정확한 전환 기록 / 기존 자산 필수 7자격 own true) · 최종 진단 46/46 · 정정 82/82 · R5 브라우저 e2e 6/6 원시 증거(evidence/r5-e2e-20261015). 실제 공장 MOCK_ONLY
 - fix(map): Factory Integration v1.1 — Codex 독립 검토 P1 6·P2 5 수정(manifest 상태/출처/역할/중복 검사 · 산출물 주체 결속 판정 · Trusted Qualification Context · 기존 자산 래퍼 엄격화 · 표준 JSON·수요 서명 v2 · 수량 6단계 · 원문 분석 D 필수) · 82/82(입력 정정 3, 근거 문서) · Schema·예시. 실제 공장 연결은 MOCK_ONLY
