@@ -32,3 +32,14 @@ test('thrown transport errors fail closed', async () => {
   assert.equal(r.ok, false)
   assert.equal(r.accountsLeft, null)
 })
+test('first deletion failure does not skip later owned accounts', async () => {
+  const deleted = [], checked = []
+  const r = await cleanupOwnedAccounts({
+    deleteUser: async id => { deleted.push(id); if (id === 'first') throw new Error('offline'); return { error: null } },
+    getUserById: async id => { checked.push(id); return id === 'first' ? { data: { user: { id } }, error: null } : absent },
+  }, ['first', 'second'])
+  assert.deepEqual(deleted, ['first', 'second'])
+  assert.deepEqual(checked, ['first', 'second'])
+  assert.equal(r.ok, false)
+  assert.equal(r.accountsLeft, 1)
+})
