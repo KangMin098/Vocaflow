@@ -238,9 +238,17 @@
   ],
   "protocol_hashes": {
     "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
+    "scripts/research/lm-g1-1-independent/browser.mjs": "fb897d77e1c5c26a39b22812376a802bc4b600a981936ae03d72cd91315b35fb",
+    "scripts/research/lm-g1-1-independent/workspace-boundary.mjs": "fb0fb4564b1548aee5943b69b6caa70e1a69568253b68e708341c394a03722cc",
+    "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21"
+  },
+  "execution_protocol_hashes": {
+    "scripts/research/lm-g1-1-independent/acceptance.test.ts": "cffe8a9bc1c5c2eba4f919a3aef1ae9ab373b4fa0239b6db24229e7f68807965",
     "scripts/research/lm-g1-1-independent/browser.mjs": "54066bfda2a8c60d4c141a81ea018623de7993df830adf0587c3f957c28e6bec",
     "scripts/research/lm-g1-1-independent/workspace-boundary.mjs": "fb0fb4564b1548aee5943b69b6caa70e1a69568253b68e708341c394a03722cc",
     "scripts/research/lm-g1-1-independent/revision3.test.ts": "a6f744e296a812d541df707821b15018d2668e7fa51276dc12b7e4668859d543",
     "apps/web/src/lib/csat/map/v4/__tests__/plan-lm-g1-1.test.ts": "cc3c06709d7eacaf217670556d9b4d9f2f6fc842ce56fed210c712f0cc77fb21"
-  }
+  },
+  "harness_followup": "After the successful browser runs, purpose review required nonzero exit on failed assertions/account cleanup and mkdir for ignored local logs. Inputs, UI assertions and product source unchanged; completed result JSON remains source evidence, not a claim of rerunning those branches."
 }

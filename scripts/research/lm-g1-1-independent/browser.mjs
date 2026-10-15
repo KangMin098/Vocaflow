@@ -173,4 +173,5 @@ try {
   fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ base: BASE, pass: results.filter((r) => r.ok).length, fail: results.filter((r) => !r.ok).length, accountsLeft: left, results }, null, 2))
   console.log(`accounts created ${users.length} · left ${left}`)
   console.log(`PASS ${results.filter((r) => r.ok).length} · FAIL ${results.filter((r) => !r.ok).length}`)
+  if (results.some((r) => !r.ok) || left !== 0) process.exitCode = 1
 }

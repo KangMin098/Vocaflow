@@ -1,0 +1,13 @@
+{
+  "scope": "Execute actual extracted completion guard and mkdir statement in isolated JS contexts; not a rerun of browser paths",
+  "pass": 4,
+  "fail": 0,
+  "cases": [
+    "all pass / no accounts => exit0",
+    "failed assertion => exit1",
+    "remaining account => exit1",
+    "missing nested local log directory created"
+  ],
+  "browser_sha256": "fb897d77e1c5c26a39b22812376a802bc4b600a981936ae03d72cd91315b35fb",
+  "runner_sha256": "e57ca33d5403513394c0ded5167d66a92ed47a04296a9239b63ced96d702c644"
+}

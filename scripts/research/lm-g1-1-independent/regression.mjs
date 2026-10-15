@@ -2,7 +2,7 @@
 // Serial local checks on the owned review server; raw logs stay ignored.
 import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';import {spawnSync} from 'node:child_process';
 const root=path.resolve(import.meta.dirname,'../../..'),req=createRequire(root+'/apps/web/package.json'),local=import.meta.dirname+'/local';
-const report=root+'/docs/research/lm-g1-1-independent';const base=process.argv[2]??'http://localhost:3007';
+const report=root+'/docs/research/lm-g1-1-independent';const base=process.argv[2]??'http://localhost:3007';fs.mkdirSync(local,{recursive:true});
 const run=(name,args,cwd=root)=>{const r=spawnSync(process.execPath,args,{cwd,encoding:'utf8',maxBuffer:32<<20,windowsHide:true,timeout:900000});const log=(r.stdout??'')+'\n'+(r.stderr??'');fs.writeFileSync(local+'/'+name+'.log',log);const passes=log.split(/\r?\n/).filter(l=>(name==='workspace-boundary'?/^PASS /:/^\[PASS\]/).test(l));const failures=log.split(/\r?\n/).filter(l=>(name==='workspace-boundary'?/^FAIL /:/^\[FAIL\]/).test(l));console.log(name+': exit '+r.status+', PASS '+passes.length+', FAIL '+failures.length);return {name,exit:r.status,error:r.error?.message??null,passed:passes.length,failed:failures.length,lines:[...passes,...failures].map(l=>l.replace(/[0-9a-f]{8}-[0-9a-f-]{27,}/gi,'<synthetic-uuid>'))}};
 const results=[];
 const vitest=path.dirname(req.resolve('vitest/package.json'))+'/vitest.mjs';
