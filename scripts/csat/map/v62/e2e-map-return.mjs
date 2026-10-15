@@ -28,6 +28,26 @@ const results = []
 const rec = (name, ok, detail) => { results.push({ name, ok }); console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail !== undefined ? ` — ${typeof detail === 'string' ? detail : JSON.stringify(detail)}` : ''}`) }
 
 const users = []
+
+// LM-W1 — Inspector 는 상시 열이 아니라 「노드 → 빠른 팝업 → 자세한 근거 보기」 드로어 안에 있다(내용 · testid 그대로)
+async function openInspector(page, task) {
+  await page.waitForSelector(`[data-node="${task}"]`)
+  if (!(await page.$(`[data-testid="ins-drawer"] [data-testid="task-inspector"][data-task="${task}"]`))) {
+    if (await page.$('[data-testid="ins-drawer"]')) { await page.keyboard.press('Escape'); await page.waitForTimeout(200) }
+    if (await page.$('[data-testid="ws-modal"]')) { await page.keyboard.press('Escape'); await page.waitForTimeout(200) }
+    // 홈 복귀는 그 칸으로 부드럽게 스크롤한다 — 스크롤이 멈춘 뒤 누르고, 팝업이 안 떴으면 다시(움직이는 칸을 놓친 클릭)
+    for (let i = 0; i < 3 && !(await page.$(`[data-testid="task-pop"][data-task="${task}"]`)); i++) {
+      await page.locator(`[data-node="${task}"]`).scrollIntoViewIfNeeded()
+      await page.waitForTimeout(600)
+      await page.click(`[data-node="${task}"]`)
+      await page.waitForTimeout(300)
+    }
+    await page.waitForSelector(`[data-testid="task-pop"][data-task="${task}"]`)
+    await page.click('[data-testid="pop-detail"]')
+  }
+  await page.waitForSelector(`[data-testid="ins-drawer"] [data-testid="task-inspector"][data-task="${task}"]`)
+}
+
 const browser = await chromium.launch()
 try {
   const email = `map-v62-return-${Date.now()}@example.com`
@@ -57,9 +77,8 @@ try {
   await page.goto(`${BASE}/csat/diagnosis?tab=map`, { waitUntil: 'domcontentloaded' })
   await page.waitForSelector('[data-testid="unified-map"]')
   const first = await page.getAttribute('[data-testid="unified-map"]', 'data-selected')
-  await page.click(`[data-node="${TASK}"]`)
-  await page.waitForSelector(`[data-testid="task-inspector"][data-task="${TASK}"]`)
-  await page.click('[data-testid="inspector-plan-toggle"]')
+  await openInspector(page, TASK)
+  await page.click('[data-testid="inspector-plan-toggle"]') // LM-W1 — 그 묶음의 Workspace 모달 · 계획 탭
   const plan = page.locator(`[data-testid="umap-plan"][data-ws="${WS}"] [data-testid="plan-section"]`)
   await plan.waitFor()
   await plan.locator('[data-testid="plan-save"]').click()
@@ -68,6 +87,8 @@ try {
   const wsRow = (await must(db.from('learner_workspace').select('id, template_id').eq('user_id', u.user.id).eq('template_id', WS), 'ws'))[0]
 
   // ② 문항 → 해설 → 지도로
+  await page.keyboard.press('Escape')
+  await openInspector(page, TASK)
   const goHref = await page.getAttribute('[data-testid="inspector-next"]', 'href')
   const q = new URL(goHref, BASE).searchParams
   rec('② 다음 행동 링크에 영구 TASK · 템플릿 · 학습자 Workspace UUID · 계획 버전 · 목표 버전이 실린다', q.get('map_task') === TASK && q.get('ws') === WS && q.get('map_ws') === wsRow?.id && q.get('map_plan') === '1' && !!q.get('map_goal') && q.get('check') === '1', Object.fromEntries(q))
@@ -82,7 +103,7 @@ try {
     await page.waitForTimeout(500)
     return {
       selected: await page.getAttribute('[data-testid="unified-map"]', 'data-selected'),
-      inspector: await page.getAttribute('[data-testid="task-inspector"]', 'data-task'),
+      inspector: await page.getAttribute('[data-testid="unified-map"]', 'data-selected'), // LM-W1 — Inspector 는 드로어(닫힘) · 고른 TASK 로 대조
       planWs: await page.locator('[data-testid="umap-plan"]').getAttribute('data-ws').catch(() => null),
       savedVersion: await page.locator('[data-testid="umap-plan"] [data-testid="plan-section"]').getAttribute('data-saved-version').catch(() => null),
       notes: await page.locator('[data-testid="umap-return-note"] li').evaluateAll((els) => els.map((e) => e.getAttribute('data-kind'))).catch(() => []),
@@ -94,6 +115,9 @@ try {
   // ③ 떠난 사이 계획 버전이 바뀜(다른 탭)
   const tab = await ctx.newPage()
   await tab.goto(`${BASE}/csat/diagnosis?tab=map&map_task=${TASK}&ws=${WS}`, { waitUntil: 'domcontentloaded' })
+  // LM-W1 — 주소의 ws 만으로는 모달을 열지 않는다 · 리스트의 그 묶음 「자세히 · 계획」 → 계획 탭
+  await tab.click(`[data-testid="ws-row"][data-ws="${WS}"] [data-testid="ws-open"]`)
+  await tab.click('[data-testid="ws-tab-plan"]')
   const plan2 = tab.locator(`[data-testid="umap-plan"][data-ws="${WS}"] [data-testid="plan-section"]`)
   await plan2.waitFor()
   await plan2.getByRole('button', { name: /계획 한 문항 줄이기$/ }).first().click()
@@ -117,7 +141,9 @@ try {
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10)
   await page.goto(`${BASE}/csat/diagnosis?tab=map&asof=${yesterday}&map_task=${TASK}`, { waitUntil: 'domcontentloaded' })
   await page.waitForSelector('[data-testid="unified-map"]')
-  const pastNext = await page.locator('[data-testid="inspector-next"]').count()
+  await openInspector(page, TASK)
+  // LM-W1 — 드로어 Inspector · 빠른 팝업 · 리스트 · 상단 띠 어디에도 학습 시작 링크가 없다
+  const pastNext = await page.locator('[data-testid="inspector-next"], [data-testid="pop-next"], [data-testid="ws-next"], [data-testid="umap-top-next"], [data-testid="ws-modal-next"]').count()
   rec('⑥ 과거 기준 지도에서는 다음 행동 링크가 없다(보기 전용)', pastNext === 0 && (await page.locator('[data-testid="umap-past"]').count()) === 1, { pastNext })
 } finally {
   await browser.close()

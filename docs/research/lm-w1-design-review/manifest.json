@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-15",
+  "pr": 270,
+  "pinned_head": "cd6a83974c911072d457d1989cec2044794321c2",
+  "base_main": "c6ff1ea8cd79a01399cc9a0a2bec2b6f1a9bf07d",
+  "environment": "Chromium via existing Playwright; Node 24.15.0; independent worktree port 3007; PC DPR 1; synthetic accounts",
+  "files": [
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+      "kind": "minimal_UI_fix",
+      "before": "bc646d78710ecebda6269c15228e8daa13770fd1e1feafdf3aab785a71113f72",
+      "after": "2871c4bdb57e4cad990bcb4ee0f0ce8645875fdd3563238da50ca912500172c0"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskPopup.tsx",
+      "kind": "minimal_UI_fix",
+      "before": "41855050b5e391641f7c4a7e586e531f414a9aa26ecfd0ba865d89a5b0fff452",
+      "after": "13ebdd8ba127041536c3c67aa97aa3ee3abf73d23423ac39df0331fb3d818c77"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+      "kind": "minimal_UI_fix",
+      "before": "4fbbdb3906f6aefbb003df414fbe5e38aca7de1c70adee9254401f6dd8787733",
+      "after": "ebfb1f53de546d66966fd4bef3672bcd086bc5c03a2b7f45bb9df622eb9e92c6"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+      "kind": "minimal_UI_fix",
+      "before": "0280ca5f6315521b2591460c2eb7ecd84910173ab07b9b825f9e2bddc57be9b4",
+      "after": "38188e1713415e864213bf7dcb62357ee4d9f6faee590afb6750e040ce2b0333"
+    },
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+      "kind": "minimal_UI_fix",
+      "before": "65830f01238a7df2fcb03ae00f97ecffae6269df2ee208cb172e0b6ce2d5586b",
+      "after": "943a8b6a4fc4678291bcddb9859316f2f2baed47b45e3b95b60b745a638389fc"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+      "kind": "preserved_engine_contract",
+      "before": "1b4cd7e1850e5466cf36d0420890f4c8bea9f1ed330f724808d7046b9c15928a",
+      "after": "1b4cd7e1850e5466cf36d0420890f4c8bea9f1ed330f724808d7046b9c15928a"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+      "kind": "preserved_engine_contract",
+      "before": "70f162f22c6e636afd9c2fce6689acd4f74c1802be6d48d5cd518f9ba8e0d152",
+      "after": "70f162f22c6e636afd9c2fce6689acd4f74c1802be6d48d5cd518f9ba8e0d152"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan.ts",
+      "kind": "preserved_engine_contract",
+      "before": "62d3a04538aa88da5f35e01b6cfb3c8ae9b7168c0eb726645b6f79fb5ebc78b9",
+      "after": "62d3a04538aa88da5f35e01b6cfb3c8ae9b7168c0eb726645b6f79fb5ebc78b9"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-store.ts",
+      "kind": "preserved_engine_contract",
+      "before": "56127f3332a8c513b598a3cad860c69648e74f46e8e4f3582ec1f8abde33fa08",
+      "after": "56127f3332a8c513b598a3cad860c69648e74f46e8e4f3582ec1f8abde33fa08"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/plan-commit.ts",
+      "kind": "preserved_engine_contract",
+      "before": "3e936fc7b28175d6c9d2f82c4f63eb54213c8b3095570209c2a5dd544a51c5ab",
+      "after": "3e936fc7b28175d6c9d2f82c4f63eb54213c8b3095570209c2a5dd544a51c5ab"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/compose.ts",
+      "kind": "preserved_engine_contract",
+      "before": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0",
+      "after": "41db674204ee962fe181e1fba9866fbad9044e730697f8936dc36c3058c69cd0"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/definition.ts",
+      "kind": "preserved_engine_contract",
+      "before": "7e354bde7f9dae6423ae805d6db8778e861948ffa83a996d83b22e8a86ab0d1b",
+      "after": "7e354bde7f9dae6423ae805d6db8778e861948ffa83a996d83b22e8a86ab0d1b"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/workspace.ts",
+      "kind": "preserved_engine_contract",
+      "before": "58e602df9f70352940cc4f43b98071f9f9a7779a67d91e448edfe326a5e975d1",
+      "after": "58e602df9f70352940cc4f43b98071f9f9a7779a67d91e448edfe326a5e975d1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/rank.ts",
+      "kind": "preserved_engine_contract",
+      "before": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af",
+      "after": "5f1b4207d6282265fb26a767a2d6fe1062ac34a6890d9d8ba4c643b6cf25b6af"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "kind": "preserved_engine_contract",
+      "before": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2",
+      "after": "524c6d8972b54b8e071cbe3064d0e37393f423f0949ad7f2b67cb3508b2597a2"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/factory-integration.ts",
+      "kind": "preserved_engine_contract",
+      "before": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73",
+      "after": "9ccb5e47e726cce4e604e762eb72b1c7d3ac680db45948dce41a29ffc6edcd73"
+    }
+  ]
+}

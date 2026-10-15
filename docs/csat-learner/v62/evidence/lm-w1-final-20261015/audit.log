@@ -1,0 +1,168 @@
+{
+ "1280-core": {
+  "viewport": {
+   "w": 1280,
+   "h": 900
+  },
+  "pageHeight": 1480,
+  "overflowX": 0,
+  "root": {
+   "x": 78,
+   "y": 128,
+   "w": 1158,
+   "h": 1308
+  },
+  "goalBar": {
+   "x": 94,
+   "y": 144,
+   "w": 1126,
+   "h": 131
+  },
+  "focusStrip": null,
+  "canvas": {
+   "x": 111,
+   "y": 362,
+   "w": 1092,
+   "h": 596
+  },
+  "inspector": null,
+  "wsList": {
+   "x": 94,
+   "y": 991,
+   "w": 1126,
+   "h": 429
+  },
+  "canvasAboveFold": 51,
+  "wsListTop": 991,
+  "nodes": 30,
+  "cards": 0,
+  "sections": 11,
+  "buttons": 76,
+  "textChars": 847
+ },
+ "1280-full": {
+  "viewport": {
+   "w": 1280,
+   "h": 900
+  },
+  "pageHeight": 1480,
+  "overflowX": 0,
+  "root": {
+   "x": 78,
+   "y": 128,
+   "w": 1158,
+   "h": 1308
+  },
+  "goalBar": {
+   "x": 94,
+   "y": 144,
+   "w": 1126,
+   "h": 131
+  },
+  "focusStrip": null,
+  "canvas": {
+   "x": 111,
+   "y": 362,
+   "w": 1092,
+   "h": 596
+  },
+  "inspector": null,
+  "wsList": {
+   "x": 94,
+   "y": 991,
+   "w": 1126,
+   "h": 429
+  },
+  "canvasAboveFold": 51,
+  "wsListTop": 991,
+  "nodes": 30,
+  "cards": 0,
+  "sections": 11,
+  "buttons": 76,
+  "textChars": 1080
+ },
+ "1440-core": {
+  "viewport": {
+   "w": 1440,
+   "h": 900
+  },
+  "pageHeight": 1384,
+  "overflowX": 0,
+  "root": {
+   "x": 78,
+   "y": 128,
+   "w": 1318,
+   "h": 1212
+  },
+  "goalBar": {
+   "x": 94,
+   "y": 144,
+   "w": 1286,
+   "h": 75
+  },
+  "focusStrip": null,
+  "canvas": {
+   "x": 111,
+   "y": 306,
+   "w": 1252,
+   "h": 556
+  },
+  "inspector": null,
+  "wsList": {
+   "x": 94,
+   "y": 895,
+   "w": 1286,
+   "h": 429
+  },
+  "canvasAboveFold": 53.7,
+  "wsListTop": 895,
+  "nodes": 30,
+  "cards": 0,
+  "sections": 11,
+  "buttons": 76,
+  "textChars": 847
+ },
+ "1440-full": {
+  "viewport": {
+   "w": 1440,
+   "h": 900
+  },
+  "pageHeight": 1384,
+  "overflowX": 0,
+  "root": {
+   "x": 78,
+   "y": 128,
+   "w": 1318,
+   "h": 1212
+  },
+  "goalBar": {
+   "x": 94,
+   "y": 144,
+   "w": 1286,
+   "h": 75
+  },
+  "focusStrip": null,
+  "canvas": {
+   "x": 111,
+   "y": 306,
+   "w": 1252,
+   "h": 556
+  },
+  "inspector": null,
+  "wsList": {
+   "x": 94,
+   "y": 895,
+   "w": 1286,
+   "h": 429
+  },
+  "canvasAboveFold": 53.7,
+  "wsListTop": 895,
+  "nodes": 30,
+  "cards": 0,
+  "sections": 11,
+  "buttons": 76,
+  "textChars": 1080
+ }
+}
+accounts created 1 · left 0
+PASS 0 · FAIL 0

@@ -18,7 +18,7 @@ import { READ_PATH } from '../learner-path'
 const MAP_DIR = path.resolve(__dirname, '../../../../components/csat/diagnosis/map')
 const read = (f: string) => fs.readFileSync(path.join(MAP_DIR, f), 'utf8')
 // v6.2 단일 지도(2026-10-14) — 학생 메인 화면 원문(옛 LearnerMap 자리)
-const main = () => ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx'].map(read).join('\n')
+const main = () => ['UnifiedLearningMap.tsx', 'TaskInspector.tsx', 'GoalRecordBar.tsx', 'WorkspaceList.tsx', 'TaskPopup.tsx', 'WorkspaceModal.tsx'].map(read).join('\n')
 
 describe('학습 지도 vNext 정렬', () => {
   it('① 핵심 카드 표시명은 vNext 이름', () => {
