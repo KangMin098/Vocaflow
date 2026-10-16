@@ -41,6 +41,8 @@ export type SkillStatus =
   | 'expired'
 
 export interface SkillDiagnosis {
+  /** Exclusive boundary of the current 120-day episode; null is the initial episode. */
+  episodeStart?: string | null
   status: SkillStatus
   /** 처방을 열어도 되는 근거 수준인가 — verified · still_needed 만 */
   verified: boolean
@@ -127,7 +129,7 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
       if (e.ok) { right++; streak++ } else { wrong++; streak = 0; wrongItems.push(e.item); lastWrongAt = e.at }
       if (streak >= CHECK_ITEMS) { resolvedAt = e.at; break }
     }
-    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)), wrongItems, lastWrongAt } }
+    const base = { episodeStart: start || null, verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)), wrongItems, lastWrongAt } }
     if (resolvedAt) return { ...base, status: 'resolved', verified: false, resolvedAt }
     // 해소되지 않았고 기한이 지났으면 만료 → 기한 뒤의 시도로 새 회차(그 시도가 없으면 만료로 끝)
     if (now.toISOString() > deadline) {

@@ -1,0 +1,432 @@
+{
+  "observedAt": "2026-10-16T05:49:35.282Z",
+  "method": "SELECT pg_get_functiondef + information_schema.columns; no learner data",
+  "functions": [
+    {
+      "proname": "learning_mutation_claim",
+      "definition": "CREATE OR REPLACE FUNCTION public.learning_mutation_claim(p_user uuid, p_mutation uuid, p_kind text, p_target uuid, p_payload jsonb)\n RETURNS text\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\ndeclare v public.learning_mutations%rowtype;\nbegin\n  insert into public.learning_mutations (user_id, client_mutation_id, kind, target, payload)\n  values (p_user, p_mutation, p_kind, p_target, p_payload)\n  on conflict (user_id, client_mutation_id) do nothing;\n  if found then return 'new'; end if;\n  select * into v from public.learning_mutations where user_id = p_user and client_mutation_id = p_mutation;\n  if v.kind = p_kind and v.target = p_target and v.payload = p_payload then return 'duplicate'; end if;\n  return 'conflict';\nend $function$\n"
+    },
+    {
+      "proname": "learning_attempt_record",
+      "definition": "CREATE OR REPLACE FUNCTION public.learning_attempt_record(p_user uuid, p_mutation uuid, p_session_id uuid, p_task_key text, p_activity text, p_phase text, p_help_level text, p_item_ref text, p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_synthetic boolean, p_application_id uuid DEFAULT NULL::uuid, p_trial_id uuid DEFAULT NULL::uuid, p_answered_at timestamp with time zone DEFAULT NULL::timestamp with time zone)\n RETURNS TABLE(attempt_id bigint, outcome text)\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\ndeclare\n  v_claim text;\n  v_answered timestamptz := coalesce(p_answered_at, now());\n  v_s public.learning_sessions%rowtype;\n  v_task text := p_task_key;\n  v_activity text := p_activity;\n  v_phase text := p_phase;\n  v_help text := p_help_level;\n  v_item text := p_item_ref;\nbegin\n  -- M6 재전송은 요청 원문으로 비교(세션 상속 전 · Codex P1)\n  -- 저장하는 모든 의미 입력을 비교한다 — application · trial · 판단 시각 포함(Codex 리뷰 P1)\n  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),\n    jsonb_build_object('task', p_task_key, 'activity', p_activity, 'phase', p_phase, 'help', p_help_level, 'item', p_item_ref,\n                       'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,\n                       'synthetic', coalesce(p_synthetic, false), 'application', p_application_id, 'trial', p_trial_id,\n                       -- 기기가 보낸 판단 시각만 비교한다 — 서버가 채운 now() 는 재시도마다 달라 멱등을 깬다(하네스 실측).\n                       -- 그래서 클라이언트는 판단 시각을 **반드시** 보낸다(첫 시도 순서의 근거)\n                       'answered_at', p_answered_at));\n  if v_claim <> 'new' then\n    select id into attempt_id from public.learning_task_attempts where user_id = p_user and client_mutation_id = p_mutation;\n    outcome := v_claim; return next; return;\n  end if;\n  -- 세션에 붙는 시도는 세션의 활동 · 단계 · 대상 · 과제 · 도움 수준을 **상속**한다. 다른 값을 보내면 거부한다 —\n  -- 그렇지 않으면 viewed_first 세션의 시도가 independent 로 기록돼 「해설 먼저」 제외가 사라진다(Codex 리뷰 P1)\n  if p_session_id is not null then\n    select * into v_s from public.learning_sessions where id = p_session_id and user_id = p_user;\n    if not found then raise exception 'session % does not belong to user', p_session_id; end if;\n    if v_s.help_level is null then raise exception 'session % is not revealed — apply the reveal before recording an attempt', p_session_id; end if;\n    if (p_activity is not null and p_activity <> v_s.activity)\n       or (p_phase is not null and p_phase <> v_s.phase)\n       or (p_item_ref is not null and p_item_ref <> v_s.item_ref)\n       or (p_task_key is not null and v_s.task_key is not null and p_task_key <> v_s.task_key)\n       or (p_help_level is not null and p_help_level <> v_s.help_level)\n       or (coalesce(p_synthetic, false) <> v_s.synthetic) then  -- M7 합성 표시는 세션과 같아야 한다\n      raise exception 'attempt metadata contradicts session %', p_session_id;\n    end if;\n    v_activity := v_s.activity;\n    v_phase := v_s.phase;\n    v_item := v_s.item_ref;\n    v_task := coalesce(v_s.task_key, p_task_key);\n    v_help := v_s.help_level;\n  end if;\n  insert into public.learning_task_attempts\n    (user_id, client_mutation_id, session_id, task_key, activity, phase, help_level, item_ref, content_hash, response, is_correct, sec,\n     synthetic, application_id, trial_id, answered_at)\n  values (p_user, p_mutation, p_session_id, v_task, v_activity, v_phase, v_help, v_item, p_content_hash,\n          coalesce(p_response, '{}'::jsonb), p_is_correct, p_sec, coalesce(p_synthetic, false), p_application_id, p_trial_id, v_answered)\n  returning id into attempt_id;\n  outcome := 'inserted'; return next;\nend $function$\n"
+    },
+    {
+      "proname": "learning_attempt_submit",
+      "definition": "CREATE OR REPLACE FUNCTION public.learning_attempt_submit(p_user uuid, p_mutation uuid, p_reveal_mutation uuid, p_client_session_id uuid, p_activity text, p_phase text, p_item_ref text, p_help_level text, p_answered_at timestamp with time zone, p_synthetic boolean, p_task_key text, p_application_id uuid, p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_trial_id uuid DEFAULT NULL::uuid)\n RETURNS TABLE(session_id uuid, attempt_id bigint, outcome text)\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\ndeclare\n  v_sid uuid;\n  v_rev text;\nbegin\n  -- 잠금 순서를 분석 전환과 맞춘다: 표본 공유 잠금 → (세션 행). 분석은 표본 배타 → 세션 행이라, 순서가 엇갈리면 교착(Codex P2)\n  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));\n  perform pg_advisory_xact_lock(hashtext('learning_attempt_submit:' || p_user::text || ':' || p_mutation::text));\n  if exists (select 1 from public.learning_mutations m where m.user_id = p_user and m.client_mutation_id = p_mutation) then\n    select a.session_id into v_sid from public.learning_task_attempts a where a.user_id = p_user and a.client_mutation_id = p_mutation;\n  else\n    select r.session_id, r.outcome into v_sid, v_rev from public.learning_session_apply(p_user, p_reveal_mutation, p_client_session_id, p_activity, p_phase, p_item_ref,\n      'revealed', 0, 1, p_help_level, p_answered_at, null, false, p_synthetic, p_task_key, p_application_id, p_trial_id, null) r;\n    if v_rev not in ('applied', 'duplicate') then raise exception 'session reveal %', v_rev; end if;\n  end if;\n  select r.attempt_id, r.outcome into attempt_id, outcome from public.learning_attempt_record(p_user, p_mutation, v_sid, p_task_key, p_activity, p_phase, null,\n    p_item_ref, p_content_hash, p_response, p_is_correct, p_sec, p_synthetic, p_application_id, p_trial_id, p_answered_at) r;\n  session_id := v_sid;\n  return next;\nend $function$\n"
+    },
+    {
+      "proname": "learning_session_apply",
+      "definition": "CREATE OR REPLACE FUNCTION public.learning_session_apply(p_user uuid, p_mutation uuid, p_client_session_id uuid, p_activity text, p_phase text, p_item_ref text, p_stage text, p_step integer, p_steps integer, p_help_level text, p_at timestamp with time zone, p_review_at timestamp with time zone DEFAULT NULL::timestamp with time zone, p_deleted boolean DEFAULT false, p_synthetic boolean DEFAULT false, p_task_key text DEFAULT NULL::text, p_application_id uuid DEFAULT NULL::uuid, p_trial_id uuid DEFAULT NULL::uuid, p_explanation_viewed_at timestamp with time zone DEFAULT NULL::timestamp with time zone)\n RETURNS TABLE(session_id uuid, outcome text)\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\ndeclare\n  v_id uuid;\n  v_claim text;\n  v_rank_new int := case p_stage when 'open' then 0 when 'revealed' then 1 else 2 end;\nbegin\n  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'session', p_client_session_id,\n    jsonb_build_object('stage', p_stage, 'step', p_step, 'steps', p_steps, 'help', p_help_level, 'at', p_at,\n                       'review_at', p_review_at, 'deleted', coalesce(p_deleted, false), 'item', p_item_ref, 'activity', p_activity,\n                       'phase', p_phase, 'task', p_task_key, 'application', p_application_id, 'trial', p_trial_id,\n                       'synthetic', coalesce(p_synthetic, false), 'explanation_viewed_at', p_explanation_viewed_at));\n  if v_claim <> 'new' then\n    select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;\n    session_id := v_id; outcome := v_claim; return next; return;\n  end if;\n  -- F7-5 기존 세션과 다른 합성 표시의 변경은 거부(예외 → 원장 예약까지 되돌린다)\n  if exists (select 1 from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id\n               and synthetic <> coalesce(p_synthetic, false)) then\n    raise exception 'session synthetic mismatch — 세션의 합성 표시와 다른 변경은 받지 않는다';\n  end if;\n\n  insert into public.learning_sessions (user_id, client_session_id, activity, phase, item_ref, task_key, application_id, trial_id,\n                                        started_at, last_active_at, synthetic)\n  values (p_user, p_client_session_id, p_activity, p_phase, p_item_ref, p_task_key, p_application_id, p_trial_id, p_at, p_at, coalesce(p_synthetic, false))\n  on conflict (user_id, client_session_id) do nothing;\n  select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;\n  -- F7-5 동시 생성 경쟁 — 다른 요청이 먼저 다른 합성 표시로 만들었으면 여기서 다시 거부(Codex P2)\n  if exists (select 1 from public.learning_sessions where id = v_id and synthetic <> coalesce(p_synthetic, false)) then\n    raise exception 'session synthetic mismatch — 세션의 합성 표시와 다른 변경은 받지 않는다';\n  end if;\n\n  update public.learning_sessions s set\n    stage = case when v_rank_new > (case s.stage when 'open' then 0 when 'revealed' then 1 else 2 end) then p_stage else s.stage end,\n    help_level = case when v_rank_new >= 1 and (case p_help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) > (case s.help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) then p_help_level else s.help_level end,\n    help_received_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_received_at, p_at) else s.help_received_at end,\n    help_server_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_server_at, now()) else s.help_server_at end,\n    help_clock_suspect = s.help_clock_suspect or (v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') and p_at > now() + interval '2 minutes')\n                         or (p_explanation_viewed_at is not null and p_explanation_viewed_at > now() + interval '2 minutes'),\n    explanation_server_at = case when p_explanation_viewed_at is not null then least(s.explanation_server_at, now()) else s.explanation_server_at end,\n    revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,\n    finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),\n    review_at = coalesce(s.review_at, p_review_at),\n    explanation_viewed_at = least(s.explanation_viewed_at, p_explanation_viewed_at),\n    step = case when p_at >= s.last_active_at and s.stage <> 'finished' then p_step else s.step end,\n    steps = case when p_at >= s.last_active_at then p_steps else s.steps end,\n    last_active_at = greatest(s.last_active_at, p_at),\n    deleted_at = coalesce(s.deleted_at, case when p_deleted then p_at end)\n  where s.id = v_id;\n\n  session_id := v_id; outcome := 'applied'; return next;\nend $function$\n"
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "learning_mutations",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_mutations",
+      "column_name": "client_mutation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_mutations",
+      "column_name": "kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_mutations",
+      "column_name": "target",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_mutations",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_mutations",
+      "column_name": "applied_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": "now()",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": "gen_random_uuid()",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "client_session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "activity",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "phase",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": "'practice'::text",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "item_ref",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "task_key",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "application_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "trial_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "stage",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": "'open'::text",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "step",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "column_default": "0",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "steps",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "column_default": "0",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "help_level",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "started_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "last_active_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "revealed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "finished_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "review_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "explanation_viewed_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "deleted_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "client_kind",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": "'web'::text",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "synthetic",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "column_default": "false",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": "now()",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "help_received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "help_server_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "help_clock_suspect",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "column_default": "false",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_sessions",
+      "column_name": "explanation_server_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "id",
+      "data_type": "bigint",
+      "udt_name": "int8",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "task_key",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "application_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "trial_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "synthetic",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "column_default": "false",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "item_ref",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "content_hash",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "phase",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "response",
+      "data_type": "jsonb",
+      "udt_name": "jsonb",
+      "column_default": "'{}'::jsonb",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "is_correct",
+      "data_type": "boolean",
+      "udt_name": "bool",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "sec",
+      "data_type": "integer",
+      "udt_name": "int4",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "answered_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": "now()",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "session_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "activity",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "help_level",
+      "data_type": "text",
+      "udt_name": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "client_mutation_id",
+      "data_type": "uuid",
+      "udt_name": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "table_name": "learning_task_attempts",
+      "column_name": "received_at",
+      "data_type": "timestamp with time zone",
+      "udt_name": "timestamptz",
+      "column_default": "now()",
+      "is_nullable": "YES"
+    }
+  ]
+}

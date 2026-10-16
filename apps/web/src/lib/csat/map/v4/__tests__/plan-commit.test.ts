@@ -93,7 +93,7 @@ describe('저장본 적용 · 변경 감지', () => {
   it('가용량이 줄면 계획량을 지금 가용량으로 줄여 보이고 drift 로 알린다', () => {
     const now = view(4)
     expect(applySaved(now, savedV(6, 9)).tasks[0].quantity.planned).toBe(4)
-    expect(planDrift(savedV(6, 9), now)).toEqual({ content: [{ task: 'r.central_meaning', saved: 9, now: 4 }], definition: false, overAvailable: ['r.central_meaning'] })
+    expect(planDrift(savedV(6, 9), now)).toEqual({ content: [{ task: 'r.central_meaning', saved: 9, now: 4 }], definition: false, overAvailable: ['r.central_meaning'], stages: [] })
   })
   it('정의 버전이 바뀌면 definition drift', () => {
     expect(planDrift(savedV(5, 9, 'rev4.0-old'), view(9))?.definition).toBe(true)

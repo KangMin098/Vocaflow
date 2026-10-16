@@ -1,0 +1,388 @@
+{
+  "sha": "e32609ccf44b077c4d759424fc1e08a55cd5ac12",
+  "observedAt": "2026-10-16T05:44:01.086Z",
+  "itemFields": [
+    "id",
+    "exam_id",
+    "no",
+    "section",
+    "in_scope",
+    "type_id",
+    "stem",
+    "passage",
+    "choices",
+    "answer",
+    "answers",
+    "points",
+    "high_score",
+    "body_ok",
+    "raw_block",
+    "created_at",
+    "official_error_rate",
+    "ebs_linked"
+  ],
+  "sharedCandidates": [
+    {
+      "id": "2024#41",
+      "no": 41,
+      "fields": [
+        "id",
+        "exam_id",
+        "no",
+        "section",
+        "in_scope",
+        "type_id",
+        "stem",
+        "passage",
+        "choices",
+        "answer",
+        "answers",
+        "points",
+        "high_score",
+        "body_ok",
+        "raw_block",
+        "created_at",
+        "official_error_rate",
+        "ebs_linked"
+      ],
+      "passageType": "string",
+      "passageLength": 1452,
+      "passageSha": "c0a7f160ced6a1750eca66417842c94bf54f85a838d540eadaebf02448e1e7cd",
+      "meta": {}
+    },
+    {
+      "id": "2024#42",
+      "no": 42,
+      "fields": [
+        "id",
+        "exam_id",
+        "no",
+        "section",
+        "in_scope",
+        "type_id",
+        "stem",
+        "passage",
+        "choices",
+        "answer",
+        "answers",
+        "points",
+        "high_score",
+        "body_ok",
+        "raw_block",
+        "created_at",
+        "official_error_rate",
+        "ebs_linked"
+      ],
+      "passageType": "string",
+      "passageLength": 1452,
+      "passageSha": "c0a7f160ced6a1750eca66417842c94bf54f85a838d540eadaebf02448e1e7cd",
+      "meta": {}
+    },
+    {
+      "id": "2024#43",
+      "no": 43,
+      "fields": [
+        "id",
+        "exam_id",
+        "no",
+        "section",
+        "in_scope",
+        "type_id",
+        "stem",
+        "passage",
+        "choices",
+        "answer",
+        "answers",
+        "points",
+        "high_score",
+        "body_ok",
+        "raw_block",
+        "created_at",
+        "official_error_rate",
+        "ebs_linked"
+      ],
+      "passageType": "string",
+      "passageLength": 1995,
+      "passageSha": "d79e4eeb7b5d22b2740e1e0bf7f53d4b22517178ecdca2b0a7d25b83cf87d3de",
+      "meta": {}
+    },
+    {
+      "id": "2024#44",
+      "no": 44,
+      "fields": [
+        "id",
+        "exam_id",
+        "no",
+        "section",
+        "in_scope",
+        "type_id",
+        "stem",
+        "passage",
+        "choices",
+        "answer",
+        "answers",
+        "points",
+        "high_score",
+        "body_ok",
+        "raw_block",
+        "created_at",
+        "official_error_rate",
+        "ebs_linked"
+      ],
+      "passageType": "string",
+      "passageLength": 1995,
+      "passageSha": "d79e4eeb7b5d22b2740e1e0bf7f53d4b22517178ecdca2b0a7d25b83cf87d3de",
+      "meta": {}
+    },
+    {
+      "id": "2024#45",
+      "no": 45,
+      "fields": [
+        "id",
+        "exam_id",
+        "no",
+        "section",
+        "in_scope",
+        "type_id",
+        "stem",
+        "passage",
+        "choices",
+        "answer",
+        "answers",
+        "points",
+        "high_score",
+        "body_ok",
+        "raw_block",
+        "created_at",
+        "official_error_rate",
+        "ebs_linked"
+      ],
+      "passageType": "string",
+      "passageLength": 1995,
+      "passageSha": "d79e4eeb7b5d22b2740e1e0bf7f53d4b22517178ecdca2b0a7d25b83cf87d3de",
+      "meta": {}
+    }
+  ],
+  "activeApps": [
+    {
+      "surface_ref": "option-restate:2026-22",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#22",
+        "type": "R-GIST"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2026-23",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#23",
+        "type": "R-TOPIC"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2026-24",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#24",
+        "type": "R-TITLE"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2022-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2022#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2025-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2025#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2016-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2016#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2020-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2020#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2025-22",
+      "audience": {
+        "exam": "suneung",
+        "item": "2025#22",
+        "type": "R-GIST"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2025-23",
+      "audience": {
+        "exam": "suneung",
+        "item": "2025#23",
+        "type": "R-TOPIC"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2025-24",
+      "audience": {
+        "exam": "suneung",
+        "item": "2025#24",
+        "type": "R-TITLE"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "evidence-locate:2026-31",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#31",
+        "type": "R-BLANK"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2021-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2021#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2026-20",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "evidence-locate:2026-34",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#34",
+        "type": "R-BLANK"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "evidence-locate:2025-32",
+      "audience": {
+        "exam": "suneung",
+        "item": "2025#32",
+        "type": "R-BLANK"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:M2506-20",
+      "audience": {
+        "exam": "mock",
+        "item": "M2506#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:M2606-20",
+      "audience": {
+        "exam": "mock",
+        "item": "M2606#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:M2609-20",
+      "audience": {
+        "exam": "mock",
+        "item": "M2609#20",
+        "type": "R-CLAIM"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "evidence-locate:2026-32",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#32",
+        "type": "R-BLANK"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "evidence-locate:2026-33",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#33",
+        "type": "R-BLANK"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:M2609-23",
+      "audience": {
+        "exam": "mock",
+        "item": "M2609#23",
+        "role": "transfer",
+        "type": "R-TOPIC"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2020-24",
+      "audience": {
+        "exam": "suneung",
+        "item": "2020#24",
+        "role": "transfer",
+        "type": "R-TITLE"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2021-24",
+      "audience": {
+        "exam": "suneung",
+        "item": "2021#24",
+        "role": "transfer",
+        "type": "R-TITLE"
+      },
+      "status": "active"
+    },
+    {
+      "surface_ref": "claim-support:2026-23",
+      "audience": {
+        "exam": "suneung",
+        "item": "2026#23",
+        "role": "transfer",
+        "type": "R-TOPIC"
+      },
+      "status": "active"
+    }
+  ]
+}

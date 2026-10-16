@@ -8,6 +8,8 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { transferPolicy, transferPolicySnapshots } from './plan-commit'
+import { TRANSFER_PASSAGES } from './workspace'
 import type { PlanPayload, PlanReason, PriorCommit, SavedPlanVersion } from './plan-commit'
 
 type Db = SupabaseClient
@@ -20,6 +22,10 @@ export interface SavedWorkspace {
   template: string
   latest: SavedPlanVersion
   history: SavedPlanVersion[]
+  /** Derived from complete append-only history; the UI still receives only the last 20 versions. */
+  transferPlanned?: Partial<Record<string, number>>
+  /** Compact policy snapshots for safe restoration; displayed allocation history stays at 20. */
+  transferPolicies?: Record<number, Partial<Record<string, number>>>
 }
 
 export interface SavedPlans {
@@ -55,16 +61,32 @@ export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans
   const byTemplate: Record<string, SavedWorkspace> = {}
   // Workspace 마다 따로 최신 20버전 — 한 묶음에 버전이 많아도 다른 묶음 이력이 밀려나지 않는다(4차 마감 리뷰)
   const per = await Promise.all((ws.data ?? []).map(async (w) => {
-    const { data, error } = await db.from('learner_workspace_plan')
-      .select('workspace_id, plan_version, plan, reason, note, restored_from, canon_version, as_of, created_at')
-      .eq('user_id', userId).eq('workspace_id', w.id as string).order('plan_version', { ascending: false }).limit(20)
-    if (error) throw new Error(`계획 조회 실패: ${error.message}`)
-    return { w, rows: (data ?? []) as PlanRow[] }
+
+    const rows: PlanRow[] = []
+    let cursor: number | null = null
+    for (;;) {
+      let query = db.from('learner_workspace_plan')
+        .select('workspace_id, plan_version, plan, reason, note, restored_from, canon_version, as_of, created_at')
+        .eq('user_id', userId).eq('workspace_id', w.id as string).order('plan_version', { ascending: false }).limit(1000)
+      if (cursor !== null) query = query.lt('plan_version', cursor)
+      const { data, error } = await query
+      if (error) throw new Error(`계획 조회 실패: ${error.message}`)
+      const page = (data ?? []) as PlanRow[]
+      rows.push(...page)
+      if (page.length < 1000) break
+      const next = page[page.length - 1].plan_version
+      if (!Number.isSafeInteger(next) || next === cursor) throw new Error('Invalid plan history cursor')
+      cursor = next
+    }
+    return { w, rows }
   }))
   for (const { w, rows } of per) {
     if (!rows.length) continue
     const history = rows.map((r) => ({ version: r.plan_version, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, canon: r.canon_version, asOf: r.as_of, createdAt: r.created_at }))
-    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history }
+    const snapshots = transferPolicySnapshots(w.template_id as string, history)
+    const known = [...new Set(Object.values(snapshots).flatMap(p => Object.keys(p)))]
+    const transferPolicies = Object.fromEntries(Object.entries(snapshots).map(([version, p]) => [version, Object.fromEntries(known.map(id => [id, p[id] ?? TRANSFER_PASSAGES]))]))
+    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history: history.slice(0, 20), transferPolicies, transferPlanned: transferPolicy(w.template_id as string, history) }
   }
   return { status, byTemplate, goalVersionId: (goal.data?.[0]?.id as number | undefined) ?? null }
 }

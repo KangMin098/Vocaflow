@@ -86,11 +86,17 @@ export function buildCommitPayload(req: PlanCommitRequest, view: WorkspacePlanVi
     return { ok: false, status: 422, code: 'order', detail: '순서는 이 묶음의 항목을 한 번씩 모두 담아야 해요' }
   }
   for (const t of Object.keys(req.planned)) if (!set.has(t)) return { ok: false, status: 422, code: 'planned_task', detail: t }
+  const restoreIssue = req.reason === 'restore' && req.restoreOf != null ? transferRestoreShortage(view, req.restoreOf) : null
+  if (restoreIssue) return { ok: false, status: 422, code: 'transfer_restore_shortage', detail: restoreIssue }
   const tasks: PlanPayloadTask[] = []
   for (const id of templateTasks) {
     const p = view.tasks.find((x) => x.task === id)
     const available = p?.quantity.available ?? null
     const want = req.planned[id] ?? null
+    const restored = req.reason === 'restore' && req.restoreOf != null ? view.restoreTransfer?.[req.restoreOf]?.[id] : undefined
+    if (p?.stage === 'transfer' && tpl.core.includes(id) && restored !== undefined && want !== restored) return { ok: false, status: 422, code: 'restore_transfer_policy', detail: id }
+    if (p?.stage === 'transfer' && !tpl.core.includes(id) && want !== null) return { ok: false, status: 422, code: 'planned_not_owned', detail: id }
+    if (p?.stage === 'transfer' && want !== null && want < 1) return { ok: false, status: 422, code: 'planned_min', detail: id }
     if (want !== null && (available === null || want > available)) return { ok: false, status: 422, code: 'planned_over_available', detail: `${id}: ${want} > ${available ?? '없음'}` }
     tasks.push({ task: id, stage: p?.stage ?? null, planned: want, available, rule: p?.quantity.rule ?? null })
   }
@@ -109,16 +115,20 @@ export interface SavedPlanVersion {
 }
 
 /** 저장된 계획과 지금 계획 보기의 차이 — 재계획 제안(콘텐츠 · 정의가 바뀌었을 때). 근거 · 판정은 보지 않는다 */
-export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[] } | null {
+export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[]; stages: TaskId[] } | null {
   if (!saved) return null
   const content: { task: TaskId; saved: number | null; now: number | null }[] = []
   const overAvailable: TaskId[] = []
+  const stages: TaskId[] = []
   for (const t of saved.plan.tasks) {
+    const current = view.tasks.find(x => x.task === t.task)
+    if (current && current.stage !== t.stage) stages.push(t.task)
     const now = view.tasks.find((x) => x.task === t.task)?.quantity.available ?? null
-    if (now !== t.available) content.push({ task: t.task, saved: t.available, now })
-    if (t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
+    const sameStage = !current || current.stage === t.stage
+    if (sameStage && now !== t.available) content.push({ task: t.task, saved: t.available, now })
+    if (sameStage && t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
   }
-  return { content, definition: saved.canon !== CANON_VERSION, overAvailable }
+  return { content, definition: saved.canon !== CANON_VERSION, overAvailable, stages }
 }
 
 /** 저장된 계획을 화면 보기에 덮는다 — 순서 · 계획량만(가용량이 줄었으면 가용량으로 자르고 표시는 drift 가 한다). 근거 · 수행은 지금 값 */
@@ -127,7 +137,9 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
   const rank = (id: TaskId) => { const i = saved.plan.order.indexOf(id); return i < 0 ? 999 + view.tasks.findIndex((p) => p.task === id) : i }
   const tasks = view.tasks.map((p) => {
     const s = saved.plan.tasks.find((t) => t.task === p.task)
-    if (!s || p.quantity.available === null) return p
+    // TRANSFER quantity was already replayed from the complete core-workspace history.
+    // A restore payload rebuilt at another stage is not a new transfer-policy decision.
+    if (!s || s.stage !== p.stage || p.quantity.available === null || p.stage === 'transfer') return p
     const planned = s.planned === null ? null : Math.min(s.planned, p.quantity.available)
     return { ...p, quantity: { ...p.quantity, planned, remaining: planned === null ? null : Math.max(0, planned - p.quantity.done) } }
   }).sort((a, b) => rank(a.task) - rank(b.task))
@@ -174,4 +186,41 @@ export function sameCommitRequest(prior: PriorCommit, req: PlanCommitRequest): b
 /** 이전 시도의 키를 다시 쓸지 — 서명이 같을 때만 */
 export function keyFor(pending: { key: string; sig: string } | null, sig: string, fresh: () => string): { key: string; sig: string } {
   return pending && pending.sig === sig ? pending : { key: fresh(), sig }
+}
+
+/** Saved operating quantity is independent of the currently allocated stage.
+ * Replay only this template's core TASK policies; restoration restores the prior policy snapshot.
+ */
+export function transferPolicySnapshots(template: string, history: readonly SavedPlanVersion[]): Record<number, Partial<Record<string, number>>> {
+  const core = new Set(templateOf(template)?.core ?? [])
+  let policy: Partial<Record<string, number>> = {}
+  const snapshots = new Map<number, Partial<Record<string, number>>>()
+  for (const version of [...history].sort((a, b) => a.version - b.version)) {
+    if (version.reason === 'restore' && version.restoredFrom != null && snapshots.has(version.restoredFrom)) {
+      policy = { ...snapshots.get(version.restoredFrom) }
+      snapshots.set(version.version, { ...policy })
+      continue // current stage quantities in a rebuilt restore payload are not a new transfer decision
+    }
+    for (const task of version.plan.tasks ?? []) {
+      if (core.has(task.task) && task.stage === 'transfer' && task.planned !== null && Number.isInteger(task.planned) && task.planned >= 1) policy[task.task] = task.planned
+    }
+    snapshots.set(version.version, { ...policy })
+  }
+  return Object.fromEntries(snapshots)
+}
+
+export function transferPolicy(template: string, history: readonly SavedPlanVersion[]): Partial<Record<string, number>> {
+  const snapshots = transferPolicySnapshots(template, history)
+  const latest = history.reduce((n, v) => Math.max(n, v.version), 0)
+  return snapshots[latest] ?? {}
+}
+
+/** A restored CHECK allocation can inherit a TRANSFER policy from an older version. */
+export function transferRestoreShortage(view: WorkspacePlanView, version: number): string | null {
+  for (const [id, amount] of Object.entries(view.restoreTransfer?.[version] ?? {})) {
+    const p = view.tasks.find(t => t.task === id)
+    if (!p || !view.core.includes(id) || p.achievement === 'resolved' || p.transferAvailable === undefined) continue
+    if (amount !== undefined && amount > p.transferAvailable) return id
+  }
+  return null
 }

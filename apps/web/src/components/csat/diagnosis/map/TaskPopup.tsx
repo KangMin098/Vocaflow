@@ -115,7 +115,10 @@ export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, 
       </header>
       <dl className={u.popKv}>
         <dt>지금 근거</dt>
-        <dd data-testid="pop-evidence" data-evidence={ins.now.evidence}>{EVIDENCE_V62_LABEL[ins.now.evidence]}</dd>
+        <dd data-testid="pop-evidence" data-evidence={ins.now.evidence}>
+          {EVIDENCE_V62_LABEL[ins.now.evidence]}
+          {ins.now.timingHeld > 0 && <span className={u.fine} data-testid="pop-timing-held"> · 보류 {ins.now.timingHeld}개(제출 · 해설 순서 확인 불가 — 실패 아님)</span>}
+        </dd>
         <dt>목표까지</dt>
         <dd>{ins.now.need ? `${NEED_V62_LABEL[ins.now.need]}${ins.now.needRank ? ` · 순서 ${ins.now.needRank}` : ''}` : goalSet ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'}</dd>
         <dt>이번 단계</dt>
