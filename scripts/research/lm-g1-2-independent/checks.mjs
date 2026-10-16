@@ -32,10 +32,12 @@ if(mode==='browser'){
  let ownedServer=null
  const ensureServer=async()=>{
   try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
+  if(!ownedServer||ownedServer.exitCode!==null||ownedServer.signalCode!==null){
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
   ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3007'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg12-review'},windowsHide:true,stdio:['ignore',fd,err]})
   fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
+  }
   for(let n=0;n<120;n++){await new Promise(r=>setTimeout(r,1000));try{if((await fetch(base+'/login',{signal:AbortSignal.timeout(5000)})).status===200)return}catch{}}
   throw Error('Owned server not ready')
  }
