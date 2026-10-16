@@ -48,11 +48,14 @@ export function EvidenceChips({ e, testId }: { e: EvidenceView; testId: string }
 export function EvidenceBlock({ e }: { e: EvidenceView }) {
   const notes = e.attempts.filter((a) => a.reasons.length > 0)
   const counts = e.attempts.reduce<Record<string, number>>((m, a) => ({ ...m, [a.claim]: (m[a.claim] ?? 0) + 1 }), {})
+  const counted = new Set(e.attempts.filter((a) => a.claim === 'independent_check').map((a) => a.itemRef))
+  const sharedCounted = new Set(e.sharedPassageGroups.flat().filter((item) => counted.has(item))).size
+  const observed = [...new Map(e.attempts.filter((a) => a.fields.performed === 'CONFIRMED' && a.fields.independence === 'CONFIRMED').map((a) => [a.itemRef, a])).values()]
   return (
     <div className={u.evBlock} data-testid="ins-evidence-claims" data-check={e.currentCheck.status} data-ledger={e.ledger}>
       <dl className={u.popKv}>
         <dt>지금 확인</dt>
-        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '전체 수행 집계 보류' : `혼자 처음 푼 확인 문항 ${new Set(e.attempts.filter((a) => a.claim === 'independent_check').map((a) => a.itemRef)).size}개(지금까지 전체)`}</dd>
+        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '전체 수행 집계 보류' : `현행 도구 독립 확인 문항 ${counted.size}개(전체 기록 중)`}</dd>
         <dt>바로잡기</dt>
         <dd data-testid="ev-repair">{REPAIR_LABEL[e.instructionPath.repair]} — 해 본 것이지 익혔다는 뜻은 아니에요</dd>
         <dt>다른 글 적용</dt>
@@ -63,8 +66,8 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
       {e.ledger === 'unknown' && <p className={u.fine} data-testid="ev-ledger-unknown">수행 기록을 다 읽지 못해 근거가 완전하지 않을 수 있어요.</p>}
       {e.attempts.length > 0 && (
         <p className={u.fine} data-testid="ev-claims">
-          {(Object.keys(CLAIM_LABEL) as AttemptEvidence['claim'][]).filter((k) => counts[k]).map((k) => `${CLAIM_LABEL[k]} ${counts[k]}`).join(' · ')}
-          {counts.independent_check ? ` · 첫 독립 관찰 중 맞힘 ${e.attempts.filter((a) => a.claim === 'independent_check' && a.outcome === 'correct').length} · 틀림 ${e.attempts.filter((a) => a.claim === 'independent_check' && a.outcome === 'incorrect').length}(성공 건수와 구별)` : ''}
+          {(Object.keys(CLAIM_LABEL) as AttemptEvidence['claim'][]).filter((k) => counts[k]).map((k) => `${CLAIM_LABEL[k]} ${counts[k]}${k === 'independent_check' ? '(현행 도구 기준)' : ''}`).join(' · ')}
+          {e.ledger === 'complete' ? ` · 원장 독립 첫 관찰 ${observed.length}개: 첫 독립 관찰 중 맞힘 ${observed.filter((a) => a.outcome === 'correct').length} · 틀림 ${observed.filter((a) => a.outcome === 'incorrect').length}(성공 건수와 구별)` : ''}
         </p>
       )}
       {notes.length > 0 && (
@@ -74,7 +77,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
           ))}
         </ul>
       )}
-      {e.sharedPassageGroups.length > 0 && <p className={u.fine} data-testid="ev-shared">같은 글의 다른 문항 {e.sharedPassageGroups.length}묶음이 있어요. 현재 문항 수에는 포함하며, 별개 글의 독립 관찰로 해석하지 않아요(집계 정책 미확정).</p>}
+      {e.sharedPassageGroups.length > 0 && <p className={u.fine} data-testid="ev-shared">같은 글의 다른 문항 {e.sharedPassageGroups.length}묶음이 있어요({e.ledger === 'unknown' ? '현행 도구 독립 확인 집계 보류' : `현행 도구 독립 확인 집계에 ${sharedCounted}문항 포함`}). 별개 글의 독립 관찰로 해석하지 않아요(집계 정책 미확정).</p>}
       {e.scope && (
         <details className={u.evScope} data-testid="ev-scope">
           <summary>이 과제가 보는 것 · 보지 않는 것</summary>

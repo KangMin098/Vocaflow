@@ -1575,6 +1575,9 @@ p.dockL {
 }
 .evScope summary {
   cursor: pointer;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 12px 0;
   font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
 }
 .evScope summary:focus-visible {

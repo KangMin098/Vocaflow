@@ -34,7 +34,7 @@ const rec = (id, name, ok, detail, layer = 'db+browser') => { results.push({ id,
 const users = []
 const browser = await chromium.launch()
 let shots = 0
-const shot = (page, name) => page.screenshot({ path: path.join(EVID, `${String(++shots).padStart(2, '0')}-${name}.png`) })
+const shot = async (page, name) => { await page.waitForTimeout(400); return page.screenshot({ path: path.join(EVID, `${String(++shots).padStart(2, '0')}-${name}.png`) }) }
 const slugOf = (href) => (href ? decodeURIComponent(href.split('#')[0].split('?')[0].split('/').pop()) : null)
 const itemParam = (href) => { try { return new URL(href, BASE).searchParams.get('item') } catch { return null } }
 
@@ -95,6 +95,10 @@ async function surfaces(page, name) {
     const held = d.querySelector('[data-testid="inspector-timing-held"]')?.getAttribute('data-n') ?? null
     return b ? { held, check: b.getAttribute('data-check'), ledger: b.getAttribute('data-ledger'), checkText: t('ev-check'), repair: t('ev-repair'), transfer: t('ev-transfer'), delay: t('ev-delay'), claims: t('ev-claims'), notes: t('ev-notes'), scope: !!b.querySelector('[data-testid="ev-scope"]'), evidence: d.querySelector('[data-testid="inspector-evidence"]')?.getAttribute('data-evidence') ?? null } : null
   }).catch(() => null)
+  const scopeSummary=page.locator('[data-testid="ins-drawer"] [data-testid="ev-scope"] > summary');
+  const beforeScope=await scopeSummary.evaluate(e=>e.parentElement.open);await scopeSummary.focus();await page.keyboard.press('Enter');
+  const toggledScope=await scopeSummary.evaluate(e=>e.parentElement.open);await page.keyboard.press('Enter');
+  s.scopeAccess=await scopeSummary.evaluate(e=>({height:e.getBoundingClientRect().height,focusVisible:e.matches(':focus-visible'),outline:getComputedStyle(e).outlineStyle}));s.scopeAccess.keyboardToggle=toggledScope!==beforeScope;
   if (name) {
     await page.click('[data-testid="ins-drawer"] [data-testid="ev-scope"] > summary').catch(() => {})
     await page.$eval('[data-testid="ins-drawer"] [data-testid="ins-evidence-claims"]', (e) => e.scrollIntoView({ block: 'center' })).catch(() => {})
@@ -181,6 +185,7 @@ try {
   rec('V05', '새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)', checks.length === 2 && checks.every((c) => c.isCorrect === true) && s4.pop?.check === 'passed' && /문항 4개/.test(s4.drawer?.checkText ?? '') && s4.pop?.delay === 'NOT_ESTABLISHED' && /아직 근거 없음/.test(s4.drawer?.delay ?? '') && same(s4), { checks: checks.map((c) => c.isCorrect), ...snap(s4) })
   rec('V06', '도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음', [s0, s1, s2, s3, s4].every((s) => s.drawer?.scope && noFail(s)), null, 'browser')
   rec('V07', '페이지 가로 넘침 0', [s0, s1, s4].every((s) => s.overflowX === 0), { w: WIDTH }, 'browser')
+  rec('I06','instrument scope disclosure has 44px target, keyboard toggle and visible focus',[s0,s1,s2,s3,s4].every(s=>s.scopeAccess.height>=44&&s.scopeAccess.keyboardToggle&&s.scopeAccess.focusVisible&&s.scopeAccess.outline!=='none'),[s0,s1,s2,s3,s4].map(s=>s.scopeAccess));
   const fits=r=>r&&r.x>=-1&&r.y>=-1&&r.right<=r.width+1&&r.bottom<=r.height+1;
   rec('I05','PC popup/modal fit, Escape closes and restores Workspace opener focus',[s0,s1,s2,s3,s4].every(s=>fits(s.popBounds)&&fits(s.modalBounds)&&s.modalClosedAndFocus),[s0,s1,s2,s3,s4].map(s=>({pop:s.popBounds,modal:s.modalBounds,closedAndFocus:s.modalClosedAndFocus})));
   await ctx.close()

@@ -15,7 +15,8 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3011',local=path.join(import.meta.dirname,'local/final-v2');fs.mkdirSync(local,{recursive:true})
+ const revision=process.argv[5]??'regression-v3';if(!/^[a-z0-9-]+$/.test(revision))throw Error('Invalid run revision');
+ const base='http://localhost:3011',local=path.join(import.meta.dirname,'local',revision);if(fs.existsSync(local+'/browser-summary.json'))throw Error('Run already recorded; choose a new revision');fs.mkdirSync(local,{recursive:true})
  const jobs=[
  ['t4-1280','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1280','--evidence',local+'/t4-1280']],
  ['t4-1440','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1440','--evidence',local+'/t4-1440']],
@@ -31,7 +32,7 @@ if(mode==='browser'){
  ['supply','scripts/csat/map/v62/e2e-map-supply.mjs',['--base',base]],
  ]
  const results=[]
- const dates=false,delta=false;const remainingJobs=jobs.slice(Number(process.argv[3]??0));
+ const dates=false,delta=false;const remainingJobs=jobs.slice(Number(process.argv[3]??0),process.argv[4]?Number(process.argv[3]??0)+Number(process.argv[4]):undefined);
  let ownedServer=null
  const ensureServer=async()=>{
   let online=false;try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});online=r.status<500}catch{}
