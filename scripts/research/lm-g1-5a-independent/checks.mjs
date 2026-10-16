@@ -41,11 +41,12 @@ if(mode==='browser'){
   if(online){if(!ownedServer)throw Error('Refusing an unowned server on the verification port');return}
   if(!ownedServer||ownedServer.exitCode!==null||ownedServer.signalCode!==null){
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
-  ownedServer=spawn(process.execPath,['--max-old-space-size=3072','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3012'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg15a-review'},windowsHide:true,stdio:['ignore',fd,err]})
+  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3012'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg15a-review'},windowsHide:true,stdio:['ignore',fd,err]})
   ownedServer.on('exit',(code,signal)=>fs.appendFileSync(local+'/server-exits.jsonl',JSON.stringify({code,signal,at:new Date().toISOString()})+'\n'));fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
   }
-  for(let n=0;n<120;n++){await new Promise(r=>setTimeout(r,1000));try{if((await fetch(base+'/login',{signal:AbortSignal.timeout(5000)})).status===200)return}catch{}}
+  const readyStarted=Date.now()
+  for(let n=0;n<120&&Date.now()-readyStarted<120000;n++){if(ownedServer.exitCode!==null||ownedServer.signalCode!==null)throw Error('Owned server exited before readiness');await new Promise(r=>setTimeout(r,1000));try{if((await fetch(base+'/login',{signal:AbortSignal.timeout(5000)})).status===200)return}catch{}}
   throw Error('Owned server not ready')
  }
  try {
