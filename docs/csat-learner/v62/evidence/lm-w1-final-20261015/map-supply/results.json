@@ -1,10 +1,10 @@
 {
   "suite": "R5 기존 콘텐츠 재사용 수직 경로(e2e-map-supply.mjs)",
-  "head": "7360a434b5e8e9238e9621b708cb8a63f468f94b",
-  "trackedFilesModified": 19,
+  "head": "cd6a83974c911072d457d1989cec2044794321c2",
+  "trackedFilesModified": 16,
   "base": "http://localhost:3005",
-  "startedAt": "2026-10-15T05:14:40.162Z",
-  "endedAt": "2026-10-15T05:15:16.902Z",
+  "startedAt": "2026-10-15T06:58:36.147Z",
+  "endedAt": "2026-10-15T06:59:15.897Z",
   "browser": "chromium(@playwright/test) · 1440×1000",
   "population": "합성 계정 2(끝에 삭제) — 학습 효과의 증거가 아니다",
   "results": [
@@ -12,7 +12,7 @@
       "name": "① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음",
       "ok": true,
       "detail": {
-        "demand": "wd-736662a7",
+        "demand": "wd-1241c9f5",
         "rows": [
           {
             "role": "independent_check",
@@ -21,7 +21,7 @@
             "text": "독립 확인 · 9개지금 학습할 수 있어요"
           }
         ],
-        "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=180#principle",
+        "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=223#principle",
         "ledger": "no_workspace"
       }
     },
@@ -39,8 +39,8 @@
       "name": "② 새로 고쳐도 같은 수요 키",
       "ok": true,
       "detail": {
-        "a": "wd-736662a7",
-        "b": "wd-736662a7"
+        "a": "wd-1241c9f5",
+        "b": "wd-1241c9f5"
       }
     },
     {
