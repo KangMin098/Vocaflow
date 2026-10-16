@@ -8,8 +8,8 @@ import {createRequire} from 'node:module'
 import {stopOwnedServer} from '../lm-g1-3a-independent/owned-server.mjs'
 const root=path.resolve(import.meta.dirname,'../../..'),web=path.join(root,'apps/web')
 const req=createRequire(path.join(web,'package.json'))
-const out=path.join(import.meta.dirname,'local/checks');fs.mkdirSync(out,{recursive:true})
 const mode=process.argv[2]??'units'
+const out=path.join(import.meta.dirname,mode==='broad-units'?'local/checks-broad':'local/checks');fs.mkdirSync(out,{recursive:true})
 const run=(name,bin,args)=>{const r=spawnSync(process.execPath,[req.resolve(bin),...args],{cwd:web,encoding:'utf8',timeout:300000,maxBuffer:10*1024*1024});fs.writeFileSync(path.join(out,name+'.log'),(r.stdout??'')+(r.stderr??'')); console.log(name,r.status,r.error?.message??'');return r.status===0}
 if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
@@ -100,7 +100,8 @@ else if(mode==='lint'){
  process.exitCode=run('lint','next/dist/bin/next',['lint',...files.flatMap(f=>['--file',f])])?0:1
 }else{
  const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)])
- const files=[...walk(path.join(web,'src/lib/csat/map')),...walk(path.join(web,'src/lib/knowledge')),...walk(path.join(web,'src/components/csat/diagnosis/map'))].filter(x=>/\.test\.tsx?$/.test(x)&&!x.includes('.integration.')).map(x=>path.relative(web,x))
+ const dirs=mode==='broad-units'?['src/lib/csat','src/lib/learner','src/lib/knowledge','src/components/csat']:['src/lib/csat/map','src/lib/knowledge','src/components/csat/diagnosis/map'];
+ const files=dirs.flatMap(d=>walk(path.join(web,d))).filter(x=>/\.test\.tsx?$/.test(x)&&!x.includes('.integration.')).map(x=>path.relative(web,x))
  const results=[]
  for(let i=0;i<files.length;i+=20){const n='unit-'+String(i/20).padStart(2,'0'),json=path.join(out,n+'.json');const ok=run(n,'vitest/vitest.mjs',['run',...files.slice(i,i+20),'--pool=forks','--poolOptions.forks.singleFork','--reporter=json','--outputFile='+json]);results.push({files:files.slice(i,i+20),ok,report:n+'.json'})}
  fs.writeFileSync(path.join(out,'partitions.json'),JSON.stringify(results,null,2));process.exitCode=results.every(x=>x.ok)?0:1

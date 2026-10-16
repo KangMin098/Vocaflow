@@ -11,3 +11,21 @@
 7. A 계보/B 첫 시도/C 현재성/D 주장 범위/E 세 표면/F 회귀/G 권한·성능을 독립 판정한다. 미해결 핵심 P1/P2이면 REWORK, 자료/정책 부재는 NOT_TESTED/BLOCKED_APPROVAL이다. 최종 제품·보고 revision·CI를 구별하고 safe-merge만 사용한다.
 
 증거 층위는 순수 정책·고정 query fixture, 실제 개발 DB/API, 실제 Chromium, 실제 학습 효과를 구별한다. 마지막 층위는 이번 범위에 없다. SQL/RPC/RLS 적용, 실제 학생 변경, 새 평가 엔진·화면·콘텐츠를 수행하지 않는다.
+
+## 재실행
+
+저장소 의존성을 설치한 뒤 루트에서 실행한다. 기록된 browser revision과 pinned replay 디렉터리는 덮어쓰지 않으므로 새 이름을 쓴다. 브라우저/cleanup에는 승인된 개발 환경 파일을 `node --env-file`로 주입한다. 명령이나 문서에 비밀값을 적지 않는다.
+
+```powershell
+node scripts/research/lm-g1-4-independent/checks.mjs broad-units
+node scripts/research/lm-g1-4-independent/checks.mjs types
+node scripts/research/lm-g1-4-independent/checks.mjs lint
+node scripts/research/lm-g1-4-independent/pinned-replay.mjs replay-new
+node scripts/research/lm-g1-4-independent/loader-probe.mjs
+node scripts/research/lm-g1-4-independent/anchor-probe.mjs
+node scripts/research/lm-g1-4-independent/link-failure-probe.mjs
+# 승인된 환경 변수를 주입한 프로세스에서:
+node --tls-max-v1.2 scripts/research/lm-g1-4-independent/checks.mjs browser 0 12 browser-new
+```
+
+공개 JSON은 원문·계정·runtime 전문을 복원하지 않는다. 최초 연구 작업장의 ignored local 원장은 그 작업장에 보존한다. `audit.mjs`는 그 원장과 코드 hash·필수 검사 수·정리 결과가 모두 일치할 때만 공개 whitelist metadata를 만든다. 다른 작업장에서는 새 브라우저 실행을 만들고 해당 입력/환경/버전을 별도로 기록한다. pinned replay는 예상된 최초 실패5/15를 확인하는 명령이며 제품 성공 검사로 표시하지 않는다.

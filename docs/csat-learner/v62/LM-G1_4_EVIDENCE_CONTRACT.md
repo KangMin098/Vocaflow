@@ -20,6 +20,8 @@
 `CONFIRMED` · `UNKNOWN`(못 구함 · 옛 입력 · 순서 불확실) · `STALE`(과거 주석 해시) · `INELIGIBLE`(도움 · 해설 뒤 · 연습 화면 · 합성 표본) · `NOT_APPLICABLE`(첫 시도 아님 · 확인 단계 아님).
 시도 하나의 주장은 가장 강한 것 하나다. `independent_check` 는 수행 · 정오 · 현재 주석 · 독립이 **모두 CONFIRMED** 일 때만 나온다. 루브릭 · 정책 버전은 원장에 열이 없어 항상 `UNKNOWN` 이고, 이것으로 새 수준을 주장하지 않는다.
 
+`correct: CONFIRMED`는 정오가 기록됐다는 뜻이다. 오답도 독립 첫 관찰일 수 있으며 `outcome`의 맞힘/틀림을 구별한다. `condition_success`는 정답이고 현재 도구가 확인됐을 때만 가능하다. 원장 ID가 첫 시도 뷰의 `attempt_id`와 TASK·문항·phase까지 일치해야 첫 시도로 연결한다. 배열 정렬로 다시 선출하지 않는다.
+
 독립성 판정 순서: 연습 화면이면 INELIGIBLE. 도움 · 해설 뒤가 확정이면 INELIGIBLE(자기 보고 `viewed_first` 포함). 그 다음 시각 불확실이면 UNKNOWN(보류). 도움 기록이 없어도 UNKNOWN(보류). 같은 과제 · 문항 · 단계의 두 번째 이후 시도는 독립 관찰이 아니다. 같은 지문의 다른 문항은 `sharedPassageGroups` 로 따로 알린다.
 
 ## 3. 화면의 네 값(하나의 숙달률로 합치지 않는다)
@@ -46,10 +48,12 @@
 | `learning_task_attempts`(claim-support) | 125 | 124 | 0 · 0 · 0 · 0 · 0 · 0 |
 | `learning_first_attempts`(claim-support) | 121 | 120 | 도움 기록 누락 0 · 시각 불확실 0 · 도움 뒤 0 |
 
-실제 학생 기록은 1행뿐이다. 이 수치는 계보가 채워지는지만 보여 준다. 효과 표본으로 쓰지 않는다. 루브릭 · 정책 버전 열은 없다(UNKNOWN). 원장을 못 읽으면 `ledger: unknown` 이고, 근거 완전성은 PASS 가 아니다.
+위 수치는 최초 작성자의 당시 snapshot이며 독립 검증의 현재 모집단 수치가 아니다. 합성 표시가 없는 1행도 실제 학생 실증으로 확정하지 않는다. 효과 표본으로 쓰지 않는다. 루브릭 · 정책 버전은 UNKNOWN이다. 연결 조회·첫 시도·수행 원장을 못 읽으면 `ledger: unknown`이고 정상0건과 구분한다. 집계 범위는 현재 연결된 과제의 기록이며 학습자의 모든 DB 기록을 뜻하지 않는다.
 
 ## 6. 재사용
 
-- 원장 열: `content_hash` · `activity` · `help_level` · `synthetic` · `received_at`. 현재 주석 해시는 `taskByKey(k).hash(annotationFor(item))`.
+- 원장 열: `attempt_id`/`id` · `content_hash` · `activity` · `help_level` · `synthetic` · `received_at`. 현재 도구 해시는 `currentItemTask`의 골격·선택 과제와 기존 `anchorGate`를 통과해야 부여한다. 연습/확인의 서로 다른 채점 key는 합치지 않는다. legacy boundary-only 원문 검증 범위는 유지하며 완전한 본문·전문가 타당도 검증으로 표현하지 않는다.
 - 판정: `skillDiagnosis` · `isEligible` · prior-help(`timingUncertain`) · `repairWindow` · `transferDoneOf` · `transferPlanned` · `passageIdentity`.
-- 목표는 입력이 아니다. 목표를 바꿔도 같은 기록이면 같은 증거다(E17).
+- 목표는 증거 adapter의 입력이 아니다. 실제 서로 다른 목표 snapshot과 상위 compose 검증은 독립 I03을 따른다. E17 자기 동일성 검사만으로 제품 연결을 입증하지 않는다.
+
+과거 asof에는 현재 도구 해시를 그때의 증명으로 재사용하지 않는다(UNKNOWN). 원장 정오는 보존한다. 이는 전체 DB·원문의 과거 버전 재생이나 기존 resolved/120일 정책 변경이 아니다. 최종 독립 판정은 [별도 원장](../../research/lm-g1-4-independent/ACCEPTANCE.md)을 따른다.
