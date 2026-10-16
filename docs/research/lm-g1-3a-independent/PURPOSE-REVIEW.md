@@ -1,5 +1,7 @@
 # T3 목적 검토
 
+후속 최종 제품 `06bdd4337c3f5cac3e6852ec091f8df8112deef7`에서 같은 목적 검토 명령을 재실행한 결과는 **NO_FINDINGS**다. 응답 유실 반례도 양쪽 PC에서 각6/6을 통과했다. [추가 증거](./LOST-RESPONSE.json)는 원본 실패, 수정 hash, 실제 commit 완료 후 응답 중단, 동일키 재시도 및 부적격 초기 도구 실행을 분리한다.
+
 최종 문서 HEAD `bd0bc930c` 재검토는 추가 P2를 발견했다. 응답 유실 후 `useGoal`의 catch가 편집값을 이전 점수로 되돌려, 다시 적용하면 새 키로 이전 목표를 저장할 수 있었다. 정확한 hook 실행으로 90 저장→응답 유실→80 재저장을 재현했다. 입력과 동일 요청키를 보존하고 저장된 표시/추천은 서버 snapshot을 계속 사용하는 최소 보완을 적용했다. 아래 6e의 NO_FINDINGS는 당시 결과이며 추가 발견을 취소하지 않는다. 후속 브라우저/최종 검토는 별도 기록한다.
 
 2026-10-16. `node agents/scripts/review.mjs --base origin/main`을 제품 코드 `6e5609d5cde85ad7627e3ed7aa54631b3267fd6b`에서 실행한 최종 결과는 **NO_FINDINGS**다. 원본 CLI 출력은 ignored 연구 local의 `purpose-final.txt`에 보존한다.

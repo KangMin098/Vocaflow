@@ -1,0 +1,291 @@
+{
+  "sourceBasis": "06bdd4337c3f5cac3e6852ec091f8df8112deef7",
+  "priorCoreBasis": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+  "runtimeDelta": [
+    "apps/web/src/components/csat/diagnosis/map/GoalBar.tsx"
+  ],
+  "goalBarSha256": "e50dc8614e7ceb0f1438f793f2c445c6a10aa08453be88da2204a5bdff549149",
+  "hook": [
+    {
+      "source": "bd0bc930c",
+      "afterFailure": {
+        "displayed": 80,
+        "draft": "80",
+        "exam": "suneung",
+        "error": "injected response lost after commit"
+      },
+      "finalStored": 80,
+      "sameKey": false,
+      "sameBody": false,
+      "refreshes": 1,
+      "pass": false
+    },
+    {
+      "source": "working",
+      "afterFailure": {
+        "displayed": 80,
+        "draft": "90",
+        "exam": "kice6",
+        "error": "injected response lost after commit"
+      },
+      "finalStored": 90,
+      "sameKey": true,
+      "sameBody": true,
+      "refreshes": 1,
+      "pass": true
+    }
+  ],
+  "browser": [
+    {
+      "name": "loss-1280",
+      "sourceStable": true,
+      "headAtStart": "bd0bc930c7b781cefa18da26200d23fb1add9cf4",
+      "startedAt": "2026-10-16T11:37:56.671Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "loss-1440",
+      "sourceStable": true,
+      "headAtStart": "06bdd4337c3f5cac3e6852ec091f8df8112deef7",
+      "startedAt": "2026-10-16T11:39:10.828Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    }
+  ],
+  "observations": [
+    {
+      "name": "loss-1280",
+      "width": 1280,
+      "results": [
+        {
+          "name": "response lost after actual commit",
+          "pass": true
+        },
+        {
+          "name": "saved display stays on coherent previous snapshot",
+          "pass": true
+        },
+        {
+          "name": "failed editor retains requested score and exam",
+          "pass": true
+        },
+        {
+          "name": "retry sends identical body and request key",
+          "pass": true
+        },
+        {
+          "name": "retry reuses one goal version without rolling back",
+          "pass": true
+        },
+        {
+          "name": "refreshed goal scope and layout agree",
+          "pass": true
+        }
+      ],
+      "observations": {
+        "committedResponse": {
+          "goal": 90,
+          "grade": null,
+          "exam": "kice6",
+          "date": null,
+          "mode": "versioned",
+          "goalVersionId": 896,
+          "reused": false
+        },
+        "after": [
+          {
+            "id": 895,
+            "target_score": 80,
+            "target_exam": "suneung"
+          },
+          {
+            "id": 896,
+            "target_score": 90,
+            "target_exam": "kice6"
+          }
+        ],
+        "firstRequest": {
+          "target": 90,
+          "exam": "kice6"
+        },
+        "final": [
+          {
+            "id": 895,
+            "target_score": 80,
+            "target_exam": "suneung"
+          },
+          {
+            "id": 896,
+            "target_score": 90,
+            "target_exam": "kice6"
+          }
+        ],
+        "beforeCount": 1
+      },
+      "fatal": null,
+      "cleanup": true
+    },
+    {
+      "name": "loss-1440",
+      "width": 1440,
+      "results": [
+        {
+          "name": "response lost after actual commit",
+          "pass": true
+        },
+        {
+          "name": "saved display stays on coherent previous snapshot",
+          "pass": true
+        },
+        {
+          "name": "failed editor retains requested score and exam",
+          "pass": true
+        },
+        {
+          "name": "retry sends identical body and request key",
+          "pass": true
+        },
+        {
+          "name": "retry reuses one goal version without rolling back",
+          "pass": true
+        },
+        {
+          "name": "refreshed goal scope and layout agree",
+          "pass": true
+        }
+      ],
+      "observations": {
+        "committedResponse": {
+          "goal": 90,
+          "grade": null,
+          "exam": "kice6",
+          "date": null,
+          "mode": "versioned",
+          "goalVersionId": 898,
+          "reused": false
+        },
+        "after": [
+          {
+            "id": 897,
+            "target_score": 80,
+            "target_exam": "suneung"
+          },
+          {
+            "id": 898,
+            "target_score": 90,
+            "target_exam": "kice6"
+          }
+        ],
+        "firstRequest": {
+          "target": 90,
+          "exam": "kice6"
+        },
+        "final": [
+          {
+            "id": 897,
+            "target_score": 80,
+            "target_exam": "suneung"
+          },
+          {
+            "id": 898,
+            "target_score": 90,
+            "target_exam": "kice6"
+          }
+        ],
+        "beforeCount": 1
+      },
+      "fatal": null,
+      "cleanup": true
+    }
+  ],
+  "cleanup": [
+    {
+      "name": "loss-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "loss-1440",
+      "owned": true,
+      "stopped": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "evidence/lost-response-1280.png",
+      "sha256": "3f65987d53a55237efdd77a24902d949af69d34cde618fee20a742ae6ded7626"
+    },
+    {
+      "path": "evidence/retry-success-1280.png",
+      "sha256": "3c56af1a977e140e1c8167e8cff820c9fda040a7c414cea5d1408c1d743e6db6"
+    },
+    {
+      "path": "evidence/lost-response-1440.png",
+      "sha256": "b62a35215f9dc995ae4073c99106b84c5dd594096d47be45b81556c2bbdb9be1"
+    },
+    {
+      "path": "evidence/retry-success-1440.png",
+      "sha256": "6cb6f7534a7acf56969467676eeed38afdf127bd6b1e88ae4a2cd2f5c84d6dca"
+    }
+  ],
+  "invalidEarlyReadRuns": {
+    "first": [
+      {
+        "name": "loss-1280",
+        "sourceStable": true,
+        "headAtStart": "bd0bc930c7b781cefa18da26200d23fb1add9cf4",
+        "startedAt": "2026-10-16T11:34:44.941Z",
+        "exit": 1,
+        "error": null,
+        "passLines": 4,
+        "failLines": 2,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1
+      }
+    ],
+    "diagnostic": [
+      {
+        "name": "loss-1280",
+        "sourceStable": true,
+        "headAtStart": "bd0bc930c7b781cefa18da26200d23fb1add9cf4",
+        "startedAt": "2026-10-16T11:36:20.015Z",
+        "exit": 1,
+        "error": null,
+        "passLines": 4,
+        "failLines": 2,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1
+      }
+    ],
+    "classification": "Harness read before route.fetch/abort completed: broad alert selector matched an unrelated alert. Final fixture waits for completed commit and editor-specific error. Safety expectations unchanged; earlier outputs preserved, not product PASS/FAIL evidence."
+  }
+}
