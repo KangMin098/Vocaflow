@@ -21,6 +21,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
 - LM-G1.4 독립 T4: DB 첫 시도 ID와 원장 ID를 정확히 연결하고 미식별·주석 UNKNOWN의 성공 승격을 차단했다. 기존 채점 경로의 골격·본문 결속을 재사용하고 일부 실패·연결 조회 실패·과거 asof를 보류한다. 원장 관찰과 현행 도구 확인·정오·공유 집계를 분리하며 도구 설명의 44px 대상을 보완했다. 기존 숙달·단계 정책과 DB/RPC/RLS는 보존한다.
 - feat(map): LM-G1.4 증거 자격 · 주장 범위 — 지금 확인 · 교수 경로 · 다른 글 적용 · 지연 확인(NOT_ESTABLISHED)을 분리해 팝업 · 상세 서랍 · Workspace 창에 같은 값으로 · 시도별 CONFIRMED/UNKNOWN/STALE/INELIGIBLE · R5 도구 범위 · 반례 E01–E20 · DB/RPC/RLS 변경 없음
 - LM-G1.3a 독립 T3 검증: 목표 키 경합 후 저장 행 대조, 서울 날짜/재전송, 단일 목표 snapshot·PLAN 관찰 버전 및 저장 후 본문 대조, 시험 kind와 학평 적격 경계 보완. 응답 유실 시 편집값/요청키를 유지해 이전 목표 재저장을 막는다. DB/RPC/RLS 변경 없음.
