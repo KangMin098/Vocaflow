@@ -70,6 +70,8 @@ if(mode==='browser'){
   src=src.replace("height: 1000","height: 900")
   src=src.replace("await page.fill('input[type=\"email\"]', acc.email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', acc.email)");
   src=src.replace("await page.fill('input[type=\"email\"]', email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', email)")
+  if(file.endsWith('/security.mjs')) src=src.replace('const c=await Promise.all([','const secondReq={...req,clientKey:crypto.randomUUID()};const c=await Promise.all([').replace('b.page.request.post(endpoint,{data:{...req,clientKey:crypto.randomUUID()}})','b.page.request.post(endpoint,{data:secondReq})').replace('winnerIndex===0?req:null','winnerIndex===0?req:secondReq')
+  if(file.endsWith('/e2e-lm-g1-5a.mjs')) src=src.replace(/^const shot = .*$/m,"const shot = async (page,name)=> {await page.waitForTimeout(400); return page.screenshot({path:path.join(EVID,String(++shots).padStart(2,'0')+'-'+name+'.png')})}")
   const generated=folder+'/runner.mjs';fs.writeFileSync(generated,src)
   const sourceFiles=spawnSync('git',['diff','--name-only','8ee927dcee80a9b19d70b2d4c86869e8ea013813...HEAD','--','apps/web'],{cwd:root,encoding:'utf8'}).stdout.trim().split(/\r?\n/).filter(Boolean);
   const sourceHashes=()=>Object.fromEntries(sourceFiles.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(root+'/'+f)).digest('hex')]));

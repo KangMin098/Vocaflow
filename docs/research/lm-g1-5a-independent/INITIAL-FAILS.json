@@ -225,9 +225,225 @@
           }
         ]
       }
+    },
+    {
+      "file": "pinned-contract-replay.json",
+      "sha256": "4ba004151c39594d6bc675a86bf828c6e08dfce9ad3bc8abec287de3d67de769",
+      "result": {
+        "head": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "mode": "pinned",
+        "rows": [
+          {
+            "id": "B+D correct C wrong is bounded success",
+            "expected": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "actual": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "pass": true
+          },
+          {
+            "id": "B wrong prevents D success",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "unreviewed cue null",
+            "expected": null,
+            "actual": null,
+            "pass": true
+          },
+          {
+            "id": "self reviewer",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "blank actor",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "missing agreement",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "bad review date",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "nonboolean blind",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "adding V2 preserves existing E selected provider",
+            "expected": "option-restate",
+            "actual": "contextual-sense",
+            "pass": false
+          },
+          {
+            "id": "zero shipped V2 annotations",
+            "expected": 0,
+            "actual": 0,
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "pinned-duplicate.json",
+      "sha256": "b7020cae156c21968aa602fb6b187a60a469c3ea3f15ac7f4d6854a69dd5abd3",
+      "result": {
+        "source": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "row": {
+          "name": "conflicting same-item versions remain unavailable",
+          "expected": null,
+          "actual": "test.v2",
+          "pass": false
+        }
+      }
+    },
+    {
+      "file": "cue-order-pinned/results.json",
+      "sha256": "d76e0622cee682a43aa8080f5c3bdab44db31c83d38a000efbcc95a7336900d9",
+      "result": {
+        "source": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "isolated": true,
+        "rows": [
+          {
+            "id": "1280 HTTP 401 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 400 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 409 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 500 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 malformed success without writer outcome rejected",
+            "pass": false
+          },
+          {
+            "id": "1280 lost response no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 prior explanation actual task-meta",
+            "pass": true
+          },
+          {
+            "id": "1280 retry same complete payload",
+            "pass": true
+          },
+          {
+            "id": "1280 BD success C failure separate",
+            "pass": true
+          },
+          {
+            "id": "1280 unreviewed cue no success claim",
+            "pass": true
+          },
+          {
+            "id": "1280 pending locks answers",
+            "pass": false
+          },
+          {
+            "id": "1280 synchronous double submit only one request",
+            "pass": false
+          },
+          {
+            "id": "1280 cue order retry retains mutation and payload",
+            "pass": false
+          },
+          {
+            "id": "1280 keyboard and overflow",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 401 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 400 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 409 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 500 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 malformed success without writer outcome rejected",
+            "pass": false
+          },
+          {
+            "id": "1440 lost response no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 prior explanation actual task-meta",
+            "pass": true
+          },
+          {
+            "id": "1440 retry same complete payload",
+            "pass": true
+          },
+          {
+            "id": "1440 BD success C failure separate",
+            "pass": true
+          },
+          {
+            "id": "1440 unreviewed cue no success claim",
+            "pass": true
+          },
+          {
+            "id": "1440 pending locks answers",
+            "pass": false
+          },
+          {
+            "id": "1440 synchronous double submit only one request",
+            "pass": false
+          },
+          {
+            "id": "1440 cue order retry retains mutation and payload",
+            "pass": false
+          },
+          {
+            "id": "1440 keyboard and overflow",
+            "pass": true
+          }
+        ]
+      }
     }
   ],
   "invalidExcluded": [
-    "invalid-pinned-source-path.json: Windows path override mismatch; rerun fixed in pinned-source.json"
+    "invalid-pinned-source-path.json: Windows path override mismatch; rerun fixed in pinned-source.json",
+    "invalid-meta-item-case: synthetic t#30/T#30 mismatch, corrected before actual-meta acceptance"
   ]
 }

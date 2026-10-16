@@ -45,7 +45,7 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
     inFlight.current = true
     setPending(true); setError(null)
     try {
-      const response = { misfit, sense, cue }
+      const response = { misfit, sense, cue: [...cue].sort((a, b) => a - b) }
       const meta = await task.meta(JSON.stringify(response), started.current ? Math.min(7200, Math.round((performance.now() - started.current) / 1000)) : null)
       const res = await fetch(`/api/csat/item/${slug}/task`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ response, ...meta }) })
       if (res.status === 401) { setNeedLogin(true); return }
