@@ -20,6 +20,9 @@ export interface ContextualSenseAnnotation {
   itemId: string
   skeletonSig: string
   sentenceCount: number
+  /** 출시 전 필수. 원문 변경(길이가 같아도)·공식 정답 변경은 재검수 대상이다. */
+  sourceRevision?: string
+  officialAnswer?: number
   /** 밑줄 ①~⑤ 각각이 놓인 문장 번호(0부터) — 낱말 원문은 담지 않는다 */
   targets: number[]
   /** 맞지 않는 밑줄(0부터 · 공식 정답 번호 − 1) */
@@ -79,7 +82,25 @@ export function validAnnotation(a: unknown): a is ContextualSenseAnnotation {
 
 /** 노출 자격 — 모양이 맞고 두 판정자 합의(accepted · 맹검 독립 검수자 있음)일 때만 */
 export function releasable(a: unknown): a is ContextualSenseAnnotation {
-  return validAnnotation(a) && a.review.status === 'accepted' && !!a.review.independentReviewer && a.review.reviewerBlind && !!a.review.reviewedAt
+  if (!validAnnotation(a)) return false
+  const r = a.review
+  const actor = (x: unknown): x is string => typeof x === 'string' && x.trim().length > 0
+  return r.status === 'accepted' && actor(r.annotator) && actor(r.independentReviewer)
+    && r.annotator.trim() !== r.independentReviewer.trim() && r.reviewerBlind === true
+    && actor(r.agreement) && typeof r.reviewedAt === 'string'
+    && /^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(r.reviewedAt) && Number.isFinite(Date.parse(r.reviewedAt))
+    && typeof a.sourceRevision === 'string' && /^[a-f0-9]{64}$/.test(a.sourceRevision)
+    && a.officialAnswer === a.misfit + 1
+}
+
+/** 중복은 마지막 값으로 덮지 않는다. 합의된 정본이 하나로 고정될 때까지 해당 문항을 닫는다. */
+export function indexContextualSenseAnnotations(sources: readonly unknown[]): Record<string, ContextualSenseAnnotation> {
+  const counts = new Map<string, number>()
+  for (const a of sources) if (a && typeof a === 'object' && typeof (a as { itemId?: unknown }).itemId === 'string') {
+    const id = (a as { itemId: string }).itemId
+    counts.set(id, (counts.get(id) ?? 0) + 1)
+  }
+  return Object.fromEntries(sources.filter(releasable).filter((a) => counts.get(a.itemId) === 1).map((a) => [a.itemId, a]))
 }
 
 export function contextualSenseHash(a: ContextualSenseAnnotation): string {

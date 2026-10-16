@@ -62,6 +62,20 @@ export const ITEM_TASKS: readonly ItemTaskDef[] = [
       return { response: r, grade: g as any, summary: { ...g.probes, order: g.orderOk } }
     },
   },
+  // 기존 E축 선택을 보존한다. 새 V2 주석은 기존 적격 도구를 가리지 않으며 복수 도구 선택은 별도 계약이다.
+  ...(['option-restate', 'evidence-locate'] as const).map((key: EvidenceTaskKey): ItemTaskDef => ({
+    key,
+    learner: key === 'option-restate' ? OPTION_RESTATE_LEARNER : EVIDENCE_LOCATE_LEARNER,
+    annotationFor: (itemId) => deriveEvidenceAnnotation(key, loadItemSkeleton(itemId)),
+    hash: (a) => evidenceAnnotationHash(a as any),
+    panel: (a: any) => evidencePanelProps(a) as any,
+    grade: (a: any, raw) => {
+      const r = parseEvidenceResponse(raw, a)
+      if (!r) return null
+      const g = gradeEvidence(a, r)
+      return { response: r, grade: g as any, summary: { evidence: g.evidenceOk, lure: g.lurePicked } }
+    },
+  })),
   // V2 문맥 의미 선택(LM-G1.5a) — 합의 주석만 노출(지금 0개 → 어느 문항에도 나오지 않음). 근거 문장(C)은 정오에 합치지 않는다
   {
     key: CONTEXTUAL_SENSE_KEY,
@@ -76,20 +90,7 @@ export const ITEM_TASKS: readonly ItemTaskDef[] = [
       return { response: r, grade: g as any, summary: { misfit: g.misfitOk, sense: g.senseOk, ...(g.cueOk === null ? {} : { cue: g.cueOk }) } }
     },
   },
-  // E축(2026-10-10) — 주석은 골격 근거 표시에서 파생(손 주석 없음). 위 두 과제보다 뒤 — 한 문항에 손 주석 과제가 있으면 그쪽이 먼저다
-  ...(['option-restate', 'evidence-locate'] as const).map((key: EvidenceTaskKey): ItemTaskDef => ({
-    key,
-    learner: key === 'option-restate' ? OPTION_RESTATE_LEARNER : EVIDENCE_LOCATE_LEARNER,
-    annotationFor: (itemId) => deriveEvidenceAnnotation(key, loadItemSkeleton(itemId)),
-    hash: (a) => evidenceAnnotationHash(a as any),
-    panel: (a: any) => evidencePanelProps(a) as any,
-    grade: (a: any, raw) => {
-      const r = parseEvidenceResponse(raw, a)
-      if (!r) return null
-      const g = gradeEvidence(a, r)
-      return { response: r, grade: g as any, summary: { evidence: g.evidenceOk, lure: g.lurePicked } }
-    },
-  })),
+
 ]
 /* eslint-enable @typescript-eslint/no-explicit-any */
 

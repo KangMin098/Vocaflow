@@ -20,6 +20,8 @@ const ann = (o: Partial<ContextualSenseAnnotation> = {}): ContextualSenseAnnotat
   itemId: 'T#30',
   skeletonSig: 'sig',
   sentenceCount: 8,
+  sourceRevision: 'a'.repeat(64),
+  officialAnswer: 4,
   targets: [1, 2, 3, 5, 6],
   misfit: 3,
   sense: { options: ['줄어든', '늘어난', '그대로인'], correct: 0, rejectWhy: { '1': '뒤 문장이 감소를 말한다', '2': '변화를 말하는 흐름과 어긋난다' } },

@@ -1,0 +1,233 @@
+{
+  "submittedHead": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+  "originals": [
+    {
+      "file": "pinned-contract.json",
+      "sha256": "4ba004151c39594d6bc675a86bf828c6e08dfce9ad3bc8abec287de3d67de769",
+      "result": {
+        "head": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "mode": "pinned",
+        "rows": [
+          {
+            "id": "B+D correct C wrong is bounded success",
+            "expected": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "actual": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "pass": true
+          },
+          {
+            "id": "B wrong prevents D success",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "unreviewed cue null",
+            "expected": null,
+            "actual": null,
+            "pass": true
+          },
+          {
+            "id": "self reviewer",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "blank actor",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "missing agreement",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "bad review date",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "nonboolean blind",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "id": "adding V2 preserves existing E selected provider",
+            "expected": "option-restate",
+            "actual": "contextual-sense",
+            "pass": false
+          },
+          {
+            "id": "zero shipped V2 annotations",
+            "expected": 0,
+            "actual": 0,
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "pinned-source.json",
+      "sha256": "7372b7662a0850d763f93cef00d0a86fa44fe783f5fecb51657576b1eafb3a9c",
+      "result": {
+        "source": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "rows": [
+          {
+            "name": "current",
+            "expected": true,
+            "actual": true,
+            "pass": true
+          },
+          {
+            "name": "equal length source edit",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "name": "official answer mismatch",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "name": "unknown answer",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          },
+          {
+            "name": "source read failure",
+            "expected": false,
+            "actual": true,
+            "pass": false
+          }
+        ]
+      }
+    },
+    {
+      "file": "pinned-panel/results.json",
+      "sha256": "24ac4159001e2999f1a951fecb4df02deeed2624819a098d9806e4397f2fbbde",
+      "result": {
+        "source": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+        "isolated": true,
+        "rows": [
+          {
+            "id": "1280 HTTP 401 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 400 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 409 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 HTTP 500 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 malformed success without writer outcome rejected",
+            "pass": false
+          },
+          {
+            "id": "1280 lost response no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1280 retry same complete payload",
+            "pass": true
+          },
+          {
+            "id": "1280 BD success C failure separate",
+            "pass": true
+          },
+          {
+            "id": "1280 unreviewed cue no success claim",
+            "pass": true
+          },
+          {
+            "id": "1280 pending locks answers",
+            "pass": false
+          },
+          {
+            "id": "1280 synchronous double submit only one request",
+            "pass": false
+          },
+          {
+            "id": "1280 keyboard and overflow",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 401 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 400 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 409 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 HTTP 500 no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 malformed success without writer outcome rejected",
+            "pass": false
+          },
+          {
+            "id": "1440 lost response no recorded result",
+            "pass": true
+          },
+          {
+            "id": "1440 retry same complete payload",
+            "pass": true
+          },
+          {
+            "id": "1440 BD success C failure separate",
+            "pass": true
+          },
+          {
+            "id": "1440 unreviewed cue no success claim",
+            "pass": true
+          },
+          {
+            "id": "1440 pending locks answers",
+            "pass": false
+          },
+          {
+            "id": "1440 synchronous double submit only one request",
+            "pass": false
+          },
+          {
+            "id": "1440 keyboard and overflow",
+            "pass": true
+          }
+        ]
+      }
+    }
+  ],
+  "invalidExcluded": [
+    "invalid-pinned-source-path.json: Windows path override mismatch; rerun fixed in pinned-source.json"
+  ]
+}

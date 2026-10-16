@@ -1,0 +1,102 @@
+{
+  "source": "working tree",
+  "isolated": true,
+  "rows": [
+    {
+      "id": "1280 HTTP 401 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1280 HTTP 400 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1280 HTTP 409 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1280 HTTP 500 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1280 malformed success without writer outcome rejected",
+      "pass": true
+    },
+    {
+      "id": "1280 lost response no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1280 retry same complete payload",
+      "pass": true
+    },
+    {
+      "id": "1280 BD success C failure separate",
+      "pass": true
+    },
+    {
+      "id": "1280 unreviewed cue no success claim",
+      "pass": true
+    },
+    {
+      "id": "1280 pending locks answers",
+      "pass": true
+    },
+    {
+      "id": "1280 synchronous double submit only one request",
+      "pass": true
+    },
+    {
+      "id": "1280 keyboard and overflow",
+      "pass": true
+    },
+    {
+      "id": "1440 HTTP 401 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1440 HTTP 400 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1440 HTTP 409 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1440 HTTP 500 no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1440 malformed success without writer outcome rejected",
+      "pass": true
+    },
+    {
+      "id": "1440 lost response no recorded result",
+      "pass": true
+    },
+    {
+      "id": "1440 retry same complete payload",
+      "pass": true
+    },
+    {
+      "id": "1440 BD success C failure separate",
+      "pass": true
+    },
+    {
+      "id": "1440 unreviewed cue no success claim",
+      "pass": true
+    },
+    {
+      "id": "1440 pending locks answers",
+      "pass": true
+    },
+    {
+      "id": "1440 synchronous double submit only one request",
+      "pass": true
+    },
+    {
+      "id": "1440 keyboard and overflow",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "source": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+  "rows": [
+    {
+      "name": "current",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "name": "equal length source edit",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "official answer mismatch",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "unknown answer",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "source read failure",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    }
+  ]
+}

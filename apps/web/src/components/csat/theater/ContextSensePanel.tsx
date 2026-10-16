@@ -36,11 +36,13 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
   const [error, setError] = useState<string | null>(null)
   const [needLogin, setNeedLogin] = useState(false)
   const [pending, setPending] = useState(false)
+  const inFlight = useRef(false)
   const started = useRef<number | null>(null)
   const task = useTaskMeta(slug)
 
   const submit = async () => {
-    if (misfit === null || sense === null) return
+    if (misfit === null || sense === null || inFlight.current) return
+    inFlight.current = true
     setPending(true); setError(null)
     try {
       const response = { misfit, sense, cue }
@@ -50,12 +52,18 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
       const body = await res.json().catch(() => ({}))
       // 저장이 실패하면 결과를 보이지 않는다(허위 완료 없음)
       if (!res.ok) { setError(body.error ?? '저장하지 못했어요. 잠시 뒤 다시 해 주세요'); return }
+      const g = body.grade
+      if (!['inserted', 'duplicate'].includes(body.outcome) || !g || typeof g.misfitOk !== 'boolean' || typeof g.senseOk !== 'boolean'
+        || !(g.cueOk === null || typeof g.cueOk === 'boolean') || typeof g.isCorrect !== 'boolean'
+        || g.isCorrect !== (g.misfitOk && g.senseOk)) throw new Error('Invalid saved result')
+      setNeedLogin(false)
       task.settled()
-      setGrade(body.grade as Grade)
+      setGrade(g as Grade)
     } catch {
       setError('저장하지 못했어요. 잠시 뒤 다시 해 주세요')
     } finally {
       setPending(false)
+      inFlight.current = false
     }
   }
   const reset = () => { setMisfit(null); setSense(null); setCue([]); setGrade(null); started.current = performance.now(); task.restart() }
@@ -73,7 +81,7 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
       ) : (
         <div className="mt-5 grid gap-5" data-testid="principle-task">
           <p className="text-xs text-[var(--t3)]">공개 문제지의 지문을 보며 밑줄 번호 · 문장 번호로 고릅니다. 해설을 보기 전에 혼자 고른 첫 답만 확인 기록으로 셉니다.</p>
-          <fieldset disabled={!!grade}>
+          <fieldset disabled={!!grade || pending}>
             <legend className="mb-2 text-sm font-medium text-[var(--t1)]">{T.misfit}</legend>
             <div className="flex flex-wrap gap-2">
               {targets.map((s, i) => (
@@ -81,7 +89,7 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
               ))}
             </div>
           </fieldset>
-          <fieldset disabled={!!grade || misfit === null}>
+          <fieldset disabled={!!grade || pending || misfit === null}>
             <legend className="mb-2 text-sm font-medium text-[var(--t1)]">{T.sense}</legend>
             <div className="flex flex-wrap gap-2">
               {senseOptions.map((o, i) => (
@@ -89,7 +97,7 @@ export function ContextSensePanel({ slug, principle, why, sentenceCount, targets
               ))}
             </div>
           </fieldset>
-          <fieldset disabled={!!grade || misfit === null}>
+          <fieldset disabled={!!grade || pending || misfit === null}>
             <legend className="mb-2 text-sm font-medium text-[var(--t1)]">{T.cue}</legend>
             {!cueGraded && <p className="mb-2 text-xs text-[var(--t3)]">{T.cueUngraded}</p>}
             <div className="flex flex-wrap gap-2">

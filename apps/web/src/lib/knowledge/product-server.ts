@@ -16,6 +16,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { checkBinding, passageRevision } from './anchor-source'
 import { CURATED } from './evidence-locate'
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
+import { CONTEXTUAL_SENSE_KEY, releasable } from './contextual-sense'
 import { isSyntheticEmail, parseClientMeta } from './practice'
 import { selectWriter, type AttemptWrite, type AttemptWriter, type WriteOutcome } from './practice-writer'
 import type { StepChain } from './learning-decision'
@@ -99,6 +100,14 @@ export interface ItemPrinciplePanel {
  * 원문 조회 실패 · 결속 불일치는 닫는다(fail-closed). 원문이 같다는 것은 근거 위치가 맞다는 뜻일 뿐 원인 판정 근거가 아니다.
  */
 export async function anchorGate(itemId: string, client: SupabaseClient = db()): Promise<boolean> {
+  const selected = currentItemTask(itemId)
+  if (selected?.def.key === CONTEXTUAL_SENSE_KEY) {
+    const a = selected.ann
+    if (!releasable(a)) return false
+    const { data, error } = await client.from('csat_items').select('passage, answer, answer_unknown').eq('id', itemId).maybeSingle()
+    if (error || !data || typeof data.passage !== 'string' || data.answer_unknown !== false) return false
+    return passageRevision(data.passage) === a.sourceRevision && data.answer === a.officialAnswer
+  }
   const bound = CURATED[itemId] as (typeof CURATED)[string] & { source?: { revision: string } }
   if (!bound) return true
   const { data, error } = await client.from('csat_items').select('passage').eq('id', itemId).maybeSingle()

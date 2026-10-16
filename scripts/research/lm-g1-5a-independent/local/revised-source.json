@@ -1,0 +1,35 @@
+{
+  "source": "working tree",
+  "rows": [
+    {
+      "name": "current",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "name": "equal length source edit",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "official answer mismatch",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "unknown answer",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "name": "source read failure",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    }
+  ]
+}

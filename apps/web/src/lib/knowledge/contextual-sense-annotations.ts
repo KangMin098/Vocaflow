@@ -4,13 +4,11 @@
 // 2026-10-17 현재 **합의 주석 0개** — 그래서 이 과제는 어느 문항에도 나오지 않는다(지도 V2 직접 확인 = content_needed 그대로).
 // 주석을 더하는 절차: annotations/contextual-sense-<item>.v1.json 작성 → 맹검 독립 검수 · 합의 → 여기 import 한 줄
 //   → 관리자 출시(knowledge_applications 활성 · 사람 승인). 등록만으로는 학습자에게 열리지 않는다.
-import { releasable, type ContextualSenseAnnotation } from './contextual-sense'
+import { indexContextualSenseAnnotations, type ContextualSenseAnnotation } from './contextual-sense'
 
 const SOURCES: readonly unknown[] = []
 
-const ANNOTATIONS: Record<string, ContextualSenseAnnotation> = Object.fromEntries(
-  SOURCES.filter(releasable).map((a) => [a.itemId, a]),
-)
+const ANNOTATIONS: Record<string, ContextualSenseAnnotation> = indexContextualSenseAnnotations(SOURCES)
 
 export function contextualSenseAnnotationFor(itemId: string): ContextualSenseAnnotation | null {
   return ANNOTATIONS[itemId] ?? null

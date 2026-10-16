@@ -1,0 +1,55 @@
+{
+  "goal_id": "VG-L3-A1-01",
+  "title": "PR276 V2 independent acceptance",
+  "description": "Inactive V2 contract grading registry exposure and save failure verification, minimal fixes and safe merge.",
+  "priority": "P0",
+  "owner_id": "lm-g1-5a-independent",
+  "allowed_paths": [
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/components/csat/theater/**",
+    "apps/web/src/app/(app)/csat/item/**",
+    "apps/web/src/lib/csat/map/**",
+    "scripts/research/lm-g1-5a-independent/**",
+    "docs/research/lm-g1-5a-independent/**",
+    "docs/csat-learner/v62/**",
+    "docs/CHANGELOG.md",
+    "docs/MODULES.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    "supabase/**",
+    ".env*"
+  ],
+  "db_scope": {
+    "mode": "read",
+    "targets": [
+      "dev:jajenrevcbmrpaliomxv"
+    ]
+  },
+  "acceptance": [
+    "Pinned source and initial counterexamples preserved",
+    "Gates A-F with honest inactive content boundary",
+    "PC1280/1440 and existing regressions",
+    "Source-bound report purpose CI safe merge"
+  ],
+  "impact": {
+    "kind": "independent",
+    "current_gap": "Submitted inactive V2 contract requires independent adversarial acceptance",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "Counterexamples",
+      "PC browsers",
+      "Existing API regressions",
+      "CI and source-bound verdict"
+    ],
+    "next_dependency": "Content annotation review before V2 release",
+    "out_of_scope": [
+      "DB changes",
+      "Content release",
+      "Learning effect claims",
+      "New mastery policy"
+    ],
+    "dependency_type": "direct",
+    "user_request_ref": "2026-10-17 PR276 LM-G1.5a independent V2 acceptance"
+  }
+}

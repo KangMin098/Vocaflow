@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
+
 - feat(knowledge): LM-G1.5a V2 문맥 의미 선택 instrument — 기출 어휘 문항의 맞지 않는 밑줄(B) · 문맥 뜻(D) 채점, 근거 문장(C)은 검수된 경우만 · 정오와 분리 · 기존 item-tasks · 기록 API · 문항 화면 연결 · 합의 주석 0개라 비활성(지도 V2 content_needed 그대로) · DB/RPC/RLS 변경 없음
 - LM-G1.4 독립 T4: DB 첫 시도 ID와 원장 ID를 정확히 연결하고 미식별·주석 UNKNOWN의 성공 승격을 차단했다. 기존 채점 경로의 골격·본문 결속을 재사용하고 일부 실패·연결 조회 실패·과거 asof를 보류한다. 원장 관찰과 현행 도구 확인·정오·공유 집계를 분리하며 도구 설명의 44px 대상을 보완했다. 기존 숙달·단계 정책과 DB/RPC/RLS는 보존한다.
 - feat(map): LM-G1.4 증거 자격 · 주장 범위 — 지금 확인 · 교수 경로 · 다른 글 적용 · 지연 확인(NOT_ESTABLISHED)을 분리해 팝업 · 상세 서랍 · Workspace 창에 같은 값으로 · 시도별 CONFIRMED/UNKNOWN/STALE/INELIGIBLE · R5 도구 범위 · 반례 E01–E20 · DB/RPC/RLS 변경 없음
