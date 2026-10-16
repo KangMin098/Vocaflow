@@ -20,7 +20,7 @@ import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-server'
-import { isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
+import { anchorGate, isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
 import { toItemSlug } from '../item-slug'
 import type { AsIsSession } from './v4/as-is'
 import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
@@ -455,18 +455,19 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }
 
   // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
-  const allLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  let linksRead = true
+  const allLinks = await loadMapPracticeLinks().catch((e) => { linksRead = false; console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
   // Reveal Gate — 보류 시험 문항은 확인 링크 · 확인 결과(정오) · 수행 요약에서 뺀다. 판정 실패면 전부 뺀다(fail-closed · Codex P1)
   const gate = await itemRevealDecision(Object.values(allLinks).flatMap((l) => l.confirm.map((c) => c.target)))
   if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
-  const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
+  const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
     return undefined
-  })
-  const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
-  const lifecycleActivity = await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined })
+  }) : undefined
+  const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
+  const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))
@@ -487,7 +488,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   let instrumentHashes: Record<string, string | null> | undefined
   try {
     const pairs = [...(lifecycleActivity ?? []).map((x) => [x.taskKey, x.itemRef] as const), ...(findAttempts ?? []).map((x) => [x.taskKey, x.itemRef] as const)]
-    instrumentHashes = instrumentHashesFor(pairs, undefined, (key, error) => console.error('[csat-map instrument hash]', key, error))
+    instrumentHashes = linksRead ? await instrumentHashesFor(pairs, item => anchorGate(item, db), undefined, (key, error) => console.error('[csat-map instrument hash]', key, error)) : undefined
   } catch (e) {
     console.error('[csat-map instrument hashes]', e)
     instrumentHashes = undefined

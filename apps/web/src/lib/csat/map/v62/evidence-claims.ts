@@ -66,7 +66,7 @@ export interface EvidenceView {
   /** 지연 유지 — 승인된 간격 · 도구가 없으면 NOT_ESTABLISHED. 120일 만료 · resolved 를 승격하지 않는다 */
   delayedRetention: { status: 'NOT_ESTABLISHED'; reason: 'no_approved_interval_or_instrument' }
   learningEffect: 'NOT_EVALUATED'
-  /** 원장 읽기 완전성 — 못 읽었으면 'unknown'(근거 완전성 PASS 금지) */
+  /** Requested linked-task/item scope completeness, not the learner's entire DB history. */
   ledger: 'complete' | 'unknown'
   attempts: AttemptEvidence[]
   /** 같은 지문의 다른 문항을 둘 이상 확인에 쓴 경우 — 서로 독립 관찰이 아니다 */
@@ -102,7 +102,7 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
 
   const attempts: AttemptEvidence[] = mine.map((a) => {
     const reasons: string[] = []
-    const itemKey = `${a.taskKey.replace(/-skeleton$/, '')}|${a.itemRef}`
+    const itemKey = `${a.taskKey}|${a.itemRef}`
     const now = input.hashes === undefined ? undefined : input.hashes[itemKey]
     const instrument: FieldStatus = a.contentHash === undefined || now === undefined ? 'UNKNOWN' : now === null || a.contentHash === null ? 'UNKNOWN' : a.contentHash === now ? 'CONFIRMED' : 'STALE'
     if (instrument === 'STALE') reasons.push('과거 주석 기준의 수행')

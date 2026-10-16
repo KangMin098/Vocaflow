@@ -30,6 +30,6 @@ it('a stale current instrument does not erase an independently observed historic
  expect(e.attempts[0]!.claim).toBe('performed_only')
  const html = renderToStaticMarkup(<EvidenceBlock e={e} />)
  expect(html).toContain('현행 도구 독립 확인 문항 0개')
- expect(html).toContain('원장 독립 첫 관찰 1개')
+ expect(html).toContain('기록에서 확인된 독립 첫 관찰 1개')
  expect(html).toContain('첫 독립 관찰 중 맞힘 0 · 틀림 1')
 })

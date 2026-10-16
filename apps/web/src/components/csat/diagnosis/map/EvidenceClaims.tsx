@@ -55,7 +55,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
     <div className={u.evBlock} data-testid="ins-evidence-claims" data-check={e.currentCheck.status} data-ledger={e.ledger}>
       <dl className={u.popKv}>
         <dt>지금 확인</dt>
-        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '전체 수행 집계 보류' : `현행 도구 독립 확인 문항 ${counted.size}개(전체 기록 중)`}</dd>
+        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '수행 집계 보류' : `현행 도구 독립 확인 문항 ${counted.size}개(연결된 과제·전체 기간)`}</dd>
         <dt>바로잡기</dt>
         <dd data-testid="ev-repair">{REPAIR_LABEL[e.instructionPath.repair]} — 해 본 것이지 익혔다는 뜻은 아니에요</dd>
         <dt>다른 글 적용</dt>
@@ -67,7 +67,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
       {e.attempts.length > 0 && (
         <p className={u.fine} data-testid="ev-claims">
           {(Object.keys(CLAIM_LABEL) as AttemptEvidence['claim'][]).filter((k) => counts[k]).map((k) => `${CLAIM_LABEL[k]} ${counts[k]}${k === 'independent_check' ? '(현행 도구 기준)' : ''}`).join(' · ')}
-          {e.ledger === 'complete' ? ` · 원장 독립 첫 관찰 ${observed.length}개: 첫 독립 관찰 중 맞힘 ${observed.filter((a) => a.outcome === 'correct').length} · 틀림 ${observed.filter((a) => a.outcome === 'incorrect').length}(성공 건수와 구별)` : ''}
+          {e.ledger === 'complete' ? ` · 기록에서 확인된 독립 첫 관찰 ${observed.length}개: 첫 독립 관찰 중 맞힘 ${observed.filter((a) => a.outcome === 'correct').length} · 틀림 ${observed.filter((a) => a.outcome === 'incorrect').length}` : ''}
         </p>
       )}
       {notes.length > 0 && (

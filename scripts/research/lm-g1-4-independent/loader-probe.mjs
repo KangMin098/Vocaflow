@@ -16,13 +16,13 @@ const first=await mod.loadFindAttempts(database(data.slice(0,1)),'u',['i0']);res
 const {taskByKey,currentItemTask,ITEM_TASKS}=sourceModule('apps/web/src/lib/knowledge/item-tasks.ts'),{annotatedItemIds}=sourceModule('apps/web/src/lib/knowledge/claim-support.ts'),{instrumentHashesFor}=sourceModule('apps/web/src/lib/csat/map/v62/instrument-hashes.ts');
 const items=annotatedItemIds().slice(0,6),keys=['claim-support','cohesion-link','option-restate','evidence-locate'],pairs=Array.from({length:12001},(_,i)=>({taskKey:keys[i%4],itemRef:items[Math.floor(i/4)%6]}));
 const block=source.slice(source.indexOf('  let instrumentHashes:'),source.indexOf('  for (const [key, list] of Object.entries(transferTargets))'));
-const code=ts.transpileModule('function hashBlock(lifecycleActivity,findAttempts,taskByKey,instrumentHashesFor,console){'+block+';return instrumentHashes}',{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+const code=ts.transpileModule('async function hashBlock(lifecycleActivity,findAttempts,taskByKey,instrumentHashesFor,anchorGate,console){const linksRead=true,db={};'+block+';return instrumentHashes}',{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
 const runBlock=new Function(code+';return hashBlock')();
 for(const injectFailure of [false,true]){
  let annCalls=0,hashCalls=0,errors=0;
  const saved=ITEM_TASKS.map(def=>({def,annotation:def.annotationFor,hash:def.hash}));
  for(const s of saved){s.def.annotationFor=item=>{annCalls++;if(injectFailure&&s.def.key==='claim-support'&&item===items[1])throw Error('injected annotation failure');return s.annotation(item)};s.def.hash=ann=>{hashCalls++;return s.hash(ann)}}
- try {const begin=performance.now(),out=runBlock(pairs,[],taskByKey,(p,_lookup,onError)=>instrumentHashesFor(p,currentItemTask,onError),{error(){errors++}});results.push({name:injectFailure?'one failed annotation retains healthy currentness':'12001 rows actual annotation registry',pass:injectFailure?!!out&&out['claim-support|'+items[0]]!==null&&out['claim-support|'+items[1]]===null:annCalls===(original?24:6),annCalls,hashCalls,errors,pairs:pairs.length,distinct:24,hashes:out?Object.keys(out).length:null,ms:performance.now()-begin})}
+ try {const begin=performance.now(),out=await runBlock(pairs,[],taskByKey,instrumentHashesFor,async()=>true,{error(){errors++}});results.push({name:injectFailure?'one failed annotation retains healthy currentness':'12001 rows actual annotation registry',pass:injectFailure?!!out&&out['claim-support|'+items[0]]!==null&&out['claim-support|'+items[1]]===null:annCalls===(original?24:6),annCalls,hashCalls,errors,pairs:pairs.length,distinct:24,hashes:out?Object.keys(out).length:null,ms:performance.now()-begin})}
  finally{for(const s of saved){s.def.annotationFor=s.annotation;s.def.hash=s.hash}}
 }
 const passageDb=values=>({from(){return {select(){return this},in:async()=>({data:values,error:null})}}});
@@ -30,4 +30,4 @@ const samePassage=await mod.loadPassageKeys(passageDb([{exam_id:'E',no:1,passage
 const changedPassage=await mod.loadPassageKeys(passageDb([{exam_id:'E',no:1,passage:{text:'same'}},{exam_id:'E',no:2,passage:{text:'edit'}},{exam_id:'E',no:3,passage:null}]),['E#1','E#2','E#3']);
 results.push({name:'canonical shared identity and changed source hash; absent source remains unknown',pass:samePassage['E#1']===samePassage['E#2']&&changedPassage['E#1']!==changedPassage['E#2']&&!changedPassage['E#3']});
 const dependencies=Object.fromEntries(['apps/web/src/lib/csat/map/v62/instrument-hashes.ts','apps/web/src/lib/knowledge/item-tasks.ts','apps/web/src/lib/csat/skeleton.ts'].map(f=>[f,sha(fs.readFileSync(root+'/'+f))]));
-const out={dependencies,source:original?'pinned':'revised',sourceSha256:sha(source),results};fs.writeFileSync(path.join(import.meta.dirname,'local/loader-current-tool-'+(original?'original':'revised')+'-web-cwd.json'),JSON.stringify(out,null,2));console.log(JSON.stringify(out));if(!original&&results.some(r=>!r.pass))process.exitCode=1;
+const out={dependencies,source:original?'pinned':'revised',sourceSha256:sha(source),results};fs.writeFileSync(path.join(import.meta.dirname,'local/loader-full-gate-'+(original?'original':'revised')+'.json'),JSON.stringify(out,null,2));console.log(JSON.stringify(out));if(!original&&results.some(r=>!r.pass))process.exitCode=1;
