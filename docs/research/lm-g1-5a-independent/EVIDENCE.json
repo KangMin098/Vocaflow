@@ -1,0 +1,1060 @@
+{
+  "submittedHead": "4064c002bec87cedc3f4dece9d86172eed3d8fc0",
+  "sourceBasis": "7ee352f1baa76347a413ba676a85e05411436408",
+  "assemblyHead": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+  "activeV2Content": 0,
+  "actualV2Vertical": "BLOCKED_CONTENT",
+  "expertValidation": "NOT_TESTED",
+  "learningEffect": "NOT_CLAIMED",
+  "browsers": {
+    "assertions": 214,
+    "jobs": [
+      {
+        "name": "v2-1280",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T22:59:42.056Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 6,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-product",
+        "runnerSha256": "0576c747ac56c31323e4d63e6b9b9d25e7e190cb4a5236bcb665141ab99fdd94",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "v2-1440",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T23:00:47.310Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 6,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-product",
+        "runnerSha256": "c8d3f8fe59b2b619bad1248c4054413fd838292d48d56033dd5484fdb5f195e7",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t4-1280",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T23:02:27.460Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 14,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-product",
+        "runnerSha256": "818155063da24358c967124d7c352ee5a69225b12bf14ec6853f291b50d22e86",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t4-1440",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T23:08:32.865Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 14,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-retry",
+        "runnerSha256": "155512d2e067ff79386dd05ed25e0d971e4325acfae27fb322d330e9a7f8be55",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t1",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T23:11:19.350Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 9,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-rest",
+        "runnerSha256": "76aa742a4293f965200c9f668b181cca68b8fbe9d6d7f323ddf38ddd4069b3cb",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t2-1280",
+        "sourceStable": true,
+        "headAtStart": "5170292eb319c859a39a15451ec46072488404c5",
+        "startedAt": "2026-10-16T23:12:44.654Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 26,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-rest",
+        "runnerSha256": "7e7ed286cd081b28c84153ea1d0172815a7ee605c12b399761a0ecd23eb8e6dd",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t2-1440",
+        "sourceStable": true,
+        "headAtStart": "5170292eb319c859a39a15451ec46072488404c5",
+        "startedAt": "2026-10-16T23:35:47.697Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 26,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "488bd9f7d054e459a3479633f719d37eb3a19277d379689ff012836343c4441f",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t3-1280",
+        "sourceStable": true,
+        "headAtStart": "5170292eb319c859a39a15451ec46072488404c5",
+        "startedAt": "2026-10-16T23:39:16.233Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 20,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "5ca608877972987f25c42366583c5de018a8dacc80447c5440b3b63eb9efd271",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "t3-1440",
+        "sourceStable": true,
+        "headAtStart": "5170292eb319c859a39a15451ec46072488404c5",
+        "startedAt": "2026-10-16T23:40:48.992Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 20,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "2bc281439edeedff0ab773c062e9bc8facc6aa199f8ced41bc1fca7ed7dc1b98",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "security",
+        "sourceStable": true,
+        "headAtStart": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+        "startedAt": "2026-10-16T23:42:20.333Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 18,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "84c6214a36d1c0d896745b5f8751d7a9d891ed98db91bf472ad8bcb598070ddb",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "workspace",
+        "sourceStable": true,
+        "headAtStart": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+        "startedAt": "2026-10-16T23:43:52.180Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 36,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "02f1f45b6da5c957cad8dc60c5b14f95e8b4abedcf558e6a0878611ada102797",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "return",
+        "sourceStable": true,
+        "headAtStart": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+        "startedAt": "2026-10-16T23:45:01.410Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 7,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "a0f7a0dc3304bb19377855489daface9e8b575da7a80a7ec86fc6a7c80549574",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "study",
+        "sourceStable": true,
+        "headAtStart": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+        "startedAt": "2026-10-16T23:46:23.360Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 6,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "c98a545237cdf7c382e989581747c2aa35b38348300372c03850a2174d17c205",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      },
+      {
+        "name": "supply",
+        "sourceStable": true,
+        "headAtStart": "e7400908d2e43c63df06c268eadbd5a20dfd7386",
+        "startedAt": "2026-10-16T23:47:28.891Z",
+        "exit": 0,
+        "error": null,
+        "passLines": 6,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 2,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-tail",
+        "runnerSha256": "e67312e33c4f44e1a694450cf598b0402d29796fa1cebd4f458f5005062a785c",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      }
+    ],
+    "excluded": [
+      {
+        "name": "t4-1440",
+        "sourceStable": true,
+        "headAtStart": "7ee352f1baa76347a413ba676a85e05411436408",
+        "startedAt": "2026-10-16T23:05:43.315Z",
+        "exit": 1,
+        "error": null,
+        "passLines": 7,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1,
+        "sourceMatches": true,
+        "runnerMatches": true,
+        "run": "frozen-product",
+        "runnerSha256": "14572466d350eda8581a27001e45a7dbcf0049dfc403e498e50d08bd62220eac",
+        "sourceManifestSha256": "27790b00eff5c6da87c2ad8ac3c887997a2f8cc59d7bc823de6db7e2785d296b"
+      }
+    ]
+  },
+  "binding": {
+    "receiptSha256": "276f301ce68d2a9dc90a61d18bd094d75c0deeb6543b83ac6caf297febf61b05",
+    "startedAt": "2026-10-16T23:40:12.704Z",
+    "finishedAt": "2026-10-16T23:40:34.707Z",
+    "hashes": {
+      "apps/web/src/app/(app)/csat/item/[slug]/page.tsx": "6e21576d947174c538e093feb6201a53a2cef7e804e4a9393b1bbe1d4e329a2d",
+      "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx": "e84a223f823ad0ea52d1aa250e4a5883450c5a8e4ca164c61656f949a948ed91",
+      "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx": "b15012f04ee26f71d2cc9f19a71d5a6b6eeeea3793923d952ddc20f6464970e8",
+      "apps/web/src/components/csat/diagnosis/map/TaskPopup.tsx": "dd5924b77c79c547274a85d8510ea8c78fdee1f91cae36c600565fff1d226b90",
+      "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx": "19bd6041c800cfd9eef9c1f6f164f6ce759415a245fcd8cb3e6f5fde9fa41380",
+      "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx": "13fe3370710518ab4bbbd53404eefc8474107d59fe7f540f4b6b3e1e22b64fd4",
+      "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx": "493258f42df324b60547e6fb1c82cd2ff340a0a38291bc7d4d925bb3354462ca",
+      "apps/web/src/components/csat/diagnosis/map/unified.module.css": "14e7123d1dbef51c97b6a6f59aa479acff86ae9e23ba91f22bf57f00c69c09e6",
+      "apps/web/src/components/csat/theater/ContextSensePanel.tsx": "a19a0ed1ccc76930e7bf30b4a7d553fce26ff0b7df3cfb6d9067946f9a638db2",
+      "apps/web/src/components/csat/theater/__tests__/ContextSensePanel.test.tsx": "be2fe793915b28b17885d584512dc736b1a08fafb2811daf12eadc01e8cece78",
+      "apps/web/src/lib/csat/map/lifecycle-evidence.ts": "141f46d1c687784ac2174a5746ff6915bc6376207d3b223805251e111242b38f",
+      "apps/web/src/lib/csat/map/load.ts": "cd9055fb6c78bf7746a811799f6d862e5e0dc2be6b6fe30e3e2e91f49ebaced9",
+      "apps/web/src/lib/csat/map/v4/compose.ts": "e601730aae428f9d373f972f80fc1fd110e21bbb9b1501cc6c583482c723dac2",
+      "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims-independent.test.ts": "0a23329a9ccc1d0a5fb6b03a7318df754bacfcf745abf1715d90c5ca8dac548a",
+      "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims.test.ts": "c899492b0d19e56397a4c2087b247313e93f1118b6802c8776665faf042321fb",
+      "apps/web/src/lib/csat/map/v62/__tests__/instrument-currentness-independent.test.ts": "60a2de4edd027a37d5c8b98ef3da25650ca2911ee213844fe08e8a30ba1cf61f",
+      "apps/web/src/lib/csat/map/v62/__tests__/instrument-hashes.test.ts": "1ba8dc5adac0c3845beec0ca340cdfdc1216276557dbad6e93da0b5271837a1d",
+      "apps/web/src/lib/csat/map/v62/__tests__/instrument-source-independent.test.ts": "ba5cacb45fef22b50d77f72f86f44c55391b78af6211801a7e0e133c4f1c4c6d",
+      "apps/web/src/lib/csat/map/v62/__tests__/v2-support-boundary.test.ts": "596b4829e26902ac80a7ceed411e31a353117075cd1934136bbdd8b3409d3dd1",
+      "apps/web/src/lib/csat/map/v62/evidence-claims.ts": "c1ce756a729f50e55ca86098b8b7028c13476decb80816e4db4e89c32879a546",
+      "apps/web/src/lib/csat/map/v62/instrument-hashes.ts": "cf3f67c7a01e4780dbc14436497911aefe68885a3191cc38637b6492bbeee110",
+      "apps/web/src/lib/knowledge/__tests__/contextual-sense-acceptance.test.ts": "0fb9f6829f9d82980f470dc28704cf02ccc0f4ce9fb55c8f459a2a20706e77f8",
+      "apps/web/src/lib/knowledge/__tests__/contextual-sense-server.test.ts": "7ffb6ecca057b65dbd3c418d21ef5ffa660ac8ed83ab5a290e1153524578217a",
+      "apps/web/src/lib/knowledge/__tests__/contextual-sense.test.ts": "f273b57b04e572e95e5709e648ef98918aa85b4036441148aaf800588d07b6fa",
+      "apps/web/src/lib/knowledge/contextual-sense-annotations.ts": "cbdc54520f42e98172234cf53f42b591288e03fc9880daa7f8351ac448a68eda",
+      "apps/web/src/lib/knowledge/contextual-sense-labels.ts": "7eea2e148e1e09d3723ff0896c29a652ebf3d3845e085cddde2695c7617177cf",
+      "apps/web/src/lib/knowledge/contextual-sense.ts": "bbabea3d79f0f42e5874c0e1c40f70f14029ddb947a0102122f7e32320d939cc",
+      "apps/web/src/lib/knowledge/find-outcome.ts": "a46790482a749fa41ce1f4b52f456c669a96e1d75fce6be2b876ec89ac0b7267",
+      "apps/web/src/lib/knowledge/item-tasks.ts": "aab9117fb95f8684fc56589f3f797184df3c9bf46c6bb085966ffd50ae528961",
+      "apps/web/src/lib/knowledge/product-server.ts": "1bc852d41709b9a1a82a5c7415028ba90f7d790fa3522e2d2ffd7330a683e7ac",
+      "scripts/research/lm-g1-5a-independent/contract-probe.mjs": "0412dfd9db902222336e8a3f8a0da552b96594f57dff845fc6dfca542e68bfa0",
+      "scripts/research/lm-g1-5a-independent/source-probe.mjs": "b9313caeb9e1ab834d405340c2ca0f4c279ef28d7b6fb9925ae6b3909165b92a",
+      "scripts/research/lm-g1-5a-independent/duplicate-probe.mjs": "47ac664f0e9790c81536014f5fc064b06e7f61af229cae682d4733c40dac1721",
+      "scripts/research/lm-g1-5a-independent/inventory.mjs": "4087ef4125c858db54c1cd7d6c07ffee2b497e84e2d41f409cd860d4e271ddcb",
+      "scripts/research/lm-g1-5a-independent/panel-browser.mjs": "3799c4e61489f1d5595b95794baf5b3744dab5f88242d352e58a931696c20e07",
+      "scripts/research/lm-g1-5a-independent/binding.mjs": "8f1106e2ee1d1132368064e322b871d2bad781ec9f30ced1fe02ce7eceab4241",
+      "scripts/research/lm-g1-5a-independent/bound-checks.mjs": "9d4132ca41fd7c2220ff12fd90cbeef993de5d7ebc704ee2da1962eff25de714",
+      "scripts/research/lm-g1-3a-independent/source-loader.mjs": "a29a5f3ab59acd000dbd66c5dc3ec221e17e418018d98cf6dbeb1c1bd3d3a3ac",
+      "apps/web/src/components/csat/theater/task-meta.ts": "f5eb589f71f548926e59e5821bfe97a8c661c145a45e9eced66fa5268dcf2237"
+    },
+    "jobs": [
+      {
+        "name": "contract",
+        "exit": 0,
+        "error": null
+      },
+      {
+        "name": "source",
+        "exit": 0,
+        "error": null
+      },
+      {
+        "name": "duplicate",
+        "exit": 0,
+        "error": null
+      },
+      {
+        "name": "inventory",
+        "exit": 0,
+        "error": null
+      },
+      {
+        "name": "panel",
+        "exit": 0,
+        "error": null
+      },
+      {
+        "name": "focused",
+        "exit": 0,
+        "error": null
+      }
+    ]
+  },
+  "focused": {
+    "files": 5,
+    "tests": 22,
+    "fail": 0,
+    "skip": 0,
+    "sha256": "14f26c3d5fc011907e092d275e7819f2dc1b705d5297a6c215eb50a3e8bfc714"
+  },
+  "isolated": {
+    "file": "bound-panel/results.json",
+    "sha256": "e1e37a4501a8b4c2abd6ec7388c3ffc7c3589b42d43426a23189a9a82867742f",
+    "source": "working tree",
+    "isolated": true,
+    "rows": [
+      {
+        "id": "1280 HTTP 401 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1280 HTTP 400 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1280 HTTP 409 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1280 HTTP 500 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1280 malformed success without writer outcome rejected",
+        "pass": true
+      },
+      {
+        "id": "1280 lost response no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1280 prior explanation actual task-meta",
+        "pass": true
+      },
+      {
+        "id": "1280 retry same complete payload",
+        "pass": true
+      },
+      {
+        "id": "1280 BD success C failure separate",
+        "pass": true
+      },
+      {
+        "id": "1280 unreviewed cue no success claim",
+        "pass": true
+      },
+      {
+        "id": "1280 pending locks answers",
+        "pass": true
+      },
+      {
+        "id": "1280 synchronous double submit only one request",
+        "pass": true
+      },
+      {
+        "id": "1280 cue order retry retains mutation and payload",
+        "pass": true
+      },
+      {
+        "id": "1280 keyboard and overflow",
+        "pass": true
+      },
+      {
+        "id": "1440 HTTP 401 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1440 HTTP 400 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1440 HTTP 409 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1440 HTTP 500 no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1440 malformed success without writer outcome rejected",
+        "pass": true
+      },
+      {
+        "id": "1440 lost response no recorded result",
+        "pass": true
+      },
+      {
+        "id": "1440 prior explanation actual task-meta",
+        "pass": true
+      },
+      {
+        "id": "1440 retry same complete payload",
+        "pass": true
+      },
+      {
+        "id": "1440 BD success C failure separate",
+        "pass": true
+      },
+      {
+        "id": "1440 unreviewed cue no success claim",
+        "pass": true
+      },
+      {
+        "id": "1440 pending locks answers",
+        "pass": true
+      },
+      {
+        "id": "1440 synchronous double submit only one request",
+        "pass": true
+      },
+      {
+        "id": "1440 cue order retry retains mutation and payload",
+        "pass": true
+      },
+      {
+        "id": "1440 keyboard and overflow",
+        "pass": true
+      }
+    ]
+  },
+  "counterexamples": [
+    {
+      "file": "bound-contract.json",
+      "sha256": "89a8479f21d7850d27af92e83328696a115505d4f1ec482922c683d430676827",
+      "result": {
+        "head": "5170292eb319c859a39a15451ec46072488404c5",
+        "mode": "revised",
+        "rows": [
+          {
+            "id": "B+D correct C wrong is bounded success",
+            "expected": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "actual": {
+              "misfitOk": true,
+              "senseOk": true,
+              "cueOk": false,
+              "isCorrect": true
+            },
+            "pass": true
+          },
+          {
+            "id": "B wrong prevents D success",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "unreviewed cue null",
+            "expected": null,
+            "actual": null,
+            "pass": true
+          },
+          {
+            "id": "self reviewer",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "blank actor",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "missing agreement",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "bad review date",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "nonboolean blind",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "id": "adding V2 preserves existing E selected provider",
+            "expected": "option-restate",
+            "actual": "option-restate",
+            "pass": true
+          },
+          {
+            "id": "zero shipped V2 annotations",
+            "expected": 0,
+            "actual": 0,
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "bound-source.json",
+      "sha256": "85ef371e8e04db2f997df98305e7da81d837e9d92dfb4c45a06335e5dbce745a",
+      "result": {
+        "source": "working tree",
+        "rows": [
+          {
+            "name": "current",
+            "expected": true,
+            "actual": true,
+            "pass": true
+          },
+          {
+            "name": "equal length source edit",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "name": "official answer mismatch",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "name": "non vocabulary type",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "name": "unknown answer",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          },
+          {
+            "name": "source read failure",
+            "expected": false,
+            "actual": false,
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "bound-duplicate.json",
+      "sha256": "01dad424f9bdadf38df8b228b706ac0f92e66d1f38f78788973767c8b23260bd",
+      "result": {
+        "source": "working tree",
+        "row": {
+          "name": "conflicting same-item versions remain unavailable",
+          "expected": null,
+          "actual": null,
+          "pass": true
+        }
+      }
+    }
+  ],
+  "originals": {
+    "file": "INITIAL-FAILS.json",
+    "sha256": "7a2387ec65021b02a941749c50ab5823833ef3869bb008e328c357bb3fbf3887"
+  },
+  "inventory": {
+    "file": "bound-inventory.json",
+    "sha256": "3a9eba97aa133bc3d90946b4165d87fa097ee443697ca2feeac70cba6457eaf0",
+    "result": {
+      "candidates": [
+        {
+          "itemId": "2014A#28",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2014B#28",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2015#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2016#29",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2017#29",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2018#29",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2019#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2020#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2021#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2022#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2023#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2024#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2025#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2026#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M1809#29",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2006#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2106#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2109#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2206#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2209#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2306#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2309#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2406#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2409#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2506#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2509#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2606#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2609#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2706#30",
+          "type": "R-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2019#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2020#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2021#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2022#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2023#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2024#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2025#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "2026#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2006#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2106#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2109#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2206#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2209#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2306#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2309#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2406#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2409#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2506#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2509#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2606#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2609#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        },
+        {
+          "itemId": "M2706#42",
+          "type": "X-VOCAB",
+          "currentProvider": null
+        }
+      ],
+      "providerPreservation": [
+        {
+          "itemId": "2026#22",
+          "before": "option-restate",
+          "after": "option-restate",
+          "pass": true
+        },
+        {
+          "itemId": "2026#23",
+          "before": "claim-support",
+          "after": "claim-support",
+          "pass": true
+        },
+        {
+          "itemId": "2026#24",
+          "before": "option-restate",
+          "after": "option-restate",
+          "pass": true
+        },
+        {
+          "itemId": "2025#22",
+          "before": "option-restate",
+          "after": "option-restate",
+          "pass": true
+        },
+        {
+          "itemId": "2025#23",
+          "before": "option-restate",
+          "after": "option-restate",
+          "pass": true
+        },
+        {
+          "itemId": "2025#24",
+          "before": "option-restate",
+          "after": "option-restate",
+          "pass": true
+        },
+        {
+          "itemId": "2026#31",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2026#32",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2026#33",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2026#34",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2025#32",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2024#31",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2024#33",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2023#32",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        },
+        {
+          "itemId": "2025#34",
+          "before": "evidence-locate",
+          "after": "evidence-locate",
+          "pass": true
+        }
+      ],
+      "normalMatches": true,
+      "otherTaskRejected": true,
+      "otherItemRejected": true,
+      "sourceScope": "committed skeleton inventory; not DB content qualification"
+    }
+  },
+  "limits": [
+    "No actual V2 attempt has been saved; isolated writers and HTTP replies are fixtures",
+    "Metadata is not an actual blind review ledger or semantic annotation validation",
+    "Existing E provider retained; dual instrument selection remains separate",
+    "No DB/RPC/RLS or content release changes; synthetic accounts only"
+  ]
+}

@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
+
 - PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
 
 - feat(knowledge): LM-G1.5a V2 문맥 의미 선택 instrument — 기출 어휘 문항의 맞지 않는 밑줄(B) · 문맥 뜻(D) 채점, 근거 문장(C)은 검수된 경우만 · 정오와 분리 · 기존 item-tasks · 기록 API · 문항 화면 연결 · 합의 주석 0개라 비활성(지도 V2 content_needed 그대로) · DB/RPC/RLS 변경 없음
