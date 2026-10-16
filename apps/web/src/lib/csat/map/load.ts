@@ -34,6 +34,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { ALL_STEPS } from './learner-path'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
+import { taskByKey } from '@/lib/knowledge/item-tasks'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
@@ -72,6 +73,11 @@ export interface MapPageData {
   findAttempts?: FindAttemptRow[]
   /** 생애주기 수행 기록(바로잡기 · 적용 판정용) — 연결된 과제 키의 본인 시도 전부(첫 시도만이 아니다). 못 읽으면 undefined(「기록 없음」 으로 보이지 않게) */
   lifecycleActivity?: ActivityRow[]
+  /**
+   * LM-G1.4 — 문항별 현재 주석 해시(과제 키|문항 → 해시 · 현재 주석이 없으면 null). 수행 기록의 content_hash 와 비교해 현재성(STALE)을 가른다.
+   * 못 구했으면 undefined(판정하지 않고 UNKNOWN).
+   */
+  instrumentHashes?: Record<string, string | null>
   /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
   practiceResults?: Record<string, PracticeResult>
   /** FIND 과제 id → 「같은 원리를 다른 지문에 적용」 Practice 주소 — 실학습 풀에 그 문항 말고 다른 문항이 있을 때만 */
@@ -235,7 +241,7 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
   const data: Record<string, unknown>[] = []
   let cursor: string | null = null
   for (;;) {
-    let query = db.from('learning_task_attempts').select('id, item_ref, task_key, phase, is_correct, answered_at')
+    let query = db.from('learning_task_attempts').select('id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
       .eq('user_id', userId).in('task_key', [...new Set(taskKeys.flatMap(transferKeysOf))]).order('id', { ascending: false }).limit(1000)
     if (cursor !== null) query = query.lt('id', cursor)
     const page = await query
@@ -247,9 +253,10 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
     if ((typeof last === 'number' && !Number.isSafeInteger(last)) || !/^\d+$/.test(String(last)) || String(last) === cursor) throw new Error('Invalid lifecycle cursor')
     cursor = String(last)
   }
-  return (data as { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null }[])
+  type Row = { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
+  return (data as Row[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
-    .map((r) => ({ itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at }))
+    .map((r) => ({ itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -469,6 +476,23 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // Read existing source only: exact passage JSON binds progress and candidate availability.
   const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x))
   for (const a of lifecycleActivity ?? []) a.passageKey = a.itemRef ? passageKeys[a.itemRef] ?? null : null
+  // LM-G1.4 — 수행 기록 · 첫 시도 문항의 현재 주석 해시(기존 과제 레지스트리 · 판정 아님). 못 구하면 undefined → 현재성 UNKNOWN
+  let instrumentHashes: Record<string, string | null> | undefined
+  try {
+    instrumentHashes = {}
+    const pairs = [...(lifecycleActivity ?? []).map((x) => [x.taskKey, x.itemRef] as const), ...(findAttempts ?? []).map((x) => [x.taskKey, x.itemRef] as const)]
+    for (const [k, item] of pairs) {
+      if (!item) continue
+      const key = `${k.replace(/-skeleton$/, '')}|${item}`
+      if (key in instrumentHashes) continue
+      const def = taskByKey(k.replace(/-skeleton$/, ''))
+      const ann = def?.annotationFor(item) ?? null
+      instrumentHashes[key] = def && ann ? def.hash(ann) : null
+    }
+  } catch (e) {
+    console.error('[csat-map instrument hashes]', e)
+    instrumentHashes = undefined
+  }
   for (const [key, list] of Object.entries(transferTargets)) {
     if (list.some(l => !passageKeys[l.target])) throw new Error('적용 후보의 지문 식별 자료를 확인하지 못했어요')
     transferTargets[key] = list.filter(l => !!passageKeys[l.target]).map(l => ({ ...l, passageKey: passageKeys[l.target] }))
@@ -509,6 +533,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     practiceLinks,
     findAttempts,
     lifecycleActivity,
+    instrumentHashes,
     practiceResults,
     practiceNext,
     records,

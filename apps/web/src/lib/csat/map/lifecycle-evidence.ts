@@ -17,6 +17,12 @@ export interface ActivityRow {
   phase: string
   isCorrect: boolean | null
   answeredAt: string | null
+  /** LM-G1.4 증거 계보(원장 그대로 · 없으면 undefined = 옛 입력) — 주석 해시 · 화면 · 도움 · 합성 · 서버 수신 */
+  contentHash?: string | null
+  activity?: string | null
+  helpLevel?: string | null
+  synthetic?: boolean | null
+  receivedAt?: string | null
 }
 
 export interface LifecycleEvidence {

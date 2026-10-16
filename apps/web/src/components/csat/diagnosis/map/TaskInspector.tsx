@@ -47,6 +47,7 @@ import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskIn
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
 
+import { EvidenceBlock } from './EvidenceClaims'
 import { StepSheet } from './StepSheet'
 import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
@@ -191,6 +192,13 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
           {ins.now.timingHeld > 0 && <p className={u.fine} data-testid="inspector-timing-held" data-n={ins.now.timingHeld}>확인 문항 {ins.now.timingHeld}개는 해설 열람 시각과 제출 순서를 확인할 수 없어 이번 독립 확인에 반영하지 않았어요 — 틀렸다는 뜻이 아니에요.</p>}
           <p className={u.fine}>근거 상태는 실력 점수가 아니에요. 확인 전 · 보류는 부족하다는 뜻이 아니에요.</p>
         </section>
+
+        {view.evidence?.[t.id] && (
+          <section className={u.insSec} aria-labelledby="ins-claims">
+            <h3 id="ins-claims" className={u.insH}>기록으로 말할 수 있는 것</h3>
+            <EvidenceBlock e={view.evidence[t.id]!} />
+          </section>
+        )}
 
         <section className={u.insSec} aria-labelledby="ins-plan">
           <h3 id="ins-plan" className={u.insH}>학습 경로 · 필요한 자료</h3>

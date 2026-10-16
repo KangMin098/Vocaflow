@@ -1541,3 +1541,43 @@ p.dockL {
     gap: 8px;
   }
 }
+
+/* 증거 범위(LM-G1.4) — 네 값을 따로 · 칩 한 줄 */
+.evChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+  word-break: keep-all;
+}
+.evChips li {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--m-canvas);
+}
+.evBlock {
+  display: grid;
+  gap: 6px;
+  word-break: keep-all;
+}
+.evBlock .popKv {
+  grid-template-columns: 112px minmax(0, 1fr);
+}
+.evNotes {
+  margin: 0;
+  padding-left: 16px;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.evScope summary {
+  cursor: pointer;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+}
+.evScope summary:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}

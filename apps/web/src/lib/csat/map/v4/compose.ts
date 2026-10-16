@@ -9,11 +9,12 @@ import { learnerPath, type StepEvidence } from '../learner-path'
 import type { MapPageData } from '../load'
 
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
-import { DOMAINS, templateOf, type Domain } from './definition'
+import { DOMAINS, checkKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
+import { evidenceView, type EvidenceView } from '../v62/evidence-claims'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
 import { transferPolicy } from './plan-commit'
-import { allTaskPlans, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
+import { allTaskPlans, transferDoneOf, transferPlanned, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
 
 const STEP_TO_PROXY: Record<StepEvidence, AxisProxyState> = {
   none: 'none',
@@ -87,6 +88,8 @@ export interface V4View {
   plans: Record<string, WorkspacePlanView>
   /** 모든 비보류 TASK 계획 — 지도의 TASK → 연관 Workspace 찾기 */
   taskPlans: TaskPlan[]
+  /** LM-G1.4 — TASK 별 증거 자격 · 주장 범위(직접 확인 키가 있는 TASK 만 · 기존 판정 결과 조합). 화면 팝업 · 드로어 · Workspace 모달이 같은 값을 읽는다 */
+  evidence?: Partial<Record<TaskId, EvidenceView>>
 }
 
 /**
@@ -126,5 +129,15 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
   const opts = { savedTransfer: savedTransferOf(data) }
   const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, { ...workspacePlan(w, asIs, toBe, plan, activity, opts), restoreTransfer: data.v4?.saved.byTemplate[w.id]?.transferPolicies }]))
-  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts) }
+  // LM-G1.4 — 직접 확인 키가 있는 TASK 의 증거 자격 · 주장 범위(기존 판정 결과만 조합 · 같은 기준 시점 · 같은 수행 기록)
+  const views = [plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w)
+  const evidence: Partial<Record<TaskId, EvidenceView>> = {}
+  for (const id of Object.keys(asIs.tasks) as TaskId[]) {
+    if (checkKeysOfTask(id).length === 0) continue
+    const t = asIs.tasks[id]
+    const home = views.find((w) => w.core.includes(id)) ?? null
+    const firsts = data.findAttempts ? data.findAttempts.filter((f) => !f.answeredAt || ms(f.answeredAt) <= cut) : undefined
+    evidence[id] = evidenceView({ task: id, check: t.check, firsts, activity: data.lifecycleActivity ? activity.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null })) : undefined, hashes: data.instrumentHashes, transfer: { done: t.check?.verifiedAt ? transferDoneOf(id, t.check.verifiedAt, activity) : 0, planned: transferPlanned(t, home, opts) } })
+  }
+  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts), evidence }
 }
