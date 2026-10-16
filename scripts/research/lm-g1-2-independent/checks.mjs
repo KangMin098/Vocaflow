@@ -28,7 +28,8 @@ if(mode==='browser'){
   ['supply','scripts/csat/map/v62/e2e-map-supply.mjs',['--base',base,'--evidence',local+'/supply']],
  ]
  const results=[]
- const remainingJobs=jobs.slice(Number(process.argv[3]??0))
+ const delta=process.argv[3]==='delta'
+ const remainingJobs=delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
  let ownedServer=null
  const ensureServer=async()=>{
   try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
@@ -56,7 +57,7 @@ if(mode==='browser'){
   src=src.replace("height: 1000","height: 900")
   src=src.replace("await page.fill('input[type=\"email\"]', email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', email)")
   const generated=folder+'/runner.mjs';fs.writeFileSync(generated,src)
-  const at=new Date().toISOString()
+  const at=new Date().toISOString(),headAtStart=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).stdout.trim()
   const r=spawnSync(process.execPath,['--tls-max-v1.2',generated,...args],{cwd:root,encoding:'utf8',timeout:900000,maxBuffer:16<<20,windowsHide:true})
   const log=(r.stdout??'')+'\n'+(r.stderr??'');fs.writeFileSync(folder+'/run.log',log)
   const ids=fs.existsSync(ownIds)?JSON.parse(fs.readFileSync(ownIds,'utf8')):[]
@@ -66,8 +67,8 @@ if(mode==='browser'){
   if(unknown){cleanup.ok=false;cleanup.unknown+=unknown;cleanup.accountsLeft=null;cleanup.errors.push('initial_absence_unconfirmed')}
   const failed=log.split(/\r?\n/).filter(l=>/^\[FAIL\]|^FAIL /.test(l))
   const passed=log.split(/\r?\n/).filter(l=>/^\[PASS\]|^PASS (?!\d)/.test(l))
-  const row={name,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
-  results.push(row);fs.writeFileSync(local+'/browser-summary.json',JSON.stringify(results,null,2));console.log(JSON.stringify(row))
+  const row={name,headAtStart,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
+  results.push(row);fs.writeFileSync(local+(delta?'/delta-browser-summary.json':'/browser-summary.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(row))
   if(!cleanup.ok||r.status!==0||failed.length)break
  }
  process.exitCode=results.length===remainingJobs.length&&results.every(r=>r.exit===0&&r.failLines===0&&r.cleanup.ok)?0:1

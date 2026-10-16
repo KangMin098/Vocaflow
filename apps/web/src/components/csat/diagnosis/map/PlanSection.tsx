@@ -71,6 +71,11 @@ function hasNote(key: string): boolean {
   try { return window.localStorage.getItem(key + ':note') !== null } catch { return false }
 }
 
+/** Raw device values distinguish no edit from a reset; read failures stay unknown. */
+function storedEditStamp(key: string): string | null {
+  try { return JSON.stringify([window.localStorage.getItem(key), window.localStorage.getItem(key + ':note')]) } catch { return null }
+}
+
 /** The authenticated response may arrive while no editor is mounted. */
 function carryPlanEdit(from: string, to: string) {
   if (!hasDraft(to)) writeDraft(to, readDraft(from))
@@ -172,6 +177,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const submit = async (reasonCode: PlanReason, restoreOf?: number) => {
     const request = ++live.current.request
     const edit = live.current.edit
+    const submittedStamp = storedEditStamp(key)
     const current = () => live.current.mounted && live.current.key === key && live.current.request === request && live.current.edit === edit
     const src = restoreOf ? sw?.history.find((h) => h.version === restoreOf)?.plan : null
     const req = {
@@ -194,11 +200,11 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       const res = await fetch('/api/csat/diagnosis/map/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
       const j = (await res.json().catch(() => ({}))) as { code?: string; detail?: string; version?: number; workspaceId?: string }
       if (res.ok && Number.isSafeInteger(j.version) && j.version! > savedVersion && typeof j.workspaceId === 'string' && (!sw || sw.workspaceId === j.workspaceId)) {
-        if (current()) {
+        const active = current()
+        if (active || (submittedStamp !== null && storedEditStamp(key) === submittedStamp)) {
           writeDraft(key, null)
           writeNote(key, '')
-          setDraft(null)
-          setNote('')
+          if (active) { setDraft(null); setNote('') }
         }
         carryPlanEdit(key, draftKey(viewer, view.workspace, goal, j.version!))
         acknowledgePlan(key, { version: j.version!, workspaceId: j.workspaceId, stages: currentStages() })
