@@ -5,7 +5,7 @@ import {pathToFileURL} from 'node:url'
 import path from 'node:path'
 import {spawn,spawnSync} from 'node:child_process'
 import {createRequire} from 'node:module'
-import {stopOwnedServer} from '../lm-g1-2-independent/owned-server.mjs'
+import {stopOwnedServer} from './owned-server.mjs'
 const root=path.resolve(import.meta.dirname,'../../..'),web=path.join(root,'apps/web')
 const req=createRequire(path.join(web,'package.json'))
 const out=path.join(import.meta.dirname,'local/checks');fs.mkdirSync(out,{recursive:true})
@@ -15,7 +15,7 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3008',local=path.join(import.meta.dirname,'local/context-final');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3010',local=path.join(import.meta.dirname,'local/post-final');fs.mkdirSync(local,{recursive:true})
  const jobs=[
  ['stale-goal-1280','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/stale-goal-1280']],
  ['stale-goal-1440','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/stale-goal-1440']],
@@ -39,13 +39,16 @@ if(mode==='browser'){
  const delta=process.argv[3]==='delta'
  const context=process.argv[3]==='context';
  const contextNames=['stale-goal-1280','stale-goal-1440','keyboard','independent-1280','independent-1440','revised-1280','revised-1440','security','late-remount'];
- const remainingJobs=context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
+ const post=process.argv[3]==='post';
+ const postNames=['stale-goal-1280','stale-goal-1440','independent-1280','independent-1440','security','late-remount'];
+ const remainingJobs=post?[...jobs.filter(j=>postNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
  let ownedServer=null
  const ensureServer=async()=>{
-  try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
+  let online=false;try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});online=r.status<500}catch{}
+  if(online){if(!ownedServer)throw Error('Refusing an unowned server on the verification port');return}
   if(!ownedServer||ownedServer.exitCode!==null||ownedServer.signalCode!==null){
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
-  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3008'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-context'},windowsHide:true,stdio:['ignore',fd,err]})
+  ownedServer=spawn(process.execPath,['--max-old-space-size=3072','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3010'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-post'},windowsHide:true,stdio:['ignore',fd,err]})
   fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
   }
@@ -58,8 +61,12 @@ if(mode==='browser'){
   const folder=local+'/'+name;fs.mkdirSync(folder,{recursive:true})
   const ownIds=folder+'/owned-accounts.local.json'
   let src=fs.readFileSync(path.join(root,file),'utf8')
+  if(file==='scripts/csat/map/v62/e2e-lm-g1-3a.mjs'){const liveDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul'}).format(new Date(Date.now()+90*86400000));src=src.replaceAll('2026-11-19',liveDate)}
   // Only runner location, viewport, hydration and cleanup instrumentation change; assertions remain.
   src=src.replace(/const ROOT = path.resolve\(import.meta.dirname, [^\n]+\n/, 'const ROOT = '+JSON.stringify(root)+'\n')
+  src=src.replace("out=root+'/scripts/research/lm-g1-2-independent/local/security'",'out='+JSON.stringify(folder));
+  src=src.replace("out=root+'/scripts/research/lm-g1-2-independent/local/late-remount'",'out='+JSON.stringify(folder));
+  src=src.replace("out=root+'/scripts/research/lm-g1-2-independent/local/save-unchanged-'+Number(process.argv[3]??1440)",'out='+JSON.stringify(folder));
   src=src.replaceAll('/scripts/research/lm-g1-2-independent/local/','/scripts/research/lm-g1-3a-independent/local/');
   src=src.replaceAll("from './source-loader.mjs'","from "+JSON.stringify(pathToFileURL(root+'/scripts/research/lm-g1-3a-independent/source-loader.mjs').href));
   src=src.replaceAll("from './cleanup.mjs'","from "+JSON.stringify(pathToFileURL(root+'/scripts/research/lm-g1-1-independent/cleanup.mjs').href))
@@ -76,7 +83,7 @@ if(mode==='browser'){
   fs.writeFileSync(folder+'/source-hashes.json',JSON.stringify(codeHash));
   const at=new Date().toISOString(),headAtStart=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).stdout.trim()
   const r=spawnSync(process.execPath,['--tls-max-v1.2',generated,...args],{cwd:root,encoding:'utf8',timeout:900000,maxBuffer:16<<20,windowsHide:true})
-  const log=(r.stdout??'')+'\n'+(r.stderr??'');fs.writeFileSync(folder+'/run.log',log)
+  const log=((r.stdout??'')+'\n'+(r.stderr??'')).replace(/^.*(?:cookie|authorization):[^\r\n]*/gim,'[redacted authentication header]').replace(/eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]+/g,'[redacted token]');fs.writeFileSync(folder+'/run.log',log)
   const ids=fs.existsSync(ownIds)?JSON.parse(fs.readFileSync(ownIds,'utf8')):[]
   const present=[];let unknown=0
   for(const id of ids){const g=await db.auth.admin.getUserById(id);if(g.error?.status===404&&g.error?.code==='user_not_found')continue;if(g.data?.user&&!g.error)present.push(id);else unknown++}
@@ -87,6 +94,7 @@ if(mode==='browser'){
   const sourceStable=JSON.stringify(codeHash)===JSON.stringify(sourceHashes());
   const row={name,sourceStable,headAtStart,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
   results.push(row);fs.writeFileSync(local+(delta?'/delta-browser-summary.json':'/browser-summary.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(row))
+  if(ownedServer){const stopped=await stopOwnedServer(ownedServer);fs.writeFileSync(folder+'/server-cleanup.json',JSON.stringify(stopped));ownedServer=null}
   if(!cleanup.ok||r.status!==0||failed.length||!sourceStable)break
  }
  process.exitCode=results.length===remainingJobs.length&&results.every(r=>r.exit===0&&r.failLines===0&&r.cleanup.ok&&r.sourceStable)?0:1

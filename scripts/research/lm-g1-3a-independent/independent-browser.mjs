@@ -18,6 +18,8 @@ const { createClient } = req('@supabase/supabase-js')
 const arg = (k, d) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d)
 const BASE = arg('--base', 'http://localhost:3005')
 const WIDTH = Number(arg('--width', '1440'))
+const RUN_NOW = new Date()
+const TARGET_DATE = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(RUN_NOW.getTime() + 90 * 86_400_000))
 const EVID = path.resolve(ROOT, arg('--evidence', `tmp/lm-g1-3a-${WIDTH}`))
 const WS = 'ws.central-meaning'
 fs.mkdirSync(EVID, { recursive: true })
@@ -133,9 +135,9 @@ try {
  const tab=await ctx.newPage();const newer=await putGoal(tab,{target:87,exam:'kice9',clientKey:crypto.randomUUID()});release();await finished;await page.unroute('**/api/csat/diagnosis/map/goal');await page.waitForFunction(()=>document.querySelector('[data-testid="goal-value"]')?.textContent.includes('87')&&document.querySelector('[data-testid="goal-target"]')?.getAttribute('data-exam')==='kice9',null,{timeout:30000});
  const final=await mapState(page);rec('S02','late reply refresh uses actual newest goal from another tab',newer.status===200&&final.goalValue?.includes('87')&&final.target?.exam==='kice9',{final});await shot(page,'latest-goal-after-late-reply');
  // Grade contradiction is explicit, never overwritten, for the reverse pair too.
- await putGoal(page,{target:80,grade:1,exam:'suneung',date:'2026-11-19',clientKey:crypto.randomUUID()});
+ await putGoal(page,{target:80,grade:1,exam:'suneung',date:TARGET_DATE,clientKey:crypto.randomUUID()});
  await openMap(page);const grade=await mapState(page);rec('GRADE80','explicit grade1 preserved against score80 reference2',grade.target?.grade==='1'&&grade.target?.text.includes('바꾸지 않았어요'),grade);
- const other=await browser.newContext({viewport:{width:WIDTH,height:900},timezoneId:'America/Los_Angeles'});const cookies=await ctx.cookies();await other.addCookies(cookies);const op=await other.newPage();await openMap(op);const tz=await mapState(op);rec('TZ-display','saved date calendar stable in another browser timezone',tz.target?.date==='2026-11-19',tz.target);await other.close();
+ const other=await browser.newContext({viewport:{width:WIDTH,height:900},timezoneId:'America/Los_Angeles'});const cookies=await ctx.cookies();await other.addCookies(cookies);const op=await other.newPage();await openMap(op);const tz=await mapState(op);rec('TZ-display','saved date calendar stable in another browser timezone',tz.target?.date===TARGET_DATE,tz.target);await other.close();
  await ctx.close();
 } catch (e) {
   fatal = String(e?.stack ?? e).slice(0, 800)
@@ -150,7 +152,7 @@ try {
   await browser.close()
   const pass = results.filter((r) => r.status === 'PASS').length
   const fail = results.filter((r) => r.status === 'FAIL').length
-  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, base: BASE, width: WIDTH, pass, fail, fatal, accounts: { created: users.length, absentAfter: cleanup.filter(Boolean).length }, layers: { learning_effect: 'NOT_CLAIMED' }, results: scrub(results) }, null, 2))
+  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, base: BASE, width: WIDTH, targetDate: TARGET_DATE, pass, fail, fatal, accounts: { created: users.length, absentAfter: cleanup.filter(Boolean).length }, layers: { learning_effect: 'NOT_CLAIMED' }, results: scrub(results) }, null, 2))
   console.log(`accounts created ${users.length} · absent ${cleanup.filter(Boolean).length}`)
   console.log(`PASS ${pass} · FAIL ${fail}${fatal ? ' · FATAL' : ''}`)
   process.exitCode = fail || fatal || cleanup.some((x) => !x) ? 1 : 0

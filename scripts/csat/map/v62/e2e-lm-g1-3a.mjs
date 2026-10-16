@@ -17,6 +17,9 @@ const { createClient } = req('@supabase/supabase-js')
 const arg = (k, d) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d)
 const BASE = arg('--base', 'http://localhost:3005')
 const WIDTH = Number(arg('--width', '1440'))
+// Live harness clock boundary; fixed-clock policy probes are kept separately.
+const RUN_NOW = new Date()
+const TARGET_DATE = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(RUN_NOW.getTime() + 90 * 86_400_000))
 const EVID = path.resolve(ROOT, arg('--evidence', `tmp/lm-g1-3a-${WIDTH}`))
 const WS = 'ws.central-meaning'
 fs.mkdirSync(EVID, { recursive: true })
@@ -124,7 +127,7 @@ try {
   await page.click('[data-testid="goal-more"] > summary')
   await page.selectOption('[data-testid="goal-exam"]', 'suneung')
   await page.selectOption('[data-testid="goal-grade"]', '2')
-  await page.fill('[data-testid="goal-date"]', '2026-11-19')
+  await page.fill('[data-testid="goal-date"]', TARGET_DATE)
   await shot(page, 'T02-popup')
   await page.click('[data-testid="goal-apply-all"]')
   await page.waitForFunction(() => document.querySelector('[data-testid="goal-target"]')?.getAttribute('data-exam') === 'suneung', null, { timeout: 60_000 }).catch(() => {})
@@ -132,13 +135,13 @@ try {
   const G2 = await goalRows(A.uid)
   const s2 = await mapState(page)
   const last = G2.at(-1)
-  rec('T02', '팝업 저장 90 · 수능 · 2등급 · 2026-11-19 → 새 이력 행 · 최신 표 90 · 화면 같은 값 · 기준 시험이 수능 회차로 바뀜', G2.length === 2 && last.target_score === 90 && last.target_exam === 'suneung' && last.target_grade === 2 && last.target_date === '2026-11-19' && (await latestGoal(A.uid))?.target_score === 90 && s2.target?.exam === 'suneung' && s2.target?.grade === '2' && s2.target?.date === '2026-11-19' && s2.target?.exams !== s1.target?.exams, { row: last, target: s2.target, before: s1.target?.exams })
+  rec('T02', '팝업 저장 90 · 수능 · 2등급 · 2026-11-19 → 새 이력 행 · 최신 표 90 · 화면 같은 값 · 기준 시험이 수능 회차로 바뀜', G2.length === 2 && last.target_score === 90 && last.target_exam === 'suneung' && last.target_grade === 2 && last.target_date === TARGET_DATE && (await latestGoal(A.uid))?.target_score === 90 && s2.target?.exam === 'suneung' && s2.target?.grade === '2' && s2.target?.date === TARGET_DATE && s2.target?.exams !== s1.target?.exams, { row: last, target: s2.target, before: s1.target?.exams })
   await shot(page, 'T02-saved')
   rec('T04', '저장 등급 2 · 점수 90 참고 구간 — 섞지 않고 따로 표시 · 모순이면 「바꾸지 않았어요」', s2.goalValue?.includes('참고') && (s2.target?.text?.includes('목표 2등급') ?? false), { goalValue: s2.goalValue, line: s2.target?.text })
-  rec('T05', '목표일 저장 · 표시 · 계획량 생성 없음(화면에 날짜 기반 학습량 문구 없음)', s2.target?.date === '2026-11-19' && !(await page.textContent('body')).includes('하루에'), { date: s2.target?.date })
+  rec('T05', '목표일 저장 · 표시 · 계획량 생성 없음(화면에 날짜 기반 학습량 문구 없음)', s2.target?.date === TARGET_DATE && !(await page.textContent('body')).includes('하루에'), { date: s2.target?.date })
 
   // 9월 모평 → 범위 다시 바뀜
-  const k9 = await putGoal(page, { target: 90, exam: 'kice9', grade: 2, date: '2026-11-19', clientKey: crypto.randomUUID() })
+  const k9 = await putGoal(page, { target: 90, exam: 'kice9', grade: 2, date: TARGET_DATE, clientKey: crypto.randomUUID() })
   await openMap(page)
   const s9 = await mapState(page)
   rec('T03a', '시험 종류 수능 → 9월 모평 — 기준 시험 회차 집합이 바뀐다(실제 범위 변경)', k9.status === 200 && s9.target?.exam === 'kice9' && s9.target?.scope === 'supported' && s9.target?.exams !== s2.target?.exams, { suneung: s2.target?.exams, kice9: s9.target?.exams })
@@ -240,7 +243,7 @@ try {
   await browser.close()
   const pass = results.filter((r) => r.status === 'PASS').length
   const fail = results.filter((r) => r.status === 'FAIL').length
-  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, base: BASE, width: WIDTH, pass, fail, fatal, accounts: { created: users.length, absentAfter: cleanup.filter(Boolean).length }, layers: { learning_effect: 'NOT_CLAIMED' }, results: scrub(results) }, null, 2))
+  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, base: BASE, width: WIDTH, targetDate: TARGET_DATE, pass, fail, fatal, accounts: { created: users.length, absentAfter: cleanup.filter(Boolean).length }, layers: { learning_effect: 'NOT_CLAIMED' }, results: scrub(results) }, null, 2))
   console.log(`accounts created ${users.length} · absent ${cleanup.filter(Boolean).length}`)
   console.log(`PASS ${pass} · FAIL ${fail}${fatal ? ' · FATAL' : ''}`)
   process.exitCode = fail || fatal || cleanup.some((x) => !x) ? 1 : 0

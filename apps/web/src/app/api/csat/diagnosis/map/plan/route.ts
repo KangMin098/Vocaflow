@@ -63,6 +63,11 @@ export async function POST(req: Request) {
       expectedVersion: r.expectedVersion, clientKey: r.clientKey, restoreOf: r.reason === 'restore' ? r.restoreOf ?? null : null,
     })
     if (!res.ok) return NextResponse.json({ error: res.code, code: res.code, detail: res.detail }, { status: res.status })
+    // Both prechecks may miss. The installed RPC replays by key alone, so only
+    // acknowledge the immutable stored request after comparing body/goal/version.
+    const committed = await findCommitByKey(ctx.db, ctx.userId, r.clientKey)
+    if (!committed || committed.version !== res.version || committed.workspaceId !== res.workspaceId) throw new Error('계획 저장 결과를 확인하지 못했어요 — 같은 요청으로 다시 시도해 주세요')
+    if (!sameCommitRequest(committed, r)) return NextResponse.json({ error: 'client_key_reused', code: 'client_key_reused' }, { status: 409 })
     return NextResponse.json({ version: res.version, reused: res.reused, workspaceId: res.workspaceId })
   } catch (e) {
     return failure(e)
