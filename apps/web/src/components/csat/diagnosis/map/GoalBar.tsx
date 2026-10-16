@@ -63,8 +63,6 @@ export function useGoal(data: MapPageData) {
       setErr('0~100 사이 정수로 적어 주세요')
       return
     }
-    const before = goal
-    const beforeExtra = extra
     setDraft(String(next))
     setExtra(more)
     setSaving(true)
@@ -77,9 +75,9 @@ export function useGoal(data: MapPageData) {
       track({ name: 'csat_map_goal_set', props: { goal: next } })
       startTransition(() => router.refresh())
     } catch (e) {
-      // 실패하면 저장 전 값으로 — 저장 안 된 입력을 저장된 목표처럼 남기지 않는다(T13)
-      setDraft(String(before))
-      setExtra(beforeExtra)
+      // A response may be lost after commit. Preserve the editor and request key
+      // so Apply retries that exact request, rather than restoring an older goal.
+      // The displayed goal and recommendations still use the server snapshot.
       setErr(e instanceof Error ? e.message : '저장하지 못했어요')
     } finally {
       setSaving(false)

@@ -15,8 +15,9 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3010',local=path.join(import.meta.dirname,process.argv[3]==='dates'?'local/date-retry':'local/post-final');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3010',local=path.join(import.meta.dirname,process.argv[3]==='loss'?'local/loss-verified':process.argv[3]==='dates'?'local/date-retry':'local/post-final');fs.mkdirSync(local,{recursive:true})
  const jobs=[
+ ...[1280,1440].map(w=>['loss-'+w,'scripts/research/lm-g1-3a-independent/lost-response-browser.mjs',['--base',base,'--width',String(w),'--evidence',local+'/loss-'+w]]),
  ['stale-goal-1280','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/stale-goal-1280']],
  ['stale-goal-1440','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/stale-goal-1440']],
  ['keyboard','scripts/research/lm-g1-3a-independent/keyboard-browser.mjs',['--base',base,'--evidence',local+'/keyboard']],
@@ -42,7 +43,7 @@ if(mode==='browser'){
  const dates=process.argv[3]==='dates';
  const post=process.argv[3]==='post';
  const postNames=['stale-goal-1280','stale-goal-1440','independent-1280','independent-1440','security','late-remount'];
- const remainingJobs=dates?jobs.filter(j=>j[0]==='target-1280'||j[0]==='target-1440'):post?[...jobs.filter(j=>postNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
+ const remainingJobs=process.argv[3]==='loss'?jobs.filter(j=>j[0].startsWith('loss-')):dates?jobs.filter(j=>j[0]==='target-1280'||j[0]==='target-1440'):post?[...jobs.filter(j=>postNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
  let ownedServer=null
  const ensureServer=async()=>{
   let online=false;try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});online=r.status<500}catch{}
