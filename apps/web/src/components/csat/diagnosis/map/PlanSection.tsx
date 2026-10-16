@@ -37,7 +37,7 @@ const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
 }
 
 /** 이 기기 초안의 열쇠 — 학습자 · 정의 버전 · 목표 · 저장 버전이 다르면 다른 초안(낡은 초안을 쓰지 않는다) */
-export const draftKey = (viewer: string, ws: string, goal: number, savedVersion: number) => `map-v4-plan-draft:v2:${viewer}:${CANON_VERSION}:g${goal}:${ws}:v${savedVersion}`
+export const draftKey = (viewer: string, ws: string, goal: number, savedVersion: number, goalVersion?: number | null) => `map-v4-plan-draft:v2:${viewer}:${CANON_VERSION}:g${goal}:${goalVersion === undefined ? '' : `gv${goalVersion ?? 'none'}:`}${ws}:v${savedVersion}`
 
 function readDraft(key: string): PlanDraft | null {
   try {
@@ -92,7 +92,7 @@ const seoul = (iso: string, withTime: boolean) => {
 const sameAsSaved = (a: WorkspacePlanView, b: WorkspacePlanView) =>
   [...a.tasks].sort((x, y) => x.task.localeCompare(y.task)).map((t) => `${t.task}:${t.quantity.planned ?? '-'}`).join('|') === [...b.tasks].sort((x, y) => x.task.localeCompare(y.task)).map((t) => `${t.task}:${t.quantity.planned ?? '-'}`).join('|')
 
-type SaveState = { kind: 'idle' } | { kind: 'saving' } | { kind: 'error'; code: string; detail?: string } | { kind: 'conflict' }
+type SaveState = { kind: 'idle' } | { kind: 'saving' } | { kind: 'error'; code: string; detail?: string } | { kind: 'conflict'; goalChanged?: boolean }
 
 export function PlanSection({ view, reason, past, saved, viewer, goal }: { view: WorkspacePlanView; reason: string | null; past: boolean; saved: SavedPlans | null; viewer: string; goal: number }) {
   const t = templateOf(view.workspace)
@@ -104,7 +104,10 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const base = useMemo(() => applySaved(view, sw?.latest ?? null), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
   const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
-  const key = draftKey(viewer, view.workspace, goal, savedVersion)
+  const goalVersion = saved?.goalVersionId ?? null
+  const key = draftKey(viewer, view.workspace, goal, savedVersion, goalVersion)
+  const legacyKey = draftKey(viewer, view.workspace, goal, savedVersion)
+  const [legacyDraft, setLegacyDraft] = useState(false)
   const [note, setNote] = useState('')
   const [draft, setDraft] = useState<PlanDraft | null>(null)
   const handoff = useRef<{ sourceKey: string; key: string; stages: PlanAck['stages'] } | null>(null)
@@ -116,6 +119,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     setDraft(next)
     if (carry?.key === key) writeDraft(key, next)
     setNote(readNote(key))
+    setLegacyDraft(readDraft(legacyKey) !== null || readNote(legacyKey) !== '')
     if (carry && key !== carry.sourceKey) handoff.current = null
     // key includes viewer, template, goal and saved version; edits belong to that context.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -138,7 +142,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     return listenPlanAck(key, ack => {
       if (!live.current.mounted || live.current.key !== key) return false
       if (ack.version <= savedVersion || (sw && ack.workspaceId !== sw.workspaceId)) return false
-      const nextKey = draftKey(viewer, view.workspace, goal, ack.version)
+      const nextKey = draftKey(viewer, view.workspace, goal, ack.version, goalVersion)
       const carry = sameStageDraft(readDraft(key), ack.stages, currentStages())
       // An already newer draft wins. Keep the old key as provenance; no automatic server save.
       if (!hasDraft(nextKey)) writeDraft(nextKey, carry)
@@ -188,6 +192,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       reason: reasonCode,
       note: note.trim() || null,
       expectedVersion: savedVersion,
+      expectedGoalVersion: goalVersion,
       ...(restoreOf ? { restoreOf } : {}),
     }
     // Supporting TRANSFER amounts are a reference to the core workspace's policy.
@@ -207,7 +212,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           writeNote(key, '')
           if (active) { setDraft(null); setNote('') }
         }
-        carryPlanEdit(key, draftKey(viewer, view.workspace, goal, j.version!))
+        carryPlanEdit(key, draftKey(viewer, view.workspace, goal, j.version!, goalVersion))
         acknowledgePlan(key, { version: j.version!, workspaceId: j.workspaceId, stages: currentStages() })
         return
       }
@@ -224,7 +229,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       }
       // 5xx · 게이트웨이 시간 초과는 저장됐을 수도 있다 — 네트워크 실패처럼 같은 키를 남겨 재시도가 중복 · 거짓 충돌을 만들지 않게(독립 리뷰 P2)
       if (res.status < 500) setPending(null)
-      setSave(res.status === 409 ? { kind: 'conflict' } : { kind: 'error', code: j.code ?? String(res.status), detail: j.detail })
+      setSave(res.status === 409 ? { kind: 'conflict', goalChanged: j.code === 'goal_changed' } : { kind: 'error', code: j.code ?? String(res.status), detail: j.detail })
     } catch {
       if (!current()) return
       // 네트워크 실패 — 저장됐는지 모른다. 같은 내용을 다시 보내면 같은 키라 서버가 같은 결과를 돌려준다(pending 유지)
@@ -276,6 +281,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
         </p>
       )}
       {reason && <p className={n.sub}>{reason}</p>}
+      {legacyDraft && <p className={n.sub}>목표 버전이 없는 이전 기기 초안은 보관하고, 지금 계획에 자동 적용하지 않아요.</p>}
       <ol className={n.planList}>
         {shown.tasks.map((p, i) => {
           const isCore = view.core.includes(p.task)
@@ -356,7 +362,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           </button>
           {save.kind === 'conflict' && (
             <p className={n.saveErr} role="alert" data-testid="plan-conflict">
-              다른 곳(다른 기기 · 다른 탭)에서 계획이 먼저 바뀌었어요. 내 화면은 저장하지 않았어요.{' '}
+              {save.goalChanged ? '다른 곳에서 목표가 바뀌었어요. 이전 목표의 계획은 저장하지 않았어요.' : '다른 곳(다른 기기 · 다른 탭)에서 계획이 먼저 바뀌었어요. 내 화면은 저장하지 않았어요.'}{' '}
               <button type="button" className={n.taskLink} onClick={() => startRefresh(() => router.refresh())}>새로 불러오기</button>
             </p>
           )}

@@ -96,3 +96,6 @@ revoke all on function public.csat_map_goal_set_v2(uuid, smallint, smallint, tex
 - 현재 카탈로그(이번 읽기 전용 스냅샷)는 교육청104회·적격 정답표104회·오답률 관측0이다. 이전 문서의110은 이번 snapshot의 분모로 재사용하지 않는다. 실제 자료/검수/지원 계약이 없는 상태는 BLOCKED_CONTENT이며 SQL 적용으로 해결되지 않는다.
 
 **현재 T3 안전 보완에 DB 적용은 불필요하다.** 후속 최소 승인 항목은 (1) RPC v2 원자 본문 비교 강화, (2) grade-only의 일관된 현재 목표 읽기 계약, (3) 실제 계산에 사용하는 확장 spec으로 각각 분리한다. 완성 SQL·격리 PostgreSQL 검사·권한·호환·rollback 검토 전에는 적용 승인을 요청하지 않는다.
+
+
+T3 후속 보완: PLAN UI의 관찰 목표 버전(expectedGoalVersion)과 서버 계산 snapshot을 비교하고, 기기 초안/ack를 목표 이력 ID로 분리한다. 이미 이력이 있는 상태에서 RPC가 누락되면 latest_only 성공을 반환하지 않는다. 기존 필드·API만 재사용했고 SQL을 적용하지 않았다. commit 순간의 절대 최신 목표 보장은 공유 잠금 안 compare-and-commit이 필요한 별도 정책/승인 항목이다.

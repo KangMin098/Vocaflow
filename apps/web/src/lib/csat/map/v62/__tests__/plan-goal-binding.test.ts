@@ -39,3 +39,10 @@ it.each([20, null])('goal change during computation rejects without writing: %s'
   expect(await response.json()).toMatchObject({ code: 'goal_changed' })
   expect(h.commit).not.toHaveBeenCalled()
 })
+it('an old editor goal version cannot silently become the current server goal', async () => {
+  const body = await request().json()
+  const response = await POST(new Request('http://owned.invalid/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...body, expectedGoalVersion: 9 }) }))
+  expect(response.status).toBe(409)
+  expect(await response.json()).toMatchObject({ code: 'goal_changed' })
+  expect(h.commit).not.toHaveBeenCalled()
+})

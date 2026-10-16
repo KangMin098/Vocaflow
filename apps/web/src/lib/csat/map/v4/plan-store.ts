@@ -168,6 +168,7 @@ export async function setGoal(db: Db, userId: string, goalIn: number | GoalInput
   if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
   if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
   if (g.grade !== null || g.exam !== null || g.date !== null) throw new Error('목표 저장 실패: 목표 이력 구조가 없어 점수 외 목표를 저장할 수 없어요')
+  if (await loadLatestGoal(db, userId)) throw new Error('목표 저장 실패: 기존 목표 이력이 있어 점수만 저장할 수 없어요 — 저장 구조를 확인해 주세요')
   const up = await db.from('csat_map_goal').upsert({ user_id: userId, target_score: score, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
   if (up.error) throw new Error(`목표 저장 실패: ${up.error.message}`)
   return { mode: 'latest_only', goalVersionId: null }
@@ -179,12 +180,12 @@ export async function setGoal(db: Db, userId: string, goalIn: number | GoalInput
  */
 export async function findCommitByKey(db: Db, userId: string, clientKey: string): Promise<PriorCommit | null> {
   const { data, error } = await db.from('learner_workspace_plan')
-    .select('workspace_id, plan_version, plan, reason, note, restored_from, learner_workspace!inner(template_id)')
+    .select('workspace_id, plan_version, plan, reason, note, restored_from, goal_version_id, learner_workspace!inner(template_id)')
     .eq('user_id', userId).eq('client_key', clientKey).limit(1)
   if (error) throw new Error(`계획 재시도 확인 실패: ${error.message}`)
-  type Row = { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; learner_workspace: { template_id: string } | { template_id: string }[] }
+  type Row = { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; goal_version_id: number | null; learner_workspace: { template_id: string } | { template_id: string }[] }
   const r = (data ?? [])[0] as unknown as Row | undefined
   if (!r) return null
   const ws = Array.isArray(r.learner_workspace) ? r.learner_workspace[0] : r.learner_workspace
-  return { template: ws.template_id, version: r.plan_version, workspaceId: r.workspace_id, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from }
+  return { template: ws.template_id, version: r.plan_version, workspaceId: r.workspace_id, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, goalVersionId: r.goal_version_id == null ? null : Number(r.goal_version_id) }
 }

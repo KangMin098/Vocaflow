@@ -15,8 +15,11 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3008',local=path.join(import.meta.dirname,'local/frozen');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3008',local=path.join(import.meta.dirname,'local/context-final');fs.mkdirSync(local,{recursive:true})
  const jobs=[
+ ['stale-goal-1280','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/stale-goal-1280']],
+ ['stale-goal-1440','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/stale-goal-1440']],
+ ['keyboard','scripts/research/lm-g1-3a-independent/keyboard-browser.mjs',['--base',base,'--evidence',local+'/keyboard']],
  ['independent-1280','scripts/research/lm-g1-3a-independent/independent-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/independent-1280']],
  ['independent-1440','scripts/research/lm-g1-3a-independent/independent-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/independent-1440']],
  ['target-1280','scripts/csat/map/v62/e2e-lm-g1-3a.mjs',['--base',base,'--width','1280','--evidence',local+'/target-1280']],
@@ -34,13 +37,15 @@ if(mode==='browser'){
  ]
  const results=[]
  const delta=process.argv[3]==='delta'
- const remainingJobs=delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
+ const context=process.argv[3]==='context';
+ const contextNames=['stale-goal-1280','stale-goal-1440','keyboard','independent-1280','independent-1440','revised-1280','revised-1440','security','late-remount'];
+ const remainingJobs=context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
  let ownedServer=null
  const ensureServer=async()=>{
   try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
   if(!ownedServer||ownedServer.exitCode!==null||ownedServer.signalCode!==null){
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
-  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3008'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-frozen'},windowsHide:true,stdio:['ignore',fd,err]})
+  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3008'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-context'},windowsHide:true,stdio:['ignore',fd,err]})
   fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
   }

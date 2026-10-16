@@ -1,7 +1,7 @@
 // apps/web/src/lib/csat/map/v4/plan-commit.ts
 //
 // 학습계획 저장 요청 → RPC 페이로드(순수 함수 · 4차). 신뢰 경계(LEARNING_MAP_V4_PLAN_SCHEMA §0):
-//   학습자가 보내는 것 = template · order · planned(TASK 별) · reason · note · expectedVersion · clientKey(+ restoreOf)
+//   학습자가 보내는 것 = template · order · planned(TASK 별) · reason · note · expectedVersion · expectedGoalVersion(본 화면의 목표 버전) · clientKey(+ restoreOf)
 //   서버가 채우는 것 = 템플릿 TASK 목록(정의) · TASK 별 단계 · **가용 문항 수**(서버가 지금 계산한 계획 보기) · 규칙 · 정의 버전 · 기준 시점
 // 클라이언트가 보낸 가용량은 받지 않는다(요청 모양에 칸이 없다). 계획량이 가용량을 넘으면 조용히 자르지 않고 거절한다.
 
@@ -31,6 +31,8 @@ export interface PlanCommitRequest {
   reason: PlanReason
   note?: string | null
   expectedVersion: number
+  /** Goal snapshot observed by this editor. Omitted only by legacy API clients. */
+  expectedGoalVersion?: number | null
   clientKey: string
   restoreOf?: number | null
 }
@@ -58,7 +60,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 export function parseCommitRequest(body: unknown): { ok: true; req: PlanCommitRequest } | { ok: false; code: string } {
   if (!body || typeof body !== 'object') return { ok: false, code: 'body' }
   const b = body as Record<string, unknown>
-  const allowed = new Set(['template', 'order', 'planned', 'reason', 'note', 'expectedVersion', 'clientKey', 'restoreOf'])
+  const allowed = new Set(['template', 'order', 'planned', 'reason', 'note', 'expectedVersion', 'expectedGoalVersion', 'clientKey', 'restoreOf'])
   for (const k of Object.keys(b)) if (!allowed.has(k)) return { ok: false, code: `unknown_field:${k}` }
   if (typeof b.template !== 'string' || !/^ws\.[a-z0-9-]{1,40}$/.test(b.template)) return { ok: false, code: 'template' }
   if (!Array.isArray(b.order) || b.order.length > 50 || !b.order.every((t) => typeof t === 'string' && t.length <= 64)) return { ok: false, code: 'order' }
@@ -67,6 +69,7 @@ export function parseCommitRequest(body: unknown): { ok: true; req: PlanCommitRe
   if (typeof b.reason !== 'string' || !(LEARNER_REASONS as readonly string[]).includes(b.reason)) return { ok: false, code: 'reason' }
   if (b.note !== undefined && b.note !== null && (typeof b.note !== 'string' || b.note.length > 500)) return { ok: false, code: 'note' }
   if (!Number.isInteger(b.expectedVersion) || (b.expectedVersion as number) < 0) return { ok: false, code: 'expectedVersion' }
+  if (b.expectedGoalVersion !== undefined && b.expectedGoalVersion !== null && !(Number.isSafeInteger(b.expectedGoalVersion) && (b.expectedGoalVersion as number) > 0)) return { ok: false, code: 'expectedGoalVersion' }
   if (typeof b.clientKey !== 'string' || !UUID.test(b.clientKey)) return { ok: false, code: 'clientKey' }
   if (b.reason === 'restore' ? !(Number.isInteger(b.restoreOf) && (b.restoreOf as number) >= 1) : b.restoreOf !== undefined && b.restoreOf !== null) return { ok: false, code: 'restoreOf' }
   return { ok: true, req: b as unknown as PlanCommitRequest }
@@ -153,11 +156,12 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
  *  네트워크 실패 뒤 다시 보낼 때는 서명이 같을 때만 이전 요청 키를 쓴다(바뀐 내용을 옛 키로 보내면 서버가 옛 결과를 돌려줘 변경이 사라진다). */
 export function requestSignature(req: Omit<PlanCommitRequest, 'clientKey'>): string {
   const planned = Object.keys(req.planned).sort().map((k) => `${k}=${req.planned[k] ?? '-'}`).join(',')
-  return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? ''].join('|')
+  return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? '', req.expectedGoalVersion === undefined ? 'legacy' : req.expectedGoalVersion ?? 'none'].join('|')
 }
 
 /** 같은 clientKey 로 이미 저장된 행(서버가 만든 계획) — 재시도 판단용 */
 export interface PriorCommit {
+  goalVersionId?: number | null
   template: string
   version: number
   workspaceId: string
@@ -175,6 +179,7 @@ const normNote = (n: string | null | undefined) => (n && n.trim() ? n.trim() : n
  * 첫 성공 뒤 콘텐츠 · 목표가 바뀌어도 그 재시도는 성공 결과를 받아야 한다(정본 §10.3).
  */
 export function sameCommitRequest(prior: PriorCommit, req: PlanCommitRequest): boolean {
+  if (req.expectedGoalVersion !== undefined && (prior.goalVersionId ?? null) !== req.expectedGoalVersion) return false
   if (prior.template !== req.template || prior.reason !== req.reason) return false
   if (normNote(prior.note) !== normNote(req.note)) return false
   if (prior.version !== req.expectedVersion + 1) return false

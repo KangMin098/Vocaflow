@@ -16,9 +16,9 @@ function store(barrier = false) {
     from() {
       let wanted = ''
       const q = {
-        select() { return q }, eq(k: string, v: string) { if (k === 'client_key') wanted = v; return q },
+        select() { return q }, eq(k: string, v: string) { if (k === 'client_key') wanted = v; return q }, order() { return q },
         async limit() {
-          const data = rows.filter(r => r.client_key === wanted)
+          const data = wanted ? rows.filter(r => r.client_key === wanted) : [...rows].reverse()
           if (barrier && ++reads <= 2) { if (reads === 2) release(); await gate }
           return { data, error: null }
         },
@@ -88,6 +88,13 @@ describe('goal save safety against installed key-only RPC', () => {
     const { db } = store()
     db.rpc = (async () => ({ data: 999, error: null })) as unknown as typeof db.rpc
     await expect(setGoal(db, 'owned', { target: 80, clientKey: key }, now)).rejects.toThrow('목표 저장 결과')
+  })
+  it('missing RPC cannot fall back to latest-only after versioned history exists', async () => {
+    const { db, rows } = store()
+    await setGoal(db, 'owned', { target: 80, clientKey: key }, now)
+    db.rpc = (async () => ({ data: null, error: { code: 'PGRST202', message: 'missing RPC' } })) as unknown as typeof db.rpc
+    await expect(setGoal(db, 'owned', { target: 90, clientKey: key.replace(/1$/, '2') }, now)).rejects.toThrow('기존 목표 이력이 있어')
+    expect(rows).toHaveLength(1)
   })
   it.each([
     ['2026-12-31T15:30:00Z', '2027-01-01'],
