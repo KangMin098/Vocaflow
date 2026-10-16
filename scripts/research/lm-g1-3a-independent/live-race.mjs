@@ -1,9 +1,9 @@
 // scripts/research/lm-g1-3a-independent/live-race.mjs
-import fs from 'node:fs'; import path from 'node:path'; import {createRequire} from 'node:module'; import {randomUUID,randomBytes} from 'node:crypto';
+import {execFileSync} from 'node:child_process';import fs from 'node:fs'; import path from 'node:path'; import {createRequire} from 'node:module'; import {randomUUID,randomBytes,createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'../../..'),req=createRequire(root+'/apps/web/package.json'),{createClient}=req('@supabase/supabase-js'),ts=req('typescript');
 const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}});
-const file=path.join(import.meta.dirname,'local/live-race-'+(process.argv[2]??'original')+'.json');
-const src=n=>fs.readFileSync(root+'/apps/web/src/lib/csat/map/'+n,'utf8');
+const file=path.join(import.meta.dirname,'local/live-race-'+(process.argv[3]??process.argv[2]??'original')+'.json');
+const original=process.argv[2]==='original';const sources={};const src=n=>{const value=original?execFileSync('git',['show','305ad246863a473a8332b6e42141299c62247f13:apps/web/src/lib/csat/map/'+n],{cwd:root,encoding:'utf8'}):fs.readFileSync(root+'/apps/web/src/lib/csat/map/'+n,'utf8');sources[n]=createHash('sha256').update(value).digest('hex');return value};
 const run=(s,inject={})=>{s=s.replace(/^import[\s\S]*?from [^\n]+\n/gm,'').replace(/^import 'server-only'[^\n]*\n/gm,'');let js=ts.transpileModule(s,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;let e={};new Function('exports',...Object.keys(inject),js)(e,...Object.values(inject));return e};
 const target=run(src('v62/target-goal.ts'));
 // Compile complete production exports, supplying only imported dependencies.
@@ -11,7 +11,7 @@ const store=run(src('v4/plan-store.ts'),{plan_commit_1:{},workspace_1:{},target_
 let server=src('server.ts').replace(/^import[\s\S]*?from [^\n]+\n/gm,'').replace(/^import 'server-only'[^\n]*\n/gm,'');
 const js=ts.transpileModule(server,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
 let exports={};new Function('exports','findGoalByKey','setGoalStored','parseGoalInput','sameGoal','randomUUID','seoulToday',js)(exports,store.findGoalByKey,store.setGoal,target.parseGoalInput,target.sameGoal,randomUUID,target.seoulToday);
-let uid;let results=[];
+let uid;let results=[{case:'source',mode:original?'pinned-305ad2468':'current',hashes:sources}];
 try{let u=await db.auth.admin.createUser({email:'lmg13a-independent-'+randomUUID()+'@example.com',password:randomBytes(24).toString('base64url')+'Aa1!',email_confirm:true});if(u.error)throw u.error;uid=u.data.user.id;fs.writeFileSync(path.join(import.meta.dirname,'local/race-owned.local.json'),JSON.stringify([uid]));
 let n=0,release;let barrier=new Promise(r=>release=r);
 // Intercept ONLY client-key SELECT results, snapshot both misses before either RPC.
