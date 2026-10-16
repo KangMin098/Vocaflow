@@ -21,6 +21,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(map): LM-G1.4 증거 자격 · 주장 범위 — 지금 확인 · 교수 경로 · 다른 글 적용 · 지연 확인(NOT_ESTABLISHED)을 분리해 팝업 · 상세 서랍 · Workspace 창에 같은 값으로 · 시도별 CONFIRMED/UNKNOWN/STALE/INELIGIBLE · R5 도구 범위 · 반례 E01–E20 · DB/RPC/RLS 변경 없음
 - LM-G1.3a 독립 T3 검증: 목표 키 경합 후 저장 행 대조, 서울 날짜/재전송, 단일 목표 snapshot·PLAN 관찰 버전 및 저장 후 본문 대조, 시험 kind와 학평 적격 경계 보완. 응답 유실 시 편집값/요청키를 유지해 이전 목표 재저장을 막는다. DB/RPC/RLS 변경 없음.
 - feat(map): LM-G1.3a 목표 통합 — 목표 시험 · 등급 · 목표일을 기존 csat_map_goal_set 으로 저장(같은 키 다른 본문 409) · 목표 시험이 기준 시험 범위를 정함(수능 · 6월 · 9월 · 학평은 자료 없으면 미지원 · 대체 없음) · 저장 등급 ≠ 참고 구간 · PLAN 이력에 목표 버전 · 실제 DB/브라우저 1440/1280 20/0 · DB/RPC 변경 없음(LM-G1.3b 승인안 분리)
 
