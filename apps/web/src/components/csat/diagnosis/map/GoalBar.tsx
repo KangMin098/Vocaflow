@@ -30,7 +30,9 @@ const extraOf = (data: MapPageData): GoalExtra => {
 export function useGoal(data: MapPageData) {
   const router = useRouter()
   const { model } = data
-  const [goal, setGoal] = useState(model.goal)
+  // Display and recommendation input always share the server's immutable snapshot.
+  // Draft/request values must not combine with an older scope or PLAN goal id.
+  const goal = model.goal
   const [extra, setExtra] = useState<GoalExtra>(() => extraOf(data))
   const savedExtra = extraOf(data)
   const [draft, setDraft] = useState(String(model.goal))
@@ -38,12 +40,11 @@ export function useGoal(data: MapPageData) {
   const [refreshing, startTransition] = useTransition()
   const [saving, setSaving] = useState(false)
   /** 이번 화면에서 목표 저장이 성공했는가 — 「목표를 정했다」는 저장 성공으로만 판정한다(낙관적 선택값으로 하지 않는다) */
-  const [saved, setSaved] = useState(false)
+  const saved = model.goalSet
   const pending = saving || refreshing
 
   // 서버가 목표를 다시 계산해 내려오면 입력을 맞춘다
   useEffect(() => {
-    setGoal(model.goal)
     setDraft(String(model.goal))
   }, [model.goal])
   // 서버가 저장된 목표 이력을 다시 내려주면 점수 외 입력도 저장 값으로 맞춘다
@@ -64,7 +65,6 @@ export function useGoal(data: MapPageData) {
     }
     const before = goal
     const beforeExtra = extra
-    setGoal(next)
     setDraft(String(next))
     setExtra(more)
     setSaving(true)
@@ -74,12 +74,10 @@ export function useGoal(data: MapPageData) {
       const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, exam: more.exam, grade: more.grade, date: more.date, clientKey: attempt.current.key }) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? '저장하지 못했어요')
       attempt.current = null
-      setSaved(true)
       track({ name: 'csat_map_goal_set', props: { goal: next } })
       startTransition(() => router.refresh())
     } catch (e) {
       // 실패하면 저장 전 값으로 — 저장 안 된 입력을 저장된 목표처럼 남기지 않는다(T13)
-      setGoal(before)
       setDraft(String(before))
       setExtra(beforeExtra)
       setErr(e instanceof Error ? e.message : '저장하지 못했어요')
@@ -134,7 +132,7 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           </select>
         </label>
         <label className={s.inputWrap}>
-          <span className={s.inputLabel}>목표 등급(선택 · 점수와 따로 저장)</span>
+          <span className={s.inputLabel}>목표 등급(선택)</span>
           <select className={s.input} value={g.extra.grade ?? ''} onChange={(e) => g.setExtra({ ...g.extra, grade: e.target.value ? Number(e.target.value) : null })} data-testid="goal-grade">
             <option value="">정하지 않음</option>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => <option key={x} value={x}>{x}등급</option>)}

@@ -44,7 +44,7 @@ describe('sameGoal — 같은 요청키 재전송만 같은 결과(다른 본문
 })
 
 describe('scopeCandidates — 목표 시험이 기준 시험 범위를 정한다(미지원은 대체하지 않음)', () => {
-  const c = (id: string, organizer: string, month: number, hasRates = true): ScopeCandidate => ({ id, label: id, held: 202500 + month, itemCount: 45, pointsTotal: 100, organizer, month, hasRates })
+  const c = (id: string, organizer: string, month: number, hasRates = true): ScopeCandidate => ({ id, label: id, held: 202500 + month, itemCount: 45, pointsTotal: 100, organizer, kind: organizer === 'kice' ? (month === 11 ? 'suneung' : 'mock') : 'academic', month, hasRates })
   const all = [c('S25', 'kice', 11), c('J25', 'kice', 6), c('N25', 'kice', 9), c('O25', 'edu_office', 3, false), c('O26', 'edu_office', 7, false)]
   it('미지정 = 기존 기본(평가원 전체)', () => {
     expect(scopeCandidates(null, all)).toMatchObject({ status: 'default' })
@@ -55,15 +55,22 @@ describe('scopeCandidates — 목표 시험이 기준 시험 범위를 정한다
     expect(scopeCandidates('kice6', all).candidates.map((x) => x.id)).toEqual(['J25'])
     expect(scopeCandidates('kice9', all).candidates.map((x) => x.id)).toEqual(['N25'])
   })
+  it('수능 종류는 시행 월과 분리하며 모평과 혼동하지 않는다', () => {
+    const unusual = { ...c('S21', 'kice', 12), kind: 'suneung' }
+    const notSuneung = { ...c('J', 'kice', 11), kind: 'mock' }
+    expect(scopeCandidates('suneung', [unusual, notSuneung]).candidates.map(x => x.id)).toEqual(['S21'])
+    expect(scopeCandidates('kice9', [{ ...unusual, month: 9 }]).candidates).toEqual([])
+  })
   it('학평 — 오답률 관측이 없으면 미지원(no_rates) · 평가원 회차로 대신하지 않는다(후보 0)', () => {
     const r = scopeCandidates('hakpyeong', all)
     expect(r).toMatchObject({ status: 'unsupported_content', reason: 'no_rates' })
     expect(r.candidates).toEqual([])
   })
-  it('학평 오답률이 생기면 그 회차만으로 지원', () => {
+  it('학평 일부 오답률은 시험 전체 자격을 만들지 않는다', () => {
     const r = scopeCandidates('hakpyeong', [...all, c('O27', 'edu_office', 9, true)])
-    expect(r.status).toBe('supported')
-    expect(r.candidates.map((x) => x.id)).toEqual(['O27'])
+    expect(r.status).toBe('unsupported_content')
+    expect(r.reason).toBe('unqualified_rates')
+    expect(r.candidates).toEqual([])
   })
   it('그 시험 회차가 하나도 없으면 미지원(no_exams)', () => {
     expect(scopeCandidates('kice9', all.filter((x) => x.id !== 'N25'))).toMatchObject({ status: 'unsupported_content', reason: 'no_exams', candidates: [] })

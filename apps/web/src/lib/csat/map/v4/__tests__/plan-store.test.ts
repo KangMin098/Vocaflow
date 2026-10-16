@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 vi.mock('server-only', () => ({}))
 
-import { commitPlan, loadSavedPlans } from '../plan-store'
+import { commitPlan, loadLatestGoal, loadSavedPlans } from '../plan-store'
 
 type Row = Record<string, unknown>
 const plan = (ws: string, v: number): Row => ({ workspace_id: ws, plan_version: v, plan: { order: [], tasks: [] }, reason: 'learner_adjust', note: null, restored_from: null, canon_version: 'c', as_of: '2026-10-11T00:00:00Z', created_at: '2026-10-11T00:00:00Z' })
@@ -32,6 +32,14 @@ function fakeDb(tables: Record<string, Row[]>) {
 }
 
 describe('loadSavedPlans — Workspace 별 이력', () => {
+  it('목표는 사용자 잠금 안의 insert 버전 순서 — transaction start 시각 역전과 분리', async () => {
+    const db = fakeDb({ csat_map_goal_version: [
+      { id: 101, user_id: 'u', target_score: 80, created_at: 200 },
+      { id: 102, user_id: 'u', target_score: 90, created_at: 100 },
+    ] })
+    expect((await loadLatestGoal(db, 'u'))?.score).toBe(90)
+    expect((await loadSavedPlans(db, 'u')).goalVersionId).toBe(102)
+  })
   it('한 Workspace 에 버전 50개가 있어도 다른 Workspace 의 이력이 보인다', async () => {
     const plans = [...Array.from({ length: 50 }, (_, i) => plan('w1', i + 1)), plan('w2', 1), plan('w2', 2)]
     const db = fakeDb({

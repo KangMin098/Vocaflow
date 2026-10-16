@@ -417,6 +417,6 @@ function goalLabel(id: number | null, saved: SavedPlans | null): string {
   if (id === null) return '저장 당시 목표 기록 없음'
   const g = saved?.goalHistory?.find((x) => x.id === id)
   const now = id === saved?.goalVersionId ? '지금 목표' : '그때 목표'
-  if (!g) return `${now} · 목표 기록 #${id}`
+  if (!g) return `${now} · 목표 기록 #${id} · 과거 목표 상세 확인 불가`
   return `${now} ${g.score}점${g.exam ? ` · ${GOAL_EXAM_LABEL[g.exam]}` : ''}${g.grade ? ` · ${g.grade}등급` : ''}${g.date ? ` · ~${g.date}` : ''}`
 }

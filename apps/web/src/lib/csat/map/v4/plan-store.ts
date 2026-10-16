@@ -62,7 +62,8 @@ const goalOf = (r: GoalRow): GoalVersion => ({ id: Number(r.id), score: r.target
  * 그 밖의 조회 실패는 던진다 — 빈 목표 · 기본값으로 삼키지 않는다(T13).
  */
 export async function loadLatestGoal(db: Db, userId: string): Promise<GoalVersion | null> {
-  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('created_at', { ascending: false }).order('id', { ascending: false }).limit(1)
+  // The user lock serializes inserts, not transaction start timestamps (now()).
+  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(1)
   if (error) {
     if (error.code && MISSING.has(error.code)) return null
     throw new Error(`목표 이력 조회 실패: ${error.message}`)
@@ -77,7 +78,7 @@ export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans
   if (status === 'not_installed') return { status, byTemplate: {}, goalVersionId: null, goal: null, goalHistory: [] }
   const [ws, goal] = await Promise.all([
     db.from('learner_workspace').select('id, template_id').eq('user_id', userId).neq('status', 'closed'),
-    db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('created_at', { ascending: false }).order('id', { ascending: false }).limit(20),
+    db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(20),
   ])
   if (ws.error) throw new Error(`Workspace 조회 실패: ${ws.error.message}`)
   if (goal.error) throw new Error(`목표 이력 조회 실패: ${goal.error.message}`)

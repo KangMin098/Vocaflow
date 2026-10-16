@@ -767,4 +767,12 @@
 }
 .goalMore .input {
   min-height: 44px;
+  min-width: 0;
+  width: 100%;
+}
+.goalMore > .inputWrap {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  width: 100%;
+  margin-bottom: 8px;
 }
