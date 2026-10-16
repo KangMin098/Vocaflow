@@ -112,7 +112,7 @@ async function surfaces(page, name) {
 }
 // 세 표면이 같은 값(지금 확인 · 다른 글 적용 · 지연)을 보이는가
 const same = (s) => !!s.pop && !!s.modal && !!s.drawer && s.pop.check === s.modal.check && s.pop.check === s.drawer.check && s.pop.transfer === s.modal.transfer && JSON.stringify(s.pop.text) === JSON.stringify(s.modal.text)
-const snap = (s) => ({ pop: s.pop, drawer: s.drawer && { check: s.drawer.check, repair: s.drawer.repair, transfer: s.drawer.transfer, claims: s.drawer.claims, notes: s.drawer.notes } })
+const snap = (s) => ({ pop: s.pop, drawer: s.drawer && { check: s.drawer.check, checkText: s.drawer.checkText, repair: s.drawer.repair, transfer: s.drawer.transfer, claims: s.drawer.claims, notes: s.drawer.notes } })
 const NO_FAIL_WORDS = /실패|부족|못했|틀렸어요/
 const noFail = (s) => ![...(s.pop?.text ?? []), s.drawer?.delay ?? '', s.drawer?.transfer ?? '', s.drawer?.notes ?? ''].some((x) => NO_FAIL_WORDS.test(x))
 
@@ -161,7 +161,7 @@ try {
   }
   await openMap(page)
   const s4 = await surfaces(page, '04-check-passed')
-  rec('V05', '새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)', checks.length === 2 && checks.every((c) => c.isCorrect === true) && s4.pop?.check === 'passed' && s4.pop?.delay === 'NOT_ESTABLISHED' && /아직 근거 없음/.test(s4.drawer?.delay ?? '') && same(s4), { checks: checks.map((c) => c.isCorrect), ...snap(s4) })
+  rec('V05', '새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)', checks.length === 2 && checks.every((c) => c.isCorrect === true) && s4.pop?.check === 'passed' && /문항 4개/.test(s4.drawer?.checkText ?? '') && s4.pop?.delay === 'NOT_ESTABLISHED' && /아직 근거 없음/.test(s4.drawer?.delay ?? '') && same(s4), { checks: checks.map((c) => c.isCorrect), ...snap(s4) })
   rec('V06', '도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음', [s0, s1, s2, s3, s4].every((s) => s.drawer?.scope && noFail(s)), null, 'browser')
   rec('V07', '페이지 가로 넘침 0', [s0, s1, s4].every((s) => s.overflowX === 0), { w: WIDTH }, 'browser')
   await ctx.close()

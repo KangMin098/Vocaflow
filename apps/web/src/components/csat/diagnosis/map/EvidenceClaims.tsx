@@ -52,7 +52,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
     <div className={u.evBlock} data-testid="ins-evidence-claims" data-check={e.currentCheck.status} data-ledger={e.ledger}>
       <dl className={u.popKv}>
         <dt>지금 확인</dt>
-        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · 혼자 푼 확인 {e.currentCheck.independentItems}문항</dd>
+        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · 혼자 처음 푼 확인 문항 {new Set(e.attempts.filter((a) => a.claim === 'independent_check').map((a) => a.itemRef)).size}개(지금까지 전체)</dd>
         <dt>바로잡기</dt>
         <dd data-testid="ev-repair">{REPAIR_LABEL[e.instructionPath.repair]} — 해 본 것이지 익혔다는 뜻은 아니에요</dd>
         <dt>다른 글 적용</dt>
