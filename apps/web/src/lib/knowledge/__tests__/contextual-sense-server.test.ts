@@ -20,7 +20,7 @@ const ann = () => ({ version: 'test.v1', itemId: 'T#30', skeletonSig: 'sig', sen
   review: { status: 'accepted' as const, annotator: 'A', independentReviewer: 'B', reviewerBlind: true, agreement: 'BD agreed', reviewedAt: '2026-10-17' } })
 const now = Date.parse('2026-10-17T00:00:00Z')
 const body = () => ({ response: { misfit: 3, sense: 0, cue: [0] }, clientMutationId: '00000000-0000-4000-8000-000000000001', clientSessionId: '00000000-0000-4000-8000-000000000002', answeredAt: new Date(now).toISOString(), helpLevel: 'independent' })
-function database(source: unknown = { passage, answer: 4 }, live = true, error: unknown = null) {
+function database(source: unknown = { passage, answer: 4, type_id: 'R-VOCAB' }, live = true, error: unknown = null) {
   return { from(table: string) {
     const values: Record<string, unknown> = { csat_items: source,
       knowledge_applications: live ? [{ id: 'app', item_id: 'p', audience: {}, version: 1 }] : [],
@@ -41,7 +41,7 @@ beforeEach(() => {
 describe('V2 server adapter with no actual content', () => {
   it('current source and official answer gate; equal-length edits and missing/unknown source fail closed', async () => {
     expect(await anchorGate('T#30', database())).toBe(true)
-    for (const data of [null, { passage: passage.replace('decreases', 'increases'), answer: 4 }, { passage, answer: 1 }, { passage, answer: null }]) expect(await anchorGate('T#30', database(data))).toBe(false)
+    for (const data of [null, { passage, answer: 4, type_id: 'R-TITLE' }, { passage: passage.replace('decreases', 'increases'), answer: 4, type_id: 'R-VOCAB' }, { passage, answer: 1, type_id: 'R-VOCAB' }, { passage, answer: null }]) expect(await anchorGate('T#30', database(data))).toBe(false)
     expect(await anchorGate('T#30', database(undefined, true, { message: 'unavailable' }))).toBe(false)
   })
   it('same existing API writes exact V2 key and hash; duplicate safe and no answer key in result', async () => {
