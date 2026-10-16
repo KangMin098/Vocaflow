@@ -18,8 +18,8 @@ if(mode==='browser'){
  const revision=process.argv[5]??'regression-v3';if(!/^[a-z0-9-]+$/.test(revision))throw Error('Invalid run revision');
  const base='http://localhost:3012',local=path.join(import.meta.dirname,'local',revision);if(fs.existsSync(local+'/browser-summary.json'))throw Error('Run already recorded; choose a new revision');fs.mkdirSync(local,{recursive:true})
  const jobs=[
- ['v2-1280','scripts/csat/map/v62/e2e-lm-g1-5a.mjs',['--base',base,'--width','1280','--evidence',local+'/v2-1280']],
- ['v2-1440','scripts/csat/map/v62/e2e-lm-g1-5a.mjs',['--base',base,'--width','1440','--evidence',local+'/v2-1440']],
+ ['v2-1280','scripts/research/lm-g1-5a-independent/v2-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/v2-1280']],
+ ['v2-1440','scripts/research/lm-g1-5a-independent/v2-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/v2-1440']],
  ['t4-1280','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1280','--evidence',local+'/t4-1280']],
  ['t4-1440','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1440','--evidence',local+'/t4-1440']],
  ['t1','scripts/research/lm-g1-1-independent/browser.mjs',['--base',base,'--width','1280','--evidence',local+'/t1']],
@@ -71,7 +71,7 @@ if(mode==='browser'){
   src=src.replace("await page.fill('input[type=\"email\"]', acc.email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', acc.email)");
   src=src.replace("await page.fill('input[type=\"email\"]', email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', email)")
   if(file.endsWith('/security.mjs')) src=src.replace('const c=await Promise.all([','const secondReq={...req,clientKey:crypto.randomUUID()};const c=await Promise.all([').replace('b.page.request.post(endpoint,{data:{...req,clientKey:crypto.randomUUID()}})','b.page.request.post(endpoint,{data:secondReq})').replace('winnerIndex===0?req:null','winnerIndex===0?req:secondReq')
-  if(file.endsWith('/e2e-lm-g1-5a.mjs')) src=src.replace(/^const shot = .*$/m,"const shot = async (page,name)=> {await page.waitForTimeout(400); return page.screenshot({path:path.join(EVID,String(++shots).padStart(2,'0')+'-'+name+'.png')})}")
+  if(file.endsWith('/v2-browser.mjs')) src=src.replace(/^const shot = .*$/m,"const shot = async (page,name)=> {await page.waitForTimeout(400); return page.screenshot({path:path.join(EVID,String(++shots).padStart(2,'0')+'-'+name+'.png')})}")
   const generated=folder+'/runner.mjs';fs.writeFileSync(generated,src)
   const sourceFiles=spawnSync('git',['diff','--name-only','8ee927dcee80a9b19d70b2d4c86869e8ea013813...HEAD','--','apps/web'],{cwd:root,encoding:'utf8'}).stdout.trim().split(/\r?\n/).filter(Boolean);
   const sourceHashes=()=>Object.fromEntries(sourceFiles.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(root+'/'+f)).digest('hex')]));
