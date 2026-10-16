@@ -130,7 +130,7 @@ try {
  await page.click('[data-testid="goal-apply-all"]');await entered;
  const pending=await mapState(page);await shot(page,'pending-goal-coherent');rec('S01','pending actual write reply does not mix new score with old scope',pending.goalValue===before.goalValue&&pending.target?.exam===before.target?.exam,{before,pending});
  // Another tab saves a newer goal before first response arrives.
- const tab=await ctx.newPage();const newer=await putGoal(tab,{target:87,exam:'kice9',clientKey:crypto.randomUUID()});release();await finished;await page.unroute('**/api/csat/diagnosis/map/goal');await page.waitForTimeout(3000);await openMap(page);
+ const tab=await ctx.newPage();const newer=await putGoal(tab,{target:87,exam:'kice9',clientKey:crypto.randomUUID()});release();await finished;await page.unroute('**/api/csat/diagnosis/map/goal');await page.waitForFunction(()=>document.querySelector('[data-testid="goal-value"]')?.textContent.includes('87')&&document.querySelector('[data-testid="goal-target"]')?.getAttribute('data-exam')==='kice9',null,{timeout:30000});
  const final=await mapState(page);rec('S02','late reply refresh uses actual newest goal from another tab',newer.status===200&&final.goalValue?.includes('87')&&final.target?.exam==='kice9',{final});await shot(page,'latest-goal-after-late-reply');
  // Grade contradiction is explicit, never overwritten, for the reverse pair too.
  await putGoal(page,{target:80,grade:1,exam:'suneung',date:'2026-11-19',clientKey:crypto.randomUUID()});

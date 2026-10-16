@@ -50,9 +50,13 @@ export async function POST(req: Request) {
     const built = buildCommitPayload(r, v?.plans[r.template] ?? null, v?.asIs.asOf ?? new Date().toISOString())
     if (!built.ok) return NextResponse.json({ error: 'invalid', code: built.code, detail: built.detail }, { status: built.status })
     const saved = await loadSavedPlans(ctx.db, ctx.userId)
+    const calculatedGoalVersion = data.v4?.saved.goalVersionId ?? null
+    if (saved.goalVersionId !== calculatedGoalVersion) {
+      return NextResponse.json({ error: '목표가 바뀌었어요 — 새 목표 기준으로 계획을 다시 확인해 주세요', code: 'goal_changed' }, { status: 409 })
+    }
     const res = await commitPlan(ctx.db, {
       userId: ctx.userId, template: r.template, templateTasks: built.templateTasks, canon: built.canon, plan: built.plan,
-      reason: r.reason, note: r.note ?? null, asOf: built.asOf, goalVersionId: saved.goalVersionId,
+      reason: r.reason, note: r.note ?? null, asOf: built.asOf, goalVersionId: calculatedGoalVersion,
       expectedVersion: r.expectedVersion, clientKey: r.clientKey, restoreOf: r.reason === 'restore' ? r.restoreOf ?? null : null,
     })
     if (!res.ok) return NextResponse.json({ error: res.code, code: res.code, detail: res.detail }, { status: res.status })

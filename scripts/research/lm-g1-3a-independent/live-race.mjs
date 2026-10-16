@@ -20,4 +20,11 @@ function wrap(q){return new Proxy(q,{get(o,k){if(k==='then')return (ok,bad)=>o.t
 let key=randomUUID();const got=await Promise.allSettled([80,90].map(target=>exports.setGoal(wrapped,uid,{target,clientKey:key},new Date('2026-10-16T01:00:00Z'))));
 const rows=await db.from('csat_map_goal_version').select('id,target_score').eq('user_id',uid);if(rows.error)throw rows.error;
 results.push({case:'C-forced-precheck-miss',prechecks:n,responses:got.map(x=>x.status==='fulfilled'?{status:'fulfilled',goal:x.value.goal,version:x.value.goalVersionId}:{status:'rejected',error:x.reason.message}),stored:rows.data,pass:got.filter(x=>x.status==='fulfilled').length===1});
+if(process.argv[2]!=='original'){
+const replayKey=randomUUID(),body={target:84,date:'2026-10-16',clientKey:replayKey};await exports.setGoal(db,uid,body,new Date('2026-10-16T01:00:00Z')); // committed result deliberately discarded
+const again=await exports.setGoal(db,uid,body,new Date('2026-10-17T01:00:00Z'));const storedReplay=await db.from('csat_map_goal_version').select('id,target_score').eq('user_id',uid).eq('client_key',replayKey);if(storedReplay.error)throw storedReplay.error;
+results.push({case:'E-lost-result-expired-date-replay',reused:again.reused,rows:storedReplay.data.length,pass:again.reused&&storedReplay.data.length===1&&again.goalVersionId===storedReplay.data[0].id});
+await exports.setGoal(db,uid,{target:96,clientKey:randomUUID()},new Date('2026-10-17T01:00:00Z'));await exports.setGoal(db,uid,body,new Date('2026-10-17T01:00:00Z'));const current=await db.from('csat_map_goal').select('target_score').eq('user_id',uid).single();if(current.error)throw current.error;results.push({case:'F-old-key-newer-goal-preserved',current:current.data.target_score,pass:current.data.target_score===96});
+}
+
 }finally{if(uid){const d=await db.auth.admin.deleteUser(uid);if(d.error)throw d.error;const check=await db.auth.admin.getUserById(uid);if(check.error?.status!==404||check.error?.code!=='user_not_found')throw Error('Cleanup absence unconfirmed');results.push({case:'cleanup',pass:true})}fs.writeFileSync(file,JSON.stringify(results,null,2));console.log(JSON.stringify(results));}
