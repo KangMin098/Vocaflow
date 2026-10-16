@@ -1,0 +1,305 @@
+{
+  "sha": "085040e647e14c2c0db849f996df695cd6da95a0",
+  "dirtyTree": false,
+  "base": "http://localhost:3005",
+  "width": 1280,
+  "pass": 20,
+  "fail": 0,
+  "fatal": null,
+  "accounts": {
+    "created": 2,
+    "absentAfter": 2
+  },
+  "layers": {
+    "learning_effect": "NOT_CLAIMED"
+  },
+  "results": [
+    {
+      "id": "T06",
+      "name": "목표 없음 — 지도 열림 · 저장 목표 줄 없음(기본값을 목표로 보이지 않음) · 가로 넘침 0",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "goalValue": "아직 정하지 않았어요",
+        "target": null,
+        "topNext": null,
+        "order": [],
+        "rows": [
+          "ws.central-meaning:runnable",
+          "ws.option-match:runnable",
+          "ws.evidence-locate:runnable",
+          "ws.cohesion:locked",
+          "ws.sentence-core:preparing",
+          "ws.vocab-context:preparing",
+          "ws.grammar-scope:preparing",
+          "ws.inference:preparing",
+          "ws.timed:preparing"
+        ],
+        "returnNotes": [],
+        "goalEdit": true,
+        "goalToCurrent": false,
+        "overflowX": 0
+      }
+    },
+    {
+      "id": "T01",
+      "name": "점수-only 80 — 200 · 같은 키 재전송 reused(같은 버전) · 같은 키 다른 본문 409 · 이력 1행(시험 · 등급 · 날짜 null) · 지도 평가원 기본 범위",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "p1": {
+          "goal": 80,
+          "grade": null,
+          "exam": null,
+          "date": null,
+          "mode": "versioned",
+          "goalVersionId": 384,
+          "reused": false
+        },
+        "reused": true,
+        "conflict": 409,
+        "rows": 1,
+        "target": {
+          "exam": "",
+          "scope": "default",
+          "exams": "M2706,2026,M2609,M2606,2025,M2509",
+          "grade": "",
+          "date": "",
+          "version": "set",
+          "text": "평가원 최근 기준 6회"
+        }
+      }
+    },
+    {
+      "id": "T02",
+      "name": "팝업 저장 90 · 수능 · 2등급 · 2026-11-19 → 새 이력 행 · 최신 표 90 · 화면 같은 값 · 기준 시험이 수능 회차로 바뀜",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "row": {
+          "id": 385,
+          "target_score": 90,
+          "target_grade": 2,
+          "target_exam": "suneung",
+          "target_date": "2026-11-19"
+        },
+        "target": {
+          "exam": "suneung",
+          "scope": "supported",
+          "exams": "2026,2025,2024,2023,2022,2021",
+          "grade": "2",
+          "date": "2026-11-19",
+          "version": "set",
+          "text": "수능 기준 6회 · 목표 2등급 (점수 구간과 달라요 — 바꾸지 않았어요) · ~2026-11-19"
+        },
+        "before": "M2706,2026,M2609,M2606,2025,M2509"
+      }
+    },
+    {
+      "id": "T04",
+      "name": "저장 등급 2 · 점수 90 참고 구간 — 섞지 않고 따로 표시 · 모순이면 「바꾸지 않았어요」",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "goalValue": "영어 90점 · 참고 1등급 구간",
+        "line": "수능 기준 6회 · 목표 2등급 (점수 구간과 달라요 — 바꾸지 않았어요) · ~2026-11-19"
+      }
+    },
+    {
+      "id": "T05",
+      "name": "목표일 저장 · 표시 · 계획량 생성 없음(화면에 날짜 기반 학습량 문구 없음)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "date": "2026-11-19"
+      }
+    },
+    {
+      "id": "T03a",
+      "name": "시험 종류 수능 → 9월 모평 — 기준 시험 회차 집합이 바뀐다(실제 범위 변경)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "suneung": "2026,2025,2024,2023,2022,2021",
+        "kice9": "M2609,M2509,M2409,M2309,M2209,M2109"
+      }
+    },
+    {
+      "id": "T03",
+      "name": "학평 목표 — 저장됨 · 기준 시험 0(평가원으로 대신하지 않음) · 「분석 자료 준비 중」",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "target": {
+          "exam": "hakpyeong",
+          "scope": "unsupported_content",
+          "exams": "",
+          "grade": "",
+          "date": "",
+          "version": "set",
+          "text": "교육청 학력평가 기준 · 분석 자료 준비 중"
+        }
+      }
+    },
+    {
+      "id": "T07",
+      "name": "자료 부족 — R5 를 약점(확인된 요구)으로 만들지 않음 · 목표 연결 「확인 전」",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "r5Default": {
+          "evidence": "axis_observation",
+          "need": "추가 확인 · 순서 1",
+          "relevance": "목표 점수에 꼭 필요한 기출 문항 중 연결된 문항 38개 · 라인 수준 연결(문항별 검토 전)"
+        },
+        "r5h": {
+          "evidence": "not_measured",
+          "need": "목표 시험과의 연결 확인 전 · 순서 14",
+          "relevance": "기준 시험 문항과의 연결을 아직 검토하지 않았어요(무관하다는 뜻 아님)"
+        }
+      }
+    },
+    {
+      "id": "T02b",
+      "name": "목표 변경에 따라 NeedRank/ActionRank 가 바뀐다(학평 미지원 → 먼저 볼 순서 · 상단 다음 행동 변화)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "default": {
+          "order": [
+            "r.central_meaning",
+            "e.evidence_location",
+            "e.option_correspondence"
+          ],
+          "top": "r.central_meaning"
+        },
+        "hakpyeong": {
+          "order": [],
+          "top": null
+        }
+      }
+    },
+    {
+      "id": "T08",
+      "name": "실제 수행 1건 뒤 목표를 두 번 바꿔도 수행 원장(행 수 · 문항 · 과제 · 단계 · 정오) 그대로",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "attempt": 200,
+        "before": 1,
+        "after": 1
+      }
+    },
+    {
+      "id": "T09",
+      "name": "PLAN v1 은 저장 당시 목표 버전(80 · 수능)에 결속 · 목표 변경(95)이 소급하지 않음",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "v1goal": "v(80)"
+      }
+    },
+    {
+      "id": "T10",
+      "name": "v1 복원 → v2 · restored_from 1 · 새 행의 목표 버전 = 지금 목표(95) · 최신 목표 표는 95 그대로(되감기 없음)",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "restored": 1,
+        "goalNow": 95,
+        "v2goalIsCurrent": true
+      }
+    },
+    {
+      "id": "T09b",
+      "name": "PLAN 이력 화면 — 버전별 목표(그때 / 지금)와 「되돌려도 지금 목표는 바뀌지 않아요」",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "hist": [
+          {
+            "current": "true",
+            "text": "지금 목표 95점 · 수능"
+          },
+          {
+            "current": "false",
+            "text": "그때 목표 80점 · 수능 — 되돌려도 지금 목표는 바뀌지 않아요"
+          }
+        ]
+      }
+    },
+    {
+      "id": "T11",
+      "name": "옛 목표 버전(map_goal)으로 복귀 → 「목표가 바뀌었어요」 · 지금 목표 기준 계산",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "notes": [
+          "goal_changed"
+        ]
+      }
+    },
+    {
+      "id": "T13",
+      "name": "저장 실패(500 주입) — 오류 표시 · 저장 목표 95 그대로(70 · 빈 목표로 바뀌지 않음)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "goalValue": "영어 95점 · 참고 1등급 구간"
+      }
+    },
+    {
+      "id": "T13b",
+      "name": "등급만(점수 없음) · 모르는 시험 → 400 · 이력 행 늘지 않음",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "status": [
+          400,
+          400
+        ],
+        "rows": 6
+      }
+    },
+    {
+      "id": "T14",
+      "name": "겹친 두 저장 — 최신 표 점수 = 마지막 이력 행 점수(어긋남 없음)",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "latest": 83,
+        "lastRow": 83
+      }
+    },
+    {
+      "id": "T15",
+      "name": "과거 asof — 목표 편집 대신 「현재 기준에서 목표 바꾸기」 링크",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "goalEdit": false,
+        "toCurrent": true
+      }
+    },
+    {
+      "id": "T16",
+      "name": "페이지 가로 넘침 0",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "w": 1280
+      }
+    },
+    {
+      "id": "T12",
+      "name": "다른 학습자는 A 의 목표 이력 · 최신 목표 · 계획 이력을 읽지 못한다",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "goalVersion": 0,
+        "goal": 0,
+        "plan": 0
+      }
+    }
+  ]
+}
