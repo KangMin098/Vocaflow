@@ -112,6 +112,8 @@ export interface SavedPlanVersion {
   canon: string
   asOf: string
   createdAt: string
+  /** LM-G1.3a — 이 계획을 저장할 때의 목표 이력 id(learner_workspace_plan.goal_version_id 그대로 · 없으면 null). 목표가 바뀌어도 소급하지 않는다 */
+  goalVersionId?: number | null
 }
 
 /** 저장된 계획과 지금 계획 보기의 차이 — 재계획 제안(콘텐츠 · 정의가 바뀌었을 때). 근거 · 판정은 보지 않는다 */

@@ -16,13 +16,23 @@ import { useEffect, useId, useRef, useState, useTransition, type ReactNode } fro
 import { track } from '@/lib/analytics/client'
 import { GOAL_STRATEGY_NOTE } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
+import { GOAL_EXAM_LABEL, GOAL_EXAMS, type GoalExam } from '@/lib/csat/map/v62/target-goal'
 
 import s from './map.module.css'
+
+/** 점수 외 목표(LM-G1.3a) — 저장된 최신 목표 이력에서만 채운다(입력 중 값은 저장 성공 전까지 「저장된 목표」가 아니다) */
+export interface GoalExtra { exam: GoalExam | null; grade: number | null; date: string | null }
+const extraOf = (data: MapPageData): GoalExtra => {
+  const g = data.v4?.target?.goal ?? null
+  return { exam: g?.exam ?? null, grade: g?.grade ?? null, date: g?.date ?? null }
+}
 
 export function useGoal(data: MapPageData) {
   const router = useRouter()
   const { model } = data
   const [goal, setGoal] = useState(model.goal)
+  const [extra, setExtra] = useState<GoalExtra>(() => extraOf(data))
+  const savedExtra = extraOf(data)
   const [draft, setDraft] = useState(String(model.goal))
   const [err, setErr] = useState<string | null>(null)
   const [refreshing, startTransition] = useTransition()
@@ -36,10 +46,16 @@ export function useGoal(data: MapPageData) {
     setGoal(model.goal)
     setDraft(String(model.goal))
   }, [model.goal])
+  // 서버가 저장된 목표 이력을 다시 내려주면 점수 외 입력도 저장 값으로 맞춘다
+  useEffect(() => {
+    setExtra(savedExtra)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedExtra.exam, savedExtra.grade, savedExtra.date])
 
   // 같은 목표 값의 재시도는 같은 요청 키 — 응답을 못 받고 다시 눌러도 목표 이력이 두 줄 생기지 않는다(독립 리뷰 P2)
-  const attempt = useRef<{ value: number; key: string } | null>(null)
-  const apply = async (next: number) => {
+  const attempt = useRef<{ value: string; key: string } | null>(null)
+  /** 점수 + 점수 외 목표를 한 번에 저장(한 요청 · 한 이력 줄). 같은 값의 재시도는 같은 요청 키 */
+  const apply = async (next: number, more: GoalExtra = extra) => {
     if (pending) return
     setErr(null)
     if (!Number.isInteger(next) || next < 0 || next > 100) {
@@ -47,26 +63,31 @@ export function useGoal(data: MapPageData) {
       return
     }
     const before = goal
+    const beforeExtra = extra
     setGoal(next)
     setDraft(String(next))
+    setExtra(more)
     setSaving(true)
-    if (attempt.current?.value !== next) attempt.current = { value: next, key: crypto.randomUUID() }
+    const sig = JSON.stringify([next, more.exam, more.grade, more.date])
+    if (attempt.current?.value !== sig) attempt.current = { value: sig, key: crypto.randomUUID() }
     try {
-      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, clientKey: attempt.current.key }) })
+      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, exam: more.exam, grade: more.grade, date: more.date, clientKey: attempt.current.key }) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? '저장하지 못했어요')
       attempt.current = null
       setSaved(true)
       track({ name: 'csat_map_goal_set', props: { goal: next } })
       startTransition(() => router.refresh())
     } catch (e) {
+      // 실패하면 저장 전 값으로 — 저장 안 된 입력을 저장된 목표처럼 남기지 않는다(T13)
       setGoal(before)
       setDraft(String(before))
+      setExtra(beforeExtra)
       setErr(e instanceof Error ? e.message : '저장하지 못했어요')
     } finally {
       setSaving(false)
     }
   }
-  return { goal, draft, setDraft, err, pending, apply, saved }
+  return { goal, draft, setDraft, err, pending, apply, saved, extra, setExtra, savedExtra }
 }
 
 export type GoalState = ReturnType<typeof useGoal>
@@ -102,6 +123,30 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           적용
         </button>
       </form>
+      {/* LM-G1.3a — 점수 외 목표는 접어 둔다(저장 · 표시 · 시험은 기준 시험 범위 계산에 쓰인다 · 등급 · 목표일은 저장 · 표시만) */}
+      <details className={s.goalMore} data-testid="goal-more">
+        <summary>시험 · 등급 · 목표일 더 정하기</summary>
+        <label className={s.inputWrap}>
+          <span className={s.inputLabel}>목표 시험</span>
+          <select className={s.input} value={g.extra.exam ?? ''} onChange={(e) => g.setExtra({ ...g.extra, exam: (e.target.value || null) as GoalExam | null })} data-testid="goal-exam">
+            <option value="">정하지 않음(평가원 최근 시험 기준)</option>
+            {GOAL_EXAMS.map((x) => <option key={x} value={x}>{GOAL_EXAM_LABEL[x]}</option>)}
+          </select>
+        </label>
+        <label className={s.inputWrap}>
+          <span className={s.inputLabel}>목표 등급(선택 · 점수와 따로 저장)</span>
+          <select className={s.input} value={g.extra.grade ?? ''} onChange={(e) => g.setExtra({ ...g.extra, grade: e.target.value ? Number(e.target.value) : null })} data-testid="goal-grade">
+            <option value="">정하지 않음</option>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => <option key={x} value={x}>{x}등급</option>)}
+          </select>
+        </label>
+        <label className={s.inputWrap}>
+          <span className={s.inputLabel}>목표일(선택)</span>
+          <input type="date" className={s.input} value={g.extra.date ?? ''} onChange={(e) => g.setExtra({ ...g.extra, date: e.target.value || null })} data-testid="goal-date" />
+        </label>
+        <button type="button" className={s.applyBtn} disabled={g.pending} onClick={() => g.apply(Number(g.draft))} data-testid="goal-apply-all">이 목표로 저장</button>
+        <p className={s.goalNote}>등급 · 목표일은 저장해 두고 보여 줄 뿐, 점수로 바꾸거나 학습량을 정하지 않아요. 목표 시험은 분석에 쓰는 기출 범위를 정해요.</p>
+      </details>
       {g.err && <span className={s.err} role="alert">{g.err}</span>}
       <p className={s.goalNote}>{GOAL_STRATEGY_NOTE}</p>
     </div>

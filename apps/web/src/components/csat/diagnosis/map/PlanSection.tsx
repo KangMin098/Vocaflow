@@ -21,6 +21,7 @@ import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, r
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
+import { GOAL_EXAM_LABEL } from '@/lib/csat/map/v62/target-goal'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 
@@ -374,6 +375,11 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
             {sw.history.map((h) => (
               <li key={h.version} data-version={h.version}>
                 <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
+                {/* LM-G1.3a — 이 계획을 저장할 때의 목표(저장 이력 그대로 · 소급 없음). 지금 목표와 다르면 복원해도 목표는 그대로라고 알린다 */}
+                <span className={n.historyPlan} data-testid="plan-goal-version" data-goal-version={h.goalVersionId ?? ''} data-current={h.goalVersionId === (saved?.goalVersionId ?? null)}>
+                  {goalLabel(h.goalVersionId ?? null, saved)}
+                  {h.goalVersionId !== (saved?.goalVersionId ?? null) && h.version !== sw.latest.version ? ' — 되돌려도 지금 목표는 바뀌지 않아요' : ''}
+                </span>
                 <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
                   <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || !!transferRestoreShortage(view, h.version)} data-testid="plan-restore">
@@ -404,4 +410,13 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       </div>
     </section>
   )
+}
+
+/** 계획이 저장될 때의 목표(LM-G1.3a) — 목표 이력 id → 「목표 80점 · 수능」. 이력 밖이거나 없으면 그대로 말한다 */
+function goalLabel(id: number | null, saved: SavedPlans | null): string {
+  if (id === null) return '저장 당시 목표 기록 없음'
+  const g = saved?.goalHistory?.find((x) => x.id === id)
+  const now = id === saved?.goalVersionId ? '지금 목표' : '그때 목표'
+  if (!g) return `${now} · 목표 기록 #${id}`
+  return `${now} ${g.score}점${g.exam ? ` · ${GOAL_EXAM_LABEL[g.exam]}` : ''}${g.grade ? ` · ${g.grade}등급` : ''}${g.date ? ` · ~${g.date}` : ''}`
 }

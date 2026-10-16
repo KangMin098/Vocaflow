@@ -23,7 +23,8 @@ import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-
 import { isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
 import { toItemSlug } from '../item-slug'
 import type { AsIsSession } from './v4/as-is'
-import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
+import { loadLatestGoal, loadSavedPlans, type SavedPlans } from './v4/plan-store'
+import { scopeCandidates, type GoalVersion, type ScopeCandidate, type ScopeStatus, type GoalExam } from './v62/target-goal'
 import type { ActivityRow } from './lifecycle-evidence'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
@@ -99,6 +100,8 @@ export interface MapV4Input {
   saved: SavedPlans
   /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
   supplyLedger: Record<string, SupplyLedger>
+  /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
+  target?: { goal: GoalVersion | null; scope: { exam: GoalExam | null; status: ScopeStatus; reason: string | null; exams: { id: string; label: string }[] } }
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
   viewer: string
 }
@@ -276,11 +279,15 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   if (goalRes.error) throw new Error(`목표 조회 실패: ${goalRes.error.message}`)
   const doneRows = await selectSmall<{ task_id: string }>(() => db.from('csat_map_task_done').select('task_id').eq('user_id', userId), 'csat_map_task_done')
 
-  // 기준 시험 — 정답표(45문항 · 배점 합 100)가 갖춰진 평가원 시험 중 최근 N회
-  const examRows = await selectSmall<{ id: string; label: string; month: number | null; exam_year: number | null }>(
-    () => db.from('csat_exams').select('id, label, month, exam_year').eq('organizer', 'kice'),
-    'csat_exams',
-  )
+  // LM-G1.3a — 저장된 목표(점수 · 등급 · 시험 · 목표일) 최신 이력. 목표 시험이 기준 시험 범위를 정한다(미지정 = 기존 평가원 기본)
+  const goalVersion = await loadLatestGoal(db, userId)
+  const goalExam = goalVersion?.exam ?? null
+  // 기준 시험 — 정답표(45문항 · 배점 합 100)가 갖춰진 시험 중 목표 시험 범위의 최근 N회. 학평 목표일 때만 교육청 회차도 읽는다
+  type ExamRow = { id: string; label: string; month: number | null; exam_year: number | null; organizer: string }
+  const examRows: ExamRow[] = [
+    ...(await selectSmall<ExamRow>(() => db.from('csat_exams').select('id, label, month, exam_year, organizer').eq('organizer', 'kice'), 'csat_exams')),
+    ...(goalExam === 'hakpyeong' ? await selectSmall<ExamRow>(() => db.from('csat_exams').select('id, label, month, exam_year, organizer').eq('organizer', 'edu_office'), 'csat_exams') : []),
+  ]
   const keyRows = await selectByChunks<{ exam_id: string; no: number; points: number }>(
     examRows.map((e) => e.id),
     20,
@@ -291,13 +298,25 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   for (const k of keyRows) (keyByExam[k.exam_id] ??= []).push({ no: k.no, points: k.points })
   // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중)은 기준 시험 후보에서 뺀다(문항별 함정 계열 연결이 지도에 실리지 않게 · 판정 실패면 전부 빠져 지도는 준비 중)
   const heldExams = await embargoedExamIds(examRows.map((e) => e.id))
-  const candidates: ExamCandidate[] = examRows.filter((e) => !heldExams.has(e.id)).map((e) => ({
+  // 오답률 관측이 있는 회차(교육청 회차를 읽을 때만 묻는다 — 평가원은 기존 경로가 오답률을 따로 읽는다)
+  const officeIds = examRows.filter((e) => e.organizer === 'edu_office').map((e) => e.id)
+  const ratedOffice = new Set<string>()
+  if (officeIds.length) {
+    const rated = await selectByChunks<{ exam_id: string }>(officeIds, 20, (chunk) => db.from('csat_map_item_rate').select('exam_id').in('exam_id', chunk).limit(1000), 'csat_map_item_rate')
+    for (const x of rated) ratedOffice.add(x.exam_id)
+  }
+  const scoped: ScopeCandidate[] = examRows.filter((e) => !heldExams.has(e.id)).map((e) => ({
     id: e.id,
     label: e.label,
     held: (e.exam_year ?? 0) * 100 + (e.month ?? 0),
     itemCount: keyByExam[e.id]?.length ?? 0,
     pointsTotal: (keyByExam[e.id] ?? []).reduce((s, k) => s + k.points, 0),
+    organizer: e.organizer,
+    month: e.month,
+    hasRates: e.organizer === 'kice' || ratedOffice.has(e.id),
   }))
+  const scope = scopeCandidates(goalExam, scoped)
+  const candidates: ExamCandidate[] = scope.candidates
   const selection = selectReferenceExams(candidates, settings.reference_exams)
   const examIds = selection.exams.map((e) => e.id)
   const examLabels = Object.fromEntries(examRows.map((e) => [e.id, e.label]))
@@ -471,6 +490,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       transferTargets,
       saved,
       supplyLedger,
+      // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
+      target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
       viewer: userId,
     },
     model: buildMapModel(raw, examLabels),
