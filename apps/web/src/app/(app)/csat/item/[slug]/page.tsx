@@ -22,6 +22,7 @@ import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/Anal
 import { railExams } from '@/lib/csat/rail-data'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
+import { ContextSensePanel, type ContextSensePanelProps } from '@/components/csat/theater/ContextSensePanel'
 import { EvidencePanel } from '@/components/csat/theater/EvidencePanel'
 import type { EvidencePanelProps } from '@/lib/knowledge/evidence-locate'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
@@ -297,6 +298,8 @@ export default async function CsatItemTheaterPage({
   const panel = principle ? (
     principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
       <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+    ) : principle.taskKey === 'contextual-sense' ? (
+      <ContextSensePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as ContextSensePanelProps)} />
     ) : principle.taskKey === 'cohesion-link' ? (
       <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
     ) : (
@@ -325,6 +328,8 @@ export default async function CsatItemTheaterPage({
       {theater}
       {principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
         <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+      ) : principle.taskKey === 'contextual-sense' ? (
+        <ContextSensePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as ContextSensePanelProps)} />
       ) : principle.taskKey === 'cohesion-link' ? (
         <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
       ) : (
