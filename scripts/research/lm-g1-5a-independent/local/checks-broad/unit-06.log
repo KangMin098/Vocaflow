@@ -1,4 +1,0 @@
-◇ injected env (0) from ..\..\.env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
-◇ injected env (0) from .env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
-JSON report written to D:/workspace/Vocaflow-lm-g1-5a-review/scripts/research/lm-g1-5a-independent/local/checks-broad/unit-06.json
-[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
