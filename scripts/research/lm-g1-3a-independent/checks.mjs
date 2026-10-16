@@ -15,7 +15,7 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3008',local=path.join(import.meta.dirname,'local/final');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3008',local=path.join(import.meta.dirname,'local/frozen');fs.mkdirSync(local,{recursive:true})
  const jobs=[
  ['independent-1280','scripts/research/lm-g1-3a-independent/independent-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/independent-1280']],
  ['independent-1440','scripts/research/lm-g1-3a-independent/independent-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/independent-1440']],
@@ -40,7 +40,7 @@ if(mode==='browser'){
   try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
   if(!ownedServer||ownedServer.exitCode!==null||ownedServer.signalCode!==null){
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
-  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3008'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-review'},windowsHide:true,stdio:['ignore',fd,err]})
+  ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3008'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg13a-frozen'},windowsHide:true,stdio:['ignore',fd,err]})
   fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
   }
@@ -65,7 +65,9 @@ if(mode==='browser'){
   src=src.replace("height: 1000","height: 900")
   src=src.replace("await page.fill('input[type=\"email\"]', email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', email)")
   const generated=folder+'/runner.mjs';fs.writeFileSync(generated,src)
-  const codeHash=Object.fromEntries(['GoalBar.tsx','PlanSection.tsx'].map(f=>['component/'+f,crypto.createHash('sha256').update(fs.readFileSync(root+'/apps/web/src/components/csat/diagnosis/map/'+f)).digest('hex')]));
+  const sourceFiles=spawnSync('git',['diff','--name-only','4cba17a36884eb6bc59bfb19baf6845eee7cc064...HEAD','--','apps/web'],{cwd:root,encoding:'utf8'}).stdout.trim().split(/\r?\n/).filter(Boolean);
+  const sourceHashes=()=>Object.fromEntries(sourceFiles.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(root+'/'+f)).digest('hex')]));
+  const codeHash=sourceHashes();
   fs.writeFileSync(folder+'/source-hashes.json',JSON.stringify(codeHash));
   const at=new Date().toISOString(),headAtStart=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).stdout.trim()
   const r=spawnSync(process.execPath,['--tls-max-v1.2',generated,...args],{cwd:root,encoding:'utf8',timeout:900000,maxBuffer:16<<20,windowsHide:true})
@@ -77,11 +79,12 @@ if(mode==='browser'){
   if(unknown){cleanup.ok=false;cleanup.unknown+=unknown;cleanup.accountsLeft=null;cleanup.errors.push('initial_absence_unconfirmed')}
   const failed=log.split(/\r?\n/).filter(l=>/^\[FAIL\]|^FAIL /.test(l))
   const passed=log.split(/\r?\n/).filter(l=>/^\[PASS\]|^PASS (?!\d)/.test(l))
-  const row={name,headAtStart,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
+  const sourceStable=JSON.stringify(codeHash)===JSON.stringify(sourceHashes());
+  const row={name,sourceStable,headAtStart,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
   results.push(row);fs.writeFileSync(local+(delta?'/delta-browser-summary.json':'/browser-summary.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(row))
-  if(!cleanup.ok||r.status!==0||failed.length)break
+  if(!cleanup.ok||r.status!==0||failed.length||!sourceStable)break
  }
- process.exitCode=results.length===remainingJobs.length&&results.every(r=>r.exit===0&&r.failLines===0&&r.cleanup.ok)?0:1
+ process.exitCode=results.length===remainingJobs.length&&results.every(r=>r.exit===0&&r.failLines===0&&r.cleanup.ok&&r.sourceStable)?0:1
  } finally {
   try {const cleanup=await stopOwnedServer(ownedServer);fs.writeFileSync(local+'/owned-server-cleanup.json',JSON.stringify(cleanup))}
   catch(e){process.exitCode=1;fs.writeFileSync(local+'/owned-server-cleanup.json',JSON.stringify({error:String(e)}))}
