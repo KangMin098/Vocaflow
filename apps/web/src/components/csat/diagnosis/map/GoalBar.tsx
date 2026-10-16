@@ -161,7 +161,12 @@ export function GoalPopover({ data, g, trigger, align = 'start' }: { data: MapPa
     const onDown = (e: MouseEvent) => {
       if (box.current && !box.current.contains(e.target as Node)) setOpen(false)
     }
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.preventDefault()
+      setOpen(false)
+      box.current?.querySelector<HTMLElement>('button[aria-controls]')?.focus()
+    }
     document.addEventListener('mousedown', onDown)
     document.addEventListener('keydown', onKey)
     return () => {
@@ -177,7 +182,7 @@ export function GoalPopover({ data, g, trigger, align = 'start' }: { data: MapPa
           <div className={s.popHead}>
             <Target size={15} strokeWidth={1.8} aria-hidden="true" />
             <span>목표 점수</span>
-            <button type="button" className={s.popClose} onClick={() => setOpen(false)} aria-label="닫기">
+            <button type="button" className={s.popClose} onClick={() => { setOpen(false); box.current?.querySelector<HTMLElement>('button[aria-controls]')?.focus() }} aria-label="닫기">
               <X size={14} aria-hidden="true" />
             </button>
           </div>
