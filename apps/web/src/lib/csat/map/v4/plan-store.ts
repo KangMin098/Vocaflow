@@ -8,7 +8,8 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { transferPolicy } from './plan-commit'
+import { transferPolicy, transferPolicySnapshots } from './plan-commit'
+import { TRANSFER_PASSAGES } from './workspace'
 import type { PlanPayload, PlanReason, PriorCommit, SavedPlanVersion } from './plan-commit'
 
 type Db = SupabaseClient
@@ -23,6 +24,8 @@ export interface SavedWorkspace {
   history: SavedPlanVersion[]
   /** Derived from complete append-only history; the UI still receives only the last 20 versions. */
   transferPlanned?: Partial<Record<string, number>>
+  /** Compact policy snapshots for safe restoration; displayed allocation history stays at 20. */
+  transferPolicies?: Record<number, Partial<Record<string, number>>>
 }
 
 export interface SavedPlans {
@@ -80,7 +83,10 @@ export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans
   for (const { w, rows } of per) {
     if (!rows.length) continue
     const history = rows.map((r) => ({ version: r.plan_version, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, canon: r.canon_version, asOf: r.as_of, createdAt: r.created_at }))
-    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history: history.slice(0, 20), transferPlanned: transferPolicy(w.template_id as string, history) }
+    const snapshots = transferPolicySnapshots(w.template_id as string, history)
+    const known = [...new Set(Object.values(snapshots).flatMap(p => Object.keys(p)))]
+    const transferPolicies = Object.fromEntries(Object.entries(snapshots).map(([version, p]) => [version, Object.fromEntries(known.map(id => [id, p[id] ?? TRANSFER_PASSAGES]))]))
+    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history: history.slice(0, 20), transferPolicies, transferPlanned: transferPolicy(w.template_id as string, history) }
   }
   return { status, byTemplate, goalVersionId: (goal.data?.[0]?.id as number | undefined) ?? null }
 }

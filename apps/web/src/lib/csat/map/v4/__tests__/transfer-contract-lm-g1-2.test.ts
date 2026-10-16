@@ -109,7 +109,7 @@ describe('LM-G1.2 TRANSFER 계약 — 경험 · 진행 · 준비 · 증거 분�
   })
 
   it('저장 계획량은 「적용」 단계로 저장된 것만 · 0 · 비정수 무시 · 가용을 넘지 않음', () => {
-    const saved = (stage: string, planned: number | null) => ({ v4: { saved: { status: 'installed', goalVersionId: 1, byTemplate: { 'ws.central-meaning': { workspaceId: 'w', template: 'ws.central-meaning', latest: { plan: { order: [T], tasks: [{ task: T, stage, planned, available: 2, rule: null }] } }, history: [] } } } } }) as unknown as Parameters<typeof savedTransferOf>[0]
+    const saved = (stage: string, planned: number | null) => ({ v4: { saved: { status: 'installed', goalVersionId: 1, byTemplate: { 'ws.central-meaning': { workspaceId: 'w', template: 'ws.central-meaning', latest: { version: 1, plan: { order: [T], tasks: [{ task: T, stage, planned, available: 2, rule: null }] } }, history: [] } } } } }) as unknown as Parameters<typeof savedTransferOf>[0]
     expect(savedTransferOf(saved('transfer', 1))).toEqual({ [T]: 1 })
     expect(savedTransferOf(saved('repair', 1))).toEqual({})
     expect(savedTransferOf(saved('transfer', 0))).toEqual({})

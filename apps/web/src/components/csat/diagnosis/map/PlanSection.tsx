@@ -17,7 +17,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
-import { REASON_LABEL, applySaved, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
+import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
@@ -138,6 +138,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     edited()
     setDraft(next)
     writeDraft(key, next)
+    if (next === null) { setNote(''); writeNote(key, ''); if (handoff.current?.sourceKey === key) writeNote(handoff.current.key, '') }
     if (handoff.current?.sourceKey === key) writeDraft(handoff.current.key, sameStageDraft(next, currentStages(), handoff.current.stages))
     if (save.kind !== 'idle') setSave({ kind: 'idle' })
   }
@@ -160,7 +161,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     const req = {
       template: view.workspace,
       order: src ? src.order : shown.tasks.map((p) => p.task),
-      planned: Object.fromEntries((src ? src.tasks.map((x) => { const current = view.tasks.find((p) => p.task === x.task); const now = current?.quantity.available ?? null; if (x.stage !== current?.stage) return [x.task, current?.quantity.planned ?? null]; return [x.task, x.planned === null || now === null ? (now === null ? null : x.planned) : x.stage === 'transfer' ? x.planned : Math.min(x.planned, now)] }) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
+      planned: Object.fromEntries((src ? src.tasks.map((x) => { const current = view.tasks.find((p) => p.task === x.task); const now = current?.quantity.available ?? null; const restored = restoreOf ? view.restoreTransfer?.[restoreOf]?.[x.task] : undefined; if (current?.stage === 'transfer' && view.core.includes(x.task) && restored !== undefined) return [x.task, restored]; if (x.stage !== current?.stage) return [x.task, current?.quantity.planned ?? null]; return [x.task, x.planned === null || now === null ? (now === null ? null : x.planned) : x.stage === 'transfer' ? x.planned : Math.min(x.planned, now)] }) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
       reason: reasonCode,
       note: note.trim() || null,
       expectedVersion: savedVersion,
@@ -208,6 +209,9 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   }
 
   const ERR: Record<string, string> = {
+    restore_transfer_policy: '복원할 적용 계획량과 달라요. 화면을 다시 불러와 주세요.',
+    planned_min: '다른 글 적용 계획은 최소 1지문이에요.',
+    transfer_restore_shortage: '복원할 적용 계획보다 현재 자료가 부족해요. 자료가 준비된 뒤 복원해 주세요.',
     planned_not_owned: '적용 계획량은 중심 Workspace에서 조정해 주세요.',
     network: '연결이 끊겨 저장됐는지 알 수 없어요. 다시 누르면 같은 요청으로 확인해요(두 번 저장되지 않아요).',
     planned_over_available: '그 사이 쓸 수 있는 문항 수가 바뀌었어요. 계획량을 줄이거나 화면을 새로 불러와 주세요.',
@@ -277,7 +281,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
               <div className={n.planSide}>
                 {q.adjustable && !past && (
                   <div className={n.stepper} role="group" aria-label={`${p.name} 계획 ${q.unit} 수`}>
-                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 ${q.unit} 줄이기`} disabled={(q.planned ?? 0) <= 0} onClick={() => setPlanned(p, (q.planned ?? 0) - 1)}>
+                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 ${q.unit} 줄이기`} disabled={(q.planned ?? 0) <= (p.stage === 'transfer' ? 1 : 0)} onClick={() => setPlanned(p, (q.planned ?? 0) - 1)}>
                       <Minus size={14} aria-hidden="true" />
                     </button>
                     <span className={n.stepVal} aria-live="polite">{q.planned}</span>
@@ -349,7 +353,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                 <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
                 <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
-                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || h.plan.tasks.some(x => { const p = view.tasks.find(t => t.task === x.task); return x.stage === 'transfer' && p?.stage === 'transfer' && x.planned !== null && p.quantity.available !== null && x.planned > p.quantity.available })} data-testid="plan-restore">
+                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || !!transferRestoreShortage(view, h.version) || h.plan.tasks.some(x => { const p = view.tasks.find(t => t.task === x.task); return x.stage === 'transfer' && p?.stage === 'transfer' && x.planned !== null && p.quantity.available !== null && x.planned > p.quantity.available })} data-testid="plan-restore">
                     <RotateCcw size={13} aria-hidden="true" /> 이 버전으로 되돌리기
                   </button>
                 )}

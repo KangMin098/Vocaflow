@@ -75,6 +75,8 @@ export interface TaskPlan {
   workspaces: string[]
   /** 지금 실행 가능한 자료(확인 문항 링크 등) — 없으면 null */
   next: { href: string; label: string } | null
+  /** Content capacity independent of the currently allocated stage (restore validation). */
+  transferAvailable?: number
   quantity: PlanQuantity
   achievement: Achievement
   /** 아직 풀리지 않은 것(문구 키) */
@@ -92,6 +94,8 @@ export interface PlanActivity {
 }
 
 export interface WorkspacePlanView {
+  /** Effective core transfer policy of each saved version, derived from full history. */
+  restoreTransfer?: Record<number, Partial<Record<string, number>>>
   workspace: string
   /** 중심 TASK — 계획 진행은 이것만 센다(보조 TASK 는 그 TASK 의 중심 Workspace 에서 센다 · 중복 금지) */
   core: TaskId[]
@@ -249,6 +253,7 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
     stage,
     workspaces: need?.workspaces ?? [],
     next: need?.executable ? { href: need.executable.href, label: need.executable.label } : stageLink(stage, t, home, activity),
+    transferAvailable: Math.min(TRANSFER_PASSAGES, new Set((home?.stageItems?.transfer ?? []).map(l => passageIdentity(l.target, l.passageKey)).filter(x => x !== null)).size),
     quantity: {
       unit: stage === 'transfer' ? '지문' : '문항',
       available,
@@ -281,14 +286,14 @@ export interface PlanDraft {
 }
 
 /**
- * 조정 적용 — 계획량은 0 ~ 가용량으로 자른다(콘텐츠보다 많이 계획할 수 없다), 계획 불가 TASK 는 조정하지 않는다.
+ * 조정 적용 — 계획량은 0 ~ 가용량으로 자른다(적용은 기존 최소1)(콘텐츠보다 많이 계획할 수 없다), 계획 불가 TASK 는 조정하지 않는다.
  * 순서는 초안에 있는 TASK 먼저, 나머지는 원래 순서. 근거 · 성취 · 요구 칸은 원본 그대로 복사된다.
  */
 export function applyDraft(view: WorkspacePlanView, draft: PlanDraft | null): WorkspacePlanView {
   if (!draft) return view
   const planned = view.tasks.map((p) => {
     const want = draft.planned[p.task]
-    if (!p.quantity.adjustable || want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
+    if (!p.quantity.adjustable || (p.stage === 'transfer' && want < 1) || want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
     const n = Math.max(0, Math.min(p.quantity.available, Math.round(want)))
     return { ...p, quantity: { ...p.quantity, planned: n, remaining: Math.max(0, n - p.quantity.done) } }
   })

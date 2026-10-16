@@ -124,6 +124,6 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const cut = ms(at)
   const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
   const opts = { savedTransfer: savedTransferOf(data) }
-  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, activity, opts)]))
+  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, { ...workspacePlan(w, asIs, toBe, plan, activity, opts), restoreTransfer: data.v4?.saved.byTemplate[w.id]?.transferPolicies }]))
   return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts) }
 }

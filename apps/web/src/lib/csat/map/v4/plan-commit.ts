@@ -86,12 +86,17 @@ export function buildCommitPayload(req: PlanCommitRequest, view: WorkspacePlanVi
     return { ok: false, status: 422, code: 'order', detail: '순서는 이 묶음의 항목을 한 번씩 모두 담아야 해요' }
   }
   for (const t of Object.keys(req.planned)) if (!set.has(t)) return { ok: false, status: 422, code: 'planned_task', detail: t }
+  const restoreIssue = req.reason === 'restore' && req.restoreOf != null ? transferRestoreShortage(view, req.restoreOf) : null
+  if (restoreIssue) return { ok: false, status: 422, code: 'transfer_restore_shortage', detail: restoreIssue }
   const tasks: PlanPayloadTask[] = []
   for (const id of templateTasks) {
     const p = view.tasks.find((x) => x.task === id)
     const available = p?.quantity.available ?? null
     const want = req.planned[id] ?? null
+    const restored = req.reason === 'restore' && req.restoreOf != null ? view.restoreTransfer?.[req.restoreOf]?.[id] : undefined
+    if (p?.stage === 'transfer' && tpl.core.includes(id) && restored !== undefined && want !== restored) return { ok: false, status: 422, code: 'restore_transfer_policy', detail: id }
     if (p?.stage === 'transfer' && !tpl.core.includes(id) && want !== null) return { ok: false, status: 422, code: 'planned_not_owned', detail: id }
+    if (p?.stage === 'transfer' && want !== null && want < 1) return { ok: false, status: 422, code: 'planned_min', detail: id }
     if (want !== null && (available === null || want > available)) return { ok: false, status: 422, code: 'planned_over_available', detail: `${id}: ${want} > ${available ?? '없음'}` }
     tasks.push({ task: id, stage: p?.stage ?? null, planned: want, available, rule: p?.quantity.rule ?? null })
   }
@@ -182,7 +187,7 @@ export function keyFor(pending: { key: string; sig: string } | null, sig: string
 /** Saved operating quantity is independent of the currently allocated stage.
  * Replay only this template's core TASK policies; restoration restores the prior policy snapshot.
  */
-export function transferPolicy(template: string, history: readonly SavedPlanVersion[]): Partial<Record<string, number>> {
+export function transferPolicySnapshots(template: string, history: readonly SavedPlanVersion[]): Record<number, Partial<Record<string, number>>> {
   const core = new Set(templateOf(template)?.core ?? [])
   let policy: Partial<Record<string, number>> = {}
   const snapshots = new Map<number, Partial<Record<string, number>>>()
@@ -197,5 +202,21 @@ export function transferPolicy(template: string, history: readonly SavedPlanVers
     }
     snapshots.set(version.version, { ...policy })
   }
-  return policy
+  return Object.fromEntries(snapshots)
+}
+
+export function transferPolicy(template: string, history: readonly SavedPlanVersion[]): Partial<Record<string, number>> {
+  const snapshots = transferPolicySnapshots(template, history)
+  const latest = history.reduce((n, v) => Math.max(n, v.version), 0)
+  return snapshots[latest] ?? {}
+}
+
+/** A restored CHECK allocation can inherit a TRANSFER policy from an older version. */
+export function transferRestoreShortage(view: WorkspacePlanView, version: number): string | null {
+  for (const [id, amount] of Object.entries(view.restoreTransfer?.[version] ?? {})) {
+    const p = view.tasks.find(t => t.task === id)
+    if (!p || !view.core.includes(id) || p.achievement === 'resolved' || p.transferAvailable === undefined) continue
+    if (amount !== undefined && amount > p.transferAvailable) return id
+  }
+  return null
 }

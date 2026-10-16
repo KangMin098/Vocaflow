@@ -58,10 +58,14 @@ describe('commitPlan — RPC 오류 매핑', () => {
 
 it('full scoped history retains transfer choice beyond20 UI versions and1000 server rows',async()=>{
  const rows: Row[]=Array.from({length:1002},(_,i)=>({...plan('w1',i+1),user_id:'u'}))
- rows[0].plan={order:['r.central_meaning'],tasks:[{task:'r.central_meaning',stage:'transfer',planned:1}]}
+ rows[0].plan={order:['r.central_meaning'],tasks:[{task:'r.central_meaning',stage:'repair',planned:2}]}
+ rows[1].plan={order:['r.central_meaning'],tasks:[{task:'r.central_meaning',stage:'transfer',planned:1}]}
  const db=fakeDb({learner_workspace:[{id:'w1',template_id:'ws.central-meaning',user_id:'u',status:'active'}],learner_workspace_plan:rows,csat_map_goal_version:[]})
  const s=await loadSavedPlans(db,'u')
  expect(s.byTemplate['ws.central-meaning'].history).toHaveLength(20)
  expect(s.byTemplate['ws.central-meaning'].latest.version).toBe(1002)
  expect(s.byTemplate['ws.central-meaning'].transferPlanned?.['r.central_meaning']).toBe(1)
+ expect(s.byTemplate['ws.central-meaning'].transferPolicies?.[1]?.['r.central_meaning']).toBe(2)
+ expect(s.byTemplate['ws.central-meaning'].transferPolicies?.[2]?.['r.central_meaning']).toBe(1)
+ expect(s.byTemplate['ws.central-meaning'].transferPolicies?.[1002]?.['r.central_meaning']).toBe(1)
 })

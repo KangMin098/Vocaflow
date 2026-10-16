@@ -421,6 +421,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const allLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
   // Reveal Gate — 보류 시험 문항은 확인 링크 · 확인 결과(정오) · 수행 요약에서 뺀다. 판정 실패면 전부 뺀다(fail-closed · Codex P1)
   const gate = await itemRevealDecision(Object.values(allLinks).flatMap((l) => l.confirm.map((c) => c.target)))
+  if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
   const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
@@ -440,12 +441,13 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const practiceNext: Record<string, string> = {}
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
-  // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 못 읽으면 0(적용 단계는 「준비 중」으로 보인다 — 숫자를 지어내지 않는다)
-  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return { counts: {} as Record<string, number>, targets: {} as Record<string, { target: string; href: string; label: string }[]> } })
+  // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 조회 오류는 오류 경로로 보낸다(정상 조회의 실제 0과 구분)
+  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks)
   // Read existing source only: exact passage JSON binds progress and candidate availability.
-  const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x)).catch(e => { console.error('[csat-map passage identity]', e); return {} as Record<string, string> })
+  const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x))
   for (const a of lifecycleActivity ?? []) a.passageKey = a.itemRef ? passageKeys[a.itemRef] ?? null : null
   for (const [key, list] of Object.entries(transferTargets)) {
+    if (list.some(l => !passageKeys[l.target])) throw new Error('적용 후보의 지문 식별 자료를 확인하지 못했어요')
     transferTargets[key] = list.filter(l => !!passageKeys[l.target]).map(l => ({ ...l, passageKey: passageKeys[l.target] }))
     transferItems[key] = new Set(transferTargets[key].map(l => passageKeys[l.target])).size
   }
@@ -534,7 +536,7 @@ export async function loadLearnerSessions(db: Db, userId: string, trendIds: read
 /**
  * rev4 Workspace 「다른 글에 적용」 학습량 — 확인 과제 키마다 확인 묶음 밖의 실제 적용 문항 수.
  *   claim-support: 실학습 Practice 풀(practice-server) · 그 밖: 활성 문항 과제 적용(knowledge_applications csat_item_task · 상태 active).
- * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패면 0(fail-closed).
+ * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패는 오류 경로로 전달한다(실제 자료0과 구별).
  */
 async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<{ counts: Record<string, number>; targets: Record<string, { target: string; href: string; label: string; passageKey?: string | null }[]> }> {
   const confirmOf = new Map<string, Set<string>>()
@@ -563,7 +565,7 @@ async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>)
   }
   const candidates = [...new Set([...byKey.values()].flatMap((s) => [...s]))]
   const gate = await itemRevealDecision(candidates)
-  if (gate.failed) return { counts: {}, targets: {} }
+  if (gate.failed) throw new Error('적용 문항의 공개 적격성을 확인하지 못했어요')
   const counts = Object.fromEntries([...confirmOf.keys()].map((k) => [k, [...(byKey.get(k) ?? [])].filter((i) => !gate.held.has(i)).length]))
   const targets: Record<string, { target: string; href: string; label: string }[]> = {}
   if (confirmOf.has(PRACTICE_SLUG)) targets[PRACTICE_SLUG] = [...transferPhase].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/practice/${PRACTICE_SLUG}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' }))

@@ -152,3 +152,28 @@ it('server rejects supporting TRANSFER overrides and accepts a read-only referen
  expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'planned_not_owned'})
  expect(buildCommitPayload({...req,planned:{[T]:null}},view,NOW)).toMatchObject({ok:true,plan:{tasks:expect.arrayContaining([expect.objectContaining({task:T,planned:null})])}})
 })
+
+it('restore of CHECK allocation still checks the inherited transfer2 policy against available1', () => {
+ const p=Object.assign(build(asIs({attempts:VERIFIED}),[FIXED,tr('x1',13)],1,{savedTransfer:{[T]:1}}),{transferAvailable:1})
+ const view={workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null,restoreTransfer:{7:{[T]:2}}}
+ const req={template:'ws.central-meaning',order:[T,'r.discourse_function','r.discourse_structure'],planned:{[T]:2},reason:'restore',restoreOf:7,expectedVersion:9,clientKey:'00000000-0000-4000-8000-000000000001'} as PlanCommitRequest
+ expect(p.stage).toBe('recheck')
+ expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'transfer_restore_shortage'})
+ expect(buildCommitPayload(req,{...view,tasks:[{...p,transferAvailable:2}]},NOW)).toMatchObject({ok:true})
+ expect(buildCommitPayload(req,{...view,tasks:[{...p,achievement:'resolved',transferAvailable:0}]},NOW)).toMatchObject({ok:true})
+})
+it('TRANSFER zero is rejected rather than saved then silently discarded by replay', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED])
+ const view={workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null}
+ const req={template:'ws.central-meaning',order:[T,'r.discourse_function','r.discourse_structure'],planned:{[T]:0},reason:'learner_adjust',expectedVersion:1,clientKey:'00000000-0000-4000-8000-000000000001'} as PlanCommitRequest
+ expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'planned_min'})
+ expect(applyDraft(view,{order:[T],planned:{[T]:0}}).tasks[0].quantity.planned).toBeGreaterThanOrEqual(1)
+})
+
+it('restoring inherited transfer2 never records a new TRANSFER allocation1', () => {
+ const p=Object.assign(build(asIs({attempts:VERIFIED}),[FIXED],3,{savedTransfer:{[T]:1}}),{transferAvailable:2})
+ const view={workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null,restoreTransfer:{7:{[T]:2}}}
+ const req={template:'ws.central-meaning',order:[T,'r.discourse_function','r.discourse_structure'],planned:{[T]:1},reason:'restore',restoreOf:7,expectedVersion:9,clientKey:'00000000-0000-4000-8000-000000000001'} as PlanCommitRequest
+ expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'restore_transfer_policy'})
+ expect(buildCommitPayload({...req,planned:{[T]:2}},view,NOW)).toMatchObject({ok:true})
+})
