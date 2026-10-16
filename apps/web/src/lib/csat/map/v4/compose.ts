@@ -9,9 +9,10 @@ import { learnerPath, type StepEvidence } from '../learner-path'
 import type { MapPageData } from '../load'
 
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
-import { DOMAINS, type Domain } from './definition'
+import { DOMAINS, templateOf, type Domain } from './definition'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
+import { transferPolicy } from './plan-commit'
 import { allTaskPlans, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
 
 const STEP_TO_PROXY: Record<StepEvidence, AxisProxyState> = {
@@ -101,7 +102,9 @@ export function savedTransferOf(data: Pick<MapPageData, 'v4'>): Partial<Record<s
   if (!s || s.status !== 'installed' || s.error) return {}
   const out: Partial<Record<string, number>> = {}
   for (const w of Object.values(s.byTemplate)) {
-    for (const x of w.latest.plan.tasks ?? []) if (x.stage === 'transfer' && typeof x.planned === 'number' && x.planned >= 1) out[x.task] = x.planned
+    const core = new Set<string>(templateOf(w.template)?.core ?? [])
+    const policy = w.transferPlanned ?? transferPolicy(w.template, [...w.history.filter(h => h.version !== w.latest.version), w.latest])
+    for (const [task, amount] of Object.entries(policy)) if (core.has(task)) out[task] = amount
   }
   return out
 }

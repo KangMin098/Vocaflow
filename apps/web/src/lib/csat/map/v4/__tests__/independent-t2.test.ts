@@ -6,21 +6,19 @@
 // PLAN(stageNow · quantity) · lifecycle(nextLifecycleAction · 4칸)이 같은 진행 · 계획량으로 같은 다음 행동을 낸다. 고정 시각만.
 
 import { workspaceRows } from '../../v62/workspace-list'
-import { applySaved } from '../plan-commit'
+import { applySaved, type SavedPlanVersion, type PlanReason } from '../plan-commit'
 import { describe, expect, it } from 'vitest'
 
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import type { RefItem } from '../../target'
-import { lifecycleCells } from '../../curriculum'
-import { lifecycleEvidence, nextLifecycleAction, transferContract, transferTarget, type ActivityRow } from '../../lifecycle-evidence'
-import { skillDiagnosis } from '../../skill-diagnosis'
+import { transferContract, transferTarget } from '../../lifecycle-evidence'
 
 import { asIsMap, type AsIsInput, type AxisProxyState } from '../as-is'
 import { savedTransferOf } from '../compose'
 import { DOMAINS, type Domain } from '../definition'
 import { transferDoneOf, workspacePlan, type PlanActivity, type PlanOpts } from '../plan'
 import { toBeMap, type ConfirmLink } from '../to-be'
-import { planWorkspaces, TRANSFER_PASSAGES } from '../workspace'
+import { planWorkspaces } from '../workspace'
 
 const NOW = '2026-10-11T09:00:00.000Z'
 const KEY = 'claim-support'
@@ -44,15 +42,6 @@ const act = (itemRef: string, at: string, o: Partial<PlanActivity> = {}): PlanAc
 const FIXED = act('i1', '2026-09-12T00:00:00Z') // 바로잡기 성공
 const tr = (item: string, day: number, o: Partial<PlanActivity> = {}) => act(item, `2026-09-${String(day).padStart(2, '0')}T00:00:00Z`, { phase: 'transfer', isCorrect: null, ...o })
 const SKILL = { status: 'verified', verifiedAt: '2026-09-11T00:00:00Z', verifiedItems: ['i1', 'i2'] }
-const targets = ITEMS.map((itemRef) => ({ itemRef, taskKey: KEY }))
-/** 화면의 lifecycle 4칸과 같은 입력 — 계획과 같은 진행 · 계획량을 실어 다음 행동을 계산 */
-const lifecycleNext = (acts: PlanActivity[], planned: number | null) => {
-  const rows = acts.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null })) as ActivityRow[]
-  const ev = { ...lifecycleEvidence(SKILL, targets, rows), transferDone: transferDoneOf(T, SKILL.verifiedAt, rows), transferPlanned: planned }
-  return { ev, next: nextLifecycleAction('verified', ev) }
-}
-
-
 describe('Independent T2 counterexamples', () => {
   it('T05 one available passage does not silently lower the default two', () => {
     expect(transferTarget(1, null, 2)).toBe(2)
@@ -98,7 +87,7 @@ describe('Independent T2 boundaries', () => {
 it('T08 saved quantity from REPAIR never becomes TRANSFER quantity in PLAN', () => {
  const p=build(asIs({attempts:VERIFIED}),[FIXED])
  const saved={plan:{order:[T],tasks:[{task:T,stage:'repair',planned:1}]}}
- const shown=applySaved({workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null},saved as any)
+ const shown=applySaved({workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null},saved as unknown as SavedPlanVersion)
  expect(shown.tasks[0].quantity.planned).toBe(2)
 })
 
@@ -119,8 +108,25 @@ it('T05c consumed sole passage blocks Workspace fallback to CHECK', () => {
  const p=build(asIs({attempts:VERIFIED}),[FIXED,tr('x1',13)],1)
  expect(p.next).toBeNull()
  const w={id:'ws.central-meaning',core:[T],support:[],name:'n',goal:'g',readiness:'live',next:{href:'/csat/item/i3',label:'CHECK'},stages:{}}
- const rows=workspaceRows({plan:{primary:w,others:[],preparing:[]},plans:{[w.id]:{tasks:[p],progress:{done:1,planned:2}}}} as any)
+ const rows=workspaceRows({plan:{primary:w,others:[],preparing:[]},plans:{[w.id]:{tasks:[p],progress:{done:1,planned:2}}}} as unknown as Parameters<typeof workspaceRows>[0])
  expect(rows[0].stage).toBe('transfer')
  expect(rows[0].next).toBeNull()
  expect(rows[0].state).toBe('locked')
+})
+
+describe('Persistent transfer policy belongs to the core Workspace', () => {
+ const transferPolicy=(template:string,history:SavedPlanVersion[])=>savedTransferOf({v4:{saved:{status:'installed',byTemplate:{[template]:{template,latest:history.at(-1),history}}}}} as unknown as Parameters<typeof savedTransferOf>[0])
+ const version=(v:number,stage:'transfer'|'recheck'|'repair',planned:number,reason:PlanReason='learner_adjust',restoredFrom:number|null=null):SavedPlanVersion=>({version:v,plan:{order:[T],tasks:[{task:T,stage,planned,available:3,rule:'transfer_pool'}]},reason,restoredFrom,note:null,canon:'rev4.0',asOf:NOW,createdAt:NOW})
+ it('later CHECK saves preserve prior explicit transfer1; explicit restore recovers2',()=>{
+  expect(transferPolicy('ws.central-meaning',[version(1,'transfer',2),version(2,'transfer',1),version(3,'recheck',2)])[T]).toBe(1)
+  expect(transferPolicy('ws.central-meaning',[version(1,'transfer',2),version(2,'transfer',1),version(3,'recheck',2,'restore',1)])[T]).toBe(2)
+  expect(transferPolicy('ws.central-meaning',[version(1,'transfer',1),version(2,'recheck',2),version(3,'transfer',2),version(4,'transfer',2,'restore',2)])[T]).toBe(1)
+ })
+ it('R5 as support in E3 Workspace cannot override its core Workspace policy',()=>{
+  const saved={v4:{saved:{status:'installed',byTemplate:{
+   'ws.central-meaning':{template:'ws.central-meaning',latest:version(2,'transfer',1),history:[]},
+   'ws.option-match':{template:'ws.option-match',latest:version(1,'transfer',2),history:[]}
+  }}}} as unknown as Parameters<typeof savedTransferOf>[0]
+  expect(savedTransferOf(saved)[T]).toBe(1)
+ })
 })

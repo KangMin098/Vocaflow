@@ -175,3 +175,24 @@ export function sameCommitRequest(prior: PriorCommit, req: PlanCommitRequest): b
 export function keyFor(pending: { key: string; sig: string } | null, sig: string, fresh: () => string): { key: string; sig: string } {
   return pending && pending.sig === sig ? pending : { key: fresh(), sig }
 }
+
+/** Saved operating quantity is independent of the currently allocated stage.
+ * Replay only this template's core TASK policies; restoration restores the prior policy snapshot.
+ */
+export function transferPolicy(template: string, history: readonly SavedPlanVersion[]): Partial<Record<string, number>> {
+  const core = new Set(templateOf(template)?.core ?? [])
+  let policy: Partial<Record<string, number>> = {}
+  const snapshots = new Map<number, Partial<Record<string, number>>>()
+  for (const version of [...history].sort((a, b) => a.version - b.version)) {
+    if (version.reason === 'restore' && version.restoredFrom != null && snapshots.has(version.restoredFrom)) {
+      policy = { ...snapshots.get(version.restoredFrom) }
+      snapshots.set(version.version, { ...policy })
+      continue // current stage quantities in a rebuilt restore payload are not a new transfer decision
+    }
+    for (const task of version.plan.tasks ?? []) {
+      if (core.has(task.task) && task.stage === 'transfer' && task.planned !== null && Number.isInteger(task.planned) && task.planned >= 1) policy[task.task] = task.planned
+    }
+    snapshots.set(version.version, { ...policy })
+  }
+  return policy
+}

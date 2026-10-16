@@ -59,10 +59,20 @@ try {
   if (await page.waitForSelector('[data-testid="item-check-mode"]', { timeout: 60_000 }).catch(() => null)) await page.click('[data-testid="item-check-explain"]')
   await page.waitForSelector('[data-testid="item-back-map"]', { timeout: 60_000 }).catch(() => {})
   await page.waitForTimeout(3000)
-  const within = Date.now() - t0
+  let within = Date.now() - t0
   // 보류 근거를 원장에서 직접 읽는다(읽기 전용) — 세션 해설 · 도움 칸과 첫 시도의 시각 불확실 · 도움 표시
-  const sess = await db.from('learning_sessions').select('id, item_ref, help_received_at, explanation_viewed_at, help_server_at, explanation_server_at, help_clock_suspect').eq('user_id', u.user.id)
-  const first = await db.from('learning_first_attempts').select('session_id, item_ref, timing_uncertain, after_explanation, after_viewed_first, help_level').eq('user_id', u.user.id)
+  let sess = await db.from('learning_sessions').select('id, item_ref, help_received_at, explanation_viewed_at, help_server_at, explanation_server_at, help_clock_suspect').eq('user_id', u.user.id)
+  let first = await db.from('learning_first_attempts').select('session_id, item_ref, timing_uncertain, after_explanation, after_viewed_first, help_level').eq('user_id', u.user.id)
+  // Explanation delivery is asynchronous; wait for the actual ledger acknowledgement, not a sleep.
+  for (let n = 0; n < 40; n++) {
+    if (sess.error || first.error) throw new Error('timing ledger read failed')
+    const own = first.data?.[0]
+    if ((sess.data ?? []).some(x => x.id !== own?.session_id && (!!x.help_received_at || !!x.explanation_viewed_at)) || own?.timing_uncertain === true) break
+    await page.waitForTimeout(250)
+    sess = await db.from('learning_sessions').select('id, item_ref, help_received_at, explanation_viewed_at, help_server_at, explanation_server_at, help_clock_suspect').eq('user_id', u.user.id)
+    first = await db.from('learning_first_attempts').select('session_id, item_ref, timing_uncertain, after_explanation, after_viewed_first, help_level').eq('user_id', u.user.id)
+  }
+  within = Date.now() - t0
   const att = first.data?.[0] ?? null
   const other = (sess.data ?? []).filter((x) => x.id !== att?.session_id)
   const viewed = other.filter((x) => !!x.explanation_viewed_at || !!x.help_received_at).length

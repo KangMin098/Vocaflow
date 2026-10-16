@@ -12,7 +12,7 @@
 import { ArrowDown, ArrowUp, CircleCheck, History, Minus, Plus, RotateCcw, Save, TriangleAlert } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState, useTransition } from 'react'
+import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 
 import { CANON_VERSION, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
@@ -80,6 +80,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const [draft, setDraft] = useState<PlanDraft | null>(null)
   useEffect(() => setDraft(readDraft(key)), [key])
   const shown = useMemo(() => applyDraft(base, draft), [base, draft])
+  const contentBlocked = shown.tasks.some(p => p.quantity.planned !== null && p.quantity.available !== null && p.quantity.planned > p.quantity.available)
   // 바뀐 내용 = 초안이 있고, 계획량이나 순서가 저장본(없으면 추천 계획)과 다르다
   const dirty = draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
@@ -87,9 +88,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const [note, setNote] = useState('')
   const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
+  const live = useRef({ key, mounted: true, request: 0, edit: 0 })
+  // Ref changes synchronously, before an old response can arrive ahead of passive effects.
+  if (live.current.key !== key) live.current = { key, mounted: live.current.mounted, request: live.current.request + 1, edit: 0 }
+  useEffect(() => { live.current.mounted = true; return () => { live.current.mounted = false; live.current.request++ } }, [])
+  useEffect(() => { setSave({ kind: 'idle' }); setPending(null); setNote('') }, [key])
+  const edited = () => { live.current.edit++; setSave({ kind: 'idle' }) }
   useEffect(() => setWhy(defaultReason), [defaultReason])
 
   const update = (next: PlanDraft | null) => {
+    edited()
     setDraft(next)
     writeDraft(key, next)
     if (save.kind !== 'idle') setSave({ kind: 'idle' })
@@ -106,6 +114,9 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const setPlanned = (p: TaskPlan, v: number) => update({ ...baseDraft(), order: shown.tasks.map((x) => x.task), planned: { ...baseDraft().planned, [p.task]: v } })
 
   const submit = async (reasonCode: PlanReason, restoreOf?: number) => {
+    const request = ++live.current.request
+    const edit = live.current.edit
+    const current = () => live.current.mounted && live.current.key === key && live.current.request === request && live.current.edit === edit
     const src = restoreOf ? sw?.history.find((h) => h.version === restoreOf)?.plan : null
     const req = {
       template: view.workspace,
@@ -124,6 +135,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     try {
       const res = await fetch('/api/csat/diagnosis/map/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
       const j = (await res.json().catch(() => ({}))) as { code?: string; detail?: string }
+      if (!current()) return
       if (res.ok) {
         writeDraft(key, null)
         setDraft(null)
@@ -137,6 +149,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       if (res.status < 500) setPending(null)
       setSave(res.status === 409 ? { kind: 'conflict' } : { kind: 'error', code: j.code ?? String(res.status), detail: j.detail })
     } catch {
+      if (!current()) return
       // 네트워크 실패 — 저장됐는지 모른다. 같은 내용을 다시 보내면 같은 키라 서버가 같은 결과를 돌려준다(pending 유지)
       setSave({ kind: 'error', code: 'network' })
     }
@@ -178,7 +191,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       {store && drift && (drift.content.length > 0 || drift.definition) && !past && (
         <p className={n.notice} data-testid="plan-drift">
           <TriangleAlert size={13} aria-hidden="true" /> 저장한 뒤 {drift.definition ? '학습 기준이' : '쓸 수 있는 문항 수가'} 바뀌었어요
-          {drift.overAvailable.length ? ` — ${drift.overAvailable.length}개 항목의 계획량이 지금 문항 수보다 많아 줄여서 보여 드려요` : ''}. 계획을 확인하고 다시 저장해 주세요.
+          {drift.overAvailable.length ? ` — ${drift.overAvailable.length}개 항목의 계획량이 현재 가용 자료보다 많아요` : ''}. 계획을 확인하고 다시 저장해 주세요.
         </p>
       )}
       {reason && <p className={n.sub}>{reason}</p>}
@@ -244,7 +257,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
         <div className={n.saveBox} data-testid="plan-save-box">
           <label className={n.saveField}>
             <span>바꾼 이유</span>
-            <select value={why} onChange={(e) => setWhy(e.target.value as PlanReason)} data-testid="plan-reason" disabled={!sw}>
+            <select value={why} onChange={(e) => { edited(); setWhy(e.target.value as PlanReason) }} data-testid="plan-reason" disabled={!sw}>
               {(sw ? (['learner_adjust', 'new_exam', 'check_result', 'goal_change', 'content_change', 'definition_change'] as PlanReason[]) : (['initial'] as PlanReason[])).map((r) => (
                 <option key={r} value={r}>{REASON_LABEL[r]}</option>
               ))}
@@ -252,11 +265,11 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           </label>
           <label className={n.saveField}>
             <span>메모(선택)</span>
-            <input value={note} maxLength={500} onChange={(e) => setNote(e.target.value)} placeholder="예: 이번 주는 5문항만" data-testid="plan-note" />
+            <input value={note} maxLength={500} onChange={(e) => { edited(); setNote(e.target.value) }} placeholder="예: 이번 주는 5문항만" data-testid="plan-note" />
           </label>
-          <button type="button" className={n.cta} onClick={() => submit(sw ? why : 'initial')} disabled={save.kind === 'saving' || refreshing || (!!sw && !dirty && !(drift && (drift.content.length || drift.definition)))} data-testid="plan-save">
+          <button type="button" className={n.cta} onClick={() => submit(sw ? why : 'initial')} disabled={contentBlocked || save.kind === 'saving' || refreshing || (!!sw && !dirty && !(drift && (drift.content.length || drift.definition)))} data-testid="plan-save">
             <Save size={15} aria-hidden="true" />
-            {save.kind === 'saving' || refreshing ? '저장하는 중…' : sw ? '변경 저장' : '이 계획으로 확정'}
+            {contentBlocked ? '자료 준비 후 확정' : save.kind === 'saving' || refreshing ? '저장하는 중…' : sw ? '변경 저장' : '이 계획으로 확정'}
           </button>
           {save.kind === 'conflict' && (
             <p className={n.saveErr} role="alert" data-testid="plan-conflict">
@@ -281,7 +294,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                 <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
                 <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
-                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving'} data-testid="plan-restore">
+                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || h.plan.tasks.some(x => { const p = view.tasks.find(t => t.task === x.task); return x.stage === 'transfer' && p?.stage === 'transfer' && x.planned !== null && p.quantity.available !== null && x.planned > p.quantity.available })} data-testid="plan-restore">
                     <RotateCcw size={13} aria-hidden="true" /> 이 버전으로 되돌리기
                   </button>
                 )}
