@@ -1,0 +1,73 @@
+{
+  "sourceBasis": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+  "results": [
+    {
+      "name": "target-1280",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:24:18.868Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 20,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2
+    },
+    {
+      "name": "target-1440",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:26:16.319Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 20,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2
+    }
+  ],
+  "serverCleanup": [
+    {
+      "name": "target-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "target-1440",
+      "owned": true,
+      "stopped": true
+    }
+  ],
+  "priorAbort": {
+    "results": [
+      {
+        "name": "target-1280",
+        "sourceStable": true,
+        "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+        "startedAt": "2026-10-16T11:16:14.651Z",
+        "exit": 1,
+        "error": null,
+        "passLines": 0,
+        "failLines": 0,
+        "cleanup": {
+          "ok": true,
+          "accountsLeft": 0,
+          "unknown": 0,
+          "errors": []
+        },
+        "created": 1
+      }
+    ],
+    "classification": "Harness login connection refused; zero assertions, not a product FAIL or PASS. Preserved separately; retry uses hydration wait."
+  }
+}

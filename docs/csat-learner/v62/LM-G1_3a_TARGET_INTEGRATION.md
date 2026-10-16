@@ -1,5 +1,7 @@
 # LM-G1.3a — 목표 시험 · 점수 · 등급 · 목표일과 학습지도 · Workspace · PLAN 통합
 
+> 제출 코드의 설계·관찰을 보존한 문서다. 후속 [독립 수용 보고](../../research/lm-g1-3a-independent/ACCEPTANCE.md)의 수정과 경계가 우선한다. 현재 loader는 saved-goal 단일 snapshot을 사용하고, 수능은 kind로 구분한다. 목표/PLAN 저장은 RPC 후 불변 요청 행을 대조하며, 편집기 요청·기기 초안은 목표 이력 ID에 결속한다. DB/RPC/RLS 변경과 원자적인 최신 목표 compare-and-commit은 수행하지 않았다.
+
 > 기준 main `4cba17a36`(PR #273 T2 수용 병합) · 브랜치 `feat/lm-g1-3a-target` · 코드 커밋 `085040e64`.
 > 범위: 학습자가 정한 목표가 **저장 · 조회 · 계산 · 추천 · PLAN 버전**에 같은 값으로 묶이게 한다. DB/RPC/RLS 변경 없음(읽기 전용 감사만). 실제 학생 기록 변경 없음.
 > 수용 판정은 [LM-G1_3a_ACCEPTANCE.md](./LM-G1_3a_ACCEPTANCE.md). 승인이 필요한 나머지는 [LM-G1_3b_PENDING_DELTA.md](./LM-G1_3b_PENDING_DELTA.md). Codex 독립 검증 전 — T3 ACCEPT 를 선언하지 않는다.

@@ -135,7 +135,7 @@ try {
   const G2 = await goalRows(A.uid)
   const s2 = await mapState(page)
   const last = G2.at(-1)
-  rec('T02', '팝업 저장 90 · 수능 · 2등급 · 2026-11-19 → 새 이력 행 · 최신 표 90 · 화면 같은 값 · 기준 시험이 수능 회차로 바뀜', G2.length === 2 && last.target_score === 90 && last.target_exam === 'suneung' && last.target_grade === 2 && last.target_date === TARGET_DATE && (await latestGoal(A.uid))?.target_score === 90 && s2.target?.exam === 'suneung' && s2.target?.grade === '2' && s2.target?.date === TARGET_DATE && s2.target?.exams !== s1.target?.exams, { row: last, target: s2.target, before: s1.target?.exams })
+  rec('T02', '팝업 저장 90 · 수능 · 2등급 · 미래 목표일 → 새 이력 행 · 최신 표 90 · 화면 같은 값 · 기준 시험이 수능 회차로 바뀜', G2.length === 2 && last.target_score === 90 && last.target_exam === 'suneung' && last.target_grade === 2 && last.target_date === TARGET_DATE && (await latestGoal(A.uid))?.target_score === 90 && s2.target?.exam === 'suneung' && s2.target?.grade === '2' && s2.target?.date === TARGET_DATE && s2.target?.exams !== s1.target?.exams, { row: last, target: s2.target, before: s1.target?.exams })
   await shot(page, 'T02-saved')
   rec('T04', '저장 등급 2 · 점수 90 참고 구간 — 섞지 않고 따로 표시 · 모순이면 「바꾸지 않았어요」', s2.goalValue?.includes('참고') && (s2.target?.text?.includes('목표 2등급') ?? false), { goalValue: s2.goalValue, line: s2.target?.text })
   rec('T05', '목표일 저장 · 표시 · 계획량 생성 없음(화면에 날짜 기반 학습량 문구 없음)', s2.target?.date === TARGET_DATE && !(await page.textContent('body')).includes('하루에'), { date: s2.target?.date })

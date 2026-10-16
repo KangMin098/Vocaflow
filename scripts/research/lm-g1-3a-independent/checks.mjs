@@ -15,7 +15,7 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3010',local=path.join(import.meta.dirname,'local/post-final');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3010',local=path.join(import.meta.dirname,process.argv[3]==='dates'?'local/date-retry':'local/post-final');fs.mkdirSync(local,{recursive:true})
  const jobs=[
  ['stale-goal-1280','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1280','--evidence',local+'/stale-goal-1280']],
  ['stale-goal-1440','scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs',['--base',base,'--width','1440','--evidence',local+'/stale-goal-1440']],
@@ -39,9 +39,10 @@ if(mode==='browser'){
  const delta=process.argv[3]==='delta'
  const context=process.argv[3]==='context';
  const contextNames=['stale-goal-1280','stale-goal-1440','keyboard','independent-1280','independent-1440','revised-1280','revised-1440','security','late-remount'];
+ const dates=process.argv[3]==='dates';
  const post=process.argv[3]==='post';
  const postNames=['stale-goal-1280','stale-goal-1440','independent-1280','independent-1440','security','late-remount'];
- const remainingJobs=post?[...jobs.filter(j=>postNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
+ const remainingJobs=dates?jobs.filter(j=>j[0]==='target-1280'||j[0]==='target-1440'):post?[...jobs.filter(j=>postNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:context?[...jobs.filter(j=>contextNames.includes(j[0])),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]])]:delta?[jobs.find(j=>j[0]==='security'),jobs.find(j=>j[0]==='late-remount'),...['1280','1440'].map(w=>['save-unchanged-'+w,'scripts/research/lm-g1-2-independent/save-unchanged.mjs',[base,w]]),...jobs.filter(j=>['t1','workspace','return','study','supply'].includes(j[0]))]:jobs.slice(Number(process.argv[3]??0))
  let ownedServer=null
  const ensureServer=async()=>{
   let online=false;try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});online=r.status<500}catch{}
@@ -75,6 +76,7 @@ if(mode==='browser'){
   src=src.replace("if (scenario === 'unmounted') {", "if (scenario === 'unmounted') {await b.page.screenshot({path:"+JSON.stringify(folder+'/before-unmount.png')+"});fs.writeFileSync("+JSON.stringify(folder+'/before-unmount-dom.local.html')+",await b.page.content());");
   src=src.replace("users.push(u.user.id)","users.push(u.user.id); (await import('node:fs')).writeFileSync("+JSON.stringify(ownIds)+",JSON.stringify(users))")
   src=src.replace("height: 1000","height: 900")
+  src=src.replace("await page.fill('input[type=\"email\"]', acc.email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', acc.email)");
   src=src.replace("await page.fill('input[type=\"email\"]', email)","await page.waitForTimeout(700); await page.fill('input[type=\"email\"]', email)")
   const generated=folder+'/runner.mjs';fs.writeFileSync(generated,src)
   const sourceFiles=spawnSync('git',['diff','--name-only','4cba17a36884eb6bc59bfb19baf6845eee7cc064...HEAD','--','apps/web'],{cwd:root,encoding:'utf8'}).stdout.trim().split(/\r?\n/).filter(Boolean);
@@ -93,7 +95,7 @@ if(mode==='browser'){
   const passed=log.split(/\r?\n/).filter(l=>/^\[PASS\]|^PASS (?!\d)/.test(l))
   const sourceStable=JSON.stringify(codeHash)===JSON.stringify(sourceHashes());
   const row={name,sourceStable,headAtStart,startedAt:at,exit:r.status,error:r.error?.message??null,passLines:passed.length,failLines:failed.length,cleanup,created:ids.length}
-  results.push(row);fs.writeFileSync(local+(delta?'/delta-browser-summary.json':'/browser-summary.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(row))
+  results.push(row);fs.writeFileSync(local+(dates?'/date-browser-summary.json':delta?'/delta-browser-summary.json':'/browser-summary.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(row))
   if(ownedServer){const stopped=await stopOwnedServer(ownedServer);fs.writeFileSync(folder+'/server-cleanup.json',JSON.stringify(stopped));ownedServer=null}
   if(!cleanup.ok||r.status!==0||failed.length||!sourceStable)break
  }

@@ -106,3 +106,7 @@
 PR #272의 G02 단계/실행 링크를 [독립 검증](../../research/lm-g1-1-independent/ACCEPTANCE.md)했다. 실패 REPAIR는 수행량2를 유지하며 repair에 남고, 기존 성공 기준을 충족한 뒤에만 넘어간다. 추가 TASK 간 링크 소진 반례도 수정했다. T1 수용은 최신 PR HEAD CI/safe-merge 게이트와 별도 결속한다. T2~T6 판정은 이번 결과로 변경하지 않는다.
 
 LM-G1.2 시작 전에는 TRANSFER 경험1회와 운영계획량2회의 다음 행동 우선 출처, 근접 해설 노출의 uncertain 재계산·원자 제출 시각 검증을 계약으로 고정한다. 기존 정책을 이번 T1에서 변경하지 않았고 1회를 2회 완료라고 해석하지 않는다.
+
+### T3 후속 판정 — 2026-10-16
+
+PR #274의 지원 범위는 [독립 수용 보고](../../research/lm-g1-3a-independent/ACCEPTANCE.md)에서 ACCEPT_WITH_LIMITS로 판정했다. 점수·단일 평가원 시험 범위·목표 snapshot·PLAN 결속을 검증했고, 저장 경합과 오래된 편집기 문맥을 최소 수정했다. 최종 HEAD CI와 안전 병합은 PR 기록으로 확인한다. 전체 TargetSpec은 여전히 부분 완료다. 목표 등급/날짜는 저장·표시만 지원하며, 학평은 BLOCKED_CONTENT, grade-only·복합 범위·시간 예산은 BLOCKED_APPROVAL이다. LM-G1.4는 현재 지원 목표의 snapshot 계약을 재사용할 수 있다. T4~T6와 학습 효과를 이번 판정으로 완료하지 않는다.
