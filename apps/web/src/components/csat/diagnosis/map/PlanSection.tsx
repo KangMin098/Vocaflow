@@ -16,6 +16,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 
 import { CANON_VERSION, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
+import { acknowledgePlan, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
 import { REASON_LABEL, applySaved, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -78,7 +79,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
   const key = draftKey(viewer, view.workspace, goal, savedVersion)
   const [draft, setDraft] = useState<PlanDraft | null>(null)
-  useEffect(() => setDraft(readDraft(key)), [key])
+  const handoff = useRef<{ key: string; stages: PlanAck['stages'] } | null>(null)
+  const currentStages = () => Object.fromEntries(view.tasks.map(p => [p.task, p.stage ?? null]))
+  useEffect(() => {
+    const carry = handoff.current
+    const next = carry?.key === key ? sameStageDraft(readDraft(key), carry.stages, currentStages()) : readDraft(key)
+    setDraft(next)
+    if (carry?.key === key) writeDraft(key, next)
+    // key includes viewer, template, goal and saved version; edits belong to that context.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
   const shown = useMemo(() => applyDraft(base, draft), [base, draft])
   const contentBlocked = shown.tasks.some(p => p.quantity.planned !== null && p.quantity.available !== null && p.quantity.planned > p.quantity.available)
   // 바뀐 내용 = 초안이 있고, 계획량이나 순서가 저장본(없으면 추천 계획)과 다르다
@@ -92,7 +102,25 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   // Ref changes synchronously, before an old response can arrive ahead of passive effects.
   if (live.current.key !== key) live.current = { key, mounted: live.current.mounted, request: live.current.request + 1, edit: 0 }
   useEffect(() => { live.current.mounted = true; return () => { live.current.mounted = false; live.current.request++ } }, [])
-  useEffect(() => { setSave({ kind: 'idle' }); setPending(null); setNote('') }, [key])
+  useEffect(() => { setSave({ kind: 'idle' }); setPending(null); if (handoff.current?.key !== key) setNote(''); else handoff.current = null }, [key])
+  const stageSignature = view.tasks.map(p => p.task + ':' + p.stage).join('|')
+  useEffect(() => {
+    if (past) return
+    return listenPlanAck(key, ack => {
+      if (ack.version <= savedVersion || (sw && ack.workspaceId !== sw.workspaceId)) return false
+      const nextKey = draftKey(viewer, view.workspace, goal, ack.version)
+      const carry = sameStageDraft(readDraft(key), ack.stages, currentStages())
+      // An already newer draft wins. Keep the old key as provenance; no automatic server save.
+      if (!readDraft(nextKey)) writeDraft(nextKey, carry)
+      handoff.current = { key: nextKey, stages: ack.stages }
+      setPending(null)
+      setSave({ kind: 'idle' })
+      startRefresh(() => router.refresh())
+      return true
+    })
+    // Subscribe to the exact storage/server context, not each keystroke.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, past, sw?.workspaceId, stageSignature])
   const edited = () => { live.current.edit++; setSave({ kind: 'idle' }) }
   useEffect(() => setWhy(defaultReason), [defaultReason])
 
@@ -100,6 +128,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     edited()
     setDraft(next)
     writeDraft(key, next)
+    if (handoff.current) writeDraft(handoff.current.key, sameStageDraft(next, currentStages(), handoff.current.stages))
     if (save.kind !== 'idle') setSave({ kind: 'idle' })
   }
   const baseDraft = (): PlanDraft => draft ?? { order: shown.tasks.map((p) => p.task), planned: {} }
@@ -134,7 +163,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     const body = { ...req, clientKey: attempt.key }
     try {
       const res = await fetch('/api/csat/diagnosis/map/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
-      const j = (await res.json().catch(() => ({}))) as { code?: string; detail?: string }
+      const j = (await res.json().catch(() => ({}))) as { code?: string; detail?: string; version?: number; workspaceId?: string }
+      if (res.ok && Number.isSafeInteger(j.version) && j.version! > savedVersion && typeof j.workspaceId === 'string' && (!sw || sw.workspaceId === j.workspaceId)) {
+        if (current()) {
+          writeDraft(key, null)
+          setDraft(null)
+          setNote('')
+        }
+        acknowledgePlan(key, { version: j.version!, workspaceId: j.workspaceId, stages: currentStages() })
+        return
+      }
       if (!current()) return
       if (res.ok) {
         writeDraft(key, null)

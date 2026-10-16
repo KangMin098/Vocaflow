@@ -130,3 +130,10 @@ describe('Persistent transfer policy belongs to the core Workspace', () => {
   expect(savedTransferOf(saved)[T]).toBe(1)
  })
 })
+
+it('T11 restore replay policy outranks the rebuilt TRANSFER allocation payload', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED],3,{savedTransfer:{[T]:2}})
+ const restored={plan:{order:[T],tasks:[{task:T,stage:'transfer',planned:1}]}}
+ const shown=applySaved({workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null},restored as unknown as SavedPlanVersion)
+ expect(shown.tasks[0].quantity.planned).toBe(2)
+})
