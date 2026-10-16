@@ -92,6 +92,20 @@ export interface V4View {
  * asOf 기본값은 서버가 계산한 시각(data.now). 목표가 정해지지 않았으면 goal.set=false → To-Be 없음.
  * findAttempts 를 못 읽었으면(undefined) 직접 확인 판정을 하지 않는다 — 빈 배열로 바꾸면 이미 확인한 학습자에게 「확인 전」을 보인다.
  */
+/**
+ * LM-G1.2 — 저장된 최신 계획에서 「적용」 단계로 저장된 TASK 의 계획량(학습자 조정 · 운영량). 저장소가 없거나 못 읽었으면 비어 있다(정본 2지문).
+ * 계획량은 단계 운영만 바꾼다 — 성취 · 직접 확인 판정은 읽지도 바꾸지도 않는다.
+ */
+export function savedTransferOf(data: Pick<MapPageData, 'v4'>): Partial<Record<string, number>> {
+  const s = data.v4?.saved
+  if (!s || s.status !== 'installed' || s.error) return {}
+  const out: Partial<Record<string, number>> = {}
+  for (const w of Object.values(s.byTemplate)) {
+    for (const x of w.latest.plan.tasks ?? []) if (x.stage === 'transfer' && typeof x.planned === 'number' && x.planned >= 1) out[x.task] = x.planned
+  }
+  return out
+}
+
 export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4View | null {
   if (!data.v4 || !data.now) return null
   const confirmLinks = confirmLinksOf(data)
@@ -106,6 +120,7 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   // 수행 기록 — 생애주기 기록(지도 연결 과제 키의 본인 시도). 시각 없는 기록 · 기준 시점 뒤 기록은 세지 않는다(As-Is 와 같은 자격 · 리뷰 P1)
   const cut = ms(at)
   const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
-  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, activity)]))
-  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity) }
+  const opts = { savedTransfer: savedTransferOf(data) }
+  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, activity, opts)]))
+  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts) }
 }

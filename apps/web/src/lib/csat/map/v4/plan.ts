@@ -8,12 +8,12 @@
 //   · 학습자 조정(순서 · 계획량)은 계획만 바꾼다. 근거 상태 · 직접 확인 판정 · 요구 유형은 바뀌지 않는다(adjust 는 그 칸을 읽지도 쓰지도 않는다).
 // 순수 함수(DB · 시계 없음).
 
-import { repairAttempts, repairWindow } from '../lifecycle-evidence'
+import { repairAttempts, repairWindow, transferTarget } from '../lifecycle-evidence'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
 import { checkKeysOfTask, taskOf, tasks, type TaskId } from './definition'
 import type { Need, ToBeMap } from './to-be'
-import type { StageKey, WorkspacePlan, WorkspaceView } from './workspace'
+import { TRANSFER_PASSAGES, type StageKey, type WorkspacePlan, type WorkspaceView } from './workspace'
 
 /** 요구 유형 → 그 요구를 채우는 Workspace 단계 */
 const STAGE_OF_NEED: Record<Need['type'], StageKey | null> = { CONFIRM: 'check', REPAIR: 'repair', TRANSFER: 'transfer', MAINTAIN: 'recheck', INTEGRATE: null }
@@ -107,6 +107,16 @@ function progressOf(core: readonly TaskId[], list: readonly TaskPlan[]): Workspa
   return p.length ? { planned: p.reduce((s, x) => s + (x.quantity.planned ?? 0), 0), done: p.reduce((s, x) => s + Math.min(x.quantity.done, x.quantity.planned ?? 0), 0) } : null
 }
 
+/**
+ * 적용 진행(LM-G1.2 · 계획 · lifecycle 공용) — 이 TASK 의 확인 키(skeleton 포함)로 확정 뒤 남긴 적용 시도의 **서로 다른 문항 수**.
+ * 같은 문항 반복은 1, 다른 TASK 키의 시도는 0. 정오는 따지지 않는다(적용 경험 · 결과는 CHECK 가 판정).
+ */
+export function transferDoneOf(id: TaskId, since: string | null, activity: readonly Pick<PlanActivity, 'itemRef' | 'taskKey' | 'phase' | 'answeredAt'>[]): number {
+  const keys = new Set(checkKeysOfTask(id))
+  const after = since ? new Date(since).getTime() : null
+  return uniq(activity.filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')) && (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && (after === null || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after))).map((a) => a.itemRef)).length
+}
+
 /** 단계별 수행 수 — 이 TASK 의 확인 키 기록에서, 단계에 맞는 것만(서로 다른 문항) */
 export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly PlanActivity[]): number {
   if (!stage) return 0
@@ -123,7 +133,7 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
       return uniq(mine.filter((a) => a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef)).length
     }
     case 'transfer':
-      return uniq(mine.filter((a) => (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && since(a)).map((a) => a.itemRef)).length
+      return transferDoneOf(t.id, after, activity)
     case 'recheck': {
       const used = new Set([...(t.check?.verifiedItems ?? [])])
       return uniq(mine.filter((a) => a.phase === 'practice' && !used.has(a.itemRef!) && since(a) && !!after).map((a) => a.itemRef)).length
@@ -147,6 +157,20 @@ export function repairGate(t: AsIsTask, activity: readonly PlanActivity[]): { su
   return { succeeded: right.size > 0, tried: new Set(tries.map((a) => a.itemRef)).size, retry: blocked.filter((i) => !right.has(i)) }
 }
 
+/**
+ * LM-G1.2 — 학습자가 저장한 계획에서 온 운영 계획량(TASK → 적용 계획량). 저장 계획의 그 TASK 가 「적용」 단계로 저장됐을 때만 쓴다
+ * (다른 단계로 저장한 계획량을 적용량으로 옮기지 않는다). 계획량은 운영량이다 — 숙달 기준 · 성취를 바꾸지 않는다.
+ */
+export interface PlanOpts {
+  savedTransfer?: Partial<Record<string, number>>
+}
+
+/** 적용 운영 계획량(lifecycle-evidence.transferTarget) — 이 TASK 의 중심 Workspace 적용 가용(정본 2지문 상한) · 저장 계획량 */
+export function transferPlanned(t: AsIsTask, home: WorkspaceView | null, opts?: PlanOpts): number | null {
+  const st = home?.stages.transfer
+  return transferTarget(st?.ready ? st.count : 0, opts?.savedTransfer?.[t.id], TRANSFER_PASSAGES)
+}
+
 const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', repair: 'blocked_items', transfer: 'transfer_pool', recheck: 'recheck_items' }
 
 /**
@@ -156,13 +180,14 @@ const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', r
  *   적용 · 다시 확인은 기존 정책 그대로(적용 = 계획량만큼 · 문항이 없으면 건너뜀). 단계가 넘어가도 **성취는 바꾸지 않는다** —
  *   「다시 확인 통과(resolved)」는 As-Is 의 독립 첫 시도 판정에서만 나온다(수행량 ≠ 검증된 성취).
  */
-export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[]): StageKey | null {
+export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[], opts?: PlanOpts): StageKey | null {
   if (!need) return null
   const base = STAGE_OF_NEED[need.type]
   if (need.type !== 'REPAIR' || !home) return base
   if (!repairGate(t, activity).succeeded) return 'repair'
-  const st = home.stages.transfer
-  if (st.ready && st.count !== null && doneOf('transfer', t, activity) < st.count) return 'transfer'
+  // 적용 — 운영 계획량(저장 계획량 · 정본 2지문)을 채울 때까지. 1회 경험 ≠ 계획 완료. 자료가 없으면(null) 건너뛴다(완료로 꾸미지 않는다)
+  const planned = transferPlanned(t, home, opts)
+  if (planned !== null && doneOf('transfer', t, activity) < planned) return 'transfer'
   if (home.stages.recheck.ready) return 'recheck'
   return base
 }
@@ -189,18 +214,20 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   return pick ? { href: pick.href, label: pick.label } : null
 }
 
-export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: readonly WorkspaceView[], activity: readonly PlanActivity[]): TaskPlan {
+export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: readonly WorkspaceView[], activity: readonly PlanActivity[], opts?: PlanOpts): TaskPlan {
   const def = taskOf(id)
   const t = asIs.tasks[id]
   const need = toBe?.needs.find((n) => n.task === id) ?? null
   // 단계 가용량은 이 TASK 를 **중심**으로 하는 Workspace 에서만(보조로 든 곳의 수를 더하지 않는다 — 증거 · 자료 중복 금지)
   const home = ws.find((w) => w.core.includes(id)) ?? null
-  const stage = stageNow(need, t, home, activity)
+  const stage = stageNow(need, t, home, activity, opts)
   const st = home && stage ? home.stages[stage] : null
   const done = doneOf(stage, t, activity)
   // 확인 단계 — 단계 수(st.count)는 「아직 안 본 문항」이고 수행(done)은 「이미 푼 문항」이다. 같은 묶음으로 세려면 둘을 더한다
   //   (안 본 수에서 푼 수를 또 빼면 5 중 3 을 풀었을 때 「2/2 끝」으로 보이던 결함 · 3차 리뷰 P1)
   const available = st && st.ready && st.count !== null ? (stage === 'check' ? st.count + done : st.count) : null
+  // 적용 단계의 계획량 = 운영 계획량(저장 계획량이 있으면 그것) — 가용과 다를 수 있다(LM-G1.2)
+  const planned = stage === 'transfer' && available !== null ? transferPlanned(t, home, opts) : available
   const unresolved: TaskPlan['unresolved'] = []
   if (def.status === 'hold') unresolved.push('canon_hold')
   else if (!home || home.readiness !== 'live') unresolved.push('no_content')
@@ -223,9 +250,9 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
     quantity: {
       unit: '문항',
       available,
-      planned: available,
+      planned,
       done,
-      remaining: available === null ? null : Math.max(0, available - done),
+      remaining: planned === null ? null : Math.max(0, planned - done),
       rule: available === null || !stage ? null : RULE_OF[stage],
       source: available === null ? 'none' : 'available_content',
       adjustable: available !== null,
@@ -236,9 +263,9 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
 }
 
 /** Workspace 하나의 TASK 계획 — 중심 먼저, 보조는 뒤(보조의 가용량은 그 TASK 의 중심 Workspace 기준) */
-export function workspacePlan(w: WorkspaceView, asIs: AsIsMap, toBe: ToBeMap | null, plan: WorkspacePlan, activity: readonly PlanActivity[]): WorkspacePlanView {
+export function workspacePlan(w: WorkspaceView, asIs: AsIsMap, toBe: ToBeMap | null, plan: WorkspacePlan, activity: readonly PlanActivity[], opts?: PlanOpts): WorkspacePlanView {
   const views = [plan.primary, ...plan.others].filter((v): v is WorkspaceView => !!v)
-  const list = [...w.core, ...w.support].map((id) => taskPlan(id, asIs, toBe, views, activity))
+  const list = [...w.core, ...w.support].map((id) => taskPlan(id, asIs, toBe, views, activity, opts))
   return { workspace: w.id, core: [...w.core], tasks: list, progress: progressOf(w.core, list) }
 }
 
@@ -266,9 +293,9 @@ export function applyDraft(view: WorkspacePlanView, draft: PlanDraft | null): Wo
 }
 
 /** 모든 비보류 TASK 계획(지도에서 TASK → Workspace 찾기용) */
-export function allTaskPlans(asIs: AsIsMap, toBe: ToBeMap | null, plan: WorkspacePlan, activity: readonly PlanActivity[]): TaskPlan[] {
+export function allTaskPlans(asIs: AsIsMap, toBe: ToBeMap | null, plan: WorkspacePlan, activity: readonly PlanActivity[], opts?: PlanOpts): TaskPlan[] {
   const views = [plan.primary, ...plan.others].filter((v): v is WorkspaceView => !!v)
-  return tasks().filter((d) => d.status !== 'hold').map((d) => taskPlan(d.id, asIs, toBe, views, activity))
+  return tasks().filter((d) => d.status !== 'hold').map((d) => taskPlan(d.id, asIs, toBe, views, activity, opts))
 }
 
 export const ACHIEVEMENT_LABEL: Record<Achievement, string> = {

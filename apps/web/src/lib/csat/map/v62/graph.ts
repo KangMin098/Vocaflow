@@ -103,6 +103,8 @@ export interface TaskInspectorDTO {
     evidence: InspectorEvidence
     /** n — 판정에 쓴 서로 다른 문항의 독립 첫 시도 수(분모). 확인 판정이 없으면 null. 계획 수행량과 다른 수치 */
     observed: { independent: number } | null
+    /** LM-G1.2 — 시각 순서를 확인할 수 없어 독립 확인에서 보류한 문항 수(실패 아님 · 0 이면 안내 없음) */
+    timingHeld: number
     need: Ranks['needRank'][number]['need'] | null
     needRank: number | null
   }
@@ -149,6 +151,7 @@ export function taskInspector(id: TaskId, view: V4View, ranks: Ranks, ledger: Go
     now: {
       evidence: EVIDENCE[a.status],
       observed: a.check ? { independent: a.check.independentItems } : null,
+      timingHeld: a.check?.timingHeld ?? 0,
       need: nr?.need ?? null,
       needRank: nr?.rank ?? null,
     },

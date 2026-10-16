@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(map): LM-G1.2 R5 수직 — TRANSFER 계약(경험 · 진행 · 준비 · 증거 분리 · 1회 ≠ 2지문 · 저장 계획량 반영 · lifecycle 4칸도 같은 기준) · 근접 해설 반례 A–H 고정(2분 정책 불변 · 영향 실측 보류 0) · 보류 사유 안내 · 실제 DB/API/브라우저 R5 수직 1440/1280 20/0 · PLAN 멱등/409/조정/복원/실패 표시 · DB/RPC 변경 없음
 - fix(map): PR #272 독립 수용 보강 — TASK가 다른 전이 수행이 R5 다음 링크를 소진하던 반례 수정, 1280/1440 단계·실행 URL 및 실존 타인 Workspace 경계 검증. 최초 G02/G03와 revision 2 보존, 독립 revision 3·TRANSFER/노출 후속 계약 기록.
 - fix(map): LM-G1.1 R5 다음 행동 단일 출처 — 바로잡기 단계는 수행량이 아니라 성공 근거(이번 회차 막힌 문항 정답 · lifecycle 과 같은 repairWindow/repairAttempts)로만 넘어감 · 실패 재시도 링크 유지 · Workspace 행이 막힌 단계를 확인 문항으로 대체하지 않음 · resolved 문구를 실제 근거로(판정 불변). G02 revision 2 · 단위 2,366 · 브라우저 9/0 · LM-W1 36/0 · 복귀 7/7 · DB 변경 없음
 - fix(map): PR #270 독립 수용 P2 보강 — Workspace 발견/양방향 실제 이동, TASK 상세 affordance·팝업 키보드 진입, 과거 점수 기준 표시. 기존 테스트 대체 원장·실측·LM-G1 경계 보존.

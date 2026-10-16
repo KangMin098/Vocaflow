@@ -17,7 +17,11 @@ import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
-import { NO_EVIDENCE, lifecycleEvidence } from '@/lib/csat/map/lifecycle-evidence'
+import { NO_EVIDENCE, lifecycleEvidence, transferTarget } from '@/lib/csat/map/lifecycle-evidence'
+import { savedTransferOf } from '@/lib/csat/map/v4/compose'
+import { checkedTaskOfKey } from '@/lib/csat/map/v4/definition'
+import { transferDoneOf } from '@/lib/csat/map/v4/plan'
+import { TRANSFER_PASSAGES } from '@/lib/csat/map/v4/workspace'
 import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
@@ -60,7 +64,12 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
-  const ev = { ...(skill && data.lifecycleActivity ? lifecycleEvidence(skill, findTargets, data.lifecycleActivity) : NO_EVIDENCE), transferReady: !!transferHref }
+  // LM-G1.2 — 적용 「마침」은 계획(PLAN)과 같은 진행 · 계획량으로(1회 경험 ≠ 2지문 완료). 이 단계 키가 하나의 v4 TASK 를 직접 확인할 때만
+  const v4Task = stepKeys.length === 1 ? checkedTaskOfKey(stepKeys[0]) : null
+  const transferPlan = v4Task && skill?.verifiedAt && data.lifecycleActivity
+    ? { transferDone: transferDoneOf(v4Task, skill.verifiedAt, data.lifecycleActivity), transferPlanned: transferTarget(Math.min(data.v4?.transferItems?.[stepKeys[0]] ?? 0, TRANSFER_PASSAGES), savedTransferOf(data)[v4Task], TRANSFER_PASSAGES) }
+    : {}
+  const ev = { ...(skill && data.lifecycleActivity ? lifecycleEvidence(skill, findTargets, data.lifecycleActivity) : NO_EVIDENCE), transferReady: !!transferHref, ...transferPlan }
   // 원리 기반 학습 결정 — 확인된 요구 → 다음 할 일(정책 버전 · 원리 · 방법 id 를 함께 남긴다)
   const decisionTask = find.find((t) => data.practiceLinks?.[t.id]?.chain)
   const decisionLink = decisionTask ? data.practiceLinks?.[decisionTask.id] : undefined

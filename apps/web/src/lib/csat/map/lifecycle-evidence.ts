@@ -26,6 +26,12 @@ export interface LifecycleEvidence {
   transferAt: string | null
   /** 기록이 남는 적용 대상이 있는가 — 없으면 적용 칸은 「준비 중」 이고 지금 할 일에서 건너뛴다(기본 true) */
   transferReady?: boolean
+  /**
+   * LM-G1.2 적용 운영 진행 — 서로 다른 적용 문항 수 / 계획량(transferContract). 주어지면 「적용 마침」은 done ≥ planned 일 때만이다
+   * (1회 경험 ≠ 2지문 계획 완료). 주지 않으면 예전처럼 첫 경험(transferAt)으로 본다(호환).
+   */
+  transferDone?: number
+  transferPlanned?: number | null
 }
 
 export const NO_EVIDENCE: LifecycleEvidence = { repairAt: null, repairTried: false, transferAt: null }
@@ -79,6 +85,45 @@ export type LifecycleNext = 'repair' | 'transfer' | 'check' | null
 export function nextLifecycleAction(status: string | null | undefined, ev: LifecycleEvidence): LifecycleNext {
   if (status !== 'verified' && status !== 'still_needed') return null
   if (!ev.repairAt) return 'repair'
-  if (!ev.transferAt && ev.transferReady !== false) return 'transfer'
+  if (!transferFinished(ev) && ev.transferReady !== false) return 'transfer'
   return 'check'
+}
+
+/** 적용 단계를 마쳤는가 — 운영 진행이 주어지면 진행 ≥ 계획량, 아니면 예전대로 첫 경험(호환) */
+export function transferFinished(ev: Pick<LifecycleEvidence, 'transferAt' | 'transferDone' | 'transferPlanned'>): boolean {
+  if (ev.transferPlanned !== undefined && ev.transferPlanned !== null) return (ev.transferDone ?? 0) >= ev.transferPlanned
+  return !!ev.transferAt
+}
+
+/**
+ * LM-G1.2 — 다른 글에 적용(TRANSFER) 계약. 네 값을 섞지 않는다(정본 workspaces.json ws.central-meaning:
+ * quantity_policy 「… + 전이 2지문 + …」 · criterion 「독립 확인(skill-diagnosis)」).
+ *   experience 적용을 한 번이라도 했는가(기존 transferAt — 보존)
+ *   progress   서로 다른 적용 문항 수 / 운영 계획량(정본 2지문 · 학습자가 저장한 계획량이 있으면 그것 · 가용 문항 이하)
+ *   ready      다음 교수 단계(다시 확인)로 넘어갈 운영 조건 — progress.done ≥ progress.planned 일 때만. 자료가 없으면 null(건너뜀 · 완료 아님)
+ *   evidence   능력 주장은 하지 않는다 — 적용은 「경험」까지만 말하고, 독립 적용 능력은 CHECK(skill-diagnosis)가 판정한다
+ * 같은 문항 반복 · 다른 TASK 키의 시도는 진행에 넣지 않는다(호출부 doneOf 와 같은 범위). 계획량 조정은 운영량만 바꾸고 숙달 기준을 바꾸지 않는다.
+ */
+export interface TransferContract {
+  experience: boolean
+  progress: { done: number; planned: number | null }
+  ready: boolean | null
+  evidence: 'none' | 'experience_only'
+}
+
+/** 운영 계획량 — 저장된 적용 계획량(1 이상)이 있으면 그것, 없으면 정본 기본(passages). 가용 문항 수를 넘지 않는다. 가용 0 이면 null */
+export function transferTarget(available: number | null | undefined, savedPlanned: number | null | undefined, passages: number): number | null {
+  const cap = available ?? 0
+  if (cap <= 0) return null
+  const want = savedPlanned !== null && savedPlanned !== undefined && Number.isInteger(savedPlanned) && savedPlanned >= 1 ? savedPlanned : passages
+  return Math.min(want, cap)
+}
+
+export function transferContract(experienceAt: string | null, done: number, planned: number | null): TransferContract {
+  return {
+    experience: !!experienceAt || done > 0,
+    progress: { done, planned },
+    ready: planned === null ? null : done >= planned,
+    evidence: done > 0 || experienceAt ? 'experience_only' : 'none',
+  }
 }
