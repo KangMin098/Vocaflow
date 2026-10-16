@@ -188,6 +188,21 @@ try {
 
   // 6 PLAN v1 저장 · 멱등 · 충돌
   rec('R06u','TRANSFER 표시 단위는 지문 · 현재 소스 규칙과 일치',/계획\s*2지문/.test(s3.plan?.text ?? ''),{unitText:s3.plan?.text?.match(/계획.{0,18}/)?.[0]??null},'browser')
+
+  // Supporting Workspace shows the core transfer policy; it cannot save another R5 policy.
+  await openMap(page)
+  await page.click('[data-testid="ws-row"][data-ws="ws.option-match"] [data-testid="ws-open"]')
+  await page.click('[data-testid="ws-tab-plan"]')
+  const support=page.locator('[data-testid=plan-section] [data-task="r.central_meaning"]')
+  const count=await support.getByRole('button',{name:/계획 한 지문/}).count()
+  const home=await support.getByRole('link',{name:'중심 Workspace에서 조정'}).getAttribute('href')
+  rec('R06v','보조 R5는 전이 계획량 읽기 전용 · 중심 Workspace 연결',count===0&&home?.includes('ws=ws.central-meaning'),{stepperButtons:count,home},'browser')
+  await shot(page,'03b-support-readonly-plan')
+  const supportReq={template:'ws.option-match',order:['e.option_correspondence','v.semantic_relation',T],planned:{[T]:1},reason:'initial',expectedVersion:0,clientKey:crypto.randomUUID()}
+  const supportBad=await commitPlan(page,supportReq)
+  const supportGood=await commitPlan(page,{...supportReq,planned:{[T]:null},clientKey:crypto.randomUUID()})
+  rec('R06w','보조 전이량 API 덮기422 · 참조 저장200 · 중심 정책2 유지',supportBad.status===422&&supportBad.body?.code==='planned_not_owned'&&supportGood.status===200,{bad:supportBad.status,good:supportGood.status},'db')
+  await openMap(page)
   const v1Body = planBody({ planned: { 'r.central_meaning': 2 } })
   const c1 = await commitPlan(page, v1Body)
   const c1b = await commitPlan(page, v1Body) // 같은 요청 재전송(응답 유실 재시도)

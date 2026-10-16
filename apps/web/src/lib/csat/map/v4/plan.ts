@@ -267,7 +267,10 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
 /** Workspace 하나의 TASK 계획 — 중심 먼저, 보조는 뒤(보조의 가용량은 그 TASK 의 중심 Workspace 기준) */
 export function workspacePlan(w: WorkspaceView, asIs: AsIsMap, toBe: ToBeMap | null, plan: WorkspacePlan, activity: readonly PlanActivity[], opts?: PlanOpts): WorkspacePlanView {
   const views = [plan.primary, ...plan.others].filter((v): v is WorkspaceView => !!v)
-  const list = [...w.core, ...w.support].map((id) => taskPlan(id, asIs, toBe, views, activity, opts))
+  const list = [...w.core, ...w.support].map((id) => {
+    const p = taskPlan(id, asIs, toBe, views, activity, opts)
+    return p.stage === 'transfer' && !w.core.includes(id) ? { ...p, quantity: { ...p.quantity, adjustable: false } } : p
+  })
   return { workspace: w.id, core: [...w.core], tasks: list, progress: progressOf(w.core, list) }
 }
 
@@ -285,7 +288,7 @@ export function applyDraft(view: WorkspacePlanView, draft: PlanDraft | null): Wo
   if (!draft) return view
   const planned = view.tasks.map((p) => {
     const want = draft.planned[p.task]
-    if (want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
+    if (!p.quantity.adjustable || want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
     const n = Math.max(0, Math.min(p.quantity.available, Math.round(want)))
     return { ...p, quantity: { ...p.quantity, planned: n, remaining: Math.max(0, n - p.quantity.done) } }
   })

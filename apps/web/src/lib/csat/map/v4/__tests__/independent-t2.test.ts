@@ -6,7 +6,7 @@
 // PLAN(stageNow · quantity) · lifecycle(nextLifecycleAction · 4칸)이 같은 진행 · 계획량으로 같은 다음 행동을 낸다. 고정 시각만.
 
 import { workspaceRows } from '../../v62/workspace-list'
-import { applySaved, type SavedPlanVersion, type PlanReason } from '../plan-commit'
+import { applySaved, buildCommitPayload, type PlanCommitRequest, type SavedPlanVersion, type PlanReason } from '../plan-commit'
 import { describe, expect, it } from 'vitest'
 
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
@@ -16,7 +16,7 @@ import { transferContract, transferTarget } from '../../lifecycle-evidence'
 import { asIsMap, type AsIsInput, type AxisProxyState } from '../as-is'
 import { savedTransferOf } from '../compose'
 import { DOMAINS, type Domain } from '../definition'
-import { transferDoneOf, workspacePlan, type PlanActivity, type PlanOpts } from '../plan'
+import { applyDraft, transferDoneOf, workspacePlan, type PlanActivity, type PlanOpts } from '../plan'
 import { toBeMap, type ConfirmLink } from '../to-be'
 import { planWorkspaces } from '../workspace'
 
@@ -31,11 +31,11 @@ const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ i
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
 const X = ['x1', 'x2', 'x3']
-const build = (a: ReturnType<typeof asIs>, activity: PlanActivity[], transfer = 3, opts?: PlanOpts, passageKeys?: Record<string,string>) => {
+const build = (a: ReturnType<typeof asIs>, activity: PlanActivity[], transfer = 3, opts?: PlanOpts, passageKeys?: Record<string,string>, support = false) => {
   const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
   const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: transfer }, transferTargets: { [KEY]: X.slice(0, transfer).map((t) => ({ target: t, passageKey: passageKeys?.[t], href: `/csat/practice/claim-support?item=${t}`, label: t })) } })
   const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
-  return workspacePlan(cm, a, toBe, plan, activity, opts).tasks.find((x) => x.task === T)!
+  return workspacePlan(support ? {...cm,id:'ws.option-match',core:[],support:[T]} : cm, a, toBe, plan, activity, opts).tasks.find((x) => x.task === T)!
 }
 const VERIFIED = [attempt('i1', false, '2026-09-10T00:00:00Z'), attempt('i2', false, '2026-09-11T00:00:00Z')]
 const act = (itemRef: string, at: string, o: Partial<PlanActivity> = {}): PlanActivity => ({ itemRef, taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: at, ...o })
@@ -136,4 +136,19 @@ it('T11 restore replay policy outranks the rebuilt TRANSFER allocation payload',
  const restored={plan:{order:[T],tasks:[{task:T,stage:'transfer',planned:1}]}}
  const shown=applySaved({workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null},restored as unknown as SavedPlanVersion)
  expect(shown.tasks[0].quantity.planned).toBe(2)
+})
+
+it('supporting TRANSFER quantities cannot pretend to override the core operating policy', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED],3,undefined,undefined,true)
+ expect(p.quantity.adjustable).toBe(false)
+ const shown=applyDraft({workspace:'ws.option-match',core:[],tasks:[p],progress:null},{order:[T],planned:{[T]:1}})
+ expect(shown.tasks[0].quantity.planned).toBe(2)
+})
+
+it('server rejects supporting TRANSFER overrides and accepts a read-only reference', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED],3,undefined,undefined,true)
+ const view={workspace:'ws.option-match',core:['e.option_correspondence'],tasks:[p],progress:null}
+ const req={template:'ws.option-match',order:['e.option_correspondence','v.semantic_relation',T],planned:{[T]:1},reason:'initial',expectedVersion:0,clientKey:'00000000-0000-4000-8000-000000000001'} as PlanCommitRequest
+ expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'planned_not_owned'})
+ expect(buildCommitPayload({...req,planned:{[T]:null}},view,NOW)).toMatchObject({ok:true,plan:{tasks:expect.arrayContaining([expect.objectContaining({task:T,planned:null})])}})
 })

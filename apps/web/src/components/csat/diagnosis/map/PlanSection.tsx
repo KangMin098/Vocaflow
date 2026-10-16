@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 
-import { CANON_VERSION, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
+import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
 import { REASON_LABEL, applySaved, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
@@ -57,6 +57,13 @@ function writeDraft(key: string, d: PlanDraft | null) {
   }
 }
 
+function readNote(key: string): string {
+  try { return (window.localStorage.getItem(key + ':note') ?? '').slice(0, 500) } catch { return '' }
+}
+function writeNote(key: string, value: string) {
+  try { if (value) window.localStorage.setItem(key + ':note', value); else window.localStorage.removeItem(key + ':note') } catch { /* device draft only */ }
+}
+
 /** 저장 시각을 서울 시각으로(서버 · 브라우저가 같은 글자 — UTC 로 자르면 오전 저장이 전날로 보였다) */
 const seoul = (iso: string, withTime: boolean) => {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value]))
@@ -78,41 +85,44 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const base = useMemo(() => applySaved(view, sw?.latest ?? null), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
   const key = draftKey(viewer, view.workspace, goal, savedVersion)
+  const [note, setNote] = useState('')
   const [draft, setDraft] = useState<PlanDraft | null>(null)
-  const handoff = useRef<{ key: string; stages: PlanAck['stages'] } | null>(null)
+  const handoff = useRef<{ sourceKey: string; key: string; stages: PlanAck['stages'] } | null>(null)
   const currentStages = () => Object.fromEntries(view.tasks.map(p => [p.task, p.stage ?? null]))
   useEffect(() => {
     const carry = handoff.current
     const next = carry?.key === key ? sameStageDraft(readDraft(key), carry.stages, currentStages()) : readDraft(key)
     setDraft(next)
     if (carry?.key === key) writeDraft(key, next)
+    setNote(readNote(key))
+    if (carry && key !== carry.sourceKey) handoff.current = null
     // key includes viewer, template, goal and saved version; edits belong to that context.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key])
   const shown = useMemo(() => applyDraft(base, draft), [base, draft])
-  const contentBlocked = shown.tasks.some(p => p.quantity.planned !== null && p.quantity.available !== null && p.quantity.planned > p.quantity.available)
+  const contentBlocked = shown.tasks.some(p => (view.core.includes(p.task) || p.stage !== 'transfer') && p.quantity.planned !== null && p.quantity.available !== null && p.quantity.planned > p.quantity.available)
   // 바뀐 내용 = 초안이 있고, 계획량이나 순서가 저장본(없으면 추천 계획)과 다르다
-  const dirty = draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())
+  const dirty = (draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())) || note.trim().length > 0
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
   const [pending, setPending] = useState<{ key: string; sig: string } | null>(null)
-  const [note, setNote] = useState('')
   const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
   const live = useRef({ key, mounted: true, request: 0, edit: 0 })
   // Ref changes synchronously, before an old response can arrive ahead of passive effects.
   if (live.current.key !== key) live.current = { key, mounted: live.current.mounted, request: live.current.request + 1, edit: 0 }
   useEffect(() => { live.current.mounted = true; return () => { live.current.mounted = false; live.current.request++ } }, [])
-  useEffect(() => { setSave({ kind: 'idle' }); setPending(null); if (handoff.current?.key !== key) setNote(''); else handoff.current = null }, [key])
+  useEffect(() => { setSave({ kind: 'idle' }); setPending(null);  }, [key])
   const stageSignature = view.tasks.map(p => p.task + ':' + p.stage).join('|')
   useEffect(() => {
     if (past) return
     return listenPlanAck(key, ack => {
+      if (!live.current.mounted || live.current.key !== key) return false
       if (ack.version <= savedVersion || (sw && ack.workspaceId !== sw.workspaceId)) return false
       const nextKey = draftKey(viewer, view.workspace, goal, ack.version)
       const carry = sameStageDraft(readDraft(key), ack.stages, currentStages())
       // An already newer draft wins. Keep the old key as provenance; no automatic server save.
-      if (!readDraft(nextKey)) writeDraft(nextKey, carry)
-      handoff.current = { key: nextKey, stages: ack.stages }
+      if (!readDraft(nextKey)) { writeDraft(nextKey, carry); writeNote(nextKey, readNote(key)) }
+      handoff.current = { sourceKey: key, key: nextKey, stages: ack.stages }
       setPending(null)
       setSave({ kind: 'idle' })
       startRefresh(() => router.refresh())
@@ -128,7 +138,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     edited()
     setDraft(next)
     writeDraft(key, next)
-    if (handoff.current) writeDraft(handoff.current.key, sameStageDraft(next, currentStages(), handoff.current.stages))
+    if (handoff.current?.sourceKey === key) writeDraft(handoff.current.key, sameStageDraft(next, currentStages(), handoff.current.stages))
     if (save.kind !== 'idle') setSave({ kind: 'idle' })
   }
   const baseDraft = (): PlanDraft => draft ?? { order: shown.tasks.map((p) => p.task), planned: {} }
@@ -156,6 +166,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       expectedVersion: savedVersion,
       ...(restoreOf ? { restoreOf } : {}),
     }
+    // Supporting TRANSFER amounts are a reference to the core workspace's policy.
+    for (const p of view.tasks) if (p.stage === 'transfer' && !view.core.includes(p.task)) req.planned[p.task] = null
     // 같은 논리적 요청의 재전송만 같은 키(네트워크 실패 뒤 다시 눌러도 두 번 저장되지 않는다) — 내용이 바뀌면 새 키
     const attempt = keyFor(pending, requestSignature(req), () => crypto.randomUUID())
     setPending(attempt)
@@ -167,6 +179,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       if (res.ok && Number.isSafeInteger(j.version) && j.version! > savedVersion && typeof j.workspaceId === 'string' && (!sw || sw.workspaceId === j.workspaceId)) {
         if (current()) {
           writeDraft(key, null)
+          writeNote(key, '')
           setDraft(null)
           setNote('')
         }
@@ -176,6 +189,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       if (!current()) return
       if (res.ok) {
         writeDraft(key, null)
+        writeNote(key, '')
         setDraft(null)
         setNote('')
         setPending(null)
@@ -194,6 +208,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   }
 
   const ERR: Record<string, string> = {
+    planned_not_owned: '적용 계획량은 중심 Workspace에서 조정해 주세요.',
     network: '연결이 끊겨 저장됐는지 알 수 없어요. 다시 누르면 같은 요청으로 확인해요(두 번 저장되지 않아요).',
     planned_over_available: '그 사이 쓸 수 있는 문항 수가 바뀌었어요. 계획량을 줄이거나 화면을 새로 불러와 주세요.',
     not_installed: '계획 저장이 아직 열리지 않았어요. 조정은 이 기기에 남아 있어요.',
@@ -236,6 +251,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       <ol className={n.planList}>
         {shown.tasks.map((p, i) => {
           const isCore = view.core.includes(p.task)
+          const home = p.stage === 'transfer' && !isCore ? templates().find(w => w.core.includes(p.task)) : null
           const q = p.quantity
           const extra = q.planned !== null && q.done > q.planned ? q.done - q.planned : 0
           return (
@@ -270,6 +286,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                     </button>
                   </div>
                 )}
+                {!past && home && <Link className={n.go} href={`/csat/diagnosis?tab=map&view=full&map_task=${p.task}&ws=${home.id}`}>중심 Workspace에서 조정</Link>}
                 {!past && (
                   <div className={n.orderBtns}>
                     <button type="button" className={n.stepBtn} aria-label={`${p.name} 위로`} disabled={i === 0} onClick={() => move(p.task, -1)}>
@@ -303,7 +320,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           </label>
           <label className={n.saveField}>
             <span>메모(선택)</span>
-            <input value={note} maxLength={500} onChange={(e) => { edited(); setNote(e.target.value) }} placeholder="예: 이번 주는 5문항만" data-testid="plan-note" />
+            <input value={note} maxLength={500} onChange={(e) => { edited(); setNote(e.target.value); writeNote(key, e.target.value); if (handoff.current?.sourceKey === key) writeNote(handoff.current.key, e.target.value) }} placeholder="예: 이번 주는 5문항만" data-testid="plan-note" />
           </label>
           <button type="button" className={n.cta} onClick={() => submit(sw ? why : 'initial')} disabled={contentBlocked || save.kind === 'saving' || refreshing || (!!sw && !dirty && !(drift && (drift.content.length || drift.definition)))} data-testid="plan-save">
             <Save size={15} aria-hidden="true" />

@@ -50,7 +50,7 @@ await b.page.waitForSelector('[data-testid=plan-section]',{state:'detached'})
 await b.page.click('[data-testid=ws-tab-plan]')
 await b.page.waitForSelector('[data-testid=plan-section]')
 }
-await b.page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 (문항|지문) 늘리기$/}).first().click()
+if(scenario==='unmounted') await b.page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 (문항|지문) 늘리기$/}).first().click()
 const desired=await b.page.locator('[data-testid=plan-section] [data-task="r.central_meaning"]').getAttribute('data-planned')
 await b.page.fill('[data-testid=plan-note]','newer edit '+scenario)
 await b.page.evaluate(()=>{window.__heldDraft=Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith('map-v4-plan-draft:')).map(k=>[k,localStorage.getItem(k)]))})
@@ -59,21 +59,43 @@ await b.page.waitForTimeout(1800)
 const preserved=await b.page.evaluate(()=>Object.entries(window.__heldDraft).every(([k,v])=>localStorage.getItem(k)===v))
 rec('Late response never clears a newer draft: '+scenario,preserved)
 
-await b.page.screenshot({path:out+'/stale-plan-'+scenario+'.png'})
 await b.page.waitForFunction(v=>document.querySelector('[data-testid=plan-section]')?.getAttribute('data-saved-version')===String(v),ackVersion,{timeout:25000}).catch(()=>{})
 const visible=await b.page.locator('[data-testid=plan-section] [data-task="r.central_meaning"]').getAttribute('data-planned')
-rec('Newer quantity and note remain visible after acknowledgement: '+scenario,visible===desired&&(await b.page.inputValue('[data-testid=plan-note]'))==='newer edit '+scenario)
+rec('Newer quantity and note remain visible after acknowledgement: '+scenario,visible===desired&&(await b.page.inputValue('[data-testid=plan-note]'))==='newer edit '+scenario,{visible,desired,note:await b.page.inputValue('[data-testid=plan-note]')})
+await b.page.screenshot({path:out+'/stale-plan-'+scenario+'.png'})
 const saveAgain=b.page.waitForResponse(r=>r.url().endsWith('/api/csat/diagnosis/map/plan')&&r.request().method()==='POST')
 await b.page.click('[data-testid=plan-save]')
 const followup=await saveAgain
 rec('Preserved draft can be saved against acknowledged version: '+scenario,followup.status()===200,{status:followup.status()})
-await b.page.waitForTimeout(1200)
+const followupBody=await followup.json()
+await b.page.waitForFunction(v=>document.querySelector('[data-testid=plan-section]')?.getAttribute('data-saved-version')===String(v)&&document.querySelector('[data-testid=plan-save-state]')?.getAttribute('data-state')!=='saving',followupBody.version)
+await b.page.waitForTimeout(300)
 
 await b.page.unroute('**/api/csat/diagnosis/map/plan')
 }
+
+await b.page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 (문항|지문) 늘리기$/}).first().click()
+let releaseGoal,arrivedGoal
+const waitGoalRelease=new Promise(r=>releaseGoal=r),waitGoalArrived=new Promise(r=>arrivedGoal=r)
+let goalAck
+await b.page.route('**/api/csat/diagnosis/map/plan',async route=>{
+ if(route.request().method()!=='POST')return route.continue()
+ const response=await route.fetch();goalAck=(await response.json()).version;arrivedGoal();await waitGoalRelease;await route.fulfill({response})
+})
+await b.page.click('[data-testid=plan-save]');await waitGoalArrived
+await b.page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 (문항|지문) 늘리기$/}).first().click()
+await b.page.request.put(base+'/api/csat/diagnosis/map/goal',{data:{target:80}})
+releaseGoal()
+await b.page.waitForFunction(v=>document.querySelector('[data-testid=plan-section]')?.getAttribute('data-saved-version')===String(v),goalAck)
+await b.page.waitForTimeout(1000)
+const beforeOtherGoal=await b.page.evaluate(v=>Object.fromEntries(Object.keys(localStorage).filter(k=>k.includes(':g90:')&&k.endsWith(':v'+v)).map(k=>[k,localStorage.getItem(k)])),goalAck)
+await b.page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 (문항|지문) 늘리기$/}).first().click()
+const unchangedGoal=await b.page.evaluate(prior=>Object.entries(prior).every(([k,v])=>localStorage.getItem(k)===v),beforeOtherGoal)
+rec('Editing new goal never overwrites prior goal handoff draft',Object.keys(beforeOtherGoal).length>0&&unchangedGoal)
+await b.page.unroute('**/api/csat/diagnosis/map/plan')
 const own=await a.page.request.get(base+'/api/csat/diagnosis/map/plan?workspaceId='+saved.workspaceId);const j=await own.json();rec('A cannot read B actual existing Workspace through PLAN GET',own.status()===200&&!JSON.stringify(j).includes(saved.workspaceId));
 const bad=await a.page.request.post(base+'/api/csat/diagnosis/map/plan',{data:{template:'ws.central-meaning',order:['r.central_meaning','r.discourse_function','r.discourse_structure'],planned:{'r.central_meaning':1},reason:'initial',expectedVersion:0,clientKey:crypto.randomUUID(),workspaceId:saved.workspaceId}});rec('Client-selected foreign Workspace write rejected',bad.status()===400,{status:bad.status()});
 for(const width of [1280,1440]){await a.page.setViewportSize({width,height:900});await a.page.goto(base+'/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning&map_ws='+saved.workspaceId+'&map_plan=1',{waitUntil:'domcontentloaded'});await a.page.waitForSelector('[data-testid=unified-map]');await a.page.waitForTimeout(700);const text=await a.page.locator('[data-testid=umap-return-note]').textContent().catch(()=>null);rec('Foreign actual Workspace URL uses current own context '+width,!!text&&text.includes('계획'),{notice:text});await a.page.screenshot({path:out+'/'+width+'.png'})}
-const after=await b.page.request.get(base+'/api/csat/diagnosis/map/plan');const bj=await after.json();rec('B plan stays version 7',bj.byTemplate?.['ws.central-meaning']?.workspaceId===saved.workspaceId&&bj.byTemplate?.['ws.central-meaning']?.latest?.version===7);await a.ctx.close();await b.ctx.close();
+const after=await b.page.request.get(base+'/api/csat/diagnosis/map/plan');const bj=await after.json();rec('B plan stays version 8',bj.byTemplate?.['ws.central-meaning']?.workspaceId===saved.workspaceId&&bj.byTemplate?.['ws.central-meaning']?.latest?.version===8);await a.ctx.close();await b.ctx.close();
 }finally{const cleanup=await cleanupOwnedAccounts(db.auth.admin,users);try{await browser.close()}catch{cleanup.ok=false;cleanup.errors.push('browser_close_failed')}fs.writeFileSync(out+'/results.json',JSON.stringify({results,created:users.length,accountsLeft:cleanup.accountsLeft,cleanup},null,2));if(!cleanup.ok)process.exitCode=1}
 if(results.some(r=>!r.ok))process.exitCode=1;

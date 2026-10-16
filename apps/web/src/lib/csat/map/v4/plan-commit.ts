@@ -91,6 +91,7 @@ export function buildCommitPayload(req: PlanCommitRequest, view: WorkspacePlanVi
     const p = view.tasks.find((x) => x.task === id)
     const available = p?.quantity.available ?? null
     const want = req.planned[id] ?? null
+    if (p?.stage === 'transfer' && !tpl.core.includes(id) && want !== null) return { ok: false, status: 422, code: 'planned_not_owned', detail: id }
     if (want !== null && (available === null || want > available)) return { ok: false, status: 422, code: 'planned_over_available', detail: `${id}: ${want} > ${available ?? '없음'}` }
     tasks.push({ task: id, stage: p?.stage ?? null, planned: want, available, rule: p?.quantity.rule ?? null })
   }
