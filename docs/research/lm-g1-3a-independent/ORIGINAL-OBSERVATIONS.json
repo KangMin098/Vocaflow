@@ -1,0 +1,299 @@
+{
+  "goalRace": [
+    {
+      "case": "source",
+      "mode": "pinned-305ad2468",
+      "hashes": {
+        "v62/target-goal.ts": "752669a13d07160e2b54925e28bf2b9e5def235469b5d92a79306ee999b12d82",
+        "v4/plan-store.ts": "e5cda28d4670f660022dd4e8f6fac9e98bd5abcb8f4e9942d6d236b21de89c12",
+        "server.ts": "4d8823f97cdf1eb7860e1d21183c62132c0dd48297759e79f7c6b964e5c5222f"
+      }
+    },
+    {
+      "case": "C-forced-precheck-miss",
+      "prechecks": 2,
+      "responses": [
+        {
+          "status": "fulfilled",
+          "goal": 80,
+          "version": 670
+        },
+        {
+          "status": "fulfilled",
+          "goal": 90,
+          "version": 670
+        }
+      ],
+      "stored": [
+        {
+          "id": 670,
+          "target_score": 80
+        }
+      ],
+      "pass": false
+    },
+    {
+      "case": "cleanup",
+      "pass": true
+    }
+  ],
+  "snapshot": {
+    "case": "commit-between-latest-score-and-goal-history",
+    "triggered": true,
+    "score": 80,
+    "target": 90,
+    "exam": "kice9",
+    "goal": 490,
+    "planGoal": 491,
+    "pass": false,
+    "cleanup": true
+  },
+  "hook": [
+    {
+      "source": "pinned",
+      "visibleScore": 99,
+      "scopeScore": 80,
+      "planGoal": 1,
+      "pass": false,
+      "refreshes": 1
+    },
+    {
+      "source": "revised",
+      "visibleScore": 80,
+      "scopeScore": 80,
+      "planGoal": 1,
+      "pass": true,
+      "refreshes": 1
+    }
+  ],
+  "planGoal": {
+    "source": "pinned",
+    "http": 200,
+    "body": {
+      "version": 1,
+      "reused": false,
+      "workspaceId": "<owned-id>"
+    },
+    "calculatedGoal": 588,
+    "stored": [
+      {
+        "plan_version": 1,
+        "goal_version_id": 589
+      }
+    ],
+    "pass": false,
+    "cleanup": true
+  },
+  "fallback": {
+    "source": "pinned-store",
+    "response": {
+      "goal": 90,
+      "grade": null,
+      "exam": null,
+      "date": null,
+      "mode": "latest_only",
+      "goalVersionId": null,
+      "reused": false
+    },
+    "error": null,
+    "latest": 90,
+    "versioned": 80,
+    "pass": false,
+    "cleanup": true
+  },
+  "oldEditor": {
+    "sha": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+    "dirtyTree": true,
+    "base": "http://localhost:3008",
+    "width": 1440,
+    "pass": 0,
+    "fail": 2,
+    "fatal": null,
+    "accounts": {
+      "created": 1,
+      "absentAfter": 1
+    },
+    "layers": {
+      "learning_effect": "NOT_CLAIMED"
+    },
+    "results": [
+      {
+        "id": "OLD-80",
+        "name": "old rendered goal cannot silently bind user PLAN to newer goal",
+        "status": "FAIL",
+        "layer": "db+browser",
+        "detail": {
+          "oldGoal": 685,
+          "newGoal": 686,
+          "http": 200,
+          "requestExpected": "absent",
+          "before": 1,
+          "after": [
+            {
+              "plan_version": 1,
+              "goal_version_id": 685
+            },
+            {
+              "plan_version": 2,
+              "goal_version_id": 686
+            }
+          ]
+        }
+      },
+      {
+        "id": "OLD-90",
+        "name": "old rendered goal cannot silently bind user PLAN to newer goal",
+        "status": "FAIL",
+        "layer": "db+browser",
+        "detail": {
+          "oldGoal": 686,
+          "newGoal": 687,
+          "http": 200,
+          "requestExpected": "absent",
+          "before": 2,
+          "after": [
+            {
+              "plan_version": 1,
+              "goal_version_id": 685
+            },
+            {
+              "plan_version": 2,
+              "goal_version_id": 686
+            },
+            {
+              "plan_version": 3,
+              "goal_version_id": 687
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "dateSafety": [
+    {
+      "name": "same key different bodies cannot both report success after missing prechecks",
+      "status": "failed"
+    },
+    {
+      "name": "same key same bodies concurrent are one stored version",
+      "status": "passed"
+    },
+    {
+      "name": "lost response replay still succeeds after the saved date passes",
+      "status": "failed"
+    },
+    {
+      "name": "rejects a new yesterday date at Seoul time 2026-10-15T15:30:00Z",
+      "status": "failed"
+    },
+    {
+      "name": "rejects a new yesterday date at Seoul time 2026-10-15T23:30:00Z",
+      "status": "failed"
+    },
+    {
+      "name": "rejects a new yesterday date at Seoul time 2026-10-16T00:30:00Z",
+      "status": "passed"
+    },
+    {
+      "name": "rejects a new yesterday date at Seoul time 2026-10-16T14:30:00Z",
+      "status": "passed"
+    }
+  ],
+  "contextUnit": {
+    "sourceBasis": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324 + added observation tests",
+    "assertions": [
+      {
+        "name": "same score but different goal versions have distinct draft and acknowledgement keys",
+        "status": "failed"
+      },
+      {
+        "name": "accepts explicit observed goal version and rejects invalid values",
+        "status": "failed"
+      },
+      {
+        "name": "goal-version changes create a different request identity even at the same score",
+        "status": "failed"
+      },
+      {
+        "name": "replay must retain the originally observed goal version, while legacy requests remain compatible",
+        "status": "failed"
+      }
+    ]
+  },
+  "keyboard": {
+    "sha": "5d8e3cacecf20cb350131c663bd9eb19f0a56ff2",
+    "dirtyTree": false,
+    "base": "http://localhost:3008",
+    "width": 1440,
+    "pass": 4,
+    "fail": 2,
+    "fatal": null,
+    "accounts": {
+      "created": 1,
+      "absentAfter": 1
+    },
+    "layers": {
+      "learning_effect": "NOT_CLAIMED"
+    },
+    "results": [
+      {
+        "id": "K-open-1280",
+        "name": "keyboard opens goal popup and reaches visible focus inside",
+        "status": "PASS",
+        "layer": "db+browser",
+        "detail": {
+          "inside": true,
+          "visible": true
+        }
+      },
+      {
+        "id": "K-fields-1280",
+        "name": "keyboard details disclosure reaches exam selector",
+        "status": "PASS",
+        "layer": "db+browser",
+        "detail": {
+          "examFocus": "goal-exam"
+        }
+      },
+      {
+        "id": "K-escape-1280",
+        "name": "Escape closes popup and restores goal trigger focus",
+        "status": "FAIL",
+        "layer": "db+browser",
+        "detail": {
+          "closed": true,
+          "restored": false
+        }
+      },
+      {
+        "id": "K-open-1440",
+        "name": "keyboard opens goal popup and reaches visible focus inside",
+        "status": "PASS",
+        "layer": "db+browser",
+        "detail": {
+          "inside": true,
+          "visible": true
+        }
+      },
+      {
+        "id": "K-fields-1440",
+        "name": "keyboard details disclosure reaches exam selector",
+        "status": "PASS",
+        "layer": "db+browser",
+        "detail": {
+          "examFocus": "goal-exam"
+        }
+      },
+      {
+        "id": "K-escape-1440",
+        "name": "Escape closes popup and restores goal trigger focus",
+        "status": "FAIL",
+        "layer": "db+browser",
+        "detail": {
+          "closed": true,
+          "restored": false
+        }
+      }
+    ]
+  }
+}

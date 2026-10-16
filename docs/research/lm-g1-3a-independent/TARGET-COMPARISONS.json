@@ -1,0 +1,7082 @@
+[
+  {
+    "width": 1280,
+    "score": 80,
+    "exam": null,
+    "goalVersion": 786,
+    "planGoalVersion": 786,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": null,
+      "status": "default",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 224,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 13
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 90,
+          "pointsPerExam": 32.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 6,
+          "pointsPerExam": 2.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 81,
+          "pointsPerExam": 27.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 62,
+          "pointsPerExam": 20.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 62,
+          "pointsPerExam": 23.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 59,
+          "pointsPerExam": 19.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 42,
+          "pointsPerExam": 16.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 37,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 37,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 10,
+          "pointsPerExam": 4.2
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "7ce83dcee694188d3bbc597b13827b5d71a2830586e740c682d453eed54ec8cc"
+  },
+  {
+    "width": 1280,
+    "score": 80,
+    "exam": "suneung",
+    "goalVersion": 788,
+    "planGoalVersion": 788,
+    "referenceExams": [
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "2024",
+        "label": "2024학년도 수능"
+      },
+      {
+        "id": "2023",
+        "label": "2023학년도 수능"
+      },
+      {
+        "id": "2022",
+        "label": "2022학년도 수능"
+      },
+      {
+        "id": "2021",
+        "label": "2021학년도 수능"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "suneung",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ]
+    },
+    "mustItems": 223,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 39,
+          "pointsPerExam": 13.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 83,
+          "pointsPerExam": 30.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 9,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 79,
+          "pointsPerExam": 27.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 19.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 21.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 18
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 42,
+          "pointsPerExam": 16.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 8,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "0b6266a3147c592f835e090d64352f0d821f6087dab072f3e551d6e0ff40b2ee"
+  },
+  {
+    "width": 1280,
+    "score": 90,
+    "exam": "hakpyeong",
+    "goalVersion": 792,
+    "planGoalVersion": 792,
+    "referenceExams": [],
+    "referenceItems": 0,
+    "scope": {
+      "exam": "hakpyeong",
+      "status": "unsupported_content",
+      "reason": "no_rates",
+      "exams": []
+    },
+    "mustItems": 0,
+    "needs": [],
+    "relevanceUnknown": [
+      "v.core_meaning",
+      "v.contextual_sense",
+      "v.multiword",
+      "v.semantic_relation",
+      "s.sentence_core",
+      "s.chunk_boundary",
+      "s.attachment",
+      "s.structural_relation",
+      "s.form_scope",
+      "r.reference",
+      "r.relation",
+      "r.discourse_function",
+      "r.discourse_structure",
+      "r.central_meaning",
+      "r.inference",
+      "e.task_demand",
+      "e.evidence_location",
+      "e.option_correspondence"
+    ],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "v.core_meaning",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "v.contextual_sense",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "v.multiword",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "v.semantic_relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "s.sentence_core",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "s.chunk_boundary",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "s.attachment",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "s.structural_relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "s.form_scope",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "r.reference",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "r.relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "r.discourse_function",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "r.discourse_structure",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "r.central_meaning",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "r.inference",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "e.task_demand",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "e.evidence_location",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "e.option_correspondence",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [],
+    "notActionable": [
+      {
+        "task": "v.core_meaning",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.reference",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.central_meaning",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.inference",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.evidence_location",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.option_correspondence",
+        "reason": "relevance_unknown"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "available",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "84099de86c368d072d01e2282b610d6d59ea3b52448c59e490661207fc7d242a"
+  },
+  {
+    "width": 1280,
+    "score": 90,
+    "exam": "kice6",
+    "goalVersion": 790,
+    "planGoalVersion": 790,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "M2506",
+        "label": "2025학년도 6월 모의평가"
+      },
+      {
+        "id": "M2406",
+        "label": "2024학년도 6월 모의평가"
+      },
+      {
+        "id": "M2306",
+        "label": "2023학년도 6월 모의평가"
+      },
+      {
+        "id": "M2206",
+        "label": "2022학년도 6월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "kice6",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "M2506",
+          "label": "2025학년도 6월 모의평가"
+        },
+        {
+          "id": "M2406",
+          "label": "2024학년도 6월 모의평가"
+        },
+        {
+          "id": "M2306",
+          "label": "2023학년도 6월 모의평가"
+        },
+        {
+          "id": "M2206",
+          "label": "2022학년도 6월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 246,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 19.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 110,
+          "pointsPerExam": 41.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 18,
+          "pointsPerExam": 7.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 99,
+          "pointsPerExam": 35.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 73,
+          "pointsPerExam": 25.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 30.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 23.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 21.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 21.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 61,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 10,
+          "pointsPerExam": 4.2
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "640032103c16e56af63b4488caef7b1f52e1f959b4c6d19a4573510af5145721"
+  },
+  {
+    "width": 1280,
+    "score": 90,
+    "exam": "kice9",
+    "goalVersion": 791,
+    "planGoalVersion": 791,
+    "referenceExams": [
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      },
+      {
+        "id": "M2409",
+        "label": "2024학년도 9월 모의평가"
+      },
+      {
+        "id": "M2309",
+        "label": "2023학년도 9월 모의평가"
+      },
+      {
+        "id": "M2209",
+        "label": "2022학년도 9월 모의평가"
+      },
+      {
+        "id": "M2109",
+        "label": "2021학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "kice9",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        },
+        {
+          "id": "M2409",
+          "label": "2024학년도 9월 모의평가"
+        },
+        {
+          "id": "M2309",
+          "label": "2023학년도 9월 모의평가"
+        },
+        {
+          "id": "M2209",
+          "label": "2022학년도 9월 모의평가"
+        },
+        {
+          "id": "M2109",
+          "label": "2021학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 55,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 105,
+          "pointsPerExam": 39.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 19,
+          "pointsPerExam": 8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 97,
+          "pointsPerExam": 35
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 65,
+          "pointsPerExam": 22.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 76,
+          "pointsPerExam": 29
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 56,
+          "pointsPerExam": 22.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 52,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 9,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "4471ce035e39361c75db16d8a507821dcf7467a480300abd70d5e0a95559f990"
+  },
+  {
+    "width": 1280,
+    "score": 90,
+    "exam": null,
+    "goalVersion": 787,
+    "planGoalVersion": 787,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": null,
+      "status": "default",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 52,
+          "pointsPerExam": 19
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 111,
+          "pointsPerExam": 41.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 17,
+          "pointsPerExam": 7.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 97,
+          "pointsPerExam": 34.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 72,
+          "pointsPerExam": 25.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 78,
+          "pointsPerExam": 30
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 57,
+          "pointsPerExam": 22.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 61,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 11,
+          "pointsPerExam": 4.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "4703a9d99daddb120f449aa505a5304e0895de297ffdc540b9eec58434bef87b"
+  },
+  {
+    "width": 1280,
+    "score": 90,
+    "exam": "suneung",
+    "goalVersion": 789,
+    "planGoalVersion": 789,
+    "referenceExams": [
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "2024",
+        "label": "2024학년도 수능"
+      },
+      {
+        "id": "2023",
+        "label": "2023학년도 수능"
+      },
+      {
+        "id": "2022",
+        "label": "2022학년도 수능"
+      },
+      {
+        "id": "2021",
+        "label": "2021학년도 수능"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "suneung",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 18.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 105,
+          "pointsPerExam": 39.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 16,
+          "pointsPerExam": 6.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 91,
+          "pointsPerExam": 32.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 65,
+          "pointsPerExam": 22.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 73,
+          "pointsPerExam": 27.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 55,
+          "pointsPerExam": 21.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 19.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 19.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 18
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 11,
+          "pointsPerExam": 4.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "773e8dde8db1c19233ff67a0de6e4d93f150f8fa8cf26edd8f4ed9323872bf77"
+  },
+  {
+    "width": 1440,
+    "score": 80,
+    "exam": null,
+    "goalVersion": 822,
+    "planGoalVersion": 822,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": null,
+      "status": "default",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 224,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 13
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 90,
+          "pointsPerExam": 32.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 29.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 6,
+          "pointsPerExam": 2.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 81,
+          "pointsPerExam": 27.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 62,
+          "pointsPerExam": 20.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 62,
+          "pointsPerExam": 23.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 59,
+          "pointsPerExam": 19.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 42,
+          "pointsPerExam": 16.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 37,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 37,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 22,
+          "pointsPerExam": 8
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 10,
+          "pointsPerExam": 4.2
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "57af40f2a865b24fc134696cc3afe8df936617d22ebd85ac5bc2e8db0d095311"
+  },
+  {
+    "width": 1440,
+    "score": 80,
+    "exam": "suneung",
+    "goalVersion": 824,
+    "planGoalVersion": 824,
+    "referenceExams": [
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "2024",
+        "label": "2024학년도 수능"
+      },
+      {
+        "id": "2023",
+        "label": "2023학년도 수능"
+      },
+      {
+        "id": "2022",
+        "label": "2022학년도 수능"
+      },
+      {
+        "id": "2021",
+        "label": "2021학년도 수능"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "suneung",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ]
+    },
+    "mustItems": 223,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 39,
+          "pointsPerExam": 13.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 83,
+          "pointsPerExam": 30.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 74,
+          "pointsPerExam": 27.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 9,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 79,
+          "pointsPerExam": 27.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 19.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 21.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 18
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 42,
+          "pointsPerExam": 16.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 32,
+          "pointsPerExam": 12.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 8,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "431d5c7c82f194135021181375861968ac57b414d0d58ddfbb41fc172ec2903a"
+  },
+  {
+    "width": 1440,
+    "score": 90,
+    "exam": "hakpyeong",
+    "goalVersion": 828,
+    "planGoalVersion": 828,
+    "referenceExams": [],
+    "referenceItems": 0,
+    "scope": {
+      "exam": "hakpyeong",
+      "status": "unsupported_content",
+      "reason": "no_rates",
+      "exams": []
+    },
+    "mustItems": 0,
+    "needs": [],
+    "relevanceUnknown": [
+      "v.core_meaning",
+      "v.contextual_sense",
+      "v.multiword",
+      "v.semantic_relation",
+      "s.sentence_core",
+      "s.chunk_boundary",
+      "s.attachment",
+      "s.structural_relation",
+      "s.form_scope",
+      "r.reference",
+      "r.relation",
+      "r.discourse_function",
+      "r.discourse_structure",
+      "r.central_meaning",
+      "r.inference",
+      "e.task_demand",
+      "e.evidence_location",
+      "e.option_correspondence"
+    ],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "v.core_meaning",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "v.contextual_sense",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "v.multiword",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "v.semantic_relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "s.sentence_core",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "s.chunk_boundary",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "s.attachment",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "s.structural_relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "s.form_scope",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "r.reference",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "r.relation",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "r.discourse_function",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "r.discourse_structure",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "r.central_meaning",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "r.inference",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "e.task_demand",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "e.evidence_location",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "e.option_correspondence",
+        "need": "RELEVANCE_UNKNOWN",
+        "evidence": "analysis_pending",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [],
+    "notActionable": [
+      {
+        "task": "v.core_meaning",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.reference",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.relation",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.central_meaning",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "r.inference",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.evidence_location",
+        "reason": "relevance_unknown"
+      },
+      {
+        "task": "e.option_correspondence",
+        "reason": "relevance_unknown"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "available",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "5e051dd611ba2a33a502223af9562d37394dfbb6c3f91937573ab6ed7f1bea72"
+  },
+  {
+    "width": 1440,
+    "score": 90,
+    "exam": "kice6",
+    "goalVersion": 826,
+    "planGoalVersion": 826,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "M2506",
+        "label": "2025학년도 6월 모의평가"
+      },
+      {
+        "id": "M2406",
+        "label": "2024학년도 6월 모의평가"
+      },
+      {
+        "id": "M2306",
+        "label": "2023학년도 6월 모의평가"
+      },
+      {
+        "id": "M2206",
+        "label": "2022학년도 6월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "kice6",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "M2506",
+          "label": "2025학년도 6월 모의평가"
+        },
+        {
+          "id": "M2406",
+          "label": "2024학년도 6월 모의평가"
+        },
+        {
+          "id": "M2306",
+          "label": "2023학년도 6월 모의평가"
+        },
+        {
+          "id": "M2206",
+          "label": "2022학년도 6월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 246,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 19.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 110,
+          "pointsPerExam": 41.7
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 18,
+          "pointsPerExam": 7.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 99,
+          "pointsPerExam": 35.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 73,
+          "pointsPerExam": 25.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 80,
+          "pointsPerExam": 30.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 58,
+          "pointsPerExam": 23.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 21.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 21.8
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 61,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 44,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 10,
+          "pointsPerExam": 4.2
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "cb365c0e25321ea170797a2341a6393a702e363783164d7dd7041dedb3808ec8"
+  },
+  {
+    "width": 1440,
+    "score": 90,
+    "exam": "kice9",
+    "goalVersion": 827,
+    "planGoalVersion": 827,
+    "referenceExams": [
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      },
+      {
+        "id": "M2409",
+        "label": "2024학년도 9월 모의평가"
+      },
+      {
+        "id": "M2309",
+        "label": "2023학년도 9월 모의평가"
+      },
+      {
+        "id": "M2209",
+        "label": "2022학년도 9월 모의평가"
+      },
+      {
+        "id": "M2109",
+        "label": "2021학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "kice9",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        },
+        {
+          "id": "M2409",
+          "label": "2024학년도 9월 모의평가"
+        },
+        {
+          "id": "M2309",
+          "label": "2023학년도 9월 모의평가"
+        },
+        {
+          "id": "M2209",
+          "label": "2022학년도 9월 모의평가"
+        },
+        {
+          "id": "M2109",
+          "label": "2021학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 55,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 105,
+          "pointsPerExam": 39.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 93,
+          "pointsPerExam": 35.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 19,
+          "pointsPerExam": 8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 97,
+          "pointsPerExam": 35
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 65,
+          "pointsPerExam": 22.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 76,
+          "pointsPerExam": 29
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 56,
+          "pointsPerExam": 22.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 52,
+          "pointsPerExam": 17.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 38,
+          "pointsPerExam": 14.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 9,
+          "pointsPerExam": 3.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "784e1cf069181b13fae1dad7dcab0ab1a87364c2dc161c628bc9cfd82d96a2a6"
+  },
+  {
+    "width": 1440,
+    "score": 90,
+    "exam": null,
+    "goalVersion": 823,
+    "planGoalVersion": 823,
+    "referenceExams": [
+      {
+        "id": "M2706",
+        "label": "2027학년도 6월 모의평가"
+      },
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "M2609",
+        "label": "2026학년도 9월 모의평가"
+      },
+      {
+        "id": "M2606",
+        "label": "2026학년도 6월 모의평가"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "M2509",
+        "label": "2025학년도 9월 모의평가"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": null,
+      "status": "default",
+      "reason": null,
+      "exams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "M2609",
+          "label": "2026학년도 9월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "M2509",
+          "label": "2025학년도 9월 모의평가"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 52,
+          "pointsPerExam": 19
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 111,
+          "pointsPerExam": 41.8
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 98,
+          "pointsPerExam": 37
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 17,
+          "pointsPerExam": 7.3
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 97,
+          "pointsPerExam": 34.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 72,
+          "pointsPerExam": 25.2
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 78,
+          "pointsPerExam": 30
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 57,
+          "pointsPerExam": 22.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 51,
+          "pointsPerExam": 20.7
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 61,
+          "pointsPerExam": 20.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 33,
+          "pointsPerExam": 12.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 11,
+          "pointsPerExam": 4.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "9f4e5d797706ad99a42f5d545fa07b0cc0b0155801b933fb8c04ae9436c07a10"
+  },
+  {
+    "width": 1440,
+    "score": 90,
+    "exam": "suneung",
+    "goalVersion": 825,
+    "planGoalVersion": 825,
+    "referenceExams": [
+      {
+        "id": "2026",
+        "label": "2026학년도 수능"
+      },
+      {
+        "id": "2025",
+        "label": "2025학년도 수능"
+      },
+      {
+        "id": "2024",
+        "label": "2024학년도 수능"
+      },
+      {
+        "id": "2023",
+        "label": "2023학년도 수능"
+      },
+      {
+        "id": "2022",
+        "label": "2022학년도 수능"
+      },
+      {
+        "id": "2021",
+        "label": "2021학년도 수능"
+      }
+    ],
+    "referenceItems": 270,
+    "scope": {
+      "exam": "suneung",
+      "status": "supported",
+      "reason": null,
+      "exams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ]
+    },
+    "mustItems": 247,
+    "needs": [
+      {
+        "task": "r.central_meaning",
+        "type": "CONFIRM",
+        "priority": 1,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 18.2
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.relation",
+        "type": "CONFIRM",
+        "priority": 2,
+        "relevance": {
+          "items": 105,
+          "pointsPerExam": 39.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.reference",
+        "type": "CONFIRM",
+        "priority": 3,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_function",
+        "type": "CONFIRM",
+        "priority": 4,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.discourse_structure",
+        "type": "CONFIRM",
+        "priority": 5,
+        "relevance": {
+          "items": 96,
+          "pointsPerExam": 36
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "r.inference",
+        "type": "CONFIRM",
+        "priority": 6,
+        "relevance": {
+          "items": 16,
+          "pointsPerExam": 6.5
+        },
+        "evidence": "check_first",
+        "reason": "confirm_check_first"
+      },
+      {
+        "task": "e.option_correspondence",
+        "type": "CONFIRM",
+        "priority": 7,
+        "relevance": {
+          "items": 91,
+          "pointsPerExam": 32.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.evidence_location",
+        "type": "CONFIRM",
+        "priority": 8,
+        "relevance": {
+          "items": 65,
+          "pointsPerExam": 22.3
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.semantic_relation",
+        "type": "CONFIRM",
+        "priority": 9,
+        "relevance": {
+          "items": 73,
+          "pointsPerExam": 27.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.contextual_sense",
+        "type": "CONFIRM",
+        "priority": 10,
+        "relevance": {
+          "items": 55,
+          "pointsPerExam": 21.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.core_meaning",
+        "type": "CONFIRM",
+        "priority": 11,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 19.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "v.multiword",
+        "type": "CONFIRM",
+        "priority": 12,
+        "relevance": {
+          "items": 50,
+          "pointsPerExam": 19.5
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "e.task_demand",
+        "type": "CONFIRM",
+        "priority": 13,
+        "relevance": {
+          "items": 54,
+          "pointsPerExam": 18
+        },
+        "evidence": "observed",
+        "reason": "confirm_observed"
+      },
+      {
+        "task": "s.sentence_core",
+        "type": "CONFIRM",
+        "priority": 14,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "type": "CONFIRM",
+        "priority": 15,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.attachment",
+        "type": "CONFIRM",
+        "priority": 16,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.structural_relation",
+        "type": "CONFIRM",
+        "priority": 17,
+        "relevance": {
+          "items": 45,
+          "pointsPerExam": 17.5
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      },
+      {
+        "task": "s.form_scope",
+        "type": "CONFIRM",
+        "priority": 18,
+        "relevance": {
+          "items": 11,
+          "pointsPerExam": 4.7
+        },
+        "evidence": "insufficient",
+        "reason": "confirm_insufficient"
+      }
+    ],
+    "relevanceUnknown": [],
+    "notComputable": [
+      {
+        "task": "s.o.sentence_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "r.o.global_meaning_model",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "e.o.final_judgment",
+        "reason": "integrated_waits_parts"
+      },
+      {
+        "task": "l.sound",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.sentence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.retain",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "l.respond",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.time_allocation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.sequence",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.recovery_adaptation",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.attention_stamina",
+        "reason": "canon_hold"
+      },
+      {
+        "task": "x.o.whole_test_stability",
+        "reason": "canon_hold"
+      }
+    ],
+    "needRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 2,
+        "task": "r.relation",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 3,
+        "task": "r.reference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 4,
+        "task": "r.discourse_function",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 5,
+        "task": "r.discourse_structure",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 6,
+        "task": "r.inference",
+        "need": "CONFIRM",
+        "evidence": "check_first",
+        "confirmed": false
+      },
+      {
+        "rank": 7,
+        "task": "e.option_correspondence",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 8,
+        "task": "e.evidence_location",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 9,
+        "task": "v.semantic_relation",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 10,
+        "task": "v.contextual_sense",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 11,
+        "task": "v.core_meaning",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 12,
+        "task": "v.multiword",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 13,
+        "task": "e.task_demand",
+        "need": "CONFIRM",
+        "evidence": "observed",
+        "confirmed": false
+      },
+      {
+        "rank": 14,
+        "task": "s.sentence_core",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 15,
+        "task": "s.chunk_boundary",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 16,
+        "task": "s.attachment",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 17,
+        "task": "s.structural_relation",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      },
+      {
+        "rank": 18,
+        "task": "s.form_scope",
+        "need": "CONFIRM",
+        "evidence": "insufficient",
+        "confirmed": false
+      }
+    ],
+    "actionRank": [
+      {
+        "rank": 1,
+        "task": "r.central_meaning",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인",
+        "needRank": 1
+      },
+      {
+        "rank": 2,
+        "task": "e.option_correspondence",
+        "href": "/csat/item/2026-22?check=1#principle",
+        "label": "2026학년도 수능 22번으로 직접 확인",
+        "needRank": 7
+      },
+      {
+        "rank": 3,
+        "task": "e.evidence_location",
+        "href": "/csat/item/2026-31?check=1#principle",
+        "label": "2026학년도 수능 31번으로 직접 확인",
+        "needRank": 8
+      }
+    ],
+    "notActionable": [
+      {
+        "task": "r.relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.reference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_function",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.discourse_structure",
+        "reason": "content_gap"
+      },
+      {
+        "task": "r.inference",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.semantic_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.contextual_sense",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.core_meaning",
+        "reason": "content_gap"
+      },
+      {
+        "task": "v.multiword",
+        "reason": "content_gap"
+      },
+      {
+        "task": "e.task_demand",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.sentence_core",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.chunk_boundary",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.attachment",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.structural_relation",
+        "reason": "content_gap"
+      },
+      {
+        "task": "s.form_scope",
+        "reason": "content_gap"
+      }
+    ],
+    "primaryWorkspace": {
+      "id": "ws.central-meaning",
+      "reason": "goal_need",
+      "next": {
+        "target": "2022#20",
+        "href": "/csat/item/2022-20?check=1#principle",
+        "label": "2022학년도 수능 20번으로 직접 확인"
+      }
+    },
+    "actualInputSha256": "1130fb9c47e4a39a326bba619b355061c28df71d0e51655ec63e83c22fcf05fc"
+  }
+]

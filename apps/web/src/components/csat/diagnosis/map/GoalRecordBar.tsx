@@ -11,7 +11,7 @@
 import { ArrowRight, ClipboardList, Pencil, PlayCircle, Target } from 'lucide-react'
 import Link from 'next/link'
 
-import { goalSummary } from '@/lib/csat/map/goal-view'
+import { goalSummary, gradeOf } from '@/lib/csat/map/goal-view'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
 import type { AsIsMap } from '@/lib/csat/map/v4/as-is'
@@ -19,6 +19,7 @@ import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
 import type { Ranks } from '@/lib/csat/map/v62/rank'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
+import { GOAL_EXAM_LABEL, SCOPE_REASON_LABEL, gradeView } from '@/lib/csat/map/v62/target-goal'
 
 import { GoalPopover, type useGoal } from './GoalBar'
 import { homeWsOf } from './TaskInspector'
@@ -78,7 +79,9 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
         <span className={u.topIcon} aria-hidden="true"><Target size={15} strokeWidth={1.9} /></span>
         <div className={u.topText}>
           <h2 className={u.topLabel}>내 목표</h2>
-          <p className={u.topBig} data-testid="goal-value">{goalSet ? <>수능 영어 <strong>{gs.goal}점</strong> · {gs.goalGrade}등급</> : '아직 정하지 않았어요'}</p>
+          {/* 점수에서 계산한 등급은 「참고 구간」 — 저장한 목표 등급과 다른 값이다 */}
+          <p className={u.topBig} data-testid="goal-value">{goalSet ? <>영어 <strong>{gs.goal}점</strong> <span className={u.topSub}>· 참고 {gs.goalGrade}등급 구간</span></> : '아직 정하지 않았어요'}</p>
+          {goalSet && <GoalTargetLine data={data} score={gs.goal} />}
         </div>
         {past ? (
           <Link href={now} className={u.ghost} data-testid="map-goal-to-current">
@@ -141,5 +144,28 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
         ) : null}
       </div>
     </section>
+  )
+}
+
+/**
+ * 목표 통합 단계 — 저장된 목표의 점수 외 값과 기준 시험(짧게). 등급은 셋을 섞지 않는다: 저장한 목표 등급 · 점수에서 계산한 참고 구간(위 줄) · 기록 등급.
+ * 목표 시험이 분석 자료를 갖추지 못했으면(미지원) 그 사실을 말하고 다른 시험으로 대신하지 않는다.
+ */
+function GoalTargetLine({ data, score }: { data: MapPageData; score: number }) {
+  const t = data.v4?.target
+  if (!t) return null
+  const g = t.goal
+  const gv = gradeView(score, g?.grade ?? null, gradeOf)
+  const unsupported = t.scope.status === 'unsupported_content'
+  const examText = t.scope.exam ? GOAL_EXAM_LABEL[t.scope.exam] : '평가원 최근'
+  const reason = unsupported && t.scope.reason ? SCOPE_REASON_LABEL[t.scope.reason] : null
+  return (
+    <p className={u.topSub} data-testid="goal-target" data-exam={t.scope.exam ?? ''} data-scope={t.scope.status} data-exams={t.scope.exams.map((e) => e.id).join(",")} data-grade={g?.grade ?? ''} data-date={g?.date ?? ''} data-version={g?.id ?? ''}>
+      <span title={reason ?? `기준 시험 ${t.scope.exams.length}회`} aria-label={reason ? `${examText} — ${reason}` : undefined}>
+        {examText} 기준 {unsupported ? '· 분석 자료 준비 중' : `${t.scope.exams.length}회`}
+      </span>
+      {g?.grade ? <> · 목표 {g.grade}등급{gv.mismatch ? ' (점수 구간과 달라요 — 바꾸지 않았어요)' : ''}</> : null}
+      {g?.date ? <> · ~{g.date}</> : null}
+    </p>
   )
 }

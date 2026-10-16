@@ -1,0 +1,660 @@
+{
+  "pinned": "305ad246863a473a8332b6e42141299c62247f13",
+  "base": "4cba17a36884eb6bc59bfb19baf6845eee7cc064",
+  "sourceBasis": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+  "authorRenderSource": "085040e64",
+  "authorCodeDiffToSubmitted": "",
+  "productHashes": {
+    "apps/web/src/app/api/csat/diagnosis/map/goal/route.ts": "486d1260bb59b3d23b456e842a26998808f2a92b0cc115f480e2569bfaea6197",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts": "08cb627f3acc59b688616ebb69c5520de4049149094be699dba1f63d18297acc",
+    "apps/web/src/components/csat/diagnosis/map/GoalBar.tsx": "68b3acc7ce1f42c644d202c17ac27a5d22c767c8989a2665e7794353cb81c69d",
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx": "d6cf8fa222d4aa0ee64a4e150e938ec8478ad61cdb1a53587bbcee64e63e96ec",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx": "5ab5203bf839a8cecaeeaf01b875f3f0035e70c6e387437aa659f414dd01ed07",
+    "apps/web/src/components/csat/diagnosis/map/map.module.css": "eb3f95c3aa30c7022297be06c4678a87321a6d2b4ed5507b742c5d77913617e6",
+    "apps/web/src/lib/csat/map/load.ts": "0d145cb59c597cd7010c56842d7a716fcfde59fb6a408fb67f56ce1b75a57351",
+    "apps/web/src/lib/csat/map/server.ts": "dd1a73fa02981a8ddb709c9a415bbf75b66c2bd14a29584b16ea8b1c7b6bc020",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan-store.test.ts": "ef1a99e71116a8e10e912f39fc5d958222c62eaafa9785d1d99e77bc24cfa592",
+    "apps/web/src/lib/csat/map/v4/plan-commit.ts": "6c9fcaeaaf92a126f7ffdd9854f9e8c2ee725c3e048a70fdc6c78aafb25953c5",
+    "apps/web/src/lib/csat/map/v4/plan-store.ts": "65753098a0b851362aa9d865e311762b13b426ab656543ae35273e0afd47410c",
+    "apps/web/src/lib/csat/map/v62/__tests__/goal-context.test.ts": "d232a1afd20833b6c75d70e8cfd6bbea7b79f0d1fafbb0aecbb4dcfba6551124",
+    "apps/web/src/lib/csat/map/v62/__tests__/goal-save-safety.test.ts": "09f0694a33de6a5a9bf856ca28e8443d2b432736510dee7fd39a837d8be925ec",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-goal-binding.test.ts": "71305676daf9d48d6441fbb9f8a7d4d174c24bac9c5db8dd77551cb531f7d31c",
+    "apps/web/src/lib/csat/map/v62/__tests__/target-goal.test.ts": "e2281b33f28ab585c02f77c54d1137fbd1698e51ccc9f2739d8b3b9b4b038ad4",
+    "apps/web/src/lib/csat/map/v62/target-goal.ts": "5fd730b6f328f869b9e59705b7c1e7602952eaabba3828e174c730af17d61af0"
+  },
+  "units": {
+    "files": 88,
+    "pass": 1102,
+    "fail": 0,
+    "skip": 0
+  },
+  "actualGoalRace": [
+    {
+      "case": "source",
+      "mode": "current",
+      "hashes": {
+        "v62/target-goal.ts": "5fd730b6f328f869b9e59705b7c1e7602952eaabba3828e174c730af17d61af0",
+        "v4/plan-store.ts": "65753098a0b851362aa9d865e311762b13b426ab656543ae35273e0afd47410c",
+        "server.ts": "dd1a73fa02981a8ddb709c9a415bbf75b66c2bd14a29584b16ea8b1c7b6bc020"
+      }
+    },
+    {
+      "case": "C-forced-precheck-miss",
+      "prechecks": 2,
+      "responses": [
+        {
+          "status": "fulfilled",
+          "goal": 80,
+          "version": 865
+        },
+        {
+          "status": "rejected",
+          "error": "같은 요청 키로 다른 목표가 왔어요 — 화면을 새로 고쳐 주세요"
+        }
+      ],
+      "stored": [
+        {
+          "id": 865,
+          "target_score": 80
+        }
+      ],
+      "pass": true
+    },
+    {
+      "case": "E-lost-result-expired-date-replay",
+      "reused": true,
+      "rows": 1,
+      "pass": true
+    },
+    {
+      "case": "F-old-key-newer-goal-preserved",
+      "current": 96,
+      "pass": true
+    },
+    {
+      "case": "cleanup",
+      "pass": true
+    }
+  ],
+  "actualSnapshot": {
+    "case": "commit-between-latest-score-and-goal-history",
+    "triggered": true,
+    "score": 90,
+    "target": 90,
+    "exam": "kice9",
+    "goal": 869,
+    "planGoal": 869,
+    "pass": true,
+    "cleanup": true
+  },
+  "actualPlanRace": {
+    "source": "revised",
+    "http": 409,
+    "body": {
+      "error": "목표가 바뀌었어요 — 새 목표 기준으로 계획을 다시 확인해 주세요",
+      "code": "goal_changed"
+    },
+    "calculatedGoal": 871,
+    "stored": [],
+    "pass": true,
+    "cleanup": true
+  },
+  "actualPlanKeyRace": {
+    "source": "revised",
+    "prechecks": 2,
+    "http": [
+      200,
+      409
+    ],
+    "bodies": [
+      {
+        "version": 1,
+        "reused": false,
+        "workspaceId": "<owned-id>"
+      },
+      {
+        "error": "client_key_reused",
+        "code": "client_key_reused"
+      }
+    ],
+    "stored": [
+      {
+        "version": 1,
+        "note": "A"
+      }
+    ],
+    "pass": true,
+    "cleanup": true
+  },
+  "actualFallback": {
+    "source": "revised",
+    "response": null,
+    "error": "목표 저장 실패: 기존 목표 이력이 있어 점수만 저장할 수 없어요 — 저장 구조를 확인해 주세요",
+    "latest": 80,
+    "versioned": 80,
+    "pass": true,
+    "cleanup": true
+  },
+  "browser": [
+    {
+      "name": "stale-goal-1280",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:03:21.445Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 4,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "stale-goal-1440",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:04:31.244Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 4,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "independent-1280",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:05:39.767Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 23,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "independent-1440",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:07:36.693Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 23,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "security",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:09:27.032Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 18,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2
+    },
+    {
+      "name": "late-remount",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:11:16.471Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 1,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "save-unchanged-1280",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:12:12.355Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 1,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "save-unchanged-1440",
+      "sourceStable": true,
+      "headAtStart": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+      "startedAt": "2026-10-16T11:13:02.247Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 1,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    }
+  ],
+  "serverCleanup": [
+    {
+      "name": "stale-goal-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "stale-goal-1440",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "independent-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "independent-1440",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "security",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "late-remount",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "save-unchanged-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "save-unchanged-1440",
+      "owned": true,
+      "stopped": true
+    }
+  ],
+  "previousFrozenRegression": [
+    {
+      "name": "revised-1280",
+      "sourceStable": true,
+      "headAtStart": "556ec5ce5cad4983758446ca9b13c860d84c2e37",
+      "startedAt": "2026-10-16T10:28:17.167Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "revised-1440",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:31:23.665Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "timing",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:34:05.944Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 2,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "security",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:34:42.910Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 18,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 0
+    },
+    {
+      "name": "late-remount",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:36:01.026Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 1,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 0
+    },
+    {
+      "name": "t1",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:36:21.690Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 9,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "workspace",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:37:21.481Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 36,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "return",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:38:08.402Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 7,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "study",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:39:03.226Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "supply",
+      "sourceStable": true,
+      "headAtStart": "c7a4ed898fe3213ef07dcc283f22afc3b7c06324",
+      "startedAt": "2026-10-16T10:39:34.963Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2
+    }
+  ],
+  "contextRegression": [
+    {
+      "name": "stale-goal-1280",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:44:48.841Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 4,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "stale-goal-1440",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:45:34.676Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 4,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "keyboard",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:46:04.018Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "independent-1280",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:46:17.079Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 23,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "independent-1440",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:47:28.082Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 23,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "revised-1280",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:48:35.851Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "revised-1440",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:51:22.885Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1
+    },
+    {
+      "name": "security",
+      "sourceStable": true,
+      "headAtStart": "c6f45d8f23b0a945a67c7e7b2556cc98458ad2d1",
+      "startedAt": "2026-10-16T10:54:03.891Z",
+      "exit": 1,
+      "error": null,
+      "passLines": 1,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 0
+    }
+  ],
+  "contextRuntimeDelta": [
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts"
+  ],
+  "screenshots": [
+    {
+      "path": "evidence/editor-1280.png",
+      "sha256": "cdb1462f7d85cf172e7aeb3a729b63eaa2fb3b55d313b5b339b0470bfb81bb25"
+    },
+    {
+      "path": "evidence/editor-1440.png",
+      "sha256": "cbd317362c94290be0649b023468392d55b32a3ff8c238c19bb1586589eeb316"
+    },
+    {
+      "path": "evidence/old-plan-1280.png",
+      "sha256": "858cb6e440745a3d3310382ef5e46a7ba6e48032bcd139827ca313fede0a572c"
+    },
+    {
+      "path": "evidence/late-response-1440.png",
+      "sha256": "efa97c99c0e0e3ba256ca0cd4ebdc1662144212d25aa50db7feb026eb6d89444"
+    },
+    {
+      "path": "evidence/stale-goal-1280.png",
+      "sha256": "7fcce138d3b8ec6458bff129c66494e9bfe7813df33fdc9f4a25439a158667a4"
+    }
+  ],
+  "limitations": [
+    "Owned synthetic accounts, not learner-effect evidence",
+    "Legacy API without expectedGoalVersion uses server-calculated goal semantics",
+    "No atomic latest-at-commit guarantee or DB schema/RPC/RLS change",
+    "Office support remains BLOCKED_CONTENT; grade-only remains BLOCKED_APPROVAL",
+    "Raw runtime and test IDs stay ignored local; source subsets and delta runs are distinguished"
+  ]
+}
