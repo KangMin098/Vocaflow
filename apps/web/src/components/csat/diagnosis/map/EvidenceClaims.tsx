@@ -20,7 +20,7 @@ const CLAIM_LABEL: Record<AttemptEvidence['claim'], string> = {
   independent_check: '혼자 푼 첫 확인',
   condition_success: '이 과제를 맞힘(혼자 확인은 아님)',
   performed_only: '수행 기록',
-  held: '보류(순서 확인 불가)',
+  held: '보류(근거 확인 필요)',
   not_counted: '세지 않음',
 }
 
@@ -64,6 +64,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
       {e.attempts.length > 0 && (
         <p className={u.fine} data-testid="ev-claims">
           {(Object.keys(CLAIM_LABEL) as AttemptEvidence['claim'][]).filter((k) => counts[k]).map((k) => `${CLAIM_LABEL[k]} ${counts[k]}`).join(' · ')}
+          {counts.independent_check ? ` · 첫 독립 관찰 중 맞힘 ${e.attempts.filter((a) => a.claim === 'independent_check' && a.outcome === 'correct').length} · 틀림 ${e.attempts.filter((a) => a.claim === 'independent_check' && a.outcome === 'incorrect').length}(성공 건수와 구별)` : ''}
         </p>
       )}
       {notes.length > 0 && (

@@ -34,7 +34,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { ALL_STEPS } from './learner-path'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
-import { taskByKey } from '@/lib/knowledge/item-tasks'
+import { instrumentHashesFor } from './v62/instrument-hashes'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
@@ -187,6 +187,12 @@ async function loadCrossVerdicts(db: Db, userId: string, rows: { attempt_id?: un
   return out
 }
 
+/** Preserve exact integer identities without rounding a PostgreSQL bigint. */
+function attemptIdentity(value: unknown): string | undefined {
+  if (typeof value === 'number') return Number.isSafeInteger(value) && value > 0 ? String(value) : undefined
+  return typeof value === 'string' && /^[1-9]\d*$/.test(value) ? value : undefined
+}
+
 /** 확인 문항에서의 내 첫 시도 — 학습자 RLS 클라이언트로 본인 행만. 문항이 없으면 묻지 않는다 */
 async function loadFindAttempts(db: Db, userId: string, items: string[]): Promise<FindAttemptRow[]> {
   if (items.length === 0) return []
@@ -207,6 +213,7 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
     return {
     userId: String(r.user_id),
+    attemptId: attemptIdentity(r.attempt_id),
     itemRef: String(r.item_ref),
     taskKey: String(r.task_key ?? ''),
     phase: String(r.phase) as FindAttemptRow['phase'],
@@ -253,10 +260,10 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
     if ((typeof last === 'number' && !Number.isSafeInteger(last)) || !/^\d+$/.test(String(last)) || String(last) === cursor) throw new Error('Invalid lifecycle cursor')
     cursor = String(last)
   }
-  type Row = { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
+  type Row = { id: unknown; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
   return (data as Row[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
-    .map((r) => ({ itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
+    .map((r) => ({ attemptId: attemptIdentity(r.id), itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -479,16 +486,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // LM-G1.4 — 수행 기록 · 첫 시도 문항의 현재 주석 해시(기존 과제 레지스트리 · 판정 아님). 못 구하면 undefined → 현재성 UNKNOWN
   let instrumentHashes: Record<string, string | null> | undefined
   try {
-    instrumentHashes = {}
     const pairs = [...(lifecycleActivity ?? []).map((x) => [x.taskKey, x.itemRef] as const), ...(findAttempts ?? []).map((x) => [x.taskKey, x.itemRef] as const)]
-    for (const [k, item] of pairs) {
-      if (!item) continue
-      const key = `${k.replace(/-skeleton$/, '')}|${item}`
-      if (key in instrumentHashes) continue
-      const def = taskByKey(k.replace(/-skeleton$/, ''))
-      const ann = def?.annotationFor(item) ?? null
-      instrumentHashes[key] = def && ann ? def.hash(ann) : null
-    }
+    instrumentHashes = instrumentHashesFor(pairs, undefined, (key, error) => console.error('[csat-map instrument hash]', key, error))
   } catch (e) {
     console.error('[csat-map instrument hashes]', e)
     instrumentHashes = undefined

@@ -33,6 +33,9 @@ export const INSTRUMENT_SCOPE: Record<string, { observes: string[]; notObserved:
 
 /** 시도 하나의 증거 자격 */
 export interface AttemptEvidence {
+  attemptId: string | null
+  /** Historical ledger correctness; an independent observation may be incorrect. */
+  outcome: 'correct' | 'incorrect' | 'unknown'
   itemRef: string
   taskKey: string
   phase: string
@@ -93,8 +96,9 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
   const ledger: EvidenceView['ledger'] = input.firsts && input.activity ? 'complete' : 'unknown'
   const mine = (input.activity ?? []).filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')))
   const firsts = (input.firsts ?? []).filter((f) => keys.has(f.taskKey))
-  const firstKey = new Set(firsts.map((f) => `${f.taskKey}|${f.itemRef}|${f.phase}`))
-  const seenFirst = new Set<string>()
+  const tuple = (a: { taskKey: string; itemRef: string | null; phase: string }) => `${a.taskKey}|${a.itemRef}|${a.phase}`
+  const firstById = new Map(firsts.filter((f) => f.attemptId).map((f) => [f.attemptId!, f]))
+  const knownFirst = new Set(firsts.filter((f) => f.attemptId).map(tuple))
 
   const attempts: AttemptEvidence[] = mine.map((a) => {
     const reasons: string[] = []
@@ -102,31 +106,39 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
     const now = input.hashes === undefined ? undefined : input.hashes[itemKey]
     const instrument: FieldStatus = a.contentHash === undefined || now === undefined ? 'UNKNOWN' : now === null || a.contentHash === null ? 'UNKNOWN' : a.contentHash === now ? 'CONFIRMED' : 'STALE'
     if (instrument === 'STALE') reasons.push('과거 주석 기준의 수행')
+    if (instrument === 'UNKNOWN') reasons.push('현재 주석 기준 확인 불가 — 원장 정오는 보존')
     const performed: FieldStatus = a.receivedAt === undefined ? 'UNKNOWN' : a.receivedAt ? 'CONFIRMED' : 'UNKNOWN'
-    const correct: FieldStatus = a.isCorrect === null ? 'UNKNOWN' : 'CONFIRMED'
-    // 첫 시도 — 같은 과제 · 문항 · 단계의 가장 이른 기록만(같은 문항 반복은 독립 관찰을 늘리지 않는다)
-    const fk = `${a.taskKey}|${a.itemRef}|${a.phase}`
-    const isFirst = firstKey.has(fk) && !seenFirst.has(fk)
-    if (isFirst) seenFirst.add(fk)
-    const f = isFirst ? firsts.find((x) => `${x.taskKey}|${x.itemRef}|${x.phase}` === fk) ?? null : null
+    const correct: FieldStatus = typeof a.isCorrect === 'boolean' ? 'CONFIRMED' : 'UNKNOWN'
+    // The DB view already elected the first row (answered_at, then id). Never
+    // elect it again from the descending activity list or join only by item.
+    const candidate = a.attemptId ? firstById.get(a.attemptId) : undefined
+    const f = candidate && tuple(candidate) === tuple(a) ? candidate : null
     let independence: FieldStatus = 'NOT_APPLICABLE'
-    if (a.phase === 'practice' && f) {
-      if (f.activity === 'practice') { independence = 'INELIGIBLE'; reasons.push('연습 화면 기록 — 확인 근거 아님') }
+    if (a.phase === 'practice' && (a.activity === 'practice' || f?.activity === 'practice')) {
+      independence = 'INELIGIBLE'; reasons.push('연습 화면 기록 — 확인 근거 아님')
+    } else if (a.phase === 'practice' && a.helpLevel != null && a.helpLevel !== 'independent') {
+      independence = 'INELIGIBLE'; reasons.push('도움 · 해설 뒤 수행')
+    } else if (a.phase === 'practice' && f) {
       // 도움 · 해설 뒤가 확정이면 그것이 먼저(보류가 아니라 독립 아님). 기록이 없거나 독립이라고 했는데 순서를 못 가리면 보류
-      else if ((f.helpLevel !== null && f.helpLevel !== 'independent') || f.afterViewedFirst || f.afterExplanation) { independence = 'INELIGIBLE'; reasons.push('도움 · 해설 뒤 수행') }
+      if ((f.helpLevel != null && f.helpLevel !== 'independent') || f.afterViewedFirst || f.afterExplanation) { independence = 'INELIGIBLE'; reasons.push('도움 · 해설 뒤 수행') }
+      else if (f.isCorrect !== a.isCorrect) { independence = 'UNKNOWN'; reasons.push('첫 시도 원장과 수행 결과 연결 확인 불가 — 보류') }
       else if (f.timingUncertain) { independence = 'UNKNOWN'; reasons.push('해설 · 도움 시각과 제출 순서 확인 불가 — 보류') }
-      else if (f.helpLevel === null) { independence = 'UNKNOWN'; reasons.push('도움 수준 기록 없음 — 보류') }
+      else if (f.helpLevel == null) { independence = 'UNKNOWN'; reasons.push('도움 수준 기록 없음 — 보류') }
       else if (f.isCorrect === null) independence = 'UNKNOWN'
       else independence = 'CONFIRMED'
-    } else if (a.phase === 'practice' && !isFirst) reasons.push('같은 문항 반복 — 독립 관찰 아님')
-    const effectSample: FieldStatus = a.synthetic === undefined || a.synthetic === null ? 'UNKNOWN' : a.synthetic ? 'INELIGIBLE' : (f && isEligible({ ...f, synthetic: false }) ? 'CONFIRMED' : 'INELIGIBLE')
+    } else if (a.phase === 'practice') {
+      if (!a.attemptId || !knownFirst.has(tuple(a))) { independence = 'UNKNOWN'; reasons.push('첫 시도 원장 연결 확인 불가 — 보류') }
+      else reasons.push('같은 문항 반복 — 독립 관찰 아님')
+    }
+    const effectSample: FieldStatus = a.synthetic === undefined || a.synthetic === null ? 'UNKNOWN' : a.synthetic ? 'INELIGIBLE' : (f && independence === 'CONFIRMED' && isEligible(f) ? 'CONFIRMED' : 'INELIGIBLE')
     // 주장 — 새 주장은 핵심 근거(수행 · 정오 · 현재 주석 · 독립)가 모두 CONFIRMED 일 때만
     let claim: AttemptEvidence['claim'] = 'performed_only'
     if (performed !== 'CONFIRMED') claim = 'not_counted'
     else if (independence === 'UNKNOWN') claim = 'held'
     else if (independence === 'CONFIRMED' && correct === 'CONFIRMED' && instrument === 'CONFIRMED') claim = 'independent_check'
-    else if (correct === 'CONFIRMED' && a.isCorrect === true && instrument !== 'STALE') claim = 'condition_success'
+    else if (correct === 'CONFIRMED' && a.isCorrect === true && instrument === 'CONFIRMED') claim = 'condition_success'
     return {
+      attemptId: a.attemptId ?? null, outcome: a.isCorrect === true ? 'correct' : a.isCorrect === false ? 'incorrect' : 'unknown',
       itemRef: a.itemRef!, taskKey: a.taskKey, phase: a.phase, passage: passageIdentity(a.itemRef, a.passageKey),
       fields: { performed, correct, instrument, rubricPolicy: 'UNKNOWN', independence, effectSample },
       claim, reasons,

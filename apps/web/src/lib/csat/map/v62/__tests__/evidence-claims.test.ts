@@ -15,10 +15,12 @@ const KEY = checkKeysOfTask('r.central_meaning')[0]!
 const H = 'hash-now'
 
 const first = (item: string, o: Partial<FindAttemptRow> = {}): FindAttemptRow => ({
+  attemptId: `${item}:first`,
   userId: 'u', phase: 'practice', isCorrect: true, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false,
   itemRef: item, taskKey: KEY, answeredAt: '2026-10-01T00:00:00Z', activity: 'theater', ...o,
 })
 const act = (item: string, o: Partial<ActivityRow> = {}): ActivityRow => ({
+  attemptId: o.answeredAt ? `${item}:${o.answeredAt}` : `${item}:first`,
   itemRef: item, taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-10-01T00:00:00Z',
   contentHash: H, activity: 'theater', helpLevel: 'independent', synthetic: false, receivedAt: '2026-10-01T00:00:01Z', ...o,
 })

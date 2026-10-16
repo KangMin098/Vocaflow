@@ -126,6 +126,8 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const plan = planWorkspaces({ asIs, toBe, confirmLinks, transferItems: data.v4.transferItems, transferTargets: data.v4.transferTargets })
   // 수행 기록 — 생애주기 기록(지도 연결 과제 키의 본인 시도). 시각 없는 기록 · 기준 시점 뒤 기록은 세지 않는다(As-Is 와 같은 자격 · 리뷰 P1)
   const cut = ms(at)
+  // Current annotation lookup is not an archived annotation at a historical asof.
+  const hashes = asOf && cut < ms(data.now) ? undefined : data.instrumentHashes
   const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
   const opts = { savedTransfer: savedTransferOf(data) }
   const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, { ...workspacePlan(w, asIs, toBe, plan, activity, opts), restoreTransfer: data.v4?.saved.byTemplate[w.id]?.transferPolicies }]))
@@ -137,7 +139,7 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
     const t = asIs.tasks[id]
     const home = views.find((w) => w.core.includes(id)) ?? null
     const firsts = data.findAttempts ? data.findAttempts.filter((f) => !f.answeredAt || ms(f.answeredAt) <= cut) : undefined
-    evidence[id] = evidenceView({ task: id, check: t.check, firsts, activity: data.lifecycleActivity ? activity.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null })) : undefined, hashes: data.instrumentHashes, transfer: { done: t.check?.verifiedAt ? transferDoneOf(id, t.check.verifiedAt, activity) : 0, planned: transferPlanned(t, home, opts) } })
+    evidence[id] = evidenceView({ task: id, check: t.check, firsts, activity: data.lifecycleActivity ? activity.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null })) : undefined, hashes, transfer: { done: t.check?.verifiedAt ? transferDoneOf(id, t.check.verifiedAt, activity) : 0, planned: transferPlanned(t, home, opts) } })
   }
   return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts), evidence }
 }
