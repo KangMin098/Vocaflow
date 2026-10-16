@@ -64,6 +64,12 @@ function writeNote(key: string, value: string) {
   try { if (value) window.localStorage.setItem(key + ':note', value); else window.localStorage.removeItem(key + ':note') } catch { /* device draft only */ }
 }
 
+/** The authenticated response may arrive while no editor is mounted. */
+function carryPlanEdit(from: string, to: string) {
+  if (!readDraft(to)) writeDraft(to, readDraft(from))
+  if (!readNote(to)) writeNote(to, readNote(from))
+}
+
 /** 저장 시각을 서울 시각으로(서버 · 브라우저가 같은 글자 — UTC 로 자르면 오전 저장이 전날로 보였다) */
 const seoul = (iso: string, withTime: boolean) => {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value]))
@@ -122,7 +128,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       const nextKey = draftKey(viewer, view.workspace, goal, ack.version)
       const carry = sameStageDraft(readDraft(key), ack.stages, currentStages())
       // An already newer draft wins. Keep the old key as provenance; no automatic server save.
-      if (!readDraft(nextKey)) { writeDraft(nextKey, carry); writeNote(nextKey, readNote(key)) }
+      if (!readDraft(nextKey)) writeDraft(nextKey, carry)
+      if (!readNote(nextKey)) writeNote(nextKey, readNote(key))
       handoff.current = { sourceKey: key, key: nextKey, stages: ack.stages }
       setPending(null)
       setSave({ kind: 'idle' })
@@ -186,6 +193,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           setDraft(null)
           setNote('')
         }
+        carryPlanEdit(key, draftKey(viewer, view.workspace, goal, j.version!))
         acknowledgePlan(key, { version: j.version!, workspaceId: j.workspaceId, stages: currentStages() })
         return
       }

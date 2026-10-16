@@ -190,3 +190,9 @@ it('a stage change is a replan reason even when availability stays at two', () =
  const saved={canon:'rev4.0',plan:{order:[T],tasks:[{task:T,stage:'repair',planned:5,available:5}]}} as SavedPlanVersion
  expect(planDrift(saved,view)).toMatchObject({stages:[T],content:[],overAvailable:[]})
 })
+
+it('a failed saved-policy read is not an unsaved default policy', () => {
+ const input={v4:{saved:{status:'not_installed',byTemplate:{},goalVersionId:null,error:true}}} as unknown as Parameters<typeof savedTransferOf>[0]
+ expect(()=>savedTransferOf(input)).toThrow()
+ expect(savedTransferOf({v4:{saved:{status:'not_installed',byTemplate:{},goalVersionId:null}}} as unknown as Parameters<typeof savedTransferOf>[0])).toEqual({})
+})

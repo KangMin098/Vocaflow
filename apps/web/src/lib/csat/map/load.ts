@@ -452,8 +452,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     transferItems[key] = new Set(transferTargets[key].map(l => passageKeys[l.target])).size
   }
 
-  // 저장된 계획 — 못 읽으면 지도는 그리고 저장 기능만 끈다(저장됨으로 보이지 않게 not_installed 가 아니라 오류 표시)
-  const saved: SavedPlans = await loadSavedPlans(db, userId).catch((e) => { console.error('[csat-map v4 saved plans]', e); return { status: 'not_installed' as const, byTemplate: {}, goalVersionId: null, error: true } as SavedPlans })
+  // 저장된 운영량은 단계 판정의 입력이다. 실제 조회 실패는 기본량으로 대체하지 않고 오류 경계로 보낸다.
+  const saved: SavedPlans = await loadSavedPlans(db, userId)
   // v6.2 P-F8e — 저장된 Workspace 마다 주문 · 공급 기록(읽기만). 못 읽으면 error — 화면은 주문 단계를 표시하지 않는다
   const supplyLedger: Record<string, SupplyLedger> = Object.fromEntries(await Promise.all(
     Object.values(saved.byTemplate).map(async (w) => [w.workspaceId, await loadSupplyLedger(db, userId, w.workspaceId).catch((e) => { console.error('[csat-map v62 supply ledger]', e); return { status: 'error' } as SupplyLedger })] as const),

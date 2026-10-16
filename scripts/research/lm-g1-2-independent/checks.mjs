@@ -19,6 +19,7 @@ if(mode==='browser'){
   ['revised-1440','scripts/research/lm-g1-2-independent/vertical.mjs',['--base',base,'--width','1440','--evidence',local+'/revised-1440']],
   ['timing','scripts/csat/map/v62/e2e-lm-g1-2-timing.mjs',['--base',base,'--evidence',local+'/timing']],
   ['security','scripts/research/lm-g1-2-independent/security.mjs',[base]],
+  ['late-remount','scripts/research/lm-g1-2-independent/late-remount.mjs',[base]],
   ['t1','scripts/research/lm-g1-1-independent/browser.mjs',['--base',base,'--width','1280','--evidence',local+'/t1']],
   ['workspace','scripts/csat/map/v62/e2e-map-workspace.mjs',['--base',base,'--evidence',local+'/workspace']],
   ['return','scripts/csat/map/v62/e2e-map-return.mjs',['--base',base]],
