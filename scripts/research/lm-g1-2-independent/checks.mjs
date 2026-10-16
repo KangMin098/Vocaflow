@@ -4,6 +4,7 @@ import {pathToFileURL} from 'node:url'
 import path from 'node:path'
 import {spawn,spawnSync} from 'node:child_process'
 import {createRequire} from 'node:module'
+import {stopOwnedServer} from './owned-server.mjs'
 const root=path.resolve(import.meta.dirname,'../../..'),web=path.join(root,'apps/web')
 const req=createRequire(path.join(web,'package.json'))
 const out=path.join(import.meta.dirname,'local/checks');fs.mkdirSync(out,{recursive:true})
@@ -33,10 +34,12 @@ if(mode==='browser'){
   try{const r=await fetch(base+'/login',{signal:AbortSignal.timeout(2000)});if(r.status<500)return}catch{}
   const fd=fs.openSync(local+'/supervised-server.log','a'),err=fs.openSync(local+'/supervised-server-error.log','a')
   ownedServer=spawn(process.execPath,['--max-old-space-size=2048','--tls-max-v1.2',req.resolve('next/dist/bin/next'),'dev','-p','3007'],{cwd:web,env:{...process.env,NEXT_DIST_DIR:'.next-lmg12-review'},windowsHide:true,stdio:['ignore',fd,err]})
+  fs.closeSync(fd);fs.closeSync(err)
   fs.writeFileSync(local+'/supervised-server.pid',String(ownedServer.pid))
   for(let n=0;n<120;n++){await new Promise(r=>setTimeout(r,1000));try{if((await fetch(base+'/login',{signal:AbortSignal.timeout(5000)})).status===200)return}catch{}}
   throw Error('Owned server not ready')
  }
+ try {
  for(const [name,file,args] of remainingJobs){
   await ensureServer()
   const folder=local+'/'+name;fs.mkdirSync(folder,{recursive:true})
@@ -66,6 +69,10 @@ if(mode==='browser'){
   if(!cleanup.ok||r.status!==0||failed.length)break
  }
  process.exitCode=results.length===remainingJobs.length&&results.every(r=>r.exit===0&&r.failLines===0&&r.cleanup.ok)?0:1
+ } finally {
+  try {const cleanup=await stopOwnedServer(ownedServer);fs.writeFileSync(local+'/owned-server-cleanup.json',JSON.stringify(cleanup))}
+  catch(e){process.exitCode=1;fs.writeFileSync(local+'/owned-server-cleanup.json',JSON.stringify({error:String(e)}))}
+ }
 }else if(mode==='types'){process.exitCode=run('typecheck','typescript/bin/tsc',['--noEmit','--incremental','false'])?0:1}
 else if(mode==='lint'){
  const files=spawnSync('git',['diff','--name-only','--','apps/web'],{cwd:root,encoding:'utf8'}).stdout.trim().split(/\r?\n/).filter(x=>/\.tsx?$/.test(x)).map(x=>path.relative(web,path.join(root,x)))
