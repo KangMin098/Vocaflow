@@ -6,6 +6,7 @@
 //   · 목표 /api/csat/diagnosis/map/goal · 계획 /api/csat/diagnosis/map/plan(plan-commit RPC). 정답 · 오답은 주석(annotations)으로 만든다.
 // 계정은 실행 끝에 삭제하고 부재를 확인한다(404/user_not_found 만 부재). 이메일 · 비밀번호 · 사용자 id · 응답 전문은 남기지 않는다.
 //   node --tls-max-v1.2 --env-file=<main apps/web/.env.local> scripts/csat/map/v62/e2e-lm-g1-2.mjs --base http://localhost:3005 --width 1440 --evidence <dir>
+import { cleanupOwnedAccounts } from '../../../research/lm-g1-1-independent/cleanup.mjs'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -196,7 +197,7 @@ try {
   await page.click(`[data-testid="ws-row"][data-ws="${WS}"] [data-testid="ws-open"]`)
   await page.click('[data-testid="ws-tab-plan"]')
   await page.waitForSelector('[data-testid="plan-section"]')
-  await page.locator('[data-testid="plan-section"]').getByRole('button', { name: /계획 한 문항 줄이기$/ }).first().click().catch(() => {})
+  await page.locator('[data-testid="plan-section"]').getByRole('button', { name: /계획 한 (문항|지문) 줄이기$/ }).first().click().catch(() => {})
   await page.click('[data-testid="plan-save"]').catch(() => {})
   await page.waitForTimeout(1500)
   const fail = await page.evaluate(() => ({ dirty: document.querySelector('[data-testid="plan-section"]')?.getAttribute('data-draft') === 'yes', err: !!document.querySelector('[data-testid="plan-error"]'), state: document.querySelector('[data-testid="plan-save-state"]')?.getAttribute('data-state') ?? null, saved: document.querySelector('[data-testid="plan-section"]')?.getAttribute('data-saved-version') ?? null }))
@@ -265,17 +266,12 @@ try {
   fatal = String(e?.stack ?? e).slice(0, 800)
   console.log('[FATAL]', fatal)
 } finally {
-  const cleanup = []
-  for (const id of users) {
-    const del = await db.auth.admin.deleteUser(id)
-    const get = await db.auth.admin.getUserById(id)
-    const absent = !!get.error && (get.error.status === 404 || /not.?found/i.test(get.error.message ?? ''))
-    cleanup.push({ deleted: !del.error, absent })
-  }
-  await browser.close()
+  const cleanupResult=await cleanupOwnedAccounts(db.auth.admin,users)
+  const cleanup=[{absent:cleanupResult.ok}]
+  try{await browser.close()}catch{cleanupResult.ok=false;cleanup[0].absent=false}
   const pass = results.filter((r) => r.status === 'PASS').length
   const fail = results.filter((r) => r.status === 'FAIL').length
-  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, base: BASE, width: WIDTH, startedAt, endedAt: new Date().toISOString(), pass, fail, fatal, accounts: { created: users.length, absentAfter: cleanup.filter((c) => c.absent).length }, layers: { '4_learning_effect': 'NOT_CLAIMED' }, results }, null, 2))
+  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ sha: SHA, base: BASE, width: WIDTH, startedAt, endedAt: new Date().toISOString(), pass, fail, fatal, accounts: { created: users.length, confirmedAbsent: cleanupResult.ok ? users.length : null, cleanup: cleanupResult }, layers: { '4_learning_effect': 'NOT_CLAIMED' }, results }, null, 2))
   console.log(`accounts created ${users.length} · absent after cleanup ${cleanup.filter((c) => c.absent).length}`)
   console.log(`PASS ${pass} · FAIL ${fail}${fatal ? ' · FATAL' : ''}`)
   process.exitCode = fail || fatal || cleanup.some((c) => !c.absent) ? 1 : 0

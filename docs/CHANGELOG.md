@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(map): LM-G1.2 독립 반례 — 전이 진행·링크를 기존 원문의 지문 식별값에 결속하고 자료 부족의 자동 운영량 축소·1,000행 절단·이전 회차 보류·다른 단계 PLAN 수량 유입을 차단. DB/RPC/RLS 변경 없음.
 - feat(map): LM-G1.2 R5 수직 — TRANSFER 계약(경험 · 진행 · 준비 · 증거 분리 · 1회 ≠ 2지문 · 저장 계획량 반영 · lifecycle 4칸도 같은 기준) · 근접 해설 반례 A–H 고정(2분 정책 불변 · 영향 실측 보류 0) · 보류 사유 안내 · 실제 DB/API/브라우저 R5 수직 1440/1280 20/0 · PLAN 멱등/409/조정/복원/실패 표시 · DB/RPC 변경 없음
 - fix(map): PR #272 독립 수용 보강 — TASK가 다른 전이 수행이 R5 다음 링크를 소진하던 반례 수정, 1280/1440 단계·실행 URL 및 실존 타인 Workspace 경계 검증. 최초 G02/G03와 revision 2 보존, 독립 revision 3·TRANSFER/노출 후속 계약 기록.
 - fix(map): LM-G1.1 R5 다음 행동 단일 출처 — 바로잡기 단계는 수행량이 아니라 성공 근거(이번 회차 막힌 문항 정답 · lifecycle 과 같은 repairWindow/repairAttempts)로만 넘어감 · 실패 재시도 링크 유지 · Workspace 행이 막힌 단계를 확인 문항으로 대체하지 않음 · resolved 문구를 실제 근거로(판정 불변). G02 revision 2 · 단위 2,366 · 브라우저 9/0 · LM-W1 36/0 · 복귀 7/7 · DB 변경 없음

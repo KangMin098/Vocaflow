@@ -23,6 +23,7 @@ export interface ToBeGoal {
 }
 
 export interface ConfirmLink {
+  passageKey?: string | null
   target: string
   href: string
   label: string

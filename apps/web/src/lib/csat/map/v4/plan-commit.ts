@@ -127,8 +127,8 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
   const rank = (id: TaskId) => { const i = saved.plan.order.indexOf(id); return i < 0 ? 999 + view.tasks.findIndex((p) => p.task === id) : i }
   const tasks = view.tasks.map((p) => {
     const s = saved.plan.tasks.find((t) => t.task === p.task)
-    if (!s || p.quantity.available === null) return p
-    const planned = s.planned === null ? null : Math.min(s.planned, p.quantity.available)
+    if (!s || s.stage !== p.stage || p.quantity.available === null) return p
+    const planned = s.planned === null ? null : p.stage === 'transfer' ? s.planned : Math.min(s.planned, p.quantity.available)
     return { ...p, quantity: { ...p.quantity, planned, remaining: planned === null ? null : Math.max(0, planned - p.quantity.done) } }
   }).sort((a, b) => rank(a.task) - rank(b.task))
   const core = tasks.filter((p) => view.core.includes(p.task) && p.quantity.planned !== null)

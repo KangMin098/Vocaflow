@@ -113,8 +113,8 @@ describe('LM-G1.2 TRANSFER 계약 — 경험 · 진행 · 준비 · 증거 분�
     expect(savedTransferOf(saved('transfer', 1))).toEqual({ [T]: 1 })
     expect(savedTransferOf(saved('repair', 1))).toEqual({})
     expect(savedTransferOf(saved('transfer', 0))).toEqual({})
-    expect(transferTarget(2, 5, 2)).toBe(2)
-    expect(transferTarget(1, null, 2)).toBe(1)
+    expect(transferTarget(2, 5, 2)).toBe(5) // saved operating amount is not silently reduced
+    expect(transferTarget(1, null, 2)).toBe(2) // shortage never silently lowers default
     expect(transferTarget(0, 1, 2)).toBeNull()
   })
 

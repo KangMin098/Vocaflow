@@ -26,6 +26,7 @@ import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import n from './needs.module.css'
 
 const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
+  transfer_shortage: '기본 적용 계획보다 자료가 부족해요',
   no_content: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
   canon_hold: '측정 방법을 정하는 중이에요',
@@ -109,7 +110,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     const req = {
       template: view.workspace,
       order: src ? src.order : shown.tasks.map((p) => p.task),
-      planned: Object.fromEntries((src ? src.tasks.map((x) => { const now = view.tasks.find((p) => p.task === x.task)?.quantity.available ?? null; return [x.task, x.planned === null || now === null ? (now === null ? null : x.planned) : Math.min(x.planned, now)] }) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
+      planned: Object.fromEntries((src ? src.tasks.map((x) => { const current = view.tasks.find((p) => p.task === x.task); const now = current?.quantity.available ?? null; if (x.stage !== current?.stage) return [x.task, current?.quantity.planned ?? null]; return [x.task, x.planned === null || now === null ? (now === null ? null : x.planned) : x.stage === 'transfer' ? x.planned : Math.min(x.planned, now)] }) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
       reason: reasonCode,
       note: note.trim() || null,
       expectedVersion: savedVersion,
@@ -154,7 +155,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
         <h3 id="plan-h" className={n.planTitle}>「{t?.name ?? view.workspace}」 학습계획</h3>
         {shown.progress ? (
           <p className={n.planProgress} data-testid="plan-progress">
-            계획 진행 <strong>{shown.progress.done} / {shown.progress.planned}문항</strong> · 진행은 한 문항씩 센 양이고 실력 점수가 아니에요
+            계획 진행 <strong>{shown.progress.done} / {shown.progress.planned}</strong> · 진행은 항목별 단위로 센 양이고 실력 점수가 아니에요
           </p>
         ) : (
           <p className={n.planProgress} data-testid="plan-progress">지금 계획할 수 있는 문항이 없어요 — 아래에 이유가 있어요</p>
@@ -196,7 +197,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                 <p className={n.planGoal}>{p.goal}</p>
                 <p className={n.planQty} data-testid="plan-qty">
                   {q.planned !== null ? (
-                    <>계획 <strong>{q.planned}문항</strong>(가능 {q.available}) · 수행 {q.done}{extra ? ` — 계획보다 ${extra}문항 더 했어요` : ` · 남음 ${q.remaining}`} — 기준: {q.rule ? RULE_LABEL[q.rule] : '—'}</>
+                    <>계획 <strong>{q.planned}{q.unit}</strong>(가능 {q.available}) · 수행 {q.done}{extra ? ` — 계획보다 ${extra}{q.unit} 더 했어요` : ` · 남음 ${q.remaining}`} — 기준: {q.rule ? RULE_LABEL[q.rule] : '—'}{p.unresolved.includes('transfer_shortage') ? ' · 기본 적용 계획보다 자료가 부족해요' : ''}</>
                   ) : (
                     <>계획할 수 있는 문항 없음{q.done ? ` · 수행 ${q.done}` : ''} · {p.unresolved.filter((u) => u !== 'needs_direct_check').map((u) => UNRESOLVED_LABEL[u]).join(' · ') || (isCore ? '확인 결과를 기다려요' : '이 항목은 중심 묶음에서 계획해요')}</>
                   )}
@@ -208,12 +209,12 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
               </div>
               <div className={n.planSide}>
                 {q.adjustable && !past && (
-                  <div className={n.stepper} role="group" aria-label={`${p.name} 계획 문항 수`}>
-                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 문항 줄이기`} disabled={(q.planned ?? 0) <= 0} onClick={() => setPlanned(p, (q.planned ?? 0) - 1)}>
+                  <div className={n.stepper} role="group" aria-label={`${p.name} 계획 ${q.unit} 수`}>
+                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 ${q.unit} 줄이기`} disabled={(q.planned ?? 0) <= 0} onClick={() => setPlanned(p, (q.planned ?? 0) - 1)}>
                       <Minus size={14} aria-hidden="true" />
                     </button>
                     <span className={n.stepVal} aria-live="polite">{q.planned}</span>
-                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 문항 늘리기`} disabled={(q.planned ?? 0) >= (q.available ?? 0)} onClick={() => setPlanned(p, (q.planned ?? 0) + 1)}>
+                    <button type="button" className={n.stepBtn} aria-label={`${p.name} 계획 한 ${q.unit} 늘리기`} disabled={(q.planned ?? 0) >= (q.available ?? 0)} onClick={() => setPlanned(p, (q.planned ?? 0) + 1)}>
                       <Plus size={14} aria-hidden="true" />
                     </button>
                   </div>
@@ -278,7 +279,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
             {sw.history.map((h) => (
               <li key={h.version} data-version={h.version}>
                 <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
-                <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}문항`).join(' · ') || '계획량 없음'}</span>
+                <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
                   <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving'} data-testid="plan-restore">
                     <RotateCcw size={13} aria-hidden="true" /> 이 버전으로 되돌리기

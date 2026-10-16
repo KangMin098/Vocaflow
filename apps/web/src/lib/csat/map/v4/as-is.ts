@@ -227,7 +227,7 @@ export function asIsMap(input: AsIsInput): AsIsMap {
         examSeen,
         verifiedAt: d.verifiedAt,
         lastWrongAt: d.check.lastWrongAt ?? null,
-        timingHeld: new Set(mine.filter((a) => a.activity !== 'practice' && a.phase === 'practice' && a.timingUncertain === true && a.isCorrect !== null).map((a) => a.itemRef)).size,
+        timingHeld: new Set(mine.filter((a) => a.activity !== 'practice' && a.phase === 'practice' && a.timingUncertain === true && a.isCorrect !== null && !!a.answeredAt && (!d.episodeStart || a.answeredAt > d.episodeStart) && (!d.resolvedAt || a.answeredAt <= d.resolvedAt) && isEligible({ ...a, synthetic: false, timingUncertain: false })).map((a) => a.itemRef)).size,
       }
       fromCheck = SKILL_TO_TASK[d.status] ?? (independent.size > 0 ? 'checking' : null)
     }

@@ -10,6 +10,8 @@
 // 회차: 직접 확인 시각(verifiedAt) 뒤의 기록만 센다 — 이전 회차의 바로잡기는 새 회차에 넘어오지 않는다.
 
 export interface ActivityRow {
+  /** Server-derived exact passage identity; null means identity unavailable, undefined is legacy input. */
+  passageKey?: string | null
   itemRef: string | null
   taskKey: string
   phase: string
@@ -91,7 +93,7 @@ export function nextLifecycleAction(status: string | null | undefined, ev: Lifec
 
 /** 적용 단계를 마쳤는가 — 운영 진행이 주어지면 진행 ≥ 계획량, 아니면 예전대로 첫 경험(호환) */
 export function transferFinished(ev: Pick<LifecycleEvidence, 'transferAt' | 'transferDone' | 'transferPlanned'>): boolean {
-  if (ev.transferPlanned !== undefined && ev.transferPlanned !== null) return (ev.transferDone ?? 0) >= ev.transferPlanned
+  if (ev.transferPlanned !== undefined) return ev.transferPlanned !== null && (ev.transferDone ?? 0) >= ev.transferPlanned
   return !!ev.transferAt
 }
 
@@ -99,7 +101,7 @@ export function transferFinished(ev: Pick<LifecycleEvidence, 'transferAt' | 'tra
  * LM-G1.2 — 다른 글에 적용(TRANSFER) 계약. 네 값을 섞지 않는다(정본 workspaces.json ws.central-meaning:
  * quantity_policy 「… + 전이 2지문 + …」 · criterion 「독립 확인(skill-diagnosis)」).
  *   experience 적용을 한 번이라도 했는가(기존 transferAt — 보존)
- *   progress   서로 다른 적용 문항 수 / 운영 계획량(정본 2지문 · 학습자가 저장한 계획량이 있으면 그것 · 가용 문항 이하)
+ *   progress   서로 다른 적용 문항 수 / 운영 계획량(정본 2지문 · 학습자가 저장한 계획량이 있으면 그것 · 자료 부족과 구분)
  *   ready      다음 교수 단계(다시 확인)로 넘어갈 운영 조건 — progress.done ≥ progress.planned 일 때만. 자료가 없으면 null(건너뜀 · 완료 아님)
  *   evidence   능력 주장은 하지 않는다 — 적용은 「경험」까지만 말하고, 독립 적용 능력은 CHECK(skill-diagnosis)가 판정한다
  * 같은 문항 반복 · 다른 TASK 키의 시도는 진행에 넣지 않는다(호출부 doneOf 와 같은 범위). 계획량 조정은 운영량만 바꾸고 숙달 기준을 바꾸지 않는다.
@@ -111,12 +113,12 @@ export interface TransferContract {
   evidence: 'none' | 'experience_only'
 }
 
-/** 운영 계획량 — 저장된 적용 계획량(1 이상)이 있으면 그것, 없으면 정본 기본(passages). 가용 문항 수를 넘지 않는다. 가용 0 이면 null */
+/** 운영 계획량 — 저장된 적용 계획량(1 이상)이 있으면 그것, 없으면 정본 기본(passages). 저장된 운영량도 자료 부족으로 자동 축소하지 않는다. 기본 운영량은 자료 부족으로 자동 축소하지 않는다. 가용 0 이면 null */
 export function transferTarget(available: number | null | undefined, savedPlanned: number | null | undefined, passages: number): number | null {
   const cap = available ?? 0
   if (cap <= 0) return null
   const want = savedPlanned !== null && savedPlanned !== undefined && Number.isInteger(savedPlanned) && savedPlanned >= 1 ? savedPlanned : passages
-  return Math.min(want, cap)
+  return want
 }
 
 export function transferContract(experienceAt: string | null, done: number, planned: number | null): TransferContract {
@@ -126,4 +128,9 @@ export function transferContract(experienceAt: string | null, done: number, plan
     ready: planned === null ? null : done >= planned,
     evidence: done > 0 || experienceAt ? 'experience_only' : 'none',
   }
+}
+
+/** Exact source passage binding. Missing metadata in a current loader is not proof of a distinct passage. */
+export function passageIdentity(item: string | null, key: string | null | undefined): string | null {
+  return key === undefined ? item : key
 }

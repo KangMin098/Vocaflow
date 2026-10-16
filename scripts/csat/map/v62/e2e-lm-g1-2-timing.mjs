@@ -5,6 +5,7 @@
 //      그 시도는 독립 확인에서 보류(uncertain) — 팝업 · 드로어에 짧은 보류 사유 · 실패로 세지 않음(확인된 요구 아님)
 // 계정은 끝에 삭제 · 부재 확인. 이메일 · 비밀번호 · id 는 남기지 않는다.
 //   node --tls-max-v1.2 --env-file=<main apps/web/.env.local> scripts/csat/map/v62/e2e-lm-g1-2-timing.mjs --base http://localhost:3005 --evidence <dir>
+import { cleanupOwnedAccounts } from '../../../research/lm-g1-1-independent/cleanup.mjs'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -85,10 +86,10 @@ try {
   fatal = String(e?.stack ?? e).slice(0, 600)
   console.log('[FATAL]', fatal)
 } finally {
-  let absent = 0
-  for (const id of users) { await db.auth.admin.deleteUser(id); const g = await db.auth.admin.getUserById(id); if (g.error && (g.error.status === 404 || /not.?found/i.test(g.error.message ?? ''))) absent++ }
+  const cleanup = await cleanupOwnedAccounts(db.auth.admin, users)
+  const absent = cleanup.ok ? users.length : null
   await browser.close()
-  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ base: BASE, pass: results.filter((r) => r.status === 'PASS').length, fail: results.filter((r) => r.status === 'FAIL').length, fatal, accounts: { created: users.length, absentAfter: absent }, results }, null, 2))
+  fs.writeFileSync(path.join(EVID, 'results.json'), JSON.stringify({ base: BASE, pass: results.filter((r) => r.status === 'PASS').length, fail: results.filter((r) => r.status === 'FAIL').length, fatal, accounts: { created: users.length, absentAfter: absent, cleanup }, results }, null, 2))
   console.log(`accounts created ${users.length} · absent ${absent}`)
-  process.exitCode = fatal || results.some((r) => r.status === 'FAIL') || absent !== users.length ? 1 : 0
+  process.exitCode = fatal || results.some((r) => r.status === 'FAIL') || !cleanup.ok ? 1 : 0
 }

@@ -7,6 +7,7 @@
 // 증거 중복 금지: 단계 판정은 As-Is 의 TASK 확인 판정(asIs.tasks[core].check) 하나를 **참조**한다 — Workspace 마다 다시 세지 않는다.
 // 학습량은 문항이 있는 만큼만 — 없으면 null(「준비 중」), 임의 숫자로 채우지 않는다.
 
+import { passageIdentity } from '../lifecycle-evidence'
 import { CHECK_ITEMS } from '../skill-diagnosis'
 
 import type { AsIsMap } from './as-is'
@@ -78,7 +79,7 @@ export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInpu
   const opened = c.status === 'verified' || c.status === 'still_needed'
   const resolved = c.status === 'resolved'
   // 적용 가능한 문항 = 링크로 열 수 있는 전이 문항이 있으면 그 수, 없으면 풀 전체 수(옛 입력) — 계획량은 정본 「전이 2지문」을 넘지 않는다
-  const transfer = input.transferTargets?.[key]?.length ?? input.transferItems[key] ?? 0
+  const transfer = input.transferTargets?.[key] ? new Set(input.transferTargets[key].map(l => passageIdentity(l.target, l.passageKey)).filter(Boolean)).size : input.transferItems[key] ?? 0
   return {
     check: opened || resolved
       ? { ready: false, count: null, blocked: resolved ? 'resolved' : null }

@@ -8,7 +8,7 @@
 //   · 학습자 조정(순서 · 계획량)은 계획만 바꾼다. 근거 상태 · 직접 확인 판정 · 요구 유형은 바뀌지 않는다(adjust 는 그 칸을 읽지도 쓰지도 않는다).
 // 순수 함수(DB · 시계 없음).
 
-import { repairAttempts, repairWindow, transferTarget } from '../lifecycle-evidence'
+import { passageIdentity, repairAttempts, repairWindow, transferTarget } from '../lifecycle-evidence'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
 import { checkKeysOfTask, taskOf, tasks, type TaskId } from './definition'
@@ -40,12 +40,12 @@ export type QuantityRule =
 
 export interface PlanQuantity {
   /** 이 단계 계획에 쓰는 단위 */
-  unit: '문항'
+  unit: '문항' | '지문'
   /** 학습자가 쓸 수 있는 실제 문항 수(상한) — 없으면 null(계획 불가) */
   available: number | null
   /** 계획량 — 기본 = 가용량. 학습자 조정 뒤 값. 계획 불가면 null */
   planned: number | null
-  /** 수행한 수(서로 다른 문항) — 이 단계 기록만 */
+  /** 수행한 수(적용은 서로 다른 지문, 나머지는 서로 다른 문항) — 이 단계 기록만 */
   done: number
   /** 남은 수 — planned 가 없으면 null */
   remaining: number | null
@@ -78,10 +78,11 @@ export interface TaskPlan {
   quantity: PlanQuantity
   achievement: Achievement
   /** 아직 풀리지 않은 것(문구 키) */
-  unresolved: ('no_content' | 'stage_locked' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related')[]
+  unresolved: ('no_content' | 'stage_locked' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
 }
 
 export interface PlanActivity {
+  passageKey?: string | null
   itemRef: string | null
   taskKey: string
   phase: string
@@ -108,13 +109,13 @@ function progressOf(core: readonly TaskId[], list: readonly TaskPlan[]): Workspa
 }
 
 /**
- * 적용 진행(LM-G1.2 · 계획 · lifecycle 공용) — 이 TASK 의 확인 키(skeleton 포함)로 확정 뒤 남긴 적용 시도의 **서로 다른 문항 수**.
+ * 적용 진행(LM-G1.2 · 계획 · lifecycle 공용) — 이 TASK 의 확인 키(skeleton 포함)로 확정 뒤 남긴 적용 시도의 **서로 다른 지문 수**.
  * 같은 문항 반복은 1, 다른 TASK 키의 시도는 0. 정오는 따지지 않는다(적용 경험 · 결과는 CHECK 가 판정).
  */
-export function transferDoneOf(id: TaskId, since: string | null, activity: readonly Pick<PlanActivity, 'itemRef' | 'taskKey' | 'phase' | 'answeredAt'>[]): number {
+export function transferDoneOf(id: TaskId, since: string | null, activity: readonly Pick<PlanActivity, 'itemRef' | 'taskKey' | 'phase' | 'answeredAt' | 'passageKey'>[]): number {
   const keys = new Set(checkKeysOfTask(id))
   const after = since ? new Date(since).getTime() : null
-  return uniq(activity.filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')) && (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && (after === null || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after))).map((a) => a.itemRef)).length
+  return uniq(activity.filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')) && (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && (after === null || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after))).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x)).length
 }
 
 /** 단계별 수행 수 — 이 TASK 의 확인 키 기록에서, 단계에 맞는 것만(서로 다른 문항) */
@@ -209,8 +210,8 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
   // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
   const keys = new Set(checkKeysOfTask(t.id))
-  const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => a.itemRef))
-  const pick = home.stageItems[stage].find((l) => !did.has(l.target)) ?? null
+  const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x))
+  const pick = home.stageItems[stage].find((l) => { const key = passageIdentity(l.target, l.passageKey); return !!key && !did.has(key) }) ?? null
   return pick ? { href: pick.href, label: pick.label } : null
 }
 
@@ -229,6 +230,7 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   // 적용 단계의 계획량 = 운영 계획량(저장 계획량이 있으면 그것) — 가용과 다를 수 있다(LM-G1.2)
   const planned = stage === 'transfer' && available !== null ? transferPlanned(t, home, opts) : available
   const unresolved: TaskPlan['unresolved'] = []
+  if (stage === 'transfer' && planned !== null && (available ?? 0) < planned) unresolved.push('transfer_shortage')
   if (def.status === 'hold') unresolved.push('canon_hold')
   else if (!home || home.readiness !== 'live') unresolved.push('no_content')
   else if (stage && !st?.ready) unresolved.push('stage_locked')
@@ -248,7 +250,7 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
     workspaces: need?.workspaces ?? [],
     next: need?.executable ? { href: need.executable.href, label: need.executable.label } : stageLink(stage, t, home, activity),
     quantity: {
-      unit: '문항',
+      unit: stage === 'transfer' ? '지문' : '문항',
       available,
       planned,
       done,
@@ -283,7 +285,7 @@ export function applyDraft(view: WorkspacePlanView, draft: PlanDraft | null): Wo
   if (!draft) return view
   const planned = view.tasks.map((p) => {
     const want = draft.planned[p.task]
-    if (want === undefined || p.quantity.available === null || !Number.isFinite(want)) return p
+    if (want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
     const n = Math.max(0, Math.min(p.quantity.available, Math.round(want)))
     return { ...p, quantity: { ...p.quantity, planned: n, remaining: Math.max(0, n - p.quantity.done) } }
   })
@@ -309,6 +311,6 @@ export const ACHIEVEMENT_LABEL: Record<Achievement, string> = {
 export const RULE_LABEL: Record<QuantityRule, string> = {
   unseen_check_items: '아직 풀지 않은 확인 문항 수',
   blocked_items: '확인에서 막힌 문항 수',
-  transfer_pool: '확인 묶음 밖 적용 문항 수',
+  transfer_pool: '확인 묶음 밖 서로 다른 지문 수',
   recheck_items: '다시 확인 기준 문항 수(서로 다른 2문항)',
 }
