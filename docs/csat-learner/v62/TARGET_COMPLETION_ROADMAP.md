@@ -64,6 +64,8 @@
 
 ## 6. LM-G1.5 — V2/S5 확대 및 E3 경계
 
+LM-G1.4의 지원 R5 증거 주장 계약은 [독립 T4 보고](../../research/lm-g1-4-independent/ACCEPTANCE.md)에서 ACCEPT_WITH_LIMITS로 수용했다. 첫 시도 ID·현행 도구 자격·조회 실패/과거 asof·세 표면의 주장 범위를 재사용할 수 있다. 실제 지연/효과·전체30 TASK 및 V2/S5 지원을 완료한 판정은 아니다. 최종 HEAD CI와 안전 병합 결과는 PR #275 기록을 따른다. 아래 확대 작업의 착수는 가능하며, P1~P7 중 실제 정책/DB 변경을 요구하는 부분만 별도 승인한다.
+
 **파일 범위:** `item-tasks.ts` registry, 해당 TASK instrument/검증/표시 컴포넌트, `v62/{inventory,coverage}.ts`, `v4/workspace.ts`, 기존 writer 적격성 adapter 및 테스트. DCP 어댑터를 재사용할 수 있지만 DCP 정오 기록을 G2 TASK 직접 수행으로 무조건 복사하지 않는다.
 
 **V2 인수:** 문맥 의미 선택의 실제 답/근거·대안 배제·지원 범위·노출/현재 revision이 결속된 도구, 적격 확인/연습/전이 자료, 저장 및 MAP 환류. `/dev/vocab-practice` 접근만으로 제품 통합을 선언하지 않는다.

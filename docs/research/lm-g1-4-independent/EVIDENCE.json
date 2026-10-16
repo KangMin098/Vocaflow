@@ -1,0 +1,1596 @@
+{
+  "base": "8ee927dcee80a9b19d70b2d4c86869e8ea013813",
+  "pinned": "68b1541fff7dd0dd880e6bd51e1ba091d770786c",
+  "sourceBasis": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+  "run": "final-v5",
+  "rest": "final-v6",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "next": "14.2.35",
+    "playwright": "1.60.0",
+    "typescript": "5.9.3",
+    "vitest": "1.6.1",
+    "browser": "Playwright default headless Chromium",
+    "server": "owned next dev localhost:3011",
+    "database": "development DB; owned synthetic account API writes and scoped read-only audit"
+  },
+  "lockfileSha256": "bf9d953b4ce406912ca5920772873d917fc8faa081cab192e9251c74bae12c67",
+  "units": {
+    "files": 208,
+    "pass": 2504,
+    "fail": 0,
+    "pending": 0
+  },
+  "independentAssertions": [
+    {
+      "name": "T05 one available passage does not silently lower the default two",
+      "status": "passed"
+    },
+    {
+      "name": "T03 actual shared-passage items require a passage identity before two can be proven",
+      "status": "passed"
+    },
+    {
+      "name": "T04 same item in another TASK does not add progress",
+      "status": "passed"
+    },
+    {
+      "name": "T01 same item repeats once; null passage identity is not proof",
+      "status": "passed"
+    },
+    {
+      "name": "T06 zero availability is unknown, not completion",
+      "status": "passed"
+    },
+    {
+      "name": "T07 explicit saved one changes operation only",
+      "status": "passed"
+    },
+    {
+      "name": "C held items in an expired episode are not attributed to current CHECK",
+      "status": "passed"
+    },
+    {
+      "name": "T08 saved quantity from REPAIR never becomes TRANSFER quantity in PLAN",
+      "status": "passed"
+    },
+    {
+      "name": "T05b saved two is not silently lowered when supply later falls to one",
+      "status": "passed"
+    },
+    {
+      "name": "T03b next link skips a sibling item from the already used passage",
+      "status": "passed"
+    },
+    {
+      "name": "T05c consumed sole passage blocks Workspace fallback to CHECK",
+      "status": "passed"
+    },
+    {
+      "name": "later CHECK saves preserve prior explicit transfer1; explicit restore recovers2",
+      "status": "passed"
+    },
+    {
+      "name": "R5 as support in E3 Workspace cannot override its core Workspace policy",
+      "status": "passed"
+    },
+    {
+      "name": "T11 restore replay policy outranks the rebuilt TRANSFER allocation payload",
+      "status": "passed"
+    },
+    {
+      "name": "supporting TRANSFER quantities cannot pretend to override the core operating policy",
+      "status": "passed"
+    },
+    {
+      "name": "server rejects supporting TRANSFER overrides and accepts a read-only reference",
+      "status": "passed"
+    },
+    {
+      "name": "restore of CHECK allocation still checks the inherited transfer2 policy against available1",
+      "status": "passed"
+    },
+    {
+      "name": "TRANSFER zero is rejected rather than saved then silently discarded by replay",
+      "status": "passed"
+    },
+    {
+      "name": "restoring inherited transfer2 never records a new TRANSFER allocation1",
+      "status": "passed"
+    },
+    {
+      "name": "a REPAIR quantity draft never becomes a TRANSFER quantity after activity returns",
+      "status": "passed"
+    },
+    {
+      "name": "a stage change is a replan reason even when availability stays at two",
+      "status": "passed"
+    },
+    {
+      "name": "a failed saved-policy read is not an unsaved default policy",
+      "status": "passed"
+    },
+    {
+      "name": "A first wrong, next-day correct: exact original row is the independent observation",
+      "status": "passed"
+    },
+    {
+      "name": "B helped first never lends its eligibility to the newest retry",
+      "status": "passed"
+    },
+    {
+      "name": "C independent first remains that row after a helped retry",
+      "status": "passed"
+    },
+    {
+      "name": "D/E submission order differs from id order: do not elect another first attempt",
+      "status": "passed"
+    },
+    {
+      "name": "D/E same submitted timestamp: do not elect another first attempt",
+      "status": "passed"
+    },
+    {
+      "name": "F phase binding prevents a pre/transfer record borrowing the practice first",
+      "status": "passed"
+    },
+    {
+      "name": "G other task and same item cannot borrow the first row",
+      "status": "passed"
+    },
+    {
+      "name": "missing first attempt id is UNKNOWN, not a newly elected first",
+      "status": "passed"
+    },
+    {
+      "name": "missing activity attempt id is UNKNOWN, not a newly elected first",
+      "status": "passed"
+    },
+    {
+      "name": "missing both attempt id is UNKNOWN, not a newly elected first",
+      "status": "passed"
+    },
+    {
+      "name": "same id with conflicting first correctness is held, not cross-joined",
+      "status": "passed"
+    },
+    {
+      "name": "unknown current annotation undefined never yields condition success",
+      "status": "passed"
+    },
+    {
+      "name": "unknown current annotation null never yields condition success",
+      "status": "passed"
+    },
+    {
+      "name": "unknown current annotation missing never yields condition success",
+      "status": "passed"
+    },
+    {
+      "name": "missing recorded hash null never yields success",
+      "status": "passed"
+    },
+    {
+      "name": "missing recorded hash undefined never yields success",
+      "status": "passed"
+    },
+    {
+      "name": "known stale annotation retains the original correct observation without current success",
+      "status": "passed"
+    },
+    {
+      "name": "known matching annotation supports condition success without claiming independence",
+      "status": "passed"
+    },
+    {
+      "name": "confirmed prior help outranks timing uncertainty and practice screen is ineligible",
+      "status": "passed"
+    },
+    {
+      "name": "missing ledger differs from a complete zero-row ledger",
+      "status": "passed"
+    },
+    {
+      "name": "an annotation left behind after its skeleton disappears is not a current usable instrument",
+      "status": "passed"
+    },
+    {
+      "name": "a skeleton/annotation signature mismatch cannot become confirmed by matching only annotation hash",
+      "status": "passed"
+    },
+    {
+      "name": "12001 repeated rows resolve the actual current grading instrument once per item",
+      "status": "passed"
+    },
+    {
+      "name": "one failed current-instrument lookup or hash does not invalidate unrelated items",
+      "status": "passed"
+    },
+    {
+      "name": "different grading roles keep separate hashes while sharing request-local item lookup",
+      "status": "passed"
+    },
+    {
+      "name": "actual anchorGate changed cannot be bypassed by a matching annotation hash",
+      "status": "passed"
+    },
+    {
+      "name": "actual anchorGate query_failure cannot be bypassed by a matching annotation hash",
+      "status": "passed"
+    },
+    {
+      "name": "source gate is checked once per item; throws and false results affect only that item",
+      "status": "passed"
+    },
+    {
+      "name": "shared-passage notice preserves current per-item policy without claiming already-deduplicated observations",
+      "status": "passed"
+    },
+    {
+      "name": "shared helped attempts are not described as included independent observations",
+      "status": "passed"
+    },
+    {
+      "name": "a stale current instrument does not erase an independently observed historical first outcome",
+      "status": "passed"
+    }
+  ],
+  "core": [
+    {
+      "name": "t4-1280",
+      "sha": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "dirtyTree": true,
+      "width": 1280,
+      "pass": 14,
+      "fail": 0,
+      "accounts": {
+        "created": 2,
+        "confirmedAbsent": 2
+      },
+      "layers": {
+        "delayed_retention": "NOT_ESTABLISHED",
+        "learning_effect": "NOT_CLAIMED"
+      },
+      "assertions": [
+        {
+          "id": "V01",
+          "name": "시작 — 세 표면 같은 값 · 지금 확인 「아직 확인 전」 · 지연 NOT_ESTABLISHED · 실패 문구 없음",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "V02",
+          "name": "FIND 2 실패 — 지금 확인 「연습이 필요하다고 확인됨」 · 혼자 푼 첫 확인 2 · 세 표면 같음",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V03",
+          "name": "바로잡기 정답 — 바로잡기 「맞혀 봤어요」 · 지금 확인은 그대로(바로잡기 ≠ 통과)",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I01",
+          "name": "DB elected first ids map to the exact ledger outcomes, never the correct retry",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I02",
+          "name": "drawer distinguishes independent observations from correct successes",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I03",
+          "name": "different actual goal snapshots change scope without rewriting performance evidence",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I04",
+          "name": "historical asof excludes future rows and does not reuse current annotation as historic proof",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V04",
+          "name": "다른 글 적용 2 — 「해 봤어요 · 2 / 2편」 · 능력 판정 아님 문구 · 지금 확인 그대로",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V05",
+          "name": "새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V06",
+          "name": "도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "V07",
+          "name": "페이지 가로 넘침 0",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "I06",
+          "name": "instrument scope disclosure has 44px target, keyboard toggle and visible focus",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I05",
+          "name": "PC popup/modal fit, Escape closes and restores Workspace opener focus",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V08",
+          "name": "먼저 보기(viewed_first) 뒤 정답 — 원장 viewed_first 1행 · 혼자 푼 첫 확인 0 · 지금 확인 그대로 · (보류 또는 INELIGIBLE 사유) · 실패 문구 없음",
+          "status": "PASS",
+          "layer": "db+browser"
+        }
+      ]
+    },
+    {
+      "name": "t4-1440",
+      "sha": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "dirtyTree": true,
+      "width": 1440,
+      "pass": 14,
+      "fail": 0,
+      "accounts": {
+        "created": 2,
+        "confirmedAbsent": 2
+      },
+      "layers": {
+        "delayed_retention": "NOT_ESTABLISHED",
+        "learning_effect": "NOT_CLAIMED"
+      },
+      "assertions": [
+        {
+          "id": "V01",
+          "name": "시작 — 세 표면 같은 값 · 지금 확인 「아직 확인 전」 · 지연 NOT_ESTABLISHED · 실패 문구 없음",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "V02",
+          "name": "FIND 2 실패 — 지금 확인 「연습이 필요하다고 확인됨」 · 혼자 푼 첫 확인 2 · 세 표면 같음",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V03",
+          "name": "바로잡기 정답 — 바로잡기 「맞혀 봤어요」 · 지금 확인은 그대로(바로잡기 ≠ 통과)",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I01",
+          "name": "DB elected first ids map to the exact ledger outcomes, never the correct retry",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I02",
+          "name": "drawer distinguishes independent observations from correct successes",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I03",
+          "name": "different actual goal snapshots change scope without rewriting performance evidence",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I04",
+          "name": "historical asof excludes future rows and does not reuse current annotation as historic proof",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V04",
+          "name": "다른 글 적용 2 — 「해 봤어요 · 2 / 2편」 · 능력 판정 아님 문구 · 지금 확인 그대로",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V05",
+          "name": "새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V06",
+          "name": "도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "V07",
+          "name": "페이지 가로 넘침 0",
+          "status": "PASS",
+          "layer": "browser"
+        },
+        {
+          "id": "I06",
+          "name": "instrument scope disclosure has 44px target, keyboard toggle and visible focus",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "I05",
+          "name": "PC popup/modal fit, Escape closes and restores Workspace opener focus",
+          "status": "PASS",
+          "layer": "db+browser"
+        },
+        {
+          "id": "V08",
+          "name": "먼저 보기(viewed_first) 뒤 정답 — 원장 viewed_first 1행 · 혼자 푼 첫 확인 0 · 지금 확인 그대로 · (보류 또는 INELIGIBLE 사유) · 실패 문구 없음",
+          "status": "PASS",
+          "layer": "db+browser"
+        }
+      ]
+    }
+  ],
+  "targetComparisons": [
+    {
+      "width": 1280,
+      "score": 80,
+      "exam": "suneung",
+      "goalVersionFingerprint": "fbb2a73b0bacf3953186a92029e3e9b130373a9ff1449407e6125b3481f4f0ca",
+      "scopeExams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ],
+      "inputSha256": "25a58016d84ea99d10d627ecc69eef976ce60ee8e18c81f98c4a1bc35510047a"
+    },
+    {
+      "width": 1280,
+      "score": 90,
+      "exam": "kice6",
+      "goalVersionFingerprint": "46d4c7c3285e2d04cbf9d55aa79142a277c48372a71c1455971363f2b8f8ed67",
+      "scopeExams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "M2506",
+          "label": "2025학년도 6월 모의평가"
+        },
+        {
+          "id": "M2406",
+          "label": "2024학년도 6월 모의평가"
+        },
+        {
+          "id": "M2306",
+          "label": "2023학년도 6월 모의평가"
+        },
+        {
+          "id": "M2206",
+          "label": "2022학년도 6월 모의평가"
+        }
+      ],
+      "inputSha256": "857032ff7290962c5d4387ff22965718ff720e285abe9b2f18028d601446160c"
+    },
+    {
+      "width": 1440,
+      "score": 80,
+      "exam": "suneung",
+      "goalVersionFingerprint": "e6d3cee8c029277da8d978deb058e43540a640414845b2f1c9ffe75f64f8d8be",
+      "scopeExams": [
+        {
+          "id": "2026",
+          "label": "2026학년도 수능"
+        },
+        {
+          "id": "2025",
+          "label": "2025학년도 수능"
+        },
+        {
+          "id": "2024",
+          "label": "2024학년도 수능"
+        },
+        {
+          "id": "2023",
+          "label": "2023학년도 수능"
+        },
+        {
+          "id": "2022",
+          "label": "2022학년도 수능"
+        },
+        {
+          "id": "2021",
+          "label": "2021학년도 수능"
+        }
+      ],
+      "inputSha256": "511b9a22750766c9ccd144db6e3461a9cb2c9462631ee8985baf698b25e99f37"
+    },
+    {
+      "width": 1440,
+      "score": 90,
+      "exam": "kice6",
+      "goalVersionFingerprint": "7f5642cd0c851c48e5dfbd492e1cdee9a93cba81b38677376437c6587b3af95e",
+      "scopeExams": [
+        {
+          "id": "M2706",
+          "label": "2027학년도 6월 모의평가"
+        },
+        {
+          "id": "M2606",
+          "label": "2026학년도 6월 모의평가"
+        },
+        {
+          "id": "M2506",
+          "label": "2025학년도 6월 모의평가"
+        },
+        {
+          "id": "M2406",
+          "label": "2024학년도 6월 모의평가"
+        },
+        {
+          "id": "M2306",
+          "label": "2023학년도 6월 모의평가"
+        },
+        {
+          "id": "M2206",
+          "label": "2022학년도 6월 모의평가"
+        }
+      ],
+      "inputSha256": "83aee68b0df8ea4880ac1dab6a717407fcfcf2f96ab0c859005d777f8ffe05e4"
+    }
+  ],
+  "browser": [
+    {
+      "name": "t4-1280",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:06:20.498Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 14,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v5",
+      "runnerSha256": "533501aa021eceb6667d25b60a0937839292425724271641b2fc4e35335b7d38"
+    },
+    {
+      "name": "t4-1440",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:08:47.961Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 14,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v5",
+      "runnerSha256": "7e819a9319b2b49920130c38308a53e9eb297abf35979b775eaedec42e634c65"
+    },
+    {
+      "name": "t1",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:11:04.598Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 9,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v5",
+      "runnerSha256": "76ddce9800558394410352c04840932d58ffeffdb7296b56660f49eba74a44be"
+    },
+    {
+      "name": "t2-1280",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:16:12.256Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v6",
+      "runnerSha256": "87ca60d80208d3d0ea893dd29b9a63e7c053d0fb3c3fb4ac6d650d5b78f32d47"
+    },
+    {
+      "name": "t2-1440",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:19:36.057Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 26,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v6",
+      "runnerSha256": "7c0492a712de50f76ea1fbbe8d553bb69d149c65403258e36b3d13bdea0c4057"
+    },
+    {
+      "name": "t3-1280",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:22:53.995Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 20,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v6",
+      "runnerSha256": "e558a402c28d0efd9ad9258bd7bb2ae21310fe3e3bb270cadf4bfd4fca8231e5"
+    },
+    {
+      "name": "t3-1440",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:24:43.893Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 20,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v6",
+      "runnerSha256": "5ed836b1dba2a9ff362c3f8ef1aa78e686f67ed37123a91781ec7d7eaa19fe52"
+    },
+    {
+      "name": "security",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:26:31.756Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 18,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v6",
+      "runnerSha256": "742497e805c49482d997c4b5578820721b45d2c44f42da5554995685f35aea58"
+    },
+    {
+      "name": "workspace",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:28:17.701Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 36,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v6",
+      "runnerSha256": "69e807748135bdaaa4aeda1cbf974eeee5ece77aa435a4cb3cf4b1cfa80b4c7a"
+    },
+    {
+      "name": "return",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:29:47.079Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 7,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v6",
+      "runnerSha256": "5ed46515303a05be5c647ef2cd39b41f6636596a365690a9cc503efe14351c50"
+    },
+    {
+      "name": "study",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:31:23.417Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 1,
+      "revision": "final-v6",
+      "runnerSha256": "8538936ed8b7f48e4afc7307c2321cde5e1a2426c5b5a435eaaf3564a595faf0"
+    },
+    {
+      "name": "supply",
+      "sourceStable": true,
+      "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "startedAt": "2026-10-16T15:32:50.585Z",
+      "exit": 0,
+      "error": null,
+      "passLines": 6,
+      "failLines": 0,
+      "cleanup": {
+        "ok": true,
+        "accountsLeft": 0,
+        "unknown": 0,
+        "errors": []
+      },
+      "created": 2,
+      "revision": "final-v6",
+      "runnerSha256": "e95260bac1eef7176133c5693f41d2f4d73c8a2a46503c0ec63bfcfd953a4612"
+    }
+  ],
+  "serverCleanup": [
+    {
+      "name": "t4-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t4-1440",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t1",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t2-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t2-1440",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t3-1280",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "t3-1440",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "security",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "workspace",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "return",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "study",
+      "owned": true,
+      "stopped": true
+    },
+    {
+      "name": "supply",
+      "owned": true,
+      "stopped": true
+    }
+  ],
+  "probes": {
+    "loaderOriginal": {
+      "dependencies": {
+        "apps/web/src/lib/csat/map/v62/instrument-hashes.ts": "cf3f67c7a01e4780dbc14436497911aefe68885a3191cc38637b6492bbeee110",
+        "apps/web/src/lib/knowledge/item-tasks.ts": "c2caadef65875b97fec83b16f19b5bb99560f2fdee66756ce2fd77a2d0a56991",
+        "apps/web/src/lib/csat/skeleton.ts": "989616ef903854ca6b98ac0f1483c020178a7a7da41b5e57e96b3a0f0bad07d7"
+      },
+      "source": "pinned",
+      "sourceSha256": "6e096ff1e7afe24ee365096c62475a42eca086cc5b52b52975b461b185951a66",
+      "results": [
+        {
+          "name": "paged 2505 records, held filtered, exact ids",
+          "pass": true,
+          "rows": 2088,
+          "pages": 3,
+          "ms": 5.512199999999893,
+          "idsAvailable": false
+        },
+        {
+          "name": "page2 failure rejects, never empty success",
+          "pass": true
+        },
+        {
+          "name": "normal zero rows",
+          "pass": true
+        },
+        {
+          "name": "first DTO preserves DB attempt_id",
+          "pass": false,
+          "actual": null
+        },
+        {
+          "name": "12001 rows actual annotation registry",
+          "pass": true,
+          "annCalls": 24,
+          "hashCalls": 6,
+          "errors": 0,
+          "pairs": 12001,
+          "distinct": 24,
+          "entries": 24,
+          "confirmed": 6,
+          "ms": 23.839699999999993
+        },
+        {
+          "name": "one failed annotation retains healthy currentness",
+          "pass": false,
+          "annCalls": 5,
+          "hashCalls": 1,
+          "errors": 1,
+          "pairs": 12001,
+          "distinct": 24,
+          "entries": null,
+          "confirmed": 0,
+          "ms": 0.8625999999999294
+        },
+        {
+          "name": "canonical shared identity and changed source hash; absent source remains unknown",
+          "pass": true
+        }
+      ]
+    },
+    "loaderRevised": {
+      "dependencies": {
+        "apps/web/src/lib/csat/map/v62/instrument-hashes.ts": "cf3f67c7a01e4780dbc14436497911aefe68885a3191cc38637b6492bbeee110",
+        "apps/web/src/lib/knowledge/item-tasks.ts": "c2caadef65875b97fec83b16f19b5bb99560f2fdee66756ce2fd77a2d0a56991",
+        "apps/web/src/lib/csat/skeleton.ts": "989616ef903854ca6b98ac0f1483c020178a7a7da41b5e57e96b3a0f0bad07d7"
+      },
+      "source": "revised",
+      "sourceSha256": "cd9055fb6c78bf7746a811799f6d862e5e0dc2be6b6fe30e3e2e91f49ebaced9",
+      "results": [
+        {
+          "name": "paged 2505 records, held filtered, exact ids",
+          "pass": true,
+          "rows": 2088,
+          "pages": 3,
+          "ms": 8.632299999999987,
+          "idsAvailable": true
+        },
+        {
+          "name": "page2 failure rejects, never empty success",
+          "pass": true
+        },
+        {
+          "name": "normal zero rows",
+          "pass": true
+        },
+        {
+          "name": "first DTO preserves DB attempt_id",
+          "pass": true,
+          "actual": "1"
+        },
+        {
+          "name": "12001 rows actual annotation registry",
+          "pass": true,
+          "annCalls": 6,
+          "hashCalls": 6,
+          "errors": 0,
+          "pairs": 12001,
+          "distinct": 24,
+          "entries": 24,
+          "confirmed": 6,
+          "ms": 22.368200000000115
+        },
+        {
+          "name": "one failed annotation retains healthy currentness",
+          "pass": true,
+          "annCalls": 6,
+          "hashCalls": 5,
+          "errors": 1,
+          "pairs": 12001,
+          "distinct": 24,
+          "entries": 24,
+          "confirmed": 5,
+          "ms": 7.162700000000086
+        },
+        {
+          "name": "canonical shared identity and changed source hash; absent source remains unknown",
+          "pass": true
+        }
+      ]
+    },
+    "qualificationOriginal": {
+      "source": "pinned",
+      "sourceSha256": "e0259d94d69297af491e8822ca7f16a838c8a0203e032d2651a3b85b7791b386",
+      "rows": [
+        {
+          "name": "synthetic first/session cannot become real effect sample through a false row flag",
+          "actual": "CONFIRMED",
+          "pass": false
+        },
+        {
+          "name": "failed first ledger is not a normal unstarted check",
+          "actual": "not_started",
+          "pass": false
+        },
+        {
+          "name": "failed activity ledger is not no repair experience",
+          "actual": "none",
+          "pass": false
+        }
+      ]
+    },
+    "qualificationRevised": {
+      "source": "revised",
+      "sourceSha256": "c1ce756a729f50e55ca86098b8b7028c13476decb80816e4db4e89c32879a546",
+      "rows": [
+        {
+          "name": "synthetic first/session cannot become real effect sample through a false row flag",
+          "actual": "INELIGIBLE",
+          "pass": true
+        },
+        {
+          "name": "failed first ledger is not a normal unstarted check",
+          "actual": "unknown",
+          "pass": true
+        },
+        {
+          "name": "failed activity ledger is not no repair experience",
+          "actual": "unknown",
+          "pass": true
+        }
+      ]
+    },
+    "anchorOriginal": {
+      "source": "3746bc762",
+      "sourceSha256": "68ae8e7bddab3b463877d19a6a6249794bc651124348fddf43d4df51682b46b4",
+      "item": "2026#22",
+      "layer": "actual anchorGate + fixed source-query fixture",
+      "rows": [
+        {
+          "mode": "changed",
+          "sourceAccepted": false,
+          "annotationStillPresent": true,
+          "hashAccepted": true,
+          "pass": false
+        },
+        {
+          "mode": "query_failure",
+          "sourceAccepted": false,
+          "annotationStillPresent": true,
+          "hashAccepted": true,
+          "pass": false
+        }
+      ]
+    },
+    "anchorRevised": {
+      "source": "revised",
+      "sourceSha256": "cf3f67c7a01e4780dbc14436497911aefe68885a3191cc38637b6492bbeee110",
+      "item": "2026#22",
+      "layer": "actual anchorGate + fixed source-query fixture",
+      "rows": [
+        {
+          "mode": "changed",
+          "sourceAccepted": false,
+          "annotationStillPresent": true,
+          "hashAccepted": false,
+          "pass": true
+        },
+        {
+          "mode": "query_failure",
+          "sourceAccepted": false,
+          "annotationStillPresent": true,
+          "hashAccepted": false,
+          "pass": true
+        }
+      ]
+    },
+    "linkOriginal": {
+      "source": "3746bc762",
+      "sourceSha256": "9ddc971945697a218d921825bcbdb1b8472e640552763feb21d607313fabe0af",
+      "layer": "exact loader block and evidenceView, fixed error injection; no DB outage",
+      "rows": [
+        {
+          "name": "normal empty scope",
+          "readers": 2,
+          "logged": 0,
+          "ledger": "complete",
+          "currentCheck": "not_started",
+          "repair": "none",
+          "pass": true
+        },
+        {
+          "name": "failed link query",
+          "readers": 2,
+          "logged": 1,
+          "ledger": "complete",
+          "currentCheck": "not_started",
+          "repair": "none",
+          "pass": false
+        }
+      ]
+    },
+    "linkRevised": {
+      "source": "revised",
+      "sourceSha256": "cd9055fb6c78bf7746a811799f6d862e5e0dc2be6b6fe30e3e2e91f49ebaced9",
+      "layer": "exact loader block and evidenceView, fixed error injection; no DB outage",
+      "rows": [
+        {
+          "name": "normal empty scope",
+          "readers": 2,
+          "logged": 0,
+          "ledger": "complete",
+          "currentCheck": "not_started",
+          "repair": "none",
+          "pass": true
+        },
+        {
+          "name": "failed link query",
+          "readers": 0,
+          "logged": 1,
+          "ledger": "unknown",
+          "currentCheck": "unknown",
+          "repair": "unknown",
+          "pass": true
+        }
+      ]
+    }
+  },
+  "compose": {
+    "base": {
+      "mode": "base",
+      "worktreeHead": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "composeSourceRef": "8ee927dcee80a9b19d70b2d4c86869e8ea013813",
+      "overrides": [
+        {
+          "file": "apps/web/src/lib/csat/map/v4/compose.ts",
+          "sha256": "436adaf789b4f172962406c2ae3e648e76739321dd1ae225f232854c3bde4565"
+        }
+      ],
+      "inputs": [
+        {
+          "score": 80,
+          "exam": "suneung",
+          "inputSha256": "25a58016d84ea99d10d627ecc69eef976ce60ee8e18c81f98c4a1bc35510047a",
+          "asIsHash": "bcd929931f39d4c8eae150312063892e1d5f6ae45f91ebb750729c5f670f9347",
+          "planHash": "2e4d1e81cfc3c3f82199fd8664734fd378c69f7b8fc159afa666946063b674ea",
+          "taskPlansHash": "93b494ca9b99cf559c30a769a728ecaa943a0f8fc15a80a82e3bc9d4739aaeb3",
+          "toBeHash": "6587d9e463fddbce6dc32f871030ccdab3ecae0182a67dd7ff1469d1a68c1795",
+          "evidenceHash": null,
+          "historicInstruments": [],
+          "timing": {
+            "n": 100,
+            "medianMs": 1.5718999999999141,
+            "p95Ms": 3.044599999999946
+          }
+        },
+        {
+          "score": 90,
+          "exam": "kice6",
+          "inputSha256": "857032ff7290962c5d4387ff22965718ff720e285abe9b2f18028d601446160c",
+          "asIsHash": "da1d523989a600c93924774070aa2a5856db452dfbe18bff1258e392b2fc25fa",
+          "planHash": "41553a7ad48048e7540fa11dfe2038a7974b945807620b6ec1fdd1c7ad2e78aa",
+          "taskPlansHash": "21fdc5f2abd6e9aa65adf3b0c4aeabca9457097634409ddb171cf442db32e4d9",
+          "toBeHash": "a5f4ff85cbe4f67f7e24c1fdf8ae25c09db5afdb281b4dc300e6ce2ed26d3bca",
+          "evidenceHash": null,
+          "historicInstruments": [],
+          "timing": {
+            "n": 100,
+            "medianMs": 1.037900000000036,
+            "p95Ms": 2.5009000000000015
+          }
+        }
+      ]
+    },
+    "pinned": {
+      "mode": "pinned",
+      "worktreeHead": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "composeSourceRef": "68b1541fff7dd0dd880e6bd51e1ba091d770786c",
+      "overrides": [
+        {
+          "file": "apps/web/src/lib/csat/map/v4/compose.ts",
+          "sha256": "0ac34e0fdc4ef60915adcf2a83599fb579e9fb67da522fbd293d9aa2e7e9f82b"
+        },
+        {
+          "file": "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+          "sha256": "e0259d94d69297af491e8822ca7f16a838c8a0203e032d2651a3b85b7791b386"
+        }
+      ],
+      "inputs": [
+        {
+          "score": 80,
+          "exam": "suneung",
+          "inputSha256": "25a58016d84ea99d10d627ecc69eef976ce60ee8e18c81f98c4a1bc35510047a",
+          "asIsHash": "bcd929931f39d4c8eae150312063892e1d5f6ae45f91ebb750729c5f670f9347",
+          "planHash": "2e4d1e81cfc3c3f82199fd8664734fd378c69f7b8fc159afa666946063b674ea",
+          "taskPlansHash": "93b494ca9b99cf559c30a769a728ecaa943a0f8fc15a80a82e3bc9d4739aaeb3",
+          "toBeHash": "6587d9e463fddbce6dc32f871030ccdab3ecae0182a67dd7ff1469d1a68c1795",
+          "evidenceHash": "96c1c6eb8770518c7ba27c3d1fe648772ee050e7dbd50152aa1168eae256deb9",
+          "historicInstruments": [
+            "CONFIRMED"
+          ],
+          "timing": {
+            "n": 100,
+            "medianMs": 1.402900000000045,
+            "p95Ms": 2.286399999999958
+          }
+        },
+        {
+          "score": 90,
+          "exam": "kice6",
+          "inputSha256": "857032ff7290962c5d4387ff22965718ff720e285abe9b2f18028d601446160c",
+          "asIsHash": "da1d523989a600c93924774070aa2a5856db452dfbe18bff1258e392b2fc25fa",
+          "planHash": "41553a7ad48048e7540fa11dfe2038a7974b945807620b6ec1fdd1c7ad2e78aa",
+          "taskPlansHash": "21fdc5f2abd6e9aa65adf3b0c4aeabca9457097634409ddb171cf442db32e4d9",
+          "toBeHash": "a5f4ff85cbe4f67f7e24c1fdf8ae25c09db5afdb281b4dc300e6ce2ed26d3bca",
+          "evidenceHash": "96c1c6eb8770518c7ba27c3d1fe648772ee050e7dbd50152aa1168eae256deb9",
+          "historicInstruments": [
+            "CONFIRMED"
+          ],
+          "timing": {
+            "n": 100,
+            "medianMs": 0.9071000000001277,
+            "p95Ms": 1.3179999999999836
+          }
+        }
+      ]
+    },
+    "revised": {
+      "mode": "revised",
+      "worktreeHead": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+      "composeSourceRef": "working tree",
+      "overrides": [],
+      "inputs": [
+        {
+          "score": 80,
+          "exam": "suneung",
+          "inputSha256": "25a58016d84ea99d10d627ecc69eef976ce60ee8e18c81f98c4a1bc35510047a",
+          "asIsHash": "bcd929931f39d4c8eae150312063892e1d5f6ae45f91ebb750729c5f670f9347",
+          "planHash": "2e4d1e81cfc3c3f82199fd8664734fd378c69f7b8fc159afa666946063b674ea",
+          "taskPlansHash": "93b494ca9b99cf559c30a769a728ecaa943a0f8fc15a80a82e3bc9d4739aaeb3",
+          "toBeHash": "6587d9e463fddbce6dc32f871030ccdab3ecae0182a67dd7ff1469d1a68c1795",
+          "evidenceHash": "95f82ed913fefb1815934308a26f8945a6db0eb5061cd46639f9cde30a7534a9",
+          "historicInstruments": [
+            "UNKNOWN"
+          ],
+          "timing": {
+            "n": 100,
+            "medianMs": 1.5334000000000287,
+            "p95Ms": 2.552799999999934
+          }
+        },
+        {
+          "score": 90,
+          "exam": "kice6",
+          "inputSha256": "857032ff7290962c5d4387ff22965718ff720e285abe9b2f18028d601446160c",
+          "asIsHash": "da1d523989a600c93924774070aa2a5856db452dfbe18bff1258e392b2fc25fa",
+          "planHash": "41553a7ad48048e7540fa11dfe2038a7974b945807620b6ec1fdd1c7ad2e78aa",
+          "taskPlansHash": "21fdc5f2abd6e9aa65adf3b0c4aeabca9457097634409ddb171cf442db32e4d9",
+          "toBeHash": "a5f4ff85cbe4f67f7e24c1fdf8ae25c09db5afdb281b4dc300e6ce2ed26d3bca",
+          "evidenceHash": "95f82ed913fefb1815934308a26f8945a6db0eb5061cd46639f9cde30a7534a9",
+          "historicInstruments": [
+            "UNKNOWN"
+          ],
+          "timing": {
+            "n": 100,
+            "medianMs": 1.0420000000001437,
+            "p95Ms": 1.8399999999999181
+          }
+        }
+      ]
+    }
+  },
+  "screenshots": [
+    {
+      "path": "evidence/find-popup-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "76c3f8eb0cb93fe0717111540874fbf5608a4ff67d4b74788f93aad5cf07e930"
+    },
+    {
+      "path": "evidence/repair-drawer-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "2b046febb11a9060239992b249209201acaae09e0ee40368998173ae8859d41c"
+    },
+    {
+      "path": "evidence/repair-workspace-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "e3b00469e13f90a62123b201a4bae5f62ec5ced1071f196298597f243a821394"
+    },
+    {
+      "path": "evidence/find-popup-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "f60c8b886adabe2a94e6088bde6d15f988f8816bae7ea2c53214427cfbe79f31"
+    },
+    {
+      "path": "evidence/repair-drawer-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "d33b06a849e1b9c9eca7b43c4bd24c535d83963995e76855181c6aff96cf14bf"
+    },
+    {
+      "path": "evidence/repair-workspace-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "1fa524586e97ca956d427354564a492a974305dc5a638ec457c0578384af1844"
+    }
+  ],
+  "priorRuns": [
+    {
+      "revision": "final",
+      "results": [
+        {
+          "name": "t4-1280",
+          "sourceStable": true,
+          "headAtStart": "2d028029b832ed8a9b6f9f7ab2edddd018c23674",
+          "startedAt": "2026-10-16T14:13:31.770Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 12,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t4-1440",
+          "sourceStable": false,
+          "headAtStart": "2d028029b832ed8a9b6f9f7ab2edddd018c23674",
+          "startedAt": "2026-10-16T14:16:07.155Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 12,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        }
+      ]
+    },
+    {
+      "revision": "final-v2",
+      "results": [
+        {
+          "name": "t4-1280",
+          "sourceStable": true,
+          "headAtStart": "2cbb2d0486a7ee4050631e44f7982a2ec8ce3d59",
+          "startedAt": "2026-10-16T14:21:41.364Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 13,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t4-1440",
+          "sourceStable": true,
+          "headAtStart": "2cbb2d0486a7ee4050631e44f7982a2ec8ce3d59",
+          "startedAt": "2026-10-16T14:23:52.370Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 13,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t1",
+          "sourceStable": true,
+          "headAtStart": "2cbb2d0486a7ee4050631e44f7982a2ec8ce3d59",
+          "startedAt": "2026-10-16T14:26:09.504Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 9,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        },
+        {
+          "name": "t2-1280",
+          "sourceStable": false,
+          "headAtStart": "2cbb2d0486a7ee4050631e44f7982a2ec8ce3d59",
+          "startedAt": "2026-10-16T14:27:58.709Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 26,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        }
+      ]
+    },
+    {
+      "revision": "final-v4",
+      "results": [
+        {
+          "name": "t4-1280",
+          "sourceStable": true,
+          "headAtStart": "3746bc762eb7c5977b9ecaae98566da314495de0",
+          "startedAt": "2026-10-16T14:43:31.095Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 14,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t4-1440",
+          "sourceStable": true,
+          "headAtStart": "3746bc762eb7c5977b9ecaae98566da314495de0",
+          "startedAt": "2026-10-16T14:45:51.180Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 14,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t1",
+          "sourceStable": true,
+          "headAtStart": "3746bc762eb7c5977b9ecaae98566da314495de0",
+          "startedAt": "2026-10-16T14:48:01.465Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 9,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        },
+        {
+          "name": "t2-1280",
+          "sourceStable": true,
+          "headAtStart": "3746bc762eb7c5977b9ecaae98566da314495de0",
+          "startedAt": "2026-10-16T14:49:48.234Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 26,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        },
+        {
+          "name": "t2-1440",
+          "sourceStable": false,
+          "headAtStart": "3746bc762eb7c5977b9ecaae98566da314495de0",
+          "startedAt": "2026-10-16T14:53:09.718Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 26,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        }
+      ]
+    },
+    {
+      "revision": "final-v5",
+      "results": [
+        {
+          "name": "t4-1280",
+          "sourceStable": true,
+          "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+          "startedAt": "2026-10-16T15:06:20.498Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 14,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t4-1440",
+          "sourceStable": true,
+          "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+          "startedAt": "2026-10-16T15:08:47.961Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 14,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 2
+        },
+        {
+          "name": "t1",
+          "sourceStable": true,
+          "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+          "startedAt": "2026-10-16T15:11:04.598Z",
+          "exit": 0,
+          "error": null,
+          "passLines": 9,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        },
+        {
+          "name": "t2-1280",
+          "sourceStable": true,
+          "headAtStart": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+          "startedAt": "2026-10-16T15:12:50.692Z",
+          "exit": 3221226505,
+          "error": null,
+          "passLines": 18,
+          "failLines": 0,
+          "cleanup": {
+            "ok": true,
+            "accountsLeft": 0,
+            "unknown": 0,
+            "errors": []
+          },
+          "created": 1
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Synthetic development accounts are not learner effect evidence",
+    "Injected query/source failures are not live DB outages or source edits",
+    "Currentness reuses existing grading gates; legacy boundary-only source checks remain limited",
+    "Historic asof is not complete historical DB/content reconstruction",
+    "P1-P7 remain BLOCKED_APPROVAL; delayed NOT_ESTABLISHED; effect NOT_EVALUATED",
+    "SourceStable=false runs and interrupted T2 exit 3221226505 are preserved and excluded; Next-generated tsconfig dirty state is disclosed"
+  ]
+}

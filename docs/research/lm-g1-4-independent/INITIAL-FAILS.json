@@ -1,0 +1,270 @@
+{
+  "pinned": "68b1541fff7dd0dd880e6bd51e1ba091d770786c",
+  "initial": {
+    "artifactSha256": "cad8ee474dd6243f64e6c49d063a0a0786adeb769df32a116600e42d62bb208f",
+    "pass": 6,
+    "fail": 14,
+    "assertions": [
+      {
+        "name": "A first wrong, next-day correct: exact original row is the independent observation",
+        "status": "failed",
+        "failures": [
+          "expected [ 'CONFIRMED', 'NOT_APPLICABLE' ] to deeply equal [ 'NOT_APPLICABLE', 'CONFIRMED' ]"
+        ]
+      },
+      {
+        "name": "B helped first never lends its eligibility to the newest retry",
+        "status": "failed",
+        "failures": [
+          "expected [ 'INELIGIBLE', 'NOT_APPLICABLE' ] to deeply equal [ 'NOT_APPLICABLE', 'INELIGIBLE' ]"
+        ]
+      },
+      {
+        "name": "C independent first remains that row after a helped retry",
+        "status": "failed",
+        "failures": [
+          "expected [ 'CONFIRMED', 'NOT_APPLICABLE' ] to deeply equal [ 'NOT_APPLICABLE', 'CONFIRMED' ]"
+        ]
+      },
+      {
+        "name": "D/E submission order differs from id order: do not elect another first attempt",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'NOT_APPLICABLE' // Object.is equality"
+        ]
+      },
+      {
+        "name": "D/E same submitted timestamp: do not elect another first attempt",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'NOT_APPLICABLE' // Object.is equality"
+        ]
+      },
+      {
+        "name": "F phase binding prevents a pre/transfer record borrowing the practice first",
+        "status": "passed"
+      },
+      {
+        "name": "G other task and same item cannot borrow the first row",
+        "status": "passed"
+      },
+      {
+        "name": "missing first attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing activity attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing both attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "same id with conflicting first correctness is held, not cross-joined",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation undefined never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation null never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation missing never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing recorded hash null never yields success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing recorded hash undefined never yields success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "known stale annotation retains the original correct observation without current success",
+        "status": "passed"
+      },
+      {
+        "name": "known matching annotation supports condition success without claiming independence",
+        "status": "passed"
+      },
+      {
+        "name": "confirmed prior help outranks timing uncertainty and practice screen is ineligible",
+        "status": "passed"
+      },
+      {
+        "name": "missing ledger differs from a complete zero-row ledger",
+        "status": "passed"
+      }
+    ]
+  },
+  "stricterReplay": {
+    "pinned": "68b1541fff7dd0dd880e6bd51e1ba091d770786c",
+    "sourceSha256": "e0259d94d69297af491e8822ca7f16a838c8a0203e032d2651a3b85b7791b386",
+    "fixtureSha256": "0a23329a9ccc1d0a5fb6b03a7318df754bacfcf745abf1715d90c5ca8dac548a",
+    "tests": 20,
+    "pass": 5,
+    "fail": 15,
+    "expectedOriginalFailures": true,
+    "importsRelocatedOnly": true,
+    "assertions": [
+      {
+        "name": "A first wrong, next-day correct: exact original row is the independent observation",
+        "status": "failed",
+        "failures": [
+          "expected [ 'CONFIRMED', 'NOT_APPLICABLE' ] to deeply equal [ 'NOT_APPLICABLE', 'CONFIRMED' ]"
+        ]
+      },
+      {
+        "name": "B helped first never lends its eligibility to the newest retry",
+        "status": "failed",
+        "failures": [
+          "expected [ 'INELIGIBLE', 'NOT_APPLICABLE' ] to deeply equal [ 'NOT_APPLICABLE', 'INELIGIBLE' ]"
+        ]
+      },
+      {
+        "name": "C independent first remains that row after a helped retry",
+        "status": "failed",
+        "failures": [
+          "expected [ 'CONFIRMED', 'NOT_APPLICABLE' ] to deeply equal [ 'INELIGIBLE', 'CONFIRMED' ]"
+        ]
+      },
+      {
+        "name": "D/E submission order differs from id order: do not elect another first attempt",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'NOT_APPLICABLE' // Object.is equality"
+        ]
+      },
+      {
+        "name": "D/E same submitted timestamp: do not elect another first attempt",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'NOT_APPLICABLE' // Object.is equality"
+        ]
+      },
+      {
+        "name": "F phase binding prevents a pre/transfer record borrowing the practice first",
+        "status": "passed"
+      },
+      {
+        "name": "G other task and same item cannot borrow the first row",
+        "status": "passed"
+      },
+      {
+        "name": "missing first attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing activity attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing both attempt id is UNKNOWN, not a newly elected first",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "same id with conflicting first correctness is held, not cross-joined",
+        "status": "failed",
+        "failures": [
+          "expected 'CONFIRMED' to be 'UNKNOWN' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation undefined never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation null never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "unknown current annotation missing never yields condition success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing recorded hash null never yields success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "missing recorded hash undefined never yields success",
+        "status": "failed",
+        "failures": [
+          "expected 'condition_success' to be 'performed_only' // Object.is equality"
+        ]
+      },
+      {
+        "name": "known stale annotation retains the original correct observation without current success",
+        "status": "passed"
+      },
+      {
+        "name": "known matching annotation supports condition success without claiming independence",
+        "status": "passed"
+      },
+      {
+        "name": "confirmed prior help outranks timing uncertainty and practice screen is ineligible",
+        "status": "passed"
+      },
+      {
+        "name": "missing ledger differs from a complete zero-row ledger",
+        "status": "failed",
+        "failures": [
+          "expected 'not_started' to be 'unknown' // Object.is equality"
+        ]
+      }
+    ]
+  },
+  "explanation": "Initial exploratory 6/14 retained; later frozen fixture explicitly asserts unknown reader states and confirmed-help retry ineligibility. Pinned replay 5/15 is not a passing product result."
+}

@@ -19,6 +19,7 @@ import { STAGE_BLOCKED_LABEL, STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 
+import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
 import p from './popup.module.css'
@@ -97,6 +98,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
             <h3 id="ws-purpose" className={p.cardTitle}>학습 목적</h3>
             <p className={p.cardDesc}>{row.goal ?? READINESS_LABEL[row.readiness ?? ''] ?? '자료를 준비하고 있어요.'}</p>
             {reason && <p className={p.cardDesc}>{reason}</p>}
+            {row.core[0] && view.evidence?.[row.core[0]] && <EvidenceChips e={view.evidence[row.core[0]]!} testId="ws-evidence-claims" />}
           </section>
 
           <section className={p.card} aria-labelledby="ws-rel">

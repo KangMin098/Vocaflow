@@ -1,0 +1,10 @@
+// scripts/research/lm-g1-4-independent/qualification-probe.mjs
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import crypto from 'node:crypto';
+import {sourceModule} from './source-loader.mjs';
+const root=path.resolve(import.meta.dirname,'../../..'),file='apps/web/src/lib/csat/map/v62/evidence-claims.ts',original=process.argv.includes('--original'),source=original?execFileSync('git',['show','68b1541ff:'+file],{cwd:root,encoding:'utf8'}):fs.readFileSync(root+'/'+file,'utf8');
+const {evidenceView}=sourceModule(file,{[path.resolve(root,file)]:source}),f={attemptId:'1',userId:'u',taskKey:'claim-support',itemRef:'i1',phase:'practice',isCorrect:true,synthetic:true,helpLevel:'independent',afterViewedFirst:false,afterExplanation:false,activity:'theater',answeredAt:'2026-10-01T00:00:00Z'},a={...f,synthetic:false,contentHash:'h',receivedAt:'2026-10-01T00:00:01Z'};
+const run=o=>evidenceView({task:'r.central_meaning',check:null,firsts:[f],activity:[a],hashes:{'claim-support|i1':'h'},transfer:{done:0,planned:2},...o}),rows=[];
+const synthetic=run({});rows.push({name:'synthetic first/session cannot become real effect sample through a false row flag',actual:synthetic.attempts[0].fields.effectSample,pass:synthetic.attempts[0].fields.effectSample==='INELIGIBLE'});
+const failed=run({firsts:undefined});rows.push({name:'failed first ledger is not a normal unstarted check',actual:failed.currentCheck.status,pass:failed.currentCheck.status==='unknown'});
+const lost=run({activity:undefined});rows.push({name:'failed activity ledger is not no repair experience',actual:lost.instructionPath.repair,pass:lost.instructionPath.repair==='unknown'});
+const out={source:original?'pinned':'revised',sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),rows};fs.writeFileSync(path.join(import.meta.dirname,'local/qualification-'+(original?'original':'revised')+'.json'),JSON.stringify(out,null,2));console.log(JSON.stringify(out));if(!original&&rows.some(r=>!r.pass))process.exitCode=1;

@@ -386,6 +386,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           data={data}
           past={past}
           goalSet={!!view.toBe}
+          evidence={view.evidence?.[ins.task.id]}
           onClose={closePop}
           onSelectWs={(id) => {
             chooseWs(id)

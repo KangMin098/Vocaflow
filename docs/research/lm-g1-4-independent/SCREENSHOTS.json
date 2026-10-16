@@ -1,0 +1,42 @@
+{
+  "sourceBasis": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+  "run": "final-v5",
+  "screenshots": [
+    {
+      "path": "evidence/find-popup-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "76c3f8eb0cb93fe0717111540874fbf5608a4ff67d4b74788f93aad5cf07e930"
+    },
+    {
+      "path": "evidence/repair-drawer-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "2b046febb11a9060239992b249209201acaae09e0ee40368998173ae8859d41c"
+    },
+    {
+      "path": "evidence/repair-workspace-1280.png",
+      "width": 1280,
+      "height": 900,
+      "sha256": "e3b00469e13f90a62123b201a4bae5f62ec5ced1071f196298597f243a821394"
+    },
+    {
+      "path": "evidence/find-popup-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "f60c8b886adabe2a94e6088bde6d15f988f8816bae7ea2c53214427cfbe79f31"
+    },
+    {
+      "path": "evidence/repair-drawer-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "d33b06a849e1b9c9eca7b43c4bd24c535d83963995e76855181c6aff96cf14bf"
+    },
+    {
+      "path": "evidence/repair-workspace-1440.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "1fa524586e97ca956d427354564a492a974305dc5a638ec457c0578384af1844"
+    }
+  ]
+}

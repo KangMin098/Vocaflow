@@ -19,6 +19,9 @@ import type { TaskInspectorDTO } from '@/lib/csat/map/v62/graph'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { wsOfTask, type WsRow } from '@/lib/csat/map/v62/workspace-list'
 
+import type { EvidenceView } from '@/lib/csat/map/v62/evidence-claims'
+
+import { EvidenceChips } from './EvidenceClaims'
 import { BLOCKED_LABEL, EVIDENCE_V62_LABEL, NEED_V62_LABEL } from './TaskInspector'
 import u from './unified.module.css'
 import { wsIcon, WS_STATE_LABEL } from './WorkspaceList'
@@ -26,8 +29,10 @@ import { wsIcon, WS_STATE_LABEL } from './WorkspaceList'
 const W = 320
 const GAP = 10
 
-export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, onClose, onSelectWs, onDetail }: {
+export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, evidence, onClose, onSelectWs, onDetail }: {
   ins: TaskInspectorDTO
+  /** 증거 범위(composeV4 → evidenceView) — 없으면 줄을 그리지 않는다 */
+  evidence?: EvidenceView
   anchor: HTMLElement | null
   rows: WsRow[]
   selectedWs: string | null
@@ -124,6 +129,7 @@ export function TaskPopup({ ins, anchor, rows, selectedWs, data, past, goalSet, 
         <dt>이번 단계</dt>
         <dd>{ins.plan?.stage ? `${STAGE_LABEL[ins.plan.stage as StageKey] ?? ins.plan.stage}${ins.plan.planned !== null ? ` · 수행 ${ins.plan.done} / ${ins.plan.planned}` : ''}` : '—'}</dd>
       </dl>
+      {evidence && <EvidenceChips e={evidence} testId="pop-evidence-claims" />}
       <div className={u.popWs}>
         <p className={u.popSub}>연결 Workspace</p>
         {links.length > 0 ? (

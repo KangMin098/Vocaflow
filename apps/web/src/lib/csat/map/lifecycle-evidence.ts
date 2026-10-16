@@ -10,6 +10,8 @@
 // 회차: 직접 확인 시각(verifiedAt) 뒤의 기록만 센다 — 이전 회차의 바로잡기는 새 회차에 넘어오지 않는다.
 
 export interface ActivityRow {
+  /** Exact learning_task_attempts.id; used only for evidence lineage, not stage policy. */
+  attemptId?: string
   /** Server-derived exact passage identity; null means identity unavailable, undefined is legacy input. */
   passageKey?: string | null
   itemRef: string | null
@@ -17,6 +19,12 @@ export interface ActivityRow {
   phase: string
   isCorrect: boolean | null
   answeredAt: string | null
+  /** LM-G1.4 증거 계보(원장 그대로 · 없으면 undefined = 옛 입력) — 주석 해시 · 화면 · 도움 · 합성 · 서버 수신 */
+  contentHash?: string | null
+  activity?: string | null
+  helpLevel?: string | null
+  synthetic?: boolean | null
+  receivedAt?: string | null
 }
 
 export interface LifecycleEvidence {
