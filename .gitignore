@@ -286,3 +286,6 @@ scripts/csat/compare-drain/chunk-v3p-*.json
 
 # v3.1 원문 이해 교수 작성 입력 — 원문 포함. manifest · 작성 결과 · 검수만 커밋
 scripts/csat/meaning-support-drain/input-*.json
+
+# V2 주석 파일럿 — 원문 · 정답 키 · Claude 초안 · 맹검 입력은 커밋하지 않는다(공개 PR 에는 해시만)
+scripts/csat/v2-annotation-pilot/private/
