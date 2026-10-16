@@ -5,7 +5,7 @@ import path from 'node:path'
 import {execFileSync} from 'node:child_process'
 import {sourceModule} from '../lm-g1-3a-independent/source-loader.mjs'
 const root=path.resolve(import.meta.dirname,'../../..');process.chdir(root+'/apps/web')
-const pinned=process.argv.includes('--pinned'),out=path.join(import.meta.dirname,'local',pinned?'pinned-contract.json':'revised-contract-v2.json')
+const pinned=process.argv.includes('--pinned'),out=path.join(import.meta.dirname,'local',pinned?'pinned-contract.json':(process.argv.find(a=>a.startsWith('--revision='))?.slice(11)??'revised-contract-v2')+'.json')
 if(fs.existsSync(out))throw Error('Immutable output already exists')
 const m=sourceModule('apps/web/src/lib/knowledge/contextual-sense.ts')
 const ann=()=>({version:'test.v1',itemId:'T#30',skeletonSig:'sig',sentenceCount:8,sourceRevision:'a'.repeat(64),officialAnswer:4,targets:[1,2,3,5,6],misfit:3,sense:{options:['decrease','increase','same'],correct:0,rejectWhy:{1:'decreasing context',2:'change context'}},cue:{sentences:[4],accepted:[6],reviewed:true},review:{status:'accepted',annotator:'a',independentReviewer:'b',reviewerBlind:true,agreement:'3/3',reviewedAt:'2026-10-17'}})

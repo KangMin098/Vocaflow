@@ -104,8 +104,8 @@ export async function anchorGate(itemId: string, client: SupabaseClient = db()):
   if (selected?.def.key === CONTEXTUAL_SENSE_KEY) {
     const a = selected.ann
     if (!releasable(a)) return false
-    const { data, error } = await client.from('csat_items').select('passage, answer, answer_unknown').eq('id', itemId).maybeSingle()
-    if (error || !data || typeof data.passage !== 'string' || data.answer_unknown !== false) return false
+    const { data, error } = await client.from('csat_items').select('passage, answer').eq('id', itemId).maybeSingle()
+    if (error || !data || typeof data.passage !== 'string' || !Number.isInteger(data.answer) || data.answer < 1 || data.answer > 5) return false
     return passageRevision(data.passage) === a.sourceRevision && data.answer === a.officialAnswer
   }
   const bound = CURATED[itemId] as (typeof CURATED)[string] & { source?: { revision: string } }
