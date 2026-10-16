@@ -16,7 +16,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
-import { acknowledgePlan, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
+import { acknowledgePlan, bindPlanDraft, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
 import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -84,35 +84,36 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const savedVersion = sw?.latest.version ?? 0
   const base = useMemo(() => applySaved(view, sw?.latest ?? null), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
+  const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
   const key = draftKey(viewer, view.workspace, goal, savedVersion)
   const [note, setNote] = useState('')
   const [draft, setDraft] = useState<PlanDraft | null>(null)
   const handoff = useRef<{ sourceKey: string; key: string; stages: PlanAck['stages'] } | null>(null)
+  const stageSignature = view.tasks.map(p => p.task + ':' + p.stage).join('|')
   const currentStages = () => Object.fromEntries(view.tasks.map(p => [p.task, p.stage ?? null]))
   useEffect(() => {
     const carry = handoff.current
-    const next = carry?.key === key ? sameStageDraft(readDraft(key), carry.stages, currentStages()) : readDraft(key)
+    const next = carry?.key === key ? sameStageDraft(readDraft(key), carry.stages, currentStages()) : bindPlanDraft(readDraft(key), currentStages())
     setDraft(next)
     if (carry?.key === key) writeDraft(key, next)
     setNote(readNote(key))
     if (carry && key !== carry.sourceKey) handoff.current = null
     // key includes viewer, template, goal and saved version; edits belong to that context.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key])
+  }, [key, stageSignature])
   const shown = useMemo(() => applyDraft(base, draft), [base, draft])
   const contentBlocked = shown.tasks.some(p => (view.core.includes(p.task) || p.stage !== 'transfer') && p.quantity.planned !== null && p.quantity.available !== null && p.quantity.planned > p.quantity.available)
   // 바뀐 내용 = 초안이 있고, 계획량이나 순서가 저장본(없으면 추천 계획)과 다르다
   const dirty = (draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())) || note.trim().length > 0
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
   const [pending, setPending] = useState<{ key: string; sig: string } | null>(null)
-  const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : 'learner_adjust'
+  const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : drift && drift.stages.length ? 'check_result' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
   const live = useRef({ key, mounted: true, request: 0, edit: 0 })
   // Ref changes synchronously, before an old response can arrive ahead of passive effects.
   if (live.current.key !== key) live.current = { key, mounted: live.current.mounted, request: live.current.request + 1, edit: 0 }
   useEffect(() => { live.current.mounted = true; return () => { live.current.mounted = false; live.current.request++ } }, [])
   useEffect(() => { setSave({ kind: 'idle' }); setPending(null);  }, [key])
-  const stageSignature = view.tasks.map(p => p.task + ':' + p.stage).join('|')
   useEffect(() => {
     if (past) return
     return listenPlanAck(key, ack => {
@@ -136,13 +137,14 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
 
   const update = (next: PlanDraft | null) => {
     edited()
-    setDraft(next)
-    writeDraft(key, next)
+    const bound = next ? { ...next, stages: currentStages() } : null
+    setDraft(bound)
+    writeDraft(key, bound)
     if (next === null) { setNote(''); writeNote(key, ''); if (handoff.current?.sourceKey === key) writeNote(handoff.current.key, '') }
-    if (handoff.current?.sourceKey === key) writeDraft(handoff.current.key, sameStageDraft(next, currentStages(), handoff.current.stages))
+    if (handoff.current?.sourceKey === key) writeDraft(handoff.current.key, bindPlanDraft(bound, currentStages()))
     if (save.kind !== 'idle') setSave({ kind: 'idle' })
   }
-  const baseDraft = (): PlanDraft => draft ?? { order: shown.tasks.map((p) => p.task), planned: {} }
+  const baseDraft = (): PlanDraft => bindPlanDraft(draft, currentStages()) ?? { order: shown.tasks.map((p) => p.task), planned: {}, stages: currentStages() }
   const move = (id: string, dir: -1 | 1) => {
     const order = shown.tasks.map((p) => p.task)
     const i = order.indexOf(id)
@@ -233,21 +235,21 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       </div>
       {/* 저장 상태 — 서버가 확인한 저장본과 화면이 같을 때만 「저장됨」 */}
       {store && (
-        <p className={n.saveState} data-testid="plan-save-state" data-state={refreshing ? 'saving' : sw && !dirty ? 'saved' : dirty ? 'dirty' : 'none'}>
+        <p className={n.saveState} data-testid="plan-save-state" data-state={refreshing ? 'saving' : sw && !dirty && !needsReplan ? 'saved' : dirty || needsReplan ? 'dirty' : 'none'}>
           {refreshing ? (
             <>저장 결과를 불러오는 중…</>
-          ) : sw && !dirty ? (
+          ) : sw && !dirty && !needsReplan ? (
             <><Save size={13} aria-hidden="true" /> 저장됨 · 버전 {sw.latest.version} · {seoul(sw.latest.createdAt, false)} · {REASON_LABEL[sw.latest.reason]}</>
-          ) : dirty ? (
-            <>바꾼 내용이 아직 저장되지 않았어요{sw ? ` · 저장본은 버전 ${sw.latest.version}` : ''}</>
+          ) : dirty || needsReplan ? (
+            <>현재 계획은 아직 저장하지 않았어요{sw ? ` · 저장본은 버전 ${sw.latest.version}` : ''}</>
           ) : (
             <>아직 이 계획을 확정하지 않았어요</>
           )}
         </p>
       )}
-      {store && drift && (drift.content.length > 0 || drift.definition) && !past && (
+      {store && drift && needsReplan && (
         <p className={n.notice} data-testid="plan-drift">
-          <TriangleAlert size={13} aria-hidden="true" /> 저장한 뒤 {drift.definition ? '학습 기준이' : '쓸 수 있는 문항 수가'} 바뀌었어요
+          <TriangleAlert size={13} aria-hidden="true" /> 저장한 뒤 {drift.definition ? '학습 기준이' : drift.stages.length ? '학습 단계가' : '쓸 수 있는 문항 수가'} 바뀌었어요
           {drift.overAvailable.length ? ` — ${drift.overAvailable.length}개 항목의 계획량이 현재 가용 자료보다 많아요` : ''}. 계획을 확인하고 다시 저장해 주세요.
         </p>
       )}
@@ -326,7 +328,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
             <span>메모(선택)</span>
             <input value={note} maxLength={500} onChange={(e) => { edited(); setNote(e.target.value); writeNote(key, e.target.value); if (handoff.current?.sourceKey === key) writeNote(handoff.current.key, e.target.value) }} placeholder="예: 이번 주는 5문항만" data-testid="plan-note" />
           </label>
-          <button type="button" className={n.cta} onClick={() => submit(sw ? why : 'initial')} disabled={contentBlocked || save.kind === 'saving' || refreshing || (!!sw && !dirty && !(drift && (drift.content.length || drift.definition)))} data-testid="plan-save">
+          <button type="button" className={n.cta} onClick={() => submit(sw ? why : 'initial')} disabled={contentBlocked || save.kind === 'saving' || refreshing || (!!sw && !dirty && !needsReplan)} data-testid="plan-save">
             <Save size={15} aria-hidden="true" />
             {contentBlocked ? '자료 준비 후 확정' : save.kind === 'saving' || refreshing ? '저장하는 중…' : sw ? '변경 저장' : '이 계획으로 확정'}
           </button>

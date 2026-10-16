@@ -281,6 +281,8 @@ export function workspacePlan(w: WorkspaceView, asIs: AsIsMap, toBe: ToBeMap | n
 
 /** 학습자 조정 초안 — 순서와 계획량만. 근거 · 판정 · 요구 칸은 여기 없다 */
 export interface PlanDraft {
+  /** Local quantity intent is valid only for the recorded TASK stage. */
+  stages?: Record<string, string | null>
   order: TaskId[]
   planned: Record<TaskId, number>
 }
@@ -293,7 +295,7 @@ export function applyDraft(view: WorkspacePlanView, draft: PlanDraft | null): Wo
   if (!draft) return view
   const planned = view.tasks.map((p) => {
     const want = draft.planned[p.task]
-    if (!p.quantity.adjustable || (p.stage === 'transfer' && want < 1) || want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
+    if ((draft.stages && draft.stages[p.task] !== p.stage) || !p.quantity.adjustable || (p.stage === 'transfer' && want < 1) || want === undefined || p.quantity.available === null || !Number.isFinite(want) || want === p.quantity.planned) return p
     const n = Math.max(0, Math.min(p.quantity.available, Math.round(want)))
     return { ...p, quantity: { ...p.quantity, planned: n, remaining: Math.max(0, n - p.quantity.done) } }
   })

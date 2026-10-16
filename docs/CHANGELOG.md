@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- LM-G1.2 독립 반례: 미저장 PLAN 수량의 단계 결속·단계 변경 재계획과 지연 응답 뒤 새 초안 보존을 보완했다. DB/RPC 변경 없음.
+
 - feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
 
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.

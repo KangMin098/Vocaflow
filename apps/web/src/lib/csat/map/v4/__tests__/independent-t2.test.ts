@@ -6,7 +6,7 @@
 // PLAN(stageNow · quantity) · lifecycle(nextLifecycleAction · 4칸)이 같은 진행 · 계획량으로 같은 다음 행동을 낸다. 고정 시각만.
 
 import { workspaceRows } from '../../v62/workspace-list'
-import { applySaved, buildCommitPayload, type PlanCommitRequest, type SavedPlanVersion, type PlanReason } from '../plan-commit'
+import { applySaved, buildCommitPayload, planDrift, type PlanCommitRequest, type SavedPlanVersion, type PlanReason } from '../plan-commit'
 import { describe, expect, it } from 'vitest'
 
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
@@ -176,4 +176,17 @@ it('restoring inherited transfer2 never records a new TRANSFER allocation1', () 
  const req={template:'ws.central-meaning',order:[T,'r.discourse_function','r.discourse_structure'],planned:{[T]:1},reason:'restore',restoreOf:7,expectedVersion:9,clientKey:'00000000-0000-4000-8000-000000000001'} as PlanCommitRequest
  expect(buildCommitPayload(req,view,NOW)).toMatchObject({ok:false,code:'restore_transfer_policy'})
  expect(buildCommitPayload({...req,planned:{[T]:2}},view,NOW)).toMatchObject({ok:true})
+})
+
+it('a REPAIR quantity draft never becomes a TRANSFER quantity after activity returns', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED])
+ const view={workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null}
+ const draft={order:[T],planned:{[T]:1},stages:{[T]:'repair'}}
+ expect(applyDraft(view,draft).tasks[0].quantity.planned).toBe(2)
+})
+it('a stage change is a replan reason even when availability stays at two', () => {
+ const p=build(asIs({attempts:VERIFIED}),[FIXED])
+ const view={workspace:'ws.central-meaning',core:[T],tasks:[p],progress:null}
+ const saved={canon:'rev4.0',plan:{order:[T],tasks:[{task:T,stage:'repair',planned:5,available:5}]}} as SavedPlanVersion
+ expect(planDrift(saved,view)).toMatchObject({stages:[T],content:[],overAvailable:[]})
 })

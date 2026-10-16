@@ -115,16 +115,20 @@ export interface SavedPlanVersion {
 }
 
 /** 저장된 계획과 지금 계획 보기의 차이 — 재계획 제안(콘텐츠 · 정의가 바뀌었을 때). 근거 · 판정은 보지 않는다 */
-export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[] } | null {
+export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[]; stages: TaskId[] } | null {
   if (!saved) return null
   const content: { task: TaskId; saved: number | null; now: number | null }[] = []
   const overAvailable: TaskId[] = []
+  const stages: TaskId[] = []
   for (const t of saved.plan.tasks) {
+    const current = view.tasks.find(x => x.task === t.task)
+    if (current && current.stage !== t.stage) stages.push(t.task)
     const now = view.tasks.find((x) => x.task === t.task)?.quantity.available ?? null
-    if (now !== t.available) content.push({ task: t.task, saved: t.available, now })
-    if (t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
+    const sameStage = !current || current.stage === t.stage
+    if (sameStage && now !== t.available) content.push({ task: t.task, saved: t.available, now })
+    if (sameStage && t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
   }
-  return { content, definition: saved.canon !== CANON_VERSION, overAvailable }
+  return { content, definition: saved.canon !== CANON_VERSION, overAvailable, stages }
 }
 
 /** 저장된 계획을 화면 보기에 덮는다 — 순서 · 계획량만(가용량이 줄었으면 가용량으로 자르고 표시는 drift 가 한다). 근거 · 수행은 지금 값 */

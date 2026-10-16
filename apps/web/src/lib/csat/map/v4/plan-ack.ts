@@ -26,7 +26,13 @@ export function listenPlanAck(key: string, listener: (ack: PlanAck) => boolean) 
   if (pending && listener(pending)) waiting.delete(key)
   return () => { if (listeners.get(key) === listener) listeners.delete(key) }
 }
-export function sameStageDraft(draft: PlanDraft | null, before: PlanAck['stages'], now: PlanAck['stages']): PlanDraft | null {
+export function sameStageDraft(draft: PlanDraft | null, _before: PlanAck['stages'], now: PlanAck['stages']): PlanDraft | null {
   if (!draft) return null
-  return { order: draft.order, planned: Object.fromEntries(Object.entries(draft.planned).filter(([id]) => id in before && before[id] === now[id])) }
+  return bindPlanDraft(draft, now)
+}
+
+/** Unversioned legacy quantities and quantities from another stage are never reinterpreted. */
+export function bindPlanDraft(draft: PlanDraft | null, stages: PlanAck['stages']): PlanDraft | null {
+  if (!draft) return null
+  return { order: draft.order, planned: Object.fromEntries(Object.entries(draft.planned).filter(([id]) => id in stages && draft.stages?.[id] === stages[id])), stages }
 }

@@ -179,6 +179,13 @@ try {
   const L2 = await ledger(uid)
   rec('R05', 'REPAIR 2 실패 — 원장 4행 · 수행 2 · 다음 REPAIR · 재시도 링크 = 막힌 문항', L2.length === 4 && s2.plan?.done === '2' && stageOf(s2) === 'repair' && blocked.includes(agree(s2)?.split(':')[1]), snap(s2))
 
+  // Leave an actual REPAIR quantity draft before completing the activity.
+  await openMap(page)
+  await page.click('[data-testid=\"ws-row\"][data-ws=\"'+WS+'\"] [data-testid=ws-open]')
+  await page.click('[data-testid=ws-tab-plan]')
+  await page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 문항 줄이기$/}).first().click()
+  const boundRepair=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('map-v4-plan-draft:')&&!k.endsWith(':note')).some(k=>{const d=JSON.parse(localStorage.getItem(k));return d.stages?.['r.central_meaning']==='repair'&&d.planned?.['r.central_meaning']===1}))
+  rec('R05d','REPAIR 미저장량1은 단계에 결속 · 다음 TRANSFER에 재사용 금지',boundRepair,{stage:'repair',draft:1},'browser')
   // 9 재시도 성공 → TRANSFER
   const fix = await answerItem(page, blocked[0], true)
   await openMap(page)
@@ -256,7 +263,12 @@ try {
   const policyLedgerBefore = JSON.stringify(await ledger(uid))
   const goalBefore = await db.from('csat_map_goal_version').select('id').eq('user_id', uid).order('id')
   if (goalBefore.error) throw new Error('goal version read failed')
-  const checkSave = await commitPlan(page, planBody({ planned: { 'r.central_meaning': 2 }, reason: 'learner_adjust', expectedVersion: 2 }))
+  await page.click('[data-testid=\"ws-row\"][data-ws=\"'+WS+'\"] [data-testid=ws-open]')
+  await page.click('[data-testid=ws-tab-plan]')
+  const checkReply=page.waitForResponse(r=>r.url().endsWith('/api/csat/diagnosis/map/plan')&&r.request().method()==='POST')
+  await page.click('[data-testid=plan-save]')
+  const checkResponse=await checkReply
+  const checkSave={status:checkResponse.status(),body:await checkResponse.json()}
   await openMap(page)
   const s5b = await surfaces(page, '05b-recheck-save')
   const goalAfter = await db.from('csat_map_goal_version').select('id').eq('user_id', uid).order('id')
