@@ -76,6 +76,9 @@ describe('independent T4 lineage counterexamples', () => {
  })
  it('missing ledger differs from a complete zero-row ledger', () => {
   expect(run({ firsts: undefined }).ledger).toBe('unknown')
+  expect(run({ firsts: undefined }).currentCheck.status).toBe('unknown')
+  expect(run({ activity: undefined }).instructionPath.repair).toBe('unknown')
   expect(run({ firsts: [], activity: [] }).ledger).toBe('complete')
+  expect(run({ firsts: [], activity: [] }).currentCheck.status).toBe('not_started')
  })
 })

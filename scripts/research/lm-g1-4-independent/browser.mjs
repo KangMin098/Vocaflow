@@ -1,5 +1,5 @@
 // scripts/research/lm-g1-4-independent/browser.mjs
-import { sourceModule } from '../lm-g1-3a-independent/source-loader.mjs'
+import { sourceModule } from './source-loader.mjs'
 //
 // LM-G1.4 — 증거 범위(evidenceView)가 R5 수행 흐름의 단계마다 팝업 · 상세 서랍 · Workspace 창에서 같은 값으로 보이는가.
 // 증거 층위: ② 개발 DB · 기존 API(쓰기는 합성 계정 본인 · 원장은 서비스 키로 읽기만) ③ 실제 Chromium. ④ 학습 효과 · 지연 유지는 PASS 로 만들지 않는다.
@@ -85,6 +85,7 @@ async function surfaces(page, name) {
   await page.waitForSelector(`[data-testid="task-pop"][data-task="${T}"]`).catch(() => {})
   s.popNext = await page.getAttribute('[data-testid="pop-next"]', 'href').catch(() => null)
   s.pop = await page.$eval('[data-testid="task-pop"]', (p) => { const el = p.querySelector('[data-testid="pop-evidence-claims"]'); return el ? { check: el.getAttribute('data-check'), transfer: el.getAttribute('data-transfer'), delay: el.getAttribute('data-delay'), ledger: el.getAttribute('data-ledger'), text: [...el.querySelectorAll('li')].map((l) => l.textContent) } : null }).catch(() => null)
+  s.popBounds=await page.$eval('[data-testid="task-pop"]',e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:innerWidth,height:innerHeight}});
   if (name) await shot(page, `${name}-pop`)
   await page.click('[data-testid="pop-detail"]').catch(() => {})
   await page.waitForSelector('[data-testid="ins-drawer"] [data-testid="ins-evidence-claims"]').catch(() => {})
@@ -105,9 +106,11 @@ async function surfaces(page, name) {
   await page.click(`[data-testid="ws-row"][data-ws="${WS}"] [data-testid="ws-open"]`)
   await page.waitForSelector('[data-testid="ws-modal"]')
   s.modal = await page.$eval('[data-testid="ws-modal"]', (m) => { const el = m.querySelector('[data-testid="ws-evidence-claims"]'); return el ? { check: el.getAttribute('data-check'), transfer: el.getAttribute('data-transfer'), delay: el.getAttribute('data-delay'), ledger: el.getAttribute('data-ledger'), text: [...el.querySelectorAll('li')].map((l) => l.textContent) } : null }).catch(() => null)
+  s.modalBounds=await page.$eval('[data-testid="ws-modal"]',e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:innerWidth,height:innerHeight}});
   if (name) await shot(page, `${name}-modal`)
   await page.keyboard.press('Escape')
   await page.waitForTimeout(300)
+  s.modalClosedAndFocus=await page.evaluate(()=>!document.querySelector('[data-testid="ws-modal"]')&&document.activeElement?.getAttribute('data-testid')==='ws-open');
   s.overflowX = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   return s
 }
@@ -178,6 +181,8 @@ try {
   rec('V05', '새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)', checks.length === 2 && checks.every((c) => c.isCorrect === true) && s4.pop?.check === 'passed' && /문항 4개/.test(s4.drawer?.checkText ?? '') && s4.pop?.delay === 'NOT_ESTABLISHED' && /아직 근거 없음/.test(s4.drawer?.delay ?? '') && same(s4), { checks: checks.map((c) => c.isCorrect), ...snap(s4) })
   rec('V06', '도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음', [s0, s1, s2, s3, s4].every((s) => s.drawer?.scope && noFail(s)), null, 'browser')
   rec('V07', '페이지 가로 넘침 0', [s0, s1, s4].every((s) => s.overflowX === 0), { w: WIDTH }, 'browser')
+  const fits=r=>r&&r.x>=-1&&r.y>=-1&&r.right<=r.width+1&&r.bottom<=r.height+1;
+  rec('I05','PC popup/modal fit, Escape closes and restores Workspace opener focus',[s0,s1,s2,s3,s4].every(s=>fits(s.popBounds)&&fits(s.modalBounds)&&s.modalClosedAndFocus),[s0,s1,s2,s3,s4].map(s=>({pop:s.popBounds,modal:s.modalBounds,closedAndFocus:s.modalClosedAndFocus})));
   await ctx.close()
   }
 

@@ -15,7 +15,7 @@ if(mode==='browser'){
  const {createClient}=req('@supabase/supabase-js')
  const {cleanupOwnedAccounts}=await import('../lm-g1-1-independent/cleanup.mjs')
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
- const base='http://localhost:3011',local=path.join(import.meta.dirname,process.argv[3]==='loss'?'local/loss-verified':'local/final');fs.mkdirSync(local,{recursive:true})
+ const base='http://localhost:3011',local=path.join(import.meta.dirname,'local/final-v2');fs.mkdirSync(local,{recursive:true})
  const jobs=[
  ['t4-1280','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1280','--evidence',local+'/t4-1280']],
  ['t4-1440','scripts/research/lm-g1-4-independent/browser.mjs',['--base',base,'--width','1440','--evidence',local+'/t4-1440']],

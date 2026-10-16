@@ -15,7 +15,7 @@ const TRANSFER_LABEL: Record<EvidenceView['newPassageTransfer']['status'], strin
   no_content: '적용할 글을 준비 중이에요',
   unknown: '기록을 읽지 못했어요',
 }
-const REPAIR_LABEL: Record<EvidenceView['instructionPath']['repair'], string> = { none: '아직 없어요', tried: '해 봤어요', succeeded: '맞혀 봤어요' }
+const REPAIR_LABEL: Record<EvidenceView['instructionPath']['repair'], string> = { unknown: '기록을 읽지 못했어요', none: '아직 없어요', tried: '해 봤어요', succeeded: '맞혀 봤어요' }
 const CLAIM_LABEL: Record<AttemptEvidence['claim'], string> = {
   independent_check: '혼자 푼 첫 확인',
   condition_success: '이 과제를 맞힘(혼자 확인은 아님)',
@@ -28,7 +28,7 @@ function transferText(e: EvidenceView) {
   const t = e.newPassageTransfer
   if (t.status === 'experienced' || t.status === 'none') {
     const m = e.instructionPath.transferPlanned
-    return `${TRANSFER_LABEL[t.status]} · ${t.passages}${m !== null ? ` / ${m}` : ''}편`
+    return `${TRANSFER_LABEL[t.status]} · ${t.passages}${m !== null ? ` / ${m}` : ''}편(현재 원문 기준)`
   }
   return TRANSFER_LABEL[t.status]
 }
@@ -52,7 +52,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
     <div className={u.evBlock} data-testid="ins-evidence-claims" data-check={e.currentCheck.status} data-ledger={e.ledger}>
       <dl className={u.popKv}>
         <dt>지금 확인</dt>
-        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · 혼자 처음 푼 확인 문항 {new Set(e.attempts.filter((a) => a.claim === 'independent_check').map((a) => a.itemRef)).size}개(지금까지 전체)</dd>
+        <dd data-testid="ev-check">{CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '전체 수행 집계 보류' : `혼자 처음 푼 확인 문항 ${new Set(e.attempts.filter((a) => a.claim === 'independent_check').map((a) => a.itemRef)).size}개(지금까지 전체)`}</dd>
         <dt>바로잡기</dt>
         <dd data-testid="ev-repair">{REPAIR_LABEL[e.instructionPath.repair]} — 해 본 것이지 익혔다는 뜻은 아니에요</dd>
         <dt>다른 글 적용</dt>
@@ -74,7 +74,7 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
           ))}
         </ul>
       )}
-      {e.sharedPassageGroups.length > 0 && <p className={u.fine} data-testid="ev-shared">같은 글의 다른 문항 {e.sharedPassageGroups.length}묶음은 서로 따로 센 확인이 아니에요.</p>}
+      {e.sharedPassageGroups.length > 0 && <p className={u.fine} data-testid="ev-shared">같은 글의 다른 문항 {e.sharedPassageGroups.length}묶음이 있어요. 현재 문항 수에는 포함하며, 별개 글의 독립 관찰로 해석하지 않아요(집계 정책 미확정).</p>}
       {e.scope && (
         <details className={u.evScope} data-testid="ev-scope">
           <summary>이 과제가 보는 것 · 보지 않는 것</summary>

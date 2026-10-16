@@ -53,14 +53,14 @@ export interface AttemptEvidence {
   reasons: string[]
 }
 
-export type CurrentCheck = 'not_started' | 'checking' | 'need_confirmed' | 'still_needed' | 'passed' | 'expired'
+export type CurrentCheck = 'unknown' | 'not_started' | 'checking' | 'need_confirmed' | 'still_needed' | 'passed' | 'expired'
 export interface EvidenceView {
   task: TaskId
   taskKey: string | null
   /** 현재 운영 기준의 독립 CHECK(skillDiagnosis 그대로 — 다시 판정하지 않음) */
   currentCheck: { status: CurrentCheck; independentItems: number; policy: 'skill-diagnosis: FIND 2 · CHECK 연속 2 · 회차 120일' }
   /** 교수 경로 수행(바로잡기 · 적용) — 성취 · 지연 유지가 아니다 */
-  instructionPath: { repair: 'none' | 'tried' | 'succeeded'; transferDone: number; transferPlanned: number | null }
+  instructionPath: { repair: 'unknown' | 'none' | 'tried' | 'succeeded'; transferDone: number; transferPlanned: number | null }
   /** 다른 원문 적용 경험(서로 다른 정규 원문 수) — 독립 적용 능력 주장 아님 */
   newPassageTransfer: { status: 'none' | 'experienced' | 'no_content' | 'unknown'; passages: number }
   /** 지연 유지 — 승인된 간격 · 도구가 없으면 NOT_ESTABLISHED. 120일 만료 · resolved 를 승격하지 않는다 */
@@ -151,8 +151,8 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
   const sharedPassageGroups = [...byPassage.values()].filter((s) => s.size > 1).map((s) => [...s].sort())
 
   // 교수 경로 — lifecycle 창 그대로
-  let repair: EvidenceView['instructionPath']['repair'] = 'none'
-  if (c?.verifiedAt) {
+  let repair: EvidenceView['instructionPath']['repair'] = ledger === 'unknown' ? 'unknown' : 'none'
+  if (ledger === 'complete' && c?.verifiedAt) {
     const w = repairWindow({ status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } })
     if (w) {
       const blocked = new Set(w.blocked)
@@ -160,7 +160,7 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
       repair = tries.some((a) => a.isCorrect === true) ? 'succeeded' : tries.length ? 'tried' : 'none'
     }
   }
-  const status = c ? CHECK_OF[c.status] ?? 'checking' : 'not_started'
+  const status = c ? CHECK_OF[c.status] ?? 'checking' : input.firsts === undefined ? 'unknown' : 'not_started'
   return {
     task: input.task,
     taskKey: key,
@@ -177,5 +177,6 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
 }
 
 export const CURRENT_CHECK_LABEL: Record<CurrentCheck, string> = {
+  unknown: '확인 기록 조회 보류',
   not_started: '아직 확인 전', checking: '확인 중', need_confirmed: '연습이 필요하다고 확인됨', still_needed: '다시 확인에서 아직 막힘', passed: '통과(지금 기준)', expired: '기간 지나 다시 확인 필요',
 }
