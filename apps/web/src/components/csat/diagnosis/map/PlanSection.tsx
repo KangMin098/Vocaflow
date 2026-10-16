@@ -50,8 +50,8 @@ function readDraft(key: string): PlanDraft | null {
 }
 function writeDraft(key: string, d: PlanDraft | null) {
   try {
-    if (d) window.localStorage.setItem(key, JSON.stringify(d))
-    else window.localStorage.removeItem(key)
+    // null is an explicit reset marker; an older acknowledgement must not resurrect it.
+    window.localStorage.setItem(key, JSON.stringify(d))
   } catch {
     // 저장소를 못 쓰면 이 화면에서만 유지된다(초안이라 잃어도 근거 · 기록은 그대로)
   }
@@ -61,13 +61,20 @@ function readNote(key: string): string {
   try { return (window.localStorage.getItem(key + ':note') ?? '').slice(0, 500) } catch { return '' }
 }
 function writeNote(key: string, value: string) {
-  try { if (value) window.localStorage.setItem(key + ':note', value); else window.localStorage.removeItem(key + ':note') } catch { /* device draft only */ }
+  try { window.localStorage.setItem(key + ':note', value) } catch { /* device draft only */ }
+}
+
+function hasDraft(key: string): boolean {
+  try { return window.localStorage.getItem(key) === 'null' || readDraft(key) !== null } catch { return false }
+}
+function hasNote(key: string): boolean {
+  try { return window.localStorage.getItem(key + ':note') !== null } catch { return false }
 }
 
 /** The authenticated response may arrive while no editor is mounted. */
 function carryPlanEdit(from: string, to: string) {
-  if (!readDraft(to)) writeDraft(to, readDraft(from))
-  if (!readNote(to)) writeNote(to, readNote(from))
+  if (!hasDraft(to)) writeDraft(to, readDraft(from))
+  if (!hasNote(to)) writeNote(to, readNote(from))
 }
 
 /** 저장 시각을 서울 시각으로(서버 · 브라우저가 같은 글자 — UTC 로 자르면 오전 저장이 전날로 보였다) */
@@ -128,8 +135,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       const nextKey = draftKey(viewer, view.workspace, goal, ack.version)
       const carry = sameStageDraft(readDraft(key), ack.stages, currentStages())
       // An already newer draft wins. Keep the old key as provenance; no automatic server save.
-      if (!readDraft(nextKey)) writeDraft(nextKey, carry)
-      if (!readNote(nextKey)) writeNote(nextKey, readNote(key))
+      if (!hasDraft(nextKey)) writeDraft(nextKey, carry)
+      if (!hasNote(nextKey)) writeNote(nextKey, readNote(key))
       handoff.current = { sourceKey: key, key: nextKey, stages: ack.stages }
       setPending(null)
       setSave({ kind: 'idle' })
@@ -363,7 +370,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                 <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
                 <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
-                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || !!transferRestoreShortage(view, h.version) || h.plan.tasks.some(x => { const p = view.tasks.find(t => t.task === x.task); return x.stage === 'transfer' && p?.stage === 'transfer' && x.planned !== null && p.quantity.available !== null && x.planned > p.quantity.available })} data-testid="plan-restore">
+                  <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || !!transferRestoreShortage(view, h.version)} data-testid="plan-restore">
                     <RotateCcw size={13} aria-hidden="true" /> 이 버전으로 되돌리기
                   </button>
                 )}

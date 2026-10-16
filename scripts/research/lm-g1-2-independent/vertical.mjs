@@ -184,7 +184,7 @@ try {
   await page.click('[data-testid=\"ws-row\"][data-ws=\"'+WS+'\"] [data-testid=ws-open]')
   await page.click('[data-testid=ws-tab-plan]')
   await page.locator('[data-testid=plan-section]').getByRole('button',{name:/계획 한 문항 줄이기$/}).first().click()
-  const boundRepair=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('map-v4-plan-draft:')&&!k.endsWith(':note')).some(k=>{const d=JSON.parse(localStorage.getItem(k));return d.stages?.['r.central_meaning']==='repair'&&d.planned?.['r.central_meaning']===1}))
+  const boundRepair=await page.evaluate(()=>Object.keys(localStorage).filter(k=>k.startsWith('map-v4-plan-draft:')&&!k.endsWith(':note')).some(k=>{const d=JSON.parse(localStorage.getItem(k));return d?.stages?.['r.central_meaning']==='repair'&&d.planned?.['r.central_meaning']===1}))
   rec('R05d','REPAIR 미저장량1은 단계에 결속 · 다음 TRANSFER에 재사용 금지',boundRepair,{stage:'repair',draft:1},'browser')
   // 9 재시도 성공 → TRANSFER
   const fix = await answerItem(page, blocked[0], true)
