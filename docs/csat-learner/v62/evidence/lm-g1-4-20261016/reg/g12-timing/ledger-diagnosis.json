@@ -1,0 +1,23 @@
+{
+  "withinMs": 6079,
+  "sessions": [
+    {
+      "same": true,
+      "explained": false,
+      "helped": false,
+      "srv": false
+    },
+    {
+      "same": false,
+      "explained": true,
+      "helped": true,
+      "srv": true
+    }
+  ],
+  "first": {
+    "timing_uncertain": true,
+    "after_explanation": false,
+    "after_viewed_first": false,
+    "help_level": "independent"
+  }
+}
