@@ -37,7 +37,7 @@ export interface MaterialUnitProjection {
   shortfall: number
   /** 부족을 생산 단위로 바꾼 수 — 변환 근거가 없으면 null(짐작하지 않는다) */
   productionQuantity: number | null
-  conversion: { status: ConversionStatus; evidenceId: string | null; why: string }
+  conversion: { status: ConversionStatus; evidenceId: string | null; factor: number | null; why: string }
 }
 
 const BASIS: Record<MaterialUnit, MaterialUnitProjection['countingBasis']> = {
@@ -56,16 +56,16 @@ export function projectUnits(input: { demandUnit: string; requested: number; eli
   const eligible = assertMaterialCount(input.eligible, 'eligible')
   const shortfall = Math.max(0, requested - eligible)
   const base = { demandUnit: input.demandUnit, materialUnit: material, productionUnit: input.productionUnit, requested, eligible, shortfall }
-  if (!material) return { ...base, countingBasis: 'unknown', productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, why: 'demand_unit_unknown' } }
+  if (!material) return { ...base, countingBasis: 'unknown', productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, factor: null, why: 'demand_unit_unknown' } }
   const basis = BASIS[material]
-  if (material === input.productionUnit) return { ...base, countingBasis: basis, productionQuantity: shortfall, conversion: { status: 'IDENTITY', evidenceId: null, why: 'same_unit' } }
-  if (NEVER.some(([a, b]) => a === material && b === input.productionUnit)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'NOT_CONVERTIBLE', evidenceId: null, why: `${material}_is_not_${input.productionUnit}` } }
+  if (material === input.productionUnit) return { ...base, countingBasis: basis, productionQuantity: shortfall, conversion: { status: 'IDENTITY', evidenceId: null, factor: 1, why: 'same_unit' } }
+  if (NEVER.some(([a, b]) => a === material && b === input.productionUnit)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'NOT_CONVERTIBLE', evidenceId: null, factor: null, why: `${material}_is_not_${input.productionUnit}` } }
   const rules = (input.rules ?? CONVERSION_RULES).filter((r) => r.from === material && r.to === input.productionUnit && Number.isFinite(r.factor) && r.factor > 0 && typeof r.evidenceId === 'string' && r.evidenceId.trim().length > 0)
   const rule = rules[0]
-  if (!rule) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, why: 'no_conversion_evidence' } }
-  if (rules.some((r) => r.factor !== rule.factor || r.evidenceId !== rule.evidenceId)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, why: 'conflicting_conversion_evidence' } }
+  if (!rule) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, factor: null, why: 'no_conversion_evidence' } }
+  if (rules.some((r) => r.factor !== rule.factor || r.evidenceId !== rule.evidenceId)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, factor: null, why: 'conflicting_conversion_evidence' } }
   // 생산 단위는 부족분을 덮도록 올림(근거 있는 환산만)
   const productionQuantity = Math.ceil(shortfall / rule.factor)
-  if (!Number.isSafeInteger(productionQuantity)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, why: 'production_quantity_outside_safe_range' } }
-  return { ...base, countingBasis: basis, productionQuantity, conversion: { status: 'CONVERTED', evidenceId: rule.evidenceId, why: 'evidence_rule' } }
+  if (!Number.isSafeInteger(productionQuantity)) return { ...base, countingBasis: basis, productionQuantity: null, conversion: { status: 'UNKNOWN_UNIT', evidenceId: null, factor: null, why: 'production_quantity_outside_safe_range' } }
+  return { ...base, countingBasis: basis, productionQuantity, conversion: { status: 'CONVERTED', evidenceId: rule.evidenceId, factor: rule.factor, why: 'evidence_rule' } }
 }

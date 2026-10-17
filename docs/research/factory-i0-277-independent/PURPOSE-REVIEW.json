@@ -1,0 +1,35 @@
+{
+  "head": "c98cb6210",
+  "command": "node agents/scripts/review.mjs --base origin/main",
+  "exit": 2,
+  "findings": [
+    "P2 approval order causes false stock conflict",
+    "P2 conversion factor missing in share specification",
+    "P2 crosswalk materialRole ignored"
+  ],
+  "initialTests": {
+    "passed": 45,
+    "failed": 3,
+    "sha256": "a921dc3e79407aa39ec393a3b3f58f22278adee4fc5d06a89018fb10e0d19429",
+    "assertions": [
+      {
+        "name": " purpose review counterexamples approval list order is not conflicting inventory",
+        "failures": [
+          "expected [] to deeply equal [ 'a' ]"
+        ]
+      },
+      {
+        "name": " purpose review counterexamples different factors with the same rounded quantity still have different production keys",
+        "failures": [
+          "expected 'a7f6d2424b62a069824262f57b35d95e' not to be 'a7f6d2424b62a069824262f57b35d95e' // Object.is equality"
+        ]
+      },
+      {
+        "name": " purpose review counterexamples guided-only Crosswalk cannot create source-analysis production candidates",
+        "failures": [
+          "expected [ { …(14) } ] to have a length of +0 but got 1"
+        ]
+      }
+    ]
+  }
+}

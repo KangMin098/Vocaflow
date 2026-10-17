@@ -38,3 +38,6 @@
 3. 부분 납품 시 주문 상태 의미(`delivered` = 하나라도 공급 vs 전량).
 4. MaterialUnit 변환 근거(문항 → cell): 공장 cell 당 문항 수는 주문마다 다르다. 공장 계약이 정본을 돌려주기 전까지 UNKNOWN_UNIT.
 5. Crosswalk 후보 검증(맹검 표본 · 검수자).
+
+## Codex 독립 감사 보충(미적용 유지)
+[독립 SQL 감사](../../research/factory-i0-277-independent/SQL-AUDIT.md)에서 NULL state가 축/승인 검사에서 거절되지 않는 추가 P1을 확인했다. [격리 결과](../../research/factory-i0-277-independent/SQL-ISOLATED.json)는 원본 C로 실제 자격/승인이 생기는 것을 로컬 PGlite에서만 재현하고, 수정 사양 7조건을 검증했다. 실제 DB에 적용하지 않았다. delta D2는 현재 주석 교체 지침이므로 실행 가능한 승인 함수 수정본으로 조립/검증하기 전 적용하면 안 된다. 승인 패키지에는 NULL 거절, source/analysis/Gold 현재성, 부분 납품 정의, 실제 RLS/정의자 권한 및 동시성 시험도 포함한다.

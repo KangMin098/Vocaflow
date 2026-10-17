@@ -71,3 +71,9 @@ describe('independent F educational mapping',()=>{
  it('E3 option correspondence does not search grammar-only P06 as paraphrase material',()=>expect(crosswalk.crosswalkFor('e.option_correspondence').some(c=>c.productFamily==='P06')).toBe(false))
  it('no current search candidate can seal or authorize assessment',()=>{for(const c of crosswalk.CROSSWALK){expect(crosswalk.crosswalkUsable(c,'seal_order').ok).toBe(false);expect(crosswalk.crosswalkUsable(c,'assessment').ok).toBe(false)}})
 })
+
+describe('purpose review counterexamples',()=>{
+ it('approval list order is not conflicting inventory',()=>{const c=candidate();c.approvals=[...c.approvals,{id:'assessment',qualificationId:'q1',scope:'assessment',approverRole:'admin',revoked:false}];const reversed={...c,approvals:[...c.approvals].reverse()};expect(resolveStock({task:'v.contextual_sense',role:'guided_practice',requested:1},'ok',[c,reversed]).eligible).toEqual(['a'])})
+ it('different factors with the same rounded quantity still have different production keys',()=>{const a=productionNeed(request(),stock(),{brief,policies:policies(),rules});const b=productionNeed(request(),stock(),{brief,policies:policies(),rules:[{...rules[0]!,factor:3}]});expect(a.shareKey).not.toBe(b.shareKey)})
+ it('guided-only Crosswalk cannot create source-analysis production candidates',()=>{const r={...request(),role:'source_analysis' as const},s={...stock(),role:'source_analysis' as const};const n=productionNeed(r,s,{brief});expect(n.crosswalk).toHaveLength(0);expect(n.familyCandidates).toHaveLength(0);expect(n.itemTypes).toHaveLength(0);expect(n.blockers).toContain('crosswalk_role_unsupported')})
+})

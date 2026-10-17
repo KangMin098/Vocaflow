@@ -10,6 +10,7 @@
 import { CANON_VERSION, type TaskId } from '../../v4/definition'
 
 export const CROSSWALK_VERSION = 'vf.task-factory-crosswalk/1' as const
+export const CROSSWALK_REVISION = `${CROSSWALK_VERSION}#1` as const
 /** 공장에 별도 분류 버전 문자열이 없다 — 엔진 버전 + 브랜치 HEAD 를 출처로 묶는다 */
 export const FACTORY_TAXONOMY_VERSION = 'academic-reading/READING_ENGINE_VERSION=1@663f2eee8' as const
 
@@ -46,7 +47,7 @@ export interface TaskFactoryCrosswalk {
 }
 
 const C = (o: Omit<TaskFactoryCrosswalk, 'taskDefinitionVersion' | 'factoryTaxonomyVersion' | 'claimScope' | 'status' | 'validationEvidenceId' | 'reviewer' | 'effectiveRevision'>): TaskFactoryCrosswalk => ({
-  ...o, taskDefinitionVersion: CANON_VERSION, factoryTaxonomyVersion: FACTORY_TAXONOMY_VERSION, claimScope: 'search_only', status: 'candidate', validationEvidenceId: null, reviewer: null, effectiveRevision: `${CROSSWALK_VERSION}#1`,
+  ...o, taskDefinitionVersion: CANON_VERSION, factoryTaxonomyVersion: FACTORY_TAXONOMY_VERSION, claimScope: 'search_only', status: 'candidate', validationEvidenceId: null, reviewer: null, effectiveRevision: CROSSWALK_REVISION,
 })
 
 /** 초기 후보 — 사람 · 맹검 검수 전. 지시서의 후보를 공장 정본 이름과 대 보며 관계를 좁혔다 */

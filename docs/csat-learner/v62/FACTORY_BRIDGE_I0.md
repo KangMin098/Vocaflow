@@ -90,3 +90,6 @@ WorkspaceDemand(demand.ts) ─ buildFactoryRequests ─▶ FactoryRequest(vf.fac
 | 산출물 공급 | 권은 `publish_eligible:false` · 다학년 권은 `contract_only` |
 
 그래서 I0 의 어댑터는 공장 계약의 **형식**까지만 맞추고, 실제 실행 결과는 I3 에서 같은 검증기로 받는다.
+
+## 후속 독립 반증 경계
+공유 키는 올림 생산 수량이 같아도 서로 다른 환산 factor를 구별한다. 동일 승인 집합의 배열 순서는 재고 충돌이 아니다. ProductionNeed의 후보는 해당 요청 materialRole을 지원하는 Crosswalk만 사용하며 역할 대응이 없으면 crosswalk_role_unsupported로 막는다. source_analysis를 guided_practice 제품으로 대체하지 않는다.

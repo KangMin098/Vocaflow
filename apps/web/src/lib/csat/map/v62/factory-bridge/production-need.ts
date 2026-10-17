@@ -12,7 +12,7 @@ import type { MaterialRole } from '../demand'
 import type { FactoryRequest } from '../factory-integration'
 import { ASSESSMENT_ROLES } from '../qualification'
 
-import { crosswalkFor, crosswalkUsable, type ProductFamily, type TaskFactoryCrosswalk } from './crosswalk'
+import { CROSSWALK_REVISION, crosswalkFor, crosswalkUsable, type ProductFamily, type TaskFactoryCrosswalk } from './crosswalk'
 import { assertMaterialCount, projectUnits, type ConversionRule, type MaterialUnitProjection } from './material-unit'
 import type { StockResolution } from './stock-resolver'
 
@@ -77,7 +77,8 @@ export function productionNeed(req: FactoryRequest, stock: StockResolution, opts
     if (typeof opts.run.recorded !== 'boolean') throw new Error('invalid_reported_run')
     assertMaterialCount(opts.run.artifacts, 'reported_artifacts')
   }
-  const xw = crosswalkFor(req.task as never)
+  const taskCrosswalk = crosswalkFor(req.task as never)
+  const xw = taskCrosswalk.filter((c) => c.materialRole.some((r) => r === req.role))
   const brief = opts.brief ?? null
   const missingBrief = PRODUCT_BRIEF_FIELDS.filter((f) => brief?.[f] === undefined || brief?.[f] === null)
   const missingPolicies = ORDER_POLICY_FIELDS.filter((p) => !opts.policies?.[p]?.version.trim() || !/^[0-9a-f]{64}$/.test(opts.policies[p]!.hash))
@@ -91,7 +92,7 @@ export function productionNeed(req: FactoryRequest, stock: StockResolution, opts
     task: req.task, role: req.role, crosswalk: xw, units, itemTypes, familyCandidates, missingBrief: [...missingBrief], missingPolicies: [...missingPolicies],
     requirements: { rightsUsable: true as const, ...req.constraints },
     approvalsNeeded: ['bulk_generation_cost', 'db_schema_orders', 'content_release'],
-    provenance: { crosswalkVersion: xw[0]?.effectiveRevision ?? 'vf.task-factory-crosswalk/1#0', factoryTaxonomyVersion: xw[0]?.factoryTaxonomyVersion ?? null, factoryHead: '663f2eee8' as const, connection: 'CONTRACT_ONLY' as const },
+    provenance: { crosswalkVersion: xw[0]?.effectiveRevision ?? CROSSWALK_REVISION, factoryTaxonomyVersion: xw[0]?.factoryTaxonomyVersion ?? null, factoryHead: '663f2eee8' as const, connection: 'CONTRACT_ONLY' as const },
   }
   // v2 is a specification group, not an order or an aggregate quantity. Personal IDs
   // and PLAN/goal revisions are omitted; production, policies and quantities are exact.
@@ -103,7 +104,7 @@ export function productionNeed(req: FactoryRequest, stock: StockResolution, opts
   if (stock.newProductionNeeded === null) { blockers.push(`stock_${stock.line}`); return done('UNKNOWN_STOCK') }
   if (stock.newProductionNeeded === 0) return done('NOT_NEEDED')
   if (ASSESSMENT_ROLES.has(req.role)) { blockers.push('assessment_not_from_factory', 'gold_rubric', 'learner_exposure_ledger'); return done('ASSESSMENT_NOT_FROM_FACTORY') }
-  if (xw.length === 0) { blockers.push('no_crosswalk'); return done('UNMAPPED_TASK') }
+  if (xw.length === 0) { blockers.push(taskCrosswalk.length ? 'crosswalk_role_unsupported' : 'no_crosswalk'); return done('UNMAPPED_TASK') }
   if (!xw.some((c) => crosswalkUsable(c, 'seal_order').ok)) blockers.push('crosswalk_not_validated')
   if (missingBrief.length) blockers.push('product_brief_incomplete')
   if (missingPolicies.length) blockers.push('order_policies_missing')
