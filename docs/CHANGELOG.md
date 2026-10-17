@@ -23,6 +23,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- V2-F2 Codex-G: 별도 R1 8건을 불변 봉인하고 의미·모호성·V2/S5 경계를 기록했다. 소유자 계약 선열람 이탈을 공개했으며 전체 판정은 DEFER, R2는 소유자 제공 대기다. [검수 기록](./research/v2-f2-r1-review-20261017/REPORT.md).
+
 - PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
 
 - feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
