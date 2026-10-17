@@ -18,6 +18,7 @@ const out = path.resolve(root, arg('--out', 'tmp/v2-f1-panel'))
 fs.mkdirSync(out, { recursive: true })
 const SHA = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root }).toString().trim()
 const DIRTY = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: root }).toString().trim().length > 0
+const actualMeta = process.argv.includes('--actual-meta')
 const SENSE = ['SENSE_DECREASE_FIXTURE', 'SENSE_INCREASE_FIXTURE', 'SENSE_SAME_FIXTURE']
 const panel = 'apps/web/src/components/csat/theater/ContextSensePanel.tsx'
 const entry = `import React from 'react';import {createRoot} from 'react-dom/client';import {ContextSensePanel} from './${panel}';
@@ -27,14 +28,24 @@ const stub = `import {useRef} from 'react';export function useTaskMeta(){const s
 const built = await build({
   stdin: { contents: entry, resolveDir: root, loader: 'tsx' }, nodePaths: [root + '/apps/web/node_modules'], bundle: true, write: false, platform: 'browser', jsx: 'automatic', define: { 'process.env.NODE_ENV': '"development"' },
   plugins: [{ name: 'fixture', setup(b) {
-    b.onResolve({ filter: /task-meta$/ }, () => ({ path: 'meta', namespace: 'stub' }))
+    if (!actualMeta) b.onResolve({ filter: /task-meta$/ }, () => ({ path: 'meta', namespace: 'stub' }))
+    if (actualMeta) {
+      b.onResolve({ filter: /^@\/lib\/csat\/session\/store$/ }, () => ({ path: 'store', namespace: 'io' }))
+      b.onResolve({ filter: /^@\/lib\/supabase\/client$/ }, () => ({ path: 'auth', namespace: 'io' }))
+      b.onLoad({ filter: /.*/, namespace: 'io' }, (a) => ({ contents: a.path === 'auth'
+        ? "export function createClient(){return {auth:{getSession:async()=>({data:{session:{user:{id:'isolated'}}}})}}}"
+        : "export async function loadDissectionRecord(){return {sessions:[]}}", loader: 'ts' }))
+    }
     b.onLoad({ filter: /.*/, namespace: 'stub' }, () => ({ contents: stub, resolveDir: root + '/apps/web', loader: 'tsx' }))
     b.onResolve({ filter: /^@\// }, (a) => ({ path: root + '/apps/web/src/' + a.path.slice(2) + '.ts' }))
   } }],
 })
+const css = (await req('postcss')([req('tailwindcss')({ content: [path.join(root, panel)] })])
+  .process('@tailwind base;@tailwind utilities;', { from: undefined })).css
+const tokens = fs.readFileSync(path.join(root, 'packages/design-tokens/src/tokens.css'), 'utf8')
 const server = http.createServer((q, s) => {
   if (q.url === '/bundle.js') { s.setHeader('content-type', 'application/javascript'); s.end(built.outputFiles[0].contents) }
-  else { s.setHeader('content-type', 'text/html'); s.end('<html lang="ko"><head><meta charset="UTF-8"><style>body{font:16px sans-serif;margin:24px}</style></head><body><div id="root"></div><script src="/bundle.js"></script></body></html>') }
+  else { s.setHeader('content-type', 'text/html'); s.end('<html lang="ko"><head><meta charset="UTF-8"><style>' + tokens + css + 'body{margin:24px}</style></head><body><div id="root"></div><script src="/bundle.js"></script></body></html>') }
 })
 await new Promise((r) => server.listen(0, '127.0.0.1', r))
 const base = 'http://127.0.0.1:' + server.address().port
@@ -55,18 +66,29 @@ try {
       if (lost) { lost = false; await route.abort('failed') } else await route.fulfill({ status: reply.status, contentType: 'application/json', body: JSON.stringify(reply.body) })
     })
     const html = () => page.evaluate(() => document.documentElement.outerHTML)
+    const privateStateLeaks = () => page.getByTestId('principle-panel').evaluate((el, senses) => {
+      let fiber = el[Object.keys(el).find(k => k.startsWith('__reactFiber$'))]
+      while (fiber && fiber.type?.name !== 'ContextSensePanel') fiber = fiber.return
+      if (!fiber) throw Error('Panel React fiber missing')
+      const values = [fiber.memoizedProps]
+      for (let hook = fiber.memoizedState; hook; hook = hook.next) values.push(hook.memoizedState)
+      return senses.some(s => JSON.stringify(values).includes(s))
+    }, SENSE)
     const open = async (m) => { await page.goto(base + (m ? `?m=${m}` : '')); await page.getByText('직접 확인하기', { exact: true }).click() }
 
     await open()
     rec(`${width} F1 열기 직후 DOM(숨김 포함)에 뜻 선택지 없음`, !leak(await html()) && (await page.locator('[data-sense]').count()) === 0)
+    rec(`${width} React props 및 hook 상태에 D 없음`, !(await privateStateLeaks()))
     await page.locator('[data-misfit="3"]').click()
     await page.locator('[data-cue="4"]').click()
     rec(`${width} F1 B 선택 뒤 · 제출 전에도 뜻 선택지 없음 · 제출 가능`, !leak(await html()) && (await page.getByTestId('cs-submit').isEnabled()))
+    await page.screenshot({ path: path.join(out, `${width}-before-submit.png`) })
 
     reply = { status: 200, body: wrong }
     await page.getByTestId('cs-submit').click()
     await page.getByTestId('principle-result').waitFor()
     rec(`${width} F1 B 오답 응답 뒤에도 뜻 선택지 없음`, !leak(await html()) && (await page.getByTestId('cs-sense-practice').count()) === 0)
+    rec(`${width} B 오답 뒤 React 상태에도 D 없음`, !(await privateStateLeaks()))
     rec(`${width} 첫 제출 본문에 sense 없음`, requests.every((r) => !('sense' in r.response)), { keys: Object.keys(requests.at(-1).response) })
 
     reply = { status: 200, body: right }
@@ -94,6 +116,11 @@ try {
     reply = { status: 200, body: { outcome: 'inserted', grade: { misfitOk: false, cueOk: null, isCorrect: false, followUp: { senseOptions: SENSE, senseCorrect: 0 } } } }
     await open(); await page.locator('[data-misfit="0"]').click(); await page.getByTestId('cs-submit').click(); await page.getByRole('alert').waitFor()
     rec(`${width} B 오답인데 선택지가 온 응답은 버림(완료 아님 · 단서 미표시)`, (await page.getByTestId('principle-result').count()) === 0 && !leak(await html()))
+    for (const body of [{ grade: right.grade }, { outcome: 'conflict', grade: right.grade }, { outcome: 'inserted', grade: { ...right.grade, isCorrect: false } }]) {
+      reply = { status: 200, body }
+      await open(); await page.locator('[data-misfit="3"]').click(); await page.getByTestId('cs-submit').click(); await page.getByRole('alert').waitFor()
+      rec(`${width} 잘못된 200 (${body.outcome ?? 'missing receipt'}/${body.grade.isCorrect}) → 결과 · D 없음`, (await page.getByTestId('principle-result').count()) === 0 && !leak(await html()) && !(await privateStateLeaks()))
+    }
 
     reply = { status: 200, body: right }
     await open(); await page.locator('[data-misfit="3"]').click(); lost = true
@@ -110,6 +137,8 @@ try {
     await page.getByTestId('cs-submit').evaluate((el) => { el.click(); el.click() })
     await page.waitForTimeout(50)
     rec(`${width} 제출 중 B 잠김`, await page.locator('[data-misfit="0"]').isDisabled())
+    rec(`${width} 저장 대기 중 결과 · D · React 단서 없음`, !leak(await html()) && !(await privateStateLeaks()) && (await page.getByTestId('principle-result').count()) === 0)
+    await page.screenshot({ path: path.join(out, `${width}-saving.png`) })
     await page.waitForTimeout(500)
     rec(`${width} 동시 이중 클릭 → 요청 1건`, requests.length === n + 1)
     delay = 0
@@ -117,16 +146,15 @@ try {
     await open('letter')
     rec(`${width} F5 X-VOCAB 표지 (a)~(e)`, (await page.locator('[data-misfit="0"]').innerText()).startsWith('(a)') && (await page.locator('[data-misfit="4"]').innerText()).startsWith('(e)'))
     await page.locator('[data-misfit="1"]').focus(); await page.keyboard.press('Enter')
-    // 격리 하네스에는 Tailwind CSS 가 없다 — 44px 는 실측이 아니라 클래스(min-h-11 · min-w-11) 존재로만 본다
-    const cls = await page.locator('[data-misfit], [data-cue], [data-testid="cs-submit"]').evaluateAll((xs) => xs.every((x) => x.className.includes('min-h-11') && x.className.includes('min-w-11')))
-    rec(`${width} 키보드 선택 · 44px 클래스(하네스 CSS 없음) · 가로 넘침 0`, (await page.locator('[data-misfit="1"]').getAttribute('aria-pressed')) === 'true' && cls && await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
+    const sizes = await page.locator('[data-misfit], [data-cue], [data-testid="cs-submit"]').evaluateAll((xs) => xs.map(x => { const r = x.getBoundingClientRect(); return { w: r.width, h: r.height } }))
+    rec(`${width} 키보드 선택 · Tailwind 실제 44px · 가로 넘침 0`, (await page.locator('[data-misfit="1"]').getAttribute('aria-pressed')) === 'true' && sizes.every(r => r.w >= 44 && r.h >= 44) && await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), { sizes })
     await page.screenshot({ path: path.join(out, `${width}-letter-keyboard.png`) })
     await page.close()
   }
 } finally {
   await browser.close()
   await new Promise((r) => server.close(r))
-  fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, isolated: true, contentReleased: false, pass: rows.filter((r) => r.pass).length, fail: rows.filter((r) => !r.pass).length, rows }, null, 2))
+  fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify({ sha: SHA, dirtyTree: DIRTY, actualMeta, tailwind: true, isolated: true, contentReleased: false, pass: rows.filter((r) => r.pass).length, fail: rows.filter((r) => !r.pass).length, rows }, null, 2))
 }
 console.log(`PASS ${rows.filter((r) => r.pass).length} · FAIL ${rows.filter((r) => !r.pass).length}`)
 if (rows.some((r) => !r.pass)) process.exitCode = 1

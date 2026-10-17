@@ -3,14 +3,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { contextualSenseHash, gradeContextualSense, parseContextualSense } from '../contextual-sense'
+import { contextualSenseHash, contextualSensePanel, gradeContextualSense, parseContextualSense } from '../contextual-sense'
 import { passageRevision } from '../anchor-source'
 import type { AttemptWrite, AttemptWriter } from '../practice-writer'
 
 const state = vi.hoisted(() => ({ selected: null as unknown, db: null as unknown }))
 vi.mock('../item-tasks', () => ({ currentItemTask: () => state.selected, ITEM_TASKS: [] }))
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => state.db }))
-import { anchorGate, recordItemTaskAttempt } from '../product-server'
+import { anchorGate, loadItemPrinciple, recordItemTaskAttempt } from '../product-server'
 
 const passage = 'Synthetic context decreases. Another synthetic sentence.'
 const ann = () => ({ version: 'test.v1', itemId: 'T#30', skeletonSig: 'sig', sentenceCount: 2, targets: [0, 0, 0, 1, 1], misfit: 3,
@@ -32,13 +32,51 @@ function database(source: unknown = { passage, answer: 4, type_id: 'R-VOCAB' }, 
 }
 beforeEach(() => {
   const a = ann()
-  state.selected = { ann: a, def: { key: 'contextual-sense', hash: contextualSenseHash, grade: (_: unknown, raw: unknown) => {
+  state.selected = { ann: a, def: { key: 'contextual-sense', learner: { title: 'Synthetic principle', why: 'Synthetic reason' }, panel: contextualSensePanel, hash: contextualSenseHash, grade: (_: unknown, raw: unknown) => {
     const r = parseContextualSense(raw, a)
     return r ? { response: r, grade: gradeContextualSense(a, r), summary: {} } : null
   } } }
   state.db = database()
 })
 describe('V2 server adapter with no actual content', () => {
+  it('full server projection has no D choices, answer, rubric or annotation', async () => {
+    const p = await loadItemPrinciple('T#30')
+    expect(p).toEqual({ taskKey: 'contextual-sense', principle: 'Synthetic principle', why: 'Synthetic reason', panel: contextualSensePanel(ann()) })
+    expect(JSON.stringify(p)).not.toMatch(/decrease|increase|misfit|senseOptions|senseCorrect|rejectWhy|sourceRevision|officialAnswer|accepted/)
+  })
+  it('withholds the entire grade until write confirmation; D never reaches the writer', async () => {
+    let finish!: (outcome: 'inserted') => void
+    const pendingWrite = new Promise<'inserted'>(resolve => { finish = resolve })
+    const record = vi.fn(async (_w: AttemptWrite) => pendingWrite)
+    const writer: AttemptWriter = { kind: 'g2', reveal: async () => 's', record, noteExplanationView: async () => true }
+    let returned = false
+    const result = recordItemTaskAttempt(database(), { id: 'u', email: null }, 'T#30', body(), now, writer).then(r => { returned = true; return r })
+    await vi.waitFor(() => expect(record).toHaveBeenCalledOnce())
+    expect(returned).toBe(false)
+    expect(record.mock.calls[0][0].answer).toEqual({ misfit: 3, cue: [0] })
+    expect(JSON.stringify(record.mock.calls[0][0])).not.toMatch(/senseOptions|senseCorrect|decrease|increase/)
+    finish('inserted')
+    expect((await result).grade).toMatchObject({ isCorrect: true, followUp: { senseCorrect: 0 } })
+  })
+  it('wrong B returns no D; first submission containing D is rejected without a write', async () => {
+    const record = vi.fn(async () => 'inserted' as const)
+    const writer: AttemptWriter = { kind: 'g2', reveal: async () => 's', record, noteExplanationView: async () => true }
+    const r = await recordItemTaskAttempt(database(), { id: 'u', email: null }, 'T#30', { ...body(), response: { misfit: 0, cue: [] } }, now, writer)
+    expect(r.grade).toMatchObject({ isCorrect: false, followUp: null })
+    expect(JSON.stringify(r)).not.toMatch(/decrease|increase/)
+    record.mockClear()
+    await expect(recordItemTaskAttempt(database(), { id: 'u', email: null }, 'T#30', { ...body(), response: { ...body().response, sense: 0 } }, now, writer)).rejects.toMatchObject({ code: 'invalid_input' })
+    expect(record).not.toHaveBeenCalled()
+  })
+  it('binds R/X markers to current source type and rejects sentence_logic', async () => {
+    expect(await anchorGate('T#30', database())).toBe(true)
+    expect(await anchorGate('T#30', database({ passage, answer: 4, type_id: 'X-VOCAB' }))).toBe(false)
+    state.selected = { ...(state.selected as object), ann: { ...ann(), markerStyle: 'letter' } }
+    expect(await anchorGate('T#30', database())).toBe(false)
+    expect(await anchorGate('T#30', database({ passage, answer: 4, type_id: 'X-VOCAB' }))).toBe(true)
+    state.selected = { ...(state.selected as object), ann: { ...ann(), construct: 'sentence_logic' } }
+    expect(await anchorGate('T#30', database())).toBe(false)
+  })
   it('current source and official answer gate; equal-length edits and missing/unknown source fail closed', async () => {
     expect(await anchorGate('T#30', database())).toBe(true)
     for (const data of [null, { passage, answer: 4, type_id: 'R-TITLE' }, { passage: passage.replace('decreases', 'increases'), answer: 4, type_id: 'R-VOCAB' }, { passage, answer: 1, type_id: 'R-VOCAB' }, { passage, answer: null }]) expect(await anchorGate('T#30', database(data))).toBe(false)

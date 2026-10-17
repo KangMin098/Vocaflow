@@ -48,6 +48,7 @@
 
 - **F2(D = 반의 · 극성)** — 이 PR 은 **F2 를 해결하지 않는다.** Codex Stage 2(봉인 커밋 `9ec2b9c3b`)가 12/12 를 재설계 대상으로 판정했다. 후속 명세: [V2_F2_FOLLOWUP_SPEC](./V2_F2_FOLLOWUP_SPEC.md). 이 PR 에서는 D 가 이제 평가가 아니라 지도 연습이다. 계약상 D 는 「극성 확인 연습」이고, V2 문맥 뜻 생성 · 독립 문맥 추론의 근거로 쓰지 않는다. 같은 극성 근접 뜻을 오답으로 넣는 재설계는 D 를 다시 평가로 쓸 때의 과제다.
 - **F5**: 주석 `markerStyle: 'circled' | 'letter'` 를 추가했고 출시 필수다. 화면은 `markers` 로 표지를 그린다.
+- 독립 수용 보완: 서버 원문 관문에서 현재 `type_id`와 `markerStyle`도 대조한다. X-VOCAB=circled 또는 R-VOCAB=letter 주석은 노출·제출을 닫는다(최초 실패 보존).
 - **F6**: 주석 `construct: 'lexical_sense' | 'sentence_logic'` 를 추가했다. `sentence_logic` 이나 미분류는 출시 자격이 없다. 이런 문항을 V2/S5 혼합 근거로 자동 사용하지 않는다.
 
 ## 5. 측정 주장의 변화
