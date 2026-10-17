@@ -153,7 +153,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const fallback = supply.lines.length > 0 ? fallbackActions(bucketed, study.items.length > 0) : null
   const pItem = principleItem(study.items)
   const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
-  const transferDone = !!ws && !ws.stages.transfer.ready && ws.stages.transfer.blocked === null
+  // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
+  const transferDone = view.evidence?.[t.id]?.newPassageTransfer.status === 'experienced'
   const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
   const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 

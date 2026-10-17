@@ -26,10 +26,13 @@ export function supplyBucket(step: SupplyStep): SupplyBucket {
   switch (step) {
     case 'learn_now':
       return 'qualified'
+    // 유효 납품이 확인된 경우만 「납품 완료」. 부분 납품은 아직 채우는 중, 유효 수량 미확인은 검수 전으로 둔다(정식 공급으로 세지 않는다)
     case 'delivered':
-    case 'partially_delivered':
-    case 'delivered_count_unknown':
       return 'delivered'
+    case 'partially_delivered':
+      return 'in_production'
+    case 'delivered_count_unknown':
+      return 'unreviewed'
     case 'release_wait':
       return 'release_wait'
     case 'ordered':

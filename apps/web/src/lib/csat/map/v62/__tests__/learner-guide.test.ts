@@ -69,3 +69,13 @@ describe('returnSummary', () => {
     expect(out.join(' ')).not.toContain('그대로예요')
   })
 })
+
+describe('supplyBucket — 유효 납품만 정식 공급(Codex P2)', () => {
+  it('유효 수량 미확인 · 부분 납품은 「납품 완료」가 아니고 0건 대안을 숨기지 않는다', () => {
+    expect(supplyBucket('delivered_count_unknown')).toBe('unreviewed')
+    expect(supplyBucket('partially_delivered')).toBe('in_production')
+    expect(supplyBucket('delivered')).toBe('delivered')
+    const f = fallbackActions([{ role: 'transfer', bucket: supplyBucket('delivered_count_unknown') }], true)
+    expect(f).not.toBeNull()
+  })
+})
