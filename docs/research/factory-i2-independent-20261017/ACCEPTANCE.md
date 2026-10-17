@@ -103,6 +103,6 @@ git diff --check
 
 inspect는 실제 정본·DB 저장 증거·원본 FQ JSON·실제 순수 함수를 대조하고, 누락된 trap 노출과 최초 후보 범위를 assertion으로 고정한다. DB 증거 파일이 없으면 통과하지 않는다. replay는 연구 입력/출력을 임시 사용한 뒤 기존 파일을 바이트 동일하게 복구한다. SQL은 `independent.sql`·`exposure.sql`, 원 보고의 `snapshot.sql`·`revisions.sql`이며 결과 세트를 각각 저장해야 한다. 원 제출 AUDIT/DB 스냅샷은 덮어쓰지 않았다.
 
-검증: 독립 inspect PASS, 제출/최신 I0 및 새 DB replay PASS(failures=[]), 설정 검사 15/15 PASS. 앱·SQL 코드를 바꾸지 않아 앱 빌드/전체 테스트/실제 E2E는 로컬에서 실행하지 않았다. 임시 실행 환경 문제(server 조건·앱 cwd·대용량 FQ stdout buffer)는 독립 실행기에 반영한 뒤 재실행했다.
+검증: 독립 inspect PASS, 제출/최신 I0 및 새 DB replay PASS(failures=[]), 설정 검사 15/15 PASS. 목적 대조 리뷰의 수동 Git 참조 의존 P2를 고정 커밋 SHA로 바꾼 뒤 replay를 재실행했다([원장](./PURPOSE-REVIEW.json)). 앱·SQL 코드를 바꾸지 않아 앱 빌드/전체 테스트/실제 E2E는 로컬에서 실행하지 않았다. 임시 실행 환경 문제(server 조건·앱 cwd·대용량 FQ stdout buffer)는 독립 실행기에 반영한 뒤 재실행했다.
 
 PR #281의 CHANGELOG 충돌은 최신 main의 #277 기록과 사전 감사 기록을 모두 남겨 해결한다. 이 보고와 원 REPORT 정정을 같은 연구 PR에 묶는다. 실제 DB 적용·납품·main 병합은 이번 작업에 포함하지 않는다. 새 HEAD의 필수 CI와 PR 상태는 GitHub 원장이 정본이며 과거 HEAD의 초록 체크를 새 HEAD에 상속하지 않는다.

@@ -27,7 +27,7 @@
     "inputs": {
       "snapshotSha256": "9b1ab491fbc52566357efc39474d657387a2b4572ef2baaa4368565d0357efb6",
       "revisionsSha256": "95e5c5eabb0310f99b76e562b95e30b71a77d6bf149d78e223daa88ec19133a8",
-      "i0Ref": "origin/pr-277",
+      "i0Ref": "4a853dca73da95df5872b7b45e28e97520be38a5",
       "i0Head": "4a853dca73da95df5872b7b45e28e97520be38a5",
       "i0Blobs": {
         "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",
@@ -41,7 +41,7 @@
     "inputs": {
       "snapshotSha256": "d47ed34570c1841c4cfdc3dcc199ea9e95aae050e3698cc12e0c35c9a9698e91",
       "revisionsSha256": "864333407de98eb4bed6f34e0ecec3dbc8e2ff8d03f2a41c119876afd2dbd82c",
-      "i0Ref": "origin/pr-277",
+      "i0Ref": "4a853dca73da95df5872b7b45e28e97520be38a5",
       "i0Head": "4a853dca73da95df5872b7b45e28e97520be38a5",
       "i0Blobs": {
         "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",

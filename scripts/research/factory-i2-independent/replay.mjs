@@ -10,6 +10,7 @@ const root = path.resolve(import.meta.dirname, '../../..')
 const prefix = 'docs/research/factory-i2-r5-preflight-20261017/'
 const script = 'scripts/research/factory-i2-r5-preflight/audit.mts'
 const ref = 'b2edad0bcbd4680cd2136bf78222d1f93c488fc9'
+const latestI0 = '4a853dca73da95df5872b7b45e28e97520be38a5'
 const git = (...args) => execFileSync('git', args, { cwd: root })
 const original = JSON.parse(git('show', ref + ':' + prefix + 'AUDIT.json'))
 const files = [script, ...['db-snapshot.json', 'db-revisions.json'].map(p => prefix + p)]
@@ -45,7 +46,7 @@ try {
   // CLI ref spelling is provenance only; exact head and both resolver blob hashes must still match.
   one.report.inputs.i0Ref = original.inputs.i0Ref
   assert.equal(canonical(one.report), canonical(original))
-  const latest = run('origin/pr-277')
+  const latest = run(latestI0)
   assert.equal(canonical(one.report.i0), canonical(latest.report.i0))
   const live = JSON.parse(fs.readFileSync(path.join(root, 'docs/research/factory-i2-independent-20261017/DB-REPLAY.json'), 'utf8'))
   const archived = JSON.parse(git('show', ref + ':' + prefix + 'db-snapshot.json'))
@@ -53,7 +54,7 @@ try {
   assert.equal(canonical(live.revisions), canonical(JSON.parse(git('show', ref + ':' + prefix + 'db-revisions.json')).rows))
   fs.writeFileSync(path.join(root, prefix, 'db-snapshot.json'), JSON.stringify(live.snapshot, null, 2) + '\n')
   fs.writeFileSync(path.join(root, prefix, 'db-revisions.json'), JSON.stringify({ rows: live.revisions }, null, 2) + '\n')
-  const fresh = run('origin/pr-277')
+  const fresh = run(latestI0)
   const evidence = { schema: 'vf.factory-i2-independent-replay/1', pr281: ref,
     archivedInputs: original.inputs, archivedAuditSha256: sha(git('show', ref + ':' + prefix + 'AUDIT.json')),
     pinnedReplay: { head: two.report.inputs.i0Head, blobs: two.report.inputs.i0Blobs, firstSha256: sha(one.bytes), secondSha256: sha(two.bytes), equalIgnoringRefSpelling: true, failures: two.report.verdict.failures },
