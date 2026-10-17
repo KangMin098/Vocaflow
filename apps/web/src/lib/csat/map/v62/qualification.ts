@@ -107,7 +107,7 @@ export function supplyEligible(q: Qualification, role: MaterialRole): { ok: bool
  * 이 학습자가 이 산출물을 이미 본 정도. `unknown` = 노출 기록이 없는 종류(공유 지문 · 해설 열람 기록 미구축).
  * 서버가 기록(시도 · 열람)에서 계산한다.
  */
-export type Exposure = 'none' | 'attempted' | 'explanation_seen' | 'shared_passage_seen' | 'unknown'
+export type Exposure = 'none' | 'attempted' | 'explanation_seen' | 'item_seen' | 'exam_seen' | 'shared_passage_seen' | 'unknown'
 
 /**
  * 공급 시점 판정 — 콘텐츠 자격 + G(학습자별 노출). 평가 역할은 독립 첫 시도를 보존해야 하므로 노출이 'none' 일 때만.

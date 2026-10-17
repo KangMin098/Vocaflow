@@ -13,8 +13,11 @@ const line = (state: SupplyState, role: SupplyLine['role'] = 'guided_practice'):
 const installed = (order: OrderState | null, delivered = 0): SupplyLedger => ({
   status: 'installed', lines: { [ledgerKey(TASK, 'guided_practice')]: { order: order ? { state: order, seq: 1 } : null, delivered } },
 })
-const STATES: SupplyState[] = ['available', 'factory_candidate', 'order_spec_possible', 'awaiting_release', 'needs_review', 'unsupported']
-const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered'])
+const STATES: SupplyState[] = ['available', 'readable_unreviewed', 'factory_candidate', 'order_spec_possible', 'awaiting_release', 'needs_review', 'unsupported']
+const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered', 'partially_delivered', 'delivered_count_unknown'])
+const counted = (requested: number | null, valid: number | null, delivered: number, order: OrderState | null = null): SupplyLedger => ({
+  status: 'installed', lines: { [ledgerKey(TASK, 'guided_practice')]: { order: order ? { state: order, seq: 1 } : null, delivered, requested, validDelivered: valid } },
+})
 
 describe('supplyStep', () => {
   it('기록 표가 없거나 못 읽으면 어떤 계산 상태에서도 주문 계열 단계가 나오지 않는다', () => {
@@ -36,8 +39,19 @@ describe('supplyStep', () => {
   })
   it('공급 완료는 실제 공급 행이 있을 때만 — 주문만 delivered 이고 행이 없으면 완료라고 하지 않는다', () => {
     expect(supplyStep(line('order_spec_possible'), TASK, installed('delivered', 0))).toBe('orderable')
-    expect(supplyStep(line('order_spec_possible'), TASK, installed('delivered', 2))).toBe('delivered')
-    expect(supplyStep(line('unsupported'), TASK, installed(null, 1))).toBe('delivered')
+    // I1-P — 행이 있어도 요청 수량 · 유효 공급을 모르면 「공급 완료」라 하지 않는다
+    expect(supplyStep(line('order_spec_possible'), TASK, installed('delivered', 2))).toBe('delivered_count_unknown')
+    expect(supplyStep(line('unsupported'), TASK, installed(null, 1))).toBe('delivered_count_unknown')
+  })
+  it('I1-P 요청 5 · 유효 2 = 일부 공급 · 유효 5 = 완료 · 유효 0(모두 철회) = 계산 상태로', () => {
+    expect(supplyStep(line('order_spec_possible'), TASK, counted(5, 2, 2, 'partial'))).toBe('partially_delivered')
+    expect(supplyStep(line('order_spec_possible'), TASK, counted(5, 5, 5, 'delivered'))).toBe('delivered')
+    expect(supplyStep(line('order_spec_possible'), TASK, counted(1, 0, 1, 'delivered'))).toBe('orderable')
+    expect(supplyStep(line('order_spec_possible'), TASK, counted(2, 0, 1, 'partial'))).toBe('orderable')
+  })
+  it('I1 — 읽을 수 있는 기존 해설은 「지금 학습」이 아니라 「지금 읽을 수 있음 · 수업용 검수 전」', () => {
+    expect(supplyStep(line('readable_unreviewed', 'model_explanation'), TASK, { status: 'installed', lines: {} })).toBe('read_now')
+    expect(supplyStep(line('readable_unreviewed', 'model_explanation'), TASK, { status: 'not_installed' })).toBe('read_now')
   })
   it('실패한 주문은 재주문 전까지 계산 상태로 돌아간다', () => {
     expect(supplyStep(line('order_spec_possible'), TASK, installed('failed'))).toBe('orderable')

@@ -10,7 +10,8 @@ import type { DemandLine, MaterialRole, WorkspaceDemand } from './demand'
 import type { StudyItems } from './study-items'
 
 export type SupplyState =
-  | 'available' // 지금 쓸 수 있는 자료
+  | 'available' // 지금 쓸 수 있는 자료(역할에 필요한 자격 확인됨)
+  | 'readable_unreviewed' // 지금 열람할 수 있는 기존 해설 — 교수 적합성(D) 검수 전이라 정식 공급으로 세지 않는다(I1)
   | 'factory_candidate' // 공장 재고는 있으나 이 역할 · TASK 자격 검수 전
   | 'order_spec_possible' // 부족 — 기존 공정 명령으로 생산 명세를 만들 수 있다(실행 · 적재는 별도)
   | 'awaiting_release' // 자료는 있으나 출시 승인(B7) 대기
@@ -74,7 +75,8 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
     case 'source_analysis':
     case 'model_explanation': {
       const got = input.study.items.slice(0, Math.max(n, 3))
-      if (got.length) return { role: line.role, state: 'available', delivered: got.map((s) => ({ ref: s.item, source: 'v3_explanation' })), shortfall: 0, qualification: Q({ producible: true, rights: true, content: true, teaching: null, assessment: false, learner: true, runnable: true }), reason: '공개 v3 기출 해설(노출 규칙 통과) — 교수 적합성은 사람 검수 전' }
+      // I1 — 읽을 수 있음 ≠ 교수 검수 · 개인별 납품 완료. 열람은 그대로 두고(delivered 유지) 적격 공급 부족은 n 그대로 센다
+      if (got.length) return { role: line.role, state: 'readable_unreviewed', delivered: got.map((s) => ({ ref: s.item, source: 'v3_explanation' })), shortfall: n, qualification: Q({ producible: true, rights: true, content: true, teaching: null, assessment: false, learner: true, runnable: true }), reason: '공개 v3 기출 해설(노출 규칙 통과) — 지금 읽을 수 있음 · 교수 적합성은 사람 검수 전' }
       return { role: line.role, state: input.study.withheld > 0 ? 'needs_review' : 'unsupported', delivered: [], shortfall: n, qualification: Q({ assessment: false }), reason: input.study.withheld > 0 ? '해설을 열 수 있는 문항이 아직 없다(확인 문항을 먼저 풀면 열린다)' : '연결된 기출 해설이 없다' }
     }
     case 'guided_practice': {
@@ -90,8 +92,10 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
 export interface SupplyResult {
   demandKey: string
   lines: SupplyLine[]
-  /** 이 수요에서 지금 바로 학습할 수 있는 줄이 하나라도 있는가 — NeedRank 와 별개 */
+  /** 이 수요에서 지금 바로 학습할 수 있는 줄이 하나라도 있는가 — 역할 자격이 확인된 공급만(NeedRank 와 별개) */
   anyAvailable: boolean
+  /** 검수 전이지만 지금 열람할 수 있는 기존 해설이 있는가(I1 — anyAvailable 과 따로 센다) */
+  anyReadable: boolean
 }
 
 export type Fulfillment = 'fully_supplied' | 'partially_supplied' | 'not_supplied'
@@ -102,18 +106,21 @@ export type Fulfillment = 'fully_supplied' | 'partially_supplied' | 'not_supplie
  */
 export function fulfillmentOf(line: SupplyLine): Fulfillment {
   const assessmentRole = line.role === 'independent_check' || line.role === 'transfer' || line.role === 'delayed_check'
-  const counted = assessmentRole && line.qualification.assessment !== true ? 0 : line.delivered.length
+  const teachingRole = line.role === 'source_analysis' || line.role === 'model_explanation' || line.role === 'guided_practice'
+  // I1 — 교수 역할은 교수 적합성(D)이 확인된 것만 공급으로 센다(SQL fq_role_ok 와 같다). 열람 가능 해설은 readable_unreviewed 로 따로 보인다
+  const counted = (assessmentRole && line.qualification.assessment !== true) || (teachingRole && line.qualification.teaching !== true) ? 0 : line.delivered.length
   if (counted === 0) return 'not_supplied'
   return line.shortfall > 0 ? 'partially_supplied' : 'fully_supplied'
 }
 
 export function supplyFor(demand: WorkspaceDemand, input: SupplyInput): SupplyResult {
   const lines = demand.lines.map((l) => supplyLine(l, input))
-  return { demandKey: demand.key, lines, anyAvailable: lines.some((l) => l.state === 'available' && fulfillmentOf(l) !== 'not_supplied') }
+  return { demandKey: demand.key, lines, anyAvailable: lines.some((l) => l.state === 'available' && fulfillmentOf(l) !== 'not_supplied'), anyReadable: lines.some((l) => l.state === 'readable_unreviewed' && l.delivered.length > 0) }
 }
 
 export const SUPPLY_STATE_LABEL: Record<SupplyState, string> = {
   available: '지금 쓸 수 있는 자료',
+  readable_unreviewed: '지금 읽을 수 있는 기존 해설 · 수업용 검수 전',
   factory_candidate: '교재공장 재고 있음 · 이 학습용 검수 전',
   order_spec_possible: '필요한 자료를 만들 수 있는 공정 있음(아직 주문 안 함)',
   awaiting_release: '자료 준비됨 · 출시 승인 대기',
