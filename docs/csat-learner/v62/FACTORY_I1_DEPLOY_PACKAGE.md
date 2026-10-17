@@ -104,6 +104,14 @@ DB286의 첫 빈 Supabase CI에서는 기존 migration 롤백으로 helper 두 �
 
 `--approved-by`는 감사 메타데이터이며 사용자 승인 증거가 아니다. 정책상 DB 쓰기가 허용된 실행 환경에서 **새 전체 SHA와 변경 범위의 명시 승인**을 먼저 받아야 한다. 공용 PreToolUse 훅은 `deploy.mjs apply`를 DB 승인 대상으로 분류한다. 러너도 자동 실행(`VFC_AUTOMATED_RUN=1`/`AGENT_GUARD_ASK=0`/CI), 비대화형 실행, `apply --isolated`를 접속 전에 거절한다. 허용된 실행자는 터미널에서 전체 SHA를 포함한 확인 문구를 직접 입력한다. 이 입력도 정책상 승인을 대체하지 않는다.
 
+**승인 창 경로(2026-10-18 · PR #287 + 이 PR):** Claude Code 대화형 세션은 위의 TTY 입력 대신 승인 창 클릭으로 같은 승인을 줄 수 있다.
+- 쓰는 명령: Claude 가 단독 명령 `node scripts/db/factory-i1/deploy.mjs apply --stage db1 --deps <deps> --confirm-sha <전체 SHA>` 를 실행한다.
+- 승인 창: `db-approval-hook` 이 러너·단계·전체 SHA 가 적힌 승인 창을 띄우고, 허용된 그 명령에만 1회용 `--approval-nonce` 를 붙인다.
+- 러너 쪽 확인: 러너는 TTY 가 없을 때 정본 파일 실행인지 확인하고(`realpath(argv[1])`), 난수로 티켓(5분 · 1회)을 소비한다. 감사 기록 `claude-code-dialog <발급시각> ticket:<id>` 를 `--approved-by` 와 이력 `created_by` 에 남긴다.
+- 거절되는 경우: 자동 실행 · CI · `--isolated` · 복사본 · 거부된 승인 창 · 재사용 · 다른 SHA. 모두 접속 전에 종료 2 로 끝난다.
+- 같은 OS 계정에서의 티켓 위조는 막지 못한다(한계: `docs/research/db-approval-287-review/ACCEPTANCE.md`). 그래서 TTY 경로를 그대로 남긴다.
+- 접속 문자열: 셸에 `VF_DEPLOY_DB_URL` 이 없으면 러너가 `.env.local`(이 worktree → 메인 worktree)에서 그 키만 읽는다. `VF_DEPLOY_ENV_FILE` 을 지정하면 그 파일만 읽는다.
+
 운영 접속은 PostgreSQL 프로토콜·DB `postgres`·명시적 포트 `5432`로 고정한다(생략 시 PGPORT 상속도 거절). query/fragment 옵션은 접속 대상·TLS를 바꿀 수 있어 거절한다. TLS 인증서를 검증하며 검증 실패를 완화하는 옵션은 없다. 적용 트랜잭션 안에서 이력 표를 잠근 뒤 preflight를 다시 실행해 승인 이후 이력 변화를 차단한다.
 
 준비: 최신 `origin/main` 위의 이 PR 브랜치 · `npm i pg@8.13.1` 을 임시 폴더(`<deps>`)에 · 연결 문자열은 셸 환경 변수 `VF_DEPLOY_DB_URL`(직결 `db.jajenrevcbmrpaliomxv.supabase.co:5432` 또는 session pooler — 값은 출력 · 커밋하지 않는다).

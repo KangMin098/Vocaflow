@@ -17,6 +17,8 @@ import path from 'node:path'
 import { createRequire } from 'node:module'
 import { createInterface } from 'node:readline/promises'
 import { execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+import { consumeTicket, NONCE_FLAG } from '../../../agents/scripts/db-approval.mjs'
 import { buildAll, auxFiles, verifySegments, sha256, ROOT, MANIFEST_PATH } from './build.mjs'
 import { PREFLIGHT_SQL, verifySql } from './sql.mjs'
 import { STAGES, PROJECT_REF, PRIOR_MAX_VERSION, HELPERS, DB1_TARGET_TABLES, DB1_TARGET_FUNCTIONS } from './spec.mjs'
@@ -35,13 +37,56 @@ export function redactText(text, url = activeSecretUrl) {
   return out
 }
 
-/** Metadata cannot grant approval. Production writes also require the policy hook and an interactive executor. */
-export function writeAuthorizationBlocks(o, { env = process.env, stdinIsTTY = process.stdin.isTTY, stdoutIsTTY = process.stdout.isTTY } = {}) {
+/**
+ * Metadata cannot grant approval. Production writes need either
+ *   (a) an interactive executor — TTY + typed `APPLY <stage> <sha>` (unchanged), or
+ *   (b) a Claude Code approval: the db-approval hook appended a one-time `--approval-nonce` to the exact command the user
+ *       allowed in the permission dialog; the runner consumes the matching ticket (agents/scripts/db-approval.mjs, PR #287).
+ * Automated / CI / --isolated stay blocked in both modes. `ticket` here is only the non-TTY mode marker; consumption happens in main().
+ */
+export function writeAuthorizationBlocks(o, { env = process.env, stdinIsTTY = process.stdin.isTTY, stdoutIsTTY = process.stdout.isTTY, ticket = false } = {}) {
   const blocks = []
   if (env.VFC_AUTOMATED_RUN === '1' || env.AGENT_GUARD_ASK === '0' || (env.CI && env.CI !== 'false')) blocks.push('DEPLOY_BLOCKED[permission] automated environment cannot apply migrations')
   if (o.isolated) blocks.push('DEPLOY_BLOCKED[target] --isolated cannot be used with CLI apply; disposable tests use the isolated harness')
-  if (!stdinIsTTY || !stdoutIsTTY) blocks.push('DEPLOY_BLOCKED[permission] interactive authorized executor required; --approved-by is audit metadata, not user approval')
+  if ((!stdinIsTTY || !stdoutIsTTY) && !ticket) blocks.push('DEPLOY_BLOCKED[permission] interactive authorized executor or Claude Code approval nonce required; --approved-by is audit metadata, not user approval')
   return blocks
+}
+
+/** 승인 창 경로는 정본 러너 파일에서만 — 복사본 · 다른 진입점(node -e import)은 거절(PR #287 리뷰 한계 5) */
+export function canonicalRunnerBlock(argv1 = process.argv[1]) {
+  const self = fs.realpathSync(fileURLToPath(import.meta.url))
+  let invoked = null
+  try { invoked = argv1 ? fs.realpathSync(argv1) : null } catch { /* 없는 경로 */ }
+  const want = path.join(fs.realpathSync(ROOT), 'scripts', 'db', 'factory-i1', 'deploy.mjs')
+  const same = (a, b) => (process.platform === 'win32' ? a?.toLowerCase() === b?.toLowerCase() : a === b)
+  return same(invoked, self) && same(self, want) ? null : 'DEPLOY_BLOCKED[permission] approval-nonce mode requires running the canonical scripts/db/factory-i1/deploy.mjs directly'
+}
+
+/** 접속 문자열 — 셸 환경 변수 우선, 없으면 .env.local(이 worktree → 메인 worktree)에서 그 키 하나만 읽는다. 값은 출력하지 않는다. */
+export function resolveDbUrl(key, { env = process.env, files } = {}) {
+  if (env[key]) return env[key]
+  let list = files
+  if (!list && env.VF_DEPLOY_ENV_FILE) list = [env.VF_DEPLOY_ENV_FILE] // 지정하면 그 파일만(테스트가 실제 .env.local 을 읽지 않게)
+  if (!list) {
+    list = [path.join(ROOT, '.env.local')]
+    try {
+      const common = execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'], { cwd: ROOT, encoding: 'utf8', windowsHide: true }).trim()
+      list.push(path.join(path.dirname(common), '.env.local'))
+    } catch { /* git 없으면 이 worktree 만 */ }
+  }
+  for (const f of list.filter(Boolean)) {
+    if (!fs.existsSync(f)) continue
+    for (const line of fs.readFileSync(f, 'utf8').split(/\r?\n/)) {
+      const m = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/)
+      if (m && m[1] === key) return m[2].replace(/^(['"])(.*)\1$/, '$2') || undefined
+    }
+  }
+  return undefined
+}
+
+/** 티켓 → 이력 created_by · 로그 approved_by 에 남길 감사 기록(난수 · 비밀 · 개인정보 없음) */
+export function ticketApprovalRecord(ticket) {
+  return `claude-code-dialog ${ticket.issued_at} ticket:${ticket.id}`
 }
 
 /** 저장소 파일이 생성기 결과와 같은가 · 정본 SHA 가 맞는가 */
@@ -227,7 +272,7 @@ function args() {
   const a = process.argv.slice(2)
   const get = (k) => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : undefined }
   return { cmd: a[0], stage: get('--stage'), deps: get('--deps'), urlEnv: get('--db-url-env') ?? 'VF_DEPLOY_DB_URL', confirmSha: get('--confirm-sha'),
-    approvedBy: get('--approved-by'), db1Log: get('--db1-verify-log'), remoteHistory: get('--remote-history'), out: get('--out'),
+    approvedBy: get('--approved-by'), approvalNonce: get(NONCE_FLAG), db1Log: get('--db1-verify-log'), remoteHistory: get('--remote-history'), out: get('--out'),
     acceptRemoteAfter: (get('--accept-remote-after') ?? '').split(',').filter(Boolean), isolated: a.includes('--isolated') }
 }
 
@@ -241,9 +286,9 @@ function writeLog(obj, existing) {
 
 async function connect(o) {
   if (!o.deps) throw new Error('--deps <pg 를 설치한 폴더> 가 필요하다(npm i pg@8.13.1)')
-  const url = process.env[o.urlEnv]
+  const url = resolveDbUrl(o.urlEnv)
   activeSecretUrl = url
-  if (!url) throw new Error(`환경 변수 ${o.urlEnv} 가 없다`)
+  if (!url) throw new Error(`접속 문자열 ${o.urlEnv} 가 없다(셸 환경 변수 또는 .env.local)`)
   const t = targetOf(url, { isolated: o.isolated })
   if (!t.ok) return { blocked: t.why }
   const pg = createRequire(path.join(o.deps, 'package.json'))('pg')
@@ -273,16 +318,31 @@ async function main() {
   }
   if (off.blocks.length) { console.error(off.blocks.join('\n')); process.exit(2) }
   if (o.cmd === 'apply') {
-    const authorization = writeAuthorizationBlocks(o)
-    if (!o.approvedBy) authorization.push('DEPLOY_BLOCKED[permission] --approved-by audit metadata required')
+    const tty = Boolean(process.stdin.isTTY && process.stdout.isTTY)
+    const authorization = writeAuthorizationBlocks(o, { ticket: !tty && Boolean(o.approvalNonce) })
     if (o.confirmSha !== stageSha) authorization.push('DEPLOY_BLOCKED[sha] --confirm-sha does not match package')
+    if (tty && !o.approvedBy) authorization.push('DEPLOY_BLOCKED[permission] --approved-by audit metadata required')
+    if (!tty && !authorization.length) {
+      const self = canonicalRunnerBlock()
+      if (self) authorization.push(self)
+    }
+    // 승인 창 경로: 다른 차단이 하나도 없을 때만 티켓을 소비한다(자동 실행 · SHA 불일치 · 복사본으로 티켓을 태우지 않게)
+    if (!tty && !authorization.length) {
+      const r = consumeTicket({ runner: 'factory-i1', stage: o.stage, sha: o.confirmSha, nonce: o.approvalNonce })
+      if (!r.ticket) authorization.push(`DEPLOY_BLOCKED[permission] ${r.reason}`)
+      else o.approvedBy = ticketApprovalRecord(r.ticket)
+    }
     if (authorization.length) { console.error(authorization.join('\n')); process.exit(2) }
-    const terminal = createInterface({ input: process.stdin, output: process.stdout })
-    try {
-      const expected = `APPLY ${o.stage} ${stageSha}`
-      const answer = await terminal.question(`Policy-authorized DB executor only. --approved-by is not approval. Confirm reviewed full SHA by typing ${expected}: `)
-      if (answer !== expected) { console.error('DEPLOY_BLOCKED[permission] confirmation mismatch'); process.exit(2) }
-    } finally { terminal.close() }
+    if (tty) {
+      const terminal = createInterface({ input: process.stdin, output: process.stdout })
+      try {
+        const expected = `APPLY ${o.stage} ${stageSha}`
+        const answer = await terminal.question(`Policy-authorized DB executor only. --approved-by is not approval. Confirm reviewed full SHA by typing ${expected}: `)
+        if (answer !== expected) { console.error('DEPLOY_BLOCKED[permission] confirmation mismatch'); process.exit(2) }
+      } finally { terminal.close() }
+    } else {
+      console.log(`Claude Code 승인 확인 — ${o.approvedBy}`)
+    }
   }
   const c = await connect(o)
   if (c.blocked) { console.error(c.blocked); process.exit(2) }
