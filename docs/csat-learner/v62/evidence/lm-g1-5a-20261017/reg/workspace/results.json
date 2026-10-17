@@ -1,0 +1,638 @@
+{
+  "startedAt": "2026-10-16T16:25:21.173Z",
+  "endedAt": "2026-10-16T16:26:07.785Z",
+  "base": "http://localhost:3005",
+  "pass": 36,
+  "fail": 0,
+  "accountsLeft": 0,
+  "results": [
+    {
+      "name": "W01 구조(1440) — 상단 띠 → 지도 → 바로 아래 Workspace 리스트 · 오른쪽 상시 패널 없음 · 가로 넘침 0",
+      "ok": true,
+      "detail": {
+        "canvas": {
+          "x": 111,
+          "y": 326,
+          "w": 1252,
+          "h": 556
+        },
+        "wsList": {
+          "x": 94,
+          "y": 915,
+          "w": 1286,
+          "h": 429
+        },
+        "inspector": null,
+        "overflowX": 0
+      }
+    },
+    {
+      "name": "W02 30 TASK 노드(1440)",
+      "ok": true,
+      "detail": {
+        "nodes": 30
+      }
+    },
+    {
+      "name": "W03 대표 Workspace 가 첫 줄 · 행마다 상태(1440)",
+      "ok": true,
+      "detail": [
+        {
+          "id": "ws.central-meaning",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.option-match",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.evidence-locate",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.cohesion",
+          "link": "none",
+          "state": "locked",
+          "sel": "false"
+        },
+        {
+          "id": "ws.sentence-core",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.vocab-context",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.grammar-scope",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.inference",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.timed",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        }
+      ]
+    },
+    {
+      "name": "W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1440)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "help": true,
+        "legend": true,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
+    },
+    {
+      "name": "W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1440)",
+      "ok": true,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "linked": [
+          [
+            "r.discourse_function",
+            "support"
+          ],
+          [
+            "r.discourse_structure",
+            "support"
+          ],
+          [
+            "r.central_meaning",
+            "core"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "W05 Workspace 상세 팝업 — 화면 안 · 스크롤 잠금 · 4단계(1440)",
+      "ok": true,
+      "detail": {
+        "box": {
+          "l": 380,
+          "t": 70,
+          "r": 1060,
+          "b": 830,
+          "ok": true
+        },
+        "lock": "hidden",
+        "stages": [
+          "check",
+          "repair",
+          "transfer",
+          "recheck"
+        ]
+      }
+    },
+    {
+      "name": "W06 ESC 닫기 → 여는 버튼으로 포커스 복귀 · 잠금 해제(1440)",
+      "ok": true,
+      "detail": {
+        "modal": false,
+        "focus": "ws-open",
+        "lock": "visible"
+      }
+    },
+    {
+      "name": "W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1440)",
+      "ok": true,
+      "detail": {
+        "lit": true,
+        "popup": null,
+        "dock": "r.central_meaning",
+        "faded": 24
+      }
+    },
+    {
+      "name": "W07 TASK 선택 → 빠른 팝업(화면 안) · 관련 Workspace 행 강조(중심/지원 구분) · 다른 행 숨김 없음(1440)",
+      "ok": true,
+      "detail": {
+        "t": "r.central_meaning",
+        "rows": [
+          {
+            "id": "ws.central-meaning",
+            "link": "core",
+            "state": "runnable",
+            "sel": "true"
+          },
+          {
+            "id": "ws.option-match",
+            "link": "support",
+            "state": "runnable",
+            "sel": "false"
+          },
+          {
+            "id": "ws.evidence-locate",
+            "link": "none",
+            "state": "runnable",
+            "sel": "false"
+          },
+          {
+            "id": "ws.cohesion",
+            "link": "none",
+            "state": "locked",
+            "sel": "false"
+          },
+          {
+            "id": "ws.sentence-core",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.vocab-context",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.grammar-scope",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.inference",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.timed",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          }
+        ],
+        "pbox": {
+          "l": 886,
+          "t": 419,
+          "r": 1206,
+          "b": 882,
+          "ok": true
+        }
+      }
+    },
+    {
+      "name": "W08 선택이 다른 TASK/Workspace 로 튀지 않음(1440)",
+      "ok": true,
+      "detail": {
+        "a": [
+          "r.central_meaning",
+          "ws.central-meaning"
+        ],
+        "b": [
+          "r.central_meaning",
+          "ws.central-meaning"
+        ]
+      }
+    },
+    {
+      "name": "W09 TASK 팝업 ESC → 노드로 포커스 복귀(1440)",
+      "ok": true,
+      "detail": {
+        "pop": false,
+        "focus": "r.central_meaning"
+      }
+    },
+    {
+      "name": "W10 키보드 Enter 로 TASK 팝업(1440)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "W15 자세한 근거 드로어 — 오른쪽 · 화면 안 · 다음 행동 1개 · Esc 포커스 복귀(1440)",
+      "ok": true,
+      "detail": {
+        "dbox": {
+          "l": 988,
+          "t": 12,
+          "r": 1428,
+          "b": 888,
+          "ok": true
+        },
+        "dnext": 1,
+        "dback": {
+          "open": false,
+          "focus": "r.central_meaning"
+        }
+      }
+    },
+    {
+      "name": "W11 새로 고침 뒤 같은 TASK · Workspace 선택(1440)",
+      "ok": true,
+      "detail": {
+        "url": "/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning",
+        "selected": "r.central_meaning",
+        "ws": "ws.central-meaning"
+      }
+    },
+    {
+      "name": "W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1440)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
+    },
+    {
+      "name": "W12 뒤로가기 뒤 페이지 정상 · 가로 넘침 0(1440)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "W13 상세 PLAN — 같은 모달 안 PlanSection(화면 안)(1440)",
+      "ok": true,
+      "detail": {
+        "l": 380,
+        "t": 70,
+        "r": 1060,
+        "b": 830,
+        "ok": true
+      }
+    },
+    {
+      "name": "W14 레일 접힘 · 가로 넘침 0(1440)",
+      "ok": true,
+      "detail": {
+        "overflowX": 0
+      }
+    },
+    {
+      "name": "W01 구조(1280) — 상단 띠 → 지도 → 바로 아래 Workspace 리스트 · 오른쪽 상시 패널 없음 · 가로 넘침 0",
+      "ok": true,
+      "detail": {
+        "canvas": {
+          "x": 111,
+          "y": 372,
+          "w": 1092,
+          "h": 596
+        },
+        "wsList": {
+          "x": 94,
+          "y": 1001,
+          "w": 1126,
+          "h": 429
+        },
+        "inspector": null,
+        "overflowX": 0
+      }
+    },
+    {
+      "name": "W02 30 TASK 노드(1280)",
+      "ok": true,
+      "detail": {
+        "nodes": 30
+      }
+    },
+    {
+      "name": "W03 대표 Workspace 가 첫 줄 · 행마다 상태(1280)",
+      "ok": true,
+      "detail": [
+        {
+          "id": "ws.central-meaning",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.option-match",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.evidence-locate",
+          "link": "none",
+          "state": "runnable",
+          "sel": "false"
+        },
+        {
+          "id": "ws.cohesion",
+          "link": "none",
+          "state": "locked",
+          "sel": "false"
+        },
+        {
+          "id": "ws.sentence-core",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.vocab-context",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.grammar-scope",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.inference",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        },
+        {
+          "id": "ws.timed",
+          "link": "none",
+          "state": "preparing",
+          "sel": "false"
+        }
+      ]
+    },
+    {
+      "name": "W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1280)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "help": true,
+        "legend": true,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
+    },
+    {
+      "name": "W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1280)",
+      "ok": true,
+      "detail": {
+        "selectedWs": "ws.central-meaning",
+        "linked": [
+          [
+            "r.discourse_function",
+            "support"
+          ],
+          [
+            "r.discourse_structure",
+            "support"
+          ],
+          [
+            "r.central_meaning",
+            "core"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "W05 Workspace 상세 팝업 — 화면 안 · 스크롤 잠금 · 4단계(1280)",
+      "ok": true,
+      "detail": {
+        "box": {
+          "l": 300,
+          "t": 70,
+          "r": 980,
+          "b": 830,
+          "ok": true
+        },
+        "lock": "hidden",
+        "stages": [
+          "check",
+          "repair",
+          "transfer",
+          "recheck"
+        ]
+      }
+    },
+    {
+      "name": "W06 ESC 닫기 → 여는 버튼으로 포커스 복귀 · 잠금 해제(1280)",
+      "ok": true,
+      "detail": {
+        "modal": false,
+        "focus": "ws-open",
+        "lock": "visible"
+      }
+    },
+    {
+      "name": "W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1280)",
+      "ok": true,
+      "detail": {
+        "lit": true,
+        "popup": null,
+        "dock": "r.central_meaning",
+        "faded": 24
+      }
+    },
+    {
+      "name": "W07 TASK 선택 → 빠른 팝업(화면 안) · 관련 Workspace 행 강조(중심/지원 구분) · 다른 행 숨김 없음(1280)",
+      "ok": true,
+      "detail": {
+        "t": "r.central_meaning",
+        "rows": [
+          {
+            "id": "ws.central-meaning",
+            "link": "core",
+            "state": "runnable",
+            "sel": "true"
+          },
+          {
+            "id": "ws.option-match",
+            "link": "support",
+            "state": "runnable",
+            "sel": "false"
+          },
+          {
+            "id": "ws.evidence-locate",
+            "link": "none",
+            "state": "runnable",
+            "sel": "false"
+          },
+          {
+            "id": "ws.cohesion",
+            "link": "none",
+            "state": "locked",
+            "sel": "false"
+          },
+          {
+            "id": "ws.sentence-core",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.vocab-context",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.grammar-scope",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.inference",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          },
+          {
+            "id": "ws.timed",
+            "link": "none",
+            "state": "preparing",
+            "sel": "false"
+          }
+        ],
+        "pbox": {
+          "l": 886,
+          "t": 419,
+          "r": 1206,
+          "b": 882,
+          "ok": true
+        }
+      }
+    },
+    {
+      "name": "W08 선택이 다른 TASK/Workspace 로 튀지 않음(1280)",
+      "ok": true,
+      "detail": {
+        "a": [
+          "r.central_meaning",
+          "ws.central-meaning"
+        ],
+        "b": [
+          "r.central_meaning",
+          "ws.central-meaning"
+        ]
+      }
+    },
+    {
+      "name": "W09 TASK 팝업 ESC → 노드로 포커스 복귀(1280)",
+      "ok": true,
+      "detail": {
+        "pop": false,
+        "focus": "r.central_meaning"
+      }
+    },
+    {
+      "name": "W10 키보드 Enter 로 TASK 팝업(1280)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "W15 자세한 근거 드로어 — 오른쪽 · 화면 안 · 다음 행동 1개 · Esc 포커스 복귀(1280)",
+      "ok": true,
+      "detail": {
+        "dbox": {
+          "l": 828,
+          "t": 12,
+          "r": 1268,
+          "b": 888,
+          "ok": true
+        },
+        "dnext": 1,
+        "dback": {
+          "open": false,
+          "focus": "r.central_meaning"
+        }
+      }
+    },
+    {
+      "name": "W11 새로 고침 뒤 같은 TASK · Workspace 선택(1280)",
+      "ok": true,
+      "detail": {
+        "url": "/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning",
+        "selected": "r.central_meaning",
+        "ws": "ws.central-meaning"
+      }
+    },
+    {
+      "name": "W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1280)",
+      "ok": true,
+      "detail": {
+        "lit": false,
+        "faded": 0,
+        "url": "/csat/diagnosis?tab=map&view=full"
+      }
+    },
+    {
+      "name": "W12 뒤로가기 뒤 페이지 정상 · 가로 넘침 0(1280)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "W13 상세 PLAN — 같은 모달 안 PlanSection(화면 안)(1280)",
+      "ok": true,
+      "detail": {
+        "l": 300,
+        "t": 70,
+        "r": 980,
+        "b": 830,
+        "ok": true
+      }
+    },
+    {
+      "name": "W14 레일 접힘 · 가로 넘침 0(1280)",
+      "ok": true,
+      "detail": {
+        "overflowX": 0
+      }
+    }
+  ]
+}
