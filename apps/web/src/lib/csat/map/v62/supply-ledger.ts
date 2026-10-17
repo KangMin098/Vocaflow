@@ -44,6 +44,7 @@ export type SupplyStep =
   | 'partially_delivered' // 일부만 유효 공급 — 남은 부족 있음(I1-P)
   | 'delivered_count_unknown' // 공급 행은 있으나 수량 충족을 확인하지 못함(I1-P)
   | 'read_now' // 기존 해설을 지금 읽을 수 있음 · 교수 검수 전(I1)
+  | 'open_unqualified' // 기존 확인 · 전이 과제로 풀 수 있음 · 정식 자격 확인 전(#281 E04)
 
 export const SUPPLY_STEP_LABEL: Record<SupplyStep, string> = {
   learn_now: '지금 학습할 수 있어요',
@@ -60,6 +61,7 @@ export const SUPPLY_STEP_LABEL: Record<SupplyStep, string> = {
   partially_delivered: '일부 공급됨 · 남은 자료 준비 중',
   delivered_count_unknown: '공급 기록 있음 · 수량 확인 전',
   read_now: '지금 읽을 수 있어요 · 수업용 검수 전',
+  open_unqualified: '기존 과제로 풀 수 있어요 · 정식 자격 확인 전',
 }
 
 /** 기록 상태를 학습자 문장으로 — 화면 한 줄 */
@@ -113,6 +115,8 @@ export function supplyStep(line: SupplyLine, task: string, ledger: SupplyLedger,
       return 'learn_now'
     case 'readable_unreviewed':
       return 'read_now'
+    case 'open_unqualified':
+      return 'open_unqualified'
     case 'factory_candidate':
       return 'stock_review_wait'
     case 'order_spec_possible':

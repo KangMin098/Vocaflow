@@ -40,6 +40,9 @@ import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type Ma
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 import { loadSupplyLedger } from './v62/supply-store'
 import type { SupplyLedger } from './v62/supply-ledger'
+import { compactLedger, executableTransferTargets, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
+import { currentItemTask } from '@/lib/knowledge/item-tasks'
+import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
 
 type Db = SupabaseClient
 
@@ -106,6 +109,10 @@ export interface MapV4Input {
   saved: SavedPlans
   /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
   supplyLedger: Record<string, SupplyLedger>
+  /** #281 E01 — 확인 · 전이 후보의 학습자 노출(모든 원장 · 같은 지문). 못 읽으면 error — 평가 후보 0 */
+  assessmentExposure?: ExposureLedger
+  /** #281 E04 — 정식 자격(I1) reader 상태. 설치 전이면 not_installed */
+  fqReader?: FqReader
   /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
   target?: { goal: GoalVersion | null; scope: { exam: GoalExam | null; status: ScopeStatus; reason: string | null; exams: { id: string; label: string }[] } }
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
@@ -202,8 +209,10 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   // 세부 채점(response.grade = { claim, support, relation } 등) — 「어디서 막혔나」 추적용(find-policy.v2). 못 읽으면 세부 없이 판정한다
   const ids = ((data ?? []) as Record<string, unknown>[]).map((r) => Number(r.attempt_id)).filter(Number.isFinite)
   const partsById = new Map<number, Record<string, boolean>>()
+  const originalById = new Map<string, Record<string, unknown>>()
   if (ids.length) {
-    const { data: rows } = await db.from('learning_task_attempts').select('id,response').eq('user_id', userId).in('id', ids)
+    const { data: rows } = await db.from('learning_task_attempts').select('id,response,session_id,content_hash,task_key,item_ref').eq('user_id', userId).in('id', ids)
+    for (const row of (rows ?? []) as Record<string, unknown>[]) originalById.set(String(row.id), row)
     for (const row of (rows ?? []) as { id: number; response: { grade?: Record<string, unknown> } | null }[]) {
       const g = row.response?.grade
       if (g && typeof g === 'object') partsById.set(Number(row.id), Object.fromEntries(Object.entries(g).filter(([, v]) => typeof v === 'boolean')) as Record<string, boolean>)
@@ -211,7 +220,13 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   }
   const first: FindAttemptRow[] = ((data ?? []) as Record<string, unknown>[]).map((r) => {
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
+    const original = originalById.get(String(r.attempt_id))
+    const task = typeof r.item_ref === 'string' ? currentItemTask(r.item_ref) : null
+    const bound = original?.item_ref === r.item_ref && original?.task_key === r.task_key && original?.session_id === r.session_id
     return {
+    sessionId: bound && typeof r.session_id === 'string' ? r.session_id : null,
+    contentHash: bound && typeof original?.content_hash === 'string' ? original.content_hash : null,
+    expectedContentHash: task && task.def.key === r.task_key ? task.def.hash(task.ann) : null,
     userId: String(r.user_id),
     attemptId: attemptIdentity(r.attempt_id),
     itemRef: String(r.item_ref),
@@ -248,7 +263,7 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
   const data: Record<string, unknown>[] = []
   let cursor: string | null = null
   for (;;) {
-    let query = db.from('learning_task_attempts').select('id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
+    let query = db.from('learning_task_attempts').select('id, session_id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
       .eq('user_id', userId).in('task_key', [...new Set(taskKeys.flatMap(transferKeysOf))]).order('id', { ascending: false }).limit(1000)
     if (cursor !== null) query = query.lt('id', cursor)
     const page = await query
@@ -260,10 +275,10 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
     if ((typeof last === 'number' && !Number.isSafeInteger(last)) || !/^\d+$/.test(String(last)) || String(last) === cursor) throw new Error('Invalid lifecycle cursor')
     cursor = String(last)
   }
-  type Row = { id: unknown; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
+  type Row = { id: unknown; session_id: string | null; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
   return (data as Row[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
-    .map((r) => ({ attemptId: attemptIdentity(r.id), itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
+    .map((r) => ({ attemptId: attemptIdentity(r.id), sessionId: r.session_id, itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -475,7 +490,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
   // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
   const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
-  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId)).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
+  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId), userId).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
   const practiceNext: Record<string, string> = {}
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
@@ -505,6 +520,16 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     Object.values(saved.byTemplate).map(async (w) => [w.workspaceId, await loadSupplyLedger(db, userId, w.workspaceId).catch((e) => { console.error('[csat-map v62 supply ledger]', e); return { status: 'error' } as SupplyLedger })] as const),
   ))
 
+  // #281 E01 · E04 — 확인 · 전이 후보의 노출(모든 원장)과 정식 자격 reader. 실패는 error 로 남겨 화면이 「미노출」로 보지 않게 한다
+  const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
+  const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), assessCandidates)
+  const fqReader = await loadFqReader(db).catch((): FqReader => ({ status: 'error' }))
+
+  for (const [key, targets] of Object.entries(transferTargets)) {
+    transferTargets[key] = executableTransferTargets(targets, assessmentExposure)
+    transferItems[key] = new Set(transferTargets[key].map(l => l.passageKey)).size
+  }
+
   return {
     now: now.toISOString(),
     // 관찰값을 싣지 않은 이유 — 보류 시험 기록(held) · 판정 실패(failed). 화면이 「기록 없음」 으로 오해하지 않게(v3 M1)
@@ -517,6 +542,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       transferTargets,
       saved,
       supplyLedger,
+      assessmentExposure,
+      fqReader,
       // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
       target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
       viewer: userId,

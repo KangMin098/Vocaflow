@@ -5,7 +5,7 @@ import { evidenceView } from '@/lib/csat/map/v62/evidence-claims'
 import { EvidenceBlock } from '../EvidenceClaims'
 
 it('shared-passage notice preserves current per-item policy without claiming already-deduplicated observations', () => {
- const rows = [1,2].map(n => ({ attemptId: String(n), userId: 'u', itemRef: 'i'+n, taskKey: 'claim-support', phase: 'practice' as const, isCorrect: false, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }))
+ const rows = [1,2].map(n => ({ attemptId: String(n), userId: 'u', itemRef: 'i'+n, taskKey: 'claim-support', phase: 'practice' as const, isCorrect: false, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, sessionId: 'fixture-session', contentHash: 'h', expectedContentHash: 'h', activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }))
  const e = evidenceView({ task: 'r.central_meaning', check: { taskKey: 'claim-support', status: 'verified', independentItems: 2, attemptedItems: 2, verifiedItems: ['i1','i2'], wrongItems: ['i1','i2'], unseen: [], examSeen: [], verifiedAt: '2026-10-01T00:00:00Z' }, firsts: rows, activity: rows.map(r => ({ ...r, contentHash: 'h', passageKey: 'shared', receivedAt: '2026-10-01T00:00:01Z' })), hashes: { 'claim-support|i1': 'h', 'claim-support|i2': 'h' }, transfer: { done: 0, planned: 2 } })
  expect(e.currentCheck.independentItems).toBe(2)
  expect(e.attempts.filter(a => a.claim === 'independent_check')).toHaveLength(2)
@@ -17,7 +17,7 @@ it('shared-passage notice preserves current per-item policy without claiming alr
 })
 
 it('shared helped attempts are not described as included independent observations', () => {
- const rows = [1,2].map(n => ({ attemptId: String(n), userId: 'u', itemRef: 'i'+n, taskKey: 'claim-support', phase: 'practice' as const, isCorrect: true, synthetic: true, helpLevel: 'viewed_first', afterViewedFirst: true, afterExplanation: false, activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }))
+ const rows = [1,2].map(n => ({ attemptId: String(n), userId: 'u', itemRef: 'i'+n, taskKey: 'claim-support', phase: 'practice' as const, isCorrect: true, synthetic: true, helpLevel: 'viewed_first', afterViewedFirst: true, afterExplanation: false, sessionId: 'fixture-session', contentHash: 'h', expectedContentHash: 'h', activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }))
  const e = evidenceView({ task: 'r.central_meaning', check: null, firsts: rows, activity: rows.map(r => ({ ...r, contentHash: 'h', passageKey: 'shared', receivedAt: '2026-10-01T00:00:01Z' })), hashes: { 'claim-support|i1': 'h', 'claim-support|i2': 'h' }, transfer: { done: 0, planned: 2 } })
  expect(e.sharedPassageGroups).toHaveLength(1)
  expect(e.attempts.filter(a => a.claim === 'independent_check')).toHaveLength(0)
@@ -25,7 +25,7 @@ it('shared helped attempts are not described as included independent observation
 })
 
 it('a stale current instrument does not erase an independently observed historical first outcome', () => {
- const first = { attemptId: '1', userId: 'u', itemRef: 'i1', taskKey: 'claim-support', phase: 'practice' as const, isCorrect: false, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }
+ const first = { attemptId: '1', userId: 'u', itemRef: 'i1', taskKey: 'claim-support', phase: 'practice' as const, isCorrect: false, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, sessionId: 'fixture-session', contentHash: 'old', expectedContentHash: 'new', activity: 'theater', answeredAt: '2026-10-01T00:00:00Z' }
  const e = evidenceView({ task: 'r.central_meaning', check: null, firsts: [first], activity: [{ ...first, contentHash: 'old', receivedAt: '2026-10-01T00:00:01Z' }], hashes: { 'claim-support|i1': 'new' }, transfer: { done: 0, planned: 2 } })
  expect(e.attempts[0]!.claim).toBe('performed_only')
  const html = renderToStaticMarkup(<EvidenceBlock e={e} />)

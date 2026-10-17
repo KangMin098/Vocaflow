@@ -21,6 +21,7 @@ import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
 import { buildDemand } from '@/lib/csat/map/v62/demand'
 import { canonicalDemand } from '@/lib/csat/map/v62/canonical-json'
 import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
+import { FQ_READER_LABEL } from '@/lib/csat/map/v62/assessment-exposure'
 import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
 import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
@@ -129,12 +130,16 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const unseen = new Set(check?.unseen ?? [])
   // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
   const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
+  const fq = data.v4?.fqReader ?? { status: 'error' as const }
   const supply = supplyFor(demand, {
     unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
     transferItems: transferMine.map((l) => l.target),
     transferDrafts: 0,
     study,
     factoryStock: null,
+    // #281 E01 · E04 — 모든 원장 노출로 다시 거르고, 정식 자격 reader 상태를 그대로 쓴다(없으면 모름 — 미노출 · 적격으로 보지 않는다)
+    exposure: data.v4?.assessmentExposure ?? { status: 'error', failed: [] },
+    fq,
   })
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
@@ -241,6 +246,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                   </li>
                 ))}
               </ul>
+              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 적격 자료 ${fq.eligible.length}건${fq.eligible.length === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
               <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
               <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
             </div>
