@@ -23,6 +23,7 @@
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
+import { RUNNER_RE, issueTicket, parseApply } from './db-approval.mjs'
 import { ROOT, findSecrets, git, isEnvFile, isMain } from './lib.mjs'
 
 const SHELL_TOOLS = /^(Bash|PowerShell|shell|local_shell|exec_command|container\.exec)$/
@@ -180,9 +181,51 @@ function checkEnvRead(verb, args) {
   return hit ? `${verb} ${hit} — .env 계열 출력 금지(값은 스크립트가 --env-file 로 읽는다)` : null
 }
 
+/**
+ * 승인형 DB 배포(scripts/db/<id>/deploy.mjs apply) 판정 — db-approval.mjs 와 짝.
+ * asks: 사용자 승인 창 대상(정식 형태) · denies: 승인 창조차 띄우지 않고 거부(티켓 디렉터리 접근 · 변형 호출 · 형식 오류).
+ */
+export function deployApprovals(cmd) {
+  const asks = []
+  const denies = []
+  const src = stripHeredocs(cmd)
+  if (/db-approvals|[\\/]\.vocaflow\b|VF_DB_APPROVAL_DIR/i.test(src))
+    denies.push('승인 티켓 디렉터리 접근 — 티켓은 guard 훅만 쓴다(agents/scripts/db-approval.mjs)')
+  for (const seg of segments(cmd)) {
+    const h = head(seg)
+    if (!h) continue
+    const { verb, args } = h
+    const touchesRunner = args.some((a) => RUNNER_RE.test(a))
+    if (!touchesRunner) continue
+    if (!['node', 'node.exe'].includes(verb)) {
+      if (args.includes('apply')) denies.push(`배포 러너 apply 를 ${verb} 로 감싸 실행 — \`node scripts/db/<id>/deploy.mjs apply …\` 형태로만 승인한다`)
+      continue
+    }
+    const p = parseApply(args)
+    if (!p) continue
+    if (!p.ok) denies.push(`DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`)
+    else asks.push(p)
+  }
+  // 정식 형태로 파싱되지 않은 apply(변수 · 치환 · 따옴표 조립)는 승인 창 대상과 실행 대상이 어긋날 수 있다
+  if (!asks.length && !denies.length && /deploy\.mjs/i.test(src) && /\bapply\b/.test(src) && /\$\(|`|\$\{?[A-Za-z_]/.test(src))
+    denies.push('DB 배포 apply 를 변수·명령 치환으로 조립 — 승인 창에 보이는 명령과 실행 명령이 같아야 한다')
+  if (asks.length > 1) denies.push('한 명령에 DB 배포 apply 가 둘 이상 — 승인은 한 번에 하나')
+  return { asks: denies.length ? [] : asks, denies }
+}
+
+function checkDeployApply(verb, args) {
+  if (!['node', 'node.exe'].includes(verb)) return null
+  const p = parseApply(args)
+  if (!p) return null
+  return p.ok
+    ? `DB 배포 apply(${p.runner} · ${p.stage} · sha ${p.sha}) — 사용자 승인 창에서 허용해야만 실행된다`
+    : `DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`
+}
+
 /** @returns {string[]} 차단 사유 목록 (빈 배열이면 통과) */
 export function explain(cmd, depth = 0) {
   const reasons = []
+  if (depth === 0) reasons.push(...deployApprovals(cmd).denies)
   for (const seg of segments(cmd)) {
     const h = head(seg)
     if (!h) continue
@@ -199,6 +242,7 @@ export function explain(cmd, depth = 0) {
     const r =
       checkRemove(verb, args) ??
       (verb === 'git' ? checkGit(args) : null) ??
+      checkDeployApply(verb, args) ??
       checkEnvRead(verb, args)
     if (r) reasons.push(r)
   }

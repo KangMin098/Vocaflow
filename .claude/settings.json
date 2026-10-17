@@ -71,6 +71,11 @@
             "type": "command",
             "command": "node \"$CLAUDE_PROJECT_DIR/agents/scripts/guard.mjs\" --agent claude",
             "timeout": 180
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/agents/scripts/db-approval-hook.mjs\" --agent claude",
+            "timeout": 15
           }
         ]
       }

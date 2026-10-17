@@ -28,6 +28,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 guard 가 승인 창(ask)을 띄우고, 새 PreToolUse 훅 `db-approval-hook.mjs` 가 (러너·단계·SHA) 에 묶인 5분 1회용 티켓을 발급한다(`agents/scripts/db-approval.mjs`). 러너는 TTY 대신 티켓을 소비한다. 래퍼·변수 조립·티켓 디렉터리 접근은 거부하고, Codex·자동 실행·CI 는 발급하지 않는다. allow 규칙 금지 회귀 포함. migration 없음.
+
 - fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수·지문 식별 누락 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
 
 - PR #283 독립 검증: 주석 결속 승인안의 NULL 권한·적용 순서·현재 주석 대조 누락을 보완했다. 공급/현재 충족도의 ref·hash·revision·TASK 비교와 과거 이력 보존을 격리 PostgreSQL에서 검증. SQL/배포 동기화 미승인, C/E/F/H UNKNOWN 및 실제 I2 BLOCKED 유지. [수용 기록](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
