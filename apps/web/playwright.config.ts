@@ -31,24 +31,17 @@ export default defineConfig({
     headless: true,
   },
   projects: [
-    { name: 'chromium', testIgnore: '40-csat-practice.spec.ts', use: { ...devices['Desktop Chrome'] } },
-    { name: 'r5-read-only', testMatch: '40-csat-practice.spec.ts', use: { ...devices['Desktop Chrome'], baseURL: process.env.R5_READ_ONLY_BASE_URL || 'http://localhost:3129' } },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
   // `PLAYWRIGHT_BASE_URL` 을 주면 **서버를 우리가 띄우지 않는다.**
   // 이 워크스페이스는 여러 세션이 공유하므로 3000 의 dev 서버를 함부로 죽이면 남의 실행이 깨진다.
   // 프로덕션 빌드로 재고 싶을 때는 `next start -p 3100` 을 따로 띄우고 이 변수로 가리킨다.
-  webServer: [
-    ...(!process.env.CI && !process.env.PLAYWRIGHT_BASE_URL ? [{
+  webServer: process.env.CI || process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
         command: 'pnpm dev',
         url: 'http://localhost:3000',
         reuseExistingServer: true,
         timeout: 120_000,
-      }] : []),
-    {
-      command: 'node ../../scripts/csat/map/v62/r5-read-only-server.cjs',
-      url: `${process.env.R5_READ_ONLY_BASE_URL || 'http://localhost:3129'}/login`,
-      reuseExistingServer: true,
-      timeout: 120_000,
-    },
-  ],
+      },
 });

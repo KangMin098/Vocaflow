@@ -12,6 +12,7 @@ import { expect, test, type Browser, type BrowserContext, type Page } from '@pla
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { execFileSync, spawn, type ChildProcess } from 'node:child_process'
 import { annotationFor, gradeClaimSupport, skeletonSig } from '../../src/lib/knowledge/claim-support'
 import { RELATION_LABEL } from '../../src/lib/knowledge/claim-support-labels'
 import { gradePractice, keyFromAnnotation, phaseOfType, practiceFeedback, type PracticeAnswer } from '../../src/lib/knowledge/practice'
@@ -42,6 +43,8 @@ function fixtureFor(itemId: string) {
 }
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
+const READ_ONLY_BASE = process.env.R5_READ_ONLY_BASE_URL || 'http://localhost:3129'
+let ownedServer: ChildProcess | null = null
 
 test.describe.configure({ mode: 'serial' })
 test.setTimeout(120_000)
@@ -51,9 +54,23 @@ const isWrite = (method: string) => method !== 'GET' && method !== 'HEAD' && met
 
 test.beforeAll(async ({ browser }) => {
   test.setTimeout(120_000)
-  const ctx = await browser.newContext()
-  const guardProbe = await ctx.request.head('/login', { timeout: 120_000 })
-  expect(guardProbe.headers()['x-vocaflow-r5-read-only'], 'isolated server must block RSC DB writes too').toBe('1')
+  const ctx = await browser.newContext({ baseURL: READ_ONLY_BASE })
+  let guardProbe
+  try { guardProbe = await ctx.request.head('/login', { timeout: 120_000 }) } catch (error) {
+    // The ordinary test:e2e command also runs this file. Start its protected
+    // server here when absent; never use the ordinary learner server for QA.
+    if (!String(error).includes('ECONNREFUSED') || !['localhost', '127.0.0.1'].includes(new URL(READ_ONLY_BASE).hostname)) throw error
+    ownedServer = spawn(process.execPath, [path.resolve(__dirname, '../../../../scripts/csat/map/v62/r5-read-only-server.cjs')], { env: { ...process.env, R5_READ_ONLY_PORT: new URL(READ_ONLY_BASE).port || '3129' }, stdio: 'ignore', windowsHide: true })
+    for (let retry = 0; retry < 120; retry++) {
+      try { guardProbe = await ctx.request.head('/login', { timeout: 120_000 }); break } catch (startupError) {
+        if (ownedServer.exitCode !== null) throw new Error(`R5 guarded server exited: ${ownedServer.exitCode}`)
+        if (!String(startupError).includes('ECONNREFUSED')) throw startupError
+        await new Promise((resolve) => setTimeout(resolve, 250))
+      }
+    }
+  }
+  expect(guardProbe, 'guarded server readiness').toBeTruthy()
+  expect(guardProbe!.headers()['x-vocaflow-r5-read-only'], 'isolated server must block RSC DB writes too').toBe('1')
   // 로그인 화면 · 로그인 뒤 첫 화면도 분석 이벤트를 보낸다 — 여기서도 가로챈다. 인증 요청만 통과시킨다
   await ctx.route('**/*', (route) => {
     const r = route.request()
@@ -68,6 +85,11 @@ test.beforeAll(async ({ browser }) => {
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 30_000 })
   storage = await ctx.storageState()
   await ctx.close()
+})
+test.afterAll(() => {
+  if (!ownedServer || ownedServer.exitCode !== null || !ownedServer.pid) return
+  if (process.platform === 'win32') execFileSync('taskkill', ['/PID', String(ownedServer.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' })
+  else ownedServer.kill('SIGTERM')
 })
 
 interface Probe {
@@ -87,7 +109,7 @@ interface Probe {
 
 /** 가짜 제출 서버 — 같은 (제출 id) 는 한 번만 저장(duplicate), 다른 답이면 conflict */
 async function device(browser: Browser): Promise<Probe> {
-  const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
+  const ctx = await browser.newContext({ baseURL: READ_ONLY_BASE, storageState: storage, viewport: { width: 1440, height: 900 } })
   const page = await ctx.newPage()
   page.setDefaultNavigationTimeout(120_000)
   const probe: Probe = { page, ctx, submits: [], views: [], reviews: [], writes: [], failNext: 0 }
