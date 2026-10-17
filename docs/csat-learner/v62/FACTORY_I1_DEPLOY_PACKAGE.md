@@ -1,6 +1,6 @@
 # Factory I1 — 개발 DB 배포 패키지(DB-1 · DB-2)
 
-> **상태: 패키지 완료 · 미적용.** 개발 DB(`jajenrevcbmrpaliomxv`)에는 읽기(SELECT)만 했다. migration 이력 · DDL · DML 0.
+> **상태: DEPLOY_READY · 미적용.** 독립 판정 ACCEPT_WITH_LIMITS. 개발 DB(`jajenrevcbmrpaliomxv`)에는 읽기(SELECT)만 했다. migration 이력 · DDL · DML 0. 새 전체 SHA 승인과 권한 있는 배포 실행자를 기다린다. 최신 HEAD 필수 CI 통과가 유지 조건이다.
 > 승인 범위와 SQL 정본은 [승인 패키지](./FACTORY_I1_APPROVAL_PACKAGE.md) · [독립 수용](../../research/factory-i1-280-independent/ACCEPTANCE.md)이 정본이다. 이 문서는 **그 SQL 을 어떻게 안전하게 적용하는가**만 다룬다.
 > 격리 PostgreSQL 통과는 개발 DB 적용 성공이 아니다. 실제 적용 · 검증 결과는 이 문서 §11 에 적용 뒤 기록한다.
 > **DB286 독립 검증 후 새 정본**: 최초 제출은 REWORK. 최신 main(#283)의 B NULL 버전 검사 보완과 배포 보안 수정으로 전체 SHA가 바뀌었다. 아래 §2가 현재 배포 정본이다. 기존 승인/이전 전체 SHA는 승계하지 않는다. I2 annotation binding은 이 파일들에 포함하지 않는다. [독립 판정](../../research/factory-i1-deploy-286-independent/ACCEPTANCE.md).
@@ -32,16 +32,18 @@
 | `preflight.sql` | `c1a0152baaadf202ad1c2f9ed7be3dfffabcde8ad284564be1daea7be59ad0c2` | 생성물(읽기 전용) |
 | `MANIFEST.json` | `ff1cac064d2cb0e9c343d79b6177dda743ecfab47afd3bf3532a03ddeb61a0a9` | 세그먼트 오프셋 · 허용 목록 |
 
-세그먼트는 `-- >>> VF-SEGMENT <id> … sha256=… bytes=…` 다음 바이트부터 `-- <<< VF-SEGMENT <id>` 앞까지가 원본과 **바이트까지 같다**. `node scripts/db/factory-i1/deploy.mjs check` 가 정본 4종 SHA · 세그먼트 · 생성물 7개를 매번 다시 대조한다(보조 생성물 5개 포함 · 1바이트 변조 거절 — 격리 A3). 손으로 고치지 않는다 — 바꾸려면 `node scripts/db/factory-i1/build.mjs`(정본 SHA 가 다르면 생성 자체가 거절된다).
+세그먼트는 `-- >>> VF-SEGMENT <id> … sha256=… bytes=…` 다음 바이트부터 `-- <<< VF-SEGMENT <id>` 앞까지가 원본과 **바이트까지 같다**. `node scripts/db/factory-i1/deploy.mjs check`가 정본 4종 SHA·세그먼트·생성물 **8개**(DB-1/2·manifest·보조 5개)를 매번 대조한다(1바이트 변조 거절 — 격리 A3). 손으로 고치지 않는다 — 바꾸려면 `node scripts/db/factory-i1/build.mjs`(정본 SHA가 다르면 생성 자체가 거절된다).
 
-## 3. migration 안의 가드(어떤 러너로 돌려도 지켜지는 것)
+## 3. 전체 migration 파일 안의 가드
 
 DB286 보완: 기존 helper 두 개는 적용 전 `pg_proc`의 모든 속성을 임시 표에 보관하고 `proconfig` 이외의 차이를 거절한다. 허용 객체 이름에 포함된다는 이유로 본문·ACL·소유권 변경이 통과하지 않는다. DB-1의 최종 `proconfig`도 아래 정확한 값으로 검사한다.
+
+승인 경로는 전체 파일을 오류 시 중단하는 배포 러너다. 이 가드는 DB 소유자의 임의 SQL 실행을 막는 권한 경계가 아니다. statement_timeout은 각 문에 적용되며 트랜잭션 총시간 상한을 뜻하지 않는다.
 
 1. **프롤로그** — 이력(개발 DB 처럼 이력이 있는 DB): 같은 버전 있음 · DB-2 가 먼저 있음 → 거절. 전제 표 14 · 함수 5 존재. 대상 표 10(D3 2 포함) · 함수 17 부재. 권한 helper 두 개의 `proconfig` 가 실측값(또는 DB-1 뒤 값)이 아니면 `DEPLOY_BLOCKED[drift]`. `lock_timeout 15s` · `statement_timeout 120s`.
 2. **원자성** — 프롤로그가 xid 를 표식하고 세그먼트 경계마다(프롤로그→C · C→B · B→S · S→에필로그) 같은 xid 인지 본다. 프롤로그는 **커밋 가드**(임시 지연 제약 트리거)를 걸어, 에필로그 검증을 통과하지 않은 트랜잭션은 COMMIT 자체가 실패한다 — 파일을 잘라 「프롤로그+C」만 커밋하려는 러너도 그 조각 전체가 롤백된다(격리 C7 · C8 · C9).
 3. **에필로그** — 적용 전후 카탈로그 지문(시스템 스키마 밖 전부: 표/뷰/인덱스/시퀀스의 종류 · ACL · RLS · 소유자 · reloptions · 뷰 정의 / 열 · 열 ACL / 제약 / 함수 본문 · 설정 · ACL · 소유자 / 정책 / 트리거 / 스키마 / enum · 도메인 · 복합 · 범위 타입 / 기본 권한 / 확장 / 이벤트 트리거 / 주석 전체 해시, `scripts/db/factory-i1/catalog.mjs`) diff 가 허용 목록과 다르면 `DEPLOY_BLOCKED[allowlist]` 로 전체 롤백. 이어서 helper search_path 최종값 · 8표 RLS/권한 · 내부 판정기 실행권 · 쓰기 RPC anon 실행권 · 정의자 search_path 의 `pg_temp` 를 단언한다.
-4. **지문 밖(알려진 한계)** — 데이터 행 · 시퀀스 값 · 통계 · `OWNED BY` · 역할 자체(`CREATE ROLE`)는 보지 않는다. C · B · S · P 원본에는 이런 문이 없다. 비교는 READ COMMITTED 라 적용 중(최대 120초) **다른 세션이 커밋한 DDL 도 diff 에 들어가 롤백된다** — 안전한 쪽 오탐이므로 종료 3 이면 동시 DDL 여부부터 본다.
+4. **지문 밖(알려진 한계)** — 데이터 행 · 시퀀스 값 · 통계 · `OWNED BY` · 역할 자체(`CREATE ROLE`)는 보지 않는다. C · B · S · P 원본에는 이런 문이 없다. 비교는 READ COMMITTED라 적용 중 에필로그가 관측한 **다른 세션의 커밋 DDL도 diff에 들어가 배포를 롤백한다** — 안전한 쪽 오탐이므로 종료 3이면 동시 DDL 여부부터 본다. 타 세션의 DDL 전체를 직렬화하거나 그 세션까지 되돌리는 계약은 아니다.
 
 ## 4. 허용 객체 목록(정본: `scripts/db/factory-i1/spec.mjs` · `MANIFEST.json`)
 
@@ -83,6 +85,8 @@ DB286 보완: 기존 helper 두 개는 적용 전 `pg_proc`의 모든 속성을 
 | DB-2 위치 | `supabase/migrations` 밖 — 들어가면 `DEPLOY_BLOCKED[db2-coupled]`(격리 A8) |
 
 ## 7. 격리 검증(실제 PostgreSQL 17.10 임시 클러스터)
+
+DB286 최종: 기존 배포 **47/47**·동시성 **33/33**·추가 반례 **8/8**·CI/원장 생명주기 **2/2**·집중 단위 **9/9**. 코드 HEAD `46b935f9e`에서 필수 CI **8/8**과 추가 고장 E2E가 성공했다. 빈 Supabase 두 잡은 각각 migration 353성공/기존 실패164/새 실패0, 브라우저 4통과/고장 2통과. 마지막 HEAD 체크와 전체 제한은 [독립 수용 기록](../../research/factory-i1-deploy-286-independent/ACCEPTANCE.md)을 따른다.
 
 DB286의 첫 빈 Supabase CI에서는 기존 migration 롤백으로 helper 두 개가 사라져 DB-1이 전제 검사에서 안전하게 거절됐다. [최초 실패](../../research/factory-i1-deploy-286-independent/first-ci-failure.json)를 보존했다. CI 준비 단계만 `scripts/ci/factory-i1-prerequisites.mjs`로 두 함수의 **저장소 정본 본문과 ACL**을 복구한다. GitHub Actions의 loopback:54322/postgres에만 쓰며 query/포트 재정의는 거절한다. `check_function_bodies=off`는 이 fixture 트랜잭션에서만 사용하고, 미버전 원천 표가 없으면 실제 호출은 오류로 닫힌다. 새 표·운영 이력 생성이나 운영 migration 전제 완화는 없다. N03/N04 PostgreSQL 시험에서 이 경계와 원장 1행을 보존한 DB-2 적용을 확인했다. 전체 운영 스키마 복원 성공을 의미하지 않는다.
 

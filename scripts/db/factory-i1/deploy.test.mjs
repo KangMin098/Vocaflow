@@ -1,8 +1,10 @@
 // scripts/db/factory-i1/deploy.test.mjs
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { targetOf, writeAuthorizationBlocks, redactText, offlineCheck, evaluatePreflight } from './deploy.mjs'
+import { targetOf, writeAuthorizationBlocks, redactText, offlineCheck, evaluatePreflight, applyStage } from './deploy.mjs'
 import { PROJECT_REF } from './spec.mjs'
+import { PREFLIGHT_SQL } from './sql.mjs'
+import { buildAll } from './build.mjs'
 import fs from 'node:fs'
 const url = `postgresql://postgres:example-password@db.${PROJECT_REF}.supabase.co:5432/postgres`
 
@@ -44,4 +46,20 @@ test('read-only measured remote checkpoint still admits DB-1 and rejects DB-2', 
   const changed = structuredClone(pre)
   changed.history.versions_after_20261014091841 = ['20261016000000']
   assert.ok(evaluatePreflight('db1', changed).some((b) => b.includes('[history]')))
+})
+
+test('COMMIT shutdown/connection errors remain unknown even when ROLLBACK responds', async () => {
+  const pre = JSON.parse(fs.readFileSync(new URL('../../../docs/research/factory-i1-deploy-286-independent/remote-preflight.json', import.meta.url))).preflight
+  const { db1 } = buildAll()
+  for (const code of ['ECONNRESET', '57P01', 'XX000', '08006', '40003']) {
+    let commitSent = false
+    const client = { on() {}, off() {}, async query(q) {
+      if (q === PREFLIGHT_SQL) return { rows: [{ preflight: pre }] }
+      if (q === 'commit') { commitSent = true; throw Object.assign(new Error('COMMIT response lost'), { code }) }
+      return { command: q === 'rollback' ? 'ROLLBACK' : '' }
+    } }
+    const r = await applyStage(client, 'db1', { text: db1.text, sha: db1.sha256, approvedBy: 'test' })
+    assert.equal(commitSent, true)
+    assert.equal(r.outcome, 'unknown', code)
+  }
 })

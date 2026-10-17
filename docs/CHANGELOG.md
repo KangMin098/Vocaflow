@@ -26,6 +26,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(db): DB286을 ACCEPT_WITH_LIMITS·DEPLOY_READY로 기록했다. PostgreSQL 47/33/추가8·CI 생명주기2·집중 단위9, 코드 HEAD 필수 CI8종 및 빈 Supabase 새 실패0을 확인했다. 실제 개발 DB는 미적용이며 새 SHA 승인·DB-1 이력/verify 로그 전에는 safe-merge를 실행하지 않는다.
+
 - fix(ci): DB286 빈 Supabase에서 기존 migration 롤백으로 사라진 helper 두 개의 정본 본문/ACL만 CI 전용으로 복구한다. 운영 SQL 가드/전체 SHA는 불변이며 없는 원천 표는 호출 시 오류로 차단한다. DB-2의 초기 배포 전용 빈 원장 검사도 분리해 정상 원장 1행 보존을 검증했다.
 
 - fix(db): PR #286 독립 검증 — 자동/임의 승인·접속 옵션/포트·helper 속성·COMMIT 미확정·이력 경합·DB-2 검증 반례를 보완하고 #283 B NULL 버전 보완만 동기화했다. 새 DB-1 `061a48a8…`, DB-2 `2165015d…`는 미적용·새 승인 대상. PR CI의 공유 개발 DB 비밀값 전달을 차단했다. [독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md).

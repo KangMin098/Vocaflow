@@ -212,7 +212,9 @@ export async function applyStage(client, stage, { text, sha, approvedBy, injectF
       if (committed.command !== 'COMMIT') throw Object.assign(new Error('server did not confirm COMMIT'), { code: '40003' })
     } catch (e) {
       // A network error after COMMIT may mean it committed. ROLLBACK cannot undo that fact.
-      const serverRejection = /^[0-9A-Z]{5}$/.test(e.code ?? '') && !String(e.code).startsWith('08') && e.code !== '40003'
+      // Only ordinary transaction/constraint/PLpgSQL rejections prove COMMIT was rejected.
+      // FATAL/admin shutdown/internal errors may arrive after the commit point too.
+      const serverRejection = /^(23|40|P0|22|25|42|0A)[0-9A-Z]{3}$/.test(e.code ?? '') && e.code !== '40003'
       let unknown = committing && !serverRejection
       await client.query('rollback').catch(() => { unknown = true })
       return { ok: false, outcome: unknown ? 'unknown' : 'rolled_back', started_at: t0, ended_at: new Date().toISOString(), error: { code: e.code ?? null, message: e.message }, notices }

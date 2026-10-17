@@ -3,7 +3,7 @@
 - 대상: [PR #286](https://github.com/KangMin098/Vocaflow/pull/286), 실제 head branch `chore/factory-i1-deploy-package`.
 - 최초 제출: `3d4f773d8d134923c92518a8ab5c80951c81f77e`. **최초 판정 REWORK**. 기존 47조건 통과만으로 아래 반례를 발견하지 못했다.
 - 통합 main: `732f2bb0f0b4094c175c0b5e8a66c799d704a6a0`(#283 포함). 전용 worktree에서 통합했으며 다른 세션의 파일/인덱스는 수정하지 않았다.
-- 현재: 최소 수정·격리 재검증 수용. **최종 CI 판정 대기**. 개발 DB 쓰기/배포/safe-merge/병합은 실행하지 않았다.
+- 최종 독립 판정: **ACCEPT_WITH_LIMITS**. DB-1 패키지 **DEPLOY_READY**(새 명시 승인·권한 있는 실행자의 실제 적용 대기). 코드 HEAD `46b935f9e`의 필수 8종과 추가 게이트 고장 E2E가 모두 성공했다. 마지막 보수적 오류 분류/문서 커밋도 [최신 HEAD 체크](https://github.com/KangMin098/Vocaflow/pull/286/checks)가 모두 성공해야 배포 준비 판정을 유지한다. 개발 DB 쓰기/배포/safe-merge/병합은 실행하지 않았다.
 
 ## 1. 최초 제출 결함과 수정
 
@@ -14,7 +14,7 @@
 | R01 | P1 | 검증된 프로젝트 URL에 `?host=127.0.0.1&port=…&sslmode=disable`를 붙이면 pg 드라이버의 실제 host/port/TLS가 바뀐다. TLS 인증서 검증도 꺼져 있었다 | query/fragment·잘못된 프로토콜/DB/포트 거절, TLS 인증서 검증 |
 | R02 | P1 | 자동 환경 + 임의 `--approved-by` + `--isolated` CLI가 실제 격리 DB에 DB-1을 커밋했다 | 공용 훅의 DB 승인 분류, auto/CI·비대화형·CLI apply의 isolated 차단, 별도 정책 승인 및 전체 SHA 대화형 확인. 승인 문자열은 메타데이터로만 취급 |
 | R03 | P1 | 배포 중 event trigger가 기존 `is_admin()` 본문을 `select true`로 바꿔도 허용된 함수 이름이라 적용 성공 | helper 두 개의 적용 전/후 전체 pg_proc 속성 비교(proconfig 제외) + 정확한 최종 search_path. 본문·ACL·정의자·소유권 등 불변 |
-| R04 | P1 | 실제 COMMIT 후 응답만 ECONNRESET으로 유실시키면 이력이 존재하는데도 러너는 실패/롤백으로 보고 | outcome=unknown·종료 4·사고 분류. DDL 전 의도 로그와 Git/manifest/runner SHA 기록. 읽기 대조 전 재시도/복구 금지 |
+| R04 | P1 | 실제 COMMIT 후 응답만 ECONNRESET으로 유실시키면 이력이 존재하는데도 러너는 실패/롤백으로 보고 | outcome=unknown·종료 4·사고 분류. DDL 전 의도 로그와 Git/manifest/runner SHA 기록. 읽기 대조 전 재시도/복구 금지. FATAL 서버 종료/내부 오류/08/40003도 보수적으로 unknown이며 이후 ROLLBACK 응답이 이를 바꾸지 않는 회귀 추가 |
 | R05 | P2 | preflight 뒤 새 원격 이력을 넣어도 실제 apply는 성공 | 적용 트랜잭션 안에서 이력 표를 잠근 뒤 preflight 재실행; 신규 이력 거절 |
 | R06 | P2 | DB-1 검증이 현재 실패하는 권한 상태에서도 DB-2를 적용할 수 있었다. CLI의 JSON `verify.ok`는 로컬에서 조작 가능 | DB-2 적용과 같은 연결/잠긴 트랜잭션에서 DB-1 보안·이력·노출 검증 재실행. 이력 SHA와 기존 로그도 계속 요구. 최초 배포 전용 빈 원장 검사는 제외해 정상 사용 데이터 보존 |
 | R01 후속 | P2 | 독립 목적 리뷰에서 URL 포트 생략 + PGPORT=6543 상속 반례 추가 발견(접속 없이 pg 드라이버 설정 재현) | 운영 URL에 명시적 :5432 필수, 포트 생략 회귀 추가 |
@@ -49,12 +49,14 @@
 | 수정 배포 절차 | [47/47](./fixed-isolated.json): 부분/분리 실행, 마지막 검증 실패, 이력/카탈로그 rollback, 중복 적용, 복구의 원장 보존 포함 |
 | 수정 추가 반례 | [8/8](./fixed-counterexamples.json): 6결함 차단 + 동시 DDL 거절 + 실제 15초 락 타임아웃/rollback |
 | 배포 SQL 위 기존 I1 동시성 | [33/33](./fixed-concurrency.txt): RLS·권한·G2·NULL 관리자·pg_temp·직렬화. 시험의 D3는 기존 회귀 조건을 유지하기 위해서만 별도 로드하며 DB-1/2에는 미포함 |
-| 오프라인/권한/로그 회귀 | deploy.test.mjs 5/5, 공용 guard 90/90. CI verify에 배포 회귀 추가 |
+| 오프라인/권한/로그 회귀 | deploy.test.mjs **6/6**, CI 전제 **3/3**, 공용 guard 90/90. CI verify에 배포/전제 회귀 추가 |
 | CI 전제와 DB-2 생명주기 | [N03/N04 2/2](./ci-prerequisites-isolated.json): 정본 helper 복구·없는 원천 표 오류·DB-1 적용·정상 자격 원장 1행을 보존한 DB-2 적용. CI 전용 URL/환경/archive 경로 단위 3/3 |
 | 공용 에이전트 전체 회귀 | [141/141](./agent-regression.txt) |
 | 읽기 전용 개발 DB | [remote-preflight.json](./remote-preflight.json): 프로젝트 ref 확인, PostgreSQL 17.6·이력 722행·최대 20261014091841·DB-1/2 없음·전제 충족·충돌/락 0·DB-1 차단 0 |
-| 목적 리뷰 | [read-only reviewer NO_FINDINGS](./purpose-independent.txt). 표준 review.mjs의 [제출본 지적](./purpose-cli-submitted.txt)과 [첫 수정본 지적](./purpose-cli-fixed-first.txt)을 보존했다. DB-2 빈 원장 과잉 차단을 수정했고, 실제 저장소 Supabase secrets 부재로 기존 PR 통합 시험의 실행 범위가 줄었다는 근거가 없음을 확인. 후속 독립 리뷰 8/8·NO_FINDINGS |
-| 최신 main/필수 CI | main #283 통합. 최종 8종과 빈 Supabase migration 적용은 원격 PR CI 결과 확인 후 아래 상태 갱신 |
+| 목적 리뷰 | [표준 review.mjs 최종 NO_FINDINGS](./purpose-cli-final.txt)·[read-only reviewer NO_FINDINGS](./purpose-independent.txt). [제출본 지적](./purpose-cli-submitted.txt)과 [첫 수정본 지적](./purpose-cli-fixed-first.txt)을 보존했다. DB-2 빈 원장 과잉 차단을 수정했고, Supabase secrets 부재로 기존 PR 통합 시험 실행 범위가 줄었다는 근거가 없음을 확인. 마지막 COMMIT 오류 분류 보완도 독립 리뷰 NO_FINDINGS·배포 6/6 |
+| 최신 main/필수 CI | main #283 통합. [코드 HEAD CI 증거](./ci-code-46b935f9e.json): 필수 **8/8 SUCCESS** 및 추가 e2e-gate-faultclosed SUCCESS |
+| 빈 Supabase CI | 두 잡 모두 **migration 성공 353·기존 실패 164·새 실패 0**. DB-1을 known-failure에 추가하지 않고 실제 적용했다. 브라우저 **4 passed**, 실제 RPC 고장 **2 passed** |
+| 실제 개발 DB 미적용 최종 확인 | [remote-final.json](./remote-final.json), 2026-10-17 21:34:57 KST: 이력 722·DB-1/2 없음·대상 없음·기존 helper와 원장 수 불변. 읽기 전용 질의만 실행 |
 
 PR CI verify는 공유 개발 DB 비밀값을 전달하지 않는다. DB 동작은 별도 로컬 Supabase e2e와 격리 PostgreSQL로 검증한다. main/수동 CI의 기존 공유 DB 동작은 이번 작업에서 실행하지 않는다.
 
@@ -64,7 +66,7 @@ PR CI verify는 공유 개발 DB 비밀값을 전달하지 않는다. DB 동작�
 
 ## 4. 배포와 safe-merge의 남은 조건
 
-코드·CI 최종 수용 뒤 상태를 **DEPLOY_READY**로 둔다. 실제 개발 DB는 이번 세션에서 적용하지 않는다.
+상태는 **DEPLOY_READY**이며 실제 개발 DB는 이번 세션에서 적용하지 않는다. 최신 HEAD의 체크가 실패/대기라면 배포 준비 판정도 보류한다. 마지막 HEAD 체크 결과는 PR 본문/체크 링크에서 확인한다.
 
 1. 새 B/DB-1 전체 SHA와 wrapper 변경 범위의 사용자 명시 승인. `--approved-by`나 이번 독립 수용은 그 승인이 아니다.
 2. 정책상 허용된 환경의 권한 있는 실행자가 당일 checkpoint/권한/이력을 다시 확인하고 DB-1 파일 하나만 적용한다. 승인 밖 과거 migration이나 DB-2는 함께 적용하지 않는다.
