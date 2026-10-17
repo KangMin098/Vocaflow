@@ -9,7 +9,7 @@
 --   · 도움 상태는 클라이언트 값이 아니라 **시도 행**에서 서버가 정한다(앱 attemptRole 과 같은 규칙):
 --       activity=practice → practice · help_level≠independent → helped · theater+practice → independent · theater+transfer → transfer.
 --       세션 · TASK · 내용 hash 중 하나라도 없으면 결속 거절(unbound 는 근거가 아니다).
---   · 기록 시점 검사(어긋나면 **거절**): 공급 행이 호출자 것 · Workspace active · 시도 행이 호출자 것 · 같은 문항 · 같은 TASK ·
+--   · 기록 시점 검사(어긋나면 **거절**): 공급 행이 호출자 것 · Workspace active · 시도 행이 호출자 것 · 같은 문항 · 과제 키가 배포 주석 등록부로 공급 TASK 에 대응 ·
 --       시도 내용 hash = 자격 주석 hash · 현재 산출물 revision = 공급 revision · 현재 배포 주석(supply_current_annotation) = 자격 주석 ·
 --       시도 서버 수신 시각 ≥ 공급 시각.
 --   · 근거 판정(어긋나면 **비근거로 기록** — 이력은 남기고 고치지 않는다): 자격 대체됨 · 승인 철회 · 그 밖의 현재 공급 무효(supply_delivery_valid) ·
@@ -75,7 +75,7 @@ create table public.workspace_delivery_attempt (
   first_exposed_at timestamptz,
   evidence boolean not null,
   non_evidence_reason text check (non_evidence_reason is null or non_evidence_reason in (
-    'qualification_superseded', 'approval_revoked', 'delivery_invalid', 'not_first_exposure', 'help_state_mismatch', 'role_not_evidence')),
+    'qualification_superseded', 'approval_revoked', 'delivery_invalid', 'not_first_exposure', 'exposure_unverifiable', 'help_state_mismatch', 'role_not_evidence')),
   request_key uuid not null,
   recorded_at timestamptz not null default now(),
   unique (user_id, request_key),
@@ -116,7 +116,7 @@ revoke all on function public.r5_exposure_key(text, text) from public, anon, aut
 create function public.workspace_delivery_attempt_record(p_delivery uuid, p_attempt bigint, p_request_key uuid)
 returns uuid language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare v_uid uuid := auth.uid(); d record; q record; t record; c record; ln record; dem record; prev record;
-  v_help text; v_key text; v_first boolean; v_at timestamptz; v_reason text; v_id uuid;
+  v_help text; v_key text; v_first boolean; v_unverifiable boolean := false; v_items text[]; v_at timestamptz; v_reason text; v_id uuid;
 begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
   if p_delivery is null or p_attempt is null or p_request_key is null then raise exception 'attempt binding: arguments required'; end if;
@@ -140,10 +140,11 @@ begin
   select * into ln from workspace_content_demand_line where id = d.line_id;
   select * into dem from workspace_content_demand where id = ln.demand_id;
 
-  -- ③ 시도 행 = 호출자 것 · 같은 문항 · 같은 TASK · 공급 뒤 서버 수신
+  -- ③ 시도 행 = 호출자 것 · 같은 문항 · 공급 뒤 서버 수신. TASK 는 ⑤ 에서 배포 주석 등록부로 대응시킨다
+  --    (시도 task_key 는 과제 「키」(예: claim-support), 공급 task_id 는 TASK id(예: r.central_meaning) — 직접 비교하지 않는다)
   select * into t from learning_task_attempts where id = p_attempt for share;
   if not found or t.user_id is distinct from v_uid then raise exception 'attempt binding: attempt not found or not owned' using errcode = '42501'; end if;
-  if t.item_ref is distinct from d.artifact_ref or t.task_key is distinct from d.task_id then
+  if t.item_ref is distinct from d.artifact_ref or t.task_key is null then
     raise exception 'attempt binding: attempt item/task differs from delivery';
   end if;
   if t.received_at is null or t.received_at < d.delivered_at then raise exception 'attempt binding: attempt predates delivery'; end if;
@@ -174,19 +175,45 @@ begin
     if not found or (c.artifact_revision, c.annotation_ref, c.annotation_hash) is distinct from (d.artifact_revision, q.annotation_ref, q.annotation_hash) then
       raise exception 'attempt binding: current annotation differs from delivery';
     end if;
+    -- 과제 키 → TASK 대응: 신뢰 등록부(supply_current_annotation · 배포 소유자만 갱신)의 (문항, TASK) 행이 가리키는 주석이
+    -- 시도가 채점에 쓴 주석(response.annotation = 주석 version · content_hash = 주석 hash, 위에서 확인)과 같고, 그 version 이 과제 키로 시작해야 한다.
+    if (t.response->>'annotation') is distinct from c.annotation_ref
+       or left(c.annotation_ref, length(t.task_key) + 1) <> t.task_key || '-' then
+      raise exception 'attempt binding: attempt task key does not map to delivery TASK';
+    end if;
+  else
+    raise exception 'attempt binding: task mapping unavailable for %', d.artifact_kind;
   end if;
 
-  -- ⑥ 첫 노출 — 사용자 × 노출 키 직렬화. 앞선 결속 · 앞선(또는 같은 시각) 다른 G2 시도가 있으면 첫 노출이 아니다
+  -- ⑥ 첫 노출 — 사용자 × 노출 키 직렬화. 이 시도 수신 전에 같은 문항 · 같은 지문을 어느 경로로든 봤으면 첫 노출이 아니다.
+  --    경로 = exposure-ledger.ts 6종(G2 시도 · G2 세션 · 함정 · 문제지/세션 시도 · 복습 큐 · 진단 응답/응시 회차) + 이 세션의 해설 열람 · 도움 + 앞선 결속.
+  --    시각이 없는 기록(복습 큐 · 진단 응답 · 시각 없는 세션)은 「앞섰다」로 본다. 원장 표가 없으면 판정 불가 → 비근거(fail-closed).
   v_key := public.r5_exposure_key(d.artifact_kind, d.artifact_ref);
   perform pg_advisory_xact_lock(hashtextextended(v_uid::text || '|' || v_key, 0));
-  v_first := not exists (select 1 from workspace_delivery_attempt x where x.user_id = v_uid and x.exposure_key = v_key)
-    and not exists (
-      select 1 from learning_task_attempts o
-      where o.user_id = v_uid and o.id <> t.id and o.received_at <= t.received_at
-        and (o.item_ref = d.artifact_ref
-             or (v_key like 'passage:%' and o.item_ref in (
-               select j.id from csat_items j where j.passage is not null
-                 and 'passage:' || md5(regexp_replace(lower(j.passage), '\s+', ' ', 'g')) = v_key))));
+  v_items := array(select j.id from csat_items j where j.id = d.artifact_ref
+    or (v_key like 'passage:%' and j.passage is not null and 'passage:' || md5(regexp_replace(lower(j.passage), '\s+', ' ', 'g')) = v_key));
+  if not (d.artifact_ref = any(v_items)) then v_items := v_items || d.artifact_ref; end if;
+  if to_regclass('public.csat_trap_attempts') is null or to_regclass('public.csat_session_attempts') is null
+     or to_regclass('public.csat_review_queue') is null or to_regclass('public.csat_dx_response') is null
+     or to_regclass('public.csat_dx_session') is null then
+    v_first := false; v_unverifiable := true;
+  else
+    v_first := not exists (select 1 from workspace_delivery_attempt x where x.user_id = v_uid and x.exposure_key = v_key)
+      and not exists (select 1 from learning_task_attempts o
+        where o.user_id = v_uid and o.id <> t.id and o.item_ref = any(v_items) and (o.received_at is null or o.received_at <= t.received_at))
+      and not exists (select 1 from learning_sessions s
+        where s.user_id = v_uid and s.id <> t.session_id and s.item_ref = any(v_items)
+          and coalesce(least(s.revealed_at, s.explanation_viewed_at, s.explanation_server_at, s.help_received_at, s.help_server_at), '-infinity') <= t.received_at)
+      and not exists (select 1 from learning_sessions s
+        where s.id = t.session_id and least(s.explanation_viewed_at, s.explanation_server_at, s.help_received_at, s.help_server_at) <= t.received_at)
+      and not exists (select 1 from csat_trap_attempts x where x.user_id = v_uid and x.item_id = any(v_items) and x.answered_at <= t.received_at)
+      and not exists (select 1 from csat_session_attempts x where x.user_id = v_uid and x.item_id = any(v_items) and x.answered_at <= t.received_at)
+      and not exists (select 1 from csat_review_queue x where x.user_id = v_uid and x.item_id = any(v_items))
+      and not exists (select 1 from csat_dx_response r join csat_dx_session ds on ds.id = r.session_id
+        where ds.user_id = v_uid and r.item_id = any(v_items))
+      and not exists (select 1 from csat_dx_session ds join csat_items ci on ci.exam_id = ds.exam_id
+        where ds.user_id = v_uid and ci.id = any(v_items));
+  end if;
   v_at := case when v_first then coalesce((select s.revealed_at from learning_sessions s where s.id = t.session_id), t.received_at) end;
 
   -- ⑦ 근거 판정(비근거도 기록한다 — 이력 불변)
@@ -194,6 +221,7 @@ begin
   elsif exists (select 1 from content_release_revocation r join content_release_approval a on a.id = r.approval_id
                 where a.qualification_id = q.id) then v_reason := 'approval_revoked';
   elsif public.supply_delivery_valid(d.id) is not true then v_reason := 'delivery_invalid';
+  elsif v_unverifiable then v_reason := 'exposure_unverifiable';
   elsif not v_first then v_reason := 'not_first_exposure';
   elsif d.role in ('independent_check', 'delayed_check') then
     if v_help <> 'independent' then v_reason := 'help_state_mismatch'; end if;

@@ -11,6 +11,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 
 import type { WorkspaceDemand } from '../demand'
 import { canonicalDemand } from '../persist-contract'
+import EVIDENCE from '../../../../../../../../docs/research/factory-i2-r5-qualification-20261017/evidence.json'
 import { AXES, B_SQL, C_SQL, STUB, as, errorOf, revOf } from './supply-sql-harness'
 
 const MIG = path.resolve(__dirname, '../../../../../../../../supabase/migrations')
@@ -30,6 +31,8 @@ const B = '00000000-0000-4000-8000-0000000000b2'
 const ANN = 'c'.repeat(64)
 const ANN2 = 'd'.repeat(64)
 const TASK = 'r.central_meaning'
+const KEY = 'claim-support'
+const AREF = 'claim-support-r5.v1'
 
 let n = 0
 const key = () => `00000000-0000-4000-9000-${String(++n).padStart(12, '0')}`
@@ -49,15 +52,15 @@ async function lineFor(uid: string, ws: string, role: string, qty = 10): Promise
   return (await q1<{ id: string }>(`select id from public.workspace_content_demand_line where demand_id = $1`, [dem])).id
 }
 
-async function qualify(ref: string, role: string, supersedes: string | null = null): Promise<string> {
+async function qualify(ref: string, role: string, supersedes: string | null = null, aref = AREF, ahash = ANN): Promise<string> {
   const rev = (await revOf(db, 'csat_item', ref))!
   await as(db, ADMIN)
   const id = (await q1<{ id: string }>(
-    `select public.content_qualification_record('FQ1.1','csat_item',$1,$2,$3,$4,$5::jsonb,'src',$6,null,'gold',$6,'ann.v1',$7,'{}','{ev}','2인 검수',$8) id`,
-    [ref, rev, TASK, role, JSON.stringify(AXES()), 'a'.repeat(64), ANN, supersedes])).id
-  await db.query(`insert into public.supply_current_annotation values ($1,$2,$3,'ann.v1',$4)
+    `select public.content_qualification_record('FQ1.1','csat_item',$1,$2,$3,$4,$5::jsonb,'src',$6,null,'gold',$6,$9,$7,'{}','{ev}','2인 검수',$8) id`,
+    [ref, rev, TASK, role, JSON.stringify(AXES()), 'a'.repeat(64), ahash, supersedes, aref])).id
+  await db.query(`insert into public.supply_current_annotation values ($1,$2,$3,$4,$5)
     on conflict (artifact_ref, task_id) do update set artifact_revision = excluded.artifact_revision, annotation_ref = excluded.annotation_ref, annotation_hash = excluded.annotation_hash`,
-  [ref, TASK, rev, ANN])
+  [ref, TASK, rev, aref, ahash])
   return id
 }
 async function approve(q: string, scope: 'public' | 'assessment') {
@@ -65,9 +68,9 @@ async function approve(q: string, scope: 'public' | 'assessment') {
   return (await q1<{ id: string }>(`select public.content_release_approve($1, $2) id`, [q, scope])).id
 }
 /** 평가 역할 공급 하나(자격 · public · assessment 승인 · 공급) */
-async function delivered(uid: string, ws: string, ref: string, role = 'independent_check') {
+async function delivered(uid: string, ws: string, ref: string, role = 'independent_check', aref = AREF, ahash = ANN) {
   const line = await lineFor(uid, ws, role)
-  const q = await qualify(ref, role)
+  const q = await qualify(ref, role, null, aref, ahash)
   const pub = await approve(q, 'public')
   const asm = await approve(q, 'assessment')
   await as(db, uid)
@@ -75,16 +78,18 @@ async function delivered(uid: string, ws: string, ref: string, role = 'independe
     [line, q, ['independent_check', 'transfer', 'delayed_check'].includes(role) ? asm : pub, key()])).id
   return { line, q, pub, asm, delivery: id }
 }
-/** 서버(G2 쓰기 어댑터)가 남기는 시도 한 행 — 결속은 그 뒤 학습자 RPC */
-async function attempt(uid: string, ref: string, o: { activity?: string | null; phase?: string; help?: string | null; hash?: string | null; session?: boolean } = {}) {
+/** 서버(G2 쓰기 어댑터 learning_attempt_record)가 남기는 시도 한 행 — 실제 모양: task_key = 과제 키 · response.annotation = 주석 version */
+async function attempt(uid: string, ref: string, o: { activity?: string | null; phase?: string; help?: string | null; hash?: string | null; session?: boolean; key?: string; annotation?: string | null } = {}) {
+  const k = o.key ?? KEY
   const sid = o.session === false ? null
     : (await q1<{ id: string }>(`insert into public.learning_sessions (user_id, item_ref, task_key, help_level, revealed_at) values ($1,$2,$3,$4, now()) returning id`,
-      [uid, ref, TASK, o.help === undefined ? 'independent' : o.help])).id
+      [uid, ref, k, o.help === undefined ? 'independent' : o.help])).id
+  const response = o.annotation === null ? { appVersion: 1 } : { annotation: o.annotation ?? AREF, appVersion: 1, grade: { isCorrect: true } }
   return Number((await q1<{ id: string }>(
-    `insert into public.learning_task_attempts (user_id, task_key, item_ref, session_id, phase, activity, help_level, content_hash)
-     values ($1,$2,$3,$4,$5,$6,$7,$8) returning id`,
-    [uid, TASK, ref, sid, o.phase ?? 'practice', o.activity === undefined ? 'theater' : o.activity, o.help === undefined ? 'independent' : o.help,
-      o.hash === undefined ? ANN : o.hash])).id)
+    `insert into public.learning_task_attempts (user_id, task_key, item_ref, session_id, phase, activity, help_level, content_hash, response)
+     values ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb) returning id`,
+    [uid, k, ref, sid, o.phase ?? 'practice', o.activity === undefined ? 'theater' : o.activity, o.help === undefined ? 'independent' : o.help,
+      o.hash === undefined ? ANN : o.hash, JSON.stringify(response)])).id)
 }
 async function bind(uid: string, delivery: string, att: number, k = key()) {
   await as(db, uid)
@@ -173,7 +178,7 @@ describe('결속 — 정상 경로와 기록 내용', () => {
     const r = await row(await bind(A, d.delivery, att))
     expect(r).toMatchObject({ user_id: A, workspace_id: wsA, plan_version: 1, line_id: d.line, order_id: null, delivery_id: d.delivery,
       qualification_id: d.q, approval_id: d.asm, artifact_ref: 'R5#1', task_id: TASK, role: 'independent_check',
-      annotation_ref: 'ann.v1', annotation_hash: ANN, help_state: 'independent', first_exposure: true, evidence: true, non_evidence_reason: null })
+      annotation_ref: AREF, annotation_hash: ANN, help_state: 'independent', first_exposure: true, evidence: true, non_evidence_reason: null })
     expect(r.first_exposed_at).not.toBeNull()
     expect(r.artifact_revision).toBe(await revOf(db, 'csat_item', 'R5#1'))
   })
@@ -328,5 +333,79 @@ describe('직접 쓰기 · RLS', () => {
   it('로그인 없으면 Forbidden', async () => {
     await as(db, null)
     expect(await errorOf(db.query(`select public.workspace_delivery_attempt_record($1, 1, $2)`, [key(), key()]))).toMatch(/Forbidden/)
+  })
+})
+
+describe('P1-a — 실제 G2 기록 모양(과제 키 ≠ TASK id)', () => {
+  const E = EVIDENCE.items['2020#24']
+  const AREF24 = E.annotation.version as string
+  const HASH24 = E.annotation.annotationHash as string
+
+  it('2020#24 전이: task_key=claim-support · activity=theater · phase=transfer · content_hash=주석 hash · response.annotation=claim-support-2020-24.v1 → 결속 · 근거', async () => {
+    expect(AREF24).toBe('claim-support-2020-24.v1')
+    await db.exec(`insert into public.csat_items values ('K2020#24','K2020',24,'s','Real shape passage 2020-24.','[1,2,3,4,5]',2)`)
+    const d = await delivered(A, wsA, 'K2020#24', 'transfer', AREF24, HASH24)
+    const att = await attempt(A, 'K2020#24', { key: 'claim-support', phase: 'transfer', activity: 'theater', hash: HASH24, annotation: AREF24 })
+    expect(await row(await bind(A, d.delivery, att))).toMatchObject({ task_id: TASK, annotation_ref: AREF24, annotation_hash: HASH24, help_state: 'transfer', first_exposure: true, evidence: true })
+  })
+
+  it('과제 키가 등록 주석과 대응하지 않으면 거절(다른 키 · response.annotation 없음 · 다른 version)', async () => {
+    await db.exec(`insert into public.csat_items values ('K#2','K',2,'s','Mapping passage.','[1]',1)`)
+    const d = await delivered(A, wsA, 'K#2')
+    expect(await errorOf(bind(A, d.delivery, await attempt(A, 'K#2', { key: 'contextual-sense' })))).toMatch(/does not map to delivery TASK/)
+    expect(await errorOf(bind(A, d.delivery, await attempt(A, 'K#2', { annotation: null })))).toMatch(/does not map to delivery TASK/)
+    expect(await errorOf(bind(A, d.delivery, await attempt(A, 'K#2', { annotation: 'claim-support-other.v9' })))).toMatch(/does not map to delivery TASK/)
+  })
+})
+
+describe('P1-b — 공급 뒤 · 시도 전 다른 경로 노출은 첫 노출이 아니다', () => {
+  let i = 0
+  async function fresh() {
+    const ref = `X#${++i}`
+    await db.query(`insert into public.csat_items values ($1,$2,1,'s',$3,'[1]',1)`, [ref, `XE${i}`, `Exposure passage ${i}.`])
+    return { ref, d: await delivered(A, wsA, ref) }
+  }
+  const expectNotFirst = async (ref: string, delivery: string, reason = 'not_first_exposure') =>
+    expect(await row(await bind(A, delivery, await attempt(A, ref)))).toMatchObject({ first_exposure: false, evidence: false, non_evidence_reason: reason })
+
+  it('다른 세션에서 해설만 열람(시도 없음)', async () => {
+    const { ref, d } = await fresh()
+    await db.query(`insert into public.learning_sessions (user_id, item_ref, task_key, explanation_viewed_at) values ($1,$2,$3, now())`, [A, ref, KEY])
+    await expectNotFirst(ref, d.delivery)
+  })
+  it('다른 세션을 열기만 함(시각 없음 → 앞선 것으로 본다)', async () => {
+    const { ref, d } = await fresh()
+    await db.query(`insert into public.learning_sessions (user_id, item_ref) values ($1,$2)`, [A, ref])
+    await expectNotFirst(ref, d.delivery)
+  })
+  it('같은 세션에서 답하기 전에 해설을 봄', async () => {
+    const { ref, d } = await fresh()
+    const att = await attempt(A, ref)
+    await db.query(`update public.learning_sessions set explanation_server_at = now() - interval '1 minute'
+      where id = (select session_id from public.learning_task_attempts where id = $1)`, [att])
+    expect(await row(await bind(A, d.delivery, att))).toMatchObject({ first_exposure: false, non_evidence_reason: 'not_first_exposure' })
+  })
+  it('함정 시도 · 세션(문제지) 시도 · 복습 큐 · 진단 응답 · 같은 회차 응시', async () => {
+    const t1 = await fresh(); await db.query(`insert into public.csat_trap_attempts (user_id, item_id) values ($1,$2)`, [A, t1.ref]); await expectNotFirst(t1.ref, t1.d.delivery)
+    const t2 = await fresh(); await db.query(`insert into public.csat_session_attempts (user_id, item_id) values ($1,$2)`, [A, t2.ref]); await expectNotFirst(t2.ref, t2.d.delivery)
+    const t3 = await fresh(); await db.query(`insert into public.csat_review_queue (user_id, item_id) values ($1,$2)`, [A, t3.ref]); await expectNotFirst(t3.ref, t3.d.delivery)
+    const t4 = await fresh()
+    const s4 = (await q1<{ id: string }>(`insert into public.csat_dx_session (user_id, exam_id) values ($1,'OTHER') returning id`, [A])).id
+    await db.query(`insert into public.csat_dx_response (session_id, item_id) values ($1,$2)`, [s4, t4.ref]); await expectNotFirst(t4.ref, t4.d.delivery)
+    const t5 = await fresh(); await db.query(`insert into public.csat_dx_session (user_id, exam_id) values ($1,$2)`, [A, `XE${i}`]); await expectNotFirst(t5.ref, t5.d.delivery)
+  })
+  it('시도 뒤에 생긴 노출은 첫 노출을 빼앗지 않는다', async () => {
+    const { ref, d } = await fresh()
+    const att = await attempt(A, ref)
+    await db.query(`insert into public.csat_trap_attempts (user_id, item_id, answered_at) values ($1,$2, now() + interval '1 hour')`, [A, ref])
+    expect(await row(await bind(A, d.delivery, att))).toMatchObject({ first_exposure: true, evidence: true })
+  })
+  it('노출 원장 표를 확인할 수 없으면 비근거(exposure_unverifiable) — fail-closed', async () => {
+    const { ref, d } = await fresh()
+    const att = await attempt(A, ref)
+    await db.exec(`alter table public.csat_review_queue rename to csat_review_queue_off`)
+    try {
+      expect(await row(await bind(A, d.delivery, att))).toMatchObject({ first_exposure: false, evidence: false, non_evidence_reason: 'exposure_unverifiable' })
+    } finally { await db.exec(`alter table public.csat_review_queue_off rename to csat_review_queue`) }
   })
 })
