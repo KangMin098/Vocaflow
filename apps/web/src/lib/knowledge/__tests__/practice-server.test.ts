@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { annotationFor, annotationHash } from '../claim-support'
 import { PRACTICE_TASK, SKELETON_TASK, capabilityHits, keyFromAnnotation, type PracticeSubmission } from '../practice'
-import { PracticeInputError, loadMyAttempts, schedulePracticeReview, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
+import { PracticeInputError, loadMyAttempts, notePracticeView, schedulePracticeReview, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
 import { directWriter, g2Writer, responseOf, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
@@ -367,6 +367,7 @@ describe('#281 연습 ↔ 독립 확인 경계 — 서버가 예약 문항 제�
   it('아직 안 본 확인 문항(예약)은 연습 제출 · 해설 열람 · 복습 예약 모두 409, 기록이 남지 않는다', async () => {
     const f = fakeWriter()
     await expect(submitPractice(reservedDeps(f.writer, ['2022#20']), { userId: 'u1', synthetic: false }, SUB)).rejects.toMatchObject({ status: 409 })
+    await expect(notePracticeView(reservedDeps(f.writer, ['2022#20']), { userId: 'u1', synthetic: false }, { itemId: '2022#20', clientSessionId: SUB.clientSessionId, viewedAt: SUB.answeredAt, preview: false })).rejects.toMatchObject({ status: 409 })
     await expect(schedulePracticeReview(reservedDeps(f.writer, ['2022#20']), { userId: 'u1', synthetic: false }, { itemId: '2022#20', clientSessionId: SUB.clientSessionId, days: 1, finishedAt: SUB.answeredAt, preview: false })).rejects.toMatchObject({ status: 409 })
     expect(f.calls).toEqual([])
   })
@@ -381,5 +382,14 @@ describe('#281 연습 ↔ 독립 확인 경계 — 서버가 예약 문항 제�
     await submitPractice({ ...deps(f.writer), reserved }, { userId: 'u1', synthetic: false }, { ...SUB, preview: true })
     expect(reserved).not.toHaveBeenCalled()
     expect(f.writes[0].synthetic).toBe(true)
+  })
+  it('화면 조회 뒤 예약 상태가 바뀌면 제출 시점에서 다시 거부한다', async () => {
+    const f = fakeWriter()
+    let blocked = false
+    const d = { ...deps(f.writer), reserved: async () => new Set(blocked ? ['2022#20'] : []) }
+    expect((await d.pool({ preview: false }))[0].itemId).toBe('2022#20')
+    blocked = true
+    await expect(submitPractice(d, { userId: 'u1', synthetic: false }, SUB)).rejects.toMatchObject({ status: 409 })
+    expect(f.calls).toEqual([])
   })
 })

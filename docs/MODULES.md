@@ -1226,6 +1226,12 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
   - 2026-10-11 rev4.0 3차: `PlanSection`(NeedPanel 안 학습 묶음별 학습계획 — 중심/보조 TASK · 학습목표 · 계획 문항(출처 · 규칙 · 가용량) · 수행/남음 · 「다 했다고 보는 기준」과 확인 상태(별도 줄) · 활동 시작 · 순서/계획량 조정(이 기기 초안 · 저장은 승인 대기 명시)) · 목표 순서의 TASK 이름 → 그 TASK 의 묶음 계획. 계산 `lib/csat/map/v4/plan`(정량 ≠ 정성 · 가용 콘텐츠에서만 계획량 · `applyDraft` 는 계획 칸만). 학습자 문장은 코드북 `learner_criterion`(설계 메모 `criterion` 과 분리 · 내부 코드 가드).
   - 2026-10-10 rev4.0 2차: `NeedPanel`(「목표까지 필요한 학습」 — LearnerMap 아래 읽기 전용 · 기준 시험 · 시점 / 시험 기록 · 목표 / 영역별 근거와 세부 상태 / 우선 추천 학습 묶음(단계 4칸 · 실제 문항 수 · 다음 행동 링크) / 목표 관련 확인 · 학습 순서 / 아직 계산하지 않는 것) · `needs.module.css`. 계산 `lib/csat/map/v4`(`definition`(생성물 `definition.data.ts` 정적 import · TASK 30) · `as-is` · `to-be` · `workspace` · `compose`). `graph.pathOf` 가 경로 안 미확정 연결선(`unconfirmed`)을 따로 돌려주고 `LearningMap` 은 그 선을 흐리게(확정 경로처럼 진하게 칠하지 않음). 이벤트 `csat_workspace_opened` · `csat_workspace_suggestion_applied`(DB 허용 목록은 기존).
 
+### R5 연습·독립 평가 경계 독립 보완(2026-10-17 · PR #285)
+
+노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. 현재 `loadFqReader()`는 설치돼 있어도 역할/TASK/hash 자격 판정 연결 전이므로 항상 `eligible: []`이며, 출시 과제 열람은 공급 0인 `open_unqualified`다.
+
+연습 전이는 T4·Workspace·PLAN에서 적용 경험과 운영량으로만 남는다. 효과 신호는 `activity=practice`를 제외하며 전이는 활동·세션·TASK·현재 주석 해시를 `attemptRole()`로 결속한 경우만 적격 후보로 쓴다. 납품↔G2 결속·실제 콘텐츠 자격 승인은 추가하지 않았다. [실패·화면·추적 근거](./research/r5-285-independent-20261017/ACCEPTANCE.md).
+
 ### V2 Instrument 독립 수용 경계(2026-10-17)
 
 ContextSensePanel은 B 판별 조건 성공과 C 문장 선택을 분리하고(V2-F1: 제출 전 뜻 선택지 없음 · 뜻 D 는 B 정답 저장 뒤의 기록 없는 연습 · 유형별 밑줄 표지, [V2_F1_CUE_LEAK](./csat-learner/v62/V2_F1_CUE_LEAK.md)), writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.

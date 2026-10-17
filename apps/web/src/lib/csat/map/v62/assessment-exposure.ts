@@ -97,7 +97,7 @@ export function attemptRole(e: Pick<ExposureEvent, 'activity' | 'phase' | 'taskK
   if (e.helpLevel !== 'independent') return 'helped'
   if (!e.sessionId || !e.contentHash || e.taskKey !== expect.taskKey || expect.contentHash === null || e.contentHash !== expect.contentHash) return 'unbound'
   if (e.activity === 'theater' && e.phase === 'practice') return 'independent_check'
-  if (e.phase === 'transfer') return 'transfer'
+  if (e.activity === 'theater' && e.phase === 'transfer') return 'transfer'
   return 'unbound'
 }
 
@@ -110,5 +110,5 @@ export type FqReader =
 export const FQ_READER_LABEL: Record<FqReader['status'], string> = {
   not_installed: '정식 자격 기록이 아직 설치되지 않았어요',
   error: '정식 자격 기록을 읽지 못했어요',
-  installed: '정식 자격 기록 확인',
+  installed: '정식 자격 기록 설치됨',
 }

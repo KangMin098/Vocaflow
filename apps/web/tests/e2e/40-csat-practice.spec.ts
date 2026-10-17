@@ -9,8 +9,12 @@
 // 합성 학습자 검증이다 — 학습 효과를 말하지 않는다.
 import { expect, test, type Browser, type BrowserContext, type Page } from '@playwright/test'
 
-import { annotationFor, gradeClaimSupport } from '../../src/lib/knowledge/claim-support'
-import { gradePractice, keyFromAnnotation, practiceFeedback, type PracticeAnswer } from '../../src/lib/knowledge/practice'
+import fs from 'node:fs'
+import path from 'node:path'
+import { annotationFor, gradeClaimSupport, skeletonSig } from '../../src/lib/knowledge/claim-support'
+import { RELATION_LABEL } from '../../src/lib/knowledge/claim-support-labels'
+import { gradePractice, keyFromAnnotation, phaseOfType, practiceFeedback, type PracticeAnswer } from '../../src/lib/knowledge/practice'
+import { serviceClient } from './utils/db'
 
 const USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -22,12 +26,19 @@ const USER = {
 }
 // 2026-10-10: 주석 문항이 1 → 9개(2026-10-09 적용 확대)가 되어 추천 첫 문항이 바뀌었다 — 이 스펙의 답 키는 2022#20 이라 그 문항을 지정해 연다
 const PRACTICE = '/csat/practice/claim-support?item=2022%2320'
-const ITEM = '2022#20'
-// 가짜 서버는 이 키로 채점한다(화면 ↔ 제출 계약 검증 — 어느 문항이 열렸든 같은 답 흐름).
-// 2026-10-17(#281): 이 계정이 아직 안 본 확인 문항은 연습에서 예약돼 빠진다 — ?item= 이 예약이면 화면은 이미 본 다른 주석 문항을 연다.
-//   그래서 제출 itemId 는 「주석 문항 중 하나이며 요청한 문항이거나 대체 문항」 으로 확인한다(계정 기록에 따라 달라진다)
-const KEY = keyFromAnnotation(annotationFor(ITEM)!)
-const isAnnotated = (id: unknown) => typeof id === 'string' && annotationFor(id) !== null
+// Reservation can substitute another item. Bind clicks, grading and expected
+// feedback to the selected item's current annotation AND baked skeleton.
+function fixtureFor(itemId: string) {
+  const ann = annotationFor(itemId)
+  expect(ann, `current annotation for ${itemId}`).not.toBeNull()
+  const [exam] = itemId.split('#')
+  const file = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/lib/csat/skeleton-data', `${exam}.json`), 'utf8'))
+  const item = file.items.find((i: { id: string }) => i.id === itemId)
+  expect(item, `baked skeleton for ${itemId}`).toBeTruthy()
+  expect(skeletonSig(item.sentences.map((s: { chars: number }) => s.chars))).toBe(ann!.skeletonSig)
+  expect(item.sentences).toHaveLength(ann!.sentenceCount)
+  return { key: keyFromAnnotation(ann!), phase: phaseOfType(item.type_id)! }
+}
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
 
@@ -38,12 +49,18 @@ test.setTimeout(120_000)
 const isWrite = (method: string) => method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS'
 
 test.beforeAll(async ({ browser }) => {
+  test.setTimeout(120_000)
   const ctx = await browser.newContext()
+  const guardProbe = await ctx.request.head('/login', { timeout: 120_000 })
+  expect(guardProbe.headers()['x-vocaflow-r5-read-only'], 'isolated server must block RSC DB writes too').toBe('1')
   // 로그인 화면 · 로그인 뒤 첫 화면도 분석 이벤트를 보낸다 — 여기서도 가로챈다. 인증 요청만 통과시킨다
-  await ctx.route('**/api/analytics/event', (route) => route.fulfill({ json: { ok: true } }))
-  await ctx.route('**/rest/v1/**', (route) => (isWrite(route.request().method()) ? route.fulfill({ status: 204, body: '' }) : route.continue()))
+  await ctx.route('**/*', (route) => {
+    const r = route.request()
+    if (!isWrite(r.method()) || new URL(r.url()).pathname === '/auth/v1/token') return route.continue()
+    return route.fulfill({ json: { ok: true } })
+  })
   const page = await ctx.newPage()
-  await page.goto('/login', { waitUntil: 'networkidle' })
+  await page.goto('/login', { waitUntil: 'domcontentloaded', timeout: 120_000 })
   await page.fill('input[type="email"]', USER.email)
   await page.fill('input[type="password"]', USER.password)
   await page.click('button[type="submit"]')
@@ -71,6 +88,7 @@ interface Probe {
 async function device(browser: Browser): Promise<Probe> {
   const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
   const page = await ctx.newPage()
+  page.setDefaultNavigationTimeout(120_000)
   const probe: Probe = { page, ctx, submits: [], views: [], reviews: [], writes: [], failNext: 0 }
   const stored = new Map<string, string>()
   // 컨텍스트 전체를 가로챈다 — 「해설 보기」 가 여는 새 탭도 같은 그물 안이다(PRACTICE_PORT_VERIFICATION §5 P1).
@@ -105,8 +123,16 @@ async function device(browser: Browser): Promise<Probe> {
       const outcome = stored.has(id) ? 'duplicate' : 'inserted'
       stored.set(id, sig)
       const answer = body as unknown as PracticeAnswer
-      const grade = gradePractice(gradeClaimSupport, KEY, answer)
-      return route.fulfill({ json: { ok: true, outcome, feedback: practiceFeedback(KEY, grade, answer.option === null ? null : answer.option === 5, 'practice', body.helpLevel as 'independent') } })
+      expect(body.itemId).toBe(await page.locator('select').inputValue())
+      const { key, phase } = fixtureFor(String(body.itemId))
+      const db = serviceClient()
+      expect(db, 'read-only answer-key client').not.toBeNull()
+      const { data, error } = await db!.from('csat_items_public').select('answer').eq('id', body.itemId).single()
+      expect(error).toBeNull()
+      expect(data!.answer).toBeGreaterThanOrEqual(1)
+      expect(data!.answer).toBeLessThanOrEqual(5)
+      const grade = gradePractice(gradeClaimSupport, key, answer)
+      return route.fulfill({ json: { ok: true, outcome, feedback: practiceFeedback(key, grade, answer.option === null ? null : answer.option === data!.answer, phase, body.helpLevel as 'independent') } })
     }
     probe.writes.push(`${req.method()} ${url} ${(req.postData() ?? "").slice(0, 300)}`)
     return route.fulfill(url.includes('/api/analytics/event') ? { json: { ok: true } } : { status: 204, body: '' })
@@ -114,14 +140,15 @@ async function device(browser: Browser): Promise<Probe> {
   return probe
 }
 
-/** 주장 문장 2 · 근거 4 · 5 · 관계 「이유」 · 선지 5 · 확신 「확실해요」 — 2022#20 의 정답 */
+/** 실제 선택 문항의 현재 주장 · 근거 · 관계. 선지 5 정오는 실제 읽기 전용 키로 채점한다. */
 async function answer(page: Page) {
-  await page.getByRole('button', { name: /^문장 2/ }).click()
-  await page.getByRole('button', { name: /^문장 4/ }).click()
-  await page.getByRole('button', { name: /^문장 5/ }).click()
-  await page.getByRole('button', { name: /이유 · 조건을 대며/ }).click()
+  const { key } = fixtureFor(await page.locator('select').inputValue())
+  await page.getByRole('button', { name: new RegExp(`^문장 ${key.claim + 1}(?:\\s|$)`) }).click()
+  for (const support of key.support) await page.getByRole('button', { name: new RegExp(`^문장 ${support + 1}(?:\\s|$)`) }).click()
+  await page.getByRole('button', { name: RELATION_LABEL[key.relationProbe!.relation], exact: true }).click()
   await page.getByRole('button', { name: '5번', exact: true }).click()
   await page.getByRole('button', { name: '확실해요' }).click()
+  return key
 }
 
 test('학습자: 검증 전 문항은 안 보이고, 풀이 → 판정(정답 키는 응답 뒤에만) · 중복 클릭은 한 번 전송', async ({ browser }) => {
@@ -131,14 +158,13 @@ test('학습자: 검증 전 문항은 안 보이고, 풀이 → 판정(정답 �
   // 학습자에게 골격(검증 전) 문항은 없다
   await expect(d.page.locator('option', { hasText: '검증 전' })).toHaveCount(0)
   await expect(d.page.getByText('주장: 문장')).toHaveCount(0)
-  await answer(d.page)
+  const key = await answer(d.page)
   await d.page.getByRole('button', { name: '맞춰 보기' }).dblclick()
   await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
-  await expect(d.page.getByText(/주장: 문장 2 · 근거: 문장 4, 5 \(맞음\)/)).toBeVisible()
+  await expect(d.page.getByText(`주장: 문장 ${key.claim + 1} · 근거: 문장 ${key.support.map((s) => s + 1).join(', ')} (맞음)`, { exact: false })).toBeVisible()
   expect(d.submits).toHaveLength(1)
   const s = d.submits[0]
-  expect(isAnnotated(s.itemId)).toBe(true)
-  expect(s).toMatchObject({ claim: 1, support: [3, 4], relation: 'reason', option: 5, confidence: 3, helpLevel: 'independent', preview: false })
+  expect(s).toMatchObject({ itemId: key.itemId, claim: key.claim, support: key.support, relation: key.relationProbe!.relation, option: 5, confidence: 3, helpLevel: 'independent', preview: false })
   expect(typeof s.answeredAt).toBe('string')
   expect(String(s.clientMutationId)).toMatch(/^[0-9a-f-]{36}$/)
   expect(String(s.clientSessionId)).toMatch(/^[0-9a-f-]{36}$/)
@@ -221,6 +247,21 @@ test('학습자: 판정 뒤 「며칠 뒤 다시 보기」 — 서버가 확정�
   expect(d.reviews).toHaveLength(1)
   expect(d.reviews[0]).toMatchObject({ days: 7, clientSessionId: d.submits[0].clientSessionId })
   expect(typeof d.reviews[0].finishedAt).toBe('string')
+  await d.ctx.close()
+})
+
+test('대체 문항은 2022#20과 다른 실제 정답으로 클릭 · 채점 · 응답이 결속된다', async ({ browser }) => {
+  const d = await device(browser)
+  await d.page.goto(PRACTICE)
+  const values = await d.page.locator('select option').evaluateAll((es) => es.map((e) => e.value))
+  const alternative = values.find((id) => annotationFor(id)?.claim !== annotationFor('2022#20')!.claim)
+  expect(alternative, 'a released item with a different claim key').toBeTruthy()
+  await d.page.locator('select').selectOption(alternative!)
+  const key = await answer(d.page)
+  await d.page.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(d.page.getByText(`주장: 문장 ${key.claim + 1} · 근거: 문장 ${key.support.map((s) => s + 1).join(', ')} (맞음)`, { exact: false })).toBeVisible()
+  expect(d.submits).toHaveLength(1)
+  expect(d.submits[0]).toMatchObject({ itemId: alternative, claim: key.claim, support: key.support, relation: key.relationProbe!.relation })
   await d.ctx.close()
 })
 

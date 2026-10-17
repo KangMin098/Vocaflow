@@ -10,10 +10,18 @@
 // 첫 시도는 DB 뷰 learning_first_attempts 가 이미 골랐다 — 키 (user, task_key, item_ref, phase), 동률이면 answered_at → id.
 // 적격(효과 표본)은 실제(비합성) · 독립 · 해설 먼저 아님 · 해설 뒤 아님 · (M8 적용 뒤) 시각 불확실 아님.
 
+import { attemptRole } from '@/lib/csat/map/v62/assessment-exposure'
+
 export type Phase = 'pre' | 'practice' | 'post' | 'delayed' | 'transfer' | 'review'
 
 /** learning_first_attempts 한 행(+ 그 시도의 적용 id) */
 export interface FirstAttempt {
+  activity?: string | null
+  taskKey?: string | null
+  sessionId?: string | null
+  contentHash?: string | null
+  /** Current server registry hash for this exact TASK; absent means unbound. */
+  expectedContentHash?: string | null
   userId: string
   phase: Phase
   isCorrect: boolean | null
@@ -69,6 +77,8 @@ export const EXCLUDED_SHARE = 0.5
 export const QUALITY_MIN_ATTEMPTS = 10
 
 export function isEligible(a: FirstAttempt): boolean {
+  if (a.activity === 'practice') return false
+  if (a.phase === 'transfer' && attemptRole({ activity: a.activity ?? null, phase: a.phase, taskKey: a.taskKey ?? null, helpLevel: a.helpLevel, sessionId: a.sessionId ?? null, contentHash: a.contentHash ?? null }, { taskKey: a.taskKey ?? '', contentHash: a.expectedContentHash ?? null }) !== 'transfer') return false
   // 도움 수준이 기록되지 않은(null) 시도는 독립 수행인지 확인할 수 없다 — 근거에서 뺀다
   return !a.synthetic && a.helpLevel === 'independent' && !a.afterViewedFirst && !a.afterExplanation && !a.timingUncertain
 }

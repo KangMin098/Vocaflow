@@ -114,7 +114,7 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
     const candidate = a.attemptId ? firstById.get(a.attemptId) : undefined
     const f = candidate && tuple(candidate) === tuple(a) ? candidate : null
     let independence: FieldStatus = 'NOT_APPLICABLE'
-    if (a.phase === 'practice' && (a.activity === 'practice' || f?.activity === 'practice')) {
+    if (a.activity === 'practice' || f?.activity === 'practice') {
       independence = 'INELIGIBLE'; reasons.push('연습 화면 기록 — 확인 근거 아님')
     } else if (a.phase === 'practice' && a.helpLevel != null && a.helpLevel !== 'independent') {
       independence = 'INELIGIBLE'; reasons.push('도움 · 해설 뒤 수행')

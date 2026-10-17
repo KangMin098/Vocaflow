@@ -98,7 +98,7 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
 function assessmentLine(role: MaterialRole, n: number, candidates: readonly string[], source: 'check_task' | 'transfer_task', input: SupplyInput, note: string | null): SupplyLine {
   const fq: FqReader = input.fq ?? { status: 'error' }
   const exposure: ExposureLedger = input.exposure ?? { status: 'error', failed: [] }
-  const fqNote = fq.status === 'not_installed' ? '정식 자격 기록 미설치' : fq.status === 'error' ? '정식 자격 기록 조회 실패' : null
+  const fqNote = fq.status === 'not_installed' ? '정식 자격 기록 미설치' : fq.status === 'error' ? '정식 자격 기록 조회 실패' : fq.eligible.length === 0 ? '정식 자격 기록 설치됨 · 적격 자료 0건(자격 검증 대기)' : null
   const pre = note ? `${note} · ` : ''
   const ex = unexposedForAssessment(candidates, exposure)
   if (exposure.status !== 'ok') return { role, state: 'needs_review', delivered: [], shortfall: n, qualification: Q({ learner: null }), reason: `${pre}학습자 노출 기록을 다 읽지 못해 처음 보는 문항인지 알 수 없다` }

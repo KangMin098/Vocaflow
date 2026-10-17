@@ -32,15 +32,16 @@ export function normalizedPassageKey(passage: unknown): string | null {
 
 export async function loadExposureLedger(db: SupabaseClient, userId: string, candidates: readonly string[]): Promise<ExposureLedger> {
   const [att, sess, trap, paper, queue, dx] = await Promise.all([
-    db.from('learning_task_attempts').select('item_ref, task_key, activity, phase, help_level, session_id, content_hash').eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
-    db.from('learning_sessions').select('id, item_ref, activity, phase, task_key, deleted_at').eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
-    db.from('csat_trap_attempts').select('item_id').eq('user_id', userId).limit(LIMIT),
-    db.from('csat_session_attempts').select('item_id').eq('user_id', userId).limit(LIMIT),
-    db.from('csat_review_queue').select('item_id').eq('user_id', userId).limit(LIMIT),
-    db.from('csat_dx_response').select('item_id, csat_dx_session!inner(user_id)').eq('csat_dx_session.user_id', userId).not('item_id', 'is', null).limit(LIMIT),
+    db.from('learning_task_attempts').select('item_ref, task_key, activity, phase, help_level, session_id, content_hash', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
+    db.from('learning_sessions').select('id, item_ref, activity, phase, task_key, deleted_at', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
+    db.from('csat_trap_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    db.from('csat_session_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    db.from('csat_review_queue').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
+    db.from('csat_dx_response').select('item_id, csat_dx_session!inner(user_id)', { count: 'exact' }).eq('csat_dx_session.user_id', userId).not('item_id', 'is', null).limit(LIMIT),
   ])
-  const results: [ExposureSource, { data: unknown; error: unknown }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx]]
-  const failed = results.filter(([, r]) => r.error || !Array.isArray(r.data) || (r.data as unknown[]).length >= LIMIT).map(([s]) => s)
+  const results: [ExposureSource, { data: unknown; error: unknown; count: number | null }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx]]
+  // PostgREST can cap rows below LIMIT. A missing count is not zero.
+  const failed = results.filter(([, r]) => r.error || !Array.isArray(r.data) || r.count !== r.data.length || r.data.length >= LIMIT).map(([s]) => s)
   if (failed.length) return { status: 'error', failed }
   const events: ExposureEvent[] = []
   for (const r of att.data as Row[]) {

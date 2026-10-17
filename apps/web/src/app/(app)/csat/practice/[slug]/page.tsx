@@ -1,7 +1,7 @@
 // apps/web/src/app/(app)/csat/practice/[slug]/page.tsx
 //
 // 「주장과 근거」 연습 — 정본(feat/methodology-vnext) 주석 · 적용 게이트 위에 이식한 학습자 화면(docs/csat-learner/PRACTICE_PORT.md).
-// 학습자: 적용이 active 이고 채택 사슬이 살아 있는 주석 문항만. 하나도 없으면 404.
+// 학습자: 적용이 active 이고 채택 사슬이 살아 있는 주석 문항만. 하나도 없으면 자료 부족 안내.
 //   그중 독립 확인으로 예약된(아직 안 본) 확인 문항은 뺀다 — 남는 게 없으면 404 가 아니라 「확인 과제부터」 대체 안내(#281).
 // 관리자 ?preview=1: 주석 문항(적용 상태 무관) + 골격 115문항 후보. 기록은 synthetic · 효과 계산 제외.
 // 지문 글자는 오지 않는다 — 학습자는 자기 문제지를 보고 문장 번호로 답한다.
@@ -38,9 +38,8 @@ export default async function PracticePage({ params, searchParams }: { params: {
   const preview = wantPreview && (await getAdminUser()) !== null
 
   const all = await loadPracticePool({ preview })
-  if (all.length === 0) notFound()
   // #281 — 아직 독립 확인으로 예약된 문항(이 학습자가 어떤 경로로도 안 본 확인 문항)은 연습에서 뺀다. 미리보기는 그대로
-  const reservation = preview ? { status: 'ok' as const, reserved: new Set<string>() } : await practiceReservation(user.id)
+  const reservation = preview || all.length === 0 ? { status: 'ok' as const, reserved: new Set<string>() } : await practiceReservation(user.id)
   const pool = all.filter((p) => !reservation.reserved.has(p.itemId))
   if (pool.length === 0) {
     return (
