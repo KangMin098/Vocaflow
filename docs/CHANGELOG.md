@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- Factory I2 R5 공급 사전 감사(읽기 전용): claim-support 후보 13(확인 9·전이 4), I2 영속 납품 적격 0(C/B 미설치·R5 FQ 0건). 확인 시도가 phase=practice로 기록되는 문제, 연습 풀과 평가 자료가 겹치는 문제, 2026#23 이중 출시를 확인했다. [보고서](./research/factory-i2-r5-preflight-20261017/REPORT.md)
+
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
 
 - PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
