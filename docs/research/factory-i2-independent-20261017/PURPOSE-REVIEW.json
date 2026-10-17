@@ -5,5 +5,7 @@
   "initialResult": "P2: replay.mjs depended on the manually fetched origin/pr-277 ref, unavailable in a fresh clone",
   "fix": "Use the exact merged I0 commit 4a853dca73da95df5872b7b45e28e97520be38a5 for both replay passes",
   "verification": "Pinned replay, latest I0 equivalence and fresh DB replay passed after removing the custom-ref dependency",
-  "finalReview": "pending"
+  "finalReviewedHead": "ac66b0563",
+  "finalReview": "NO_FINDINGS",
+  "finalReviewExitCode": 0
 }
