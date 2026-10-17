@@ -104,7 +104,11 @@ export function resolveStock(want: { task: string; role: MaterialRole; requested
   const signatures = new Map<string, Set<string>>()
   for (const c of candidates) {
     const values = signatures.get(c.artifact.ref) ?? new Set<string>()
-    values.add(canonicalJson({ ...c, approvals: c.approvals.map((a) => canonicalJson(a)).sort() }))
+    values.add(canonicalJson({
+      ...c,
+      fq: c.fq ? { ...c.fq, eligibleRoles: [...new Set(c.fq.eligibleRoles)].sort() } : null,
+      approvals: [...new Set(c.approvals.map((a) => canonicalJson(a)))].sort(),
+    }))
     signatures.set(c.artifact.ref, values)
   }
   const seen = new Set<string>()

@@ -2,8 +2,8 @@
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {hashFile} from '../lm-g1-5a-independent/binding.mjs'
 const root=path.resolve(import.meta.dirname,'../../..'),docs=root+'/docs/research/factory-i0-277-independent',local=import.meta.dirname+'/local'
 const e=JSON.parse(fs.readFileSync(docs+'/EVIDENCE.json','utf8'))
-if(e.browsers.assertions!==214||e.browsers.jobs.length!==14||e.units.passed!==76||e.broad.passed!==2602)throw Error('Incomplete evidence')
-execFileSync('git',['diff','--exit-code','0ac635478','HEAD','--','apps/web'],{cwd:root})
+if(e.browsers.assertions!==223||e.browsers.jobs.length!==15||e.units.passed!==77||e.broad.passed!==2603)throw Error('Incomplete evidence')
+execFileSync('git',['diff','--exit-code',e.sourceBasis,'HEAD','--','apps/web'],{cwd:root})
 const selected=[['v2-1280','01-v2-pop.png','map-1280.png'],['v2-1440','01-v2-pop.png','map-1440.png'],['v2-1280','02-v2-drawer.png','drawer-1280.png'],['v2-1440','02-v2-drawer.png','drawer-1440.png'],['t4-1280','04-01-find-failed-pop.png','r5-1280.png'],['t4-1440','04-01-find-failed-pop.png','r5-1440.png'],['t2-1280','03-00-start-plan.png','plan-1280.png'],['t2-1440','03-00-start-plan.png','plan-1440.png']]
 fs.mkdirSync(docs+'/screens',{recursive:true})
 const screens=selected.map(([job,file,target])=>{const run=e.browsers.jobs.find(x=>x.name===job);if(!run)throw Error('Missing screen job');const source=local+'/'+run.revision+'/'+job+'/'+file,bytes=fs.readFileSync(source);if(bytes.toString('hex',0,8)!=='89504e470d0a1a0a'||bytes.readUInt32BE(16)!==Number(job.split('-')[1])||bytes.readUInt32BE(20)!==900)throw Error('Unexpected screenshot viewport');fs.copyFileSync(source,docs+'/screens/'+target);return{file:'screens/'+target,source:run.revision+'/'+job+'/'+file,sha256:hashFile(source),scope:'actual app / synthetic account; no factory screen or production'}})
@@ -19,11 +19,11 @@ const report=[
 '',
 '제출 HEAD 200bfdeacd55af39f35c5d3a9648ffe050b7e3ed, 기준 main 9c19f15b1fc911b13040dc01fe5a12fef5af592f(#276 병합), merge-base 5e2aff89d01e25b959647f25e8a0e02115e41dd4. 충돌은 CHANGELOG 한 곳이었다. 별도 검증 worktree에서 main을 merge commit 9e6393e42로 통합해 #276과 I0 이력을 모두 보존했다. force push·타인 worktree 수정은 하지 않았다.',
 '',
-'제품 마지막 변경은 0ac63547854a47a22aa8c13817e99d12ba27b795다. 이후 문서/실행기 HEAD는 apps/web의 같은 소스를 사용한다. 실행 HEAD와 소스 hash는 [EVIDENCE](./EVIDENCE.json)에 따로 보존했다. 공장 663f2eee8은 git 객체로 참조만 했고 병합/cherry-pick/내부 변경하지 않았다. PR #278 및 비공개 맹검 자료도 건드리지 않았다.',
+'제품 동결 기준은 '+e.sourceBasis+'다. 이후 문서/실행기 HEAD는 apps/web의 같은 소스를 사용한다. 실행 HEAD와 소스 hash는 [EVIDENCE](./EVIDENCE.json)에 따로 보존했다. 공장 663f2eee8은 git 객체로 참조만 했고 병합/cherry-pick/내부 변경하지 않았다. PR #278 및 비공개 맹검 자료도 건드리지 않았다.',
 '',
 '최종 보고 HEAD의 목적 검토·필수 CI·safe-merge dry-run/실행 및 병합 SHA는 [PR #277 독립 수용 영수증](https://github.com/KangMin098/Vocaflow/pull/277)을 기준으로 한다. 그 게이트 전에는 병합하지 않는다.',
 '',
-'## 게이트별 판정',
+'## 최초 지시 A–G 판정',
 '',
 '| 게이트 | 판정 | 근거와 한계 |',
 '|---|---|---|',
@@ -33,7 +33,19 @@ const report=[
 '| D ProductionNeed | PASS / 실제 봉인·run BLOCKED_EXTERNAL | 목표에서 브리프/학습 총량 추정 없음. stock-요청 결속. share/2에 정책 version/hash·요청/부족/생산 수량·환산 factor/근거·유형·명세 결속. run 자기보고는 승격 못 함. 실제 planner/order 검증기 없음 → NEEDS_ORDER_VALIDATION |',
 '| E Lineage | 구조 계약 PASS / 내용 검증 NOT_TESTED | 주문/revision/hash·cell·artifact 결속, 낡음/타 주문/중복/형식 오류 반증. STRUCTURAL_ONLY·contentVerified=false·supplyApproved=false. 실제 본문/manifest 해시 재계산이나 run 진위 검증 아님 |',
 '| F C/B/delta 안전 감사 | 감사 PASS / 적용 BLOCKED_APPROVAL | 추가 NULL 검수 우회와 기존 노출·승인·부분 납품·계보 문제 보존. 수정 사양은 격리 PGlite 7조건만 검증. 실제 적용·DB 원자성·동시성·RLS 실증 NOT_TESTED |',
-'| G 기존 경로 회귀 | PASS | 소스가 같은 실제 앱 214조건, 두 PC T2/T3/T4·V2, T1·Workspace·복귀·해부·공급·권한/버전/과거 보기. 합성 계정이며 새 공장 실행/실제 학생 효과 아님 |',
+'| G 기존 경로 회귀 | PASS | 소스가 같은 실제 앱 223조건, 두 PC T2/T3/T4·V2, T1·Workspace·복귀·해부·공급·권한/버전/과거 보기. 합성 계정이며 새 공장 실행/실제 학생 효과 아님 |',
+'',
+'## 최신 추가 지시 A–G 판정',
+'',
+'| 추가 항목 | 판정 | 독립 근거 / 남은 경계 |',
+'|---|---|---|',
+'| A 공용 shareKey와 사양·정책·수량 | PASS | I01/I09. 정책 hash/revision·부족량/생산량·환산 factor·문항 유형의 변화를 구별하며 같은 개인 정보 제외 명세는 공유. 실제 주문 실행 아님 |',
+'| B run.recorded와 산출물 후보 승격 | PASS | I02. boolean/개수로 누락 조건을 우회하지 못하고 ARTIFACT_CANDIDATE를 반환하지 않음. 실제 run 검증기는 미연결 |',
+'| C 잘못된 수량 | PASS | I03. 음수·NaN·Infinity·비정수·안전 정수 범위 밖 입력 거절. 환산 불가/근거 미확인은 null·UNKNOWN_UNIT |',
+'| D 중복 재고 | PASS | I04/I08. 동일 산출물/원문/revision을 중복 집계하지 않으며 상충 전체 보류. approvals/eligibleRoles는 순서 무관 집합 |',
+'| E hash 문자열과 실제 내용 | PASS / 내용 NOT_TESTED | I06. 구조/형식 검사와 실제 본문/manifest 재계산을 구별하고 contentVerified=false. 임의의 유효형 hash는 실제 증거가 아님 |',
+'| F E2/E1·잘못된 교육 대응 | PASS / 교육 검증 NOT_TESTED | I07/I10. E2 근거 위치·E1 발문 요구, E3-P06 제거, 역할 후보 필터. 실제 validated 승격 없음 |',
+'| G C/B 노출·승인 결함 | BLOCKED_APPROVAL | SQL 감사 완료. 기존 노출/승인 불일치와 새 NULL 우회를 적용 전 blocker로 보존. SQL 파일/실제 DB는 변경하지 않음 |',
 '',
 '## 발견과 보완',
 '',
@@ -52,6 +64,7 @@ const report=[
 '- I11 새 checkout의 SQL 실행기 출력 디렉터리 누락 → 실제 ENOENT 재현 후 mkdir, 같은 빈 환경에서 재검증.',
 '',
 'S01–S16 전체는 제출본과 바이트 동일하다. 기존 28개 중 그 밖의 run 우회 기대 1개를 거절로 강화하고 정상 lineage 기대 1개에 구조/내용 미검증 필드를 추가했다. 원본은 28/28 PASS였으나 새 45개 중 40개 FAIL이었다. 정확한 제출 HEAD 자체의 별도 checkout에서도 원본 28 PASS·추가 5 PASS/40 FAIL을 재현했다. 후속 목적 검토 3개와 출력 디렉터리 결함도 처음 실패와 수정 결과를 구분했다.',
+'I08의 첫 보완은 approvals만 정규화해 eligibleRoles에서 같은 문제가 남았다. 추가 최초 실패를 보존하고 두 집합의 순서/중복을 정규화했다. 보완 전 회귀 cohort는 의도적으로 중단·보존하고 소유 계정 8개의 부재를 확인했다. 해당 완료/부분 회차는 최종 수에 합산하지 않고 새 소스에서 전체 15묶음을 실행했다. T1 1440과 최초/추가 A–G 대조도 수용 기준에 명시적으로 보강했다.',
 '',
 '## 실행 결과',
 '',
@@ -59,19 +72,19 @@ const report=[
 '',
 '| 실행 | 완료 조건 |',
 '|---|---:|',
-'| 순수 I0 — 기존 28 + 독립 48 | 76 PASS |',
-'| 광역 단위 — 위 76 포함 | 215파일 / 2,602 PASS / 실패·SKIP 0 |',
+'| 순수 I0 — 기존 28 + 독립 49 | 77 PASS |',
+'| 광역 단위 — 위 77 포함 | 215파일 / 2,603 PASS / 실패·SKIP 0 |',
 '| V2 공개 차단 1280×900 / 1440×900 | 6 / 6 |',
 '| T4 양 PC | 14 / 14 |',
-'| T1 | 9 |',
+'| T1 1280 / 1440 | 9 / 9 |',
 '| T2 R5 수직 양 PC | 26 / 26 |',
 '| T3 목표/PLAN 양 PC | 20 / 20 |',
 '| PLAN 권한·버전·경쟁 저장 | 18 |',
 '| Workspace / 복귀 / 기출 해부 / 공급 안내 | 36 / 7 / 6 / 6 |',
-'| 실제 앱 회귀 합계 | 214 |',
+'| 실제 앱 회귀 합계 | 223 |',
 '| C 원본 결함 재현 / 제안 수정 격리 | 원본 우회 확인 / 7조건 PASS |',
 '',
-'76은 2,602에 포함되며 중복 합산하지 않는다. 214는 기능 조건 수로 독립 학생/문항 수가 아니다. 소스 hash·생성 실행본의 바이트·결과 파일 hash·완료/실패·계정 부재 확인을 요구하며, 중단/실패/SKIP/정리 미확인은 PASS로 세지 않는다. [화면/hash](./SCREENSHOTS.json)는 기존 학습지도·서랍·R5·PLAN의 실제 앱 캡처이며 Factory 화면이나 실제 납품 장면이 아니다.',
+'77은 2,603에 포함되며 중복 합산하지 않는다. 223은 기능 조건 수로 독립 학생/문항 수가 아니다. 소스 hash·생성 실행본의 바이트·결과 파일 hash·완료/실패·계정 부재 확인을 요구하며, 중단/실패/SKIP/정리 미확인은 PASS로 세지 않는다. [화면/hash](./SCREENSHOTS.json)는 기존 학습지도·서랍·R5·PLAN의 실제 앱 캡처이며 Factory 화면이나 실제 납품 장면이 아니다.',
 '',
 '## I1 적용 전 실제 blocker',
 '',

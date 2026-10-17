@@ -1,7 +1,8 @@
 // scripts/research/factory-i0-277-independent/checks.mjs
 // Reuses accepted shared browser jobs/rendering and source-manifest guards.
 import crypto from 'node:crypto'
-import {browserJobs,renderBrowserRunner} from '../lm-g1-5a-independent/runner-contract.mjs'
+import {renderBrowserRunner} from '../lm-g1-5a-independent/runner-contract.mjs'
+import {factoryBrowserJobs} from './jobs.mjs'
 import {productHashes} from '../lm-g1-5a-independent/binding.mjs'
 import fs from 'node:fs'
 import {pathToFileURL} from 'node:url'
@@ -20,7 +21,7 @@ if(mode==='browser'){
  const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}})
  const revision=process.argv[5]??'regression-v3';if(!/^[a-z0-9-]+$/.test(revision))throw Error('Invalid run revision');
  const base='http://localhost:3013',local=path.join(import.meta.dirname,'local',revision);if(fs.existsSync(local+'/browser-summary.json'))throw Error('Run already recorded; choose a new revision');fs.mkdirSync(local,{recursive:true})
- const jobs=browserJobs(base,local)
+ const jobs=factoryBrowserJobs(base,local)
  const results=[]
  const dates=false,delta=false;const remainingJobs=jobs.slice(Number(process.argv[3]??0),process.argv[4]?Number(process.argv[3]??0)+Number(process.argv[4]):undefined);
  let ownedServer=null

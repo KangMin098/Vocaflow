@@ -13,6 +13,6 @@ if(result.status!==0)throw Error('Broad unit command incomplete')
 const partitions=JSON.parse(fs.readFileSync(previous+'/partitions.json','utf8')),reports=[]
 let files=0,passed=0,failed=0,skipped=0
 for(const p of partitions){if(!p.ok)throw Error('Failed partition');const file=previous+'/'+p.report,j=JSON.parse(fs.readFileSync(file,'utf8'));files+=p.files.length;passed+=j.numPassedTests;failed+=j.numFailedTests;skipped+=j.numPendingTests;reports.push({file:p.report,sha256:hashFile(file)})}
-if(files!==215||passed!==2602||failed!==0||skipped!==0)throw Error('Unexpected broad inventory or nonpassing result')
+if(files!==215||passed!==2603||failed!==0||skipped!==0)throw Error('Unexpected broad inventory or nonpassing result')
 assertSameManifest(productHashes(root),hashes)
 fs.writeFileSync(binding,JSON.stringify({head,startedAt,observedAt:new Date().toISOString(),hashes,files,passed,failed,skipped,runnerSha256:hashFile(import.meta.dirname+'/checks.mjs'),wrapperSha256:hashFile(import.meta.filename),reports},null,2));console.log(JSON.stringify({files,passed,failed,skipped,sourceStable:true}))

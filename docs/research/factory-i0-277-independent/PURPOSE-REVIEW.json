@@ -48,5 +48,29 @@
       "proposalChecks": 7
     },
     "remoteChanges": false
+  },
+  "third": {
+    "head": "2bf58d44c2ffc9419dfbc6f666b60288009365ac",
+    "exit": 2,
+    "findings": [
+      "P2 eligibleRoles array order/duplicates falsely conflict",
+      "P2 T1 1440 coverage missing from locally stated acceptance",
+      "P2 original and additional A-G need separately traceable report tables"
+    ],
+    "roleCounterexample": {
+      "passed": 48,
+      "failed": 1,
+      "sha256": "e363642212a5f8db0eb0dade512ae3403890d5130035c92507e325977b332026",
+      "failures": [
+        {
+          "name": " purpose review counterexamples eligible role order and duplicate role entries are not conflicting inventory",
+          "failures": [
+            "expected [] to deeply equal [ 'a' ]"
+          ]
+        }
+      ]
+    },
+    "oldBrowserCohort": "regression-final preserved, intentionally interrupted before product fix, never counted as final",
+    "cleanup": "8 owned IDs absentVerified, unknown 0"
   }
 }
