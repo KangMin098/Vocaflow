@@ -37,7 +37,7 @@ export function handle(payload, { agent, env = process.env, now = Date.now(), di
     deny: [],
     tickets: [ticket],
     ask: {
-      command: withNonce(cmd, nonce),
+      command: withNonce(cmd, a.sha, nonce),
       reason:
         `[db-approval] 개발 DB 배포 승인 — 러너 ${a.runner} · 단계 ${a.stage} · 전체 SHA ${a.sha}\n` +
         `허용하면 이 명령만 1회 실행된다(티켓 ${ticket.id} · ${ticket.expires_at} 까지). 거부하면 아무것도 적용되지 않는다.`,

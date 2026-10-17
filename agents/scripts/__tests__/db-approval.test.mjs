@@ -62,6 +62,9 @@ test('훅: Claude 대화형 정식 명령 → ask + 난수가 붙은 updatedInpu
   const r = handle(bash(CMD), { agent: 'claude', env: {}, now: T0, dir })
   assert.equal(r.deny.length, 0)
   assert.ok(r.ask.command.startsWith(`${CMD} ${NONCE_FLAG} `))
+  // 난수는 --confirm-sha 바로 뒤 — 뒤따르는 인자가 있어도 러너 인자 안에 머문다
+  const tail = handle(bash(`${CMD} --deps ~/vf-deps`), { agent: 'claude', env: {}, now: T0, dir })
+  assert.match(tail.ask.command, new RegExp(`--confirm-sha ${SHA} ${NONCE_FLAG} [0-9a-f]{48} --deps ~/vf-deps$`))
   assert.match(r.ask.reason, new RegExp(SHA))
   assert.ok(consumeTicket({ ...SUBJ, nonce: nonceOf(r.ask.command), now: T0 + 1, dir }).ticket)
   assert.ok(explain(CMD).some((x) => x.includes(SHA)), 'guard 도 같은 명령에 승인 사유를 낸다')
@@ -89,6 +92,12 @@ test('훅: 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기�
     `node scripts/db/factory-i1/deploy.mjs apply --stage db1`,
     `${CMD} ${NONCE_FLAG} ${'a'.repeat(48)}`,
     `${CMD} && ${CMD}`,
+    `${CMD}; echo`, // 재리뷰 P1: 난수가 echo 에 실려 출력으로 샌다
+    `${CMD} | tee out.log`,
+    `${CMD} > out.log 2>&1`,
+    `${CMD} & sleep 1`,
+    `${CMD} #`,
+    `${CMD}\necho x`,
     `cp x.json ~/.vocaflow/db-approvals/x.json`,
     `node -e "require('fs').writeFileSync(process.env.HOME+'/.vocaflow/db-approvals/x.json','{}')"`,
     `cat x > ~/.vocaflow/db-approvals/x.json`,
@@ -116,6 +125,9 @@ test('훅 · guard: 조회 · 일상 명령은 건드리지 않는다(P2 오탐)
     `git commit -m "docs: deploy.mjs apply 절차 scripts/db/factory-i1"`,
     'node --test agents/scripts/__tests__/db-approval.test.mjs',
     'pnpm --filter web test',
+    'kubectl apply -f deploy.yaml', // 재리뷰 P3
+    'pnpm --filter web exec vitest run deploy-apply.test.ts',
+    'node scripts/video/deploy-preview.mjs --apply-theme dark',
   ]
   for (const c of PASS) {
     const r = handle(bash(c), { agent: 'claude', env: {}, now: T0, dir: tmp() })

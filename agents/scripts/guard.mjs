@@ -23,7 +23,7 @@
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
-import { RUNNER_RE, issueTicket, parseApply } from './db-approval.mjs'
+import { isSingleCommand, parseApply } from './db-approval.mjs'
 import { ROOT, findSecrets, git, isEnvFile, isMain } from './lib.mjs'
 
 const SHELL_TOOLS = /^(Bash|PowerShell|shell|local_shell|exec_command|container\.exec)$/
@@ -197,18 +197,23 @@ export function deployApprovals(cmd) {
       denies.push(`승인 티켓 디렉터리를 ${verb} 로 접근 — 티켓은 db-approval-hook 만 쓴다`)
     if (DEPLOY_READ_VERBS.has(verb)) continue // 읽기·검색·git 은 배포 판정을 하지 않는다(오탐 금지)
     const text = args.join(' ')
-    const mentionsDeploy = /deploy(\.mjs)?\b/i.test(text) && /\bapply\b/.test(text)
+    const hasApply = /\bapply\b/.test(text)
     if (['node', 'node.exe'].includes(verb)) {
       const p = parseApply(args)
+      // node 가 deploy(.mjs) 파일을 실행하거나 -e/-p 스크립트가 deploy.mjs 를 부르는 구간만 판정한다(kubectl · vitest 오탐 금지)
+      const runsDeploy = args.some((a) => /(?:^|[\\/])deploy(?:\.mjs)?$/i.test(a)) || (args.some((a) => /^(-e|-p|--eval|--print|--import|-r|--require)$/.test(a)) && /deploy\.mjs/i.test(text))
       if (p?.ok) asks.push(p)
       else if (p) denies.push(`DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`)
-      else if (mentionsDeploy || /deploy(\.mjs)?\b[\s\S]*\bapply\b/i.test(text))
+      else if (runsDeploy && hasApply)
         denies.push('DB 배포 apply 가 정식 형태가 아니다 — `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 로만 승인한다')
-    } else if (mentionsDeploy || (args.some((a) => RUNNER_RE.test(a)) && /\bapply\b/.test(text))) {
+    } else if (/scripts[\\/]db[\\/]\S*deploy/i.test(text) && hasApply) {
       denies.push(`배포 러너 apply 를 ${verb} 로 감싸 실행 — \`node scripts/db/<id>/deploy.mjs apply …\` 형태로만 승인한다`)
     }
   }
   if (asks.length > 1) denies.push('한 명령에 DB 배포 apply 가 둘 이상 — 승인은 한 번에 하나')
+  // 난수가 러너 인자로만 들어가도록 단독 명령만 승인한다(`; echo` 로 난수가 새는 것 · PR #287 재리뷰 P1)
+  else if (asks.length === 1 && !isSingleCommand(cmd))
+    denies.push('DB 배포 apply 는 단독 명령으로만 승인한다 — `;` `&&` `|` `>` `#` 치환·줄바꿈 없이')
   return { asks: denies.length ? [] : asks, denies }
 }
 

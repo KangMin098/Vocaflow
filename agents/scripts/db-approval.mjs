@@ -15,9 +15,10 @@
 //   · 배포 apply 명령에는 settings allow 규칙을 둘 수 없다(있으면 클릭 없이 실행된다).
 //   · 티켓은 (러너 · 단계 · 전체 SHA · 난수) 에 묶이고 TTL 안에서 한 번만 쓰인다.
 //
-// 한계(문서화): 같은 OS 계정의 에이전트가 정책을 어기고 **자기 난수로 티켓 파일을 새로 써 넣는** 위조까지
-// 암호학적으로 막지는 못한다(훅이 티켓 디렉터리 쓰기를 거부하는 것까지가 방어선). 사람이 TTY 에서 직접
-// 실행하는 경로는 그대로 남는다.
+// 한계(문서화 · PR #287 독립 리뷰 P2): 같은 OS 계정의 에이전트가 정책을 어기고 **자기 난수로 티켓 파일을 새로 써 넣는**
+// 위조는 막지 못한다. guard 의 티켓 디렉터리 쓰기 거부는 흔한 형태만 잡는 보조 장치이며 경로를 조립하는 스크립트
+// (python -c 등)는 통과한다 — 방어선이 아니다. 이 설계가 막는 것은 「승인 없는 관성 적용」 · 「거부된 승인의 재사용」 ·
+// 「다른 SHA·단계로의 승인 전용」이다. 의도적 위조까지 막아야 하면 사람이 TTY 에서 직접 실행하는 경로를 쓴다.
 
 import crypto from 'node:crypto'
 import fs from 'node:fs'
@@ -120,8 +121,21 @@ export function consumeTicket({ runner, stage, sha, nonce, now = Date.now(), dir
   return { ticket: null, reason: `승인 티켓이 없거나 이미 쓰였다 — ${runner}/${stage}/${sha.slice(0, 12)}… 는 승인 창을 다시 거쳐야 한다` }
 }
 
-/** 훅이 승인 창에 넘길 명령 — 원래 명령 끝에 난수를 붙인다(셸 안전: 16진수만). */
-export function withNonce(command, nonce) {
-  if (!NONCE_RE.test(nonce)) throw new Error('invalid nonce')
-  return `${command.replace(/\s+$/, '')} ${NONCE_FLAG} ${nonce}`
+/** 셸 메타문자 · 줄바꿈이 없는 단일 명령인가 — 난수가 다른 프로그램(echo · tee · 주석)에 실리지 않게 */
+export function isSingleCommand(command) {
+  return !/[;&|<>#`\r\n]|\$\(/.test(command)
+}
+
+/**
+ * 훅이 승인 창에 넘길 명령 — 난수를 `--confirm-sha <sha>` 바로 뒤에 넣는다(러너의 인자로만 들어가게).
+ * 단일 명령이 아니거나 --confirm-sha 가 정확히 한 번 나오지 않으면 던진다(훅은 발급하지 않는다).
+ */
+export function withNonce(command, sha, nonce) {
+  if (!NONCE_RE.test(nonce) || !SHA_RE.test(sha)) throw new Error('invalid nonce')
+  if (!isSingleCommand(command)) throw new Error('compound command')
+  const anchor = `--confirm-sha ${sha}`
+  const at = command.indexOf(anchor)
+  if (at < 0 || command.indexOf(anchor, at + 1) >= 0) throw new Error('confirm-sha anchor')
+  const end = at + anchor.length
+  return `${command.slice(0, end)} ${NONCE_FLAG} ${nonce}${command.slice(end)}`
 }
