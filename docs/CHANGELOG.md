@@ -1,5 +1,8 @@
 # CHANGELOG
 
+- Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
+
+- Factory I1 승인 패키지(미적용): 공급 노출 판정에 G2 · 세션 · 함정 · 복습 원장 포함, 승인 범위(public + assessment) · 철회 직렬화 · 수량 상한, 부분 납품(partial) · 공용 Product Order 계보(별도 승인) SQL 과 생성된 되돌리기. 격리 PGlite 37 · 실제 PostgreSQL 동시성 8/8. 앱은 검수 전 해설을 「지금 읽을 수 있음 · 수업용 검수 전」으로 분리.
 - PR #277 I0 독립 수용: 계약 77·광역 단위 2,603·PC 회귀 223조건. CONTRACT_ONLY이며 실제 Factory는 미연결; C/B NULL 검수·권한 및 노출/승인 blocker는 미적용 유지. [근거](./research/factory-i0-277-independent/ACCEPTANCE.md).
 
 - LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.
@@ -23,11 +26,16 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- docs(csat-learner): V2-F2 타당도 파일럿 — A3/A2/A4 비교(A3 채택 · A2 는 오답 설계 원리로만 · A4 보류), 구 판별 시험 추가, 4문항 v2 DRAFT(후보 2 · 조건부 1 · 자리 없음 1)는 비공개 원장 해시만, 독립 재검수 프로토콜 제안 · 제품 코드 · DB 변경 없음 · V2 학습 가능 문항 0 유지 (`docs/csat-learner/v62/V2_F2_VALIDITY_PILOT.md`)
+- docs(csat-learner): V2-F2 타당도 파일럿 — A3/A2/A4 비교(A3 채택 · A2 는 오답 설계 원리로만 · A4 보류), 구 판별 시험 추가, 4문항 v2 DRAFT(후보 2 · 조건부 1 · 자리 없음 1)는 비공개 원장 해시만, 독립 재검수 프로토콜 제안 · 제품 코드 · DB 변경 없음 · 독립 검수 f2-review-r001 결과 후보 PASS 0 · R0′ 대조군 2/2 탐지 · A3 미확정 · Instrument v2 보류 · V2 학습 가능 문항 0 유지 (`V2_F2_REVIEW_RESULTS.md` · `docs/csat-learner/v62/V2_F2_VALIDITY_PILOT.md`)
+- PR #279 Codex-C 독립 수용: F1을 ACCEPT_WITH_LIMITS로 판정(실앱 214·실제 패널 50·광역 단위 2,615). F2/R1·콘텐츠 0의 잔여 범위와 최초 실패를 [수용 보고서](./research/v2-f1-independent/ACCEPTANCE.md)에 보존했다.
+- PR #279 독립 F1 검증: R/X 원문 유형과 밑줄 표지 불일치를 서버에서 차단했다. 최초 실패·원문 관문 회귀를 보존하며 D는 저장 뒤 연습, F2/R1·콘텐츠 미출시는 유지한다. DB/RPC/RLS 변경 없음.
+- fix(knowledge): V2-F1 — 뜻 선택지가 판별 정답을 드러내는 결함 수정. 제출 전 화면 모양에서 뜻 선택지 제거 · 확인 기록과 정오는 B 판별(+근거)만 · 뜻은 B 를 맞힌 뒤의 기록 없는 연습 · 밑줄 표지(①~⑤/(a)~(e)) · 문장 논리 문항 출시 제외 · 합의 주석 0 · 출시 0 그대로 · DB 변경 없음
+- PR #281 R5 사전 감사 독립 수용(연구 한정): 13개 후보·공개 해설 113개·I2 적격 0을 재현하고, trap 노출 누락·주석 hash 결속·G2 납품 귀속 공백을 검증했다. 원 보고의 무노출 대안·phase·NOT_NEEDED 서술을 정정했다. DB 변경·실제 납품 없음. [독립 보고](./research/factory-i2-independent-20261017/ACCEPTANCE.md).
 
 - PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
 
 - feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
+- Factory I2 R5 공급 사전 감사(읽기 전용): claim-support 후보 13(확인 9·전이 4), I2 영속 납품 적격 0(C/B 미설치·R5 FQ 0건). 확인 시도가 phase=practice로 기록되는 문제, 연습 풀과 평가 자료가 겹치는 문제, 2026#23 이중 출시를 확인했다. [보고서](./research/factory-i2-r5-preflight-20261017/REPORT.md)
 
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
 

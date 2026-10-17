@@ -1,0 +1,694 @@
+{
+  "snapshot": {
+    "items": [
+      {
+        "id": "2016#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 13,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "499aefc1fea7e3721239be3e115dd262c8b9a2a5fd2e64a3ba3be0062859de75",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2020#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 13,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "c3ed30c20f4dfc3adcaa4c5530175211d7e8bf626deda7e1bf1d3ce231a33365",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2020#24",
+        "type": "R-TITLE",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": null,
+          "attemptPhases": null,
+          "sessionLearners": 0,
+          "maxContentHashes": null,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 0,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2021#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 14,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 14,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "c4f5b8abb77d1b2aa17e0ff2cfa66a256aac44debed2ee886a4139852234f019",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2021#24",
+        "type": "R-TITLE",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": null,
+          "attemptPhases": null,
+          "sessionLearners": 0,
+          "maxContentHashes": null,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 0,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2022#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 5
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 15,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 1,
+          "attemptLearnersSynthetic": 14,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "4d6b991618ce99c8147d233b6d28c3cd068c066e704d58d74c78092df3f44500",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2025#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 13,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "5ccb805e974e7309f33c257ab67d424de8d5a23c471ba02a2ab8d11262be8fcc",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2026#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 14,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 1
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "f103628c001ae89c65dc882583390e73102775263492f423c68e02684250dcbe",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "2026#23",
+        "type": "R-TOPIC",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 5
+        },
+        "examKind": "suneung",
+        "exposure": {
+          "attemptTasks": null,
+          "attemptPhases": null,
+          "sessionLearners": 1,
+          "maxContentHashes": null,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 0,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 1
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "472357902f9773ddd9cc31ea4ebae040fcb4bddb06e8a97106cb72089ccba74c",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "M2506#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "mock",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 13,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "2f9912e4ae6c7e93611b53e6063ffefaec257a39df5918f56c94e3db435a36ab",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "M2606#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "mock",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 14,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 14,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "fa48e3d19f4e09ed3d6bc5883ea44a11644abfde2ae1425924f3b199c90a4871",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "M2609#20",
+        "type": "R-CLAIM",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 4
+        },
+        "examKind": "mock",
+        "exposure": {
+          "attemptTasks": "claim-support",
+          "attemptPhases": "practice",
+          "sessionLearners": 13,
+          "maxContentHashes": 1,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 13,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "265c394b4dee081846d93c3410bca6106729831012cc4cf0cd800f84adebe586",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      },
+      {
+        "id": "M2609#23",
+        "type": "R-TOPIC",
+        "bodyOk": true,
+        "analysis": {
+          "statuses": "published",
+          "units_hash": null,
+          "published_version": 5
+        },
+        "examKind": "mock",
+        "exposure": {
+          "attemptTasks": null,
+          "attemptPhases": null,
+          "sessionLearners": 0,
+          "maxContentHashes": null,
+          "dxResponseLearners": 0,
+          "attemptLearnersReal": 0,
+          "attemptLearnersSynthetic": 0,
+          "explanationOnlyLearnersReal": 0,
+          "explanationOnlyLearnersSynthetic": 0
+        },
+        "hasAnswer": true,
+        "organizer": "kice",
+        "inPublicView": true,
+        "passageSha256": "1b2e558c5d055d1adac8e80ee5d3cd0f88581bf440277f58288385725e30b18c",
+        "dxExamLearners": 0,
+        "samePassageItems": []
+      }
+    ],
+    "schema": "vf.factory-i2-r5-snapshot/1",
+    "ledgers": {
+      "factory_order": false,
+      "factory_order_event": false,
+      "content_qualification": false,
+      "content_release_approval": false,
+      "workspace_content_demand": false,
+      "content_release_revocation": false,
+      "factory_order_product_link": false,
+      "workspace_content_delivery": false,
+      "workspace_content_demand_line": false
+    },
+    "measuredAt": "2026-10-17T09:38:07.161089+00:00",
+    "poolByType": {
+      "R-GIST": {
+        "items": 132,
+        "bodyOk": 131,
+        "hasAnswer": 132,
+        "byOrganizer": {
+          "kice": 29,
+          "edu_office": 103
+        },
+        "inPublicView": 132,
+        "analysisPublished": 132
+      },
+      "R-CLAIM": {
+        "items": 127,
+        "bodyOk": 126,
+        "hasAnswer": 127,
+        "byOrganizer": {
+          "kice": 25,
+          "edu_office": 102
+        },
+        "inPublicView": 50,
+        "analysisPublished": 50
+      },
+      "R-TITLE": {
+        "items": 137,
+        "bodyOk": 134,
+        "hasAnswer": 137,
+        "byOrganizer": {
+          "kice": 31,
+          "edu_office": 106
+        },
+        "inPublicView": 137,
+        "analysisPublished": 137
+      },
+      "R-TOPIC": {
+        "items": 134,
+        "bodyOk": 132,
+        "hasAnswer": 134,
+        "byOrganizer": {
+          "kice": 30,
+          "edu_office": 104
+        },
+        "inPublicView": 134,
+        "analysisPublished": 134
+      }
+    },
+    "applications": [
+      {
+        "item": "2016#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2016-20",
+        "release_approved": true
+      },
+      {
+        "item": "2020#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2020-20",
+        "release_approved": true
+      },
+      {
+        "item": "2020#24",
+        "role": "transfer",
+        "status": "active",
+        "type_id": "R-TITLE",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2020-24",
+        "release_approved": true
+      },
+      {
+        "item": "2021#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2021-20",
+        "release_approved": true
+      },
+      {
+        "item": "2021#24",
+        "role": "transfer",
+        "status": "active",
+        "type_id": "R-TITLE",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2021-24",
+        "release_approved": true
+      },
+      {
+        "item": "2022#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2022-20",
+        "release_approved": true
+      },
+      {
+        "item": "2025#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2025-20",
+        "release_approved": true
+      },
+      {
+        "item": "2026#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2026-20",
+        "release_approved": true
+      },
+      {
+        "item": "2026#23",
+        "role": "transfer",
+        "status": "active",
+        "type_id": "R-TOPIC",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:2026-23",
+        "release_approved": true
+      },
+      {
+        "item": "M2506#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:M2506-20",
+        "release_approved": true
+      },
+      {
+        "item": "M2606#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:M2606-20",
+        "release_approved": true
+      },
+      {
+        "item": "M2609#20",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-CLAIM",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:M2609-20",
+        "release_approved": true
+      },
+      {
+        "item": "M2609#23",
+        "role": "transfer",
+        "status": "active",
+        "type_id": "R-TOPIC",
+        "version": 1,
+        "released": true,
+        "task_key": "claim-support",
+        "surface_ref": "claim-support:M2609-23",
+        "release_approved": true
+      },
+      {
+        "item": "2025#22",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-GIST",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2025-22",
+        "release_approved": true
+      },
+      {
+        "item": "2025#23",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-TOPIC",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2025-23",
+        "release_approved": true
+      },
+      {
+        "item": "2025#24",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-TITLE",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2025-24",
+        "release_approved": true
+      },
+      {
+        "item": "2026#22",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-GIST",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2026-22",
+        "release_approved": true
+      },
+      {
+        "item": "2026#23",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-TOPIC",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2026-23",
+        "release_approved": true
+      },
+      {
+        "item": "2026#24",
+        "role": "check",
+        "status": "active",
+        "type_id": "R-TITLE",
+        "version": 1,
+        "released": true,
+        "task_key": "option-restate",
+        "surface_ref": "option-restate:2026-24",
+        "release_approved": true
+      }
+    ]
+  },
+  "revisions": [
+    {
+      "id": "2016#20",
+      "b_revision": "86840ab2a3e32d755ab45d02f9cdabb2ca4d20c6efb87c4dc8ff0fb08e0420c1"
+    },
+    {
+      "id": "2020#20",
+      "b_revision": "756ec479572266aee73e2b3f1f73c247e85ec2533f987e4f8d06895e8c4f945d"
+    },
+    {
+      "id": "2020#24",
+      "b_revision": "665745b76f720932afd513e9242ed756be6c1d546f5c4d7de054aea824d3a8e8"
+    },
+    {
+      "id": "2021#20",
+      "b_revision": "2a7887c8cf17ef21296cc0bc8fa1bd63110818c05555caf79c753a1be7aafeff"
+    },
+    {
+      "id": "2021#24",
+      "b_revision": "5788f7ae0ecb47fe71196983e0772f90deb834080e3e2e97b9b3ce796c9cd98c"
+    },
+    {
+      "id": "2022#20",
+      "b_revision": "5cd67fa9e1889ede9ceb90d5821e08ff430bcc6ca459bfb54179903cc37092bd"
+    },
+    {
+      "id": "2025#20",
+      "b_revision": "1b1b510407732e88fd4f076318392b08dca7afe3e8741e885f1583615800910d"
+    },
+    {
+      "id": "2026#20",
+      "b_revision": "706c26ec247e5e6beabce396b948997f364c2477640f277b0d88b513a41310a0"
+    },
+    {
+      "id": "2026#23",
+      "b_revision": "3001f8ca189a03a5f4e933b0c9f706259701ce84678ab2eac7b28fb88076e377"
+    },
+    {
+      "id": "M2506#20",
+      "b_revision": "d4da28a551a6710aad438108b605414425be07c32f8f69c5e304af9507775dc7"
+    },
+    {
+      "id": "M2606#20",
+      "b_revision": "386625f8305459b36048311706b2f8e8d0eb1a2b6d2876a7e4ac50fe0d18565e"
+    },
+    {
+      "id": "M2609#20",
+      "b_revision": "384830e5c0018515e4ce407d99cf64347aa5e890ee985f4c30aef4038cf0a64d"
+    },
+    {
+      "id": "M2609#23",
+      "b_revision": "1996bd9990cc014fb61d77b6c3dec13f3fb58d32a11f422ce499f94b63849220"
+    }
+  ]
+}

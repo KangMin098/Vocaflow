@@ -1,0 +1,21 @@
+{
+  "schema": "vf.factory-i2-r5-revisions/1",
+  "formula": "sha256(stem|passage|choices::text|answer::text) — _pending_workspace_supply_b_orders.sql supply_artifact_revision('csat_item')",
+  "measuredAt": null,
+  "measuredNote": "db-snapshot.json(2026-10-17T09:16:42Z) 직후 같은 세션에서 revisions.sql 실행 — 쿼리가 now() 를 돌려주지 않아 정확한 시각은 없다",
+  "rows": [
+    { "id": "2016#20", "b_revision": "86840ab2a3e32d755ab45d02f9cdabb2ca4d20c6efb87c4dc8ff0fb08e0420c1" },
+    { "id": "2020#20", "b_revision": "756ec479572266aee73e2b3f1f73c247e85ec2533f987e4f8d06895e8c4f945d" },
+    { "id": "2020#24", "b_revision": "665745b76f720932afd513e9242ed756be6c1d546f5c4d7de054aea824d3a8e8" },
+    { "id": "2021#20", "b_revision": "2a7887c8cf17ef21296cc0bc8fa1bd63110818c05555caf79c753a1be7aafeff" },
+    { "id": "2021#24", "b_revision": "5788f7ae0ecb47fe71196983e0772f90deb834080e3e2e97b9b3ce796c9cd98c" },
+    { "id": "2022#20", "b_revision": "5cd67fa9e1889ede9ceb90d5821e08ff430bcc6ca459bfb54179903cc37092bd" },
+    { "id": "2025#20", "b_revision": "1b1b510407732e88fd4f076318392b08dca7afe3e8741e885f1583615800910d" },
+    { "id": "2026#20", "b_revision": "706c26ec247e5e6beabce396b948997f364c2477640f277b0d88b513a41310a0" },
+    { "id": "2026#23", "b_revision": "3001f8ca189a03a5f4e933b0c9f706259701ce84678ab2eac7b28fb88076e377" },
+    { "id": "M2506#20", "b_revision": "d4da28a551a6710aad438108b605414425be07c32f8f69c5e304af9507775dc7" },
+    { "id": "M2606#20", "b_revision": "386625f8305459b36048311706b2f8e8d0eb1a2b6d2876a7e4ac50fe0d18565e" },
+    { "id": "M2609#20", "b_revision": "384830e5c0018515e4ce407d99cf64347aa5e890ee985f4c30aef4038cf0a64d" },
+    { "id": "M2609#23", "b_revision": "1996bd9990cc014fb61d77b6c3dec13f3fb58d32a11f422ce499f94b63849220" }
+  ]
+}

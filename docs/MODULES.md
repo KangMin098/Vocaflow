@@ -1,5 +1,7 @@
 # Learning Modules
 
+> Factory I1 독립 검증(2026-10-17, DB 미적용): 학습지도 Inspector는 전체 canonical 수요별 공급을 선택해 PLAN 간 집계를 분리한다. 역사적 주문 종결과 현재 유효 공급은 별도이며 supersede·권리/공개 철회는 부족분으로 복귀한다. [독립 수용 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
+
 > 9개 학습 모듈 + 베타. 각 모듈의 목적·라우트·인지 깊이·데이터 모델. 작성 시점: 2026-06-08 (v06.34).
 >
 > 학습 모델 9계층 (L0~L7) 자세한 설계는 [LEARNING_MODEL.md](./LEARNING_MODEL.md) 참조.
@@ -1224,4 +1226,4 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 
 ### V2 Instrument 독립 수용 경계(2026-10-17)
 
-ContextSensePanel은 B+D 조건 성공과 C 문장 선택을 분리하고, writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.
+ContextSensePanel은 B 판별 조건 성공과 C 문장 선택을 분리하고(V2-F1: 제출 전 뜻 선택지 없음 · 뜻 D 는 B 정답 저장 뒤의 기록 없는 연습 · 유형별 밑줄 표지, [V2_F1_CUE_LEAK](./csat-learner/v62/V2_F1_CUE_LEAK.md)), writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.

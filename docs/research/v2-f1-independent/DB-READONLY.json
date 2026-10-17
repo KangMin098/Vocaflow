@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-17",
+  "method": "Supabase execute_sql, SELECT only",
+  "applications_exists": true,
+  "attempts_exists": true,
+  "active_v2_applications": 0,
+  "v2_attempt_rows": 0,
+  "first_attempt_uses_client_answered_at": true,
+  "db_rpc_rls_changes": false,
+  "content_released": false,
+  "query": "select (select count(*)::int from public.knowledge_applications where status = 'active' and surface_ref like 'contextual-sense:%') as active_v2_applications, (select count(*)::int from public.learning_task_attempts where task_key = 'contextual-sense') as v2_attempt_rows, position('a_1.phase, a_1.answered_at, a_1.id' in pg_get_viewdef('public.learning_first_attempts'::regclass, true)) > 0 as first_attempt_uses_client_answered_at;"
+}

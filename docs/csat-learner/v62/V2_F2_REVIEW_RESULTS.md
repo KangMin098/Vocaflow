@@ -3,6 +3,13 @@
 > PR #282 의 A3 가설을 독립 검수로 시험한 **최종 취합**이다. 원문 · 낱말 · 선택지 · 정답 · KEY · 판정 전문은 저장소 밖 비공개 원장에만 있다.
 > **결론: 후보 PASS 0. 실제 Instrument v2 구현 불가. V2 학습 가능 문항 0 유지.**
 > 입력 계약: [V2_F2_REVIEW_CONTRACT.md](./V2_F2_REVIEW_CONTRACT.md) · 설계: [V2_F2_VALIDITY_PILOT.md](./V2_F2_VALIDITY_PILOT.md)
+>
+> **연구 판정: ACCEPT_WITH_LIMITS** — 연구 결과(탐침 타당성 · 후보 판정 · r002 필요)만 수용한다. A3 의 교육적 평가 타당성 · 콘텐츠 accepted · 레지스트리 · 출시는 수용하지 않는다.
+>
+> **revision 용어 — 서로 다른 셋이다.**
+> - 입력 revision `f2-review-r001` — 이번 검수 입력 묶음. `f2-review-r002` 는 **아직 없는** 다음 검수 입력(§6).
+> - 원장 파일 `SUBMISSIONS.json` → `SUBMISSIONS.r002.json` — 같은 r001 검수의 제출 기록을 이어 쓴 두 번째 파일이다. 입력 r002 와 무관하다.
+> - 설계 초안 revision `f2-r001` — 비공개 v2 DRAFT 4건. 이번 검수로 바뀌지 않았다.
 
 ## 1. 적격 결과와 오염 결과
 

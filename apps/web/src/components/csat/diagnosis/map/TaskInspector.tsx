@@ -19,6 +19,7 @@ import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
 import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
 import { buildDemand } from '@/lib/csat/map/v62/demand'
+import { canonicalDemand } from '@/lib/csat/map/v62/canonical-json'
 import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
 import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
@@ -124,6 +125,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // P-F1 · P-F2 — 이 TASK · 묶음의 자료 수요와 기존 자산 공급 상태(판정 · 생산 없음). 공장 재고는 이 화면에서 조회하지 않는다(null)
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
   const demand = buildDemand(view, t.id, home, { workspaceId: savedWs?.workspaceId ?? null, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null })
+  const currentDemand = data.v4?.viewer ? canonicalDemand(data.v4.viewer, demand) : ''
   const unseen = new Set(check?.unseen ?? [])
   // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
   const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
@@ -233,9 +235,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               <p className={u.subH}>이 TASK 에 필요한 자료 · 준비 상태</p>
               <ul className={u.ledger}>
                 {supply.lines.map((l) => (
-                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger)} title={l.reason}>
+                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger, currentDemand)} title={l.reason}>
                     <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
-                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger)]}</span>
+                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger, currentDemand)]}</span>
                   </li>
                 ))}
               </ul>

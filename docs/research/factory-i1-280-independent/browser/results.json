@@ -1,0 +1,218 @@
+{
+  "scope": "Isolated actual TaskInspector with synthetic read-only data. Legacy StepSheet/learnerPath/navigation/analytics are IO stubs. Not live DB E2E.",
+  "head": "107bbb1de9f9af1623bca1588f02e4e7ab4820e6",
+  "results": [
+    {
+      "id": "1280-old",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "learn_now",
+          "text": "독립 확인 · 6개지금 학습할 수 있어요"
+        }
+      ]
+    },
+    {
+      "id": "1280-old-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-partial",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "partially_delivered",
+          "text": "독립 확인 · 6개일부 공급됨 · 남은 자료 준비 중"
+        }
+      ]
+    },
+    {
+      "id": "1280-partial-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-full",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "delivered",
+          "text": "독립 확인 · 6개공급 완료"
+        }
+      ]
+    },
+    {
+      "id": "1280-full-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-missing",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "learn_now",
+          "text": "독립 확인 · 6개지금 학습할 수 있어요"
+        }
+      ]
+    },
+    {
+      "id": "1280-missing-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-repair",
+      "ok": true,
+      "detail": [
+        {
+          "role": "source_analysis",
+          "state": "readable_unreviewed",
+          "step": "read_now",
+          "text": "기출 원문 분석 · 3개지금 읽을 수 있어요 · 수업용 검수 전"
+        },
+        {
+          "role": "model_explanation",
+          "state": "readable_unreviewed",
+          "step": "read_now",
+          "text": "모델 설명 · 3개지금 읽을 수 있어요 · 수업용 검수 전"
+        },
+        {
+          "role": "guided_practice",
+          "state": "needs_review",
+          "step": "needs_review",
+          "text": "지도 연습근거 · 원문 확인 필요"
+        }
+      ]
+    },
+    {
+      "id": "1280-repair-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-keyboard-disclosure",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-old",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "learn_now",
+          "text": "독립 확인 · 6개지금 학습할 수 있어요"
+        }
+      ]
+    },
+    {
+      "id": "1440-old-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-partial",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "partially_delivered",
+          "text": "독립 확인 · 6개일부 공급됨 · 남은 자료 준비 중"
+        }
+      ]
+    },
+    {
+      "id": "1440-partial-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-full",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "delivered",
+          "text": "독립 확인 · 6개공급 완료"
+        }
+      ]
+    },
+    {
+      "id": "1440-full-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-missing",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "available",
+          "step": "learn_now",
+          "text": "독립 확인 · 6개지금 학습할 수 있어요"
+        }
+      ]
+    },
+    {
+      "id": "1440-missing-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-repair",
+      "ok": true,
+      "detail": [
+        {
+          "role": "source_analysis",
+          "state": "readable_unreviewed",
+          "step": "read_now",
+          "text": "기출 원문 분석 · 3개지금 읽을 수 있어요 · 수업용 검수 전"
+        },
+        {
+          "role": "model_explanation",
+          "state": "readable_unreviewed",
+          "step": "read_now",
+          "text": "모델 설명 · 3개지금 읽을 수 있어요 · 수업용 검수 전"
+        },
+        {
+          "role": "guided_practice",
+          "state": "needs_review",
+          "step": "needs_review",
+          "text": "지도 연습근거 · 원문 확인 필요"
+        }
+      ]
+    },
+    {
+      "id": "1440-repair-no-page-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-keyboard-disclosure",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "no-runtime-errors-or-external-requests",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    }
+  ]
+}

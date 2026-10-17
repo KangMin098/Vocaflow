@@ -20,6 +20,12 @@ export async function openSupplyDb(opts: { withB?: boolean } = {}): Promise<PGli
   await db.exec(STUB)
   await db.exec(C_SQL)
   if (opts.withB !== false) await db.exec(B_SQL)
+  // Factory I1 회귀: SUPPLY_I1_OVERLAY=1 이면 B 위에 I1 safety · P 를 올려 B 의 기존 시험을 그대로 다시 돌린다
+  if (opts.withB !== false && process.env.SUPPLY_I1_OVERLAY === '1') {
+    await db.exec(fs.readFileSync(path.join(__dirname, 'supply-i1-stub.sql'), 'utf8'))
+    await db.exec(fs.readFileSync(path.join(MIG, '_pending_workspace_supply_i1_safety.sql'), 'utf8'))
+    await db.exec(fs.readFileSync(path.join(MIG, '_pending_workspace_supply_i1_partial.sql'), 'utf8'))
+  }
   return db
 }
 

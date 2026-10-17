@@ -1,0 +1,112 @@
+[
+    {
+        "file":  "ACCEPTANCE.md",
+        "sha256":  "83333a1391833e3acecdd22e98f2de06e7396275c4c4753fdbe7cfaa0e4e80a8",
+        "bytes":  5235
+    },
+    {
+        "file":  "BROWSER.json",
+        "sha256":  "af54c1cd628361b13c567a00ca8e4c66bbe6d3a18a12399eaa267dee5210e675",
+        "bytes":  5094
+    },
+    {
+        "file":  "DB-READONLY.json",
+        "sha256":  "7f0f786f7ab38b98947852f2633b414284a7a87d67b306a6bb28a6c0fa92f8dd",
+        "bytes":  745
+    },
+    {
+        "file":  "EVIDENCE.json",
+        "sha256":  "f3707e7e7b6adde594786fe6fafa87b446640d69b92ca77531c674bf0b481604",
+        "bytes":  5871
+    },
+    {
+        "file":  "FINDINGS.md",
+        "sha256":  "29134e4a5036bfeb33b479d18f987fb9a52f010722dd22186f6ecec9166ee3e2",
+        "bytes":  3044
+    },
+    {
+        "file":  "INITIAL-MARKER-FAILURE.json",
+        "sha256":  "d3034dc24cd134dfa21ddad047173f312c94d6a9c77528d0ab8c41e2a0772eb4",
+        "bytes":  1952
+    },
+    {
+        "file":  "PANEL.json",
+        "sha256":  "53878b2dcc6dde452a80345e5f2e4d98765c4090060ce85324d852ff0027b053",
+        "bytes":  8581
+    },
+    {
+        "file":  "PROBE.json",
+        "sha256":  "487365e872aa299c2e15ad5d43d87dda4bf35362e349bf68ed133ac2410d19d6",
+        "bytes":  4212
+    },
+    {
+        "file":  "PRODUCT-CI.json",
+        "sha256":  "c4df8a5a80b6d69028741858cb33e1974d3d470239bd02166ffe5bb3f7d730db",
+        "bytes":  4587
+    },
+    {
+        "file":  "PURPOSE-REVIEW.log",
+        "sha256":  "3bb2737e9d9853a3b5d56f03e394a0292d8a75718b5eea891cc6c79fbafd1ca5",
+        "bytes":  166
+    },
+    {
+        "file":  "screens/panel-before-1280.png",
+        "sha256":  "b481eeace993c157a56c3315a377d4537f1e71bdda6704558848609dcaa90f0d",
+        "bytes":  27539
+    },
+    {
+        "file":  "screens/panel-before-1440.png",
+        "sha256":  "4af4f7f576eb530280fc80c73cc34a682dc28854fd76175395a9d5d5cc7e90d1",
+        "bytes":  28251
+    },
+    {
+        "file":  "screens/panel-practice-1280.png",
+        "sha256":  "b57d64badc68d9f0af6412b6b8d17b4c7077f6fd4a440ccda1c449696be0b7a9",
+        "bytes":  42661
+    },
+    {
+        "file":  "screens/panel-practice-1440.png",
+        "sha256":  "dda25949409fbc328b379b4d7bb3f2ac336f25c9be56bee7ca67c813374b696e",
+        "bytes":  43719
+    },
+    {
+        "file":  "screens/plan-1280.png",
+        "sha256":  "4e1bbe2828281e53fe40c62777df8ad7106484263e1483e75b594cf2d86c3414",
+        "bytes":  147362
+    },
+    {
+        "file":  "screens/plan-1440.png",
+        "sha256":  "a5610bb2098d821dbc786ce066294cd7ab91ea519089a45828bf2388b0a8add3",
+        "bytes":  165955
+    },
+    {
+        "file":  "screens/r5-1280.png",
+        "sha256":  "5f121ef57fa926cc02bc96aff011d23f23ce6c99c7e37304edc8ebc678a1be5a",
+        "bytes":  128300
+    },
+    {
+        "file":  "screens/r5-1440.png",
+        "sha256":  "b9b47360795ef42f577469903e622f6a42456407e1110a1db868b73d1e4ad1fc",
+        "bytes":  146075
+    },
+    {
+        "file":  "screens/v2-blocked-1280.png",
+        "sha256":  "948eb37c094e03df2f31691000ce2c46352eeafc2e77704dbb4f503281df8e9a",
+        "bytes":  122608
+    },
+    {
+        "file":  "screens/v2-blocked-1440.png",
+        "sha256":  "d39bafe965285e67c304973540292281903243f4a3100bfb2ecdea2f216f5e6c",
+        "bytes":  142676
+    },
+    {
+        "file":  "screens/workspace-1440.png",
+        "sha256":  "0fa125a06c00a7d2bc18b1544b9bca94e32c51543b215614be06af93fdee5169",
+        "bytes":  161115
+    },
+    {
+        "file":  "SOURCE-HASHES.json",
+        "sha256":  "03741e73d221a9025d3a62a2f05f56792b89d32f22f9081af3a19e0a29d77eed",
+        "bytes":  5097
+    }
+]
