@@ -1,0 +1,164 @@
+{
+  "beforeHead": "9c19f15b1fc911b13040dc01fe5a12fef5af592f",
+  "currentHead": "80181cb776d35e5d5397eb821ed820775bdebe3d",
+  "beforeSourceHash": "bbabea3d79f0f42e5874c0e1c40f70f14029ddb947a0102122f7e32320d939cc",
+  "currentSourceHash": "33ce98c0cdcaddbc48a91e6d1dd410fbc1946c5400560816aaa3ab0eb1b26540",
+  "privateInputHashes": [
+    "091444a1c5577429138528ae9dbceaafcabffd55b375daa5f91afab4f2556b29",
+    "b7582d597b2b1571541f1231f65c9fc868f259deebd9435c2dcddd40c1c2cd72",
+    "3ff2739a62d4c72b354e16f0af0f72c9bc919e40eb272cf103c77dfc5e2cf9f1",
+    "6936e939a11d0066de36031e6ff8a966c75dbb46ecab036aa3b148a83c815502",
+    "bd409c195373d3dbc14e76ce612e59bc38772df9d20241d6737bae74e4893e7f",
+    "9097bff1b5c3f6ca4669cf9cff89275d38dac0b9a6b28e4d8199f6bb2790200c",
+    "5092030efb5821d088c131bebec6bd7ac8c82279a757b5acc2097e4c279d95ff",
+    "e40479998d06bac6e4274d43629e6223aaec89234b605b5d3e86c965fe9e78bb",
+    "766f856f6c18129b88e9b81e209657b13216c328b808b92f93e157d8b985775c",
+    "e77629ee0e9178afc3f1a79de17999997d4314ce2dbb33957b0254671c292f45",
+    "7990da9a6843e5381169a6f0c543234f902f56bf55c52dbe6b68177856267ca3",
+    "ca5bfad99e38df7deafe8c53e4709915a307897bd94b63df56c4197db5c95e80"
+  ],
+  "privateDraftCount": 12,
+  "draftContentsWritten": false,
+  "rows": [
+    {
+      "id": "prior F1 leakage reproduced on sealed pre-F1 source",
+      "expected": 12,
+      "actual": 12,
+      "pass": true
+    },
+    {
+      "id": "current pre-submit projection leaks",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "id": "wrong B response leaks",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "id": "correct B offers practice",
+      "expected": 12,
+      "actual": 12,
+      "pass": true
+    },
+    {
+      "id": "drafts releasable",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "id": "existing E providers preserved under V2 collision",
+      "expected": 15,
+      "actual": 15,
+      "pass": true
+    },
+    {
+      "id": "R1 remains: backdated metadata accepted",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "id": "R1 remains: later received backdated retry selected first",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    }
+  ],
+  "providers": [
+    {
+      "itemId": "2026#22",
+      "before": "option-restate",
+      "after": "option-restate",
+      "pass": true
+    },
+    {
+      "itemId": "2026#23",
+      "before": "claim-support",
+      "after": "claim-support",
+      "pass": true
+    },
+    {
+      "itemId": "2026#24",
+      "before": "option-restate",
+      "after": "option-restate",
+      "pass": true
+    },
+    {
+      "itemId": "2025#22",
+      "before": "option-restate",
+      "after": "option-restate",
+      "pass": true
+    },
+    {
+      "itemId": "2025#23",
+      "before": "option-restate",
+      "after": "option-restate",
+      "pass": true
+    },
+    {
+      "itemId": "2025#24",
+      "before": "option-restate",
+      "after": "option-restate",
+      "pass": true
+    },
+    {
+      "itemId": "2026#31",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2026#32",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2026#33",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2026#34",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2025#32",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2024#31",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2024#33",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2023#32",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    },
+    {
+      "itemId": "2025#34",
+      "before": "evidence-locate",
+      "after": "evidence-locate",
+      "pass": true
+    }
+  ]
+}

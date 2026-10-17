@@ -87,7 +87,7 @@ export const ITEM_TASKS: readonly ItemTaskDef[] = [
       const r = parseContextualSense(raw, a)
       if (!r) return null
       const g = gradeContextualSense(a, r)
-      return { response: r, grade: g as any, summary: { misfit: g.misfitOk, sense: g.senseOk, ...(g.cueOk === null ? {} : { cue: g.cueOk }) } }
+      return { response: r, grade: g as any, summary: { misfit: g.misfitOk, ...(g.cueOk === null ? {} : { cue: g.cueOk }) } }
     },
   },
 
