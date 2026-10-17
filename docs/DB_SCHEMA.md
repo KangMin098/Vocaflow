@@ -2,6 +2,7 @@
 
 > **미적용 승인안** Factory I1 독립 수정(2026-10-17): C/B→S에서 자격 supersede·현재 원천/Reveal Gate·NULL 축·경합을 재검사하고 P에서 종결 시 유효 수량만 센다. search_path와 부분 승인 롤백도 보완. 개발 DB 객체 변경 없음. 객체/hash/DB-1·2·3 범위: [승인 패키지](./csat-learner/v62/FACTORY_I1_APPROVAL_PACKAGE.md)·[독립 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
 > S의 DB-1에는 기존 `is_admin_or_curator()`·`is_admin()`의 search_path 설정 강화도 포함한다(본문/ACL 불변, 아직 미적용). 임시 프로필 사칭 방어이며 복구에서도 유지한다.
+> **별도 미적용 승인안** PR #283 주석 결속 v2: C→B→I1-S→(선택 P)→`_pending_workspace_supply_c_annotation_binding.sql`. 자격의 annotation_ref/hash와 소유자 전용 `supply_current_annotation`(문항/TASK/revision/ref/hash)을 공급·현재 충족도에서 대조한다. 등록부는 빈 상태로 생성하며 배포 동기화 승인 전 공급 차단. 기존 I1 rollback 적용 불가. [독립 수용·승인 범위](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
 
 > P4 최신 실측(2026-10-05): 학평 리포트 72행, 고1·고2는 23유형 발행/도표 draft 1유형, 고3은 도표 포함 24유형 발행이다. 최신 발행 분석은 868/877/861, 학년별 함정 지도 오답 선지는 3,472/3,508/3,444개다. 첫 도표 발행 집계의 공통 절차 누락을 수정했고 다른 학년의 미발행 도표는 draft로 유지하는 회귀를 추가했다. 원문 예시를 내보내지 않으며 평가원 리포트 26행 전체 해시는 기준과 같다. 아래 2026-10-04 수치는 이전 시점의 기록이다.
 

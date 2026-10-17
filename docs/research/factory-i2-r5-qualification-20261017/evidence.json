@@ -1,0 +1,76 @@
+{
+  "schema": "vf.factory-i2-r5-qualification/1",
+  "note": "원문·PDF·이미지는 담지 않는다(평가원 저작물 · 사용자 로컬 파일). 해시와 일치 수만. 재현: scripts/research/factory-i2-r5-qualification/{verify.mjs,evidence.sql}",
+  "measuredAt": { "db": "2026-10-17T10:03:48.429Z", "firstDbRead": "2026-10-17T09:49:47.980Z" },
+  "ledgersInstalled": {
+    "content_qualification": false, "content_release_approval": false, "content_release_revocation": false,
+    "workspace_content_demand": false, "workspace_content_demand_line": false, "factory_order": false, "workspace_content_delivery": false
+  },
+  "items": {
+    "2020#24": {
+      "role": "transfer",
+      "task": "r.central_meaning",
+      "contentKey": "claim-support",
+      "artifact": { "kind": "csat_item", "ref": "2020#24", "bRevision": "665745b76f720932afd513e9242ed756be6c1d546f5c4d7de054aea824d3a8e8", "bRevisionMatchesPr281": true },
+      "source": {
+        "exam": { "id": "2020", "kind": "suneung", "organizer": "kice", "year": 2020, "paperForm": "짝수", "no": 24, "type": "R-TITLE" },
+        "passageSha256": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c",
+        "answer": 2,
+        "officialPdf": { "file": "2020_영어_짝.pdf", "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66", "page": 3, "passageContiguous": true, "windows8": 39, "windows8Found": 39, "choicesFound": 5 },
+        "officialAnswerKey": { "file": "2020영어영역_정답표.pdf", "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9", "form": "짝수", "item24": 2, "matchesDb": true },
+        "samePassageItems": []
+      },
+      "analysis": { "version": 4, "status": "published", "unitsHash": null, "contentSha256": "3aa5023f451e1a9f1edd520f9b888a2179e1e4f4d5af79ecba4b77e3ad965974" },
+      "annotation": {
+        "file": "apps/web/src/lib/knowledge/annotations/claim-support-2020-24.v1.json",
+        "version": "claim-support-2020-24.v1",
+        "fileSha256": "7e90b2b2abcc7c5b65717c39364d6eb4bfe7a1ff4eb7f813354efa1c65adeeae",
+        "annotationHash": "72c534f8543a48f0212a842c4943589a3662d4f5449e0bee92eb51112ac02441",
+        "commit": "d79a56cbb",
+        "key": { "claim": 2, "support": [3, 4, 5], "supportDisputed": [0, 1], "relationProbe": { "sentence": 4, "relation": "reason" } },
+        "provenance": "Claude 서브에이전트 맹검 2(Codex 미설치 대체) · 원 판정 출력 미보존(요약만) · 사람 0",
+        "thisReview": { "by": "Claude Code(이 세션) · 비맹검(주석을 본 뒤)", "result": "주장 2 · 근거 3·4·5 · 관계 4=reason 모두 동의", "against": "DB passage(공식 문제지 3쪽과 연속 일치 확인)" }
+      },
+      "skeleton": { "sig": "6b2493db6e785ee2995570d57a1da0b162f5210ee48021e1b223dd82fb1b4983", "sentences": 6, "matchesAnnotation": true },
+      "release": { "application": "claim-support:2020-24", "status": "active", "version": 1, "audienceRole": "transfer", "releaseApprovedB7": true, "otherTaskApplications": 0 },
+      "exposure": { "attempts": 0, "sessions": 0, "explanationViewedSessions": 0, "dxResponses": 0, "at": "2026-10-17T10:03:48.429Z" }
+    },
+    "2021#24": {
+      "role": "transfer",
+      "task": "r.central_meaning",
+      "contentKey": "claim-support",
+      "artifact": { "kind": "csat_item", "ref": "2021#24", "bRevision": "5788f7ae0ecb47fe71196983e0772f90deb834080e3e2e97b9b3ce796c9cd98c", "bRevisionMatchesPr281": true },
+      "source": {
+        "exam": { "id": "2021", "kind": "suneung", "organizer": "kice", "year": 2021, "paperForm": "짝수", "no": 24, "type": "R-TITLE" },
+        "passageSha256": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274",
+        "answer": 3,
+        "officialPdf": { "file": "2021_3교시_영어영역_짝.pdf", "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634", "page": 3, "passageContiguous": true, "windows8": 44, "windows8Found": 44, "choicesFound": 5 },
+        "officialAnswerKey": { "file": "2021영어영역_정답표.pdf", "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00", "form": "짝수", "item24": 3, "matchesDb": true },
+        "samePassageItems": []
+      },
+      "analysis": { "version": 4, "status": "published", "unitsHash": null, "contentSha256": "aae0fd7bdeb5dd86cc08b2d0af4c6f3e0a524ccbc104310e5cd2d11111e52d66" },
+      "annotation": {
+        "file": "apps/web/src/lib/knowledge/annotations/claim-support-2021-24.v1.json",
+        "version": "claim-support-2021-24.v1",
+        "fileSha256": "7955f7f8637f0f781054e9fb06b02b30919c73dd40e79741112c9e2b8ad82029",
+        "annotationHash": "fccf9f19ebcd87bcf1bcf01505de233d8ace161275ad69b8aa3f06c08eee4236",
+        "commit": "d79a56cbb",
+        "key": { "claim": 0, "support": [1, 2, 3, 4, 5, 6, 7, 9], "relationProbe": { "sentence": 3, "relation": "example" } },
+        "provenance": "Claude 서브에이전트 맹검 2 · 원 판정 출력 미보존 · 사람 0",
+        "thisReview": null
+      },
+      "skeleton": { "sig": "6e68f96eebe929d53349d7fc498f9d3f259c764ef2d1a65d470752f0bca3531a", "sentences": 10, "matchesAnnotation": true },
+      "release": { "application": "claim-support:2021-24", "status": "active", "version": 1, "audienceRole": "transfer", "releaseApprovedB7": true, "otherTaskApplications": 0 },
+      "exposure": { "attempts": 0, "sessions": 0, "explanationViewedSessions": 0, "dxResponses": 0, "at": "2026-10-17T10:03:48.429Z" }
+    }
+  },
+  "liveExposureDrift": {
+    "note": "PR #281 측정(09:16:42Z) 뒤 다른 세션의 합성 계정이 연습 화면(activity=practice) 전이 구간에서 R5 전이 후보를 풀고 있다. 2020#24 도 같은 화면 풀에 있다.",
+    "claimSupportAttemptsByActivityPhase": { "theater:practice:real": 1, "theater:practice:synthetic": 129, "practice:transfer:synthetic": 2 },
+    "transferAttempts": [
+      { "item": "M2609#23", "activity": "practice", "synthetic": true, "answeredAt": "2026-10-17T10:03:00.913Z" },
+      { "item": "2026#23", "activity": "practice", "synthetic": true, "answeredAt": "2026-10-17T10:03:36.991Z" }
+    ],
+    "earlierObservation": "09:59:55.606Z 에 M2609#23 practice:transfer 합성 1행이 있었고 10:03 측정에서는 그 행 대신 10:03:00 행이 있다(다른 세션의 정리 · 재실행으로 추정 — 원인 미확인)"
+  }
+}
