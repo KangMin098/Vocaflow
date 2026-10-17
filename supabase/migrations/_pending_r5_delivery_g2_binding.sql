@@ -106,7 +106,7 @@ end $$;
 create function public.r5_exposure_key(p_kind text, p_ref text)
 returns text language sql stable security definer set search_path to 'public', 'pg_temp' as $$
   select coalesce(
-    (select 'passage:' || md5(regexp_replace(lower(c.passage), '\s+', ' ', 'g'))
+    (select 'passage:' || md5(btrim(regexp_replace(lower(c.passage), '\s+', ' ', 'g')))
        from public.csat_items c where p_kind = 'csat_item' and c.id = p_ref and c.passage is not null),
     'item:' || p_kind || ':' || p_ref)
 $$;
@@ -193,7 +193,7 @@ begin
   v_key := public.r5_exposure_key(d.artifact_kind, d.artifact_ref);
   perform pg_advisory_xact_lock(hashtextextended(v_uid::text || '|' || v_key, 0));
   v_items := array(select j.id from csat_items j where j.id = d.artifact_ref
-    or (v_key like 'passage:%' and j.passage is not null and 'passage:' || md5(regexp_replace(lower(j.passage), '\s+', ' ', 'g')) = v_key));
+    or (v_key like 'passage:%' and j.passage is not null and 'passage:' || md5(btrim(regexp_replace(lower(j.passage), '\s+', ' ', 'g'))) = v_key));
   if not (d.artifact_ref = any(v_items)) then v_items := v_items || d.artifact_ref; end if;
   if to_regclass('public.csat_trap_attempts') is null or to_regclass('public.csat_session_attempts') is null
      or to_regclass('public.csat_review_queue') is null or to_regclass('public.csat_dx_response') is null

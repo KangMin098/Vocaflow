@@ -535,8 +535,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     currentAnnotation: async (task, ref) => {
       const keys = checkKeysOfTask(task as TaskId)
       if (keys.length !== 1) return null
-      const h = await instrumentHashesFor([[keys[0], ref]], (item) => anchorGate(item, db))
-      return h[`${keys[0]}|${ref}`] ?? null
+      // 현재 채점 레지스트리의 주석(ref = version · hash). 원문 조회 오류는 던져 FQ error 로(자료 부재 = null 과 구분)
+      const live = currentItemTask(ref)
+      if (!live || live.def.key !== keys[0]) return null
+      if (!(await anchorGate(ref, db, true))) return null
+      return { ref: live.ann.version, hash: live.def.hash(live.ann) }
     },
   }).catch((): FqReader => ({ status: 'error' }))
 

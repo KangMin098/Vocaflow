@@ -17,7 +17,7 @@ const row = (o: Partial<FqRow> = {}): FqRow => ({
 })
 const APPROVED: FqApprovalRow[] = [{ id: 'a1', qualification_id: 'q1', scope: 'public' }, { id: 'a2', qualification_id: 'q1', scope: 'assessment' }]
 const ctx = (o: Partial<Parameters<typeof fqRowVerdict>[1]> = {}): Parameters<typeof fqRowVerdict>[1] => ({
-  tasks: new Set([T]), supersededIds: new Set(), approvals: APPROVED, revoked: new Set(), currentRevision: REV, currentAnnotation: ANN, ...o,
+  tasks: new Set([T]), supersededIds: new Set(), approvals: APPROVED, revoked: new Set(), currentRevision: REV, currentAnnotation: { ref: 'claim-support-2020-24.v1', hash: ANN }, ...o,
 })
 
 describe('fqRowVerdict — 결속 하나라도 빠지면 거절', () => {
@@ -36,8 +36,9 @@ describe('fqRowVerdict — 결속 하나라도 빠지면 거절', () => {
     ['다른 자격 행의 승인', row(), ctx({ approvals: APPROVED.map((a) => ({ ...a, qualification_id: 'q2' })) }), 'approval_public'],
     ['문항 revision 변경', row(), ctx({ currentRevision: 'e'.repeat(64) }), 'revision_stale'],
     ['문항 revision 모름', row(), ctx({ currentRevision: null }), 'revision_stale'],
-    ['주석 변경', row(), ctx({ currentAnnotation: 'f'.repeat(64) }), 'annotation_unbound'],
+    ['주석 변경', row(), ctx({ currentAnnotation: { ref: 'claim-support-2020-24.v1', hash: 'f'.repeat(64) } }), 'annotation_unbound'],
     ['주석 모름', row(), ctx({ currentAnnotation: null }), 'annotation_unbound'],
+    ['해시는 같고 주석 ref 가 다름', row({ annotation_ref: 'claim-support-2020-24.v0' }), ctx(), 'annotation_unbound'],
     ['정본 주석 결속 없음(evidence_ids 만으로는 인정 안 함)', row({ annotation_ref: null, annotation_hash: null }), ctx(), 'annotation_unbound'],
   ])('%s', (_, r, c, reason) => expect(fqRowVerdict(r, c)).toEqual({ ok: false, reason }))
   it('교수 역할은 D pass 가 필요하고 평가 승인은 필요 없다', () => {
@@ -63,7 +64,7 @@ function fake(tables: Record<string, Res>, rpc: Res = { data: REV, error: null }
 describe('loadFqReader — 학습자 세션이 아니라 서버 전용 클라이언트로만 판정', () => {
   const learner = fake({ content_qualification: { data: [], error: null, count: 0 } }).db
   const ledger = { content_qualification: { data: [row()], error: null }, content_release_approval: { data: APPROVED, error: null }, content_release_revocation: { data: [], error: null } }
-  const opts = { refs: ['2020#24'], tasks: [T], currentAnnotation: async () => ANN }
+  const opts = { refs: ['2020#24'], tasks: [T], currentAnnotation: async () => ({ ref: 'claim-support-2020-24.v1', hash: ANN }) }
 
   it('표가 없으면 not_installed', async () => {
     expect(await loadFqReader(fake({ content_qualification: { data: null, error: { code: '42P01' } } }).db, opts)).toEqual({ status: 'not_installed' })

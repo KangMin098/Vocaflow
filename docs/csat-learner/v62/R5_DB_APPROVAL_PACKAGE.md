@@ -12,7 +12,7 @@
 | 1 | DB-1 공급 기반(C · B · I1-S) | `supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql` (`origin/chore/factory-i1-deploy-package`) | `061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624` | 104,441 | 승인됨 · **BLOCKED_EXECUTION**(세션 메인 워크트리에서 승인 훅이 꺼져 있다) |
 | 2 | DB-2 부분 납품(I1-P) | `supabase/deploy/factory-i1/db2/20261017200100_factory_i1_db2_partial.sql` (같은 브랜치) | `2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b` | 32,678 | 미승인 |
 | 3 | I2 주석 hash 결속 v2 | `supabase/migrations/_pending_workspace_supply_c_annotation_binding.sql` | `e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c` | 10,641 | 미승인 |
-| 4 | 공급 ↔ G2 시도 결속 | `supabase/migrations/_pending_r5_delivery_g2_binding.sql` | `813de69d69d317d47199dcf2b2452add476f481332637682cad7ee261b24c8fa` | 20,510 | 미승인 |
+| 4 | 공급 ↔ G2 시도 결속 | `supabase/migrations/_pending_r5_delivery_g2_binding.sql` | `8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f` | 20,524 | 미승인 |
 | 5 | 원자적 첫 노출 | — (별도 파일 없음) | — | — | **4번에 포함**(아래 §5) |
 
 적용 순서: **1 → 2 → 3 → 4**. 2(DB-2)는 3 · 4 와 객체가 겹치지 않는다 — 4 는 2 없이도 적용 · 시험된다(2 를 미루어도 3 · 4 가능). 3 은 반드시 1 뒤, 4 는 반드시 1 + 3 뒤(파일이 스스로 확인하고 멈춘다).

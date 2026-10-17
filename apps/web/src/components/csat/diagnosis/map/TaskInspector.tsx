@@ -154,7 +154,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const pItem = principleItem(study.items)
   const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
   // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
-  const transferDone = view.evidence?.[t.id]?.newPassageTransfer.status === 'experienced'
+  const ip = view.evidence?.[t.id]?.instructionPath
+  // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
+  const transferDone = !!ip && ip.transferPlanned !== null && ip.transferDone > 0 && ip.transferDone >= ip.transferPlanned
   const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
   const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 

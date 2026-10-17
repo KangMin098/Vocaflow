@@ -112,7 +112,7 @@ const pass = (r: FqRow, k: string) => r.axes?.[k]?.state === 'pass'
  */
 export function fqRowVerdict(
   r: FqRow,
-  ctx: { tasks: ReadonlySet<string>; supersededIds: ReadonlySet<string>; approvals: readonly FqApprovalRow[]; revoked: ReadonlySet<string>; currentRevision: string | null; currentAnnotation: string | null },
+  ctx: { tasks: ReadonlySet<string>; supersededIds: ReadonlySet<string>; approvals: readonly FqApprovalRow[]; revoked: ReadonlySet<string>; currentRevision: string | null; currentAnnotation: { ref: string; hash: string } | null },
 ): { ok: true } | { ok: false; reason: FqRejection } {
   if (ctx.supersededIds.has(r.id)) return { ok: false, reason: 'superseded' }
   if (!ctx.tasks.has(r.task_id)) return { ok: false, reason: 'task' }
@@ -124,7 +124,7 @@ export function fqRowVerdict(
   if (!live.some((a) => a.scope === 'public')) return { ok: false, reason: 'approval_public' }
   if (ASSESS.has(r.role) && !live.some((a) => a.scope === 'assessment')) return { ok: false, reason: 'approval_assessment' }
   if (!ctx.currentRevision || ctx.currentRevision !== r.artifact_revision) return { ok: false, reason: 'revision_stale' }
-  if (!ctx.currentAnnotation || !r.annotation_ref || r.annotation_hash !== ctx.currentAnnotation) return { ok: false, reason: 'annotation_unbound' }
+  if (!ctx.currentAnnotation || r.annotation_ref !== ctx.currentAnnotation.ref || r.annotation_hash !== ctx.currentAnnotation.hash) return { ok: false, reason: 'annotation_unbound' }
   return { ok: true }
 }
 
@@ -136,7 +136,7 @@ export function fqRowVerdict(
  */
 export async function loadFqReader(
   db: SupabaseClient,
-  opts: { admin?: SupabaseClient | null; refs?: readonly string[]; tasks?: readonly string[]; currentAnnotation?: (task: string, ref: string) => Promise<string | null> } = {},
+  opts: { admin?: SupabaseClient | null; refs?: readonly string[]; tasks?: readonly string[]; currentAnnotation?: (task: string, ref: string) => Promise<{ ref: string; hash: string } | null> } = {},
 ): Promise<FqReader> {
   const { data, error, count } = await db.from('content_qualification').select('id', { count: 'exact' }).limit(1)
   if (error) {
