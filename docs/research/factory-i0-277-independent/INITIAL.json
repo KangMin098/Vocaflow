@@ -1,0 +1,331 @@
+{
+  "submittedHead": "200bfdeacd55af39f35c5d3a9648ffe050b7e3ed",
+  "integrationHead": "9e6393e42",
+  "main": "9c19f15b1fc911b13040dc01fe5a12fef5af592f",
+  "original28": {
+    "passed": 28,
+    "failed": 0,
+    "sha256": "562e77335757f7b1419f0e4a85b0bad4f6a193146303e7b9741daf4bbc65c93f"
+  },
+  "sourceHashes": {
+    "crosswalk.ts": "762ba97c16b99de9671e1e83164db689b87e1ef2ae49747b076bfe407ec9ac09",
+    "lineage.ts": "16df2a26869101369ace5e3078efe2a40507416d7dc777c6b5752ee110921f57",
+    "material-unit.ts": "13a28f2f84537fa7387b68c2baf43f8eba6e8ec4a20a5b247da83c7aee4d8a38",
+    "production-need.ts": "425a61d622a1afe78fcdb28f5207fa07e3337eb0bc7341d6dc28a4e011e1b04d",
+    "stock-resolver.ts": "ebf4976ee1b3c10a12338f98c3493b3283ed6069b6eea21e37337c5827ed7eec"
+  },
+  "testSha256": "b746b558484e16102cb39fdba76f86ca3bd9099176a97253780128ba61eba537",
+  "independent": {
+    "total": 45,
+    "passed": 5,
+    "failed": 40,
+    "sha256": "fe8556f6ffd0b50345cdc7ac04380b50a3f4153a5d5d217593aaf03450fd1cc3",
+    "assertions": [
+      {
+        "name": " independent A share specification policy hash changes cannot reuse a production group",
+        "status": "failed",
+        "failures": [
+          "expected '4ed0b603e2478f3eb94fd4d3670885f9' not to be '4ed0b603e2478f3eb94fd4d3670885f9' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent A share specification policy revision changes cannot reuse a production group",
+        "status": "failed",
+        "failures": [
+          "expected '4ed0b603e2478f3eb94fd4d3670885f9' not to be '4ed0b603e2478f3eb94fd4d3670885f9' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent A share specification quantity changes cannot reuse an unaggregated production group",
+        "status": "failed",
+        "failures": [
+          "expected '4ed0b603e2478f3eb94fd4d3670885f9' not to be '4ed0b603e2478f3eb94fd4d3670885f9' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent A share specification conversion evidence changes cannot reuse a production group",
+        "status": "failed",
+        "failures": [
+          "expected '4ed0b603e2478f3eb94fd4d3670885f9' not to be '4ed0b603e2478f3eb94fd4d3670885f9' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent A share specification factory item specification changes cannot reuse a production group",
+        "status": "failed",
+        "failures": [
+          "expected '4ed0b603e2478f3eb94fd4d3670885f9' not to be '4ed0b603e2478f3eb94fd4d3670885f9' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent A share specification personal workspace and goal revisions do not alter a public specification",
+        "status": "passed",
+        "failures": []
+      },
+      {
+        "name": " independent A share specification duplicate request rows do not inflate shared request membership",
+        "status": "failed",
+        "failures": [
+          "expected [ 'request', 'request' ] to have a length of 1 but got 2"
+        ]
+      },
+      {
+        "name": " independent A share specification stock for another task is not a matching request result",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent A share specification stock for another role is not a matching request result",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent A share specification stock for another quantity is not a matching request result",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent B run and seal boundaries a recorded boolean and artifact count cannot bypass missing brief and policies",
+        "status": "failed",
+        "failures": [
+          "expected 'ARTIFACT_CANDIDATE' not to be 'ARTIFACT_CANDIDATE' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent B run and seal boundaries reported run never authenticates even complete metadata without a factory validator",
+        "status": "failed",
+        "failures": [
+          "expected [ Array(4) ] to not include 'ARTIFACT_CANDIDATE'"
+        ]
+      },
+      {
+        "name": " independent B run and seal boundaries presence-only malformed ProductBrief cannot become ready to seal",
+        "status": "failed",
+        "failures": [
+          "expected 'READY_TO_SEAL' not to be 'READY_TO_SEAL' // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested -1",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible -1",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested -1",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested NaN",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible NaN",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested NaN",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested -Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible -Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested -Infinity",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested 1.5",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible 1.5",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested 1.5",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject requested 9007199254740992",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject eligible 9007199254740992",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries reject stock requested 9007199254740992",
+        "status": "failed",
+        "failures": [
+          "expected [Function] to throw an error"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries infinite conversion factor never creates zero production",
+        "status": "failed",
+        "failures": [
+          "expected +0 to be null"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries blank conversion evidence is not a conversion",
+        "status": "failed",
+        "failures": [
+          "expected 1 to be null"
+        ]
+      },
+      {
+        "name": " independent C numeric boundaries zero is legitimate and is not a missing stock read",
+        "status": "passed",
+        "failures": []
+      },
+      {
+        "name": " independent D inventory multiplicity identical artifact rows count once for guided practice",
+        "status": "failed",
+        "failures": [
+          "expected [ 'a', 'a' ] to deeply equal [ 'a' ]"
+        ]
+      },
+      {
+        "name": " independent D inventory multiplicity conflicting revisions of the same artifact do not select an arbitrary winner",
+        "status": "failed",
+        "failures": [
+          "expected [ 'a', 'a' ] to have a length of +0 but got 2"
+        ]
+      },
+      {
+        "name": " independent D inventory multiplicity distinct practice items may share a passage without becoming independent evidence",
+        "status": "passed",
+        "failures": []
+      },
+      {
+        "name": " independent D inventory multiplicity conflicting approval and unreviewed versions cannot be rescued by row order",
+        "status": "failed",
+        "failures": [
+          "expected [ 'a' ] to have a length of +0 but got 1"
+        ]
+      },
+      {
+        "name": " independent E lineage structural boundary malformed non-null manifest hash is rejected",
+        "status": "failed",
+        "failures": [
+          "expected true to be false // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent E lineage structural boundary duplicate artifact identifiers cannot inflate candidate lineage",
+        "status": "failed",
+        "failures": [
+          "expected true to be false // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent E lineage structural boundary negative order revision and day cannot form a legitimate cell",
+        "status": "failed",
+        "failures": [
+          "expected true to be false // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent E lineage structural boundary empty arrays and a hash are not lineage evidence",
+        "status": "failed",
+        "failures": [
+          "expected true to be false // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent E lineage structural boundary syntactically valid hashes never yield supply authorization",
+        "status": "passed",
+        "failures": []
+      },
+      {
+        "name": " independent F educational mapping E3 option correspondence does not search grammar-only P06 as paraphrase material",
+        "status": "failed",
+        "failures": [
+          "expected true to be false // Object.is equality"
+        ]
+      },
+      {
+        "name": " independent F educational mapping no current search candidate can seal or authorize assessment",
+        "status": "passed",
+        "failures": []
+      }
+    ]
+  }
+}

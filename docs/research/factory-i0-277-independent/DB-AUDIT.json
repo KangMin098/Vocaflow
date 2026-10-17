@@ -1,0 +1,36 @@
+{
+  "readOnly": true,
+  "exposurePredicateRows": [
+    {
+      "kind": "explanation_session_without_attempt",
+      "observed_rows": 227,
+      "omitted_by_original_b": 227,
+      "observed_at": "2026-10-17 08:52:03.701429+00"
+    },
+    {
+      "kind": "g2_attempt",
+      "observed_rows": 129,
+      "omitted_by_original_b": 129,
+      "observed_at": "2026-10-17 08:52:03.701429+00"
+    }
+  ],
+  "schemaCreate": {
+    "anon": false,
+    "authenticated": false
+  },
+  "scope": "Aggregate read-only predicate replay; includes existing test/history records, not a student population or live pending function execution",
+  "pendingFunctionsInstalled": false,
+  "finalSchemaObservation": {
+    "observed_at": "2026-10-17 09:06:08.205792+00",
+    "content_qualification": null,
+    "content_release_approval": null,
+    "workspace_content_demand": null,
+    "factory_order": null,
+    "workspace_content_delivery": null,
+    "factory_order_product_link": null
+  },
+  "finalFunctionObservation": {
+    "observed_at": "2026-10-17 09:18:24.699903+00",
+    "installed_pending_names": []
+  }
+}

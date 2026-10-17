@@ -1,0 +1,101 @@
+{
+  "head": "c98cb6210",
+  "command": "node agents/scripts/review.mjs --base origin/main",
+  "exit": 2,
+  "findings": [
+    "P2 approval order causes false stock conflict",
+    "P2 conversion factor missing in share specification",
+    "P2 crosswalk materialRole ignored"
+  ],
+  "initialTests": {
+    "passed": 45,
+    "failed": 3,
+    "sha256": "a921dc3e79407aa39ec393a3b3f58f22278adee4fc5d06a89018fb10e0d19429",
+    "assertions": [
+      {
+        "name": " purpose review counterexamples approval list order is not conflicting inventory",
+        "failures": [
+          "expected [] to deeply equal [ 'a' ]"
+        ]
+      },
+      {
+        "name": " purpose review counterexamples different factors with the same rounded quantity still have different production keys",
+        "failures": [
+          "expected 'a7f6d2424b62a069824262f57b35d95e' not to be 'a7f6d2424b62a069824262f57b35d95e' // Object.is equality"
+        ]
+      },
+      {
+        "name": " purpose review counterexamples guided-only Crosswalk cannot create source-analysis production candidates",
+        "failures": [
+          "expected [ { …(14) } ] to have a length of +0 but got 1"
+        ]
+      }
+    ]
+  },
+  "followup": {
+    "head": "0ac635478",
+    "exit": 2,
+    "finding": "P2 sql-isolated.mjs missing output directory on fresh checkout",
+    "before": {
+      "scriptSha256": "a2097351a41dd74982c4f0f08977813a9667c981bc4ce8afcaef1addd895a802",
+      "exit": 1,
+      "error": "ENOENT local/sql-isolated.json",
+      "freshOutputAbsent": true
+    },
+    "after": {
+      "scriptSha256": "a38a7092f6ea7957a374bc0d02a53d737a1359d8f42678b0c6f0f5c613e7427a",
+      "exit": 0,
+      "proposalChecks": 7
+    },
+    "remoteChanges": false
+  },
+  "third": {
+    "head": "2bf58d44c2ffc9419dfbc6f666b60288009365ac",
+    "exit": 2,
+    "findings": [
+      "P2 eligibleRoles array order/duplicates falsely conflict",
+      "P2 T1 1440 coverage missing from locally stated acceptance",
+      "P2 original and additional A-G need separately traceable report tables"
+    ],
+    "roleCounterexample": {
+      "passed": 48,
+      "failed": 1,
+      "sha256": "e363642212a5f8db0eb0dade512ae3403890d5130035c92507e325977b332026",
+      "failures": [
+        {
+          "name": " purpose review counterexamples eligible role order and duplicate role entries are not conflicting inventory",
+          "failures": [
+            "expected [] to deeply equal [ 'a' ]"
+          ]
+        }
+      ]
+    },
+    "oldBrowserCohort": "regression-final preserved, intentionally interrupted before product fix, never counted as final",
+    "cleanup": "8 owned IDs absentVerified, unknown 0"
+  },
+  "fourth": {
+    "head": "45611e2b803bb6650cc857ddd39284615f355640",
+    "exit": 2,
+    "findings": [
+      "P2 original author acceptance still has historical NOT_TESTED; final source-bound evidence and separate A-G acceptance must be published after completion"
+    ],
+    "status": "Final evidence pending; no additional product defect identified"
+  },
+  "authRunnerFollowup": {
+    "head": "6b91ae010a0a7a3085466621aafc926af39d7ed5",
+    "finding": "I12 P2 auth SQL runner default targeted a tracked immutable report",
+    "before": {
+      "exit": 1,
+      "error": "Immutable evidence already exists",
+      "trackedReportExists": true
+    },
+    "after": {
+      "exit": 0,
+      "originalDefect": true,
+      "controls": 5,
+      "output": "ignored local/sql-auth-isolated.json",
+      "publishedResultByteIdentical": true
+    },
+    "remoteChanges": false
+  }
+}

@@ -3,6 +3,7 @@
 - Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
 
 - Factory I1 승인 패키지(미적용): 공급 노출 판정에 G2 · 세션 · 함정 · 복습 원장 포함, 승인 범위(public + assessment) · 철회 직렬화 · 수량 상한, 부분 납품(partial) · 공용 Product Order 계보(별도 승인) SQL 과 생성된 되돌리기. 격리 PGlite 37 · 실제 PostgreSQL 동시성 8/8. 앱은 검수 전 해설을 「지금 읽을 수 있음 · 수업용 검수 전」으로 분리.
+- PR #277 I0 독립 수용: 계약 77·광역 단위 2,603·PC 회귀 223조건. CONTRACT_ONLY이며 실제 Factory는 미연결; C/B NULL 검수·권한 및 노출/승인 blocker는 미적용 유지. [근거](./research/factory-i0-277-independent/ACCEPTANCE.md).
 
 - LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.
 
@@ -24,6 +25,10 @@
 
 ---
 ## Unreleased (v06.34 → next)
+
+- PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
+
+- feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
 
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
 
