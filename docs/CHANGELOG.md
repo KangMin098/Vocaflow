@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- PR #278 V2 D2 Stage 2 독립 선택지 검수 12개를 별도 봉인했다(명확 11·모호 1·F2 재설계 필요 12, F1 NOT_TESTED_UI). [집계·hash 수령증](./research/v2-d2-stage2-20261017/REPORT.md)을 공개하고 정답·문항별 검토는 저장소 밖에 보존했다. Stage 1 불변·합의 미계산·학습 가능 V2 0개를 유지한다.
+
 - PR #278 V2 D2 Stage 1 독립 판정 12개를 r001로 봉인했다(명확 11·모호 1·근거 부족 0, 원문 SHA/공식 PDF 12개 대조). [수령증·검수 범위](./research/v2-d2-stage1-20261017/REPORT.md)를 보존하며 Stage 2 미실행·출시 미승인·학습 가능 V2 0개를 유지한다.
 
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
