@@ -27,3 +27,5 @@ S01–S16 전체 본문/기대는 제출본과 바이트 동일: sha256 e22ecdac
 | I10 | P2 | guided_practice 전용 대응이 source_analysis 생산 후보로 유입 | materialRole을 필터하고 역할 미지원 blocker/빈 후보를 반환 |
 
 I08/I09는 첫 보완의 부족을 드러낸 반례다. 첫 결과를 수정하거나 최종 PASS로 바꾸지 않았다.
+
+I11(P2, 검증기 재현성): sql-isolated.mjs가 새 체크아웃에서 local 디렉터리를 만들지 않아 결과 저장 시 ENOENT였다. 원본 제출 worktree에 해당 실행기만 놓은 빈 출력 환경에서 exit 1을 실제 확인했고, mkdir 보완 후 같은 환경에서 exit 0/제안 검증 7개를 확인했다. 이 임시 실행기·출력은 정리하고 원본 worktree는 깨끗하게 유지했다.

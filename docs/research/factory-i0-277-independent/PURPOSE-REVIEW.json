@@ -31,5 +31,22 @@
         ]
       }
     ]
+  },
+  "followup": {
+    "head": "0ac635478",
+    "exit": 2,
+    "finding": "P2 sql-isolated.mjs missing output directory on fresh checkout",
+    "before": {
+      "scriptSha256": "a2097351a41dd74982c4f0f08977813a9667c981bc4ce8afcaef1addd895a802",
+      "exit": 1,
+      "error": "ENOENT local/sql-isolated.json",
+      "freshOutputAbsent": true
+    },
+    "after": {
+      "scriptSha256": "a38a7092f6ea7957a374bc0d02a53d737a1359d8f42678b0c6f0f5c613e7427a",
+      "exit": 0,
+      "proposalChecks": 7
+    },
+    "remoteChanges": false
   }
 }

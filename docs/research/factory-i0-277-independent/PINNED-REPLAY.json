@@ -1,0 +1,18 @@
+{
+  "head": "200bfdeacd55af39f35c5d3a9648ffe050b7e3ed",
+  "workingTree": "D:/workspace/Vocaflow-factory-i0-277-original",
+  "scope": "exact submitted source with byte-identical independent fixture, dependencies reused",
+  "testSha256": "b746b558484e16102cb39fdba76f86ca3bd9099176a97253780128ba61eba537",
+  "original28": "PASS",
+  "independent45": {
+    "pass": 5,
+    "fail": 40
+  },
+  "total": {
+    "pass": 33,
+    "fail": 40
+  },
+  "jsonSha256": "0d9639d851dead74b5f6b35b6b07c611f749744e7120a2abd6122323d6d534e7",
+  "replayAfterInitialObservation": true,
+  "initialLedgerUnchanged": true
+}

@@ -3,7 +3,7 @@
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {createRequire} from 'node:module'
 const root=path.resolve(import.meta.dirname,'../../..'),req=createRequire(root+'/apps/web/package.json'),{PGlite}=req('@electric-sql/pglite')
 const original=fs.readFileSync(root+'/supabase/migrations/_pending_workspace_supply_c_qualification.sql','utf8')
-const out=import.meta.dirname+'/local/sql-isolated.json';if(fs.existsSync(out))throw Error('Immutable SQL evidence exists')
+const out=import.meta.dirname+'/local/sql-isolated.json';fs.mkdirSync(path.dirname(out),{recursive:true});if(fs.existsSync(out))throw Error('Immutable SQL evidence exists')
 const db=new PGlite(),uid='00000000-0000-4000-8000-000000000001',rows=[]
 try{
  await db.exec(`create schema auth;create table auth.users(id uuid primary key);insert into auth.users values('${uid}');create role anon;create role authenticated;create function auth.uid() returns uuid language sql as $$select '${uid}'::uuid$$;create function public.is_admin_or_curator() returns boolean language sql as $$select true$$;create function public.is_admin() returns boolean language sql as $$select true$$;`)
