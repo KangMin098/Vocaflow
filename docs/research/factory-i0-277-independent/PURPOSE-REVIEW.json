@@ -72,5 +72,13 @@
     },
     "oldBrowserCohort": "regression-final preserved, intentionally interrupted before product fix, never counted as final",
     "cleanup": "8 owned IDs absentVerified, unknown 0"
+  },
+  "fourth": {
+    "head": "45611e2b803bb6650cc857ddd39284615f355640",
+    "exit": 2,
+    "findings": [
+      "P2 original author acceptance still has historical NOT_TESTED; final source-bound evidence and separate A-G acceptance must be published after completion"
+    ],
+    "status": "Final evidence pending; no additional product defect identified"
   }
 }

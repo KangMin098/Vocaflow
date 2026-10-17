@@ -15,6 +15,11 @@ I1 수정 사양: 각 축의 state 표현식과 전체 결과에 IS TRUE/COALESC
 - 공용 Product Order의 revision/hash N:M 계보는 delta D3 제안 표까지이며 실제 원장/reader/권한 검증이 없다.
 - B artifact revision은 산출물 내용 일부를 보며 현재 analysis/Gold 원장을 전부 재대조하는 구현이 아니다. 실제 서버는 현재 source/analysis/Gold/권리/승인을 재검증해야 한다.
 
+## 추가 I1 적용 차단 P1 — 프로필 없는 인증 사용자의 NULL 권한
+읽기 전용으로 확인한 현재 `is_admin_or_curator()`는 auth.uid가 있지만 user_profiles 행이 없으면 NULL을 반환한다. C/B의 `auth.uid() is null or not is_admin_or_curator()` 거절문은 이때 NULL이어서 실행되지 않는다. 현재 C/B는 미설치이므로 실제 공급 권한 침해가 발생했다고 주장하지 않는다.
+
+[실제 helper 정의](./AUTH-HELPERS.json)와 원본 C를 로컬 PGlite에만 설치한 [별도 재현](./SQL-AUTH-ISOLATED.json)에서 프로필 없는 고정 인증 주체의 자격/승인 삽입을 확인했다. learner 프로필은 거절되는 대조도 확인했다. 메모리 안에서만 세 관리자 거절 조건을 `is_admin_or_curator() IS NOT TRUE`로 바꾸면 기록/승인/철회가 모두 거절되고 admin 정상 사례는 통과했다. 원본 결함 1건과 대조/제안 5조건을 보존했다. I1에서는 B의 같은 조건 및 관련 helper 호출까지 NULL 거절 회귀가 필요하다. 실제 helper·SQL 파일·DB는 변경하지 않았다.
+
 ## SECURITY DEFINER · 소유권 · RLS 정적 결과
 C 기록/승인/철회와 B 관리자 전이는 auth.uid 및 is_admin_or_curator를 검사한다. 수요/주문/납품은 auth.uid를 사용하며 학습자 소유 Workspace/목표/PLAN의 복합 FK와 본인 조건을 둔다. 표에는 RLS, 학습자 본인 또는 관리자 SELECT 정책이 있고 직접 DML을 회수한다. exposure/revision 내부 함수는 public/anon/authenticated 실행권을 회수한다. search_path=public을 명시한다.
 
@@ -26,3 +31,6 @@ B e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2
 delta db33188031b3043daa5b301bcf7bb128d0459cf1d0254055573e103db95e4e20
 
 I0 CONTRACT_ONLY 수용과 이 SQL의 적용 승인은 별개다. 위 blocker를 해소하기 전 I1 적용·실제 공급으로 진행하지 않는다.
+
+## 독립 읽기 전용 재확인
+2026-10-17T08:52:03Z 원본 B와 같은 dx 응답/동일 시험/정규화 지문 조건을 SELECT로 재평가했다. G2 129행 전부와 시도 없는 해설 세션 227행 전부가 원본 B에서 none으로 판정될 조건이었다. 이는 원장 이력 행 수이며 실제 학생 수나 독립 수행/효과 표본 수가 아니다. 익명/인증 역할의 public CREATE 권한은 현재 false였다. 이 한 조건으로 SECURITY DEFINER/RLS 실증 완료라고 하지 않는다. [DB-AUDIT](./DB-AUDIT.json)와 scripts/research/factory-i0-277-independent/read-only-exposure.sql로 식을 재현할 수 있다. 원격 pending 함수는 설치하지 않았고 호출하지 않았다.

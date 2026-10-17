@@ -41,3 +41,5 @@
 
 ## Codex 독립 감사 보충(미적용 유지)
 [독립 SQL 감사](../../research/factory-i0-277-independent/SQL-AUDIT.md)에서 NULL state가 축/승인 검사에서 거절되지 않는 추가 P1을 확인했다. [격리 결과](../../research/factory-i0-277-independent/SQL-ISOLATED.json)는 원본 C로 실제 자격/승인이 생기는 것을 로컬 PGlite에서만 재현하고, 수정 사양 7조건을 검증했다. 실제 DB에 적용하지 않았다. delta D2는 현재 주석 교체 지침이므로 실행 가능한 승인 함수 수정본으로 조립/검증하기 전 적용하면 안 된다. 승인 패키지에는 NULL 거절, source/analysis/Gold 현재성, 부분 납품 정의, 실제 RLS/정의자 권한 및 동시성 시험도 포함한다.
+
+현재 `is_admin_or_curator()`는 프로필 없는 인증 사용자를 NULL로 판정한다. C/B의 `not helper()` 거절 조건도 NULL이면 통과할 수 있다. [격리 권한 반례](../../research/factory-i0-277-independent/SQL-AUTH-ISOLATED.json)에서 원본 C의 자격/승인 삽입을 재현했다. 이는 미설치 SQL의 추가 잠재 P1이며 실제 DB에 승인 행을 만들지 않았다. I1 적용 묶음은 권한 helper 결과를 `IS NOT TRUE`로 거절하고, 프로필 없음/learner/admin과 기록·승인·철회를 검증해야 한다. 위의 기존 ‘C는 바꾸지 않는다’는 최초 최소 delta 설명이며, 이 독립 감사 이후의 안전한 최종 적용 패키지로는 충분하지 않다.

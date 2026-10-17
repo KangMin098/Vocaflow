@@ -4,6 +4,7 @@
 
 1. pnpm install --frozen-lockfile 후 node scripts/research/factory-i0-277-independent/unit-final.mjs (순수 I0 77개, 소스 결속).
 2. node scripts/research/factory-i0-277-independent/sql-isolated.mjs (local PGlite만, 원본 결함+수정 사양 7조건; 실제 DB/RLS 아님).
+   node scripts/research/factory-i0-277-independent/sql-auth-isolated.mjs (읽기 전용 helper 스냅샷+원본 C, 로컬 권한 NULL 반례와 대조/제안 5조건). 두 스크립트는 최초 결과 파일이 있으면 덮어쓰지 않는다.
 3. node scripts/research/factory-i0-277-independent/broad-final.mjs (소스 결속 광역 단위).
 4. 전용 :3013이 비어 있는지 확인하고, 기존 개발 환경 변수 파일을 출력/복사하지 않고 Node --env-file로 전달해 checks.mjs browser 0 15 <새-run-id>를 실행한다. T1–T4·V2 두 PC 및 기존 경로 실행기는 기존 검증 자산을 재사용한다. NEXT_DIST_DIR은 .next-fi0277-review다. 해당 실행이 만든 합성 계정만 정리하며 삭제/부재를 확인한다.
 5. node scripts/research/factory-i0-277-independent/audit.mjs <run-id>[,<추가-id>] (완료·소스·실행기·단위 결과가 일치해야 최종 EVIDENCE 생성).
