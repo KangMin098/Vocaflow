@@ -23,6 +23,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- Factory I2 R5 첫 자료 자격 패킷(`docs/research/factory-i2-r5-qualification-20261017/`): 2020#24 전이 — A(공식 짝수형 문제지 · 정답표 대조) · B(AI 한정) PASS, C · E · F · H UNKNOWN → BLOCKED_EVIDENCE. 주석 hash 결속 보류 SQL `_pending_workspace_supply_c_annotation_binding.sql`(미적용 · PGlite 7/7). DB 쓰기 0.
+
 - PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
 
 - feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
