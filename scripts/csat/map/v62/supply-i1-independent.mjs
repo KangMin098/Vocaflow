@@ -130,10 +130,11 @@ export async function independentCases({ pool, asUser, check, newLine, ADMIN, ME
   // A SQL connection with the authenticated role may create pg_temp tables. A definer must not resolve those first.
   {
     await pool.query(`grant usage on schema public,auth to authenticated; grant select on all tables in schema public to authenticated`)
+    const target=await ready('r.ind_tempauth','C#26')
     const c=await held();await c.query(`select set_config('request.jwt.claim.sub',$1,true)`,[ME]);await c.query('set local role authenticated')
-    await c.query(`create temporary table admins(user_id uuid,role text)`)
-    await c.query(`insert into pg_temp.admins values ($1,'admin')`,[ME])
-    const r=await asUser(ME,`select content_release_revoke($1,'temp spoof')`,[randomUUID()],{client:c})
+    await c.query(`create temporary table user_profiles(user_id uuid,role text)`)
+    await c.query(`insert into pg_temp.user_profiles values ($1,'admin')`,[ME])
+    const r=await asUser(ME,`select content_release_revoke($1,'temp spoof')`,[target.p],{client:c})
     await c.query('rollback');c.release()
     check('pg_temp table cannot impersonate administrator in definer',!r.ok && /Forbidden/.test(r.err),JSON.stringify(r))
   }

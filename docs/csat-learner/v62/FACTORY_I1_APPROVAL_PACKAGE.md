@@ -22,7 +22,7 @@
 |---|---|
 | C `_pending_workspace_supply_c_qualification.sql` | `dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66` |
 | B `_pending_workspace_supply_b_orders.sql` | `e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2` |
-| I1-S `_pending_workspace_supply_i1_safety.sql` | `68d1142fe2b182b7e198e769af6045c444a6cea9444022a020a1c1bb8834050b` |
+| I1-S `_pending_workspace_supply_i1_safety.sql` | `cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de` |
 | I1-P `_pending_workspace_supply_i1_partial.sql` | `79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041` |
 | I1-D3 `_pending_workspace_supply_i1_d3_lineage.sql` | `adc8ad7b5b696a4022ec6df7a8b7e3c0b075912688b6540d8a1050bca903614f` |
 | 되돌리기 `_pending_workspace_supply_i1_rollback.sql` | `f2838a86fffd943887ea604652a75eb5f473f3c4fb72a92e854bb21ab65e8e4e` |
@@ -41,6 +41,8 @@
 | I1-D3 | 표 `factory_product_order` · `factory_order_product_link` / 함수 `factory_product_order_is_current` · `factory_product_order_register` · `factory_order_link_product` / 트리거 4 / 정책 2 | — |
 
 표 · 열 삭제, 기존 데이터 UPDATE/DELETE, 기존 RLS 정책 변경은 **없다**. D3의 두 새 표도 ALL 권한을 회수하고 authenticated SELECT만 부여한다(기본 TRUNCATE 제거).
+
+**기존 객체 설정 변경(별도 누락 금지)**: DB-1의 S는 `is_admin_or_curator()`를 `public, auth, pg_temp`, `is_admin()`을 `public, pg_temp` search_path로 ALTER한다. 본문·ACL 불변. 실제 helper의 임시 프로필 사칭을 막기 위한 의존성 보완이며 롤백에서도 강화된 설정을 유지한다.
 
 ## 4. 기존 DB 의존성(2026-10-17 읽기 전용 실측)
 

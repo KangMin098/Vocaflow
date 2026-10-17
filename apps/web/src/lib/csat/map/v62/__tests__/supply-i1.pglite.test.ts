@@ -346,6 +346,15 @@ describe('독립 수용 R01/R02/R04 — 동일 입력 수정 전후 회귀', () 
     expect(await errorOf(db.query(`select factory_product_order_register('NO-PROFILE',1,$1,'active',$2,'r.central_meaning','guided_practice',1,null,$3)`, [H64,'a'.repeat(32),key()]))).toContain('Forbidden')
     expect(await errorOf(db.query(`select factory_order_link_product($1,'X',1,$2,$3)`, [key(),H64,key()]))).toContain('Forbidden')
   })
+  it('권한 helper 자체 search_path에서도 임시 프로필 사칭을 막는다', async () => {
+    await as(db,B)
+    await db.exec(`create temporary table user_profiles(user_id uuid,role text)`)
+    try {
+      await db.query(`insert into pg_temp.user_profiles values ($1,'admin')`,[B])
+      expect((await q1<{ ok: boolean | null }>(`select is_admin_or_curator() ok`)).ok).toBe(null)
+      expect(await errorOf(db.query(`select content_release_revoke($1,'temp spoof')`,[key()]))).toContain('Forbidden')
+    } finally { await db.exec(`drop table pg_temp.user_profiles`) }
+  })
   it('Supabase 기본 ALL의 TRUNCATE·REFERENCES·TRIGGER를 새 원장 10개에서 모두 회수한다', async () => {
     const tables = ['content_qualification','content_release_approval','content_release_revocation','workspace_content_demand','workspace_content_demand_line','factory_order','factory_order_event','workspace_content_delivery','factory_product_order','factory_order_product_link']
     for (const table of tables) {

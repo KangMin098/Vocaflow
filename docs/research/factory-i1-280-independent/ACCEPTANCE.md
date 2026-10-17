@@ -28,8 +28,9 @@
 | AUTH01 | P1 | 실제 `is_admin_or_curator()`는 프로필 없는 로그인 사용자에게 NULL. `IF NOT NULL`이 자격/출시 승인을 허용함(I0 독립 감사와 동일 재현) | S에서 C 자격·승인·철회 및 B 전이 가드를 완전한 함수로 대체하고 P/D3도 `IS NOT TRUE`. 실 helper 의미를 fixture에 반영, 여섯 관리자 RPC와 S-only/롤백 검사 |
 | REVIEW01 | P1 | 목적 리뷰: 빈 D3 검사와 DROP 사이 동시 등록이 커밋하면 원장을 지울 수 있음 | 검사 전 factory_order·설치된 D3 표 ACCESS EXCLUSIVE 잠금. 실제 PG에서 등록을 먼저 열고 롤백을 경합시켜 이력 보존 검사 |
 | REVIEW02 | P2 핵심 | 목적 리뷰: 세션 회차와 응답 문항 회차가 다른 B 입력에서 공유 지문 노출을 놓침 | 직접 dx_response→session 조인 경로 복원. public+assessment 모두 승인된 상태의 평가 공급도 거절하는 회귀 추가 |
+| AUTH02 | P1 | 실제 helper 자체 search_path가 외부 정의자 설정을 덮어 pg_temp.user_profiles 사칭을 허용함(실제 PG의 관리자 가드 통과 재현) | **기존 `is_admin_or_curator()`·`is_admin()` 두 함수의 search_path 설정만 강화**. 본문/ACL 변경 없음. DB-1의 기존 객체 변경 범위에 명시하며 롤백에서도 유지 |
 
-추가 hardening: C/B/I1 정의자 search_path의 `pg_temp`를 마지막에 명시한다. public 스키마 CREATE는 개발 DB에서 anon/authenticated 모두 false였다. 초기 임시 표 사칭 시험은 단순 EXISTS helper에서 양쪽 거절이었다. 실제 helper의 NULL 의미를 반영한 후 제출본은 관리자 가드를 지나갔다. 이는 AUTH01과 같은 원인이며 별도 권한 상승으로 중복 세지 않는다.
+public 스키마 CREATE는 개발 DB에서 anon/authenticated 모두 false였다. 초기 temp 시험은 admins를 가리켜 공개 view의 원본을 바꾸지 못했다. 실제 helper가 조회하는 **user_profiles**를 사칭한 시험으로 보정하자, NULL 가드를 고친 뒤에도 가드를 통과했다. 따라서 AUTH02는 AUTH01과 다른 search_path 결함이다. 실제 개발 DB에서는 helper 정의와 설정을 읽기만 했다.
 
 ## 3. I1-S 보안·수용 범위
 
@@ -54,7 +55,7 @@ I1-P 수정 정책은 수용한다. `delivered`는 **전이 시점에 유효한 
 |---|---|
 | PGlite 제출+독립 R01/R02/R04 | 37 통과/3 실패. R03 store 6 통과/1 실패 |
 | PGlite 추가 회귀 | S-only rollback 실패 `42P01`, 기출 Reveal Gate 반례 실패를 보존 후 수정 |
-| PGlite 수정 집중 | I1 **46/46**(기본 ALL·실 helper NULL·공유 지문 회귀 포함), store **7/7**, I0 계약 **77/77**. persist 13개 포함 광역 결과는 EVIDENCE의 run 기록 |
+| PGlite 수정 집중 | I1 **47개**(기본 ALL·실 helper NULL/임시 프로필·공유 지문 회귀 포함), store **7/7**, I0 계약 **77/77**. 최종 통과/광역 결과는 EVIDENCE의 run 기록 |
 | 실제 PostgreSQL | **17.10**, 동일 33조건에서 제출 **20/33**, 수정 **33/33**. 기본 ALL·실 helper NULL·롤백 등록 경합 포함. 원장 삭제 반례는 로컬 DB에서만 실행 |
 | 기존 B PostgreSQL | 기존 동시성 7/7. B만의 상한·철회 반례는 별도 기대 실패로 보존 |
 | PC Chromium | 1280·1440, 실제 TaskInspector·공급/수요 엔진의 합성 읽기 fixture. 이전 수요 제외/부분·완료/미설치/검수 전 열람/키보드 접기/가로 넘침 검증. 외부 요청 0. 전체 앱 DB E2E와 구분 |
@@ -64,7 +65,7 @@ I1-P 수정 정책은 수용한다. `delivered`는 **전이 시점에 유효한 
 ## 6. 병합과 정확한 승인 범위
 
 - 안전 병합은 최종 HEAD에서 필수 verify/build/e2e/e2e-gate-faultclosed와 목적 리뷰, 최신 main 통합을 확인한 뒤에만 판정한다. 실패/대기 체크를 성공으로 읽지 않는다. 이 검증은 main 병합이나 DB 적용을 실행하지 않는다.
-- DB-1: 최신 package §2의 정확한 C/B/수정 S SHA-256, 허용 객체(validator·search_path·8개 새 표 권한 회수 포함), 한 트랜잭션 및 적용 전/후 읽기 검증·보존/롤백에 대한 **명시 승인**. I0 delta 제외. S만으로 B의 부분 납품 정책까지 고친 것은 아니므로 실주문 운영은 DB-2까지 확인 후 권고.
+- DB-1: 최신 package §2의 정확한 C/B/수정 S SHA-256, 허용 객체(validator·search_path·8개 새 표 권한 회수 및 **기존 권한 helper 두 함수의 search_path 변경** 포함), 한 트랜잭션 및 적용 전/후 읽기 검증·보존/롤백에 대한 **명시 승인**. I0 delta 제외. S만으로 B의 부분 납품 정책까지 고친 것은 아니므로 실주문 운영은 DB-2까지 확인 후 권고.
 - DB-2: 수정 P-1/P-2/P-3/P-4, partial CHECK/index, `factory_order_open`/`factory_order_transition`/`workspace_line_fulfillment`의 정확한 hash 및 별도 DB 적용 승인.
 - DB-3: D3-1~3 및 share_key/공유 수량 조건 확정 후 정본 SQL/hash를 다시 검증하고 승인. 현재 보류하며 DB-1/2 승인에 포함하지 않는다.
 - 적용 후 실공급 E2E를 실행하려면 합성 계정/학생 기록 쓰기도 그 별도 작업에서 승인한다. 개발 DB 쓰기는 이번 검증에서 실행하지 않았다.

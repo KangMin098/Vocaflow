@@ -175,6 +175,7 @@ try {
   await pool.end()
 } finally {
   try { pgctl(['-D', dir, '-m', 'fast', '-w', 'stop']) } catch { /* 이미 멈춤 */ }
+  if (!path.resolve(dir).startsWith(path.resolve(os.tmpdir()) + path.sep) || !path.basename(dir).startsWith('vf-pgconc-i1-')) throw new Error('unsafe temporary cluster cleanup path')
   fs.rmSync(dir, { recursive: true, force: true })
 }
 const failed = results.filter((r) => !r.ok).length

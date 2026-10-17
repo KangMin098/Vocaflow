@@ -14,7 +14,8 @@
     "default_table_acl": "ALL for anon/authenticated (verified pg_default_acl); corrected in pending SQL",
     "source_rpc": "csat_source_is_eligible(uuid)",
     "reveal_rpc": "csat_ec_embargoed_items(text[])",
-    "exposure_dependency_columns": "verified information_schema for all eight ledgers"
+    "exposure_dependency_columns": "verified information_schema for all eight ledgers",
+    "existing_helper_changes": "pending DB-1 ONLY: search_path of is_admin_or_curator and is_admin; no live changes"
   },
   "sql": [
     {
@@ -45,7 +46,7 @@
     {
       "path": "supabase/migrations/_pending_workspace_supply_i1_safety.sql",
       "submitted_sha256": "72af4f76b279f691919186176ae5b5f162640206d05714c12718c3c5fff52813",
-      "current_sha256": "68d1142fe2b182b7e198e769af6045c444a6cea9444022a020a1c1bb8834050b"
+      "current_sha256": "cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de"
     }
   ],
   "files": [
@@ -59,7 +60,7 @@
     },
     {
       "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts",
-      "sha256": "ed86333b86f20ac7eeb364688d1c275ed11cf9c72aa50871aa0c1eb61845004a"
+      "sha256": "527be8401df5c6fb73769ee427ea93c581593805256fbfe0ddf24af848c167f6"
     },
     {
       "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-store.test.ts",
@@ -87,7 +88,7 @@
     },
     {
       "path": "scripts/csat/map/v62/supply-i1-concurrency.mjs",
-      "sha256": "8b6d91c0fd1d7844d5374a19d6f3fcabb72336b3e980c39ad916005c792fe883"
+      "sha256": "ad1a11c886a26ffe98f29366fcddf9f2ac1d788c537ab6afcd46fd5c0bbd3be8"
     },
     {
       "path": "supabase/migrations/_pending_workspace_supply_i1_d3_lineage.sql",
@@ -103,11 +104,11 @@
     },
     {
       "path": "supabase/migrations/_pending_workspace_supply_i1_safety.sql",
-      "sha256": "68d1142fe2b182b7e198e769af6045c444a6cea9444022a020a1c1bb8834050b"
+      "sha256": "cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de"
     },
     {
       "path": "scripts/csat/map/v62/supply-i1-independent.mjs",
-      "sha256": "88a9f4523056f3e09e02b847ee8cf0d2f214f39ae43cfec2c38381c308783bfb"
+      "sha256": "4a3f426d571e931a72ff68a4e46127a57d0b36bb323316029f03b1e0bc8babae"
     },
     {
       "path": "scripts/csat/map/v62/supply-i1-browser.mjs",
@@ -309,6 +310,57 @@
       ]
     },
     {
+      "name": "helper-temp-counterexample.log",
+      "sha256": "d252ea203832c5af6c7d7e2b5b29e554bc9082a9a25a5b5685878bb2b58b85f5",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "PASS  actual NULL auth helper denies all six administrator RPCs  [{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"}]",
+        "PASS  PG exposure attempt  expected=attempted actual=attempted",
+        "PASS  PG exposure session  expected=item_seen actual=item_seen",
+        "PASS  PG exposure trap  expected=attempted actual=attempted",
+        "PASS  PG exposure review  expected=attempted actual=attempted",
+        "PASS  PG exposure deleted  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure viewed  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure help  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure shared  expected=shared_passage_seen actual=shared_passage_seen",
+        "PASS  PG exposure is learner specific  none",
+        "PASS  PG missing exposure ledger fails closed  unknown",
+        "PASS  R01 supersede: history retained, current valid=false  valid=false",
+        "PASS  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=false",
+        "PASS  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":false,\"err\":\"order: delivered needs full quantity (2 of 5) — use partial\"} partial={\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "PASS  R04 CSAT Reveal Gate blocks current count and new supply  valid=false new={\"ok\":false,\"err\":\"delivery: source not eligible (Reveal Gate)\"}",
+        "PASS  supersede in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: qualification superseded\"}",
+        "PASS  order close in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: order closed (failed)\"}",
+        "PASS  revocation in flight: delivered transition waits then rejects  {\"ok\":false,\"err\":\"order: delivered needs a delivery row with this qualification\"}",
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "FAIL  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"revoke: approval not found\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "PASS  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":false,\"err\":\"rollback D3: factory_product_order has rows — preserve history; rollback refused\"},\"rows\":1,\"tableExists\":true}",
+        "32/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=68d1142fe2b1"
+      ],
+      "tail": [
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "PASS  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":false,\"err\":\"rollback D3: factory_product_order has rows — preserve history; rollback refused\"},\"rows\":1,\"tableExists\":true}",
+        "",
+        "32/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=68d1142fe2b1",
+        ""
+      ]
+    },
+    {
       "name": "integrated-focused-final.log",
       "sha256": "61cfba413cd6c30efa5d839d9f4001d60146f46bdd87656edef933b230403491",
       "summary": [
@@ -436,6 +488,24 @@
       ]
     },
     {
+      "name": "pglite-helper-final.log",
+      "sha256": "fb2955c3fe08d33828380c213b47b8d75708297c488da56752641e306ae52de9",
+      "summary": [
+        "Test Files  1 passed (1)",
+        "Tests  47 passed (47)"
+      ],
+      "tail": [
+        " ✓ src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts  (47 tests) 28701ms",
+        "",
+        " Test Files  1 passed (1)",
+        "      Tests  47 passed (47)",
+        "   Start at  19:05:46",
+        "   Duration  35.38s (transform 632ms, setup 0ms, collect 1.12s, tests 28.70s, environment 0ms, prepare 1.19s)",
+        "",
+        ""
+      ]
+    },
+    {
       "name": "postgres-final.log",
       "sha256": "e5db3577018a07d20d6d33873b9a86abc8a0d8b65afea178bf701c7a35084665",
       "summary": [
@@ -483,6 +553,70 @@
         "PASS  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":false,\"err\":\"rollback D3: factory_product_order has rows — preserve history; rollback refused\"},\"rows\":1,\"tableExists\":true}",
         "",
         "33/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=68d1142fe2b1",
+        ""
+      ]
+    },
+    {
+      "name": "postgres-helper-final.log",
+      "sha256": "e023058bf1c6dcd5fa332970b16fe97e596b75f01e375a20653de6ce155f9960",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "PASS  actual NULL auth helper denies all six administrator RPCs  [{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"},{\"ok\":false,\"err\":\"Forbidden\"}]",
+        "PASS  PG exposure attempt  expected=attempted actual=attempted",
+        "PASS  PG exposure session  expected=item_seen actual=item_seen",
+        "PASS  PG exposure trap  expected=attempted actual=attempted",
+        "PASS  PG exposure review  expected=attempted actual=attempted",
+        "PASS  PG exposure deleted  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure viewed  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure help  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure shared  expected=shared_passage_seen actual=shared_passage_seen",
+        "PASS  PG exposure is learner specific  none",
+        "PASS  PG missing exposure ledger fails closed  unknown",
+        "PASS  R01 supersede: history retained, current valid=false  valid=false",
+        "PASS  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=false",
+        "PASS  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":false,\"err\":\"order: delivered needs full quantity (2 of 5) — use partial\"} partial={\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "PASS  R04 CSAT Reveal Gate blocks current count and new supply  valid=false new={\"ok\":false,\"err\":\"delivery: source not eligible (Reveal Gate)\"}",
+        "PASS  supersede in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: qualification superseded\"}",
+        "PASS  order close in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: order closed (failed)\"}",
+        "PASS  revocation in flight: delivered transition waits then rejects  {\"ok\":false,\"err\":\"order: delivered needs a delivery row with this qualification\"}",
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "PASS  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":false,\"err\":\"rollback D3: factory_product_order has rows — preserve history; rollback refused\"},\"rows\":1,\"tableExists\":true}",
+        "33/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=cc3d91001fc2"
+      ],
+      "tail": [
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "PASS  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":false,\"err\":\"rollback D3: factory_product_order has rows — preserve history; rollback refused\"},\"rows\":1,\"tableExists\":true}",
+        "",
+        "33/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=cc3d91001fc2",
+        ""
+      ]
+    },
+    {
+      "name": "purpose-review-final.log",
+      "sha256": "45ecd95e41ae80a837becc3da347eb0e88c3db0d9622c713f4454a8426e9009a",
+      "summary": [
+        "[P1] supabase/migrations/_pending_workspace_supply_i1_safety.sql:53 — (결함) — 커밋된 HEAD에서 authenticated가 임시 user_profiles를 만들면 내부 권한 helper가 이를 읽어 관리자 가드를 통과한다(자격 기록 생성 재현) — 권한 helper의 search_path에도 pg_temp를 마지막에 명시하고 임시 프로필 사칭 회귀를 추가한다."
+      ],
+      "tail": [
+        "[P1] supabase/migrations/_pending_workspace_supply_i1_safety.sql:53 — (결함) — 커밋된 HEAD에서 authenticated가 임시 user_profiles를 만들면 내부 권한 helper가 이를 읽어 관리자 가드를 통과한다(자격 기록 생성 재현) — 권한 helper의 search_path에도 pg_temp를 마지막에 명시하고 임시 프로필 사칭 회귀를 추가한다.",
+        "",
+        "[review] 목적 파일: D:\\workspace\\Vocaflow-factory-i1-approval\\.agent-goal.md",
         ""
       ]
     },
@@ -825,7 +959,6 @@
       "name": "reveal-before.log",
       "sha256": "a959977d2b22e6354f829542f88e63753beffbeebf2c4ce49f34e0ebe370a3b2",
       "summary": [
-        "→ expected true to be false // Object.is equality",
         "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
         "FAIL  src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts > 독립 수용 R01/R02/R04 — 동일 입력 수정 전후 회귀 > R04 기출 Reveal Gate 보류도 revision 불변일 때 현재 공급에서 제외하고 신규 공급을 거절한다",
         "AssertionError: expected true to be false // Object.is equality",
@@ -847,10 +980,8 @@
       "name": "rollback-before.log",
       "sha256": "4cce7293526e75d8dfe979c5c95c3bd96e91ff7c51c3e33ca2ecce689d6f09dc",
       "summary": [
-        "→ relation \"public.factory_order_product_link\" does not exist",
         "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
         "FAIL  src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts > 되돌리기(_pending_workspace_supply_i1_rollback.sql — 생성물) > S만 승인한 DB도 P/D3 없이 안전하게 되돌리고 공급 실행권은 닫아 둔다",
-        "error: relation \"public.factory_order_product_link\" does not exist",
         "Serialized Error: { length: 305, severity: 'ERROR', code: '42P01', detail: undefined, hint: undefined, position: undefined, internalPosition: '88', internalQuery: 'to_regclass(\\'public.factory_order_product_link\\') is not null and exists (select 1 from public.factory_order_product_link)', where: 'PL/pgSQL function inline_code_block line 2 at IF', schema: undefined, table: undefined, column: undefined, dataType: undefined, constraint: undefined, file: 'parse_relation.c', line: '1448', routine: 'parserOpenTable', query: '-- supabase/migrations/_pending_workspace_supply_i1_rollback.sql\\n-- ⚠️ 보류(적용 안 함) — Factory I1 되돌리기. **생성물**: scripts/csat/map/v62/gen-supply-i1-rollback.mjs 가 B · C 원본에서 함수 정의를 글자 그대로 잘라 만든다(손으로 고치지 않는다).\\n-- 원본: _pending_workspace_supply_b_orders.sql sha256 e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2\\n--       _pending_workspace_supply_c_qualification.sql sha256 dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66\\n-- 순서: D3 → P → safety 의 역순. 데이터 보존 조건(승인 패키지 §7):\\n--   · D3 표에 행이 있으면 아래 §1 을 실행하지 않는다(보존 표로 복사한 뒤에만).\\n--   · factory_order 에 state = \\'partial\\' 행이 있으면 §2 를 실행하지 않는다(닫힌 주문을 열린 것처럼 보이게 만든다).\\n--   · §3(safety 되돌리기)은 데이터와 무관 — 언제든 가능. 단 되돌리면 D1/D2 결함(노출 누락 · 승인 범위)이 다시 생긴다.\\n\\nbegin;\\n-- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)\\ndo $$ begin\\n  if to_regclass(\\'public.factory_order_product_link\\') is not null and exists (select 1 from public.factory_order_product_link) then\\n    raise exception \\'rollback D3: factory_order_product_link has rows — copy to a preservation table first\\';\\n  ",
         "Test Files  1 failed (1)",
         "Tests  1 failed | 41 passed (42)"
@@ -1182,12 +1313,13 @@
   "validation": {
     "postgres": {
       "version": "17.10",
-      "submitted": "20/33 (13 expected safety failures)",
+      "submitted": "20/33",
       "repaired": "33/33",
-      "run": "postgres-final.log"
+      "final_run": "postgres-helper-final.log",
+      "source_mode": "submitted SQL from pinned git blobs; repaired from source hashes"
     },
     "pglite": {
-      "i1": "46/46",
+      "i1": "47/47",
       "store": "7/7",
       "i0": "77/77"
     },
@@ -1199,7 +1331,13 @@
     "purpose_review": {
       "initial": "P1 rollback registration race, P2 shared response path; both fixed; final review required"
     },
-    "dbWrites": 0
+    "dbWrites": 0,
+    "map_regression": {
+      "pass": 1045,
+      "skip": 2,
+      "run": "map-regression-final.log",
+      "note": "before one additional helper regression, separately 47/47"
+    }
   },
   "base": {
     "main": "edcfa5f9570147ccea3ec2609f3d487b1be1562a",

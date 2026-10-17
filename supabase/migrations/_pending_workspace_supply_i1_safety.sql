@@ -351,6 +351,10 @@ alter function public.supply_artifact_revision(text,text) set search_path to 'pu
 alter function public.supply_learner_exposure(text,text,uuid) set search_path to 'public', 'pg_temp';
 alter function public.supply_delivery_valid(uuid) set search_path to 'public', 'pg_temp';
 alter function public.workspace_delivery_record(uuid,uuid,uuid,uuid,uuid) set search_path to 'public', 'pg_temp';
+-- 기존 권한 helper도 자체 search_path가 바깥 정의자의 설정을 덮는다. 임시 user_profiles 사칭을 막는다.
+-- 실제 함수 본문·ACL은 그대로이며, DB-1 승인 범위에 이 기존 두 함수의 설정 변경을 명시한다.
+alter function public.is_admin_or_curator() set search_path to 'public', 'auth', 'pg_temp';
+alter function public.is_admin() set search_path to 'public', 'pg_temp';
 
 -- Supabase 기본 ACL은 ALL(TRUNCATE/REFERENCES/TRIGGER 포함)이다. RLS와 행 트리거는 TRUNCATE를 막지 않는다.
 -- 학습자/익명은 SELECT 이외의 표 권한을 모두 제거한다. 서비스 역할은 신뢰된 운영 경계다.
