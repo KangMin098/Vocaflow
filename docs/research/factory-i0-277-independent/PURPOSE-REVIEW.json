@@ -80,5 +80,22 @@
       "P2 original author acceptance still has historical NOT_TESTED; final source-bound evidence and separate A-G acceptance must be published after completion"
     ],
     "status": "Final evidence pending; no additional product defect identified"
+  },
+  "authRunnerFollowup": {
+    "head": "6b91ae010a0a7a3085466621aafc926af39d7ed5",
+    "finding": "I12 P2 auth SQL runner default targeted a tracked immutable report",
+    "before": {
+      "exit": 1,
+      "error": "Immutable evidence already exists",
+      "trackedReportExists": true
+    },
+    "after": {
+      "exit": 0,
+      "originalDefect": true,
+      "controls": 5,
+      "output": "ignored local/sql-auth-isolated.json",
+      "publishedResultByteIdentical": true
+    },
+    "remoteChanges": false
   }
 }

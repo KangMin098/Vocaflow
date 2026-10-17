@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- PR #277 I0 독립 수용: 계약 77·광역 단위 2,603·PC 회귀 223조건. CONTRACT_ONLY이며 실제 Factory는 미연결; C/B NULL 검수·권한 및 노출/승인 blocker는 미적용 유지. [근거](./research/factory-i0-277-independent/ACCEPTANCE.md).
+
 - LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.
 
 - LM-G1.2: 응답 전 닫힌 편집기에서 제출 후 바뀌지 않은 메모를 새 미저장 초안으로 재생하지 않도록 보완했다. 추가 편집은 보존한다.

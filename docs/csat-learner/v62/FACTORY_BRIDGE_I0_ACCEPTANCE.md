@@ -69,3 +69,7 @@ T3 · T2 1280, 복귀 · 해부 e2e 는 이번에 다시 돌리지 않았다(NOT
 3. 공용 `shareKey` 에 브리프 전체를 넣은 것이 묶음 단위로 적절한가(브리프가 다르면 다른 생산).
 4. delta D1 의 `revealed_at` 포함 범위. 정답 공개만으로도 노출로 볼지.
 5. `supplyFor` 해설 줄 판정(위험 2)을 I1 에서 바꿀지.
+
+## Codex 최종 독립 수용 revision
+
+위 28개 및 NOT_TESTED 표는 최초 제출 당시 관찰로 보존한다. 최신 제품 동결 SHA 45611e2b803bb6650cc857ddd39284615f355640의 별도 재검증에서는 기존 28+독립 49=77, 광역 단위 215파일 2,603, 실제 합성 계정 브라우저 15묶음 223조건을 완료했다. [최종 독립 수용](../../research/factory-i0-277-independent/ACCEPTANCE.md)과 [근거 원장](../../research/factory-i0-277-independent/EVIDENCE.json)이 최신 범위와 미검증 경계를 설명한다. 최초 NOT_TESTED를 소급 PASS로 덮지 않는다. I0는 CONTRACT_ONLY/ACCEPT_WITH_LIMITS이고 실제 Factory 연결·C/B 적용·교육 효과는 완료가 아니다. 최종 목적 리뷰·CI·안전 병합 영수증은 PR #277에서 확인한다.

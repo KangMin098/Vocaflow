@@ -12,8 +12,10 @@ for(const revision of (process.argv[2]??'regression-final').split(',')){
   if(!job)throw Error('Unknown browser job')
   let sourceMatches=false;try{assertSameManifest(read(folder+'/source-hashes.json'),productHashes(root));sourceMatches=true}catch{}
   const runnerMatches=fs.readFileSync(folder+'/runner.mjs','utf8')===renderBrowserRunner({root,file:job[1],folder,at:row.startedAt})
-  const complete=row.exit===0&&row.passLines===expected[row.name]&&row.failLines===0&&row.cleanup.ok&&row.cleanup.accountsLeft===0&&row.cleanup.unknown===0&&row.sourceStable&&sourceMatches&&runnerMatches
-  const bound={...row,revision,sourceMatches,runnerMatches,runnerSha256:hashFile(folder+'/runner.mjs'),sourceManifestSha256:hashFile(folder+'/source-hashes.json')}
+  const log=fs.readFileSync(folder+'/run.log','utf8'),lines=log.split(/\r?\n/),loggedPass=lines.filter(l=>/^\[PASS\]|^PASS (?!\d)/.test(l)).length,loggedFail=lines.filter(l=>/^\[FAIL\]|^FAIL /.test(l)).length
+  const logMatches=loggedPass===row.passLines&&loggedFail===row.failLines&&!lines.some(l=>/^\[FATAL\]/.test(l))
+  const complete=row.exit===0&&row.passLines===expected[row.name]&&row.failLines===0&&row.cleanup.ok&&row.cleanup.accountsLeft===0&&row.cleanup.unknown===0&&row.sourceStable&&sourceMatches&&runnerMatches&&logMatches
+  const bound={...row,revision,sourceMatches,runnerMatches,logMatches,runLogSha256:hashFile(folder+'/run.log'),runnerSha256:hashFile(folder+'/runner.mjs'),sourceManifestSha256:hashFile(folder+'/source-hashes.json')}
   if(complete)chosen[row.name]=bound;else excluded.push(bound)
  }
 }
@@ -25,6 +27,8 @@ if(broad.files!==215||broad.passed!==2603||broad.failed!==0||broad.skipped!==0||
 for(const report of broad.reports)if(report.sha256!==hashFile(local+'/checks-broad/'+report.file))throw Error('Changed broad report')
 const sql=read(docs+'/SQL-ISOLATED.json');if(sql.rows[0]?.reproduced!==true||sql.rows[0]?.safetyPass!==false||sql.rows.slice(1).length!==7||sql.rows.slice(1).some(x=>x.pass!==true))throw Error('Pending SQL audit incomplete')
 const authSql=read(docs+'/SQL-AUTH-ISOLATED.json');if(authSql.rows[0]?.reproduced!==true||authSql.rows[0]?.safetyPass!==false||authSql.rows.slice(1).length!==5||authSql.rows.slice(1).some(x=>x.pass!==true)||authSql.helperSnapshotSha256!==hashFile(docs+'/AUTH-HELPERS.json'))throw Error('Pending SQL authorization audit incomplete')
+const pendingHash=hashFile(root+'/supabase/migrations/_pending_workspace_supply_c_qualification.sql');if(sql.pendingFileSha256!==pendingHash||authSql.pendingFileSha256!==pendingHash||sql.remoteChanges!==false||authSql.remoteChanges!==false)throw Error('SQL evidence is not bound to the current unmodified proposal')
+for(const [published,run] of [['SQL-ISOLATED.json','sql-isolated.json'],['SQL-AUTH-ISOLATED.json','sql-auth-isolated.json']])if(hashFile(docs+'/'+published)!==hashFile(local+'/'+run))throw Error('Published SQL evidence differs from its local run')
 const s01=fs.readFileSync(root+'/apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/factory-bridge.test.ts','utf8');const section=s=>s.slice(s.indexOf("describe('반례 S01–S16'"),s.indexOf("describe('ProductionNeed 상태 사다리"))
 const original=spawnSync('git',['show','200bfdeacd55af39f35c5d3a9648ffe050b7e3ed:apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/factory-bridge.test.ts'],{cwd:root,encoding:'utf8'})
 if(original.status!==0||section(original.stdout)!==section(s01))throw Error('S01-S16 changed')
