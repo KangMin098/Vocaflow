@@ -1,0 +1,14 @@
+{
+  "readOnly": true,
+  "observedAt": "2026-10-17T08:55:05.251Z",
+  "rows": [
+    {
+      "proname": "is_admin",
+      "definition": "CREATE OR REPLACE FUNCTION public.is_admin()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  SELECT EXISTS (\n    SELECT 1 FROM user_profiles\n    WHERE user_id = auth.uid() AND role = 'admin'\n  );\n$function$\n"
+    },
+    {
+      "proname": "is_admin_or_curator",
+      "definition": "CREATE OR REPLACE FUNCTION public.is_admin_or_curator()\n RETURNS boolean\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO 'public', 'auth'\nAS $function$\nDECLARE\n  v_role TEXT;\nBEGIN\n  IF auth.uid() IS NULL THEN RETURN false; END IF;\n  SELECT role INTO v_role FROM user_profiles WHERE user_id = auth.uid();\n  RETURN v_role IN ('admin', 'curator');\nEND $function$\n"
+    }
+  ]
+}

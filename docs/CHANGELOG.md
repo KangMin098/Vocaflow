@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- PR #277 I0 독립 수용: 계약 77·광역 단위 2,603·PC 회귀 223조건. CONTRACT_ONLY이며 실제 Factory는 미연결; C/B NULL 검수·권한 및 노출/승인 blocker는 미적용 유지. [근거](./research/factory-i0-277-independent/ACCEPTANCE.md).
+
 - LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.
 
 - LM-G1.2: 응답 전 닫힌 편집기에서 제출 후 바뀌지 않은 메모를 새 미저장 초안으로 재생하지 않도록 보완했다. 추가 편집은 보존한다.
@@ -22,6 +24,10 @@
 ## Unreleased (v06.34 → next)
 
 - fix(knowledge): V2-F1 — 뜻 선택지가 판별 정답을 드러내는 결함 수정. 제출 전 화면 모양에서 뜻 선택지 제거 · 확인 기록과 정오는 B 판별(+근거)만 · 뜻은 B 를 맞힌 뒤의 기록 없는 연습 · 밑줄 표지(①~⑤/(a)~(e)) · 문장 논리 문항 출시 제외 · 합의 주석 0 · 출시 0 그대로 · DB 변경 없음
+- PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
+
+- feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
+
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
 
 - PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
