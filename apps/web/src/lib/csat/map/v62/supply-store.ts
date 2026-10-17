@@ -23,14 +23,14 @@ export async function loadSupplyLedger(db: SupabaseClient, userId: string, works
   if (!ws.data) return { status: 'installed', lines: {} } // 남의 · 닫힌 Workspace — 기록을 보이지 않는다
 
   const [lines, orders, deliveries] = await Promise.all([
-    db.from('workspace_content_demand_line').select('id, role, task_id').eq('user_id', userId).eq('workspace_id', workspaceId),
+    db.from('workspace_content_demand_line').select('id, role, task_id, quantity').eq('user_id', userId).eq('workspace_id', workspaceId),
     db.from('factory_order').select('line_id, state, order_seq').eq('user_id', userId).eq('workspace_id', workspaceId),
     db.from('workspace_content_delivery').select('line_id').eq('user_id', userId).eq('workspace_id', workspaceId),
   ])
   if (lines.error || orders.error || deliveries.error) return { status: 'error' }
 
-  const byLine = new Map<string, { role: MaterialRole; task: string }>()
-  for (const l of lines.data ?? []) byLine.set(l.id as string, { role: l.role as MaterialRole, task: l.task_id as string })
+  const byLine = new Map<string, { role: MaterialRole; task: string; quantity: number }>()
+  for (const l of lines.data ?? []) byLine.set(l.id as string, { role: l.role as MaterialRole, task: l.task_id as string, quantity: l.quantity as number })
   const out: Record<string, LedgerLine> = {}
   const at = (lineId: string): LedgerLine | null => {
     const l = byLine.get(lineId)
@@ -41,9 +41,24 @@ export async function loadSupplyLedger(db: SupabaseClient, userId: string, works
     const rec = at(o.line_id as string)
     if (rec && (!rec.order || (o.order_seq as number) > rec.order.seq)) rec.order = { state: o.state as OrderState, seq: o.order_seq as number }
   }
+  const delivered = new Set<string>()
   for (const d of deliveries.data ?? []) {
     const rec = at(d.line_id as string)
-    if (rec) rec.delivered++
+    if (rec) { rec.delivered++; delivered.add(d.line_id as string) }
+  }
+  // I1-P — 공급 행이 있는 줄만 서버 충족도(유효 공급 · 남은 부족)를 읽는다. 함수가 없으면(P 미적용) null = 수량 확인 전, 그 밖의 오류는 'error'
+  for (const lineId of delivered) {
+    const l = byLine.get(lineId)!
+    const rec = out[ledgerKey(l.task, l.role)]!
+    const f = await db.rpc('workspace_line_fulfillment', { p_line: lineId })
+    if (f.error) {
+      if (f.error.code && MISSING.has(f.error.code)) { rec.requested = null; rec.validDelivered = null; continue }
+      return { status: 'error' }
+    }
+    const row = (Array.isArray(f.data) ? f.data[0] : f.data) as { requested: number; delivered_valid: number } | undefined
+    // 같은 (TASK, 역할) 키에 여러 줄이 있으면 합산한다
+    rec.requested = row ? (rec.requested ?? 0) + row.requested : null
+    rec.validDelivered = row ? (rec.validDelivered ?? 0) + row.delivered_valid : null
   }
   return { status: 'installed', lines: out }
 }

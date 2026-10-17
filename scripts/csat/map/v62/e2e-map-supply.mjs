@@ -77,6 +77,14 @@ const view = async (page, task) => {
     ledger: document.querySelector('[data-testid="inspector-ledger-note"]')?.getAttribute('data-ledger') ?? null,
   }))
 }
+// 정답 · 오답은 주석(annotations)으로 만든다(e2e-lm-g1-2 와 같은 방법)
+const ANN = path.join(ROOT, 'apps/web/src/lib/knowledge/annotations')
+function annotationOf(s) {
+  const fsm = req('node:fs')
+  const files = fsm.readdirSync(ANN).filter((f) => f.startsWith(`claim-support-${s.toLowerCase().replace('#', '-')}.v`)).sort()
+  if (!files.length) throw new Error(`주석 없음 ${s}`)
+  return JSON.parse(fsm.readFileSync(path.join(ANN, files.at(-1)), 'utf8'))
+}
 const slug = (href) => href?.split('#')[0].split('?')[0].split('/').pop() ?? null
 
 try {
@@ -85,8 +93,12 @@ try {
   const check = r1.rows.find((r) => r.role === 'independent_check')
   rec('① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음', !!r1.demand && check?.state === 'available' && !!r1.next, r1)
   // P-F8e — 영속 주문 표(승인안 B)가 없으므로 어떤 줄도 「주문됨 · 만드는 중 · 검수 중 · 보류 · 공급 완료」가 아니다
-  const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered'])
+  const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered', 'partially_delivered', 'delivered_count_unknown'])
   rec('①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음', r1.rows.length > 0 && r1.rows.every((r) => r.step && !ORDERISH.has(r.step)) && ['not_installed', 'no_workspace'].includes(r1.ledger), { steps: r1.rows.map((r) => r.step), ledger: r1.ledger })
+  // Factory I1 — 교수 역할(원문 분석 · 모델 설명) 줄은 교수 적합성 검수 전이라 「지금 쓸 수 있음(available)」이 아니다.
+  //   열 수 있는 해설이 있으면 readable_unreviewed · read_now(지금 읽을 수 있음 · 수업용 검수 전), 없으면 기존 needs_review/unsupported
+  const teachingRows = (r) => r.rows.filter((x) => x.role === 'source_analysis' || x.role === 'model_explanation')
+  rec('①c 확인 단계 — 교수 역할 줄이 있다면 available 아님(이 단계는 보통 0줄 · 실제 검사는 ⑥)', teachingRows(r1).every((x) => x.state !== 'available' && (x.state !== 'readable_unreviewed' || x.step === 'read_now')), teachingRows(r1).map((x) => ({ role: x.role, state: x.state, step: x.step })))
   const r1b = await view(a, 'r.central_meaning')
   rec('② 새로 고쳐도 같은 수요 키', r1b.demand === r1.demand, { a: r1.demand, b: r1b.demand })
 
@@ -120,6 +132,21 @@ try {
   const b = await learner('b')
   const rb = await view(b, 'r.central_meaning')
   rec('⑤ 다른 학습자는 자기 수요 · 공급(첫 학습자가 푼 문항이 그에게는 미노출 그대로)', slug(rb.next) === first, { bNext: slug(rb.next), aSolved: first })
+
+  // ⑥ Factory I1 — 확인 2회 실패 → REPAIR 단계 수요(원문 분석 · 모델 설명 · 지도 연습). 교수 역할 줄은 교수 검수 전이라 available 이 아니고,
+  //    푼 문항의 해설은 열람 가능 = readable_unreviewed · read_now(「지금 읽을 수 있어요 · 수업용 검수 전」). 열람 기능은 그대로다.
+  const c = await learner('c')
+  for (let i = 0; i < 2; i++) {
+    const s = await view(c, 'r.central_meaning')
+    const it = slug(s.next)
+    const ann = annotationOf(it)
+    const resp = await c.request.post(`${BASE}/api/csat/item/${it}/task`, { data: { response: { claim: (ann.claim + 1) % ann.sentenceCount, support: ann.support, relation: ann.relationProbe.relation }, clientSessionId: crypto.randomUUID(), clientMutationId: crypto.randomUUID(), answeredAt: new Date().toISOString(), helpLevel: 'independent', sec: 40 } })
+    if (resp.status() !== 200) throw new Error(`FIND 제출 실패 ${resp.status()}`)
+    await c.waitForTimeout(1300)
+  }
+  const rc = await view(c, 'r.central_meaning')
+  const tr = teachingRows(rc)
+  rec('⑥ REPAIR — 교수 역할 줄 있음 · available 아님 · 열람 가능 해설은 read_now(검수 전 표시)', tr.length > 0 && tr.every((x) => x.state !== 'available') && tr.some((x) => x.state === 'readable_unreviewed') && tr.filter((x) => x.state === 'readable_unreviewed').every((x) => x.step === 'read_now' && /검수 전/.test(x.text ?? '')), tr.map((x) => ({ role: x.role, state: x.state, step: x.step, text: (x.text ?? '').slice(0, 40) })))
 } catch (e) {
   rec('실행 오류', false, { error: String(e).slice(0, 300) })
 } finally {

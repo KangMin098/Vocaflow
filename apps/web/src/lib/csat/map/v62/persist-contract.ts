@@ -47,17 +47,19 @@ export type OrderState =
   | 'awaiting_production' // 생산 명세는 있으나 실행 승인 · 배정 대기
   | 'producing' // 실제 생산 실행 기록이 있을 때만
   | 'reviewing' // 생성물 검수 중
-  | 'delivered' // 적격 산출물이 Workspace 에 공급됨
+  | 'delivered' // 주문 수량 전량이 적격 산출물로 공급됨(I1-P)
+  | 'partial' // 일부만 적격 공급 뒤 닫힘(이유 필수) — 남은 부족은 줄에서 계산해 shortfall 재주문(I1-P)
   | 'held' // 권리 · Gold · 검수 · 원천 문제로 보류
   | 'failed' // 생산 · 검수 실패(이유 필수)
 
 const NEXT: Record<OrderState, readonly OrderState[]> = {
   requested: ['stock_search', 'held', 'failed'],
-  stock_search: ['delivered', 'awaiting_production', 'held', 'failed'],
+  stock_search: ['delivered', 'partial', 'awaiting_production', 'held', 'failed'],
   awaiting_production: ['producing', 'held', 'failed'],
   producing: ['reviewing', 'failed'],
-  reviewing: ['delivered', 'held', 'failed'],
+  reviewing: ['delivered', 'partial', 'held', 'failed'],
   delivered: [],
+  partial: [],
   held: ['stock_search', 'awaiting_production', 'failed'],
   // 실패는 그 주문의 끝이다 — 재생산은 같은 주문을 되살리지 않고 **새 주문**(이유 retry_after_failure · 부모 = 실패 주문).
   // SQL `factory_order_open` 과 같다(P-F7b).
@@ -78,7 +80,7 @@ export function canTransition(from: OrderState, to: OrderState, ev: TransitionEv
   if (!NEXT[from].includes(to)) return { ok: false, why: `전이 불가: ${from} → ${to}` }
   if (to === 'producing' && !ev.productionRunId) return { ok: false, why: '실제 생산 실행 기록 없이 생산 중으로 갈 수 없다' }
   if (to === 'delivered' && !ev.qualificationId) return { ok: false, why: '자격 기록 없이 공급 완료로 갈 수 없다' }
-  if ((to === 'held' || to === 'failed') && !ev.reason) return { ok: false, why: '보류 · 실패는 이유가 필요하다' }
+  if ((to === 'held' || to === 'failed' || to === 'partial') && !ev.reason) return { ok: false, why: '보류 · 실패 · 부분 납품은 이유가 필요하다' }
   return { ok: true }
 }
 
@@ -91,9 +93,10 @@ export type OrderReason = 'initial' | 'shortfall' | 'retry_after_failure' | 'pla
  */
 export function canOpenOrder(prev: { state: OrderState } | null, reason: OrderReason): { ok: true } | { ok: false; why: string } {
   if (!prev) return reason === 'initial' ? { ok: true } : { ok: false, why: '첫 주문은 initial 이어야 한다' }
-  if (prev.state !== 'delivered' && prev.state !== 'failed') return { ok: false, why: '열린 주문이 있다' }
+  if (prev.state !== 'delivered' && prev.state !== 'failed' && prev.state !== 'partial') return { ok: false, why: '열린 주문이 있다' }
   if (reason === 'initial') return { ok: false, why: '재주문은 이유가 필요하다' }
   if (reason === 'retry_after_failure' && prev.state !== 'failed') return { ok: false, why: '재생산은 실패한 주문 뒤에만' }
+  if (reason === 'shortfall' && prev.state !== 'partial' && prev.state !== 'delivered') return { ok: false, why: '부족분 재주문은 부분 납품 · 납품 뒤에만(I1-P)' }
   return { ok: true }
 }
 
@@ -104,6 +107,7 @@ export const ORDER_STATE_LABEL: Record<OrderState, string> = {
   producing: '생산 중',
   reviewing: '검수 중',
   delivered: '공급 완료',
+  partial: '일부 공급 후 닫힘',
   held: '보류',
   failed: '실패',
 }

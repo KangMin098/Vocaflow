@@ -93,6 +93,17 @@ describe('공급 충족도', () => {
   })
   it('평가 역할에서 평가 자격이 null(모름) · false 면 공급으로 세지 않는다', () => {
     expect(fulfillmentOf(line({ qualification: { producible: true, rights: true, content: true, teaching: true, assessment: null, learner: true, runnable: true } }))).toBe('not_supplied')
-    expect(fulfillmentOf(line({ role: 'guided_practice', qualification: { producible: true, rights: null, content: null, teaching: null, assessment: null, learner: null, runnable: true } }))).toBe('fully_supplied')
+    // I1 — 교수 역할도 교수 적합성(D)이 확인되지 않으면 공급으로 세지 않는다(SQL fq_role_ok 와 같다)
+    expect(fulfillmentOf(line({ role: 'guided_practice', qualification: { producible: true, rights: null, content: null, teaching: null, assessment: null, learner: null, runnable: true } }))).toBe('not_supplied')
+    expect(fulfillmentOf(line({ role: 'model_explanation', state: 'readable_unreviewed', qualification: { producible: true, rights: true, content: true, teaching: null, assessment: false, learner: true, runnable: true } }))).toBe('not_supplied')
+    expect(fulfillmentOf(line({ role: 'guided_practice', qualification: { producible: true, rights: true, content: true, teaching: true, assessment: null, learner: true, runnable: true } }))).toBe('fully_supplied')
+  })
+  it('I1-P 부분 납품: 주문을 여는 · 닫는 규칙', () => {
+    expect(canTransition('stock_search', 'partial', {})).toMatchObject({ ok: false })
+    expect(canTransition('reviewing', 'partial', { reason: '적격 2/5' })).toEqual({ ok: true })
+    expect(canTransition('partial', 'stock_search', { reason: 'x' })).toMatchObject({ ok: false })
+    expect(canOpenOrder({ state: 'partial' }, 'shortfall')).toEqual({ ok: true })
+    expect(canOpenOrder({ state: 'failed' }, 'shortfall')).toMatchObject({ ok: false })
+    expect(canOpenOrder({ state: 'producing' }, 'shortfall')).toMatchObject({ ok: false })
   })
 })

@@ -71,7 +71,7 @@ try {
     }
   }
   const all = (n, f) => Promise.all(Array.from({ length: n }, (_, i) => f(i)))
-  const canonical = (task) => JSON.stringify({ v: 1, user: ME, template: 'ws.reading', workspaceId: ws, goalVersion: null, planVersion: 1, definitionVersion: 'v6.2', core: task,
+  const canonical = (task) => JSON.stringify({ v: 2, user: ME, template: 'ws.reading', workspaceId: ws, goalVersion: null, planVersion: 1, definitionVersion: 'v6.2', core: task,
     lines: [{ role: 'guided_practice', task, n: 2, types: [], keys: [], requires: [], reason: 'need' }] })
 
   // ① 같은 수요 동시 기록 20 → 같은 id 1개 · 줄 1벌
