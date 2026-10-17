@@ -1,0 +1,18 @@
+{
+  "label": "factory-i1-db1",
+  "phase": "before",
+  "checkpoint_at": "2026-10-17T14:05:23Z",
+  "git_head": "37aafced818cc1d0e8607ac4f085a52bc5c729f8",
+  "db1_sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+  "deploy_check": "OK",
+  "dry_run": { "exit": 0, "newer_than_remote_max": ["20261017200000_factory_i1_db1_supply_foundation.sql"], "blocks": [] },
+  "remote_history": { "rows": 722, "max": "20261014091841", "same_as_checkpoint_20261017": true },
+  "pg_stat_activity": { "active": 1, "total": 12 },
+  "advisors": {
+    "security_total": 548,
+    "security": {"rls_enabled_no_policy/INFO":67,"extension_in_public/WARN":5,"materialized_view_in_api/WARN":1,"pg_graphql_anon_table_exposed/WARN":143,"pg_graphql_authenticated_table_exposed/WARN":175,"anon_security_definer_function_executable/WARN":21,"authenticated_security_definer_function_executable/WARN":135,"auth_leaked_password_protection/WARN":1},
+    "performance_total": 405,
+    "performance": {"unindexed_foreign_keys/INFO":107,"auth_rls_initplan/WARN":2,"no_primary_key/INFO":1,"unused_index/INFO":204,"multiple_permissive_policies/WARN":90,"auth_db_connections_absolute/INFO":1}
+  },
+  "learner_row_counts": {"daily_activity":90,"learner_workspace":0,"learner_workspace_plan":0,"reading_sessions":287,"scores":80,"study_plan_items":8,"user_diagnostic_results":25,"user_level_snapshots":24,"user_profiles":46,"user_stats":2,"user_textbook_selections":3,"user_word_set_subscriptions":279}
+}
