@@ -13,7 +13,7 @@ const axes = (o: Record<string, string> = {}) => Object.fromEntries('ABCDEFGH'.s
 const row = (o: Partial<FqRow> = {}): FqRow => ({
   id: 'q1', artifact_kind: 'csat_item', artifact_ref: '2020#24', artifact_revision: REV,
   source_revision: 'kice:2020:suneung:짝수:24', source_hash: 'c'.repeat(64), gold_revision: 'g1', gold_hash: 'd'.repeat(64),
-  task_id: T, role: 'transfer', axes: axes(), evidence_ids: [`annotation:${ANN}`], supersedes: null, ...o,
+  task_id: T, role: 'transfer', axes: axes(), annotation_ref: 'claim-support-2020-24.v1', annotation_hash: ANN, supersedes: null, ...o,
 })
 const APPROVED: FqApprovalRow[] = [{ id: 'a1', qualification_id: 'q1', scope: 'public' }, { id: 'a2', qualification_id: 'q1', scope: 'assessment' }]
 const ctx = (o: Partial<Parameters<typeof fqRowVerdict>[1]> = {}): Parameters<typeof fqRowVerdict>[1] => ({
@@ -38,6 +38,7 @@ describe('fqRowVerdict — 결속 하나라도 빠지면 거절', () => {
     ['문항 revision 모름', row(), ctx({ currentRevision: null }), 'revision_stale'],
     ['주석 변경', row(), ctx({ currentAnnotation: 'f'.repeat(64) }), 'annotation_unbound'],
     ['주석 모름', row(), ctx({ currentAnnotation: null }), 'annotation_unbound'],
+    ['정본 주석 결속 없음(evidence_ids 만으로는 인정 안 함)', row({ annotation_ref: null, annotation_hash: null }), ctx(), 'annotation_unbound'],
   ])('%s', (_, r, c, reason) => expect(fqRowVerdict(r, c)).toEqual({ ok: false, reason }))
   it('교수 역할은 D pass 가 필요하고 평가 승인은 필요 없다', () => {
     expect(fqRowVerdict(row({ role: 'model_explanation' }), ctx())).toEqual({ ok: false, reason: 'role_axes' })
@@ -77,14 +78,27 @@ describe('loadFqReader — 학습자 세션이 아니라 서버 전용 클라이
     const r = await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, content_release_revocation: { data: null, error: { code: 'XX' } } }).db })
     expect(r).toEqual({ status: 'error' })
   })
+  it('I2 주석 칸이 없으면 적격 0건(오류와 구별)', async () => {
+    expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, content_qualification: { data: null, error: { code: '42703' } } }).db })).toEqual({ status: 'installed', eligible: [] })
+  })
+  it('창을 가득 채운 응답은 부분 원장이라 error', async () => {
+    expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, content_qualification: { data: Array.from({ length: 2000 }, () => row()), error: null } }).db })).toEqual({ status: 'error' })
+  })
   it('현재 revision 조회 실패는 error', async () => {
     expect(await loadFqReader(learner, { ...opts, admin: fake(ledger, { data: null, error: { code: 'XX' } }).db })).toEqual({ status: 'error' })
   })
 })
 
-describe('공급 — 적격은 역할에 묶인다', () => {
+describe('공급 — 적격은 역할 · TASK 에 묶인다', () => {
+  it('다른 TASK 의 전이 자격은 R5 전이 줄을 채우지 않는다', () => {
+    const demand = { key: 'd', task: T, lines: [{ role: 'transfer', task: T, quantity: { n: 1 }, taskKeys: ['claim-support'], csatTypes: [] }] }
+    const input = { unseenCheckItems: [], transferItems: ['2020#24'], transferDrafts: 0, study: { items: [], withheld: 0 }, factoryStock: null, exposure: { status: 'ok', events: [], passageKeys: { '2020#24': 'p' } }, fq: { status: 'installed', eligible: [{ ref: '2020#24', task: 'r.flow_order', role: 'transfer', qualificationId: 'q1' }] } }
+    expect(supplyFor(demand as never, input as never).lines[0].state).toBe('open_unqualified')
+    const ok = { ...input, fq: { status: 'installed', eligible: [{ ref: '2020#24', task: T, role: 'transfer', qualificationId: 'q1' }] } }
+    expect(supplyFor(demand as never, ok as never).lines[0].state).toBe('available')
+  })
   it('독립 확인 역할의 적격은 전이 줄을 채우지 않는다', () => {
-    const demand = { key: 'd', task: T, lines: [{ role: 'transfer', quantity: { n: 1 }, taskKeys: ['claim-support'], csatTypes: [] }] }
+    const demand = { key: 'd', task: T, lines: [{ role: 'transfer', task: T, quantity: { n: 1 }, taskKeys: ['claim-support'], csatTypes: [] }] }
     const input = { unseenCheckItems: [], transferItems: ['2020#24'], transferDrafts: 0, study: { items: [], withheld: 0 }, factoryStock: null, exposure: { status: 'ok', events: [], passageKeys: { '2020#24': 'p' } }, fq: { status: 'installed', eligible: [{ ref: '2020#24', task: T, role: 'independent_check', qualificationId: 'q1' }] } }
     const s = supplyFor(demand as never, input as never)
     expect(s.lines[0].state).toBe('open_unqualified')

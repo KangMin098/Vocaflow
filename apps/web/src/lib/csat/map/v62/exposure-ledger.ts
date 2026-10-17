@@ -88,7 +88,8 @@ export interface FqRow {
   task_id: string
   role: string
   axes: Record<string, { state?: string } | undefined>
-  evidence_ids: string[] | null
+  annotation_ref: string | null
+  annotation_hash: string | null
   supersedes: string | null
 }
 export interface FqApprovalRow { id: string; qualification_id: string; scope: string }
@@ -102,7 +103,8 @@ const pass = (r: FqRow, k: string) => r.axes?.[k]?.state === 'pass'
 /**
  * 원장 행 하나를 지금 공급해도 되는가 — DB fq_role_ok 와 같은 축 규칙 + 결속(원천 · Gold · 현재 revision · 현재 주석 해시) + 철회 안 된 승인.
  * 하나라도 모르면 거절(fail-closed). 학습자 노출(G)은 여기서 보지 않는다 — 공급 시점(unexposedForAssessment).
- * 주석 결속(I2 annotation binding)은 아직 전용 칸이 없어 evidence_ids 의 `annotation:<sha256>` 로만 인정한다.
+ * 주석 결속은 I2 정본 칸(content_qualification.annotation_ref · annotation_hash — `_pending_workspace_supply_c_annotation_binding.sql`)으로만 인정한다.
+ * 그 칸이 아직 없으면(I2 미적용) 정본 결속을 확인할 수 없으므로 적격 0건이다.
  */
 export function fqRowVerdict(
   r: FqRow,
@@ -118,7 +120,7 @@ export function fqRowVerdict(
   if (!live.some((a) => a.scope === 'public')) return { ok: false, reason: 'approval_public' }
   if (ASSESS.has(r.role) && !live.some((a) => a.scope === 'assessment')) return { ok: false, reason: 'approval_assessment' }
   if (!ctx.currentRevision || ctx.currentRevision !== r.artifact_revision) return { ok: false, reason: 'revision_stale' }
-  if (!ctx.currentAnnotation || !(r.evidence_ids ?? []).includes(`annotation:${ctx.currentAnnotation}`)) return { ok: false, reason: 'annotation_unbound' }
+  if (!ctx.currentAnnotation || !r.annotation_ref || r.annotation_hash !== ctx.currentAnnotation) return { ok: false, reason: 'annotation_unbound' }
   return { ok: true }
 }
 
@@ -143,8 +145,11 @@ export async function loadFqReader(
   if (!opts.admin || !opts.currentAnnotation || refs.length === 0 || tasks.size === 0) return { status: 'installed', eligible: [] }
   const admin = opts.admin
   const q = await admin.from('content_qualification')
-    .select('id, artifact_kind, artifact_ref, artifact_revision, source_revision, source_hash, gold_revision, gold_hash, task_id, role, axes, evidence_ids, supersedes')
+    .select('id, artifact_kind, artifact_ref, artifact_revision, source_revision, source_hash, gold_revision, gold_hash, task_id, role, axes, annotation_ref, annotation_hash, supersedes')
     .eq('artifact_kind', 'csat_item').in('artifact_ref', refs).limit(LIMIT)
+  // I2 칸이 없으면(42703 · PGRST204) 정본 주석 결속을 확인할 수 없다 — 오류가 아니라 적격 0건
+  const qcode = (q.error as { code?: string } | null)?.code
+  if (qcode === '42703' || qcode === 'PGRST204') return { status: 'installed', eligible: [] }
   if (q.error || !Array.isArray(q.data) || q.data.length >= LIMIT) return { status: 'error' }
   const rows = q.data as unknown as FqRow[]
   if (rows.length === 0) return { status: 'installed', eligible: [] }
