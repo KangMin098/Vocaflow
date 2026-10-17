@@ -61,7 +61,7 @@ Inspector는 미설치/오류/설치 및 적격 0건을 후보 유무와 별개�
 
 실제 Next 화면에서 정상 기존 기록 조회와 로컬 read-only reader fault를 조합했다. 미설치/오류/설치 0건, 예약, 원장 오류, 실제 출시 풀 0건을 각각 시험했다. 두 폭 모두 가로 넘침 0, 지도 복귀 링크는 키보드 Tab/Shift+Tab 초점과 Enter 이동, 보이는 solid outline 및 44px 높이를 확인했다. 모바일은 범위 밖이다.
 
-첫 화면 실행은 로컬 서버 종료로 29통과 뒤 실패했다. [첫 실행 JSON](./screens-first-run.json)과 [로그](./screens-first-run.log)를 보존하고 전체 35조건을 재실행했다. 마지막 캡처는 런타임 수정 커밋 `53c75b585`에서 **35/35 통과**했다([로그](./screens.log)). 전용 서버 포트 3131에서도 [실제 선택 문항 E2E 7/7](./e2e-final.log)을 확인했다. 증거 커밋은 별도로 뒤따르며 [네트워크 감사](./network-audit.json)의 소스별 SHA-256으로 실제 검증 코드를 결속한다.
+첫 화면 실행은 로컬 서버 종료로 29통과 뒤 실패했다. [첫 실행 JSON](./screens-first-run.json)과 [로그](./screens-first-run.log)를 보존하고 전체 35조건을 재실행했다. 최종 런타임 수정 커밋 `d548bd8e9`에서 [화면 35/35](./screens.log)와 [선택 문항 E2E 7/7](./e2e-final.log)이 통과했다. 일반 `PLAYWRIGHT_BASE_URL`이 설정된 상태에서도 R5 보호 서버 3131을 사용했다. 증거 커밋은 별도로 뒤따르며 [네트워크 감사](./network-audit.json)의 소스별 SHA-256으로 실제 검증 코드를 결속한다.
 
 서버는 `r5-read-only-preload.cjs`로 모든 원격 쓰기를 차단한다. 예외는 로그인 token POST 및 SQL STABLE SELECT-only인 `csat_ec_embargoed_exams/items` 두 read RPC뿐이다. 브라우저도 인증 외 쓰기를 가로챈다. 서버의 `learning_decisions`, hub의 `prescribe_today` 시도까지 차단됐으며 학생 학습·공급·자격·승인 기록을 바꾸지 않았다. `e2e-map-supply.mjs`는 계정 생성/삭제·제출이 있으므로 실행하지 않았다.
 
@@ -75,9 +75,9 @@ Inspector는 미설치/오류/설치 및 적격 0건을 후보 유무와 별개�
 
 광역 T1~T4·PLAN·Workspace·R5 회귀의 첫 실행은 1,359통과, PGlite 5개가 메모리 할당 오류였다([로그](./regressions.log)). 해당 5개를 단독 재실행해 전부 통과했다([재실행](./pglite-retry.log)). 제품 기대값을 약화하거나 실패를 skip으로 바꾸지 않았다. 최종 타입·lint·목적 리뷰·전체 회귀·CI 8종은 PR 검증 기록과 함께 확인한다.
 
-최종 로컬 `pnpm turbo run lint typecheck test`는 **15/15 작업 성공**, 웹 **478파일·5,727테스트 통과**, 환경 의존 **43파일·248테스트 건너뜀**, 타입 오류 0·lint 오류 0이다([원문](./final-local-checks.log)). 기존 lint 경고는 남아 있다. 개발 DB 자격 정보 없이 실행했으며 건너뜀을 검증 성공에 넣지 않는다. 수정 중 결속·정규화 반례 2개가 실패한 전체 실행도 [중간 로그](./intermediate-full-tests.log)에 보존했다. 최종 독립 반례 부분집합은 [98통과](./final-counterexamples.log), 에이전트·공식 원천·쓰기 장벽 회귀는 [142통과](./agent-and-guard.log)다.
+최종 로컬 `pnpm turbo run lint typecheck test`는 **15/15 작업 성공**, 웹 **478파일·5,729테스트 통과**, 환경 의존 **43파일·248테스트 건너뜀**, 타입 오류 0·lint 오류 0이다([원문](./final-local-checks.log)). 기존 lint 경고는 남아 있다. 개발 DB 자격 정보 없이 실행했으며 건너뜀을 검증 성공에 넣지 않는다. 수정 중 결속·정규화 반례 2개가 실패한 전체 실행도 [중간 로그](./intermediate-full-tests.log)에 보존했다. 최종 독립 반례 부분집합은 [100통과](./final-counterexamples.log), 에이전트·공식 원천·쓰기 장벽 회귀는 [142통과](./agent-and-guard.log)다.
 
-목적 리뷰 1~4차의 실제 결함을 수정했다. [5차 리뷰](./goal-review-fifth.log)의 남은 P2는 보고서가 참조한 증거 파일이 HEAD에 없다는 지적이며, 해당 파일들을 증거 커밋에 포함한다. 증거 포함 후 최종 목적 리뷰 결과와 최종 HEAD의 필수 CI 8종·safe-merge 결과는 PR #285의 「검증」 기록에서 확인한다.
+목적 리뷰 1~6차의 실제 결함과 증거 파일 누락을 수정했다. [7차 목적 리뷰](./goal-review-seventh.log)는 **NO_FINDINGS**다. 최종 HEAD의 필수 CI 8종·safe-merge 결과는 PR #285의 「검증」 기록에서 확인한다.
 
 계속 차단되는 사항: 납품 `delivery_id`↔G2 수행 결속은 별도 migration 승인 대상. 실제 권리/Gold/FQ 역할 검증과 학생 사전·사후·지연·독립 전이 연구는 미완성이다. 기존 봉인·TASK·PLAN·제품 목표·SQL·운영 데이터는 변경하지 않았다. 이 PR 수용은 실제 적격 콘텐츠 공급 또는 교육 효과 성공 판정이 아니다.
 

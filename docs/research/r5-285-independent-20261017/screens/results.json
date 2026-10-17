@@ -1,9 +1,9 @@
 {
   "suite": "R5 연습 ↔ 독립 평가 경계(e2e-r5-assessment-boundary.mjs)",
-  "head": "53c75b585585a3e93d40b105541f39f9b88ad450",
+  "head": "d548bd8e99b4917782de91a257fe948fb9caf778",
   "base": "http://localhost:3131",
-  "startedAt": "2026-10-17T13:10:06.643Z",
-  "endedAt": "2026-10-17T13:11:20.235Z",
+  "startedAt": "2026-10-17T13:28:00.543Z",
+  "endedAt": "2026-10-17T13:29:22.368Z",
   "browser": "chromium(@playwright/test) · 1280×900 · 1440×900",
   "population": "기존 검증 계정 1(새 계정 · 기록 없음 · 쓰기 전부 가로챔)",
   "results": [
