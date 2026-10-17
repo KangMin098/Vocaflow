@@ -102,7 +102,7 @@ function assessmentLine(role: MaterialRole, n: number, candidates: readonly stri
   const pre = note ? `${note} · ` : ''
   const ex = unexposedForAssessment(candidates, exposure)
   if (exposure.status !== 'ok') return { role, state: 'needs_review', delivered: [], shortfall: n, qualification: Q({ learner: null }), reason: `${pre}학습자 노출 기록을 다 읽지 못해 처음 보는 문항인지 알 수 없다` }
-  const eligible = fq.status === 'installed' ? new Set(fq.eligible) : new Set<string>()
+  const eligible = fq.status === 'installed' ? new Set(fq.eligible.filter((e) => e.role === role).map((e) => e.ref)) : new Set<string>()
   const qualified = ex.unseen.filter((i) => eligible.has(i)).slice(0, n)
   if (qualified.length) return { role, state: 'available', delivered: qualified.map((ref) => ({ ref, source })), shortfall: Math.max(0, n - qualified.length), qualification: Q({ producible: true, rights: true, content: true, assessment: true, learner: true, runnable: true }), reason: `${pre}정식 자격 확인 · 학습자 미노출` }
   const open = ex.unseen.slice(0, n)

@@ -1228,7 +1228,7 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 
 ### R5 연습·독립 평가 경계 독립 보완(2026-10-17 · PR #285)
 
-노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. 현재 `loadFqReader()`는 설치돼 있어도 역할/TASK/hash 자격 판정 연결 전이므로 항상 `eligible: []`이며, 출시 과제 열람은 공급 0인 `open_unqualified`다.
+노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. `loadFqReader()`는 원장(관리자 전용 RLS)을 서버 전용 클라이언트로만 읽고, 행마다 `fqRowVerdict`로 역할 축(DB `fq_role_ok`와 같은 규칙) · TASK · 원천/Gold 결속 · 철회 안 된 공개(+평가 역할은 평가) 승인 · 대체 여부 · 현재 문항 revision(`supply_artifact_revision`) · 현재 주석 해시(`evidence_ids` 의 `annotation:<sha256>`, I2 전용 칸 전까지)를 대 본다. 하나라도 모르면 거절하며, 적격은 `{ref, task, role, qualificationId}`로 역할에 묶여 다른 역할 줄을 채우지 않는다. 자격 행이 없으면 0건이고 출시 과제 열람은 공급 0인 `open_unqualified`다.
 
 확인과 전이 표본 모두 활동·세션·TASK·현재 hash 결속을 요구한다. 줄바꿈·탭은 JSON 인코딩 전 정규화해 동일 지문을 놓치지 않는다. 읽기 전용 E2E는 `pnpm --filter web test:e2e:r5`로 전용 서버 장벽까지 자동 적용한다.
 

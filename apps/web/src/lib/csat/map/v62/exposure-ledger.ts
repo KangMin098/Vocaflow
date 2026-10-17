@@ -75,14 +75,96 @@ export async function loadExposureLedger(db: SupabaseClient, userId: string, can
   return { status: 'ok', events, passageKeys }
 }
 
+/** 원장 한 행(필요한 칸만) — DB-1 content_qualification */
+export interface FqRow {
+  id: string
+  artifact_kind: string
+  artifact_ref: string
+  artifact_revision: string
+  source_revision: string | null
+  source_hash: string | null
+  gold_revision: string | null
+  gold_hash: string | null
+  task_id: string
+  role: string
+  axes: Record<string, { state?: string } | undefined>
+  evidence_ids: string[] | null
+  supersedes: string | null
+}
+export interface FqApprovalRow { id: string; qualification_id: string; scope: string }
+
+export type FqRejection = 'superseded' | 'task' | 'role_axes' | 'source_unbound' | 'gold_unbound' | 'approval_public' | 'approval_assessment' | 'revision_stale' | 'annotation_unbound'
+
+const ASSESS = new Set(['independent_check', 'transfer', 'delayed_check'])
+const TEACH = new Set(['source_analysis', 'model_explanation', 'guided_practice'])
+const pass = (r: FqRow, k: string) => r.axes?.[k]?.state === 'pass'
+
+/**
+ * 원장 행 하나를 지금 공급해도 되는가 — DB fq_role_ok 와 같은 축 규칙 + 결속(원천 · Gold · 현재 revision · 현재 주석 해시) + 철회 안 된 승인.
+ * 하나라도 모르면 거절(fail-closed). 학습자 노출(G)은 여기서 보지 않는다 — 공급 시점(unexposedForAssessment).
+ * 주석 결속(I2 annotation binding)은 아직 전용 칸이 없어 evidence_ids 의 `annotation:<sha256>` 로만 인정한다.
+ */
+export function fqRowVerdict(
+  r: FqRow,
+  ctx: { tasks: ReadonlySet<string>; supersededIds: ReadonlySet<string>; approvals: readonly FqApprovalRow[]; revoked: ReadonlySet<string>; currentRevision: string | null; currentAnnotation: string | null },
+): { ok: true } | { ok: false; reason: FqRejection } {
+  if (ctx.supersededIds.has(r.id)) return { ok: false, reason: 'superseded' }
+  if (!ctx.tasks.has(r.task_id)) return { ok: false, reason: 'task' }
+  const axesOk = ['A', 'B', 'C', 'F', 'H'].every((k) => pass(r, k)) && (!TEACH.has(r.role) || pass(r, 'D')) && (!ASSESS.has(r.role) || pass(r, 'E'))
+  if (!axesOk) return { ok: false, reason: 'role_axes' }
+  if (!r.source_revision || !r.source_hash) return { ok: false, reason: 'source_unbound' }
+  if (ASSESS.has(r.role) && (!r.gold_revision || !r.gold_hash)) return { ok: false, reason: 'gold_unbound' }
+  const live = ctx.approvals.filter((a) => a.qualification_id === r.id && !ctx.revoked.has(a.id))
+  if (!live.some((a) => a.scope === 'public')) return { ok: false, reason: 'approval_public' }
+  if (ASSESS.has(r.role) && !live.some((a) => a.scope === 'assessment')) return { ok: false, reason: 'approval_assessment' }
+  if (!ctx.currentRevision || ctx.currentRevision !== r.artifact_revision) return { ok: false, reason: 'revision_stale' }
+  if (!ctx.currentAnnotation || !(r.evidence_ids ?? []).includes(`annotation:${ctx.currentAnnotation}`)) return { ok: false, reason: 'annotation_unbound' }
+  return { ok: true }
+}
+
 /**
  * 정식 자격(I1 content_qualification) reader. 표가 없으면 not_installed(정상 0건과 구별), 다른 오류는 error.
- * 표가 생겨도 이 저장소에는 아직 역할 · TASK · hash 결속 판정기가 없다 — 그 전까지 적격 목록은 비워 둔다(행이 있다고 적격으로 올리지 않는다).
+ * 원장은 관리자 전용 RLS 라 학습자 세션으로는 0행이 보인다 — 적격 판정은 서버 전용 클라이언트(`admin`)로만 읽는다.
+ * `admin` 이 없거나 원장 · 승인 · 철회 중 하나라도 못 읽으면 적격 0건(installed) 또는 error — 행이 있다고 적격으로 올리지 않는다.
+ * 현재 revision 은 DB 정본 함수 supply_artifact_revision(csat_item) 으로, 현재 주석 해시는 `currentAnnotation` 으로 대 본다.
  */
-export async function loadFqReader(db: SupabaseClient): Promise<FqReader> {
+export async function loadFqReader(
+  db: SupabaseClient,
+  opts: { admin?: SupabaseClient | null; refs?: readonly string[]; tasks?: readonly string[]; currentAnnotation?: (task: string, ref: string) => Promise<string | null> } = {},
+): Promise<FqReader> {
   const { data, error, count } = await db.from('content_qualification').select('id', { count: 'exact' }).limit(1)
-  if (!error) return Array.isArray(data) && typeof count === 'number' && count >= 0 ? { status: 'installed', eligible: [] } : { status: 'error' }
-  const code = (error as { code?: string }).code
-  if (code === '42P01' || code === 'PGRST205') return { status: 'not_installed' }
-  return { status: 'error' }
+  if (error) {
+    const code = (error as { code?: string }).code
+    return code === '42P01' || code === 'PGRST205' ? { status: 'not_installed' } : { status: 'error' }
+  }
+  if (!Array.isArray(data) || typeof count !== 'number' || count < 0) return { status: 'error' }
+  const refs = [...new Set(opts.refs ?? [])]
+  const tasks = new Set(opts.tasks ?? [])
+  if (!opts.admin || !opts.currentAnnotation || refs.length === 0 || tasks.size === 0) return { status: 'installed', eligible: [] }
+  const admin = opts.admin
+  const q = await admin.from('content_qualification')
+    .select('id, artifact_kind, artifact_ref, artifact_revision, source_revision, source_hash, gold_revision, gold_hash, task_id, role, axes, evidence_ids, supersedes')
+    .eq('artifact_kind', 'csat_item').in('artifact_ref', refs).limit(LIMIT)
+  if (q.error || !Array.isArray(q.data) || q.data.length >= LIMIT) return { status: 'error' }
+  const rows = q.data as unknown as FqRow[]
+  if (rows.length === 0) return { status: 'installed', eligible: [] }
+  // 대체된 행 — 같은 정체성의 다른 행이 supersedes 로 가리키는 행. 대체 행이 다른 문항에 있어도 표 전체에서 찾는다
+  const ids = rows.map((r) => r.id)
+  const sup = await admin.from('content_qualification').select('supersedes').in('supersedes', ids).limit(LIMIT)
+  const ap = await admin.from('content_release_approval').select('id, qualification_id, scope').in('qualification_id', ids).limit(LIMIT)
+  if (sup.error || ap.error || !Array.isArray(sup.data) || !Array.isArray(ap.data)) return { status: 'error' }
+  const approvals = ap.data as unknown as FqApprovalRow[]
+  const rv = approvals.length ? await admin.from('content_release_revocation').select('approval_id').in('approval_id', approvals.map((a) => a.id)).limit(LIMIT) : { data: [], error: null }
+  if (rv.error || !Array.isArray(rv.data)) return { status: 'error' }
+  const supersededIds = new Set((sup.data as Row[]).map((x) => String(x.supersedes)))
+  const revoked = new Set((rv.data as Row[]).map((x) => String(x.approval_id)))
+  const eligible: { ref: string; task: string; role: string; qualificationId: string }[] = []
+  for (const r of rows) {
+    const rev = await admin.rpc('supply_artifact_revision', { p_kind: 'csat_item', p_ref: r.artifact_ref })
+    if (rev.error) return { status: 'error' }
+    const annotation = await opts.currentAnnotation(r.task_id, r.artifact_ref)
+    const v = fqRowVerdict(r, { tasks, supersededIds, approvals, revoked, currentRevision: typeof rev.data === 'string' ? rev.data : null, currentAnnotation: annotation })
+    if (v.ok) eligible.push({ ref: r.artifact_ref, task: r.task_id, role: r.role, qualificationId: r.id })
+  }
+  return { status: 'installed', eligible }
 }
