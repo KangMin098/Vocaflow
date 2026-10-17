@@ -34,6 +34,38 @@ const run = async (db, opts = {}) => {
   try { return await applyStage(c, 'db1', { text, sha, approvedBy: 'test metadata; no user approval', ...opts }) } finally { c.release() }
 }
 try {
+  if (args.includes('--ci-prerequisites-only')) {
+    const { prerequisiteSQL } = await load('scripts/ci/factory-i1-prerequisites.mjs')
+    const db = await cluster.newDb('ind_ci_prerequisites')
+    await db.query('create role service_role nologin')
+    await db.query('drop function public.is_admin(); drop function public.csat_source_is_eligible(uuid)')
+    await db.query('begin; ' + prerequisiteSQL + '; commit')
+    let missingSourceRejected = false
+    try { await db.query('select public.csat_source_is_eligible(gen_random_uuid())') } catch (e) { missingSourceRejected = e.code === '42P01' }
+    const r = await run(db)
+    check('N03', 'canonical CI helpers compile; absent article tables fail closed; unchanged DB-1 applies', missingSourceRejected && r.ok,
+      { missingSourceRejected, applied: r.ok, error: r.error?.message })
+    if (r.ok) {
+      const c = await db.connect()
+      let r2
+      try {
+        const uid = (await c.query("insert into auth.users values (gen_random_uuid()) returning id")).rows[0].id
+        await c.query("insert into public.admins values ($1, 'admin')", [uid])
+        await c.query("insert into public.csat_items (id,exam_id,no,stem,passage,choices,answer) values ('CI#1','CI',1,'s','p','[1]',1)")
+        await c.query('begin')
+        await c.query("select set_config('request.jwt.claim.sub', $1, true)", [uid])
+        const rev = (await c.query("select public.supply_artifact_revision('csat_item','CI#1') r")).rows[0].r
+        await c.query(`select public.content_qualification_record('FQ1.1','csat_item','CI#1',$1,'r.central_meaning','guided_practice',
+          '{"A":{"state":"pass"},"B":{"state":"pass"},"C":{"state":"pass"},"D":{"state":"pass"},"E":{"state":"pass"},"F":{"state":"pass"},"G":{"state":"pass"},"H":{"state":"pass"}}'::jsonb,
+          's', $2, null, 'g', $2, '{}', '{e}', 'm', null)`, [rev, 'a'.repeat(64)])
+        await c.query('commit')
+        const db2 = fs.readFileSync(path.join(root, STAGES.db2.path), 'utf8')
+        r2 = await applyStage(c, 'db2', { text: db2, sha: hash(db2), approvedBy: 'isolated test' })
+      } finally { c.release() }
+      const count = (await db.query('select count(*)::int n from public.content_qualification')).rows[0].n
+      check('N04', 'DB-2 accepts legitimate DB-1 ledger use and preserves rows', r2.ok && count === 1, { applied: r2.ok, count, error: r2.error?.message })
+    }
+  } else {
   {
     const url = `postgresql://postgres:x@db.${PROJECT_REF}.supabase.co:5432/postgres?host=127.0.0.1&port=${cluster.port}&sslmode=disable`
     const actual = new deps.pg.Client({ connectionString: url }).connectionParameters
@@ -136,6 +168,7 @@ try {
     finally { await blocker.query('rollback'); blocker.release(); c.release() }
     check('N02', 'lock acquired after preflight hits real 15s timeout and rolls back', !r.ok && r.error?.code === '55P03'
       && JSON.stringify(before) === JSON.stringify(await snap(db)) && !(await history(db)).includes(STAGES.db1.version), { error: r.error })
+  }
   }
 } finally { await cluster.stop() }
 const report = { subject: submitted ? '3d4f773d8d134923c92518a8ab5c80951c81f77e' : 'working-tree', server_version: cluster.version,

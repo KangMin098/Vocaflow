@@ -16,8 +16,9 @@
 | R03 | P1 | 배포 중 event trigger가 기존 `is_admin()` 본문을 `select true`로 바꿔도 허용된 함수 이름이라 적용 성공 | helper 두 개의 적용 전/후 전체 pg_proc 속성 비교(proconfig 제외) + 정확한 최종 search_path. 본문·ACL·정의자·소유권 등 불변 |
 | R04 | P1 | 실제 COMMIT 후 응답만 ECONNRESET으로 유실시키면 이력이 존재하는데도 러너는 실패/롤백으로 보고 | outcome=unknown·종료 4·사고 분류. DDL 전 의도 로그와 Git/manifest/runner SHA 기록. 읽기 대조 전 재시도/복구 금지 |
 | R05 | P2 | preflight 뒤 새 원격 이력을 넣어도 실제 apply는 성공 | 적용 트랜잭션 안에서 이력 표를 잠근 뒤 preflight 재실행; 신규 이력 거절 |
-| R06 | P2 | DB-1 검증이 현재 실패하는 권한 상태에서도 DB-2를 적용할 수 있었다. CLI의 JSON `verify.ok`는 로컬에서 조작 가능 | DB-2 적용과 같은 연결/잠긴 트랜잭션에서 DB-1 검증 전부 재실행. 이력 SHA와 기존 로그도 계속 요구 |
+| R06 | P2 | DB-1 검증이 현재 실패하는 권한 상태에서도 DB-2를 적용할 수 있었다. CLI의 JSON `verify.ok`는 로컬에서 조작 가능 | DB-2 적용과 같은 연결/잠긴 트랜잭션에서 DB-1 보안·이력·노출 검증 재실행. 이력 SHA와 기존 로그도 계속 요구. 최초 배포 전용 빈 원장 검사는 제외해 정상 사용 데이터 보존 |
 | R01 후속 | P2 | 독립 목적 리뷰에서 URL 포트 생략 + PGPORT=6543 상속 반례 추가 발견(접속 없이 pg 드라이버 설정 재현) | 운영 URL에 명시적 :5432 필수, 포트 생략 회귀 추가 |
+| 후속 CI | P2 | 빈 Supabase에서 기존 migration 실패로 helper 두 개가 없어 DB-1의 전제 검사가 거절. 첫 CI 준비 코드의 archive 경로 누락도 목적 리뷰로 발견 | 운영 SQL/가드는 불변. CI에서만 두 helper의 저장소 정본 본문/ACL을 복구하고 `_all_migrations` 경로 회귀를 추가 |
 
 정책 승인, OS 자격증명, 터미널은 신뢰 경계다. 같은 자격증명을 가진 임의 프로그램이 사용자 동의를 암호학적으로 증명할 수 있다고 주장하지 않는다. 시험 라이브러리를 운영 승인 우회 경로로 안내하지 않는다.
 
@@ -49,11 +50,15 @@
 | 수정 추가 반례 | [8/8](./fixed-counterexamples.json): 6결함 차단 + 동시 DDL 거절 + 실제 15초 락 타임아웃/rollback |
 | 배포 SQL 위 기존 I1 동시성 | [33/33](./fixed-concurrency.txt): RLS·권한·G2·NULL 관리자·pg_temp·직렬화. 시험의 D3는 기존 회귀 조건을 유지하기 위해서만 별도 로드하며 DB-1/2에는 미포함 |
 | 오프라인/권한/로그 회귀 | deploy.test.mjs 5/5, 공용 guard 90/90. CI verify에 배포 회귀 추가 |
+| CI 전제와 DB-2 생명주기 | [N03/N04 2/2](./ci-prerequisites-isolated.json): 정본 helper 복구·없는 원천 표 오류·DB-1 적용·정상 자격 원장 1행을 보존한 DB-2 적용. CI 전용 URL/환경/archive 경로 단위 3/3 |
+| 공용 에이전트 전체 회귀 | [141/141](./agent-regression.txt) |
 | 읽기 전용 개발 DB | [remote-preflight.json](./remote-preflight.json): 프로젝트 ref 확인, PostgreSQL 17.6·이력 722행·최대 20261014091841·DB-1/2 없음·전제 충족·충돌/락 0·DB-1 차단 0 |
-| 목적 리뷰 | [read-only reviewer NO_FINDINGS](./purpose-independent.txt), 포트 생략 P2 수정 후 5/5 재확인. 표준 review.mjs의 제출본/통합 직후 지적은 [purpose-cli-submitted.txt](./purpose-cli-submitted.txt)에 보존하며 위 수정에 반영 |
+| 목적 리뷰 | [read-only reviewer NO_FINDINGS](./purpose-independent.txt). 표준 review.mjs의 [제출본 지적](./purpose-cli-submitted.txt)과 [첫 수정본 지적](./purpose-cli-fixed-first.txt)을 보존했다. DB-2 빈 원장 과잉 차단을 수정했고, 실제 저장소 Supabase secrets 부재로 기존 PR 통합 시험의 실행 범위가 줄었다는 근거가 없음을 확인. 후속 독립 리뷰 8/8·NO_FINDINGS |
 | 최신 main/필수 CI | main #283 통합. 최종 8종과 빈 Supabase migration 적용은 원격 PR CI 결과 확인 후 아래 상태 갱신 |
 
 PR CI verify는 공유 개발 DB 비밀값을 전달하지 않는다. DB 동작은 별도 로컬 Supabase e2e와 격리 PostgreSQL로 검증한다. main/수동 CI의 기존 공유 DB 동작은 이번 작업에서 실행하지 않는다.
+
+첫 코드 HEAD `191f71a96`의 CI verify/build/정합 5종은 성공했고 e2e 두 잡은 [전제 함수 누락](./first-ci-failure.json)으로 실패했다. 이를 성공으로 세거나 known-failure 목록에 DB-1을 추가하지 않았다. CI 전용 복구는 두 함수의 정본 정의만 만들며 새 표/이력을 만들지 않는다. 런타임에 없는 article 표를 읽으면 오류로 닫히는 것을 확인했다. 전체 운영 의존성이 빈 DB에 복원됐다고 주장하지 않는다. 이 저장소의 secret 이름 실측에서는 Supabase URL/anon/service 세 가지가 모두 없었으므로 기존 PR의 실DB 통합 시험도 환경 조건으로 skip되던 상태다. 이번 작업이 그 시험들을 새롭게 skip시킨 것은 아니다.
 
 한계: 최소 의존 사본 PostgreSQL 시험은 실 Supabase의 전체 auth/확장/event trigger 환경을 대체하지 않는다. pgsodium 등 실DB 확장 부작용과 실제 역할/학습 데이터 검증은 적용 뒤 필요하다. 카탈로그 지문은 문서에 적힌 데이터 행/역할/시퀀스 값 등 제외 범위를 가진다. 타 세션의 DDL이 에필로그 이후 발생하는 것까지 직렬화하는 계약은 아니다.
 

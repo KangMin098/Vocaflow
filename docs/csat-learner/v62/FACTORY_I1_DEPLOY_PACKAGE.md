@@ -84,6 +84,8 @@ DB286 보완: 기존 helper 두 개는 적용 전 `pg_proc`의 모든 속성을 
 
 ## 7. 격리 검증(실제 PostgreSQL 17.10 임시 클러스터)
 
+DB286의 첫 빈 Supabase CI에서는 기존 migration 롤백으로 helper 두 개가 사라져 DB-1이 전제 검사에서 안전하게 거절됐다. [최초 실패](../../research/factory-i1-deploy-286-independent/first-ci-failure.json)를 보존했다. CI 준비 단계만 `scripts/ci/factory-i1-prerequisites.mjs`로 두 함수의 **저장소 정본 본문과 ACL**을 복구한다. GitHub Actions의 loopback:54322/postgres에만 쓰며 query/포트 재정의는 거절한다. `check_function_bodies=off`는 이 fixture 트랜잭션에서만 사용하고, 미버전 원천 표가 없으면 실제 호출은 오류로 닫힌다. 새 표·운영 이력 생성이나 운영 migration 전제 완화는 없다. N03/N04 PostgreSQL 시험에서 이 경계와 원장 1행을 보존한 DB-2 적용을 확인했다. 전체 운영 스키마 복원 성공을 의미하지 않는다.
+
 | 실행 | 결과 | 증거 |
 |---|---|---|
 | `isolated.mjs` 배포 절차 | **47/47** | `evidence/isolated-deploy.json` |
@@ -157,7 +159,7 @@ node scripts/db/factory-i1/deploy.mjs verify --stage db1 --deps <deps>
 
 1. DB-1 verify 로그가 `ok` 인 것을 확인하고 공급 E2E 등 DB-1 운영 검증을 끝낸다.
 2. `preflight --stage db2` — DB-1 이력 해시 · 객체 · helper 가 DB-1 직후와 같아야 차단 0.
-3. `apply --stage db2 --confirm-sha 2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b --approved-by "…" --db1-verify-log supabase/deploy/factory-i1/logs/db1-verify-….json`. 로그만으로 통과하지 않으며 같은 연결에서 DB-1 검증을 다시 통과해야 한다(8원장 빈 상태 포함).
+3. `apply --stage db2 --confirm-sha 2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b --approved-by "…" --db1-verify-log supabase/deploy/factory-i1/logs/db1-verify-….json`. 로그만으로 통과하지 않으며 같은 연결에서 DB-1의 보안·이력·노출 검증을 다시 통과해야 한다. 최초 배포 전용 `tables_empty`는 후속 DB-2 진입에서 제외해 정상 사용 원장을 보존한다.
 4. `verify --stage db2`(7행) · 승격 PR 에서 DB-2 파일을 `supabase/migrations/` 로 옮긴다(이력 해시가 같으므로 safe-merge 통과).
 
 ## 10. 독립 검토(2026-10-17 · 맥락 없는 Claude 서브에이전트 · 읽기 전용 · Codex CLI 는 이 머신에 없음)

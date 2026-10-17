@@ -1,0 +1,12 @@
+{
+  "head": "191f71a964a77d81f7ef99765b70326514d709d5",
+  "job": "https://github.com/KangMin098/Vocaflow/actions/runs/39032185792/job/117394732310",
+  "failure": "Empty Supabase: known legacy transaction failures remove canonical is_admin() and csat_source_is_eligible(uuid); new DB-1 correctly rejects missing prerequisites.",
+  "excerpts": [
+    "2026-10-17T12:23:22.6734755Z ##[warning]마이그레이션 실패 20260706010000_vrl_admin_read_policies.sql — psql:supabase/_all_migrations/20260706010000_vrl_admin_read_policies.sql:22: ERROR:  relation \"user_level_snapshots\" does not exist",
+    "2026-10-17T12:23:32.5646082Z ##[warning]마이그레이션 실패 20260918140000_csat_source_eligibility_cache.sql — psql:supabase/_all_migrations/20260918140000_csat_source_eligibility_cache.sql:18: ERROR:  relation \"public.library_articles\" does not exist",
+    "2026-10-17T12:23:35.8320573Z ##[warning]마이그레이션 실패 20261017200000_factory_i1_db1_supply_foundation.sql — psql:supabase/_all_migrations/20261017200000_factory_i1_db1_supply_foundation.sql:48: ERROR:  DEPLOY_BLOCKED[prereq] 전제 함수가 없다: {public.is_admin(),public.csat_source_is_eligible(uuid)}",
+    "2026-10-17T12:23:35.8545181Z 적용 성공 352 · 실패 165",
+    "2026-10-17T12:23:35.8611052Z ##[error]빈 DB 에서 새로 실패한 마이그레이션(기준 목록 밖):"
+  ]
+}

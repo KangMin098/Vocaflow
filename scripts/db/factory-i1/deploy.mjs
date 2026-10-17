@@ -197,7 +197,8 @@ export async function applyStage(client, stage, { text, sha, approvedBy, injectF
       if (blocks.length) throw new Error(blocks.join('\n'))
       if (stage === 'db2') {
         // A local JSON with verify.ok=true is not evidence by itself. Re-run DB-1 checks on this connection.
-        for (const q of verifySql('db1')) {
+        // Empty ledgers are an initial deployment check, not an invariant after legitimate DB-1 use.
+        for (const q of verifySql('db1').filter((sql) => !sql.includes("'tables_empty'"))) {
           const r = await client.query({ text: q, values: q.includes('$1') ? [buildAll().db1.sha256] : [], rowMode: 'array' })
           if (r.rows[0]?.[1] !== true) throw new Error(`DEPLOY_BLOCKED[db1-first] live DB-1 verification failed: ${r.rows[0]?.[0]}`)
         }

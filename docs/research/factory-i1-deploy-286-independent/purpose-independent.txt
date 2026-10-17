@@ -7,3 +7,11 @@ Reviewed locked preflight, live DB-1 verification before DB-2, helper invariants
 COMMIT uncertainty, CLI authorization gates and log SHA metadata.
 No files changed; no database connections or writes by this reviewer.
 Full 47/33, remote CI and final documentation hashes not rerun by this reviewer.
+
+Follow-up after first CI and standard CLI review:
+NO_FINDINGS; 8/8 focused tests passed.
+Caught/fixed CI archive path: sourceDirectory prefers supabase/_all_migrations after CI moves files.
+DB-2 correctly omits only initial tables_empty check; N04 preserves a real qualification row.
+Canonical prerequisite bodies/ACLs recovered only on disposable CI loopback; N03 confirms missing source tables fail closed.
+Measured repository secret names provide no evidence that pre-existing PR live-test coverage was reduced.
+No development DB connections or writes. Final remote CI must still be checked.
