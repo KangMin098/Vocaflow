@@ -80,8 +80,8 @@ export async function loadExposureLedger(db: SupabaseClient, userId: string, can
  * 표가 생겨도 이 저장소에는 아직 역할 · TASK · hash 결속 판정기가 없다 — 그 전까지 적격 목록은 비워 둔다(행이 있다고 적격으로 올리지 않는다).
  */
 export async function loadFqReader(db: SupabaseClient): Promise<FqReader> {
-  const { error } = await db.from('content_qualification').select('id', { count: 'exact', head: true })
-  if (!error) return { status: 'installed', eligible: [] }
+  const { data, error, count } = await db.from('content_qualification').select('id', { count: 'exact' }).limit(1)
+  if (!error) return Array.isArray(data) && typeof count === 'number' && count >= 0 ? { status: 'installed', eligible: [] } : { status: 'error' }
   const code = (error as { code?: string }).code
   if (code === '42P01' || code === 'PGRST205') return { status: 'not_installed' }
   return { status: 'error' }

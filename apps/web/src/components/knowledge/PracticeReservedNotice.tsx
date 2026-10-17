@@ -24,7 +24,7 @@ export function PracticeReservedNotice({ reservedCount, ledgerError }: { reserve
         <h2 id="practice-next">이렇게 이어 가요</h2>
         <p className="break-keep">{!ledgerError && reservedCount === 0 ? '학습 지도에서 자료 준비 상태와 다음 학습 경로를 볼 수 있어요.' : '학습 지도에서 「주장과 근거」 확인 과제를 먼저 풀어 보세요. 확인을 마친 문항은 그다음부터 여기서 연습할 수 있어요.'}</p>
         <p>
-          <Link href="/csat/diagnosis" className={s.link} data-testid="practice-content-needed-map">
+          <Link href="/csat/diagnosis?tab=map&map_task=r.central_meaning" className={s.link} data-testid="practice-content-needed-map">
             <Map size={14} aria-hidden="true" />&nbsp;학습 지도로 가기&nbsp;<ArrowRight size={14} aria-hidden="true" />
           </Link>
         </p>

@@ -137,8 +137,8 @@ try {
           rec(`${width} 지도 복귀 — 키보드 · 보이는 초점`, focus.active && focus.visible && (focus.outline !== 'none' || focus.shadow !== 'none'), focus)
           if (EVID) await page.screenshot({ path: path.join(EVID, `${width}-${mode}.png`) })
           await page.keyboard.press('Enter')
-          await page.waitForURL((u) => u.pathname === '/csat/diagnosis')
-          rec(`${width} 지도 복귀 링크 실제 이동`, new URL(page.url()).pathname === '/csat/diagnosis')
+          await page.waitForURL((u) => u.pathname === '/csat/diagnosis' && u.searchParams.get('tab') === 'map')
+          rec(`${width} 지도 복귀 링크 실제 이동`, new URL(page.url()).searchParams.get('tab') === 'map' && new URL(page.url()).searchParams.get('map_task') === 'r.central_meaning')
         } else if (EVID) await page.screenshot({ path: path.join(EVID, `${width}-${mode}.png`) })
         rec(`${width} ${mode} — 가로 넘침 없음`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
       }

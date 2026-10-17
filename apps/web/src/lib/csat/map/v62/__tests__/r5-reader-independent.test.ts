@@ -55,4 +55,7 @@ describe('R5 independent reader boundaries — no network or writes', () => {
   it('installed FQ has no trusted role/TASK/hash qualifier and returns eligible zero', async () => {
     expect(await loadFqReader(reader({ table: 'content_qualification', count: 17 }).db)).toEqual({ status: 'installed', eligible: [] })
   })
+  it('ambiguous FQ success without an exact count is an error, not installed zero', async () => {
+    expect(await loadFqReader(reader({ table: 'content_qualification', count: null }).db)).toEqual({ status: 'error' })
+  })
 })

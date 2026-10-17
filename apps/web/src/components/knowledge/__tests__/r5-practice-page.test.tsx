@@ -36,12 +36,12 @@ it.each([false, true])('empty reserved pool gives a map return with ledgerError=
   Object.assign(state, { reserved: [...state.pool], error })
   const html = await page()
   expect(html).toContain(`data-reason="${error ? 'ledger_error' : 'reserved_for_check'}"`)
-  expect(html).toContain('href="/csat/diagnosis"')
+  expect(html).toContain('href="/csat/diagnosis?tab=map&amp;map_task=r.central_meaning"')
 })
 it('actual live practice pool zero has a truthful empty state and map return', async () => {
   state.pool = []
   const html = await page()
   expect(html).toContain('data-reason="no_live_items"')
   expect(html).not.toContain('남은 문항 0개는')
-  expect(html).toContain('href="/csat/diagnosis"')
+  expect(html).toContain('href="/csat/diagnosis?tab=map&amp;map_task=r.central_meaning"')
 })

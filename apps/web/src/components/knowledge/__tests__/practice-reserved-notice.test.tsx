@@ -10,7 +10,7 @@ describe('PracticeReservedNotice', () => {
     const html = renderToStaticMarkup(<PracticeReservedNotice reservedCount={9} ledgerError={false} />)
     expect(html).toContain('data-reason="reserved_for_check"')
     expect(html).toContain('남은 문항 9개')
-    expect(html).toContain('href="/csat/diagnosis"')
+    expect(html).toContain('href="/csat/diagnosis?tab=map&amp;map_task=r.central_meaning"')
     expect(html).toContain('break-keep')
   })
   it('원장 오류 — 「이미 다 봤다」 가 아니라 「기록을 다 읽지 못했다」', () => {
