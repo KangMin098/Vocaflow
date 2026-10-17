@@ -186,7 +186,7 @@ begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   b := p_canonical::jsonb;
-  if (b->>'v') <> '2' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
+  if (b->>'v') is distinct from '2' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
   if (b->>'workspaceId') is null or (b->>'planVersion') is null then raise exception 'demand: workspace and plan required'; end if;
   v_sig := encode(sha256(convert_to(p_canonical, 'UTF8')), 'hex');
   select id, canonical into v_id, v_stored from workspace_content_demand where user_id = v_uid and signature = v_sig;

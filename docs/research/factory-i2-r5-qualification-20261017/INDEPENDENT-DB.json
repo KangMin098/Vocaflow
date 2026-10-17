@@ -1,0 +1,108 @@
+[
+  {
+    "evidence": {
+      "items": {
+        "2020#24": {
+          "no": 24,
+          "exam": {
+            "kind": "suneung",
+            "year": 2020,
+            "organizer": "kice",
+            "paperForm": "짝수",
+            "sourceNote": null,
+            "hasAnswerKey": true
+          },
+          "type": "R-TITLE",
+          "answer": 2,
+          "bodyOk": true,
+          "examId": "2020",
+          "inScope": true,
+          "analysis": {
+            "version": 4,
+            "unitsHash": null,
+            "contentSha256": "3aa5023f451e1a9f1edd520f9b888a2179e1e4f4d5af79ecba4b77e3ad965974"
+          },
+          "exposure": {
+            "attempts": 0,
+            "sessions": 0,
+            "dxResponses": 0,
+            "attemptsByActivityPhase": {},
+            "explanationViewedSessions": 0
+          },
+          "bRevision": "665745b76f720932afd513e9242ed756be6c1d546f5c4d7de054aea824d3a8e8",
+          "applications": [
+            {
+              "role": "transfer",
+              "status": "active",
+              "version": 1,
+              "released": true,
+              "surfaceRef": "claim-support:2020-24",
+              "releaseApproved": true
+            }
+          ],
+          "inPublicView": true,
+          "passageSha256": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c",
+          "samePassageItems": []
+        },
+        "2021#24": {
+          "no": 24,
+          "exam": {
+            "kind": "suneung",
+            "year": 2021,
+            "organizer": "kice",
+            "paperForm": "짝수",
+            "sourceNote": null,
+            "hasAnswerKey": true
+          },
+          "type": "R-TITLE",
+          "answer": 3,
+          "bodyOk": true,
+          "examId": "2021",
+          "inScope": true,
+          "analysis": {
+            "version": 4,
+            "unitsHash": null,
+            "contentSha256": "aae0fd7bdeb5dd86cc08b2d0af4c6f3e0a524ccbc104310e5cd2d11111e52d66"
+          },
+          "exposure": {
+            "attempts": 0,
+            "sessions": 0,
+            "dxResponses": 0,
+            "attemptsByActivityPhase": {},
+            "explanationViewedSessions": 0
+          },
+          "bRevision": "5788f7ae0ecb47fe71196983e0772f90deb834080e3e2e97b9b3ce796c9cd98c",
+          "applications": [
+            {
+              "role": "transfer",
+              "status": "active",
+              "version": 1,
+              "released": true,
+              "surfaceRef": "claim-support:2021-24",
+              "releaseApproved": true
+            }
+          ],
+          "inPublicView": true,
+          "passageSha256": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274",
+          "samePassageItems": []
+        }
+      },
+      "schema": "vf.factory-i2-r5-qualification-db/1",
+      "ledgers": {
+        "factory_order": false,
+        "content_qualification": false,
+        "content_release_approval": false,
+        "workspace_content_demand": false,
+        "content_release_revocation": false,
+        "workspace_content_delivery": false,
+        "workspace_content_demand_line": false
+      },
+      "measuredAt": "2026-10-17T11:10:15.319225+00:00",
+      "transferAttempts": [],
+      "claimSupportAttemptsByActivityPhase": {
+        "theater:practice:real": 1,
+        "theater:practice:synthetic": 124
+      }
+    }
+  }
+]

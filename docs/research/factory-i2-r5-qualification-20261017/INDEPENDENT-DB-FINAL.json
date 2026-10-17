@@ -1,0 +1,25 @@
+[
+  {
+    "measured_at": "2026-10-17 11:21:39.975177+00",
+    "attempts": 0,
+    "sessions": 0,
+    "dx_responses": 0,
+    "trap_attempts": 0,
+    "session_attempts": 0,
+    "review_queue": 0,
+    "normalized_same_passage": 0,
+    "installed": {
+      "factory_order": false,
+      "factory_order_event": false,
+      "content_qualification": false,
+      "factory_product_order": false,
+      "content_release_approval": false,
+      "workspace_content_demand": false,
+      "supply_current_annotation": false,
+      "content_release_revocation": false,
+      "factory_order_product_link": false,
+      "workspace_content_delivery": false,
+      "workspace_content_demand_line": false
+    }
+  }
+]
