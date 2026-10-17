@@ -1,0 +1,271 @@
+{
+  "suite": "R5 연습 ↔ 독립 평가 경계(e2e-r5-assessment-boundary.mjs)",
+  "head": "53c75b585585a3e93d40b105541f39f9b88ad450",
+  "base": "http://localhost:3131",
+  "startedAt": "2026-10-17T13:10:06.643Z",
+  "endedAt": "2026-10-17T13:11:20.235Z",
+  "browser": "chromium(@playwright/test) · 1280×900 · 1440×900",
+  "population": "기존 검증 계정 1(새 계정 · 기록 없음 · 쓰기 전부 가로챔)",
+  "results": [
+    {
+      "name": "1280 ① 평가 역할 줄이 available/learn_now 아님(FQ 미설치)",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "open_unqualified",
+          "step": "open_unqualified",
+          "text": "독립 확인 · 2개기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+        }
+      ]
+    },
+    {
+      "name": "1280 ① 열 수 있는 평가 줄은 「정식 자격 확인 전」 표시",
+      "ok": true,
+      "detail": [
+        "open_unqualified"
+      ]
+    },
+    {
+      "name": "1280 ② 연습 화면 열림(예약 문항 제외 뒤 남은 문항)",
+      "ok": true,
+      "detail": {
+        "options": 4
+      }
+    },
+    {
+      "name": "1280 ③ 가로 넘침 없음",
+      "ok": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "1280 fq_error — 상태 구분 · 적격 공급으로 승격하지 않음",
+      "ok": true,
+      "detail": [
+        {
+          "state": "open_unqualified",
+          "step": "open_unqualified"
+        }
+      ]
+    },
+    {
+      "name": "1280 fq_error — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 fq_zero — 상태 구분 · 적격 공급으로 승격하지 않음",
+      "ok": true,
+      "detail": [
+        {
+          "state": "open_unqualified",
+          "step": "open_unqualified"
+        }
+      ]
+    },
+    {
+      "name": "1280 fq_zero — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 reserved — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1280 reserved — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 ledger_error — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1280 ledger_error — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 no_live — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1280 출시 문항 0 — 예약 0개라고 말하지 않고 자료 부족 안내",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 지도 복귀 — 키보드 · 보이는 초점",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "visible": true,
+        "outline": "solid",
+        "shadow": "none",
+        "width": 152.984375,
+        "height": 44
+      }
+    },
+    {
+      "name": "1280 지도 복귀 링크 실제 이동",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1280 no_live — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 ① 평가 역할 줄이 available/learn_now 아님(FQ 미설치)",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "open_unqualified",
+          "step": "open_unqualified",
+          "text": "독립 확인 · 2개기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+        }
+      ]
+    },
+    {
+      "name": "1440 ① 열 수 있는 평가 줄은 「정식 자격 확인 전」 표시",
+      "ok": true,
+      "detail": [
+        "open_unqualified"
+      ]
+    },
+    {
+      "name": "1440 ② 연습 화면 열림(예약 문항 제외 뒤 남은 문항)",
+      "ok": true,
+      "detail": {
+        "options": 4
+      }
+    },
+    {
+      "name": "1440 ③ 가로 넘침 없음",
+      "ok": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "1440 fq_error — 상태 구분 · 적격 공급으로 승격하지 않음",
+      "ok": true,
+      "detail": [
+        {
+          "state": "open_unqualified",
+          "step": "open_unqualified"
+        }
+      ]
+    },
+    {
+      "name": "1440 fq_error — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 fq_zero — 상태 구분 · 적격 공급으로 승격하지 않음",
+      "ok": true,
+      "detail": [
+        {
+          "state": "open_unqualified",
+          "step": "open_unqualified"
+        }
+      ]
+    },
+    {
+      "name": "1440 fq_zero — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 reserved — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1440 reserved — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 ledger_error — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1440 ledger_error — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 no_live — 직접 URL에도 확인 예약 문항 제외",
+      "ok": true,
+      "detail": {
+        "values": [],
+        "notice": 1
+      }
+    },
+    {
+      "name": "1440 출시 문항 0 — 예약 0개라고 말하지 않고 자료 부족 안내",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 지도 복귀 — 키보드 · 보이는 초점",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "visible": true,
+        "outline": "solid",
+        "shadow": "none",
+        "width": 152.984375,
+        "height": 44
+      }
+    },
+    {
+      "name": "1440 지도 복귀 링크 실제 이동",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1440 no_live — 가로 넘침 없음",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "쓰기 요청이 실 DB 에 닿지 않음(가로챈 쓰기만 존재)",
+      "ok": true,
+      "detail": {
+        "intercepted": [
+          "POST /api/analytics/event",
+          "PUT /api/csat/state"
+        ]
+      }
+    }
+  ],
+  "pass": 35,
+  "fail": 0
+}

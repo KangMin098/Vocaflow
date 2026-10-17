@@ -1,7 +1,5 @@
 # CHANGELOG
 
-- fix(csat): PR #285 독립 반례 보강 — 미노출 전이 후보와 예약 지문 공유 문항도 연습에서 보호하고, 빈 안내는 실제 자격·실행 준비를 약속하지 않는다. 격리 E2E 서버의 빌드 디렉터리도 분리했다. DB 변경 없음.
-
 - fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.
 
 - Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
@@ -30,7 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수와 반환 건수를 대조해 서버 절단을 차단하고, 연습 전이를 효과 표본에서 제외했다. 선택 문항별 E2E 키·골격·정답 결속, 실제 0문항 안내, FQ 상태 표시와 서버 DB 쓰기 차단 검증을 보강했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
+- fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
 
 - PR #283 독립 검증: 주석 결속 승인안의 NULL 권한·적용 순서·현재 주석 대조 누락을 보완했다. 공급/현재 충족도의 ref·hash·revision·TASK 비교와 과거 이력 보존을 격리 PostgreSQL에서 검증. SQL/배포 동기화 미승인, C/E/F/H UNKNOWN 및 실제 I2 BLOCKED 유지. [수용 기록](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
 
