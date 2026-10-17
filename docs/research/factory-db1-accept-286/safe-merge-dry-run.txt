@@ -1,0 +1,7 @@
+[safe-merge] 정책 v1.1 · 출처 origin/main · 병합 켜짐
+[safe-merge] 대규모 변경 57파일 — 「## 검증」 절 있음
+[safe-merge] PR #286 병합 안 함 · head 37aafced8
+- 병합 가능 상태 아님(CONFLICTING)
+- DB 변경 supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql — 개발 DB 적용 이력을 읽지 못했다(SUPABASE_ACCESS_TOKEN) · 증거 없이 병합하지 않는다
+
+exit_code=3

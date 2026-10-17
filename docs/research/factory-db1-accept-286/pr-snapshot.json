@@ -1,0 +1,163 @@
+{
+  "baseRefName": "main",
+  "body": "## 목적 · 최종 독립 판정\nCodex-DB286이 제출 HEAD `3d4f773d8d134923c92518a8ab5c80951c81f77e`를 독립 검증했다. **최초 REWORK → 수정 후 ACCEPT_WITH_LIMITS · DB-1 DEPLOY_READY**.\n\n최종 HEAD **`37aafced818cc1d0e8607ac4f085a52bc5c729f8`**까지 수정·검증·문서·commit·push 완료. 최신 main `732f2bb0f0b4094c175c0b5e8a66c799d704a6a0`(#283) 통합. **실제 개발 DB 쓰기/이력 기록/배포/safe-merge/병합 0.**\n\n## 수용 기준\n- DB-1은 C→B→I1-S 한 파일·한 트랜잭션·이력 한 행이다.\n- C/S/P 원본 바이트 불변. B는 main #283의 NULL 버전 거절 한 줄만 동기화했다. I0 delta·D3·I2 annotation binding은 배포본 미포함.\n- 영구 객체 범위 추가 없음. 기존 helper 두 함수는 search_path만 변경하며 본문/ACL/소유자 등 불변을 검증한다.\n- 새 전체 SHA와 변경 범위의 명시 승인은 별도다. `--approved-by`·독립 수용·격리 시험은 사용자 DB 적용 승인 증거가 아니다.\n\n## 수정된 P1/P2\n- 자동 환경/임의 승인 문자열/CLI isolated 쓰기 차단, 공용 DB 승인 훅 연결.\n- URL host/port/TLS 재정의·포트 생략/PGPORT 상속 차단, TLS 인증서 검증.\n- helper 본문을 무조건 true로 바꾸던 event trigger 반례 차단.\n- COMMIT 응답 유실/서버 종료/내부 오류를 unknown 사고로 처리하고 DDL 전 의도 로그와 Git/manifest/runner SHA 기록.\n- 잠금 안의 preflight 재검사로 이력 경합 차단.\n- DB-2 직전 DB-1 보안·이력·노출 검증 재실행. 정상 원장 행은 보존한다.\n- 빈 CI의 기존 migration 롤백으로 누락되는 helper 둘만 정본 정의/ACL로 복구. 운영 SQL 가드는 완화하지 않았으며 복구 도구는 GitHub Actions loopback:54322 전용이다.\n\n## 검증\n- 격리 PostgreSQL 17.10 배포 **47/47**, 기존 동시성/RLS/권한/G2 **33/33**, 독립 반례 **8/8**, CI/원장 생명주기 **2/2**.\n- 배포/CI 전제 집중 단위 **9/9**, 공용 에이전트 회귀 **141/141**.\n- 표준 목적 리뷰 **NO_FINDINGS**, 마지막 COMMIT 분류 보완도 독립 리뷰 **NO_FINDINGS**.\n- **최종 HEAD 필수 CI 8/8 SUCCESS** + `e2e-gate-faultclosed` SUCCESS. [최종 CI](https://github.com/KangMin098/Vocaflow/actions/runs/39033506878) · [최종 정합 체크](https://github.com/KangMin098/Vocaflow/actions/runs/39033506826).\n- 빈 Supabase에서 DB-1을 실제 적용했다. 선행 코드 CI는 두 잡 모두 migration 353성공·기존실패164·새실패0, 브라우저 4통과·고장2통과. DB-1을 known-failure 목록에 추가하지 않았다.\n- PR 검증은 공유 개발 DB 비밀값을 받지 않고 e2e-shared-dev는 SKIPPED다. 읽기 전용 최종 감사: 이력 722·DB-1/2 없음·대상 없음·helper와 원장 수 불변.\n\n## 배포 SHA · 승인 차이\n- DB-1 `20261017200000`: `061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624`\n- DB-2 `20261017200100`: `2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b` (`supabase/migrations` 밖)\n- B 새 SHA `2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02`는 기존 승인을 승계하지 않는다. Git에 커밋된 전체 파일 SHA도 위 값과 직접 대조했다.\n\n## safe-merge까지 남은 조건\n1. 새 B/DB-1 전체 SHA와 wrapper 변경 범위의 사용자 명시 승인.\n2. 정책상 허용된 환경의 권한 있는 배포 실행자가 당일 checkpoint 후 승인된 DB-1 파일 하나만 적용.\n3. 성공한 DB-1 apply/verify 로그와 실제 이력 statements SHA 등록·Git 파일/로그/이력 대조.\n4. 로그 등록 후 최종 HEAD CI/목적 리뷰/최신 main을 확인한 뒤에만 safe-merge 실행. **지금은 실행하지 않는다.**\n5. DB-2는 DB-1 성공 검증 뒤 별도 승인/후속 단계.\n\n제한과 재현 근거: [독립 수용 원장](docs/research/factory-i1-deploy-286-independent/ACCEPTANCE.md) · [배포/검증/복구 절차](docs/csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md).\n",
+  "headRefName": "chore/factory-i1-deploy-package",
+  "headRefOid": "37aafced818cc1d0e8607ac4f085a52bc5c729f8",
+  "mergeable": "CONFLICTING",
+  "number": 286,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:46:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506878/job/117398629786",
+      "name": "verify",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:42:39Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506826/job/117398629678",
+      "name": "TypeScript 0 error",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:43:12Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033503707/job/117398621157",
+      "name": "TypeScript 0 error",
+      "startedAt": "2026-10-17T12:41:10Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:44:27Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506878/job/117398629772",
+      "name": "build",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:30Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506826/job/117398629628",
+      "name": "docs/*.md broken link check",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:28Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033503707/job/117398621111",
+      "name": "docs/*.md broken link check",
+      "startedAt": "2026-10-17T12:41:10Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:10Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506878/job/117398630397",
+      "name": "e2e-shared-dev",
+      "startedAt": "2026-10-17T12:41:11Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:08Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033503707/job/117398621986",
+      "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+      "startedAt": "2026-10-17T12:41:08Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:42Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506826/job/117398629666",
+      "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+      "startedAt": "2026-10-17T12:41:13Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:08Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033503707/job/117398622125",
+      "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+      "startedAt": "2026-10-17T12:41:08Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:48:38Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506878/job/117398629566",
+      "name": "e2e",
+      "startedAt": "2026-10-17T12:41:13Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:31Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506826/job/117398629704",
+      "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:47:57Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506878/job/117398629733",
+      "name": "e2e-gate-faultclosed",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:32Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033506826/job/117398629580",
+      "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+      "startedAt": "2026-10-17T12:41:12Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T12:41:33Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39033503707/job/117398621033",
+      "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+      "startedAt": "2026-10-17T12:41:10Z",
+      "status": "COMPLETED",
+      "workflowName": "sync-check"
+    }
+  ],
+  "title": "chore(db): Factory I1 배포 패키지 — DB-1(C→B→S) · DB-2(P) 버전 migration (미적용)",
+  "url": "https://github.com/KangMin098/Vocaflow/pull/286"
+}
