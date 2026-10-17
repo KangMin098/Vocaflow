@@ -43,10 +43,10 @@ describe('R5 independent reader boundaries — no network or writes', () => {
     const { db } = reader({ table: 'csat_trap_attempts', count: null })
     expect((await loadExposureLedger(db, 'user-a', ['2022#20'])).status).toBe('error')
   })
-  it('all six ledgers scope their query to the learner, including diagnosis join', async () => {
+  it('all ledgers (incl. diagnosis sessions taken) scope their query to the learner, including diagnosis join', async () => {
     const { db, filters } = reader()
     expect((await loadExposureLedger(db, 'user-b', ['2022#20'])).status).toBe('ok')
-    expect(filters.filter(([key]) => key === 'user_id')).toEqual(Array.from({ length: 5 }, () => ['user_id', 'user-b']))
+    expect(filters.filter(([key]) => key === 'user_id')).toEqual(Array.from({ length: 6 }, () => ['user_id', 'user-b']))
     expect(filters).toContainEqual(['csat_dx_session.user_id', 'user-b'])
   })
   it.each([['42P01', 'not_installed'], ['PGRST205', 'not_installed'], ['42501', 'error'], ['XX000', 'error']])('FQ %s is %s', async (code, status) => {

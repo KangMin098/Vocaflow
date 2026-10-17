@@ -99,12 +99,14 @@ export interface ItemPrinciplePanel {
  * 결속이 없는 과제(주장과 근거 · 이어 주는 단서 — 경계 서명만 있는 기존 주석)는 이 관문을 지나지 않는다(완료 계약에 boundary_only 로 남는다).
  * 원문 조회 실패 · 결속 불일치는 닫는다(fail-closed). 원문이 같다는 것은 근거 위치가 맞다는 뜻일 뿐 원인 판정 근거가 아니다.
  */
-export async function anchorGate(itemId: string, client: SupabaseClient = db()): Promise<boolean> {
+/** `strict` 이면 원문 조회 오류를 false 로 삼키지 않고 던진다(자료 부재와 조회 실패를 구분해야 하는 호출자용) */
+export async function anchorGate(itemId: string, client: SupabaseClient = db(), strict = false): Promise<boolean> {
   const selected = currentItemTask(itemId)
   if (selected?.def.key === CONTEXTUAL_SENSE_KEY) {
     const a = selected.ann
     if (!releasable(a)) return false
     const { data, error } = await client.from('csat_items').select('passage, answer, type_id').eq('id', itemId).maybeSingle()
+    if (strict && error) throw error
     if (error || !data || typeof data.passage !== 'string' || !Number.isInteger(data.answer) || data.answer < 1 || data.answer > 5) return false
     if (data.type_id !== 'R-VOCAB' && data.type_id !== 'X-VOCAB') return false
     if (a.markerStyle !== (data.type_id === 'X-VOCAB' ? 'letter' : 'circled')) return false
@@ -113,6 +115,7 @@ export async function anchorGate(itemId: string, client: SupabaseClient = db()):
   const bound = CURATED[itemId] as (typeof CURATED)[string] & { source?: { revision: string } }
   if (!bound) return true
   const { data, error } = await client.from('csat_items').select('passage').eq('id', itemId).maybeSingle()
+  if (strict && error) throw error
   const passage = (data as { passage?: string } | null)?.passage
   if (error || !passage) { console.error('[anchor-gate] 원문 조회 실패', itemId, error?.message); return false }
   // 지금 원문의 revision 을 계산해 넘긴다 — 결속 당시 값을 넘기면 revision 비교가 늘 통과한다(Codex P1)
