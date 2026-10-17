@@ -28,6 +28,10 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(csat): 학평 검수 모니터 D0 — 후속 조치 장부(2,816행)를 PK 복합 커서로 끝까지 읽고(1,000행 상한 오류 해소), 유효 승인 `csat_valid_review_personas_many` 는 200개 묶음이 8s 시간 초과(실측 11.2s)를 넘어 20개·동시성 4·시간 초과 시 분할로 부른다(웹 로더·`review-drain.mjs` 공통, 함수 의미 불변). 전량 2,793 분석 대조: 3/3 2,606 · 0/3 187 — 직접 SQL 과 일치. migration 없음.
+
+- fix(csat): 학평 검수 모니터·`review-drain` 집계 기반 복구(D0) — 후속 조치 장부(2,816행)를 PK `(item_id, source, finding_key)` 복합 커서로 끝까지 읽는다(1,000행 상한 오류 해소). 유효 승인 `csat_valid_review_personas_many` 는 200개 묶음이 11.2s 로 8s statement_timeout 을 넘었다 → 20개 · 동시성 4 · 시간 초과만 분할 재시도(함수 의미 불변, 빠진 행·실패는 오류). 실측: PostgREST 경로 2,793분석 65s · 3/3 2,606 · 0/3 187 = 학년별 직접 SQL 집계와 일치. migration 없음.
+
 - feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
 
 - fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수·지문 식별 누락 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.

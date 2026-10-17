@@ -43,6 +43,7 @@
 // DB 가 거부 · reveal 은 몇 번 불러도 같은 값 · submit 은 (분석, 페르소나, 실행) 당 한 번 · publish 는 몇 번이든 안전.
 
 import fs from 'node:fs'
+import { validPersonasBatched } from './lib-review-batching.mjs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { createClient } from '@supabase/supabase-js'
@@ -476,11 +477,10 @@ switch (cmd) {
     // 페르소나를 그냥 세서, 원문 변경 등으로 무효가 된 승인이 재검수 배정을 막았다 — 발행은 거부되는데 청크에도 안
     // 들어가는 상태가 생겼다(PR #126 리뷰 P2-6)
     const passed = new Map()
-    for (let i = 0; i < ids.length; i += 200) {
-      const { data, error } = await db.rpc('csat_valid_review_personas_many', { p_analyses: ids.slice(i, i + 200) })
-      if (error) die(error.message)
-      for (const r of data ?? []) passed.set(r.analysis_id, new Set(r.personas ?? []))
-    }
+    // 200개 묶음은 8s 시간 초과를 넘는다(lib-review-batching.mjs) — 작은 묶음 · 동시성 4
+    const vp = await validPersonasBatched(ids, (part) => db.rpc('csat_valid_review_personas_many', { p_analyses: part }))
+    if (vp.error) die(`유효 승인 조회: ${vp.error}`)
+    for (const r of vp.rows) passed.set(r.analysis_id, new Set(r.personas ?? []))
     const noRun = latest.filter((a) => !a.analyst_run)
     const todo = latest.filter((a) => a.analyst_run && !busy.has(a.id))
       .map((a) => ({ analysis_id: a.id, item_id: a.item_id, version: a.version, need: PERSONAS.filter((p) => !passed.get(a.id)?.has(p)) }))

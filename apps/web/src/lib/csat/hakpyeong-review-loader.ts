@@ -22,6 +22,7 @@ import {
   type ReviewFollowup,
   type ReviewVerdict,
 } from './hakpyeong-review'
+import { keysetFollowups, validPersonasBatched } from './review-batching'
 
 // 검수 표·RPC(csat_review_runs · csat_independent_reviews · csat_review_prechecks · csat_valid_review_personas_many …)는
 // 생성된 DB 타입(@vocaflow/types)에 아직 없다 — approvals.ts 와 같이 타입 없는 클라이언트로 읽고 행 모양은 아래 인터페이스로 고정한다
@@ -32,7 +33,7 @@ const chunks = <T,>(xs: T[]) => Array.from({ length: Math.ceil(xs.length / CHUNK
 interface AnalysisRow { id: string; item_id: string; version: number; status: string; analyst_run: string | null; units_hash: string | null; csat_analysis_hash: string }
 interface ReviewRow { id: string; analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; item_input_hash: string | null; item_answer_hash: string | null; analysis_hash: string | null; units_hash: string | null; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
 interface BatchRow { batch: string; run_date: string; kind: ReviewBatch['kind']; chunk_size: number | null; items: number; agents: number | null; tokens: ReviewBatch['tokens']; published: number | null; refused: number | null; re_rejected: number | null; note: string | null }
-interface FollowupRow { item_id: string; source: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
+interface FollowupRow { item_id: string; source: string; finding_key: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
 interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; input_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
 
 // PostgREST 서버 상한(1,000행). OFFSET 페이징 예산(offset-paging-budget)을 늘리지 않으려고 두 방식만 쓴다
@@ -110,11 +111,14 @@ export async function loadHakpyeongReview(
     const curUnits = new Map<string, { units: string; input: string }>()
     const verdicts = new Map<string, (ReviewVerdict & { snap: Pick<ReviewRow, 'item_input_hash' | 'item_answer_hash' | 'analysis_hash' | 'units_hash'> })[]>()
     const prechecks = new Map<string, PrecheckRow>()
+    // 유효 승인은 200개 묶음이 8s 시간 초과를 넘는다(review-batching.ts) — 작은 묶음 · 동시성 4 로 따로 읽는다
+    const v = await validPersonasBatched(ids, (part) => db.rpc('csat_valid_review_personas_many', { p_analyses: part }))
+    if (v.error) return { ...empty, error: `유효 승인 조회: ${v.error}` }
+    for (const r of v.rows) valid.set(r.analysis_id, (r.personas ?? []).filter((p): p is Persona => (PERSONAS as readonly string[]).includes(p)))
     for (const part of chunks(ids)) {
       // 이력 표는 분석 200개에 대해서도 1000행을 넘을 수 있다(CONVENTIONS PostgREST 페이지) — OFFSET 없이:
       // 검수 판정은 id 커서로 끝까지, 사전 검사는 한 번에 읽되 상한에 닿으면 «잘렸을 수 있음» 오류로 알린다
-      const [v, rv, pc] = await Promise.all([
-        db.rpc('csat_valid_review_personas_many', { p_analyses: part }),
+      const [rv, pc] = await Promise.all([
         keysetById<ReviewRow>((after) => {
           const q = db.from('csat_independent_reviews')
             .select('id, analysis_id, persona, verdict, findings, reviewed_at, item_input_hash, item_answer_hash, analysis_hash, units_hash, csat_review_runs(kind)')
@@ -127,12 +131,8 @@ export async function loadHakpyeongReview(
           .order('analysis_id').order('checked_at', { ascending: false }).order('analysis_hash').order('units_hash').order('precheck_version')
           .limit(PAGE_CAP)),
       ])
-      if (v.error) return { ...empty, error: `유효 승인 조회: ${v.error.message}` }
       if (rv.error) return { ...empty, error: `검수 판정 조회: ${rv.error}` }
       if (pc.error) return { ...empty, error: `사전 검사 조회: ${pc.error}` }
-      for (const r of (v.data ?? []) as { analysis_id: string; personas: string[] | null }[]) {
-        valid.set(r.analysis_id, (r.personas ?? []).filter((p): p is Persona => (PERSONAS as readonly string[]).includes(p)))
-      }
       for (const r of rv.rows) {
         const list = verdicts.get(r.analysis_id) ?? []
         list.push({ persona: r.persona, verdict: r.verdict, kind: r.csat_review_runs?.kind ?? 'blind', findings: asStrings(r.findings), reviewedAt: r.reviewed_at, counted: false, stale: false,
@@ -205,7 +205,11 @@ export async function loadHakpyeongReview(
 
     const [bRes, fRes] = await Promise.all([
       capped<BatchRow>(db.from('csat_review_batches').select('batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, note').order('run_date', { ascending: false }).order('batch').limit(PAGE_CAP)),
-      capped<FollowupRow>(db.from('csat_review_followups').select('item_id, source, finding, severity, status, noted_on').order('noted_on', { ascending: false }).order('item_id').order('source').order('finding').limit(PAGE_CAP)),
+      // 장부는 2,816행(2026-10-18) — 1,000행 상한을 넘으므로 PK 커서로 끝까지 읽는다
+      keysetFollowups<FollowupRow>((after) => {
+        const q = db.from('csat_review_followups').select('item_id, source, finding_key, finding, severity, status, noted_on')
+        return (after ? q.or(after) : q).order('item_id').order('source').order('finding_key').limit(PAGE_CAP)
+      }, PAGE_CAP),
     ])
     if (bRes.error) return { ...empty, items: out, error: `배치 원장 조회: ${bRes.error}` }
     if (fRes.error) return { ...empty, items: out, error: `추적 목록 조회: ${fRes.error}` }
@@ -215,7 +219,9 @@ export async function loadHakpyeongReview(
     }))
     // 이 학년 문항 + 규칙 과제(문항 id 가 아닌 것)
     const gradeMark = `G${grade}#`
-    const followups: ReviewFollowup[] = fRes.rows
+    // 화면 순서(최근 기록 먼저)는 읽은 뒤에 정한다 — 커서는 PK 순이어야 하기 때문
+    const followups: ReviewFollowup[] = [...fRes.rows]
+      .sort((a, b) => b.noted_on.localeCompare(a.noted_on) || a.item_id.localeCompare(b.item_id) || a.source.localeCompare(b.source) || a.finding.localeCompare(b.finding))
       .filter((f) => !f.item_id.startsWith(HAKPYEONG_ID_PREFIX) || f.item_id.includes(gradeMark))
       .map((f) => ({ itemId: f.item_id, source: f.source, finding: f.finding, severity: f.severity, status: f.status, notedOn: f.noted_on }))
     return { items: out, batches, followups, error: null }
