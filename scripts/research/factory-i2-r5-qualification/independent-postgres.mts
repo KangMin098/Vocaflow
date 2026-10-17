@@ -7,6 +7,7 @@ import { createRequire } from 'node:module'
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { annotationCases } from './independent-cases'
+import { jsonbText } from './verify-content.mjs'
 
 const root = path.resolve(import.meta.dirname, '../../..')
 const arg = (k: string) => process.argv[process.argv.indexOf(k) + 1]
@@ -39,6 +40,13 @@ try {
   await db.query(stub); await db.query(i1stub)
   await db.query('alter default privileges in schema public grant all on tables to anon, authenticated')
   for (const layer of layers) await db.query(layer)
+  const jsonbOracle = []
+  for (const fixture of [['alpha', 'beta'], { long: [1, 'x'], b: '"', a: null }, { 한글: 'x', z: 'y', aa: ['a\nb', true] }]) {
+    const sql = (await db.query('select $1::jsonb::text t', [JSON.stringify(fixture)])).rows[0].t
+    const matches = jsonbText(fixture) === sql
+    jsonbOracle.push(matches)
+    if (!matches) throw new Error('PostgreSQL JSONB text oracle mismatch')
+  }
   const run = await annotationCases(db)
   if (run.current) {
     // Separate connections: supply holds a shared lock against trusted deployment edit.
@@ -97,7 +105,7 @@ try {
   }
   const report = { schema: 'vf.factory-i2-independent-postgres/1', submitted, preLockFix,
     version: (await db.query('show server_version')).rows[0].server_version,
-    sql: Object.fromEntries(files.map((f, i) => [f, createHash('sha256').update(layers[i]).digest('hex')])),
+    sql: Object.fromEntries(files.map((f, i) => [f, createHash('sha256').update(layers[i]).digest('hex')])), jsonbOracle,
     results: run.results, pass: run.results.filter(r => r.ok).length, fail: run.results.filter(r => !r.ok).length }
   console.log(JSON.stringify(report, null, 2))
   if (process.argv.includes('--out')) fs.writeFileSync(path.resolve(arg('--out')), JSON.stringify(report, null, 2) + '\n')

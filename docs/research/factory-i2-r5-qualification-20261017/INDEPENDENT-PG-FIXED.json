@@ -10,6 +10,11 @@
     "_pending_workspace_supply_i1_partial.sql": "79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041",
     "_pending_workspace_supply_c_annotation_binding.sql": "e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c"
   },
+  "jsonbOracle": [
+    true,
+    true,
+    true
+  ],
   "results": [
     {
       "name": "B PASS requires non-NULL hash",

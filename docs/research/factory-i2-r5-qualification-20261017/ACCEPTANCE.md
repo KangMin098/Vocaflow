@@ -33,6 +33,7 @@
 | Q05 | 핵심 P2, 목적 리뷰 | 기존 B의 버전 `<> '2'`가 누락/NULL을 통과시켜 같은 수요에 다른 서명을 허용 | B 한 줄을 `IS DISTINCT FROM '2'`로 수정. 누락/NULL 두 반례 재실행. B 승인 해시는 새로 확인해야 하며 I1 제출 증거는 덮지 않음 |
 | Q06 | P2, 코드 리뷰 | PG 시험기 예외 시 연결 반환을 건너뛰어 종료/임시 클러스터 정리가 대기할 수 있음 | 연결 반환을 finally로 옮기고 종료/정리를 별도 finally로 보장. 연결 직후 예외 주입으로 종료 경로 확인 |
 | Q07 | 핵심 P2, 승인안 재리뷰 | 현재 주석 SELECT FOR SHARE가 0행인 뒤 helper 재조회에서 동시 삽입 행을 잠금 없이 사용할 수 있음 | 잠근 행을 `INTO c`로 받아 없으면 즉시 거절하고 그 튜플만 비교. 중간 버전의 재조회 경로 2실패를 보존하고 수정본 2통과 |
+| Q08 | 핵심 P2, 승인안 후속 리뷰 | 공식 선지 문자열 포함만 검사해 순서를 바꿔도 재현기가 통과할 수 있음 | 지문 뒤의 ①–⑤를 번호별로 비교하고 DB의 현재 B revision도 비교. 선지 교환/본문 정체성 반례 5개를 CI에 연결. 정답표 인자와 기존 evidence 결속도 필수화 |
 
 공급 공개 서명은 기존 `(uuid,uuid,uuid,uuid,uuid)` 그대로다. 내부 I1 공급/유효성 함수는 `_i1`로 옮기고 public/anon/authenticated EXECUTE를 회수한다. I1-S 원본 파일·노출/원천/승인/수량 검사는 보존한다. B는 Q05 한 줄만 수정했다. 새 helper도 외부 직접 실행 불가다. 새 현재 등록부는 RLS 활성·클라이언트/관리자/서비스 역할 권한 없음·DB 소유자 전용이며 **빈 상태**로 설치한다. 기본 ALL ACL 하에서도 authenticated INSERT/SELECT/TRUNCATE가 거절된다.
 
@@ -54,7 +55,7 @@
 | 수정 B/binding | 실제 PostgreSQL 17.10 **46/46**. [수정 증거](./INDEPENDENT-PG-FIXED.json). 43개 순차 조건(재조회 marker 2개 포함) + 별도 연결의 공급 우선/배포 우선 직렬화·커밋 뒤 현재 무효 3조건 |
 | PGlite | 제출 패킷 7 + 독립 SQL 시나리오 1(43조건) + 기존 C 11/B 26/I1 47/store 7 = **99 테스트 통과**. B 버전 추가 수정 뒤 B26+독립1 27/27, Q07 뒤 패킷7+독립1 8/8 재실행 |
 | 기존 실제 I1 PostgreSQL | 기존 C/B/S/P/D3 스크립트 **33/33**, 다중 연결·철회/주문/supersede/노출/ACL/롤백 회귀. binding이 없는 기존 패키지의 보존 검사이며 binding 결합 동시성은 위 별도 결과 |
-| 원문/정답·runtime 주석 | verify 2020#24 일치·정답표 짝수형 2쪽 ② 일치·runtime manifest 2020/2021 hash 일치 |
+| 원문/정답·runtime 주석 | [독립 원천 재현](./INDEPENDENT-SOURCE.json): 2020/2021#24 모두 현재 B revision·번호별 선지 5/5·짝수형 정답표 2쪽 일치. Node 반례 **5/5**를 CI verify에 추가. B의 JSONB 표기기는 실제 PG oracle **3/3**로 검증. runtime manifest 2020/2021 hash 일치 |
 | 기존 G2 회귀·정적 검사 | claim-support/수직 경로 **68/68**, web TypeScript 0오류, agents check **15/15** |
 | 개발 DB | PostgreSQL 17.6 SELECT만. C/B/I1 10표와 새 현재 주석 등록부 모두 미설치. [종료 읽기 감사](./INDEPENDENT-DB-FINAL.json) 11:21:39Z(20:21:39 KST)에도 대상의 6종 노출/정규화 동일 본문 모두 0. 실제 공급 E2E BLOCKED |
 
