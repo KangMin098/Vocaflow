@@ -58,6 +58,8 @@
 
 ## 5. 적용 순서 · 절차(사용자 승인 뒤에만 — 이 PR 은 실행하지 않는다)
 
+> **배포는 [배포 패키지](./FACTORY_I1_DEPLOY_PACKAGE.md)의 버전 migration · 러너로만 한다**(DB-1 = C→B→S 한 파일 · DB-2 = P 별도). 아래 절차의 원칙은 그대로이고, 실행 명령 · 차단 조건 · 되돌리기는 그 문서가 정본이다.
+
 1. `git merge origin/main` 최신 · 이 PR 병합 상태 확인. 각 파일 sha256 을 §2 와 대조(다르면 중단).
 2. `/db-checkpoint before i1-supply` — `db_health_metrics` 스냅샷 · `get_advisors(security · performance)` 기록.
 3. 한 트랜잭션: **C → B → I1-S**. (I1-P · I1-D3 은 각각 승인됐을 때만 이어서, 같은 트랜잭션 또는 별도 트랜잭션.)

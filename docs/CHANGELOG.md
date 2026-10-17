@@ -26,6 +26,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- chore(db): Factory I1 배포 패키지 — PR #280 C→B→I1-S 를 원본 바이트 그대로 담은 버전 migration `20261017200000`(DB-1, sha256 `766b8884…`)과 `supabase/migrations` 밖의 I1-P DB-2(`20261017200100`, `7c1cc2ed…`). 가드(이력 · 전제 · 대상 부재 · helper drift · xid 트립와이어 · 커밋 가드 · 카탈로그 diff = 허용 목록) · 러너 `scripts/db/factory-i1/deploy.mjs`(check · dry-run · preflight · apply · verify) · 커밋 뒤 되돌리기 2종. 격리 PostgreSQL 17 배포 절차 47/47 · 배포 파일 위 기존 33조건 33/33. 개발 DB 는 읽기만(checkpoint: DB-1 차단 0). **미적용** — [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)
 - PR #279 Codex-C 독립 수용: F1을 ACCEPT_WITH_LIMITS로 판정(실앱 214·실제 패널 50·광역 단위 2,615). F2/R1·콘텐츠 0의 잔여 범위와 최초 실패를 [수용 보고서](./research/v2-f1-independent/ACCEPTANCE.md)에 보존했다.
 - PR #279 독립 F1 검증: R/X 원문 유형과 밑줄 표지 불일치를 서버에서 차단했다. 최초 실패·원문 관문 회귀를 보존하며 D는 저장 뒤 연습, F2/R1·콘텐츠 미출시는 유지한다. DB/RPC/RLS 변경 없음.
 - fix(knowledge): V2-F1 — 뜻 선택지가 판별 정답을 드러내는 결함 수정. 제출 전 화면 모양에서 뜻 선택지 제거 · 확인 기록과 정오는 B 판별(+근거)만 · 뜻은 B 를 맞힌 뒤의 기록 없는 연습 · 밑줄 표지(①~⑤/(a)~(e)) · 문장 논리 문항 출시 제외 · 합의 주석 0 · 출시 0 그대로 · DB 변경 없음

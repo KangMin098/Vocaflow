@@ -1,0 +1,143 @@
+{
+  "source": "supabase/deploy/factory-i1/preflight.sql 본문 그대로 · MCP execute_sql(읽기 전용 SELECT) · 대상 jajenrevcbmrpaliomxv",
+  "note": "학습자 ID · 이메일 · 원문 없음(수와 해시만). 적용 시점에 러너가 같은 SQL 을 다시 읽어 판정한다 — 이 파일은 인계 기준선이다.",
+  "preflight": {
+    "measured_at": "2026-10-17T11:50:00.940701+00:00",
+    "server_version": "17.6",
+    "database": "postgres",
+    "current_user": "postgres",
+    "history": {
+      "table": true,
+      "count": 722,
+      "max_version": "20261014091841",
+      "versions_after_20261014091841": [],
+      "db1": null,
+      "db2": null
+    },
+    "targets_present": [],
+    "target_functions_present": [],
+    "partial_state": false,
+    "prereq_missing": [],
+    "prereq_fn_missing": [],
+    "helpers": {
+      "is_admin": {
+        "proconfig": "{search_path=public}",
+        "prosecdef": true,
+        "prosrc_md5": "233d6b53d9daa2430d1dc1e6a1ad7db0",
+        "proacl": "{postgres=X/postgres,service_role=X/postgres,anon=X/postgres,authenticated=X/postgres}"
+      },
+      "is_admin_or_curator": {
+        "proconfig": "{\"search_path=public, auth\"}",
+        "prosecdef": true,
+        "prosrc_md5": "e46e5cb4aa65a9e8931a92cc8e0c9a0c",
+        "proacl": "{postgres=X/postgres,service_role=X/postgres,anon=X/postgres,authenticated=X/postgres}"
+      }
+    },
+    "composite_keys_present": [],
+    "writer_privileges": {
+      "create_on_public": true,
+      "insert_history": true,
+      "owns_helpers": true,
+      "owns_dependency_tables": true
+    },
+    "ledger_rows": {
+      "learning_task_attempts": 129,
+      "learning_sessions": 358,
+      "csat_dx_response": 135,
+      "csat_dx_session": 3,
+      "csat_trap_attempts": 83,
+      "csat_session_attempts": 1,
+      "csat_review_queue": 1,
+      "csat_item_attempts": 20
+    },
+    "g2_distinct_pairs": 123,
+    "workspace_rows": 0,
+    "event_triggers": [
+      {
+        "name": "graphql_watch_ddl",
+        "event": "ddl_command_end",
+        "tags": null
+      },
+      {
+        "name": "graphql_watch_drop",
+        "event": "sql_drop",
+        "tags": null
+      },
+      {
+        "name": "issue_graphql_placeholder",
+        "event": "sql_drop",
+        "tags": [
+          "DROP EXTENSION"
+        ]
+      },
+      {
+        "name": "issue_pg_cron_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE EXTENSION"
+        ]
+      },
+      {
+        "name": "issue_pg_graphql_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE FUNCTION"
+        ]
+      },
+      {
+        "name": "issue_pg_net_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE EXTENSION"
+        ]
+      },
+      {
+        "name": "pgrst_ddl_watch",
+        "event": "ddl_command_end",
+        "tags": null
+      },
+      {
+        "name": "pgrst_drop_watch",
+        "event": "sql_drop",
+        "tags": null
+      },
+      {
+        "name": "pgsodium_trg_mask_update",
+        "event": "ddl_command_end",
+        "tags": [
+          "SECURITY LABEL",
+          "ALTER TABLE"
+        ]
+      }
+    ],
+    "seclabels": [
+      {
+        "provider": "pgsodium",
+        "class": "pg_class",
+        "objoid_is_pgsodium_key": true
+      }
+    ],
+    "blocking_locks_on_dependencies": 0,
+    "catalog": {
+      "rows": 6442,
+      "md5": "4ad415535b7795c8d849c50731d70b91"
+    },
+    "g2_pairs_unresolved": 0,
+    "history_columns": [
+      "created_by",
+      "idempotency_key",
+      "name",
+      "rollback",
+      "statements",
+      "version"
+    ]
+  },
+  "event_trigger_review": {
+    "graphql_watch_ddl / graphql_watch_drop": "graphql.increment_schema_version — 시퀀스 값만 바꾼다(카탈로그 지문 밖)",
+    "issue_pg_graphql_access": "CREATE FUNCTION 태그 · 본문이 graphql_public 스키마에만 반응(읽기 확인)",
+    "pgrst_ddl_watch / pgrst_drop_watch": "NOTIFY 만",
+    "pgsodium_trg_mask_update": "ALTER TABLE 태그 · pgsodium 라벨이 붙은 표에만 반응 — 라벨 1건은 pgsodium.key(확인). B 의 ALTER TABLE 3건(public 표)은 해당 없음",
+    "issue_pg_cron_access / issue_pg_net_access / issue_graphql_placeholder": "CREATE/DROP EXTENSION 만 — 이 패키지에 없음"
+  },
+  "supplement": "2026-10-17 21:0x KST 독립 검토 반영 뒤 읽기 전용 재질의: g2_pairs_unresolved · history_columns 추가, 확장 카탈로그 지문(소유자 · 뷰 정의 · 타입 · 기본 권한 · 확장 · 이벤트 트리거 · 주석 · 전 스키마 열)이 실DB 에서 오류 없이 실행됨(rel 1137 · col 3267 · typ 36 · dacl 37 · ext 15 · evt 9)"
+}

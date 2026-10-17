@@ -30,10 +30,16 @@ const STUB_I1 = T('apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql')
 const MIG = (f) => process.argv.includes('--submitted')
   ? execFileSync('git', ['show', `e89ebac493841b6fbcd0ebf0cdda780361ae75d6:supabase/migrations/${f}`], { cwd: ROOT, encoding: 'utf8' })
   : T(`supabase/migrations/${f}`)
+// --via-deploy : 원본 레이어 대신 배포 패키지(scripts/db/factory-i1)의 DB-1 · DB-2 migration 을 올린다(D3 는 원본 — 시험 조건 유지).
+//                같은 33조건이 통과하면 「가드로 감싼 배포 파일이 원본 C→B→S · P 와 같은 동작」 이다.
+const VIA_DEPLOY = process.argv.includes('--via-deploy')
 const LAYERS = BASELINE
   ? [MIG('_pending_workspace_supply_c_qualification.sql'), MIG('_pending_workspace_supply_b_orders.sql')]
-  : [MIG('_pending_workspace_supply_c_qualification.sql'), MIG('_pending_workspace_supply_b_orders.sql'),
-     MIG('_pending_workspace_supply_i1_safety.sql'), MIG('_pending_workspace_supply_i1_partial.sql'), MIG('_pending_workspace_supply_i1_d3_lineage.sql')]
+  : VIA_DEPLOY
+    ? [T('supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql'),
+       T('supabase/deploy/factory-i1/db2/20261017200100_factory_i1_db2_partial.sql'), MIG('_pending_workspace_supply_i1_d3_lineage.sql')]
+    : [MIG('_pending_workspace_supply_c_qualification.sql'), MIG('_pending_workspace_supply_b_orders.sql'),
+       MIG('_pending_workspace_supply_i1_safety.sql'), MIG('_pending_workspace_supply_i1_partial.sql'), MIG('_pending_workspace_supply_i1_d3_lineage.sql')]
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vf-pgconc-i1-'))
 const port = 54000 + Math.floor(Math.random() * 900)
@@ -180,5 +186,5 @@ try {
 }
 const failed = results.filter((r) => !r.ok).length
 const sha = (p) => createHash('sha256').update(MIG(path.basename(p))).digest('hex').slice(0, 12)
-console.log(`\n${results.length - failed}/${results.length} PASS (PostgreSQL 17 · 다중 연결 · ${BASELINE ? 'B 만(기준선)' : 'C+B+I1'}) safety=${sha('supabase/migrations/_pending_workspace_supply_i1_safety.sql')}`)
+console.log(`\n${results.length - failed}/${results.length} PASS (PostgreSQL 17 · 다중 연결 · ${BASELINE ? 'B 만(기준선)' : VIA_DEPLOY ? '배포 DB-1+DB-2(+D3 원본)' : 'C+B+I1'}) safety=${sha('supabase/migrations/_pending_workspace_supply_i1_safety.sql')}`)
 process.exit(failed ? 1 : 0)
