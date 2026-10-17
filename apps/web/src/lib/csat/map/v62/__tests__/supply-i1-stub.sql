@@ -1,6 +1,16 @@
 -- apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql
 -- Factory I1 — supply-stub.sql 에 더하는 노출 원장 최소 사본(개발 DB information_schema 실측 2026-10-17 · 열 이름 · NULL 허용 동일).
 -- PGlite 테스트(supply-i1.pglite.test.ts)와 실제 Postgres 스크립트(supply-i1-concurrency.mjs)가 같이 쓴다. 개발 DB 에 닿지 않는다.
+-- 읽기 감사한 실제 권한 helper의 NULL 의미를 보존한다. 프로필 없는 로그인 사용자는 false가 아니라 NULL이다.
+create view public.user_profiles as select user_id, role from public.admins;
+create or replace function public.is_admin_or_curator() returns boolean
+language plpgsql stable security definer set search_path to 'public', 'auth' as $$
+declare v_role text;
+begin
+  if auth.uid() is null then return false; end if;
+  select role into v_role from user_profiles where user_id = auth.uid();
+  return v_role in ('admin','curator');
+end $$;
 create table public.learning_sessions (
   id uuid primary key default gen_random_uuid(), user_id uuid not null, client_session_id uuid not null default gen_random_uuid(),
   activity text not null default 'theater', phase text not null default 'study', item_ref text not null, task_key text,

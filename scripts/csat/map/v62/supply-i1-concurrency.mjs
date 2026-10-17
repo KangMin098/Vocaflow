@@ -171,7 +171,7 @@ try {
     // created_at 은 트랜잭션 시작 시각이라 커밋 순서를 말하지 않는다 — 판정은 「잠금 순서대로 현재성 검사 → 거절 사유는 not current 뿐 · 교착 0」
     check('링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)', bad.length === 0, `linked=${lr.filter((x) => x.ok).length} rejected=${lr.filter((x) => !x.ok).length} other=${bad.length}`)
   }
-  if (!BASELINE) await independentCases({ pool, asUser, check, newLine, ADMIN, ME })
+  if (!BASELINE) await independentCases({ pool, asUser, check, newLine, ADMIN, ME, STUB, STUB_I1, LAYERS, rollback: MIG('_pending_workspace_supply_i1_rollback.sql') })
   await pool.end()
 } finally {
   try { pgctl(['-D', dir, '-m', 'fast', '-w', 'stop']) } catch { /* 이미 멈춤 */ }

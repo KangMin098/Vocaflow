@@ -87,7 +87,7 @@ create or replace function public.factory_order_transition(p_order uuid, p_expec
 returns integer language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare o record; v_seq int; ok boolean; e record; v_n int;
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   -- 공급/재주문과 같은 줄 → 주문 순서. 닫힘 검사와 공급 INSERT가 교차하지 않는다.
   perform 1 from workspace_content_demand_line where id = (select line_id from factory_order where id = p_order) for update;

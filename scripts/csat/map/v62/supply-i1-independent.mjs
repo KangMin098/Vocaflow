@@ -2,7 +2,7 @@
 // PR #280 independent PostgreSQL counterexamples. Local pool only; no network/dev credentials.
 import { randomUUID } from 'node:crypto'
 
-export async function independentCases({ pool, asUser, check, newLine, ADMIN, ME }) {
+export async function independentCases({ pool, asUser, check, newLine, ADMIN, ME, STUB, STUB_I1, LAYERS, rollback }) {
   const H = 'a'.repeat(64)
   const qual = async (task, ref, { prev = null, axes = null, kind = 'csat_item' } = {}) => {
     const rev = (await pool.query(`select public.supply_artifact_revision($1,$2) r`, [kind,ref])).rows[0].r
@@ -26,6 +26,21 @@ export async function independentCases({ pool, asUser, check, newLine, ADMIN, ME
   const close = (order,to,q,opts) => asUser(ADMIN,`select public.factory_order_transition($1,'stock_search',$2,'remaining shortfall',null,$3,$4)`,[order,to,q,randomUUID()],opts)
   const held = async () => { const c=await pool.connect(); await c.query('begin'); return c }
   const release = async c => {await c.query('commit'); c.release()}
+
+  {
+    const task='r.ind_auth',axes=JSON.stringify(Object.fromEntries([... 'ABCDEFGH'].map(x=>[x,{state:'pass'}]))),rev=(await pool.query(`select supply_artifact_revision('csat_item','C#29') r`)).rows[0].r
+    const q=await asUser(ME,`select content_qualification_record('FQ1.1','csat_item','C#29',$1,$2,'guided_practice',$3::jsonb,'s',$4,null,'g',$4,'{}','{e}','no-profile',null) id`,[rev,task,axes,H])
+    const qa=(await qual('r.ind_authapprove','C#28')).row.id
+    const approve=await asUser(ME,`select content_release_approve($1,'public')`,[qa])
+    const a=await ready('r.ind_authrevoke','C#27'),rv=await asUser(ME,`select content_release_revoke($1,'no-profile')`,[a.p])
+    const {order}=await open('r.ind_authtransition',1,'ind-auth-order')
+    const trans=await asUser(ME,`select factory_order_transition($1,'stock_search','failed','no-profile',null,null,$2)`,[order,randomUUID()])
+    const reg=await asUser(ME,`select factory_product_order_register('NO-PROFILE',1,$1,'active',$2,'r.ind_authtransition','guided_practice',1,null,$3)`,[H,'c'.repeat(32),randomUUID()])
+    await asUser(ADMIN,`select factory_product_order_register('AUTH-LINK',1,$1,'active',$2,'r.ind_authtransition','guided_practice',1,null,$3)`,[H,'c'.repeat(32),randomUUID()])
+    const link=await asUser(ME,`select factory_order_link_product($1,'AUTH-LINK',1,$2,$3)`,[order,H,randomUUID()])
+    const all=[q,approve,rv,trans,reg,link]
+    check('actual NULL auth helper denies all six administrator RPCs',all.every(r=>!r.ok&&/Forbidden/.test(r.err)),JSON.stringify(all))
+  }
 
   {
     const fixtures=[['attempt','attempted'],['session','item_seen'],['trap','attempted'],['review','attempted'],['deleted','explanation_seen'],['viewed','explanation_seen'],['help','explanation_seen'],['shared','shared_passage_seen']]
@@ -139,5 +154,23 @@ export async function independentCases({ pool, asUser, check, newLine, ADMIN, ME
     // 성공해도 반드시 rollback: 이력은 로컬 fixture에서도 보존한다.
     await c.query('rollback');c.release()
     check('PG default ALL privileges cannot bypass RLS with TRUNCATE',!r.ok&&/permission denied/.test(r.err),JSON.stringify(r))
+  }
+  {
+    await pool.query('create database vf_rollback')
+    const rb=new pool.constructor({...pool.options,password:pool.options.password,database:'vf_rollback'})
+    try {
+      await rb.query(STUB.replace('create role anon nologin; create role authenticated nologin;',''))
+      await rb.query(STUB_I1);for(const sql of LAYERS)await rb.query(sql)
+      await rb.query(`insert into auth.users values ($1)`,[ADMIN]);await rb.query(`insert into admins values ($1,'admin')`,[ADMIN])
+      const c=await rb.connect();await c.query('begin')
+      await asUser(ADMIN,`select factory_product_order_register('ROLLBACK-RACE',1,$1,'active',$2,'r.central_meaning','guided_practice',1,null,$3)`,[H,'b'.repeat(32),randomUUID()],{client:c})
+      const runner=await rb.connect()
+      const pending=runner.query(rollback).then(()=>({ok:true}),e=>({ok:false,err:e.message}))
+      await new Promise(r=>setTimeout(r,200));await c.query('commit');c.release()
+      const result=await pending;await runner.query('rollback');runner.release()
+      const exists=(await rb.query(`select to_regclass('public.factory_product_order') is not null yes`)).rows[0].yes
+      const n=exists?(await rb.query(`select count(*)::int n from factory_product_order`)).rows[0].n:0
+      check('rollback versus registration preserves the committed ledger',!result.ok&&/has rows/.test(result.err)&&n===1,JSON.stringify({result,rows:n,tableExists:exists}))
+    }finally{await rb.end()}
   }
 }

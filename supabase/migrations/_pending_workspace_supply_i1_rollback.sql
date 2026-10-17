@@ -9,7 +9,14 @@
 
 begin;
 -- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)
-do $$ begin
+do $$ declare v_table text; begin
+  -- 빈 표 확인과 DROP 사이에 등록/링크/partial 전이가 끼어들면 이력을 지울 수 있다.
+  -- 잠금을 얻은 다음에만 검사한다. 등록이 먼저면 커밋된 행을 보고 전체 복구를 거절한다.
+  foreach v_table in array array['factory_order','factory_product_order','factory_order_product_link'] loop
+    if to_regclass('public.' || v_table) is not null then
+      execute format('lock table public.%I in access exclusive mode', v_table);
+    end if;
+  end loop;
   if to_regclass('public.factory_order_product_link') is not null then
     if exists (select 1 from public.factory_order_product_link) then
       raise exception 'rollback D3: factory_order_product_link has rows — preserve history; rollback refused';
@@ -74,7 +81,7 @@ create or replace function public.factory_order_transition(p_order uuid, p_expec
 returns integer language plpgsql security definer set search_path to 'public' as $$
 declare o record; v_seq int; ok boolean; e record;
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   select * into o from factory_order where id = p_order for update;
   if not found then raise exception 'order: not found'; end if;
@@ -186,10 +193,50 @@ end $$;
 create or replace function public.content_release_revoke(p_approval uuid, p_reason text)
 returns void language plpgsql security definer set search_path to 'public' as $$
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   insert into content_release_revocation (approval_id, revoked_by, reason) values (p_approval, auth.uid(), p_reason)
   on conflict (approval_id) do nothing;   -- 이미 철회됨 = 같은 결과
+end $$;
+create or replace function public.content_qualification_record(
+  p_rules_version text, p_kind text, p_ref text, p_revision text, p_task text, p_role text, p_axes jsonb,
+  p_source_revision text, p_source_hash text, p_analysis_revision text, p_gold_revision text, p_gold_hash text,
+  p_defects text[], p_evidence_ids text[], p_method text, p_supersedes uuid default null)
+returns uuid language plpgsql security definer set search_path to 'public' as $$
+declare v_id uuid; prev record;
+begin
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  if p_supersedes is not null then
+    select * into prev from content_qualification where id = p_supersedes for update;
+    if not found then raise exception 'supersedes: not found'; end if;
+    if (prev.artifact_kind, prev.artifact_ref, prev.task_id, prev.role) is distinct from (p_kind, p_ref, p_task, p_role) then
+      raise exception 'supersedes: identity mismatch';
+    end if;
+  end if;
+  insert into content_qualification (rules_version, artifact_kind, artifact_ref, artifact_revision, task_id, role, axes,
+    source_revision, source_hash, analysis_revision, gold_revision, gold_hash, defects, evidence_ids, method, supersedes, created_by)
+  values (p_rules_version, p_kind, p_ref, p_revision, p_task, p_role, p_axes,
+    p_source_revision, p_source_hash, p_analysis_revision, p_gold_revision, p_gold_hash,
+    coalesce(p_defects, '{}'), coalesce(p_evidence_ids, '{}'), p_method, p_supersedes, auth.uid())
+  returning id into v_id;     -- 같은 이전 행을 두 번 대체하면 unique(supersedes) 위반(동시 대체 1건만 성공)
+  return v_id;
+end $$;
+create or replace function public.content_release_approve(p_qualification uuid, p_scope text, p_note text default null)
+returns uuid language plpgsql security definer set search_path to 'public' as $$
+declare q record; v_id uuid;
+begin
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  select * into q from content_qualification where id = p_qualification;
+  if not found then raise exception 'qualification: not found'; end if;
+  if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception 'qualification: superseded'; end if;
+  if not public.fq_role_ok(q.axes, q.role) then raise exception 'qualification: required axes not pass'; end if;
+  if p_scope = 'assessment' and (q.axes->'E'->>'state') <> 'pass' then raise exception 'assessment: E not pass'; end if;
+  insert into content_release_approval (qualification_id, scope, approver, approver_role, note)
+  values (q.id, p_scope, auth.uid(), case when public.is_admin() then 'admin' else 'curator' end, p_note)
+  returning id into v_id;
+  return v_id;
 end $$;
 create or replace function public.fq_axes_valid(p jsonb) returns boolean
 language sql immutable set search_path to 'public' as $$

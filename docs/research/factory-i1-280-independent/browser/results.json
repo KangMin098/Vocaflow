@@ -1,6 +1,6 @@
 {
   "scope": "Isolated actual TaskInspector with synthetic read-only data. Legacy StepSheet/learnerPath/navigation/analytics are IO stubs. Not live DB E2E.",
-  "head": "e89ebac493841b6fbcd0ebf0cdda780361ae75d6",
+  "head": "107bbb1de9f9af1623bca1588f02e4e7ab4820e6",
   "results": [
     {
       "id": "1280-old",

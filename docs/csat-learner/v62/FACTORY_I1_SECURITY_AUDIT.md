@@ -14,6 +14,8 @@
 - 정의자는 `public, pg_temp` 순서 고정, public CREATE 권한 적용 전 감사. 내부 판정기 실행권은 회수. 기존 개발 DB 권한 helper는 변경 없이 읽기 감사했다.
 - S-only 롤백의 없는 D3 표 파싱을 중첩 IF로 수정하고 공급 실행권은 닫아 둔다. partial/D3 보존 조건 및 기존 공급 이력은 유지한다.
 - 개발 DB 기본 ACL을 읽어 anon/authenticated ALL을 확인했다. 기존의 INSERT/UPDATE/DELETE 회수만으로는 TRUNCATE가 남아 RLS·행 트리거를 우회했다(격리 PG 실제 실행 후 rollback). 새 10개 표는 ALL 회수 후 authenticated SELECT만 부여한다. 롤백에서도 이 권한 축소는 유지한다.
+- I0 독립 AUTH01과 동일하게 실 권한 helper의 no-profile NULL을 재현했다. S에 C 자격 기록/승인·B 전이 전체 함수를 추가 대체하고 철회·P·D3까지 `IS NOT TRUE`로 거절한다. helper 자체나 실제 개발 DB는 변경하지 않는다. 이 최소 관리 가드는 롤백에서도 유지한다.
+- 목적 리뷰의 P1(빈 표 검사↔DROP 등록 경합)은 검사 전 ACCESS EXCLUSIVE 잠금으로, P2(dx 세션 회차와 응답 회차가 다른 공유 지문 누락)는 응답 조인 경로 복원으로 수정했다. 실패/재검증 기록은 독립 EVIDENCE에 보존한다.
 
 ## 1. D1 — 학습자 노출(G) 판정의 누락
 

@@ -80,7 +80,7 @@ create or replace function public.factory_product_order_register(p_id text, p_re
 returns void language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare prev record; v_max integer;
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   -- 같은 주문 id 의 등록을 직렬화(revision 순서 · 같은 키 재전송)
   perform pg_advisory_xact_lock(hashtext('factory_product_order:' || p_id));
@@ -108,7 +108,7 @@ create or replace function public.factory_order_link_product(p_order uuid, p_id 
 returns void language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare o record; f record; prev record;
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   select * into o from factory_order where id = p_order for update;
   if not found then raise exception 'link: order not found'; end if;

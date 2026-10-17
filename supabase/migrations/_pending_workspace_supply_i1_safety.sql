@@ -42,6 +42,89 @@ language sql immutable set search_path to 'public', 'pg_temp' as $$
 $$;
 
 -- ── D1. 노출 ───────────────────────────────────────────────────────────────
+-- NULL in the existing admin helper must deny all administrator writes.
+create or replace function public.content_qualification_record(
+  p_rules_version text, p_kind text, p_ref text, p_revision text, p_task text, p_role text, p_axes jsonb,
+  p_source_revision text, p_source_hash text, p_analysis_revision text, p_gold_revision text, p_gold_hash text,
+  p_defects text[], p_evidence_ids text[], p_method text, p_supersedes uuid default null)
+returns uuid language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
+declare v_id uuid; prev record;
+begin
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  if p_supersedes is not null then
+    select * into prev from content_qualification where id = p_supersedes for update;
+    if not found then raise exception 'supersedes: not found'; end if;
+    if (prev.artifact_kind, prev.artifact_ref, prev.task_id, prev.role) is distinct from (p_kind, p_ref, p_task, p_role) then
+      raise exception 'supersedes: identity mismatch';
+    end if;
+  end if;
+  insert into content_qualification (rules_version, artifact_kind, artifact_ref, artifact_revision, task_id, role, axes,
+    source_revision, source_hash, analysis_revision, gold_revision, gold_hash, defects, evidence_ids, method, supersedes, created_by)
+  values (p_rules_version, p_kind, p_ref, p_revision, p_task, p_role, p_axes,
+    p_source_revision, p_source_hash, p_analysis_revision, p_gold_revision, p_gold_hash,
+    coalesce(p_defects, '{}'), coalesce(p_evidence_ids, '{}'), p_method, p_supersedes, auth.uid())
+  returning id into v_id;     -- 같은 이전 행을 두 번 대체하면 unique(supersedes) 위반(동시 대체 1건만 성공)
+  return v_id;
+end $$;
+
+create or replace function public.content_release_approve(p_qualification uuid, p_scope text, p_note text default null)
+returns uuid language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
+declare q record; v_id uuid;
+begin
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  select * into q from content_qualification where id = p_qualification for share;
+  if not found then raise exception 'qualification: not found'; end if;
+  if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception 'qualification: superseded'; end if;
+  if not public.fq_role_ok(q.axes, q.role) then raise exception 'qualification: required axes not pass'; end if;
+  if p_scope = 'assessment' and (q.axes->'E'->>'state') <> 'pass' then raise exception 'assessment: E not pass'; end if;
+  insert into content_release_approval (qualification_id, scope, approver, approver_role, note)
+  values (q.id, p_scope, auth.uid(), case when public.is_admin() then 'admin' else 'curator' end, p_note)
+  returning id into v_id;
+  return v_id;
+end $$;
+
+create or replace function public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text,
+  p_run_id text, p_qualification uuid, p_request_key uuid)
+returns integer language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
+declare o record; v_seq int; ok boolean; e record;
+begin
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
+  perform set_config('vocaflow.supply_writer', 'rpc', true);
+  select * into o from factory_order where id = p_order for update;
+  if not found then raise exception 'order: not found'; end if;
+  -- 같은 요청 재전송: 같은 본문(기대 상태 · 목표 · 이유 · 실행 · 자격)일 때만 이전 seq
+  select * into e from factory_order_event where order_id = p_order and request_key = p_request_key;
+  if found then
+    if (e.from_state, e.to_state, e.reason, e.production_run_id, e.qualification_id)
+       is distinct from (p_expected, p_to, p_reason, p_run_id, p_qualification) then
+      raise exception 'order: request_key reused with a different body' using errcode = '23505';
+    end if;
+    return e.seq;
+  end if;
+  if o.state <> p_expected then raise exception 'order: conflict (expected %, is %)', p_expected, o.state using errcode = '40001'; end if;
+  ok := (o.state, p_to) in (
+    ('requested','stock_search'),('requested','held'),('requested','failed'),
+    ('stock_search','delivered'),('stock_search','awaiting_production'),('stock_search','held'),('stock_search','failed'),
+    ('awaiting_production','producing'),('awaiting_production','held'),('awaiting_production','failed'),
+    ('producing','reviewing'),('producing','failed'),
+    ('reviewing','delivered'),('reviewing','held'),('reviewing','failed'),
+    ('held','stock_search'),('held','awaiting_production'),('held','failed'));
+  if not ok then raise exception 'order: transition % -> % not allowed', o.state, p_to; end if;
+  -- delivered 는 그 주문 줄에 실제 공급 행이 있고 그 자격이 이 이벤트의 자격일 때만
+  if p_to = 'delivered' and not exists (
+    select 1 from workspace_content_delivery d where d.order_id = p_order and d.qualification_id = p_qualification) then
+    raise exception 'order: delivered needs a delivery row with this qualification';
+  end if;
+  v_seq := o.event_seq + 1;
+  insert into factory_order_event (order_id, seq, from_state, to_state, reason, production_run_id, qualification_id, actor, request_key)
+  values (p_order, v_seq, o.state, p_to, p_reason, p_run_id, p_qualification, auth.uid(), p_request_key);
+  update factory_order set state = p_to, event_seq = v_seq,
+    production_run_id = coalesce(p_run_id, production_run_id) where id = p_order;
+  return v_seq;
+end $$;
+
 create or replace function public.supply_learner_exposure(p_kind text, p_ref text, p_uid uuid)
 returns text language plpgsql stable security definer set search_path to 'public' as $$
 declare
@@ -93,6 +176,8 @@ begin
         where j.id <> c.id and j.passage is not null
           and md5(regexp_replace(lower(j.passage), '\s+', ' ', 'g')) = v_norm
           and (exists (select 1 from csat_dx_session s where s.user_id = p_uid and s.exam_id = j.exam_id)
+            or exists (select 1 from csat_dx_response r join csat_dx_session s on s.id = r.session_id
+                       where s.user_id = p_uid and r.item_id = j.id)
             or exists (select 1 from learning_task_attempts t where t.user_id = p_uid and t.item_ref = j.id)
             or exists (select 1 from learning_sessions s where s.user_id = p_uid and s.item_ref = j.id)
             or exists (select 1 from csat_trap_attempts t where t.user_id = p_uid and t.item_id = j.id)
@@ -245,7 +330,7 @@ grant execute on function public.workspace_delivery_record(uuid, uuid, uuid, uui
 create or replace function public.content_release_revoke(p_approval uuid, p_reason text)
 returns void language plpgsql security definer set search_path to 'public' as $$
 begin
-  if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
+  if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   perform 1 from content_release_approval where id = p_approval for update;
   if not found then raise exception 'revoke: approval not found'; end if;

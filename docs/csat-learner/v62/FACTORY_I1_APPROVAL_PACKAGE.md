@@ -22,13 +22,13 @@
 |---|---|
 | C `_pending_workspace_supply_c_qualification.sql` | `dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66` |
 | B `_pending_workspace_supply_b_orders.sql` | `e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2` |
-| I1-S `_pending_workspace_supply_i1_safety.sql` | `858d8bf3610ed43fe895ded9b52360afc769513ddfffe7f06c9aede37e813b7c` |
-| I1-P `_pending_workspace_supply_i1_partial.sql` | `932929bdd9483b042e7f53ad3cffb8ac1c3a6be214ab097158d3f7d8f4d93cde` |
-| I1-D3 `_pending_workspace_supply_i1_d3_lineage.sql` | `bafe7f2716d5785add3ea004b9caf0491621b4dcdd0b5c7ca76101bb482c630c` |
-| 되돌리기 `_pending_workspace_supply_i1_rollback.sql` | `22a3ab15577c28486dcbad11f1586c5ec466d85ce9080bbfe5382a1e755d540a` |
+| I1-S `_pending_workspace_supply_i1_safety.sql` | `68d1142fe2b182b7e198e769af6045c444a6cea9444022a020a1c1bb8834050b` |
+| I1-P `_pending_workspace_supply_i1_partial.sql` | `79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041` |
+| I1-D3 `_pending_workspace_supply_i1_d3_lineage.sql` | `adc8ad7b5b696a4022ec6df7a8b7e3c0b075912688b6540d8a1050bca903614f` |
+| 되돌리기 `_pending_workspace_supply_i1_rollback.sql` | `f2838a86fffd943887ea604652a75eb5f473f3c4fb72a92e854bb21ab65e8e4e` |
 | (대체됨) I0 delta `_pending_workspace_supply_b_delta_i0.sql`(PR #277) | `db33188031b3043daa5b301bcf7bb128d0459cf1d0254055573e103db95e4e20` — 적용하지 않음 |
 
-되돌리기 파일은 `node scripts/csat/map/v62/gen-supply-i1-rollback.mjs` 가 B · C 원본에서 함수 정의를 글자 그대로 잘라 만든다(머리에 B · C sha256 기록). 손으로 고치지 않는다.
+되돌리기 파일은 `node scripts/csat/map/v62/gen-supply-i1-rollback.mjs` 가 B · C 원본에서 함수 정의를 추출하되 no-profile 거절 가드는 보존한다(머리에 B · C sha256 기록). 손으로 고치지 않는다. 검사 전에 표 잠금을 얻고 원장이 있으면 전체 복구를 거절한다.
 
 ## 3. 허용 객체 — 이 목록 밖의 객체를 만들거나 바꾸면 적용 중단
 
@@ -36,7 +36,7 @@
 |---|---|---|
 | A-C | 표 `content_qualification` · `content_release_approval` · `content_release_revocation` / 함수 `forbid_ledger_mutation` · `fq_axes_valid` · `fq_role_ok` · `content_qualification_record` · `content_release_approve` · `content_release_revoke` · `ledger_writer_guard` / 트리거 6 / 정책 3 | — |
 | A-B | 표 `workspace_content_demand` · `workspace_content_demand_line` · `factory_order` · `factory_order_event` · `workspace_content_delivery` / 함수 `factory_order_state_guard` · `workspace_demand_record` · `factory_order_open` · `factory_order_transition` · `supply_artifact_revision` · `supply_learner_exposure` · `workspace_delivery_record` · `supply_writer_guard` / 부분 고유 인덱스 1 / 정책 5 | 기존 표에 **복합 고유키 3**(`learner_workspace(id,user_id)` · `csat_map_goal_version(id,user_id)` · `learner_workspace_plan(workspace_id,plan_version,user_id)`) — 데이터 변경 없음(id 가 이미 PK) |
-| I1-S | 함수 `supply_delivery_valid` | `supply_learner_exposure` · `workspace_delivery_record` · `content_release_revoke` · `fq_axes_valid` · `fq_role_ok`, 정의자 10개 함수 `search_path`에 `pg_temp` 마지막 명시. 새 C/B 8개 표 ALL 권한 회수 후 authenticated SELECT만 |
+| I1-S | 함수 `supply_delivery_valid` | `supply_learner_exposure` · `workspace_delivery_record` · `content_qualification_record` · `content_release_approve` · `content_release_revoke` · `factory_order_transition` · `fq_axes_valid` · `fq_role_ok`, 정의자 10개 함수 `search_path`에 `pg_temp` 마지막 명시. 새 C/B 8개 표 ALL 권한 회수 후 authenticated SELECT만 |
 | I1-P | 함수 `workspace_line_fulfillment` | `factory_order.state` CHECK(+`partial`) · 인덱스 `factory_order_one_open_per_line`(닫힘에 partial) · 함수 `factory_order_open` · `factory_order_transition` |
 | I1-D3 | 표 `factory_product_order` · `factory_order_product_link` / 함수 `factory_product_order_is_current` · `factory_product_order_register` · `factory_order_link_product` / 트리거 4 / 정책 2 | — |
 
@@ -76,6 +76,7 @@
 
 - **I1-S 되돌리기**: 데이터 무관, 언제든 가능. 단 되돌리면 D1/D2 결함이 다시 열린다 → 공급을 막아 두고(B 함수 실행권 회수) 되돌린다.
 - 생성 롤백은 끝에서 공급 RPC의 authenticated 실행권을 **회수한 채 유지**한다. S만 승인한 경우도 P/D3 부재를 허용한다. 원본 B의 안전 결함을 다시 열지 않는다.
+- C/B 관리자 가드의 `IS NOT TRUE`와 표 권한 축소는 롤백에서도 보존한다. 함수 동작을 원본으로 돌려도 no-profile 관리 권한이나 TRUNCATE를 재개방하지 않는다.
 - **I1-P 되돌리기**: `factory_order.state = 'partial'` 행이 0일 때만. 있으면 되돌리지 않는다(닫힌 주문이 열린 주문처럼 보여 중복 주문 차단이 깨진다).
 - **I1-D3 되돌리기**: 두 표가 비어 있을 때만. 행이 있으면 `create table … _preserve_<날짜> as select` 로 복사한 뒤.
 - **A(C · B) 되돌리기**: 각 파일 머리의 drop 순서. 원장(자격 · 승인 · 철회 · 이벤트 · 공급)은 **추가 전용** — 행이 있으면 보존 표 복사 뒤에만.

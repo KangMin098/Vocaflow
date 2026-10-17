@@ -25,8 +25,11 @@
 | S12 | P2 핵심 | S만 적용한 DB의 롤백이 미설치 D3 표에서 `42P01` | 중첩 IF로 부분 승인 지원. 롤백 끝에 공급 EXECUTE 회수 유지. partial/D3 행이 있으면 전체 거절 |
 | CI01 | P2 | 제출 CI verify의 mock `rpc(fn,args)`를 RPC 감사가 실호출로 수집 | 테스트 callback 명칭 수정, 감사 가드 유지 |
 | S13 | P1 | 개발 DB의 기본 표 ACL은 anon/authenticated ALL. INSERT/UPDATE/DELETE만 회수하므로 RLS를 우회하는 TRUNCATE로 공급 이력 삭제 가능(실제 PG에서 성공, 즉시 rollback) | S의 8개 표·D3 2개 표에서 ALL 회수 후 authenticated SELECT만 부여. TRUNCATE/REFERENCES/TRIGGER 포함 120개 ACL 조합 회귀. 실제 개발 DB에서는 읽기 감사만 실행 |
+| AUTH01 | P1 | 실제 `is_admin_or_curator()`는 프로필 없는 로그인 사용자에게 NULL. `IF NOT NULL`이 자격/출시 승인을 허용함(I0 독립 감사와 동일 재현) | S에서 C 자격·승인·철회 및 B 전이 가드를 완전한 함수로 대체하고 P/D3도 `IS NOT TRUE`. 실 helper 의미를 fixture에 반영, 여섯 관리자 RPC와 S-only/롤백 검사 |
+| REVIEW01 | P1 | 목적 리뷰: 빈 D3 검사와 DROP 사이 동시 등록이 커밋하면 원장을 지울 수 있음 | 검사 전 factory_order·설치된 D3 표 ACCESS EXCLUSIVE 잠금. 실제 PG에서 등록을 먼저 열고 롤백을 경합시켜 이력 보존 검사 |
+| REVIEW02 | P2 핵심 | 목적 리뷰: 세션 회차와 응답 문항 회차가 다른 B 입력에서 공유 지문 노출을 놓침 | 직접 dx_response→session 조인 경로 복원. public+assessment 모두 승인된 상태의 평가 공급도 거절하는 회귀 추가 |
 
-추가 hardening: C/B/I1 정의자 search_path의 `pg_temp`를 마지막에 명시한다. public 스키마 CREATE는 개발 DB에서 anon/authenticated 모두 false였다. 임시 표 사칭 시험은 제출본·수정본 모두 거절했으므로 **새로 발견한 권한 상승으로 세지 않는다**.
+추가 hardening: C/B/I1 정의자 search_path의 `pg_temp`를 마지막에 명시한다. public 스키마 CREATE는 개발 DB에서 anon/authenticated 모두 false였다. 초기 임시 표 사칭 시험은 단순 EXISTS helper에서 양쪽 거절이었다. 실제 helper의 NULL 의미를 반영한 후 제출본은 관리자 가드를 지나갔다. 이는 AUTH01과 같은 원인이며 별도 권한 상승으로 중복 세지 않는다.
 
 ## 3. I1-S 보안·수용 범위
 
@@ -51,8 +54,8 @@ I1-P 수정 정책은 수용한다. `delivered`는 **전이 시점에 유효한 
 |---|---|
 | PGlite 제출+독립 R01/R02/R04 | 37 통과/3 실패. R03 store 6 통과/1 실패 |
 | PGlite 추가 회귀 | S-only rollback 실패 `42P01`, 기출 Reveal Gate 반례 실패를 보존 후 수정 |
-| PGlite 수정 집중 | I1 44개(기본 ALL 권한 반례 포함), store 7개, persist 13개. 최종 통과는 EVIDENCE의 run 기록 |
-| 실제 PostgreSQL | **17.10**, 격리 다중 연결. 최종 결과는 EVIDENCE의 exact run 기록 |
+| PGlite 수정 집중 | I1 **46/46**(기본 ALL·실 helper NULL·공유 지문 회귀 포함), store **7/7**, I0 계약 **77/77**. persist 13개 포함 광역 결과는 EVIDENCE의 run 기록 |
+| 실제 PostgreSQL | **17.10**, 동일 33조건에서 제출 **20/33**, 수정 **33/33**. 기본 ALL·실 helper NULL·롤백 등록 경합 포함. 원장 삭제 반례는 로컬 DB에서만 실행 |
 | 기존 B PostgreSQL | 기존 동시성 7/7. B만의 상한·철회 반례는 별도 기대 실패로 보존 |
 | PC Chromium | 1280·1440, 실제 TaskInspector·공급/수요 엔진의 합성 읽기 fixture. 이전 수요 제외/부분·완료/미설치/검수 전 열람/키보드 접기/가로 넘침 검증. 외부 요청 0. 전체 앱 DB E2E와 구분 |
 | 기존 R5·T1–T4·PLAN/Workspace | 전체 CI 단위 회귀에 포함. 개발 DB에 계정·학습 기록을 쓰는 기존 브라우저 스크립트는 실행 금지 범위라 재실행하지 않음 |

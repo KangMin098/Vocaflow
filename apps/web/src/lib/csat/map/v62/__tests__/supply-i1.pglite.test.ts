@@ -328,6 +328,24 @@ describe('P — 부분 납품 · 재주문 · 철회', () => {
 })
 
 describe('독립 수용 R01/R02/R04 — 동일 입력 수정 전후 회귀', () => {
+  it('B 회귀: 응답 문항 회차와 세션 회차가 달라도 공유 지문 노출을 거절한다(두 범위 승인 있음)', async () => {
+    await db.exec(`insert into csat_items(id,exam_id,passage) values ('SH1#41','SH1','shared response path'),('SH2#42','SH2','shared response path')`)
+    const session = (await q1<{ id: string }>(`insert into csat_dx_session(user_id,exam_id) values ($1,'DIFFERENT') returning id`, [A])).id
+    await db.query(`insert into csat_dx_response(session_id,item_id) values ($1,'SH1#41')`, [session])
+    expect(await exposure('SH2#42',A)).toBe('shared_passage_seen')
+    const r = await assessmentReady('SH2#42')
+    expect(await errorOf(deliver(A,await lineFor(A,wsA,'independent_check',1),r.q,r.asm))).toContain('exposure shared_passage_seen')
+  })
+  it('프로필 없는 로그인 사용자: 실제 helper의 NULL이 관리자 승인을 열지 않는다', async () => {
+    await as(db, B)
+    expect((await q1<{ ok: boolean | null }>(`select is_admin_or_curator() ok`)).ok).toBe(null)
+    expect(await errorOf(db.query(`select content_qualification_record('FQ1.1','csat_item','X','rev','r.central_meaning','guided_practice',$1::jsonb,'src',$2,null,'g',$2,'{}','{e}','no-profile',null)`, [JSON.stringify(AXES()), H64]))).toContain('Forbidden')
+    expect(await errorOf(db.query(`select content_release_approve($1,'public')`, [key()]))).toContain('Forbidden')
+    expect(await errorOf(db.query(`select content_release_revoke($1,'no-profile')`, [key()]))).toContain('Forbidden')
+    expect(await errorOf(db.query(`select factory_order_transition($1,'requested','failed','x',null,null,$2)`, [key(),key()]))).toContain('Forbidden')
+    expect(await errorOf(db.query(`select factory_product_order_register('NO-PROFILE',1,$1,'active',$2,'r.central_meaning','guided_practice',1,null,$3)`, [H64,'a'.repeat(32),key()]))).toContain('Forbidden')
+    expect(await errorOf(db.query(`select factory_order_link_product($1,'X',1,$2,$3)`, [key(),H64,key()]))).toContain('Forbidden')
+  })
   it('Supabase 기본 ALL의 TRUNCATE·REFERENCES·TRIGGER를 새 원장 10개에서 모두 회수한다', async () => {
     const tables = ['content_qualification','content_release_approval','content_release_revocation','workspace_content_demand','workspace_content_demand_line','factory_order','factory_order_event','workspace_content_delivery','factory_product_order','factory_order_product_link']
     for (const table of tables) {
@@ -421,7 +439,10 @@ describe('되돌리기(_pending_workspace_supply_i1_rollback.sql — 생성물)'
   it('S만 승인한 DB도 P/D3 없이 안전하게 되돌리고 공급 실행권은 닫아 둔다', async () => {
     const r = new PGlite()
     try {
-      for (const s of [STUB, I1_STUB, C_SQL, B_SQL, I1_SAFETY, ROLLBACK]) await r.exec(s)
+      for (const s of [STUB, I1_STUB, C_SQL, B_SQL, I1_SAFETY]) await r.exec(s)
+      await as(r, B)
+      expect(await errorOf(r.query(`select factory_order_transition($1,'requested','failed','no-profile',null,null,$2)`,[key(),key()]))).toContain('Forbidden')
+      await r.exec(ROLLBACK)
       expect((await r.query<{ ok: boolean }>(`select has_function_privilege('authenticated','public.workspace_delivery_record(uuid,uuid,uuid,uuid,uuid)','execute') ok`)).rows[0]!.ok).toBe(false)
     } finally { await r.close() }
   })

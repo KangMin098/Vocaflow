@@ -20,7 +20,8 @@ function block(text, name, file) {
   if (start < 0) throw new Error(`${file}: ${name} 없음`)
   const end = text.indexOf('$$;', text.indexOf('as $$', start) + 5)
   if (end < 0) throw new Error(`${file}: ${name} 끝 없음`)
-  return text.slice(start, end + '$$;'.length)
+  // 최소 권한 가드는 복구에서도 유지한다(실제 helper는 no-profile에서 NULL).
+  return text.slice(start, end + '$$;'.length).replaceAll('not public.is_admin_or_curator()', 'public.is_admin_or_curator() is not true')
 }
 const bText = read(B)
 const cText = read(C)
@@ -36,7 +37,14 @@ const out = `-- supabase/migrations/_pending_workspace_supply_i1_rollback.sql
 
 begin;
 -- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)
-do $$ begin
+do $$ declare v_table text; begin
+  -- 빈 표 확인과 DROP 사이에 등록/링크/partial 전이가 끼어들면 이력을 지울 수 있다.
+  -- 잠금을 얻은 다음에만 검사한다. 등록이 먼저면 커밋된 행을 보고 전체 복구를 거절한다.
+  foreach v_table in array array['factory_order','factory_product_order','factory_order_product_link'] loop
+    if to_regclass('public.' || v_table) is not null then
+      execute format('lock table public.%I in access exclusive mode', v_table);
+    end if;
+  end loop;
   if to_regclass('public.factory_order_product_link') is not null then
     if exists (select 1 from public.factory_order_product_link) then
       raise exception 'rollback D3: factory_order_product_link has rows — preserve history; rollback refused';
@@ -78,6 +86,8 @@ grant execute on function public.factory_order_transition(uuid, text, text, text
 ${block(bText, 'supply_learner_exposure', B)}
 ${block(bText, 'workspace_delivery_record', B)}
 ${block(cText, 'content_release_revoke', C)}
+${block(cText, 'content_qualification_record', C).replace('not public.is_admin_or_curator()', 'public.is_admin_or_curator() is not true')}
+${block(cText, 'content_release_approve', C).replace('not public.is_admin_or_curator()', 'public.is_admin_or_curator() is not true')}
 ${block(cText, 'fq_axes_valid', C)}
 ${block(cText, 'fq_role_ok', C)}
 alter function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) set search_path to 'public';
