@@ -23,6 +23,8 @@
 
 목적 리뷰 4차에서 이 보류와 Workspace 실행 링크의 불일치를 찾아 [추출한 기존 실행/주소 판정의 최초 실패](./execution-round4-initial.log)를 보존했다(2실패/1통과). 서버는 예약될 미노출 연습 전이를 실행 후보에서 빼고, 이미 노출된 전이의 일반 경험과 별도 문항 화면 경로는 유지한다. 다음 연습 링크도 사용자 예약을 대조한다. 전용 Playwright 설정과 스펙의 서버 주소 판정을 공유해 사용자 지정 주소·포트가 일치한다.
 
+[6차 리뷰](./goal-review-sixth.log)의 [최초 실패](./identity-round6-initial.log)는 과거 노출의 지문 키 누락과 일반 E2E 주소 상속이다. 식별할 수 없는 과거 노출은 unseen이 아니라 unknown이며, 원장을 화면용으로 줄여도 타 문항 ID 없이 불확실성 플래그를 보존한다. 알려진 같은 문항 노출은 계속 exposed다. 설정·스펙은 R5 전용 `R5_READ_ONLY_BASE_URL`/`R5_READ_ONLY_PORT`만 공유하고, 일반 `PLAYWRIGHT_BASE_URL`을 상속하지 않는다.
+
 목적 리뷰 1차에서 추가한 실패는 [리뷰 원문](./goal-review-first.log)과 [2차 반례 최초 실패](./review-round2-initial.log)에 보존했다. 확인 phase도 활동·세션·TASK·현재 주석 hash 없이 독립 표본으로 승격되지 않도록 보완했고, reader가 첫 시도 ID에 맞는 원장 메타데이터를 전달한다. T4는 첫 시도와 수행의 세션·과거 hash를 결속하며, 과거 주석의 독립 관찰 사실과 현재 도구 적격성을 구분한다. 원문 문자열의 줄바꿈·탭은 JSON 인코딩 전에 정규화한다. `A B`, `A\nB`, `A\tB`는 같은 지문이며 빈 문자열은 식별 불가다.
 
 `r5-reader-independent`, `r5-reservation-independent`, `practice-server`, `r5-practice-page`가 다음을 격리 더블로 실행한다(네트워크·DB 쓰기 없음).

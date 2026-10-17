@@ -26,7 +26,7 @@ export interface ExposureEvent {
 }
 
 export type ExposureLedger =
-  | { status: 'ok'; events: ExposureEvent[]; passageKeys: Record<string, string> }
+  | { status: 'ok'; events: ExposureEvent[]; passageKeys: Record<string, string>; passageUnknown?: true }
   | { status: 'error'; failed: ExposureSource[] }
 
 export type ExposureVerdict =
@@ -42,12 +42,14 @@ export function exposureOf(itemRef: string, ledger: ExposureLedger): ExposureVer
   const via = new Set<ExposureSource>()
   let sameItem = false
   let samePassage = false
+  let unknown = ledger.passageUnknown === true
   for (const e of ledger.events) {
     if (e.itemRef === itemRef) { sameItem = true; via.add(e.source); continue }
     const p = ledger.passageKeys[e.itemRef]
+    if (!p) unknown = true
     if (p && p === passage) { samePassage = true; via.add(e.source) }
   }
-  if (!sameItem && !samePassage) return { state: 'unseen' }
+  if (!sameItem && !samePassage) return unknown ? { state: 'unknown', reason: 'passage_unknown' } : { state: 'unseen' }
   return { state: 'exposed', via: [...via].sort(), sameItem, samePassage }
 }
 
@@ -97,7 +99,8 @@ export function compactLedger(ledger: ExposureLedger, candidates: readonly strin
   const keep = (ref: string) => items.has(ref) || passages.has(ledger.passageKeys[ref] ?? '')
   const events = ledger.events.filter((e) => keep(e.itemRef)).map((e) => ({ itemRef: e.itemRef, source: e.source, taskKey: null, activity: null, phase: null, helpLevel: null, sessionId: null, contentHash: null, deleted: e.deleted }))
   const passageKeys = Object.fromEntries(Object.entries(ledger.passageKeys).filter(([ref]) => items.has(ref) || events.some((e) => e.itemRef === ref)))
-  return { status: 'ok', events, passageKeys }
+  const passageUnknown = ledger.passageUnknown || ledger.events.some(e => !ledger.passageKeys[e.itemRef])
+  return { status: 'ok', events, passageKeys, ...(passageUnknown ? { passageUnknown: true as const } : {}) }
 }
 
 export type AttemptRole = 'independent_check' | 'transfer' | 'practice' | 'helped' | 'unbound'

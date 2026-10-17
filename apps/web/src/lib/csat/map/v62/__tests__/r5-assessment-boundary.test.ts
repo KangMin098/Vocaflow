@@ -21,6 +21,17 @@ const input = (o: Partial<SupplyInput> = {}): SupplyInput => ({ unseenCheckItems
 const roleOf = (s: ReturnType<typeof supplyFor>, r: string) => s.lines.find((l) => l.role === r)!
 
 describe('노출 판정 — 경로 · TASK · 지문 무관', () => {
+  it('unidentified past exposure stays unknown after privacy compaction', () => {
+    const full = ok([e('2020#22', { source: 'paper' })])
+    expect(exposureOf('2020#24', full)).toEqual({ state: 'unknown', reason: 'passage_unknown' })
+    const compact = compactLedger(full, ['2020#24'])
+    expect(exposureOf('2020#24', compact)).toEqual(exposureOf('2020#24', full))
+    expect(exposureOf('2020#24', compactLedger(compact, ['2020#24']))).toEqual(exposureOf('2020#24', full))
+    expect(JSON.stringify(compact)).not.toContain('2020#22')
+  })
+  it('known same-item exposure remains exposed despite another missing identity', () => {
+    expect(exposureOf('2020#24', ok([e('2020#24'), e('2020#22')])).state).toBe('exposed')
+  })
   it('같은 문항을 연습(activity=practice)으로 먼저 봤으면 평가 후보가 아니다', () => {
     expect(exposureOf('2020#24', ok([e('2020#24', { activity: 'practice', phase: 'transfer', taskKey: 'claim-support' })])).state).toBe('exposed')
   })

@@ -11,7 +11,7 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   retries: 0,
   use: { ...base.use, baseURL, navigationTimeout: 120_000 },
-  webServer: process.env.PLAYWRIGHT_BASE_URL || process.env.R5_READ_ONLY_BASE_URL ? undefined : {
+  webServer: process.env.R5_READ_ONLY_BASE_URL ? undefined : {
     command: 'node ../../scripts/csat/map/v62/r5-read-only-server.cjs',
     url: `${baseURL}/login`,
     reuseExistingServer: true,
