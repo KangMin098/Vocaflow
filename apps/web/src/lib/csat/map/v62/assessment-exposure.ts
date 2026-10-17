@@ -81,6 +81,11 @@ export function reservedPracticePool(targets: readonly string[], candidates: rea
   return new Set([...protectedItems, ...candidates.filter(id => !ledger.passageKeys[id] || protectedPassages.has(ledger.passageKeys[id]))])
 }
 
+/** Execution targets must agree with the practice reservation boundary. */
+export function executableTransferTargets<T extends { target: string; href: string }>(targets: readonly T[], ledger: ExposureLedger): T[] {
+  return targets.filter(t => !t.href.startsWith('/csat/practice/') || exposureOf(t.target, ledger).state === 'exposed')
+}
+
 /**
  * 화면으로 보낼 최소 원장 — 후보 문항과 같은 문항 · 같은 지문인 노출만, 출처만 남긴다(다른 기록 · 해시 · 세션 id 는 화면에 안 보낸다).
  * exposureOf 결과는 원본 원장과 같다.

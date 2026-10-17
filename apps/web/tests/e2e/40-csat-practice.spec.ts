@@ -17,6 +17,7 @@ import { annotationFor, gradeClaimSupport, skeletonSig } from '../../src/lib/kno
 import { RELATION_LABEL } from '../../src/lib/knowledge/claim-support-labels'
 import { gradePractice, keyFromAnnotation, phaseOfType, practiceFeedback, type PracticeAnswer } from '../../src/lib/knowledge/practice'
 import { serviceClient } from './utils/db'
+import { r5ReadOnlyBase } from './utils/r5-read-only-base'
 
 const USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -43,7 +44,7 @@ function fixtureFor(itemId: string) {
 }
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
-const READ_ONLY_BASE = process.env.R5_READ_ONLY_BASE_URL || 'http://localhost:3129'
+const READ_ONLY_BASE = r5ReadOnlyBase(process.env)
 let ownedServer: ChildProcess | null = null
 
 test.describe.configure({ mode: 'serial' })

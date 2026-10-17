@@ -40,7 +40,7 @@ import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type Ma
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 import { loadSupplyLedger } from './v62/supply-store'
 import type { SupplyLedger } from './v62/supply-ledger'
-import { compactLedger, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
+import { compactLedger, executableTransferTargets, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
 
@@ -490,7 +490,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
   // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
   const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
-  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId)).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
+  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId), userId).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
   const practiceNext: Record<string, string> = {}
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
@@ -524,6 +524,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
   const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), assessCandidates)
   const fqReader = await loadFqReader(db).catch((): FqReader => ({ status: 'error' }))
+
+  for (const [key, targets] of Object.entries(transferTargets)) {
+    transferTargets[key] = executableTransferTargets(targets, assessmentExposure)
+    transferItems[key] = new Set(transferTargets[key].map(l => l.passageKey)).size
+  }
 
   return {
     now: now.toISOString(),
