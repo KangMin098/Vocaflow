@@ -1,0 +1,50 @@
+[
+  {
+    "file": "screens/map-1280-v2.png",
+    "source": "frozen-product/v2-1280/01-v2-pop.png",
+    "sha256": "948eb37c094e03df2f31691000ce2c46352eeafc2e77704dbb4f503281df8e9a",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/drawer-1280-v2.png",
+    "source": "frozen-product/v2-1280/02-v2-drawer.png",
+    "sha256": "a7b58945a8cb9b60ea125253d3aa722696484abb933432bd75d7171fe3d89379",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/map-1440-v2.png",
+    "source": "frozen-product/v2-1440/01-v2-pop.png",
+    "sha256": "d39bafe965285e67c304973540292281903243f4a3100bfb2ecdea2f216f5e6c",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/drawer-1440-v2.png",
+    "source": "frozen-product/v2-1440/02-v2-drawer.png",
+    "sha256": "d13c6228ae98c227058d1233fcf02ae73d553137c04dba5e818b1dfb912f765c",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/r5-1280.png",
+    "source": "frozen-product/t4-1280/04-01-find-failed-pop.png",
+    "sha256": "76c3f8eb0cb93fe0717111540874fbf5608a4ff67d4b74788f93aad5cf07e930",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/r5-1440.png",
+    "source": "frozen-retry/t4-1440/04-01-find-failed-pop.png",
+    "sha256": "f60c8b886adabe2a94e6088bde6d15f988f8816bae7ea2c53214427cfbe79f31",
+    "scope": "actual app, synthetic account"
+  },
+  {
+    "file": "screens/fixture-1280.png",
+    "source": "bound-panel/1280-graded.png",
+    "sha256": "46438cdc0ca8abc8e3f89ac6f6e747bbcece2ba7082850257057f0121f0a8fe5",
+    "scope": "isolated React, synthetic inputs, not released content"
+  },
+  {
+    "file": "screens/fixture-1440.png",
+    "source": "bound-panel/1440-graded.png",
+    "sha256": "b8f94e4fe9aa228837459a876b8d95f58c385bdc63db21e200ebbe2530943a52",
+    "scope": "isolated React, synthetic inputs, not released content"
+  }
+]

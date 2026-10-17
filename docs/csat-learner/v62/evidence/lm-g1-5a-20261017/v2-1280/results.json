@@ -1,0 +1,86 @@
+{
+  "sha": "ff3d2b6e367b1abfa0f096e9842e025037e786b8",
+  "dirtyTree": false,
+  "base": "http://localhost:3005",
+  "width": 1280,
+  "startedAt": "2026-10-16T16:16:14.977Z",
+  "endedAt": "2026-10-16T16:16:24.595Z",
+  "pass": 6,
+  "fail": 0,
+  "fatal": null,
+  "accounts": {
+    "created": 1,
+    "confirmedAbsent": 1
+  },
+  "layers": {
+    "expert_review": "NOT_TESTED",
+    "learning_effect": "NOT_CLAIMED"
+  },
+  "results": [
+    {
+      "id": "G01",
+      "name": "V2 팝업 — 실행 링크 없음 · 막힘 사유 표시 · 증거 칩 없음(확인 키 없음) · 포커스가 팝업으로",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "next": null,
+        "blocked": "content_gap",
+        "evidence": "not_measured",
+        "claims": false,
+        "noWs": "이 TASK 를 다루는 Workspace 의 자료를 준비하고 있어요 — 부족하다는 뜻은 아니에요.",
+        "focused": true
+      }
+    },
+    {
+      "id": "G02",
+      "name": "V2 서랍 — 실행 링크 없음 · 증거 블록 없음 · 「통과 · 숙달」 표시 없음",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "next": null,
+        "claims": false,
+        "evidence": "not_measured"
+      }
+    },
+    {
+      "id": "G03",
+      "name": "상단 다음 행동 · 화면 링크 중 V2 실행 링크 0",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "topNext": null,
+        "v2Links": 0
+      }
+    },
+    {
+      "id": "G04",
+      "name": "가로 넘침 0",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "overflowX": 0,
+        "w": 1280
+      }
+    },
+    {
+      "id": "G05",
+      "name": "기록 API — V2 어휘 문항 제출은 과제 없음(4xx) · 이 계정 원장 0행",
+      "status": "PASS",
+      "layer": "db",
+      "detail": {
+        "status": 400,
+        "code": "no_task",
+        "rows": 0
+      }
+    },
+    {
+      "id": "G06",
+      "name": "문항 화면(확인 모드) — V2 과제 칸 없음(합의 주석 · 출시 없음)",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "panel": false
+      }
+    }
+  ]
+}

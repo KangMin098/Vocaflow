@@ -1,0 +1,19 @@
+{
+  "readOnly": true,
+  "observed_at": "2026-10-16T23:46:58.080983+00:00",
+  "v2_attempts": 0,
+  "v2_applications": 0,
+  "candidate_counts": [
+    {
+      "organizer": "kice",
+      "candidates": 51,
+      "known_answers": 51
+    },
+    {
+      "organizer": "edu_office",
+      "candidates": 196,
+      "known_answers": 196
+    }
+  ],
+  "active_v2_applications": 0
+}
