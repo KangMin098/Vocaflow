@@ -92,6 +92,8 @@ test('훅: 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기�
     `node scripts/db/factory-i1/deploy.mjs apply --stage db1`,
     `${CMD} ${NONCE_FLAG} ${'a'.repeat(48)}`,
     `${CMD} && ${CMD}`,
+    `${CMD} --confirm-sha ${SHA}`, // 최종 리뷰 P3: 플래그 중복
+    `${CMD} --stage db2`,
     `${CMD}; echo`, // 재리뷰 P1: 난수가 echo 에 실려 출력으로 샌다
     `${CMD} | tee out.log`,
     `${CMD} > out.log 2>&1`,

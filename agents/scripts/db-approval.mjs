@@ -57,6 +57,8 @@ export function parseApply(args) {
   const rest = args.slice(i + 1)
   const stage = opt(rest, '--stage')
   const sha = opt(rest, '--confirm-sha')
+  const count = (n) => rest.filter((a) => a === n || a.startsWith(`${n}=`)).length
+  if (count('--stage') > 1 || count('--confirm-sha') > 1) return { runner, stage, sha, ok: false, problem: '--stage · --confirm-sha 는 한 번씩만' }
   if (rest[0] !== 'apply') return { runner, stage, sha, ok: false, problem: 'apply 는 러너 경로 바로 다음에 와야 한다' }
   if (rest.some((a) => a === NONCE_FLAG || a.startsWith(`${NONCE_FLAG}=`))) return { runner, stage, sha, ok: false, problem: `${NONCE_FLAG} 는 훅만 붙인다` }
   if (!stage || !STAGE_RE.test(stage)) return { runner, stage, sha, ok: false, problem: '--stage 가 없거나 형식이 다르다' }
