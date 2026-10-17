@@ -188,30 +188,33 @@ function checkEnvRead(verb, args) {
 export function deployApprovals(cmd) {
   const asks = []
   const denies = []
-  const src = stripHeredocs(cmd)
-  if (/db-approvals|[\\/]\.vocaflow\b|VF_DB_APPROVAL_DIR/i.test(src))
-    denies.push('승인 티켓 디렉터리 접근 — 티켓은 guard 훅만 쓴다(agents/scripts/db-approval.mjs)')
   for (const seg of segments(cmd)) {
     const h = head(seg)
     if (!h) continue
     const { verb, args } = h
-    const touchesRunner = args.some((a) => RUNNER_RE.test(a))
-    if (!touchesRunner) continue
-    if (!['node', 'node.exe'].includes(verb)) {
-      if (args.includes('apply')) denies.push(`배포 러너 apply 를 ${verb} 로 감싸 실행 — \`node scripts/db/<id>/deploy.mjs apply …\` 형태로만 승인한다`)
-      continue
+    // 티켓 디렉터리를 순수 조회 외의 동사로 만지면 위조 시도다(cp · sed -i · tee · node · 리다이렉트 포함)
+    if ((!PURE_READ_VERBS.has(verb) || seg.some((t) => /^\d?>/.test(t) || /^-i/.test(t))) && /db-approvals|[\\/]\.vocaflow\b|VF_DB_APPROVAL_DIR/i.test(seg.join(' ')))
+      denies.push(`승인 티켓 디렉터리를 ${verb} 로 접근 — 티켓은 db-approval-hook 만 쓴다`)
+    if (DEPLOY_READ_VERBS.has(verb)) continue // 읽기·검색·git 은 배포 판정을 하지 않는다(오탐 금지)
+    const text = args.join(' ')
+    const mentionsDeploy = /deploy(\.mjs)?\b/i.test(text) && /\bapply\b/.test(text)
+    if (['node', 'node.exe'].includes(verb)) {
+      const p = parseApply(args)
+      if (p?.ok) asks.push(p)
+      else if (p) denies.push(`DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`)
+      else if (mentionsDeploy || /deploy(\.mjs)?\b[\s\S]*\bapply\b/i.test(text))
+        denies.push('DB 배포 apply 가 정식 형태가 아니다 — `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 로만 승인한다')
+    } else if (mentionsDeploy || (args.some((a) => RUNNER_RE.test(a)) && /\bapply\b/.test(text))) {
+      denies.push(`배포 러너 apply 를 ${verb} 로 감싸 실행 — \`node scripts/db/<id>/deploy.mjs apply …\` 형태로만 승인한다`)
     }
-    const p = parseApply(args)
-    if (!p) continue
-    if (!p.ok) denies.push(`DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`)
-    else asks.push(p)
   }
-  // 정식 형태로 파싱되지 않은 apply(변수 · 치환 · 따옴표 조립)는 승인 창 대상과 실행 대상이 어긋날 수 있다
-  if (!asks.length && !denies.length && /deploy\.mjs/i.test(src) && /\bapply\b/.test(src) && /\$\(|`|\$\{?[A-Za-z_]/.test(src))
-    denies.push('DB 배포 apply 를 변수·명령 치환으로 조립 — 승인 창에 보이는 명령과 실행 명령이 같아야 한다')
   if (asks.length > 1) denies.push('한 명령에 DB 배포 apply 가 둘 이상 — 승인은 한 번에 하나')
   return { asks: denies.length ? [] : asks, denies }
 }
+
+/** 배포 판정에서 빼는 읽기 전용 동사 — `grep apply scripts/db/x/deploy.mjs` 같은 조회를 막지 않는다 */
+const PURE_READ_VERBS = new Set(['cat', 'type', 'less', 'more', 'head', 'tail', 'grep', 'rg', 'findstr', 'ls', 'dir', 'git', 'gh', 'wc', 'stat', 'get-content', 'gc', 'select-string', 'sls'])
+const DEPLOY_READ_VERBS = new Set([...READERS, 'ls', 'dir', 'git', 'gh', 'find', 'wc', 'diff', 'stat', 'file', 'echo', 'printf', 'test', '['])
 
 function checkDeployApply(verb, args) {
   if (!['node', 'node.exe'].includes(verb)) return null

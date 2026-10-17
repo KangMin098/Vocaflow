@@ -28,7 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 guard 가 승인 창(ask)을 띄우고, 새 PreToolUse 훅 `db-approval-hook.mjs` 가 (러너·단계·SHA) 에 묶인 5분 1회용 티켓을 발급한다(`agents/scripts/db-approval.mjs`). 러너는 TTY 대신 티켓을 소비한다. 래퍼·변수 조립·티켓 디렉터리 접근은 거부하고, Codex·자동 실행·CI 는 발급하지 않는다. allow 규칙 금지 회귀 포함. migration 없음.
+- feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
 
 - fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수·지문 식별 누락 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
 
