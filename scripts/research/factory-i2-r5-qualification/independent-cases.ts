@@ -65,6 +65,13 @@ export async function annotationCases(db: SqlDb) {
   }
   const supply = async (l: unknown, qualification: unknown = q, approval: unknown = asm, key: string = randomUUID()) =>
     db.query(`select workspace_delivery_record($1,null,$2,$3,$4) id`, [l, qualification, approval, key])
+  await as(me)
+  for (const missing of [true, false]) {
+    const c: Record<string, unknown> = { v: null, user: me, template: 'ws.reading', workspaceId: ws, goalVersion: null, planVersion: 1,
+      definitionVersion: 'version-probe', core: 'r.central_meaning', lines: [{ role: 'transfer', task: 'r.central_meaning', n: 1 }] }
+    if (missing) delete c.v
+    check(`demand version ${missing ? 'missing' : 'NULL'} rejected`, /demand: user mismatch/.test(await err(`select workspace_demand_record($1)`, [JSON.stringify(c)]) ?? ''))
+  }
   const rejectedSupply = async (l: unknown, qualification: unknown = q, approval: unknown = asm) => {
     try { await supply(l, qualification, approval); return null } catch (e) { return (e as Error).message }
   }

@@ -96,6 +96,16 @@
       "detail": ""
     },
     {
+      "name": "demand version missing rejected",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "demand version NULL rejected",
+      "ok": false,
+      "detail": ""
+    },
+    {
       "name": "missing current annotation blocks supply",
       "ok": false,
       "detail": ""
@@ -192,5 +202,5 @@
     }
   ],
   "pass": 26,
-  "fail": 10
+  "fail": 12
 }

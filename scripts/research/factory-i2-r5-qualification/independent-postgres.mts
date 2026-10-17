@@ -20,7 +20,7 @@ const read = (p: string) => fs.readFileSync(path.join(root, p), 'utf8')
 const stub = read('apps/web/src/lib/csat/map/v62/__tests__/supply-stub.sql')
 const i1stub = read('apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql')
 const files = ['_pending_workspace_supply_c_qualification.sql', '_pending_workspace_supply_b_orders.sql', '_pending_workspace_supply_i1_safety.sql', '_pending_workspace_supply_i1_partial.sql', '_pending_workspace_supply_c_annotation_binding.sql']
-const layers = files.map(f => f.includes('annotation_binding') && submitted
+const layers = files.map(f => (f.includes('annotation_binding') || f.includes('b_orders')) && submitted
   ? execFileSync('git', ['show', `f94ddcbce3dc25afe9e2beb22c4aab1910a9cf4a:supabase/migrations/${f}`], { cwd: root, encoding: 'utf8' })
   : read(`supabase/migrations/${f}`))
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vf-i2-annotation-'))
@@ -31,8 +31,10 @@ const bin = path.join(deps, 'node_modules/@embedded-postgres', `${process.platfo
 const ctl = (args: string[]) => execFileSync(path.join(bin, process.platform === 'win32' ? 'pg_ctl.exe' : 'pg_ctl'), args, { stdio: 'ignore', windowsHide: true })
 ctl(['-D', dir, '-o', `-p ${port} -h 127.0.0.1`, '-w', 'start'])
 const pool = new Pool({ host: '127.0.0.1', port, user: 'postgres', password: 'isolated', database: 'postgres', max: 5 })
+let db
 try {
-  const db = await pool.connect()
+  db = await pool.connect()
+  if (process.argv.includes('--fail-after-connect')) throw new Error('injected cleanup failure')
   await db.query(stub); await db.query(i1stub)
   await db.query('alter default privileges in schema public grant all on tables to anon, authenticated')
   for (const layer of layers) await db.query(layer)
@@ -96,13 +98,15 @@ try {
     version: (await db.query('show server_version')).rows[0].server_version,
     sql: Object.fromEntries(files.map((f, i) => [f, createHash('sha256').update(layers[i]).digest('hex')])),
     results: run.results, pass: run.results.filter(r => r.ok).length, fail: run.results.filter(r => !r.ok).length }
-  db.release()
   console.log(JSON.stringify(report, null, 2))
   if (process.argv.includes('--out')) fs.writeFileSync(path.resolve(arg('--out')), JSON.stringify(report, null, 2) + '\n')
   if (report.fail) process.exitCode = 1
 } finally {
-  await pool.end()
-  ctl(['-D', dir, '-m', 'fast', '-w', 'stop'])
-  const resolved = path.resolve(dir)
-  if (resolved.startsWith(path.resolve(os.tmpdir()) + path.sep) && path.basename(resolved).startsWith('vf-i2-annotation-')) fs.rmSync(resolved, { recursive: true })
+  db?.release()
+  try { await pool.end() } finally {
+    ctl(['-D', dir, '-m', 'fast', '-w', 'stop'])
+    const resolved = path.resolve(dir)
+    if (resolved.startsWith(path.resolve(os.tmpdir()) + path.sep) && path.basename(resolved).startsWith('vf-i2-annotation-')) fs.rmSync(resolved, { recursive: true })
+    console.log('isolated PostgreSQL stopped; owned temporary cluster removed')
+  }
 }

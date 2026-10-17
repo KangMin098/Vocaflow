@@ -4,7 +4,7 @@
   "version": "17.10",
   "sql": {
     "_pending_workspace_supply_c_qualification.sql": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
-    "_pending_workspace_supply_b_orders.sql": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+    "_pending_workspace_supply_b_orders.sql": "2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02",
     "_pending_workspace_supply_i1_safety.sql": "cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de",
     "_pending_workspace_supply_i1_partial.sql": "79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041",
     "_pending_workspace_supply_c_annotation_binding.sql": "b422a6067c8cbe0960571bd85a5a9acadfa4558bfa0e52cf815413176ef3db90"
@@ -92,6 +92,16 @@
     },
     {
       "name": "authoritative current annotation table installed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "demand version missing rejected",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "demand version NULL rejected",
       "ok": true,
       "detail": ""
     },
@@ -221,6 +231,6 @@
       "detail": "separate connections, not a replay"
     }
   ],
-  "pass": 42,
+  "pass": 44,
   "fail": 0
 }

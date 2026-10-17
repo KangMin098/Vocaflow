@@ -29,8 +29,10 @@
 | Q02 | P1 | 새 writer가 `not is_admin_or_curator()`와 `search_path=public`로 I1-S 보안을 퇴행 | `IS NOT TRUE`, 명시적 `public,pg_temp`. 실제 NULL helper에서 일반 사용자 거절 |
 | Q03 | 핵심 P2 | 권장 C→binding→B→S는 S가 옛 writer 서명을 재생성. binding은 S의 ALTER 대상도 제거 | **C→B→S→(선택 P)→binding v2**, 같은 트랜잭션. S 선행 없으면 명시적 거절. 옛 기록 서명 제거·새 기록 서명 하나 |
 | Q04 | P2 | 공백 annotation_ref 허용, 정답표 대조는 재현기에서 빠짐 | 공백 ref 거절. `verify.mjs --answer-key`는 짝수형 페이지/24번 행/파일 SHA를 독립 검사 |
+| Q05 | 핵심 P2, 목적 리뷰 | 기존 B의 버전 `<> '2'`가 누락/NULL을 통과시켜 같은 수요에 다른 서명을 허용 | B 한 줄을 `IS DISTINCT FROM '2'`로 수정. 누락/NULL 두 반례 재실행. B 승인 해시는 새로 확인해야 하며 I1 제출 증거는 덮지 않음 |
+| Q06 | P2, 코드 리뷰 | PG 시험기 예외 시 연결 반환을 건너뛰어 종료/임시 클러스터 정리가 대기할 수 있음 | 연결 반환을 finally로 옮기고 종료/정리를 별도 finally로 보장. 연결 직후 예외 주입으로 종료 경로 확인 |
 
-공급 공개 서명은 기존 `(uuid,uuid,uuid,uuid,uuid)` 그대로다. 내부 I1 공급/유효성 함수는 `_i1`로 옮기고 public/anon/authenticated EXECUTE를 회수한다. I1-S 원본 파일·노출/원천/승인/수량 검사는 보존한다. 새 helper도 외부 직접 실행 불가다. 새 현재 등록부는 RLS 활성·클라이언트/관리자/서비스 역할 권한 없음·DB 소유자 전용이며 **빈 상태**로 설치한다. 기본 ALL ACL 하에서도 authenticated INSERT/SELECT/TRUNCATE가 거절된다.
+공급 공개 서명은 기존 `(uuid,uuid,uuid,uuid,uuid)` 그대로다. 내부 I1 공급/유효성 함수는 `_i1`로 옮기고 public/anon/authenticated EXECUTE를 회수한다. I1-S 원본 파일·노출/원천/승인/수량 검사는 보존한다. B는 Q05 한 줄만 수정했다. 새 helper도 외부 직접 실행 불가다. 새 현재 등록부는 RLS 활성·클라이언트/관리자/서비스 역할 권한 없음·DB 소유자 전용이며 **빈 상태**로 설치한다. 기본 ALL ACL 하에서도 authenticated INSERT/SELECT/TRUNCATE가 거절된다.
 
 현재 배포 정보는 [current-annotation-manifest.mts](../../../scripts/research/factory-i2-r5-qualification/current-annotation-manifest.mts)가 실제 `currentItemTask`와 `def.hash`로 읽기만 한다. 2020/2021 결과가 기존 G2 hash와 일치했다. SQL은 코드 파일을 스스로 읽지 못하므로 **등록부를 실제 배포와 원자적으로 동기화하는 운영 경로가 아직 없다.** 이 경로를 승인/검증하기 전에는 등록부를 채우지 않고 실제 공급을 BLOCKED로 유지한다. SQL 비교 성공을 “현재 서비스 코드까지 결속 완료”로 과대 해석하지 않는다.
 
@@ -45,13 +47,13 @@
 
 | 검증 | 결과 |
 |---|---|
-| 동일 SQL 반례, 제출 binding을 최신 C/B/S/P 위에 적용 | 실제 PostgreSQL **17.10, 26/36 PASS·10 FAIL**. [제출 증거](./INDEPENDENT-PG-SUBMITTED.json). 현재 등록부 자체가 없어 ref/hash/TASK 비교 조건의 실패는 독립 메타데이터를 전달할 경로 부재도 포함하며, 각 조건의 별도 저장/변경 실험 성공으로 세지 않음. 별도 DB에서 제출 권장 C/binding/B/S 순서를 실행하면 writer 서명 2개가 남음 |
-| 수정 binding | 실제 PostgreSQL 17.10 **42/42**. [수정 증거](./INDEPENDENT-PG-FIXED.json). 39개 순차 조건 + 별도 연결의 공급 우선/배포 우선 직렬화·커밋 뒤 현재 무효 3조건 |
-| PGlite | 제출 패킷 7 + 독립 SQL 시나리오 1(39조건) + 기존 C 11/B 26/I1 47/store 7 = **99 테스트 통과** |
+| 동일 SQL 반례, 제출 B/binding을 최신 C/S/P 위에 적용 | 실제 PostgreSQL **17.10, 26/38 PASS·12 FAIL**. [제출 증거](./INDEPENDENT-PG-SUBMITTED.json). 현재 등록부 자체가 없어 ref/hash/TASK 비교 조건의 실패는 독립 메타데이터를 전달할 경로 부재도 포함하며, 각 조건의 별도 저장/변경 실험 성공으로 세지 않음. 별도 DB에서 제출 권장 C/binding/B/S 순서를 실행하면 writer 서명 2개가 남음 |
+| 수정 B/binding | 실제 PostgreSQL 17.10 **44/44**. [수정 증거](./INDEPENDENT-PG-FIXED.json). 41개 순차 조건 + 별도 연결의 공급 우선/배포 우선 직렬화·커밋 뒤 현재 무효 3조건 |
+| PGlite | 제출 패킷 7 + 독립 SQL 시나리오 1(41조건) + 기존 C 11/B 26/I1 47/store 7 = **99 테스트 통과**. B 버전 추가 수정 뒤 B26+독립1을 재실행해 27/27 |
 | 기존 실제 I1 PostgreSQL | 기존 C/B/S/P/D3 스크립트 **33/33**, 다중 연결·철회/주문/supersede/노출/ACL/롤백 회귀. binding이 없는 기존 패키지의 보존 검사이며 binding 결합 동시성은 위 별도 결과 |
 | 원문/정답·runtime 주석 | verify 2020#24 일치·정답표 짝수형 2쪽 ② 일치·runtime manifest 2020/2021 hash 일치 |
 | 기존 G2 회귀·정적 검사 | claim-support/수직 경로 **68/68**, web TypeScript 0오류, agents check **15/15** |
-| 개발 DB | PostgreSQL 17.6 SELECT만. C/B/I1 10표와 새 현재 주석 등록부 모두 미설치. 실제 공급 E2E BLOCKED |
+| 개발 DB | PostgreSQL 17.6 SELECT만. C/B/I1 10표와 새 현재 주석 등록부 모두 미설치. [종료 읽기 감사](./INDEPENDENT-DB-FINAL.json) 11:21:39Z(20:21:39 KST)에도 대상의 6종 노출/정규화 동일 본문 모두 0. 실제 공급 E2E BLOCKED |
 
 SQL fixture는 실제 데이터·권리 증빙/Gold를 대신하지 않는다. 현재 등록부가 코드 배포와 다른 상태인 운영을 이 격리 시험은 검증하지 않았다. 문항/원천 검사가 가진 기존 트랜잭션 범위와 학습 노출 전체 직렬화의 I1 한계도 유지한다.
 

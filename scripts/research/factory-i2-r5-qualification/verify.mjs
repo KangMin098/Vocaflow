@@ -18,7 +18,7 @@ const ROOT = path.resolve(import.meta.dirname, '../../..')
 const args = process.argv.slice(2)
 const [itemId, pdfFile, pageArg] = args
 if (!itemId || !pdfFile || !pageArg) {
-  console.error('사용법: verify.mjs <itemId> <문제지.pdf> <쪽> [--env <.env.local>] [--modules <node_modules/.pnpm>]')
+  console.error('사용법: verify.mjs <itemId> <문제지.pdf> <쪽> [--answer-key <정답표.pdf>] [--env <.env.local>] [--modules <node_modules/.pnpm>]')
   process.exit(2)
 }
 const opt = (k, d) => (args.includes(k) ? args[args.indexOf(k) + 1] : d)
