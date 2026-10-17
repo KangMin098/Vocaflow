@@ -27,7 +27,7 @@ export interface LedgerLine {
   validDelivered?: number | null
 }
 
-export const ledgerKey = (task: string, role: MaterialRole) => `${task}|${role}`
+export const ledgerKey = (task: string, role: MaterialRole, canonical?: string) => `${task}|${role}${canonical === undefined ? '' : `|${canonical}`}`
 
 export type SupplyStep =
   | 'learn_now' // 지금 학습할 수 있는 검수 자료(계산 · 또는 실제 공급 행)
@@ -74,8 +74,8 @@ export function ledgerNote(ledger: SupplyLedger): string {
  * 한 줄의 공급 단계. 순서: 실제 공급 행 → 실제 주문 상태 → 계산된 공급 상태.
  * 실제 기록이 없으면(not_installed · error · 행 없음) 주문 계열 단계로 가지 않는다.
  */
-export function supplyStep(line: SupplyLine, task: string, ledger: SupplyLedger): SupplyStep {
-  const rec = ledger.status === 'installed' ? ledger.lines[ledgerKey(task, line.role)] ?? null : null
+export function supplyStep(line: SupplyLine, task: string, ledger: SupplyLedger, canonical?: string): SupplyStep {
+  const rec = ledger.status === 'installed' ? ledger.lines[ledgerKey(task, line.role, canonical)] ?? null : null
   if (rec && rec.delivered > 0) {
     // I1-P — 공급 행 하나로 「공급 완료」라 하지 않는다. 요청 수량 · 유효 공급 수를 서버가 계산했을 때만 완료/일부를 가른다
     const req = rec.requested ?? null

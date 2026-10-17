@@ -1,0 +1,602 @@
+{
+  "submitted": "e89ebac493841b6fbcd0ebf0cdda780361ae75d6",
+  "dev_db": {
+    "mode": "read-only audit only; no account creation or learning API writes",
+    "version": "17.6",
+    "targets_present": 0,
+    "target_table_count": 10,
+    "conflicting_helper_functions": [],
+    "conflicting_composite_constraints": [],
+    "public_create": {
+      "anon": false,
+      "authenticated": false
+    },
+    "default_table_acl": "ALL for anon/authenticated (verified pg_default_acl); corrected in pending SQL",
+    "source_rpc": "csat_source_is_eligible(uuid)",
+    "reveal_rpc": "csat_ec_embargoed_items(text[])",
+    "exposure_dependency_columns": "verified information_schema for all eight ledgers"
+  },
+  "sql": [
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_b_orders.sql",
+      "submitted_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2",
+      "current_sha256": "e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_c_qualification.sql",
+      "submitted_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+      "current_sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_d3_lineage.sql",
+      "submitted_sha256": "f19147acd2f7a3be13a3eac170faacc0dad689dcd2d2926c118c1d9a6acd720f",
+      "current_sha256": "bafe7f2716d5785add3ea004b9caf0491621b4dcdd0b5c7ca76101bb482c630c"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_partial.sql",
+      "submitted_sha256": "2976266b7c635b482a9de5dfe856c8b30308b66c648fa06baa2f9404df43deb9",
+      "current_sha256": "932929bdd9483b042e7f53ad3cffb8ac1c3a6be214ab097158d3f7d8f4d93cde"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_rollback.sql",
+      "submitted_sha256": "d0e46df18c55367eb945aeb8cebb7326560e6b16ef085bbf2c2f10a6ee18fdf8",
+      "current_sha256": "22a3ab15577c28486dcbad11f1586c5ec466d85ce9080bbfe5382a1e755d540a"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_safety.sql",
+      "submitted_sha256": "72af4f76b279f691919186176ae5b5f162640206d05714c12718c3c5fff52813",
+      "current_sha256": "858d8bf3610ed43fe895ded9b52360afc769513ddfffe7f06c9aede37e813b7c"
+    }
+  ],
+  "files": [
+    {
+      "path": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "sha256": "1f17a541efdeb23633608b80ab30d0df24009614ad5da0e14e5eea85af03311f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql",
+      "sha256": "b778f88af52a6798d2aaa513ad0d009f15307b57ab21964e839c47e1757ab947"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts",
+      "sha256": "54f75c70f529034c63ee55f32bf1f3208d96f5d784706e04999f8cc8421105b4"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/__tests__/supply-store.test.ts",
+      "sha256": "998823dff902f81a38bcd24b04cf88281520b8edb639bcba18b74e41ce99ac07"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/canonical-json.ts",
+      "sha256": "40eb0fb64a1ace86471b8480a9cd756bb8105bcb10f8cb181bb12296f48b0213"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/persist-contract.ts",
+      "sha256": "b3d6d16812f2bc5a5158e9c0a9cf4c58029efc2e8251688f028c1364eb1fed09"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply-ledger.ts",
+      "sha256": "ffde4245dd6800aa6179890fd853f7c3b34cea98568bb9f34b64c1ccde413461"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply-store.ts",
+      "sha256": "bf159d3210b0e03f099ec987c78b48befc11c6ef91a61e3c87daf7b8802c4dd7"
+    },
+    {
+      "path": "scripts/csat/map/v62/gen-supply-i1-rollback.mjs",
+      "sha256": "3b607b7349ea53a045c5be1615668eb2f86e7475221e3611d4e3463b43dbcadb"
+    },
+    {
+      "path": "scripts/csat/map/v62/supply-i1-concurrency.mjs",
+      "sha256": "1a5dcd42c2b0933e9a8da3303898077bf01dbcf02ea7717f57351a9086ec7acf"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_d3_lineage.sql",
+      "sha256": "bafe7f2716d5785add3ea004b9caf0491621b4dcdd0b5c7ca76101bb482c630c"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_partial.sql",
+      "sha256": "932929bdd9483b042e7f53ad3cffb8ac1c3a6be214ab097158d3f7d8f4d93cde"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_rollback.sql",
+      "sha256": "22a3ab15577c28486dcbad11f1586c5ec466d85ce9080bbfe5382a1e755d540a"
+    },
+    {
+      "path": "supabase/migrations/_pending_workspace_supply_i1_safety.sql",
+      "sha256": "858d8bf3610ed43fe895ded9b52360afc769513ddfffe7f06c9aede37e813b7c"
+    },
+    {
+      "path": "scripts/csat/map/v62/supply-i1-independent.mjs",
+      "sha256": "39221ab294133ebdd3cfc0d5b12cf1b134df4ead5e4f6162f82bda05fb1daf95"
+    },
+    {
+      "path": "scripts/csat/map/v62/supply-i1-browser.mjs",
+      "sha256": "5b3daad2328bcfcbb1cfcefccf22d52c45387c8cff972522b1f94de18fa3150d"
+    }
+  ],
+  "logs": [
+    {
+      "name": "baseline-b-failures.log",
+      "sha256": "af0af74bc1e4b0bb47edffc283db84a80b13b56772c341dbbc4b344babab00e5",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "FAIL  줄 수량 3 · 동시 공급 20 → 공급 3  rows=20 ok=20",
+        "FAIL  공급 열린 동안 철회 대기(B: 잠금 없음 → 즉시 철회)  deliver=true revokeWhileOpen=committed revokeAfter=true",
+        "FAIL  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivered!",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "2/5 PASS (PostgreSQL 17 · 다중 연결 · B 만(기준선)) safety=c925c37ea219"
+      ],
+      "tail": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "FAIL  줄 수량 3 · 동시 공급 20 → 공급 3  rows=20 ok=20",
+        "FAIL  공급 열린 동안 철회 대기(B: 잠금 없음 → 즉시 철회)  deliver=true revokeWhileOpen=committed revokeAfter=true",
+        "FAIL  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivered!",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "",
+        "2/5 PASS (PostgreSQL 17 · 다중 연결 · B 만(기준선)) safety=c925c37ea219",
+        ""
+      ]
+    },
+    {
+      "name": "baseline-b-postgres.log",
+      "sha256": "298d4b2454eaf16714629f3279b2eb9a783949d57a4f5c57fa05097e01812952",
+      "summary": [
+        "PASS  같은 수요 동시 20건 → 수요 1 · 줄 1벌  ids=1 ok=20/20 lines=1",
+        "PASS  같은 줄 동시 주문 20(다른 키) → 주문 1  ok=1 rows=1 errs=order: open order exists",
+        "PASS  같은 요청 키 동시 재전송 20 → 모두 같은 주문  ok=20/20 ids=1 errs=",
+        "PASS  동시 전이 20 → 성공 1 · 이벤트 1 · 주문 seq = 이벤트 seq  ok=1 events=1 order=held/1",
+        "PASS  같은 자격 동시 대체 10 → 성공 1  ok=1",
+        "PASS  같은 산출물 동시 공급 10 → 공급 1  ok=1 rows=1",
+        "PASS  철회 커밋 뒤 공급 → 거절  delivery: approval revoked",
+        "7/7 PASS (PostgreSQL 17 · 다중 연결)"
+      ],
+      "tail": [
+        "PASS  같은 줄 동시 주문 20(다른 키) → 주문 1  ok=1 rows=1 errs=order: open order exists",
+        "PASS  같은 요청 키 동시 재전송 20 → 모두 같은 주문  ok=20/20 ids=1 errs=",
+        "PASS  동시 전이 20 → 성공 1 · 이벤트 1 · 주문 seq = 이벤트 seq  ok=1 events=1 order=held/1",
+        "PASS  같은 자격 동시 대체 10 → 성공 1  ok=1",
+        "PASS  같은 산출물 동시 공급 10 → 공급 1  ok=1 rows=1",
+        "PASS  철회 커밋 뒤 공급 → 거절  delivery: approval revoked",
+        "",
+        "7/7 PASS (PostgreSQL 17 · 다중 연결)",
+        ""
+      ]
+    },
+    {
+      "name": "browser-final.log",
+      "sha256": "d4bee6f259a5f7285ddade8b241c9f512f69f0bdac344b97439c7565970baf78",
+      "summary": [
+        "PASS 1280-old",
+        "PASS 1280-old-no-page-overflow",
+        "PASS 1280-partial",
+        "PASS 1280-partial-no-page-overflow",
+        "PASS 1280-full",
+        "PASS 1280-full-no-page-overflow",
+        "PASS 1280-missing",
+        "PASS 1280-missing-no-page-overflow",
+        "PASS 1280-repair",
+        "PASS 1280-repair-no-page-overflow",
+        "PASS 1280-keyboard-disclosure",
+        "PASS 1440-old",
+        "PASS 1440-old-no-page-overflow",
+        "PASS 1440-partial",
+        "PASS 1440-partial-no-page-overflow",
+        "PASS 1440-full",
+        "PASS 1440-full-no-page-overflow",
+        "PASS 1440-missing",
+        "PASS 1440-missing-no-page-overflow",
+        "PASS 1440-repair",
+        "PASS 1440-repair-no-page-overflow",
+        "PASS 1440-keyboard-disclosure",
+        "PASS no-runtime-errors-or-external-requests"
+      ],
+      "tail": [
+        "PASS 1440-full",
+        "PASS 1440-full-no-page-overflow",
+        "PASS 1440-missing",
+        "PASS 1440-missing-no-page-overflow",
+        "PASS 1440-repair",
+        "PASS 1440-repair-no-page-overflow",
+        "PASS 1440-keyboard-disclosure",
+        "PASS no-runtime-errors-or-external-requests",
+        ""
+      ]
+    },
+    {
+      "name": "browser.log",
+      "sha256": "82458daf7bc2954d4e516224769fd83268d104d708e024f2b8ed507bb96ddf8e",
+      "summary": [
+        "PASS 1280-old",
+        "PASS 1280-old-no-page-overflow",
+        "PASS 1280-partial",
+        "PASS 1280-partial-no-page-overflow",
+        "PASS 1280-full",
+        "PASS 1280-full-no-page-overflow",
+        "PASS 1280-missing",
+        "PASS 1280-missing-no-page-overflow",
+        "PASS 1280-repair",
+        "PASS 1280-repair-no-page-overflow",
+        "locator.focus: Error: strict mode violation: locator('details').first().locator('summary') resolved to 2 elements:"
+      ],
+      "tail": [
+        "    2) <summary class=\"unified_subH\">연구 근거 v1.4 · 사람 검수 전</summary> aka getByText('연구 근거 v1.4 · 사람 검수 전')",
+        "",
+        "Call log:",
+        "  - waiting for locator('details').first().locator('summary')",
+        "",
+        "    at D:\\workspace\\Vocaflow-factory-i1-approval\\scripts\\csat\\map\\v62\\supply-i1-browser.mjs:57:107",
+        "",
+        "Node.js v24.15.0",
+        ""
+      ]
+    },
+    {
+      "name": "local-ci.log",
+      "sha256": "eda5a2276a5702ac4183143d02bc282d44d6d7514f465bfc6203bf328614ccbe",
+      "summary": [
+        "@vocaflow/library-pipeline:test:  Test Files  157 passed (157)",
+        "@vocaflow/library-pipeline:test:       Tests  2720 passed (2720)",
+        "@vocaflow/wlp:test:  Test Files  3 passed (3)",
+        "@vocaflow/wlp:test:       Tests  45 passed (45)",
+        "@vocaflow/video-factory:test:  Test Files  6 passed (6)",
+        "@vocaflow/video-factory:test:       Tests  113 passed (113)",
+        "web:test: [csat-source-operations] Error: Count unavailable: missing count",
+        "web:test:     at startTests (file:///D:/workspace/Vocaflow-factory-i1-approval/node_modules/.pnpm/@vitest+runner@1.6.1/node_modules/@vitest/runner/dist/index.js:967:3)"
+      ],
+      "tail": [
+        "web:test:  ✓ src/components/practice/__tests__/DcpPlayer.test.tsx  (4 tests) 34ms",
+        "web:test:  ✓ src/lib/knowledge/__tests__/grid.test.ts  (7 tests) 14ms",
+        "web:test:  ✓ src/lib/csat/map/v4/__tests__/plan-ack.test.ts  (7 tests) 20ms",
+        "web:test:  ✓ src/components/csat/diagnosis/map/__tests__/type-scale.test.ts  (3 tests) 127ms",
+        "web:test:  ✓ src/components/__tests__/learning-tone.test.ts  (2 tests) 23ms",
+        "web:test:  ✓ src/lib/csat/__tests__/item-layers.test.ts  (8 tests) 28ms",
+        "web:test:  ✓ src/lib/library/__tests__/book-composer-sets.test.ts  (5 tests) 21ms",
+        "web:test:  ✓ src/lib/search/__tests__/global.test.ts  (15 tests) 71ms",
+        ""
+      ]
+    },
+    {
+      "name": "repaired-acl-pglite.log",
+      "sha256": "26d57388033c509122347c87a557095b5a1d6bfcd4fef33d6ad83be97fb88ab2",
+      "summary": [
+        "Test Files  1 passed (1)",
+        "Tests  44 passed (44)"
+      ],
+      "tail": [
+        "",
+        " ✓ src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts  (44 tests) 25722ms",
+        "",
+        " Test Files  1 passed (1)",
+        "      Tests  44 passed (44)",
+        "   Start at  18:48:34",
+        "   Duration  28.27s (transform 184ms, setup 0ms, collect 1.06s, tests 25.72s, environment 0ms, prepare 275ms)",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "repaired-focused-final.log",
+      "sha256": "d49dbc2c176226240e5e88be23c657e6733ad6252909d38dce2d46c8abbf44db",
+      "summary": [
+        "Test Files  3 passed (3)",
+        "Tests  63 passed (63)"
+      ],
+      "tail": [
+        " ✓ src/lib/csat/map/v62/__tests__/persist-contract.test.ts  (13 tests) 27ms",
+        " ✓ src/lib/csat/map/v62/__tests__/supply-store.test.ts  (7 tests) 35ms",
+        "",
+        " Test Files  3 passed (3)",
+        "      Tests  63 passed (63)",
+        "   Start at  18:40:08",
+        "   Duration  18.78s (transform 375ms, setup 0ms, collect 663ms, tests 14.63s, environment 2ms, prepare 1.17s)",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "repaired-focused.log",
+      "sha256": "7fd6f0e9794fd8dcf71333c9a38c3ef8408d3b383978c5632048c1e848005188",
+      "summary": [],
+      "tail": [
+        "\u0000 \u0000\u0013' \u0000s\u0000r\u0000c\u0000/\u0000l\u0000i\u0000b\u0000/\u0000c\u0000s\u0000a\u0000t\u0000/\u0000m\u0000a\u0000p\u0000/\u0000v\u00006\u00002\u0000/\u0000_\u0000_\u0000t\u0000e\u0000s\u0000t\u0000s\u0000_\u0000_\u0000/\u0000s\u0000u\u0000p\u0000p\u0000l\u0000y\u0000-\u0000s\u0000t\u0000o\u0000r\u0000e\u0000.\u0000t\u0000e\u0000s\u0000t\u0000.\u0000t\u0000s\u0000 \u0000 \u0000(\u00007\u0000 \u0000t\u0000e\u0000s\u0000t\u0000s\u0000)\u0000 \u00004\u0000m\u0000s\u0000\r\u0000",
+        "\u0000 \u0000\u0013' \u0000s\u0000r\u0000c\u0000/\u0000l\u0000i\u0000b\u0000/\u0000a\u0000u\u0000t\u0000h\u0000/\u0000_\u0000_\u0000t\u0000e\u0000s\u0000t\u0000s\u0000_\u0000_\u0000/\u0000r\u0000p\u0000c\u0000-\u0000c\u0000a\u0000l\u0000l\u0000-\u0000s\u0000i\u0000t\u0000e\u0000s\u0000.\u0000t\u0000e\u0000s\u0000t\u0000.\u0000t\u0000s\u0000 \u0000 \u0000(\u00006\u0000 \u0000t\u0000e\u0000s\u0000t\u0000s\u0000)\u0000 \u00008\u0000m\u0000s\u0000\r\u0000",
+        "\u0000\r\u0000",
+        "\u0000 \u0000T\u0000e\u0000s\u0000t\u0000 \u0000F\u0000i\u0000l\u0000e\u0000s\u0000 \u0000 \u00003\u0000 \u0000p\u0000a\u0000s\u0000s\u0000e\u0000d\u0000 \u0000(\u00003\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000T\u0000e\u0000s\u0000t\u0000s\u0000 \u0000 \u00005\u00003\u0000 \u0000p\u0000a\u0000s\u0000s\u0000e\u0000d\u0000 \u0000(\u00005\u00003\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000S\u0000t\u0000a\u0000r\u0000t\u0000 \u0000a\u0000t\u0000 \u0000 \u00001\u00008\u0000:\u00003\u00005\u0000:\u00000\u00003\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000D\u0000u\u0000r\u0000a\u0000t\u0000i\u0000o\u0000n\u0000 \u0000 \u00006\u0000.\u00009\u00009\u0000s\u0000 \u0000(\u0000t\u0000r\u0000a\u0000n\u0000s\u0000f\u0000o\u0000r\u0000m\u0000 \u00001\u00000\u00002\u0000m\u0000s\u0000,\u0000 \u0000s\u0000e\u0000t\u0000u\u0000p\u0000 \u00000\u0000m\u0000s\u0000,\u0000 \u0000c\u0000o\u0000l\u0000l\u0000e\u0000c\u0000t\u0000 \u00001\u0000.\u00005\u00009\u0000s\u0000,\u0000 \u0000t\u0000e\u0000s\u0000t\u0000s\u0000 \u00004\u0000.\u00005\u00000\u0000s\u0000,\u0000 \u0000e\u0000n\u0000v\u0000i\u0000r\u0000o\u0000n\u0000m\u0000e\u0000n\u0000t\u0000 \u00000\u0000m\u0000s\u0000,\u0000 \u0000p\u0000r\u0000e\u0000p\u0000a\u0000r\u0000e\u0000 \u00002\u00009\u00001\u0000m\u0000s\u0000)\u0000\r\u0000",
+        "\u0000\r\u0000",
+        "\u0000"
+      ]
+    },
+    {
+      "name": "repaired-postgres-final.log",
+      "sha256": "173aa13ac19f066ac6fd2bcb53b5754e0452f89cd28bdd966ebf0f8c2989e776",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "PASS  PG exposure attempt  expected=attempted actual=attempted",
+        "PASS  PG exposure session  expected=item_seen actual=item_seen",
+        "PASS  PG exposure trap  expected=attempted actual=attempted",
+        "PASS  PG exposure review  expected=attempted actual=attempted",
+        "PASS  PG exposure deleted  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure viewed  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure help  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure shared  expected=shared_passage_seen actual=shared_passage_seen",
+        "PASS  PG exposure is learner specific  none",
+        "PASS  PG missing exposure ledger fails closed  unknown",
+        "PASS  R01 supersede: history retained, current valid=false  valid=false",
+        "PASS  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=false",
+        "PASS  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":false,\"err\":\"order: delivered needs full quantity (2 of 5) — use partial\"} partial={\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "PASS  R04 CSAT Reveal Gate blocks current count and new supply  valid=false new={\"ok\":false,\"err\":\"delivery: source not eligible (Reveal Gate)\"}",
+        "PASS  supersede in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: qualification superseded\"}",
+        "PASS  order close in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: order closed (failed)\"}",
+        "PASS  revocation in flight: delivered transition waits then rejects  {\"ok\":false,\"err\":\"order: delivered needs a delivery row with this qualification\"}",
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "31/31 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=858d8bf3610e"
+      ],
+      "tail": [
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "PASS  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":false,\"err\":\"permission denied for table workspace_content_delivery\"}",
+        "",
+        "31/31 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=858d8bf3610e",
+        ""
+      ]
+    },
+    {
+      "name": "repaired-postgres.log",
+      "sha256": "0763cdd46b05352f899d1bcac7823e08319d4df6d29a0c358515b484554f787e",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "PASS  R01 supersede: history retained, current valid=false  valid=false",
+        "PASS  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=false",
+        "PASS  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":false,\"err\":\"order: delivered needs full quantity (2 of 5) — use partial\"} partial={\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "PASS  supersede in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: qualification superseded\"}",
+        "PASS  order close in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: order closed (failed)\"}",
+        "PASS  revocation in flight: delivered transition waits then rejects  {\"ok\":false,\"err\":\"order: delivered needs a delivery row with this qualification\"}",
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "16/16 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=bc08a979baaf"
+      ],
+      "tail": [
+        "PASS  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":false,\"err\":\"order: delivered needs full quantity (2 of 5) — use partial\"} partial={\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "PASS  supersede in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: qualification superseded\"}",
+        "PASS  order close in flight: delivery waits then rejects  {\"ok\":false,\"err\":\"delivery: order closed (failed)\"}",
+        "PASS  revocation in flight: delivered transition waits then rejects  {\"ok\":false,\"err\":\"order: delivered needs a delivery row with this qualification\"}",
+        "PASS  missing required axis state cannot yield approved supply  qualification=false supply=false",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "",
+        "16/16 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=bc08a979baaf",
+        ""
+      ]
+    },
+    {
+      "name": "reveal-before.log",
+      "sha256": "a959977d2b22e6354f829542f88e63753beffbeebf2c4ce49f34e0ebe370a3b2",
+      "summary": [
+        "→ expected true to be false // Object.is equality",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+        "FAIL  src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts > 독립 수용 R01/R02/R04 — 동일 입력 수정 전후 회귀 > R04 기출 Reveal Gate 보류도 revision 불변일 때 현재 공급에서 제외하고 신규 공급을 거절한다",
+        "AssertionError: expected true to be false // Object.is equality",
+        "Test Files  1 failed (1)",
+        "Tests  1 failed | 42 passed (43)"
+      ],
+      "tail": [
+        " Test Files  1 failed (1)",
+        "      Tests  1 failed | 42 passed (43)",
+        "   Start at  18:39:33",
+        "   Duration  15.62s (transform 208ms, setup 0ms, collect 349ms, tests 13.57s, environment 1ms, prepare 320ms)",
+        "",
+        "undefined",
+        "D:\\workspace\\Vocaflow-factory-i1-approval\\apps\\web:",
+        " ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command \"vitest\" not found",
+        ""
+      ]
+    },
+    {
+      "name": "rollback-before.log",
+      "sha256": "4cce7293526e75d8dfe979c5c95c3bd96e91ff7c51c3e33ca2ecce689d6f09dc",
+      "summary": [
+        "→ relation \"public.factory_order_product_link\" does not exist",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+        "FAIL  src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts > 되돌리기(_pending_workspace_supply_i1_rollback.sql — 생성물) > S만 승인한 DB도 P/D3 없이 안전하게 되돌리고 공급 실행권은 닫아 둔다",
+        "error: relation \"public.factory_order_product_link\" does not exist",
+        "Serialized Error: { length: 305, severity: 'ERROR', code: '42P01', detail: undefined, hint: undefined, position: undefined, internalPosition: '88', internalQuery: 'to_regclass(\\'public.factory_order_product_link\\') is not null and exists (select 1 from public.factory_order_product_link)', where: 'PL/pgSQL function inline_code_block line 2 at IF', schema: undefined, table: undefined, column: undefined, dataType: undefined, constraint: undefined, file: 'parse_relation.c', line: '1448', routine: 'parserOpenTable', query: '-- supabase/migrations/_pending_workspace_supply_i1_rollback.sql\\n-- ⚠️ 보류(적용 안 함) — Factory I1 되돌리기. **생성물**: scripts/csat/map/v62/gen-supply-i1-rollback.mjs 가 B · C 원본에서 함수 정의를 글자 그대로 잘라 만든다(손으로 고치지 않는다).\\n-- 원본: _pending_workspace_supply_b_orders.sql sha256 e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2\\n--       _pending_workspace_supply_c_qualification.sql sha256 dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66\\n-- 순서: D3 → P → safety 의 역순. 데이터 보존 조건(승인 패키지 §7):\\n--   · D3 표에 행이 있으면 아래 §1 을 실행하지 않는다(보존 표로 복사한 뒤에만).\\n--   · factory_order 에 state = \\'partial\\' 행이 있으면 §2 를 실행하지 않는다(닫힌 주문을 열린 것처럼 보이게 만든다).\\n--   · §3(safety 되돌리기)은 데이터와 무관 — 언제든 가능. 단 되돌리면 D1/D2 결함(노출 누락 · 승인 범위)이 다시 생긴다.\\n\\nbegin;\\n-- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)\\ndo $$ begin\\n  if to_regclass(\\'public.factory_order_product_link\\') is not null and exists (select 1 from public.factory_order_product_link) then\\n    raise exception \\'rollback D3: factory_order_product_link has rows — copy to a preservation table first\\';\\n  end if;\\n  if to_regclass(\\'public.factory_product_order\\') is not null and exists (select 1 from public.factory_product_order) then\\n    raise exception \\'rollback D3: factory_product_order has rows — copy to a preservation table first\\';\\n  end if;\\n  if exists (select 1 from public.factory_order where state = \\'partial\\') then\\n    raise exception \\'rollback P: partial orders exist — do not reopen closed orders\\';\\n  end if;\\nend $$;\\n\\n-- §1. D3 되돌리기\\ndrop function if exists public.factory_order_link_product(uuid, text, integer, text, uuid);\\ndrop function if exists public.factory_product_order_register(text, integer, text, text, text, text, text, integer, text, uuid);\\ndrop function if exists public.factory_product_order_is_current(text, integer);\\ndrop table if exists public.factory_order_product_link;\\ndrop table if exists public.factory_product_order;\\n\\n-- §2. P 되돌리기\\ndrop function if exists public.workspace_line_fulfillment(uuid);\\ndrop index public.factory_order_one_open_per_line;\\ncreate unique index factory_order_one_open_per_line on public.factory_order (line_id)\\n  where state not in (\\'delivered\\',\\'failed\\');\\nalter table public.factory_order drop constraint factory_order_state_check;\\nalter table public.factory_order add constraint factory_order_state_check\\n  check (state in (\\'requested\\',\\'stock_search\\',\\'awaiting_production\\',\\'producing\\',\\'reviewing\\',\\'delivered\\',\\'held\\',\\'failed\\'));\\ncreate or replace function public.factory_order_open(p_line uuid, p_reason text, p_quantity smallint, p_request_key uuid)\\nreturns uuid language plpgsql security definer set search_path to \\'public\\' as $$\\ndeclare v_uid uuid := auth.uid(); ln record; v_id uuid; v_prev record; v_seq smallint;\\nbegin\\n  if v_uid is null then raise exception \\'Forbidden\\' using errcode = \\'42501\\'; end if;\\n  perform set_config(\\'vocaflow.supply_writer\\', \\'rpc\\', true);\\n  -- 줄 잠금 먼저 = 같은 줄 동시 주문 직렬화. 잠근 **뒤에** 요청 키를 본다 — 같은 키 동시 재전송이\\n  -- 먼저 커밋된 주문을 보고 같은 결과를 받게 한다(잠금 전에 보면 둘째가 「열린 주문 있음」으로 실패할 수 있다 — 설계 검토로 고침, 고친 뒤 실제 Postgres 동시 재전송 20/20 같은 id).\\n  select * into ln from workspace_content_demand_line where id = p_line and user_id = v_uid for update;\\n  -- 같은 요청 키 재전송: **같은 본문(줄 · 이유 · 수량)일 때만** 이전 결과. 다른 본문이면 거절(P-M2b 계획 저장 결함과 같은 종류 방지)\\n  select id, line_id, reason, quantity into v_prev from factory_order where user_id = v_uid and request_key = p_request_key;\\n  if found then\\n    if (v_prev.line_id, v_prev.reason, v_prev.quantity) is distinct from (p_line, p_reason, p_quantity) then\\n      raise exception \\'order: request_key reused with a different body\\' using errcode = \\'23505\\';\\n    end if;\\n    return v_prev.id;\\n  end if;\\n  if ln.id is null then raise exception \\'order: line not found or not owned\\' using errcode = \\'42501\\'; end if;\\n  select * into v_prev from factory_order where line_id = p_line order by order_seq desc limit 1;\\n  if found and v_prev.state not in (\\'delivered\\',\\'failed\\') then raise exception \\'order: open order exists\\' using errcode = \\'23505\\'; end if;\\n  if not found and p_reason <> \\'initial\\' then raise exception \\'order: first order must be initial\\'; end if;\\n  if found and p_reason = \\'initial\\' then raise exception \\'order: reorder needs a reason\\'; end if;\\n  if found and p_reason = \\'retry_after_failure\\' and v_prev.state <> \\'failed\\' then raise exception \\'order: retry needs a failed parent\\'; end if;\\n  v_seq := coalesce(v_prev.order_seq, 0) + 1;\\n  insert into factory_order (line_id, user_id, workspace_id, role, task_id, order_seq, reason, parent_order_id, quantity, request_key)\\n  values (p_line, v_uid, ln.workspace_id, ln.role, ln.task_id, v_seq, p_reason, case when v_prev.id is null then null else v_prev.id end, p_quantity, p_request_key)\\n  returning id into v_id;\\n  return v_id;\\nend $$;\\ncreate or replace function public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text,\\n  p_run_id text, p_qualification uuid, p_request_key uuid)\\nreturns integer language plpgsql security definer set search_path to \\'public\\' as $$\\ndeclare o record; v_seq int; ok boolean; e record;\\nbegin\\n  if auth.uid() is null or not public.is_admin_or_curator() then raise exception \\'Forbidden\\' using errcode = \\'42501\\'; end if;\\n  perform set_config(\\'vocaflow.supply_writer\\', \\'rpc\\', true);\\n  select * into o from factory_order where id = p_order for update;\\n  if not found then raise exception \\'order: not found\\'; end if;\\n  -- 같은 요청 재전송: 같은 본문(기대 상태 · 목표 · 이유 · 실행 · 자격)일 때만 이전 seq\\n  select * into e from factory_order_event where order_id = p_order and request_key = p_request_key;\\n  if found then\\n    if (e.from_state, e.to_state, e.reason, e.production_run_id, e.qualification_id)\\n       is distinct from (p_expected, p_to, p_reason, p_run_id, p_qualification) then\\n      raise exception \\'order: request_key reused with a different body\\' using errcode = \\'23505\\';\\n    end if;\\n    return e.seq;\\n  end if;\\n  if o.state <> p_expected then raise exception \\'order: conflict (expected %, is %)\\', p_expected, o.state using errcode = \\'40001\\'; end if;\\n  ok := (o.state, p_to) in (\\n    (\\'requested\\',\\'stock_search\\'),(\\'requested\\',\\'held\\'),(\\'requested\\',\\'failed\\'),\\n    (\\'stock_search\\',\\'delivered\\'),(\\'stock_search\\',\\'awaiting_production\\'),(\\'stock_search\\',\\'held\\'),(\\'stock_search\\',\\'failed\\'),\\n    (\\'awaiting_production\\',\\'producing\\'),(\\'awaiting_production\\',\\'held\\'),(\\'awaiting_production\\',\\'failed\\'),\\n    (\\'producing\\',\\'reviewing\\'),(\\'producing\\',\\'failed\\'),\\n    (\\'reviewing\\',\\'delivered\\'),(\\'reviewing\\',\\'held\\'),(\\'reviewing\\',\\'failed\\'),\\n    (\\'held\\',\\'stock_search\\'),(\\'held\\',\\'awaiting_production\\'),(\\'held\\',\\'failed\\'));\\n  if not ok then raise exception \\'order: transition % -> % not allowed\\', o.state, p_to; end if;\\n  -- delivered 는 그 주문 줄에 실제 공급 행이 있고 그 자격이 이 이벤트의 자격일 때만\\n  if p_to = \\'delivered\\' and not exists (\\n    select 1 from workspace_content_delivery d where d.order_id = p_order and d.qualification_id = p_qualification) then\\n    raise exception \\'order: delivered needs a delivery row with this qualification\\';\\n  end if;\\n  v_seq := o.event_seq + 1;\\n  insert into factory_order_event (order_id, seq, from_state, to_state, reason, production_run_id, qualification_id, actor, request_key)\\n  values (p_order, v_seq, o.state, p_to, p_reason, p_run_id, p_qualification, auth.uid(), p_request_key);\\n  update factory_order set state = p_to, event_seq = v_seq,\\n    production_run_id = coalesce(p_run_id, production_run_id) where id = p_order;\\n  return v_seq;\\nend $$;\\nrevoke all on function public.factory_order_open(uuid, text, smallint, uuid) from public, anon;\\nrevoke all on function public.factory_order_transition(uuid, text, text, text, text, uuid, uuid) from public, anon;\\ngrant execute on function public.factory_order_open(uuid, text, smallint, uuid) to authenticated;\\ngrant execute on function public.factory_order_transition(uuid, text, text, text, text, uuid, uuid) to authenticated;\\n\\n-- §3. safety 되돌리기(B · C 원본 정의)\\ncreate or replace function public.supply_learner_exposure(p_kind text, p_ref text, p_uid uuid)\\nreturns text language plpgsql stable security definer set search_path to \\'public\\' as $$\\ndeclare c record;\\nbegin\\n  if p_kind = \\'csat_item\\' then\\n    select * into c from csat_items where id = p_ref;\\n    if not found then return \\'unknown\\'; end if;\\n    if exists (select 1 from csat_dx_response r join csat_dx_session s on s.id = r.session_id\\n               where s.user_id = p_uid and r.item_id = p_ref) then return \\'attempted\\'; end if;\\n    if exists (select 1 from csat_dx_session s where s.user_id = p_uid and s.exam_id = c.exam_id) then return \\'exam_seen\\'; end if;\\n    if c.passage is not null and exists (\\n      select 1 from csat_dx_response r join csat_dx_session s on s.id = r.session_id join csat_items j on j.id = r.item_id\\n      where s.user_id = p_uid and j.passage is not null\\n        and md5(regexp_replace(lower(j.passage), \\'\\s+\\', \\' \\', \\'g\\')) = md5(regexp_replace(lower(c.passage), \\'\\s+\\', \\' \\', \\'g\\'))) then\\n      return \\'shared_passage_seen\\';\\n    end if;\\n    return \\'none\\';\\n  elsif p_kind = \\'dcp_item\\' then\\n    if exists (select 1 from csat_item_attempts t where t.user_id = p_uid and t.dcp_item_id = p_ref::uuid) then return \\'attempted\\'; end if;\\n    return \\'unknown\\';\\n  end if;\\n  return \\'unknown\\';\\nend $$;\\ncreate or replace function public.workspace_delivery_record(p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid)\\nreturns uuid language plpgsql security definer set search_path to \\'public\\' as $$\\ndeclare v_uid uuid := auth.uid(); ln record; q record; a record; d record; v_id uuid; v_src uuid; v_rev text; v_exp text;\\nbegin\\n  if v_uid is null then raise exception \\'Forbidden\\' using errcode = \\'42501\\'; end if;\\n  perform set_config(\\'vocaflow.supply_writer\\', \\'rpc\\', true);\\n  select * into d from workspace_content_delivery where user_id = v_uid and request_key = p_request_key;\\n  if found then\\n    if (d.line_id, d.order_id, d.qualification_id, d.approval_id) is distinct from (p_line, p_order, p_qualification, p_approval) then\\n      raise exception \\'delivery: request_key reused with a different body\\' using errcode = \\'23505\\';\\n    end if;\\n    return d.id;\\n  end if;\\n  select * into ln from workspace_content_demand_line where id = p_line and user_id = v_uid;\\n  if not found then raise exception \\'delivery: line not found or not owned\\' using errcode = \\'42501\\'; end if;\\n  if not exists (select 1 from learner_workspace w where w.id = ln.workspace_id and w.user_id = v_uid and w.status = \\'active\\') then\\n    raise exception \\'delivery: workspace not active\\';\\n  end if;\\n  if p_order is not null and not exists (select 1 from factory_order o where o.id = p_order and o.line_id = p_line) then\\n    raise exception \\'delivery: order not on this line\\';\\n  end if;\\n  select * into q from content_qualification where id = p_qualification;\\n  if not found or q.task_id <> ln.task_id or q.role <> ln.role then raise exception \\'delivery: qualification identity mismatch\\'; end if;\\n  if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception \\'delivery: qualification superseded\\'; end if;\\n  if not public.fq_role_ok(q.axes, q.role) then raise exception \\'delivery: required axes not pass\\'; end if;\\n  v_rev := public.supply_artifact_revision(q.artifact_kind, q.artifact_ref);\\n  if v_rev is null then raise exception \\'delivery: artifact not found or kind unsupported (%)\\', q.artifact_kind; end if;\\n  if v_rev <> q.artifact_revision then raise exception \\'delivery: artifact changed since qualification\\'; end if;\\n  select * into a from content_release_approval where id = p_approval and qualification_id = q.id;\\n  if not found then raise exception \\'delivery: approval missing\\'; end if;\\n  if exists (select 1 from content_release_revocation r where r.approval_id = a.id) then raise exception \\'delivery: approval revoked\\'; end if;\\n  if q.role in (\\'independent_check\\',\\'transfer\\',\\'delayed_check\\') and a.scope <> \\'assessment\\' then raise exception \\'delivery: assessment approval required\\'; end if;\\n  if q.artifact_kind = \\'dcp_item\\' then\\n    select i.ref_id into v_src from csat_dcp_items i where i.id = q.artifact_ref::uuid;\\n    if v_src is null or not public.csat_source_is_eligible(v_src) then raise exception \\'delivery: source not eligible\\'; end if;\\n  end if;\\n  if q.role in (\\'independent_check\\',\\'transfer\\',\\'delayed_check\\') then\\n    v_exp := public.supply_learner_exposure(q.artifact_kind, q.artifact_ref, v_uid);\\n    if v_exp <> \\'none\\' then raise exception \\'delivery: G — exposure %\\', v_exp; end if;\\n  end if;\\n  insert into workspace_content_delivery (line_id, user_id, workspace_id, role, task_id, order_id, artifact_kind, artifact_ref,\\n    artifact_revision, qualification_id, approval_id, request_key)\\n  values (p_line, v_uid, ln.workspace_id, ln.role, ln.task_id, p_order, q.artifact_kind, q.artifact_ref, q.artifact_revision, q.id, a.id, p_request_key)\\n  returning id into v_id;\\n  return v_id;\\nend $$;\\ncreate or replace function public.content_release_revoke(p_approval uuid, p_reason text)\\nreturns void language plpgsql security definer set search_path to \\'public\\' as $$\\nbegin\\n  if auth.uid() is null or not public.is_admin_or_curator() then raise exception \\'Forbidden\\' using errcode = \\'42501\\'; end if;\\n  perform set_config(\\'vocaflow.supply_writer\\', \\'rpc\\', true);\\n  insert into content_release_revocation (approval_id, revoked_by, reason) values (p_approval, auth.uid(), p_reason)\\n  on conflict (approval_id) do nothing;   -- 이미 철회됨 = 같은 결과\\nend $$;\\ncreate or replace function public.fq_axes_valid(p jsonb) returns boolean\\nlanguage sql immutable set search_path to \\'public\\' as $$\\n  select jsonb_typeof(p) = \\'object\\'\\n     and (select count(*) from jsonb_object_keys(p)) = 8\\n     and (select bool_and(k in (\\'A\\',\\'B\\',\\'C\\',\\'D\\',\\'E\\',\\'F\\',\\'G\\',\\'H\\')\\n                          and jsonb_typeof(p -> k) = \\'object\\'\\n                          and (p -> k ->> \\'state\\') in (\\'pass\\',\\'fail\\',\\'unknown\\',\\'not_applicable\\'))\\n          from jsonb_object_keys(p) k)\\n$$;\\ncreate or replace function public.fq_role_ok(p jsonb, p_role text) returns boolean\\nlanguage sql immutable set search_path to \\'public\\' as $$\\n  select (p->\\'A\\'->>\\'state\\') = \\'pass\\' and (p->\\'B\\'->>\\'state\\') = \\'pass\\' and (p->\\'C\\'->>\\'state\\') = \\'pass\\'\\n     and (p->\\'F\\'->>\\'state\\') = \\'pass\\' and (p->\\'H\\'->>\\'state\\') = \\'pass\\'\\n     and (p_role not in (\\'source_analysis\\',\\'model_explanation\\',\\'guided_practice\\') or (p->\\'D\\'->>\\'state\\') = \\'pass\\')\\n     and (p_role not in (\\'independent_check\\',\\'transfer\\',\\'delayed_check\\') or (p->\\'E\\'->>\\'state\\') = \\'pass\\')\\n$$;\\nalter function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) set search_path to \\'public\\';\\nalter function public.content_release_approve(uuid,text,text) set search_path to \\'public\\';\\nalter function public.workspace_demand_record(text) set search_path to \\'public\\';\\nalter function public.supply_artifact_revision(text,text) set search_path to \\'public\\';\\ndrop function if exists public.supply_delivery_valid(uuid);\\nrevoke all on function public.supply_learner_exposure(text, text, uuid) from public, anon, authenticated;\\nrevoke all on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) from public, anon;\\ngrant execute on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) to authenticated;\\nrevoke all on function public.content_release_revoke(uuid, text) from public, anon;\\ngrant execute on function public.content_release_revoke(uuid, text) to authenticated;\\ncommit;\\n', params: undefined, queryOptions: undefined }",
+        "Test Files  1 failed (1)",
+        "Tests  1 failed | 41 passed (42)"
+      ],
+      "tail": [
+        " Test Files  1 failed (1)",
+        "      Tests  1 failed | 41 passed (42)",
+        "   Start at  18:37:44",
+        "   Duration  26.48s (transform 198ms, setup 0ms, collect 265ms, tests 23.85s, environment 0ms, prepare 513ms)",
+        "",
+        "undefined",
+        "D:\\workspace\\Vocaflow-factory-i1-approval\\apps\\web:",
+        " ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command \"vitest\" not found",
+        ""
+      ]
+    },
+    {
+      "name": "submitted-counterexamples-final.log",
+      "sha256": "49157adcbe2136e56ca6f8014368486bf2f95eb491a3278a6f2c72d88faf2c38",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "PASS  PG exposure attempt  expected=attempted actual=attempted",
+        "PASS  PG exposure session  expected=item_seen actual=item_seen",
+        "PASS  PG exposure trap  expected=attempted actual=attempted",
+        "PASS  PG exposure review  expected=attempted actual=attempted",
+        "PASS  PG exposure deleted  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure viewed  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure help  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure shared  expected=shared_passage_seen actual=shared_passage_seen",
+        "PASS  PG exposure is learner specific  none",
+        "PASS  PG missing exposure ledger fails closed  unknown",
+        "FAIL  R01 supersede: history retained, current valid=false  valid=true",
+        "FAIL  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=true",
+        "FAIL  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":true,\"row\":{\"factory_order_transition\":2}} partial={\"ok\":false,\"err\":\"order: conflict (expected stock_search, is delivered)\"}",
+        "FAIL  R04 CSAT Reveal Gate blocks current count and new supply  valid=true new={\"ok\":true,\"row\":{\"id\":\"1f7fe557-cb5b-405d-9338-0da074d68a0d\"}}",
+        "FAIL  supersede in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"27b10db1-775b-4fc9-b70d-ebec664d47d1\"}}",
+        "FAIL  order close in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"1119fd19-ca70-4a14-b4e6-3dc71a735b46\"}}",
+        "FAIL  revocation in flight: delivered transition waits then rejects  {\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "FAIL  missing required axis state cannot yield approved supply  qualification=true supply=true",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "FAIL  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":true}",
+        "22/31 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=72af4f76b279"
+      ],
+      "tail": [
+        "FAIL  missing required axis state cannot yield approved supply  qualification=true supply=true",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "PASS  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "FAIL  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":true}",
+        "",
+        "22/31 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=72af4f76b279",
+        ""
+      ]
+    },
+    {
+      "name": "submitted-counterexamples-postgres.log",
+      "sha256": "7d61a4b47441bde2caa1c6cb06f60d72542a30f3ccc92508644942c5f5c04be9",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "FAIL  R01 supersede: history retained, current valid=false  valid=true",
+        "FAIL  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=true",
+        "FAIL  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":true,\"row\":{\"factory_order_transition\":2}} partial={\"ok\":false,\"err\":\"order: conflict (expected stock_search, is delivered)\"}",
+        "FAIL  supersede in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"c94e7d10-a7aa-4cab-83ee-a80c09f4e590\"}}",
+        "FAIL  order close in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"1de10bb9-2753-4159-8967-67f9ac4d9e63\"}}",
+        "FAIL  revocation in flight: delivered transition waits then rejects  {\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "FAIL  missing required axis state cannot yield approved supply  qualification=true supply=true",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "9/16 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=bc08a979baaf"
+      ],
+      "tail": [
+        "FAIL  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":true,\"row\":{\"factory_order_transition\":2}} partial={\"ok\":false,\"err\":\"order: conflict (expected stock_search, is delivered)\"}",
+        "FAIL  supersede in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"c94e7d10-a7aa-4cab-83ee-a80c09f4e590\"}}",
+        "FAIL  order close in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"1de10bb9-2753-4159-8967-67f9ac4d9e63\"}}",
+        "FAIL  revocation in flight: delivered transition waits then rejects  {\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "FAIL  missing required axis state cannot yield approved supply  qualification=true supply=true",
+        "PASS  pg_temp table cannot impersonate administrator in definer  {\"ok\":false,\"err\":\"Forbidden\"}",
+        "",
+        "9/16 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=bc08a979baaf",
+        ""
+      ]
+    },
+    {
+      "name": "submitted-pglite.log",
+      "sha256": "49b356ddf05915ffc2d9f1ff6a60260de2f5cb74fdbf4d3931e04e6e1ed97243",
+      "summary": [],
+      "tail": [
+        "\u0000 \u0000T\u0000e\u0000s\u0000t\u0000 \u0000F\u0000i\u0000l\u0000e\u0000s\u0000 \u0000 \u00001\u0000 \u0000f\u0000a\u0000i\u0000l\u0000e\u0000d\u0000 \u0000(\u00001\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000T\u0000e\u0000s\u0000t\u0000s\u0000 \u0000 \u00003\u0000 \u0000f\u0000a\u0000i\u0000l\u0000e\u0000d\u0000 \u0000|\u0000 \u00003\u00007\u0000 \u0000p\u0000a\u0000s\u0000s\u0000e\u0000d\u0000 \u0000(\u00004\u00000\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000S\u0000t\u0000a\u0000r\u0000t\u0000 \u0000a\u0000t\u0000 \u0000 \u00001\u00008\u0000:\u00003\u00003\u0000:\u00001\u00002\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000D\u0000u\u0000r\u0000a\u0000t\u0000i\u0000o\u0000n\u0000 \u0000 \u00001\u00006\u0000.\u00001\u00002\u0000s\u0000 \u0000(\u0000t\u0000r\u0000a\u0000n\u0000s\u0000f\u0000o\u0000r\u0000m\u0000 \u00001\u00002\u00000\u0000m\u0000s\u0000,\u0000 \u0000s\u0000e\u0000t\u0000u\u0000p\u0000 \u00000\u0000m\u0000s\u0000,\u0000 \u0000c\u0000o\u0000l\u0000l\u0000e\u0000c\u0000t\u0000 \u00008\u00000\u00009\u0000m\u0000s\u0000,\u0000 \u0000t\u0000e\u0000s\u0000t\u0000s\u0000 \u00001\u00001\u0000.\u00007\u00006\u0000s\u0000,\u0000 \u0000e\u0000n\u0000v\u0000i\u0000r\u0000o\u0000n\u0000m\u0000e\u0000n\u0000t\u0000 \u00000\u0000m\u0000s\u0000,\u0000 \u0000p\u0000r\u0000e\u0000p\u0000a\u0000r\u0000e\u0000 \u00002\u0000.\u00004\u00005\u0000s\u0000)\u0000\r\u0000",
+        "\u0000\r\u0000",
+        "\u0000u\u0000n\u0000d\u0000e\u0000f\u0000i\u0000n\u0000e\u0000d\u0000\r\u0000",
+        "\u0000D\u0000:\u0000\\\u0000w\u0000o\u0000r\u0000k\u0000s\u0000p\u0000a\u0000c\u0000e\u0000\\\u0000V\u0000o\u0000c\u0000a\u0000f\u0000l\u0000o\u0000w\u0000-\u0000f\u0000a\u0000c\u0000t\u0000o\u0000r\u0000y\u0000-\u0000i\u00001\u0000-\u0000a\u0000p\u0000p\u0000r\u0000o\u0000v\u0000a\u0000l\u0000\\\u0000a\u0000p\u0000p\u0000s\u0000\\\u0000w\u0000e\u0000b\u0000:\u0000\r\u0000",
+        "\u0000\t E\u0000R\u0000R\u0000_\u0000P\u0000N\u0000P\u0000M\u0000_\u0000R\u0000E\u0000C\u0000U\u0000R\u0000S\u0000I\u0000V\u0000E\u0000_\u0000E\u0000X\u0000E\u0000C\u0000_\u0000F\u0000I\u0000R\u0000S\u0000T\u0000_\u0000F\u0000A\u0000I\u0000L\u0000\t  \u0000C\u0000o\u0000m\u0000m\u0000a\u0000n\u0000d\u0000 \u0000\"\u0000v\u0000i\u0000t\u0000e\u0000s\u0000t\u0000\"\u0000 \u0000n\u0000o\u0000t\u0000 \u0000f\u0000o\u0000u\u0000n\u0000d\u0000\r\u0000",
+        "\u0000"
+      ]
+    },
+    {
+      "name": "submitted-postgres.log",
+      "sha256": "486b9a47b78ad5a6fb04267b9ba768c31c49972ea05d9fb7d6f24f8c027c39ec",
+      "summary": [],
+      "tail": [
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000��\t� \u0000�Ҝ���X�t� \u0000�Ű� \u0000ٳH� \u0000�̌֔� \u0000\u0000�0�(\u0000��,�T�)\u0000 \u0000 \u0000d\u0000e\u0000l\u0000i\u0000v\u0000e\u0000r\u0000=\u0000t\u0000r\u0000u\u0000e\u0000 \u0000r\u0000e\u0000v\u0000o\u0000k\u0000e\u0000W\u0000h\u0000i\u0000l\u0000e\u0000O\u0000p\u0000e\u0000n\u0000=\u0000c\u0000a\u0000n\u0000c\u0000e\u0000l\u0000i\u0000n\u0000g\u0000 \u0000s\u0000t\u0000a\u0000t\u0000e\u0000m\u0000e\u0000n\u0000t\u0000 \u0000d\u0000u\u0000e\u0000 \u0000t\u0000o\u0000 \u0000s\u0000t\u0000a\u0000t\u0000e\u0000m\u0000e\u0000n\u0000t\u0000 \u0000t\u0000i\u0000m\u0000 \u0000r\u0000e\u0000v\u0000o\u0000k\u0000e\u0000A\u0000f\u0000t\u0000e\u0000r\u0000=\u0000t\u0000r\u0000u\u0000e\u0000\r\u0000",
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000�̌� \u0000�Ҝ���X�t� \u0000�Ű� \u0000ٳH� \u0000��\t�@� \u0000\u0000�0� \u0000�! \u0000�̌� \u0000��\u000b� \u0000�� \u0000p�\b� \u0000 \u0000r\u0000e\u0000v\u0000o\u0000k\u0000e\u0000=\u0000t\u0000r\u0000u\u0000e\u0000 \u0000d\u0000e\u0000l\u0000i\u0000v\u0000e\u0000r\u0000=\u0000d\u0000e\u0000l\u0000i\u0000v\u0000e\u0000r\u0000y\u0000:\u0000 \u0000a\u0000p\u0000p\u0000r\u0000o\u0000v\u0000a\u0000l\u0000 \u0000r\u0000e\u0000v\u0000o\u0000k\u0000e\u0000d\u0000\r\u0000",
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000\u0019�@� \u0000\u0004� \u0000ٳ�� \u0000��8� \u00002\u00000\u0000 \u0000�! \u0000��8� \u00001\u0000 \u0000 \u0000r\u0000o\u0000w\u0000s\u0000=\u00001\u0000\r\u0000",
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000\u0019�@� \u0000r\u0000e\u0000v\u0000i\u0000s\u0000i\u0000o\u0000n\u0000 \u0000ٳ�� \u0000�]� \u00002\u00000\u0000 \u0000�! \u00001\u0000 \u0000 \u0000r\u0000o\u0000w\u0000s\u0000=\u00001\u0000 \u0000o\u0000k\u0000=\u00001\u0000\r\u0000",
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000\u0019�@� \u0000�]� \u0000�� \u0000ٳ�� \u0000��\u0004ȡ� \u00002\u00000\u0000 \u0000�! \u0000��P� \u00001��� \u0000�\u0000 \u0000�� \u0000�� \u00001\u0000 \u0000 \u0000o\u0000k\u0000=\u00002\u00000\u0000/\u00002\u00000\u0000 \u0000r\u0000o\u0000w\u0000s\u0000=\u00002\u0000\r\u0000",
+        "\u0000P\u0000A\u0000S\u0000S\u0000 \u0000 \u0000��l� \u00002\u00000\u0000 \u0000�! \u0000�� \u0000r\u0000e\u0000v\u0000i\u0000s\u0000i\u0000o\u0000n\u0000 \u0000��i� \u0000�! \u0000p�\b� \u0000�� ǔ� \u0000\f0n\u0000o\u0000t\u0000 \u0000c\u0000u\u0000r\u0000r\u0000e\u0000n\u0000t\u0000\r0 \u0000п(\u0000P�)� \u0000�\u0000 \u0000�x� \u0000$�X� \u00000\u0000)\u0000 \u0000 \u0000l\u0000i\u0000n\u0000k\u0000e\u0000d\u0000=\u00002\u00000\u0000 \u0000r\u0000e\u0000j\u0000e\u0000c\u0000t\u0000e\u0000d\u0000=\u00000\u0000 \u0000o\u0000t\u0000h\u0000e\u0000r\u0000=\u00000\u0000\r\u0000",
+        "\u0000\r\u0000",
+        "\u00008\u0000/\u00008\u0000 \u0000P\u0000A\u0000S\u0000S\u0000 \u0000(\u0000P\u0000o\u0000s\u0000t\u0000g\u0000r\u0000e\u0000S\u0000Q\u0000L\u0000 \u00001\u00007\u0000 \u0000�\u0000 \u0000�\u0011� \u0000�Ű� \u0000�\u0000 \u0000C\u0000+\u0000B\u0000+\u0000I\u00001\u0000)\u0000 \u0000s\u0000a\u0000f\u0000e\u0000t\u0000y\u0000=\u00007\u00002\u0000a\u0000f\u00004\u0000f\u00007\u00006\u0000b\u00002\u00007\u00009\u0000\r\u0000",
+        "\u0000"
+      ]
+    },
+    {
+      "name": "submitted-store.log",
+      "sha256": "58456ecc025fac3493e365a788ccc0f1a141546110cf416ed531d8564855cbfd",
+      "summary": [],
+      "tail": [
+        "\u0000 \u0000T\u0000e\u0000s\u0000t\u0000 \u0000F\u0000i\u0000l\u0000e\u0000s\u0000 \u0000 \u00001\u0000 \u0000f\u0000a\u0000i\u0000l\u0000e\u0000d\u0000 \u0000(\u00001\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000T\u0000e\u0000s\u0000t\u0000s\u0000 \u0000 \u00001\u0000 \u0000f\u0000a\u0000i\u0000l\u0000e\u0000d\u0000 \u0000|\u0000 \u00006\u0000 \u0000p\u0000a\u0000s\u0000s\u0000e\u0000d\u0000 \u0000(\u00007\u0000)\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000S\u0000t\u0000a\u0000r\u0000t\u0000 \u0000a\u0000t\u0000 \u0000 \u00001\u00008\u0000:\u00003\u00003\u0000:\u00004\u00005\u0000\r\u0000",
+        "\u0000 \u0000 \u0000 \u0000D\u0000u\u0000r\u0000a\u0000t\u0000i\u0000o\u0000n\u0000 \u0000 \u00009\u00002\u00001\u0000m\u0000s\u0000 \u0000(\u0000t\u0000r\u0000a\u0000n\u0000s\u0000f\u0000o\u0000r\u0000m\u0000 \u00008\u00007\u0000m\u0000s\u0000,\u0000 \u0000s\u0000e\u0000t\u0000u\u0000p\u0000 \u00001\u0000m\u0000s\u0000,\u0000 \u0000c\u0000o\u0000l\u0000l\u0000e\u0000c\u0000t\u0000 \u00001\u00000\u00000\u0000m\u0000s\u0000,\u0000 \u0000t\u0000e\u0000s\u0000t\u0000s\u0000 \u00001\u00009\u0000m\u0000s\u0000,\u0000 \u0000e\u0000n\u0000v\u0000i\u0000r\u0000o\u0000n\u0000m\u0000e\u0000n\u0000t\u0000 \u00000\u0000m\u0000s\u0000,\u0000 \u0000p\u0000r\u0000e\u0000p\u0000a\u0000r\u0000e\u0000 \u00001\u00006\u00004\u0000m\u0000s\u0000)\u0000\r\u0000",
+        "\u0000\r\u0000",
+        "\u0000u\u0000n\u0000d\u0000e\u0000f\u0000i\u0000n\u0000e\u0000d\u0000\r\u0000",
+        "\u0000D\u0000:\u0000\\\u0000w\u0000o\u0000r\u0000k\u0000s\u0000p\u0000a\u0000c\u0000e\u0000\\\u0000V\u0000o\u0000c\u0000a\u0000f\u0000l\u0000o\u0000w\u0000-\u0000f\u0000a\u0000c\u0000t\u0000o\u0000r\u0000y\u0000-\u0000i\u00001\u0000-\u0000a\u0000p\u0000p\u0000r\u0000o\u0000v\u0000a\u0000l\u0000\\\u0000a\u0000p\u0000p\u0000s\u0000\\\u0000w\u0000e\u0000b\u0000:\u0000\r\u0000",
+        "\u0000\t E\u0000R\u0000R\u0000_\u0000P\u0000N\u0000P\u0000M\u0000_\u0000R\u0000E\u0000C\u0000U\u0000R\u0000S\u0000I\u0000V\u0000E\u0000_\u0000E\u0000X\u0000E\u0000C\u0000_\u0000F\u0000I\u0000R\u0000S\u0000T\u0000_\u0000F\u0000A\u0000I\u0000L\u0000\t  \u0000C\u0000o\u0000m\u0000m\u0000a\u0000n\u0000d\u0000 \u0000\"\u0000v\u0000i\u0000t\u0000e\u0000s\u0000t\u0000\"\u0000 \u0000n\u0000o\u0000t\u0000 \u0000f\u0000o\u0000u\u0000n\u0000d\u0000\r\u0000",
+        "\u0000"
+      ]
+    }
+  ],
+  "browser": {
+    "passes": 23,
+    "total": 23
+  },
+  "screens": [
+    {
+      "path": "browser/1280-partial.png",
+      "sha256": "16c3cdcf370b3f3d9a361e3e4005cc48815da108d07456eab4a093ab3d9754fc"
+    },
+    {
+      "path": "browser/1280-repair.png",
+      "sha256": "cd4056d25b0a8920d257f5c5d9e066db93f13f48a93562b39f9152dd75069ca8"
+    },
+    {
+      "path": "browser/1440-partial.png",
+      "sha256": "1d252fb1b4a7675d9d78e94ac0d9159e8bbf6c628d7d9f69ae9350f738ace577"
+    },
+    {
+      "path": "browser/1440-repair.png",
+      "sha256": "62fde2fe4b38229d8a2ce46836c03c0402ed4a671206c1333e2f1fbb2f682480"
+    }
+  ]
+}

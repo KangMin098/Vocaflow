@@ -2,6 +2,18 @@
 
 > 대상: C · B 승인안과 I1 delta(S · P · D3). **미적용** — 근거는 개발 DB 읽기 전용 실측(2026-10-17)과 격리 PostgreSQL 시험뿐이다.
 > 패키지: [FACTORY_I1_APPROVAL_PACKAGE.md](./FACTORY_I1_APPROVAL_PACKAGE.md)
+> 독립 검증 후속: [수용·수정 전후 반례](../../research/factory-i1-280-independent/ACCEPTANCE.md). 아래 원 작성자의 관찰은 당시 증거로 보존하며, 수정 SQL 판정은 독립 기록을 우선한다.
+
+## 독립 검증 후 수정
+
+- R01: superseded 자격의 공급은 원장을 보존하고 현재 충족도에서 제외한다. 신규 공급은 자격 `FOR SHARE`로 supersede와 직렬화한다.
+- R02: 종결 시점의 유효 수량만 센다. 공급·종결은 줄→주문 순서, 자격·승인 잠금으로 철회와 직렬화한다. 종결 후 철회는 주문 이력을 유지하고 현재 충족도만 내린다.
+- R03: 전체 canonical 수요별로 원장을 나눠 다른 PLAN/수요의 공급·높은 order_seq를 끌어오지 않는다.
+- R04: DCP는 기존 `csat_source_is_eligible`, 기출은 기존 `csat_ec_embargoed_items`로 현재 조건을 재검사한다. 조회 실패는 예외 또는 false로 닫힌다.
+- C의 축 `state` 누락과 `fq_role_ok=NULL`이 CHECK/IF NOT를 통과하던 반례를 거절한다.
+- 정의자는 `public, pg_temp` 순서 고정, public CREATE 권한 적용 전 감사. 내부 판정기 실행권은 회수. 기존 개발 DB 권한 helper는 변경 없이 읽기 감사했다.
+- S-only 롤백의 없는 D3 표 파싱을 중첩 IF로 수정하고 공급 실행권은 닫아 둔다. partial/D3 보존 조건 및 기존 공급 이력은 유지한다.
+- 개발 DB 기본 ACL을 읽어 anon/authenticated ALL을 확인했다. 기존의 INSERT/UPDATE/DELETE 회수만으로는 TRUNCATE가 남아 RLS·행 트리거를 우회했다(격리 PG 실제 실행 후 rollback). 새 10개 표는 ALL 회수 후 authenticated SELECT만 부여한다. 롤백에서도 이 권한 축소는 유지한다.
 
 ## 1. D1 — 학습자 노출(G) 판정의 누락
 

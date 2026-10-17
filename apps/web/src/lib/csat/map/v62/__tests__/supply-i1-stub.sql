@@ -18,3 +18,8 @@ create table public.csat_session_attempts (id uuid primary key default gen_rando
   answered_at timestamptz not null default now());
 create table public.csat_review_queue (user_id uuid not null, item_id text not null, type_id text not null default 'R-TOPIC',
   due_at timestamptz not null default now(), stage smallint not null default 0, updated_at timestamptz not null default now());
+-- 기존 Reveal Gate RPC의 최소 사본: 실제 함수는 csat_ec_private.item_answer_embargoed를 조회한다.
+create table public.embargoed_items (item_id text primary key);
+create function public.csat_ec_embargoed_items(p_items text[]) returns text[] language sql stable as $$
+  select coalesce(array_agg(item_id), '{}') from public.embargoed_items where item_id = any(p_items)
+$$;

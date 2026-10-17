@@ -10,11 +10,15 @@
 begin;
 -- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)
 do $$ begin
-  if to_regclass('public.factory_order_product_link') is not null and exists (select 1 from public.factory_order_product_link) then
-    raise exception 'rollback D3: factory_order_product_link has rows — copy to a preservation table first';
+  if to_regclass('public.factory_order_product_link') is not null then
+    if exists (select 1 from public.factory_order_product_link) then
+      raise exception 'rollback D3: factory_order_product_link has rows — preserve history; rollback refused';
+    end if;
   end if;
-  if to_regclass('public.factory_product_order') is not null and exists (select 1 from public.factory_product_order) then
-    raise exception 'rollback D3: factory_product_order has rows — copy to a preservation table first';
+  if to_regclass('public.factory_product_order') is not null then
+    if exists (select 1 from public.factory_product_order) then
+      raise exception 'rollback D3: factory_product_order has rows — preserve history; rollback refused';
+    end if;
   end if;
   if exists (select 1 from public.factory_order where state = 'partial') then
     raise exception 'rollback P: partial orders exist — do not reopen closed orders';
@@ -187,10 +191,31 @@ begin
   insert into content_release_revocation (approval_id, revoked_by, reason) values (p_approval, auth.uid(), p_reason)
   on conflict (approval_id) do nothing;   -- 이미 철회됨 = 같은 결과
 end $$;
+create or replace function public.fq_axes_valid(p jsonb) returns boolean
+language sql immutable set search_path to 'public' as $$
+  select jsonb_typeof(p) = 'object'
+     and (select count(*) from jsonb_object_keys(p)) = 8
+     and (select bool_and(k in ('A','B','C','D','E','F','G','H')
+                          and jsonb_typeof(p -> k) = 'object'
+                          and (p -> k ->> 'state') in ('pass','fail','unknown','not_applicable'))
+          from jsonb_object_keys(p) k)
+$$;
+create or replace function public.fq_role_ok(p jsonb, p_role text) returns boolean
+language sql immutable set search_path to 'public' as $$
+  select (p->'A'->>'state') = 'pass' and (p->'B'->>'state') = 'pass' and (p->'C'->>'state') = 'pass'
+     and (p->'F'->>'state') = 'pass' and (p->'H'->>'state') = 'pass'
+     and (p_role not in ('source_analysis','model_explanation','guided_practice') or (p->'D'->>'state') = 'pass')
+     and (p_role not in ('independent_check','transfer','delayed_check') or (p->'E'->>'state') = 'pass')
+$$;
+alter function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) set search_path to 'public';
+alter function public.content_release_approve(uuid,text,text) set search_path to 'public';
+alter function public.workspace_demand_record(text) set search_path to 'public';
+alter function public.supply_artifact_revision(text,text) set search_path to 'public';
 drop function if exists public.supply_delivery_valid(uuid);
 revoke all on function public.supply_learner_exposure(text, text, uuid) from public, anon, authenticated;
 revoke all on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) from public, anon;
-grant execute on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) to authenticated;
+-- B의 알려진 안전 결함을 다시 열지 않는다. 패치된 공급 함수 재승인 전까지 호출 금지.
+revoke all on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) from authenticated;
 revoke all on function public.content_release_revoke(uuid, text) from public, anon;
 grant execute on function public.content_release_revoke(uuid, text) to authenticated;
 commit;

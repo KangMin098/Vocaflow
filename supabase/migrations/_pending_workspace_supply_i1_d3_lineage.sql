@@ -9,7 +9,8 @@
 -- 설계:
 --   factory_product_order       공용 생산 주문 등록부(학습자 정보 없음). (product_order_id, order_revision) 하나에 해시 하나. 추가 전용.
 --                               현재 = 그 product_order_id 의 최고 revision 이고 status = 'active'. 철회는 새 revision(status 'withdrawn').
---   factory_order_product_link  학습자별 factory_order ↔ 공용 주문 revision N:M. 추가 전용. 링크 시점에 현재성 · 해시 · TASK · 역할 · share_key 를 검사.
+--   factory_order_product_link  학습자별 factory_order ↔ 공용 주문 revision N:M. 추가 전용. 현재성 · 제출 해시 · TASK · 역할 검사.
+--                               share_key 요구 결속 · 정본 hash 계산 · 공유 생산량 배분은 미확정: DB-3 보류 조건.
 --   공용 생산과 개인 납품은 분리된다: 납품은 여전히 학습자별 workspace_content_delivery(D2 재검증)로만 생긴다. 링크는 납품이 아니다.
 --   학습자 간 노출 차단: 두 표 모두 관리자 · 큐레이터 읽기만. 학습자는 자기 factory_order(B RLS)만 보고, 같은 공장 주문을 누가 공유하는지 모른다.
 --   쓰기 = 아래 정의자 함수(관리자 · 큐레이터) + B/C 와 같은 writer guard. 서비스 키 직접 INSERT 거부.
@@ -62,11 +63,12 @@ alter table public.factory_product_order enable row level security;
 alter table public.factory_order_product_link enable row level security;
 create policy fpo_admin_read on public.factory_product_order for select using (public.is_admin_or_curator());
 create policy fopl_admin_read on public.factory_order_product_link for select using (public.is_admin_or_curator());
-revoke insert, update, delete on public.factory_product_order, public.factory_order_product_link from anon, authenticated;
+revoke all on public.factory_product_order, public.factory_order_product_link from public, anon, authenticated;
+grant select on public.factory_product_order, public.factory_order_product_link to authenticated;
 
 /** 현재성 — 그 주문 id 의 최고 revision 이고 active 인가 */
 create or replace function public.factory_product_order_is_current(p_id text, p_revision integer)
-returns boolean language sql stable security definer set search_path to 'public' as $$
+returns boolean language sql stable security definer set search_path to 'public', 'pg_temp' as $$
   select exists (select 1 from factory_product_order f where f.product_order_id = p_id and f.order_revision = p_revision and f.status = 'active'
                  and f.order_revision = (select max(g.order_revision) from factory_product_order g where g.product_order_id = p_id))
 $$;
@@ -75,7 +77,7 @@ revoke all on function public.factory_product_order_is_current(text, integer) fr
 /** 등록 — 관리자 · 큐레이터. revision 은 직전 + 1 만(건너뛰기 · 되감기 거부). 같은 요청 키 = 같은 본문일 때만 멱등 */
 create or replace function public.factory_product_order_register(p_id text, p_revision integer, p_hash text, p_status text,
   p_share_key text, p_task text, p_role text, p_quantity integer, p_note text, p_request_key uuid)
-returns void language plpgsql security definer set search_path to 'public' as $$
+returns void language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare prev record; v_max integer;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
@@ -103,7 +105,7 @@ grant execute on function public.factory_product_order_register(text, integer, t
 
 /** 학습자 주문 ↔ 공용 주문 revision 링크 — 관리자 · 큐레이터. 현재 · active · 해시 일치 · TASK · 역할 일치 · 학습자 주문이 열려 있을 때만 */
 create or replace function public.factory_order_link_product(p_order uuid, p_id text, p_revision integer, p_hash text, p_request_key uuid)
-returns void language plpgsql security definer set search_path to 'public' as $$
+returns void language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare o record; f record; prev record;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;

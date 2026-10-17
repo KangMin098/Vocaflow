@@ -3,8 +3,8 @@
 --
 -- 문제(B): 'delivered' 는 공급 행 1개로 충분했다. 요청 5 · 적격 2 인 주문도 「납품 완료」가 되고, 남은 3 은 어디에도 기록되지 않았다.
 -- 정책(최소 변경 — 기존 상태 · 전이는 그대로 두고 닫힘 상태 하나만 더한다):
---   · delivered = 그 주문의 공급 행 수 = 주문 수량(전량). 하나라도 모자라면 delivered 로 닫을 수 없다.
---   · partial   = 새 닫힘 상태. 1 ≤ 공급 수 < 주문 수량 · 이유 필수. stock_search · reviewing 에서만 들어간다.
+--   · delivered = 전이 시점에 유효한 그 주문의 공급 수 = 주문 수량(전량). 이후 철회는 이력 대신 현재 충족도만 내린다.
+--   · partial   = 새 닫힘 상태. 1 ≤ 현재 유효 공급 수 < 주문 수량 · 공백 아닌 이유 필수. stock_search · reviewing 에서만 들어간다.
 --   · 남은 부족 = 줄 수량 − 그 줄의 **지금 유효한** 공급 수(supply_delivery_valid). 주문 상태가 아니라 줄에서 계산한다
 --                (권리 철회 · 산출물 변경으로 이미 공급된 자료가 무효가 되면 부족이 다시 생긴다).
 --   · 재주문: shortfall = 직전 주문이 partial 또는 delivered(뒤에 무효 발생) · 수량 ≤ 남은 부족.
@@ -28,7 +28,7 @@ create unique index factory_order_one_open_per_line on public.factory_order (lin
 /** 줄 충족도 — 요청 · 공급 기록 · 지금 유효한 공급 · 남은 부족. 본인 또는 관리자만(다른 학습자 줄은 not found 와 같은 오류) */
 create or replace function public.workspace_line_fulfillment(p_line uuid)
 returns table (requested int, delivered_total int, delivered_valid int, shortfall int)
-language plpgsql stable security definer set search_path to 'public' as $$
+language plpgsql stable security definer set search_path to 'public', 'pg_temp' as $$
 declare ln record;
 begin
   if auth.uid() is null then raise exception 'Forbidden' using errcode = '42501'; end if;
@@ -46,7 +46,7 @@ grant execute on function public.workspace_line_fulfillment(uuid) to authenticat
 
 /** 주문 열기 — B 와 같고 (P) 재주문 이유 · 수량을 남은 부족에 묶는다 */
 create or replace function public.factory_order_open(p_line uuid, p_reason text, p_quantity smallint, p_request_key uuid)
-returns uuid language plpgsql security definer set search_path to 'public' as $$
+returns uuid language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare v_uid uuid := auth.uid(); ln record; v_id uuid; v_prev record; v_seq smallint; v_short int;
 begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
@@ -84,11 +84,13 @@ grant execute on function public.factory_order_open(uuid, text, smallint, uuid) 
 /** 주문 전이 — B 와 같고 (P) delivered = 전량 · partial = 일부(이유 필수) */
 create or replace function public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text,
   p_run_id text, p_qualification uuid, p_request_key uuid)
-returns integer language plpgsql security definer set search_path to 'public' as $$
+returns integer language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare o record; v_seq int; ok boolean; e record; v_n int;
 begin
   if auth.uid() is null or not public.is_admin_or_curator() then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
+  -- 공급/재주문과 같은 줄 → 주문 순서. 닫힘 검사와 공급 INSERT가 교차하지 않는다.
+  perform 1 from workspace_content_demand_line where id = (select line_id from factory_order where id = p_order) for update;
   select * into o from factory_order where id = p_order for update;
   if not found then raise exception 'order: not found'; end if;
   select * into e from factory_order_event where order_id = p_order and request_key = p_request_key;
@@ -108,14 +110,19 @@ begin
     ('reviewing','delivered'),('reviewing','partial'),('reviewing','held'),('reviewing','failed'),
     ('held','stock_search'),('held','awaiting_production'),('held','failed'));
   if not ok then raise exception 'order: transition % -> % not allowed', o.state, p_to; end if;
-  select count(*) into v_n from workspace_content_delivery d where d.order_id = p_order;
+  -- 종결 시점의 자격/승인 유효성을 고정한다. supersede(FOR UPDATE) · 철회(FOR UPDATE)와 직렬화.
+  perform 1 from content_qualification q where q.id in (
+    select d.qualification_id from workspace_content_delivery d where d.order_id = p_order) order by q.id for share;
+  perform 1 from content_release_approval a where a.qualification_id in (
+    select d.qualification_id from workspace_content_delivery d where d.order_id = p_order) order by a.id for share;
+  select count(*) into v_n from workspace_content_delivery d where d.order_id = p_order and public.supply_delivery_valid(d.id);
   if p_to = 'delivered' then
-    if not exists (select 1 from workspace_content_delivery d where d.order_id = p_order and d.qualification_id = p_qualification) then
+    if not exists (select 1 from workspace_content_delivery d where d.order_id = p_order and d.qualification_id = p_qualification and public.supply_delivery_valid(d.id)) then
       raise exception 'order: delivered needs a delivery row with this qualification';
     end if;
     if v_n < o.quantity then raise exception 'order: delivered needs full quantity (% of %) — use partial', v_n, o.quantity; end if;
   elsif p_to = 'partial' then
-    if p_reason is null or length(p_reason) = 0 then raise exception 'order: partial needs a reason'; end if;
+    if p_reason is null or length(btrim(p_reason)) = 0 then raise exception 'order: partial needs a reason'; end if;
     if v_n = 0 then raise exception 'order: partial needs at least one delivery — use failed'; end if;
     if v_n >= o.quantity then raise exception 'order: partial with full quantity — use delivered'; end if;
   end if;

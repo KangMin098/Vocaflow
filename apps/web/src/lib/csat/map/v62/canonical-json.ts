@@ -5,6 +5,17 @@
 //       · undefined 값을 가진 키는 **생략**(JSON.stringify 와 같은 규칙) · 배열 안 undefined · NaN · ±Infinity · 함수 · bigint · symbol 은 **거절**.
 // 결과는 항상 `JSON.parse` 가능하다 — 외부 공장 · 소비자가 그대로 읽는다.
 
+import type { WorkspaceDemand } from './demand'
+
+/** 수요 본문 정본. 브라우저와 서버가 같은 전체 수요를 고른다(시각 제외, 사용자 포함). */
+export function canonicalDemand(userId: string, d: WorkspaceDemand): string {
+  return canonicalJson({
+    v: 2, user: userId, template: d.template, workspaceId: d.workspaceId, goalVersion: d.goalVersion,
+    planVersion: d.planVersion, definitionVersion: d.definitionVersion, core: d.core, support: [...d.support].sort(),
+    lines: d.lines.map((l) => ({ role: l.role, task: l.task, n: l.quantity.n, types: [...l.csatTypes].sort(), keys: [...l.taskKeys].sort(), requires: { ...l.requires }, reason: l.reason })),
+  })
+}
+
 export class CanonicalJsonError extends Error {}
 
 export function canonicalJson(value: unknown): string {

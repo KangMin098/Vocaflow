@@ -1,5 +1,7 @@
 # Learning Modules
 
+> Factory I1 독립 검증(2026-10-17, DB 미적용): 학습지도 Inspector는 전체 canonical 수요별 공급을 선택해 PLAN 간 집계를 분리한다. 역사적 주문 종결과 현재 유효 공급은 별도이며 supersede·권리/공개 철회는 부족분으로 복귀한다. [독립 수용 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
+
 > 9개 학습 모듈 + 베타. 각 모듈의 목적·라우트·인지 깊이·데이터 모델. 작성 시점: 2026-06-08 (v06.34).
 >
 > 학습 모델 9계층 (L0~L7) 자세한 설계는 [LEARNING_MODEL.md](./LEARNING_MODEL.md) 참조.

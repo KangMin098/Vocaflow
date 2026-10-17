@@ -18,9 +18,9 @@ const B = '_pending_workspace_supply_b_orders.sql'
 function block(text, name, file) {
   const start = text.indexOf(`create or replace function public.${name}(`)
   if (start < 0) throw new Error(`${file}: ${name} 없음`)
-  const end = text.indexOf('end $$;', start)
+  const end = text.indexOf('$$;', text.indexOf('as $$', start) + 5)
   if (end < 0) throw new Error(`${file}: ${name} 끝 없음`)
-  return text.slice(start, end + 'end $$;'.length)
+  return text.slice(start, end + '$$;'.length)
 }
 const bText = read(B)
 const cText = read(C)
@@ -37,11 +37,15 @@ const out = `-- supabase/migrations/_pending_workspace_supply_i1_rollback.sql
 begin;
 -- §0. 보존 조건을 **무엇이든 지우기 전에** 모두 검사한다(트랜잭션 — 하나라도 실패하면 아무것도 바뀌지 않는다)
 do $$ begin
-  if to_regclass('public.factory_order_product_link') is not null and exists (select 1 from public.factory_order_product_link) then
-    raise exception 'rollback D3: factory_order_product_link has rows — copy to a preservation table first';
+  if to_regclass('public.factory_order_product_link') is not null then
+    if exists (select 1 from public.factory_order_product_link) then
+      raise exception 'rollback D3: factory_order_product_link has rows — preserve history; rollback refused';
+    end if;
   end if;
-  if to_regclass('public.factory_product_order') is not null and exists (select 1 from public.factory_product_order) then
-    raise exception 'rollback D3: factory_product_order has rows — copy to a preservation table first';
+  if to_regclass('public.factory_product_order') is not null then
+    if exists (select 1 from public.factory_product_order) then
+      raise exception 'rollback D3: factory_product_order has rows — preserve history; rollback refused';
+    end if;
   end if;
   if exists (select 1 from public.factory_order where state = 'partial') then
     raise exception 'rollback P: partial orders exist — do not reopen closed orders';
@@ -74,10 +78,17 @@ grant execute on function public.factory_order_transition(uuid, text, text, text
 ${block(bText, 'supply_learner_exposure', B)}
 ${block(bText, 'workspace_delivery_record', B)}
 ${block(cText, 'content_release_revoke', C)}
+${block(cText, 'fq_axes_valid', C)}
+${block(cText, 'fq_role_ok', C)}
+alter function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) set search_path to 'public';
+alter function public.content_release_approve(uuid,text,text) set search_path to 'public';
+alter function public.workspace_demand_record(text) set search_path to 'public';
+alter function public.supply_artifact_revision(text,text) set search_path to 'public';
 drop function if exists public.supply_delivery_valid(uuid);
 revoke all on function public.supply_learner_exposure(text, text, uuid) from public, anon, authenticated;
 revoke all on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) from public, anon;
-grant execute on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) to authenticated;
+-- B의 알려진 안전 결함을 다시 열지 않는다. 패치된 공급 함수 재승인 전까지 호출 금지.
+revoke all on function public.workspace_delivery_record(uuid, uuid, uuid, uuid, uuid) from authenticated;
 revoke all on function public.content_release_revoke(uuid, text) from public, anon;
 grant execute on function public.content_release_revoke(uuid, text) to authenticated;
 commit;

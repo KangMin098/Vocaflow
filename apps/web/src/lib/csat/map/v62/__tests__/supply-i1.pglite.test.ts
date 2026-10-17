@@ -42,12 +42,12 @@ async function lineFor(uid: string, ws: string, role: string, qty: number, task 
   const dem = (await q1<{ id: string }>(`select public.workspace_demand_record($1) id`, [canonicalDemand(uid, d)])).id
   return (await q1<{ id: string }>(`select id from public.workspace_content_demand_line where demand_id = $1`, [dem])).id
 }
-async function qualify(ref: string, role: string, kind = 'csat_item', task = 'r.central_meaning'): Promise<string> {
+async function qualify(ref: string, role: string, kind = 'csat_item', task = 'r.central_meaning', supersedes: string | null = null): Promise<string> {
   const rev = (await revOf(db, kind, ref)) ?? 'none'
   await as(db, ADMIN)
   return (await q1<{ id: string }>(
-    `select public.content_qualification_record('FQ1.1',$1,$2,$3,$4,$5,$6::jsonb,'src',$7,null,'gold',$7,'{}','{ev}','2인 검수',null) id`,
-    [kind, ref, rev, task, role, JSON.stringify(AXES()), H64])).id
+    `select public.content_qualification_record('FQ1.1',$1,$2,$3,$4,$5,$6::jsonb,'src',$7,null,'gold',$7,'{}','{ev}','2인 검수',$8) id`,
+    [kind, ref, rev, task, role, JSON.stringify(AXES()), H64, supersedes])).id
 }
 async function approve(q: string, scope: 'public' | 'assessment'): Promise<string> {
   await as(db, ADMIN)
@@ -70,6 +70,7 @@ beforeAll(async () => {
   db = new PGlite()
   await db.exec(STUB)
   await db.exec(I1_STUB)
+  await db.exec(`alter default privileges in schema public grant all on tables to anon, authenticated`)
   await db.exec(C_SQL)
   await db.exec(B_SQL)
   await db.exec(I1_SAFETY)
@@ -326,8 +327,104 @@ describe('P — 부분 납품 · 재주문 · 철회', () => {
   })
 })
 
+describe('독립 수용 R01/R02/R04 — 동일 입력 수정 전후 회귀', () => {
+  it('Supabase 기본 ALL의 TRUNCATE·REFERENCES·TRIGGER를 새 원장 10개에서 모두 회수한다', async () => {
+    const tables = ['content_qualification','content_release_approval','content_release_revocation','workspace_content_demand','workspace_content_demand_line','factory_order','factory_order_event','workspace_content_delivery','factory_product_order','factory_order_product_link']
+    for (const table of tables) {
+      for (const role of ['anon','authenticated']) {
+        for (const privilege of ['INSERT','UPDATE','DELETE','TRUNCATE','REFERENCES','TRIGGER']) {
+          expect((await q1<{ ok: boolean }>(`select has_table_privilege($1,$2,$3) ok`, [role,table,privilege])).ok, `${role}:${table}:${privilege}`).toBe(false)
+        }
+      }
+    }
+  })
+  it('필수 축 state 누락은 NULL 통과가 아니라 잘못된 자격으로 거절한다', async () => {
+    const axes = AXES() as Record<string, unknown>
+    axes.A = {}
+    expect((await q1<{ ok: boolean }>(`select public.fq_axes_valid($1::jsonb) ok`, [JSON.stringify(axes)])).ok).toBe(false)
+    expect((await q1<{ ok: boolean }>(`select public.fq_role_ok($1::jsonb,'guided_practice') ok`, [JSON.stringify(axes)])).ok).toBe(false)
+  })
+  it('R01 supersede 뒤 옛 공급은 보존하되 현재 유효 수량에서 제외한다', async () => {
+    const line = await lineFor(A, wsA, 'guided_practice', 1, 'r.supersede_case')
+    const q = await qualify('E1#20', 'guided_practice', 'csat_item', 'r.supersede_case')
+    const p = await approve(q, 'public')
+    const id = await deliver(A, line, q, p)
+    await qualify('E1#20', 'guided_practice', 'csat_item', 'r.supersede_case', q)
+    expect((await q1<{ valid: boolean }>(`select public.supply_delivery_valid($1) valid`, [id])).valid).toBe(false)
+    await as(db, A)
+    expect(await q1(`select * from public.workspace_line_fulfillment($1)`, [line])).toEqual({ requested: 1, delivered_total: 1, delivered_valid: 0, shortfall: 1 })
+    expect((await q1<{ n: number }>(`select count(*)::int n from workspace_content_delivery where id=$1`, [id])).n).toBe(1)
+  })
+  it('R02 공급 5 뒤 철회 3: 전이 전에는 delivered 거절, partial 허용; 전이 후에는 이력 delivered와 현재 부족 3을 구분한다', async () => {
+    for (const closeFirst of [false, true]) {
+      const task = closeFirst ? 'r.closed_revoke' : 'r.before_revoke'
+      const line = await lineFor(A, wsA, 'guided_practice', 5, task)
+      await as(db, A)
+      const order = (await q1<{ id: string }>(`select public.factory_order_open($1,'initial',5::smallint,$2) id`, [line, key()])).id
+      await as(db, ADMIN)
+      await db.query(`select public.factory_order_transition($1,'requested','stock_search',null,null,null,$2)`, [order, key()])
+      const qs: string[] = [], ps: string[] = []
+      for (const ref of ['E1#20','E1#21','E1#22','E1#23','E1#24']) {
+        const q = await qualify(ref, 'guided_practice', 'csat_item', task)
+        const p = await approve(q, 'public'); qs.push(q); ps.push(p)
+        await deliver(A, line, q, p, key(), order)
+      }
+      const close = async (to: string, reason: string | null) => {
+        await as(db, ADMIN)
+        return db.query(`select public.factory_order_transition($1,'stock_search',$2,$3,null,$4,$5)`, [order, to, reason, qs[4], key()])
+      }
+      if (closeFirst) await close('delivered', null)
+      for (const p of ps.slice(0,3)) await revoke(p)
+      await as(db, A)
+      expect(await q1(`select * from public.workspace_line_fulfillment($1)`, [line])).toEqual({ requested: 5, delivered_total: 5, delivered_valid: 2, shortfall: 3 })
+      if (!closeFirst) {
+        expect(await errorOf(close('delivered', null))).toContain('full quantity')
+        expect(await errorOf(close('partial', '   '))).toContain('needs a reason')
+        await close('partial', '승인 3건 철회')
+      }
+      expect((await q1<{ state: string }>(`select state from factory_order where id=$1`, [order])).state).toBe(closeFirst ? 'delivered' : 'partial')
+      await as(db, A)
+      expect(await errorOf(db.query(`select public.factory_order_open($1,'shortfall',4::smallint,$2)`, [line,key()]))).toContain('exceeds remaining shortfall 3')
+      await db.query(`select public.factory_order_open($1,'shortfall',3::smallint,$2)`, [line,key()])
+    }
+  })
+  it('R04 revision 불변이어도 현재 원천 적격성 실패는 공급 유효 수량에서 제외한다', async () => {
+    const ref = '11111111-1111-4111-8111-111111111111', src = '22222222-2222-4222-8222-222222222222'
+    await db.query(`insert into csat_dcp_items(id,kind,ref_id) values ($1,'article',$2)`, [ref,src])
+    const line = await lineFor(A, wsA, 'guided_practice', 1, 'r.source_case')
+    const q = await qualify(ref, 'guided_practice', 'dcp_item', 'r.source_case')
+    const p = await approve(q, 'public')
+    const id = await deliver(A, line, q, p)
+    const rev = await revOf(db, 'dcp_item', ref)
+    await db.query(`insert into ineligible_sources values ($1)`, [src])
+    expect(await revOf(db, 'dcp_item', ref)).toBe(rev)
+    expect((await q1<{ valid: boolean }>(`select public.supply_delivery_valid($1) valid`, [id])).valid).toBe(false)
+    await as(db, A)
+    expect(await q1(`select * from public.workspace_line_fulfillment($1)`, [line])).toEqual({ requested: 1, delivered_total: 1, delivered_valid: 0, shortfall: 1 })
+  })
+  it('R04 기출 Reveal Gate 보류도 revision 불변일 때 현재 공급에서 제외하고 신규 공급을 거절한다', async () => {
+    const task = 'r.reveal_case', line = await lineFor(A, wsA, 'guided_practice', 2, task)
+    const q = await qualify('E1#26','guided_practice','csat_item',task), p = await approve(q,'public')
+    const id = await deliver(A,line,q,p)
+    const rev = await revOf(db,'csat_item','E1#26')
+    await db.exec(`insert into embargoed_items values ('E1#26')`)
+    expect(await revOf(db,'csat_item','E1#26')).toBe(rev)
+    expect((await q1<{ v: boolean }>(`select supply_delivery_valid($1) v`,[id])).v).toBe(false)
+    const line2 = await lineFor(A,wsA,'guided_practice',1,task)
+    expect(await errorOf(deliver(A,line2,q,p))).toContain('source not eligible')
+    await db.exec(`delete from embargoed_items where item_id='E1#26'`)
+  })
+})
+
 describe('되돌리기(_pending_workspace_supply_i1_rollback.sql — 생성물)', () => {
   const ROLLBACK = read('_pending_workspace_supply_i1_rollback.sql')
+  it('S만 승인한 DB도 P/D3 없이 안전하게 되돌리고 공급 실행권은 닫아 둔다', async () => {
+    const r = new PGlite()
+    try {
+      for (const s of [STUB, I1_STUB, C_SQL, B_SQL, I1_SAFETY, ROLLBACK]) await r.exec(s)
+      expect((await r.query<{ ok: boolean }>(`select has_function_privilege('authenticated','public.workspace_delivery_record(uuid,uuid,uuid,uuid,uuid)','execute') ok`)).rows[0]!.ok).toBe(false)
+    } finally { await r.close() }
+  })
   it('빈 DB: 적용 → 되돌리기 → B 원래 동작(노출은 dx 만 · 평가 역할은 assessment 하나로 통과) · 새 객체 0', async () => {
     const r = new PGlite()
     for (const s of [STUB, I1_STUB, C_SQL, B_SQL, I1_SAFETY, I1_PARTIAL, I1_D3, ROLLBACK]) await r.exec(s)

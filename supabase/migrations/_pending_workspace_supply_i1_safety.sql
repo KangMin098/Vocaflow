@@ -17,11 +17,29 @@
 --    · 철회 경합 → B 는 철회 트랜잭션이 열린 사이 공급이 통과했다(철회 커밋 뒤 「철회된 승인」으로 공급 1행). I1: 공급이 기다린 뒤 거절.
 --    · 같은 요청 키 재전송은 줄 잠금 뒤에 본다(B 기준선도 20/20 같은 id 였다 — 결함이 아니라 순서를 고정한 것).
 --
--- 바뀌는 객체: function supply_learner_exposure(text,text,uuid) · workspace_delivery_record(uuid,uuid,uuid,uuid,uuid) · content_release_revoke(uuid,text)
+-- 바뀌는 객체: supply_learner_exposure · workspace_delivery_record · content_release_revoke · fq_axes_valid · fq_role_ok, 아래 C/B 정의자 함수 search_path.
 -- 새 객체: function supply_delivery_valid(uuid)(실행권: 정의자 함수 안에서만 — public · anon · authenticated 회수)
 -- 표 · 열 · RLS 변경 없음 · 데이터 변경 없음.
 -- 되돌리기: 세 함수를 B · C 원본 정의로 다시 create or replace, drop function supply_delivery_valid(uuid)(원본 sha256 은 승인 패키지 §2).
 --           이 파일은 데이터를 만들지 않으므로 손실 없음.
+
+-- C의 SQL NULL은 CHECK/IF NOT에서 거절되지 않는다. 빠진 state는 pass가 아니다.
+create or replace function public.fq_axes_valid(p jsonb) returns boolean
+language sql immutable set search_path to 'public', 'pg_temp' as $$
+  select coalesce(jsonb_typeof(p) = 'object'
+     and (select count(*) from jsonb_object_keys(p)) = 8
+     and (select bool_and(coalesce(k in ('A','B','C','D','E','F','G','H')
+                          and jsonb_typeof(p -> k) = 'object'
+                          and (p -> k ->> 'state') in ('pass','fail','unknown','not_applicable'), false))
+          from jsonb_object_keys(p) k), false)
+$$;
+create or replace function public.fq_role_ok(p jsonb, p_role text) returns boolean
+language sql immutable set search_path to 'public', 'pg_temp' as $$
+  select coalesce((p->'A'->>'state') = 'pass' and (p->'B'->>'state') = 'pass' and (p->'C'->>'state') = 'pass'
+     and (p->'F'->>'state') = 'pass' and (p->'H'->>'state') = 'pass'
+     and (p_role not in ('source_analysis','model_explanation','guided_practice') or (p->'D'->>'state') = 'pass')
+     and (p_role not in ('independent_check','transfer','delayed_check') or (p->'E'->>'state') = 'pass'), false)
+$$;
 
 -- ── D1. 노출 ───────────────────────────────────────────────────────────────
 create or replace function public.supply_learner_exposure(p_kind text, p_ref text, p_uid uuid)
@@ -97,20 +115,26 @@ end $$;
 revoke all on function public.supply_learner_exposure(text, text, uuid) from public, anon, authenticated;
 
 -- ── D2 보조. 공급 행이 **지금도** 유효한가 — 승인 철회 · 산출물 변경 뒤에는 부족분으로 다시 센다 ─────────────
--- 유효 = 기록된 승인이 철회되지 않음 · 이 자격의 유효 public 승인 있음 · (평가 역할) 유효 assessment 승인 있음 · 산출물 revision 그대로.
--- 자격 대체(supersede)는 무효로 치지 않는다 — 대체가 결함 수정인지 근거 보강인지는 승인 결정 대기(PENDING_DECISIONS P-4).
+-- 유효 = 현재 자격/필수 축 · 유효 public/(평가)assessment 승인 · 기록 승인 철회 없음 · 현재 revision · 현재 원천/Reveal Gate 적격.
+-- 자격 대체(supersede)는 과거 이력을 보존하되 현재 공급으로 세지 않는다. 새 자격/승인은 자동 상속하지 않는다.
 create or replace function public.supply_delivery_valid(p_delivery uuid)
 returns boolean language sql stable security definer set search_path to 'public' as $$
   select exists (
-    select 1 from workspace_content_delivery d
+    select 1 from workspace_content_delivery d join content_qualification q on q.id = d.qualification_id
     where d.id = p_delivery
+      and not exists (select 1 from content_qualification s where s.supersedes = q.id)
+      and public.fq_role_ok(q.axes, q.role) is true
       and not exists (select 1 from content_release_revocation r where r.approval_id = d.approval_id)
       and exists (select 1 from content_release_approval x where x.qualification_id = d.qualification_id and x.scope = 'public'
                   and not exists (select 1 from content_release_revocation r where r.approval_id = x.id))
       and (d.role not in ('independent_check','transfer','delayed_check')
            or exists (select 1 from content_release_approval x where x.qualification_id = d.qualification_id and x.scope = 'assessment'
                       and not exists (select 1 from content_release_revocation r where r.approval_id = x.id)))
-      and public.supply_artifact_revision(d.artifact_kind, d.artifact_ref) is not distinct from d.artifact_revision)
+      and public.supply_artifact_revision(d.artifact_kind, d.artifact_ref) = d.artifact_revision
+      and (d.artifact_kind <> 'csat_item' or public.csat_ec_embargoed_items(array[d.artifact_ref]) = '{}'::text[])
+      and (d.artifact_kind <> 'dcp_item' or exists (
+        select 1 from csat_dcp_items i where i.id = d.artifact_ref::uuid and i.kind = 'article'
+          and i.ref_id is not null and public.csat_source_is_eligible(i.ref_id) is true)))
 $$;
 revoke all on function public.supply_delivery_valid(uuid) from public, anon, authenticated;
 
@@ -149,16 +173,16 @@ begin
 
   -- ③ 주문이 이 줄 것 · (I1) 열린 주문일 것
   if p_order is not null then
-    select * into o from factory_order where id = p_order and line_id = p_line;
+    select * into o from factory_order where id = p_order and line_id = p_line for update;
     if not found then raise exception 'delivery: order not on this line'; end if;
     if o.state in ('delivered','failed','partial') then raise exception 'delivery: order closed (%)', o.state; end if;
   end if;
 
   -- ④ 자격 정체성 · 현재 행 · 역할 필수 축
-  select * into q from content_qualification where id = p_qualification;
+  select * into q from content_qualification where id = p_qualification for share;
   if not found or q.task_id <> ln.task_id or q.role <> ln.role then raise exception 'delivery: qualification identity mismatch'; end if;
   if exists (select 1 from content_qualification s where s.supersedes = q.id) then raise exception 'delivery: qualification superseded'; end if;
-  if not public.fq_role_ok(q.axes, q.role) then raise exception 'delivery: required axes not pass'; end if;
+  if public.fq_role_ok(q.axes, q.role) is not true then raise exception 'delivery: required axes not pass'; end if;
 
   -- ⑤ 산출물 실제 행 · 현재 revision
   v_rev := public.supply_artifact_revision(q.artifact_kind, q.artifact_ref);
@@ -167,7 +191,7 @@ begin
 
   -- ⑥ (I1) 승인 — 이 자격의 승인 행을 모두 잠가 철회와 직렬화(철회 함수가 같은 행을 FOR UPDATE 로 잡는다)
   v_assess := q.role in ('independent_check','transfer','delayed_check');
-  perform 1 from content_release_approval x where x.qualification_id = q.id for share;
+  perform 1 from content_release_approval x where x.qualification_id = q.id order by x.id for share;
   select * into a from content_release_approval where id = p_approval and qualification_id = q.id;
   if not found then raise exception 'delivery: approval missing'; end if;
   if exists (select 1 from content_release_revocation r where r.approval_id = a.id) then raise exception 'delivery: approval revoked'; end if;
@@ -186,7 +210,11 @@ begin
   -- ⑦ 원천 지금 적격(DCP)
   if q.artifact_kind = 'dcp_item' then
     select i.ref_id into v_src from csat_dcp_items i where i.id = q.artifact_ref::uuid;
-    if v_src is null or not public.csat_source_is_eligible(v_src) then raise exception 'delivery: source not eligible'; end if;
+    if v_src is null or public.csat_source_is_eligible(v_src) is not true then raise exception 'delivery: source not eligible'; end if;
+  elsif q.artifact_kind = 'csat_item' then
+    if public.csat_ec_embargoed_items(array[q.artifact_ref]) is distinct from '{}'::text[] then
+      raise exception 'delivery: source not eligible (Reveal Gate)';
+    end if;
   end if;
 
   -- ⑧ G — 평가 역할은 노출 'none' 일 때만(D1 판정기)
@@ -226,3 +254,24 @@ begin
 end $$;
 revoke all on function public.content_release_revoke(uuid, text) from public, anon;
 grant execute on function public.content_release_revoke(uuid, text) to authenticated;
+
+-- public의 CREATE 권한은 적용 전 확인한다. pg_temp를 명시적으로 마지막에 둬 임시 표의 정의자 권한 사칭을 막는다.
+alter function public.content_qualification_record(text,text,text,text,text,text,jsonb,text,text,text,text,text,text[],text[],text,uuid) set search_path to 'public', 'pg_temp';
+alter function public.content_release_approve(uuid,text,text) set search_path to 'public', 'pg_temp';
+alter function public.content_release_revoke(uuid,text) set search_path to 'public', 'pg_temp';
+alter function public.workspace_demand_record(text) set search_path to 'public', 'pg_temp';
+alter function public.factory_order_open(uuid,text,smallint,uuid) set search_path to 'public', 'pg_temp';
+alter function public.factory_order_transition(uuid,text,text,text,text,uuid,uuid) set search_path to 'public', 'pg_temp';
+alter function public.supply_artifact_revision(text,text) set search_path to 'public', 'pg_temp';
+alter function public.supply_learner_exposure(text,text,uuid) set search_path to 'public', 'pg_temp';
+alter function public.supply_delivery_valid(uuid) set search_path to 'public', 'pg_temp';
+alter function public.workspace_delivery_record(uuid,uuid,uuid,uuid,uuid) set search_path to 'public', 'pg_temp';
+
+-- Supabase 기본 ACL은 ALL(TRUNCATE/REFERENCES/TRIGGER 포함)이다. RLS와 행 트리거는 TRUNCATE를 막지 않는다.
+-- 학습자/익명은 SELECT 이외의 표 권한을 모두 제거한다. 서비스 역할은 신뢰된 운영 경계다.
+revoke all on table public.content_qualification, public.content_release_approval, public.content_release_revocation,
+  public.workspace_content_demand, public.workspace_content_demand_line, public.factory_order,
+  public.factory_order_event, public.workspace_content_delivery from public, anon, authenticated;
+grant select on table public.content_qualification, public.content_release_approval, public.content_release_revocation,
+  public.workspace_content_demand, public.workspace_content_demand_line, public.factory_order,
+  public.factory_order_event, public.workspace_content_delivery to authenticated;

@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
+
 - Factory I1 승인 패키지(미적용): 공급 노출 판정에 G2 · 세션 · 함정 · 복습 원장 포함, 승인 범위(public + assessment) · 철회 직렬화 · 수량 상한, 부분 납품(partial) · 공용 Product Order 계보(별도 승인) SQL 과 생성된 되돌리기. 격리 PGlite 37 · 실제 PostgreSQL 동시성 8/8. 앱은 검수 전 해설을 「지금 읽을 수 있음 · 수업용 검수 전」으로 분리.
 
 - LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.

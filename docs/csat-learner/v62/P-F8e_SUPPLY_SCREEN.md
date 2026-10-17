@@ -5,7 +5,7 @@
 
 ## 1. 학습자 화면 — 한 줄의 공급 단계
 
-`lib/csat/map/v62/supply-ledger.ts` `supplyStep(line, task, ledger)` — 순서: **실제 공급 행 → 실제 주문 상태 → 계산된 공급 상태**.
+`lib/csat/map/v62/supply-ledger.ts` `supplyStep(line, task, ledger, canonical)` — 현재 사용자·PLAN·목표·수요 본문 전체가 일치하는 원장만 선택한 뒤 **실제 공급 행 → 실제 주문 상태 → 계산된 공급 상태**. 같은 TASK·role의 이전 수요/높은 주문 seq를 신규 수요에 합산하지 않는다(독립 R03).
 
 | 단계 | 근거 | 학습자 문구 |
 |---|---|---|

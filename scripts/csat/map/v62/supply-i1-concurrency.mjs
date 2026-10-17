@@ -14,6 +14,7 @@ import { createRequire } from 'node:module'
 import { pathToFileURL } from 'node:url'
 import { randomUUID, createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
+import { independentCases } from './supply-i1-independent.mjs'
 
 const ROOT = path.resolve(import.meta.dirname, '../../../..')
 const DEPS = process.argv[process.argv.indexOf('--deps') + 1]
@@ -26,7 +27,9 @@ const pg = req('pg')
 const T = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8')
 const STUB = T('apps/web/src/lib/csat/map/v62/__tests__/supply-stub.sql')
 const STUB_I1 = T('apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql')
-const MIG = (f) => T(`supabase/migrations/${f}`)
+const MIG = (f) => process.argv.includes('--submitted')
+  ? execFileSync('git', ['show', `e89ebac493841b6fbcd0ebf0cdda780361ae75d6:supabase/migrations/${f}`], { cwd: ROOT, encoding: 'utf8' })
+  : T(`supabase/migrations/${f}`)
 const LAYERS = BASELINE
   ? [MIG('_pending_workspace_supply_c_qualification.sql'), MIG('_pending_workspace_supply_b_orders.sql')]
   : [MIG('_pending_workspace_supply_c_qualification.sql'), MIG('_pending_workspace_supply_b_orders.sql'),
@@ -47,7 +50,10 @@ try {
   await admin.connect(); await admin.query('create database vf'); await admin.end()
   const pool = new pg.Pool({ host: 'localhost', port, user: 'postgres', password: 'pw', database: 'vf', max: 30 })
   const setup = await pool.connect()
+  console.log(`server_version=${(await setup.query('show server_version')).rows[0].server_version}`)
   await setup.query(STUB); await setup.query(STUB_I1)
+  // 실제 개발 DB pg_default_acl 읽기 감사와 같게: 새 표에 anon/authenticated ALL이 기본 부여된다.
+  await setup.query(`alter default privileges in schema public grant all on tables to anon, authenticated`)
   for (const l of LAYERS) await setup.query(l)
   const ADMIN = randomUUID(), ME = randomUUID()
   await setup.query(`insert into auth.users values ('${ADMIN}'), ('${ME}'); insert into public.admins values ('${ADMIN}', 'admin')`)
@@ -165,12 +171,13 @@ try {
     // created_at 은 트랜잭션 시작 시각이라 커밋 순서를 말하지 않는다 — 판정은 「잠금 순서대로 현재성 검사 → 거절 사유는 not current 뿐 · 교착 0」
     check('링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)', bad.length === 0, `linked=${lr.filter((x) => x.ok).length} rejected=${lr.filter((x) => !x.ok).length} other=${bad.length}`)
   }
+  if (!BASELINE) await independentCases({ pool, asUser, check, newLine, ADMIN, ME })
   await pool.end()
 } finally {
   try { pgctl(['-D', dir, '-m', 'fast', '-w', 'stop']) } catch { /* 이미 멈춤 */ }
   fs.rmSync(dir, { recursive: true, force: true })
 }
 const failed = results.filter((r) => !r.ok).length
-const sha = (p) => createHash('sha256').update(fs.readFileSync(path.join(ROOT, p))).digest('hex').slice(0, 12)
+const sha = (p) => createHash('sha256').update(MIG(path.basename(p))).digest('hex').slice(0, 12)
 console.log(`\n${results.length - failed}/${results.length} PASS (PostgreSQL 17 · 다중 연결 · ${BASELINE ? 'B 만(기준선)' : 'C+B+I1'}) safety=${sha('supabase/migrations/_pending_workspace_supply_i1_safety.sql')}`)
 process.exit(failed ? 1 : 0)

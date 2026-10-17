@@ -8,7 +8,7 @@
 
 import { createHash } from 'node:crypto'
 
-import { canonicalJson } from './canonical-json'
+import { canonicalDemand } from './canonical-json'
 import type { WorkspaceDemand } from './demand'
 
 /**
@@ -16,20 +16,7 @@ import type { WorkspaceDemand } from './demand'
  * v2: 중첩 `requires` 의 속성 순서가 서명을 바꾸던 결함 수정 · 지원 TASK(support)를 수요 revision 에 포함(바뀌면 새 수요).
  * 영속 서명이 아직 저장된 적이 없어(승인안 B 미적용) v1 → v2 로 옮길 데이터는 없다.
  */
-export function canonicalDemand(userId: string, d: WorkspaceDemand): string {
-  return canonicalJson({
-    v: 2,
-    user: userId,
-    template: d.template,
-    workspaceId: d.workspaceId,
-    goalVersion: d.goalVersion,
-    planVersion: d.planVersion,
-    definitionVersion: d.definitionVersion,
-    core: d.core,
-    support: [...d.support].sort(),
-    lines: d.lines.map((l) => ({ role: l.role, task: l.task, n: l.quantity.n, types: [...l.csatTypes].sort(), keys: [...l.taskKeys].sort(), requires: { ...l.requires }, reason: l.reason })),
-  })
-}
+export { canonicalDemand } from './canonical-json'
 
 /** 영속 키 — SHA-256(정규 본문) 16진. 보안 서명이 아니라 충돌 저항 식별자 · 본문 비교와 함께 쓴다 */
 export function demandSignature(userId: string, d: WorkspaceDemand): string {
