@@ -1,7 +1,7 @@
 -- supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql
 -- Factory I1 DB1 — 생성물(scripts/db/factory-i1/build.mjs). 손으로 고치지 않는다. 검증: node scripts/db/factory-i1/build.mjs --check
 -- 대상 프로젝트 jajenrevcbmrpaliomxv · 이전 이력 최댓값 20261014091841 · 버전 20261017200000 (factory_i1_db1_supply_foundation)
--- 원본 세그먼트(바이트 그대로): C=_pending_workspace_supply_c_qualification.sql sha256=dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66 · B=_pending_workspace_supply_b_orders.sql sha256=e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2 · S=_pending_workspace_supply_i1_safety.sql sha256=cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de
+-- 원본 세그먼트(바이트 그대로): C=_pending_workspace_supply_c_qualification.sql sha256=dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66 · B=_pending_workspace_supply_b_orders.sql sha256=2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02 · S=_pending_workspace_supply_i1_safety.sql sha256=cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de
 -- 원자 단위: 이 파일 전체가 한 트랜잭션이어야 한다. 프롤로그가 xid 를 표식하고 세그먼트 경계마다 같은 xid 인지 확인한다
 --   (비원자 러너는 첫 DDL 전에 DEPLOY_BLOCKED[atomicity] 로 멈춘다). 에필로그가 카탈로그 diff 를 허용 목록과 비교한다.
 -- 적용: node scripts/db/factory-i1/deploy.mjs apply --stage db1 …  (절차: docs/csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)
@@ -99,6 +99,10 @@ select 'trg', n.nspname||'.'||c.relname||'.'||t.tgname, pg_get_triggerdef(t.oid)
   from pg_trigger t join pg_class c on c.oid = t.tgrelid join pg_namespace n on n.oid = c.relnamespace where n.nspname not in ('pg_catalog','information_schema','pg_toast') and n.nspname not like 'pg\_temp\_%' and n.nspname not like 'pg\_toast\_temp\_%' and not t.tgisinternal
 union all
 select 'nsp', n.nspname, coalesce(n.nspacl::text,'')||'|'||n.nspowner::regrole::text from pg_namespace n where n.nspname not in ('pg_catalog','information_schema','pg_toast') and n.nspname not like 'pg\_temp\_%' and n.nspname not like 'pg\_toast\_temp\_%';
+-- Only proconfig may change on existing authorization helpers. Preserve every other pg_proc attribute.
+create temp table vf_i1_db1_helpers on commit drop as
+select p.oid, to_jsonb(p) - 'proconfig' fingerprint from pg_proc p
+where p.oid in ('public.is_admin()'::regprocedure, 'public.is_admin_or_curator()'::regprocedure);
 do $vf$ begin
   if coalesce(current_setting('vf.i1_deploy_xid', true), '') <> txid_current()::text
      or coalesce(current_setting('vf.i1_deploy_stage', true), '') <> 'db1' then
@@ -293,7 +297,7 @@ do $vf$ begin
     raise exception 'DEPLOY_BLOCKED[atomicity] DB1 이 한 트랜잭션으로 실행되지 않았다(%). scripts/db/factory-i1/deploy.mjs apply 로만 적용한다(이력 행을 같은 트랜잭션에 쓴다)', 'C→B';
   end if;
 end $vf$;
--- >>> VF-SEGMENT B _pending_workspace_supply_b_orders.sql sha256=e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2 bytes=32235
+-- >>> VF-SEGMENT B _pending_workspace_supply_b_orders.sql sha256=2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02 bytes=32249
 -- supabase/migrations/_pending_workspace_supply_b_orders.sql
 -- ⚠️ 보류(적용 안 함) — v6.2 P-F7b 승인안 B. **C(_pending_workspace_supply_c_qualification.sql) 다음에** 적용한다.
 --
@@ -482,7 +486,7 @@ begin
   if v_uid is null then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
   b := p_canonical::jsonb;
-  if (b->>'v') <> '2' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
+  if (b->>'v') is distinct from '2' or (b->>'user') is distinct from v_uid::text then raise exception 'demand: user mismatch' using errcode = '42501'; end if;
   if (b->>'workspaceId') is null or (b->>'planVersion') is null then raise exception 'demand: workspace and plan required'; end if;
   v_sig := encode(sha256(convert_to(p_canonical, 'UTF8')), 'hex');
   select id, canonical into v_id, v_stored from workspace_content_demand where user_id = v_uid and signature = v_sig;
@@ -1187,6 +1191,10 @@ select
      or not (v_changed <@ exp_changed) then
     raise exception 'DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=% · 빠짐=% · 삭제=% · 변경=% (허용 변경=%)',
       v_unexpected, v_missing, v_removed, v_changed, exp_changed;
+  end if;
+  if exists (select 1 from pg_temp.vf_i1_db1_helpers h left join pg_proc p on p.oid = h.oid
+             where h.fingerprint is distinct from to_jsonb(p) - 'proconfig') then
+    raise exception 'DEPLOY_BLOCKED[allowlist] existing helper changed beyond approved search_path';
   end if;
   -- 권한 helper: 정확히 강화된 값
   select array_agg(h.f||'='||coalesce(p.proconfig::text, 'NULL')) into v_bad

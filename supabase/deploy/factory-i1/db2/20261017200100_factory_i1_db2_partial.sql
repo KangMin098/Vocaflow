@@ -15,7 +15,7 @@ declare v_bad text[]; v_hist boolean := false;
 begin
   perform set_config('vf.i1_deploy_xid', txid_current()::text, true);
   perform set_config('vf.i1_deploy_stage', 'db2', true);
-  perform set_config('vf.i1_db1_sha', '766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211', true);
+  perform set_config('vf.i1_db1_sha', '061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624', true);
   if to_regclass('supabase_migrations.schema_migrations') is not null then
     execute 'select exists (select 1 from supabase_migrations.schema_migrations)' into v_hist;
   end if;
@@ -107,6 +107,10 @@ select 'trg', n.nspname||'.'||c.relname||'.'||t.tgname, pg_get_triggerdef(t.oid)
   from pg_trigger t join pg_class c on c.oid = t.tgrelid join pg_namespace n on n.oid = c.relnamespace where n.nspname not in ('pg_catalog','information_schema','pg_toast') and n.nspname not like 'pg\_temp\_%' and n.nspname not like 'pg\_toast\_temp\_%' and not t.tgisinternal
 union all
 select 'nsp', n.nspname, coalesce(n.nspacl::text,'')||'|'||n.nspowner::regrole::text from pg_namespace n where n.nspname not in ('pg_catalog','information_schema','pg_toast') and n.nspname not like 'pg\_temp\_%' and n.nspname not like 'pg\_toast\_temp\_%';
+-- Only proconfig may change on existing authorization helpers. Preserve every other pg_proc attribute.
+create temp table vf_i1_db2_helpers on commit drop as
+select p.oid, to_jsonb(p) - 'proconfig' fingerprint from pg_proc p
+where p.oid in ('public.is_admin()'::regprocedure, 'public.is_admin_or_curator()'::regprocedure);
 do $vf$ begin
   if coalesce(current_setting('vf.i1_deploy_xid', true), '') <> txid_current()::text
      or coalesce(current_setting('vf.i1_deploy_stage', true), '') <> 'db2' then
@@ -329,6 +333,10 @@ select
      or not (v_changed <@ exp_changed) then
     raise exception 'DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=% · 빠짐=% · 삭제=% · 변경=% (허용 변경=%)',
       v_unexpected, v_missing, v_removed, v_changed, exp_changed;
+  end if;
+  if exists (select 1 from pg_temp.vf_i1_db2_helpers h left join pg_proc p on p.oid = h.oid
+             where h.fingerprint is distinct from to_jsonb(p) - 'proconfig') then
+    raise exception 'DEPLOY_BLOCKED[allowlist] existing helper changed beyond approved search_path';
   end if;
   if not exists (select 1 from pg_constraint where conname = 'factory_order_state_check' and pg_get_constraintdef(oid) like '%partial%') then
     raise exception 'DEPLOY_BLOCKED[verify] factory_order.state CHECK 에 partial 이 없다';

@@ -1,6 +1,6 @@
--- supabase/deploy/factory-i1/db2-verify.sql — 생성물. 적용 직후 읽기 전용 검증(각 문 독립 실행 · ok 열이 모두 true). $1 = 7c1cc2ed2e99cdc4264f86fd6cf4af16115f597c80b89a18cf216190acc1ec2f
+-- supabase/deploy/factory-i1/db2-verify.sql — 생성물. 적용 직후 읽기 전용 검증(각 문 독립 실행 · ok 열이 모두 true). $1 = 2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b
 select 'history_row' as chk, exists (select 1 from supabase_migrations.schema_migrations where version = '20261017200100'
-       and encode(sha256(convert_to(array_to_string(statements, ''), 'UTF8')), 'hex') = '7c1cc2ed2e99cdc4264f86fd6cf4af16115f597c80b89a18cf216190acc1ec2f') as ok,
+       and encode(sha256(convert_to(array_to_string(statements, ''), 'UTF8')), 'hex') = '2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b') as ok,
        (select coalesce(name, '') from supabase_migrations.schema_migrations where version = '20261017200100') as detail;
 select 'db1_history_present', exists (select 1 from supabase_migrations.schema_migrations where version = '20261017200000'), null;
 select 'state_check_partial', exists (select 1 from pg_constraint where conname = 'factory_order_state_check' and pg_get_constraintdef(oid) like '%partial%'), null;

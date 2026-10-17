@@ -1,0 +1,9 @@
+DB286 read-only cross-review after security fixes
+NO_FINDINGS: no remaining P1/P2 or goal drift.
+Reproduced additional P2: omitted production URL port inherited PGPORT=6543.
+Confirmed explicit :5432 requirement and missing-port regression fix.
+deploy.test.mjs: 5/5 PASS after fix.
+Reviewed locked preflight, live DB-1 verification before DB-2, helper invariants,
+COMMIT uncertainty, CLI authorization gates and log SHA metadata.
+No files changed; no database connections or writes by this reviewer.
+Full 47/33, remote CI and final documentation hashes not rerun by this reviewer.

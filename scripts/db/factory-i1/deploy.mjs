@@ -15,12 +15,34 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
+import { createInterface } from 'node:readline/promises'
+import { execFileSync } from 'node:child_process'
 import { buildAll, auxFiles, verifySegments, sha256, ROOT, MANIFEST_PATH } from './build.mjs'
 import { PREFLIGHT_SQL, verifySql } from './sql.mjs'
 import { STAGES, PROJECT_REF, PRIOR_MAX_VERSION, HELPERS, DB1_TARGET_TABLES, DB1_TARGET_FUNCTIONS } from './spec.mjs'
 
 const VERSION_RE = /^(\d{14})_.+\.sql$/
 export const LOG_DIR = 'supabase/deploy/factory-i1/logs'
+let activeSecretUrl
+
+export function redactText(text, url = activeSecretUrl) {
+  let out = String(text).replace(/postgres(?:ql)?:\/\/[^\s"'<>]+/gi, '[REDACTED_CONNECTION]')
+  if (url) {
+    let password
+    try { password = new URL(url).password } catch { /* invalid URL still redacted above */ }
+    for (const secret of [url, password, password && decodeURIComponent(password)].filter(Boolean)) out = out.replaceAll(secret, '[REDACTED]')
+  }
+  return out
+}
+
+/** Metadata cannot grant approval. Production writes also require the policy hook and an interactive executor. */
+export function writeAuthorizationBlocks(o, { env = process.env, stdinIsTTY = process.stdin.isTTY, stdoutIsTTY = process.stdout.isTTY } = {}) {
+  const blocks = []
+  if (env.VFC_AUTOMATED_RUN === '1' || env.AGENT_GUARD_ASK === '0' || (env.CI && env.CI !== 'false')) blocks.push('DEPLOY_BLOCKED[permission] automated environment cannot apply migrations')
+  if (o.isolated) blocks.push('DEPLOY_BLOCKED[target] --isolated cannot be used with CLI apply; disposable tests use the isolated harness')
+  if (!stdinIsTTY || !stdoutIsTTY) blocks.push('DEPLOY_BLOCKED[permission] interactive authorized executor required; --approved-by is audit metadata, not user approval')
+  return blocks
+}
 
 /** 저장소 파일이 생성기 결과와 같은가 · 정본 SHA 가 맞는가 */
 export function offlineCheck() {
@@ -118,11 +140,14 @@ export function evaluatePreflight(stage, pre, { acceptRemoteAfter = [] } = {}) {
 export function targetOf(url, { isolated = false } = {}) {
   let u
   try { u = new URL(url) } catch { return { ok: false, why: 'DEPLOY_BLOCKED[target] 연결 문자열을 해석할 수 없다' } }
+  // pg-connection-string lets query parameters override hostname, port and TLS after URL parsing.
+  if (!['postgres:', 'postgresql:'].includes(u.protocol) || u.search || u.hash || u.pathname !== '/postgres' && !isolated) return { ok: false, why: 'DEPLOY_BLOCKED[target] PostgreSQL URL only; query/fragment overrides and non-postgres database are forbidden' }
   if (isolated) return ['localhost', '127.0.0.1'].includes(u.hostname) ? { ok: true, target: 'isolated', host: u.hostname } : { ok: false, why: 'DEPLOY_BLOCKED[target] --isolated 는 localhost 만' }
   const direct = u.hostname === `db.${PROJECT_REF}.supabase.co`
   const pooler = u.hostname.endsWith('.pooler.supabase.com') && decodeURIComponent(u.username) === `postgres.${PROJECT_REF}`
-  if (!direct && !pooler) return { ok: false, why: `DEPLOY_BLOCKED[target] 연결 대상이 ${PROJECT_REF} 가 아니다(host ${u.hostname})` }
+  if (!direct && !pooler) return { ok: false, why: `DEPLOY_BLOCKED[target] 연결 대상이 ${PROJECT_REF} 가 아니다` }
   if (pooler && u.port === '6543') return { ok: false, why: 'DEPLOY_BLOCKED[atomicity] transaction pooler(6543)는 쓰지 않는다 — 직결(5432) 또는 session pooler' }
+  if (u.port !== '5432') return { ok: false, why: 'DEPLOY_BLOCKED[target] production connection requires explicit port 5432 (no PGPORT fallback)' }
   return { ok: true, target: PROJECT_REF, host: u.hostname }
 }
 
@@ -153,26 +178,45 @@ export async function runVerify(client, stage, sha) {
  * 한 단계 적용. 한 연결 · 한 트랜잭션: migration 본문(단순 질의 1회) + 이력 1행 → COMMIT.
  * opts.injectFailure: 격리 시험 전용 — 'before-commit' 이면 이력까지 쓴 뒤 일부러 실패시켜 롤백을 시험한다.
  */
-export async function applyStage(client, stage, { text, sha, approvedBy, injectFailure } = {}) {
+export async function applyStage(client, stage, { text, sha, approvedBy, injectFailure, acceptRemoteAfter = [] } = {}) {
   const st = STAGES[stage]
   if (sha256(Buffer.from(text)) !== sha) throw new Error('DEPLOY_BLOCKED[sha] 적용할 본문 sha256 이 확인값과 다르다')
   const notices = []
   const onNotice = (n) => notices.push(n.message)
   client.on('notice', onNotice)
   const t0 = new Date().toISOString()
+  let committing = false
   try {
     await client.query('begin')
     try {
+      await client.query("set local lock_timeout = '15s'; set local statement_timeout = '120s'")
+      await client.query('lock table supabase_migrations.schema_migrations in share row exclusive mode')
+      const pre = (await client.query(PREFLIGHT_SQL)).rows[0].preflight
+      const blocks = evaluatePreflight(stage, pre, { acceptRemoteAfter })
+      if (stage === 'db2' && pre.history.db1?.sha256 !== buildAll().db1.sha256) blocks.push('DEPLOY_BLOCKED[db1-first] locked DB-1 history SHA does not match')
+      if (blocks.length) throw new Error(blocks.join('\n'))
+      if (stage === 'db2') {
+        // A local JSON with verify.ok=true is not evidence by itself. Re-run DB-1 checks on this connection.
+        for (const q of verifySql('db1')) {
+          const r = await client.query({ text: q, values: q.includes('$1') ? [buildAll().db1.sha256] : [], rowMode: 'array' })
+          if (r.rows[0]?.[1] !== true) throw new Error(`DEPLOY_BLOCKED[db1-first] live DB-1 verification failed: ${r.rows[0]?.[0]}`)
+        }
+      }
       await client.query(text)
       await client.query(`insert into supabase_migrations.schema_migrations (version, name, statements, created_by, idempotency_key)
         values ($1, $2, $3, $4, $5)`, [st.version, st.name, [text], `factory-i1-deploy:${approvedBy}`, sha])
       if (injectFailure === 'before-commit') throw new Error('VF_INJECTED_FAILURE before-commit')
-      await client.query('commit')
+      committing = true
+      const committed = await client.query('commit')
+      if (committed.command !== 'COMMIT') throw Object.assign(new Error('server did not confirm COMMIT'), { code: '40003' })
     } catch (e) {
-      await client.query('rollback').catch(() => {})
-      return { ok: false, started_at: t0, ended_at: new Date().toISOString(), error: { code: e.code ?? null, message: e.message }, notices }
+      // A network error after COMMIT may mean it committed. ROLLBACK cannot undo that fact.
+      const serverRejection = /^[0-9A-Z]{5}$/.test(e.code ?? '') && !String(e.code).startsWith('08') && e.code !== '40003'
+      let unknown = committing && !serverRejection
+      await client.query('rollback').catch(() => { unknown = true })
+      return { ok: false, outcome: unknown ? 'unknown' : 'rolled_back', started_at: t0, ended_at: new Date().toISOString(), error: { code: e.code ?? null, message: e.message }, notices }
     }
-    return { ok: true, started_at: t0, ended_at: new Date().toISOString(), notices }
+    return { ok: true, outcome: 'committed', started_at: t0, ended_at: new Date().toISOString(), notices }
   } finally { client.off('notice', onNotice) }
 }
 
@@ -184,22 +228,23 @@ function args() {
     acceptRemoteAfter: (get('--accept-remote-after') ?? '').split(',').filter(Boolean), isolated: a.includes('--isolated') }
 }
 
-function writeLog(obj) {
+function writeLog(obj, existing) {
   const dir = path.join(ROOT, LOG_DIR)
   fs.mkdirSync(dir, { recursive: true })
-  const f = path.join(dir, `${obj.stage}-${obj.command}-${obj.target}-${new Date().toISOString().replace(/[:.]/g, '-')}.json`)
-  fs.writeFileSync(f, JSON.stringify(obj, null, 2) + '\n')
+  const f = existing ? path.join(ROOT, existing) : path.join(dir, `${obj.stage}-${obj.command}-${obj.target}-${new Date().toISOString().replace(/[:.]/g, '-')}.json`)
+  fs.writeFileSync(f, redactText(JSON.stringify(obj, null, 2)) + '\n')
   return path.relative(ROOT, f).replaceAll('\\', '/')
 }
 
 async function connect(o) {
   if (!o.deps) throw new Error('--deps <pg 를 설치한 폴더> 가 필요하다(npm i pg@8.13.1)')
   const url = process.env[o.urlEnv]
+  activeSecretUrl = url
   if (!url) throw new Error(`환경 변수 ${o.urlEnv} 가 없다`)
   const t = targetOf(url, { isolated: o.isolated })
   if (!t.ok) return { blocked: t.why }
   const pg = createRequire(path.join(o.deps, 'package.json'))('pg')
-  const client = new pg.Client({ connectionString: url, application_name: 'vf-factory-i1-deploy', ssl: o.isolated ? false : { rejectUnauthorized: false } })
+  const client = new pg.Client({ connectionString: url, application_name: 'vf-factory-i1-deploy', ssl: o.isolated ? false : { rejectUnauthorized: true } })
   await client.connect()
   return { client, target: t }
 }
@@ -224,10 +269,25 @@ async function main() {
     process.exit(r.blocks.length || off.blocks.length ? 2 : 0)
   }
   if (off.blocks.length) { console.error(off.blocks.join('\n')); process.exit(2) }
+  if (o.cmd === 'apply') {
+    const authorization = writeAuthorizationBlocks(o)
+    if (!o.approvedBy) authorization.push('DEPLOY_BLOCKED[permission] --approved-by audit metadata required')
+    if (o.confirmSha !== stageSha) authorization.push('DEPLOY_BLOCKED[sha] --confirm-sha does not match package')
+    if (authorization.length) { console.error(authorization.join('\n')); process.exit(2) }
+    const terminal = createInterface({ input: process.stdin, output: process.stdout })
+    try {
+      const expected = `APPLY ${o.stage} ${stageSha}`
+      const answer = await terminal.question(`Policy-authorized DB executor only. --approved-by is not approval. Confirm reviewed full SHA by typing ${expected}: `)
+      if (answer !== expected) { console.error('DEPLOY_BLOCKED[permission] confirmation mismatch'); process.exit(2) }
+    } finally { terminal.close() }
+  }
   const c = await connect(o)
   if (c.blocked) { console.error(c.blocked); process.exit(2) }
   const { client, target } = c
-  const log = { package: 'factory-i1-deploy', stage: o.stage, command: o.cmd, target: target.target, host: target.host, stage_sha256: stageSha }
+  const log = { package: 'factory-i1-deploy', stage: o.stage, command: o.cmd, target: target.target, stage_sha256: stageSha,
+    git_head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8', windowsHide: true }).trim(),
+    manifest_sha256: sha256(fs.readFileSync(path.join(ROOT, MANIFEST_PATH))),
+    runner_sha256: sha256(fs.readFileSync(path.join(ROOT, 'scripts/db/factory-i1/deploy.mjs'))) }
   try {
     const pre = await readPreflight(client)
     const blocks = evaluatePreflight(o.stage, pre, { acceptRemoteAfter: o.acceptRemoteAfter })
@@ -258,14 +318,26 @@ async function main() {
       process.exit(2)
     }
     const text = fs.readFileSync(path.join(ROOT, st.path), 'utf8')
-    const r = await applyStage(client, o.stage, { text, sha: stageSha, approvedBy: o.approvedBy })
+    Object.assign(log, { approved_by: o.approvedBy, preflight: pre, state: 'applying' })
+    const logPath = writeLog(log) // Durable intent before any DDL; crash recovery starts from this file.
+    const r = await applyStage(client, o.stage, { text, sha: stageSha, approvedBy: o.approvedBy, acceptRemoteAfter: o.acceptRemoteAfter })
     Object.assign(log, { approved_by: o.approvedBy, preflight: pre, apply: r })
-    if (!r.ok) { console.error(`적용 실패 — 롤백됨: ${r.error.message}`); console.error(`log ${writeLog(log)}`); process.exit(3) }
-    const v = await runVerify(client, o.stage, stageSha)
+    log.state = r.outcome
+    writeLog(log, logPath)
+    if (!r.ok) {
+      console.error(redactText(`${r.outcome === 'unknown' ? 'INCIDENT: COMMIT outcome unknown; do not retry or restore before read-only history/catalog reconciliation' : '적용 실패 — 롤백됨'}: ${r.error.message}`))
+      console.error(`log ${logPath}`); process.exit(r.outcome === 'unknown' ? 4 : 3)
+    }
+    let v
+    try { v = await runVerify(client, o.stage, stageSha) }
+    catch (e) { v = { ok: false, rows: [], error: { code: e.code ?? null, message: e.message } } }
     log.verify = v
-    console.log(JSON.stringify({ applied: true, verify: v, log: writeLog(log) }, null, 2))
+    log.state = v.ok ? 'verified' : 'committed_verify_failed'
+    console.log(redactText(JSON.stringify({ applied: true, verify: v, log: writeLog(log, logPath) }, null, 2)))
     process.exit(v.ok ? 0 : 4)
   } finally { await client.end().catch(() => {}) }
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) await main()
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) await main().catch((e) => {
+  console.error(redactText(`DEPLOY_ERROR ${e.code ?? ''} ${e.message}`)); process.exitCode = 4
+})

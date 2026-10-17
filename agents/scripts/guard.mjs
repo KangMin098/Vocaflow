@@ -180,6 +180,14 @@ function checkEnvRead(verb, args) {
   return hit ? `${verb} ${hit} — .env 계열 출력 금지(값은 스크립트가 --env-file 로 읽는다)` : null
 }
 
+function checkFactoryDeploy(verb, args) {
+  if (!['node', 'node.exe'].includes(verb)) return null
+  const i = args.findIndex((a) => /(?:^|[\\/])scripts[\\/]db[\\/]factory-i1[\\/]deploy\.mjs$/i.test(a))
+  return i >= 0 && args[i + 1] === 'apply'
+    ? 'Factory I1 DB apply — explicit user DB approval required; --approved-by is audit metadata only'
+    : null
+}
+
 /** @returns {string[]} 차단 사유 목록 (빈 배열이면 통과) */
 export function explain(cmd, depth = 0) {
   const reasons = []
@@ -199,6 +207,7 @@ export function explain(cmd, depth = 0) {
     const r =
       checkRemove(verb, args) ??
       (verb === 'git' ? checkGit(args) : null) ??
+      checkFactoryDeploy(verb, args) ??
       checkEnvRead(verb, args)
     if (r) reasons.push(r)
   }

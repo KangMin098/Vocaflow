@@ -1,0 +1,50 @@
+server_version=17.10
+PASS  A1 생성물 = 저장소 파일 · 정본 SHA 4종 일치  db1=766b88841cc6 db2=7c1cc2ed2e99
+PASS  A2 세그먼트 C·B·S·P 가 원본 바이트 그대로  [{"id":"C","ok":true},{"id":"B","ok":true},{"id":"S","ok":true},{"id":"P","ok":true}]
+PASS  A3 세그먼트 1바이트 변조 → 검증 실패  [{"id":"C","ok":false},{"id":"B","ok":true},{"id":"S","ok":true}]
+PASS  A4 MANIFEST 의 전체 SHA = 파일 SHA  766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211 · 7c1cc2ed2e99cdc4264f86fd6cf4af16115f597c80b89a18cf216190acc1ec2f
+PASS  A5 연결 대상 검사: 다른 프로젝트 · transaction pooler · 비 localhost 격리 거절  ok
+PASS  A6 dry-run DB-1: 러너는 정확히 1개 · 차단 없음 · db push 경로는 차단  {"push":346,"newer":["20261017200000_factory_i1_db1_supply_foundation.sql"]}
+PASS  A7 dry-run: 예상 외 신규 migration → DEPLOY_BLOCKED[unexpected-migration]  ["DEPLOY_BLOCKED[unexpected-migration] 원격 최댓값 20261014091841 뒤의 로컬 migration: 20261018000000_other_session.sql"]
+PASS  A8 dry-run: DB-2 가 supabase/migrations 에 있으면 → DEPLOY_BLOCKED[db2-coupled]  ["DEPLOY_BLOCKED[unexpected-migration] 원격 최댓값 20261014091841 뒤의 로컬 migration: 20261017200100_factory_i1_db2_partial.sql","DEPLOY_BLOCKED[db2-coupled] DB-2(20261017200100) 가 supabase/migrations 에 있다 — DB-1 과 함께 밀릴 수 있다"]
+PASS  A9 dry-run DB-2: 원격에 DB-1 없으면 → DEPLOY_BLOCKED[db1-first]  ["DEPLOY_BLOCKED[unexpected-migration] 원격 최댓값 20261014091841 뒤의 로컬 migration: 20261017200000_factory_i1_db1_supply_foundation.sql","DEPLOY_BLOCKED[db1-first] 원격 이력에 DB-1(20261017200000) 이 없다"]
+PASS  A10 dry-run: 이미 적용된 버전 → DEPLOY_BLOCKED[history]  ["DEPLOY_BLOCKED[history] DB-1 파일 버전 20261017200000 이 원격 최댓값 20261017200000 보다 크지 않다","DEPLOY_BLOCKED[history] 20261017200000 이 이미 원격 이력에 있다"]
+PASS  B1 preflight DB-1 차단 없음(격리 DB · 개발 DB 실측과 같은 helper · 이력)  []
+PASS  B2 preflight DB-2 를 DB-1 전에 → DEPLOY_BLOCKED[db1-first]  ["DEPLOY_BLOCKED[db1-first] DB-1(20261017200000) 이 이력에 없다","DEPLOY_BLOCKED[target] 표 상태가 DB-1 직후와 다르다: ","DEPLOY_BLOCKED[target] 함수 상태가 DB-1 직후와 다르다: ","DEPLOY_BLOCKED[drift] is_admin.proconfig={search_path=public} ≠ DB-1 뒤 {\"search_path=public, pg_temp\"}","DEPLOY_BLOCKED[drift] is_admin_or_curator.proconfig={\"search_path=public, auth\"} ≠ DB-1 뒤 {\"search_path=public, auth, pg_temp\"}"]
+PASS  B3 DB-1 적용 성공 · 에필로그 VF_DEPLOY_OK  ["VF_DEPLOY_OK stage=db1 added=157 changed=2"]
+PASS  B4 DB-1 카탈로그 diff = 허용 목록(추가 · 변경 정확히 · 삭제 0)  {"added":157,"changed":["fn:public.is_admin()","fn:public.is_admin_or_curator()"],"removed":0}
+PASS  B5 이력 1행 · statements sha256 = 파일 sha256(safe-merge 대조식)  {"version":"20261017200000","sha":"766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211"}
+PASS  B6 적용 직후 검증 SQL 전부 통과(RLS · 권한 · helper · G2 노출)  {"check":"g2_exposure_none_zero","ok":true,"detail":"pairs=1 none=0 by=attempted:1"}
+PASS  B7 G2 시도 쌍이 노출로 판정(none 아님)  attempted
+PASS  B8 DB-1 재적용 preflight → DEPLOY_BLOCKED[history]·[target]  6
+PASS  B9 DB-1 본문 재실행 → 프롤로그가 거절 · 카탈로그 불변  DEPLOY_BLOCKED[history] 버전 20261017200000 이 이미 이력에 있다
+PASS  B10 preflight DB-2(DB-1 뒤) 차단 없음  []
+PASS  B11 DB-2 적용 성공 · VF_DEPLOY_OK  ["VF_DEPLOY_OK stage=db2 added=1 changed=4"]
+PASS  B12 DB-2 카탈로그 diff = 허용 목록  {"added":["fn:public.workspace_line_fulfillment(p_line uuid)"],"removed":[],"changed":["con:public.factory_order.factory_order_state_check","fn:public.factory_order_open(p_line uuid, p_reason text, p_quantity smallint, p_request_key uuid)","fn:public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text, p_run_id text, p_qualification uuid, p_request_key uuid)","rel:public.factory_order_one_open_per_line"]}
+PASS  B13 DB-2 적용 직후 검증 통과  []
+PASS  E1 DB-2 가 있는 동안 db1-restore → RESTORE_BLOCKED · 불변  RESTORE_BLOCKED DB-2 가 적용돼 있다 — db2-restore.sql 을 먼저
+PASS  E2 db2-restore → 카탈로그 = DB-1 직후(바이트 수준 · S 의 안전 수정 보존)  {"onlyBefore":[],"onlyAfter":[]}
+PASS  E3 db2-restore 뒤 DB-1 검증 다시 통과 · DB-2 이력 행 제거  ok
+PASS  E4a 시드: 관리자 RPC 로 자격 원장 1행  ok
+PASS  E4 원장에 행이 있으면 db1-restore → RESTORE_BLOCKED · 아무것도 지우지 않음  RESTORE_BLOCKED public.content_qualification 에 행이 있다 — 원장 보존(복사 뒤 별도 승인)
+PASS  E5 db1-restore(빈 원장) → 적용 전 카탈로그 · 남는 변화는 helper search_path 강화 2개뿐  {"added":[],"removed":[],"changed":["fn:public.is_admin()","fn:public.is_admin_or_curator()"]}
+PASS  E6 db1-restore 뒤 DB-1 이력 행 제거 · 재적용 가능  ok
+PASS  C1 이력 기록 뒤 커밋 직전 실패 → 카탈로그 · 이력 전부 원상  VF_INJECTED_FAILURE before-commit
+PASS  C2 S 끝에서 실패(C · B 실행 뒤) → 전부 원상  division by zero
+PASS  C3 허용 목록 밖 객체 추가 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)={rel:public.vf_unapproved} · 빠짐=<NULL> · 삭제={} · 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()
+PASS  C4 허용 밖 기존 객체 변경 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={} · 변경={"fn:public.csat_source_is_eligible(p_article_id uuid)",fn:public.is_admi
+PASS  C5 기존 객체 삭제 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={col:public.ineligible_sources.article_id,con:public.ineligible_sources.ineligibl
+PASS  C5a 소유자 변경 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={} · 변경={"fn:public.csat_source_is_eligible(p_article_id uuid
+PASS  C5b 뷰 재정의 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={} · 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()
+PASS  C5c 기본 권한 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={} · 변경={dacl:postgres.public.r,fn:public.is_admin(),fn:publi
+PASS  C5d 주석 → DEPLOY_BLOCKED[allowlist] · 원상  DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=<NULL> · 빠짐=<NULL> · 삭제={} · 변경={cmt:all,fn:public.is_admin(),fn:public.is_admin_or_c
+PASS  C6 BEGIN 없는 단순 질의 1회 + 끝 실패 → 전부 원상(암묵 트랜잭션)  division by zero
+PASS  C7 비원자 러너(프롤로그만 커밋) → 프롤로그 커밋 실패(커밋 가드) · 다음 조각 트립와이어 · 원상  {"p1":"DEPLOY_BLOCKED[atomicity] 에필로그 검증 없이 커밋하려 했다 — 전체 롤백","p2":"DEPLOY_BLOCKED[atomicity] DB1 이 한 트랜잭션으로 실행되지 않았다(prologue→C). scripts/db/factor"}
+PASS  C8 비원자 러너(프롤로그+C 커밋 시도) → 커밋 가드로 C 롤백 · 다음 조각 트립와이어 · 원상  {"q1":"DEPLOY_BLOCKED[atomicity] 에필로그 검증 없이 커밋하려 했다 — 전체 롤백","q2":"DEPLOY_BLOCKED[atomicity] DB1 이 한 트랜잭션으로 실행되지 않았다(C→B). scripts/db/factory-i1/de"}
+PASS  C9 프롤로그 없이 중간부터 실행 → DEPLOY_BLOCKED[atomicity] · 원상  DEPLOY_BLOCKED[atomicity] DB1 이 한 트랜잭션으로 실행되지 않았다(C→B). scripts/db/factory-i1/de
+PASS  C10 DB-1 없이 DB-2 본문 실행 → DEPLOY_BLOCKED · 원상  DEPLOY_BLOCKED[history] DB-1(20261017200000) 이 이력에 없거나 본문 sha256 이 패키지와 다르다 — DB-1 실DB 검증 전에는 DB-2 를
+PASS  C11 DB-1 이력 sha 불일치 → DB-2 DEPLOY_BLOCKED[history] · 불변  DEPLOY_BLOCKED[history] DB-1(20261017200000) 이 이력에 없거나 본문 sha256 이 패키지와 다르다 — DB-1 실DB 검증 전에는 DB-2 를
+PASS  D1 B 만(기준선) → G2 쌍 none · 검증 g2_exposure_none_zero=false · helper 검증 false  {"exposure":"none","g2":{"check":"g2_exposure_none_zero","ok":false,"detail":"pairs=1 none=1 by=none:1"}}
+PASS  F1 기존 롤백 §0–§2 만 실행 → 본문은 S 그대로지만 정의자 2개의 search_path 에서 pg_temp 가 빠진다(DB-2 단독 되돌리기는 db2-restore.sql · E2 바이트 일치)  [{"fn":"fn:public.factory_order_open","before":"{\"search_path=public, pg_temp\"}","after":"{search_path=public}","bodySame":true},{"fn":"fn:public.factory_order_transition","before":"{\"search_path=public, pg_temp\"}","after":"{search_path=public}","bodySame":true}]
+
+47/47 PASS (PostgreSQL 17.10 · 격리 · 배포 절차) db1=766b88841cc6 db2=7c1cc2ed2e99

@@ -26,6 +26,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(db): PR #286 독립 검증 — 자동/임의 승인·접속 옵션/포트·helper 속성·COMMIT 미확정·이력 경합·DB-2 검증 반례를 보완하고 #283 B NULL 버전 보완만 동기화했다. 새 DB-1 `061a48a8…`, DB-2 `2165015d…`는 미적용·새 승인 대상. PR CI의 공유 개발 DB 비밀값 전달을 차단했다. [독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md).
+
 - chore(db): Factory I1 배포 패키지 — PR #280 C→B→I1-S 를 원본 바이트 그대로 담은 버전 migration `20261017200000`(DB-1, sha256 `766b8884…`)과 `supabase/migrations` 밖의 I1-P DB-2(`20261017200100`, `7c1cc2ed…`). 가드(이력 · 전제 · 대상 부재 · helper drift · xid 트립와이어 · 커밋 가드 · 카탈로그 diff = 허용 목록) · 러너 `scripts/db/factory-i1/deploy.mjs`(check · dry-run · preflight · apply · verify) · 커밋 뒤 되돌리기 2종. 격리 PostgreSQL 17 배포 절차 47/47 · 배포 파일 위 기존 33조건 33/33. 개발 DB 는 읽기만(checkpoint: DB-1 차단 0). **미적용** — [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)
 - PR #283 독립 검증: 주석 결속 승인안의 NULL 권한·적용 순서·현재 주석 대조 누락을 보완했다. 공급/현재 충족도의 ref·hash·revision·TASK 비교와 과거 이력 보존을 격리 PostgreSQL에서 검증. SQL/배포 동기화 미승인, C/E/F/H UNKNOWN 및 실제 I2 BLOCKED 유지. [수용 기록](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
 

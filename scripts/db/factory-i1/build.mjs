@@ -116,6 +116,10 @@ create constraint trigger vf_i1_commit_guard after insert on pg_temp.vf_i1_${sta
 insert into pg_temp.vf_i1_${stage}_guard values (1);
 create temp table vf_i1_${stage}_before on commit drop as
 ${CATALOG_SQL};
+-- Only proconfig may change on existing authorization helpers. Preserve every other pg_proc attribute.
+create temp table vf_i1_${stage}_helpers on commit drop as
+select p.oid, to_jsonb(p) - 'proconfig' fingerprint from pg_proc p
+where p.oid in ('public.is_admin()'::regprocedure, 'public.is_admin_or_curator()'::regprocedure);
 `
 }
 
@@ -178,6 +182,10 @@ begin
      or not (v_changed <@ exp_changed) then
     raise exception 'DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)=% · 빠짐=% · 삭제=% · 변경=% (허용 변경=%)',
       v_unexpected, v_missing, v_removed, v_changed, exp_changed;
+  end if;
+  if exists (select 1 from pg_temp.vf_i1_${stage}_helpers h left join pg_proc p on p.oid = h.oid
+             where h.fingerprint is distinct from to_jsonb(p) - 'proconfig') then
+    raise exception 'DEPLOY_BLOCKED[allowlist] existing helper changed beyond approved search_path';
   end if;${extraAsserts}
   perform set_config('vf.i1_deploy_done', txid_current()::text, true);
   raise notice 'VF_DEPLOY_OK stage=${stage} added=% changed=%', cardinality(v_added), cardinality(v_changed);

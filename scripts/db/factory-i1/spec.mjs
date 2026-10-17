@@ -10,7 +10,8 @@ export const PRIOR_MAX_VERSION = '20261014091841' // 2026-10-17 읽기 전용 �
 
 export const SOURCES = {
   C: { file: '_pending_workspace_supply_c_qualification.sql', sha256: 'dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66' },
-  B: { file: '_pending_workspace_supply_b_orders.sql', sha256: 'e3f929d06f20518495682a36e0d1f8f483988f2a39feabd3e5d490c02a5293b2' },
+  // PR #283 main: reject missing/null demand version too. Annotation binding remains a separate pending migration.
+  B: { file: '_pending_workspace_supply_b_orders.sql', sha256: '2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02' },
   S: { file: '_pending_workspace_supply_i1_safety.sql', sha256: 'cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de' },
   P: { file: '_pending_workspace_supply_i1_partial.sql', sha256: '79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041' },
 }

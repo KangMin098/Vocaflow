@@ -7,6 +7,8 @@ import { test } from 'node:test'
 import { explain } from '../guard.mjs'
 
 const BLOCK = [
+  String.raw`node scripts/db/factory-i1/deploy.mjs apply --stage db1 --approved-by text`,
+  String.raw`node.exe D:\workspace\repo\scripts\db\factory-i1\deploy.mjs apply --stage db2`,
   String.raw`rm -rf node_modules`,
   String.raw`rm -fr build`,
   String.raw`rm -r -f dist`,
@@ -46,6 +48,9 @@ const BLOCK = [
 ]
 
 const ALLOW = [
+  String.raw`node scripts/db/factory-i1/deploy.mjs check`,
+  String.raw`node scripts/db/factory-i1/deploy.mjs preflight --stage db1`,
+  String.raw`node scripts/db/factory-i1/deploy.mjs verify --stage db1`,
   String.raw`rm -r tmp/x`,
   String.raw`rm -f a.txt`,
   String.raw`rm file.txt`,

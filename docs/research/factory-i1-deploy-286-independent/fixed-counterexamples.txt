@@ -1,0 +1,9 @@
+PASS R01 URL query cannot override validated target/TLS {"validatorAccepted":false,"driverHost":"127.0.0.1","driverPort":55341,"driverSsl":false}
+PASS R02 auto + arbitrary approval + isolated CLI cannot write {"status":2,"wrote":false}
+PASS R03 allowlisted helper may change search_path only, even via event trigger {"applied":false,"unconditionalAdmin":false,"error":"DEPLOY_BLOCKED[allowlist] existing helper changed beyond approved search_path"}
+PASS R04 lost COMMIT acknowledgement is UNKNOWN, never rollback success {"committed":true,"returned":{"ok":false,"outcome":"unknown","started_at":"2026-10-17T12:16:53.794Z","ended_at":"2026-10-17T12:16:54.283Z","error":{"code":"ECONNRESET","message":"simulated lost COMMIT acknowledgement"},"notices":["VF_DEPLOY_OK stage=db1 added=157 changed=2","there is no transaction in progress"]}}
+PASS R05 history is rechecked inside the locked apply transaction {"beforeBlocks":[],"applied":false,"error":"DEPLOY_BLOCKED[history] checkpoint(20261014091841) 뒤 새 원격 migration 20261016000000 — 카탈로그를 다시 보고 --accept-remote-after 로 명시"}
+PASS R06 DB-2 needs live DB-1 verification, not a forgeable JSON ok flag {"applied":false,"error":"DEPLOY_BLOCKED[db1-first] live DB-1 verification failed: internal_judges_not_callable"}
+PASS N01 concurrent committed DDL is rejected; foreign transaction persists {"applied":false,"error":"DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)={rel:public.ind_concurrent_ddl} · 빠짐=<NULL> · 삭제={} · 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()} (허용 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()})"}
+PASS N02 lock acquired after preflight hits real 15s timeout and rolls back {"error":{"code":"55P03","message":"canceling statement due to lock timeout"}}
+8/8 expected outcomes; development DB writes=0

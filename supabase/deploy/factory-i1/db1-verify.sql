@@ -1,6 +1,6 @@
--- supabase/deploy/factory-i1/db1-verify.sql — 생성물. 적용 직후 읽기 전용 검증(각 문 독립 실행 · ok 열이 모두 true). $1 = 766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211
+-- supabase/deploy/factory-i1/db1-verify.sql — 생성물. 적용 직후 읽기 전용 검증(각 문 독립 실행 · ok 열이 모두 true). $1 = 061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624
 select 'history_row' as chk, exists (select 1 from supabase_migrations.schema_migrations where version = '20261017200000'
-       and encode(sha256(convert_to(array_to_string(statements, ''), 'UTF8')), 'hex') = '766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211') as ok,
+       and encode(sha256(convert_to(array_to_string(statements, ''), 'UTF8')), 'hex') = '061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624') as ok,
        (select coalesce(name, '') from supabase_migrations.schema_migrations where version = '20261017200000') as detail;
 select 'tables_rls_on', bool_and(coalesce((select relrowsecurity from pg_class where oid = to_regclass('public.'||t)), false)), string_agg(t, ',') filter (where to_regclass('public.'||t) is null)
          from unnest(array['content_qualification', 'content_release_approval', 'content_release_revocation', 'workspace_content_demand', 'workspace_content_demand_line', 'factory_order', 'factory_order_event', 'workspace_content_delivery']::text[]) t;
