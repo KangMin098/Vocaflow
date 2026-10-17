@@ -4,7 +4,9 @@
 
 ## 1. 판정과 기준
 
-**제출본 REJECT → 수정본 ACCEPT_WITH_LIMITS(최종 CI/목적 리뷰 확인 전).** DB 적용 승인은 아니다. 실공급 E2E는 **BLOCKED**다. 실제 개발 DB의 C/B/I1 대상 10개 표와 공급 RPC가 없음을 직접 조회했다.
+**제출본 REJECT → 수정본 ACCEPT_WITH_LIMITS.** 목적 리뷰 지적을 수정하고 최종 보완 리뷰는 `NO_FINDINGS`다. DB 적용 승인은 아니다. 실공급 E2E는 **BLOCKED**다. 실제 개발 DB의 C/B/I1 대상 10개 표와 공급 RPC가 없음을 시작·종료 읽기 감사에서 확인했다.
+
+검증 코드 HEAD: `884c0d113364002f506c450151b37af2569c1428`. 이후 기록 변경은 코드·SQL hash 불변을 확인한다. 최신 문서 HEAD의 필수 CI와 병합 가능 상태는 [PR #280 checks](https://github.com/KangMin098/Vocaflow/pull/280/checks)를 정본으로 확인한다. 코드 수용과 안전 병합 판정을 구분한다.
 
 - 제출 HEAD: `e89ebac493841b6fbcd0ebf0cdda780361ae75d6`.
 - 시작 main/제출 merge-base: `9c19f15b1fc911b13040dc01fe5a12fef5af592f`.
@@ -55,12 +57,13 @@ I1-P 수정 정책은 수용한다. `delivered`는 **전이 시점에 유효한 
 |---|---|
 | PGlite 제출+독립 R01/R02/R04 | 37 통과/3 실패. R03 store 6 통과/1 실패 |
 | PGlite 추가 회귀 | S-only rollback 실패 `42P01`, 기출 Reveal Gate 반례 실패를 보존 후 수정 |
-| PGlite 수정 집중 | I1 **47개**(기본 ALL·실 helper NULL/임시 프로필·공유 지문 회귀 포함), store **7/7**, I0 계약 **77/77**. 최종 통과/광역 결과는 EVIDENCE의 run 기록 |
+| PGlite 수정 집중 | I1 **47/47**(기본 ALL·실 helper NULL/임시 프로필·공유 지문 회귀 포함), store **7/7**, I0 계약 **77/77**. 통합 지도·T1–T4·PLAN/Workspace **1,045 통과·2 skip** 후 추가 helper 회귀 47/47 별도 실행 |
 | 실제 PostgreSQL | **17.10**, 동일 33조건에서 제출 **20/33**, 수정 **33/33**. 기본 ALL·실 helper NULL·롤백 등록 경합 포함. 원장 삭제 반례는 로컬 DB에서만 실행 |
 | 기존 B PostgreSQL | 기존 동시성 7/7. B만의 상한·철회 반례는 별도 기대 실패로 보존 |
 | PC Chromium | 1280·1440, 실제 TaskInspector·공급/수요 엔진의 합성 읽기 fixture. 이전 수요 제외/부분·완료/미설치/검수 전 열람/키보드 접기/가로 넘침 검증. 외부 요청 0. 전체 앱 DB E2E와 구분 |
 | 기존 R5·T1–T4·PLAN/Workspace | 전체 CI 단위 회귀에 포함. 개발 DB에 계정·학습 기록을 쓰는 기존 브라우저 스크립트는 실행 금지 범위라 재실행하지 않음 |
 | 실제 개발 DB | PostgreSQL 17.6 읽기 감사만. 대상 10개 표/충돌 함수/복합 제약 없음. 의존 노출 열·원천/Reveal RPC 정의 확인. 실제 공급 E2E **BLOCKED** |
+| 목적 리뷰 | 초기 P1 롤백 경합·P2 공유 응답 경로 수정. 전체 변경 후속 리뷰의 P1 임시 프로필 사칭도 수정. `1e1116b7c`→`884c0d113` 최종 보완 리뷰 **NO_FINDINGS**. 결과는 EVIDENCE에 보존 |
 
 ## 6. 병합과 정확한 승인 범위
 
@@ -69,3 +72,16 @@ I1-P 수정 정책은 수용한다. `delivered`는 **전이 시점에 유효한 
 - DB-2: 수정 P-1/P-2/P-3/P-4, partial CHECK/index, `factory_order_open`/`factory_order_transition`/`workspace_line_fulfillment`의 정확한 hash 및 별도 DB 적용 승인.
 - DB-3: D3-1~3 및 share_key/공유 수량 조건 확정 후 정본 SQL/hash를 다시 검증하고 승인. 현재 보류하며 DB-1/2 승인에 포함하지 않는다.
 - 적용 후 실공급 E2E를 실행하려면 합성 계정/학생 기록 쓰기도 그 별도 작업에서 승인한다. 개발 DB 쓰기는 이번 검증에서 실행하지 않았다.
+
+## 재실행
+
+개발 DB 자격증명을 넣지 않고 아래 격리 시험만 실행한다. 임시 dependencies에 embedded-postgres@17.10.0-beta.17과 pg@8.13.1이 필요하다.
+
+```text
+node scripts/csat/map/v62/supply-i1-concurrency.mjs --deps <임시 dependencies 폴더> --submitted
+node scripts/csat/map/v62/supply-i1-concurrency.mjs --deps <임시 dependencies 폴더>
+pnpm --filter web exec vitest run src/lib/csat/map/v62/__tests__/supply-i1.pglite.test.ts src/lib/csat/map/v62/__tests__/supply-store.test.ts
+node scripts/csat/map/v62/supply-i1-browser.mjs
+```
+
+`--submitted`의 실패는 원 결함 보존이며 성공으로 바꾸지 않는다. 현재 파일의 성공과 SQL hash를 함께 확인한다. PGlite 단일 연결 결과를 동시성 증거로 쓰지 않는다.

@@ -621,6 +621,19 @@
       ]
     },
     {
+      "name": "purpose-review-helper.log",
+      "sha256": "75d09a038b59b0a6d547657d63dc5b24be605e2b7de1defbb577f0f4e9c2a285",
+      "summary": [
+        "NO_FINDINGS"
+      ],
+      "tail": [
+        "NO_FINDINGS",
+        "",
+        "[review] 목적 파일: D:\\workspace\\Vocaflow-factory-i1-approval\\.agent-goal.md",
+        ""
+      ]
+    },
+    {
       "name": "purpose-review-initial.log",
       "sha256": "c81cc1401d92f3e5146159bab400b8693a5b2a2597d23509f0ee081760aa7c9e",
       "summary": [
@@ -1231,6 +1244,57 @@
       ]
     },
     {
+      "name": "submitted-latest-fixture.log",
+      "sha256": "39358729fff99aff7c1fee3ccb9e30a57ddc6ff5055bc96eca4e7c7d001b88b1",
+      "summary": [
+        "server_version=17.10",
+        "PASS  같은 공급 요청 키 동시 재전송 20 → 모두 같은 공급  ok=20/20 ids=1 errs=",
+        "PASS  줄 수량 3 · 동시 공급 20 → 공급 3  rows=3 ok=3",
+        "PASS  공급 트랜잭션이 열린 동안 철회는 대기(직렬화)  deliver=true revokeWhileOpen=canceling statement due to statement tim revokeAfter=true",
+        "PASS  철회 트랜잭션이 열린 동안 공급은 대기 → 철회 커밋 뒤 거절  revoke=true deliver=delivery: approval revoked",
+        "PASS  같은 줄 동시 주문 20 → 주문 1  rows=1",
+        "PASS  같은 revision 동시 등록 20 → 1  rows=1 ok=1",
+        "PASS  같은 등록 키 동시 재전송 20 → 모두 성공 · 새 행 1  ok=20/20 rows=2",
+        "PASS  링크 20 ↔ 새 revision 경합 → 거절 사유는 「not current」 뿐(교착 · 다른 오류 0)  linked=20 rejected=0 other=0",
+        "FAIL  actual NULL auth helper denies all six administrator RPCs  [{\"ok\":true,\"row\":{\"id\":\"01172353-5582-4c54-87cd-5562058cf6a6\"}},{\"ok\":true,\"row\":{\"content_release_approve\":\"431d5cee-bbe6-4225-83ee-d4f1e378b39f\"}},{\"ok\":true,\"row\":{\"content_release_revoke\":\"\"}},{\"ok\":true,\"row\":{\"factory_order_transition\":2}},{\"ok\":true,\"row\":{\"factory_product_order_register\":\"\"}},{\"ok\":false,\"err\":\"link: order closed (failed)\"}]",
+        "PASS  PG exposure attempt  expected=attempted actual=attempted",
+        "PASS  PG exposure session  expected=item_seen actual=item_seen",
+        "PASS  PG exposure trap  expected=attempted actual=attempted",
+        "PASS  PG exposure review  expected=attempted actual=attempted",
+        "PASS  PG exposure deleted  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure viewed  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure help  expected=explanation_seen actual=explanation_seen",
+        "PASS  PG exposure shared  expected=shared_passage_seen actual=shared_passage_seen",
+        "PASS  PG exposure is learner specific  none",
+        "PASS  PG missing exposure ledger fails closed  unknown",
+        "FAIL  R01 supersede: history retained, current valid=false  valid=true",
+        "FAIL  R04 source rights withdrawn with unchanged revision  revisionSame=true valid=true",
+        "FAIL  R02 revoked 3 of 5 before close: delivered rejects, partial accepts  delivered={\"ok\":true,\"row\":{\"factory_order_transition\":2}} partial={\"ok\":false,\"err\":\"order: conflict (expected stock_search, is delivered)\"}",
+        "FAIL  R04 CSAT Reveal Gate blocks current count and new supply  valid=true new={\"ok\":true,\"row\":{\"id\":\"504aeefc-0bdd-448b-b504-2da56d46a071\"}}",
+        "FAIL  supersede in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"97658ae1-ae8a-4ce4-a49c-06d1f496ad84\"}}",
+        "FAIL  order close in flight: delivery waits then rejects  {\"ok\":true,\"row\":{\"id\":\"39ba0b7d-bfc0-41b3-8dda-bb0e05d3b94d\"}}",
+        "FAIL  revocation in flight: delivered transition waits then rejects  {\"ok\":true,\"row\":{\"factory_order_transition\":2}}",
+        "FAIL  missing required axis state cannot yield approved supply  qualification=true supply=true",
+        "FAIL  pg_temp table cannot impersonate administrator in definer  {\"ok\":true,\"row\":{\"content_release_revoke\":\"\"}}",
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "FAIL  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"qualification: not found\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "FAIL  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":true}",
+        "FAIL  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":true},\"rows\":0,\"tableExists\":false}",
+        "20/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=72af4f76b279"
+      ],
+      "tail": [
+        "PASS  PG authenticated other student sees zero rows in all ten ledgers  [0,0,0,0,0,0,0,0,0,0]",
+        "FAIL  PG authenticated learner cannot approve  {\"ok\":false,\"err\":\"qualification: not found\"}",
+        "PASS  PG anonymous has no mutation/fulfillment EXECUTE  true",
+        "FAIL  PG default ALL privileges cannot bypass RLS with TRUNCATE  {\"ok\":true}",
+        "FAIL  rollback versus registration preserves the committed ledger  {\"result\":{\"ok\":true},\"rows\":0,\"tableExists\":false}",
+        "",
+        "20/33 PASS (PostgreSQL 17 · 다중 연결 · C+B+I1) safety=72af4f76b279",
+        ""
+      ]
+    },
+    {
       "name": "submitted-pglite.log",
       "sha256": "49b356ddf05915ffc2d9f1ff6a60260de2f5cb74fdbf4d3931e04e6e1ed97243",
       "summary": [],
@@ -1316,7 +1380,8 @@
       "submitted": "20/33",
       "repaired": "33/33",
       "final_run": "postgres-helper-final.log",
-      "source_mode": "submitted SQL from pinned git blobs; repaired from source hashes"
+      "source_mode": "submitted SQL from pinned git blobs; repaired from source hashes",
+      "submitted_run": "submitted-latest-fixture.log"
     },
     "pglite": {
       "i1": "47/47",
@@ -1329,7 +1394,11 @@
       "scope": "before final NULL-helper/shared-path/rollback-race followups; subsequent targeted and remote CI required"
     },
     "purpose_review": {
-      "initial": "P1 rollback registration race, P2 shared response path; both fixed; final review required"
+      "initial": "P1 rollback registration race and P2 shared response path fixed",
+      "full_followup": "AUTH02 temporary user_profiles spoofing fixed",
+      "final": "NO_FINDINGS",
+      "base": "1e1116b7c3b054989bf5c637faa319dc15a0acb4",
+      "head": "884c0d113364002f506c450151b37af2569c1428"
     },
     "dbWrites": 0,
     "map_regression": {
@@ -1337,11 +1406,18 @@
       "skip": 2,
       "run": "map-regression-final.log",
       "note": "before one additional helper regression, separately 47/47"
-    }
+    },
+    "code_head": "884c0d113364002f506c450151b37af2569c1428",
+    "ci_checks_url": "https://github.com/KangMin098/Vocaflow/pull/280/checks"
   },
   "base": {
     "main": "edcfa5f9570147ccea3ec2609f3d487b1be1562a",
     "merge_base": "edcfa5f9570147ccea3ec2609f3d487b1be1562a",
     "i0_pr_277": "MERGED"
+  },
+  "final_dev_audit": {
+    "target_tables_all_absent": true,
+    "helper_config_unchanged_live": true,
+    "live_db_writes": 0
   }
 }
