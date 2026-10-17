@@ -63,7 +63,7 @@ function fake(tables: Record<string, Res>, rpc: Res = { data: REV, error: null }
 
 describe('loadFqReader — 학습자 세션이 아니라 서버 전용 클라이언트로만 판정', () => {
   const learner = fake({ content_qualification: { data: [], error: null, count: 0 } }).db
-  const ledger = { content_qualification: { data: [row()], error: null }, content_release_approval: { data: APPROVED, error: null }, content_release_revocation: { data: [], error: null } }
+  const ledger = { content_qualification: { data: [row()], error: null }, content_release_approval: { data: APPROVED, error: null }, content_release_revocation: { data: [], error: null }, supply_current_annotation: { data: [{ artifact_ref: '2020#24', task_id: T, artifact_revision: REV, annotation_ref: 'claim-support-2020-24.v1', annotation_hash: ANN }], error: null } }
   const opts = { refs: ['2020#24'], tasks: [T], currentAnnotation: async () => ({ ref: 'claim-support-2020-24.v1', hash: ANN }) }
 
   it('표가 없으면 not_installed', async () => {
@@ -88,6 +88,10 @@ describe('loadFqReader — 학습자 세션이 아니라 서버 전용 클라이
   })
   it('창을 가득 채운 응답은 부분 원장이라 error', async () => {
     expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, content_qualification: { data: Array.from({ length: 2000 }, () => row()), error: null } }).db })).toEqual({ status: 'error' })
+  })
+  it('I2 등록부가 없으면 적격 0건 · 등록이 다르면 거절(납품 SQL 과 같은 기준)', async () => {
+    expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, supply_current_annotation: { data: null, error: { code: '42P01' } } }).db })).toEqual({ status: 'installed', eligible: [] })
+    expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, supply_current_annotation: { data: [], error: null } }).db })).toEqual({ status: 'installed', eligible: [] })
   })
   it('현재 revision 조회 실패는 error', async () => {
     expect(await loadFqReader(learner, { ...opts, admin: fake(ledger, { data: null, error: { code: 'XX' } }).db })).toEqual({ status: 'error' })

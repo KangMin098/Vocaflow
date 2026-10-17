@@ -36,14 +36,15 @@ export function studyItemsFor(task: TaskId, check: AsIsTask['check'], confirm: r
   const transferIds = new Set(transfer.map((l) => norm(l.target)))
   const unseen = new Set((check?.unseen ?? []).map(norm))
   // 확인 묶음 중 안 본 것이 아닌 것 = 확인 과제로 풀었거나 시험지로 이미 본 것
-  const attempted = [...confirmIds].filter((id) => !unseen.has(id))
+  // 확인 기록을 못 읽었으면(check 없음) 어느 문항을 풀었는지 모른다 — 확인 문항 전체를 보류한다(해설을 열지 않는다)
+  const attempted = check ? [...confirmIds].filter((id) => !unseen.has(id)) : []
   const out: StudyItem[] = attempted.map((item) => ({ item, basis: 'attempted_check_item' as const, research: null }))
   for (const l of RESEARCH.links) {
     if (l.task !== task || !l.agree || (l.first !== 'direct' && l.first !== 'indirect')) continue
     if (confirmIds.has(l.item) || transferIds.has(l.item) || out.some((x) => x.item === l.item)) continue
     out.push({ item: l.item, basis: 'research_case', research: l.first })
   }
-  const withheld = [...confirmIds].filter((id) => unseen.has(id)).length + transferIds.size
+  const withheld = [...confirmIds].filter((id) => !check || unseen.has(id)).length + transferIds.size
   return { items: out, withheld, sharedPassageUnchecked: true }
 }
 
