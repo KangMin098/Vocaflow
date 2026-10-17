@@ -1230,6 +1230,8 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 
 노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. 현재 `loadFqReader()`는 설치돼 있어도 역할/TASK/hash 자격 판정 연결 전이므로 항상 `eligible: []`이며, 출시 과제 열람은 공급 0인 `open_unqualified`다.
 
+확인과 전이 표본 모두 활동·세션·TASK·현재 hash 결속을 요구한다. 줄바꿈·탭은 JSON 인코딩 전 정규화해 동일 지문을 놓치지 않는다. 읽기 전용 E2E는 `pnpm --filter web test:e2e:r5`로 전용 서버 장벽까지 자동 적용한다.
+
 연습 전이는 T4·Workspace·PLAN에서 적용 경험과 운영량으로만 남는다. 효과 신호는 `activity=practice`를 제외하며 전이는 활동·세션·TASK·현재 주석 해시를 `attemptRole()`로 결속한 경우만 적격 후보로 쓴다. 납품↔G2 결속·실제 콘텐츠 자격 승인은 추가하지 않았다. [실패·화면·추적 근거](./research/r5-285-independent-20261017/ACCEPTANCE.md).
 
 ### V2 Instrument 독립 수용 경계(2026-10-17)

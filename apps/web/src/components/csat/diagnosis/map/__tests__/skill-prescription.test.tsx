@@ -10,7 +10,7 @@ import { LifecycleStrip, SkillPrescription, SkillStatusLine, StepReadiness } fro
 const T = ['a', 'b', 'c', 'd'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
 const now = new Date('2026-10-20T00:00:00Z')
 const at = (d: number) => new Date(Date.UTC(2026, 9, d)).toISOString()
-const att = (item: string, ok: boolean, when: string): SkillAttempt => ({ userId: 'u', itemRef: item, taskKey: 'claim-support', phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, answeredAt: when })
+const att = (item: string, ok: boolean, when: string): SkillAttempt => ({ userId: 'u', itemRef: item, taskKey: 'claim-support', phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', answeredAt: when })
 const groups = [{ stage: 'REPAIR' as const, titles: ['주장 문장 표시하기'] }, { stage: 'TRANSFER' as const, titles: ['새 글에 적용'] }, { stage: 'CHECK' as const, titles: ['다시 풀기'] }]
 const links = T.map((t) => ({ target: t.itemRef, href: `/csat/item/${t.itemRef}#principle`, label: `${t.itemRef}번으로 직접 확인` }))
 const render = (attempts: SkillAttempt[]) => {

@@ -19,6 +19,8 @@
 
 ## 예약 보호 검증
 
+목적 리뷰 1차에서 추가한 실패는 [리뷰 원문](./goal-review-first.log)과 [2차 반례 최초 실패](./review-round2-initial.log)에 보존했다. 확인 phase도 활동·세션·TASK·현재 주석 hash 없이 독립 표본으로 승격되지 않도록 보완했고, reader가 첫 시도 ID에 맞는 원장 메타데이터를 전달한다. T4는 첫 시도와 수행의 세션·과거 hash를 결속하며, 과거 주석의 독립 관찰 사실과 현재 도구 적격성을 구분한다. 원문 문자열의 줄바꿈·탭은 JSON 인코딩 전에 정규화한다. `A B`, `A\nB`, `A\tB`는 같은 지문이며 빈 문자열은 식별 불가다.
+
 `r5-reader-independent`, `r5-reservation-independent`, `practice-server`, `r5-practice-page`가 다음을 격리 더블로 실행한다(네트워크·DB 쓰기 없음).
 
 - 미노출 확인 문항 목록 제외, 직접 URL 대체, 일반 학습자의 `preview=1` 우회 차단, 실제 관리자 미리보기 구분.
@@ -57,7 +59,11 @@ Inspector는 미설치/오류/설치 및 적격 0건을 후보 유무와 별개�
 
 재실행 순서: 별도 worktree Next 서버에 `NODE_OPTIONS=--require=<절대 r5-read-only-preload.cjs 경로>`, `R5_REVIEW_FAULT_FILE=<로컬 JSON 경로>`, `R5_REVIEW_AUDIT_FILE=<로컬 jsonl 경로>`, `DEV_ADMIN_BYPASS=0`을 설정한다. 브라우저 runner는 기존 환경 파일을 읽고 `--base`, `--evidence`, `--fault-file`을 지정한다. 인증 정보를 출력하거나 증거에 저장하지 않는다.
 
+단일 E2E 명령은 `pnpm --filter web test:e2e:r5`다. `playwright.r5-read-only.config.ts`와 `r5-read-only-server.cjs`가 preload를 적용한 전용 Next 서버를 자동 기동한다. 기존 서버를 지정하는 경우에도 헤더 검증이 필요하다. 일반 Playwright 서버를 읽기 전용이라고 오인해 통과시키지 않는다.
+
 ## 회귀와 남은 차단
+
+자격 결속을 갖춘 기존 양성 fixture 17개를 보완했으며 기존 assertion은 유지했다. 테스트 작성자 독립 실행은 26파일·317통과다. `isEligible`의 최종 반환을 false로 바꾸는 임시 변이에서 find-outcome 5실패·3통과, try/finally 원문 바이트 복구 뒤 8/8통과를 확인했다. 이 변이 기록은 세션 도구 출력에 남아 있으며 별도 로그 파일이 있다고 주장하지 않는다.
 
 광역 T1~T4·PLAN·Workspace·R5 회귀의 첫 실행은 1,359통과, PGlite 5개가 메모리 할당 오류였다([로그](./regressions.log)). 해당 5개를 단독 재실행해 전부 통과했다([재실행](./pglite-retry.log)). 제품 기대값을 약화하거나 실패를 skip으로 바꾸지 않았다. 최종 타입·lint·목적 리뷰·전체 회귀·CI 8종은 PR 검증 기록과 함께 확인한다.
 

@@ -15,6 +15,19 @@ it.each(['practice', undefined])('transfer first attempt with activity=%s cannot
   expect(signals.counts.excluded).toBe(1)
 })
 
+it('practice firsts without activity/session/current hash cannot prove independence', () => {
+  for (const activity of [null, 'theater']) expect(isEligible({ ...transfer(), activity, phase: 'practice' })).toBe(false)
+})
+
+it('T4 holds a first CHECK when activity, session or raw hash lineage is missing', () => {
+  const first = { ...transfer('theater'), phase: 'practice' as const, taskKey: 'claim-support', itemRef: 'i1', attemptId: '1', sessionId: 's1', contentHash: 'current', expectedContentHash: 'current' }
+  const activity: ActivityRow = { ...first, answeredAt: '2026-10-17T00:00:00Z', receivedAt: '2026-10-17T00:00:01Z', helpLevel: 'independent' }
+  const run = (a: ActivityRow, f = first) => evidenceView({ task: 'r.central_meaning', check: null, firsts: [f], activity: [a], hashes: { 'claim-support|i1': 'current' }, transfer: { done: 0, planned: 2 } }).attempts[0]!
+  expect(run(activity).claim).toBe('independent_check')
+  for (const patch of [{ activity: null }, { sessionId: null }, { contentHash: null }]) expect(run({ ...activity, ...patch })).toMatchObject({ claim: 'held', fields: { independence: 'UNKNOWN' } })
+  expect(run(activity, { ...first, sessionId: 'different' }).claim).toBe('held')
+})
+
 it('bound theater transfer needs a matching current hash, session and independent help', () => {
   const valid = { ...transfer('theater'), taskKey: 'claim-support', sessionId: 's1', contentHash: 'current', expectedContentHash: 'current' }
   expect(isEligible(valid)).toBe(true)

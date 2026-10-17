@@ -13,6 +13,7 @@
 //   F 학습 효과      — 판정하지 않는다(NOT_EVALUATED · 실제 학생 사전/사후/지연 설계는 별도).
 
 import { isEligible } from '@/lib/knowledge/effect-signals'
+import { attemptRole } from './assessment-exposure'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 
 import { passageIdentity, repairWindow, type ActivityRow } from '../lifecycle-evidence'
@@ -124,6 +125,7 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
       else if (f.isCorrect !== a.isCorrect) { independence = 'UNKNOWN'; reasons.push('첫 시도 원장과 수행 결과 연결 확인 불가 — 보류') }
       else if (f.timingUncertain) { independence = 'UNKNOWN'; reasons.push('해설 · 도움 시각과 제출 순서 확인 불가 — 보류') }
       else if (f.helpLevel == null) { independence = 'UNKNOWN'; reasons.push('도움 수준 기록 없음 — 보류') }
+      else if (!f.sessionId || f.sessionId !== a.sessionId || attemptRole({ activity: a.activity ?? null, phase: a.phase, taskKey: a.taskKey, helpLevel: a.helpLevel ?? null, sessionId: a.sessionId ?? null, contentHash: a.contentHash ?? null }, { taskKey: f.taskKey, contentHash: f.contentHash ?? null }) !== 'independent_check') { independence = 'UNKNOWN'; reasons.push('활동 · 세션 · 원장 주석 결속 확인 불가 — 보류') }
       else if (f.isCorrect === null) independence = 'UNKNOWN'
       else independence = 'CONFIRMED'
     } else if (a.phase === 'practice') {

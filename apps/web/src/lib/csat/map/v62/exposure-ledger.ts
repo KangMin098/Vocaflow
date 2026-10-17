@@ -25,7 +25,10 @@ const str = (v: unknown): string | null => (typeof v === 'string' && v ? v : nul
 /** 정규화 지문 키 — 빈 지문은 키가 없다(식별 불가 → unknown) */
 export function normalizedPassageKey(passage: unknown): string | null {
   if (passage === null || passage === undefined) return null
-  const value = canonicalJson(passage).toLowerCase().replace(/\s+/g, ' ').trim()
+  // Normalize source strings BEFORE JSON encoding turns newlines/tabs into
+  // escape sequences. Object ordering is still canonical and deterministic.
+  const normalize = (v: unknown): unknown => typeof v === 'string' ? v.toLowerCase().replace(/\s+/g, ' ').trim() : Array.isArray(v) ? v.map(normalize) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, normalize(x)])) : v
+  const value = canonicalJson(normalize(passage))
   if (value === '""' || value === '[]' || value === '{}' || value === 'null') return null
   return createHash('sha256').update(value).digest('hex')
 }

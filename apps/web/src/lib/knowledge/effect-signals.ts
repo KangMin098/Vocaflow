@@ -78,7 +78,10 @@ export const QUALITY_MIN_ATTEMPTS = 10
 
 export function isEligible(a: FirstAttempt): boolean {
   if (a.activity === 'practice') return false
-  if (a.phase === 'transfer' && attemptRole({ activity: a.activity ?? null, phase: a.phase, taskKey: a.taskKey ?? null, helpLevel: a.helpLevel, sessionId: a.sessionId ?? null, contentHash: a.contentHash ?? null }, { taskKey: a.taskKey ?? '', contentHash: a.expectedContentHash ?? null }) !== 'transfer') return false
+  if (a.phase === 'practice' || a.phase === 'transfer') {
+    const role = attemptRole({ activity: a.activity ?? null, phase: a.phase, taskKey: a.taskKey ?? null, helpLevel: a.helpLevel, sessionId: a.sessionId ?? null, contentHash: a.contentHash ?? null }, { taskKey: a.taskKey ?? '', contentHash: a.expectedContentHash ?? null })
+    if (role !== (a.phase === 'practice' ? 'independent_check' : 'transfer')) return false
+  }
   // 도움 수준이 기록되지 않은(null) 시도는 독립 수행인지 확인할 수 없다 — 근거에서 뺀다
   return !a.synthetic && a.helpLevel === 'independent' && !a.afterViewedFirst && !a.afterExplanation && !a.timingUncertain
 }

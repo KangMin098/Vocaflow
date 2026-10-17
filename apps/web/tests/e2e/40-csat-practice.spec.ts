@@ -7,6 +7,7 @@
 //    분석 이벤트 · 그 밖의 쓰기 요청을 가로채 기록만 한다. 제출 API 는 이 파일 안의 **가짜 서버**가 받는다 —
 //    채점은 실제 정본 함수(gradePractice + gradeClaimSupport)로 한다. 화면이 읽는 것(문항 풀 · 내 기록)은 실제 서버 읽기다.
 // 합성 학습자 검증이다 — 학습 효과를 말하지 않는다.
+// Run: pnpm --filter web test:e2e:r5 (starts the guarded server automatically).
 import { expect, test, type Browser, type BrowserContext, type Page } from '@playwright/test'
 
 import fs from 'node:fs'
@@ -253,7 +254,7 @@ test('학습자: 판정 뒤 「며칠 뒤 다시 보기」 — 서버가 확정�
 test('대체 문항은 2022#20과 다른 실제 정답으로 클릭 · 채점 · 응답이 결속된다', async ({ browser }) => {
   const d = await device(browser)
   await d.page.goto(PRACTICE)
-  const values = await d.page.locator('select option').evaluateAll((es) => es.map((e) => e.value))
+  const values = await d.page.locator('select option').evaluateAll((es) => es.map((e) => (e as HTMLOptionElement).value))
   const alternative = values.find((id) => annotationFor(id)?.claim !== annotationFor('2022#20')!.claim)
   expect(alternative, 'a released item with a different claim key').toBeTruthy()
   await d.page.locator('select').selectOption(alternative!)

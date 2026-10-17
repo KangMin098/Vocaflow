@@ -1,7 +1,7 @@
 // apps/web/src/lib/csat/map/v62/__tests__/r5-reader-independent.test.ts
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { describe, expect, it } from 'vitest'
-import { loadExposureLedger, loadFqReader } from '../exposure-ledger'
+import { loadExposureLedger, loadFqReader, normalizedPassageKey } from '../exposure-ledger'
 import { reservedFromPractice } from '../assessment-exposure'
 
 type Row = Record<string, unknown>
@@ -23,6 +23,12 @@ function reader(opts: { table?: string; rows?: Row[]; count?: number | null; err
 }
 
 describe('R5 independent reader boundaries — no network or writes', () => {
+  it('normalizes source whitespace before JSON escaping and rejects blank strings', () => {
+    expect(normalizedPassageKey('A\n B')).toBe(normalizedPassageKey('a b'))
+    expect(normalizedPassageKey('A\tB')).toBe(normalizedPassageKey('a b'))
+    expect(normalizedPassageKey({ paragraphs: ['A\nB'] })).toBe(normalizedPassageKey({ paragraphs: ['a b'] }))
+    expect(normalizedPassageKey(' \n\t ')).toBeNull()
+  })
   it.each(['learning_task_attempts', 'learning_sessions', 'csat_trap_attempts', 'csat_session_attempts', 'csat_review_queue', 'csat_dx_response'])('partial failure of %s reserves the candidate', async (table) => {
     const { db } = reader({ table, error: { code: 'XX000' } })
     const ledger = await loadExposureLedger(db, 'user-a', ['2022#20'])

@@ -5,7 +5,7 @@ import { CONFIRM_ITEMS, findOutcome, type FindAttemptRow, type FindTarget } from
 const T = (itemRef: string, taskKey = 'claim-support'): FindTarget => ({ itemRef, taskKey })
 const A = (itemRef: string, isCorrect: boolean | null, extra: Partial<FindAttemptRow> = {}): FindAttemptRow => ({
   itemRef, taskKey: 'claim-support', userId: 'u', phase: 'practice', isCorrect, synthetic: false, helpLevel: 'independent',
-  afterViewedFirst: false, afterExplanation: false, ...extra,
+  afterViewedFirst: false, afterExplanation: false, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', ...extra,
 })
 
 describe('findOutcome — 한 번의 오답으로 확정하지 않는다', () => {

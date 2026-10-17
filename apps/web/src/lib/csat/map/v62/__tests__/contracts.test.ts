@@ -25,7 +25,7 @@ const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}?check=1#principle`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const day = (n: number) => new Date(Date.UTC(2026, 8, 1) + n * 86_400_000).toISOString()
-const att = (itemRef: string, ok: boolean, d: number): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater' })
+const att = (itemRef: string, ok: boolean, d: number): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 // B6 · A5 만 기준 시험 문항과 연결 — 나머지 라인 TASK 는 「연결 없음 = 관련성 미확인」
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }

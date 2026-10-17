@@ -17,12 +17,12 @@ const H = 'hash-now'
 const first = (item: string, o: Partial<FindAttemptRow> = {}): FindAttemptRow => ({
   attemptId: `${item}:first`,
   userId: 'u', phase: 'practice', isCorrect: true, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false,
-  itemRef: item, taskKey: KEY, answeredAt: '2026-10-01T00:00:00Z', activity: 'theater', ...o,
+  itemRef: item, taskKey: KEY, answeredAt: '2026-10-01T00:00:00Z', sessionId: 'fixture-session', contentHash: H, expectedContentHash: H, activity: 'theater', ...o,
 })
 const act = (item: string, o: Partial<ActivityRow> = {}): ActivityRow => ({
   attemptId: o.answeredAt ? `${item}:${o.answeredAt}` : `${item}:first`,
   itemRef: item, taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-10-01T00:00:00Z',
-  contentHash: H, activity: 'theater', helpLevel: 'independent', synthetic: false, receivedAt: '2026-10-01T00:00:01Z', ...o,
+  contentHash: H, sessionId: 'fixture-session', activity: 'theater', helpLevel: 'independent', synthetic: false, receivedAt: '2026-10-01T00:00:01Z', ...o,
 })
 const check = (o: Partial<NonNullable<AsIsTask['check']>> = {}): AsIsTask['check'] => ({
   taskKey: KEY, status: 'unverified', independentItems: 1, attemptedItems: 1, verifiedItems: [], wrongItems: [], unseen: [], examSeen: [], verifiedAt: null, ...o,
@@ -67,7 +67,7 @@ describe('LM-G1.4 evidenceView', () => {
     expect(run({ firsts: [first('i1', { helpLevel: null })] }).attempts[0]!.claim).toBe('held')
   })
   it('E08 주석 해시가 바뀜 → STALE · 새 주장 없음', () => {
-    const a = run({ activity: [act('i1', { contentHash: 'old' })] }).attempts[0]!
+    const a = run({ firsts: [first('i1', { contentHash: 'old' })], activity: [act('i1', { contentHash: 'old' })] }).attempts[0]!
     expect(a.fields.instrument).toBe('STALE')
     expect(a.claim).toBe('performed_only')
   })

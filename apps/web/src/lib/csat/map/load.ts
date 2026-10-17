@@ -41,6 +41,7 @@ import { selectReferenceExams, type ExamCandidate, type RefItem } from './target
 import { loadSupplyLedger } from './v62/supply-store'
 import type { SupplyLedger } from './v62/supply-ledger'
 import { compactLedger, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
+import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
 
 type Db = SupabaseClient
@@ -208,8 +209,10 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   // 세부 채점(response.grade = { claim, support, relation } 등) — 「어디서 막혔나」 추적용(find-policy.v2). 못 읽으면 세부 없이 판정한다
   const ids = ((data ?? []) as Record<string, unknown>[]).map((r) => Number(r.attempt_id)).filter(Number.isFinite)
   const partsById = new Map<number, Record<string, boolean>>()
+  const originalById = new Map<string, Record<string, unknown>>()
   if (ids.length) {
-    const { data: rows } = await db.from('learning_task_attempts').select('id,response').eq('user_id', userId).in('id', ids)
+    const { data: rows } = await db.from('learning_task_attempts').select('id,response,session_id,content_hash,task_key,item_ref').eq('user_id', userId).in('id', ids)
+    for (const row of (rows ?? []) as Record<string, unknown>[]) originalById.set(String(row.id), row)
     for (const row of (rows ?? []) as { id: number; response: { grade?: Record<string, unknown> } | null }[]) {
       const g = row.response?.grade
       if (g && typeof g === 'object') partsById.set(Number(row.id), Object.fromEntries(Object.entries(g).filter(([, v]) => typeof v === 'boolean')) as Record<string, boolean>)
@@ -217,7 +220,13 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   }
   const first: FindAttemptRow[] = ((data ?? []) as Record<string, unknown>[]).map((r) => {
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
+    const original = originalById.get(String(r.attempt_id))
+    const task = typeof r.item_ref === 'string' ? currentItemTask(r.item_ref) : null
+    const bound = original?.item_ref === r.item_ref && original?.task_key === r.task_key && original?.session_id === r.session_id
     return {
+    sessionId: bound && typeof r.session_id === 'string' ? r.session_id : null,
+    contentHash: bound && typeof original?.content_hash === 'string' ? original.content_hash : null,
+    expectedContentHash: task && task.def.key === r.task_key ? task.def.hash(task.ann) : null,
     userId: String(r.user_id),
     attemptId: attemptIdentity(r.attempt_id),
     itemRef: String(r.item_ref),
@@ -254,7 +263,7 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
   const data: Record<string, unknown>[] = []
   let cursor: string | null = null
   for (;;) {
-    let query = db.from('learning_task_attempts').select('id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
+    let query = db.from('learning_task_attempts').select('id, session_id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
       .eq('user_id', userId).in('task_key', [...new Set(taskKeys.flatMap(transferKeysOf))]).order('id', { ascending: false }).limit(1000)
     if (cursor !== null) query = query.lt('id', cursor)
     const page = await query
@@ -266,10 +275,10 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
     if ((typeof last === 'number' && !Number.isSafeInteger(last)) || !/^\d+$/.test(String(last)) || String(last) === cursor) throw new Error('Invalid lifecycle cursor')
     cursor = String(last)
   }
-  type Row = { id: unknown; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
+  type Row = { id: unknown; session_id: string | null; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
   return (data as Row[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
-    .map((r) => ({ attemptId: attemptIdentity(r.id), itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
+    .map((r) => ({ attemptId: attemptIdentity(r.id), sessionId: r.session_id, itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {

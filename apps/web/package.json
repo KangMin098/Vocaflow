@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:r5": "playwright test -c playwright.r5-read-only.config.ts",
     "test:e2e:smoke": "playwright test 04-ui-smoke",
     "test:e2e:map-a11y": "tsx --tsconfig scripts/tsconfig.harness.json scripts/build-map-harness.mts && playwright test 43-csat-map-a11y",
     "test:e2e:sweep": "node scripts/e2e-sweep.mjs",
