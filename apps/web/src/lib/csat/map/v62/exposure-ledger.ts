@@ -34,15 +34,17 @@ export function normalizedPassageKey(passage: unknown): string | null {
 }
 
 export async function loadExposureLedger(db: SupabaseClient, userId: string, candidates: readonly string[]): Promise<ExposureLedger> {
-  const [att, sess, trap, paper, queue, dx] = await Promise.all([
+  const [att, sess, trap, paper, queue, dx, dxs] = await Promise.all([
     db.from('learning_task_attempts').select('item_ref, task_key, activity, phase, help_level, session_id, content_hash', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
     db.from('learning_sessions').select('id, item_ref, activity, phase, task_key, deleted_at', { count: 'exact' }).eq('user_id', userId).not('item_ref', 'is', null).limit(LIMIT),
     db.from('csat_trap_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('csat_session_attempts').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('csat_review_queue').select('item_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('csat_dx_response').select('item_id, csat_dx_session!inner(user_id)', { count: 'exact' }).eq('csat_dx_session.user_id', userId).not('item_id', 'is', null).limit(LIMIT),
+    // 응시 회차 — 응답 item_id 가 NULL 이어도 그 시험을 본 것(시험 전체 노출). 후보 중 그 시험 문항을 노출로 넣는다
+    db.from('csat_dx_session').select('exam_id', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
   ])
-  const results: [ExposureSource, { data: unknown; error: unknown; count: number | null }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx]]
+  const results: [ExposureSource, { data: unknown; error: unknown; count: number | null }][] = [['g2_attempt', att], ['g2_session', sess], ['trap', trap], ['paper', paper], ['review_queue', queue], ['dx_response', dx], ['dx_response', dxs]]
   // PostgREST can cap rows below LIMIT. A missing count is not zero.
   const failed = results.filter(([, r]) => r.error || !Array.isArray(r.data) || r.count !== r.data.length || r.data.length >= LIMIT).map(([s]) => s)
   if (failed.length) return { status: 'error', failed }
@@ -61,6 +63,8 @@ export async function loadExposureLedger(db: SupabaseClient, userId: string, can
       if (item) events.push(ev(item, source))
     }
   }
+  const takenExams = new Set((dxs.data as Row[]).map((r) => str(r.exam_id)).filter((x): x is string => !!x))
+  for (const c of candidates) if (takenExams.has(c.split('#')[0])) events.push(ev(c, 'dx_response'))
   const refs = [...new Set([...candidates, ...events.map((e) => e.itemRef)])]
   const exams = [...new Set(refs.map((x) => x.split('#')[0]).filter(Boolean))]
   const passageKeys: Record<string, string> = {}
@@ -127,7 +131,7 @@ export function fqRowVerdict(
 /**
  * 정식 자격(I1 content_qualification) reader. 표가 없으면 not_installed(정상 0건과 구별), 다른 오류는 error.
  * 원장은 관리자 전용 RLS 라 학습자 세션으로는 0행이 보인다 — 적격 판정은 서버 전용 클라이언트(`admin`)로만 읽는다.
- * `admin` 이 없거나 원장 · 승인 · 철회 중 하나라도 못 읽으면 적격 0건(installed) 또는 error — 행이 있다고 적격으로 올리지 않는다.
+ * 후보가 있는데 `admin` 이 없거나 원장 · 대체 · 승인 · 철회 중 하나라도 못 읽거나 잘리면 error — 행이 있다고 적격으로 올리지 않는다.
  * 현재 revision 은 DB 정본 함수 supply_artifact_revision(csat_item) 으로, 현재 주석 해시는 `currentAnnotation` 으로 대 본다.
  */
 export async function loadFqReader(
@@ -142,25 +146,29 @@ export async function loadFqReader(
   if (!Array.isArray(data) || typeof count !== 'number' || count < 0) return { status: 'error' }
   const refs = [...new Set(opts.refs ?? [])]
   const tasks = new Set(opts.tasks ?? [])
-  if (!opts.admin || !opts.currentAnnotation || refs.length === 0 || tasks.size === 0) return { status: 'installed', eligible: [] }
+  if (refs.length === 0 || tasks.size === 0) return { status: 'installed', eligible: [] }
+  // 후보가 있는데 판정 의존성(서버 클라이언트 · 주석 조회)이 없으면 조회 장애 — 정상 0건과 구별한다
+  if (!opts.admin || !opts.currentAnnotation) return { status: 'error' }
   const admin = opts.admin
   const q = await admin.from('content_qualification')
-    .select('id, artifact_kind, artifact_ref, artifact_revision, source_revision, source_hash, gold_revision, gold_hash, task_id, role, axes, annotation_ref, annotation_hash, supersedes')
+    .select('id, artifact_kind, artifact_ref, artifact_revision, source_revision, source_hash, gold_revision, gold_hash, task_id, role, axes, annotation_ref, annotation_hash, supersedes', { count: 'exact' })
     .eq('artifact_kind', 'csat_item').in('artifact_ref', refs).limit(LIMIT)
   // I2 칸이 없으면(42703 · PGRST204) 정본 주석 결속을 확인할 수 없다 — 오류가 아니라 적격 0건
   const qcode = (q.error as { code?: string } | null)?.code
   if (qcode === '42703' || qcode === 'PGRST204') return { status: 'installed', eligible: [] }
-  if (q.error || !Array.isArray(q.data) || q.data.length >= LIMIT) return { status: 'error' }
+  // 반환 상한 · 잘림 — exact count 와 반환량이 다르거나 창을 채우면 부분 원장이다
+  const partial = (r: { data: unknown; count?: number | null }) => !Array.isArray(r.data) || r.count !== r.data.length || r.data.length >= LIMIT
+  if (q.error || partial(q)) return { status: 'error' }
   const rows = q.data as unknown as FqRow[]
   if (rows.length === 0) return { status: 'installed', eligible: [] }
   // 대체된 행 — 같은 정체성의 다른 행이 supersedes 로 가리키는 행. 대체 행이 다른 문항에 있어도 표 전체에서 찾는다
   const ids = rows.map((r) => r.id)
-  const sup = await admin.from('content_qualification').select('supersedes').in('supersedes', ids).limit(LIMIT)
-  const ap = await admin.from('content_release_approval').select('id, qualification_id, scope').in('qualification_id', ids).limit(LIMIT)
-  if (sup.error || ap.error || !Array.isArray(sup.data) || !Array.isArray(ap.data)) return { status: 'error' }
+  const sup = await admin.from('content_qualification').select('supersedes', { count: 'exact' }).in('supersedes', ids).limit(LIMIT)
+  const ap = await admin.from('content_release_approval').select('id, qualification_id, scope', { count: 'exact' }).in('qualification_id', ids).limit(LIMIT)
+  if (sup.error || ap.error || partial(sup) || partial(ap)) return { status: 'error' }
   const approvals = ap.data as unknown as FqApprovalRow[]
-  const rv = approvals.length ? await admin.from('content_release_revocation').select('approval_id').in('approval_id', approvals.map((a) => a.id)).limit(LIMIT) : { data: [], error: null }
-  if (rv.error || !Array.isArray(rv.data)) return { status: 'error' }
+  const rv = approvals.length ? await admin.from('content_release_revocation').select('approval_id', { count: 'exact' }).in('approval_id', approvals.map((a) => a.id)).limit(LIMIT) : { data: [], error: null, count: 0 }
+  if (rv.error || partial(rv)) return { status: 'error' }
   const supersededIds = new Set((sup.data as Row[]).map((x) => String(x.supersedes)))
   const revoked = new Set((rv.data as Row[]).map((x) => String(x.approval_id)))
   const eligible: { ref: string; task: string; role: string; qualificationId: string }[] = []

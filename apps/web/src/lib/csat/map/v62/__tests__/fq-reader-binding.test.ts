@@ -52,7 +52,7 @@ function fake(tables: Record<string, Res>, rpc: Res = { data: REV, error: null }
   const client = {
     from(table: string) {
       calls.push(table)
-      const q = { select: () => q, eq: () => q, in: () => q, limit: () => q, then: (r: (v: Res) => unknown) => Promise.resolve(tables[table] ?? { data: [], error: null }).then(r) }
+      const q = { select: () => q, eq: () => q, in: () => q, limit: () => q, then: (r: (v: Res) => unknown) => { const t = tables[table] ?? { data: [], error: null }; return Promise.resolve('count' in t ? t : { ...t, count: Array.isArray(t.data) ? t.data.length : null }).then(r) } }
       return q
     },
     rpc: () => Promise.resolve(rpc),
@@ -68,8 +68,12 @@ describe('loadFqReader — 학습자 세션이 아니라 서버 전용 클라이
   it('표가 없으면 not_installed', async () => {
     expect(await loadFqReader(fake({ content_qualification: { data: null, error: { code: '42P01' } } }).db, opts)).toEqual({ status: 'not_installed' })
   })
-  it('서버 클라이언트가 없으면 적격 0건(RLS 0행을 「없음」으로 오해하지 않는다)', async () => {
-    expect(await loadFqReader(learner, { ...opts, admin: null })).toEqual({ status: 'installed', eligible: [] })
+  it('후보가 있는데 서버 클라이언트가 없으면 error(정상 0건 · RLS 0행과 구별)', async () => {
+    expect(await loadFqReader(learner, { ...opts, admin: null })).toEqual({ status: 'error' })
+    expect(await loadFqReader(learner, { ...opts, refs: [], admin: null })).toEqual({ status: 'installed', eligible: [] })
+  })
+  it('철회 조회가 반환 상한에 잘리면(exact count ≠ 반환량) error', async () => {
+    expect(await loadFqReader(learner, { ...opts, admin: fake({ ...ledger, content_release_revocation: { data: [], error: null, count: 3 } }).db })).toEqual({ status: 'error' })
   })
   it('결속이 모두 맞으면 역할 · TASK 와 함께 적격', async () => {
     expect(await loadFqReader(learner, { ...opts, admin: fake(ledger).db })).toEqual({ status: 'installed', eligible: [{ ref: '2020#24', task: T, role: 'transfer', qualificationId: 'q1' }] })

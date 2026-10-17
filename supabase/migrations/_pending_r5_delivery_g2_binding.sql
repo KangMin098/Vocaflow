@@ -122,7 +122,9 @@ begin
   if p_delivery is null or p_attempt is null or p_request_key is null then raise exception 'attempt binding: arguments required'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
 
-  -- ① 요청 키 멱등 — 이전 결과는 역사 사실(재판정하지 않는다)
+  -- ① 요청 키 멱등 — 이전 결과는 역사 사실(재판정하지 않는다). 같은 (사용자, 요청 키) 동시 재전송은 잠금으로 직렬화해
+  --    뒤 요청이 고유 제약 오류 대신 앞 요청의 id 를 읽게 한다(잠금 뒤에 조회).
+  perform pg_advisory_xact_lock(hashtextextended('r5-attempt-req|' || v_uid::text || '|' || p_request_key::text, 0));
   select * into prev from workspace_delivery_attempt where user_id = v_uid and request_key = p_request_key;
   if found then
     if (prev.delivery_id, prev.attempt_id) is distinct from (p_delivery, p_attempt) then

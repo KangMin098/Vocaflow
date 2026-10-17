@@ -409,3 +409,41 @@ describe('P1-b — 공급 뒤 · 시도 전 다른 경로 노출은 첫 노출�
     } finally { await db.exec(`alter table public.csat_review_queue_off rename to csat_review_queue`) }
   })
 })
+
+describe('P2 — 같은 요청 키 동시 재전송', () => {
+  it('정의자 함수가 요청 키 잠금을 조회보다 먼저 잡는다(본문 순서)', async () => {
+    const src = (await q1<{ s: string }>(`select prosrc s from pg_proc where proname = 'workspace_delivery_attempt_record'`)).s
+    const lock = src.indexOf("r5-attempt-req|")
+    const read = src.indexOf('request_key = p_request_key')
+    expect(lock).toBeGreaterThan(-1)
+    expect(lock).toBeLessThan(read)
+  })
+
+  it('순차 모사: 앞 요청이 커밋된 뒤 같은 키 · 같은 본문 재전송은 같은 id(오류 아님)', async () => {
+    await db.exec(`insert into public.csat_items values ('RQ#1','RQ',1,'s','Request key passage.','[1]',1)`)
+    const d = await delivered(A, wsA, 'RQ#1')
+    const att = await attempt(A, 'RQ#1')
+    const k = key()
+    const [first, again] = [await bind(A, d.delivery, att, k), await bind(A, d.delivery, att, k)]
+    expect(again).toBe(first)
+  })
+
+  it('위조 선삽입: 다른 경로로 같은 (사용자, 요청 키) 행이 먼저 들어가 있으면 그 id 를 돌려준다', async () => {
+    await db.exec(`insert into public.csat_items values ('RQ#2','RQ',2,'s','Forged request passage.','[1]',1)`)
+    const d = await delivered(A, wsA, 'RQ#2')
+    const att = await attempt(A, 'RQ#2')
+    const k = key()
+    const src = await q1<Record<string, unknown>>(`select * from public.workspace_delivery_attempt where user_id = $1 limit 1`, [A])
+    await as(db, null)
+    await db.exec(`begin; select set_config('vocaflow.supply_writer','rpc',true);
+      insert into public.workspace_delivery_attempt (user_id, workspace_id, plan_version, demand_id, line_id, delivery_id, qualification_id, approval_id,
+        artifact_kind, artifact_ref, task_id, role, artifact_revision, annotation_ref, annotation_hash, attempt_id, session_id, help_state, exposure_key,
+        first_exposure, first_exposed_at, evidence, non_evidence_reason, request_key)
+      select user_id, workspace_id, plan_version, demand_id, line_id, '${d.delivery}', qualification_id, approval_id, artifact_kind, 'RQ#2', task_id, role,
+        artifact_revision, annotation_ref, annotation_hash, ${att}, session_id, help_state, 'item:forged', false, null, false, 'not_first_exposure', '${k}'
+      from public.workspace_delivery_attempt where id = '${src.id}'; commit;`)
+    const forged = (await q1<{ id: string }>(`select id from public.workspace_delivery_attempt where request_key = $1`, [k])).id
+    expect(await bind(A, d.delivery, att, k)).toBe(forged)
+    expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where request_key = $1`, [k])).n).toBe(1)
+  })
+})
