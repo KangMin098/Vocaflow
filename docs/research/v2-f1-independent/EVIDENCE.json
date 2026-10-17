@@ -1,0 +1,107 @@
+{
+    "submittedHead":  "1b025f3fec45e8aed52c77e20f5172d7fc5cb6c4",
+    "productHead":  "80181cb776d35e5d5397eb821ed820775bdebe3d",
+    "verdict":  "ACCEPT_WITH_LIMITS",
+    "browser":  {
+                    "serverCleanup":  {
+                                          "owned":  true,
+                                          "stopped":  true
+                                      },
+                    "fail":  0,
+                    "pass":  214,
+                    "jobs":  14,
+                    "allSourceStable":  true,
+                    "allCleanupVerified":  true
+                },
+    "isolatedPanel":  {
+                          "pass":  50,
+                          "tailwind":  true,
+                          "captureDirty":  true,
+                          "captureHead":  "7991da63a9289ac0c20db5a9f809f8293a8deb28",
+                          "fail":  0,
+                          "actualReleasedV2Flow":  "BLOCKED_CONTENT",
+                          "renderedPanelMetaLabelsTokensUnchangedSinceSubmitted":  true,
+                          "actualMeta":  true
+                      },
+    "broadUnits":  {
+                       "fail":  0,
+                       "partitions":  [
+                                          {
+                                              "sha256":  "dbf836c26f141f549134a47c84c6d60fbf510494c300e8ad7000b436d0a0a428",
+                                              "name":  "unit-00.json"
+                                          },
+                                          {
+                                              "sha256":  "cf6e8bec12e9af4b62a9438428d5001b12b4bebf5104375d6749e82bcf9c9aa3",
+                                              "name":  "unit-01.json"
+                                          },
+                                          {
+                                              "sha256":  "0a392cb145d5e14ca1e2147f77a98645ca50f2d249b9768ce9fd5d1ba8cfe0b4",
+                                              "name":  "unit-02.json"
+                                          },
+                                          {
+                                              "sha256":  "885a854589b3956ab6549fc49de4e8509970e94af1fff52233cef608288a975d",
+                                              "name":  "unit-03.json"
+                                          },
+                                          {
+                                              "sha256":  "b7628703238ba5cdff5b797d7ae3906a593a8100fc6762c76d25c8ecf45e1633",
+                                              "name":  "unit-04.json"
+                                          },
+                                          {
+                                              "sha256":  "d31e9c5563c3b0709d930719117b0133e8bb888b5ca72025f849a9efcd337471",
+                                              "name":  "unit-05.json"
+                                          },
+                                          {
+                                              "sha256":  "841174ae8ce9867a88aee40df994d6f6f3d7daa32d98a09825bbd17de1d0b3a0",
+                                              "name":  "unit-06.json"
+                                          },
+                                          {
+                                              "sha256":  "0e5fbab50a86ba655c17a15da96aa017fd954546450f7ed2a99ab3ec4994edf1",
+                                              "name":  "unit-07.json"
+                                          },
+                                          {
+                                              "sha256":  "bcb0cab1b59d18f04fa763b9444f4796baab36cd5674b627e39d2e2932cf5d19",
+                                              "name":  "unit-08.json"
+                                          },
+                                          {
+                                              "sha256":  "4b5f43774e43d322851536406de2784b18c478b9c513fb6dd73ac514351695fc",
+                                              "name":  "unit-09.json"
+                                          },
+                                          {
+                                              "sha256":  "a63923c4c8af4300212e3a9f8c57b31d177f628d7c665df7a504c8323ff9241b",
+                                              "name":  "unit-10.json"
+                                          }
+                                      ],
+                       "pass":  2615,
+                       "files":  216,
+                       "skip":  0
+                   },
+    "submittedFocusedUnits":  {
+                                  "skip":  0,
+                                  "pass":  30,
+                                  "fail":  0
+                              },
+    "finalServerUnits":  {
+                             "skip":  0,
+                             "pass":  7,
+                             "fail":  0
+                         },
+    "standardTypecheckExit":  0,
+    "targetedLintExit":  0,
+    "purposeReview":  "NO_FINDINGS",
+    "fixed":  [
+                  "P2 F5 current source type / annotation marker mismatch"
+              ],
+    "limits":  [
+                   "F2 evaluation validity unresolved",
+                   "R1 client answered_at first-attempt selection unresolved",
+                   "No active V2 content or actual released V2 vertical",
+                   "No learning-effect or mastery claim"
+               ],
+    "excluded":  [
+                     "First v2-1280 run sourceStable=false",
+                     "Second browser run server readiness timeout",
+                     "First typecheck runner 300s timeout",
+                     "Initial E probe cwd produced zero providers; rerun verified 15",
+                     "Added-test unused parameter lint fixed"
+                 ]
+}

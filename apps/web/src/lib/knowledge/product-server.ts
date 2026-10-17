@@ -107,6 +107,7 @@ export async function anchorGate(itemId: string, client: SupabaseClient = db()):
     const { data, error } = await client.from('csat_items').select('passage, answer, type_id').eq('id', itemId).maybeSingle()
     if (error || !data || typeof data.passage !== 'string' || !Number.isInteger(data.answer) || data.answer < 1 || data.answer > 5) return false
     if (data.type_id !== 'R-VOCAB' && data.type_id !== 'X-VOCAB') return false
+    if (a.markerStyle !== (data.type_id === 'X-VOCAB' ? 'letter' : 'circled')) return false
     return passageRevision(data.passage) === a.sourceRevision && data.answer === a.officialAnswer
   }
   const bound = CURATED[itemId] as (typeof CURATED)[string] & { source?: { revision: string } }

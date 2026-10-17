@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { indexContextualSenseAnnotations, releasable, type ContextualSenseAnnotation } from '../contextual-sense'
 
 const a = (): ContextualSenseAnnotation => ({ version: 'test.v1', itemId: 'T#30', skeletonSig: 'sig', sentenceCount: 8,
-  sourceRevision: 'a'.repeat(64), officialAnswer: 4, targets: [1, 2, 3, 5, 6], misfit: 3,
+  sourceRevision: 'a'.repeat(64), officialAnswer: 4, markerStyle: 'circled', construct: 'lexical_sense', targets: [1, 2, 3, 5, 6], misfit: 3,
   sense: { options: ['decrease', 'increase'], correct: 0, rejectWhy: { 1: 'declining context' } },
   cue: { sentences: [4], accepted: [], reviewed: true },
   review: { status: 'accepted', annotator: 'A', independentReviewer: 'B', reviewerBlind: true, agreement: 'B+D agreed', reviewedAt: '2026-10-17' } })
