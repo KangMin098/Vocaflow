@@ -1,0 +1,117 @@
+{
+  "subject": "working-tree",
+  "server_version": "17.10",
+  "db1_sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+  "submitted": false,
+  "total": 8,
+  "pass": 8,
+  "results": [
+    {
+      "id": "R01",
+      "name": "URL query cannot override validated target/TLS",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "validatorAccepted": false,
+        "driverHost": "127.0.0.1",
+        "driverPort": 55341,
+        "driverSsl": false
+      }
+    },
+    {
+      "id": "R02",
+      "name": "auto + arbitrary approval + isolated CLI cannot write",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "status": 2,
+        "wrote": false
+      }
+    },
+    {
+      "id": "R03",
+      "name": "allowlisted helper may change search_path only, even via event trigger",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "applied": false,
+        "unconditionalAdmin": false,
+        "error": "DEPLOY_BLOCKED[allowlist] existing helper changed beyond approved search_path"
+      }
+    },
+    {
+      "id": "R04",
+      "name": "lost COMMIT acknowledgement is UNKNOWN, never rollback success",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "committed": true,
+        "returned": {
+          "ok": false,
+          "outcome": "unknown",
+          "started_at": "2026-10-17T12:16:53.794Z",
+          "ended_at": "2026-10-17T12:16:54.283Z",
+          "error": {
+            "code": "ECONNRESET",
+            "message": "simulated lost COMMIT acknowledgement"
+          },
+          "notices": [
+            "VF_DEPLOY_OK stage=db1 added=157 changed=2",
+            "there is no transaction in progress"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R05",
+      "name": "history is rechecked inside the locked apply transaction",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "beforeBlocks": [],
+        "applied": false,
+        "error": "DEPLOY_BLOCKED[history] checkpoint(20261014091841) 뒤 새 원격 migration 20261016000000 — 카탈로그를 다시 보고 --accept-remote-after 로 명시"
+      }
+    },
+    {
+      "id": "R06",
+      "name": "DB-2 needs live DB-1 verification, not a forgeable JSON ok flag",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "applied": false,
+        "error": "DEPLOY_BLOCKED[db1-first] live DB-1 verification failed: internal_judges_not_callable"
+      }
+    },
+    {
+      "id": "N01",
+      "name": "concurrent committed DDL is rejected; foreign transaction persists",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "applied": false,
+        "error": "DEPLOY_BLOCKED[allowlist] 허용 목록과 다른 카탈로그 변화 — 추가(목록 밖)={rel:public.ind_concurrent_ddl} · 빠짐=<NULL> · 삭제={} · 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()} (허용 변경={fn:public.is_admin(),fn:public.is_admin_or_curator()})"
+      }
+    },
+    {
+      "id": "N02",
+      "name": "lock acquired after preflight hits real 15s timeout and rolls back",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "error": {
+          "code": "55P03",
+          "message": "canceling statement due to lock timeout"
+        }
+      }
+    }
+  ]
+}

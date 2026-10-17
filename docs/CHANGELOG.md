@@ -28,7 +28,17 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(db): Factory I1 러너 승인 창 경로 — TTY 가 없으면 정본 파일 실행 확인 + `--approval-nonce` 로 승인 티켓을 1회 소비(PR #287). 자동 실행·CI·isolated·복사본·거부/재사용 티켓은 접속 전 종료 2, TTY 경로 유지. 접속 문자열은 셸 → `.env.local` 순. DB-1/DB-2 SQL SHA 불변 · 격리 PG17 47/47.
+
 - feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
+
+- docs(db): DB286을 ACCEPT_WITH_LIMITS·DEPLOY_READY로 기록했다. PostgreSQL 47/33/추가8·CI 생명주기2·집중 단위9, 코드 HEAD 필수 CI8종 및 빈 Supabase 새 실패0을 확인했다. 실제 개발 DB는 미적용이며 새 SHA 승인·DB-1 이력/verify 로그 전에는 safe-merge를 실행하지 않는다.
+
+- fix(ci): DB286 빈 Supabase에서 기존 migration 롤백으로 사라진 helper 두 개의 정본 본문/ACL만 CI 전용으로 복구한다. 운영 SQL 가드/전체 SHA는 불변이며 없는 원천 표는 호출 시 오류로 차단한다. DB-2의 초기 배포 전용 빈 원장 검사도 분리해 정상 원장 1행 보존을 검증했다.
+
+- fix(db): PR #286 독립 검증 — 자동/임의 승인·접속 옵션/포트·helper 속성·COMMIT 미확정·이력 경합·DB-2 검증 반례를 보완하고 #283 B NULL 버전 보완만 동기화했다. 새 DB-1 `061a48a8…`, DB-2 `2165015d…`는 미적용·새 승인 대상. PR CI의 공유 개발 DB 비밀값 전달을 차단했다. [독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md).
+
+- chore(db): Factory I1 배포 패키지 — PR #280 C→B→I1-S 를 원본 바이트 그대로 담은 버전 migration `20261017200000`(DB-1, sha256 `766b8884…`)과 `supabase/migrations` 밖의 I1-P DB-2(`20261017200100`, `7c1cc2ed…`). 가드(이력 · 전제 · 대상 부재 · helper drift · xid 트립와이어 · 커밋 가드 · 카탈로그 diff = 허용 목록) · 러너 `scripts/db/factory-i1/deploy.mjs`(check · dry-run · preflight · apply · verify) · 커밋 뒤 되돌리기 2종. 격리 PostgreSQL 17 배포 절차 47/47 · 배포 파일 위 기존 33조건 33/33. 개발 DB 는 읽기만(checkpoint: DB-1 차단 0). **미적용** — [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)
 
 - fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수·지문 식별 누락 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
 

@@ -1,0 +1,187 @@
+{
+  "package": "factory-i1-deploy",
+  "project_ref": "jajenrevcbmrpaliomxv",
+  "prior_max_version": "20261014091841",
+  "sources": {
+    "C": {
+      "file": "_pending_workspace_supply_c_qualification.sql",
+      "sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66"
+    },
+    "B": {
+      "file": "_pending_workspace_supply_b_orders.sql",
+      "sha256": "2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02"
+    },
+    "S": {
+      "file": "_pending_workspace_supply_i1_safety.sql",
+      "sha256": "cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de"
+    },
+    "P": {
+      "file": "_pending_workspace_supply_i1_partial.sql",
+      "sha256": "79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041"
+    }
+  },
+  "stages": {
+    "db1": {
+      "version": "20261017200000",
+      "name": "factory_i1_db1_supply_foundation",
+      "path": "supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql",
+      "segments": [
+        {
+          "id": "C",
+          "file": "_pending_workspace_supply_c_qualification.sql",
+          "sha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+          "bytes": 14077,
+          "offset": 12067
+        },
+        {
+          "id": "B",
+          "file": "_pending_workspace_supply_b_orders.sql",
+          "sha256": "2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02",
+          "bytes": 32249,
+          "offset": 26726
+        },
+        {
+          "id": "S",
+          "file": "_pending_workspace_supply_i1_safety.sql",
+          "sha256": "cc3d91001fc21800171c8210c3142ea9d6ef35facb7df877f88e4f0a97a3b6de",
+          "bytes": 28207,
+          "offset": 59558
+        }
+      ],
+      "sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+      "bytes": 104441
+    },
+    "db2": {
+      "version": "20261017200100",
+      "name": "factory_i1_db2_partial",
+      "path": "supabase/deploy/factory-i1/db2/20261017200100_factory_i1_db2_partial.sql",
+      "segments": [
+        {
+          "id": "P",
+          "file": "_pending_workspace_supply_i1_partial.sql",
+          "sha256": "79807c38244982389ad2eb25b36350bc7121a84cc10b5ab54a1293b758e95041",
+          "bytes": 11485,
+          "offset": 12186
+        }
+      ],
+      "sha256": "2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b",
+      "bytes": 32678,
+      "requires": {
+        "version": "20261017200000",
+        "sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624"
+      }
+    }
+  },
+  "allowlist": {
+    "db1": {
+      "changed": [
+        "fn:public.is_admin()",
+        "fn:public.is_admin_or_curator()"
+      ],
+      "added": [
+        "con:public.csat_map_goal_version.csat_map_goal_version_id_user_key",
+        "rel:public.csat_map_goal_version_id_user_key",
+        "con:public.learner_workspace.learner_workspace_id_user_key",
+        "rel:public.learner_workspace_id_user_key",
+        "con:public.learner_workspace_plan.learner_workspace_plan_ws_ver_user_key",
+        "rel:public.learner_workspace_plan_ws_ver_user_key",
+        "rel:public.content_qualification",
+        "rel:public.content_release_approval",
+        "rel:public.content_release_revocation",
+        "rel:public.workspace_content_demand",
+        "rel:public.workspace_content_demand_line",
+        "rel:public.factory_order",
+        "rel:public.factory_order_event",
+        "rel:public.workspace_content_delivery",
+        "rel:public.content_qualification_id_artifact_kind_artifact_ref_artifac_key",
+        "rel:public.content_qualification_identity",
+        "rel:public.content_qualification_pkey",
+        "rel:public.content_qualification_supersedes_key",
+        "rel:public.content_release_approval_pkey",
+        "rel:public.content_release_approval_qualification_id_scope_key",
+        "rel:public.content_release_revocation_pkey",
+        "rel:public.factory_order_event_id_seq",
+        "rel:public.factory_order_event_order_id_request_key_key",
+        "rel:public.factory_order_event_order_id_seq_key",
+        "rel:public.factory_order_event_pkey",
+        "rel:public.factory_order_line_id_order_seq_key",
+        "rel:public.factory_order_one_open_per_line",
+        "rel:public.factory_order_pkey",
+        "rel:public.factory_order_user_id_request_key_key",
+        "rel:public.workspace_content_delivery_line_id_artifact_kind_artifact_r_key",
+        "rel:public.workspace_content_delivery_pkey",
+        "rel:public.workspace_content_delivery_user_id_request_key_key",
+        "rel:public.workspace_content_demand_id_user_id_workspace_id_key",
+        "rel:public.workspace_content_demand_line_demand_id_line_no_key",
+        "rel:public.workspace_content_demand_line_demand_id_role_task_id_key",
+        "rel:public.workspace_content_demand_line_id_user_id_workspace_id_role__key",
+        "rel:public.workspace_content_demand_line_pkey",
+        "rel:public.workspace_content_demand_pkey",
+        "rel:public.workspace_content_demand_user_id_signature_key",
+        "fn:public.content_qualification_record(p_rules_version text, p_kind text, p_ref text, p_revision text, p_task text, p_role text, p_axes jsonb, p_source_revision text, p_source_hash text, p_analysis_revision text, p_gold_revision text, p_gold_hash text, p_defects text[], p_evidence_ids text[], p_method text, p_supersedes uuid)",
+        "fn:public.content_release_approve(p_qualification uuid, p_scope text, p_note text)",
+        "fn:public.content_release_revoke(p_approval uuid, p_reason text)",
+        "fn:public.factory_order_open(p_line uuid, p_reason text, p_quantity smallint, p_request_key uuid)",
+        "fn:public.factory_order_state_guard()",
+        "fn:public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text, p_run_id text, p_qualification uuid, p_request_key uuid)",
+        "fn:public.forbid_ledger_mutation()",
+        "fn:public.fq_axes_valid(p jsonb)",
+        "fn:public.fq_role_ok(p jsonb, p_role text)",
+        "fn:public.ledger_writer_guard()",
+        "fn:public.supply_artifact_revision(p_kind text, p_ref text)",
+        "fn:public.supply_delivery_valid(p_delivery uuid)",
+        "fn:public.supply_learner_exposure(p_kind text, p_ref text, p_uid uuid)",
+        "fn:public.supply_writer_guard()",
+        "fn:public.workspace_delivery_record(p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid)",
+        "fn:public.workspace_demand_record(p_canonical text)",
+        "pol:public.content_qualification.cq_admin_read",
+        "pol:public.content_release_approval.cra_admin_read",
+        "pol:public.content_release_revocation.crr_admin_read",
+        "pol:public.factory_order.fo_owner_read",
+        "pol:public.factory_order_event.foe_owner_read",
+        "pol:public.workspace_content_delivery.wcdel_owner_read",
+        "pol:public.workspace_content_demand.wcd_owner_read",
+        "pol:public.workspace_content_demand_line.wcdl_owner_read",
+        "trg:public.content_qualification.content_qualification_append_only",
+        "trg:public.content_qualification.content_qualification_writer",
+        "trg:public.content_release_approval.content_release_approval_append_only",
+        "trg:public.content_release_approval.content_release_approval_writer",
+        "trg:public.content_release_revocation.content_release_revocation_append_only",
+        "trg:public.content_release_revocation.content_release_revocation_writer",
+        "trg:public.factory_order.factory_order_no_delete",
+        "trg:public.factory_order.factory_order_state_guard",
+        "trg:public.factory_order.factory_order_writer",
+        "trg:public.factory_order_event.factory_order_event_append_only",
+        "trg:public.factory_order_event.factory_order_event_writer",
+        "trg:public.workspace_content_delivery.workspace_content_delivery_append_only",
+        "trg:public.workspace_content_delivery.workspace_content_delivery_writer",
+        "trg:public.workspace_content_demand.workspace_content_demand_no_update",
+        "trg:public.workspace_content_demand.workspace_content_demand_writer",
+        "trg:public.workspace_content_demand_line.workspace_content_demand_line_no_update",
+        "trg:public.workspace_content_demand_line.workspace_content_demand_line_writer"
+      ],
+      "addedConstraintTables": [
+        "content_qualification",
+        "content_release_approval",
+        "content_release_revocation",
+        "workspace_content_demand",
+        "workspace_content_demand_line",
+        "factory_order",
+        "factory_order_event",
+        "workspace_content_delivery"
+      ]
+    },
+    "db2": {
+      "changed": [
+        "con:public.factory_order.factory_order_state_check",
+        "rel:public.factory_order_one_open_per_line",
+        "fn:public.factory_order_open(p_line uuid, p_reason text, p_quantity smallint, p_request_key uuid)",
+        "fn:public.factory_order_transition(p_order uuid, p_expected text, p_to text, p_reason text, p_run_id text, p_qualification uuid, p_request_key uuid)"
+      ],
+      "added": [
+        "fn:public.workspace_line_fulfillment(p_line uuid)"
+      ],
+      "addedConstraintTables": []
+    }
+  }
+}

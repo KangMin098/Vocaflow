@@ -1,0 +1,10 @@
+[P1] scripts/db/factory-i1/deploy.mjs:247 — (목적 이탈) — 임의 `--approved-by` 문자열만으로 자동 세션에서도 DB 쓰기가 가능하고 기존 guard도 허용해, 금지한 정책 차단 우회 경로가 생긴다 — 사용자 승인 게이트에 연결하고 자동 실행을 차단한다.
+[P1] scripts/db/factory-i1/deploy.mjs:121 — (결함) — URL 쿼리의 `host`·`port` 재정의를 검사하지 않아 승인 호스트로 검사를 통과하고 다른 서버나 transaction pooler에 연결할 수 있다 — 쿼리 재정의를 거절하고 실제 연결 대상·포트·DB를 검증한다.
+[P1] scripts/db/factory-i1/deploy.mjs:202 — (결함) — 운영 연결의 `rejectUnauthorized: false`가 서버 인증을 끄므로 중간자에게 관리자 자격증명과 배포 SQL이 노출될 수 있다 — 인증서와 호스트 검증을 활성화한다.
+[P1] scripts/db/factory-i1/deploy.mjs:170 — (결함) — 서버가 COMMIT한 뒤 응답 연결이 끊겨도 종료 3과 “롤백됨”을 보고해 잘못된 재시도·복구를 유도한다 — 커밋 결과 불명 상태를 구분하고 읽기 전용 이력 대조 전 재시도·복구를 막는다.
+[P2] scripts/db/factory-i1/deploy.mjs:251 — (결함) — DB-2 선행 검증을 편집 가능한 로컬 JSON의 `verify.ok`로 인정하므로 검증 실패나 이후 DB-1 보안 설정 변경을 놓친다 — DB-2 적용 트랜잭션에서 DB-1의 필수 보안·이력 검증을 다시 실행한다.
+[P2] scripts/db/factory-i1/build.mjs:178 — (결함) — helper 변경을 객체 이름으로만 허용해 승인된 search_path 변경 외에 본문·ACL·소유자 변경도 통과한다 — helper의 적용 전후 속성을 비교해 승인된 설정 변경만 허용한다.
+[P2] scripts/db/factory-i1/deploy.mjs:264 — (결함) — 성공한 배포의 로그를 verify 뒤에 처음 기록하므로 커밋 직후 연결 단절이나 프로세스 종료 시 승인·실행·결과 기록이 사라진다 — 쓰기 전에 실행 기록을 저장하고 커밋 및 검증 결과를 단계별 갱신한다.
+[P2] docs/csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md:155 — (목적 이탈) — 커밋된 기록에는 제출 전 검토만 있고 요구한 최신 main 대비 독립 검증, 필수 CI 8종, 최초·최종 판정과 최종 SHA가 없다 — 해당 증거와 승인 범위 차이, DEPLOY_READY 또는 남은 차단 사유를 기록한다.
+
+[review] 목적 파일: D:\workspace\Vocaflow-factory-i1-deploy-review\.agent-goal.md

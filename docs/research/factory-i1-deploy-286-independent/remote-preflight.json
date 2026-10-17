@@ -1,0 +1,135 @@
+{
+  "project_ref": "jajenrevcbmrpaliomxv",
+  "access": "BEGIN TRANSACTION READ ONLY; SELECT; ROLLBACK",
+  "preflight": {
+    "measured_at": "2026-10-17T12:10:30.571199+00:00",
+    "server_version": "17.6",
+    "database": "postgres",
+    "current_user": "postgres",
+    "history": {
+      "table": true,
+      "count": 722,
+      "max_version": "20261014091841",
+      "versions_after_20261014091841": [],
+      "db1": null,
+      "db2": null
+    },
+    "targets_present": [],
+    "target_functions_present": [],
+    "partial_state": false,
+    "prereq_missing": [],
+    "prereq_fn_missing": [],
+    "helpers": {
+      "is_admin": {
+        "proconfig": "{search_path=public}",
+        "prosecdef": true,
+        "prosrc_md5": "233d6b53d9daa2430d1dc1e6a1ad7db0",
+        "proacl": "{postgres=X/postgres,service_role=X/postgres,anon=X/postgres,authenticated=X/postgres}"
+      },
+      "is_admin_or_curator": {
+        "proconfig": "{\"search_path=public, auth\"}",
+        "prosecdef": true,
+        "prosrc_md5": "e46e5cb4aa65a9e8931a92cc8e0c9a0c",
+        "proacl": "{postgres=X/postgres,service_role=X/postgres,anon=X/postgres,authenticated=X/postgres}"
+      }
+    },
+    "composite_keys_present": [],
+    "writer_privileges": {
+      "create_on_public": true,
+      "insert_history": true,
+      "owns_helpers": true,
+      "owns_dependency_tables": true
+    },
+    "ledger_rows": {
+      "learning_task_attempts": 129,
+      "learning_sessions": 358,
+      "csat_dx_response": 135,
+      "csat_dx_session": 3,
+      "csat_trap_attempts": 83,
+      "csat_session_attempts": 1,
+      "csat_review_queue": 1,
+      "csat_item_attempts": 20
+    },
+    "g2_distinct_pairs": 123,
+    "g2_pairs_unresolved": 0,
+    "history_columns": [
+      "created_by",
+      "idempotency_key",
+      "name",
+      "rollback",
+      "statements",
+      "version"
+    ],
+    "workspace_rows": 0,
+    "event_triggers": [
+      {
+        "name": "graphql_watch_ddl",
+        "event": "ddl_command_end",
+        "tags": null
+      },
+      {
+        "name": "graphql_watch_drop",
+        "event": "sql_drop",
+        "tags": null
+      },
+      {
+        "name": "issue_graphql_placeholder",
+        "event": "sql_drop",
+        "tags": [
+          "DROP EXTENSION"
+        ]
+      },
+      {
+        "name": "issue_pg_cron_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE EXTENSION"
+        ]
+      },
+      {
+        "name": "issue_pg_graphql_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE FUNCTION"
+        ]
+      },
+      {
+        "name": "issue_pg_net_access",
+        "event": "ddl_command_end",
+        "tags": [
+          "CREATE EXTENSION"
+        ]
+      },
+      {
+        "name": "pgrst_ddl_watch",
+        "event": "ddl_command_end",
+        "tags": null
+      },
+      {
+        "name": "pgrst_drop_watch",
+        "event": "sql_drop",
+        "tags": null
+      },
+      {
+        "name": "pgsodium_trg_mask_update",
+        "event": "ddl_command_end",
+        "tags": [
+          "SECURITY LABEL",
+          "ALTER TABLE"
+        ]
+      }
+    ],
+    "seclabels": [
+      {
+        "provider": "pgsodium",
+        "class": "pg_class",
+        "objoid_is_pgsodium_key": true
+      }
+    ],
+    "blocking_locks_on_dependencies": 0,
+    "catalog": {
+      "rows": 7172,
+      "md5": "9698b4976d980563abe65fec26bb1536"
+    }
+  }
+}
