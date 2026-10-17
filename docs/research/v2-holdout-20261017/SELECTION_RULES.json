@@ -1,0 +1,20 @@
+{
+  "revision": "selection-r001",
+  "purpose": "independent evaluation sample preparation only; no instrument pass claim",
+  "expectedPopulation": 51,
+  "population": {"organizer": "kice", "typeIds": ["R-VOCAB", "X-VOCAB"], "query": "all current csat_items joined to csat_exams where organizer=kice and type_id in the two types; no outcome or difficulty filtering"},
+  "pilotExcludedIds": ["2024#30", "2024#42", "2025#30", "2025#42", "2026#30", "2026#42", "M2606#30", "M2606#42", "M2609#30", "M2609#42", "M2706#30", "M2706#42"],
+  "primaryTarget": 12,
+  "reserveTarget": 6,
+  "strata": {"dimensions": ["typeId", "examKind"], "typeIds": ["R-VOCAB", "X-VOCAB"], "examKinds": ["csat", "june", "september"], "primaryPerCell": 2, "reservePerCell": 1},
+  "eligibility": ["nonempty current passage and exact SHA256", "single official answer 1..5 independently matched to answer-source evidence", "current passage fully covered by baked skeleton ranges and all five markers once in order", "source PDF hash and exam form matched to known source anchors", "source body and markers compared to the PDF", "research read-only access available; no original-content redistribution", "not in pilot or a duplicate/near-duplicate of its passages"],
+  "rightsGate": {"researchUse": "authorized local read-only access only; copyright retained", "redistribution": "NOT_AUTHORIZED; public artifacts contain identifiers/hashes/status only", "noLicenseInference": "publicly available and locally possessed are not a license; any unanswered permission issue stays explicit"},
+  "duplicates": {"normalization": "NFKC, strip the five vocabulary markers, lowercase, normalize whitespace and curly quotes", "exact": "SHA256 of normalized text", "near": "set Jaccard similarity of normalized character 5-grams >= 0.80 triggers HOLD_DUPLICATE_REVIEW", "against": "all selected/reserve and pilot passages"},
+  "ordering": {"seed": "Vocaflow/V2/independent-holdout/2026-10-17/r001", "score": "SHA256(seed + '|' + selectionRulesSha256 + '|' + itemId + '|' + sourceRevision)", "withinCell": "ascending hexadecimal score, itemId as final tie-breaker", "globalCellOrder": ["R-VOCAB/csat", "R-VOCAB/june", "R-VOCAB/september", "X-VOCAB/csat", "X-VOCAB/june", "X-VOCAB/september"]},
+  "selection": "after all eligibility statuses are finalized, walk cells in fixed order, admit first two eligible distinct passages as primary and next one as reserve; continue ranked list past duplicates/holds; do not substitute across cells",
+  "shortfalls": "record missing quota and blocking reasons; no silent relaxation, no selecting on future instrument results",
+  "boundaryObservation": {"field": "v2S5Boundary", "initial": "NOT_ASSESSED_PRE_INSTRUMENT", "futureValues": ["V2_PRIMARY", "SENTENCE_LOGIC_BOUNDARY", "AMBIGUOUS", "INSUFFICIENT_EVIDENCE"], "notASelectionFilter": true},
+  "freeze": "seal these exact bytes before fetching population bodies or choosing IDs; freeze audit and selection separately afterwards; amendments are linked new revisions only",
+  "leakage": "do not create or transfer any new contextual sense gold, options or cue annotations until the redesigned instrument is frozen; developer receives only public metadata; later unseen reviewers must disclose prior exposure",
+  "reporting": "no random-sample representativeness or statistical power claim; report counts and exclusions including holds; outcomes are not yet evaluated"
+}

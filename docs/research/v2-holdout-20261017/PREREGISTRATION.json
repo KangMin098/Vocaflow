@@ -1,0 +1,14 @@
+{
+  "revision": "prereg-r001",
+  "rulesSha256": "783a57dc7c0c95acbc9a2d90394c87221b37af63dad867cff985387804a6a6cb",
+  "registeredAt": "2026-10-17 09:06:39 UTC",
+  "baseMain": "9c19f15b1fc911b13040dc01fe5a12fef5af592f",
+  "sessionRole": "metadata/source eligibility and deterministic sample preparation only",
+  "stage": "before population body query and sample selection",
+  "primaryTarget": 12,
+  "reserveTarget": 6,
+  "priorPilotIds": 12,
+  "boundarySemanticAnnotationCreated": false,
+  "newSenseOptionsCreated": false,
+  "newContextualAnswerOrCueGoldCreated": false
+}
