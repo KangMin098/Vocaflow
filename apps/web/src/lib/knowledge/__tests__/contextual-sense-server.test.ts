@@ -47,7 +47,7 @@ describe('V2 server adapter with no actual content', () => {
   it('withholds the entire grade until write confirmation; D never reaches the writer', async () => {
     let finish!: (outcome: 'inserted') => void
     const pendingWrite = new Promise<'inserted'>(resolve => { finish = resolve })
-    const record = vi.fn(async (_w: AttemptWrite) => pendingWrite)
+    const record = vi.fn(async (w: AttemptWrite) => { expect(w.taskKey).toBe('contextual-sense'); return pendingWrite })
     const writer: AttemptWriter = { kind: 'g2', reveal: async () => 's', record, noteExplanationView: async () => true }
     let returned = false
     const result = recordItemTaskAttempt(database(), { id: 'u', email: null }, 'T#30', body(), now, writer).then(r => { returned = true; return r })

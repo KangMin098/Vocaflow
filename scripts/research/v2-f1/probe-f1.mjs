@@ -43,6 +43,11 @@ try {
   }
 } finally { cs.annotationFor = saved }
 rows.push({ id: 'existing E providers preserved under V2 collision', expected: providers.length, actual: providers.filter(p => p.pass).length })
+const practice = sourceModule('apps/web/src/lib/knowledge/practice.ts')
+const now = Date.parse('2026-10-17T09:00:00Z'), backdated = new Date(now - 86400000).toISOString()
+const meta = practice.parseClientMeta({ clientSessionId: '00000000-0000-4000-8000-000000000001', clientMutationId: '00000000-0000-4000-8000-000000000002', helpLevel: 'independent', answeredAt: backdated }, now)
+rows.push({ id: 'R1 remains: backdated metadata accepted', expected: true, actual: meta.ok })
+rows.push({ id: 'R1 remains: later received backdated retry selected first', expected: 2, actual: practice.firstAttempts([{ id: 1, itemId: 'T#30', taskKey: 'contextual-sense', phase: 'practice', answeredAt: new Date(now).toISOString() }, { id: 2, itemId: 'T#30', taskKey: 'contextual-sense', phase: 'practice', answeredAt: backdated }])[0].id })
 const result = { beforeHead, currentHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(), privateDraftCount: drafts.length, draftContentsWritten: false, rows: rows.map(r => ({ ...r, pass: r.expected === r.actual })), providers }
 const out = path.resolve(root, process.argv[2] ?? 'tmp/v2-f1-independent-probe.json')
 if (fs.existsSync(out)) throw Error('Immutable evidence already exists')
