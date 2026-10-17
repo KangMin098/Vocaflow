@@ -30,7 +30,7 @@ const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target
 
 const attempt = (itemRef: string, isCorrect: boolean, answeredAt: string, o: Partial<FindAttemptRow> = {}): FindAttemptRow => ({
   userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect, synthetic: false, helpLevel: 'independent',
-  afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt, activity: 'theater', ...o,
+  afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', ...o,
 })
 
 const base = (o: Partial<AsIsInput> = {}): AsIsInput => ({ asOf: NOW, sessions: [session('s1', '2026-09-01T00:00:00Z', '2026-09-02T00:00:00Z')], axisProxy: proxy('observed'), checks, attempts: [], ...o })

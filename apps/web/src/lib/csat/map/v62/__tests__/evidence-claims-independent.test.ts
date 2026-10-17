@@ -8,8 +8,8 @@ import { evidenceView, type EvidenceInput } from '../evidence-claims'
 const key = checkKeysOfTask('r.central_meaning')[0]!
 type First = FindAttemptRow & { attemptId?: string }
 type Act = ActivityRow & { attemptId?: string }
-const first = (o: Partial<First> = {}): First => ({ attemptId: '1', userId: 'u', itemRef: 'i1', taskKey: key, phase: 'practice', isCorrect: false, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, answeredAt: '2026-10-01T00:00:00Z', activity: 'theater', ...o })
-const act = (o: Partial<Act> = {}): Act => ({ attemptId: '1', itemRef: 'i1', taskKey: key, phase: 'practice', isCorrect: false, answeredAt: '2026-10-01T00:00:00Z', contentHash: 'current', activity: 'theater', helpLevel: 'independent', synthetic: false, receivedAt: '2026-10-01T00:00:01Z', ...o })
+const first = (o: Partial<First> = {}): First => ({ attemptId: '1', userId: 'u', itemRef: 'i1', taskKey: key, phase: 'practice', isCorrect: false, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, answeredAt: '2026-10-01T00:00:00Z', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', activity: 'theater', ...o })
+const act = (o: Partial<Act> = {}): Act => ({ attemptId: '1', itemRef: 'i1', taskKey: key, phase: 'practice', isCorrect: false, answeredAt: '2026-10-01T00:00:00Z', contentHash: 'current', sessionId: 'fixture-session', activity: 'theater', helpLevel: 'independent', synthetic: false, receivedAt: '2026-10-01T00:00:01Z', ...o })
 const run = (o: Partial<EvidenceInput> = {}) => evidenceView({ task: 'r.central_meaning', check: null, firsts: [first()], activity: [act()], hashes: { [`${key}|i1`]: 'current' }, transfer: { done: 0, planned: 2 }, ...o })
 const retry = (o: Partial<Act> = {}) => act({ attemptId: '2', isCorrect: true, answeredAt: '2026-10-02T00:00:00Z', receivedAt: '2026-10-02T00:00:01Z', ...o })
 

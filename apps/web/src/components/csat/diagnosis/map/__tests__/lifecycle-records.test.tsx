@@ -26,6 +26,7 @@ function views(ledger: Ledger[]) {
   for (const r of [...ledger].sort((a, b) => a.at.localeCompare(b.at))) if (!first.has(r.item)) first.set(r.item, r)
   const findAttempts: SkillAttempt[] = [...first.values()].map((r) => ({
     userId: 'u', itemRef: r.item, taskKey: KEY, phase: (r.phase ?? 'practice') as SkillAttempt['phase'], isCorrect: r.ok,
+    activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current',
     synthetic: r.synthetic ?? false, helpLevel: r.help ?? 'independent', afterViewedFirst: false, afterExplanation: false, answeredAt: r.at,
   }))
   const activity: ActivityRow[] = ledger.map((r) => ({ itemRef: r.item, taskKey: KEY, phase: r.phase ?? 'practice', isCorrect: r.ok, answeredAt: r.at }))

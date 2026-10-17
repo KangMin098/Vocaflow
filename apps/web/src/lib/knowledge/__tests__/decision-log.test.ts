@@ -11,7 +11,7 @@ import { decideStep } from '../learning-decision'
 
 const CHAIN = { task: { id: 't', slug: 't', version: 1 }, method: { id: 'm', slug: 'm', version: 1 }, principle: { id: 'p', slug: 'p', version: 1 } }
 const confirm = ['2022#20', '2025#20', '2016#20'].map((itemRef) => ({ itemRef, href: itemRef, label: itemRef }))
-const row = (itemRef: string, isCorrect: boolean) => ({ itemRef, taskKey: 'claim-support', userId: 'u', phase: 'practice' as const, isCorrect, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false })
+const row = (itemRef: string, isCorrect: boolean) => ({ itemRef, taskKey: 'claim-support', userId: 'u', phase: 'practice' as const, isCorrect, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
 const decide = (rows: ReturnType<typeof row>[], chain = CHAIN) =>
   decideStep({ stepKey: 'structure', findTaskId: 'B6-3', outcome: findOutcome(confirm.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' })), rows), chain, confirm, triedItems: rows.map((r) => r.itemRef), practiceHref: '/csat/practice/claim-support' })
 const app = { id: 'a', version: 1, audience: {} }

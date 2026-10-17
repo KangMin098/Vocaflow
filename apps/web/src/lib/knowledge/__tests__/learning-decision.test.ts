@@ -12,7 +12,7 @@ const CHAIN: StepChain = {
 }
 const CONFIRM = ['2022#20', '2025#20', '2016#20'].map((itemRef) => ({ itemRef, href: `/csat/item/${itemRef.replace('#', '-')}#principle`, label: itemRef }))
 const row = (itemRef: string, isCorrect: boolean): FindAttemptRow => ({
-  itemRef, taskKey: 'claim-support', userId: 'u', phase: 'practice', isCorrect, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false,
+  itemRef, taskKey: 'claim-support', userId: 'u', phase: 'practice', isCorrect, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current',
 })
 const input = (rows: FindAttemptRow[], extra: Partial<DecisionInput> = {}): DecisionInput => ({
   stepKey: 'structure',

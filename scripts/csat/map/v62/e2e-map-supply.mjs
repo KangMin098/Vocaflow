@@ -91,7 +91,8 @@ try {
   const a = await learner('a')
   const r1 = await view(a, 'r.central_meaning')
   const check = r1.rows.find((r) => r.role === 'independent_check')
-  rec('① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음', !!r1.demand && check?.state === 'available' && !!r1.next, r1)
+  // #281 E04 — 정식 자격(FQ) reader 가 없으면 기존 확인 문항은 「열 수 있음 · 정식 자격 전」(open_unqualified)이지 available 이 아니다
+  rec('① R5 수요 · 독립 확인 = 기존 출시 확인 문항(열 수 있음 · 정식 자격 전) · 다음 행동 있음', !!r1.demand && check?.state === 'open_unqualified' && check?.step === 'open_unqualified' && !!r1.next, r1)
   // P-F8e — 영속 주문 표(승인안 B)가 없으므로 어떤 줄도 「주문됨 · 만드는 중 · 검수 중 · 보류 · 공급 완료」가 아니다
   const ORDERISH = new Set(['ordered', 'producing', 'reviewing', 'held', 'delivered', 'partially_delivered', 'delivered_count_unknown'])
   rec('①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음', r1.rows.length > 0 && r1.rows.every((r) => r.step && !ORDERISH.has(r.step)) && ['not_installed', 'no_workspace'].includes(r1.ledger), { steps: r1.rows.map((r) => r.step), ledger: r1.ledger })

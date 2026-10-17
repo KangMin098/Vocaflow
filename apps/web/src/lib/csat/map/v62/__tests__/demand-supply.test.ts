@@ -20,7 +20,7 @@ const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}?check=1`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const day = (n: number) => new Date(Date.UTC(2026, 8, 1) + n * 86_400_000).toISOString()
-const att = (itemRef: string, ok: boolean, d: number): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater' })
+const att = (itemRef: string, ok: boolean, d: number): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34), A1: REF.slice(29, 31), A8: REF.slice(28, 29) }
 
@@ -32,7 +32,7 @@ function view(attempts: FindAttemptRow[], asOfDay: number): V4View {
   return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, []) }
 }
 const ctx = { workspaceId: null, planVersion: null, goalVersion: 7 }
-const input = (o: Partial<SupplyInput> = {}): SupplyInput => ({ unseenCheckItems: [], transferItems: [], transferDrafts: 0, study: { items: [], withheld: 0, sharedPassageUnchecked: true }, factoryStock: { 'R-VOCAB': 51060, 'R-GRAMMAR': 15258, 'R-TOPIC': 413 }, ...o })
+const input = (o: Partial<SupplyInput> = {}): SupplyInput => ({ unseenCheckItems: [], transferItems: [], transferDrafts: 0, study: { items: [], withheld: 0, sharedPassageUnchecked: true }, factoryStock: { 'R-VOCAB': 51060, 'R-GRAMMAR': 15258, 'R-TOPIC': 413 }, exposure: { status: 'ok', events: [], passageKeys: {} }, fq: { status: 'not_installed' }, ...o })
 
 describe('P-F1 WorkspaceDemand — 같은 계약으로 R5 · E3 · V2 · S5', () => {
   const v = view([], 12)
@@ -67,12 +67,14 @@ describe('P-F1 WorkspaceDemand — 같은 계약으로 R5 · E3 · V2 · S5', ()
 
 describe('P-F2 공급 판정', () => {
   const v = view([], 12)
-  it('사례 A — R5 독립 확인은 기존 검수 확인 문항(미노출)으로 공급, 새 생산 0', () => {
-    const s = supplyFor(buildDemand(v, 'r.central_meaning', 'ws.central-meaning', ctx), input({ unseenCheckItems: ['i3', 'i4', 'i5'] }))
+  it('사례 A — R5 독립 확인은 기존 출시 확인 문항(미노출)을 「열 수 있음 · 정식 자격 전」으로만 보인다(#281 E04), 새 생산 0', () => {
+    const passageKeys = { i3: 'p3', i4: 'p4', i5: 'p5' }
+    const s = supplyFor(buildDemand(v, 'r.central_meaning', 'ws.central-meaning', ctx), input({ unseenCheckItems: ['i3', 'i4', 'i5'], exposure: { status: 'ok', events: [], passageKeys } }))
     const c = s.lines.find((l) => l.role === 'independent_check')!
-    expect(c.state).toBe('available')
+    expect(c.state).toBe('open_unqualified')
     expect(c.delivered.every((d) => d.source === 'check_task')).toBe(true)
-    expect(c.qualification.assessment).toBe(true)
+    expect(c.qualification.assessment).toBeNull()
+    expect(s.anyAvailable).toBe(false)
   })
   it('사례 B — V2 는 공장 재고가 있어도 「검수 전 후보」이지 학습 가능 · 평가 자격이 아니다', () => {
     const r = buildDemand(view([att('i1', false, 10), att('i2', false, 11)], 12), 'v.contextual_sense', null, ctx)

@@ -7,10 +7,12 @@
 // 「생성 중」은 쓰지 않는다 — 영속 주문 · 작업 큐가 없으므로(P-F0) 부족분은 「생산 경로 확인 필요」로만 돌려준다.
 
 import type { DemandLine, MaterialRole, WorkspaceDemand } from './demand'
+import { unexposedForAssessment, type ExposureLedger, type FqReader } from './assessment-exposure'
 import type { StudyItems } from './study-items'
 
 export type SupplyState =
-  | 'available' // 지금 쓸 수 있는 자료(역할에 필요한 자격 확인됨)
+  | 'available' // 지금 쓸 수 있는 자료(역할에 필요한 자격 확인됨 — 평가 역할은 정식 자격(FQ) reader 가 적격이라 한 것만)
+  | 'open_unqualified' // 기존 공개 경로로 열 수 있고 학습자 미노출이지만 정식 자격(FQ) 미확인 — 독립 평가 공급으로 세지 않는다(#281 E04)
   | 'readable_unreviewed' // 지금 열람할 수 있는 기존 해설 — 교수 적합성(D) 검수 전이라 정식 공급으로 세지 않는다(I1)
   | 'factory_candidate' // 공장 재고는 있으나 이 역할 · TASK 자격 검수 전
   | 'order_spec_possible' // 부족 — 기존 공정 명령으로 생산 명세를 만들 수 있다(실행 · 적재는 별도)
@@ -50,6 +52,10 @@ export interface SupplyInput {
   study: StudyItems
   /** 교재공장 문항 재고(평가원 유형 → 행 수) — 모르면 null */
   factoryStock: Record<string, number> | null
+  /** 학습자 노출 원장(모든 경로) — 확인 · 전이 후보를 다시 거른다. 못 읽었으면 평가 후보 0(unknown) */
+  exposure: ExposureLedger
+  /** 정식 자격(I1) reader — 설치 전이면 not_installed 그대로 */
+  fq: FqReader
 }
 
 const Q = (o: Partial<Qualification>): Qualification => ({ producible: null, rights: null, content: null, teaching: null, assessment: null, learner: null, runnable: null, ...o })
@@ -61,16 +67,12 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
     case 'independent_check':
     case 'delayed_check': {
       if (line.taskKeys.length === 0) return { role: line.role, state: 'unsupported', delivered: [], shortfall: n, qualification: Q({ assessment: false }), reason: '직접 확인 과제(검수된 주석 · 채점)가 아직 없는 TASK' }
-      const got = input.unseenCheckItems.slice(0, n)
-      const q = Q({ producible: true, rights: true, content: true, teaching: true, assessment: true, learner: true, runnable: true })
-      if (line.role === 'delayed_check') return { role: line.role, state: got.length ? 'available' : 'unsupported', delivered: got.map((ref) => ({ ref, source: 'check_task' })), shortfall: Math.max(0, n - got.length), qualification: q, reason: '지연 재확인 = 다른 날 안 본 확인 문항(경과 시간 판정은 기존 규칙)' }
-      return { role: line.role, state: got.length ? 'available' : 'unsupported', delivered: got.map((ref) => ({ ref, source: 'check_task' })), shortfall: Math.max(0, n - got.length), qualification: q, reason: got.length ? '검수된 확인 과제 · 학습자 미노출' : '안 본 확인 문항이 남지 않았다(공장 문항은 평가 자격이 없어 대신 쓰지 않는다)' }
+      return assessmentLine(line.role, n, input.unseenCheckItems, 'check_task', input, line.role === 'delayed_check' ? '지연 재확인 = 다른 날 안 본 확인 문항(경과 시간 판정은 기존 규칙)' : null)
     }
     case 'transfer': {
-      const got = input.transferItems.slice(0, n)
-      if (got.length) return { role: line.role, state: 'available', delivered: got.map((ref) => ({ ref, source: 'transfer_task' })), shortfall: Math.max(0, n - got.length), qualification: Q({ producible: true, rights: true, content: true, teaching: true, assessment: true, learner: true, runnable: true }), reason: '출시된 전이 문항 · 확인 묶음 밖' }
-      if (input.transferDrafts > 0) return { role: line.role, state: 'awaiting_release', delivered: [], shortfall: n, qualification: Q({ producible: true, rights: true, content: true, assessment: true }), reason: `전이 초안 ${input.transferDrafts}개 출시 승인(B7) 대기` }
-      return { role: line.role, state: 'unsupported', delivered: [], shortfall: n, qualification: Q({ assessment: false }), reason: '검수된 전이 문항이 없다 — 맹검 이중 주석 · 원문 결속 · 출시 승인이 필요' }
+      const l = assessmentLine('transfer', n, input.transferItems, 'transfer_task', input, null)
+      if (l.delivered.length === 0 && l.state === 'unsupported' && input.transferDrafts > 0) return { role: line.role, state: 'awaiting_release', delivered: [], shortfall: n, qualification: Q({ producible: true, rights: null, content: null, assessment: null }), reason: `전이 초안 ${input.transferDrafts}개 출시 승인(B7) 대기` }
+      return l
     }
     case 'source_analysis':
     case 'model_explanation': {
@@ -87,6 +89,26 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
       return { role: line.role, state: 'unsupported', delivered: [], shortfall: n, qualification: Q({}), reason: '기출 유형 조건 미확인' }
     }
   }
+}
+
+/**
+ * 평가 역할(독립 확인 · 전이 · 지연) 한 줄. 기존 출시 · 주석 경로 후보를 **모든 노출 원장**으로 다시 거르고(같은 문항 타 TASK · 같은 지문 포함),
+ * 정식 자격 reader 가 적격이라 한 문항만 available. 그 밖은 open_unqualified(열 수 있음 · 자격 미확인) — 7필드를 true 로 채우지 않는다.
+ */
+function assessmentLine(role: MaterialRole, n: number, candidates: readonly string[], source: 'check_task' | 'transfer_task', input: SupplyInput, note: string | null): SupplyLine {
+  const fq: FqReader = input.fq ?? { status: 'error' }
+  const exposure: ExposureLedger = input.exposure ?? { status: 'error', failed: [] }
+  const fqNote = fq.status === 'not_installed' ? '정식 자격 기록 미설치' : fq.status === 'error' ? '정식 자격 기록 조회 실패' : fq.eligible.length === 0 ? '정식 자격 기록 설치됨 · 적격 자료 0건(자격 검증 대기)' : null
+  const pre = note ? `${note} · ` : ''
+  const ex = unexposedForAssessment(candidates, exposure)
+  if (exposure.status !== 'ok') return { role, state: 'needs_review', delivered: [], shortfall: n, qualification: Q({ learner: null }), reason: `${pre}학습자 노출 기록을 다 읽지 못해 처음 보는 문항인지 알 수 없다` }
+  const eligible = fq.status === 'installed' ? new Set(fq.eligible) : new Set<string>()
+  const qualified = ex.unseen.filter((i) => eligible.has(i)).slice(0, n)
+  if (qualified.length) return { role, state: 'available', delivered: qualified.map((ref) => ({ ref, source })), shortfall: Math.max(0, n - qualified.length), qualification: Q({ producible: true, rights: true, content: true, assessment: true, learner: true, runnable: true }), reason: `${pre}정식 자격 확인 · 학습자 미노출` }
+  const open = ex.unseen.slice(0, n)
+  if (open.length) return { role, state: 'open_unqualified', delivered: open.map((ref) => ({ ref, source })), shortfall: n, qualification: Q({ producible: true, rights: null, content: null, teaching: null, assessment: null, learner: true, runnable: true }), reason: `${pre}기존 출시 과제로 열 수 있음 · 학습자 미노출 — ${fqNote ?? '정식 자격 미확인'}` }
+  const why = ex.unknown.length ? `지문 식별을 확인하지 못한 문항 ${ex.unknown.length}개는 처음 보는지 알 수 없어 쓰지 않는다` : ex.exposed.length ? '남은 문항을 이미 다른 경로(연습 · 다른 과제 · 같은 지문)로 봤다' : '연결된 문항이 없다'
+  return { role, state: ex.unknown.length ? 'needs_review' : 'unsupported', delivered: [], shortfall: n, qualification: Q({ assessment: null, learner: false }), reason: `${pre}${why}(공장 문항은 평가 자격이 없어 대신 쓰지 않는다)` }
 }
 
 export interface SupplyResult {
@@ -120,6 +142,7 @@ export function supplyFor(demand: WorkspaceDemand, input: SupplyInput): SupplyRe
 
 export const SUPPLY_STATE_LABEL: Record<SupplyState, string> = {
   available: '지금 쓸 수 있는 자료',
+  open_unqualified: '기존 과제로 열 수 있음 · 정식 자격 확인 전',
   readable_unreviewed: '지금 읽을 수 있는 기존 해설 · 수업용 검수 전',
   factory_candidate: '교재공장 재고 있음 · 이 학습용 검수 전',
   order_spec_possible: '필요한 자료를 만들 수 있는 공정 있음(아직 주문 안 함)',

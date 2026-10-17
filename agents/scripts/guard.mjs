@@ -23,6 +23,7 @@
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
+import { isSingleCommand, parseApply } from './db-approval.mjs'
 import { ROOT, findSecrets, git, isEnvFile, isMain } from './lib.mjs'
 
 const SHELL_TOOLS = /^(Bash|PowerShell|shell|local_shell|exec_command|container\.exec)$/
@@ -180,17 +181,59 @@ function checkEnvRead(verb, args) {
   return hit ? `${verb} ${hit} — .env 계열 출력 금지(값은 스크립트가 --env-file 로 읽는다)` : null
 }
 
-function checkFactoryDeploy(verb, args) {
+/**
+ * 승인형 DB 배포(scripts/db/<id>/deploy.mjs apply) 판정 — db-approval.mjs 와 짝.
+ * asks: 사용자 승인 창 대상(정식 형태) · denies: 승인 창조차 띄우지 않고 거부(티켓 디렉터리 접근 · 변형 호출 · 형식 오류).
+ */
+export function deployApprovals(cmd) {
+  const asks = []
+  const denies = []
+  for (const seg of segments(cmd)) {
+    const h = head(seg)
+    if (!h) continue
+    const { verb, args } = h
+    // 티켓 디렉터리를 순수 조회 외의 동사로 만지면 위조 시도다(cp · sed -i · tee · node · 리다이렉트 포함)
+    if ((!PURE_READ_VERBS.has(verb) || seg.some((t) => /^\d?>/.test(t) || /^-i/.test(t))) && /db-approvals|[\\/]\.vocaflow\b|VF_DB_APPROVAL_DIR/i.test(seg.join(' ')))
+      denies.push(`승인 티켓 디렉터리를 ${verb} 로 접근 — 티켓은 db-approval-hook 만 쓴다`)
+    if (DEPLOY_READ_VERBS.has(verb)) continue // 읽기·검색·git 은 배포 판정을 하지 않는다(오탐 금지)
+    const text = args.join(' ')
+    const hasApply = /\bapply\b/.test(text)
+    if (['node', 'node.exe'].includes(verb)) {
+      const p = parseApply(args)
+      // node 가 deploy(.mjs) 파일을 실행하거나 -e/-p 스크립트가 deploy.mjs 를 부르는 구간만 판정한다(kubectl · vitest 오탐 금지)
+      const runsDeploy = args.some((a) => /(?:^|[\\/])deploy(?:\.mjs)?$/i.test(a)) || (args.some((a) => /^(-e|-p|--eval|--print|--import|-r|--require)$/.test(a)) && /deploy\.mjs/i.test(text))
+      if (p?.ok) asks.push(p)
+      else if (p) denies.push(`DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`)
+      else if (runsDeploy && hasApply)
+        denies.push('DB 배포 apply 가 정식 형태가 아니다 — `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 로만 승인한다')
+    } else if (/scripts[\\/]db[\\/]\S*deploy/i.test(text) && hasApply) {
+      denies.push(`배포 러너 apply 를 ${verb} 로 감싸 실행 — \`node scripts/db/<id>/deploy.mjs apply …\` 형태로만 승인한다`)
+    }
+  }
+  if (asks.length > 1) denies.push('한 명령에 DB 배포 apply 가 둘 이상 — 승인은 한 번에 하나')
+  // 난수가 러너 인자로만 들어가도록 단독 명령만 승인한다(`; echo` 로 난수가 새는 것 · PR #287 재리뷰 P1)
+  else if (asks.length === 1 && !isSingleCommand(cmd))
+    denies.push('DB 배포 apply 는 단독 명령으로만 승인한다 — `;` `&&` `|` `>` `#` 치환·줄바꿈 없이')
+  return { asks: denies.length ? [] : asks, denies }
+}
+
+/** 배포 판정에서 빼는 읽기 전용 동사 — `grep apply scripts/db/x/deploy.mjs` 같은 조회를 막지 않는다 */
+const PURE_READ_VERBS = new Set(['cat', 'type', 'less', 'more', 'head', 'tail', 'grep', 'rg', 'findstr', 'ls', 'dir', 'git', 'gh', 'wc', 'stat', 'get-content', 'gc', 'select-string', 'sls'])
+const DEPLOY_READ_VERBS = new Set([...READERS, 'ls', 'dir', 'git', 'gh', 'find', 'wc', 'diff', 'stat', 'file', 'echo', 'printf', 'test', '['])
+
+function checkDeployApply(verb, args) {
   if (!['node', 'node.exe'].includes(verb)) return null
-  const i = args.findIndex((a) => /(?:^|[\\/])scripts[\\/]db[\\/]factory-i1[\\/]deploy\.mjs$/i.test(a))
-  return i >= 0 && args[i + 1] === 'apply'
-    ? 'Factory I1 DB apply — explicit user DB approval required; --approved-by is audit metadata only'
-    : null
+  const p = parseApply(args)
+  if (!p) return null
+  return p.ok
+    ? `DB 배포 apply(${p.runner} · ${p.stage} · sha ${p.sha}) — 사용자 승인 창에서 허용해야만 실행된다`
+    : `DB 배포 apply 형식 오류(${p.runner}) — ${p.problem}`
 }
 
 /** @returns {string[]} 차단 사유 목록 (빈 배열이면 통과) */
 export function explain(cmd, depth = 0) {
   const reasons = []
+  if (depth === 0) reasons.push(...deployApprovals(cmd).denies)
   for (const seg of segments(cmd)) {
     const h = head(seg)
     if (!h) continue
@@ -207,7 +250,7 @@ export function explain(cmd, depth = 0) {
     const r =
       checkRemove(verb, args) ??
       (verb === 'git' ? checkGit(args) : null) ??
-      checkFactoryDeploy(verb, args) ??
+      checkDeployApply(verb, args) ??
       checkEnvRead(verb, args)
     if (r) reasons.push(r)
   }

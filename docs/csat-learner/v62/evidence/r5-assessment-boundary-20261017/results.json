@@ -1,0 +1,89 @@
+{
+  "suite": "R5 연습 ↔ 독립 평가 경계(e2e-r5-assessment-boundary.mjs)",
+  "head": "dcd070c441ebcc41a62094778e7699df62eba97d",
+  "base": "http://localhost:3121",
+  "startedAt": "2026-10-17T11:38:23.920Z",
+  "endedAt": "2026-10-17T11:38:49.573Z",
+  "browser": "chromium(@playwright/test) · 1280×900 · 1440×900",
+  "population": "기존 검증 계정 1(새 계정 · 기록 없음 · 쓰기 전부 가로챔)",
+  "results": [
+    {
+      "name": "1280 ① 평가 역할 줄이 available/learn_now 아님(FQ 미설치)",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "open_unqualified",
+          "step": "open_unqualified",
+          "text": "독립 확인 · 2개기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+        }
+      ]
+    },
+    {
+      "name": "1280 ① 열 수 있는 평가 줄은 「정식 자격 확인 전」 표시",
+      "ok": true,
+      "detail": [
+        "open_unqualified"
+      ]
+    },
+    {
+      "name": "1280 ② 연습 화면 열림(예약 문항 제외 뒤 남은 문항)",
+      "ok": true,
+      "detail": {
+        "options": 6
+      }
+    },
+    {
+      "name": "1280 ③ 가로 넘침 없음",
+      "ok": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "1440 ① 평가 역할 줄이 available/learn_now 아님(FQ 미설치)",
+      "ok": true,
+      "detail": [
+        {
+          "role": "independent_check",
+          "state": "open_unqualified",
+          "step": "open_unqualified",
+          "text": "독립 확인 · 2개기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+        }
+      ]
+    },
+    {
+      "name": "1440 ① 열 수 있는 평가 줄은 「정식 자격 확인 전」 표시",
+      "ok": true,
+      "detail": [
+        "open_unqualified"
+      ]
+    },
+    {
+      "name": "1440 ② 연습 화면 열림(예약 문항 제외 뒤 남은 문항)",
+      "ok": true,
+      "detail": {
+        "options": 6
+      }
+    },
+    {
+      "name": "1440 ③ 가로 넘침 없음",
+      "ok": true,
+      "detail": {
+        "overflow": 0
+      }
+    },
+    {
+      "name": "쓰기 요청이 실 DB 에 닿지 않음(가로챈 쓰기만 존재)",
+      "ok": true,
+      "detail": {
+        "intercepted": [
+          "POST /api/analytics/event",
+          "PUT /api/csat/state"
+        ]
+      }
+    }
+  ],
+  "pass": 9,
+  "fail": 0
+}

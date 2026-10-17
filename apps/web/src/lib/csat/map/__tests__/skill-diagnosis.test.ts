@@ -9,7 +9,7 @@ const now = new Date('2026-10-20T00:00:00Z')
 const at = (d: number, h = 0) => new Date(Date.UTC(2026, 9, d, h)).toISOString()
 const att = (item: string, ok: boolean, when: string, extra: Partial<SkillAttempt> = {}): SkillAttempt => ({
   userId: 'u', itemRef: item, taskKey: 'claim-support', phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent',
-  afterViewedFirst: false, afterExplanation: false, answeredAt: when, ...extra,
+  afterViewedFirst: false, afterExplanation: false, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', answeredAt: when, ...extra,
 })
 
 describe('확정', () => {

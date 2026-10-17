@@ -15,7 +15,7 @@ const line = (role: DemandLine['role']): DemandLine => ({
   requires: { rightsUsable: true, gold: false, unseenByLearner: false, noExplanationBefore: false }, reuse: true, reason: 'stage_repair',
 })
 const demand = { key: 'wd-iso', template: null, workspaceId: null, goalVersion: 1, planVersion: 1, definitionVersion: 'v6.2', asOf: '2026-10-15T00:00:00Z', core: 'v.contextual_sense', support: [], purpose: { need: null, evidence: 'iso', independentItems: null, unknowns: [] }, lines: [line('guided_practice')] } as unknown as WorkspaceDemand
-const input = (factoryStock: SupplyInput['factoryStock']): SupplyInput => ({ unseenCheckItems: [], transferItems: [], transferDrafts: 0, study: { items: [], withheld: 0, sharedPassageUnchecked: true }, factoryStock })
+const input = (factoryStock: SupplyInput['factoryStock']): SupplyInput => ({ unseenCheckItems: [], transferItems: [], transferDrafts: 0, study: { items: [], withheld: 0, sharedPassageUnchecked: true }, factoryStock, exposure: { status: 'ok', events: [], passageKeys: {} }, fq: { status: 'not_installed' } })
 const LEDGERS: SupplyLedger[] = [{ status: 'not_installed' }, { status: 'no_workspace' }, { status: 'error' }, { status: 'installed', lines: {} }]
 
 describe('E 격리(ISOLATED_CONTRACT_PASS) — 지도 연습 수요 + 공장 재고(테스트 교재) · 검수 자격 없음', () => {

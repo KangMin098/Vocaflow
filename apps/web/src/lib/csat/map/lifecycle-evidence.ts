@@ -12,6 +12,7 @@
 export interface ActivityRow {
   /** Exact learning_task_attempts.id; used only for evidence lineage, not stage policy. */
   attemptId?: string
+  sessionId?: string | null
   /** Server-derived exact passage identity; null means identity unavailable, undefined is legacy input. */
   passageKey?: string | null
   itemRef: string | null

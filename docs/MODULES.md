@@ -1080,6 +1080,8 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 채점은 정본 `claim-support.ts` `gradeClaimSupport`(주석 문항)다. 골격 정답 근거 앵커로 만든 키(골격 문항)는 효과 계산에서 뺀다.
 - 기록은 `learning_task_attempts`에 남긴다: `task_key` `claim-support` / `claim-support-skeleton` · phase practice/transfer · `response.activity='practice'`.
 - 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
+- 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
+- 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
 
 ---
 
@@ -1223,6 +1225,18 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
   - 2026-10-10 큰 틀: 기준 정본 `lib/csat/map/curriculum.ts`(11단계 × 학교급 권장 노출 · 확인 과제 키 · §13 바로잡기 절차 · 적용 방식 · 준비 상태 live/ready/content_needed/blocked) · `StepSheet` 에 생애주기 4칸(`LifecycleStrip`) · 확인 문항 없는 단계의 준비 상태(`StepReadiness`) · 처방 칸 바로잡기 절차(`rx-repair-protocol`) · `LearnerMap` 학교급 선택(잠금 아님 · 이 기기에만 기억). E축 문항 과제 `EvidencePanel`(option-restate · evidence-locate · 합의 주석).
   - 2026-10-11 rev4.0 3차: `PlanSection`(NeedPanel 안 학습 묶음별 학습계획 — 중심/보조 TASK · 학습목표 · 계획 문항(출처 · 규칙 · 가용량) · 수행/남음 · 「다 했다고 보는 기준」과 확인 상태(별도 줄) · 활동 시작 · 순서/계획량 조정(이 기기 초안 · 저장은 승인 대기 명시)) · 목표 순서의 TASK 이름 → 그 TASK 의 묶음 계획. 계산 `lib/csat/map/v4/plan`(정량 ≠ 정성 · 가용 콘텐츠에서만 계획량 · `applyDraft` 는 계획 칸만). 학습자 문장은 코드북 `learner_criterion`(설계 메모 `criterion` 과 분리 · 내부 코드 가드).
   - 2026-10-10 rev4.0 2차: `NeedPanel`(「목표까지 필요한 학습」 — LearnerMap 아래 읽기 전용 · 기준 시험 · 시점 / 시험 기록 · 목표 / 영역별 근거와 세부 상태 / 우선 추천 학습 묶음(단계 4칸 · 실제 문항 수 · 다음 행동 링크) / 목표 관련 확인 · 학습 순서 / 아직 계산하지 않는 것) · `needs.module.css`. 계산 `lib/csat/map/v4`(`definition`(생성물 `definition.data.ts` 정적 import · TASK 30) · `as-is` · `to-be` · `workspace` · `compose`). `graph.pathOf` 가 경로 안 미확정 연결선(`unconfirmed`)을 따로 돌려주고 `LearningMap` 은 그 선을 흐리게(확정 경로처럼 진하게 칠하지 않음). 이벤트 `csat_workspace_opened` · `csat_workspace_suggestion_applied`(DB 허용 목록은 기존).
+
+### R5 연습·독립 평가 경계 독립 보완(2026-10-17 · PR #285)
+
+노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. 현재 `loadFqReader()`는 설치돼 있어도 역할/TASK/hash 자격 판정 연결 전이므로 항상 `eligible: []`이며, 출시 과제 열람은 공급 0인 `open_unqualified`다.
+
+확인과 전이 표본 모두 활동·세션·TASK·현재 hash 결속을 요구한다. 줄바꿈·탭은 JSON 인코딩 전 정규화해 동일 지문을 놓치지 않는다. 읽기 전용 E2E는 `pnpm --filter web test:e2e:r5`로 전용 서버 장벽까지 자동 적용한다.
+
+미노출 전이 후보와 예약 지문을 공유하는 문항도 연습에서 보호한다. 서버가 Workspace·공급에 전달하는 실행 후보는 이 예약 경계를 적용한다. 예약된 연습 전이를 「기존 과제로 풀 수 있음」으로 안내하지 않으며, 이미 노출된 문항은 일반 경험으로 유지한다. 미노출 전이를 보호하는 것과 독립 전이 실행·자격을 확보하는 것은 별개다.
+
+과거 노출 문항의 지문 식별이 누락됐으면 새로운 후보의 미노출을 증명하지 않는다. 화면용 축약 원장은 타 기록 ID 대신 불확실성 플래그만 보존한다. 보호 서버의 기존 주소는 `R5_READ_ONLY_BASE_URL`, 자동 기동 포트는 `R5_READ_ONLY_PORT`로 지정하며 일반 `PLAYWRIGHT_BASE_URL`과 분리한다.
+
+연습 전이는 T4·Workspace·PLAN에서 적용 경험과 운영량으로만 남는다. 효과 신호는 `activity=practice`를 제외하며 전이는 활동·세션·TASK·현재 주석 해시를 `attemptRole()`로 결속한 경우만 적격 후보로 쓴다. 납품↔G2 결속·실제 콘텐츠 자격 승인은 추가하지 않았다. [실패·화면·추적 근거](./research/r5-285-independent-20261017/ACCEPTANCE.md).
 
 ### V2 Instrument 독립 수용 경계(2026-10-17)
 
