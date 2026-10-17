@@ -1,4 +1,5 @@
 node_modules
+/.local/v2-d2-stage1/
 .env.local
 
 # env files

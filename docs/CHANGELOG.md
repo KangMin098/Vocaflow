@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- PR #278 V2 D2 Stage 1 독립 판정 12개를 r001로 봉인했다(명확 11·모호 1·근거 부족 0, 원문 SHA/공식 PDF 12개 대조). [수령증·검수 범위](./research/v2-d2-stage1-20261017/REPORT.md)를 보존하며 Stage 2 미실행·출시 미승인·학습 가능 V2 0개를 유지한다.
+
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
 
 - PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
