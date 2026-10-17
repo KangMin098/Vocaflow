@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { sourceModule } from '../lm-g1-3a-independent/source-loader.mjs'
 
 const root = path.resolve(import.meta.dirname, '../../..')
@@ -18,7 +19,8 @@ new Function('require', 'module', 'exports', ts.transpileModule(original, { comp
 const current = sourceModule(file)
 const dir = process.env.V2_PILOT_PRIVATE_DIR ?? 'D:/workspace/Vocaflow-v2-annotation-pilot/scripts/csat/v2-annotation-pilot/private/annotations'
 if (!fs.existsSync(dir)) throw Error('Private pilot missing; not a PASS')
-const drafts = fs.readdirSync(dir).filter(f => f.endsWith('.draft.json')).map(f => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')))
+const privateInputs = fs.readdirSync(dir).filter(f => f.endsWith('.draft.json')).sort().map(f => fs.readFileSync(path.join(dir, f), 'utf8'))
+const drafts = privateInputs.map(s => JSON.parse(s))
 if (drafts.length !== 12) throw Error('Expected 12 private pilot drafts')
 const leakCount = panel => drafts.filter(a => a.sense.options.some(s => JSON.stringify(panel(a)).includes(s))).length
 const rows = [
@@ -48,7 +50,8 @@ const now = Date.parse('2026-10-17T09:00:00Z'), backdated = new Date(now - 86400
 const meta = practice.parseClientMeta({ clientSessionId: '00000000-0000-4000-8000-000000000001', clientMutationId: '00000000-0000-4000-8000-000000000002', helpLevel: 'independent', answeredAt: backdated }, now)
 rows.push({ id: 'R1 remains: backdated metadata accepted', expected: true, actual: meta.ok })
 rows.push({ id: 'R1 remains: later received backdated retry selected first', expected: 2, actual: practice.firstAttempts([{ id: 1, itemId: 'T#30', taskKey: 'contextual-sense', phase: 'practice', answeredAt: new Date(now).toISOString() }, { id: 2, itemId: 'T#30', taskKey: 'contextual-sense', phase: 'practice', answeredAt: backdated }])[0].id })
-const result = { beforeHead, currentHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(), privateDraftCount: drafts.length, draftContentsWritten: false, rows: rows.map(r => ({ ...r, pass: r.expected === r.actual })), providers }
+const hash = s => createHash('sha256').update(s).digest('hex')
+const result = { beforeHead, currentHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(), beforeSourceHash: hash(original), currentSourceHash: hash(fs.readFileSync(root + '/' + file)), privateInputHashes: privateInputs.map(hash), privateDraftCount: drafts.length, draftContentsWritten: false, rows: rows.map(r => ({ ...r, pass: r.expected === r.actual })), providers }
 const out = path.resolve(root, process.argv[2] ?? 'tmp/v2-f1-independent-probe.json')
 if (fs.existsSync(out)) throw Error('Immutable evidence already exists')
 fs.mkdirSync(path.dirname(out), { recursive: true })
