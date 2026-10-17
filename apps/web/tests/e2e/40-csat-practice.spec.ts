@@ -26,7 +26,7 @@ const USER = {
       throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local')
     })(),
 }
-// 2026-10-10: 주석 문항이 1 → 9개(2026-10-09 적용 확대)가 되어 추천 첫 문항이 바뀌었다 — 이 스펙의 답 키는 2022#20 이라 그 문항을 지정해 연다
+// Request this item; reservation may substitute another released practice item.
 const PRACTICE = '/csat/practice/claim-support?item=2022%2320'
 // Reservation can substitute another item. Bind clicks, grading and expected
 // feedback to the selected item's current annotation AND baked skeleton.
@@ -277,8 +277,9 @@ test('대체 문항은 2022#20과 다른 실제 정답으로 클릭 · 채점 ·
   const d = await device(browser)
   await d.page.goto(PRACTICE)
   const values = await d.page.locator('select option').evaluateAll((es) => es.map((e) => (e as HTMLOptionElement).value))
-  const alternative = values.find((id) => annotationFor(id)?.claim !== annotationFor('2022#20')!.claim)
-  expect(alternative, 'a released item with a different claim key').toBeTruthy()
+  const originalKey = keyFromAnnotation(annotationFor('2022#20')!)
+  const alternative = values.find((id) => JSON.stringify(fixtureFor(id).key) !== JSON.stringify(originalKey))
+  expect(alternative, 'a released item with a different actual claim/support/relation key').toBeTruthy()
   await d.page.locator('select').selectOption(alternative!)
   const key = await answer(d.page)
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()

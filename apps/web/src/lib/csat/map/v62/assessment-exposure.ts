@@ -71,6 +71,16 @@ export function reservedFromPractice(reserved: readonly string[], ledger: Exposu
   return out
 }
 
+/** Protect the same passage under a different practice item ID as well. */
+export function reservedPracticePool(targets: readonly string[], candidates: readonly string[], ledger: ExposureLedger): Set<string> {
+  if (ledger.status !== 'ok') return new Set(candidates)
+  const protectedItems = reservedFromPractice(targets, ledger)
+  if (protectedItems.size === 0) return protectedItems
+  if ([...protectedItems].some(id => !ledger.passageKeys[id])) return new Set([...targets, ...candidates])
+  const protectedPassages = new Set([...protectedItems].map(id => ledger.passageKeys[id]))
+  return new Set([...protectedItems, ...candidates.filter(id => !ledger.passageKeys[id] || protectedPassages.has(ledger.passageKeys[id]))])
+}
+
 /**
  * 화면으로 보낼 최소 원장 — 후보 문항과 같은 문항 · 같은 지문인 노출만, 출처만 남긴다(다른 기록 · 해시 · 세션 id 는 화면에 안 보낸다).
  * exposureOf 결과는 원본 원장과 같다.

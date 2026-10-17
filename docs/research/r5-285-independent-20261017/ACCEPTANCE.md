@@ -19,6 +19,8 @@
 
 ## 예약 보호 검증
 
+목적 리뷰 3차의 [최초 실패](./reservation-round3-initial.log)에서 미노출 전이 후보 `2020#24`와 예약 지문을 공유하는 다른 문항 ID의 연습 우회를 재현했다. 확인 링크와 출시 풀의 전이 후보를 예약 대상으로 삼고, 같은 정규화 지문의 다른 연습 문항도 보호한다. 이미 노출된 문항의 일반 연습은 유지한다. 이 보수적 보류가 실제 독립 전이 실행 경로나 콘텐츠 자격을 만드는 것은 아니다. 빈 상태는 자료 준비를 확인하도록 안내하며 당장 독립 확인을 실행할 수 있다고 약속하지 않는다.
+
 목적 리뷰 1차에서 추가한 실패는 [리뷰 원문](./goal-review-first.log)과 [2차 반례 최초 실패](./review-round2-initial.log)에 보존했다. 확인 phase도 활동·세션·TASK·현재 주석 hash 없이 독립 표본으로 승격되지 않도록 보완했고, reader가 첫 시도 ID에 맞는 원장 메타데이터를 전달한다. T4는 첫 시도와 수행의 세션·과거 hash를 결속하며, 과거 주석의 독립 관찰 사실과 현재 도구 적격성을 구분한다. 원문 문자열의 줄바꿈·탭은 JSON 인코딩 전에 정규화한다. `A B`, `A\nB`, `A\tB`는 같은 지문이며 빈 문자열은 식별 불가다.
 
 `r5-reader-independent`, `r5-reservation-independent`, `practice-server`, `r5-practice-page`가 다음을 격리 더블로 실행한다(네트워크·DB 쓰기 없음).
@@ -44,6 +46,8 @@
 ## FQ 및 공급
 
 `loadFqReader()`는 `42P01/PGRST205=not_installed`, 다른 조회 오류=`error`, 설치 확인 시=`installed, eligible: []`다. 설치됐어도 이 reader에 신뢰된 역할·TASK·hash 자격 검증 경로가 연결되지 않았으므로 적격을 반환하지 않는다. 실제 FQ 행·권리·Gold·자격·승인·공급 행을 생성하지 않았다.
+
+설치 판정은 `GET id, exact count`의 실제 배열·숫자 count를 요구한다. 성공 모양이지만 count가 null인 모호한 응답도 error로 남긴다. [최초 실패](./fq-ambiguous-initial.log)를 보존했다.
 
 Inspector는 미설치/오류/설치 및 적격 0건을 후보 유무와 별개로 표시한다. `open_unqualified`는 열람 후보이며 `fulfillmentOf()`의 공급 수는 0이다. 공급 0·자격 없음이 학습 필요 없음으로 바뀌지 않는다. 2020#24는 계속 검수 후보이며 적격 1건으로 올리지 않았다.
 

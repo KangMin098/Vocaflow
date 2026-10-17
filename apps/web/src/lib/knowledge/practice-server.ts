@@ -41,7 +41,7 @@ import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
 import { crossSessionHelp, type CrossSession } from './prior-help'
 import { kstDateOf, kstReviewDate } from './review-date'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication, loadMapPracticeLinks } from './product-server'
-import { reservedFromPractice, type ExposureLedger } from '@/lib/csat/map/v62/assessment-exposure'
+import { reservedPracticePool, type ExposureLedger } from '@/lib/csat/map/v62/assessment-exposure'
 import { loadExposureLedger } from '@/lib/csat/map/v62/exposure-ledger'
 import { canRevealItem, embargoedItemIds } from '@/lib/csat/embargo-gate'
 
@@ -131,19 +131,21 @@ export async function practiceHrefsBeyond(itemIds: string[]): Promise<Record<str
  * #281 E01 · 4 — 연습 ↔ 독립 확인 경계. 지도가 독립 확인 문항으로 쓰는 문항(어느 과제 키든)은, 이 학습자가 아직 어떤 경로로도
  * 보지 않은 동안 연습에서 뺀다(연습이 확인 재고를 소모해 「처음 본 문항」 판정을 거짓으로 만들지 않게).
  * 노출 원장 · 연결을 못 읽으면 확인 문항 전부를 예약으로 본다(fail-closed — 연습이 비면 화면이 대체 안내를 보인다).
- * 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다 — 공급 판정(supplyFor)이 노출을 따로 거른다.
+ * 미노출 전이 후보도 예약한다. 같은 지문을 공유한 다른 문항 ID도 보호한다.
  */
 export async function practiceReservation(userId: string, client: SupabaseClient = admin()): Promise<{ status: 'ok' | 'error'; reserved: Set<string> }> {
+  const pool = await serverPool({ preview: false }, client)
+  const candidates = pool.map(p => p.itemId)
   let targets: string[]
   try {
     const links = await loadMapPracticeLinks(client)
-    targets = [...new Set(Object.values(links).flatMap((l) => l.confirm.map((c) => c.target)))]
+    targets = [...new Set([...Object.values(links).flatMap((l) => l.confirm.map((c) => c.target)), ...pool.filter(p => p.phase === 'transfer').map(p => p.itemId)])]
   } catch (e) {
     console.error('[csat-practice reservation links]', e)
-    return { status: 'error', reserved: new Set((await serverPool({ preview: false }, client)).filter((p) => p.phase === 'practice').map((p) => p.itemId)) }
+    return { status: 'error', reserved: new Set(candidates) }
   }
-  const ledger = await loadExposureLedger(client, userId, targets).catch((e): ExposureLedger => { console.error('[csat-practice reservation ledger]', e); return { status: 'error', failed: [] } })
-  return { status: ledger.status === 'ok' ? 'ok' : 'error', reserved: reservedFromPractice(targets, ledger) }
+  const ledger = await loadExposureLedger(client, userId, [...new Set([...targets, ...candidates])]).catch((e): ExposureLedger => { console.error('[csat-practice reservation ledger]', e); return { status: 'error', failed: [] } })
+  return { status: ledger.status === 'ok' ? 'ok' : 'error', reserved: reservedPracticePool(targets, candidates, ledger) }
 }
 
 /** 화면용 풀 — 정답 키 없음 */

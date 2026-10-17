@@ -45,7 +45,8 @@
     ".next-learner/types/**/*.ts",
     ".next-dev-3000/types/**/*.ts",
     ".next-integrated-verify/types/**/*.ts",
-    ".next-csat-source-verify/types/**/*.ts"
+    ".next-csat-source-verify/types/**/*.ts",
+    ".next-r5-read-only/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
