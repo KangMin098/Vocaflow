@@ -106,6 +106,7 @@ export async function annotationCases(db: SqlDb) {
   check('old G2 hash and synthetic exposure block same learner', /exposure/.test(await rejectedSupply(await line()) ?? ''))
   check('G2 content_hash not rewritten', (await one(`select content_hash h from learning_task_attempts where user_id=$1`, [me])).h === H2)
   // SET ROLE exercises actual ACLs; no superuser bypass is used for these attack calls.
+  await as(other)
   await db.query(`set role authenticated`)
   check('authenticated cannot bypass wrapper', /permission denied|does not exist/.test(await err(`select workspace_delivery_record_i1(null,null,null,null,null)`) ?? ''))
   check('authenticated cannot call current helper', /permission denied|does not exist/.test(await err(`select supply_annotation_matches(null)`) ?? ''))
@@ -113,7 +114,7 @@ export async function annotationCases(db: SqlDb) {
     check('authenticated cannot read current registry', /permission denied/.test(await err(`select * from supply_current_annotation`) ?? ''))
     check('authenticated cannot forge current registry', /permission denied/.test(await err(`insert into supply_current_annotation values ('I2#24','r.central_meaning',$1,'forged',$1)`, [H2]) ?? ''))
     check('authenticated cannot TRUNCATE current registry', /permission denied/.test(await err(`truncate supply_current_annotation`) ?? ''))
-    check('other learner delivery hidden by RLS', Number((await one(`select count(*) n from workspace_content_delivery where user_id=$1`, [other])).n) === 0)
+    check('other learner delivery hidden by RLS', Number((await one(`select count(*) n from workspace_content_delivery where user_id=$1`, [me])).n) === 0)
   }
   await db.query(`reset role`)
   await db.query(`set role anon`)
