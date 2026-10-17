@@ -1,0 +1,45 @@
+{
+  "engine": "local PGlite only",
+  "pendingFileSha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+  "pendingFileModified": false,
+  "remoteChanges": false,
+  "auth": "fixed admin fixture; not a real RLS or permission test",
+  "rows": [
+    {
+      "id": "SQL01",
+      "scope": "original pending C/local admin fixture",
+      "expected": "missing state rejected",
+      "actual": "qualification and public approval inserted",
+      "safetyPass": false,
+      "reproduced": true
+    },
+    {
+      "id": "proposal:missing_A",
+      "pass": true
+    },
+    {
+      "id": "proposal:null_A",
+      "pass": true
+    },
+    {
+      "id": "proposal:nonobject_A",
+      "pass": true
+    },
+    {
+      "id": "proposal:invalid_A",
+      "pass": true
+    },
+    {
+      "id": "proposal:nonobject_root",
+      "pass": true
+    },
+    {
+      "id": "proposal:legacy_null_role_rejected",
+      "pass": true
+    },
+    {
+      "id": "proposal:valid_positive",
+      "pass": true
+    }
+  ]
+}

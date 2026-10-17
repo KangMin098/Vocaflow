@@ -1,0 +1,38 @@
+{
+  "engine": "disposable local PGlite",
+  "pendingFileSha256": "dd940568ef7170212bf23ac9f7fb89bb090e8f529eeb4c26bb9ccdbc1e503f66",
+  "helperSnapshotSha256": "0e8563ebb7214722bc5d4f6787348cf2aa550ab1635ed22161a2f65c37c6b207",
+  "pendingFileModified": false,
+  "remoteChanges": false,
+  "scope": "Fixed authenticated identity; not live RLS or real approval verification",
+  "rows": [
+    {
+      "id": "AUTH01",
+      "expected": "authenticated user without profile rejected",
+      "actual": "qualification and approval inserted",
+      "safetyPass": false,
+      "reproduced": true,
+      "helper": null
+    },
+    {
+      "id": "original:learner_profile_rejected",
+      "pass": true
+    },
+    {
+      "id": "proposal:no_profile_record_rejected",
+      "pass": true
+    },
+    {
+      "id": "proposal:no_profile_approve_rejected",
+      "pass": true
+    },
+    {
+      "id": "proposal:no_profile_revoke_rejected",
+      "pass": true
+    },
+    {
+      "id": "proposal:admin_positive",
+      "pass": true
+    }
+  ]
+}

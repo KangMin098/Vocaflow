@@ -1,0 +1,50 @@
+[
+  {
+    "file": "screens/map-1280.png",
+    "source": "regression-r2/v2-1280/01-v2-pop.png",
+    "sha256": "948eb37c094e03df2f31691000ce2c46352eeafc2e77704dbb4f503281df8e9a",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/map-1440.png",
+    "source": "regression-r2/v2-1440/01-v2-pop.png",
+    "sha256": "d39bafe965285e67c304973540292281903243f4a3100bfb2ecdea2f216f5e6c",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/drawer-1280.png",
+    "source": "regression-r2/v2-1280/02-v2-drawer.png",
+    "sha256": "a7b58945a8cb9b60ea125253d3aa722696484abb933432bd75d7171fe3d89379",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/drawer-1440.png",
+    "source": "regression-r2/v2-1440/02-v2-drawer.png",
+    "sha256": "d13c6228ae98c227058d1233fcf02ae73d553137c04dba5e818b1dfb912f765c",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/r5-1280.png",
+    "source": "regression-r2/t4-1280/04-01-find-failed-pop.png",
+    "sha256": "76c3f8eb0cb93fe0717111540874fbf5608a4ff67d4b74788f93aad5cf07e930",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/r5-1440.png",
+    "source": "regression-r2/t4-1440/04-01-find-failed-pop.png",
+    "sha256": "f60c8b886adabe2a94e6088bde6d15f988f8816bae7ea2c53214427cfbe79f31",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/plan-1280.png",
+    "source": "regression-r2/t2-1280/03-00-start-plan.png",
+    "sha256": "4e1bbe2828281e53fe40c62777df8ad7106484263e1483e75b594cf2d86c3414",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  },
+  {
+    "file": "screens/plan-1440.png",
+    "source": "regression-r2/t2-1440/03-00-start-plan.png",
+    "sha256": "a5610bb2098d821dbc786ce066294cd7ab91ea519089a45828bf2388b0a8add3",
+    "scope": "actual app / synthetic account; no factory screen or production"
+  }
+]
