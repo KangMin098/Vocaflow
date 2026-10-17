@@ -1,0 +1,81 @@
+{
+  "schema": "vf.factory-i2-independent-source/1",
+  "items": [
+    {
+      "itemId": "2020#24",
+      "annotation": {
+        "file": "apps/web/src/lib/knowledge/annotations/claim-support-2020-24.v1.json",
+        "fileSha256": "7e90b2b2abcc7c5b65717c39364d6eb4bfe7a1ff4eb7f813354efa1c65adeeae",
+        "annotationHash": "72c534f8543a48f0212a842c4943589a3662d4f5449e0bee92eb51112ac02441",
+        "version": "claim-support-2020-24.v1"
+      },
+      "skeleton": {
+        "sig": "6b2493db6e785ee2995570d57a1da0b162f5210ee48021e1b223dd82fb1b4983",
+        "sentences": 6,
+        "matchesAnnotation": true
+      },
+      "db": {
+        "passageSha256": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c",
+        "bRevision": "665745b76f720932afd513e9242ed756be6c1d546f5c4d7de054aea824d3a8e8",
+        "answer": 2
+      },
+      "officialPdf": {
+        "sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66",
+        "page": 3,
+        "pages": 8,
+        "passageContiguous": true,
+        "windows8": 39,
+        "windows8Found": 39,
+        "choices": 5,
+        "choicesFound": 5,
+        "choicesInOrder": true,
+        "choicesInOrderCount": 5
+      },
+      "officialAnswerKey": {
+        "sha256": "141d60da75f830fac0c2198935734571d67a750b10fed032ce732700796011d9",
+        "form": "짝수",
+        "page": 2,
+        "answer": 2,
+        "matchesDb": true
+      }
+    },
+    {
+      "itemId": "2021#24",
+      "annotation": {
+        "file": "apps/web/src/lib/knowledge/annotations/claim-support-2021-24.v1.json",
+        "fileSha256": "7955f7f8637f0f781054e9fb06b02b30919c73dd40e79741112c9e2b8ad82029",
+        "annotationHash": "fccf9f19ebcd87bcf1bcf01505de233d8ace161275ad69b8aa3f06c08eee4236",
+        "version": "claim-support-2021-24.v1"
+      },
+      "skeleton": {
+        "sig": "6e68f96eebe929d53349d7fc498f9d3f259c764ef2d1a65d470752f0bca3531a",
+        "sentences": 10,
+        "matchesAnnotation": true
+      },
+      "db": {
+        "passageSha256": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274",
+        "bRevision": "5788f7ae0ecb47fe71196983e0772f90deb834080e3e2e97b9b3ce796c9cd98c",
+        "answer": 3
+      },
+      "officialPdf": {
+        "sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634",
+        "page": 3,
+        "pages": 8,
+        "passageContiguous": true,
+        "windows8": 44,
+        "windows8Found": 44,
+        "choices": 5,
+        "choicesFound": 5,
+        "choicesInOrder": true,
+        "choicesInOrderCount": 5
+      },
+      "officialAnswerKey": {
+        "sha256": "fee1202e324cfa0287561549b74d53311c3b299445534df6b39155f6e9ac0b00",
+        "form": "짝수",
+        "page": 2,
+        "answer": 3,
+        "matchesDb": true
+      }
+    }
+  ]
+}

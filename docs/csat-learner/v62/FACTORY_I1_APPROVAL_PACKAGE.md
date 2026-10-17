@@ -1,6 +1,7 @@
 # Factory I1 — 개발 DB 적용 전 승인 패키지
 
 > **상태: 승인 대기 · 미적용.** 개발 DB(`jajenrevcbmrpaliomxv`)에 이 패키지의 어떤 SQL 도 적용하지 않았다. RLS · RPC · 데이터 변경 0.
+> **#283 독립 후속**: 보류 B의 수요 버전 검사 한 줄을 NULL도 거절하도록 고쳤다. 아래 B 해시는 제출 당시 값이며 현재 파일의 적용 승인으로 쓸 수 없다. 새 B+주석 결속 v2의 정확한 해시·대상·재검증은 [#283 독립 수용](../../research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md)의 PG 증거를 따른다. 기존 적용 승인을 상속하지 않는다.
 > 격리 PostgreSQL(PGlite · 실제 PostgreSQL 17 임시 클러스터)에서만 검증했다 — **격리 통과는 개발 DB 적용 성공이 아니다.**
 > 보안 감사: [FACTORY_I1_SECURITY_AUDIT.md](./FACTORY_I1_SECURITY_AUDIT.md) · 결정 대기: [FACTORY_I1_PENDING_DECISIONS.md](./FACTORY_I1_PENDING_DECISIONS.md)
 > **독립 검증: 제출본의 적용 준비 판정은 철회.** R01–R04·NULL 축·경합·부분 승인 롤백을 재현 후 수정했다. 현재 판정과 한계는 [독립 수용 기록](../../research/factory-i1-280-independent/ACCEPTANCE.md)이 정본이다. 아래 §10은 제출 당시 기록을 보존한다.

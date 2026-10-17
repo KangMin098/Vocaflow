@@ -1,3 +1,4 @@
+# .github/workflows/ci.yml
 name: CI
 
 on:
@@ -27,6 +28,8 @@ jobs:
       # 두 에이전트 설정 불변식(AGENTS.md 단일 출처 · MCP 생성물 드리프트 · 비밀값 0) + 훅·잠금·인수인계 회귀
       - run: node agents/scripts/check.mjs
       - run: node --test agents/scripts/__tests__/*.test.mjs
+      # Factory I2: source choices are ordinal, and the entire current item revision must stay bound.
+      - run: node --test scripts/research/factory-i2-r5-qualification/verify-content.test.mjs
       # 기출분석 공개 정본 가드 — 커밋된 산출물만 읽는다(원문 입력 없이 돈다). 공개 비교 쌍의 양쪽 결속 · 독립 pass · 상대 유형 · 탐구 공개 가드
       - run: node --test scripts/csat/__tests__/compare-v3-binding.test.mjs scripts/csat/__tests__/compare-v3-types.test.mjs scripts/csat/__tests__/compare-v3-guard.test.mjs scripts/csat/__tests__/inquiry-review-guard.test.mjs scripts/csat/__tests__/meaning-support-schema.test.mjs scripts/csat/__tests__/meaning-support-public.test.mjs scripts/csat/__tests__/meaning-support-artifact.test.mjs scripts/csat/__tests__/meaning-support-isolated-seed.test.mjs scripts/csat/__tests__/meaning-support-isolated-gate-fault.test.mjs
 
