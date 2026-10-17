@@ -1,0 +1,260 @@
+{
+  "measuredAt": "2026-10-17T09:43:46.419424+00:00",
+  "exposureByItem": [
+    {
+      "item": "2016#20",
+      "embargoed": false,
+      "g2Attempts": 14,
+      "allSessions": 14,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2020#20",
+      "embargoed": false,
+      "g2Attempts": 13,
+      "allSessions": 13,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2020#24",
+      "embargoed": false,
+      "g2Attempts": 0,
+      "allSessions": 0,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2021#20",
+      "embargoed": false,
+      "g2Attempts": 14,
+      "allSessions": 14,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2021#24",
+      "embargoed": false,
+      "g2Attempts": 0,
+      "allSessions": 0,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 26,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2022#20",
+      "embargoed": false,
+      "g2Attempts": 16,
+      "allSessions": 16,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2025#20",
+      "embargoed": false,
+      "g2Attempts": 13,
+      "allSessions": 13,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 6,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2026#20",
+      "embargoed": false,
+      "g2Attempts": 13,
+      "allSessions": 14,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "2026#23",
+      "embargoed": false,
+      "g2Attempts": 0,
+      "allSessions": 8,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 1,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "M2506#20",
+      "embargoed": false,
+      "g2Attempts": 13,
+      "allSessions": 13,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "M2606#20",
+      "embargoed": false,
+      "g2Attempts": 15,
+      "allSessions": 15,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "M2609#20",
+      "embargoed": false,
+      "g2Attempts": 14,
+      "allSessions": 14,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    },
+    {
+      "item": "M2609#23",
+      "embargoed": false,
+      "g2Attempts": 0,
+      "allSessions": 0,
+      "dxResponses": 0,
+      "reviewQueue": 0,
+      "trapAttempts": 0,
+      "paperAttempts": 0,
+      "dxExamSessions": 0,
+      "deletedSessions": 0
+    }
+  ],
+  "privateHelpers": [
+    {
+      "body": "\n  select exists (select 1 from public.csat_ec_capture_session c where c.exam_id = p_exam and c.status in ('held', 'collecting'))\n      or exists (select 1 from public.csat_ec_capture_tombstone t where t.exam_id = p_exam and t.closed_at is null)\n",
+      "name": "exam_answer_embargoed",
+      "volatility": "s"
+    },
+    {
+      "body": "\n  select csat_ec_private.any_embargo()\n     and exists (select 1 from public.csat_items i where i.id = p_item and csat_ec_private.exam_answer_embargoed(i.exam_id))\n",
+      "name": "item_answer_embargoed",
+      "volatility": "s"
+    }
+  ],
+  "factoryFunctions": [],
+  "otherOrderTables": {
+    "product_order": false,
+    "factory_product_order": false,
+    "textbook_product_order": false,
+    "factory_order_product_link": false
+  },
+  "trapDetail": [
+    {
+      "item": "2016#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2020#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2020#24",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2021#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2021#24",
+      "trapRows": 26,
+      "trapLearners": 1,
+      "trapOnlyLearners": 1
+    },
+    {
+      "item": "2022#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2025#20",
+      "trapRows": 6,
+      "trapLearners": 1,
+      "trapOnlyLearners": 1
+    },
+    {
+      "item": "2026#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "2026#23",
+      "trapRows": 1,
+      "trapLearners": 1,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "M2506#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "M2606#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "M2609#20",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    },
+    {
+      "item": "M2609#23",
+      "trapRows": 0,
+      "trapLearners": 0,
+      "trapOnlyLearners": 0
+    }
+  ]
+}

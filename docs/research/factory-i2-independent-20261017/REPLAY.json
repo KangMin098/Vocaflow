@@ -1,0 +1,388 @@
+{
+  "schema": "vf.factory-i2-independent-replay/1",
+  "pr281": "b2edad0bcbd4680cd2136bf78222d1f93c488fc9",
+  "archivedInputs": {
+    "snapshotSha256": "9b1ab491fbc52566357efc39474d657387a2b4572ef2baaa4368565d0357efb6",
+    "revisionsSha256": "95e5c5eabb0310f99b76e562b95e30b71a77d6bf149d78e223daa88ec19133a8",
+    "i0Ref": "pr277",
+    "i0Head": "6b91ae010a0a7a3085466621aafc926af39d7ed5",
+    "i0Blobs": {
+      "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",
+      "material-unit.ts": "ee00dd949636e2f4605914368b0154bb5538e95c"
+    }
+  },
+  "archivedAuditSha256": "b0de63be5ad4056db4724ae6cb3c7c64271e0fd27e18e1ceb981a733f4993390",
+  "pinnedReplay": {
+    "head": "6b91ae010a0a7a3085466621aafc926af39d7ed5",
+    "blobs": {
+      "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",
+      "material-unit.ts": "ee00dd949636e2f4605914368b0154bb5538e95c"
+    },
+    "firstSha256": "b222ae036ee8868ef41026f86c8cf415a591bd3e951e21109ac5ed4288231f1c",
+    "secondSha256": "b222ae036ee8868ef41026f86c8cf415a591bd3e951e21109ac5ed4288231f1c",
+    "equalIgnoringRefSpelling": true,
+    "failures": []
+  },
+  "latestReplay": {
+    "inputs": {
+      "snapshotSha256": "9b1ab491fbc52566357efc39474d657387a2b4572ef2baaa4368565d0357efb6",
+      "revisionsSha256": "95e5c5eabb0310f99b76e562b95e30b71a77d6bf149d78e223daa88ec19133a8",
+      "i0Ref": "origin/pr-277",
+      "i0Head": "4a853dca73da95df5872b7b45e28e97520be38a5",
+      "i0Blobs": {
+        "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",
+        "material-unit.ts": "ee00dd949636e2f4605914368b0154bb5538e95c"
+      }
+    },
+    "sameI0Results": true,
+    "failures": []
+  },
+  "freshReplay": {
+    "inputs": {
+      "snapshotSha256": "d47ed34570c1841c4cfdc3dcc199ea9e95aae050e3698cc12e0c35c9a9698e91",
+      "revisionsSha256": "864333407de98eb4bed6f34e0ecec3dbc8e2ff8d03f2a41c119876afd2dbd82c",
+      "i0Ref": "origin/pr-277",
+      "i0Head": "4a853dca73da95df5872b7b45e28e97520be38a5",
+      "i0Blobs": {
+        "stock-resolver.ts": "688a75d56f67a6f1bf81f893ec0e160f418d8257",
+        "material-unit.ts": "ee00dd949636e2f4605914368b0154bb5538e95c"
+      }
+    },
+    "measuredAt": "2026-10-17T09:38:07.161089+00:00",
+    "snapshotEqualExceptTimestamp": true,
+    "revisionsEqual": true,
+    "byRole": {
+      "source_analysis": {
+        "candidates": 113,
+        "candidateBasis": "평가원 R5 4유형 골격 115문항 중 공개 v3 해설(보류 2014A#24 · 2014B#23 · 학평 공개 보류)",
+        "existingPathAvailable": null,
+        "existingPathBasis": "v3 해설 공개분 — 학습자별 노출 규칙(study-items: 확인 문항을 먼저 풀어야 열림)으로 개인마다 다름",
+        "i2Eligible": 0,
+        "i2Blocker": "C 미설치 · D(교수 적합성) unknown — supplyFor 의 available 은 teaching null"
+      },
+      "model_explanation": {
+        "candidates": 113,
+        "candidateBasis": "같은 v3 해설(역할만 다름 — 별도 자료 아님)",
+        "existingPathAvailable": null,
+        "existingPathBasis": "source_analysis 와 같음",
+        "i2Eligible": 0,
+        "i2Blocker": "같음"
+      },
+      "guided_practice": {
+        "candidates": 13,
+        "candidateBasis": "claim-support 연습 풀 = 출시된 13 주석 문항(practice-server serverPool)",
+        "existingPathAvailable": 13,
+        "existingPathBasis": "/csat/practice/claim-support — 평가 자료와 같은 문항",
+        "i2Eligible": 0,
+        "i2Blocker": "C 미설치 · D unknown · 같은 문항을 평가에 쓰면 노출 충돌"
+      },
+      "independent_check": {
+        "candidates": 9,
+        "candidateBasis": "claim-support 확인(active · B7)",
+        "existingPathAvailable": 9,
+        "existingPathBasis": "신규 학습자 기준(노출 0) — 개인별로 시도 · 해설 · 연습 노출 제외",
+        "i2Eligible": 0,
+        "i2Blocker": "C/B 미설치 · F/E unknown · assessment 승인 원장 없음"
+      },
+      "transfer": {
+        "candidates": 4,
+        "candidateBasis": "claim-support 전이(active · B7)",
+        "existingPathAvailable": 4,
+        "existingPathBasis": "신규 학습자 기준 — 2026#23 은 option-restate 확인으로도 출시(같은 문항 두 역할)",
+        "i2Eligible": 0,
+        "i2Blocker": "같음"
+      },
+      "delayed_check": {
+        "candidates": 0,
+        "candidateBasis": "전용 자료 없음 — supply.ts 가 안 본 확인 문항을 재사용",
+        "existingPathAvailable": 0,
+        "existingPathBasis": "최소 지연 미구현(R5_VERTICAL_ACCEPTANCE R15) — 실행기 없음",
+        "i2Eligible": 0,
+        "i2Blocker": "실행기 · 지연 규칙 없음"
+      }
+    },
+    "i0": {
+      "actual": {
+        "independent_check": {
+          "role": "independent_check",
+          "task": "r.central_meaning",
+          "requested": 2,
+          "line": "not_installed",
+          "eligible": [],
+          "counts": {
+            "eligible_existing": 0,
+            "candidate_unreviewed": 0,
+            "awaiting_release": 0,
+            "blocked_rights": 0,
+            "blocked_gold": 0,
+            "blocked_exposure": 0,
+            "blocked_runner": 0
+          },
+          "newProductionNeeded": null,
+          "verdicts": []
+        },
+        "transfer": {
+          "role": "transfer",
+          "task": "r.central_meaning",
+          "requested": 1,
+          "line": "not_installed",
+          "eligible": [],
+          "counts": {
+            "eligible_existing": 0,
+            "candidate_unreviewed": 0,
+            "awaiting_release": 0,
+            "blocked_rights": 0,
+            "blocked_gold": 0,
+            "blocked_exposure": 0,
+            "blocked_runner": 0
+          },
+          "newProductionNeeded": null,
+          "verdicts": []
+        }
+      },
+      "afterI1NoFq": {
+        "independent_check": {
+          "role": "independent_check",
+          "task": "r.central_meaning",
+          "requested": 2,
+          "line": "insufficient_quantity",
+          "eligible": [],
+          "counts": {
+            "eligible_existing": 0,
+            "candidate_unreviewed": 9,
+            "awaiting_release": 0,
+            "blocked_rights": 0,
+            "blocked_gold": 0,
+            "blocked_exposure": 0,
+            "blocked_runner": 0
+          },
+          "newProductionNeeded": 2,
+          "verdicts": [
+            {
+              "ref": "2016#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2020#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2021#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2022#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2025#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2026#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "M2506#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "M2606#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "M2609#20",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            }
+          ]
+        },
+        "transfer": {
+          "role": "transfer",
+          "task": "r.central_meaning",
+          "requested": 1,
+          "line": "insufficient_quantity",
+          "eligible": [],
+          "counts": {
+            "eligible_existing": 0,
+            "candidate_unreviewed": 4,
+            "awaiting_release": 0,
+            "blocked_rights": 0,
+            "blocked_gold": 0,
+            "blocked_exposure": 0,
+            "blocked_runner": 0
+          },
+          "newProductionNeeded": 1,
+          "verdicts": [
+            {
+              "ref": "2020#24",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2021#24",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "2026#23",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            },
+            {
+              "ref": "M2609#23",
+              "state": "candidate_unreviewed",
+              "missing": [
+                "qualification"
+              ]
+            }
+          ]
+        }
+      },
+      "counterexamples": {
+        "control_all_pass_fixture": {
+          "line": "satisfied",
+          "need": 0,
+          "verdicts": [
+            "2020#24:eligible_existing:"
+          ]
+        },
+        "already_attempted": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_exposure:learner:attempted"
+          ]
+        },
+        "explanation_only": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_exposure:learner:explanation_seen"
+          ]
+        },
+        "shared_passage_seen": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_exposure:learner:shared_passage_seen"
+          ]
+        },
+        "same_passage_second_item": {
+          "line": "satisfied",
+          "need": 0,
+          "verdicts": [
+            "2020#24:eligible_existing:",
+            "2021#24:blocked_exposure:shared_passage"
+          ]
+        },
+        "exposure_unknown": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_exposure:learner:unknown"
+          ]
+        },
+        "annotation_or_item_revision_changed": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:candidate_unreviewed:revision_mismatch"
+          ]
+        },
+        "release_revoked": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:awaiting_release:approval:public+approval:assessment"
+          ]
+        },
+        "rights_unknown": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:candidate_unreviewed:rights"
+          ]
+        },
+        "gold_unknown": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_gold:E"
+          ]
+        },
+        "runner_unsupported": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:blocked_runner:runner:none"
+          ]
+        },
+        "role_mismatch_check_result_for_transfer": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:candidate_unreviewed:role_mismatch"
+          ]
+        },
+        "read_error": {
+          "line": "read_error",
+          "need": null,
+          "verdicts": []
+        },
+        "conflicting_duplicate_row": {
+          "line": "insufficient_quantity",
+          "need": 1,
+          "verdicts": [
+            "2020#24:candidate_unreviewed:conflicting_candidate",
+            "2020#24:candidate_unreviewed:approval:public+approval:assessment+conflicting_candidate"
+          ]
+        }
+      },
+      "binding": {
+        "ownerChangesSignature": true,
+        "goalVersionChangesSignature": true,
+        "planVersionChangesSignature": true,
+        "resolverChecksOwnership": false,
+        "note": "해결기는 학습자 · 목표 · PLAN 을 보지 않는다 — 소유권은 B RLS(미설치) · 목표/PLAN 은 수요 서명(새 수요)으로만 갈린다. 실제 거부는 I1 설치 뒤 서버 시험 대상"
+      }
+    },
+    "verdict": {
+      "i2EligibleTotal": 0,
+      "unknownPromoted": 0,
+      "failures": []
+    }
+  }
+}
