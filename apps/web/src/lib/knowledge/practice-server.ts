@@ -40,7 +40,9 @@ import {
 import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
 import { crossSessionHelp, type CrossSession } from './prior-help'
 import { kstDateOf, kstReviewDate } from './review-date'
-import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
+import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication, loadMapPracticeLinks } from './product-server'
+import { reservedFromPractice, type ExposureLedger } from '@/lib/csat/map/v62/assessment-exposure'
+import { loadExposureLedger } from '@/lib/csat/map/v62/exposure-ledger'
 import { canRevealItem, embargoedItemIds } from '@/lib/csat/embargo-gate'
 
 /** 정본 주석이 있는 문항 — claim-support.ts 의 주석 레지스트리에서 만든다(손 목록이면 주석을 늘려도 연습 풀이 1문항에 머문다) */
@@ -123,6 +125,25 @@ export async function practiceHrefsBeyond(itemIds: string[]): Promise<Record<str
   const pool = await serverPool({ preview: false }, admin())
   const href = `/csat/practice/${PRACTICE_SLUG}`
   return Object.fromEntries(itemIds.map((id) => [id, pool.some((e) => e.itemId !== id) ? href : null]))
+}
+
+/**
+ * #281 E01 · 4 — 연습 ↔ 독립 확인 경계. 지도가 독립 확인 문항으로 쓰는 문항(어느 과제 키든)은, 이 학습자가 아직 어떤 경로로도
+ * 보지 않은 동안 연습에서 뺀다(연습이 확인 재고를 소모해 「처음 본 문항」 판정을 거짓으로 만들지 않게).
+ * 노출 원장 · 연결을 못 읽으면 확인 문항 전부를 예약으로 본다(fail-closed — 연습이 비면 화면이 대체 안내를 보인다).
+ * 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다 — 공급 판정(supplyFor)이 노출을 따로 거른다.
+ */
+export async function practiceReservation(userId: string, client: SupabaseClient = admin()): Promise<{ status: 'ok' | 'error'; reserved: Set<string> }> {
+  let targets: string[]
+  try {
+    const links = await loadMapPracticeLinks(client)
+    targets = [...new Set(Object.values(links).flatMap((l) => l.confirm.map((c) => c.target)))]
+  } catch (e) {
+    console.error('[csat-practice reservation links]', e)
+    return { status: 'error', reserved: new Set((await serverPool({ preview: false }, client)).filter((p) => p.phase === 'practice').map((p) => p.itemId)) }
+  }
+  const ledger = await loadExposureLedger(client, userId, targets).catch((e): ExposureLedger => { console.error('[csat-practice reservation ledger]', e); return { status: 'error', failed: [] } })
+  return { status: ledger.status === 'ok' ? 'ok' : 'error', reserved: reservedFromPractice(targets, ledger) }
 }
 
 /** 화면용 풀 — 정답 키 없음 */
@@ -224,11 +245,21 @@ export interface SubmitDeps {
   writer: AttemptWriter
   pool: (opts: { preview: boolean }) => Promise<ServerEntry[]>
   answer: (itemId: string) => Promise<number | null>
+  /** #281 — 이 학습자에게 아직 독립 확인으로 예약된 문항(연습 금지). 미리보기는 묻지 않는다 */
+  reserved?: (userId: string) => Promise<Set<string>>
+}
+
+/** 연습 풀에 있고, 미리보기가 아니면 예약 문항이 아닌가 — 화면을 우회한 직접 요청도 서버가 막는다 */
+async function entryFor(deps: SubmitDeps, userId: string, itemId: string, preview: boolean): Promise<ServerEntry> {
+  const entry = (await deps.pool({ preview })).find((p) => p.itemId === itemId)
+  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  if (!preview && deps.reserved && (await deps.reserved(userId)).has(itemId)) throw new PracticeInputError('이 문항은 먼저 확인 과제로 풀어야 해요 — 연습으로 먼저 보면 처음 보는 문항 확인에 쓸 수 없어요', 409)
+  return entry
 }
 
 export function defaultSubmitDeps(): SubmitDeps {
   const db = admin()
-  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id) }
+  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id), reserved: async (u) => (await practiceReservation(u, db)).reserved }
 }
 
 /** 복습 예약 간격(일) — 닫힌 목록. 화면 버튼과 같다 */
@@ -246,8 +277,7 @@ export async function schedulePracticeReview(
   r: { itemId: string; clientSessionId: string; days: number; finishedAt: string; preview: boolean },
 ): Promise<{ reviewAt: string; reviewDate: string; requestedDate: string; kept: boolean; outcome: 'applied' | 'duplicate' }> {
   if (!(REVIEW_DAYS as readonly number[]).includes(r.days)) throw new PracticeInputError('예약 간격을 다시 골라 주세요')
-  const entry = (await deps.pool({ preview: r.preview })).find((p) => p.itemId === r.itemId)
-  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  const entry = await entryFor(deps, who.userId, r.itemId, r.preview)
   const at = r.finishedAt
   // 「N일 뒤」 = 한국 달력 날짜 · 저장은 그 날 KST 00:00(review-date)
   const { date: requestedDate, iso: reviewAt } = kstReviewDate(r.finishedAt, r.days)
@@ -292,8 +322,7 @@ export async function notePracticeView(
   who: { userId: string; synthetic: boolean },
   v: { itemId: string; clientSessionId: string; viewedAt: string; preview: boolean },
 ): Promise<boolean> {
-  const entry = (await deps.pool({ preview: v.preview })).find((p) => p.itemId === v.itemId)
-  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  const entry = await entryFor(deps, who.userId, v.itemId, v.preview)
   return deps.writer.noteExplanationView({
     userId: who.userId,
     taskKey: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
@@ -323,8 +352,7 @@ export async function submitPractice(
   who: { userId: string; synthetic: boolean },
   s: PracticeSubmission,
 ): Promise<{ outcome: 'inserted' | 'duplicate'; feedback: PracticeFeedback }> {
-  const entry = (await deps.pool({ preview: s.preview })).find((p) => p.itemId === s.itemId)
-  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  const entry = await entryFor(deps, who.userId, s.itemId, s.preview)
   const rangeErr = checkAnswerRange(entry.key, s)
   if (rangeErr) throw new PracticeInputError(rangeErr)
   const grade = gradePractice(gradeClaimSupport, entry.key, s)

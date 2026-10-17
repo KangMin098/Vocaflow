@@ -40,6 +40,8 @@ import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type Ma
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 import { loadSupplyLedger } from './v62/supply-store'
 import type { SupplyLedger } from './v62/supply-ledger'
+import { compactLedger, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
+import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
 
 type Db = SupabaseClient
 
@@ -106,6 +108,10 @@ export interface MapV4Input {
   saved: SavedPlans
   /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
   supplyLedger: Record<string, SupplyLedger>
+  /** #281 E01 — 확인 · 전이 후보의 학습자 노출(모든 원장 · 같은 지문). 못 읽으면 error — 평가 후보 0 */
+  assessmentExposure?: ExposureLedger
+  /** #281 E04 — 정식 자격(I1) reader 상태. 설치 전이면 not_installed */
+  fqReader?: FqReader
   /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
   target?: { goal: GoalVersion | null; scope: { exam: GoalExam | null; status: ScopeStatus; reason: string | null; exams: { id: string; label: string }[] } }
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
@@ -505,6 +511,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     Object.values(saved.byTemplate).map(async (w) => [w.workspaceId, await loadSupplyLedger(db, userId, w.workspaceId).catch((e) => { console.error('[csat-map v62 supply ledger]', e); return { status: 'error' } as SupplyLedger })] as const),
   ))
 
+  // #281 E01 · E04 — 확인 · 전이 후보의 노출(모든 원장)과 정식 자격 reader. 실패는 error 로 남겨 화면이 「미노출」로 보지 않게 한다
+  const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
+  const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), assessCandidates)
+  const fqReader = await loadFqReader(db).catch((): FqReader => ({ status: 'error' }))
+
   return {
     now: now.toISOString(),
     // 관찰값을 싣지 않은 이유 — 보류 시험 기록(held) · 판정 실패(failed). 화면이 「기록 없음」 으로 오해하지 않게(v3 M1)
@@ -517,6 +528,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       transferTargets,
       saved,
       supplyLedger,
+      assessmentExposure,
+      fqReader,
       // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
       target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
       viewer: userId,

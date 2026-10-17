@@ -23,7 +23,11 @@ const USER = {
 // 2026-10-10: 주석 문항이 1 → 9개(2026-10-09 적용 확대)가 되어 추천 첫 문항이 바뀌었다 — 이 스펙의 답 키는 2022#20 이라 그 문항을 지정해 연다
 const PRACTICE = '/csat/practice/claim-support?item=2022%2320'
 const ITEM = '2022#20'
+// 가짜 서버는 이 키로 채점한다(화면 ↔ 제출 계약 검증 — 어느 문항이 열렸든 같은 답 흐름).
+// 2026-10-17(#281): 이 계정이 아직 안 본 확인 문항은 연습에서 예약돼 빠진다 — ?item= 이 예약이면 화면은 이미 본 다른 주석 문항을 연다.
+//   그래서 제출 itemId 는 「주석 문항 중 하나이며 요청한 문항이거나 대체 문항」 으로 확인한다(계정 기록에 따라 달라진다)
 const KEY = keyFromAnnotation(annotationFor(ITEM)!)
+const isAnnotated = (id: unknown) => typeof id === 'string' && annotationFor(id) !== null
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
 
@@ -133,7 +137,8 @@ test('학습자: 검증 전 문항은 안 보이고, 풀이 → 판정(정답 �
   await expect(d.page.getByText(/주장: 문장 2 · 근거: 문장 4, 5 \(맞음\)/)).toBeVisible()
   expect(d.submits).toHaveLength(1)
   const s = d.submits[0]
-  expect(s).toMatchObject({ itemId: ITEM, claim: 1, support: [3, 4], relation: 'reason', option: 5, confidence: 3, helpLevel: 'independent', preview: false })
+  expect(isAnnotated(s.itemId)).toBe(true)
+  expect(s).toMatchObject({ claim: 1, support: [3, 4], relation: 'reason', option: 5, confidence: 3, helpLevel: 'independent', preview: false })
   expect(typeof s.answeredAt).toBe('string')
   expect(String(s.clientMutationId)).toMatch(/^[0-9a-f-]{36}$/)
   expect(String(s.clientSessionId)).toMatch(/^[0-9a-f-]{36}$/)

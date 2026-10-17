@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.
+
 - Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
 
 - Factory I1 승인 패키지(미적용): 공급 노출 판정에 G2 · 세션 · 함정 · 복습 원장 포함, 승인 범위(public + assessment) · 철회 직렬화 · 수량 상한, 부분 납품(partial) · 공용 Product Order 계보(별도 승인) SQL 과 생성된 되돌리기. 격리 PGlite 37 · 실제 PostgreSQL 동시성 8/8. 앱은 검수 전 해설을 「지금 읽을 수 있음 · 수업용 검수 전」으로 분리.

@@ -135,6 +135,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
     transferDrafts: 0,
     study,
     factoryStock: null,
+    // #281 E01 · E04 — 모든 원장 노출로 다시 거르고, 정식 자격 reader 상태를 그대로 쓴다(없으면 모름 — 미노출 · 적격으로 보지 않는다)
+    exposure: data.v4?.assessmentExposure ?? { status: 'error', failed: [] },
+    fq: data.v4?.fqReader ?? { status: 'error' },
   })
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)

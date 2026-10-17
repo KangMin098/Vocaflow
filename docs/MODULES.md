@@ -1080,6 +1080,8 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 채점은 정본 `claim-support.ts` `gradeClaimSupport`(주석 문항)다. 골격 정답 근거 앵커로 만든 키(골격 문항)는 효과 계산에서 뺀다.
 - 기록은 `learning_task_attempts`에 남긴다: `task_key` `claim-support` / `claim-support-skeleton` · phase practice/transfer · `response.activity='practice'`.
 - 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
+- 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
+- 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
 
 ---
 

@@ -361,3 +361,25 @@ describe('세션을 건너온 도움 — 쓰기는 사실 그대로 · 읽을 �
     await expect(schedulePracticeReview({ ...deps(fakeWriter().writer), db: fakeDb([]).db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 1, finishedAt: '2026-10-08T23:00:00.000Z', preview: false })).rejects.toThrow('확인 실패')
   })
 })
+
+describe('#281 연습 ↔ 독립 확인 경계 — 서버가 예약 문항 제출을 막는다', () => {
+  const reservedDeps = (writer: AttemptWriter, reserved: string[]): SubmitDeps => ({ ...deps(writer), reserved: async () => new Set(reserved) })
+  it('아직 안 본 확인 문항(예약)은 연습 제출 · 해설 열람 · 복습 예약 모두 409, 기록이 남지 않는다', async () => {
+    const f = fakeWriter()
+    await expect(submitPractice(reservedDeps(f.writer, ['2022#20']), { userId: 'u1', synthetic: false }, SUB)).rejects.toMatchObject({ status: 409 })
+    await expect(schedulePracticeReview(reservedDeps(f.writer, ['2022#20']), { userId: 'u1', synthetic: false }, { itemId: '2022#20', clientSessionId: SUB.clientSessionId, days: 1, finishedAt: SUB.answeredAt, preview: false })).rejects.toMatchObject({ status: 409 })
+    expect(f.calls).toEqual([])
+  })
+  it('예약이 아닌(이미 확인으로 본) 문항은 그대로 제출된다', async () => {
+    const f = fakeWriter()
+    await submitPractice(reservedDeps(f.writer, ['2019#99']), { userId: 'u1', synthetic: false }, SUB)
+    expect(f.calls).toEqual(['reveal', 'record'])
+  })
+  it('관리자 미리보기는 예약을 묻지 않는다(기록은 synthetic)', async () => {
+    const f = fakeWriter()
+    const reserved = vi.fn(async () => new Set(['2022#20']))
+    await submitPractice({ ...deps(f.writer), reserved }, { userId: 'u1', synthetic: false }, { ...SUB, preview: true })
+    expect(reserved).not.toHaveBeenCalled()
+    expect(f.writes[0].synthetic).toBe(true)
+  })
+})
