@@ -23,7 +23,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- V2-F2 Codex-G R2: 불변 R1 기준으로 설계 대조 8건·contextSwap 12개를 별도 봉인했다. 정답 일치 6/모호 2, 대조 문장 불성립 2, 후보 PASS 0이며 소유자 지목 R1과 세션 R1의 SHA 차이를 구분 기록했다. [R2 검수](./research/v2-f2-r1-review-20261017/R2_REPORT.md).
+- V2-F2 Codex-G R2: 불변 R1 기준으로 설계 대조 8건·contextSwap 12개를 별도 봉인했다. 정답 일치 6/모호 2, 대조 문장 불성립 2, 후보 PASS 0. 소유자는 VERIFIED가 다른 R1 b7905aac…에만 적용됨을 확인했으며 이 세션 2c86c19f…의 독립성 자격은 DEFER다. [R2 검수](./research/v2-f2-r1-review-20261017/R2_REPORT.md).
 
 - V2-F2 Codex-G: 별도 R1 8건을 불변 봉인하고 의미·모호성·V2/S5 경계를 기록했다. 소유자 계약 선열람 이탈을 공개했으며 전체 판정은 DEFER, R2는 소유자 제공 대기다. [검수 기록](./research/v2-f2-r1-review-20261017/REPORT.md).
 
