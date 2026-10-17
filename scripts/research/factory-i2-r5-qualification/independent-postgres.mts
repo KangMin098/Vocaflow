@@ -20,8 +20,9 @@ const read = (p: string) => fs.readFileSync(path.join(root, p), 'utf8')
 const stub = read('apps/web/src/lib/csat/map/v62/__tests__/supply-stub.sql')
 const i1stub = read('apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql')
 const files = ['_pending_workspace_supply_c_qualification.sql', '_pending_workspace_supply_b_orders.sql', '_pending_workspace_supply_i1_safety.sql', '_pending_workspace_supply_i1_partial.sql', '_pending_workspace_supply_c_annotation_binding.sql']
-const layers = files.map(f => (f.includes('annotation_binding') || f.includes('b_orders')) && submitted
-  ? execFileSync('git', ['show', `f94ddcbce3dc25afe9e2beb22c4aab1910a9cf4a:supabase/migrations/${f}`], { cwd: root, encoding: 'utf8' })
+const preLockFix = process.argv.includes('--pre-lock-fix')
+const layers = files.map(f => ((f.includes('annotation_binding') || f.includes('b_orders')) && submitted) || (f.includes('annotation_binding') && preLockFix)
+  ? execFileSync('git', ['show', `${preLockFix ? '15d153d8e' : 'f94ddcbce3dc25afe9e2beb22c4aab1910a9cf4a'}:supabase/migrations/${f}`], { cwd: root, encoding: 'utf8' })
   : read(`supabase/migrations/${f}`))
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vf-i2-annotation-'))
 const port = 55100 + Math.floor(Math.random() * 500)
@@ -94,7 +95,7 @@ try {
       run.results.push({ name: 'submitted documented C/binding/B/S order leaves one writer', ok: old === 1, detail: `writer signatures=${old}` })
     } finally { await orderPool.end() }
   }
-  const report = { schema: 'vf.factory-i2-independent-postgres/1', submitted,
+  const report = { schema: 'vf.factory-i2-independent-postgres/1', submitted, preLockFix,
     version: (await db.query('show server_version')).rows[0].server_version,
     sql: Object.fromEntries(files.map((f, i) => [f, createHash('sha256').update(layers[i]).digest('hex')])),
     results: run.results, pass: run.results.filter(r => r.ok).length, fail: run.results.filter(r => !r.ok).length }

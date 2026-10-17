@@ -1,6 +1,7 @@
 # PR #283 — Codex-I 독립 수용
 
 2026-10-17 · worktree `Vocaflow-factory-i2-qualification-review` · 기준 main `dcd070c441ebcc41a62094778e7699df62eba97d`(#280 병합) · 제출 HEAD `f94ddcbce3dc25afe9e2beb22c4aab1910a9cf4a`.
+최종 통합은 main `09564242f`(#282 병합)까지 포함한다. 추가된 main 변경은 V2-F2 문서 3개와 CHANGELOG이며 제품 코드/SQL은 바뀌지 않았다.
 
 **제출본 REWORK → 수정 승인안 ACCEPT_WITH_LIMITS. 실제 I2는 BLOCKED.** 연구 근거와 격리 검증된 SQL 제안의 수용이며, DB 적용·배포 동기화·자격·public/assessment 승인·납품의 승인이 아니다. 개발 DB에서는 SELECT만 실행했다. 실제 학생/합성 계정/학습 제출 쓰기도 0이다.
 
@@ -31,6 +32,7 @@
 | Q04 | P2 | 공백 annotation_ref 허용, 정답표 대조는 재현기에서 빠짐 | 공백 ref 거절. `verify.mjs --answer-key`는 짝수형 페이지/24번 행/파일 SHA를 독립 검사 |
 | Q05 | 핵심 P2, 목적 리뷰 | 기존 B의 버전 `<> '2'`가 누락/NULL을 통과시켜 같은 수요에 다른 서명을 허용 | B 한 줄을 `IS DISTINCT FROM '2'`로 수정. 누락/NULL 두 반례 재실행. B 승인 해시는 새로 확인해야 하며 I1 제출 증거는 덮지 않음 |
 | Q06 | P2, 코드 리뷰 | PG 시험기 예외 시 연결 반환을 건너뛰어 종료/임시 클러스터 정리가 대기할 수 있음 | 연결 반환을 finally로 옮기고 종료/정리를 별도 finally로 보장. 연결 직후 예외 주입으로 종료 경로 확인 |
+| Q07 | 핵심 P2, 승인안 재리뷰 | 현재 주석 SELECT FOR SHARE가 0행인 뒤 helper 재조회에서 동시 삽입 행을 잠금 없이 사용할 수 있음 | 잠근 행을 `INTO c`로 받아 없으면 즉시 거절하고 그 튜플만 비교. 중간 버전의 재조회 경로 2실패를 보존하고 수정본 2통과 |
 
 공급 공개 서명은 기존 `(uuid,uuid,uuid,uuid,uuid)` 그대로다. 내부 I1 공급/유효성 함수는 `_i1`로 옮기고 public/anon/authenticated EXECUTE를 회수한다. I1-S 원본 파일·노출/원천/승인/수량 검사는 보존한다. B는 Q05 한 줄만 수정했다. 새 helper도 외부 직접 실행 불가다. 새 현재 등록부는 RLS 활성·클라이언트/관리자/서비스 역할 권한 없음·DB 소유자 전용이며 **빈 상태**로 설치한다. 기본 ALL ACL 하에서도 authenticated INSERT/SELECT/TRUNCATE가 거절된다.
 
@@ -48,8 +50,9 @@
 | 검증 | 결과 |
 |---|---|
 | 동일 SQL 반례, 제출 B/binding을 최신 C/S/P 위에 적용 | 실제 PostgreSQL **17.10, 26/38 PASS·12 FAIL**. [제출 증거](./INDEPENDENT-PG-SUBMITTED.json). 현재 등록부 자체가 없어 ref/hash/TASK 비교 조건의 실패는 독립 메타데이터를 전달할 경로 부재도 포함하며, 각 조건의 별도 저장/변경 실험 성공으로 세지 않음. 별도 DB에서 제출 권장 C/binding/B/S 순서를 실행하면 writer 서명 2개가 남음 |
-| 수정 B/binding | 실제 PostgreSQL 17.10 **44/44**. [수정 증거](./INDEPENDENT-PG-FIXED.json). 41개 순차 조건 + 별도 연결의 공급 우선/배포 우선 직렬화·커밋 뒤 현재 무효 3조건 |
-| PGlite | 제출 패킷 7 + 독립 SQL 시나리오 1(41조건) + 기존 C 11/B 26/I1 47/store 7 = **99 테스트 통과**. B 버전 추가 수정 뒤 B26+독립1을 재실행해 27/27 |
+| Q07 중간 버전 반증 | `15d153d8e`의 binding을 읽은 실제 PostgreSQL **44/46, 2 FAIL**. [중간 증거](./INDEPENDENT-PG-PRELOCK.json). 격리 helper를 예외 marker로 잠시 대체해 0행 후 재조회 및 잠근 튜플 재조회 호출을 검출했다. 실제 동시 INSERT 타이밍을 재현했다는 주장은 하지 않음 |
+| 수정 B/binding | 실제 PostgreSQL 17.10 **46/46**. [수정 증거](./INDEPENDENT-PG-FIXED.json). 43개 순차 조건(재조회 marker 2개 포함) + 별도 연결의 공급 우선/배포 우선 직렬화·커밋 뒤 현재 무효 3조건 |
+| PGlite | 제출 패킷 7 + 독립 SQL 시나리오 1(43조건) + 기존 C 11/B 26/I1 47/store 7 = **99 테스트 통과**. B 버전 추가 수정 뒤 B26+독립1 27/27, Q07 뒤 패킷7+독립1 8/8 재실행 |
 | 기존 실제 I1 PostgreSQL | 기존 C/B/S/P/D3 스크립트 **33/33**, 다중 연결·철회/주문/supersede/노출/ACL/롤백 회귀. binding이 없는 기존 패키지의 보존 검사이며 binding 결합 동시성은 위 별도 결과 |
 | 원문/정답·runtime 주석 | verify 2020#24 일치·정답표 짝수형 2쪽 ② 일치·runtime manifest 2020/2021 hash 일치 |
 | 기존 G2 회귀·정적 검사 | claim-support/수직 경로 **68/68**, web TypeScript 0오류, agents check **15/15** |

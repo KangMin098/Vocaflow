@@ -28,6 +28,7 @@
 
 - PR #283 독립 검증: 주석 결속 승인안의 NULL 권한·적용 순서·현재 주석 대조 누락을 보완했다. 공급/현재 충족도의 ref·hash·revision·TASK 비교와 과거 이력 보존을 격리 PostgreSQL에서 검증. SQL/배포 동기화 미승인, C/E/F/H UNKNOWN 및 실제 I2 BLOCKED 유지. [수용 기록](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
 
+- docs(csat-learner): V2-F2 타당도 파일럿 — A3/A2/A4 비교(A3 채택 · A2 는 오답 설계 원리로만 · A4 보류), 구 판별 시험 추가, 4문항 v2 DRAFT(후보 2 · 조건부 1 · 자리 없음 1)는 비공개 원장 해시만, 독립 재검수 프로토콜 제안 · 제품 코드 · DB 변경 없음 · 독립 검수 f2-review-r001 결과 후보 PASS 0 · R0′ 대조군 2/2 탐지 · A3 미확정 · Instrument v2 보류 · V2 학습 가능 문항 0 유지 (`V2_F2_REVIEW_RESULTS.md` · `docs/csat-learner/v62/V2_F2_VALIDITY_PILOT.md`)
 - PR #279 Codex-C 독립 수용: F1을 ACCEPT_WITH_LIMITS로 판정(실앱 214·실제 패널 50·광역 단위 2,615). F2/R1·콘텐츠 0의 잔여 범위와 최초 실패를 [수용 보고서](./research/v2-f1-independent/ACCEPTANCE.md)에 보존했다.
 - PR #279 독립 F1 검증: R/X 원문 유형과 밑줄 표지 불일치를 서버에서 차단했다. 최초 실패·원문 관문 회귀를 보존하며 D는 저장 뒤 연습, F2/R1·콘텐츠 미출시는 유지한다. DB/RPC/RLS 변경 없음.
 - fix(knowledge): V2-F1 — 뜻 선택지가 판별 정답을 드러내는 결함 수정. 제출 전 화면 모양에서 뜻 선택지 제거 · 확인 기록과 정오는 B 판별(+근거)만 · 뜻은 B 를 맞힌 뒤의 기록 없는 연습 · 밑줄 표지(①~⑤/(a)~(e)) · 문장 논리 문항 출시 제외 · 합의 주석 0 · 출시 0 그대로 · DB 변경 없음

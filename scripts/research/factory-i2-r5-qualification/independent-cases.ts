@@ -120,5 +120,19 @@ export async function annotationCases(db: SqlDb) {
   await db.query(`set role anon`)
   check('anon cannot call delivery', /permission denied/.test(await err(`select workspace_delivery_record(null,null,null,null,null)`) ?? ''))
   await db.query(`reset role`)
+  if (current) {
+    // Detect any unlocked re-read after the locking statement, including the zero-row insertion gap.
+    const original = (await one(`select pg_get_functiondef('public.supply_annotation_matches(uuid)'::regprocedure) sql`)).sql as string
+    try {
+      await db.query(`create or replace function public.supply_annotation_matches(p_qualification uuid)
+        returns boolean language plpgsql stable security definer set search_path to 'public','pg_temp' as $$
+        begin raise exception 'unlocked annotation helper re-read'; end $$`)
+      await db.query('delete from supply_current_annotation')
+      check('zero locked rows reject before any unlocked helper read', /current annotation unavailable/.test(await rejectedSupply(await line()) ?? ''))
+      await setCurrent()
+      // This learner already has exposure: reach the unchanged I1 G guard using the locked row only.
+      check('locked annotation tuple compared without helper re-read', /exposure/.test(await rejectedSupply(await line()) ?? ''))
+    } finally { await db.query(original) }
+  }
   return { admin, me, q, pub, asm, l, delivery, current, rev, results }
 }

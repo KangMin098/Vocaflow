@@ -105,7 +105,7 @@ alter function public.workspace_delivery_record(uuid,uuid,uuid,uuid,uuid) rename
 revoke all on function public.workspace_delivery_record_i1(uuid,uuid,uuid,uuid,uuid) from public, anon, authenticated;
 create function public.workspace_delivery_record(p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid)
 returns uuid language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
-declare q record;
+declare q record; c record;
 begin
   if auth.uid() is null then raise exception 'Forbidden' using errcode = '42501'; end if;
   -- I1와 같은 줄 잠금. 기존 요청 재전송은 역사 사실 반환이며 현재 자격 재승인이 아니다.
@@ -116,8 +116,12 @@ begin
   select * into q from public.content_qualification where id = p_qualification for share;
   if q.artifact_kind = 'csat_item' then
     -- 배포 교체/삭제와 공급을 직렬화한다. 누락·NULL·다른 ref/hash/TASK/revision은 모두 거절.
-    perform 1 from public.supply_current_annotation where artifact_ref = q.artifact_ref and task_id = q.task_id for share;
-    if public.supply_annotation_matches(p_qualification) is not true then
+    select * into c from public.supply_current_annotation where artifact_ref = q.artifact_ref and task_id = q.task_id for share;
+    if not found then
+      raise exception 'delivery: current annotation unavailable';
+    end if;
+    if (c.artifact_revision, c.annotation_ref, c.annotation_hash)
+       is distinct from (q.artifact_revision, q.annotation_ref, q.annotation_hash) then
       raise exception 'delivery: current annotation revision mismatch or unavailable';
     end if;
   end if;
