@@ -16,15 +16,23 @@ const HEX64 = /^[0-9a-f]{64}$/
 /** 공장 cell_id 형식 — `${product_order_id}:r${order_revision}:d${day}` */
 export const cellIdOf = (o: OrderRef, day: number) => `${o.productOrderId}:r${o.orderRevision}:d${day}`
 
-export function verifyLineage(links: readonly DemandOrderLink[], run: RunRef, artifacts: readonly ArtifactRef[]): { ok: boolean; errors: string[]; supplyApproved: false } {
+export function verifyLineage(links: readonly DemandOrderLink[], run: RunRef, artifacts: readonly ArtifactRef[]): { ok: boolean; errors: string[]; supplyApproved: false; verification: 'STRUCTURAL_ONLY'; contentVerified: false } {
   const errors: string[] = []
+  const id = (s: string) => typeof s === 'string' && s.trim().length > 0
+  const positive = (n: number) => Number.isSafeInteger(n) && n > 0
+  if (!links.length || !run.cells.length) errors.push('lineage_empty')
   const orders = new Map(links.map((l) => [`${l.order.productOrderId}#${l.order.orderRevision}`, l.order]))
-  for (const l of links) if (!HEX64.test(l.order.orderHash)) errors.push(`order_hash_invalid:${l.requestId}`)
+  for (const l of links) {
+    if (!id(l.requestId) || !id(l.shareKey) || !id(l.order.productOrderId) || !positive(l.order.orderRevision)) errors.push('order_identity_invalid')
+    if (!HEX64.test(l.order.orderHash)) errors.push(`order_hash_invalid:${l.requestId}`)
+  }
   // 같은 주문 revision 이 다른 해시로 두 번 나오면 결속이 깨진 것
   for (const l of links) { const o = orders.get(`${l.order.productOrderId}#${l.order.orderRevision}`)!; if (o.orderHash !== l.order.orderHash) errors.push(`order_hash_conflict:${l.order.productOrderId}`) }
   if (!HEX64.test(run.drainHash)) errors.push('drain_hash_invalid')
+  if (run.manifestHash !== null && !HEX64.test(run.manifestHash)) errors.push('manifest_hash_invalid')
   const cells = new Map<string, CellRef>()
   for (const c of run.cells) {
+    if (!positive(c.day) || !positive(c.orderRevision) || !id(c.grade)) errors.push(`cell_identity_invalid:${c.cellId}`)
     if (cells.has(c.cellId)) errors.push(`cell_duplicate:${c.cellId}`)
     cells.set(c.cellId, c)
     const o = orders.get(`${c.productOrderId}#${c.orderRevision}`)
@@ -33,12 +41,15 @@ export function verifyLineage(links: readonly DemandOrderLink[], run: RunRef, ar
     if (c.cellId !== cellIdOf(c, c.day)) errors.push(`cell_id_shape:${c.cellId}`)
     if (!HEX64.test(c.cellHash)) errors.push(`cell_hash_invalid:${c.cellId}`)
   }
+  const artifactIds = new Set<string>()
   for (const a of artifacts) {
+    if (!id(a.id) || artifactIds.has(a.id)) errors.push(`artifact_duplicate_or_invalid:${a.id}`)
+    artifactIds.add(a.id)
     const c = cells.get(a.cellId)
     if (!c) { errors.push(`artifact_without_cell:${a.id}`); continue }
     if (a.productOrderId !== c.productOrderId || a.orderRevision !== c.orderRevision || a.orderHash !== c.orderHash) errors.push(`artifact_order_mismatch:${a.id}`)
     if (!HEX64.test(a.hash)) errors.push(`artifact_hash_invalid:${a.id}`)
   }
   // 산출물이 검수돼도 공급 승인은 별도(content_release_approval) — 이 함수는 언제나 false
-  return { ok: errors.length === 0, errors, supplyApproved: false }
+  return { ok: errors.length === 0, errors, supplyApproved: false, verification: 'STRUCTURAL_ONLY', contentVerified: false }
 }

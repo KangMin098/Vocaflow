@@ -46,7 +46,7 @@ export interface TaskFactoryCrosswalk {
 }
 
 const C = (o: Omit<TaskFactoryCrosswalk, 'taskDefinitionVersion' | 'factoryTaxonomyVersion' | 'claimScope' | 'status' | 'validationEvidenceId' | 'reviewer' | 'effectiveRevision'>): TaskFactoryCrosswalk => ({
-  ...o, taskDefinitionVersion: CANON_VERSION, factoryTaxonomyVersion: FACTORY_TAXONOMY_VERSION, claimScope: 'search_only', status: 'candidate', validationEvidenceId: null, reviewer: null, effectiveRevision: `${CROSSWALK_VERSION}#0`,
+  ...o, taskDefinitionVersion: CANON_VERSION, factoryTaxonomyVersion: FACTORY_TAXONOMY_VERSION, claimScope: 'search_only', status: 'candidate', validationEvidenceId: null, reviewer: null, effectiveRevision: `${CROSSWALK_VERSION}#1`,
 })
 
 /** 초기 후보 — 사람 · 맹검 검수 전. 지시서의 후보를 공장 정본 이름과 대 보며 관계를 좁혔다 */
@@ -54,8 +54,7 @@ export const CROSSWALK: readonly TaskFactoryCrosswalk[] = [
   C({ canonTaskId: 'v.contextual_sense', factorySkillId: 'R1', productFamily: 'P05', itemType: ['vocab_choice', 'long_vocab'], materialRole: ['guided_practice'], relation: 'overlaps', note: '공장 vocab_choice 는 「문맥에 맞지 않는 낱말」 — V2 의 B 판별과 겹치나 D 문맥 뜻 · C 근거는 다루지 않는다' }),
   C({ canonTaskId: 's.form_scope', factorySkillId: 'R2', productFamily: 'P06', itemType: ['grammar_choice', 'grammar_fix', 'word_order'], materialRole: ['guided_practice'], relation: 'related', note: '공장 R2 는 Sentence Meaning, P06 문항은 어법 형태 — S5 의미 범위 능력으로 승격하지 않는다(S04)' }),
   C({ canonTaskId: 'r.central_meaning', factorySkillId: 'R4', productFamily: 'P07', itemType: ['topic', 'title', 'main_point'], materialRole: ['guided_practice'], relation: 'overlaps', note: '학습지도 R5(중심 의미) ↔ 공장 R4(Main Idea). 공장 R5(Function)와 잇지 않는다' }),
-  C({ canonTaskId: 'e.evidence_location', factorySkillId: 'R9', productFamily: 'P11', itemType: ['content_match', 'long_match'], materialRole: ['guided_practice'], relation: 'related', note: '공장 P11 은 내용 일치 — 빈칸 근거 위치(E1)와 같은 수행이 아니다' }),
-  C({ canonTaskId: 'e.option_correspondence', factorySkillId: 'R7', productFamily: 'P06', itemType: ['grammar_choice', 'grammar_fix', 'word_order'], materialRole: ['guided_practice'], relation: 'related', note: 'R7 Paraphrase 제품군(P06 · P17 · P18) 중 P06 문항 유형은 선지 대응과 다르다 — 후보 검토 필요' }),
+  C({ canonTaskId: 'e.evidence_location', factorySkillId: 'R9', productFamily: 'P11', itemType: ['content_match', 'long_match'], materialRole: ['guided_practice'], relation: 'related', note: '공장 P11 은 내용 일치 — 빈칸 근거 위치(E2)와 같은 수행이 아니다. E1은 발문 요구 파악이다' }),
   C({ canonTaskId: 'e.option_correspondence', factorySkillId: 'R9', productFamily: 'P11', itemType: ['content_match', 'long_match'], materialRole: ['guided_practice'], relation: 'related', note: '내용 일치 선지 대응 — R7/R9 중 어느 쪽인지 미결' }),
 ]
 

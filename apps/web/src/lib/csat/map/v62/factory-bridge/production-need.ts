@@ -13,7 +13,7 @@ import type { FactoryRequest } from '../factory-integration'
 import { ASSESSMENT_ROLES } from '../qualification'
 
 import { crosswalkFor, crosswalkUsable, type ProductFamily, type TaskFactoryCrosswalk } from './crosswalk'
-import { projectUnits, type ConversionRule, type MaterialUnitProjection } from './material-unit'
+import { assertMaterialCount, projectUnits, type ConversionRule, type MaterialUnitProjection } from './material-unit'
 import type { StockResolution } from './stock-resolver'
 
 export const PRODUCTION_NEED_SCHEMA = 'vf.production-need/1' as const
@@ -30,6 +30,7 @@ export type ProductionNeedState =
   | 'UNMAPPED_TASK'
   | 'NEEDS_PRODUCT_BRIEF'
   | 'UNSUPPORTED_PRODUCTION_UNIT'
+  | 'NEEDS_ORDER_VALIDATION' // I0 has no authoritative factory planner/order validator
   | 'READY_TO_SEAL'
   | 'RUN_PENDING'
   | 'RUN_RECORDED'
@@ -64,10 +65,22 @@ export interface ProductionNeed {
 const FACTORY_PRODUCTION_UNIT = 'cell' as const
 
 export function productionNeed(req: FactoryRequest, stock: StockResolution, opts: { brief?: BriefDraft | null; policies?: Partial<Record<(typeof ORDER_POLICY_FIELDS)[number], { version: string; hash: string }>>; rules?: readonly ConversionRule[]; run?: { recorded: boolean; artifacts: number } | null } = {}): ProductionNeed {
+  assertMaterialCount(req.quantity.n, 'request_quantity')
+  assertMaterialCount(stock.requested, 'stock_requested')
+  if (stock.task !== req.task || stock.role !== req.role || stock.requested !== req.quantity.n) throw new Error('stock_request_mismatch')
+  if (new Set(stock.eligible).size !== stock.eligible.length) throw new Error('duplicate_stock_eligible')
+  if (stock.newProductionNeeded !== null) {
+    assertMaterialCount(stock.newProductionNeeded, 'stock_shortfall')
+    if (stock.newProductionNeeded !== Math.max(0, stock.requested - stock.eligible.length)) throw new Error('stock_shortfall_mismatch')
+  }
+  if (opts.run) {
+    if (typeof opts.run.recorded !== 'boolean') throw new Error('invalid_reported_run')
+    assertMaterialCount(opts.run.artifacts, 'reported_artifacts')
+  }
   const xw = crosswalkFor(req.task as never)
   const brief = opts.brief ?? null
   const missingBrief = PRODUCT_BRIEF_FIELDS.filter((f) => brief?.[f] === undefined || brief?.[f] === null)
-  const missingPolicies = ORDER_POLICY_FIELDS.filter((p) => !opts.policies?.[p]?.version || !/^[0-9a-f]{64}$/.test(opts.policies[p]!.hash))
+  const missingPolicies = ORDER_POLICY_FIELDS.filter((p) => !opts.policies?.[p]?.version.trim() || !/^[0-9a-f]{64}$/.test(opts.policies[p]!.hash))
   const itemTypes = [...new Set(xw.flatMap((c) => c.itemType))]
   const familyCandidates = [...new Set(xw.map((c) => c.productFamily))]
   const units = stock.newProductionNeeded === null ? null : projectUnits({ demandUnit: req.quantity.unit, requested: stock.requested, eligible: stock.eligible.length, productionUnit: FACTORY_PRODUCTION_UNIT, rules: opts.rules })
@@ -80,9 +93,10 @@ export function productionNeed(req: FactoryRequest, stock: StockResolution, opts
     approvalsNeeded: ['bulk_generation_cost', 'db_schema_orders', 'content_release'],
     provenance: { crosswalkVersion: xw[0]?.effectiveRevision ?? 'vf.task-factory-crosswalk/1#0', factoryTaxonomyVersion: xw[0]?.factoryTaxonomyVersion ?? null, factoryHead: '663f2eee8' as const, connection: 'CONTRACT_ONLY' as const },
   }
-  // 공용 생산 키 — 학습자 요청 id · 수요 키 · 버전을 빼고 TASK · 역할 · 제품군 · 문항 유형 · 브리프만
-  const shareKey = (s: ProductionNeedState) => (s === 'READY_TO_SEAL' || s === 'NEEDS_PRODUCT_BRIEF' || s === 'UNSUPPORTED_PRODUCTION_UNIT')
-    ? createHash('sha256').update(canonicalJson({ task: req.task, role: req.role, families: familyCandidates, itemTypes, brief: brief ?? null })).digest('hex').slice(0, 32)
+  // v2 is a specification group, not an order or an aggregate quantity. Personal IDs
+  // and PLAN/goal revisions are omitted; production, policies and quantities are exact.
+  const shareKey = (s: ProductionNeedState) => (s === 'READY_TO_SEAL' || s === 'NEEDS_PRODUCT_BRIEF' || s === 'UNSUPPORTED_PRODUCTION_UNIT' || s === 'NEEDS_ORDER_VALIDATION')
+    ? createHash('sha256').update(canonicalJson({ schema: 'vf.production-share/2', task: req.task, definition: req.versions.definition, role: req.role, families: [...familyCandidates].sort(), itemTypes: [...itemTypes].sort(), content: { csatTypes: [...req.content.csatTypes].sort(), factoryTypes: [...req.content.factoryTypes].sort() }, source: req.source, constraints: req.constraints, postReview: req.postReview, brief: brief ?? null, policies: opts.policies ?? null, units, crosswalk: xw })).digest('hex').slice(0, 32)
     : null
   const done = (state: ProductionNeedState): ProductionNeed => ({ ...base, state, blockers, shareKey: shareKey(state) })
 
@@ -90,14 +104,17 @@ export function productionNeed(req: FactoryRequest, stock: StockResolution, opts
   if (stock.newProductionNeeded === 0) return done('NOT_NEEDED')
   if (ASSESSMENT_ROLES.has(req.role)) { blockers.push('assessment_not_from_factory', 'gold_rubric', 'learner_exposure_ledger'); return done('ASSESSMENT_NOT_FROM_FACTORY') }
   if (xw.length === 0) { blockers.push('no_crosswalk'); return done('UNMAPPED_TASK') }
-  if (opts.run?.recorded) return done(opts.run.artifacts > 0 ? 'ARTIFACT_CANDIDATE' : 'RUN_RECORDED')
   if (!xw.some((c) => crosswalkUsable(c, 'seal_order').ok)) blockers.push('crosswalk_not_validated')
   if (missingBrief.length) blockers.push('product_brief_incomplete')
   if (missingPolicies.length) blockers.push('order_policies_missing')
   if (missingBrief.length) return done('NEEDS_PRODUCT_BRIEF')
   if (!units || units.conversion.status === 'UNKNOWN_UNIT' || units.conversion.status === 'NOT_CONVERTIBLE') { blockers.push(`unit_${units?.conversion.why ?? 'unknown'}`); return done('UNSUPPORTED_PRODUCTION_UNIT') }
   if (blockers.length) return done('NEEDS_PRODUCT_BRIEF')
-  return done(opts.run ? 'RUN_PENDING' : 'READY_TO_SEAL')
+  // Presence of ProductBrief fields, policy digests or a recorded flag is not a
+  // factory validation receipt. I0 does not import the planner or authenticate runs.
+  blockers.push('factory_order_validator_not_connected')
+  if (opts.run) blockers.push('reported_run_unverified')
+  return done('NEEDS_ORDER_VALIDATION')
 }
 
 /** 같은 공용 키의 요구를 묶는다(학습자 수 · 요청 id 만 남긴다 — 이메일 · PLAN 메모 · Workspace id 는 넣지 않는다) */
@@ -106,7 +123,7 @@ export function groupSharedNeeds(needs: readonly ProductionNeed[]): { shareKey: 
   for (const n of needs) {
     if (!n.shareKey) continue
     const g = m.get(n.shareKey) ?? { shareKey: n.shareKey, requestIds: [], task: n.task, role: n.role }
-    g.requestIds.push(n.origin.requestId)
+    if (!g.requestIds.includes(n.origin.requestId)) g.requestIds.push(n.origin.requestId)
     m.set(n.shareKey, g)
   }
   return [...m.values()]

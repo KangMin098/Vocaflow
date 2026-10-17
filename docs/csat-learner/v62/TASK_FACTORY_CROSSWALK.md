@@ -18,8 +18,7 @@
 | V2 `v.contextual_sense` | R1 Vocabulary in Context | P05 | vocab_choice · long_vocab | overlaps | 「문맥에 맞지 않는 낱말」 = V2 의 B 판별과 겹침. D 문맥 뜻 · C 근거는 다루지 않음 |
 | S5 `s.form_scope` | R2 Sentence Meaning | P06 | grammar_choice · grammar_fix · word_order | related | P06 문항은 어법 형태. S5 의미 범위 능력으로 승격 금지(S04) |
 | R5 `r.central_meaning` | R4 Main Idea | P07 | topic · title · main_point | overlaps | 공장 R5(Function) 아님 |
-| E1 `e.evidence_location` | R9 Evidence | P11 | content_match · long_match | related | 내용 일치 ≠ 빈칸 근거 위치 |
-| E3 `e.option_correspondence` | R7 Paraphrase | P06 | grammar_choice · … | related | R7 제품군 중 P06 은 선지 대응과 다름 — 검토 필요 |
+| E2 `e.evidence_location` | R9 Evidence | P11 | content_match · long_match | related | 내용 일치 ≠ 빈칸 근거 위치 |
 | E3 `e.option_correspondence` | R9 Evidence | P11 | content_match · long_match | related | R7 / R9 미결 |
 
 ## 검증으로 바꾸는 절차(I1 이후)
@@ -29,3 +28,5 @@
 3. 검수자를 기록하고 `status: validated` 로 바꾸며, `effectiveRevision` 을 올린다.
 
 `validated` 가 되어도 쓸 수 있는 용도는 `supply_fit` · `seal_order` 까지다. `assessment` 는 계속 불가다.
+
+독립 보완 revision: `vf.task-factory-crosswalk/1#1`. E1은 발문 요구 파악, E2가 근거 위치다. E3↔P06 어법 전용 후보는 선지-본문 대응을 가르칠 근거가 없어 제거했다. 나머지 대응도 전부 candidate/search_only이며 교육 검증 완료가 아니다.

@@ -21,6 +21,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
+
 - feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
 
 - PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.

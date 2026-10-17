@@ -175,9 +175,12 @@ describe('ProductionNeed 상태 사다리 · golden vectors', () => {
     const [r2] = buildFactoryRequests('u', demand('v.core_meaning', ['R-VOCAB'], [{ role: 'guided_practice' }]))
     expect(productionNeed(r2!, resolveStock({ task: 'v.core_meaning', role: 'guided_practice', requested: 2 }, 'ok', [])).state).toBe('UNMAPPED_TASK')
   })
-  it('실행 기록 → RUN_RECORDED / ARTIFACT_CANDIDATE(공급 승인 아님)', () => {
-    expect(productionNeed(req!, short, { run: { recorded: true, artifacts: 0 } }).state).toBe('RUN_RECORDED')
-    expect(productionNeed(req!, short, { run: { recorded: true, artifacts: 4 } }).state).toBe('ARTIFACT_CANDIDATE')
+  it('자기보고 실행 flag/수량은 브리프·검증 조건을 건너뛰지 못함', () => {
+    for (const artifacts of [0, 4]) {
+      const n = productionNeed(req!, short, { run: { recorded: true, artifacts } })
+      expect(n.state).toBe('NEEDS_PRODUCT_BRIEF')
+      expect(n.blockers).toEqual(expect.arrayContaining(['crosswalk_not_validated', 'product_brief_incomplete', 'order_policies_missing']))
+    }
   })
   it('golden — 요청 id · 공유 키는 결정적', () => {
     const a = productionNeed(req!, short, { brief: FULL_BRIEF })
@@ -195,7 +198,7 @@ describe('계보(I0-5 · CONTRACT_ONLY)', () => {
   const art = (id: string, c: CellRef, o: Partial<ArtifactRef> = {}): ArtifactRef => ({ id, kind: 'item', hash: H('c'), cellId: c.cellId, productOrderId: c.productOrderId, orderRevision: c.orderRevision, orderHash: c.orderHash, ...o })
   it('N:M — 두 요청 · 한 주문 · 두 cell · 산출물 → ok, 공급 승인은 언제나 false', () => {
     const c1 = cell(1), c2 = cell(2)
-    expect(verifyLineage(links, { drainHash: H('d'), manifestHash: null, cells: [c1, c2] }, [art('i1', c1), art('i2', c2)])).toEqual({ ok: true, errors: [], supplyApproved: false })
+    expect(verifyLineage(links, { drainHash: H('d'), manifestHash: null, cells: [c1, c2] }, [art('i1', c1), art('i2', c2)])).toEqual({ ok: true, errors: [], supplyApproved: false, verification: 'STRUCTURAL_ONLY', contentVerified: false })
   })
   it('낡은 주문 해시 · 다른 주문 cell · cell 없는 산출물 · 중복 cell 을 거절', () => {
     const c1 = cell(1)

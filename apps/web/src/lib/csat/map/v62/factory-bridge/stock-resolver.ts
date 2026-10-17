@@ -8,8 +8,10 @@
 // G(학습자 노출)는 개인별 공급 시점 검사다 — exposure 를 모르면(null) 평가 역할은 적격으로 세지 않는다(fail-closed).
 
 import type { MaterialRole } from '../demand'
+import { canonicalJson } from '../canonical-json'
 import { runnerFor, type RunnerFormat } from '../factory-integration'
 import { approvalState, ASSESSMENT_ROLES, bindResult, supplyEligible, toSupplyQualification, type Exposure, type FqResult, type ReleaseApproval } from '../qualification'
+import { assertMaterialCount } from './material-unit'
 
 export type StockState =
   | 'eligible_existing'
@@ -90,15 +92,30 @@ export function judgeCandidate(c: StockCandidate, want: { task: string; role: Ma
  * not_installed · error 는 「후보 0 · 신규 생산 n」으로 바꾸지 않는다 — newProductionNeeded = null.
  */
 export function resolveStock(want: { task: string; role: MaterialRole; requested: number }, read: 'ok' | 'not_installed' | 'error', candidates: readonly StockCandidate[]): StockResolution {
-  const requested = Math.max(0, Math.floor(want.requested))
+  const requested = assertMaterialCount(want.requested, 'stock_requested')
   if (read !== 'ok') return { role: want.role, task: want.task, requested, line: read === 'error' ? 'read_error' : 'not_installed', eligible: [], counts: ZERO(), newProductionNeeded: null, verdicts: [] }
   const counts = ZERO()
   const verdicts = candidates.map((c) => judgeCandidate(c, want))
   const eligible: string[] = []
   const usedPassages = new Set<string>()
   const assessment = ASSESSMENT_ROLES.has(want.role)
+  // Output refs identify items. Conflicting versions/approvals of the same ref cannot
+  // select a winner by input order. Exact duplicate rows count only once.
+  const signatures = new Map<string, Set<string>>()
+  for (const c of candidates) {
+    const values = signatures.get(c.artifact.ref) ?? new Set<string>()
+    values.add(canonicalJson(c))
+    signatures.set(c.artifact.ref, values)
+  }
+  const seen = new Set<string>()
   verdicts.forEach((v, i) => {
     let state = v.state
+    if ((signatures.get(v.ref)?.size ?? 0) > 1 || seen.has(v.ref)) {
+      state = 'candidate_unreviewed'
+      v.state = state
+      v.missing.push((signatures.get(v.ref)?.size ?? 0) > 1 ? 'conflicting_candidate' : 'duplicate_artifact')
+    }
+    seen.add(v.ref)
     if (state === 'eligible_existing' && assessment) {
       const p = candidates[i].passage
       // 같은 지문의 다른 문항을 두 번째 평가 자료로 세지 않는다 · 지문 identity 를 모르면 평가 자료로 세지 않는다
