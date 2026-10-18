@@ -33,7 +33,7 @@
   4. 오답 설계 유형 라벨(too_narrow · distorted 등)이 학습자 피드백으로 적절한가.
 - 평가 역할 6문항(ind ×2 · transfer ×2 · delayed ×2)만 사람 Gold 가 필수. 교수 · 안내 3문항은 Gold 없이 공급 가능(권리는 필요).
 
-## B2. 사람 Gold — TASK 확장 6세트(각 6문항 · 평가 역할 4문항씩)
+## B2. 사람 Gold — TASK 확장 16세트(각 6문항 · 평가 역할 4문항씩)
 
 > 형식별 채점 계약: `apps/web/src/lib/knowledge/authored/formats.ts` · 작성 계약 `docs/final/AUTHORING_SPEC.md`. AI 작성 → 맹검 검토(`docs/final/review/expansion-*.json`) → 저자 수정까지. **사람 Gold 아님.**
 
@@ -46,8 +46,19 @@
 | s.form_scope | `s-form-scope.v1.json` · `4a89359b…375dc` | 틀린 밑줄 ✓ + 틀린 이유 ✓ | gs-transfer-1 its/their 지칭(반론 가능성) · 이유 범주 라벨 |
 | v.contextual_sense | `v-contextual-sense.v1.json` · `4bbc973c…d5798` | 뜻 ✓ + 근거 문장 ✓ | 오답 뜻이 사전에 실재하는 뜻인지 · 전이 문항의 형식 차이가 약함 |
 
+| r.reference | `r-reference.v1.json` · `f97e7591…668f1` | choice_evidence | 전이 문항(생각 전체를 가리키는 this)의 결정 문장 선택 |
+| v.multiword | `v-multiword.v1.json` · `103170d3…5bb52` | contextual_sense | mw-teach-1 정답 「원인으로 설명하다」 — 일부 차지 해석 여지 |
+| r.discourse_function | `r-discourse-function.v1.json` · `78fda0a7…3a1c6` | discourse_roles | 허용 대안 역할의 관대함 · df-teach-1 틀 유사 |
+| r.discourse_structure | `r-discourse-structure.v1.json` · `3592c1cd…46064` | discourse_roles | transfer 함의(주제문)/실천 결론 구분 · support 쏠림 |
+| e.task_demand | `e-task-demand.v1.json` · `dce3db70…e0d55` | demand_choice | 요약문 상자 표시 · 오답 착오 유형 분류 |
+| s.sentence_core | `s-sentence-core.v1.json` · `e2e0af18…0323f` | segment_choice | 도치 문항을 지연 확인에 둔 역할 배치 |
+| s.attachment | `s-attachment.v1.json` · `aed0b882…42c40` | segment_choice | at-teach-1 문맥 근거 필요 · at-transfer-1 난이도 |
+| s.chunk_boundary | `s-chunk-boundary.v1.json` · `7d46162c…5357b` | segment_choice | cb-guided-1 줄어든 관계절 혼동 강도 |
+| s.structural_relation | `s-structural-relation.v1.json` · `c83b207f…50362` | segment_choice | sr-ind-2 도치 정답(Never before vs had) |
+| v.semantic_relation | `v-semantic-relation.v1.json` · `2e4ae006…d7f87` | equivalence | 관계 방향(A 가 B 에 대해) 학습자 이해 |
 - 공통: 설명 글 문장 번호는 화면과 같은 1부터(세트마다 `proseNumbering: "1-based"` 검증).
-- 정본 비보류 TASK 21개(V4 · S6 · R7 · E4) 중 창작 세트 보유 7(위 6 + R5). 나머지 14(v.core_meaning · v.multiword · v.semantic_relation · s.sentence_core · s.chunk_boundary · s.attachment · s.structural_relation · s.o.sentence_meaning_model · r.reference · r.discourse_function · r.discourse_structure · r.o.global_meaning_model · e.task_demand · e.o.final_judgment)는 콘텐츠 없음 — **지원 완료로 표시하지 않는다**. 보류 9(L4 · X5)는 대상 밖.
+- 정본 비보류 TASK 21개(V4 · S6 · R7 · E4) 중 창작 세트 보유 **17**. 없는 4: v.core_meaning(기존 WordVault · Flashcard FSRS 모듈이 담당 — 창작 세트 대상 아님) · s.o.sentence_meaning_model · r.o.global_meaning_model · e.o.final_judgment(통합 관찰 — 구성 TASK 수행의 종합이라 단독 창작 세트를 두지 않음, **지원 완료로 표시하지 않음**). 보류 9(L4 · X5)는 대상 밖.
+- 6세트(위 표 앞쪽) SHA 는 맹검 1차 반영 뒤 값이다 — 최종 SHA 는 `sha256sum apps/web/src/lib/knowledge/authored/*.json` 로 승인 직전 다시 잰다.
 
 ## C. 권리 — 자체 창작 원저작 확인
 

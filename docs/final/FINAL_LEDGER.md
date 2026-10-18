@@ -45,9 +45,10 @@
 | 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1440/1280) | ISOLATED_E2E_VERIFIED(브라우저 · R5) — 1차 실패 원인(서버가 클라이언트 모듈 값 import) 수정 뒤 6/6 통과 · 보류 SQL 실제 Postgres 적용 성공 | CI run 39114115991 |
 | 5 | 단일 외부 승인 패키지(A · B · B2 · C) | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
 | 6 | 과제 형식 레지스트리 + TASK 확장 6세트(E·E·R·R·S·V) | CODE_IMPLEMENTED · DATA(사람 Gold 전) | formats 12 · 세트 35 · expansion 리뷰 |
-| 6b | 나머지 비보류 TASK 14개 | NOT_IMPLEMENTED(콘텐츠 · 형식) — 지원 완료 표시 안 함 | — |
+| 6b | 형식 4종 추가 + 나머지 TASK 세트 10개 · 맹검 2차 · 위치 단서 가드 | CODE_IMPLEMENTED · DATA(사람 Gold 전) | 17세트 위반 0 · AuthoredRunner 17 · expansion2 리뷰 |
+| 6c | v.core_meaning · 통합 관찰 3(s.o · r.o · e.o) | NOT_IMPLEMENTED(창작 세트 없음 — 지원 완료 표시 안 함) | — |
 | 7 | 기출분석 ⑤ 구조 예측(서버 대조) · ② 구절 역할 먼저 짚기 | CODE_IMPLEMENTED · VALIDATION_MISSING(브라우저) | structure-check 3 · theater 54 |
-| 7b | PR #250 「내 말로」 재기반 | 진행 중(별도 worktree 에이전트) | — |
+| 7b | PR #250 「내 말로」 재기반 | main 병합(충돌 1 · 5,920 통과) · 마이그레이션 파일 버전을 적용 이력(20261014091841)에 맞춤 · 독립 리뷰 대기 | PR #250 코멘트 |
 
 ## 4. 다음 실행(후속 세션이 이 순서로)
 
