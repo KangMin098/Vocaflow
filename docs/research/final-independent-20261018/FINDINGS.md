@@ -52,3 +52,5 @@ FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com
 - FI-012 · 핵심 P2 · OPEN · de5065b51 choice_evidence: 같은 닫는 시간을 직접 말하는 두 문장 중 evidenceAlt에 등록된 두 번째 문장만 고르면 choiceOk=true/extra0인데 decisive 인덱스가 없다는 이유로 오답. 실제 채점·두 폭 UI 재현과 기대 동작은 [형식 검토](./AUTHORED_FORMATS_REVIEW.md). 대표 근거만 맞게 하는 형식 계약의 문제이며 실제 콘텐츠 사람 승인으로 오인하지 않는다.
 
 - FI-009 수정 추적: 4655e9be4의 교수7단계/오답 설명36건과 두 폭 실제 렌더링을 독립 대조하여 **FIX_VERIFIED_IN_CANDIDATE**로 갱신한다. [수정 증거](./AUTHORED_FORMATS_REVIEW.md#fi-009-수정-독립-확인--4655e9be4). 이전 OPEN은 수정 전 이력이다. 미병합·사람 승인 대기이며 FI-005/012와 구별한다.
+
+- FI-013 · 핵심 P2 · OPEN ·4655e9be4 gs-transfer-1: 단수 irrigation ditch가 its의 선행사일 수 있는데 Gold는 반드시 복수 rivers를 가리킨다고 단정한다. 의도 정답은 추정 가능하나 유일한 문법 오류로 확정할 수 없다. [봉인 판독과 본문/Gold 대조](./EXPANSION_CONTENT_REVIEW.md). FI-012에는 같은 형식 문제의 실제 inf-guided-1/inf-teach-1 사례만 추가하며 새 중복 이슈를 만들지 않는다.

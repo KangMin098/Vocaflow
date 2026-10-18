@@ -1,0 +1,31 @@
+{
+  "bindings": [],
+  "readOnly": "on",
+  "deliveries": [],
+  "observedAt": "2026-10-18T09:27:28.046586+00:00",
+  "qualifications": [],
+  "attemptMetadata": [
+    {
+      "n": 125,
+      "activity": "theater",
+      "task_key": "claim-support",
+      "help_level": "independent",
+      "synthetic_flagged": 124
+    },
+    {
+      "n": 3,
+      "activity": "theater",
+      "task_key": "evidence-locate",
+      "help_level": "viewed_first",
+      "synthetic_flagged": 0
+    },
+    {
+      "n": 1,
+      "activity": "theater",
+      "task_key": "option-restate",
+      "help_level": "viewed_first",
+      "synthetic_flagged": 0
+    }
+  ],
+  "authoredInstalled": false
+}
