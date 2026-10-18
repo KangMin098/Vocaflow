@@ -31749,3 +31749,5 @@ score = recency(0.40) + sourceWeight(0.30) + lengthFit(0.20) + levelBonus(0.10)
 **`/admin/curation/preview/[bookId]` `ChapterWordSetsAdminSection`** Client 전환 — 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSetPreviewModal` 신규 (구독 CTA 없는 admin 전용 modal · 단어 전수 fetch + sort_order DESC + 발음 듣기 + 추출 메타 JSONB details).
 
 **결정** — 학습 진행 % 표시 보류. 사용자 0명 단계라 `vocabularies × learning_records` JOIN 비용 vs 정보 가치 비효율 — 구독 카운트만 표시 (Phase 2 사용자 학습 데이터 누적 후 확장 예정).
+
+- 최종 독립 수용: FI-009 문장 번호 수정 후보의 교수7단계/오답36건·1280/1440 렌더링을 확인하고 FI-012 대체 근거 채점 반례(#305)를 인계했다. 격리 CI와 개발 DB/사람 승인 범위를 분리하며 전체 REWORK 유지.

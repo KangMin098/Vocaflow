@@ -6,7 +6,7 @@ import http from 'node:http'
 import assert from 'node:assert/strict'
 import {createRequire} from 'node:module'
 import {execFileSync} from 'node:child_process'
-const altOnly=process.argv.includes('--alternative-only')
+const altOnly=process.argv.includes('--alternative-only'),numberingOnly=process.argv.includes('--numbering-only')
 const root=path.resolve(import.meta.dirname,'../../../..'),snapshot=path.join(root,'.agent-logs/final-independent/owner-de5'),head='de5065b51'
 const req=createRequire(path.join(root,'apps/web/package.json'))
 const {build}=createRequire(createRequire(req.resolve('vitest/package.json')).resolve('vite'))('esbuild')
@@ -24,6 +24,13 @@ const fixtures=[
  {format:'form_scope',body:{sentences:['The students is ready.','The hall opens at nine.','The books are on the shelf.','We waited for the bus.','She works near the school.'],stem:'어법상 틀린 곳은?',marks:[{sentence:0,text:'is'},{sentence:1,text:'opens'},{sentence:2,text:'are'},{sentence:3,text:'waited'},{sentence:4,text:'works'}]},gold:{answer:0,reason:'agreement',correction:'are',marks:[{reason:'agreement',why:'A plural subject requires are.'},{reason:'agreement',why:'The singular subject agrees with opens.'},{reason:'agreement',why:'The plural subject agrees with are.'},{reason:'tense_aspect',why:'The sentence uses the past form correctly.'},{reason:'agreement',why:'The singular subject agrees with works.'}]},response:{choice:0,reason:'agreement'}},
  {format:'option_correspondence',body:{sentences:['The hall opens at nine.','It closes at six.','Books can be returned in a box.','Visitors need a card.','The room is closed on Sunday.'],stem:'다음 글의 내용과 일치하지 않는 것은?',choices:['The hall opens at nine.','The hall closes at six.','The room is open on Sunday.','A box accepts returned books.','Visitors must have a card.']},gold:{answer:2,options:[{verdict:'matches',sentence:0,why:'This repeats the opening time.'},{verdict:'matches',sentence:1,why:'This repeats the closing time.'},{verdict:'reversed',sentence:4,why:'This reverses the Sunday closure.'},{verdict:'matches',sentence:2,why:'This paraphrases the return box.'},{verdict:'matches',sentence:3,why:'This paraphrases the card requirement.'}]},response:{choice:2,options:[{verdict:'matches',sentence:0},{verdict:'matches',sentence:1},{verdict:'reversed',sentence:4},{verdict:'matches',sentence:2},{verdict:'matches',sentence:3}]}}
 ]
+if(numberingOnly){
+ const source=f=>execFileSync('git',['show',f+':apps/web/src/components/csat/authored/AuthoredRunner.tsx'],{cwd:root,encoding:'utf8'})
+ const block=s=>s.slice(s.indexOf('{p.teach && ('),s.indexOf('<section className={styles.task}',s.indexOf('{p.teach && (')))
+ assert.equal(block(source(head)),block(source('4655e9be4')))
+ const set=JSON.parse(execFileSync('git',['show','4655e9be4:apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json'],{cwd:root,encoding:'utf8'})),item=set.items[0]
+ fixtures.push({format:'central_meaning',tag:'r5-numbering',body:item.body,gold:item.gold,response:{claim:item.gold.claim,support:item.gold.support,relation:item.gold.relationProbe.relation,choice:item.gold.answer}})
+}
 for(const f of fixtures){f.body.format=f.format;assert.deepEqual(FORMAT_SPECS[f.format].validate(f.body,f.gold),[]);assert.equal(FORMAT_SPECS[f.format].grade(f.body,f.gold,f.response,'fixture-v1').grade.isCorrect,true)}
 const ev=fixtures.find(f=>f.format==='choice_evidence'),spec=FORMAT_SPECS.choice_evidence
 const alternative={body:ev.body,gold:ev.gold,primary:spec.grade(ev.body,ev.gold,{choice:2,evidence:[0]},'fixture-v1'),equivalentAlternative:spec.grade(ev.body,ev.gold,{choice:2,evidence:[1]},'fixture-v1'),combined:spec.grade(ev.body,ev.gold,{choice:2,evidence:[0,1]},'fixture-v1')}
@@ -43,9 +50,17 @@ try{for(const width of [1280,1440]){
  const page=await browser.newPage({viewport:{width,height:1000}});page.on('pageerror',e=>errors.push(e.message));let active
  await page.route('**/*',async route=>{const request=route.request();if(!request.url().startsWith(base)){external.push(request.url());return route.abort()}if(!request.url().includes('/api/'))return route.continue();const body=request.postDataJSON();submissions.push({format:active.format,body});const result=FORMAT_SPECS[active.format].grade(active.body,active.gold,body.response,'fixture-v1');return route.fulfill({status:result?200:400,contentType:'application/json',body:JSON.stringify(result?{grade:result.grade,reveal:{format:active.format,...FORMAT_SPECS[active.format].reveal(active.gold)},binding:{status:'bound',evidence:true}}:{error:'Invalid fixture response'})})})
  await page.goto(base)
- for(const f of fixtures.filter(f=>!altOnly||f.format==='choice_evidence')){active=f;const props={id:f.format,deliveryId:'00000000-0000-4000-8000-000000000001',taskLabel:f.format,format:f.format,role:'independent_check',sentences:f.body.sentences,stem:f.body.stem,choices:f.body.choices??[],extra:{target:f.body.target,pairs:f.body.pairs,marks:f.body.marks},probe:f.format==='central_meaning'?1:null,teach:null,hints:null,done:null,returnHref:'/csat/diagnosis?tab=map&view=full'}
+ for(const f of fixtures.filter(f=>numberingOnly?f.tag==='r5-numbering':!altOnly||f.format==='choice_evidence')){active=f;const props={id:f.format,deliveryId:'00000000-0000-4000-8000-000000000001',taskLabel:f.format,format:f.format,role:numberingOnly?'model_explanation':'independent_check',sentences:f.body.sentences,stem:f.body.stem,choices:f.body.choices??[],extra:{target:f.body.target,pairs:f.body.pairs,marks:f.body.marks},probe:f.format==='central_meaning'?1:null,teach:numberingOnly?(f.body.teach??null):null,hints:null,done:null,returnHref:'/csat/diagnosis?tab=map&view=full'}
   await page.evaluate(p=>window.mount(p),props);await page.locator('[data-format="'+f.format+'"]').waitFor()
   const submit=page.getByRole('button',{name:'맞춰 보기',exact:true});
+  if(numberingOnly){
+   const expected=[['첫 두 문장','문장 1 · 2'],["'Yet'(3번)",'문장 3'],["'In fact'(4번)",'문장 4'],['5번','6번','4번','문장 5 · 6'],["'In other words'(7번)",'문장 7'],['4번(주장)','7번(다시 말하기)','문장 4 · 7'],['생각(2번)','예시(6번)','문장 1 · 2 · 6']]
+   const steps=page.locator('[aria-labelledby="teach-h"] ol > li'),observed=[]
+   for(let i=0;i<expected.length;i++)observed.push({step:i+1,text:await steps.nth(i).textContent(),expected:expected[i]})
+   record(width+'-r5-numbering-fixed',observed.every(x=>x.expected.every(e=>x.text.includes(e))),observed)
+   await page.screenshot({path:path.join(out,width+'-r5-numbering-fixed.png'),fullPage:true})
+   continue
+  }
   if(altOnly){
    await page.locator('[aria-labelledby="passage-h"] ol li button').nth(1).click()
    await page.locator('fieldset').last().locator('button').nth(2).click()
@@ -72,6 +87,6 @@ try{for(const width of [1280,1440]){
  }
  await page.close()
 }record('no-runtime-errors-or-external-requests',errors.length===0&&external.length===0,{errors,external});record('no-authored-Gold-JSON-in-browser-bundle',goldInputs.length===0,{goldInputs})}
-finally{await browser.close();await new Promise(r=>server.close(r));fs.writeFileSync(path.join(out,altOnly?'equivalent-evidence-ui.json':'results.json'),JSON.stringify({head,scope:'Actual frozen Runner and grader with synthetic original content, stub API persistence/binding and Link; not full shell/auth/DB/PLAN E2E.',rows,alternativeCounterexample:alternative},null,2)+'\n')}
+finally{await browser.close();await new Promise(r=>server.close(r));fs.writeFileSync(path.join(out,numberingOnly?'numbering-4655.json':altOnly?'equivalent-evidence-ui.json':'results.json'),JSON.stringify({head,contentHead:numberingOnly?'4655e9be4':null,teacherBlockIdentical:numberingOnly?true:null,scope:'Actual frozen Runner and grader with synthetic original content, stub API persistence/binding and Link; not full shell/auth/DB/PLAN E2E.',rows,alternativeCounterexample:alternative},null,2)+'\n')}
 console.log('EQUIVALENT_EVIDENCE='+JSON.stringify({primary:alternative.primary.grade.isCorrect,alternative:alternative.equivalentAlternative.grade.isCorrect,combined:alternative.combined.grade.isCorrect}))
 process.exitCode=rows.some(r=>!r.ok)?1:0

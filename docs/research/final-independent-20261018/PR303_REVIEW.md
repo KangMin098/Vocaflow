@@ -36,3 +36,10 @@ CI의 새 브라우저 spec은 로컬 Supabase에 합성 관리자/학습자/승
 PR 목적의 「교수/평가 혼용 차단」「적격 공급」「지도·PLAN 환류」가 위 반례로 아직 충족되지 않는다. 전체30 TASK 확장이나 실학생 효과를 이 중간 PR의 새 필수 기능 게이트로 만들지는 않는다. 대신 [전체 A~H 현황](./ACCEPTANCE.md)과 [TASK 범위](./TASK_RUNTIME_COVERAGE.md)에서 미완성을 유지한다.
 
 실제 개발 DB에 authored 표가 아직 없음을 읽기 전용으로 확인했다. 코드 병합/CI fixture/사람 Gold·권리 승인/실제 공급은 별도 상태다. 이 세션은 실제 DB 쓰기나 사람 승인을 수행하지 않았다. GitHub 작성자와 검토 CLI 계정이 모두 KangMin098이므로 형식적인 타 계정 승인 대신 독립 검토 내용을 PR comment로 기록한다. 승인으로 표시하거나 required review를 우회하지 않는다.
+
+## 후속 독립 확인 · 2026-10-18
+
+- FI-009 문장 번호: 4655e9be4에서 FIX_VERIFIED_IN_CANDIDATE. 교수7단계/오답 설명36건과1280/1440 실제 렌더링 근거는 [형식 검토](./AUTHORED_FORMATS_REVIEW.md). 과거 HEAD의 OPEN을 최신 수정 상태로 적용하지 않는다.
+- FI-012: [#305](https://github.com/KangMin098/Vocaflow/issues/305)에 대체 결정 근거 오답을 인계했다. 기존 중심문장 재진술과 다른 choice_evidence 계약 문제다.
+- CI run39114115991(HEAD e91377575) 격리 e2e 성공을 확인했다. shared-dev SKIPPED다. 추가 TASK/형식이 들어간 최신22b5e43c5의 CI 성공·내용 수용으로 대신 계산하지 않는다.
+- FI-001의 확인된 결속 개선 및 FI-009 수정은 인정하며, 미해결 P1/핵심 P2·전체 TASK·실제 개발 DB·사람 승인·학습 효과 근거가 남아 전체 REWORK를 유지한다. 병합하지 않았다.
