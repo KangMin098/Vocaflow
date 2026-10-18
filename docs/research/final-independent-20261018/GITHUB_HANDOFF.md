@@ -63,3 +63,5 @@ PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두
 최신 인계: [71a 수정/964 CI](./PR303_4A_REVERIFY.md), [FI-010 독립 후보](./SERVER_REPAIR_REVERIFY.md), [PR25027문항 전량 대조](./PR250_CONTENT_REVIEW.md)를 구분한다. 새 필수 게이트나 중복 이슈는 만들지 않으며 기존 ID의 수정/검증을 이어간다. 실제 DB 쓰기·사람 승인·병합0.
 
 e46de4983 게시 영수증: [#304 후보 수정 확인](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6249957751), [PR303144 고정 COMMENTED 검토](https://github.com/KangMin098/Vocaflow/pull/303#pullrequestreview-5563001973), 공동 원장 DL-0171. 후속144 CI39127042596도 verify/build/e2e/faultclosed 성공, shared-dev SKIPPED다. 두 주요 격리 spec 바이트가71a와 같아 기존 직접 report 판독을 재사용했다.144 artifact12135699816의 새 시각/내부 report를 판독했다고 주장하지 않는다.
+
+후속 인계: FI-014 선택 후보0a06b5d11은 [기존 #307](https://github.com/KangMin098/Vocaflow/issues/307#issuecomment-6250039995)과 DL-0172로 전달했다. 제품 미적용·사람 미승인으로 OPEN이다.144의 [통합 관찰 Inspector22건](./OBSERVATION_UI_REVERIFY.md)은 새 화면의 격리 표시 범위를 확인했으며 전체 실학습/DB/PLAN을 대신하지 않는다.

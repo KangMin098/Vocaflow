@@ -11,7 +11,7 @@ A~H는 사용자가 정한 제품 수용 관점이다. 기존 VG/LM/TASK 정본�
 |---|---|---|---|
 |A 시험 기록과 현재 능력 이해|PARTIAL|기록/직접 확인/불확실성을 나누는 map loader·as-is 및 [기존 T4](../lm-g1-4-independent/ACCEPTANCE.md) 결과 재사용|전체 지원 TASK와 실제 대상 학습자의 근거를 전체 여정에서 대조하지 못함|
 |B 목표 설정|PARTIAL|버전 목표/점수/선택 시험 범위의 [기존 T3](../lm-g1-3a-independent/ACCEPTANCE.md), 격리 목표 저장 CI|저장·표시된 등급/일정을 해당 기준의 계산 완료로 보지 않음. 등급 단독·복합 시험·시간 예산 및 전체 여정 연결 미완료|
-|C 개인화 학습지도|PARTIAL|to-be/Workspace/PLAN의 [T1](../lm-g1-1-independent/ACCEPTANCE.md)·[T2](../lm-g1-2-independent/ACCEPTANCE.md),30 TASK/학습량·근거 구분, FI-011 로더71a의17 TASK 입력과 실제 CI 두 폭 복귀,144 관찰 계약104조합/3 null 확인|전체 TASK별 실제 수행/도달 근거 및 PLAN 의미 환류 미완료.144 신규 UI 브라우저 미검증|
+|C 개인화 학습지도|PARTIAL|to-be/Workspace/PLAN의 [T1](../lm-g1-1-independent/ACCEPTANCE.md)·[T2](../lm-g1-2-independent/ACCEPTANCE.md),30 TASK/학습량·근거 구분, FI-011 로더71a의17 TASK 입력과 실제 CI 두 폭 복귀,144 관찰 계약104조합/3 null 및 [실제 Inspector 두 폭22관찰](./OBSERVATION_UI_REVERIFY.md)|전체 TASK별 실제 수행/도달 근거 및 PLAN 의미 환류, 실제 경로의 통합 관찰 상태 생성 미완료|
 |D 기출 출제 원리 학습|PARTIAL|기출 theater/자기 설명, [실제 구조 위젯](./STRUCTURE_SECURITY_REVERIFY.md), [27개 결속/전량 내용 대조](./PR250_CONTENT_REVIEW.md),105개 창작 초안의 기존 독립 판독|P3 문구 의견3개와 전체 화면/음성·모든 설계 연결 의미·전문가 검수 미완료. FI-014 정당한 이유 오답. AI 판독을 사람 Gold로 대신하지 않음|
 |E 적합한 학습 콘텐츠 공급|BLOCKED_EXTERNAL|[SQL 수정/잔여 경합](./SQL_REPAIR_REVERIFY.md), [실제 DB READ ONLY](./product-current-db-readonly.json), 원천·권리·Gold·주석 revision 구분|authored 미설치, 자격/납품/결속0. 사람 Gold/권리와 출시 결정·실제 적용 근거 없음. FI-006 중복 납품도 남음|
 |F 실제 학습 실행|PARTIAL|[R5 실제 격리 브라우저](./PR303_BROWSER_EVIDENCE.md), [9형식·재시도·철회·키보드](./PR303_4A_REVERIFY.md), 자기 설명 위젯/서버 경로|실제 적격 공급 실행0. FI-010 누락 열람 기록, FI-015 동시 설명 저장 손실, FI-016 비공개 경계 문제, FI-017 두 PR 통합 타입 오류|

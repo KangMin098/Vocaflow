@@ -65,3 +65,5 @@ passing screenshot/trace/HAR 첨부는0이다. 새 시각 판독이나 네트워
 처음 실행기의 통합 TASK3개 가정은 보류 X-O1까지 포함해 실패했다. 비보류3개로 범위를 바로잡았으며 제품 결함으로 세지 않았다. X-O1의 제안 관계는 실제 partsOf에서 제외돼 null이다. 도구 존재는 정본/창작 키의 정적 정의이며 실제 적격 출시 공급이 있다는 뜻은 아니다. JSX 연결은 코드로 확인했으나 신규 화면 렌더링·브라우저·실제 학습자 데이터는 이 순수 함수 실행 범위가 아니다. 기존 가로 넘침/CI 결과를 신규 UI 전체 검증으로 확대하지 않는다.
 
 후속 종료 관찰:144 run39127042596은 verify/build/e2e/faultclosed 성공, shared-dev SKIPPED다. authored-formats/authored-supply 두 주요 spec의71a→144 바이트 변경이 없어 기존 직접 판독을 재사용한다. 새 artifact12135699816의 내부 report/시각 판독을 반복했다고 쓰지 않는다. [게시/인계 영수증](./GITHUB_HANDOFF.md)을 남겼다.
+
+관찰 UI 후속: [실제 TaskInspector Chromium22관찰](./OBSERVATION_UI_REVERIFY.md)은3통합 TASK×3상태×2폭과4제외 대조를 확인했다. 합성 하위 상태 주입의 격리 표시 검사이며 실제 기록/수행으로 해당 상태가 만들어지는 전체 경로·DB·PLAN의 검증은 아니다. 위 순수 함수104조합은 반복하지 않았다.

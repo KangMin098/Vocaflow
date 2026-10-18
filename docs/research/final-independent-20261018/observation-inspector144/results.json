@@ -1,0 +1,187 @@
+{
+  "head": "14446db1048258752acb22ba08171196e8b33566",
+  "complete": true,
+  "rows": [
+    {
+      "width": 1280,
+      "task": "s.o.sentence_meaning_model",
+      "state": "unmeasurable",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "s.o.sentence_meaning_model",
+      "state": "insufficient",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "s.o.sentence_meaning_model",
+      "state": "observable",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "r.o.global_meaning_model",
+      "state": "unmeasurable",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "r.o.global_meaning_model",
+      "state": "insufficient",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "r.o.global_meaning_model",
+      "state": "observable",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "e.o.final_judgment",
+      "state": "unmeasurable",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "e.o.final_judgment",
+      "state": "insufficient",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "e.o.final_judgment",
+      "state": "observable",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1280,
+      "task": "r.central_meaning",
+      "state": "excluded",
+      "noInventedObservation": true
+    },
+    {
+      "width": 1280,
+      "task": "x.o.whole_test_stability",
+      "state": "excluded",
+      "noInventedObservation": true
+    },
+    {
+      "width": 1440,
+      "task": "s.o.sentence_meaning_model",
+      "state": "unmeasurable",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "s.o.sentence_meaning_model",
+      "state": "insufficient",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "s.o.sentence_meaning_model",
+      "state": "observable",
+      "partCount": 5,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "r.o.global_meaning_model",
+      "state": "unmeasurable",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "r.o.global_meaning_model",
+      "state": "insufficient",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "r.o.global_meaning_model",
+      "state": "observable",
+      "partCount": 6,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "e.o.final_judgment",
+      "state": "unmeasurable",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "e.o.final_judgment",
+      "state": "insufficient",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "e.o.final_judgment",
+      "state": "observable",
+      "partCount": 3,
+      "labelCorrect": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "task": "r.central_meaning",
+      "state": "excluded",
+      "noInventedObservation": true
+    },
+    {
+      "width": 1440,
+      "task": "x.o.whole_test_stability",
+      "state": "excluded",
+      "noInventedObservation": true
+    }
+  ],
+  "runtimeErrors": [],
+  "externalRequests": [],
+  "scope": "Actual frozen TaskInspector and canonical observation function/relations in Chromium with injected synthetic child states. Fixture builds actual map DTOs before state injection. LearnerPath/analytics/navigation/Link adapted; no actual route/shell/auth/API/DB/G2/PLAN persistence or reference-design equivalence.",
+  "sourceHashes": [
+    {
+      "file": "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+      "sha256": "9ceeb9c83110f30b51a6dcca6c4ca93b16b2e37bb54609d14b7e85a5ae55548f"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/observation.ts",
+      "sha256": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313"
+    }
+  ]
+}
