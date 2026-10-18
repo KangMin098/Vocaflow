@@ -38,3 +38,7 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 최신 후속: 추가10 TASK/60문항 및 새4형식 검토를 d1a782394에 push했다. FI-014는 #307, PR303 인계 댓글은 issuecomment-6248394108, 공용 상태 DL-0159다. 동일3c15 CI39115796299 실패 원인은 Runner83 unused DEMAND_LABEL이며 수정 HEAD의 필수 체크 재확인이 필요하다. 실제 DB 쓰기/사람 승인/병합은 수행하지 않았다.
 
 후속 SQL 재검증 게시: #294 issuecomment-6248673835, #295 issuecomment-6248674062, #296 issuecomment-6248674203, #298 issuecomment-6248674365, PR303 issuecomment-6248674507. 공동 인계 DL-0160. [실제7e SQL](./SQL_REPAIR_REVERIFY.md)과 [서버/RSC](./SERVER_REPAIR_REVERIFY.md)를 함께 보며 과거 HEAD의 미수정 판단을 최신에 그대로 적용하지 않는다. 전체 A~H REWORK는 유지한다.
+
+## 지속 자동 승인 기준
+
+2026-10-18 사용자 「방금 같은 승인은 자동 승인으로 기준 변경해」에 따라 이번 임무의 검증·관련 GitHub 이슈/PR 검토 게시·검증 브랜치 commit/push·Claude 총괄 인계를 추가 확인 없이 진행한다. 신규 결함과 수정 후 재검증에도 적용한다. 공동 원장 DL-0162와 로컬 목적 파일에 기록했다. 비밀값/실제 학습자 개인정보·응답/권리 미확인 기출 원문 제외, 민감한 보안 재현의 비공개 전달, 실제 DB 쓰기·삭제·배포·권한 변경·사람 Gold/권리 승인 제한, 기존 CI·safe-merge 조건은 유지한다. 시스템 차단을 우회하지 않는다.
