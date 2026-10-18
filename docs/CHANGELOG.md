@@ -28,6 +28,10 @@
 ---
 ## Unreleased (v06.34 → next)
 
+
+- feat(csat): 확인 과제 제출 뒤 학습자 본인 납품에 G2 시도 결속(workspace_delivery_attempt_record · 학습자 세션 · 제출 id 고정 요청 키 · 실패해도 기록 유지) · r5-bind 러너 I2 경로 정정
+
+- docs(csat): R5 첫 적격 공급 DB 쓰기 4단계 승인 패키지(등록부 · 자격 · 승인 · 공급 — 실행 주체 · 검증 · 되돌리기, 사람 Gold·권리 판정 전 실행 안 함)
 - feat(db): 개발 DB 에 Factory I1 DB-2 · I2 주석 결속(`20261018120000`) · 납품↔G2 결속(`20261018120100`) 적용. I2·G2 는 새 승인형 러너 `scripts/db/r5-bind/deploy.mjs`(승인 창 난수 · 자동화/CI 차단 · 순서·재적용 차단 · 단위 회귀 7)로 실행. 이력 SHA 4건 승인값 일치 · 검증 i2 10/10 · g2 11/11 · 학습 기록 불변. 자격·승인·등록부 행 0(사람 Gold·권리 판정 전).
 
 - feat(db): Factory I1 러너 승인 창 경로 — TTY 가 없으면 정본 파일 실행 확인 + `--approval-nonce` 로 승인 티켓을 1회 소비(PR #287). 자동 실행·CI·isolated·복사본·거부/재사용 티켓은 접속 전 종료 2, TTY 경로 유지. 접속 문자열은 셸 → `.env.local` 순. DB-1/DB-2 SQL SHA 불변 · 격리 PG17 47/47.
