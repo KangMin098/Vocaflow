@@ -42,7 +42,7 @@
 | 2b | FI-001(#293) 결속 출처 — 최신 납품 추측 제거 · 복구 API | CODE_IMPLEMENTED · ISOLATED 재현 6/6 | fi-001-provenance · delivery-binding 10 |
 | 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | 광역 통과 |
 | 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(SQL+서버) | authored-flow 10 |
-| 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1440/1280) | 1차 실패 → 원인(서버 컴포넌트가 클라이언트 모듈 값 import) 수정 + 경계 가드 · 재실행 대기 | PR #303 CI |
+| 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1440/1280) | ISOLATED_E2E_VERIFIED(브라우저 · R5) — 1차 실패 원인(서버가 클라이언트 모듈 값 import) 수정 뒤 6/6 통과 · 보류 SQL 실제 Postgres 적용 성공 | CI run 39114115991 |
 | 5 | 단일 외부 승인 패키지(A · B · B2 · C) | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
 | 6 | 과제 형식 레지스트리 + TASK 확장 6세트(E·E·R·R·S·V) | CODE_IMPLEMENTED · DATA(사람 Gold 전) | formats 12 · 세트 35 · expansion 리뷰 |
 | 6b | 나머지 비보류 TASK 14개 | NOT_IMPLEMENTED(콘텐츠 · 형식) — 지원 완료 표시 안 함 | — |
