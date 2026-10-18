@@ -1,0 +1,20 @@
+{
+  "head": "01c5e4bc0dace7f28c98bdf5a5273884b3538e8d",
+  "pr250": "bcc3b32a781b121715e675e6bbe8824961065b5b",
+  "level": "ISOLATED_BROWSER_VERIFIED",
+  "contexts": 2,
+  "initialStatuses": [
+    200,
+    409
+  ],
+  "finalServerNotes": [
+    "browser-one",
+    "browser-two"
+  ],
+  "eachDeviceRetainsOwnIndexedDbNote": true,
+  "retryUsedActualStoreTimer": true,
+  "runtimeErrors": 0,
+  "externalRequests": 0,
+  "storeSha256": "1c2bc4a53192bf11ff9b568aea3b835ad5552942608dd69f48f8c24f9ee1356f",
+  "scope": "Actual browser store/IndexedDB timers + actual frozen HTTP state API + PostgreSQL17.10; synthetic login/Reveal Gate. No full theater/shell, actual dev DB/JWT, Gold approval or actual learner effect."
+}

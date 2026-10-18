@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
+현재 후속 상태: **REWORK · 검증 계속**. FI-006/010/014/015/016/017은 실제 통합 코드/격리 경계에서 수정 확인, FI-018은 PR312cefc에서도 PARTIAL_FIX / OPEN이다. 최신303256f·2502549(실제 통합/재전송 상한·DB 주석 복원)와 CI/실제 DB READ ONLY·남은 A~H는 [통합 보고서](./INTEGRATED_REPORT.md)와 [변경분 원장](./REWORK_DELTA_REVERIFY.md)이 정본이며 아래는 시간순 이력이다.
+
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · **새 수정 HEAD로 재검증 재개, 제품 REWORK · 최종 수용 아님**. 현재 전체 판정/HEAD/CI/남은 조건은 [통합 보고서](./INTEGRATED_REPORT.md)를 따른다. 아래는 시간순 이력이다.
 
 기준 origin/main `c3a03d168`(#292 병합). 전용 worktree `D:/workspace/Vocaflow-final-independent`; 실제 개발 DB는 읽기 전용이다. #286~#292 기존 검증을 재사용하며 새 통합 PR과 회귀 위험에 집중한다. R5 한 건으로 작업을 종료하지 않는다.

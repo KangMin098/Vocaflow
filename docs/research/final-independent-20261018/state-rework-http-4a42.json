@@ -1,0 +1,68 @@
+{
+  "head": "4a42b2b65eaaa164cc12a487dfcb806657ef9399",
+  "pr250": "f6f74eb3831866380eb60b41e8aacea561d177cd",
+  "level": "ISOLATED_DB_VERIFIED",
+  "transport": "actual frozen PUT/GET served over local HTTP + PostgreSQL17.10 pool; forced concurrent reads",
+  "rows": [
+    {
+      "id": "initial-save",
+      "pass": true
+    },
+    {
+      "id": "different-notes-concurrent-http-both-preserved",
+      "pass": true
+    },
+    {
+      "id": "same-note-newer-revision-preserves-first-and-old-history",
+      "pass": true
+    },
+    {
+      "id": "response-lost-after-server-commit",
+      "pass": true
+    },
+    {
+      "id": "same-packet-retry-no-duplicate",
+      "pass": true
+    },
+    {
+      "id": "older-packet-does-not-erase-revision-or-historical-record",
+      "pass": true
+    },
+    {
+      "id": "fresh-get-consistency",
+      "pass": true
+    },
+    {
+      "id": "legacy-null-cas",
+      "pass": true
+    },
+    {
+      "id": "legacy-microsecond-cas",
+      "pass": true
+    },
+    {
+      "id": "six-conflicts-return409-without-false-ack",
+      "pass": true
+    },
+    {
+      "id": "unauthenticated-put-rejected",
+      "pass": true
+    }
+  ],
+  "scope": "Synthetic identity and Reveal Gate adapters; actual route/merge/meaning-note source. Different user-agent clients simulate tabs/devices. No actual dev DB/JWT/browser/Gold approval or learner effect.",
+  "sameNoteContract": "Latest updatedAt revision wins; original first text and unrelated completed records preserved. Does not assert retention of every intermediate edit.",
+  "sourceHashes": [
+    {
+      "file": "apps/web/src/app/api/csat/state/route.ts",
+      "sha256": "05f74a03440a49a014a0eac2c2c73a1a0e72b74558cacfa835212baf0cc7d39b"
+    },
+    {
+      "file": "apps/web/src/lib/csat/continuity.ts",
+      "sha256": "721e271bb4bd4ed4dee039379a4a725823faa7db45ceb8ee8cff0f57faafdb6e"
+    },
+    {
+      "file": "apps/web/src/lib/csat/meaning-note.ts",
+      "sha256": "533217bf758a6e9b9bbae0be05d787b79342d1029c6e1f45c8c8b31cfa050a86"
+    }
+  ]
+}

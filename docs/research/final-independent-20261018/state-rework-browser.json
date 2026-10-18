@@ -1,0 +1,28 @@
+{
+  "head": "01c5e4bc0dace7f28c98bdf5a5273884b3538e8d",
+  "pr250": "2549e407d9b1138c83b7fd633556b1527b62648c",
+  "integrationScope": "Actual30301c server plus actual2502549 client; latest PR heads have only CHANGELOG merge conflict, not an actual merged product HEAD.",
+  "level": "ISOLATED_BROWSER_VERIFIED",
+  "contexts": 3,
+  "initialStatuses": [
+    200,
+    409
+  ],
+  "finalServerNotes": [
+    "browser-one",
+    "browser-two"
+  ],
+  "eachDeviceRetainsOwnIndexedDbNote": true,
+  "retryUsedActualStoreTimer": true,
+  "boundedRetry": {
+    "requests": 6,
+    "additionalAfterOneMinute": 0,
+    "retainsIndexedDb": true,
+    "falseSuccess": false,
+    "newSaveResetsAndSucceeds": true
+  },
+  "runtimeErrors": 0,
+  "externalRequests": 0,
+  "storeSha256": "52d842047d697be089750d94335b3b006153d66fbf379f946c11054ccfd869fc",
+  "scope": "Actual browser store/IndexedDB timers + actual frozen HTTP state API + PostgreSQL17.10; synthetic login/Reveal Gate. No full theater/shell, actual dev DB/JWT, Gold approval or actual learner effect."
+}

@@ -3,7 +3,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {execFileSync,spawnSync} from 'node:child_process'
-const root=path.resolve(import.meta.dirname,'../../../..'),sha='7e638e63d28791dcc4f886431c0205743dc3310a'
+const ownerRework=process.argv.includes('--owner-rework')
+const root=path.resolve(import.meta.dirname,'../../../..'),sha=ownerRework?'4a42b2b65eaaa164cc12a487dfcb806657ef9399':'7e638e63d28791dcc4f886431c0205743dc3310a'
 const openCandidate=process.argv.includes('--candidate-open')
 const run=fs.mkdtempSync(path.join(root,'.agent-logs/final-independent/server7e-')),snapshot=path.join(run,'snapshot')
 fs.mkdirSync(snapshot)
@@ -113,8 +114,42 @@ if(openCandidate){
  source=source.replace('expect(first.sentences.length).toBeGreaterThan(0);',`expect(first.sentences?.length??0).toBe(failedFirst?0:6);if(failedFirst){expect(first).toMatchObject({'data-testid':'authored-open-unavailable'});expect(visibleText((first as unknown as {children:unknown}).children)).toContain('자료를 열지 못했어요');}`)
  source=source.replace('// Capture the remaining product defect explicitly; true here is not an acceptance pass.','// Withheld body makes the later successful opening genuinely first; successful prior opening stays non-evidence.')
 }
+if(ownerRework){
+ source=source.replace('failOpen:boolean','failOpen:boolean|\'after\'')
+ source=source.replace('if(failOpen)return','if(failOpen===true)return')
+ source=source.replace("return{data:{session_id:row.id,outcome:'applied'},error:null}","if(failOpen==='after')return{data:null,error:{message:'synthetic response lost after session commit'}};return{data:{session_id:row.id,outcome:'applied'},error:null}")
+ source=source.replace('deliveryId:string,fail:boolean','deliveryId:string,fail:boolean|\'after\'')
+ source=source.replace('for(const failedFirst of [false,true])','for(const failedFirst of [false,true,\'after\'] as const)')
+ source=source.replace('failed open log still reveals body before later first evidence','failed open log withholds body; commit/ack loss remains conservative')
+ source=source.replace('firstBodySentences:first.sentences.length','firstBodySentences:first.sentences?.length??0')
+ source=source.replace("const NOW=Date.parse('2026-10-18T10:00:00Z')",`const visibleText=(value:unknown):string=>typeof value==='string'?value:Array.isArray(value)?value.map(visibleText).join(''):value&&typeof value==='object'?visibleText((value as {props?:{children?:unknown}}).props?.children):''\nconst NOW=Date.parse('2026-10-18T10:00:00Z')`)
+ source=source.replace('expect(first.sentences.length).toBeGreaterThan(0);expect(!!first.sessionId).toBe(!failedFirst);expect(n.n).toBe(failedFirst?0:1)',`expect(first.sentences?.length??0).toBe(failedFirst?0:6);if(failedFirst){expect(first).toMatchObject({'data-testid':'authored-open-unavailable'});expect(visibleText((first as unknown as {children:unknown}).children)).toContain('자료를 열지 못했어요');}expect(!!first.sessionId).toBe(!failedFirst);expect(n.n).toBe(failedFirst===true?0:1)`)
+ source=source.replace('expect(binding).toMatchObject({first_exposure:failedFirst,evidence:failedFirst})','expect(binding).toMatchObject({first_exposure:failedFirst===true,evidence:failedFirst===true})')
+ source+=String.raw`
+describe('FI010 first answer and completed revisit',()=>{
+ it('first exposed body can be evidence; completed revisit never manufactures another first attempt',async()=>{
+  await db.exec('begin')
+  try{
+   await supply(B,'check',2)
+   const target=ref('r5-cm-ind-1'),deliveryId=await dOf(B,target)
+   const first=await actualPage(B,'r5-cm-ind-1',deliveryId,false)
+   expect(first.sentences.length).toBe(6)
+   await recordAuthoredAttempt(admin,learner(B),{id:B,email:'fixture@test.local'},target,{response:rightAnswer('r5-cm-ind-1'),...meta({clientSessionId:first.sessionId,answeredAt:new Date(NOW-1000).toISOString()}),deliveryId},NOW,writer)
+   const before=await q1<{first_exposure:boolean,evidence:boolean}>(` + '`select first_exposure,evidence from workspace_delivery_attempt where user_id=$1 and artifact_ref=$2`' + String.raw`,[B,target])
+   expect(before).toMatchObject({first_exposure:true,evidence:true})
+   const complete=await actualPage(B,'r5-cm-ind-1',deliveryId,true)
+   expect(complete.sentences.length).toBe(6);expect(complete.sessionId).toBeUndefined()
+   expect((complete as unknown as {done:unknown}).done).toBeTruthy()
+   const after=await q1<{n:number}>(` + '`select count(*)::int n from workspace_delivery_attempt where user_id=$1 and artifact_ref=$2`' + String.raw`,[B,target])
+   expect(after.n).toBe(1)
+   console.log('REWORK_PAGE_FIRST_AND_DONE='+JSON.stringify({firstEvidence:before.evidence,completedBodySentences:complete.sentences.length,attemptRows:after.n}))
+  }finally{await db.exec('rollback')}
+ })
+})
+`
+}
 fs.writeFileSync(path.join(snapshot,'apps/web',file),source)
-const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',file,'-t',openCandidate?'FI010 actual page':'Independent owner7e server repairs'],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:3*1024*1024})
+const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',file,'-t',ownerRework?'FI010':openCandidate?'FI010 actual page':'Independent owner7e server repairs',...(ownerRework?['--pool=forks','--maxWorkers=1','--minWorkers=1']:[])],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:3*1024*1024})
 const output=[result.stdout??'',result.stderr??''].join('\n').replace(/\u001b\[[0-9;]*m/g,'')
-fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/'+(openCandidate?'authored-open-guard-candidate.log':'authored-owner7e-server.log')),'Frozen owner: '+sha+'\nScope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. '+(openCandidate?'Candidate guard changes ignored snapshot only; unchanged tests skipped.':'Negative defect observation is not product acceptance.')+'\n'+output)
+fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/'+(ownerRework?'authored-rework-open.log':openCandidate?'authored-open-guard-candidate.log':'authored-owner7e-server.log')),'Frozen owner: '+sha+'\nScope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. '+(ownerRework?'Actual product guard; normal/failure/commit-ack loss/reopen/first answer/completed history checked.':openCandidate?'Candidate guard changes ignored snapshot only; unchanged tests skipped.':'Negative defect observation is not product acceptance.')+'\n'+output)
 process.stdout.write(output);process.exitCode=result.status??1

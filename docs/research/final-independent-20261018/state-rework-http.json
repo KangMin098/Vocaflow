@@ -1,0 +1,76 @@
+{
+  "head": "01c5e4bc0dace7f28c98bdf5a5273884b3538e8d",
+  "pr250": "bcc3b32a781b121715e675e6bbe8824961065b5b",
+  "level": "ISOLATED_DB_VERIFIED",
+  "transport": "actual frozen PUT/GET served over local HTTP + PostgreSQL17.10 pool; forced concurrent reads",
+  "rows": [
+    {
+      "id": "initial-save",
+      "pass": true
+    },
+    {
+      "id": "concurrent-save-first-ack-and-conflict-are-honest",
+      "pass": true
+    },
+    {
+      "id": "different-notes-after-retry-both-preserved",
+      "pass": true
+    },
+    {
+      "id": "same-note-first-ack-and-conflict-are-honest",
+      "pass": true
+    },
+    {
+      "id": "same-note-newer-revision-preserves-first-and-old-history",
+      "pass": true
+    },
+    {
+      "id": "response-lost-after-server-commit",
+      "pass": true
+    },
+    {
+      "id": "same-packet-retry-no-duplicate",
+      "pass": true
+    },
+    {
+      "id": "older-packet-does-not-erase-revision-or-historical-record",
+      "pass": true
+    },
+    {
+      "id": "fresh-get-consistency",
+      "pass": true
+    },
+    {
+      "id": "legacy-null-cas",
+      "pass": true
+    },
+    {
+      "id": "legacy-microsecond-cas",
+      "pass": true
+    },
+    {
+      "id": "single-cas-conflict-return409-without-false-ack",
+      "pass": true
+    },
+    {
+      "id": "unauthenticated-put-rejected",
+      "pass": true
+    }
+  ],
+  "scope": "Synthetic identity and Reveal Gate adapters; actual route/merge/meaning-note source. Different user-agent clients simulate tabs/devices. Manual conflict retry validates API contract; actual browser store retry is separate. No actual dev DB/JWT/Gold approval or learner effect.",
+  "sameNoteContract": "Latest updatedAt revision wins; original first text and unrelated completed records preserved. Does not assert retention of every intermediate edit.",
+  "sourceHashes": [
+    {
+      "file": "apps/web/src/app/api/csat/state/route.ts",
+      "sha256": "2641c68b6f226da92f930eac37b3d414b468639d307b241ab99bb44120924cab"
+    },
+    {
+      "file": "apps/web/src/lib/csat/continuity.ts",
+      "sha256": "721e271bb4bd4ed4dee039379a4a725823faa7db45ceb8ee8cff0f57faafdb6e"
+    },
+    {
+      "file": "apps/web/src/lib/csat/meaning-note.ts",
+      "sha256": "533217bf758a6e9b9bbae0be05d787b79342d1029c6e1f45c8c8b31cfa050a86"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+현재 후속: [변경분 원장](./REWORK_DELTA_REVERIFY.md)의01c/1ee·bcc/92ea 실제 HEAD 결과가 아래 과거 인계보다 우선한다. FI-006/010/014/015/016/017은 명시 범위의 후보 수정 확인, FI-018은 PR312에서도 잔여가 있어 REWORK다. 실제 DB/사람 승인·전체 A~H 수용은 별도다.
+
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 새 수정 HEAD로 재검증 재개**. 최신 결과는 [변경분 원장](./REWORK_DELTA_REVERIFY.md)을 따른다. 전체 목표 완료/수용 선언이 아니다.
 
 증거 브랜치: `review/final-independent-20261018`. 최신 고정 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 `4a42b2b65eaaa164cc12a487dfcb806657ef9399`, [PR250](https://github.com/KangMin098/Vocaflow/pull/250)은 `f6f74eb3831866380eb60b41e8aacea561d177cd`이며 둘 다 OPEN이다.250 HEAD를 포함한 실제303 통합 소스를 확인했다. 양쪽 최신 CI의 build/e2e/faultclosed는 성공했지만 verify 쓰기 예산은 실패했다. 실제 DB 적용·전체 수용·병합 완료를 주장하지 않는다. 아래 후속 기록은 시간순 이력이다.
@@ -16,7 +18,7 @@
 | FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | FIX_VERIFIED_IN_CANDIDATE ·7e 서버 열기/충족/목록 확인 |
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
-| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
+| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | FIX_VERIFIED_IN_CANDIDATE · 실제 RSC/SQL4검사: 공개 전 기록·실패·commit/ack 유실·최초/완료 복귀. 실제 JWT/개발 DB 별도 |
 | FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE ·71a 로더17 TASK 및 실제 CI 두 폭 Workspace 복귀/결과 표시 확인. 전체 PLAN 의미 갱신은 별도 미검증 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
@@ -49,10 +51,10 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 
 | 후속 ID | 이슈 | 상태 |
 |---|---|---|
-| FI-015 | [#308](https://github.com/KangMin098/Vocaflow/issues/308) | OPEN · PR250 동시 자기 설명 저장 누락 |
-| FI-016 | [#309](https://github.com/KangMin098/Vocaflow/issues/309) | OPEN · 비공개 재현, 공동 원장 DL-0165 |
-| FI-017 | [#310](https://github.com/KangMin098/Vocaflow/issues/310) | OPEN · PR250/303 가상 통합의 중복 import·타입 오류 |
-| FI-018 | [#311](https://github.com/KangMin098/Vocaflow/issues/311) | OPEN · 병합 안전 게이트, 비공개 재현/DL-0168 |
+| FI-015 | [#308](https://github.com/KangMin098/Vocaflow/issues/308) | FIX_VERIFIED_IN_CANDIDATE · 실제 HTTP/PG13검사와 두 실제 browser store 경합/자동 재시도로 노트 보존 |
+| FI-016 | [#309](https://github.com/KangMin098/Vocaflow/issues/309) | FIX_VERIFIED_IN_CANDIDATE · 비공개 HTTP/PG4검사, 합성 인증 경계. 실제 JWT 별도 / DL-0177 |
+| FI-017 | [#310](https://github.com/KangMin098/Vocaflow/issues/310) | FIX_VERIFIED_IN_CANDIDATE · 실제 통합256f가2502549 포함, 불변 검사 재사용·변경 store5검사/3브라우저 컨텍스트 통과. 최신 CI 별도 |
+| FI-018 | [#311](https://github.com/KangMin098/Vocaflow/issues/311) | PARTIAL_FIX / OPEN · PR312cefc 독립 경계 미충족, 비공개 DL-0177. safe-merge/실제 병합0 |
 
 PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.
 

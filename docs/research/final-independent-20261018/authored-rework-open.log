@@ -1,0 +1,34 @@
+Frozen owner: 4a42b2b65eaaa164cc12a487dfcb806657ef9399
+Scope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. Actual product guard; normal/failure/commit-ack loss/reopen/first answer/completed history checked.
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/server7e-eUzPaf/snapshot/apps/web
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page successful separate opening makes later answer non-first
+OWNER7E_PAGE_EXPOSURE={"failedFirst":false,"firstBodySentences":6,"firstSessionIdIssued":true,"recordedBeforeClose":1,"secondSessionIdIssued":true,"binding":{"first_exposure":false,"evidence":false}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body; commit/ack loss remains conservative
+OWNER7E_PAGE_EXPOSURE={"failedFirst":true,"firstBodySentences":0,"firstSessionIdIssued":false,"recordedBeforeClose":0,"secondSessionIdIssued":true,"binding":{"first_exposure":true,"evidence":true}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body; commit/ack loss remains conservative
+OWNER7E_PAGE_EXPOSURE={"failedFirst":"after","firstBodySentences":0,"firstSessionIdIssued":false,"recordedBeforeClose":1,"secondSessionIdIssued":true,"binding":{"first_exposure":false,"evidence":false}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > FI010 first answer and completed revisit > first exposed body can be evidence; completed revisit never manufactures another first attempt
+REWORK_PAGE_FIRST_AND_DONE={"firstEvidence":true,"completedBodySentences":6,"attemptRows":1}
+
+ ✓ src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts  (16 tests | 12 skipped) 2980ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 12 skipped (16)
+   Start at  23:15:22
+   Duration  4.87s (transform 470ms, setup 0ms, collect 1.45s, tests 2.98s, environment 0ms, prepare 135ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+stderr | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body; commit/ack loss remains conservative
+[authored open session] independent synthetic session transport failure
+
+stderr | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body; commit/ack loss remains conservative
+[authored open session] synthetic response lost after session commit
+
