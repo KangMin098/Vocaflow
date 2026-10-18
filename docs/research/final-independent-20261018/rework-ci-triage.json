@@ -1,0 +1,66 @@
+{
+  "observedHead303": "4a42b2b65eaaa164cc12a487dfcb806657ef9399",
+  "observedHead250": "f6f74eb3831866380eb60b41e8aacea561d177cd",
+  "pr250IsAncestorOf303": true,
+  "requestedHeadsPreserved": {
+    "pr303": "b7b5ac42429d3fd4d0efe9d5d3d7d47376d70773",
+    "pr250": "4b210bbb8089bcccda0837760da6629e1b844026"
+  },
+  "ci": {
+    "pr303": {
+      "run": 39133318225,
+      "verify": "FAILURE",
+      "build": "SUCCESS",
+      "e2e": "SUCCESS",
+      "faultclosed": "SUCCESS",
+      "sharedDev": "SKIPPED"
+    },
+    "pr250": {
+      "run": 39133224331,
+      "verify": "FAILURE",
+      "build": "SUCCESS",
+      "e2e": "SUCCESS",
+      "faultclosed": "SUCCESS",
+      "sharedDev": "SKIPPED"
+    }
+  },
+  "localIntegrated": {
+    "webTypecheck": {
+      "exitCode": 0,
+      "level": "CODE_VERIFIED"
+    },
+    "targeted": {
+      "files": 5,
+      "passed": 68,
+      "failed": 0,
+      "level": "ISOLATED_DB_VERIFIED",
+      "scope": "Owner tests for route race/state route/open source guard/format grader/authored SQL; synthetic auth and gate transports, not actual browser or dev DB."
+    },
+    "rowWriteBudget": {
+      "passed": 7,
+      "failed": 1,
+      "baseline": 141,
+      "observed": 143,
+      "routeHits": [
+        99,
+        104
+      ],
+      "loop": "Six-attempt CAS retry on one learner state row",
+      "firstHit": "insert line is classified through later update in scanner window",
+      "testBaselineChanged": false
+    },
+    "initialTargetedRun": {
+      "terminalCode": 2147483651,
+      "cause": "V8 native Zone out of memory",
+      "productFailureClaimed": false,
+      "resolution": "Retried with one fork after confirming terminal native OOM; 68 tests passed."
+    }
+  },
+  "sql": {
+    "path": "supabase/migrations/_pending_authored_supply.sql",
+    "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+    "matchesReported": true,
+    "appliedToActualDev": false
+  },
+  "scope": "Frozen actual integrated head; existing initial failures preserved. Build/e2e CI status is distinct from detailed artifact/UI acceptance."
+}

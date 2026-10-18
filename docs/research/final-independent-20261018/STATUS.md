@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
-2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · **외부 입력 대기(BLOCKED_EXTERNAL), 제품 REWORK · 최종 수용 아님**. 현재 전체 판정/HEAD/CI/남은 조건은 [통합 보고서](./INTEGRATED_REPORT.md)를 따른다. 아래는 시간순 이력이다.
+2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · **새 수정 HEAD로 재검증 재개, 제품 REWORK · 최종 수용 아님**. 현재 전체 판정/HEAD/CI/남은 조건은 [통합 보고서](./INTEGRATED_REPORT.md)를 따른다. 아래는 시간순 이력이다.
 
 기준 origin/main `c3a03d168`(#292 병합). 전용 worktree `D:/workspace/Vocaflow-final-independent`; 실제 개발 DB는 읽기 전용이다. #286~#292 기존 검증을 재사용하며 새 통합 PR과 회귀 위험에 집중한다. R5 한 건으로 작업을 종료하지 않는다.
 

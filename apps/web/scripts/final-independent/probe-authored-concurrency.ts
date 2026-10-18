@@ -8,14 +8,15 @@ import net from 'node:net'
 import path from 'node:path'
 import { canonicalDemand } from '../../src/lib/csat/map/v62/persist-contract'
 import { AXES, B_SQL, C_SQL, STUB } from '../../src/lib/csat/map/v62/__tests__/supply-sql-harness'
-const root=path.resolve(__dirname,'../../../..'),owner=process.argv.includes('--owner-fix')?'7e638e63d28791dcc4f886431c0205743dc3310a':'b4fbf4d5c'
+const ownerRework=process.argv.includes('--owner-rework')
+const root=path.resolve(__dirname,'../../../..'),owner=ownerRework?'4a42b2b65eaaa164cc12a487dfcb806657ef9399':process.argv.includes('--owner-fix')?'7e638e63d28791dcc4f886431c0205743dc3310a':'b4fbf4d5c'
 const deps=path.join(root,'.agent-logs/final-independent/pg-deps'),req=createRequire(path.join(deps,'package.json'))
 const EmbeddedPostgres=req('embedded-postgres').default,{Pool}=req('pg')
 const au=execFileSync('git',['show',`${owner}:supabase/migrations/_pending_authored_supply.sql`],{cwd:root,encoding:'utf8'})
 const admin='00000000-0000-4000-8000-0000000000a1',uid='00000000-0000-4000-8000-0000000000b1'
 const task='r.central_meaning',tkey='authored-central-meaning'
 const rlsOnly=process.argv.includes('--rls-only')
-const ownerFix=process.argv.includes('--owner-fix'),sameRef=process.argv.includes('--same-ref'),sharedDifferent=process.argv.includes('--shared-group-different-text')
+const ownerFix=process.argv.includes('--owner-fix')||ownerRework,sameRef=process.argv.includes('--same-ref'),sharedDifferent=process.argv.includes('--shared-group-different-text')
 const repairCandidate=process.argv.includes('--repair-candidate'),differentPassages=process.argv.includes('--different-passages')||sharedDifferent,aliasGroups=process.argv.includes('--alias-groups'),repeatableRead=process.argv.includes('--repeatable-read'),registrationRace=process.argv.includes('--registration-race')
 const repairSql=repairCandidate?fs.readFileSync(path.join(root,'apps/web/scripts/final-independent/authored-supply-repair-candidate.sql'),'utf8'):null
 const repairSha256=repairSql?createHash('sha256').update(repairSql).digest('hex'):null
@@ -153,8 +154,20 @@ async function main(){
       await a.query('commit');const outcome=await pending;secondId=outcome.id;error=outcome.error;if(secondId)await b.query('commit');else await b.query('rollback')
     }finally{await a.query('rollback');await b.query('rollback');a.release();b.release()}
     const count=Number((await one('select count(*)::int n from workspace_content_delivery where user_id=$1',[uid])).n)
-    const passed=(ownerFix&&differentPassages&&!sharedDifferent||blocked)&&Boolean(firstId)&&(differentPassages&&!sharedDifferent?Boolean(secondId)&&count===2:!secondId&&Boolean(error&&/actual passage already delivered|exposure shared_passage_seen/.test(error))&&count===1)
-    console.log(JSON.stringify({scope:ownerFix?'ACTUAL_ISOLATED_POSTGRES_OWNER_FIX':'ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE',ownerSqlSha256:createHash('sha256').update(au).digest('hex'),repairSha256,ownerCommit:owner,remoteDbWrites:0,serverVersion:(await one('show server_version')).server_version,scenario:sameRef?'same artifact ref delivered through different demand lines':sharedDifferent?'same declared group with distinct text representations':differentPassages?'same learner and distinct passages remain legal after serialization':aliasGroups?'same actual text under different author group labels serializes and rejects second':'same learner and same passage group serializes and rejects second',secondWaitObservedBeforeCommit:blocked,firstAllowed:Boolean(firstId),secondAllowedAfterCommit:Boolean(secondId),secondError:error,committedDeliveries:count,allPassed:passed,clusterDirectory:directory},null,2));if(!passed)throw new Error('Repair race/control failed');return
+    const passed=(ownerFix&&differentPassages&&!sharedDifferent||blocked)&&Boolean(firstId)&&(differentPassages&&!sharedDifferent?Boolean(secondId)&&count===2:!secondId&&Boolean(error&&/actual passage already delivered|exposure shared_passage_seen|already received this passage group/.test(error))&&count===1)
+    let historicalReceiptPreserved:boolean|null=null,changedRequestRejected:boolean|null=null,historicalRowUnchanged:boolean|null=null,changedRequestError:string|null=null
+    if(ownerRework){
+      const replay=await pool.connect()
+      try{
+        await replay.query(`select set_config('request.jwt.claim.sub',$1,false)`,[uid])
+        const historical=(await replay.query('select to_jsonb(d) snapshot from workspace_content_delivery d where id=$1',[firstId])).rows[0].snapshot
+        historicalReceiptPreserved=(await replay.query('select workspace_delivery_record($1,$2,$3,$4,$5) id',call(prepared[0]))).rows[0].id===firstId
+        try{await replay.query('select workspace_delivery_record($1,$2,$3,$4,$5) id',call({...prepared[1],request:prepared[0].request}));changedRequestRejected=false}catch(e){changedRequestError=(e as Error).message;changedRequestRejected=/request|idempoten/i.test(changedRequestError)}
+        historicalRowUnchanged=(await replay.query('select to_jsonb(d)=$2::jsonb same from workspace_content_delivery d where id=$1',[firstId,JSON.stringify(historical)])).rows[0].same===true&&Number((await replay.query('select count(*)::int n from workspace_content_delivery where user_id=$1',[uid])).rows[0].n)===count
+      }finally{replay.release()}
+    }
+    const complete=passed&&(!ownerRework||historicalReceiptPreserved===true&&changedRequestRejected===true&&historicalRowUnchanged===true)
+    console.log(JSON.stringify({scope:ownerFix?'ACTUAL_ISOLATED_POSTGRES_OWNER_FIX':'ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE',ownerSqlSha256:createHash('sha256').update(au).digest('hex'),repairSha256,ownerCommit:owner,remoteDbWrites:0,serverVersion:(await one('show server_version')).server_version,scenario:sameRef?'same artifact ref delivered through different demand lines':sharedDifferent?'same declared group with distinct text representations':differentPassages?'same learner and distinct passages remain legal after serialization':aliasGroups?'same actual text under different author group labels serializes and rejects second':'same learner and same passage group serializes and rejects second',secondWaitObservedBeforeCommit:blocked,firstAllowed:Boolean(firstId),secondAllowedAfterCommit:Boolean(secondId),secondError:error,committedDeliveries:count,historicalReceiptPreserved,historicalRowUnchanged,changedRequestRejected,changedRequestError,allPassed:complete,clusterDirectory:directory},null,2));if(!complete)throw new Error('Repair race/control failed');return
   }
   const first=await pool.connect(),second=await pool.connect()
   let firstId:unknown,secondId:unknown,secondError:string|null=null,postCommitError:string|null=null

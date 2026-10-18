@@ -1,0 +1,23 @@
+{
+  "head": "4a42b2b65eaaa164cc12a487dfcb806657ef9399",
+  "priorEvidenceCommit": "0a06b5d11",
+  "sources": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/formats.ts",
+      "actualSha256": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62",
+      "expectedCandidateSha256": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62"
+    },
+    {
+      "file": "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+      "actualSha256": "0adf5978cc19047fcf9719d9a9334614526d20a8805f1ec86efdf69ba6f1d6c8",
+      "expectedCandidateSha256": "0adf5978cc19047fcf9719d9a9334614526d20a8805f1ec86efdf69ba6f1d6c8"
+    }
+  ],
+  "goldFile": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+  "goldSha256": "c21b2cc6b24fa5f26702053deb9b8db19e38c5532f8b7d19bffbd5483ed42297",
+  "goldBytesIdenticalToPriorTestedDraft": true,
+  "priorFiniteCombinations": 1596,
+  "priorBrowserInteractions": 12,
+  "reuseOnly": true,
+  "scope": "Actual product code/Gold/UI bytes equal the previously tested independent candidate. Reuses finite/rendere​d evidence rather than rerunning unchanged combinations. No actual DB hash registration, human approval or learner evidence."
+}

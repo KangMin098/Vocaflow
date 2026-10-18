@@ -1,9 +1,9 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
-2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 실행은 외부 입력 대기(BLOCKED_EXTERNAL)**. 전체 목표 완료/수용 선언이 아니다.
+2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 새 수정 HEAD로 재검증 재개**. 최신 결과는 [변경분 원장](./REWORK_DELTA_REVERIFY.md)을 따른다. 전체 목표 완료/수용 선언이 아니다.
 
-증거 브랜치: `review/final-independent-20261018`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `14446db1048258752acb22ba08171196e8b33566`이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다.71a와 최신144의 필수 CI는 성공했다. 실제 DB 적용·전체 수용·병합 완료를 주장하지 않는다. 아래 후속 기록은 시간순 이력이며 현재 판정은 표와 통합 보고서를 따른다.
+증거 브랜치: `review/final-independent-20261018`. 최신 고정 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 `4a42b2b65eaaa164cc12a487dfcb806657ef9399`, [PR250](https://github.com/KangMin098/Vocaflow/pull/250)은 `f6f74eb3831866380eb60b41e8aacea561d177cd`이며 둘 다 OPEN이다.250 HEAD를 포함한 실제303 통합 소스를 확인했다. 양쪽 최신 CI의 build/e2e/faultclosed는 성공했지만 verify 쓰기 예산은 실패했다. 실제 DB 적용·전체 수용·병합 완료를 주장하지 않는다. 아래 후속 기록은 시간순 이력이다.
 
 | 기존 ID | 이슈 | 수정/독립 재검증 상태 |
 |---|---|---|
@@ -12,7 +12,7 @@
 | FI-003 | [#295](https://github.com/KangMin098/Vocaflow/issues/295) | FIX_VERIFIED_IN_CANDIDATE ·7e SQL 양방향 정체성 확인 |
 | FI-004 | [#296](https://github.com/KangMin098/Vocaflow/issues/296) | FIX_VERIFIED_IN_CANDIDATE ·7e SQL assess 권리 별도 확인 |
 | FI-005 | [#297](https://github.com/KangMin098/Vocaflow/issues/297) | FIX_VERIFIED_IN_CANDIDATE · 원래 모집단/측정 오기, 사람 내용 검수 별도 |
-| FI-006 | [#298](https://github.com/KangMin098/Vocaflow/issues/298) | PARTIAL_FIX / OPEN · 같은 ref/같은 그룹 잔여 조합 |
+| FI-006 | [#298](https://github.com/KangMin098/Vocaflow/issues/298) | FIX_VERIFIED_IN_CANDIDATE ·4a42 실제 PostgreSQL 두 연결4사례/역사 영수증·본문 불일치/기존 행 불변 확인 |
 | FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | FIX_VERIFIED_IN_CANDIDATE ·7e 서버 열기/충족/목록 확인 |
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
@@ -20,7 +20,7 @@
 | FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE ·71a 로더17 TASK 및 실제 CI 두 폭 Workspace 복귀/결과 표시 확인. 전체 PLAN 의미 갱신은 별도 미검증 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
-| FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · [격리 대체 이유 후보](./FI014_CANDIDATE.md)1,596조합/브라우저12건 확인, 제품 미적용·사람 미승인 |
+| FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | FIX_VERIFIED_IN_CANDIDATE ·4a42 제품이 독립 후보의 채점/Gold/UI 바이트를 채택, 기존 조합/브라우저 재사용. 사람 승인은 별도 |
 
 각 이슈에 고정 대상 커밋, 재현 조건/관찰, 기대 동작, 원본 결과/화면 링크를 포함했다. 수정 HEAD/PR이 오면 같은 ID에서 정상 대조군과 반례를 독립 확인한다. 동일 이슈를 다시 만들지 않는다.
 

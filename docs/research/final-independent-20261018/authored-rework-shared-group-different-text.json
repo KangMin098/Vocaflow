@@ -1,0 +1,20 @@
+{
+  "scope": "ACTUAL_ISOLATED_POSTGRES_OWNER_FIX",
+  "ownerSqlSha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+  "repairSha256": null,
+  "ownerCommit": "4a42b2b65eaaa164cc12a487dfcb806657ef9399",
+  "remoteDbWrites": 0,
+  "serverVersion": "17.10",
+  "scenario": "same declared group with distinct text representations",
+  "secondWaitObservedBeforeCommit": true,
+  "firstAllowed": true,
+  "secondAllowedAfterCommit": false,
+  "secondError": "delivery: learner already received this passage group",
+  "committedDeliveries": 1,
+  "historicalReceiptPreserved": true,
+  "historicalRowUnchanged": true,
+  "changedRequestRejected": true,
+  "changedRequestError": "delivery: request_key reused with a different body",
+  "allPassed": true,
+  "clusterStopped": true
+}

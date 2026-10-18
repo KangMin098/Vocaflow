@@ -1,7 +1,9 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
-2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · **제품 판정 REWORK, 실행은 외부 입력 대기(BLOCKED_EXTERNAL)**. 기준 origin/main `c3a03d1680c1b064598fdc1ab319b645f370e68c`. R5 한 사례나 개별 PR 통과로 전체를 완료하지 않는다. 외부 승인과 실제 관통 증거가 없는 상태에서 최종 ACCEPT를 선언하지 않는다.
+2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · **제품 판정 REWORK, 새 수정 HEAD로 독립 재검증 재개**. 기준 origin/main `c3a03d1680c1b064598fdc1ab319b645f370e68c`. 요청 HEAD 이후 최신3034a42b2b65/250f6f74eb38과 진행 중 CI를 고정 관찰했다. 아래 이전 검증/외부 대기 이력은 보존하며 새 결과가 검증되기 전 기존 P2를 닫지 않는다. R5 한 사례나 개별 PR 통과로 전체를 완료하지 않는다.
+
+최신 [REWORK 변경분 재검증](./REWORK_DELTA_REVERIFY.md)은 실제 통합 HEAD/CI 실패·SQL SHA 일치·FI-006 네 동시성 사례와22역할·FI-014 채택 결속을 기록한다. 아래 기존 기준선과 새 검증을 구분한다.
 
 ## A~H 독립 수용
 
