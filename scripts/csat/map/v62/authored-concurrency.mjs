@@ -21,6 +21,8 @@ const { default: EmbeddedPostgres } = await import(pathToFileURL(req.resolve('em
 const pg = req('pg')
 
 const T = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8')
+// CI 격리 job 은 빈 DB 기동을 위해 supabase/migrations 를 _all_migrations 로 옮겨 둔다
+const MIG = fs.existsSync(path.join(ROOT, 'supabase/_all_migrations')) ? 'supabase/_all_migrations' : 'supabase/migrations'
 const STUB = T('apps/web/src/lib/csat/map/v62/__tests__/supply-stub.sql')
 const STUB_I1 = T('apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql')
 const G2_COLUMNS = `alter table public.learning_task_attempts add column if not exists activity text,
@@ -28,7 +30,7 @@ const G2_COLUMNS = `alter table public.learning_task_attempts add column if not 
   add column if not exists client_mutation_id uuid; alter table public.learning_sessions add column if not exists stage text;`
 const LAYERS = ['_pending_workspace_supply_c_qualification.sql', '_pending_workspace_supply_b_orders.sql', '_pending_workspace_supply_i1_safety.sql',
   '20261018120000_workspace_supply_c_annotation_binding.sql', '20261018120100_r5_delivery_g2_binding.sql', '_pending_authored_supply.sql']
-  .map((f) => T(`supabase/migrations/${f}`))
+  .map((f) => T(`${MIG}/${f}`))
 
 const ADMIN = '00000000-0000-4000-8000-0000000000a1'
 const L = '00000000-0000-4000-8000-0000000000d1'
