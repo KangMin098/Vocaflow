@@ -1,0 +1,41 @@
+{
+  "scope": "ISOLATED_PGLITE_ONLY; captured installed G2 function bodies, minimal schema, no production triggers/RLS/concurrency claim",
+  "ownerCommit": "52a31d988",
+  "contractSha256": "49dd30e2cc915fe3b5c08eadbda52f63869849b6099ce691bb4add644528da8d",
+  "functions": [
+    {
+      "name": "learning_mutation_claim",
+      "sha256": "d9b795249ab77048de35c987839b698913b613c153d69e8559d48df96aeb50c5"
+    },
+    {
+      "name": "learning_attempt_record",
+      "sha256": "f5781dd401f5265456f40b98988c053594405038b467b592107681dcc135a459"
+    },
+    {
+      "name": "learning_attempt_submit",
+      "sha256": "acff6b95ae1771f1517ad9fe734e51ee1f66c116d67467e48aea9e7e2dffe6ba"
+    },
+    {
+      "name": "learning_session_apply",
+      "sha256": "b26ca0d05efe081cfc1ae333fd0dcfe83b89f3bd409e30ef4f26690dd319d9c2"
+    }
+  ],
+  "rows": [
+    {
+      "width": 1280,
+      "initial": "inserted",
+      "exactReplay": "duplicate",
+      "browserRetry": "conflict",
+      "firstAt": "2026-10-18T08:20:26.874Z",
+      "retryAt": "2026-10-18T08:20:26.936Z"
+    },
+    {
+      "width": 1440,
+      "initial": "inserted",
+      "exactReplay": "duplicate",
+      "browserRetry": "conflict",
+      "firstAt": "2026-10-18T08:20:27.823Z",
+      "retryAt": "2026-10-18T08:20:27.889Z"
+    }
+  ]
+}

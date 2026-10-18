@@ -20,3 +20,11 @@
 - 새 PGlite/Gold 실행기 두 파일 tsc scripts 및 eslint: PASS. 실제 PostgreSQL 실행기의 검사는 후속 결과를 별도 기록.
 - 새로운 FI-002~006 자료의 공개 게시 요청은 자동 심사가 FI-001과 다른 payload라며 거부했다. 해당 자료는 로컬 공용 DL-0149 및 보고서에 기록했으며 추가 외부 게시 범위 승인 대기. FI-001 게시 승인으로 확대 해석하여 push하거나 다른 경로로 게시하지 않음.
 - 최종 스크립트 tsc scripts / 실제 PostgreSQL 실행기 eslint: PASS. 시험 서버2건의 종료·PID 부재·절대 경로를 확인하고 이 실행이 만든 데이터 디렉터리만 정리했다. 재현 로그와 의존 도구는 보존했다.
+
+## 종단 연결 변경 범위(52a31d988)
+
+- 기존 authored-flow 종단 10건: PASS(고정 커밋 독립 추출, 실제 DB 환경값0, 쓰기 차단 preload).
+- 철회 반례: DB valid=false/서버 open=ok/기존 납품2개로 요청충족/orderOpened=false. FI-007로 기록.
+- Chromium 1280/1440 실제 새 컴포넌트: 21개 관찰, 키보드 선택·오류·빈 공급·가로 넘침0. 합성 API/지문 및 Link 래퍼 범위, 실제 CsatShell/팝업/DB/학습지도 복원은 미검증.
+- 같은 답 재시도 요청 메타데이터를 G2 원자 본문에 재생: 첫 요청 inserted/동일 원문 duplicate/화면 재시도 conflict(두 폭). FI-008로 기록.
+- [전체 범위와 원본](./AUTHORED_INTEGRATION_REVIEW.md). 최종 통합 PR·실제 공급·사람 승인 완료로 확대하지 않음.

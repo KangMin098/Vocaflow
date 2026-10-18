@@ -53,3 +53,6 @@
 ## 진행 중인 최종 구현의 별도 판정
 
 main 기준선 이후 총괄 worktree의 b4fbf4d5c 보류 authored SQL과 6b988d0f5 창작9문항을 조기 독립 검증했다. [SQL](./AUTHORED_SQL_REVIEW.md)과 [콘텐츠](./AUTHORED_CONTENT_REVIEW.md)는 현재 **REWORK**다. 9문항 선택/중심 문장의 AI 일치는 사람 Gold나 사실성 PASS가 아니다. 새 테이블은 [실제 개발 DB 미설치](./authored-deployment-status.json)다. 이 결과는 미제출 커밋의 수정 피드백이며 CI·병합·실제 공급 완료를 대신하지 않는다. 통합 PR 제출과 수정 뒤에 이 원장의 같은 결함 ID로 재검증한다.
+## 새 종단 구현 커밋 52a31d988
+
+[후속 독립 검토](./AUTHORED_INTEGRATION_REVIEW.md): 작성자 PGlite 종단10건 통과를 재현했고, FI-007의 사후 철회 열람/현재 공급 허위 충족과 FI-008의 브라우저 재시도 시각→G2 conflict를 추가 확인했다. 실제 컴포넌트 Chromium 1280/1440에서는 키보드·오류·빈 상태·가로 넘침을 확인했다. 전체 셸/팝업/라우트/실제 DB/PLAN 복원 E2E는 아직 미검증이다. 따라서 D/F/H의 기술 연결 증거는 늘었으나 A~H 판정을 VERIFIED로 올리지 않는다. 전체 REWORK와 외부 승인 조건을 유지한다.
