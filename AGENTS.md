@@ -37,7 +37,7 @@
 
 | 영역 | 문서 |
 |---|---|
-| UI / 컴포넌트 | [DESIGN.md](./DESIGN.md)(방향·화면별 골격·서명) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md) · [MODULES](./docs/MODULES.md) · 발명 참고 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) |
+| UI / 컴포넌트 | [DESIGN.md](./DESIGN.md)(**스타일 정본** — PC 학습자 Tines · /csat·/admin 3B · PC 웹만) · [학습자 감사](./docs/design/learner-tines-audit.md) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md)(과거 기록·재료) · [MODULES](./docs/MODULES.md) · 발명 참고 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) |
 | DB / 마이그레이션 | [DB_SCHEMA](./docs/DB_SCHEMA.md) · [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) · [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md) |
 | 원문 점검·판정(보관·내용) | [source-check/criteria](./docs/source-check/criteria.md)(판정 기준 정본 · 버전) · [changelog](./docs/source-check/changelog.md) · 회차 `round-{n}.md` — 판정자 정의·청크 지시에 기준을 다시 쓰지 않는다 · 대량 판정은 회차 일치율 안정 후 승인 |
@@ -58,7 +58,7 @@
 
 ## 디자인 방향 · 학습 과학 7
 
-- 방향(강제 규칙 아님 — 디자인·UX 금지·제한은 DD-66 으로 전부 삭제): **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 현재 서체는 한국어 Hahmlet · 영어 Lora.
+- 방향(강제 규칙 아님 — 디자인·UX 금지·제한은 DD-66 으로 전부 삭제): **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 스타일·서체는 [DESIGN.md](./DESIGN.md) 라우트별 기준 — **2026-10-03 사용자 결정: `/csat*`·`/admin*` = 3B 앱(neon-currant.3b.dev), 그 외 = tines.com 웹사이트(하위 화면·팝업·이미지·아이콘·동작 전체), 디자인 대상은 PC 웹만**(모바일 웹·`apps/mobile` 제외 · DD-83).
 - Active Recall(Karpicke & Roediger 2008) · Spaced Repetition(FSRS, `ts-fsrs`) · Desirable Difficulty(Bjork) · Dual Coding(Paivio) · Context-Dependent(학습 맥락에서 인출) · Cognitive Load(작업기억 ~4) · Emotional Encoding(보상 + 자기효능감). 적용: [LEARNING_MODEL](./docs/LEARNING_MODEL.md).
 - **Memory Decay 4색** — R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**(`memory_state` 컬럼 저장 절대 금지): stable `#2E7D5A` R≥0.95 · shaky `#B5803A` 0.70≤R<0.95 · risk `#9C3A30` R<0.70 · new `#8A8278` 신규(D/S 미부여).
 
@@ -67,7 +67,7 @@
 | # | 규칙 |
 |---|---|
 | I5 | 수치는 DB 실측 또는 즉석 계산만 — 상수 금지 (`no-hardcoded-stats` 회귀) |
-| I7 | 한글에 `break-keep` (없으면 390px 에서 낱말이 쪼개진다) |
+| I7 | 한글에 `break-keep` (없으면 좁은 폭에서 낱말이 쪼개진다) |
 | D2 | 새 공개 화면은 진입 + 내부 상호작용 이벤트를 같은 커밋에 (`lib/analytics/events.ts`) |
 | D3 | 이벤트 속성은 숫자·불리언·닫힌 열거형만 |
 
@@ -134,7 +134,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 - CSAT 원문 배치: 새 도구 전 기존 자산 검색 → `csat-sources-audit` → 사유별 대상·dry-run → 소량 검증 → 재감사. 적격 정본은 `evaluateSource`; 내용 판정은 UUID·본문 해시·revision에 묶는다. 상세 `.agents/skills/csat-source-audit/SKILL.md`.
 
 **LCP** 9 외부 소스 → 도서 큐레이션(auto_curate_book 게이트 + 4축 난이도) · **VCB** seed → enrichment → shared_words(cast-2000 audit chain) · **VRL** 4축 분류(V-Level 0-11 · Track 6 · Domain 8 · Skill 5) + 진단 5종 · **ACP** 14 소스 수집(`scripts/acp/collect-daily.mjs`) → `library_articles`. **arXiv 는 없다**(`20260614240000_acp_remove_arxiv_source`, CHECK 제약이 재삽입 차단). 상세 [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md).
-Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldCheck` + 「Admin」 텍스트 · 값은 앱 스킨 `skins/admin-app.css`(먹색 · Inter · 보라 0 — DD-82, 2026-09-24) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
+Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldCheck` + 「Admin」 텍스트 · 값은 앱 스킨 `skins/admin-app.css`(3B 앱 · 먹색 · Inter — DD-82. 「보라 0」은 관리자 한정, 학습자 Tines 는 보라 잉크를 쓴다) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
