@@ -1,4 +1,4 @@
--- supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql
+-- supabase/migrations/20261014150000_funnel_allow_csat_meaning.sql
 --
 -- **원문 이해 교수 판(v3.1 · scene=meaning) 관측 이벤트 6종을 DB 가 받게 한다.** (AGENTS D2 · 보완안 「열람 · 작성 · 자기 대조 기록」)
 -- 새 6종: csat_meaning_unit_selected · csat_meaning_depth_changed · csat_meaning_relation_opened ·
