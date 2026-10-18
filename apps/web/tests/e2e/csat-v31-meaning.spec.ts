@@ -15,6 +15,12 @@ import path from 'node:path'
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
+/** FINAL §6 ② — 원문 이해 판의 「먼저 짚어 보기」(구절 역할)가 있으면 건너뛰고 구절 대응을 연다 */
+async function skipRoleCheck(page: import('@playwright/test').Page) {
+  const skip = page.getByRole('button', { name: '짚지 않고 보기' })
+  if (await skip.count()) await skip.first().click()
+}
+
 const USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password:
@@ -83,6 +89,7 @@ for (const width of [1280, 1440]) {
     expect(await litSentences(page)).toEqual([6])
 
     // 2) 구절 대응 — 원문 위치(sourceRange)로만 가리키던 구절도 기기 문제지 글자로 보이고, 누르면 문제지에 그 글자가 표시된다
+    await skipRoleCheck(page)
     const fromPaper = page.locator('[data-testid="ms-phrase"]:has([data-from="paper"])')
     const phrase = (await fromPaper.count()) ? fromPaper.first() : page.getByTestId('ms-phrase').first()
     const en = (await phrase.getByTestId('ms-phrase-en').first().innerText()).replace(/[“”]/g, '').trim()
@@ -102,6 +109,7 @@ for (const width of [1280, 1440]) {
     expect(q(page, 'rel')).toBe(rel)
     expect((await litSentences(page)).length).toBeGreaterThan(1)
     // 관계를 연 채 구절을 고르면 관계가 풀린다 — 문제지 · 지도가 같은 구절 하나를 가리킨다
+    await skipRoleCheck(page)
     await page.getByTestId('ms-phrase').first().click()
     await expect(page.getByTestId('ms-relation')).toHaveCount(0)
     expect(q(page, 'rel')).toBeNull()
@@ -231,6 +239,7 @@ for (const width of [1280, 1440]) {
     await expect(page.getByTestId('map-chosen-evidence')).toHaveCount(0)
     await expect(page.getByTestId('map-sentence-pick')).toHaveCount(0)
     await expect(page.locator('[data-from="paper"]')).toHaveCount(0)
+    await skipRoleCheck(page)
     await page.getByTestId('ms-phrase').first().click()
     await expect(page.getByTestId('paper-highlight')).toHaveCount(0)
     await page.screenshot({ path: `${SHOTS}/A-${width}-3-mismatch.png` })
@@ -269,6 +278,7 @@ for (const width of [1280, 1440]) {
       await expect(page.getByTestId('ms-panel'), id).toHaveAttribute('data-align', NO_TEXT.has(id) ? 'no_source' : 'ok')
       await expect(page.getByTestId('ms-panel'), id).toHaveAttribute('data-split', 'ok')
       // 구절 대응 — 첫 행을 고른다. 대조된 문항은 문제지에 표시된 글자가 그 구절의 영어와 같아야 한다
+      await skipRoleCheck(page)
       const row = page.getByTestId('ms-phrase').first()
       await row.click()
       await expect(row).toHaveAttribute('aria-pressed', 'true')
