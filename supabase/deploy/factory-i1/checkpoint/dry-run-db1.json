@@ -1,0 +1,20 @@
+{
+  "stage": "db1",
+  "remote_count": 722,
+  "remote_max": "20261014091841",
+  "runner_applies": [
+    "supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql"
+  ],
+  "db_push_would_include": {
+    "count": 346,
+    "newer_than_remote_max": [
+      "20261017200000_factory_i1_db1_supply_foundation.sql"
+    ],
+    "legacy_name_mismatch": 345
+  },
+  "duplicate_local_versions": 17,
+  "db_push_verdict": "BLOCKED — supabase db push 는 승인 밖 migration 을 함께 민다. 이 러너로만 적용한다",
+  "blocks": [],
+  "offline_blocks": [],
+  "stage_sha256": "766b88841cc65511592d847f4da3d87a2441a44682d5f4f1383f25ab2c1fa211"
+}

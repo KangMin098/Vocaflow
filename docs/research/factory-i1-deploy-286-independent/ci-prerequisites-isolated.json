@@ -1,0 +1,32 @@
+{
+  "subject": "working-tree",
+  "server_version": "17.10",
+  "db1_sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+  "submitted": false,
+  "total": 2,
+  "pass": 2,
+  "results": [
+    {
+      "id": "N03",
+      "name": "canonical CI helpers compile; absent article tables fail closed; unchanged DB-1 applies",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "missingSourceRejected": true,
+        "applied": true
+      }
+    },
+    {
+      "id": "N04",
+      "name": "DB-2 accepts legitimate DB-1 ledger use and preserves rows",
+      "safe": true,
+      "expected": "safe",
+      "ok": true,
+      "detail": {
+        "applied": true,
+        "count": 1
+      }
+    }
+  ]
+}

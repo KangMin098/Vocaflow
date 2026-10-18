@@ -1,0 +1,95 @@
+{
+  "code_head": "46b935f9ef91fb186bfba7c5793b1013bfc4d0d6",
+  "main": "732f2bb0f0b4094c175c0b5e8a66c799d704a6a0",
+  "required_count": 8,
+  "required_all_success": true,
+  "checks": [
+    {
+      "name": "verify",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826525/job/117396582695"
+    },
+    {
+      "name": "build",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826525/job/117396582564"
+    },
+    {
+      "name": "e2e",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826525/job/117396582658"
+    },
+    {
+      "name": "TypeScript 0 error",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826358/job/117396582347"
+    },
+    {
+      "name": "docs/*.md broken link check",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826358/job/117396581898"
+    },
+    {
+      "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826358/job/117396582191"
+    },
+    {
+      "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826358/job/117396581994"
+    },
+    {
+      "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826358/job/117396582085"
+    }
+  ],
+  "extra_gate_faultclosed": "https://github.com/KangMin098/Vocaflow/actions/runs/39032826525/job/117396582687",
+  "empty_supabase": [
+    {
+      "name": "e2e",
+      "conclusion": "success",
+      "job_id": 117396582658,
+      "steps": [
+        {
+          "name": "Factory I1 CI 전제 helper 복구(정본 정의만)",
+          "conclusion": "success"
+        },
+        {
+          "name": "저장소 마이그레이션 적용(파일별)",
+          "conclusion": "success"
+        },
+        {
+          "name": "격리 E2E(실제 브라우저 + DB 단언)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "e2e-gate-faultclosed",
+      "conclusion": "success",
+      "job_id": 117396582687,
+      "steps": [
+        {
+          "name": "Factory I1 CI 전제 helper 복구(정본 정의만)",
+          "conclusion": "success"
+        },
+        {
+          "name": "저장소 마이그레이션 적용(파일별)",
+          "conclusion": "success"
+        },
+        {
+          "name": "게이트 고장 주입(RPC 실제 부재 · 일회용 DB)",
+          "conclusion": "success"
+        },
+        {
+          "name": "격리 E2E(게이트 고장 → fail-closed)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "shared_development_e2e": "SKIPPED; no shared DB secrets passed to PR verification",
+  "final_document_commit": "Latest PR HEAD checks must also pass; final observed result is recorded in PR body."
+}

@@ -1,5 +1,7 @@
 # Factory I1 — 개발 DB 적용 전 승인 패키지
 
+> **DB286 배포 정본 갱신(미적용)**: #283의 B NULL 버전 검사 1줄 보완만 포함해 B SHA를 `2957ecf73c4399f81971581769021b30eb69c1141c29a443de62a5aa4506aa02`로 갱신했다. I2 annotation binding은 제외한다. 배포 wrapper의 helper 속성 불변 가드와 B 보완으로 DB-1 전체 SHA는 `061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624`, DB-2는 `2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b`다. 아래 과거 해시는 현 배포 승인이 아니다. [현재 배포표](./FACTORY_I1_DEPLOY_PACKAGE.md) 전체·러너 보완의 새 명시 승인이 필요하다. 영구 객체 추가 범위는 이전 DB-1/2와 같고 원본 C/S/P는 불변이다.
+
 > **상태: 승인 대기 · 미적용.** 개발 DB(`jajenrevcbmrpaliomxv`)에 이 패키지의 어떤 SQL 도 적용하지 않았다. RLS · RPC · 데이터 변경 0.
 > **#283 독립 후속**: 보류 B의 수요 버전 검사 한 줄을 NULL도 거절하도록 고쳤다. 아래 B 해시는 제출 당시 값이며 현재 파일의 적용 승인으로 쓸 수 없다. 새 B+주석 결속 v2의 정확한 해시·대상·재검증은 [#283 독립 수용](../../research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md)의 PG 증거를 따른다. 기존 적용 승인을 상속하지 않는다.
 > 격리 PostgreSQL(PGlite · 실제 PostgreSQL 17 임시 클러스터)에서만 검증했다 — **격리 통과는 개발 DB 적용 성공이 아니다.**
@@ -58,6 +60,8 @@
 | C/B/I1 대상 표 · 함수 | **모두 없음**(`to_regclass` null 11개 · `textbook_product_order` · `product_order` 포함) | 충돌 없음 |
 
 ## 5. 적용 순서 · 절차(사용자 승인 뒤에만 — 이 PR 은 실행하지 않는다)
+
+> **배포는 [배포 패키지](./FACTORY_I1_DEPLOY_PACKAGE.md)의 버전 migration · 러너로만 한다**(DB-1 = C→B→S 한 파일 · DB-2 = P 별도). 아래 절차의 원칙은 그대로이고, 실행 명령 · 차단 조건 · 되돌리기는 그 문서가 정본이다.
 
 1. `git merge origin/main` 최신 · 이 PR 병합 상태 확인. 각 파일 sha256 을 §2 와 대조(다르면 중단).
 2. `/db-checkpoint before i1-supply` — `db_health_metrics` 스냅샷 · `get_advisors(security · performance)` 기록.
