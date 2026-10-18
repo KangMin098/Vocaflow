@@ -2,7 +2,7 @@
 //
 // FINAL A~H — **한 합성 학습자**의 종단 경로(격리 DB · 실제 Next.js · 실제 Chromium). 다른 spec 의 통과를 합산하지 않는다 — 이 파일 하나가
 //   같은 user id 로 처음부터 끝까지 간다.
-//   A 시험 기록(합성 회차 ISO-J1 · scripts/ci/journey-exam-fixture.sql) → B 목표(목표 버전) → PLAN v1(목표 버전 결속)
+//   A 시험 기록(합성 회차 M9901 · scripts/ci/journey-exam-fixture.sql) → B 목표(목표 버전) → PLAN v1(목표 버전 결속)
 //   → C 지도 As-Is · NeedRank(노드 순서) · 다음 행동(수행 전 관찰) → F Workspace 납품(R5 창작 · 격리 fixture 자격)
 //   → 학습 · 독립 확인 2 · 전이 1(실제 Runner · 서버 채점) → G2 결속(evidence) → H 지도 재계산(수행 후 관찰) → PLAN v2(check_result · 같은 목표 버전)
 // 핵심 구분: 「지도 화면으로 돌아왔다」가 아니라 **근거로 바뀐 값**(TASK 근거 상태 · 다음 행동 · 저장 PLAN 의 TASK 단계)을 수행 전후로 비교한다.
@@ -95,13 +95,13 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   // A 시험 기록 — 실제 API(서버 채점 · 기록 RPC). 합성 회차라 축 기록 근거는 만들지 않는다
   const choices = Object.fromEntries(Array.from({ length: 45 }, (_, i) => [i + 1, ((i + 1) % 5) + 1 === 3 ? 4 : ((i + 1) % 5) + 1]))
   const today = new Date(Date.now() + 9 * 3600_000).toISOString().slice(0, 10)
-  const ex = await page.request.post('/api/csat/diagnosis/sessions', { data: { examId: 'ISO-J1', mode: 'live', takenAt: today, clientKey: crypto.randomUUID(), choices } })
+  const ex = await page.request.post('/api/csat/diagnosis/sessions', { data: { examId: 'M9901', mode: 'live', takenAt: today, clientKey: crypto.randomUUID(), choices } })
   expect(ex.status(), await ex.text()).toBe(200)
   const exOut = await ex.json() as { raw: number; wrong: number[] }
   expect(exOut.wrong.length).toBeGreaterThan(0)
   const session = (await admin().from('csat_dx_session').select('id, user_id, exam_id, raw_score').eq('user_id', uid)).data ?? []
   expect(session).toHaveLength(1)
-  expect(session[0]).toMatchObject({ user_id: uid, exam_id: 'ISO-J1', raw_score: exOut.raw })
+  expect(session[0]).toMatchObject({ user_id: uid, exam_id: 'M9901', raw_score: exOut.raw })
 
   // B 목표 — 실제 API · 목표 버전
   const g = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, exam: 'suneung', clientKey: crypto.randomUUID() } })
