@@ -37,7 +37,12 @@ const arg = (name, fallback) => {
 const outDir = path.resolve(ROOT, arg('out', 'docs/design/shots/tmp'))
 const wantAll = args.includes('--all')
 const only = arg('routes', '')
-const widths = (arg('widths', '390,1440')).split(',').map(Number)
+// 디자인 범위는 PC 웹만이라(DESIGN.md) 기본 폭은 1440,1280 이다.
+const widths = (arg('widths', '1440,1280')).split(',').map(Number)
+const themes = (arg('themes', 'light')).split(',')
+// --anon: 로그인 없이 찍을 라우트 · --sha: 서버 워크트리 커밋 — 증거를 버전에 묶는다
+const anon = new Set((arg('anon', '')).split(',').filter(Boolean))
+const serverSha = arg('sha', 'unknown')
 const fullPage = !args.includes('--fold')
 
 /** 학습자 라우트 — 파일 시스템에서 읽는다(e2e/utils/learner-routes.ts 와 같은 규칙). */
@@ -68,7 +73,8 @@ function learnerRoutes() {
 
 const routes = only ? only.split(',') : wantAll ? learnerRoutes() : ['/hub', '/flashcard/play', '/wordvault/browse']
 
-const slug = (r) => (r === '/' ? 'root' : r.slice(1).replace(/\//g, '_'))
+// 쿼리가 붙은 라우트도 파일 이름이 되게 한다(Windows 는 ? : * 를 못 쓴다).
+const slug = (r) => (r === '/' ? 'root' : r.slice(1).replace(/[/?&=:*"<>|]/g, '_'))
 
 async function login(page) {
   await page.goto(`${BASE}/login`, { waitUntil: 'domcontentloaded' })
@@ -128,10 +134,14 @@ const run = async () => {
   }
 
   const report = []
-  for (const w of widths) {
+  const authed = await ctx.storageState()
+  for (const theme of themes) for (const w of widths) for (const isAnon of [false, true]) {
+    const group = routes.filter((r) => anon.has(r) === isAnon)
+    if (!group.length) continue
     const c = await browser.newContext({
       viewport: { width: w, height: w <= 430 ? 844 : 900 },
-      storageState: await ctx.storageState(),
+      colorScheme: theme === 'dark' ? 'dark' : 'light',
+      storageState: isAnon ? undefined : authed,
       deviceScaleFactor: 1,
       isMobile: w <= 430,
       hasTouch: w <= 430,
@@ -139,8 +149,11 @@ const run = async () => {
     const p = await c.newPage()
     // 첫 프레임부터 모션을 세운다 — 연 **뒤**에 거는 것만으로는 이미 돌던 루프가 안 되감긴다.
     await installFreezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
-    for (const r of routes) {
-      const file = path.join(outDir, `${slug(r)}@${w}.png`)
+    // 테마는 앱이 localStorage 'vocaflow-theme' 로 고른다(app/layout.tsx head 스크립트).
+    await p.addInitScript((t) => { try { localStorage.setItem('vocaflow-theme', t) } catch {} }, theme)
+    for (const r of group) {
+      const file = path.join(outDir, `${slug(r)}@${w}-${theme}${isAnon ? '-anon' : ''}.png`)
+      const meta = { route: r, width: w, theme, anon: isAnon, sha: serverSha, base: BASE, at: new Date().toISOString() }
       try {
         await p.goto(`${BASE}${r}`, { waitUntil: 'domcontentloaded', timeout: 45_000 })
         // 주소가 멈출 때까지(클라이언트 리다이렉트) + 폰트·데이터 도착까지
@@ -154,7 +167,7 @@ const run = async () => {
         //    로그인 화면을 덮어썼다.** 못 잰 것을 통과로 세는 계측기는 없느니만 못하다
         //    (같은 원칙을 `measure-identity.mjs` 는 처음부터 지키고 있었다 — 분모에서 뺀다).
         if (landed.startsWith('/login') && !r.startsWith('/login')) {
-          report.push({ route: r, width: w, landed, ok: false, error: '로그인으로 튕김 — 찍지 않음' })
+          report.push({ ...meta, landed, ok: false, error: '로그인으로 튕김 — 찍지 않음' })
           process.stdout.write(`✗ ${r} @${w} — 로그인으로 튕겼다(세션 만료). 기존 파일 보존\n`)
           continue
         }
@@ -163,14 +176,21 @@ const run = async () => {
         // (지연 표지 · 앰비언트 루프. 이유와 값은 `lib/freeze-motion.mjs` 에.)
         const imgs = await settleImages(p)
         await freezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
+        // 오류 경계·404 화면은 정상 렌더가 아니다 — 찍되 ok 로 세지 않는다.
+        const probe = await p.evaluate(() => ({
+          h1: document.querySelector('h1')?.textContent?.trim().slice(0, 80) ?? null,
+          skin: document.documentElement.getAttribute('data-skin'),
+          dataTheme: document.documentElement.getAttribute('data-theme'),
+          errorLike: /문제가 생겼|오류가 발생|찾을 수 없|Application error|Unhandled Runtime Error/.test(document.body.innerText.slice(0, 4000)),
+        }))
         await p.screenshot({ path: file, fullPage })
-        report.push({ route: r, width: w, landed, ok: true, images: imgs })
+        report.push({ ...meta, landed, ok: !probe.errorLike, ...probe, images: imgs, file: path.relative(ROOT, file).split(path.sep).join('/') })
         process.stdout.write(
           `✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}` +
           `${imgs.pending > 0 ? ` · ⚠ 그림 ${imgs.pending}/${imgs.total} 못 받음(캡처가 흔들릴 수 있다)` : ''}\n`,
         )
       } catch (e) {
-        report.push({ route: r, width: w, ok: false, error: String(e).slice(0, 120) })
+        report.push({ ...meta, ok: false, error: String(e).slice(0, 120) })
         process.stdout.write(`✗ ${r} @${w} — ${String(e).slice(0, 90)}\n`)
       }
     }

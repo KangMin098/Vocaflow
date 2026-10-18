@@ -14,7 +14,7 @@
 |---|---|---|
 | `/csat`, `/csat/*` | [neon-currant.3b.dev](https://neon-currant.3b.dev/) **3B 앱** | **미구현** — `skins/csat-app.css`·`data-design-scope="csat"` 는 main 에 없다(미병합 브랜치에만). 현재는 루트 Tines 스킨 + CSAT 모듈 CSS(`components/csat/space` 등) |
 | `/admin`, `/admin/*`(관리자 CSAT 포함) | **3B 앱** | `app/admin/layout.tsx` 의 `data-area="admin"` → `skins/admin-app.css`(DD-82) |
-| 그 외 모든 화면(공개·인증·학습·게임·계정) | [www.tines.com](https://www.tines.com/) **웹사이트** | 루트 `app/layout.tsx` `data-skin="tines"` → `skins/tines.css` — 단 `NEXT_PUBLIC_SKIN=off`·`?skin=off`(localStorage `vocaflow-skin`) 해제 경로가 아직 남아 있다(제거는 [실행 계획](docs/design/learner-tines-plan.md) S1) |
+| 그 외 모든 화면(공개·인증·학습·게임·계정) | [www.tines.com](https://www.tines.com/) **웹사이트** | 루트 `app/layout.tsx` `data-skin="tines"`(고정 — 환경변수·쿼리·저장값으로 끄지 않는다, `skin-always-on.test.ts`) → `skins/tines.css` |
 
 본문·모달·시트·팝오버·토스트는 현재 라우트의 토큰을 함께 쓴다. 라이트/다크·모션 감소 설정은 유지한다(다크는 각 스킨의 대응 디자인).
 

@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): S0·S1 — 스킨 해제 경로 제거(`data-skin="tines"` 고정 · 회귀 `skin-always-on.test.ts`) · 시각 QA 기본 PC 1280/1440(모바일 `DESIGN_QA_MOBILE=1`) · `capture-learner.mjs` 테마·익명·SHA 매니페스트 · `tines-ref-recheck.mjs`(참조 22/22 재측정) · 학습자 기준선 80/80 캡처 결과와 Codex 지시문 대조표를 [learner-tines-audit](design/learner-tines-audit.md)·[plan](design/learner-tines-plan.md)에.
 - docs(design): DD-83 — DESIGN.md 를 스타일 정본으로(PC 학습자 Tines · /csat·/admin 3B · PC 웹만, 2026-10-03 결정 main 반영) · 동결 배너 8곳 「과거 기록」화 · 지침 충돌 21건 표 · PC 학습자 전수 목록(90 + CSAT 11) [learner-tines-audit](design/learner-tines-audit.md) · 실행 계획 [learner-tines-plan](design/learner-tines-plan.md). 화면 변경 없음.
 
 - docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안

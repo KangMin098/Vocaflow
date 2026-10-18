@@ -17,6 +17,56 @@
 - **이전 목록과의 관계**: 미병합 브랜치 `design/replica-first` 의 `docs/design/remaining-inventory.md` 와 라우트 집합이 **정확히 같다**(학습자 90개, 정규화 후 diff 0). 그러나 그 파일의 상태 칸은 생성 스크립트 `scripts/design/remaining-learning-audit.mjs` 가 **경로별 삼항 연산으로 고정 출력**한 문자열이다(`/dashboard` `/plan` `/reports` `/library/books` → 「실제 셸 PC 4조건 렌더 + 격리 기능 검증」 등). 캡처·테스트 결과를 읽지 않으므로 이 문서에 검증 근거로 쓰지 않는다. 리다이렉트 스텁도 레이아웃 줄 때문에 후보 9–10 이 잡혀 있었다.
 - 「실제 확인 URL」의 ID 는 2026-10-18 DB(read-only `execute_sql`)에서 뽑았다: 발행 도서 `42f3bce4-5cae-4cda-ae40-f1da16d8ad99` · 발행 아티클 `14378d44-2e70-46d3-80a2-2dcf1def75c0` · 발행 단어세트 `6f92ab53-b978-4b08-9c6c-adeab6aeee11` · PD 만화 `super-mystery-comics-csv06n06`. `texts`(278행)·`dictation_sessions`(15행)는 RLS 상 **검증 계정 소유 행**이 필요해 R 단계에서 계정별로 뽑는다(아래 SQL).
 
+## 0-1. S0 실행 결과 (2026-10-18) — §3 표보다 이 절이 우선
+
+**서버**: `http://localhost:3000` = 워크트리 `D:/workspace/Vocaflow-db1-apply` · 커밋 **`00ba6381c`**(미커밋 0). main `c3a03d168` 과의 차이는 CSAT API·lib 7파일뿐이고 학습자 UI·스킨·layout 차이 0(`git diff --stat`) → 학습자 화면 기준선으로 사용. 이 워크트리에서 서버를 띄우지 못한 이유: 메인 `.env.local` 직접 접근이 거부 규칙으로 막혀 있다(우회하지 않음).
+**도구**: `scripts/design/capture-learner.mjs`(이번에 테마·익명·SHA·오류 판정 추가) · 계정 `runtime-test-0705`(텍스트 6 · 어휘 273) · `--fold` 첫 화면 · 모션 고정 · 대기 4s.
+**증거 파일**: `docs/design/shots/learner-tines/s0/*.png` + `_report.json`, `/` 익명은 `s0-root/`(gitignore — 로컬 보관, 개인 기록 포함 가능).
+
+| 라우트 | 1440·1280 × 라이트·다크 | 착지 | 자동 판정 | 눈 확인(1440 라이트) | R |
+|---|---|---|---|---|---|
+| `/`(익명) | 4/4 | `/` | 정상 | — | ✓ 자동 |
+| `/fit` · `/login` · `/signup`(익명) | 각 4/4 | 같은 URL | 정상 | — | ✓ 자동 |
+| `/library/scripts/14378d44…`(익명) | 4/4 | 같은 URL | 정상(h1 기사 제목) | — | ✓ 자동 |
+| `/hub` | 4/4 | 같은 URL | 정상 | **확인** — 큰 보라 제목·표제 띠·제품 액자 KPI. Tines 홈 골격에 가장 가깝다 | ✓ |
+| `/dashboard` | 4/4 | 같은 URL | 정상 | — | ✓ 자동 |
+| `/library/books` | 4/4 | 같은 URL | 정상 | **확인** — 가운데 약 990px 컨테이너, 초록 히어로 카드 + 탭, **검색·분류 레일 없음** | ✓ |
+| `/library/books/42f3bce4…?preview=1` | 4/4 | 같은 URL | 정상(h1 Hamlet) | — | ✓ 자동 |
+| `/library/vocab` | 4/4 | 같은 URL | 정상 | — | ✓ 자동 |
+| `/text?view=books` | 4/4 | 같은 URL | 정상 | — | ✓ 자동 |
+| `/text/859e0b09…?mode=read` | 4/4 | 같은 URL | 정상 | **확인** — 단계 칩 두 줄(「Game Lab」 줄바꿈) · 문장 사이 큰 공백 · **본문 첫 줄에 원문 URL 노출**(데이터 결함) | ✓ |
+| `/wordvault` | 4/4 | 같은 URL | 정상 | **확인** — 모듈 배너 + 「WordVault」 하위 머리 + 테마 버튼 = 머리 3중 · 가운데 774px 카드 | ✓ |
+| `/wordvault/browse` · `/wordvault/review` | 각 4/4 | 같은 URL | 정상 | — | ✓ 자동 |
+| `/wordvault/study` | 4/4 | 같은 URL | 정상 | **확인** — 가운데 648px 카드 두 장, 아래 단축키 줄. 학습 세션인데 AppHeader·띠가 그대로 | ✓ |
+| `/flashcard/play?set=6f92ab53…` | 4/4 | 같은 URL | 정상 | **확인(다크)** — FS 세션 모드 정상 | ✓ |
+| `/csat`(경계 확인) | 4/4 | 같은 URL | 정상 | **확인** — 먹색 버튼·회색 면, 이미 3B 계열 → 「유지」 기준선 | 기준선 |
+| `/admin`(경계 확인) | 4/4 | 같은 URL | 정상 | — | 기준선 |
+
+합계: 대상 20 라우트 × 4 조건 = **80 장 중 80 장 정상 착지**(로그인 튕김 0 · 오류 화면 0). 1차 실행에서 `/` 가 Git Bash 경로 변환(`/` → Git 설치 경로) 때문에 로그인 상태로 찍혀 `/hub` 로 넘어갔고, `MSYS_NO_PATHCONV=1` 로 다시 찍었다.
+**분모**: 학습자 90 중 R 확보 **19**(`/` 포함), CSAT 11 중 기준선 1, 나머지 **미실행**. I(상호작용)·V(시각 대조)는 아직 **0**.
+
+### S0b 참조 재조사 (tines.com, 2026-10-18)
+
+도구 `scripts/design/tines-ref-recheck.mjs` · 원본 `tmp/tines-ref/20261018/`(커밋 금지) · 측정 `_measure.json`. 11 템플릿 × 1440·1280 = **22/22 측정**(404 페이지는 의도한 404).
+
+| 템플릿 | h1(서체/크기 1440) | 머리 높이 | 1280 h1 | 열린 상태 |
+|---|---|---|---|---|
+| 홈 | Roobert 64 | 68 | 56 | 탭 5 존재 · **메가메뉴·검색: 열기 2회 실패 → 미확보**(헤더 항목 「Product…Open search」는 확인) |
+| 3b(제품) | Roobert 64 | 68 | 56 | FAQ `details` 6 · 1440 에서 펼침 확인 |
+| library | Roobert 44 | 68 | 44 | **왼쪽 검색·분류 레일 + 넓은 보라 히어로 + Featured/All 탭** · FAQ 펼침 확인 |
+| university | Reckless 64 | 68 | 61.4 | — |
+| customers | Reckless 56 | 68 | 56 | — |
+| case-study | Reckless 48 | 68 | 48 | — |
+| solutions/security | Reckless 64 | 68 | 64 | — |
+| pricing | Roobert 64 | 68 | 64 | FAQ 5 · 1440 펼침 확인, 1280 미확보 |
+| book-a-demo | Roobert 28 | 68 | 28 | 폼(제출 안 함) |
+| legal | Reckless 36 | 68 | 36 | — |
+| 404 | Roobert 42 | 68 | 42 | — |
+
+- 2026-09-21 기록과 같은 점: 머리 68px · 상용 서체 2종(Roobert 산세리프 / Reckless 세리프 편집 제목) · 알약 버튼(999px). 우리 스킨은 무료 대체(Figtree/Petrona)를 쓴다 — 저작권상 유지.
+- 쿠키 배너는 대부분 페이지에서 보였다(「거절」로 닫고 측정).
+- 수치는 계산 스타일이고 본문·이미지는 저장소에 넣지 않았다.
+
 ## 1. 전역 틀 (모든 행이 공유)
 
 | 틀 | 마운트 위치 | 들어 있는 것 | 기준 · 참조 후보 | 비고 |
@@ -60,8 +110,9 @@
 
 | 위치 | 강제 내용 | Tines 적용과의 관계 | 조치 |
 |---|---|---|---|
-| `apps/web/src/app/layout.tsx:102-104,157,170-174` | `NEXT_PUBLIC_SKIN=off` · `?skin=off` → localStorage 로 스킨 해제 | **차단점** — DESIGN.md 는 해제 금지인데 코드는 허용 | 계획 S1(코드 변경, 이번 단계 제외) |
-| `globals.css:1110` · `admin/csat/sources/source-query.module.css:4` · `csat/space/space.module.css:5` | `?skin=off` 를 안내하는 주석 | 오해 유발 | S1 과 함께 |
+| `apps/web/src/app/layout.tsx:102-104,157,170-174` | `NEXT_PUBLIC_SKIN=off` · `?skin=off` → localStorage 로 스킨 해제 | **차단점** — DESIGN.md 는 해제 금지인데 코드는 허용 | **S1 완료(2026-10-18)** — 고정 `SKIN="tines"`, 옛 저장값 삭제, 회귀 `skin-always-on.test.ts` |
+| `apps/web/playwright.visual.config.ts` | 375/390/768 기본 포함 | 모바일이 기본 실행 | **S1 완료** — 기본 1280/1440, 모바일은 `DESIGN_QA_MOBILE=1` |
+| ~~`globals.css:1110` 등 주석 3곳~~ | 감사 서브에이전트가 보고했으나 **재확인 결과 `skin=off` 문구 없음**(2026-10-18 grep) — 오보 정정 | — | 조치 없음 |
 | `globals.css:1111-1113` | `:root[data-skin="tines"]` 버튼 999px 알약(예외 `data-shape="keep"`) | 정합 | 유지 |
 | `tailwind.config.ts:128-163` · `layout.tsx:26-27,53,60` | `font-editorial`/`english`/`serif` = Lora·Hahmlet 기본, Pretendard 는 스킨 켜졌을 때만 | 스킨이 `--font-*` 로 덮지만 클래스 하드코딩은 세리프로 남는다 | 백로그 B3(사용처 전수) |
 | `lib/design/__tests__/skin-parity.test.ts:31-40` | `tines.css` ↔ `tines.ts` 값 일치 | 정합(동기 부담만) | G4 문구에 반영 |
@@ -211,4 +262,9 @@
 | B11 | DESIGN_SYSTEM.md 절 단위 분리(현행 토큰 표 → DESIGN.md/코드, 나머지 이력) | G10 | 문서 | P2 |
 | B12 | 스킨 전용 토큰과 `token-exists.test.ts` 충돌 여부 확인 | §2-1 | 테스트 | P2 |
 | B13 | `/csat` 3B 스킨 장치(csat-app.css · data-design-scope) main 반영 — **CSAT 담당 작업과 조율**, 이 트랙 범위 밖 | G16 · DESIGN.md | `/csat/*` | 별도 |
+| B15 | `/library/*` 에 Tines Library 골격 — 왼쪽 검색·분류 레일 + 넓은 히어로 + 탭(현재 가운데 990px 카드) | S0 눈 확인 + S0b library 캡처 | `/library/books` `/library/scripts` `/library/vocab` `/library/textbooks` | P1 |
+| B16 | 모듈 머리 3중(ModuleBanner + 모듈 하위 머리 + 테마 버튼) 정리 | S0 `/wordvault` | `/wordvault*` 외 모듈 허브 | P1 |
+| B17 | 학습 세션(`/wordvault/study` 등)이 FS 가 아니라 AppHeader·띠가 그대로 — 세션 모드 일관성 | S0 `/wordvault/study` vs `/flashcard/play` | 세션 화면 | P1 |
+| B18 | 읽기 화면 단계 칩 두 줄·줄바꿈, 문장 사이 공백 과다 | S0 `/text/[id]` | `/text/[id]*` | P1 |
+| B19 | **데이터 결함(디자인 아님)**: 도서 본문 첫 줄에 원문 URL(`https://standardebooks.org/...`)이 섞여 노출 — 콘텐츠 파이프라인 담당에 전달 | S0 `/text/859e0b09…` | 해당 도서 텍스트 | 별도 |
 | B14 | 메인 워크트리 미커밋 Tines 삽화(path-* · hero-tower · hub-hero-field · band-geo 등 staged) 출처 확인 후 필요분만 반입 | git status(D:/workspace/Vocaflow) | `/hub` `/plan` `/reports` | P2 |
