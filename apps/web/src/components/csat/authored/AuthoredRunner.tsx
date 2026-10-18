@@ -18,6 +18,8 @@ import styles from '@/components/knowledge/practice.module.css'
 
 export interface AuthoredRunnerProps {
   id: string
+  /** 출처 — 이 화면을 연 납품 id(제출 · 결속이 이 납품에만 묶인다 · FI-001) */
+  deliveryId: string
   role: 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
   sentences: string[]
   stem: string
@@ -38,6 +40,8 @@ interface Reveal {
   opposed: number[]
   distractors: { choice: number; design: DistractorDesign; why: string }[]
 }
+
+interface Binding { status: string; evidence?: boolean; reason?: string | null }
 
 interface Graded {
   isCorrect: boolean
@@ -88,7 +92,8 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [error, setError] = useState<string | null>(null)
   const [graded, setGraded] = useState<Graded | null>(null)
   const [reveal, setReveal] = useState<Reveal | null>(p.done?.reveal ?? null)
-  const [binding, setBinding] = useState<string | null>(null)
+  const [binding, setBinding] = useState<Binding | null>(null)
+  const [rebinding, setRebinding] = useState(false)
   // 같은 답의 재시도만 같은 제출 id — 답이 바뀌면 새 id
   const mutation = useRef<{ key: string; id: string } | null>(null)
   const finished = !!reveal
@@ -110,16 +115,28 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     try {
       const r = await fetch(`/api/csat/authored/${p.id}/attempt`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ response, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: new Date().toISOString(), helpLevel: help }),
+        body: JSON.stringify({ deliveryId: p.deliveryId, response, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: new Date().toISOString(), helpLevel: help }),
       })
       const j = await r.json().catch(() => ({}))
       if (!r.ok) { setError(typeof j.error === 'string' ? j.error : '저장하지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }
-      setGraded(j.grade as Graded); setReveal(j.reveal as Reveal); setBinding(typeof j.binding === 'string' ? j.binding : null)
+      setGraded(j.grade as Graded); setReveal(j.reveal as Reveal); setBinding(j.binding && typeof j.binding === 'object' ? j.binding as Binding : null)
     } catch {
       setError('연결이 끊겼어요 — 같은 답으로 다시 누르면 한 번만 저장돼요')
     } finally {
       setBusy(false)
     }
+  }
+
+  // 복구 — 같은 제출 id 를 이 화면의 납품에 다시 결속(이미 결속돼 있으면 그 결과가 온다)
+  async function rebind() {
+    if (!mutation.current || rebinding) return
+    setRebinding(true)
+    try {
+      const r = await fetch('/api/csat/delivery/bind', { method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ kind: 'authored_item', itemRef: `authored:${p.id}`, clientMutationId: mutation.current.id, deliveryId: p.deliveryId }) })
+      const j = await r.json().catch(() => ({}))
+      if (r.ok && j.binding) setBinding(j.binding as Binding)
+    } finally { setRebinding(false) }
   }
 
   const tagsOf = (k: number): string[] => {
@@ -243,7 +260,17 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           <ul className={styles.note}>
             {reveal.distractors.map((d) => <li key={d.choice}>{'①②③④⑤'[d.choice]} {DESIGN_LABEL[d.design]} — {d.why}</li>)}
           </ul>
-          {binding === 'bound' && <p className={styles.note}>이 풀이는 받은 자료에 연결돼 학습 지도에 반영돼요.</p>}
+          {binding?.status === 'bound' && (
+            <p className={styles.note} data-testid="authored-binding" data-evidence={String(binding.evidence ?? '')}>
+              {binding.evidence ? '이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.' : '이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.'}
+            </p>
+          )}
+          {binding && binding.status !== 'bound' && mutation.current && (
+            <p className={styles.note} role="status" data-testid="authored-binding" data-status={binding.status}>
+              풀이는 저장됐지만 받은 자료와 연결하지 못했어요.{' '}
+              <button type="button" className={styles.link} disabled={rebinding} onClick={rebind}>{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>
+            </p>
+          )}
           <Link className={styles.link} href={p.returnHref}>학습 지도로 돌아가 변화 보기</Link>
         </section>
       )}

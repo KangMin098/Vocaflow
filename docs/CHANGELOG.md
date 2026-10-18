@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(csat): FI-001(#293) — G2 결속이 최신 납품을 추측하지 않는다. 화면이 연 납품 id(?d= → deliveryId)만 결속하고 서버가 본인 · 문항 · 종류 · Workspace active · 시도 모양↔역할을 재검증한다. 출처 없음 = `no_provenance`(기록 보존) · 역할 불일치 = `role_mismatch`(결속 안 함) · 복구 `POST /api/csat/delivery/bind` · 결과에 근거 여부 포함. 같은 자료 다중 납품은 /csat/learn 에서 고르게 한다. 격리 재현 6건(수정 전 6/6 실패 · 수정 후 6/6 통과).
+
 - feat(csat): FINAL — R5 자체 창작 공급 경로. 새 산출물 종류 `authored_item` · 권리/Gold 사람 결정 원장(보류 SQL `_pending_authored_supply.sql`, 미적용) · R5 창작 9문항(교수·안내·독립·전이·지연, 맹검 2인 9/9) · 학습자 화면 `/csat/learn/[id]` · API `/api/csat/authored`(목록) · `/supply` · `/[id]/attempt` · 지도 Workspace 「받은 자료」 카드 · 지도 As-Is 가 DB 결속 근거만 직접 확인으로 읽는다. 격리 종단 PGlite 10 · SQL 20. 원장 [FINAL_LEDGER](./final/FINAL_LEDGER.md).
 
 - fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.

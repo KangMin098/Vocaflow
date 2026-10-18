@@ -1,8 +1,9 @@
 // apps/web/src/app/api/csat/authored/[id]/attempt/route.ts
 //
 // POST /api/csat/authored/[id]/attempt — 납품받은 창작 자료 한 번의 풀이(FINAL §8).
-// 본문 { response: { claim, support, relation, choice }, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약).
-// 응답 200 { grade, reveal, binding } · 400 invalid_input · 403 not_delivered · 503 not_installed.
+// 본문 { deliveryId, response: { claim, support, relation, choice }, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약).
+// deliveryId = 화면이 연 납품(출처). 없으면 409 no_provenance — 어느 학습 묶음 · 역할의 수행인지 모르는 기록을 만들지 않는다(FI-001).
+// 응답 200 { grade, reveal, binding: { status, evidence?, reason?, deliveryId? } } · 400 invalid_input · 403 not_delivered · 409 no_provenance · 503 not_installed.
 // 채점은 서버가 DB Gold 로 한다(클라이언트 판정 불신). 해설(reveal)은 응답 뒤에만 나간다.
 
 import { NextResponse } from 'next/server'
@@ -14,7 +15,7 @@ import { createClient } from '@/lib/supabase/server'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const STATUS = { invalid_input: 400, not_delivered: 403, not_installed: 503 } as const
+const STATUS = { invalid_input: 400, not_delivered: 403, no_provenance: 409, not_installed: 503 } as const
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const ctx = await learnerContext()

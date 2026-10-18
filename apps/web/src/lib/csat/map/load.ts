@@ -290,12 +290,12 @@ interface AuthoredConfirm { task: string; confirm: MapPracticeLink['confirm'][nu
 
 /** 납품받은 창작 평가 자료 — 혼자 확인 · 다른 날 확인만(전이는 수행 기록으로 센다). 표가 없으면(창작 공급 SQL 미적용) 빈 목록 */
 async function loadAuthoredConfirms(db: Db, userId: string): Promise<AuthoredConfirm[]> {
-  const { data, error } = await db.from('workspace_content_delivery').select('artifact_ref, task_id, role')
+  const { data, error } = await db.from('workspace_content_delivery').select('id, artifact_ref, task_id, role')
     .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', ['independent_check', 'delayed_check'])
   if (error) { if (error.code && MISSING_TABLE.has(error.code)) return []; throw new Error(`창작 납품 조회 실패: ${error.message}`) }
-  return ((data ?? []) as { artifact_ref: string; task_id: string; role: string }[]).flatMap((r) => authoredKeysOf(r.task_id).map((taskKey) => ({
+  return ((data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]).flatMap((r) => authoredKeysOf(r.task_id).map((taskKey) => ({
     task: r.task_id,
-    confirm: { taskKey, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}`, label: r.role === 'delayed_check' ? '받은 자료 · 다른 날 확인' : '받은 자료 · 혼자 확인' },
+    confirm: { taskKey, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: r.role === 'delayed_check' ? '받은 자료 · 다른 날 확인' : '받은 자료 · 혼자 확인' },
   })))
 }
 

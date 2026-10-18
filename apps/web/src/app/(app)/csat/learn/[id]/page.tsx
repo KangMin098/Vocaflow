@@ -24,13 +24,33 @@ export const dynamic = 'force-dynamic'
 
 const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 
-export default async function LearnPage({ params }: { params: { id: string } }) {
+export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } }) {
   if (!/^[a-z0-9][a-z0-9.-]{2,80}$/.test(params.id)) notFound()
   const db = (await createClient()) as unknown as SupabaseClient
   const { data: { user } } = await db.auth.getUser()
-  if (!user) redirect(loginUrlWithReturn(`/csat/learn/${params.id}`))
-  const opened = await openDelivered(createAdminClient() as unknown as SupabaseClient, db, user.id, `authored:${params.id}`)
+  if (!user) redirect(loginUrlWithReturn(`/csat/learn/${params.id}${searchParams.d && /^[0-9a-f-]{36}$/i.test(searchParams.d) ? `?d=${searchParams.d}` : ''}`))
+  // 출처 = 지도 · Workspace 링크의 납품 id(?d=). 같은 자료가 여러 묶음 · 역할로 납품됐으면 고르게 한다(최신 추측 금지 · FI-001)
+  const opened = await openDelivered(createAdminClient() as unknown as SupabaseClient, db, user.id, `authored:${params.id}`, searchParams.d ?? null)
   const pill = <><BookOpenCheck size={13} aria-hidden="true" />학습 · {opened.status === 'ok' ? ROLE_LABEL[opened.view.role as keyof typeof ROLE_LABEL] ?? '자료' : '자료'}</>
+  if (opened.status === 'choose') {
+    return (
+      <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
+        <div className={styles.page} data-testid="authored-choose">
+          <header className={styles.head}>
+            <h1>어느 학습 묶음에서 풀까요?</h1>
+            <p className={styles.why}>이 자료는 여러 학습 묶음에서 받았어요. 고른 묶음의 계획에 결과가 반영돼요.</p>
+          </header>
+          <ul className={styles.steps}>
+            {opened.choices.map((c) => (
+              <li key={c.deliveryId}>
+                <Link className={styles.link} href={`/csat/learn/${params.id}?d=${c.deliveryId}`}>{ROLE_LABEL[c.role as keyof typeof ROLE_LABEL] ?? c.role} · {c.deliveredAt.slice(0, 10)} 받음</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </CsatShell>
+    )
+  }
   if (opened.status !== 'ok') {
     return (
       <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
@@ -52,7 +72,7 @@ export default async function LearnPage({ params }: { params: { id: string } }) 
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
-        id={params.id} role={v.role as never} sentences={v.sentences} stem={v.stem} choices={v.choices}
+        id={params.id} deliveryId={v.deliveryId} role={v.role as never} sentences={v.sentences} stem={v.stem} choices={v.choices}
         teach={v.teach ?? null} hints={v.hints} probe={v.probe} done={v.done} returnHref={MAP_HREF}
       />
     </CsatShell>

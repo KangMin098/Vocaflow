@@ -18,7 +18,7 @@ import { buildDemand, type MaterialRole } from '@/lib/csat/map/v62/demand'
 import { canonicalDemand } from '@/lib/csat/map/v62/persist-contract'
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
-import { bindDeliveryAttempt, type BindingStatus } from '@/lib/csat/map/v62/delivery-binding'
+import { bindDeliveryAttempt, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
 import { selectWriter, type AttemptWrite, type AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { isSyntheticEmail, parseClientMeta } from '@/lib/knowledge/practice'
 import {
@@ -185,15 +185,30 @@ export interface DeliveredView {
   done: null | { isCorrect: boolean; reveal: ReturnType<typeof revealAfterAnswer> }
 }
 
-export type OpenResult = { status: 'not_installed' } | { status: 'not_delivered' } | { status: 'ok'; view: DeliveredView }
+export interface DeliveryChoice { deliveryId: string; role: AuthoredRole; deliveredAt: string }
+export type OpenResult =
+  | { status: 'not_installed' } | { status: 'not_delivered' }
+  /** 같은 자료가 여러 학습 묶음 · 역할로 납품됐는데 어느 납품에서 시작했는지 모른다 — 추측하지 않고 고르게 한다(FI-001) */
+  | { status: 'choose'; choices: DeliveryChoice[] }
+  | { status: 'ok'; view: DeliveredView }
 
-/** 이 학습자에게 납품된 자료만 연다(미리보기 없음 — 평가 지문이 납품 전에 새지 않는다) */
-export async function openDelivered(admin: SupabaseClient, learner: SupabaseClient, userId: string, ref: string): Promise<OpenResult> {
-  const d = await learner.from('workspace_content_delivery').select('id, role, delivered_at')
-    .eq('user_id', userId).eq('artifact_kind', 'authored_item').eq('artifact_ref', ref).order('delivered_at', { ascending: false }).limit(1)
+/**
+ * 이 학습자에게 납품된 자료만 연다(미리보기 없음 — 평가 지문이 납품 전에 새지 않는다).
+ * 출처(납품 id)가 있으면 그 납품만 — 본인 · 같은 문항이 아니면 not_delivered. 없으면 납품이 하나일 때만 그것, 둘 이상이면 'choose'(최신 추측 금지 · FI-001).
+ */
+export async function openDelivered(admin: SupabaseClient, learner: SupabaseClient, userId: string, ref: string, deliveryId?: string | null): Promise<OpenResult> {
+  let q = learner.from('workspace_content_delivery').select('id, role, delivered_at')
+    .eq('user_id', userId).eq('artifact_kind', 'authored_item').eq('artifact_ref', ref)
+  if (deliveryId) {
+    if (!/^[0-9a-f-]{36}$/i.test(deliveryId)) return { status: 'not_delivered' }
+    q = q.eq('id', deliveryId)
+  }
+  const d = await q.order('delivered_at', { ascending: true }).limit(20)
   if (d.error) { if (isMissing(d.error)) return { status: 'not_installed' }; throw new Error(`납품 조회 실패: ${d.error.message}`) }
-  const delivery = (d.data as { id: string; role: AuthoredRole }[] | null)?.[0]
-  if (!delivery) return { status: 'not_delivered' }
+  const all = (d.data as { id: string; role: AuthoredRole; delivered_at: string }[] | null) ?? []
+  if (all.length === 0) return { status: 'not_delivered' }
+  if (all.length > 1) return { status: 'choose', choices: all.map((x) => ({ deliveryId: x.id, role: x.role, deliveredAt: x.delivered_at })) }
+  const delivery = all[0]
   const row = await loadRow(admin, ref)
   if (!row) return { status: 'not_delivered' }
   const { item } = itemOfRow(row)
@@ -223,7 +238,7 @@ async function loadRow(admin: SupabaseClient, ref: string): Promise<AuthoredRow 
 // ── 수행 기록 ─────────────────────────────────────────────────────────
 
 export class AuthoredInputError extends Error {
-  constructor(message: string, readonly code: 'not_delivered' | 'invalid_input' | 'not_installed') { super(message) }
+  constructor(message: string, readonly code: 'not_delivered' | 'invalid_input' | 'not_installed' | 'no_provenance') { super(message) }
 }
 
 /** 납품 역할 → G2 시도 모양. 결속 RPC 의 도움 상태 규칙(activity · phase · help)과 맞춘다 */
@@ -238,7 +253,7 @@ export function attemptShape(role: AuthoredRole): Pick<AttemptWrite, 'activity' 
 export interface AuthoredAttemptResult {
   grade: Record<string, unknown> & { isCorrect: boolean }
   reveal: ReturnType<typeof revealAfterAnswer>
-  binding: BindingStatus
+  binding: BindingResult
 }
 
 /**
@@ -252,9 +267,12 @@ export async function recordAuthoredAttempt(
   const o = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>
   const meta = parseClientMeta(o, now)
   if (!meta.ok) throw new AuthoredInputError(meta.error, 'invalid_input')
-  const opened = await openDelivered(admin, learner, user.id, ref)
+  // 출처 = 화면이 연 납품 id(본문 deliveryId). 없으면 기록하지 않는다 — 어느 학습 묶음 · 역할의 수행인지 모르는 기록을 만들지 않는다(FI-001)
+  const deliveryId = typeof o.deliveryId === 'string' ? o.deliveryId : null
+  if (!deliveryId) throw new AuthoredInputError('어느 학습 묶음에서 받은 자료인지 알 수 없어요 — 학습 지도에서 다시 열어 주세요', 'no_provenance')
+  const opened = await openDelivered(admin, learner, user.id, ref, deliveryId)
   if (opened.status === 'not_installed') throw new AuthoredInputError('창작 자료 공급이 아직 준비되지 않았어요', 'not_installed')
-  if (opened.status === 'not_delivered') throw new AuthoredInputError('이 자료는 아직 받지 않았어요', 'not_delivered')
+  if (opened.status !== 'ok') throw new AuthoredInputError('이 자료는 아직 받지 않았어요', 'not_delivered')
   const row = await loadRow(admin, ref)
   if (!row) throw new AuthoredInputError('이 자료는 아직 받지 않았어요', 'not_delivered')
   const { set, item } = itemOfRow(row)
@@ -286,30 +304,39 @@ export async function recordAuthoredAttempt(
   const sessionId = await writer.reveal(w)
   const outcome = await writer.record(w, sessionId)
   if (outcome === 'conflict') throw new AuthoredInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 'invalid_input')
-  const binding = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item' })
+  const binding: BindingResult = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item', deliveryId: opened.view.deliveryId })
     .catch((e) => { console.error('[authored delivery binding]', e); return { status: 'error' as const } })
-  return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding: binding.status }
+  return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding }
 }
 
 // ── Workspace 목록 ─────────────────────────────────────────────────────
 
-export interface DeliveredRow { ref: string; role: AuthoredRole; deliveredAt: string; attempted: boolean; evidence: boolean | null }
+export interface DeliveredRow {
+  ref: string
+  deliveryId: string
+  role: AuthoredRole
+  deliveredAt: string
+  /** 이 자료(문항)를 푼 기록이 있나 — 어느 납품이든 */
+  attempted: boolean
+  /** 이 납품에 결속된 결과: true = 근거로 셈 · false = 연습/비근거 · null = 이 납품에는 결속 없음 */
+  evidence: boolean | null
+}
 
-/** 이 학습자의 창작 납품 목록 + 풀었는지 · 근거로 셌는지(결속 원장) — 지도 Workspace 와 결과 화면이 같이 쓴다 */
+/** 이 학습자의 창작 납품 목록(납품 단위) — 지도 Workspace · 결과 화면이 같이 쓴다. 근거는 **그 납품에 결속된 행**만 본다(FI-001) */
 export async function listDelivered(learner: SupabaseClient, userId: string, task: string): Promise<DeliveredRow[] | 'not_installed'> {
-  const d = await learner.from('workspace_content_delivery').select('artifact_ref, role, delivered_at')
+  const d = await learner.from('workspace_content_delivery').select('id, artifact_ref, role, delivered_at')
     .eq('user_id', userId).eq('artifact_kind', 'authored_item').eq('task_id', task).order('delivered_at', { ascending: true })
   if (d.error) { if (isMissing(d.error)) return 'not_installed'; throw new Error(`납품 조회 실패: ${d.error.message}`) }
-  const rows = (d.data ?? []) as { artifact_ref: string; role: AuthoredRole; delivered_at: string }[]
+  const rows = (d.data ?? []) as { id: string; artifact_ref: string; role: AuthoredRole; delivered_at: string }[]
   if (rows.length === 0) return []
-  const refs = rows.map((r) => r.artifact_ref)
+  const refs = [...new Set(rows.map((r) => r.artifact_ref))]
   const [att, bind] = await Promise.all([
     learner.from('learning_task_attempts').select('item_ref').eq('user_id', userId).in('item_ref', refs),
-    learner.from('workspace_delivery_attempt').select('artifact_ref, evidence').eq('user_id', userId).in('artifact_ref', refs),
+    learner.from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', userId).in('delivery_id', rows.map((r) => r.id)),
   ])
   if (att.error) throw new Error(`기록 조회 실패: ${att.error.message}`)
   const attempted = new Set(((att.data ?? []) as { item_ref: string }[]).map((x) => x.item_ref))
   const ev = new Map<string, boolean>()
-  if (!bind.error) for (const b of (bind.data ?? []) as { artifact_ref: string; evidence: boolean }[]) ev.set(b.artifact_ref, (ev.get(b.artifact_ref) ?? false) || b.evidence)
-  return rows.map((r) => ({ ref: r.artifact_ref, role: r.role, deliveredAt: r.delivered_at, attempted: attempted.has(r.artifact_ref), evidence: ev.has(r.artifact_ref) ? ev.get(r.artifact_ref)! : null }))
+  if (!bind.error) for (const b of (bind.data ?? []) as { delivery_id: string; evidence: boolean }[]) ev.set(b.delivery_id, (ev.get(b.delivery_id) ?? false) || b.evidence)
+  return rows.map((r) => ({ ref: r.artifact_ref, deliveryId: r.id, role: r.role, deliveredAt: r.delivered_at, attempted: attempted.has(r.artifact_ref), evidence: ev.has(r.id) ? ev.get(r.id)! : null }))
 }

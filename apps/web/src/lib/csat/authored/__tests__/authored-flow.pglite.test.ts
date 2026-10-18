@@ -119,6 +119,8 @@ beforeAll(async () => {
 }, 120000)
 
 const ref = (id: string) => authoredRef(id)
+/** 화면이 연 납품 id — 지도 · Workspace 링크의 ?d= 와 같은 값 */
+const dOf = async (uid: string, r: string) => (await q1<{ id: string }>(`select id from public.workspace_content_delivery where user_id = $1 and artifact_ref = $2 order by delivered_at limit 1`, [uid, r])).id
 const evidenceOf = async (uid: string, r: string) => q1<{ evidence: boolean; non_evidence_reason: string | null; help_state: string }>(
   `select evidence, non_evidence_reason, help_state from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2 order by recorded_at desc limit 1`, [uid, r])
 
@@ -157,21 +159,21 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
   })
 
   it('혼자 확인 정답(독립) → 근거 · 해설은 응답 뒤에만 · 같은 제출 재전송 = 같은 결속', async () => {
-    const body = { response: rightAnswer('r5-cm-ind-1'), ...meta() }
+    const body = { deliveryId: await dOf(A, ref('r5-cm-ind-1')), response: rightAnswer('r5-cm-ind-1'), ...meta() }
     const r = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-1'), body, Date.now(), writer)
     expect(r.grade.isCorrect).toBe(true)
-    expect(r.binding).toBe('bound')
+    expect(r.binding).toMatchObject({ status: 'bound', evidence: true })
     expect(r.reveal.gist).toBe(goldOf('r5-cm-ind-1').gist)
     expect(await evidenceOf(A, ref('r5-cm-ind-1'))).toMatchObject({ evidence: true, help_state: 'independent' })
     const again = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-1'), body, Date.now(), writer)
-    expect(again.binding).toBe('bound')
+    expect(again.binding).toMatchObject({ status: 'bound', evidence: true })
     expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, ref('r5-cm-ind-1')])).n).toBe(1)
   })
 
   it('단서를 연 혼자 확인 = 비근거(도움) · 교수 자료 풀이 = 연습 기록', async () => {
-    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-2'), { response: rightAnswer('r5-cm-ind-2'), ...meta({ helpLevel: 'viewed_first' }) }, Date.now(), writer)
+    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-2'), { deliveryId: await dOf(A, ref('r5-cm-ind-2')), response: rightAnswer('r5-cm-ind-2'), ...meta({ helpLevel: 'viewed_first' }) }, Date.now(), writer)
     expect(await evidenceOf(A, ref('r5-cm-ind-2'))).toMatchObject({ evidence: false, non_evidence_reason: 'help_state_mismatch', help_state: 'helped' })
-    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-teach-1'), { response: rightAnswer('r5-cm-teach-1'), ...meta() }, Date.now(), writer)
+    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-teach-1'), { deliveryId: await dOf(A, ref('r5-cm-teach-1')), response: rightAnswer('r5-cm-teach-1'), ...meta() }, Date.now(), writer)
     expect(await evidenceOf(A, ref('r5-cm-teach-1'))).toMatchObject({ evidence: false, help_state: 'practice' })
   })
 
@@ -179,13 +181,13 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
     const r = await supply(A, 'transfer', 2)
     if (r.status !== 'ok') throw new Error('supply')
     expect(r.lines[0].delivered).toHaveLength(2)
-    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-transfer-1'), { response: rightAnswer('r5-cm-transfer-1'), ...meta() }, Date.now(), writer)
+    await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-transfer-1'), { deliveryId: await dOf(A, ref('r5-cm-transfer-1')), response: rightAnswer('r5-cm-transfer-1'), ...meta() }, Date.now(), writer)
     expect(await evidenceOf(A, ref('r5-cm-transfer-1'))).toMatchObject({ evidence: true, help_state: 'transfer' })
   })
 
   it('형식이 틀린 응답 · 받지 않은 자료는 기록하지 않는다', async () => {
-    await expect(recordAuthoredAttempt(admin, learner(A), { id: A, email: null }, ref('r5-cm-ind-1'), { response: { claim: 99 }, ...meta() }, Date.now(), writer)).rejects.toMatchObject({ code: 'invalid_input' })
-    await expect(recordAuthoredAttempt(admin, learner(B), { id: B, email: null }, ref('r5-cm-ind-1'), { response: rightAnswer('r5-cm-ind-1'), ...meta() }, Date.now(), writer)).rejects.toMatchObject({ code: 'not_delivered' })
+    await expect(recordAuthoredAttempt(admin, learner(A), { id: A, email: null }, ref('r5-cm-ind-1'), { deliveryId: await dOf(A, ref('r5-cm-ind-1')), response: { claim: 99 }, ...meta() }, Date.now(), writer)).rejects.toMatchObject({ code: 'invalid_input' })
+    await expect(recordAuthoredAttempt(admin, learner(B), { id: B, email: null }, ref('r5-cm-ind-1'), { deliveryId: await dOf(A, ref('r5-cm-ind-1')), response: rightAnswer('r5-cm-ind-1'), ...meta() }, Date.now(), writer)).rejects.toMatchObject({ code: 'not_delivered' })
   })
 
   it('받은 자료 목록: 역할 · 풀었나 · 근거로 셌나', async () => {
