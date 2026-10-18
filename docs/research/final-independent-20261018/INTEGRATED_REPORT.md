@@ -3,7 +3,7 @@
 
 2026-10-19 현재 [독립 재수용](./REACCEPT_20261019.md)이 아래 시간순 이력보다 우선한다. **전체 REWORK**, FI-010은 명시한 코드/격리 서버·DB/1280·1440 브라우저 범위에서 **VERIFIED_FIXED**다. 새30388c3의 전체 화면 두 기기 CI/직접 해독한 report10/10을 명시 범위에서 추가 수용했고312cefc는 기존 잔여가 확인된 같은 HEAD다. 실제 safe-merge·병합0을 유지한다. A~H의 일곱 증거 층위와 동일 합성 학습자 전체 E2E 미검증도 재수용 표에 분리했다.
 
-현재 PR303 tip은 **0bcb459296568c9eb1c5ffb2643a6d8ec7f0ea3d**다. 아래25b 검증 후 FINAL_LEDGER 문서2행만 변경했으며 제품·테스트·CI workflow 변화0을 직접 대조했다. 코드/브라우저 성공은 재사용하고 tip의 필수 CI는 별도로 확인한다. 전체 병합 차단은 FI-018이며 문서 변경을 새로운 제품 결함이나 수용 게이트로 늘리지 않는다.
+18일 체크포인트의 PR303 tip은 **0bcb459296568c9eb1c5ffb2643a6d8ec7f0ea3d**였다. 아래25b 검증 후 FINAL_LEDGER 문서2행만 변경했으며 제품·테스트·CI workflow 변화0을 직접 대조했다. 코드/브라우저 성공은 재사용하고 tip의 필수 CI는 별도로 확인한다. 전체 병합 차단은 FI-018이며 문서 변경을 새로운 제품 결함이나 수용 게이트로 늘리지 않는다.
 
 최신 체크포인트:303의 제품 통합 HEAD256f109e5와2502549e407d는 필수 CI 모두 SUCCESS다. [256f 실제 CI 브라우저 산출물](./rework-integrated-ci-browser-256f.json)을 직접 해독해8 expected/0 unexpected/0 flaky/0 skipped, passing 첨부0을 확인했다. 이후303 **25b7d43b86b4446e2fd4f6809cbf0c724b610591**는 제품 코드 변경 없이 FI-010 브라우저 실패 주입 fixture/spec와 CI 연결만 추가했다. [새 CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)는 필수 체크 모두 SUCCESS로 종료했다. [새25b 브라우저 산출물](./rework-integrated-ci-browser-25b.json)도 직접 해독한8/8이며 두 폭의 FI-010 쓰기 실패→본문/Runner 미공개→실패 해제 후 정당한 최초 근거 경로가 포함된다. CI가 만든 합성 사용자/사람 결정과 실제 승인/학습 효과는 구분한다. 원본 fixture는 격리 CI 전용이고 개발 DB에 적용하지 않았다. FI-018 실제312 HEAD는cefc3e502로 불변이며 아래 REWORK를 유지한다.
 
@@ -22,9 +22,26 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |C 개인화 학습지도|PARTIAL|[T1](../lm-g1-1-independent/ACCEPTANCE.md)·[T2](../lm-g1-2-independent/ACCEPTANCE.md),30 TASK·학습량/불확실성,17 TASK Workspace 로더, [Inspector22관찰](./OBSERVATION_UI_REVERIFY.md)|전체 TASK별 실제 도달 근거와 수행 후 PLAN 의미 환류 미완료|
 |D 기출 출제 원리 학습|PARTIAL|[27개 원문/설명 결속 및 내용 대조](./PR250_CONTENT_REVIEW.md),105개 창작 초안 판독, FI-014 채점/Gold/UI 채택 결속|P3 문구 의견3개, 전문가·사람 Gold 검수와 전체 화면/설계 연결 의미 미완료. AI 정답 일치를 승인으로 세지 않음|
 |E 적합한 학습 콘텐츠 공급|BLOCKED_EXTERNAL|실제 SQL SHA 일치, native PostgreSQL 두 연결4사례/22역할·요청키/철회/revision 경계|개발 DB authored/사람 결정 미설치·자격/출시 승인/납품/결속0. 실제 적용·해당 revision의 사람 Gold/권리 승인 필요|
-|F 실제 학습 실행|PARTIAL|R5 실제 격리 브라우저,9형식/복귀 CI, 공개 전 기록 가드4검사, 실제 HTTP 저장13검사/두 기기 IndexedDB 재시도|인증/게이트는 합성, 전체 theater 저장/실제 적격 공급·실학습 실행 미검증|
+|F 실제 학습 실행|PARTIAL|R5 실제 격리 브라우저,9형식/복귀 CI, 공개 전 기록 가드4검사, 실제 HTTP 저장13검사/두 기기 IndexedDB 재시도|기존 HTTP/store 검사의 인증/게이트는 합성; 새 전체 UI의 정상 저장/주입409·복귀는 실제 로컬 Supabase에서 확인. 보류 노트 전체 화면 연결·실제 적격 공급/실학습 실행 미검증|
 |G 독립 전이|PARTIAL|[#285 경계](../r5-285-independent-20261017/ACCEPTANCE.md), FI-006 동시 중복/역사 영수증 구분과 FI-010 노출·실패·재열기/근거 확인|실제 적격 미노출 지문 전이·지연 수행/효과 미검증. 같은 지문/연습을 새 전이로 세지 않음|
 |H 증거 기반 환류|PARTIAL|명시 delivery/G2 결속, 중심 의미·Workspace/지도 복귀, 서버 저장/응답 유실 재전송·과거 기록 보존, 기존 PLAN 버전/이력 검사|한 학습자의 실제 수행→새 TASK 요구·PLAN 버전·목표/복귀 의미 변화 관통 미완료|
+
+## A~H 일곱 증거 층위 · 2026-10-19
+
+각 셀은 명시한 부분 구간의 근거이며 전체 영역 VERIFIED를 뜻하지 않는다. 서로 다른 계정/fixture의 spec을 한 학습자의 여정으로 합치지 않는다.
+
+|영역/전체 판정|코드|격리 DB|브라우저|실제 개발 DB|사람 Gold·권리|실제 수행|학습 효과|
+|---|---|---|---|---|---|---|---|
+|A 기록·현재 능력 / PARTIAL|기록/불확실성 로더·기존 T4 범위|기존 계약 범위|지도 기존 범위|현재 학습자 종단 NOT_VERIFIED|해당 기능 자체는 승인 대상 아님; E 콘텐츠 별도|새 여정 NOT_VERIFIED|NOT_VERIFIED|
+|B 목표 / PARTIAL|기존 T3/목표 버전 범위|격리 목표 저장/DB 단언|기존 목표 저장 실제 CI|새 여정 NOT_VERIFIED|해당 기능 자체는 승인 대상 아님|새 여정 NOT_VERIFIED|NOT_VERIFIED|
+|C 학습지도 / PARTIAL|TASK/양·근거·불확실성|기존 PLAN/Workspace 계약 범위|지도/복귀·Inspector 범위|같은 학습자의 환류 NOT_VERIFIED|콘텐츠별 E에서 검수 필요|NOT_VERIFIED|NOT_VERIFIED|
+|D 출제 원리 / PARTIAL|기출 설명/창작·FI-014 범위|형식/결속 검사 범위|구조 위젯/theater·Runner 범위|새 승인 콘텐츠 실행 NOT_VERIFIED|새 Gold/권리 NOT_VERIFIED|NOT_VERIFIED|NOT_VERIFIED|
+|E 적격 공급 / BLOCKED_EXTERNAL|SQL/현재 자격·권리/Gold 경계|native PG 동시성/22역할|격리 fixture 공급 범위|설치/0집계만 DEV_DB_VERIFIED; 실제 공급 NOT_VERIFIED|NOT_VERIFIED|실제 적격 공급 NOT_VERIFIED|NOT_VERIFIED|
+|F 학습 실행 / PARTIAL|Workspace/Runner/노트 저장|실제 서버/API 격리 검사|FI-010 VERIFIED_FIXED; FI-015 새 전체 화면 두 폭 정상/주입409·복귀 성공, 나머지 단언 한계 별도|새 공급 실행 NOT_VERIFIED|사용 콘텐츠 새 승인 NOT_VERIFIED|실제 학습자 NOT_VERIFIED|NOT_VERIFIED|
+|G 독립 전이 / PARTIAL|노출/도움/동일 지문·근거 구분|FI-006/010 경계 범위|격리 최초/비근거 대조|새 적격 전이 NOT_VERIFIED|해당 revision Gold/권리 NOT_VERIFIED|실제 미노출/지연 전이 NOT_VERIFIED|NOT_VERIFIED|
+|H 증거 환류 / PARTIAL|delivery/G2·PLAN/이력 범위|결속/상태 보존 범위|격리 지도 복귀/표시 범위|수행→새 PLAN 의미 환류 NOT_VERIFIED|콘텐츠별 E에서 검수 필요|실제 환류 NOT_VERIFIED|NOT_VERIFIED|
+
+**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다. FI-018 수정/312 수용 뒤 최신 main 기준250→303의 통합/안전 병합과 해당 종단 검증이 남아 있다.
 
 ## 결함별 수정 수용
 
@@ -44,7 +61,7 @@ FI-001~013의 이전 층위별 수용과 최초 실패는 [같은 원장](./GITH
 
 |대상|최신 관찰|판정|
 |---|---|---|
-|[PR303](https://github.com/KangMin098/Vocaflow/pull/303)|0bcb459296568c9eb1c5ffb2643a6d8ec7f0ea3d · 제품/테스트25b7d43b8의 [CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)|OPEN,25b 필수 CI SUCCESS/두 폭 FI-010 실패 주입 통과.0bcb는 ledger 문서만 변경, 최신 체크 상태는 별도 기계 기록|
+|[PR303](https://github.com/KangMin098/Vocaflow/pull/303)|88c3f12818cee9838234dbf943844acbe534dab7 · [CI39175879688](https://github.com/KangMin098/Vocaflow/actions/runs/39175879688)|OPEN, 최신 필수 CI 모두 SUCCESS. 실제 report10/10/새 전체 화면 두 기기 두 폭 성공을 명시 범위 수용. FI-018 잔여로 병합 보류|
 |[PR250](https://github.com/KangMin098/Vocaflow/pull/250)|2549e407d9b1138c83b7fd633556b1527b62648c · [CI39136705847](https://github.com/KangMin098/Vocaflow/actions/runs/39136705847)|OPEN, 최신 필수 CI SUCCESS. 재전송 상한/간격·실패 표시 변경을 새로 검증|
 |실제 코드 통합|303256f가2502549를 포함. 기존 CHANGELOG 충돌은 실제 merge에서 해결|변경 없는01c 타입/lint/build·[실제 CI8브라우저](./rework-integrated-ci-browser.json) 재사용, 새 store5단위/3컨텍스트 브라우저 성공. 각 실제 파일 바이트 결속 확인|
 |[PR312](https://github.com/KangMin098/Vocaflow/pull/312)|cefc3e5026daccd9ab695d452d1a085c5d24daaa · [CI39132397689](https://github.com/KangMin098/Vocaflow/actions/runs/39132397689)|필수 CI SUCCESS지만 독립 FI-018 REWORK. 실제 안전 게이트로 사용하지 않음|
