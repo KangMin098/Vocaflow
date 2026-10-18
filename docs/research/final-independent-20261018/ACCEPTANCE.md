@@ -3,7 +3,7 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · 기준 main **c3a03d1680c1b064598fdc1ab319b645f370e68c**.
 
-**현재 전체 수용 상태: REWORK. 최종 임무는 진행 중이다.** main 기준선은 아래와 같으며 PR303의 FI-001 명시 납품/복구와 FI-009 문장 번호 개선은 별도 후보 검증으로 인정했다. 최신 SQL 검토 후보7e638e63d는 FI-002/003/004의 격리 수정 확인과 FI-006의 잔여 중복 공급을 함께 기록했다.17 TASK105초안/10형식의 내용·루브릭·환류 및 9bd 후속 CI는 검증 중이다. [2026-10-18T10:57:51Z 실제 개발 DB READ ONLY 관찰](./current-db-readonly.json)에서는 authored 미설치·자격·납품·G2 결속 근거가0이다. 사람 Gold·권리는 별도의 BLOCKED_EXTERNAL 조건이다. R5/코드/AI 판독을 전체 완료로 확대하지 않는다.
+**현재 전체 수용 상태: REWORK. 최종 임무는 진행 중이다.** main 기준선은 아래와 같으며 PR303의 FI-001 명시 납품/복구와 FI-009 문장 번호 개선은 별도 후보 검증으로 인정했다. 최신 SQL 검토 후보7e638e63d는 FI-002/003/004의 격리 수정 확인과 FI-006의 잔여 중복 공급을 함께 기록했다.17 TASK105초안/10형식의 내용·루브릭·환류 및 4a 후속 CI는 검증 중이다. [2026-10-18T10:57:51Z 실제 개발 DB READ ONLY 관찰](./current-db-readonly.json)에서는 authored 미설치·자격·납품·G2 결속 근거가0이다. 사람 Gold·권리는 별도의 BLOCKED_EXTERNAL 조건이다. R5/코드/AI 판독을 전체 완료로 확대하지 않는다.
 
 ## A~H의 의미와 판정
 
@@ -18,7 +18,7 @@
 | E 적합한 학습 콘텐츠 공급 | BLOCKED_EXTERNAL | DB-1/2/I2/G2 설치 이력 SHA를 로컬 파일과 대조. [현재 DB](./db-baseline.json)의 자격·승인·등록부·수요·주문·납품 전부0. 사람 Gold·권리 근거 미승인. active application은 FQ가 아니다. 새로운 창작물도 기출로 가장하거나 Gold/권리를 자동 충족했다고 볼 수 없다. |
 | F 실제 학습 실행 | PARTIAL | Workspace·기출/연습·G2 writer와 [기존 T2](../lm-g1-2-independent/ACCEPTANCE.md)·[#289 상태](../r5-screen-states-20261018/STATES.md) 재사용. 실제 개발 DB의 적격 공급 실행은 아직0. PR303에서 명시 납품/복구26건과 e913 격리 브라우저 경로/결속 개선을 확인했으나 FI-007 서버 개선은 확인했으나 FI-010 기록 실패 경로 및 전체 수행 수용은 남는다. |
 | G 독립 전이 | PARTIAL | prior-help·노출 원장·revision/annotation·역할 계약 및 [#285 독립 경계](../r5-285-independent-20261017/ACCEPTANCE.md) 재사용. 연습/도움/같은 지문을 독립 전이로 승격하지 않는 범위를 검증했다. 실제 적격 미노출 전이와 지연 효과는 미검증. |
-| H 증거 기반 환류 | PARTIAL | G2→map/load→composeV4→NeedRank/Workspace/PLAN, 저장 PLAN·목표 버전 보존의 T2~T4 결과 재사용. PR303의 명시 납품 결속/현재 화면 복구 개선은 인정한다. FI-011의 중심 의미 Workspace/다음 요구/전이량 수정은 확인했다. 확장3 Workspace 목록 연결과 지속 복구·PLAN 의미 갱신은 미완료다. 실제 납품부터 전체 환류 완료 증거는 없다. |
+| H 증거 기반 환류 | PARTIAL | G2→map/load→composeV4→NeedRank/Workspace/PLAN, 저장 PLAN·목표 버전 보존의 T2~T4 결과 재사용. PR303의 명시 납품 결속/현재 화면 복구 개선은 인정한다. FI-011의 중심 의미 Workspace/다음 요구/전이량 수정은 확인했다. 확장3 Workspace 목록 연결은4a 후보에서 수정 확인했다. 지속 복구·PLAN 의미 갱신과 PR250 자기 설명 동시 보존은 미완료다. 실제 납품부터 전체 환류 완료 증거는 없다. |
 
 현재 확인된 연결은 위 항목에 한정한다. 이 표 밖의 정본/구현 관계와 전체 지원 TASK의 미검증 영역은 **UNMAPPED/NOT_VERIFIED**이며 강제 대응하지 않는다. 새 로드맵이나 신규 필수 게이트를 만들지 않는다.
 
@@ -96,3 +96,5 @@ de5065b51의 형식/호환/서버 검사36건 통과를 독립 확인했다. 새
 7e 앱·환류 후속: FI-008 AuthoredRunner 재시도는 두 폭의 동일 의미 요청과 G2 duplicate/변경시각 conflict로 수정 확인, FI-012 대체 결정 근거도 실제 채점기/두 폭 UI에서 수정 확인했다. FI-005 원래 모집단/측정 오기와 FI-013 단수 ditch 대안은 후보 수정 확인이며 사람 내용/Gold 승인은 아니다. FI-011 중심 의미3반례는 개선됐지만 기존 추론·어법·문맥 어휘 Workspace가 적격 링크에도 목록에서 제외돼 PARTIAL_FIX / OPEN이다. [통합 후속 근거](./APP_REPAIR_REVERIFY.md).689 CI9형식 timeout은 trace의 trial 대기이며9bd 수정 후 새 run39120198955는 관찰 시 진행 중이다. 전체 A~H REWORK 유지.
 
 후속 구조/권한:7e StructurePredict/실제 도식·순수 채점기의 두 폭17관찰과 실제 PostgreSQL 역할22건을 확인했다. 설계 가설 대조의 능력 근거 제외·허용 대안·단위 불일치·재시도 및 현재성 RPC 본인/타인/익명 경계를 구별한다. [범위와 결과](./STRUCTURE_SECURITY_REVERIFY.md). 전체 A~H REWORK와 실제 DB/사람 승인 제한을 유지한다.
+
+PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.

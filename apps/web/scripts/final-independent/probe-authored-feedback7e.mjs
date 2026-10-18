@@ -3,7 +3,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync, spawnSync } from 'node:child_process'
-const root=path.resolve(import.meta.dirname,'../../../..'),sha='7e638e63d28791dcc4f886431c0205743dc3310a'
+const fixed=process.argv.includes('--owner4a')
+const root=path.resolve(import.meta.dirname,'../../../..'),sha=fixed?'4a751eeb9215bf4c6e81f8d512b3fff432d18d67':'7e638e63d28791dcc4f886431c0205743dc3310a'
 const run=fs.mkdtempSync(path.join(root,'.agent-logs/final-independent/feedback7e-')),snapshot=path.join(run,'snapshot');fs.mkdirSync(snapshot)
 execFileSync('git',['archive',sha,'--format=tar','--output='+path.join(run,'source.tar'),'apps/web/src','apps/web/package.json','apps/web/vitest.config.ts','apps/web/tsconfig.json','packages','supabase','docs/final','scripts/csat/map/v62','package.json','pnpm-workspace.yaml'],{cwd:root,windowsHide:true})
 execFileSync('tar.exe',['-xf',path.join(run,'source.tar'),'-C',snapshot],{windowsHide:true})
@@ -11,7 +12,7 @@ for(const dir of ['node_modules','apps/web/node_modules'])fs.symlinkSync(path.jo
 for(const file of ['apps/web/src/lib/csat/map/load.ts','apps/web/src/lib/csat/map/v4/compose.ts','apps/web/src/lib/csat/map/v4/to-be.ts','apps/web/src/lib/csat/map/v4/workspace.ts','apps/web/src/lib/csat/map/v4/plan.ts']){
  if(fs.readFileSync(path.join(snapshot,file),'utf8')!==execFileSync('git',['show',sha+':'+file],{cwd:root,encoding:'utf8'}))throw new Error('Frozen source mismatch: '+file)
 }
-const spec=`
+let spec=`
 import {describe,it,expect} from 'vitest'
 import {PGlite} from '@electric-sql/pglite'
 import {asIsMap} from '../../map/v4/as-is'
@@ -83,9 +84,10 @@ describe('Independent authored map feedback',()=>{
  })
 })
 `
+if(fixed)spec=spec.replace("expect(rows.some(r=>r.directStageReady&&!r.returnedWorkspace&&r.inPreparing)).toBe(true)","for(const task of ['r.inference','s.form_scope','v.contextual_sense'])expect(rows.find(r=>r.task===task)).toMatchObject({directStageReady:true,returnedWorkspace:true,workspaceReady:true,inPreparing:false})")
 const test='src/lib/csat/authored/__tests__/codex-feedback7e.test.ts'
 fs.writeFileSync(path.join(snapshot,'apps/web',test),spec)
-const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',test],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:4*1024*1024})
+const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',test,...(fixed?['-t','expanded TASK Workspace']:[])],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:4*1024*1024})
 const output=[result.stdout??'',result.stderr??''].join('\n').replace(/\u001b\[[0-9;]*m/g,'')
-fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/authored-owner7e-feedback.log'),'Frozen source: '+sha+'\nScope: isolated actual map functions + synthetic qualified contract inputs, PGlite for passage loader only; no actual DB.\n'+output)
+fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/'+(fixed?'authored-owner4a-feedback.log':'authored-owner7e-feedback.log')),'Frozen source: '+sha+'\nScope: isolated actual map functions + synthetic qualified contract inputs, PGlite for passage loader only; no actual DB.\n'+output)
 process.stdout.write(output);process.exitCode=result.status??1

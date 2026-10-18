@@ -3,7 +3,7 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 임무 진행 중**.
 
-증거 브랜치: `review/final-independent-20261018`, 앱·환류 재검증 증거 HEAD `174696498`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `9bd249dd714e4ad3125b96f25f9fd245fbe25ea0`(제품 함수 검증 고정 HEAD는7e638e63d)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
+증거 브랜치: `review/final-independent-20261018`, 앱·환류 재검증 증거 HEAD `174696498`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `4a751eeb9215bf4c6e81f8d512b3fff432d18d67`(SQL/기존 앱 함수7e · Workspace4a 검증)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
 
 | 기존 ID | 이슈 | 수정/독립 재검증 상태 |
 |---|---|---|
@@ -17,7 +17,7 @@
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
 | FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
-| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | PARTIAL_FIX / OPEN · 중심 의미 개선/확장3 Workspace 목록 제외 |
+| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE · 중심 의미7e/확장3 Workspace4a, 전체 브라우저 복귀 별도 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
 | FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · 맞는 주어/본동사 이유 오답 |
@@ -46,3 +46,10 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 7e 앱·환류 후속: FI-008 AuthoredRunner 재시도는 두 폭의 동일 의미 요청과 G2 duplicate/변경시각 conflict로 수정 확인, FI-012 대체 결정 근거도 실제 채점기/두 폭 UI에서 수정 확인했다. FI-005 원래 모집단/측정 오기와 FI-013 단수 ditch 대안은 후보 수정 확인이며 사람 내용/Gold 승인은 아니다. FI-011 중심 의미3반례는 개선됐지만 기존 추론·어법·문맥 어휘 Workspace가 적격 링크에도 목록에서 제외돼 PARTIAL_FIX / OPEN이다. [통합 후속 근거](./APP_REPAIR_REVERIFY.md).689 CI9형식 timeout은 trace의 trial 대기이며9bd 수정 후 새 run39120198955는 관찰 시 진행 중이다. 전체 A~H REWORK 유지.
 
 후속 앱 게시174696498: #300 issuecomment-6248955969, #305 issuecomment-6248956129, #304 issuecomment-6248956308, #297 issuecomment-6248956488, #306 issuecomment-6248956655, PR303 issuecomment-6248956851. 공동 원장 DL-0163. [구조 위젯/실제 역할 검사](./STRUCTURE_SECURITY_REVERIFY.md)와 최신 READ ONLY 관찰을 추가했다. PR250은 OPEN(HEAD4fdc7ba76ac5f50493da668b85c1735e09a208ff)이며 총괄 관련 기능으로 다음 독립 검증 범위를 확인한다. PR303 새 CI run39120198955/e2e job117654074932는 현재 실행 중이다.
+
+| 후속 ID | 이슈 | 상태 |
+|---|---|---|
+| FI-015 | [#308](https://github.com/KangMin098/Vocaflow/issues/308) | OPEN · PR250 동시 자기 설명 저장 누락 |
+| FI-016 | [#309](https://github.com/KangMin098/Vocaflow/issues/309) | OPEN · 비공개 재현, 공동 원장 DL-0165 |
+
+PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.

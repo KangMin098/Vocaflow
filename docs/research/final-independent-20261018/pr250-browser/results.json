@@ -1,0 +1,119 @@
+{
+  "ownerCommit": "4fdc7ba76ac5f50493da668b85c1735e09a208ff",
+  "complete": true,
+  "scope": "Actual MeaningDraft/helpers/CSS; synthetic text, save failure callbacks, analytics capture. No live DB, real learner responses, IndexedDB/server persistence, TTS or whole theater navigation claim.",
+  "rows": [
+    {
+      "id": "1280-optional-input-hidden",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-failed-save-preserves-text",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-retry-saves-original",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-comparison-not-auto-grading",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-analytics-no-learner-text",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-failed-revision-preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-first-kept-and-change-optional",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-next-actions",
+      "ok": true,
+      "detail": {
+        "scope": "Callbacks only, not full theater navigation"
+      }
+    },
+    {
+      "id": "1280-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-old-explanation-warning",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-optional-input-hidden",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-failed-save-preserves-text",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-retry-saves-original",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-comparison-not-auto-grading",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-analytics-no-learner-text",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-failed-revision-preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-first-kept-and-change-optional",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-next-actions",
+      "ok": true,
+      "detail": {
+        "scope": "Callbacks only, not full theater navigation"
+      }
+    },
+    {
+      "id": "1440-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-old-explanation-warning",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "no-runtime-errors-or-external-network",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    }
+  ]
+}

@@ -102,3 +102,5 @@ CI run39114115991(HEAD e91377575)은 verify/build/e2e/e2e-gate-faultclosed 성�
 7e 앱·환류 후속: FI-008 AuthoredRunner 재시도는 두 폭의 동일 의미 요청과 G2 duplicate/변경시각 conflict로 수정 확인, FI-012 대체 결정 근거도 실제 채점기/두 폭 UI에서 수정 확인했다. FI-005 원래 모집단/측정 오기와 FI-013 단수 ditch 대안은 후보 수정 확인이며 사람 내용/Gold 승인은 아니다. FI-011 중심 의미3반례는 개선됐지만 기존 추론·어법·문맥 어휘 Workspace가 적격 링크에도 목록에서 제외돼 PARTIAL_FIX / OPEN이다. [통합 후속 근거](./APP_REPAIR_REVERIFY.md).689 CI9형식 timeout은 trace의 trial 대기이며9bd 수정 후 새 run39120198955는 관찰 시 진행 중이다. 전체 A~H REWORK 유지.
 
 후속 구조/권한:7e StructurePredict/실제 도식·순수 채점기의 두 폭17관찰과 실제 PostgreSQL 역할22건을 확인했다. 설계 가설 대조의 능력 근거 제외·허용 대안·단위 불일치·재시도 및 현재성 RPC 본인/타인/익명 경계를 구별한다. [범위와 결과](./STRUCTURE_SECURITY_REVERIFY.md). 전체 A~H REWORK와 실제 DB/사람 승인 제한을 유지한다.
+
+PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.

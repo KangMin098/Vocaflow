@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "constraint": "funnel_events_event_check",
+      "requiredEventsPresent": 6
+    }
+  ],
+  "readOnly": "on",
+  "observedAt": "2026-10-18T11:07:19.260968+00:00",
+  "migrationHistory": [
+    {
+      "name": "funnel_allow_csat_meaning",
+      "version": "20261014091841",
+      "statementCount": 1,
+      "statementSha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089"
+    }
+  ],
+  "localMigrationFileSha256": "73e5a1cb93e3756a77fec2a9773b99f60e33040d88a464651607974f4d01ff14",
+  "scope": "READ_ONLY live migration/event behavior observation. Raw statement hash differs from repository file bytes; full byte identity not claimed. No live DB writes."
+}

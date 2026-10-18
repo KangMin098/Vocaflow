@@ -1,0 +1,21 @@
+Frozen owner 4fdc7ba76ac5f50493da668b85c1735e09a208ff; actual route/merge + isolated PGlite; synthetic own-learner records; no remote DB. Passing observation of data-loss defect is not product acceptance.
+◇ injected env (0) from ..\..\.env.local // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (0) from .env.local // tip: ◈ encrypted .env [www.dotenvx.com]
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/pr250-race-Cepdtl/snapshot/apps/web
+
+stdout | src/lib/csat/__tests__/independent-pr250-race.test.ts > Independent PR250 state write concurrency > sequential distinct-note saves preserve both notes
+MYWORDS_SEQUENTIAL={"statuses":[200,200],"noteIds":["unit-one","unit-two"]}
+
+stdout | src/lib/csat/__tests__/independent-pr250-race.test.ts > Independent PR250 state write concurrency > two acknowledged concurrent saves overwrite a different note on the server
+MYWORDS_CONCURRENT={"statuses":[200,200],"bothReadBeforeWrite":true,"storedNoteIds":["unit-two"],"freshGetNoteIds":["unit-two"]}
+
+ ✓ src/lib/csat/__tests__/independent-pr250-race.test.ts  (2 tests) 1523ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:18:26
+   Duration  1.96s (transform 88ms, setup 0ms, collect 161ms, tests 1.52s, environment 0ms, prepare 93ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
