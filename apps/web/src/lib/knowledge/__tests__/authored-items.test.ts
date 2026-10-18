@@ -140,7 +140,7 @@ describe('모든 창작 세트(FINAL §5 확장)', () => {
         for (const a of set.items.filter((i) => isAssessmentRole(i.role))) for (const x of a.body.sentences) expect(instruction).not.toContain(x)
       })
       it('학습자 보기에 Gold 칸이 없다', () => {
-        for (const i of set.items) expect(Object.keys(learnerView(set, i).extra).sort()).toEqual(Object.keys(learnerView(set, i).extra).filter((k) => ['target', 'pairs', 'marks'].includes(k)).sort())
+        for (const i of set.items) expect(Object.keys(learnerView(set, i).extra).sort()).toEqual(Object.keys(learnerView(set, i).extra).filter((k) => ['target', 'pairs', 'marks', 'focus', 'segments', 'ask', 'pair', 'taskStem'].includes(k)).sort())
       })
     })
   }

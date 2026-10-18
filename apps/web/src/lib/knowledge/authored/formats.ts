@@ -4,8 +4,10 @@
 // 형식 id 는 DB 행 body.format 에 함께 저장된다(스키마 변경 없음) — 본문 · Gold 해시에 들어가므로 형식을 바꾸면 revision 이 바뀐다.
 import { RELATIONS, type Relation } from '../claim-support-labels'
 import { gradeClaimSupport, parseResponse, type ClaimSupportAnnotation } from '../claim-support'
+import { PATTERNS as STRUCT_PATTERNS, ROLES as STRUCT_ROLES, gradeStructure, parseStructureResponse } from '@/lib/csat/inquiry/structure-check'
+import type { PassageDesign, Pattern, Role } from '@/lib/csat/design'
 
-export const FORMATS = ['central_meaning', 'choice_evidence', 'option_correspondence', 'contextual_sense', 'sentence_relation', 'form_scope'] as const
+export const FORMATS = ['central_meaning', 'choice_evidence', 'option_correspondence', 'contextual_sense', 'sentence_relation', 'form_scope', 'discourse_roles', 'demand_choice', 'segment_choice', 'equivalence'] as const
 export type FormatId = (typeof FORMATS)[number]
 
 /** 형식별 무엇을 재나(학습자 화면 · 승인 패킷 · 원장이 같은 문장을 쓴다) */
@@ -16,6 +18,10 @@ export const FORMAT_MEASURES: Record<FormatId, string> = {
   contextual_sense: '다의어에서 이 문장에 맞는 의미를 고른다 — 문맥 의미 선택 + 근거 문장',
   sentence_relation: '인접 문장의 관계를 구성한다 — 문장 쌍마다 관계 종류',
   form_scope: '문법 형태와 그 범위를 판단한다 — 틀린 형태 + 틀린 이유',
+  discourse_roles: '문장마다 하는 일(주제문 · 근거 · 예시 …)과 글 전체 전개 구조를 재구성한다 — 문장 역할 + 구조 패턴',
+  demand_choice: '발문이 요구하는 판단(무엇을 · 어느 범위에서)을 정확히 말한다 — 요구 진술 선택',
+  segment_choice: '문장 안에서 뼈대 · 수식 · 경계 · 구조를 찾는다 — 해당 덩어리 + 그 이유',
+  equivalence: '두 표현의 의미가 같은지 · 어떤 관계인지 판단한다 — 같음 여부 + 의미 관계',
 }
 
 // ── 공통 ─────────────────────────────────────────────────────────────
@@ -26,6 +32,12 @@ export const PAIR_RELATIONS = ['cause_effect', 'contrast', 'example', 'restateme
 export type PairRelation = (typeof PAIR_RELATIONS)[number]
 export const FORM_REASONS = ['agreement', 'tense_aspect', 'voice', 'relative_clause', 'participle', 'parallelism', 'comparison_scope', 'negation_scope', 'infinitive_gerund', 'pronoun_reference', 'inversion', 'noun_clause'] as const
 export type FormReason = (typeof FORM_REASONS)[number]
+export const DEMAND_TRAPS = ['wrong_operation', 'wrong_scope', 'detail_focus', 'wrong_unit', 'extra_condition'] as const
+export const SEGMENT_REASONS = ['main_subject', 'main_verb', 'object', 'complement', 'modifies_noun', 'modifies_verb', 'clause_boundary', 'phrase_boundary', 'parallel_member', 'ellipsis_restored', 'inserted_clause', 'inverted_order'] as const
+export type SegmentReason = (typeof SEGMENT_REASONS)[number]
+export const SEGMENT_ASKS = ['subject', 'verb', 'attachment', 'boundary', 'structure'] as const
+export const MEANING_RELATIONS = ['synonym', 'paraphrase', 'antonym', 'hypernym', 'hyponym', 'unrelated'] as const
+export type MeaningRelation = (typeof MEANING_RELATIONS)[number]
 export const OPTION_VERDICTS = ['matches', 'distorted', 'not_in_text', 'reversed', 'too_narrow'] as const
 export type OptionVerdict = (typeof OPTION_VERDICTS)[number]
 
@@ -268,7 +280,129 @@ const formScope: FormatSpec = {
   reveal: (g) => ({ answer: g.answer, reason: g.reason, correction: g.correction, marks: g.marks }),
 }
 
+// ── discourse_roles (r.discourse_function · r.discourse_structure) ───
+// 정답 = 모든 문장 역할 ✓(허용 대안 포함) + 구조 패턴 ✓. 채점은 기출분석 ⑤ 구조 예측과 같은 함수(gradeStructure).
+const discourseRoles: FormatSpec = {
+  id: 'discourse_roles',
+  validate(body, g) {
+    const errs: string[] = []
+    const len = n(body)
+    const gg = g as { roles: Role[]; alternatives: { index: number; role: Role }[]; pattern: Pattern; rationale: string }
+    if (!Array.isArray(gg.roles) || gg.roles.length !== len || !gg.roles.every((r) => STRUCT_ROLES.includes(r))) errs.push('문장 수만큼 역할')
+    if (!Array.isArray(gg.alternatives) || !gg.alternatives.every((a) => isInt(a.index, 0, len) && STRUCT_ROLES.includes(a.role) && a.role !== gg.roles?.[a.index])) errs.push('허용 대안')
+    if (!STRUCT_PATTERNS.includes(gg.pattern)) errs.push('구조 패턴')
+    if (typeof gg.rationale !== 'string' || gg.rationale.length < 12) errs.push('구조 설명')
+    return errs
+  },
+  grade(body, g, raw) {
+    const r = parseStructureResponse(raw, n(body))
+    if (!r) return null
+    const gg = g as unknown as { roles: Role[]; alternatives: { index: number; role: Role }[]; pattern: Pattern }
+    const design: PassageDesign = { roles: gg.roles, alternatives: gg.alternatives, pattern: gg.pattern, selection: '', transform: 'paraphrase' as PassageDesign['transform'], transform_note: '', cues: [] }
+    const grade = gradeStructure(design, r)
+    return { response: { roles: r.roles, pattern: r.pattern }, grade: { ...grade } }
+  },
+  reveal: (g) => ({ roles: g.roles, alternatives: g.alternatives, pattern: g.pattern, rationale: g.rationale }),
+}
+
+// ── demand_choice (e.task_demand) ────────────────────────────────────
+// body.taskStem = 분석할 발문. 선택지 = 그 발문이 요구하는 판단 진술 5개. 정답 = 요구 진술 ✓. 오답 = 연산 · 범위 · 세부 · 단위 · 조건 착오.
+const demandChoice: FormatSpec = {
+  id: 'demand_choice',
+  validate(body, g) {
+    const errs: string[] = []
+    const gg = g as { answer: number; rationale: string }
+    if (!choicesOk(body)) errs.push('선택지는 5개')
+    if (typeof body.taskStem !== 'string' || body.taskStem.length < 6) errs.push('분석할 발문(taskStem)')
+    if (!isInt(gg.answer, 0, 5)) errs.push('정답 번호')
+    if (typeof gg.rationale !== 'string' || gg.rationale.length < 12) errs.push('요구 설명')
+    return [...errs, ...distractorErrors(g, DEMAND_TRAPS)]
+  },
+  grade(_body, g, raw) {
+    const r = (raw ?? {}) as { choice?: unknown }
+    if (!isInt(r.choice, 0, 5)) return null
+    const gg = g as unknown as { answer: number; distractors: { choice: number; design: string }[] }
+    const ok = r.choice === gg.answer
+    return { response: { choice: r.choice }, grade: { choiceOk: ok, choiceDesign: ok ? null : gg.distractors.find((d) => d.choice === r.choice)?.design ?? null, isCorrect: ok } }
+  },
+  reveal: (g) => ({ answer: g.answer, rationale: g.rationale, distractors: g.distractors }),
+}
+
+// ── segment_choice (s.sentence_core · s.attachment · s.chunk_boundary · s.structural_relation) ──
+// body.focus.sentence 문장을 body.segments(그 문장의 연속 부분 문자열, 순서대로)로 나눠 보이고 body.ask 를 묻는다.
+// 정답 = 해당 덩어리 ✓ + 이유 ✓(위치만 맞힌 우연 정답 구별). 덩어리는 문장에 실제로 있는 글자여야 한다.
+const segmentChoice: FormatSpec = {
+  id: 'segment_choice',
+  validate(body, g) {
+    const errs: string[] = []
+    const len = n(body)
+    const f = body.focus as { sentence?: number } | undefined
+    const segs = body.segments as string[] | undefined
+    if (!f || !isInt(f.sentence, 0, len)) return ['초점 문장']
+    if (!(SEGMENT_ASKS as readonly string[]).includes(String(body.ask))) errs.push('묻는 것(ask)')
+    if (!Array.isArray(segs) || segs.length < 3 || segs.length > 8) return [...errs, '덩어리 3~8개']
+    const sent = String((body.sentences as string[])[f.sentence as number])
+    let at = 0
+    segs.forEach((sg, i) => {
+      const k = typeof sg === 'string' && sg.trim() ? sent.indexOf(sg, at) : -1
+      if (k < 0) errs.push(`덩어리 ${i} 가 문장에 순서대로 없다`)
+      else at = k + sg.length
+    })
+    const gg = g as { answer: number; reason: SegmentReason; why: string; segments: { reason: SegmentReason; why: string }[] }
+    if (!isInt(gg.answer, 0, segs.length)) errs.push('정답 덩어리')
+    if (!SEGMENT_REASONS.includes(gg.reason)) errs.push('이유 범주')
+    if (typeof gg.why !== 'string' || gg.why.length < 8) errs.push('정답 설명')
+    if (!Array.isArray(gg.segments) || gg.segments.length !== segs.length || !gg.segments.every((x) => SEGMENT_REASONS.includes(x.reason) && typeof x.why === 'string' && x.why.trim().length >= 2)) errs.push('덩어리별 판단 근거')
+    return errs
+  },
+  grade(body, g, raw) {
+    const r = (raw ?? {}) as { choice?: unknown; reason?: unknown }
+    const segs = (body.segments as string[] | undefined) ?? []
+    if (!isInt(r.choice, 0, segs.length) || !SEGMENT_REASONS.includes(r.reason as SegmentReason)) return null
+    const gg = g as unknown as { answer: number; reason: SegmentReason }
+    const choiceOk = r.choice === gg.answer
+    const reasonOk = r.reason === gg.reason
+    return { response: { choice: r.choice, reason: r.reason }, grade: { choiceOk, reasonOk, isCorrect: choiceOk && reasonOk } }
+  },
+  reveal: (g) => ({ answer: g.answer, reason: g.reason, why: g.why, segments: g.segments }),
+}
+
+// ── equivalence (v.semantic_relation) ────────────────────────────────
+// body.pair = { a: {sentence, text}, b: {sentence, text} } — 두 표현이 이 글에서 같은 뜻인가 + 의미 관계. 정답 = 같음 여부 ✓ + 관계 ✓.
+const equivalence: FormatSpec = {
+  id: 'equivalence',
+  validate(body, g) {
+    const errs: string[] = []
+    const len = n(body)
+    const p = body.pair as { a?: { sentence: number; text: string }; b?: { sentence: number; text: string } } | undefined
+    for (const k of ['a', 'b'] as const) {
+      const x = p?.[k]
+      if (!x || !isInt(x.sentence, 0, len) || typeof x.text !== 'string' || !String((body.sentences as string[])[x.sentence]).includes(x.text)) errs.push(`표현 ${k} 가 그 문장에 없다`)
+    }
+    const gg = g as { same: boolean; relation: MeaningRelation; cue: number[]; why: string }
+    if (typeof gg.same !== 'boolean') errs.push('같음 여부')
+    if (!MEANING_RELATIONS.includes(gg.relation)) errs.push('의미 관계')
+    if (gg.same !== (gg.relation === 'synonym' || gg.relation === 'paraphrase')) errs.push('같음 여부와 관계가 어긋난다')
+    if (!ints(gg.cue, 0, len) || gg.cue.length === 0) errs.push('근거 문장')
+    if (typeof gg.why !== 'string' || gg.why.length < 8) errs.push('설명')
+    return errs
+  },
+  grade(_body, g, raw) {
+    const r = (raw ?? {}) as { same?: unknown; relation?: unknown }
+    if (typeof r.same !== 'boolean' || !MEANING_RELATIONS.includes(r.relation as MeaningRelation)) return null
+    const gg = g as unknown as { same: boolean; relation: MeaningRelation }
+    const sameOk = r.same === gg.same
+    const relationOk = r.relation === gg.relation
+    return { response: { same: r.same, relation: r.relation }, grade: { sameOk, relationOk, isCorrect: sameOk && relationOk } }
+  },
+  reveal: (g) => ({ same: g.same, relation: g.relation, cue: g.cue, why: g.why }),
+}
+
 export const FORMAT_SPECS: Record<FormatId, FormatSpec> = {
+  discourse_roles: discourseRoles,
+  demand_choice: demandChoice,
+  segment_choice: segmentChoice,
+  equivalence,
   central_meaning: centralMeaning,
   choice_evidence: choiceEvidence,
   option_correspondence: optionCorrespondence,

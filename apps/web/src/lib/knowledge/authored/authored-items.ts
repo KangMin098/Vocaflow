@@ -129,7 +129,7 @@ export interface AuthoredLearnerView {
   extra: Record<string, unknown>
 }
 
-const EXTRA_KEYS = ['target', 'pairs', 'marks'] as const
+const EXTRA_KEYS = ['target', 'pairs', 'marks', 'focus', 'segments', 'ask', 'pair', 'taskStem'] as const
 export function learnerBody(role: AuthoredRole, body: AuthoredBody) {
   return {
     format: formatOf(body),

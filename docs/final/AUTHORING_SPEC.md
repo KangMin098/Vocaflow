@@ -38,3 +38,24 @@
 ### form_scope — s.form_scope(어법)
 - body: `{format, sentences, stem:"다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?", marks[5]: {sentence, text}}` — text 는 그 문장에 그대로 있는 표현(틀린 하나 포함). choices 없음.
 - gold: `{answer, reason, correction, marks[5]: {reason, why}}` — reason ∈ `agreement · tense_aspect · voice · relative_clause · participle · parallelism · comparison_scope · negation_scope · infinitive_gerund · pronoun_reference`. 맞는 밑줄도 「어떤 규칙으로 맞는지」를 reason · why 로.
+
+### discourse_roles — r.discourse_function(문장 기능) · r.discourse_structure(전개 구조)
+- body: `{format, sentences, stem:"글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."}` — choices 없음.
+- gold: `{roles[](문장 수와 같게), alternatives[{index, role}], pattern, rationale}` — role ∈ `topic · support · example · turn · concession · conclusion · background · speech_act · closing`, pattern ∈ `myth_rebuttal · general_specific · problem_solution · contrast · cause_effect · study_implication · request_letter · narrative · other`. alternatives = 합리적으로 함께 인정할 역할(그 문장의 정답 역할과 달라야 한다).
+- r.discourse_function 세트는 역할 판단이 갈리는 문장(전환 · 양보 · 예시)을, r.discourse_structure 세트는 패턴이 갈리는 글(통념-반박 vs 대조, 문제-해결 vs 인과)을 중심으로.
+
+### demand_choice — e.task_demand(발문 요구 파악)
+- body: `{format, sentences, stem:"이 발문이 요구하는 판단으로 가장 알맞은 것은?", taskStem:"(분석할 수능식 발문)", choices[5](우리말 요구 진술)}`.
+- gold: `{answer, rationale, distractors[4]}` — design ∈ `wrong_operation(다른 판단) · wrong_scope(범위) · detail_focus(세부) · wrong_unit(단위) · extra_condition(없는 조건)`.
+
+### segment_choice — s.sentence_core(뼈대) · s.attachment(수식) · s.chunk_boundary(경계) · s.structural_relation(병렬 · 생략 · 삽입 · 도치)
+- body: `{format, sentences, stem, focus:{sentence}, ask, segments[3–8]}` — segments 는 초점 문장의 **연속 부분 문자열을 순서대로** 그대로(띄어쓰기 · 구두점 포함). ask ∈ `subject · verb · attachment · boundary · structure`.
+- gold: `{answer(덩어리 번호), reason, why, segments[]: {reason, why}}` — reason ∈ `main_subject · main_verb · object · complement · modifies_noun · modifies_verb · clause_boundary · phrase_boundary · parallel_member · ellipsis_restored · inserted_clause · inverted_order`. 정답은 덩어리 + 이유 둘 다.
+
+### equivalence — v.semantic_relation(표현 사이 의미 관계)
+- body: `{format, sentences, stem:"표시된 두 표현의 관계로 알맞은 것을 고르시오.", pair:{a:{sentence,text}, b:{sentence,text}}}` — text 는 그 문장에 실제로 있는 표현.
+- gold: `{same, relation, cue[], why}` — relation ∈ `synonym · paraphrase · antonym · hypernym · hyponym · unrelated`. same 은 synonym/paraphrase 일 때만 true.
+
+### 재사용 형식
+- r.reference(지시 · 응집 추적) → choice_evidence: stem "밑줄 친 'X'가 가리키는 대상으로 가장 적절한 것은?", decisive = 선행 대상이 처음 나온 문장.
+- v.multiword(덩어리 표현) → contextual_sense: target.word = 그 문장의 구 · 숙어 · 연어 전체.

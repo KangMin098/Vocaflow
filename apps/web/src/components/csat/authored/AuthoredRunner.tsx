@@ -56,6 +56,7 @@ const ROLE_NOTE: Record<Role, string> = {
   delayed_check: '며칠 지난 뒤 새 글로 다시 확인해요. 단서 · 해설 없이 혼자 풀어요.',
 }
 
+const DEMAND_LABEL_DESIGN: Record<string, string> = { wrong_operation: '다른 판단을 요구한다고 읽은 선택지', wrong_scope: '범위를 잘못 잡은 선택지', detail_focus: '세부에 묶인 선택지', wrong_unit: '판단 단위를 잘못 잡은 선택지', extra_condition: '없는 조건을 더한 선택지' }
 export const DESIGN_LABEL: Record<string, string> = {
   opposed_view: '필자가 반박하는 생각을 옮긴 선택지',
   too_narrow: '예시 · 세부 하나만 담은 좁은 선택지',
@@ -67,6 +68,7 @@ export const DESIGN_LABEL: Record<string, string> = {
   wrong_part_of_speech: '품사가 다른 뜻',
   collocation_mismatch: '함께 쓰인 말과 맞지 않는 뜻',
   opposite_sense: '반대 방향의 뜻',
+  ...DEMAND_LABEL_DESIGN,
 }
 const VERDICT_LABEL: Record<string, string> = { matches: '일치', distorted: '바꿈 · 과장', not_in_text: '본문에 없음', reversed: '반대', too_narrow: '일부만' }
 const PAIR_LABEL: Record<string, string> = { cause_effect: '원인 → 결과', contrast: '대조 · 반전', example: '예시', restatement: '다시 말하기', addition: '덧붙임', sequence: '순서 · 시간', conclusion: '결론 끌어내기' }
@@ -74,6 +76,11 @@ const REASON_LABEL: Record<string, string> = {
   agreement: '수 일치', tense_aspect: '시제 · 상', voice: '능동 · 수동', relative_clause: '관계사', participle: '분사',
   parallelism: '병렬 구조', comparison_scope: '비교 범위', negation_scope: '부정 범위', infinitive_gerund: 'to부정사 · 동명사', pronoun_reference: '대명사 지칭', inversion: '도치', noun_clause: '명사절 · 간접의문',
 }
+const STRUCT_ROLE_LABEL: Record<string, string> = { topic: '주제문', support: '근거', example: '예시', turn: '전환', concession: '양보', conclusion: '결론', background: '배경', speech_act: '화행', closing: '맺음' }
+const STRUCT_PATTERN_LABEL: Record<string, string> = { myth_rebuttal: '통념-반박', general_specific: '일반-구체', problem_solution: '문제-해결', contrast: '대조', cause_effect: '인과', study_implication: '연구 소개-함의', request_letter: '화행 글', narrative: '서사', other: '기타' }
+const SEGMENT_REASON_LABEL: Record<string, string> = { main_subject: '문장의 주어', main_verb: '문장의 본동사', object: '목적어', complement: '보어', modifies_noun: '명사를 꾸밈', modifies_verb: '동사 · 문장을 꾸밈', clause_boundary: '절의 경계', phrase_boundary: '구의 경계', parallel_member: '병렬 요소', ellipsis_restored: '생략된 말', inserted_clause: '삽입절', inverted_order: '도치된 어순' }
+const MEANING_REL_LABEL: Record<string, string> = { synonym: '같은 뜻(동의어)', paraphrase: '같은 뜻(바꿔 말하기)', antonym: '반대 뜻', hypernym: '더 넓은 말(상위어)', hyponym: '더 좁은 말(하위어)', unrelated: '관계없음' }
+const DEMAND_LABEL: Record<string, string> = { wrong_operation: '다른 판단(연산)을 요구한다고 읽음', wrong_scope: '범위를 잘못 잡음', detail_focus: '세부에 묶임', wrong_unit: '판단 단위를 잘못 잡음', extra_condition: '없는 조건을 더함' }
 const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()
 
@@ -89,6 +96,10 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [verdicts, setVerdicts] = useState<{ verdict: string | null; sentence: number | null }[]>(() => p.choices.map(() => ({ verdict: null, sentence: null })))
   const [pairs, setPairs] = useState<(string | null)[]>(() => ((p.extra.pairs as unknown[]) ?? []).map(() => null))
   const [reason, setReason] = useState<string | null>(null)
+  const [roles, setRoles] = useState<string[]>(() => p.sentences.map(() => ''))
+  const [pattern, setPattern] = useState<string | null>(null)
+  const [same, setSame] = useState<boolean | null>(null)
+  const [meaningRel, setMeaningRel] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [graded, setGraded] = useState<Record<string, unknown> | null>(null)
@@ -121,6 +132,14 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         return pairs.every(Boolean) ? { pairs } : null
       case 'form_scope':
         return choice !== null && reason ? { choice, reason } : null
+      case 'segment_choice':
+        return choice !== null && reason ? { choice, reason } : null
+      case 'demand_choice':
+        return choice !== null ? { choice } : null
+      case 'discourse_roles':
+        return roles.every(Boolean) && pattern ? { roles, pattern } : null
+      case 'equivalence':
+        return same !== null && meaningRel ? { same, relation: meaningRel } : null
     }
   }
   const ready = response() !== null
@@ -176,6 +195,11 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     if (p.probe === k) t.push('관계 질문')
     const target = p.extra.target as { sentence: number; word: string } | undefined
     if (target?.sentence === k) t.push(`밑줄: ${target.word}`)
+    const focus = p.extra.focus as { sentence: number } | undefined
+    if (focus?.sentence === k) t.push('초점 문장')
+    const pair = p.extra.pair as { a: { sentence: number; text: string }; b: { sentence: number; text: string } } | undefined
+    if (pair?.a.sentence === k) t.push(`표현 A: ${pair.a.text}`)
+    if (pair?.b.sentence === k) t.push(`표현 B: ${pair.b.text}`)
     const marks = (p.extra.marks as { sentence: number; text: string }[] | undefined) ?? []
     marks.forEach((m, i) => { if (m.sentence === k) t.push(`${CIRCLED[i]} ${m.text}`) })
     return t
@@ -188,6 +212,10 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     option_correspondence: '글을 읽고 아래에서 선택지마다 본문과 어떻게 맞는지 정해요',
     sentence_relation: '글을 읽고 아래에서 표시된 두 문장 사이의 관계를 골라요',
     form_scope: '밑줄 친 다섯 곳 가운데 어법상 틀린 곳과 그 이유를 골라요',
+    discourse_roles: '글을 읽고 아래에서 문장마다 하는 일과 글 전체 구조를 골라요',
+    demand_choice: '아래 발문이 무엇을 요구하는지 글과 함께 읽고 골라요',
+    segment_choice: '표시된 문장을 덩어리로 나눴어요 — 묻는 덩어리와 그 이유를 골라요',
+    equivalence: '표시된 두 표현이 이 글에서 같은 뜻인지, 어떤 관계인지 골라요',
   }
 
   return (
@@ -302,6 +330,56 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
             {Object.entries(REASON_LABEL).map(([v, label]) => <button key={v} type="button" aria-pressed={reason === v} onClick={() => setReason(v)}>{label}</button>)}
           </div>
         </fieldset>
+      )}
+
+      {p.format === 'discourse_roles' && (
+        <fieldset className={styles.answer} disabled={lock} data-testid="authored-roles">
+          <legend>문장마다 하는 일</legend>
+          {p.sentences.map((_, i) => (
+            <label key={i} className={styles.selectLabel}>
+              <span>문장 {i + 1}</span>
+              <select value={roles[i]} onChange={(e) => setRoles((s) => s.map((x, j) => (j === i ? e.target.value : x)))}>
+                <option value="">역할 고르기</option>
+                {Object.entries(STRUCT_ROLE_LABEL).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </label>
+          ))}
+          <legend>글 전체 구조</legend>
+          <div className={styles.chips}>
+            {Object.entries(STRUCT_PATTERN_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={pattern === v} onClick={() => setPattern(v)}>{l}</button>)}
+          </div>
+        </fieldset>
+      )}
+
+      {p.format === 'segment_choice' && (
+        <fieldset className={styles.answer} disabled={lock} data-testid="authored-segments">
+          <legend>문장 {((p.extra.focus as { sentence: number } | undefined)?.sentence ?? 0) + 1}의 덩어리 — {String(p.extra.ask ?? '') === 'subject' ? '주어' : String(p.extra.ask ?? '') === 'verb' ? '본동사' : String(p.extra.ask ?? '') === 'attachment' ? '꾸밈을 받는 말' : String(p.extra.ask ?? '') === 'boundary' ? '의미 단위 경계' : '구조'}는?</legend>
+          <div className={styles.chips}>
+            {((p.extra.segments as string[]) ?? []).map((sg, i) => <button key={i} type="button" lang="en" aria-pressed={choice === i} onClick={() => setChoice(i)}>{sg}</button>)}
+          </div>
+          <legend>그렇게 본 이유</legend>
+          <div className={styles.chips}>
+            {Object.entries(SEGMENT_REASON_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={reason === v} onClick={() => setReason(v)}>{l}</button>)}
+          </div>
+        </fieldset>
+      )}
+
+      {p.format === 'equivalence' && (
+        <fieldset className={styles.answer} disabled={lock} data-testid="authored-equivalence">
+          <legend>두 표현은 이 글에서 같은 뜻인가요?</legend>
+          <div className={styles.chips}>
+            <button type="button" aria-pressed={same === true} onClick={() => setSame(true)}>같은 뜻</button>
+            <button type="button" aria-pressed={same === false} onClick={() => setSame(false)}>다른 뜻</button>
+          </div>
+          <legend>어떤 관계인가요?</legend>
+          <div className={styles.chips}>
+            {Object.entries(MEANING_REL_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={meaningRel === v} onClick={() => setMeaningRel(v)}>{l}</button>)}
+          </div>
+        </fieldset>
+      )}
+
+      {p.format === 'demand_choice' && typeof p.extra.taskStem === 'string' && (
+        <p className={styles.state} data-testid="authored-task-stem"><b>분석할 발문</b> — {p.extra.taskStem}</p>
       )}
 
       {p.choices.length > 0 && p.format !== 'form_scope' && (
@@ -419,6 +497,37 @@ function RevealBody({ format, reveal: rv, graded: g, probe, choices }: { format:
             <li key={i}>쌍 {i + 1}: <b>{PAIR_LABEL[x.relation]}</b>{x.alt?.length ? `(또는 ${x.alt.map((a) => PAIR_LABEL[a]).join(' · ')})` : ''} — 단서 「{x.cue}」{g && Array.isArray(g.pairOk) ? ((g.pairOk as boolean[])[i] ? ' · 맞음' : ' · 다름') : ''}</li>
           ))}
         </ul>
+      )
+    case 'discourse_roles':
+      return (
+        <>
+          <p><b>구조</b> — {STRUCT_PATTERN_LABEL[rv.pattern as string] ?? String(rv.pattern)}. {String(rv.rationale ?? '')}</p>
+          <ul className={styles.note}>{((rv.roles as string[]) ?? []).map((r, i) => <li key={i}>문장 {i + 1}: {STRUCT_ROLE_LABEL[r] ?? r}{g && Array.isArray(g.roleOk) ? ((g.roleOk as boolean[])[i] ? ' · 내 판단 같음' : ' · 내 판단 다름') : ''}</li>)}</ul>
+          {g && <p className={styles.note}>주제문 자리: {g.topicOk ? '같게 읽었어요' : '다르게 읽었어요'} · 구조: {g.patternOk ? '같음' : '다름'}</p>}
+        </>
+      )
+    case 'demand_choice':
+      return (
+        <>
+          <p><b>이 발문이 요구하는 것</b> — {String(rv.rationale ?? '')}</p>
+          {g && <ul className={styles.note}><li>요구 진술: {g.choiceOk ? '맞음' : `정답은 ${CIRCLED[rv.answer as number]}`}</li>{picked}</ul>}
+          {designs}
+        </>
+      )
+    case 'segment_choice':
+      return (
+        <>
+          <p><b>정답 덩어리</b> — {SEGMENT_REASON_LABEL[rv.reason as string] ?? String(rv.reason)}. {String(rv.why ?? '')}</p>
+          {g && <ul className={styles.note}><li>덩어리: {g.choiceOk ? '맞음' : '다름'}</li><li>이유: {g.reasonOk ? '맞음' : '다름 — 위치만 맞힌 것과 구별하려고 이유까지 봐요'}</li></ul>}
+          <ul className={styles.note}>{((rv.segments as { reason: string; why: string }[]) ?? []).map((x, i) => <li key={i}>덩어리 {i + 1}: {SEGMENT_REASON_LABEL[x.reason] ?? x.reason} — {x.why}</li>)}</ul>
+        </>
+      )
+    case 'equivalence':
+      return (
+        <>
+          <p><b>{rv.same ? '같은 뜻' : '다른 뜻'}</b> · {MEANING_REL_LABEL[rv.relation as string] ?? String(rv.relation)} — {String(rv.why ?? '')} (근거 문장 {list(rv.cue)})</p>
+          {g && <ul className={styles.note}><li>같음 여부: {g.sameOk ? '맞음' : '다름'}</li><li>관계: {g.relationOk ? '맞음' : '다름'}</li></ul>}
+        </>
       )
     case 'form_scope':
       return (

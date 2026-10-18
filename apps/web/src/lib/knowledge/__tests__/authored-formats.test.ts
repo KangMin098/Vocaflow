@@ -103,3 +103,61 @@ describe('form_scope(s.form_scope)', () => {
     expect(g({ choice: 2, reason: 'spelling' })).toBeNull()
   })
 })
+
+describe('discourse_roles(r.discourse_function · r.discourse_structure)', () => {
+  const body = { format: 'discourse_roles', sentences: ['a.', 'b.', 'c.', 'd.'], stem: 'q' }
+  const gold = { roles: ['background', 'topic', 'support', 'conclusion'], alternatives: [{ index: 3, role: 'topic' }], pattern: 'general_specific', rationale: '2번이 주제문이고 나머지가 받친다' }
+  const g = (r: unknown) => FORMAT_SPECS.discourse_roles.grade(body, gold, r, 'v1')
+  it('검증: 문장 수와 역할 수가 다르면 위반', () => {
+    expect(FORMAT_SPECS.discourse_roles.validate(body, gold)).toEqual([])
+    expect(FORMAT_SPECS.discourse_roles.validate(body, { ...gold, roles: gold.roles.slice(1) })).toContain('문장 수만큼 역할')
+  })
+  it('정답 = 역할 전부(허용 대안 포함) + 패턴', () => {
+    expect(g({ roles: gold.roles, pattern: 'general_specific' })?.grade.isCorrect).toBe(true)
+    expect(g({ roles: ['background', 'topic', 'support', 'topic'], pattern: 'general_specific' })?.grade.isCorrect).toBe(true)
+    expect(g({ roles: gold.roles, pattern: 'contrast' })?.grade.isCorrect).toBe(false)
+    expect(g({ roles: gold.roles.slice(1), pattern: 'contrast' })).toBeNull()
+  })
+})
+
+describe('demand_choice(e.task_demand)', () => {
+  const body = { format: 'demand_choice', sentences: S6, stem: 'q', taskStem: '다음 글의 제목으로 가장 적절한 것은?', choices: ['a', 'b', 'c', 'd', 'e'] }
+  const gold = { answer: 1, rationale: '글 전체 중심을 압축한 표현을 고르라는 요구다', distractors: D4(1, 'detail_focus') }
+  it('검증 · 채점(오답은 착오 유형 반환)', () => {
+    expect(FORMAT_SPECS.demand_choice.validate(body, gold)).toEqual([])
+    expect(FORMAT_SPECS.demand_choice.validate({ ...body, taskStem: '' }, gold)).toContain('분석할 발문(taskStem)')
+    expect(FORMAT_SPECS.demand_choice.grade(body, gold, { choice: 1 }, 'v1')?.grade.isCorrect).toBe(true)
+    expect(FORMAT_SPECS.demand_choice.grade(body, gold, { choice: 0 }, 'v1')?.grade).toMatchObject({ isCorrect: false, choiceDesign: 'detail_focus' })
+  })
+})
+
+describe('segment_choice(s.sentence_core 등)', () => {
+  const body = { format: 'segment_choice', sentences: ['x.', 'The idea that most people accept is often wrong.'], stem: 'q', focus: { sentence: 1 }, ask: 'verb',
+    segments: ['The idea', 'that most people accept', 'is', 'often wrong.'] }
+  const gold = { answer: 2, reason: 'main_verb', why: '관계절 accept 가 아니라 is 가 본동사다', segments: [{ reason: 'main_subject', why: '주어 핵' }, { reason: 'modifies_noun', why: 'idea 를 꾸민다' }, { reason: 'main_verb', why: '본동사' }, { reason: 'complement', why: '보어' }] }
+  const g = (r: unknown) => FORMAT_SPECS.segment_choice.grade(body, gold, r, 'v1')
+  it('검증: 덩어리가 문장에 순서대로 없으면 위반', () => {
+    expect(FORMAT_SPECS.segment_choice.validate(body, gold)).toEqual([])
+    expect(FORMAT_SPECS.segment_choice.validate({ ...body, segments: ['is', 'The idea', 'that most people accept'] }, { ...gold, segments: gold.segments.slice(0, 3) }).join()).toMatch(/순서대로/)
+  })
+  it('정답 = 덩어리 ✓ + 이유 ✓ — 덩어리만 맞으면 오답', () => {
+    expect(g({ choice: 2, reason: 'main_verb' })?.grade.isCorrect).toBe(true)
+    expect(g({ choice: 2, reason: 'object' })?.grade).toMatchObject({ isCorrect: false, choiceOk: true })
+    expect(g({ choice: 9, reason: 'main_verb' })).toBeNull()
+  })
+})
+
+describe('equivalence(v.semantic_relation)', () => {
+  const body = { format: 'equivalence', sentences: ['They purchased a car.', 'The vehicle was new.'], stem: 'q', pair: { a: { sentence: 0, text: 'car' }, b: { sentence: 1, text: 'vehicle' } } }
+  const gold = { same: false, relation: 'hypernym', cue: [0, 1], why: 'vehicle 은 car 를 포함하는 넓은 말' }
+  it('검증: 같음 여부와 관계 모순 · 표현이 문장에 없으면 위반', () => {
+    expect(FORMAT_SPECS.equivalence.validate(body, gold)).toEqual([])
+    expect(FORMAT_SPECS.equivalence.validate(body, { ...gold, same: true })).toContain('같음 여부와 관계가 어긋난다')
+    expect(FORMAT_SPECS.equivalence.validate({ ...body, pair: { ...body.pair, b: { sentence: 0, text: 'vehicle' } } }, gold).join()).toMatch(/표현 b/)
+  })
+  it('정답 = 같음 여부 ✓ + 관계 ✓', () => {
+    expect(FORMAT_SPECS.equivalence.grade(body, gold, { same: false, relation: 'hypernym' }, 'v1')?.grade.isCorrect).toBe(true)
+    expect(FORMAT_SPECS.equivalence.grade(body, gold, { same: false, relation: 'antonym' }, 'v1')?.grade.isCorrect).toBe(false)
+    expect(FORMAT_SPECS.equivalence.grade(body, gold, { same: 'no', relation: 'antonym' }, 'v1')).toBeNull()
+  })
+})
