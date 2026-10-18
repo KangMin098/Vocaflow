@@ -38,13 +38,14 @@
 ## 4. 공급 기록 — 수요 → 주문 → 납품
 - **실행 주체 · 순서**(합성 학습자 계정 · 실제 학생 기록과 섞지 않는다):
   1. 학습자 세션: `workspace_demand_record(canonical)` → `factory_order_open(line, …, request_key)`
-  2. 관리자 · 큐레이터 세션: `factory_order_transition(…)` (주문 상태 전이는 관리자만 — 학습자 세션은 42501)
+  2. 관리자 · 큐레이터 세션: `factory_order_transition(order, 'requested', 'stock_search', …)` (주문 상태 전이는 관리자만 — 학습자 세션은 42501)
   3. 학습자 세션: `workspace_delivery_record(line, order, qualification, approval, request_key)` — 수요 줄이 `auth.uid()` 본인 것이어야 한다(I2 wrapper)
+  4. 관리자 세션: 납품 뒤 `factory_order_transition(order, 'stock_search', 'delivered', …, qualification, …)` — 납품 전 delivered 는 DB 가 거절한다. 수량이 덜 찼으면 DB-2 의 `partial`. 이 전이를 빠뜨리면 주문이 열린 채 남아 재주문이 막힌다
 - **검증**(서버 · DB 소유자 연결 — `supply_delivery_valid` 는 authenticated 실행권이 없다): `supply_delivery_valid(delivery) = true` · 같은 요청 키 재호출 = 같은 id.
 - **되돌리기**: 삭제 불가 — 승인 철회로 무효화.
 
 ## 5. 종단 E2E (공급 뒤 · 개발 DB)
-학습지도(적격 표시) → 납품 → 최초 노출 → G2 수행(`recordItemTaskAttempt` · phase=transfer · content_hash=주석 hash) → `workspace_delivery_attempt_record` → 지도 · PLAN 복귀.
+학습지도(적격 표시) → 납품 → 최초 노출 → G2 수행(`POST /api/csat/item/[slug]/task` → `recordItemTaskAttempt` · phase=transfer · content_hash=주석 hash) → 같은 요청 안에서 학습자 세션으로 `bindDeliveryAttempt`(apps/web/src/lib/csat/map/v62/delivery-binding.ts) → `workspace_delivery_attempt_record` → 응답 `binding`(not_installed · no_delivery · bound · error) → 지도 · PLAN 복귀.
 반드시 확인: 요청 키 재전송 · 두 연결 동시 결속(실 Postgres) · 다른 학습자 납품 결속 거절(42501) · 승인 철회 뒤 비근거 기록 · revision/주석 변경 시 거절 · PLAN 버전 유지 · 공급 0건 상태 표시.
 결과는 합성 계정 기능 검증으로만 기록한다(실제 학습 효과는 별도 파일럿).
 
