@@ -133,7 +133,7 @@ for (const width of [1440, 1280]) {
       const submit = runner.getByRole('button', { name: '맞춰 보기' })
       await expect(submit, `${name} 입력 완료`).toBeEnabled()
       await submit.click()
-      await submit.click({ trial: true }).catch(() => undefined) // 연속 클릭 — 저장 중 잠금
+      await submit.click({ timeout: 500 }).catch(() => undefined) // 연속 클릭 — 저장 중 잠금(아래 시도 1행으로 확인)
       const result = page.locator('[data-testid="authored-result"]')
       await expect(result, `${name} 결과`).toBeVisible({ timeout: 30_000 })
       await expect(result).toContainText('정확히 해냈어요')
