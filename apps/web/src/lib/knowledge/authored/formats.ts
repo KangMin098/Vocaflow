@@ -33,7 +33,7 @@ export type PairRelation = (typeof PAIR_RELATIONS)[number]
 export const FORM_REASONS = ['agreement', 'tense_aspect', 'voice', 'relative_clause', 'participle', 'parallelism', 'comparison_scope', 'negation_scope', 'infinitive_gerund', 'pronoun_reference', 'inversion', 'noun_clause'] as const
 export type FormReason = (typeof FORM_REASONS)[number]
 export const DEMAND_TRAPS = ['wrong_operation', 'wrong_scope', 'detail_focus', 'wrong_unit', 'extra_condition'] as const
-export const SEGMENT_REASONS = ['main_subject', 'main_verb', 'object', 'complement', 'modifies_noun', 'modifies_verb', 'clause_boundary', 'phrase_boundary', 'parallel_member', 'ellipsis_restored', 'inserted_clause', 'inverted_order'] as const
+export const SEGMENT_REASONS = ['main_subject', 'main_verb', 'object', 'complement', 'modifies_noun', 'modifies_verb', 'clause_boundary', 'phrase_boundary', 'parallel_member', 'ellipsis_restored', 'inserted_clause', 'inverted_order', 'subject_and_verb', 'clause_internal'] as const
 export type SegmentReason = (typeof SEGMENT_REASONS)[number]
 export const SEGMENT_ASKS = ['subject', 'verb', 'attachment', 'boundary', 'structure'] as const
 export const MEANING_RELATIONS = ['synonym', 'paraphrase', 'antonym', 'hypernym', 'hyponym', 'unrelated'] as const
@@ -369,6 +369,7 @@ const segmentChoice: FormatSpec = {
 
 // ── equivalence (v.semantic_relation) ────────────────────────────────
 // body.pair = { a: {sentence, text}, b: {sentence, text} } — 두 표현이 이 글에서 같은 뜻인가 + 의미 관계. 정답 = 같음 여부 ✓ + 관계 ✓.
+// 관계 방향: relation = 「표현 A 가 표현 B 에 대해」 갖는 관계(A 가 더 넓은 말이면 hypernym). 학습자 화면도 이 방향으로 묻는다.
 const equivalence: FormatSpec = {
   id: 'equivalence',
   validate(body, g) {

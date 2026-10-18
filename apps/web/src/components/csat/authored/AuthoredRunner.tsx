@@ -78,8 +78,8 @@ const REASON_LABEL: Record<string, string> = {
 }
 const STRUCT_ROLE_LABEL: Record<string, string> = { topic: '주제문', support: '근거', example: '예시', turn: '전환', concession: '양보', conclusion: '결론', background: '배경', speech_act: '화행', closing: '맺음' }
 const STRUCT_PATTERN_LABEL: Record<string, string> = { myth_rebuttal: '통념-반박', general_specific: '일반-구체', problem_solution: '문제-해결', contrast: '대조', cause_effect: '인과', study_implication: '연구 소개-함의', request_letter: '화행 글', narrative: '서사', other: '기타' }
-const SEGMENT_REASON_LABEL: Record<string, string> = { main_subject: '문장의 주어', main_verb: '문장의 본동사', object: '목적어', complement: '보어', modifies_noun: '명사를 꾸밈', modifies_verb: '동사 · 문장을 꾸밈', clause_boundary: '절의 경계', phrase_boundary: '구의 경계', parallel_member: '병렬 요소', ellipsis_restored: '생략된 말', inserted_clause: '삽입절', inverted_order: '도치된 어순' }
-const MEANING_REL_LABEL: Record<string, string> = { synonym: '같은 뜻(동의어)', paraphrase: '같은 뜻(바꿔 말하기)', antonym: '반대 뜻', hypernym: '더 넓은 말(상위어)', hyponym: '더 좁은 말(하위어)', unrelated: '관계없음' }
+const SEGMENT_REASON_LABEL: Record<string, string> = { main_subject: '문장의 주어', main_verb: '문장의 본동사', object: '목적어', complement: '보어', modifies_noun: '명사를 꾸밈', modifies_verb: '동사 · 문장을 꾸밈', clause_boundary: '절의 경계', phrase_boundary: '구의 경계', parallel_member: '병렬 요소', ellipsis_restored: '생략된 말', inserted_clause: '삽입절', inverted_order: '도치된 어순', subject_and_verb: '주어와 동사가 함께 든 덩어리', clause_internal: '종속절 안의 일부' }
+const MEANING_REL_LABEL: Record<string, string> = { synonym: '같은 뜻(동의어)', paraphrase: '같은 뜻(바꿔 말하기)', antonym: '반대 뜻', hypernym: 'A 가 더 넓은 말(상위어)', hyponym: 'A 가 더 좁은 말(하위어)', unrelated: '관계없음' }
 const DEMAND_LABEL: Record<string, string> = { wrong_operation: '다른 판단(연산)을 요구한다고 읽음', wrong_scope: '범위를 잘못 잡음', detail_focus: '세부에 묶임', wrong_unit: '판단 단위를 잘못 잡음', extra_condition: '없는 조건을 더함' }
 const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()
@@ -371,7 +371,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
             <button type="button" aria-pressed={same === true} onClick={() => setSame(true)}>같은 뜻</button>
             <button type="button" aria-pressed={same === false} onClick={() => setSame(false)}>다른 뜻</button>
           </div>
-          <legend>어떤 관계인가요?</legend>
+          <legend>표현 A 는 표현 B 에 대해 어떤 관계인가요?</legend>
           <div className={styles.chips}>
             {Object.entries(MEANING_REL_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={meaningRel === v} onClick={() => setMeaningRel(v)}>{l}</button>)}
           </div>

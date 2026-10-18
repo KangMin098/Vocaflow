@@ -1,0 +1,383 @@
+{
+  "set": "s-sentence-core.v1",
+  "taskId": "s.sentence_core",
+  "taskKey": "authored-sentence-core",
+  "format": "segment_choice",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "sc-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sc-t1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Many towns now ask residents to sort their trash into several bins.",
+          "The plan sounds simple, but it depends on careful habits.",
+          "The plastic bottles that people rinse and drop into the blue bins every morning are carried to a plant outside the city.",
+          "There they are melted down and shaped into new containers.",
+          "A bottle left unwashed, however, can spoil a whole batch."
+        ],
+        "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "verb",
+        "segments": [
+          "The plastic bottles",
+          "that people rinse and drop",
+          "into the blue bins every morning",
+          "are carried to a plant",
+          "outside the city."
+        ],
+        "teach": [
+          {
+            "step": "주어 후보 찾기",
+            "text": "3번 문장 맨 앞 명사 The plastic bottles 를 주어 후보로 잡는다.",
+            "sentences": [
+              2
+            ]
+          },
+          {
+            "step": "수식어 걷어내기",
+            "text": "that 으로 시작하는 관계절은 bottles 를 꾸미는 말이다. 그 안의 rinse · drop 은 관계절의 동사이므로 지운다.",
+            "sentences": [
+              2
+            ]
+          },
+          {
+            "step": "남은 동사 확인",
+            "text": "걷어낸 뒤 남는 동사 are carried 가 주어 bottles(복수)와 수가 맞는다. 이것이 본동사다.",
+            "sentences": [
+              2
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "main_verb",
+        "why": "3번 문장에서 관계절(that people rinse and drop into the blue bins every morning)을 걷어내면 The plastic bottles are carried 가 남는다. 본동사는 are carried 다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 무엇이 옮겨지는지의 주인공이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절이 bottles 를 꾸민다. rinse · drop 은 관계절 안의 동사라 본동사가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "관계절 안의 drop 이 어디에 · 언제인지 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 bottles 에 맞는 복수 동사 are carried — 문장 전체의 본동사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "공장의 위치를 덧붙이는 부사 덩어리다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sc-g1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "My aunt keeps a notebook of family recipes.",
+          "Some of them came from a town she had never visited.",
+          "Last spring she finally travelled there.",
+          "Walking through the old market on a rainy afternoon, the visitor who had lost her map finally found the bakery her grandmother had described.",
+          "The bread tasted exactly like the one in the notebook."
+        ],
+        "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 3
+        },
+        "ask": "subject",
+        "segments": [
+          "Walking through the old market",
+          "on a rainy afternoon,",
+          "the visitor",
+          "who had lost her map",
+          "finally found the bakery",
+          "her grandmother had described."
+        ],
+        "hints": [
+          "문장 맨 앞의 -ing 덩어리는 콤마까지가 하나의 수식어일 수 있어요. 콤마 뒤 첫 명사를 확인해 보세요.",
+          "who 로 시작하는 덩어리는 앞 명사를 꾸미는 말입니다."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "main_subject",
+        "why": "4번 문장은 분사구문(Walking ... afternoon,)으로 시작한다. 콤마 뒤 the visitor 가 주어이고, who 절을 건너뛰면 found 가 본동사다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "분사구문 — 문장의 주어가 무엇을 하던 중인지 덧붙인다. 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "때를 나타내는 전치사구다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "콤마 뒤 첫 명사 — 문장 전체의 주어다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절이 visitor 를 꾸민다. had lost 는 관계절 안의 동사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 visitor 의 본동사 found 와 목적어 the bakery."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "목적격 관계사가 생략된 절이 bakery 를 꾸민다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sc-i1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "A century ago, most zoos kept animals in small cages.",
+          "Visitors could see them clearly, but the animals often paced in circles.",
+          "The idea that animals in zoos should have space to roam freely has changed how new enclosures are designed.",
+          "Today many parks build wide fields and hidden fences.",
+          "The animals seem calmer, and visitors stay longer."
+        ],
+        "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "verb",
+        "segments": [
+          "The idea",
+          "that animals in zoos should have space",
+          "to roam freely",
+          "has changed",
+          "how new enclosures",
+          "are designed."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "main_verb",
+        "why": "3번 문장의 주어는 The idea, 동격 that 절과 to roam freely 를 걷어내면 has changed 가 본동사다. are designed 는 목적어 how 절 안의 동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 동격 that 절의 내용을 받는 명사다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "동격 that 절 — idea 의 내용을 밝힌다. should have 는 절 안의 동사다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "space 를 꾸미는 to부정사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "단수 주어 idea 에 맞는 본동사 has changed."
+          },
+          {
+            "reason": "object",
+            "why": "has changed 의 목적어가 되는 how 절의 시작이다."
+          },
+          {
+            "reason": "object",
+            "why": "목적어 how 절 안의 동사 — 본동사가 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sc-i2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Every year our school sends a small team to a national contest.",
+          "This year the competition for a place was especially fierce.",
+          "One of the students chosen by the teachers to represent the school at the science fair in Busan was my younger cousin.",
+          "He spent the whole winter building a model of a solar boat.",
+          "I have never seen him work so hard."
+        ],
+        "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "subject",
+        "segments": [
+          "One",
+          "of the students",
+          "chosen by the teachers",
+          "to represent the school",
+          "at the science fair in Busan",
+          "was my younger cousin."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "main_subject",
+        "why": "3번 문장에서 동사 was 가 단수인 까닭은 주어가 One 이기 때문이다. of the students 이하는 모두 One 을 꾸미는 수식어다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 단수이므로 동사가 was 다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "One 을 꾸미는 전치사구 — students 는 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "과거분사구가 students 를 꾸민다. chosen 은 본동사가 아니다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "chosen 의 목적을 밝히는 to부정사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "represent 의 장소를 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "본동사 was 와 보어 my younger cousin."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sc-x1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The valley is famous for its apples.",
+          "Last year, however, the harvest was small.",
+          "What the farmers in the valley worried about most during the long dry summer was not the heat but the lack of rain.",
+          "Several wells dried up by August.",
+          "Some families began collecting rainwater on their roofs."
+        ],
+        "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "verb",
+        "segments": [
+          "What the farmers in the valley worried about most",
+          "during the long dry summer",
+          "was not the heat",
+          "but the lack of rain."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "main_verb",
+        "why": "3번 문장은 What 명사절(What ... summer)이 통째로 주어다. 절 안의 worried 를 지나 나오는 was 가 본동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "What 명사절 전체가 주어다. 절 안의 worried 는 본동사가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "명사절 안 worried 의 때를 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "명사절 주어(단수 취급)에 맞는 본동사 was 와 보어의 앞부분."
+          },
+          {
+            "reason": "complement",
+            "why": "not A but B 의 B — was 의 보어다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sc-d1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "My grandfather rarely talked about his years as a sailor.",
+          "After he passed away, we cleaned out his study.",
+          "On the top shelf of the dusty cabinet in the corner stood a small wooden box covered with faded stamps.",
+          "Inside were letters he had written to my grandmother from distant ports.",
+          "We read them together that night."
+        ],
+        "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "subject",
+        "segments": [
+          "On the top shelf",
+          "of the dusty cabinet",
+          "in the corner",
+          "stood",
+          "a small wooden box",
+          "covered with faded stamps."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "main_subject",
+        "why": "3번 문장은 장소 부사구(On the top shelf ... corner)가 앞으로 나와 동사 stood 와 주어가 자리를 바꾼 도치 문장이다. 주어는 stood 뒤의 a small wooden box 다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "장소 부사구가 문장 앞으로 나왔다 — 주어처럼 보이지만 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "shelf 를 꾸미는 전치사구다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "cabinet 의 위치를 덧붙인다."
+          },
+          {
+            "reason": "inverted_order",
+            "why": "장소 부사구 도치로 동사 stood 가 주어 앞에 왔다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "도치된 문장의 주어 — stood 뒤에 있다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "과거분사구가 box 를 꾸민다."
+          }
+        ]
+      }
+    }
+  ]
+}

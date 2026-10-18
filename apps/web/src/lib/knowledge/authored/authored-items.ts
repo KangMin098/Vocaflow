@@ -16,6 +16,16 @@ import inferenceSet from './r-inference.v1.json'
 import relationSet from './r-relation.v1.json'
 import formSet from './s-form-scope.v1.json'
 import senseSet from './v-contextual-sense.v1.json'
+import refSet from './r-reference.v1.json'
+import multiwordSet from './v-multiword.v1.json'
+import dfSet from './r-discourse-function.v1.json'
+import dsSet from './r-discourse-structure.v1.json'
+import demandSet from './e-task-demand.v1.json'
+import coreSet from './s-sentence-core.v1.json'
+import attachSet from './s-attachment.v1.json'
+import chunkSet from './s-chunk-boundary.v1.json'
+import structSet from './s-structural-relation.v1.json'
+import semSet from './v-semantic-relation.v1.json'
 
 export { DISTRACTOR_DESIGNS, type DistractorDesign } from './formats'
 
@@ -175,7 +185,7 @@ export function registrationArgs(s: AuthoredSet, it: AuthoredItem) {
   }
 }
 
-const SETS: AuthoredSet[] = [R5_AUTHORED_SET, ...[evidenceSet, optionSet, inferenceSet, relationSet, formSet, senseSet].map((x) => x as unknown as AuthoredSet)]
+const SETS: AuthoredSet[] = [R5_AUTHORED_SET, ...[evidenceSet, optionSet, inferenceSet, relationSet, formSet, senseSet, refSet, multiwordSet, dfSet, dsSet, demandSet, coreSet, attachSet, chunkSet, structSet, semSet].map((x) => x as unknown as AuthoredSet)]
 export const AUTHORED_SETS: readonly AuthoredSet[] = SETS
 
 export function findAuthored(ref: string): { set: AuthoredSet; item: AuthoredItem } | null {
