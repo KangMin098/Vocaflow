@@ -27,7 +27,7 @@
 - **실행 주체**: 관리자 · 큐레이터 계정으로 로그인한 세션(`is_admin_or_curator()` 검사 — MCP/postgres 로는 불가). 사람 관리자 1명 + 에이전트 2차 확인(정책).
 - **변경**: rules_version `FQ1.1` · 축 A·B·C·E·F·H = pass(근거: A·B 기존 · C·H 검수 실행 기록 · E 사람 Gold · F 사람 권리) · D·G 는 해당 값 그대로 · source/gold/annotation 결속 §0 · evidence_ids 에 Gold · 권리 판정 문서 id · method `사람 Gold + 사람 권리 + 2인 검수`.
 - **주의**: C·H 를 pass 로 쓰려면 노출 원장과 분리된 검수 계정 실행 1건이 먼저 있어야 한다(검수 패킷 §6). 없으면 C·H 는 unknown 으로 두고 여기서 멈춘다.
-- **검증**: `fq_role_ok(axes,'transfer') = true` · `supply_annotation_matches(id) = true`.
+- **검증**(서버 · DB 소유자 연결 — `supply_annotation_matches` 는 authenticated 실행권이 없다): `fq_role_ok(axes,'transfer') = true` · `supply_annotation_matches(id) = true`.
 - **되돌리기**: 삭제 불가. 잘못 쓰면 `p_supersedes` 로 대체 행을 쓰거나 승인을 만들지 않는다.
 
 ## 3. 승인 기록 — `content_release_approve(q, 'public')` + `(q, 'assessment')`
@@ -36,8 +36,11 @@
 - **되돌리기**: `content_release_revoke(approval, reason)` — 이후 공급은 막히고, 이미 납품된 기록은 비근거로 해석된다(이력 불변).
 
 ## 4. 공급 기록 — 수요 → 주문 → 납품
-- **실행 주체**: 학습자 본인 세션(합성 학습자 계정 · 실제 학생 기록과 섞지 않는다). 순서: `workspace_demand_record(canonical)` → `factory_order_open(line, …, request_key)` → `factory_order_transition(…)` → `workspace_delivery_record(line, order, qualification, approval, request_key)`.
-- **검증**: `supply_delivery_valid(delivery) = true` · 같은 요청 키 재호출 = 같은 id.
+- **실행 주체 · 순서**(합성 학습자 계정 · 실제 학생 기록과 섞지 않는다):
+  1. 학습자 세션: `workspace_demand_record(canonical)` → `factory_order_open(line, …, request_key)`
+  2. 관리자 · 큐레이터 세션: `factory_order_transition(…)` (주문 상태 전이는 관리자만 — 학습자 세션은 42501)
+  3. 학습자 세션: `workspace_delivery_record(line, order, qualification, approval, request_key)` — 수요 줄이 `auth.uid()` 본인 것이어야 한다(I2 wrapper)
+- **검증**(서버 · DB 소유자 연결 — `supply_delivery_valid` 는 authenticated 실행권이 없다): `supply_delivery_valid(delivery) = true` · 같은 요청 키 재호출 = 같은 id.
 - **되돌리기**: 삭제 불가 — 승인 철회로 무효화.
 
 ## 5. 종단 E2E (공급 뒤 · 개발 DB)

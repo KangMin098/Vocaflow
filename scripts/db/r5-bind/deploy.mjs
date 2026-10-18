@@ -29,7 +29,7 @@ const DB2_VERSION = '20261017200100'
 export const STAGES = {
   i2: {
     version: '20261018120000', name: 'workspace_supply_c_annotation_binding',
-    path: 'supabase/migrations/_pending_workspace_supply_c_annotation_binding.sql',
+    path: 'supabase/migrations/20261018120000_workspace_supply_c_annotation_binding.sql',
     sha256: 'e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c',
     after: DB2_VERSION,
   },
