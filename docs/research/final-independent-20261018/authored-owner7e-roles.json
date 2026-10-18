@@ -1,0 +1,180 @@
+{
+    "scope":  "ACTUAL_ISOLATED_POSTGRES_ROLES",
+    "ownerCommit":  "7e638e63d28791dcc4f886431c0205743dc3310a",
+    "ownerSqlSha256":  "7eac0045cbd2db32105830fe8ba808a661c9f22067b59ddaa1f54e8678eb8ca7",
+    "serverVersion":  "17.10",
+    "remoteDbWrites":  0,
+    "defaultPrivilegeSource":  "read-only dev catalog 2026-10-18; postgres/public table grants and function grants",
+    "limits":  "Minimal dependency schemas; actual pending supply functions/policies; not JWT verification, full Supabase or actual-dev E2E.",
+    "clusterDirectory":  "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-xWNINh",
+    "rows":  [
+                 {
+                     "id":  "A-own-delivery-readable",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  1
+                                  }
+                 },
+                 {
+                     "id":  "B-other-delivery-hidden",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  0
+                                  }
+                 },
+                 {
+                     "id":  "learner-gold-rows-hidden",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  0
+                                  }
+                 },
+                 {
+                     "id":  "admin-gold-rows-readable",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  2
+                                  }
+                 },
+                 {
+                     "id":  "service-gold-rows-readable",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  2
+                                  }
+                 },
+                 {
+                     "id":  "learner-human-decisions-hidden",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  0
+                                  }
+                 },
+                 {
+                     "id":  "service-human-decisions-readable",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  4
+                                  }
+                 },
+                 {
+                     "id":  "anon-gold-read-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table authored_item"
+                                  }
+                 },
+                 {
+                     "id":  "learner-direct-gold-write-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table authored_item"
+                                  }
+                 },
+                 {
+                     "id":  "service-direct-gold-write-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table authored_item"
+                                  }
+                 },
+                 {
+                     "id":  "learner-direct-human-decision-write-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table content_human_decision"
+                                  }
+                 },
+                 {
+                     "id":  "service-direct-human-decision-write-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table content_human_decision"
+                                  }
+                 },
+                 {
+                     "id":  "learner-human-decision-rpc-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "Forbidden"
+                                  }
+                 },
+                 {
+                     "id":  "service-no-user-human-decision-rpc-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "Forbidden"
+                                  }
+                 },
+                 {
+                     "id":  "anon-human-decision-rpc-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for function content_human_decision_record"
+                                  }
+                 },
+                 {
+                     "id":  "learner-internal-gold-hash-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for function authored_item_gold_hash"
+                                  }
+                 },
+                 {
+                     "id":  "B-other-line-supply-rpc-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "delivery: line not found or not owned"
+                                  }
+                 },
+                 {
+                     "id":  "B-other-delivery-binding-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "attempt binding: delivery not found or not owned"
+                                  }
+                 },
+                 {
+                     "id":  "learner-binding-insert-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for table workspace_delivery_attempt"
+                                  }
+                 },
+                 {
+                     "id":  "A-current-rpc-true",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  1
+                                  }
+                 },
+                 {
+                     "id":  "B-current-rpc-other-owner-null",
+                     "pass":  true,
+                     "observed":  {
+                                      "n":  1
+                                  }
+                 },
+                 {
+                     "id":  "anon-current-rpc-denied",
+                     "pass":  true,
+                     "observed":  {
+                                      "code":  "42501",
+                                      "message":  "permission denied for function workspace_delivery_current"
+                                  }
+                 }
+             ],
+    "allPassed":  true
+}

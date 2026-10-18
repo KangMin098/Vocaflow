@@ -100,3 +100,5 @@ CI run39114115991(HEAD e91377575)은 verify/build/e2e/e2e-gate-faultclosed 성�
 후속7e 서버/RSC 독립 재검증: FI-007은 권리 철회 뒤 열기 거절·현재 공급량 제외/부족분 주문·역사적 evidence 보존을 확인해 FIX_VERIFIED_IN_CANDIDATE다. FI-010은 정상 별도 열기 기록 뒤 evidence=false로 개선됐지만, 첫 기록 실패 시에도 실제 페이지가 본문6문장을 전달하고 재열기 후 first_exposure/evidence=true가 되어 PARTIAL_FIX / OPEN이다. [범위와 원본](./SERVER_REPAIR_REVERIFY.md). 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.
 
 7e 앱·환류 후속: FI-008 AuthoredRunner 재시도는 두 폭의 동일 의미 요청과 G2 duplicate/변경시각 conflict로 수정 확인, FI-012 대체 결정 근거도 실제 채점기/두 폭 UI에서 수정 확인했다. FI-005 원래 모집단/측정 오기와 FI-013 단수 ditch 대안은 후보 수정 확인이며 사람 내용/Gold 승인은 아니다. FI-011 중심 의미3반례는 개선됐지만 기존 추론·어법·문맥 어휘 Workspace가 적격 링크에도 목록에서 제외돼 PARTIAL_FIX / OPEN이다. [통합 후속 근거](./APP_REPAIR_REVERIFY.md).689 CI9형식 timeout은 trace의 trial 대기이며9bd 수정 후 새 run39120198955는 관찰 시 진행 중이다. 전체 A~H REWORK 유지.
+
+후속 구조/권한:7e StructurePredict/실제 도식·순수 채점기의 두 폭17관찰과 실제 PostgreSQL 역할22건을 확인했다. 설계 가설 대조의 능력 근거 제외·허용 대안·단위 불일치·재시도 및 현재성 RPC 본인/타인/익명 경계를 구별한다. [범위와 결과](./STRUCTURE_SECURITY_REVERIFY.md). 전체 A~H REWORK와 실제 DB/사람 승인 제한을 유지한다.

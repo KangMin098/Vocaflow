@@ -1,0 +1,174 @@
+{
+  "ownerCommit": "7e638e63d28791dcc4f886431c0205743dc3310a",
+  "complete": true,
+  "scope": "Actual widget/diagram/pure grader. Synthetic design and API responses; no original KICE text, shell, route auth, live DB or human approval. Capability exclusion is canonical key mapping, not all consumers.",
+  "rows": [
+    {
+      "id": "structure-key-excluded-from-capability-evidence",
+      "ok": true,
+      "detail": {
+        "taskKey": "design-structure",
+        "scope": "Canonical capability mapping only"
+      }
+    },
+    {
+      "id": "accepted-role-alternative",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "invalid-length-rejected",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "wrong-design-not-correct",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-incomplete-disabled",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-retry-payload-stable",
+      "ok": true,
+      "detail": {
+        "sameMutation": true,
+        "sameAnsweredAt": true
+      }
+    },
+    {
+      "id": "1280-alternative-shown-correct",
+      "ok": true,
+      "detail": {
+        "scope": "Design hypothesis comparison, not measured ability"
+      }
+    },
+    {
+      "id": "1280-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-unit-mismatch-no-invented-sentence-numbers",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-skip-no-fake-grade",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-incomplete-disabled",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-retry-payload-stable",
+      "ok": true,
+      "detail": {
+        "sameMutation": true,
+        "sameAnsweredAt": true
+      }
+    },
+    {
+      "id": "1440-alternative-shown-correct",
+      "ok": true,
+      "detail": {
+        "scope": "Design hypothesis comparison, not measured ability"
+      }
+    },
+    {
+      "id": "1440-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-unit-mismatch-no-invented-sentence-numbers",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-skip-no-fake-grade",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "no-runtime-errors-or-external-network",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    }
+  ],
+  "submissions": [
+    {
+      "width": 1280,
+      "body": {
+        "response": {
+          "roles": [
+            "topic",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "clientSessionId": "afd7e1b1-e01f-4443-a8d8-578bbd2aa701",
+        "clientMutationId": "69882305-0c94-42d4-a7ee-5a7b15e018b5",
+        "answeredAt": "2026-10-18T11:00:00.487Z",
+        "helpLevel": "independent"
+      }
+    },
+    {
+      "width": 1280,
+      "body": {
+        "response": {
+          "roles": [
+            "topic",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "clientSessionId": "afd7e1b1-e01f-4443-a8d8-578bbd2aa701",
+        "clientMutationId": "69882305-0c94-42d4-a7ee-5a7b15e018b5",
+        "answeredAt": "2026-10-18T11:00:00.487Z",
+        "helpLevel": "independent"
+      }
+    },
+    {
+      "width": 1440,
+      "body": {
+        "response": {
+          "roles": [
+            "topic",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "clientSessionId": "b1265944-c052-43cf-9c15-befdd1a233f6",
+        "clientMutationId": "5a938169-c1cb-4bb2-a07e-58855e112bae",
+        "answeredAt": "2026-10-18T11:00:00.370Z",
+        "helpLevel": "independent"
+      }
+    },
+    {
+      "width": 1440,
+      "body": {
+        "response": {
+          "roles": [
+            "topic",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "clientSessionId": "b1265944-c052-43cf-9c15-befdd1a233f6",
+        "clientMutationId": "5a938169-c1cb-4bb2-a07e-58855e112bae",
+        "answeredAt": "2026-10-18T11:00:00.370Z",
+        "helpLevel": "independent"
+      }
+    }
+  ]
+}

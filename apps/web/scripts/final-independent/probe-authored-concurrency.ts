@@ -125,7 +125,13 @@ async function main(){
     await run('B-other-line-supply-rpc-denied','authenticated',b,'select workspace_delivery_record($1,null,$2,$3,$4) n',[preparedFirst.line,preparedFirst.qualification,preparedFirst.approval,key()],'deny')
     await run('B-other-delivery-binding-denied','authenticated',b,'select workspace_delivery_attempt_record($1,1,$2) n',[delivery!,key()],'deny')
     await run('learner-binding-insert-denied','authenticated',uid,`insert into workspace_delivery_attempt(user_id) values($1) returning 1 n`,[uid],'deny')
-    console.log(JSON.stringify({scope:'ACTUAL_ISOLATED_POSTGRES_ROLES',ownerCommit:owner,serverVersion:(await one('show server_version')).server_version,remoteDbWrites:0,defaultPrivilegeSource:'read-only dev catalog 2026-10-18; postgres/public table grants and function grants',limits:'Minimal dependency schemas; actual pending supply functions/policies; not JWT verification, full Supabase or actual-dev E2E.',clusterDirectory:directory,rows,allPassed:rows.every(r=>r.pass)},null,2))
+    if(ownerFix){
+      await run('A-current-rpc-true','authenticated',uid,'select (workspace_delivery_current($1) is true)::int n',[delivery!],1)
+      await run('B-current-rpc-other-owner-null','authenticated',b,'select (workspace_delivery_current($1) is null)::int n',[delivery!],1)
+      await run('anon-current-rpc-denied','anon',null,'select workspace_delivery_current($1) n',[delivery!],'deny')
+    }
+
+    console.log(JSON.stringify({scope:'ACTUAL_ISOLATED_POSTGRES_ROLES',ownerCommit:owner,ownerSqlSha256:createHash('sha256').update(au).digest('hex'),serverVersion:(await one('show server_version')).server_version,remoteDbWrites:0,defaultPrivilegeSource:'read-only dev catalog 2026-10-18; postgres/public table grants and function grants',limits:'Minimal dependency schemas; actual pending supply functions/policies; not JWT verification, full Supabase or actual-dev E2E.',clusterDirectory:directory,rows,allPassed:rows.every(r=>r.pass)},null,2))
     if(rows.some(r=>!r.pass))throw new Error('Role boundary failed; retain details privately until classified')
     return
   }

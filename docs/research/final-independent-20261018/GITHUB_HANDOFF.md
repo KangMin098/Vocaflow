@@ -3,7 +3,7 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 임무 진행 중**.
 
-증거 브랜치: `review/final-independent-20261018`, SQL 재검증 증거 HEAD `5c6d57824`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `9bd249dd714e4ad3125b96f25f9fd245fbe25ea0`(제품 함수 검증 고정 HEAD는7e638e63d)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
+증거 브랜치: `review/final-independent-20261018`, 앱·환류 재검증 증거 HEAD `174696498`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `9bd249dd714e4ad3125b96f25f9fd245fbe25ea0`(제품 함수 검증 고정 HEAD는7e638e63d)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
 
 | 기존 ID | 이슈 | 수정/독립 재검증 상태 |
 |---|---|---|
@@ -44,3 +44,5 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 2026-10-18 사용자 「방금 같은 승인은 자동 승인으로 기준 변경해」에 따라 이번 임무의 검증·관련 GitHub 이슈/PR 검토 게시·검증 브랜치 commit/push·Claude 총괄 인계를 추가 확인 없이 진행한다. 신규 결함과 수정 후 재검증에도 적용한다. 공동 원장 DL-0162와 로컬 목적 파일에 기록했다. 비밀값/실제 학습자 개인정보·응답/권리 미확인 기출 원문 제외, 민감한 보안 재현의 비공개 전달, 실제 DB 쓰기·삭제·배포·권한 변경·사람 Gold/권리 승인 제한, 기존 CI·safe-merge 조건은 유지한다. 시스템 차단을 우회하지 않는다.
 
 7e 앱·환류 후속: FI-008 AuthoredRunner 재시도는 두 폭의 동일 의미 요청과 G2 duplicate/변경시각 conflict로 수정 확인, FI-012 대체 결정 근거도 실제 채점기/두 폭 UI에서 수정 확인했다. FI-005 원래 모집단/측정 오기와 FI-013 단수 ditch 대안은 후보 수정 확인이며 사람 내용/Gold 승인은 아니다. FI-011 중심 의미3반례는 개선됐지만 기존 추론·어법·문맥 어휘 Workspace가 적격 링크에도 목록에서 제외돼 PARTIAL_FIX / OPEN이다. [통합 후속 근거](./APP_REPAIR_REVERIFY.md).689 CI9형식 timeout은 trace의 trial 대기이며9bd 수정 후 새 run39120198955는 관찰 시 진행 중이다. 전체 A~H REWORK 유지.
+
+후속 앱 게시174696498: #300 issuecomment-6248955969, #305 issuecomment-6248956129, #304 issuecomment-6248956308, #297 issuecomment-6248956488, #306 issuecomment-6248956655, PR303 issuecomment-6248956851. 공동 원장 DL-0163. [구조 위젯/실제 역할 검사](./STRUCTURE_SECURITY_REVERIFY.md)와 최신 READ ONLY 관찰을 추가했다. PR250은 OPEN(HEAD4fdc7ba76ac5f50493da668b85c1735e09a208ff)이며 총괄 관련 기능으로 다음 독립 검증 범위를 확인한다. PR303 새 CI run39120198955/e2e job117654074932는 현재 실행 중이다.
