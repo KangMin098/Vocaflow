@@ -224,6 +224,30 @@ for (const width of [1440, 1280]) {
       await expect(page.locator('[data-testid="authored-runner"]')).toHaveCount(0)
     }
 
+    // FI-010(#302) — 열기 기록이 실패하면 본문을 주지 않는다 → 정상으로 돌아온 뒤 처음 연 것이 실제 첫 노출(근거).
+    //   CI 격리 fixture(scripts/ci/authored-open-fault.sql): e2e_fault_open 에 학습자를 넣으면 learning_sessions 쓰기가 실패한다
+    {
+      const set = bySet('e-task-demand')
+      const item = set.items.filter((i) => i.role === 'independent_check')[1]
+      const did = await deliver(u.client, u.id, ws, set, item)
+      expect((await admin().from('e2e_fault_open').insert({ user_id: u.id })).error).toBeNull()
+      await page.goto(`/csat/learn/${item.id}?d=${did}`, { waitUntil: 'domcontentloaded' })
+      await expect(page.locator('[data-testid="authored-open-unavailable"]')).toBeVisible({ timeout: 30_000 })
+      await expect(page.locator('[data-testid="authored-runner"]')).toHaveCount(0)
+      // 본문 · 선택지 글자가 화면에 없다
+      const firstSentence = String(((item.body as { sentences?: string[] }).sentences ?? [''])[0]).slice(0, 30)
+      if (firstSentence) await expect(page.getByText(firstSentence, { exact: false })).toHaveCount(0)
+      await noOverflow(page)
+      expect((await admin().from('e2e_fault_open').delete().eq('user_id', u.id)).error).toBeNull()
+      // 기록이 돌아온 뒤 다시 열면 본문 · 풀기 → 첫 노출 근거(앞 화면에 본문을 주지 않았으므로 정당)
+      await page.goto(`/csat/learn/${item.id}?d=${did}`, { waitUntil: 'domcontentloaded' })
+      await expect(page.locator('[data-testid="authored-runner"]')).toBeVisible({ timeout: 30_000 })
+      await answer(page, 'demand_choice', item.gold, item.body)
+      await page.locator('[data-testid="authored-runner"]').getByRole('button', { name: '맞춰 보기' }).click()
+      await expect(page.locator('[data-testid="authored-result"]')).toBeVisible({ timeout: 30_000 })
+      await expect.poll(async () => (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', u.id).eq('delivery_id', did)).data?.[0]?.evidence ?? null, { timeout: 15_000 }).toBe(true)
+    }
+
     // 키보드 — 근거 문장 버튼을 Tab 초점 · Enter 로 고른다
     {
       const set = bySet('e-evidence-location')
