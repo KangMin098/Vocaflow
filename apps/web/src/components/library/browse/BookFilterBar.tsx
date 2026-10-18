@@ -225,7 +225,7 @@ export function BookFilterBar({
       className={
         rail
           ? 'flex flex-col gap-3'
-          : 'flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60'
+          : 'flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg2)_60%,transparent)]'
       }
     >
       {/* 상단 — 검색 + 정렬 + 초기화 + 결과수. rail 은 참조처럼 검색이 맨 위 한 줄(알약 41px)을 다 쓴다. */}
@@ -242,7 +242,7 @@ export function BookFilterBar({
             onChange={(e) => onChange({ search: e.target.value })}
             placeholder="제목·저자 검색"
             aria-label="도서 검색"
-            className={`min-h-11 w-full ${rail ? 'rounded-[var(--r-full)] bg-[var(--tint-lavender)]' : 'rounded-[var(--r-md)] bg-[var(--bg)]'} border border-[var(--bd)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20`}
+            className={`min-h-11 w-full ${rail ? 'rounded-[var(--r-full)] bg-[var(--tint-lavender)]' : 'rounded-[var(--r-md)] bg-[var(--bg)]'} border border-[var(--bd)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)]`}
           />
         </div>
 
@@ -255,7 +255,7 @@ export function BookFilterBar({
             id="book-sort"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as BookSort)}
-            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-3 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-3 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)]"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.key} value={o.key}>

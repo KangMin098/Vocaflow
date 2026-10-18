@@ -412,7 +412,18 @@ export default async function LibraryBooksPage({
                 ]
               : undefined
           }
-        />
+        >
+          {/* 전체 탐색으로 바로 — 추천 선반은 그대로 두고, 조건 레일 + 결과(아래 「전체 탐색」 구획)로 건너뛰는 길.
+              결과 격자가 y≈2491(세 번째 화면) 에서 시작해서다(2026-10-19 learner-tines-audit S4). */}
+          {totalBooks > 0 && (
+            <a
+              href="#browse"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[color-mix(in_srgb,var(--on-deep)_14%,transparent)] px-5 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-quick)] hover:bg-[color-mix(in_srgb,var(--on-deep)_24%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--on-deep)]"
+            >
+              조건으로 찾기 — 전체 탐색 ↓
+            </a>
+          )}
+        </AreaHero>
 
         {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
 

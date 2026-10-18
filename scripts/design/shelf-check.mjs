@@ -43,6 +43,17 @@ const run = async () => {
   await p.goto(`${BASE}/library/books`, { waitUntil: 'domcontentloaded', timeout: 120_000 })
   await p.waitForTimeout(5000)
   const rail = p.locator('aside[aria-label="도서 조건"]')
+  // 머리 판의 「전체 탐색 ↓」 — 추천 선반을 지나 조건 레일로 바로 간다(2026-10-19 S4)
+  await step('머리 링크 → 전체 탐색 구획이 첫 화면 위쪽에', async () => {
+    const link = p.getByRole('link', { name: /전체 탐색 ↓/ })
+    const linkY = (await link.boundingBox())?.y ?? null
+    await link.click()
+    await p.waitForTimeout(900)
+    const r = await rail.boundingBox()
+    const head = await p.locator('section#browse h2').boundingBox()
+    await p.screenshot({ path: path.join(outDir, `jump@${width}.png`) })
+    return { ok: linkY !== null && linkY < 900 && Boolean(head && head.y >= 60 && head.y < 200) && Boolean(r && r.y < 300), linkY: linkY && Math.round(linkY), headY: head && Math.round(head.y), railY: r && Math.round(r.y), hash: new URL(p.url()).hash }
+  })
   await rail.scrollIntoViewIfNeeded()
   const total = await count(p)
 

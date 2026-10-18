@@ -274,7 +274,7 @@ export function LibraryGrid({ books, userVLevel = 0, loadError = false }: Librar
           onClick={prev}
           disabled={active === 0}
           aria-label="이전 도서"
-          className="absolute left-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:left-6"
+          className="absolute left-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:left-6"
         >
           <ChevronLeft size={22} strokeWidth={2} aria-hidden />
         </button>
@@ -283,7 +283,7 @@ export function LibraryGrid({ books, userVLevel = 0, loadError = false }: Librar
           onClick={next}
           disabled={active === last}
           aria-label="다음 도서"
-          className="absolute right-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg)]/80 text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:right-6"
+          className="absolute right-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:right-6"
         >
           <ChevronRight size={22} strokeWidth={2} aria-hidden />
         </button>
@@ -413,7 +413,7 @@ export function LibraryGrid({ books, userVLevel = 0, loadError = false }: Librar
               className={`h-1.5 rounded-full transition-all duration-[${CAROUSEL_DURATION}ms] ${
                 idx === active
                   ? 'w-6 bg-[var(--t1)]'
-                  : 'w-1.5 bg-[var(--t3)]/40 group-hover:bg-[var(--t3)]'
+                  : 'w-1.5 bg-[color-mix(in_srgb,var(--t3)_40%,transparent)] group-hover:bg-[var(--t3)]'
               }`}
             />
           </button>
@@ -590,8 +590,8 @@ function CarouselBook({
       onClick={isActive ? onCenterClick : onSideClick}
       className={`block rounded-[var(--r-2xl)] focus-visible:outline-none ${
         isActive
-          ? 'focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4'
-          : 'focus-visible:ring-2 focus-visible:ring-[var(--p)]/40'
+          ? 'focus-visible:ring-4 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] focus-visible:ring-offset-4'
+          : 'focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)]'
       }`}
       // ⚠️ **가운데가 아닌 카드는 탭 순서에서 뺀다** (ARIA APG Carousel).
       //    원근 축소 때문에 옆 카드는 실측 8~38px 이라, 탭으로 거기 멈추면 학습자는

@@ -434,7 +434,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       {!diagnosed && (
         <Link
           href="/diagnostic"
-          className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--p)]/40 bg-[var(--p-light)]/50 px-4 py-3 transition-colors hover:bg-[var(--p-light)]"
+          className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p-light)_50%,transparent)] px-4 py-3 transition-colors hover:bg-[var(--p-light)]"
         >
           {/* ⚠️ 390px 실측(2026-09-16): 이 줄이 «레벨을 진단하 / 면», «을 추천해드려 / 요.» 로
               **낱말 가운데서 끊겼다.** 원인은 폭이 아니라 `inline-flex` 다 — 문장 안의
@@ -503,7 +503,8 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       />
 
       {/* ③ Browse — 전체 탐색 */}
-      <section className="flex flex-col gap-4" aria-label="전체 도서 탐색">
+      {/* id=browse — 서가 머리의 「전체 탐색 ↓」 링크 목적지. scroll-mt 는 고정 헤더(88px)에 제목이 가리지 않게 */}
+      <section id="browse" className="flex scroll-mt-[96px] flex-col gap-4" aria-label="전체 도서 탐색">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">전체 탐색</h2>
 
         {/* 왼쪽 조건 레일 + 오른쪽 결과 — 참조 tines.com/library 의 「검색·분류 레일 288px + 본문」(1440 실측: 레일 x40 w288,
