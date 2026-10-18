@@ -1,0 +1,254 @@
+{
+  "observedAt": "2026-10-18T23:46:53Z",
+  "main": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+  "latest303": {
+    "head": "f8aa32239fc40b741116e5773dfb617992008bcd",
+    "headRefOid": "f8aa32239fc40b741116e5773dfb617992008bcd",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:44:16Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372662/job/117822720400",
+        "name": "verify",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:40:36Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372623/job/117822720180",
+        "name": "TypeScript 0 error",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:39:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177369121/job/117822709701",
+        "name": "TypeScript 0 error",
+        "startedAt": "2026-10-18T23:38:34Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:42:38Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372662/job/117822720381",
+        "name": "build",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372623/job/117822720475",
+        "name": "docs/*.md broken link check",
+        "startedAt": "2026-10-18T23:38:37Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177369121/job/117822709776",
+        "name": "docs/*.md broken link check",
+        "startedAt": "2026-10-18T23:38:34Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:36Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372662/job/117822721431",
+        "name": "e2e-shared-dev",
+        "startedAt": "2026-10-18T23:38:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:32Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177369121/job/117822710672",
+        "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+        "startedAt": "2026-10-18T23:38:33Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:39:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372623/job/117822720437",
+        "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372662/job/117822720215",
+        "name": "e2e",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:32Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177369121/job/117822710336",
+        "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+        "startedAt": "2026-10-18T23:38:33Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372623/job/117822720382",
+        "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372662/job/117822720344",
+        "name": "e2e-gate-faultclosed",
+        "startedAt": "2026-10-18T23:38:37Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:39:06Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177372623/job/117822720376",
+        "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+        "startedAt": "2026-10-18T23:38:38Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-18T23:38:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39177369121/job/117822709569",
+        "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+        "startedAt": "2026-10-18T23:38:34Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      }
+    ],
+    "runId": 39177372662,
+    "ci": {
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "e2e",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "status": "completed",
+          "conclusion": "skipped"
+        }
+      ]
+    }
+  },
+  "productSourceUnchangedFrom88c3": true,
+  "firstFailure": {
+    "head": "264f16446c9e6a574c62b4cf5350d86b65d0c755",
+    "runId": 39176722433,
+    "jobId": 117820805512,
+    "jobConclusion": "failure",
+    "steps": [
+      {
+        "name": "격리 전용 — 보류 창작 공급 SQL 적용 + R5 창작 fixture",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "name": "격리 E2E(실제 브라우저 + DB 단언)",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "error": "psql:scripts/ci/journey-exam-fixture.sql:8: ERROR: null value in column \"exam_year\" of relation \"csat_exams\" violates not-null constraint",
+    "browserExecuted": false,
+    "classification": "ISOLATED_FIXTURE_SETUP_FAILURE_NOT_A_NEW_PRODUCT_DEFECT",
+    "sourceContractMismatchAlso": "ISO-J1 does not satisfy the installed mock-exam ID shape; static source finding, not a second executed failure."
+  },
+  "fixtureRepair": {
+    "head": "f8aa32239fc40b741116e5773dfb617992008bcd",
+    "file": "scripts/ci/journey-exam-fixture.sql",
+    "sha256": "db8e83cf1f9e70f8545d9b8f90c148d5728d7f9be127fb29b05d2c15747fca86",
+    "changes": [
+      "Populate required exam_year=2098",
+      "Use synthetic M9901 consistently in fixture and API test"
+    ],
+    "constraintsDisabled": false,
+    "devDbApplied": false
+  },
+  "sameLearnerJourney": {
+    "status": "NOT_VERIFIED",
+    "expectedNewTestCount": 1,
+    "expectedTotalCount": 11,
+    "viewport": 1440,
+    "sourceScope": "Same synthetic user record/goal/PLAN/qualified RPC delivery/independent+transfer/G2/map state/new PLAN",
+    "limits": [
+      "No item/axis tagging for synthetic exam: A capability analysis not demonstrated",
+      "No distinct teaching/principle-learning screen visited: D not established",
+      "Supply uses constructed learner RPC demand rather than demonstrating the public request UI",
+      "No real dev DB/human approvals/actual learners/effect"
+    ]
+  },
+  "fi018": {
+    "head": "cefc3e5026daccd9ab695d452d1a085c5d24daaa",
+    "status": "PARTIAL_FIX / OPEN",
+    "privateHandoff": "DL-0181"
+  },
+  "safeMergeExecuted": false,
+  "merges": [],
+  "overall": "REWORK",
+  "changedFilesFrom88c3": [
+    ".github/workflows/ci.yml",
+    "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    "scripts/ci/journey-exam-fixture.sql"
+  ]
+}

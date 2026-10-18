@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+동일 학습자 종단264f의 fixture 적재 실패/제약 불일치는 [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256578857)으로 인계했고 f8의 시험 메타데이터·합성 id 수정/새 CI를 검토 중이다. [실제 기록](./journey-review-20261019.json). FI-018은 기존 비공개 후보의 담당 경로 보정을 [PR312](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6256579031)에 안내했다. 새 결함/중복 이슈를 만들지 않았다.
+
 19일 재수용 게시: FI-010 [VERIFIED_FIXED 댓글](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6256471331), FI-015 [새 실제 브라우저 결과](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6256523052), [PR303 종합](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256523200). [기존 PR312 리뷰](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279)는 같은 HEAD의 REWORK로 갱신했으며 새 이슈/중복 재현은 만들지 않았다. 비공개 인계 경로는 DL-0181로 보정했고 결과는 DL-0182로 기록했다.
 
 2026-10-19 [독립 재수용](./REACCEPT_20261019.md): FI-010 VERIFIED_FIXED(명시 범위), FI-018은 같은312cefc의 PARTIAL_FIX/OPEN으로 전체 REWORK.30388c3 새 실제 화면 두 기기 CI/직접 해독한 report10/10은 명시 범위에서 수용했고 기존 #308에 증거 한계를 인계했다. 아래 HEAD/CI/당시 판정은 시간순 이력이다.
