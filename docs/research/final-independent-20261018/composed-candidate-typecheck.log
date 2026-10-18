@@ -1,0 +1,4 @@
+Same virtual tree, snapshot-only candidate: redundant standalone useState import removed
+Command: tsc --noEmit --incremental --tsBuildInfoFile <ignored-local-cache>
+Exit0
+

@@ -1,0 +1,6 @@
+Virtual merge tree b390ffd21ab3c1fd1e13790b9641531e83d1c6b6
+Command: tsc --noEmit --incremental --tsBuildInfoFile <ignored-local-cache>
+Complete source/auxiliary inputs; exit2
+src/components/csat/theater/MeaningSupportPanel.tsx(12,21): error TS2300: Duplicate identifier 'useState'.
+src/components/csat/theater/MeaningSupportPanel.tsx(22,10): error TS2300: Duplicate identifier 'useState'.
+

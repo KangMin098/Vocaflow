@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/ACCEPTANCE.md -->
 # 최종 제품 독립 수용 — 현재 기준선
 
+최신 A~H·PR/CI/병합 SHA·미완성/사람 조건은 [통합 보고서](./INTEGRATED_REPORT.md)에 모았다. 아래는 검증 시점별 기준선과 후속 이력이며, 이전 HEAD의 부분 수정 확인을 최신 전체 수용으로 읽지 않는다.
+
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · 기준 main **c3a03d1680c1b064598fdc1ab319b645f370e68c**.
 
 **현재 전체 수용 상태: REWORK. 최종 임무는 진행 중이다.** main 기준선은 아래와 같으며 PR303의 FI-001 명시 납품/복구와 FI-009 문장 번호 개선은 별도 후보 검증으로 인정했다. 최신 SQL 검토 후보7e638e63d는 FI-002/003/004의 격리 수정 확인과 FI-006의 잔여 중복 공급을 함께 기록했다.17 TASK105초안/10형식의 내용·루브릭·환류 및 4a 후속 CI는 검증 중이다. [2026-10-18T10:57:51Z 실제 개발 DB READ ONLY 관찰](./current-db-readonly.json)에서는 authored 미설치·자격·납품·G2 결속 근거가0이다. 사람 Gold·권리는 별도의 BLOCKED_EXTERNAL 조건이다. R5/코드/AI 판독을 전체 완료로 확대하지 않는다.

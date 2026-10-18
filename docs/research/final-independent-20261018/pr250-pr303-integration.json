@@ -1,0 +1,23 @@
+{
+  "tree": "b390ffd21ab3c1fd1e13790b9641531e83d1c6b6",
+  "heads": [
+    "9647b45e1db1f719b8f778c22cbefa7e742fc689",
+    "4fdc7ba76ac5f50493da668b85c1735e09a208ff"
+  ],
+  "original": {
+    "completedAt": "2026-10-18T11:50:04.989Z",
+    "exitCode": 2,
+    "diagnostics": 2,
+    "diagnosticCode": "TS2300"
+  },
+  "candidate": {
+    "completedAt": "2026-10-18T11:51:22.476Z",
+    "exitCode": 0
+  },
+  "file": "apps/web/src/components/csat/theater/MeaningSupportPanel.tsx",
+  "originalSha256": "bced662258ce9fce4e7fbc2e6a337cbbb23ae1158fbd322bef35272c9d325246",
+  "candidateSha256": "372e3cf6218b3be05a342f695715dba0c830224b45c58a8b95062b6e671318e9",
+  "change": "Remove only the redundant standalone useState import; retain existing useEffect/useState import and all feature bodies.",
+  "snapshotRestored": true,
+  "scope": "Virtual merge source typecheck; generated standard Next ambient types and installed dependencies. Candidate changed ignored snapshot only. No actual product branch, index, DB, UI/E2E or human approval change."
+}

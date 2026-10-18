@@ -2,7 +2,7 @@
   "head": "4fdc7ba76ac5f50493da668b85c1735e09a208ff",
   "originalReadAt": "2026-10-18T11:23:57Z",
   "originalReadOnly": true,
-  "scope": "27 content/review hash consistency checks; independent source-versus-explanation deep reading ONLY for the five deepRead items. Stored source/base hashes are identifiers, not independently proven whole live source bindings.",
+  "scope": "27 content/review hash consistency checks; independent source-versus-explanation deep reading ONLY for the eight deepRead items. Followup source binding checks are separately recorded in pr250-source-binding.json; no human approval or complete semantic acceptance.",
   "chart25": {
     "pdfSha256": "7af6828adf5f0b33068f00d9318dc91ff06f7eb34a63601423c414c1c6c0d9fb",
     "page": 4,
@@ -118,7 +118,7 @@
       "sourceSnapshotHash": "8eef55ee9132e60a",
       "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d",
       "analysisVersion": 5,
-      "deepRead": false
+      "deepRead": true
     },
     {
       "id": "2026#30",
@@ -198,7 +198,7 @@
       "sourceSnapshotHash": "eaa118b85f1d3f4d",
       "basePublicHash": "54c3b2dd7253b1abb519fbf18cc806d4c89812198b5e2777f3170fa5a4ec2cf7",
       "analysisVersion": 4,
-      "deepRead": false
+      "deepRead": true
     },
     {
       "id": "2026#38",
@@ -258,7 +258,7 @@
       "sourceSnapshotHash": "7b27524674de1184",
       "basePublicHash": "5a4ba3e56de4e5e614f5ecd1f751b85a08189b84f50147777ec6dd263c06cdf8",
       "analysisVersion": 5,
-      "deepRead": false
+      "deepRead": true
     },
     {
       "id": "2026#44",

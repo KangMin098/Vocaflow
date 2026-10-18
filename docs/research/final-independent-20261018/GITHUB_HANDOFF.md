@@ -51,7 +51,11 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 |---|---|---|
 | FI-015 | [#308](https://github.com/KangMin098/Vocaflow/issues/308) | OPEN · PR250 동시 자기 설명 저장 누락 |
 | FI-016 | [#309](https://github.com/KangMin098/Vocaflow/issues/309) | OPEN · 비공개 재현, 공동 원장 DL-0165 |
+| FI-017 | [#310](https://github.com/KangMin098/Vocaflow/issues/310) | OPEN · PR250/303 가상 통합의 중복 import·타입 오류 |
+| FI-018 | [#311](https://github.com/KangMin098/Vocaflow/issues/311) | OPEN · 병합 안전 게이트, 비공개 재현/DL-0168 |
 
 PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.
 
 4a CI 종료 후속: [실제 로더/두 폭 실패](./PR303_4A_REVERIFY.md)를 확인해 FI-011 전체는 PARTIAL_FIX / OPEN으로 유지한다. 계산 함수의 확장3 Workspace 개선은 유효하지만, 실제 로더가 기존 정본 TASK 슬롯이 없는 창작 납품을 누락한다. 실제 병합 블록의17 TASK 합성 입력은 모두0개로 사라졌고 미리 슬롯을 만든 대조군만 보존됐다. CI39121633640의 두 폭은9형식·재시도·비근거·철회·키보드 뒤 지도 복귀에서 실패했다. 기존 #304로 인계하며 중복 이슈를 만들지 않는다. PR250은 [27개 해시/5문항 내용 한정 대조](./PR250_CONTENT_REVIEW.md)를 추가했고22문항 전체 의미 수용·사람 승인·효과는 미검증이다. 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.
+
+전체 제품 후속: [A~H 통합 보고서](./INTEGRATED_REPORT.md)를 현재 관찰과 PR/CI/병합 SHA·미완성/사람 조건으로 연결했다. [두 PR 통합 타입 결함 FI-017](./PR250_PR303_INTEGRATION.md)은 #310이며, 무시되는 스냅샷의 최소 후보만 타입 exit0을 확인했다. 실제 제품 수정은 아니다. FI-018(#311)의 민감한 병합 안전 재현은 비공개 DL-0168로 인계했다.27개 교수 설명의 원문/배포 해시·현재 분석 버전과 실제 형식/범위 검증은 일치/오류0, 직접 내용 판독은8문항이며19개는 미검증이다. 실제 DB11:53:47Z READ ONLY는 authored 미설치/FQ·납품·결속0. 전체 REWORK와 임무 진행을 유지한다.
