@@ -6,11 +6,12 @@ import blindA from '../../../../../../docs/final/review/r5-authored-blind-A.json
 import blindB from '../../../../../../docs/final/review/r5-authored-blind-B.json'
 import {
   R5_AUTHORED_SET, annotationRefOf, authoredItemsFor, findAuthored, gradeAuthored, isAssessmentRole, learnerView,
-  registrationArgs, validateAuthoredSet, type AuthoredSet,
+  registrationArgs, validateAuthoredSet, type AuthoredGold, type AuthoredSet,
 } from '../authored/authored-items'
 import { AUTHORED_TASKS } from '../authored/tasks'
 
 const S = R5_AUTHORED_SET
+const G = (i: { gold: unknown }) => i.gold as AuthoredGold
 const item = (id: string) => S.items.find((x) => x.id === id)!
 type Review = { claim: number; answer: number }
 const norm = (r: unknown): Record<string, Review> =>
@@ -38,7 +39,7 @@ describe('세트 규칙', () => {
   })
 
   it('정답 위치가 한쪽으로 몰리지 않는다(같은 번호 ≤ 4)', () => {
-    const counts = S.items.reduce<Record<number, number>>((m, i) => ({ ...m, [i.gold.answer]: (m[i.gold.answer] ?? 0) + 1 }), {})
+    const counts = S.items.reduce<Record<number, number>>((m, i) => ({ ...m, [G(i).answer]: (m[G(i).answer] ?? 0) + 1 }), {})
     expect(Math.max(...Object.values(counts))).toBeLessThanOrEqual(4)
   })
 
@@ -58,7 +59,7 @@ describe('학습자 보기 · 등록 인자', () => {
   it('학습자 보기에는 Gold 가 없다 · 교수 단계는 교수 역할만 · 단서는 안내 연습만', () => {
     for (const i of S.items) {
       const v = JSON.stringify(learnerView(S, i))
-      expect(v).not.toContain(i.gold.gist)
+      expect(v).not.toContain(G(i).gist)
       expect(v).not.toMatch(/"answer"|"support"|"distractors"/)
       const lv = learnerView(S, i)
       expect(lv.teach !== null).toBe(i.role === 'model_explanation')
@@ -111,8 +112,8 @@ describe('맹검 2인 대조(FINAL §4.3 — docs/final/review)', () => {
       S.items.forEach((it, k) => {
         const v = r[`item-${k + 1}`]
         expect(v, `${name} item-${k + 1}`).toBeDefined()
-        expect(v.answer, `${name} ${it.id} answer`).toBe(it.gold.answer)
-        expect([it.gold.claim, ...it.gold.claimRestated], `${name} ${it.id} claim`).toContain(v.claim)
+        expect(v.answer, `${name} ${it.id} answer`).toBe(G(it).answer)
+        expect([G(it).claim, ...G(it).claimRestated], `${name} ${it.id} claim`).toContain(v.claim)
       })
     })
   }

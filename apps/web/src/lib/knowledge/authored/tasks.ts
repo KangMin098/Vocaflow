@@ -3,4 +3,6 @@
 // authored-items.test.ts 가 세트와 이 표가 같은지 지킨다.
 export const AUTHORED_TASK_KEYS: Readonly<Record<string, string>> = { 'r.central_meaning': 'authored-central-meaning' }
 export const AUTHORED_TASKS: readonly string[] = Object.keys(AUTHORED_TASK_KEYS)
+/** 학습자 화면 머리말(코드북 display · name) */
+export const AUTHORED_TASK_LABEL: Readonly<Record<string, string>> = { 'r.central_meaning': 'R5 중심 의미' }
 export const authoredKeysOf = (task: string): string[] => (AUTHORED_TASK_KEYS[task] ? [AUTHORED_TASK_KEYS[task]] : [])

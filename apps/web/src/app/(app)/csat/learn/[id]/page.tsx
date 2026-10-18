@@ -13,6 +13,7 @@ import { CsatShell } from '@/components/csat/home/CsatShell'
 import { AuthoredRunner, ROLE_LABEL } from '@/components/csat/authored/AuthoredRunner'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { openDelivered } from '@/lib/csat/authored/server'
+import { AUTHORED_TASK_LABEL } from '@/lib/knowledge/authored/tasks'
 import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
@@ -72,8 +73,8 @@ export default async function LearnPage({ params, searchParams }: { params: { id
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
-        id={params.id} deliveryId={v.deliveryId} role={v.role as never} sentences={v.sentences} stem={v.stem} choices={v.choices}
-        teach={v.teach ?? null} hints={v.hints} probe={v.probe} done={v.done} returnHref={MAP_HREF}
+        id={params.id} deliveryId={v.deliveryId} role={v.role as never} format={v.format} sentences={v.sentences} stem={v.stem} choices={v.choices}
+        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
       />
     </CsatShell>
   )

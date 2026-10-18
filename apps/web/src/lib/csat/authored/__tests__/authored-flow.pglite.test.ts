@@ -14,7 +14,7 @@ import { AXES, B_SQL, C_SQL, STUB } from '../../map/v62/__tests__/supply-sql-har
 import type { V4View } from '../../map/v4/compose'
 import { asIsMap } from '../../map/v4/as-is'
 import type { AttemptWrite, AttemptWriter } from '@/lib/knowledge/practice-writer'
-import { R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs } from '@/lib/knowledge/authored/authored-items'
+import { R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold } from '@/lib/knowledge/authored/authored-items'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import { applyAuthoredBindings } from '../evidence'
 import { listDelivered, openDelivered, recordAuthoredAttempt, requestAuthoredSupply } from '../server'
@@ -80,7 +80,7 @@ const viewAt = (stage: string | null, planned: number | null, need: string | nul
 const meta = (o: Record<string, unknown> = {}) => ({
   clientSessionId: crypto.randomUUID(), clientMutationId: crypto.randomUUID(), answeredAt: new Date(Date.now() - 1000).toISOString(), helpLevel: 'independent', sec: 30, ...o,
 })
-const goldOf = (id: string) => S.items.find((i) => i.id === id)!.gold
+const goldOf = (id: string) => S.items.find((i) => i.id === id)!.gold as AuthoredGold
 const rightAnswer = (id: string) => { const g = goldOf(id); return { claim: g.claim, support: g.support, relation: g.relationProbe.relation, choice: g.answer } }
 const supply = (uid: string, stage: string | null, planned: number | null, need?: string | null, planVersion = 1) =>
   requestAuthoredSupply(admin, learner(uid), uid, { view: viewAt(stage, planned, need), task: TASK, template: TEMPLATE, workspaceId: ws[uid], planVersion, goalVersion: null })

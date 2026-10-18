@@ -21,8 +21,9 @@ import type { TaskId } from '@/lib/csat/map/v4/definition'
 import { bindDeliveryAttempt, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
 import { selectWriter, type AttemptWrite, type AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { isSyntheticEmail, parseClientMeta } from '@/lib/knowledge/practice'
+import { formatOf, type FormatId } from '@/lib/knowledge/authored/formats'
 import {
-  gradeAuthored, isAssessmentRole, revealAfterAnswer,
+  gradeAuthored, isAssessmentRole, learnerBody, revealAfterAnswer,
   type AuthoredBody, type AuthoredGold, type AuthoredItem, type AuthoredRole, type AuthoredSet,
 } from '@/lib/knowledge/authored/authored-items'
 
@@ -174,13 +175,17 @@ export interface DeliveredView {
   ref: string
   role: AuthoredRole
   deliveryId: string
+  taskId: string
+  format: FormatId
   sentences: string[]
   stem: string
   choices: string[]
   teach: AuthoredBody['teach'] | null
   hints: string[] | null
-  /** 관계 질문 문장 번호(어느 문장을 묻는지만 — 답은 아니다) */
-  probe: number
+  /** 형식별로 무엇을 묻는지(정답 아님): target · pairs · marks */
+  extra: Record<string, unknown>
+  /** central_meaning 관계 질문 문장 번호(어느 문장을 묻는지만 — 답은 아니다). 다른 형식은 null */
+  probe: number | null
   /** 이미 푼 기록이 있으면 결과 · 해설(응답 뒤에만) */
   done: null | { isCorrect: boolean; reveal: ReturnType<typeof revealAfterAnswer> }
 }
@@ -219,11 +224,9 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
   return {
     status: 'ok',
     view: {
-      ref, role: delivery.role, deliveryId: delivery.id,
-      sentences: item.body.sentences, stem: item.body.stem, choices: item.body.choices,
-      teach: delivery.role === 'model_explanation' ? item.body.teach ?? null : null,
-      hints: delivery.role === 'guided_practice' ? item.body.hints ?? null : null,
-      probe: item.gold.relationProbe.sentence,
+      ref, role: delivery.role, deliveryId: delivery.id, taskId: row.task_id,
+      ...learnerBody(delivery.role, item.body),
+      probe: formatOf(item.body) === 'central_meaning' ? (item.gold as AuthoredGold).relationProbe.sentence : null,
       done: first ? { isCorrect: first.is_correct === true, reveal: revealAfterAnswer(item) } : null,
     },
   }
