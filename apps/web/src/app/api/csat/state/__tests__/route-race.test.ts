@@ -120,3 +120,12 @@ describe('state PUT 동시 저장(FI-015)', () => {
     expect(await stored()).toEqual(['unit-new', 'unit-old'])
   })
 })
+
+describe('state GET — 보류 판정 입력(FI-016)', () => {
+  it('「내 말로」 노트만 있는 기록도 그 문항을 보류 판정에 넘긴다', async () => {
+    const { correctnessItemIds } = await import('@/lib/csat/continuity')
+    const rec = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [],
+      meaningNotes: [writeMeaningNote(null, { item: ITEM, unitId: 'unit-one', text: 'Synthetic own-language note unit-one', binding }, NOW)!] }
+    expect(correctnessItemIds(rec as never)).toContain(ITEM)
+  })
+})
