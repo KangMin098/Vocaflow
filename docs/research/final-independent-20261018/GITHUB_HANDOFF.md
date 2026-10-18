@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+증거5778c8368 게시 영수증: FI-010 [#302](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6251233165), FI-015 [#308](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6251233375), FI-016 [#309](https://github.com/KangMin098/Vocaflow/issues/309#issuecomment-6251233541)(민감 상세 없음), FI-017 [#310](https://github.com/KangMin098/Vocaflow/issues/310#issuecomment-6251233759), [PR250](https://github.com/KangMin098/Vocaflow/pull/250#issuecomment-6251233964), [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6251234196). 공동 DL-0178/0179. FI-018은 기존 #311/PR312 리뷰·비공개 DL-0177을 재사용하며 같은 반례를 중복 게시하지 않는다.256f/2549 필수 CI 성공·256f 실제 browser report8/8을 확인했고 이후25b는 CI 전용 FI-010 검사 추가/제품 코드 불변이다.
+
 현재 후속: [변경분 원장](./REWORK_DELTA_REVERIFY.md)의01c/1ee·bcc/92ea 실제 HEAD 결과가 아래 과거 인계보다 우선한다. FI-006/010/014/015/016/017은 명시 범위의 후보 수정 확인, FI-018은 PR312에서도 잔여가 있어 REWORK다. 실제 DB/사람 승인·전체 A~H 수용은 별도다.
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 새 수정 HEAD로 재검증 재개**. 최신 결과는 [변경분 원장](./REWORK_DELTA_REVERIFY.md)을 따른다. 전체 목표 완료/수용 선언이 아니다.

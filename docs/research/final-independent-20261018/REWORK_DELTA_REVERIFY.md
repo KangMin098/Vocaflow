@@ -3,6 +3,8 @@
 
 ## 현재 판정 · 후속 재검증
 
+최종 CI 후속: 실제 통합256f의 [CI39136723720](https://github.com/KangMin098/Vocaflow/actions/runs/39136723720)와2502549의 [CI39136705847](https://github.com/KangMin098/Vocaflow/actions/runs/39136705847)는 필수 체크 모두 SUCCESS로 종료했다. [새256f 브라우저 report](./rework-integrated-ci-browser-256f.json)는 직접 해독한8/8이며 첨부0이다. 이어30325b7d43b8이 CI 전용 FI-010 실패 주입/두 폭 검사를 추가했다. 제품 소스 변화0으로 기존 제품 검증은 재사용하고, 새 [CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)의 실행 성공은 대기 상태와 구분한다. fixture SQL은 마이그레이션/실제 개발 DB 적용이 아니다.
+
 **최신 후속이 아래01c/1ee 단계보다 우선한다.** 실제 통합303 **256f109e5e142e902ab48eb537cae7f6535eeb61**는 최신250 **2549e407d9b1138c83b7fd633556b1527b62648c**를 포함한다. 그 사이 migration 복원 뒤의 CHANGELOG 충돌은 담당 실제 merge로 해결됐다. [최신 HEAD/CI·소스5파일 결속](./rework-latest-head-binding.json)에서 실제 state API/merge/store가 독립 검증 스냅샷과 같고 migration SHA bb4cc88d가 실제 적용 이력과 일치함을 확인했다. 실제 DB 재적용은 하지 않았다.
 
 2502549의 추가 store 변경은 최대5회 재전송/증가 간격/실패 표시다. 새 단위5/5를 독립 실행했고 [새 실제 브라우저](./state-rework-browser.json)는 동시 두 기기 외3번째 컨텍스트에서 지속409의 총6요청 뒤 중단·1분 추가0·실패 상태/IndexedDB 노트 보존·새 저장 뒤 정상 성공을 확인했다. 처음 두 기기 경합200/409도 새 실제 타이머로 재시도해 두 노트가 남았다. [이전01c 브라우저](./state-rework-browser-01c.json) 결과도 보존한다. 이 조합에서 검증한 실제 소스가 통합256f와 바이트 일치하므로 같은 코드를 다시 실행하지 않는다. 최신303/250 CI는 기계 기록의 진행 상태를 따르며 옛 성공으로 대체하지 않는다. FI-018의 실제312 HEAD는 여전히cefc이며 **PARTIAL_FIX / OPEN, REWORK**다.

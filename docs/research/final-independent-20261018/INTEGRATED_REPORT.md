@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+최신 체크포인트:303의 제품 통합 HEAD256f109e5와2502549e407d는 필수 CI 모두 SUCCESS다. [256f 실제 CI 브라우저 산출물](./rework-integrated-ci-browser-256f.json)을 직접 해독해8 expected/0 unexpected/0 flaky/0 skipped, passing 첨부0을 확인했다. 이후303 **25b7d43b86b4446e2fd4f6809cbf0c724b610591**는 제품 코드 변경 없이 FI-010 브라우저 실패 주입 fixture/spec와 CI 연결만 추가했다. [새 CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)는 진행 중이며 아직 성공으로 세지 않는다. 원본 fixture는 격리 CI 전용이고 개발 DB에 적용하지 않았다. FI-018 실제312 HEAD는cefc3e502로 불변이며 아래 REWORK를 유지한다.
+
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · 현재 **REWORK**. FI-006/010/014/015/016/017은 명시한 격리/코드 범위에서 수정 확인했다. **FI-018 병합 안전 결함은 PARTIAL_FIX / OPEN**이며 safe-merge 실행·실제 병합은 하지 않았다. R5나 개별 기능의 성공을 전체 제품 완료로 계산하지 않는다.
 
 기준 main c3a03d1680c1b064598fdc1ab319b645f370e68c. 최신 실제 통합303256f109e5는2502549e407d를 포함한다. 이전01c/bcc 검증 후 바뀐 클라이언트 재전송은 실제5단위 검사와3브라우저 컨텍스트로 새로 확인했다. 기존 migration의 적용 이력 바이트 복원도 일치한다. [최신 HEAD/소스 결속](./rework-latest-head-binding.json). [변경분 상세와 실행 증거](./REWORK_DELTA_REVERIFY.md).
@@ -27,7 +29,7 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |FI-006|[SQL 원본/잔여 경합](./SQL_REPAIR_REVERIFY.md)|FIX_VERIFIED_IN_CANDIDATE / ISOLATED_DB_VERIFIED. 같은 ref·그룹·본문 alias는 두 연결 신규 중복 차단, 다른 정상 지문은 허용. 동일 요청 역사 영수증/본문 불일치와 기록 불변 구분|
 |FI-010|[서버 공개/기록 원본](./SERVER_REPAIR_REVERIFY.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 제품 RSC/SQL4검사: 정상·저장 실패·commit 뒤 ack 유실·재열기/최초/완료 복귀.12필터 skip은 통과 아님|
 |FI-014|[문항별 대체 이유 원본/후보](./FI014_CANDIDATE.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 채택 바이트 결속, 기존1,596조합/잘못된 Gold7종/두 폭 UI12관찰 재사용. 사람 Gold 승인 아님|
-|FI-015|[200/200 동시 저장 누락](./PR250_REVIEW.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 HTTP/PG13검사+두 실제 browser store의200/409→자동 재시도→서버 두 노트. 추가3번째 컨텍스트에서 재전송6요청 상한·1분 추가0·로컬 노트/실패 상태 보존·새 저장 재개 성공. 최초 글·무관 완료 이력 보존; 모든 중간 편집 버전 보존 주장은 아님|
+|FI-015|[200/200 동시 저장 누락](./PR250_REVIEW.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 HTTP/PG13검사+두 실제 browser store의200/409→자동 재시도→서버 두 노트. 추가3번째 컨텍스트에서 재전송6요청 상한·1분 추가0·로컬 노트/실패 상태 보존·새 저장 재개 성공. 추가3번째 컨텍스트에서 재전송6요청 상한·1분 추가0·로컬 노트/실패 상태 보존·새 저장 재개 성공. 최초 글·무관 완료 이력 보존; 모든 중간 편집 버전 보존 주장은 아님|
 |FI-016|비공개 원본·기존 #309|FIX_VERIFIED_IN_CANDIDATE. 비공개 실제 HTTP/PG4검사와 정상 대조. 실제 JWT/개발 DB 경계 미검증. DL-0177|
 |FI-017|[옛 가상 통합 TS2300](./PR250_PR303_INTEGRATION.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 통합 소스 tsc0/관련68건, 최신 API14·예산8통과/필수 CI. 두 PR 개별 CI만으로 대신하지 않음|
 |FI-018|비공개 원본·기존 #311|PARTIAL_FIX / OPEN. PR312cefc3e502 작성자20검사 성공에도 독립 경계가 미충족. 격리 후보·상세는 비공개 DL-0177. 실제 safe-merge0/병합0|
@@ -43,6 +45,8 @@ FI-001~013의 이전 층위별 수용과 최초 실패는 [같은 원장](./GITH
 |실제 코드 통합|303256f가2502549를 포함. 기존 CHANGELOG 충돌은 실제 merge에서 해결|변경 없는01c 타입/lint/build·[실제 CI8브라우저](./rework-integrated-ci-browser.json) 재사용, 새 store5단위/3컨텍스트 브라우저 성공. 각 실제 파일 바이트 결속 확인|
 |[PR312](https://github.com/KangMin098/Vocaflow/pull/312)|cefc3e5026daccd9ab695d452d1a085c5d24daaa · [CI39132397689](https://github.com/KangMin098/Vocaflow/actions/runs/39132397689)|필수 CI SUCCESS지만 독립 FI-018 REWORK. 실제 안전 게이트로 사용하지 않음|
 |병합 SHA|새 대상 PR 병합 없음|필수 CI·목적 수용·safe-merge 전부 필요. 강제/우회 실행 없음|
+
+목적 대조는 담당 목적 파일의 A~H 전체 완성·창작물 구분·사람 결정 없는 공급 차단·교수/평가 분리·실행/G2/PLAN·미승인 DB 적용 금지와 실제 변경/검증을 대조했다. 위 명시 범위의 코드 개선을 수용하며, 전체 실제 경로·사람 승인/효과는 미충족으로 유지한다. 기계 CI나 R5만으로 전체 완료를 선언하지 않으며 FI-018 때문에 병합 목적 수용은 REWORK다. 실행하지 않은 review.mjs나 safe-merge를 통과했다고 기록하지 않는다.
 
 _val 미사용 lint는 mock의 미사용 매개변수만 제거했다. 이어 발견한 row-write-budget141→143 최초 실패는 [기계 기록](./rework-ci-triage.json)에 보존했다. 기준141/스캐너/예산 테스트는 바꾸지 않았으며 실제 서버가 단일 CAS/409, 실제 client가1.5초 재시도로 변경된 뒤 독립 예산8/8과 경합 저장을 통과했다. 테스트 약화로 결함을 가리지 않았다.
 

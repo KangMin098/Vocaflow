@@ -54,160 +54,9 @@
   "prs": [
     {
       "id": 303,
-      "headRefOid": "256f109e5e142e902ab48eb537cae7f6535eeb61",
+      "headRefOid": "25b7d43b86b4446e2fd4f6809cbf0c724b610591",
       "state": "OPEN",
-      "statusCheckRollup": [
-        {
-          "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723720/job/117702616707",
-          "name": "verify",
-          "startedAt": "2026-10-18T14:36:05Z",
-          "status": "IN_PROGRESS",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:37:33Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723693/job/117702616695",
-          "name": "TypeScript 0 error",
-          "startedAt": "2026-10-18T14:36:05Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:38:16Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136719203/job/117702604027",
-          "name": "TypeScript 0 error",
-          "startedAt": "2026-10-18T14:36:02Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:41:34Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723720/job/117702616902",
-          "name": "build",
-          "startedAt": "2026-10-18T14:36:11Z",
-          "status": "COMPLETED",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:26Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723693/job/117702616713",
-          "name": "docs/*.md broken link check",
-          "startedAt": "2026-10-18T14:36:05Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:22Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136719203/job/117702603907",
-          "name": "docs/*.md broken link check",
-          "startedAt": "2026-10-18T14:36:02Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:03Z",
-          "conclusion": "SKIPPED",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723720/job/117702617695",
-          "name": "e2e-shared-dev",
-          "startedAt": "2026-10-18T14:36:04Z",
-          "status": "COMPLETED",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:00Z",
-          "conclusion": "SKIPPED",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136719203/job/117702604756",
-          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
-          "startedAt": "2026-10-18T14:36:00Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:37Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723693/job/117702616808",
-          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
-          "startedAt": "2026-10-18T14:36:08Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723720/job/117702617081",
-          "name": "e2e",
-          "startedAt": "2026-10-18T14:36:13Z",
-          "status": "IN_PROGRESS",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:00Z",
-          "conclusion": "SKIPPED",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136719203/job/117702604759",
-          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
-          "startedAt": "2026-10-18T14:36:00Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:19Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723693/job/117702616565",
-          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
-          "startedAt": "2026-10-18T14:36:05Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723720/job/117702616969",
-          "name": "e2e-gate-faultclosed",
-          "startedAt": "2026-10-18T14:36:13Z",
-          "status": "IN_PROGRESS",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:27Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136723693/job/117702616738",
-          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
-          "startedAt": "2026-10-18T14:36:06Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        },
-        {
-          "__typename": "CheckRun",
-          "completedAt": "2026-10-18T14:36:24Z",
-          "conclusion": "SUCCESS",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136719203/job/117702604105",
-          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
-          "startedAt": "2026-10-18T14:36:02Z",
-          "status": "COMPLETED",
-          "workflowName": "sync-check"
-        }
-      ]
+      "statusCheckRollup": []
     },
     {
       "id": 250,
@@ -306,16 +155,6 @@
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565087",
-          "name": "e2e",
-          "startedAt": "2026-10-18T14:35:51Z",
-          "status": "IN_PROGRESS",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
           "completedAt": "2026-10-18T14:35:45Z",
           "conclusion": "SKIPPED",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702551068",
@@ -323,6 +162,16 @@
           "startedAt": "2026-10-18T14:35:45Z",
           "status": "COMPLETED",
           "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:41:54Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565087",
+          "name": "e2e",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
         },
         {
           "__typename": "CheckRun",
@@ -336,12 +185,12 @@
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-18T14:43:20Z",
+          "conclusion": "SUCCESS",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565207",
           "name": "e2e-gate-faultclosed",
           "startedAt": "2026-10-18T14:35:51Z",
-          "status": "IN_PROGRESS",
+          "status": "COMPLETED",
           "workflowName": "CI"
         },
         {
@@ -523,5 +372,32 @@
         }
       ]
     }
-  ]
+  ],
+  "verifiedCI": [
+    {
+      "id": 39136723720,
+      "conclusion": "success",
+      "headSha": "256f109e5e142e902ab48eb537cae7f6535eeb61",
+      "status": "completed"
+    },
+    {
+      "id": 39136705847,
+      "conclusion": "success",
+      "headSha": "2549e407d9b1138c83b7fd633556b1527b62648c",
+      "status": "completed"
+    }
+  ],
+  "latestTestOnlyChange": {
+    "head": "25b7d43b86b4446e2fd4f6809cbf0c724b610591",
+    "files": [
+      ".github/workflows/ci.yml",
+      "apps/web/tests/e2e-isolated/authored-formats.isolated.spec.ts",
+      "scripts/ci/authored-open-fault.sql"
+    ],
+    "productionSourceChanged": false,
+    "ciRun": 39137567274,
+    "status": "IN_PROGRESS_AT_OBSERVATION",
+    "scope": "Added isolated fault-injection test/fixture/workflow. No dev DB application."
+  },
+  "latestDecodedBrowserReport": "rework-integrated-ci-browser-256f.json"
 }
