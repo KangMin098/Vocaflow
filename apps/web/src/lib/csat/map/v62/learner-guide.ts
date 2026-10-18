@@ -108,7 +108,7 @@ export interface FallbackAction {
 export function fallbackActions(lines: readonly { role: MaterialRole; bucket: SupplyBucket }[], hasStudyItem: boolean): FallbackAction[] | null {
   if (lines.some((l) => l.bucket === 'qualified' || l.bucket === 'delivered')) return null
   const out: FallbackAction[] = []
-  if (hasStudyItem) out.push({ kind: 'read_explanation', text: '이미 푼 문항 · 연구 사례의 기존 해설을 아래 출제 원리 순서대로 읽어 보세요(수업용 검수 전 자료예요).' })
+  if (hasStudyItem) out.push({ kind: 'read_explanation', text: '연결된 기존 해설(내가 푼 확인 문항 또는 AI 연구 사례)을 아래 출제 원리 순서대로 읽어 보세요(수업용 검수 전 자료예요).' })
   if (lines.some((l) => l.bucket === 'unreviewed' && (l.role === 'independent_check' || l.role === 'transfer' || l.role === 'guided_practice')))
     out.push({ kind: 'practice_unqualified', text: '기존 과제로 연습할 수 있어요 — 다만 정식 자격 확인 전이라 독립 근거로는 세지 않아요.' })
   if (out.length === 0) out.push({ kind: 'wait', text: '지금 열 수 있는 자료가 없어요. 자료가 준비되면 이 자리에 표시돼요 — 학생의 부족이 아니에요.' })
