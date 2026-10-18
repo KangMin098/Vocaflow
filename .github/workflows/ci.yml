@@ -226,6 +226,14 @@ jobs:
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-seed.mjs --commit
 
+      # FINAL — 보류 창작 공급 SQL 을 **러너 DB 에만** 적용(개발 DB 무관 · 승인 전 SQL 의 실제 Postgres 검증). 그 위에 R5 창작 fixture
+      # (자격 · 결정 · 승인 = 「CI 격리 fixture — 사람 결정 아님」)를 적재한다. 가드: loopback:54321 · CI 러너
+      - name: 격리 전용 — 보류 창작 공급 SQL 적용 + R5 창작 fixture
+        run: |
+          case "$NEXT_PUBLIC_SUPABASE_URL" in http://127.0.0.1:54321*) ;; *) echo "::error::격리 DB 가 아니다"; exit 1 ;; esac
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f supabase/_all_migrations/_pending_authored_supply.sql
+          node scripts/ci/authored-isolated-seed.mjs --commit
+
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기
