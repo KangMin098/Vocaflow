@@ -1,0 +1,879 @@
+{
+  "head": "14446db1048258752acb22ba08171196e8b33566",
+  "scope": "Actual frozen observation/definition/authored task modules; synthetic evidence, no UI rendering or actual learner/DB. Readiness of integrated observation is distinct from mastery or demonstrated integrated performance.",
+  "modules": [
+    {
+      "file": "apps/web/src/lib/csat/map/v4/observation.ts",
+      "sha256": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/definition.ts",
+      "sha256": "7185571b879dba63c2ee843f0cf9325dfc47fd5dc4556c1026d9342e2aef57b3"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/definition.data.ts",
+      "sha256": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/tasks.ts",
+      "sha256": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf"
+    }
+  ],
+  "models": [
+    {
+      "task": "s.o.sentence_meaning_model",
+      "parts": [
+        "s.sentence_core",
+        "s.chunk_boundary",
+        "s.attachment",
+        "s.structural_relation",
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "parts": [
+        "r.reference",
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure",
+        "r.central_meaning",
+        "r.inference"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "parts": [
+        "e.task_demand",
+        "e.evidence_location",
+        "e.option_correspondence"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "all_children_direct_resolved",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "all_children_direct_need_is_observable_not_mastery",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_missing:s.sentence_core",
+      "state": "unmeasurable",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_observed:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_check_first:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_expired:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_checking:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_unmeasured:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:s.sentence_core",
+      "state": "insufficient",
+      "blockers": [
+        "s.sentence_core"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_missing:s.chunk_boundary",
+      "state": "unmeasurable",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_observed:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_check_first:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_expired:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_checking:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_unmeasured:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:s.chunk_boundary",
+      "state": "insufficient",
+      "blockers": [
+        "s.chunk_boundary"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_missing:s.attachment",
+      "state": "unmeasurable",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_observed:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_check_first:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_expired:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_checking:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_unmeasured:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:s.attachment",
+      "state": "insufficient",
+      "blockers": [
+        "s.attachment"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_missing:s.structural_relation",
+      "state": "unmeasurable",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_observed:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_check_first:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_expired:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_checking:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_unmeasured:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:s.structural_relation",
+      "state": "insufficient",
+      "blockers": [
+        "s.structural_relation"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_missing:s.form_scope",
+      "state": "unmeasurable",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_observed:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_check_first:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_expired:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_checking:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "one_child_unmeasured:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:s.form_scope",
+      "state": "insufficient",
+      "blockers": [
+        "s.form_scope"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "all_children_direct_resolved",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "all_children_direct_need_is_observable_not_mastery",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.reference",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.reference",
+      "state": "insufficient",
+      "blockers": [
+        "r.reference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.relation",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.relation",
+      "state": "insufficient",
+      "blockers": [
+        "r.relation"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.discourse_function",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.discourse_function",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_function"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.discourse_structure",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.discourse_structure",
+      "state": "insufficient",
+      "blockers": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.central_meaning",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.central_meaning",
+      "state": "insufficient",
+      "blockers": [
+        "r.central_meaning"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_missing:r.inference",
+      "state": "unmeasurable",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_observed:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_check_first:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_expired:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_checking:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "one_child_unmeasured:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "scenario": "resolved_status_without_direct_basis:r.inference",
+      "state": "insufficient",
+      "blockers": [
+        "r.inference"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "all_children_direct_resolved",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "all_children_direct_need_is_observable_not_mastery",
+      "state": "observable",
+      "blockers": []
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_missing:e.task_demand",
+      "state": "unmeasurable",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_observed:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_check_first:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_expired:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_checking:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_unmeasured:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "resolved_status_without_direct_basis:e.task_demand",
+      "state": "insufficient",
+      "blockers": [
+        "e.task_demand"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_missing:e.evidence_location",
+      "state": "unmeasurable",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_observed:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_check_first:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_expired:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_checking:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_unmeasured:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "resolved_status_without_direct_basis:e.evidence_location",
+      "state": "insufficient",
+      "blockers": [
+        "e.evidence_location"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_missing:e.option_correspondence",
+      "state": "unmeasurable",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_observed:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_check_first:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_expired:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_checking:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "one_child_unmeasured:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    },
+    {
+      "task": "e.o.final_judgment",
+      "scenario": "resolved_status_without_direct_basis:e.option_correspondence",
+      "state": "insufficient",
+      "blockers": [
+        "e.option_correspondence"
+      ]
+    }
+  ],
+  "nullControls": 3,
+  "heldProposedRelationsNotCounted": true,
+  "masteryScoreAbsent": true,
+  "result": "PASS"
+}

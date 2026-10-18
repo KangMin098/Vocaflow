@@ -73,4 +73,6 @@ PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두
 
 전체 제품 후속: [A~H 통합 보고서](./INTEGRATED_REPORT.md)를 현재 관찰과 PR/CI/병합 SHA·미완성/사람 조건으로 연결했다. [두 PR 통합 타입 결함 FI-017](./PR250_PR303_INTEGRATION.md)은 #310이며, 무시되는 스냅샷의 최소 후보만 타입 exit0을 확인했다. 실제 제품 수정은 아니다. FI-018(#311)의 민감한 병합 안전 재현은 비공개 DL-0168로 인계했다.27개 교수 설명의 원문/배포 해시·현재 분석 버전과 실제 형식/범위 검증은 일치/오류0, 직접 내용 판독은8문항이며19개는 미검증이다. 실제 DB11:53:47Z READ ONLY는 authored 미설치/FQ·납품·결속0. 전체 REWORK와 임무 진행을 유지한다.
 
-FI-010 후보 후속: [본문 공개 가드](./SERVER_REPAIR_REVERIFY.md)는 기록 실패→본문0→후속 실제 첫 공개의 evidence=true, 정상 공개→재열기의 evidence=false를 구분해2건 통과했다.12건은 필터 SKIPPED. 제품은 미수정이며 #302는 OPEN이다. FI-011은71a의 실제 병합 블록17 TASK 보존/대상 중복 제거/가짜 지식 적용 메타 없음까지 수정 확인했으며 전체 브라우저/PLAN은 새 CI로 확인한다.
+FI-010 후보 후속: [본문 공개 가드](./SERVER_REPAIR_REVERIFY.md)는 기록 실패→본문0→후속 실제 첫 공개의 evidence=true, 정상 공개→재열기의 evidence=false를 구분해2건 통과했다.12건은 필터 SKIPPED. 제품은 미수정이며 #302는 OPEN이다. FI-011은71a의 실제 병합 블록17 TASK 보존/대상 중복 제거/가짜 지식 적용 메타 없음까지 수정 확인했다.
+
+71a CI 종료 후속: [실제 report8/8](./pr303-71a-ci-evidence.json)에서1280/1440 Workspace 복귀와 결과 표시가 모두 통과했다. FI-011은 **FIX_VERIFIED_IN_CANDIDATE**로 갱신한다. 미완료 전체 PLAN 의미 환류를 이 수정의 미확인 사유로 늘리지 않는다. 최신144 관찰 계약의 실제 순수 모듈104조합/3 null 대조도 통과했다([범위](./PR303_4A_REVERIFY.md)). 제품 전체 REWORK, 실제 DB/사람 승인/병합0.

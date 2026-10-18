@@ -46,6 +46,20 @@ r.inference/ws.inference, s.form_scope/ws.grammar-scope, v.contextual_sense/ws.v
 
 실제 수정 HEAD `71a653ef66dc9202e4dc656828de0d3465fe6d5f`는 기존 정본 TASK 슬롯이 없을 때 창작 납품의 확인 링크를 만든다. [실행기](../../../apps/web/scripts/final-independent/probe-authored-map-loader4a.mjs)의 `--owner71a`는 바뀐 실제 선언/병합 블록을 실행했다. [17 TASK 결과](./authored-owner71a-loader.json): 이전0개 누락이 모두1개 보존으로 바뀌었고 기존 슬롯 대조군도 보존됐다. 서로 다른2개 대상은 유지하고 같은 대상 반복은1개로 모으며, 지식 적용 원장에 없는 chain/application은 만들지 않았다.
 
-확인된 수정은 합성 적격 입력을 준 실제 병합 구간이다. 전체 loadMapPage의 DB/권한/기록 조회·실제 브라우저 복귀와 후속 PLAN 의미 갱신을 대신하지 않는다. 새 run39126159146/e2e job117671623257은 진행 중이며 결과 확인 전 FI-011 전체를 닫지 않는다. 이전 이미 확인한4a 계산 함수·964 현재성 분기는 반복 실행하지 않았다.
+위17 TASK 확인은 합성 적격 입력을 준 실제 병합 구간이다. 후속 CI는 아래에서 따로 확인했다. 이전 이미 확인한4a 계산 함수·964 현재성 분기는 반복 실행하지 않았다.
+
+## 71a CI 성공 · FI-011 후보 수정 확인
+
+[run39126159146](https://github.com/KangMin098/Vocaflow/actions/runs/39126159146)의 verify/build/e2e/faultclosed가 성공했다. e2e job117671623257의 artifact12136805272 내부 Playwright report를 직접 판독했다. [정제 근거](./pr303-71a-ci-evidence.json):8 expected/0 unexpected/0 flaky/0 skipped다.9형식1440/1280 모두241행 Workspace 클릭과242행 `풀었어요` 결과 표시 단언을 통과했다.4a/964에서 실패했던 복귀가 실제 격리 브라우저에서도 개선됐으므로 FI-011은 **FIX_VERIFIED_IN_CANDIDATE**다. 전체 제품의 다른 미완성을 이 결함의 수정 미확인 사유로 삼지 않는다.
+
+9형식의 정답/G2 결속, 잘못된 이유, 도움 연습, 실제 저장 뒤 응답 유실 재시도1행, 선행 열람, 철회 차단과 키보드 단계도 통과했다. 키보드는 버튼 focus 후 Enter이며 전체 Tab 이동 검증은 아니다. 별도 R5 공급 두 폭·교수 공개/보류3건·목표 저장1건을 합쳐8건이다.9형식은 합성 적격 demand/delivery를 실제 격리 RPC로 만들며 R5 공급 요청은 별도 사례다. 서로 다른 사례를 한 학습자의 A→H 흐름으로 합치지 않는다.
+
+passing screenshot/trace/HAR 첨부는0이다. 새 시각 판독이나 네트워크 캡처 분석을 주장하지 않는다. 자동화 응답은 Gold를 사용한 합성 입력이며 사람 독립 수행/효과가 아니다. 실제 개발 DB·새 PLAN 의미 버전/학습 요구 변화·전체 TASK 관통은 여전히 미검증이다. 최신14446db10은 관찰 TASK 계약/UI와 장부를 추가했으며 해당 CI는 별도 진행 중이다.71a의 녹색 결과를 최신 HEAD 전체 성공으로 쓰지 않는다.
 
 전체 A~H REWORK. FI-006/010/014와 PR250 FI-015/016 및 FI-017/018, 실제 공급·사람 승인·효과의 미완성 조건은 유지한다. safe-merge/병합은 수행하지 않았다.
+
+## 144 관찰 TASK 계약 · 좁힌 독립 확인
+
+후속14446db1048258752acb22ba08171196e8b33566은22de94acf의 관찰 계약/UI와 장부 수정이다. [독립 실행기](../../../apps/web/scripts/final-independent/probe-integrated-observation144.mjs)는 고정 HEAD의 observation/definition/실제 정의 데이터/authored TASK 모듈만 실행한다. [104조합/3 null 결과](./integrated-observation144.json)는 비보류 통합 TASK3개의 실제 승인 PART_OF에서 모든 하위 직접 확인, 직접 확인된 필요, 한 하위 누락·proxy·만료·진행·미측정·직접 근거 없는 resolved를 대조했다. 축 proxy·상태명만으로 관찰 가능을 만들지 않고 점수 필드도 없다. 모두 직접 확인돼도 숙달/통합 수행 입증이 아닌 관찰 시작 가능으로 안내한다.
+
+처음 실행기의 통합 TASK3개 가정은 보류 X-O1까지 포함해 실패했다. 비보류3개로 범위를 바로잡았으며 제품 결함으로 세지 않았다. X-O1의 제안 관계는 실제 partsOf에서 제외돼 null이다. 도구 존재는 정본/창작 키의 정적 정의이며 실제 적격 출시 공급이 있다는 뜻은 아니다. JSX 연결은 코드로 확인했으나 신규 화면 렌더링·브라우저·실제 학습자 데이터는 이 순수 함수 실행 범위가 아니다. 기존 가로 넘침/CI 결과를 신규 UI 전체 검증으로 확대하지 않는다.

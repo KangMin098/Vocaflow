@@ -3,7 +3,7 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 임무 진행 중**.
 
-증거 브랜치: `review/final-independent-20261018`, 앱·환류 재검증 증거 HEAD `174696498`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `4a751eeb9215bf4c6e81f8d512b3fff432d18d67`(SQL/기존 앱 함수7e · Workspace4a 검증)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
+증거 브랜치: `review/final-independent-20261018`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `14446db1048258752acb22ba08171196e8b33566`이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. 직전71a의 필수 CI는 성공했고 최신144의 CI는 진행 중이다. 실제 DB 적용·전체 수용·병합 완료를 주장하지 않는다. 아래 후속 기록은 시간순 이력이며 현재 판정은 표와 통합 보고서를 따른다.
 
 | 기존 ID | 이슈 | 수정/독립 재검증 상태 |
 |---|---|---|
@@ -17,7 +17,7 @@
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
 | FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
-| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | PARTIAL_FIX / OPEN ·71a 로더17 TASK 입력 보존 수정 확인, 최신 실제 브라우저/PLAN 대기 |
+| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE ·71a 로더17 TASK 및 실제 CI 두 폭 Workspace 복귀/결과 표시 확인. 전체 PLAN 의미 갱신은 별도 미검증 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
 | FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · 맞는 주어/본동사 이유 오답 |
