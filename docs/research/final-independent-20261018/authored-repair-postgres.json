@@ -1,0 +1,67 @@
+{
+  "scope": "Review-only independent overlay; NOT required for merger or adopted by the owner. Local ephemeral PostgreSQL only.",
+  "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+  "cases": [
+    {
+      "mode": "alias",
+      "scope": "ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE",
+      "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+      "ownerCommit": "b4fbf4d5c",
+      "remoteDbWrites": 0,
+      "serverVersion": "17.10",
+      "scenario": "same actual text under different author group labels serializes and rejects second",
+      "secondWaitObservedBeforeCommit": true,
+      "firstAllowed": true,
+      "secondAllowedAfterCommit": false,
+      "secondError": "delivery: G — actual passage already delivered",
+      "committedDeliveries": 1,
+      "allPassed": true,
+      "clusterDirectory": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-I29N6w"
+    },
+    {
+      "mode": "distinct",
+      "scope": "ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE",
+      "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+      "ownerCommit": "b4fbf4d5c",
+      "remoteDbWrites": 0,
+      "serverVersion": "17.10",
+      "scenario": "same learner and distinct passages remain legal after serialization",
+      "secondWaitObservedBeforeCommit": true,
+      "firstAllowed": true,
+      "secondAllowedAfterCommit": true,
+      "secondError": null,
+      "committedDeliveries": 2,
+      "allPassed": true,
+      "clusterDirectory": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-SKopbE"
+    },
+    {
+      "mode": "isolation",
+      "scope": "ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE",
+      "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+      "scenario": "unsupported snapshot isolation fails closed; read-committed control remains legal",
+      "ownerCommit": "b4fbf4d5c",
+      "remoteDbWrites": 0,
+      "serverVersion": "17.10",
+      "repeatableReadErrorCode": "40001",
+      "readCommittedAllowed": true,
+      "committedDeliveries": 1,
+      "allPassed": true,
+      "clusterDirectory": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-lIFI8O"
+    },
+    {
+      "mode": "registration",
+      "scope": "ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE",
+      "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+      "ownerCommit": "b4fbf4d5c",
+      "remoteDbWrites": 0,
+      "serverVersion": "17.10",
+      "scenario": "concurrent instruction/assessment registration; different group names; same text with case and whitespace differences",
+      "secondWaitObservedBeforeCommit": true,
+      "secondErrorCode": "P0001",
+      "secondError": "authored: actual passage mixes instruction and assessment",
+      "registeredRows": 1,
+      "allPassed": true,
+      "clusterDirectory": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-eSu2zE"
+    }
+  ]
+}

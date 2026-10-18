@@ -3,17 +3,22 @@
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
+import { createHash } from 'node:crypto'
 import net from 'node:net'
 import path from 'node:path'
 import { canonicalDemand } from '../../src/lib/csat/map/v62/persist-contract'
 import { AXES, B_SQL, C_SQL, STUB } from '../../src/lib/csat/map/v62/__tests__/supply-sql-harness'
-const root=path.resolve(__dirname,'../../../..'),owner='b4fbf4d5c'
+const root=path.resolve(__dirname,'../../../..'),owner=process.argv.includes('--owner-fix')?'7e638e63d28791dcc4f886431c0205743dc3310a':'b4fbf4d5c'
 const deps=path.join(root,'.agent-logs/final-independent/pg-deps'),req=createRequire(path.join(deps,'package.json'))
 const EmbeddedPostgres=req('embedded-postgres').default,{Pool}=req('pg')
 const au=execFileSync('git',['show',`${owner}:supabase/migrations/_pending_authored_supply.sql`],{cwd:root,encoding:'utf8'})
 const admin='00000000-0000-4000-8000-0000000000a1',uid='00000000-0000-4000-8000-0000000000b1'
 const task='r.central_meaning',tkey='authored-central-meaning'
 const rlsOnly=process.argv.includes('--rls-only')
+const ownerFix=process.argv.includes('--owner-fix'),sameRef=process.argv.includes('--same-ref'),sharedDifferent=process.argv.includes('--shared-group-different-text')
+const repairCandidate=process.argv.includes('--repair-candidate'),differentPassages=process.argv.includes('--different-passages')||sharedDifferent,aliasGroups=process.argv.includes('--alias-groups'),repeatableRead=process.argv.includes('--repeatable-read'),registrationRace=process.argv.includes('--registration-race')
+const repairSql=repairCandidate?fs.readFileSync(path.join(root,'apps/web/scripts/final-independent/authored-supply-repair-candidate.sql'),'utf8'):null
+const repairSha256=repairSql?createHash('sha256').update(repairSql).digest('hex'):null
 let seq=0
 const key=()=>`00000000-0000-4000-9000-${String(++seq).padStart(12,'0')}`
 async function port(){const listener=net.createServer();await new Promise<void>((resolve,reject)=>{listener.once('error',reject);listener.listen(0,'127.0.0.1',resolve)});const at=listener.address();if(!at||typeof at==='string')throw new Error('No loopback port');const number=at.port;await new Promise<void>((resolve,reject)=>listener.close(error=>error?reject(error):resolve()));return number}
@@ -39,17 +44,34 @@ async function main(){
   await pool.query(C_SQL);await pool.query(B_SQL)
   for(const file of ['_pending_workspace_supply_i1_safety.sql','20261018120000_workspace_supply_c_annotation_binding.sql','20261018120100_r5_delivery_g2_binding.sql'])await pool.query(fs.readFileSync(path.join(root,'supabase/migrations',file),'utf8'))
   await pool.query(au)
+  if(repairCandidate)await pool.query(repairSql)
   await pool.query(`insert into auth.users values($1),($2);`,[admin,uid]);await pool.query(`insert into admins values($1,'admin')`,[admin])
   const body={sentences:['This is an isolated shared passage.','The same passage must not be a new independent task.','A new label is not a new text.'],stem:'q',choices:['a','b','c','d','e']}
   const gold={answer:0,claim:2,claimRestated:[],support:[1],supportDisputed:[],opposed:[],relationProbe:{sentence:1,relation:'reason'}}
+  if((repairCandidate||ownerFix)&&registrationRace){
+    const a=await pool.connect(),b=await pool.connect();let waiting=false,settled=false,code:string|null=null,error:string|null=null
+    try{
+      for(const c of[a,b]){await c.query('begin');await c.query(`select set_config('request.jwt.claim.sub',$1,true)`,[admin]);await c.query("set local statement_timeout='5000ms'")}
+      const args=(name:string,role:string,group:string,variant:boolean)=>[`authored:${name}`,task,tkey,role==='guided_practice'?'instruction':'assessment',role,group,JSON.stringify(variant?{...body,sentences:body.sentences.map(s=>'  '+s.toUpperCase().replaceAll(' ','   ')+'  ')}:body),JSON.stringify(gold),`${tkey}-${name}.v1`,JSON.stringify({author:'isolated',method:'fixture',derivedFrom:[]})]
+      const sql='select authored_item_register($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9,$10::jsonb)'
+      await a.query(sql,args('race-teacher','guided_practice','teacher-label',false))
+      const pending=b.query(sql,args('race-assessment','independent_check','assessment-label',true)).then(()=>{settled=true;return{code:null,error:null}},(e:Error&{code?:string})=>{settled=true;return{code:e.code??null,error:e.message}})
+      for(let i=0;i<100;i++){const activity=await one('select wait_event_type,wait_event from pg_stat_activity where pid=$1',[b.processID]);if(activity.wait_event_type==='Lock'&&activity.wait_event==='advisory'){waiting=true;break}if(settled)break;await new Promise(resolve=>setTimeout(resolve,10))}
+      await a.query('commit');const outcome=await pending;code=outcome.code;error=outcome.error;if(error)await b.query('rollback');else await b.query('commit')
+    }finally{await a.query('rollback');await b.query('rollback');a.release();b.release()}
+    const count=Number((await one('select count(*)::int n from authored_item')).n),passed=waiting&&Boolean(error&&/actual passage mixes|same passage body already registered/.test(error))&&count===1
+    console.log(JSON.stringify({scope:ownerFix?'ACTUAL_ISOLATED_POSTGRES_OWNER_FIX':'ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE',ownerSqlSha256:createHash('sha256').update(au).digest('hex'),repairSha256,ownerCommit:owner,remoteDbWrites:0,serverVersion:(await one('show server_version')).server_version,scenario:'concurrent instruction/assessment registration; different group names; same text with case and whitespace differences',secondWaitObservedBeforeCommit:waiting,secondErrorCode:code,secondError:error,registeredRows:count,allPassed:passed,clusterDirectory:directory},null,2));if(!passed)throw new Error('Registration race failed');return
+  }
   const prepared:{ref:string;line:string;qualification:string;approval:string;request:string}[]=[]
   for(const suffix of ['one','two']){
    const ref=`authored:race-${suffix}`,annotation=`${tkey}-race-${suffix}.v1`
+   const raceBody=differentPassages?{...body,sentences:[body.sentences[0]+' '+suffix,...body.sentences.slice(1)]}:body
+   const raceGroup=(differentPassages&&!sharedDifferent)||aliasGroups?'race-group-'+suffix:'shared-race-group'
    // Use one connected setup session because auth.uid() is session-local.
    const setup=await pool.connect()
    try{
     await setup.query(`select set_config('request.jwt.claim.sub',$1,false)`,[admin])
-    await setup.query(`select authored_item_register($1,$2,$3,'assessment','independent_check','shared-race-group',$4::jsonb,$5::jsonb,$6,$7::jsonb)`,[ref,task,tkey,JSON.stringify(body),JSON.stringify(gold),annotation,JSON.stringify({author:'isolated',method:'fixture',derivedFrom:[]})])
+    await setup.query(`select authored_item_register($1,$2,$3,'assessment','independent_check',$8,$4::jsonb,$5::jsonb,$6,$7::jsonb)`,[ref,task,tkey,JSON.stringify(raceBody),JSON.stringify(gold),annotation,JSON.stringify({author:'isolated',method:'fixture',derivedFrom:[]}),raceGroup])
     const revision=(await setup.query(`select supply_artifact_revision('authored_item',$1) revision,authored_item_gold_hash($1) hash`,[ref])).rows[0]
     await setup.query(`select content_human_decision_record('rights','authored_item',$1,$2,$2,'self_authored_original','{store,display,transmit,assess}','isolated-evidence','human-reviewed')`,[ref,revision.revision])
     await setup.query(`select content_human_decision_record('gold','authored_item',$1,$2,$3,'human_gold_review','{assess}','isolated-evidence','human-reviewed')`,[ref,revision.revision,revision.hash])
@@ -106,6 +128,27 @@ async function main(){
     console.log(JSON.stringify({scope:'ACTUAL_ISOLATED_POSTGRES_ROLES',ownerCommit:owner,serverVersion:(await one('show server_version')).server_version,remoteDbWrites:0,defaultPrivilegeSource:'read-only dev catalog 2026-10-18; postgres/public table grants and function grants',limits:'Minimal dependency schemas; actual pending supply functions/policies; not JWT verification, full Supabase or actual-dev E2E.',clusterDirectory:directory,rows,allPassed:rows.every(r=>r.pass)},null,2))
     if(rows.some(r=>!r.pass))throw new Error('Role boundary failed; retain details privately until classified')
     return
+  }
+  if(repairCandidate||ownerFix){
+    const call=(f:typeof prepared[number])=>[f.line,null,f.qualification,f.approval,f.request]
+    if(repeatableRead){
+      const client=await pool.connect();let code:string|null=null,allowed=false
+      try{await client.query('begin isolation level repeatable read');await client.query(`select set_config('request.jwt.claim.sub',$1,true)`,[uid]);try{await client.query('select workspace_delivery_record($1,$2,$3,$4,$5)',call(prepared[0]))}catch(e){code=(e as {code?:string}).code??null}await client.query('rollback');await client.query(`select set_config('request.jwt.claim.sub',$1,false)`,[uid]);allowed=Boolean((await client.query('select workspace_delivery_record($1,$2,$3,$4,$5) id',call(prepared[0]))).rows[0]?.id)}finally{await client.query('rollback');client.release()}
+      const count=Number((await one('select count(*)::int n from workspace_content_delivery where user_id=$1',[uid])).n)
+      const result={scope:ownerFix?'ACTUAL_ISOLATED_POSTGRES_OWNER_FIX':'ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE',ownerSqlSha256:createHash('sha256').update(au).digest('hex'),repairSha256,scenario:'unsupported snapshot isolation fails closed; read-committed control remains legal',ownerCommit:owner,remoteDbWrites:0,serverVersion:(await one('show server_version')).server_version,repeatableReadErrorCode:code,readCommittedAllowed:allowed,committedDeliveries:count,allPassed:code==='40001'&&allowed&&count===1,clusterDirectory:directory}
+      console.log(JSON.stringify(result,null,2));if(!result.allPassed)throw new Error('Repair isolation boundary failed');return
+    }
+    const a=await pool.connect(),b=await pool.connect();let firstId:string|null=null,secondId:string|null=null,error:string|null=null,blocked=false,settled=false
+    try{
+      for(const client of[a,b]){await client.query('begin');await client.query(`select set_config('request.jwt.claim.sub',$1,true)`,[uid]);await client.query("set local statement_timeout='5000ms'")}
+      firstId=(await a.query('select workspace_delivery_record($1,$2,$3,$4,$5) id',call(prepared[0]))).rows[0].id
+      const pending=b.query('select workspace_delivery_record($1,$2,$3,$4,$5) id',call(sameRef?{...prepared[1],qualification:prepared[0].qualification,approval:prepared[0].approval}:prepared[1])).then((r:{rows:{id:string}[]})=>{settled=true;return{id:r.rows[0].id,error:null}},(e:Error)=>{settled=true;return{id:null,error:e.message}})
+      for(let i=0;i<100;i++){const activity=await one('select wait_event_type,wait_event,state from pg_stat_activity where pid=$1',[b.processID]);if(activity.wait_event_type==='Lock'&&activity.wait_event==='advisory'){blocked=true;break}if(settled)break;await new Promise(resolve=>setTimeout(resolve,10))}
+      await a.query('commit');const outcome=await pending;secondId=outcome.id;error=outcome.error;if(secondId)await b.query('commit');else await b.query('rollback')
+    }finally{await a.query('rollback');await b.query('rollback');a.release();b.release()}
+    const count=Number((await one('select count(*)::int n from workspace_content_delivery where user_id=$1',[uid])).n)
+    const passed=(ownerFix&&differentPassages&&!sharedDifferent||blocked)&&Boolean(firstId)&&(differentPassages&&!sharedDifferent?Boolean(secondId)&&count===2:!secondId&&Boolean(error&&/actual passage already delivered|exposure shared_passage_seen/.test(error))&&count===1)
+    console.log(JSON.stringify({scope:ownerFix?'ACTUAL_ISOLATED_POSTGRES_OWNER_FIX':'ACTUAL_ISOLATED_POSTGRES_REPAIR_CANDIDATE',ownerSqlSha256:createHash('sha256').update(au).digest('hex'),repairSha256,ownerCommit:owner,remoteDbWrites:0,serverVersion:(await one('show server_version')).server_version,scenario:sameRef?'same artifact ref delivered through different demand lines':sharedDifferent?'same declared group with distinct text representations':differentPassages?'same learner and distinct passages remain legal after serialization':aliasGroups?'same actual text under different author group labels serializes and rejects second':'same learner and same passage group serializes and rejects second',secondWaitObservedBeforeCommit:blocked,firstAllowed:Boolean(firstId),secondAllowedAfterCommit:Boolean(secondId),secondError:error,committedDeliveries:count,allPassed:passed,clusterDirectory:directory},null,2));if(!passed)throw new Error('Repair race/control failed');return
   }
   const first=await pool.connect(),second=await pool.connect()
   let firstId:unknown,secondId:unknown,secondError:string|null=null,postCommitError:string|null=null

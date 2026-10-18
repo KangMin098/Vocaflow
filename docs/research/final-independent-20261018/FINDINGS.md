@@ -56,3 +56,9 @@ FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com
 - FI-013 · 핵심 P2 · OPEN ·4655e9be4 gs-transfer-1: 단수 irrigation ditch가 its의 선행사일 수 있는데 Gold는 반드시 복수 rivers를 가리킨다고 단정한다. 의도 정답은 추정 가능하나 유일한 문법 오류로 확정할 수 없다. [봉인 판독과 본문/Gold 대조](./EXPANSION_CONTENT_REVIEW.md). FI-012에는 같은 형식 문제의 실제 inf-guided-1/inf-teach-1 사례만 추가하며 새 중복 이슈를 만들지 않는다.
 
 - FI-014 · 핵심 P2 · OPEN ·3c15ba23c segment_choice: cb-ind-2의 정확한 주어 덩어리+「문장의 주어」, cb-guided-1의 정확한 본동사 덩어리+「문장의 본동사」를 다른 단일 구조 라벨과 다르다는 이유로 오답 처리한다. [60문항 봉인 판독·실제 채점·두 폭 화면](./EXPANSION2_CONTENT_REVIEW.md). 이유 제거를 요구하지 않으며 겹치는 정당한 대안의 수용을 요구한다.
+
+## 7e 통합 수정 SQL 독립 재검증
+
+[실제 수정 결과](./SQL_REPAIR_REVERIFY.md): 독립 overlay 없이7e SQL의 정상/차단17건을 확인했다. FI-002/003/004는 FIX_VERIFIED_IN_CANDIDATE(SQL)다. FI-007은 새 현재성 RPC의 본인/타인/철회 경계까지만 확인했고 앱 전체는 후속 검증한다. FI-006은 다른 ref의 동일 본문 경합이 개선됐으나 같은 ref/다른 수요 줄에서 기다린 후에도 납품2행이 남고, 같은 declared group/다른 key에서도2행이 남아 PARTIAL_FIX·OPEN이다. 기존 #298에 잔여 조합을 추가한다.
+
+실제 DB09:59Z READ ONLY는 authored 미설치/FQ·납품·결속 근거0이다. 총괄7e/56의 나머지 수정·최신 CI/브라우저·전체 환류는 검증 중이며 실제 적용·사람 승인·전체 ACCEPT를 선언하지 않는다. 별도 독립 SQL 후보는 소유권 충돌 없이 만든 격리 비교 자료이고 채택을 필수 게이트로 요구하지 않는다.

@@ -1,0 +1,128 @@
+{
+  "head": "7e638e63d28791dcc4f886431c0205743dc3310a",
+  "ownerSqlSha256": "7eac0045cbd2db32105830fe8ba808a661c9f22067b59ddaa1f54e8678eb8ca7",
+  "scope": "Actual fixed owner SQL in disposable PGlite; no independent repair overlay. Not production deployment, human approvals or full app E2E.",
+  "remoteDbWrites": 0,
+  "rows": [
+    {
+      "id": "FI002-role-qualification-not-currently-eligible",
+      "ok": true,
+      "detail": {
+        "qualifiedButNotEligible": true
+      }
+    },
+    {
+      "id": "FI002-role-requalification-not-deliverable",
+      "ok": true,
+      "detail": {
+        "message": "delivery: authored gold differs from qualification"
+      }
+    },
+    {
+      "id": "FI003-same-normalized-body-new-group-assessment-rejected",
+      "ok": true,
+      "detail": {
+        "message": "authored: same passage body already registered with a different role class (instruction/assessment)"
+      }
+    },
+    {
+      "id": "FI003-assessment-first-instruction-copy-rejected",
+      "ok": true,
+      "detail": {
+        "message": "authored: same passage body already registered with a different role class (instruction/assessment)"
+      }
+    },
+    {
+      "id": "FI002-different-task-qualification-not-currently-eligible",
+      "ok": true,
+      "detail": {
+        "qualifiedButNotEligible": true
+      }
+    },
+    {
+      "id": "FI002-different-task-not-deliverable",
+      "ok": true,
+      "detail": {
+        "message": "delivery: authored gold differs from qualification"
+      }
+    },
+    {
+      "id": "FI003-normalized-aliases-share-exposure",
+      "ok": true,
+      "detail": {
+        "exposure": "shared_passage_seen"
+      }
+    },
+    {
+      "id": "teaching-without-assessment-rights-or-human-Gold-remains-legal",
+      "ok": true,
+      "detail": {
+        "delivered": true
+      }
+    },
+    {
+      "id": "FI004-human-Gold-assess-is-not-rights-assess",
+      "ok": true,
+      "detail": {
+        "message": "delivery: human rights/gold decision missing or revoked"
+      }
+    },
+    {
+      "id": "full-rights-without-human-Gold-still-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: human rights/gold decision missing or revoked"
+      }
+    },
+    {
+      "id": "fresh-assessment-currently-valid",
+      "ok": true,
+      "detail": {
+        "delivered": true
+      }
+    },
+    {
+      "id": "FI007-own-current-read-true",
+      "ok": true,
+      "detail": {
+        "ownerResult": true
+      }
+    },
+    {
+      "id": "FI007-other-actor-current-read-null",
+      "ok": true,
+      "detail": {
+        "otherActorResult": null
+      }
+    },
+    {
+      "id": "FI003-same-text-new-group-after-delivery-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: G — exposure shared_passage_seen"
+      }
+    },
+    {
+      "id": "FI007-revocation-current-read-false",
+      "ok": true,
+      "detail": {
+        "historyPreserved": true
+      }
+    },
+    {
+      "id": "historical-identical-request-still-replays",
+      "ok": true,
+      "detail": {
+        "sameReceipt": true
+      }
+    },
+    {
+      "id": "request-body-mismatch-still-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: request_key reused with a different body"
+      }
+    }
+  ],
+  "allPassed": true
+}

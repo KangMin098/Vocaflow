@@ -90,3 +90,9 @@ CI run39114115991(HEAD e91377575)은 verify/build/e2e/e2e-gate-faultclosed 성�
 [새60문항 검토](./EXPANSION2_CONTENT_REVIEW.md): Gold 전 봉인, 선택 정답42/42·의미 관계6/6·구조 패턴12/12 수용, 전체 응답49/60. 새4형식 정상 컴포넌트/채점과 FI-014 이유 분류 반례를1280/1440에서 확인했다. 불일치11건 모두를 결함으로 세지 않고 분류 경계와 타당한 이유를 구분했다. 실제 CI39115796299는 unused DEMAND_LABEL lint로 verify/build/e2e 실패이며 수정 재검증이 필요하다.
 
 [30 TASK 대조](./TASK_EXPANSION_COVERAGE.md)는17 TASK/105문항으로 갱신했다. 초안 등록을 적격 공급이나 전체 지원 완료로 세지 않는다. 세트 없는4 TASK의 전체 미구현을 단정하거나 산출 TASK별 새 세트를 필수 게이트로 만들지 않는다. 실제 DB/사람 승인/전이/PLAN 의미 환류와 FI-002~008/010~014 등 미해결 범위가 남아 전체 REWORK다.
+
+## 7e 통합 수정 SQL 독립 재검증
+
+[실제 수정 결과](./SQL_REPAIR_REVERIFY.md): 독립 overlay 없이7e SQL의 정상/차단17건을 확인했다. FI-002/003/004는 FIX_VERIFIED_IN_CANDIDATE(SQL)다. FI-007은 새 현재성 RPC의 본인/타인/철회 경계까지만 확인했고 앱 전체는 후속 검증한다. FI-006은 다른 ref의 동일 본문 경합이 개선됐으나 같은 ref/다른 수요 줄에서 기다린 후에도 납품2행이 남고, 같은 declared group/다른 key에서도2행이 남아 PARTIAL_FIX·OPEN이다. 기존 #298에 잔여 조합을 추가한다.
+
+실제 DB09:59Z READ ONLY는 authored 미설치/FQ·납품·결속 근거0이다. 총괄7e/56의 나머지 수정·최신 CI/브라우저·전체 환류는 검증 중이며 실제 적용·사람 승인·전체 ACCEPT를 선언하지 않는다. 별도 독립 SQL 후보는 소유권 충돌 없이 만든 격리 비교 자료이고 채택을 필수 게이트로 요구하지 않는다.

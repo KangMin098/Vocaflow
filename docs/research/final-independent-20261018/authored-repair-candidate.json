@@ -1,0 +1,152 @@
+{
+  "head": "3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f",
+  "baseSqlSha256": "9b205b4bed725c5bfdd164757e9656587248fbd9c5617858ddf7160adcec00aa",
+  "repairSha256": "32cb9210876fb3d60ee749ba1f0a1227e3211c0e353c556489d0d108a545ff53",
+  "scope": "Disposable PGlite; review overlay only. Not production adoption, real human decisions or actual-dev evidence.",
+  "remoteDbWrites": 0,
+  "rows": [
+    {
+      "id": "legacy-mixed-role-component-quarantined",
+      "ok": true,
+      "detail": {
+        "historyPreserved": true
+      }
+    },
+    {
+      "id": "legacy-invalid-identity-preserves-ledger",
+      "ok": true,
+      "detail": {
+        "n": 1
+      }
+    },
+    {
+      "id": "same-normalized-text-new-group-mixed-role-rejected",
+      "ok": true,
+      "detail": {
+        "message": "authored: actual passage mixes instruction and assessment"
+      }
+    },
+    {
+      "id": "assessment-first-instruction-copy-rejected",
+      "ok": true,
+      "detail": {
+        "message": "authored: actual passage mixes instruction and assessment"
+      }
+    },
+    {
+      "id": "same-class-aliases-share-exposure",
+      "ok": true,
+      "detail": {
+        "exposure": "shared_passage_seen"
+      }
+    },
+    {
+      "id": "instruction-to-assessment-qualification-rejected",
+      "ok": true,
+      "detail": {
+        "message": "qualification: authored TASK/role/annotation identity mismatch"
+      }
+    },
+    {
+      "id": "different-task-qualification-rejected",
+      "ok": true,
+      "detail": {
+        "message": "qualification: authored TASK/role/annotation identity mismatch"
+      }
+    },
+    {
+      "id": "teaching-rights-without-assessment-or-Gold-remains-legal",
+      "ok": true,
+      "detail": {
+        "delivered": true
+      }
+    },
+    {
+      "id": "assessment-rights-missing-store-assess-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: human rights/gold decision missing or revoked"
+      }
+    },
+    {
+      "id": "Gold-assess-does-not-replace-rights-assess",
+      "ok": true,
+      "detail": {
+        "message": "delivery: human rights/gold decision missing or revoked"
+      }
+    },
+    {
+      "id": "full-rights-without-human-Gold-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: human rights/gold decision missing or revoked"
+      }
+    },
+    {
+      "id": "legal-fresh-assessment-valid",
+      "ok": true,
+      "detail": {
+        "delivered": true
+      }
+    },
+    {
+      "id": "same-text-new-group-after-delivery-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: G — actual passage already delivered"
+      }
+    },
+    {
+      "id": "same-ref-other-demand-line-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: G — actual passage already delivered"
+      }
+    },
+    {
+      "id": "revocation-invalidates-current-validity",
+      "ok": true,
+      "detail": {
+        "historyPreserved": true
+      }
+    },
+    {
+      "id": "identical-historical-request-replays-after-revocation",
+      "ok": true,
+      "detail": {
+        "sameReceipt": true
+      }
+    },
+    {
+      "id": "request-key-body-mismatch-still-rejected",
+      "ok": true,
+      "detail": {
+        "message": "delivery: request_key reused with a different body"
+      }
+    },
+    {
+      "id": "legacy-alias-prior-teaching-is-not-first-independent-evidence",
+      "ok": true,
+      "detail": {
+        "first_exposure": false,
+        "evidence": false,
+        "non_evidence_reason": "delivery_invalid"
+      }
+    },
+    {
+      "id": "new-helper-execution-not-public",
+      "ok": true,
+      "detail": [
+        {
+          "name": "authored_passage_fingerprint",
+          "publicAllowed": false
+        },
+        {
+          "name": "authored_qualification_identity_guard",
+          "publicAllowed": false
+        }
+      ]
+    }
+  ],
+  "allPassed": true
+}
