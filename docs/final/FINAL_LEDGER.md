@@ -71,3 +71,19 @@
 
 PRODUCT_CODE_COMPLETE ✗(v.core_meaning · 기출분석 ②⑤ 브라우저 · PR #250 남음) · ISOLATED_E2E_VERIFIED △(SQL+서버 ✓ · 브라우저 창작 10종 ✓ · 통합 관찰 · ②⑤ 브라우저 ✗) · DEV_DB_E2E_VERIFIED ✗(A 대기) ·
 CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE ✗ · EDUCATIONAL_EFFECT_VALIDATED ✗ · FINAL_COMPLETE ✗.
+
+## 7. REWORK 체크포인트 (2026-10-18 밤 · HEAD `01c5e4bc0` · CI 39134594337 전부 success · e2e-shared-dev SKIPPED = 실DB 아님)
+
+| 결함 | 수정 HEAD | 증거 | 상태 |
+|---|---|---|---|
+| FI-006 #298 | `a976d399a` | 실제 PG17 두 연결: 원본 SQL 4/6 → 수정 6/6 · 정상 대조군 2행 | 수정 · Codex 재검증 대기 |
+| FI-010 #302 | `6e13095f6` | 기록 실패 시 본문 0 · open-guard 3 · 브라우저 기록 실패 재현은 미실행 | 수정 · 재검증 대기 |
+| FI-014 #307 | `a47755f94` | 문항별 대체 이유 4 · 형식 시험 5 · s-chunk-boundary revision 변경(승인 승계 없음) | 수정 · 사람 Gold 미승인 |
+| FI-015 #308 | PR250 `bcc3b32a7` | 단일 CAS + 409 + 클라이언트 재전송 · route-race 5 · row-write-budget 141 유지 | 수정 · 재검증 대기 |
+| FI-016 #309 | PR250 `4b210bbb8` | 비공개 인계 · 회귀 1 | 수정 · 재검증 대기 |
+| FI-017 #310 | `40f058422` | PR250 실제 결합 · 중복 import 해소 · 결합 CI success | 수정 · 재검증 대기 |
+| FI-018 #311 | PR #312 `cefc3e502` | safe-merge 20/20 · CI success · 비공개 인계 | 수정 · #312 먼저 병합 필요 |
+
+- 승인 SQL 후보 SHA `dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229` · 개발 DB 미적용 · 사람 Gold/권리 0 · 적격 공급 0.
+- 결정 대기: PR250 마이그레이션 `20261014091841` 첫 줄 주석을 적용 이력과 맞추는 변경(해시 bb4cc88d 일치 확인 · 자동 모드가 차단 → 사용자 결정).
+- 병합 순서 제안: #312 → #250 → #303(#303 은 #250 을 포함). 모두 Codex 수용 전 병합 안 함.
