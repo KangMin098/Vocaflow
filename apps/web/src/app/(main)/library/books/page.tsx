@@ -382,8 +382,9 @@ export default async function LibraryBooksPage({
   const inProgressCount = books.filter((b) => b.enrollment_state === 'in_progress').length;
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
+    <Screen width="shelf" background="bg2" padX="md">
+      {/* data-shelf-wide — 서가 머리(LibraryTabs · 배너, library/layout)가 이 폭에 맞춰 정렬한다 */}
+      <div data-shelf-wide className="flex flex-col gap-5 py-6 md:py-8">
         {/* DD-68 — 참조 도서관 머리: 도서 범주 색 진한 판 · 오른쪽 tile-books · 아랫변 탭(둘러보기 / 전체 보기 = ?show=all). 수치는 방금 받은 카탈로그에서 센다. */}
         <AreaHero
           kicker="서가 · 영어 원서"

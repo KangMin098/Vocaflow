@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): S3 ① 서가 — `/library/books` 「전체 탐색」을 왼쪽 조건 레일(검색 알약 + 접히는 묶음, 288px · 고정) + 결과 칸으로(참조 tines.com/library 실측), 바깥 틀 `--content-shelf-max`(뷰포트 − 80) · `Screen width="shelf"` · 격자 열 수를 결과 칸 폭 기준으로. 측정·동작 도구 `layout-measure` · `shelf-check`(7/7 ×2폭) · `shot-section` · `shot-crop`, 팝오버 참조 실측(드롭다운 10px · 검색 패널 16px)과 역할 판정. 범위 밖 차이 원인별 재분류(관리자 = 조회 시각 · CSAT 1장 = 미확인 일시 누락).
 - feat(design): S2 — 학습자 헤더 전역 검색(공개와 같은 `SearchButton`, 세션 화면 제외) · 팝오버 공통 껍데기 `POPOVER` 6종 · `useEscapeKey`(곁 패널·추천 카드 Esc) · 닫힌 인사이트 패널 `inert`(Tab 누수 수정) · 상호작용 검증 `learner-overlay-check.mjs` 7/7 · `shot-diff.mjs` 범위 밖 무변화 확인.
 - feat(design): S0·S1 — 스킨 해제 경로 제거(`data-skin="tines"` 고정 · 회귀 `skin-always-on.test.ts`) · 시각 QA 기본 PC 1280/1440(모바일 `DESIGN_QA_MOBILE=1`) · `capture-learner.mjs` 테마·익명·SHA 매니페스트 · `tines-ref-recheck.mjs`(참조 22/22 재측정) · 학습자 기준선 80/80 캡처 결과와 Codex 지시문 대조표를 [learner-tines-audit](design/learner-tines-audit.md)·[plan](design/learner-tines-plan.md)에.
 - docs(design): DD-83 — DESIGN.md 를 스타일 정본으로(PC 학습자 Tines · /csat·/admin 3B · PC 웹만, 2026-10-03 결정 main 반영) · 동결 배너 8곳 「과거 기록」화 · 지침 충돌 21건 표 · PC 학습자 전수 목록(90 + CSAT 11) [learner-tines-audit](design/learner-tines-audit.md) · 실행 계획 [learner-tines-plan](design/learner-tines-plan.md). 화면 변경 없음.

@@ -7,6 +7,7 @@
 //  · wide              — `--ios-content-wide-max` (1024px) · Dashboard · Library Browse
 //  · compact           — 580px · 단일 작업 폼 (Diagnostic 문항 등)
 //  · full              — 폭 제한 없음 · Admin 표·캘린더 등 전체 폭 필요 화면
+//  · shelf             — `--content-shelf-max` (1440, 안쪽 1360) · 서가 탐색(참조 tines.com/library 실측)
 //
 // 안전 영역: safe-area-inset-left/right 자동 패딩.
 
@@ -16,7 +17,7 @@ import type { ReactNode } from 'react'
 export interface ScreenProps {
   children: ReactNode
   /** 콘텐츠 폭 — content (820) / wide (1024) / compact (580) / full */
-  width?: 'content' | 'wide' | 'compact' | 'full'
+  width?: 'content' | 'wide' | 'compact' | 'full' | 'shelf'
   /** 캔버스 배경 — bg (흰색) / bg2 (그레이) / transparent (부모 결정) */
   background?: 'bg' | 'bg2' | 'transparent'
   /** 가로 패딩 — sm 12 / md 16 / lg 20 / none */
@@ -31,6 +32,8 @@ const WIDTH_CLASS: Record<NonNullable<ScreenProps['width']>, string> = {
   content: 'max-w-[var(--ios-content-max)]',
   wide: 'max-w-[var(--ios-content-wide-max)]',
   full: 'max-w-none',
+  // 서가 탐색 — 참조 tines.com/library 와 같은 바깥 틀(뷰포트 − 좌우 40px). 넓은 화면의 가로 여백까지 이 값이 맡는다.
+  shelf: 'max-w-[var(--content-shelf-max)] lg:px-10',
 }
 
 const BG_CLASS: Record<NonNullable<ScreenProps['background']>, string> = {

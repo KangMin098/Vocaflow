@@ -93,6 +93,47 @@ function measure() {
   }
 }
 
+/**
+ * 화면 위쪽(top < maxTop)의 단추를 눌러 **새로 나타난 패널**을 잰다.
+ * 처음엔 「header 안 넓은 요소」를 찾았는데 패널이 header 밖에 그려져 두 번 「미확보」였다(2026-10-18).
+ * 그래서 누르기 전후의 보이는 면(배경 또는 테두리가 있는 요소)을 비교해 새로 생긴 것만 고른다.
+ */
+async function clickAndMeasure(page, name, maxTop, shot) {
+  const visibleSurfaces = () => [...document.querySelectorAll('body *')].filter((e) => {
+    const r = e.getBoundingClientRect(); const cs = getComputedStyle(e)
+    return r.width > 120 && r.height > 60 && r.bottom > 0 && r.top < innerHeight && cs.visibility !== 'hidden' && cs.opacity !== '0'
+      && (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.borderTopWidth !== '0px')
+  }).map((e) => { e.dataset.vfSeen = e.dataset.vfSeen ?? '1'; return e }).length
+  await page.evaluate(visibleSurfaces)
+  const target = await page.evaluate(({ name, maxTop }) => {
+    const el = [...document.querySelectorAll('a,button')].find((e) =>
+      (e.textContent.trim() === name || e.getAttribute('aria-label') === name) && e.getBoundingClientRect().top < maxTop && e.getBoundingClientRect().width > 0)
+    if (!el) return null
+    const r = el.getBoundingClientRect()
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2, expanded: el.getAttribute('aria-expanded'), popup: el.getAttribute('aria-haspopup') }
+  }, { name, maxTop })
+  if (!target) return 'not-observed: 단추 없음'
+  await page.mouse.click(target.x, target.y)
+  await page.waitForTimeout(900)
+  const panels = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => {
+    if (e.dataset.vfSeen) return false
+    const r = e.getBoundingClientRect(); const cs = getComputedStyle(e)
+    return r.width > 120 && r.height > 60 && r.bottom > 0 && r.top < innerHeight && cs.visibility !== 'hidden' && cs.opacity !== '0'
+      && (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.borderTopWidth !== '0px')
+  }).sort((a, b) => b.getBoundingClientRect().width * b.getBoundingClientRect().height - a.getBoundingClientRect().width * a.getBoundingClientRect().height)
+    .slice(0, 3).map((e) => {
+      const r = e.getBoundingClientRect(); const cs = getComputedStyle(e)
+      return { role: e.getAttribute('role'), modal: e.getAttribute('aria-modal'), x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height),
+        bg: cs.backgroundColor, radius: cs.borderRadius, border: `${cs.borderTopWidth} ${cs.borderTopStyle} ${cs.borderTopColor}`, shadow: cs.boxShadow.slice(0, 100), padding: cs.padding }
+    }))
+  await page.screenshot({ path: path.join(outDir, `${shot}@${page.viewportSize().width}.png`) })
+  await page.keyboard.press('Escape')
+  await page.waitForTimeout(400)
+  const escCloses = await page.evaluate(() => ![...document.querySelectorAll('body *')].some((e) => !e.dataset.vfSeen && e.getBoundingClientRect().width > 120 && e.getBoundingClientRect().height > 60 && getComputedStyle(e).visibility !== 'hidden' && getComputedStyle(e).opacity !== '0' && getComputedStyle(e).backgroundColor !== 'rgba(0, 0, 0, 0)'))
+  await page.evaluate(() => document.querySelectorAll('[data-vf-seen]').forEach((e) => delete e.dataset.vfSeen))
+  return { trigger: target, panels, escCloses }
+}
+
 async function openStates(page, id) {
   const states = {}
   if (id === 'home') {
@@ -100,43 +141,11 @@ async function openStates(page, id) {
       [...document.querySelectorAll('header a, header button')]
         .map((e) => (e.getAttribute('aria-label') || e.textContent || '').trim().slice(0, 30))
         .filter(Boolean).slice(0, 20))
-    // 메가메뉴: 「Product」 항목에 호버(첫 메가메뉴)
-    const nav = page.locator('header').getByRole('button', { name: /^Product/ }).or(page.locator('header').getByRole('link', { name: /^Product$/ })).first()
-    try {
-      await nav.hover({ timeout: 4000 })
-      await page.waitForTimeout(400)
-      // 호버로 안 열리면 누른다(메뉴가 클릭으로 여는 구현일 수 있다)
-      if ((await nav.getAttribute('aria-expanded').catch(() => null)) === 'false') await nav.click({ timeout: 3000 })
-      await page.waitForTimeout(700)
-      states.megaMenu = await page.evaluate(() => {
-        const cand = [...document.querySelectorAll('header *')].filter((e) => {
-          const r = e.getBoundingClientRect()
-          return r.width > 600 && r.height > 150 && r.top >= 40 && getComputedStyle(e).visibility !== 'hidden'
-        }).sort((a, b) => b.getBoundingClientRect().width - a.getBoundingClientRect().width)[0]
-        if (!cand) return 'not-observed'
-        const r = cand.getBoundingClientRect()
-        return { w: Math.round(r.width), h: Math.round(r.height), top: Math.round(r.top), bg: getComputedStyle(cand).backgroundColor, radius: getComputedStyle(cand).borderRadius }
-      })
-      await page.screenshot({ path: path.join(outDir, `${id}-megamenu@${page.viewportSize().width}.png`) })
-    } catch { states.megaMenu = 'not-observed' }
-    await page.mouse.move(5, 600)
-    // 검색: 접근 이름에 search 가 든 버튼
-    try {
-      const search = page.getByRole('button', { name: /open search/i }).or(page.getByRole('link', { name: /open search/i })).first()
-      await search.click({ timeout: 4000 })
-      await page.waitForTimeout(800)
-      states.search = await page.evaluate(() => {
-        const d = document.querySelector('[role="dialog"]') ?? document.querySelector('input[type="search"]')?.closest('div')
-        if (!d) return 'not-observed'
-        const r = d.getBoundingClientRect()
-        return { w: Math.round(r.width), h: Math.round(r.height), top: Math.round(r.top), bg: getComputedStyle(d).backgroundColor, modal: d.getAttribute('aria-modal') }
-      })
-      await page.screenshot({ path: path.join(outDir, `${id}-search@${page.viewportSize().width}.png`) })
-      await page.keyboard.press('Escape')
-      await page.waitForTimeout(300)
-      states.searchEscCloses = await page.evaluate(() => !document.querySelector('[role="dialog"][aria-modal="true"]'))
-    } catch { states.search = 'not-observed' }
+    states.megaMenu = await clickAndMeasure(page, 'Product', 80, `${id}-megamenu`)
+    states.search = await clickAndMeasure(page, 'Open search', 80, `${id}-search`)
   }
+  // 앵커형 드롭다운(우리 팝오버에 가장 가까운 역할) — Library 의 하위 내비 「Overview ▾」
+  if (id === 'library') states.subnavDropdown = await clickAndMeasure(page, 'Overview', 130, `${id}-dropdown`)
   // FAQ 펼침(details)
   const det = page.locator('details summary').first()
   if (await det.count()) {

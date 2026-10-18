@@ -11,7 +11,8 @@ import { LibraryTabs } from '@/components/library/LibraryTabs'
 export default function LibraryLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
+      {/* 서가 탐색 폭을 쓰는 화면(data-shelf-wide · 현재 /library/books)이면 머리도 같은 틀로 — 다른 서가 탭은 그대로 */}
+      <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5 [body:has([data-shelf-wide])_&]:max-w-[var(--content-shelf-max)] lg:[body:has([data-shelf-wide])_&]:px-10">
         <LibraryTabs />
         <div className="mt-4">
           <ModuleBanner slot="library" />

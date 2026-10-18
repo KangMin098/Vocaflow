@@ -8,8 +8,8 @@
 
 'use client'
 
-import { useState } from 'react'
-import { BookImage, BookOpen, Search, SlidersHorizontal, Volume2, X } from 'lucide-react'
+import { createContext, useContext, useState } from 'react'
+import { BookImage, BookOpen, ChevronDown, Search, SlidersHorizontal, Volume2, X } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -115,7 +115,15 @@ interface Props {
   /** 진단 V레벨 — 레벨 밴드에 "내 레벨" 표시 */
   userVLevel: number
   onReset: () => void
+  /**
+   * 배치 — panel: 결과 위의 펼친 상자(기존) · rail: 결과 왼쪽 세로 레일.
+   * rail 은 참조 tines.com/library 의 왼쪽 「검색 + 접히는 분류 묶음」(288px) 과 같은 역할이라
+   * 같은 골격을 쓴다(2026-10-18 layout-measure · learner-tines-audit §S3 서가). 상태·패싯은 같다.
+   */
+  variant?: 'panel' | 'rail'
 }
+
+const VariantCtx = createContext<'panel' | 'rail'>('panel')
 
 function Chip({
   active,
@@ -142,8 +150,26 @@ function Chip({
   )
 }
 
-/** 라벨 구획 — 좌측 고정폭 라벨 + 칩 묶음. 각 조건을 또렷한 compartment 로 분리. */
-function Section({ label, children }: { label: string; children: React.ReactNode }) {
+/**
+ * 라벨 구획 — panel: 좌측 고정폭 라벨 + 칩 묶음 · rail: 접히는 묶음(details).
+ * rail 에서 고른 값이 있는 묶음은 열린 채로 둔다 — 접힌 묶음 안의 선택은 눈에 안 보여 「왜 결과가 적지?」가 된다.
+ */
+function Section({ label, active = false, defaultOpen = false, children }: { label: string; active?: boolean; defaultOpen?: boolean; children: React.ReactNode }) {
+  const variant = useContext(VariantCtx)
+  if (variant === 'rail') {
+    return (
+      <details open={active || defaultOpen} className="group border-b border-[var(--bd)] last:border-b-0">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-[var(--r-md)] px-2 font-display text-[14px] font-[500] text-[var(--t1)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] [&::-webkit-details-marker]:hidden">
+          <span className="inline-flex items-center gap-2">
+            {label}
+            {active && <span aria-label="선택됨" className="h-1.5 w-1.5 rounded-full bg-[var(--p)]" />}
+          </span>
+          <ChevronDown size={14} aria-hidden className="shrink-0 text-[var(--t2)] transition-transform duration-[var(--dur-quick)] group-open:rotate-180" />
+        </summary>
+        <div className="flex flex-wrap items-center gap-1.5 px-1 pb-3 pt-1">{children}</div>
+      </details>
+    )
+  }
   return (
     <div className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-start sm:gap-3">
       <span className="shrink-0 pt-1 font-display text-[11px] font-[700] text-[var(--t2)] sm:w-[56px]">
@@ -165,6 +191,7 @@ export function BookFilterBar({
   diagnosed,
   userVLevel,
   onReset,
+  variant = 'panel',
 }: Props) {
   const [allThemes, setAllThemes] = useState(false)
 
@@ -191,11 +218,19 @@ export function BookFilterBar({
     return head
   })()
 
+  const rail = variant === 'rail'
   return (
-    <div className="flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
-      {/* 상단 — 검색 + 정렬 + 초기화 + 결과수 */}
-      <div className="flex flex-wrap items-center gap-3 p-4">
-        <div className="relative min-w-[180px] flex-1">
+    <VariantCtx.Provider value={variant}>
+    <div
+      className={
+        rail
+          ? 'flex flex-col gap-3'
+          : 'flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60'
+      }
+    >
+      {/* 상단 — 검색 + 정렬 + 초기화 + 결과수. rail 은 참조처럼 검색이 맨 위 한 줄(알약 41px)을 다 쓴다. */}
+      <div className={rail ? 'flex flex-wrap items-center gap-2' : 'flex flex-wrap items-center gap-3 p-4'}>
+        <div className={rail ? 'relative w-full' : 'relative min-w-[180px] flex-1'}>
           <Search
             size={14}
             aria-hidden
@@ -207,7 +242,7 @@ export function BookFilterBar({
             onChange={(e) => onChange({ search: e.target.value })}
             placeholder="제목·저자 검색"
             aria-label="도서 검색"
-            className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className={`min-h-11 w-full ${rail ? 'rounded-[var(--r-full)] bg-[var(--tint-lavender)]' : 'rounded-[var(--r-md)] bg-[var(--bg)]'} border border-[var(--bd)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20`}
           />
         </div>
 
@@ -246,9 +281,10 @@ export function BookFilterBar({
         </span>
       </div>
 
+      {rail && <span className="sr-only">조건</span>}
       {/* 내 학습 상태 — 로그인 + 등록 도서 존재 시 (최상단 구획) */}
       {facets.hasEnrollments && (
-        <Section label="내 학습">
+        <Section label="내 학습" active={filters.enroll !== null} defaultOpen>
           {ENROLL_OPTIONS.map((o) => (
             <Chip
               key={o.key}
@@ -263,7 +299,7 @@ export function BookFilterBar({
 
       {/* 나에게 — i+1 적합도 (진단 사용자) */}
       {diagnosed && (
-        <Section label="나에게">
+        <Section label="나에게" active={filters.fit !== null} defaultOpen>
           {FIT_OPTIONS.map((o) => (
             <Chip
               key={o.key}
@@ -278,7 +314,7 @@ export function BookFilterBar({
 
       {/* 레벨 — V 밴드 */}
       {facets.vBands.length > 0 && (
-        <Section label="레벨">
+        <Section label="레벨" active={filters.vBand !== null} defaultOpen>
           {V_BANDS.filter((b) => facets.vBands.includes(b.key)).map((b) => (
             <Chip
               key={b.key}
@@ -298,7 +334,7 @@ export function BookFilterBar({
 
       {/* 장르 */}
       {facets.genres.length > 0 && (
-        <Section label="장르">
+        <Section label="장르" active={filters.genre !== null}>
           {GENRE_BUCKETS.filter((g) => facets.genres.includes(g.key)).map((g) => (
             <Chip
               key={g.key}
@@ -313,7 +349,7 @@ export function BookFilterBar({
 
       {/* 주제 — 이전 숨김 disclosure 에서 상시 노출로 승격 */}
       {facets.themes.length > 0 && (
-        <Section label="주제">
+        <Section label="주제" active={filters.theme !== null}>
           {shownThemes.map((t) => (
             <Chip
               key={t}
@@ -339,7 +375,7 @@ export function BookFilterBar({
 
       {/* 연령 */}
       {facets.ages.length > 0 && (
-        <Section label="연령">
+        <Section label="연령" active={filters.age !== null}>
           {AGE_BANDS.filter((a) => facets.ages.includes(a.key)).map((a) => (
             <Chip
               key={a.key}
@@ -354,7 +390,7 @@ export function BookFilterBar({
 
       {/* 길이 — facet-adaptive (실재 버킷만) */}
       {facets.lengths.length > 0 && (
-        <Section label="길이">
+        <Section label="길이" active={filters.length !== null}>
           {LENGTH_BUCKETS.filter((l) => facets.lengths.includes(l.key)).map((l) => (
             <Chip
               key={l.key}
@@ -369,7 +405,7 @@ export function BookFilterBar({
 
       {/* 포맷 — 같은 책의 다른 표현형(만화/음성). 장르 축과 직교(docs/CCP_LIBRARY_INTEGRATION.md D3). */}
       {(facets.hasComic || facets.hasAudio) && (
-        <Section label="포맷">
+        <Section label="포맷" active={filters.comicOnly || filters.audioOnly || filters.readableChaptersOnly}>
           {facets.hasComic && (
             <Chip
               active={filters.comicOnly}
@@ -398,5 +434,6 @@ export function BookFilterBar({
         </Section>
       )}
     </div>
+    </VariantCtx.Provider>
   )
 }
