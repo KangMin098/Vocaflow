@@ -524,6 +524,7 @@ function RevealBody({ format, reveal: rv, graded: g, probe, choices }: { format:
       return (
         <>
           <p><b>정답 덩어리</b> — {SEGMENT_REASON_LABEL[rv.reason as string] ?? String(rv.reason)}. {String(rv.why ?? '')}</p>
+          {((rv.reasonAlternatives as { reason: string; why: string }[] | undefined) ?? []).map((a) => <p key={a.reason}><b>함께 맞는 이유</b> — {SEGMENT_REASON_LABEL[a.reason] ?? a.reason}. {a.why}</p>)}
           {g && <ul className={styles.note}><li>덩어리: {g.choiceOk ? '맞음' : '다름'}</li><li>이유: {g.reasonOk ? '맞음' : '다름 — 위치만 맞힌 것과 구별하려고 이유까지 봐요'}</li></ul>}
           <ul className={styles.note}>{((rv.segments as { reason: string; why: string }[]) ?? []).map((x, i) => <li key={i}>덩어리 {i + 1}: {SEGMENT_REASON_LABEL[x.reason] ?? x.reason} — {x.why}</li>)}</ul>
         </>

@@ -1,5 +1,8 @@
 // apps/web/src/lib/knowledge/__tests__/authored-formats.test.ts
 // FINAL §5 — 과제 형식별 채점 계약. 형식마다 「무엇이 맞아야 정답인가」와 우연 정답 · 형식 밖 응답 처리를 본다.
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import { FORMAT_SPECS } from '../authored/formats'
@@ -182,5 +185,35 @@ describe('FI-012(#305) — 동등한 대체 결정 근거', () => {
     expect(FORMAT_SPECS.choice_evidence.grade(body, multi, { choice: 1, evidence: [1] }, 'v1')?.grade.isCorrect).toBe(false)
     expect(FORMAT_SPECS.choice_evidence.grade(body, multi, { choice: 1, evidence: [1, 2] }, 'v1')?.grade.isCorrect).toBe(true)
     expect(FORMAT_SPECS.choice_evidence.validate(body, { ...gold, evidenceAlt: [], decisiveAlt: [[2]] }).join()).toMatch(/대체 결정 근거/)
+  })
+})
+
+// FI-014(#307) — segment_choice 문항별 대체 이유(reasonAlternatives): Gold 에 명시된 것만 함께 인정 · 덩어리는 여전히 정확해야 한다
+describe('segment_choice — 문항별 대체 이유', () => {
+  const SET = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../authored/s-chunk-boundary.v1.json'), 'utf8')) as { items: { id: string; body: Record<string, unknown>; gold: Record<string, unknown> }[] }
+  const item = (id: string) => SET.items.find((i) => i.id === id)!
+  const grade = (id: string, r: unknown) => FORMAT_SPECS.segment_choice.grade(item(id).body, item(id).gold, r, 'v1')
+  it('cb-ind-2: 정답 덩어리 + 문장의 주어(main_subject) = 정답 · Gold 이유(phrase_boundary)도 정답', () => {
+    expect(grade('cb-ind-2', { choice: 0, reason: 'main_subject' })?.grade.isCorrect).toBe(true)
+    expect(grade('cb-ind-2', { choice: 0, reason: 'phrase_boundary' })?.grade.isCorrect).toBe(true)
+  })
+  it('cb-guided-1: 정답 덩어리 + 문장의 본동사(main_verb) = 정답', () => {
+    expect(grade('cb-guided-1', { choice: 2, reason: 'main_verb' })?.grade.isCorrect).toBe(true)
+  })
+  it('대체 이유가 있어도 틀린 덩어리 · 무관한 이유는 오답', () => {
+    expect(grade('cb-ind-2', { choice: 1, reason: 'main_subject' })?.grade.isCorrect).toBe(false)
+    expect(grade('cb-ind-2', { choice: 0, reason: 'inverted_order' })?.grade).toMatchObject({ choiceOk: true, reasonOk: false, isCorrect: false })
+  })
+  it('잘못된 대체 이유 정의는 검증 · 채점에서 거절(빈 배열 · Gold 이유 중복 · 짧은 설명 · 모르는 이유)', () => {
+    const it0 = item('cb-ind-2')
+    for (const bad of [[], [{ reason: 'phrase_boundary', why: '같은 이유를 대체로 둔 경우' }], [{ reason: 'main_subject', why: '짧음' }], [{ reason: 'nope', why: '모르는 이유 범주라서 거절' }]]) {
+      const g = { ...it0.gold, reasonAlternatives: bad }
+      expect(FORMAT_SPECS.segment_choice.validate(it0.body, g)).toContain('문항별 대체 이유와 설명')
+      expect(FORMAT_SPECS.segment_choice.grade(it0.body, g, { choice: 0, reason: 'main_subject' }, 'v1')).toBeNull()
+    }
+  })
+  it('대체 이유는 채점 뒤 공개(reveal)에만 — 풀기 전 학습자 본문에는 없다', () => {
+    expect(FORMAT_SPECS.segment_choice.reveal(item('cb-ind-2').gold)).toHaveProperty('reasonAlternatives')
+    expect(JSON.stringify(item('cb-ind-2').body)).not.toContain('reasonAlternatives')
   })
 })

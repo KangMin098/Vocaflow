@@ -340,6 +340,21 @@ const demandChoice: FormatSpec = {
 // ── segment_choice (s.sentence_core · s.attachment · s.chunk_boundary · s.structural_relation) ──
 // body.focus.sentence 문장을 body.segments(그 문장의 연속 부분 문자열, 순서대로)로 나눠 보이고 body.ask 를 묻는다.
 // 정답 = 해당 덩어리 ✓ + 이유 ✓(위치만 맞힌 우연 정답 구별). 덩어리는 문장에 실제로 있는 글자여야 한다.
+/** Item-specific draft alternatives remain inside the revision-bound Gold. */
+function segmentAlternatives(g: Record<string, unknown>): { reason: SegmentReason; why: string }[] | null {
+  const raw = g.reasonAlternatives
+  if (raw === undefined) return []
+  if (!Array.isArray(raw) || raw.length === 0 || raw.length >= SEGMENT_REASONS.length) return null
+  const reasons = new Set<string>()
+  for (const entry of raw) {
+    if (!entry || typeof entry !== 'object') return null
+    const x = entry as { reason?: unknown; why?: unknown }
+    if (!SEGMENT_REASONS.includes(x.reason as SegmentReason) || x.reason === g.reason || typeof x.why !== 'string' || x.why.trim().length < 8 || reasons.has(x.reason as string)) return null
+    reasons.add(x.reason as string)
+  }
+  return raw as { reason: SegmentReason; why: string }[]
+}
+
 const segmentChoice: FormatSpec = {
   id: 'segment_choice',
   validate(body, g) {
@@ -360,6 +375,7 @@ const segmentChoice: FormatSpec = {
     const gg = g as { answer: number; reason: SegmentReason; why: string; segments: { reason: SegmentReason; why: string }[] }
     if (!isInt(gg.answer, 0, segs.length)) errs.push('정답 덩어리')
     if (!SEGMENT_REASONS.includes(gg.reason)) errs.push('이유 범주')
+    if (segmentAlternatives(g) === null) errs.push('문항별 대체 이유와 설명')
     if (typeof gg.why !== 'string' || gg.why.length < 8) errs.push('정답 설명')
     if (!Array.isArray(gg.segments) || gg.segments.length !== segs.length || !gg.segments.every((x) => SEGMENT_REASONS.includes(x.reason) && typeof x.why === 'string' && x.why.trim().length >= 2)) errs.push('덩어리별 판단 근거')
     return errs
@@ -370,10 +386,12 @@ const segmentChoice: FormatSpec = {
     if (!isInt(r.choice, 0, segs.length) || !SEGMENT_REASONS.includes(r.reason as SegmentReason)) return null
     const gg = g as unknown as { answer: number; reason: SegmentReason }
     const choiceOk = r.choice === gg.answer
-    const reasonOk = r.reason === gg.reason
+    const alternatives = segmentAlternatives(g)
+    if (alternatives === null) return null
+    const reasonOk = r.reason === gg.reason || alternatives.some((a) => a.reason === r.reason)
     return { response: { choice: r.choice, reason: r.reason }, grade: { choiceOk, reasonOk, isCorrect: choiceOk && reasonOk } }
   },
-  reveal: (g) => ({ answer: g.answer, reason: g.reason, why: g.why, segments: g.segments }),
+  reveal: (g) => ({ answer: g.answer, reason: g.reason, reasonAlternatives: g.reasonAlternatives, why: g.why, segments: g.segments }),
 }
 
 // ── equivalence (v.semantic_relation) ────────────────────────────────
