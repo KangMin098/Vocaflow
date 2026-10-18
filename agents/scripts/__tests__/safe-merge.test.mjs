@@ -174,3 +174,26 @@ test('SM-P11 필수가 아닌 체크의 SKIPPED 는 막지 않는다 · 필수 �
   assert.equal(decide(pr([run('verify', 'SKIPPED')]), { required: req }).ok, false)
   assert.equal(decide(pr([run('verify', 'SUCCESS'), run('extra', 'FAILURE')]), { required: req }).ok, false)
 })
+
+test('SM-F1 변경 파일 목록 완전성 — 잘린 목록 · HEAD 이동 · 상한 초과는 병합 불가(FI-018)', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const list = (n) => Array.from({ length: n }, (_, i) => ({ filename: `f${i}.ts` }))
+  const ok = completeFiles(list(119), { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' })
+  assert.equal(ok.ok, true)
+  assert.equal(ok.files.length, 119)
+  assert.equal(completeFiles(list(100), { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(5), { changedFiles: 5, headBefore: 'a', headAfter: 'b', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(5), { changedFiles: 5, headBefore: 'b', headAfter: 'b', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(3000), { changedFiles: 3001, headBefore: 'a', headAfter: 'a', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(3), {}).ok, false)
+})
+
+test('SM-F2 100개 뒤의 마이그레이션도 게이트에 들어간다 — 전체 목록이면 적용 이력 불일치를 잡는다', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const files = [...Array.from({ length: 118 }, (_, i) => ({ filename: `apps/web/x${i}.ts` })), { filename: 'supabase/migrations/20261014091841_x.sql' }]
+  const full = completeFiles(files, { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' })
+  assert.ok(full.files.some((f) => f.path.startsWith('supabase/migrations/')))
+  const pol = loadPolicy()
+  const g = gates({ baseRefName: 'main', body: '## 검증\nx', files: full.files }, pol, { 'supabase/migrations/20261014091841_x.sql': 'select 1;' }, { '20261014091841': 'deadbeef' })
+  assert.equal(g.ok, false)
+})
