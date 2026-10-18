@@ -24,8 +24,6 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 const MAX_BYTES = 900_000
-/** 비교 갱신 재시도 상한 — 같은 학습자의 동시 저장은 기기 수만큼이라 몇 번이면 끝난다 */
-const MAX_MERGE_ATTEMPTS = 6
 const NO_STORE = { 'cache-control': 'no-store' }
 
 async function session() {
@@ -86,28 +84,28 @@ export async function PUT(req: Request) {
     return NextResponse.json({ ok: false, error: 'bad-json' }, { status: 400 })
   }
   if (!looksLikeRecord(record)) return NextResponse.json({ ok: false, error: 'bad-record' }, { status: 400 })
-  // FI-015(#308) — 읽기 → 병합 → 쓰기를 비교 갱신(updated_at CAS)으로 묶는다. 두 기기가 같은 옛 사본을 읽고 각자 덮으면 한쪽 노트가 사라졌다.
-  //   쓰기 직전 행이 바뀌었으면(다른 요청이 먼저 씀) 다시 읽어 다시 합친다. 성공 응답은 「합친 결과가 서버에 남았다」는 뜻이다
+  // FI-015(#308) — 읽기 → 병합 → 쓰기를 비교 갱신(updated_at CAS) 한 번으로 묶는다. 두 기기가 같은 옛 사본을 읽고 각자 덮으면 한쪽 노트가 사라졌다.
+  //   쓰기 직전 행이 바뀌었으면(다른 요청이 먼저 씀) 쓰지 않고 409 — 성공 응답은 「합친 결과가 서버에 남았다」는 뜻이다.
+  //   재시도는 클라이언트(session/store.ts)가 잠시 뒤 같은 기기 기록으로 다시 보내고, 서버는 그때 최신 사본과 다시 합친다.
+  //   서버 안 재시도 루프는 두지 않는다(요청 하나 = 쓰기 하나 · row-write-budget)
   const incoming = record as unknown as DissectionRecord
-  for (let attempt = 0; attempt < MAX_MERGE_ATTEMPTS; attempt++) {
-    const current = await db.from('csat_learner_state').select('record, updated_at').eq('user_id', user.id).maybeSingle()
-    if (current.error) return NextResponse.json({ ok: false, error: current.error.message }, { status: 503 })
-    const row = current.data as { record: unknown; updated_at: string | null } | null
-    const merged = await mergeForWrite(incoming, row?.record)
-    const at = nextStamp(row?.updated_at ?? null)
-    if (!row) {
-      const ins = await db.from('csat_learner_state').insert({ user_id: user.id, record: merged, updated_at: at })
-      if (!ins.error) return NextResponse.json({ ok: true })
-      if (ins.error.code === '23505') continue // 다른 요청이 먼저 만들었다 — 다시 읽어 합친다
-      return NextResponse.json({ ok: false, error: ins.error.message }, { status: 503 })
-    }
-    let upd = db.from('csat_learner_state').update({ record: merged, updated_at: at }).eq('user_id', user.id)
-    upd = row.updated_at === null ? upd.is('updated_at', null) : upd.eq('updated_at', row.updated_at)
-    const { data, error } = await upd.select('user_id')
-    if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 503 })
-    if ((data ?? []).length === 1) return NextResponse.json({ ok: true })
+  const current = await db.from('csat_learner_state').select('record, updated_at').eq('user_id', user.id).maybeSingle()
+  if (current.error) return NextResponse.json({ ok: false, error: current.error.message }, { status: 503 })
+  const row = current.data as { record: unknown; updated_at: string | null } | null
+  const merged = await mergeForWrite(incoming, row?.record)
+  const at = nextStamp(row?.updated_at ?? null)
+  if (!row) {
+    const ins = await db.from('csat_learner_state').insert({ user_id: user.id, record: merged, updated_at: at })
+    if (!ins.error) return NextResponse.json({ ok: true })
+    // 다른 요청이 먼저 만들었다 — 이 기록은 아직 안 합쳐졌다
+    if (ins.error.code === '23505') return NextResponse.json({ ok: false, error: 'conflict' }, { status: 409 })
+    return NextResponse.json({ ok: false, error: ins.error.message }, { status: 503 })
   }
-  // 경합이 계속되면 성공이라 말하지 않는다 — 기기 기록이 남아 다음 동기화에서 다시 합친다
+  let upd = db.from('csat_learner_state').update({ record: merged, updated_at: at }).eq('user_id', user.id)
+  upd = row.updated_at === null ? upd.is('updated_at', null) : upd.eq('updated_at', row.updated_at)
+  const { data, error } = await upd.select('user_id')
+  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 503 })
+  if ((data ?? []).length === 1) return NextResponse.json({ ok: true })
   return NextResponse.json({ ok: false, error: 'conflict' }, { status: 409 })
 }
 

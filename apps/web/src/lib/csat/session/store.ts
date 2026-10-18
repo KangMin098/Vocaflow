@@ -90,6 +90,9 @@ async function putServer(record: DissectionRecord): Promise<boolean> {
       keepalive: true,
     })
     markSync(res.ok)
+    // FI-015 — 다른 기기가 먼저 써서 비교 갱신이 밀렸다(409). 이 기록은 서버에 아직 안 합쳐졌으니 잠시 뒤 다시 보낸다
+    //   (서버가 그때 최신 사본과 다시 합친다). 그 사이 새 저장이 오면 그 기록이 대신 간다 — 기기 기록은 언제나 남아 있다
+    if (res.status === 409 && !pending) schedulePush(record)
     return res.ok
   } catch {
     markSync(false)
