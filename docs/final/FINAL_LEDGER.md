@@ -33,7 +33,7 @@
   - 교수·안내 연습과 평가(독립·전이·지연)는 **지문 묶음(passage group)을 공유하지 않는다** — 등록 RPC 가 막는다.
 - **D-F2 Codex CLI 미설치(2026-10-18 확인).** 독립 검증은 별도 맹검 Claude 에이전트로 대신하고, Codex 검증 단계는 「미수행 — 도구 없음」으로 남긴다(PASS 로 세지 않는다).
 
-## 3. 실행 순서(진행 표시 · 체크포인트 2026-10-18 오후)
+## 3. 실행 순서(진행 표시 · 체크포인트 2026-10-18 저녁 · HEAD `22de94acf`)
 
 | # | 작업 | 상태 | 증거 |
 |---|---|---|---|
@@ -43,16 +43,19 @@
 | 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | 광역 통과 |
 | 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(SQL+서버) | authored-flow 10 |
 | 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1440/1280) | ISOLATED_E2E_VERIFIED(브라우저 · R5) — 1차 실패 원인(서버가 클라이언트 모듈 값 import) 수정 뒤 6/6 통과 · 보류 SQL 실제 Postgres 적용 성공 | CI run 39114115991 |
+| 4c | 격리 브라우저 E2E — 창작 형식 9종(R5 밖) × 1440/1280 | ISOLATED_E2E_VERIFIED(브라우저 · 9종 PASS · R5 포함 10종) — 형식마다 납품·Gold 비노출·서버 채점·DB 결속·열기 세션·넘침 + 오답·안내 연습 비근거·응답 유실 재시도·재열기·승인 철회·키보드·지도 Workspace | CI run 39126159146 (`71a653ef6`) |
+| 4d | 4c 가 잡은 제품 결함 3건 | 수정·재검증 PASS: content_needed Workspace 준비 중 오분류 · 지도 로더가 학습자 세션에서 service_role 전용 함수 호출(납품 링크 전부 유실) · 정본 연결 없는 TASK 링크 유실 | `4a751eeb9` `9647b45e1` `71a653ef6` |
 | 5 | 단일 외부 승인 패키지(A · B · B2 · C) | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
 | 6 | 과제 형식 레지스트리 + TASK 확장 6세트(E·E·R·R·S·V) | CODE_IMPLEMENTED · DATA(사람 Gold 전) | formats 12 · 세트 35 · expansion 리뷰 |
 | 6b | 형식 4종 추가 + 나머지 TASK 세트 10개 · 맹검 2차 · 위치 단서 가드 | CODE_IMPLEMENTED · DATA(사람 Gold 전) | 17세트 위반 0 · AuthoredRunner 17 · expansion2 리뷰 |
-| 6c | v.core_meaning · 통합 관찰 3(s.o · r.o · e.o) | NOT_IMPLEMENTED(창작 세트 없음 — 지원 완료 표시 안 함) | — |
+| 6c | 통합 관찰 3(s.o · r.o · e.o) 관찰 계약 | CODE_IMPLEMENTED · VALIDATION_MISSING(브라우저) — 하위 TASK 직접 확인만 근거 · 측정 불가/근거 부족/통합 관찰 가능 · 점수 없음 | observation 14 · `22de94acf` |
+| 6d | v.core_meaning | NOT_IMPLEMENTED(창작 세트 없음 — 지원 완료 표시 안 함) | — |
 | 7 | 기출분석 ⑤ 구조 예측(서버 대조) · ② 구절 역할 먼저 짚기 | CODE_IMPLEMENTED · VALIDATION_MISSING(브라우저) | structure-check 3 · theater 54 |
 | 7b | PR #250 「내 말로」 재기반 | main 병합(충돌 1 · 5,920 통과) · 마이그레이션 파일 버전을 적용 이력(20261014091841)에 맞춤 · 독립 리뷰 대기 | PR #250 코멘트 |
 
 ## 4. 다음 실행(후속 세션이 이 순서로)
 
-1. PR #303 CI 격리 브라우저 e2e 재실행 결과 확인 → 실패 시 artifact error-context 로 원인 수정(로컬 Docker 없음).
+1. PR #303: Codex 독립 판정(FI-001~013 + 4d 3건) 수용 대기 — 이 워크트리에 Codex CLI 없음, PR 코멘트로 요청(#issuecomment-6249838594). 수용 전 병합 안 함. 보류 SQL 개발 DB 미적용.
 2. PR #250 재기반 결과 검토 · 독립 검증 · 안전 병합(safe-merge).
 3. 남은 비보류 TASK 14개: 형식 추가(r.reference 지시 대상 · s.sentence_core 뼈대 표시 · v.semantic_relation 의미 동등 판정 …) → 작성 → 맹검 → 승인 패키지 B2 추가.
 4. 독립 Codex 검증 요청(#293 반례 · 재전송 · 잘못된 delivery · PLAN 환류 · 새 형식 채점 계약).
@@ -66,5 +69,5 @@
 
 ## 6. 완료 판정(§15)
 
-PRODUCT_CODE_COMPLETE ✗(영역 확장 · 기출분석 ②⑤ 남음) · ISOLATED_E2E_VERIFIED △(SQL+서버 ✓ · 브라우저 ✗) · DEV_DB_E2E_VERIFIED ✗(A 대기) ·
+PRODUCT_CODE_COMPLETE ✗(v.core_meaning · 기출분석 ②⑤ 브라우저 · PR #250 남음) · ISOLATED_E2E_VERIFIED △(SQL+서버 ✓ · 브라우저 창작 10종 ✓ · 통합 관찰 · ②⑤ 브라우저 ✗) · DEV_DB_E2E_VERIFIED ✗(A 대기) ·
 CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE ✗ · EDUCATIONAL_EFFECT_VALIDATED ✗ · FINAL_COMPLETE ✗.
