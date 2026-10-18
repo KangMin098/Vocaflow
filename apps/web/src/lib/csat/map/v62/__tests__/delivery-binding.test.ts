@@ -50,6 +50,11 @@ describe('bindDeliveryAttempt', () => {
       expect(f.calls).toEqual([])
     }
   })
+  it('같은 요청 키 결속이 이미 있으면 새 납품을 고르지 않고 그 결속을 돌려준다', async () => {
+    const f = fake({ workspace_delivery_attempt: { data: [{ id: 'wda-old' }], error: null }, workspace_content_delivery: { data: [{ id: 'd-new' }], error: null }, learning_task_attempts: { data: [{ id: 1 }], error: null } })
+    expect(await bindDeliveryAttempt(f.db, IN)).toEqual({ status: 'bound', id: 'wda-old' })
+    expect(f.calls).toEqual([])
+  })
   it('DB 가 거절하면(남의 납품 42501 · 첫 노출 경합 등) error — 기록은 그대로', async () => {
     const f = fake({ workspace_content_delivery: { data: [{ id: 'd1' }], error: null }, learning_task_attempts: { data: [{ id: 7 }], error: null } }, { data: null, error: { code: '42501' } })
     expect(await bindDeliveryAttempt(f.db, IN)).toEqual({ status: 'error' })

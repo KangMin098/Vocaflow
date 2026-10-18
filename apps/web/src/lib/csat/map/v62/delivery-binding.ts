@@ -23,6 +23,12 @@ export async function bindDeliveryAttempt(
   learner: SupabaseClient,
   input: { userId: string; itemRef: string; clientMutationId: string },
 ): Promise<{ status: BindingStatus; id?: string }> {
+  // 재전송 — 같은 요청 키의 결속이 이미 있으면 그대로 돌려준다(그 사이 다른 납품이 생겨도 최초 delivery 를 유지 · Codex P2)
+  const key = bindingRequestKey(input.userId, input.clientMutationId)
+  const prev = await learner.from('workspace_delivery_attempt').select('id').eq('user_id', input.userId).eq('request_key', key).limit(1)
+  if (prev.error) return { status: MISSING.has(codeOf(prev.error) ?? '') ? 'not_installed' : 'error' }
+  const done = (prev.data as { id: string }[] | null)?.[0]
+  if (done) return { status: 'bound', id: done.id }
   const d = await learner.from('workspace_content_delivery').select('id, delivered_at')
     .eq('user_id', input.userId).eq('artifact_kind', 'csat_item').eq('artifact_ref', input.itemRef)
     .order('delivered_at', { ascending: false }).limit(1)
@@ -35,7 +41,7 @@ export async function bindDeliveryAttempt(
   // 시도 행을 못 찾거나 같은 제출 id 가 둘 이상이면 어느 것을 결속할지 모른다 — 추측하지 않는다
   if (a.error || rows.length !== 1) return { status: 'error' }
   const r = await learner.rpc('workspace_delivery_attempt_record', {
-    p_delivery: delivery.id, p_attempt: Number(rows[0].id), p_request_key: bindingRequestKey(input.userId, input.clientMutationId),
+    p_delivery: delivery.id, p_attempt: Number(rows[0].id), p_request_key: key,
   })
   if (r.error) return { status: MISSING.has(codeOf(r.error) ?? '') ? 'not_installed' : 'error' }
   return typeof r.data === 'string' ? { status: 'bound', id: r.data } : { status: 'error' }
