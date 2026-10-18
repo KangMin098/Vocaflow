@@ -45,3 +45,5 @@ PR 목적의 「교수/평가 혼용 차단」「적격 공급」「지도·PLAN
 - FI-001의 확인된 결속 개선 및 FI-009 수정은 인정하며, 미해결 P1/핵심 P2·전체 TASK·실제 개발 DB·사람 승인·학습 효과 근거가 남아 전체 REWORK를 유지한다. 병합하지 않았다.
 
 실제 CI artifact12131229870을 내려받아 내부 Playwright report를 독립 판독했다([범위](./PR303_BROWSER_EVIDENCE.md)). 전체6/6 중 R5는1280/1440의2건이며 passing screenshot은0이다. 출처/결속/재열기/타인 접근 차단/지도 표기는 확인했으나 positive evidence·전이·후속 PLAN 의미 갱신은 단언하지 않는다. FI-013 문법 내용은 #306으로 인계했고 신규957c27211의 추가10세트는 별도 검증 대기다.
+
+3c15ba23c 후속: [추가10 TASK/60문항·새4형식 독립 결과](./EXPANSION2_CONTENT_REVIEW.md)를 d1a782394로 게시했다. FI-014는 #307이며 기존 FI-012/013과 구별한다. CI39115796299는 verify/build/e2e/e2e-gate-faultclosed 실패(Runner83 unused DEMAND_LABEL)다. 앞선 e913 성공과 구별한다. 세트는17 TASK/105초안으로 늘었지만 source/rights/Gold·전이/PLAN 의미 환류의 미해결 조건이 남아 REWORK를 유지한다.
