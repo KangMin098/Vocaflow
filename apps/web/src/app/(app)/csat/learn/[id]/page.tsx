@@ -80,6 +80,22 @@ export default async function LearnPage({ params, searchParams }: { params: { id
   const sessionId = randomUUID()
   const taskKey = await taskKeyOf(createAdminClient() as unknown as SupabaseClient, v.ref)
   const opened2 = !v.done && taskKey ? await recordOpen(createAdminClient() as unknown as SupabaseClient, { id: user.id, email: user.email ?? null }, v, taskKey, sessionId, new Date().toISOString()) : false
+  // FI-010(#302) — 본문을 학습자에게 주기 전에 열기(노출) 기록을 확보한다. 기록이 실패했는데 본문을 주면, 나중의 정상 열기 · 제출이
+  //   「첫 노출 · 독립 근거」로 잘못 승격된다(본문은 이미 나갔다). 그래서 미완료 자료는 기록 실패 시 본문 없이 재진입 안내만 준다(fail-closed).
+  //   본문을 주지 않았으므로 다음 정상 열기가 실제 첫 공개다 — 정상 첫 열기의 독립 수행은 막지 않는다. 완료 자료(다시 보기)는 노출 판정과 무관
+  if (!v.done && !opened2) {
+    return (
+      <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
+        <div className={styles.page} data-testid="authored-open-unavailable">
+          <header className={styles.head}>
+            <h1>자료를 열지 못했어요</h1>
+            <p className={styles.why}>열기 기록을 남기지 못해 본문을 보여 드리지 않았어요. 잠시 뒤 학습 지도에서 다시 열어 주세요 — 다시 열면 처음 보는 것으로 기록돼요.</p>
+          </header>
+          <Link className={styles.link} href={MAP_HREF}>학습 지도로 가기</Link>
+        </div>
+      </CsatShell>
+    )
+  }
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
