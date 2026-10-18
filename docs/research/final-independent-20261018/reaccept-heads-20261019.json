@@ -1,0 +1,662 @@
+{
+  "observedAt": "2026-10-18T23:16:35.395484+00:00",
+  "clientDate": "2026-10-19 Asia/Seoul",
+  "main": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+  "prs": [
+    {
+      "id": 312,
+      "baseRefName": "main",
+      "headRefOid": "cefc3e5026daccd9ab695d452d1a085c5d24daaa",
+      "mergeCommit": null,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:42:10Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397689/job/117690055339",
+          "name": "verify",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:39:57Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397716/job/117690055237",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:39:46Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132393754/job/117690042703",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T13:37:59Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:42:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397689/job/117690055330",
+          "name": "build",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397716/job/117690055442",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:16Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132393754/job/117690042453",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T13:37:59Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:00Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397689/job/117690056080",
+          "name": "e2e-shared-dev",
+          "startedAt": "2026-10-18T13:38:01Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:37:57Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132393754/job/117690043644",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T13:37:57Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:34Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397716/job/117690055428",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T13:38:03Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:37:57Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132393754/job/117690043602",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T13:37:57Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:46:39Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397689/job/117690055297",
+          "name": "e2e",
+          "startedAt": "2026-10-18T13:38:03Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:17Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397716/job/117690055413",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:46:05Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397689/job/117690055060",
+          "name": "e2e-gate-faultclosed",
+          "startedAt": "2026-10-18T13:38:02Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:37Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132397716/job/117690055505",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T13:38:18Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T13:38:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39132393754/job/117690042727",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T13:37:59Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        }
+      ],
+      "requiredChecks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": 250,
+      "baseRefName": "main",
+      "headRefOid": "2549e407d9b1138c83b7fd633556b1527b62648c",
+      "mergeCommit": null,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:39:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565300",
+          "name": "verify",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:37:43Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705898/job/117702565091",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T14:35:50Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:37:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702550253",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T14:35:47Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:41:08Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565316",
+          "name": "build",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:12Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705898/job/117702565271",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:04Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702550046",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T14:35:47Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:35:49Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702566423",
+          "name": "e2e-shared-dev",
+          "startedAt": "2026-10-18T14:35:49Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:35:45Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702551125",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T14:35:45Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:12Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705898/job/117702565447",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:35:45Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702551068",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T14:35:45Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:41:54Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565087",
+          "name": "e2e",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:04Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705898/job/117702565365",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T14:35:50Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:43:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705847/job/117702565207",
+          "name": "e2e-gate-faultclosed",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:09Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136705898/job/117702565337",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T14:35:51Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T14:36:06Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39136700747/job/117702550256",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T14:35:47Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        }
+      ],
+      "requiredChecks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": 303,
+      "baseRefName": "main",
+      "headRefOid": "88c3f12818cee9838234dbf943844acbe534dab7",
+      "mergeCommit": null,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317532",
+          "name": "verify",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "IN_PROGRESS",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:19:13Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879664/job/117818317281",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:19:24Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818307949",
+          "name": "TypeScript 0 error",
+          "startedAt": "2026-10-18T23:17:21Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317463",
+          "name": "build",
+          "startedAt": "2026-10-18T23:17:29Z",
+          "status": "IN_PROGRESS",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:44Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879664/job/117818317122",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T23:17:24Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818308131",
+          "name": "docs/*.md broken link check",
+          "startedAt": "2026-10-18T23:17:21Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:22Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818318137",
+          "name": "e2e-shared-dev",
+          "startedAt": "2026-10-18T23:17:22Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:19Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818308739",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T23:17:19Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:46Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879664/job/117818317459",
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317428",
+          "name": "e2e",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "IN_PROGRESS",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:19Z",
+          "conclusion": "SKIPPED",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818327495",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T23:17:25Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:39Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879664/job/117818317275",
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317776",
+          "name": "e2e-gate-faultclosed",
+          "startedAt": "2026-10-18T23:17:24Z",
+          "status": "IN_PROGRESS",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:43Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879664/job/117818317337",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:17:52Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818308079",
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "startedAt": "2026-10-18T23:17:21Z",
+          "status": "COMPLETED",
+          "workflowName": "sync-check"
+        }
+      ],
+      "requiredChecks": [
+        {
+          "name": "verify",
+          "success": false
+        },
+        {
+          "name": "build",
+          "success": false
+        },
+        {
+          "name": "e2e",
+          "success": false
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ]
+    }
+  ],
+  "productionCodeUnchangedSince25b": true,
+  "newTestFiles": [
+    "apps/web/tests/e2e-isolated/csat-v32-mywords-sync.isolated.spec.ts"
+  ],
+  "actual250IsAncestorOf303": true,
+  "migration": {
+    "file": "supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql",
+    "sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+    "matchesReadOnlyDevHistory": true
+  },
+  "completeGitMigrationDiffs": [
+    {
+      "pr": 250,
+      "files": [
+        {
+          "status": "A",
+          "file": "supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql",
+          "sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+          "pendingProposal": false,
+          "matchesReadOnlyDevHistory": true
+        }
+      ]
+    },
+    {
+      "pr": 303,
+      "files": [
+        {
+          "status": "A",
+          "file": "supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql",
+          "sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+          "pendingProposal": false,
+          "matchesReadOnlyDevHistory": true
+        },
+        {
+          "status": "A",
+          "file": "supabase/migrations/_pending_authored_supply.sql",
+          "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+          "pendingProposal": true,
+          "matchesReadOnlyDevHistory": null
+        }
+      ]
+    }
+  ],
+  "fi015BrowserBindings": [
+    {
+      "head": "2549e407d9b1138c83b7fd633556b1527b62648c",
+      "storeSha256": "52d842047d697be089750d94335b3b006153d66fbf379f946c11054ccfd869fc",
+      "matchesBrowserProbe": true
+    },
+    {
+      "head": "88c3f12818cee9838234dbf943844acbe534dab7",
+      "storeSha256": "52d842047d697be089750d94335b3b006153d66fbf379f946c11054ccfd869fc",
+      "matchesBrowserProbe": true
+    }
+  ],
+  "fi010": {
+    "status": "VERIFIED_FIXED",
+    "scope": "Specific exposure-record defect on candidate source; CODE_VERIFIED + ISOLATED_DB_VERIFIED + ISOLATED_BROWSER_VERIFIED, not merged-main/dev DB/human approval/effect.",
+    "reuse": [
+      "authored-rework-open.log",
+      "rework-integrated-ci-browser-25b.json"
+    ],
+    "runId": 39137567274
+  },
+  "fi018": {
+    "status": "PARTIAL_FIX / OPEN",
+    "currentHeadEqualsPreviouslyRejectedHead": true,
+    "privateEvidenceReused": true,
+    "changedTestsRerun": 0,
+    "publicReproductionIncluded": false
+  },
+  "merges": [],
+  "safeMergeExecuted": false,
+  "overall": "REWORK",
+  "singleSyntheticLearnerAtoH": "NOT_VERIFIED",
+  "newFullScreenTwoDeviceEvidence": "TEST_ADDED_CI_PENDING"
+}

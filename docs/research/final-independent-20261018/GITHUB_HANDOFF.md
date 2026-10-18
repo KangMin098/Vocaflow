@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+2026-10-19 [독립 재수용](./REACCEPT_20261019.md): FI-010 VERIFIED_FIXED(명시 범위), FI-018은 같은312cefc의 PARTIAL_FIX/OPEN으로 전체 REWORK.30388c3 새 실제 화면 두 기기 spec/CI는 검토 중이며 기존 #308에 증거 한계를 인계했다. 아래 HEAD/CI/당시 판정은 시간순 이력이다.
+
 증거5778c8368 게시 영수증: FI-010 [#302](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6251233165), FI-015 [#308](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6251233375), FI-016 [#309](https://github.com/KangMin098/Vocaflow/issues/309#issuecomment-6251233541)(민감 상세 없음), FI-017 [#310](https://github.com/KangMin098/Vocaflow/issues/310#issuecomment-6251233759), [PR250](https://github.com/KangMin098/Vocaflow/pull/250#issuecomment-6251233964), [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6251234196). 공동 DL-0178/0179. FI-018은 기존 #311/PR312 리뷰·비공개 DL-0177을 재사용하며 같은 반례를 중복 게시하지 않는다.256f/2549 필수 CI 성공·256f 실제 browser report8/8을 확인했고 이후25b는 CI 전용 FI-010 검사 추가/제품 코드 불변이며 최신 필수 CI 모두 SUCCESS, 직접 해독한 report8/8에서 두 폭 실패 주입도 확인했다. FI-018 잔여/실제 병합0은 유지한다.
 
 현재 후속: [변경분 원장](./REWORK_DELTA_REVERIFY.md)의01c/1ee·bcc/92ea 실제 HEAD 결과가 아래 과거 인계보다 우선한다. FI-006/010/014/015/016/017은 명시 범위의 후보 수정 확인, FI-018은 PR312에서도 잔여가 있어 REWORK다. 실제 DB/사람 승인·전체 A~H 수용은 별도다.
@@ -20,7 +22,7 @@
 | FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | FIX_VERIFIED_IN_CANDIDATE ·7e 서버 열기/충족/목록 확인 |
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
-| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | FIX_VERIFIED_IN_CANDIDATE · 실제 RSC/SQL4검사: 공개 전 기록·실패·commit/ack 유실·최초/완료 복귀. 실제 JWT/개발 DB 별도 |
+| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | VERIFIED_FIXED · 실제 RSC/SQL4검사·25b CI1280/1440의 기록 실패/재진입·첫 수행/별도 열람 비근거. 실제 개발 DB 적용/효과 별도 |
 | FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE ·71a 로더17 TASK 및 실제 CI 두 폭 Workspace 복귀/결과 표시 확인. 전체 PLAN 의미 갱신은 별도 미검증 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |

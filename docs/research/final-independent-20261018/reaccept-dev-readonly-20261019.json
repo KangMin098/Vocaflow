@@ -1,0 +1,32 @@
+{
+  "bindings": 0,
+  "readOnly": "on",
+  "deliveries": 0,
+  "migrations": [
+    {
+      "version": "20261014091841",
+      "statementsSha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089"
+    },
+    {
+      "version": "20261017200000",
+      "statementsSha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624"
+    },
+    {
+      "version": "20261017200100",
+      "statementsSha256": "2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b"
+    },
+    {
+      "version": "20261018120000",
+      "statementsSha256": "e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c"
+    },
+    {
+      "version": "20261018120100",
+      "statementsSha256": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f"
+    }
+  ],
+  "observedAt": "2026-10-18T23:16:35.395484+00:00",
+  "qualifications": 0,
+  "releaseApprovals": 0,
+  "authoredInstalled": false,
+  "humanDecisionInstalled": false
+}
