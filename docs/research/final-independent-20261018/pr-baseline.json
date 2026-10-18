@@ -1,0 +1,667 @@
+{
+  "observedAt": "2026-10-18T07:33:44.728716+00:00",
+  "base": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+  "prs": [
+    {
+      "number": 286,
+      "title": "chore(db): Factory I1 배포 패키지 — DB-1(C→B→S) · DB-2(P) 버전 migration (미적용)",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/286",
+      "state": "MERGED",
+      "head": "00ba6381c04c73f70ceabf934bf76ad10fdc5cc8",
+      "merge": "9de24bcfff2ccd0a55b5978e970dd7015249843a",
+      "mergedAt": "2026-10-18T05:41:43Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951432/job/117596931178"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951444/job/117596931353"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100948997/job/117596923782"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951432/job/117596931198"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951444/job/117596931299"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100948997/job/117596923769"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951432/job/117596931933"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100948997/job/117596924512"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951444/job/117596931278"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100948997/job/117596924631"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951432/job/117596931185"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951444/job/117596931265"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951432/job/117596931242"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100951444/job/117596931103"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39100948997/job/117596923658"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 287,
+      "title": "feat(agents): 승인형 DB 배포 경로 — 승인 창 허용 = 1회용 난수 티켓",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/287",
+      "state": "MERGED",
+      "head": "ce8e6318f03f3667c7713e27d80f2adbc653baa7",
+      "merge": "0b2a354517b12f35787eff46c7eb391d42a942d2",
+      "mergedAt": "2026-10-17T16:22:28Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461742/job/117441874526"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461743/job/117441874285"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048458538/job/117441864408"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461742/job/117441874563"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461743/job/117441874271"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048458538/job/117441864188"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461742/job/117441875227"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048458538/job/117441865151"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461743/job/117441874317"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048458538/job/117441865461"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461742/job/117441874477"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461743/job/117441874289"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461742/job/117441874303"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048461743/job/117441874134"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39048458538/job/117441864386"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 288,
+      "title": "feat(csat): R5 종단 통합 — FQ 결속 reader · 학습 경로 안내 · 납품↔G2 SQL 패키지(미적용)",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/288",
+      "state": "MERGED",
+      "head": "2d1b160f22c4e4db1b823455c15e13d191267678",
+      "merge": "d3b32c902e9e701518e7dd7c9e2c447073496c92",
+      "mergedAt": "2026-10-18T01:15:24Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257770/job/117550331032"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257738/job/117550330470"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085254014/job/117550319508"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257770/job/117550330808"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257738/job/117550330701"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085254014/job/117550319435"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257770/job/117550332180"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085254014/job/117550319952"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257738/job/117550330774"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085254014/job/117550320566"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257770/job/117550331178"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257738/job/117550330731"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257770/job/117550331085"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085257738/job/117550330710"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39085254014/job/117550319242"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 289,
+      "title": "test(csat): R5 Inspector 8개 화면 상태 격리 검증 · 해설 안내 문구 정정",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/289",
+      "state": "MERGED",
+      "head": "1f5237652796d9516c464b5078e14027f82c47ac",
+      "merge": "635cc44607034b85eff7b88e7767b8b2229bcdbc",
+      "mergedAt": "2026-10-18T01:49:41Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360721/job/117556626128"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360659/job/117556625788"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087358069/job/117556618015"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360721/job/117556626120"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360659/job/117556625780"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087358069/job/117556618204"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360721/job/117556626739"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087358069/job/117556618701"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360659/job/117556625631"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087358069/job/117556633693"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360721/job/117556625995"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360659/job/117556625920"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360721/job/117556626090"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087360659/job/117556625798"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39087358069/job/117556618226"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 290,
+      "title": "chore(db): R5 I2·납품↔G2 결속 SQL 버전 승격 — 개발 DB 적용 이력과 일치",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/290",
+      "state": "MERGED",
+      "head": "d029caa103cb0517c4ff8abbcb4334d42e07bc24",
+      "merge": "47f600401a9f5c39956697c1f716e284afa204f4",
+      "mergedAt": "2026-10-18T05:55:40Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678784/job/117599058424"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678774/job/117599058433"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101676374/job/117599051521"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678784/job/117599058528"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678774/job/117599058376"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101676374/job/117599051612"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678784/job/117599059244"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101676374/job/117599078649"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678774/job/117599058404"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101676374/job/117599052305"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678784/job/117599058557"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678774/job/117599058224"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678784/job/117599058541"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101678774/job/117599058355"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39101676374/job/117599051693"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 291,
+      "title": "feat(csat): R5 첫 공급 승인 패키지 · G2 시도 → 본인 납품 결속 연결",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/291",
+      "state": "MERGED",
+      "head": "29cdbc4758a298c04792087e1826144ad0e80c40",
+      "merge": "e3d2ae6f2664ee3a76cf78256a9a51b33598e3ec",
+      "mergedAt": "2026-10-18T06:47:00Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732737/job/117608030964"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732694/job/117608030794"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732737/job/117608031200"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732694/job/117608031002"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732737/job/117608031565"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732694/job/117608030899"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732737/job/117608031087"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732694/job/117608030697"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732737/job/117608031144"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39104732694/job/117608030824"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    },
+    {
+      "number": 292,
+      "title": "docs(csat): 2020#24 Gold·권리 AI 검증 — 문장 5 쟁점 · 권리 INSUFFICIENT",
+      "url": "https://github.com/KangMin098/Vocaflow/pull/292",
+      "state": "MERGED",
+      "head": "31d8db47bd5f829b9bcd940b767a3d253e2ca1c1",
+      "merge": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+      "mergedAt": "2026-10-18T07:08:20Z",
+      "checks": [
+        {
+          "name": "verify",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950821/job/117611706517"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950668/job/117611705747"
+        },
+        {
+          "name": "build",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950821/job/117611706467"
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950668/job/117611706012"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "conclusion": "SKIPPED",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950821/job/117611707609"
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950668/job/117611705809"
+        },
+        {
+          "name": "e2e",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950821/job/117611706297"
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950668/job/117611705660"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950821/job/117611706491"
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "conclusion": "SUCCESS",
+          "status": "COMPLETED",
+          "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39105950668/job/117611705781"
+        }
+      ],
+      "source": "gh pr view",
+      "notes": "기존 결과 재사용. e2e-shared-dev SKIPPED는 실DB PASS가 아님. 병합 자체로 safe-merge 실행 증거를 추정하지 않음."
+    }
+  ]
+}

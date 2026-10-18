@@ -1,0 +1,75 @@
+{
+  "counts": {
+    "order": 0,
+    "demand": 0,
+    "delivery": 0,
+    "annotation": 0,
+    "qualification": 0,
+    "delivery_attempt": 0,
+    "release_approval": 0,
+    "release_revocation": 0
+  },
+  "read_only": "on",
+  "migrations": [
+    {
+      "name": "factory_i1_db1_supply_foundation",
+      "sha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+      "version": "20261017200000"
+    },
+    {
+      "name": "factory_i1_db2_partial",
+      "sha256": "2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b",
+      "version": "20261017200100"
+    },
+    {
+      "name": "workspace_supply_c_annotation_binding",
+      "sha256": "e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c",
+      "version": "20261018120000"
+    },
+    {
+      "name": "r5_delivery_g2_binding",
+      "sha256": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f",
+      "version": "20261018120100"
+    }
+  ],
+  "privileges": [
+    {
+      "role": "anon",
+      "bind_rpc": false,
+      "binding_insert": false,
+      "annotation_select": false
+    },
+    {
+      "role": "authenticated",
+      "bind_rpc": true,
+      "binding_insert": false,
+      "annotation_select": false
+    },
+    {
+      "role": "service_role",
+      "bind_rpc": true,
+      "binding_insert": false,
+      "annotation_select": false
+    }
+  ],
+  "observed_at": "2026-10-18T07:33:44.728716+00:00",
+  "knowledge_columns": [
+    "id",
+    "item_id",
+    "surface",
+    "surface_ref",
+    "version",
+    "status",
+    "audience",
+    "exclusions",
+    "status_reason",
+    "released_at",
+    "created_by",
+    "updated_by",
+    "created_at",
+    "updated_at",
+    "release_approved_by",
+    "release_approved_at",
+    "release_note"
+  ]
+}

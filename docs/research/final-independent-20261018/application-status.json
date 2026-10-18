@@ -1,0 +1,59 @@
+{
+  "scope": "application metadata only; active is not FQ eligibility or usability",
+  "rows": [
+    {
+      "surface": "csat_item_task",
+      "key_prefix": "claim-support",
+      "status": "active",
+      "n": 13
+    },
+    {
+      "surface": "csat_item_task",
+      "key_prefix": "cohesion-link",
+      "status": "draft",
+      "n": 1
+    },
+    {
+      "surface": "csat_item_task",
+      "key_prefix": "evidence-locate",
+      "status": "active",
+      "n": 5
+    },
+    {
+      "surface": "csat_item_task",
+      "key_prefix": "evidence-locate",
+      "status": "draft",
+      "n": 4
+    },
+    {
+      "surface": "csat_item_task",
+      "key_prefix": "option-restate",
+      "status": "active",
+      "n": 6
+    },
+    {
+      "surface": "learning_map_find",
+      "key_prefix": "a3-4",
+      "status": "draft",
+      "n": 1
+    },
+    {
+      "surface": "learning_map_find",
+      "key_prefix": "a4-4",
+      "status": "active",
+      "n": 1
+    },
+    {
+      "surface": "learning_map_find",
+      "key_prefix": "a5-4",
+      "status": "active",
+      "n": 1
+    },
+    {
+      "surface": "learning_map_find",
+      "key_prefix": "b6-3",
+      "status": "active",
+      "n": 1
+    }
+  ]
+}

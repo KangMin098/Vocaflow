@@ -1,0 +1,333 @@
+{
+  "base": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+  "migrations": [
+    {
+      "version": "20261017200000",
+      "file": "supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql",
+      "localSha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+      "remoteSha256": "061a48a8b50b956762dedf171d3a8949d4f9bae4da4058b41d52227eb767c624",
+      "match": true
+    },
+    {
+      "version": "20261017200100",
+      "file": "supabase/deploy/factory-i1/db2/20261017200100_factory_i1_db2_partial.sql",
+      "localSha256": "2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b",
+      "remoteSha256": "2165015d063ff67a56806e57dabbaa6aa7fe2bd07e8608beaa8a9323fba8896b",
+      "match": true
+    },
+    {
+      "version": "20261018120000",
+      "file": "supabase/migrations/20261018120000_workspace_supply_c_annotation_binding.sql",
+      "localSha256": "e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c",
+      "remoteSha256": "e7f7c16facd30124ec8a668701037d926a67c61dc1c5283c9ccbc79ce00c0b8c",
+      "match": true
+    },
+    {
+      "version": "20261018120100",
+      "file": "supabase/migrations/20261018120100_r5_delivery_g2_binding.sql",
+      "localSha256": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f",
+      "remoteSha256": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f",
+      "match": true
+    }
+  ],
+  "ci": [
+    {
+      "pr": 286,
+      "head": "00ba6381c04c73f70ceabf934bf76ad10fdc5cc8",
+      "merge": "9de24bcfff2ccd0a55b5978e970dd7015249843a",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 287,
+      "head": "ce8e6318f03f3667c7713e27d80f2adbc653baa7",
+      "merge": "0b2a354517b12f35787eff46c7eb391d42a942d2",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 288,
+      "head": "2d1b160f22c4e4db1b823455c15e13d191267678",
+      "merge": "d3b32c902e9e701518e7dd7c9e2c447073496c92",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 289,
+      "head": "1f5237652796d9516c464b5078e14027f82c47ac",
+      "merge": "635cc44607034b85eff7b88e7767b8b2229bcdbc",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 290,
+      "head": "d029caa103cb0517c4ff8abbcb4334d42e07bc24",
+      "merge": "47f600401a9f5c39956697c1f716e284afa204f4",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 291,
+      "head": "29cdbc4758a298c04792087e1826144ad0e80c40",
+      "merge": "e3d2ae6f2664ee3a76cf78256a9a51b33598e3ec",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    },
+    {
+      "pr": 292,
+      "head": "31d8db47bd5f829b9bcd940b767a3d253e2ca1c1",
+      "merge": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
+      "checks": [
+        {
+          "name": "verify",
+          "success": true
+        },
+        {
+          "name": "build",
+          "success": true
+        },
+        {
+          "name": "e2e",
+          "success": true
+        },
+        {
+          "name": "TypeScript 0 error",
+          "success": true
+        },
+        {
+          "name": "docs/*.md broken link check",
+          "success": true
+        },
+        {
+          "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+          "success": true
+        },
+        {
+          "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+          "success": true
+        },
+        {
+          "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+          "success": true
+        }
+      ],
+      "sharedDev": [
+        "SKIPPED"
+      ]
+    }
+  ],
+  "remoteReadOnly": "on",
+  "allMigrationsMatch": true,
+  "allRequiredChecksSuccess": true,
+  "note": "Checks reused from GitHub snapshots; no old suites rerun. This is not a safe-merge receipt or a live supply PASS."
+}

@@ -1,0 +1,33 @@
+{
+  "scope": "ISOLATED_PGLITE",
+  "remoteDbWrites": 0,
+  "scenario": "same learner and item; CHECK delivery then TRANSFER delivery; independent CHECK submission",
+  "expected": {
+    "delivery": {
+      "id": "bc2c5b79-46be-4884-bb52-4897c91a201b",
+      "workspace": "28a0eadd-37bc-4a09-9ac5-58a974491b99",
+      "role": "independent_check"
+    },
+    "evidence": true
+  },
+  "actual": {
+    "binding": {
+      "status": "bound",
+      "id": "6eb3fe5d-3f86-4751-84be-6a64ec9f80f9"
+    },
+    "row": {
+      "delivery_id": "cf74dfcf-3b5c-4280-9231-9e845bcb3a7f",
+      "workspace_id": "01ffe404-8148-42ab-b527-814f4c801db1",
+      "role": "transfer",
+      "evidence": false,
+      "non_evidence_reason": "help_state_mismatch"
+    }
+  },
+  "explicitDeliveryControl": {
+    "role": "independent_check",
+    "evidence": true,
+    "non_evidence_reason": null
+  },
+  "defectReproduced": true,
+  "sqlHash": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f"
+}

@@ -1,0 +1,33 @@
+{
+  "scope": "ISOLATED_PGLITE",
+  "remoteDbWrites": 0,
+  "scenario": "same learner, item and role; two Workspaces; first Workspace CHECK submission",
+  "expected": {
+    "delivery": {
+      "id": "04acf5ff-1618-41c0-a794-5607785c3530",
+      "workspace": "81d57d2a-2d25-46e8-a603-e2243076283e",
+      "role": "independent_check"
+    },
+    "evidence": true
+  },
+  "actual": {
+    "binding": {
+      "status": "bound",
+      "id": "ced76682-30f4-4b61-a8fa-884ccba400f6"
+    },
+    "row": {
+      "delivery_id": "e36780cf-f7cd-4827-8841-21122e028468",
+      "workspace_id": "88932ea1-7614-48b7-a9a0-5428a0dd9491",
+      "role": "independent_check",
+      "evidence": true,
+      "non_evidence_reason": null
+    }
+  },
+  "explicitDeliveryControl": {
+    "role": "independent_check",
+    "evidence": true,
+    "non_evidence_reason": null
+  },
+  "defectReproduced": true,
+  "sqlHash": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f"
+}

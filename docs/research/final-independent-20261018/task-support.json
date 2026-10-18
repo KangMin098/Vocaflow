@@ -1,0 +1,293 @@
+{
+  "scope": "REPOSITORY_METADATA_ONLY",
+  "definition": "rev4.0-draft-1",
+  "totalTasks": 30,
+  "counts": {
+    "live": 5,
+    "ready": 2,
+    "content_needed": 14,
+    "blocked": 9
+  },
+  "definitionSha256": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+  "warning": "directCheck metadata is not live FQ, independent performance, or learning effect verification",
+  "rows": [
+    {
+      "id": "v.core_meaning",
+      "name": "기본 의미 접근",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "도움 없이 뜻을 떠올리고, 다른 날에도 다시 떠올린다",
+      "quantityPolicy": "모르는 낱말 수 기준 간격 반복 분량(FSRS due)"
+    },
+    {
+      "id": "v.contextual_sense",
+      "name": "문맥 의미 선택",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "서로 다른 두 문맥에서 알맞은 뜻을 고른다",
+      "quantityPolicy": "확인 문항 묶음 단위"
+    },
+    {
+      "id": "v.multiword",
+      "name": "덩어리 표현",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "덩어리 표현을 낱말로 쪼개지 않고 한 뜻으로 말한다",
+      "quantityPolicy": "표현 목록 간격 반복"
+    },
+    {
+      "id": "v.semantic_relation",
+      "name": "표현 사이 의미 관계",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "같은 뜻을 다르게 말한 표현 쌍을 가려낸다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "s.sentence_core",
+      "name": "문장 뼈대",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "긴 문장 3개를 이어서 뼈대를 정확히 찾는다",
+      "quantityPolicy": "막힌 문장 수집량 기준"
+    },
+    {
+      "id": "s.chunk_boundary",
+      "name": "의미 단위 경계",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "의미 단위를 끊어 풀어 쓴 결과가 원문과 같다",
+      "quantityPolicy": "문장 묶음"
+    },
+    {
+      "id": "s.attachment",
+      "name": "수식 관계",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "꾸미는 말이 무엇을 꾸미는지 다른 문장에서도 맞힌다",
+      "quantityPolicy": "문장 묶음"
+    },
+    {
+      "id": "s.structural_relation",
+      "name": "구조 관계",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "복잡한 구조를 풀어 쓴 뜻이 원문과 같다",
+      "quantityPolicy": "문장 묶음"
+    },
+    {
+      "id": "s.form_scope",
+      "name": "형태·의미 범위",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "어법 포인트마다 서로 다른 문항 2개를 맞힌다",
+      "quantityPolicy": "포인트별 기출 반복"
+    },
+    {
+      "id": "s.o.sentence_meaning_model",
+      "name": "문장 의미 구성(통합 관찰)",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "한 문장의 뜻을 우리말로 정확히 구성한다(관찰 기록만 남겨요)",
+      "quantityPolicy": "없음(통합 관찰)"
+    },
+    {
+      "id": "r.reference",
+      "name": "지시·응집 추적",
+      "status": "canon_candidate",
+      "directCheck": "ready",
+      "checkKeys": [],
+      "criterion": "서로 다른 두 지문에서 가리키는 대상을 맞힌다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "r.relation",
+      "name": "문장 사이 관계",
+      "status": "canon_candidate",
+      "directCheck": "ready",
+      "checkKeys": [
+        "cohesion-link"
+      ],
+      "criterion": "앞뒤 문장 관계를 근거 단서와 함께 말한다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "r.discourse_function",
+      "name": "문장·문단 기능",
+      "status": "canon_candidate",
+      "directCheck": "live",
+      "checkKeys": [],
+      "criterion": "이 문장이 글에서 하는 역할을 말한다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "r.discourse_structure",
+      "name": "글 전개 구조",
+      "status": "canon_candidate",
+      "directCheck": "live",
+      "checkKeys": [],
+      "criterion": "글이 어떤 순서로 전개되는지 다시 짠다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "r.central_meaning",
+      "name": "중심 의미",
+      "status": "canon_candidate",
+      "directCheck": "live",
+      "checkKeys": [
+        "claim-support"
+      ],
+      "criterion": "서로 다른 두 지문에서 혼자 핵심을 잡고, 다른 날 새 지문으로 다시 확인한다",
+      "quantityPolicy": "확인 9문항 묶음(claim-support) 기준"
+    },
+    {
+      "id": "r.inference",
+      "name": "추론",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "쓰이지 않은 뜻을 본문 근거와 함께 끌어낸다",
+      "quantityPolicy": "확인 문항 묶음"
+    },
+    {
+      "id": "r.o.global_meaning_model",
+      "name": "글 전체 의미 모델(통합 관찰)",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "글 전체의 뜻을 하나로 정리한다(관찰 기록만 남겨요)",
+      "quantityPolicy": "없음"
+    },
+    {
+      "id": "e.task_demand",
+      "name": "발문 요구 파악",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "두 유형 이상에서 발문이 무엇을 묻는지 정확히 말한다",
+      "quantityPolicy": "확인 문항"
+    },
+    {
+      "id": "e.evidence_location",
+      "name": "근거 위치",
+      "status": "canon_candidate",
+      "directCheck": "live",
+      "checkKeys": [
+        "evidence-locate"
+      ],
+      "criterion": "서로 다른 확인 문항 2개에서 혼자 근거 문장을 찾고, 다른 날 다시 확인한다",
+      "quantityPolicy": "확인 5문항 묶음"
+    },
+    {
+      "id": "e.option_correspondence",
+      "name": "선지-본문 대응",
+      "status": "canon_candidate",
+      "directCheck": "live",
+      "checkKeys": [
+        "option-restate"
+      ],
+      "criterion": "선지가 본문의 어느 문장을 다시 말했는지 근거와 함께 지목한다",
+      "quantityPolicy": "확인 6문항 묶음"
+    },
+    {
+      "id": "e.o.final_judgment",
+      "name": "최종 판단(통합 관찰)",
+      "status": "canon_candidate",
+      "directCheck": "content_needed",
+      "checkKeys": [],
+      "criterion": "고른 답과 버린 답의 이유를 함께 댄다(찍어서 맞힌 것은 세지 않아요)",
+      "quantityPolicy": "없음"
+    },
+    {
+      "id": "l.sound",
+      "name": "소리 인식",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "l.sentence",
+      "name": "들은 문장 이해",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "l.retain",
+      "name": "정보 유지",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "l.respond",
+      "name": "응답 판단",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "x.time_allocation",
+      "name": "시간 배분",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "x.sequence",
+      "name": "풀이 순서",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "x.recovery_adaptation",
+      "name": "막힘 회복",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "x.attention_stamina",
+      "name": "집중 유지",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    },
+    {
+      "id": "x.o.whole_test_stability",
+      "name": "전체 시험 안정성(통합 관찰)",
+      "status": "hold",
+      "directCheck": "blocked",
+      "checkKeys": [],
+      "criterion": "측정 방법을 정한 뒤에 정해요",
+      "quantityPolicy": "—"
+    }
+  ]
+}
