@@ -1,0 +1,37 @@
+{
+  "scope": "ISOLATED_PGLITE_ONLY",
+  "ownerCommit": "b4fbf4d5c",
+  "remoteDbWrites": 0,
+  "observations": [
+    {
+      "id": "AS01",
+      "scenario": "instruction/guided_practice artifact qualified and delivered as independent_check",
+      "registeredRole": "guided_practice",
+      "deliveryRole": "independent_check",
+      "allowed": true,
+      "deliveryValid": true
+    },
+    {
+      "id": "AS02",
+      "scenario": "rights scope display+transmit only; independent assessment delivered",
+      "rightsBasis": "licensed",
+      "rightsScope": [
+        "display",
+        "transmit"
+      ],
+      "allowed": true,
+      "deliveryValid": true
+    },
+    {
+      "id": "AS03",
+      "scenario": "exact same body in instruction and assessment under different group labels; teacher text already exposed",
+      "exposure": "none",
+      "allowed": true,
+      "binding": {
+        "first_exposure": true,
+        "evidence": true,
+        "non_evidence_reason": null
+      }
+    }
+  ]
+}

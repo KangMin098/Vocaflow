@@ -1,0 +1,10 @@
+{
+ "observed_at":"2026-10-18T08:05:39.176099Z",
+ "method":"BEGIN READ ONLY; SELECT to_regclass(...) and latest migration version; COMMIT",
+ "read_only":"on",
+ "authored_item":null,
+ "content_human_decision":null,
+ "content_human_decision_revocation":null,
+ "latest_migration_version":"20261018120100",
+ "conclusion":"The new authored supply SQL was not installed in the development DB at this observation. Isolated counterexamples are not observations of deployed new tables."
+}

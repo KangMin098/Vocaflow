@@ -1,0 +1,14 @@
+{
+  "scope": "ACTUAL_ISOLATED_POSTGRES",
+  "ownerCommit": "b4fbf4d5c",
+  "serverVersion": "17.10",
+  "remoteDbWrites": 0,
+  "scenario": "same learner; different demand lines and artifact refs; same passage group; first delivery uncommitted while second connection attempts delivery",
+  "firstAllowed": true,
+  "secondAllowedBeforeFirstCommit": true,
+  "secondError": null,
+  "postCommitError": null,
+  "committedDeliveries": 2,
+  "defectReproduced": true,
+  "clusterDirectory": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\pg-authored-race-z7nadr"
+}

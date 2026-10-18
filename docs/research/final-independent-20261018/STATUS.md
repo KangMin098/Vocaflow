@@ -29,3 +29,10 @@
 - [기존 전체 목표 Gap Audit](../../csat-learner/v62/GOAL_GAP_AUDIT.md)과 [게이트 로드맵](../../csat-learner/v62/TARGET_COMPLETION_ROADMAP.md): 과거 관찰은 현재 구현 완료 사실로 대체하지 않는다.
 
 - 신규 핵심 P2 FI-001: 다중 Workspace/역할에서 최신 납품 추측으로 잘못 결속. [원장](./FINDINGS.md)과 실제 SQL 격리 대조군을 보존했다. 수정·독립 재검증 대기.
+
+## 총괄 개발과 조기 독립 검증
+
+- 실제 총괄 worktree D:/workspace/Vocaflow-final-product, branch feat/vocaflow-final-product, Claude pid26088 실행을 확인했다. 제품 파일을 수정하지 않고 커밋 b4fbf4d5c(보류 SQL)와 6b988d0f5(창작9문항)만 고정 검토했다. 앱 연결 작업은 해당 worktree에서 진행 중이며 아직 통합 PR 제출 전이다.
+- [새 SQL 검토](./AUTHORED_SQL_REVIEW.md): FI-002/003/004 PGlite 반례, FI-006 실제 PostgreSQL17.10 동시성 반례. [새 콘텐츠 검토](./AUTHORED_CONTENT_REVIEW.md): 봉인 Codex 선택9/9 일치·중심문장9/9 수용, FI-005 연구 서술 REWORK.
+- A~H 관점에서 새로운 교수/공급/독립 수행/환류 구현이 진전되고 있으나 위 스냅샷은 수용하지 않았다. R5에서 발견된 결함을 해결하더라도 전체 지원 TASK·전체 제품 검증을 닫지 않는다.
+- 개발 DB에는 새 authored/사람 결정 표가 아직 없음을 2026-10-18 17:05 KST 읽기 전용으로 확인했다. 새 SQL은 승인·실제 적용 검증 전이다.

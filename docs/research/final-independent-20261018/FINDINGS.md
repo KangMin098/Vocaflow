@@ -20,3 +20,17 @@
 
 - #291: G2 저장 뒤 결속 실패 시 재시도 큐 없음. 이미 알려진 한계를 새 결함으로 중복 제출하지 않고 전체 H 수용 조건에서 추적한다.
 - #292: Gold 문장 5 필수 여부 및 사람 권리 근거 미확정. AI 검증으로 pass/출시 승격하지 않는다.
+
+## 새 최종 구현 스냅샷의 독립 발견
+
+| ID | 등급 · 상태 | 고정 대상 | 근거 |
+|---|---|---|---|
+| FI-002 | 핵심 P2 · OPEN | b4fbf4d5c 보류 SQL | 교수 등록 산출물의 평가 자격/납품 허용([SQL 검토](./AUTHORED_SQL_REVIEW.md)) |
+| FI-003 | P1 · OPEN | b4fbf4d5c 보류 SQL | 동일 본문에 다른 그룹명으로 교수 노출을 회피하고 독립 근거 true([SQL 검토](./AUTHORED_SQL_REVIEW.md)) |
+| FI-004 | 핵심 P2 · OPEN | b4fbf4d5c 보류 SQL | licensed 권리 범위에 assess가 없어도 평가 납품 허용([SQL 검토](./AUTHORED_SQL_REVIEW.md)) |
+| FI-005 | 핵심 P2 · OPEN | 6b988d0f5 창작 문항 | r5-cm-ind-1 연구의 아동/독창성 서술과 식별된 원논문 모집단/측정 결과 불일치([콘텐츠 검토](./AUTHORED_CONTENT_REVIEW.md)) |
+| FI-006 | 핵심 P2 · OPEN | b4fbf4d5c 보류 SQL | 실제 PostgreSQL 두 연결에서 같은 지문 묶음 동시 납품2행([동시성 원본](./authored-concurrency.log)) |
+
+위 대상은 총괄 개발 worktree의 커밋된 조기 스냅샷이다. 실제 개발 DB에서 새 authored 표는 아직 없음을 [읽기 전용 확인](./authored-deployment-status.json)했다. 수정 소유권은 총괄 세션에 유지하며, 독립 세션은 같은 결함을 재제출하지 않고 수정 HEAD의 결과를 이 ID에 붙인다. 사용자 승인 없이 Gold/권리 결정을 기록하거나 SQL을 적용하지 않는다.
+
+FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com/KangMin098/Vocaflow/issues/293)에 전달했다. 새 발견들의 추가 공개 요청은 자동 심사 거부 뒤 게시 범위 승인 대기이며, 로컬 공용 원장은 DL-0149다.
