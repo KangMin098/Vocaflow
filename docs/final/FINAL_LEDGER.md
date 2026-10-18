@@ -33,26 +33,29 @@
   - 교수·안내 연습과 평가(독립·전이·지연)는 **지문 묶음(passage group)을 공유하지 않는다** — 등록 RPC 가 막는다.
 - **D-F2 Codex CLI 미설치(2026-10-18 확인).** 독립 검증은 별도 맹검 Claude 에이전트로 대신하고, Codex 검증 단계는 「미수행 — 도구 없음」으로 남긴다(PASS 로 세지 않는다).
 
-## 3. 실행 순서(진행 표시 · 체크포인트 2026-10-18)
+## 3. 실행 순서(진행 표시 · 체크포인트 2026-10-18 오후)
 
 | # | 작업 | 상태 | 증거 |
 |---|---|---|---|
-| 1 | 창작 산출물 DB 패키지 `_pending_authored_supply.sql` | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(A) | PGlite 20 |
-| 2 | R5 창작 9문항 v2 + 맹검 A·B·C·D + 오답 근거 감사 | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(B·C) | authored-items 14 · review/ |
-| 2b | FI-001(#293) 결속 출처 — 최신 납품 추측 제거 | CODE_IMPLEMENTED · ISOLATED 재현 6/6 | fi-001-provenance · delivery-binding 10 |
-| 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | tsc 0 · 광역 5,893 |
-| 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(LEVEL 1, 브라우저 제외) | authored-flow 10 |
-| 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1280/1440) | VALIDATION_MISSING — 로컬 Docker 없음, CI job 추가 필요 | — |
-| 5 | 단일 외부 승인 패키지 | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
-| 6 | 영역 확장(V·S·R·E 22 TASK) | NOT_IMPLEMENTED(콘텐츠) — 창작 세트 형식 · 공급 경로는 TASK 무관하게 재사용 가능 | — |
-| 7 | 기출분석 ②구조 · ⑤전체구조 상호작용 · v3.2 「내 말로」 병합(PR #250) | NOT_IMPLEMENTED / INTEGRATION_MISSING | — |
+| 1 | 창작 산출물 DB 패키지 `_pending_authored_supply.sql` | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(A) | PGlite 20 · CI 러너 DB 실제 Postgres 적용 성공 |
+| 2 | R5 창작 9문항 v2 + 맹검 A·B·C·D + 오답 근거 감사 | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(B·C) | review/ |
+| 2b | FI-001(#293) 결속 출처 — 최신 납품 추측 제거 · 복구 API | CODE_IMPLEMENTED · ISOLATED 재현 6/6 | fi-001-provenance · delivery-binding 10 |
+| 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | 광역 통과 |
+| 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(SQL+서버) | authored-flow 10 |
+| 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1440/1280) | 1차 실패 → 원인(서버 컴포넌트가 클라이언트 모듈 값 import) 수정 + 경계 가드 · 재실행 대기 | PR #303 CI |
+| 5 | 단일 외부 승인 패키지(A · B · B2 · C) | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
+| 6 | 과제 형식 레지스트리 + TASK 확장 6세트(E·E·R·R·S·V) | CODE_IMPLEMENTED · DATA(사람 Gold 전) | formats 12 · 세트 35 · expansion 리뷰 |
+| 6b | 나머지 비보류 TASK 14개 | NOT_IMPLEMENTED(콘텐츠 · 형식) — 지원 완료 표시 안 함 | — |
+| 7 | 기출분석 ⑤ 구조 예측(서버 대조) · ② 구절 역할 먼저 짚기 | CODE_IMPLEMENTED · VALIDATION_MISSING(브라우저) | structure-check 3 · theater 54 |
+| 7b | PR #250 「내 말로」 재기반 | 진행 중(별도 worktree 에이전트) | — |
 
 ## 4. 다음 실행(후속 세션이 이 순서로)
 
-1. CI 격리 job 에 「보류 창작 SQL 을 러너 DB 에만 적용 + 관리자 fixture 로 승인 흉내 + 학습자 브라우저 풀이 + DB 단언」 spec 추가(`apps/web/tests/e2e-isolated/`). 개발 DB 무관.
-2. 영역 확장 — 창작 세트 JSON 을 TASK 별로 추가(형식 = `r5-central-meaning.v1.json`), `AUTHORED_TASK_KEYS` 에 키 추가, 맹검 2인 → 사람 Gold 패킷. 우선순위: R(ready 2: r.reference · r.relation) → E(e.evidence_location live) → V · S.
-3. 기출분석 ② · ⑤ 상호작용, PR #250 재기반 병합 검토.
-4. 승인 도착 시 §승인 후 실행 순서(APPROVAL_PACKAGE) → DEV_DB_E2E.
+1. PR #303 CI 격리 브라우저 e2e 재실행 결과 확인 → 실패 시 artifact error-context 로 원인 수정(로컬 Docker 없음).
+2. PR #250 재기반 결과 검토 · 독립 검증 · 안전 병합(safe-merge).
+3. 남은 비보류 TASK 14개: 형식 추가(r.reference 지시 대상 · s.sentence_core 뼈대 표시 · v.semantic_relation 의미 동등 판정 …) → 작성 → 맹검 → 승인 패키지 B2 추가.
+4. 독립 Codex 검증 요청(#293 반례 · 재전송 · 잘못된 delivery · PLAN 환류 · 새 형식 채점 계약).
+5. 승인 도착 시 APPROVAL_PACKAGE §승인 후 실행 순서 → DEV_DB_E2E.
 
 ## 5. 외부 차단(사람 입력이 필요한 것만)
 
