@@ -17,7 +17,7 @@ import { JuMark } from '@/components/ui/press'
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
 import { createClient } from '@/lib/supabase/client'
 import { fetchDictExtras, type DictExtras } from '@/lib/flashcard/dict-extras'
-import { POPOVER } from '@/components/ui/tines-kit'
+import { POPOVER_CARD } from '@/components/ui/tines-kit'
 
 /** 품사 → 한국 학습자 약어(명·동·형·부). */
 function posLabel(pos: string): string {
@@ -114,7 +114,7 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
       ref={cardRef}
       role="dialog"
       aria-label={`${word.text} 뜻: ${word.meaning}`}
-      className={`fixed z-[100] w-[264px] animate-[fadeInScale_180ms_cubic-bezier(.34,1.56,.64,1)] p-4 ${POPOVER}`}
+      className={`fixed z-[100] w-[264px] animate-[fadeInScale_180ms_cubic-bezier(.34,1.56,.64,1)] p-4 ${POPOVER_CARD}`}
       style={{
         left: pos ? `${pos.left}px` : '-9999px',
         top: pos ? `${pos.top}px` : '0px',

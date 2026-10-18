@@ -10,7 +10,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowLeft,
   Bookmark,
@@ -27,6 +27,7 @@ import { CEFRBadge } from '@/components/library/CEFRBadge'
 import type { LibraryText, CEFRLevel, ModeKey, ModeStatus } from '@/types/library'
 import { ModePills } from './ModePills'
 import { TypePopover } from './TypePopover'
+import { applyReaderTypePrefs, readReaderTypePrefs } from '@/lib/reader/type-prefs'
 import { WorkspaceChapterNav } from './WorkspaceChapterNav'
 import {
   CompleteChapterButton,
@@ -89,6 +90,10 @@ export function UnifiedHeader({
   arcadeHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
+  // 지난번 고른 글자 크기 · 줄 간격을 읽기 화면이 열릴 때 적용한다(타이포 팝오버가 저장 — lib/reader/type-prefs)
+  useEffect(() => {
+    applyReaderTypePrefs(readReaderTypePrefs())
+  }, [])
   const [navOpen, setNavOpen] = useState(false)
 
   const hasChapterContext = book != null && currentChapterIdx != null
@@ -112,8 +117,8 @@ export function UnifiedHeader({
       role="banner"
       className={`sticky top-0 z-30 flex flex-col border-b backdrop-blur-[20px] transition-all duration-[var(--dur-slower)] ${
         isFocusMode
-          ? 'border-transparent bg-[var(--reading-bg)]/60'
-          : 'border-[var(--bd)] bg-[var(--reading-bg)]/90'
+          ? 'border-transparent bg-[color-mix(in_srgb,var(--reading-bg)_60%,transparent)]'
+          : 'border-[var(--bd)] bg-[color-mix(in_srgb,var(--reading-bg)_90%,transparent)]'
       }`}
     >
       {/* ━━━ Row A — 정체성 + 액션 (단일 행) ━━━
@@ -182,7 +187,7 @@ export function UnifiedHeader({
                       type="button"
                       onClick={onToggleInsight}
                       aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
-                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[color-mix(in_srgb,var(--p)_10%,transparent)] hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
@@ -245,7 +250,7 @@ export function UnifiedHeader({
             aria-pressed={isBookmarked}
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isBookmarked
-                ? 'border-[var(--active)]/25 bg-[var(--active-light)] text-[var(--active)]'
+                ? 'border-[color-mix(in_srgb,var(--active)_25%,transparent)] bg-[var(--active-light)] text-[var(--active)]'
                 : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >
@@ -279,7 +284,7 @@ export function UnifiedHeader({
             aria-pressed={isFocusMode}
             className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
               isFocusMode
-                ? 'border-[var(--p)]/25 bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                ? 'border-[color-mix(in_srgb,var(--p)_25%,transparent)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
             }`}
           >

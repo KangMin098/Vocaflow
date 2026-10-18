@@ -215,7 +215,9 @@ export function ReadingUniverse({
                     isPlaying ? { backgroundColor: 'rgba(99,102,241,0.14)' } : undefined
                   }
                 >
-                  {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장 */}
+                  {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장.
+                      평소 도트는 가운데 원형 그라디언트로 그린다(2026-10-18) — 예전 클래스(변수 색 `--bd` 에 투명도 55 를 슬래시로 붙인 것)는 Tailwind 가 CSS 를 만들지 않아
+                      투명했고(문장 사이 빈 틈), 그대로 color-mix 로 살리면 18px 원이 문장마다 찍혀 의도(4px 도트)보다 무겁다. */}
                   <button
                     type="button"
                     onClick={() => onSentencePlay(s.id)}
@@ -224,7 +226,7 @@ export function ReadingUniverse({
                     className={`mr-1 inline-flex h-[18px] w-[18px] -translate-y-px items-center justify-center rounded-full align-middle transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--reading-bg)] ${
                       isPlaying
                         ? 'animate-[playing-ring_1.6s_ease-in-out_infinite] bg-[var(--p)] text-white'
-                        : 'bg-[var(--bd)]/55 text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[var(--t4)]/85 group-hover/paragraph:bg-[var(--t4)]/55'
+                        : 'bg-[radial-gradient(circle,color-mix(in_srgb,var(--t3)_75%,transparent)_2.5px,transparent_3.5px)] text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[color-mix(in_srgb,var(--t4)_85%,transparent)] group-hover/paragraph:bg-[color-mix(in_srgb,var(--t4)_55%,transparent)]'
                     } `}
                   >
                     {isPlaying ? (
@@ -247,7 +249,7 @@ export function ReadingUniverse({
                           role="button"
                           tabIndex={0}
                           aria-label={`${part.text} — 도움말 보기`}
-                          className="cursor-help border-b border-dotted border-[var(--t3)]/55 text-[var(--t2)] underline-offset-[3px] transition-colors duration-[var(--dur-fast)] hover:border-[var(--t2)] hover:bg-[var(--bg3)]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t3)]"
+                          className="cursor-help border-b border-dotted border-[color-mix(in_srgb,var(--t3)_55%,transparent)] text-[var(--t2)] underline-offset-[3px] transition-colors duration-[var(--dur-fast)] hover:border-[var(--t2)] hover:bg-[color-mix(in_srgb,var(--bg3)_60%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t3)]"
                           onClick={(e) => onSupportTap?.(sup, e.currentTarget.getBoundingClientRect())}
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {

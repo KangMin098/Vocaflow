@@ -279,7 +279,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
 
 function PanelShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="sticky top-0 z-20 border-b border-[var(--bd)]/60 bg-[var(--reading-bg)]/95 backdrop-blur-[16px]">
+    <div className="sticky top-0 z-20 border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] bg-[color-mix(in_srgb,var(--reading-bg)_95%,transparent)] backdrop-blur-[16px]">
       <div className="mx-auto max-w-[640px] px-5 py-4 md:px-8">{children}</div>
     </div>
   )

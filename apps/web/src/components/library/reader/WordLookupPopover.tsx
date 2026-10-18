@@ -15,7 +15,7 @@ import { Volume2, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { RegisterBadge } from '@/components/library/RegisterBadge'
 import { PosBadge } from '@/components/library/PosBadge'
-import { POPOVER } from '@/components/ui/tines-kit'
+import { POPOVER_CARD } from '@/components/ui/tines-kit'
 
 interface WordLookupPopoverProps {
   surface: string
@@ -129,7 +129,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
       ref={ref}
       role="dialog"
       aria-label={`${surface} 뜻`}
-      className={`fixed z-[120] ${POPOVER}`}
+      className={`fixed z-[120] ${POPOVER_CARD}`}
       style={{ left, top, bottom, width: POPOVER_W }}
     >
       {/* header — 단어 + 발음 + 닫기 */}

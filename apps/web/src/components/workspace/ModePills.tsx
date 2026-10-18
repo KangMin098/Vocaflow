@@ -106,7 +106,7 @@ export function ModePills({
     <nav
       aria-label="학습 단계 선택"
       // UnifiedHeader 부모가 이미 sticky — 자체 sticky 제거 (stacking context 충돌 차단)
-      className={`relative border-b border-[var(--bd)]/40 bg-[var(--reading-bg)]/95 backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
+      className={`relative border-b border-[color-mix(in_srgb,var(--bd)_40%,transparent)] bg-[color-mix(in_srgb,var(--reading-bg)_95%,transparent)] backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
         isFocusMode
           ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100'
           : 'opacity-100'

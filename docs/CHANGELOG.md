@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): S3 ④ 읽기 — 팝오버를 역할별 두 벌로(`POPOVER_MENU` 10px · `POPOVER_CARD` 16px, tines.com 실측 대조 6/6 ×3조건), 타이포 설정이 열기만 해도 본문을 19px 로 바꾸던 결함 수정 + 고른 값 저장(`lib/reader/type-prefs`), 문장 듣기 점이 투명하던 무효 클래스(변수 색 + 슬래시 투명도) 읽기 범위 16곳 `color-mix` 로 + 상한 가드(학습자 전체 103곳 남음).
 - feat(design): S3 ③ 세션 — 단어장 학습·복습을 전체화면 세션 틀로(오른쪽 위 「세션 닫기」 · Esc 저장 후 종료 · `?from=` 복귀 유지, 카드 안 「← 종료」 제거 · 진행·설정 유지) · SpellForge 전체화면에서 겹친 자체 닫기 숨김 · Echo/만화 「본문으로」 44px·포커스. 검증 `session-audit` · `session-check`(기준선 2/6 → 5/6, 남은 1 = SpellForge Esc 건너뛰기 의도).
 - feat(design): S3 ② 단어장 — `/wordvault` 허브 머리를 서가와 같은 `AreaHero` 한 장으로(머리띠 + 18px 바 → 눈썹 · 52px 제목 · 판 아랫변 보기 탭 · 테마 전환), 시작선 셋 → 하나. `AreaHero` `trailing` 자리 · `ModuleBanner.stageOf` 공개 · 동작 검증 `vault-check`(7/7 ×2폭).
 - feat(design): S3 ① 서가 — `/library/books` 「전체 탐색」을 왼쪽 조건 레일(검색 알약 + 접히는 묶음, 288px · 고정) + 결과 칸으로(참조 tines.com/library 실측), 바깥 틀 `--content-shelf-max`(뷰포트 − 80) · `Screen width="shelf"` · 격자 열 수를 결과 칸 폭 기준으로. 측정·동작 도구 `layout-measure` · `shelf-check`(7/7 ×2폭) · `shot-section` · `shot-crop`, 팝오버 참조 실측(드롭다운 10px · 검색 패널 16px)과 역할 판정. 범위 밖 차이 원인별 재분류(관리자 = 조회 시각 · CSAT 1장 = 미확인 일시 누락).

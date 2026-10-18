@@ -6,7 +6,7 @@ import { Layers } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { POPOVER } from '@/components/ui/tines-kit'
+import { POPOVER_CARD } from '@/components/ui/tines-kit'
 import { useEscapeKey } from '@/lib/ui/use-escape-key'
 
 interface FloatingSparkleProps {
@@ -49,7 +49,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
       <div
         role="dialog"
         aria-label="추천"
-        className={`absolute bottom-16 right-0 w-80 p-5 ${POPOVER} transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] ${
+        className={`absolute bottom-16 right-0 w-80 p-5 ${POPOVER_CARD} transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] ${
           isExpanded
             ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none translate-y-2.5 scale-95 opacity-0'

@@ -62,7 +62,7 @@ export function WorkspaceBookContext({
 
   return (
     <header
-      className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-5 py-2 backdrop-blur-sm"
+      className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] px-5 py-2 backdrop-blur-sm"
       aria-label="책 컨텍스트"
     >
       {/* 좌측: 컴팩트 breadcrumb (BookVault › 책 › Chapter N · ✓N) */}
