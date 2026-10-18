@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
-2026-10-19 [재수용 결과](./REACCEPT_20261019.md): 전체 REWORK, FI-010 해당 범위 VERIFIED_FIXED.312cefc 잔여 미해결/병합0,30388c3 새 두 기기 전체 화면 CI 대기. 실제 DB READ ONLY 재관찰·A~H 일곱 증거 층위를 분리했다. 아래는 과거 이력이다.
+2026-10-19 [재수용 결과](./REACCEPT_20261019.md): 전체 REWORK, FI-010 해당 범위 VERIFIED_FIXED.312cefc 잔여 미해결/병합0,30388c3 새 두 기기 전체 화면 CI/report10/10 명시 범위 수용. 실제 DB READ ONLY 재관찰·A~H 일곱 증거 층위를 분리했다. 아래는 과거 이력이다.
 
 현재 후속 상태: **REWORK · 검증 계속**. FI-006/010/014/015/016/017은 실제 통합 코드/격리 경계에서 수정 확인, FI-018은 PR312cefc에서도 PARTIAL_FIX / OPEN이다. 최신303256f·2502549(실제 통합/재전송 상한·DB 주석 복원)와 CI/실제 DB READ ONLY·남은 A~H는 [통합 보고서](./INTEGRATED_REPORT.md)와 [변경분 원장](./REWORK_DELTA_REVERIFY.md)이 정본이며 아래는 시간순 이력이다.
 

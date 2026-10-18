@@ -1,5 +1,6 @@
 {
-  "observedAt": "2026-10-18T23:16:35.395484+00:00",
+  "observedAt": "2026-10-18T23:28:55Z",
+  "devObservedAt": "2026-10-18T23:16:35.395484+00:00",
   "clientDate": "2026-10-19 Asia/Seoul",
   "main": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
   "prs": [
@@ -398,12 +399,12 @@
       "statusCheckRollup": [
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-18T23:22:59Z",
+          "conclusion": "SUCCESS",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317532",
           "name": "verify",
           "startedAt": "2026-10-18T23:17:23Z",
-          "status": "IN_PROGRESS",
+          "status": "COMPLETED",
           "workflowName": "CI"
         },
         {
@@ -428,12 +429,12 @@
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-18T23:22:49Z",
+          "conclusion": "SUCCESS",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317463",
           "name": "build",
           "startedAt": "2026-10-18T23:17:29Z",
-          "status": "IN_PROGRESS",
+          "status": "COMPLETED",
           "workflowName": "CI"
         },
         {
@@ -488,16 +489,6 @@
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
-          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317428",
-          "name": "e2e",
-          "startedAt": "2026-10-18T23:17:23Z",
-          "status": "IN_PROGRESS",
-          "workflowName": "CI"
-        },
-        {
-          "__typename": "CheckRun",
           "completedAt": "2026-10-18T23:17:19Z",
           "conclusion": "SKIPPED",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175876709/job/117818327495",
@@ -505,6 +496,16 @@
           "startedAt": "2026-10-18T23:17:25Z",
           "status": "COMPLETED",
           "workflowName": "sync-check"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-18T23:25:52Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317428",
+          "name": "e2e",
+          "startedAt": "2026-10-18T23:17:23Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
         },
         {
           "__typename": "CheckRun",
@@ -518,12 +519,12 @@
         },
         {
           "__typename": "CheckRun",
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-18T23:25:39Z",
+          "conclusion": "SUCCESS",
           "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39175879688/job/117818317776",
           "name": "e2e-gate-faultclosed",
           "startedAt": "2026-10-18T23:17:24Z",
-          "status": "IN_PROGRESS",
+          "status": "COMPLETED",
           "workflowName": "CI"
         },
         {
@@ -550,15 +551,15 @@
       "requiredChecks": [
         {
           "name": "verify",
-          "success": false
+          "success": true
         },
         {
           "name": "build",
-          "success": false
+          "success": true
         },
         {
           "name": "e2e",
-          "success": false
+          "success": true
         },
         {
           "name": "TypeScript 0 error",
@@ -658,5 +659,30 @@
   "safeMergeExecuted": false,
   "overall": "REWORK",
   "singleSyntheticLearnerAtoH": "NOT_VERIFIED",
-  "newFullScreenTwoDeviceEvidence": "TEST_ADDED_CI_PENDING"
+  "newFullScreenTwoDeviceEvidence": {
+    "status": "ISOLATED_BROWSER_VERIFIED_SCOPED",
+    "head": "88c3f12818cee9838234dbf943844acbe534dab7",
+    "runId": 39175879688,
+    "report": "reaccept-ci-browser-88c3.json",
+    "expected": 10,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "newTests": 2,
+    "widths": [
+      1280,
+      1440
+    ],
+    "scope": [
+      "Actual UI different-note save and DB unit-ID preservation",
+      "Two injected409 responses and actual client retry/merge",
+      "Third-device and page reentry"
+    ],
+    "notDirectlyAsserted": [
+      "Deterministic server-side read/write collision in this UI test",
+      "Exact first-note request text matching persisted text",
+      "Post-loss automatic subsequent PUT before final DB assertion",
+      "Held item with stored notes in these two-device UI scenarios"
+    ]
+  }
 }
