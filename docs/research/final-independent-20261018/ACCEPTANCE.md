@@ -56,3 +56,9 @@ main 기준선 이후 총괄 worktree의 b4fbf4d5c 보류 authored SQL과 6b988d
 ## 새 종단 구현 커밋 52a31d988
 
 [후속 독립 검토](./AUTHORED_INTEGRATION_REVIEW.md): 작성자 PGlite 종단10건 통과를 재현했고, FI-007의 사후 철회 열람/현재 공급 허위 충족과 FI-008의 브라우저 재시도 시각→G2 conflict를 추가 확인했다. 실제 컴포넌트 Chromium 1280/1440에서는 키보드·오류·빈 상태·가로 넘침을 확인했다. 전체 셸/팝업/라우트/실제 DB/PLAN 복원 E2E는 아직 미검증이다. 따라서 D/F/H의 기술 연결 증거는 늘었으나 A~H 판정을 VERIFIED로 올리지 않는다. 전체 REWORK와 외부 승인 조건을 유지한다.
+
+## 전체 지원 TASK의 관통 증거 확인
+
+[30 TASK별 현재 대조](./TASK_RUNTIME_COVERAGE.md)를 추가했다. 2026-10-18 17:42 KST READ ONLY 집계에서 FQ/납품/납품 결속 근거는 모든 TASK에서0, authored 표는 미설치였다. 커밋된 총괄 후보가 추가한 창작 세트와 명시 근거 키는 R5 한 TASK9문항이다. L/X blocked9개·직접 확인 키 미매핑·연구 독립성 보류는 지원 완료로 세지 않는다.
+
+claim-support 독립 모양 기록125행 중124행은 synthetic=true이며, 남은1행도 플래그만으로 실학생 효과를 입증하지 못한다. 다른 두 과제의4행은 viewed_first다. 기존 행 수를 적격 공급부터의 독립 전이/환류 완료로 계산하지 않는다. A~H의 현재 PARTIAL/BLOCKED_EXTERNAL 및 전체 REWORK를 유지한다. 이 대조는 기존 정본을 바꾸거나 새 로드맵/필수 게이트를 추가한 것이 아니다.

@@ -49,3 +49,8 @@
 - 학습자의 내부 Gold hash 함수 실행은 거절됐다. 19개 모두 기대 결과다. 새 권한 침해 결함은 발견하지 않았다.
 
 범위: 최소 의존 스키마의 실제 pending 공급 정책/함수 권한 검사다. JWT 검증·실제 관리자 행위가 사람인지에 대한 증명·전체 Workspace 앱·실제 개발 DB E2E를 대신하지 않는다. fixture의 사람 결정은 로컬 합성 승인뿐이다. 실제 Gold/권리 승인이나 새 SQL 적용은 수행하지 않았다. 시험 서버 종료·PID/프로세스 부재·절대 경로를 확인하고 이 실행의 데이터 디렉터리만 정리했다.
+
+## 전체 TASK별 관통 증거
+
+- [실제 집계 SQL](./task-runtime-snapshot.sql)·[원본 집계](./task-runtime-snapshot.json): READ ONLY on, 자격/납품/결속 근거0, 새 authored 표 미설치. 개인정보/응답 SELECT 없음.
+- [전체 TASK 대조](./TASK_RUNTIME_COVERAGE.md): 기존30개 메타데이터/정본 원본 동일성 확인, 후보의 명시 근거 키/창작 세트 및 실제 집계만 연결했다. 기존 판정 시험 재실행 없음. live/ready나 synthetic 미표시1행을 제품 관통/효과 성공으로 세지 않음.
