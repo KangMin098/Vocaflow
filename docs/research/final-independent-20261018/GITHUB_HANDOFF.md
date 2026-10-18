@@ -20,7 +20,7 @@
 | FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE ·71a 로더17 TASK 및 실제 CI 두 폭 Workspace 복귀/결과 표시 확인. 전체 PLAN 의미 갱신은 별도 미검증 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
-| FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · 맞는 주어/본동사 이유 오답 |
+| FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · [격리 대체 이유 후보](./FI014_CANDIDATE.md)1,596조합/브라우저12건 확인, 제품 미적용·사람 미승인 |
 
 각 이슈에 고정 대상 커밋, 재현 조건/관찰, 기대 동작, 원본 결과/화면 링크를 포함했다. 수정 HEAD/PR이 오면 같은 ID에서 정상 대조군과 반례를 독립 확인한다. 동일 이슈를 다시 만들지 않는다.
 

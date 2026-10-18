@@ -1,0 +1,97 @@
+diff --git a/apps/web/src/components/csat/authored/AuthoredRunner.tsx b/apps/web/src/components/csat/authored/AuthoredRunner.tsx
+index 4c846b456..e01ba3299 100644
+--- a/apps/web/src/components/csat/authored/AuthoredRunner.tsx
++++ b/apps/web/src/components/csat/authored/AuthoredRunner.tsx
+@@ -524,6 +524,7 @@ function RevealBody({ format, reveal: rv, graded: g, probe, choices }: { format:
+       return (
+         <>
+           <p><b>정답 덩어리</b> — {SEGMENT_REASON_LABEL[rv.reason as string] ?? String(rv.reason)}. {String(rv.why ?? '')}</p>
++          {((rv.reasonAlternatives as { reason: string; why: string }[] | undefined) ?? []).map((a) => <p key={a.reason}><b>함께 맞는 이유</b> — {SEGMENT_REASON_LABEL[a.reason] ?? a.reason}. {a.why}</p>)}
+           {g && <ul className={styles.note}><li>덩어리: {g.choiceOk ? '맞음' : '다름'}</li><li>이유: {g.reasonOk ? '맞음' : '다름 — 위치만 맞힌 것과 구별하려고 이유까지 봐요'}</li></ul>}
+           <ul className={styles.note}>{((rv.segments as { reason: string; why: string }[]) ?? []).map((x, i) => <li key={i}>덩어리 {i + 1}: {SEGMENT_REASON_LABEL[x.reason] ?? x.reason} — {x.why}</li>)}</ul>
+         </>
+diff --git a/apps/web/src/lib/knowledge/authored/formats.ts b/apps/web/src/lib/knowledge/authored/formats.ts
+index 20b868390..090d9401b 100644
+--- a/apps/web/src/lib/knowledge/authored/formats.ts
++++ b/apps/web/src/lib/knowledge/authored/formats.ts
+@@ -340,6 +340,21 @@ const demandChoice: FormatSpec = {
+ // ── segment_choice (s.sentence_core · s.attachment · s.chunk_boundary · s.structural_relation) ──
+ // body.focus.sentence 문장을 body.segments(그 문장의 연속 부분 문자열, 순서대로)로 나눠 보이고 body.ask 를 묻는다.
+ // 정답 = 해당 덩어리 ✓ + 이유 ✓(위치만 맞힌 우연 정답 구별). 덩어리는 문장에 실제로 있는 글자여야 한다.
++/** Item-specific draft alternatives remain inside the revision-bound Gold. */
++function segmentAlternatives(g: Record<string, unknown>): { reason: SegmentReason; why: string }[] | null {
++  const raw = g.reasonAlternatives
++  if (raw === undefined) return []
++  if (!Array.isArray(raw) || raw.length === 0 || raw.length >= SEGMENT_REASONS.length) return null
++  const reasons = new Set<string>()
++  for (const entry of raw) {
++    if (!entry || typeof entry !== 'object') return null
++    const x = entry as { reason?: unknown; why?: unknown }
++    if (!SEGMENT_REASONS.includes(x.reason as SegmentReason) || x.reason === g.reason || typeof x.why !== 'string' || x.why.trim().length < 8 || reasons.has(x.reason as string)) return null
++    reasons.add(x.reason as string)
++  }
++  return raw as { reason: SegmentReason; why: string }[]
++}
++
+ const segmentChoice: FormatSpec = {
+   id: 'segment_choice',
+   validate(body, g) {
+@@ -360,6 +375,7 @@ const segmentChoice: FormatSpec = {
+     const gg = g as { answer: number; reason: SegmentReason; why: string; segments: { reason: SegmentReason; why: string }[] }
+     if (!isInt(gg.answer, 0, segs.length)) errs.push('정답 덩어리')
+     if (!SEGMENT_REASONS.includes(gg.reason)) errs.push('이유 범주')
++    if (segmentAlternatives(g) === null) errs.push('문항별 대체 이유와 설명')
+     if (typeof gg.why !== 'string' || gg.why.length < 8) errs.push('정답 설명')
+     if (!Array.isArray(gg.segments) || gg.segments.length !== segs.length || !gg.segments.every((x) => SEGMENT_REASONS.includes(x.reason) && typeof x.why === 'string' && x.why.trim().length >= 2)) errs.push('덩어리별 판단 근거')
+     return errs
+@@ -370,10 +386,12 @@ const segmentChoice: FormatSpec = {
+     if (!isInt(r.choice, 0, segs.length) || !SEGMENT_REASONS.includes(r.reason as SegmentReason)) return null
+     const gg = g as unknown as { answer: number; reason: SegmentReason }
+     const choiceOk = r.choice === gg.answer
+-    const reasonOk = r.reason === gg.reason
++    const alternatives = segmentAlternatives(g)
++    if (alternatives === null) return null
++    const reasonOk = r.reason === gg.reason || alternatives.some((a) => a.reason === r.reason)
+     return { response: { choice: r.choice, reason: r.reason }, grade: { choiceOk, reasonOk, isCorrect: choiceOk && reasonOk } }
+   },
+-  reveal: (g) => ({ answer: g.answer, reason: g.reason, why: g.why, segments: g.segments }),
++  reveal: (g) => ({ answer: g.answer, reason: g.reason, reasonAlternatives: g.reasonAlternatives, why: g.why, segments: g.segments }),
+ }
+ 
+ // ── equivalence (v.semantic_relation) ────────────────────────────────
+diff --git a/apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json b/apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json
+index 63e68b9d2..ca28ede56 100644
+--- a/apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json
++++ b/apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json
+@@ -74,6 +74,7 @@
+       "gold": {
+         "answer": 2,
+         "reason": "clause_boundary",
++        "reasonAlternatives": [{"reason":"main_verb","why":"refused는 주절의 정형 본동사를 시작하므로 문장의 본동사라는 이유도 맞다."}],
+         "why": "told 는 '말을 들은'이라는 과거분사로 students 를 뒤에서 꾸민다(who were told 의 축약). told 를 동사로 읽으면 안 되고, 주어 덩어리가 끝난 뒤 refused 에서 문장의 동사가 시작된다.",
+         "segments": [
+           { "reason": "main_subject", "why": "주어의 핵심 명사." },
+@@ -104,6 +105,7 @@
+       "gold": {
+         "answer": 1,
+         "reason": "ellipsis_restored",
++        "reasonAlternatives": [{"reason":"clause_boundary","why":"their children에서 주어와 동사를 갖춘 believe의 목적어절이 시작되므로 절의 경계라는 이유도 맞다."}],
+         "why": "believe 뒤에 접속사 that 이 생략되어 있다. 'believe (that) their children sleep ...'으로 복원하면 their children 에서 목적어 절이 시작된다.",
+         "segments": [
+           { "reason": "subject_and_verb", "why": "주절의 주어와 동사. 목적어 절 앞에서 끝난다." },
+@@ -134,6 +136,7 @@
+       "gold": {
+         "answer": 0,
+         "reason": "phrase_boundary",
++        "reasonAlternatives": [{"reason":"main_subject","why":"선택한 전체 명사구가 worried의 주어이며 주어 전체를 찾으라는 발문에 직접 답한다."}],
+         "why": "주어의 핵심은 rise 이고 in the price of fresh vegetables, across the region 은 모두 rise 를 꾸미는 전치사구다. region 에서 주어 명사구가 끝나고 worried 가 동사다. vegetables 나 region 을 주어로 착각하지 않는다.",
+         "segments": [
+           { "reason": "phrase_boundary", "why": "긴 명사구 주어 전체. region 에서 끝난다." },
+@@ -194,6 +197,7 @@
+       "gold": {
+         "answer": 3,
+         "reason": "ellipsis_restored",
++        "reasonAlternatives": [{"reason":"clause_boundary","why":"the family had forgotten은 box를 꾸미는 관계절의 시작이므로 절의 경계라는 이유도 맞다."}],
+         "why": "보어 Hidden under the floor 가 앞으로 나간 도치 문장으로 주어는 a box 다. 'a box (that) the family had forgotten'처럼 목적격 관계대명사를 복원하면 the family 에서 관계절이 시작된다.",
+         "segments": [
+           { "reason": "inverted_order", "why": "앞으로 나간 보어(분사구)." },

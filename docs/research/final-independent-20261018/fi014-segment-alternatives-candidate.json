@@ -1,0 +1,334 @@
+{
+  "head": "14446db1048258752acb22ba08171196e8b33566",
+  "result": "PASS",
+  "items": 24,
+  "combinations": 1596,
+  "invalidGoldRejected": 7,
+  "rows": [
+    {
+      "id": "cb-teach-1",
+      "originalReason": "clause_boundary",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "model_explanation"
+    },
+    {
+      "id": "cb-guided-1",
+      "originalReason": "clause_boundary",
+      "addedReason": "main_verb",
+      "canonicalPreserved": true,
+      "additionalAccepted": 1,
+      "bodyUnchanged": true,
+      "role": "guided_practice"
+    },
+    {
+      "id": "cb-ind-1",
+      "originalReason": "ellipsis_restored",
+      "addedReason": "clause_boundary",
+      "canonicalPreserved": true,
+      "additionalAccepted": 1,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "cb-ind-2",
+      "originalReason": "phrase_boundary",
+      "addedReason": "main_subject",
+      "canonicalPreserved": true,
+      "additionalAccepted": 1,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "cb-transfer-1",
+      "originalReason": "clause_boundary",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "transfer"
+    },
+    {
+      "id": "cb-delayed-1",
+      "originalReason": "ellipsis_restored",
+      "addedReason": "clause_boundary",
+      "canonicalPreserved": true,
+      "additionalAccepted": 1,
+      "bodyUnchanged": true,
+      "role": "delayed_check"
+    },
+    {
+      "id": "sc-teach-1",
+      "originalReason": "main_verb",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "model_explanation"
+    },
+    {
+      "id": "sc-guided-1",
+      "originalReason": "main_subject",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "guided_practice"
+    },
+    {
+      "id": "sc-ind-1",
+      "originalReason": "main_verb",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "sc-ind-2",
+      "originalReason": "main_subject",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "sc-transfer-1",
+      "originalReason": "main_verb",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "transfer"
+    },
+    {
+      "id": "sc-delayed-1",
+      "originalReason": "main_subject",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "delayed_check"
+    },
+    {
+      "id": "at-teach-1",
+      "originalReason": "modifies_noun",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "model_explanation"
+    },
+    {
+      "id": "at-guided-1",
+      "originalReason": "modifies_verb",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "guided_practice"
+    },
+    {
+      "id": "at-ind-1",
+      "originalReason": "modifies_noun",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "at-ind-2",
+      "originalReason": "modifies_noun",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "at-transfer-1",
+      "originalReason": "modifies_verb",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "transfer"
+    },
+    {
+      "id": "at-delayed-1",
+      "originalReason": "modifies_noun",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "delayed_check"
+    },
+    {
+      "id": "sr-teach-1",
+      "originalReason": "parallel_member",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "model_explanation"
+    },
+    {
+      "id": "sr-guided-1",
+      "originalReason": "ellipsis_restored",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "guided_practice"
+    },
+    {
+      "id": "sr-ind-1",
+      "originalReason": "inserted_clause",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "sr-ind-2",
+      "originalReason": "inverted_order",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "independent_check"
+    },
+    {
+      "id": "sr-transfer-1",
+      "originalReason": "parallel_member",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "transfer"
+    },
+    {
+      "id": "sr-delayed-1",
+      "originalReason": "ellipsis_restored",
+      "addedReason": null,
+      "canonicalPreserved": true,
+      "additionalAccepted": 0,
+      "bodyUnchanged": true,
+      "role": "delayed_check"
+    }
+  ],
+  "scope": "Actual frozen format grader/validator with isolated code + four unapproved item-specific Gold drafts. Exhaustive finite choice/reason combinations for 24 segment items. Browser scope, when requested, is recorded separately. No product modification, DB/hash execution, G2 or human Gold/rights approval.",
+  "productApplied": false,
+  "humanApproved": false,
+  "patchContextCheck": "PASS against isolated frozen files",
+  "sources": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/formats.ts",
+      "originalSha256": "73c38f2a2f412223f85b639c2c4048dd9bd789e7f81672ef7546cbe1cf990184",
+      "candidateSha256": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62"
+    },
+    {
+      "file": "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+      "originalSha256": "54776e1556868b591b0733ef3191e8cdcd1131786da97b62ec28c9c76908aae7",
+      "candidateSha256": "0adf5978cc19047fcf9719d9a9334614526d20a8805f1ec86efdf69ba6f1d6c8"
+    }
+  ],
+  "note": "Gold JSON content changes require the actual registration revision/hash and fresh human review; no prior qualification is carried over by this candidate.",
+  "browser": {
+    "observations": [
+      {
+        "width": 1280,
+        "id": "cb-guided-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1280,
+        "id": "cb-ind-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1280,
+        "id": "cb-ind-2",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1280,
+        "id": "cb-delayed-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1280,
+        "id": "wrong-segment",
+        "correct": false,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1280,
+        "id": "unrelated-reason",
+        "correct": false,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "cb-guided-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "cb-ind-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "cb-ind-2",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "cb-delayed-1",
+        "correct": true,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "wrong-segment",
+        "correct": false,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      },
+      {
+        "width": 1440,
+        "id": "unrelated-reason",
+        "correct": false,
+        "alternativeExplanationVisible": true,
+        "noOverflow": true
+      }
+    ],
+    "runtimeErrors": 0,
+    "externalRequests": 0,
+    "goldJsonBrowserInputs": 0,
+    "scope": "Actual candidate Runner/CSS and candidate grader. Local synthetic API/Link; no route auth, actual DB/G2/PLAN or human approval."
+  }
+}
