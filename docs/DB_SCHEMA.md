@@ -1,5 +1,7 @@
 # DB Schema
 
+> **미적용 승인안 FINAL 창작 공급**(2026-10-18): `supabase/migrations/_pending_authored_supply.sql` — `authored_item`(자체 창작 산출물 · 추가 전용 · revision/Gold hash DB 계산) · `content_human_decision`(+철회 · 권리/Gold 사람 결정) · 공급/유효성/노출/G2 결속 래퍼(모든 신규 공급에 권리 결정 · 평가 역할 창작물에 사람 Gold). DB-1/2 · I2 · G2(모두 2026-10-18 적용됨) 위에 한 트랜잭션. 승인 범위: [승인 패키지](./final/APPROVAL_PACKAGE.md).
+
 > **DB286 독립 배포 보완(미적용)**: 최신 main의 B NULL 버전 거절과 기존 권한 helper의 search_path 외 속성 불변 가드를 배포 정본에 반영했다. 영구 객체 범위는 기존 DB-1/2와 같고 I2 annotation binding은 제외한다. 전체 SHA·승인 차이·실제 이력 대기는 [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)·[독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md). 개발 DB는 읽기 전용 감사만 수행했다.
 
 > **미적용 승인안** Factory I1 독립 수정(2026-10-17): C/B→S에서 자격 supersede·현재 원천/Reveal Gate·NULL 축·경합을 재검사하고 P에서 종결 시 유효 수량만 센다. search_path와 부분 승인 롤백도 보완. 개발 DB 객체 변경 없음. 객체/hash/DB-1·2·3 범위: [승인 패키지](./csat-learner/v62/FACTORY_I1_APPROVAL_PACKAGE.md)·[독립 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).

@@ -19,6 +19,9 @@ import { STAGE_BLOCKED_LABEL, STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 
+import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
+
+import { AuthoredSupplyCard } from './AuthoredSupplyCard'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
@@ -165,6 +168,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
             )}
             <p className={p.cardDesc}>문항 수는 실력 점수가 아니에요. TASK 마다의 자료 준비 상태는 TASK 의 「자세한 근거 보기」에서 봐요.</p>
           </section>
+
+          {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
+            <AuthoredSupplyCard task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} />
+          )}
         </>
       )}
     </MapDialog>

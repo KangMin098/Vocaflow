@@ -5,6 +5,7 @@
 // 정본: LEARNING_MAP_VNEXT rev2.1(바꾸지 않는다) · 설계: docs/csat-learner/LEARNING_MAP_V4_ARCHITECTURE.md.
 
 import { V4_DATA } from './definition.data'
+import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import type { Domain, TaskId, V4Data, V4Relation, V4Task, V4Template } from './types'
 
 export type { Domain, TaskId, V4Data, V4Relation, V4Task, V4Template } from './types'
@@ -65,6 +66,11 @@ export function checkedTaskOfKey(taskKey: string): TaskId | null {
   return t && t.core.length === 1 ? t.core[0] : null
 }
 export const checkKeysOfTask = (id: TaskId): string[] => V4_DATA.templates.filter((w) => !w.hold && w.core.length === 1 && w.core[0] === id).flatMap((w) => w.content_keys)
+/**
+ * 근거 계산용 과제 키 — 정본 확인 키 + 그 TASK 의 자체 창작 채점 키(FINAL §8). 창작 자료는 납품(DB 자격 · 사람 결정 · 노출 판정)을 거친 것만
+ * 확인 대상에 들어오므로(load.ts) 키를 더해도 납품 안 된 창작 기록이 근거가 되지 않는다. 정본 정의(content_keys)는 바꾸지 않는다.
+ */
+export const evidenceKeysOfTask = (id: TaskId): string[] => [...checkKeysOfTask(id), ...authoredKeysOf(id)]
 
 /** 관계 — 승인된 것만 「구조적 연결」로 쓴다. proposed 는 화면에 「제안 연결」로만(근거 상태 · 요구를 바꾸지 않는다) */
 export const relations = (status?: V4Relation['status']): readonly V4Relation[] => (status ? V4_DATA.relations.filter((r) => r.status === status) : V4_DATA.relations)

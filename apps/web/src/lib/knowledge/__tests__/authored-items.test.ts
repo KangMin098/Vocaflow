@@ -8,6 +8,7 @@ import {
   R5_AUTHORED_SET, annotationRefOf, authoredItemsFor, findAuthored, gradeAuthored, isAssessmentRole, learnerView,
   registrationArgs, validateAuthoredSet, type AuthoredSet,
 } from '../authored/authored-items'
+import { AUTHORED_TASKS } from '../authored/tasks'
 
 const S = R5_AUTHORED_SET
 const item = (id: string) => S.items.find((x) => x.id === id)!
@@ -30,6 +31,10 @@ describe('세트 규칙', () => {
   it('평가 지문 문장이 교수 · 연습 지문에 나오지 않는다(미리보기 · 해설로 새지 않는다)', () => {
     const instruction = S.items.filter((i) => !isAssessmentRole(i.role)).flatMap((i) => [...i.body.sentences, ...(i.body.teach ?? []).map((t) => t.text), ...(i.body.hints ?? [])]).join('\n')
     for (const a of S.items.filter((i) => isAssessmentRole(i.role))) for (const s of a.body.sentences) expect(instruction).not.toContain(s)
+  })
+
+  it('클라이언트용 TASK 목록 = 창작 세트가 있는 TASK(세트 JSON 을 클라이언트에 넣지 않는다)', () => {
+    expect([...AUTHORED_TASKS]).toEqual([S.taskId])
   })
 
   it('정답 위치가 한쪽으로 몰리지 않는다(같은 번호 ≤ 4)', () => {

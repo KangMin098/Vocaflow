@@ -21,7 +21,7 @@ export function bindingRequestKey(userId: string, clientMutationId: string): str
 
 export async function bindDeliveryAttempt(
   learner: SupabaseClient,
-  input: { userId: string; itemRef: string; clientMutationId: string },
+  input: { userId: string; itemRef: string; clientMutationId: string; artifactKind?: 'csat_item' | 'authored_item' },
 ): Promise<{ status: BindingStatus; id?: string }> {
   // 재전송 — 같은 요청 키의 결속이 이미 있으면 그대로 돌려준다(그 사이 다른 납품이 생겨도 최초 delivery 를 유지 · Codex P2)
   const key = bindingRequestKey(input.userId, input.clientMutationId)
@@ -30,7 +30,7 @@ export async function bindDeliveryAttempt(
   const done = (prev.data as { id: string }[] | null)?.[0]
   if (done) return { status: 'bound', id: done.id }
   const d = await learner.from('workspace_content_delivery').select('id, delivered_at')
-    .eq('user_id', input.userId).eq('artifact_kind', 'csat_item').eq('artifact_ref', input.itemRef)
+    .eq('user_id', input.userId).eq('artifact_kind', input.artifactKind ?? 'csat_item').eq('artifact_ref', input.itemRef)
     .order('delivered_at', { ascending: false }).limit(1)
   if (d.error) return { status: MISSING.has(codeOf(d.error) ?? '') ? 'not_installed' : 'error' }
   const delivery = (d.data as { id: string }[] | null)?.[0]

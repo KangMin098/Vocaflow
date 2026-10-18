@@ -44,6 +44,9 @@ import { compactLedger, executableTransferTargets, type ExposureLedger, type FqR
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
 import { checkKeysOfTask, checkedTaskOfKey } from './v4/definition'
+import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
+import { isAuthoredRef } from '@/lib/knowledge/authored/authored-items'
+import { applyAuthoredBindings } from '@/lib/csat/authored/evidence'
 import type { TaskId } from './v4/types'
 
 type Db = SupabaseClient
@@ -283,6 +286,29 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
     .map((r) => ({ attemptId: attemptIdentity(r.id), sessionId: r.session_id, itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
+interface AuthoredConfirm { task: string; confirm: MapPracticeLink['confirm'][number] }
+
+/** 납품받은 창작 평가 자료 — 혼자 확인 · 다른 날 확인만(전이는 수행 기록으로 센다). 표가 없으면(창작 공급 SQL 미적용) 빈 목록 */
+async function loadAuthoredConfirms(db: Db, userId: string): Promise<AuthoredConfirm[]> {
+  const { data, error } = await db.from('workspace_content_delivery').select('artifact_ref, task_id, role')
+    .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', ['independent_check', 'delayed_check'])
+  if (error) { if (error.code && MISSING_TABLE.has(error.code)) return []; throw new Error(`창작 납품 조회 실패: ${error.message}`) }
+  return ((data ?? []) as { artifact_ref: string; task_id: string; role: string }[]).flatMap((r) => authoredKeysOf(r.task_id).map((taskKey) => ({
+    task: r.task_id,
+    confirm: { taskKey, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}`, label: r.role === 'delayed_check' ? '받은 자료 · 다른 날 확인' : '받은 자료 · 혼자 확인' },
+  })))
+}
+
+/** 창작 자료 첫 시도 — DB 결속 원장이 근거로 센 시도만 독립 자격(규칙은 authored/evidence.ts). 조회 실패 = 비근거 */
+async function gateAuthoredFirsts(db: Db, userId: string, rows: FindAttemptRow[]): Promise<FindAttemptRow[]> {
+  const ids = rows.filter((r) => isAuthoredRef(r.itemRef) && r.attemptId).map((r) => r.attemptId!)
+  if (ids.length === 0) return rows
+  const { data, error } = await db.from('workspace_delivery_attempt').select('attempt_id, evidence, annotation_hash, session_id').eq('user_id', userId).in('attempt_id', ids)
+  if (error) console.error('[csat-map authored bindings]', error.message)
+  return applyAuthoredBindings(rows, error ? null : ((data ?? []) as { attempt_id: number | string; evidence: boolean; annotation_hash: string; session_id: string }[])
+    .map((b) => ({ attemptId: String(b.attempt_id), evidence: b.evidence, annotationHash: b.annotation_hash, sessionId: b.session_id })))
+}
+
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
   // 게이트 — 테이블 없음(미설치)과 시드 전을 가른다
   const probe = await db.from('csat_map_node').select('code').limit(1)
@@ -478,13 +504,18 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const gate = await itemRevealDecision(Object.values(allLinks).flatMap((l) => l.confirm.map((c) => c.target)))
   if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
-  const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
+  // FINAL §8 — 이 학습자에게 납품된 창작 평가 자료(혼자 확인 · 다른 날 확인)를 그 TASK 의 확인 대상에 더한다. 납품 안 된 창작 기록은 대상이 아니다
+  for (const c of await loadAuthoredConfirms(db, userId).catch((e) => { console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
+    const l = practiceLinks[c.task]
+    if (l && !l.confirm.some((x) => x.target === c.confirm.target)) practiceLinks[c.task] = { ...l, confirm: [...l.confirm, c.confirm] }
+  }
+  const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).then((rows) => gateAuthoredFirsts(db, userId, rows)).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
     return undefined
   }) : undefined
   const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
-  const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
+  const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set([...Object.values(practiceLinks).map((l) => l.taskKey), ...Object.keys(practiceLinks).flatMap(authoredKeysOf)])], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))

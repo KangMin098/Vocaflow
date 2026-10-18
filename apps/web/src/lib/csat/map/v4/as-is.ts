@@ -15,7 +15,7 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import { skillDiagnosis, type SkillStatus } from '../skill-diagnosis'
 
-import { CANON_EFFECTIVE_FROM, CANON_VERSION, DOMAINS, RULE_VERSION, checkKeysOfTask, tasks, type Domain, type TaskId } from './definition'
+import { CANON_EFFECTIVE_FROM, CANON_VERSION, DOMAINS, RULE_VERSION, evidenceKeysOfTask, tasks, type Domain, type TaskId } from './definition'
 import type { DirectCheck } from './types'
 
 /** 축 proxy 의 학생 쪽 상태(learner-path 의 단계 근거 상태를 축 단위로) */
@@ -203,7 +203,7 @@ export function asIsMap(input: AsIsInput): AsIsMap {
       continue
     }
     // 직접 확인 — 이 TASK 를 중심으로 겨누는 확인 과제 키가 있고, 확인 문항이 실제로 연결돼 있을 때만
-    const keys = new Set(checkKeysOfTask(t.id))
+    const keys = new Set(evidenceKeysOfTask(t.id))
     const targets = input.checks.filter((c) => keys.has(c.taskKey)).flatMap((c) => c.items.map((itemRef) => ({ itemRef, taskKey: c.taskKey })))
     let check: AsIsTask['check'] = null
     let fromCheck: TaskEvidence | null = null

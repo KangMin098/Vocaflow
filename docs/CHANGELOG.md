@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(csat): FINAL — R5 자체 창작 공급 경로. 새 산출물 종류 `authored_item` · 권리/Gold 사람 결정 원장(보류 SQL `_pending_authored_supply.sql`, 미적용) · R5 창작 9문항(교수·안내·독립·전이·지연, 맹검 2인 9/9) · 학습자 화면 `/csat/learn/[id]` · API `/api/csat/authored`(목록) · `/supply` · `/[id]/attempt` · 지도 Workspace 「받은 자료」 카드 · 지도 As-Is 가 DB 결속 근거만 직접 확인으로 읽는다. 격리 종단 PGlite 10 · SQL 20. 원장 [FINAL_LEDGER](./final/FINAL_LEDGER.md).
+
 - fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.
 
 - Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.

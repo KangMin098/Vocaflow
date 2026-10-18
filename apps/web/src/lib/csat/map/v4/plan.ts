@@ -11,7 +11,7 @@
 import { passageIdentity, repairAttempts, repairWindow, transferTarget } from '../lifecycle-evidence'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
-import { checkKeysOfTask, taskOf, tasks, type TaskId } from './definition'
+import { evidenceKeysOfTask, taskOf, tasks, type TaskId } from './definition'
 import type { Need, ToBeMap } from './to-be'
 import { TRANSFER_PASSAGES, type StageKey, type WorkspacePlan, type WorkspaceView } from './workspace'
 
@@ -117,7 +117,7 @@ function progressOf(core: readonly TaskId[], list: readonly TaskPlan[]): Workspa
  * 같은 문항 반복은 1, 다른 TASK 키의 시도는 0. 정오는 따지지 않는다(적용 경험 · 결과는 CHECK 가 판정).
  */
 export function transferDoneOf(id: TaskId, since: string | null, activity: readonly Pick<PlanActivity, 'itemRef' | 'taskKey' | 'phase' | 'answeredAt' | 'passageKey'>[]): number {
-  const keys = new Set(checkKeysOfTask(id))
+  const keys = new Set(evidenceKeysOfTask(id))
   const after = since ? new Date(since).getTime() : null
   return uniq(activity.filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')) && (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && (after === null || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after))).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x)).length
 }
@@ -125,7 +125,7 @@ export function transferDoneOf(id: TaskId, since: string | null, activity: reado
 /** 단계별 수행 수 — 이 TASK 의 확인 키 기록에서, 단계에 맞는 것만(서로 다른 문항) */
 export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly PlanActivity[]): number {
   if (!stage) return 0
-  const keys = new Set(checkKeysOfTask(t.id))
+  const keys = new Set(evidenceKeysOfTask(t.id))
   const after = t.check?.verifiedAt ?? null
   const mine = activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef)
   const since = (a: PlanActivity) => !after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > new Date(after).getTime())
@@ -155,7 +155,7 @@ export function repairGate(t: AsIsTask, activity: readonly PlanActivity[]): { su
   const c = t.check
   if (!c?.verifiedAt) return { succeeded: false, tried: 0, retry: [] }
   const skill = { status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } }
-  const keys = new Set(checkKeysOfTask(t.id))
+  const keys = new Set(evidenceKeysOfTask(t.id))
   const tries = repairAttempts(skill, keys, activity.map((a) => ({ ...a, taskKey: a.taskKey.replace(/-skeleton$/, '') })))
   const right = new Set(tries.filter((a) => a.isCorrect === true).map((a) => a.itemRef))
   const blocked = repairWindow(skill)?.blocked ?? []
@@ -213,7 +213,7 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   }
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
   // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
-  const keys = new Set(checkKeysOfTask(t.id))
+  const keys = new Set(evidenceKeysOfTask(t.id))
   const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x))
   const pick = home.stageItems[stage].find((l) => { const key = passageIdentity(l.target, l.passageKey); return !!key && !did.has(key) }) ?? null
   return pick ? { href: pick.href, label: pick.label } : null
