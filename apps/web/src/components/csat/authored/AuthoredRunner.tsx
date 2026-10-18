@@ -18,6 +18,7 @@ import Link from 'next/link'
 import { RELATIONS, RELATION_LABEL, type Relation } from '@/lib/knowledge/claim-support-labels'
 import type { FormatId } from '@/lib/knowledge/authored/formats'
 import type { TeachStep } from '@/lib/knowledge/authored/authored-items'
+import { AUTHORED_ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 
 import styles from '@/components/knowledge/practice.module.css'
 
@@ -45,13 +46,7 @@ export interface AuthoredRunnerProps {
 
 interface Binding { status: string; evidence?: boolean; reason?: string | null }
 
-export const ROLE_LABEL: Record<Role, string> = {
-  model_explanation: '출제 원리 배우기',
-  guided_practice: '안내 연습',
-  independent_check: '혼자 확인',
-  transfer: '다른 글에 적용',
-  delayed_check: '다른 날 다시 확인',
-}
+const ROLE_LABEL = AUTHORED_ROLE_LABEL as Record<Role, string>
 
 const ROLE_NOTE: Record<Role, string> = {
   model_explanation: '출제자가 이 문항을 어떻게 설계했는지 단계별로 읽은 뒤, 같은 글로 직접 풀어 봐요. 이 풀이는 연습으로 남아요.',
@@ -74,10 +69,10 @@ export const DESIGN_LABEL: Record<string, string> = {
   opposite_sense: '반대 방향의 뜻',
 }
 const VERDICT_LABEL: Record<string, string> = { matches: '일치', distorted: '바꿈 · 과장', not_in_text: '본문에 없음', reversed: '반대', too_narrow: '일부만' }
-const PAIR_LABEL: Record<string, string> = { cause_effect: '원인 → 결과', contrast: '대조 · 반전', example: '예시', restatement: '다시 말하기', addition: '덧붙임', sequence: '순서 · 시간' }
+const PAIR_LABEL: Record<string, string> = { cause_effect: '원인 → 결과', contrast: '대조 · 반전', example: '예시', restatement: '다시 말하기', addition: '덧붙임', sequence: '순서 · 시간', conclusion: '결론 끌어내기' }
 const REASON_LABEL: Record<string, string> = {
   agreement: '수 일치', tense_aspect: '시제 · 상', voice: '능동 · 수동', relative_clause: '관계사', participle: '분사',
-  parallelism: '병렬 구조', comparison_scope: '비교 범위', negation_scope: '부정 범위', infinitive_gerund: 'to부정사 · 동명사', pronoun_reference: '대명사 지칭',
+  parallelism: '병렬 구조', comparison_scope: '비교 범위', negation_scope: '부정 범위', infinitive_gerund: 'to부정사 · 동명사', pronoun_reference: '대명사 지칭', inversion: '도치', noun_clause: '명사절 · 간접의문',
 }
 const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()

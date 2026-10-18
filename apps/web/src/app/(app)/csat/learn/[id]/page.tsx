@@ -10,7 +10,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { BookOpenCheck } from 'lucide-react'
 
 import { CsatShell } from '@/components/csat/home/CsatShell'
-import { AuthoredRunner, ROLE_LABEL } from '@/components/csat/authored/AuthoredRunner'
+import { AuthoredRunner } from '@/components/csat/authored/AuthoredRunner'
+import { AUTHORED_ROLE_LABEL as ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { openDelivered } from '@/lib/csat/authored/server'
 import { AUTHORED_TASK_LABEL } from '@/lib/knowledge/authored/tasks'
@@ -32,6 +33,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
   if (!user) redirect(loginUrlWithReturn(`/csat/learn/${params.id}${searchParams.d && /^[0-9a-f-]{36}$/i.test(searchParams.d) ? `?d=${searchParams.d}` : ''}`))
   // 출처 = 지도 · Workspace 링크의 납품 id(?d=). 같은 자료가 여러 묶음 · 역할로 납품됐으면 고르게 한다(최신 추측 금지 · FI-001)
   const opened = await openDelivered(createAdminClient() as unknown as SupabaseClient, db, user.id, `authored:${params.id}`, searchParams.d ?? null)
+    .catch((e: unknown) => { console.error('[csat-learn] 자료 열기 실패', params.id, e instanceof Error ? e.message : e); throw e })
   const pill = <><BookOpenCheck size={13} aria-hidden="true" />학습 · {opened.status === 'ok' ? ROLE_LABEL[opened.view.role as keyof typeof ROLE_LABEL] ?? '자료' : '자료'}</>
   if (opened.status === 'choose') {
     return (

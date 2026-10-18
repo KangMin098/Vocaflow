@@ -246,7 +246,9 @@ jobs:
 
       - if: always()
         name: 서버 로그
-        run: tail -n 80 /tmp/next.log || true
+        run: |
+          grep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true
+          tail -n 80 /tmp/next.log || true
 
       - if: always()
         uses: actions/upload-artifact@v4
