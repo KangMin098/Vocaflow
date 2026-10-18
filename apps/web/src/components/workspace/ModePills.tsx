@@ -1,17 +1,26 @@
 // apps/web/src/components/workspace/ModePills.tsx
 //
-// v06.32 — 단계적 학습 흐름 ModePills.
-// - 3 그룹 (입력 → 학습 → 연습) 단계 명확화
-// - 그룹별 컬러 (보라/인디고/핑크) — Sidebar 그룹 accent 정합
-// - 모드 라벨 항상 노출 + 사이사이 ▸ chevron (다음 단계 시각화)
-// - 상태 3종: 활성 (알약 그룹색 배경) · 완료 (채워진 dot) · 미시작 (빈 dot)
-// - 그룹 라벨 작게 위에 (INPUT / STUDY / PRACTICE)
+// 읽기 화면의 활동 선택 — **현재 활동 하나 + 그룹 펼침 메뉴 셋**(2026-10-19 · learner-tines-audit S4).
+//
+// 예전(v06.32)에는 활동 12개를 한 줄에 다 늘어놓고 사이사이 ▸ 화살표로 「다음 단계」를 보였다.
+// 1440 에서도 두 줄로 넘쳤고(「Game Lab」 줄바꿈), 화살표는 정해진 순서가 있다고 말했지만 실제로는 아무 활동이나 고를 수 있다.
+// 그래서: 지금 하는 활동은 늘 보이는 알약 하나, 나머지는 기존 3 그룹(읽기·듣기 / 단어 / 연습)의 펼침 메뉴로.
+//
+// 보존한 계약 — 목적지(`hrefFor`)는 예전 분기 그대로다:
+//   comic → /text/[id]/comic · shadow → ?mode=shadow · listen/read/spellforge → ?mode=
+//   words/flashcard/wordblitz/arcade → 자료 스코프(?set/?text) href + from= 복귀
+//   pairflip/dictation → ?text=<id> + from= · quiz → /scriptquiz(스코프 없는 허브)
+// 상태 표시(현재 · 완료 · 미시작 점)와 그룹 색도 그대로다. 메뉴는 닫혀 있어도 DOM 에 남는다(`hidden`) —
+// 링크 목록을 읽는 검사(e2e 12-navigation)가 닫힌 상태에서도 전부 본다.
 
 'use client'
 
-import { ChevronRight } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useId, useRef, useState } from 'react'
 
+import { POPOVER_MENU } from '@/components/ui/tines-kit'
+import { useEscapeKey } from '@/lib/ui/use-escape-key'
 import type { ModeKey, ModeStatus } from '@/types/library'
 
 type GroupKey = 'input' | 'study' | 'practice'
@@ -22,8 +31,7 @@ interface Mode {
   group: GroupKey
 }
 
-// 알약은 한 줄에 12개가 늘어서므로 **짧은 쪽**을 고른다 — 모듈 정식명(SpellForge)이 아니라
-// 그 활동을 가리키는 한 단어. `Game Lab` 은 이미 짧아 그대로 둔다.
+// 알약은 짧은 쪽을 고른다 — 모듈 정식명(SpellForge)이 아니라 그 활동을 가리키는 한 단어.
 // PLAN_ACTIVITIES 와 같은 활동을 가리키는 항목은 같은 말을 쓴다(Listen·Read·Words·Flashcard…).
 const MODES: Mode[] = [
   { key: 'listen', label: 'Listen', group: 'input' },
@@ -41,17 +49,12 @@ const MODES: Mode[] = [
   { key: 'dictation', label: 'Dictate', group: 'practice' },
 ]
 
-const GROUPS: { key: GroupKey; label: string; color: string; colorLight: string }[] = [
-  { key: 'input', label: 'Text', color: 'var(--p)', colorLight: 'var(--p-light)' },
-  { key: 'study', label: 'Vocabulary', color: 'var(--learn-fresh)', colorLight: '#EEF2FF' },
-  { key: 'practice', label: 'Practice', color: 'var(--accent-plum)', colorLight: '#FDF2F8' },
+const GROUPS: { key: GroupKey; label: string; color: string }[] = [
+  { key: 'input', label: '읽기·듣기', color: 'var(--p)' },
+  { key: 'study', label: '단어', color: 'var(--learn-fresh)' },
+  { key: 'practice', label: '연습', color: 'var(--accent-plum)' },
 ]
 
-// 워크스페이스 본문 모드가 아니라 각 학습 모듈로 이동하는 pill.
-//   listen/read = 워크스페이스 본문 모드 (?mode=) · spellforge = 인라인 렌더 (page.tsx)
-//   shadow = 인라인 따라읽기 (?mode=shadow) · words = wordsHref · flashcard = flashcardHref · wordblitz = wordblitzHref (자료 스코프)
-//   quiz = 해당 모듈 hub (스크립트 기반 AI 문제 생성 필요 — 미연결)
-//   pairflip = 이 자료의 단어로 짝맞추기 세션 · dictation = 받아쓰기 setup (자료 스코프)
 const MODULE_ROUTES: Partial<Record<ModeKey, string>> = {
   quiz: '/scriptquiz',
 }
@@ -62,23 +65,38 @@ const TEXT_SCOPED_ROUTES: Partial<Record<ModeKey, (textId: string) => string>> =
   dictation: (id) => `/dictate/setup?text=${id}`,
 }
 
+const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
+
 interface ModePillsProps {
   textId: string
   currentMode: ModeKey
   modeStatus: Record<ModeKey, ModeStatus>
   isFocusMode: boolean
-  /** "단어" pill 목적지 — 본문 모드가 아니라 해당 자료의 단어장(WordVault) 으로 이동 */
+  /** "단어" 목적지 — 본문 모드가 아니라 해당 자료의 단어장(WordVault) 으로 이동 */
   wordsHref: string
-  /** "카드" pill 목적지 — 해당 자료의 단어로 Flashcard 세션 진입 (?set/?text 스코프) */
+  /** "카드" 목적지 — 해당 자료의 단어로 Flashcard 세션 진입 (?set/?text 스코프) */
   flashcardHref: string
-  /** "블리츠" pill 목적지 — 해당 자료의 단어로 WordBlitz 진입 (?set/?text 스코프) */
+  /** "블리츠" 목적지 — 해당 자료의 단어로 WordBlitz 진입 (?set/?text 스코프) */
   wordblitzHref: string
   /**
-   * "아케이드" pill 목적지 — 같은 스코프를 아케이드 허브로 넘긴다.
-   * 허브가 ?set/?text 를 받아 모든 카드에 실어주므로(v07.8) 이 자료의 단어가
-   * 게임 19종 전부에 연결된다. 개별 게임을 여기 다 나열하면 선택 과부하라 문 하나만 둔다.
+   * "Game Lab" 목적지 — 같은 스코프를 아케이드 허브로 넘긴다.
+   * 허브가 ?set/?text 를 받아 모든 카드에 실어주므로(v07.8) 이 자료의 단어가 게임 19종 전부에 연결된다.
    */
   arcadeHref: string
+}
+
+/** 상태 점 — 현재(흰 점 · 그룹색 바탕 위) · 완료(그룹색 채움) · 미시작(그룹색 테두리) */
+function StatusDot({ color, active, done }: { color: string; active: boolean; done: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className="h-2 w-2 shrink-0 rounded-full"
+      style={{
+        backgroundColor: active ? '#FFFFFF' : done ? color : 'transparent',
+        border: active || done ? 'none' : `1.5px solid ${color}`,
+      }}
+    />
+  )
 }
 
 export function ModePills({
@@ -91,118 +109,143 @@ export function ModePills({
   wordblitzHref,
   arcadeHref,
 }: ModePillsProps) {
-  // 그룹별 modes 분리
-  const grouped = GROUPS.map((g) => ({
-    ...g,
-    modes: MODES.filter((m) => m.group === g.key),
-  }))
+  const [openGroup, setOpenGroup] = useState<GroupKey | null>(null)
+  const navRef = useRef<HTMLElement>(null)
+  const triggers = useRef<Partial<Record<GroupKey, HTMLButtonElement | null>>>({})
+  const baseId = useId()
 
-  // 풀스크린 세션(단어·카드·블리츠·따라읽기)으로 나갈 때 출처를 실어, 닫기/Esc 시 이 워크스페이스로 복귀.
+  // 풀스크린 세션으로 나갈 때 출처를 실어, 닫기/Esc 시 이 워크스페이스로 복귀.
   const fromParam = `from=${encodeURIComponent(`/text/${textId}`)}`
-  const withReturn = (href: string): string =>
-    `${href}${href.includes('?') ? '&' : '?'}${fromParam}`
+  const withReturn = (href: string): string => `${href}${href.includes('?') ? '&' : '?'}${fromParam}`
+
+  const hrefFor = (key: ModeKey): string =>
+    key === 'comic'
+      ? `/text/${textId}/comic`
+      : key === 'shadow'
+        ? `/text/${textId}?mode=shadow`
+        : key === 'words'
+          ? withReturn(wordsHref)
+          : key === 'flashcard'
+            ? withReturn(flashcardHref)
+            : key === 'wordblitz'
+              ? withReturn(wordblitzHref)
+              : key === 'arcade'
+                ? withReturn(arcadeHref)
+                : TEXT_SCOPED_ROUTES[key]
+                  ? withReturn(TEXT_SCOPED_ROUTES[key]!(textId))
+                  : (MODULE_ROUTES[key] ?? `/text/${textId}?mode=${key}`)
+
+  // 바깥을 누르면 닫는다 · Esc 는 닫고 연 단추로 포커스를 돌려준다
+  useEffect(() => {
+    if (!openGroup) return
+    const onDown = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null)
+    }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+  }, [openGroup])
+  useEscapeKey(openGroup !== null, () => {
+    const g = openGroup
+    setOpenGroup(null)
+    if (g) triggers.current[g]?.focus()
+  })
+
+  const current = MODES.find((m) => m.key === currentMode)
+  const currentGroup = GROUPS.find((g) => g.key === current?.group)
 
   return (
     <nav
+      ref={navRef}
       aria-label="학습 단계 선택"
       // UnifiedHeader 부모가 이미 sticky — 자체 sticky 제거 (stacking context 충돌 차단)
       className={`relative border-b border-[color-mix(in_srgb,var(--bd)_40%,transparent)] bg-[color-mix(in_srgb,var(--reading-bg)_95%,transparent)] backdrop-blur-[16px] transition-all duration-[var(--dur-slower)] motion-reduce:transition-none ${
-        isFocusMode
-          ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100'
-          : 'opacity-100'
+        isFocusMode ? '-translate-y-1 opacity-40 hover:translate-y-0 hover:opacity-100' : 'opacity-100'
       }`}
     >
-      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-1 px-4 py-2 md:gap-2 md:px-8">
-        {grouped.map((group, gIdx) => (
-          <div key={group.key} className="flex items-center gap-1">
-            {gIdx > 0 && (
-              <span aria-hidden className="mx-1.5 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2" />
-            )}
-            {/* 모드 pills — 그룹 라벨 제거(컴팩트). divider + pill 색으로 그룹 구분 */}
-            {group.modes.map((mode, mIdx) => {
-                  const isActive = currentMode === mode.key
-                  const status = modeStatus[mode.key]
-                  const isDone = status === 'done'
-                  // 모드별 목적지:
-                  //   shadow → 같은 페이지 인라인 따라읽기 (?mode=shadow) · words → 단어장(WordVault) · 게임 → 모듈 hub
-                  //   listen/read/spellforge → 워크스페이스 내부 (?mode=)
-                  const href =
-                    mode.key === 'comic'
-                      ? `/text/${textId}/comic`
-                      : mode.key === 'shadow'
-                      ? `/text/${textId}?mode=shadow`
-                      : mode.key === 'words'
-                        ? withReturn(wordsHref)
-                        : mode.key === 'flashcard'
-                          ? withReturn(flashcardHref)
-                          : mode.key === 'wordblitz'
-                            ? withReturn(wordblitzHref)
-                            : mode.key === 'arcade'
-                              ? withReturn(arcadeHref)
-                              : TEXT_SCOPED_ROUTES[mode.key]
-                                ? withReturn(TEXT_SCOPED_ROUTES[mode.key]!(textId))
-                                : (MODULE_ROUTES[mode.key] ?? `/text/${textId}?mode=${mode.key}`)
-                  return (
-                    <span key={mode.key} className="inline-flex items-center">
-                      {mIdx > 0 && (
-                        <ChevronRight
-                          size={11}
-                          aria-hidden
-                          className="mx-0.5 shrink-0 text-[var(--t2)]"
-                        />
-                      )}
-                      <Link
-                        href={href}
-                        aria-current={isActive ? 'page' : undefined}
-                        className={`inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
-                          isActive
-                            ? 'text-white shadow-[var(--sh-sm)]'
-                            : isDone
-                            ? 'text-[var(--t1)] hover:bg-[var(--bg2)]'
-                            : 'text-[var(--t2)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
-                        }`}
-                        style={
-                          isActive
-                            ? {
-                                backgroundColor: group.color,
-                                boxShadow: `0 1px 8px ${group.color}55`,
-                              }
-                            : undefined
-                        }
-                      >
-                        {/* 만화 = 킬러 모드: 비활성 시 gold underline 신호(Calm — 폭죽 없음) */}
-                        {/* Status dot */}
-                        <span
-                          aria-hidden
-                          className="h-2 w-2 shrink-0 rounded-full transition-all"
-                          style={{
-                            backgroundColor: isActive
-                              ? '#FFFFFF'
-                              : isDone
-                              ? group.color
-                              : 'transparent',
-                            border: isActive || isDone ? 'none' : `1.5px solid ${group.color}`,
-                            boxShadow:
-                              isActive && !isDone
-                                ? `0 0 0 2px ${group.color}66`
-                                : undefined,
-                          }}
-                        />
-                        <span
-                          className={
-                            mode.key === 'comic' && !isActive
-                              ? 'underline decoration-2 underline-offset-4 decoration-[#B0843A]'
-                              : undefined
-                          }
+      <div className="mx-auto flex max-w-[1080px] flex-wrap items-center justify-center gap-2 px-4 py-1.5 md:px-8">
+        {/* 지금 하는 활동 — 늘 보인다 */}
+        {current && currentGroup && (
+          <Link
+            href={hrefFor(current.key)}
+            aria-current="page"
+            className={`inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] px-4 font-display text-[13px] font-[700] text-white ${FOCUS}`}
+            style={{ backgroundColor: currentGroup.color }}
+          >
+            <StatusDot color={currentGroup.color} active done={false} />
+            {current.label}
+          </Link>
+        )}
+        <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-[var(--bd)]" />
+
+        {/* 나머지 — 그룹 펼침 메뉴 셋 */}
+        {GROUPS.map((group) => {
+          const modes = MODES.filter((m) => m.group === group.key)
+          const done = modes.filter((m) => modeStatus[m.key] === 'done').length
+          const open = openGroup === group.key
+          const panelId = `${baseId}-${group.key}`
+          const hasCurrent = modes.some((m) => m.key === currentMode)
+          return (
+            <div key={group.key} className="relative">
+              <button
+                ref={(el) => { triggers.current[group.key] = el }}
+                type="button"
+                aria-expanded={open}
+                aria-controls={panelId}
+                onClick={() => setOpenGroup(open ? null : group.key)}
+                className={`inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-quick)] ${
+                  open || hasCurrent ? 'bg-[var(--bg2)] text-[var(--t1)]' : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'
+                } ${FOCUS}`}
+              >
+                <span aria-hidden className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: group.color }} />
+                {group.label}
+                <span className="font-mono text-[11px] font-[600] text-[var(--t2)]" aria-label={`${modes.length}개 중 ${done}개 완료`}>
+                  {done}/{modes.length}
+                </span>
+                <ChevronDown size={14} aria-hidden className={`transition-transform duration-[var(--dur-quick)] ${open ? 'rotate-180' : ''}`} />
+              </button>
+              <div
+                id={panelId}
+                hidden={!open}
+                className={`absolute left-1/2 top-[calc(100%+6px)] z-[75] w-[220px] -translate-x-1/2 p-1.5 ${POPOVER_MENU}`}
+              >
+                <ul aria-label={`${group.label} 활동`} className="flex flex-col">
+                  {modes.map((mode) => {
+                    const isActive = mode.key === currentMode
+                    const isDone = modeStatus[mode.key] === 'done'
+                    return (
+                      <li key={mode.key}>
+                        <Link
+                          href={hrefFor(mode.key)}
+                          aria-current={isActive ? 'page' : undefined}
+                          onClick={() => setOpenGroup(null)}
+                          className={`flex min-h-11 items-center justify-between gap-2 rounded-[8px] px-3 font-display text-[13.5px] font-[600] transition-colors duration-[var(--dur-quick)] ${
+                            isActive ? 'bg-[var(--bg2)] text-[var(--t1)]' : 'text-[var(--t1)] hover:bg-[var(--bg2)]'
+                          } ${FOCUS}`}
                         >
-                          {mode.label}
-                        </span>
-                      </Link>
-                    </span>
-                  )
-                })}
-          </div>
-        ))}
+                          <span className="inline-flex items-center gap-2">
+                            <StatusDot color={group.color} active={false} done={isDone || isActive} />
+                            <span
+                              className={
+                                mode.key === 'comic' && !isActive
+                                  ? 'underline decoration-2 underline-offset-4 decoration-[var(--active)]'
+                                  : undefined
+                              }
+                            >
+                              {mode.label}
+                            </span>
+                          </span>
+                          <span className="font-mono text-[11px] font-[500] text-[var(--t2)]">
+                            {isActive ? '지금' : isDone ? '완료' : ''}
+                          </span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </nav>
   )
