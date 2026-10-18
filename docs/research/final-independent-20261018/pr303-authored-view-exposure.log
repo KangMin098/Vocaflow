@@ -1,0 +1,19 @@
+Frozen owner commit: c4b9f434e
+Scope: isolated synthetic PGlite; actual server functions; no live DB writes.
+◇ injected env (0) from ..\..\.env.local // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.local // tip: ⌘ enable debugging { debug: true }
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/currentness-ImMQfo/snapshot/apps/web
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent Codex: view-only exposure > separate opening without answer is absent from the exposure ledger
+INDEPENDENT_VIEW_ONLY={"first":"ok","reopened":"ok","sessionsBefore":0,"sessionsAfterOpening":0,"exposureAfterOpening":"none","binding":{"first_exposure":true,"evidence":true}}
+
+ ✓ src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts  (11 tests | 10 skipped) 2731ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 10 skipped (11)
+   Start at  18:00:00
+   Duration  3.56s (transform 274ms, setup 0ms, collect 453ms, tests 2.73s, environment 0ms, prepare 163ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.

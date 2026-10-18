@@ -23,3 +23,5 @@
 현재 공개 자료는 합성 fixture의 계약/무결성·교육·UX 검증이다. 비밀값·실제 학습자 데이터·권리 미확인 기출 원문을 포함하지 않는다. 실제 권한 침해를 가능하게 하는 민감한 취약점 재현은 이 공개 디렉터리에 넣지 않고 비공개 보안 경로로 전달한다. 실제 DB 쓰기/데이터 삭제/배포/권한 변경이나 PR 병합은 게시 승인에 포함하지 않는다.
 
 [통합 A~H 현황](./ACCEPTANCE.md) · [전체 결함 원장](./FINDINGS.md) · [SQL 검토](./AUTHORED_SQL_REVIEW.md) · [콘텐츠 검토](./AUTHORED_CONTENT_REVIEW.md) · [종단/브라우저 검토](./AUTHORED_INTEGRATION_REVIEW.md).
+
+후속: [PR303](https://github.com/KangMin098/Vocaflow/pull/303)이 제출됐다. 첫 c4b9f434e의 명시 납품/복구 낮은 층위26건은 통과했고 검토 중 de5065b51 형식 확장이 추가됐다. [HEAD별 독립 검토](./PR303_REVIEW.md)는 REWORK다. FI-011은 [#304](https://github.com/KangMin098/Vocaflow/issues/304)로 추가했으며 Workspace/다음 요구/전이량 환류 누락을 같은 ID로 추적한다. 기존 표의 OPEN은 수정 전 보고 또는 전체 수용 대기이며, FI-001의 확인된 부분 개선을 취소하는 뜻은 아니다.

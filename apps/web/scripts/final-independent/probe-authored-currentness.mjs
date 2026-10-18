@@ -4,7 +4,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync, spawnSync } from 'node:child_process'
 const root = path.resolve(import.meta.dirname, '../../../..')
-const sha = '52a31d988'
+const pr303 = process.argv.includes('--pr303')
+const sha = pr303 ? 'c4b9f434e' : '52a31d988'
 const run = fs.mkdtempSync(path.join(root, '.agent-logs/final-independent/currentness-'))
 const archive = path.join(run, 'source.tar')
 const snapshot = path.join(run, 'snapshot')
@@ -20,6 +21,10 @@ describe('Independent Codex: revocation after delivery', () => {
   it('captures actual currentness and the server response', async () => {
     await db.exec('begin')
     try {
+      await supply(A, 'check', 2)
+      const initial = await openDelivered(admin, learner(A), A, ref('r5-cm-ind-1'))
+      if (initial.status !== 'ok') throw new Error('initial open')
+      await recordAuthoredAttempt(admin, learner(A), {id:A,email:'fixture@test.local'}, ref('r5-cm-ind-1'), {response:rightAnswer('r5-cm-ind-1'),...meta(),deliveryId:initial.view.deliveryId}, Date.now(), writer)
       const target = ref('r5-cm-ind-1')
       const decision = await q1<{ id: string }>(\`select id from public.content_human_decision where artifact_ref = $1 and kind = 'rights'\`, [target])
       await (admin as unknown as FakeClient).auth()
@@ -51,7 +56,7 @@ describe('Independent Codex: view-only exposure', () => {
     const reopened = await openDelivered(admin,learner(B),B,target)
     const afterOpens = await q1<{n:number}>(\`select count(*)::int n from learning_sessions where user_id = $1 and item_ref = $2\`, [B,target])
     const exposure = await q1<{state:string}>(\`select supply_learner_exposure('authored_item',$1,$2) state\`, [target,B])
-    await recordAuthoredAttempt(admin,learner(B),{id:B,email:'fixture@test.local'},target,{response:rightAnswer('r5-cm-ind-1'),...meta()},Date.now(),writer)
+    await recordAuthoredAttempt(admin,learner(B),{id:B,email:'fixture@test.local'},target,{response:rightAnswer('r5-cm-ind-1'),...meta(),deliveryId:reopened.status==='ok'?reopened.view.deliveryId:undefined},Date.now(),writer)
     const binding = await q1<{first_exposure:boolean;evidence:boolean}>(\`select first_exposure,evidence from workspace_delivery_attempt where user_id = $1 and artifact_ref = $2\`,[B,target])
     console.log('INDEPENDENT_VIEW_ONLY=' + JSON.stringify({first:first.status,reopened:reopened.status,sessionsBefore:before.n,sessionsAfterOpening:afterOpens.n,exposureAfterOpening:exposure.state,binding}))
     expect(before.n).toBe(0);expect(afterOpens.n).toBe(0);expect(exposure.state).toBe('none');expect(binding).toMatchObject({first_exposure:true,evidence:true})
@@ -60,8 +65,8 @@ describe('Independent Codex: view-only exposure', () => {
 `
 fs.appendFileSync(path.join(snapshot, 'apps/web', test), viewOnly ? exposureExtra : extra)
 const vitest = path.join(root, 'apps/web/node_modules/vitest/vitest.mjs')
-const result = spawnSync(process.execPath, [vitest, 'run', test, ...(viewOnly ? ['-t', 'Independent Codex: view-only exposure'] : [])], { cwd: path.join(snapshot, 'apps/web'), encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_OPTIONS: '--require=' + path.join(root, 'scripts/csat/map/v62/r5-read-only-preload.cjs') }, maxBuffer: 4 * 1024 * 1024 })
+const result = spawnSync(process.execPath, [vitest, 'run', test, '-t', viewOnly ? 'Independent Codex: view-only exposure' : 'Independent Codex: revocation after delivery'], { cwd: path.join(snapshot, 'apps/web'), encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_OPTIONS: '--require=' + path.join(root, 'scripts/csat/map/v62/r5-read-only-preload.cjs') }, maxBuffer: 4 * 1024 * 1024 })
 const output = [result.stdout ?? '', result.stderr ?? ''].join('\n').replace(/\u001b\[[0-9;]*m/g, '')
-fs.writeFileSync(path.join(root, 'docs/research/final-independent-20261018/' + (viewOnly ? 'authored-view-exposure.log' : 'authored-currentness.log')), 'Frozen owner commit: ' + sha + '\nScope: isolated synthetic PGlite; actual server functions; no live DB writes.\n' + output)
+fs.writeFileSync(path.join(root, 'docs/research/final-independent-20261018/' + (pr303 ? 'pr303-' : '') + (viewOnly ? 'authored-view-exposure.log' : 'authored-currentness.log')), 'Frozen owner commit: ' + sha + '\nScope: isolated synthetic PGlite; actual server functions; no live DB writes.\n' + output)
 process.stdout.write(output)
 process.exitCode = result.status ?? 1

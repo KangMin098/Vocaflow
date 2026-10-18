@@ -64,3 +64,7 @@ main 기준선 이후 총괄 worktree의 b4fbf4d5c 보류 authored SQL과 6b988d
 claim-support 독립 모양 기록125행 중124행은 synthetic=true이며, 남은1행도 플래그만으로 실학생 효과를 입증하지 못한다. 다른 두 과제의4행은 viewed_first다. 기존 행 수를 적격 공급부터의 독립 전이/환류 완료로 계산하지 않는다. A~H의 현재 PARTIAL/BLOCKED_EXTERNAL 및 전체 REWORK를 유지한다. 이 대조는 기존 정본을 바꾸거나 새 로드맵/필수 게이트를 추가한 것이 아니다.
 
 새 FI-011은 As-Is 이후 Workspace/다음 요구/전이량에 새 authored 키와 지문 정체성이 전달되지 않는 반례다. 정상 입력 계약을 준 실제 함수에서 확인 링크 없음, 전이 후 TRANSFER 유지, 전이량0을 재현했다([종단 상세](./AUTHORED_INTEGRATION_REVIEW.md)). H의 전체 환류와 F/G의 다음 행동은 계속 REWORK이며, 개별 As-Is 판정 성공으로 관통 완료를 선언하지 않는다.
+
+## PR303 제출 후
+
+총괄 PR303(c4b9f434e)에서 FI-001 낮은 층위의 명시 납품/복구26건 통과를 확인했다. v2 판독/채점 대조9건도 일치하나 사람 승인은 아니다. FI-007/010은 새 deliveryId로 같은 결함을 재현했고 SQL 핵심 반례는 바이트 동일이므로 재사용했다. 검토 중 de5065b51 형식 확장이 올라와 그 변경 범위는 별도 검증 중이다. [PR 검토 체크포인트](./PR303_REVIEW.md)의 판정은 REWORK이며, 새 CI/브라우저 결과와 후속 수정 확인까지 병합 수용은 보류다.

@@ -1,0 +1,19 @@
+Frozen owner commit: c4b9f434e
+Scope: isolated synthetic PGlite; actual server functions; no live DB writes.
+◇ injected env (0) from ..\..\.env.local // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/currentness-ZUaRB5/snapshot/apps/web
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent Codex: revocation after delivery > captures actual currentness and the server response
+INDEPENDENT_REVOKED_DELIVERY={"current":{"valid":false,"historical_evidence":true},"openStatus":"ok","delivered":{"role":"independent_check","requested":2,"delivered":["authored:r5-cm-ind-2","authored:r5-cm-ind-1"],"rejected":[],"orderOpened":false},"listed":{"ref":"authored:r5-cm-ind-1","deliveryId":"38229015-badc-45d8-85b4-3eb2868e162e","role":"independent_check","deliveredAt":"2026-10-18T08:59:44.491Z","attempted":true,"evidence":true}}
+
+ ✓ src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts  (11 tests | 10 skipped) 2210ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 10 skipped (11)
+   Start at  17:59:41
+   Duration  3.02s (transform 250ms, setup 0ms, collect 483ms, tests 2.21s, environment 0ms, prepare 115ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.

@@ -1,0 +1,288 @@
+{
+  "scope": "INDEPENDENT_V2_DELTA_READING_PRIOR_V1_KNOWN",
+  "ownerCommit": "c4b9f434e",
+  "items": 9,
+  "allChoicesAgree": true,
+  "allPrimaryClaimsAccepted": true,
+  "observations": [
+    {
+      "blindId": "r5-cm-teach-1",
+      "itemRef": "authored:r5-cm-teach-1",
+      "role": "model_explanation",
+      "choiceAgreement": true,
+      "primaryClaim": 3,
+      "ownerClaim": 3,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-guided-1",
+      "itemRef": "authored:r5-cm-guided-1",
+      "role": "guided_practice",
+      "choiceAgreement": true,
+      "primaryClaim": 4,
+      "ownerClaim": 4,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-guided-2",
+      "itemRef": "authored:r5-cm-guided-2",
+      "role": "guided_practice",
+      "choiceAgreement": true,
+      "primaryClaim": 4,
+      "ownerClaim": 4,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-ind-1",
+      "itemRef": "authored:r5-cm-ind-1",
+      "role": "independent_check",
+      "choiceAgreement": true,
+      "primaryClaim": 5,
+      "ownerClaim": 5,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-ind-2",
+      "itemRef": "authored:r5-cm-ind-2",
+      "role": "independent_check",
+      "choiceAgreement": true,
+      "primaryClaim": 0,
+      "ownerClaim": 0,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-transfer-1",
+      "itemRef": "authored:r5-cm-transfer-1",
+      "role": "transfer",
+      "choiceAgreement": true,
+      "primaryClaim": 4,
+      "ownerClaim": 4,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-transfer-2",
+      "itemRef": "authored:r5-cm-transfer-2",
+      "role": "transfer",
+      "choiceAgreement": true,
+      "primaryClaim": 1,
+      "ownerClaim": 1,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-delayed-1",
+      "itemRef": "authored:r5-cm-delayed-1",
+      "role": "delayed_check",
+      "choiceAgreement": true,
+      "primaryClaim": 5,
+      "ownerClaim": 5,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    },
+    {
+      "blindId": "r5-cm-delayed-2",
+      "itemRef": "authored:r5-cm-delayed-2",
+      "role": "delayed_check",
+      "choiceAgreement": true,
+      "primaryClaim": 5,
+      "ownerClaim": 5,
+      "primaryGrade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "alternatives": [],
+      "directSupportFeedback": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": true,
+        "supportMissed": [],
+        "supportExtra": [],
+        "relationOk": true,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "ownerCommit": "c4b9f434e7125638af56de414607a4870d652c89",
+  "inputSha256": "b06b3d085d577a42e561c022e22125879a1cda95b814d68121f85863473fb9d9",
+  "reviewer": "Codex-VOCAFLOW-FINAL-ACCEPT",
+  "protocol": "Read v2 bodies/choices before v2 Gold or D output; reviewer has prior v1 Gold knowledge, so this is an independent delta reading, not a new naive blind reviewer.",
+  "indexBase": 0,
+  "humanGold": "PENDING_NOT_APPROVED",
+  "items": [
+    {"id":"r5-cm-teach-1","answer":0,"mainClaim":3,"changedChoices":false,"note":"Original v1 primary reading retained; common error-belief is countered by the information value of mistakes."},
+    {"id":"r5-cm-guided-1","answer":2,"mainClaim":4,"changedChoices":false,"note":"Planting trees is effective low-cost urban cooling; final sentence restates the practical recommendation."},
+    {"id":"r5-cm-guided-2","answer":3,"mainClaim":4,"changedChoices":false,"note":"Early thoughtful questions help newcomers; relationship benefit alone is a supporting detail."},
+    {"id":"r5-cm-ind-1","answer":2,"mainClaim":5,"changedChoices":false,"note":"Answer follows the passage's claim, but FI-005 research fact error remains unresolved; answer agreement is not factual approval."},
+    {"id":"r5-cm-ind-2","answer":1,"mainClaim":0,"changedChoices":true,"note":"New choice1 paraphrases the loss of spatial understanding rather than copying the opening. Choice2 overgeneralizes device reliability;3 introduces a specific drawing prescription;4 is the opposed view."},
+    {"id":"r5-cm-transfer-1","answer":1,"mainClaim":4,"changedChoices":true,"note":"New ingredient-reading and natural/artificial-safety distractors are closer to the passage than prior unrelated options, but choice3 overstates healthy eating and choice4 changes the focus to comparing food types. Empty label promise remains best. Most-countries legal assertion still unverified."},
+    {"id":"r5-cm-transfer-2","answer":2,"mainClaim":1,"changedChoices":true,"note":"New answer uses expectation/explanation and understanding; supported by the claim and study example. Difficulty of simple expression is only a mechanism, not the overall theme."},
+    {"id":"r5-cm-delayed-1","answer":4,"mainClaim":5,"changedChoices":true,"note":"New answer paraphrases breaks improving use of working time. Complete attention recovery in2 is overstated. Sentence3 may be a substantive alternative core proposition, retained as a rubric discussion rather than a confirmed wrong-answer defect."},
+    {"id":"r5-cm-delayed-2","answer":1,"mainClaim":5,"changedChoices":false,"note":"Revision rather than perfect first drafts drives good writing; editor history is supporting evidence."}
+  ]
+}
