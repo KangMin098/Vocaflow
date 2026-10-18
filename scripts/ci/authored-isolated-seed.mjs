@@ -17,7 +17,9 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
-const SET = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json'), 'utf8'))
+// 저장소의 창작 세트 전부(R5 + 확장) — 형식별 브라우저 e2e 가 각 TASK 의 자료를 받는다
+const SET_DIR = path.join(ROOT, 'apps/web/src/lib/knowledge/authored')
+const SETS = fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json')).sort().map((x) => JSON.parse(fs.readFileSync(path.join(SET_DIR, x), 'utf8')))
 const ASSESS = new Set(['independent_check', 'transfer', 'delayed_check'])
 const AXES = Object.fromEntries(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((k) => [k, { state: 'pass' }]))
 export const FIXTURE_NOTE = 'CI 격리 fixture — 사람 결정 아님'
@@ -31,10 +33,10 @@ export function guard(env = process.env, commit = false) {
   return u.toString()
 }
 
-const setVersion = SET.set.slice(SET.set.lastIndexOf('.') + 1)
-export const plan = () => SET.items.map((it) => ({
-  ref: `authored:${it.id}`, role: it.role, group: it.passageGroup, annotationRef: `${SET.taskKey}-${it.id}.${setVersion}`,
-}))
+const versionOf = (set) => set.set.slice(set.set.lastIndexOf('.') + 1)
+export const plan = () => SETS.flatMap((set) => set.items.map((it) => ({
+  set: set.set, ref: `authored:${it.id}`, role: it.role, group: it.passageGroup, annotationRef: `${set.taskKey}-${it.id}.${versionOf(set)}`,
+})))
 
 async function main() {
   const commit = process.argv.includes('--commit')
@@ -56,9 +58,9 @@ async function main() {
   const login = await admin.auth.signInWithPassword({ email, password })
   if (login.error) throw login.error
   const call = async (fn, args) => { const r = await admin.rpc(fn, args); if (r.error) throw new Error(`${fn}: ${r.error.message}`); return r.data }
-  for (const it of SET.items) {
+  for (const SET of SETS) for (const it of SET.items) {
     const ref = `authored:${it.id}`
-    const annotationRef = `${SET.taskKey}-${it.id}.${setVersion}`
+    const annotationRef = `${SET.taskKey}-${it.id}.${versionOf(SET)}`
     await call('authored_item_register', {
       p_ref: ref, p_task: SET.taskId, p_task_key: SET.taskKey, p_role_class: ASSESS.has(it.role) ? 'assessment' : 'instruction',
       p_intended_role: it.role, p_group: it.passageGroup, p_body: it.body, p_gold: it.gold, p_annotation_ref: annotationRef,

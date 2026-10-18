@@ -255,7 +255,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
             return (
               <li key={k}>
                 <button
-                  type="button" className={styles.bar} disabled={lock || !selectsSentences} onClick={() => pick(k)}
+                  type="button" className={styles.bar} data-sentence={k} disabled={lock || !selectsSentences} onClick={() => pick(k)}
                   aria-pressed={pressed}
                   data-claim={(p.format === 'central_meaning' && (reveal ? reveal.claim === k : claim === k)) || undefined}
                   data-evidence={(selectsSentences && picked.includes(k)) || undefined}
@@ -277,7 +277,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         <fieldset className={styles.answer} disabled={lock}>
           <legend>③ 문장 {p.probe + 1}은 중심 문장과 어떤 관계인가요?</legend>
           <div className={styles.chips}>
-            {RELATIONS.map((r) => <button key={r} type="button" aria-pressed={relation === r} onClick={() => setRelation(r)}>{RELATION_LABEL[r]}</button>)}
+            {RELATIONS.map((r) => <button key={r} type="button" data-relation={r} aria-pressed={relation === r} onClick={() => setRelation(r)}>{RELATION_LABEL[r]}</button>)}
           </div>
         </fieldset>
       )}
@@ -290,12 +290,12 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               <span><span className={styles.barNo}>{CIRCLED[i]}</span> {c}</span>
               <div className={styles.chips}>
                 {Object.entries(VERDICT_LABEL).map(([v, label]) => (
-                  <button key={v} type="button" aria-pressed={verdicts[i]?.verdict === v} onClick={() => setVerdicts((s) => s.map((x, j) => (j === i ? { ...x, verdict: v } : x)))}>{label}</button>
+                  <button key={v} type="button" data-option={i} data-verdict={v} aria-pressed={verdicts[i]?.verdict === v} onClick={() => setVerdicts((s) => s.map((x, j) => (j === i ? { ...x, verdict: v } : x)))}>{label}</button>
                 ))}
                 {verdicts[i]?.verdict && verdicts[i]?.verdict !== 'not_in_text' && (
                   <label className={styles.selectLabel} style={{ display: 'inline-grid' }}>
                     <span className="sr-only">대응 문장</span>
-                    <select value={verdicts[i]?.sentence ?? ''} onChange={(e) => setVerdicts((s) => s.map((x, j) => (j === i ? { ...x, sentence: e.target.value === '' ? null : Number(e.target.value) } : x)))}>
+                    <select data-option-sentence={i} value={verdicts[i]?.sentence ?? ''} onChange={(e) => setVerdicts((s) => s.map((x, j) => (j === i ? { ...x, sentence: e.target.value === '' ? null : Number(e.target.value) } : x)))}>
                       <option value="">대응 문장</option>
                       {p.sentences.map((_, k) => <option key={k} value={k}>문장 {k + 1}</option>)}
                     </select>
@@ -315,7 +315,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               <span>문장 {a + 1} → 문장 {b + 1}</span>
               <div className={styles.chips}>
                 {Object.entries(PAIR_LABEL).map(([v, label]) => (
-                  <button key={v} type="button" aria-pressed={pairs[i] === v} onClick={() => setPairs((s) => s.map((x, j) => (j === i ? v : x)))}>{label}</button>
+                  <button key={v} type="button" data-pair={i} data-pair-rel={v} aria-pressed={pairs[i] === v} onClick={() => setPairs((s) => s.map((x, j) => (j === i ? v : x)))}>{label}</button>
                 ))}
               </div>
             </div>
@@ -328,12 +328,12 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           <legend>어법상 틀린 곳은 어디인가요?</legend>
           <div className={styles.chips}>
             {((p.extra.marks as { text: string }[]) ?? []).map((m, i) => (
-              <button key={i} type="button" aria-pressed={choice === i} onClick={() => setChoice(i)}>{CIRCLED[i]} {m.text}</button>
+              <button key={i} type="button" data-mark={i} aria-pressed={choice === i} onClick={() => setChoice(i)}>{CIRCLED[i]} {m.text}</button>
             ))}
           </div>
           <legend>왜 틀렸나요?</legend>
           <div className={styles.chips}>
-            {Object.entries(REASON_LABEL).map(([v, label]) => <button key={v} type="button" aria-pressed={reason === v} onClick={() => setReason(v)}>{label}</button>)}
+            {Object.entries(REASON_LABEL).map(([v, label]) => <button key={v} type="button" data-reason={v} aria-pressed={reason === v} onClick={() => setReason(v)}>{label}</button>)}
           </div>
         </fieldset>
       )}
@@ -344,7 +344,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           {p.sentences.map((_, i) => (
             <label key={i} className={styles.selectLabel}>
               <span>문장 {i + 1}</span>
-              <select value={roles[i]} onChange={(e) => setRoles((s) => s.map((x, j) => (j === i ? e.target.value : x)))}>
+              <select data-role-index={i} value={roles[i]} onChange={(e) => setRoles((s) => s.map((x, j) => (j === i ? e.target.value : x)))}>
                 <option value="">역할 고르기</option>
                 {Object.entries(STRUCT_ROLE_LABEL).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
@@ -352,7 +352,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           ))}
           <legend>글 전체 구조</legend>
           <div className={styles.chips}>
-            {Object.entries(STRUCT_PATTERN_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={pattern === v} onClick={() => setPattern(v)}>{l}</button>)}
+            {Object.entries(STRUCT_PATTERN_LABEL).map(([v, l]) => <button key={v} type="button" data-pattern={v} aria-pressed={pattern === v} onClick={() => setPattern(v)}>{l}</button>)}
           </div>
         </fieldset>
       )}
@@ -361,11 +361,11 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         <fieldset className={styles.answer} disabled={lock} data-testid="authored-segments">
           <legend>문장 {((p.extra.focus as { sentence: number } | undefined)?.sentence ?? 0) + 1}의 덩어리 — {String(p.extra.ask ?? '') === 'subject' ? '주어' : String(p.extra.ask ?? '') === 'verb' ? '본동사' : String(p.extra.ask ?? '') === 'attachment' ? '꾸밈을 받는 말' : String(p.extra.ask ?? '') === 'boundary' ? '의미 단위 경계' : '구조'}는?</legend>
           <div className={styles.chips}>
-            {((p.extra.segments as string[]) ?? []).map((sg, i) => <button key={i} type="button" lang="en" aria-pressed={choice === i} onClick={() => setChoice(i)}>{sg}</button>)}
+            {((p.extra.segments as string[]) ?? []).map((sg, i) => <button key={i} type="button" lang="en" data-segment={i} aria-pressed={choice === i} onClick={() => setChoice(i)}>{sg}</button>)}
           </div>
           <legend>그렇게 본 이유</legend>
           <div className={styles.chips}>
-            {Object.entries(SEGMENT_REASON_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={reason === v} onClick={() => setReason(v)}>{l}</button>)}
+            {Object.entries(SEGMENT_REASON_LABEL).map(([v, l]) => <button key={v} type="button" data-reason={v} aria-pressed={reason === v} onClick={() => setReason(v)}>{l}</button>)}
           </div>
         </fieldset>
       )}
@@ -374,12 +374,12 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         <fieldset className={styles.answer} disabled={lock} data-testid="authored-equivalence">
           <legend>두 표현은 이 글에서 같은 뜻인가요?</legend>
           <div className={styles.chips}>
-            <button type="button" aria-pressed={same === true} onClick={() => setSame(true)}>같은 뜻</button>
-            <button type="button" aria-pressed={same === false} onClick={() => setSame(false)}>다른 뜻</button>
+            <button type="button" data-same="true" aria-pressed={same === true} onClick={() => setSame(true)}>같은 뜻</button>
+            <button type="button" data-same="false" aria-pressed={same === false} onClick={() => setSame(false)}>다른 뜻</button>
           </div>
           <legend>표현 A 는 표현 B 에 대해 어떤 관계인가요?</legend>
           <div className={styles.chips}>
-            {Object.entries(MEANING_REL_LABEL).map(([v, l]) => <button key={v} type="button" aria-pressed={meaningRel === v} onClick={() => setMeaningRel(v)}>{l}</button>)}
+            {Object.entries(MEANING_REL_LABEL).map(([v, l]) => <button key={v} type="button" data-mrel={v} aria-pressed={meaningRel === v} onClick={() => setMeaningRel(v)}>{l}</button>)}
           </div>
         </fieldset>
       )}
@@ -393,7 +393,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           <legend>{p.format === 'central_meaning' ? `④ ${p.stem}` : '답'}</legend>
           <div style={{ display: 'grid', gap: 8 }}>
             {p.choices.map((c, k) => (
-              <button key={k} type="button" className={styles.bar} aria-pressed={choice === k} onClick={() => setChoice(k)}
+              <button key={k} type="button" className={styles.bar} data-choice={k} aria-pressed={choice === k} onClick={() => setChoice(k)}
                 data-claim={choice === k || undefined} data-key={(reveal && reveal.answer === k) || undefined}
                 style={{ minHeight: 44, padding: '10px 12px' }}>
                 <span><span className={styles.barNo}>{CIRCLED[k]}</span> {c}</span>
