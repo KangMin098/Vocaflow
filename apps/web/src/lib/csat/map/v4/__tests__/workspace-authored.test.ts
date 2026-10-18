@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { AsIsMap } from '../as-is'
 import { evidenceKeysOfTask, templateOf } from '../definition'
-import { stagesOf } from '../workspace'
+import { planWorkspaces, stagesOf } from '../workspace'
 
 const asIsWith = (task: string, check: Record<string, unknown> | null) => ({ tasks: { [task]: { check } } }) as unknown as AsIsMap
 
@@ -40,5 +40,17 @@ describe('Workspace × 창작 납품', () => {
     })
     expect(st.transfer).toEqual({ ready: true, count: 2, blocked: null })
     expect(st.recheck.ready).toBe(true)
+  })
+
+  it('목록 분류: 창작 납품이 있는 content_needed 템플릿은 「자료 준비 중」이 아니라 실행 가능한 Workspace 로 · 없으면 준비 중', () => {
+    const ref = 'authored:vcs-ind-1'
+    const asIs = asIsWith('v.contextual_sense', { status: 'checking', unseen: [ref], verifiedItems: [], wrongItems: [] })
+    const withLink = planWorkspaces({ asIs, toBe: null, transferItems: {}, transferTargets: {},
+      confirmLinks: { 'authored-vocab-context': [{ target: ref, href: '/csat/learn/vcs-ind-1?d=x', label: '받은 자료 · 혼자 확인' }] } })
+    expect(withLink.preparing.map((p) => p.id)).not.toContain('ws.vocab-context')
+    expect([withLink.primary, ...withLink.others].map((v) => v?.id)).toContain('ws.vocab-context')
+    const without = planWorkspaces({ asIs, toBe: null, transferItems: {}, transferTargets: {}, confirmLinks: {} })
+    expect(without.preparing.map((p) => p.id)).toContain('ws.vocab-context')
+    expect([without.primary, ...without.others].map((v) => v?.id)).not.toContain('ws.vocab-context')
   })
 })

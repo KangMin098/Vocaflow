@@ -213,8 +213,9 @@ for (const width of [1440, 1280]) {
       const creds = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../../../.agent-logs/authored-isolated-admin.json'), 'utf8')) as { email: string; password: string }
       const adm = createClient(URL, ANON, { auth: { persistSession: false } })
       expect((await adm.auth.signInWithPassword({ email: creds.email, password: creds.password })).error).toBeNull()
+      // 철회는 공유 fixture 를 바꾼다(추가 전용 · 되돌릴 수 없다) — 너비마다 다른 문항을 철회해 다른 시험이 정상 거부를 오탐하지 않게
       const set = bySet('v-semantic-relation')
-      const item = set.items.filter((i) => i.role === 'independent_check')[1]
+      const item = set.items.find((i) => i.role === (width === 1440 ? 'independent_check' : 'delayed_check') && (width !== 1440 || i.id.endsWith('-2')))!
       const did = await deliver(u.client, u.id, ws, set, item)
       const dec = (await admin().from('content_human_decision').select('id').eq('artifact_ref', `authored:${item.id}`).eq('kind', 'rights').single()).data!.id as string
       expect((await adm.rpc('content_human_decision_revoke', { p_decision: dec, p_reason: 'e2e 철회' })).error).toBeNull()

@@ -126,8 +126,11 @@ const anyReady = (v: WorkspaceView) => Object.values(v.stages).some((s) => s.rea
 
 export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
   const all = templates()
-  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready')).map((t) => viewOf(t, input))
-  const live = views.filter((v) => v.readiness === 'live' && anyReady(v))
+  const templateById = (id: string) => all.find((t) => t.id === id)!
+  // 창작 납품이 있는 content_needed · blocked 템플릿은 「자료 준비 중」이 아니라 실행 가능한 Workspace 다(FI-011 — 단계만 열고 목록은 막던 어긋남)
+  const delivered = (t: V4Template) => !t.hold && (t.readiness === 'content_needed' || t.readiness === 'blocked') && authoredLive(t, input)
+  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready' || delivered(t))).map((t) => viewOf(t, input))
+  const live = views.filter((v) => (v.readiness === 'live' || delivered(templateById(v.id))) && anyReady(v))
   const coreStatus = (v: WorkspaceView) => input.asIs.tasks[v.core[0]]?.status
   let primary: WorkspaceView | null = null
   let reason: WorkspacePlan['reason'] = null
@@ -155,7 +158,7 @@ export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
     primary: chosen,
     reason,
     others: views.filter((v) => v.id !== chosen?.id),
-    preparing: all.filter((t) => t.hold || t.readiness === 'content_needed' || t.readiness === 'blocked').map((t) => ({ id: t.id, name: t.name, readiness: t.readiness })),
+    preparing: all.filter((t) => t.hold || ((t.readiness === 'content_needed' || t.readiness === 'blocked') && !delivered(t))).map((t) => ({ id: t.id, name: t.name, readiness: t.readiness })),
   }
 }
 
