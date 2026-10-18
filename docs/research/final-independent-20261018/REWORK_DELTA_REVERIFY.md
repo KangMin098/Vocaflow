@@ -3,7 +3,9 @@
 
 ## 현재 판정 · 후속 재검증
 
-최종 CI 후속: 실제 통합256f의 [CI39136723720](https://github.com/KangMin098/Vocaflow/actions/runs/39136723720)와2502549의 [CI39136705847](https://github.com/KangMin098/Vocaflow/actions/runs/39136705847)는 필수 체크 모두 SUCCESS로 종료했다. [새256f 브라우저 report](./rework-integrated-ci-browser-256f.json)는 직접 해독한8/8이며 첨부0이다. 이어30325b7d43b8이 CI 전용 FI-010 실패 주입/두 폭 검사를 추가했다. 제품 소스 변화0으로 기존 제품 검증은 재사용하고, 새 [CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)의 실행 성공은 대기 상태와 구분한다. fixture SQL은 마이그레이션/실제 개발 DB 적용이 아니다.
+현재3030bcb45929는25b 이후 FINAL_LEDGER 문서만 바뀌었다. 제품/테스트/workflow 변화0으로 아래25b 성공을 재사용하며 tip CI 상태와 분리한다. [바이트/HEAD 원장](./rework-latest-head-binding.json)에 기록했다.
+
+최종 CI 후속: 실제 통합256f의 [CI39136723720](https://github.com/KangMin098/Vocaflow/actions/runs/39136723720)와2502549의 [CI39136705847](https://github.com/KangMin098/Vocaflow/actions/runs/39136705847)는 필수 체크 모두 SUCCESS로 종료했다. [새256f 브라우저 report](./rework-integrated-ci-browser-256f.json)는 직접 해독한8/8이며 첨부0이다. 이어30325b7d43b8이 CI 전용 FI-010 실패 주입/두 폭 검사를 추가했다. 제품 소스 변화0으로 기존 제품 검증은 재사용하고, 새 [CI39137567274](https://github.com/KangMin098/Vocaflow/actions/runs/39137567274)도 필수 체크 모두 SUCCESS로 종료했다. [실제25b 브라우저 report](./rework-integrated-ci-browser-25b.json)는8/8(첨부0)이며1280/1440의 FI-010 기록 실패 시 본문/Runner 미노출과 실패 해제 후 첫 노출 근거를 실제 로컬 Supabase/브라우저에서 확인한다. 이 범위는 ISOLATED_BROWSER_VERIFIED이며 실제 사람 승인/개발 DB/실학습 효과가 아니다. fixture SQL은 마이그레이션/실제 개발 DB 적용이 아니다.
 
 **최신 후속이 아래01c/1ee 단계보다 우선한다.** 실제 통합303 **256f109e5e142e902ab48eb537cae7f6535eeb61**는 최신250 **2549e407d9b1138c83b7fd633556b1527b62648c**를 포함한다. 그 사이 migration 복원 뒤의 CHANGELOG 충돌은 담당 실제 merge로 해결됐다. [최신 HEAD/CI·소스5파일 결속](./rework-latest-head-binding.json)에서 실제 state API/merge/store가 독립 검증 스냅샷과 같고 migration SHA bb4cc88d가 실제 적용 이력과 일치함을 확인했다. 실제 DB 재적용은 하지 않았다.
 

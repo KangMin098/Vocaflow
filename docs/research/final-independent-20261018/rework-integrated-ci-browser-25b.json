@@ -1,0 +1,112 @@
+{
+  "head": "25b7d43b86b4446e2fd4f6809cbf0c724b610591",
+  "runId": 39137567274,
+  "stats": {
+    "total": 8,
+    "expected": 8,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "tests": [
+    {
+      "file": "authored-formats.isolated.spec.ts",
+      "title": "창작 형식 9종 종단 — 1440px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 238
+        }
+      ]
+    },
+    {
+      "file": "authored-formats.isolated.spec.ts",
+      "title": "창작 형식 9종 종단 — 1280px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 238
+        }
+      ]
+    },
+    {
+      "file": "authored-supply.isolated.spec.ts",
+      "title": "창작 공급 종단 — 1440px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 69
+        }
+      ]
+    },
+    {
+      "file": "authored-supply.isolated.spec.ts",
+      "title": "창작 공급 종단 — 1280px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 69
+        }
+      ]
+    },
+    {
+      "file": "csat-v31-meaning.isolated.spec.ts",
+      "title": "A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 70
+        }
+      ]
+    },
+    {
+      "file": "csat-v31-meaning.isolated.spec.ts",
+      "title": "B — 실제 보류(record_session_held): 세 문항 item-held · 교수 설명 비노출",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 109
+        }
+      ]
+    },
+    {
+      "file": "csat-v31-meaning.isolated.spec.ts",
+      "title": "C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 · 38 stale 유지 · 정리 단언",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 79
+        }
+      ]
+    },
+    {
+      "file": "map-goal.isolated.spec.ts",
+      "title": "학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB)",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "attachments": 0,
+          "topLevelSteps": 23
+        }
+      ]
+    }
+  ],
+  "reportZipSha256": "4409a3b34dcba7c1c48865555d5c19b05657a09d8d1dfb60d4b238d303621f16",
+  "scope": "Direct decoded Playwright HTML report of actual integrated head. Disposable CI database/synthetic users and human decisions, not actual dev DB, real human approval or learner effect. Scope limited by source assertions, passing screenshots/trace not inferred."
+}
