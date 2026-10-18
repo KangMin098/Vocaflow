@@ -1,0 +1,144 @@
+{
+  "head": "de5065b51",
+  "scope": "Actual frozen Runner and grader with synthetic original content, stub API persistence/binding and Link; not full shell/auth/DB/PLAN E2E.",
+  "rows": [
+    {
+      "id": "1280-equivalent-evidence-rejection-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 2,
+          "evidence": [
+            1
+          ]
+        },
+        "text": "이번에는 어긋났어요결정 근거 — 문장 1. The first two sentences state the same closing time directly.답: 맞음근거: 결정 근거는 문장 1이에요오답은 이렇게 만들어졌어요① 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.② 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.④ 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.⑤ 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-equivalent-evidence-rejection-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 2,
+          "evidence": [
+            1
+          ]
+        },
+        "text": "이번에는 어긋났어요결정 근거 — 문장 1. The first two sentences state the same closing time directly.답: 맞음근거: 결정 근거는 문장 1이에요오답은 이렇게 만들어졌어요① 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.② 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.④ 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.⑤ 본문 내용을 바꾸거나 과장한 선택지 — The text does not support this alternative.이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "no-runtime-errors-or-external-requests",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    },
+    {
+      "id": "no-authored-Gold-JSON-in-browser-bundle",
+      "ok": true,
+      "detail": {
+        "goldInputs": []
+      }
+    }
+  ],
+  "alternativeCounterexample": {
+    "body": {
+      "sentences": [
+        "The reading room closes at six in the evening.",
+        "Its closing time is 6 p.m.",
+        "Books can be returned in a box."
+      ],
+      "stem": "At what time does the reading room close?",
+      "choices": [
+        "4 p.m.",
+        "5 p.m.",
+        "6 p.m.",
+        "7 p.m.",
+        "8 p.m."
+      ],
+      "format": "choice_evidence"
+    },
+    "gold": {
+      "answer": 2,
+      "decisive": 0,
+      "evidence": [
+        0
+      ],
+      "evidenceAlt": [
+        1
+      ],
+      "rationale": "The first two sentences state the same closing time directly.",
+      "distractors": [
+        {
+          "choice": 0,
+          "design": "distorted",
+          "why": "The text does not support this alternative."
+        },
+        {
+          "choice": 1,
+          "design": "distorted",
+          "why": "The text does not support this alternative."
+        },
+        {
+          "choice": 3,
+          "design": "distorted",
+          "why": "The text does not support this alternative."
+        },
+        {
+          "choice": 4,
+          "design": "distorted",
+          "why": "The text does not support this alternative."
+        }
+      ]
+    },
+    "primary": {
+      "response": {
+        "choice": 2,
+        "evidence": [
+          0
+        ]
+      },
+      "grade": {
+        "choiceOk": true,
+        "decisiveOk": true,
+        "evidenceExtra": [],
+        "choiceDesign": null,
+        "isCorrect": true
+      }
+    },
+    "equivalentAlternative": {
+      "response": {
+        "choice": 2,
+        "evidence": [
+          1
+        ]
+      },
+      "grade": {
+        "choiceOk": true,
+        "decisiveOk": false,
+        "evidenceExtra": [],
+        "choiceDesign": null,
+        "isCorrect": false
+      }
+    },
+    "combined": {
+      "response": {
+        "choice": 2,
+        "evidence": [
+          0,
+          1
+        ]
+      },
+      "grade": {
+        "choiceOk": true,
+        "decisiveOk": true,
+        "evidenceExtra": [],
+        "choiceDesign": null,
+        "isCorrect": true
+      }
+    }
+  }
+}

@@ -48,3 +48,5 @@ FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com
 2026-10-18 후속: 사용자가 동일 최종 수용 임무의 검증 자료 계속 게시를 명시 승인했다. 이전 거부 이력은 보존하되, 추가 승인 대기는 해소됐다. 민감한 권한 침해 재현은 비공개 경로로 분리하고, 여기의 공개 자료는 합성 fixture와 관리자 입력 계약·교육/UX·무결성 반례 범위다.
 
 - FI-011 · 핵심 P2 · OPEN · `52a31d988`: authored 확인 링크는 As-Is unseen에 있지만 Workspace check/next는 비어 있고, authored 전이 뒤 요구가 TRANSFER에 남으며 지문 로더 누락으로 전이 수행량도0이다. [세 계약 반례와 정상 대조군](./AUTHORED_INTEGRATION_REVIEW.md). 올바른 결속 후의 다음 단계 환류 문제로 FI-001과 구별한다.
+
+- FI-012 · 핵심 P2 · OPEN · de5065b51 choice_evidence: 같은 닫는 시간을 직접 말하는 두 문장 중 evidenceAlt에 등록된 두 번째 문장만 고르면 choiceOk=true/extra0인데 decisive 인덱스가 없다는 이유로 오답. 실제 채점·두 폭 UI 재현과 기대 동작은 [형식 검토](./AUTHORED_FORMATS_REVIEW.md). 대표 근거만 맞게 하는 형식 계약의 문제이며 실제 콘텐츠 사람 승인으로 오인하지 않는다.
