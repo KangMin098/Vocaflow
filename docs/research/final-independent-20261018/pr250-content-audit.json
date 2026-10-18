@@ -1,0 +1,284 @@
+{
+  "head": "4fdc7ba76ac5f50493da668b85c1735e09a208ff",
+  "originalReadAt": "2026-10-18T11:23:57Z",
+  "originalReadOnly": true,
+  "scope": "27 content/review hash consistency checks; independent source-versus-explanation deep reading ONLY for the five deepRead items. Stored source/base hashes are identifiers, not independently proven whole live source bindings.",
+  "chart25": {
+    "pdfSha256": "7af6828adf5f0b33068f00d9318dc91ff06f7eb34a63601423c414c1c6c0d9fb",
+    "page": 4,
+    "visualInspected": true,
+    "rightsApproved": false
+  },
+  "rows": [
+    {
+      "id": "2026#18",
+      "contentHash": "1cc32c53e8f80ed4",
+      "reviewContentHash": "1cc32c53e8f80ed4",
+      "hashMatches": true,
+      "sourceSnapshotHash": "550059ac7fe3a6e2",
+      "basePublicHash": "a9d958acee841177fbe544401d7e19b6154ac5c4f7c50d019de4eb8d55314214",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#20",
+      "contentHash": "5d0aaee898102f39",
+      "reviewContentHash": "5d0aaee898102f39",
+      "hashMatches": true,
+      "sourceSnapshotHash": "f968e4e73935970e",
+      "basePublicHash": "47461f05409209b6cf35950f0a030a6ce3e5c905291f1b50acb992709cce1f4e",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#21",
+      "contentHash": "30fba66916df3f28",
+      "reviewContentHash": "30fba66916df3f28",
+      "hashMatches": true,
+      "sourceSnapshotHash": "1df8a04025ad30fb",
+      "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#22",
+      "contentHash": "fd71443a499a02e7",
+      "reviewContentHash": "fd71443a499a02e7",
+      "hashMatches": true,
+      "sourceSnapshotHash": "a9533f55248f0d70",
+      "basePublicHash": "2fce7eca281063b0253ab5d02845727cdde4d7c5dcb0adfbac0c16120daf0659",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#23",
+      "contentHash": "691afb16769360ac",
+      "reviewContentHash": "691afb16769360ac",
+      "hashMatches": true,
+      "sourceSnapshotHash": "08e3bab86ba923bb",
+      "basePublicHash": "d52bf6f0f390f8b2631d121304cb7e76214b55bc55ef45ed953798194cb692f0",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#24",
+      "contentHash": "fa5b621f001bdcec",
+      "reviewContentHash": "fa5b621f001bdcec",
+      "hashMatches": true,
+      "sourceSnapshotHash": "652fe4afe9943d26",
+      "basePublicHash": "9d7e2a664d0635755cb015e3af5eb5a3875844882a794e8dd475627bd56cd5ca",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#25",
+      "contentHash": "0997e224c92ddc6c",
+      "reviewContentHash": "0997e224c92ddc6c",
+      "hashMatches": true,
+      "sourceSnapshotHash": "b48bc46a03240454",
+      "basePublicHash": "58500ff22de1c769dab1ce00f21f09d4b4c4f472c050a99e9307796dacf01584",
+      "analysisVersion": 5,
+      "deepRead": true
+    },
+    {
+      "id": "2026#26",
+      "contentHash": "bb4f494539b79e09",
+      "reviewContentHash": "bb4f494539b79e09",
+      "hashMatches": true,
+      "sourceSnapshotHash": "d6aaf7955660942b",
+      "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#27",
+      "contentHash": "ac306e22ee465f1d",
+      "reviewContentHash": "ac306e22ee465f1d",
+      "hashMatches": true,
+      "sourceSnapshotHash": "81df95c182078421",
+      "basePublicHash": "85423982004919e2ac69b0c207b6c5b8719336af209b8c9500ab7903ffd8ea9c",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#28",
+      "contentHash": "5f2c10aacddd9bc2",
+      "reviewContentHash": "5f2c10aacddd9bc2",
+      "hashMatches": true,
+      "sourceSnapshotHash": "f6a28d2f8729fc71",
+      "basePublicHash": "4fc9cf20e98b2596e99db019e1aa1d1c7813be99533444cbb0ae65ff7377c464",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#29",
+      "contentHash": "5afd8918538c940d",
+      "reviewContentHash": "5afd8918538c940d",
+      "hashMatches": true,
+      "sourceSnapshotHash": "8eef55ee9132e60a",
+      "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#30",
+      "contentHash": "646f6674727aae40",
+      "reviewContentHash": "646f6674727aae40",
+      "hashMatches": true,
+      "sourceSnapshotHash": "dfad632a30635c1f",
+      "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+      "analysisVersion": 8,
+      "deepRead": true
+    },
+    {
+      "id": "2026#31",
+      "contentHash": "1e7a36d80b400c7a",
+      "reviewContentHash": "1e7a36d80b400c7a",
+      "hashMatches": true,
+      "sourceSnapshotHash": "939a3eef506b89a5",
+      "basePublicHash": "5c70a8ad18edfb267e2169b595b83ae6788959d6b5939d3768a0e2285f62a5c0",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#32",
+      "contentHash": "8fcd74c6297df466",
+      "reviewContentHash": "8fcd74c6297df466",
+      "hashMatches": true,
+      "sourceSnapshotHash": "a0ada9d2619c0ec5",
+      "basePublicHash": "fb4a3a1ceb24a842392a16ff33a2e04fd98c9e3607f0962d8bf0980ff1dac472",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#33",
+      "contentHash": "b5278d9f38012fda",
+      "reviewContentHash": "b5278d9f38012fda",
+      "hashMatches": true,
+      "sourceSnapshotHash": "03971581fa526ae8",
+      "basePublicHash": "497fd93f5f06eb934b8abecf0a6c238499c32701dc5b34d66e3c6542e3e6953f",
+      "analysisVersion": 5,
+      "deepRead": true
+    },
+    {
+      "id": "2026#34",
+      "contentHash": "8760faa1bc689ed5",
+      "reviewContentHash": "8760faa1bc689ed5",
+      "hashMatches": true,
+      "sourceSnapshotHash": "570bf3a5cbe78dd3",
+      "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#35",
+      "contentHash": "0d29b516aced963a",
+      "reviewContentHash": "0d29b516aced963a",
+      "hashMatches": true,
+      "sourceSnapshotHash": "8b83816f8ea882bd",
+      "basePublicHash": "434b6e79ffcaaf96bdebc5aef04ebc41956bcc96176ed9d40630a8e19332dbf5",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#36",
+      "contentHash": "4178e45dc94c2421",
+      "reviewContentHash": "4178e45dc94c2421",
+      "hashMatches": true,
+      "sourceSnapshotHash": "8ad76ca7dac03572",
+      "basePublicHash": "450991f7d0ecdfb7471146e0587f69b8b692bebbd6991831b22d5f6ef209c175",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#37",
+      "contentHash": "ef20ecd5e957aa08",
+      "reviewContentHash": "ef20ecd5e957aa08",
+      "hashMatches": true,
+      "sourceSnapshotHash": "eaa118b85f1d3f4d",
+      "basePublicHash": "54c3b2dd7253b1abb519fbf18cc806d4c89812198b5e2777f3170fa5a4ec2cf7",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#38",
+      "contentHash": "8c085655a6cf6db5",
+      "reviewContentHash": "8c085655a6cf6db5",
+      "hashMatches": true,
+      "sourceSnapshotHash": "988da51c7762976b",
+      "basePublicHash": "8af9c216426fe22d40108e394c9274a2b53c95fc5e8c9d5aac2c2d1e23313c43",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#39",
+      "contentHash": "8bbaf1849eb046e0",
+      "reviewContentHash": "8bbaf1849eb046e0",
+      "hashMatches": true,
+      "sourceSnapshotHash": "05bc91ab97ac6ac4",
+      "basePublicHash": "45ebfe515d93de4fc7dd8b25ccd352fda20cf7d141debfca069fbfd46c59675e",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#40",
+      "contentHash": "a52fa0966eb98155",
+      "reviewContentHash": "a52fa0966eb98155",
+      "hashMatches": true,
+      "sourceSnapshotHash": "0c24452a9c1f412d",
+      "basePublicHash": "30b0828436f2c8713b7ad3c3cca10e735a0b7df0a30ff49fd4b321bcb501ff49",
+      "analysisVersion": 4,
+      "deepRead": true
+    },
+    {
+      "id": "2026#41",
+      "contentHash": "c83c8589718e468c",
+      "reviewContentHash": "c83c8589718e468c",
+      "hashMatches": true,
+      "sourceSnapshotHash": "fa5ad2c0f157f192",
+      "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#42",
+      "contentHash": "7fe52cf791eef940",
+      "reviewContentHash": "7fe52cf791eef940",
+      "hashMatches": true,
+      "sourceSnapshotHash": "49945168bf2ab839",
+      "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+      "analysisVersion": 4,
+      "deepRead": true
+    },
+    {
+      "id": "2026#43",
+      "contentHash": "520eda7b27b44ee6",
+      "reviewContentHash": "520eda7b27b44ee6",
+      "hashMatches": true,
+      "sourceSnapshotHash": "7b27524674de1184",
+      "basePublicHash": "5a4ba3e56de4e5e614f5ecd1f751b85a08189b84f50147777ec6dd263c06cdf8",
+      "analysisVersion": 5,
+      "deepRead": false
+    },
+    {
+      "id": "2026#44",
+      "contentHash": "5ec0f129fb594237",
+      "reviewContentHash": "5ec0f129fb594237",
+      "hashMatches": true,
+      "sourceSnapshotHash": "dfde740f671b3244",
+      "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+      "analysisVersion": 4,
+      "deepRead": false
+    },
+    {
+      "id": "2026#45",
+      "contentHash": "5605e4f475222bb4",
+      "reviewContentHash": "5605e4f475222bb4",
+      "hashMatches": true,
+      "sourceSnapshotHash": "5f6c7161e1f7ee33",
+      "basePublicHash": "89646b0e7b1d57d78beb70017a4a8da7a28e0d3db23c90afa89ed48508445bdc",
+      "analysisVersion": 4,
+      "deepRead": false
+    }
+  ]
+}

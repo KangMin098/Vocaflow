@@ -1,0 +1,111 @@
+{
+  "head": "4a751eeb9215bf4c6e81f8d512b3fff432d18d67",
+  "sourceSha256": "cf0d030e4c45d490583d2108ae451990c03842995bbe552aeb842336bfc3d389",
+  "mergeBlockSha256": "30cc518f370686891ebd4bd4e08a32964427ab0efa28a517ddef40e336a8e0ad",
+  "scope": "Actual frozen loadAuthoredConfirms declaration and merge block; qualified rows supplied, DB/RPC/currentness/full loadMapPage not executed. Main and synthetic legacy task map keys differ from canonical authored TASK ids.",
+  "rows": [
+    {
+      "task": "r.central_meaning",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "e.evidence_location",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "e.option_correspondence",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "r.inference",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "r.relation",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "s.form_scope",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "v.contextual_sense",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "r.reference",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "v.multiword",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "r.discourse_function",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "r.discourse_structure",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "e.task_demand",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "s.sentence_core",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "s.attachment",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "s.chunk_boundary",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "s.structural_relation",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    },
+    {
+      "task": "v.semantic_relation",
+      "validDeliveredInput": 1,
+      "merged": 0,
+      "artificialSameTaskSlotControl": 1
+    }
+  ],
+  "observedDefect": "17 qualified delivery inputs omitted when a same canonical TASK slot is absent; pre-created slot control accepts each input. PASS means defect reproduction, not product acceptance."
+}

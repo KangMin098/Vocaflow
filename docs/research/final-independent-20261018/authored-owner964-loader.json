@@ -1,0 +1,42 @@
+{
+  "head": "9647b45e1db1f719b8f778c22cbefa7e742fc689",
+  "mergeBlockSha256": "30cc518f370686891ebd4bd4e08a32964427ab0efa28a517ddef40e336a8e0ad",
+  "unchangedMergeDefectReusedFrom": "4a751eeb9215bf4c6e81f8d512b3fff432d18d67",
+  "scope": "Actual changed loadAuthoredDeliveries declaration with synthetic query/RPC transports; role grants and actual DB not executed. Unchanged 17-TASK merge defect not rerun.",
+  "observed": [
+    {
+      "name": "learner_current",
+      "retained": 1,
+      "calls": [
+        "workspace_delivery_current"
+      ],
+      "ownerFilterPresent": true
+    },
+    {
+      "name": "learner_revoked",
+      "retained": 0,
+      "calls": [
+        "workspace_delivery_current"
+      ],
+      "ownerFilterPresent": true
+    },
+    {
+      "name": "service_no_uid",
+      "retained": 1,
+      "calls": [
+        "workspace_delivery_current",
+        "supply_delivery_valid"
+      ],
+      "ownerFilterPresent": true
+    },
+    {
+      "name": "both_rpc_failed",
+      "retained": 0,
+      "calls": [
+        "workspace_delivery_current",
+        "supply_delivery_valid"
+      ],
+      "ownerFilterPresent": true
+    }
+  ]
+}

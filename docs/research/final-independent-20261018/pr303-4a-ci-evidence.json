@@ -1,0 +1,170 @@
+{
+  "ownerHead": "4a751eeb9215bf4c6e81f8d512b3fff432d18d67",
+  "runId": 39121633640,
+  "artifactId": 12135540326,
+  "stats": {
+    "total": 8,
+    "expected": 6,
+    "unexpected": 2,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": false
+  },
+  "scope": "Direct CI artifact report, actual browser network, screenshot, error context and source assertion order. Reached stages do not turn the failed tests or whole run into PASS. No real dev DB writes or human approvals.",
+  "rows": [
+    {
+      "width": 1280,
+      "normalFormats": [
+        {
+          "name": "e-evidence-location",
+          "id": "ev-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "e-option-correspondence",
+          "id": "opt-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "v-contextual-sense",
+          "id": "vcs-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "r-relation",
+          "id": "rel-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "s-form-scope",
+          "id": "gs-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "r-discourse-function",
+          "id": "df-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "e-task-demand",
+          "id": "td-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "s-sentence-core",
+          "id": "sc-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "v-semantic-relation",
+          "id": "sem-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        }
+      ],
+      "reachedAfterLoopChecks": [
+        "wrong_grammar_reason",
+        "helped_practice_non_evidence",
+        "actual_saved_response_loss_retry_one_attempt",
+        "separate_page_open_non_evidence",
+        "revoked_screen_block",
+        "keyboard_focus_and_enter"
+      ],
+      "failure": "line241 Workspace ws.vocab-context open button remains hidden inside collapsed preparing details; map return result assertion not reached"
+    },
+    {
+      "width": 1440,
+      "normalFormats": [
+        {
+          "name": "e-evidence-location",
+          "id": "ev-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "e-option-correspondence",
+          "id": "opt-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "v-contextual-sense",
+          "id": "vcs-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "r-relation",
+          "id": "rel-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "s-form-scope",
+          "id": "gs-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "r-discourse-function",
+          "id": "df-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "e-task-demand",
+          "id": "td-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "s-sentence-core",
+          "id": "sc-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        },
+        {
+          "name": "v-semantic-relation",
+          "id": "sem-ind-1",
+          "attemptHttp": [
+            200
+          ]
+        }
+      ],
+      "reachedAfterLoopChecks": [
+        "wrong_grammar_reason",
+        "helped_practice_non_evidence",
+        "actual_saved_response_loss_retry_one_attempt",
+        "separate_page_open_non_evidence",
+        "revoked_screen_block",
+        "keyboard_focus_and_enter"
+      ],
+      "failure": "line241 Workspace ws.vocab-context open button remains hidden inside collapsed preparing details; map return result assertion not reached"
+    }
+  ]
+}

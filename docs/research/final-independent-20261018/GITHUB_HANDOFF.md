@@ -17,7 +17,7 @@
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
 | FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
-| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | FIX_VERIFIED_IN_CANDIDATE · 중심 의미7e/확장3 Workspace4a, 전체 브라우저 복귀 별도 |
+| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | PARTIAL_FIX / OPEN · 계산 함수 수정 확인,4a 실제 지도 로더가 납품 링크 누락 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
 | FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · 맞는 주어/본동사 이유 오답 |
@@ -53,3 +53,5 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 | FI-016 | [#309](https://github.com/KangMin098/Vocaflow/issues/309) | OPEN · 비공개 재현, 공동 원장 DL-0165 |
 
 PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두 폭21관찰은 확인했지만 서로 다른 노트의 동시 저장200/200 뒤 서버1건 누락을 FI-015(#308)로 재현했다. 새 보류 처리 경계 FI-016(#309)은 비공개 재현/DL-0165로 인계했다. 민감한 세부는 공개 원장에 싣지 않는다. PR303 [9bd CI 도달 범위·4a 수정](./PR303_4A_REVERIFY.md)은9형식 정상 경로와 실패한 지도 복귀를 구분하고, FI-011 확장3 Workspace는4a 후보에서 수정 확인했다. 전체 A~H REWORK와 실제 DB 쓰기/사람 승인 제한은 유지한다.
+
+4a CI 종료 후속: [실제 로더/두 폭 실패](./PR303_4A_REVERIFY.md)를 확인해 FI-011 전체는 PARTIAL_FIX / OPEN으로 유지한다. 계산 함수의 확장3 Workspace 개선은 유효하지만, 실제 로더가 기존 정본 TASK 슬롯이 없는 창작 납품을 누락한다. 실제 병합 블록의17 TASK 합성 입력은 모두0개로 사라졌고 미리 슬롯을 만든 대조군만 보존됐다. CI39121633640의 두 폭은9형식·재시도·비근거·철회·키보드 뒤 지도 복귀에서 실패했다. 기존 #304로 인계하며 중복 이슈를 만들지 않는다. PR250은 [27개 해시/5문항 내용 한정 대조](./PR250_CONTENT_REVIEW.md)를 추가했고22문항 전체 의미 수용·사람 승인·효과는 미검증이다. 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.
