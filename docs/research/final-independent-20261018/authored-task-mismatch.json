@@ -1,0 +1,11 @@
+{
+  "scope": "ISOLATED_PGLITE_ONLY",
+  "ownerCommit": "b4fbf4d5c",
+  "registeredTask": "r.central_meaning",
+  "qualificationAndDeliveryTask": "r.reference",
+  "supplyAllowed": true,
+  "deliveryValid": true,
+  "bindError": "attempt binding: attempt task key does not map to delivery TASK",
+  "remoteDbWrites": 0,
+  "provenance": "Observation from probe-authored-supply.ts --task-only, 2026-10-18 KST. No actual learner data."
+}

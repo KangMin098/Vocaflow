@@ -30,3 +30,9 @@
 - [전체 범위와 원본](./AUTHORED_INTEGRATION_REVIEW.md). 최종 통합 PR·실제 공급·사람 승인 완료로 확대하지 않음.
 - 실제 창작9문항 콘텐츠 길이 추가 렌더링(기존 상호작용 미반복): 1280/1440 ×9문항에서 가로 넘침0·44px 미만 활성 버튼0. 교수7단계·안내연습2문항 hints를 읽고 FI-009의 학습자 문장 번호 불일치를 확인했다.
 - 새 mjs 실행기3개 ESLint/구문 검사, 자체 보고서7개 로컬 링크(누락0), check.mjs 및 git diff --check: PASS.
+
+## 필수 반례의 후속 확인
+
+- 다른 TASK 자격 혼입: 기존 FI-002에 등록 TASK와 다른 FQ/납품 TASK 조합 추가. 공급 valid=true, G2에서 뒤늦게 task mapping 거절.
+- 본문만 열고 닫은 선행 노출: 새 FI-010 재현. open 두 번 후 sessions0/exposure none, 제출 뒤 first_exposure/evidence=true. 새 반례1건만 실행했고 기존 종단10건은 필터로 SKIPPED(재검증 PASS에 합산하지 않음).
+- 실제 개발 DB 쓰기·사람 Gold/권리 승인·콘텐츠 출시 승인 없음. 새 외부 게시 범위 승인 대기 상태에서는 로컬 공용 원장으로만 전달.

@@ -28,18 +28,28 @@ async function main(){const db=new PGlite();try{
   const ws=(await one<{id:string}>(`insert into learner_workspace(user_id) values ($1) returning id`,[uid])).id
   await db.query(`insert into learner_workspace_plan(workspace_id,user_id,plan_version) values($1,$2,1)`,[ws,uid])
   const register=async(ref:string,role:string,group:string)=>{await as(db,admin);return(await one<{ref:string}>(`select authored_item_register($1,$2,$3,$4,$5,$6,$7::jsonb,$8::jsonb,$9,$10::jsonb) ref`,[ref,task,tkey,['independent_check','transfer','delayed_check'].includes(role)?'assessment':'instruction',role,group,JSON.stringify(body),JSON.stringify(gold),`${tkey}-${ref.slice(9)}.v1`,JSON.stringify({author:'isolated',method:'fixture',derivedFrom:[]})])).ref}
-  const qualify=async(ref:string,role:string,rights:string[],basis='self_authored_original')=>{await as(db,admin);const rev=await revOf(db,'authored_item',ref);const hash=(await one<{h:string}>(`select authored_item_gold_hash($1) h`,[ref])).h
+  const qualify=async(ref:string,role:string,rights:string[],basis='self_authored_original',fqTask=task)=>{await as(db,admin);const rev=await revOf(db,'authored_item',ref);const hash=(await one<{h:string}>(`select authored_item_gold_hash($1) h`,[ref])).h
     await one(`select content_human_decision_record('rights','authored_item',$1,$2,$2,$4,$3::text[],'isolated-evidence','human-reviewed') id`,[ref,rev,rights,basis])
     await one(`select content_human_decision_record('gold','authored_item',$1,$2,$3,'human_gold_review','{assess}','isolated-evidence','human-reviewed') id`,[ref,rev,hash])
-    const q=(await one<{id:string}>(`select content_qualification_record('FQ1.1','authored_item',$1,$2,$3,$4,$5::jsonb,'self',$2,null,'gold',$6,$7,$6,'{}','{ev}','isolated',null) id`,[ref,rev,task,role,JSON.stringify(AXES()),hash,`${tkey}-${ref.slice(9)}.v1`])).id
+    const q=(await one<{id:string}>(`select content_qualification_record('FQ1.1','authored_item',$1,$2,$3,$4,$5::jsonb,'self',$2,null,'gold',$6,$7,$6,'{}','{ev}','isolated',null) id`,[ref,rev,fqTask,role,JSON.stringify(AXES()),hash,`${tkey}-${ref.slice(9)}.v1`])).id
     await one(`select content_release_approve($1,'public') id`,[q]);const approval=(await one<{id:string}>(`select content_release_approve($1,'assessment') id`,[q])).id
     return{q,approval,hash}}
-  const deliver=async(ref:string,role:string,rights:string[],basis='self_authored_original')=>{const{q,approval,hash}=await qualify(ref,role,rights,basis);await as(db,uid)
-    const demand={key:'k',template:'ws.reading',workspaceId:ws,goalVersion:null,planVersion:1,definitionVersion:`probe-${++seq}`,asOf:'2026-10-18T00:00:00Z',core:task,support:[],purpose:{need:null,evidence:'probe',independentItems:null,unknowns:[]},lines:[{role,task,quantity:{n:1},csatTypes:['R-TOPIC'],taskKeys:[],requires:[],reason:'need'}]}
+  const deliver=async(ref:string,role:string,rights:string[],basis='self_authored_original',fqTask=task)=>{const{q,approval,hash}=await qualify(ref,role,rights,basis,fqTask);await as(db,uid)
+    const demand={key:'k',template:'ws.reading',workspaceId:ws,goalVersion:null,planVersion:1,definitionVersion:`probe-${++seq}`,asOf:'2026-10-18T00:00:00Z',core:fqTask,support:[],purpose:{need:null,evidence:'probe',independentItems:null,unknowns:[]},lines:[{role,task:fqTask,quantity:{n:1},csatTypes:['R-TOPIC'],taskKeys:[],requires:[],reason:'need'}]}
     const did=(await one<{id:string}>(`select workspace_demand_record($1) id`,[canonicalDemand(uid,demand as never)])).id
     const line=(await one<{id:string}>(`select id from workspace_content_demand_line where demand_id=$1`,[did])).id
     const delivery=(await one<{id:string}>(`select workspace_delivery_record($1,null,$2,$3,$4) id`,[line,q,approval,key()])).id
     return{delivery,hash}}
+  if(process.argv.includes('--task-only')) {
+    const ref=await register('authored:task-mismatch','independent_check','group-task')
+    const result=await deliver(ref,'independent_check',['store','display','transmit','assess'],'self_authored_original','r.reference')
+    const session=(await one<{id:string}>(`insert into learning_sessions(user_id,item_ref,task_key,help_level,revealed_at) values($1,$2,$3,'independent',now()) returning id`,[uid,ref,tkey])).id
+    const att=(await one<{id:number}>(`insert into learning_task_attempts(user_id,item_ref,task_key,session_id,activity,phase,help_level,content_hash,response) values($1,$2,$3,$4,'theater','practice','independent',$5,$6::jsonb) returning id`,[uid,ref,tkey,session,result.hash,JSON.stringify({annotation:tkey+'-'+ref.slice(9)+'.v1',grade:{isCorrect:true}})])).id
+    let bindError:string|null=null
+    try {await one(`select workspace_delivery_attempt_record($1,$2,$3) id`,[result.delivery,att,key()])}catch(e){bindError=(e as Error).message}
+    console.log(JSON.stringify({scope:'ISOLATED_PGLITE_ONLY',ownerCommit:owner,registeredTask:task,qualificationAndDeliveryTask:'r.reference',supplyAllowed:Boolean(result.delivery),deliveryValid:(await one<{ok:boolean}>(`select supply_delivery_valid($1) ok`,[result.delivery])).ok,bindError,remoteDbWrites:0},null,2))
+    return
+  }
   const observations:Record<string,unknown>[]=[]
   // Instruction artifact itself is requalified for assessment, bypassing immutable role_class/intended_role.
   const roleRef=await register('authored:role-mismatch','guided_practice','group-role')

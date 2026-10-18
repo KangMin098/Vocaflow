@@ -14,6 +14,7 @@ execFileSync('tar.exe', ['-xf', archive, '-C', snapshot], { windowsHide: true })
 fs.symlinkSync(path.join(root, 'node_modules'), path.join(snapshot, 'node_modules'), 'junction')
 fs.symlinkSync(path.join(root, 'apps/web/node_modules'), path.join(snapshot, 'apps/web/node_modules'), 'junction')
 const test = 'src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts'
+const viewOnly = process.argv.includes('--view-only')
 const extra = `
 describe('Independent Codex: revocation after delivery', () => {
   it('captures actual currentness and the server response', async () => {
@@ -39,10 +40,28 @@ describe('Independent Codex: revocation after delivery', () => {
   })
 })
 `
-fs.appendFileSync(path.join(snapshot, 'apps/web', test), extra)
+const exposureExtra = `
+describe('Independent Codex: view-only exposure', () => {
+  it('separate opening without answer is absent from the exposure ledger', async () => {
+    const target = ref('r5-cm-ind-1')
+    await supply(B, 'check', 2)
+    const before = await q1<{n:number}>(\`select count(*)::int n from learning_sessions where user_id = $1 and item_ref = $2\`, [B,target])
+    const first = await openDelivered(admin,learner(B),B,target)
+    // The first page is closed without submission; later a fresh page gets a new clientSessionId.
+    const reopened = await openDelivered(admin,learner(B),B,target)
+    const afterOpens = await q1<{n:number}>(\`select count(*)::int n from learning_sessions where user_id = $1 and item_ref = $2\`, [B,target])
+    const exposure = await q1<{state:string}>(\`select supply_learner_exposure('authored_item',$1,$2) state\`, [target,B])
+    await recordAuthoredAttempt(admin,learner(B),{id:B,email:'fixture@test.local'},target,{response:rightAnswer('r5-cm-ind-1'),...meta()},Date.now(),writer)
+    const binding = await q1<{first_exposure:boolean;evidence:boolean}>(\`select first_exposure,evidence from workspace_delivery_attempt where user_id = $1 and artifact_ref = $2\`,[B,target])
+    console.log('INDEPENDENT_VIEW_ONLY=' + JSON.stringify({first:first.status,reopened:reopened.status,sessionsBefore:before.n,sessionsAfterOpening:afterOpens.n,exposureAfterOpening:exposure.state,binding}))
+    expect(before.n).toBe(0);expect(afterOpens.n).toBe(0);expect(exposure.state).toBe('none');expect(binding).toMatchObject({first_exposure:true,evidence:true})
+  })
+})
+`
+fs.appendFileSync(path.join(snapshot, 'apps/web', test), viewOnly ? exposureExtra : extra)
 const vitest = path.join(root, 'apps/web/node_modules/vitest/vitest.mjs')
-const result = spawnSync(process.execPath, [vitest, 'run', test], { cwd: path.join(snapshot, 'apps/web'), encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_OPTIONS: '--require=' + path.join(root, 'scripts/csat/map/v62/r5-read-only-preload.cjs') }, maxBuffer: 4 * 1024 * 1024 })
+const result = spawnSync(process.execPath, [vitest, 'run', test, ...(viewOnly ? ['-t', 'Independent Codex: view-only exposure'] : [])], { cwd: path.join(snapshot, 'apps/web'), encoding: 'utf8', windowsHide: true, env: { ...process.env, NODE_OPTIONS: '--require=' + path.join(root, 'scripts/csat/map/v62/r5-read-only-preload.cjs') }, maxBuffer: 4 * 1024 * 1024 })
 const output = [result.stdout ?? '', result.stderr ?? ''].join('\n').replace(/\u001b\[[0-9;]*m/g, '')
-fs.writeFileSync(path.join(root, 'docs/research/final-independent-20261018/authored-currentness.log'), 'Frozen owner commit: ' + sha + '\nScope: isolated synthetic PGlite; actual server functions; no live DB writes.\n' + output)
+fs.writeFileSync(path.join(root, 'docs/research/final-independent-20261018/' + (viewOnly ? 'authored-view-exposure.log' : 'authored-currentness.log')), 'Frozen owner commit: ' + sha + '\nScope: isolated synthetic PGlite; actual server functions; no live DB writes.\n' + output)
 process.stdout.write(output)
 process.exitCode = result.status ?? 1

@@ -20,3 +20,8 @@
 새 exposure 판정은 같은 묶음의 선행 납품을 노출로 세지만, 공급 시점의 묶음 단위 직렬화가 없어 다른 수요 줄의 동시 요청은 서로의 미커밋 행을 보지 못한다. 이 SQL의 기존 순차 ‘같은 묶음 두 번째 거절’ 시험으로는 이 경합을 잡지 못한다. 기대: 실제 지문 정체성과 학습자 단위에서 동시 공급을 직렬화하고, 앞선 커밋 뒤 최신 노출 상태를 다시 판정한다. 한 수요 줄만 잠그는 것으로 충분하지 않다.
 
 [실제 PostgreSQL 출력](./authored-concurrency.log) · [두 연결 실행기](../../../apps/web/scripts/final-independent/probe-authored-concurrency.ts). 서버는 독립 세션의 전용 데이터 디렉터리에서만 띄웠고 종료했다. 개발 DB 접속·쓰기 없음. 첫 실행기의 pg_ctl stdout pipe 대기로 인한 인프라 실패는 PASS로 세지 않았으며, 자식 pipe 상속을 제거한 뒤 별도 새 클러스터에서 위 결과를 얻었다.
+## FI-002 추가 범위 · 다른 TASK의 자격 혼입
+
+`--task-only` 모드로 기존 역할 반례를 반복하지 않고 등록 TASK↔자격 TASK 경계를 추가 확인했다. `r.central_meaning`/`authored-central-meaning`으로 불변 등록한 평가 자료에 `r.reference` FQ를 만들고 해당 TASK의 수요에 납품했다. **공급 성공·현재 유효=true**였고, 같은 자료를 수행한 뒤 G2 결속에서야 `attempt task key does not map to delivery TASK`로 거절됐다. [관찰값](./authored-task-mismatch.json).
+
+따라서 FI-002의 기대 계약은 등록 행의 `task_id/task_key/role_class/intended_role`과 FQ·수요·납품의 결속까지 포함한다. 정상 G2가 마지막 단계에서 거절하는 것은 긍정적인 방어지만, 학습자에게 맞지 않는 TASK 자료를 유효한 공급으로 제공하는 앞단 오류를 해결하지는 못한다. 같은 산출물↔자격 결속 결함의 추가 조합이므로 새 ID로 중복 제출하지 않는다. 등록자의 임의 TASK 재자격화는 공급 전에 거절되어야 한다. 실제 개발 DB 쓰기 없음.
