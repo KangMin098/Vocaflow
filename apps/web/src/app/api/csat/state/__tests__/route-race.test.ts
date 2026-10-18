@@ -87,23 +87,33 @@ describe('state PUT 동시 저장(FI-015)', () => {
     expect(await stored()).toEqual(['unit-one', 'unit-two'])
   })
 
-  it('기존 행 위 동시 저장 — 둘 다 읽은 뒤 써도 두 노트 모두 서버 · 새 GET 에 남는다', async () => {
+  /** 클라이언트 계약(session/store.ts): 409 면 같은 기기 기록을 다시 보낸다 */
+  const withRetry = async (id: string, first: Response) => (first.status === 409 ? put(base(id)) : first)
+
+  it('기존 행 위 동시 저장 — 둘 다 읽은 뒤 쓰면 늦은 쪽은 덮지 않고 409 · 성공(200)한 노트는 모두 서버에 남는다', async () => {
     await put(base('unit-zero'))
     barrier = true
     const res = await Promise.all([put(base('unit-one')), put(base('unit-two'))])
     barrier = false
     expect(reads).toBeGreaterThanOrEqual(2)
-    expect(res.map((r) => r.status)).toEqual([200, 200])
+    expect(res.map((r) => r.status).sort()).toEqual([200, 409])
+    const ok = ['unit-one', 'unit-two'].filter((_, i) => res[i].status === 200)
+    expect(await stored()).toEqual(expect.arrayContaining([...ok, 'unit-zero']))
+    // 원래 결함: 200/200 인데 한 노트가 사라졌다. 이제 200 은 언제나 보존 · 409 쪽은 재시도로 합쳐진다
+    const retried = await Promise.all(['unit-one', 'unit-two'].map((id, i) => withRetry(id, res[i])))
+    expect(retried.map((r) => r.status)).toEqual([200, 200])
     expect(await stored()).toEqual(['unit-one', 'unit-two', 'unit-zero'])
     const fetched = await (await GET()).json()
     expect(fetched.record.meaningNotes.map((x: { unitId: string }) => x.unitId).sort()).toEqual(['unit-one', 'unit-two', 'unit-zero'])
   })
 
-  it('행이 없을 때 동시 첫 저장 — 한쪽 insert 충돌은 다시 읽어 합친다', async () => {
+  it('행이 없을 때 동시 첫 저장 — insert 충돌 쪽은 409 · 재시도 뒤 두 노트 보존', async () => {
     barrier = true
     const res = await Promise.all([put(base('unit-one')), put(base('unit-two'))])
     barrier = false
-    expect(res.map((r) => r.status)).toEqual([200, 200])
+    expect(res.map((r) => r.status).sort()).toEqual([200, 409])
+    const retried = await Promise.all(['unit-one', 'unit-two'].map((id, i) => withRetry(id, res[i])))
+    expect(retried.map((r) => r.status)).toEqual([200, 200])
     expect(await stored()).toEqual(['unit-one', 'unit-two'])
   })
 
