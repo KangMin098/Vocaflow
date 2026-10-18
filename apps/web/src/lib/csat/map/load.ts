@@ -530,6 +530,9 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   for (const c of await loadAuthoredConfirms(db, userId, authoredRows).catch((e) => { console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
     const l = practiceLinks[c.task]
     if (l && !l.confirm.some((x) => x.target === c.confirm.target)) practiceLinks[c.task] = { ...l, confirm: [...l.confirm, c.confirm] }
+    // 정본 연습 연결이 없는 TASK(문맥 어휘 · 어법 등 content_needed) — 창작 납품이 그 TASK 의 유일한 확인 자료다. 버리면 Workspace 가 영영 「자료 준비 중」에 남는다.
+    //   원리 사슬 · 적용(chain · application)은 붙이지 않는다 — 지식 적용 원장에 없는 자료를 적용으로 기록하지 않는다
+    else if (!l) practiceLinks[c.task] = { href: c.confirm.href, label: c.confirm.label, itemId: c.confirm.target.slice('authored:'.length), target: c.confirm.target, taskKey: c.confirm.taskKey, confirm: [c.confirm] }
   }
   const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).then((rows) => gateAuthoredFirsts(db, userId, rows)).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
