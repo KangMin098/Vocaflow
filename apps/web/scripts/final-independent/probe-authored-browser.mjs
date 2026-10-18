@@ -29,6 +29,8 @@ const base = 'http://127.0.0.1:' + server.address().port
 const browser = await chromium.launch()
 const out = path.join(root, 'docs/research/final-independent-20261018/authored-browser')
 fs.mkdirSync(out, { recursive: true })
+const contentOnly = process.argv.includes('--content-only')
+const authoredSet = JSON.parse(execFileSync('git', ['show', '52a31d988:apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json'], { cwd: root, encoding: 'utf8' }))
 const results = [], runtimeErrors = [], external = [], submissions = []
 const record = (id, ok, detail) => { results.push({ id, ok, detail }); console.log((ok ? 'PASS ' : 'FAIL ') + id) }
 const props = { id: 'isolated-case', role: 'independent_check', sentences: ['A useful strategy connects evidence to a clear claim.', 'For example, learners can compare two possible explanations.', 'The comparison reveals which explanation fits the evidence.'], stem: '글의 요지는?', choices: ['근거와 주장을 연결해 판단하라.', '비교를 언제나 피하라.', '설명은 중요하지 않다.', '생각을 모두 외워라.', '한 가지 사례만 보라.'], teach: null, hints: null, probe: 1, done: null, returnHref: '/csat/diagnosis?tab=map&view=full' }
@@ -53,6 +55,19 @@ try {
       return route.fulfill({ contentType: 'application/json', body: JSON.stringify(data) })
     })
     await page.goto(base)
+    if (contentOnly) {
+      for (const item of authoredSet.items) {
+        const p = { ...props, id: item.id, role: item.role, sentences: item.body.sentences, stem: item.body.stem, choices: item.body.choices, teach: item.body.teach ?? null, hints: item.body.hints ?? null, probe: item.gold.relationProbe.sentence }
+        await page.evaluate(p => window.renderFixture('runner', p), p)
+        await page.getByRole('button', { name: '맞춰 보기', exact: true }).waitFor()
+        await page.waitForFunction(id => document.querySelector('[data-testid="authored-runner"]')?.textContent?.includes(id), item.body.sentences[0])
+        const m = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth-innerWidth, undersized: [...document.querySelectorAll('button:not(:disabled),a')].filter(e=>e.getBoundingClientRect().height<44-0.1).map(e=>e.textContent) }))
+        record(width+'-'+item.id+'-actual-content-layout', m.overflow<=0 && m.undersized.length===0, m)
+        if (item.id==='r5-cm-teach-1' || item.id==='r5-cm-ind-1') await page.screenshot({ path: path.join(out, width+'-'+item.id+'.png'), fullPage: true })
+      }
+      await page.close()
+      continue
+    }
     await page.evaluate(p => window.renderFixture('runner', p), props)
     await page.getByTestId('authored-runner').waitFor()
     const submit = page.getByRole('button', { name: '맞춰 보기', exact: true })
@@ -91,6 +106,6 @@ try {
   record('no-runtime-errors-or-external-network', runtimeErrors.length === 0 && external.length === 0, { runtimeErrors, external })
 } finally {
   await browser.close(); await new Promise(r => server.close(r))
-  fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify({ frozenCommit: '52a31d988', scope: 'Real components/CSS, synthetic API and local navigation wrapper. No actual shell, route auth, DB, map restore, or whole-product E2E claim.', results, submissions }, null, 2) + '\n')
+  fs.writeFileSync(path.join(out, contentOnly ? 'content-layout.json' : 'results.json'), JSON.stringify({ frozenCommit: '52a31d988', scope: 'Real components/CSS, synthetic API and local navigation wrapper. No actual shell, route auth, DB, map restore, or whole-product E2E claim.', results, submissions }, null, 2) + '\n')
 }
 process.exitCode = results.some(r => !r.ok) ? 1 : 0

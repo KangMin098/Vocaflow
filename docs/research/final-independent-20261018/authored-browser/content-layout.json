@@ -1,0 +1,159 @@
+{
+  "frozenCommit": "52a31d988",
+  "scope": "Real components/CSS, synthetic API and local navigation wrapper. No actual shell, route auth, DB, map restore, or whole-product E2E claim.",
+  "results": [
+    {
+      "id": "1280-r5-cm-teach-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-guided-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-guided-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-ind-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-ind-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-transfer-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-transfer-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-delayed-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1280-r5-cm-delayed-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-teach-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-guided-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-guided-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-ind-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-ind-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-transfer-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-transfer-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-delayed-1-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "1440-r5-cm-delayed-2-actual-content-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "undersized": []
+      }
+    },
+    {
+      "id": "no-runtime-errors-or-external-network",
+      "ok": true,
+      "detail": {
+        "runtimeErrors": [],
+        "external": []
+      }
+    }
+  ],
+  "submissions": []
+}
