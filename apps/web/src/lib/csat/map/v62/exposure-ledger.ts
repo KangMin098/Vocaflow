@@ -112,7 +112,7 @@ const pass = (r: FqRow, k: string) => r.axes?.[k]?.state === 'pass'
  */
 export function fqRowVerdict(
   r: FqRow,
-  ctx: { tasks: ReadonlySet<string>; supersededIds: ReadonlySet<string>; approvals: readonly FqApprovalRow[]; revoked: ReadonlySet<string>; currentRevision: string | null; currentAnnotation: { ref: string; hash: string } | null; registry?: { artifact_revision: string; annotation_ref: string; annotation_hash: string } | null },
+  ctx: { tasks: ReadonlySet<string>; supersededIds: ReadonlySet<string>; approvals: readonly FqApprovalRow[]; revoked: ReadonlySet<string>; currentRevision: string | null; currentAnnotation: { ref: string; hash: string } | null; registryMatch?: boolean },
 ): { ok: true } | { ok: false; reason: FqRejection } {
   if (ctx.supersededIds.has(r.id)) return { ok: false, reason: 'superseded' }
   if (!ctx.tasks.has(r.task_id)) return { ok: false, reason: 'task' }
@@ -125,8 +125,8 @@ export function fqRowVerdict(
   if (ASSESS.has(r.role) && !live.some((a) => a.scope === 'assessment')) return { ok: false, reason: 'approval_assessment' }
   if (!ctx.currentRevision || ctx.currentRevision !== r.artifact_revision) return { ok: false, reason: 'revision_stale' }
   if (!ctx.currentAnnotation || r.annotation_ref !== ctx.currentAnnotation.ref || r.annotation_hash !== ctx.currentAnnotation.hash) return { ok: false, reason: 'annotation_unbound' }
-  // I2 배포 등록부(supply_current_annotation) — 납품 SQL 과 같은 정본. 등록이 없거나 다르면 공급할 수 없다
-  if (ctx.registry !== undefined && (!ctx.registry || ctx.registry.artifact_revision !== r.artifact_revision || ctx.registry.annotation_ref !== r.annotation_ref || ctx.registry.annotation_hash !== r.annotation_hash)) return { ok: false, reason: 'annotation_unbound' }
+  // I2 배포 등록부 일치(supply_annotation_matches — 납품 SQL 과 같은 정본 판정). 일치가 확인되지 않으면 공급할 수 없다
+  if (ctx.registryMatch !== undefined && ctx.registryMatch !== true) return { ok: false, reason: 'annotation_unbound' }
   return { ok: true }
 }
 
@@ -171,11 +171,6 @@ export async function loadFqReader(
   const approvals = ap.data as unknown as FqApprovalRow[]
   const rv = approvals.length ? await admin.from('content_release_revocation').select('approval_id', { count: 'exact' }).in('approval_id', approvals.map((a) => a.id)).limit(LIMIT) : { data: [], error: null, count: 0 }
   if (rv.error || partial(rv)) return { status: 'error' }
-  const reg = await admin.from('supply_current_annotation').select('artifact_ref, task_id, artifact_revision, annotation_ref, annotation_hash', { count: 'exact' }).in('artifact_ref', refs).limit(LIMIT)
-  const regCode = (reg.error as { code?: string } | null)?.code
-  if (regCode === '42P01' || regCode === 'PGRST205') return { status: 'installed', eligible: [] }
-  if (reg.error || partial(reg)) return { status: 'error' }
-  const registryOf = (ref: string, task: string) => (reg.data as Row[]).find((x) => x.artifact_ref === ref && x.task_id === task) as { artifact_revision: string; annotation_ref: string; annotation_hash: string } | undefined
   const supersededIds = new Set((sup.data as Row[]).map((x) => String(x.supersedes)))
   const revoked = new Set((rv.data as Row[]).map((x) => String(x.approval_id)))
   const eligible: { ref: string; task: string; role: string; qualificationId: string }[] = []
@@ -183,7 +178,12 @@ export async function loadFqReader(
     const rev = await admin.rpc('supply_artifact_revision', { p_kind: 'csat_item', p_ref: r.artifact_ref })
     if (rev.error) return { status: 'error' }
     const annotation = await opts.currentAnnotation(r.task_id, r.artifact_ref)
-    const v = fqRowVerdict(r, { tasks, supersededIds, approvals, revoked, currentRevision: typeof rev.data === 'string' ? rev.data : null, currentAnnotation: annotation, registry: registryOf(r.artifact_ref, r.task_id) ?? null })
+    // 등록부 표는 service_role 도 못 읽는다(I2 가 회수) — 정의자 함수로만 일치를 묻는다. 함수가 없으면(I2 미적용) 적격 0건
+    const m = await admin.rpc('supply_annotation_matches', { p_qualification: r.id })
+    const mcode = (m.error as { code?: string } | null)?.code
+    if (mcode === 'PGRST202' || mcode === '42883') return { status: 'installed', eligible: [] }
+    if (m.error || typeof m.data !== 'boolean') return { status: 'error' }
+    const v = fqRowVerdict(r, { tasks, supersededIds, approvals, revoked, currentRevision: typeof rev.data === 'string' ? rev.data : null, currentAnnotation: annotation, registryMatch: m.data })
     if (v.ok) eligible.push({ ref: r.artifact_ref, task: r.task_id, role: r.role, qualificationId: r.id })
   }
   return { status: 'installed', eligible }

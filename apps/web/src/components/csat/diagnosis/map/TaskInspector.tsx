@@ -133,6 +133,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
   const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
   const fq = data.v4?.fqReader ?? { status: 'error' as const }
+  // 이 TASK 의 적격만 센다(다른 TASK 적격을 섞지 않는다)
+  const fqHere = fq.status === 'installed' ? new Set(fq.eligible.filter((e) => e.task === t.id).map((e) => `${e.role}|${e.ref}`)).size : 0
   const supply = supplyFor(demand, {
     unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
     transferItems: transferMine.map((l) => l.target),
@@ -278,7 +280,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                   <ul className={u.ledger}>{fallback.map((f) => <li key={f.kind} data-kind={f.kind} className="break-keep">{f.text}</li>)}</ul>
                 </div>
               )}
-              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 적격 자료 ${fq.eligible.length}건${fq.eligible.length === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
+              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 이 TASK 적격 자료 ${fqHere}건${fqHere === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
               <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
               <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
             </div>
