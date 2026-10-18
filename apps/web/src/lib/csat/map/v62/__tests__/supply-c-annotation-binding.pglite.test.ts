@@ -1,5 +1,5 @@
 // apps/web/src/lib/csat/map/v62/__tests__/supply-c-annotation-binding.pglite.test.ts
-// Factory I2 R5 자격 패킷 — 주석 hash 결속 보류 SQL(`_pending_workspace_supply_c_annotation_binding.sql`)을 C 위에 격리 Postgres(PGlite)로 적용해 본다.
+// Factory I2 R5 자격 패킷 — 주석 hash 결속 보류 SQL(`20261018120000_workspace_supply_c_annotation_binding.sql`)을 C 위에 격리 Postgres(PGlite)로 적용해 본다.
 // 그리고 2020#24 전이의 **현재 실제 축 판정**(PACKET.md §2)을 그대로 넣으면 기록은 되지만 출시 · 평가 승인은 거절되는지 확인한다. 개발 DB 무관.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -11,7 +11,7 @@ import EVIDENCE from '../../../../../../../../docs/research/factory-i2-r5-qualif
 import { as, errorOf, openSupplyDb } from './supply-sql-harness'
 
 const ADMIN = '00000000-0000-4000-8000-0000000000a1'
-const BIND_SQL = fs.readFileSync(path.join(__dirname, '../../../../../../../../supabase/migrations/_pending_workspace_supply_c_annotation_binding.sql'), 'utf8')
+const BIND_SQL = fs.readFileSync(path.join(__dirname, '../../../../../../../../supabase/migrations/20261018120000_workspace_supply_c_annotation_binding.sql'), 'utf8')
 const E = EVIDENCE.items['2020#24']
 
 type S = 'pass' | 'fail' | 'unknown' | 'not_applicable'
