@@ -79,7 +79,7 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 | FI-006 #298 | `a976d399a` | 실제 PG17 두 연결: 원본 SQL 4/6 → 수정 6/6 · 정상 대조군 2행 | 수정 · Codex 재검증 대기 |
 | FI-010 #302 | `6e13095f6` · e2e `25b7d43b8` | 기록 실패 시 본문 0 · open-guard 3 · 실제 브라우저 1280/1440 재현(CI 39137567274) | 수정 · 재검증 대기 |
 | FI-014 #307 | `a47755f94` | 문항별 대체 이유 4 · 형식 시험 5 · s-chunk-boundary revision 변경(승인 승계 없음) | 수정 · 사람 Gold 미승인 |
-| FI-015 #308 | PR250 `bcc3b32a7` | 단일 CAS + 409 + 클라이언트 재전송 · route-race 5 · row-write-budget 141 유지 | 수정 · 재검증 대기 |
+| FI-015 #308 | PR250 `bcc3b32a7`·`2549e407d` · e2e `88c3f1281` | 단일 CAS + 409 + 클라이언트 재전송(상한 5) · route-race 5 · push-retry 5 · 실제 브라우저 두 기기 1440/1280(409·유실은 가로채기) · row-write-budget 141 | 수정 · 재검증 대기 |
 | FI-016 #309 | PR250 `4b210bbb8` | 비공개 인계 · 회귀 1 | 수정 · 재검증 대기 |
 | FI-017 #310 | `40f058422` | PR250 실제 결합 · 중복 import 해소 · 결합 CI success | 수정 · 재검증 대기 |
 | FI-018 #311 | PR #312 `cefc3e502` | safe-merge 20/20 · CI success · 비공개 인계 | 수정 · #312 먼저 병합 필요 |

@@ -233,6 +233,7 @@ jobs:
           case "$NEXT_PUBLIC_SUPABASE_URL" in http://127.0.0.1:54321*) ;; *) echo "::error::격리 DB 가 아니다"; exit 1 ;; esac
           psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f supabase/_all_migrations/_pending_authored_supply.sql
           psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/authored-open-fault.sql
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/journey-exam-fixture.sql
           node scripts/ci/authored-isolated-seed.mjs --commit
 
       # FI-006(#298) — 보류 창작 공급 SQL 의 동시 공급 직렬화를 **실제 PostgreSQL 17 두 연결**로(임시 클러스터 · 러너 안에서 폐기)
