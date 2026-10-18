@@ -83,6 +83,7 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'csat/item/[slug]/task', why: '문항 확인 과제 응답 — 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 · 채점 · 채택 사슬 게이트는 서버(product-server)' },
   { route: 'csat/item/[slug]/reveal', why: '해설 극장 공개를 서버 학습 세션에 남김(시도 아님) — 로그인 확인은 라우트 안(learnerContext), userId · 합성 여부는 세션에서만' },
   { route: 'csat/diagnosis/map/goal', why: '학습 지도 — 본인 목표 점수(0~100). 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 온다' },
+  { route: 'csat/item/[slug]/structure', why: '글 전체 구조 예측 대조 — 로그인 확인은 라우트 안(learnerContext), Reveal Gate fail-closed · 판정은 서버가 검수 주석과 대조 · 기록은 지도 근거 키 밖' },
   { route: 'csat/delivery/bind', why: '결속 복구 — 로그인 확인은 라우트 안(learnerContext), 학습자 세션으로 본인 납품 · 시도만 · 판정은 bindDeliveryAttempt + DB(FI-001)' },
   { route: 'csat/authored', why: '받은 창작 자료 목록 — 로그인 확인은 라우트 안(learnerContext), 학습자 세션으로 본인 납품 · 결속만 읽는다' },
   { route: 'csat/authored/supply', why: '창작 자료 공급 요청 — 로그인 확인은 라우트 안(learnerContext), 수요는 서버가 계획 보기로 재계산 · 수요/공급/주문은 학습자 세션 정의자 RPC 가 소유 · 자격 · 사람 결정 · 노출을 재판정' },

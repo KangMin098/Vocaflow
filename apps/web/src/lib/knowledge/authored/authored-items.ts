@@ -10,6 +10,12 @@ import { FORMAT_SPECS, formatOf, type DistractorDesign, type FormatId } from './
 import type { Relation } from '../claim-support-labels'
 
 import r5Set from './r5-central-meaning.v1.json'
+import evidenceSet from './e-evidence-location.v1.json'
+import optionSet from './e-option-correspondence.v1.json'
+import inferenceSet from './r-inference.v1.json'
+import relationSet from './r-relation.v1.json'
+import formSet from './s-form-scope.v1.json'
+import senseSet from './v-contextual-sense.v1.json'
 
 export { DISTRACTOR_DESIGNS, type DistractorDesign } from './formats'
 
@@ -60,6 +66,8 @@ export interface AuthoredSet {
   taskId: string
   taskKey: string
   format?: FormatId
+  /** 설명 글 문장 번호 규약 — 반드시 '1-based'(화면 표시와 같다). gold · teach.sentences 의 숫자 배열은 0부터 */
+  proseNumbering?: '1-based'
   provenance: { author: string; method: string; derivedFrom: string[]; createdAt: string; humanGold: string; rights: string; revisionNote?: string }
   items: AuthoredItem[]
 }
@@ -82,6 +90,8 @@ export function validateAuthoredSet(s: AuthoredSet): string[] {
   const fmt = setFormat(s)
   if (!/^[a-z]\.[a-z_]{2,60}$/.test(s.taskId)) errs.push(`taskId 형식: ${s.taskId}`)
   if (!/^[a-z][a-z0-9-]{2,60}$/.test(s.taskKey)) errs.push(`taskKey 형식: ${s.taskKey}`)
+  // 설명 글(why · rationale · teach · hints)의 문장 번호는 화면과 같은 1부터 — 0부터 쓴 세트가 학습자에게 엉뚱한 문장을 가리켰다(2026-10-18 발견)
+  if (s.proseNumbering !== '1-based') errs.push('proseNumbering 이 1-based 가 아니다(설명 글 문장 번호는 화면과 같게 1부터)')
   if (s.provenance.derivedFrom.length > 0) errs.push('창작 세트는 원천 지문에서 파생되지 않아야 한다(derivedFrom 비어 있음)')
   for (const it of s.items) {
     const at = `[${it.id}]`
@@ -165,7 +175,7 @@ export function registrationArgs(s: AuthoredSet, it: AuthoredItem) {
   }
 }
 
-const SETS: AuthoredSet[] = [R5_AUTHORED_SET]
+const SETS: AuthoredSet[] = [R5_AUTHORED_SET, ...[evidenceSet, optionSet, inferenceSet, relationSet, formSet, senseSet].map((x) => x as unknown as AuthoredSet)]
 export const AUTHORED_SETS: readonly AuthoredSet[] = SETS
 
 export function findAuthored(ref: string): { set: AuthoredSet; item: AuthoredItem } | null {

@@ -6,9 +6,10 @@ import blindA from '../../../../../../docs/final/review/r5-authored-blind-A.json
 import blindB from '../../../../../../docs/final/review/r5-authored-blind-B.json'
 import {
   R5_AUTHORED_SET, annotationRefOf, authoredItemsFor, findAuthored, gradeAuthored, isAssessmentRole, learnerView,
-  registrationArgs, validateAuthoredSet, type AuthoredGold, type AuthoredSet,
+  AUTHORED_SETS, registrationArgs, validateAuthoredSet, type AuthoredGold, type AuthoredSet,
 } from '../authored/authored-items'
-import { AUTHORED_TASKS } from '../authored/tasks'
+import { AUTHORED_TASKS, AUTHORED_TASK_KEYS, AUTHORED_TASK_LABEL } from '../authored/tasks'
+import { tasks } from '@/lib/csat/map/v4/definition'
 
 const S = R5_AUTHORED_SET
 const G = (i: { gold: unknown }) => i.gold as AuthoredGold
@@ -34,8 +35,12 @@ describe('세트 규칙', () => {
     for (const a of S.items.filter((i) => isAssessmentRole(i.role))) for (const s of a.body.sentences) expect(instruction).not.toContain(s)
   })
 
-  it('클라이언트용 TASK 목록 = 창작 세트가 있는 TASK(세트 JSON 을 클라이언트에 넣지 않는다)', () => {
-    expect([...AUTHORED_TASKS]).toEqual([S.taskId])
+  it('클라이언트용 TASK 표 = 창작 세트(TASK · 과제 키 · 라벨) — 세트 JSON 을 클라이언트에 넣지 않는다', () => {
+    expect([...AUTHORED_TASKS].sort()).toEqual(AUTHORED_SETS.map((x) => x.taskId).sort())
+    for (const set of AUTHORED_SETS) {
+      expect(AUTHORED_TASK_KEYS[set.taskId], set.set).toBe(set.taskKey)
+      expect(AUTHORED_TASK_LABEL[set.taskId], set.set).toBeTruthy()
+    }
   })
 
   it('정답 위치가 한쪽으로 몰리지 않는다(같은 번호 ≤ 4)', () => {
@@ -114,6 +119,28 @@ describe('맹검 2인 대조(FINAL §4.3 — docs/final/review)', () => {
         expect(v, `${name} item-${k + 1}`).toBeDefined()
         expect(v.answer, `${name} ${it.id} answer`).toBe(G(it).answer)
         expect([G(it).claim, ...G(it).claimRestated], `${name} ${it.id} claim`).toContain(v.claim)
+      })
+    })
+  }
+})
+
+describe('모든 창작 세트(FINAL §5 확장)', () => {
+  for (const set of AUTHORED_SETS) {
+    describe(set.set, () => {
+      it('규칙 위반 없음 · 정본 비보류 TASK · 역할 5종 · 문항마다 다른 지문 묶음', () => {
+        expect(validateAuthoredSet(set)).toEqual([])
+        const def = tasks().find((t) => t.id === set.taskId)
+        expect(def?.status, '정본에서 보류(hold) TASK 에는 창작 세트를 두지 않는다').not.toBe('hold')
+        expect(new Set(set.items.map((i) => i.role)).size).toBe(5)
+        expect(new Set(set.items.map((i) => i.passageGroup)).size).toBe(set.items.length)
+        expect(set.items.filter((i) => i.role === 'independent_check').length).toBeGreaterThanOrEqual(2)
+      })
+      it('평가 지문 문장이 교수 · 단서 글에 나오지 않는다', () => {
+        const instruction = set.items.filter((i) => !isAssessmentRole(i.role)).flatMap((i) => [...i.body.sentences, ...(i.body.teach ?? []).map((t) => t.text), ...(i.body.hints ?? [])]).join(String.fromCharCode(10))
+        for (const a of set.items.filter((i) => isAssessmentRole(i.role))) for (const x of a.body.sentences) expect(instruction).not.toContain(x)
+      })
+      it('학습자 보기에 Gold 칸이 없다', () => {
+        for (const i of set.items) expect(Object.keys(learnerView(set, i).extra).sort()).toEqual(Object.keys(learnerView(set, i).extra).filter((k) => ['target', 'pairs', 'marks'].includes(k)).sort())
       })
     })
   }
