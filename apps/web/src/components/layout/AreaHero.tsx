@@ -44,6 +44,7 @@ export function AreaHero({
   tint = 'lavender',
   deep,
   tabs,
+  trailing,
   children,
 }: {
   kicker: string
@@ -61,12 +62,15 @@ export function AreaHero({
   deep?: Deep
   /** 판 아랫변 폴더 탭 */
   tabs?: AreaTab[]
+  /** 판 오른쪽 위 조작(테마 전환 등) — 참조 도서관 하위 머리 오른쪽 끝의 작은 조작 자리 */
+  trailing?: React.ReactNode
   /** 수치 아래 자리(알약 CTA 등) */
   children?: React.ReactNode
 }) {
   const hasTabs = !!tabs && tabs.length > 0
   return (
     <header className={`${DEEP_CLASS[deep ?? DEEP_OF[tint]]} relative overflow-hidden rounded-[var(--r-2xl)] px-6 pt-8 text-[var(--t1)] md:px-12 md:pt-10 ${hasTabs ? '' : 'pb-8 md:pb-10'}`}>
+      {trailing && <div className="absolute right-3 top-3 z-10 md:right-4 md:top-4">{trailing}</div>}
       <div className="grid items-center gap-6 md:grid-cols-[1fr_auto] md:gap-10">
         <div className="flex flex-col justify-center py-2">
           {/* 모노는 한글이 없어 공백만 모노 폭이 된다(pill.ts) — 눈썹은 산세리프 굵게 */}

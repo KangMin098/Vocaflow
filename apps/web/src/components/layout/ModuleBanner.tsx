@@ -15,8 +15,8 @@ import { NAV_GROUPS, ASIDE_GROUP } from '@/components/layout/sidebar-config'
 import { TINT_CLASS } from '@/lib/design/tone'
 import { routeArt, wantsBanner } from '@/lib/design/route-art'
 
-/** 경로가 속한 흐름 단계 — 사이드바가 가진 이름 · 한 줄을 그대로 읽는다 */
-function stageOf(pathname: string): { label: string; says: string; item: string } | null {
+/** 경로가 속한 흐름 단계 — 사이드바가 가진 이름 · 한 줄을 그대로 읽는다(자기 머리를 그리는 화면도 같은 문구를 쓴다) */
+export function stageOf(pathname: string): { label: string; says: string; item: string } | null {
   const hit = (href: string) => pathname === href || pathname.startsWith(href + '/')
   for (const g of [...NAV_GROUPS, ASIDE_GROUP]) {
     for (const it of g.items) {

@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): S3 ② 단어장 — `/wordvault` 허브 머리를 서가와 같은 `AreaHero` 한 장으로(머리띠 + 18px 바 → 눈썹 · 52px 제목 · 판 아랫변 보기 탭 · 테마 전환), 시작선 셋 → 하나. `AreaHero` `trailing` 자리 · `ModuleBanner.stageOf` 공개 · 동작 검증 `vault-check`(7/7 ×2폭).
 - feat(design): S3 ① 서가 — `/library/books` 「전체 탐색」을 왼쪽 조건 레일(검색 알약 + 접히는 묶음, 288px · 고정) + 결과 칸으로(참조 tines.com/library 실측), 바깥 틀 `--content-shelf-max`(뷰포트 − 80) · `Screen width="shelf"` · 격자 열 수를 결과 칸 폭 기준으로. 측정·동작 도구 `layout-measure` · `shelf-check`(7/7 ×2폭) · `shot-section` · `shot-crop`, 팝오버 참조 실측(드롭다운 10px · 검색 패널 16px)과 역할 판정. 범위 밖 차이 원인별 재분류(관리자 = 조회 시각 · CSAT 1장 = 미확인 일시 누락).
 - feat(design): S2 — 학습자 헤더 전역 검색(공개와 같은 `SearchButton`, 세션 화면 제외) · 팝오버 공통 껍데기 `POPOVER` 6종 · `useEscapeKey`(곁 패널·추천 카드 Esc) · 닫힌 인사이트 패널 `inert`(Tab 누수 수정) · 상호작용 검증 `learner-overlay-check.mjs` 7/7 · `shot-diff.mjs` 범위 밖 무변화 확인.
 - feat(design): S0·S1 — 스킨 해제 경로 제거(`data-skin="tines"` 고정 · 회귀 `skin-always-on.test.ts`) · 시각 QA 기본 PC 1280/1440(모바일 `DESIGN_QA_MOBILE=1`) · `capture-learner.mjs` 테마·익명·SHA 매니페스트 · `tines-ref-recheck.mjs`(참조 22/22 재측정) · 학습자 기준선 80/80 캡처 결과와 Codex 지시문 대조표를 [learner-tines-audit](design/learner-tines-audit.md)·[plan](design/learner-tines-plan.md)에.
