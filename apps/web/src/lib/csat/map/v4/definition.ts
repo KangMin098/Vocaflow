@@ -17,7 +17,8 @@ export const CANON_VERSION = V4_DATA.version
  * 이 정의 버전이 쓰이기 시작한 시점. 이보다 앞선 기준 시점의 지도는 「당시 정의」가 없으므로 정확한 재현이 아니라
  * **현재 정의로 다시 분석한 것**이다(정의 버전 이력을 저장하기 전까지 — MIGRATION_PLAN §2 `map_v4_definition`).
  */
-export const CANON_EFFECTIVE_FROM = '2026-10-10T00:00:00.000Z'
+// 정본 적용 시점 = KST 2026-10-10 00:00(날짜만 있는 시험 기록은 KST 그날 시작으로 읽는다 — as-is.ts ms)
+export const CANON_EFFECTIVE_FROM = '2026-10-10T00:00:00.000+09:00'
 
 /** 진단 규칙 버전 — As-Is 가 빌려 쓰는 기존 규칙(skill-diagnosis 확정 · 해소 · 만료, 입력 신뢰도, 단계 근거 상태)의 묶음 이름 */
 export const RULE_VERSION = 'v4-asis.1(skill-diagnosis D-8 v1.1 · record-quality · learner-path)'
