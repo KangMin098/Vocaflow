@@ -1,0 +1,130 @@
+{
+  "ownerHead": "689d256947972947cc50956578bbe06df925fa0c",
+  "runId": 39118279343,
+  "runUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39118279343",
+  "artifactId": 12133469347,
+  "stats": {
+    "total": 8,
+    "expected": 6,
+    "unexpected": 2,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": false
+  },
+  "files": [
+    {
+      "file": "authored-formats.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "창작 형식 9종 종단 — 1440px",
+          "outcome": "unexpected",
+          "status": [
+            "timedOut"
+          ]
+        },
+        {
+          "title": "창작 형식 9종 종단 — 1280px",
+          "outcome": "unexpected",
+          "status": [
+            "timedOut"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "csat-v31-meaning.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        },
+        {
+          "title": "B — 실제 보류(record_session_held): 세 문항 item-held · 교수 설명 비노출",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        },
+        {
+          "title": "C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 · 38 stale 유지 · 정리 단언",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "map-goal.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB)",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "authored-supply.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "창작 공급 종단 — 1440px",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        },
+        {
+          "title": "창작 공급 종단 — 1280px",
+          "outcome": "expected",
+          "status": [
+            "passed"
+          ]
+        }
+      ]
+    }
+  ],
+  "trace": [
+    {
+      "width": 1280,
+      "trialClick": {
+        "callId": "call@42",
+        "trial": true,
+        "timeout": 0,
+        "afterEventPresent": false
+      },
+      "attemptRequests": [
+        {
+          "path": "/api/csat/authored/ev-ind-1/attempt",
+          "status": 200
+        }
+      ],
+      "resultScreenshotShowsCorrect": true
+    },
+    {
+      "width": 1440,
+      "trialClick": {
+        "callId": "call@42",
+        "trial": true,
+        "timeout": 0,
+        "afterEventPresent": false
+      },
+      "attemptRequests": [
+        {
+          "path": "/api/csat/authored/ev-ind-1/attempt",
+          "status": 200
+        }
+      ],
+      "resultScreenshotShowsCorrect": true
+    }
+  ],
+  "followupHead": "9bd249dd714e4ad3125b96f25f9fd245fbe25ea0",
+  "followupRunId": 39120198955,
+  "followupStatus": "IN_PROGRESS at observation; not accepted as success",
+  "scope": "Direct artifact metadata/trace/network and two screenshot inspection; no real development DB or whole-product E2E claim."
+}

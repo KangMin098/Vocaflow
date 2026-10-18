@@ -1,0 +1,328 @@
+{
+  "frozenCommit": "7e638e63d28791dcc4f886431c0205743dc3310a",
+  "scope": "Actual format grader and Runner, synthetic API response loss. No real shell, route auth, DB, human approval or full product E2E.",
+  "rows": [
+    {
+      "id": "actual-inf-guided-equivalent-evidence",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 3,
+          "evidence": [
+            2,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "id": "synthetic-gold-valid",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "primary",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        },
+        "expected": true
+      }
+    },
+    {
+      "id": "complete-alternative",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        },
+        "expected": true
+      }
+    },
+    {
+      "id": "incomplete-alternative",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": false,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": false
+        },
+        "expected": false
+      }
+    },
+    {
+      "id": "auxiliary-only",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": false,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": false
+        },
+        "expected": false
+      }
+    },
+    {
+      "id": "unrelated-extra",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [
+            4
+          ],
+          "choiceDesign": null,
+          "isCorrect": false
+        },
+        "expected": false
+      }
+    },
+    {
+      "id": "wrong-choice",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": false,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": "distorted",
+          "isCorrect": false
+        },
+        "expected": false
+      }
+    },
+    {
+      "id": "primary-with-auxiliary",
+      "ok": true,
+      "detail": {
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        },
+        "expected": true
+      }
+    },
+    {
+      "id": "alternative-validation-[]",
+      "ok": true,
+      "detail": {
+        "valid": true,
+        "expectedValid": true
+      }
+    },
+    {
+      "id": "alternative-validation-[[]]",
+      "ok": true,
+      "detail": {
+        "valid": false,
+        "expectedValid": false
+      }
+    },
+    {
+      "id": "alternative-validation-[[4]]",
+      "ok": true,
+      "detail": {
+        "valid": false,
+        "expectedValid": false
+      }
+    },
+    {
+      "id": "1280-actual-inf-alternative",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1280-actual-inf-alternative-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-complete-alt",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1280-complete-alt-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-partial-alt",
+      "ok": true,
+      "detail": {
+        "expected": false
+      }
+    },
+    {
+      "id": "1280-partial-alt-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-retry-identical-semantic-payload",
+      "ok": true,
+      "detail": {
+        "sameId": true,
+        "sameSession": true,
+        "sameAnsweredAt": true
+      }
+    },
+    {
+      "id": "1280-retry",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1280-retry-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-actual-inf-alternative",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1440-actual-inf-alternative-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-complete-alt",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1440-complete-alt-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-partial-alt",
+      "ok": true,
+      "detail": {
+        "expected": false
+      }
+    },
+    {
+      "id": "1440-partial-alt-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-retry-identical-semantic-payload",
+      "ok": true,
+      "detail": {
+        "sameId": true,
+        "sameSession": true,
+        "sameAnsweredAt": true
+      }
+    },
+    {
+      "id": "1440-retry",
+      "ok": true,
+      "detail": {
+        "expected": true
+      }
+    },
+    {
+      "id": "1440-retry-no-overflow",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "no-runtime-errors-or-external-network",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    }
+  ],
+  "submissions": [
+    {
+      "deliveryId": "00000000-0000-4000-8000-000000000001",
+      "response": {
+        "choice": 2,
+        "evidence": [
+          1,
+          2
+        ]
+      },
+      "clientSessionId": "00000000-0000-4000-8000-000000000002",
+      "clientMutationId": "da922c3d-c434-4de7-9548-c33eaa748f2c",
+      "answeredAt": "2026-10-18T10:00:00.949Z",
+      "helpLevel": "independent"
+    },
+    {
+      "deliveryId": "00000000-0000-4000-8000-000000000001",
+      "response": {
+        "choice": 2,
+        "evidence": [
+          1,
+          2
+        ]
+      },
+      "clientSessionId": "00000000-0000-4000-8000-000000000002",
+      "clientMutationId": "da922c3d-c434-4de7-9548-c33eaa748f2c",
+      "answeredAt": "2026-10-18T10:00:00.949Z",
+      "helpLevel": "independent"
+    },
+    {
+      "deliveryId": "00000000-0000-4000-8000-000000000001",
+      "response": {
+        "choice": 2,
+        "evidence": [
+          1,
+          2
+        ]
+      },
+      "clientSessionId": "00000000-0000-4000-8000-000000000002",
+      "clientMutationId": "c30f73ff-d53c-44c0-a3c0-801f1e2954d2",
+      "answeredAt": "2026-10-18T10:00:00.902Z",
+      "helpLevel": "independent"
+    },
+    {
+      "deliveryId": "00000000-0000-4000-8000-000000000001",
+      "response": {
+        "choice": 2,
+        "evidence": [
+          1,
+          2
+        ]
+      },
+      "clientSessionId": "00000000-0000-4000-8000-000000000002",
+      "clientMutationId": "c30f73ff-d53c-44c0-a3c0-801f1e2954d2",
+      "answeredAt": "2026-10-18T10:00:00.902Z",
+      "helpLevel": "independent"
+    }
+  ]
+}

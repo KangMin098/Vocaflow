@@ -1,0 +1,116 @@
+{
+  "head": "9bd249dd714e4ad3125b96f25f9fd245fbe25ea0",
+  "scope": "Read-only repository audit; not a human decision, DB approval or new release gate. B2 explicitly asks final remeasurement before approval.",
+  "checks": [
+    {
+      "file": "supabase/migrations/_pending_authored_supply.sql",
+      "actualSha256": "7eac0045cbd2db32105830fe8ba808a661c9f22067b59ddaa1f54e8678eb8ca7",
+      "documentedSha256": "9b205b4bed725c5bfdd164757e9656587248fbd9c5617858ddf7160adcec00aa",
+      "matches": false
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "actualSha256": "d9e4002718b8ea931983aa87b85273eb87d3ee1ad431a372f3edc2fd30618fbb",
+      "documentedSha256": "1ef87458bba79bdc816354a69798d63bcd0247be60c872b76e5fc52263d375dc",
+      "matches": false
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "actualSha256": "df069509e5e08929469e76208d7fd93b5d8128fb7519b8540bba7c3aa7f5c0eb",
+      "documentedAbbreviation": "df069509…5c0eb",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "actualSha256": "c49e67cf1f0c802b84f7875e6a54a4e2c31bdbb3f0805010d4c4d93b1b87b3af",
+      "documentedAbbreviation": "c49e67cf…3af",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "actualSha256": "fef751a23b29855d1ebf15f66dc7686c21fec2852259e71cbaba250ceb9c0ff5",
+      "documentedAbbreviation": "64684742…7962d",
+      "matches": false
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "actualSha256": "9ce1b82dc3e1820ef1b76330f3e7826e64200e6949a38f0184ed1f3a3ccad98b",
+      "documentedAbbreviation": "9ce1b82d…cad98b",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "actualSha256": "b388404c29bcc859dfe0163d7870dfacef255ff3b53b4413d81c5ce8c7d3e7b7",
+      "documentedAbbreviation": "4a89359b…375dc",
+      "matches": false
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "actualSha256": "4bbc973cdaffd8df36e6ab780fc4fefd3e7638e0a818e5a8652772e7f2ad5798",
+      "documentedAbbreviation": "4bbc973c…d5798",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "actualSha256": "f97e759117cfff8dc4973d443e5402f70351379f146df9d97a396bb8ee9668f1",
+      "documentedAbbreviation": "f97e7591…668f1",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "actualSha256": "103170d35eeed46b6843659296ce936e97f1dad5dae2f6c54b22f8f96435bb52",
+      "documentedAbbreviation": "103170d3…5bb52",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "actualSha256": "78fda0a70c72a068e471a43e50e72335c97d99d83bb7d0db764be884b323a1c6",
+      "documentedAbbreviation": "78fda0a7…3a1c6",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "actualSha256": "3592c1cda72fcfd1cecbaddbd9caf427f51c894cf4750d9d9bc0302881f46064",
+      "documentedAbbreviation": "3592c1cd…46064",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "actualSha256": "dce3db7087d13ec1e069eb122eda5cca1a7201d6aba0b4fc30113ff4a2be0d55",
+      "documentedAbbreviation": "dce3db70…e0d55",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "actualSha256": "e2e0af18847830e6adb47ffebb983def3c65733d39e9ca0501fe8e66b650323f",
+      "documentedAbbreviation": "e2e0af18…0323f",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "actualSha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "documentedAbbreviation": "aed0b882…42c40",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "actualSha256": "7d46162cf01d403125035ce5c88b93a5e478dfa63e10d82026d44cdae515357b",
+      "documentedAbbreviation": "7d46162c…5357b",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "actualSha256": "c83b207fc8552218347618f78c014f12fa0fd261e0f7a74069a6c2f918750362",
+      "documentedAbbreviation": "c83b207f…50362",
+      "matches": true
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "actualSha256": "2e4ae006891873b9eb43dc069086505bb8564831e25eed870fdd7015118d7f87",
+      "documentedAbbreviation": "2e4ae006…d7f87",
+      "matches": true
+    }
+  ],
+  "rightsRequested": "- 사용 범위 요청: store · display · transmit (학습자 화면에 원문 전체 표시).",
+  "assessmentRightsRequested": false
+}
