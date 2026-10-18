@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Check, Clock, Circle, X } from 'lucide-react';
 import type { BookContextChapter } from './WorkspaceBookContext';
+import { POPOVER } from '@/components/ui/tines-kit'
 
 interface WorkspaceChapterNavProps {
   bookTitle: string;
@@ -62,7 +63,7 @@ export function WorkspaceChapterNav({
       id="chapter-nav-popover"
       role="dialog"
       aria-label="장 목록"
-      className="absolute right-5 top-[calc(100%+4px)] z-40 max-h-[60vh] w-[320px] overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-md)]"
+      className={`absolute right-5 top-[calc(100%+4px)] z-40 max-h-[60vh] w-[320px] overflow-hidden ${POPOVER}`}
     >
       <header className="flex items-start justify-between gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
         <div className="min-w-0 flex-1">

@@ -16,10 +16,10 @@
 
 | 단계 | 내용 | 산출물 · 검증 | 되돌리기 |
 |---|---|---|---|
-| **S0 증거 기반(코드 변경 없음)** | 검증 계정 1개(학습 기록 있는) 확보 → 계정 소유 `texts.id`·`dictation_sessions.id` 조회 → 감사 표 P1 행(약 20개)을 PC 1440/1280 라이트/다크로 **현재 상태 캡처**(R 칸 채움) · 팝업·탭 실행(I 칸). Tines 대응 화면도 같은 뷰포트로 캡처(`tmp/`, 커밋 금지) | 감사 표 갱신 · 캡처는 로컬 `docs/design/shots/learner-tines/`(gitignore) · 실패/튕김 행 목록 | 문서만 |
+| **S0 증거 기반(코드 변경 없음)** (표본 20 완료 · 나머지는 S3/S4 에서) | 검증 계정 1개(학습 기록 있는) 확보 → 계정 소유 `texts.id`·`dictation_sessions.id` 조회 → 감사 표 P1 행(약 20개)을 PC 1440/1280 라이트/다크로 **현재 상태 캡처**(R 칸 채움) · 팝업·탭 실행(I 칸). Tines 대응 화면도 같은 뷰포트로 캡처(`tmp/`, 커밋 금지) | 감사 표 갱신 · 캡처는 로컬 `docs/design/shots/learner-tines/`(gitignore) · 실패/튕김 행 목록 | 문서만 |
 | **S0b 참조 재조사** | tines.com 홈·`/3b/`·`/library/`·`/university/`·`/customers/`·사례 상세·`/solutions/security/`·`/pricing/`·`/book-a-demo/`·법률·404 를 1440/1280 캡처 · 메가메뉴·검색·탭·필터·FAQ·영상·쿠키 설정을 열어 측정 · 기존 `refs/tines/*`(2026-09-21)와 차이 기록 | 참조 대응표 갱신 · 원본은 `tmp/`(커밋 금지) · 관찰 못 한 상태는 미확보 | 문서만 |
-| **S1 차단 해제** | ① 스킨 해제 경로 제거(`layout.tsx` env·쿼리·저장값, 관련 주석 3곳) + 회귀(스킨 속성 항상 `tines`) ② `playwright.visual.config.ts` 기본 프로젝트를 1440/1280 으로, 모바일은 opt-in ③ `apps/web/CLAUDE.md` 390 측정 문단에 「과거 기록」 표기 | 단위 테스트 1 · `test:design --project=1440-light` 실행 기록 | 커밋 단위 revert |
-| **S2 공통 부품** | B4 팝오버/모달 규격 하나(Tines ui-kit 모달·팝오버 측정값 → 스킨 변수) · B3 세리프 하드코딩 클래스 → 변수 · B9 빈/오류/로딩 SpotState 배정 · B2 학습자 셸 검색(기존 `SearchDialog` 재사용 — 새 API 없음) | 부품별 전/후 캡처 · 대조표 · 키보드(Esc·Tab 가둠·포커스 복귀) | 부품별 |
+| **S1 차단 해제** (2026-10-18 완료) | ① 스킨 해제 경로 제거(`layout.tsx` env·쿼리·저장값, 관련 주석 3곳) + 회귀(스킨 속성 항상 `tines`) ② `playwright.visual.config.ts` 기본 프로젝트를 1440/1280 으로, 모바일은 opt-in ③ `apps/web/CLAUDE.md` 390 측정 문단에 「과거 기록」 표기 | 단위 테스트 1 · `test:design --project=1440-light` 실행 기록 | 커밋 단위 revert |
+| **S2 공통 부품** (2026-10-18 완료 — 결과 audit §0-2) | B4 팝오버/모달 규격 하나(Tines ui-kit 모달·팝오버 측정값 → 스킨 변수) · B3 세리프 하드코딩 클래스 → 변수 · B9 빈/오류/로딩 SpotState 배정 · B2 학습자 셸 검색(기존 `SearchDialog` 재사용 — 새 API 없음) | 부품별 전/후 캡처 · 대조표 · 키보드(Esc·Tab 가둠·포커스 복귀) | 부품별 |
 | **S3 P1 화면** | 순서: `/hub` → `/library/books`(+상세·시트) → `/wordvault`(+browse/study/review) → `/text` → `/text/[id]`(작업면, 마케팅 요소 금지) → `/dashboard` → `/flashcard/play` 세션 공통(B7) → 인증(B8) | 화면별 R·I·V 갱신 · `pnpm design:ref-compare` 계열 대조표(없으면 측정 스크립트 추가) | 화면별 커밋 |
 | **S4 P2/P3 일괄 + 자산** | 나머지 모듈 허브·세션·결과, 서가 하위, 계정·교사(학습자 구역), 게임 본체 HUD·일시정지·결과. **자산 트랙**: 사용/미사용/중복/저해상도 조사 → 유지·수정·교체·추가 분류 → `learner-tines-assets.md` 명세(자산 ID·URL·목적·구도·비율·안전영역·투명·양 테마·후보 수·프롬프트·검수 기준) → 래스터는 Codex 전달, 아이콘·도해는 Lucide/SVG 로 직접 | 묶음별 R·I·V · 수령 자산 실제 크기 검수 | 묶음별 |
 | **S5 정리** | DESIGN_SYSTEM.md 절 분리(B11) · 미사용 부품 결정(B10) · 감사 표 최종 | CHANGELOG · 문서 | — |

@@ -6,6 +6,7 @@
 import { Languages, MapPin, ScrollText, User } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { SupportToken } from '@/lib/workspace/support'
+import { POPOVER } from '@/components/ui/tines-kit'
 
 interface SupportGlossProps {
   support: SupportToken | null
@@ -77,7 +78,7 @@ export function SupportGloss({ support, anchorRect, onClose }: SupportGlossProps
       role="dialog"
       aria-label={`${chipLabel} 도움말: ${support.text}`}
       style={{ position: 'fixed', top: pos.top, left: pos.left, width: GLOSS_WIDTH }}
-      className="z-[75] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-lg)]"
+      className={`z-[75] p-4 ${POPOVER}`}
     >
       {/* category chip */}
       <div className="mb-2.5 flex items-center justify-between">

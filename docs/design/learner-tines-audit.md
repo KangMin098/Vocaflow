@@ -67,6 +67,24 @@
 - 쿠키 배너는 대부분 페이지에서 보였다(「거절」로 닫고 측정).
 - 수치는 계산 스타일이고 본문·이미지는 저장소에 넣지 않았다.
 
+## 0-2. S2 공통 부품 결과 (2026-10-18)
+
+**서버**: 이 워크트리 `http://localhost:3041`(커밋 `622b9c600` + S2 작업분 — 커밋 SHA 는 이 절을 담은 커밋). 환경 변수는 dotenv 로 프로세스 안에서만 읽었다.
+
+| 항목 | 변경 | 검증 | 결과 |
+|---|---|---|---|
+| B2 학습자 셸 검색 | `AppHeader` 오른쪽 끝에 공개 화면과 같은 `SearchButton`(원 44px · Ctrl/⌘+K · `/api/search`) | `learner-overlay-check.mjs` · 단위 `top-nav.test.tsx` | `/hub` Ctrl+K·클릭 모두 열림 → 「hamlet」 결과 → Esc 닫힘 → **포커스가 검색 단추로 복귀** · 세션(`/flashcard/play`)에는 단추 0·Ctrl+K 무반응 ✓ |
+| B4 팝오버 껍데기 | `tines-kit.ts` `POPOVER`(12px · 1px 라벤더 · 크림 · `--sh-md`, Tines 스킨에서 그림자 평평) — 6종 적용(TypePopover · FloatingSparkle · SupportGloss · RecallCard · WorkspaceChapterNav · WordLookupPopover) | 가드 `popover-surface.test.ts` · 실측 | 타이포 설정 240px·12px, 장 목록 320px·12px(이전 6px) ✓ |
+| B4 Esc 닫기 | `lib/ui/use-escape-key.ts`(닫힌 동안 듣지 않음) — FloatingSparkle · InsightPanel 에 적용(이전 Esc 불가) | 가드 테스트 · 실측 | 열린 팝업 Esc 로 닫힘 ✓ |
+| **새로 찾은 결함** | 닫힌 「학습 인사이트」 곁 패널이 화면 밖에 `role="dialog"` 로 남아 **Tab 이 안의 단추에 들어감**(aria-hidden 만 있었음) → 닫힌 동안 `inert` | 측정기가 이 패널을 열린 팝업으로 오판한 것에서 발견 | 수정 ✓ |
+| 모달(Dialog) | 변경 없음(9월 §28 에 이미 통일) | 도서 상세 시트 1140px·24px · 단어장 미리보기 880px·24px, Esc 닫힘 | ✓ |
+| B3 세리프 하드코딩 | **변경 불필요 — 오판 정정**: Tailwind `font-editorial/english/serif` 가 이미 `var(--font-serif)` 등 변수를 먼저 쓰고 스킨이 덮는다 | `tailwind.config.ts:128-163` | — |
+| B9 빈/오류/로딩 | 오류·404 는 이미 `SpotState` 소품. 로딩은 스피너 유지(화면 전환마다 삽화는 산만). **빈 상태 부품이 `SpotState`(16곳)·`EmptyState`(27곳) 두 벌** → S4 화면 묶음에서 통합 | grep | 이관 |
+
+- 상호작용 **7/7**(`docs/design/shots/learner-tines/s2/_overlays.json` · 열린 화면 캡처 6장). 측정기 오판 2건(닫힌 패널을 열린 것으로 · 디바운스 전 빈 결과)을 고친 뒤의 수치다.
+- 범위 밖 무변화: 기준선(s0) ↔ 변경 후(s2-after) 픽셀 비교 24장(`scripts/design/shot-diff.mjs`) — 학습자 화면 0.04%(검색 원), `/admin` 0.03~0.04%, `/csat` 3장 0.00%. **`/csat` 1280 라이트 1장 3.30%** 는 공유 검증 계정에 「이어서 볼 수 있어요」 줄이 기준선 촬영 도중 생긴 **데이터 차이**(기준선 1440 라이트에는 이미 있음)이고, 이번 변경 파일은 `(app)/csat` 를 거치지 않는다.
+- I(상호작용) 분모: 학습자 90 중 확인 **6 화면**(`/hub` `/library/books` `/library/vocab` `/text/[id]` `/flashcard/play` + 헤더 공통). V(참조 측정 대조)는 아직 0.
+
 ## 1. 전역 틀 (모든 행이 공유)
 
 | 틀 | 마운트 위치 | 들어 있는 것 | 기준 · 참조 후보 | 비고 |
@@ -251,7 +269,7 @@
 |---|---|---|---|---|
 | B1 | 스킨 해제 경로 제거(`NEXT_PUBLIC_SKIN=off` · `?skin=off` · 저장값 무시) | §2-1 layout.tsx | 전 화면 | P0 |
 | B2 | 학습자 셸에 전역 검색(SearchDialog) — 공개 화면에만 있음 | §1 `(main)` | `(main)` 전체 | P1 |
-| B3 | `font-editorial`/`english`/`serif` 하드코딩 클래스 사용처 전수 → 스킨 변수로 | §2-1 tailwind | 학습자 다수 | P1 |
+| B3 | ~~세리프 하드코딩 클래스~~ — **오판(2026-10-18 S2)**: 클래스가 이미 스킨 변수를 거친다 | §2-1 tailwind | 학습자 다수 | P1 |
 | B4 | 팝오버 원시 부품 부재 — `role="dialog"` 손수 구현 10여 종을 Tines 팝오버/모달 규격 하나로 | §1 오버레이 | `/text/[id]` 외 | P1 |
 | B5 | `/text/[id]` 읽기 워크스페이스 — Tines 글 상세·제품 액자 대응 설계 | 최고 복잡도 · P1 | `/text/[id]*` | P1 |
 | B6 | 허브·서가·단어장 「중앙 카드 반복」 점검 → Library 분류 레일/열린 행 · University 격자 | DESIGN.md 「기능에 맞는 하위 골격」 | `/hub` `/library/*` `/wordvault*` `/text` | P1 |

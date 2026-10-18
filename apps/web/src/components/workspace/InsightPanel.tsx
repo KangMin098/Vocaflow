@@ -5,6 +5,7 @@
 import { ChapterLevelWords } from '@/components/library/reader/ChapterLevelWords'
 import { Bookmark, Info, Layers, X } from 'lucide-react'
 import { useEffect } from 'react'
+import { useEscapeKey } from '@/lib/ui/use-escape-key'
 
 interface MemoryStats {
   stable: number
@@ -55,6 +56,9 @@ export function InsightPanel({
     }
   }, [isOpen])
 
+  // 열린 곁 패널은 Esc 로 닫힌다(B4 — 이전에는 배경 누르기·닫기 단추만 됐다).
+  useEscapeKey(isOpen, onClose)
+
   // unmount 시 (라우트 이동 등) 강제 reset
   useEffect(() => {
     return () => {
@@ -76,6 +80,10 @@ export function InsightPanel({
         role="dialog"
         aria-label="학습 인사이트"
         aria-hidden={!isOpen}
+        // 닫힌 패널은 화면 밖으로 밀려 있을 뿐 DOM 에 남는다 — aria-hidden 만으로는 안의 단추에
+        // Tab 이 들어간다(2026-10-18 learner-overlay-check 실측). inert 로 포커스까지 막는다.
+        // React 18 타입에 inert 가 없어 속성 객체로 넘긴다.
+        {...({ inert: isOpen ? undefined : '' } as Record<string, string | undefined>)}
         className={`fixed bottom-0 right-0 top-0 z-[90] w-full overflow-y-auto border-l border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xl)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease)] md:w-[420px] ${isOpen ? 'translate-x-0' : 'translate-x-full'} `}
       >
         <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)] px-6 py-5">

@@ -49,6 +49,13 @@ export const CARD = {
   charcoal: 'rounded-[14px] bg-[var(--deep-charcoal)] text-[var(--on-deep)]',
 } as const
 
+/**
+ * 앵커형 팝오버 껍데기(단어 풀이 · 회상 카드 · 타이포 설정 · 목차 · 추천 카드 등) — DD-83 · learner-tines-audit B4.
+ * 모달(`DIALOG`)과 같은 문법: 크림 면 + 1px 라벤더 테두리가 윤곽을 맡고(참조는 그림자를 거의 안 쓴다),
+ * 본문 위에 떠 있음을 알리는 정도의 그림자 하나. 이전에는 모서리 md/lg/xl · 그림자 md/lg/xl 이 파일마다 달랐다.
+ */
+export const POPOVER = 'rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-md)]'
+
 /** 분절 — 반투명 트랙 + 켠 칸 크림 (참조 aria-pressed 10.5px · 45px) */
 export const SEG = {
   track: 'inline-flex items-center gap-1 rounded-[14px] bg-[color-mix(in_srgb,var(--ju)_14%,transparent)] p-1',

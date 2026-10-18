@@ -3,6 +3,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { POPOVER } from '@/components/ui/tines-kit'
 
 interface TypePopoverProps {
   onClose: () => void
@@ -54,7 +55,7 @@ export function TypePopover({ onClose }: TypePopoverProps) {
   return (
     <div
       ref={ref}
-      className="absolute right-0 top-[calc(100%+8px)] z-[70] w-60 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-xl)]"
+      className={`absolute right-0 top-[calc(100%+8px)] z-[70] w-60 p-4 ${POPOVER}`}
       role="dialog"
       aria-label="타이포 설정"
     >

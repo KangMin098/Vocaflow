@@ -36,6 +36,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
+import { SearchButton } from '@/components/marketing/site/SearchDialog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 import { pickCurrent } from './nav-match'
@@ -168,7 +169,7 @@ export function AppHeader() {
 
         {/* 오른쪽 — 참조의 「Book a demo」 자리. 학습자 동선이 아니라 역할이 바뀌는 곳이라
             가운데 다섯에 끼우지 않는다. */}
-        <div className="flex min-w-0 flex-1 items-center justify-end">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
           <Link
             href={CLASS_ENTRY.kind === 'link' ? CLASS_ENTRY.item.href : '/teacher'}
             aria-current={
@@ -181,6 +182,10 @@ export function AppHeader() {
             {CLASS_ENTRY.label}
             <ArrowUpRight size={14} aria-hidden className="shrink-0" />
           </Link>
+          {/* 전역 검색 — 참조 헤더 맨 오른쪽 「Open search」 원(tines-ref-recheck 2026-10-18).
+              공개 화면과 같은 부품·같은 API(`/api/search`)를 쓴다. 세션 화면은 이 헤더가 통째로
+              빠지므로(위 isFullScreenRoute) Ctrl/⌘+K 가 학습 중 단축키를 가로채지 않는다. */}
+          <SearchButton />
         </div>
       </div>
 

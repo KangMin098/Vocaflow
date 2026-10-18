@@ -193,3 +193,17 @@ describe('상단 메뉴 — 패널 구성', () => {
     }
   })
 })
+
+// 전역 검색 — 학습자 셸에도 공개 화면과 같은 검색 원이 있다(DD-83 · learner-tines-audit B2).
+// 세션 화면에서는 헤더가 통째로 빠지므로 Ctrl/⌘+K 가 학습 중 단축키를 가로채지 않는다.
+describe('학습자 헤더 검색', () => {
+  it('일반 화면에는 검색 단추가 있다', () => {
+    const html = render('/hub')
+    expect(html).toContain('aria-label="검색 (Ctrl+K)"')
+    expect(html).toContain('aria-haspopup="dialog"')
+  })
+
+  it('세션(전체화면) 화면에는 헤더도 검색도 없다', () => {
+    expect(render('/flashcard/play')).toBe('')
+  })
+})
