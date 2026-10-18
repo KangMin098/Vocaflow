@@ -2194,3 +2194,9 @@ await supabase.rpc(rpcName, { p_result_id: ... })   // ← 리터럴 grep 에 �
   차단하는 기능. 대시보드(Authentication → Policies)에서 켜면 되고 코드 변경은 필요 없다.
 - 조사 명령: `mcp__supabase__get_advisors({ type: 'security' })` (2026-08-15 기준 ERROR 1 · WARN 458 · INFO 6).
   ERROR 1건은 `word_mislevel_signal` 뷰가 SECURITY DEFINER 로 정의된 것.
+
+## R5 공급 결속 — I2 주석 hash · 납품↔G2 ([20261018120000](../supabase/migrations/20261018120000_workspace_supply_c_annotation_binding.sql) · [20261018120100](../supabase/migrations/20261018120100_r5_delivery_g2_binding.sql) · 2026-10-18 사용자 승인)
+- **전제**: DB-1 `20261017200000`(Factory I1 공급 기반). 파일이 스스로 확인하고 없으면 멈춘다.
+- **I2**: `content_qualification.annotation_ref` · `annotation_hash` + CHECK `content_qualification_annotation_bound` · 배포 등록부 `supply_current_annotation`(RLS · anon/authenticated/service_role 권한 없음 · 배포 소유자만) · 정의자 함수 `supply_annotation_matches(uuid)` · 공급 시 현재 주석 = 자격 주석 검사. 등록부가 비어 있으면 csat_item 신규 공급은 모두 거절된다.
+- **납품↔G2**: 표 `workspace_delivery_attempt`(추가 전용 · 본인 RLS `wda_owner_read` · 학습자 쓰기 권한 없음) · 부분 고유 인덱스 `workspace_delivery_attempt_first_exposure (user_id, exposure_key) where first_exposure` · RPC `workspace_delivery_attempt_record(uuid, bigint, uuid)`(정의자 · search_path 고정 · anon 불가) · 내부 `r5_exposure_key(text, text)`. 기존 `learning_task_attempts` 변경 · 백필 없음.
+- 상세 · 검증 SQL · 복구: [R5_DB_APPROVAL_PACKAGE](./csat-learner/v62/R5_DB_APPROVAL_PACKAGE.md) §3–§5.

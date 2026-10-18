@@ -1,5 +1,5 @@
 // apps/web/src/lib/csat/map/v62/__tests__/r5-delivery-g2-binding.pglite.test.ts
-// R5 §6 · §10 — 공급 ↔ G2 시도 결속 보류 SQL(`_pending_r5_delivery_g2_binding.sql`)을 DB-1(C → B → I1-S 세그먼트, 바이트 동일) + I2 주석 결속 위에
+// R5 §6 · §10 — 공급 ↔ G2 시도 결속 보류 SQL(`20261018120100_r5_delivery_g2_binding.sql`)을 DB-1(C → B → I1-S 세그먼트, 바이트 동일) + I2 주석 결속 위에
 // 격리 Postgres(PGlite)로 적용해 규칙과 반례를 확인한다. 개발 DB 무관.
 // ⚠️ 한계: PGlite 는 연결이 하나라 진짜 동시 트랜잭션은 없다 — 경합은 「순차 두 번 주장」 + 부분 고유 인덱스 직접 위조로 검증한다.
 import { createHash } from 'node:crypto'
@@ -18,8 +18,8 @@ const MIG = path.resolve(__dirname, '../../../../../../../../supabase/migrations
 const read = (f: string) => fs.readFileSync(path.join(MIG, f), 'utf8')
 const I1_STUB = fs.readFileSync(path.join(__dirname, 'supply-i1-stub.sql'), 'utf8')
 const S_SQL = read('_pending_workspace_supply_i1_safety.sql')
-const I2_SQL = read('_pending_workspace_supply_c_annotation_binding.sql')
-const R5_SQL = read('_pending_r5_delivery_g2_binding.sql')
+const I2_SQL = read('20261018120000_workspace_supply_c_annotation_binding.sql')
+const R5_SQL = read('20261018120100_r5_delivery_g2_binding.sql')
 /** 실제 G2 시도 표의 열(20261008160000 · 180000) — 최소 사본에 없는 것만 더한다 */
 const G2_COLUMNS = `alter table public.learning_task_attempts add column if not exists activity text,
   add column if not exists help_level text, add column if not exists content_hash text, add column if not exists received_at timestamptz default now();

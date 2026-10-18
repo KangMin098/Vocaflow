@@ -107,7 +107,7 @@ const pass = (r: FqRow, k: string) => r.axes?.[k]?.state === 'pass'
 /**
  * 원장 행 하나를 지금 공급해도 되는가 — DB fq_role_ok 와 같은 축 규칙 + 결속(원천 · Gold · 현재 revision · 현재 주석 해시) + 철회 안 된 승인.
  * 하나라도 모르면 거절(fail-closed). 학습자 노출(G)은 여기서 보지 않는다 — 공급 시점(unexposedForAssessment).
- * 주석 결속은 I2 정본 칸(content_qualification.annotation_ref · annotation_hash — `_pending_workspace_supply_c_annotation_binding.sql`)으로만 인정한다.
+ * 주석 결속은 I2 정본 칸(content_qualification.annotation_ref · annotation_hash — `20261018120000_workspace_supply_c_annotation_binding.sql`)으로만 인정한다.
  * 그 칸이 아직 없으면(I2 미적용) 정본 결속을 확인할 수 없으므로 적격 0건이다.
  */
 export function fqRowVerdict(
