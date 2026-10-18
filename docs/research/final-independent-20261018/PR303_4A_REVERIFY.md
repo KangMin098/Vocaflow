@@ -63,3 +63,5 @@ passing screenshot/trace/HAR 첨부는0이다. 새 시각 판독이나 네트워
 후속14446db1048258752acb22ba08171196e8b33566은22de94acf의 관찰 계약/UI와 장부 수정이다. [독립 실행기](../../../apps/web/scripts/final-independent/probe-integrated-observation144.mjs)는 고정 HEAD의 observation/definition/실제 정의 데이터/authored TASK 모듈만 실행한다. [104조합/3 null 결과](./integrated-observation144.json)는 비보류 통합 TASK3개의 실제 승인 PART_OF에서 모든 하위 직접 확인, 직접 확인된 필요, 한 하위 누락·proxy·만료·진행·미측정·직접 근거 없는 resolved를 대조했다. 축 proxy·상태명만으로 관찰 가능을 만들지 않고 점수 필드도 없다. 모두 직접 확인돼도 숙달/통합 수행 입증이 아닌 관찰 시작 가능으로 안내한다.
 
 처음 실행기의 통합 TASK3개 가정은 보류 X-O1까지 포함해 실패했다. 비보류3개로 범위를 바로잡았으며 제품 결함으로 세지 않았다. X-O1의 제안 관계는 실제 partsOf에서 제외돼 null이다. 도구 존재는 정본/창작 키의 정적 정의이며 실제 적격 출시 공급이 있다는 뜻은 아니다. JSX 연결은 코드로 확인했으나 신규 화면 렌더링·브라우저·실제 학습자 데이터는 이 순수 함수 실행 범위가 아니다. 기존 가로 넘침/CI 결과를 신규 UI 전체 검증으로 확대하지 않는다.
+
+후속 종료 관찰:144 run39127042596은 verify/build/e2e/faultclosed 성공, shared-dev SKIPPED다. authored-formats/authored-supply 두 주요 spec의71a→144 바이트 변경이 없어 기존 직접 판독을 재사용한다. 새 artifact12135699816의 내부 report/시각 판독을 반복했다고 쓰지 않는다. [게시/인계 영수증](./GITHUB_HANDOFF.md)을 남겼다.
