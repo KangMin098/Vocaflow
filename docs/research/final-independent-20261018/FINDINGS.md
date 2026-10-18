@@ -46,3 +46,5 @@ FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com
 - FI-010 · 핵심 P2 · OPEN · `52a31d988`: 본문만 열고 닫은 선행 페이지가 세션/노출 원장에 남지 않아 재열기 뒤 시도가 first_exposure/evidence=true. [열람 반례](./AUTHORED_INTEGRATION_REVIEW.md). 단순히 같은 수행 세션 안에서 문장을 다시 읽는 것을 금지하라는 요구는 아니다.
 
 2026-10-18 후속: 사용자가 동일 최종 수용 임무의 검증 자료 계속 게시를 명시 승인했다. 이전 거부 이력은 보존하되, 추가 승인 대기는 해소됐다. 민감한 권한 침해 재현은 비공개 경로로 분리하고, 여기의 공개 자료는 합성 fixture와 관리자 입력 계약·교육/UX·무결성 반례 범위다.
+
+- FI-011 · 핵심 P2 · OPEN · `52a31d988`: authored 확인 링크는 As-Is unseen에 있지만 Workspace check/next는 비어 있고, authored 전이 뒤 요구가 TRANSFER에 남으며 지문 로더 누락으로 전이 수행량도0이다. [세 계약 반례와 정상 대조군](./AUTHORED_INTEGRATION_REVIEW.md). 올바른 결속 후의 다음 단계 환류 문제로 FI-001과 구별한다.

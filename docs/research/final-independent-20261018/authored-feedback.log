@@ -1,0 +1,25 @@
+Frozen source: 52a31d988
+Scope: isolated actual map functions + synthetic qualified contract inputs, PGlite for passage loader only; no actual DB.
+◇ injected env (0) from ..\..\.env.local // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/owner52/apps/web
+
+stdout | src/lib/csat/authored/__tests__/codex-feedback.test.ts > Independent authored map feedback > delivered authored checks do not make the Workspace check stage executable
+AUTHORED_CONFIRM_FEEDBACK={"unseen":["authored:independent-one","authored:independent-two"],"need":"CONFIRM","executable":null,"workspaceCheck":{"ready":false,"count":null,"blocked":"no_check_link"},"workspaceNext":null}
+
+stdout | src/lib/csat/authored/__tests__/codex-feedback.test.ts > Independent authored map feedback > authored transfer key leaves the next need at TRANSFER; legacy key reaches MAINTAIN
+AUTHORED_TRANSFER_FEEDBACK={"keys":["authored-central-meaning"],"actual":"TRANSFER","legacyKeyControl":"MAINTAIN"}
+
+stdout | src/lib/csat/authored/__tests__/codex-feedback.test.ts > Independent authored map feedback > actual passage loader supplies no identity for authored transfers; operational progress becomes zero
+AUTHORED_PASSAGE_FEEDBACK={"authoredRowsPresent":2,"legacyIdentityCount":1,"keys":{},"loaded":[{"itemRef":"authored:transfer-one","taskKey":"authored-central-meaning","phase":"transfer","answeredAt":"2026-10-18T07:00:00Z","passageKey":null},{"itemRef":"authored:transfer-two","taskKey":"authored-central-meaning","phase":"transfer","answeredAt":"2026-10-18T07:00:00Z","passageKey":null}],"transferDone":0}
+
+ ✓ src/lib/csat/authored/__tests__/codex-feedback.test.ts  (3 tests) 1685ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  17:49:59
+   Duration  3.07s (transform 520ms, setup 0ms, collect 925ms, tests 1.69s, environment 0ms, prepare 97ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.

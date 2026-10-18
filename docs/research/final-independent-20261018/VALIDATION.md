@@ -54,3 +54,5 @@
 
 - [실제 집계 SQL](./task-runtime-snapshot.sql)·[원본 집계](./task-runtime-snapshot.json): READ ONLY on, 자격/납품/결속 근거0, 새 authored 표 미설치. 개인정보/응답 SELECT 없음.
 - [전체 TASK 대조](./TASK_RUNTIME_COVERAGE.md): 기존30개 메타데이터/정본 원본 동일성 확인, 후보의 명시 근거 키/창작 세트 및 실제 집계만 연결했다. 기존 판정 시험 재실행 없음. live/ready나 synthetic 미표시1행을 제품 관통/효과 성공으로 세지 않음.
+
+- FI-011: 고정 실제 지도 함수의 새 반례3건(확인 링크/전이 후 요구/지문 정체성→수행량)을 재현했다. 기존 과제 키와 합성 기출 형식 지문의 정상 대조군을 포함했다. actual authored fixture2행이 있어도 로더가 이를 읽지 않음을 확인. 새 검사만 실행, 전체 DB/브라우저 E2E로 확대하지 않음.

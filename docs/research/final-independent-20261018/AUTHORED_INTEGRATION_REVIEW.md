@@ -72,3 +72,17 @@
 기대: 별도 페이지 세션의 본문 공개를 실제 노출로 기록하고 제출을 그 공개 세션에 결속한다. 같은 수행 세션 안에서 문장을 여러 번 읽는 것은 허용하되, 닫은 뒤 별도 세션의 선행 열람을 미노출로 계산하지 않는다. 노출 기록이 실패하면 본문을 먼저 보여 주고 나중에 none으로 확정하지 말고, 확인 불가 상태를 보존해야 한다. 원장 삭제나 클라이언트 helpLevel 선언만으로 해결하지 않는다.
 
 이 반례는 서버 함수와 실제 SQL에 합성 세션을 연결한 LEVEL 1 범위다. 실제 인증 브라우저에서 열기→닫기→새 세션 제출까지 이어지는 E2E는 후속 독립 확인 대상이다. 별도 시간 경과나 학습 효과를 이 시험으로 입증하지 않는다. 기존 FI-003(다른 ref/group을 통한 동일 본문 우회)과 달리 같은 ref의 열람 경로에서 기록 자체가 빠지는 문제다.
+
+## FI-011 · 핵심 P2 · OPEN · 창작 수행의 Workspace/다음 요구/전이량 환류 누락
+
+대상 `52a31d988`. [새 독립 실행기](../../../apps/web/scripts/final-independent/probe-authored-feedback.mjs)로 실제 지도 함수에 합성 계약 입력을 주었다. [원본 출력](./authored-feedback.log). 기존 테스트는 재실행하지 않았다. 아래 세 반례의 관찰 단언이 통과한 것이며 제품 PASS가 아니다.
+
+1. **확인 링크**: 현재 정본 TASK의 새 키 `authored-central-meaning`으로 납품된 확인 링크2개를 입력하면 As-Is는 두 ref를 unseen으로 읽는다. 하지만 To-Be의 CONFIRM.executable은 null, Workspace check는 ready=false/blocked=no_check_link, next=null이다. `to-be.ts`의 checkKeysOfTask와 `workspace.ts`의 template.content_keys 경로는 새 authored 키를 보지 않는다.
+2. **전이 후 요구**: R5가 resolved이고 해당 authored 키의 전이 기록2개가 있는 정상 후속 상태를 계약 fixture로 주었다. 실제 transferredKeysOf는 authored 키를 돌려주지만 To-Be는 계속 TRANSFER다. 같은 상태에서 기존 claim-support 키를 준 대조군만 MAINTAIN으로 바뀐다. 새 증거 키를 As-Is/일부 PLAN에는 추가했지만 다음 요구 판정에는 연결하지 않았다.
+3. **전이 수행량**: 실제 loadPassageKeys는 csat_items만 읽어 authored ref의 정체성을 돌려주지 않는다. 서로 다른 본문의 authored fixture2행을 실제 PGlite에 넣었는데도 keys={}이고 로더의 후속 처리대로 passageKey=null을 주면 transferDoneOf=0이다. 기출 형식의 합성 CONTROL#1 대조군은 정체성1개를 정상 반환한다. 빈 DB 때문이라는 오탐은 배제했다.
+
+범위: 1/2는 기존 지도/계획 함수의 입력 계약 시험이고 3은 최소 스키마의 실제 PGlite 조회와 수행량 함수 연결이다. 합성 fixture가 실제 납품/유효 독립 수행을 보유한 입력 상태를 표현하며, 실제 개발 DB 공급/전체 compose/인증 브라우저 종단을 수행했다는 뜻은 아니다. 2의 resolved 상태는 이 비교를 위한 전제이며 이 시험에서 능력 달성을 입증하지 않는다.
+
+기대: 같은 TASK의 납품 확인·전이 키와 서버가 검증한 지문 정체성을 Workspace 실행 링크·가용량·수행량·다음 요구·PLAN에 일관되게 전달한다. 전이의 실제 지문 구분·도움/독립 자격·기존 성취 기준은 유지한다. 클라이언트 ref를 그냥 새 지문으로 간주하거나 Gold 포함 테이블의 학습자 SELECT 권한을 열어 해결하지 않는다. 수정 후 정상 납품→풀이→지도로 복귀→같은 Workspace/PLAN의 다음 행동까지 검증해야 한다.
+
+기존 FI-001은 어느 Workspace의 납품에 결속하는가의 문제다. FI-011은 올바른 납품/근거를 받은 상태에서도 authored 경로를 기존 다음 단계 계산에 연결하지 않은 문제이므로 별도 추적한다. 수정 소유권은 총괄의 종단 연결 구현에 유지한다.

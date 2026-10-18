@@ -62,3 +62,5 @@ main 기준선 이후 총괄 worktree의 b4fbf4d5c 보류 authored SQL과 6b988d
 [30 TASK별 현재 대조](./TASK_RUNTIME_COVERAGE.md)를 추가했다. 2026-10-18 17:42 KST READ ONLY 집계에서 FQ/납품/납품 결속 근거는 모든 TASK에서0, authored 표는 미설치였다. 커밋된 총괄 후보가 추가한 창작 세트와 명시 근거 키는 R5 한 TASK9문항이다. L/X blocked9개·직접 확인 키 미매핑·연구 독립성 보류는 지원 완료로 세지 않는다.
 
 claim-support 독립 모양 기록125행 중124행은 synthetic=true이며, 남은1행도 플래그만으로 실학생 효과를 입증하지 못한다. 다른 두 과제의4행은 viewed_first다. 기존 행 수를 적격 공급부터의 독립 전이/환류 완료로 계산하지 않는다. A~H의 현재 PARTIAL/BLOCKED_EXTERNAL 및 전체 REWORK를 유지한다. 이 대조는 기존 정본을 바꾸거나 새 로드맵/필수 게이트를 추가한 것이 아니다.
+
+새 FI-011은 As-Is 이후 Workspace/다음 요구/전이량에 새 authored 키와 지문 정체성이 전달되지 않는 반례다. 정상 입력 계약을 준 실제 함수에서 확인 링크 없음, 전이 후 TRANSFER 유지, 전이량0을 재현했다([종단 상세](./AUTHORED_INTEGRATION_REVIEW.md)). H의 전체 환류와 F/G의 다음 행동은 계속 REWORK이며, 개별 As-Is 판정 성공으로 관통 완료를 선언하지 않는다.
