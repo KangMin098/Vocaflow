@@ -59,6 +59,10 @@ const ACTIVITY_FULL_SCREEN: ReadonlySet<string> = new Set([
 const NON_ACTIVITY_FULL_SCREEN: ReadonlySet<string> = new Set([
   // WordVault Browse 세션 (v06.21.6) — 워크스페이스 접근 용이성
   '/wordvault/browse',
+  // WordVault 학습·복습 세션 (2026-10-18 · learner-tines-audit S3 ③) — 다른 모듈 세션은 전체화면 틀(오른쪽 위 「세션 닫기」)인데
+  // 이 둘만 전역 헤더를 단 채 카드 안 「← 종료」로 나갔다. 복귀(?from=)·FSRS 저장(떠날 때 flush)은 그대로다.
+  '/wordvault/study',
+  '/wordvault/review',
   // (2026-10-10 해제) 기출 해부 '/csat/dissect' — 2026-09-17 엔 일반 앱 셸의 다른 모듈 CTA 와 겨루지 않게 풀스크린이었다.
   // 지금은 기출분석공간 셸(CsatShell · 다른 모듈 CTA 없음) 안에 있어 풀스크린 막대가 셸 위에 겹쳐 두 번 보였다.
 ])

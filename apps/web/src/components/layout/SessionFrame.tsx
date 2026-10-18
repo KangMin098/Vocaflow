@@ -47,6 +47,8 @@ const MODULE_SESSION_META: Record<string, SessionMeta> = {
   '/dictate/session': { title: 'Dictation', emoji: '🎙', closeHref: '/dictate' },
   '/pairflip/play': { title: 'PairFlip', emoji: '🎴', closeHref: '/pairflip' },
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
+  '/wordvault/study': { title: 'WordVault 학습', emoji: '📖', closeHref: '/wordvault' },
+  '/wordvault/review': { title: 'WordVault 복습', emoji: '📖', closeHref: '/wordvault' },
 }
 
 // 아케이드 게임 세션 — GAME_CATALOG 에서 파생.
