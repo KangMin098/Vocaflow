@@ -273,6 +273,7 @@ export function correctnessItemIds(record: DissectionRecord): string[] {
     ...(record.explanations ?? []).map((x) => x.item),
     ...(record.checks ?? []).map((x) => x.item),
     ...(record.reasoningNotes ?? []).map((x) => x.item),
+    ...(record.meaningNotes ?? []).map((x) => x.item),
   ])]
 }
 
