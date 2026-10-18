@@ -39,7 +39,7 @@ const admin = {
       const conds: { col: string; val: string | null }[] = []
       const chain = {
         eq(col: string, val: string) { conds.push({ col, val }); return chain },
-        is(col: string, _val: null) { conds.push({ col, val: null }); return chain },
+        is(col: string) { conds.push({ col, val: null }); return chain },
         async select() {
           const user = conds.find((c) => c.col === 'user_id')!.val
           const at = conds.find((c) => c.col === 'updated_at')
