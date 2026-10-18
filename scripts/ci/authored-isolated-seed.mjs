@@ -73,7 +73,7 @@ async function main() {
       p_annotation_ref: annotationRef, p_annotation_hash: gh, p_defects: [], p_evidence_ids: ['isolated-fixture:ci'], p_method: FIXTURE_NOTE, p_supersedes: null,
     })
     await call('content_human_decision_record', { p_kind: 'rights', p_artifact_kind: 'authored_item', p_ref: ref, p_revision: rev, p_subject_hash: rev,
-      p_basis: 'self_authored_original', p_scope: ['store', 'display', 'transmit'], p_evidence_ref: 'isolated-fixture:ci', p_attest: 'human-reviewed', p_note: FIXTURE_NOTE })
+      p_basis: 'self_authored_original', p_scope: ASSESS.has(it.role) ? ['store', 'display', 'transmit', 'assess'] : ['store', 'display', 'transmit'], p_evidence_ref: 'isolated-fixture:ci', p_attest: 'human-reviewed', p_note: FIXTURE_NOTE })
     if (ASSESS.has(it.role)) {
       await call('content_human_decision_record', { p_kind: 'gold', p_artifact_kind: 'authored_item', p_ref: ref, p_revision: rev, p_subject_hash: gh,
         p_basis: 'human_gold_review', p_scope: ['assess'], p_evidence_ref: 'isolated-fixture:ci', p_attest: 'human-reviewed', p_note: FIXTURE_NOTE })

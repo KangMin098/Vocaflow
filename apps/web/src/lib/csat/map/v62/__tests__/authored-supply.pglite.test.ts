@@ -74,7 +74,7 @@ async function decide(kind: 'rights' | 'gold', ref: string, o: { scope?: string[
   await as(db, ADMIN)
   return (await q1<{ id: string }>(`select public.content_human_decision_record($1,'authored_item',$2,$3,$4,$5,$6,$7,$8) id`,
     [kind, ref, rev, o.subject ?? (kind === 'rights' ? rev : await goldHash(ref)), kind === 'rights' ? 'self_authored_original' : 'human_gold_review',
-      o.scope ?? (kind === 'rights' ? ['store', 'display', 'transmit'] : ['assess']), 'docs/final/review/x.md#sha', o.attest ?? 'human-reviewed'])).id
+      o.scope ?? (kind === 'rights' ? ['store', 'display', 'transmit', 'assess'] : ['assess']), 'docs/final/review/x.md#sha', o.attest ?? 'human-reviewed'])).id
 }
 async function approve(q: string, scope: 'public' | 'assessment') {
   await as(db, ADMIN)
@@ -299,11 +299,11 @@ describe('노출(G) — 지문 묶음', () => {
 })
 
 describe('G2 결속 — 창작 산출물', () => {
-  it('독립 확인 납품 → 첫 독립 시도 = 근거 · 노출 키는 지문 묶음', async () => {
+  it('독립 확인 납품 → 첫 독립 시도 = 근거 · 노출 키는 지문 정체성(본문 해시)', async () => {
     const f = await full(A, wsA, 'g2-ind', 'independent_check', 'g-g2-ind')
     const r = await bound(await bind(A, f.delivery, await attempt(A, f.ref)))
     expect(r).toMatchObject({ artifact_kind: 'authored_item', artifact_ref: f.ref, help_state: 'independent', first_exposure: true,
-      evidence: true, exposure_key: 'passage:authored:g-g2-ind', annotation_hash: await goldHash(f.ref) })
+      evidence: true, exposure_key: expect.stringMatching(/^passage:authored:[0-9a-f]{32}$/), annotation_hash: await goldHash(f.ref) })
   })
 
   it('전이 납품 + theater/transfer = 근거 · 도움 받은 시도 = 비근거', async () => {
@@ -338,5 +338,74 @@ describe('G2 결속 — 창작 산출물', () => {
     const line = await lineFor(B, wsB, 'delayed_check')
     expect(await errorOf(deliver(B, line, q2, asm))).toMatch(/shared_passage_seen/)
     expect(await bound(await bind(B, f1.delivery, await attempt(B, f1.ref)))).toMatchObject({ first_exposure: true, evidence: true })
+  })
+})
+
+describe('독립 검증 반례(#294 FI-002 · #295 FI-003 · #296 FI-004 · #299 FI-007)', () => {
+  it('FI-002: 교수 자료를 평가 역할로 재자격화하면 공급 거절 · 다른 TASK 자격도 거절', async () => {
+    const ref = await register('fi2-guided', 'guided_practice', 'g-fi2')
+    const q = await qualify(ref, 'independent_check')
+    await decide('rights', ref); await decide('gold', ref)
+    await approve(q, 'public')
+    const asm = await approve(q, 'assessment')
+    const line = await lineFor(A, wsA, 'independent_check')
+    expect(await errorOf(deliver(A, line, q, asm))).toMatch(/authored gold differs from qualification/)
+    // 다른 TASK 로 자격을 붙인 경우
+    const ref2 = await register('fi2-other-task', 'guided_practice', 'g-fi2b')
+    const rev = (await revOf(db, 'authored_item', ref2))!
+    const gh = await goldHash(ref2)
+    await as(db, ADMIN)
+    const q2 = (await q1<{ id: string }>(
+      `select public.content_qualification_record('FQ1.1','authored_item',$1,$2,'r.reference','guided_practice',$3::jsonb,'self',$2,null,'gold',$4,$5,$4,'{}','{ev}','x',null) id`,
+      [ref2, rev, JSON.stringify(AXES()), gh, `${TKEY}-fi2-other-task.v1`])).id
+    await decide('rights', ref2)
+    const pub = await approve(q2, 'public')
+    expect(await errorOf((async () => {
+      const d = { key: 'k', template: 'ws.reading', workspaceId: wsA, goalVersion: null, planVersion: 1, definitionVersion: `v6.2-${++n}`, asOf: '2026-10-18T00:00:00Z', core: 'r.reference', support: [],
+        purpose: { need: null, evidence: 'x', independentItems: null, unknowns: [] }, lines: [{ role: 'guided_practice', task: 'r.reference', quantity: { n: 1 }, csatTypes: [], taskKeys: [], requires: [], reason: 'need' }] }
+      await as(db, A)
+      const dem = (await q1<{ id: string }>(`select public.workspace_demand_record($1) id`, [canonicalDemand(A, d as never)])).id
+      const ln = (await q1<{ id: string }>(`select id from public.workspace_content_demand_line where demand_id = $1`, [dem])).id
+      return deliver(A, ln, q2, pub)
+    })())).toMatch(/authored gold differs from qualification/)
+  })
+
+  it('FI-003: 같은 본문에 그룹 이름만 바꿔 교수/평가로 등록하면 거절 · 같은 역할군이면 같은 지문으로 노출 판정', async () => {
+    await register('fi3-teach', 'model_explanation', 'g-fi3-a', 'SAMEBODY')
+    expect(await errorOf(register('fi3-assess', 'independent_check', 'g-fi3-b', 'SAMEBODY'))).toMatch(/same passage body already registered/)
+    // 평가끼리 같은 본문(다른 그룹 이름)은 등록되지만 노출은 하나의 지문으로 센다
+    const r1 = await register('fi3-ind', 'independent_check', 'g-fi3-c', 'SAMEASSESS')
+    const r2 = await register('fi3-del', 'delayed_check', 'g-fi3-d', 'SAMEASSESS')
+    await db.query(`insert into public.learning_sessions (user_id, item_ref) values ($1, $2)`, [B, r1])
+    await as(db, ADMIN)
+    expect((await q1<{ e: string }>(`select public.supply_learner_exposure('authored_item', $1, $2) e`, [r2, B])).e).toBe('shared_passage_seen')
+    expect((await q1<{ a: string; b: string }>(`select public.r5_exposure_key('authored_item',$1) a, public.r5_exposure_key('authored_item',$2) b`, [r1, r2]))).toSatisfy((x: { a: string; b: string }) => x.a === x.b)
+  })
+
+  it('FI-004: 평가 역할 권리에 assess 범위가 없으면(licensed · display/transmit 만) 공급 거절', async () => {
+    const ref = await register('fi4-ind', 'independent_check', 'g-fi4')
+    const rev = (await revOf(db, 'authored_item', ref))!
+    await as(db, ADMIN)
+    await db.query(`select public.content_human_decision_record('rights','authored_item',$1,$2,$2,'licensed','{display,transmit}','license#x','human-reviewed')`, [ref, rev])
+    await decide('gold', ref)
+    const q = await qualify(ref, 'independent_check')
+    await approve(q, 'public')
+    const asm = await approve(q, 'assessment')
+    const line = await lineFor(A, wsA, 'independent_check')
+    expect(await errorOf(deliver(A, line, q, asm))).toMatch(/human rights\/gold decision missing/)
+  })
+
+  it('FI-007: 학습자는 본인 납품의 현재 유효성만 읽는다 — 권리 철회 뒤 false · 남의 납품은 null', async () => {
+    const f = await full(A, wsA, 'fi7-ind', 'independent_check', 'g-fi7')
+    await as(db, A)
+    expect((await q1<{ v: boolean }>(`select public.workspace_delivery_current($1) v`, [f.delivery])).v).toBe(true)
+    await as(db, B)
+    expect((await q1<{ v: boolean | null }>(`select public.workspace_delivery_current($1) v`, [f.delivery])).v).toBeNull()
+    const dec = (await q1<{ id: string }>(`select id from public.content_human_decision where artifact_ref = $1 and kind = 'rights'`, [f.ref])).id
+    await as(db, ADMIN)
+    await db.query(`select public.content_human_decision_revoke($1, 'fi7')`, [dec])
+    await as(db, A)
+    expect((await q1<{ v: boolean }>(`select public.workspace_delivery_current($1) v`, [f.delivery])).v).toBe(false)
+    expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_content_delivery where id = $1`, [f.delivery])).n).toBe(1)
   })
 })

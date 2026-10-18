@@ -28,7 +28,8 @@ export function StructurePredict({ slug, design, sentenceCount }: { slug: string
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const session = useRef(uuid())
-  const mutation = useRef<{ key: string; id: string } | null>(null)
+  // 같은 답의 재시도는 제출 id · 판단 시각을 그대로(FI-008)
+  const mutation = useRef<{ key: string; id: string; at: string } | null>(null)
   const ready = roles.every(Boolean) && pattern !== null
   // 지도 문장 수와 역할 수가 다르면 번호를 지어내지 않는다(StructureDiagram 과 같은 원칙) — 예측도 순서로만 묻는다
   const label = (i: number) => (sentenceCount === n ? `문장 ${i + 1}` : `${i + 1}번째 덩어리`)
@@ -38,10 +39,10 @@ export function StructurePredict({ slug, design, sentenceCount }: { slug: string
     setBusy(true); setError(null)
     const response = { roles, pattern }
     const key = JSON.stringify(response)
-    if (!mutation.current || mutation.current.key !== key) mutation.current = { key, id: uuid() }
+    if (!mutation.current || mutation.current.key !== key) mutation.current = { key, id: uuid(), at: new Date().toISOString() }
     try {
       const r = await fetch(`/api/csat/item/${slug}/structure`, { method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ response, clientSessionId: session.current, clientMutationId: mutation.current.id, answeredAt: new Date().toISOString(), helpLevel: 'independent' }) })
+        body: JSON.stringify({ response, clientSessionId: session.current, clientMutationId: mutation.current.id, answeredAt: mutation.current.at, helpLevel: 'independent' }) })
       const j = await r.json().catch(() => ({}))
       if (!r.ok) { setError(typeof j.error === 'string' ? j.error : '맞춰 보지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }
       setGrade(j.grade as Grade)

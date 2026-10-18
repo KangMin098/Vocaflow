@@ -117,15 +117,19 @@ const centralMeaning: FormatSpec = {
 }
 
 // ── choice_evidence (e.evidence_location · r.inference) ──────────────
-// 정답 = 선택 ✓ + 결정 근거 문장(decisive) 포함 + 근거 범주(evidence ∪ evidenceAlt) 밖 문장 없음.
+// 정답 = 선택 ✓ + 결정 근거 충족 + 근거 범주(evidence ∪ evidenceAlt) 밖 문장 없음.
+// 결정 근거 충족 = decisive 포함, 또는 decisiveAlt 의 **완전한 대체 근거 집합** 하나를 모두 포함(FI-012 — 같은 사실을 따로 진술한 문장).
+//   보조 단서(evidenceAlt)만 고른 응답은 여전히 오답 — 대체 집합은 Gold 에 명시된 것만 인정한다.
 const choiceEvidence: FormatSpec = {
   id: 'choice_evidence',
   validate(body, g) {
     const errs: string[] = []
     const len = n(body)
     if (!choicesOk(body)) errs.push('선택지는 5개')
-    const gg = g as { answer: number; decisive: number; evidence: number[]; evidenceAlt: number[]; rationale: string }
+    const gg = g as { answer: number; decisive: number; evidence: number[]; evidenceAlt: number[]; rationale: string; decisiveAlt?: number[][] }
     if (!isInt(gg.answer, 0, 5)) errs.push('정답 번호')
+    const allowed = new Set([...(gg.evidence ?? []), ...(gg.evidenceAlt ?? [])])
+    if (gg.decisiveAlt !== undefined && (!Array.isArray(gg.decisiveAlt) || !gg.decisiveAlt.every((set) => ints(set, 0, len) && set.length > 0 && set.every((k) => allowed.has(k)) && !set.includes(gg.decisive)))) errs.push('대체 결정 근거 집합(근거 범주 안 · decisive 와 별개)')
     if (!isInt(gg.decisive, 0, len)) errs.push('결정 근거 문장')
     if (!ints(gg.evidence, 0, len) || !gg.evidence.includes(gg.decisive)) errs.push('근거 문장에 결정 근거가 없다')
     if (!ints(gg.evidenceAlt ?? [], 0, len) || (gg.evidenceAlt ?? []).some((k) => gg.evidence?.includes(k))) errs.push('대체 근거 범위')
@@ -136,11 +140,11 @@ const choiceEvidence: FormatSpec = {
     const r = (raw ?? {}) as { choice?: unknown; evidence?: unknown }
     const len = n(body)
     if (!isInt(r.choice, 0, 5) || !ints(r.evidence, 0, len, 6) || (r.evidence as number[]).length === 0) return null
-    const gg = g as unknown as { answer: number; decisive: number; evidence: number[]; evidenceAlt: number[]; distractors: { choice: number; design: DistractorDesign }[] }
+    const gg = g as unknown as { answer: number; decisive: number; evidence: number[]; evidenceAlt: number[]; decisiveAlt?: number[][]; distractors: { choice: number; design: DistractorDesign }[] }
     const ev = sorted(r.evidence as number[])
     const allowed = new Set([...gg.evidence, ...(gg.evidenceAlt ?? [])])
     const choiceOk = r.choice === gg.answer
-    const decisiveOk = ev.includes(gg.decisive)
+    const decisiveOk = ev.includes(gg.decisive) || (gg.decisiveAlt ?? []).some((set) => set.every((k) => ev.includes(k)))
     const extra = ev.filter((k) => !allowed.has(k))
     return {
       response: { choice: r.choice, evidence: ev },
@@ -148,7 +152,7 @@ const choiceEvidence: FormatSpec = {
         isCorrect: choiceOk && decisiveOk && extra.length === 0 },
     }
   },
-  reveal: (g) => ({ answer: g.answer, decisive: g.decisive, evidence: g.evidence, rationale: g.rationale, distractors: g.distractors }),
+  reveal: (g) => ({ answer: g.answer, decisive: g.decisive, decisiveAlt: g.decisiveAlt ?? [], evidence: g.evidence, rationale: g.rationale, distractors: g.distractors }),
 }
 
 // ── option_correspondence (e.option_correspondence) ──────────────────

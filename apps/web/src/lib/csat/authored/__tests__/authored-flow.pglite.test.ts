@@ -111,7 +111,7 @@ beforeAll(async () => {
     await (admin as unknown as FakeClient).auth()
     const qid = (await q1<{ id: string }>(`select public.content_qualification_record('FQ1.1','authored_item',$1,$2,$3,$4,$5::jsonb,'self',$2,null,'gold',$6,$7,$6,'{}','{blind-A,blind-B}','맹검 2인 + 사람 Gold',null) id`,
       [ref, rev, TASK, item.role, JSON.stringify(AXES()), gh, registrationArgs(S, item).p_annotation_ref])).id
-    await db.query(`select public.content_human_decision_record('rights','authored_item',$1,$2,$2,'self_authored_original','{store,display,transmit}','docs/final/review#rights','human-reviewed')`, [ref, rev])
+    await db.query(`select public.content_human_decision_record('rights','authored_item',$1,$2,$2,'self_authored_original','{store,display,transmit,assess}','docs/final/review#rights','human-reviewed')`, [ref, rev])
     if (isAssessmentRole(item.role)) await db.query(`select public.content_human_decision_record('gold','authored_item',$1,$2,$3,'human_gold_review','{assess}','docs/final/review#gold','human-reviewed')`, [ref, rev, gh])
     await db.query(`select public.content_release_approve($1,'public')`, [qid])
     if (isAssessmentRole(item.role)) await db.query(`select public.content_release_approve($1,'assessment')`, [qid])
@@ -239,5 +239,25 @@ describe('지도 환류 — As-Is 가 창작 확인을 근거로 읽는다', () 
     expect(after.basis).toBe('direct_check')
     expect(after.check?.independentItems).toBe(1)   // 단서 연 문항은 독립에서 빠진다
     expect(after.check?.attemptedItems).toBe(2)
+  })
+})
+
+describe('FI-007(#299) — 철회 뒤 현재성', () => {
+  it('권리 철회된 납품은 열리지 않고(revoked) · 목록은 current=false · 재요청은 부족분을 다시 센다(과거 기록 보존)', async () => {
+    const r = ref('r5-cm-ind-2')
+    const d = await dOf(A, r)
+    const dec = (await q1<{ id: string }>(`select id from public.content_human_decision where artifact_ref = $1 and kind = 'rights'`, [r])).id
+    await (admin as unknown as FakeClient).auth()
+    await db.query(`select public.content_human_decision_revoke($1, 'fi7 시험')`, [dec])
+    expect(await openDelivered(admin, learner(A), A, r, d)).toEqual({ status: 'revoked', deliveryId: d })
+    const rows = await listDelivered(learner(A), A, TASK)
+    if (rows === 'not_installed') throw new Error('installed')
+    expect(rows.find((x) => x.deliveryId === d)).toMatchObject({ current: false, attempted: true })
+    const again = await supply(A, 'check', 2)
+    if (again.status !== 'ok') throw new Error('supply')
+    // ind-1 만 지금 유효 — 철회된 ind-2 는 충족으로 세지 않고, 대체 재고가 없으니 생산 주문을 연다
+    expect(again.lines[0].delivered).toEqual([ref('r5-cm-ind-1')])
+    expect(again.lines[0].orderOpened).toBe(true)
+    expect((await q1<{ n: number }>(`select count(*)::int n from public.learning_task_attempts where user_id = $1 and item_ref = $2`, [A, r])).n).toBe(1)
   })
 })

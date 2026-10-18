@@ -287,13 +287,24 @@ async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[],
 }
 
 interface AuthoredConfirm { task: string; confirm: MapPracticeLink['confirm'][number] }
+interface AuthoredTransfer { key: string; target: string; href: string; label: string }
 
-/** 납품받은 창작 평가 자료 — 혼자 확인 · 다른 날 확인만(전이는 수행 기록으로 센다). 표가 없으면(창작 공급 SQL 미적용) 빈 목록 */
-async function loadAuthoredConfirms(db: Db, userId: string): Promise<AuthoredConfirm[]> {
+/**
+ * 납품받은 창작 평가 자료 — **지금 유효한** 납품만(권리 · Gold · 승인 철회 · 자격 대체 뒤에는 빠진다 · FI-007).
+ * 혼자 확인 · 다른 날 확인 = 확인 링크, 전이 = 적용 링크(FI-011). 표가 없으면(창작 공급 SQL 미적용) 빈 목록.
+ */
+async function loadAuthoredDeliveries(db: Db, userId: string): Promise<{ id: string; artifact_ref: string; task_id: string; role: string }[]> {
   const { data, error } = await db.from('workspace_content_delivery').select('id, artifact_ref, task_id, role')
-    .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', ['independent_check', 'delayed_check'])
+    .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', ['independent_check', 'delayed_check', 'transfer'])
   if (error) { if (error.code && MISSING_TABLE.has(error.code)) return []; throw new Error(`창작 납품 조회 실패: ${error.message}`) }
-  return ((data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]).flatMap((r) => authoredKeysOf(r.task_id).map((taskKey) => ({
+  const rows = (data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]
+  const valid = await Promise.all(rows.map(async (r) => (await db.rpc('supply_delivery_valid', { p_delivery: r.id })).data === true))
+  return rows.filter((_, i) => valid[i])
+}
+
+async function loadAuthoredConfirms(db: Db, userId: string, rows?: { id: string; artifact_ref: string; task_id: string; role: string }[]): Promise<AuthoredConfirm[]> {
+  const all = rows ?? await loadAuthoredDeliveries(db, userId)
+  return all.filter((r) => r.role !== 'transfer').flatMap((r) => authoredKeysOf(r.task_id).map((taskKey) => ({
     task: r.task_id,
     confirm: { taskKey, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: r.role === 'delayed_check' ? '받은 자료 · 다른 날 확인' : '받은 자료 · 혼자 확인' },
   })))
@@ -505,7 +516,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
   // FINAL §8 — 이 학습자에게 납품된 창작 평가 자료(혼자 확인 · 다른 날 확인)를 그 TASK 의 확인 대상에 더한다. 납품 안 된 창작 기록은 대상이 아니다
-  for (const c of await loadAuthoredConfirms(db, userId).catch((e) => { console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
+  const authoredRows = await loadAuthoredDeliveries(db, userId).catch((e) => { console.error('[csat-map authored deliveries]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
+  const authoredTransfers: AuthoredTransfer[] = authoredRows.filter((r) => r.role === 'transfer').flatMap((r) => authoredKeysOf(r.task_id).map((key) => ({
+    key, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: '받은 자료 · 다른 글에 적용',
+  })))
+  for (const c of await loadAuthoredConfirms(db, userId, authoredRows).catch((e) => { console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
     const l = practiceLinks[c.task]
     if (l && !l.confirm.some((x) => x.target === c.confirm.target)) practiceLinks[c.task] = { ...l, confirm: [...l.confirm, c.confirm] }
   }
@@ -529,6 +544,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
   // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 조회 오류는 오류 경로로 보낸다(정상 조회의 실제 0과 구분)
   const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks)
+  // FI-011 — 납품된 창작 전이 자료를 그 TASK 의 창작 키 적용 링크로(지문 정체성은 아래 loadPassageKeys 가 DB 본문 해시로)
+  for (const t of authoredTransfers) (transferTargets[t.key] ??= []).push({ target: t.target, href: t.href, label: t.label })
   // Read existing source only: exact passage JSON binds progress and candidate availability.
   const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x))
   for (const a of lifecycleActivity ?? []) a.passageKey = a.itemRef ? passageKeys[a.itemRef] ?? null : null
@@ -789,12 +806,20 @@ async function logMapDecisions(userId: string, links: Record<string, MapPractice
 
 /** No schema change: exact canonical source JSON; unknown/empty passages cannot prove distinct progress. */
 export async function loadPassageKeys(db: Db, refs: readonly string[]): Promise<Record<string, string>> {
-  const wanted = new Set(refs)
-  const exams = [...new Set(refs.map(x => x.split('#')[0]).filter(Boolean))]
-  if (!exams.length) return {}
+  const out: Record<string, string> = {}
+  // FI-011 — 창작 자료의 지문 정체성 = DB 가 계산한 정규화 본문 해시(passage_key). 클라이언트 ref · 그룹 이름을 지문으로 보지 않는다
+  const authored = [...new Set(refs.filter((r) => isAuthoredRef(r)))]
+  if (authored.length) {
+    const { data, error } = await db.from('authored_item').select('ref, passage_key').in('ref', authored)
+    if (error && !(error.code && MISSING_TABLE.has(error.code))) throw new Error(`창작 지문 정체성 조회 실패: ${error.message}`)
+    for (const r of (data ?? []) as { ref: string; passage_key: string }[]) out[r.ref] = `authored:${r.passage_key}`
+  }
+  const legacy = refs.filter((r) => !isAuthoredRef(r))
+  const wanted = new Set(legacy)
+  const exams = [...new Set(legacy.map(x => x.split('#')[0]).filter(Boolean))]
+  if (!exams.length) return out
   const rows = await selectByChunks<{ exam_id: string; no: number; passage: unknown }>(exams, 10,
     chunk => db.from('csat_items').select('exam_id, no, passage').in('exam_id', chunk), 'passage identity')
-  const out: Record<string, string> = {}
   for (const row of rows) {
     const ref = row.exam_id + '#' + row.no
     if (!wanted.has(ref) || row.passage === null || row.passage === undefined) continue

@@ -13,6 +13,7 @@ import { CHECK_ITEMS } from '../skill-diagnosis'
 import type { AsIsMap } from './as-is'
 import { relationOf, templates, type TaskId, type V4Template } from './definition'
 import type { ConfirmLink, ToBeMap } from './to-be'
+import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import type { DirectCheck } from './types'
 
 export type StageKey = 'check' | 'repair' | 'transfer' | 'recheck'
@@ -63,23 +64,35 @@ export interface WorkspaceInput {
 }
 
 const LIVE_ORDER = ['ws.central-meaning', 'ws.option-match', 'ws.evidence-locate']
+
+/** 이 묶음의 확인 · 전이 과제 키 — 정본 첫 키 + 중심 TASK 의 창작 키(FI-011). 창작 키 링크는 납품된 자료만 들어온다(load.ts) */
+function keysOf(t: V4Template): string[] {
+  return [...t.content_keys.slice(0, 1), ...authoredKeysOf(t.core[0] ?? '')]
+}
+const linksOf = (t: V4Template, confirmLinks: Record<string, readonly ConfirmLink[]>) => keysOf(t).flatMap((k) => confirmLinks[k] ?? [])
+const transfersOf = (t: V4Template, targets?: Record<string, readonly ConfirmLink[]>) => keysOf(t).flatMap((k) => targets?.[k] ?? [])
+/** 창작 납품(확인 · 전이)이 있는가 — 있으면 정본 준비 상태(content_needed · ready)와 무관하게 그 자료로 단계를 연다 */
+const authoredLive = (t: V4Template, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferTargets'>) =>
+  authoredKeysOf(t.core[0] ?? '').some((k) => (input.confirmLinks[k]?.length ?? 0) + (input.transferTargets?.[k]?.length ?? 0) > 0)
 /** 정본 quantity_policy 「전이 2지문」(workspaces.json) — 적용 단계 계획량의 상한 */
 export const TRANSFER_PASSAGES = 2
 
 export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferItems' | 'transferTargets'>): Record<StageKey, StageReadiness> {
   const off = (blocked: StageReadiness['blocked']): StageReadiness => ({ ready: false, count: null, blocked })
   if (t.hold) return { check: off('canon_hold'), repair: off('canon_hold'), transfer: off('canon_hold'), recheck: off('canon_hold') }
-  if (t.readiness === 'ready') return { check: off('awaiting_release'), repair: off('awaiting_release'), transfer: off('awaiting_release'), recheck: off('awaiting_release') }
-  if (t.readiness === 'content_needed' || t.readiness === 'blocked') return { check: off('content_needed'), repair: off('content_needed'), transfer: off('content_needed'), recheck: off('content_needed') }
+  const live = authoredLive(t, input)
+  if (t.readiness === 'ready' && !live) return { check: off('awaiting_release'), repair: off('awaiting_release'), transfer: off('awaiting_release'), recheck: off('awaiting_release') }
+  if ((t.readiness === 'content_needed' || t.readiness === 'blocked') && !live) return { check: off('content_needed'), repair: off('content_needed'), transfer: off('content_needed'), recheck: off('content_needed') }
   const key = t.content_keys[0]
-  const links = input.confirmLinks[key] ?? []
+  const links = linksOf(t, input.confirmLinks)
   const c = asIs.tasks[t.core[0]]?.check ?? null
   if (!c || links.length === 0) return { check: off('no_check_link'), repair: off('after_check'), transfer: off('after_repair'), recheck: off('after_check') }
   const unseenLinked = c.unseen.filter((i) => links.some((l) => l.target === i))
   const opened = c.status === 'verified' || c.status === 'still_needed'
   const resolved = c.status === 'resolved'
   // 적용 가능한 문항 = 링크로 열 수 있는 전이 문항이 있으면 그 수, 없으면 풀 전체 수(옛 입력) — 계획량은 정본 「전이 2지문」을 넘지 않는다
-  const transfer = input.transferTargets?.[key] ? new Set(input.transferTargets[key].map(l => passageIdentity(l.target, l.passageKey)).filter(Boolean)).size : input.transferItems[key] ?? 0
+  const tt = transfersOf(t, input.transferTargets)
+  const transfer = tt.length || input.transferTargets?.[key] ? new Set(tt.map(l => passageIdentity(l.target, l.passageKey)).filter(Boolean)).size : input.transferItems[key] ?? 0
   return {
     check: opened || resolved
       ? { ready: false, count: null, blocked: resolved ? 'resolved' : null }
@@ -94,14 +107,13 @@ export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInpu
 function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
   const stages = stagesOf(t, input.asIs, input)
   const c = input.asIs.tasks[t.core[0]]?.check ?? null
-  const links = input.confirmLinks[t.content_keys[0]] ?? []
+  const links = linksOf(t, input.confirmLinks)
   // 다음 행동 — 확인 · 다시 확인이 열려 있으면 아직 안 본 확인 문항 하나
   const next = (stages.check.ready || stages.recheck.ready) && c ? links.find((l) => c.unseen.includes(l.target)) ?? null : null
   const blocked = new Set([...(c?.verifiedItems ?? []), ...(c?.wrongItems ?? [])])
-  const key = t.content_keys[0]
   const stageItems = {
     repair: links.filter((l) => blocked.has(l.target)),
-    transfer: [...(input.transferTargets?.[key] ?? [])],
+    transfer: transfersOf(t, input.transferTargets),
   }
   const rels = t.relations.map((id) => relationOf(id)).filter((r): r is NonNullable<typeof r> => !!r)
   return {

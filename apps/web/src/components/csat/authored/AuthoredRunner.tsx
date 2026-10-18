@@ -42,6 +42,8 @@ export interface AuthoredRunnerProps {
   returnHref: string
   /** TASK 이름(머리말) */
   taskLabel?: string
+  /** 서버가 기록한 열기 세션 id(FI-010) — 있으면 제출이 그 세션을 이어 쓴다 */
+  sessionId?: string
 }
 
 interface Binding { status: string; evidence?: boolean; reason?: string | null }
@@ -80,12 +82,11 @@ const STRUCT_ROLE_LABEL: Record<string, string> = { topic: '주제문', support:
 const STRUCT_PATTERN_LABEL: Record<string, string> = { myth_rebuttal: '통념-반박', general_specific: '일반-구체', problem_solution: '문제-해결', contrast: '대조', cause_effect: '인과', study_implication: '연구 소개-함의', request_letter: '화행 글', narrative: '서사', other: '기타' }
 const SEGMENT_REASON_LABEL: Record<string, string> = { main_subject: '문장의 주어', main_verb: '문장의 본동사', object: '목적어', complement: '보어', modifies_noun: '명사를 꾸밈', modifies_verb: '동사 · 문장을 꾸밈', clause_boundary: '절의 경계', phrase_boundary: '구의 경계', parallel_member: '병렬 요소', ellipsis_restored: '생략된 말', inserted_clause: '삽입절', inverted_order: '도치된 어순', subject_and_verb: '주어와 동사가 함께 든 덩어리', clause_internal: '종속절 안의 일부' }
 const MEANING_REL_LABEL: Record<string, string> = { synonym: '같은 뜻(동의어)', paraphrase: '같은 뜻(바꿔 말하기)', antonym: '반대 뜻', hypernym: 'A 가 더 넓은 말(상위어)', hyponym: 'A 가 더 좁은 말(하위어)', unrelated: '관계없음' }
-const DEMAND_LABEL: Record<string, string> = { wrong_operation: '다른 판단(연산)을 요구한다고 읽음', wrong_scope: '범위를 잘못 잡음', detail_focus: '세부에 묶임', wrong_unit: '판단 단위를 잘못 잡음', extra_condition: '없는 조건을 더함' }
 const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()
 
 export function AuthoredRunner(p: AuthoredRunnerProps) {
-  const [sessionId] = useState<string>(uuid)
+  const [sessionId] = useState<string>(() => p.sessionId ?? uuid())
   const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
   const [hintsOpen, setHintsOpen] = useState(0)
   // 형식 공통 응답 상태 — 형식마다 쓰는 칸이 다르다
@@ -106,7 +107,8 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [reveal, setReveal] = useState<Reveal | null>(p.done?.reveal ?? null)
   const [binding, setBinding] = useState<Binding | null>(null)
   const [rebinding, setRebinding] = useState(false)
-  const mutation = useRef<{ key: string; id: string } | null>(null)
+  // 같은 답의 재시도는 제출 id · 판단 시각을 그대로(FI-008 — 시각이 바뀌면 G2 가 같은 제출의 다른 본문으로 보고 conflict)
+  const mutation = useRef<{ key: string; id: string; at: string } | null>(null)
   const finished = !!reveal
   const lock = finished || busy
 
@@ -150,11 +152,11 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     setBusy(true); setError(null)
     const key = JSON.stringify(r)
     // 같은 답의 재시도만 같은 제출 id — 답이 바뀌면 새 id
-    if (!mutation.current || mutation.current.key !== key) mutation.current = { key, id: uuid() }
+    if (!mutation.current || mutation.current.key !== key) mutation.current = { key, id: uuid(), at: new Date().toISOString() }
     try {
       const res = await fetch(`/api/csat/authored/${p.id}/attempt`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ deliveryId: p.deliveryId, response: r, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: new Date().toISOString(), helpLevel: help }),
+        body: JSON.stringify({ deliveryId: p.deliveryId, response: r, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: mutation.current.at, helpLevel: help }),
       })
       const j = await res.json().catch(() => ({}))
       if (!res.ok) { setError(typeof j.error === 'string' ? j.error : '저장하지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }

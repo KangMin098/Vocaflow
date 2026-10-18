@@ -14,7 +14,7 @@ import p from './popup.module.css'
 import u from './unified.module.css'
 
 type Role = 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
-interface Row { ref: string; deliveryId: string; role: Role; deliveredAt: string; attempted: boolean; evidence: boolean | null }
+interface Row { ref: string; deliveryId: string; role: Role; deliveredAt: string; attempted: boolean; evidence: boolean | null; current?: boolean | null }
 type Listed = { status: 'loading' } | { status: 'not_installed' } | { status: 'error' } | { status: 'installed'; rows: Row[] }
 interface LineOut { role: Role; requested: number; delivered: string[]; rejected: { ref: string; reason: string }[]; orderOpened: boolean }
 
@@ -91,7 +91,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past }: { task: 
             <li key={r.deliveryId} data-role={r.role}>
               <Link href={`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>
               <span className={u.ledgerVal}>
-                {!r.attempted ? '아직 안 풂' : r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요'}
+                {r.current === false ? (r.attempted ? '승인 철회 · 지난 결과만 남음' : '승인 철회 · 지금은 열 수 없음') : !r.attempted ? '아직 안 풂' : r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요'}
               </span>
             </li>
           ))}

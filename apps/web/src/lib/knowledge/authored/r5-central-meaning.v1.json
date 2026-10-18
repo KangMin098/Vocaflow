@@ -9,7 +9,7 @@
     "createdAt": "2026-10-18",
     "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
     "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
-    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현."
+    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거."
   },
   "items": [
     {
@@ -291,7 +291,7 @@
           "The intention is good, but it may take away something valuable.",
           "Periods of boredom push children to invent their own games, stories, and projects.",
           "When nothing is provided, the mind starts to look for something to do, and that search is where creativity often begins.",
-          "In one study, children who first copied numbers from a list for fifteen minutes later came up with more original uses for a paper cup.",
+          "In one study, adults who first spent fifteen minutes copying numbers from a list later listed more uses for a paper cup than those who had not.",
           "A certain amount of unplanned, even dull, time is therefore something children need rather than something to be avoided."
         ],
         "stem": "다음 글의 요지로 가장 적절한 것은?",
@@ -332,7 +332,7 @@
           {
             "choice": 1,
             "design": "distorted",
-            "why": "실험(5번)의 결과를 창의성이 아닌 집중력으로 바꿨다."
+            "why": "실험(5번)의 결과(쓰임새를 더 많이 떠올림)를 집중력이 높아진 것으로 바꿨다."
           },
           {
             "choice": 3,

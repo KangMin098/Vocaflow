@@ -140,10 +140,12 @@ export async function requestAuthoredSupply(admin: SupabaseClient, learner: Supa
   const lines: LineOutcome[] = []
   for (const l of (ln.data ?? []) as { id: string; role: MaterialRole; task_id: string; quantity: number }[]) {
     const out: LineOutcome = { role: l.role, requested: l.quantity, delivered: [], rejected: [], orderOpened: false }
-    const have = await learner.from('workspace_content_delivery').select('artifact_ref').eq('line_id', l.id).eq('user_id', userId)
+    const have = await learner.from('workspace_content_delivery').select('id, artifact_ref').eq('line_id', l.id).eq('user_id', userId)
     if (have.error) throw new Error(`공급 조회 실패: ${have.error.message}`)
-    const already = new Set(((have.data ?? []) as { artifact_ref: string }[]).map((x) => x.artifact_ref))
-    out.delivered.push(...already)
+    // FI-007 — 현재 수요 충족은 **지금 유효한** 납품만(권리 · 승인 철회 · 자격 대체 뒤에는 부족분으로 다시 센다 · 과거 원장은 보존)
+    const haveRows = (have.data ?? []) as { artifact_ref: string; id?: string }[]
+    const already = new Set(haveRows.map((x) => x.artifact_ref))
+    for (const x of haveRows) if (x.id && (await currentOf(learner, x.id)) === true) out.delivered.push(x.artifact_ref)
     const stock = await authoredStock(admin, l.task_id, l.role)
     if (stock === 'not_installed') return { status: 'not_installed' }
     for (const s of stock) {
@@ -167,6 +169,13 @@ export async function requestAuthoredSupply(admin: SupabaseClient, learner: Supa
     lines.push(out)
   }
   return { status: 'ok', demandId, lines }
+}
+
+/** 학습자 본인 납품의 지금 유효성(workspace_delivery_current · FI-007). 함수가 없거나 실패하면 null(= 열지 않는다 · fail-closed) */
+export async function currentOf(learner: SupabaseClient, deliveryId: string): Promise<boolean | null> {
+  const r = await learner.rpc('workspace_delivery_current', { p_delivery: deliveryId })
+  if (r.error) return null
+  return r.data === true ? true : r.data === false ? false : null
 }
 
 // ── 납품 자료 열기 ────────────────────────────────────────────────────
@@ -193,6 +202,8 @@ export interface DeliveredView {
 export interface DeliveryChoice { deliveryId: string; role: AuthoredRole; deliveredAt: string }
 export type OpenResult =
   | { status: 'not_installed' } | { status: 'not_delivered' }
+  /** 납품은 있었지만 지금은 무효(권리 · Gold · 승인 철회 · 자격 대체) — 본문을 다시 내보내지 않는다. 과거 결과는 기록에 남아 있다(FI-007) */
+  | { status: 'revoked'; deliveryId: string }
   /** 같은 자료가 여러 학습 묶음 · 역할로 납품됐는데 어느 납품에서 시작했는지 모른다 — 추측하지 않고 고르게 한다(FI-001) */
   | { status: 'choose'; choices: DeliveryChoice[] }
   | { status: 'ok'; view: DeliveredView }
@@ -214,6 +225,7 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
   if (all.length === 0) return { status: 'not_delivered' }
   if (all.length > 1) return { status: 'choose', choices: all.map((x) => ({ deliveryId: x.id, role: x.role, deliveredAt: x.delivered_at })) }
   const delivery = all[0]
+  if ((await currentOf(learner, delivery.id)) !== true) return { status: 'revoked', deliveryId: delivery.id }
   const row = await loadRow(admin, ref)
   if (!row) return { status: 'not_delivered' }
   const { item } = itemOfRow(row)
@@ -323,6 +335,8 @@ export interface DeliveredRow {
   attempted: boolean
   /** 이 납품에 결속된 결과: true = 근거로 셈 · false = 연습/비근거 · null = 이 납품에는 결속 없음 */
   evidence: boolean | null
+  /** 지금 유효한가(FI-007) — false = 철회 · 대체로 지금은 열 수 없음(과거 결과는 남는다) · null = 판정 못 함 */
+  current: boolean | null
 }
 
 /** 이 학습자의 창작 납품 목록(납품 단위) — 지도 Workspace · 결과 화면이 같이 쓴다. 근거는 **그 납품에 결속된 행**만 본다(FI-001) */
@@ -341,5 +355,31 @@ export async function listDelivered(learner: SupabaseClient, userId: string, tas
   const attempted = new Set(((att.data ?? []) as { item_ref: string }[]).map((x) => x.item_ref))
   const ev = new Map<string, boolean>()
   if (!bind.error) for (const b of (bind.data ?? []) as { delivery_id: string; evidence: boolean }[]) ev.set(b.delivery_id, (ev.get(b.delivery_id) ?? false) || b.evidence)
-  return rows.map((r) => ({ ref: r.artifact_ref, deliveryId: r.id, role: r.role, deliveredAt: r.delivered_at, attempted: attempted.has(r.artifact_ref), evidence: ev.has(r.id) ? ev.get(r.id)! : null }))
+  const current = await Promise.all(rows.map((r) => currentOf(learner, r.id)))
+  return rows.map((r, i) => ({ ref: r.artifact_ref, deliveryId: r.id, role: r.role, deliveredAt: r.delivered_at, attempted: attempted.has(r.artifact_ref), evidence: ev.has(r.id) ? ev.get(r.id)! : null, current: current[i] }))
+}
+
+// ── 열기 세션(FI-010) ──────────────────────────────────────────────────
+
+/**
+ * 납품 자료 본문을 **열었다는 사실**을 노출 원장(learning_sessions · stage open)에 남긴다. 페이지를 열 때마다 새 세션이다 —
+ * 응답 없이 닫고 다른 페이지로 다시 열면, 앞 세션이 이미 본문을 공개한 기록이 되어 다음 제출은 첫 노출이 아니다(G2 결속 ⑥).
+ * 같은 페이지에서 낸 제출은 이 세션 id(clientSessionId)를 이어 쓴다. 기록 실패는 화면을 막지 않지만 null 을 돌려
+ * 화면이 제출에 쓸 세션을 새로 만들지 않게 한다(그 경우 서버 기록 경로가 세션을 만든다).
+ */
+export async function recordOpen(admin: SupabaseClient, user: { id: string; email: string | null }, view: DeliveredView, taskKey: string, sessionId: string, at: string): Promise<boolean> {
+  const shape = attemptShape(view.role)
+  const r = await admin.rpc('learning_session_apply', {
+    p_user: user.id, p_mutation: stableKey('authored-open', user.id, sessionId), p_client_session_id: sessionId,
+    p_activity: shape.activity, p_phase: shape.phase, p_item_ref: view.ref, p_stage: 'open', p_step: 0, p_steps: 1,
+    p_help_level: null, p_at: at, p_synthetic: isSyntheticEmail(user.email), p_task_key: taskKey, p_application_id: null,
+  })
+  if (r.error) { console.error('[authored open session]', r.error.message); return false }
+  return true
+}
+
+/** 열기 세션에 쓸 과제 키(DB 행) — 화면은 Gold 없이 과제 키만 알면 된다 */
+export async function taskKeyOf(admin: SupabaseClient, ref: string): Promise<string | null> {
+  const r = await admin.from('authored_item').select('task_key').eq('ref', ref).maybeSingle()
+  return r.error ? null : ((r.data as { task_key: string } | null)?.task_key ?? null)
 }

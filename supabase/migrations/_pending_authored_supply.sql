@@ -18,6 +18,8 @@
 --      · 현재 유효성(supply_delivery_valid)도 같은 조건으로 — 결정 철회 뒤에는 부족분으로 다시 센다(과거 공급 이력은 보존).
 --   4. 노출(G) · G2 결속에 authored_item 경로를 더한다(지문 묶음 = 노출 키). 결속 RPC 는 G2 원본 본문을 보존하고 산출물 종류 분기만 더한다.
 --
+-- 독립 검증 반영(2026-10-18 · #294~#299): 등록 TASK·역할 결속(FI-002) · 지문 정체성 = 정규화 본문 해시(FI-003) ·
+--   평가 역할 권리 assess 범위(FI-004) · 학습자 × 지문 정체성 동시 공급 직렬화(FI-006) · 학습자 본인 납품 현재 유효성 조회(FI-007).
 -- 기존 행: 없음(content_qualification 0행 · 2026-10-18 실측) — 백필 없음. 기존 표 열 삭제 없음.
 -- 중단: 창작 공급만 멈추려면 authored_item_register · content_human_decision_record 실행권 회수. 권리 결정 철회 = 그 산출물 현재 공급 무효.
 -- 되돌리기(이력 0행일 때만 · 별도 승인): docs/final/APPROVAL_PACKAGE.md §되돌리기. 행이 생긴 뒤에는 DROP 하지 않는다.
@@ -45,6 +47,8 @@ create table public.authored_item (
   role_class text not null check (role_class in ('instruction', 'assessment')),
   intended_role text not null check (intended_role in ('source_analysis','model_explanation','guided_practice','independent_check','transfer','delayed_check')),
   passage_group text not null check (passage_group ~ '^[a-z0-9][a-z0-9.-]{2,80}$'),
+  -- 지문 정체성(FI-003) — 그룹 이름이 아니라 정규화한 본문 문장의 해시. 등록 함수가 계산한다(호출자 값 불신)
+  passage_key text not null check (passage_key ~ '^[0-9a-f]{32}$'),
   body jsonb not null check (jsonb_typeof(body) = 'object' and jsonb_typeof(body->'sentences') = 'array'
                              and jsonb_array_length(body->'sentences') between 2 and 30),
   gold jsonb not null check (jsonb_typeof(gold) = 'object'),
@@ -59,6 +63,7 @@ create table public.authored_item (
   check (left(annotation_ref, length(task_key) + 1) = task_key || '-')
 );
 create index authored_item_group on public.authored_item (passage_group);
+create index authored_item_passage_key on public.authored_item (passage_key);
 create trigger authored_item_append_only before update or delete on public.authored_item
   for each row execute function public.forbid_ledger_mutation();
 create trigger authored_item_writer before insert on public.authored_item
@@ -94,12 +99,15 @@ create function public.authored_item_register(
   p_ref text, p_task text, p_task_key text, p_role_class text, p_intended_role text, p_group text,
   p_body jsonb, p_gold jsonb, p_annotation_ref text, p_provenance jsonb)
 returns text language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
-declare prev record;
+declare prev record; v_key text;
 begin
   if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
   perform set_config('vocaflow.supply_writer', 'rpc', true);
-  -- 같은 지문 묶음 등록을 직렬화(역할군 혼합 검사의 경합 방지)
+  -- FI-003 — 지문 정체성: 문장을 이어 소문자 · 공백 정규화한 본문의 md5. 그룹 이름만 바꿔 같은 본문을 새 지문으로 둘 수 없다
+  v_key := md5(btrim(regexp_replace(lower(array_to_string(array(select jsonb_array_elements_text(p_body->'sentences')), ' ')), '\s+', ' ', 'g')));
+  -- 같은 지문 묶음 · 같은 본문 등록을 직렬화(역할군 혼합 검사의 경합 방지)
   perform pg_advisory_xact_lock(hashtextextended('authored-group|' || coalesce(p_group, ''), 0));
+  perform pg_advisory_xact_lock(hashtextextended('authored-passage|' || v_key, 0));
   select * into prev from authored_item where ref = p_ref;
   if found then
     if (prev.task_id, prev.task_key, prev.role_class, prev.intended_role, prev.passage_group, prev.body, prev.gold, prev.annotation_ref)
@@ -111,8 +119,11 @@ begin
   if exists (select 1 from authored_item a where a.passage_group = p_group and a.role_class <> p_role_class) then
     raise exception 'authored: passage group % mixes instruction and assessment', p_group;
   end if;
-  insert into authored_item (ref, task_id, task_key, role_class, intended_role, passage_group, body, gold, annotation_ref, provenance, created_by)
-  values (p_ref, p_task, p_task_key, p_role_class, p_intended_role, p_group, p_body, p_gold, p_annotation_ref, p_provenance, auth.uid());
+  if exists (select 1 from authored_item a where a.passage_key = v_key and a.role_class <> p_role_class) then
+    raise exception 'authored: same passage body already registered with a different role class (instruction/assessment)';
+  end if;
+  insert into authored_item (ref, task_id, task_key, role_class, intended_role, passage_group, passage_key, body, gold, annotation_ref, provenance, created_by)
+  values (p_ref, p_task, p_task_key, p_role_class, p_intended_role, p_group, v_key, p_body, p_gold, p_annotation_ref, p_provenance, auth.uid());
   return p_ref;
 end $$;
 revoke all on function public.authored_item_register(text,text,text,text,text,text,jsonb,jsonb,text,jsonb) from public, anon;
@@ -248,7 +259,7 @@ revoke all on function public.supply_artifact_revision(text, text) from public, 
 create function public.authored_group_refs(p_ref text)
 returns text[] language sql stable security definer set search_path to 'public', 'pg_temp' as $$
   select coalesce(array_agg(b.ref order by b.ref), array[p_ref])
-  from public.authored_item a join public.authored_item b on b.passage_group = a.passage_group
+  from public.authored_item a join public.authored_item b on (b.passage_group = a.passage_group or b.passage_key = a.passage_key)
   where a.ref = p_ref
 $$;
 revoke all on function public.authored_group_refs(text) from public, anon, authenticated;
@@ -290,6 +301,8 @@ returns boolean language sql stable security definer set search_path to 'public'
   select case
     when q.artifact_kind = 'authored_item' then exists (
       select 1 from public.authored_item a where a.ref = q.artifact_ref
+        -- FI-002 — 자격 · 공급의 TASK · 역할은 불변 등록의 TASK · 의도 역할과 같아야 한다(교수 자료의 평가 재자격화 · 다른 TASK 혼입 금지)
+        and a.task_id = q.task_id and a.intended_role = q.role
         and a.annotation_ref = q.annotation_ref
         and public.authored_item_gold_hash(a.ref) = q.annotation_hash
         and (q.gold_hash is null or q.gold_hash = q.annotation_hash))
@@ -298,12 +311,14 @@ returns boolean language sql stable security definer set search_path to 'public'
 $$;
 revoke all on function public.supply_annotation_matches(uuid) from public, anon, authenticated;
 
-/** 사람 결정 조건 — 권리(모든 종류 · display+transmit) · 평가 역할 authored_item 은 사람 Gold(assess) */
+/** 사람 결정 조건 — 권리(모든 종류 · display+transmit, 평가 역할은 + assess) · 평가 역할 authored_item 은 사람 Gold(assess) */
 create function public.supply_human_decisions_ok(p_qualification uuid)
 returns boolean language sql stable security definer set search_path to 'public', 'pg_temp' as $$
   select exists (
     select 1 from public.content_qualification q where q.id = p_qualification
-      and public.content_human_decision_ok('rights', q.artifact_kind, q.artifact_ref, q.artifact_revision, q.artifact_revision, array['display','transmit'])
+      -- FI-004 — 평가 역할은 저작물의 평가 이용 권한(assess)까지. Gold 의 평가 타당성 승인과 별개다
+      and public.content_human_decision_ok('rights', q.artifact_kind, q.artifact_ref, q.artifact_revision, q.artifact_revision,
+            case when q.role in ('independent_check','transfer','delayed_check') then array['display','transmit','assess'] else array['display','transmit'] end)
       and (q.artifact_kind <> 'authored_item' or q.role not in ('independent_check','transfer','delayed_check')
            or (q.gold_hash is not null
                and public.content_human_decision_ok('gold', q.artifact_kind, q.artifact_ref, q.artifact_revision, q.gold_hash, array['assess']))))
@@ -325,6 +340,9 @@ begin
   end if;
   select * into q from public.content_qualification where id = p_qualification for share;
   if not found then raise exception 'delivery: qualification identity mismatch'; end if;
+  -- FI-006 — 같은 학습자 · 같은 지문 정체성의 공급을 직렬화한다. 앞선 공급이 커밋된 뒤에 노출(G)을 다시 판정해야
+  --   서로 다른 Workspace · 수요 줄로 동시에 들어온 두 공급이 모두 「미노출」로 통과하지 않는다(수요 줄 잠금만으로는 부족)
+  perform pg_advisory_xact_lock(hashtextextended('supply-exposure|' || auth.uid()::text || '|' || public.r5_exposure_key(q.artifact_kind, q.artifact_ref), 0));
   if q.artifact_kind = 'authored_item' then
     perform 1 from public.authored_item where ref = q.artifact_ref for share;
     if public.supply_annotation_matches(q.id) is not true then raise exception 'delivery: authored gold differs from qualification'; end if;
@@ -350,6 +368,24 @@ returns boolean language sql stable security definer set search_path to 'public'
       and public.supply_human_decisions_ok(d.qualification_id) is true)
 $$;
 revoke all on function public.supply_delivery_valid(uuid) from public, anon, authenticated;
+-- FI-007 · FI-011 — 서버(service_role)가 지도 · 공급 계산에서 납품의 **지금** 유효성을 읽는다(읽기 전용 판정 · 학습자 실행권은 계속 없음)
+do $$ begin
+  if exists (select 1 from pg_roles where rolname = 'service_role') then
+    execute 'grant execute on function public.supply_delivery_valid(uuid) to service_role';
+  end if;
+end $$;
+
+/**
+ * FI-007 — 학습자 본인 납품의 **지금** 유효성(권리 · Gold 철회 · 자격 대체 · 승인 철회 · revision 변경 반영).
+ * 과거 납품 · 수행 원장은 그대로 두고, 앱은 이 값으로 본문 제공 · 현재 수요 충족량 · 목록 상태를 정한다. 남의 납품은 null.
+ */
+create function public.workspace_delivery_current(p_delivery uuid)
+returns boolean language sql stable security definer set search_path to 'public', 'pg_temp' as $$
+  select case when exists (select 1 from public.workspace_content_delivery d where d.id = p_delivery and d.user_id = auth.uid())
+              then public.supply_delivery_valid(p_delivery) is true end
+$$;
+revoke all on function public.workspace_delivery_current(uuid) from public, anon;
+grant execute on function public.workspace_delivery_current(uuid) to authenticated;
 
 -- ── 5. 노출 키 · G2 결속에 창작 경로 ────────────────────────────────────
 create or replace function public.r5_exposure_key(p_kind text, p_ref text)
@@ -357,7 +393,7 @@ returns text language sql stable security definer set search_path to 'public', '
   select coalesce(
     (select 'passage:' || md5(btrim(regexp_replace(lower(c.passage), '\s+', ' ', 'g')))
        from public.csat_items c where p_kind = 'csat_item' and c.id = p_ref and c.passage is not null),
-    (select 'passage:authored:' || a.passage_group from public.authored_item a where p_kind = 'authored_item' and a.ref = p_ref),
+    (select 'passage:authored:' || a.passage_key from public.authored_item a where p_kind = 'authored_item' and a.ref = p_ref),
     'item:' || p_kind || ':' || p_ref)
 $$;
 revoke all on function public.r5_exposure_key(text, text) from public, anon, authenticated;
@@ -512,7 +548,7 @@ begin
   if v_bad is not null then raise exception 'authored supply verify: internal function exposed %', v_bad; end if;
   select array_agg(p.proname::text) into v_bad from pg_proc p
   where p.pronamespace = 'public'::regnamespace and p.proname in ('authored_item_register','content_human_decision_record','content_human_decision_revoke',
-    'workspace_delivery_record','workspace_delivery_attempt_record')
+    'workspace_delivery_record','workspace_delivery_attempt_record','workspace_delivery_current')
     and has_function_privilege('anon', p.oid, 'EXECUTE');
   if v_bad is not null then raise exception 'authored supply verify: anon can execute %', v_bad; end if;
 end $$;

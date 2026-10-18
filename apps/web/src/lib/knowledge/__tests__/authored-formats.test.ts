@@ -161,3 +161,26 @@ describe('equivalence(v.semantic_relation)', () => {
     expect(FORMAT_SPECS.equivalence.grade(body, gold, { same: 'no', relation: 'antonym' }, 'v1')).toBeNull()
   })
 })
+
+describe('FI-012(#305) — 동등한 대체 결정 근거', () => {
+  // Codex 반례: 1 「closes at six」 · 2 「closing time is 6 p.m.」 · 3 무관. 1·2 는 같은 사실을 따로 진술한다
+  const body = { format: 'choice_evidence', sentences: ['The reading room closes at six in the evening.', 'Its closing time is 6 p.m.', 'Books can be returned in a box.'], stem: 'q', choices: ['a', 'b', 'c', 'd', 'e'] }
+  const gold = { answer: 1, decisive: 0, evidence: [0], evidenceAlt: [1], decisiveAlt: [[1]], rationale: '1번과 2번이 각각 닫는 시간을 직접 진술한다', distractors: D4(1) }
+  const g = (r: unknown) => FORMAT_SPECS.choice_evidence.grade(body, gold, r, 'v1')
+  it('대체 결정 근거만 골라도 정답 · 대표 근거만 · 둘 다도 정답', () => {
+    expect(FORMAT_SPECS.choice_evidence.validate(body, gold)).toEqual([])
+    expect(g({ choice: 1, evidence: [1] })?.grade).toMatchObject({ isCorrect: true, decisiveOk: true })
+    expect(g({ choice: 1, evidence: [0] })?.grade.isCorrect).toBe(true)
+    expect(g({ choice: 1, evidence: [0, 1] })?.grade.isCorrect).toBe(true)
+  })
+  it('Gold 에 대체 집합이 없으면 보조 단서만 고른 응답은 계속 오답(완화 아님)', () => {
+    const noAlt = { ...gold, decisiveAlt: undefined }
+    expect(FORMAT_SPECS.choice_evidence.grade(body, noAlt, { choice: 1, evidence: [1] }, 'v1')?.grade).toMatchObject({ isCorrect: false, decisiveOk: false })
+  })
+  it('여러 문장이 함께 필요한 대체 집합은 일부만 고르면 오답 · 범주 밖 대체 집합은 검증 위반', () => {
+    const multi = { ...gold, evidenceAlt: [1, 2], decisiveAlt: [[1, 2]] }
+    expect(FORMAT_SPECS.choice_evidence.grade(body, multi, { choice: 1, evidence: [1] }, 'v1')?.grade.isCorrect).toBe(false)
+    expect(FORMAT_SPECS.choice_evidence.grade(body, multi, { choice: 1, evidence: [1, 2] }, 'v1')?.grade.isCorrect).toBe(true)
+    expect(FORMAT_SPECS.choice_evidence.validate(body, { ...gold, evidenceAlt: [], decisiveAlt: [[2]] }).join()).toMatch(/대체 결정 근거/)
+  })
+})

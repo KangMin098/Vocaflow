@@ -39,41 +39,77 @@
           {
             "step": "밑줄 문장의 짝 찾기",
             "text": "밑줄은 5번 문장 'Measuring such a building by its loans is like ...'의 비유다. 'A is like B' 구조에서 B(공원을 표 판매량으로 평가)는 A(도서관을 대출 수로 측정)를 다시 그린 그림이다. 공원은 원래 표를 팔아 가치를 만드는 곳이 아니다.",
-            "sentences": [4]
+            "sentences": [
+              4
+            ]
           },
           {
             "step": "필자가 그 측정을 어떻게 보나",
             "text": "2–4번은 대출은 줄어도 사람들이 쉼터·수업·머물 곳으로 도서관을 쓴다고 말한다. 즉 대출 수는 도서관이 하는 일의 일부만 센다. 비유는 '본래 하는 일과 어긋난 좁은 지표로 가치를 재는 잘못'을 가리킨다.",
-            "sentences": [1, 2, 3]
+            "sentences": [
+              1,
+              2,
+              3
+            ]
           },
           {
             "step": "결정 문장으로 확인",
             "text": "6번 '도서관이 주는 것은 대출 기록에서 찾을 수 없다'가 비유의 뜻을 비유 없이 풀어 준다. 이 문장이 답을 정하는 결정 근거다.",
-            "sentences": [5]
+            "sentences": [
+              5
+            ]
           },
           {
             "step": "정답 설계",
             "text": "정답 ②는 '공원'·'표'라는 표면을 버리고 '좁은 수치가 실제로 주는 것을 놓친다'는 기능만 바꿔 썼다. 함축 의미 문항의 정답은 비유 속 낱말을 거의 쓰지 않는다.",
-            "sentences": [4, 5]
+            "sentences": [
+              4,
+              5
+            ]
           },
           {
             "step": "오답 설계",
             "text": "① '표를 판다'를 글자 그대로 요금 부과로 읽은 함정이다. ④ 입장객 세기라는 표면 그림을 옮겼다. ③ 예산은 글에 없다. ⑤ 공원은 비유 재료일 뿐 비교 대상이 아니다.",
-            "sentences": [4]
+            "sentences": [
+              4
+            ]
           }
         ]
       },
       "gold": {
         "answer": 1,
         "decisive": 5,
-        "evidence": [4, 5],
-        "evidenceAlt": [1, 2, 3],
+        "evidence": [
+          4,
+          5
+        ],
+        "evidenceAlt": [
+          1,
+          2,
+          3
+        ],
         "rationale": "대출 수는 도서관이 주는 쉼터·배움·머무를 곳이라는 실제 가치를 담지 못하는 좁은 지표라는 뜻이다(6번이 직접 풀어 준다).",
         "distractors": [
-          { "choice": 0, "design": "distorted", "why": "'표를 판다'를 글자 그대로 요금 부과로 읽었다." },
-          { "choice": 2, "design": "off_text", "why": "예산·지원금 이야기는 글에 나오지 않는다." },
-          { "choice": 3, "design": "too_narrow", "why": "입장객을 센다는 비유의 표면 그림만 옮겼다." },
-          { "choice": 4, "design": "distorted", "why": "공원은 비유의 재료일 뿐, 필자는 도서관과 공원을 비교하지 않는다." }
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "'표를 판다'를 글자 그대로 요금 부과로 읽었다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "예산·지원금 이야기는 글에 나오지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "입장객을 센다는 비유의 표면 그림만 옮겼다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "공원은 비유의 재료일 뿐, 필자는 도서관과 공원을 비교하지 않는다."
+          }
         ]
       }
     },
@@ -108,14 +144,41 @@
       "gold": {
         "answer": 3,
         "decisive": 5,
-        "evidence": [3, 5],
-        "evidenceAlt": [2, 4],
-        "rationale": "점수판(통화 수치)은 계속 좋아지는데 경기장(실제 고객 문제 해결)은 그렇지 않다 — 서류상 성과가 나아지지 않는 실제 업무를 가린다는 뜻이다(4·6번).",
+        "evidence": [
+          3,
+          5
+        ],
+        "evidenceAlt": [
+          2,
+          4
+        ],
+        "rationale": "점수판(통화 수치)은 계속 좋아지는데 경기장(실제 고객 문제 해결)은 그렇지 않다 — 서류상 성과가 나아지지 않는 실제 업무를 가린다는 뜻이다(4·6번). 4번(수치는 좋아지는데 고객 문제는 그대로)만으로도 같은 결론이 정해지므로 대체 결정 근거로 인정한다.",
         "distractors": [
-          { "choice": 0, "design": "distorted", "why": "'game'을 글자 그대로 직원 간 경쟁으로 읽었다 — 글은 수치와 실제의 괴리를 말한다." },
-          { "choice": 1, "design": "reversed", "why": "관리자는 오히려 수치를 보고 기뻐한다(2번)." },
-          { "choice": 2, "design": "off_text", "why": "고객과 직원의 평가 기준 차이는 글에 없다." },
-          { "choice": 4, "design": "distorted", "why": "'game'을 일이 놀이처럼 즐거워진다는 뜻으로 바꿔 읽었다 — 직원들은 수치만 맞추는 요령을 익혔을 뿐이다(3번)." }
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "'game'을 글자 그대로 직원 간 경쟁으로 읽었다 — 글은 수치와 실제의 괴리를 말한다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "관리자는 오히려 수치를 보고 기뻐한다(2번)."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "고객과 직원의 평가 기준 차이는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "'game'을 일이 놀이처럼 즐거워진다는 뜻으로 바꿔 읽었다 — 직원들은 수치만 맞추는 요령을 익혔을 뿐이다(3번)."
+          }
+        ],
+        "decisiveAlt": [
+          [
+            3
+          ]
         ]
       }
     },
@@ -145,14 +208,36 @@
       "gold": {
         "answer": 0,
         "decisive": 2,
-        "evidence": [2, 3],
-        "evidenceAlt": [4, 5],
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          4,
+          5
+        ],
         "rationale": "한 문제에 너무 깊이 빠져 바로 옆 분야의 도움이 될 발견을 알아채지 못하게 된다는 뜻이다(3번이 직접 말하고 4번이 예를 든다).",
         "distractors": [
-          { "choice": 1, "design": "distorted", "why": "'깊이 판다'를 지칠 때까지 한다는 뜻으로 읽었다 — 의욕 소진은 글에 없다." },
-          { "choice": 2, "design": "distorted", "why": "필자는 좁은 질문 자체는 장점이 있다고 한다(2번) — 문제는 질문의 크기가 아니라 바깥을 못 보는 것이다." },
-          { "choice": 3, "design": "reversed", "why": "이 연구자는 주제를 자주 바꾸는 것이 아니라 한 곳에 너무 오래 머문다." },
-          { "choice": 4, "design": "reversed", "why": "그는 다른 분야의 결과에 기대기는커녕 읽지도 않는다(4번)." }
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'깊이 판다'를 지칠 때까지 한다는 뜻으로 읽었다 — 의욕 소진은 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "필자는 좁은 질문 자체는 장점이 있다고 한다(2번) — 문제는 질문의 크기가 아니라 바깥을 못 보는 것이다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "이 연구자는 주제를 자주 바꾸는 것이 아니라 한 곳에 너무 오래 머문다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "그는 다른 분야의 결과에 기대기는커녕 읽지도 않는다(4번)."
+          }
         ]
       }
     },
@@ -182,14 +267,36 @@
       "gold": {
         "answer": 4,
         "decisive": 3,
-        "evidence": [2, 3],
-        "evidenceAlt": [4, 5],
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          4,
+          5
+        ],
         "rationale": "식료품점이 사라지자 사람들이 다른 볼일도 밖에서 보게 되고 약국·카페가 차례로 문을 닫았다 — 이 가게가 다른 지역 활동들을 붙잡아 두던 중심이었다는 뜻이다(4번).",
         "distractors": [
-          { "choice": 0, "design": "reversed", "why": "의존의 방향을 뒤집었다 — 약국·카페가 식료품점 손님에 기댔다(4번)." },
-          { "choice": 1, "design": "distorted", "why": "'여러 실'을 한 가게의 여러 상품으로 글자 그대로 읽었다 — 글의 실은 다른 가게·활동이다." },
-          { "choice": 2, "design": "reversed", "why": "약국·카페는 경쟁자가 아니라 식료품점 덕에 살던 가게다(4번)." },
-          { "choice": 3, "design": "off_text", "why": "수익 규모는 글에 나오지 않는다." }
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "의존의 방향을 뒤집었다 — 약국·카페가 식료품점 손님에 기댔다(4번)."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'여러 실'을 한 가게의 여러 상품으로 글자 그대로 읽었다 — 글의 실은 다른 가게·활동이다."
+          },
+          {
+            "choice": 2,
+            "design": "reversed",
+            "why": "약국·카페는 경쟁자가 아니라 식료품점 덕에 살던 가게다(4번)."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "수익 규모는 글에 나오지 않는다."
+          }
         ]
       }
     },
@@ -219,14 +326,37 @@
       "gold": {
         "answer": 2,
         "decisive": 4,
-        "evidence": [1, 4],
-        "evidenceAlt": [2, 3, 5],
+        "evidence": [
+          1,
+          4
+        ],
+        "evidenceAlt": [
+          2,
+          3,
+          5
+        ],
         "rationale": "같은 커피라도 용기가 다르면 평가가 갈렸고(2·4번), 용기를 똑같이 하고 눈을 가리자 선호가 사라졌다(5번). 글은 비교 방법을 말하지 않지만, 공정한 맛 비교에는 용기를 같게 해야 한다는 함의를 이끌어 낼 수 있다.",
         "distractors": [
-          { "choice": 0, "design": "off_text", "why": "온도는 글에 나오지 않으며, 같은 잔 조건에서 차이가 사라진 것은 겉모습 때문으로 읽힌다." },
-          { "choice": 1, "design": "off_text", "why": "종이컵을 고른 사람의 감각에 대한 정보는 글에 없다." },
-          { "choice": 3, "design": "distorted", "why": "눈을 가리자 '두 잔 사이의 선호'가 사라졌을 뿐인데, 음료 자체를 구별 못 한다로 과장했다(5번)." },
-          { "choice": 4, "design": "reversed", "why": "글은 비싼 병이 '좋다고 느끼게' 할 뿐이라는 쪽이다 — 실제 품질 차이를 말하지 않는다(6번)." }
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "온도는 글에 나오지 않으며, 같은 잔 조건에서 차이가 사라진 것은 겉모습 때문으로 읽힌다."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "종이컵을 고른 사람의 감각에 대한 정보는 글에 없다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "눈을 가리자 '두 잔 사이의 선호'가 사라졌을 뿐인데, 음료 자체를 구별 못 한다로 과장했다(5번)."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "글은 비싼 병이 '좋다고 느끼게' 할 뿐이라는 쪽이다 — 실제 품질 차이를 말하지 않는다(6번)."
+          }
         ]
       }
     },
@@ -256,14 +386,37 @@
       "gold": {
         "answer": 3,
         "decisive": 2,
-        "evidence": [2, 3],
-        "evidenceAlt": [1, 4, 5],
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4,
+          5
+        ],
         "rationale": "다시 읽기는 익숙하다는 편안한 느낌(창을 닦음)만 줄 뿐, 책 없이 생각을 떠올려 쓰게(창을 엶) 해 주지는 못한다는 뜻이다(3·4번).",
         "distractors": [
-          { "choice": 0, "design": "off_text", "why": "흥미 감소는 글에 나오지 않는다." },
-          { "choice": 1, "design": "reversed", "why": "필자는 매끄럽게 읽히는 느낌이 실제 이해가 아니라고 한다 — '창을 닦는다'를 이해가 맑아진다로 뒤집어 읽은 함정이다." },
-          { "choice": 2, "design": "off_text", "why": "공부 방법별 소요 시간 비교는 없다." },
-          { "choice": 4, "design": "reversed", "why": "책을 덮고 설명을 요구받으면 오히려 막힌다(4번)." }
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "흥미 감소는 글에 나오지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "필자는 매끄럽게 읽히는 느낌이 실제 이해가 아니라고 한다 — '창을 닦는다'를 이해가 맑아진다로 뒤집어 읽은 함정이다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "공부 방법별 소요 시간 비교는 없다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "책을 덮고 설명을 요구받으면 오히려 막힌다(4번)."
+          }
         ]
       }
     }

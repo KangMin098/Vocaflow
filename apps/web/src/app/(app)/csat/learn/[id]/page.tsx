@@ -13,7 +13,9 @@ import { CsatShell } from '@/components/csat/home/CsatShell'
 import { AuthoredRunner } from '@/components/csat/authored/AuthoredRunner'
 import { AUTHORED_ROLE_LABEL as ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
-import { openDelivered } from '@/lib/csat/authored/server'
+import { randomUUID } from 'node:crypto'
+
+import { openDelivered, recordOpen, taskKeyOf } from '@/lib/csat/authored/server'
 import { AUTHORED_TASK_LABEL } from '@/lib/knowledge/authored/tasks'
 import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -59,9 +61,11 @@ export default async function LearnPage({ params, searchParams }: { params: { id
       <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
         <div className={styles.page}>
           <header className={styles.head}>
-            <h1>{opened.status === 'not_installed' ? '자료 공급을 준비하고 있어요' : '아직 받지 않은 자료예요'}</h1>
+            <h1>{opened.status === 'not_installed' ? '자료 공급을 준비하고 있어요' : opened.status === 'revoked' ? '지금은 열 수 없는 자료예요' : '아직 받지 않은 자료예요'}</h1>
             <p className={styles.why}>
-              {opened.status === 'not_installed'
+              {opened.status === 'revoked'
+                ? '이 자료의 이용 승인이 철회되거나 바뀌었어요. 앞서 푼 결과는 기록에 그대로 남아 있고, 학습 지도에서 다른 자료를 받을 수 있어요.'
+                : opened.status === 'not_installed'
                 ? '검수와 승인이 끝난 자료만 학습 지도에서 받을 수 있어요. 지금은 승인된 자료가 없어요.'
                 : '학습 지도의 학습 묶음에서 「자료 받기」를 누르면, 나에게 맞는 자료가 이곳에 열려요.'}
             </p>
@@ -72,11 +76,16 @@ export default async function LearnPage({ params, searchParams }: { params: { id
     )
   }
   const v = opened.view
+  // FI-010 — 본문을 연 사실을 노출 원장에 남기고, 이 페이지의 제출은 같은 세션 id 를 쓴다(다른 페이지로 다시 열면 첫 노출이 아니다)
+  const sessionId = randomUUID()
+  const taskKey = await taskKeyOf(createAdminClient() as unknown as SupabaseClient, v.ref)
+  const opened2 = !v.done && taskKey ? await recordOpen(createAdminClient() as unknown as SupabaseClient, { id: user.id, email: user.email ?? null }, v, taskKey, sessionId, new Date().toISOString()) : false
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
         id={params.id} deliveryId={v.deliveryId} role={v.role as never} format={v.format} sentences={v.sentences} stem={v.stem} choices={v.choices}
         teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
+        sessionId={opened2 ? sessionId : undefined}
       />
     </CsatShell>
   )

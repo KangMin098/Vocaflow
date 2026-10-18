@@ -234,6 +234,12 @@ jobs:
           psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f supabase/_all_migrations/_pending_authored_supply.sql
           node scripts/ci/authored-isolated-seed.mjs --commit
 
+      # FI-006(#298) — 보류 창작 공급 SQL 의 동시 공급 직렬화를 **실제 PostgreSQL 17 두 연결**로(임시 클러스터 · 러너 안에서 폐기)
+      - name: 격리 전용 — 창작 공급 동시성(실제 Postgres)
+        run: |
+          mkdir -p /tmp/pgconc && cd /tmp/pgconc && npm init -y >/dev/null && npm i --silent embedded-postgres@17.10.0-beta.17 pg@8.13.1
+          cd "$GITHUB_WORKSPACE" && node scripts/csat/map/v62/authored-concurrency.mjs --deps /tmp/pgconc
+
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기

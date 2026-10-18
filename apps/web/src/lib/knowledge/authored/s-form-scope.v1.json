@@ -9,7 +9,8 @@
     "derivedFrom": [],
     "createdAt": "2026-10-18",
     "humanGold": "pending — 사람 Gold 확정 전",
-    "rights": "pending — 사람 원저작 확인 전"
+    "rights": "pending — 사람 원저작 확인 전",
+    "revisionNote": " · FI-013(#306): gs-transfer-1 의 단수 선행사(the simple irrigation ditch)를 없애 its 의 다른 해석을 막음 — 첫 밑줄 is → are."
   },
   "items": [
     {
@@ -313,8 +314,8 @@
       "body": {
         "format": "form_scope",
         "sentences": [
-          "Among the oldest tools of agriculture is the simple irrigation ditch.",
-          "The rivers that wind through the valley and feed its many small farms have shifted its course several times over the past century.",
+          "Among the oldest tools of farmers in the valley are irrigation ditches.",
+          "The rivers that feed these ditches and water the surrounding fields have shifted its course several times over the past century.",
           "Only after a severe flood did the farmers begin to record the water levels each spring.",
           "These records, kept in a village office for decades, now allow engineers to predict floods.",
           "Rarely does a community's careful habit prove so valuable to people living generations later."
@@ -323,7 +324,7 @@
         "marks": [
           {
             "sentence": 0,
-            "text": "is"
+            "text": "are"
           },
           {
             "sentence": 1,
@@ -349,12 +350,12 @@
         "correction": "their course",
         "marks": [
           {
-            "reason": "agreement",
-            "why": "부사구가 앞으로 나간 도치 문장으로, 진짜 주어 the simple irrigation ditch 가 단수라 is 가 맞다."
+            "reason": "inversion",
+            "why": "장소 부사구가 앞으로 나간 도치 문장으로, 진짜 주어 irrigation ditches 가 복수라 are 가 맞다."
           },
           {
             "reason": "pronoun_reference",
-            "why": "바꾼 물길의 주인은 긴 관계절 앞의 복수 주어 The rivers 이므로 its 가 아니라 their 여야 한다."
+            "why": "바꾼 물길의 주인은 관계절 앞의 복수 주어 The rivers 이고, 앞 문장들에도 its 가 받을 단수 명사가 없다 — its 가 아니라 their 여야 한다."
           },
           {
             "reason": "inversion",
