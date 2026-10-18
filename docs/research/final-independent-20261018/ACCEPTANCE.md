@@ -3,7 +3,7 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT · 기준 main **c3a03d1680c1b064598fdc1ab319b645f370e68c**.
 
-**현재 전체 수용 상태: REWORK. 최종 임무는 진행 중이다.** FI-001 핵심 P2가 재현됐고, 실제 적격 공급·독립 전이·납품 G2 결속은 개발 DB에 아직 없다. 사람 Gold·권리는 별도의 BLOCKED_EXTERNAL 조건이다. R5 또는 개별 코드 PR 수용을 전체 완료로 확대하지 않는다.
+**현재 전체 수용 상태: REWORK. 최종 임무는 진행 중이다.** main 기준선은 아래와 같으며 PR303의 FI-001 명시 납품/복구와 FI-009 문장 번호 개선은 별도 후보 검증으로 인정했다. 최신 검토 후보3c15ba23c는17 TASK105초안/10형식이며 핵심 무결성·루브릭·환류 결함과 필수 CI 실패가 남는다. 실제 개발 DB의 마지막 READ ONLY 관찰에서는 적격 공급·납품 G2 결속 근거가0이다. 사람 Gold·권리는 별도의 BLOCKED_EXTERNAL 조건이다. R5/코드/AI 판독을 전체 완료로 확대하지 않는다.
 
 ## A~H의 의미와 판정
 
@@ -16,9 +16,9 @@
 | C 개인화 학습지도 | PARTIAL | v4/to-be·plan·workspace, v62/rank·coverage, [T1](../lm-g1-1-independent/ACCEPTANCE.md)·[T2](../lm-g1-2-independent/ACCEPTANCE.md). 운영 시도량과 도달 근거 구분. [현재 정의 30 TASK](./task-support.json): live 표기5/ready2/content_needed14/blocked9는 메타데이터이며 실제 지원 보증이 아니다. |
 | D 기출 출제 원리 학습 | PARTIAL | 기출 theater·reasoning·learner-guide 경로 및 [기존 R5 화면 증거](../r5-e2e-20261018/). 측정 의도·주장/근거/관계·정오답·자기 설명의 연결을 재사용. 전체 원리의 교수 타당성과 대체 정답 처리는 완료 아님. [2020#24 Gold 쟁점](../r5-2020-24-review-packet-20261018/AI-VERIFICATION.md)은 유지. |
 | E 적합한 학습 콘텐츠 공급 | BLOCKED_EXTERNAL | DB-1/2/I2/G2 설치 이력 SHA를 로컬 파일과 대조. [현재 DB](./db-baseline.json)의 자격·승인·등록부·수요·주문·납품 전부0. 사람 Gold·권리 근거 미승인. active application은 FQ가 아니다. 새로운 창작물도 기출로 가장하거나 Gold/권리를 자동 충족했다고 볼 수 없다. |
-| F 실제 학습 실행 | PARTIAL | Workspace·기출/연습·G2 writer와 [기존 T2](../lm-g1-2-independent/ACCEPTANCE.md)·[#289 상태](../r5-screen-states-20261018/STATES.md) 재사용. 실제 적격 공급을 받은 실행은 아직0. FI-001은 Workspace 정체성 보존을 깨뜨린다. |
+| F 실제 학습 실행 | PARTIAL | Workspace·기출/연습·G2 writer와 [기존 T2](../lm-g1-2-independent/ACCEPTANCE.md)·[#289 상태](../r5-screen-states-20261018/STATES.md) 재사용. 실제 개발 DB의 적격 공급 실행은 아직0. PR303에서 명시 납품/복구26건과 e913 격리 브라우저 경로/결속 개선을 확인했으나 FI-007/010 및 전체 수행 수용은 남는다. |
 | G 독립 전이 | PARTIAL | prior-help·노출 원장·revision/annotation·역할 계약 및 [#285 독립 경계](../r5-285-independent-20261017/ACCEPTANCE.md) 재사용. 연습/도움/같은 지문을 독립 전이로 승격하지 않는 범위를 검증했다. 실제 적격 미노출 전이와 지연 효과는 미검증. |
-| H 증거 기반 환류 | PARTIAL | G2→map/load→composeV4→NeedRank/Workspace/PLAN, 저장 PLAN·목표 버전 보존의 T2~T4 결과 재사용. [FI-001](./FINDINGS.md): 최신 납품 추측으로 다른 Workspace에 비근거 결속. #291의 결속 오류 재시도 부재도 기존 미해결 조건. 실제 납품부터 전체 환류의 완료 증거 없음. |
+| H 증거 기반 환류 | PARTIAL | G2→map/load→composeV4→NeedRank/Workspace/PLAN, 저장 PLAN·목표 버전 보존의 T2~T4 결과 재사용. PR303의 명시 납품 결속/현재 화면 복구 개선은 인정한다. FI-011의 Workspace/다음 요구/전이량 연결과 지속 복구·PLAN 의미 갱신은 미완료다. 실제 납품부터 전체 환류 완료 증거는 없다. |
 
 현재 확인된 연결은 위 항목에 한정한다. 이 표 밖의 정본/구현 관계와 전체 지원 TASK의 미검증 영역은 **UNMAPPED/NOT_VERIFIED**이며 강제 대응하지 않는다. 새 로드맵이나 신규 필수 게이트를 만들지 않는다.
 
@@ -78,3 +78,9 @@ de5065b51의 형식/호환/서버 검사36건 통과를 독립 확인했다. 새
 후보22b5e43c5는7 TASK/45문항(신규6세트36)이다. [전체30 TASK의 갱신 대조](./TASK_EXPANSION_COVERAGE.md)는 이전0bd 관찰을 대체하지 않고 시점별 이력으로 연결한다. 2026-10-18T09:27:28Z 개발 DB READ ONLY 집계는 authored 미설치/FQ·납품·결속 근거0이다.
 
 [독립 내용 판독](./EXPANSION_CONTENT_REVIEW.md)은 Gold 전 봉인36건, 선택 정답30/30 일치·문장 관계18쌍 수용, 전체 응답31/36 수용을 구별한다. FI-012의 실제 세트 대체 근거 사례와 FI-013의 문법 단수 선행사 대안을 추적한다. 새로운 형식/초안 수가 실제 A~H 완료나 사람 승인을 의미하지 않는다.
+
+## 추가10 TASK 독립 판독 · 3c15ba23c
+
+[새60문항 검토](./EXPANSION2_CONTENT_REVIEW.md): Gold 전 봉인, 선택 정답42/42·의미 관계6/6·구조 패턴12/12 수용, 전체 응답49/60. 새4형식 정상 컴포넌트/채점과 FI-014 이유 분류 반례를1280/1440에서 확인했다. 불일치11건 모두를 결함으로 세지 않고 분류 경계와 타당한 이유를 구분했다. 실제 CI39115796299는 unused DEMAND_LABEL lint로 verify/build/e2e 실패이며 수정 재검증이 필요하다.
+
+[30 TASK 대조](./TASK_EXPANSION_COVERAGE.md)는17 TASK/105문항으로 갱신했다. 초안 등록을 적격 공급이나 전체 지원 완료로 세지 않는다. 세트 없는4 TASK의 전체 미구현을 단정하거나 산출 TASK별 새 세트를 필수 게이트로 만들지 않는다. 실제 DB/사람 승인/전이/PLAN 의미 환류와 FI-002~008/010~014 등 미해결 범위가 남아 전체 REWORK다.

@@ -1,0 +1,317 @@
+{
+  "head": "3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f",
+  "scope": "Actual Runner/CSS and actual graders; synthetic API persistence/Link, no shell/auth/DB/PLAN. Rejection observations are not educational correctness passes.",
+  "rows": [
+    {
+      "id": "1280-roles-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-roles-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-roles-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "text": "정확히 해냈어요구조 — 일반-구체. A general access claim is developed with a reason and a concrete example.문장 1: 주제문 · 내 판단 같음문장 2: 근거 · 내 판단 같음문장 3: 예시 · 내 판단 같음주제문 자리: 같게 읽었어요 · 구조: 같음이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1280-roles-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1280-demand-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-demand-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-demand-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 4
+        },
+        "text": "정확히 해냈어요이 발문이 요구하는 것 — The question requires finding an option whose facts conflict with the notice.요구 진술: 맞음오답은 이렇게 만들어졌어요① 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.② 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.③ 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.④ 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1280-demand-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1280-segment-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-segment-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-segment-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "text": "정확히 해냈어요정답 덩어리 — 문장의 본동사. Has is the finite verb of the matrix clause.덩어리: 맞음이유: 맞음덩어리 1: 문장의 주어 — Book is the subject head.덩어리 2: 명사를 꾸밈 — The relative clause modifies book.덩어리 3: 문장의 본동사 — The finite verb is has.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1280-segment-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1280-equivalence-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-equivalence-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-equivalence-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "same": false,
+          "relation": "hyponym"
+        },
+        "text": "정확히 해냈어요다른 뜻 · A 가 더 좁은 말(하위어) — A hammer is one specific kind of tool. (근거 문장 1 · 2)같음 여부: 맞음관계: 맞음이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1280-equivalence-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1280-cb-ind-2-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-cb-ind-2-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1280-cb-ind-2-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "text": "이번에는 어긋났어요정답 덩어리 — 구의 경계. 주어의 핵심은 rise 이고 in the price of fresh vegetables, across the region 은 모두 rise 를 꾸미는 전치사구다. region 에서 주어 명사구가 끝나고 worried 가 동사다. vegetables 나 region 을 주어로 착각하지 않는다.덩어리: 맞음이유: 다름 — 위치만 맞힌 것과 구별하려고 이유까지 봐요덩어리 1: 구의 경계 — 긴 명사구 주어 전체. region 에서 끝난다.덩어리 2: 문장의 본동사 — 문장의 동사.덩어리 3: 목적어 — worried 의 목적어.덩어리 4: 명사를 꾸밈 — owners 를 꾸미는 관계절.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1280-cb-ind-2-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1440-roles-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-roles-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-roles-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "example"
+          ],
+          "pattern": "general_specific"
+        },
+        "text": "정확히 해냈어요구조 — 일반-구체. A general access claim is developed with a reason and a concrete example.문장 1: 주제문 · 내 판단 같음문장 2: 근거 · 내 판단 같음문장 3: 예시 · 내 판단 같음주제문 자리: 같게 읽었어요 · 구조: 같음이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-roles-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1440-demand-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-demand-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-demand-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 4
+        },
+        "text": "정확히 해냈어요이 발문이 요구하는 것 — The question requires finding an option whose facts conflict with the notice.요구 진술: 맞음오답은 이렇게 만들어졌어요① 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.② 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.③ 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.④ 다른 판단을 요구한다고 읽은 선택지 — This changes the operation demanded by the question.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-demand-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1440-segment-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-segment-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-segment-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "text": "정확히 해냈어요정답 덩어리 — 문장의 본동사. Has is the finite verb of the matrix clause.덩어리: 맞음이유: 맞음덩어리 1: 문장의 주어 — Book is the subject head.덩어리 2: 명사를 꾸밈 — The relative clause modifies book.덩어리 3: 문장의 본동사 — The finite verb is has.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-segment-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1440-equivalence-normal-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-equivalence-normal-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-equivalence-normal-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "same": false,
+          "relation": "hyponym"
+        },
+        "text": "정확히 해냈어요다른 뜻 · A 가 더 좁은 말(하위어) — A hammer is one specific kind of tool. (근거 문장 1 · 2)같음 여부: 맞음관계: 맞음이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-equivalence-normal-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "1440-cb-ind-2-incomplete",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-cb-ind-2-ready",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "1440-cb-ind-2-grade-observed",
+      "ok": true,
+      "detail": {
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "text": "이번에는 어긋났어요정답 덩어리 — 구의 경계. 주어의 핵심은 rise 이고 in the price of fresh vegetables, across the region 은 모두 rise 를 꾸미는 전치사구다. region 에서 주어 명사구가 끝나고 worried 가 동사다. vegetables 나 region 을 주어로 착각하지 않는다.덩어리: 맞음이유: 다름 — 위치만 맞힌 것과 구별하려고 이유까지 봐요덩어리 1: 구의 경계 — 긴 명사구 주어 전체. region 에서 끝난다.덩어리 2: 문장의 본동사 — 문장의 동사.덩어리 3: 목적어 — worried 의 목적어.덩어리 4: 명사를 꾸밈 — owners 를 꾸미는 관계절.이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.학습 지도로 돌아가 변화 보기"
+      }
+    },
+    {
+      "id": "1440-cb-ind-2-layout",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "small": []
+      }
+    },
+    {
+      "id": "runtime-and-external",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "external": []
+      }
+    },
+    {
+      "id": "no-Gold-json-browser-input",
+      "ok": true,
+      "detail": {
+        "goldInputs": []
+      }
+    }
+  ]
+}

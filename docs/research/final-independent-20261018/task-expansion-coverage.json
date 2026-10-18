@@ -1,5 +1,5 @@
 {
-  "head": "22b5e43c57b4895066fd360eb828ebbad0440569",
+  "head": "3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f",
   "baseline": "c3a03d168",
   "observedAt": "2026-10-18T09:27:28.046586+00:00",
   "scope": "Static candidate registry plus aggregate read-only DB; not human review, learner qualification, efficacy, or whole A-H E2E.",
@@ -53,6 +53,78 @@
       }
     },
     {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "sha256": "dce3db7087d13ec1e069eb122eda5cca1a7201d6aba0b4fc30113ff4a2be0d55",
+      "taskId": "e.task_demand",
+      "taskKey": "authored-task-demand",
+      "set": "e-task-demand.v1",
+      "format": "demand_choice",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "sha256": "78fda0a70c72a068e471a43e50e72335c97d99d83bb7d0db764be884b323a1c6",
+      "taskId": "r.discourse_function",
+      "taskKey": "authored-discourse-function",
+      "set": "r-discourse-function.v1",
+      "format": "discourse_roles",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "sha256": "3592c1cda72fcfd1cecbaddbd9caf427f51c894cf4750d9d9bc0302881f46064",
+      "taskId": "r.discourse_structure",
+      "taskKey": "authored-discourse-structure",
+      "set": "r-discourse-structure.v1",
+      "format": "discourse_roles",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
       "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
       "sha256": "64684742ad8e6369cc34a0e98842cf76d4e70b6eb896a7da5c7a0f2be8bb962d",
       "taskId": "r.inference",
@@ -67,6 +139,30 @@
         "humanGold": "pending — 사람 Gold 확정 전",
         "rights": "pending — 사람 원저작 확인 전",
         "revisionNote": "블라인드 검토 반영(2026-10-18): 정답 선지 바꿔 쓰기·길이 균형(guided-1·ind-1·ind-2·delayed-1) · ind-2 의존 축 매력 오답 · transfer-1 함의 추론형 재설계 · teach-1 비유 교체 · 밑줄 문장을 evidenceAlt 에 포함. 사람 Gold 전."
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "sha256": "f97e759117cfff8dc4973d443e5402f70351379f146df9d97a396bb8ee9668f1",
+      "taskId": "r.reference",
+      "taskKey": "authored-reference",
+      "set": "r-reference.v1",
+      "format": "choice_evidence",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
       },
       "items": 6,
       "roles": {
@@ -127,6 +223,54 @@
       }
     },
     {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "taskId": "s.attachment",
+      "taskKey": "authored-attachment",
+      "set": "s-attachment.v1",
+      "format": "segment_choice",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "sha256": "7d46162cf01d403125035ce5c88b93a5e478dfa63e10d82026d44cdae515357b",
+      "taskId": "s.chunk_boundary",
+      "taskKey": "authored-chunk-boundary",
+      "set": "s-chunk-boundary.v1",
+      "format": "segment_choice",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
       "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
       "sha256": "4a89359bd817e2cbfe67200cf0336a5e1f68b1c6c7843226f29dd565c0a730ec",
       "taskId": "s.form_scope",
@@ -151,12 +295,108 @@
       }
     },
     {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "sha256": "e2e0af18847830e6adb47ffebb983def3c65733d39e9ca0501fe8e66b650323f",
+      "taskId": "s.sentence_core",
+      "taskKey": "authored-sentence-core",
+      "set": "s-sentence-core.v1",
+      "format": "segment_choice",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "sha256": "c83b207fc8552218347618f78c014f12fa0fd261e0f7a74069a6c2f918750362",
+      "taskId": "s.structural_relation",
+      "taskKey": "authored-structural-relation",
+      "set": "s-structural-relation.v1",
+      "format": "segment_choice",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
       "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
       "sha256": "4bbc973cdaffd8df36e6ab780fc4fefd3e7638e0a818e5a8652772e7f2ad5798",
       "taskId": "v.contextual_sense",
       "taskKey": "authored-vocab-context",
       "set": "v-contextual-sense.v1",
       "format": "contextual_sense",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "sha256": "103170d35eeed46b6843659296ce936e97f1dad5dae2f6c54b22f8f96435bb52",
+      "taskId": "v.multiword",
+      "taskKey": "authored-multiword",
+      "set": "v-multiword.v1",
+      "format": "contextual_sense",
+      "provenance": {
+        "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+        "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+        "derivedFrom": [],
+        "createdAt": "2026-10-18",
+        "humanGold": "pending — 사람 Gold 확정 전",
+        "rights": "pending — 사람 원저작 확인 전"
+      },
+      "items": 6,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "sha256": "2e4ae006891873b9eb43dc069086505bb8564831e25eed870fdd7015118d7f87",
+      "taskId": "v.semantic_relation",
+      "taskKey": "authored-semantic-relation",
+      "set": "v-semantic-relation.v1",
+      "format": "equivalence",
       "provenance": {
         "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
         "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
@@ -210,10 +450,12 @@
       "id": "v.multiword",
       "name": "덩어리 표현",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-multiword"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "contextual_sense",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -224,10 +466,12 @@
       "id": "v.semantic_relation",
       "name": "표현 사이 의미 관계",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-semantic-relation"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "equivalence",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -238,10 +482,12 @@
       "id": "s.sentence_core",
       "name": "문장 뼈대",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-sentence-core"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "segment_choice",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -252,10 +498,12 @@
       "id": "s.chunk_boundary",
       "name": "의미 단위 경계",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-chunk-boundary"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "segment_choice",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -266,10 +514,12 @@
       "id": "s.attachment",
       "name": "수식 관계",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-attachment"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "segment_choice",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -280,10 +530,12 @@
       "id": "s.structural_relation",
       "name": "구조 관계",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-structural-relation"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "segment_choice",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -324,10 +576,12 @@
       "id": "r.reference",
       "name": "지시·응집 추적",
       "directCheckMetadata": "ready",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-reference"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "choice_evidence",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -355,10 +609,12 @@
       "id": "r.discourse_function",
       "name": "문장·문단 기능",
       "directCheckMetadata": "live",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-discourse-function"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "discourse_roles",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -369,10 +625,12 @@
       "id": "r.discourse_structure",
       "name": "글 전개 구조",
       "directCheckMetadata": "live",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-discourse-structure"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "discourse_roles",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,
@@ -430,10 +688,12 @@
       "id": "e.task_demand",
       "name": "발문 요구 파악",
       "directCheckMetadata": "content_needed",
-      "evidenceKeys": [],
+      "evidenceKeys": [
+        "authored-task-demand"
+      ],
       "legacyMapping": "UNMAPPED",
-      "authoredDraftItems": 0,
-      "format": "UNMAPPED",
+      "authoredDraftItems": 6,
+      "format": "demand_choice",
       "qualifiedRows": 0,
       "deliveryRows": 0,
       "boundEvidenceRows": 0,

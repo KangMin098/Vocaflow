@@ -1,0 +1,3746 @@
+{
+  "head": "3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f",
+  "packetSha256": "08e4a34fe68378cb2c5af8a6fd1e186124a56164c0e837afb49e7ce63cc473c3",
+  "readingSha256": "a1015e9cc0a6bb96c68a4e2706917b7060e9f569b02f49a9ae8d82176f2f28a2",
+  "scope": "Post-seal comparison, not human Gold or effectiveness evidence. Only frozen transitive structure-check/design dependencies are added; sealed reading is unchanged.",
+  "reasonAliases": {
+    "subject_verb_agreement": "agreement",
+    "participle_voice": "participle",
+    "passive_voice": "voice"
+  },
+  "rows": [
+    {
+      "taskId": "e.task_demand",
+      "id": "td-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "td-teach-1",
+        "response": {
+          "choice": 2
+        },
+        "why": "A claim question asks for the author's recommended school action, not merely the topic."
+      },
+      "response": {
+        "choice": 2
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "rationale": "'필자가 주장하는 바'는 필자가 내세우는 당위·요구를 묻는다. 이 글에서는 6번의 '점심시간 휴대전화 금지를 유지해야 한다'가 그 대상이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "화제 정리는 '주제' 발문의 연산이지 주장 파악이 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "detail_focus",
+            "why": "4번의 결과는 주장을 뒷받침하는 세부 근거일 뿐이다."
+          },
+          {
+            "choice": 3,
+            "design": "extra_condition",
+            "why": "학부모 걱정의 옳고 그름을 판정하라는 조건은 발문에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "wrong_operation",
+            "why": "내용 불일치 찾기는 다른 유형의 판단이다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "e.task_demand",
+      "id": "td-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "td-guided-1",
+        "response": {
+          "choice": 0
+        },
+        "why": "A topic question asks what the whole passage discusses."
+      },
+      "response": {
+        "choice": 0
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "rationale": "'주제'는 글 전체가 다루는 대상과 그에 대한 핵심 관점을 구(句) 형태로 정리하라는 요구다. 여기서는 '가로수가 그늘 외에 주는 여러 이점'이다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "필자의 요구를 찾는 것은 '주장' 발문의 판단이다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "2번 문장의 세부 하나만 보는 것은 글 전체 범위가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_unit",
+            "why": "제목처럼 압축된 표현은 '제목' 발문이 요구하는 단위다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "단점을 함께 평가하라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "e.task_demand",
+      "id": "td-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "td-ind-1",
+        "response": {
+          "choice": 4
+        },
+        "why": "A NOT-match question requires checking option facts against the notice."
+      },
+      "response": {
+        "choice": 4
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 4
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 4,
+        "rationale": "'내용과 일치하지 않는 것'은 추론이 아니라 선택지 각각을 본문의 해당 정보와 하나씩 대조해 사실이 어긋나는 진술을 찾으라는 요구다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "일치 판단은 숨은 의도 추론이 아니라 사실 대조다."
+          },
+          {
+            "choice": 1,
+            "design": "wrong_unit",
+            "why": "요약 한 문장이 아니라 선택지별 사실 하나하나가 단위다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "한 항목만 보면 다른 선택지의 어긋남을 놓친다."
+          },
+          {
+            "choice": 3,
+            "design": "extra_condition",
+            "why": "안내문에 없는 규정을 짐작하는 것은 발문 밖의 조건이다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "e.task_demand",
+      "id": "td-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "td-ind-2",
+        "response": {
+          "choice": 1
+        },
+        "why": "The underlined metaphor must be interpreted within the story, not the whole-story moral or a dictionary gloss."
+      },
+      "response": {
+        "choice": 1
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "rationale": "'함축 의미' 발문은 밑줄 친 비유 표현이 글의 흐름 속에서 실제로 가리키는 뜻(실수 자체를 두려워했지만 실수해도 계속하면 된다는 깨달음)을 풀어 말하라는 요구다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_scope",
+            "why": "범위는 밑줄 표현이지 글 전체의 교훈이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_unit",
+            "why": "낱말 하나의 사전 뜻이 아니라 표현 전체의 맥락 의미가 단위다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "밑줄 표현이 아니라 그것이 든 문장 전체로 범위를 넓혔다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "이후 행동을 예측하라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "e.task_demand",
+      "id": "td-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "td-transfer-1",
+        "response": {
+          "choice": 3
+        },
+        "why": "The two summary slots jointly express retrieval and durable learning, without adding a grammar correction task."
+      },
+      "response": {
+        "choice": 3
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "rationale": "요약문 발문은 글 전체의 핵심을 담도록 (A)와 (B) 두 자리를 함께 정하라는 요구다. 여기서는 (A) 인출(recall)·(B) 오래가는(lasting)이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_scope",
+            "why": "두 빈칸 중 하나만 판단하면 요구 범위의 절반만 다룬다."
+          },
+          {
+            "choice": 1,
+            "design": "detail_focus",
+            "why": "실험의 세부 수치는 요약의 핵심이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_operation",
+            "why": "글쓴이의 권고를 찾는 것은 '주장' 발문의 판단이다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "문법 오류를 고치라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "e.task_demand",
+      "id": "td-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "td-delayed-1",
+        "response": {
+          "choice": 0
+        },
+        "why": "The blank requires the concept warranted by the surrounding discourse, not grammar alone."
+      },
+      "response": {
+        "choice": 0
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0
+        },
+        "grade": {
+          "choiceOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "rationale": "빈칸 발문은 앞뒤 흐름과 글 전체 요지가 가리키는 개념(선택지를 줄이는 것)을 빈칸 자리에 맞게 채우라는 요구다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "문법 호응만으로는 의미상 들어갈 개념을 정할 수 없다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "숫자 같은 세부가 아니라 일반화된 개념이 빈칸을 채운다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "글 밖 다른 가게로 범위를 넓힌 판단이다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "반대 사례를 찾으라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "df-teach-1",
+        "response": {
+          "roles": [
+            "background",
+            "concession",
+            "topic",
+            "example",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "myth_rebuttal"
+        },
+        "why": "Quiet-is-best belief, concession about sudden noise, counterclaim, study example, mechanism and final restatement."
+      },
+      "response": {
+        "roles": [
+          "background",
+          "concession",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "pattern": "myth_rebuttal"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "concession",
+            "topic",
+            "example",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "myth_rebuttal"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 6,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "concession",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번 통념 소개, 2번 'It is true that' 양보, 3번 'Yet'으로 필자 주장(주제문), 4번 실험 사례, 5번 원리 설명, 6번 'then' 결론. 통념을 뒤집는 글이므로 myth_rebuttal이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "df-guided-1",
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "support",
+            "support",
+            "example",
+            "example"
+          ],
+          "pattern": "problem_solution"
+        },
+        "why": "Member ownership solves the food-access problem; closures explain its need, incentives explain the mechanism, village case illustrates it.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 1,
+              "role": "background"
+            },
+            {
+              "index": 2,
+              "role": "background"
+            }
+          ],
+          "patterns": [
+            "general_specific"
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "support",
+          "example",
+          "example"
+        ],
+        "pattern": "problem_solution"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "support",
+            "support",
+            "example",
+            "example"
+          ],
+          "pattern": "problem_solution"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 6,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "background",
+          "background",
+          "support",
+          "support",
+          "example",
+          "example"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "support"
+          }
+        ],
+        "pattern": "problem_solution",
+        "rationale": "1번이 해결책(조합 소유 상점)을 먼저 내세운 주제문, 2~3번은 문제 상황과 그 원인(배경), 4~5번은 해결책이 통하는 이유(근거), 6~7번은 한 마을의 구체적 사례로 끝난다. 결론 문장 없이 사례로 마무리되는 문제-해결 글이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "df-ind-1",
+        "response": {
+          "roles": [
+            "example",
+            "example",
+            "example",
+            "support",
+            "topic"
+          ],
+          "pattern": "study_implication"
+        },
+        "why": "A concrete experiment and result lead through a mechanism to the general study recommendation.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 0,
+              "role": "background"
+            },
+            {
+              "index": 1,
+              "role": "background"
+            },
+            {
+              "index": 2,
+              "role": "support"
+            },
+            {
+              "index": 4,
+              "role": "conclusion"
+            }
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "example",
+          "example",
+          "example",
+          "support",
+          "topic"
+        ],
+        "pattern": "study_implication"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "example",
+            "example",
+            "example",
+            "support",
+            "topic"
+          ],
+          "pattern": "study_implication"
+        },
+        "grade": {
+          "roleOk": [
+            false,
+            false,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 3,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "conclusion"
+          },
+          {
+            "index": 2,
+            "role": "example"
+          }
+        ],
+        "pattern": "study_implication",
+        "rationale": "1~2번 연구 설계, 3번 결과, 4번 결과 해석, 5번 'therefore'로 학습자에게 주는 시사점이자 글 전체의 주장(주제문). 주제문이 맨 끝에 오는 연구-함의 글이다. 5번은 결론으로 읽어도 인정한다."
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "df-ind-2",
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "example",
+            "example",
+            "support",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "general_specific"
+        },
+        "why": "Maps reflect fear; general reasoning is followed by two concrete maps and a final restatement."
+      },
+      "response": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "pattern": "general_specific"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "example",
+            "example",
+            "support",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "general_specific"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 8,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 5,
+            "role": "turn"
+          }
+        ],
+        "pattern": "general_specific",
+        "rationale": "1번 일반 진술(주제문) → 2~3번 그 이유(지도 제작 관행) → 4~5번 구체적 지도 두 개(예시) → 6~7번 예시가 장식이 아니라 실제 두려움이었다는 해설(근거) → 8번 'In this sense' 결론. 일반에서 구체로 내려가는 구조다."
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "df-transfer-1",
+        "response": {
+          "roles": [
+            "concession",
+            "concession",
+            "topic",
+            "support",
+            "support",
+            "example"
+          ],
+          "pattern": "contrast"
+        },
+        "why": "Benefits are acknowledged before the main harmful-sidewalk claim, reasons and a concrete injury example.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 0,
+              "role": "background"
+            },
+            {
+              "index": 2,
+              "role": "turn"
+            }
+          ],
+          "patterns": [
+            "myth_rebuttal"
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "concession",
+          "concession",
+          "topic",
+          "support",
+          "support",
+          "example"
+        ],
+        "pattern": "contrast"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "concession",
+            "concession",
+            "topic",
+            "support",
+            "support",
+            "example"
+          ],
+          "pattern": "contrast"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 6,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "concession",
+          "concession",
+          "topic",
+          "support",
+          "support",
+          "example"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          },
+          {
+            "index": 1,
+            "role": "support"
+          }
+        ],
+        "pattern": "contrast",
+        "rationale": "1~2번은 장점을 먼저 인정하는 양보, 3번 'Even so'로 필자 주장이 글 가운데에서 처음 나오는 주제문, 4~5번 인도 위 문제를 일반적으로 든 근거, 6번 한 노인의 구체적 사고(예시)로 끝난다. 장점과 피해를 맞세우므로 contrast. 첫 문장을 주제문으로 읽는 것이 전이 함정이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_function",
+      "id": "df-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "df-delayed-1",
+        "response": {
+          "roles": [
+            "background",
+            "topic",
+            "support",
+            "support",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "cause_effect"
+        },
+        "why": "Delayed praise causes lost motivation, doubt, minimum effort and irreversible loss; final sentence restates the cost."
+      },
+      "response": {
+        "roles": [
+          "background",
+          "topic",
+          "support",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "pattern": "cause_effect"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "topic",
+            "support",
+            "support",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "cause_effect"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 6,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "topic",
+          "support",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "example"
+          }
+        ],
+        "pattern": "cause_effect",
+        "rationale": "1번 큰 일 뒤에만 칭찬하는 관행(배경), 2번 그 관행이 동기를 떨어뜨린다는 주제문, 3~5번 원인에서 결과로 이어지는 과정(근거), 6번 'in other words' 결론. 관행 → 결과를 따라가는 인과 구조다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "ds-teach-1",
+        "response": {
+          "roles": [
+            "background",
+            "background",
+            "topic",
+            "example",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "myth_rebuttal"
+        },
+        "why": "Tidy-desk stereotype is challenged, with an individual-workflow example and final judgment against superficial inference.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 2,
+              "role": "turn"
+            }
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "background",
+          "background",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "pattern": "myth_rebuttal"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "background",
+            "topic",
+            "example",
+            "support",
+            "conclusion"
+          ],
+          "pattern": "myth_rebuttal"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 5,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번은 통념(어지러운 책상 = 어지러운 정신), 2번은 그 통념이 널리 퍼졌다는 뒷받침이다. 3번 'Yet'이 통념을 뒤집으며 글쓴이의 주장(주제문)을 내놓는다 — 반전이므로 turn으로 보아도 인정한다. 4·5번이 예와 뒷받침, 6번이 결론이다. 정돈된 책상과 어지러운 책상을 견주는 contrast로 보기 쉽지만, 두 대상을 대등하게 비교하는 글이 아니라 '사람들의 믿음'을 글쓴이가 부정하는 글이므로 myth_rebuttal이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "ds-guided-1",
+        "response": {
+          "roles": [
+            "background",
+            "background",
+            "background",
+            "topic",
+            "example",
+            "example",
+            "example"
+          ],
+          "pattern": "problem_solution"
+        },
+        "why": "Declining library visits and reinforcing budget losses lead to physical workshop solution and one town's concrete results.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 0,
+              "role": "topic"
+            },
+            {
+              "index": 1,
+              "role": "support"
+            },
+            {
+              "index": 2,
+              "role": "support"
+            }
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "background",
+          "background",
+          "background",
+          "topic",
+          "example",
+          "example",
+          "example"
+        ],
+        "pattern": "problem_solution"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "background",
+            "background",
+            "topic",
+            "example",
+            "example",
+            "example"
+          ],
+          "pattern": "problem_solution"
+        },
+        "grade": {
+          "roleOk": [
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false
+          ],
+          "rolesRight": 2,
+          "patternOk": true,
+          "topicOk": false,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "problem_solution",
+        "rationale": "1번이 문제(방문자 감소)를 밝히는 주제문, 2·3번이 문제의 사정과 악순환, 4번이 해결책 제시, 5·6번이 한 마을의 사례, 7번이 그 성과다. 3번에 원인-결과 고리가 있어 cause_effect로 고르기 쉽지만, 인과는 문제를 설명하는 부분일 뿐이고 글의 무게는 '문제 → 해결책 → 사례 → 성과'에 있으므로 problem_solution이다. 결론 문장 없이 성과로 끝난다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "ds-ind-1",
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "support",
+            "support"
+          ],
+          "pattern": "cause_effect"
+        },
+        "why": "The highway claim is developed as tourism, commerce/prices and different resident consequences."
+      },
+      "response": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "support"
+        ],
+        "pattern": "cause_effect"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "topic",
+            "support",
+            "support",
+            "support",
+            "support"
+          ],
+          "pattern": "cause_effect"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 5,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "cause_effect",
+        "rationale": "1번이 '고속도로가 마을을 바꾼다'는 원인-결과 주제문이고, 2~5번은 그 원인이 낳는 결과들(주말 관광지화, 가게와 땅값 상승, 젊은 가족의 이탈, 노년층의 일자리)을 이어 놓는다. 4번의 집값 문제 때문에 problem_solution으로 보기 쉽지만, 글은 어떤 해결책도 내놓지 않고 좋은 결과와 나쁜 결과를 함께 늘어놓을 뿐이므로 cause_effect이다. 결론 문장 없이 마지막 결과로 끝난다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "ds-ind-2",
+        "response": {
+          "roles": [
+            "background",
+            "support",
+            "support",
+            "support",
+            "support",
+            "support",
+            "turn",
+            "topic"
+          ],
+          "pattern": "contrast"
+        },
+        "why": "Printed map and navigation app are contrasted on effort, memory and local knowledge; the final sentence abstracts the choice.",
+        "alternatives": {
+          "roles": [
+            {
+              "index": 4,
+              "role": "turn"
+            },
+            {
+              "index": 6,
+              "role": "support"
+            },
+            {
+              "index": 7,
+              "role": "conclusion"
+            }
+          ]
+        }
+      },
+      "response": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "turn",
+          "topic"
+        ],
+        "pattern": "contrast"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "support",
+            "support",
+            "support",
+            "support",
+            "support",
+            "turn",
+            "topic"
+          ],
+          "pattern": "contrast"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          "rolesRight": 7,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 7,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "contrast",
+        "rationale": "1번이 두 도구를 소개하는 배경, 2~4번이 종이 지도의 특징, 5~7번이 내비게이션 앱의 특징이다. 5번은 대조의 두 번째 축을 여는 문장일 뿐 앞의 내용을 뒤집지 않으므로 support다. 8번이 두 도구의 차이를 '빨리 도착하기 vs 장소를 알기'로 정리하는 주제문이며, 앞 내용을 맺는 성격도 있어 conclusion으로 보아도 인정한다. 7번 'Yet'이 있어 통념을 뒤집는 myth_rebuttal로 볼 수 있지만, 사람들의 잘못된 믿음이 제시되거나 부정되지 않고 두 대상을 대등하게 견주므로 contrast이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "ds-transfer-1",
+        "response": {
+          "roles": [
+            "background",
+            "example",
+            "example",
+            "example",
+            "topic",
+            "conclusion"
+          ],
+          "pattern": "study_implication"
+        },
+        "why": "A teacher's question introduces an experiment; results yield an attentional interpretation and teaching implication.",
+        "note": "The described study's factual provenance has not been established; do not count original fiction as confirmed research."
+      },
+      "response": {
+        "roles": [
+          "background",
+          "example",
+          "example",
+          "example",
+          "topic",
+          "conclusion"
+        ],
+        "pattern": "study_implication"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "background",
+            "example",
+            "example",
+            "example",
+            "topic",
+            "conclusion"
+          ],
+          "pattern": "study_implication"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            false,
+            false,
+            false,
+            true,
+            true
+          ],
+          "rolesRight": 3,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "background",
+          "support",
+          "support",
+          "topic",
+          "conclusion"
+        ],
+        "alternatives": [],
+        "pattern": "study_implication",
+        "rationale": "교사 한 사람의 궁금증으로 이야기처럼 시작하지만, 1·2번은 연구 질문과 실험 조건을 놓는 배경이고, 3·4번이 결과, 5번이 결과가 뜻하는 바(주제문), 6번 'therefore'가 교사에게 주는 실천적 결론이다. 인물 이야기 틀 때문에 narrative로 보기 쉽지만, 사건의 갈등-해결이 아니라 '질문 → 실험 → 결과 → 함의'로 짜여 있고 인물은 연구를 소개하는 장치일 뿐이므로 study_implication이다."
+      }
+    },
+    {
+      "taskId": "r.discourse_structure",
+      "id": "ds-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "ds-delayed-1",
+        "response": {
+          "roles": [
+            "topic",
+            "example",
+            "example",
+            "example",
+            "conclusion"
+          ],
+          "pattern": "general_specific"
+        },
+        "why": "Three winter behavior examples develop the opening claim, and the final sentence restates it.",
+        "note": "The exclusive assertion that these animals do not grow thicker coats needs factual verification; behavior can coexist with bodily seasonal adaptations."
+      },
+      "response": {
+        "roles": [
+          "topic",
+          "example",
+          "example",
+          "example",
+          "conclusion"
+        ],
+        "pattern": "general_specific"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "roles": [
+            "topic",
+            "example",
+            "example",
+            "example",
+            "conclusion"
+          ],
+          "pattern": "general_specific"
+        },
+        "grade": {
+          "roleOk": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "rolesRight": 5,
+          "patternOk": true,
+          "topicOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "example",
+          "example",
+          "example",
+          "support"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "general_specific",
+        "rationale": "1번이 '동물은 몸이 아니라 행동을 바꿔 겨울을 난다'는 일반 진술(주제문)이고, 2~4번이 다람쥐·새·꿀벌의 구체적 사례다. 5번은 사례들의 공통점을 묶어 일반 진술을 다시 뒷받침하는데, 글을 맺는 역할도 하므로 conclusion으로 보아도 인정한다. 일반 → 구체 사례의 흐름이므로 general_specific이다."
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "ref-teach-1",
+        "response": {
+          "choice": 1,
+          "evidence": [
+            3
+          ]
+        },
+        "why": "The practice is the immediately introduced slow long-lived mixed tree planting."
+      },
+      "response": {
+        "choice": 1,
+        "evidence": [
+          3
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "evidence": [
+            3
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          4,
+          5
+        ],
+        "rationale": "4번에서 처음 제시된 '오래 살고 바람에 강한 느린 수종을 섞어 심기'가 5번에서 'this practice'로 다시 불리며, 거리가 오래 휑하다는 비판도 느린 성장과 맞물린다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "1번의 옛 관행으로, 빨리 자라므로 거리를 휑하게 두지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "3번 피해 묘사의 낱말을 엮어 글에 없는 행위로 만들었다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "2번의 빠른 성장 효과로, 비판 내용과 정반대다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "3번의 shallow roots 를 빌려 글에 없는 처방으로 바꿨다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "ref-guided-1",
+        "response": {
+          "choice": 3,
+          "evidence": [
+            2
+          ]
+        },
+        "why": "The latter is the second of the two strategies: unaided recall with subsequent gap checking."
+      },
+      "response": {
+        "choice": 3,
+        "evidence": [
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "evidence": [
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 2,
+        "evidence": [
+          2
+        ],
+        "evidenceAlt": [
+          1,
+          4,
+          5
+        ],
+        "rationale": "1번이 두 전략을 예고하고 2번(다시 읽기)·3번(책을 덮고 기억나는 것을 적은 뒤 확인)이 차례로 소개되므로, 뒤의 것인 3번의 전략이 'the latter'다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "두 전략 중 앞의 것(the former)으로, 정반대를 골랐다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "4번에서 가장 가까운 명사구일 뿐 전략이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "5번 같은 문장의 뒤쪽 명사로, 지시 대상이 될 수 없다."
+          },
+          {
+            "choice": 4,
+            "design": "too_narrow",
+            "why": "1번의 선택 상황 자체로, 두 전략 중 하나가 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "ref-ind-1",
+        "response": {
+          "choice": 0,
+          "evidence": [
+            2
+          ]
+        },
+        "why": "Such cases are improvement even after openly revealing inactive pills."
+      },
+      "response": {
+        "choice": 0,
+        "evidence": [
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "evidence": [
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "decisive": 2,
+        "evidence": [
+          2
+        ],
+        "evidenceAlt": [
+          3
+        ],
+        "rationale": "3번에서 처음 나온 '약이 가짜라고 솔직히 들었는데도 나아진 환자들'의 사례가 4번에서 'such cases'로 불리며, 그래서 기대만으로는 설명이 안 된다는 흐름이 이어진다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "opposed_view",
+            "why": "2번의 기대 설명으로, 4번이 바로 그 설명의 한계를 지적한다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "5번의 치료 의식 낱말을 빌린 것으로 지시 대상보다 뒤에 나온다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "본문의 약은 약효가 없는 것이므로 정반대다."
+          },
+          {
+            "choice": 4,
+            "design": "too_narrow",
+            "why": "2번의 일반 원리만 가리켜 '사례'가 되지 못한다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "ref-ind-2",
+        "response": {
+          "choice": 4,
+          "evidence": [
+            4
+          ]
+        },
+        "why": "Old flowers are sites of the experienced foragers; those foragers eventually attend to dances."
+      },
+      "response": {
+        "choice": 4,
+        "evidence": [
+          4
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 4,
+          "evidence": [
+            4
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 4,
+        "evidence": [
+          4
+        ],
+        "evidenceAlt": [
+          5
+        ],
+        "rationale": "5번에서 처음 나온 '익숙한 장소로 돌아가는 경험 많은 채집벌'이 6번의 their·they 로 이어진다 — 옛 꽃이 여러 번 실패해야 비로소 춤에 주목한다는 내용이 그들의 습성과 맞는다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "6번 같은 문장의 목적어로, 주목하는 쪽이 아니라 주목받는 쪽이다."
+          },
+          {
+            "choice": 1,
+            "design": "opposed_view",
+            "why": "7번의 어린 벌은 처음부터 춤에 의존하는 대조 집단이다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "3번의 과학자는 춤을 관찰할 뿐 꽃이 실패하지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "가장 가까운 명사지만 꽃이 춤에 주목할 수는 없다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "ref-transfer-1",
+        "response": {
+          "choice": 2,
+          "evidence": [
+            2
+          ]
+        },
+        "why": "This refers to the recurrent outcome of expanded roads filling up again, not merely one modal shift."
+      },
+      "response": {
+        "choice": 2,
+        "evidence": [
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "evidence": [
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "decisive": 2,
+        "evidence": [
+          2
+        ],
+        "evidenceAlt": [
+          0,
+          1,
+          3
+        ],
+        "rationale": "'this'는 명사 하나가 아니라 1–3번에 걸친 현상 전체(새 도로가 생기면 이용자가 늘어 몇 년 안에 예전만큼 막힌다)를 받는다. 그 현상이 완결되는 3번이 결정 문장이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "too_narrow",
+            "why": "2번의 한 갈래만 떼어 현상 전체를 대신하지 못한다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "6번의 교훈 쪽 행위로, 지시어보다 뒤의 내용이다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "1번에서 운전자들은 그 지역을 피하다가 오히려 이용하기 시작한다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "4번의 rule 은 현상을 부르는 이름일 뿐 관찰 대상이 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "r.reference",
+      "id": "ref-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "ref-delayed-1",
+        "response": {
+          "choice": 1,
+          "evidence": [
+            2
+          ]
+        },
+        "why": "The method displays copies and safely stores originals, instead of protecting dim originals behind glass."
+      },
+      "response": {
+        "choice": 1,
+        "evidence": [
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "evidence": [
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "decisiveOk": true,
+          "evidenceExtra": [],
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 2,
+        "evidence": [
+          2
+        ],
+        "evidenceAlt": [
+          3,
+          5
+        ],
+        "rationale": "3번에서 처음 나온 '원본은 보관하고 정교한 복제본을 공개 전시하기'가 5번의 'the method'다. 6번의 걱정(복제본은 진짜 앞에 서는 경험을 못 준다)이 그 대상을 확인해 준다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "2번의 다른 선택지로, 큐레이터들이 오히려 진짜를 지키는 쪽이다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "4번의 결과 묘사로, 방법 자체가 아니라 그 효과다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "6번에서 이 방법이 주지 못한다고 걱정하는 경험이다."
+          },
+          {
+            "choice": 4,
+            "design": "too_narrow",
+            "why": "1번의 선택 상황 자체로 특정 방법이 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "at-teach-1",
+        "response": {
+          "choice": 1,
+          "reason": "modifies_noun"
+        },
+        "why": "Context limits the tall windows to the reading room, not the whole library."
+      },
+      "response": {
+        "choice": 1,
+        "reason": "modifies_noun"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "reason": "modifies_noun"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "modifies_noun",
+        "why": "4·5번 문장에서 큰 창은 그 방 하나에만 있고 건물 나머지는 작은 창뿐이므로, 관계절은 the old library 가 아니라 the reading room 을 꾸민다.",
+        "segments": [
+          {
+            "reason": "main_verb",
+            "why": "문장의 주어와 동사(praise)다. 관계절이 꾸미는 대상이 아니다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절이 꾸미는 선행사 — 창문이 있는 곳은 열람실이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "reading room 을 꾸미는 전치사구. 가까운 명사 library 는 함정 후보다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "명사를 꾸미는 관계절 자체다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "at-guided-1",
+        "response": {
+          "choice": 0,
+          "reason": "modifies_verb"
+        },
+        "why": "The lenses are the observer's instrument of studying, not a possession of the fisherman or rocks."
+      },
+      "response": {
+        "choice": 0,
+        "reason": "modifies_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "reason": "modifies_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "modifies_verb",
+        "why": "쌍안경을 빌린 사람은 Mina(2번 문장)이고 4번 문장에서 그 렌즈로 본 것도 그녀다. 'with ~'는 어부의 소지품이 아니라 studied 의 도구(어떻게 보았나)를 나타낸다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "도구를 나타내는 with 구가 꾸미는 동사 studied 가 여기 있다."
+          },
+          {
+            "reason": "object",
+            "why": "studied 의 목적어. 쌍안경을 가진 사람이 아니다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "fisherman 의 위치를 알려 주는 전치사구다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "동사를 꾸미는 수단의 부사구 자체다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "at-ind-1",
+        "response": {
+          "choice": 3,
+          "reason": "modifies_noun"
+        },
+        "why": "The students organized the march; their parents only learned of it later."
+      },
+      "response": {
+        "choice": 3,
+        "reason": "modifies_noun"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "reason": "modifies_noun"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "modifies_noun",
+        "why": "2번 문장에서 학생들이 스스로 행진했고, 4·5번 문장에서 부모는 전날 밤에야 알았으며 아이들이 어른 도움 없이 준비했다고 한다. 행진을 조직한 것은 부모가 아니라 학생들이다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "문장 전체의 시점을 나타내는 부사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어와 동사 met 이다."
+          },
+          {
+            "reason": "object",
+            "why": "met 의 목적어. 부모는 계획을 몰랐으므로 선행사가 아니다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절의 선행사 students 가 들어 있다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "명사를 꾸미는 관계절 자체다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "at-ind-2",
+        "response": {
+          "choice": 2,
+          "reason": "modifies_noun"
+        },
+        "why": "Postwar concrete structures are bridges, contrasted with the old stone villages."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "modifies_noun"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "modifies_noun"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "modifies_noun",
+        "why": "1번 문장에서 마을은 800년 된 곳이고, 2번 문장에서 전쟁 때 다리가 무너졌으며, 4번 문장은 재건기에 서둘러 부은 콘크리트를 말한다. 전쟁 뒤에 지어진 것은 마을이 아니라 다리다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "문장 전체의 시점을 나타내는 부사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어와 동사 are inspecting 이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절의 선행사 — 전쟁 뒤 다시 지은 것은 다리다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "bridges 의 위치를 알려 주는 전치사구. 마을은 오래되어 함정 후보다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "명사를 꾸미는 관계절 자체다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "at-transfer-1",
+        "response": {
+          "choice": 1,
+          "reason": "modifies_verb"
+        },
+        "why": "A narrow vote modifies the council's approval, not the park or the plan."
+      },
+      "response": {
+        "choice": 1,
+        "reason": "modifies_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "reason": "modifies_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "modifies_verb",
+        "why": "'in a narrow vote'는 공원 안에 있는 것이 아니라 승인이 어떻게 이루어졌는지(5대 4, 4번 문장)를 말한다. 바로 앞 명사 park 가 아니라 동사 approved 가 이끄는 절 전체를 꾸민다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "문장 전체의 시점을 나타내는 부사구다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "방식의 부사구가 꾸미는 동사 approved 가 있다."
+          },
+          {
+            "reason": "object",
+            "why": "approved 의 목적어다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "plan 을 꾸미는 전치사구. 가까워서 끌리는 함정이다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "승인 방식을 나타내는 부사구 자체다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.attachment",
+      "id": "at-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "at-delayed-1",
+        "response": {
+          "choice": 0,
+          "reason": "modifies_noun"
+        },
+        "why": "Taken by visitors modifies the photographs, which the next sentence calls prints."
+      },
+      "response": {
+        "choice": 0,
+        "reason": "modifies_noun"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "reason": "modifies_noun"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "modifies_noun",
+        "why": "2번 문장에서 첫 방문객들이 카메라를 가져왔고 4·5번 문장은 그 사진(prints, pictures)을 말한다. 방문객들이 '찍은' 것은 섬이 아니라 사진이므로 과거분사구는 Photos 를 꾸민다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어이자 분사구가 꾸미는 명사다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "Photos 를 꾸미는 전치사구. island 는 가까운 함정 후보다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "명사를 꾸미는 과거분사구 자체다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "문장의 동사(수동태)다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "보관 장소를 나타내는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "cb-teach-1",
+        "response": {
+          "choice": 1,
+          "reason": "clause_boundary"
+        },
+        "why": "The subject contains an omitted relative clause and ends after last spring before finally closed."
+      },
+      "response": {
+        "choice": 1,
+        "reason": "clause_boundary"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "reason": "clause_boundary"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "clause_boundary",
+        "why": "bridge 뒤에 관계대명사가 생략된 관계절 '(that) the engineers inspected last spring'이 붙어 주어가 길어졌다. 이 관계절이 끝나는 spring 에서 주어 덩어리가 끝나고, finally closed 가 문장의 동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "주어의 핵심 명사구지만 여기서 주어가 끝나지 않는다."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "생략된 that 관계절. spring 에서 주어 덩어리가 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "문장 전체의 동사."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "closed 의 시점을 나타내는 부사구."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "cb-guided-1",
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "why": "Told is a reduced passive modifier of students; refused starts the finite matrix predicate."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "main_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": false,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "why": "told 는 '말을 들은'이라는 과거분사로 students 를 뒤에서 꾸민다(who were told 의 축약). told 를 동사로 읽으면 안 되고, 주어 덩어리가 끝난 뒤 refused 에서 문장의 동사가 시작된다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "주어의 핵심 명사."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "students 를 꾸미는 축약 관계절(과거분사구)."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "주어가 끝나고 시작되는 문장의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "sign 의 목적어."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "cb-ind-1",
+        "response": {
+          "choice": 1,
+          "reason": "clause_boundary"
+        },
+        "why": "The omitted-that complement begins with its own subject their children."
+      },
+      "response": {
+        "choice": 1,
+        "reason": "clause_boundary"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "reason": "clause_boundary"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": false,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "ellipsis_restored",
+        "why": "believe 뒤에 접속사 that 이 생략되어 있다. 'believe (that) their children sleep ...'으로 복원하면 their children 에서 목적어 절이 시작된다.",
+        "segments": [
+          {
+            "reason": "subject_and_verb",
+            "why": "주절의 주어와 동사. 목적어 절 앞에서 끝난다."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "생략된 that 절의 시작(절의 주어)."
+          },
+          {
+            "reason": "clause_internal",
+            "why": "that 절 안의 동사와 비교 표현."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "than 뒤 비교절. do 는 sleep 을 대신한다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "cb-ind-2",
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "why": "The complete nominal subject is one chunk headed by rise; worried starts the matrix predicate."
+      },
+      "response": {
+        "choice": 0,
+        "reason": "main_subject"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": false,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "phrase_boundary",
+        "why": "주어의 핵심은 rise 이고 in the price of fresh vegetables, across the region 은 모두 rise 를 꾸미는 전치사구다. region 에서 주어 명사구가 끝나고 worried 가 동사다. vegetables 나 region 을 주어로 착각하지 않는다.",
+        "segments": [
+          {
+            "reason": "phrase_boundary",
+            "why": "긴 명사구 주어 전체. region 에서 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "문장의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "worried 의 목적어."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "owners 를 꾸미는 관계절."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "cb-transfer-1",
+        "response": {
+          "choice": 2,
+          "reason": "clause_boundary"
+        },
+        "why": "The object-relative the manager sent the staff finishes with staff; surprised starts the main predicate."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "clause_boundary"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "clause_boundary"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "why": "letter 뒤에 목적격 관계대명사가 생략된 관계절 '(that) the manager sent the staff'가 있다. sent 는 수여동사라 the staff 까지 관계절에 속하고, 그 뒤 surprised 가 문장의 동사다. 'the staff surprised everyone'을 한 절로 읽는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "주어의 핵심 명사."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "생략된 관계절의 시작. 아직 주어가 끝나지 않는다."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "sent 의 간접목적어. 여기서 관계절과 주어가 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "문장의 동사와 목적어."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.chunk_boundary",
+      "id": "cb-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "cb-delayed-1",
+        "response": {
+          "choice": 3,
+          "reason": "clause_boundary"
+        },
+        "why": "After inverted subject a box comes the omitted-object-relative the family had forgotten."
+      },
+      "response": {
+        "choice": 3,
+        "reason": "clause_boundary"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "reason": "clause_boundary"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": false,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "ellipsis_restored",
+        "why": "보어 Hidden under the floor 가 앞으로 나간 도치 문장으로 주어는 a box 다. 'a box (that) the family had forgotten'처럼 목적격 관계대명사를 복원하면 the family 에서 관계절이 시작된다.",
+        "segments": [
+          {
+            "reason": "inverted_order",
+            "why": "앞으로 나간 보어(분사구)."
+          },
+          {
+            "reason": "main_verb",
+            "why": "도치된 동사."
+          },
+          {
+            "reason": "main_subject",
+            "why": "도치 문장의 진짜 주어."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "that 이 생략된 관계절의 시작."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "sc-teach-1",
+        "response": {
+          "choice": 3,
+          "reason": "main_verb"
+        },
+        "why": "Are carried is the main passive predicate; rinse and drop belong to the relative clause."
+      },
+      "response": {
+        "choice": 3,
+        "reason": "main_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "reason": "main_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "main_verb",
+        "why": "3번 문장에서 관계절(that people rinse and drop into the blue bins every morning)을 걷어내면 The plastic bottles are carried 가 남는다. 본동사는 are carried 다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 무엇이 옮겨지는지의 주인공이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절이 bottles 를 꾸민다. rinse · drop 은 관계절 안의 동사라 본동사가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "관계절 안의 drop 이 어디에 · 언제인지 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 bottles 에 맞는 복수 동사 are carried — 문장 전체의 본동사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "공장의 위치를 덧붙이는 부사 덩어리다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "sc-guided-1",
+        "response": {
+          "choice": 2,
+          "reason": "main_subject"
+        },
+        "why": "Visitor is the subject head; walking is an introductory participial clause."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "main_subject"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "main_subject"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "main_subject",
+        "why": "4번 문장은 분사구문(Walking ... afternoon,)으로 시작한다. 콤마 뒤 the visitor 가 주어이고, who 절을 건너뛰면 found 가 본동사다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "분사구문 — 문장의 주어가 무엇을 하던 중인지 덧붙인다. 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "때를 나타내는 전치사구다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "콤마 뒤 첫 명사 — 문장 전체의 주어다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "관계절이 visitor 를 꾸민다. had lost 는 관계절 안의 동사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 visitor 의 본동사 found 와 목적어 the bakery."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "목적격 관계사가 생략된 절이 bakery 를 꾸민다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sc-ind-1",
+        "response": {
+          "choice": 3,
+          "reason": "main_verb"
+        },
+        "why": "Has changed is the finite matrix predicate of the idea, unlike the embedded should have/are designed."
+      },
+      "response": {
+        "choice": 3,
+        "reason": "main_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "reason": "main_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "main_verb",
+        "why": "3번 문장의 주어는 The idea, 동격 that 절과 to roam freely 를 걷어내면 has changed 가 본동사다. are designed 는 목적어 how 절 안의 동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 동격 that 절의 내용을 받는 명사다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "동격 that 절 — idea 의 내용을 밝힌다. should have 는 절 안의 동사다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "space 를 꾸미는 to부정사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "단수 주어 idea 에 맞는 본동사 has changed."
+          },
+          {
+            "reason": "object",
+            "why": "has changed 의 목적어가 되는 how 절의 시작이다."
+          },
+          {
+            "reason": "object",
+            "why": "목적어 how 절 안의 동사 — 본동사가 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sc-ind-2",
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "why": "The head is singular One, not students in its of-complement."
+      },
+      "response": {
+        "choice": 0,
+        "reason": "main_subject"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "reason": "main_subject"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "main_subject",
+        "why": "3번 문장에서 동사 was 가 단수인 까닭은 주어가 One 이기 때문이다. of the students 이하는 모두 One 을 꾸미는 수식어다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 단수이므로 동사가 was 다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "One 을 꾸미는 전치사구 — students 는 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "과거분사구가 students 를 꾸민다. chosen 은 본동사가 아니다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "chosen 의 목적을 밝히는 to부정사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "represent 의 장소를 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "본동사 was 와 보어 my younger cousin."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "sc-transfer-1",
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "why": "Was is the main predicate after the whole free-relative subject; worried belongs within it."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "main_verb"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "main_verb"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "main_verb",
+        "why": "3번 문장은 What 명사절(What ... summer)이 통째로 주어다. 절 안의 worried 를 지나 나오는 was 가 본동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "What 명사절 전체가 주어다. 절 안의 worried 는 본동사가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "명사절 안 worried 의 때를 덧붙인다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "명사절 주어(단수 취급)에 맞는 본동사 was 와 보어의 앞부분."
+          },
+          {
+            "reason": "complement",
+            "why": "not A but B 의 B — was 의 보어다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.sentence_core",
+      "id": "sc-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "sc-delayed-1",
+        "response": {
+          "choice": 4,
+          "reason": "main_subject"
+        },
+        "why": "In the locative inversion a small wooden box follows stood as the subject."
+      },
+      "response": {
+        "choice": 4,
+        "reason": "main_subject"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 4,
+          "reason": "main_subject"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "main_subject",
+        "why": "3번 문장은 장소 부사구(On the top shelf ... corner)가 앞으로 나와 동사 stood 와 주어가 자리를 바꾼 도치 문장이다. 주어는 stood 뒤의 a small wooden box 다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "장소 부사구가 문장 앞으로 나왔다 — 주어처럼 보이지만 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "shelf 를 꾸미는 전치사구다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "cabinet 의 위치를 덧붙인다."
+          },
+          {
+            "reason": "inverted_order",
+            "why": "장소 부사구 도치로 동사 stood 가 주어 앞에 왔다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "도치된 문장의 주어 — stood 뒤에 있다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "과거분사구가 box 를 꾸민다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "sr-teach-1",
+        "response": {
+          "choice": 4,
+          "reason": "parallel_member"
+        },
+        "why": "Aims takes coordinated to reduce and to shorten infinitival complements."
+      },
+      "response": {
+        "choice": 4,
+        "reason": "parallel_member"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 4,
+          "reason": "parallel_member"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "parallel_member",
+        "why": "and 뒤의 to shorten the time customers wait in line 이 to reduce costs 와 같은 to 부정사로, 둘 다 aims 의 목적어로 병렬 연결된다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "문장의 본동사다."
+          },
+          {
+            "reason": "object",
+            "why": "aims 의 첫 번째 목적어로, 기준이 되는 병렬 요소다."
+          },
+          {
+            "reason": "phrase_boundary",
+            "why": "두 to 부정사를 잇는 접속사다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "to reduce costs 와 나란한 두 번째 목적어다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "sr-guided-1",
+        "response": {
+          "choice": 1,
+          "reason": "ellipsis_restored"
+        },
+        "why": "Although tired expands to although the runners were tired."
+      },
+      "response": {
+        "choice": 1,
+        "reason": "ellipsis_restored"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "reason": "ellipsis_restored"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "ellipsis_restored",
+        "why": "although tired 는 although (they were) tired 에서 주절과 같은 주어와 be동사가 생략된 것이다.",
+        "segments": [
+          {
+            "reason": "subject_and_verb",
+            "why": "주절의 주어 · 동사 said 와 목적어절을 여는 that 이다."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "they were 가 생략된 부사절이다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "that 절의 주어다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "that 절의 동사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "kept going 의 범위를 나타내는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sr-ind-1",
+        "response": {
+          "choice": 2,
+          "reason": "inserted_clause"
+        },
+        "why": "The comma-delimited nonrestrictive relative is an insertion in the matrix clause."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "inserted_clause"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "inserted_clause"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "inserted_clause",
+        "why": "콤마 사이의 which a sailor drew in 1650 은 주어 map 과 동사 went 사이에 끼어든 계속적 관계절로, 걷어내도 문장이 완전하다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "시간을 나타내는 부사다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "inserted_clause",
+            "why": "주어와 동사 사이에 삽입된 보충 설명이다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 map 의 동사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "went on display 를 꾸미는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sr-ind-2",
+        "response": {
+          "choice": 0,
+          "reason": "inverted_order"
+        },
+        "why": "Fronted negative Never before triggers subject-auxiliary inversion."
+      },
+      "response": {
+        "choice": 0,
+        "reason": "inverted_order"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "reason": "inverted_order"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "inverted_order",
+        "why": "부정어구 Never before 가 문장 맨 앞으로 나와 조동사 had 가 주어 the town 앞으로 도치되었다.",
+        "segments": [
+          {
+            "reason": "inverted_order",
+            "why": "앞으로 나와 도치를 일으킨 부정어구다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 앞으로 자리를 옮긴 조동사다."
+          },
+          {
+            "reason": "main_subject",
+            "why": "도치된 문장의 진짜 주어다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "had 와 함께 과거완료를 이루는 본동사다."
+          },
+          {
+            "reason": "object",
+            "why": "seen 의 목적어다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "sr-transfer-1",
+        "response": {
+          "choice": 3,
+          "reason": "parallel_member"
+        },
+        "why": "Improve sleep is the final predicate parallel to save energy and reduce stress after the inserted as-clause."
+      },
+      "response": {
+        "choice": 3,
+        "reason": "parallel_member"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "reason": "parallel_member"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "parallel_member",
+        "why": "and 뒤에 삽입절 as many studies suggest 가 끼어 있지만, 이를 걷어내면 improve sleep 이 save energy · reduce stress 와 나란한 세 번째 동사구다.",
+        "segments": [
+          {
+            "reason": "subject_and_verb",
+            "why": "주어와 첫 번째 병렬 동사구다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "두 번째 병렬 동사구와 접속사 and 다."
+          },
+          {
+            "reason": "inserted_clause",
+            "why": "and 와 마지막 병렬 요소 사이에 삽입된 절로, 병렬 요소가 아니다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "삽입절 뒤에 이어지는 세 번째 병렬 동사구다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "improve sleep 을 꾸미는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "s.structural_relation",
+      "id": "sr-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "sr-delayed-1",
+        "response": {
+          "choice": 2,
+          "reason": "ellipsis_restored"
+        },
+        "why": "The second conjunct omits preferred between older readers and long articles."
+      },
+      "response": {
+        "choice": 2,
+        "reason": "ellipsis_restored"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "reason": "ellipsis_restored"
+        },
+        "grade": {
+          "choiceOk": true,
+          "reasonOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "ellipsis_restored",
+        "why": "and most older readers long articles 는 앞 절과 같은 동사 preferred 가 생략된 것으로, most older readers (preferred) long articles 로 되살려 읽는다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "배경을 나타내는 부사구다."
+          },
+          {
+            "reason": "subject_and_verb",
+            "why": "주어 · 동사 · 목적어를 모두 갖춘 첫 절이다."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "동사 preferred 가 빠진 두 번째 절이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "대시 뒤에서 앞 두 절이 보여 준 차이 전체를 받아 설명하는 동격 명사구다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "mw-teach-1",
+        "response": {
+          "choice": 2,
+          "cue": [
+            3
+          ]
+        },
+        "why": "The outside study center closure explains most of the increase, leaving lamps a small explanatory share."
+      },
+      "response": {
+        "choice": 2,
+        "cue": [
+          3
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "cue": [
+            3
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "senseGloss": "account for: (어떤 현상·결과의) 원인이 되다, 그것을 설명하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "account(계좌)와 for(위해)를 낱낱이 옮긴 직역으로, 덩어리 뜻을 놓쳤다."
+          },
+          {
+            "choice": 1,
+            "design": "nearby_word",
+            "why": "모양이 비슷한 'answer for'(~에 책임을 지다)의 뜻이다. 램프가 무엇을 책임지는 이야기가 아니라 증가의 원인을 따지는 글이다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_part_of_speech",
+            "why": "명사 account(장부·기록)의 뜻을 동사구 자리에 옮겼다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "램프가 증가의 작은 일부를 '설명한다'는 말을, 원인에서 아예 빼 버린다는 뜻으로 뒤집었다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "mw-guided-1",
+        "response": {
+          "choice": 0,
+          "cue": [
+            1,
+            3
+          ]
+        },
+        "why": "The phone tower and package-only mail use show replacement of letters by texts."
+      },
+      "response": {
+        "choice": 0,
+        "cue": [
+          1,
+          3
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 0,
+          "cue": [
+            1,
+            3
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 0,
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "senseGloss": "give way to: (더 새로운 것에) 자리를 내주다, ~로 대체되다",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "basic_meaning",
+            "why": "give(주다)+way(길)를 그대로 옮긴 직역이다."
+          },
+          {
+            "choice": 2,
+            "design": "opposite_sense",
+            "why": "편지가 밀려났다는 흐름과 정반대로 버텼다고 읽었다."
+          },
+          {
+            "choice": 3,
+            "design": "collocation_mismatch",
+            "why": "'함께 쓰였다'는 사라진 편지와 들어선 문자의 관계를 나란히 놓아 대체의 뜻을 놓쳤다."
+          },
+          {
+            "choice": 4,
+            "design": "nearby_word",
+            "why": "도로에서 다른 차에게 '양보하다'라는 give way 의 쓰임으로, 편지와 문자의 교체 맥락과 맞지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "mw-ind-1",
+        "response": {
+          "choice": 3,
+          "cue": [
+            0,
+            1,
+            2
+          ]
+        },
+        "why": "In a market of similar drinks the visible fresh roasting distinguishes this shop."
+      },
+      "response": {
+        "choice": 3,
+        "cue": [
+          0,
+          1,
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 3,
+          "cue": [
+            0,
+            1,
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": false,
+          "choiceDesign": null,
+          "isCorrect": false
+        }
+      },
+      "gold": {
+        "answer": 3,
+        "cue": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "senseGloss": "set A apart (from B): A를 (B와) 구별되게 하다, 돋보이게 하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "set(놓다)+apart(떨어져)를 장소 이동으로만 읽은 직역이다. 가게는 자리를 옮기지 않았다."
+          },
+          {
+            "choice": 1,
+            "design": "opposite_sense",
+            "why": "다른 가게와 다르다는 흐름(1번과 대비)을 닮게 한다로 뒤집었다."
+          },
+          {
+            "choice": 2,
+            "design": "nearby_word",
+            "why": "'set aside'(한쪽에 치워 두다·따로 남겨 두다)의 뜻과 혼동했다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "'set up'(차리다)과 섞은 뜻으로, apart 와 결합하지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "mw-ind-2",
+        "response": {
+          "choice": 1,
+          "cue": [
+            0,
+            3
+          ]
+        },
+        "why": "Years until benefits and an established shaded district mark a long-term view."
+      },
+      "response": {
+        "choice": 1,
+        "cue": [
+          0,
+          3
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 1,
+          "cue": [
+            0,
+            3
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 1,
+        "cue": [
+          0,
+          2,
+          3
+        ],
+        "senseGloss": "in the long run: 장기적으로 보면, 결국에는",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "long(긴)+run(달리기)을 그대로 옮긴 직역이다."
+          },
+          {
+            "choice": 2,
+            "design": "opposite_sense",
+            "why": "1번 문장이 '결과까지 몇 년 걸린다'고 한 것과 반대인 단기 시점이다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "'the long way (round)'(먼 길로 돌아서)의 뜻과 혼동했다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "run 을 '줄·행렬'로 엮은 조합으로, 이 관용구와 어울리지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "mw-transfer-1",
+        "response": {
+          "choice": 4,
+          "cue": [
+            3,
+            4
+          ]
+        },
+        "why": "She stayed teaching and valued students over the tour, rejecting the offer."
+      },
+      "response": {
+        "choice": 4,
+        "cue": [
+          3,
+          4
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 4,
+          "cue": [
+            3,
+            4
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 4,
+        "cue": [
+          2,
+          3,
+          4
+        ],
+        "senseGloss": "turn A down: (제안·요청 A를) 거절하다 — 목적어가 사이에 끼어도 한 덩어리",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "turn(뒤집다)+down(아래로)을 낱낱이 옮긴 직역이다."
+          },
+          {
+            "choice": 1,
+            "design": "nearby_word",
+            "why": "'put off'(미루다)의 뜻으로, 이미 결정하고 남았다는 내용과 맞지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'turn down the volume'(소리를 낮추다)의 쓰임을 목적어 offer 에 붙여 맞지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "opposite_sense",
+            "why": "학생들 곁에 남았다(4·5번)는 흐름과 반대다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.multiword",
+      "id": "mw-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "mw-delayed-1",
+        "response": {
+          "choice": 2,
+          "cue": [
+            0,
+            2
+          ]
+        },
+        "why": "Water is unthinkingly normal until damage and queues force awareness."
+      },
+      "response": {
+        "choice": 2,
+        "cue": [
+          0,
+          2
+        ]
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "choice": 2,
+          "cue": [
+            0,
+            2
+          ]
+        },
+        "grade": {
+          "choiceOk": true,
+          "cueOk": true,
+          "choiceDesign": null,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "answer": 2,
+        "cue": [
+          0,
+          1,
+          2
+        ],
+        "senseGloss": "take A for granted: A를 (고마움 없이) 당연하게 여기다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "take(가져가다)+granted(허락된)를 글자대로 옮긴 직역이다."
+          },
+          {
+            "choice": 1,
+            "design": "opposite_sense",
+            "why": "아무 생각 없이 마신다(1번)는 흐름과 반대다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "비슷한 꼴의 명사 grant(보조금)에 끌린 뜻이다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "'call into question'(의심하다)류의 뜻으로, for granted 와 결합하지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-teach-1",
+      "role": "model_explanation",
+      "independentReading": {
+        "id": "sem-teach-1",
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "why": "Until ten rather than six yields the same contextual four-hour extension each weekday."
+      },
+      "response": {
+        "same": true,
+        "relation": "paraphrase"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          0,
+          2,
+          4
+        ],
+        "why": "6시 마감(1번)에서 평일 10시까지 연장(3번)한 것은 평일 저녁 네 시간(5번)과 범위가 정확히 같다. 시각을 시간의 양으로 바꿔 쓴 바꿔 말하기다."
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-guided-1",
+      "role": "guided_practice",
+      "independentReading": {
+        "id": "sem-guided-1",
+        "response": {
+          "same": false,
+          "relation": "hyponym"
+        },
+        "why": "A hammer is a specific kind of tool; direction is from a to b."
+      },
+      "response": {
+        "same": false,
+        "relation": "hyponym"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": false,
+          "relation": "hyponym"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": false,
+        "relation": "hyponym",
+        "cue": [
+          1,
+          2
+        ],
+        "why": "'Among them'이 2번의 old tools 를 받으므로 hammer 는 tools 가운데 하나다. A 가 B 에 포함되는 더 좁은 말이라 하위어이며 같은 뜻은 아니다."
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-ind-1",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sem-ind-1",
+        "response": {
+          "same": false,
+          "relation": "hypernym"
+        },
+        "why": "Mammals is the superordinate class containing foxes; direction is from a to b."
+      },
+      "response": {
+        "same": false,
+        "relation": "hypernym"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": false,
+          "relation": "hypernym"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": false,
+        "relation": "hypernym",
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "why": "mammals(포유동물)는 foxes·deer·raccoons 를 모두 포함하는 상위어이고, Foxes 는 그 한 예다. 표현 a 가 b 의 상위 범주이므로 상위어 관계이며 같은 뜻은 아니다."
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-ind-2",
+      "role": "independent_check",
+      "independentReading": {
+        "id": "sem-ind-2",
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "why": "Far from hasty describes the same contextually slow and careful approach with a negated antonym."
+      },
+      "response": {
+        "same": true,
+        "relation": "paraphrase"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          2,
+          4
+        ],
+        "why": "hasty(성급한)는 slow and careful 의 반의어지만 'far from'(전혀 ~가 아닌)이 부정하므로 'far from hasty'는 '신중한'이 된다. 부정 뒤에 숨은 반의어를 뒤집으면 5번의 'slow and careful'과 같은 뜻이다."
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-transfer-1",
+      "role": "transfer",
+      "independentReading": {
+        "id": "sem-transfer-1",
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "why": "Permission to choose books and freedom to decide reading describe the same policy/autonomy in context."
+      },
+      "response": {
+        "same": true,
+        "relation": "paraphrase"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": true,
+          "relation": "paraphrase"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          0,
+          3
+        ],
+        "why": "1번의 '학생이 읽을 책을 스스로 고르게 한다'를 4번이 학생 입장에서 '무엇을 읽을지 정할 자유'로 다시 썼다. 주어와 구조가 바뀌었지만 같은 제도를 가리키는 구 단위 바꿔 말하기다."
+      }
+    },
+    {
+      "taskId": "v.semantic_relation",
+      "id": "sem-delayed-1",
+      "role": "delayed_check",
+      "independentReading": {
+        "id": "sem-delayed-1",
+        "response": {
+          "same": false,
+          "relation": "antonym"
+        },
+        "why": "The opposed groups regard the same policy as inconvenient versus not burdensome."
+      },
+      "response": {
+        "same": false,
+        "relation": "antonym"
+      },
+      "validation": [],
+      "graded": {
+        "response": {
+          "same": false,
+          "relation": "antonym"
+        },
+        "grade": {
+          "sameOk": true,
+          "relationOk": true,
+          "isCorrect": true
+        }
+      },
+      "gold": {
+        "same": false,
+        "relation": "antonym",
+        "cue": [
+          2,
+          3
+        ],
+        "why": "burden(부담)은 inconvenient 와 비슷한 쪽이지만 'not'이 붙어 '부담이 아니다'가 된다. 3번의 불만과 4번의 'Others said'가 대조되므로 두 표현은 반대 평가다."
+      }
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import path from 'node:path'
 import assert from 'node:assert/strict'
 import crypto from 'node:crypto'
 import {execFileSync} from 'node:child_process'
-const root=path.resolve(import.meta.dirname,'../../../..'),folder=path.join(root,'docs/research/final-independent-20261018'),head='22b5e43c57b4895066fd360eb828ebbad0440569',baseline='c3a03d168'
+const root=path.resolve(import.meta.dirname,'../../../..'),folder=path.join(root,'docs/research/final-independent-20261018'),head='3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f',baseline='c3a03d168'
 const source=p=>execFileSync('git',['show',head+':'+p],{cwd:root,encoding:'utf8'})
 const metadata=JSON.parse(fs.readFileSync(path.join(folder,'task-support.json'),'utf8')),snapshot=JSON.parse(fs.readFileSync(path.join(folder,'task-runtime-expansion-snapshot.json'),'utf8'))
 assert.equal(snapshot.readOnly,'on')
@@ -14,7 +14,7 @@ assert.equal(source(definition).replace(/\r\n/g,'\n'),execFileSync('git',['show'
 const keys=Object.fromEntries([...source('apps/web/src/lib/knowledge/authored/tasks.ts').matchAll(/'([a-z]\.[a-z_]+)'\s*:\s*'([a-z-]+)'/g)].map(m=>[m[1],m[2]]))
 const files=execFileSync('git',['ls-tree','-r','--name-only',head,'apps/web/src/lib/knowledge/authored/'],{cwd:root,encoding:'utf8'}).trim().split('\n').filter(p=>p.endsWith('.v1.json'))
 const sets=files.map(file=>{const raw=source(file),s=JSON.parse(raw);assert.equal(keys[s.taskId],s.taskKey);return {file,sha256:crypto.createHash('sha256').update(raw).digest('hex'),taskId:s.taskId,taskKey:s.taskKey,set:s.set,format:s.format??'central_meaning',provenance:s.provenance,items:s.items.length,roles:Object.fromEntries([...new Set(s.items.map(i=>i.role))].map(role=>[role,s.items.filter(i=>i.role===role).length]))}})
-assert.equal(sets.length,7);assert.equal(Object.keys(keys).length,7)
+assert.equal(sets.length,17);assert.equal(Object.keys(keys).length,17)
 const rows=metadata.rows.map(t=>{const drafts=sets.filter(s=>s.taskId===t.id),evidenceKeys=[...t.checkKeys,...(keys[t.id]?[keys[t.id]]:[])],attempts=snapshot.attemptMetadata.filter(a=>evidenceKeys.includes(a.task_key));return {id:t.id,name:t.name,directCheckMetadata:t.directCheck,evidenceKeys,legacyMapping:t.checkKeys.length?'EXPLICIT':'UNMAPPED',authoredDraftItems:drafts.reduce((n,s)=>n+s.items,0),format:drafts.map(s=>s.format).join(', ')||'UNMAPPED',qualifiedRows:snapshot.qualifications.filter(x=>x.task_id===t.id).reduce((n,x)=>n+x.n,0),deliveryRows:snapshot.deliveries.filter(x=>x.task_id===t.id).reduce((n,x)=>n+x.n,0),boundEvidenceRows:snapshot.bindings.filter(x=>x.task_id===t.id&&x.evidence).reduce((n,x)=>n+x.n,0),attemptRows:attempts.reduce((n,a)=>n+a.n,0),syntheticFlaggedRows:attempts.reduce((n,a)=>n+a.synthetic_flagged,0)}})
 const result={head,baseline,observedAt:snapshot.observedAt,scope:'Static candidate registry plus aggregate read-only DB; not human review, learner qualification, efficacy, or whole A-H E2E.',sets,rows}
 fs.writeFileSync(path.join(folder,'task-expansion-coverage.json'),JSON.stringify(result,null,2)+'\n')
@@ -30,8 +30,8 @@ fs.writeFileSync(path.join(folder,'TASK_EXPANSION_COVERAGE.md'),`<!-- docs/resea
 |---|---|---|---:|---|---:|
 ${lines}
 
-후보는7 TASK의45문항(R5 9 + 신규6세트 각6)이다. 신규36문항의 독립 판독/채점 대조는 [내용 검토](./EXPANSION_CONTENT_REVIEW.md)에 연결한다. 초안/AI 일치/정적 형식 레지스트리는 사람 Gold·권리·출시·실제 전이·PLAN 환류 증거가 아니다. 22b5e43c5에서 추가된4형식은 아직 세트 등록과 능력 수용을 증명하지 않는다.
+후보는17 TASK의105문항(R5 9 + 확장16세트 각6)이다. 첫 확장36문항은 [1차 내용 검토](./EXPANSION_CONTENT_REVIEW.md), 후속60문항은 [2차 내용 검토](./EXPANSION2_CONTENT_REVIEW.md)에 연결한다. 초안/AI 일치/정적 형식 레지스트리는 사람 Gold·권리·출시·실제 전이·PLAN 환류 증거가 아니다. 새4형식의 세트 등록과 독립 컴포넌트/채점 검사는 [2차 검토](./EXPANSION2_CONTENT_REVIEW.md)로 확인한다. 등록/기본 상호작용은 전체 능력 수용을 증명하지 않는다.
 
-나머지 비보류14 TASK는 창작 세트가 없다. L/X blocked9개도 지원 완료로 세지 않는다. 기존 legacy 직접 근거는 이름 추정으로 확장하지 않으며 UNMAPPED를 유지한다. claim-support 독립 모양125행 중124 synthetic, 나머지1행은 실제 학생/효과로 확정하지 않는다. viewed_first 4행은 독립 근거가 아니다. 전체 A~H PARTIAL/BLOCKED_EXTERNAL 및 REWORK를 유지한다.
+나머지 비보류4 TASK에는 창작 세트가 없다. 이들은 v.core_meaning 및 s.o.sentence_meaning_model/r.o.global_meaning_model/e.o.final_judgment다. 세트 부재만으로 TASK 전체 미구현이라고 단정하거나 산출 TASK마다 별도 세트를 새 필수 게이트로 요구하지 않는다. 기존 조합/산출 근거는 별도로 대조해야 한다. L/X blocked9개도 지원 완료로 세지 않는다. 기존 legacy 직접 근거는 이름 추정으로 확장하지 않으며 UNMAPPED를 유지한다. claim-support 독립 모양125행 중124 synthetic, 나머지1행은 실제 학생/효과로 확정하지 않는다. viewed_first 4행은 독립 근거가 아니다. 전체 A~H PARTIAL/BLOCKED_EXTERNAL 및 REWORK를 유지한다.
 `)
 console.log(JSON.stringify({head,tasks:rows.length,authoredTasks:sets.length,items:sets.reduce((n,s)=>n+s.items,0),qualifiedTasks:rows.filter(r=>r.deliveryRows>0).length,observedAt:snapshot.observedAt},null,2))

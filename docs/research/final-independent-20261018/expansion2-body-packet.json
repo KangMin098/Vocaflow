@@ -1,0 +1,1553 @@
+{
+  "head": "3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f",
+  "scope": "Body-only independent reading of the ten additional sets. Gold, teaching, hints and author reviewer outputs omitted. No human approval.",
+  "sets": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "taskKey": "authored-task-demand",
+      "format": "demand_choice",
+      "items": [
+        {
+          "id": "td-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "td-t1",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "Many schools now ban phones during lunch breaks, hoping students will talk to each other more.",
+              "Some parents worry that such rules treat teenagers like small children.",
+              "Yet the evidence from schools that tried the ban is hard to ignore.",
+              "Students in these schools report fewer conflicts and more conversations at their tables.",
+              "Rules that feel strict at first can protect the very freedom to connect face to face.",
+              "Schools should therefore keep phones out of lunch breaks, even when some students complain."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "choices": [
+              "글 전체가 다루는 화제를 한 구절로 정리하기",
+              "학생들이 점심시간에 겪은 변화를 찾아 적기",
+              "글쓴이가 학교 측에 요구하는 행동을 고르기",
+              "글에 나온 학부모의 걱정이 옳은지 판정하기",
+              "글의 내용과 일치하지 않는 진술을 골라내기"
+            ]
+          }
+        },
+        {
+          "id": "td-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "td-t2",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "When a city plants trees along a busy street, the most obvious benefit is shade.",
+              "But the trees also slow down drivers, who sense the road as narrower.",
+              "Shop owners on tree-lined streets often see more people walking past their windows.",
+              "Even the noise from traffic seems softer behind a row of leaves.",
+              "In short, a street tree does far more work than simply blocking the sun."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "다음 글의 주제로 가장 적절한 것은?",
+            "choices": [
+              "글 전체가 무엇에 관해 말하는지 화제를 정리하기",
+              "필자가 시에 요구하는 정책을 찾아 정리하기",
+              "운전자가 속도를 줄이는 이유 하나를 찾기",
+              "글의 내용을 한 문장의 영어 제목으로 바꾸기",
+              "가로수의 단점까지 함께 고려해 평가하기"
+            ]
+          }
+        },
+        {
+          "id": "td-ind-1",
+          "role": "independent_check",
+          "passageGroup": "td-t3",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "The Lindale Science Fair is open to students aged 12 to 18.",
+              "Each team may have up to three members and must submit one project.",
+              "Projects must be registered online by May 10, and late entries will not be accepted.",
+              "Judges will score projects on originality, method, and clarity of presentation.",
+              "The top three teams will receive science kits and a visit to a local laboratory."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "Lindale Science Fair에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+            "choices": [
+              "안내문의 내용을 바탕으로 숨은 의도를 추론하기",
+              "행사의 목적을 한 문장으로 요약해 정리하기",
+              "참가 연령 조건 한 가지만 확인하고 답하기",
+              "안내문에 없는 규정까지 짐작해 판단하기",
+              "선택지별로 안내문과 대조해 사실이 어긋난 것 찾기"
+            ]
+          }
+        },
+        {
+          "id": "td-ind-2",
+          "role": "independent_check",
+          "passageGroup": "td-t4",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "Mira had practiced the piano piece for weeks, but on stage her hands began to shake.",
+              "She missed a note in the second line and felt the room go silent.",
+              "Then she remembered her teacher's words: the music does not stop for a mistake.",
+              "She kept playing, and by the last page her fingers moved as if on their own.",
+              "When the applause came, she realized she had been carrying the wrong fear all along."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "밑줄 친 carrying the wrong fear all along이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+            "choices": [
+              "글 전체에서 글쓴이가 전하려는 교훈을 찾기",
+              "비유 표현이 이야기 흐름 속에서 가리키는 실제 뜻 풀기",
+              "밑줄 표현에 쓰인 fear의 사전적 뜻을 고르기",
+              "밑줄이 든 마지막 문장 전체의 요지를 정리하기",
+              "밑줄 표현 뒤에 Mira가 할 행동을 예측하기"
+            ]
+          }
+        },
+        {
+          "id": "td-transfer-1",
+          "role": "transfer",
+          "passageGroup": "td-t5",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "Researchers asked two groups to memorize a list of words.",
+              "One group simply reread the list several times, while the other covered it and tried to recall the words.",
+              "A week later, the recall group remembered far more words than the rereading group.",
+              "Interestingly, the rereading group had felt more confident right after studying.",
+              "The effort of pulling information out of memory, not the comfort of seeing it again, made learning last.",
+              "[요약] Trying to (A) information, rather than reviewing it, leads to more (B) learning."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+            "choices": [
+              "(A)만 정하고 (B)는 비워 둔 채 판단하기",
+              "(A)·(B)에 실험의 세부 수치를 넣어 채우기",
+              "(A)·(B)에 글쓴이의 권고 행동을 넣어 채우기",
+              "글 전체 요지에 맞게 (A)·(B)를 함께 정하기",
+              "(A)·(B)를 고르고 요약문 문법까지 고치기"
+            ]
+          }
+        },
+        {
+          "id": "td-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "td-t6",
+          "body": {
+            "format": "demand_choice",
+            "sentences": [
+              "A small bakery once decided to stop offering twenty kinds of bread.",
+              "Instead, it focused on just five loaves made with great care.",
+              "Customers who used to stand undecided now chose quickly and returned more often.",
+              "The owner noticed that fewer choices also meant less waste at the end of each day.",
+              "Sometimes, ________ is what makes a business stronger rather than weaker."
+            ],
+            "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+            "taskStem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "choices": [
+              "앞뒤 흐름이 가리키는 핵심 개념으로 비운 자리 채우기",
+              "빈칸 앞 낱말과 문법적으로 어울리는 말만 고르기",
+              "제과점 주인이 줄인 빵의 종류 수를 찾아 쓰기",
+              "필자가 다른 가게에 권하는 행동을 따로 정리하기",
+              "빈칸 문장과 반대되는 사례까지 함께 찾아내기"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "taskKey": "authored-discourse-function",
+      "format": "discourse_roles",
+      "items": [
+        {
+          "id": "df-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "df-t1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Many people believe that a quiet room is always the best place to concentrate.",
+              "It is true that sudden, sharp noises such as a slammed door can break our attention.",
+              "Yet a steady background hum often helps us focus rather than hurting our work.",
+              "In one experiment, writers produced more original ideas in a café-like murmur than in near silence.",
+              "A low, constant sound seems to loosen our thinking just enough to let unusual connections form.",
+              "The ideal workspace, then, may be not a silent one but one with a gentle, even noise."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "df-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "df-g1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Member-owned grocery stores offer rural towns a practical way to keep fresh food within reach.",
+              "Over the past decade, many small towns in the region have lost their only supermarket.",
+              "Chains close such stores because the profits are too thin to satisfy distant shareholders.",
+              "A member-owned store faces no such pressure, since its owners are also its customers.",
+              "They are content as long as the shelves stay full and the doors stay open.",
+              "In one village of eight hundred people, residents bought shares for fifty dollars each.",
+              "Within a year, the shop that a chain had abandoned was selling bread and vegetables again."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "df-ind-1",
+          "role": "independent_check",
+          "passageGroup": "df-i1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Researchers asked two groups of students to learn the same list of foreign words.",
+              "One group studied for an hour in a single session, while the other spread the same hour over four days.",
+              "A week later, the second group recalled nearly twice as many words.",
+              "Spacing apparently gives memories time to settle between sessions.",
+              "Students who want their learning to last should therefore break their review into short sessions spread across several days."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "df-ind-2",
+          "role": "independent_check",
+          "passageGroup": "df-i2",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Old maps record what people once feared as well as where they traveled.",
+              "Mapmakers rarely left the unknown parts of a chart blank.",
+              "Instead, they filled those spaces with whatever their culture imagined might be there.",
+              "A sixteenth-century chart of the Atlantic shows sea serpents in the very waters sailors dreaded most.",
+              "Another map from the same period places a land of giants beyond the southern edge of the known world.",
+              "Neither image was meant as decoration.",
+              "Each marked a danger that readers of the time took seriously.",
+              "In this sense, the empty spaces of an old map say as much about its makers as its coastlines do."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "df-transfer-1",
+          "role": "transfer",
+          "passageGroup": "df-x1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Electric scooters have clearly made short trips across the city faster and cheaper.",
+              "It is true that riders no longer need to wait for a bus to travel a few blocks.",
+              "Even so, the scooters are creating more problems on sidewalks than they solve on the roads.",
+              "Parked scooters often lie across walkways, blocking people who use wheelchairs.",
+              "Pedestrians also report being startled by riders who pass them at high speed.",
+              "Last spring, an elderly man in one downtown district broke his wrist after tripping over a scooter left at a bus stop."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "df-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "df-d1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "In many offices, praise is handed out only after a large project is finished.",
+              "This habit quietly drains motivation during the long months in between.",
+              "Without any sign that their daily work is noticed, employees begin to wonder whether it matters.",
+              "Many respond by doing only what is strictly required.",
+              "By the time the project ends and the praise finally arrives, the best effort has already been lost.",
+              "Delayed recognition, in other words, costs a team the very energy it is meant to reward."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "taskKey": "authored-discourse-structure",
+      "format": "discourse_roles",
+      "items": [
+        {
+          "id": "ds-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "ds-t1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Many people believe that a messy desk is a sure sign of a disorganized mind.",
+              "The image of the tidy, efficient worker is so familiar that few stop to question it.",
+              "Yet observations of office workers suggest that the link is far weaker than we assume.",
+              "Some people who work among piles of paper can find any document within seconds, because the piles follow an order that only they need to understand.",
+              "Their desks look chaotic to visitors, but the arrangement reflects how recently and how often each item is used.",
+              "Judging a person's thinking by the surface of a desk, then, tells us more about our expectations than about the worker."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "ds-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "ds-g1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Small-town libraries face a serious problem: fewer and fewer people walk through their doors.",
+              "Most residents now find information online and see little reason to make the trip.",
+              "As visits fall, councils cut library budgets, which leads to shorter opening hours and even fewer visitors.",
+              "One way to break this cycle is to offer what a screen cannot, such as spaces where people make and repair things together.",
+              "In one town, part of the library became a workshop where residents could borrow tools and join weekly repair classes.",
+              "Volunteers taught everything from fixing bicycles to sewing torn clothes.",
+              "Within two years, the building was busier than it had been in decades."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "ds-ind-1",
+          "role": "independent_check",
+          "passageGroup": "ds-i1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "A new highway can reshape a quiet village faster than any decision made by the village itself.",
+              "Once city drivers can reach it in an hour, the village becomes a popular weekend stop.",
+              "Cafés and small shops open along the main road, and land prices begin to climb.",
+              "Young families who had planned to stay may find that they can no longer afford a home.",
+              "Older residents, meanwhile, often find new part-time work in the growing businesses."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "ds-ind-2",
+          "role": "independent_check",
+          "passageGroup": "ds-i2",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Travelers today can choose between a printed map and a navigation app.",
+              "A printed map shows a whole region at once.",
+              "The reader therefore builds a picture of how places relate to one another.",
+              "That picture takes effort to form, but it often lasts long after the trip.",
+              "A navigation app gives one instruction at a time and asks the traveler to look only at the next turn.",
+              "It saves effort and rarely lets anyone get lost.",
+              "Yet it leaves little behind in memory once the screen goes dark.",
+              "The real choice, then, is between arriving quickly and coming to know the place."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "ds-transfer-1",
+          "role": "transfer",
+          "passageGroup": "ds-x1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Ms. Lee, a primary school teacher, had long wondered whether her brightly decorated classroom actually helped her pupils learn.",
+              "To find out, she and a university researcher taught the same science lessons to two groups of nine-year-olds, one in a room covered with posters and one in a room with almost bare walls.",
+              "The children in the decorated room spent more time looking away from the lesson and scored lower on the final tests.",
+              "Those in the plain room stayed on task longer and remembered more of what they had been taught.",
+              "The finding suggests that what surrounds young learners can quietly compete with the lesson for their attention.",
+              "Teachers who want young students to focus might therefore think twice before filling every wall with decorations."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        },
+        {
+          "id": "ds-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "ds-d1",
+          "body": {
+            "format": "discourse_roles",
+            "sentences": [
+              "Animals often survive harsh winters by changing their behavior rather than their bodies.",
+              "Some squirrels bury thousands of seeds in autumn and return to them, one by one, when snow covers the ground.",
+              "Certain birds gather in tight groups at night, sharing the warmth of their bodies until morning.",
+              "Honeybees cluster around their queen and shiver their muscles to keep the center of the hive warm.",
+              "None of these creatures grows a thicker coat; each simply acts in a way that makes the cold easier to bear."
+            ],
+            "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "taskKey": "authored-reference",
+      "format": "choice_evidence",
+      "items": [
+        {
+          "id": "ref-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "ref-t1",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "City planners once chose street trees mainly for how quickly they grew.",
+              "Fast-growing species filled empty sidewalks within a few years, which pleased residents who wanted shade.",
+              "However, many of these trees had weak wood and shallow roots, so storms often brought them down onto cars and power lines.",
+              "Some cities have therefore begun planting a mix of slower species that live longer and resist wind.",
+              "Critics complain that this practice leaves streets looking bare for nearly a decade.",
+              "Supporters reply that a tree which survives eighty years provides far more shade over its life than two or three quick replacements ever could.",
+              "In their view, patience at the start is the price of a canopy that lasts for generations."
+            ],
+            "stem": "밑줄 친 'this practice'가 가리키는 대상으로 가장 적절한 것은?",
+            "choices": [
+              "choosing street trees for their rapid growth",
+              "planting a mix of slow, long-lived species",
+              "clearing fallen trees from cars and power lines",
+              "filling empty sidewalks with shade very quickly",
+              "strengthening shallow roots against heavy storms"
+            ]
+          }
+        },
+        {
+          "id": "ref-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "ref-t2",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "Students preparing for an exam usually choose between two broad strategies.",
+              "Some reread their notes several times until the material begins to feel familiar.",
+              "Others close the book and try to write down everything they remember, checking afterward what they missed.",
+              "Most learners prefer the first strategy because it feels smooth and produces a comforting sense of progress.",
+              "Yet experiments repeatedly show that the latter leads to better results on tests given a week later.",
+              "The effort of pulling information out of memory seems to strengthen it, whereas easy rereading leaves little trace.",
+              "What feels productive, in other words, is not always what actually works."
+            ],
+            "stem": "밑줄 친 'the latter'가 가리키는 대상으로 가장 적절한 것은?",
+            "choices": [
+              "rereading notes until they feel familiar",
+              "a comforting sense of steady progress",
+              "tests that are given a week later",
+              "recalling material unaided, then checking gaps",
+              "choosing between two broad strategies"
+            ]
+          }
+        },
+        {
+          "id": "ref-ind-1",
+          "role": "independent_check",
+          "passageGroup": "ref-t3",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "Doctors have long noticed that some patients feel better after taking pills that contain no medicine at all.",
+              "This effect is usually explained by expectation: believing that a treatment will work changes how the body responds.",
+              "Researchers were therefore surprised when patients improved even after being told openly that their pills were inactive.",
+              "In such cases, expectation cannot easily be the whole story, since the patients knew there was nothing to expect.",
+              "One proposal is that the ritual of treatment itself, such as visiting a clinic and swallowing a pill, triggers learned responses.",
+              "If so, the setting in which medicine is given may matter more than doctors have generally assumed."
+            ],
+            "stem": "밑줄 친 'such cases'가 가리키는 대상으로 가장 적절한 것은?",
+            "choices": [
+              "patients improving though told their pills were inactive",
+              "patients improving because they expect treatment to work",
+              "doctors delivering care in an ordinary clinic setting",
+              "pills that contain real and effective medicine",
+              "the body's general response to belief in treatment"
+            ]
+          }
+        },
+        {
+          "id": "ref-ind-2",
+          "role": "independent_check",
+          "passageGroup": "ref-t4",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "Bees that discover a rich patch of flowers return to the hive and perform a special dance.",
+              "The angle of the dance tells other workers in which direction to fly, and its length signals the distance.",
+              "For a long time, scientists assumed that every bee watching the dance simply followed its instructions.",
+              "Recent observations, however, suggest a more complicated picture.",
+              "Experienced foragers often ignore the dance and return to familiar sites, even when those sites have dried up.",
+              "Only when their old flowers have failed several times do they pay attention to the dancers.",
+              "Younger bees, by contrast, rely on the dance almost from their first flight."
+            ],
+            "stem": "밑줄 친 'they'가 가리키는 대상으로 가장 적절한 것은?",
+            "choices": [
+              "the dancers back from rich flower patches",
+              "younger bees on their very first flights",
+              "the scientists who observed the hive",
+              "the old flowers that have dried up",
+              "experienced foragers loyal to familiar sites"
+            ]
+          }
+        },
+        {
+          "id": "ref-transfer-1",
+          "role": "transfer",
+          "passageGroup": "ref-t5",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "When a new road is built to relieve traffic, drivers who once avoided the area start using it.",
+              "Some people who used to take the train switch to driving, and others make trips they would not have made before.",
+              "Within a few years, the new road is often as crowded as the old one was.",
+              "Transportation researchers have observed this so consistently that they treat it as a rule rather than an exception.",
+              "The lesson for city governments is uncomfortable but clear.",
+              "Adding lanes rarely solves congestion for long, because the extra space itself creates new demand for travel."
+            ],
+            "stem": "밑줄 친 'this'가 가리키는 내용으로 가장 적절한 것은?",
+            "choices": [
+              "commuters giving up the train service",
+              "city governments deciding to add lanes",
+              "new roads soon filling up as before",
+              "drivers avoiding a congested area",
+              "a rule applied in transport research"
+            ]
+          }
+        },
+        {
+          "id": "ref-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "ref-t6",
+          "body": {
+            "format": "choice_evidence",
+            "sentences": [
+              "Museums face a constant choice about how to display fragile objects.",
+              "One option is to keep them behind glass in dim light, which protects them but makes them hard to see.",
+              "Another is to show high-quality copies in the open while the originals stay safely in storage.",
+              "Visitors can then examine every detail, and the originals suffer no damage at all.",
+              "Many curators, however, hesitate to adopt the method.",
+              "They worry that people come to museums precisely to stand in front of the real thing, and that a copy, however perfect, cannot provide that experience.",
+              "For these curators, authenticity is worth some loss of visibility."
+            ],
+            "stem": "밑줄 친 'the method'가 가리키는 대상으로 가장 적절한 것은?",
+            "choices": [
+              "keeping objects behind glass in dim light",
+              "showing copies while originals stay stored",
+              "examining every detail of the originals",
+              "standing in front of the real objects",
+              "choosing how to display fragile items"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "taskKey": "authored-attachment",
+      "format": "segment_choice",
+      "items": [
+        {
+          "id": "at-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "at-t1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Our town has two libraries, an old one downtown and a new one by the river.",
+              "The old library was built in 1920, and the new one opened last spring.",
+              "Visitors often praise the reading room of the old library that has tall arched windows.",
+              "Those windows were added to that one room during a renovation in 1985.",
+              "The rest of the building still has only small, narrow windows."
+            ],
+            "stem": "표시된 문장에서 'that has tall arched windows'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "Visitors often praise",
+              "the reading room",
+              "of the old library",
+              "that has tall arched windows."
+            ]
+          }
+        },
+        {
+          "id": "at-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "at-g1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Mina joined a bird-watching tour on the coast last weekend.",
+              "At the start, the guide lent her a pair of binoculars.",
+              "From the cliff, she studied the fisherman on the rocks with the borrowed binoculars.",
+              "Through the lenses, she could even see the color of his fishing line.",
+              "Without them, he would have been only a small shape far below."
+            ],
+            "stem": "표시된 문장에서 'with the borrowed binoculars'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "From the cliff, she studied",
+              "the fisherman",
+              "on the rocks",
+              "with the borrowed binoculars."
+            ]
+          }
+        },
+        {
+          "id": "at-ind-1",
+          "role": "independent_check",
+          "passageGroup": "at-i1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Last month, students at Hanbit Middle School started a campaign for safer crosswalks.",
+              "They made posters, collected signatures, and marched to city hall on their own.",
+              "Afterwards, the mayor met the parents of the students who had organized the march.",
+              "The parents said they had only learned about the plan the night before.",
+              "They were proud that their children had arranged everything without adult help."
+            ],
+            "stem": "표시된 문장에서 'who had organized the march'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "Afterwards,",
+              "the mayor met",
+              "the parents",
+              "of the students",
+              "who had organized the march."
+            ]
+          }
+        },
+        {
+          "id": "at-ind-2",
+          "role": "independent_check",
+          "passageGroup": "at-i2",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The villages in the valley are among the oldest settlements in the region, some dating back eight hundred years.",
+              "During the war, however, almost every crossing over the river was destroyed.",
+              "Today, engineers are inspecting the bridges near the villages that were built after the war.",
+              "Their concrete was mixed quickly and cheaply in the years of rebuilding, and some of it is now cracking.",
+              "The stone houses of the villages, by contrast, need little repair."
+            ],
+            "stem": "표시된 문장에서 'that were built after the war'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "Today,",
+              "engineers are inspecting",
+              "the bridges",
+              "near the villages",
+              "that were built after the war."
+            ]
+          }
+        },
+        {
+          "id": "at-transfer-1",
+          "role": "transfer",
+          "passageGroup": "at-x1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "For two years, residents argued about what to do with an empty lot on Pine Street.",
+              "Some wanted housing, while others wanted green space.",
+              "Last night, the council finally approved the plan for a park in a narrow vote.",
+              "Five members supported it, and four opposed it.",
+              "Construction will begin in the spring."
+            ],
+            "stem": "표시된 문장에서 'in a narrow vote'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "Last night,",
+              "the council finally approved",
+              "the plan",
+              "for a park",
+              "in a narrow vote."
+            ]
+          }
+        },
+        {
+          "id": "at-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "at-d1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Few people lived on Seol Island before the 1890s.",
+              "The first visitors to arrive by steamship brought a heavy camera with them.",
+              "Photos of the island taken by the first visitors are now kept in the city museum.",
+              "These prints show fishing boats and stone walls that no longer exist.",
+              "They are the oldest pictures anyone has of daily life on the island."
+            ],
+            "stem": "표시된 문장에서 'taken by the first visitors'가 꾸미는 말이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "attachment",
+            "segments": [
+              "Photos",
+              "of the island",
+              "taken by the first visitors",
+              "are now kept",
+              "in the city museum."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "taskKey": "authored-chunk-boundary",
+      "format": "segment_choice",
+      "items": [
+        {
+          "id": "cb-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "cb-t1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "For decades, the town depended on a single river crossing.",
+              "Trucks, buses and farm carts all shared its narrow lanes.",
+              "The old bridge the engineers inspected last spring finally closed in June.",
+              "Their report had found deep cracks in two of its supports.",
+              "Since then, drivers have taken a detour that adds twenty minutes to every trip."
+            ],
+            "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "boundary",
+            "segments": [
+              "The old bridge",
+              "the engineers inspected last spring",
+              "finally closed",
+              "in June."
+            ]
+          }
+        },
+        {
+          "id": "cb-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "cb-t2",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The school introduced a new rule about phones in March.",
+              "Teachers explained it at a morning assembly.",
+              "The students told the rule was unfair refused to sign the form.",
+              "A few parents later supported their complaint.",
+              "The principal agreed to review the rule after one term."
+            ],
+            "stem": "3번 문장에서 주어 덩어리가 끝난 뒤 문장의 진짜 동사가 시작되는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "boundary",
+            "segments": [
+              "The students",
+              "told the rule was unfair",
+              "refused to sign",
+              "the form."
+            ]
+          }
+        },
+        {
+          "id": "cb-ind-1",
+          "role": "independent_check",
+          "passageGroup": "cb-t3",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Sleep researchers often ask families to keep simple diaries.",
+              "Many parents believe their children sleep more than they actually do.",
+              "Wrist sensors usually tell a different story.",
+              "Teenagers in particular lose an hour or more on school nights.",
+              "The gap matters because tired students learn less."
+            ],
+            "stem": "2번 문장에서 생략된 that 절이 시작되는 덩어리는?",
+            "focus": {
+              "sentence": 1
+            },
+            "ask": "boundary",
+            "segments": [
+              "Many parents believe",
+              "their children",
+              "sleep more than",
+              "they actually do."
+            ]
+          }
+        },
+        {
+          "id": "cb-ind-2",
+          "role": "independent_check",
+          "passageGroup": "cb-t4",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Last summer brought weeks of heavy rain to the farming valley.",
+              "Many fields stayed flooded until August.",
+              "A sudden rise in the price of fresh vegetables across the region worried local restaurant owners who buy produce daily.",
+              "Some changed their menus every week.",
+              "Others signed contracts with farms farther away."
+            ],
+            "stem": "3번 문장의 주어 덩어리 전체에 해당하는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "boundary",
+            "segments": [
+              "A sudden rise in the price of fresh vegetables across the region",
+              "worried",
+              "local restaurant owners",
+              "who buy produce daily."
+            ]
+          }
+        },
+        {
+          "id": "cb-transfer-1",
+          "role": "transfer",
+          "passageGroup": "cb-t5",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The company had struggled through a difficult year.",
+              "In December, the manager wrote a short note to every employee.",
+              "The letter the manager sent the staff surprised everyone.",
+              "It thanked them by name and promised no job cuts.",
+              "Several workers kept a copy on their desks for months."
+            ],
+            "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "boundary",
+            "segments": [
+              "The letter",
+              "the manager sent",
+              "the staff",
+              "surprised everyone."
+            ]
+          }
+        },
+        {
+          "id": "cb-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "cb-t6",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The family began renovating their grandmother's house in autumn.",
+              "They removed the old carpet in the living room first.",
+              "Hidden under the floor was a box the family had forgotten.",
+              "Inside it were photographs from the 1960s.",
+              "Nobody could name half of the people in them."
+            ],
+            "stem": "3번 문장에서 관계대명사가 생략된 절이 시작되는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "boundary",
+            "segments": [
+              "Hidden under the floor",
+              "was",
+              "a box",
+              "the family had forgotten."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "taskKey": "authored-sentence-core",
+      "format": "segment_choice",
+      "items": [
+        {
+          "id": "sc-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "sc-t1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Many towns now ask residents to sort their trash into several bins.",
+              "The plan sounds simple, but it depends on careful habits.",
+              "The plastic bottles that people rinse and drop into the blue bins every morning are carried to a plant outside the city.",
+              "There they are melted down and shaped into new containers.",
+              "A bottle left unwashed, however, can spoil a whole batch."
+            ],
+            "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "verb",
+            "segments": [
+              "The plastic bottles",
+              "that people rinse and drop",
+              "into the blue bins every morning",
+              "are carried to a plant",
+              "outside the city."
+            ]
+          }
+        },
+        {
+          "id": "sc-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "sc-g1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "My aunt keeps a notebook of family recipes.",
+              "Some of them came from a town she had never visited.",
+              "Last spring she finally travelled there.",
+              "Walking through the old market on a rainy afternoon, the visitor who had lost her map finally found the bakery her grandmother had described.",
+              "The bread tasted exactly like the one in the notebook."
+            ],
+            "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 3
+            },
+            "ask": "subject",
+            "segments": [
+              "Walking through the old market",
+              "on a rainy afternoon,",
+              "the visitor",
+              "who had lost her map",
+              "finally found the bakery",
+              "her grandmother had described."
+            ]
+          }
+        },
+        {
+          "id": "sc-ind-1",
+          "role": "independent_check",
+          "passageGroup": "sc-i1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "A century ago, most zoos kept animals in small cages.",
+              "Visitors could see them clearly, but the animals often paced in circles.",
+              "The idea that animals in zoos should have space to roam freely has changed how new enclosures are designed.",
+              "Today many parks build wide fields and hidden fences.",
+              "The animals seem calmer, and visitors stay longer."
+            ],
+            "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "verb",
+            "segments": [
+              "The idea",
+              "that animals in zoos should have space",
+              "to roam freely",
+              "has changed",
+              "how new enclosures",
+              "are designed."
+            ]
+          }
+        },
+        {
+          "id": "sc-ind-2",
+          "role": "independent_check",
+          "passageGroup": "sc-i2",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Every year our school sends a small team to a national contest.",
+              "This year the competition for a place was especially fierce.",
+              "One of the students chosen by the teachers to represent the school at the science fair in Busan was my younger cousin.",
+              "He spent the whole winter building a model of a solar boat.",
+              "I have never seen him work so hard."
+            ],
+            "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "subject",
+            "segments": [
+              "One",
+              "of the students",
+              "chosen by the teachers",
+              "to represent the school",
+              "at the science fair in Busan",
+              "was my younger cousin."
+            ]
+          }
+        },
+        {
+          "id": "sc-transfer-1",
+          "role": "transfer",
+          "passageGroup": "sc-x1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The valley is famous for its apples.",
+              "Last year, however, the harvest was small.",
+              "What the farmers in the valley worried about most during the long dry summer was not the heat but the lack of rain.",
+              "Several wells dried up by August.",
+              "Some families began collecting rainwater on their roofs."
+            ],
+            "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "verb",
+            "segments": [
+              "What the farmers in the valley worried about most",
+              "during the long dry summer",
+              "was not the heat",
+              "but the lack of rain."
+            ]
+          }
+        },
+        {
+          "id": "sc-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "sc-d1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "My grandfather rarely talked about his years as a sailor.",
+              "After he passed away, we cleaned out his study.",
+              "On the top shelf of the dusty cabinet in the corner stood a small wooden box covered with faded stamps.",
+              "Inside were letters he had written to my grandmother from distant ports.",
+              "We read them together that night."
+            ],
+            "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "subject",
+            "segments": [
+              "On the top shelf",
+              "of the dusty cabinet",
+              "in the corner",
+              "stood",
+              "a small wooden box",
+              "covered with faded stamps."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "taskKey": "authored-structural-relation",
+      "format": "segment_choice",
+      "items": [
+        {
+          "id": "sr-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "sr-t1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "A small bakery in our neighborhood was losing money every month.",
+              "The owner decided to change how the shop worked instead of raising prices.",
+              "The new plan aims to reduce costs and to shorten the time customers wait in line.",
+              "She moved the ovens closer to the counter and began taking orders online.",
+              "Within a year, the shop was busier than ever."
+            ],
+            "stem": "표시된 문장에서 'to reduce costs'와 병렬로 연결된 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "The new plan",
+              "aims",
+              "to reduce costs",
+              "and",
+              "to shorten the time customers wait in line"
+            ]
+          }
+        },
+        {
+          "id": "sr-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "sr-g1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The marathon began in cool weather, but the afternoon turned hot.",
+              "Many runners slowed down after the halfway point.",
+              "The coach said that, although tired, the runners kept going until the finish line.",
+              "Volunteers handed out water at every corner.",
+              "In the end, almost everyone completed the race."
+            ],
+            "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "The coach said that,",
+              "although tired,",
+              "the runners",
+              "kept going",
+              "until the finish line"
+            ]
+          }
+        },
+        {
+          "id": "sr-ind-1",
+          "role": "independent_check",
+          "passageGroup": "sr-i1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "The city museum reopened last month after a long renovation.",
+              "Visitors lined up early to see its maritime collection.",
+              "Yesterday the museum's oldest map, which a sailor drew in 1650, went on display for the first time.",
+              "The map shows coastlines that later explorers corrected.",
+              "Curators hope it will draw students interested in history."
+            ],
+            "stem": "표시된 문장에서 삽입된 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "Yesterday",
+              "the museum's oldest map,",
+              "which a sailor drew in 1650,",
+              "went on display",
+              "for the first time"
+            ]
+          }
+        },
+        {
+          "id": "sr-ind-2",
+          "role": "independent_check",
+          "passageGroup": "sr-i2",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Last spring a small town hosted its first music festival.",
+              "Bands from five countries performed in the main square.",
+              "Never before had the town seen so many visitors in one week.",
+              "Local shops ran out of food by the second day.",
+              "The council has already voted to hold the festival again."
+            ],
+            "stem": "표시된 문장에서 도치를 일으키며 앞으로 나온 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "Never before",
+              "had",
+              "the town",
+              "seen",
+              "so many visitors in one week"
+            ]
+          }
+        },
+        {
+          "id": "sr-transfer-1",
+          "role": "transfer",
+          "passageGroup": "sr-x1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "Many people think habits matter only for athletes.",
+              "In fact, ordinary routines shape almost every part of daily life.",
+              "Good habits save energy, reduce stress, and, as many studies suggest, improve sleep over time.",
+              "Even a fixed bedtime can make mornings easier.",
+              "Small routines, repeated daily, add up to large changes."
+            ],
+            "stem": "표시된 문장에서 삽입된 말을 건너뛰고 'save energy'와 병렬로 이어지는 마지막 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "Good habits save energy,",
+              "reduce stress, and,",
+              "as many studies suggest,",
+              "improve sleep",
+              "over time"
+            ]
+          }
+        },
+        {
+          "id": "sr-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "sr-d1",
+          "body": {
+            "format": "segment_choice",
+            "sentences": [
+              "A publisher asked readers how they like to get the news.",
+              "More than two thousand people answered the questions.",
+              "In the survey, most younger readers preferred short videos, and most older readers long articles — a gap the editors had not expected.",
+              "The results surprised the editors.",
+              "They now plan to offer both formats for every major story."
+            ],
+            "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+            "focus": {
+              "sentence": 2
+            },
+            "ask": "structure",
+            "segments": [
+              "In the survey,",
+              "most younger readers preferred short videos,",
+              "and most older readers long articles",
+              "— a gap the editors had not expected"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "taskKey": "authored-multiword",
+      "format": "contextual_sense",
+      "items": [
+        {
+          "id": "mw-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "mw-t1",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "A small town library noticed that its evening visitors had nearly doubled in a single year.",
+              "At first, the staff assumed the new reading lamps were the reason.",
+              "A closer look, however, showed that the lamps could account for only a small part of the increase.",
+              "Most of the new visitors were students who came after the nearby study center closed early.",
+              "Once the library extended its hours, even more of them began to arrive after dinner."
+            ],
+            "target": {
+              "sentence": 2,
+              "word": "account for"
+            },
+            "stem": "밑줄 친 'account for'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "계좌를 위해 쓰다",
+              "책임을 지다",
+              "원인으로 설명하다",
+              "기록에 올리다",
+              "원인에서 배제하다"
+            ]
+          }
+        },
+        {
+          "id": "mw-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "mw-t2",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "For decades, the village relied on handwritten letters carried by a single mail boat.",
+              "When the island finally received a mobile phone tower, the boat still came every week.",
+              "Within a few years, however, the letters gave way to short text messages.",
+              "Today the mail boat mainly delivers packages ordered online."
+            ],
+            "target": {
+              "sentence": 2,
+              "word": "gave way to"
+            },
+            "stem": "밑줄 친 'gave way to'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "~로 대체되었다",
+              "~에게 길을 알려 주었다",
+              "~에 맞서 버텼다",
+              "~와 함께 쓰였다",
+              "~에게 차로를 양보했다"
+            ]
+          }
+        },
+        {
+          "id": "mw-ind-1",
+          "role": "independent_check",
+          "passageGroup": "mw-t3",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "Many coffee shops in the city sell nearly identical drinks at similar prices.",
+              "One small shop, though, roasts its own beans every morning in the front window.",
+              "Customers can watch the process and smell the beans from the street.",
+              "This daily ritual sets the shop apart from its larger neighbors.",
+              "It has kept a loyal crowd even as new chains opened on the same block."
+            ],
+            "target": {
+              "sentence": 3,
+              "word": "sets the shop apart"
+            },
+            "stem": "밑줄 친 'sets the shop apart'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "가게를 멀찍이 옮겨 놓는다",
+              "가게를 이웃과 닮게 한다",
+              "가게를 한쪽에 치워 둔다",
+              "가게를 돋보이게 구별한다",
+              "가게를 서둘러 차리게 한다"
+            ]
+          }
+        },
+        {
+          "id": "mw-ind-2",
+          "role": "independent_check",
+          "passageGroup": "mw-t4",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "Planting trees along a busy road costs money and takes years to show results.",
+              "Some residents complained that the budget should go to repairing sidewalks instead.",
+              "City planners replied that, in the long run, the trees would lower summer temperatures and cut cooling bills.",
+              "They pointed to a nearby district where shaded streets were now several degrees cooler."
+            ],
+            "target": {
+              "sentence": 2,
+              "word": "in the long run"
+            },
+            "stem": "밑줄 친 'in the long run'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "긴 달리기를 하는 중에",
+              "결국 장기적으로 보면",
+              "당장 눈앞에서는",
+              "먼 길을 돌아서",
+              "오랫동안 줄을 서서"
+            ]
+          }
+        },
+        {
+          "id": "mw-transfer-1",
+          "role": "transfer",
+          "passageGroup": "mw-t5",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "Last spring, a young violinist was invited to join a famous touring orchestra.",
+              "The salary was high, and the tour would take her to twelve countries.",
+              "Yet she had just started teaching music to children in her hometown.",
+              "After a week of thinking, she turned the offer down and stayed with her students.",
+              "She later said that the children's progress meant more to her than any stage."
+            ],
+            "target": {
+              "sentence": 3,
+              "word": "turned the offer down"
+            },
+            "stem": "밑줄 친 'turned the offer down'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "제안을 아래로 뒤집었다",
+              "제안을 잠시 미뤄 두었다",
+              "제안의 조건을 낮췄다",
+              "제안을 받아들였다",
+              "제안을 거절했다"
+            ]
+          }
+        },
+        {
+          "id": "mw-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "mw-t6",
+          "body": {
+            "format": "contextual_sense",
+            "sentences": [
+              "Most of us drink clean water from the tap without a second thought.",
+              "We take it for granted until a storm damages the pipes and the water stops.",
+              "Then people line up at trucks with buckets, suddenly aware of how much they use."
+            ],
+            "target": {
+              "sentence": 1,
+              "word": "take it for granted"
+            },
+            "stem": "밑줄 친 'take it for granted'의 이 글에서의 뜻으로 가장 적절한 것은?",
+            "choices": [
+              "그것을 허락받고 가져간다",
+              "그것을 소중히 아낀다",
+              "그것을 당연하게 여긴다",
+              "그것을 보조금으로 받는다",
+              "그것을 의심하며 따진다"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "taskKey": "authored-semantic-relation",
+      "format": "equivalence",
+      "items": [
+        {
+          "id": "sem-teach-1",
+          "role": "model_explanation",
+          "passageGroup": "sem-t1",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "Our town library used to close every evening at six.",
+              "Many people who worked during the day could never visit it.",
+              "Last spring, the library began opening until ten on weekdays.",
+              "Within a month, the number of adult visitors almost doubled.",
+              "Those four extra hours every weekday evening had clearly reached readers the old schedule left out."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 2,
+                "text": "opening until ten on weekdays"
+              },
+              "b": {
+                "sentence": 4,
+                "text": "four extra hours every weekday evening"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        },
+        {
+          "id": "sem-guided-1",
+          "role": "guided_practice",
+          "passageGroup": "sem-t2",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "Jun helped his grandfather clean out the garage last weekend.",
+              "They found boxes of old tools covered in dust.",
+              "Among them was a wooden-handled hammer his grandfather had used for forty years.",
+              "Jun cleaned it carefully and hung it on the wall.",
+              "His grandfather smiled and told him a story about every nail it had driven."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 2,
+                "text": "hammer"
+              },
+              "b": {
+                "sentence": 1,
+                "text": "tools"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        },
+        {
+          "id": "sem-ind-1",
+          "role": "independent_check",
+          "passageGroup": "sem-t3",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "Scientists placed small cameras along a forest stream for a year.",
+              "The recordings showed that many mammals came to drink at night.",
+              "Foxes appeared most often, usually just after sunset.",
+              "Deer and raccoons visited less regularly but stayed longer.",
+              "The study suggests that the stream matters to the whole animal community, not to a single species."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 1,
+                "text": "mammals"
+              },
+              "b": {
+                "sentence": 2,
+                "text": "Foxes"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        },
+        {
+          "id": "sem-ind-2",
+          "role": "independent_check",
+          "passageGroup": "sem-t4",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "The new manager was known for making quick decisions.",
+              "During the budget crisis, however, she did something unexpected.",
+              "She was far from hasty, spending two weeks studying every report.",
+              "Her staff, who expected a fast answer, were at first impatient.",
+              "In the end, her slow and careful plan saved the company money."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 2,
+                "text": "far from hasty"
+              },
+              "b": {
+                "sentence": 4,
+                "text": "slow and careful"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        },
+        {
+          "id": "sem-transfer-1",
+          "role": "transfer",
+          "passageGroup": "sem-t5",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "Some schools now let students choose their own reading books.",
+              "Teachers at first worried that students would pick only easy titles.",
+              "Instead, many students moved on to harder books once they found topics they cared about.",
+              "Being free to decide what to read seemed to build a lasting habit.",
+              "The schools plan to give students the same choice in other subjects."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 0,
+                "text": "let students choose their own reading books"
+              },
+              "b": {
+                "sentence": 3,
+                "text": "Being free to decide what to read"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        },
+        {
+          "id": "sem-delayed-1",
+          "role": "delayed_check",
+          "passageGroup": "sem-t6",
+          "body": {
+            "format": "equivalence",
+            "sentences": [
+              "A small bakery tried selling bread without plastic bags.",
+              "Customers were asked to bring their own cloth bags.",
+              "Some people complained that the rule was inconvenient.",
+              "Others said it was not a burden at all and soon got used to it.",
+              "After six months, the bakery's sales had stayed about the same."
+            ],
+            "pair": {
+              "a": {
+                "sentence": 2,
+                "text": "inconvenient"
+              },
+              "b": {
+                "sentence": 3,
+                "text": "not a burden"
+              }
+            },
+            "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+          }
+        }
+      ]
+    }
+  ]
+}
