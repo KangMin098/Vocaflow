@@ -175,7 +175,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
       )}
 
       <section className={styles.task} aria-labelledby="passage-h">
-        <h2 id="passage-h">① 중심 문장을 먼저 누르고, ② 그 문장을 떠받치는 문장을 모두 눌러요</h2>
+        <h2 id="passage-h">① 중심 문장(글쓴이가 끝내 말하려는 문장 — 같은 뜻을 다시 말한 문장도 돼요)을 먼저 누르고, ② 그 문장을 떠받치는 문장을 모두 눌러요</h2>
         <ol className={styles.bars}>
           {p.sentences.map((s, k) => {
             const tags = tagsOf(k)

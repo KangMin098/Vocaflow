@@ -38,7 +38,8 @@
 | # | 작업 | 상태 | 증거 |
 |---|---|---|---|
 | 1 | 창작 산출물 DB 패키지 `_pending_authored_supply.sql` | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(A) | PGlite 20 |
-| 2 | R5 창작 9문항 + 맹검 A·B·C + 채점 보정 | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(B·C) | authored-items 14 · review/ |
+| 2 | R5 창작 9문항 v2 + 맹검 A·B·C·D + 오답 근거 감사 | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(B·C) | authored-items 14 · review/ |
+| 2b | FI-001(#293) 결속 출처 — 최신 납품 추측 제거 | CODE_IMPLEMENTED · ISOLATED 재현 6/6 | fi-001-provenance · delivery-binding 10 |
 | 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | tsc 0 · 광역 5,893 |
 | 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(LEVEL 1, 브라우저 제외) | authored-flow 10 |
 | 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1280/1440) | VALIDATION_MISSING — 로컬 Docker 없음, CI job 추가 필요 | — |

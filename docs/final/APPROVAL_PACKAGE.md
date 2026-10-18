@@ -20,15 +20,17 @@
 | 실패 · 복구 | 실패 = 트랜잭션 롤백(부분 적용 없음). 적용 뒤 중단 = `revoke execute on function public.authored_item_register(...) , public.content_human_decision_record(...) from authenticated`. 이력 0행일 때만 별도 승인으로 역순 DROP(래퍼 원본 이름 복원) — 행이 생긴 뒤 DROP 금지 |
 | 증거 | PGlite 격리 SQL 20건 · 격리 종단 10건(`apps/web/src/lib/csat/{map/v62,authored}/__tests__/*authored*`) |
 
-## B. 사람 Gold — R5 창작 9문항
+## B. 사람 Gold — R5 창작 9문항(v2)
 
-- 콘텐츠: `apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json` · SHA-256 `bf648b0c9f5301c0058e64f94e31932ffbdbdea52ecc8430b837e53ba6bf97d5`
-- 평가 계약: 정답 = 한 줄 요지 선택 ✓ **그리고** 중심 문장 ✓(주장 또는 그 다시 말하기 문장). 근거 · 관계는 피드백.
-- AI 맹검(사람 승인 아님): A · B 9/9 정답 일치, 주장 문장은 item-1(3↔6) · item-2(4↔6) · item-7(1↔5)에서 주장/다시 말하기로 갈림 → 채점이 둘 다 인정. 수정된 선택지 5문항 재검토 C 5/5 일치. 기록: `docs/final/review/`.
+- 콘텐츠: `apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json`(세트 `r5-central-meaning.v2` · 주석 ref 끝 `.v2`) · SHA-256 `c490db3c2624a759c6fa1ed1c2eefcd60580abf8abd7bcb5d9592d03a7a239aa`
+- 평가 계약: 정답 = 한 줄 요지 선택 ✓ **그리고** 중심 문장 ✓(주장 또는 그 다시 말하기 문장). 근거 · 관계는 피드백. 화면 발문에 「같은 뜻을 다시 말한 문장도 돼요」를 명시해 발문 ↔ 채점을 맞췄다.
+- v2 변경(AI 검토 반영 · 사람 승인 아님): 정답 선택지 바꿔 쓰기 3건(ind-2 · transfer-2 · delayed-1) · transfer-1 약한 오답 2건 강화 · 오답 근거 감사 반영(guided-1 한 줄 요지 과장 「가장」→「매우」 · guided-2 오답① 유형 · 설명 문구 4건 · teach 단계 문장 번호).
+- AI 검토 기록(사람 승인 아님 · `docs/final/review/`): A · B 9/9 정답 일치(v1) · C 수정 5문항 5/5 · D v2 수정 4문항 4/4(방어 가능한 다른 선택지 0, 노출 mild) · 오답 근거 감사(9문항 정답 유일, 2문항 수정 → 반영).
 - **사람이 판단할 쟁점**
-  1. 다시 말하기 문장을 중심 문장으로 인정하는 채점(위 3문항)이 타당한가.
-  2. item-5(ind-2) · 7(transfer-2) · 8(delayed-1)의 정답 선택지가 주장 문장을 거의 그대로 옮긴다(검토 C 지적) — 그대로 출시할지, 바꿔 쓸지(바꾸면 revision 이 바뀌어 새 ref 로 재등록).
-  3. transfer-1 의 오답이 약하다(지엽 · 반대 3개) — 변별력 수용 여부.
+  1. 다시 말하기 문장을 중심 문장으로 인정하는 채점(item-1 · 2 · 7 에서 맹검 2인이 갈렸다)이 타당한가.
+  2. delayed-1 정답은 D 검토 뒤 한 번 더 바꿨다(「일하는 시간을 헛되지 않게」) — 최종 문구를 사람이 확인.
+  3. transfer-1 의 0번 문장을 supportDisputed 로 둔 판단(반박되는 믿음의 일부로 볼 여지 · 감사 지적).
+  4. 오답 설계 유형 라벨(too_narrow · distorted 등)이 학습자 피드백으로 적절한가.
 - 평가 역할 6문항(ind ×2 · transfer ×2 · delayed ×2)만 사람 Gold 가 필수. 교수 · 안내 3문항은 Gold 없이 공급 가능(권리는 필요).
 
 ## C. 권리 — 자체 창작 원저작 확인

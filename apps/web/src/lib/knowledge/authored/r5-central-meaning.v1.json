@@ -1,5 +1,5 @@
 {
-  "set": "r5-central-meaning.v1",
+  "set": "r5-central-meaning.v2",
   "taskId": "r.central_meaning",
   "taskKey": "authored-central-meaning",
   "provenance": {
@@ -8,7 +8,8 @@
     "derivedFrom": [],
     "createdAt": "2026-10-18",
     "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
-    "rights": "pending — 사람 원저작 확인 전(같은 패킷)"
+    "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
+    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현."
   },
   "items": [
     {
@@ -83,6 +84,7 @@
             "step": "오답 설계",
             "text": "② 필자가 반박하는 생각(1번)을 그대로 옮겼다. ③ 예시(5번) 하나만 옮긴 지나치게 좁은 선택지다. ④⑤ 글에 없는 내용이지만 주제와 가까워 그럴듯해 보이게 만들었다.",
             "sentences": [
+              0,
               1,
               5
             ]
@@ -183,7 +185,7 @@
           "sentence": 2,
           "relation": "reason"
         },
-        "gist": "나무 심기는 도시를 식히는 가장 효과적이고 값싼 방법이다.",
+        "gist": "나무 심기는 도시를 식히는 매우 효과적이고 값싼 방법이니, 나무를 도시의 기반 시설로 여겨야 한다.",
         "distractors": [
           {
             "choice": 0,
@@ -197,8 +199,8 @@
           },
           {
             "choice": 3,
-            "design": "off_text",
-            "why": "에너지 절약은 글이 말하지 않는 추론이다."
+            "design": "distorted",
+            "why": "5번(에어컨)의 소재를 가져와 글에 없는 에너지 절약 주장으로 비약했다."
           },
           {
             "choice": 4,
@@ -258,8 +260,8 @@
         "distractors": [
           {
             "choice": 0,
-            "design": "opposed_view",
-            "why": "필자가 근거 없다고 보는 걱정(0번)을 전제로 삼았다."
+            "design": "too_narrow",
+            "why": "도입부(0번)의 상황 묘사만 옮겼다 — 필자의 주장(질문이 이롭다)은 빠졌다."
           },
           {
             "choice": 1,
@@ -361,7 +363,7 @@
         "stem": "다음 글의 요지로 가장 적절한 것은?",
         "choices": [
           "길 안내 기기는 운전자의 안전을 높여 준다.",
-          "길 안내 기기에 기대는 습관은 사는 곳을 머릿속에 그리는 능력을 떨어뜨릴 수 있다.",
+          "스스로 길을 찾지 않으면 주변 공간을 이해하는 힘이 줄어들 수 있다.",
           "배터리와 신호 문제 때문에 길 안내 기기는 믿을 수 없다.",
           "기억력을 높이려면 지도를 직접 그려 보아야 한다.",
           "기기는 늘 쓸 수 있으므로 방향 감각은 중요하지 않다."
@@ -395,12 +397,12 @@
           {
             "choice": 2,
             "design": "too_narrow",
-            "why": "반론을 반박하는 근거 하나(4번)만 옮겼다."
+            "why": "반론을 반박하는 근거 하나(4번)만 옮기고 ‘믿을 수 없다’로 단정해 과장했다."
           },
           {
             "choice": 3,
             "design": "distorted",
-            "why": "지도를 그리지 못한다는 관찰(2번)을 처방으로 바꿨다."
+            "why": "2번(지도를 못 그린다)과 5번(기억 체계)의 소재를 섞어 글에 없는 처방으로 바꿨다."
           },
           {
             "choice": 4,
@@ -428,8 +430,8 @@
           "Why Shoppers Should Avoid Natural Foods",
           "The Empty Promise of the \"Natural\" Label",
           "How Additives Make Drinks Sweeter",
-          "Laws That Protect Shoppers Everywhere",
-          "Fresh Fruit: The Healthiest Choice"
+          "Reading Ingredients: The Key to Healthy Eating",
+          "Natural or Artificial: Which Food Is Safer?"
         ]
       },
       "gold": {
@@ -465,13 +467,13 @@
           },
           {
             "choice": 3,
-            "design": "reversed",
-            "why": "글은 법적 정의가 없다고 한다(2번)."
+            "design": "too_narrow",
+            "why": "마지막 문장(5번)의 조언을 글 전체의 주제로 키웠다 — 필자의 중심은 성분표 읽기가 아니라 ‘natural’ 표시가 알려 주는 것이 적다는 것이다."
           },
           {
             "choice": 4,
             "design": "off_text",
-            "why": "과일이 가장 건강하다는 주장은 없다."
+            "why": "글은 자연식품과 인공식품의 안전성을 비교하지 않는다 — 표시의 의미를 따질 뿐이다(소재는 같지만 질문이 다르다)."
           }
         ]
       }
@@ -493,7 +495,7 @@
         "choices": [
           "the stress students feel before exams",
           "the difficulty of explaining ideas in simple words",
-          "the learning benefit of preparing to teach others",
+          "how expecting to explain something can deepen your own understanding",
           "the best way for teachers to design tests",
           "why exams are a poor way to measure learning"
         ]
@@ -561,7 +563,7 @@
           "집중력은 하루 중 아침 시간에 가장 높다.",
           "짧은 휴식만으로도 떨어진 집중력이 완전히 회복된다.",
           "사무실 환경이 업무 성과를 좌우한다.",
-          "규칙적인 짧은 휴식은 일하는 시간을 더 가치 있게 만든다."
+          "잠시 멈추는 시간이 오히려 일하는 시간을 헛되지 않게 만든다."
         ]
       },
       "gold": {
@@ -598,7 +600,7 @@
           {
             "choice": 2,
             "design": "distorted",
-            "why": "3번의 ‘회복을 돕는다’를 ‘완전히 회복된다’로 과장했다 — 근거 세부를 과장한 오답."
+            "why": "3번의 ‘회복할 수 있게 해 준다(allow ... to recover)’를 ‘짧은 휴식만으로 완전히 회복된다’로 과장했다."
           },
           {
             "choice": 3,
