@@ -3,20 +3,20 @@
 
 2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 임무 진행 중**.
 
-증거 브랜치: `review/final-independent-20261018`, 현재 주요 내용/화면 증거 HEAD `d1a782394`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 검토 HEAD는 `3c15ba23c5c60d51fd035a00a5ec3eef2b442b5f`이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
+증거 브랜치: `review/final-independent-20261018`, SQL 재검증 증거 HEAD `5c6d57824`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 최신 관찰 HEAD는 `689d256947972947cc50956578bbe06df925fa0c`(SQL·서버 검증 고정 HEAD는7e638e63d)이며 [PR303](https://github.com/KangMin098/Vocaflow/pull/303)은 OPEN이다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
 
 | 기존 ID | 이슈 | 수정/독립 재검증 상태 |
 |---|---|---|
 | FI-001 | [#293](https://github.com/KangMin098/Vocaflow/issues/293) | 후보에서 명시 납품/복구 개선 확인 · 전체 환류 수용 전 |
-| FI-002 | [#294](https://github.com/KangMin098/Vocaflow/issues/294) | OPEN · 등록 TASK/역할과 FQ/공급 결속 |
-| FI-003 | [#295](https://github.com/KangMin098/Vocaflow/issues/295) | OPEN · 동일 본문의 그룹명 우회 |
-| FI-004 | [#296](https://github.com/KangMin098/Vocaflow/issues/296) | OPEN · 권리 평가 범위 |
+| FI-002 | [#294](https://github.com/KangMin098/Vocaflow/issues/294) | FIX_VERIFIED_IN_CANDIDATE ·7e SQL 공급 차단 확인 |
+| FI-003 | [#295](https://github.com/KangMin098/Vocaflow/issues/295) | FIX_VERIFIED_IN_CANDIDATE ·7e SQL 양방향 정체성 확인 |
+| FI-004 | [#296](https://github.com/KangMin098/Vocaflow/issues/296) | FIX_VERIFIED_IN_CANDIDATE ·7e SQL assess 권리 별도 확인 |
 | FI-005 | [#297](https://github.com/KangMin098/Vocaflow/issues/297) | OPEN · 연구 모집단/측정 서술 |
-| FI-006 | [#298](https://github.com/KangMin098/Vocaflow/issues/298) | OPEN · 같은 지문 동시 공급 |
-| FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | OPEN · 사후 철회와 현재 공급 |
+| FI-006 | [#298](https://github.com/KangMin098/Vocaflow/issues/298) | PARTIAL_FIX / OPEN · 같은 ref/같은 그룹 잔여 조합 |
+| FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | FIX_VERIFIED_IN_CANDIDATE ·7e 서버 열기/충족/목록 확인 |
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | OPEN · 재시도 시각/원문 멱등 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
-| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | OPEN · 열람만 한 별도 노출 누락 |
+| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
 | FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | OPEN · Workspace/다음 요구/전이량 환류 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | OPEN · 동등한 대체 결정 근거 오답 |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | OPEN · 문법 전이 단수 선행사 대안 |
@@ -36,3 +36,5 @@ FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했
 
 
 최신 후속: 추가10 TASK/60문항 및 새4형식 검토를 d1a782394에 push했다. FI-014는 #307, PR303 인계 댓글은 issuecomment-6248394108, 공용 상태 DL-0159다. 동일3c15 CI39115796299 실패 원인은 Runner83 unused DEMAND_LABEL이며 수정 HEAD의 필수 체크 재확인이 필요하다. 실제 DB 쓰기/사람 승인/병합은 수행하지 않았다.
+
+후속 SQL 재검증 게시: #294 issuecomment-6248673835, #295 issuecomment-6248674062, #296 issuecomment-6248674203, #298 issuecomment-6248674365, PR303 issuecomment-6248674507. 공동 인계 DL-0160. [실제7e SQL](./SQL_REPAIR_REVERIFY.md)과 [서버/RSC](./SERVER_REPAIR_REVERIFY.md)를 함께 보며 과거 HEAD의 미수정 판단을 최신에 그대로 적용하지 않는다. 전체 A~H REWORK는 유지한다.

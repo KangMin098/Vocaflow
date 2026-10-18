@@ -62,3 +62,5 @@ FI-001은 사용자의 명시 게시 승인 뒤 [GitHub #293](https://github.com
 [실제 수정 결과](./SQL_REPAIR_REVERIFY.md): 독립 overlay 없이7e SQL의 정상/차단17건을 확인했다. FI-002/003/004는 FIX_VERIFIED_IN_CANDIDATE(SQL)다. FI-007은 새 현재성 RPC의 본인/타인/철회 경계까지만 확인했고 앱 전체는 후속 검증한다. FI-006은 다른 ref의 동일 본문 경합이 개선됐으나 같은 ref/다른 수요 줄에서 기다린 후에도 납품2행이 남고, 같은 declared group/다른 key에서도2행이 남아 PARTIAL_FIX·OPEN이다. 기존 #298에 잔여 조합을 추가한다.
 
 실제 DB09:59Z READ ONLY는 authored 미설치/FQ·납품·결속 근거0이다. 총괄7e/56의 나머지 수정·최신 CI/브라우저·전체 환류는 검증 중이며 실제 적용·사람 승인·전체 ACCEPT를 선언하지 않는다. 별도 독립 SQL 후보는 소유권 충돌 없이 만든 격리 비교 자료이고 채택을 필수 게이트로 요구하지 않는다.
+
+후속7e 서버/RSC 독립 재검증: FI-007은 권리 철회 뒤 열기 거절·현재 공급량 제외/부족분 주문·역사적 evidence 보존을 확인해 FIX_VERIFIED_IN_CANDIDATE다. FI-010은 정상 별도 열기 기록 뒤 evidence=false로 개선됐지만, 첫 기록 실패 시에도 실제 페이지가 본문6문장을 전달하고 재열기 후 first_exposure/evidence=true가 되어 PARTIAL_FIX / OPEN이다. [범위와 원본](./SERVER_REPAIR_REVERIFY.md). 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.

@@ -1,0 +1,28 @@
+Frozen owner: 7e638e63d28791dcc4f886431c0205743dc3310a
+Scope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. Negative defect observation is not product acceptance.
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/server7e-YCf10N/snapshot/apps/web
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI007 revoked supply cannot open or satisfy current demand; historical evidence remains
+OWNER7E_CURRENTNESS={"opened":"revoked","line":{"role":"independent_check","requested":2,"delivered":["authored:r5-cm-ind-2"],"rejected":[],"orderOpened":true},"listed":{"ref":"authored:r5-cm-ind-1","deliveryId":"d957908a-45d5-4935-b89b-b91ab68a7239","role":"independent_check","deliveredAt":"2026-10-18T10:23:43.234Z","attempted":true,"evidence":true,"current":false}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page successful separate opening makes later answer non-first
+OWNER7E_PAGE_EXPOSURE={"failedFirst":false,"firstBodySentences":6,"firstSessionIdIssued":true,"recordedBeforeClose":1,"secondSessionIdIssued":true,"binding":{"first_exposure":false,"evidence":false}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log still reveals body before later first evidence
+OWNER7E_PAGE_EXPOSURE={"failedFirst":true,"firstBodySentences":6,"firstSessionIdIssued":false,"recordedBeforeClose":0,"secondSessionIdIssued":true,"binding":{"first_exposure":true,"evidence":true}}
+
+ ✓ src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts  (14 tests | 11 skipped) 2885ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed | 11 skipped (14)
+   Start at  19:23:33
+   Duration  10.02s (transform 1.79s, setup 0ms, collect 4.83s, tests 2.88s, environment 0ms, prepare 1.87s)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+stderr | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log still reveals body before later first evidence
+[authored open session] independent synthetic session transport failure
+

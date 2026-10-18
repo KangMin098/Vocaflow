@@ -47,3 +47,5 @@ PR 목적의 「교수/평가 혼용 차단」「적격 공급」「지도·PLAN
 실제 CI artifact12131229870을 내려받아 내부 Playwright report를 독립 판독했다([범위](./PR303_BROWSER_EVIDENCE.md)). 전체6/6 중 R5는1280/1440의2건이며 passing screenshot은0이다. 출처/결속/재열기/타인 접근 차단/지도 표기는 확인했으나 positive evidence·전이·후속 PLAN 의미 갱신은 단언하지 않는다. FI-013 문법 내용은 #306으로 인계했고 신규957c27211의 추가10세트는 별도 검증 대기다.
 
 3c15ba23c 후속: [추가10 TASK/60문항·새4형식 독립 결과](./EXPANSION2_CONTENT_REVIEW.md)를 d1a782394로 게시했다. FI-014는 #307이며 기존 FI-012/013과 구별한다. CI39115796299는 verify/build/e2e/e2e-gate-faultclosed 실패(Runner83 unused DEMAND_LABEL)다. 앞선 e913 성공과 구별한다. 세트는17 TASK/105초안으로 늘었지만 source/rights/Gold·전이/PLAN 의미 환류의 미해결 조건이 남아 REWORK를 유지한다.
+
+후속7e 서버/RSC 독립 재검증: FI-007은 권리 철회 뒤 열기 거절·현재 공급량 제외/부족분 주문·역사적 evidence 보존을 확인해 FIX_VERIFIED_IN_CANDIDATE다. FI-010은 정상 별도 열기 기록 뒤 evidence=false로 개선됐지만, 첫 기록 실패 시에도 실제 페이지가 본문6문장을 전달하고 재열기 후 first_exposure/evidence=true가 되어 PARTIAL_FIX / OPEN이다. [범위와 원본](./SERVER_REPAIR_REVERIFY.md). 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.
