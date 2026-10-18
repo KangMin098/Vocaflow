@@ -28,6 +28,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(db): 개발 DB 에 Factory I1 DB-2 · I2 주석 결속(`20261018120000`) · 납품↔G2 결속(`20261018120100`) 적용. I2·G2 는 새 승인형 러너 `scripts/db/r5-bind/deploy.mjs`(승인 창 난수 · 자동화/CI 차단 · 순서·재적용 차단 · 단위 회귀 7)로 실행. 이력 SHA 4건 승인값 일치 · 검증 i2 10/10 · g2 11/11 · 학습 기록 불변. 자격·승인·등록부 행 0(사람 Gold·권리 판정 전).
+
 - feat(db): Factory I1 러너 승인 창 경로 — TTY 가 없으면 정본 파일 실행 확인 + `--approval-nonce` 로 승인 티켓을 1회 소비(PR #287). 자동 실행·CI·isolated·복사본·거부/재사용 티켓은 접속 전 종료 2, TTY 경로 유지. 접속 문자열은 셸 → `.env.local` 순. DB-1/DB-2 SQL SHA 불변 · 격리 PG17 47/47.
 
 - feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
