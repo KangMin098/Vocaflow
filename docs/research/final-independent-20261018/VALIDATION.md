@@ -36,3 +36,16 @@
 - 다른 TASK 자격 혼입: 기존 FI-002에 등록 TASK와 다른 FQ/납품 TASK 조합 추가. 공급 valid=true, G2에서 뒤늦게 task mapping 거절.
 - 본문만 열고 닫은 선행 노출: 새 FI-010 재현. open 두 번 후 sessions0/exposure none, 제출 뒤 first_exposure/evidence=true. 새 반례1건만 실행했고 기존 종단10건은 필터로 SKIPPED(재검증 PASS에 합산하지 않음).
 - 실제 개발 DB 쓰기·사람 Gold/권리 승인·콘텐츠 출시 승인 없음. 새 외부 게시 범위 승인 대기 상태에서는 로컬 공용 원장으로만 전달.
+
+## 새 공급 원장의 실제 역할 검사
+
+2026-10-18 개발 DB 카탈로그를 READ ONLY로 조회하여 새 객체의 기본 권한 환경을 확인했다. `postgres`의 public 테이블 기본 grant는 anon/authenticated/service_role, 함수 기본 grant는 postgres/service_role이고 `service_role`은 BYPASSRLS=true/superuser=false, 관리자 판정 helper는 SECURITY DEFINER였다. authored 표는 여전히 미설치다. 이 관찰은 보류 SQL의 실행 결과가 아니다.
+
+이 기본값을 독립 PostgreSQL17.10에 반영하고 실제 `SET ROLE authenticated/anon/service_role`로 19개 경계를 검사했다. [결과](./authored-roles.json)와 [실행기 --rls-only](../../../apps/web/scripts/final-independent/probe-authored-concurrency.ts). 이전 동시 납품 반례를 다시 실행하지 않았다.
+
+- A의 자기 납품1행, B의 타인 납품0행. B의 타인 수요 공급/납품 결속 RPC는42501로 거절됐다.
+- 학습자의 Gold 포함 authored 행/사람 결정 행은0, 관리자와 서버 역할의 필요한 읽기는 성공했다. anon Gold 조회는 거절됐다.
+- 학습자·서버 역할의 직접 Gold/사람 결정 쓰기, 학습자의 결속 원장 직접 삽입은 거절됐다. 일반 학습자·로그아웃·사용자 없는 서버 역할의 사람 결정 RPC도 거절됐다.
+- 학습자의 내부 Gold hash 함수 실행은 거절됐다. 19개 모두 기대 결과다. 새 권한 침해 결함은 발견하지 않았다.
+
+범위: 최소 의존 스키마의 실제 pending 공급 정책/함수 권한 검사다. JWT 검증·실제 관리자 행위가 사람인지에 대한 증명·전체 Workspace 앱·실제 개발 DB E2E를 대신하지 않는다. fixture의 사람 결정은 로컬 합성 승인뿐이다. 실제 Gold/권리 승인이나 새 SQL 적용은 수행하지 않았다. 시험 서버 종료·PID/프로세스 부재·절대 경로를 확인하고 이 실행의 데이터 디렉터리만 정리했다.

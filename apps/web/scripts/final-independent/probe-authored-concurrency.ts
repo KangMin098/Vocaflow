@@ -13,6 +13,7 @@ const EmbeddedPostgres=req('embedded-postgres').default,{Pool}=req('pg')
 const au=execFileSync('git',['show',`${owner}:supabase/migrations/_pending_authored_supply.sql`],{cwd:root,encoding:'utf8'})
 const admin='00000000-0000-4000-8000-0000000000a1',uid='00000000-0000-4000-8000-0000000000b1'
 const task='r.central_meaning',tkey='authored-central-meaning'
+const rlsOnly=process.argv.includes('--rls-only')
 let seq=0
 const key=()=>`00000000-0000-4000-9000-${String(++seq).padStart(12,'0')}`
 async function port(){const listener=net.createServer();await new Promise<void>((resolve,reject)=>{listener.once('error',reject);listener.listen(0,'127.0.0.1',resolve)});const at=listener.address();if(!at||typeof at==='string')throw new Error('No loopback port');const number=at.port;await new Promise<void>((resolve,reject)=>listener.close(error=>error?reject(error):resolve()));return number}
@@ -28,6 +29,13 @@ async function main(){
   const one=async(sql:string,params:unknown[]=[])=> (await pool.query(sql,params)).rows[0] as Record<string,unknown>
   await pool.query(STUB);await pool.query(fs.readFileSync(path.join(root,'apps/web/src/lib/csat/map/v62/__tests__/supply-i1-stub.sql'),'utf8'))
   await pool.query(`alter table learning_task_attempts add column activity text,add column help_level text,add column content_hash text,add column received_at timestamptz default now();alter table learning_sessions add column stage text;alter default privileges in schema public grant all on tables to anon,authenticated;`)
+  if(rlsOnly)await pool.query(`create role service_role nologin bypassrls;
+    grant usage on schema public,auth to anon,authenticated,service_role;
+    alter function public.is_admin_or_curator() security definer;
+    alter function public.is_admin() security definer;
+    alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
+    alter default privileges revoke execute on functions from public;
+    alter default privileges in schema public grant execute on functions to service_role;`)
   await pool.query(C_SQL);await pool.query(B_SQL)
   for(const file of ['_pending_workspace_supply_i1_safety.sql','20261018120000_workspace_supply_c_annotation_binding.sql','20261018120100_r5_delivery_g2_binding.sql'])await pool.query(fs.readFileSync(path.join(root,'supabase/migrations',file),'utf8'))
   await pool.query(au)
@@ -55,6 +63,49 @@ async function main(){
     const line=(await setup.query(`select id from workspace_content_demand_line where demand_id=$1`,[did])).rows[0].id
     prepared.push({ref,line,qualification,approval,request:key()})
    }finally{setup.release()}
+  }
+  if(rlsOnly){
+    const preparedFirst=prepared[0]!,b='00000000-0000-4000-8000-0000000000c1'
+    const seed=await pool.connect()
+    let delivery:string
+    try{await seed.query(`select set_config('request.jwt.claim.sub',$1,false)`,[uid]);delivery=(await seed.query(`select workspace_delivery_record($1,null,$2,$3,$4) id`,[preparedFirst.line,preparedFirst.qualification,preparedFirst.approval,key()])).rows[0].id}
+    finally{seed.release()}
+    await pool.query(`insert into auth.users values($1)`,[b])
+    const rows:{id:string;pass:boolean;observed:unknown}[]=[]
+    const run=async(id:string,role:'authenticated'|'anon'|'service_role',actor:string|null,sql:string,params:unknown[],expected:number|'deny')=>{
+      const client=await pool.connect()
+      try{
+        await client.query('set role '+role)
+        await client.query(`select set_config('request.jwt.claim.sub',$1,false)`,[actor??''])
+        try{
+          const value=(await client.query(sql,params)).rows[0]
+          rows.push({id,pass:expected!=='deny'&&Number(value?.n)===expected,observed:value})
+        }catch(e){const error=e as Error&{code?:string};rows.push({id,pass:expected==='deny'&&error.code==='42501',observed:{code:error.code,message:error.message}})}
+      }finally{await client.query('reset role');client.release()}
+    }
+    await run('A-own-delivery-readable','authenticated',uid,'select count(*)::int n from workspace_content_delivery',[],1)
+    await run('B-other-delivery-hidden','authenticated',b,'select count(*)::int n from workspace_content_delivery',[],0)
+    await run('learner-gold-rows-hidden','authenticated',uid,'select count(*)::int n from authored_item',[],0)
+    await run('admin-gold-rows-readable','authenticated',admin,'select count(*)::int n from authored_item',[],2)
+    await run('service-gold-rows-readable','service_role',null,'select count(*)::int n from authored_item',[],2)
+    await run('learner-human-decisions-hidden','authenticated',uid,'select count(*)::int n from content_human_decision',[],0)
+    await run('service-human-decisions-readable','service_role',null,'select count(*)::int n from content_human_decision',[],4)
+    await run('anon-gold-read-denied','anon',null,'select count(*)::int n from authored_item',[],'deny')
+    await run('learner-direct-gold-write-denied','authenticated',uid,`insert into authored_item(ref) values ('authored:denied') returning 1 n`,[],'deny')
+    await run('service-direct-gold-write-denied','service_role',null,`insert into authored_item(ref) values ('authored:denied') returning 1 n`,[],'deny')
+    await run('learner-direct-human-decision-write-denied','authenticated',uid,`insert into content_human_decision(kind) values ('rights') returning 1 n`,[],'deny')
+    await run('service-direct-human-decision-write-denied','service_role',null,`insert into content_human_decision(kind) values ('rights') returning 1 n`,[],'deny')
+    const decision=`select content_human_decision_record('gold','authored_item',$1,'fixture-rev','fixture-hash','human_gold_review','{assess}','isolated','human-reviewed') n`
+    await run('learner-human-decision-rpc-denied','authenticated',uid,decision,[preparedFirst.ref],'deny')
+    await run('service-no-user-human-decision-rpc-denied','service_role',null,decision,[preparedFirst.ref],'deny')
+    await run('anon-human-decision-rpc-denied','anon',null,decision,[preparedFirst.ref],'deny')
+    await run('learner-internal-gold-hash-denied','authenticated',uid,'select authored_item_gold_hash($1) n',[preparedFirst.ref],'deny')
+    await run('B-other-line-supply-rpc-denied','authenticated',b,'select workspace_delivery_record($1,null,$2,$3,$4) n',[preparedFirst.line,preparedFirst.qualification,preparedFirst.approval,key()],'deny')
+    await run('B-other-delivery-binding-denied','authenticated',b,'select workspace_delivery_attempt_record($1,1,$2) n',[delivery!,key()],'deny')
+    await run('learner-binding-insert-denied','authenticated',uid,`insert into workspace_delivery_attempt(user_id) values($1) returning 1 n`,[uid],'deny')
+    console.log(JSON.stringify({scope:'ACTUAL_ISOLATED_POSTGRES_ROLES',ownerCommit:owner,serverVersion:(await one('show server_version')).server_version,remoteDbWrites:0,defaultPrivilegeSource:'read-only dev catalog 2026-10-18; postgres/public table grants and function grants',limits:'Minimal dependency schemas; actual pending supply functions/policies; not JWT verification, full Supabase or actual-dev E2E.',clusterDirectory:directory,rows,allPassed:rows.every(r=>r.pass)},null,2))
+    if(rows.some(r=>!r.pass))throw new Error('Role boundary failed; retain details privately until classified')
+    return
   }
   const first=await pool.connect(),second=await pool.connect()
   let firstId:unknown,secondId:unknown,secondError:string|null=null,postCommitError:string|null=null

@@ -1,0 +1,25 @@
+<!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
+# 최종 독립 검증 인계
+
+2026-10-18 · Codex-VOCAFLOW-FINAL-ACCEPT. 사용자 후속 게시 명시 승인에 따라 아래 이슈와 증거 브랜치를 게시했다. **전체 제품 REWORK · 임무 진행 중**.
+
+증거 브랜치: `review/final-independent-20261018`, 공개 증거 HEAD `8f7d1953c36a534e755ea0c2a27f72042c7d6ce4`. 총괄 제품 브랜치 `feat/vocaflow-final-product`의 관찰 HEAD는 `0bd400526`이며 새 통합 PR은 아직 없다. CI·safe-merge·실제 DB 적용 완료를 주장하지 않는다.
+
+| 기존 ID | 이슈 | 수정/독립 재검증 상태 |
+|---|---|---|
+| FI-001 | [#293](https://github.com/KangMin098/Vocaflow/issues/293) | OPEN · 다중 Workspace/납품 정체성 |
+| FI-002 | [#294](https://github.com/KangMin098/Vocaflow/issues/294) | OPEN · 등록 TASK/역할과 FQ/공급 결속 |
+| FI-003 | [#295](https://github.com/KangMin098/Vocaflow/issues/295) | OPEN · 동일 본문의 그룹명 우회 |
+| FI-004 | [#296](https://github.com/KangMin098/Vocaflow/issues/296) | OPEN · 권리 평가 범위 |
+| FI-005 | [#297](https://github.com/KangMin098/Vocaflow/issues/297) | OPEN · 연구 모집단/측정 서술 |
+| FI-006 | [#298](https://github.com/KangMin098/Vocaflow/issues/298) | OPEN · 같은 지문 동시 공급 |
+| FI-007 | [#299](https://github.com/KangMin098/Vocaflow/issues/299) | OPEN · 사후 철회와 현재 공급 |
+| FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | OPEN · 재시도 시각/원문 멱등 |
+| FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | OPEN · 교수 문장 참조 |
+| FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | OPEN · 열람만 한 별도 노출 누락 |
+
+각 이슈에 고정 대상 커밋, 재현 조건/관찰, 기대 동작, 원본 결과/화면 링크를 포함했다. 수정 HEAD/PR이 오면 같은 ID에서 정상 대조군과 반례를 독립 확인한다. 동일 이슈를 다시 만들지 않는다.
+
+현재 공개 자료는 합성 fixture의 계약/무결성·교육·UX 검증이다. 비밀값·실제 학습자 데이터·권리 미확인 기출 원문을 포함하지 않는다. 실제 권한 침해를 가능하게 하는 민감한 취약점 재현은 이 공개 디렉터리에 넣지 않고 비공개 보안 경로로 전달한다. 실제 DB 쓰기/데이터 삭제/배포/권한 변경이나 PR 병합은 게시 승인에 포함하지 않는다.
+
+[통합 A~H 현황](./ACCEPTANCE.md) · [전체 결함 원장](./FINDINGS.md) · [SQL 검토](./AUTHORED_SQL_REVIEW.md) · [콘텐츠 검토](./AUTHORED_CONTENT_REVIEW.md) · [종단/브라우저 검토](./AUTHORED_INTEGRATION_REVIEW.md).
