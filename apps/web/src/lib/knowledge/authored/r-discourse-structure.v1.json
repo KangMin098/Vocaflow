@@ -31,34 +31,55 @@
         "teach": [
           {
             "step": "첫 문장이 누구의 생각인지 본다",
-            "text": "1번은 'Many people believe'로 시작한다. 글쓴이의 주장이 아니라 사람들이 흔히 믿는 생각(통념)을 꺼낸 것이다. 2번은 그 믿음이 얼마나 널리 퍼져 있는지 덧붙여 배경을 깐다.",
-            "sentences": [0, 1]
+            "text": "1번은 'Many people believe'로 시작한다. 글쓴이의 주장이 아니라 사람들이 흔히 믿는 생각(통념)을 꺼낸 배경이다. 2번은 그 믿음이 얼마나 널리 퍼져 있는지 덧붙인다.",
+            "sentences": [
+              0,
+              1
+            ]
           },
           {
             "step": "전환 표지에서 글쓴이의 자리를 찾는다",
-            "text": "3번 'Yet'에서 방향이 바뀐다. 앞의 통념을 '생각보다 훨씬 약한 연결'이라며 부정하므로 3번이 글의 진짜 주제문(turn)이다. 4·5번은 쌓인 서류 속에서 바로 문서를 찾는 사람의 예로 반박을 뒷받침한다.",
-            "sentences": [2, 3, 4]
+            "text": "3번 'Yet'에서 방향이 뒤집힌다. 앞의 통념을 '생각보다 훨씬 약한 연결'이라며 부정하고 글쓴이의 주장을 처음 내놓으므로 3번이 주제문이다(반전 자체에 주목하면 turn). 4·5번은 쌓인 서류 속에서 바로 문서를 찾는 사람의 예로 그 주장을 뒷받침한다.",
+            "sentences": [
+              2,
+              3,
+              4
+            ]
           },
           {
             "step": "결론이 무엇을 부정하는지 확인한다",
             "text": "6번 'then'은 결론 표지다. 책상 겉모습으로 사람을 판단하는 것이 틀렸다고 정리해, 1번의 통념을 다시 겨눈다.",
-            "sentences": [5]
+            "sentences": [
+              5
+            ]
           },
           {
             "step": "가까운 구조와 구별한다",
             "text": "두 종류의 책상(정돈 vs 어지러움)을 견주는 contrast처럼 보일 수 있다. 그러나 이 글은 두 대상을 나란히 비교하지 않는다. '흔한 믿음 → 그 믿음이 틀렸다는 반박 → 근거'라는 흐름이므로 myth_rebuttal이다. 판단 기준: 앞부분이 '사람들의 믿음'이고 글쓴이가 그것을 뒤집는가?",
-            "sentences": [0, 2]
+            "sentences": [
+              0,
+              2
+            ]
           }
         ]
       },
       "gold": {
-        "roles": ["topic", "background", "turn", "example", "support", "conclusion"],
+        "roles": [
+          "background",
+          "support",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
         "alternatives": [
-          { "index": 0, "role": "background" },
-          { "index": 4, "role": "example" }
+          {
+            "index": 2,
+            "role": "turn"
+          }
         ],
         "pattern": "myth_rebuttal",
-        "rationale": "1번은 통념(어지러운 책상 = 어지러운 정신), 2번은 그 통념이 널리 퍼졌다는 배경, 3번 'Yet'이 통념을 반박하는 전환, 4·5번이 예와 뒷받침, 6번이 결론이다. 정돈된 책상과 어지러운 책상을 견주는 contrast로 보기 쉽지만, 두 대상을 대등하게 비교하는 글이 아니라 '사람들의 믿음'을 글쓴이가 뒤집는 글이므로 myth_rebuttal이 맞다. 1번은 통념 자체를 화제로 꺼내므로 background로 보아도 인정한다."
+        "rationale": "1번은 통념(어지러운 책상 = 어지러운 정신), 2번은 그 통념이 널리 퍼졌다는 뒷받침이다. 3번 'Yet'이 통념을 뒤집으며 글쓴이의 주장(주제문)을 내놓는다 — 반전이므로 turn으로 보아도 인정한다. 4·5번이 예와 뒷받침, 6번이 결론이다. 정돈된 책상과 어지러운 책상을 견주는 contrast로 보기 쉽지만, 두 대상을 대등하게 비교하는 글이 아니라 '사람들의 믿음'을 글쓴이가 부정하는 글이므로 myth_rebuttal이다."
       }
     },
     {
@@ -68,28 +89,34 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "In many small towns, the local library has seen its number of visitors fall year after year.",
-          "Residents now find most information online, and few see a reason to make the trip.",
-          "One town responded by turning part of its library into a workshop where people could borrow tools and learn to repair household items.",
-          "Volunteers taught weekly classes, from fixing bicycles to sewing torn clothes.",
-          "Within two years, the building was busier than it had been in decades.",
-          "Libraries that wish to survive may need to offer what a screen cannot: a place to make things together."
+          "Small-town libraries face a serious problem: fewer and fewer people walk through their doors.",
+          "Most residents now find information online and see little reason to make the trip.",
+          "As visits fall, councils cut library budgets, which leads to shorter opening hours and even fewer visitors.",
+          "One way to break this cycle is to offer what a screen cannot, such as spaces where people make and repair things together.",
+          "In one town, part of the library became a workshop where residents could borrow tools and join weekly repair classes.",
+          "Volunteers taught everything from fixing bicycles to sewing torn clothes.",
+          "Within two years, the building was busier than it had been in decades."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오.",
         "hints": [
-          "1~2번이 보여 주는 것은 '좋은 상태'인가요, '해결해야 할 상태'인가요?",
-          "3번의 'responded'는 누가 무엇에 대해 무엇을 했다는 말인지 생각해 보세요.",
-          "2번에 '이유'가 들어 있다고 해서 글 전체가 원인-결과인 것은 아닙니다. 글의 중심이 '왜 줄었나'인지, '어떻게 했나'인지 따져 보세요."
+          "1번은 글이 다룰 '해결해야 할 상태'를 밝히나요, 아니면 단순한 사실을 소개하나요?",
+          "3번에는 원인과 결과가 들어 있습니다. 하지만 글 전체가 '왜 줄었나'를 설명하는 데서 멈추는지, 그 다음에 무엇이 오는지 보세요.",
+          "4번의 'One way to break this cycle'이 앞의 무엇에 대한 답인지, 5~7번이 4번과 어떤 관계인지 생각해 보세요."
         ]
       },
       "gold": {
-        "roles": ["topic", "support", "turn", "example", "support", "conclusion"],
-        "alternatives": [
-          { "index": 0, "role": "background" },
-          { "index": 2, "role": "example" }
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support"
         ],
+        "alternatives": [],
         "pattern": "problem_solution",
-        "rationale": "1번이 문제(방문자 감소), 2번이 그 문제의 사정, 3번이 한 마을의 대응(해결책)으로 글이 방향을 바꾸고, 4번이 해결책의 구체적 모습, 5번이 결과, 6번이 일반화한 제안이다. 2번에 감소의 이유가 있어 cause_effect로 고르기 쉽지만, 글의 무게는 원인 설명이 아니라 '문제 → 대응 → 성과 → 제안'에 있으므로 problem_solution이다. 3번은 한 마을의 사례이므로 example로 보아도 인정한다."
+        "rationale": "1번이 문제(방문자 감소)를 밝히는 주제문, 2·3번이 문제의 사정과 악순환, 4번이 해결책 제시, 5·6번이 한 마을의 사례, 7번이 그 성과다. 3번에 원인-결과 고리가 있어 cause_effect로 고르기 쉽지만, 인과는 문제를 설명하는 부분일 뿐이고 글의 무게는 '문제 → 해결책 → 사례 → 성과'에 있으므로 problem_solution이다. 결론 문장 없이 성과로 끝난다."
       }
     },
     {
@@ -99,23 +126,25 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "When a new highway opened near a quiet farming village, few residents expected their daily lives to change much.",
-          "Within a few years, however, the village had become a popular weekend stop for city drivers.",
-          "Cafés and small shops appeared along the main road to serve the visitors.",
-          "Land prices rose, and some young families who had planned to stay could no longer afford homes.",
-          "At the same time, older residents found new part-time work in the growing businesses.",
-          "A single road, in other words, reshaped both the economy and the population of the village."
+          "A new highway can reshape a quiet village faster than any decision made by the village itself.",
+          "Once city drivers can reach it in an hour, the village becomes a popular weekend stop.",
+          "Cafés and small shops open along the main road, and land prices begin to climb.",
+          "Young families who had planned to stay may find that they can no longer afford a home.",
+          "Older residents, meanwhile, often find new part-time work in the growing businesses."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["background", "turn", "support", "support", "support", "conclusion"],
-        "alternatives": [
-          { "index": 0, "role": "topic" },
-          { "index": 4, "role": "concession" }
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "support"
         ],
+        "alternatives": [],
         "pattern": "cause_effect",
-        "rationale": "1번은 고속도로 개통이라는 원인 사건을 배경으로 놓고, 2번 'however'가 예상과 달리 변화가 생겼음을 알린다. 3~5번은 그 원인이 낳은 결과들(가게, 땅값 상승과 젊은 가족의 이탈, 노년층의 일자리)이고, 6번이 '도로 하나가 경제와 인구를 바꿨다'로 인과를 정리한다. 4번의 집값 문제 때문에 problem_solution으로 보기 쉽지만, 글은 어떤 해결책도 제시하지 않고 좋은 결과와 나쁜 결과를 함께 늘어놓을 뿐이므로 cause_effect이다."
+        "rationale": "1번이 '고속도로가 마을을 바꾼다'는 원인-결과 주제문이고, 2~5번은 그 원인이 낳는 결과들(주말 관광지화, 가게와 땅값 상승, 젊은 가족의 이탈, 노년층의 일자리)을 이어 놓는다. 4번의 집값 문제 때문에 problem_solution으로 보기 쉽지만, 글은 어떤 해결책도 내놓지 않고 좋은 결과와 나쁜 결과를 함께 늘어놓을 뿐이므로 cause_effect이다. 결론 문장 없이 마지막 결과로 끝난다."
       }
     },
     {
@@ -125,22 +154,36 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "Printed maps and navigation apps help travelers in very different ways.",
-          "A printed map shows a whole region at once, so the reader builds a picture of how places relate to one another.",
-          "It requires effort, but that effort leaves the traveler with a mental map that lasts after the trip.",
-          "A navigation app, by contrast, gives one instruction at a time and asks the traveler to look only at the next turn.",
-          "It saves effort and rarely lets anyone get lost, yet it leaves little behind in memory once the screen goes dark.",
-          "Which tool is better depends on whether the traveler wants to arrive quickly or to know the place."
+          "Travelers today can choose between a printed map and a navigation app.",
+          "A printed map shows a whole region at once.",
+          "The reader therefore builds a picture of how places relate to one another.",
+          "That picture takes effort to form, but it often lasts long after the trip.",
+          "A navigation app gives one instruction at a time and asks the traveler to look only at the next turn.",
+          "It saves effort and rarely lets anyone get lost.",
+          "Yet it leaves little behind in memory once the screen goes dark.",
+          "The real choice, then, is between arriving quickly and coming to know the place."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["topic", "support", "support", "turn", "support", "conclusion"],
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "topic"
+        ],
         "alternatives": [
-          { "index": 3, "role": "support" }
+          {
+            "index": 7,
+            "role": "conclusion"
+          }
         ],
         "pattern": "contrast",
-        "rationale": "1번이 두 도구가 다르게 돕는다는 주제를 세우고, 2·3번이 종이 지도의 특징, 4번 'by contrast'가 내비게이션 앱으로 넘어가며 5번이 그 특징을 이어 말한다. 6번은 어느 쪽이 낫다고 단정하지 않고 목적에 따라 다르다고 맺는다. 'by contrast'가 있어 통념을 뒤집는 myth_rebuttal로 볼 수 있지만, 1번은 사람들의 잘못된 믿음이 아니라 글쓴이 자신의 비교 주제이고 어느 쪽도 부정되지 않으므로 contrast이다. 4번은 대조의 두 번째 축을 여는 문장이라 support로 보아도 인정한다."
+        "rationale": "1번이 두 도구를 소개하는 배경, 2~4번이 종이 지도의 특징, 5~7번이 내비게이션 앱의 특징이다. 5번은 대조의 두 번째 축을 여는 문장일 뿐 앞의 내용을 뒤집지 않으므로 support다. 8번이 두 도구의 차이를 '빨리 도착하기 vs 장소를 알기'로 정리하는 주제문이며, 앞 내용을 맺는 성격도 있어 conclusion으로 보아도 인정한다. 7번 'Yet'이 있어 통념을 뒤집는 myth_rebuttal로 볼 수 있지만, 사람들의 잘못된 믿음이 제시되거나 부정되지 않고 두 대상을 대등하게 견주므로 contrast이다."
       }
     },
     {
@@ -150,23 +193,27 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "On the first day of the experiment, a group of nine-year-olds walked into a classroom where every wall was covered with colorful posters.",
-          "A second group entered an identical room whose walls had been left almost bare.",
-          "Over the following weeks, both groups received the same science lessons from the same teacher.",
+          "Ms. Lee, a primary school teacher, had long wondered whether her brightly decorated classroom actually helped her pupils learn.",
+          "To find out, she and a university researcher taught the same science lessons to two groups of nine-year-olds, one in a room covered with posters and one in a room with almost bare walls.",
           "The children in the decorated room spent more time looking away from the lesson and scored lower on the final tests.",
-          "The children in the plain room stayed on task longer and remembered more of what they had been taught.",
+          "Those in the plain room stayed on task longer and remembered more of what they had been taught.",
+          "The finding suggests that what surrounds young learners can quietly compete with the lesson for their attention.",
           "Teachers who want young students to focus might therefore think twice before filling every wall with decorations."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["background", "background", "background", "support", "support", "conclusion"],
-        "alternatives": [
-          { "index": 0, "role": "topic" },
-          { "index": 4, "role": "turn" }
+        "roles": [
+          "background",
+          "background",
+          "support",
+          "support",
+          "topic",
+          "conclusion"
         ],
+        "alternatives": [],
         "pattern": "study_implication",
-        "rationale": "이야기처럼 시작하지만 1~3번은 실험 조건(장식된 교실과 빈 교실, 같은 수업)을 설명하는 배경이고, 4·5번이 결과, 6번 'therefore'가 교사에게 주는 시사점이다. 장면 묘사 때문에 narrative로, 두 교실을 견주어 contrast로 보기 쉽지만, 사건의 흐름이 아니라 '조건 → 결과 → 실천적 함의'로 짜여 있으므로 study_implication이다."
+        "rationale": "교사 한 사람의 궁금증으로 이야기처럼 시작하지만, 1·2번은 연구 질문과 실험 조건을 놓는 배경이고, 3·4번이 결과, 5번이 결과가 뜻하는 바(주제문), 6번 'therefore'가 교사에게 주는 실천적 결론이다. 인물 이야기 틀 때문에 narrative로 보기 쉽지만, 사건의 갈등-해결이 아니라 '질문 → 실험 → 결과 → 함의'로 짜여 있고 인물은 연구를 소개하는 장치일 뿐이므로 study_implication이다."
       }
     },
     {
@@ -180,18 +227,26 @@
           "Some squirrels bury thousands of seeds in autumn and return to them, one by one, when snow covers the ground.",
           "Certain birds gather in tight groups at night, sharing the warmth of their bodies until morning.",
           "Honeybees cluster around their queen and shiver their muscles to keep the center of the hive warm.",
-          "None of these creatures grows a thicker coat; each simply acts in a way that makes the cold easier to bear.",
-          "Behavior, it seems, can be as powerful a tool for survival as any physical trait."
+          "None of these creatures grows a thicker coat; each simply acts in a way that makes the cold easier to bear."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["topic", "example", "example", "example", "support", "conclusion"],
+        "roles": [
+          "topic",
+          "example",
+          "example",
+          "example",
+          "support"
+        ],
         "alternatives": [
-          { "index": 5, "role": "support" }
+          {
+            "index": 4,
+            "role": "conclusion"
+          }
         ],
         "pattern": "general_specific",
-        "rationale": "1번이 '동물은 몸이 아니라 행동을 바꿔 겨울을 난다'는 일반 진술을 내놓고, 2~4번이 다람쥐·새·꿀벌의 구체적 사례로 그것을 채운다. 5번은 사례들의 공통점을 묶어 일반 진술을 다시 뒷받침하고, 6번이 그 의미를 넓혀 맺는다. 일반 → 구체 사례 → 정리의 흐름이므로 general_specific이다."
+        "rationale": "1번이 '동물은 몸이 아니라 행동을 바꿔 겨울을 난다'는 일반 진술(주제문)이고, 2~4번이 다람쥐·새·꿀벌의 구체적 사례다. 5번은 사례들의 공통점을 묶어 일반 진술을 다시 뒷받침하는데, 글을 맺는 역할도 하므로 conclusion으로 보아도 인정한다. 일반 → 구체 사례의 흐름이므로 general_specific이다."
       }
     }
   ]

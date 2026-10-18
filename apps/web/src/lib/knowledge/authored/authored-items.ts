@@ -103,6 +103,14 @@ export function validateAuthoredSet(s: AuthoredSet): string[] {
   // 설명 글(why · rationale · teach · hints)의 문장 번호는 화면과 같은 1부터 — 0부터 쓴 세트가 학습자에게 엉뚱한 문장을 가리켰다(2026-10-18 발견)
   if (s.proseNumbering !== '1-based') errs.push('proseNumbering 이 1-based 가 아니다(설명 글 문장 번호는 화면과 같게 1부터)')
   if (s.provenance.derivedFrom.length > 0) errs.push('창작 세트는 원천 지문에서 파생되지 않아야 한다(derivedFrom 비어 있음)')
+  // 문장 역할 형식: 위치만 보고 맞힐 수 있으면 역할 판단을 재지 못한다(맹검 검토 2026-10-18 — 12문항 모두 마지막 문장이 결론)
+  if (fmt === 'discourse_roles') {
+    const roles = s.items.map((i) => ((i.gold as { roles?: string[] }).roles ?? []))
+    const endsConclusion = roles.filter((r) => r[r.length - 1] === 'conclusion').length
+    if (endsConclusion > Math.ceil(s.items.length / 2)) errs.push(`마지막 문장이 결론인 문항이 ${endsConclusion}/${s.items.length} — 위치 단서(절반 이하로)`)
+    const topicAt = new Set(roles.map((r) => r.indexOf('topic')))
+    if (s.items.length >= 3 && topicAt.size < 3) errs.push('주제문 위치가 다양하지 않다(서로 다른 위치 3곳 이상)')
+  }
   for (const it of s.items) {
     const at = `[${it.id}]`
     if (ids.has(it.id)) errs.push(`${at} id 중복`)

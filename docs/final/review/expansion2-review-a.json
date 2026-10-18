@@ -1,0 +1,26 @@
+{
+ "r-reference": {
+  "item-1": {"answer":2,"decisive":4,"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":[]},
+  "item-2": {"answer":4,"decisive":3,"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":[]},
+  "item-3": {"answer":1,"decisive":3,"defensibleOther":{"value":false,"why":"(2) is the contrasting usual explanation, clearly excluded by [4]"},"giveaway":"none","issues":[]},
+  "item-4": {"answer":5,"decisive":5,"defensibleOther":{"value":false,"why":""},"giveaway":"mild","issues":["'loyal to familiar sites' echoes [5] wording closely"]},
+  "item-5": {"answer":3,"decisive":3,"defensibleOther":{"value":false,"why":"'this' arguably covers [1]-[3] as a whole; (3) summarizes it adequately"},"giveaway":"none","issues":[]},
+  "item-6": {"answer":2,"decisive":3,"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":[]}
+ },
+ "v-multiword": {
+  "item-1": {"answer":3,"cue":[3,4],"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":["Most precise sense here is '설명하다/원인이 되다' (lamps explain only a small part of the increase); '몫을 차지하다' is acceptable but not the best gloss, and the best gloss is absent from choices"]},
+  "item-2": {"answer":1,"cue":[3,4],"defensibleOther":{"value":false,"why":"(5) literal 'yield' is close to figurative meaning; mild risk"},"giveaway":"none","issues":[]},
+  "item-3": {"answer":4,"cue":[1,4,5],"defensibleOther":{"value":false,"why":"(1) literal 'separate' partially overlaps 'distinguish'"},"giveaway":"none","issues":[]},
+  "item-4": {"answer":2,"cue":[1,3],"defensibleOther":{"value":false,"why":""},"giveaway":"mild","issues":["'결국' plus literal distractors make it easy"]},
+  "item-5": {"answer":5,"cue":[4,5],"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":["'정중히' (politely) is not supported by the text; key adds nuance"]},
+  "item-6": {"answer":3,"cue":[1,2,3],"defensibleOther":{"value":false,"why":""},"giveaway":"none","issues":[]}
+ },
+ "v-semantic-relation": {
+  "item-1": {"same":true,"relation":"paraphrase","twoRelationsDefensible":true,"why":"A is a specific instance of B ('longer hours'), so A hyponym is equally arguable","giveaway":"none","issues":[]},
+  "item-2": {"same":true,"relation":"synonym","twoRelationsDefensible":false,"giveaway":"none","issues":["Context contrasts Mina's 'inexpensive' sturdy bag with friend's 'cheap' flimsy bag; connotation difference may lead learners to answer same=false"]},
+  "item-3": {"same":false,"relation":"hypernym","twoRelationsDefensible":false,"giveaway":"none","issues":[]},
+  "item-4": {"same":true,"relation":"paraphrase","twoRelationsDefensible":false,"giveaway":"none","issues":["'careful' adds meaning beyond 'far from hasty'; minor"]},
+  "item-5": {"same":true,"relation":"paraphrase","twoRelationsDefensible":false,"giveaway":"none","issues":[]},
+  "item-6": {"same":false,"relation":"antonym","twoRelationsDefensible":false,"giveaway":"none","issues":[]}
+ }
+}

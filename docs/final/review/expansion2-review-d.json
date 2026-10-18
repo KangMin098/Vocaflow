@@ -1,0 +1,30 @@
+{
+"blind-s-sentence-core":{
+"item-1":{"answer":4,"reason":"main_verb","alt":false,"why":"rinse/drop are relative-clause verbs","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-2":{"answer":3,"reason":"main_subject","alt":false,"why":"participial phrase is adverbial","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-3":{"answer":4,"reason":"main_verb","alt":false,"why":"should have/are designed are subordinate","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-4":{"answer":1,"reason":"main_subject","alt":false,"why":"head One; of the students is modifier","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-5":{"answer":3,"reason":"main_verb","alt":false,"why":"worried about is inside what-clause","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-6":{"answer":5,"reason":"inverted_order","alt":false,"why":"locative inversion; stood is verb, box is subject","stem_unique":true,"grammar_ok":true,"issues":[]}},
+"blind-s-attachment":{
+"item-1":{"answer":2,"reason":"modifies_noun","alt":true,"why":"grammatically 'the old library' also possible; only sentences 4-5 (windows added to that one room) resolve it","stem_unique":true,"grammar_ok":true,"issues":["context-dependent; acceptable only if learner is expected to use sentences 4-5"]},
+"item-2":{"answer":1,"reason":"modifies_verb","alt":false,"why":"sentence 2 (lent her binoculars) and 4 rule out fisherman","stem_unique":true,"grammar_ok":true,"issues":["segment 1 bundles 'From the cliff' with verb; fine"]},
+"item-3":{"answer":4,"reason":"modifies_noun","alt":false,"why":"sentences 4-5: children arranged it","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-4":{"answer":3,"reason":"modifies_noun","alt":false,"why":"villages 800 yrs old; crossings destroyed, concrete rebuilt","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-5":{"answer":2,"reason":"modifies_verb","alt":false,"why":"vote approves, not the plan/park","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-6":{"answer":1,"reason":"modifies_noun","alt":false,"why":"photos are taken, island not","stem_unique":true,"grammar_ok":true,"issues":[]}},
+"blind-s-chunk-boundary":{
+"item-1":{"answer":2,"reason":"clause_boundary","alt":false,"why":"reduced relative ends subject","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-2":{"answer":3,"reason":"clause_boundary","alt":false,"why":"reduced passive 'told (that)...'","stem_unique":true,"grammar_ok":true,"issues":["heavy garden-path (told looks like main verb); grammatical but unnatural; consider 'The students who were told...' or keep as deliberate hard item"]},
+"item-3":{"answer":2,"reason":"clause_boundary","alt":false,"why":"that omitted before their children","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-4":{"answer":1,"reason":"main_subject","alt":false,"why":"single-segment subject","stem_unique":true,"grammar_ok":true,"issues":["'who buy daily' slightly odd (buy what?); minor"]},
+"item-5":{"answer":3,"reason":"clause_boundary","alt":false,"why":"sent the staff (ditransitive, object gapped); subject ends at 'the staff'","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-6":{"answer":4,"reason":"clause_boundary","alt":false,"why":"a box (that) the family had forgotten","stem_unique":true,"grammar_ok":true,"issues":[]}},
+"blind-s-structural-relation":{
+"item-1":{"answer":5,"reason":"parallel_member","alt":false,"why":"to-inf parallel","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-2":{"answer":2,"reason":"ellipsis_restored","alt":false,"why":"although (they were) tired","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-3":{"answer":3,"reason":"inserted_clause","alt":false,"why":"non-restrictive relative","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-4":{"answer":1,"reason":"inverted_order","alt":false,"why":"stem says fronted phrase, so aux 'had' (2) excluded","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-5":{"answer":4,"reason":"parallel_member","alt":false,"why":"'마지막' excludes reduce stress (2)","stem_unique":true,"grammar_ok":true,"issues":[]},
+"item-6":{"answer":3,"reason":"ellipsis_restored","alt":false,"why":"gapping: older readers (preferred) long articles","stem_unique":true,"grammar_ok":true,"issues":["'by a wide margin' scope ambiguous; minor"]}}
+}

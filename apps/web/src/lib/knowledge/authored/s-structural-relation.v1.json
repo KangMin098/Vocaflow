@@ -100,7 +100,7 @@
         "reason": "ellipsis_restored",
         "why": "although tired 는 although (they were) tired 에서 주절과 같은 주어와 be동사가 생략된 것이다.",
         "segments": [
-          { "reason": "main_verb", "why": "주절 동사 said 와 목적어절을 여는 that 이다." },
+          { "reason": "subject_and_verb", "why": "주절의 주어 · 동사 said 와 목적어절을 여는 that 이다." },
           { "reason": "ellipsis_restored", "why": "they were 가 생략된 부사절이다." },
           { "reason": "main_subject", "why": "that 절의 주어다." },
           { "reason": "main_verb", "why": "that 절의 동사다." },
@@ -211,7 +211,7 @@
         "reason": "parallel_member",
         "why": "and 뒤에 삽입절 as many studies suggest 가 끼어 있지만, 이를 걷어내면 improve sleep 이 save energy · reduce stress 와 나란한 세 번째 동사구다.",
         "segments": [
-          { "reason": "main_subject", "why": "주어와 첫 번째 병렬 동사구다." },
+          { "reason": "subject_and_verb", "why": "주어와 첫 번째 병렬 동사구다." },
           { "reason": "parallel_member", "why": "두 번째 병렬 동사구와 접속사 and 다." },
           { "reason": "inserted_clause", "why": "and 와 마지막 병렬 요소 사이에 삽입된 절로, 병렬 요소가 아니다." },
           { "reason": "parallel_member", "why": "삽입절 뒤에 이어지는 세 번째 병렬 동사구다." },
@@ -228,7 +228,7 @@
         "sentences": [
           "A publisher asked readers how they like to get the news.",
           "More than two thousand people answered the questions.",
-          "In the survey, younger readers preferred short videos, and older readers long articles, by a wide margin.",
+          "In the survey, most younger readers preferred short videos, and most older readers long articles — a gap the editors had not expected.",
           "The results surprised the editors.",
           "They now plan to offer both formats for every major story."
         ],
@@ -237,20 +237,20 @@
         "ask": "structure",
         "segments": [
           "In the survey,",
-          "younger readers preferred short videos,",
-          "and older readers long articles,",
-          "by a wide margin"
+          "most younger readers preferred short videos,",
+          "and most older readers long articles",
+          "— a gap the editors had not expected"
         ]
       },
       "gold": {
         "answer": 2,
         "reason": "ellipsis_restored",
-        "why": "and older readers long articles 는 앞 절과 같은 동사 preferred 가 생략된 것으로, older readers (preferred) long articles 로 되살려 읽는다.",
+        "why": "and most older readers long articles 는 앞 절과 같은 동사 preferred 가 생략된 것으로, most older readers (preferred) long articles 로 되살려 읽는다.",
         "segments": [
           { "reason": "modifies_verb", "why": "배경을 나타내는 부사구다." },
-          { "reason": "main_verb", "why": "주어 · 동사 · 목적어를 모두 갖춘 첫 절이다." },
+          { "reason": "subject_and_verb", "why": "주어 · 동사 · 목적어를 모두 갖춘 첫 절이다." },
           { "reason": "ellipsis_restored", "why": "동사 preferred 가 빠진 두 번째 절이다." },
-          { "reason": "modifies_verb", "why": "선호의 정도를 나타내는 부사구다." }
+          { "reason": "modifies_noun", "why": "대시 뒤에서 앞 두 절이 보여 준 차이 전체를 받아 설명하는 동격 명사구다." }
         ]
       }
     }

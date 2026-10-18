@@ -291,6 +291,8 @@ const discourseRoles: FormatSpec = {
     if (!Array.isArray(gg.roles) || gg.roles.length !== len || !gg.roles.every((r) => STRUCT_ROLES.includes(r))) errs.push('문장 수만큼 역할')
     if (!Array.isArray(gg.alternatives) || !gg.alternatives.every((a) => isInt(a.index, 0, len) && STRUCT_ROLES.includes(a.role) && a.role !== gg.roles?.[a.index])) errs.push('허용 대안')
     if (!STRUCT_PATTERNS.includes(gg.pattern)) errs.push('구조 패턴')
+    const pAlt = (g as { patternAlternatives?: Pattern[] }).patternAlternatives ?? []
+    if (!Array.isArray(pAlt) || !pAlt.every((p) => STRUCT_PATTERNS.includes(p) && p !== gg.pattern)) errs.push('허용 대안 패턴')
     if (typeof gg.rationale !== 'string' || gg.rationale.length < 12) errs.push('구조 설명')
     return errs
   },
@@ -300,9 +302,12 @@ const discourseRoles: FormatSpec = {
     const gg = g as unknown as { roles: Role[]; alternatives: { index: number; role: Role }[]; pattern: Pattern }
     const design: PassageDesign = { roles: gg.roles, alternatives: gg.alternatives, pattern: gg.pattern, selection: '', transform: 'paraphrase' as PassageDesign['transform'], transform_note: '', cues: [] }
     const grade = gradeStructure(design, r)
-    return { response: { roles: r.roles, pattern: r.pattern }, grade: { ...grade } }
+    // 구조 패턴이 실제로 둘로 읽히는 글(맹검 검토 기록)은 허용 대안 패턴도 맞음으로 본다 — 합리적 해석을 오답 처리하지 않는다
+    const pAlt = (g as { patternAlternatives?: Pattern[] }).patternAlternatives ?? []
+    const patternOk = grade.patternOk || pAlt.includes(r.pattern)
+    return { response: { roles: r.roles, pattern: r.pattern }, grade: { ...grade, patternOk, isCorrect: patternOk && grade.roleOk.every(Boolean) } }
   },
-  reveal: (g) => ({ roles: g.roles, alternatives: g.alternatives, pattern: g.pattern, rationale: g.rationale }),
+  reveal: (g) => ({ roles: g.roles, alternatives: g.alternatives, pattern: g.pattern, patternAlternatives: g.patternAlternatives ?? [], rationale: g.rationale }),
 }
 
 // ── demand_choice (e.task_demand) ────────────────────────────────────

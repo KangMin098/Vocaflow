@@ -67,7 +67,8 @@
         "segments": ["The students", "told the rule was unfair", "refused to sign", "the form."],
         "hints": [
           "이 문장에는 과거형처럼 보이는 동사가 둘(told, refused) 있다. 학생들이 누군가에게 '말한' 것인지, '말을 들은' 것인지 생각해 보세요.",
-          "told 덩어리를 걷어내고 남은 문장이 자연스러운지 확인해 보세요."
+          "told 덩어리를 걷어내고 남은 문장이 자연스러운지 확인해 보세요.",
+          "명사 바로 뒤의 과거분사 덩어리는 'who were + 과거분사'가 줄어든 관계절일 수 있습니다. The students (who were) told ... 처럼 복원해 읽어 보세요."
         ]
       },
       "gold": {
@@ -105,9 +106,9 @@
         "reason": "ellipsis_restored",
         "why": "believe 뒤에 접속사 that 이 생략되어 있다. 'believe (that) their children sleep ...'으로 복원하면 their children 에서 목적어 절이 시작된다.",
         "segments": [
-          { "reason": "main_verb", "why": "주절의 주어와 동사. 목적어 절 앞에서 끝난다." },
+          { "reason": "subject_and_verb", "why": "주절의 주어와 동사. 목적어 절 앞에서 끝난다." },
           { "reason": "ellipsis_restored", "why": "생략된 that 절의 시작(절의 주어)." },
-          { "reason": "object", "why": "that 절 안의 동사와 비교 표현." },
+          { "reason": "clause_internal", "why": "that 절 안의 동사와 비교 표현." },
           { "reason": "clause_boundary", "why": "than 뒤 비교절. do 는 sleep 을 대신한다." }
         ]
       }
@@ -121,14 +122,14 @@
         "sentences": [
           "Last summer brought weeks of heavy rain to the farming valley.",
           "Many fields stayed flooded until August.",
-          "A sudden rise in the price of fresh vegetables across the region worried local restaurant owners who buy daily.",
+          "A sudden rise in the price of fresh vegetables across the region worried local restaurant owners who buy produce daily.",
           "Some changed their menus every week.",
           "Others signed contracts with farms farther away."
         ],
         "stem": "3번 문장의 주어 덩어리 전체에 해당하는 덩어리는?",
         "focus": { "sentence": 2 },
         "ask": "boundary",
-        "segments": ["A sudden rise in the price of fresh vegetables across the region", "worried", "local restaurant owners", "who buy daily."]
+        "segments": ["A sudden rise in the price of fresh vegetables across the region", "worried", "local restaurant owners", "who buy produce daily."]
       },
       "gold": {
         "answer": 0,

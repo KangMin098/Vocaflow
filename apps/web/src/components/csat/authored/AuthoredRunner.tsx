@@ -244,6 +244,10 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         <h2 id="passage-h">{passageTitle[p.format]}</h2>
         <ol className={styles.bars}>
           {p.sentences.map((s, k) => {
+            // 요약문(「[요약]」으로 시작)은 수능처럼 글 아래 상자로 — 고를 수 있는 본문 문장이 아니다
+            if (s.startsWith('[요약]')) return (
+              <li key={k} className={styles.state} data-testid="authored-summary"><b>요약문</b> <span lang="en">{s.replace(/^[요약]s*/, '')}</span></li>
+            )
             const tags = tagsOf(k)
             const pressed = selectsSentences ? (claim === k || picked.includes(k)) : undefined
             return (

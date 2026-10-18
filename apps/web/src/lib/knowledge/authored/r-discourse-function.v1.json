@@ -32,28 +32,50 @@
           {
             "step": "흔한 믿음을 먼저 표시한다",
             "text": "1번은 '조용한 방이 언제나 최선'이라는 사람들의 믿음을 소개한다. 필자의 주장이 아니라 뒤에서 뒤집힐 배경이므로 background. 'Many people believe'가 통념 도입 신호다.",
-            "sentences": [0]
+            "sentences": [
+              0
+            ]
           },
           {
             "step": "양보와 전환을 가른다",
             "text": "2번 'It is true that'은 반대편의 일리 있는 부분을 잠시 인정하는 양보(concession)다. 3번 'Yet'은 그 인정 뒤에 필자 자신의 입장을 세우는 문장이다. 3번은 방향을 트는 turn이기도 하지만, 글 전체가 이 문장을 증명하므로 주제문(topic)으로 보는 것이 더 정확하다 — turn은 허용 대안으로 인정한다. 양보 문장을 필자의 주장으로 읽는 것이 가장 흔한 함정이다.",
-            "sentences": [1, 2]
+            "sentences": [
+              1,
+              2
+            ]
           },
           {
             "step": "예시와 근거를 가른다",
             "text": "4번은 '한 실험'이라는 구체적 사례이므로 example. 5번은 사례 하나가 아니라 '왜 그런가'를 일반적으로 설명하므로 support. 구체적 장면·사람·실험이면 example, 원리·이유면 support로 가른다.",
-            "sentences": [3, 4]
+            "sentences": [
+              3,
+              4
+            ]
           },
           {
             "step": "결론과 구조",
             "text": "6번 'then'으로 주제를 다시 정리하는 conclusion. 통념(1) → 양보(2) → 반박 주장(3) → 사례·이유 → 결론이므로 구조는 myth_rebuttal.",
-            "sentences": [5]
+            "sentences": [
+              5
+            ]
           }
         ]
       },
       "gold": {
-        "roles": ["background", "concession", "topic", "example", "support", "conclusion"],
-        "alternatives": [{ "index": 2, "role": "turn" }],
+        "roles": [
+          "background",
+          "concession",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          }
+        ],
         "pattern": "myth_rebuttal",
         "rationale": "1번 통념 소개, 2번 'It is true that' 양보, 3번 'Yet'으로 필자 주장(주제문), 4번 실험 사례, 5번 원리 설명, 6번 'then' 결론. 통념을 뒤집는 글이므로 myth_rebuttal이다."
       }
@@ -65,26 +87,40 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "Small towns across the region have been losing their only grocery stores.",
-          "When a store closes, older residents without cars must travel long distances for fresh food.",
-          "Some communities have answered this problem by opening member-owned stores.",
-          "In one village of eight hundred people, residents bought shares for fifty dollars each and reopened the shop within a year.",
-          "Because the owners are also the customers, such stores can survive on profits too thin for a chain.",
-          "Member ownership may therefore offer a practical way to keep food within reach of rural families."
+          "Member-owned grocery stores offer rural towns a practical way to keep fresh food within reach.",
+          "Over the past decade, many small towns in the region have lost their only supermarket.",
+          "Chains close such stores because the profits are too thin to satisfy distant shareholders.",
+          "A member-owned store faces no such pressure, since its owners are also its customers.",
+          "They are content as long as the shelves stay full and the doors stay open.",
+          "In one village of eight hundred people, residents bought shares for fifty dollars each.",
+          "Within a year, the shop that a chain had abandoned was selling bread and vegetables again."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오.",
         "hints": [
-          "1번과 2번은 해결책이 나오기 전의 상황이에요. 둘 중 어느 쪽이 '문제가 왜 심각한지'를 보태나요?",
-          "3번이 글 전체가 다루는 해결책을 처음 꺼내는지 확인해 보세요.",
-          "4번은 특정한 마을 하나의 이야기, 5번은 일반적인 이유예요 — 사례와 근거를 가르세요.",
-          "6번의 'therefore'가 앞 내용을 어떻게 묶는지 보세요."
+          "첫 문장이 글 전체가 증명하려는 말인지, 아니면 상황 소개인지 먼저 정하세요.",
+          "2~3번은 해결책이 왜 필요한지 보여 주는 상황이에요. 3번은 '왜 문을 닫나'라는 원인까지 보태요.",
+          "6~7번은 특정한 마을 하나의 이야기예요 — 일반적인 이유(4~5번)와 구별하세요.",
+          "마지막 문장이 앞 내용을 다시 정리하나요, 아니면 사례를 이어 가나요?"
         ]
       },
       "gold": {
-        "roles": ["background", "support", "topic", "example", "support", "conclusion"],
-        "alternatives": [{ "index": 0, "role": "topic" }],
+        "roles": [
+          "topic",
+          "background",
+          "background",
+          "support",
+          "support",
+          "example",
+          "example"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "support"
+          }
+        ],
         "pattern": "problem_solution",
-        "rationale": "1번 문제 상황 제시, 2번 문제의 심각성 근거, 3번 해결책(주제문), 4번 한 마을의 구체적 사례, 5번 해결책이 통하는 이유, 6번 'therefore' 결론. 문제 → 해결 구조다. 1번은 문제 자체를 글의 출발점으로 보면 topic도 인정한다."
+        "rationale": "1번이 해결책(조합 소유 상점)을 먼저 내세운 주제문, 2~3번은 문제 상황과 그 원인(배경), 4~5번은 해결책이 통하는 이유(근거), 6~7번은 한 마을의 구체적 사례로 끝난다. 결론 문장 없이 사례로 마무리되는 문제-해결 글이다."
       }
     },
     {
@@ -94,20 +130,34 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "Researchers recently asked two groups of students to learn the same list of foreign words.",
-          "One group studied the list for an hour in a single session, while the other spread the same hour over four days.",
+          "Researchers asked two groups of students to learn the same list of foreign words.",
+          "One group studied for an hour in a single session, while the other spread the same hour over four days.",
           "A week later, the second group recalled nearly twice as many words.",
-          "Spacing practice apparently gives memories time to settle between sessions.",
-          "Admittedly, cramming can produce good scores on a test the very next morning.",
-          "For anyone who wants knowledge to last, however, studying in short, spread-out sessions is the wiser choice."
+          "Spacing apparently gives memories time to settle between sessions.",
+          "Students who want their learning to last should therefore break their review into short sessions spread across several days."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["background", "support", "support", "support", "concession", "conclusion"],
-        "alternatives": [{ "index": 2, "role": "example" }, { "index": 5, "role": "topic" }],
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "conclusion"
+          },
+          {
+            "index": 2,
+            "role": "example"
+          }
+        ],
         "pattern": "study_implication",
-        "rationale": "1~2번 연구 설계, 3번 연구 결과, 4번 결과의 해석, 5번 'Admittedly' 양보, 6번 'however'로 학습자에게 주는 시사점(결론). 연구 → 결과 → 함의 구조이므로 study_implication. 3번은 연구 결과 자체가 사례로도 읽혀 example을, 6번은 필자 주장이 처음 드러나는 곳이라 topic을 대안으로 인정한다."
+        "rationale": "1~2번 연구 설계, 3번 결과, 4번 결과 해석, 5번 'therefore'로 학습자에게 주는 시사점이자 글 전체의 주장(주제문). 주제문이 맨 끝에 오는 연구-함의 글이다. 5번은 결론으로 읽어도 인정한다."
       }
     },
     {
@@ -117,20 +167,36 @@
       "body": {
         "format": "discourse_roles",
         "sentences": [
-          "Old maps are often treated as mere decorations for the walls of libraries.",
-          "But they are valuable records of how people once understood their world.",
-          "A sixteenth-century chart of the Atlantic, for instance, shows sea monsters in the very waters sailors feared most.",
-          "Such drawings reveal what dangers a culture imagined, not only where its coastlines lay.",
-          "Of course, an old map is a poor guide for anyone trying to reach a harbor today.",
-          "Its errors, though, are exactly what make it worth studying."
+          "Old maps record what people once feared as well as where they traveled.",
+          "Mapmakers rarely left the unknown parts of a chart blank.",
+          "Instead, they filled those spaces with whatever their culture imagined might be there.",
+          "A sixteenth-century chart of the Atlantic shows sea serpents in the very waters sailors dreaded most.",
+          "Another map from the same period places a land of giants beyond the southern edge of the known world.",
+          "Neither image was meant as decoration.",
+          "Each marked a danger that readers of the time took seriously.",
+          "In this sense, the empty spaces of an old map say as much about its makers as its coastlines do."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["background", "topic", "example", "support", "concession", "conclusion"],
-        "alternatives": [{ "index": 1, "role": "turn" }, { "index": 5, "role": "turn" }],
-        "pattern": "myth_rebuttal",
-        "rationale": "1번 '장식품일 뿐'이라는 통념, 2번 'But'으로 필자 주장(주제문), 3번 'for instance' 구체적 지도 사례, 4번 사례가 보여 주는 일반적 의미(근거), 5번 'Of course' 양보, 6번 'though'로 주장을 되살리는 결론. 2번·6번은 방향 전환 기능도 있어 turn을 대안으로 인정한다."
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 5,
+            "role": "turn"
+          }
+        ],
+        "pattern": "general_specific",
+        "rationale": "1번 일반 진술(주제문) → 2~3번 그 이유(지도 제작 관행) → 4~5번 구체적 지도 두 개(예시) → 6~7번 예시가 장식이 아니라 실제 두려움이었다는 해설(근거) → 8번 'In this sense' 결론. 일반에서 구체로 내려가는 구조다."
       }
     },
     {
@@ -141,19 +207,35 @@
         "format": "discourse_roles",
         "sentences": [
           "Electric scooters have clearly made short trips across the city faster and cheaper.",
-          "Riders no longer need to wait for a bus to travel a few blocks.",
+          "It is true that riders no longer need to wait for a bus to travel a few blocks.",
           "Even so, the scooters are creating more problems on sidewalks than they solve on the roads.",
           "Parked scooters often lie across walkways, blocking people who use wheelchairs.",
           "Pedestrians also report being startled by riders who pass them at high speed.",
-          "Unless cities set clear parking and speed rules, the cost of this convenience will be paid by those who walk."
+          "Last spring, an elderly man in one downtown district broke his wrist after tripping over a scooter left at a bus stop."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["concession", "support", "topic", "example", "example", "conclusion"],
-        "alternatives": [{ "index": 2, "role": "turn" }, { "index": 4, "role": "support" }, { "index": 3, "role": "support" }],
-        "pattern": "problem_solution",
-        "rationale": "1~2번은 장점을 먼저 인정하는 양보(2번은 그 장점의 근거), 3번 'Even so'로 필자 주장이 글 가운데에서 처음 나오는 주제문, 4~5번 인도 위 문제의 구체적 장면, 6번 규칙 마련을 요구하는 결론. 문제를 제시하고 해결 조건을 내놓으므로 problem_solution. 첫 문장을 주제문으로 읽는 것이 전이 함정이다."
+        "roles": [
+          "concession",
+          "concession",
+          "topic",
+          "support",
+          "support",
+          "example"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          },
+          {
+            "index": 1,
+            "role": "support"
+          }
+        ],
+        "pattern": "contrast",
+        "rationale": "1~2번은 장점을 먼저 인정하는 양보, 3번 'Even so'로 필자 주장이 글 가운데에서 처음 나오는 주제문, 4~5번 인도 위 문제를 일반적으로 든 근거, 6번 한 노인의 구체적 사고(예시)로 끝난다. 장점과 피해를 맞세우므로 contrast. 첫 문장을 주제문으로 읽는 것이 전이 함정이다."
       }
     },
     {
@@ -164,19 +246,31 @@
         "format": "discourse_roles",
         "sentences": [
           "In many offices, praise is handed out only after a large project is finished.",
-          "Frequent, small recognition, however, does more to keep people motivated.",
-          "A designer who hears that a single sketch worked well is likely to bring the same care to the next one.",
-          "Small signals of approval tell workers that their daily effort is seen, which makes the effort feel worthwhile.",
-          "To be sure, praise that is too constant can start to sound empty.",
-          "Still, managers who notice small successes as they happen build teams that keep trying."
+          "This habit quietly drains motivation during the long months in between.",
+          "Without any sign that their daily work is noticed, employees begin to wonder whether it matters.",
+          "Many respond by doing only what is strictly required.",
+          "By the time the project ends and the praise finally arrives, the best effort has already been lost.",
+          "Delayed recognition, in other words, costs a team the very energy it is meant to reward."
         ],
         "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
       },
       "gold": {
-        "roles": ["background", "topic", "example", "support", "concession", "conclusion"],
-        "alternatives": [{ "index": 1, "role": "turn" }],
-        "pattern": "contrast",
-        "rationale": "1번 큰 일 뒤에만 칭찬하는 관행(배경), 2번 'however'로 잦은 작은 인정이 낫다는 주제문, 3번 한 디자이너의 사례, 4번 그 이유(근거), 5번 'To be sure' 양보, 6번 'Still'로 주장 재확인 결론. 두 칭찬 방식을 맞세우므로 contrast."
+        "roles": [
+          "background",
+          "topic",
+          "support",
+          "support",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "example"
+          }
+        ],
+        "pattern": "cause_effect",
+        "rationale": "1번 큰 일 뒤에만 칭찬하는 관행(배경), 2번 그 관행이 동기를 떨어뜨린다는 주제문, 3~5번 원인에서 결과로 이어지는 과정(근거), 6번 'in other words' 결론. 관행 → 결과를 따라가는 인과 구조다."
       }
     }
   ]

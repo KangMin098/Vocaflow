@@ -32,7 +32,7 @@
         "choices": [
           "글 전체가 다루는 화제를 한 구절로 정리하기",
           "학생들이 점심시간에 겪은 변화를 찾아 적기",
-          "필자가 독자나 학교에 요구하는 행동을 고르기",
+          "글쓴이가 학교 측에 요구하는 행동을 고르기",
           "글에 나온 학부모의 걱정이 옳은지 판정하기",
           "글의 내용과 일치하지 않는 진술을 골라내기"
         ],
@@ -161,7 +161,7 @@
           "행사의 목적을 한 문장으로 요약해 정리하기",
           "참가 연령 조건 한 가지만 확인하고 답하기",
           "안내문에 없는 규정까지 짐작해 판단하기",
-          "선택지마다 안내문과 대조해 어긋난 것 찾기"
+          "선택지별로 안내문과 대조해 사실이 어긋난 것 찾기"
         ]
       },
       "gold": {
@@ -207,11 +207,11 @@
         "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
         "taskStem": "밑줄 친 carrying the wrong fear all along이 다음 글에서 의미하는 바로 가장 적절한 것은?",
         "choices": [
-          "글 전체에서 필자가 주장하는 교훈을 찾기",
-          "밑줄 표현이 이 글의 맥락에서 뜻하는 바 풀기",
-          "fear라는 낱말의 사전적 뜻을 그대로 고르기",
-          "Mira가 무대에서 실수한 장면을 찾아 적기",
-          "Mira의 이후 연주 결과까지 예측해 판단하기"
+          "글 전체에서 글쓴이가 전하려는 교훈을 찾기",
+          "비유 표현이 이야기 흐름 속에서 가리키는 실제 뜻 풀기",
+          "밑줄 표현에 쓰인 fear의 사전적 뜻을 고르기",
+          "밑줄이 든 마지막 문장 전체의 요지를 정리하기",
+          "밑줄 표현 뒤에 Mira가 할 행동을 예측하기"
         ]
       },
       "gold": {
@@ -230,13 +230,13 @@
           },
           {
             "choice": 3,
-            "design": "detail_focus",
-            "why": "2번의 실수 장면은 단서일 뿐 의미 풀이가 아니다."
+            "design": "wrong_scope",
+            "why": "밑줄 표현이 아니라 그것이 든 문장 전체로 범위를 넓혔다."
           },
           {
             "choice": 4,
             "design": "extra_condition",
-            "why": "이후 결과를 예측하라는 조건은 발문에 없다."
+            "why": "이후 행동을 예측하라는 조건은 발문에 없다."
           }
         ]
       }
@@ -252,21 +252,22 @@
           "One group simply reread the list several times, while the other covered it and tried to recall the words.",
           "A week later, the recall group remembered far more words than the rereading group.",
           "Interestingly, the rereading group had felt more confident right after studying.",
-          "The effort of pulling information out of memory, not the comfort of seeing it again, made learning last."
+          "The effort of pulling information out of memory, not the comfort of seeing it again, made learning last.",
+          "[요약] Trying to (A) information, rather than reviewing it, leads to more (B) learning."
         ],
         "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
-        "taskStem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은? → Trying to (A) information, rather than reviewing it, leads to more (B) learning.",
+        "taskStem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
         "choices": [
-          "(A)에 들어갈 말만 정하고 (B)는 판단하지 않기",
-          "실험 참가자 수와 기간을 정확히 찾아 적기",
-          "글 전체를 요약한 문장에서 (A)·(B) 두 핵심어 정하기",
-          "필자가 학생에게 요구하는 공부법을 한 줄로 쓰기",
-          "요약문의 문법 오류를 찾아 바르게 고치기"
+          "(A)만 정하고 (B)는 비워 둔 채 판단하기",
+          "(A)·(B)에 실험의 세부 수치를 넣어 채우기",
+          "(A)·(B)에 글쓴이의 권고 행동을 넣어 채우기",
+          "글 전체 요지에 맞게 (A)·(B)를 함께 정하기",
+          "(A)·(B)를 고르고 요약문 문법까지 고치기"
         ]
       },
       "gold": {
-        "answer": 2,
-        "rationale": "요약문 발문은 글 전체의 핵심을 담은 요약 문장을 완성하도록 (A)와 (B) 두 자리를 함께 정하라는 요구다. 여기서는 (A) 인출(recall)·(B) 오래가는(lasting)이다.",
+        "answer": 3,
+        "rationale": "요약문 발문은 글 전체의 핵심을 담도록 (A)와 (B) 두 자리를 함께 정하라는 요구다. 여기서는 (A) 인출(recall)·(B) 오래가는(lasting)이다.",
         "distractors": [
           {
             "choice": 0,
@@ -279,9 +280,9 @@
             "why": "실험의 세부 수치는 요약의 핵심이 아니다."
           },
           {
-            "choice": 3,
+            "choice": 2,
             "design": "wrong_operation",
-            "why": "필자의 요구를 쓰는 것은 '주장' 발문의 판단이다."
+            "why": "글쓴이의 권고를 찾는 것은 '주장' 발문의 판단이다."
           },
           {
             "choice": 4,
@@ -307,7 +308,7 @@
         "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
         "taskStem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
         "choices": [
-          "글의 흐름이 가리키는 핵심 개념으로 빈칸 채우기",
+          "앞뒤 흐름이 가리키는 핵심 개념으로 비운 자리 채우기",
           "빈칸 앞 낱말과 문법적으로 어울리는 말만 고르기",
           "제과점 주인이 줄인 빵의 종류 수를 찾아 쓰기",
           "필자가 다른 가게에 권하는 행동을 따로 정리하기",
