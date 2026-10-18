@@ -43,3 +43,5 @@ PR 목적의 「교수/평가 혼용 차단」「적격 공급」「지도·PLAN
 - FI-012: [#305](https://github.com/KangMin098/Vocaflow/issues/305)에 대체 결정 근거 오답을 인계했다. 기존 중심문장 재진술과 다른 choice_evidence 계약 문제다.
 - CI run39114115991(HEAD e91377575) 격리 e2e 성공을 확인했다. shared-dev SKIPPED다. 추가 TASK/형식이 들어간 최신22b5e43c5의 CI 성공·내용 수용으로 대신 계산하지 않는다.
 - FI-001의 확인된 결속 개선 및 FI-009 수정은 인정하며, 미해결 P1/핵심 P2·전체 TASK·실제 개발 DB·사람 승인·학습 효과 근거가 남아 전체 REWORK를 유지한다. 병합하지 않았다.
+
+실제 CI artifact12131229870을 내려받아 내부 Playwright report를 독립 판독했다([범위](./PR303_BROWSER_EVIDENCE.md)). 전체6/6 중 R5는1280/1440의2건이며 passing screenshot은0이다. 출처/결속/재열기/타인 접근 차단/지도 표기는 확인했으나 positive evidence·전이·후속 PLAN 의미 갱신은 단언하지 않는다. FI-013 문법 내용은 #306으로 인계했고 신규957c27211의 추가10세트는 별도 검증 대기다.

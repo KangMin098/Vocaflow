@@ -1,0 +1,131 @@
+{
+  "runId": 39114115991,
+  "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991",
+  "head": "e91377575f75b6099d342605db1f0ca4b16a9d47",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "e2e",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991/job/117636266917"
+    },
+    {
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991/job/117636267008"
+    },
+    {
+      "name": "e2e-gate-faultclosed",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991/job/117636267025"
+    },
+    {
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991/job/117636267048"
+    },
+    {
+      "name": "e2e-shared-dev",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39114115991/job/117636268021"
+    }
+  ],
+  "artifact": {
+    "id": 12131229870,
+    "name": "e2e-isolated-report",
+    "sha256": "e14d03ce2b6028d68a46e7ac67f65dfd1098f0f1589e3d2876a353527651a4aa",
+    "bytes": 263071
+  },
+  "reportStats": {
+    "total": 6,
+    "expected": 6,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "files": [
+    {
+      "fileName": "authored-supply.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "창작 공급 종단 — 1440px",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        },
+        {
+          "title": "창작 공급 종단 — 1280px",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileName": "csat-v31-meaning.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        },
+        {
+          "title": "B — 실제 보류(record_session_held): 세 문항 item-held · 교수 설명 비노출",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        },
+        {
+          "title": "C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 · 38 stale 유지 · 정리 단언",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileName": "map-goal.isolated.spec.ts",
+      "tests": [
+        {
+          "title": "학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB)",
+          "outcome": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "attachments": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Downloaded and decoded Playwright HTML report. Sanitized summaries only. Disposable CI Supabase; not dev DB. Two authored R5 cases, three meaning/reveal gate cases, one map goal case. No screenshots attached to passing cases."
+}

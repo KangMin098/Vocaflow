@@ -27,3 +27,5 @@
 후속: [PR303](https://github.com/KangMin098/Vocaflow/pull/303)이 제출됐다. 첫 c4b9f434e의 명시 납품/복구 낮은 층위26건은 통과했고 검토 중 de5065b51 형식 확장이 추가됐다. [HEAD별 독립 검토](./PR303_REVIEW.md)는 REWORK다. FI-011은 [#304](https://github.com/KangMin098/Vocaflow/issues/304)로 추가했으며 Workspace/다음 요구/전이량 환류 누락을 같은 ID로 추적한다. 기존 표의 OPEN은 수정 전 보고 또는 전체 수용 대기이며, FI-001의 확인된 부분 개선을 취소하는 뜻은 아니다.
 
 후속 게시: FI-012는 [#305](https://github.com/KangMin098/Vocaflow/issues/305)로 추적한다. FI-009는 4655e9be4 수정과 두 폭 독립 화면 대조로 FIX_VERIFIED_IN_CANDIDATE이며 [형식 검토](./AUTHORED_FORMATS_REVIEW.md)에 연결했다. 새 이슈를 만들지 않는다. PR303은 22b5e43c5까지 확장됐고 전체 제품 REWORK를 유지한다.
+
+FI-013은 [#306](https://github.com/KangMin098/Vocaflow/issues/306)에 게시했다(증거0813144bd). FI-012의 실제 inf-guided-1 사례는 기존 #305에 추가했다. FI-009 수정 확인 댓글은 #301 issuecomment-6248205960, PR303 후속은 issuecomment-6248206150이다. 공용 VFC DL-0158에도 상태를 전달했다. [CI 브라우저 독립 판독](./PR303_BROWSER_EVIDENCE.md)은6건 중 R5 두 폭2건을 구별한다.
