@@ -43,6 +43,8 @@ import type { SupplyLedger } from './v62/supply-ledger'
 import { compactLedger, executableTransferTargets, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
+import { checkKeysOfTask, checkedTaskOfKey } from './v4/definition'
+import type { TaskId } from './v4/types'
 
 type Db = SupabaseClient
 
@@ -523,7 +525,23 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // #281 E01 · E04 — 확인 · 전이 후보의 노출(모든 원장)과 정식 자격 reader. 실패는 error 로 남겨 화면이 「미노출」로 보지 않게 한다
   const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
   const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), assessCandidates)
-  const fqReader = await loadFqReader(db).catch((): FqReader => ({ status: 'error' }))
+  // 정식 자격 — 원장은 관리자 전용 RLS 라 서버 전용 클라이언트로만 판정한다(없으면 적격 0건). 현재 주석 해시는 TASK 의 확인 과제 키가 하나일 때만 대 본다
+  let fqAdmin: SupabaseClient | null = null
+  try { fqAdmin = createAdminClient() as unknown as SupabaseClient } catch { fqAdmin = null }
+  const fqReader = await loadFqReader(db, {
+    admin: fqAdmin,
+    refs: assessCandidates,
+    tasks: [...new Set([...Object.keys(transferTargets), ...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.taskKey))].map(checkedTaskOfKey).filter((t): t is TaskId => !!t))],
+    currentAnnotation: async (task, ref) => {
+      const keys = checkKeysOfTask(task as TaskId)
+      if (keys.length !== 1) return null
+      // 현재 채점 레지스트리의 주석(ref = version · hash). 원문 조회 오류는 던져 FQ error 로(자료 부재 = null 과 구분)
+      const live = currentItemTask(ref)
+      if (!live || live.def.key !== keys[0]) return null
+      if (!(await anchorGate(ref, db, true))) return null
+      return { ref: live.ann.version, hash: live.def.hash(live.ann) }
+    },
+  }).catch((): FqReader => ({ status: 'error' }))
 
   for (const [key, targets] of Object.entries(transferTargets)) {
     transferTargets[key] = executableTransferTargets(targets, assessmentExposure)

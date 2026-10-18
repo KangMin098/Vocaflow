@@ -26,6 +26,8 @@ import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
 import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { abilityNow, fallbackActions, isAiOnly, PRINCIPLE_STEPS, PROGRESS_LABEL, principleItem, returnSummary, SUPPLY_BUCKET_LABEL, supplyBucket } from '@/lib/csat/map/v62/learner-guide'
+import type { ReturnNote } from '@/lib/csat/map/v62/return-ctx'
 
 /** 코드북 설계 문구(conditions · evidence) 중 영어 내부 용어 조각(facet · Anchor 등)을 뺀 학습자 문구 — 「·」 로 나뉜 조각 단위 */
 function learnerText(s: string | null | undefined): string {
@@ -106,7 +108,7 @@ export function homeWsOf(task: string, view: V4View, restoreWs: string | null): 
 }
 
 /** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
-export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void }) {
+export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
   const tasks = useTaskDone(data.doneTaskIds)
   const t = ins.task
@@ -131,6 +133,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
   const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
   const fq = data.v4?.fqReader ?? { status: 'error' as const }
+  // 이 TASK 의 적격만 센다(다른 TASK 적격을 섞지 않는다)
+  const fqHere = fq.status === 'installed' ? new Set(fq.eligible.filter((e) => e.task === t.id).map((e) => `${e.role}|${e.ref}`)).size : 0
   const supply = supplyFor(demand, {
     unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
     transferItems: transferMine.map((l) => l.target),
@@ -144,6 +148,19 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
   const step = legacyStepOf(t.id, [...path.read, ...path.listen])
+  // R5 끝단 경로 — 자료 범주 · 지금 능력 · 정식 공급 0 대안 · 출제 원리 경로 · 복귀 요약(값은 위 계산 그대로)
+  const bucketed = supply.lines.map((l) => ({ role: l.role, bucket: supplyBucket(supplyStep(l, t.id, ledger, currentDemand)) }))
+  const assessmentQualified = bucketed.some((b) => (b.role === 'independent_check' || b.role === 'transfer') && (b.bucket === 'qualified' || b.bucket === 'delivered'))
+  const ability = abilityNow({ check, needed: !!need, goalSet: !!view.toBe, assessmentQualified })
+  const fallback = supply.lines.length > 0 ? fallbackActions(bucketed, study.items.length > 0) : null
+  const pItem = principleItem(study.items)
+  const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
+  // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
+  const ip = view.evidence?.[t.id]?.instructionPath
+  // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
+  const transferDone = !!ip && ip.transferPlanned !== null && ip.transferDone > 0 && ip.transferDone >= ip.transferPlanned
+  const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
+  const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 
   return (
     <aside className={u.inspector} aria-labelledby="ins-h" data-testid="task-inspector" data-task={t.id}>
@@ -177,6 +194,17 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
       </header>
 
       <div className={u.insBody}>
+        {summary && (
+          <section className={u.insSec} aria-labelledby="ins-return" data-testid="inspector-return-summary" role="status">
+            <h3 id="ins-return" className={u.insH}>돌아온 뒤 — 무엇이 기록됐나</h3>
+            <ul className={u.ledger}>{summary.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+          </section>
+        )}
+        <section className={u.insSec} aria-labelledby="ins-ability" data-testid="inspector-ability" data-progress={ability.progress.join(' ')}>
+          <h3 id="ins-ability" className={u.insH}>지금 필요한 능력과 이유</h3>
+          <p className={u.p}><strong>{def.name}</strong> — {ability.progress.map((x) => PROGRESS_LABEL[x]).join(' · ')}</p>
+          <ul className={u.ledger}>{ability.lines.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+        </section>
         <section className={u.insSec} aria-labelledby="ins-now">
           <h3 id="ins-now" className={u.insH}>현재와 목표</h3>
           <dl className={u.kv}>
@@ -242,11 +270,17 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                 {supply.lines.map((l) => (
                   <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger, currentDemand)} title={l.reason}>
                     <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
-                    <span className={u.ledgerVal}>{SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger, currentDemand)]}</span>
+                    <span className={u.ledgerVal} data-testid="inspector-supply-bucket" data-bucket={supplyBucket(supplyStep(l, t.id, ledger, currentDemand))}>{SUPPLY_BUCKET_LABEL[supplyBucket(supplyStep(l, t.id, ledger, currentDemand))]} · {SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger, currentDemand)]}</span>
                   </li>
                 ))}
               </ul>
-              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 적격 자료 ${fq.eligible.length}건${fq.eligible.length === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
+              {fallback && (
+                <div data-testid="inspector-fallback">
+                  <p className={u.subH}>검수된 자료가 아직 없어요 — 지금 할 수 있는 것</p>
+                  <ul className={u.ledger}>{fallback.map((f) => <li key={f.kind} data-kind={f.kind} className="break-keep">{f.text}</li>)}</ul>
+                </div>
+              )}
+              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 이 TASK 적격 자료 ${fqHere}건${fqHere === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
               <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
               <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
             </div>
@@ -280,6 +314,31 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
             </div>
           )}
         </section>
+
+        {pItem && (
+          <section className={u.insSec} aria-labelledby="ins-principle" data-testid="inspector-principle-path" data-item={pItem.item} data-ai-only={isAiOnly(pItem)}>
+            <h3 id="ins-principle" className={u.insH}>출제 원리 따라가기 · {pItem.item.replace('#', ' · ')}번</h3>
+            {isAiOnly(pItem) && <p className={u.fine} data-testid="inspector-principle-ai">AI 가 만든 분석 사례예요 — 사람 검수 전이에요.</p>}
+            <ol className={u.ledger}>
+              {PRINCIPLE_STEPS.map((p, i) => {
+                const base = `/csat/item/${toItemSlug(pItem.item)}?${p.query}`
+                return (
+                  <li key={p.id} data-step={p.id}>
+                    {p.query ? (
+                      <Link href={past ? base : withMapReturn(base, outgoingCtx(data.v4?.saved, t.id, home))} className={u.studyLink} data-testid="inspector-principle-link" onClick={() => track({ name: 'csat_map_node_opened', props: { kind: 'principle' } })}>
+                        {i + 1}. {p.label}
+                      </Link>
+                    ) : transferHref && !past ? (
+                      <Link href={withMapReturn(transferHref, outgoingCtx(data.v4?.saved, t.id, home))} className={u.studyLink} data-testid="inspector-principle-link" onClick={() => track({ name: 'csat_map_node_opened', props: { kind: 'principle' } })}>{i + 1}. {p.label}</Link>
+                    ) : (
+                      <span className="break-keep">{i + 1}. {p.label} — {transferDone ? '마쳤어요' : '앞 단계를 마치고 처음 보는 지문 과제가 열리면 해요(해설을 먼저 보면 전이 근거가 되지 않아요)'}</span>
+                    )}
+                  </li>
+                )
+              })}
+            </ol>
+          </section>
+        )}
 
         {/* P-M4d — 자세한 근거(기출 · 출제 논리 · 판정 범위 · 연구)는 접어 둔다. 기본 화면은 「지금 · 목표 · 다음 행동 · 학습 경로 · 자료」 */}
         <details className={u.insSec} data-testid="inspector-detail" aria-labelledby="ins-exam">

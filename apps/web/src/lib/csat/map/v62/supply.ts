@@ -67,10 +67,10 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
     case 'independent_check':
     case 'delayed_check': {
       if (line.taskKeys.length === 0) return { role: line.role, state: 'unsupported', delivered: [], shortfall: n, qualification: Q({ assessment: false }), reason: '직접 확인 과제(검수된 주석 · 채점)가 아직 없는 TASK' }
-      return assessmentLine(line.role, n, input.unseenCheckItems, 'check_task', input, line.role === 'delayed_check' ? '지연 재확인 = 다른 날 안 본 확인 문항(경과 시간 판정은 기존 규칙)' : null)
+      return assessmentLine(line.role, line.task, n, input.unseenCheckItems, 'check_task', input, line.role === 'delayed_check' ? '지연 재확인 = 다른 날 안 본 확인 문항(경과 시간 판정은 기존 규칙)' : null)
     }
     case 'transfer': {
-      const l = assessmentLine('transfer', n, input.transferItems, 'transfer_task', input, null)
+      const l = assessmentLine('transfer', line.task, n, input.transferItems, 'transfer_task', input, null)
       if (l.delivered.length === 0 && l.state === 'unsupported' && input.transferDrafts > 0) return { role: line.role, state: 'awaiting_release', delivered: [], shortfall: n, qualification: Q({ producible: true, rights: null, content: null, assessment: null }), reason: `전이 초안 ${input.transferDrafts}개 출시 승인(B7) 대기` }
       return l
     }
@@ -95,14 +95,14 @@ function supplyLine(line: DemandLine, input: SupplyInput): SupplyLine {
  * 평가 역할(독립 확인 · 전이 · 지연) 한 줄. 기존 출시 · 주석 경로 후보를 **모든 노출 원장**으로 다시 거르고(같은 문항 타 TASK · 같은 지문 포함),
  * 정식 자격 reader 가 적격이라 한 문항만 available. 그 밖은 open_unqualified(열 수 있음 · 자격 미확인) — 7필드를 true 로 채우지 않는다.
  */
-function assessmentLine(role: MaterialRole, n: number, candidates: readonly string[], source: 'check_task' | 'transfer_task', input: SupplyInput, note: string | null): SupplyLine {
+function assessmentLine(role: MaterialRole, task: string, n: number, candidates: readonly string[], source: 'check_task' | 'transfer_task', input: SupplyInput, note: string | null): SupplyLine {
   const fq: FqReader = input.fq ?? { status: 'error' }
   const exposure: ExposureLedger = input.exposure ?? { status: 'error', failed: [] }
   const fqNote = fq.status === 'not_installed' ? '정식 자격 기록 미설치' : fq.status === 'error' ? '정식 자격 기록 조회 실패' : fq.eligible.length === 0 ? '정식 자격 기록 설치됨 · 적격 자료 0건(자격 검증 대기)' : null
   const pre = note ? `${note} · ` : ''
   const ex = unexposedForAssessment(candidates, exposure)
   if (exposure.status !== 'ok') return { role, state: 'needs_review', delivered: [], shortfall: n, qualification: Q({ learner: null }), reason: `${pre}학습자 노출 기록을 다 읽지 못해 처음 보는 문항인지 알 수 없다` }
-  const eligible = fq.status === 'installed' ? new Set(fq.eligible) : new Set<string>()
+  const eligible = fq.status === 'installed' ? new Set(fq.eligible.filter((e) => e.role === role && e.task === task).map((e) => e.ref)) : new Set<string>()
   const qualified = ex.unseen.filter((i) => eligible.has(i)).slice(0, n)
   if (qualified.length) return { role, state: 'available', delivered: qualified.map((ref) => ({ ref, source })), shortfall: Math.max(0, n - qualified.length), qualification: Q({ producible: true, rights: true, content: true, assessment: true, learner: true, runnable: true }), reason: `${pre}정식 자격 확인 · 학습자 미노출` }
   const open = ex.unseen.slice(0, n)
