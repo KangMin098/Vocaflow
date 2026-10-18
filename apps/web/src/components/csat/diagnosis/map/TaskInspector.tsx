@@ -51,7 +51,10 @@ import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskIn
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
 
+import { integratedObservation, OBSERVATION_LABEL, OBSERVATION_NOTE } from '@/lib/csat/map/v4/observation'
+
 import { EvidenceBlock } from './EvidenceClaims'
+import { taskLabel } from './WorkspaceList'
 import { StepSheet } from './StepSheet'
 import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
@@ -124,6 +127,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const confirmMine = keys.flatMap((k) => confirmAll[k] ?? [])
   const transferMine = keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? [])
   const check = view.asIs.tasks[t.id]?.check ?? null
+  // FINAL §3 — 통합 관찰 TASK 는 하위 TASK 의 직접 확인 근거만으로 상태를 보인다(점수 없음)
+  const obs = t.kind === 'integrated' ? integratedObservation(t.id, view.asIs) : null
   const study = studyItemsFor(t.id, check, confirmMine, transferMine)
   // P-F1 · P-F2 — 이 TASK · 묶음의 자료 수요와 기존 자산 공급 상태(판정 · 생산 없음). 공장 재고는 이 화면에서 조회하지 않는다(null)
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
@@ -194,6 +199,19 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
       </header>
 
       <div className={u.insBody}>
+        {obs && (
+          <section className={u.insSec} aria-labelledby="ins-obs" data-testid="inspector-observation" data-state={obs.state}>
+            <h3 id="ins-obs" className={u.insH}>통합 관찰 — {OBSERVATION_LABEL[obs.state]}</h3>
+            <p className="break-keep">{OBSERVATION_NOTE[obs.state]}</p>
+            <ul className={u.ledger}>
+              {obs.parts.map((p) => (
+                <li key={p.task} className="break-keep" data-part={p.task} data-evidence={p.evidence}>
+                  {taskLabel(p.task).code} {taskLabel(p.task).name} — {p.evidence === 'direct' ? '직접 확인됨' : p.evidence === 'no_direct' ? '아직 직접 확인 전' : '확인 자료 준비 중'}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         {summary && (
           <section className={u.insSec} aria-labelledby="ins-return" data-testid="inspector-return-summary" role="status">
             <h3 id="ins-return" className={u.insH}>돌아온 뒤 — 무엇이 기록됐나</h3>

@@ -33,6 +33,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 통합 관찰 TASK 3개(S-O1·R-O1·E-O1) 관찰 계약 `v4/observation.ts` — 하위 TASK 직접 확인 근거만 모아 측정 불가·근거 부족·통합 관찰 가능(점수 없음) · TaskInspector 표시. 창작 납품 지도 결함 3건 수정(준비 중 분류 · 학습자 유효성 RPC · 정본 연결 없는 TASK 링크).
 
 
 - docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안
