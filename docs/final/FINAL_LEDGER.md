@@ -33,19 +33,33 @@
   - 교수·안내 연습과 평가(독립·전이·지연)는 **지문 묶음(passage group)을 공유하지 않는다** — 등록 RPC 가 막는다.
 - **D-F2 Codex CLI 미설치(2026-10-18 확인).** 독립 검증은 별도 맹검 Claude 에이전트로 대신하고, Codex 검증 단계는 「미수행 — 도구 없음」으로 남긴다(PASS 로 세지 않는다).
 
-## 3. 실행 순서(진행 표시)
+## 3. 실행 순서(진행 표시 · 체크포인트 2026-10-18)
 
-| # | 작업 | 상태 |
-|---|---|---|
-| 1 | 창작 산출물 DB 패키지 `_pending_authored_supply.sql` + PGlite 시험 | 진행 |
-| 2 | R5 창작 콘텐츠(교수 · 안내 · 독립 · 전이 · 지연) + 맹검 검토 + 사람 Gold 패킷 | 대기 |
-| 3 | 앱: 창작 자료 실행 화면 · 채점 API · 납품 요청 · G2 결속 · 지도/PLAN 복귀 | 대기 |
-| 4 | 격리 E2E(PGlite + 브라우저 fixture) | 대기 |
-| 5 | 단일 외부 승인 패키지(DB SQL·SHA · Gold · 권리) | 대기 |
-| 6 | 영역 확장(V·S·R·E) 계약 · 회귀 | 대기 |
+| # | 작업 | 상태 | 증거 |
+|---|---|---|---|
+| 1 | 창작 산출물 DB 패키지 `_pending_authored_supply.sql` | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(A) | PGlite 20 |
+| 2 | R5 창작 9문항 + 맹검 A·B·C + 채점 보정 | CODE_IMPLEMENTED · EXTERNAL_APPROVAL_BLOCKED(B·C) | authored-items 14 · review/ |
+| 3 | 앱: 공급 요청 · /csat/learn · 채점 · G2 결속 · 지도 Workspace 카드 · As-Is 환류 | CODE_IMPLEMENTED | tsc 0 · 광역 5,893 |
+| 4 | 격리 종단(PGlite · 실제 SQL + 서버 코드) | ISOLATED_E2E_VERIFIED(LEVEL 1, 브라우저 제외) | authored-flow 10 |
+| 4b | 격리 브라우저 E2E(CI 로컬 Supabase · 1280/1440) | VALIDATION_MISSING — 로컬 Docker 없음, CI job 추가 필요 | — |
+| 5 | 단일 외부 승인 패키지 | 제출 대기 | [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) |
+| 6 | 영역 확장(V·S·R·E 22 TASK) | NOT_IMPLEMENTED(콘텐츠) — 창작 세트 형식 · 공급 경로는 TASK 무관하게 재사용 가능 | — |
+| 7 | 기출분석 ②구조 · ⑤전체구조 상호작용 · v3.2 「내 말로」 병합(PR #250) | NOT_IMPLEMENTED / INTEGRATION_MISSING | — |
 
-## 4. 외부 차단(사람 입력이 필요한 것만)
+## 4. 다음 실행(후속 세션이 이 순서로)
 
-- 새 DB 변경 SQL·SHA 승인 — #1 완료 뒤 한 패키지로.
-- 창작 콘텐츠 사람 Gold · 권리(원저작 확인) — #2 완료 뒤 같은 패키지.
+1. CI 격리 job 에 「보류 창작 SQL 을 러너 DB 에만 적용 + 관리자 fixture 로 승인 흉내 + 학습자 브라우저 풀이 + DB 단언」 spec 추가(`apps/web/tests/e2e-isolated/`). 개발 DB 무관.
+2. 영역 확장 — 창작 세트 JSON 을 TASK 별로 추가(형식 = `r5-central-meaning.v1.json`), `AUTHORED_TASK_KEYS` 에 키 추가, 맹검 2인 → 사람 Gold 패킷. 우선순위: R(ready 2: r.reference · r.relation) → E(e.evidence_location live) → V · S.
+3. 기출분석 ② · ⑤ 상호작용, PR #250 재기반 병합 검토.
+4. 승인 도착 시 §승인 후 실행 순서(APPROVAL_PACKAGE) → DEV_DB_E2E.
+
+## 5. 외부 차단(사람 입력이 필요한 것만)
+
+- A: 새 DB 변경 SQL·SHA 승인 · B: 평가 6문항 사람 Gold · C: 창작 원저작 권리 확인 — 모두 [APPROVAL_PACKAGE](./APPROVAL_PACKAGE.md) 한 곳.
+- Codex CLI 미설치 — 독립 Codex 검증 미수행(맹검 Claude 에이전트로 대체, PASS 로 세지 않음).
 - LEVEL 3 실학습 효과: `BLOCKED_EXTERNAL_PARTICIPANTS`.
+
+## 6. 완료 판정(§15)
+
+PRODUCT_CODE_COMPLETE ✗(영역 확장 · 기출분석 ②⑤ 남음) · ISOLATED_E2E_VERIFIED △(SQL+서버 ✓ · 브라우저 ✗) · DEV_DB_E2E_VERIFIED ✗(A 대기) ·
+CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE ✗ · EDUCATIONAL_EFFECT_VALIDATED ✗ · FINAL_COMPLETE ✗.
