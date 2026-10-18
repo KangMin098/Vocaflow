@@ -1,0 +1,162 @@
+{
+  "head": "71a653ef66dc9202e4dc656828de0d3465fe6d5f",
+  "sourceSha256": "c115d10afdf1e7b1f06a833ab64b3a172415e608ccfbacfcf88e02a70b04cce1",
+  "mergeBlockSha256": "095af5d4a6f2bf9d17f02c676c8676dd919f00f41c92a16ec3e90b925e7f3c12",
+  "scope": "Actual frozen loadAuthoredConfirms declaration and merge block; qualified rows supplied, DB/RPC/currentness/full loadMapPage not executed. Main and synthetic legacy task map keys differ from canonical authored TASK ids.",
+  "rows": [
+    {
+      "task": "r.central_meaning",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "e.evidence_location",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "r.inference",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "r.relation",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "s.form_scope",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "r.reference",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "v.multiword",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "r.discourse_function",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "r.discourse_structure",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "e.task_demand",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "s.sentence_core",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "s.attachment",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "s.chunk_boundary",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "s.structural_relation",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    },
+    {
+      "task": "v.semantic_relation",
+      "validDeliveredInput": 1,
+      "merged": 1,
+      "artificialSameTaskSlotControl": 1,
+      "noFabricatedKnowledgeChain": true,
+      "distinctTargetsPreserved": 2,
+      "duplicateTargetCountedOnce": true
+    }
+  ],
+  "observedDefect": "Changed merge block retains all 17 qualified inputs without prior canonical TASK slots; preserves two distinct targets, deduplicates repeated target and does not invent knowledge chain/application. Full loader/DB/browser/PLAN acceptance remains separate."
+}

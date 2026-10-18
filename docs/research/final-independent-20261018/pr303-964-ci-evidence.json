@@ -1,0 +1,182 @@
+{
+    "ownerHead":  "9647b45e1db1f719b8f778c22cbefa7e742fc689",
+    "runId":  39123873682,
+    "artifactId":  12135338310,
+    "stats":  {
+                  "total":  8,
+                  "expected":  6,
+                  "unexpected":  2,
+                  "flaky":  0,
+                  "skipped":  0,
+                  "ok":  false
+              },
+    "scope":  "Direct current CI report/trace/network/error context and source assertion order. Current screenshot bytes equal the previously visually inspected4a images, so that visual reading is reused. Reached stages do not turn this failed run into PASS. No actual DB writes or human approvals.",
+    "rows":  [
+                 {
+                     "width":  1280,
+                     "normalFormats":  [
+                                           {
+                                               "name":  "e-evidence-location",
+                                               "id":  "ev-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "e-option-correspondence",
+                                               "id":  "opt-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "v-contextual-sense",
+                                               "id":  "vcs-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "r-relation",
+                                               "id":  "rel-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "s-form-scope",
+                                               "id":  "gs-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "r-discourse-function",
+                                               "id":  "df-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "e-task-demand",
+                                               "id":  "td-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "s-sentence-core",
+                                               "id":  "sc-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "v-semantic-relation",
+                                               "id":  "sem-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           }
+                                       ],
+                     "reachedAfterLoopChecks":  [
+                                                    "wrong_grammar_reason",
+                                                    "helped_practice_non_evidence",
+                                                    "actual_saved_response_loss_retry_one_attempt",
+                                                    "separate_page_open_non_evidence",
+                                                    "revoked_screen_block",
+                                                    "keyboard_focus_and_enter"
+                                                ],
+                     "failure":  "line241 Workspace ws.vocab-context open button remains hidden inside collapsed preparing details; map return result assertion not reached"
+                 },
+                 {
+                     "width":  1440,
+                     "normalFormats":  [
+                                           {
+                                               "name":  "e-evidence-location",
+                                               "id":  "ev-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "e-option-correspondence",
+                                               "id":  "opt-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "v-contextual-sense",
+                                               "id":  "vcs-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "r-relation",
+                                               "id":  "rel-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "s-form-scope",
+                                               "id":  "gs-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "r-discourse-function",
+                                               "id":  "df-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "e-task-demand",
+                                               "id":  "td-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "s-sentence-core",
+                                               "id":  "sc-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           },
+                                           {
+                                               "name":  "v-semantic-relation",
+                                               "id":  "sem-ind-1",
+                                               "attemptHttp":  [
+                                                                   200
+                                                               ]
+                                           }
+                                       ],
+                     "reachedAfterLoopChecks":  [
+                                                    "wrong_grammar_reason",
+                                                    "helped_practice_non_evidence",
+                                                    "actual_saved_response_loss_retry_one_attempt",
+                                                    "separate_page_open_non_evidence",
+                                                    "revoked_screen_block",
+                                                    "keyboard_focus_and_enter"
+                                                ],
+                     "failure":  "line241 Workspace ws.vocab-context open button remains hidden inside collapsed preparing details; map return result assertion not reached"
+                 }
+             ],
+    "reusedScreenshotInspection":  [
+                                       {
+                                           "identicalSha256":  "1bbcd419a933b20c14a08244bddb970a6750987d4eb03a1d4fef49ad58b223f9",
+                                           "width":  1440,
+                                           "priorRun":  39121633640
+                                       },
+                                       {
+                                           "identicalSha256":  "7b4a8de9d8fe93b2ef7727ed6526fadd4ec63b08b28c47b56cd8299633431753",
+                                           "width":  1280,
+                                           "priorRun":  39121633640
+                                       }
+                                   ]
+}

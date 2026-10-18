@@ -17,7 +17,7 @@
 | FI-008 | [#300](https://github.com/KangMin098/Vocaflow/issues/300) | FIX_VERIFIED_IN_CANDIDATE · 두 폭 Runner/G2 재생 |
 | FI-009 | [#301](https://github.com/KangMin098/Vocaflow/issues/301) | FIX_VERIFIED_IN_CANDIDATE ·4655 수정/두 폭 독립 대조 |
 | FI-010 | [#302](https://github.com/KangMin098/Vocaflow/issues/302) | PARTIAL_FIX / OPEN · 정상 열기 기록 개선/기록 실패 후 가짜 첫 근거 |
-| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | PARTIAL_FIX / OPEN · 계산 함수 수정 확인,4a 실제 지도 로더가 납품 링크 누락 |
+| FI-011 | [#304](https://github.com/KangMin098/Vocaflow/issues/304) | PARTIAL_FIX / OPEN ·71a 로더17 TASK 입력 보존 수정 확인, 최신 실제 브라우저/PLAN 대기 |
 | FI-012 | [#305](https://github.com/KangMin098/Vocaflow/issues/305) | FIX_VERIFIED_IN_CANDIDATE · 대체 집합/불완전 대조/두 폭 UI |
 | FI-013 | [#306](https://github.com/KangMin098/Vocaflow/issues/306) | FIX_VERIFIED_IN_CANDIDATE · 단수 ditch 제거 |
 | FI-014 | [#307](https://github.com/KangMin098/Vocaflow/issues/307) | OPEN · 맞는 주어/본동사 이유 오답 |
@@ -59,3 +59,5 @@ PR250 후속: [독립 검토](./PR250_REVIEW.md)는 REWORK다. 실제 위젯 두
 4a CI 종료 후속: [실제 로더/두 폭 실패](./PR303_4A_REVERIFY.md)를 확인해 FI-011 전체는 PARTIAL_FIX / OPEN으로 유지한다. 계산 함수의 확장3 Workspace 개선은 유효하지만, 실제 로더가 기존 정본 TASK 슬롯이 없는 창작 납품을 누락한다. 실제 병합 블록의17 TASK 합성 입력은 모두0개로 사라졌고 미리 슬롯을 만든 대조군만 보존됐다. CI39121633640의 두 폭은9형식·재시도·비근거·철회·키보드 뒤 지도 복귀에서 실패했다. 기존 #304로 인계하며 중복 이슈를 만들지 않는다. PR250은 [27개 해시/5문항 내용 한정 대조](./PR250_CONTENT_REVIEW.md)를 추가했고22문항 전체 의미 수용·사람 승인·효과는 미검증이다. 전체 A~H REWORK, 실제 DB 쓰기/사람 승인/병합0.
 
 전체 제품 후속: [A~H 통합 보고서](./INTEGRATED_REPORT.md)를 현재 관찰과 PR/CI/병합 SHA·미완성/사람 조건으로 연결했다. [두 PR 통합 타입 결함 FI-017](./PR250_PR303_INTEGRATION.md)은 #310이며, 무시되는 스냅샷의 최소 후보만 타입 exit0을 확인했다. 실제 제품 수정은 아니다. FI-018(#311)의 민감한 병합 안전 재현은 비공개 DL-0168로 인계했다.27개 교수 설명의 원문/배포 해시·현재 분석 버전과 실제 형식/범위 검증은 일치/오류0, 직접 내용 판독은8문항이며19개는 미검증이다. 실제 DB11:53:47Z READ ONLY는 authored 미설치/FQ·납품·결속0. 전체 REWORK와 임무 진행을 유지한다.
+
+최신 인계: [71a 수정/964 CI](./PR303_4A_REVERIFY.md), [FI-010 독립 후보](./SERVER_REPAIR_REVERIFY.md), [PR25027문항 전량 대조](./PR250_CONTENT_REVIEW.md)를 구분한다. 새 필수 게이트나 중복 이슈는 만들지 않으며 기존 ID의 수정/검증을 이어간다. 실제 DB 쓰기·사람 승인·병합0.

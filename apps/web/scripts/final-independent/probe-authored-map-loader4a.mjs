@@ -10,7 +10,8 @@ const root = path.resolve(import.meta.dirname, '../../../..')
 const require = createRequire(path.join(root, 'apps/web/package.json'))
 const ts = require('typescript')
 const owner964 = process.argv.includes('--owner964')
-const head = owner964 ? '9647b45e1db1f719b8f778c22cbefa7e742fc689' : '4a751eeb9215bf4c6e81f8d512b3fff432d18d67'
+const owner71a = process.argv.includes('--owner71a')
+const head = owner71a ? '71a653ef66dc9202e4dc656828de0d3465fe6d5f' : owner964 ? '9647b45e1db1f719b8f778c22cbefa7e742fc689' : '4a751eeb9215bf4c6e81f8d512b3fff432d18d67'
 const read = file => execFileSync('git', ['show', `${head}:${file}`], { cwd: root, encoding: 'utf8', windowsHide: true })
 const source = read('apps/web/src/lib/csat/map/load.ts')
 const taskSource = read('apps/web/src/lib/knowledge/authored/tasks.ts')
@@ -62,15 +63,25 @@ for (const task of exports.AUTHORED_TASKS) {
   const control = await run({ [task]: { confirm: [] } }, [delivery])
   const merged = Object.values(actual).flatMap(x => x.confirm).length
   const controlMerged = Object.values(control).flatMap(x => x.confirm).length
-  if (merged !== 0 || controlMerged !== 1) throw Error('Observation changed: ' + task)
-  rows.push({ task, validDeliveredInput: 1, merged, artificialSameTaskSlotControl: controlMerged })
+  if (merged !== (owner71a ? 1 : 0) || controlMerged !== 1) throw Error('Observation changed: ' + task)
+  const repair = {}
+  if (owner71a) {
+    const created = actual[task]
+    const noFabricatedKnowledgeChain = !('chain' in created) && !('application' in created)
+    if (!noFabricatedKnowledgeChain || created.taskKey !== exports.AUTHORED_TASK_KEYS[task]) throw Error('Created link metadata: ' + task)
+    const distinct = { ...delivery, id: 'synthetic-second-delivery', artifact_ref: 'authored:synthetic-second-unseen' }
+    const multiple = await run({}, [delivery, distinct, delivery])
+    if (multiple[task].confirm.length !== 2) throw Error('Distinct/duplicate link preservation: ' + task)
+    Object.assign(repair, { noFabricatedKnowledgeChain, distinctTargetsPreserved: 2, duplicateTargetCountedOnce: true })
+  }
+  rows.push({ task, validDeliveredInput: 1, merged, artificialSameTaskSlotControl: controlMerged, ...repair })
 }
 const report = {
   head, sourceSha256: createHash('sha256').update(source).digest('hex'),
   mergeBlockSha256: createHash('sha256').update(block).digest('hex'),
   scope: 'Actual frozen loadAuthoredConfirms declaration and merge block; qualified rows supplied, DB/RPC/currentness/full loadMapPage not executed. Main and synthetic legacy task map keys differ from canonical authored TASK ids.',
-  rows, observedDefect: '17 qualified delivery inputs omitted when a same canonical TASK slot is absent; pre-created slot control accepts each input. PASS means defect reproduction, not product acceptance.'
+  rows, observedDefect: owner71a ? 'Changed merge block retains all 17 qualified inputs without prior canonical TASK slots; preserves two distinct targets, deduplicates repeated target and does not invent knowledge chain/application. Full loader/DB/browser/PLAN acceptance remains separate.' : '17 qualified delivery inputs omitted when a same canonical TASK slot is absent; pre-created slot control accepts each input. PASS means defect reproduction, not product acceptance.'
 }
-const out = path.join(root, 'docs/research/final-independent-20261018/authored-owner4a-loader.json')
+const out = path.join(root, 'docs/research/final-independent-20261018/' + (owner71a ? 'authored-owner71a-loader.json' : 'authored-owner4a-loader.json'))
 fs.writeFileSync(out, JSON.stringify(report, null, 2) + '\n')
 console.log(JSON.stringify({ head, tasks: rows.length, omitted: rows.filter(x => x.merged === 0).length, controlsAccepted: rows.filter(x => x.artificialSameTaskSlotControl === 1).length }))

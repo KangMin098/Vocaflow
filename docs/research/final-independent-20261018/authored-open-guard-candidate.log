@@ -1,0 +1,25 @@
+Frozen owner: 7e638e63d28791dcc4f886431c0205743dc3310a
+Scope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. Candidate guard changes ignored snapshot only; unchanged tests skipped.
+◇ injected env (0) from ..\..\.env.local // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.local // tip: ⌘ enable debugging { debug: true }
+
+ RUN  v1.6.1 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/server7e-Q9NaH7/snapshot/apps/web
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page successful separate opening makes later answer non-first
+OWNER7E_PAGE_EXPOSURE={"failedFirst":false,"firstBodySentences":6,"firstSessionIdIssued":true,"recordedBeforeClose":1,"secondSessionIdIssued":true,"binding":{"first_exposure":false,"evidence":false}}
+
+stdout | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body before later first evidence
+OWNER7E_PAGE_EXPOSURE={"failedFirst":true,"firstBodySentences":0,"firstSessionIdIssued":false,"recordedBeforeClose":0,"secondSessionIdIssued":true,"binding":{"first_exposure":true,"evidence":true}}
+
+ ✓ src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts  (14 tests | 12 skipped) 2908ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed | 12 skipped (14)
+   Start at  21:11:07
+   Duration  4.21s (transform 463ms, setup 0ms, collect 906ms, tests 2.91s, environment 0ms, prepare 125ms)
+
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+stderr | src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts > Independent owner7e server repairs > FI010 actual page failed open log withholds body before later first evidence
+[authored open session] independent synthetic session transport failure
+

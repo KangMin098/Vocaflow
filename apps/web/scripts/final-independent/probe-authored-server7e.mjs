@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {execFileSync,spawnSync} from 'node:child_process'
 const root=path.resolve(import.meta.dirname,'../../../..'),sha='7e638e63d28791dcc4f886431c0205743dc3310a'
+const openCandidate=process.argv.includes('--candidate-open')
 const run=fs.mkdtempSync(path.join(root,'.agent-logs/final-independent/server7e-')),snapshot=path.join(run,'snapshot')
 fs.mkdirSync(snapshot)
 execFileSync('git',['archive',sha,'--format=tar','--output='+path.join(run,'source.tar'),'apps/web/src','apps/web/package.json','apps/web/vitest.config.ts','apps/web/tsconfig.json','packages','supabase','docs/final','scripts/csat/map/v62','package.json','pnpm-workspace.yaml'],{cwd:root,windowsHide:true})
@@ -79,8 +80,41 @@ describe('Independent owner7e server repairs',()=>{
 })
 `
 source+='\n'+extra
+if(openCandidate){
+ const pageFile='apps/web/src/app/(app)/csat/learn/[id]/page.tsx'
+ const before=fs.readFileSync(path.join(snapshot,pageFile),'utf8')
+ if(before!==execFileSync('git',['show','9647b45e1:'+pageFile],{cwd:root,encoding:'utf8'}))throw Error('Latest page source differs; candidate requires review')
+ const marker='  return (\n    <CsatShell place="practice" exams={await railExams()} pill={pill} bare>\n      <AuthoredRunner'
+ if(!before.includes(marker))throw Error('Page insertion boundary changed')
+ const guard=`  if (!v.done && !opened2) {
+    return (
+      <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
+        <div className={styles.page} data-testid="authored-open-unavailable">
+          <header className={styles.head}>
+            <h1>자료를 열지 못했어요</h1>
+            <p className={styles.why}>잠시 뒤 학습 지도에서 다시 열어 주세요.</p>
+          </header>
+          <Link className={styles.link} href={MAP_HREF}>학습 지도로 가기</Link>
+        </div>
+      </CsatShell>
+    )
+  }
+`
+ const after=before.replace(marker,guard+marker)
+ fs.writeFileSync(path.join(snapshot,pageFile),after)
+ const beforeFile=path.join(run,'page.before.tsx');fs.writeFileSync(beforeFile,before)
+ const diff=spawnSync('git',['diff','--no-index','--',beforeFile,path.join(snapshot,pageFile)],{cwd:root,encoding:'utf8',windowsHide:true})
+ if(diff.status!==1)throw Error('Candidate diff missing')
+ const canonical=diff.stdout.split('\n').map(line=>line.startsWith('diff --git ')?'diff --git a/'+pageFile+' b/'+pageFile:line.startsWith('--- ')?'--- a/'+pageFile:line.startsWith('+++ ')?'+++ b/'+pageFile:line).join('\n')
+ fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/fi010-open-candidate.patch'),canonical)
+ source=source.replace('failed open log still reveals body before later first evidence','failed open log withholds body before later first evidence')
+ source=source.replace('firstBodySentences:first.sentences.length','firstBodySentences:first.sentences?.length??0')
+ source=source.replace("const NOW=Date.parse('2026-10-18T10:00:00Z')",`const visibleText=(value:unknown):string=>typeof value==='string'?value:Array.isArray(value)?value.map(visibleText).join(''):value&&typeof value==='object'?visibleText((value as {props?:{children?:unknown}}).props?.children):''\nconst NOW=Date.parse('2026-10-18T10:00:00Z')`)
+ source=source.replace('expect(first.sentences.length).toBeGreaterThan(0);',`expect(first.sentences?.length??0).toBe(failedFirst?0:6);if(failedFirst){expect(first).toMatchObject({'data-testid':'authored-open-unavailable'});expect(visibleText((first as unknown as {children:unknown}).children)).toContain('자료를 열지 못했어요');}`)
+ source=source.replace('// Capture the remaining product defect explicitly; true here is not an acceptance pass.','// Withheld body makes the later successful opening genuinely first; successful prior opening stays non-evidence.')
+}
 fs.writeFileSync(path.join(snapshot,'apps/web',file),source)
-const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',file,'-t','Independent owner7e server repairs'],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:3*1024*1024})
+const result=spawnSync(process.execPath,[path.join(root,'apps/web/node_modules/vitest/vitest.mjs'),'run',file,'-t',openCandidate?'FI010 actual page':'Independent owner7e server repairs'],{cwd:path.join(snapshot,'apps/web'),encoding:'utf8',windowsHide:true,env:{...process.env,NODE_OPTIONS:'--require='+path.join(root,'scripts/csat/map/v62/r5-read-only-preload.cjs')},maxBuffer:3*1024*1024})
 const output=[result.stdout??'',result.stderr??''].join('\n').replace(/\u001b\[[0-9;]*m/g,'')
-fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/authored-owner7e-server.log'),'Frozen owner: '+sha+'\nScope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. Negative defect observation is not product acceptance.\n'+output)
+fs.writeFileSync(path.join(root,'docs/research/final-independent-20261018/'+(openCandidate?'authored-open-guard-candidate.log':'authored-owner7e-server.log')),'Frozen owner: '+sha+'\nScope: actual RSC/server/binding SQL; synthetic session RPC transport and G2 writer, no real DB. '+(openCandidate?'Candidate guard changes ignored snapshot only; unchanged tests skipped.':'Negative defect observation is not product acceptance.')+'\n'+output)
 process.stdout.write(output);process.exitCode=result.status??1

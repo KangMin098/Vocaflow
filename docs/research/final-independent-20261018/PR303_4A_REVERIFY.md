@@ -40,4 +40,12 @@ r.inference/ws.inference, s.form_scope/ws.grammar-scope, v.contextual_sense/ws.v
 
 정상 학습자는 현재성 true로1개를 보존하고, false는 fallback 없이0개, uid 없는 service_role의 null은 기존 판정 true로1개, 양쪽 오류는0개였다. 본인 user_id 필터도 유지됐다. 다만 위 납품 병합 블록 SHA는4a와 동일하다.17 TASK 반례를 그대로 반복 실행하지 않고 원본 결과를 재사용하며 FI-011 전체는 PARTIAL_FIX / OPEN이다. 새 CI run39123873682/e2e job117664841710은 실행 중이며 종료 전 성공으로 세지 않는다.
 
-전체 A~H REWORK. FI-006/010/014와 새 PR250 FI-015/016 및 실제 공급·사람 승인·효과의 미완성 조건은 유지한다. safe-merge/병합은 수행하지 않았다.
+## 964 CI 종료와71a 실제 병합 수정
+
+[run39123873682](https://github.com/KangMin098/Vocaflow/actions/runs/39123873682)는 FAILURE로 종료했다. artifact12135338310의 report/trace/network/error context를 독립 판독했다. [정제 근거](./pr303-964-ci-evidence.json):6 pass/2 timeout이고 두 폭 모두9형식 정상 API200·이유 오답/도움/응답 유실/선행 열람·철회·키보드 뒤241행의 준비 중 Workspace 버튼에서 실패했다. 두 실패 screenshot은4a와 SHA256이 같아 앞선 시각 판독을 재사용했다. 전체 성공이나 새 권리 결함으로 세지 않는다.
+
+실제 수정 HEAD `71a653ef66dc9202e4dc656828de0d3465fe6d5f`는 기존 정본 TASK 슬롯이 없을 때 창작 납품의 확인 링크를 만든다. [실행기](../../../apps/web/scripts/final-independent/probe-authored-map-loader4a.mjs)의 `--owner71a`는 바뀐 실제 선언/병합 블록을 실행했다. [17 TASK 결과](./authored-owner71a-loader.json): 이전0개 누락이 모두1개 보존으로 바뀌었고 기존 슬롯 대조군도 보존됐다. 서로 다른2개 대상은 유지하고 같은 대상 반복은1개로 모으며, 지식 적용 원장에 없는 chain/application은 만들지 않았다.
+
+확인된 수정은 합성 적격 입력을 준 실제 병합 구간이다. 전체 loadMapPage의 DB/권한/기록 조회·실제 브라우저 복귀와 후속 PLAN 의미 갱신을 대신하지 않는다. 새 run39126159146/e2e job117671623257은 진행 중이며 결과 확인 전 FI-011 전체를 닫지 않는다. 이전 이미 확인한4a 계산 함수·964 현재성 분기는 반복 실행하지 않았다.
+
+전체 A~H REWORK. FI-006/010/014와 PR250 FI-015/016 및 FI-017/018, 실제 공급·사람 승인·효과의 미완성 조건은 유지한다. safe-merge/병합은 수행하지 않았다.

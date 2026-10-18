@@ -1,0 +1,324 @@
+{
+  "head": "4fdc7ba76ac5f50493da668b85c1735e09a208ff",
+  "criteriaVersion": "meaning-support-v1.0",
+  "reviewerRun": "codex-final-independent-20261018-meaning27",
+  "originalReadAt": "2026-10-18T11:23:57Z",
+  "scope": "All 27 READ ONLY originals and complete units/propositions/relations/whole/bridges independently read; existing content/review hashes reused without rerunning unchanged checks. This is not fresh blind reading, official gate pass, human expert/Gold/rights approval, UI/audio or learning-effect evidence.",
+  "rows": [
+    {
+      "id": "2026#18",
+      "contentHash": "1cc32c53e8f80ed4",
+      "sourceSnapshotHash": "550059ac7fe3a6e2",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#20",
+      "contentHash": "5d0aaee898102f39",
+      "sourceSnapshotHash": "f968e4e73935970e",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#21",
+      "contentHash": "30fba66916df3f28",
+      "sourceSnapshotHash": "1df8a04025ad30fb",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#22",
+      "contentHash": "fd71443a499a02e7",
+      "sourceSnapshotHash": "a9533f55248f0d70",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#23",
+      "contentHash": "691afb16769360ac",
+      "sourceSnapshotHash": "08e3bab86ba923bb",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": {
+        "severity": "P3",
+        "axis": "MS02",
+        "field": "units.u1.preserves(quantity).explanationKo",
+        "observation": "범위를 나머지 전체로 한정하는 표현만으로 예외의 수적 비중이 소수라고 도출하지 않는다.",
+        "expected": "예외 조건 밖의 나머지 맥락 전체라는 범위만 설명한다."
+      },
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#24",
+      "contentHash": "fa5b621f001bdcec",
+      "sourceSnapshotHash": "652fe4afe9943d26",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": {
+        "severity": "P3",
+        "axis": "MS02/MS05",
+        "field": "units.u1.misunderstanding.whyWrongKo",
+        "observation": "국소 오해 설명이 상업화 뒤에는 이익이 아니라 위험이라고 단정하지만 전체 설명은 잠재 이득과 위험을 함께 인정한다.",
+        "expected": "뜻밖이라는 근거 부재와 이익만으로 전체를 덮는 요약의 부족을 설명하고, 경제 이득 자체는 부정하지 않는다."
+      },
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#25",
+      "contentHash": "0997e224c92ddc6c",
+      "sourceSnapshotHash": "b48bc46a03240454",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#26",
+      "contentHash": "bb4f494539b79e09",
+      "sourceSnapshotHash": "d6aaf7955660942b",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#27",
+      "contentHash": "ac306e22ee465f1d",
+      "sourceSnapshotHash": "81df95c182078421",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#28",
+      "contentHash": "5f2c10aacddd9bc2",
+      "sourceSnapshotHash": "f6a28d2f8729fc71",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#29",
+      "contentHash": "5afd8918538c940d",
+      "sourceSnapshotHash": "8eef55ee9132e60a",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#30",
+      "contentHash": "646f6674727aae40",
+      "sourceSnapshotHash": "dfad632a30635c1f",
+      "analysisVersion": 8,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#31",
+      "contentHash": "1e7a36d80b400c7a",
+      "sourceSnapshotHash": "939a3eef506b89a5",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#32",
+      "contentHash": "8fcd74c6297df466",
+      "sourceSnapshotHash": "a0ada9d2619c0ec5",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#33",
+      "contentHash": "b5278d9f38012fda",
+      "sourceSnapshotHash": "03971581fa526ae8",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#34",
+      "contentHash": "8760faa1bc689ed5",
+      "sourceSnapshotHash": "570bf3a5cbe78dd3",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#35",
+      "contentHash": "0d29b516aced963a",
+      "sourceSnapshotHash": "8b83816f8ea882bd",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#36",
+      "contentHash": "4178e45dc94c2421",
+      "sourceSnapshotHash": "8ad76ca7dac03572",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#37",
+      "contentHash": "ef20ecd5e957aa08",
+      "sourceSnapshotHash": "eaa118b85f1d3f4d",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#38",
+      "contentHash": "8c085655a6cf6db5",
+      "sourceSnapshotHash": "988da51c7762976b",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#39",
+      "contentHash": "8bbaf1849eb046e0",
+      "sourceSnapshotHash": "05bc91ab97ac6ac4",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#40",
+      "contentHash": "a52fa0966eb98155",
+      "sourceSnapshotHash": "0c24452a9c1f412d",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#41",
+      "contentHash": "c83c8589718e468c",
+      "sourceSnapshotHash": "fa5ad2c0f157f192",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": {
+        "severity": "P3",
+        "axis": "MS02",
+        "field": "units.u3.simpleKo",
+        "observation": "실물 옷 자료의 역사가 실질적으로 시작된다는 범위를, 그 이전의 실물은 전혀 남지 않는다는 단정으로 읽지 않게 명료화할 여지가 있다.",
+        "expected": "현존 실물에 근거한 복식사의 실질적 범위를 보존하고 이전 실물의 완전 부재로 넓히지 않는다."
+      },
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#42",
+      "contentHash": "7fe52cf791eef940",
+      "sourceSnapshotHash": "49945168bf2ab839",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#43",
+      "contentHash": "520eda7b27b44ee6",
+      "sourceSnapshotHash": "7b27524674de1184",
+      "analysisVersion": 5,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#44",
+      "contentHash": "5ec0f129fb594237",
+      "sourceSnapshotHash": "dfde740f671b3244",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    },
+    {
+      "id": "2026#45",
+      "contentHash": "5605e4f475222bb4",
+      "sourceSnapshotHash": "5f6c7161e1f7ee33",
+      "analysisVersion": 4,
+      "completeTeachingRead": true,
+      "observation": "NO_NEW_CORE_P2_OBSERVED",
+      "wording": null,
+      "officialGatePassWritten": false,
+      "humanApprovalGranted": false
+    }
+  ]
+}

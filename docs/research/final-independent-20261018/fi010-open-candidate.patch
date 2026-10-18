@@ -1,0 +1,24 @@
+diff --git a/apps/web/src/app/(app)/csat/learn/[id]/page.tsx b/apps/web/src/app/(app)/csat/learn/[id]/page.tsx
+index 59826d1b6..776a2185d 100644
+--- a/apps/web/src/app/(app)/csat/learn/[id]/page.tsx
++++ b/apps/web/src/app/(app)/csat/learn/[id]/page.tsx
+@@ -80,6 +80,19 @@ export default async function LearnPage({ params, searchParams }: { params: { id
+   const sessionId = randomUUID()
+   const taskKey = await taskKeyOf(createAdminClient() as unknown as SupabaseClient, v.ref)
+   const opened2 = !v.done && taskKey ? await recordOpen(createAdminClient() as unknown as SupabaseClient, { id: user.id, email: user.email ?? null }, v, taskKey, sessionId, new Date().toISOString()) : false
++  if (!v.done && !opened2) {
++    return (
++      <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
++        <div className={styles.page} data-testid="authored-open-unavailable">
++          <header className={styles.head}>
++            <h1>자료를 열지 못했어요</h1>
++            <p className={styles.why}>잠시 뒤 학습 지도에서 다시 열어 주세요.</p>
++          </header>
++          <Link className={styles.link} href={MAP_HREF}>학습 지도로 가기</Link>
++        </div>
++      </CsatShell>
++    )
++  }
+   return (
+     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
+       <AuthoredRunner
