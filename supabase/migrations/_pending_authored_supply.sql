@@ -342,9 +342,23 @@ begin
   if not found then raise exception 'delivery: qualification identity mismatch'; end if;
   -- FI-006 — 같은 학습자 · 같은 지문 정체성의 공급을 직렬화한다. 앞선 공급이 커밋된 뒤에 노출(G)을 다시 판정해야
   --   서로 다른 Workspace · 수요 줄로 동시에 들어온 두 공급이 모두 「미노출」로 통과하지 않는다(수요 줄 잠금만으로는 부족)
-  perform pg_advisory_xact_lock(hashtextextended('supply-exposure|' || auth.uid()::text || '|' || public.r5_exposure_key(q.artifact_kind, q.artifact_ref), 0));
+  --   창작은 노출 동치가 「같은 지문 묶음(passage_group) 또는 같은 본문 key」라 key 하나로 잠그면 그룹 동치와 어긋난다(#298 잔여) →
+  --   학습자 단위로 직렬화한다(창작 공급끼리만 · 기출 공급은 기존 지문 key 잠금 그대로). 다른 학습자 · 기출 공급은 기다리지 않는다
+  if q.artifact_kind = 'authored_item' then
+    perform pg_advisory_xact_lock(hashtextextended('supply-exposure|authored|' || auth.uid()::text, 0));
+  else
+    perform pg_advisory_xact_lock(hashtextextended('supply-exposure|' || auth.uid()::text || '|' || public.r5_exposure_key(q.artifact_kind, q.artifact_ref), 0));
+  end if;
   if q.artifact_kind = 'authored_item' then
     perform 1 from public.authored_item where ref = q.artifact_ref for share;
+    -- FI-006(#298) 잔여 — 노출 함수는 G2 결속 때 자기 납품을 빼려고 같은 ref 납품을 제외한다. 그래서 공급 시점에는 여기서 따로 막는다:
+    --   평가 역할 자료를 이 학습자가 이미 받았으면(다른 수요 줄 · 다른 Workspace · 지금 유효하지 않아도 — 본문이 이미 나갔다) 새 요청은 거절.
+    --   같은 요청의 재전송은 위에서 영수증으로 반환된다. 교수 · 안내 연습 자료의 재공급은 노출 판정 대상이 아니라 허용한다
+    if q.role in ('independent_check','transfer','delayed_check') and exists (
+         select 1 from public.workspace_content_delivery d where d.user_id = auth.uid() and d.artifact_kind = 'authored_item'
+           and d.artifact_ref = any(public.authored_group_refs(q.artifact_ref))) then
+      raise exception 'delivery: learner already received this passage group';
+    end if;
     if public.supply_annotation_matches(q.id) is not true then raise exception 'delivery: authored gold differs from qualification'; end if;
   end if;
   -- 사람 결정 행을 잠가 철회와 직렬화한 뒤 판정

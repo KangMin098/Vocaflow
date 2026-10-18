@@ -280,7 +280,7 @@ describe('노출(G) — 지문 묶음', () => {
     await approve(q2, 'public')
     const asm = await approve(q2, 'assessment')
     const line = await lineFor(A, wsA, 'delayed_check')
-    expect(await errorOf(deliver(A, line, q2, asm))).toMatch(/exposure shared_passage_seen/)
+    expect(await errorOf(deliver(A, line, q2, asm))).toMatch(/exposure shared_passage_seen|learner already received this passage group/)
     // 다른 학습자에게는 공급된다
     const lineB = await lineFor(B, wsB, 'delayed_check')
     expect(await errorOf(deliver(B, lineB, q2, asm))).toBeNull()
@@ -336,7 +336,7 @@ describe('G2 결속 — 창작 산출물', () => {
     const asm = await approve(q2, 'assessment')
     // 두 납품을 먼저 받고(아직 아무것도 안 풂) 첫 문항을 푼 뒤 두 번째를 푼다
     const line = await lineFor(B, wsB, 'delayed_check')
-    expect(await errorOf(deliver(B, line, q2, asm))).toMatch(/shared_passage_seen/)
+    expect(await errorOf(deliver(B, line, q2, asm))).toMatch(/shared_passage_seen|learner already received this passage group/)
     expect(await bound(await bind(B, f1.delivery, await attempt(B, f1.ref)))).toMatchObject({ first_exposure: true, evidence: true })
   })
 })

@@ -34,6 +34,9 @@ const LAYERS = ['_pending_workspace_supply_c_qualification.sql', '_pending_works
 
 const ADMIN = '00000000-0000-4000-8000-0000000000a1'
 const L = '00000000-0000-4000-8000-0000000000d1'
+const L2 = '00000000-0000-4000-8000-0000000000d2'
+const L3 = '00000000-0000-4000-8000-0000000000d3'
+const L4 = '00000000-0000-4000-8000-0000000000d4'
 const TASK = 'r.central_meaning'
 const TKEY = 'authored-central-meaning'
 const AXES = Object.fromEntries(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((k) => [k, { state: 'pass' }]))
@@ -59,20 +62,19 @@ try {
   console.log(`server_version=${(await s.query('show server_version')).rows[0].server_version}`)
   await s.query(STUB); await s.query(STUB_I1); await s.query(G2_COLUMNS)
   for (const sql of LAYERS) await s.query(sql)
-  await s.query(`insert into auth.users values ('${ADMIN}'), ('${L}'); insert into public.admins values ('${ADMIN}', 'admin')`)
+  await s.query(`insert into auth.users values ('${ADMIN}'), ('${L}'), ('${L2}'), ('${L3}'), ('${L4}'); insert into public.admins values ('${ADMIN}', 'admin')`)
   const as = (c, uid) => c.query(`select set_config('request.jwt.claim.sub', $1, false)`, [uid])
   const one = async (c, sql, p = []) => (await c.query(sql, p)).rows[0]
 
-  // 같은 지문 정체성의 평가 문항 둘(같은 본문 · 다른 그룹 이름 — FI-003 과 함께 본다)
-  const body = (tag) => ({ sentences: ['The same passage one.', 'The same passage two.', 'The same passage three.'], stem: 'q', choices: ['a', 'b', 'c', 'd', 'e'], tag })
+  const body = (sentences, tag) => ({ sentences, stem: 'q', choices: ['a', 'b', 'c', 'd', 'e'], tag })
   const gold = { answer: 2, claim: 1, claimRestated: [], support: [2], supportDisputed: [], opposed: [], relationProbe: { sentence: 2, relation: 'reason' }, gist: 'gist text here', distractors: [] }
-  await as(s, ADMIN)
-  const refs = []
-  for (const [id, role, group] of [['conc-a', 'independent_check', 'g-conc-a'], ['conc-b', 'delayed_check', 'g-conc-b']]) {
-    const b = body(id)
-    await s.query(`select public.authored_item_register($1,$2,$3,'assessment',$4,$5,$6::jsonb,$7::jsonb,$8,'{"author":"t","method":"t","derivedFrom":[]}'::jsonb)`,
-      [`authored:${id}`, TASK, TKEY, role, group, JSON.stringify(b), JSON.stringify(gold), `${TKEY}-${id}.v1`])
+  const SAME = ['The same passage one.', 'The same passage two.', 'The same passage three.']
+  /** 창작 평가 문항 등록 + 자격 · 사람 결정(격리 fixture) · 출시 승인 */
+  async function register(id, role, group, sentences) {
+    await as(s, ADMIN)
     const ref = `authored:${id}`
+    await s.query(`select public.authored_item_register($1,$2,$3,'assessment',$4,$5,$6::jsonb,$7::jsonb,$8,'{"author":"t","method":"t","derivedFrom":[]}'::jsonb)`,
+      [ref, TASK, TKEY, role, group, JSON.stringify(body(sentences, id)), JSON.stringify(gold), `${TKEY}-${id}.v1`])
     const { rev, gh } = await one(s, `select public.supply_artifact_revision('authored_item',$1) rev, public.authored_item_gold_hash($1) gh`, [ref])
     const q = (await one(s, `select public.content_qualification_record('FQ1.1','authored_item',$1,$2,$3,$4,$5::jsonb,'self',$2,null,'gold',$6,$7,$6,'{}','{ev}','concurrency fixture',null) id`,
       [ref, rev, TASK, role, JSON.stringify(AXES), gh, `${TKEY}-${id}.v1`])).id
@@ -80,44 +82,74 @@ try {
     await s.query(`select public.content_human_decision_record('gold','authored_item',$1,$2,$3,'human_gold_review','{assess}','fixture','human-reviewed')`, [ref, rev, gh])
     await s.query(`select public.content_release_approve($1,'public')`, [q])
     const asm = (await one(s, `select public.content_release_approve($1,'assessment') id`, [q])).id
-    refs.push({ ref, role, q, asm })
+    return { ref, role, q, asm }
   }
-  const keys = await one(s, `select public.r5_exposure_key('authored_item',$1) a, public.r5_exposure_key('authored_item',$2) b`, [refs[0].ref, refs[1].ref])
-  check('같은 본문 · 다른 그룹 이름 = 같은 노출 키(FI-003)', keys.a === keys.b, keys.a)
-
-  // 서로 다른 Workspace · 수요 줄
-  const lines = []
-  for (const r of refs) {
-    const ws = (await one(s, `insert into public.learner_workspace (user_id) values ($1) returning id`, [L])).id
-    await s.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1,$2,1)`, [ws, L])
-    await as(s, L)
-    // canonicalDemand 와 같은 정본(키 정렬 JSON · v 2 · lines[].n) — apps/web/src/lib/csat/map/v62/canonical-json.ts
-    const canon = canonical({ v: 2, user: L, template: 'ws.reading', workspaceId: ws, goalVersion: null, planVersion: 1, definitionVersion: `conc-${++seq}`, core: TASK, support: [],
-      lines: [{ role: r.role, task: TASK, n: 1, types: [], keys: [], requires: {}, reason: 'need' }] })
-    const dem = (await one(s, `select public.workspace_demand_record($1) id`, [canon])).id
-    lines.push((await one(s, `select id from public.workspace_content_demand_line where demand_id = $1`, [dem])).id)
+  /** 학습자의 별도 Workspace · 수요 줄 하나 */
+  async function demandLine(uid, role) {
     await as(s, ADMIN)
+    const ws = (await one(s, `insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
+    await s.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1,$2,1)`, [ws, uid])
+    await as(s, uid)
+    // canonicalDemand 와 같은 정본(키 정렬 JSON · v 2 · lines[].n) — apps/web/src/lib/csat/map/v62/canonical-json.ts
+    const canon = canonical({ v: 2, user: uid, template: 'ws.reading', workspaceId: ws, goalVersion: null, planVersion: 1, definitionVersion: `conc-${++seq}`, core: TASK, support: [],
+      lines: [{ role, task: TASK, n: 1, types: [], keys: [], requires: {}, reason: 'need' }] })
+    const dem = (await one(s, `select public.workspace_demand_record($1) id`, [canon])).id
+    const line = (await one(s, `select id from public.workspace_content_demand_line where demand_id = $1`, [dem])).id
+    await as(s, ADMIN)
+    return line
+  }
+  /** 두 연결: 첫 공급 미커밋 중 둘째 공급 → { waited, err, rows } */
+  async function race(uid, a, b) {
+    const c1 = await pool.connect(); const c2 = await pool.connect()
+    try {
+      await as(c1, uid); await as(c2, uid)
+      await c1.query('begin')
+      await c1.query(`select public.workspace_delivery_record($1, null, $2, $3, $4)`, [a.line, a.item.q, a.item.asm, key()])
+      await c2.query('begin')
+      let done = false
+      const second = c2.query(`select public.workspace_delivery_record($1, null, $2, $3, $4)`, [b.line, b.item.q, b.item.asm, key()])
+        .then(() => { done = true; return null }, (e) => { done = true; return e })
+      await new Promise((r) => setTimeout(r, 800))
+      const waited = done === false
+      await c1.query('commit')
+      const err = await second
+      await c2.query(err ? 'rollback' : 'commit')
+      const rows = (await pool.query(`select count(*)::int n from public.workspace_content_delivery where user_id = $1`, [uid])).rows[0].n
+      return { waited, err, rows }
+    } finally { c1.release(); c2.release() }
+  }
+
+  // ① 원래 반례 — 같은 본문 · 다른 그룹 이름 · 다른 ref · 다른 수요 줄
+  const a1 = await register('conc-a', 'independent_check', 'g-conc-a', SAME)
+  const b1 = await register('conc-b', 'delayed_check', 'g-conc-b', SAME)
+  const keys = await one(s, `select public.r5_exposure_key('authored_item',$1) a, public.r5_exposure_key('authored_item',$2) b`, [a1.ref, b1.ref])
+  check('같은 본문 · 다른 그룹 이름 = 같은 노출 키(FI-003)', keys.a === keys.b, keys.a)
+  // ② 같은 ref · 같은 자격 · 같은 승인 · 서로 다른 Workspace 수요 줄(#298 잔여 1)
+  const a2 = await register('conc-same', 'independent_check', 'g-conc-same', ['Same ref passage one.', 'Same ref passage two.', 'Same ref passage three.'])
+  // ③ 같은 declared 그룹 · 다른 본문 표현(key 다름)(#298 잔여 2)
+  const a3 = await register('conc-g1', 'independent_check', 'g-conc-shared', ['Group passage alpha one.', 'Group passage alpha two.', 'Group passage alpha three.'])
+  const b3 = await register('conc-g2', 'delayed_check', 'g-conc-shared', ['Group passage beta one.', 'Group passage beta two.', 'Group passage beta three.'])
+  // ④ 정상 대조군 — 서로 다른 본문 · 그룹 · ref
+  const a4 = await register('conc-x', 'independent_check', 'g-conc-x', ['Control passage x one.', 'Control passage x two.', 'Control passage x three.'])
+  const b4 = await register('conc-y', 'delayed_check', 'g-conc-y', ['Control passage y one.', 'Control passage y two.', 'Control passage y three.'])
+  const lines = {
+    1: [await demandLine(L, a1.role), await demandLine(L, b1.role)],
+    2: [await demandLine(L2, a2.role), await demandLine(L2, a2.role)],
+    3: [await demandLine(L3, a3.role), await demandLine(L3, b3.role)],
+    4: [await demandLine(L4, a4.role), await demandLine(L4, b4.role)],
   }
   s.release()
 
-  // 두 연결: 첫 공급 미커밋 중 둘째 공급
-  const c1 = await pool.connect(); const c2 = await pool.connect()
-  await as(c1, L); await as(c2, L)
-  await c1.query('begin')
-  await c1.query(`select public.workspace_delivery_record($1, null, $2, $3, $4)`, [lines[0], refs[0].q, refs[0].asm, key()])
-  await c2.query('begin')
-  let secondDone = false
-  const second = c2.query(`select public.workspace_delivery_record($1, null, $2, $3, $4)`, [lines[1], refs[1].q, refs[1].asm, key()])
-    .then(() => { secondDone = true; return null }, (e) => { secondDone = true; return e })
-  await new Promise((r) => setTimeout(r, 800))
-  check('둘째 공급은 첫 공급 커밋까지 기다린다(직렬화)', secondDone === false, `secondDone=${secondDone}`)
-  await c1.query('commit')
-  const err = await second
-  await c2.query(err ? 'rollback' : 'commit')
-  check('첫 커밋 뒤 둘째 공급은 노출(G)로 거절', !!err && /exposure/.test(err.message), err ? err.message : 'no error')
-  const n = (await pool.query(`select count(*)::int n from public.workspace_content_delivery where user_id = $1`, [L])).rows[0].n
-  check('같은 지문 정체성 납품 1행', n === 1, `rows=${n}`)
-  c1.release(); c2.release()
+  const blocked = (e) => !!e && /exposure|already received/.test(e.message)
+  const r1 = await race(L, { line: lines[1][0], item: a1 }, { line: lines[1][1], item: b1 })
+  check('① 같은 본문 · 다른 그룹: 둘째는 첫 커밋까지 기다린다', r1.waited, `waited=${r1.waited}`)
+  check('① 첫 커밋 뒤 둘째 거절 · 납품 1행', blocked(r1.err) && r1.rows === 1, `${r1.err?.message ?? 'no error'} rows=${r1.rows}`)
+  const r2 = await race(L2, { line: lines[2][0], item: a2 }, { line: lines[2][1], item: a2 })
+  check('② 같은 ref · 다른 수요 줄: 기다린 뒤 거절 · 납품 1행', r2.waited && blocked(r2.err) && r2.rows === 1, `waited=${r2.waited} ${r2.err?.message ?? 'no error'} rows=${r2.rows}`)
+  const r3 = await race(L3, { line: lines[3][0], item: a3 }, { line: lines[3][1], item: b3 })
+  check('③ 같은 그룹 · 다른 본문 key: 기다린 뒤 거절 · 납품 1행', r3.waited && blocked(r3.err) && r3.rows === 1, `waited=${r3.waited} ${r3.err?.message ?? 'no error'} rows=${r3.rows}`)
+  const r4 = await race(L4, { line: lines[4][0], item: a4 }, { line: lines[4][1], item: b4 })
+  check('④ 정상 대조군 — 다른 지문 둘 다 공급(납품 2행)', !r4.err && r4.rows === 2, `${r4.err?.message ?? 'ok'} rows=${r4.rows} waited=${r4.waited}`)
   await pool.end()
 } finally {
   try { pgctl(['-D', dir, '-m', 'fast', 'stop']) } catch { /* ignore */ }
