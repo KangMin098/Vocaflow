@@ -32,6 +32,10 @@
 
 - feat(db): Factory I1 러너 승인 창 경로 — TTY 가 없으면 정본 파일 실행 확인 + `--approval-nonce` 로 승인 티켓을 1회 소비(PR #287). 자동 실행·CI·isolated·복사본·거부/재사용 티켓은 접속 전 종료 2, TTY 경로 유지. 접속 문자열은 셸 → `.env.local` 순. DB-1/DB-2 SQL SHA 불변 · 격리 PG17 47/47.
 
+- feat(csat): R5 학습 경로 안내 — Inspector 에 지금 필요한 능력·자료 준비 상태 6범주(검수 전 자료는 공급으로 세지 않음)·자격 0건 시 할 일·출제 원리 6단계·복귀 요약(PLAN 유지/제안 구분). 납품↔G2 결속 보류 SQL·통합 승인 패키지·2020#24 검수 패킷 추가(DB 미적용)
+
+- feat(csat): R5 정식 자격 reader — 원장 결속(역할 축·TASK·원천/Gold·철회 안 된 승인·대체·현재 revision·현재 주석 해시)을 서버 전용 읽기로 판정, 적격은 역할에 묶음. 자격 행이 없으면 0건(DB 변경 없음)
+
 - feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
 
 - docs(db): DB286을 ACCEPT_WITH_LIMITS·DEPLOY_READY로 기록했다. PostgreSQL 47/33/추가8·CI 생명주기2·집중 단위9, 코드 HEAD 필수 CI8종 및 빈 Supabase 새 실패0을 확인했다. 실제 개발 DB는 미적용이며 새 SHA 승인·DB-1 이력/verify 로그 전에는 safe-merge를 실행하지 않는다.

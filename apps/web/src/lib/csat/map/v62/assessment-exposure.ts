@@ -123,7 +123,10 @@ export function attemptRole(e: Pick<ExposureEvent, 'activity' | 'phase' | 'taskK
 export type FqReader =
   | { status: 'not_installed' }
   | { status: 'error' }
-  | { status: 'installed'; eligible: string[] }
+  | { status: 'installed'; eligible: FqEligible[] }
+
+/** 원장 결속을 모두 통과한 적격 한 건 — 역할 · TASK 가 다르면 다른 줄이다(같은 문항이라도 역할마다 따로 판정) */
+export interface FqEligible { ref: string; task: string; role: string; qualificationId: string }
 
 export const FQ_READER_LABEL: Record<FqReader['status'], string> = {
   not_installed: '정식 자격 기록이 아직 설치되지 않았어요',

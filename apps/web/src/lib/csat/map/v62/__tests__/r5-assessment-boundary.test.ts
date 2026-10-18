@@ -108,13 +108,13 @@ describe('supplyFor — 공개 경로 이용 가능 ≠ 정식 FQ 적격(E04)', 
     expect(zero.reason).not.toContain('미설치')
   })
   it('FQ 가 적격이라 한 미노출 문항만 available', () => {
-    const l = roleOf(supplyFor(demand(1), input({ fq: { status: 'installed', eligible: ['2020#24'] } })), 'transfer')
+    const l = roleOf(supplyFor(demand(1), input({ fq: { status: 'installed', eligible: [{ ref: '2020#24', task: 'r.central_meaning', role: 'transfer', qualificationId: 'q1' }] } })), 'transfer')
     expect(l.state).toBe('available')
     expect(l.delivered.map((d) => d.ref)).toEqual(['2020#24'])
     expect(fulfillmentOf(l)).toBe('fully_supplied')
   })
   it('적격이어도 이미 연습으로 본 문항은 공급하지 않는다(연습 후 평가 차단)', () => {
-    const l = roleOf(supplyFor(demand(1), input({ transferItems: ['2020#24'], fq: { status: 'installed', eligible: ['2020#24'] }, exposure: ok([e('2020#24', { activity: 'practice' })]) })), 'transfer')
+    const l = roleOf(supplyFor(demand(1), input({ transferItems: ['2020#24'], fq: { status: 'installed', eligible: [{ ref: '2020#24', task: 'r.central_meaning', role: 'transfer', qualificationId: 'q1' }] }, exposure: ok([e('2020#24', { activity: 'practice' })]) })), 'transfer')
     expect(l.state).toBe('unsupported')
     expect(l.delivered).toEqual([])
   })

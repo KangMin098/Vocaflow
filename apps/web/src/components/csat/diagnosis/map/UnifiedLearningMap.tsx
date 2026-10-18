@@ -409,6 +409,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
             past={past}
             restoreWs={ws}
             planOpen={false}
+            returned={restore?.mapTask === selected ? notes : null}
             onTogglePlan={(id) => {
               setDrawer(false)
               openWs(id, opener.current, 'plan')

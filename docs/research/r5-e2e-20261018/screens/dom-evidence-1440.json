@@ -1,0 +1,77 @@
+{
+  "1440-map": {
+    "ability": [
+      "지금 필요한 능력과 이유중심 의미 — 아직 측정 전 · 목표 도달 확인 불가목표를 정하지 않아 이 능력이 목표에 얼마나 필요한지는 아직 말할 수 없어요.이 능력은 아직 직접 확인한 기록이 없어요 — 측정 전이지, 부족하다는 뜻이 아니에요.정식 자격을 확인한 확인 · 전이 문항이 아직 없어 목표에 도달했는지는 확인할 수 없어요."
+    ],
+    "abilityProgress": "not_measured goal_unconfirmable",
+    "supplyRows": [
+      {
+        "role": "independent_check",
+        "state": "open_unqualified",
+        "step": "open_unqualified",
+        "bucket": "unreviewed",
+        "text": "독립 확인 · 2개자격 검수 전 · 기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+      }
+    ],
+    "fallback": [
+      "검수된 자료가 아직 없어요 — 지금 할 수 있는 것이미 푼 문항 · 연구 사례의 기존 해설을 아래 출제 원리 순서대로 읽어 보세요(수업용 검수 전 자료예요).기존 과제로 연습할 수 있어요 — 다만 정식 자격 확인 전이라 독립 근거로는 세지 않아요."
+    ],
+    "principle": [
+      "출제 원리 따라가기 · 2019 · 23번AI 가 만든 분석 사례예요 — 사람 검수 전이에요.1. 이 문항이 재는 것2. 주장 · 근거 · 관계3. 정답이 되는 이유4. 오답 설계5. 내 말로 설명해 보기6. 처음 보는 지문에 적용 — 앞 단계를 마치고 처음 보는 지문 과제가 열리면 해요(해설을 먼저 보면 전이 근거가 되지 않아요)"
+    ],
+    "principleAiOnly": "true",
+    "principleLinks": [
+      "/csat/item/2019-23?scene=task&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=meaning&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=judgment&judgmentView=answer&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=judgment&judgmentView=options&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=explain&from=map&map_task=r.central_meaning&ws=ws.central-meaning"
+    ],
+    "returnSummary": [],
+    "returnNote": [],
+    "next": [
+      "2022학년도 수능 20번으로 직접 확인"
+    ],
+    "blocked": [],
+    "overflowX": 0
+  },
+  "1440-return": {
+    "ability": [
+      "지금 필요한 능력과 이유중심 의미 — 아직 측정 전 · 목표 도달 확인 불가목표를 정하지 않아 이 능력이 목표에 얼마나 필요한지는 아직 말할 수 없어요.이 능력은 아직 직접 확인한 기록이 없어요 — 측정 전이지, 부족하다는 뜻이 아니에요.정식 자격을 확인한 확인 · 전이 문항이 아직 없어 목표에 도달했는지는 확인할 수 없어요."
+    ],
+    "abilityProgress": "not_measured goal_unconfirmable",
+    "supplyRows": [
+      {
+        "role": "independent_check",
+        "state": "open_unqualified",
+        "step": "open_unqualified",
+        "bucket": "unreviewed",
+        "text": "독립 확인 · 2개자격 검수 전 · 기존 과제로 풀 수 있어요 · 정식 자격 확인 전"
+      }
+    ],
+    "fallback": [
+      "검수된 자료가 아직 없어요 — 지금 할 수 있는 것이미 푼 문항 · 연구 사례의 기존 해설을 아래 출제 원리 순서대로 읽어 보세요(수업용 검수 전 자료예요).기존 과제로 연습할 수 있어요 — 다만 정식 자격 확인 전이라 독립 근거로는 세지 않아요."
+    ],
+    "principle": [
+      "출제 원리 따라가기 · 2019 · 23번AI 가 만든 분석 사례예요 — 사람 검수 전이에요.1. 이 문항이 재는 것2. 주장 · 근거 · 관계3. 정답이 되는 이유4. 오답 설계5. 내 말로 설명해 보기6. 처음 보는 지문에 적용 — 앞 단계를 마치고 처음 보는 지문 과제가 열리면 해요(해설을 먼저 보면 전이 근거가 되지 않아요)"
+    ],
+    "principleAiOnly": "true",
+    "principleLinks": [
+      "/csat/item/2019-23?scene=task&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=meaning&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=judgment&judgmentView=answer&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=judgment&judgmentView=options&from=map&map_task=r.central_meaning&ws=ws.central-meaning",
+      "/csat/item/2019-23?scene=explain&from=map&map_task=r.central_meaning&ws=ws.central-meaning"
+    ],
+    "returnSummary": [
+      "돌아온 뒤 — 무엇이 기록됐나R5 에 반영된 확인 문항 풀이는 아직 없어요(해설 열람은 풀이 기록이 아니에요).독립 근거로 센 풀이는 없어요.처음 보는 지문에 적용한 기록은 아직 없어요.목표까지: 목표를 정하면 보여요다음 추천: 2022학년도 수능 20번으로 직접 확인 — 기록이 가장 부족한 단계부터 권해요.저장한 학습계획이 없어요 — 추천은 제안이고, 계획은 저장할 때 확정돼요."
+    ],
+    "returnNote": [],
+    "next": [
+      "2022학년도 수능 20번으로 직접 확인"
+    ],
+    "blocked": [],
+    "overflowX": 0
+  },
+  "accountDeleted": true
+}

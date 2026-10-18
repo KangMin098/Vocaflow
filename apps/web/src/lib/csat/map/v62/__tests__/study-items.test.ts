@@ -35,3 +35,11 @@ describe('기출 해부로 열 문항 — 노출 규칙', () => {
     expect(studyItemsFor('e.option_correspondence', null, [], []).sharedPassageUnchecked).toBe(true)
   })
 })
+
+describe('확인 기록을 못 읽으면 해설을 열지 않는다(Codex P1)', () => {
+  it('check=null 이면 확인 문항을 「이미 푼 문항」으로 세지 않고 보류한다', () => {
+    const r = studyItemsFor('r.central_meaning', null as never, [{ target: '2022#20' }, { target: '2023#21' }] as never, [] as never)
+    expect(r.items.some((i) => i.basis === 'attempted_check_item')).toBe(false)
+    expect(r.withheld).toBe(2)
+  })
+})
