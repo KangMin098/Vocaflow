@@ -1,0 +1,11 @@
+{
+  "evaluated_with": "scripts/db/factory-i1/deploy.mjs evaluatePreflight",
+  "db1": [],
+  "db2": [
+    "DEPLOY_BLOCKED[db1-first] DB-1(20261017200000) 이 이력에 없다",
+    "DEPLOY_BLOCKED[target] 표 상태가 DB-1 직후와 다르다: ",
+    "DEPLOY_BLOCKED[target] 함수 상태가 DB-1 직후와 다르다: ",
+    "DEPLOY_BLOCKED[drift] is_admin.proconfig={search_path=public} ≠ DB-1 뒤 {\"search_path=public, pg_temp\"}",
+    "DEPLOY_BLOCKED[drift] is_admin_or_curator.proconfig={\"search_path=public, auth\"} ≠ DB-1 뒤 {\"search_path=public, auth, pg_temp\"}"
+  ]
+}

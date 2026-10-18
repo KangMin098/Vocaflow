@@ -22,6 +22,7 @@ import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/Anal
 import { railExams } from '@/lib/csat/rail-data'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
+import { ContextSensePanel, type ContextSensePanelProps } from '@/components/csat/theater/ContextSensePanel'
 import { EvidencePanel } from '@/components/csat/theater/EvidencePanel'
 import type { EvidencePanelProps } from '@/lib/knowledge/evidence-locate'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
@@ -297,6 +298,8 @@ export default async function CsatItemTheaterPage({
   const panel = principle ? (
     principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
       <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+    ) : principle.taskKey === 'contextual-sense' ? (
+      <ContextSensePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as ContextSensePanelProps)} />
     ) : principle.taskKey === 'cohesion-link' ? (
       <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
     ) : (
@@ -320,11 +323,28 @@ export default async function CsatItemTheaterPage({
       </CsatShell>
     )
   }
+  // 확인 모드인데 과제를 못 읽었거나 내려갔으면 해설(정답)을 열지 않는다 — 독립 확인 기회를 소모하지 않게 이용 불가로 끝낸다
+  if (checkMode) {
+    return (
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번 · 직접 확인</>}>
+        <div data-testid="item-check-unavailable" className="mx-auto mt-6 max-w-3xl break-keep px-4 text-sm leading-relaxed text-[var(--t2)]">
+          <p>지금은 이 문항의 확인 과제를 열 수 없어요. 해설은 확인 기회를 지키기 위해 보여 주지 않아요.</p>
+          <p className="mt-3">
+            <a href={`/csat/diagnosis?tab=map&view=full${mapCtxQ}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-unavailable-back">
+              학습 지도로 돌아가기 →
+            </a>
+          </p>
+        </div>
+      </CsatShell>
+    )
+  }
   const body = principle ? (
     <>
       {theater}
       {principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
         <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+      ) : principle.taskKey === 'contextual-sense' ? (
+        <ContextSensePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as ContextSensePanelProps)} />
       ) : principle.taskKey === 'cohesion-link' ? (
         <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
       ) : (

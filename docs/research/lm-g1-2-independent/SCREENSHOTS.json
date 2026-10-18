@@ -1,0 +1,150 @@
+{
+  "baselineProductCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+  "finalDeltaCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+  "scope": "Full R5 PC views and the final acknowledgement delta are separate source revisions. Each screenshot binds its own revision.",
+  "screenshots": [
+    {
+      "file": "evidence/map-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/workspace/01-W-1440-initial.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 117917,
+      "sha256": "2ac19c95f91dace22026e6c9761d98deb3faf68d68793df157a2fa20b4c048b7",
+      "capturedFileMtime": "2026-10-16T08:32:48.601Z"
+    },
+    {
+      "file": "evidence/workspace-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/workspace/02-W-1440-ws-selected.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 166005,
+      "sha256": "3fb07e6f3fc37dcc895c4cd2866f61f93be021ab95e9bcce4e5ac161737f4f6e",
+      "capturedFileMtime": "2026-10-16T08:32:49.196Z"
+    },
+    {
+      "file": "evidence/transfer-1-of-2-1280.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1280/17-04-transfer-1-plan.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1280,
+      "height": 900,
+      "bytes": 143523,
+      "sha256": "7e2c6478395adf5908a833d835c499edf17e0657aa27108ebf2fe341a0d7160e",
+      "capturedFileMtime": "2026-10-16T08:18:55.459Z"
+    },
+    {
+      "file": "evidence/transfer-1-of-2-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1440/17-04-transfer-1-plan.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1440,
+      "height": 900,
+      "bytes": 160953,
+      "sha256": "3de920952466a6706db0a4ffaea54b73faa05d2adfc1eff93ff3e3ffc0e43a45",
+      "capturedFileMtime": "2026-10-16T08:21:39.078Z"
+    },
+    {
+      "file": "evidence/support-readonly-1280.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1280/13-03b-support-readonly-plan.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1280,
+      "height": 900,
+      "bytes": 150353,
+      "sha256": "55ada69bfc9809833ab009d029c45cb8c8483658b8f6e8fe48e9995491ab3b44",
+      "capturedFileMtime": "2026-10-16T08:18:00.867Z"
+    },
+    {
+      "file": "evidence/support-readonly-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1440/13-03b-support-readonly-plan.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1440,
+      "height": 900,
+      "bytes": 167310,
+      "sha256": "e65ffcf8c32a238b80e4fd1d1e9ed2f0293a728bf3ae90abc3dcd284b5cade4e",
+      "capturedFileMtime": "2026-10-16T08:20:50.347Z"
+    },
+    {
+      "file": "evidence/resolved-1280.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1280/31-08-check-passed-drawer.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1280,
+      "height": 900,
+      "bytes": 115309,
+      "sha256": "258f98c1a668cf58ebe268c22601a01937464a8305ac59f137e3d99435e79dfd",
+      "capturedFileMtime": "2026-10-16T08:19:50.404Z"
+    },
+    {
+      "file": "evidence/resolved-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/revised-1440/31-08-check-passed-drawer.png",
+      "codeCommit": "cd7af4c5bbde2fb8a6b369f2b5c7791aa3268681",
+      "verificationGroup": "full-r5-pc",
+      "width": 1440,
+      "height": 900,
+      "bytes": 134570,
+      "sha256": "e2ec339f6bd00fbad36e5721b3db006f00eac85a89134053ff9dd8a6d3b3f53b",
+      "capturedFileMtime": "2026-10-16T08:22:36.010Z"
+    },
+    {
+      "file": "evidence/draft-remounted-before-reply.png",
+      "source": "scripts/research/lm-g1-2-independent/local/security/stale-plan-unmounted.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 164408,
+      "sha256": "c24772a3d0293ab9b7ac2095ea662d157f1621035e01154385b1e0de235bf9e7",
+      "capturedFileMtime": "2026-10-16T08:29:33.398Z"
+    },
+    {
+      "file": "evidence/draft-same-instance.png",
+      "source": "scripts/research/lm-g1-2-independent/local/security/stale-plan-same-instance.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 164695,
+      "sha256": "cca3083b6481a446b551b7b78a9bfae6ae3e6f8228d88fdc0974b5f8dd4ce866",
+      "capturedFileMtime": "2026-10-16T08:29:49.286Z"
+    },
+    {
+      "file": "evidence/draft-remounted-after-reply.png",
+      "source": "scripts/research/lm-g1-2-independent/local/late-remount/late-remount.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 165237,
+      "sha256": "0b4c8c256116057eba8b76866e5586ffa6b3d3403a6358ea62e3f657a418fc5a",
+      "capturedFileMtime": "2026-10-16T08:30:33.883Z"
+    },
+    {
+      "file": "evidence/saved-after-closed-editor-1280.png",
+      "source": "scripts/research/lm-g1-2-independent/local/save-unchanged-1280/save-unchanged.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1280,
+      "height": 900,
+      "bytes": 144842,
+      "sha256": "083d7f8b037411fff10b3fdf577f226287ae3fc98fdf9698080e077e35777c87",
+      "capturedFileMtime": "2026-10-16T08:30:54.132Z"
+    },
+    {
+      "file": "evidence/saved-after-closed-editor-1440.png",
+      "source": "scripts/research/lm-g1-2-independent/local/save-unchanged-1440/save-unchanged.png",
+      "codeCommit": "f9a315cac7e3967b57c2a13f093db130090fdaec",
+      "verificationGroup": "final-ack-delta",
+      "width": 1440,
+      "height": 900,
+      "bytes": 163538,
+      "sha256": "a74b2f8d9b7ccba8497d4566644d393bdc2fa688456b0184e619717c487eef28",
+      "capturedFileMtime": "2026-10-16T08:31:15.327Z"
+    }
+  ]
+}

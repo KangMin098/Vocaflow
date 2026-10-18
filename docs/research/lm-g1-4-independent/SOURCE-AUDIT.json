@@ -1,0 +1,47 @@
+{
+  "base": "8ee927dcee80a9b19d70b2d4c86869e8ea013813",
+  "pinned": "68b1541fff7dd0dd880e6bd51e1ba091d770786c",
+  "sourceBasis": "c72740368dbba7b9c12b2fc7e3c1b9a386aea7a1",
+  "authorFileCount": 156,
+  "byExtension": {
+    ".tsx": 5,
+    ".css": 1,
+    ".ts": 5,
+    ".md": 4,
+    ".png": 129,
+    ".json": 11,
+    ".mjs": 1
+  },
+  "byCategory": {
+    "product": 10,
+    "tests": 1,
+    "documents": 4,
+    "screenshots": 129,
+    "records": 11,
+    "scripts": 1
+  },
+  "authorCode": "b6b818231",
+  "authorFinalWording": "b6e8b93cb",
+  "authorWordingToPinnedProductDelta": "",
+  "productHashes": {
+    "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx": "e84a223f823ad0ea52d1aa250e4a5883450c5a8e4ca164c61656f949a948ed91",
+    "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx": "b15012f04ee26f71d2cc9f19a71d5a6b6eeeea3793923d952ddc20f6464970e8",
+    "apps/web/src/components/csat/diagnosis/map/TaskPopup.tsx": "dd5924b77c79c547274a85d8510ea8c78fdee1f91cae36c600565fff1d226b90",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx": "19bd6041c800cfd9eef9c1f6f164f6ce759415a245fcd8cb3e6f5fde9fa41380",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx": "13fe3370710518ab4bbbd53404eefc8474107d59fe7f540f4b6b3e1e22b64fd4",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx": "493258f42df324b60547e6fb1c82cd2ff340a0a38291bc7d4d925bb3354462ca",
+    "apps/web/src/components/csat/diagnosis/map/unified.module.css": "14e7123d1dbef51c97b6a6f59aa479acff86ae9e23ba91f22bf57f00c69c09e6",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts": "141f46d1c687784ac2174a5746ff6915bc6376207d3b223805251e111242b38f",
+    "apps/web/src/lib/csat/map/load.ts": "cd9055fb6c78bf7746a811799f6d862e5e0dc2be6b6fe30e3e2e91f49ebaced9",
+    "apps/web/src/lib/csat/map/v4/compose.ts": "e601730aae428f9d373f972f80fc1fd110e21bbb9b1501cc6c583482c723dac2",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims-independent.test.ts": "0a23329a9ccc1d0a5fb6b03a7318df754bacfcf745abf1715d90c5ca8dac548a",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims.test.ts": "c899492b0d19e56397a4c2087b247313e93f1118b6802c8776665faf042321fb",
+    "apps/web/src/lib/csat/map/v62/__tests__/instrument-currentness-independent.test.ts": "60a2de4edd027a37d5c8b98ef3da25650ca2911ee213844fe08e8a30ba1cf61f",
+    "apps/web/src/lib/csat/map/v62/__tests__/instrument-hashes.test.ts": "1ba8dc5adac0c3845beec0ca340cdfdc1216276557dbad6e93da0b5271837a1d",
+    "apps/web/src/lib/csat/map/v62/__tests__/instrument-source-independent.test.ts": "ba5cacb45fef22b50d77f72f86f44c55391b78af6211801a7e0e133c4f1c4c6d",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts": "c1ce756a729f50e55ca86098b8b7028c13476decb80816e4db4e89c32879a546",
+    "apps/web/src/lib/csat/map/v62/instrument-hashes.ts": "cf3f67c7a01e4780dbc14436497911aefe68885a3191cc38637b6492bbeee110",
+    "apps/web/src/lib/knowledge/find-outcome.ts": "a46790482a749fa41ce1f4b52f456c669a96e1d75fce6be2b876ec89ac0b7267"
+  },
+  "scope": "Exact original git diff, not the capped GitHub 100-file listing. User-stated 141 is not the measured denominator."
+}

@@ -1,0 +1,37 @@
+{
+  "query": "select name, to_regclass('public.' || name)::text as relation from unnest(array['workspace_content_demand','workspace_content_demand_line','factory_order','factory_order_event','workspace_content_delivery','content_qualification','content_release_approval','content_release_revocation']) as name",
+  "rows": [
+    {
+      "name": "workspace_content_demand",
+      "relation": null
+    },
+    {
+      "name": "workspace_content_demand_line",
+      "relation": null
+    },
+    {
+      "name": "factory_order",
+      "relation": null
+    },
+    {
+      "name": "factory_order_event",
+      "relation": null
+    },
+    {
+      "name": "workspace_content_delivery",
+      "relation": null
+    },
+    {
+      "name": "content_qualification",
+      "relation": null
+    },
+    {
+      "name": "content_release_approval",
+      "relation": null
+    },
+    {
+      "name": "content_release_revocation",
+      "relation": null
+    }
+  ]
+}

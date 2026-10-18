@@ -1,0 +1,617 @@
+{
+  "source": {
+    "branch": "research/csat-reading-v14",
+    "commit": "67070e430",
+    "files": [
+      "education-packages.json",
+      "final-gate.json",
+      "map-review.json",
+      "map-second-review.json"
+    ],
+    "importedAt": "2026-10-14"
+  },
+  "status": {
+    "release": "hold",
+    "r3Approved": 0,
+    "humanValidation": 0,
+    "studentValidation": 0,
+    "activities": 12,
+    "facets": 48,
+    "forbidden": [
+      "student_deficit_or_mastery",
+      "individual_expected_score_gain",
+      "total_required_questions_per_learner",
+      "automatic_NeedRank_promotion",
+      "unvalidated_teaching_effect",
+      "AI_agreement_as_human_validation",
+      "official_item_author_intent"
+    ]
+  },
+  "mapping": {
+    "reviewedNew": 24,
+    "cumulativeReviewOpportunities": 98,
+    "unreviewed": 23482,
+    "automaticCandidates": 6310,
+    "note": "자동 후보는 옮기지 않았다 · 98 은 검토 기회이지 합의된 관련성이 아니다"
+  },
+  "tasks": [
+    {
+      "task": "r.central_meaning",
+      "display": "R5",
+      "definition": "후보를 보기 전에 주제 대상과 중심 서술, 조건·범위, 근거·부연을 구성한다. 의미가 같은 자연스러운 대안 표현을 허용한다.",
+      "gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "methods": [
+        {
+          "id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional"
+        },
+        {
+          "id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional"
+        },
+        {
+          "id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant"
+        },
+        {
+          "id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional"
+        },
+        {
+          "id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "support_only"
+        },
+        {
+          "id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "support_only"
+        },
+        {
+          "id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant"
+        }
+      ],
+      "materialRoles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "activities": [
+        {
+          "id": "v14-r.central_meaning-1",
+          "item": "2023#20",
+          "role": "model_explanation",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-r.central_meaning-2",
+          "item": "2015#21",
+          "role": "guided_practice",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-r.central_meaning-3",
+          "item": "2024#23",
+          "role": "independent_check",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        }
+      ]
+    },
+    {
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "definition": "실제 후보와 자료 명제의 주체·극성·강도·범위·관계를 비교하고 textual_support와 task_fit를 구별한다. 위치 표지 자체는 명제가 아니다.",
+      "gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "methods": [
+        {
+          "id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional"
+        },
+        {
+          "id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional"
+        },
+        {
+          "id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant"
+        },
+        {
+          "id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "conditional"
+        },
+        {
+          "id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "relevant"
+        },
+        {
+          "id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant"
+        },
+        {
+          "id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant"
+        }
+      ],
+      "materialRoles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "activities": [
+        {
+          "id": "v14-e.option_correspondence-1",
+          "item": "2017#25",
+          "role": "model_explanation",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-e.option_correspondence-2",
+          "item": "2024#28",
+          "role": "guided_practice",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-e.option_correspondence-3",
+          "item": "2015#24",
+          "role": "independent_check",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        }
+      ]
+    },
+    {
+      "task": "s.form_scope",
+      "display": "S5",
+      "definition": "부정·양화·비교·조건·형태의 작용 대상을 보존하여 완성 명제를 구성한다. 모든 어법 라벨 판정을 S5라고 부르지 않는다.",
+      "gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "methods": [
+        {
+          "id": "syntax",
+          "name": "구문 해부",
+          "suitability": "relevant"
+        },
+        {
+          "id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant"
+        },
+        {
+          "id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional"
+        },
+        {
+          "id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only"
+        },
+        {
+          "id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "relevant"
+        },
+        {
+          "id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only"
+        },
+        {
+          "id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional"
+        },
+        {
+          "id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "relevant"
+        },
+        {
+          "id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant"
+        }
+      ],
+      "materialRoles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "activities": [
+        {
+          "id": "v14-s.form_scope-1",
+          "item": "2024#28",
+          "role": "model_explanation",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-s.form_scope-2",
+          "item": "2015#21",
+          "role": "guided_practice",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-s.form_scope-3",
+          "item": "2014A#32",
+          "role": "independent_check",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        }
+      ]
+    },
+    {
+      "task": "v.contextual_sense",
+      "display": "V2",
+      "definition": "지정 낱말/표현의 뜻 후보를 실제 문맥에서 고르고 지지 단서와 배제한 뜻을 설명한다. 기본 뜻과 담화 최적합을 구별한다.",
+      "gate": {
+        "R0": true,
+        "R1_source_links": true,
+        "R2_content": false,
+        "R3_scoring_independence": false,
+        "R4_learner": false,
+        "R5_effect": false
+      },
+      "methods": [
+        {
+          "id": "syntax",
+          "name": "구문 해부",
+          "suitability": "conditional"
+        },
+        {
+          "id": "meaning_units",
+          "name": "의미 단위 읽기",
+          "suitability": "relevant"
+        },
+        {
+          "id": "incremental",
+          "name": "직독직해",
+          "suitability": "conditional"
+        },
+        {
+          "id": "contrast",
+          "name": "대조·대립 찾기",
+          "suitability": "conditional"
+        },
+        {
+          "id": "core_sentence",
+          "name": "중심 문장 찾기",
+          "suitability": "support_only"
+        },
+        {
+          "id": "proposition_relations",
+          "name": "명제·관계 분석",
+          "suitability": "conditional"
+        },
+        {
+          "id": "structure",
+          "name": "글 구조 재구성",
+          "suitability": "support_only"
+        },
+        {
+          "id": "text_option",
+          "name": "본문·선지 대조",
+          "suitability": "conditional"
+        },
+        {
+          "id": "distractor_changes",
+          "name": "오답의 의미 변형 분석",
+          "suitability": "conditional"
+        },
+        {
+          "id": "self_explanation",
+          "name": "자기 설명·반례 학습",
+          "suitability": "relevant"
+        }
+      ],
+      "materialRoles": [
+        "source_analysis",
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "activities": [
+        {
+          "id": "v14-v.contextual_sense-1",
+          "item": "2016#23",
+          "role": "model_explanation",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-v.contextual_sense-2",
+          "item": "2024#34",
+          "role": "guided_practice",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        },
+        {
+          "id": "v14-v.contextual_sense-3",
+          "item": "2024#23",
+          "role": "independent_check",
+          "responseUnit": "one unique shared passage × specified TASK attempt; facets and five options are dependent partial responses",
+          "facets": 4
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "task": "r.central_meaning",
+      "item": "2019#23",
+      "type": "R-TOPIC",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "r.central_meaning",
+      "item": "2015#24",
+      "type": "R-FACT",
+      "first": "not_applicable",
+      "second": "indirect",
+      "agree": false
+    },
+    {
+      "task": "r.central_meaning",
+      "item": "2015#32",
+      "type": "R-BLANK",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "r.central_meaning",
+      "item": "2017#25",
+      "type": "R-FACT",
+      "first": "not_applicable",
+      "second": "indirect",
+      "agree": false
+    },
+    {
+      "task": "r.central_meaning",
+      "item": "2014B#38",
+      "type": "R-ORDER",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "r.central_meaning",
+      "item": "2020#36",
+      "type": "R-ORDER",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2018#28",
+      "type": "R-GRAMMAR",
+      "first": "indirect",
+      "second": "not_applicable",
+      "agree": false
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2014A#32",
+      "type": "R-CHART",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2022#25",
+      "type": "R-CHART",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2018#19",
+      "type": "R-MOOD",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2015#21",
+      "type": "R-TOPIC",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "e.option_correspondence",
+      "item": "2016#18",
+      "type": "R-PURPOSE",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2014A#32",
+      "type": "R-CHART",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2018#28",
+      "type": "R-GRAMMAR",
+      "first": "not_applicable",
+      "second": "indirect",
+      "agree": false
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2018#18",
+      "type": "R-PURPOSE",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2021#26",
+      "type": "R-FACT",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2014A#36",
+      "type": "R-BLANK2",
+      "first": "indirect",
+      "second": "direct",
+      "agree": false
+    },
+    {
+      "task": "s.form_scope",
+      "item": "2017#38",
+      "type": "R-INSERT",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2016#29",
+      "type": "R-VOCAB",
+      "first": "indirect",
+      "second": "direct",
+      "agree": false
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2014A#36",
+      "type": "R-BLANK2",
+      "first": "not_applicable",
+      "second": "not_applicable",
+      "agree": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2020#37",
+      "type": "R-ORDER",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2024#23",
+      "type": "R-TOPIC",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2015#24",
+      "type": "R-FACT",
+      "first": "indirect",
+      "second": "indirect",
+      "agree": true
+    },
+    {
+      "task": "v.contextual_sense",
+      "item": "2020#20",
+      "type": "R-CLAIM",
+      "first": "direct",
+      "second": "direct",
+      "agree": true
+    }
+  ]
+}

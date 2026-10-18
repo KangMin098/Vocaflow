@@ -5,6 +5,8 @@
 // 지도 테이블이 없거나 시드 전이면 null(화면은 「준비 중」). 그 밖의 오류는 던진다 — 오류를 빈 지도로 삼키지 않는다.
 
 import 'server-only'
+import { createHash } from 'node:crypto'
+import { canonicalJson } from './v62/canonical-json'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -18,10 +20,11 @@ import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-server'
-import { isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
+import { anchorGate, isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
 import { toItemSlug } from '../item-slug'
 import type { AsIsSession } from './v4/as-is'
 import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
+import { scopeCandidates, type GoalVersion, type ScopeCandidate, type ScopeStatus, type GoalExam } from './v62/target-goal'
 import type { ActivityRow } from './lifecycle-evidence'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
@@ -31,9 +34,17 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { ALL_STEPS } from './learner-path'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
+import { instrumentHashesFor } from './v62/instrument-hashes'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
+import { loadSupplyLedger } from './v62/supply-store'
+import type { SupplyLedger } from './v62/supply-ledger'
+import { compactLedger, executableTransferTargets, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
+import { currentItemTask } from '@/lib/knowledge/item-tasks'
+import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
+import { checkKeysOfTask, checkedTaskOfKey } from './v4/definition'
+import type { TaskId } from './v4/types'
 
 type Db = SupabaseClient
 
@@ -67,6 +78,11 @@ export interface MapPageData {
   findAttempts?: FindAttemptRow[]
   /** 생애주기 수행 기록(바로잡기 · 적용 판정용) — 연결된 과제 키의 본인 시도 전부(첫 시도만이 아니다). 못 읽으면 undefined(「기록 없음」 으로 보이지 않게) */
   lifecycleActivity?: ActivityRow[]
+  /**
+   * LM-G1.4 — 문항별 현재 주석 해시(과제 키|문항 → 해시 · 현재 주석이 없으면 null). 수행 기록의 content_hash 와 비교해 현재성(STALE)을 가른다.
+   * 못 구했으면 undefined(판정하지 않고 UNKNOWN).
+   */
+  instrumentHashes?: Record<string, string | null>
   /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
   practiceResults?: Record<string, PracticeResult>
   /** FIND 과제 id → 「같은 원리를 다른 지문에 적용」 Practice 주소 — 실학습 풀에 그 문항 말고 다른 문항이 있을 때만 */
@@ -90,9 +106,17 @@ export interface MapV4Input {
   /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수 */
   transferItems: Record<string, number>
   /** 확인 과제 키 → 「다른 글에 적용」 단계 링크(5차 · 6차 일반화) — 주장과 근거는 연습 화면 전이 문항, 다른 과제는 role=transfer 로 출시된 문항의 문항 화면. 확인 묶음 밖 · 공개 관문 통과 */
-  transferTargets: Record<string, { target: string; href: string; label: string }[]>
+  transferTargets: Record<string, { target: string; href: string; label: string; passageKey?: string | null }[]>
   /** 저장된 학습계획(4차) — 저장 구조가 없으면 status 'not_installed'(화면은 이 기기 초안 모드) */
   saved: SavedPlans
+  /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
+  supplyLedger: Record<string, SupplyLedger>
+  /** #281 E01 — 확인 · 전이 후보의 학습자 노출(모든 원장 · 같은 지문). 못 읽으면 error — 평가 후보 0 */
+  assessmentExposure?: ExposureLedger
+  /** #281 E04 — 정식 자격(I1) reader 상태. 설치 전이면 not_installed */
+  fqReader?: FqReader
+  /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
+  target?: { goal: GoalVersion | null; scope: { exam: GoalExam | null; status: ScopeStatus; reason: string | null; exams: { id: string; label: string }[] } }
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
   viewer: string
 }
@@ -172,6 +196,12 @@ async function loadCrossVerdicts(db: Db, userId: string, rows: { attempt_id?: un
   return out
 }
 
+/** Preserve exact integer identities without rounding a PostgreSQL bigint. */
+function attemptIdentity(value: unknown): string | undefined {
+  if (typeof value === 'number') return Number.isSafeInteger(value) && value > 0 ? String(value) : undefined
+  return typeof value === 'string' && /^[1-9]\d*$/.test(value) ? value : undefined
+}
+
 /** 확인 문항에서의 내 첫 시도 — 학습자 RLS 클라이언트로 본인 행만. 문항이 없으면 묻지 않는다 */
 async function loadFindAttempts(db: Db, userId: string, items: string[]): Promise<FindAttemptRow[]> {
   if (items.length === 0) return []
@@ -181,8 +211,10 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   // 세부 채점(response.grade = { claim, support, relation } 등) — 「어디서 막혔나」 추적용(find-policy.v2). 못 읽으면 세부 없이 판정한다
   const ids = ((data ?? []) as Record<string, unknown>[]).map((r) => Number(r.attempt_id)).filter(Number.isFinite)
   const partsById = new Map<number, Record<string, boolean>>()
+  const originalById = new Map<string, Record<string, unknown>>()
   if (ids.length) {
-    const { data: rows } = await db.from('learning_task_attempts').select('id,response').eq('user_id', userId).in('id', ids)
+    const { data: rows } = await db.from('learning_task_attempts').select('id,response,session_id,content_hash,task_key,item_ref').eq('user_id', userId).in('id', ids)
+    for (const row of (rows ?? []) as Record<string, unknown>[]) originalById.set(String(row.id), row)
     for (const row of (rows ?? []) as { id: number; response: { grade?: Record<string, unknown> } | null }[]) {
       const g = row.response?.grade
       if (g && typeof g === 'object') partsById.set(Number(row.id), Object.fromEntries(Object.entries(g).filter(([, v]) => typeof v === 'boolean')) as Record<string, boolean>)
@@ -190,8 +222,15 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   }
   const first: FindAttemptRow[] = ((data ?? []) as Record<string, unknown>[]).map((r) => {
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
+    const original = originalById.get(String(r.attempt_id))
+    const task = typeof r.item_ref === 'string' ? currentItemTask(r.item_ref) : null
+    const bound = original?.item_ref === r.item_ref && original?.task_key === r.task_key && original?.session_id === r.session_id
     return {
+    sessionId: bound && typeof r.session_id === 'string' ? r.session_id : null,
+    contentHash: bound && typeof original?.content_hash === 'string' ? original.content_hash : null,
+    expectedContentHash: task && task.def.key === r.task_key ? task.def.hash(task.ann) : null,
     userId: String(r.user_id),
+    attemptId: attemptIdentity(r.attempt_id),
     itemRef: String(r.item_ref),
     taskKey: String(r.task_key ?? ''),
     phase: String(r.phase) as FindAttemptRow['phase'],
@@ -220,15 +259,28 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   return [...first, ...practice]
 }
 
-/** 생애주기 수행 기록 — 연결된 과제 키의 본인 시도(문항 · 단계 · 정오 · 판단 시각). 최신 1,000건 — 판정은 이번 회차(직접 확인 뒤) 기록만 쓰므로 오래된 기록이 잘려도 지금 판정은 바뀌지 않는다(Codex P2). 보류 문항은 뺀다(Reveal Gate) */
+/** 생애주기 수행 기록 — 연결된 과제 키의 본인 시도(문항 · 단계 · 정오 · 판단 시각). ID 커서로 전 페이지를 읽는다 — 최근 반복 시도가 많아도 이번 회차 성공 · 전이 근거를 잘라내지 않는다. 보류 문항은 뺀다(Reveal Gate) */
 async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[], gate: { held: Set<string>; failed: boolean }): Promise<ActivityRow[]> {
   if (taskKeys.length === 0 || gate.failed) return []
-  const { data, error } = await db.from('learning_task_attempts').select('item_ref, task_key, phase, is_correct, answered_at')
-    .eq('user_id', userId).in('task_key', taskKeys).order('answered_at', { ascending: false }).limit(1000)
-  if (error) throw new Error(`수행 기록 조회 실패: ${error.message}`)
-  return ((data ?? []) as { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null }[])
+  const data: Record<string, unknown>[] = []
+  let cursor: string | null = null
+  for (;;) {
+    let query = db.from('learning_task_attempts').select('id, session_id, item_ref, task_key, phase, is_correct, answered_at, content_hash, activity, help_level, synthetic, received_at')
+      .eq('user_id', userId).in('task_key', [...new Set(taskKeys.flatMap(transferKeysOf))]).order('id', { ascending: false }).limit(1000)
+    if (cursor !== null) query = query.lt('id', cursor)
+    const page = await query
+    if (page.error) throw new Error(`수행 기록 조회 실패: ${page.error.message}`)
+    const rows = page.data ?? []
+    data.push(...rows)
+    if (rows.length < 1000) break
+    const last = rows[rows.length - 1].id
+    if ((typeof last === 'number' && !Number.isSafeInteger(last)) || !/^\d+$/.test(String(last)) || String(last) === cursor) throw new Error('Invalid lifecycle cursor')
+    cursor = String(last)
+  }
+  type Row = { id: unknown; session_id: string | null; item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null; content_hash: string | null; activity: string | null; help_level: string | null; synthetic: boolean | null; received_at: string | null }
+  return (data as Row[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
-    .map((r) => ({ itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at }))
+    .map((r) => ({ attemptId: attemptIdentity(r.id), sessionId: r.session_id, itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at, contentHash: r.content_hash, activity: r.activity, helpLevel: r.help_level, synthetic: r.synthetic, receivedAt: r.received_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -258,11 +310,16 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   if (goalRes.error) throw new Error(`목표 조회 실패: ${goalRes.error.message}`)
   const doneRows = await selectSmall<{ task_id: string }>(() => db.from('csat_map_task_done').select('task_id').eq('user_id', userId), 'csat_map_task_done')
 
-  // 기준 시험 — 정답표(45문항 · 배점 합 100)가 갖춰진 평가원 시험 중 최근 N회
-  const examRows = await selectSmall<{ id: string; label: string; month: number | null; exam_year: number | null }>(
-    () => db.from('csat_exams').select('id, label, month, exam_year').eq('organizer', 'kice'),
-    'csat_exams',
-  )
+  // LM-G1.3a — 저장된 목표(점수 · 등급 · 시험 · 목표일) 최신 이력. 목표 시험이 기준 시험 범위를 정한다(미지정 = 기존 평가원 기본)
+  const saved: SavedPlans = await loadSavedPlans(db, userId)
+  const goalVersion = saved.goal ?? null
+  const goalExam = goalVersion?.exam ?? null
+  // 기준 시험 — 정답표(45문항 · 배점 합 100)가 갖춰진 시험 중 목표 시험 범위의 최근 N회. 학평 목표일 때만 교육청 회차도 읽는다
+  type ExamRow = { id: string; label: string; kind: string; month: number | null; exam_year: number | null; organizer: string }
+  const examRows: ExamRow[] = [
+    ...(await selectSmall<ExamRow>(() => db.from('csat_exams').select('id, label, kind, month, exam_year, organizer').eq('organizer', 'kice'), 'csat_exams')),
+    ...(goalExam === 'hakpyeong' ? await selectSmall<ExamRow>(() => db.from('csat_exams').select('id, label, kind, month, exam_year, organizer').eq('organizer', 'edu_office'), 'csat_exams') : []),
+  ]
   const keyRows = await selectByChunks<{ exam_id: string; no: number; points: number }>(
     examRows.map((e) => e.id),
     20,
@@ -273,13 +330,26 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   for (const k of keyRows) (keyByExam[k.exam_id] ??= []).push({ no: k.no, points: k.points })
   // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중)은 기준 시험 후보에서 뺀다(문항별 함정 계열 연결이 지도에 실리지 않게 · 판정 실패면 전부 빠져 지도는 준비 중)
   const heldExams = await embargoedExamIds(examRows.map((e) => e.id))
-  const candidates: ExamCandidate[] = examRows.filter((e) => !heldExams.has(e.id)).map((e) => ({
+  // 오답률 관측이 있는 회차(교육청 회차를 읽을 때만 묻는다 — 평가원은 기존 경로가 오답률을 따로 읽는다)
+  const officeIds = examRows.filter((e) => e.organizer === 'edu_office').map((e) => e.id)
+  const ratedOffice = new Set<string>()
+  if (officeIds.length) {
+    const rated = await selectByChunks<{ exam_id: string }>(officeIds, 20, (chunk) => db.from('csat_map_item_rate').select('exam_id').in('exam_id', chunk).limit(1000), 'csat_map_item_rate')
+    for (const x of rated) ratedOffice.add(x.exam_id)
+  }
+  const scoped: ScopeCandidate[] = examRows.filter((e) => !heldExams.has(e.id)).map((e) => ({
     id: e.id,
     label: e.label,
     held: (e.exam_year ?? 0) * 100 + (e.month ?? 0),
     itemCount: keyByExam[e.id]?.length ?? 0,
     pointsTotal: (keyByExam[e.id] ?? []).reduce((s, k) => s + k.points, 0),
+    organizer: e.organizer,
+    kind: e.kind,
+    month: e.month,
+    hasRates: e.organizer === 'kice' || ratedOffice.has(e.id),
   }))
+  const scope = scopeCandidates(goalExam, scoped)
+  const candidates: ExamCandidate[] = scope.candidates
   const selection = selectReferenceExams(candidates, settings.reference_exams)
   const examIds = selection.exams.map((e) => e.id)
   const examLabels = Object.fromEntries(examRows.map((e) => [e.id, e.label]))
@@ -389,7 +459,9 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     edges,
     tasks,
     settings,
-    goal: goalRes.data?.target_score ?? null,
+    // One immutable goal snapshot supplies score, scope and PLAN basis. The legacy
+    // latest-score table is only used when no versioned goal exists.
+    goal: goalVersion?.score ?? goalRes.data?.target_score ?? null,
     doneTaskIds: new Set(doneRows.map((d) => d.task_id)),
     selection,
     itemsByExam,
@@ -400,17 +472,19 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }
 
   // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
-  const allLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  let linksRead = true
+  const allLinks = await loadMapPracticeLinks().catch((e) => { linksRead = false; console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
   // Reveal Gate — 보류 시험 문항은 확인 링크 · 확인 결과(정오) · 수행 요약에서 뺀다. 판정 실패면 전부 뺀다(fail-closed · Codex P1)
   const gate = await itemRevealDecision(Object.values(allLinks).flatMap((l) => l.confirm.map((c) => c.target)))
+  if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
-  const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
+  const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
     return undefined
-  })
-  const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
-  const lifecycleActivity = await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined })
+  }) : undefined
+  const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
+  const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))
@@ -418,14 +492,61 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
   // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
   const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
-  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId)).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
+  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId), userId).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
   const practiceNext: Record<string, string> = {}
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
-  // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 못 읽으면 0(적용 단계는 「준비 중」으로 보인다 — 숫자를 지어내지 않는다)
-  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return { counts: {} as Record<string, number>, targets: {} as Record<string, { target: string; href: string; label: string }[]> } })
-  // 저장된 계획 — 못 읽으면 지도는 그리고 저장 기능만 끈다(저장됨으로 보이지 않게 not_installed 가 아니라 오류 표시)
-  const saved: SavedPlans = await loadSavedPlans(db, userId).catch((e) => { console.error('[csat-map v4 saved plans]', e); return { status: 'not_installed' as const, byTemplate: {}, goalVersionId: null, error: true } as SavedPlans })
+  // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 조회 오류는 오류 경로로 보낸다(정상 조회의 실제 0과 구분)
+  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks)
+  // Read existing source only: exact passage JSON binds progress and candidate availability.
+  const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x))
+  for (const a of lifecycleActivity ?? []) a.passageKey = a.itemRef ? passageKeys[a.itemRef] ?? null : null
+  // LM-G1.4 — 수행 기록 · 첫 시도 문항의 현재 주석 해시(기존 과제 레지스트리 · 판정 아님). 못 구하면 undefined → 현재성 UNKNOWN
+  let instrumentHashes: Record<string, string | null> | undefined
+  try {
+    const pairs = [...(lifecycleActivity ?? []).map((x) => [x.taskKey, x.itemRef] as const), ...(findAttempts ?? []).map((x) => [x.taskKey, x.itemRef] as const)]
+    instrumentHashes = linksRead ? await instrumentHashesFor(pairs, item => anchorGate(item, db), undefined, (key, error) => console.error('[csat-map instrument hash]', key, error)) : undefined
+  } catch (e) {
+    console.error('[csat-map instrument hashes]', e)
+    instrumentHashes = undefined
+  }
+  for (const [key, list] of Object.entries(transferTargets)) {
+    if (list.some(l => !passageKeys[l.target])) throw new Error('적용 후보의 지문 식별 자료를 확인하지 못했어요')
+    transferTargets[key] = list.filter(l => !!passageKeys[l.target]).map(l => ({ ...l, passageKey: passageKeys[l.target] }))
+    transferItems[key] = new Set(transferTargets[key].map(l => passageKeys[l.target])).size
+  }
+
+  // 저장된 운영량은 단계 판정의 입력이다. 실제 조회 실패는 기본량으로 대체하지 않고 오류 경계로 보낸다.
+  // v6.2 P-F8e — 저장된 Workspace 마다 주문 · 공급 기록(읽기만). 못 읽으면 error — 화면은 주문 단계를 표시하지 않는다
+  const supplyLedger: Record<string, SupplyLedger> = Object.fromEntries(await Promise.all(
+    Object.values(saved.byTemplate).map(async (w) => [w.workspaceId, await loadSupplyLedger(db, userId, w.workspaceId).catch((e) => { console.error('[csat-map v62 supply ledger]', e); return { status: 'error' } as SupplyLedger })] as const),
+  ))
+
+  // #281 E01 · E04 — 확인 · 전이 후보의 노출(모든 원장)과 정식 자격 reader. 실패는 error 로 남겨 화면이 「미노출」로 보지 않게 한다
+  const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
+  const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), assessCandidates)
+  // 정식 자격 — 원장은 관리자 전용 RLS 라 서버 전용 클라이언트로만 판정한다(없으면 적격 0건). 현재 주석 해시는 TASK 의 확인 과제 키가 하나일 때만 대 본다
+  let fqAdmin: SupabaseClient | null = null
+  try { fqAdmin = createAdminClient() as unknown as SupabaseClient } catch { fqAdmin = null }
+  const fqReader = await loadFqReader(db, {
+    admin: fqAdmin,
+    refs: assessCandidates,
+    tasks: [...new Set([...Object.keys(transferTargets), ...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.taskKey))].map(checkedTaskOfKey).filter((t): t is TaskId => !!t))],
+    currentAnnotation: async (task, ref) => {
+      const keys = checkKeysOfTask(task as TaskId)
+      if (keys.length !== 1) return null
+      // 현재 채점 레지스트리의 주석(ref = version · hash). 원문 조회 오류는 던져 FQ error 로(자료 부재 = null 과 구분)
+      const live = currentItemTask(ref)
+      if (!live || live.def.key !== keys[0]) return null
+      if (!(await anchorGate(ref, db, true))) return null
+      return { ref: live.ann.version, hash: live.def.hash(live.ann) }
+    },
+  }).catch((): FqReader => ({ status: 'error' }))
+
+  for (const [key, targets] of Object.entries(transferTargets)) {
+    transferTargets[key] = executableTransferTargets(targets, assessmentExposure)
+    transferItems[key] = new Set(transferTargets[key].map(l => l.passageKey)).size
+  }
 
   return {
     now: now.toISOString(),
@@ -438,6 +559,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       transferItems,
       transferTargets,
       saved,
+      supplyLedger,
+      assessmentExposure,
+      fqReader,
+      // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
+      target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
       viewer: userId,
     },
     model: buildMapModel(raw, examLabels),
@@ -452,6 +578,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     practiceLinks,
     findAttempts,
     lifecycleActivity,
+    instrumentHashes,
     practiceResults,
     practiceNext,
     records,
@@ -503,9 +630,9 @@ export async function loadLearnerSessions(db: Db, userId: string, trendIds: read
 /**
  * rev4 Workspace 「다른 글에 적용」 학습량 — 확인 과제 키마다 확인 묶음 밖의 실제 적용 문항 수.
  *   claim-support: 실학습 Practice 풀(practice-server) · 그 밖: 활성 문항 과제 적용(knowledge_applications csat_item_task · 상태 active).
- * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패면 0(fail-closed).
+ * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패는 오류 경로로 전달한다(실제 자료0과 구별).
  */
-async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<{ counts: Record<string, number>; targets: Record<string, { target: string; href: string; label: string }[]> }> {
+async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<{ counts: Record<string, number>; targets: Record<string, { target: string; href: string; label: string; passageKey?: string | null }[]> }> {
   const confirmOf = new Map<string, Set<string>>()
   for (const l of Object.values(links)) for (const c of l.confirm) {
     const s = confirmOf.get(c.taskKey) ?? new Set<string>()
@@ -532,7 +659,7 @@ async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>)
   }
   const candidates = [...new Set([...byKey.values()].flatMap((s) => [...s]))]
   const gate = await itemRevealDecision(candidates)
-  if (gate.failed) return { counts: {}, targets: {} }
+  if (gate.failed) throw new Error('적용 문항의 공개 적격성을 확인하지 못했어요')
   const counts = Object.fromEntries([...confirmOf.keys()].map((k) => [k, [...(byKey.get(k) ?? [])].filter((i) => !gate.held.has(i)).length]))
   const targets: Record<string, { target: string; href: string; label: string }[]> = {}
   if (confirmOf.has(PRACTICE_SLUG)) targets[PRACTICE_SLUG] = [...transferPhase].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/practice/${PRACTICE_SLUG}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' }))
@@ -627,4 +754,22 @@ async function logMapDecisions(userId: string, links: Record<string, MapPractice
   const { data: who } = await (createAdminClient() as unknown as SupabaseClient).auth.admin.getUserById(userId)
   const synthetic = isSyntheticEmail(who?.user?.email ?? null)
   await recordDecisions(userId, synthetic, entries)
+}
+
+/** No schema change: exact canonical source JSON; unknown/empty passages cannot prove distinct progress. */
+export async function loadPassageKeys(db: Db, refs: readonly string[]): Promise<Record<string, string>> {
+  const wanted = new Set(refs)
+  const exams = [...new Set(refs.map(x => x.split('#')[0]).filter(Boolean))]
+  if (!exams.length) return {}
+  const rows = await selectByChunks<{ exam_id: string; no: number; passage: unknown }>(exams, 10,
+    chunk => db.from('csat_items').select('exam_id, no, passage').in('exam_id', chunk), 'passage identity')
+  const out: Record<string, string> = {}
+  for (const row of rows) {
+    const ref = row.exam_id + '#' + row.no
+    if (!wanted.has(ref) || row.passage === null || row.passage === undefined) continue
+    const value = canonicalJson(row.passage)
+    if (value === '""' || value === '[]' || value === '{}') continue
+    out[ref] = createHash('sha256').update(value).digest('hex')
+  }
+  return out
 }

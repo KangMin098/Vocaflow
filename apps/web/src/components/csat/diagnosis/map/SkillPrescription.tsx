@@ -4,7 +4,7 @@
 import { Lock, Route } from 'lucide-react'
 
 import { CURRICULUM, READINESS_LABEL, TRANSFER_HREF, lifecycleCells, repairProtocol } from '@/lib/csat/map/curriculum'
-import { NO_EVIDENCE, nextLifecycleAction, type LifecycleEvidence } from '@/lib/csat/map/lifecycle-evidence'
+import { NO_EVIDENCE, nextLifecycleAction, transferFinished, type LifecycleEvidence } from '@/lib/csat/map/lifecycle-evidence'
 import type { SkillDiagnosis, SkillStatus } from '@/lib/csat/map/skill-diagnosis'
 import { skillMessage } from '@/lib/csat/map/skill-diagnosis'
 import { STAGE_WORD, type StepKey } from '@/lib/csat/map/learner-path'
@@ -108,7 +108,7 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks, ste
             )}
             {/* 처방은 직접 확인 뒤에만 연다 — 다른 글에 적용 = Practice · 다시 확인 = 확정에 쓰지 않은 · 아직 풀지 않은 확인 문항 */}
             {opened && g.stage === 'TRANSFER' && (
-              <span className={l.nextList} data-testid="rx-transfer-state" data-done={!!ev.transferAt}>{ev.transferAt ? '다른 문항에 적용한 기록이 있어요.' : ev.transferReady === false ? '이 원리를 다른 글에 적용할 문항을 준비하고 있어요. 그동안은 다시 확인으로 넘어가요.' : '확인 묶음에 없는 다른 문항에 같은 원리를 적용해 보세요.'}</span>
+              <span className={l.nextList} data-testid="rx-transfer-state" data-done={transferFinished(ev)} data-progress={ev.transferPlanned ? `${ev.transferDone ?? 0}/${ev.transferPlanned}` : ''}>{transferFinished(ev) ? '계획한 만큼 다른 문항에 적용한 기록이 있어요.' : ev.transferPlanned && (ev.transferDone ?? 0) > 0 ? `다른 문항에 ${ev.transferDone}번 적용했어요 — 계획 ${ev.transferPlanned}지문 중이에요. 적용 경험은 실력 판정이 아니에요.` : ev.transferReady === false ? '이 원리를 다른 글에 적용할 문항을 준비하고 있어요. 그동안은 다시 확인으로 넘어가요.' : '확인 묶음에 없는 다른 문항에 같은 원리를 적용해 보세요.'}</span>
             )}
             {opened && g.stage === 'TRANSFER' && transferHref && (
               <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">다른 글에 적용하기 →</a>

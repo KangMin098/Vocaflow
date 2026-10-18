@@ -1,0 +1,34 @@
+{
+  "observedAt": "2026-10-16 14:44:22.039738+00",
+  "viewDefinitionSha256": "086695e0d8fced361d31dd235434a62a3c682e915142825bdd02bf6fe9576f94",
+  "firstSelection": "DISTINCT ON(user_id,task_key,COALESCE(item_ref,empty),phase) ORDER BY answered_at,id",
+  "selectsAttemptId": true,
+  "securityInvoker": true,
+  "attemptsRls": true,
+  "columnAudit": {
+    "observedAt": "2026-10-16 15:10:36.739686+00",
+    "attemptsTable": "learning_task_attempts",
+    "firstView": "learning_first_attempts",
+    "columns": [
+      "id",
+      "user_id",
+      "task_key",
+      "application_id",
+      "trial_id",
+      "synthetic",
+      "item_ref",
+      "content_hash",
+      "phase",
+      "response",
+      "is_correct",
+      "sec",
+      "answered_at",
+      "session_id",
+      "activity",
+      "help_level",
+      "client_mutation_id",
+      "received_at"
+    ]
+  },
+  "stockOmitted": "Snapshot occurred during owned synthetic tests; not a clean learner baseline. Read-only catalog query; no DB/RPC/RLS changes."
+}

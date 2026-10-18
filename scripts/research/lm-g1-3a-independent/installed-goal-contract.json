@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-10-16",
+  "functions": [
+    {
+      "proname": "csat_map_goal_set",
+      "definition": "CREATE OR REPLACE FUNCTION public.csat_map_goal_set(p_user uuid, p_score smallint, p_grade smallint, p_exam text, p_date date, p_client_key uuid)\n RETURNS bigint\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'pg_temp'\nAS $function$\ndeclare v_id bigint;\nbegin\n  if p_user is null or p_client_key is null then raise exception 'goal_invalid: user/client_key' using errcode = '22023'; end if;\n  if p_score is null or p_score not between 0 and 100 then raise exception 'goal_invalid: score' using errcode = '22023'; end if;\n  perform pg_advisory_xact_lock(hashtext('map_goal:' || p_user::text));\n  select id into v_id from public.csat_map_goal_version where user_id = p_user and client_key = p_client_key;\n  if found then return v_id; end if;\n  insert into public.csat_map_goal (user_id, target_score, updated_at) values (p_user, p_score, now())\n    on conflict (user_id) do update set target_score = excluded.target_score, updated_at = now();\n  insert into public.csat_map_goal_version (user_id, target_score, target_grade, target_exam, target_date, client_key)\n    values (p_user, p_score, p_grade, p_exam, p_date, p_client_key) returning id into v_id;\n  return v_id;\nend $function$\n",
+      "security_definer": true,
+      "config": [
+        "search_path=public, pg_temp"
+      ],
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    }
+  ]
+}

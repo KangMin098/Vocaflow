@@ -1,0 +1,7 @@
+// scripts/research/lm-g1-3a-independent/catalog.mjs
+import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';
+const root=path.resolve(import.meta.dirname,'../../..'),req=createRequire(root+'/apps/web/package.json'),{createClient}=req('@supabase/supabase-js');const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}});
+const take=async q=>{const r=await q;if(r.error)throw r.error;return r.data};
+const ex=await take(db.from('csat_exams').select('*').in('organizer',['kice','edu_office']).order('id'));console.log('fields',Object.keys(ex[0]??{}));
+const out=[];for(const e of ex){const keys=await take(db.from('csat_dx_answer_key').select('no,points').eq('exam_id',e.id));const rates=await take(db.from('csat_map_item_rate').select('no,error_rate').eq('exam_id',e.id));out.push({id:e.id,label:e.label,organizer:e.organizer,month:e.month,exam_year:e.exam_year,kind:e.kind,exam_type:e.exam_type,diagnosis_ready:e.diagnosis_ready,keyCount:keys.length,total:keys.reduce((s,x)=>s+x.points,0),rateCount:rates.length,rateNos:rates.map(x=>x.no)})}
+fs.writeFileSync(path.join(import.meta.dirname,'local/catalog.json'),JSON.stringify({at:new Date().toISOString(),fields:Object.keys(ex[0]??{}),exams:out},null,2));console.log(JSON.stringify(out.filter(e=>e.organizer==='kice'&&e.month!==11&&e.month!==6&&e.month!==9)));console.log('exams',out.length);

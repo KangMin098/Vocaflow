@@ -1,5 +1,22 @@
 # CHANGELOG
 
+- fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.
+
+- Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
+
+- Factory I1 승인 패키지(미적용): 공급 노출 판정에 G2 · 세션 · 함정 · 복습 원장 포함, 승인 범위(public + assessment) · 철회 직렬화 · 수량 상한, 부분 납품(partial) · 공용 Product Order 계보(별도 승인) SQL 과 생성된 되돌리기. 격리 PGlite 37 · 실제 PostgreSQL 동시성 8/8. 앱은 검수 전 해설을 「지금 읽을 수 있음 · 수업용 검수 전」으로 분리.
+- PR #277 I0 독립 수용: 계약 77·광역 단위 2,603·PC 회귀 223조건. CONTRACT_ONLY이며 실제 Factory는 미연결; C/B NULL 검수·권한 및 노출/승인 blocker는 미적용 유지. [근거](./research/factory-i0-277-independent/ACCEPTANCE.md).
+
+- LM-G1.2 독립 T2를 ACCEPT_WITH_LIMITS로 수용하고 A–G 근거·실패 원장·13개 화면 해시를 보존했다. 콘텐츠/승인/효과 검증 경계를 구분했다.
+
+- LM-G1.2: 응답 전 닫힌 편집기에서 제출 후 바뀌지 않은 메모를 새 미저장 초안으로 재생하지 않도록 보완했다. 추가 편집은 보존한다.
+
+- LM-G1.2 PLAN 복구: 명시 초기화/빈 메모를 옛 응답보다 우선하고 보조 전이량의 중복 복원 차단을 제거했다. 중심 공급 부족 검사는 유지했다.
+
+- LM-G1.2 추가 독립 반례: PLAN 조회 실패의 기본량 대체를 막고, 닫힌 편집기의 응답 후 재진입에서도 초안·메모를 보존했다.
+
+- LM-G1.2 독립 반례: 미저장 PLAN 수량의 단계 결속·단계 변경 재계획과 지연 응답 뒤 새 초안 보존을 보완했다. DB/RPC 변경 없음.
+
 - feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
 
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.
@@ -11,6 +28,91 @@
 ---
 ## Unreleased (v06.34 → next)
 - feat(csat): v3.2 「내 말로 이해하기」 — 원문 이해 장면에서 의미를 내 말로 쓰고 저장(`DissectionRecord.meaningNotes` · 새 테이블 없음) · 검수된 쉬운 말 · 지킬 조건과 나란히 대조(자동 채점 · 점수 없음) · 고쳐 쓰기(처음 설명 보존 · 달라진 점 선택) · 앞뒤 관계 · 글 전체 단계로 이어 가기. 원문 이해 교수 설명 2026 수능 27문항(파일럿 8 + 확대 19, 독립 검수) · 학습자 경험 감사 뒤 부분 보강 · 글 전체 통합 단계 · 읽기의 경계 · 읽어 주기(TTS, 검수 본문만) · 계측 6종(마이그레이션 `20261014150000_funnel_allow_csat_meaning`, 승인 후 적용 · 83 → 89종)
+
+
+- docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안
+
+- feat(csat): 확인 과제 제출 뒤 학습자 본인 납품에 G2 시도 결속(workspace_delivery_attempt_record · 학습자 세션 · 제출 id 고정 요청 키 · 실패해도 기록 유지) · r5-bind 러너 I2 경로 정정
+
+- docs(csat): R5 첫 적격 공급 DB 쓰기 4단계 승인 패키지(등록부 · 자격 · 승인 · 공급 — 실행 주체 · 검증 · 되돌리기, 사람 Gold·권리 판정 전 실행 안 함)
+- feat(db): 개발 DB 에 Factory I1 DB-2 · I2 주석 결속(`20261018120000`) · 납품↔G2 결속(`20261018120100`) 적용. I2·G2 는 새 승인형 러너 `scripts/db/r5-bind/deploy.mjs`(승인 창 난수 · 자동화/CI 차단 · 순서·재적용 차단 · 단위 회귀 7)로 실행. 이력 SHA 4건 승인값 일치 · 검증 i2 10/10 · g2 11/11 · 학습 기록 불변. 자격·승인·등록부 행 0(사람 Gold·권리 판정 전).
+
+- feat(db): Factory I1 러너 승인 창 경로 — TTY 가 없으면 정본 파일 실행 확인 + `--approval-nonce` 로 승인 티켓을 1회 소비(PR #287). 자동 실행·CI·isolated·복사본·거부/재사용 티켓은 접속 전 종료 2, TTY 경로 유지. 접속 문자열은 셸 → `.env.local` 순. DB-1/DB-2 SQL SHA 불변 · 격리 PG17 47/47.
+
+- chore(db): R5 I2 주석 결속·납품↔G2 결속 SQL 을 버전 마이그레이션으로 승격(20261018120000 · 20261018120100, 바이트 불변 · 2026-10-18 사용자 승인) · 개발 DB 적용 완료(승인형 러너 r5-bind · 이력 SHA 4개 승인값 일치 · I2 verify 10/10 · G2 11/11 · 학습 기록 행 수 불변 · 자격·등록부·결속 0행)
+
+- feat(csat): R5 학습 경로 안내 — Inspector 에 지금 필요한 능력·자료 준비 상태 6범주(검수 전 자료는 공급으로 세지 않음)·자격 0건 시 할 일·출제 원리 6단계·복귀 요약(PLAN 유지/제안 구분). 납품↔G2 결속 보류 SQL·통합 승인 패키지·2020#24 검수 패킷 추가(DB 미적용)
+
+- feat(csat): R5 정식 자격 reader — 원장 결속(역할 축·TASK·원천/Gold·철회 안 된 승인·대체·현재 revision·현재 주석 해시)을 서버 전용 읽기로 판정, 적격은 역할에 묶음. 자격 행이 없으면 0건(DB 변경 없음)
+
+- feat(agents): 승인형 DB 배포 경로 — Claude Code 가 `node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` 를 실행하면 새 PreToolUse 훅 `db-approval-hook.mjs` 가 승인 창(ask)을 띄우며 명령 끝에 1회용 `--approval-nonce` 를 붙인다(updatedInput). 티켓 파일엔 난수 해시만(`agents/scripts/db-approval.mjs`, 러너·단계·SHA·5분). 허용된 명령만 난수를 가지므로 거부된 승인 창의 티켓 · 작업 디렉터리 이동 · 복사본 · node -e 실행은 소비 못 한다(PR #287 독립 리뷰 P1 2건 반영). 변형 호출 · 직접 붙인 난수 · 티켓 디렉터리 쓰기는 deny, 조회 명령은 통과. Codex·자동 실행·CI 미발급 · allow 규칙 금지 회귀. migration 없음.
+
+- docs(db): DB286을 ACCEPT_WITH_LIMITS·DEPLOY_READY로 기록했다. PostgreSQL 47/33/추가8·CI 생명주기2·집중 단위9, 코드 HEAD 필수 CI8종 및 빈 Supabase 새 실패0을 확인했다. 실제 개발 DB는 미적용이며 새 SHA 승인·DB-1 이력/verify 로그 전에는 safe-merge를 실행하지 않는다.
+
+- fix(ci): DB286 빈 Supabase에서 기존 migration 롤백으로 사라진 helper 두 개의 정본 본문/ACL만 CI 전용으로 복구한다. 운영 SQL 가드/전체 SHA는 불변이며 없는 원천 표는 호출 시 오류로 차단한다. DB-2의 초기 배포 전용 빈 원장 검사도 분리해 정상 원장 1행 보존을 검증했다.
+
+- fix(db): PR #286 독립 검증 — 자동/임의 승인·접속 옵션/포트·helper 속성·COMMIT 미확정·이력 경합·DB-2 검증 반례를 보완하고 #283 B NULL 버전 보완만 동기화했다. 새 DB-1 `061a48a8…`, DB-2 `2165015d…`는 미적용·새 승인 대상. PR CI의 공유 개발 DB 비밀값 전달을 차단했다. [독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md).
+
+- chore(db): Factory I1 배포 패키지 — PR #280 C→B→I1-S 를 원본 바이트 그대로 담은 버전 migration `20261017200000`(DB-1, sha256 `766b8884…`)과 `supabase/migrations` 밖의 I1-P DB-2(`20261017200100`, `7c1cc2ed…`). 가드(이력 · 전제 · 대상 부재 · helper drift · xid 트립와이어 · 커밋 가드 · 카탈로그 diff = 허용 목록) · 러너 `scripts/db/factory-i1/deploy.mjs`(check · dry-run · preflight · apply · verify) · 커밋 뒤 되돌리기 2종. 격리 PostgreSQL 17 배포 절차 47/47 · 배포 파일 위 기존 33조건 33/33. 개발 DB 는 읽기만(checkpoint: DB-1 차단 0). **미적용** — [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)
+
+- fix(csat): PR #285 독립 반례 수정 — 원장 전체 건수·지문 식별 누락 대조, 미노출 전이·예약 지문 보호와 Workspace 실행 정합, 연습 전이의 독립 효과 표본 제외. 선택 문항별 E2E 키·골격·정답 결속, 0문항 안내, FQ 상태와 서버 쓰기 차단을 검증했다. [독립 수용 기록](./research/r5-285-independent-20261017/ACCEPTANCE.md). migration·운영 기록 변경 없음.
+
+- PR #283 독립 검증: 주석 결속 승인안의 NULL 권한·적용 순서·현재 주석 대조 누락을 보완했다. 공급/현재 충족도의 ref·hash·revision·TASK 비교와 과거 이력 보존을 격리 PostgreSQL에서 검증. SQL/배포 동기화 미승인, C/E/F/H UNKNOWN 및 실제 I2 BLOCKED 유지. [수용 기록](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
+
+- docs(csat-learner): V2-F2 타당도 파일럿 — A3/A2/A4 비교(A3 채택 · A2 는 오답 설계 원리로만 · A4 보류), 구 판별 시험 추가, 4문항 v2 DRAFT(후보 2 · 조건부 1 · 자리 없음 1)는 비공개 원장 해시만, 독립 재검수 프로토콜 제안 · 제품 코드 · DB 변경 없음 · 독립 검수 f2-review-r001 결과 후보 PASS 0 · R0′ 대조군 2/2 탐지 · A3 미확정 · Instrument v2 보류 · V2 학습 가능 문항 0 유지 (`V2_F2_REVIEW_RESULTS.md` · `docs/csat-learner/v62/V2_F2_VALIDITY_PILOT.md`)
+- PR #279 Codex-C 독립 수용: F1을 ACCEPT_WITH_LIMITS로 판정(실앱 214·실제 패널 50·광역 단위 2,615). F2/R1·콘텐츠 0의 잔여 범위와 최초 실패를 [수용 보고서](./research/v2-f1-independent/ACCEPTANCE.md)에 보존했다.
+- PR #279 독립 F1 검증: R/X 원문 유형과 밑줄 표지 불일치를 서버에서 차단했다. 최초 실패·원문 관문 회귀를 보존하며 D는 저장 뒤 연습, F2/R1·콘텐츠 미출시는 유지한다. DB/RPC/RLS 변경 없음.
+- fix(knowledge): V2-F1 — 뜻 선택지가 판별 정답을 드러내는 결함 수정. 제출 전 화면 모양에서 뜻 선택지 제거 · 확인 기록과 정오는 B 판별(+근거)만 · 뜻은 B 를 맞힌 뒤의 기록 없는 연습 · 밑줄 표지(①~⑤/(a)~(e)) · 문장 논리 문항 출시 제외 · 합의 주석 0 · 출시 0 그대로 · DB 변경 없음
+- PR #281 R5 사전 감사 독립 수용(연구 한정): 13개 후보·공개 해설 113개·I2 적격 0을 재현하고, trap 노출 누락·주석 hash 결속·G2 납품 귀속 공백을 검증했다. 원 보고의 무노출 대안·phase·NOT_NEEDED 서술을 정정했다. DB 변경·실제 납품 없음. [독립 보고](./research/factory-i2-independent-20261017/ACCEPTANCE.md).
+- Factory I2 R5 첫 자료 자격 패킷(`docs/research/factory-i2-r5-qualification-20261017/`): 2020#24 전이 — A(공식 짝수형 문제지 · 정답표 대조) · B(AI 한정) PASS, C · E · F · H UNKNOWN → BLOCKED_EVIDENCE. 주석 hash 결속 보류 SQL `_pending_workspace_supply_c_annotation_binding.sql`(미적용 · PGlite 7/7). DB 쓰기 0.
+
+- PR #277 I0 독립 반례 보완: 생산 명세·정책·수량의 공유 키 결속, run/봉인 자기보고 승격 차단, 수량/중복 재고/stock 요청/계보/교육 매핑 경계를 강화했다. C/B SQL은 미적용 blocker로 유지하며 실제 공장 연결은 CONTRACT_ONLY다.
+
+- feat(csat-map): I0 학습지도 × 교재공장 Factory Bridge(CONTRACT_ONLY) — TASK↔공장 Crosswalk 후보 · 단위 projection · 적격 재고 우선 해결기 · FactoryRequest→ProductionNeed · 주문↔cell↔산출물 계보 · C/B SQL 감사(G2 노출 누락 · 승인 범위 불일치 재현)와 미적용 delta · DB 변경 없음
+- Factory I2 R5 공급 사전 감사(읽기 전용): claim-support 후보 13(확인 9·전이 4), I2 영속 납품 적격 0(C/B 미설치·R5 FQ 0건). 확인 시도가 phase=practice로 기록되는 문제, 연습 풀과 평가 자료가 겹치는 문제, 2026#23 이중 출시를 확인했다. [보고서](./research/factory-i2-r5-preflight-20261017/REPORT.md)
+
+- PR #276 V2 비활성 계약 독립 수용: 실제 앱 214·격리 패널 28·집중 단위 22개 통과. [A–F 판정/원장](./research/lm-g1-5a-independent/ACCEPTANCE.md)을 보존하며 실제 V2 수직 경로는 BLOCKED_CONTENT다.
+
+- PR #276 독립 반례 보완: V2 검수 메타·중복 정본·현재 원문/정답 결속, 기존 E 도구 우선순위와 저장 응답/중복 클릭 안전성을 강화했다. 콘텐츠 0개와 실제 V2 BLOCKED_CONTENT는 유지한다.
+
+- feat(knowledge): LM-G1.5a V2 문맥 의미 선택 instrument — 기출 어휘 문항의 맞지 않는 밑줄(B) · 문맥 뜻(D) 채점, 근거 문장(C)은 검수된 경우만 · 정오와 분리 · 기존 item-tasks · 기록 API · 문항 화면 연결 · 합의 주석 0개라 비활성(지도 V2 content_needed 그대로) · DB/RPC/RLS 변경 없음
+- LM-G1.4 독립 T4: DB 첫 시도 ID와 원장 ID를 정확히 연결하고 미식별·주석 UNKNOWN의 성공 승격을 차단했다. 기존 채점 경로의 골격·본문 결속을 재사용하고 일부 실패·연결 조회 실패·과거 asof를 보류한다. 원장 관찰과 현행 도구 확인·정오·공유 집계를 분리하며 도구 설명의 44px 대상을 보완했다. 기존 숙달·단계 정책과 DB/RPC/RLS는 보존한다.
+- feat(map): LM-G1.4 증거 자격 · 주장 범위 — 지금 확인 · 교수 경로 · 다른 글 적용 · 지연 확인(NOT_ESTABLISHED)을 분리해 팝업 · 상세 서랍 · Workspace 창에 같은 값으로 · 시도별 CONFIRMED/UNKNOWN/STALE/INELIGIBLE · R5 도구 범위 · 반례 E01–E20 · DB/RPC/RLS 변경 없음
+- LM-G1.3a 독립 T3 검증: 목표 키 경합 후 저장 행 대조, 서울 날짜/재전송, 단일 목표 snapshot·PLAN 관찰 버전 및 저장 후 본문 대조, 시험 kind와 학평 적격 경계 보완. 응답 유실 시 편집값/요청키를 유지해 이전 목표 재저장을 막는다. DB/RPC/RLS 변경 없음.
+- feat(map): LM-G1.3a 목표 통합 — 목표 시험 · 등급 · 목표일을 기존 csat_map_goal_set 으로 저장(같은 키 다른 본문 409) · 목표 시험이 기준 시험 범위를 정함(수능 · 6월 · 9월 · 학평은 자료 없으면 미지원 · 대체 없음) · 저장 등급 ≠ 참고 구간 · PLAN 이력에 목표 버전 · 실제 DB/브라우저 1440/1280 20/0 · DB/RPC 변경 없음(LM-G1.3b 승인안 분리)
+
+- fix(csat): LM-G1.2 복원은 계승된 전이 운영량도 현재 자료와 대조하고 전이0을 거절한다. 지문/후보/공개 적격성 조회 실패는 실제 자료0과 구별하여 오류 처리한다. DB/RPC/RLS 변경 없음.
+
+- fix(csat): LM-G1.2 새 메모를 초안 버전과 함께 보존하고, 보조 Workspace의 전이량은 중심 계획의 읽기 전용 참조로 통일한다. 보조 덮기 요청은422. 기존 DB/RPC/RLS 변경 없음.
+
+- fix(csat): LM-G1.2 독립 반증 — 저장 중 새 편집은 성공한 PLAN 버전으로 인계해 후속409를 방지하고, 이전 단계 복원 후 TRANSFER 표시는 전체 이력의 운영량과 일치시킨다. DB/RPC/라우트 변경 없음.
+- fix(map): LM-G1.2 후속 반례 — PLAN의 늦은 응답이 새 초안을 지우지 않도록 가드하고, 중심 Workspace의 전이 운영량을 전체 변경·복원 이력에서 재구성. 자료 부족 시 기존 DB 검증을 유지하며 확정을 대기.
+- fix(map): LM-G1.2 독립 반례 — 전이 진행·링크를 기존 원문의 지문 식별값에 결속하고 자료 부족의 자동 운영량 축소·1,000행 절단·이전 회차 보류·다른 단계 PLAN 수량 유입을 차단. DB/RPC/RLS 변경 없음.
+- feat(map): LM-G1.2 R5 수직 — TRANSFER 계약(경험 · 진행 · 준비 · 증거 분리 · 1회 ≠ 2지문 · 저장 계획량 반영 · lifecycle 4칸도 같은 기준) · 근접 해설 반례 A–H 고정(2분 정책 불변 · 영향 실측 보류 0) · 보류 사유 안내 · 실제 DB/API/브라우저 R5 수직 1440/1280 20/0 · PLAN 멱등/409/조정/복원/실패 표시 · DB/RPC 변경 없음
+- fix(map): PR #272 독립 수용 보강 — TASK가 다른 전이 수행이 R5 다음 링크를 소진하던 반례 수정, 1280/1440 단계·실행 URL 및 실존 타인 Workspace 경계 검증. 최초 G02/G03와 revision 2 보존, 독립 revision 3·TRANSFER/노출 후속 계약 기록.
+- fix(map): LM-G1.1 R5 다음 행동 단일 출처 — 바로잡기 단계는 수행량이 아니라 성공 근거(이번 회차 막힌 문항 정답 · lifecycle 과 같은 repairWindow/repairAttempts)로만 넘어감 · 실패 재시도 링크 유지 · Workspace 행이 막힌 단계를 확인 문항으로 대체하지 않음 · resolved 문구를 실제 근거로(판정 불변). G02 revision 2 · 단위 2,366 · 브라우저 9/0 · LM-W1 36/0 · 복귀 7/7 · DB 변경 없음
+- fix(map): PR #270 독립 수용 P2 보강 — Workspace 발견/양방향 실제 이동, TASK 상세 affordance·팝업 키보드 진입, 과거 점수 기준 표시. 기존 테스트 대체 원장·실측·LM-G1 경계 보존.
+- feat(map): LM-W1 학습지도 × Workspace 화면 통합 — 상단 한 줄 띠(목표·기록·상태·다음 행동) · 지도 캔버스 화면 폭 전체 · 지도 바로 아래 Workspace 리스트(대표→나머지→준비 중 · 단계 점 · 수행량 · 상태 · 행동) · TASK 빠른 팝업 · Workspace 상세 모달(개요/학습계획=PlanSection 재사용) · 근거 드로어 · TASK↔Workspace 양방향 강조 · map_task/ws 주소 보존. FocusStrip 삭제 · 판정 엔진·DB 변경 없음 · 3B 실제 사이트 조사 반영(초점 · 떠 있는 알약) · 첫 화면 지도 면적 15.5→53.7%(1440) · 통합 e2e 36/0 · 복귀 7/7 · ref-compare 8/8
+- docs(map): LM-G1 최종 목표 Gap Audit·최소 구현 로드맵·R5 수직 수용 계약. 읽기 전용 DB 감사와 83개 순수 테스트로 단계 준비 조건 불일치 및 목표/지원/효과 검증 경계 기록. 제품·DB 변경 없음.
+- fix(map): v6.2 P-M4b — 1280 영역 이름 잘림 제거(2줄 머리) · 과거 기준 보기 읽기 전용 경계(현재 기준 링크) · 클릭 영역 44px 실측(뒤에서 덮던 32px 규칙 정리) · 브라우저 수용 16/0 · 학습자 12/0/1 SKIP · R5 6/6 · 3B ref-compare 8/8 · E 격리 계약
+- feat(map): v6.2 P-M4 학습자 경험 — 「지금 무엇부터」(우선 TASK 1~3 · 왜 · 지금 · 다음 행동 · 할 수 없는 TASK 이유) · Inspector 기본(지금·목표 → 학습 경로·자료) / 근거 상세 접힘 · 학습자 시나리오 e2e 12 PASS·1 SKIP · Factory Integration v1.2 Codex ACCEPT 정본 기록(Gate C MOCK_ONLY)
+- fix(map): Factory Integration v1.2 — Codex 최종 P1 2건(lifecycle 위장: 주체·서버 lifecycle 스냅숏·정확한 전환 기록 / 기존 자산 필수 7자격 own true) · 최종 진단 46/46 · 정정 82/82 · R5 브라우저 e2e 6/6 원시 증거(evidence/r5-e2e-20261015). 실제 공장 MOCK_ONLY
+- fix(map): Factory Integration v1.1 — Codex 독립 검토 P1 6·P2 5 수정(manifest 상태/출처/역할/중복 검사 · 산출물 주체 결속 판정 · Trusted Qualification Context · 기존 자산 래퍼 엄격화 · 표준 JSON·수요 서명 v2 · 수량 6단계 · 원문 분석 D 필수) · 82/82(입력 정정 3, 근거 문서) · Schema·예시. 실제 공장 연결은 MOCK_ONLY
+- feat(map): v6.2 학습지도×Workspace×교재공장 연계 계약 — WorkspaceDemand→FactoryRequest(생산 단위 지원 구분·멱등) · FactoryResultManifest(MOCK/REAL/EXISTING·검사) · FQ 자격 연결 · WorkspaceContentBinding · mock 공장 · 시나리오 A~H 19. 공장 내부·DB·실제 생산 변경 없음(MOCK_ONLY)
+- feat(map): v6.2 P-F8e 학습지도 공급 단계 — 실제 주문·공급 행이 있을 때만 「주문됨·공급 완료」, 기록 없음·미저장·못 읽음을 다르게 표시 · 서버 읽기(supply-store, 사용자·Workspace 필터) · R5 e2e 6/6 · 관리자 화면은 기존 주문 마법사 재사용 설계
+- feat(practice): v6.2 P-F8d 어휘 교재 연습 첫 수직 경로 vocab_choice — 기존 DcpPlayer 재사용 + 밑줄 선택 컴포넌트 · 격리 화면 /dev/vocab-practice(합성 문항) · grade_dcp_item 확장 보류 SQL(승인안 A3, 기존 choice NULL 통과 결함 함께) · 학습자 화면 비공개
+- fix(map): v6.2 P-F8b·c 승인안 B·C 보강(보류 SQL) — 없는 산출물·원천 null·검수 뒤 내용 변경 공급 거절 · R5 노출(응답·같은 회차·정규화 동일 지문) · 새 DCP 직접 평가 HOLD · 같은 요청 키 다른 본문 거절 · 직접 INSERT 가드 · 계정 삭제 cascade 허용 · 실제 PostgreSQL 17 다중 연결 동시성 7/7 · FQ1.1 16개 원장 인수(승인 0). DB 변경 없음
+- feat(map): v6.2 P-F7b·c·d 영속 수요·주문·공급·자격 원장 보류 SQL(승인안 B·C) — 복합 FK 소유권 · 줄 단위 주문(열린 주문 하나 · 이유·부모) · 원자 이벤트(직접 UPDATE 거부) · 공급 시점 재검증(현재 자격·승인 철회·원천·G) · 격리 Postgres(PGlite) 35건 실행 검증 · 연구 플래그 승인 불인정 · 실패 주문 종결. DB 변경 없음
+- fix(textbook): v6.2 P-F7a 연습 문항 조회를 권 단위 함수 우선으로 전환(함수 없을 때만 옛 V레벨 함수 · 권한 오류는 우회 안 함) · 승인안 A 2판 SQL(권 유형까지 결속 — 어휘·구문 12권이 독해 문항을 내던 결함) · 접근 경로 8종 감사. DB 변경 없음
+- fix(ci): 루트 글꼴 9벌을 next/font/google → @fontsource 5.3.0 자체 호스팅(OFL-1.1, 같은 글꼴·굵기) — 외부 프록시 차단 상태 clean build 통과 · 외부 글꼴 요청 0 · 한글 unicode-range 조각 유지 · preload 없음
+- feat(map): v6.2 P-F6 — 연습 RPC 발행 결속 수정판(승인안 A · V레벨 매개변수 위조 경로 제거 · 권→V레벨 대응 카탈로그 생성 · 보류 SQL, 미적용) · FQ1.0 A~H ↔ 공급 판정 어댑터(unknown·not_applicable 은 null · revision/TASK/역할 결속 · 실제 판정 20건 공급 0). DB 변경 없음
+- feat(map): v6.2 P-F4c · P-F5 — R5 기존 콘텐츠 재사용 수직 E2E(읽기 전용 5/5 · 저장은 승인안 B 대기) · V2 단위 생산 dry-run(공장 권 단위 ↔ Workspace 지도 연습 묶음 구분) · 연구 v1.5 스냅샷(후보 8 · 공개/평가 자격 0) · 미지원 시험 원천(2014A · 2014B · M2009) 생산 제외. DB · 생산 변경 없음
+- feat(map): v6.2 P-F4b 영속 수요 · 주문 · 공급 서버 계약 — 정규 본문 SHA-256 서명 · 본문 비교(같은 키 · 다른 본문 거절) · 주문 상태 기계(실제 생산 실행 · 자격 · 이유 필수) · 공급 충족도(전부/일부/없음, null 자격 ≠ true) · 승인안 B(수요 · 주문 · 이벤트 · 공급 표) · C(검수 행만 생기는 자격 원장) 설계. DB 변경 없음
+- fix(textbook): 학습자 교재 발행 게이트(v6.2 P-F4a) — 권 상세의 목차 · 미리보기 · 단어 · 연습 링크와 연습 화면을 textbook_volume_renders.status=published 일 때만(서버 키로 상태만 읽음 · 실패 시 막음). 발행 19권 회귀 0. 연습 RPC 결속은 승인안 A. DB 변경 없음
+- feat(map): v6.2 P-F0~F3 — 교재공장 감사(영속 주문 · P01~P20 · Academic Reading 계약 없음, 권 단위 생산, 교재 화면의 발행 승인 미적용 결함) · WorkspaceDemand 계약(R5/E3/V2/S5 같은 계약, 재고 0 ≠ 무관) · 기존 자산 공급 판정(A~G 자격) · 공장 명세 dry-run · Inspector 「지금 단계에 필요한 자료」. DB 변경 없음(승인 계약 문서화)
+- feat(map): v6.2 P-M3b 기출 해부 연결 — Inspector 「기출 해부로 공부하기」(이미 푼 확인 문항 · 확인/전이 묶음 밖 연구 사례만 해설 링크, 안 푼 확인 · 전이는 보류) · 확인 모드 HTML/Flight 정답 선노출 0 실측 · E2E 6/6. DB 변경 없음
+- feat(map): v6.2 P-M3a — TASK Inspector 에 학습 행동 구분(R5 선지 없는 중심 가리기/만들기 · E3 정답 찾기 AI ↔ 다섯 선지 검증 FOV, 제품에 있는 것만 「지금 할 수 있어요」) · 연구 v1.4 읽기 전용 스냅샷(활동 12 · 채점 기준 48 · AI 검토 24행, 원문 · Gold 미반입 · R1 · 승격 금지) · 코드북 내부 영어 용어를 학습자 문구에서 제거. DB 변경 없음
+- fix(map): v6.2 P-M2b 계획 저장 재시도 — 같은 clientKey 를 재계산 전에 확인해 같은 요청은 처음 결과 재사용 · 다른 본문은 409 client_key_reused(이전엔 RPC 가 본문을 안 보고 처음 결과를 돌려줌) · 실제 API 9 시나리오 ALL PASS. DB 변경 없음(DB 이중 방어는 승인안)
 - feat(map): 학습지도 v6.2 P-M2 복귀 안정성 — 복귀 문맥에 학습자 Workspace UUID · 계획 · 목표 버전(돌아오면 바뀐 점만 알림 · 옛 계획 되살리기 없음) · 계획 저장 뒤 선택 TASK · 열린 계획 유지(소실 결함 수정) · `/csat` 홈 첫 제안 = ActionRank · B7 전이 4문항 읽기 전용 검수(PASS 3 · HOLD 1, 승인 · 활성화 안 함) · 복귀 E2E 7/7. DB 변경 없음
 - feat(map): 학습지도 v6.2 P-M1 단일 지도 — `/csat` · `?tab=map` · `&view=full` 이 `UnifiedLearningMap` 하나(영역 6 · TASK 30 관계도 + TASK Inspector · 학습계획은 관계도 아래) · 옛 학습자 지도/54라인 상세 지도 분기 제거 · 복귀 문맥 `map_task` · 목표 없는 자율 연습 다음 활동 · 1280/1440 실측(페이지 가로 넘침 0 · 노드 넘침 0 · Inspector 360) · 학습 경로 E2E 실패/성공 두 경로 ALL PASS. DB 변경 없음
 - feat(map): 학습지도 v6.2 정본 · 핸드오프 반입과 P-M0 계약 — `lib/csat/map/v62`(영역·TASK 그래프 DTO · TASK Inspector · NeedRank/ActionRank 분리 · 6 Ledger/8 공백 커버리지 · 시험 인벤토리 분모 가드 · 관련성 4값과 후보 분리 · TargetSpec) · To-Be `relevanceUnknown`(연결 없음 ≠ 무관) · 제품 가용 실측 스크립트. DB 변경 없음

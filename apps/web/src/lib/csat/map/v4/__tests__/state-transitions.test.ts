@@ -22,7 +22,7 @@ const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const day = (n: number) => new Date(Date.UTC(2026, 8, 1) + n * 86_400_000).toISOString()
-const att = (itemRef: string, ok: boolean, d: number, extra: Partial<FindAttemptRow> = {}): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater', ...extra })
+const att = (itemRef: string, ok: boolean, d: number, extra: Partial<FindAttemptRow> = {}): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: true, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: day(d), activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current', ...extra })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
 
@@ -120,8 +120,9 @@ describe('E — MAP · PLAN · Workspace 가 같은 상태를 말한다', () => 
 describe('F — 계획 수행량은 성취를 바꾸지 않는다', () => {
   it('바로잡기 · 적용을 아무리 해도(계획 조정 포함) 성취 · MAP 상태는 직접 확인 판정 그대로', () => {
     const act: PlanActivity[] = [
-      { itemRef: 'i1', taskKey: KEY, phase: 'practice', answeredAt: day(12) },
-      { itemRef: 'i2', taskKey: KEY, phase: 'practice', answeredAt: day(13) },
+      // LM-G1.1 — 바로잡기 성공(정답)이어야 적용 단계로 넘어간다
+      { itemRef: 'i1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: day(12) },
+      { itemRef: 'i2', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: day(13) },
       { itemRef: 't1', taskKey: KEY, phase: 'transfer', answeredAt: day(14) },
       { itemRef: 't2', taskKey: KEY, phase: 'transfer', answeredAt: day(15) },
     ]

@@ -1,0 +1,98 @@
+{
+  "scope": "Existing assertions on owned synthetic accounts; return does not submit a TASK attempt",
+  "runs": [
+    {
+      "name": "workspace",
+      "expected": 36,
+      "passed": 36,
+      "all_pass": true,
+      "lines": [
+        "[PASS] W01 구조(1440) — 상단 띠 → 지도 → 바로 아래 Workspace 리스트 · 오른쪽 상시 패널 없음 · 가로 넘침 0 — {\"canvas\":{\"x\":111,\"y\":306,\"w\":1252,\"h\":556},\"wsList\":{\"x\":94,\"y\":895,\"w\":1286,\"h\":429},\"inspector\":null,\"overflowX\":0}",
+        "[PASS] W02 30 TASK 노드(1440) — {\"nodes\":30}",
+        "[PASS] W03 대표 Workspace 가 첫 줄 · 행마다 상태(1440) — [{\"id\":\"ws.central-meaning\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.option-match\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.evidence-locate\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.cohesion\",\"link\":\"none\",\"state\":\"locked\",\"sel\":\"false\"},{\"id\":\"ws.sentence-core\",\"link\":\"none\",\"state\":\"preparing\",\"sel\":\"false\"},{\"id\":\"ws.vocab-context\",\"link\":\"none",
+        "[PASS] W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1440) — {\"lit\":false,\"faded\":0,\"help\":true,\"legend\":true,\"url\":\"/csat/diagnosis?tab=map&view=full\"}",
+        "[PASS] W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1440) — {\"selectedWs\":\"ws.central-meaning\",\"linked\":[[\"r.discourse_function\",\"support\"],[\"r.discourse_structure\",\"support\"],[\"r.central_meaning\",\"core\"]]}",
+        "[PASS] W05 Workspace 상세 팝업 — 화면 안 · 스크롤 잠금 · 4단계(1440) — {\"box\":{\"l\":380,\"t\":70,\"r\":1060,\"b\":830,\"ok\":true},\"lock\":\"hidden\",\"stages\":[\"check\",\"repair\",\"transfer\",\"recheck\"]}",
+        "[PASS] W06 ESC 닫기 → 여는 버튼으로 포커스 복귀 · 잠금 해제(1440) — {\"modal\":false,\"focus\":\"ws-open\",\"lock\":\"visible\"}",
+        "[PASS] W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1440) — {\"lit\":true,\"popup\":null,\"dock\":\"r.central_meaning\",\"faded\":24}",
+        "[PASS] W07 TASK 선택 → 빠른 팝업(화면 안) · 관련 Workspace 행 강조(중심/지원 구분) · 다른 행 숨김 없음(1440) — {\"t\":\"r.central_meaning\",\"rows\":[{\"id\":\"ws.central-meaning\",\"link\":\"core\",\"state\":\"runnable\",\"sel\":\"true\"},{\"id\":\"ws.option-match\",\"link\":\"support\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.evidence-locate\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.cohesion\",\"link\":\"none\",\"state\":\"locked\",\"sel\":\"false\"},{\"id\":\"ws.sentence-core\",\"link\":\"none\",\"state\":\"preparing\",\"sel\":\"false\"},{\"i",
+        "[PASS] W08 선택이 다른 TASK/Workspace 로 튀지 않음(1440) — {\"a\":[\"r.central_meaning\",\"ws.central-meaning\"],\"b\":[\"r.central_meaning\",\"ws.central-meaning\"]}",
+        "[PASS] W09 TASK 팝업 ESC → 노드로 포커스 복귀(1440) — {\"pop\":false,\"focus\":\"r.central_meaning\"}",
+        "[PASS] W10 키보드 Enter 로 TASK 팝업(1440)",
+        "[PASS] W15 자세한 근거 드로어 — 오른쪽 · 화면 안 · 다음 행동 1개 · Esc 포커스 복귀(1440) — {\"dbox\":{\"l\":988,\"t\":12,\"r\":1428,\"b\":888,\"ok\":true},\"dnext\":1,\"dback\":{\"open\":false,\"focus\":\"r.central_meaning\"}}",
+        "[PASS] W11 새로 고침 뒤 같은 TASK · Workspace 선택(1440) — {\"url\":\"/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning\",\"selected\":\"r.central_meaning\",\"ws\":\"ws.central-meaning\"}",
+        "[PASS] W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1440) — {\"lit\":false,\"faded\":0,\"url\":\"/csat/diagnosis?tab=map&view=full\"}",
+        "[PASS] W12 뒤로가기 뒤 페이지 정상 · 가로 넘침 0(1440)",
+        "[PASS] W13 상세 PLAN — 같은 모달 안 PlanSection(화면 안)(1440) — {\"l\":380,\"t\":70,\"r\":1060,\"b\":830,\"ok\":true}",
+        "[PASS] W14 레일 접힘 · 가로 넘침 0(1440) — {\"overflowX\":0}",
+        "[PASS] W01 구조(1280) — 상단 띠 → 지도 → 바로 아래 Workspace 리스트 · 오른쪽 상시 패널 없음 · 가로 넘침 0 — {\"canvas\":{\"x\":111,\"y\":362,\"w\":1092,\"h\":596},\"wsList\":{\"x\":94,\"y\":991,\"w\":1126,\"h\":429},\"inspector\":null,\"overflowX\":0}",
+        "[PASS] W02 30 TASK 노드(1280) — {\"nodes\":30}",
+        "[PASS] W03 대표 Workspace 가 첫 줄 · 행마다 상태(1280) — [{\"id\":\"ws.central-meaning\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.option-match\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.evidence-locate\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.cohesion\",\"link\":\"none\",\"state\":\"locked\",\"sel\":\"false\"},{\"id\":\"ws.sentence-core\",\"link\":\"none\",\"state\":\"preparing\",\"sel\":\"false\"},{\"id\":\"ws.vocab-context\",\"link\":\"none",
+        "[PASS] W16 처음엔 초점 없음(3B) — 흐린 노드 0 · 안내 알약 · 범례 알약 · 주소에 map_task 없음(1280) — {\"lit\":false,\"faded\":0,\"help\":true,\"legend\":true,\"url\":\"/csat/diagnosis?tab=map&view=full\"}",
+        "[PASS] W04 Workspace 선택 → 지도에 중심(core) · 지원(support) 강조 · 다른 행은 남음(1280) — {\"selectedWs\":\"ws.central-meaning\",\"linked\":[[\"r.discourse_function\",\"support\"],[\"r.discourse_structure\",\"support\"],[\"r.central_meaning\",\"core\"]]}",
+        "[PASS] W05 Workspace 상세 팝업 — 화면 안 · 스크롤 잠금 · 4단계(1280) — {\"box\":{\"l\":300,\"t\":70,\"r\":980,\"b\":830,\"ok\":true},\"lock\":\"hidden\",\"stages\":[\"check\",\"repair\",\"transfer\",\"recheck\"]}",
+        "[PASS] W06 ESC 닫기 → 여는 버튼으로 포커스 복귀 · 잠금 해제(1280) — {\"modal\":false,\"focus\":\"ws-open\",\"lock\":\"visible\"}",
+        "[PASS] W17 첫 누름 = 초점 — 팝업 없음 · 요약 알약 · 관련 없는 노드 흐림(숨김 아님 · 30 유지)(1280) — {\"lit\":true,\"popup\":null,\"dock\":\"r.central_meaning\",\"faded\":24}",
+        "[PASS] W07 TASK 선택 → 빠른 팝업(화면 안) · 관련 Workspace 행 강조(중심/지원 구분) · 다른 행 숨김 없음(1280) — {\"t\":\"r.central_meaning\",\"rows\":[{\"id\":\"ws.central-meaning\",\"link\":\"core\",\"state\":\"runnable\",\"sel\":\"true\"},{\"id\":\"ws.option-match\",\"link\":\"support\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.evidence-locate\",\"link\":\"none\",\"state\":\"runnable\",\"sel\":\"false\"},{\"id\":\"ws.cohesion\",\"link\":\"none\",\"state\":\"locked\",\"sel\":\"false\"},{\"id\":\"ws.sentence-core\",\"link\":\"none\",\"state\":\"preparing\",\"sel\":\"false\"},{\"i",
+        "[PASS] W08 선택이 다른 TASK/Workspace 로 튀지 않음(1280) — {\"a\":[\"r.central_meaning\",\"ws.central-meaning\"],\"b\":[\"r.central_meaning\",\"ws.central-meaning\"]}",
+        "[PASS] W09 TASK 팝업 ESC → 노드로 포커스 복귀(1280) — {\"pop\":false,\"focus\":\"r.central_meaning\"}",
+        "[PASS] W10 키보드 Enter 로 TASK 팝업(1280)",
+        "[PASS] W15 자세한 근거 드로어 — 오른쪽 · 화면 안 · 다음 행동 1개 · Esc 포커스 복귀(1280) — {\"dbox\":{\"l\":828,\"t\":12,\"r\":1268,\"b\":888,\"ok\":true},\"dnext\":1,\"dback\":{\"open\":false,\"focus\":\"r.central_meaning\"}}",
+        "[PASS] W11 새로 고침 뒤 같은 TASK · Workspace 선택(1280) — {\"url\":\"/csat/diagnosis?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning\",\"selected\":\"r.central_meaning\",\"ws\":\"ws.central-meaning\"}",
+        "[PASS] W18 Esc 로 초점 해제 — 흐림 0 · 안내 알약 · 주소 정리(1280) — {\"lit\":false,\"faded\":0,\"url\":\"/csat/diagnosis?tab=map&view=full\"}",
+        "[PASS] W12 뒤로가기 뒤 페이지 정상 · 가로 넘침 0(1280)",
+        "[PASS] W13 상세 PLAN — 같은 모달 안 PlanSection(화면 안)(1280) — {\"l\":300,\"t\":70,\"r\":980,\"b\":830,\"ok\":true}",
+        "[PASS] W14 레일 접힘 · 가로 넘침 0(1280) — {\"overflowX\":0}"
+      ]
+    },
+    {
+      "name": "return",
+      "expected": 7,
+      "passed": 7,
+      "all_pass": true,
+      "lines": [
+        "[PASS] ① 기본 선택이 아닌 TASK 를 골라 그 묶음 계획을 확정(버전 1) — {\"first\":\"r.central_meaning\",\"chosen\":\"e.evidence_location\"}",
+        "[PASS] ② 다음 행동 링크에 영구 TASK · 템플릿 · 학습자 Workspace UUID · 계획 버전 · 목표 버전이 실린다 — {\"check\":\"1\",\"from\":\"map\",\"map_task\":\"e.evidence_location\",\"ws\":\"ws.evidence-locate\",\"map_ws\":\"<synthetic-workspace>\",\"map_plan\":\"1\",\"map_goal\":\"207\"}",
+        "[PASS] ② 「학습 지도로」 → 홈 지도: 같은 TASK 선택 · 같은 묶음 계획 열림 · 저장 버전 1 · 알림 없음 — {\"selected\":\"e.evidence_location\",\"inspector\":\"e.evidence_location\",\"planWs\":\"ws.evidence-locate\",\"savedVersion\":\"1\",\"notes\":[]}",
+        "[PASS] ③ 떠난 사이 계획이 바뀌면 「계획이 바뀌었어요」 · 최신 버전 2 를 보인다(옛 버전 1 을 되살리지 않음) — {\"selected\":\"e.evidence_location\",\"inspector\":\"e.evidence_location\",\"planWs\":\"ws.evidence-locate\",\"savedVersion\":\"2\",\"notes\":[\"plan_changed\"]}",
+        "[PASS] ④ 떠난 사이 목표가 바뀌면 「목표가 바뀌었어요」 — {\"selected\":\"e.evidence_location\",\"inspector\":\"e.evidence_location\",\"planWs\":\"ws.evidence-locate\",\"savedVersion\":\"2\",\"notes\":[\"plan_changed\",\"goal_changed\"]}",
+        "[PASS] ⑤ 남의(존재하지 않는) Workspace UUID 를 넣어도 지금 계획을 보이고 되살리지 않는다 — {\"selected\":\"e.evidence_location\",\"inspector\":\"e.evidence_location\",\"planWs\":\"ws.evidence-locate\",\"savedVersion\":\"2\",\"notes\":[\"workspace_replaced\",\"goal_changed\"]}",
+        "[PASS] ⑥ 과거 기준 지도에서는 다음 행동 링크가 없다(보기 전용) — {\"pastNext\":0}"
+      ]
+    },
+    {
+      "name": "study",
+      "expected": 6,
+      "passed": 6,
+      "all_pass": true,
+      "lines": [
+        "[PASS] ① 처음엔 안 푼 확인 문항 해부 링크가 없다(보류 안내만) · 다음 확인 문항도 링크에 없다 — {\"links\":[{\"href\":\"/csat/item/2019-23?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=209\",\"basis\":\"research_case\"},{\"href\":\"/csat/item/2015-32?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=209\",\"basis\":\"research_case\"},{\"href\":\"/csat/item/2014B-38?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=209\",\"basis\":\"research_case\"},{\"href\":\"/csat/item/2020-36?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=209\",\"basis\":\"research_case\"}],\"withheld\":\"아직 안 푼 확인 · 다른 글 적용 문항 13개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.\",\"next\":\"2022-20\"}",
+        "[PASS] ② 확인 문항 풀이 저장",
+        "[PASS] ② 푼 문항만 「이미 풀어 본 확인 문항」 해부로 열리고, 다른 확인 문항은 계속 보류 — {\"opened\":[\"2022-20\"],\"withheld\":\"아직 안 푼 확인 · 다른 글 적용 문항 12개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.\"}",
+        "[PASS] ③ 해부 링크는 해설 화면(확인 모드 아님) · 문맥(map_task · ws) 실림 · 「학습 지도로」 → 같은 TASK — {\"explainShown\":true,\"mapTask\":\"r.central_meaning\",\"selected\":\"r.central_meaning\"}",
+        "[PASS] ④ 해설 · 연구 근거를 본 것만으로 근거 상태 · 요구가 바뀌지 않는다 — {\"before\":{\"e\":\"axis_observation\",\"n\":\"추가 확인 · 순서 1\"},\"after\":{\"e\":\"axis_observation\",\"n\":\"추가 확인 · 순서 1\"}}",
+        "[PASS] ⑤ E3 도 안 푼 확인 문항은 해부 링크에 없다 — {\"links\":5,\"next\":\"2026-22\"}"
+      ]
+    },
+    {
+      "name": "supply",
+      "expected": 6,
+      "passed": 6,
+      "all_pass": true,
+      "lines": [
+        "[PASS] ① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음 — {\"demand\":\"wd-90717c67\",\"rows\":[{\"role\":\"independent_check\",\"state\":\"available\",\"step\":\"learn_now\",\"text\":\"독립 확인 · 9개지금 학습할 수 있어요\"}],\"next\":\"/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=210#principle\",\"ledger\":\"no_workspace\"}",
+        "[PASS] ①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음 — {\"steps\":[\"learn_now\"],\"ledger\":\"no_workspace\"}",
+        "[PASS] ② 새로 고쳐도 같은 수요 키 — {\"a\":\"wd-90717c67\",\"b\":\"wd-90717c67\"}",
+        "[PASS] ③ 푼 문항은 다시 공급되지 않는다(다음 행동이 다른 미노출 문항) · 같은 TASK — {\"first\":\"2022-20\",\"next\":\"2025-20\"}",
+        "[PASS] ④ V2 · S5 = 수요는 있고 공급 경로 없음 · 보류 TASK 는 수요 없음 — {\"v2\":[\"unsupported\"],\"s5\":[\"unsupported\"],\"l1\":0}",
+        "[PASS] ⑤ 다른 학습자는 자기 수요 · 공급(첫 학습자가 푼 문항이 그에게는 미노출 그대로) — {\"bNext\":\"2022-20\",\"aSolved\":\"2022-20\"}"
+      ]
+    }
+  ],
+  "excluded_runs": [
+    "shared port 3000 canvas timeout",
+    "first return timeout",
+    "ref CLI child startup timeout",
+    "probe selector/frame timing errors; not PASS evidence"
+  ]
+}

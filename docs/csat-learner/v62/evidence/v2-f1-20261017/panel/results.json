@@ -1,0 +1,210 @@
+{
+  "sha": "18ccd8d97a5ecaf68c615265e1963e25b36cefbf",
+  "dirtyTree": false,
+  "isolated": true,
+  "contentReleased": false,
+  "pass": 38,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "1280 F1 열기 직후 DOM(숨김 포함)에 뜻 선택지 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 F1 B 선택 뒤 · 제출 전에도 뜻 선택지 없음 · 제출 가능",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 F1 B 오답 응답 뒤에도 뜻 선택지 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 첫 제출 본문에 sense 없음",
+      "pass": true,
+      "detail": {
+        "keys": [
+          "misfit",
+          "cue"
+        ]
+      }
+    },
+    {
+      "id": "1280 B 정답 저장 뒤에만 뜻 연습 등장",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 뜻 연습 중 B · 근거 수정 불가(잠김)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 뜻 연습 선택은 서버에 기록하지 않음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 새로고침 → 결과 · 뜻 연습 사라짐(재제출은 원장에서 반복 시도)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 HTTP 401 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 HTTP 400 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 HTTP 409 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 HTTP 500 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 B 오답인데 선택지가 온 응답은 버림(완료 아님 · 단서 미표시)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 응답 유실 → 결과 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 재시도는 같은 요청 키 · 같은 본문",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 제출 중 B 잠김",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 동시 이중 클릭 → 요청 1건",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 F5 X-VOCAB 표지 (a)~(e)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1280 키보드 선택 · 44px 클래스(하네스 CSS 없음) · 가로 넘침 0",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 F1 열기 직후 DOM(숨김 포함)에 뜻 선택지 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 F1 B 선택 뒤 · 제출 전에도 뜻 선택지 없음 · 제출 가능",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 F1 B 오답 응답 뒤에도 뜻 선택지 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 첫 제출 본문에 sense 없음",
+      "pass": true,
+      "detail": {
+        "keys": [
+          "misfit",
+          "cue"
+        ]
+      }
+    },
+    {
+      "id": "1440 B 정답 저장 뒤에만 뜻 연습 등장",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 뜻 연습 중 B · 근거 수정 불가(잠김)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 뜻 연습 선택은 서버에 기록하지 않음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 새로고침 → 결과 · 뜻 연습 사라짐(재제출은 원장에서 반복 시도)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 HTTP 401 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 HTTP 400 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 HTTP 409 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 HTTP 500 → 결과 · 뜻 연습 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 B 오답인데 선택지가 온 응답은 버림(완료 아님 · 단서 미표시)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 응답 유실 → 결과 없음",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 재시도는 같은 요청 키 · 같은 본문",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 제출 중 B 잠김",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 동시 이중 클릭 → 요청 1건",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 F5 X-VOCAB 표지 (a)~(e)",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "id": "1440 키보드 선택 · 44px 클래스(하네스 CSS 없음) · 가로 넘침 0",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

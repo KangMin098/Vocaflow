@@ -1,0 +1,218 @@
+{
+  "sha": "8227bdc19afde2b94f89b7b0da02cbcaaf9f69e2",
+  "dirtyTree": false,
+  "base": "http://localhost:3005",
+  "width": 1280,
+  "startedAt": "2026-10-16T12:51:30.819Z",
+  "endedAt": "2026-10-16T12:52:44.756Z",
+  "pass": 8,
+  "fail": 0,
+  "fatal": null,
+  "accounts": {
+    "created": 2,
+    "confirmedAbsent": 2
+  },
+  "layers": {
+    "delayed_retention": "NOT_ESTABLISHED",
+    "learning_effect": "NOT_CLAIMED"
+  },
+  "results": [
+    {
+      "id": "V01",
+      "name": "시작 — 세 표면 같은 값 · 지금 확인 「아직 확인 전」 · 지연 NOT_ESTABLISHED · 실패 문구 없음",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "pop": {
+          "check": "not_started",
+          "transfer": "none",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 아직 확인 전",
+            "다른 글 적용 · 아직 없어요 · 0편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "not_started",
+          "checkText": "아직 확인 전 · 혼자 처음 푼 확인 문항 0개(지금까지 전체)",
+          "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "아직 없어요 · 0편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": null,
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "V02",
+      "name": "FIND 2 실패 — 지금 확인 「연습이 필요하다고 확인됨」 · 혼자 푼 첫 확인 2 · 세 표면 같음",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "pop": {
+          "check": "need_confirmed",
+          "transfer": "none",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 연습이 필요하다고 확인됨",
+            "다른 글 적용 · 아직 없어요 · 0 / 2편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "need_confirmed",
+          "checkText": "연습이 필요하다고 확인됨 · 혼자 처음 푼 확인 문항 2개(지금까지 전체)",
+          "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "아직 없어요 · 0 / 2편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": "혼자 푼 첫 확인 2",
+          "notes": null
+        }
+      }
+    },
+    {
+      "id": "V03",
+      "name": "바로잡기 정답 — 바로잡기 「맞혀 봤어요」 · 지금 확인은 그대로(바로잡기 ≠ 통과)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "pop": {
+          "check": "need_confirmed",
+          "transfer": "none",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 연습이 필요하다고 확인됨",
+            "다른 글 적용 · 아직 없어요 · 0 / 2편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "need_confirmed",
+          "checkText": "연습이 필요하다고 확인됨 · 혼자 처음 푼 확인 문항 2개(지금까지 전체)",
+          "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "아직 없어요 · 0 / 2편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": "혼자 푼 첫 확인 2 · 수행 기록 1",
+          "notes": "같은 문항 반복 — 독립 관찰 아님 1건"
+        }
+      }
+    },
+    {
+      "id": "V04",
+      "name": "다른 글 적용 2 — 「해 봤어요 · 2 / 2편」 · 능력 판정 아님 문구 · 지금 확인 그대로",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "pop": {
+          "check": "need_confirmed",
+          "transfer": "experienced",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 연습이 필요하다고 확인됨",
+            "다른 글 적용 · 해 봤어요 · 2 / 2편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "need_confirmed",
+          "checkText": "연습이 필요하다고 확인됨 · 혼자 처음 푼 확인 문항 2개(지금까지 전체)",
+          "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "해 봤어요 · 2 / 2편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": "혼자 푼 첫 확인 2 · 수행 기록 3",
+          "notes": "같은 문항 반복 — 독립 관찰 아님 1건"
+        }
+      }
+    },
+    {
+      "id": "V05",
+      "name": "새 확인 2 정답 — 지금 확인 「통과(지금 기준)」 · 지연 확인은 여전히 「아직 근거 없음」(통과 ≠ 지연 유지)",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "checks": [
+          true,
+          true
+        ],
+        "pop": {
+          "check": "passed",
+          "transfer": "experienced",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 통과(지금 기준)",
+            "다른 글 적용 · 해 봤어요 · 2 / 2편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "passed",
+          "checkText": "통과(지금 기준) · 혼자 처음 푼 확인 문항 4개(지금까지 전체)",
+          "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "해 봤어요 · 2 / 2편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": "혼자 푼 첫 확인 4 · 수행 기록 3",
+          "notes": "같은 문항 반복 — 독립 관찰 아님 1건"
+        }
+      }
+    },
+    {
+      "id": "V06",
+      "name": "도구 범위(보는 것 · 보지 않는 것) 표시 · 단계마다 실패 문구 없음",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": null
+    },
+    {
+      "id": "V07",
+      "name": "페이지 가로 넘침 0",
+      "status": "PASS",
+      "layer": "browser",
+      "detail": {
+        "w": 1280
+      }
+    },
+    {
+      "id": "V08",
+      "name": "먼저 보기(viewed_first) 뒤 정답 — 원장 viewed_first 1행 · 혼자 푼 첫 확인 0 · 지금 확인 그대로 · (보류 또는 INELIGIBLE 사유) · 실패 문구 없음",
+      "status": "PASS",
+      "layer": "db+browser",
+      "detail": {
+        "ledger": [
+          {
+            "help": "viewed_first",
+            "key": "claim-support",
+            "phase": "practice",
+            "ans": true,
+            "recv": true
+          }
+        ],
+        "ha": {
+          "status": 200,
+          "isCorrect": true
+        },
+        "held": null,
+        "path": "INELIGIBLE",
+        "pop": {
+          "check": "not_started",
+          "transfer": "none",
+          "delay": "NOT_ESTABLISHED",
+          "ledger": "complete",
+          "text": [
+            "지금 확인 · 아직 확인 전",
+            "다른 글 적용 · 아직 없어요 · 0편",
+            "시간 지나 다시 확인 · 아직 근거 없음"
+          ]
+        },
+        "drawer": {
+          "check": "not_started",
+          "checkText": "아직 확인 전 · 혼자 처음 푼 확인 문항 0개(지금까지 전체)",
+          "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+          "transfer": "아직 없어요 · 0편 — 혼자 적용할 수 있다는 판정은 아니에요",
+          "claims": "이 과제를 맞힘(혼자 확인은 아님) 1",
+          "notes": "도움 · 해설 뒤 수행 1건"
+        }
+      }
+    }
+  ]
+}

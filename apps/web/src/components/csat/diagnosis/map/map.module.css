@@ -741,3 +741,38 @@
     transition: none;
   }
 }
+
+/* LM-G1.3a — 목표 팝업의 「시험 · 등급 · 목표일 더 정하기」(접힘). 새 카드 없이 기존 팝업 안에서만 */
+.goalMore {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--m-g200);
+}
+.goalMore > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: var(--m-ink);
+}
+.goalMore > summary:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
+.goalMore[open] {
+  gap: 10px;
+}
+.goalMore .input {
+  min-height: 44px;
+  min-width: 0;
+  width: 100%;
+}
+.goalMore > .inputWrap {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  width: 100%;
+  margin-bottom: 8px;
+}

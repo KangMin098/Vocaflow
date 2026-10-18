@@ -108,6 +108,8 @@ try {
         await page.focus('[data-node="v.core_meaning"]')
         await page.keyboard.press('Enter')
         const kb = await page.getAttribute('[data-testid="task-inspector"]', 'data-task')
+        // P-M4d — 자세한 근거는 접혀 있다: 펼친 뒤 단계 근거 버튼을 찾는다
+        await page.click('[data-testid="inspector-detail"] > summary').catch(() => {})
         const detail = await page.$('[data-testid="inspector-evidence-detail"]')
         let sheet = false
         if (detail) {

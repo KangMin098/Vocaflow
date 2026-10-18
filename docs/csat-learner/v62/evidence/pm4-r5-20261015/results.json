@@ -1,0 +1,84 @@
+{
+  "suite": "R5 기존 콘텐츠 재사용 수직 경로(e2e-map-supply.mjs)",
+  "head": "24c746929ad4b8672283d848724d0bb7a6a455f4",
+  "trackedFilesModified": 0,
+  "base": "http://localhost:3005",
+  "startedAt": "2026-10-15T00:07:10.941Z",
+  "endedAt": "2026-10-15T00:07:40.125Z",
+  "browser": "chromium(@playwright/test) · 1440×1000",
+  "population": "합성 계정 2(끝에 삭제) — 학습 효과의 증거가 아니다",
+  "results": [
+    {
+      "name": "① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음",
+      "ok": true,
+      "detail": {
+        "demand": "wd-44540235",
+        "rows": [
+          {
+            "role": "independent_check",
+            "state": "available",
+            "step": "learn_now",
+            "text": "독립 확인 · 9개지금 학습할 수 있어요"
+          }
+        ],
+        "next": "/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=124#principle",
+        "ledger": "no_workspace"
+      }
+    },
+    {
+      "name": "①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음",
+      "ok": true,
+      "detail": {
+        "steps": [
+          "learn_now"
+        ],
+        "ledger": "no_workspace"
+      }
+    },
+    {
+      "name": "② 새로 고쳐도 같은 수요 키",
+      "ok": true,
+      "detail": {
+        "a": "wd-44540235",
+        "b": "wd-44540235"
+      }
+    },
+    {
+      "name": "③ 푼 문항은 다시 공급되지 않는다(다음 행동이 다른 미노출 문항) · 같은 TASK",
+      "ok": true,
+      "detail": {
+        "first": "2022-20",
+        "next": "2025-20"
+      }
+    },
+    {
+      "name": "④ V2 · S5 = 수요는 있고 공급 경로 없음 · 보류 TASK 는 수요 없음",
+      "ok": true,
+      "detail": {
+        "v2": [
+          "unsupported"
+        ],
+        "s5": [
+          "unsupported"
+        ],
+        "l1": 0
+      }
+    },
+    {
+      "name": "⑤ 다른 학습자는 자기 수요 · 공급(첫 학습자가 푼 문항이 그에게는 미노출 그대로)",
+      "ok": true,
+      "detail": {
+        "bNext": "2022-20",
+        "aSolved": "2022-20"
+      }
+    }
+  ],
+  "pass": 6,
+  "fail": 0,
+  "skip": 0,
+  "screenshots": 7,
+  "cleanup": {
+    "syntheticAccountsCreated": 2,
+    "remainingAfterDelete": 0
+  }
+}

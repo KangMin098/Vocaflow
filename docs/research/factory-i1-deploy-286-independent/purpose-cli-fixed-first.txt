@@ -1,0 +1,4 @@
+[P2] scripts/db/factory-i1/deploy.mjs:200 — (결함) — DB-2 적용 전 DB-1 검증 전체를 재실행하여, 정상 수요·자격 기록이 한 행만 있어도 `tables_empty` 실패로 후속 배포가 막힌다 — 최초 배포의 빈 원장 검사와 DB-2 진입에 필요한 보안·이력 검사를 분리한다.
+[P2] .github/workflows/ci.yml:49 — (결함) — PR에서 DB 환경변수를 비워 기존 권한 상승·RLS 통합 테스트가 모두 skip되며, 별도 Playwright E2E는 이 Vitest 테스트들을 실행하지 않는다 — 격리 Supabase 환경에서 기존 통합 테스트도 실행하도록 연결한다.
+
+[review] 목적 파일: D:\workspace\Vocaflow-factory-i1-deploy-review\.agent-goal.md

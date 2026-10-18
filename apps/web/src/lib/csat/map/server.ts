@@ -9,22 +9,47 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { randomUUID } from 'node:crypto'
 
-import { parseGoal, parseTaskId } from './payload'
-import { setGoal as setGoalStored } from './v4/plan-store'
+import { parseTaskId } from './payload'
+import { findGoalByKey, setGoal as setGoalStored } from './v4/plan-store'
+import { parseGoalInput, sameGoal, seoulToday, type GoalExam } from './v62/target-goal'
 
 export class MapInputError extends Error {}
+/** 같은 요청키에 다른 목표 본문(LM-G1.3a) — 처음 저장을 덮지 않는다(409) */
+export class GoalConflictError extends Error {}
 
 /**
  * 목표 저장 — 저장 구조(목표 이력)가 있으면 RPC 로 최신 값 + 이력 한 줄을 원자적으로(같은 clientKey 재전송은 같은 이력),
  * 없으면 기존처럼 최신 값만. 응답 mode 로 어느 쪽인지 알린다(이력이 없는데 「기록됨」처럼 보이지 않게).
  */
-export async function setGoal(db: SupabaseClient, userId: string, body: unknown): Promise<{ goal: number; mode: 'versioned' | 'latest_only'; goalVersionId: number | null }> {
-  const goal = parseGoal(body)
-  if (goal === null) throw new MapInputError('목표 점수는 0~100 사이 정수예요')
+export async function setGoal(db: SupabaseClient, userId: string, body: unknown, now: Date): Promise<{ goal: number; grade: number | null; exam: GoalExam | null; date: string | null; mode: 'versioned' | 'latest_only'; goalVersionId: number | null; reused: boolean }> {
+  const today = seoulToday(now)
+  // Validate shape first; an already committed exact replay remains valid after its date.
+  const parsed = parseGoalInput(body, today, true)
+  if (!parsed.ok) throw new MapInputError(parsed.error)
+  const g = parsed.goal
   const raw = (body as Record<string, unknown>).clientKey
   if (raw !== undefined && (typeof raw !== 'string' || !/^[0-9a-f-]{36}$/i.test(raw))) throw new MapInputError('요청 키 형식이 맞지 않아요')
-  const r = await setGoalStored(db, userId, goal, typeof raw === 'string' ? raw : randomUUID())
-  return { goal, ...r }
+  const key = typeof raw === 'string' ? raw : randomUUID()
+  // 재전송 먼저 — RPC 는 같은 키면 본문을 보지 않고 처음 id 를 돌려주므로, 다른 본문은 여기서 막는다(저장됨으로 보이지 않게)
+  if (typeof raw === 'string') {
+    const prior = await findGoalByKey(db, userId, key)
+    if (prior) {
+      if (!sameGoal(g, prior)) throw new GoalConflictError('같은 요청 키로 다른 목표가 왔어요 — 화면을 새로 고쳐 주세요')
+      return { goal: prior.score, grade: prior.grade, exam: prior.exam, date: prior.date, mode: 'versioned', goalVersionId: prior.id, reused: true }
+    }
+  }
+  const fresh = parseGoalInput(body, today)
+  if (!fresh.ok) throw new MapInputError(fresh.error)
+  const r = await setGoalStored(db, userId, g, key)
+  if (r.mode === 'versioned') {
+    // The installed RPC deduplicates keys without comparing bodies. Both prechecks
+    // can miss: verify the immutable committed row before acknowledging success.
+    const committed = await findGoalByKey(db, userId, key)
+    if (!committed || committed.id !== r.goalVersionId) throw new Error('목표 저장 결과를 확인하지 못했어요 — 같은 요청으로 다시 시도해 주세요')
+    if (!sameGoal(g, committed)) throw new GoalConflictError('같은 요청 키로 다른 목표가 왔어요 — 화면을 새로 고쳐 주세요')
+    return { goal: committed.score, grade: committed.grade, exam: committed.exam, date: committed.date, ...r, reused: false }
+  }
+  return { goal: g.score, grade: g.grade, exam: g.exam, date: g.date, ...r, reused: false }
 }
 
 /** 과제 완료를 켠다(멱등) — 없는 과제 id 는 FK 위반으로 거절 */

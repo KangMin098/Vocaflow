@@ -1,0 +1,7 @@
+[PASS] ① R5 수요 · 독립 확인 = 기존 검수 확인 문항(지금 쓸 수 있음) · 다음 행동 있음 — {"demand":"wd-753467bc","rows":[{"role":"independent_check","state":"available","step":"learn_now","text":"독립 확인 · 9개지금 학습할 수 있어요"}],"next":"/csat/item/2022-20?check=1&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=400#principle","ledger":"no_workspace"}
+[PASS] ①b 실제 주문 기록 없이 주문 계열 단계 0 · 기록 상태를 숨기지 않음 — {"steps":["learn_now"],"ledger":"no_workspace"}
+[PASS] ② 새로 고쳐도 같은 수요 키 — {"a":"wd-753467bc","b":"wd-753467bc"}
+[PASS] ③ 푼 문항은 다시 공급되지 않는다(다음 행동이 다른 미노출 문항) · 같은 TASK — {"first":"2022-20","next":"2025-20"}
+[PASS] ④ V2 · S5 = 수요는 있고 공급 경로 없음 · 보류 TASK 는 수요 없음 — {"v2":["unsupported"],"s5":["unsupported"],"l1":0}
+[PASS] ⑤ 다른 학습자는 자기 수요 · 공급(첫 학습자가 푼 문항이 그에게는 미노출 그대로) — {"bNext":"2022-20","aSolved":"2022-20"}
+ALL PASS

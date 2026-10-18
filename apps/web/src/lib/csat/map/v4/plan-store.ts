@@ -8,7 +8,10 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import type { PlanPayload, PlanReason, SavedPlanVersion } from './plan-commit'
+import { transferPolicy, transferPolicySnapshots } from './plan-commit'
+import { TRANSFER_PASSAGES } from './workspace'
+import type { PlanPayload, PlanReason, PriorCommit, SavedPlanVersion } from './plan-commit'
+import type { GoalExam, GoalInput, GoalVersion } from '../v62/target-goal'
 
 type Db = SupabaseClient
 const MISSING = new Set(['42P01', 'PGRST205', '42883', 'PGRST202'])
@@ -20,6 +23,10 @@ export interface SavedWorkspace {
   template: string
   latest: SavedPlanVersion
   history: SavedPlanVersion[]
+  /** Derived from complete append-only history; the UI still receives only the last 20 versions. */
+  transferPlanned?: Partial<Record<string, number>>
+  /** Compact policy snapshots for safe restoration; displayed allocation history stays at 20. */
+  transferPolicies?: Record<number, Partial<Record<string, number>>>
 }
 
 export interface SavedPlans {
@@ -28,6 +35,10 @@ export interface SavedPlans {
   byTemplate: Record<string, SavedWorkspace>
   /** 가장 최근 목표 이력 id(없으면 null) */
   goalVersionId: number | null
+  /** LM-G1.3a — 가장 최근 목표 이력 행(점수 · 등급 · 시험 · 목표일). 없으면 null */
+  goal?: GoalVersion | null
+  /** 목표 이력(최신 20) — 계획의 목표 버전을 사람이 읽을 수 있게(id → 값) */
+  goalHistory?: GoalVersion[]
   /** 읽다가 실패했다(저장 기능을 끄고 그 사실을 보인다) */
   error?: boolean
 }
@@ -40,33 +51,69 @@ export async function storeStatus(db: Db): Promise<StoreStatus> {
   throw new Error(`계획 저장소 확인 실패: ${error.message}`)
 }
 
-interface PlanRow { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; canon_version: string; as_of: string; created_at: string }
+interface PlanRow { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; canon_version: string; as_of: string; created_at: string; goal_version_id: number | null }
+
+const GOAL_COLS = 'id, target_score, target_grade, target_exam, target_date, created_at'
+type GoalRow = { id: number; target_score: number; target_grade: number | null; target_exam: string | null; target_date: string | null; created_at: string }
+const goalOf = (r: GoalRow): GoalVersion => ({ id: Number(r.id), score: r.target_score, grade: r.target_grade, exam: (r.target_exam as GoalExam | null) ?? null, date: r.target_date, createdAt: r.created_at })
+
+/**
+ * LM-G1.3a — 본인의 최신 목표 이력 한 줄(점수 · 등급 · 시험 · 목표일). 저장 구조가 없으면 null(점수-only 최신 표만 있는 옛 상태).
+ * 그 밖의 조회 실패는 던진다 — 빈 목표 · 기본값으로 삼키지 않는다(T13).
+ */
+export async function loadLatestGoal(db: Db, userId: string): Promise<GoalVersion | null> {
+  // The user lock serializes inserts, not transaction start timestamps (now()).
+  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(1)
+  if (error) {
+    if (error.code && MISSING.has(error.code)) return null
+    throw new Error(`목표 이력 조회 실패: ${error.message}`)
+  }
+  const r = (data ?? [])[0] as GoalRow | undefined
+  return r ? goalOf(r) : null
+}
 
 /** 본인의 열린 Workspace 와 계획 이력(최신 20버전) */
 export async function loadSavedPlans(db: Db, userId: string): Promise<SavedPlans> {
   const status = await storeStatus(db)
-  if (status === 'not_installed') return { status, byTemplate: {}, goalVersionId: null }
+  if (status === 'not_installed') return { status, byTemplate: {}, goalVersionId: null, goal: null, goalHistory: [] }
   const [ws, goal] = await Promise.all([
     db.from('learner_workspace').select('id, template_id').eq('user_id', userId).neq('status', 'closed'),
-    db.from('csat_map_goal_version').select('id').eq('user_id', userId).order('created_at', { ascending: false }).order('id', { ascending: false }).limit(1),
+    db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).order('id', { ascending: false }).limit(20),
   ])
   if (ws.error) throw new Error(`Workspace 조회 실패: ${ws.error.message}`)
   if (goal.error) throw new Error(`목표 이력 조회 실패: ${goal.error.message}`)
   const byTemplate: Record<string, SavedWorkspace> = {}
   // Workspace 마다 따로 최신 20버전 — 한 묶음에 버전이 많아도 다른 묶음 이력이 밀려나지 않는다(4차 마감 리뷰)
   const per = await Promise.all((ws.data ?? []).map(async (w) => {
-    const { data, error } = await db.from('learner_workspace_plan')
-      .select('workspace_id, plan_version, plan, reason, note, restored_from, canon_version, as_of, created_at')
-      .eq('user_id', userId).eq('workspace_id', w.id as string).order('plan_version', { ascending: false }).limit(20)
-    if (error) throw new Error(`계획 조회 실패: ${error.message}`)
-    return { w, rows: (data ?? []) as PlanRow[] }
+
+    const rows: PlanRow[] = []
+    let cursor: number | null = null
+    for (;;) {
+      let query = db.from('learner_workspace_plan')
+        .select('workspace_id, plan_version, plan, reason, note, restored_from, canon_version, as_of, created_at, goal_version_id')
+        .eq('user_id', userId).eq('workspace_id', w.id as string).order('plan_version', { ascending: false }).limit(1000)
+      if (cursor !== null) query = query.lt('plan_version', cursor)
+      const { data, error } = await query
+      if (error) throw new Error(`계획 조회 실패: ${error.message}`)
+      const page = (data ?? []) as PlanRow[]
+      rows.push(...page)
+      if (page.length < 1000) break
+      const next = page[page.length - 1].plan_version
+      if (!Number.isSafeInteger(next) || next === cursor) throw new Error('Invalid plan history cursor')
+      cursor = next
+    }
+    return { w, rows }
   }))
   for (const { w, rows } of per) {
     if (!rows.length) continue
-    const history = rows.map((r) => ({ version: r.plan_version, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, canon: r.canon_version, asOf: r.as_of, createdAt: r.created_at }))
-    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history }
+    const history = rows.map((r) => ({ version: r.plan_version, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, canon: r.canon_version, asOf: r.as_of, createdAt: r.created_at, goalVersionId: r.goal_version_id === null || r.goal_version_id === undefined ? null : Number(r.goal_version_id) }))
+    const snapshots = transferPolicySnapshots(w.template_id as string, history)
+    const known = [...new Set(Object.values(snapshots).flatMap(p => Object.keys(p)))]
+    const transferPolicies = Object.fromEntries(Object.entries(snapshots).map(([version, p]) => [version, Object.fromEntries(known.map(id => [id, p[id] ?? TRANSFER_PASSAGES]))]))
+    byTemplate[w.template_id as string] = { workspaceId: w.id as string, template: w.template_id as string, latest: history[0], history: history.slice(0, 20), transferPolicies, transferPlanned: transferPolicy(w.template_id as string, history) }
   }
-  return { status, byTemplate, goalVersionId: (goal.data?.[0]?.id as number | undefined) ?? null }
+  const goals = ((goal.data ?? []) as GoalRow[]).map(goalOf)
+  return { status, byTemplate, goalVersionId: goals[0]?.id ?? null, goal: goals[0] ?? null, goalHistory: goals }
 }
 
 export type CommitResult =
@@ -99,11 +146,46 @@ export async function commitPlan(db: Db, args: {
 }
 
 /** 목표 저장 — 저장 구조가 있으면 RPC(최신 값 + 이력 원자적), 없으면 기존 방식(최신 값만). 어느 쪽인지 돌려준다 */
-export async function setGoal(db: Db, userId: string, score: number, clientKey: string): Promise<{ mode: 'versioned' | 'latest_only'; goalVersionId: number | null }> {
-  const { data, error } = await db.rpc('csat_map_goal_set', { p_user: userId, p_score: score, p_grade: null, p_exam: null, p_date: null, p_client_key: clientKey })
+/** LM-G1.3a — 같은 요청키로 이미 저장된 본인 목표(재전송 판단). 본인 행만 · 읽기 실패는 던진다(없음으로 삼키면 다른 본문이 저장됨이 된다) */
+export async function findGoalByKey(db: Db, userId: string, clientKey: string): Promise<GoalVersion | null> {
+  const { data, error } = await db.from('csat_map_goal_version').select(GOAL_COLS).eq('user_id', userId).eq('client_key', clientKey).limit(1)
+  if (error) {
+    if (error.code && MISSING.has(error.code)) return null
+    throw new Error(`목표 재시도 확인 실패: ${error.message}`)
+  }
+  const r = (data ?? [])[0] as GoalRow | undefined
+  return r ? goalOf(r) : null
+}
+
+/**
+ * 목표 저장 — 저장 구조가 있으면 RPC(최신 값 + 이력 원자적 · 점수 · 등급 · 시험 · 목표일), 없으면 기존 방식(최신 점수만).
+ * 옛 구조(최신 표만)에서는 점수 외 필드를 저장할 수 없다 — 그때 점수 외 필드가 있으면 저장하지 않고 거절한다(저장된 것처럼 보이지 않게).
+ */
+export async function setGoal(db: Db, userId: string, goalIn: number | GoalInput, clientKey: string): Promise<{ mode: 'versioned' | 'latest_only'; goalVersionId: number | null }> {
+  const g: GoalInput = typeof goalIn === 'number' ? { score: goalIn, grade: null, exam: null, date: null } : goalIn
+  const score = g.score
+  const { data, error } = await db.rpc('csat_map_goal_set', { p_user: userId, p_score: g.score, p_grade: g.grade, p_exam: g.exam, p_date: g.date, p_client_key: clientKey })
   if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
   if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
+  if (g.grade !== null || g.exam !== null || g.date !== null) throw new Error('목표 저장 실패: 목표 이력 구조가 없어 점수 외 목표를 저장할 수 없어요')
+  if (await loadLatestGoal(db, userId)) throw new Error('목표 저장 실패: 기존 목표 이력이 있어 점수만 저장할 수 없어요 — 저장 구조를 확인해 주세요')
   const up = await db.from('csat_map_goal').upsert({ user_id: userId, target_score: score, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
   if (up.error) throw new Error(`목표 저장 실패: ${up.error.message}`)
   return { mode: 'latest_only', goalVersionId: null }
+}
+
+/**
+ * 같은 clientKey 로 이미 저장된 본인 계획(재시도 판단 · v6.2 P-M2b). 본인 행만(user_id 조건) — 남의 키를 넣어도 읽히지 않는다.
+ * 없으면 null. 읽기 실패는 던진다(「없음」으로 삼키면 재시도가 새 버전을 만들 수 있다).
+ */
+export async function findCommitByKey(db: Db, userId: string, clientKey: string): Promise<PriorCommit | null> {
+  const { data, error } = await db.from('learner_workspace_plan')
+    .select('workspace_id, plan_version, plan, reason, note, restored_from, goal_version_id, learner_workspace!inner(template_id)')
+    .eq('user_id', userId).eq('client_key', clientKey).limit(1)
+  if (error) throw new Error(`계획 재시도 확인 실패: ${error.message}`)
+  type Row = { workspace_id: string; plan_version: number; plan: PlanPayload; reason: PlanReason; note: string | null; restored_from: number | null; goal_version_id: number | null; learner_workspace: { template_id: string } | { template_id: string }[] }
+  const r = (data ?? [])[0] as unknown as Row | undefined
+  if (!r) return null
+  const ws = Array.isArray(r.learner_workspace) ? r.learner_workspace[0] : r.learner_workspace
+  return { template: ws.template_id, version: r.plan_version, workspaceId: r.workspace_id, plan: r.plan, reason: r.reason, note: r.note, restoredFrom: r.restored_from, goalVersionId: r.goal_version_id == null ? null : Number(r.goal_version_id) }
 }

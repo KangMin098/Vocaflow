@@ -9,10 +9,12 @@ import { learnerPath, type StepEvidence } from '../learner-path'
 import type { MapPageData } from '../load'
 
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
-import { DOMAINS, type Domain } from './definition'
+import { DOMAINS, checkKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
+import { evidenceView, type EvidenceView } from '../v62/evidence-claims'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
-import { allTaskPlans, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
+import { transferPolicy } from './plan-commit'
+import { allTaskPlans, transferDoneOf, transferPlanned, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
 
 const STEP_TO_PROXY: Record<StepEvidence, AxisProxyState> = {
   none: 'none',
@@ -86,12 +88,31 @@ export interface V4View {
   plans: Record<string, WorkspacePlanView>
   /** 모든 비보류 TASK 계획 — 지도의 TASK → 연관 Workspace 찾기 */
   taskPlans: TaskPlan[]
+  /** LM-G1.4 — TASK 별 증거 자격 · 주장 범위(직접 확인 키가 있는 TASK 만 · 기존 판정 결과 조합). 화면 팝업 · 드로어 · Workspace 모달이 같은 값을 읽는다 */
+  evidence?: Partial<Record<TaskId, EvidenceView>>
 }
 
 /**
  * asOf 기본값은 서버가 계산한 시각(data.now). 목표가 정해지지 않았으면 goal.set=false → To-Be 없음.
  * findAttempts 를 못 읽었으면(undefined) 직접 확인 판정을 하지 않는다 — 빈 배열로 바꾸면 이미 확인한 학습자에게 「확인 전」을 보인다.
  */
+/**
+ * LM-G1.2 — 저장된 최신 계획에서 「적용」 단계로 저장된 TASK 의 계획량(학습자 조정 · 운영량). 정상 미설치/미저장은 비어 있다(정본 2지문). 조회 실패는 기본값으로 대체하지 않는다.
+ * 계획량은 단계 운영만 바꾼다 — 성취 · 직접 확인 판정은 읽지도 바꾸지도 않는다.
+ */
+export function savedTransferOf(data: Pick<MapPageData, 'v4'>): Partial<Record<string, number>> {
+  const s = data.v4?.saved
+  if (s?.error) throw new Error('Saved PLAN policy is unavailable')
+  if (!s || s.status !== 'installed') return {}
+  const out: Partial<Record<string, number>> = {}
+  for (const w of Object.values(s.byTemplate)) {
+    const core = new Set<string>(templateOf(w.template)?.core ?? [])
+    const policy = w.transferPlanned ?? transferPolicy(w.template, [...w.history.filter(h => h.version !== w.latest.version), w.latest])
+    for (const [task, amount] of Object.entries(policy)) if (core.has(task)) out[task] = amount
+  }
+  return out
+}
+
 export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4View | null {
   if (!data.v4 || !data.now) return null
   const confirmLinks = confirmLinksOf(data)
@@ -105,7 +126,20 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const plan = planWorkspaces({ asIs, toBe, confirmLinks, transferItems: data.v4.transferItems, transferTargets: data.v4.transferTargets })
   // 수행 기록 — 생애주기 기록(지도 연결 과제 키의 본인 시도). 시각 없는 기록 · 기준 시점 뒤 기록은 세지 않는다(As-Is 와 같은 자격 · 리뷰 P1)
   const cut = ms(at)
+  // Current annotation lookup is not an archived annotation at a historical asof.
+  const hashes = asOf && cut < ms(data.now) ? undefined : data.instrumentHashes
   const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
-  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, activity)]))
-  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity) }
+  const opts = { savedTransfer: savedTransferOf(data) }
+  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, { ...workspacePlan(w, asIs, toBe, plan, activity, opts), restoreTransfer: data.v4?.saved.byTemplate[w.id]?.transferPolicies }]))
+  // LM-G1.4 — 직접 확인 키가 있는 TASK 의 증거 자격 · 주장 범위(기존 판정 결과만 조합 · 같은 기준 시점 · 같은 수행 기록)
+  const views = [plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w)
+  const evidence: Partial<Record<TaskId, EvidenceView>> = {}
+  for (const id of Object.keys(asIs.tasks) as TaskId[]) {
+    if (checkKeysOfTask(id).length === 0) continue
+    const t = asIs.tasks[id]
+    const home = views.find((w) => w.core.includes(id)) ?? null
+    const firsts = data.findAttempts ? data.findAttempts.filter((f) => !f.answeredAt || ms(f.answeredAt) <= cut) : undefined
+    evidence[id] = evidenceView({ task: id, check: t.check, firsts, activity: data.lifecycleActivity ? activity.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null })) : undefined, hashes, transfer: { done: t.check?.verifiedAt ? transferDoneOf(id, t.check.verifiedAt, activity) : 0, planned: transferPlanned(t, home, opts) } })
+  }
+  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity, opts), evidence }
 }

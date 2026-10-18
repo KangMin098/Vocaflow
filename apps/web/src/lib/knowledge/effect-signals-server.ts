@@ -5,6 +5,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { computeSignals, type FirstAttempt, type Phase, type SignalResult } from './effect-signals'
+import { currentItemTask } from './item-tasks'
 
 const LIMIT = 1000
 const ID_CHUNK = 200
@@ -66,12 +67,13 @@ export async function loadEffectSignals(): Promise<SignalRow[]> {
     read('제품 적용', client.from('knowledge_applications').select('id,item_id,surface,surface_ref,version,status').limit(LIMIT)),
     read('효과 검증', client.from('knowledge_trials').select('application_id,design').limit(LIMIT)),
     readAllById<Row & { id: unknown }>('수행 기록', (after) => {
-      let q = client.from('learning_task_attempts').select('id,application_id').not('application_id', 'is', null)
+      let q = client.from('learning_task_attempts').select('id,application_id,session_id,content_hash,task_key,item_ref').not('application_id', 'is', null)
       if (after !== null) q = q.gt('id', after)
       return q.order('id', { ascending: true }).limit(PAGE)
     }),
   ])
   const appOfAttempt = new Map(attempts.map((a) => [String(a.id), String(a.application_id)]))
+  const attemptById = new Map(attempts.map((a) => [String(a.id), a]))
   const ids = [...appOfAttempt.keys()]
   // 첫 시도는 DB 뷰가 고른다 — 키 (user, task_key, item_ref, phase), 동률 answered_at → id. 앱에서 다시 고르지 않는다.
   const first: Row[] = []
@@ -88,7 +90,15 @@ export async function loadEffectSignals(): Promise<SignalRow[]> {
     const app = appOfAttempt.get(String(r.attempt_id))
     if (!app) continue
     const list = byApp.get(app) ?? []
+    const original = attemptById.get(String(r.attempt_id))
+    const task = typeof r.item_ref === 'string' ? currentItemTask(r.item_ref) : null
+    const bound = original?.task_key === r.task_key && original?.item_ref === r.item_ref && original?.session_id === r.session_id
     list.push({
+      activity: typeof r.activity === 'string' ? r.activity : null,
+      taskKey: typeof r.task_key === 'string' ? r.task_key : null,
+      sessionId: bound && typeof r.session_id === 'string' ? r.session_id : null,
+      contentHash: bound && typeof original?.content_hash === 'string' ? original.content_hash : null,
+      expectedContentHash: task && task.def.key === r.task_key ? task.def.hash(task.ann) : null,
       userId: String(r.user_id),
       phase: String(r.phase) as Phase,
       isCorrect: typeof r.is_correct === 'boolean' ? r.is_correct : null,

@@ -1,5 +1,7 @@
 # Learning Modules
 
+> Factory I1 독립 검증(2026-10-17, DB 미적용): 학습지도 Inspector는 전체 canonical 수요별 공급을 선택해 PLAN 간 집계를 분리한다. 역사적 주문 종결과 현재 유효 공급은 별도이며 supersede·권리/공개 철회는 부족분으로 복귀한다. [독립 수용 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
+
 > 9개 학습 모듈 + 베타. 각 모듈의 목적·라우트·인지 깊이·데이터 모델. 작성 시점: 2026-06-08 (v06.34).
 >
 > 학습 모델 9계층 (L0~L7) 자세한 설계는 [LEARNING_MODEL.md](./LEARNING_MODEL.md) 참조.
@@ -7,6 +9,8 @@
 ---
 
 ## 모듈 카탈로그
+
+학습지도 v6.2 T4(2026-10-16): `EvidenceClaims`는 TASK 팝업·근거 드로어·Workspace 모달이 공유하는 `evidenceView`를 표시한다. 첫 시도는 DB 원장 ID로 연결하고, 원장 정오·독립 관찰·주석 현재성을 구별한다. 조회 실패는 0건과 구분하며, 현재 원문 기준의 전이 운영 집계와 지연·효과 미확정을 별도로 설명한다. 기존 skillDiagnosis/lifecycle 정책은 변경하지 않는다.
 
 기출 문제지 표시(2026-10-05): 브라우저 `reflowExam`은 밑줄의 끝·도표를 보존하지 못하는 지칭·어법·어휘·함축 의미·도표 7유형에 `needsOriginal`을 기록하고 기존 원본 크롭을 만든다. 문항 극장은 원본을 표시하고, 세션 예측·분석 읽기는 원본을 문자 분석과 함께 표시한다. 추출기 5판은 이전 캐시를 무효화한다. 원본·크롭은 서버에 전송하거나 영구 저장하지 않으며 탭 메모리의 크롭이 없으면 PDF를 다시 놓아야 한다.
 
@@ -1076,6 +1080,8 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 채점은 정본 `claim-support.ts` `gradeClaimSupport`(주석 문항)다. 골격 정답 근거 앵커로 만든 키(골격 문항)는 효과 계산에서 뺀다.
 - 기록은 `learning_task_attempts`에 남긴다: `task_key` `claim-support` / `claim-support-skeleton` · phase practice/transfer · `response.activity='practice'`.
 - 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
+- 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
+- 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
 
 ---
 
@@ -1209,6 +1215,9 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 - 입력 신뢰도(`lib/csat/diagnosis/engine/record-quality.ts`, rq-1): 기록 한 회의 응답 패턴(답한 수 · 최빈 번호 비율 · 같은 번호 최장 연속 · 번호 종류)으로 trusted / suspicious / excluded_pending_review 판정 — 저장 없음. `diagnosticInput()` 이 진단 집계 입력을 거른다(엔진 · 지도 지표 · 시험 기록 보고서). 기록 · 점수 · 오답 표는 그대로, 목록에 「진단 제외」 칩 · 개요 안내.
 - 학습 지도(`components/csat/diagnosis/map`): `MapScreen`(첫 화면 핵심 요약 ↔ `?view=full` 기존 상세 지도) · `GoalBar`(`useGoal` · `GoalEditor` · `GoalPopover` — 목표 점수는 최종 목표 카드 · 노드의 팝오버에서, 상단 줄 없음) · `CoreSummary`(V/S/R/E/L + X 카드 — 표시명 어휘 · 표현 / 문장 이해 / 글 이해 / 근거 · 선지 판단 / 듣기 / 실전 수행 · 기존 라인 대응은 「현재 계산」(A4 · A6 는 카드에 이동 예정 표시) · 구분선 = 표시 기준 문구 · 성장 경로 8단계(값 없음) · 우선 확인 후보 ≤2 · 지금 필요한 진단 ≤1 · 오답 원인 ≠ 카드 상태 문구, 계산 `lib/csat/map/core` · 2026-10-07 vNext 정렬, 회귀 `vnext-alignment.test.ts`) · `LearningMap`(노드 마우스 → 연결선 강조 · 오른쪽 ⋯ → 상세, 클릭 = 경로 강조 · 기존 상세 지도 — 종류별 6열: 최종 목표 | 핵심 능력(A) | 측정 정보(B) | 문항 특성(C) | 학습 · 행동(D · I) | 실전 · 상황(J), 열 정의 `core.LAYER_COLUMNS`, 참조 3B 「종류별 열」 측정 spec.json `layout` · 영역 노드는 열 묶음 머리, 선은 목표 → 영역만 · 관찰 막대는 역량 A 만, B/C/D/I/J 는 「능력 아님」 역할 라벨(측정 정보 · 문항 특성 · 학습 · 행동 정보 · 실전 · 상황) · P/T 노드 없음) · `NodePopup`(목표(목표율 = 시험 수행 전략) · 관찰 · 학습 활동(과제 ≠ 능력 상태 · 처방 단계 찾기 → 고치기 → 옮기기 → 확인 묶음, 진단 전에는 찾기만 열림 — `lib/csat/map/prescription`) · 근거 — P 설계 근거 · T 처방 접근은 근거 탭에만) · `MapPreparing` · `format`(표시 반올림 · 상태 라벨) · `map.module.css`(neon-currant 실측 토큰, 이 범위만). 계산은 `lib/csat/map`(`target`(목표율 · 손실 예산 · 보수적 집계) · `memberships`(문항↔라인) · `model` · `graph` · `load`(DB) · `evidence`(스냅샷 지도 지표, 실패 격리) · `server`/`payload`(목표 · 과제 쓰기)) · 스냅샷 지도 지표 `diagnosis/engine/map-evidence`.
   - 2026-10-14 학습지도 v6.2 P-M1 단일 지도: `MapScreen` 은 기본 · `view=full` · `/csat` 홈 모두 `UnifiedLearningMap` 하나(옛 `LearnerMap` 읽기 7단계 · `LearningMap` 54라인 열 · `NeedPanel` 을 화면에서 뺌 — 파일은 남음) · ① `GoalRecordBar`(저장된 목표 점수만 · 기록 전체/진단 활용/제외 사유) ② 영역 6열 × TASK 30 관계도(개요는 6열 압축 · 고른 영역만 노드 폭 206 · full 은 전부 206 + 캔버스 안 가로 스크롤 · 승인 관계 실선/제안 점선 · 통합 관찰 점선 칸 · 검색) ③ `TaskInspector`(360 · 다음 한 행동 고정 · 현재와 목표 / 기출과 출제 논리 / 교재 · 학습 · 계획 / 지원 상태 접힘 · 「기출 근거 자세히」 = 기존 `StepSheet`) · 학습계획 편집 `PlanSection` 은 관계도 아래. 계산 `lib/csat/map/v62`(graph · rank · coverage) · 복귀 문맥 `map_task`(영구 TASK id) 추가.
+  - 2026-10-15 학습지도 v6.2 P-M4: `FocusStrip`(목표 · 기록 아래 2층 「지금 무엇부터」 — ActionRank 1~3 카드 · 왜(확정 아님) · 지금 근거 · 다음 행동(복귀 문맥) · 지금 할 수 없는 TASK 와 이유, 상태별 첫 문장: 목표 없음 · 기록 없음 · 준비됨 · 이어 할 활동 없음) · `TaskInspector` 기본/근거 분리(현재와 목표 → 학습 경로 · 필요한 자료 · 기출 해부 학습 → 「자세한 근거 — 기출 · 출제 논리 · 연구」 접힘 → 지원 상태 접힘). 판정은 그대로 `ranksOf` · `taskInspector` · `supplyFor`.
+  - 2026-10-15 LM-W1 학습지도 × Workspace 통합: 순서 = `GoalRecordBar`(한 줄 띠 — 목표 · 기록 · 상태 · ActionRank 1번 다음 행동; `FocusStrip` 삭제 · 우선 2·3번은 노드 번호 표지) → 관계도(화면 폭 전체 · 오른쪽 상시 Inspector 제거) → `WorkspaceList`(지도 바로 아래 · 행 모델 `lib/csat/map/v62/workspace-list.ts` = plan · plans 그대로) → `TaskPopup`(노드 옆 비모달) · `WorkspaceModal`(3B 모달 · 개요/학습계획 탭 — `PlanSection` 재사용) · 근거 드로어(`MapDialog` 안 `TaskInspector`). 선택(TASK · Workspace)은 `UnifiedLearningMap` 한 곳 · 주소 `map_task` · `ws`. 문서 [LM-W1](./csat-learner/v62/LM-W1_MAP_WORKSPACE.md). 독립 수용 보강: 지도 머리 Workspace 이동 링크 · 팝업→관련 행/행→관련 TASK의 실제 스크롤·초점 · 선택 노드 상세 표지 · 비모달 키보드 진입. 판정/저장 계약은 재사용. LM-G1.1은 실패한 바로잡기의 수행량과 성공 준비를 분리하고, PLAN·리스트 실행 링크는 같은 TASK의 기록만 사용한다. [독립 T1 수용](./research/lm-g1-1-independent/ACCEPTANCE.md) 참조.
+  - 2026-10-16 LM-G1.3a 독립 보완: 목표 저장은 재전송 사전 비교와 RPC 후 불변 저장 행 대조, 신규 목표일은 서울 달력, 동일 목표 재전송은 날짜 경과 허용. 한 목표 snapshot이 화면 점수·시험 범위·PLAN 근거를 공급하며 요청 중 입력값은 저장된 계산에 섞지 않는다. 수능은 kind로 식별하고 학평 일부 오답률로 전체 자격을 승격하지 않는다. 최근20 밖 PLAN 목표는 상세 확인 불가를 명시. DB/RPC/RLS 변경 없음.
   - 2026-10-07 학습자 관점 재구성: 첫 화면 `LearnerMap`(읽기 길 7단계 어휘·표현 → 문장 이해 → 문장 관계 → 글 구조·핵심 → 본문↔선지 → 근거 판단 → 시간 내 통합 + 듣기 보조 4단계 · 「지금 먼저 확인할 것」 하나(+ 다음 후보 하나) · 여정 기출에서 보인 모습 → 먼저 확인할 것 → 원인 확인 → 맞춤 학습 · 기출 상세 분석 링크) · `StepSheet`(무엇 · 왜 · 내 기록 · 지금 확인할 것(확인하기 과제) · 원인 확인 뒤 학습 · 상세 근거(접힘)) · 계산 `lib/csat/map/learner-path`(표현 층 — 새 taxonomy 아님, 상태 = 기록 없음 · 분석 준비 중 · 기록 더 필요 · 기출에서 관찰됨 · 먼저 확인 · 직접 확인됨). 54라인 화면 이름 = 기출 상세 분석. `CoreSummary` 삭제.
   - 2026-10-08 목표 중심 재설계: 첫 화면 순서 = ⓪ 「내 목표 · 현재 위치」 바(목표 점수 · 등급 구간(절대평가) · 목표 미설정이면 「아직 정하지 않았어요」 / 시험 기록으로 본 지금(실제 최근 원점수 · 등급 · 회차 · 날짜 · 기록 수 · 이전 ↔ 최근) / 목표까지(목표와 기록이 둘 다 있을 때만) / 읽기 7단계 근거 상태 개수) → ① 가운데 「목표 N점으로 가는 영어 독해의 길」 → ② 오른쪽 「지금 먼저 할 일」 하나(목표 미설정이면 목표 정하기). 기준 시험(목표 계산용 평가원 최근 6회)과 내 기록을 문장으로 구분. `StepSheet` 에 「목표와의 관계」(기준 시험의 그 단계 문항 · 배점 — 사실만, 점수 상승 약속 없음) · 「아직 모르는 것」. 계산 `lib/csat/map/goal-view`(등급 · 목표 요약 · 단계-목표 관계 · 근거 4갈래). 데이터: `MapModel.goalSet` · `lineRefItems` · `MapPageData.records`(스냅샷 점수 흐름에 든 세션만).
   - 2026-10-08 결과 환류: 단계 시트의 FIND 과제에 실행 과제 링크가 있으면 그 아래 「내가 한 확인」(`data-testid="find-practice-result"` · `data-next` retry/move_on) — 횟수 · 처음 결과(도움 여부는 기록에 있을 때만) · 최근 결과(한국 날짜) · 다른 지문 적용(같은 과제 키의 `phase=transfer`) · 다시 보기 예약(`learning_sessions.review_at`) · 다음 행동(retry · review(예약일 지남) · move_on). 실력 판정 아님을 함께 쓴다. 데이터 `lib/csat/map/practice-results.ts`(순수 요약) · `load.ts` `practiceResults`(learning_task_attempts · learning_first_attempts, user_id 로 좁힘 · 뷰를 못 읽어도 지도는 그린다). E2E `scripts/csat/map/e2e-map-practice-feedback.mts`
@@ -1216,3 +1225,19 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
   - 2026-10-10 큰 틀: 기준 정본 `lib/csat/map/curriculum.ts`(11단계 × 학교급 권장 노출 · 확인 과제 키 · §13 바로잡기 절차 · 적용 방식 · 준비 상태 live/ready/content_needed/blocked) · `StepSheet` 에 생애주기 4칸(`LifecycleStrip`) · 확인 문항 없는 단계의 준비 상태(`StepReadiness`) · 처방 칸 바로잡기 절차(`rx-repair-protocol`) · `LearnerMap` 학교급 선택(잠금 아님 · 이 기기에만 기억). E축 문항 과제 `EvidencePanel`(option-restate · evidence-locate · 합의 주석).
   - 2026-10-11 rev4.0 3차: `PlanSection`(NeedPanel 안 학습 묶음별 학습계획 — 중심/보조 TASK · 학습목표 · 계획 문항(출처 · 규칙 · 가용량) · 수행/남음 · 「다 했다고 보는 기준」과 확인 상태(별도 줄) · 활동 시작 · 순서/계획량 조정(이 기기 초안 · 저장은 승인 대기 명시)) · 목표 순서의 TASK 이름 → 그 TASK 의 묶음 계획. 계산 `lib/csat/map/v4/plan`(정량 ≠ 정성 · 가용 콘텐츠에서만 계획량 · `applyDraft` 는 계획 칸만). 학습자 문장은 코드북 `learner_criterion`(설계 메모 `criterion` 과 분리 · 내부 코드 가드).
   - 2026-10-10 rev4.0 2차: `NeedPanel`(「목표까지 필요한 학습」 — LearnerMap 아래 읽기 전용 · 기준 시험 · 시점 / 시험 기록 · 목표 / 영역별 근거와 세부 상태 / 우선 추천 학습 묶음(단계 4칸 · 실제 문항 수 · 다음 행동 링크) / 목표 관련 확인 · 학습 순서 / 아직 계산하지 않는 것) · `needs.module.css`. 계산 `lib/csat/map/v4`(`definition`(생성물 `definition.data.ts` 정적 import · TASK 30) · `as-is` · `to-be` · `workspace` · `compose`). `graph.pathOf` 가 경로 안 미확정 연결선(`unconfirmed`)을 따로 돌려주고 `LearningMap` 은 그 선을 흐리게(확정 경로처럼 진하게 칠하지 않음). 이벤트 `csat_workspace_opened` · `csat_workspace_suggestion_applied`(DB 허용 목록은 기존).
+
+### R5 연습·독립 평가 경계 독립 보완(2026-10-17 · PR #285)
+
+노출 원장 6종은 exact count와 반환 행 수가 같고 LIMIT 미만일 때만 완전 조회로 인정한다. 서버의 더 작은 응답 상한이나 count 부재는 오류로 예약을 유지한다. 실제 출시 연습 풀이 0건인 경우도 404 대신 자료 부족·지도 복귀를 제공한다. Inspector는 후보 유무와 별개로 FQ 미설치·오류·설치 및 적격 수를 표시한다. `loadFqReader()`는 원장(관리자 전용 RLS)을 서버 전용 클라이언트로만 읽고, 행마다 `fqRowVerdict`로 역할 축(DB `fq_role_ok`와 같은 규칙) · TASK · 원천/Gold 결속 · 철회 안 된 공개(+평가 역할은 평가) 승인 · 대체 여부 · 현재 문항 revision(`supply_artifact_revision`) · 현재 주석 해시(`evidence_ids` 의 `annotation:<sha256>`, I2 전용 칸 전까지)를 대 본다. 하나라도 모르면 거절하며, 적격은 `{ref, task, role, qualificationId}`로 역할·TASK에 묶여 다른 역할·TASK 줄을 채우지 않는다. 자격 행이 없으면 0건이고 출시 과제 열람은 공급 0인 `open_unqualified`다.
+
+확인과 전이 표본 모두 활동·세션·TASK·현재 hash 결속을 요구한다. 줄바꿈·탭은 JSON 인코딩 전 정규화해 동일 지문을 놓치지 않는다. 읽기 전용 E2E는 `pnpm --filter web test:e2e:r5`로 전용 서버 장벽까지 자동 적용한다.
+
+미노출 전이 후보와 예약 지문을 공유하는 문항도 연습에서 보호한다. 서버가 Workspace·공급에 전달하는 실행 후보는 이 예약 경계를 적용한다. 예약된 연습 전이를 「기존 과제로 풀 수 있음」으로 안내하지 않으며, 이미 노출된 문항은 일반 경험으로 유지한다. 미노출 전이를 보호하는 것과 독립 전이 실행·자격을 확보하는 것은 별개다.
+
+과거 노출 문항의 지문 식별이 누락됐으면 새로운 후보의 미노출을 증명하지 않는다. 화면용 축약 원장은 타 기록 ID 대신 불확실성 플래그만 보존한다. 보호 서버의 기존 주소는 `R5_READ_ONLY_BASE_URL`, 자동 기동 포트는 `R5_READ_ONLY_PORT`로 지정하며 일반 `PLAYWRIGHT_BASE_URL`과 분리한다.
+
+연습 전이는 T4·Workspace·PLAN에서 적용 경험과 운영량으로만 남는다. 효과 신호는 `activity=practice`를 제외하며 전이는 활동·세션·TASK·현재 주석 해시를 `attemptRole()`로 결속한 경우만 적격 후보로 쓴다. 납품↔G2 결속·실제 콘텐츠 자격 승인은 추가하지 않았다. [실패·화면·추적 근거](./research/r5-285-independent-20261017/ACCEPTANCE.md).
+
+### V2 Instrument 독립 수용 경계(2026-10-17)
+
+ContextSensePanel은 B 판별 조건 성공과 C 문장 선택을 분리하고(V2-F1: 제출 전 뜻 선택지 없음 · 뜻 D 는 B 정답 저장 뒤의 기록 없는 연습 · 유형별 밑줄 표지, [V2_F1_CUE_LEAK](./csat-learner/v62/V2_F1_CUE_LEAK.md)), writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.

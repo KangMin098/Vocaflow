@@ -14,7 +14,7 @@
 
 import type { Metadata } from 'next'
 
-import { koDisplay, koText } from './fonts'
+import { KO_FONTS_CSS, KO_FONTS_HREF, koDisplay, koText } from './fonts'
 
 export const metadata: Metadata = { title: '디자인 방향 3안', robots: { index: false } }
 
@@ -804,6 +804,10 @@ export default function DirectionsPage() {
       className={`${koDisplay.variable} ${koText.variable}`}
       style={{ background: '#17181A', minHeight: '100vh', padding: '36px 28px 56px' }}
     >
+      {/* 시안 한글 글꼴 — 실행 시점 로드(빌드 의존 없음 · fonts.ts 머리말) */}
+      {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+      <link rel="stylesheet" href={KO_FONTS_HREF} />
+      <style>{KO_FONTS_CSS}</style>
       <h1
         style={{
           fontFamily: 'var(--font-ko-display)',

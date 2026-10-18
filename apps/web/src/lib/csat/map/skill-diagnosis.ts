@@ -41,6 +41,8 @@ export type SkillStatus =
   | 'expired'
 
 export interface SkillDiagnosis {
+  /** Exclusive boundary of the current 120-day episode; null is the initial episode. */
+  episodeStart?: string | null
   status: SkillStatus
   /** 처방을 열어도 되는 근거 수준인가 — verified · still_needed 만 */
   verified: boolean
@@ -127,7 +129,7 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
       if (e.ok) { right++; streak++ } else { wrong++; streak = 0; wrongItems.push(e.item); lastWrongAt = e.at }
       if (streak >= CHECK_ITEMS) { resolvedAt = e.at; break }
     }
-    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)), wrongItems, lastWrongAt } }
+    const base = { episodeStart: start || null, verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)), wrongItems, lastWrongAt } }
     if (resolvedAt) return { ...base, status: 'resolved', verified: false, resolvedAt }
     // 해소되지 않았고 기한이 지났으면 만료 → 기한 뒤의 시도로 새 회차(그 시도가 없으면 만료로 끝)
     if (now.toISOString() > deadline) {
@@ -149,7 +151,9 @@ export function skillMessage(d: SkillDiagnosis): string {
     case 'still_needed':
       return `다시 확인하기에서 아직 막힌 문항이 있어요(${d.check.wrong}개). 바로잡기를 한 번 더 하고 다른 확인 문항으로 다시 확인해요.`
     case 'resolved':
-      return `처음 확인 뒤 연습하고, 풀지 않았던 확인 문항 ${d.check.right}개를 혼자 해냈어요. 이 원리는 다시 확인됐어요 — 다음 단계로 넘어가도 돼요. 능력이 늘었다는 판정은 아니에요.`
+      // LM-G1.1 — 판정(독립 CHECK 연속 정답)은 그대로. 문구는 그 근거만 말한다: 바로잡기 · 적용을 했는지는 이 판정이 보지 않으므로 「연습하고」 라고 하지 않는다.
+      //   유효 기간(EXPIRY_DAYS)은 다시 확인할 때를 알리는 기한이지 오래 기억했다는(지연 확인) 증거가 아니다
+      return `처음 확인 뒤, 풀지 않았던 확인 문항 ${d.check.right}개를 혼자 해냈어요. 이번 확인 기준으로는 다시 확인됐어요 — 다음 단계로 넘어가도 돼요. 능력이 늘었다는 판정은 아니에요.`
     case 'expired':
       return `확인한 지 ${EXPIRY_DAYS}일이 지났어요. 지금 상태를 알려면 확인 문항으로 다시 확인해요.`
     default:

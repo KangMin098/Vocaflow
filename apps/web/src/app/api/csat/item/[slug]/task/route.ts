@@ -2,7 +2,8 @@
 //
 // POST /api/csat/item/[slug]/task — 문항의 확인 과제 응답 한 건(Phase 3 · 과제 종류는 item-tasks 레지스트리 — 주장과 근거 · 이어 주는 단서).
 // 거부(400)는 { error, code } — code: no_task(주석 없음) · not_live(적용이 켜져 있지 않음 — 노출 게이트) · invalid_input(답 · 메타 형식 · 같은 id 다른 요청).
-// 본문: { response, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약). 응답: { grade, attempts, outcome }.
+// 본문: { response, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약). 응답: { grade, attempts, outcome, binding }.
+// binding: 납품 결속 상태(not_installed · no_delivery · bound · error) — 결속 실패는 기록을 되돌리지 않는다.
 // userId 는 세션에서만 온다(learnerContext). 채점 · 게이트(채택 사슬 · 적용 active · 주석 서명)는 서버가 한다.
 // 쓰기는 service_role 로만 — 학습자 키는 learning_task_attempts 에 쓰기 권한이 없다(본인 SELECT 만).
 
@@ -12,6 +13,8 @@ import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-he
 import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { fromItemSlug } from '@/lib/csat/item-slug'
 import { TaskInputError, recordItemTaskAttempt } from '@/lib/knowledge/product-server'
+import { bindDeliveryAttempt } from '@/lib/csat/map/v62/delivery-binding'
+import { createClient } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -28,7 +31,15 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     // 첫 제출 계정과 지금 계정이 다르면 남기지 않는다(계정 전환 뒤 재시도)
     const owner = (body as { ownerId?: unknown } | null)?.ownerId
     if (typeof owner === 'string' && owner !== ctx.userId) return NextResponse.json({ error: '다른 계정에서 시작한 제출이에요 — 화면을 새로 고쳐 주세요', code: 'invalid_input' }, { status: 409 })
-    return NextResponse.json(await recordItemTaskAttempt(ctx.db, { id: ctx.userId, email: ctx.email }, fromItemSlug(slug), body, Date.now()))
+    const itemRef = fromItemSlug(slug)
+    const result = await recordItemTaskAttempt(ctx.db, { id: ctx.userId, email: ctx.email }, itemRef, body, Date.now())
+    // R5 §6 — 이 학습자에게 납품된 자료였다면 시도를 그 납품에 결속(학습자 세션 · 판정은 DB). 실패해도 기록은 이미 남았다
+    const cmid = (body as { clientMutationId?: unknown } | null)?.clientMutationId
+    const binding = typeof cmid === 'string'
+      ? await bindDeliveryAttempt(await createClient() as unknown as Parameters<typeof bindDeliveryAttempt>[0], { userId: ctx.userId, itemRef, clientMutationId: cmid })
+          .catch((e) => { console.error('[task delivery binding]', e); return { status: 'error' as const } })
+      : { status: 'error' as const }
+    return NextResponse.json({ ...result, binding: binding.status })
   } catch (e) {
     if (e instanceof TaskInputError) return NextResponse.json({ error: e.message, code: e.code }, { status: 400 })
     return failure(e)

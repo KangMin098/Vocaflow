@@ -16,6 +16,32 @@ import { learnerPath, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
+import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
+import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
+import { buildDemand } from '@/lib/csat/map/v62/demand'
+import { canonicalDemand } from '@/lib/csat/map/v62/canonical-json'
+import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
+import { FQ_READER_LABEL } from '@/lib/csat/map/v62/assessment-exposure'
+import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
+import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
+import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
+import { toItemSlug } from '@/lib/csat/item-slug'
+import { abilityNow, fallbackActions, isAiOnly, PRINCIPLE_STEPS, PROGRESS_LABEL, principleItem, returnSummary, SUPPLY_BUCKET_LABEL, supplyBucket } from '@/lib/csat/map/v62/learner-guide'
+import type { ReturnNote } from '@/lib/csat/map/v62/return-ctx'
+
+/** 코드북 설계 문구(conditions · evidence) 중 영어 내부 용어 조각(facet · Anchor 등)을 뺀 학습자 문구 — 「·」 로 나뉜 조각 단위 */
+function learnerText(s: string | null | undefined): string {
+  // 괄호 속 영어 설명(「(Evidence Anchor 결속)」)은 괄호째 빼고, 남은 조각에 영어 용어가 있으면 그 조각을 뺀다
+  return (s ?? '').replace(/\s*\([^)]*[A-Za-z]{4,}[^)]*\)/g, '').split('·').map((x) => x.trim()).filter((x) => x && !/[A-Za-z]{4,}/.test(x)).join(' · ')
+}
+
+const REL_LABEL: Record<string, string> = { direct: '직접 관련', indirect: '간접 관련', not_applicable: '관련 없음', unknown: '판단 보류' }
+const ROLE_LABEL: Record<string, string> = { model_explanation: '모델 설명', guided_practice: '지도 연습', independent_check: '독립 확인', transfer: '전이', delayed_check: '지연 확인', source_analysis: '원문 분석' }
+// 문항 유형 코드 → 학습자 말(연구 원장 코드 그대로 보이지 않게)
+const TYPE_LABEL: Record<string, string> = {
+  'R-TOPIC': '주제', 'R-TITLE': '제목', 'R-CLAIM': '주장', 'R-GIST': '요지', 'R-PURPOSE': '목적', 'R-MOOD': '심경', 'R-FACT': '내용 일치', 'R-CHART': '도표',
+  'R-BLANK': '빈칸', 'R-BLANK2': '빈칸', 'R-ORDER': '순서', 'R-INSERT': '삽입', 'R-GRAMMAR': '어법', 'R-VOCAB': '어휘', 'R-SUMMARY': '요약', 'R-IRRELEVANT': '무관한 문장',
+}
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import { DOMAIN_NAME, linesOfTask, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -25,6 +51,7 @@ import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskIn
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
 
+import { EvidenceBlock } from './EvidenceClaims'
 import { StepSheet } from './StepSheet'
 import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
@@ -41,7 +68,7 @@ export const EVIDENCE_V62_LABEL: Record<InspectorEvidence, string> = {
 
 export const NEED_V62_LABEL = { ...NEED_LABEL, RELEVANCE_UNKNOWN: '목표 시험과의 연결 확인 전' } as const
 
-const BLOCKED_LABEL: Record<NotActionableReason, string> = {
+export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   content_gap: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
   canon_hold: '측정 방법을 정하는 중이에요(보류)',
@@ -80,8 +107,8 @@ export function homeWsOf(task: string, view: V4View, restoreWs: string | null): 
     ?? null
 }
 
-/** 학습계획 편집(PlanSection)은 넓은 표라 Inspector(360) 안이 아니라 관계도 아래 같은 열에 연다 — 여닫기만 여기서 */
-export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void }) {
+/** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
+export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
   const tasks = useTaskDone(data.doneTaskIds)
   const t = ins.task
@@ -89,9 +116,51 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const need = view.toBe?.needs.find((n) => n.task === t.id) ?? null
   const unknownRel = view.toBe?.relevanceUnknown.includes(t.id) ?? false
   const home = homeWsOf(t.id, view, restoreWs)
+  const behaviors = BEHAVIORS[t.id] ?? []
+  const research = researchFor(t.id)
+  // 기출 해부로 열어도 되는 문항(노출 규칙) — 이 TASK 를 직접 확인하는 과제 키의 확인 · 전이 문항을 대조한다
+  const keys = checkKeysOfTask(t.id)
+  const confirmAll = confirmLinksOf(data)
+  const confirmMine = keys.flatMap((k) => confirmAll[k] ?? [])
+  const transferMine = keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? [])
+  const check = view.asIs.tasks[t.id]?.check ?? null
+  const study = studyItemsFor(t.id, check, confirmMine, transferMine)
+  // P-F1 · P-F2 — 이 TASK · 묶음의 자료 수요와 기존 자산 공급 상태(판정 · 생산 없음). 공장 재고는 이 화면에서 조회하지 않는다(null)
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  const demand = buildDemand(view, t.id, home, { workspaceId: savedWs?.workspaceId ?? null, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null })
+  const currentDemand = data.v4?.viewer ? canonicalDemand(data.v4.viewer, demand) : ''
+  const unseen = new Set(check?.unseen ?? [])
+  // P-F8e — 「주문됨 · 공급 완료」는 서버가 읽은 실제 기록에서만(저장 안 한 묶음 · 기록 표 없음 · 못 읽음은 각각 다르게 말한다)
+  const ledger: SupplyLedger = savedWs ? data.v4?.supplyLedger?.[savedWs.workspaceId] ?? { status: 'not_installed' } : { status: 'no_workspace' }
+  const fq = data.v4?.fqReader ?? { status: 'error' as const }
+  // 이 TASK 의 적격만 센다(다른 TASK 적격을 섞지 않는다)
+  const fqHere = fq.status === 'installed' ? new Set(fq.eligible.filter((e) => e.task === t.id).map((e) => `${e.role}|${e.ref}`)).size : 0
+  const supply = supplyFor(demand, {
+    unseenCheckItems: confirmMine.map((l) => l.target).filter((x) => unseen.has(x)),
+    transferItems: transferMine.map((l) => l.target),
+    transferDrafts: 0,
+    study,
+    factoryStock: null,
+    // #281 E01 · E04 — 모든 원장 노출로 다시 거르고, 정식 자격 reader 상태를 그대로 쓴다(없으면 모름 — 미노출 · 적격으로 보지 않는다)
+    exposure: data.v4?.assessmentExposure ?? { status: 'error', failed: [] },
+    fq,
+  })
   const ws = home ? [view.plan.primary, ...view.plan.others].find((w) => w?.id === home) ?? null : null
   const path = learnerPath(data.model, data.settings)
   const step = legacyStepOf(t.id, [...path.read, ...path.listen])
+  // R5 끝단 경로 — 자료 범주 · 지금 능력 · 정식 공급 0 대안 · 출제 원리 경로 · 복귀 요약(값은 위 계산 그대로)
+  const bucketed = supply.lines.map((l) => ({ role: l.role, bucket: supplyBucket(supplyStep(l, t.id, ledger, currentDemand)) }))
+  const assessmentQualified = bucketed.some((b) => (b.role === 'independent_check' || b.role === 'transfer') && (b.bucket === 'qualified' || b.bucket === 'delivered'))
+  const ability = abilityNow({ check, needed: !!need, goalSet: !!view.toBe, assessmentQualified })
+  const fallback = supply.lines.length > 0 ? fallbackActions(bucketed, study.items.length > 0) : null
+  const pItem = principleItem(study.items)
+  const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
+  // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
+  const ip = view.evidence?.[t.id]?.instructionPath
+  // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
+  const transferDone = !!ip && ip.transferPlanned !== null && ip.transferDone > 0 && ip.transferDone >= ip.transferPlanned
+  const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
+  const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 
   return (
     <aside className={u.inspector} aria-labelledby="ins-h" data-testid="task-inspector" data-task={t.id}>
@@ -125,6 +194,17 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
       </header>
 
       <div className={u.insBody}>
+        {summary && (
+          <section className={u.insSec} aria-labelledby="ins-return" data-testid="inspector-return-summary" role="status">
+            <h3 id="ins-return" className={u.insH}>돌아온 뒤 — 무엇이 기록됐나</h3>
+            <ul className={u.ledger}>{summary.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+          </section>
+        )}
+        <section className={u.insSec} aria-labelledby="ins-ability" data-testid="inspector-ability" data-progress={ability.progress.join(' ')}>
+          <h3 id="ins-ability" className={u.insH}>지금 필요한 능력과 이유</h3>
+          <p className={u.p}><strong>{def.name}</strong> — {ability.progress.map((x) => PROGRESS_LABEL[x]).join(' · ')}</p>
+          <ul className={u.ledger}>{ability.lines.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+        </section>
         <section className={u.insSec} aria-labelledby="ins-now">
           <h3 id="ins-now" className={u.insH}>현재와 목표</h3>
           <dl className={u.kv}>
@@ -144,32 +224,19 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
             <dd>{def.learner_criterion}</dd>
           </dl>
           {t.researchFlag && <p className={u.fine}>{FLAG_LABEL[t.researchFlag]} — 표시 순서만 바뀔 수 있고 기록은 그대로예요.</p>}
+          {ins.now.timingHeld > 0 && <p className={u.fine} data-testid="inspector-timing-held" data-n={ins.now.timingHeld}>확인 문항 {ins.now.timingHeld}개는 해설 열람 시각과 제출 순서를 확인할 수 없어 이번 독립 확인에 반영하지 않았어요 — 틀렸다는 뜻이 아니에요.</p>}
           <p className={u.fine}>근거 상태는 실력 점수가 아니에요. 확인 전 · 보류는 부족하다는 뜻이 아니에요.</p>
         </section>
 
-        <section className={u.insSec} aria-labelledby="ins-exam">
-          <h3 id="ins-exam" className={u.insH}><FileSearch size={14} aria-hidden="true" />기출과 출제 논리</h3>
-          <p className={u.p}>{def.goal}</p>
-          <dl className={u.kv}>
-            <dt>어떤 기출에서</dt>
-            <dd>{def.conditions || '정하는 중'}</dd>
-            <dt>무엇을 보면 아나</dt>
-            <dd>{def.evidence || '정하는 중'}</dd>
-            <dt>목표 시험과의 연결</dt>
-            <dd data-testid="inspector-relevance">
-              {unknownRel ? '기준 시험 문항과의 연결을 아직 검토하지 않았어요(무관하다는 뜻 아님)' : need ? `목표 점수에 꼭 필요한 기출 문항 중 연결된 문항 ${need.relevance.items}개 · 라인 수준 연결(문항별 검토 전)` : view.toBe ? '연결은 있지만 이 목표에서 먼저 할 문항은 아니에요' : '목표를 정하면 보여요'}
-            </dd>
-          </dl>
-          {step && (
-            <button type="button" className={u.ghost} onClick={() => setSheet(step)} data-testid="inspector-evidence-detail" data-step={step.key}>
-              <BookOpenCheck size={14} aria-hidden="true" />
-              기출 근거 자세히 · 「{step.name}」
-            </button>
-          )}
-        </section>
+        {view.evidence?.[t.id] && (
+          <section className={u.insSec} aria-labelledby="ins-claims">
+            <h3 id="ins-claims" className={u.insH}>기록으로 말할 수 있는 것</h3>
+            <EvidenceBlock e={view.evidence[t.id]!} />
+          </section>
+        )}
 
         <section className={u.insSec} aria-labelledby="ins-plan">
-          <h3 id="ins-plan" className={u.insH}>교재 · 학습 · 계획</h3>
+          <h3 id="ins-plan" className={u.insH}>학습 경로 · 필요한 자료</h3>
           {ws && home ? (
             <>
               <p className={u.p}><strong>{templateOf(home)?.name ?? ws.name}</strong> — {ws.goal}</p>
@@ -187,16 +254,152 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               </ol>
               {ins.plan && <p className={u.fine}>이번 계획 수행 {ins.plan.done}{ins.plan.planned !== null ? ` / ${ins.plan.planned}` : ''} — 수행량은 실력 점수가 아니에요.</p>}
               {view.plans[home] && (
-                <button type="button" className={u.ghost} aria-expanded={planOpen} aria-controls="umap-plan" onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
+                <button type="button" className={u.ghost} aria-haspopup="dialog" aria-expanded={planOpen} onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
                   <ChevronDown size={14} aria-hidden="true" className={u.chev} data-open={planOpen} />
-                  학습계획 {planOpen ? '접기' : '열기 · 조정(관계도 아래)'}
+                  학습계획 열기 · 조정
                 </button>
               )}
             </>
           ) : (
             <p className={u.p} data-testid="inspector-no-ws">{t.hold ? '측정 방법이 정해지면 학습 묶음이 생겨요.' : '이 TASK 를 다루는 학습 묶음의 확인 콘텐츠를 준비하고 있어요. 준비 전이라도 부족하다는 뜻은 아니에요.'}</p>
           )}
+          {supply.lines.length > 0 && (
+            <div className={u.sub} data-testid="inspector-supply" data-demand={supply.demandKey}>
+              <p className={u.subH}>이 TASK 에 필요한 자료 · 준비 상태</p>
+              <ul className={u.ledger}>
+                {supply.lines.map((l) => (
+                  <li key={l.role} data-role={l.role} data-state={l.state} data-step={supplyStep(l, t.id, ledger, currentDemand)} title={l.reason}>
+                    <span>{ROLE_LABEL_KO[l.role]}{l.delivered.length > 0 ? ` · ${l.delivered.length}개` : ''}</span>
+                    <span className={u.ledgerVal} data-testid="inspector-supply-bucket" data-bucket={supplyBucket(supplyStep(l, t.id, ledger, currentDemand))}>{SUPPLY_BUCKET_LABEL[supplyBucket(supplyStep(l, t.id, ledger, currentDemand))]} · {SUPPLY_STEP_LABEL[supplyStep(l, t.id, ledger, currentDemand)]}</span>
+                  </li>
+                ))}
+              </ul>
+              {fallback && (
+                <div data-testid="inspector-fallback">
+                  <p className={u.subH}>검수된 자료가 아직 없어요 — 지금 할 수 있는 것</p>
+                  <ul className={u.ledger}>{fallback.map((f) => <li key={f.kind} data-kind={f.kind} className="break-keep">{f.text}</li>)}</ul>
+                </div>
+              )}
+              <p className={u.fine} data-testid="inspector-fq" data-fq={fq.status}>{FQ_READER_LABEL[fq.status]}{fq.status === 'installed' ? ` · 이 TASK 적격 자료 ${fqHere}건${fqHere === 0 ? ' · 자격 검증 대기' : ''}` : ''}</p>
+              <p className={u.fine} data-testid="inspector-ledger-note" data-ledger={ledger.status}>{ledgerNote(ledger)}</p>
+              <p className={u.fine}>자료가 없거나 검수 전이어도 이 TASK 가 필요 없다는 뜻이 아니에요. 자료 수는 실력 점수가 아니에요.</p>
+            </div>
+          )}
+          {(study.items.length > 0 || study.withheld > 0) && (
+            <div className={u.sub} data-testid="inspector-study">
+              <p className={u.subH}>기출 해부로 공부하기 — 출제 의도 · 정답 · 오답 설계</p>
+              {study.items.length > 0 ? (
+                <ul className={u.studyList}>
+                  {study.items.map((s) => (
+                    <li key={s.item} data-basis={s.basis}>
+                      <Link
+                        href={past ? `/csat/item/${toItemSlug(s.item)}` : withMapReturn(`/csat/item/${toItemSlug(s.item)}`, outgoingCtx(data.v4?.saved, t.id, home))}
+                        className={u.studyLink}
+                        data-testid="inspector-study-link"
+                      >
+                        {s.item.replace('#', ' · ')}번
+                        <span className={u.bStatus}>{s.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항' : `연구 사례(AI 2명 ${s.research === 'direct' ? '직접' : '간접'} 관련 · 사람 검수 전)`}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={u.fine}>확인 문항을 하나 풀면 그 문항의 출제 의도와 정답 · 오답 설계를 여기서 볼 수 있어요.</p>
+              )}
+              {study.withheld > 0 && (
+                <p className={u.fine} data-testid="inspector-study-withheld">
+                  아직 안 푼 확인 · 다른 글 적용 문항 {study.withheld}개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.
+                </p>
+              )}
+            </div>
+          )}
         </section>
+
+        {pItem && (
+          <section className={u.insSec} aria-labelledby="ins-principle" data-testid="inspector-principle-path" data-item={pItem.item} data-ai-only={isAiOnly(pItem)}>
+            <h3 id="ins-principle" className={u.insH}>출제 원리 따라가기 · {pItem.item.replace('#', ' · ')}번</h3>
+            {isAiOnly(pItem) && <p className={u.fine} data-testid="inspector-principle-ai">AI 가 만든 분석 사례예요 — 사람 검수 전이에요.</p>}
+            <ol className={u.ledger}>
+              {PRINCIPLE_STEPS.map((p, i) => {
+                const base = `/csat/item/${toItemSlug(pItem.item)}?${p.query}`
+                return (
+                  <li key={p.id} data-step={p.id}>
+                    {p.query ? (
+                      <Link href={past ? base : withMapReturn(base, outgoingCtx(data.v4?.saved, t.id, home))} className={u.studyLink} data-testid="inspector-principle-link" onClick={() => track({ name: 'csat_map_node_opened', props: { kind: 'principle' } })}>
+                        {i + 1}. {p.label}
+                      </Link>
+                    ) : transferHref && !past ? (
+                      <Link href={withMapReturn(transferHref, outgoingCtx(data.v4?.saved, t.id, home))} className={u.studyLink} data-testid="inspector-principle-link" onClick={() => track({ name: 'csat_map_node_opened', props: { kind: 'principle' } })}>{i + 1}. {p.label}</Link>
+                    ) : (
+                      <span className="break-keep">{i + 1}. {p.label} — {transferDone ? '마쳤어요' : '앞 단계를 마치고 처음 보는 지문 과제가 열리면 해요(해설을 먼저 보면 전이 근거가 되지 않아요)'}</span>
+                    )}
+                  </li>
+                )
+              })}
+            </ol>
+          </section>
+        )}
+
+        {/* P-M4d — 자세한 근거(기출 · 출제 논리 · 판정 범위 · 연구)는 접어 둔다. 기본 화면은 「지금 · 목표 · 다음 행동 · 학습 경로 · 자료」 */}
+        <details className={u.insSec} data-testid="inspector-detail" aria-labelledby="ins-exam">
+          <summary id="ins-exam" className={u.insH}><FileSearch size={14} aria-hidden="true" />자세한 근거 — 기출 · 출제 논리 · 연구</summary>
+          <p className={u.p}>{def.goal}</p>
+          <dl className={u.kv}>
+            <dt>어떤 기출에서</dt>
+            <dd>{learnerText(def.conditions) || '정하는 중'}</dd>
+            <dt>무엇을 보면 아나</dt>
+            <dd>{learnerText(def.evidence) || '정하는 중'}</dd>
+            <dt>목표 시험과의 연결</dt>
+            <dd data-testid="inspector-relevance">
+              {unknownRel ? '기준 시험 문항과의 연결을 아직 검토하지 않았어요(무관하다는 뜻 아님)' : need ? `목표 점수에 꼭 필요한 기출 문항 중 연결된 문항 ${need.relevance.items}개 · 라인 수준 연결(문항별 검토 전)` : view.toBe ? '연결은 있지만 이 목표에서 먼저 할 문항은 아니에요' : '목표를 정하면 보여요'}
+            </dd>
+          </dl>
+          {step && (
+            <button type="button" className={u.ghost} onClick={() => setSheet(step)} data-testid="inspector-evidence-detail" data-step={step.key}>
+              <BookOpenCheck size={14} aria-hidden="true" />
+              기출 근거 자세히 · 「{step.name}」
+            </button>
+          )}
+          {behaviors.length > 0 && (
+            <div className={u.sub} data-testid="inspector-behaviors">
+              <p className={u.subH}>이 TASK 에서 하는 일 — 서로 다른 연습이에요</p>
+              <ul className={u.behaviors}>
+                {behaviors.map((b) => (
+                  <li key={b.id} data-behavior={b.id} data-status={b.status}>
+                    <span className={u.bName}>{b.name}</span>
+                    <span className={u.bDoes}>{b.does}</span>
+                    <span className={u.bStatus}>{BEHAVIOR_STATUS_LABEL[b.status]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {research && (
+            <details className={u.sub} data-testid="inspector-research">
+              <summary className={u.subH}>연구 근거 v1.4 · 사람 검수 전</summary>
+              {research.definition && <p className={u.fine}>연구 정의: {research.definition}</p>}
+              {research.reviews.length > 0 && (
+                <>
+                  <p className={u.fine}>원문을 확인한 AI 두 명이 이 TASK 와 기출의 관련을 따로 판정했어요(사람 검수 · 학생 자료 아님). 갈린 판정은 그대로 둬요.</p>
+                  <ul className={u.ledger}>
+                    {research.reviews.map((r) => (
+                      <li key={r.item} data-agree={r.agree}>
+                        <span>{r.item} · {TYPE_LABEL[r.type] ?? r.type}</span>
+                        <span className={u.ledgerVal}>{r.agree ? REL_LABEL[r.first] : `${REL_LABEL[r.first]} / ${r.second ? REL_LABEL[r.second] : '?'} · 갈림`}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {research.activities.length > 0 && (
+                <p className={u.fine}>
+                  설계된 학습 활동 {research.activities.length}개({research.activities.map((a) => ROLE_LABEL[a.role] ?? a.role).join(' · ')}) · 채점 기준 {research.activities.reduce((s, a) => s + a.facets, 0)}개 — 콘텐츠 검수(R2) · 채점 독립성(R3) 전이라 아직 학습자에게 내보내지 않아요.
+                </p>
+              )}
+              <p className={u.fine}>출처 {research.source.branch}@{research.source.commit} · 자동 후보는 쓰지 않아요.</p>
+            </details>
+          )}
+        </details>
 
         <details className={u.insSec} data-testid="inspector-coverage">
           <summary className={u.insH}>결과와 개선 · 지원 상태</summary>

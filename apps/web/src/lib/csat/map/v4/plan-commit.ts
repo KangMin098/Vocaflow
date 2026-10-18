@@ -1,7 +1,7 @@
 // apps/web/src/lib/csat/map/v4/plan-commit.ts
 //
 // 학습계획 저장 요청 → RPC 페이로드(순수 함수 · 4차). 신뢰 경계(LEARNING_MAP_V4_PLAN_SCHEMA §0):
-//   학습자가 보내는 것 = template · order · planned(TASK 별) · reason · note · expectedVersion · clientKey(+ restoreOf)
+//   학습자가 보내는 것 = template · order · planned(TASK 별) · reason · note · expectedVersion · expectedGoalVersion(본 화면의 목표 버전) · clientKey(+ restoreOf)
 //   서버가 채우는 것 = 템플릿 TASK 목록(정의) · TASK 별 단계 · **가용 문항 수**(서버가 지금 계산한 계획 보기) · 규칙 · 정의 버전 · 기준 시점
 // 클라이언트가 보낸 가용량은 받지 않는다(요청 모양에 칸이 없다). 계획량이 가용량을 넘으면 조용히 자르지 않고 거절한다.
 
@@ -31,6 +31,8 @@ export interface PlanCommitRequest {
   reason: PlanReason
   note?: string | null
   expectedVersion: number
+  /** Goal snapshot observed by this editor. Omitted only by legacy API clients. */
+  expectedGoalVersion?: number | null
   clientKey: string
   restoreOf?: number | null
 }
@@ -58,7 +60,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 export function parseCommitRequest(body: unknown): { ok: true; req: PlanCommitRequest } | { ok: false; code: string } {
   if (!body || typeof body !== 'object') return { ok: false, code: 'body' }
   const b = body as Record<string, unknown>
-  const allowed = new Set(['template', 'order', 'planned', 'reason', 'note', 'expectedVersion', 'clientKey', 'restoreOf'])
+  const allowed = new Set(['template', 'order', 'planned', 'reason', 'note', 'expectedVersion', 'expectedGoalVersion', 'clientKey', 'restoreOf'])
   for (const k of Object.keys(b)) if (!allowed.has(k)) return { ok: false, code: `unknown_field:${k}` }
   if (typeof b.template !== 'string' || !/^ws\.[a-z0-9-]{1,40}$/.test(b.template)) return { ok: false, code: 'template' }
   if (!Array.isArray(b.order) || b.order.length > 50 || !b.order.every((t) => typeof t === 'string' && t.length <= 64)) return { ok: false, code: 'order' }
@@ -67,6 +69,7 @@ export function parseCommitRequest(body: unknown): { ok: true; req: PlanCommitRe
   if (typeof b.reason !== 'string' || !(LEARNER_REASONS as readonly string[]).includes(b.reason)) return { ok: false, code: 'reason' }
   if (b.note !== undefined && b.note !== null && (typeof b.note !== 'string' || b.note.length > 500)) return { ok: false, code: 'note' }
   if (!Number.isInteger(b.expectedVersion) || (b.expectedVersion as number) < 0) return { ok: false, code: 'expectedVersion' }
+  if (b.expectedGoalVersion !== undefined && b.expectedGoalVersion !== null && !(Number.isSafeInteger(b.expectedGoalVersion) && (b.expectedGoalVersion as number) > 0)) return { ok: false, code: 'expectedGoalVersion' }
   if (typeof b.clientKey !== 'string' || !UUID.test(b.clientKey)) return { ok: false, code: 'clientKey' }
   if (b.reason === 'restore' ? !(Number.isInteger(b.restoreOf) && (b.restoreOf as number) >= 1) : b.restoreOf !== undefined && b.restoreOf !== null) return { ok: false, code: 'restoreOf' }
   return { ok: true, req: b as unknown as PlanCommitRequest }
@@ -86,11 +89,17 @@ export function buildCommitPayload(req: PlanCommitRequest, view: WorkspacePlanVi
     return { ok: false, status: 422, code: 'order', detail: '순서는 이 묶음의 항목을 한 번씩 모두 담아야 해요' }
   }
   for (const t of Object.keys(req.planned)) if (!set.has(t)) return { ok: false, status: 422, code: 'planned_task', detail: t }
+  const restoreIssue = req.reason === 'restore' && req.restoreOf != null ? transferRestoreShortage(view, req.restoreOf) : null
+  if (restoreIssue) return { ok: false, status: 422, code: 'transfer_restore_shortage', detail: restoreIssue }
   const tasks: PlanPayloadTask[] = []
   for (const id of templateTasks) {
     const p = view.tasks.find((x) => x.task === id)
     const available = p?.quantity.available ?? null
     const want = req.planned[id] ?? null
+    const restored = req.reason === 'restore' && req.restoreOf != null ? view.restoreTransfer?.[req.restoreOf]?.[id] : undefined
+    if (p?.stage === 'transfer' && tpl.core.includes(id) && restored !== undefined && want !== restored) return { ok: false, status: 422, code: 'restore_transfer_policy', detail: id }
+    if (p?.stage === 'transfer' && !tpl.core.includes(id) && want !== null) return { ok: false, status: 422, code: 'planned_not_owned', detail: id }
+    if (p?.stage === 'transfer' && want !== null && want < 1) return { ok: false, status: 422, code: 'planned_min', detail: id }
     if (want !== null && (available === null || want > available)) return { ok: false, status: 422, code: 'planned_over_available', detail: `${id}: ${want} > ${available ?? '없음'}` }
     tasks.push({ task: id, stage: p?.stage ?? null, planned: want, available, rule: p?.quantity.rule ?? null })
   }
@@ -106,19 +115,25 @@ export interface SavedPlanVersion {
   canon: string
   asOf: string
   createdAt: string
+  /** LM-G1.3a — 이 계획을 저장할 때의 목표 이력 id(learner_workspace_plan.goal_version_id 그대로 · 없으면 null). 목표가 바뀌어도 소급하지 않는다 */
+  goalVersionId?: number | null
 }
 
 /** 저장된 계획과 지금 계획 보기의 차이 — 재계획 제안(콘텐츠 · 정의가 바뀌었을 때). 근거 · 판정은 보지 않는다 */
-export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[] } | null {
+export function planDrift(saved: SavedPlanVersion | null, view: WorkspacePlanView): { content: { task: TaskId; saved: number | null; now: number | null }[]; definition: boolean; overAvailable: TaskId[]; stages: TaskId[] } | null {
   if (!saved) return null
   const content: { task: TaskId; saved: number | null; now: number | null }[] = []
   const overAvailable: TaskId[] = []
+  const stages: TaskId[] = []
   for (const t of saved.plan.tasks) {
+    const current = view.tasks.find(x => x.task === t.task)
+    if (current && current.stage !== t.stage) stages.push(t.task)
     const now = view.tasks.find((x) => x.task === t.task)?.quantity.available ?? null
-    if (now !== t.available) content.push({ task: t.task, saved: t.available, now })
-    if (t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
+    const sameStage = !current || current.stage === t.stage
+    if (sameStage && now !== t.available) content.push({ task: t.task, saved: t.available, now })
+    if (sameStage && t.planned !== null && (now === null || t.planned > now)) overAvailable.push(t.task)
   }
-  return { content, definition: saved.canon !== CANON_VERSION, overAvailable }
+  return { content, definition: saved.canon !== CANON_VERSION, overAvailable, stages }
 }
 
 /** 저장된 계획을 화면 보기에 덮는다 — 순서 · 계획량만(가용량이 줄었으면 가용량으로 자르고 표시는 drift 가 한다). 근거 · 수행은 지금 값 */
@@ -127,7 +142,9 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
   const rank = (id: TaskId) => { const i = saved.plan.order.indexOf(id); return i < 0 ? 999 + view.tasks.findIndex((p) => p.task === id) : i }
   const tasks = view.tasks.map((p) => {
     const s = saved.plan.tasks.find((t) => t.task === p.task)
-    if (!s || p.quantity.available === null) return p
+    // TRANSFER quantity was already replayed from the complete core-workspace history.
+    // A restore payload rebuilt at another stage is not a new transfer-policy decision.
+    if (!s || s.stage !== p.stage || p.quantity.available === null || p.stage === 'transfer') return p
     const planned = s.planned === null ? null : Math.min(s.planned, p.quantity.available)
     return { ...p, quantity: { ...p.quantity, planned, remaining: planned === null ? null : Math.max(0, planned - p.quantity.done) } }
   }).sort((a, b) => rank(a.task) - rank(b.task))
@@ -139,10 +156,78 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
  *  네트워크 실패 뒤 다시 보낼 때는 서명이 같을 때만 이전 요청 키를 쓴다(바뀐 내용을 옛 키로 보내면 서버가 옛 결과를 돌려줘 변경이 사라진다). */
 export function requestSignature(req: Omit<PlanCommitRequest, 'clientKey'>): string {
   const planned = Object.keys(req.planned).sort().map((k) => `${k}=${req.planned[k] ?? '-'}`).join(',')
-  return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? ''].join('|')
+  return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? '', req.expectedGoalVersion === undefined ? 'legacy' : req.expectedGoalVersion ?? 'none'].join('|')
+}
+
+/** 같은 clientKey 로 이미 저장된 행(서버가 만든 계획) — 재시도 판단용 */
+export interface PriorCommit {
+  goalVersionId?: number | null
+  template: string
+  version: number
+  workspaceId: string
+  plan: PlanPayload
+  reason: PlanReason
+  note: string | null
+  restoredFrom: number | null
+}
+
+const normNote = (n: string | null | undefined) => (n && n.trim() ? n.trim() : null)
+
+/**
+ * v6.2 P-M2b — 같은 clientKey 의 재전송이 「처음 성공한 바로 그 요청」인지. 같으면 처음 결과를 그대로 돌려주고(멱등 재시도),
+ * 다르면 충돌로 막는다(같은 키 · 다른 본문을 조용히 처음 결과로 바꿔 치우지 않는다). 서버가 지금 다시 계산한 가용량 · 단계는 비교하지 않는다 —
+ * 첫 성공 뒤 콘텐츠 · 목표가 바뀌어도 그 재시도는 성공 결과를 받아야 한다(정본 §10.3).
+ */
+export function sameCommitRequest(prior: PriorCommit, req: PlanCommitRequest): boolean {
+  if (req.expectedGoalVersion !== undefined && (prior.goalVersionId ?? null) !== req.expectedGoalVersion) return false
+  if (prior.template !== req.template || prior.reason !== req.reason) return false
+  if (normNote(prior.note) !== normNote(req.note)) return false
+  if (prior.version !== req.expectedVersion + 1) return false
+  if ((req.reason === 'restore' ? req.restoreOf ?? null : null) !== (prior.reason === 'restore' ? prior.restoredFrom : null)) return false
+  if (prior.plan.order.length !== req.order.length || prior.plan.order.some((t, i) => t !== req.order[i])) return false
+  const tasks = new Set(prior.plan.tasks.map((t) => t.task))
+  if (Object.keys(req.planned).some((k) => !tasks.has(k))) return false
+  return prior.plan.tasks.every((t) => (req.planned[t.task] ?? null) === t.planned)
 }
 
 /** 이전 시도의 키를 다시 쓸지 — 서명이 같을 때만 */
 export function keyFor(pending: { key: string; sig: string } | null, sig: string, fresh: () => string): { key: string; sig: string } {
   return pending && pending.sig === sig ? pending : { key: fresh(), sig }
+}
+
+/** Saved operating quantity is independent of the currently allocated stage.
+ * Replay only this template's core TASK policies; restoration restores the prior policy snapshot.
+ */
+export function transferPolicySnapshots(template: string, history: readonly SavedPlanVersion[]): Record<number, Partial<Record<string, number>>> {
+  const core = new Set(templateOf(template)?.core ?? [])
+  let policy: Partial<Record<string, number>> = {}
+  const snapshots = new Map<number, Partial<Record<string, number>>>()
+  for (const version of [...history].sort((a, b) => a.version - b.version)) {
+    if (version.reason === 'restore' && version.restoredFrom != null && snapshots.has(version.restoredFrom)) {
+      policy = { ...snapshots.get(version.restoredFrom) }
+      snapshots.set(version.version, { ...policy })
+      continue // current stage quantities in a rebuilt restore payload are not a new transfer decision
+    }
+    for (const task of version.plan.tasks ?? []) {
+      if (core.has(task.task) && task.stage === 'transfer' && task.planned !== null && Number.isInteger(task.planned) && task.planned >= 1) policy[task.task] = task.planned
+    }
+    snapshots.set(version.version, { ...policy })
+  }
+  return Object.fromEntries(snapshots)
+}
+
+export function transferPolicy(template: string, history: readonly SavedPlanVersion[]): Partial<Record<string, number>> {
+  const snapshots = transferPolicySnapshots(template, history)
+  const latest = history.reduce((n, v) => Math.max(n, v.version), 0)
+  return snapshots[latest] ?? {}
+}
+
+/** A restored CHECK allocation can inherit a TRANSFER policy from an older version. */
+export function transferRestoreShortage(view: WorkspacePlanView, version: number): string | null {
+  for (const [id, amount] of Object.entries(view.restoreTransfer?.[version] ?? {})) {
+    const p = view.tasks.find(t => t.task === id)
+    if (!p || !view.core.includes(id) || p.achievement === 'resolved' || p.transferAvailable === undefined) continue
+    if (amount !== undefined && amount > p.transferAvailable) return id
+  }
+  return null
 }

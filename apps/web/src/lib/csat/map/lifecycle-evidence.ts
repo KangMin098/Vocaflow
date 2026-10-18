@@ -10,11 +10,22 @@
 // 회차: 직접 확인 시각(verifiedAt) 뒤의 기록만 센다 — 이전 회차의 바로잡기는 새 회차에 넘어오지 않는다.
 
 export interface ActivityRow {
+  /** Exact learning_task_attempts.id; used only for evidence lineage, not stage policy. */
+  attemptId?: string
+  sessionId?: string | null
+  /** Server-derived exact passage identity; null means identity unavailable, undefined is legacy input. */
+  passageKey?: string | null
   itemRef: string | null
   taskKey: string
   phase: string
   isCorrect: boolean | null
   answeredAt: string | null
+  /** LM-G1.4 증거 계보(원장 그대로 · 없으면 undefined = 옛 입력) — 주석 해시 · 화면 · 도움 · 합성 · 서버 수신 */
+  contentHash?: string | null
+  activity?: string | null
+  helpLevel?: string | null
+  synthetic?: boolean | null
+  receivedAt?: string | null
 }
 
 export interface LifecycleEvidence {
@@ -26,12 +37,42 @@ export interface LifecycleEvidence {
   transferAt: string | null
   /** 기록이 남는 적용 대상이 있는가 — 없으면 적용 칸은 「준비 중」 이고 지금 할 일에서 건너뛴다(기본 true) */
   transferReady?: boolean
+  /**
+   * LM-G1.2 적용 운영 진행 — 서로 다른 적용 문항 수 / 계획량(transferContract). 주어지면 「적용 마침」은 done ≥ planned 일 때만이다
+   * (1회 경험 ≠ 2지문 계획 완료). 주지 않으면 예전처럼 첫 경험(transferAt)으로 본다(호환).
+   */
+  transferDone?: number
+  transferPlanned?: number | null
 }
 
 export const NO_EVIDENCE: LifecycleEvidence = { repairAt: null, repairTried: false, transferAt: null }
 
+type SkillLike = { status?: string; verifiedAt: string | null; verifiedItems: readonly string[]; check?: { wrongItems?: readonly string[]; lastWrongAt?: string | null } }
+
+/**
+ * 이번 회차의 바로잡기 창(LM-G1.1 — lifecycle · 계획이 같이 쓴다) — 바로잡을(막힌) 문항과 기록을 세기 시작하는 시각.
+ *   다시 확인에서 막혔으면 바로잡을 문항은 그 막힌 문항들이고 그 뒤의 시도만 센다 — 예전 확정 문항 · 이전 성공은 승계하지 않는다(Codex P2).
+ *   해소된 회차는 그 회차 안의 바로잡기 기록을 그대로 보인다(통과 뒤에 「다시 바로잡기」 를 요구하지 않는다).
+ */
+export function repairWindow(skill: SkillLike): { blocked: string[]; since: string } | null {
+  if (!skill.verifiedAt) return null
+  const recheck = skill.status !== 'resolved' && !!skill.check?.lastWrongAt && skill.check.lastWrongAt > skill.verifiedAt
+  const blocked = recheck ? [...(skill.check?.wrongItems ?? [])] : [...new Set([...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])]
+  return { blocked, since: recheck ? (skill.check!.lastWrongAt as string) : skill.verifiedAt }
+}
+
+/** 이번 회차 바로잡기 시도(시각 순) — 같은 과제 키 · 막힌 문항 · 창 시작 뒤. 정오는 그대로 둔다(성공은 호출부가 `=== true` 로만) */
+export function repairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): A[] {
+  const w = repairWindow(skill)
+  if (!w) return []
+  const blocked = new Set(w.blocked)
+  return activity
+    .filter((a) => a.answeredAt && a.answeredAt > w.since && taskKeys.has(a.taskKey) && a.itemRef !== null && blocked.has(a.itemRef))
+    .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
+}
+
 export function lifecycleEvidence(
-  skill: { status?: string; verifiedAt: string | null; verifiedItems: readonly string[]; check?: { wrongItems?: readonly string[]; lastWrongAt?: string | null } } | null,
+  skill: SkillLike | null,
   targets: readonly { itemRef: string; taskKey: string }[],
   activity: readonly ActivityRow[],
 ): LifecycleEvidence {
@@ -39,16 +80,11 @@ export function lifecycleEvidence(
   const since = skill.verifiedAt
   const keys = new Set(targets.map((t) => t.taskKey))
   const inBundle = new Set(targets.map((t) => t.itemRef))
-  // 다시 확인에서 막혔으면 바로잡을 문항은 그 막힌 문항들이다 — 예전 확정 문항을 다시 맞혀도 재바로잡기가 아니다(Codex P2)
-  const recheck = skill.status !== 'resolved' && !!skill.check?.lastWrongAt && skill.check.lastWrongAt > since
-  const blocked = new Set(recheck ? (skill.check?.wrongItems ?? []) : [...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])
-  // 다시 확인에서 막혔으면 그 뒤의 바로잡기만 센다 — 「한 번 더 바로잡기」 가 새로 필요하다(안내 문구와 4칸이 어긋나지 않게)
-  // 해소된 회차는 그 회차 안의 바로잡기 기록을 그대로 보인다(통과 뒤에 「다시 바로잡기」 를 요구하지 않는다)
-  const repairSince = skill.status !== 'resolved' && skill.check?.lastWrongAt && skill.check.lastWrongAt > since ? skill.check.lastWrongAt : since
   const after = activity
     .filter((a) => a.answeredAt && a.answeredAt > since && keys.has(a.taskKey))
     .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
-  const repair = after.filter((a) => a.itemRef && blocked.has(a.itemRef) && (a.answeredAt as string) > repairSince)
+  const repair = repairAttempts(skill, keys, activity)
+  // 성공 = 정답(true) 만. 틀림 · 정오 없음(null) 은 「바로잡는 중」 이다
   const repairAt = repair.find((a) => a.isCorrect === true)?.answeredAt ?? null
   const transferAt = after.find((a) => a.phase === 'transfer' || (a.itemRef !== null && !inBundle.has(a.itemRef)))?.answeredAt ?? null
   return { repairAt, repairTried: repair.length > 0, transferAt }
@@ -60,6 +96,50 @@ export type LifecycleNext = 'repair' | 'transfer' | 'check' | null
 export function nextLifecycleAction(status: string | null | undefined, ev: LifecycleEvidence): LifecycleNext {
   if (status !== 'verified' && status !== 'still_needed') return null
   if (!ev.repairAt) return 'repair'
-  if (!ev.transferAt && ev.transferReady !== false) return 'transfer'
+  if (!transferFinished(ev) && ev.transferReady !== false) return 'transfer'
   return 'check'
+}
+
+/** 적용 단계를 마쳤는가 — 운영 진행이 주어지면 진행 ≥ 계획량, 아니면 예전대로 첫 경험(호환) */
+export function transferFinished(ev: Pick<LifecycleEvidence, 'transferAt' | 'transferDone' | 'transferPlanned'>): boolean {
+  if (ev.transferPlanned !== undefined) return ev.transferPlanned !== null && (ev.transferDone ?? 0) >= ev.transferPlanned
+  return !!ev.transferAt
+}
+
+/**
+ * LM-G1.2 — 다른 글에 적용(TRANSFER) 계약. 네 값을 섞지 않는다(정본 workspaces.json ws.central-meaning:
+ * quantity_policy 「… + 전이 2지문 + …」 · criterion 「독립 확인(skill-diagnosis)」).
+ *   experience 적용을 한 번이라도 했는가(기존 transferAt — 보존)
+ *   progress   서로 다른 적용 문항 수 / 운영 계획량(정본 2지문 · 학습자가 저장한 계획량이 있으면 그것 · 자료 부족과 구분)
+ *   ready      다음 교수 단계(다시 확인)로 넘어갈 운영 조건 — progress.done ≥ progress.planned 일 때만. 자료가 없으면 null(건너뜀 · 완료 아님)
+ *   evidence   능력 주장은 하지 않는다 — 적용은 「경험」까지만 말하고, 독립 적용 능력은 CHECK(skill-diagnosis)가 판정한다
+ * 같은 문항 반복 · 다른 TASK 키의 시도는 진행에 넣지 않는다(호출부 doneOf 와 같은 범위). 계획량 조정은 운영량만 바꾸고 숙달 기준을 바꾸지 않는다.
+ */
+export interface TransferContract {
+  experience: boolean
+  progress: { done: number; planned: number | null }
+  ready: boolean | null
+  evidence: 'none' | 'experience_only'
+}
+
+/** 운영 계획량 — 저장된 적용 계획량(1 이상)이 있으면 그것, 없으면 정본 기본(passages). 저장된 운영량도 자료 부족으로 자동 축소하지 않는다. 기본 운영량은 자료 부족으로 자동 축소하지 않는다. 가용 0 이면 null */
+export function transferTarget(available: number | null | undefined, savedPlanned: number | null | undefined, passages: number): number | null {
+  const cap = available ?? 0
+  if (cap <= 0) return null
+  const want = savedPlanned !== null && savedPlanned !== undefined && Number.isInteger(savedPlanned) && savedPlanned >= 1 ? savedPlanned : passages
+  return want
+}
+
+export function transferContract(experienceAt: string | null, done: number, planned: number | null): TransferContract {
+  return {
+    experience: !!experienceAt || done > 0,
+    progress: { done, planned },
+    ready: planned === null ? null : done >= planned,
+    evidence: done > 0 || experienceAt ? 'experience_only' : 'none',
+  }
+}
+
+/** Exact source passage binding. Missing metadata in a current loader is not proof of a distinct passage. */
+export function passageIdentity(item: string | null, key: string | null | undefined): string | null {
+  return key === undefined ? item : key
 }

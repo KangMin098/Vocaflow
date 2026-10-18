@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "name": "A cannot read B actual existing Workspace through PLAN GET",
+      "ok": true,
+      "detail": {}
+    },
+    {
+      "name": "Client-selected foreign Workspace write rejected",
+      "ok": true,
+      "detail": {
+        "status": 400
+      }
+    },
+    {
+      "name": "Foreign actual Workspace URL uses current own context 1280",
+      "ok": true,
+      "detail": {
+        "notice": "떠날 때 열려 있던 학습계획은 지금 열린 계획이 아니에요(끝냈거나 새로 시작했어요). 지금 계획을 보여 드려요."
+      }
+    },
+    {
+      "name": "Foreign actual Workspace URL uses current own context 1440",
+      "ok": true,
+      "detail": {
+        "notice": "떠날 때 열려 있던 학습계획은 지금 열린 계획이 아니에요(끝냈거나 새로 시작했어요). 지금 계획을 보여 드려요."
+      }
+    },
+    {
+      "name": "B plan stays version 1",
+      "ok": true,
+      "detail": {}
+    }
+  ],
+  "created": 2,
+  "accountsLeft": 0
+}

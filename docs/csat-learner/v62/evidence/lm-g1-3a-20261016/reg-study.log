@@ -1,0 +1,7 @@
+[PASS] ① 처음엔 안 푼 확인 문항 해부 링크가 없다(보류 안내만) · 다음 확인 문항도 링크에 없다 — {"links":[{"href":"/csat/item/2019-23?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=399","basis":"research_case"},{"href":"/csat/item/2015-32?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=399","basis":"research_case"},{"href":"/csat/item/2014B-38?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=399","basis":"research_case"},{"href":"/csat/item/2020-36?from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_goal=399","basis":"research_case"}],"withheld":"아직 안 푼 확인 · 다른 글 적용 문항 13개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요.","next":"2022-20"}
+[PASS] ② 확인 문항 풀이 저장
+[PASS] ② 푼 문항만 「이미 풀어 본 확인 문항」 해부로 열리고, 다른 확인 문항은 계속 보류 — {"opened":["2022-20"],"withheld":"아직 안 푼 확인 · 다른 글 적용 문항 12개는 해설을 먼저 보면 혼자 푼 기록으로 쓸 수 없어서, 풀기 전에는 여기서 열지 않아요."}
+[PASS] ③ 해부 링크는 해설 화면(확인 모드 아님) · 문맥(map_task · ws) 실림 · 「학습 지도로」 → 같은 TASK — {"explainShown":true,"mapTask":"r.central_meaning","selected":"r.central_meaning"}
+[PASS] ④ 해설 · 연구 근거를 본 것만으로 근거 상태 · 요구가 바뀌지 않는다 — {"before":{"e":"axis_observation","n":"추가 확인 · 순서 1"},"after":{"e":"axis_observation","n":"추가 확인 · 순서 1"}}
+[PASS] ⑤ E3 도 안 푼 확인 문항은 해부 링크에 없다 — {"links":5,"next":"2026-22"}
+ALL PASS

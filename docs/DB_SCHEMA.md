@@ -1,5 +1,13 @@
 # DB Schema
 
+> **DB286 독립 배포 보완(미적용)**: 최신 main의 B NULL 버전 거절과 기존 권한 helper의 search_path 외 속성 불변 가드를 배포 정본에 반영했다. 영구 객체 범위는 기존 DB-1/2와 같고 I2 annotation binding은 제외한다. 전체 SHA·승인 차이·실제 이력 대기는 [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)·[독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md). 개발 DB는 읽기 전용 감사만 수행했다.
+
+> **미적용 승인안** Factory I1 독립 수정(2026-10-17): C/B→S에서 자격 supersede·현재 원천/Reveal Gate·NULL 축·경합을 재검사하고 P에서 종결 시 유효 수량만 센다. search_path와 부분 승인 롤백도 보완. 개발 DB 객체 변경 없음. 객체/hash/DB-1·2·3 범위: [승인 패키지](./csat-learner/v62/FACTORY_I1_APPROVAL_PACKAGE.md)·[독립 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
+> **개발 DB 적용** (2026-10-18 · `jajenrevcbmrpaliomxv`): Factory I1 DB-1 `20261017200000` · DB-2 `20261017200100` · I2 주석 결속 `20261018120000`(`content_qualification.annotation_ref/hash` · 결속 CHECK · `supply_current_annotation` 등록부 — RLS 정책 0 · 클라이언트 권한 없음 · 소유자만) · 납품↔G2 `20261018120100`(`workspace_delivery_attempt` 추가 전용 원장 · 첫 노출 부분 고유 인덱스 · 학습자 RPC `workspace_delivery_attempt_record`). 이력 SHA·검증: `supabase/deploy/factory-i1/evidence/db2-i2-bind-apply-20261018.md`.
+> **미적용 배포 패키지** Factory I1(2026-10-17): DB-1 `supabase/migrations/20261017200000_factory_i1_db1_supply_foundation.sql`(C→B→S · 한 트랜잭션 · 허용 목록 밖 카탈로그 변화 시 롤백) · DB-2 `supabase/deploy/factory-i1/db2/`(P · DB-1 실DB 검증 뒤). 개발 DB 미적용 — 적용 절차 · 검증 · 되돌리기: [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md).
+> S의 DB-1에는 기존 `is_admin_or_curator()`·`is_admin()`의 search_path 설정 강화도 포함한다(본문/ACL 불변, 아직 미적용). 임시 프로필 사칭 방어이며 복구에서도 유지한다.
+> **별도 미적용 승인안** PR #283 주석 결속 v2: C→B→I1-S→(선택 P)→`_pending_workspace_supply_c_annotation_binding.sql`. 자격의 annotation_ref/hash와 소유자 전용 `supply_current_annotation`(문항/TASK/revision/ref/hash)을 공급·현재 충족도에서 대조한다. 등록부는 빈 상태로 생성하며 배포 동기화 승인 전 공급 차단. 기존 I1 rollback 적용 불가. [독립 수용·승인 범위](./research/factory-i2-r5-qualification-20261017/ACCEPTANCE.md).
+
 > P4 최신 실측(2026-10-05): 학평 리포트 72행, 고1·고2는 23유형 발행/도표 draft 1유형, 고3은 도표 포함 24유형 발행이다. 최신 발행 분석은 868/877/861, 학년별 함정 지도 오답 선지는 3,472/3,508/3,444개다. 첫 도표 발행 집계의 공통 절차 누락을 수정했고 다른 학년의 미발행 도표는 draft로 유지하는 회귀를 추가했다. 원문 예시를 내보내지 않으며 평가원 리포트 26행 전체 해시는 기준과 같다. 아래 2026-10-04 수치는 이전 시점의 기록이다.
 
 > 근거 단위 v4(2026-10-05): 종결부호 바로 뒤의 공백 없는 전각·ASCII 삽입 위치 표지를 다음 단위에 붙인다. 학평 본문 2,912문항 전량 대조에서 H2011G1#39 한 문항만 6→7단위로 변경됐고, 나머지 2,911문항은 옛 단위 버전을 유지했다. 본문·정답·스키마 변경 없이 단위 한 행을 추가하고 옛 실제 blind 3개를 영구 제외했다. 평가원 분석 3,140행·리포트 26행의 full-row 해시 불변을 DB에서 확인했다. 변경 문항은 새 실제 독립 문맥 3인이 원본을 보고 풀이해야 한다. 사전 검사 v4는 학생용 출제 의도에 반복된 내부 수리 메모를 V11로 거부하며, 검수 의미 판정을 대신하지 않는다.
@@ -2188,3 +2196,9 @@ await supabase.rpc(rpcName, { p_result_id: ... })   // ← 리터럴 grep 에 �
   차단하는 기능. 대시보드(Authentication → Policies)에서 켜면 되고 코드 변경은 필요 없다.
 - 조사 명령: `mcp__supabase__get_advisors({ type: 'security' })` (2026-08-15 기준 ERROR 1 · WARN 458 · INFO 6).
   ERROR 1건은 `word_mislevel_signal` 뷰가 SECURITY DEFINER 로 정의된 것.
+
+## R5 공급 결속 — I2 주석 hash · 납품↔G2 ([20261018120000](../supabase/migrations/20261018120000_workspace_supply_c_annotation_binding.sql) · [20261018120100](../supabase/migrations/20261018120100_r5_delivery_g2_binding.sql) · 2026-10-18 사용자 승인)
+- **전제**: DB-1 `20261017200000`(Factory I1 공급 기반). 파일이 스스로 확인하고 없으면 멈춘다.
+- **I2**: `content_qualification.annotation_ref` · `annotation_hash` + CHECK `content_qualification_annotation_bound` · 배포 등록부 `supply_current_annotation`(RLS · anon/authenticated/service_role 권한 없음 · 배포 소유자만) · 정의자 함수 `supply_annotation_matches(uuid)` · 공급 시 현재 주석 = 자격 주석 검사. 등록부가 비어 있으면 csat_item 신규 공급은 모두 거절된다.
+- **납품↔G2**: 표 `workspace_delivery_attempt`(추가 전용 · 본인 RLS `wda_owner_read` · 학습자 쓰기 권한 없음) · 부분 고유 인덱스 `workspace_delivery_attempt_first_exposure (user_id, exposure_key) where first_exposure` · RPC `workspace_delivery_attempt_record(uuid, bigint, uuid)`(정의자 · search_path 고정 · anon 불가) · 내부 `r5_exposure_key(text, text)`. 기존 `learning_task_attempts` 변경 · 백필 없음.
+- 상세 · 검증 SQL · 복구: [R5_DB_APPROVAL_PACKAGE](./csat-learner/v62/R5_DB_APPROVAL_PACKAGE.md) §3–§5.

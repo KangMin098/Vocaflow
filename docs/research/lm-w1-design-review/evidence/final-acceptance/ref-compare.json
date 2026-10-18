@@ -1,0 +1,65 @@
+{
+  "viewport": {
+    "w": 2094,
+    "h": 950
+  },
+  "rows": [
+    {
+      "name": "노드 폭",
+      "reference": 206,
+      "actual": 206,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "노드 높이",
+      "reference": 46,
+      "actual": 46,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "열 피치",
+      "reference": 272,
+      "actual": 272,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "행 피치",
+      "reference": 60,
+      "actual": 60,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "머리 줄 높이",
+      "reference": 49,
+      "actual": 49,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "머리 줄 → 첫 노드",
+      "reference": 25,
+      "actual": 25,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "열 머리 글자 → 노드 열",
+      "reference": 8,
+      "actual": 8,
+      "delta": 0,
+      "ok": true
+    },
+    {
+      "name": "열 머리 피치",
+      "reference": 272,
+      "actual": 272,
+      "delta": 0,
+      "ok": true
+    }
+  ],
+  "pass": true
+}

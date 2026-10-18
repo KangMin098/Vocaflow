@@ -22,6 +22,8 @@ export interface FindTarget {
 }
 
 export interface FindAttemptRow extends FirstAttempt {
+  /** Exact learning_first_attempts.attempt_id; absent legacy DTOs cannot identify a ledger row. */
+  attemptId?: string
   itemRef: string
   taskKey: string
   /** 판단 시각(ISO) — 기능 단위 직접 확인(skill-diagnosis)의 순서 · 기한에 쓴다 */

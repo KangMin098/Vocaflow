@@ -1,0 +1,25 @@
+{
+  "sourceBasis": "6e5609d5cde85ad7627e3ed7aa54631b3267fd6b",
+  "screenshots": [
+    {
+      "path": "evidence/editor-1280.png",
+      "sha256": "cdb1462f7d85cf172e7aeb3a729b63eaa2fb3b55d313b5b339b0470bfb81bb25"
+    },
+    {
+      "path": "evidence/editor-1440.png",
+      "sha256": "cbd317362c94290be0649b023468392d55b32a3ff8c238c19bb1586589eeb316"
+    },
+    {
+      "path": "evidence/old-plan-1280.png",
+      "sha256": "858cb6e440745a3d3310382ef5e46a7ba6e48032bcd139827ca313fede0a572c"
+    },
+    {
+      "path": "evidence/late-response-1440.png",
+      "sha256": "efa97c99c0e0e3ba256ca0cd4ebdc1662144212d25aa50db7feb026eb6d89444"
+    },
+    {
+      "path": "evidence/stale-goal-1280.png",
+      "sha256": "7fcce138d3b8ec6458bff129c66494e9bfe7813df33fdc9f4a25439a158667a4"
+    }
+  ]
+}

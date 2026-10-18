@@ -17,7 +17,7 @@ const KEY = 'claim-support'
 const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5']
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
-const attempt = (itemRef: string, ok: boolean, at: string): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: at, activity: 'theater' })
+const attempt = (itemRef: string, ok: boolean, at: string): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: at, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
 const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS }], attempts: [], ...o })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
@@ -138,7 +138,8 @@ describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(
     return workspacePlan(cm, a, toBe, plan, act).tasks.find((t) => t.task === 'r.central_meaning')!
   }
   const a = asIs({ attempts: verified }) // i1 · i2 오답 → 확정(REPAIR)
-  const later = (item: string, phase: string, day: number): PlanActivity => ({ itemRef: item, taskKey: KEY, phase, answeredAt: `2026-09-${day}T00:00:00Z` })
+  // LM-G1.1 — 바로잡기는 정답(isCorrect true)이어야 단계를 넘긴다. 이 묶음은 「다시 맞힌」 경로라 정답으로 둔다(틀린 재시도는 plan-lm-g1-1 T02 · T03)
+  const later = (item: string, phase: string, day: number, ok: boolean | null = true): PlanActivity => ({ itemRef: item, taskKey: KEY, phase, isCorrect: ok, answeredAt: `2026-09-${String(day).padStart(2, '0')}T00:00:00Z` }) // ISO 처럼 두 자리(문자열 비교 — lifecycle-evidence 와 같은 방식)
 
   it('① 확정 직후 = 바로잡기 · 다음 활동은 막힌 확인 문항', () => {
     const p = view(a, [])
@@ -147,7 +148,7 @@ describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(
     expect(p.achievement).toBe('need_confirmed')
   })
 
-  it('② 막힌 문항을 다 다시 풀면 = 다른 글에 적용(2지문) · 다음 활동은 연습 화면의 전이 문항', () => {
+  it('② 막힌 문항을 다시 맞히면 = 다른 글에 적용(2지문) · 다음 활동은 연습 화면의 전이 문항', () => {
     const p = view(a, [later('i1', 'practice', 12), later('i2', 'practice', 13)])
     expect(p.stage).toBe('transfer')
     expect(p.quantity).toMatchObject({ available: 2, done: 0, rule: 'transfer_pool' })

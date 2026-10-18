@@ -26,6 +26,7 @@ import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { Screen } from '@/components/ui/ios'
 import { fetchTextbookPracticeItems } from '@/lib/learner/dcp-actions'
+import { canShow, loadPublishGate, stateOf } from '@/lib/textbook/publish-gate'
 // 시리즈 정본 — 연습도 그 시리즈의 계단을 본다.
 import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
 
@@ -64,10 +65,12 @@ export default async function TextbookPracticePage({
   const step = Number(raw)
   const rung = rungOf(series, step)
   if (!rung) notFound()
+  // 발행 게이트(v6.2 P-F4a) — 발행 전 · 상태 미확인 권의 연습 화면은 없다(직접 주소로 들어와도)
+  if (!canShow(stateOf(await loadPublishGate(series), step))) notFound()
 
   // 한 계단이 여러 V-Level 을 덮을 수 있다 — 첫 밴드를 쓴다(권의 대표 난이도).
-  const vLevel = rung.vLevels[0]
-  const { items, unavailable, signedOut } = await fetchTextbookPracticeItems(vLevel ?? 0, ITEM_LIMIT)
+  const vLevel = rung.vLevels[0] ?? 0
+  const { items, unavailable, signedOut } = await fetchTextbookPracticeItems({ series, step, vLevel }, ITEM_LIMIT)
 
   // 로그인 뒤 **여기로 돌아온다.** 복귀 경로가 없으면 로그인하고 나서 다시 길을 찾아야 하고,
   // 그 지점에서 사람이 빠져나간다(`library/scripts` 가 이미 쓰는 규약을 그대로 따른다).

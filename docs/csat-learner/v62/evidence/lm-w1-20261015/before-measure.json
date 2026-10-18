@@ -1,0 +1,190 @@
+{
+  "startedAt": "2026-10-15T03:52:44.671Z",
+  "base": "http://localhost:3005",
+  "measure": {
+    "1280-core": {
+      "viewport": {
+        "w": 1280,
+        "h": 900
+      },
+      "pageHeight": 1527,
+      "overflowX": 0,
+      "root": {
+        "x": 78,
+        "y": 128,
+        "w": 1158,
+        "h": 1355
+      },
+      "goalBar": {
+        "x": 94,
+        "y": 144,
+        "w": 1126,
+        "h": 141
+      },
+      "focusStrip": {
+        "x": 94,
+        "y": 301,
+        "w": 1126,
+        "h": 282
+      },
+      "canvas": {
+        "x": 111,
+        "y": 714,
+        "w": 716,
+        "h": 510
+      },
+      "inspector": {
+        "x": 860,
+        "y": 599,
+        "w": 360,
+        "h": 868
+      },
+      "wsList": null,
+      "canvasAboveFold": 11.5,
+      "wsListTop": null,
+      "nodes": 30,
+      "cards": 3,
+      "sections": 16,
+      "buttons": 67,
+      "textChars": 1441
+    },
+    "1280-full": {
+      "viewport": {
+        "w": 1280,
+        "h": 900
+      },
+      "pageHeight": 1527,
+      "overflowX": 0,
+      "root": {
+        "x": 78,
+        "y": 128,
+        "w": 1158,
+        "h": 1355
+      },
+      "goalBar": {
+        "x": 94,
+        "y": 144,
+        "w": 1126,
+        "h": 141
+      },
+      "focusStrip": {
+        "x": 94,
+        "y": 301,
+        "w": 1126,
+        "h": 282
+      },
+      "canvas": {
+        "x": 111,
+        "y": 714,
+        "w": 716,
+        "h": 510
+      },
+      "inspector": {
+        "x": 860,
+        "y": 599,
+        "w": 360,
+        "h": 868
+      },
+      "wsList": null,
+      "canvasAboveFold": 11.5,
+      "wsListTop": null,
+      "nodes": 30,
+      "cards": 3,
+      "sections": 16,
+      "buttons": 67,
+      "textChars": 1674
+    },
+    "1440-core": {
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      },
+      "pageHeight": 1527,
+      "overflowX": 0,
+      "root": {
+        "x": 78,
+        "y": 128,
+        "w": 1318,
+        "h": 1355
+      },
+      "goalBar": {
+        "x": 94,
+        "y": 144,
+        "w": 1286,
+        "h": 141
+      },
+      "focusStrip": {
+        "x": 94,
+        "y": 301,
+        "w": 1286,
+        "h": 282
+      },
+      "canvas": {
+        "x": 111,
+        "y": 670,
+        "w": 876,
+        "h": 510
+      },
+      "inspector": {
+        "x": 1020,
+        "y": 599,
+        "w": 360,
+        "h": 868
+      },
+      "wsList": null,
+      "canvasAboveFold": 15.5,
+      "wsListTop": null,
+      "nodes": 30,
+      "cards": 3,
+      "sections": 16,
+      "buttons": 67,
+      "textChars": 1441
+    },
+    "1440-full": {
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      },
+      "pageHeight": 1527,
+      "overflowX": 0,
+      "root": {
+        "x": 78,
+        "y": 128,
+        "w": 1318,
+        "h": 1355
+      },
+      "goalBar": {
+        "x": 94,
+        "y": 144,
+        "w": 1286,
+        "h": 141
+      },
+      "focusStrip": {
+        "x": 94,
+        "y": 301,
+        "w": 1286,
+        "h": 282
+      },
+      "canvas": {
+        "x": 111,
+        "y": 670,
+        "w": 876,
+        "h": 510
+      },
+      "inspector": {
+        "x": 1020,
+        "y": 599,
+        "w": 360,
+        "h": 868
+      },
+      "wsList": null,
+      "canvasAboveFold": 15.5,
+      "wsListTop": null,
+      "nodes": 30,
+      "cards": 3,
+      "sections": 16,
+      "buttons": 67,
+      "textChars": 1674
+    }
+  }
+}

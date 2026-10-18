@@ -1,0 +1,62 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "aad776",
+      "wall_time_seconds": 1.0528251,
+      "exit_code": 0,
+      "original_token_count": 81,
+      "output": "{\"headRefOid\":\"1cc8d2f09dadb3a1170bfff44d2721be507c5a52\",\"mergeCommit\":{\"oid\":\"d7394200140a3525da67cb47aa6f80e0056f5b26\"},\"mergedAt\":\"2026-10-14T10:02:17Z\",\"number\":249,\"state\":\"MERGED\",\"title\":\"feat(map): v6.2 P-M3a TASK 학습 행동 · 연구 v1.4 근거 결속\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/249\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "7e6597",
+      "wall_time_seconds": 1.0120311,
+      "exit_code": 0,
+      "original_token_count": 81,
+      "output": "{\"headRefOid\":\"4cda40b9dd6479e3e25bedb25add00f22b12c2bc\",\"mergeCommit\":{\"oid\":\"a8a5da6620c6a8fc40d574d73126a5d7f62b787a\"},\"mergedAt\":\"2026-10-14T11:01:22Z\",\"number\":251,\"state\":\"MERGED\",\"title\":\"feat(map): v6.2 P-M3b 기출 해부 연결 · 학습자 노출 보호\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/251\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "976ae2",
+      "wall_time_seconds": 0.9514994,
+      "exit_code": 0,
+      "original_token_count": 82,
+      "output": "{\"headRefOid\":\"e3b8bacb9ce34b6d588d663b3a2bd3a21842187f\",\"mergeCommit\":{\"oid\":\"431e2895644a36d7749b91c7406f5f15ee2047ef\"},\"mergedAt\":\"2026-10-14T12:26:02Z\",\"number\":255,\"state\":\"MERGED\",\"title\":\"feat(map): v6.2 P-F4c R5 재사용 E2E · P-F5 V2 단위 생산 dry-run\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/255\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "974de2",
+      "wall_time_seconds": 0.9724112,
+      "exit_code": 0,
+      "original_token_count": 84,
+      "output": "{\"headRefOid\":\"8b4289f8196be3c7e81ab6393f60eee46d243e88\",\"mergeCommit\":{\"oid\":\"70776bb0c5230a04fdac96068fa7c326efc62cd9\"},\"mergedAt\":\"2026-10-14T17:21:48Z\",\"number\":264,\"state\":\"MERGED\",\"title\":\"feat(map): v6.2 학습지도×Workspace×교재공장 연계 계약 · mock 검증\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/264\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "d9bd9c",
+      "wall_time_seconds": 0.8933839,
+      "exit_code": 0,
+      "original_token_count": 92,
+      "output": "{\"headRefOid\":\"40227bf6125a39fcae04b47a6c4fb306dcfcaa12\",\"mergeCommit\":{\"oid\":\"ea3f052986fa8d56b01d781aabe74ac4197df08f\"},\"mergedAt\":\"2026-10-15T00:28:31Z\",\"number\":267,\"state\":\"MERGED\",\"title\":\"feat(map): v6.2 P-M4 목표 중심 학습지도 — 「지금 무엇부터」 · Inspector 기본/근거 분리\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/267\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "65352a",
+      "wall_time_seconds": 1.0288172,
+      "exit_code": 0,
+      "original_token_count": 91,
+      "output": "{\"headRefOid\":\"6786c13c25a416269465b3c811b659ce9385d1ae\",\"mergeCommit\":{\"oid\":\"e33f08da7792300c699f9055861cde650d362bae\"},\"mergedAt\":\"2026-10-15T01:56:39Z\",\"number\":268,\"state\":\"MERGED\",\"title\":\"fix(map): v6.2 P-M4b — 영역 이름 잘림 · 과거 보기 편집 경계 · 클릭 영역 · 수용 증거\",\"url\":\"https://github.com/KangMin098/Vocaflow/pull/268\"}\n"
+    }
+  }
+]

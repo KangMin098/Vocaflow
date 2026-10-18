@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_MIN_N, compareVersions, computeSignals, isEligible, type FirstAttempt } from '../effect-signals'
 
-const base: Omit<FirstAttempt, 'userId' | 'phase' | 'isCorrect'> = { synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false }
+const base: Omit<FirstAttempt, 'userId' | 'phase' | 'isCorrect'> = { synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, activity: 'theater', taskKey: 'claim-support', sessionId: 's1', contentHash: 'current', expectedContentHash: 'current' }
 const learners = (n: number, phase: FirstAttempt['phase'], correctShare: number, extra: Partial<FirstAttempt> = {}): FirstAttempt[] =>
   Array.from({ length: n }, (_, i) => ({ ...base, userId: `${phase}-${i}`, phase, isCorrect: i < Math.round(n * correctShare), ...extra }))
 const run = (attempts: FirstAttempt[], trialMinN: number[] = []) => computeSignals({ applicationId: 'a', status: 'active', trialMinN, attempts })
