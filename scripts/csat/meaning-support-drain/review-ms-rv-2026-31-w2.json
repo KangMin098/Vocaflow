@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-31-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#31",
+      "verdict": "revise",
+      "content_hash": "4c9796bd90eba5dd",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "972c593c500f847c",
+        "basePublicHash": "5c70a8ad18edfb267e2169b595b83ae6788959d6b5939d3768a0e2285f62a5c0",
+        "sourceSnapshotHash": "939a3eef506b89a5"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02"
+      ],
+      "why": "MS02(정도·빈도 한정어 삭제): 2번 문장 worked in relative secrecy, frequently built on family ties, trust, and loyalty 에 대해 u2.simpleKo 「믿을 수 있는 사람끼리 정보를 감추며 일했다」는 relative(비교적)와 frequently(흔히)를 모두 지워 완전한 비밀·항상 신뢰 관계로 강화했다. u2.preserves 가 이 두 한정어를 보존 항목으로 적어 놓고 쉬운 말에서 뺐다. 수정: 「수급 정보가 회사에 꼭 필요한 무언가의 열쇠였기 때문에, 흔히 가족·신뢰·충성에 기대어 비교적 비밀스럽게 일했다.」 MS02(범위 변형): 7번 문장은 multiple markets(여러 시장)인데 u4.simpleKo 「여러 나라 시장 사정」은 6번 문장의 국가 단위를 끌어와 범위를 바꿨다. 수정: 「여러 시장의 사정을 알 수 있어서 거래 위험을 쉽게 감당할 수 있었다.」 그 외 축 문제 없음 — MS01 these firms·this information·such risks 지시 정확 · MS03 n/a · MS04 r1 지시 관계 실제 변화(활동→자산), r2·r3 추론 warrant·limit 명시 · MS05 요약 일관, 3·6번 미처리 한계 기재 · MS06 p3 빈칸 추론이 「사업에서 얻는 이득과 관련된 의미」로 범위만 좁히고 정답 낱말 영어를 도입하지 않음, 가족·신뢰를 원인과 구별 · MS07 bridges ①~⑤·designClaim 1(관찰)·2(가설) referent 일치 · MS08 a1~a10 quote·range·spanHash 재계산 일치 · MS10 새 영어 없음."
+    }
+  ]
+}

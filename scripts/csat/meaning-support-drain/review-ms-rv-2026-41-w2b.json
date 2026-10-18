@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-41-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#41",
+      "verdict": "pass",
+      "content_hash": "d40aaa3738b4f5f3",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+        "sourceSnapshotHash": "fa5ad2c0f157f192"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. w2 수정 반영 확인. MS02: u2.simpleKo 가 목적 조건(다른 예술만큼 중요하게 다루려면)과 필연(채울 수밖에 없었다)을 복원했다. u3.simpleKo 가 시점을 「1660년 이후」로 바로잡아 7번 문장과 일치하고, Often 에 해당하는 「경우가 많다」도 유지된다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

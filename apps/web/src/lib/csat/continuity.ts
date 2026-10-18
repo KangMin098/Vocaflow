@@ -11,6 +11,7 @@
 // 학습을 지운다.
 
 import { normalizeReasoningNote, NOTE_KEEP, type DissectionRecord, type ReasoningNote } from './dissect'
+import { mergeMeaningNotes, sameMeaningNotes } from './meaning-note'
 import { mergeSessions, sameSessions } from './learning-session'
 
 export const DAY = 86_400_000
@@ -220,6 +221,8 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     compares: mergeById(older.compares, newer.compares, 300),
     // 원리 노트 — 같은 id 면 나중에 고친 쪽(updatedAt) · 빈 노트는 버린다 · 최근 NOTE_KEEP 건
     reasoningNotes: mergeReasoningNotes(older.reasoningNotes, newer.reasoningNotes),
+    // 원문 이해 노트도 id 단위 — `...newer` 로 두면 늦게 쓴 기기가 다른 기기의 노트를 지운다
+    ...(older.meaningNotes || newer.meaningNotes ? { meaningNotes: mergeMeaningNotes(older.meaningNotes, newer.meaningNotes) } : {}),
     completed: uniqBy([...older.completed, ...newer.completed], (c) => `${c.id}|${c.at}`).sort((a, b) => a.at - b.at),
     formulas: [...formulas.values()],
     queue: [...newer.queue, ...olderOnlyQueue],
@@ -247,6 +250,7 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     a.onboarded === b.onboarded &&
     sameSessions(a.sessions, b.sessions) &&
     (a.explanations ?? []).length === (b.explanations ?? []).length &&
+    sameMeaningNotes(a.meaningNotes, b.meaningNotes) &&
     (a.reasoningNotes ?? []).length === (b.reasoningNotes ?? []).length &&
     (a.reasoningNotes ?? []).every((x, i) => x.updatedAt === b.reasoningNotes?.[i]?.updatedAt) &&
     (a.explanations ?? []).every((x, i) => x.compared === b.explanations?.[i]?.compared) &&
@@ -290,6 +294,8 @@ export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId
     ...(record.checks ? { checks: record.checks.filter((x) => !isHeld(x.item)) } : {}),
     // 보류 문항에 묶인 원리 노트도 내보내지 않는다(근거 문장 번호가 정답 근거를 드러낸다)
     ...(record.reasoningNotes ? { reasoningNotes: record.reasoningNotes.filter((x) => !isHeld(x.item)) } : {}),
+    // 보류 문항의 원문 이해 노트도 내보내지 않는다(보류 문항의 의미 설명 자체가 공개되지 않는다)
+    ...(record.meaningNotes ? { meaningNotes: record.meaningNotes.filter((x) => !isHeld(x.item)) } : {}),
     ...(drafts ? { drafts } : {}),
   }
 }

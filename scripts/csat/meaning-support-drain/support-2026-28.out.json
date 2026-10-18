@@ -1,0 +1,465 @@
+{
+  "writer_run": "ms-wr-2026-28-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#28",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "9feee04dcf54fe88",
+      "basePublicHash": "4fc9cf20e98b2596e99db019e1aa1d1c7813be99533444cbb0ae65ff7377c464",
+      "sourceSnapshotHash": "f6a28d2f8729fc71"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 28,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 3,
+        "quote": "All branches of Bowl Heaven",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 55,
+          "end": 82,
+          "spanHash": "458c63406d0526ecf1e0df74b108152a201c1caf86eea0224f5174fe6ce558cb"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "quote": "no discounts for shoe",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 107,
+          "end": 172,
+          "spanHash": "5b1a61d2fa7c494754ba3daae6b37bc5339f806eef143ca2bb04dedc51255065"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 173,
+          "end": 229,
+          "spanHash": "c3807351fff8969f4b8694902dcd274da2031255e37a209040c018e7e86dc027"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 3,
+        "quote": "Four free games a day",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 230,
+          "end": 280,
+          "spanHash": "298242b978e444025f3acc3ce7f13055f60adb1e8f40195cdd005e4602a32aeb"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 283,
+          "end": 335,
+          "spanHash": "17d9589b989b167ebf5887ea0e607f83036781449ae79f28698efd4d113b6db8"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 4,
+        "quote": "can be purchased only online",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 60,
+          "end": 105,
+          "spanHash": "8821511a4f087f458f6a5c7a8805ff8501d6f90a0c9d3da595857f6d40c8ef94"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 4,
+        "quote": "is not transferable to another person",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p1",
+        "textKo": "시즌권은 Bowl Heaven 의 모든 지점에서, 2026년 1월 1일부터 3월 31일까지 쓸 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2"
+        ]
+      },
+      {
+        "warrantsKo": [
+          "원문 문자열에서 등급 이름·가격이 혜택 설명 사이에 끼어 있어, 각 등급과 혜택을 표의 행 단위로 다시 묶었다(p3 참조)",
+          "무료 게임 수 2·3·4 와 가격 $40·$60·$80 이 같은 순서로 나온다"
+        ],
+        "limitKo": "원본 표의 칸 배치는 입력에 없다. 등급·가격·혜택의 짝은 텍스트 순서와 괄호에서 추론한 것이다.",
+        "id": "p2",
+        "textKo": "스탠다드($40)는 하루 두 게임 무료에 신발 대여 할인이 없고, 실버($60)는 하루 세 게임 무료에 신발 대여 50% 할인, 골드($80)는 하루 네 게임 무료에 신발 대여 무료다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a3",
+          "a4",
+          "a5",
+          "a6",
+          "a7"
+        ]
+      },
+      {
+        "warrantsKo": [
+          "괄호가 하루 두 게임 설명 뒤에서 열려 대여 낱말에서 닫힌다",
+          "같은 표의 다른 행도 「무료 게임 수 + 신발 대여 조건 + 등급 · 가격」이 한 묶음이다"
+        ],
+        "limitKo": "원본 표의 칸 배치는 입력에 없다. 행 묶음은 텍스트 순서와 괄호에서 추론한 것이다.",
+        "id": "p3",
+        "textKo": "「신발 대여 할인 없음」은 스탠다드 행의 혜택이다. 원문 문자열에서는 괄호 안 설명이 등급 이름·가격과 섞여 끊겨 있어, 표의 행 단위로 다시 묶어 읽은 것이다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a4"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p4",
+        "textKo": "모든 패스에 식음료 20% 할인이 들어 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a8"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p5",
+        "textKo": "패스는 온라인으로만 살 수 있고, 한 사람당 하나만 살 수 있으며, 다른 사람에게 넘길 수 없다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a9",
+          "a10",
+          "a11"
+        ]
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          3
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "어디서 · 언제 쓰나",
+        "exactKo": "시즌권은 Bowl Heaven 의 모든 지점에서 2026년 1월 1일부터 3월 31일까지 사용할 수 있다.",
+        "simpleKo": "Bowl Heaven 지점이면 어디서든, 2026년 1월 1일부터 3월 31일까지 쓸 수 있다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "모든 지점",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "사용 장소에 지점 제한이 없다는 범위다. 「일부 지점」으로 바꾸면 정반대 안내가 된다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "2026년 1월 1일 ~ 3월 31일",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "쓸 수 있는 기간의 시작과 끝이 모두 정해져 있다. 이 기간 밖에서는 쓸 수 있다고 안내되지 않는다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "Bowl Heaven 의 일부 지점에서는 이 패스를 쓸 수 없다.",
+          "lostFacet": "quantity",
+          "anchorIds": [
+            "a1"
+          ],
+          "whyWrongKo": "원문은 사용 장소를 「모든 지점」으로 정한다. 「일부 지점 제외」는 원문에 없는 예외를 새로 만든 것이다."
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          3
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3"
+        ],
+        "labelKo": "등급마다 다른 혜택",
+        "exactKo": "스탠다드($40)는 하루 두 게임 무료이지만 신발 대여 할인은 없고, 실버($60)는 하루 세 게임 무료에 신발 대여 50% 할인, 골드($80)는 하루 네 게임 무료에 신발 대여가 무료이며, 모든 패스에 식음료 20% 할인이 포함된다.",
+        "simpleKo": "비싼 등급일수록 하루 무료 게임이 하나씩 늘고(2→3→4) 신발 대여 혜택이 없음→반값→무료로 커지며, 식음료 할인은 세 등급이 같다.",
+        "propositionIds": [
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "스탠다드는 신발 대여 할인 없음",
+            "anchorIds": [
+              "a3",
+              "a4"
+            ],
+            "explanationKo": "스탠다드 행에만 붙은 부정이다. 무료 게임이 있다고 신발 대여도 할인된다고 읽으면 부정이 사라진다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "하루 두 · 세 · 네 게임",
+            "anchorIds": [
+              "a4",
+              "a5",
+              "a6"
+            ],
+            "explanationKo": "무료 게임 수는 등급마다 다르고 「하루에」라는 단위가 붙는다. 시즌 전체 횟수가 아니다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "등급이 오를수록 혜택이 한 단계씩 커짐",
+            "anchorIds": [
+              "a4",
+              "a5",
+              "a7"
+            ],
+            "explanationKo": "수치는 행마다 정해져 있으므로, 어떤 등급의 혜택인지 행을 정확히 골라야 한다. 옆 행의 수치를 옮기면 틀린 사실이 된다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "모든 패스 식음료 20% 할인",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "등급과 관계없는 공통 혜택이다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "스탠다드 패스로도 신발 대여를 할인받을 수 있다.",
+          "lostFacet": "polarity",
+          "anchorIds": [
+            "a3",
+            "a5"
+          ],
+          "whyWrongKo": "신발 대여 할인은 실버(50%)와 골드(무료)의 혜택이다. 스탠다드 행은 오히려 할인이 없다고 적혀 있어, 다른 행의 혜택을 옮겨 오면 부정이 뒤집힌다."
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          4
+        ],
+        "legacyMeaningIds": [
+          "m4",
+          "m5"
+        ],
+        "labelKo": "사는 방법과 제한",
+        "exactKo": "패스는 온라인으로만 구매할 수 있고, 구매는 한 사람당 하나로 제한되며, 다른 사람에게 양도할 수 없다.",
+        "simpleKo": "인터넷으로만 살 수 있고, 한 명이 하나만 살 수 있으며, 다른 사람에게 넘겨줄 수 없다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "온라인으로만",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "「만」이 매장 구매 같은 다른 경로를 막는다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "1인 1매",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "한 사람이 여러 장을 살 수 없다는 제한이다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "양도 불가",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "넘길 수 「없다」는 부정이다. 이 부정을 놓치면 정반대 안내가 된다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "살 수 있다 / 넘길 수 없다",
+            "anchorIds": [
+              "a9",
+              "a11"
+            ],
+            "explanationKo": "허용과 금지를 나타낸다. 권장 사항이 아니라 이용 규칙이다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "패스를 산 뒤 다른 사람에게 넘겨줄 수 있다.",
+          "lostFacet": "polarity",
+          "anchorIds": [
+            "a11"
+          ],
+          "whyWrongKo": "원문은 양도를 금지한다. 부정어 하나를 놓치면 규칙이 허용으로 바뀐다."
+        }
+      }
+    ],
+    "relations": [
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a1",
+          "a4"
+        ],
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "add",
+        "beforeKo": "모든 지점에서 1~3월에 쓸 수 있다.",
+        "afterKo": "등급마다 무료 게임 수와 신발 대여 조건이 다르다.",
+        "changeKo": "사용 장소·기간은 세 등급에 똑같이 적용된 채로 두고, 그 안에서 등급마다 달라지는 혜택을 더한다. 공통 조건과 등급별 조건을 구분하게 된다.",
+        "basis": "source_observation"
+      },
+      {
+        "warrantsKo": [
+          "구매 제한(온라인 · 1인 1매)과 양도 불가는 위 혜택을 가진 패스에 대한 규칙이다"
+        ],
+        "limitKo": "표와 구매 항목은 따로 나뉜 제목 아래 있다. 「혜택을 가지려면」이라는 조건 연결은 안내문 구성에서 읽은 것이다.",
+        "propositionIds": [
+          "p2",
+          "p5"
+        ],
+        "anchorIds": [
+          "a9",
+          "a11"
+        ],
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "condition",
+        "beforeKo": "등급별로 이런 혜택을 받는다.",
+        "afterKo": "이 혜택을 가지려면 온라인으로 1인 1매만 사고 남에게 넘길 수 없다.",
+        "changeKo": "혜택 내용은 그대로 두고, 패스를 어떤 경로로 몇 장 살 수 있는지를 제한한다. 또 패스는 산 사람이 남에게 넘길 수 없다. 이는 소유권 이전을 막는 규칙이며, 친구·가족과 함께 즐길 수 있다는 2번 문장과 충돌하지 않는다.",
+        "basis": "bridging_inference"
+      }
+    ],
+    "whole": {
+      "limitsKo": [
+        "원본 표의 칸 배치는 입력에 없어, 등급별 행 묶음은 텍스트 순서로 읽었다(p3).",
+        "1·2번 문장(광고 문구)은 unit 으로 다루지 않았다."
+      ],
+      "genre": "practical",
+      "summaryKo": "볼링 시즌권 안내문으로, 모든 지점에서 1~3월에 쓰는 세 등급 패스가 가격에 따라 하루 무료 게임 수와 신발 대여 혜택이 다르고 식음료 할인은 공통이며, 온라인으로만 1인 1매 살 수 있고 남에게 넘길 수 없다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2",
+          "m3"
+        ],
+        "choiceNumbers": [
+          2,
+          3
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4",
+          "m5"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          2,
+          3
+        ]
+      }
+    ]
+  }
+}

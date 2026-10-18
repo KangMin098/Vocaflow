@@ -72,6 +72,7 @@ function project(s: StoredSupport, skeletonChars: readonly number[] | null): Mea
     itemId: s.itemId, defaultUnitId: s.defaultUnitId, anchors: s.anchors, propositions: s.propositions, units: s.units,
     relations: s.relations, whole: s.whole, bridges: s.bridges, partial: s.partial ?? null,
     alignment: s.alignment ?? null, splitOk: splitMatches(s.alignment, skeletonChars),
+    contentHash: s.review?.contentHash,
   }
 }
 

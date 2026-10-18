@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-26-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#26",
+      "verdict": "pass",
+      "content_hash": "bb4f494539b79e09",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "6d3946110368189d",
+        "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+        "sourceSnapshotHash": "d6aaf7955660942b"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1 이 상 이름과 연도를 짝지어 정답 선지 3 의 근거를 직접 대조 가능, u2 가 1920 졸업과 1924 박사를 구분. 1953 은 계산값임을 limit 로 표시. 상 이름은 원문 표현 재사용."
+    }
+  ]
+}

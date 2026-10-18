@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-27-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#27",
+      "verdict": "pass",
+      "content_hash": "cd1734afa6d4c4d8",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "5821b83891fb77c0",
+        "basePublicHash": "85423982004919e2ac69b0c207b6c5b8719336af209b8c9500ab7903ffd8ea9c",
+        "sourceSnapshotHash": "81df95c182078421"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "MS01~MS10 모두 문제 없음. MS01 참가 대상(Wakeville 고교 전 학년)·선정 주체(학생 투표)·수량(세 개)·상(각자 무선 스피커) 정확. MS02 숫자 전수 대조: 2025년 12월 12일 · MP3 only(「만」 보존) · 1MB · 세 개 · each 모두 일치, simpleKo 도 「한 형식」「각자」 유지(u1 simpleKo 가 연도 2025 를 생략했으나 exactKo·p1 에 있고 날짜 자체는 바뀌지 않아 결함으로 보지 않음). MS03 n/a. MS04 r1 순서 추론에 마감 후 선정 날짜 미기재 한계 명시, r2 「우승한 종소리」 재지시 근거·우승자 수 미확정 한계 명시. MS05 실용문 요약이 명제와 일관, 2번 문장 미처리 한계 기재. MS06 p1~p4 모두 원문 직접 관찰, 추론 관계는 bridging_inference + warrant·limit. MS07 u2→④·designClaim 1(관찰)·2(가설) referent 일치, ②③⑤ 대응 정확. MS08 a1~a11 quote·sourceRange·spanHash 재계산 전부 일치. MS09 n/a. MS10 quote 모두 8단어 이하 원문 표현, 새 영어 없음."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-33-w4",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#33",
+      "verdict": "pass",
+      "content_hash": "b5278d9f38012fda",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "e3b063c3f4169175",
+        "basePublicHash": "497fd93f5f06eb934b8abecf0a6c238499c32701dc5b34d66e3c6542e3e6953f",
+        "sourceSnapshotHash": "03971581fa526ae8"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u2.simpleKo 가 「할 수는 있어도」「크게/완전히 다르다」「흔히」를 보존. p5·u4 agent·r3·whole 에서 정답 ④ 직역(의견을 질문받음)이 사라지고 「설계자가 하는 일을 사용자 쪽에서 겪는 일」로 바뀜. u4 agent 의 「사용자가 직접 설계하는 일이 아니다」는 오답 ②를 배제하는 원문 근거(설계안은 your) 설명이며 정답을 노출하지 않는다. u4.simpleKo 조건·양상·지시 보존."
+    }
+  ]
+}

@@ -1,0 +1,370 @@
+{
+  "writer_run": "ms-wr-2026-26-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#26",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "6d3946110368189d",
+      "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+      "sourceSnapshotHash": "d6aaf7955660942b"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 26,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 5,
+        "quote": "In 1952, Kleiber received the distinguished Borden Award",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 5,
+        "quote": "a year later, the Morrison Award",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "quote": "earned his doctoral degree in 1924",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 6,
+        "quote": "translated into German, Polish, Spanish, and Japanese",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 7,
+        "quote": "popular with undergraduates and graduate students alike",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "5번 문장에서 1952년이 붙은 수상은 Borden Award 이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "Morrison Award 는 그 한 해 뒤, 곧 1953년에 받았다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a2"
+        ],
+        "warrantsKo": [
+          "한 해 뒤라는 표현이 앞 수상 연도 1952년을 기준으로 삼는다."
+        ],
+        "limitKo": "1953이라는 숫자는 원문에 없고, 앞 연도에서 계산한 값이다."
+      },
+      {
+        "id": "p3",
+        "textKo": "박사 학위를 받은 해는 1924년이다(졸업은 1920년).",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "저서는 독일어·폴란드어·스페인어·일본어로 번역되었다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "그는 학부생과 대학원생 모두에게 인기 있는 뛰어난 선생님이었다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          5
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "두 상, 두 해",
+        "exactKo": "1952년에 Borden Award 를 받았고, 그로부터 한 해 뒤에 Morrison Award 를 받았다.",
+        "simpleKo": "Borden Award 는 1952년에, Morrison Award 는 그다음 해에 받았다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "1952년은 앞 상에만, 뒤 상은 한 해 뒤",
+            "anchorIds": [
+              "a1",
+              "a2"
+            ],
+            "explanationKo": "연도 숫자가 걸리는 사건은 Borden Award 하나다. 뒤 상의 시점은 따로 적혀 있다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "상 두 개를 서로 다른 해에",
+            "anchorIds": [
+              "a1",
+              "a2"
+            ],
+            "explanationKo": "두 상을 같은 해에 함께 받은 것이 아니다."
+          }
+        ],
+        "syntax": {
+          "parts": [
+            {
+              "id": "s1",
+              "role": "main",
+              "anchorIds": [
+                "a1"
+              ],
+              "meaningKo": "1952년에 Borden Award 를 받았다"
+            },
+            {
+              "id": "s2",
+              "role": "connector",
+              "anchorIds": [],
+              "meaningKo": "그리고 (받았다)"
+            },
+            {
+              "id": "s3",
+              "role": "clause",
+              "anchorIds": [
+                "a2"
+              ],
+              "meaningKo": "한 해 뒤에 Morrison Award 를 (받았다) — 동사가 생략된 둘째 부분"
+            }
+          ],
+          "attachments": [
+            {
+              "fromPart": "s3",
+              "toPart": "s1",
+              "whyKo": "둘째 부분은 앞의 동사를 다시 쓰지 않고 이어 받지만, 시점은 자기 앞의 한 해 뒤라는 표현이 정한다."
+            }
+          ],
+          "recombinedKo": "1952년에 Borden Award, 1953년에 Morrison Award 를 받았다."
+        },
+        "misunderstanding": {
+          "alteredKo": "1952년에 두 상을 함께 받았다.",
+          "lostFacet": "time",
+          "whyWrongKo": "상 이름과 연도가 모두 원문에 있어 맞아 보이지만, 1952년은 앞 상에만 걸린다. 한 해 뒤라는 시점을 지우면 틀린 진술이 된다.",
+          "anchorIds": [
+            "a1",
+            "a2"
+          ]
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          3
+        ],
+        "legacyMeaningIds": [
+          "m3"
+        ],
+        "labelKo": "졸업과 박사 학위",
+        "exactKo": "1920년에 졸업했고, 1924년에 박사 학위를 받았다.",
+        "simpleKo": "1920년에 졸업하고, 박사 학위는 1924년에 받았다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "1920 = 졸업, 1924 = 박사 학위",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "한 문장에 연도가 둘 있다. 각 연도가 어느 사건에 걸리는지 짝을 지어 확인한다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m4",
+          "m5"
+        ],
+        "labelKo": "번역과 가르침",
+        "exactKo": "저서가 네 언어로 번역되었고, 학부생과 대학원생 양쪽 모두에게 인기 있는 선생님이었다.",
+        "simpleKo": "책은 여러 나라 말로 번역됐고, 학부생·대학원생 모두 그를 좋아했다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "네 언어",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "여러 언어라는 진술은 네 언어 번역과 맞는다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "학부생과 대학원생 양쪽 모두",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "어느 한쪽 학생에게만 인기가 있었던 것이 아니다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u1"
+        ],
+        "kind": "temporal",
+        "beforeKo": "1920년 졸업, 1924년 박사 학위",
+        "afterKo": "1952년 Borden Award, 그 한 해 뒤 Morrison Award",
+        "changeKo": "삶의 순서를 따라 학업에서 수상으로 넘어간다. 두 문장 모두 한 문장에 시점이 둘 있어, 각 시점을 맞는 사건에 붙여야 한다는 점이 같다.",
+        "propositionIds": [
+          "p3",
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a3",
+          "a1",
+          "a2"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "3번 문장과 5번 문장이 모두 한 문장 안에서 두 사건과 두 시점을 함께 적는다."
+        ],
+        "limitKo": "두 문장이 같은 구조라는 것은 읽기 요령의 비교이고, 원문이 두 문장을 직접 잇지는 않는다."
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "add",
+        "beforeKo": "1952년과 그 한 해 뒤에 두 상을 받았다.",
+        "afterKo": "책이 번역되고 가르침으로도 인정받았다.",
+        "changeKo": "수상에 더해 책의 번역과 교육자로서의 평판이라는 다른 측면을 덧붙여 인물 소개를 넓힌다.",
+        "propositionIds": [
+          "p1",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a1",
+          "a4",
+          "a5"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "동물 생물학 연구의 개척자로 동물 영양과 대사 연구로 가장 잘 알려진 Kleiber 의 출생·학업·연구·수상·저서·교육 활동을 시간 순서로 소개하는 글이다.",
+      "propositionIds": [
+        "p3",
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "1·2·4·8번 문장(연구 분야, 출생, UC Davis 부임, 건물 이름)은 단위로 따로 다루지 않았다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          3
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4",
+          "m5"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": []
+      }
+    ]
+  }
+}

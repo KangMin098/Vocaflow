@@ -145,13 +145,51 @@ for (const width of [1280, 1440]) {
     // 5) 깊이 · 초안(600자 초과는 경고만, 자르지 않음)
     await page.getByTestId('ms-depth').locator('[data-depth="deep"]').click()
     expect(q(page, 'depth')).toBe('deep')
-    await expect(page.getByTestId('ms-limits')).toBeVisible()
-    await page.getByTestId('ms-draft-open').click()
-    const draft = page.getByTestId('ms-draft-text')
-    await draft.fill('가'.repeat(605))
-    await expect(draft).toHaveValue('가'.repeat(605))
-    await expect(draft).toHaveAttribute('aria-invalid', 'true')
-    await draft.fill('이성적인 법은 어차피 안 할 일만 막는다')
+    // 5-1) 깊이 탐구 — 읽기의 경계 세 칸(원문 · 가능한 해석 · 지원되지 않는 확대 + 다루지 않는 범위)
+    await expect(page.getByTestId('ms-boundary')).toBeVisible()
+    for (const k of ['observed', 'possible', 'unsupported']) await expect(page.getByTestId(`ms-boundary-${k}`)).toBeVisible()
+    await expect(page.getByTestId('ms-boundary-unsupported')).toContainText('이 설명이 다루지 않는 것')
+    // 5-2) 글 전체 통합 — 깊이 탐구에서는 단계가 펼쳐진다. 단계 → 그 의미로, 연결 → 그 관계로 거슬러 오른다
+    await expect(page.getByTestId('ms-whole-steps')).toBeVisible()
+    const steps = page.getByTestId('ms-whole-step')
+    expect(await steps.count()).toBeGreaterThan(1)
+    await expect(page.getByTestId('ms-whole-result')).toBeVisible()
+    await steps.last().click()
+    const traced = await page.getByTestId('ms-explain').getAttribute('data-unit')
+    expect(traced).toBeTruthy()
+    expect(q(page, 'meaning')).toBe(traced)
+    const link = page.getByTestId('ms-whole-link').first()
+    if (await link.count()) {
+      const rel = await link.getAttribute('data-relation')
+      await link.click()
+      await expect(page.getByTestId('ms-relation')).toHaveAttribute('data-relation', rel!)
+      expect(q(page, 'rel')).toBe(rel)
+      expect((await litSentences(page)).length).toBeGreaterThan(0)
+    }
+    // 5-3) 읽어 주기 — 검수된 단계 본문을 차례로 읽으며 지금 읽는 자리(단계 · 연결 · 결론)를 하나만 강조하고 넘어간다(음성 없는 기기는 무음 진행)
+    await page.getByTestId('ms-whole-speak').click()
+    const speaking = page.locator('[data-testid="ms-panel"] [data-speaking="true"]')
+    const speakKey = () => speaking.first().evaluate((el) => el.getAttribute('data-prop') ?? el.getAttribute('data-relation') ?? el.getAttribute('data-testid'))
+    await expect(speaking).toHaveCount(1, { timeout: 30_000 })
+    const firstKey = await speakKey()
+    await expect(async () => expect(await speakKey().catch(() => firstKey)).not.toBe(firstKey)).toPass({ timeout: 60_000 })
+    await page.getByTestId('ms-speak-stop').click()
+    await expect(speaking).toHaveCount(0)
+    await page.screenshot({ path: `${SHOTS}/A-${width}-1b-whole-boundary.png`, fullPage: false })
+    await page.locator('[data-testid="ms-unit"][data-unit="u1"]').click()
+    await expect(page.getByTestId('ms-explain')).toHaveAttribute('data-unit', 'u1')
+    // 「내 말로」(v3.2) — 같은 테스트 계정에 저장된 노트가 있으면 노트가 보이고(저장 흐름은 csat-v32-my-words 스펙),
+    // 없으면 저장 전 입력(300자 넘으면 경고만 · 자르지 않음)이 장면 왕복에도 탭 메모리로 남는지 본다
+    const hasNote = (await page.getByTestId('ms-note').count()) > 0
+    if (!hasNote) {
+      await page.getByTestId('ms-draft-open').click()
+      const draft = page.getByTestId('ms-draft-text')
+      await draft.fill('가'.repeat(305))
+      await expect(draft).toHaveValue('가'.repeat(305))
+      await expect(draft).toHaveAttribute('aria-invalid', 'true')
+      await expect(page.getByTestId('ms-draft-save')).toBeDisabled()
+      await draft.fill('이성적인 법은 어차피 안 할 일만 막는다')
+    }
 
     // 6) 문항 성립 — 그 의미가 걸린 선택지를 들고 간다
     const choices = (await page.getByTestId('ms-go-judgment').getAttribute('data-choices'))!.split(',').filter(Boolean).map(Number)
@@ -173,7 +211,8 @@ for (const width of [1280, 1440]) {
     expect(q(page, 'depth')).toBe('deep')
     expect(q(page, 'bridge')).toBeNull()
     await expect(page.getByTestId('ms-depth').locator('[data-depth="deep"]')).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.getByTestId('ms-draft-text')).toHaveValue('이성적인 법은 어차피 안 할 일만 막는다')
+    if (hasNote) await expect(page.getByTestId('ms-note')).toBeVisible()
+    else await expect(page.getByTestId('ms-draft-text')).toHaveValue('이성적인 법은 어차피 안 할 일만 막는다')
     await page.goForward()
     await expect(page.getByTestId('ms-bridge')).toBeVisible()
     await expect(page.getByTestId('v3-judgment').locator(`[data-choice="${choices[0]}"]`)).toHaveAttribute('aria-pressed', 'true')
@@ -253,8 +292,8 @@ for (const width of [1280, 1440]) {
       }
     }))
 
-    // 11) 교수 설명이 없는 문항 — 기존 v3 의미 화면 그대로
-    await page.goto('/csat/item/2026-31?scene=meaning', { waitUntil: 'domcontentloaded' })
+    // 11) 교수 설명이 없는 문항 — 기존 v3 의미 화면 그대로(2026 은 27문항 모두 설명이 생겨 2025 회차로 확인)
+    await page.goto('/csat/item/2025-31?scene=meaning', { waitUntil: 'domcontentloaded' })
     await expect(page.getByTestId('inquiry-dock')).toBeVisible({ timeout: 90_000 })
     await expect(page.getByTestId('ms-panel')).toHaveCount(0)
     await expect(page.getByTestId('map-sentence-pick')).toHaveCount(0)
@@ -268,8 +307,9 @@ for (const width of [1280, 1440]) {
     page.on('pageerror', (e) => errors.push(e.message))
     await page.setViewportSize({ width, height: 900 })
     await login(page)
-    const ids = Object.keys(ARTIFACT.items).sort()
-    expect(ids).toEqual(['2026#22', '2026#23', '2026#25', '2026#29', '2026#34', '2026#36', '2026#38', '2026#43'])
+    // 파일럿 8문항(원문 대조 기대값이 확정된 대표) — 확대 회차 19문항은 공개 산출물에 함께 있다(v31-wave-2)
+    const ids = ['2026#22', '2026#23', '2026#25', '2026#29', '2026#34', '2026#36', '2026#38', '2026#43']
+    for (const id of ids) expect(ARTIFACT.items[id], id).toBeTruthy()
     for (const id of ids) {
       const v = ARTIFACT.items[id]
       await page.goto(`/csat/item/${id.replace('#', '-')}?scene=meaning`, { waitUntil: 'domcontentloaded' })

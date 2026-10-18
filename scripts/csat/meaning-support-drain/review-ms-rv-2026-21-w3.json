@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-21-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#21",
+      "verdict": "pass",
+      "content_hash": "30fba66916df3f28",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "dd5f994711abc1e0",
+        "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+        "sourceSnapshotHash": "1df8a04025ad30fb"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1 의 긍정 평가(덕에) 제거, u3 에서 바꾸는 주체(고용주)와 대상(일 맡길 사람·곳) 명확. 비유→장소 결속 풀이는 연결 추론으로 표시, 결과 문장을 밑줄 뜻과 구별. less·a lot of 범위 보존."
+    }
+  ]
+}

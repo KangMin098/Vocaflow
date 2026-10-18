@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-33-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#33",
+      "verdict": "revise",
+      "content_hash": "46271448032f2d69",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "e3b063c3f4169175",
+        "basePublicHash": "497fd93f5f06eb934b8abecf0a6c238499c32701dc5b34d66e3c6542e3e6953f",
+        "sourceSnapshotHash": "03971581fa526ae8"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS07"
+      ],
+      "why": "(1) u2.simpleKo 가 preserves modality(「고객 역할을 할 수 있다」)를 단정 「고객 역할을 하는」으로 바꾸고, 의료진 대 환자·방문객의 「완전히 다르다」 비교와 quantity 「흔히」를 뺐다. 수정안 u2.simpleKo: 「병원 같은 큰 기관이 고객이라면, 관리 부서가 고객 역할을 할 수는 있어도 그 관점은 건물을 늘 쓰는 의료진과 크게 다르고, 흔히 응급 상황 때문에 가끔 오는 환자·방문객의 경험은 또 완전히 다르다.」 (2) 빈칸 답 노출: p5.textKo 「설계 과정에서 의견을 질문받는 경험」, u4.preserves[agent].explanationKo 「「의견을 질문받는다」가 되고」, r3.changeKo 「사용자가 설계 과정에서 의견을 질문받는 경험」, whole.summaryKo 「설계 과정에서 의견을 질문받은 사람들이」는 정답 ④의 직역이다. 수정안: 해당 구절을 「설계자가 하는 일(참여시키고 반응을 이해함)을 사용자 쪽에서 겪는 일」로 바꾸고, summary 둘째 문장은 「사용자 쪽에서 보면, 그런 과정을 거친 사람들이 새 건물에 더 만족할 가능성이 크다.」 u4.simpleKo(수정 대상)는 조건·양상·지시를 보존해 문제없다."
+    }
+  ]
+}

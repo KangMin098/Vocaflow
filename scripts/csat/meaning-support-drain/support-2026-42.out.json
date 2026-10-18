@@ -1,0 +1,452 @@
+{
+  "writer_run": "ms-wr-2026-42-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#42",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "450799188f6ecd9f",
+      "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+      "sourceSnapshotHash": "49945168bf2ab839"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 42,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u4",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 2,
+        "quote": "it was (a) inevitable that",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 5,
+        "quote": "not frozen on a display figure",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 6,
+        "quote": "some modern writers find",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 8,
+        "quote": "will (d) provide evidence about how",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 9,
+        "quote": "Without the information contained in art",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 9,
+        "quote": "would be awkward imitations",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "2번 문장: 1번 문장의 증거 공백 때문에, 복식 연구에 다른 영역과 같은 무게를 주려면 그 다른 영역이 자료의 상당 부분을 대는 것은 피할 수 없는 일이었다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "5~6번 문장: 옷은 마네킹에 굳은 채가 아니라 몸 위에서 움직이는 상태로 봐야 하고, 이 점 때문에 일부 현대 저자들은 의상 컬렉션을 생기 없다고 느낀다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2",
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "8번 문장: 여러 도판 자료가 옷이 그 시대에 어떻게 입혔는지의 증거를 준다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "9번 문장은 예술 자료의 정보가 없는 상황을 조건으로 세우고, 그 상황의 전시를 원래 의도의 어설픈 흉내와 묶는다. 이 조건 아래에서 문맥이 요구하는 것은 그렇게 될 「가능성이 높다」는 방향이다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a5",
+          "a6"
+        ],
+        "warrantsKo": [
+          "7~8번 문장이 시각 자료가 옷 입는 방식의 증거를 준다고 쌓아 두었으므로, 그 자료를 걷어 내면 전시가 원래 모습에서 멀어질 것으로 이어진다.",
+          "밑줄 낱말은 부정 접두사로 그 가능성을 낮다고 말해, 조건과 귀결의 방향이 서로 엇갈린다."
+        ],
+        "limitKo": "원문에 고쳐 쓴 낱말은 없다. 어느 낱말로 바꿔야 하는지가 아니라 귀결의 방향이 어느 쪽이어야 하는지까지만 말할 수 있다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1,
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "(a) 피할 수 없었던 선택",
+        "exactKo": "실물 옷이 끊기지 않는 증거를 주지 못하므로, 복식 연구에 같은 무게를 주려면 다른 영역이 자료를 많이 대는 일은 피할 수 없었다.",
+        "simpleKo": "옷 증거가 비어 있으니, 복식 연구를 다른 예술만큼 다루려면 자료의 많은 부분을 다른 예술에서 가져올 수밖에 없었다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "causality",
+            "valueKo": "피할 수 없었던 이유는 1번 문장의 증거 공백",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "2번 문장 앞의 Therefore 가 1번 문장을 이유로 받는다. 그래서 「어쩔 수 없었다」는 낱말이 앞 문장과 맞는다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          4,
+          5,
+          6
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3"
+        ],
+        "labelKo": "(b) 움직임 · (c) 생기 없음",
+        "exactKo": "옷은 고정된 것이 아니라 유동적이어서, 전시용 마네킹에 굳은 상태가 아니라 몸 위에서 움직이는 상태로 봐야 한다. 이 어려움 때문에 일부 현대 저자들은 의상 컬렉션을 생기 없다고 여긴다.",
+        "simpleKo": "옷은 입고 움직일 때 제대로 보이는데 전시장에선 멈춰 있으니, 어떤 저자들은 의상 전시가 죽어 있다고 느낀다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "굳어 있는 상태를 부정하고 움직이는 상태를 세움",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "같은 문장의 not frozen 이 (b) 자리의 값을 움직임 쪽으로 정한다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "생기 없다고 느끼는 사람은 필자가 아니라 일부 현대 저자들",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "(c) 는 필자의 주장과 반대 느낌이지만, 다른 저자들의 반응을 전하는 말이고 앞의 어려움의 결과라 문맥에 맞는다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "필자는 의상 컬렉션이 생기 없다고 비판한다.",
+          "lostFacet": "agent",
+          "whyWrongKo": "원문은 그렇게 느끼는 주체를 일부 현대 저자들로 한정한다. 필자의 판단으로 바꾸면 낱말이 글의 흐름과 어긋나 보이게 된다.",
+          "anchorIds": [
+            "a3"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          7,
+          8
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "(d) 시각 자료가 주는 증거",
+        "exactKo": "1660년 이후에는 움직이는 사람의 옷차림을 담은 자료가 많고, 흔히 여러 도판이 옷이 그 시대에 어떻게 입혔는지의 증거를 준다.",
+        "simpleKo": "그림이나 사진이 옷을 실제로 어떻게 입었는지 자주 보여 준다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "modality",
+            "valueKo": "흔히 증거를 준다 — 언제나가 아님",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "8번 문장 앞의 Often 이 빈도를 한정한다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "1660년 이후의 자료",
+            "anchorIds": [],
+            "explanationKo": "7번 문장이 시기를 정하고 8번 문장이 그 자료의 역할을 말한다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          9
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m6"
+        ],
+        "labelKo": "(e) 조건과 귀결의 방향",
+        "exactKo": "소묘에서 조각까지 모든 형태의 미술에 담긴 정보가 없다면, 역사적 의복 전시가 원래 제작자와 착용자의 의도를 어설프게 흉내 낸 것이 될 가능성은 (e) 낮을 것이다.",
+        "simpleKo": "그림·조각 같은 미술 자료가 없으면, 옛 옷 전시가 만든 사람과 입은 사람의 뜻을 어설프게 흉내 내게 될 가능성은 낮을 것이다(문장에 쓰인 그대로).",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "예술 자료의 정보가 없을 때라는 조건",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "문장 첫머리의 Without 이 앞 문장들이 쌓은 전제(시각 자료가 증거를 준다)를 걷어 낸 상황을 세운다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "밑줄 낱말이 가능성을 「낮다」로 말함",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "자료가 없으면 전시가 어설퍼질 가능성이 높아야 앞 문맥과 맞는데, 밑줄 낱말은 그 가능성을 낮다고 말해 방향이 반대가 된다. 조건의 「없다면」과 낱말의 부정이 서로 상쇄되는 것이 아니라, 낱말 하나가 귀결의 방향을 정한다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "확정이 아니라 가능성의 정도",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "would 와 밑줄 낱말은 일어날 가능성을 말한다. 확정된 일로 바꾸어 읽지 않는다."
+          }
+        ],
+        "syntax": {
+          "parts": [
+            {
+              "id": "s1",
+              "role": "clause",
+              "anchorIds": [
+                "a5"
+              ],
+              "meaningKo": "예술 속 정보가 없다면"
+            },
+            {
+              "id": "s2",
+              "role": "main",
+              "anchorIds": [],
+              "meaningKo": "그 일이 일어날 가능성에 대한 판단(밑줄 낱말)"
+            },
+            {
+              "id": "s3",
+              "role": "clause",
+              "anchorIds": [
+                "a6"
+              ],
+              "meaningKo": "전시가 원래 의도를 어설프게 흉내 낸 것이 된다"
+            }
+          ],
+          "attachments": [
+            {
+              "fromPart": "s1",
+              "toPart": "s2",
+              "whyKo": "조건 부분이 가능성 판단이 놓이는 상황을 정한다."
+            },
+            {
+              "fromPart": "s3",
+              "toPart": "s2",
+              "whyKo": "가능성을 판단하는 내용이 that 절로 붙는다."
+            }
+          ],
+          "recombinedKo": "자료가 없다면 전시가 어설픈 흉내가 될 가능성에 대해, 문장은 그 가능성이 낮다고 판단한다 — 이 판단이 앞 문맥과 반대 방향이다."
+        },
+        "misunderstanding": {
+          "alteredKo": "미술 자료가 없어도 역사적 의복 전시는 어설픈 흉내가 되지 않을 것이다.",
+          "lostFacet": "condition",
+          "whyWrongKo": "밑줄 낱말을 그대로 받아들인 읽기다. 이렇게 되면 7~8번 문장이 말한 시각 자료의 역할이 필요 없다는 말이 되어, 글 전체의 흐름과 맞지 않는다.",
+          "anchorIds": [
+            "a5",
+            "a6"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "contrast",
+        "beforeKo": "옷은 움직여야 제대로 보이는데 전시는 멈춰 있어 생기 없다는 평을 받음",
+        "afterKo": "움직이는 사람의 옷차림을 담은 자료가 입는 방식을 보여 줌",
+        "changeKo": "어려움을 인정한 뒤 해결 쪽으로 돌아선다. 실물 전시의 한계는 남아 있지만, 움직임을 담은 시각 자료가 그 빈자리를 보완한다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a2",
+          "a4"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "condition",
+        "beforeKo": "시각 자료가 옷 입는 방식의 증거를 줌",
+        "afterKo": "그 자료가 없다면 전시가 어설픈 흉내가 될지 판단함",
+        "changeKo": "앞에서 세운 전제를 조건에서 걷어 낸다. 전제가 사라지면 귀결은 어설퍼질 가능성이 높아져야 하므로, 9번 문장의 낱말이 이 방향과 맞는지가 판정의 기준이 된다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5",
+          "a6"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "8번 문장의 증거 제공과 9번 문장의 정보가 없다는 조건은 같은 시각 자료를 가리킨다."
+        ],
+        "limitKo": "원문은 9번 문장에서 바른 낱말을 직접 보여 주지 않는다. 방향만 문맥에서 이끌어 낸다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "실물 옷 증거가 끊겨 있고 멈춘 전시는 옷의 움직임을 못 보여 주므로, 복식사는 시각 자료로 옷 입는 방식을 확인한다. 그래서 그 자료가 없다면 전시는 원래 의도에서 멀어질 가능성이 높다는 쪽이 글의 흐름이다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "낱말의 긍정·부정 느낌이 아니라 같은 문장과 앞뒤 문장이 정하는 방향으로만 판단했다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": [
+          2,
+          3
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m6"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      }
+    ]
+  }
+}

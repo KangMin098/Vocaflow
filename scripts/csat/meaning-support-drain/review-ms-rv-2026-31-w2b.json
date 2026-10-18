@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-31-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#31",
+      "verdict": "pass",
+      "content_hash": "a5c9bb6758aaf12e",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "972c593c500f847c",
+        "basePublicHash": "5c70a8ad18edfb267e2169b595b83ae6788959d6b5939d3768a0e2285f62a5c0",
+        "sourceSnapshotHash": "939a3eef506b89a5"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "w2 지적 반영 확인: u2.simpleKo 에 흔히(frequently)·비교적(relative) 복원, u4.simpleKo 가 여러 시장(multiple markets)으로 범위 복원. 전체 재대조: 지시(these firms·this information·such risks) 정확, p3 빈칸 추론은 사업상 이득 범위로만 좁히고 정답 영어 미도입, r1~r3 warrant·limit 적정, bridges·designClaim referent 일치. MS08 a1~a10 재계산 일치, MS10 새 영어 없음. 참고(경미, 결함 아님): whole.summaryKo 「비밀스럽게 지켰고」는 요약 수준이라 비교적을 생략했지만 u2 에 보존되어 있다."
+    }
+  ]
+}

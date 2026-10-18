@@ -1,5 +1,5 @@
 {
-  "writer_run": "ms-wr-2026-43",
+  "writer_run": "ms-wr-2026-43-w3",
   "status": "ok",
   "support": {
     "schema": "meaning-support/1",
@@ -276,14 +276,14 @@
         ],
         "labelKo": "(C) 모임용 책 고르기",
         "exactKo": "Mia 는 가족 독서 모임에서 읽을 책을 찾다가 사서가 건넨 Café Paris 를 빌린다.",
-        "simpleKo": "모임에 나가기로 한 Mia 가, 첫 책을 고르러 도서관에 갔다.",
+        "simpleKo": "가족 독서 모임에 낼 책이 필요했던 Mia 는, 사서가 추천해 준 Café Paris 를 빌렸다.",
         "propositionIds": [
           "p4"
         ],
         "preserves": [
           {
             "facet": "condition",
-            "valueKo": "모임 참여와 첫 책 선택권이 이미 정해져 있어야 성립",
+            "valueKo": "모임에 쓸 책이 필요하다는 상황이 앞서 정해져 있어야 성립(첫 책을 고르는 차례라는 점은 34번 문장과 이어 본 추론)",
             "anchorIds": [
               "a5"
             ],

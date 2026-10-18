@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-35-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#35",
+      "verdict": "revise",
+      "content_hash": "ab805c7101a50c3b",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "8caef659ab8b5e82",
+        "basePublicHash": "434b6e79ffcaaf96bdebc5aef04ebc41956bcc96176ed9d40630a8e19332dbf5",
+        "sourceSnapshotHash": "8b83816f8ea882bd"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02"
+      ],
+      "why": "u1.simpleKo 「다들 자기 관리를 하고 싶어 하지만」이 preserves quantity(「원하지 않는 사람은 드물다 — 모든 사람이라고 단정하지 않는다」)를 전칭으로 바꿨다. 또 원인(예상 못 한 일에 붙잡혀 우선순위를 다시 정함)이 「일이 몰리면」으로만 남는다. 수정안 u1.simpleKo: 「자기 관리를 원하지 않는 사람은 거의 없지만, 갑자기 일이 밀려와 우선순위를 다시 짜다 보면 그게 제일 먼저 빠지는 경우가 많다.」 u3·u4(수정 대상) simpleKo 는 시간 범위·지시(this)·예외/일상 대비·비교 상대·기준을 보존해 문제없다."
+    }
+  ]
+}
