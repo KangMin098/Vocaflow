@@ -49,6 +49,8 @@ const MODULE_SESSION_META: Record<string, SessionMeta> = {
   '/wordvault/browse': { title: 'WordVault', emoji: '📖', closeHref: '/wordvault' },
   '/wordvault/study': { title: 'WordVault 학습', emoji: '📖', closeHref: '/wordvault' },
   '/wordvault/review': { title: 'WordVault 복습', emoji: '📖', closeHref: '/wordvault' },
+  // from 이 없을 때의 복귀는 예전 화면과 같은 `/hub`(진입점이 허브 「오늘」 · `/practice` 둘이고, `/practice` 는 from 을 싣는다)
+  '/practice/dcp/session': { title: '구문 연습', emoji: '🧩', closeHref: '/hub' },
 }
 
 // 아케이드 게임 세션 — GAME_CATALOG 에서 파생.

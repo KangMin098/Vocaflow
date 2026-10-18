@@ -33,7 +33,7 @@ function probe() {
   const settings = controls.filter((e) => /설정|옵션|setting|option/i.test(name(e)) || e.querySelector('svg.lucide-settings, svg.lucide-settings-2, svg.lucide-sliders-horizontal')).map(box)
   const progress = [...document.querySelectorAll('[role="progressbar"], progress')].filter(vis).map((e) => { const r = e.getBoundingClientRect(); return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width) } })
   const counter = (document.body.innerText.match(/\b\d+\s*\/\s*\d+\b/) || [null])[0]
-  const appHeader = Boolean([...document.querySelectorAll('header')].find((h) => vis(h) && h.querySelector('a[href="/hub"], a[href="/"]') && h.getBoundingClientRect().top < 5))
+  const appHeader = Boolean([...document.querySelectorAll('header')].find((h) => vis(h) && [...h.querySelectorAll('a')].some((a) => a.textContent.trim() === 'Today' || a.textContent.includes('Vocaflow')) && h.getBoundingClientRect().top < 5))
   // 맨 위 막대: 화면 맨 위 120px 안에서 가로 폭 60% 이상인 가장 낮은 요소
   const bars = [...document.querySelectorAll('header, nav, div')].filter((e) => { const r = e.getBoundingClientRect(); return vis(e) && r.top >= 0 && r.top < 10 && r.width > innerWidth * 0.6 && r.height > 30 && r.height < 140 })
   const bar = bars.sort((a, b) => a.getBoundingClientRect().height - b.getBoundingClientRect().height)[0]

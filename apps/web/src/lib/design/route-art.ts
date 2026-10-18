@@ -57,7 +57,7 @@ export function routeArt(pathname: string): RouteArt | null {
 const NO_BANNER = [
   /^\/hub$/, /^\/dashboard$/, /^\/practice$/, /^\/library\/(books|scripts|vocab|textbooks)$/, /^\/library\/textbooks\/[^/]+$/, /^\/comics\//, /^\/teacher$/,
   // /wordvault 허브는 자기 머리(AreaHero 판)를 그린다 — 머리띠 + 얇은 바 + 본문이 시작선 셋(x232 · x20 · x333)으로 갈렸다(2026-10-18 실측)
-  /\/play(\/|$)/, /^\/dictate\/session/, /^\/wordvault$/, /^\/wordvault\/(study|review|browse)/, /^\/csat(\/formulas)?$/, /^\/csat\/dissect/,
+  /\/play(\/|$)/, /^\/dictate\/session/, /^\/practice\/dcp\/session/, /^\/wordvault$/, /^\/wordvault\/(study|review|browse)/, /^\/csat(\/formulas)?$/, /^\/csat\/dissect/,
   // 해설 극장은 제 상단 막대를 갖는 작업 공간이라 머리띠가 얹히면 화면이 두 번 시작한다
   /^\/csat\/item\//,
   /^\/text\/[^/]+/, /^\/library\/books\/[^/]+/, /^\/my\/books\/[^/]+/, /^\/settings/, /^\/diagnostic\/[^/]+/,

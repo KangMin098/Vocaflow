@@ -63,6 +63,8 @@ const NON_ACTIVITY_FULL_SCREEN: ReadonlySet<string> = new Set([
   // 이 둘만 전역 헤더를 단 채 카드 안 「← 종료」로 나갔다. 복귀(?from=)·FSRS 저장(떠날 때 flush)은 그대로다.
   '/wordvault/study',
   '/wordvault/review',
+  // 구문 연습 세션 (2026-10-19) — 푸는 동안만 세션이다. 안내(문항 없음 · 오늘 완료)는 `/practice/dcp` 에 남는다.
+  '/practice/dcp/session',
   // (2026-10-10 해제) 기출 해부 '/csat/dissect' — 2026-09-17 엔 일반 앱 셸의 다른 모듈 CTA 와 겨루지 않게 풀스크린이었다.
   // 지금은 기출분석공간 셸(CsatShell · 다른 모듈 CTA 없음) 안에 있어 풀스크린 막대가 셸 위에 겹쳐 두 번 보였다.
 ])
