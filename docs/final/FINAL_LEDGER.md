@@ -87,3 +87,23 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 승인 SQL 후보 SHA `dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229` · 개발 DB 미적용 · 사람 Gold/권리 0 · 적격 공급 0.
 - 결정 대기: PR250 마이그레이션 `20261014091841` 첫 줄 주석을 적용 이력과 맞추는 변경(해시 bb4cc88d 일치 확인 · 자동 모드가 차단 → 사용자 결정).
 - 병합 순서 제안: #312 → #250 → #303(#303 은 #250 을 포함). 모두 Codex 수용 전 병합 안 함.
+
+## 8. 한 학습자 종단 격리 E2E (2026-10-19 · `39fe4fee0` · CI e2e 11/11)
+
+`apps/web/tests/e2e-isolated/journey.isolated.spec.ts` — 같은 user id 하나로 끝까지(다른 spec 합산 아님).
+
+| 구간 | 결과 |
+|---|---|
+| A 시험 기록 | PASS — 합성 회차 M9901(CI 격리 fixture · 실제 시험 아님) 저장 · 채점 |
+| B 목표 | PASS — 목표 버전 생성 · 본인 행 |
+| PLAN v1 | PASS — 같은 목표 버전 결속 |
+| F 납품 · 학습 · 독립 2 · 전이 1 | PASS — R5 창작(격리 fixture 자격) · 실제 Runner · 서버 채점 |
+| G2 | PASS — 3건 모두 그 납품에 결속 · evidence=true |
+| H TASK 근거 상태 | **변경 확인** — `not_measured` → `checking`(직접 확인 판정) |
+| H 다음 행동 | 변경 없음 — `relevance_unknown`(목표 시험 연결 확인 전) |
+| PLAN v2 | 저장 PASS(check_result · 같은 목표 버전 · v1 보존) · **TASK 단계 변경 없음**(v1 · v2 모두 null — 같은 원인) |
+
+- 발견·수정한 제품 결함: 날짜만 있는 시험 기록을 UTC 자정으로 읽어 KST 새벽 기록 뒤 PLAN 확정 422(`e54def25a`).
+- 진단으로 확인한 정상 동작: 합성 도메인(example.com) 계정 시도는 지도 근거에서 제외된다.
+- **증명되지 않은 것**: 「PLAN · 다음 행동이 수행 근거로 바뀐다」. 격리 DB 에 기준 시험(최근 평가원 회차) 문항 메타데이터 · 지도 라인 연결이 없어 To-Be 가 요구를 만들지 않는다. 다음 작업 = 그 메타데이터(원문 없이 배점 · 유형 · 라인 연결) fixture 로 relevance_unknown 해소 후 재검증.
+- 이 시험은 relevance_unknown 일 때만 불변을 기록하고, 그 밖에는 변경을 요구한다.
