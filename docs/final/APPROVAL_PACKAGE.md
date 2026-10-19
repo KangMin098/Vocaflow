@@ -73,7 +73,7 @@
 
 ## 승인 후 실행 순서(승인된 단계만)
 
-1. A 적용(승인 러너 · `/db-checkpoint` 앞뒤).
+1. A 적용 — 승인형 러너 `scripts/db/authored-supply/deploy.mjs`(r5-bind 와 같은 계약 · 본문 `supabase/deploy/authored-supply/20261020090000_authored_supply.sql` = 보류 SQL 바이트 동일 · SHA `dfb29f2d…`). 사람 터미널(TTY)에서 `apply --stage authored --confirm-sha <SHA>` 뒤 `APPLY authored <SHA>` 입력. 사전 이력 대조(2026-10-20 · 읽기 전용): DB-2 · I2 · G2(SHA 일치) 있음 · 대상 표 없음 · 자격/납품 0행 → 차단 없음. 러너는 사람 결정 행을 쓰지 않는다(사후 검증 0행). 앞뒤 `/db-checkpoint`.
 2. 관리자 로그인 세션으로 9문항 `authored_item_register`(인자 = `registrationArgs`) → `content_qualification_record`(FQ1.1).
 3. **사람이** C 확인 뒤 `content_human_decision_record('rights', … 'human-reviewed')`, B 확인 뒤 평가 6문항 `('gold', …)` — 에이전트가 대신 기록하지 않는다.
 4. `content_release_approve` public(9) · assessment(6).
