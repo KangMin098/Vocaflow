@@ -27,6 +27,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- ci: Next 컴파일 캐시(`apps/web/.next/cache` · actions/cache) — 같은 HEAD 빌드를 3 job 이 처음부터 하던 것(217~277s × 3) 재사용. 빌드 · 시험 대상 · 필수 체크 불변.
 
 
 - docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안
