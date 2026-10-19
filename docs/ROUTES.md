@@ -274,7 +274,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 경로 | 파일 | 비고 |
 |---|---|---|
 | `/admin/curation` | `admin/curation/page.tsx` + `AdminCurationClient.tsx` | 8탭 (Sources · BulkFetch · Seed · ID 4종 · MyLibrary) |
-| `/admin/curation/preview/[bookId]` | `admin/curation/preview/[bookId]/page.tsx` + `AdminReviewClient.tsx` | 도서 본문 검수 + LibriVox 매핑 패널 + 챕터 단어장 검수 |
+| `/admin/curation/preview/[bookId]` | `admin/curation/preview/[bookId]/page.tsx` + `AdminReviewClient.tsx` | 도서 본문 검수 + LibriVox·단어장 검수. `returnTo`는 허용된 도서 목록 조건만 전달하며 화면 복귀·작업 성공 시 같은 목록으로 이동 |
 | `/admin/library` | `admin/library/page.tsx` | 콘텐츠 관리 (예정) |
 | `/admin/articles` | `admin/articles/page.tsx` | ACP Pipeline (짧은 글) — Curated 탭에서 제목/검수 클릭 → 검수 페이지 |
 | `/admin/articles/preview/[id]` | `admin/articles/preview/[id]/page.tsx` + `AdminArticleReviewClient.tsx` | 글 본문 검수 (정독 + CEFR/단어 분석 + 게시/보관/처리) — LCP 책 검수 미러 |

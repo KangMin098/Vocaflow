@@ -25,11 +25,13 @@ import {
 } from '@/lib/library/admin-queries';
 import { bookSourceUrl, sourceLabel } from '@/lib/library/source-urls';
 import { Dialog } from '@/components/ui/Dialog';
+import { curationPreviewHref } from '@/lib/admin/curation-view';
 
 interface BookDetailModalProps {
   book: LibraryBookAdminRow | null;
   onClose: () => void;
   onChanged: () => void;
+  returnTo?: string;
 }
 
 interface ChapterStats {
@@ -40,7 +42,7 @@ interface ChapterStats {
 
 type ToneKey = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
-export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalProps) {
+export function BookDetailModal({ book, onClose, onChanged, returnTo = '/admin/curation' }: BookDetailModalProps) {
   const [actionPending, setActionPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<ChapterStats | null>(null);
@@ -133,7 +135,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
     <>
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
-            href={`/admin/curation/preview/${book.id}`}
+            href={curationPreviewHref(book.id, returnTo)}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />

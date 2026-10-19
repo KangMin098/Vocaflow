@@ -12,6 +12,15 @@ import { AdminWorkspaceSupply } from '../csat-diagnosis/AdminWorkspaceSupply'
 const db = {} as SupabaseClient
 beforeEach(() => { vi.clearAllMocks(); mock.activity.mockResolvedValue({ state: 'loaded', rows: [], next: null, bindings: { state: 'loaded', rows: [] } }); mock.snapshots.mockResolvedValue({ state: 'loaded', rows: [] }) })
 describe('관리자 수행·개인 공급 읽기 표시', () => {
+  it('보류로 가려진 페이지를 기록 없음이나 정오로 표시하지 않는다', async () => {
+    mock.activity.mockResolvedValue({state:'loaded',rows:[],heldCount:20,next:'11',bindings:{state:'loaded',rows:[]}})
+    const html=renderToStaticMarkup(await AdminLearnerActivity({db,userId:'target',base:'/admin'}))
+    expect(html).toContain('보류 문항의 수행 20건')
+    expect(html).toContain('표시할 수 있는 시도가 없습니다')
+    expect(html).toContain('이전 시도')
+    expect(html).not.toContain('시도 기록이 없습니다')
+    expect(html).not.toContain('<table')
+  })
   it('전달받은 대상만 조회하고 진단 보기 상태를 유지해 페이지를 넘긴다', async () => {
     mock.activity.mockResolvedValue({ state: 'loaded', rows: [], next: '42', bindings: { state: 'loaded', rows: [] } })
     const html = renderToStaticMarkup(await AdminLearnerActivity({ db, userId: 'target', base: '/admin/csat/diagnosis/learners/target?tab=records&view=types', before: '50' }))

@@ -888,6 +888,7 @@ export function MyLibraryTab({ books, onRefetch, initialStatus }: MyLibraryTabPr
 
       <BookDetailModal
         book={selectedBook}
+        returnTo={`/admin/curation?${params.toString()}`}
         onClose={() => setSelectedBook(null)}
         onChanged={onRefetch}
       />

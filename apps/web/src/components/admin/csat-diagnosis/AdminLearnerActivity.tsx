@@ -23,8 +23,9 @@ export async function AdminLearnerActivity({ db, userId, base, before }: { db: S
       <AdminScreenHelp screen="csat-learner-activity" className="mt-2" />
       <p className="my-3 break-keep text-xs text-[var(--t2)]">선택 학습자 {userId}의 시도 원장입니다. 단계·정답 기록은 독립 수행 판정, 계획 완료나 학습 효과를 뜻하지 않습니다.</p>
       {activity.state === 'error' ? <p role="status">수행을 읽지 못했습니다. 기록 없음으로 판정하지 않습니다.</p> : <>
+        {activity.heldCount > 0 && <p role="status">보류 문항의 수행 {activity.heldCount}건은 정오·문항·계획 결속을 표시하지 않습니다.</p>}
         {activity.bindings.state !== 'loaded' && <p role="status">{activity.bindings.state === 'not_installed' ? '계획 결속 구조가 설치되지 않았습니다.' : '계획 결속을 확인하지 못했습니다.'} 수행의 계획 소속을 추정하지 않습니다.</p>}
-        {activity.rows.length === 0 ? <p className="text-sm">이 조회 범위의 시도 기록이 없습니다.</p> : <div className="overflow-x-auto"><table className="w-full text-left text-xs">
+        {activity.rows.length === 0 ? <p className="text-sm">{activity.heldCount > 0 ? '이 조회 범위에 표시할 수 있는 시도가 없습니다.' : '이 조회 범위의 시도 기록이 없습니다.'}</p> : <div className="overflow-x-auto"><table className="w-full text-left text-xs">
           <caption className="py-2 text-left">시도 ID 내림차순 · 현재 {activity.rows.length}건</caption>
           <thead><tr>{['시도·시각', '과제·문항', '단계·응답', '계획 결속', '제품 적용'].map(h => <th key={h} className="border-b border-[var(--bd)] p-2">{h}</th>)}</tr></thead>
           <tbody>{activity.rows.map(a => {

@@ -1,4 +1,33 @@
 // apps/web/src/lib/admin/curation-view.ts
+import { safeInternalPath } from '@/lib/auth/redirect'
+
+/** 본문 검수에서 돌아올 도서 목록만 허용한다. 임의 URL·동작 query를 전달하지 않는다. */
+export function adminCurationReturn(raw: unknown): string {
+  const fallback = '/admin/curation'
+  if (typeof raw !== 'string' || raw.length > 2048) return fallback
+  const safe = safeInternalPath(raw)
+  if (!safe) return fallback
+  const url = new URL(safe, 'https://internal.invalid')
+  if (url.pathname !== fallback) return fallback
+  const params = new URLSearchParams()
+  params.set('view', curationLocation(url.searchParams).view)
+  for (const key of ['source', 'level', 'status']) {
+    const value = url.searchParams.get(key)
+    if (value && /^[A-Za-z0-9_-]{1,40}$/.test(value)) params.set(key, value)
+  }
+  const q = url.searchParams.get('q')?.trim().slice(0, 100)
+  if (q) params.set('q', q)
+  const page = url.searchParams.get('page')
+  if (page && /^[1-9]\d{0,4}$/.test(page)) params.set('page', page)
+  const selected = url.searchParams.get('selected')
+  if (selected && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(selected)) params.set('selected', selected)
+  return `${fallback}?${params}`
+}
+
+export function curationPreviewHref(bookId: string, returnTo: string) {
+  return `/admin/curation/preview/${encodeURIComponent(bookId)}?${new URLSearchParams({ returnTo: adminCurationReturn(returnTo) })}`
+}
+
 export const CURATION_VIEWS = [
   { key: 'library', label: '도서 목록' },
   { key: 'collect', label: '수집' },
