@@ -8,11 +8,12 @@ values ('M9901', '격리 합성 회차(e2e)', 'mock', 2099, 1, 45, true, true, '
 on conflict (id) do nothing;
 
 insert into public.csat_dx_answer_key (exam_id, no, answers, points, source)
-select 'M9901', n, array[((n % 5) + 1)]::smallint[], case when n % 7 = 0 then 3 else 2 end, 'CI 격리 fixture'
+select 'M9901', n, array[((n % 5) + 1)]::smallint[], case when n % 4 = 2 and n <= 38 then 3 else 2 end, 'CI 격리 fixture'
 from generate_series(1, 45) as n
 on conflict (exam_id, no) do nothing;
 
 -- 목표 연결(relevance) — 「6월 모평」 목표의 기준 시험 범위에 드는 합성 회차 M9906(실제 시험 아님 · 원문 없음).
+-- 기준 시험 자격 = 정답표 45문항 · 배점 합 100(target.ts selectReferenceExams) — 3점 10문항 + 2점 35문항
 --   독해 18~45 번에 유형만 붙인다(지문 · 선지 없음). 지도 정의의 유형 연결(reading-types-approved: B6 ← R-GIST 등)로
 --   라인 ↔ 문항이 이어지고, 오답률이 없으니 모두 「반드시 맞힐 문항」 — To-Be 가 목표 관련도를 계산할 수 있다.
 insert into public.csat_types (id, name, section) values
@@ -25,7 +26,7 @@ values ('M9906', '격리 합성 6월 회차(e2e)', 'mock', 2099, 6, 45, true, tr
 on conflict (id) do nothing;
 
 insert into public.csat_dx_answer_key (exam_id, no, answers, points, source)
-select 'M9906', n, array[((n % 5) + 1)]::smallint[], case when n % 7 = 0 then 3 else 2 end, 'CI 격리 fixture'
+select 'M9906', n, array[((n % 5) + 1)]::smallint[], case when n % 4 = 2 and n <= 38 then 3 else 2 end, 'CI 격리 fixture'
 from generate_series(1, 45) as n
 on conflict (exam_id, no) do nothing;
 
