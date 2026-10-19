@@ -407,6 +407,181 @@
           }
         ]
       }
+    },
+    {
+      "id": "ev-ind-3",
+      "role": "independent_check",
+      "passageGroup": "evl-i3",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Many city planners believe that adding bike lanes simply takes space away from cars.",
+          "To test this, one city painted temporary lanes on a busy street for three months.",
+          "Car travel times on that street barely changed during the trial.",
+          "Shops along the street, however, reported that customers on bicycles stopped more often and returned more frequently than drivers did.",
+          "By the end of the trial, total sales on the street had risen even though fewer cars could park there.",
+          "The planners concluded that a bike lane can ________.",
+          "The city has since made the lanes permanent."
+        ],
+        "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+        "choices": [
+          "slow down car traffic more than expected",
+          "bring more business to a street than parking spaces do",
+          "make drivers angry at cyclists on busy streets",
+          "be built faster than most city projects",
+          "reduce the number of shops along a street"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 4,
+        "evidence": [
+          4
+        ],
+        "evidenceAlt": [
+          3
+        ],
+        "rationale": "5번에서 주차 공간이 줄었는데도 거리 전체 매출이 늘었다고 하므로(4번: 자전거 손님이 더 자주 들르고 다시 옴), 자전거 도로가 주차 공간보다 더 많은 장사를 거리에 가져온다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "3번은 자동차 통행 시간이 거의 변하지 않았다고 한다 — 정반대."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "운전자의 불만은 본문에 없다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "공사 속도는 본문이 다루지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "매출이 늘었다(5번) — 상점 감소와 반대 방향."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ev-ind-4",
+      "role": "independent_check",
+      "passageGroup": "evl-i4",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Teachers often give students a list of new words to memorize before reading a story.",
+          "In one study, half of a class studied the list first, while the other half read the story and met the words in context.",
+          "On a quiz the next day, both groups recalled about the same number of meanings.",
+          "A month later, however, the group that had met the words inside the story remembered far more of them and could use them in their own sentences.",
+          "The list group had mostly forgotten the words, even the ones they had answered correctly on the first quiz.",
+          "The researchers suggested that words learned in a story ________.",
+          "They recommended that word lists be used after reading rather than before."
+        ],
+        "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+        "choices": [
+          "are easier to memorize on the first day",
+          "should be tested every day to be remembered",
+          "are usually harder words than those on a list",
+          "stay in memory longer than words studied from a list",
+          "make the story itself more difficult to follow"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          4
+        ],
+        "rationale": "4번에서 한 달 뒤 이야기 속에서 단어를 만난 집단이 훨씬 많이 기억하고 쓸 수 있었다고 하므로, 이야기로 배운 단어는 목록보다 오래 기억에 남는다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "3번은 다음 날 두 집단이 비슷했다고 한다 — 첫날 차이가 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "단어 난도 비교는 본문에 없다."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "매일 시험은 본문의 권고가 아니다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "이야기 이해가 어려워진다는 내용은 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ev-transfer-2",
+      "role": "transfer",
+      "passageGroup": "evl-x2",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Some farmers leave narrow strips of wild flowers between their fields instead of planting crops there.",
+          "At first this seems to waste land that could produce food.",
+          "But the strips attract insects that eat the pests that damage crops.",
+          "Farms with flower strips needed far less pesticide, and their harvests were as large as those of farms without strips.",
+          "Over several years, the soil on these farms also became richer.",
+          "In this way, the unused land actually ________.",
+          "More farmers are now trying the same approach."
+        ],
+        "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+        "choices": [
+          "reduces the total amount of food produced",
+          "is used only for decoration",
+          "attracts pests that harm nearby fields",
+          "costs farmers more money every year",
+          "supports the crops around it instead of wasting space"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          2,
+          4
+        ],
+        "rationale": "4번에서 꽃 띠가 있는 농장은 농약이 덜 들고 수확은 같았다고 하므로(3번: 해충을 먹는 곤충을 부른다), 쓰지 않는 땅이 오히려 주변 작물을 돕는다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "2번의 처음 생각(땅 낭비)을 결론처럼 옮겼다 — 4번 수확은 같았다."
+          },
+          {
+            "choice": 2,
+            "design": "reversed",
+            "why": "꽃 띠는 해충을 먹는 곤충을 부른다(3번) — 해충을 부르는 것이 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "농약이 덜 들었다(4번) — 비용 증가와 반대."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "장식 목적은 본문에 없다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

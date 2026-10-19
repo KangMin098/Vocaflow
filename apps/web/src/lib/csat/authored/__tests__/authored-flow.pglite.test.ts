@@ -18,7 +18,7 @@ import { repairGate, workspacePlan, type PlanActivity } from '../../map/v4/plan'
 import { toBeMap } from '../../map/v4/to-be'
 import { planWorkspaces } from '../../map/v4/workspace'
 import type { AttemptWrite, AttemptWriter } from '@/lib/knowledge/practice-writer'
-import { R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold } from '@/lib/knowledge/authored/authored-items'
+import { AUTHORED_SETS, R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold, type AuthoredSet } from '@/lib/knowledge/authored/authored-items'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import { applyAuthoredBindings } from '../evidence'
 import { listDelivered, openDelivered, recordAuthoredAttempt, requestAuthoredSupply } from '../server'
@@ -38,6 +38,10 @@ const B = '00000000-0000-4000-8000-0000000000c2'
 // T-0050 순환 — 다른 시험의 상태와 섞이지 않게 별도 학습자(pass · fail)
 const C = '00000000-0000-4000-8000-0000000000c3'
 const D = '00000000-0000-4000-8000-0000000000c4'
+// T-0052 — 근거 찾기(e.evidence_location) 순환 학습자
+const E = '00000000-0000-4000-8000-0000000000c5'
+const F = '00000000-0000-4000-8000-0000000000c6'
+const EVL = AUTHORED_SETS.find((x) => x.taskId === 'e.evidence_location')!
 const TASK = 'r.central_meaning'
 const TEMPLATE = 'ws.central-meaning'
 const S = R5_AUTHORED_SET
@@ -103,21 +107,21 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'); insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B, C, D]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'); insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D, E, F]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
   admin = new FakeClient(db, ADMIN) as unknown as SupabaseClient
   // ── 승인 패키지 실행 흉내: 등록 → 자격 → 사람 결정(권리 · 평가 역할 Gold) → 승인 ──
-  for (const item of S.items) {
-    const r = await (admin as unknown as FakeClient).rpc('authored_item_register', registrationArgs(S, item))
+  for (const [set, item] of [S, EVL].flatMap((x) => x.items.map((i) => [x, i] as const))) {
+    const r = await (admin as unknown as FakeClient).rpc('authored_item_register', registrationArgs(set, item))
     if (r.error) throw new Error(r.error.message)
     const ref = authoredRef(item.id)
     const { rev, gh } = await q1<{ rev: string; gh: string }>(`select public.supply_artifact_revision('authored_item',$1) rev, public.authored_item_gold_hash($1) gh`, [ref])
     await (admin as unknown as FakeClient).auth()
     const qid = (await q1<{ id: string }>(`select public.content_qualification_record('FQ1.1','authored_item',$1,$2,$3,$4,$5::jsonb,'self',$2,null,'gold',$6,$7,$6,'{}','{blind-A,blind-B}','맹검 2인 + 사람 Gold',null) id`,
-      [ref, rev, TASK, item.role, JSON.stringify(AXES()), gh, registrationArgs(S, item).p_annotation_ref])).id
+      [ref, rev, set.taskId, item.role, JSON.stringify(AXES()), gh, registrationArgs(set, item).p_annotation_ref])).id
     await db.query(`select public.content_human_decision_record('rights','authored_item',$1,$2,$2,'self_authored_original','{store,display,transmit,assess}','docs/final/review#rights','human-reviewed')`, [ref, rev])
     if (isAssessmentRole(item.role)) await db.query(`select public.content_human_decision_record('gold','authored_item',$1,$2,$3,'human_gold_review','{assess}','docs/final/review#gold','human-reviewed')`, [ref, rev, gh])
     await db.query(`select public.content_release_approve($1,'public')`, [qid])
@@ -211,8 +215,13 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
  * T-0050 rev5 — 실제 서버 기록(recordAuthoredAttempt) · 보류 SQL · G2 결속 → As-Is → To-Be → Workspace → PLAN 계산의 순환(Codex verify-repair-map-cycle 를 상시 회귀로).
  * 공급은 실제 requestAuthoredSupply. 한계: 목표 · 기준 시험 메타데이터는 합성, PLAN 저장 이력 · 브라우저 · 네이티브 RLS 는 이 시험 밖.
  */
-describe('T-0050 — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차', () => {
-  const KEY = 'authored-central-meaning'
+interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string }
+function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차`, () => {
+  const { key: KEY, task: CT, template: CW } = cfg
+  const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
+  // 형식별 정답 응답 — central_meaning · choice_evidence(결정 근거 문장)
+  const rightOf = (id: string) => { const gd = goldOfC(id); return cfg.set.format === 'choice_evidence' ? { choice: gd.answer, evidence: [gd.decisive] } : { claim: gd.claim, support: gd.support, relation: gd.relationProbe.relation, choice: gd.answer } }
+  const supplyC = (uid: string, stage: string | null, planned: number | null) => requestAuthoredSupply(admin, learner(uid), uid, { view: ({ taskPlans: [{ task: CT, stage, need: 'GAP', quantity: { planned, done: 0 } }], asIs: { asOf: '2026-10-18T00:00:00.000Z', tasks: { [CT]: { status: 'verified_need', check: { independentItems: 2 } } } }, toBe: null }) as unknown as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
   type Row = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   async function world(uid: string) {
     const attempts = (await db.query<Row>(`select a.*, b.evidence, b.annotation_hash, d.role from learning_task_attempts a left join workspace_delivery_attempt b on b.attempt_id = a.id left join workspace_content_delivery d on d.id = b.delivery_id where a.user_id = $1 order by a.answered_at, a.id`, [uid])).rows
@@ -230,55 +239,60 @@ describe('T-0050 — 바로잡기 → 적용 → 새 독립 확인 → 해소 ·
     const repair = { [KEY]: deliveries.filter((d) => ['guided_practice', 'model_explanation'].includes(d.role)).map((d) => ({ ...link(d), role: d.role })) }
     const transfers = { [KEY]: deliveries.filter((d) => d.role === 'transfer').map(link) }
     const homes = planWorkspaces({ asIs: map, toBe: goal, confirmLinks: links as never, repairTargets: repair as never, transferTargets: transfers as never, transferItems: { [KEY]: transfers[KEY].length } })
-    const home = [homes.primary, ...homes.others].find((x) => x?.id === TEMPLATE)!
+    const home = [homes.primary, ...homes.others].find((x) => x?.id === CW)!
     const activity = attempts.map((a) => ({ itemRef: a.item_ref, taskKey: a.task_key, phase: a.phase, activity: a.activity, isCorrect: a.is_correct, answeredAt: iso(a.answered_at), receivedAt: iso(a.received_at), ...(a.role === 'guided_practice' ? { repairRole: 'guided_practice' as const } : {}) })) as PlanActivity[]
     const plan = workspacePlan(home, map, goal, homes, activity)
-    return { map, goal, plan, activity, task: map.tasks[TASK], row: plan.tasks.find((t) => t.task === TASK)! }
+    return { map, goal, plan, activity, task: map.tasks[CT as never] as (typeof map.tasks)[keyof typeof map.tasks], row: plan.tasks.find((t) => t.task === CT)! }
   }
   const answer = async (uid: string, id: string, right = true) => {
-    const response = rightAnswer(id)
+    const response = rightOf(id) as unknown as Record<string, number>
     await recordAuthoredAttempt(admin, learner(uid), { id: uid, email: null }, ref(id), { ...meta({ helpLevel: id.includes('guided') ? 'viewed_first' : 'independent' }), deliveryId: await dOf(uid, ref(id)), response: right ? response : { ...response, choice: (response.choice + 1) % 5 } }, Date.now(), writer)
   }
   const bindings = async (uid: string) => (await db.query<Row>('select * from workspace_delivery_attempt where user_id = $1 order by attempt_id', [uid])).rows
   const toRecheck = async (uid: string) => {
-    await supply(uid, 'check', 2); await supply(uid, 'transfer', 2); await supply(uid, 'repair', null)
-    await answer(uid, 'r5-cm-ind-1', false); await answer(uid, 'r5-cm-ind-2', false)
+    await supplyC(uid, 'check', 2); await supplyC(uid, 'transfer', 2); await supplyC(uid, 'repair', null)
+    await answer(uid, cfg.ind[0], false); await answer(uid, cfg.ind[1], false)
     let w = await world(uid)
     expect(w.task.status).toBe('verified_need'); expect(w.row.stage).toBe('repair')
-    await answer(uid, 'r5-cm-guided-1', false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
-    await answer(uid, 'r5-cm-guided-1', true); w = await world(uid); expect(w.row.stage).toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
-    await answer(uid, 'r5-cm-transfer-1', true); await answer(uid, 'r5-cm-transfer-2', false)
+    await answer(uid, cfg.guided, false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
+    await answer(uid, cfg.guided, true); w = await world(uid); expect(w.row.stage).toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    await answer(uid, cfg.tr[0], true); await answer(uid, cfg.tr[1], false)
     w = await world(uid); expect(w.row.stage).toBe('recheck'); expect(w.task.status, '전이는 독립 근거가 아니다').toBe('verified_need')
-    const req = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: TASK, template: TEMPLATE, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
+    const req = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
     expect(req.status).toBe('ok'); if (req.status !== 'ok') throw new Error('supply')
-    expect(req.lines.flatMap((l) => l.delivered).sort(), '이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다').toEqual([ref('r5-cm-ind-3'), ref('r5-cm-ind-4')])
+    expect(req.lines.flatMap((l) => l.delivered).sort(), '이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다').toEqual([ref(cfg.fresh[0]), ref(cfg.fresh[1])].sort())
     return bindings(uid)
   }
   it('pass — 새 지문 독립 확인 2 정답 → 해소 · 앞선 G2 결속 불변', async () => {
-    const before = await toRecheck(C)
-    await answer(C, 'r5-cm-ind-3', true); await answer(C, 'r5-cm-ind-4', true)
-    const w = await world(C)
+    const U = cfg.pass
+    const before = await toRecheck(U)
+    await answer(U, cfg.fresh[0], true); await answer(U, cfg.fresh[1], true)
+    const w = await world(U)
     expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved')
-    const after = await bindings(C)
+    const after = await bindings(U)
     expect(after.slice(0, before.length), '처음 독립 오답 · 안내 연습 · 전이 결속은 그대로').toEqual(before)
     expect(after.slice(before.length).map((r) => r.evidence), '새 독립 확인 2 = 근거').toEqual([true, true])
   }, 120000)
   it('fail — 다시 틀리면 새 바로잡기 회차 · 이전 안내 연습 성공 불승계 · 맞혔던 안내 연습을 다시 맞히면 회차 통과', async () => {
-    await toRecheck(D)
-    await answer(D, 'r5-cm-ind-3', false)
-    let w = await world(D)
+    const U = cfg.fail
+    await toRecheck(U)
+    await answer(U, cfg.fresh[0], false)
+    let w = await world(U)
     expect(w.task.check?.status).toBe('still_needed'); expect(w.row.stage).toBe('repair')
     expect(repairGate(w.task, w.activity).succeeded, '회차 전 안내 연습 정답은 이번 회차 성공이 아니다').toBe(false)
     // 교수 자료는 정답 뒤에도 다시 풀 수 있다(서버 append-only 새 시도 · 근거 아님) → 이번 회차 성공
-    await answer(D, 'r5-cm-guided-1', true)
-    w = await world(D)
+    await answer(U, cfg.guided, true)
+    w = await world(U)
     expect(repairGate(w.task, w.activity).succeeded).toBe(true)
     expect(w.row.stage, '새 회차 안내 연습 정답 → 바로잡기 단계를 넘는다').not.toBe('repair')
     expect(w.task.status, '안내 연습은 해소 근거가 아니다').not.toBe('resolved')
-    const guided = (await db.query<{ evidence: boolean }>('select evidence from workspace_delivery_attempt where user_id = $1 and artifact_ref = $2 order by attempt_id', [D, ref('r5-cm-guided-1')])).rows
+    const guided = (await db.query<{ evidence: boolean }>('select evidence from workspace_delivery_attempt where user_id = $1 and artifact_ref = $2 order by attempt_id', [U, ref(cfg.guided)])).rows
     expect(guided.map((g) => g.evidence), '안내 연습 3회 모두 근거 아님').toEqual([false, false, false])
   }, 120000)
-})
+}) }
+cycle({ label: 'T-0050 R5 중심 의미', set: S, task: 'r.central_meaning', template: 'ws.central-meaning', key: 'authored-central-meaning', ind: ['r5-cm-ind-1', 'r5-cm-ind-2'], fresh: ['r5-cm-ind-3', 'r5-cm-ind-4'], guided: 'r5-cm-guided-1', tr: ['r5-cm-transfer-1', 'r5-cm-transfer-2'], pass: C, fail: D })
+// T-0052 rev1 — 근거 찾기: 같은 순환 · 같은 판정(새 독립 2 · 전이 1 은 이번에 보충한 ev-ind-3 · 4 · ev-transfer-2)
+cycle({ label: 'T-0052 E 근거 위치', set: EVL, task: 'e.evidence_location', template: 'ws.evidence-locate', key: 'authored-evidence-locate', ind: ['ev-ind-1', 'ev-ind-2'], fresh: ['ev-ind-3', 'ev-ind-4'], guided: 'ev-guided-1', tr: ['ev-transfer-1', 'ev-transfer-2'], pass: E, fail: F })
 
 describe('철회 · 다른 학습자', () => {
   it('지연 확인 권리 결정 철회 → 다른 학습자 공급 거절(사람 결정) · 앞선 기록은 그대로', async () => {
