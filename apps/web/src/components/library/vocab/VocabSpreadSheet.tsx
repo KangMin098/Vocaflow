@@ -183,7 +183,7 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
           {/* FEATURES — 지면의 어느 자리가 무엇인지. 이 권이 실제로 채운 칸만 가리킨다. */}
           {data.guide.features.length > 0 && (
-            <div className="bg-[var(--bg2)]/40 mt-4 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
+            <div className="bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)] mt-4 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
               <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                 지면 보는 법
               </p>
@@ -220,7 +220,7 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
         <Kicker>
           <CalendarDays size={11} aria-hidden /> 학습 계획
         </Kicker>
-        <div className="bg-[var(--bg2)]/40 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
+        <div className="bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)] rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
           <p className="font-body text-[13px] text-[var(--t2)]">
             하루 <b className="text-[var(--t1)]">{data.studyPlan.perDay}</b>개 ·{' '}
             <b className="text-[var(--t1)]">{data.studyPlan.days}</b>일 완성
@@ -373,7 +373,7 @@ export function VocabSpreadSheet({ setId }: { setId: string }) {
 
               {/* DAY 끝 테스트 — 그날치를 바로 확인하는 자리 */}
               {day.test.meaning.length > 0 && (
-                <div className="bg-[var(--bg2)]/40 mt-3 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
+                <div className="bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)] mt-3 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
                   <p className="mb-1.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                     DAILY TEST
                   </p>

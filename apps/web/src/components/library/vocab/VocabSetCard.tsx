@@ -102,7 +102,7 @@ export function VocabSetCard({
         type="button"
         onClick={() => onPreview(set)}
         aria-label={`${set.title} 미리보기 열기`}
-        className="book-cover-premium focus-visible:ring-[var(--p)]/40 relative w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        className="book-cover-premium focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] relative w-full overflow-hidden transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{
           // 판형 — 규격(`coverGrid.ratio`)이 정한다. `aspect-[3/4]` 로 박아 두었더니 캔버스가
           //   비율을 바꿔도 서가가 안 따라왔다. 각인이 없는 권은 종전 3:4.
@@ -231,7 +231,7 @@ export function VocabSetCard({
         // **원(시각)은 그대로 두고 버튼 자체를 44px 로** 키운다(내부 아이콘 크기 불변).
         className={`absolute bottom-1.5 right-1.5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full opacity-0 shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-all duration-[var(--dur-normal)] focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 group-focus-within:opacity-100 group-hover:opacity-100 ${
           isSubscribed
-            ? 'focus-visible:ring-[var(--error)]/40 bg-[var(--error-light)] text-[var(--error-ink)] ring-1 ring-[var(--error)] hover:scale-110'
+            ? 'focus-visible:ring-[color-mix(in_srgb,var(--error)_40%,transparent)] bg-[var(--error-light)] text-[var(--error-ink)] ring-1 ring-[var(--error)] hover:scale-110'
             : 'bg-white text-[var(--t1)] hover:scale-110 focus-visible:ring-white/60'
         }`}
       >
