@@ -1,5 +1,7 @@
 # Learning Modules
 
+관리자 주문 계보(2026-10-20): `AdminWorkspaceSupply`는 인증된 행위자와 대상 사용자·Workspace로 서버 RPC를 조회하며 `ProductOrderLineageView`가 현재/철회/이전 판/개인 변경 및 미설치/실패/빈 목록을 구분한다. 이 패널은 계획 연결량만 표시하며 학습자 수요·생산 진척·개인 납품 판정을 바꾸지 않는다. [계약과 적용 대기](admin-restructure/product-order-lineage.md).
+
 도서 검수 이동(2026-10-20): `BookDetailModal`은 닫기 전에 검색·선택 복귀 주소를 보존하고 공용 `Dialog`의 선택적 `afterUnwindRef`로 오버레이 이력을 걷은 뒤 이동한다. 기존 `useCloseOnBack` 계약을 재사용한다.
 
 적용 추적의 보류 관문(2026-10-20): 과제와 audience의 단일·복수 대상 전체를 검사한다. 수행 메타와 버전만 먼저 읽고 허용된 시도·문항의 정오를 뒤에 읽으며, 과거 보류 수행이 있으면 결속이 불명인 trial·효과 결과도 가린다. 미상 문항의 정오는 읽지 않고 조회·판정 실패를 0건으로 바꾸지 않는다.

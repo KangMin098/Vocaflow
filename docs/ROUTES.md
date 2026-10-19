@@ -1,5 +1,7 @@
 # Routes Map
 
+Product Order 계보 API(2026-10-20): `/api/admin/csat/product-order-lineage` GET은 `user/workspace` UUID의 관리자·curator 조회, POST는 admin만 `register/link/withdraw`를 실행한다. Origin·JSON·크기를 제한하고 실제 정본·해시 검증을 통과한 신뢰 서버만 service RPC를 호출한다. 조회 미설치는 200 `not_installed`, 기록 미설치·DB 장애·결과 미확인은 503, 권한 403, 입력 400, 명시적 불변식 충돌 409다. 쓰기 응답은 `recorded_id/current=read_required/delivery=not_performed`이며 납품을 실행하지 않는다. 새 관리자 페이지·하위 메뉴는 없다. [계약](admin-restructure/product-order-lineage.md).
+
 ### 관리자 업무 영역 및 호환 경로 (2026-10-19)
 
 - 후속(2026-10-20): `/admin/kice/[typeId]`는 `q/exam/page`와 집합/학년을 유지하고, 문항 상세의 `returnTo`는 허용된 관리자 유형 목록·허용 query만 복원한다. 학습자 상세의 `activityBefore`는 같은 대상의 시도 ID 커서다. 페이지 이동은 진단 tab/view를 유지한다. 새 라우트는 없다.
