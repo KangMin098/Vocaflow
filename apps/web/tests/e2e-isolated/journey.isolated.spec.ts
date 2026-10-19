@@ -58,7 +58,8 @@ async function observe(page: Page) {
   const evidence = await pop.locator('[data-testid="pop-evidence"]').getAttribute('data-evidence')
   const next = (await pop.locator('[data-testid="pop-next"]').count()) ? await pop.locator('[data-testid="pop-next"]').getAttribute('href') : null
   const blocked = (await pop.locator('[data-testid="pop-blocked"]').count()) ? await pop.locator('[data-testid="pop-blocked"]').getAttribute('data-reason') : null
-  return { priority, evidence, next: next?.split('?')[0] ?? null, blocked }
+  const nextLabel = (await pop.locator('[data-testid="pop-next"]').count()) ? (await pop.locator('[data-testid="pop-next"]').innerText()).trim() : null
+  return { priority, evidence, next: next?.split('?')[0] ?? null, nextLabel, blocked }
 }
 async function planRow(ws: string, version: number) {
   const r = (await admin().from('learner_workspace_plan').select('user_id, plan_version, reason, goal_version_id, plan').eq('workspace_id', ws).eq('plan_version', version).single()).data!
@@ -242,7 +243,8 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   const v3 = await planRow(ws, 3)
   console.log('JOURNEY_REPAIR=' + JSON.stringify({ before, after, base: base.task, v3: v3.task }))
   expect(after.evidence, '서로 다른 2 오답 → 보완 필요 확정').toBe('need_confirmed')
-  expect({ next: after.next, blocked: after.blocked }).not.toEqual({ next: before.next, blocked: before.blocked })
+  // 다음 행동 — 바로잡기는 틀린 문항을 다시 푸는 링크라 주소가 같을 수 있다(단계 · 라벨이 바뀐다). 평가 자료 재사용 여부는 Codex 판정 항목
+  expect({ label: after.nextLabel, blocked: after.blocked }, '다음 행동의 단계 · 라벨이 바뀌어야 한다').not.toEqual({ label: before.nextLabel, blocked: before.blocked })
   expect(base.task?.stage).toBe('check')
   expect(v3.task?.stage, '저장 PLAN 단계 check → repair').toBe('repair')
   expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
