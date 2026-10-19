@@ -1,6 +1,14 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+**2026-10-19 08:27 UTC · [VF-TASK FINAL-FI011-SUPPLY] cd17 최소 수정 독립 판정: REWORK.** 기존4반례는 새 결속/서버 수신 입력으로 모두 CODE_VERIFIED_FIXED다. 실제 map157파일·변경 plan22검사와 독립11대조 성공, 잔여2단언 실패로 [35중33성공/2실패](./fi011-supply-cd17.json). 결속 없음/서버 수신 없음·회차 앞/다른 TASK/재확인 재실패 뒤 이전 성공 불승계/B 재고 부족/정상 기출 재시도도 대조했다. 최신 HEAD cd17da86554a92b5fd056fffa28140e2ae0ced39에 결속한 순수 검사이며 실제 브라우저로 계산하지 않는다.
+
+남은 **같은 FI-011의 P1 한 원인**: legacy 기출 재시도 분기가 authored 평가의 theater 기록도 받아 repairGate 성공·doneOf(repair)=1로 판정한다. expected false/0. UI 평가 잠금만으로 기존 반복 기록의 분류를 보장하지 않는다. 실제 server.recordAuthoredAttempt와 미변경 보류 SQL의 [격리 PGlite2검사](./fi011-server-cd17.json)에서 교수 오답→재시도 정답·같은 mutation 재전송2행 유지·viewed_first·최신 결과·평가 첫 결과 잠금은 성공했고, 서버에 보존된 평가 반복 행을 PLAN에 넣으면 잘못 성공하는 경로는 실패했다. test writer adapter/단일 연결 PGlite이며 HTTP·JWT·RLS·native 동시성 검증이 아니다. 첫 명령의 Windows 필터 인용 때문에 skip된 결과는 통과로 세지 않았고, 필터 수정 및 PGlite Date를 Supabase와 같은 ISO 문자열로 변환한 최종 실행만 판정에 썼다. 최초 반복 기록은 삭제/재작성하지 않고 legacy 성공·수행량을 실제 기출 대상으로만 제한하면 된다. 새 SQL/표/교육 기준은 필요 없다. [같은 #304/PR303 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6262925253).
+
+최신 main fcb40034d와 cd17의 **실제 Git 결합은 실패**했다: workflow와 CHANGELOG 충돌, merge-tree exit1·GitHub CONFLICTING/DIRTY. 이 때문에 해당 HEAD의 필수 CI/새 브라우저 실행은 NOT_VERIFIED이며 sync-check 성공으로 대신하지 않는다. 기존 owner 브랜치에서 main을 결합하되 #316 캐시·feature 여정·shared-dev guard·보호 기준을 모두 보존하도록 인계했다. C의 자기 설명/비교/수정/같은 TASK 복귀 설계는 기존 지시대로 준비 가능하다. 새 수정의 자동 세션 수신·착수는 아직 미확인이다.
+
+전체 A~D/F~H PARTIAL·E BLOCKED_EXTERNAL, PRODUCT_CORE_READY/RELEASE_READY/FINAL_COMPLETE=false 유지. 이번 개발 DB 질의/쓰기는0(마지막 실제 READ ONLY 관찰은07:28 UTC), 사람 Gold·권리 승인0. #250은 기존 코드 범위 수용/필수 DB 이력 조회 차단, #303은 잔여 P1·통합 충돌/최종 CI 때문에 병합하지 않았다. #312/#316 병합 이력은 유지한다. 아래는 이전 고정 HEAD의 원본/수정 기록이다.
+
 **2026-10-19 07:30 UTC · [VF-TASK FINAL-FI011-SUPPLY] 현재 판정: REWORK.** 실제303 90cff014d19482df4e20a7fbec8c53277258d17d의 별도 교수 공급 A와 재고 순환 수정 B를 접수했다. A/B 선택 지시의 실제 수신·ACK·착수·결과 반환은 이번 패킷으로 확인한다(임의 세션/직접 자동 전송 성공 주장은 없음). 아래 이전 HEAD의 판정은 역사 기록이다.
 
 B 단계 수정은 CODE_VERIFIED: 바로잡기 성공 뒤 재확인 재고0에서도 recheck가 유지된다. A는 PARTIAL: 실제 f140 CI39213965756 Playwright HTML을 해독해12/12를 확인했고, 동일 합성 계정의 별도 안내 연습 정답→G2 비근거→need_confirmed 유지·PLAN v4 transfer·원래 독립2오답/이력 보존 단언을 수용한다. 새 경로는1440px이며 첨부2개는 PNG가 아니므로 새 두 폭 시각 검토로 계산하지 않는다. [실제 보고서](./journey-ci-f140fc.json).

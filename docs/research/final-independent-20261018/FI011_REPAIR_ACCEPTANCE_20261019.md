@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/FI011_REPAIR_ACCEPTANCE_20261019.md -->
 # FI-011 최신 변경분 수용과 다음 구현 인계
 
+**[VF-TASK FINAL-FI011-SUPPLY] cd17 재검증:** 원래4반례 CODE_VERIFIED_FIXED, 교수 재시도/멱등/평가 잠금 격리 서버 검사 성공. legacy 기출 분기가 창작 평가 반복을 repair로 세는 잔여 P1 때문에 REWORK다(순수33성공/2실패, 격리 서버1성공/1실패). 최신 main과 workflow·CHANGELOG 충돌도 확인했다. [현재 통합 판정](./INTEGRATED_REPORT.md), [원인 하나의 최소 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6262925253). 새 브라우저/필수 CI는 미확인, 개발 DB/사람 승인0. 아래는 이전 고정 HEAD 이력이다.
+
 **[VF-TASK FINAL-FI011-SUPPLY] 최신90cff: REWORK.** A 별도 안내 연습 실제 CI12/12와 B recheck 유지 변경은 범위 수용했다. 독립 반례4실패·오답 후 재시도 부재를 같은 FI-011/#304로 반환했다. [통합 판정·DB 관찰·병합](./INTEGRATED_REPORT.md), [실제 반례](./fi011-supply-90cff.json), [구체 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650). #316은 기존 safe-merge로 fcb40034d 병합, #250은 필수 DB 이력 조회 차단·#303은 P1 수정 대기. A/B 구현 반환은 확인했으며 다음 수정의 자동 세션 전달·ACK는 미확인이다. 아래는 이전 고정 HEAD 이력이다.
 
 [VF-TASK FINAL-FI011-REPAIR] ACK

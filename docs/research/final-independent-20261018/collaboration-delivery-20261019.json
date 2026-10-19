@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-19 07:30 UTC",
+  "observedAt": "2026-10-19 08:27 UTC",
   "mission": "VOCAFLOW FINAL MISSION A~H",
   "status": "RETURN_PACKET_RECEIVED_ACKNOWLEDGED",
   "codex": {
@@ -214,6 +214,26 @@
       "minimumFix": "Keep stage recheck after existing prerequisite completion; represent inventory shortage in readiness/action and retain independent demand"
     },
     "latestPR303Observed": {
+      "head": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+      "decision": "REWORK",
+      "integration": "CONFLICTING",
+      "mandatoryCi": "ABSENT"
+    },
+    "ci316": {
+      "head": "3f1bed0954199c9bf0d1ce0b5495c9e5a8ced7df",
+      "requiredChecksObservedSuccessful": true,
+      "warmPerformance": "VERIFIED_SAME_HEAD_ATTEMPT2",
+      "followup": "P2 cache scope: compilation directories rather than whole data cache",
+      "productABGate": false,
+      "reviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/316#pullrequestreview-5568214813",
+      "merged": true,
+      "mergeSha": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d"
+    },
+    "decisionLog": "DL-0191",
+    "receiptEvidence": "Actual FINAL-FI011-SUPPLY return explicitly implements selected A/B; not proof of direct automated session transport or human approval",
+    "workBStage": "CODE_VERIFIED_90cff",
+    "latestObservedHead": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+    "previousPR303Observed": {
       "head": "850eaa5bb64fb9e1f0496532551859e662452450",
       "productHead": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
       "docsOnlyDelta": [
@@ -222,20 +242,7 @@
       "requiredChecksObservedSuccessful": true,
       "acceptance": "REWORK",
       "stageSourceUnchanged": true
-    },
-    "ci316": {
-      "head": "3f1bed0954199c9bf0d1ce0b5495c9e5a8ced7df",
-      "requiredChecksObservedSuccessful": true,
-      "warmPerformance": "NOT_VERIFIED",
-      "followup": "P2 cache scope: compilation directories rather than whole data cache",
-      "productABGate": false,
-      "reviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/316#issuecomment-6261336827",
-      "merged": false
-    },
-    "decisionLog": "DL-0191",
-    "receiptEvidence": "Actual FINAL-FI011-SUPPLY return explicitly implements selected A/B; not proof of direct automated session transport or human approval",
-    "workBStage": "CODE_VERIFIED_90cff",
-    "latestObservedHead": "e44ac65df9c769be967b4e150f4a70ee53f479aa"
+    }
   },
   "latestSupplyPacket": {
     "taskId": "FINAL-FI011-SUPPLY",
@@ -248,7 +255,7 @@
     "browserReport": "journey-ci-f140fc.json",
     "githubReceipt": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650",
     "directAutomaticSessionTransport": "NOT_VERIFIED",
-    "nextFixAck": "NOT_VERIFIED",
+    "nextFixAck": "ACKNOWLEDGED_BY_cd17_RETURN",
     "issueReceipt": "https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6262030883",
     "latestCi": {
       "run": 39215220736,
@@ -273,6 +280,32 @@
     "run": 39216025823,
     "observedFaultclosed": "FAILURE at setup CLI before cache restore",
     "sharedDevBrowser": "SKIPPED",
-    "wholeConclusion": "IN_PROGRESS_AT_OBSERVATION"
+    "wholeConclusion": "FAILURE"
+  },
+  "cd17RepairReturn": {
+    "taskId": "FINAL-FI011-SUPPLY",
+    "head": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+    "received": true,
+    "acknowledged": true,
+    "sourceSession": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "originalFourCases": "CODE_VERIFIED_FIXED",
+    "pureProbe": "fi011-supply-cd17.json",
+    "serverProbe": "fi011-server-cd17.json",
+    "residual": "P1 legacy repair success/count includes repeated authored assessment",
+    "decision": "REWORK",
+    "ci": "sync-check success; mandatory CI absent with merge conflicts",
+    "integration": {
+      "main": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d",
+      "mergeTreeExit": 1,
+      "conflictingFiles": [
+        ".github/workflows/ci.yml",
+        "docs/CHANGELOG.md"
+      ]
+    },
+    "outgoing": "GITHUB_POSTED",
+    "nextFixSessionDelivered": "NOT_VERIFIED",
+    "nextFixAcknowledged": false,
+    "receipt": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6262925253",
+    "issueReceipt": "https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6262925653"
   }
 }

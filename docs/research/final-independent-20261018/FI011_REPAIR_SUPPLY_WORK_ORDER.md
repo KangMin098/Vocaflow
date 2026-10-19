@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/FI011_REPAIR_SUPPLY_WORK_ORDER.md -->
 # FI-011 바로잡기 자료 공급 구현 지시
 
+**cd17 반환 후 남은 최소 수정:** 원래4반례는 고쳐졌다. legacy repairSuccess.retried 및 doneOf(repair)의 기출 경로에서 authored 평가 반복을 명시적으로 제외한다. 별도 guided는 기존 정확한 결속 분기만 쓰고, 평가 반복 원장/첫 시도·G2는 그대로 보존한다. [잔여2단언과 기출 정상 대조](./fi011-supply-cd17.json), [실제 서버·격리 SQL 대조](./fi011-server-cd17.json). 기존 owner 브랜치에 현재 main을 결합해 workflow/CHANGELOG 충돌을 해결하고 그 HEAD의 필수 CI/기존 재시도 여정을 제출한다. 추가 설계 라운드/표/광역 테스트를 새 게이트로 만들지 않는다. C 준비는 계속 가능하다.
+
 **[VF-TASK FINAL-FI011-SUPPLY] 90cff 반환 후 최소 수정:** B recheck 유지 CODE_VERIFIED, A 별도 자료 정답 양성 경로는 실제 CI12/12 범위 수용. 현재 같은 FI-011의 P1은 (1) guided 오답 뒤 같은 유효 자료의 새 시도/응답 유실 멱등 재전송, (2) PLAN/lifecycle 공통 바로잡기 성공·guided의 recheck/transfer 집계 제외, (3) 기존 정확한 납품/수행 결속과 서버 회차 시각 검증이다. 새 표보다 기존 원장을 먼저 재사용한다. [반례](./fi011-supply-90cff.json), [실제 구현 반환에 대한 구체 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650). B의 새 independent 후보2개와 아래 조건부 C는 코드 수정과 병렬 준비한다. 원리 설명 단독 재고 표시의 세부는 선택 경로를 막지 않으면 후속 개선이다. 아래 상세 설계의 새 배정 표는 기존 원장으로 부족할 때만 대안이며 새 필수 게이트가 아니다.
 
 ## PRODUCT-FIRST FAST LOOP v3 — 현재 실행 지시

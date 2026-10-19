@@ -1,0 +1,29 @@
+{
+  "head": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+  "environment": "Actual server and pending SQL in isolated single-connection PGlite; test writer adapter, not HTTP/JWT/RLS/native concurrent PG",
+  "tests": 2,
+  "passed": 1,
+  "failed": 1,
+  "cases": [
+    {
+      "title": " FI011 independent server: instructional latest result, new retry, resend idempotency and assessment lock",
+      "status": "passed",
+      "failures": []
+    },
+    {
+      "title": " FI011 independent server: historical assessment repeat cannot satisfy instructional repair",
+      "status": "failed",
+      "failures": [
+        "expected true to be false // Object.is equality"
+      ]
+    }
+  ],
+  "dbWrite": "ISOLATED_ONLY",
+  "devDbWrites": 0,
+  "firstInvocation": "Windows quoting made all selected cases skip; not counted as pass; corrected filter FI011",
+  "sourceSha256": {
+    "apps/web/src/lib/csat/authored/server.ts": "a74bc581b96204a8d40143a860ef1034501289542e2576eee3b9d375c509403c",
+    "supabase/migrations/_pending_authored_supply.sql": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229"
+  },
+  "otherDependencies": "Existing disposable dependency snapshot; only changed server/map source copied from exact HEAD. Not a complete current-HEAD build."
+}
