@@ -13,6 +13,7 @@ import { CHECK_ITEMS } from '../skill-diagnosis'
 import type { AsIsMap } from './as-is'
 import { relationOf, templates, type TaskId, type V4Template } from './definition'
 import type { ConfirmLink, ToBeMap } from './to-be'
+import { isAuthoredRef } from '@/lib/knowledge/authored/authored-items'
 import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import type { DirectCheck } from './types'
 
@@ -165,9 +166,6 @@ export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
 }
 
 /** 바로잡기에 다시 쓸 수 있는 문항 — 확정에 쓴 문항 · 막힌 문항 중 창작 평가 자료를 뺀 것 */
-// 창작 자료 ref 판정(authored-items.ts isAuthoredRef 와 같은 규칙) — 그 파일은 서버 전용 의존(node:crypto)을 끌어와 클라이언트 번들이 깨진다
-const isAuthoredRef = (ref: string) => ref.startsWith('authored:')
-
 function repairable(c: { verifiedItems: readonly string[]; wrongItems: readonly string[] }): string[] {
   return [...new Set([...c.verifiedItems, ...c.wrongItems])].filter((i) => !isAuthoredRef(i))
 }
