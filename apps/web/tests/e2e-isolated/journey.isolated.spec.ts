@@ -81,7 +81,8 @@ async function solve(page: Page, item: Item, did: string) {
 test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 납품 → 독립 확인 · 전이 → G2 → 지도 · PLAN 재계산', async ({ page }) => {
   test.setTimeout(300_000)
   await page.setViewportSize({ width: 1440, height: 1000 })
-  const email = `iso-journey-${Date.now()}@example.com`
+  // 합성 도메인(example.com 등 · SYNTHETIC_EMAIL_DOMAINS)은 지도 근거에서 빠진다 — 실제 학습자처럼 근거가 쌓이는지 보려면 목록 밖 예약 도메인
+  const email = `iso-journey-${Date.now()}@example.org`
   const password = `Iso-${Math.random().toString(36).slice(2)}-Aa1`
   const created = await admin().auth.admin.createUser({ email, password, email_confirm: true })
   expect(created.error).toBeNull()
