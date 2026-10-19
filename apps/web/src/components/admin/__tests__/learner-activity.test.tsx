@@ -2,9 +2,10 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-const mock = vi.hoisted(() => ({ activity: vi.fn(), snapshots: vi.fn(), supply: vi.fn() }))
+const mock = vi.hoisted(() => ({ activity: vi.fn(), snapshots: vi.fn(), supply: vi.fn(), sessionDb: {} }))
 vi.mock('@/lib/admin/learner-activity', () => ({ loadAdminLearnerActivity: mock.activity, loadAdminLearnerSnapshots: mock.snapshots }))
 vi.mock('@/lib/csat/map/v62/supply-store', () => ({ loadSupplyLedger: mock.supply }))
+vi.mock('@/lib/supabase/server', () => ({ createClient: async () => mock.sessionDb }))
 vi.mock('@/components/admin/AdminScreenHelp', () => ({ AdminScreenHelp: () => null }))
 import { AdminLearnerActivity } from '../csat-diagnosis/AdminLearnerActivity'
 import { AdminWorkspaceSupply } from '../csat-diagnosis/AdminWorkspaceSupply'
@@ -32,7 +33,7 @@ describe('관리자 수행·개인 공급 읽기 표시', () => {
   it('수요 원장은 같은 사용자·Workspace로 읽고 유효 수량 미상을 0으로 채우지 않는다', async () => {
     mock.supply.mockResolvedValue({ status: 'installed', lines: { task: { order: { state: 'producing', seq: 1 }, delivered: 1 } } })
     const html = renderToStaticMarkup(await AdminWorkspaceSupply({ db, userId: 'target', workspaceId: 'workspace' }))
-    expect(mock.supply).toHaveBeenCalledWith(db, 'target', 'workspace')
+    expect(mock.supply).toHaveBeenCalledWith(db, 'target', 'workspace', mock.sessionDb)
     expect(html).toContain('공급 기록 1건')
     expect(html).toContain('현재 유효 미확인 / 요청 미확인')
     expect(html).not.toContain('공급 완료')
