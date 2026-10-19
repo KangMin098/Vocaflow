@@ -1,6 +1,13 @@
 <!-- docs/research/final-independent-20261018/FI011_REPAIR_SUPPLY_WORK_ORDER.md -->
 # FI-011 바로잡기 자료 공급 구현 지시
 
+**bca65f920 후속 C 구현 준비 확정(기존 C의 최소 구체화):** A 잔여 반례는 영향42/42·격리 서버1/1 통과했고 같은 SHA PR CI의 실제 재시도 여정을 기다린다. 새 목표/게이트 없이 D/F의 자기 설명→대조→수정→TASK 복귀를 이어서 구현할 수 있다. 현재 A 수용 입력은 고정하고, C 때문에 HEAD가 이동하면 달라진 범위만 다시 결속한다.
+
+- **변화/재사용:** 현재 자격이 유효한 본인 model_explanation 화면에 먼저 「배운 원리를 내 말로」 한 칸을 두고, 근거·적용 조건·한계는 선택적으로 펼친다. `ReasoningNoteForm`, `explain-draft`, `DissectionRecord.reasoningNotes`, `mergeReasoningNotes`, FI-015의 CAS/409·세션 재전송을 재사용한다. 별도 API/저장 엔진/DB 표를 기본안으로 추가하지 않는다.
+- **실제 코드의 필요한 어댑터:** `ReasoningNote.binding`/`normalizeReasoningNote`는 현재 analysisVersion만 보존하므로 authored ref·현재 annotation hash·정확한 instructional delivery의 호환 필드를 추가한다. `api/csat/state` GET은 correctnessItemIds 전체를 기출 reveal gate로 보내므로 authored가 있다고 이 게이트를 끄지 않는다. 서버가 본인 현재 교수 납품을 검증하는 좁은 분기를 두고, 없는 납품·다른 역할/학습자·철회·hash 변경은 본문/모델 대조와 결속에 사용하지 않는다. query·클라이언트 binding은 조회 권한이 아니다.
+- **설명/이력:** 대조 자료는 실제 납품된 모델 설명을 쓴다. 기본 라벨은 「제공된 설명」이며, 기존 컴포넌트의 「검수된 원리」를 검수 사실 없이 그대로 노출하지 않는다. 교수 역할에 새 사람 Gold 게이트를 만들지도 않는다. 모델 보기/비교 버튼/노트 수정은 guided 정답·독립 근거·전이·숙달이 아니다. 수정본은 새 note id와 원노트 연결을 써서 기존 보관 한도 안에서 처음 글을 덮지 않는다. 모델 원문을 state/분석 이벤트에 복사하지 않는다.
+- **복귀/검증:** `map-return.ts`는 현재 item 경로만 다루고 LearnPage는 정적 복귀 링크이므로 authored 경로의 좁은 문맥 전달을 추가한다. `v62/return-ctx`를 재사용해 현재 본인 TASK/Workspace/목표/PLAN과 비교하며 옛 목표·PLAN을 자동 복원하지 않는다. 같은 합성 사용자의 입력→저장→모델 대조→새 수정본→실제 복귀 버튼을 대표 브라우저에서 확인한다. 새로고침/동시 두 노트/응답 유실은 기존 CAS 검증 중 영향받는 사례만 확인하고, 개발 DB 쓰기·사람 승인·새 콘텐츠 출시는 하지 않는다. 이 지시는 A/B의 추가 수용 게이트가 아니다.
+
 **cd17 반환 후 남은 최소 수정:** 원래4반례는 고쳐졌다. legacy repairSuccess.retried 및 doneOf(repair)의 기출 경로에서 authored 평가 반복을 명시적으로 제외한다. 별도 guided는 기존 정확한 결속 분기만 쓰고, 평가 반복 원장/첫 시도·G2는 그대로 보존한다. [잔여2단언과 기출 정상 대조](./fi011-supply-cd17.json), [실제 서버·격리 SQL 대조](./fi011-server-cd17.json). 기존 owner 브랜치에 현재 main을 결합해 workflow/CHANGELOG 충돌을 해결하고 그 HEAD의 필수 CI/기존 재시도 여정을 제출한다. 추가 설계 라운드/표/광역 테스트를 새 게이트로 만들지 않는다. C 준비는 계속 가능하다.
 
 **[VF-TASK FINAL-FI011-SUPPLY] 90cff 반환 후 최소 수정:** B recheck 유지 CODE_VERIFIED, A 별도 자료 정답 양성 경로는 실제 CI12/12 범위 수용. 현재 같은 FI-011의 P1은 (1) guided 오답 뒤 같은 유효 자료의 새 시도/응답 유실 멱등 재전송, (2) PLAN/lifecycle 공통 바로잡기 성공·guided의 recheck/transfer 집계 제외, (3) 기존 정확한 납품/수행 결속과 서버 회차 시각 검증이다. 새 표보다 기존 원장을 먼저 재사용한다. [반례](./fi011-supply-90cff.json), [실제 구현 반환에 대한 구체 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650). B의 새 independent 후보2개와 아래 조건부 C는 코드 수정과 병렬 준비한다. 원리 설명 단독 재고 표시의 세부는 선택 경로를 막지 않으면 후속 개선이다. 아래 상세 설계의 새 배정 표는 기존 원장으로 부족할 때만 대안이며 새 필수 게이트가 아니다.

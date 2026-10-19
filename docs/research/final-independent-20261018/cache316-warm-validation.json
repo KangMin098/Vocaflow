@@ -112,5 +112,13 @@
         }
       ]
     }
-  ]
+  ],
+  "postMergeMain": {
+    "head": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d",
+    "run": 39216025823,
+    "initialFailure": "faultclosed Supabase CLI setup before cache",
+    "rerun": "Official failed isolated job rerun; no workflow_dispatch",
+    "finalConclusion": "SUCCESS",
+    "sharedDevActualBuildAndBrowser": "SKIPPED"
+  }
 }

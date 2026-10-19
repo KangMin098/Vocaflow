@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-19 08:27 UTC",
+  "observedAt": "2026-10-19 08:50 UTC",
   "mission": "VOCAFLOW FINAL MISSION A~H",
   "status": "RETURN_PACKET_RECEIVED_ACKNOWLEDGED",
   "codex": {
@@ -123,7 +123,7 @@
     "productCoreReady": false,
     "releaseReady": false,
     "finalComplete": false,
-    "workA": "FI011 separate model/guided repair execution using existing server/G2 provenance",
+    "workA": "FI011 A VERIFIED_FIXED at bca within submitted scope",
     "workB": "Recheck demand independent of stock, plus fresh independent recheck candidate stock",
     "workOrder": "FI011_REPAIR_SUPPLY_WORK_ORDER.md",
     "outgoing": "GITHUB_POSTED",
@@ -214,10 +214,15 @@
       "minimumFix": "Keep stage recheck after existing prerequisite completion; represent inventory shortage in readiness/action and retain independent demand"
     },
     "latestPR303Observed": {
-      "head": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
-      "decision": "REWORK",
-      "integration": "CONFLICTING",
-      "mandatoryCi": "ABSENT"
+      "head": "65355859c319b2637400451019dd99dbb62dd39d",
+      "productHead": "bca65f9209ae5ab945e0552b916d0a7ea7bff640",
+      "docsOnlyDelta": [
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "requiredChecksObservedSuccessful": true,
+      "scopeAcceptance": "ACCEPT_WITH_LIMITS",
+      "overall": "REWORK",
+      "merge": "BLOCKED_EXTERNAL_DB_HISTORY_ACCESS"
     },
     "ci316": {
       "head": "3f1bed0954199c9bf0d1ce0b5495c9e5a8ced7df",
@@ -232,7 +237,7 @@
     "decisionLog": "DL-0191",
     "receiptEvidence": "Actual FINAL-FI011-SUPPLY return explicitly implements selected A/B; not proof of direct automated session transport or human approval",
     "workBStage": "CODE_VERIFIED_90cff",
-    "latestObservedHead": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+    "latestObservedHead": "65355859c319b2637400451019dd99dbb62dd39d",
     "previousPR303Observed": {
       "head": "850eaa5bb64fb9e1f0496532551859e662452450",
       "productHead": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
@@ -280,7 +285,8 @@
     "run": 39216025823,
     "observedFaultclosed": "FAILURE at setup CLI before cache restore",
     "sharedDevBrowser": "SKIPPED",
-    "wholeConclusion": "FAILURE"
+    "wholeConclusion": "SUCCESS_AFTER_ISOLATED_FAILED_JOB_RERUN",
+    "firstFailureRetained": true
   },
   "cd17RepairReturn": {
     "taskId": "FINAL-FI011-SUPPLY",
@@ -307,5 +313,44 @@
     "nextFixAcknowledged": false,
     "receipt": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6262925253",
     "issueReceipt": "https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6262925653"
+  },
+  "bcaRepairReturn": {
+    "taskId": "FINAL-FI011-SUPPLY",
+    "head": "bca65f9209ae5ab945e0552b916d0a7ea7bff640",
+    "received": true,
+    "acknowledged": true,
+    "sourceSession": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "scope": "FI011 A submitted repair path",
+    "decision": "ACCEPT_WITH_LIMITS",
+    "defectScope": "VERIFIED_FIXED",
+    "pureTests": 42,
+    "isolatedSqlTests": 1,
+    "browserExpected": 12,
+    "ci": 39223867564,
+    "ciEvent": "pull_request",
+    "ciConclusion": "SUCCESS",
+    "reviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/303#pullrequestreview-5569016670",
+    "issueReceipt": "https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6263349906",
+    "currentTip": {
+      "head": "65355859c319b2637400451019dd99dbb62dd39d",
+      "changedFiles": [
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "ci": 39224143428,
+      "conclusion": "SUCCESS",
+      "sourceReused": true
+    },
+    "safeMerge": {
+      "mode": "dry-run",
+      "actualHead": "65355859c319b2637400451019dd99dbb62dd39d",
+      "conclusion": "BLOCKED_EXTERNAL",
+      "reason": "Cannot read required non-pending migration history without Management API access token",
+      "ciBlockResolved": true,
+      "mergeExecuted": false
+    },
+    "nextC": "GITHUB_POSTED",
+    "nextCSessionDelivered": "NOT_VERIFIED",
+    "nextCAcknowledged": false,
+    "nextCImplementationStarted": false
   }
 }

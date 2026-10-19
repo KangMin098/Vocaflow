@@ -1,0 +1,212 @@
+{
+  "taskId": "FINAL-FI011-SUPPLY",
+  "head": "bca65f9209ae5ab945e0552b916d0a7ea7bff640",
+  "contractVersion": "rev4.0 + FI011_REPAIR_SUPPLY_WORK_ORDER A/B",
+  "environment": "Actual map source bytes over disposable existing dependency snapshot; Vitest pure functions only, no new browser or DB execution",
+  "mapFiles": 157,
+  "tests": 42,
+  "passed": 42,
+  "failed": 0,
+  "cases": [
+    {
+      "title": " B: guided repair success with no stock remains recheck",
+      "status": "passed"
+    },
+    {
+      "title": " A: explanation, wrong guided and previous episode do not pass",
+      "status": "passed"
+    },
+    {
+      "title": " guided practice does not count as recheck performance",
+      "status": "passed"
+    },
+    {
+      "title": " lifecycle agrees with PLAN on delivered guided repair success",
+      "status": "passed"
+    },
+    {
+      "title": " guided practice is not transfer experience",
+      "status": "passed"
+    },
+    {
+      "title": " server receipt before episode cannot be current episode success",
+      "status": "passed"
+    },
+    {
+      "title": " unbound guided cannot advance current repair",
+      "status": "passed"
+    },
+    {
+      "title": " missing server receipt cannot advance current repair",
+      "status": "passed"
+    },
+    {
+      "title": " other TASK guided cannot advance current repair",
+      "status": "passed"
+    },
+    {
+      "title": " new failed recheck invalidates earlier guided success",
+      "status": "passed"
+    },
+    {
+      "title": " normal KICE retry still advances and counts repair",
+      "status": "passed"
+    },
+    {
+      "title": " repeated authored assessment is not an instructional repair success",
+      "status": "passed"
+    },
+    {
+      "title": " repeated authored assessment does not count as repair performance",
+      "status": "passed"
+    },
+    {
+      "title": " 수행 근거 직접 확인 전에는 근거 없음",
+      "status": "passed"
+    },
+    {
+      "title": " 수행 근거 바로잡기 = 확정 뒤 막혔던 문항을 다시 맞힘 · 틀린 재시도는 「바로잡는 중」",
+      "status": "passed"
+    },
+    {
+      "title": " 수행 근거 확정 전 기록 · 다른 과제 키 · 막히지 않은 문항은 바로잡기가 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " 수행 근거 적용 = 확정 뒤 묶음 밖 문항 또는 전이 단계 시도(정오 무관) · 묶음 안 문항은 적용이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " 지금 할 일 · 4칸 순서: 바로잡기 → 적용 → 다시 확인 · 처방이 열린 상태에서만",
+      "status": "passed"
+    },
+    {
+      "title": " 지금 할 일 · 4칸 기록이 있는 단계만 마침 — 기록 없이 해소돼도 바로잡기 · 적용은 마침이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 확인 전: 계획량 = 안 본 확인 문항 수(출처 · 규칙 표시) · 성취는 「직접 확인 전」",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 계획 진행 3/5 를 숙달률로 바꾸지 않는다 — 진행과 성취는 다른 칸",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 확정 뒤: 바로잡기 계획 = 막힌 문항 수 · 수행은 확정 뒤 그 문항 연습만",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 수행량 ≠ 검증된 성취 — 도움 받은 · 합성 풀이는 수행량에 들어가지만 확인 상태는 바꾸지 않는다(4차)",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 콘텐츠가 없으면 계획 불가(null) — 권장량을 지어내지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 적용 단계 잠김 — 확정 전에는 적용 계획이 없다(문항이 있어도)",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 보류 TASK 는 계획 목록에 없다",
+      "status": "passed"
+    },
+    {
+      "title": " 학습자 조정 — 계획만 바뀐다 계획량은 0 ~ 가용량으로 자르고, 근거 · 성취 · 요구는 그대로",
+      "status": "passed"
+    },
+    {
+      "title": " 학습자 조정 — 계획만 바뀐다 조정이 As-Is 를 바꾸지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " 증거 · 자료 중복 없음 같은 TASK 가 두 Workspace 에 있어도 가용량 · 수행은 중심 Workspace 하나에서만",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ① 확정 직후 = 바로잡기 · 다음 활동은 막힌 확인 문항",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ② 막힌 문항을 다시 맞히면 = 다른 글에 적용(2지문) · 다음 활동은 연습 화면의 전이 문항",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ③ 적용 2지문 뒤 = 다시 확인 · 다음 활동은 아직 안 본 확인 문항 · 성취는 여전히 직접 확인 결과(수행 ≠ 성취)",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ④ 확정 전 수행은 바로잡기로 세지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " 자료 소진 안내(FAST LOOP v3 · B) 확인 문항을 다 봐 단계가 잠기면 「새 자료 필요」(material_needed) — 「앞 단계를 마치면」(stage_locked) 이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 안내 연습 정답(회차 뒤) = 바로잡기 성공 → 다음 단계",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 원리 설명 보기 · 안내 연습 오답 · 회차 전 기록은 성공이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 Codex 반례 3 — 결속 없는 시도 · 서버 수신이 회차 앞이거나 없는 시도는 이번 회차를 진전시키지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 Codex P1-1 — 안내 연습 오답 → 다음 행동은 그 안내 연습(다시 풀기) → 재시도 정답 → 다음 단계",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 Codex P1-2 — 안내 연습 정답은 다시 확인 · 적용 수에 들어가지 않고, 바로잡기 수와 lifecycle repairAt 에만 반영된다(PLAN 과 같은 판정)",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 Codex 잔여 P1 — 막힌 창작 평가 문항을 다시 맞힌 기록은 기출 분기의 바로잡기 성공 · 수행량이 아니다(기출 재시도는 그대로)",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 바로잡기 다음 행동 — 기출 막힌 문항은 기존대로 재시도 먼저(기출 바로잡기 보존) · 창작 안내 연습도 바로잡기 자료로 열린다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 순환이 아니다 성공 · 적용 자료 없음 · 다시 확인 문항 부족 → stage recheck · material_needed (repair 로 되돌리지 않음)",
+      "status": "passed"
+    }
+  ],
+  "sourceSha256": {
+    "v4/plan.ts": "724aa445c5b7a917a69bf28afb7a739ed045c71c1109c2f2163e3aa44e75e8d7",
+    "lifecycle-evidence.ts": "ddad12623ba6a2a3e49776342eee046362421b933cca5c996ce5e763243e5c8a"
+  },
+  "dbWrites": 0,
+  "integration": {
+    "main": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d",
+    "mergeTreeExit": 0,
+    "mergeTree": "289270d8ece4865a59910b3c5e2ba0d26883c528",
+    "github": "MERGEABLE",
+    "workflow": "Four accepted cache steps plus feature isolated fixture/concurrency retained; faultclosed and shared-dev guard unchanged"
+  },
+  "browserCi": {
+    "run": 39223867564,
+    "event": "pull_request",
+    "head": "bca65f9209ae5ab945e0552b916d0a7ea7bff640",
+    "status": "COMPLETED",
+    "conclusion": "SUCCESS",
+    "report": "journey-ci-bca.json",
+    "expected": 12,
+    "unexpected": 0,
+    "scopeAcceptance": "ACCEPT_WITH_LIMITS"
+  },
+  "docsOnlyTipReuse": {
+    "head": "65355859c319b2637400451019dd99dbb62dd39d",
+    "changedFiles": [
+      "docs/final/FINAL_LEDGER.md"
+    ],
+    "finalCi": 39224143428,
+    "finalCiConclusion": "SUCCESS",
+    "sourceTree": "d24890704538e8430cacb830b33fbd569b2624bb"
+  }
+}

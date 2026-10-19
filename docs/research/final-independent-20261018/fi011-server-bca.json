@@ -1,0 +1,30 @@
+{
+  "head": "bca65f9209ae5ab945e0552b916d0a7ea7bff640",
+  "environment": "Actual server and pending SQL in isolated single-connection PGlite; test writer adapter, not HTTP/JWT/RLS/native concurrent PG",
+  "tests": 1,
+  "passed": 1,
+  "failed": 0,
+  "cases": [
+    {
+      "title": " FI011 independent server: HistoricalAssessmentRepair",
+      "status": "passed",
+      "failures": []
+    }
+  ],
+  "dbWrite": "ISOLATED_ONLY",
+  "devDbWrites": 0,
+  "contractVersion": "rev4.0 + FI011_REPAIR_SUPPLY_WORK_ORDER A/B",
+  "reusedControl": {
+    "head": "cd17da86554a92b5fd056fffa28140e2ae0ced39",
+    "evidence": "fi011-server-cd17.json",
+    "scope": "Instructional wrong->new retry correct; resend no third row; viewed_first; latest result; assessment first-result lock",
+    "sameSourceBytes": {
+      "apps/web/src/lib/csat/authored/server.ts": "a74bc581b96204a8d40143a860ef1034501289542e2576eee3b9d375c509403c",
+      "apps/web/src/components/csat/authored/AuthoredRunner.tsx": "d215b3856c438247e27ae13ab54a10548bda9fa9e32277c56896ae96928286bb",
+      "apps/web/src/lib/csat/map/load.ts": "72ce3812cb7b27d8d47e14740d578c07d9150470de1db67d0caaa5a5c8873b79",
+      "supabase/migrations/_pending_authored_supply.sql": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229"
+    },
+    "reused": true
+  },
+  "note": "Current changed planner is actually re-executed with actual server-written historical assessment rows. No new HTTP/JWT/RLS/native concurrency or dev DB claim."
+}

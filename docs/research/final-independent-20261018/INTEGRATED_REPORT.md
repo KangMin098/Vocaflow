@@ -1,6 +1,18 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+**2026-10-19 08:50 UTC · [VF-TASK FINAL-FI011-SUPPLY] HEAD bca65f920 · 판정 ACCEPT_WITH_LIMITS.** FI-011 A의 제출 범위는 **VERIFIED_FIXED**다. 실제 변경된 map157파일의 영향/독립 검사 [42/42](./fi011-supply-bca.json) 및 실제 서버·격리 SQL 평가 반복 반례 [1/1](./fi011-server-bca.json)이 성공했다. 창작 평가 반복=repairGate false·수행0, 기출 정상 대조=true·1. 원래4반례도 통과한다. cd17의 교수 오답→재시도 정답/재전송 멱등/최신 결과/평가 잠금은 server·Runner·loader·SQL 바이트 일치를 확인해 재사용했고 불필요하게 다시 실행하지 않았다. 최초 실패 기록은 유지한다.
+
+[실제 PR CI39223867564](https://github.com/KangMin098/Vocaflow/actions/runs/39223867564)는 이 정확한 SHA의 pull_request 실행으로 verify(타입·lint·단위)·build·격리 e2e·faultclosed 모두 성공했다. [다운로드한 실제 HTML 해독](./journey-ci-bca.json)은12 expected/0 unexpected·flaky·skip다. 양성 실제 브라우저는 안내 연습 오답→지도 같은 자료→재열기→다시 풀기→정답→append-only false/true2행·G2 false/false→need_confirmed 유지·PLAN transfer·원래 독립2오답/G2 true/true/이전 PLAN 불변까지 통과했다. 새 재시도 여정은1440 기본 폭이며 기존 형식/권한의1280/1440 검증은 해당 범위로 재사용한다. 첨부2개는 PNG가 아니므로 새 시각·픽셀 검토로 과장하지 않는다. 이는 합성 자격/계정의 실제 격리 Chromium/DB 실행이며 실제 개발 DB·사람 검수·학습 효과가 아니다. [독립 목적 리뷰](https://github.com/KangMin098/Vocaflow/pull/303#pullrequestreview-5569016670)는 COMMENTED인 AI 리뷰이며 사람 승인/정책 채택이 아니다.
+
+최신 main fcb40034d와의 merge-tree exit0으로 충돌 해소 확인. 검증 중 PR tip은 **65355859c319b2637400451019dd99dbb62dd39d**로 이동했지만 차이는 원장17줄뿐이다. 제품/시험/워크플로 바이트 일치로 bca 결과를 재사용하며, 최종 HEAD의 별도 [CI39224143428](https://github.com/KangMin098/Vocaflow/actions/runs/39224143428)도 SUCCESS로 확인했다. 현재 HEAD에 실행한 safe-merge dry-run은 처음 CI대기+DB 이력 조회 부재로, CI 종료 후에는 **실제 적용 이력 조회 자격(SUPABASE_ACCESS_TOKEN) 부재 하나로 차단**됐다. non-pending migration20261014091841의 실제 이력을 읽는 보호 조건을 우회하지 않았고 #250→#303 병합은 하지 않았다. 보류 authored SQL SHA dfb29f2d…는 그대로 미적용이며 코드 수용과 적용 승인을 구분한다.
+
+#316 병합 후 main의 CLI 설치 첫 실패는 보존하고 실패한 격리 faultclosed 잡만 공식 rerun해 run39216025823 최종 SUCCESS를 확인했다. shared-dev job의 실제 build/browser 단계는 SKIPPED여서 실제 개발 DB 검증 성공으로 세지 않는다. #312 merge13e15e736·#316 mergefcb40034d 외 새 병합은 없다.
+
+다음 C는 기존 노트/CAS·409·지도 복귀를 재사용해 자기 설명→제공된 설명 대조→연결된 새 수정본→같은 TASK/PLAN 복귀를 구현하도록 [현재 작업 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md)에 구체화했다. binding 정규화/본인 현재 instructional delivery/GET reveal gate의 authored 분기/원본 보존이 최소 영향 범위다. C는 A/B의 추가 게이트가 아니며 구현 가능성 충돌은 기존 owner가 같은 작업에서 반환한다. 문서 단독 HEAD 변경은 실제 새 필수 CI 회차를 만들었으므로 다음 원장 갱신은 다음 논리적 코드 milestone과 묶고 최종 검증 입력을 고정하도록 인계했다(체크 생략/정책 완화는 아님). C의 실제 세션 전달·ACK·착수는 아직 미확인이다.
+
+**전체 FINAL MISSION은 REWORK**다: A~D/F~H PARTIAL·E BLOCKED_EXTERNAL; 같은 학습자의 이후 새 독립 재확인·지연 전이/전체 D/F/G/H 경험과 실제 공급/수행/효과가 남는다. PRODUCT_CORE_READY=false / RELEASE_READY=false / FINAL_COMPLETE=false. 이번 개발 DB 쓰기/사람 Gold·권리 승인0, 마지막 실제 READ ONLY 관찰07:28 UTC의 authored/사람 결정 표 미설치·자격/납품0은 여전히 출시 근거가 아니다. 아래는 최초/이전 HEAD의 이력이다.
+
 **2026-10-19 08:27 UTC · [VF-TASK FINAL-FI011-SUPPLY] cd17 최소 수정 독립 판정: REWORK.** 기존4반례는 새 결속/서버 수신 입력으로 모두 CODE_VERIFIED_FIXED다. 실제 map157파일·변경 plan22검사와 독립11대조 성공, 잔여2단언 실패로 [35중33성공/2실패](./fi011-supply-cd17.json). 결속 없음/서버 수신 없음·회차 앞/다른 TASK/재확인 재실패 뒤 이전 성공 불승계/B 재고 부족/정상 기출 재시도도 대조했다. 최신 HEAD cd17da86554a92b5fd056fffa28140e2ae0ced39에 결속한 순수 검사이며 실제 브라우저로 계산하지 않는다.
 
 남은 **같은 FI-011의 P1 한 원인**: legacy 기출 재시도 분기가 authored 평가의 theater 기록도 받아 repairGate 성공·doneOf(repair)=1로 판정한다. expected false/0. UI 평가 잠금만으로 기존 반복 기록의 분류를 보장하지 않는다. 실제 server.recordAuthoredAttempt와 미변경 보류 SQL의 [격리 PGlite2검사](./fi011-server-cd17.json)에서 교수 오답→재시도 정답·같은 mutation 재전송2행 유지·viewed_first·최신 결과·평가 첫 결과 잠금은 성공했고, 서버에 보존된 평가 반복 행을 PLAN에 넣으면 잘못 성공하는 경로는 실패했다. test writer adapter/단일 연결 PGlite이며 HTTP·JWT·RLS·native 동시성 검증이 아니다. 첫 명령의 Windows 필터 인용 때문에 skip된 결과는 통과로 세지 않았고, 필터 수정 및 PGlite Date를 Supabase와 같은 ISO 문자열로 변환한 최종 실행만 판정에 썼다. 최초 반복 기록은 삭제/재작성하지 않고 legacy 성공·수행량을 실제 기출 대상으로만 제한하면 된다. 새 SQL/표/교육 기준은 필요 없다. [같은 #304/PR303 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6262925253).
@@ -104,7 +116,7 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |FI-016|비공개 원본·기존 #309|FIX_VERIFIED_IN_CANDIDATE. 비공개 실제 HTTP/PG4검사와 정상 대조. 실제 JWT/개발 DB 경계 미검증. DL-0177|
 |FI-017|[옛 가상 통합 TS2300](./PR250_PR303_INTEGRATION.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 통합 소스 tsc0/관련68건, 최신 API14·예산8통과/필수 CI. 두 PR 개별 CI만으로 대신하지 않음|
 |FI-018|비공개 원본·기존 #311|VERIFIED_FIXED / CODE_VERIFIED. 실제d786 작성자21+독립5·목적·최종 CI·safe-merge 성공.312 병합13e15e736. 최초cefc 실패·비공개 세부DL-0186 보존|
-|FI-011|[창작 Workspace 환류 최초 실패](./PR303_REVIEW.md)|REWORK.0b8 실제need_confirmed/저장check→repair 관찰은 긍정 증거다. 동일 완료 문항의 바로잡기 새 수행 문맥이 연결되지 않아 실제 실행/후속환류 수용 보류. 기존 #304 재사용|
+|FI-011|[창작 Workspace 환류 최초 실패](./PR303_REVIEW.md)|A 제출 범위 VERIFIED_FIXED / ACCEPT_WITH_LIMITS: bca42/42·격리 서버1/1·실제 CI/browser12/12, 평가 반복 차단·교수 재시도·G2/PLAN 보존. 같은 #304 유지; C와 이후 새 재확인/전체 제품 완료는 별도 미완료|
 |FI-019|[KST 첫 PLAN422 및 고정 시각 원본](./FI019_KST_PLAN.md)|FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED. 실제 e54 수정에서5반례·대조+v4 단위29성공. 미래 timestamp/SQL 가드 유지; 전체 여정/병합/개발 DB 적용 수용과 별개|
 
 FI-001~013의 이전 층위별 수용과 최초 실패는 [같은 원장](./GITHUB_HANDOFF.md)/개별 문서에 보존한다. 같은 결함의 중복 이슈를 만들거나 AI 수용을 사람 승인으로 바꾸지 않았다.
