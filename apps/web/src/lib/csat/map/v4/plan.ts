@@ -8,7 +8,7 @@
 //   · 학습자 조정(순서 · 계획량)은 계획만 바꾼다. 근거 상태 · 직접 확인 판정 · 요구 유형은 바뀌지 않는다(adjust 는 그 칸을 읽지도 쓰지도 않는다).
 // 순수 함수(DB · 시계 없음).
 
-import { isInstructional, passageIdentity, repairSuccess, repairWindow, transferTarget } from '../lifecycle-evidence'
+import { isInstructional, isKiceRepairTarget, passageIdentity, repairSuccess, repairWindow, transferTarget } from '../lifecycle-evidence'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
 import { evidenceKeysOfTask, taskOf, tasks, type TaskId } from './definition'
@@ -142,7 +142,7 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
       // 막힌 기출 재시도 + 이번 회차의 결속된 안내 연습(서로 다른 문항) — 교수 자료 수행은 바로잡기에만 센다(FI-011)
       const targets = new Set([...(t.check?.verifiedItems ?? []), ...(t.check?.wrongItems ?? [])])
       const gate = repairGate(t, activity)
-      return uniq([...mine.filter((a) => !isInstructional(a) && a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef), ...gate.guidedTried]).length
+      return uniq([...mine.filter((a) => !isInstructional(a) && isKiceRepairTarget(a) && a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef), ...gate.guidedTried]).length
     }
     case 'transfer':
       return transferDoneOf(t.id, after, activity)

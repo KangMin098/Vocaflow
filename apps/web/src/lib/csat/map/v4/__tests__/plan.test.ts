@@ -230,6 +230,16 @@ describe('FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성�
     expect(lifecycleEvidence(skill, [], [{ ...unbound, isCorrect: true }] as never)).toMatchObject({ repairAt: null })
     expect(lifecycleEvidence(skill, t.check!.verifiedItems.map((itemRef) => ({ itemRef, taskKey: KEY })), [{ ...unbound, isCorrect: true }] as never).transferAt).toBeNull()
   })
+  it('Codex 잔여 P1 — 막힌 창작 평가 문항을 다시 맞힌 기록은 기출 분기의 바로잡기 성공 · 수행량이 아니다(기출 재시도는 그대로)', () => {
+    const t0 = asIs({ attempts: verified }).tasks['r.central_meaning']
+    const t = { ...t0, check: { ...t0.check!, verifiedItems: ['authored:a1', ...t0.check!.verifiedItems], wrongItems: ['authored:a1', ...(t0.check!.wrongItems ?? [])] } }
+    const repeat = { itemRef: 'authored:a1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-09-12T00:00:00Z', receivedAt: '2026-09-12T00:00:00Z', activity: 'theater' } as unknown as PlanActivity
+    expect(repairGate(t, [repeat]).succeeded).toBe(false)
+    expect(doneOf('repair', t, [repeat])).toBe(0)
+    const kice = { ...repeat, itemRef: t0.check!.verifiedItems[0] } as PlanActivity
+    expect(repairGate(t, [kice]).succeeded, '기출 막힌 문항 재시도 정답은 기존대로 성공').toBe(true)
+    expect(doneOf('repair', t, [kice])).toBe(1)
+  })
   it('바로잡기 다음 행동 — 기출 막힌 문항은 기존대로 재시도 먼저(기출 바로잡기 보존) · 창작 안내 연습도 바로잡기 자료로 열린다', () => {
     expect(['/csat/item/i1', '/csat/item/i2']).toContain(buildR([]).next?.href)
     expect(buildR([]).quantity.available).toBeGreaterThanOrEqual(2)

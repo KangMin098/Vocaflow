@@ -33,6 +33,9 @@ export interface ActivityRow {
   repairRole?: 'guided_practice'
 }
 
+/** 기출 바로잡기 분기 대상 — 창작 자료(authored:*)가 아닌 문항. 창작 평가 자료를 다시 푼 기록은 바로잡기가 아니다(FI-011 · 평가 자료 재사용 없음) */
+export const isKiceRepairTarget = (a: Pick<ActivityRow, 'itemRef'>): boolean => !!a.itemRef && !a.itemRef.startsWith('authored:')
+
 /** 교수 자료(안내 연습 등 창작 practice) 수행 — 바로잡기에만 센다. 결속을 못 읽었어도(repairRole 없음) 적용 · 다시 확인 수에는 넣지 않는다(fail-closed) */
 export function isInstructional(a: Pick<ActivityRow, 'itemRef' | 'activity' | 'repairRole'>): boolean {
   return a.repairRole !== undefined || (!!a.itemRef && a.itemRef.startsWith('authored:') && a.activity === 'practice')
@@ -57,7 +60,8 @@ export function guidedRepairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'ta
  * 원리 설명 보기 · 납품 · 틀린 시도 · 정오 없는 시도는 성공이 아니다. at = 첫 성공 판단 시각.
  */
 export function repairSuccess<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt' | 'isCorrect' | 'receivedAt' | 'repairRole' | 'activity'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): { at: string | null; tried: boolean; retried: A[]; guided: A[] } {
-  const retried = repairAttempts(skill, taskKeys, activity.filter((a) => !isInstructional(a)))
+  // 기출 분기 = 기출(비창작) 막힌 문항 재시도만. 창작 평가의 반복 기록(이력은 그대로 둔다)은 성공 · 수행량에 넣지 않는다
+  const retried = repairAttempts(skill, taskKeys, activity.filter((a) => !isInstructional(a) && isKiceRepairTarget(a)))
   const guided = guidedRepairAttempts(skill, taskKeys, activity)
   const firsts = [...retried, ...guided].filter((a) => a.isCorrect === true).map((a) => a.answeredAt as string).sort()
   return { at: firsts[0] ?? null, tried: retried.length + guided.length > 0, retried, guided }
