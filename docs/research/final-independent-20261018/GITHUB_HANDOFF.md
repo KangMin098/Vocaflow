@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+2026-10-19 양방향 역할 계약과 [구체 구현 지시](./COLLABORATION_CONTRACT_20261019.md)를4e819d3e4로 게시했다. [PR303 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259334264), [PR312 비공개 수정 우선 인계](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6259334524), VFC DL-0185. [실제 세션/작업·전달 상태](./collaboration-delivery-20261019.json)는 GITHUB_POSTED_AWAITING_ACK이며 직접 세션 전송·수신·착수/완료는 미확인이다. 별도 세션을 만들지 않았고 Claude 실제 작업 ID/구현 가능성 응답을 기다린다. 최신3c CI의 not_measured→checking/stage_locked 불변 실패는 같은 FI-011에서 다루며 FI-018 해소를 우선한다.
+
 FI-019는 [#313](https://github.com/KangMin098/Vocaflow/issues/313) 하나로 추적한다. 실제f8 CI 첫 PLAN422와 최초 고정 시각 반례는 보존하고, 실제e54 수정에서5/5·v4단위29/29로 FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED를 확인했다. [원본·수정 비교](./FI019_KST_PLAN.md). e54/35d43의 여정은 초기 PLAN을 통과했으나 수행 전 조작/열거값에서 실패했다.6fe386770의 화면 용어 정정은 소스와 일치하며 전체 여정 성공은 별도 확인한다. FI-018 실제312cefc 잔여와 비공개 DL-0181 경로는 유지한다.
 
 71a471bf6 게시 후 [FI-019 수정 수용 댓글](https://github.com/KangMin098/Vocaflow/issues/313#issuecomment-6257007658)을 남겼다(DL-0183). [후속 교육적 기대값 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6257037500)는 실제 skillDiagnosis/asIsMap4대조에 근거하며 새 이슈나 교육 기준 변경을 요구하지 않는다. 최신 CI39180227987의 전체 여정 성공은 아직 미확인이다.
