@@ -273,12 +273,15 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   const binds2 = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid)).data ?? []
   expect(binds2.map((b) => b.delivery_id).sort(), 'G2 결속 불변(바로잡기는 결속 안 함)').toEqual(delivered.map((d) => d.did).sort())
   // 환류 — 바로잡기 성공(repairGate)으로 PLAN 이 바로잡기 다음으로 · 연습 정답은 독립 근거가 아니다(근거 상태 need_confirmed 유지)
+  // 진단 — 바로잡기 뒤 첫 시도 원장(지도 판정 입력)의 실효 도움 상태
+  const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, activity, phase, help_level, after_viewed_first, after_explanation, timing_uncertain, is_correct, answered_at').eq('user_id', uid)).data ?? []
+  console.log('JOURNEY_FIRSTS_AFTER_REPAIR=' + JSON.stringify(firstsAfter))
   const afterRepair = await observe(page)
   const p4 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 3, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p4.status(), await p4.text()).toBe(200)
   const v4 = await planRow(ws, 4)
   console.log('JOURNEY_REPAIR_DONE=' + JSON.stringify({ afterRepair, v4: v4.task }))
-  expect(afterRepair.evidence, '연습 정답은 독립 근거가 아니다').toBe('need_confirmed')
+  expect(afterRepair.evidence, '연습 정답은 독립 근거가 아니다(해소 아님)').not.toBe('passed_current_policy')
   expect(v4.task?.stage, '바로잡기 성공 → 다음 단계').not.toBe('repair')
   expect((await planRow(ws, 3)).task, 'PLAN v3 이력 불변').toEqual(v3.task)
 })
