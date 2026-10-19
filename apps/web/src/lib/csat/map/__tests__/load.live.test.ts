@@ -2,9 +2,10 @@
 //
 // 라이브 스모크 — 실제 DB 로 loadMapPage 를 한 번 돌려 본다. 기본은 건너뜀:
 //   MAP_LIVE_USER=<user uuid> pnpm --filter web exec vitest run src/lib/csat/map/__tests__/load.live.test.ts
-// (SUPABASE_URL · SERVICE_ROLE_KEY 가 .env.local 에 있어야 한다. 읽기 전용 — DB 를 쓰지 않는다.)
+// loadMapPage 는 learning_decisions 를 기록할 수 있다. 승인된 로컬 실행에서 RUN_MUTATING_DB_TESTS=1 도 필요하며 CI에서는 차단한다.
 
 import { describe, expect, it } from 'vitest'
+import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -13,7 +14,7 @@ import { TASK_STAGE } from '../prescription'
 
 const USER = process.env.MAP_LIVE_USER
 
-describe.skipIf(!USER)('loadMapPage (live)', () => {
+describe.skipIf(!USER || !allowMutatingSharedDbTests(process.env))('loadMapPage (live)', () => {
   it('실제 DB 에서 지도를 조립한다', async () => {
     const db = createAdminClient()
     const data = await loadMapPage(db as never, USER as string, new Date('2026-10-03T12:00:00Z'))

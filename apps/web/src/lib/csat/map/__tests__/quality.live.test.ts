@@ -2,9 +2,10 @@
 //
 // 라이브 검증 — Record Quality Layer 적용 전(저장된 rule-v1 스냅샷)과 후(지금 입력으로 다시 계산)의 핵심 지도를 비교한다. 기본은 건너뜀:
 //   MAP_LIVE_USER=<user uuid> pnpm --filter web exec vitest run src/lib/csat/map/__tests__/quality.live.test.ts
-// 읽기 전용 — DB 를 쓰지 않는다(computeSnapshotNow 는 저장하지 않는다).
+// loadMapPage 는 learning_decisions 를 기록할 수 있다. 승인된 로컬 실행에서 RUN_MUTATING_DB_TESTS=1 도 필요하며 CI에서는 차단한다.
 
 import { describe, expect, it } from 'vitest'
+import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -18,7 +19,7 @@ import { loadMapPage } from '../load'
 const USER = process.env.MAP_LIVE_USER
 const NOW = new Date('2026-10-03T12:00:00Z')
 
-describe.skipIf(!USER)('Record Quality Layer (live)', () => {
+describe.skipIf(!USER || !allowMutatingSharedDbTests(process.env))('Record Quality Layer (live)', () => {
   it('일괄 입력 기록은 지도 관찰 집계에서 빠진다 — 전후 비교', async () => {
     const db = createAdminClient() as never
     const { input } = await buildInput(db, USER as string, NOW)

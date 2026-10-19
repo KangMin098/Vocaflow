@@ -28,50 +28,29 @@
 //    (`teacher_hub_view` · `invite_shared` 는 이 유니온에 없지만 다른 경로가 쓴다).
 //    반대로 코드에만 있는 이름은 **보내는 순간 조용히 사라진다.**
 //
-// 검사용 행은 `surface='selftest'` 로 표시해 끝나고 지운다 — 퍼널 수치를 오염시키지 않는다.
+// 승인된 명시적 로컬 실행(RUN_MUTATING_DB_TESTS=1)만 허용한다. CI에서는 차단하며 실행 UUID에 속한 행만 정리한다.
 
-import { afterAll, describe, expect, it } from 'vitest'
+import { randomUUID } from 'node:crypto'
+import { describe, it } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 
 import { ALLOWED_EVENTS } from '../events'
+import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'
+import { probeDbEventAllowlist } from '@/test/db-allowlist-probe'
 
 const URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
-const LIVE = !!URL && !!KEY
-
-/** 이 파일이 남긴 행만 골라내는 표시. 실제 퍼널에는 이런 surface 가 없다. */
-const SELFTEST_SURFACE = 'selftest'
+const LIVE = !!URL && !!KEY && allowMutatingSharedDbTests(process.env)
 
 const admin = LIVE
   ? createClient(URL as string, KEY as string, { auth: { persistSession: false } })
   : null
 
-afterAll(async () => {
-  if (!admin) return
-  await admin.from('funnel_events').delete().eq('surface', SELFTEST_SURFACE)
-})
-
 describe('계측 허용 목록 — 코드와 DB', () => {
   it.runIf(LIVE)(
     'ALLOWED_EVENTS 가 전부 funnel_events 에 들어간다 — 안 들어가면 그 이벤트는 조용히 사라진다',
     async () => {
-      const failures: string[] = []
-      for (const name of ALLOWED_EVENTS) {
-        const { error } = await admin!
-          .from('funnel_events')
-          .insert({ user_id: null, event: name, surface: SELFTEST_SURFACE, meta: {} })
-        if (error) failures.push(`${name} — ${error.message}`)
-      }
-
-      expect(
-        failures,
-        [
-          'DB 가 받아 주지 않는 이벤트가 있다 — 보내도 조용히 사라진다(수신구는 204 를 준다).',
-          '`funnel_events_event_check` 를 갱신하는 마이그레이션이 필요하다.',
-          '',
-          ...failures,
-        ].join('\n'),
-      ).toEqual([])
+      await probeDbEventAllowlist(admin!, ALLOWED_EVENTS, randomUUID(), process.env)
     },
     120_000,
   )
