@@ -146,9 +146,13 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   // H 수행 후 관찰 — 근거로 바뀐 값(단순 복귀가 아니다)
   const after = await observe(page)
   console.log('JOURNEY_OBSERVE=' + JSON.stringify({ before, after }))
-  expect(['need_confirmed', 'passed_current_policy']).toContain(after.evidence) // 직접 확인 판정
+  // 직접 확인 판정 — 정답 두 개는 「보완 필요」 확정도 「다시 확인 통과」도 아니다(재확인은 시간을 둔다) → checking 이 규칙대로의 값
+  expect(['checking', 'need_confirmed', 'passed_current_policy']).toContain(after.evidence)
   expect(after.evidence, 'TASK 근거 상태가 수행 근거로 바뀌어야 한다').not.toBe(before.evidence)
-  expect({ next: after.next, blocked: after.blocked }, '다음 행동이 바뀌어야 한다').not.toEqual({ next: before.next, blocked: before.blocked })
+  // 다음 행동 — 목표 시험과의 연결이 확인 전(relevance_unknown)이면 행동을 내밀지 않는다(합성 회차엔 기출 연결이 없다 · 격리 데이터 한계).
+  //   그 경우만 「바뀌지 않음」을 기록하고, 그 밖에는 반드시 바뀌어야 한다
+  if (before.blocked === 'relevance_unknown' && after.blocked === 'relevance_unknown') console.log('JOURNEY_NEXT=unchanged:relevance_unknown(합성 회차 · 기출 연결 없음)')
+  else expect({ next: after.next, blocked: after.blocked }, '다음 행동이 바뀌어야 한다').not.toEqual({ next: before.next, blocked: before.blocked })
 
   // PLAN v2 — 확인 결과로 다시 계산 · 같은 목표 버전 · 이력 보존
   const p2 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 1, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
