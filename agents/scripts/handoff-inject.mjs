@@ -14,6 +14,7 @@ import path from 'node:path'
 import { DIR } from './handoff.mjs'
 import { git, isMain, lf, readText, rel } from './lib.mjs'
 import { read as readLock, state as lockState } from './lock.mjs'
+import { executionMode, executionNotice } from './execution-mode.mjs'
 
 const MAX_AGE_MS = 7 * 24 * 3600 * 1000
 
@@ -45,6 +46,9 @@ function readMainPolicy() {
 
 export function injection(agent) {
   const out = []
+  let mode
+  try { mode = executionMode(); out.push(executionNotice(mode)) }
+  catch (e) { out.push(`[개발 모드 오류] ${e.message} — 원격 작업을 시작하지 말고 설정을 확인합니다.`) }
   try {
     const js = path.join(DIR, 'latest.json')
     const md = path.join(DIR, 'latest.md')
@@ -64,8 +68,10 @@ export function injection(agent) {
   } catch (e) {
     out.push(`[인수인계] latest.json 을 읽지 못했다: ${e.message}`)
   }
-  const notice = policyNotice(readText(rel('agents', 'policies', 'pr-automation.json')), readMainPolicy())
-  if (notice) out.push(notice)
+  if (mode === 'GITHUB') {
+    const notice = policyNotice(readText(rel('agents', 'policies', 'pr-automation.json')), readMainPolicy())
+    if (notice) out.push(notice)
+  }
   const lock = readLock()
   if (lock && lock.agent !== agent && lockState(lock) === 'held')
     out.push(`[잠금] 이 워크트리는 ${lock.agent} 가 쓰는 중이다(pid ${lock.pid}, ${lock.started_at}). 쓰기 전에 사용자에게 확인하거나 \`pnpm wt new <suffix>\` 로 워크트리를 나눈다.`)

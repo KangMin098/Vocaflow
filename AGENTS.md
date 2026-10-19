@@ -30,7 +30,7 @@
 | DB 통계 블록 | `pnpm docs:db-stats` (확인만 `pnpm docs:db-stats:check`) |
 | 에이전트 설정 | `node agents/scripts/sync.mjs` (생성) · `node agents/scripts/check.mjs` (검사) · `node --test agents/scripts/__tests__/*.test.mjs` (스크립트 회귀) |
 | 잠금 · 인수인계 | `node agents/scripts/lock.mjs acquire\|release\|status <agent>` · `node agents/scripts/handoff.mjs <from> <to>` |
-| PR 병합(유일한 경로) | `node agents/scripts/safe-merge.mjs <PR> --wait` — 체크 전부 통과 + 확인한 HEAD SHA 일 때만. `gh pr merge` 를 직접 쓰거나 확인과 이어 붙이지 않는다(main 에 서버 보호 없음) |
+| 통합 | 기본 LOCAL_FAST: `node D:/workspace/Vocaflow-AI-Control/bin/local-integrate.mjs --task <ID>` · 명시적 GITHUB 모드의 원격 병합만 `safe-merge.mjs`(직접 `gh pr merge` 금지) |
 | worktree | `pnpm wt list` · `pnpm wt new <suffix>` · `pnpm wt remove <suffix>` |
 
 ## 문서 navigation — 작업 영역에 맞는 것만 읽는다
@@ -138,7 +138,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
-**승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이고 나머지(개발 · 테스트 · 커밋 · push · PR · CI · 게이트를 통과한 병합)는 묻지 않고 끝까지 한다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
+**승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이다. 실행은 아래 ③의 중앙 모드 범위에서 이어 간다. LOCAL_FAST는 로컬 검증·커밋·리뷰·통합, 명시적 GITHUB만 push·PR·CI·원격 게이트를 쓴다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
 
 **① 문서 동반 갱신** — 같은 작업 안에서 코드와 문서를 함께 바꾼다(사용자 요청 없어도). 검증 가능한 사실만.
 마이그레이션 → DB_SCHEMA + CHANGELOG · RPC/view/trigger → DB_SCHEMA · 라우트 → ROUTES · 도메인 컴포넌트 → MODULES · 학습 모듈/계층 → LEARNING_MODEL + MODULES · 토큰/패턴 → DESIGN_SYSTEM · Admin 라우트/일괄 액션 → ADMIN_CONSOLE · 큐레이션 RPC/파이프라인 → LIBRARY_PIPELINE · 코딩 패턴 → CONVENTIONS · 패키지 → STACK · 전부 → CHANGELOG Unreleased 한두 줄 · 콘텐츠·수요 수치 변동(드레인·발행·마이그레이션) → `pnpm docs:db-stats` **실행**(마커 안을 손으로 고치지 않는다).
@@ -147,7 +147,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
 화면 라벨을 반복하지 말고 순서·전제·되돌리기 가능 여부·실패 결과·소요 시간을 쓴다. 파이프라인 수치가 나빠지면 코드보다 먼저 해당 도움말의 `cautions` 를 읽는다.
 
-**③ Git** — 논리적 milestone 종료 · 변경 파일 ≥5 · 다음 작업으로 넘어갈 때 커밋 + 현재 브랜치 push.
+**③ Git** — 실행 모드는 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`을 먼저 읽는다(`VFC_ROOT`·`VFC_DEV_MODE` 반영). 기본 **LOCAL_FAST**: 논리적 milestone에 로컬 커밋, 독립 리뷰·로컬 게이트 후 통합. 일반 push·PR·Actions 조회/대기·원격 병합 0. 원격은 중앙 `bin/backup.mjs`의 하루 상한·복구 시점과 Work Bridge만. 아래 PR 절차는 명시적 GITHUB 모드에만 적용한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).

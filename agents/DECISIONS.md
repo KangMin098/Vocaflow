@@ -1,5 +1,9 @@
 # 두 에이전트 환경 — 결정 기록
 
+## 2026-10-20 — LOCAL_FAST 우선 적용 정합
+
+사용자가 GitHub·CI 최소화 설정의 재확인을 요청했다. 중앙 `config/dev-mode.json`은 이미 LOCAL_FAST지만 작업 브랜치의 안내·원격 게이트에는 모드 확인이 없어 구 PR 절차를 따랐다. 중앙 설정 읽기·세션 안내와 원격 조회 이전 safe-merge 중단을 연결한다. 일반 작업은 로컬 검증·커밋·독립 리뷰·통합, 원격은 중앙 백업 상한과 Work Bridge 범위로 제한한다. 기존 GITHUB 모드의 보호·필수 CI·DB 승인 계약은 유지한다.
+
 > 지시문 [docs/dual-agent-brief.md](../docs/dual-agent-brief.md) 를 실행하며 내린 결정. 질문하지 않고 여기에 적었다.
 > 날짜 2026-09-17 · 작성 Claude Code. 게이트 결과는 [docs/agents/dual-agent-report.md](../docs/agents/dual-agent-report.md).
 
