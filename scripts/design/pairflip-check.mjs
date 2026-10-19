@@ -38,7 +38,7 @@ const run = async () => {
       await p.goto(`${BASE}/pairflip/play?set=${SET}`, { waitUntil: 'domcontentloaded', timeout: 120_000 })
       await p.waitForSelector('button.pf-card', { timeout: 60_000 })
       await p.waitForTimeout(2500)
-      const cards = p.locator('button.pf-card:not([disabled])')
+      const cards = p.locator('button.pf-card:not([disabled]):not([aria-disabled])')
       if (state !== 'initial') await cards.nth(0).click()
       if (state === 'progress') { await p.waitForTimeout(300); await cards.nth(1).click(); await p.waitForTimeout(250) }
       row.focus = await p.evaluate(() => document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.tagName)
