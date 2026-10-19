@@ -1,5 +1,9 @@
 # Learning Modules
 
+도서 검수 이동(2026-10-20): `BookDetailModal`은 닫기 전에 검색·선택 복귀 주소를 보존하고 공용 `Dialog`의 선택적 `afterUnwindRef`로 오버레이 이력을 걷은 뒤 이동한다. 기존 `useCloseOnBack` 계약을 재사용한다.
+
+적용 추적의 보류 관문(2026-10-20): 과제와 audience의 단일·복수 대상 전체를 검사한다. 수행 메타와 버전만 먼저 읽고 허용된 시도·문항의 정오를 뒤에 읽으며, 과거 보류 수행이 있으면 결속이 불명인 trial·효과 결과도 가린다. 미상 문항의 정오는 읽지 않고 조회·판정 실패를 0건으로 바꾸지 않는다.
+
 관리자 후속(2026-10-20): `AdminLearnerActivity`는 문항별 Reveal Gate 뒤 허용한 시도의 정오와 정확한 `workspace_delivery_attempt` 결속, 보류 판정을 거친 저장 진단을 읽는다. 전부 보류된 페이지도 원본 커서로 이동하며 문항 식별자가 없는 기록의 정오는 조회하지 않는다. `AdminWorkspaceSupply`는 기존 개인 공급 reader를 재사용하며 주문·공급 없음으로 수요 없음까지 단정하지 않는다. 적용 추적은 저장 적용 버전·비합성 표시·trial과 전역 원리 효과 상태를 구분하며 학습자 판정 엔진을 바꾸지 않는다. [최종 인계](admin-restructure/final-delivery.md).
 
 관리자 v2.1(2026-10-19): `AdminWorkInbox`는 기존 실집계의 처리 대상 링크를 제공한다. `AdminItemHandoff`는 기출의 기존 지문 설계 주석·근거 검수·등록 적용을 잇고, `AdminLearnerPlans`는 확인한 동일 사용자 ID의 저장 목표·Workspace·TASK 계획을 읽는다. 공개 학습 흐름과 학습자 개인 분석은 바꾸지 않는다. [지원 범위·미연결 단계](admin-restructure/v21-delivery.md).

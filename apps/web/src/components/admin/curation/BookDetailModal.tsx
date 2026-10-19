@@ -3,8 +3,9 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen, Play, Undo2, Trash2, ListChecks,
 } from 'lucide-react';
@@ -43,6 +44,8 @@ interface ChapterStats {
 type ToneKey = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
 export function BookDetailModal({ book, onClose, onChanged, returnTo = '/admin/curation' }: BookDetailModalProps) {
+  const router = useRouter();
+  const afterUnwindRef = useRef<(() => void) | null>(null);
   const [actionPending, setActionPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<ChapterStats | null>(null);
@@ -136,6 +139,14 @@ export function BookDetailModal({ book, onClose, onChanged, returnTo = '/admin/c
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
             href={curationPreviewHref(book.id, returnTo)}
+            onClick={event => {
+              if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              if (actionPending) return;
+              const href = curationPreviewHref(book.id, returnTo);
+              afterUnwindRef.current = () => router.push(href);
+              onClose();
+            }}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />
@@ -231,6 +242,7 @@ export function BookDetailModal({ book, onClose, onChanged, returnTo = '/admin/c
   return (
     <Dialog
       onClose={actionPending ? () => {} : onClose}
+      afterUnwindRef={afterUnwindRef}
       size="xl"
       crumbs={['Admin', '도서 큐레이션', statusInfo.label]}
       title={book.title}

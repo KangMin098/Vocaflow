@@ -2,9 +2,9 @@
 
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
-현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. Product Order별 생산/납품과 대상별 수행·재진단 연결은 미구현 Gap이다.
+현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. 대상별 수행·저장 진단 읽기는 후속 구현했다. canonical Product Order별 생산/납품 계보는 미설치 Gap이다.
 
-관리자 재구조화: [로컬 1차 구현 기록](./admin-restructure.md)과 [하위 메뉴·파이프라인 심층 재설계 비교](./admin-submenu-redesign.md)를 구분한다. 후자는 7개 상위·22개 하위 작업 공간의 **미적용 제안**이다.
+관리자 재구조화: [로컬 1차 구현 기록](./admin-restructure.md)과 [하위 메뉴·파이프라인 심층 재설계 비교](./admin-submenu-redesign.md)를 구분한다. 설계안의 적용 범위와 남은 계약은 위 구현·최종 인계를 따른다.
 
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).
 

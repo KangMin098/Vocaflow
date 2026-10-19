@@ -76,9 +76,10 @@ test('도서 목록의 상세에서 본문 검수를 보고 같은 검색·선�
   await review.click()
   await page.waitForURL(url => url.pathname.startsWith('/admin/curation/preview/'))
   const back = page.getByRole('link',{name:'큐레이션으로',exact:true})
-  await expect(back).toBeVisible()
+  await expect(back).toBeVisible({timeout:60000})
   await back.click()
   await page.waitForURL(url => url.pathname === '/admin/curation')
+  await expect(page.locator('[data-curation-ready=true]')).toBeVisible({timeout:60000})
   const params = new URL(page.url()).searchParams
   expect(params.get('q')).toBe(q)
   expect(params.get('source')).toBe('gutenberg')

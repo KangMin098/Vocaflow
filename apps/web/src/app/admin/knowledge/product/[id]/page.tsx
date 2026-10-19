@@ -12,8 +12,9 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { STATUS_LABEL } from '@/lib/knowledge/labels'
 import { resolveChain } from '@/lib/knowledge/live-chain'
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
-import { anchorGate, itemTaskRef, loadChainGraph, loadLiveApplication, parseItemTaskRef } from '@/lib/knowledge/product-server'
+import { anchorGate, findTargetsOf, itemTaskRef, loadChainGraph, loadLiveApplication, parseItemTaskRef } from '@/lib/knowledge/product-server'
 import { loadApplicationAttempts, summarizeApplicationAttempts } from '@/lib/admin/application-attempts'
+import { itemRevealDecision } from '@/lib/csat/embargo-gate'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, EVIDENCE_LEVEL_LABEL, TRIAL_STATUS_LABEL, type AppStatus, type AppSurface, type TrialStatus } from '@/lib/knowledge/vnext-labels'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -30,14 +31,22 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
   const { data: app, error: appError } = await db.from('knowledge_applications').select('*').eq('id', params.id).maybeSingle()
   if (appError) throw new Error(`적용 조회 실패: ${appError.message}`)
   if (!app) notFound()
+  const parsed = parseItemTaskRef(String(app.surface_ref))
+  const itemRef = parsed ? parsed.itemId : typeof (app.audience as Row)?.item === 'string' ? String((app.audience as Row).item) : null
+  const revealTargets = [...new Set([...(parsed ? [parsed.itemId] : []), ...findTargetsOf(app.audience)])]
+  if (revealTargets.length) {
+    const gate = await itemRevealDecision(revealTargets, {db})
+    if (gate.failed) throw new Error('적용 문항 보류 판정 실패')
+    if (revealTargets.some(ref => gate.held.has(ref))) return <KnowledgeFrame title="적용 사슬 추적" question="보류 중인 문항의 적용" help={<AdminScreenHelp screen="knowledge-trace" />}><p role="status">보류 문항의 적용 사슬·정오·검증 결과는 표시하지 않습니다.</p></KnowledgeFrame>
+  }
   const graph = await loadChainGraph(db)
   const chain = resolveChain(String(app.item_id), graph.items, graph.links)
   const ids = chain.path.map((p) => p.id)
-  const [evidence, inqLinks, trials, attempts] = await Promise.all([
+  const attempts = await loadApplicationAttempts(db, params.id)
+  const [evidence, inqLinks, trials] = await Promise.all([
     db.from('knowledge_evidence').select('id, item_id, source_type, evidence_level, grade, applicability').in('item_id', ids),
     db.from('knowledge_inquiry_links').select('inquiry_id, item_id, role').in('item_id', ids),
-    db.from('knowledge_trials').select('*').eq('application_id', params.id),
-    loadApplicationAttempts(db, params.id),
+    attempts.heldCount > 0 ? { data: [], error: null } : db.from('knowledge_trials').select('*').eq('application_id', params.id),
   ])
   for (const r of [evidence, inqLinks, trials]) if (r.error) throw new Error(`추적 읽기 실패: ${r.error.message}`)
   const inquiryIds = [...new Set((inqLinks.data ?? []).map((l: Row) => String(l.inquiry_id)))]
@@ -45,12 +54,10 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
   if (inquiryError) throw new Error(`탐구 조회 실패: ${inquiryError.message}`)
   const ev = (evidence.data ?? []) as Row[]
   const research = ev.filter((e) => e.source_type === 'research')
-  const attemptSummary = summarizeApplicationAttempts(attempts, Number(app.version))
+  const attemptSummary = summarizeApplicationAttempts(attempts.rows, Number(app.version))
   const tr = (trials.data ?? []) as Row[]
   const task = chain.path[0]
   // 문항 과제면 주석 상태도 사슬의 한 칸이다
-  const parsed = parseItemTaskRef(String(app.surface_ref))
-  const itemRef = parsed ? parsed.itemId : typeof (app.audience as Row)?.item === 'string' ? String((app.audience as Row).item) : null
   const itemTask = itemRef ? currentItemTask(itemRef) : null
   const annotation = itemTask?.ann ?? null
   const selected = await loadLiveApplication(String(app.surface), String(app.surface_ref), db)
@@ -105,17 +112,18 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
         </li>
         <li className="rounded border border-[var(--bd)] p-4" data-step="attempts">
           <h3 className="font-semibold text-[var(--t1)]">적용 버전에 결속된 수행 원장</h3>
-          <p className="mt-1" data-testid="trace-attempts">이 적용 v{String(app.version)} 기록 {attemptSummary.current}건 · 다른 버전 {attemptSummary.other}건 · 버전 미상 {attemptSummary.unknown}건</p>
+          {attempts.heldCount > 0 && <p role="status">보류 문항의 수행 {attempts.heldCount}건은 원장 집계에서 제외했습니다. 해당 문항을 포함할 수 있는 trial 결과도 표시하지 않습니다.</p>}
+          <p className="mt-1" data-testid="trace-attempts">표시 가능한 이 적용 v{String(app.version)} 기록 {attemptSummary.current}건 · 다른 버전 {attemptSummary.other}건 · 버전 미상 {attemptSummary.unknown}건</p>
           <p className="mt-1">현재 버전의 비합성 표시 {attemptSummary.nonSynthetic}건({attemptSummary.accounts}계정, 정답 {attemptSummary.correct}건) · 합성 {attemptSummary.synthetic}건 · 합성 여부 미상 {attemptSummary.syntheticUnknown}건</p>
-          <p className="mt-1">단계별 기록: {attemptSummary.phases.map(p => `${p.phase} ${p.count}건`).join(' · ') || '없음'}. 비합성 표시는 외부 실사용자 검증이나 독립 수행·노출·효과의 증명이 아닙니다.</p>
+          <p className="mt-1">단계별 기록: {attemptSummary.phases.map(p => `${p.phase} ${p.count}건`).join(' · ') || '표시 가능한 기록 없음'}. 비합성 표시는 외부 실사용자 검증이나 독립 수행·노출·효과의 증명이 아닙니다.</p>
         </li>
         <li className="rounded border border-[var(--bd)] p-4" data-step="trial">
           <h3 className="font-semibold text-[var(--t1)]">효과 검증</h3>
-          {tr.map((t) => {
+          {(attempts.heldCount > 0 ? [] : tr).map((t) => {
             const d = (t.design ?? {}) as Row
             return <p key={String(t.id)} className="mt-1">{t.synthetic ? '합성' : '실제'} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{t.review_required_at ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · 결과 ${String(t.result)}` : ''}</p>
           })}
-          <p className="mt-1" data-testid="trace-efficacy">연결 원리 항목의 전역 효과 상태: {task?.efficacy ?? '미상'}. 이 적용·버전의 효과 판정과 다릅니다. 위 trial의 분석 상태·합성 여부·재계산 요구를 개별 확인하세요.</p>
+          <p className="mt-1" data-testid="trace-efficacy">{attempts.heldCount > 0 ? '보류 원장과의 결속 확인 전에는 이 적용의 효과 결과를 표시하지 않습니다.' : <>연결 원리 항목의 전역 효과 상태: {task?.efficacy ?? '미상'}. 이 적용·버전의 효과 판정과 다릅니다. 위 trial의 분석 상태·합성 여부·재계산 요구를 개별 확인하세요.</>}</p>
         </li>
       </ol>
     </KnowledgeFrame>
