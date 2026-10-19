@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
-**[VF-TASK FINAL-COLLAB-20261019B] 최신 재수용**은 [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md)을 따른다. FI-018 실제312d786는 작성자21·비공개 독립5·목적·최종 CI·실제 수정 guard의 safe-merge dry-run을 통과해 VERIFIED_FIXED다. 최초cefc 실패는 과거 이력으로 보존한다. FI-0110b8의 양성 경로는 실제 spec을 수용 입력으로 검토했고 CI 결과는 별도 확인 중이다. 후속a330은 문서만 변경했다.314는 PROPOSED/비활성/실행기 없음이며 권한자 채택 권고는 REWORK다. 실제 병합 결과가 확정되기 전 병합 성공으로 기록하지 않는다.
+**[VF-TASK FINAL-COLLAB-20261019B] 최신 재수용**은 [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md)을 따른다. FI-018 실제312d786는21+독립5·목적·최종 CI·안전 dry-run/merge를 통과해 VERIFIED_FIXED이며 **#312 병합 SHA13e15e7367aad27e9fc3cafedbe02cebb5deeaff**다. 최초cefc 실패는 과거 이력으로 보존한다. FI-0110b8의 실제 report는12중11성공/양성1실패다. need_confirmed와 저장 check→repair는 관찰됐으나 동일 완료 문항의 바로잡기 실행 문맥 누락으로 전체 FI-011은 REWORK다.09681은 라벨 비교만 바뀐 입력이다.314는 PROPOSED/비활성/실행기 없음이며 권한자 채택 권고는 REWORK다. **전체 제품 REWORK**, #250/#303 미병합이다.
 
 2026-10-19 사용자 양방향 계약을 [역할·실제 세션 결속 및 다음 구현 지시](./COLLABORATION_CONTRACT_20261019.md)에 반영했다. Codex는 분석/기획/설계/구현 지시와 독립 수용, Claude는 제품 구현/통합을 소유한다. 실제 직접 전송은 아직 검증되지 않아 GitHub 게시/세션 ACK를 구분한다. 최신3033c7478195/CI39196056859는 기존10성공·여정1실패다. 지도는 not_measured→checking으로 바뀌었지만 before/after 모두 stage_locked/next=null로 다음 행동 단언이 실패했고 PLAN v2는 미도달이다. 기존 FI-011에서 정당한 판정 전환이 있는 양성 경로를 설계했으며 새로운 교육 기준/목표를 만들지 않는다. 전체 REWORK·FI-018 잔여/병합0은 유지한다.
 
@@ -15,11 +15,11 @@
 
 |현재 PR|고정 HEAD|최종 확인 CI|독립 수용/병합|
 |---|---|---|---|
-|#312|d786d253818ee1a0dc2603e37667f84c3ad47a79|39198046414 필수 성공|FI-018 VERIFIED_FIXED; 목적/안전 dry-run 수용; 실제 병합 별도|
+|#312|d786d253818ee1a0dc2603e37667f84c3ad47a79|39198046414 필수 성공|FI-018 VERIFIED_FIXED; safe-merge 병합13e15e736|
 |#250|2549e407d9b1138c83b7fd633556b1527b62648c|39136705847 필수 성공(같은 HEAD의 기존 결과 재사용)|#312 수용 후 최신 main 기준 재확인 필요; 미병합|
-|#303|323762ccf67cee3dcdf1e83b44f82923efd7b367|39197238286 진행 중; 직전3c의39196056859 e2e 실패|새 계획 비교 설계 입력 검토/결과 미수용; 미병합|
+|#303|09681e7f8386ece7af3dac7d2d8f0a03ea4ec7a5|제품/spec 검증0b8의39198196440은11/12·양성 실패; 후속은 라벨 비교 수정|FI-011 실행 연결 REWORK; 최신 main/최종 CI 필요; 미병합|
 
-원격 main은 c3a03d1680c1b064598fdc1ab319b645f370e68c로 재확인했다. **이번 재수용의 실제 safe-merge 실행0·병합 SHA 없음**. [기존 FI-011의 최신 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6257257593). FI-018의 같은 경계를 재실행하거나 새 중복 이슈를 만들지 않았다.
+이전 main은c3a03d168이었고 최신은312 병합13e15e736다. **이번 재수용의 실제 병합1건(#312)**. #250/#303은 최신 main 반영·실제 수행 연결 및 최종 CI를 기다린다. [기존 FI-011의 최신 수정 지시](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6259617760). 같은 결함의 새 중복 이슈를 만들지 않았다.
 
 2026-10-19 현재 [독립 재수용](./REACCEPT_20261019.md)이 아래 시간순 이력보다 우선한다. **전체 REWORK**, FI-010은 명시한 코드/격리 서버·DB/1280·1440 브라우저 범위에서 **VERIFIED_FIXED**다. 새30388c3의 전체 화면 두 기기 CI/직접 해독한 report10/10을 명시 범위에서 추가 수용했고312cefc는 기존 잔여가 확인된 같은 HEAD다. 실제 safe-merge·병합0을 유지한다. A~H의 일곱 증거 층위와 동일 합성 학습자 전체 E2E 미검증도 재수용 표에 분리했다.
 
@@ -61,7 +61,7 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |G 독립 전이 / PARTIAL|노출/도움/동일 지문·근거 구분|FI-006/010 경계 범위|격리 최초/비근거 대조|새 적격 전이 NOT_VERIFIED|해당 revision Gold/권리 NOT_VERIFIED|실제 미노출/지연 전이 NOT_VERIFIED|NOT_VERIFIED|
 |H 증거 환류 / PARTIAL|delivery/G2·PLAN/이력 범위|결속/상태 보존 범위|격리 지도 복귀/표시 범위|수행→새 PLAN 의미 환류 NOT_VERIFIED|콘텐츠별 E에서 검수 필요|실제 환류 NOT_VERIFIED|NOT_VERIFIED|
 
-**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 6fe에서 기록 저장/목표/PLAN v1/3납품/Runner/G2의 같은 계정 prefix는1440px ISOLATED_BROWSER_VERIFIED로 추가 확인했지만, 시험의 문항/축 태깅·D 교수 화면·의미 환류/PLAN v2는 미검증이다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다. FI-018 수정/312 수용 뒤 최신 main 기준250→303의 통합/안전 병합과 해당 종단 검증이 남아 있다.
+**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 6fe의 기록/목표/납품/Runner/G2 prefix에 이어0b8에서는1440px의 독립2오답→need_confirmed 및 저장 check→repair까지 관찰했다. 정답 진행 대조는 단계 불변/다음 문항 이동/버전 이력 검사를 통과했다. 양성 경로의 마지막 이력 단언과 실제 바로잡기 새 수행·D 교수 경험은 미검증이다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다.312 수용/병합은 완료했고 최신 main 기준250→303의 실행 연결·통합/안전 병합이 남아 있다.
 
 ## 결함별 수정 수용
 
@@ -73,7 +73,8 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |FI-015|[200/200 동시 저장 누락](./PR250_REVIEW.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 HTTP/PG13검사+두 실제 browser store의200/409→자동 재시도→서버 두 노트. 추가3번째 컨텍스트에서 재전송6요청 상한·1분 추가0·로컬 노트/실패 상태 보존·새 저장 재개 성공. 최초 글·무관 완료 이력 보존; 모든 중간 편집 버전 보존 주장은 아님|
 |FI-016|비공개 원본·기존 #309|FIX_VERIFIED_IN_CANDIDATE. 비공개 실제 HTTP/PG4검사와 정상 대조. 실제 JWT/개발 DB 경계 미검증. DL-0177|
 |FI-017|[옛 가상 통합 TS2300](./PR250_PR303_INTEGRATION.md)|FIX_VERIFIED_IN_CANDIDATE. 실제 통합 소스 tsc0/관련68건, 최신 API14·예산8통과/필수 CI. 두 PR 개별 CI만으로 대신하지 않음|
-|FI-018|비공개 원본·기존 #311|PARTIAL_FIX / OPEN. PR312cefc3e502 작성자20검사 성공에도 독립 경계가 미충족. 격리 후보·상세는 비공개 DL-0177. 실제 safe-merge0/병합0|
+|FI-018|비공개 원본·기존 #311|VERIFIED_FIXED / CODE_VERIFIED. 실제d786 작성자21+독립5·목적·최종 CI·safe-merge 성공.312 병합13e15e736. 최초cefc 실패·비공개 세부DL-0186 보존|
+|FI-011|[창작 Workspace 환류 최초 실패](./PR303_REVIEW.md)|REWORK.0b8 실제need_confirmed/저장check→repair 관찰은 긍정 증거다. 동일 완료 문항의 바로잡기 새 수행 문맥이 연결되지 않아 실제 실행/후속환류 수용 보류. 기존 #304 재사용|
 |FI-019|[KST 첫 PLAN422 및 고정 시각 원본](./FI019_KST_PLAN.md)|FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED. 실제 e54 수정에서5반례·대조+v4 단위29성공. 미래 timestamp/SQL 가드 유지; 전체 여정/병합/개발 DB 적용 수용과 별개|
 
 FI-001~013의 이전 층위별 수용과 최초 실패는 [같은 원장](./GITHUB_HANDOFF.md)/개별 문서에 보존한다. 같은 결함의 중복 이슈를 만들거나 AI 수용을 사람 승인으로 바꾸지 않았다.

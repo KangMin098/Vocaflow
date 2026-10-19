@@ -5,7 +5,7 @@
 
 ## FI-018 · 실제 PR312 수정
 
-실제d786d253818ee1a0dc2603e37667f84c3ad47a79의 변경2파일/11줄을 확인했다. 작성자21/21·기존 비공개 독립5/5 성공, 이전cefc 최초 실패는 보존했다. **VERIFIED_FIXED / CODE_VERIFIED**이며 구체 반례는 비공개 DL-0186에 보존했다. 실제 움직이는 원격 HEAD를 조작한 결과가 아니라 실제 수정 소스의 순수 경계 검증이다. CI39198046414는 필수 성공으로 종료했다. 목적 대조는 사용자 패킷·기존 goal·PR 목적과 실제 변경을 비교해 새로운 권한/정책 완화0을 확인했다. 실제d786의 수정 guard로 실행한 safe-merge dry-run은 origin/main 정책v1.1/필수8종/같은 HEAD를 확인하고 통과했다. 실제 병합 결과는 후속 영수증으로 분리한다.
+실제cefc→d786d253818ee1a0dc2603e37667f84c3ad47a79의 최신 변경2파일/11줄을 확인했다. 작성자21/21·기존 비공개 독립5/5 성공, 이전cefc 최초 실패는 보존했다. **VERIFIED_FIXED / CODE_VERIFIED**이며 구체 반례는 비공개 DL-0186에 보존했다. 실제 움직이는 원격 HEAD를 조작한 결과가 아니라 실제 수정 소스의 순수 경계 검증이다. CI39198046414는 필수 성공으로 종료했다. 목적 대조는 사용자 패킷·기존 goal·PR 목적과 실제 변경을 비교해 새로운 권한/정책 완화0을 확인했다. 실제d786의 수정 guard로 실행한 safe-merge dry-run 및 실제 merge는 origin/main 정책v1.1/필수8종/같은 HEAD를 확인하고 통과했다. **#312 MERGED · SHA13e15e7367aad27e9fc3cafedbe02cebb5deeaff**. 독립 worktree에도 최신 main을 merge했고 우회/정책 완화는 없다.
 
 실제312d786+31459779의 Git merge-tree는 충돌0이고 결합된 소스의 작성자26/26·FI-018 독립5/5 성공이다. 이 결과는 실제 Git 결합 소스의 범위이며 #314 채택/보호 경로 변경의 수용을 뜻하지 않는다.
 
@@ -13,7 +13,11 @@
 
 제품 입력0b8f29136c10d4652a715c4a5b9eef6f10511b1b의 실제 spec을 확인했다. 새로운 양성 계정이 기록·kice6 목표·PLAN v1·독립2납품·content_change v2를 거쳐 명확한2오답을 제출한다. 서버 오답2/G2 독립 근거2/need_confirmed/행동 변화/check→repair/check_result v3/같은 목표/v2 불변을 단언한다. 정당한 대체 정답을 오답으로 만드는 규칙 변경은 없고, 제품 교육/가용량 코드 변경도 없다.
 
-기존 정답 경로는 다음 행동이 가리킨 실제 확인 자료를 선택하도록 보완했고 전체 계획량 불변을 진척 대조로 구분했다. 이는 게시한 설계와 일치한다. 단, 실제 CI39198196440의 양성 브라우저/DB 결과 전에는 수용하지 않는다. 이후a330b0f25는 POLICY_LEDGER 문서1파일만 변경한 tip이며 제품/spec 결과는 재사용 가능하되 최신 tip의 필수 CI는 따로 확인한다.
+기존 정답 경로는 다음 행동이 가리킨 실제 확인 자료를 선택하도록 보완했고 전체 계획량 불변을 진척 대조로 구분했다. 이는 게시한 설계와 일치한다. 실제 CI39198196440의 [HTML report 직접 해독](./journey-ci-0b8f29.json)은12건 중11 expected/1 unexpected/0 flaky/0 skip/첨부5개다. 정답 진행 대조는 PASS다. 양성 경로는 서버2오답·G2 근거2를 통과했고 실제 지도 need_confirmed와 DB 저장 stage check→repair를 로그/반환 값으로 관찰했다. 다음 URL 불변 단언에서 실패했으므로 뒤의 stage/목표/이력 단언은 실행되지 않았다. 양성 경로 전체 PASS로 세지 않는다.
+
+**FI-011 전체는 REWORK**다.1440px 실제 실패 화면의 단계는 바로잡기/수행0/2인데 CTA는 「받은 자료·혼자 확인」이다. 같은 틀린 문항을 가리키는 URL은 정당할 수 있지만, 현재 완료 자료는 LearnPage의 done→Runner reveal→lock 경로로 열려 새 바로잡기 시도를 남길 문맥이 연결되지 않았다. lifecycle repairGate는 확정 뒤 새 정답을 기다린다. 이 실행 누락은 실제 source의 CODE_VERIFIED 반례이며 CTA 클릭 이후의 새 통합 실행은 아직 NOT_VERIFIED다. 단순 URL/라벨 단언 변경으로 전체 실행 성공을 만들지 않는다.
+
+후속09681e7f8386ece7af3dac7d2d8f0a03ea4ec7a5는 라벨 관찰/비교만 바꿨으며 제품 코드는 불변이다. 현재 라벨도 기존 같음이 확인돼 수용되지 않았다. [기존 #304 수정 지시](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6259617760), [PR303 같은 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259618044). 기존 v1/v2 이력·첫 독립 오답·G2·노출을 보존하는 별도 연습/도움받은 바로잡기 문맥→실제 CTA 클릭·새 정답·lifecycle/PLAN 후속 관찰을 구현·재검증한다. 새 시도를 새 독립/전이로 집계하지 않는다. 최신 main13e15e736 반영과 최종 CI도 필요하다.
 
 ## #314 · 권한자 최종 검토 패키지
 

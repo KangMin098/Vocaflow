@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
+**FINAL-COLLAB-20261019B ACK / 전체 REWORK**. FI-018은 실제312d786의21+독립5/목적/최종 CI/안전 병합으로 VERIFIED_FIXED, 병합SHA13e15e736이다. FI-0110b8 실제12건 중11성공/양성1실패이며 need_confirmed/저장check→repair는 관찰했다. 완료 문항의 바로잡기 새 수행 연결은 CODE_VERIFIED 누락으로 기존 #304 수정 지시,303 수용/병합 보류다.314 보안6항목은PROPOSED 유지·채택REWORK, 상세비공개DL-0186. [현재 결과](./FINAL_COLLAB_20261019B_REVIEW.md). 아래는 고정 HEAD별 과거 이력이다.
+
 종단 테스트 후속:264f fixture 실패→f8 실제 PLAN422(FI-019)→e54 날짜 수정→35d43 팝업 조작 수정→6fe386770 화면 열거값 수정의 순서를 보존한다. [FI-019](./FI019_KST_PLAN.md)는 실제 수정에서 고정 시각5/5·단위29/29로 후보 코드 수정 확인했다. e54/35d43 여정은 PLAN 통과 뒤 수행 전 관찰에서 실패했으며 전체 종단은 미수용이다. 실제312cefc 잔여/REWORK·병합0은 유지한다.
 
 6fe 실제 CI는 같은 합성 학습자의 기록→목표→PLAN v1→3납품/Runner/G2까지 통과했고 이후 지도 after 기대값에서 실패했다. [단계 원장](./journey-review-20261019.json)과 [교육 계약4대조](./journey-oracle-6fe386.json)를 구분한다. PLAN v2는 미도달, 전체 A~H는 미수용이며69b07ef47은 진단 출력만 추가한 새 입력이다.
