@@ -13,14 +13,19 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { ReviewClient } from './ReviewClient'
+import { parseFactoryScope } from '@/lib/admin/factory-scope'
+import type { AdminSearchParams } from '@/lib/admin/navigation'
+import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminCsatReviewPage() {
+export default async function AdminCsatReviewPage({ searchParams = {} }: { searchParams?: AdminSearchParams }) {
   await requireAdmin('/admin/csat/review')
+  const scope = parseFactoryScope(searchParams)
+  if (scope.kind === 'invalid') notFound()
   // 둘은 서로를 안 기다린다 — 한쪽이 느려도 다른 쪽이 그려진다.
   const [view, defects] = await Promise.all([
-    loadReviewView(),
+    loadReviewView(scope),
     loadReviewDefects(createAdminClient() as unknown as SupabaseClient),
   ])
   return <ReviewClient {...view} defects={defects} />

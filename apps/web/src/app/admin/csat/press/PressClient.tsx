@@ -155,6 +155,7 @@ function DecideButtons({
 export function PressClient({
   volumes,
   rungs,
+  selectedStep,
   brandFingerprint,
   brand,
   loadError,
@@ -222,17 +223,17 @@ export function PressClient({
           why: '찍을 후보 권과 권마다의 차단 사유를 낸다. 읽기만 하고 재실행 안전',
         },
         {
-          cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20',
-          why: '읽기만 하며 3관점 채점표를 낸다',
+          cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --series reading --band 6 --units 20',
+          why: '독해 V6 예시·선택 권 무관. 읽기 전용.',
         },
         {
-          cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html',
-          why: '지정한 파일을 덮어쓴다 — 되돌릴 원장이 없다',
+          cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --series reading --band 6 --units 20 --out volume-v6.html',
+          why: '독해 V6 예시·선택 권 무관. 파일 덮어씀·복구본 없음.',
           writes: true,
         },
         {
           cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs --series vocab --units 20',
-          why: '그 시리즈의 목차 스냅샷을 굽는다 — 없으면 학습자 상세면에 목차 절이 안 나간다',
+          why: '어휘 시리즈 전체 예시(선택 권 무관). 목차 스냅샷 덮어씀.',
           writes: true,
         },
       ]}
@@ -268,7 +269,7 @@ export function PressClient({
             {new Set(volumes.map((v) => v.band)).size} / {rungs}
           </p>
           <p className="mt-1 break-keep font-body text-[11px] text-[var(--t3)]">
-            빈 계단에서 학습자는 다른 출판사로 간다
+            {selectedStep == null ? '전체 학령 단계 기준' : `선택한 ${selectedStep}단계 한 권 기준`}
           </p>
         </div>
         <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
@@ -300,7 +301,7 @@ export function PressClient({
       {/* 사다리 — 어느 학령이 비었는지 숫자 대신 계단으로. 브랜드는 채울 수 있는 계단이다. */}
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">학령 사다리</h3>
-        <LadderFill volumes={volumes} rungs={rungs} />
+        <LadderFill volumes={volumes} rungs={rungs} selectedStep={selectedStep} />
       </section>
 
       {/* ── 학습자 도달 ────────────────────────────────────────────────
@@ -495,12 +496,12 @@ export function PressClient({
       </section>
 
       <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
-        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">다시 찍는 법</h3>
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">독해 V6 조판 예시 — 현재 선택 권과 무관</h3>
         <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20
+          pnpm dlx tsx scripts/textbook/build-volume.mjs --series reading --band 6 --units 20
         </code>
         <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html
+          pnpm dlx tsx scripts/textbook/render-volume.mjs --series reading --band 6 --units 20 --out volume-v6.html
         </code>
         <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
           첫 명령은 읽기만 하며 3관점 채점표를 낸다. 둘째는 <strong>지정한 파일을 덮어쓴다.</strong>

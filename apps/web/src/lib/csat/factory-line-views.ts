@@ -17,6 +17,7 @@
 //   교훈: **「막혔다」고 적을 때는 막은 것이 지금도 막고 있는지 같은 주석에 실측을 붙인다.**
 
 import 'server-only'
+import type { FactoryScope } from '@/lib/admin/factory-scope'
 
 import { SERIES_SPINE, brandFingerprint } from '@vocaflow/library-pipeline'
 import { VOLUME_FONTS, brandSpecRows } from '@vocaflow/library-pipeline/textbook-brand'
@@ -138,17 +139,22 @@ type Colophon = {
   }
 }
 
-export async function loadReviewView(): Promise<ReviewView> {
+export async function loadReviewView(scope: FactoryScope = { kind: 'all' }): Promise<ReviewView> {
+  if (scope.kind === 'invalid') return { layers: [], volumes: [], loadError: '잘못된 제작 기준' }
   const db = createAdminClient() as unknown as SupabaseClient
   // ⚠️ 기출 커버리지 RPC(csat_coverage)를 더 이상 부르지 않는다 — 이 화면은 **교재** 검수를
   //   말하는 자리이고, 그 RPC 는 기출 분석을 센다. 부르는 것만으로 「그 수가 여기 쓰인다」는
   //   오해가 생긴다(실측 2026-09-13: 실제로 L2 가 그것을 세고 있었다).
-  const renders = await db
+  let renderQuery = db
     .from('textbook_volume_renders')
-    .select('band, volume_title, items, auto_passed, auto_total, failed_checks, colophon')
+    .select('band, series, step, volume_title, items, auto_passed, auto_total, failed_checks, colophon')
     .order('band')
+  if (scope.kind === 'volume') renderQuery = renderQuery.eq('series', scope.series).eq('step', scope.step)
+  const renders = await renderQuery
 
   const rows = (renders.data ?? []) as {
+    series: string | null
+    step: number | null
     band: number
     volume_title: string | null
     items: number
@@ -159,6 +165,8 @@ export async function loadReviewView(): Promise<ReviewView> {
   }[]
 
   const volumes: ReviewVolumeRow[] = rows.map((r) => ({
+    series: r.series ?? 'reading',
+    step: r.step,
     band: r.band,
     volumeTitle: r.volume_title,
     items: r.items,
@@ -210,7 +218,7 @@ export async function loadReviewView(): Promise<ReviewView> {
           : anyRender
             ? '조판 기록에 검수 실측이 없다 — 이 눈금이 붙기 전에 찍힌 권이다. 다시 조판하면 채워진다'
             : '조판된 권이 없다',
-        cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --band 5',
+        cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/item-review-drain-export.mjs --series reading --band 5',
       }
     })(),
     {
@@ -286,9 +294,10 @@ function reachOf(series: string, step: number | null): VolumeReach {
   }
 }
 
-export async function loadPressView(): Promise<PressView> {
+export async function loadPressView(scope: FactoryScope = { kind: 'all' }): Promise<PressView> {
+  if (scope.kind === 'invalid') throw new Error('잘못된 제작 기준')
   const db = createAdminClient() as unknown as SupabaseClient
-  const { data, error } = await db
+  let renderQuery = db
     .from('textbook_volume_renders')
     .select(
       'band, series, volume_title, step, school_band, units, items, explained_batch, explained_rule, ' +
@@ -297,6 +306,8 @@ export async function loadPressView(): Promise<PressView> {
         'brand_fingerprint, render_count, rendered_at, out_path, colophon',
     )
     .order('band')
+  if (scope.kind === 'volume') renderQuery = renderQuery.eq('series', scope.series).eq('step', scope.step)
+  const { data, error } = await renderQuery
 
   const current = brandFingerprint()
   const rows = (data ?? []) as unknown as {
@@ -351,7 +362,8 @@ export async function loadPressView(): Promise<PressView> {
 
   return {
     volumes,
-    rungs: SERIES_SPINE.length,
+    rungs: scope.kind === 'volume' ? 1 : SERIES_SPINE.length,
+    ...(scope.kind === 'volume' ? { selectedStep: scope.step } : {}),
     brandFingerprint: current,
     brand: { rows: brandSpecRows(), fonts: VOLUME_FONTS },
     loadError: error ? `조판 기록 조회 실패: ${error.message}` : null,

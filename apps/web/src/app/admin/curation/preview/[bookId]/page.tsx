@@ -20,16 +20,18 @@ import { ChapterQuizAdminSection } from '@/components/admin/curation/ChapterQuiz
 import { fetchBookChapterSets } from '@/lib/library/books/queries'
 import { fetchBookChapterQuizzes } from '@/lib/library/admin-quiz-queries'
 import { AdminReviewClient } from './AdminReviewClient'
+import { adminCurationReturn } from '@/lib/admin/curation-view'
 
 interface PageProps {
   params: { bookId: string }
+  searchParams?: { returnTo?: string | string[] }
 }
 
 export const metadata = {
   title: '책 검수 — Vocaflow Admin',
 }
 
-export default async function AdminPreviewPage({ params }: PageProps) {
+export default async function AdminPreviewPage({ params, searchParams }: PageProps) {
   await requireAdmin(`/admin/curation/preview/${params.bookId}`)
 
   const client = (await createClient()) as unknown as SupabaseClient
@@ -138,6 +140,7 @@ export default async function AdminPreviewPage({ params }: PageProps) {
         chapters={chapters}
         source={b.source}
         sourceId={b.source_id}
+        returnTo={adminCurationReturn(searchParams?.returnTo)}
       />
 
       {/* 그림책 삽화 검수 — 표지 + 페이지별 삽화+본문 (StoryWeaver 등). 학습자 뷰와 동일 idx 정합. */}

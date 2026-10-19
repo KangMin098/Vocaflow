@@ -110,7 +110,7 @@ const GROUPS: ScreenGroup[] = [
     screens: [
       { href: '/admin', label: '관리자 대시보드', description: 'KPI 개요 · 섹션 진입 · 최근 활동', icon: LayoutDashboard, status: 'done' },
       { href: '/admin/users', label: '사용자 관리', description: 'KPI 4 · 검색·필터 · 7명 mock', icon: Users, status: 'done' },
-      { href: '/admin/library', label: '콘텐츠 관리', description: 'CRUD 카드 · CEFR · 큐레이션 · 6건 mock', icon: Library, status: 'done' },
+      { href: '/admin/curation', label: '도서 관리', description: '수집 · 검토 · 발행 목록', icon: Library, status: 'done' },
       { href: '/admin/vocabulary', label: '단어장 마스터', description: '표준 단어 · IPA 검증 · TTS 캐시', icon: BookMarked, status: 'done' },
       { href: '/admin/analytics', label: '플랫폼 분석', description: 'DAU 라인 · 코호트 · funnel · 모듈 사용', icon: BarChart3, status: 'done' },
       { href: '/admin/reports', label: '신고/문의', description: '큐 + 심각도 + SLA + 상태 흐름', icon: Flag, status: 'done' },

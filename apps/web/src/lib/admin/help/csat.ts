@@ -1729,3 +1729,20 @@ export const CSAT_HELP: HelpRegistry = {
     },
   },
 }
+
+// 교재 공정과 연구/진단은 영역별 메뉴에서 찾습니다. 문항·해설은 같은 작업면의 두 보기이며, 기존 해설 URL은 해설 보기로 연결됩니다. 선택한 시리즈·단계는 공정 링크에 유지하지만 전체 재고를 주문별 진행률로 해석하지 않습니다.
+CSAT_HELP['csat-new'].screen.fields = [
+  ...(CSAT_HELP['csat-new'].screen.fields ?? []),
+  { label: '제작 기준', detail: '고른 시리즈·단계는 URL에 남고 공정 링크로 이어집니다. 공정의 재고 수치는 전체 현황이며 이 한 권의 진행률을 뜻하지 않습니다.' },
+]
+CSAT_HELP['csat-authoring'].screen.fields = [
+  ...(CSAT_HELP['csat-authoring'].screen.fields ?? []),
+  { label: '문항·해설 보기', detail: '같은 작업면에서 문항 제작과 해설 작성·검토를 전환합니다. 생성·검수·완료 조건은 각각 유지됩니다. 옛 해설 URL은 해설 보기로 연결됩니다.' },
+]
+
+for (const screen of ['csat-review', 'csat-press'] as const) {
+  CSAT_HELP[screen].screen.fields = [
+    ...(CSAT_HELP[screen].screen.fields ?? []),
+    { label: '선택 범위와 명령', detail: '선택하면 시리즈+카탈로그 단계로 조판 기록을 제한합니다. URL band는 단계이며 스크립트의 V밴드와 다릅니다. 복사 명령은 전체/고정 예시로 현재 선택 권에 자동 결속되지 않습니다. 실행 전에 실제 시리즈·V밴드·출력 경로를 확인하세요. 검수의 문항 결함은 전체 원장으로 별도 집계합니다.' },
+  ]
+}

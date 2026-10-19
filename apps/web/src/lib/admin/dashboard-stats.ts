@@ -59,7 +59,6 @@ export interface DashboardStats {
   texts: Count
   qualityLastMeasuredAt: string | null
   /** null = reports 테이블 자체가 없음(신고/문의 미구현) */
-  reportsOpen: Count
   recent: RecentEvent[]
   /**
    * 「최근 변경」을 만들 때 **못 읽은** 출처 이름들. 빈 배열 = 다섯 출처 전부 읽었다.
@@ -414,7 +413,6 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     learnersTotal,
     activeToday,
     texts,
-    reportsOpen,
     qualityRes,
     recent,
   ] = await Promise.all([
@@ -461,7 +459,6 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     safeCount(() => head(client, 'daily_activity').eq('date', today)),
     safeCount(() => head(client, 'texts')),
 
-    safeCount(() => head(client, 'reports').eq('status', 'open')),
 
     safeList<{ measured_at: string }>(
       client
@@ -512,7 +509,6 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     //   없음" 이라고 말하는데, 질의 실패였다면 그건 거짓이다 — 그래서 실패를 분리해 적는다.
     qualityLastMeasuredAt: qualityRes.ok ? (qualityRes.rows[0]?.measured_at ?? null) : null,
     qualityUnread: !qualityRes.ok,
-    reportsOpen,
     recent: recent.events,
     recentUnread: recent.unread,
   }

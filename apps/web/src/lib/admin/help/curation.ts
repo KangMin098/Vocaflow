@@ -9,10 +9,10 @@ import type { HelpRegistry } from './types'
 
 export const LCP_HELP: HelpRegistry = {
   curation: {
-    title: 'LCP — 라이브러리 큐레이션',
+    title: '도서 — 수집·검토·발행',
     screen: {
       summary:
-        'PD/CC 소스에서 책을 끌어와 큐 → 로직 처리 → 검수 → 게시까지 밀어 넣는 콘솔. 탭은 "어디서 가져오나"로 나뉘고, 가져온 뒤는 전부 Curated Books 에서 추적한다.',
+        'PD/CC 소스에서 책을 끌어와 큐 → 로직 처리 → 검수 → 게시까지 밀어 넣는 콘솔. 도서 목록·수집·검토 대기로 나뉜다. 수집 방식에서 소스·추천·대량·ID 입력을 선택하고 목록에서 추적한다.',
       when: '새 도서를 카탈로그에 넣을 때, 또는 처리가 멈춘 도서의 상태를 확인할 때.',
       diagrams: [
         {
@@ -21,7 +21,7 @@ export const LCP_HELP: HelpRegistry = {
           nodes: [
             { label: '① 소스 고르기', actor: 'user', says: '무엇을 주는 소스인가 — 6축 평가로 견준다' },
             { label: '② 후보 긁기', actor: 'script', says: '목록 API 는 제목·표지·저자까지만 준다' },
-            { label: '③ 큐', actor: 'user', says: '쓸 행만 넣는다 — 여기부터 Curated Books 가 쫓는다' },
+            { label: '③ 큐', actor: 'user', says: '쓸 행만 넣는다 — 여기부터 도서 목록 가 쫓는다' },
             { label: '④ 처리', actor: 'script', says: '본문 추출 · 레벨 · 단어장이 여기서 붙는다' },
             { label: '⑤ 검수', actor: 'user', says: '기계가 못 보는 것 — 읽어도 되는 책인가' },
             { label: '⑥ 게시', actor: 'user', says: '학습자 서가에 선다' },
@@ -34,7 +34,7 @@ export const LCP_HELP: HelpRegistry = {
           title: '후보 확보',
           detail:
             '여러 권을 한 번에 훑으려면 「소스 GET (대량)」, 특정 책 한 권이면 소스별 ID 탭, 검증된 고전이면 「추천 시드」. 어느 경로든 결과는 같은 library_books 큐로 모인다.',
-          done: '상단 「전체」 카운트가 늘고 Curated Books 에 대기 중 행이 생긴다.',
+          done: '상단 「전체」 카운트가 늘고 도서 목록 에 대기 중 행이 생긴다.',
         },
         {
           title: '로직 처리',
@@ -45,27 +45,27 @@ export const LCP_HELP: HelpRegistry = {
         {
           title: '검수',
           detail:
-            '행을 클릭해 상세 모달을 열고 「📖 본문 검수」로 들어간다. 챕터 분절·낭독 연결·추출 단어를 여기서 본다.',
+            '행을 클릭해 상세 모달을 열고 「📖 본문 검수」로 들어간다. 챕터 분절·낭독 연결·추출 단어를 여기서 본다. 「큐레이션으로」 또는 작업 성공 후에는 검수에 들어온 목록 보기·검색·필터·쪽으로 돌아간다. 게시로 도서가 검토 대기에서 빠지면 같은 필터에 더 이상 보이지 않을 수 있다.',
           done: '검수는 **상태를 바꾸지 않는다** — 다 봐도 검토 대기 그대로다. 세 가지(분절·낭독·단어)를 확인했으면 끝난 것이고, 다음은 게시다.',
         },
         {
           title: '게시',
           detail:
             '검수 화면에서 게시한다. 게시하는 순간 챕터 단어장이 트리거로 자동 생성되므로, 게시 전에는 단어장 수가 0인 게 정상이다.',
-          done: '스테퍼의 게시됨 카운트가 늘고 학습자 카탈로그에 노출된다.',
+          done: '상단 요약의 게시됨 카운트가 늘고 학습자 카탈로그에 노출된다. 처리할 도서가 없으면 작업 순서 안내는 숨겨진다.',
         },
         {
           title: '후처리 큐 적재 (선택)',
           detail:
-            '스크립트 퀴즈·레벨 검토·어휘 감사는 게시 전후에 Curated Books 에서 체크 선택 후 큐에 넣는다. 실제 생성·판정은 Claude Code 드레인이 한다.',
+            '스크립트 퀴즈·레벨 검토·어휘 감사는 게시 전후에 도서 목록 에서 체크 선택 후 큐에 넣는다. 실제 생성·판정은 Claude Code 드레인이 한다.',
           done: '「드레인 큐」 카드의 대기 수가 넣은 만큼 늘어난다. 여기까지가 이 화면의 몫이고, 실제 생성은 Claude Code 를 돌려야 진행된다.',
         },
       ],
       fields: [
         {
-          label: '상단 4 타일',
+          label: '도서 처리 요약',
           detail:
-            '「처리 중」에는 아직 손대지 않은 대기(queued)까지 포함된다 — Curated Books 스테퍼의 「로직 처리중」과 숫자가 다른 이유다. 「실패」는 fetch/preview/ingest/enrich 실패를 합친 값.',
+            '「처리 중」에는 아직 손대지 않은 대기(queued)까지 포함된다 — 도서 목록 스테퍼의 「로직 처리중」과 숫자가 다른 이유다. 「실패」는 fetch/preview/ingest/enrich 실패를 합친 값.',
         },
         {
           label: '저작권 게이트',
@@ -78,12 +78,12 @@ export const LCP_HELP: HelpRegistry = {
       ],
       seeAlso: [
         { label: '품질 지표', href: '/admin/quality' },
-        { label: '콘텐츠(발행 도서)', href: '/admin/library' },
+        { label: '발행 도서', href: '/admin/curation?view=library&status=published' },
       ],
     },
 
     tabs: {
-      'Curated Books': {
+      '도서 목록': {
         summary:
           '큐에 들어온 도서를 상태별로 추적하고, 처리·검수·게시·후처리 큐 적재를 실제로 누르는 곳.',
         diagrams: [
@@ -103,7 +103,7 @@ export const LCP_HELP: HelpRegistry = {
           {
             label: '작업 순서 스테퍼',
             detail:
-              '단계를 누르면 아래 목록이 그 상태로 필터된다. 카운트 0인 단계는 접히고, 현재 권장 단계와 게시됨만 항상 보인다.',
+              '처리할 도서가 있을 때 표시된다. 단계를 누르면 목록이 해당 상태로 필터된다. 처리 대기가 없으면 같은 상태 필터를 쓰고 목록을 바로 확인한다.',
           },
           {
             label: '큐 처리 (dev · N권)',
@@ -214,7 +214,7 @@ export const LCP_HELP: HelpRegistry = {
               { label: 'GET batch', actor: 'script', says: '외부 서버에 실제 요청 — 신규·중복 수가 뜬다' },
               { label: '메타 보강', actor: 'script', says: '줄거리·주제·분량은 개별 도서 페이지에만 있다' },
               { label: '큐레이션 정보', actor: 'claude', says: '유형·연령·V-Level·줄거리는 소스가 안 준다' },
-              { label: 'enqueue', actor: 'user', says: '쓸 행만 — 이후 추적은 Curated Books' },
+              { label: 'enqueue', actor: 'user', says: '쓸 행만 — 이후 추적은 도서 목록' },
             ],
             branch: [
               { when: '배치보다 적게 들어온다', then: '그 카테고리에 실제로 있는 수가 적은 것이다 — 고장이 아니다' },
@@ -242,7 +242,7 @@ export const LCP_HELP: HelpRegistry = {
           },
           {
             title: 'enqueue',
-            detail: '쓸 행만 enqueue 한다. 이후 추적은 Curated Books 탭.',
+            detail: '쓸 행만 enqueue 한다. 이후 추적은 도서 목록 탭.',
             done: '행 버튼이 「큐」 배지로 바뀐다.',
           },
         ],
@@ -337,7 +337,7 @@ export const LCP_HELP: HelpRegistry = {
           {
             label: '선택',
             detail:
-              '큐 추가 확인 모달이 뜨고, 추가되면 Curated Books 탭으로 자동 이동한다. 같은 (소스, id) 는 멱등이라 두 번 넣어도 행이 늘지 않는다.',
+              '큐 추가 확인 모달이 뜨고, 추가되면 도서 목록 탭으로 자동 이동한다. 같은 (소스, id) 는 멱등이라 두 번 넣어도 행이 늘지 않는다.',
           },
           {
             label: '상태 배지',
@@ -464,7 +464,7 @@ export const LCP_HELP: HelpRegistry = {
     screen: {
       summary:
         '게시 전에 사람이 확인하는 마지막 관문 — 본문·삽화·낭독·추출 단어·챕터 단어장·챕터 퀴즈를 한 페이지에서 본다.',
-      when: 'Curated Books 에서 검토 대기(또는 게시됨) 도서의 상세 모달 → 「📖 본문 검수」로 들어온다.',
+      when: '도서 목록 에서 검토 대기(또는 게시됨) 도서의 상세 모달 → 「📖 본문 검수」로 들어온다.',
       diagrams: [
         {
           kind: 'flow',
@@ -545,10 +545,25 @@ export const LCP_HELP: HelpRegistry = {
       ],
       cautions: [
         '게시·보관·재처리를 누르면 성공 즉시 /admin/curation 목록으로 되돌아간다 — 같은 책을 더 볼 게 있으면 순서를 뒤로 미룬다.',
-        '삭제·재처리 같은 되돌리기 액션은 이 화면이 아니라 Curated Books 의 상세 모달에 있다.',
+        '삭제·재처리 같은 되돌리기 액션은 이 화면이 아니라 도서 목록 의 상세 모달에 있다.',
         '챕터 퀴즈 검수는 발행 여부와 무관하게 보인다 — 여기서 문항이 보인다고 학습자에게 노출된 것은 아니다.',
       ],
       seeAlso: [{ label: '큐레이션 목록으로', href: '/admin/curation' }],
     },
   },
+}
+
+// Outer work views share the existing source-specific help; old labels remain compatible.
+LCP_HELP.curation.tabs!['도서 목록'] = {
+  ...LCP_HELP.curation.tabs!['도서 목록']!,
+  summary: '검색·소스·수준·상태·페이지·선택 도서는 URL에 남습니다. 한 페이지의 도서만 전체 선택되며, 페이지를 옮겨도 명시적으로 고른 항목은 일괄 선택 수에 남습니다.',
+}
+LCP_HELP.curation.tabs!['검토 대기'] = {
+  ...LCP_HELP.curation.tabs!['도서 목록']!,
+  diagrams: undefined,
+  summary: '검토 대기 도서부터 표시합니다. 본문·분절·낭독·단어를 확인한 다음 기존 발행 동작을 사용합니다. 다른 상태를 고르면 도서 목록으로 돌아갑니다.',
+}
+LCP_HELP.curation.tabs!['수집'] = {
+  summary: '수집 방식에서 소스 카탈로그·추천·대량·소스별 ID를 선택합니다. 가져온 결과는 같은 도서 목록에 모입니다. 큐 추가가 끝나면 이전 검색·상태 조건을 해제하고 전체 목록으로 돌아갑니다.',
+  when: '새 도서를 가져올 때. 검토와 발행은 목록에서 이어갑니다.',
 }

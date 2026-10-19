@@ -1,5 +1,24 @@
 # Routes Map
 
+### 관리자 업무 영역 및 호환 경로 (2026-10-19)
+
+- 후속(2026-10-20): `/admin/kice/[typeId]`는 `q/exam/page`와 집합/학년을 유지하고, 문항 상세의 `returnTo`는 허용된 관리자 유형 목록·허용 query만 복원한다. 학습자 상세의 `activityBefore`는 같은 대상의 시도 ID 커서다. 페이지 이동은 진단 tab/view를 유지한다. 새 라우트는 없다.
+
+v2.1은 상위 7개·하위 22개 작업 공간을 적용한다. 89개 페이지의 현재 소속과 한계는 [구현·지원 범위](admin-restructure/v21-delivery.md), [경로 대조](admin-restructure/v21-route-support.json)를 따른다.
+
+- Compose `tab=소스|피드|발견|원장|작성|가공|발행`, CCP `tab=catalog|published|styles|tests|models`, PDCP `tab=source|queue|pd|monitor|tools`를 URL에서 복원한다. CCP의 `published` 화면 이름은 제작본이다. 탭 변경은 다른 query/hash를 보존한다.
+- 교재 검수·발행의 `series`와 `band`는 시리즈·카탈로그 단계(`step`)다. 조판 행의 V밴드 키와 다르며 서버 조회는 `series+step`으로 제한한다. 불완전하거나 지원하지 않는 조합은 거부한다.
+- 기출 문항에서 근거 검수의 `item`·`exam` 및 기존 집합·학년을 전달하고, 등록 적용은 기존 `/admin/knowledge/product/[id]`의 실제 적용 ID로 연다.
+
+관리자 기존 URL은 유지하며 lib/admin/navigation.ts가 7개 영역의 소속과 내부 내비를 정한다. 새 API/RPC/DB 변경은 없다.
+- /admin/library → /admin/curation?view=library: 검색·선택 파라미터 보존.
+- /admin/reports / /admin/billing → /admin/settings#reports / #billing: 연결·지원 상태에서 확인.
+- /admin/csat/explain → /admin/csat/authoring?view=explanation: 시리즈·단계 등 기존 파라미터 보존. view=items|explanation로 문항·해설 전환.
+- 도서: view=library|collect|review, 수집 method, 목록 q/source/level/status/page/selected 복원. 기존 tab은 호환 파싱한다.
+- /admin/vocab → /admin/vocab/runs의 기존 redirect는 유지. 새 내부 메뉴의 기본 제작 방식은 /admin/vocab/studio.
+- 영어 진단 및 어휘 수준/이력은 학습자 영역, 교재 기출 근거·전략·설계는 연구 영역에 표시한다. URL 재배치나 권한 확대는 없다.
+
+
 ### CSAT 원문 운영 API (2026-09-18)
 
 `/api/admin/csat/sources` — 관리자/큐레이터 전용, no-store.
@@ -255,7 +274,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 경로 | 파일 | 비고 |
 |---|---|---|
 | `/admin/curation` | `admin/curation/page.tsx` + `AdminCurationClient.tsx` | 8탭 (Sources · BulkFetch · Seed · ID 4종 · MyLibrary) |
-| `/admin/curation/preview/[bookId]` | `admin/curation/preview/[bookId]/page.tsx` + `AdminReviewClient.tsx` | 도서 본문 검수 + LibriVox 매핑 패널 + 챕터 단어장 검수 |
+| `/admin/curation/preview/[bookId]` | `admin/curation/preview/[bookId]/page.tsx` + `AdminReviewClient.tsx` | 도서 본문 검수 + LibriVox·단어장 검수. `returnTo`는 허용된 도서 목록 조건만 전달하며 화면 복귀·작업 성공 시 같은 목록으로 이동 |
 | `/admin/library` | `admin/library/page.tsx` | 콘텐츠 관리 (예정) |
 | `/admin/articles` | `admin/articles/page.tsx` | ACP Pipeline (짧은 글) — Curated 탭에서 제목/검수 클릭 → 검수 페이지 |
 | `/admin/articles/preview/[id]` | `admin/articles/preview/[id]/page.tsx` + `AdminArticleReviewClient.tsx` | 글 본문 검수 (정독 + CEFR/단어 분석 + 게시/보관/처리) — LCP 책 검수 미러 |

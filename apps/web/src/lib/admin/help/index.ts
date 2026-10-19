@@ -30,8 +30,10 @@ import { TCP_HELP } from './topic-corpus'
 import { VCB_HELP } from './vocab'
 import { VFP_HELP } from './video'
 import { VRL_HELP } from './vrl'
+import { WORKFLOW_HELP } from './workflow'
 
 export const HELP_REGISTRY: HelpRegistry = {
+  ...WORKFLOW_HELP,
   ...ACP_HELP,
   ...COMPOSE_HELP,
   ...CSAT_HELP,

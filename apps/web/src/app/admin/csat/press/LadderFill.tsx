@@ -17,7 +17,7 @@ import type { PressView } from '@/lib/csat/factory-line-model'
 
 type Volume = PressView['volumes'][number]
 
-export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: number }) {
+export function LadderFill({ volumes, rungs, selectedStep }: { volumes: Volume[]; rungs: number; selectedStep?: number }) {
   // 한 계단에 여러 번 조판됐으면 **가장 최근 것**을 그 계단의 상태로 본다.
   const byStep = new Map<number, Volume>()
   for (const v of volumes) {
@@ -25,7 +25,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
     const cur = byStep.get(v.step)
     if (!cur || (v.renderedAt ?? '') > (cur.renderedAt ?? '')) byStep.set(v.step, v)
   }
-  const steps = Array.from({ length: rungs }, (_, i) => i + 1)
+  const steps = selectedStep == null ? Array.from({ length: rungs }, (_, i) => i + 1) : [selectedStep]
   const filled = steps.filter((s) => byStep.has(s)).length
 
   return (

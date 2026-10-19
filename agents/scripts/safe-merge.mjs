@@ -27,6 +27,7 @@ import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import { isMain, rel } from './lib.mjs'
+import { executionMode, executionNotice } from './execution-mode.mjs'
 
 /** 정책 정본(없거나 깨지면 던진다 — 정책 없이 병합하지 않는다) */
 export function loadPolicy(file = rel('agents', 'policies', 'pr-automation.json')) {
@@ -228,6 +229,17 @@ async function main() {
   const arg = (k, d) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : d)
   if (!n) {
     console.error('사용: node agents/scripts/safe-merge.mjs <PR번호> [--wait] [--timeout-min 30] [--method merge|squash|rebase] [--dry-run]')
+    return 1
+  }
+  // dry-run도 원격 조회를 하므로 모드를 네트워크 호출보다 먼저 확인한다.
+  try {
+    const mode = executionMode()
+    if (mode === 'LOCAL_FAST') {
+      console.log(`[safe-merge] ${executionNotice(mode)} 원격 호출 없이 종료합니다.`)
+      return 3
+    }
+  } catch (e) {
+    console.error(`[safe-merge] ${e.message} — 원격 호출 없이 종료합니다.`)
     return 1
   }
   const method = arg('--method', 'merge')

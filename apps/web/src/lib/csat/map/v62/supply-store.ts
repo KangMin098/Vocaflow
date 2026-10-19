@@ -13,7 +13,7 @@ import type { MaterialRole } from './demand'
 
 const MISSING = new Set(['42P01', 'PGRST205', '42883', 'PGRST202'])
 
-export async function loadSupplyLedger(db: SupabaseClient, userId: string, workspaceId: string | null): Promise<SupplyLedger> {
+export async function loadSupplyLedger(db: SupabaseClient, userId: string, workspaceId: string | null, fulfillmentDb: Pick<SupabaseClient, 'rpc'> = db): Promise<SupplyLedger> {
   if (!workspaceId) return { status: 'installed', lines: {} }
   const probe = await db.from('factory_order').select('id', { head: true, count: 'exact' }).limit(1)
   if (probe.error) return probe.error.code && MISSING.has(probe.error.code) ? { status: 'not_installed' } : { status: 'error' }
@@ -54,7 +54,8 @@ export async function loadSupplyLedger(db: SupabaseClient, userId: string, works
   for (const lineId of delivered) {
     const l = byLine.get(lineId)!
     const rec = out[ledgerKey(l.task, l.role, l.canonical)]!
-    const f = await db.rpc('workspace_line_fulfillment', { p_line: lineId })
+    // 관리자 조회는 테이블 소유 확인에 service_role을 쓰더라도 이 RPC에는 인증 세션이 필요하다.
+    const f = await fulfillmentDb.rpc('workspace_line_fulfillment', { p_line: lineId })
     if (f.error) {
       if (f.error.code && MISSING.has(f.error.code)) { rec.requested = null; rec.validDelivered = null; continue }
       return { status: 'error' }

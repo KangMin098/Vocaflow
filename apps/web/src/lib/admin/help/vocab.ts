@@ -10,7 +10,7 @@ const RUNS_ENTRY: ScreenHelpEntry = {
   title: 'VCB Pipeline Runs',
   screen: {
     summary:
-      '공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다.',
+      "공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다. 단어장 공간에서 기존 사전 조립·새 seed 제작·발행 컬렉션을 구별합니다. 보강 완료와 후처리·발행 완료는 별도입니다.",
     when: '새 공용 단어장을 시작할 때, 또는 진행 중인 run 을 이어서 처리할 때.',
     diagrams: [
       {
@@ -790,3 +790,9 @@ export const VCB_HELP: HelpRegistry = {
     },
   },
 }
+
+// 어휘·사전: 기존 사전으로 조립(Studio), 새 seed로 제작(Runs), 입력 자료와 발행 컬렉션을 구분합니다. Runs의 보강·검수·발행은 유지하며 pending_words 사전 보강 드레인과 합치지 않습니다.
+RUNS_ENTRY.screen.fields = [
+  ...(RUNS_ENTRY.screen.fields ?? []),
+  { label: '제작 방식 선택', detail: '이미 있는 사전으로 조립하려면 기존 사전으로 조립(Studio), 새 seed의 보강·검수·발행을 이어가려면 새 seed로 제작(Runs)을 사용합니다. 학습 중 발견한 사전 공백은 별도 사전 보강에서 처리합니다.' },
+]

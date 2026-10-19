@@ -15,16 +15,13 @@ import {
   BookMarked,
   Brain,
   ClipboardCheck,
-  CreditCard,
   Database,
-  Flag,
   Gauge,
   Library,
   Newspaper,
   Scale,
   ScanLine,
   ShieldCheck,
-  Sliders,
   Sparkles,
   Users,
   Workflow,
@@ -33,11 +30,8 @@ import {
 import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
+import { AdminWorkInbox } from '@/components/admin/AdminWorkInbox'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { RetentionPanel } from '@/components/admin/RetentionPanel'
-import { TeacherFunnelPanel } from '@/components/admin/TeacherFunnelPanel'
-import { fetchRetention } from '@/lib/admin/retention'
-import { fetchTeacherFunnelGaps } from '@/lib/admin/teacher-funnel'
 import {
   fmt,
   getAdminDashboardStats,
@@ -157,7 +151,7 @@ function buildPipelines(s: DashboardStats): PipelineCard[] {
     },
     {
       href: '/admin/vrl',
-      label: 'VRL · 어휘 레벨',
+      label: '사전 품질·분류',
       sub: 'V-Level · Track · Domain · Skill 4축 분류',
       Icon: Brain,
       metrics: [
@@ -222,7 +216,7 @@ function buildOpsLinks(s: DashboardStats): OpsLink[] {
   return [
     {
       href: '/admin/vocabulary',
-      label: '단어장 마스터',
+      label: '사전',
       note: `사전 ${fmt(s.words.dict)}개`,
       Icon: BookMarked,
     },
@@ -251,41 +245,16 @@ function buildOpsLinks(s: DashboardStats): OpsLink[] {
       Icon: Users,
       mock: true,
     },
-    {
-      href: '/admin/library',
-      label: '콘텐츠',
-      note: `텍스트 ${fmt(s.texts)}편 · 챕터 퀴즈 ${fmt(s.words.chapterQuiz)}문항`,
-      Icon: Library,
-      mock: true,
-    },
+
     {
       href: '/admin/analytics',
-      label: '플랫폼 분석',
+      label: '활동 분석',
       note: 'DAU/MAU · retention',
       Icon: BarChart3,
-      mock: true,
     },
-    {
-      href: '/admin/reports',
-      label: '신고/문의',
-      note: s.reportsOpen === null ? 'reports 테이블 없음' : `미처리 ${fmt(s.reportsOpen)}건`,
-      Icon: Flag,
-      mock: true,
-    },
-    {
-      href: '/admin/billing',
-      label: '결제/구독',
-      note: '결제 테이블 없음',
-      Icon: CreditCard,
-      mock: true,
-    },
-    {
-      href: '/admin/settings',
-      label: '시스템 설정',
-      note: 'feature flags · AI 프롬프트',
-      Icon: Sliders,
-      mock: true,
-    },
+
+
+
   ]
 }
 
@@ -298,13 +267,8 @@ export default async function AdminDashboardPage() {
   await requireAdmin('/admin')
   const client = createAdminClient() as unknown as SupabaseClient
   // 공급(콘텐츠)과 수요(학습자)를 나란히 부른다 — 이 화면이 공급만 세고 있던 것이 F4 의 실체다.
-  const [stats, retention, teacherGaps] = await Promise.all([
-    getAdminDashboardStats(client),
-    fetchRetention(),
-    // 리텐션은 **일어난 일**만 파생한다. 교사 채널이 어디서 끊기는지는
-    // "일어나지 않은 일"(허브에 왔지만 안 만듦 · 공유했지만 안 옴)이라 따로 읽는다.
-    fetchTeacherFunnelGaps(),
-  ])
+  const stats = await getAdminDashboardStats(client)
+
 
   const kpis: AdminKpi[] = [
     {
@@ -386,7 +350,7 @@ export default async function AdminDashboardPage() {
             Admin Console
           </p>
           <h1 className="font-display text-[24px] font-[800] tracking-tight text-[var(--t1)]">
-            대시보드
+            작업 홈
           </h1>
         </div>
         <p className="hidden font-body text-[12px] text-[var(--t2)] md:block">
@@ -396,6 +360,9 @@ export default async function AdminDashboardPage() {
 
       <AdminScreenHelp screen="dashboard" className="-mt-4 mb-6" />
 
+      <AdminWorkInbox stats={stats} />
+      <details className="mb-6 rounded-[var(--r-md)] border border-[var(--bd)] p-4">
+        <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">영역별 현황·재고·운영 링크</summary>
       {/* ── KPI ── */}
       <section aria-label="핵심 지표">
         <AdminKpiGrid kpis={kpis} />
@@ -413,16 +380,8 @@ export default async function AdminDashboardPage() {
             수요
           </span>
         </header>
-        <RetentionPanel report={retention} />
+        <Link href="/admin/analytics" className="inline-flex min-h-11 items-center text-sm text-[var(--t1)] underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">활동 분석에서 리텐션·교사 퍼널 확인</Link>
 
-        {/* 10만 산술(교사 3,500명 × 학급 30명)이 성립하는지는 이 두 격차가 말한다.
-            파생으로는 영영 못 보는 구간이라 funnel_events 가 분모를 댄다. */}
-        <div className="mt-4">
-          <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
-            교사 채널 — 어디서 끊기는가
-          </h3>
-          <TeacherFunnelPanel gaps={teacherGaps} />
-        </div>
       </section>
 
       {/* ── 파이프라인 현황 ── */}
@@ -519,6 +478,7 @@ export default async function AdminDashboardPage() {
         </ul>
       </section>
 
+      </details>
       {/* ── 최근 변경 ── */}
       <section
         aria-label="최근 변경"

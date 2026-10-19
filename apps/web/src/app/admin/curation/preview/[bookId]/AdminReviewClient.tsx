@@ -3,6 +3,7 @@
 'use client'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { adminCurationReturn } from '@/lib/admin/curation-view'
 import { BookContentReader } from '@/components/library/reader/BookContentReader'
 import {
   archiveBook,
@@ -31,6 +32,7 @@ interface Props {
   /** v06.34 — chapter list 옆 원본 소스 외부링크 */
   source?: string | null
   sourceId?: string | null
+  returnTo?: string
 }
 
 export function AdminReviewClient({
@@ -45,6 +47,7 @@ export function AdminReviewClient({
   chapters,
   source,
   sourceId,
+  returnTo,
 }: Props) {
   const router = useRouter()
   const [pending, setPending] = useState<string | null>(null)
@@ -52,13 +55,14 @@ export function AdminReviewClient({
 
   const statusInfo = classifyStatus(status as BookStatus)
   const publishGate = computePublishGate(status, copyrightSafeInKr)
+  const returnHref = adminCurationReturn(returnTo)
 
   async function runAction(label: string, fn: () => Promise<void>) {
     setPending(label)
     setError(null)
     try {
       await fn()
-      router.push('/admin/curation')
+      router.push(returnHref)
       router.refresh()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'unknown')
@@ -72,7 +76,7 @@ export function AdminReviewClient({
       {/* Top bar — back + meta */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
-          href="/admin/curation"
+          href={returnHref}
           className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />

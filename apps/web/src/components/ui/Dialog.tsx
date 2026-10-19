@@ -33,7 +33,7 @@ import { createPortal } from 'react-dom'
 
 import { DIALOG, TINT_PANEL } from './tines-kit'
 import { cn } from '@/lib/utils/cn'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
+import { useCloseOnBack, type CloseOnBackOptions } from '@/lib/ui/use-close-on-back'
 import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 // ══════════════════════════════════════════════════════════════
@@ -53,6 +53,8 @@ export type DialogTone = 'lavender' | 'green' | 'peach' | 'yellow' | 'pink' | 't
 
 export interface DialogProps {
   onClose: () => void
+  /** 닫힌 뒤 페이지 이동은 오버레이 이력을 걷은 다음 실행한다. */
+  afterUnwindRef?: CloseOnBackOptions['afterUnwindRef']
   /** 제목 — 참조처럼 크게 나간다. 문자열이 아니어도 된다. */
   title: ReactNode
   /** 빵부스러기. 첫 칸은 알약, 나머지는 `›` 로 잇는다. */
@@ -89,6 +91,7 @@ export interface DialogProps {
 
 export function Dialog({
   onClose,
+  afterUnwindRef,
   title,
   crumbs,
   byline,
@@ -115,7 +118,7 @@ export function Dialog({
   const [shown, setShown] = useState(false)
 
   // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다.
-  useCloseOnBack(true, onClose)
+  useCloseOnBack(true, onClose, { afterUnwindRef })
   // 포커스는 패널 자체로 들어간다(긴 팝업에서 첫 버튼으로 뛰면 제목을 건너뛴다).
   useFocusTrap(true, panelRef)
 

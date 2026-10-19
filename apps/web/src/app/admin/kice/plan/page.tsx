@@ -22,8 +22,6 @@ import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { PlanTimeline } from '@/components/csat/PlanTimeline'
 import { loadCsatPlan } from '@/lib/csat/learner'
-import { loadMyTraps } from '@/lib/csat/my-traps'
-import { createClient } from '@/lib/supabase/server'
 
 import { PlanList } from './PlanList'
 
@@ -36,9 +34,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function CsatPlanPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const scope = parseScope(await searchParams)
-  // 내 훈련 기록 — 있으면 「내 약한 것 먼저」 순서가 생긴다(⑤). 못 읽어도 화면은 그대로
-  // 뜨고 토글만 없다: 계획은 기록과 무관하게 볼 수 있어야 한다.
-  const [plan, mine] = await Promise.all([loadCsatPlan(scope), createClient().then((db) => loadMyTraps(db))])
+  const plan = await loadCsatPlan(scope)
   const pending = plan.rows.length - plan.ready_items
   const over = plan.budget_sec > plan.available_sec
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
@@ -101,8 +97,8 @@ export default async function CsatPlanPage({ searchParams }: { searchParams: Pro
 
           {/* ⑤ 주파 — 줄 세우기는 클라이언트가 한다(토글). 시간 띠는 **위에** 그대로 두어
               번호 순서를 잃지 않는다: 시험은 번호대로 치러지고, 이 순서는 공부할 순서다. */}
-          {/* 「내 약한 것 먼저」는 평가원 함정 분포(구운 값)로 순위를 낸다 — 학평 범위에서는 끈다(학년 분포 생기기 전) */}
-          <PlanList rows={plan.rows} mine={scope.set === 'kice' ? mine : null} scope={scope} />
+          {/* 공용 분석은 선택한 시험 집합의 번호 순서를 유지한다. */}
+          <PlanList rows={plan.rows} scope={scope} />
 
         </>
       ) : null}
