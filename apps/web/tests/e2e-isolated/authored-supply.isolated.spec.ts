@@ -75,7 +75,9 @@ for (const width of [1440, 1280]) {
     // 혼자 확인 자료가 있으면 그것, 없으면 첫 자료(단계에 따라 다르다) — 링크는 출처(?d=)를 가진다
     const link = list.locator('li[data-role="independent_check"] a').first().or(list.locator('li a').first()).first()
     const href = await link.getAttribute('href')
-    expect(href).toMatch(/^\/csat\/learn\/[a-z0-9.-]+\?d=[0-9a-f-]{36}$/)
+    // 출처(?d=) + 지도 복귀 문맥(from=map · TASK · Workspace · PLAN — C7 P2 · outgoingCtx)
+    expect(href).toMatch(/^\/csat\/learn\/[a-z0-9.-]+\?d=[0-9a-f-]{36}(&|$)/)
+    expect(href).toContain('from=map')
     await link.click()
     const runner = page.locator('[data-testid="authored-runner"]')
     await expect(runner).toBeVisible({ timeout: 30_000 })

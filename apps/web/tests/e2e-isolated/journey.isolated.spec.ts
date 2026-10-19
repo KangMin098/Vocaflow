@@ -233,7 +233,8 @@ async function solveWrong(page: Page, item: Item & { gold: Item['gold'] & { clai
   await expect(page.locator('[data-testid="authored-result"]')).toContainText('이번에는 어긋났어요', { timeout: 30_000 })
 }
 
-test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기', async ({ page }) => {
+// 다시 확인 결과 두 갈래(T-0050 rev5 기준 3) — pass: 새 지문 정답 → 해소 · fail: 다시 틀림 → 새 바로잡기 회차(이전 안내 연습 성공 불승계)
+for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome}) — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기 → 적용 → 다시 확인`, async ({ page }) => {
   test.setTimeout(300_000)
   const { uid, learner, ws, goalVersionId } = await begin(page, 'repair')
   const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
@@ -349,14 +350,16 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   expect(fresh.length, '새 미노출 독립 확인 2').toBe(2)
   const withRecheck = await observe(page)
   expect(fresh.map((r) => `/csat/learn/${r.slice('authored:'.length)}`)).toContain(withRecheck.next)
-  // 새 독립 확인 2 정답 — 지도 CTA 를 따라 실제 Runner · 서버 채점 · G2 결속(본인 · TASK · 납품 · 서버 결과)
+  // 새 독립 확인 2 — 지도 CTA 를 따라 실제 Runner · 서버 채점 · G2 결속(본인 · TASK · 납품 · 서버 결과). pass 는 정답, fail 은 명확한 오답
   const freshDids: string[] = []
   for (const ref of fresh) {
     const item = R5.items.find((i) => `authored:${i.id}` === ref)!
     const did = await deliveryOf(uid, ref, 'independent_check')
     freshDids.push(did)
-    await solve(page, item, did)
-    await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
+    if (outcome === 'pass') {
+      await solve(page, item, did)
+      await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
+    } else await solveWrong(page, item as never, did)
   }
   await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid).in('delivery_id', freshDids)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(2)
   // MAP — 새 독립 근거로만 판정이 바뀐다 · 처음 독립 오답 · G2 · 과거 PLAN 은 그대로
@@ -364,10 +367,17 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   const p6 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 5, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p6.status(), await p6.text()).toBe(200)
   const v6 = await planRow(ws, 6)
-  console.log('JOURNEY_RECHECK_DONE=' + JSON.stringify({ afterTransfer, withRecheck, resolved, v5: v5.task, v6: v6.task }))
-  expect(resolved.evidence, '새 지문 독립 확인 2 정답 → 현재 정책 통과').toBe('passed_current_policy')
-  expect(resolved.next, '해소 뒤 같은 TASK 를 다시 내밀지 않는다').not.toBe(withRecheck.next)
-  expect(v6.task?.stage ?? null, '해소 → 바로잡기 · 적용 단계가 아니다').not.toMatch(/^(repair|transfer)$/)
+  console.log(`JOURNEY_RECHECK_${outcome.toUpperCase()}=` + JSON.stringify({ afterTransfer, withRecheck, resolved, v5: v5.task, v6: v6.task }))
+  if (outcome === 'pass') {
+    expect(resolved.evidence, '새 지문 독립 확인 2 정답 → 현재 정책 통과').toBe('passed_current_policy')
+    expect(resolved.next, '해소 뒤 같은 TASK 를 다시 내밀지 않는다').not.toBe(withRecheck.next)
+    expect(['repair', 'transfer'], '해소 → 바로잡기 · 적용 단계가 아니다').not.toContain(v6.task?.stage ?? null)
+  } else {
+    // 다시 틀림 = 새 바로잡기 회차. 회차 전의 안내 연습 정답은 이번 회차 성공이 아니다 → 단계 repair · 다음 행동은 다시 안내 연습
+    expect(resolved.evidence, '다시 확인 실패 → 보완 필요 유지').toBe('need_confirmed')
+    expect(v6.task?.stage, '새 바로잡기 회차').toBe('repair')
+    expect(resolved.nextLabel ?? '', '이전 안내 연습 성공을 승계하지 않는다').toContain('안내 연습')
+  }
   expect(v6).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
   for (const [n, t] of [[3, v3.task], [4, v4.task], [5, v5.task]] as const) expect((await planRow(ws, n)).task, `PLAN v${n} 이력 불변`).toEqual(t)
   const firstsEnd = (await admin().from('learning_first_attempts').select('item_ref, is_correct, help_level').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
