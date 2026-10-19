@@ -150,6 +150,8 @@ export function gates(pr, policy, contents = {}, applied = {}) {
 export function completeFiles(listed, meta) {
   const reasons = []
   const paths = (listed ?? []).map((f) => f.filename ?? f.path).filter((p) => typeof p === 'string')
+  if (paths.some((p) => p.trim().length === 0) || new Set(paths).size !== paths.length) reasons.push('변경 파일 목록의 경로가 비어 있거나 중복됐다')
+  if (['headBefore', 'headAfter', 'prHead'].some((k) => typeof meta?.[k] !== 'string' || meta[k].trim().length === 0)) reasons.push('변경 파일 목록의 HEAD 메타데이터를 확인할 수 없다')
   if (!meta || typeof meta.changedFiles !== 'number') reasons.push('변경 파일 수(changed_files)를 읽지 못했다')
   else if (meta.changedFiles > 3000) reasons.push(`변경 파일 ${meta.changedFiles}개 — 목록 API 상한(3000) 초과로 전체를 확인할 수 없다`)
   else if (paths.length !== meta.changedFiles) reasons.push(`변경 파일 목록 ${paths.length}개 ≠ PR changed_files ${meta.changedFiles}개 — 목록이 잘렸다`)

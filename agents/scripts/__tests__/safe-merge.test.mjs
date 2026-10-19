@@ -197,3 +197,12 @@ test('SM-F2 100개 뒤의 마이그레이션도 게이트에 들어간다 — �
   const g = gates({ baseRefName: 'main', body: '## 검증\nx', files: full.files }, pol, { 'supabase/migrations/20261014091841_x.sql': 'select 1;' }, { '20261014091841': 'deadbeef' })
   assert.equal(g.ok, false)
 })
+
+test('SM-F3 변경 목록 형식 · HEAD 메타데이터가 불완전하면 병합 불가(FI-018 후속)', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const ok = { changedFiles: 2, headBefore: 'a', headAfter: 'a', prHead: 'a' }
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'y.ts' }], ok).ok, true)
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'x.ts' }], ok).ok, false)
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: ' ' }], ok).ok, false)
+  for (const k of ['headBefore', 'headAfter', 'prHead']) assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'y.ts' }], { ...ok, [k]: undefined }).ok, false, k)
+})
