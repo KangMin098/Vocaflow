@@ -45,7 +45,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div className="flex min-h-screen flex-col bg-bg">
       {/* ── Header — 미니멀 ── */}
       <header className="border-b border-bd">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-s-6 py-s-4">
+        {/* 본문(main · max 1360 · lg:px-10)과 같은 틀 — 예전 max-w-6xl 은 로고 x≈168 · 폼 x=80 으로 시작선이 갈렸다(2026-10-19 실측) */}
+        <div className="mx-auto flex w-full max-w-[1360px] items-center justify-between px-4 py-s-4 lg:px-10">
           {/* 로고 */}
           <Link
             href="/"

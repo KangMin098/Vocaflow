@@ -4,7 +4,7 @@
 // `bg-[var(--bd)]/55` 는 CSS 를 만들지 않아 조용히 투명하다 — 읽기 화면의 문장 듣기 점, 서가 코버플로의 페이지 점 9개,
 // 포커스 고리(기본 파랑으로 떨어짐)가 그래서 의도와 다르게 보였다.
 // 2026-10-18 학습자 코드(관리자·테스트 제외)에 119곳 · 50파일 → 읽기(16) · 서가 · 단어장(17)을
-// `scripts/design/var-opacity-codemod.mjs` 로 고쳤다(2026-10-19 기준 86곳 · 35파일). 나머지는 화면 묶음마다 눈으로 확인하며 고친다.
+// `scripts/design/var-opacity-codemod.mjs` 로 고쳤다(2026-10-19 기준 80곳 · 32파일 — 허브 · 대시보드 · 설정 6곳 추가로 고침). 나머지는 화면 묶음마다 눈으로 확인하며 고친다.
 //
 // **파일별 상한**이다 — 총량만 막으면 한 곳을 고친 몫이 다른 파일의 새 결함을 가린다(사용자 지시 2026-10-19).
 // 목록에 없는 파일에 하나라도 생기면 실패하고, 목록의 파일은 그 수를 넘으면 실패한다. 고치면 수를 낮추거나 줄을 지운다.
@@ -20,11 +20,9 @@ const RE = /\[var\(--[a-z0-9-]+\)\]\/\d{1,3}(?![\d%])/g
 /** 2026-10-19 기준선 — 파일(apps/web/src 기준) → 허용 상한 */
 const BASELINE: Record<string, number> = {
   'app/(main)/my/books/page.tsx': 1,
-  'app/(main)/settings/page.tsx': 3,
   'app/(marketing)/about/page.tsx': 1,
   'app/dev/page.tsx': 1,
   'components/comic/ComicFormatChoice.tsx': 1,
-  'components/dashboard/RecentActivity.tsx': 2,
   'components/diagnostic/DiagnosticClient.tsx': 2,
   'components/dictation/DictationHubClient.tsx': 1,
   'components/dictation/DictationResultsClient.tsx': 1,
@@ -32,7 +30,6 @@ const BASELINE: Record<string, number> = {
   'components/dictation/SourcePicker.tsx': 1,
   'components/echo/EchoMatchPlayer.tsx': 8,
   'components/game/scriptquiz/ScriptQuiz.tsx': 4,
-  'components/hub/HubStartCard.tsx': 1,
   'components/layout/SessionFrame.tsx': 1,
   'components/library/books/BookDetailClient.tsx': 6,
   'components/library/browse/ArticleCard.tsx': 1,

@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): S4 — 읽기 활동 선택을 현재 활동 + 그룹 펼침 메뉴로(목적지 12개 기준선 동일) · 구문 연습을 푸는 동안만 세션(`/practice/dcp/session`, from 복귀 보존) · 세션 측정기 모듈별 계약(8/8) · PairFlip 상태별 Esc 비교(미확인 해제) · 받아쓰기 네트워크 격리 화면 검증(쓰기 1건 차단) · 서가 「전체 탐색 ↓」 · 무효 투명도 23곳 + 파일별 가드 · 인증 머리 시작선 · 장 본문 표식 줄 콘텐츠 결함 기록 · 렌더 증거 원장(학습자 91 중 30).
 - feat(design): S3 ④ 읽기 — 팝오버를 역할별 두 벌로(`POPOVER_MENU` 10px · `POPOVER_CARD` 16px, tines.com 실측 대조 6/6 ×3조건), 타이포 설정이 열기만 해도 본문을 19px 로 바꾸던 결함 수정 + 고른 값 저장(`lib/reader/type-prefs`), 문장 듣기 점이 투명하던 무효 클래스(변수 색 + 슬래시 투명도) 읽기 범위 16곳 `color-mix` 로 + 상한 가드(학습자 전체 103곳 남음).
 - feat(design): S3 ③ 세션 — 단어장 학습·복습을 전체화면 세션 틀로(오른쪽 위 「세션 닫기」 · Esc 저장 후 종료 · `?from=` 복귀 유지, 카드 안 「← 종료」 제거 · 진행·설정 유지) · SpellForge 전체화면에서 겹친 자체 닫기 숨김 · Echo/만화 「본문으로」 44px·포커스. 검증 `session-audit` · `session-check`(기준선 2/6 → 5/6, 남은 1 = SpellForge Esc 건너뛰기 의도).
 - feat(design): S3 ② 단어장 — `/wordvault` 허브 머리를 서가와 같은 `AreaHero` 한 장으로(머리띠 + 18px 바 → 눈썹 · 52px 제목 · 판 아랫변 보기 탭 · 테마 전환), 시작선 셋 → 하나. `AreaHero` `trailing` 자리 · `ModuleBanner.stageOf` 공개 · 동작 검증 `vault-check`(7/7 ×2폭).

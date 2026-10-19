@@ -565,7 +565,7 @@ export default function SettingsPage() {
           })}
 
           {/* Danger zone */}
-          <div className="mt-4 rounded-[var(--r-md)] border border-[var(--error)]/20 bg-[var(--error-light)]/40 p-4">
+          <div className="mt-4 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--error)_20%,transparent)] bg-[color-mix(in_srgb,var(--error-light)_40%,transparent)] p-4">
             <header className="flex items-center gap-2">
               <AlertTriangle size={14} className="text-[var(--error-ink)]" aria-hidden />
               <p className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--error-ink)]">
@@ -594,7 +594,7 @@ export default function SettingsPage() {
                 type="button"
                 disabled
                 title="계정 해지는 준비 중입니다. support@vocaflow.com 으로 문의해주세요."
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Trash2 size={12} aria-hidden />
                 계정 해지
