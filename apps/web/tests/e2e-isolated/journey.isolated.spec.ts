@@ -138,7 +138,10 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   expect(['not_measured', 'axis_observation', 'checking']).toContain(before.evidence) // 화면 용어(v6.2 InspectorEvidence)
 
   // 학습 · 수행 — 독립 확인 1 · 전이 1 만 푼다(독립 확인 하나는 남겨 다음 행동이 옮겨 가는지 본다)
-  const solved = [delivered[0], delivered[2]]
+  // 다음 행동이 가리키는 바로 그 확인 자료 + 전이 1 을 푼다 — 그래야 다음 행동이 「근거로」 옮겨 가는지 본다(새 자료는 없다)
+  const nextId = before.next?.split('/').pop() ?? null
+  const target = delivered.find((d) => d.item.role === 'independent_check' && d.item.id === nextId) ?? delivered[0]
+  const solved = [target, delivered[2]]
   for (const { item, did } of solved) await solve(page, item, did)
 
   // G2 — 푼 시도만 그 납품에 결속 · 독립 첫 시도 = 근거
@@ -162,7 +165,86 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   console.log('JOURNEY_PLAN=' + JSON.stringify({ v1: v1.task, v2: base.task, v3: v3.task }))
   expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
   if (after.blocked === 'relevance_unknown') console.log('JOURNEY_PLAN_STAGE=unchanged:relevance_unknown')
-  else expect(v3.task, '저장 PLAN 의 TASK 항목이 근거로 바뀌어야 한다').not.toEqual(base.task)
+  // 같은 확인 묶음 안의 1건 성공은 done · 남은 수 · 다음 문항을 바꾸지만 저장 TASK 의 stage · planned · available 은 같을 수 있다(가용량 = 미노출 + 수행 · 중복 차감 방지 계약).
+  //   이 경로는 진행 · 복귀 대조로만 기록하고, 저장 PLAN 의 의미 전환은 아래 「양성 경로」(2 오답 → repair)가 단언한다(Codex 설계 2026-10-19)
+  else console.log('JOURNEY_PLAN_TASK=' + (JSON.stringify(v3.task) === JSON.stringify(base.task) ? 'same(진행만 · 의미 전환 아님)' : 'changed'))
   expect((await planRow(ws.id, 1)).task, 'PLAN v1 이력은 그대로').toEqual(v1.task)
   expect((await planRow(ws.id, 2)).task, 'PLAN v2 이력은 그대로').toEqual(base.task)
+})
+
+/** 양성 경로용 — 같은 시작(기록 → 목표 → PLAN v1)을 새 계정으로 다시 밟는다(앞 계정과 결과를 섞지 않는다) */
+async function begin(page: Page, tag: string) {
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  const email = `iso-journey-${tag}-${Date.now()}@example.org` // 비합성 도메인 — 지도 근거에 들어간다(격리 DB 합성 학습자)
+  const password = `Iso-${Math.random().toString(36).slice(2)}-Aa1`
+  const created = await admin().auth.admin.createUser({ email, password, email_confirm: true })
+  expect(created.error).toBeNull()
+  const uid = created.data.user!.id
+  const learner = createClient(URL_, ANON, { auth: { persistSession: false } })
+  expect((await learner.auth.signInWithPassword({ email, password })).error).toBeNull()
+  await page.goto('/login', { waitUntil: 'networkidle' })
+  await page.fill('input[type="email"]', email)
+  await page.fill('input[type="password"]', password)
+  await page.click('button[type="submit"]')
+  await page.waitForURL((x) => !x.pathname.startsWith('/login'))
+  const today = new Date(Date.now() + 9 * 3600_000).toISOString().slice(0, 10)
+  const choices = Object.fromEntries(Array.from({ length: 45 }, (_, i) => [i + 1, ((i + 1) % 5) + 1]))
+  const ex = await page.request.post('/api/csat/diagnosis/sessions', { data: { examId: 'M9901', mode: 'live', takenAt: today, clientKey: crypto.randomUUID(), choices } })
+  expect(ex.status(), await ex.text()).toBe(200)
+  const g = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, exam: 'kice6', clientKey: crypto.randomUUID() } })
+  expect(g.status(), await g.text()).toBe(200)
+  const goalVersionId = (await g.json() as { goalVersionId: number }).goalVersionId
+  const p1 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'initial', expectedVersion: 0, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p1.status(), await p1.text()).toBe(200)
+  const ws = (await admin().from('learner_workspace').select('id').eq('user_id', uid).single()).data!.id as string
+  return { uid, learner, ws, goalVersionId }
+}
+
+/** 명확히 틀린 응답 — 정답이 아닌 선택지 · 중심(또는 다시 말하기)이 아닌 문장. 정당한 대체 정답을 오답으로 만들지 않는다 */
+async function solveWrong(page: Page, item: Item & { gold: Item['gold'] & { claimRestated?: number[] } }, did: string) {
+  await page.goto(`/csat/learn/${item.id}?d=${did}`, { waitUntil: 'domcontentloaded' })
+  const runner = page.locator('[data-testid="authored-runner"]')
+  await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
+  const central = new Set([item.gold.claim, ...(item.gold.claimRestated ?? [])])
+  const n = await runner.locator('[data-sentence]').count()
+  const notCentral = Array.from({ length: n }, (_, k) => k).filter((k) => !central.has(k))
+  await runner.locator(`[data-sentence="${notCentral[0]}"]`).click() // 중심이 아닌 문장을 중심으로
+  await runner.locator(`[data-sentence="${notCentral[1]}"]`).click()
+  if (await runner.locator('[data-relation]').count()) await runner.locator('[data-relation]').first().click()
+  await runner.locator(`[data-choice="${(item.gold.answer + 1) % 5}"]`).click() // 정답이 아닌 선택지
+  await runner.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(page.locator('[data-testid="authored-result"]')).toContainText('이번에는 어긋났어요', { timeout: 30_000 })
+}
+
+test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기', async ({ page }) => {
+  test.setTimeout(300_000)
+  const { uid, learner, ws, goalVersionId } = await begin(page, 'repair')
+  const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
+  const delivered: { item: Item; did: string }[] = []
+  for (const item of ind) delivered.push({ item, did: await deliver(learner, uid, ws, 1, item) })
+  // 기준 PLAN(자료 받은 뒤) · 수행 전 관찰
+  const p2 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'content_change', expectedVersion: 1, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p2.status(), await p2.text()).toBe(200)
+  const base = await planRow(ws, 2)
+  const before = await observe(page)
+  for (const { item, did } of delivered) await solveWrong(page, item as never, did)
+  // 서버 채점 isCorrect=false · G2 독립 첫 노출 근거
+  const atts = (await admin().from('learning_task_attempts').select('item_ref, is_correct').eq('user_id', uid)).data ?? []
+  expect(atts.length).toBe(2)
+  expect(atts.every((a) => a.is_correct === false)).toBe(true)
+  const binds = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid)).data ?? []
+  expect(binds.map((b) => b.delivery_id).sort()).toEqual(delivered.map((d) => d.did).sort())
+  expect(binds.every((b) => b.evidence === true)).toBe(true)
+  // 환류 — 보완 필요 확정 · 다음 행동 변화 · 저장 PLAN 단계 check → repair
+  const after = await observe(page)
+  const p3 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 2, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p3.status(), await p3.text()).toBe(200)
+  const v3 = await planRow(ws, 3)
+  console.log('JOURNEY_REPAIR=' + JSON.stringify({ before, after, base: base.task, v3: v3.task }))
+  expect(after.evidence, '서로 다른 2 오답 → 보완 필요 확정').toBe('need_confirmed')
+  expect({ next: after.next, blocked: after.blocked }).not.toEqual({ next: before.next, blocked: before.blocked })
+  expect(base.task?.stage).toBe('check')
+  expect(v3.task?.stage, '저장 PLAN 단계 check → repair').toBe('repair')
+  expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
+  expect((await planRow(ws, 2)).task, 'PLAN v2 이력 불변').toEqual(base.task)
 })
