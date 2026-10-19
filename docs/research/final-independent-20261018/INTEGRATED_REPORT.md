@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+추가 실제 제품 결함 **FI-019 / 핵심 P2 [#313](https://github.com/KangMin098/Vocaflow/issues/313)**을 확인했다. f8의 새 동일 학습자 여정은 첫 PLAN에서422 as_of_future로 실패했다. [실제 report](./journey-ci-f8-original.json)는 기존10성공/신규1실패이며, [KST 당일 DATE/기준 시각 반례](./FI019_KST_PLAN.md)를 고정 시각의 실제 함수로 재현했다. 현재 REWORK의 코드 차단은 FI-018과 FI-019다. 같은 원본이 UTC 자정 후 CI에서 통과하더라도 이 날짜 결함을 수정 확인으로 바꾸지 않는다.
+
 최신 종단 입력은303 **f8aa32239fc40b741116e5773dfb617992008bcd**다. 새 동일 학습자 테스트의264f CI는 fixture 적재에서 실패했고, f8이 필수 시험 메타데이터/합성 id를 수정했다. 제품 소스는88c3와 불변이며 수정 CI39177372662는 진행 중이다. [실패 보존/최신 HEAD 결속](./journey-review-20261019.json)을 아래88c3 성공과 구분한다.312cefc 잔여/전체 REWORK·실제 병합0은 유지한다.
 
 2026-10-19 현재 [독립 재수용](./REACCEPT_20261019.md)이 아래 시간순 이력보다 우선한다. **전체 REWORK**, FI-010은 명시한 코드/격리 서버·DB/1280·1440 브라우저 범위에서 **VERIFIED_FIXED**다. 새30388c3의 전체 화면 두 기기 CI/직접 해독한 report10/10을 명시 범위에서 추가 수용했고312cefc는 기존 잔여가 확인된 같은 HEAD다. 실제 safe-merge·병합0을 유지한다. A~H의 일곱 증거 층위와 동일 합성 학습자 전체 E2E 미검증도 재수용 표에 분리했다.
