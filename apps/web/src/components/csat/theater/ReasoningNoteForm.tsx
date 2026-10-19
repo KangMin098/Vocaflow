@@ -26,6 +26,13 @@ const FIELDS = [
 
 const freshId = (t: number) => globalThis.crypto?.randomUUID?.() ?? `${t.toString(36)}-${Math.random().toString(36).slice(2)}`
 const nums = (xs: readonly number[]) => xs.map((n) => `${n}번`).join(' · ')
+/** 받침에 맞는 조사 — 괄호 덧말은 빼고 본말의 끝 글자로 판단(「검수된 원리」와 · 「제공된 설명(사람 검수 전)」과 · 「…」이/가) */
+export function josa(word: string, withFinal: string, without: string): string {
+  const base = word.replace(/\s*\([^)]*\)\s*$/, '').trim()
+  const c = base.charCodeAt(base.length - 1)
+  const hasFinal = c >= 0xac00 && c <= 0xd7a3 ? (c - 0xac00) % 28 !== 0 : false
+  return `${word}${hasFinal ? withFinal : without}`
+}
 
 export function ReasoningNoteForm({
   itemId,
@@ -89,7 +96,7 @@ export function ReasoningNoteForm({
   return (
     <section className={styles.explain} aria-labelledby="note-title" data-testid="reasoning-note">
       <h2 id="note-title">원리 노트 <span className={styles.optional}>선택</span></h2>
-      <p className="break-keep">이 문항에서 얻은 원리를 조건과 함께 적어 두세요. 저장하면 비교할 설명({modelLabel})과 나란히 놓고 볼 수 있어요. 점수는 매기지 않아요.</p>
+      <p className="break-keep">이 문항에서 얻은 원리를 조건과 함께 적어 두세요. 저장하면 {josa(modelLabel, "과", "와")} 나란히 놓고 볼 수 있어요. 점수는 매기지 않아요.</p>
       {FIELDS.map((f) => (
         <label key={f.key} className={styles.explainField}>
           <span>{f.label} <span className={styles.quiet}>— {f.hint}</span></span>
@@ -182,7 +189,7 @@ export function ReasoningNoteForm({
                 </button>
               )
             ) : (
-              <p className={styles.quiet} data-testid="note-no-model">이 문항에는 비교할 설명({modelLabel})이 아직 없어요. 쓴 노트는 그대로 남아요.</p>
+              <p className={styles.quiet} data-testid="note-no-model">이 문항에는 비교할 {josa(modelLabel, "이", "가")} 아직 없어요. 쓴 노트는 그대로 남아요.</p>
             )}
           </div>
           {shown.comparedWithModel ? <p className={styles.quiet}>조건과 경계를 같은 것으로 봤는지 스스로 확인해 보세요.</p> : null}

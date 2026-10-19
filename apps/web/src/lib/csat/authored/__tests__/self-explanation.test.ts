@@ -72,3 +72,13 @@ describe('지도 복귀 — 받은 창작 자료 링크도 문맥을 싣는다',
     expect(withMapReturn('/csat/practice/x', { task: 'r.central_meaning' })).toBe('/csat/practice/x')
   })
 })
+
+describe('노트 문구 조사 — 받침 · 괄호 덧말', () => {
+  it('검수된 원리와 · 제공된 설명(사람 검수 전)과 · 이/가', async () => {
+    const { josa } = await import('@/components/csat/theater/ReasoningNoteForm')
+    expect(josa('검수된 원리', '과', '와')).toBe('검수된 원리와')
+    expect(josa('제공된 설명(사람 검수 전)', '과', '와')).toBe('제공된 설명(사람 검수 전)과')
+    expect(josa('검수된 원리', '이', '가')).toBe('검수된 원리가')
+    expect(josa('제공된 설명(사람 검수 전)', '이', '가')).toBe('제공된 설명(사람 검수 전)이')
+  })
+})

@@ -13,6 +13,10 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { AXES, B_SQL, C_SQL, STUB } from '../../map/v62/__tests__/supply-sql-harness'
 import type { V4View } from '../../map/v4/compose'
 import { asIsMap } from '../../map/v4/as-is'
+import { DOMAINS } from '../../map/v4/definition'
+import { repairGate, workspacePlan, type PlanActivity } from '../../map/v4/plan'
+import { toBeMap } from '../../map/v4/to-be'
+import { planWorkspaces } from '../../map/v4/workspace'
 import type { AttemptWrite, AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold } from '@/lib/knowledge/authored/authored-items'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
@@ -31,6 +35,9 @@ const G2_COLUMNS = `alter table public.learning_task_attempts add column if not 
 const ADMIN = '00000000-0000-4000-8000-0000000000a1'
 const A = '00000000-0000-4000-8000-0000000000c1'
 const B = '00000000-0000-4000-8000-0000000000c2'
+// T-0050 순환 — 다른 시험의 상태와 섞이지 않게 별도 학습자(pass · fail)
+const C = '00000000-0000-4000-8000-0000000000c3'
+const D = '00000000-0000-4000-8000-0000000000c4'
 const TASK = 'r.central_meaning'
 const TEMPLATE = 'ws.central-meaning'
 const S = R5_AUTHORED_SET
@@ -96,8 +103,8 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'); insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'); insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
@@ -200,6 +207,79 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
   })
 })
 
+/**
+ * T-0050 rev5 — 실제 서버 기록(recordAuthoredAttempt) · 보류 SQL · G2 결속 → As-Is → To-Be → Workspace → PLAN 계산의 순환(Codex verify-repair-map-cycle 를 상시 회귀로).
+ * 공급은 실제 requestAuthoredSupply. 한계: 목표 · 기준 시험 메타데이터는 합성, PLAN 저장 이력 · 브라우저 · 네이티브 RLS 는 이 시험 밖.
+ */
+describe('T-0050 — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차', () => {
+  const KEY = 'authored-central-meaning'
+  type Row = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
+  async function world(uid: string) {
+    const attempts = (await db.query<Row>(`select a.*, b.evidence, b.annotation_hash, d.role from learning_task_attempts a left join workspace_delivery_attempt b on b.attempt_id = a.id left join workspace_content_delivery d on d.id = b.delivery_id where a.user_id = $1 order by a.answered_at, a.id`, [uid])).rows
+    const iso = (t: unknown) => (t ? new Date(t as string).toISOString() : null)
+    const raw = attempts.map((a) => ({ userId: uid, attemptId: String(a.id), itemRef: a.item_ref, taskKey: a.task_key, phase: a.phase, isCorrect: a.is_correct, synthetic: false, helpLevel: a.help_level, afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: iso(a.answered_at), activity: a.activity, sessionId: a.session_id, contentHash: a.content_hash, expectedContentHash: null })) as unknown as FindAttemptRow[]
+    const read = applyAuthoredBindings(raw, attempts.filter((a) => a.annotation_hash).map((a) => ({ attemptId: String(a.id), evidence: a.evidence, annotationHash: a.annotation_hash, sessionId: a.session_id })))
+    const deliveries = (await db.query<Row>('select * from workspace_content_delivery where user_id = $1 order by delivered_at', [uid])).rows
+    const check = deliveries.filter((d) => d.role === 'independent_check')
+    const asOf = new Date(Math.max(Date.now(), ...attempts.map((a) => new Date(a.answered_at).getTime())) + 1000).toISOString()
+    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref) }], attempts: read })
+    const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role })
+    const links = { [KEY]: check.map(link) }
+    const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
+    const goal = toBeMap({ asIs: map, goal: { score: 80, set: true }, refItems: refs as never, lineRefItems: { B6: refs.slice(17, 24), A5: refs.slice(28, 34) } as never, confirmLinks: links as never })
+    const repair = { [KEY]: deliveries.filter((d) => ['guided_practice', 'model_explanation'].includes(d.role)).map((d) => ({ ...link(d), role: d.role })) }
+    const transfers = { [KEY]: deliveries.filter((d) => d.role === 'transfer').map(link) }
+    const homes = planWorkspaces({ asIs: map, toBe: goal, confirmLinks: links as never, repairTargets: repair as never, transferTargets: transfers as never, transferItems: { [KEY]: transfers[KEY].length } })
+    const home = [homes.primary, ...homes.others].find((x) => x?.id === TEMPLATE)!
+    const activity = attempts.map((a) => ({ itemRef: a.item_ref, taskKey: a.task_key, phase: a.phase, activity: a.activity, isCorrect: a.is_correct, answeredAt: iso(a.answered_at), receivedAt: iso(a.received_at), ...(a.role === 'guided_practice' ? { repairRole: 'guided_practice' as const } : {}) })) as PlanActivity[]
+    const plan = workspacePlan(home, map, goal, homes, activity)
+    return { map, goal, plan, activity, task: map.tasks[TASK], row: plan.tasks.find((t) => t.task === TASK)! }
+  }
+  const answer = async (uid: string, id: string, right = true) => {
+    const response = rightAnswer(id)
+    await recordAuthoredAttempt(admin, learner(uid), { id: uid, email: null }, ref(id), { ...meta({ helpLevel: id.includes('guided') ? 'viewed_first' : 'independent' }), deliveryId: await dOf(uid, ref(id)), response: right ? response : { ...response, choice: (response.choice + 1) % 5 } }, Date.now(), writer)
+  }
+  const bindings = async (uid: string) => (await db.query<Row>('select * from workspace_delivery_attempt where user_id = $1 order by attempt_id', [uid])).rows
+  const toRecheck = async (uid: string) => {
+    await supply(uid, 'check', 2); await supply(uid, 'transfer', 2); await supply(uid, 'repair', null)
+    await answer(uid, 'r5-cm-ind-1', false); await answer(uid, 'r5-cm-ind-2', false)
+    let w = await world(uid)
+    expect(w.task.status).toBe('verified_need'); expect(w.row.stage).toBe('repair')
+    await answer(uid, 'r5-cm-guided-1', false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
+    await answer(uid, 'r5-cm-guided-1', true); w = await world(uid); expect(w.row.stage).toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    await answer(uid, 'r5-cm-transfer-1', true); await answer(uid, 'r5-cm-transfer-2', false)
+    w = await world(uid); expect(w.row.stage).toBe('recheck'); expect(w.task.status, '전이는 독립 근거가 아니다').toBe('verified_need')
+    const req = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: TASK, template: TEMPLATE, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
+    expect(req.status).toBe('ok'); if (req.status !== 'ok') throw new Error('supply')
+    expect(req.lines.flatMap((l) => l.delivered).sort(), '이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다').toEqual([ref('r5-cm-ind-3'), ref('r5-cm-ind-4')])
+    return bindings(uid)
+  }
+  it('pass — 새 지문 독립 확인 2 정답 → 해소 · 앞선 G2 결속 불변', async () => {
+    const before = await toRecheck(C)
+    await answer(C, 'r5-cm-ind-3', true); await answer(C, 'r5-cm-ind-4', true)
+    const w = await world(C)
+    expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved')
+    const after = await bindings(C)
+    expect(after.slice(0, before.length), '처음 독립 오답 · 안내 연습 · 전이 결속은 그대로').toEqual(before)
+    expect(after.slice(before.length).map((r) => r.evidence), '새 독립 확인 2 = 근거').toEqual([true, true])
+  }, 120000)
+  it('fail — 다시 틀리면 새 바로잡기 회차 · 이전 안내 연습 성공 불승계 · 맞혔던 안내 연습을 다시 맞히면 회차 통과', async () => {
+    await toRecheck(D)
+    await answer(D, 'r5-cm-ind-3', false)
+    let w = await world(D)
+    expect(w.task.check?.status).toBe('still_needed'); expect(w.row.stage).toBe('repair')
+    expect(repairGate(w.task, w.activity).succeeded, '회차 전 안내 연습 정답은 이번 회차 성공이 아니다').toBe(false)
+    // 교수 자료는 정답 뒤에도 다시 풀 수 있다(서버 append-only 새 시도 · 근거 아님) → 이번 회차 성공
+    await answer(D, 'r5-cm-guided-1', true)
+    w = await world(D)
+    expect(repairGate(w.task, w.activity).succeeded).toBe(true)
+    expect(w.row.stage, '새 회차 안내 연습 정답 → 바로잡기 단계를 넘는다').not.toBe('repair')
+    expect(w.task.status, '안내 연습은 해소 근거가 아니다').not.toBe('resolved')
+    const guided = (await db.query<{ evidence: boolean }>('select evidence from workspace_delivery_attempt where user_id = $1 and artifact_ref = $2 order by attempt_id', [D, ref('r5-cm-guided-1')])).rows
+    expect(guided.map((g) => g.evidence), '안내 연습 3회 모두 근거 아님').toEqual([false, false, false])
+  }, 120000)
+})
+
 describe('철회 · 다른 학습자', () => {
   it('지연 확인 권리 결정 철회 → 다른 학습자 공급 거절(사람 결정) · 앞선 기록은 그대로', async () => {
     const dec = (await q1<{ id: string }>(`select id from public.content_human_decision where artifact_ref = $1 and kind = 'rights'`, [ref('r5-cm-delayed-1')])).id
@@ -263,3 +343,4 @@ describe('FI-007(#299) — 철회 뒤 현재성', () => {
     expect((await q1<{ n: number }>(`select count(*)::int n from public.learning_task_attempts where user_id = $1 and item_ref = $2`, [A, r])).n).toBe(1)
   })
 })
+
