@@ -57,7 +57,8 @@ describe('적용 추적의 실패·등록·노출 경계', () => {
     const html=renderToStaticMarkup(await Page({params:{id:ID}}))
     expect(state.calls).not.toContain('knowledge_trials')
     expect(html).not.toContain('전역 효과 상태')
-    expect(html).toContain('보류')
+    expect(html).toContain('보류 원장으로 검증 계획·결과 확인을 보류했습니다')
+    expect(html).not.toContain('검증 계획(trial)이 없다')
   })
   it('탐구 조회 실패를 탐구 없음으로 바꾸지 않는다', async () => {
     state.errors.knowledge_inquiries = true

@@ -69,7 +69,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
   const breaks = [
     ...(inquiries?.length ? [] : ['탐구 질문에 이어진 사슬 항목이 없다']),
     ...chain.breaks.map((b) => `${LAYER_WORD[b.layer]} — ${b.reason}${b.slug ? ` (${b.slug})` : ''}`),
-    ...(tr.length ? [] : ['검증 계획(trial)이 없다 — 켤 수 없다']),
+    ...(attempts.heldCount > 0 ? ['보류 원장으로 검증 계획·결과 확인을 보류했습니다'] : tr.length ? [] : ['검증 계획(trial)이 없다 — 켤 수 없다']),
     ...(app.status === 'active' ? [] : [`적용이 ${APP_STATUS_LABEL[app.status as AppStatus]} — 학습자에게 나가지 않는다`]),
     ...(currentSelection ? [] : ['현재 제품이 선택하는 적용 ID·버전과 다릅니다']),
     ...(itemBinding ? [] : ['현재 문항 TASK·원문 결속을 확인하지 못했습니다']),
