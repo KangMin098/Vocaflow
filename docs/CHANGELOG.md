@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 - feat(agents): Claude × Codex 협업 — 세션 결속 정본 `agents/sessions.json`(이름 ↔ 확인된 UUID ↔ 근거) · 라우터 `codex-route.mjs`(지정 대화에만 `codex queue` · 미전달 시 대체 없이 재개 조건 · `[VF-TASK]` 결속) · 역할 계약 `docs/agents/FINAL_COLLAB_CONTRACT.md` · router.md 자동 리뷰 정책은 그대로(임무 한정 변경안만 제안).
+- feat(agents): codex-route `handoff` · `verdict` — git 에서 인계문 조립 · 같은 HEAD/diff/수용 기준 리뷰 재사용 · 작업당 3회 상한 분류(FIX_REQUIRED · REVIEW_UNKNOWN) · 판정을 작업 ID + HEAD 에 결속 · REWORK 의 P0/P1 만 수정 목록
 
 
 - docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안

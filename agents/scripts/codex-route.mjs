@@ -14,6 +14,7 @@
 //       node agents/scripts/codex-route.mjs check --to Codex-VOCAFLOW-FINAL-ACCEPT
 
 import { execFileSync } from 'node:child_process'
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -78,6 +79,7 @@ export function compose({ task, from = 'Claude-VOCAFLOW-FINAL-OWNER', to, pr, he
     String(body).trim(),
     '',
     `응답 · 판정의 첫 줄에 [VF-TASK ${task}] 를 그대로 적어 주세요(같은 작업에 결속).`,
+    `판정 줄 형식: 「HEAD ${head} · 판정 ACCEPT|ACCEPT_WITH_LIMITS|REWORK」 — 지적은 줄마다 P0 · P1 · P2 를 붙여 주세요.`,
   ]
   return lines.join('\n')
 }
@@ -134,6 +136,113 @@ export function recordOnGitHub({ kind, number, task, result, run = execFileSync 
   run('gh', [kind === 'issue' ? 'issue' : 'pr', 'comment', String(number), '--body', body], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
 }
 
+// ── 인계 · 판정 결속(2026-10-19 협업 속도 지시) ─────────────────────────
+// 여전히 자동 리뷰가 아니다 — 구현을 마친 쪽이 push 직후 `handoff` 한 번을 부르면 인계문을 git 에서 조립하고,
+// 같은 작업 · 같은 SHA · 같은 diff · 같은 수용 기준의 유효한 판정이 이미 있으면 다시 보내지 않는다. 결과는 `verdict` 로 같은 작업 + SHA 에 결속한다.
+
+/** 기존 상한 — 트랙(작업 ID)당 Codex 리뷰 3회(2026-10-06 작업 방식 · 계획 ≤1 + 차단 리뷰). 넘기면 보내지 않고 분류만 한다 */
+export const MAX_ROUNDS = 3
+const LEDGER = () => rel('.agent-handoff', 'review-ledger.json')
+
+export function loadLedger(file = LEDGER()) {
+  try { return JSON.parse(fs.readFileSync(file, 'utf8')) } catch { return { tasks: {} } }
+}
+export function saveLedger(ledger, file = LEDGER()) {
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, `${JSON.stringify(ledger, null, 2)}\n`)
+}
+
+/** 리뷰 재사용 키 — HEAD · base..HEAD diff 바이트 · 수용 기준. 하나라도 다르면 새 리뷰 대상이다 */
+export function reviewKey({ head, diff, criteria = [] }) {
+  return crypto.createHash('sha256').update(JSON.stringify([head, crypto.createHash('sha256').update(String(diff)).digest('hex'), [...criteria].map(String)])).digest('hex')
+}
+
+/** git 에서 인계 재료 — HEAD · 변경 파일 · diff(키 계산용) */
+export function gitFacts({ base = 'origin/main', run = execFileSync } = {}) {
+  const g = (...a) => String(run('git', a, { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'pipe'] })).trim()
+  const head = g('rev-parse', 'HEAD')
+  const files = g('diff', '--name-only', `${base}...HEAD`).split('\n').filter(Boolean)
+  return { head, files, diff: g('diff', `${base}...HEAD`) }
+}
+
+/** .agent-goal.md 의 「수용 기준」 절 항목(없으면 빈 목록 — 부르는 쪽이 --criteria 로 준다) */
+export function goalCriteria(text) {
+  const m = String(text ?? '').replace(/\r\n/g, '\n').match(/^#+\s*수용 기준[^\n]*\n([\s\S]*?)(?=\n#+\s|(?![\s\S]))/m)
+  return m ? m[1].split('\n').map((l) => l.replace(/^\s*(?:[-*]|\d+\.)\s*(?:\[[ xX]\]\s*)?/, '').trim()).filter(Boolean) : []
+}
+
+/**
+ * 보낼지 판단 — reuse: 같은 키의 판정이 이미 있음(다시 보내지 않음) · cap: 상한 도달(REVIEW_UNKNOWN | FIX_REQUIRED) · send: 새 리뷰.
+ * 상한은 우회하지 않는다 — 판정 없는 반복은 REVIEW_UNKNOWN, 마지막 판정이 REWORK 면 FIX_REQUIRED(승인된 별도 수정 작업으로).
+ */
+export function planHandoff(ledger, task, key, max = MAX_ROUNDS) {
+  const t = ledger.tasks?.[task] ?? { rounds: [] }
+  const same = t.rounds.find((r) => r.key === key && r.verdict)
+  if (same) return { action: 'reuse', round: same }
+  if (t.rounds.some((r) => r.key === key && !r.verdict)) return { action: 'pending', round: t.rounds.find((r) => r.key === key) }
+  if (t.rounds.length >= max) {
+    const last = [...t.rounds].reverse().find((r) => r.verdict)
+    return { action: 'cap', status: last?.verdict === 'REWORK' ? 'FIX_REQUIRED' : 'REVIEW_UNKNOWN', rounds: t.rounds.length }
+  }
+  return { action: 'send', round: t.rounds.length + 1 }
+}
+
+/** 자동 인계문 본문 — 변경 파일 · 시험 근거 · 이전 판정의 P0/P1(이미 해결 주장 포함) */
+export function handoffBody({ files, evidence = '', prior = null, note = '' }) {
+  return [
+    `변경 파일(${files.length}):`, ...files.slice(0, 60).map((f) => `- ${f}`), ...(files.length > 60 ? [`- … 외 ${files.length - 60}`] : []),
+    '', '시험 근거:', String(evidence).trim() || '- (CI 진행 중 — 결과는 같은 SHA 로 따로 확인)',
+    ...(prior ? ['', `직전 판정(${prior.head?.slice(0, 9)} · ${prior.verdict}) 의 P0/P1 — 이번 커밋이 다루는 것:`, ...prior.issues.map((i) => `- [${i.sev}] ${i.text}`)] : []),
+    ...(note ? ['', String(note).trim()] : []),
+  ].join('\n')
+}
+
+const VERDICT_RE = /\b(ACCEPT_WITH_LIMITS|ACCEPT|PASS|REWORK|FAIL|REVIEW_UNKNOWN)\b/
+/** Codex 응답 하나 → 판정 · SHA 결속 · P0/P1 지적. 다른 SHA 를 판정한 응답은 bound=false(이 커밋의 수정 대상이 아니다) */
+export function parseVerdict(text, { task, head }) {
+  const s = String(text ?? '')
+  if (!s.startsWith(`[VF-TASK ${task}]`)) return null
+  const verdict = (s.match(/(?:전체 판정|판정|verdict)[^A-Z\n]{0,12}\**\s*([A-Z_]+)/i)?.[1] ?? s.match(VERDICT_RE)?.[1] ?? null)
+  // 숫자만인 id(GitHub 댓글 번호 등)는 SHA 가 아니다
+  const shas = [...new Set((s.match(/\b[0-9a-f]{9,40}\b/g) ?? []).filter((x) => /[a-f]/.test(x)))]
+  const bound = !!head && shas.some((x) => head.startsWith(x) || x.startsWith(head.slice(0, 9)))
+  const issues = s.replace(/\r\n/g, '\n').split('\n')
+    .map((l) => l.trim()).filter((l) => /\bP[01]\b/.test(l) && !/P[01][^\n]{0,8}(없음|0건|none)/i.test(l))
+    .map((l) => ({ sev: l.match(/\bP([01])\b/)[0], text: l.replace(/^[-*\d.\s]+/, '').slice(0, 300) }))
+  return { verdict: VERDICT_RE.test(verdict ?? '') ? verdict : null, bound, shas, issues }
+}
+
+/** 응답이 링크한 PR · 이슈 댓글 본문 — Codex 는 상세 판정(SHA · P1)을 댓글에 두고 응답에는 링크만 남긴다 */
+export function linkedComments(text, run = execFileSync) {
+  const refs = [...new Set([...String(text).matchAll(/github\.com\/([\w.-]+\/[\w.-]+)\/(?:pull|issues)\/\d+#issuecomment-(\d+)/g)].map((m) => `${m[1]}|${m[2]}`))]
+  return refs.map((k) => {
+    const [repo, id] = k.split('|')
+    try { return String(run('gh', ['api', `repos/${repo}/issues/comments/${id}`, '-q', '.body'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })) } catch { return '' }
+  }).join('\n')
+}
+
+/** 세션 기록에서 그 작업의 완료 응답들(시각 순) */
+export function readReplies(rolloutText, task) {
+  const out = []
+  for (const l of String(rolloutText).split('\n')) {
+    if (!l.includes('task_complete') || !l.includes(`[VF-TASK ${task}]`)) continue
+    try { const j = JSON.parse(l); const m = j.payload?.last_agent_message; if (typeof m === 'string' && m.startsWith(`[VF-TASK ${task}]`)) out.push({ at: j.timestamp, text: m }) } catch { /* 형식 오류 줄 */ }
+  }
+  return out
+}
+
+/** 판정 결속 — 보낸 뒤의 응답 중 이 HEAD 에 결속된 마지막 것을 원장 라운드에 기록. 결속 안 된 응답은 기록만 하고 판정으로 쓰지 않는다 */
+export function bindVerdict(ledger, task, head, replies) {
+  const t = ledger.tasks?.[task]
+  const round = t?.rounds.find((r) => r.head === head)
+  if (!round) return { status: 'not_sent' }
+  const after = replies.filter((r) => !round.sentAt || r.at >= round.sentAt).map((r) => ({ ...r, v: parseVerdict(r.text, { task, head }) })).filter((r) => r.v)
+  const hit = [...after].reverse().find((r) => r.v.bound && r.v.verdict)
+  if (!hit) return { status: after.length ? 'unbound' : 'waiting', replies: after.length }
+  Object.assign(round, { verdict: hit.v.verdict, verdictAt: hit.at, issues: hit.v.issues })
+  return { status: 'bound', verdict: hit.v.verdict, issues: hit.v.issues, fix: hit.v.verdict === 'REWORK' ? hit.v.issues : [] }
+}
+
 function arg(argv, k) { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : undefined }
 function args(argv, k) { return argv.flatMap((a, i) => (a === k ? [argv[i + 1]] : [])).filter(Boolean) }
 
@@ -166,7 +275,41 @@ export function main(argv = process.argv.slice(2)) {
     console.log(JSON.stringify(r))
     return r.landed ? 0 : 4
   }
-  console.error('사용: codex-route.mjs check|send|confirm --to <이름> …')
+  if (cmd === 'handoff') {
+    const task = arg(argv, '--task')
+    const facts = gitFacts({ base: arg(argv, '--base') ?? 'origin/main' })
+    const goalFile = arg(argv, '--goal') ?? rel('.agent-goal.md')
+    const criteria = args(argv, '--criteria').length ? args(argv, '--criteria') : goalCriteria(fs.existsSync(goalFile) ? fs.readFileSync(goalFile, 'utf8') : '')
+    const key = reviewKey({ head: facts.head, diff: facts.diff, criteria })
+    const ledger = loadLedger()
+    const plan = planHandoff(ledger, task, key)
+    if (plan.action !== 'send') { console.log(JSON.stringify({ task, head: facts.head, ...plan })); return plan.action === 'cap' ? 5 : 0 }
+    const prior = [...(ledger.tasks?.[task]?.rounds ?? [])].reverse().find((r) => r.verdict === 'REWORK') ?? null
+    const ev = arg(argv, '--evidence-file')
+    const message = compose({ task, to, pr: arg(argv, '--pr'), head: facts.head.slice(0, 9), fi: args(argv, '--fi'), criteria, body: handoffBody({ files: facts.files, evidence: ev ? fs.readFileSync(ev, 'utf8') : '', prior, note: arg(argv, '--note') ?? '' }) })
+    if (argv.includes('--dry-run')) { console.log(message); return 0 }
+    const result = deliver({ registry, to, message })
+    if (result.delivered) {
+      ledger.tasks ??= {}; ledger.tasks[task] ??= { rounds: [] }
+      ledger.tasks[task].rounds.push({ round: plan.round, head: facts.head, key, sentAt: new Date().toISOString(), queueId: result.queueId, verdict: null })
+      saveLedger(ledger)
+    }
+    console.log(JSON.stringify({ task, head: facts.head, round: plan.round, ...result }))
+    return result.delivered ? 0 : 3
+  }
+  if (cmd === 'verdict') {
+    const task = arg(argv, '--task')
+    const head = arg(argv, '--head') ?? gitFacts({ base: arg(argv, '--base') ?? 'origin/main' }).head
+    const t = resolve(registry, to)
+    const file = findRollout(t.uuid)
+    const ledger = loadLedger()
+    const replies = (file ? readReplies(fs.readFileSync(file, 'utf8'), task) : []).map((x) => ({ ...x, text: `${x.text}\n${linkedComments(x.text)}` }))
+    const r = bindVerdict(ledger, task, head, replies)
+    if (r.status === 'bound') saveLedger(ledger)
+    console.log(JSON.stringify({ task, head, ...r }))
+    return r.status === 'bound' ? 0 : 4
+  }
+  console.error('사용: codex-route.mjs check|send|confirm|handoff|verdict --to <이름> …')
   return 1
 }
 

@@ -52,3 +52,16 @@
 4. 임무가 끝나면 이 예외는 소멸한다.
 
 채택되면 `router.md` 에 위 4줄을 「FINAL MISSION 예외」로 추가하는 PR 을 따로 낸다(보호 경로 — 사람 병합). 채택 전에도 라우터는 사람이 명시적으로 실행하는 도구로 쓸 수 있다(자동 호출이 아니므로 현 정책 위반 아님).
+
+## 7. 인계 · 판정 결속 명령(2026-10-19 협업 속도 지시)
+
+자동 호출은 여전히 없다 — 구현을 마친 쪽이 push 직후 **한 번** 부른다. 사람이 인계문을 쓰거나 전달하지 않는다.
+
+| 명령 | 하는 일 |
+|---|---|
+| `codex-route.mjs handoff --task <ID> --pr <N> [--criteria …] [--evidence-file f]` | git 에서 HEAD · 변경 파일을 읽고 수용 기준(`--criteria` 없으면 `.agent-goal.md` 「수용 기준」 절)과 직전 REWORK 의 P0/P1 을 실어 지정 세션에 보낸다. CI 를 기다리지 않는다(CI 와 리뷰 병렬) |
+| 같은 키 재요청 | 키 = sha256(HEAD · base..HEAD diff · 수용 기준). 같은 키의 판정이 있으면 `reuse`, 보낸 뒤 대기면 `pending` — 다시 보내지 않는다 |
+| 상한 | 작업 ID 당 3회(기존 상한). 넘으면 보내지 않고 `FIX_REQUIRED`(마지막 판정 REWORK) · `REVIEW_UNKNOWN`(판정 없음)으로 분류 — 승인된 별도 수정 작업으로 잇는다 |
+| `codex-route.mjs verdict --task <ID> [--head sha]` | 세션 기록의 그 작업 응답 + 응답이 링크한 PR 댓글 본문에서 **그 HEAD(9자 이상)를 판정한 것만** 결속한다. 다른 커밋 · 다른 작업의 응답은 판정으로 쓰지 않는다. REWORK 면 P0/P1 줄만 수정 목록으로 낸다 |
+
+원장: `.agent-handoff/review-ledger.json`(로컬 · git 제외). safe-merge 는 기존대로 필수 CI + Codex 수용 둘 다 필요하다 — 이 명령은 병합 판정을 대신하지 않는다.
