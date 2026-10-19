@@ -59,7 +59,7 @@ async function observe(page: Page) {
   const next = (await pop.locator('[data-testid="pop-next"]').count()) ? await pop.locator('[data-testid="pop-next"]').getAttribute('href') : null
   const blocked = (await pop.locator('[data-testid="pop-blocked"]').count()) ? await pop.locator('[data-testid="pop-blocked"]').getAttribute('data-reason') : null
   const nextLabel = (await pop.locator('[data-testid="pop-next"]').count()) ? (await pop.locator('[data-testid="pop-next"]').innerText()).trim() : null
-  return { priority, evidence, next: next?.split('?')[0] ?? null, nextLabel, blocked }
+  return { priority, evidence, next: next?.split('?')[0] ?? null, nextHref: next ?? null, nextLabel, blocked }
 }
 async function planRow(ws: string, version: number) {
   const r = (await admin().from('learner_workspace_plan').select('user_id, plan_version, reason, goal_version_id, plan').eq('workspace_id', ws).eq('plan_version', version).single()).data!
@@ -249,4 +249,36 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   expect(v3.task?.stage, '저장 PLAN 단계 check → repair').toBe('repair')
   expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
   expect((await planRow(ws, 2)).task, 'PLAN v2 이력 불변').toEqual(base.task)
+
+  // 바로잡기 실행 — 지도 CTA(바로잡기 문맥 repair=1)를 그대로 따라가 다시 푼다 → 연습 · 도움받은 수행 · G2 결속 없음
+  expect(after.nextLabel, '바로잡기 CTA').toContain('바로잡기')
+  expect(after.nextHref ?? '').toMatch(/[?&]repair=1/)
+  await page.goto(after.nextHref!, { waitUntil: 'domcontentloaded' })
+  const runner = page.locator('[data-testid="authored-runner"]')
+  await expect(runner).toHaveAttribute('data-mode', 'repair', { timeout: 30_000 })
+  const repairId = after.next!.split('/').pop()!
+  const repairItem = delivered.find((d) => d.item.id === repairId)!.item
+  await runner.locator(`[data-sentence="${repairItem.gold.claim}"]`).click()
+  await runner.locator(`[data-sentence="${repairItem.gold.support[0]}"]`).click()
+  if (await runner.locator('[data-relation]').count()) await runner.locator(`[data-relation="${repairItem.gold.relationProbe?.relation ?? 'reason'}"]`).click()
+  await runner.locator(`[data-choice="${repairItem.gold.answer}"]`).click()
+  await runner.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
+  await expect(page.locator('[data-testid="authored-binding"]')).toHaveAttribute('data-status', 'repair_practice')
+  // 기록 — 새 시도는 연습 · viewed_first 정답, 처음 오답 2 · G2 결속 2 는 그대로
+  const all = (await admin().from('learning_task_attempts').select('item_ref, is_correct, activity, help_level').eq('user_id', uid).order('id')).data ?? []
+  expect(all.length).toBe(3)
+  expect(all.slice(0, 2).every((a) => a.is_correct === false)).toBe(true)
+  expect(all[2]).toMatchObject({ item_ref: `authored:${repairId}`, is_correct: true, activity: 'practice', help_level: 'viewed_first' })
+  const binds2 = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid)).data ?? []
+  expect(binds2.map((b) => b.delivery_id).sort(), 'G2 결속 불변(바로잡기는 결속 안 함)').toEqual(delivered.map((d) => d.did).sort())
+  // 환류 — 바로잡기 성공(repairGate)으로 PLAN 이 바로잡기 다음으로 · 연습 정답은 독립 근거가 아니다(근거 상태 need_confirmed 유지)
+  const afterRepair = await observe(page)
+  const p4 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 3, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p4.status(), await p4.text()).toBe(200)
+  const v4 = await planRow(ws, 4)
+  console.log('JOURNEY_REPAIR_DONE=' + JSON.stringify({ afterRepair, v4: v4.task }))
+  expect(afterRepair.evidence, '연습 정답은 독립 근거가 아니다').toBe('need_confirmed')
+  expect(v4.task?.stage, '바로잡기 성공 → 다음 단계').not.toBe('repair')
+  expect((await planRow(ws, 3)).task, 'PLAN v3 이력 불변').toEqual(v3.task)
 })

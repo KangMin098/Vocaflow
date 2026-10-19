@@ -28,7 +28,7 @@ export const dynamic = 'force-dynamic'
 
 const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 
-export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } }) {
+export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string; repair?: string } }) {
   if (!/^[a-z0-9][a-z0-9.-]{2,80}$/.test(params.id)) notFound()
   const db = (await createClient()) as unknown as SupabaseClient
   const { data: { user } } = await db.auth.getUser()
@@ -96,11 +96,14 @@ export default async function LearnPage({ params, searchParams }: { params: { id
       </CsatShell>
     )
   }
+  // FI-011 — 바로잡기 문맥(repair=1): 이미 푼 납품만. 해설을 본 뒤의 연습으로 새 시도를 남긴다(서버가 이전 오답을 검증 · G2 결속 없음).
+  //   완료 자료의 기본 열기(해설 다시 보기 · 잠김)는 그대로 둔다
+  const repair = searchParams.repair === '1' && !!v.done
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
         id={params.id} deliveryId={v.deliveryId} role={v.role as never} format={v.format} sentences={v.sentences} stem={v.stem} choices={v.choices}
-        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
+        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={repair ? null : v.done} repair={repair} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
         sessionId={opened2 ? sessionId : undefined}
       />
     </CsatShell>

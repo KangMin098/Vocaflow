@@ -44,6 +44,8 @@ export interface AuthoredRunnerProps {
   taskLabel?: string
   /** 서버가 기록한 열기 세션 id(FI-010) — 있으면 제출이 그 세션을 이어 쓴다 */
   sessionId?: string
+  /** FI-011 바로잡기 문맥 — 이미 답 · 해설을 본 뒤 다시 푸는 연습(도움받은 수행 · 혼자 해낸 근거 아님) */
+  repair?: boolean
 }
 
 interface Binding { status: string; evidence?: boolean; reason?: string | null }
@@ -87,7 +89,7 @@ const uuid = () => crypto.randomUUID()
 
 export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [sessionId] = useState<string>(() => p.sessionId ?? uuid())
-  const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
+  const [help, setHelp] = useState<'independent' | 'viewed_first'>(p.repair ? 'viewed_first' : 'independent')
   const [hintsOpen, setHintsOpen] = useState(0)
   // 형식 공통 응답 상태 — 형식마다 쓰는 칸이 다르다
   const [claim, setClaim] = useState<number | null>(null)
@@ -156,7 +158,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     try {
       const res = await fetch(`/api/csat/authored/${p.id}/attempt`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ deliveryId: p.deliveryId, response: r, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: mutation.current.at, helpLevel: help }),
+        body: JSON.stringify({ deliveryId: p.deliveryId, response: r, clientSessionId: sessionId, clientMutationId: mutation.current.id, answeredAt: mutation.current.at, helpLevel: help, ...(p.repair ? { mode: 'repair' } : {}) }),
       })
       const j = await res.json().catch(() => ({}))
       if (!res.ok) { setError(typeof j.error === 'string' ? j.error : '저장하지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }
@@ -221,11 +223,11 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   }
 
   return (
-    <div className={styles.page} data-testid="authored-runner" data-format={p.format}>
+    <div className={styles.page} data-testid="authored-runner" data-format={p.format} data-mode={p.repair ? 'repair' : 'normal'}>
       <header className={styles.head}>
-        <span className={styles.eyebrow}>{p.taskLabel ?? '학습'} · {ROLE_LABEL[p.role]}</span>
+        <span className={styles.eyebrow}>{p.taskLabel ?? '학습'} · {p.repair ? '바로잡기' : ROLE_LABEL[p.role]}</span>
         <h1>{p.stem}</h1>
-        <p className={styles.why}>{ROLE_NOTE[p.role]}</p>
+        <p className={styles.why}>{p.repair ? '지난번에 어긋난 문항을 해설을 떠올리며 다시 풀어요. 바로잡기 연습으로 기록되고, 혼자 해낸 근거로는 세지 않아요.' : ROLE_NOTE[p.role]}</p>
       </header>
 
       {p.teach && (
@@ -431,7 +433,12 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               {binding.evidence ? '이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.' : '이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.'}
             </p>
           )}
-          {binding && binding.status !== 'bound' && mutation.current && (
+          {binding?.status === 'repair_practice' && (
+            <p className={styles.note} data-testid="authored-binding" data-status="repair_practice">
+              {graded?.isCorrect ? '바로잡기 성공 — 학습 지도의 계획이 다음 단계로 이어져요. 해설을 본 뒤의 연습이라 혼자 해낸 근거로는 세지 않아요.' : '바로잡기 연습으로 기록됐어요. 해설을 다시 보고 한 번 더 풀어 보세요.'}
+            </p>
+          )}
+          {binding && binding.status !== 'bound' && binding.status !== 'repair_practice' && mutation.current && (
             <p className={styles.note} role="status" data-testid="authored-binding" data-status={binding.status}>
               풀이는 저장됐지만 받은 자료와 연결하지 못했어요.{' '}
               <button type="button" className={styles.link} disabled={rebinding} onClick={rebind}>{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>

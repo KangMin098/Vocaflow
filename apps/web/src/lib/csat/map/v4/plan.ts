@@ -209,7 +209,11 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   if (stage === 'repair') {
     const retry = new Set(repairGate(t, activity).retry)
     const pick = home.stageItems.repair.find((l) => retry.has(l.target)) ?? null
-    return pick ? { href: pick.href, label: pick.label } : null
+    if (!pick) return null
+    // 창작 평가 자료의 바로잡기 = 명시적 바로잡기 문맥(repair=1)으로 연다 — 완료 자료를 그냥 다시 열면 해설만 보이고 잠겨 새 시도를 남길 수 없다(FI-011).
+    //   서버가 본인 납품 · 이전 오답을 검증하고, 새 시도는 연습 · 도움받은 수행으로만 기록한다(첫 독립 시도 · G2 불변)
+    if (pick.target.startsWith('authored:')) return { href: `${pick.href}${pick.href.includes('?') ? '&' : '?'}repair=1`, label: '바로잡기 · 틀린 문항 다시 풀기' }
+    return { href: pick.href, label: pick.label }
   }
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
   // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
