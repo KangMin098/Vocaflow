@@ -1,0 +1,106 @@
+{
+  "head": "e54def25a2a745242fab0a6ad7a726dafa5d9305",
+  "level": "CODE_VERIFIED_COUNTEREXAMPLE",
+  "sourceBindings": [
+    {
+      "file": "apps/web/src/lib/csat/map/v4/compose.ts",
+      "sha256": "e601730aae428f9d373f972f80fc1fd110e21bbb9b1501cc6c583482c723dac2"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/as-is.ts",
+      "sha256": "7a4348deca323e44bf034976f37df5f0b8e210792f083e41573278cb589717bc"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/definition.ts",
+      "sha256": "dc1454848443ee5b2b5e89ba634f11c3e4556ac3c7edee4bdb78e67da3240bc2"
+    }
+  ],
+  "sqlGuardSources": [
+    "supabase/migrations/20261010180218_map_v4_plan.sql",
+    "supabase/migrations/20261010181834_map_v4_plan_conflict_code.sql"
+  ],
+  "rows": [
+    {
+      "id": "kst-current-day-before-nine",
+      "now": "2026-10-18T23:47:30.000Z",
+      "enteredAt": "2026-10-18T23:47:29.000Z",
+      "takenAt": "2026-10-19",
+      "expectedGuard": "allow",
+      "actualAsOf": "2026-10-18T23:47:30.000Z",
+      "secondsAhead": 0,
+      "actualGuard": "allow",
+      "expectedRecordUsedAtNow": true,
+      "actualRecordAtNow": {
+        "used": true,
+        "excluded": null
+      },
+      "pass": true
+    },
+    {
+      "id": "kst-day-start",
+      "now": "2026-10-18T15:05:00.000Z",
+      "enteredAt": "2026-10-18T15:04:59.000Z",
+      "takenAt": "2026-10-19",
+      "expectedGuard": "allow",
+      "actualAsOf": "2026-10-18T15:05:00.000Z",
+      "secondsAhead": 0,
+      "actualGuard": "allow",
+      "expectedRecordUsedAtNow": true,
+      "actualRecordAtNow": {
+        "used": true,
+        "excluded": null
+      },
+      "pass": true
+    },
+    {
+      "id": "normal-after-nine",
+      "now": "2026-10-19T00:10:00.000Z",
+      "enteredAt": "2026-10-19T00:09:59.000Z",
+      "takenAt": "2026-10-19",
+      "expectedGuard": "allow",
+      "actualAsOf": "2026-10-19T00:10:00.000Z",
+      "secondsAhead": 0,
+      "actualGuard": "allow",
+      "expectedRecordUsedAtNow": true,
+      "actualRecordAtNow": {
+        "used": true,
+        "excluded": null
+      },
+      "pass": true
+    },
+    {
+      "id": "normal-prior-day",
+      "now": "2026-10-18T23:47:30.000Z",
+      "enteredAt": "2026-10-18T23:47:29.000Z",
+      "takenAt": "2026-10-18",
+      "expectedGuard": "allow",
+      "actualAsOf": "2026-10-18T23:47:30.000Z",
+      "secondsAhead": 0,
+      "actualGuard": "allow",
+      "expectedRecordUsedAtNow": true,
+      "actualRecordAtNow": {
+        "used": true,
+        "excluded": null
+      },
+      "pass": true
+    },
+    {
+      "id": "explicit-future-timestamp-remains-denied",
+      "now": "2026-10-18T23:47:30.000Z",
+      "enteredAt": "2026-10-19T00:00:00.000Z",
+      "takenAt": "2026-10-18",
+      "expectedGuard": "deny",
+      "actualAsOf": "2026-10-19T00:00:00.000Z",
+      "secondsAhead": 750,
+      "actualGuard": "deny",
+      "expectedRecordUsedAtNow": false,
+      "actualRecordAtNow": {
+        "used": false,
+        "excluded": "after_as_of"
+      },
+      "pass": true
+    }
+  ],
+  "result": "PASS",
+  "scope": "Actual currentAsOf/asIsMap functions and exact existing SQL five-minute guard predicate. Injected clocks; no real learner data, network, database writes or actual SQL reexecution. Actual CI RPC422 is separately observed. asIsMap at injected now is the retention condition a fix must satisfy; original default instead advances asOf and triggers RPC rejection."
+}

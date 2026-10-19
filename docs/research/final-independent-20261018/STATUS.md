@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
-종단 테스트 후속:264f는 시험 fixture 적재에서 Playwright 전 실패했고 f8이 필수 메타데이터/합성 id를 수정했다. 새 CI 진행과 [실패/수정 결속](./journey-review-20261019.json)을88c3의10/10 성공과 분리한다. 실제312cefc 잔여/REWORK·병합0은 유지한다.
+종단 테스트 후속:264f fixture 실패→f8 실제 PLAN422(FI-019)→e54 날짜 수정→35d43 팝업 조작 수정→6fe386770 화면 열거값 수정의 순서를 보존한다. [FI-019](./FI019_KST_PLAN.md)는 실제 수정에서 고정 시각5/5·단위29/29로 후보 코드 수정 확인했다. e54/35d43 여정은 PLAN 통과 뒤 수행 전 관찰에서 실패했으며 전체 종단은 미수용이다. 실제312cefc 잔여/REWORK·병합0은 유지한다.
 
 2026-10-19 [재수용 결과](./REACCEPT_20261019.md): 전체 REWORK, FI-010 해당 범위 VERIFIED_FIXED.312cefc 잔여 미해결/병합0,30388c3 새 두 기기 전체 화면 CI/report10/10 명시 범위 수용. 실제 DB READ ONLY 재관찰·A~H 일곱 증거 층위를 분리했다. 아래는 과거 이력이다.
 
