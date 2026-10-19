@@ -131,3 +131,20 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 | A · B · B2 · C 승인 | E | **BLOCKED_EXTERNAL** | — | — | SQL `dfb29f2d…` | — | 사람 결정 대기 |
 
 계측(CI 최근 5회): 전체 8.5~11분 · e2e 556s(빌드 217 · 브라우저 125 · Supabase 116) · 빌드는 3 job 이 각자 217~277s.
+
+## 11. 협업 병목 실측 (2026-10-19 · FI-011/#304 · 원장: git · GitHub Actions · Codex 세션 기록)
+
+구간 `f0790c5cc`(13:48 KST) → `bca65f920`(17:2x KST). 시각은 KST.
+
+| 항목 | 실측 | 작업 / 대기 |
+|---|---|---|
+| CI | 17회 · 합계 168분(회당 ~10분) · 실패 6(진단용 반복 5 · Supabase CLI 다운로드 rate limit 1) | 대기 — 14:35~15:10 은 로컬에서 못 돌리는 격리 e2e 를 CI 로 4회 연속 진단(직렬 대기 ~40분) |
+| Codex 리뷰 | 6턴 · 10~20분(합 ~85분) · 전부 REWORK | 작업 |
+| Codex 전달 지연 | 90cff 인계 → 시작 즉시 · cd17 인계(16:52 큐) → 시작 17:20(28분) — 직전 턴 종료 뒤에도 큐 처리 대기 | 대기 |
+| 재작업 | 설계 경합 1회: Codex 확정 전 재풀이 경로 구현(aa518 · 14:07) → 확정 설계와 달라 되돌림(db22abd · 4b9e7) 후 f140 재구현(16:07) — 약 2시간 | 낭비 |
+| 실제 수정 | REWORK 수신 → 수정 커밋: 90cff 판정 → cd17 약 15분 · cd17 판정 → bca65 약 10분 | 작업 |
+| 중복 리뷰 | 같은 SHA 재리뷰 0 · Codex 가 c45fe 반례를 재사용(재시험 생략) | — |
+| PR CI 누락 | cd17 push 뒤 CI 미실행 35분 — #316 병합으로 PR CONFLICTING → pull_request 이벤트 안 뜸 | 대기(발견 지연) |
+
+조치(같은 날): ① 인계 · 판정 결속 `codex-route.mjs handoff|verdict`(#315 · 자동 호출 없음 정책 유지) — git 에서 인계문 조립, 같은 HEAD·diff·수용 기준 재사용, 작업당 3회 상한 분류, 판정을 작업 ID + HEAD 에 결속(실제 응답 08:30 → cd17 결속 확인). ② push 직후 CI 와 Codex 인계를 병렬로(bca65 부터). ③ CI 감시는 전체 SHA 로 조회하고, 실행이 안 뜨면 PR mergeable 부터 본다.
+남은 병목: 격리 e2e 를 로컬에서 못 돌려 CI 가 진단 도구가 되는 것(직렬 10분/회) · Codex 큐 처리 지연(28분 · Codex 런타임 쪽 — 이 저장소에서 못 고침).
