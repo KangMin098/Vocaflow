@@ -39,6 +39,8 @@ export interface AuthoredRunnerProps {
   extra: Record<string, unknown>
   probe: number | null
   done: null | { isCorrect: boolean; reveal: Reveal }
+  /** 교수 자료(안내 연습)는 틀린 뒤 다시 풀 수 있다 — 평가 자료는 false(첫 결과 잠김 · FI-011) */
+  retry?: boolean
   returnHref: string
   /** TASK 이름(머리말) */
   taskLabel?: string
@@ -86,7 +88,7 @@ const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()
 
 export function AuthoredRunner(p: AuthoredRunnerProps) {
-  const [sessionId] = useState<string>(() => p.sessionId ?? uuid())
+  const [sessionId, setSessionId] = useState<string>(() => p.sessionId ?? uuid())
   const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
   const [hintsOpen, setHintsOpen] = useState(0)
   // 형식 공통 응답 상태 — 형식마다 쓰는 칸이 다르다
@@ -168,6 +170,19 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
       setBusy(false)
     }
   }
+
+  // 다시 풀기(교수 자료만) — 새 세션 · 새 제출 id 로 append-only 새 시도. 앞 결과 · 결속은 그대로 남는다.
+  //   해설을 본 뒤라 도움 상태는 viewed_first 로 정직하게 남긴다(안내 연습은 원래 근거가 아니다)
+  function again() {
+    mutation.current = null
+    setSessionId(uuid()); setHelp('viewed_first'); setHintsOpen(0)
+    setGraded(null); setReveal(null); setBinding(null); setError(null)
+    setClaim(null); setPicked([]); setRelation(null); setChoice(null)
+    setVerdicts(p.choices.map(() => ({ verdict: null, sentence: null })))
+    setPairs(((p.extra.pairs as unknown[]) ?? []).map(() => null))
+    setReason(null); setRoles(p.sentences.map(() => '')); setPattern(null); setSame(null); setMeaningRel(null)
+  }
+  const wrong = graded ? graded.isCorrect !== true : p.done?.isCorrect === false
 
   // 복구 — 같은 제출 id 를 이 화면의 납품에 다시 결속(이미 결속돼 있으면 그 결과가 온다)
   async function rebind() {
@@ -436,6 +451,9 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               풀이는 저장됐지만 받은 자료와 연결하지 못했어요.{' '}
               <button type="button" className={styles.link} disabled={rebinding} onClick={rebind}>{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>
             </p>
+          )}
+          {p.retry && wrong && (
+            <button type="button" className={styles.primary} onClick={again} data-testid="authored-retry">다시 풀기</button>
           )}
           <Link className={styles.link} href={p.returnHref}>학습 지도로 돌아가 변화 보기</Link>
         </section>

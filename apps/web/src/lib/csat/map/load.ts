@@ -329,6 +329,19 @@ async function gateAuthoredFirsts(db: Db, userId: string, rows: FindAttemptRow[]
     .map((b) => ({ attemptId: String(b.attempt_id), evidence: b.evidence, annotationHash: b.annotation_hash, sessionId: b.session_id })))
 }
 
+/**
+ * FI-011 — 안내 연습 수행의 정확한 계보. 시도(attempt_id)가 이 학습자의 **지금 유효한 guided_practice 납품**(repairRows)에 결속됐고,
+ * 그 납품 자료가 시도 문항과 같을 때만 repairRole 을 단다. 조회 실패 · 결속 없음 = 표시 안 함(바로잡기 성공 근거가 아니다 · fail-closed)
+ */
+async function markGuidedRepairs(db: Db, userId: string, rows: ActivityRow[], repairRows: readonly { id: string; artifact_ref: string; role: string }[]): Promise<void> {
+  const guided = new Map(repairRows.filter((r) => r.role === 'guided_practice').map((r) => [r.id, r.artifact_ref]))
+  if (guided.size === 0) return
+  const { data, error } = await db.from('workspace_delivery_attempt').select('attempt_id, delivery_id').eq('user_id', userId).in('delivery_id', [...guided.keys()])
+  if (error) throw new Error(`안내 연습 결속 조회 실패: ${error.message}`)
+  const refOf = new Map(((data ?? []) as { attempt_id: number | string; delivery_id: string }[]).map((b) => [String(b.attempt_id), guided.get(b.delivery_id)]))
+  for (const a of rows) if (a.attemptId && a.itemRef && refOf.get(a.attemptId) === a.itemRef) a.repairRole = 'guided_practice'
+}
+
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
   // 게이트 — 테이블 없음(미설치)과 시드 전을 가른다
   const probe = await db.from('csat_map_node').select('code').limit(1)
@@ -549,6 +562,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }) : undefined
   const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
   const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set([...Object.values(practiceLinks).map((l) => l.taskKey), ...Object.keys(practiceLinks).flatMap(authoredKeysOf)])], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
+  if (lifecycleActivity) await markGuidedRepairs(db, userId, lifecycleActivity, repairRows).catch((e) => console.error('[csat-map guided bindings]', e))
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))

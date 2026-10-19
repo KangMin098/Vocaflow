@@ -100,7 +100,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
         id={params.id} deliveryId={v.deliveryId} role={v.role as never} format={v.format} sentences={v.sentences} stem={v.stem} choices={v.choices}
-        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
+        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} retry={v.retry} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
         sessionId={opened2 ? sessionId : undefined}
       />
     </CsatShell>

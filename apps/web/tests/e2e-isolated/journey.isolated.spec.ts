@@ -264,16 +264,30 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   expect(withMaterial.nextLabel ?? '').toContain('안내 연습')
   expect(withMaterial.next).toBe(`/csat/learn/${guided.id}`)
   // 안내 연습 수행 — 실제 Runner · 서버 채점 · 연습 기록(G2 근거 false)
-  await page.goto(withMaterial.nextHref!, { waitUntil: 'domcontentloaded' })
   const runner = page.locator('[data-testid="authored-runner"]')
-  await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
-  await runner.locator(`[data-sentence="${guided.gold.claim}"]`).click()
-  await runner.locator(`[data-sentence="${guided.gold.support[0]}"]`).click()
-  if (await runner.locator('[data-relation]').count()) await runner.locator(`[data-relation="${guided.gold.relationProbe?.relation ?? 'reason'}"]`).click()
-  await runner.locator(`[data-choice="${guided.gold.answer}"]`).click()
-  await runner.getByRole('button', { name: '맞춰 보기' }).click()
+  const solve = async (choice: number) => {
+    await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
+    await runner.locator(`[data-sentence="${guided.gold.claim}"]`).click()
+    await runner.locator(`[data-sentence="${guided.gold.support[0]}"]`).click()
+    if (await runner.locator('[data-relation]').count()) await runner.locator(`[data-relation="${guided.gold.relationProbe?.relation ?? 'reason'}"]`).click()
+    await runner.locator(`[data-choice="${choice}"]`).click()
+    await runner.getByRole('button', { name: '맞춰 보기' }).click()
+  }
+  // 1) 오답 — 바로잡기 성공이 아니다. 지도는 같은 안내 연습을 다시 내민다(Codex P1-1)
+  await page.goto(withMaterial.nextHref!, { waitUntil: 'domcontentloaded' })
+  await solve((guided.gold.answer + 1) % 5) // 5지선다
+  await expect(page.locator('[data-testid="authored-result"]')).toContainText('어긋났어요', { timeout: 30_000 })
+  const afterWrong = await observe(page)
+  expect(afterWrong.next, '오답 뒤에도 같은 안내 연습').toBe(`/csat/learn/${guided.id}`)
+  expect(afterWrong.evidence).toBe('need_confirmed')
+  // 2) 다시 열기 → 「다시 풀기」 → 정답(append-only 새 시도 · 앞 기록 유지)
+  await page.goto(afterWrong.nextHref!, { waitUntil: 'domcontentloaded' })
+  await page.locator('[data-testid="authored-retry"]').click()
+  await solve(guided.gold.answer)
   await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
-  await expect.poll(async () => (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data?.[0]?.evidence ?? null, { timeout: 15_000 }).toBe(false)
+  await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data ?? []).map((b) => b.evidence), { timeout: 15_000 }).toEqual([false, false])
+  const guidedRows = (await admin().from('learning_task_attempts').select('is_correct').eq('user_id', uid).eq('item_ref', `authored:${guided.id}`).order('answered_at')).data ?? []
+  expect(guidedRows.map((r) => r.is_correct), '안내 연습 이력 append-only').toEqual([false, true])
   // 기록 — 처음 독립 오답 2 의 자격 · G2 결속은 그대로 · 안내 연습은 연습 활동
   const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, help_level, timing_uncertain, is_correct').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
   expect(firstsAfter.length).toBe(2)

@@ -26,6 +26,41 @@ export interface ActivityRow {
   helpLevel?: string | null
   synthetic?: boolean | null
   receivedAt?: string | null
+  /**
+   * FI-011 — 이 시도가 결속된 **바로잡기 납품의 역할**(서버 loader 가 workspace_delivery_attempt 의 정확한 attempt_id ↔ 본인 · 지금 유효한
+   * guided_practice 납품 결속을 확인했을 때만 채운다). 클라이언트 값 · 추측으로 채우지 않는다 — 없으면 바로잡기 성공 근거가 아니다.
+   */
+  repairRole?: 'guided_practice'
+}
+
+/** 교수 자료(안내 연습 등 창작 practice) 수행 — 바로잡기에만 센다. 결속을 못 읽었어도(repairRole 없음) 적용 · 다시 확인 수에는 넣지 않는다(fail-closed) */
+export function isInstructional(a: Pick<ActivityRow, 'itemRef' | 'activity' | 'repairRole'>): boolean {
+  return a.repairRole !== undefined || (!!a.itemRef && a.itemRef.startsWith('authored:') && a.activity === 'practice')
+}
+
+/**
+ * 이번 회차의 안내 연습 시도(시각 순 · LM-G1.1 · PLAN · lifecycle 공용) — 정확한 납품 결속(repairRole) · 같은 과제 키 ·
+ * 판단 시각과 **서버 수신 시각 둘 다** 회차 시작 뒤. 서버 수신이 없거나(옛 입력 · 미확인) 회차 앞이면 이번 회차를 진전시키지 않는다.
+ */
+export function guidedRepairAttempts<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt' | 'receivedAt' | 'repairRole'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): A[] {
+  const w = repairWindow(skill)
+  if (!w) return []
+  const t0 = new Date(w.since).getTime()
+  const after = (x: string | null | undefined) => !!x && new Date(x).getTime() > t0
+  return activity
+    .filter((a) => a.repairRole === 'guided_practice' && a.itemRef !== null && taskKeys.has(a.taskKey) && after(a.answeredAt) && after(a.receivedAt))
+    .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
+}
+
+/**
+ * 바로잡기 성공(LM-G1.1 · PLAN repairGate · lifecycle repairAt 의 단일 판정) — 이번 회차의 막힌 기출 문항 재시도 정답, 또는 결속된 안내 연습 정답.
+ * 원리 설명 보기 · 납품 · 틀린 시도 · 정오 없는 시도는 성공이 아니다. at = 첫 성공 판단 시각.
+ */
+export function repairSuccess<A extends Pick<ActivityRow, 'itemRef' | 'taskKey' | 'answeredAt' | 'isCorrect' | 'receivedAt' | 'repairRole' | 'activity'>>(skill: SkillLike, taskKeys: ReadonlySet<string>, activity: readonly A[]): { at: string | null; tried: boolean; retried: A[]; guided: A[] } {
+  const retried = repairAttempts(skill, taskKeys, activity.filter((a) => !isInstructional(a)))
+  const guided = guidedRepairAttempts(skill, taskKeys, activity)
+  const firsts = [...retried, ...guided].filter((a) => a.isCorrect === true).map((a) => a.answeredAt as string).sort()
+  return { at: firsts[0] ?? null, tried: retried.length + guided.length > 0, retried, guided }
 }
 
 export interface LifecycleEvidence {
@@ -83,11 +118,11 @@ export function lifecycleEvidence(
   const after = activity
     .filter((a) => a.answeredAt && a.answeredAt > since && keys.has(a.taskKey))
     .sort((x, y) => (x.answeredAt as string).localeCompare(y.answeredAt as string))
-  const repair = repairAttempts(skill, keys, activity)
-  // 성공 = 정답(true) 만. 틀림 · 정오 없음(null) 은 「바로잡는 중」 이다
-  const repairAt = repair.find((a) => a.isCorrect === true)?.answeredAt ?? null
-  const transferAt = after.find((a) => a.phase === 'transfer' || (a.itemRef !== null && !inBundle.has(a.itemRef)))?.answeredAt ?? null
-  return { repairAt, repairTried: repair.length > 0, transferAt }
+  // 성공 = 정답(true) 만 — PLAN 과 같은 판정(repairSuccess). 틀림 · 정오 없음(null) 은 「바로잡는 중」 이다
+  const repair = repairSuccess(skill, keys, activity)
+  // 적용 = 확인 묶음 밖 문항 · 전이 단계. 교수 자료(안내 연습) 수행은 바로잡기라 적용 경험이 아니다(FI-011)
+  const transferAt = after.find((a) => !isInstructional(a) && (a.phase === 'transfer' || (a.itemRef !== null && !inBundle.has(a.itemRef))))?.answeredAt ?? null
+  return { repairAt: repair.at, repairTried: repair.tried, transferAt }
 }
 
 /** 지금 할 일 하나 — 생애주기 순서(바로잡기 → 적용 → 다시 확인). 처방이 열린 상태(verified · still_needed)에서만 */

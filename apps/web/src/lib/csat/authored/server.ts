@@ -197,6 +197,8 @@ export interface DeliveredView {
   probe: number | null
   /** 이미 푼 기록이 있으면 결과 · 해설(응답 뒤에만) */
   done: null | { isCorrect: boolean; reveal: ReturnType<typeof revealAfterAnswer> }
+  /** 다시 풀 수 있는가 — 교수 자료(안내 연습 · 원리 설명)만. 평가 자료(혼자 · 다른 날 확인 · 전이)는 첫 결과로 잠긴다(FI-011) */
+  retry: boolean
 }
 
 export interface DeliveryChoice { deliveryId: string; role: AuthoredRole; deliveredAt: string }
@@ -229,8 +231,10 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
   const row = await loadRow(admin, ref)
   if (!row) return { status: 'not_delivered' }
   const { item } = itemOfRow(row)
+  // 평가 자료 = 첫 결과(첫 시도 원장과 같은 기준). 교수 자료 = 가장 최근 결과(오답 뒤 다시 풀어 맞혔으면 그것 · 이력은 append-only 로 남는다)
+  const retry = !isAssessmentRole(delivery.role)
   const prior = await admin.from('learning_task_attempts').select('is_correct').eq('user_id', userId).eq('item_ref', ref)
-    .order('answered_at', { ascending: true }).limit(1)
+    .order('answered_at', { ascending: !retry }).limit(1)
   if (prior.error) throw new Error(`기록 조회 실패: ${prior.error.message}`)
   const first = (prior.data as { is_correct: boolean | null }[] | null)?.[0]
   return {
@@ -240,6 +244,7 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
       ...learnerBody(delivery.role, item.body),
       probe: formatOf(item.body) === 'central_meaning' ? (item.gold as AuthoredGold).relationProbe.sentence : null,
       done: first ? { isCorrect: first.is_correct === true, reveal: revealAfterAnswer(item) } : null,
+      retry,
     },
   }
 }
