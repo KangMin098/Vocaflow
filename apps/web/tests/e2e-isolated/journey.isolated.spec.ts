@@ -62,8 +62,8 @@ async function observe(page: Page) {
 }
 async function planRow(ws: string, version: number) {
   const r = (await admin().from('learner_workspace_plan').select('user_id, plan_version, reason, goal_version_id, plan').eq('workspace_id', ws).eq('plan_version', version).single()).data!
-  const t = (r.plan as { tasks: { task: string; stage?: string | null; planned?: unknown }[] }).tasks.find((x) => x.task === TASK) ?? null
-  return { ...r, stage: t?.stage ?? null }
+  const t = (r.plan as { tasks: { task: string; stage?: string | null; planned?: unknown; available?: unknown }[] }).tasks.find((x) => x.task === TASK) ?? null
+  return { ...r, stage: t?.stage ?? null, task: t ? { stage: t.stage ?? null, planned: t.planned ?? null, available: t.available ?? null } : null }
 }
 async function solve(page: Page, item: Item, did: string) {
   await page.goto(`/csat/learn/${item.id}?d=${did}`, { waitUntil: 'domcontentloaded' })
@@ -121,48 +121,48 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   const v1 = await planRow(ws.id, 1)
   expect(v1).toMatchObject({ user_id: uid, reason: 'initial', goal_version_id: goalVersionId })
 
-  // C 수행 전 관찰 — 지도가 계산한 근거 상태 · 다음 행동 · 우선순위
-  const before = await observe(page)
-  expect(['not_measured', 'axis_observation', 'checking']).toContain(before.evidence) // 화면 용어(v6.2 InspectorEvidence)
-
-  // F 납품 → 학습 · 독립 확인 2 · 전이 1(같은 user · 같은 Workspace · PLAN v1)
+  // F 납품 먼저(독립 확인 2 · 전이 1) — 「자료가 생겨서 바뀐 것」과 「근거로 바뀐 것」을 가르려고 수행 전 관찰 · 기준 PLAN 을 납품 뒤에 둔다
   const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
   const tr = R5.items.filter((i) => i.role === 'transfer').slice(0, 1)
   const delivered: { item: Item; did: string }[] = []
   for (const item of [...ind, ...tr]) delivered.push({ item, did: await deliver(learner, uid, ws.id, 1, item) })
-  for (const { item, did } of delivered) await solve(page, item, did)
 
-  // G2 — 각 시도가 그 납품에만 결속 · 독립 첫 시도 = 근거
+  // PLAN v2(content_change) — 자료가 생긴 뒤의 기준 계획(같은 목표 버전)
+  const p2 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'content_change', expectedVersion: 1, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p2.status(), await p2.text()).toBe(200)
+  const base = await planRow(ws.id, 2)
+  expect(base).toMatchObject({ user_id: uid, reason: 'content_change', goal_version_id: goalVersionId })
+
+  // C 수행 전 관찰(자료 있음 · 근거 없음)
+  const before = await observe(page)
+  expect(['not_measured', 'axis_observation', 'checking']).toContain(before.evidence) // 화면 용어(v6.2 InspectorEvidence)
+
+  // 학습 · 수행 — 독립 확인 1 · 전이 1 만 푼다(독립 확인 하나는 남겨 다음 행동이 옮겨 가는지 본다)
+  const solved = [delivered[0], delivered[2]]
+  for (const { item, did } of solved) await solve(page, item, did)
+
+  // G2 — 푼 시도만 그 납품에 결속 · 독립 첫 시도 = 근거
   const bindings = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence, user_id').eq('user_id', uid)).data ?? []
-  expect(bindings.map((b) => b.delivery_id).sort()).toEqual(delivered.map((d) => d.did).sort())
+  expect(bindings.map((b) => b.delivery_id).sort()).toEqual(solved.map((d) => d.did).sort())
   expect(bindings.every((b) => b.evidence === true && b.user_id === uid)).toBe(true)
 
-  // 진단 — 지도 근거 판정이 읽는 실제 행(첫 시도 원장 · 시도 원장 · 결속 원장)
-  const firsts = (await admin().from('learning_first_attempts').select('*').eq('user_id', uid)).data ?? []
-  const atts = (await admin().from('learning_task_attempts').select('id, item_ref, task_key, session_id, content_hash, activity, phase, help_level, synthetic').eq('user_id', uid)).data ?? []
-  const binds = (await admin().from('workspace_delivery_attempt').select('attempt_id, evidence, annotation_hash, session_id, non_evidence_reason').eq('user_id', uid)).data ?? []
-  console.log('JOURNEY_ROWS=' + JSON.stringify({ firsts, atts, binds }))
-
-  // H 수행 후 관찰 — 근거로 바뀐 값(단순 복귀가 아니다)
+  // H 수행 후 관찰 — 근거로 바뀐 값(단순 복귀가 아니다 · 새 자료는 없었다)
   const after = await observe(page)
   console.log('JOURNEY_OBSERVE=' + JSON.stringify({ before, after }))
-  // 직접 확인 판정 — 정답 두 개는 「보완 필요」 확정도 「다시 확인 통과」도 아니다(재확인은 시간을 둔다) → checking 이 규칙대로의 값
+  // 직접 확인 판정 — 정답 하나는 「보완 필요」 확정도 「다시 확인 통과」도 아니다(재확인은 시간을 둔다) → checking 이 규칙대로의 값
   expect(['checking', 'need_confirmed', 'passed_current_policy']).toContain(after.evidence)
   expect(after.evidence, 'TASK 근거 상태가 수행 근거로 바뀌어야 한다').not.toBe(before.evidence)
-  // 다음 행동 — 목표 시험과의 연결이 확인 전(relevance_unknown)이면 행동을 내밀지 않는다(합성 회차엔 기출 연결이 없다 · 격리 데이터 한계).
-  //   그 경우만 「바뀌지 않음」을 기록하고, 그 밖에는 반드시 바뀌어야 한다
-  if (before.blocked === 'relevance_unknown' && after.blocked === 'relevance_unknown') console.log('JOURNEY_NEXT=unchanged:relevance_unknown(합성 회차 · 기출 연결 없음)')
-  else expect({ next: after.next, blocked: after.blocked }, '다음 행동이 바뀌어야 한다').not.toEqual({ next: before.next, blocked: before.blocked })
+  if (before.blocked === 'relevance_unknown' && after.blocked === 'relevance_unknown') console.log('JOURNEY_NEXT=unchanged:relevance_unknown(기준 시험 연결 없음)')
+  else expect({ next: after.next, blocked: after.blocked }, '다음 행동이 근거로 바뀌어야 한다').not.toEqual({ next: before.next, blocked: before.blocked })
 
-  // PLAN v2 — 확인 결과로 다시 계산 · 같은 목표 버전 · 이력 보존
-  const p2 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 1, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
-  expect(p2.status(), await p2.text()).toBe(200)
-  const v2 = await planRow(ws.id, 2)
-  console.log('JOURNEY_PLAN=' + JSON.stringify({ v1: { stage: v1.stage }, v2: { stage: v2.stage } }))
-  expect(v2).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
-  // 목표 연결 확인 전(relevance_unknown)이면 To-Be 가 이 TASK 를 요구로 올리지 않아 PLAN 단계가 배정되지 않는다(합성 회차 · 격리 데이터 한계).
-  //   그 경우만 단계 불변을 기록한다 — 「PLAN 이 근거로 바뀐다」는 이 실행으로 증명되지 않는다(결과 보고에 그대로 적는다)
+  // PLAN v3(check_result) — 확인 결과로 다시 계산 · 같은 목표 버전 · 이력 보존. 기준(v2)과 TASK 항목(단계 · 계획량 · 가용량)을 비교
+  const p3 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 2, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p3.status(), await p3.text()).toBe(200)
+  const v3 = await planRow(ws.id, 3)
+  console.log('JOURNEY_PLAN=' + JSON.stringify({ v1: v1.task, v2: base.task, v3: v3.task }))
+  expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
   if (after.blocked === 'relevance_unknown') console.log('JOURNEY_PLAN_STAGE=unchanged:relevance_unknown')
-  else expect(v2.stage, '저장 PLAN 의 TASK 단계가 근거로 바뀌어야 한다').not.toBe(v1.stage)
-  expect((await planRow(ws.id, 1)).stage, 'PLAN v1 이력은 그대로').toBe(v1.stage)
+  else expect(v3.task, '저장 PLAN 의 TASK 항목이 근거로 바뀌어야 한다').not.toEqual(base.task)
+  expect((await planRow(ws.id, 1)).task, 'PLAN v1 이력은 그대로').toEqual(v1.task)
+  expect((await planRow(ws.id, 2)).task, 'PLAN v2 이력은 그대로').toEqual(base.task)
 })
