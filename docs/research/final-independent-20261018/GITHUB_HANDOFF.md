@@ -9,6 +9,8 @@ FI-019는 [#313](https://github.com/KangMin098/Vocaflow/issues/313) 하나로 �
 
 69 진단 CI 종료: [최소 진단 요약](./journey-diagnostics-69b07.json)에 첫 시도/원본/G2 각3행·정답3·합성 표시true·세션/hash 일치3/3을 보존했다. 같은 after 기대값에서 실패했으며 원장 유실로 단정하지 않는다. 기존 #304의 전체 의미 환류 미검증과 같은 PR303 댓글에서 추적하고 새 이슈를 만들지 않는다.
 
+d2e0f3beb의 진단/통합 보고서를 게시하고 [기존 FI-011 #304](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6257257593)에 후속 증거를 연결했다. 공개 PR303 댓글6257037500도 갱신했다. 원격 main/312/250/303은 각각c3a03d168/cefc3e502/2549e407d/69b07ef47이며 실제 safe-merge/병합은0이다.
+
 동일 학습자 종단264f의 fixture 적재 실패/제약 불일치는 [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256578857)으로 인계했고 f8의 시험 메타데이터·합성 id 수정/새 CI를 검토 중이다. [실제 기록](./journey-review-20261019.json). FI-018은 기존 비공개 후보의 담당 경로 보정을 [PR312](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6256579031)에 안내했다. 새 결함/중복 이슈를 만들지 않았다.
 
 19일 재수용 게시: FI-010 [VERIFIED_FIXED 댓글](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6256471331), FI-015 [새 실제 브라우저 결과](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6256523052), [PR303 종합](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256523200). [기존 PR312 리뷰](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279)는 같은 HEAD의 REWORK로 갱신했으며 새 이슈/중복 재현은 만들지 않았다. 비공개 인계 경로는 DL-0181로 보정했고 결과는 DL-0182로 기록했다.

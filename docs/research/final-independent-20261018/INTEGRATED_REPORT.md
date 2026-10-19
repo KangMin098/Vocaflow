@@ -7,6 +7,14 @@
 
 69b07ef47의 [실제 CI39181170145](https://github.com/KangMin098/Vocaflow/actions/runs/39181170145)는 verify/build/faultclosed 성공·e2e 실패다(로그상 기존10성공/여정1실패). [진단 요약](./journey-diagnostics-69b07.json)에서 첫 시도/원본/G2 각각3행, 실제 정오 모두true·synthetic=true, 원본↔첫 시도 및 원본↔G2 세션/hash 일치3/3을 확인했다. 원장 유실로 판정하지 않는다. 첫 시도 view에 content_hash가 없는 것은 실제 로더가 원본 시도에서 보충하는 구조이므로 누락 결함으로 세지 않는다. 지도 after는 같은 상태이고 PLAN v2 미도달이다. 원문/응답/사용자 식별자는 공개 요약에서 제외했다.
 
+|현재 PR|고정 HEAD|최종 확인 CI|독립 수용/병합|
+|---|---|---|---|
+|#312|cefc3e5026daccd9ab695d452d1a085c5d24daaa|39132397689 필수 성공(같은 HEAD의 기존 결과 재사용)|FI-018 PARTIAL_FIX/OPEN; 병합 차단|
+|#250|2549e407d9b1138c83b7fd633556b1527b62648c|39136705847 필수 성공(같은 HEAD의 기존 결과 재사용)|#312 수용 후 최신 main 기준 재확인 필요; 미병합|
+|#303|69b07ef47e1081ca450106c3434e433fba5ecab9|39181170145 verify/build/faultclosed 성공, e2e 실패|G2까지 prefix 수용; 전체 여정/PLAN v2 미수용; 미병합|
+
+원격 main은 c3a03d1680c1b064598fdc1ab319b645f370e68c로 재확인했다. **이번 재수용의 실제 safe-merge 실행0·병합 SHA 없음**. [기존 FI-011의 최신 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6257257593). FI-018의 같은 경계를 재실행하거나 새 중복 이슈를 만들지 않았다.
+
 2026-10-19 현재 [독립 재수용](./REACCEPT_20261019.md)이 아래 시간순 이력보다 우선한다. **전체 REWORK**, FI-010은 명시한 코드/격리 서버·DB/1280·1440 브라우저 범위에서 **VERIFIED_FIXED**다. 새30388c3의 전체 화면 두 기기 CI/직접 해독한 report10/10을 명시 범위에서 추가 수용했고312cefc는 기존 잔여가 확인된 같은 HEAD다. 실제 safe-merge·병합0을 유지한다. A~H의 일곱 증거 층위와 동일 합성 학습자 전체 E2E 미검증도 재수용 표에 분리했다.
 
 18일 체크포인트의 PR303 tip은 **0bcb459296568c9eb1c5ffb2643a6d8ec7f0ea3d**였다. 아래25b 검증 후 FINAL_LEDGER 문서2행만 변경했으며 제품·테스트·CI workflow 변화0을 직접 대조했다. 코드/브라우저 성공은 재사용하고 tip의 필수 CI는 별도로 확인한다. 전체 병합 차단은 FI-018이며 문서 변경을 새로운 제품 결함이나 수용 게이트로 늘리지 않는다.
