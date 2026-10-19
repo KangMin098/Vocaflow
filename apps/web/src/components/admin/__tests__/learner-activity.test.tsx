@@ -6,6 +6,7 @@ const mock = vi.hoisted(() => ({ activity: vi.fn(), snapshots: vi.fn(), supply: 
 vi.mock('@/lib/admin/learner-activity', () => ({ loadAdminLearnerActivity: mock.activity, loadAdminLearnerSnapshots: mock.snapshots }))
 vi.mock('@/lib/csat/map/v62/supply-store', () => ({ loadSupplyLedger: mock.supply }))
 vi.mock('@/lib/supabase/server', () => ({ createClient: async () => mock.sessionDb }))
+vi.mock('@/lib/auth/require-admin', () => ({ getAdminUser: async () => null }))
 vi.mock('@/components/admin/AdminScreenHelp', () => ({ AdminScreenHelp: () => null }))
 import { AdminLearnerActivity } from '../csat-diagnosis/AdminLearnerActivity'
 import { AdminWorkspaceSupply } from '../csat-diagnosis/AdminWorkspaceSupply'

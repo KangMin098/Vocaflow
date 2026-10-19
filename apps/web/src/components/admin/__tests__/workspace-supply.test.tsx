@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 const mocks = vi.hoisted(() => ({ client: vi.fn(), load: vi.fn() }))
 vi.mock('@/lib/supabase/server', () => ({ createClient: mocks.client }))
+vi.mock('@/lib/auth/require-admin', () => ({ getAdminUser: async () => null }))
 vi.mock('@/lib/csat/map/v62/supply-store', () => ({ loadSupplyLedger: mocks.load }))
 import { AdminWorkspaceSupply } from '../csat-diagnosis/AdminWorkspaceSupply'
 const adminDb = {} as SupabaseClient

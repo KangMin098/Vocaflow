@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const mocks = vi.hoisted(() => ({ load: vi.fn() }))
 vi.mock('@/lib/csat/map/v4/plan-store', () => ({ loadSavedPlans: mocks.load }))
 vi.mock('@/components/admin/AdminScreenHelp', () => ({ AdminScreenHelp: () => null }))
+vi.mock('@/lib/auth/require-admin', () => ({ getAdminUser: async () => null }))
 import { AdminLearnerPlans } from '../csat-diagnosis/AdminLearnerPlans'
 const db = {} as SupabaseClient
 beforeEach(() => { vi.clearAllMocks() })
