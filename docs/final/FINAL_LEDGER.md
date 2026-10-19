@@ -148,3 +148,11 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 
 조치(같은 날): ① 인계 · 판정 결속 `codex-route.mjs handoff|verdict`(#315 · 자동 호출 없음 정책 유지) — git 에서 인계문 조립, 같은 HEAD·diff·수용 기준 재사용, 작업당 3회 상한 분류, 판정을 작업 ID + HEAD 에 결속(실제 응답 08:30 → cd17 결속 확인). ② push 직후 CI 와 Codex 인계를 병렬로(bca65 부터). ③ CI 감시는 전체 SHA 로 조회하고, 실행이 안 뜨면 PR mergeable 부터 본다.
 남은 병목: 격리 e2e 를 로컬에서 못 돌려 CI 가 진단 도구가 되는 것(직렬 10분/회) · Codex 큐 처리 지연(28분 · Codex 런타임 쪽 — 이 저장소에서 못 고침).
+
+## 12. T-0050 / rev5 — 바로잡기 → 적용 → 새 독립 확인 → G2 → MAP → PLAN (2026-10-20)
+
+- 수신: AI-Control 큐 T-0050 · 설계 rev5(SHA 05ea6433… 대조 일치) · ACKNOWLEDGED 14:55Z · IMPLEMENTATION_STARTED 기록. 큐 `task start` 는 worker 등록이 사람 대화형 터미널 전용(TRUST_REQUIRED)이라 미실행.
+- 구현 HEAD `57d03fd38`(앞 `b060561a7`): 격리 여정에서 안내 연습 · 전이 · 다시 확인 자료를 **실제 자료 받기 API** 로 받는다(단계별 수요 = 교수/안내 · 전이 · 독립 확인 · 평가 역할을 연습에 섞지 않음). 다시 확인 두 갈래 — pass: 새 지문 2 정답 → `passed_current_policy` · fail: 다시 틀림 → PLAN repair · 다음 행동 안내 연습(이전 성공 불승계). 처음 독립 오답 · PLAN v3~v5 불변 단언.
+- C7 P2: 받은 자료 목록 링크에 지도 복귀 문맥 · 노트 소개 문구 modelLabel. 원노트 연결 메타데이터는 미구현(한계).
+- 검증: 로컬 tsc · eslint · 관련 단위 1,390. `b060561a7` PR CI 격리 e2e — 새 종단 pass 통과, 실패 2 는 링크 기대값(수정). `57d03fd38` 원격 CI_PENDING — **LOCAL_FAST 는 기다리지 않는다**(원격 상태는 AI-Control `state/REMOTE_INTEGRATION.json` 에서 따로 추적).
+- Codex 독립 수용: 인계 2회(01a154b4 · 01a154ba) queued · 판정 대기.
