@@ -43,6 +43,11 @@ const themes = (arg('themes', 'light')).split(',')
 // --anon: 로그인 없이 찍을 라우트 · --sha: 서버 워크트리 커밋 — 증거를 버전에 묶는다
 const anon = new Set((arg('anon', '')).split(',').filter(Boolean))
 const serverSha = arg('sha', 'unknown')
+// --block-writes: 화면을 여는 것만으로 생기는 쓰기(진입 이벤트 · 열람 시각 · 세션 생성 등)를 DB 에 보내지 않는다.
+//   Supabase REST/RPC 와 앱 /api/ 의 GET 이 아닌 요청을 가짜 성공으로 응답하고 개수를 _report.json 에 남긴다.
+//   (공유 개발 DB 에 쓰지 않는 읽기 전용 시나리오 — 사용자 지시 2026-10-19)
+const blockWrites = args.includes('--block-writes')
+const blocked = []
 const fullPage = !args.includes('--fold')
 
 /** 학습자 라우트 — 파일 시스템에서 읽는다(e2e/utils/learner-routes.ts 와 같은 규칙). */
@@ -146,6 +151,15 @@ const run = async () => {
       isMobile: w <= 430,
       hasTouch: w <= 430,
     })
+    if (blockWrites) {
+      await c.route(/\/rest\/v1\/|\/rpc\/|\/api\//, async (route) => {
+        const m = route.request().method()
+        if (m === 'GET' || m === 'HEAD' || m === 'OPTIONS') return route.continue()
+        // 로그인 갱신 · 인증은 막지 않는다(auth/v1 은 패턴에 없음)
+        blocked.push(`${m} ${route.request().url().replace(/^https?:\/\/[^/]+/, '').slice(0, 80)}`)
+        return route.fulfill({ status: 200, contentType: 'application/json', body: '{}' })
+      })
+    }
     const p = await c.newPage()
     // 첫 프레임부터 모션을 세운다 — 연 **뒤**에 거는 것만으로는 이미 돌던 루프가 안 되감긴다.
     await installFreezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
@@ -199,6 +213,7 @@ const run = async () => {
   await ctx.close()
   await browser.close()
   fs.writeFileSync(path.join(outDir, '_report.json'), JSON.stringify(report, null, 2))
+  if (blockWrites) fs.writeFileSync(path.join(outDir, '_blocked-writes.txt'), blocked.join('\n'))
   const ok = report.filter((r) => r.ok).length
   console.log(`\n캡처 ${ok}/${report.length} → ${outDir}`)
 }

@@ -86,9 +86,11 @@ const run = async () => {
       text: document.querySelector('main')?.innerText.slice(0, 300) ?? '',
       inputs: document.querySelectorAll('main input, main textarea').length,
       close: [...document.querySelectorAll('a,button')].filter((e) => /세션 닫기/.test(e.getAttribute('aria-label') ?? e.textContent ?? '')).length,
+      // 나가기 계열 출구 전체(세션 틀 닫기 + 화면 안 「나가기」) — 하나여야 한다(2026-10-19 중복 제거)
+      exits: [...document.querySelectorAll('a,button')].filter((e) => /세션 닫기|나가기/.test(e.getAttribute('aria-label') ?? e.textContent ?? '')).length,
     }))
     await p.screenshot({ path: path.join(outDir, `session-start@${width}-${theme}.png`) })
-    return { ok: r.close === 1 && r.inputs > 0 && /1\s*\/\s*3/.test(r.text), close: r.close, inputs: r.inputs, head: r.text.slice(0, 80) }
+    return { ok: r.close === 1 && r.exits === 1 && r.inputs > 0 && /1\s*\/\s*3/.test(r.text), close: r.close, exits: r.exits, inputs: r.inputs, head: r.text.slice(0, 80) }
   })
   await step('입력 → 제출 → 피드백 상태(쓰기는 막힘)', async () => {
     const input = p.locator('main input, main textarea').first()

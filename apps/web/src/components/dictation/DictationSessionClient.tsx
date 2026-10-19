@@ -362,19 +362,9 @@ export function DictationSessionClient() {
 
       <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
         {/* ─── Header ─── */}
+        {/* 나가기는 세션 틀 오른쪽 위 「세션 닫기」가 맡는다(다른 세션과 같은 자리 · ?from= 또는 /dictate 복귀 — 2026-10-19).
+            예전 화면 안 「나가기」(router.back)는 같은 일을 하는 두 번째 출구였다. 답안은 문항마다 이미 저장된다(persist.ts). */}
         <header className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() =>
-              typeof window !== 'undefined' && window.history.length > 1
-                ? router.back()
-                : router.push('/dictate')
-            }
-            className={`inline-flex h-11 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
-          >
-            <X size={14} />
-            나가기
-          </button>
           <div className="min-w-0 flex-1">
             <p className="truncate font-body text-[12px] text-[var(--t2)]">
               {currentItem.contextLabel ?? session.resourceTitle}
