@@ -7,6 +7,28 @@
 
 **판정: ACCEPT_WITH_LIMITS.** `need_confirmed`·저장 PLAN check→repair·창작 평가 자료 재사용 차단·정확한 자료 대기 안내는 **VERIFIED_FIXED(해당 범위)**다. 바로잡기 자료 공급·수행·성공→적용→새 독립 확인까지의 전체 FI-011은 **PARTIAL / 후속 구현 필요**이며, 전체 FINAL MISSION은 **REWORK**다. 빈 공급을 성공으로 세지 않는다.
 
+**HEAD 이동 후속: 실제 PR303 `8eafb6d3807445c40ed5bf0fd109dc74f2e6052a`는 REWORK다.** 아래 f079의 고정 입력 수용은 보존하지만 현재 tip을 승인하지 않는다. 새8eaf는 main312를 결합했고, 그 전에4b9e73044/db22abd68이 no-reuse 수정을 되돌리고 aa518dc20이 평가 자료 `repair=1` 재풀이를 추가했다. 현재 사용자 수용 기준 「평가 자료 재사용 없음」 및 별도 teach/guided 공급 요청과 충돌하는 **핵심 P2 목적 이탈**이다. G2에 새 독립 근거를 더하지 않는 것만으로 이 제품 조건을 충족하지 않는다. 기존 #304/PR303으로 반환했다([이슈](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6260133248), [PR](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6260133513)).
+
+실제 workspace/plan/rank 바이트에 같은 반례2개를 실행했다: f079 **2/2 성공**,8eaf **0/2 성공·2실패**.8eaf는 assessment의 repair.ready=true, stageItems.repair에 완료된 assessment ref를 다시 넣는다. [HEAD별 반례 결과](./fi011-head-race-contract.json). 기존 f079 map 의존을 사용한 순수 함수 반례이며 새 전체 HEAD 빌드/브라우저로 과장하지 않는다. 첫 시도는 Vitest include 밖의 파일 위치 때문에 실행되지 않았고, src 안으로 옮긴 뒤의 위 실제 단언 결과만 판정에 사용했다.
+
+최소 재현: 각 고정 HEAD의 `map/v4/workspace.ts` 및 의존을 격리 트리에 두고 아래를 `apps/web/src/fi011-assessment-reuse.accept.test.ts`에 작성해 `pnpm --filter web exec vitest run src/fi011-assessment-reuse.accept.test.ts`를 실행한다. 합성 ref이며 DB 연결이 없다.
+
+```ts
+import { expect, it } from 'vitest'
+import { planWorkspaces, stagesOf } from './lib/csat/map/v4/workspace'
+import { templateOf } from './lib/csat/map/v4/definition'
+const ref = 'authored:r5-cm-ind-1'
+const asIs = { tasks: { 'r.central_meaning': { check: { status: 'verified', unseen: [], verifiedItems: [ref], wrongItems: [] } } } } as any
+const input = { asIs, toBe: null, confirmLinks: { 'authored-central-meaning': [{ target: ref, href: '/csat/learn/r5-cm-ind-1?d=synthetic', label: '받은 자료 · 혼자 확인' }] }, transferItems: {}, transferTargets: {} }
+it('평가 자료는 바로잡기 가용 아님', () => expect(stagesOf(templateOf('ws.central-meaning')!, asIs, input).repair.ready).toBe(false))
+it('평가 자료를 바로잡기 행동으로 제시하지 않음', () => {
+  const ws = planWorkspaces(input)
+  expect([ws.primary, ...ws.others].find(x => x?.id === 'ws.central-meaning')!.stageItems.repair).toEqual([])
+})
+```
+
+8eaf source의 `plan.ts stageLink`는 그 ref에 repair=1을 붙이고, LearnPage는 done을 null로 바꾸며, server는 같은 ref를 practice로 기록한다. 새 journey spec은 이 재사용을 기대하도록 변경됐다. **테스트가 성공해도 현재 제품 수용 기준과 반대인 경로를 수용하지 않는다.** 구체 수정: 평가 자료 제외/정확한 대기를 복원하고 아래 별도 교수 공급 지시를 기존 Claude가 검토·구현한다. 이 문서의 과거 재시도 제안 정정도 함께 전달했다.
+
 ## 입력과 직접 관찰
 
 - 제품 HEAD `f0790c5cc91ad7988d14cf7605d31917d5ee5c21`; `539847fb3`의 평가 자료 제외와 f079의 클라이언트 의존 분리까지 확인했다. `09681` 이후 제품 변경8파일을 읽었다.
@@ -28,9 +50,9 @@
 
 ## 통합·외부 경계
 
-관찰 시 PR303 tip `3c7652fdb5d2e1ad081c5acdf54752b714d6b492`는 f079 대비 `docs/final/FINAL_LEDGER.md`만 바뀌었다. 새 tip CI39202151623은 진행 중이었다. **이 고정 제품 수용을 새 tip 필수 CI 성공이나 병합 수용으로 대체하지 않는다.**
+최초 관찰 시 PR303 tip `3c7652fdb5d2e1ad081c5acdf54752b714d6b492`는 f079 대비 `docs/final/FINAL_LEDGER.md`만 바뀌었다. CI39202151623은 이후 필수 성공으로 완료됐다(shared-dev SKIPPED). 이어 실제8eaf/CI39202899739로 제품 입력이 바뀌었으며 진행 중 상태로 접수했다. **고정 제품 수용을 새 제품 HEAD 수용이나 병합 수용으로 대체하지 않는다.**
 
-origin/main13e15e736과 tip303 /2502549의 `git merge-tree --write-tree --name-only`는 둘 다 충돌 없이 종료했다(계산한 tree303=`af6d72c1e5f4f1628e84b5dcd2ed933622b7e4c4`,250=`3bb16e0dd269bde91880872100fba4ceb7b5f6a1`). 이것은 Git 결합 검사이며 그 결합 소스의 타입·빌드·브라우저 성공을 뜻하지 않는다. 두 PR은 BEHIND 상태다. 기존 보호 규칙상 최신 main 결합·목적 리뷰·최종 CI 후250→303 순서의 safe-merge가 남는다. 이번 패킷에서 추가 병합은 하지 않았다.
+origin/main13e15e736과 이전 tip3033c765 /2502549의 `git merge-tree --write-tree --name-only`는 둘 다 충돌 없이 종료했다(계산한 tree303=`af6d72c1e5f4f1628e84b5dcd2ed933622b7e4c4`,250=`3bb16e0dd269bde91880872100fba4ceb7b5f6a1`). 이것은 Git 결합 검사이며 그 결합 소스의 타입·빌드·브라우저 성공을 뜻하지 않는다. 이후3038eaf가 main을 결합했지만 위 제품 수용 위반으로 병합 보류다.250은 별도 최신 main 결합·목적 리뷰·최종 CI가 남는다.250→303의 정책상 safe-merge 순서를 유지하며 이번 패킷에서 추가 병합은 하지 않았다.
 
 보류 SQL의 실제 git blob SHA256은 `dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229`이며 변경 없음. 실제 개발 DB는 새로 쓰거나 적용하지 않았다. 마지막 독립 읽기 측정은2026-10-18T23:16:35Z이며 새 실측으로 갱신하지 않는다. 사람 Gold·권리·실공급·실학습 효과는 이 CI로 승인되지 않는다.
 

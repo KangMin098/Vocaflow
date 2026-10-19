@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+**현재 PR3038eafb6d38는 REWORK.** 인계 중 no-reuse 수정을 되돌리고 같은 평가 자료의 repair=1 재풀이를 추가했다. 현재 요청의 「평가 자료 재사용 없음」과 충돌하는 핵심 P2 목적 이탈이다. 같은 순수 반례2개는 f0792/2성공,8eaf0/2성공·2실패다. [최신 근거·최초/후속 이력](./FI011_REPAIR_ACCEPTANCE_20261019.md), [선택된 별도 교수 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). 고정 f079 범위 수용은 보존하되 새 HEAD에 승계하지 않는다. [기존 #304 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6260133248), [PR303 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6260133513). 전체 REWORK·새 병합0·DB/사람 승인0.
+
 **[VF-TASK FINAL-FI011-REPAIR] 최신 변경분 ACCEPT_WITH_LIMITS.** [FI-011 수용 결과](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 교수·안내 연습 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). 실제 f0790c5cc/CI39201324730 HTML report12/12·영향 단위43/43을 확인했다. 독립2오답→need_confirmed·저장 check→repair·목표/이력 보존·평가 재사용 차단/repair_material_needed는 해당 범위 VERIFIED_FIXED다. 새 교수 자료 공급·바로잡기 수행·성공 이후의 종단 연결은 미구현/미검증으로 전체 FI-011 PARTIAL, **전체 제품 REWORK**다. FI-018은 #312 병합13e15e736 완료, #314는 PROPOSED/채택 REWORK다. #250/#303은 미병합·main 결합/최종 CI/목적 리뷰/안전 병합이 남는다. 아래 이전 판정은 그 시점의 이력으로 보존한다.
 
 2026-10-19 사용자 양방향 계약을 [역할·실제 세션 결속 및 다음 구현 지시](./COLLABORATION_CONTRACT_20261019.md)에 반영했다. Codex는 분석/기획/설계/구현 지시와 독립 수용, Claude는 제품 구현/통합을 소유한다. 실제 직접 전송은 아직 검증되지 않아 GitHub 게시/세션 ACK를 구분한다. 최신3033c7478195/CI39196056859는 기존10성공·여정1실패다. 지도는 not_measured→checking으로 바뀌었지만 before/after 모두 stage_locked/next=null로 다음 행동 단언이 실패했고 PLAN v2는 미도달이다. 기존 FI-011에서 정당한 판정 전환이 있는 양성 경로를 설계했으며 새로운 교육 기준/목표를 만들지 않는다. 전체 REWORK·FI-018 잔여/병합0은 유지한다.

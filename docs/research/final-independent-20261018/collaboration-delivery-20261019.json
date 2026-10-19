@@ -82,9 +82,25 @@
     "wholeFi011": "PARTIAL",
     "workOrder": "FI011_REPAIR_SUPPLY_WORK_ORDER.md",
     "claudeFeasibilityReview": "AWAITING_RETURN",
-    "outgoingStatus": "PREPARED",
+    "outgoingStatus": "GITHUB_POSTED_AWAITING_ACK",
     "directSessionDelivery": "NOT_VERIFIED",
     "previousFINALCOLLAB": "ACK_RECONFIRMED",
-    "previousFINALREWORK": "REFERENCE_ACK_NOW_ORIGINAL_QUEUE_RECEIPT_NOT_VERIFIED"
+    "previousFINALREWORK": "REFERENCE_ACK_NOW_ORIGINAL_QUEUE_RECEIPT_NOT_VERIFIED",
+    "githubReceipts": [
+      "https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6260133248",
+      "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6260133513"
+    ],
+    "headRace": {
+      "head": "8eafb6d3807445c40ed5bf0fd109dc74f2e6052a",
+      "decision": "REWORK",
+      "ciRun": 39202899739,
+      "assessmentReuseReintroduced": true,
+      "contractProbe": {
+        "f079Passed": 2,
+        "newHeadFailed": 2
+      },
+      "sameFiAndIssue": true
+    },
+    "decisionLog": "DL-0189"
   }
 }

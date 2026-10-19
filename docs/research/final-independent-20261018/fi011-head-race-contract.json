@@ -1,0 +1,26 @@
+{
+  "task": "FINAL-FI011-REPAIR",
+  "results": [
+    {
+      "head": "f0790c5cc91ad7988d14cf7605d31917d5ee5c21",
+      "testExit": 0,
+      "acceptedContract": "No authored assessment repair readiness/candidate",
+      "tests": 2,
+      "expectedPassed": 2,
+      "expectedFailed": 0,
+      "scope": "Actual workspace/plan/rank bytes and previously bound f079 map dependencies, pure functions only, not new browser or full-tree build."
+    },
+    {
+      "head": "8eafb6d3807445c40ed5bf0fd109dc74f2e6052a",
+      "testExit": 1,
+      "acceptedContract": "No authored assessment repair readiness/candidate",
+      "tests": 2,
+      "expectedPassed": 0,
+      "expectedFailed": 2,
+      "scope": "Actual workspace/plan/rank bytes and previously bound f079 map dependencies, pure functions only, not new browser or full-tree build."
+    }
+  ],
+  "latestDecision": "REWORK",
+  "reason": "New HEAD reintroduces assessment material reuse contrary to current acceptance input",
+  "devDbWrite": false
+}

@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+**현재 PR3038eafb6d38는 REWORK.** 인계 중 no-reuse 수정을 되돌리고 같은 평가 자료의 repair=1 재풀이를 추가했다. 현재 요청의 「평가 자료 재사용 없음」과 충돌하는 핵심 P2 목적 이탈이다. 같은 순수 반례2개는 f0792/2성공,8eaf0/2성공·2실패다. [최신 근거·최초/후속 이력](./FI011_REPAIR_ACCEPTANCE_20261019.md), [선택된 별도 교수 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). 고정 f079 범위 수용은 보존하되 새 HEAD에 승계하지 않는다. [기존 #304 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6260133248), [PR303 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6260133513). 전체 REWORK·새 병합0·DB/사람 승인0.
+
 **[VF-TASK FINAL-FI011-REPAIR]** f079/CI39201324730 실제12/12·영향43/43. [변경분 수용 ACCEPT_WITH_LIMITS](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 repair 공급 구현 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). need_confirmed/저장 repair/평가 재사용 차단은 확인, 전체 FI-011 PARTIAL·FINAL REWORK. 실제 교수 공급/수행·새 독립 확인은 미검증.312 병합13e15e736,314 PROPOSED 유지. 아래는 이전 인계 이력이다.
 
 **[VF-TASK FINAL-COLLAB-20261019B] ACK**. [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md), [312 기존 리뷰 갱신](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279), [314 보안6항목/PROPOSED 유지·채택 REWORK](https://github.com/KangMin098/Vocaflow/pull/314#pullrequestreview-5566857391). 실제312를 safe-merge로 병합한 SHA는13e15e7367aad27e9fc3cafedbe02cebb5deeaff다. [담당 회신](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259579458), DL-0187. FI-0110b8의 실제12건 중11성공/양성1실패를 해독하고 [기존 #304](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6259617760)/[PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259618044)에 바로잡기 실행 연결 수정 지시를 보냈다.314 비공개 상세는DL-0186이며 실제 DB/정책 채택/사람 승인 없음.
