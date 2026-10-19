@@ -205,3 +205,20 @@ describe('FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성�
     expect(buildR([]).quantity.available).toBeGreaterThanOrEqual(2)
   })
 })
+
+describe('FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 순환이 아니다', () => {
+  it('성공 · 적용 자료 없음 · 다시 확인 문항 부족 → stage recheck · material_needed (repair 로 되돌리지 않음)', () => {
+    // 나머지 확인 문항 i3~i5 는 연습으로 이미 봤다(근거 아님 · 미노출 아님) → 다시 확인 재고 0
+    const seenPractice = ['i3', 'i4', 'i5'].map((i) => ({ ...attempt(i, true, '2026-09-09T00:00:00Z'), activity: 'practice' }) as FindAttemptRow)
+    const a = asIs({ attempts: [...verified, ...seenPractice] })
+    const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const repairTargets = { [KEY]: [{ target: 'authored:g1', href: '/g1', label: 'g', role: 'guided_practice' as const }] }
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 0 }, repairTargets })
+    const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
+    const success = [{ itemRef: 'authored:g1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-09-12T00:00:00Z', activity: 'practice' } as unknown as PlanActivity]
+    const p = workspacePlan(cm, a, toBe, plan, success).tasks.find((t) => t.task === 'r.central_meaning')!
+    expect(p.stage).toBe('recheck')
+    expect(p.unresolved).toContain('material_needed')
+    expect(p.next).toBeNull()
+  })
+})

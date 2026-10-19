@@ -202,8 +202,9 @@ export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | n
   // 적용 — 운영 계획량(저장 계획량 · 정본 2지문)을 채울 때까지. 1회 경험 ≠ 계획 완료. 자료가 없으면(null) 건너뛴다(완료로 꾸미지 않는다)
   const planned = transferPlanned(t, home, opts)
   if (planned !== null && doneOf('transfer', t, activity) < planned) return 'transfer'
-  if (home.stages.recheck.ready) return 'recheck'
-  return base
+  // 바로잡기 성공 · 적용 운영 조건 충족 뒤에는 「다시 확인」 단계다 — 다시 확인 문항이 부족해도 성공한 바로잡기로 되돌리지 않는다(FI-011 B · 순환 방지).
+  //   부족은 recheck.ready=false → material_needed(새 독립 확인 자료 필요)로 안내하고, 수요는 그 단계 역할(independent_check)로 만든다
+  return 'recheck'
 }
 
 /**
