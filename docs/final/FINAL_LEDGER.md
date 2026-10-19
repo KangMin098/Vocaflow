@@ -107,3 +107,14 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 진단으로 확인한 정상 동작: 합성 도메인(example.com) 계정 시도는 지도 근거에서 제외된다.
 - **증명되지 않은 것**: 「PLAN · 다음 행동이 수행 근거로 바뀐다」. 격리 DB 에 기준 시험(최근 평가원 회차) 문항 메타데이터 · 지도 라인 연결이 없어 To-Be 가 요구를 만들지 않는다. 다음 작업 = 그 메타데이터(원문 없이 배점 · 유형 · 라인 연결) fixture 로 relevance_unknown 해소 후 재검증.
 - 이 시험은 relevance_unknown 일 때만 불변을 기록하고, 그 밖에는 변경을 요구한다.
+
+## 9. FI-011 의미 환류 — 양성 경로 PASS (2026-10-19 · `f0790c5cc` · CI e2e 12/12)
+
+| 경로(서로 다른 새 계정) | 근거 상태 | 다음 행동 | 저장 PLAN(TASK 항목) |
+|---|---|---|---|
+| 정답만(대조) | not_measured → checking | ind-1 → ind-2(가리킨 자료를 풀자 이동) | check 유지 — 진행만(가용량 = 미노출+수행 계약 · 규칙대로) |
+| **양성 · 서로 다른 독립 확인 2 오답** | not_measured → **need_confirmed** | 「혼자 확인 ind-1」 → **없음 · 바로잡기 자료 필요** | **check → repair**(v2 → v3 · 같은 목표 버전 · v2 이력 불변) |
+
+- 서버 isCorrect=false · G2 evidence=true(독립 첫 노출) · 같은 user/workspace/목표 버전.
+- 발견 · 수정 결함: 바로잡기 단계가 방금 틀린 **창작 평가 자료**를 「받은 자료 · 혼자 확인」으로 다시 내밀었다(평가 자료 연습 재분류) → 바로잡기 자료에서 창작 평가 자료 제외 · 없으면 `repair_material_needed`(`539847fb3` · 빌드 수정 `f0790c5cc`).
+- 남은 것: 바로잡기 **자료 자체**(교수 · 안내 연습 납품 → 바로잡기 단계 실행 → 성공 근거 → 적용 · 다시 확인). Codex 설계 요청.
