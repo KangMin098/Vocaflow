@@ -487,8 +487,10 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               <button type="button" className={styles.link} disabled={rebinding} onClick={rebind}>{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>
             </p>
           )}
-          {p.retry && wrong && (
-            <button type="button" className={styles.primary} onClick={again} data-testid="authored-retry">다시 풀기</button>
+          {/* 교수 자료(안내 연습 · 원리 설명)는 맞혔어도 다시 풀 수 있다 — 다시 확인에서 막혀 새 바로잡기 회차가 열리면 지도가 같은 안내 연습을 다시 내민다(T-0050 Codex P1).
+              평가 자료(혼자 · 다른 날 확인 · 전이)는 p.retry=false 라 첫 결과로 잠긴다 */}
+          {p.retry && (
+            <button type="button" className={styles.primary} onClick={again} data-testid="authored-retry" data-after={wrong ? 'wrong' : 'right'}>{wrong ? '다시 풀기' : '한 번 더 풀어 보기'}</button>
           )}
           {explain && (
             <ReasoningNoteForm
