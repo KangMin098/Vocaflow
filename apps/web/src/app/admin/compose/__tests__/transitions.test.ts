@@ -52,6 +52,7 @@ function chain(rec: Recorded, result: unknown): Record<string, unknown> {
   return self
 }
 
+vi.mock('@/lib/auth/require-admin', () => ({ requireAdmin: vi.fn().mockResolvedValue({ id: 'admin' }) }))
 vi.mock('next/cache', () => ({ revalidatePath: () => undefined }))
 vi.mock('@/lib/supabase/server', () => ({
   createClient: () =>
