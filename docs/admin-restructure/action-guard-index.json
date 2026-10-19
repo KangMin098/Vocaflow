@@ -1,0 +1,1530 @@
+{
+  "schema": 1,
+  "method": "Module-level use server directive in app/admin/** plus lib/** files from the depth-4 source inventory; exported function declarations with local helper traversal depth 6. No imported-call expansion, arrow-function inference or live permission test. Additional API/SQL guards are documented manually.",
+  "modules": [
+    {
+      "file": "apps/web/src/app/admin/comic/actions.ts",
+      "sha256": "90deb3c1e7c1a7e622a5e876168f9e08b1373400853d25b2cdc4b24cd05b7877",
+      "actions": [
+        {
+          "name": "enqueueComicJobsAction",
+          "line": 18,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 22,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setComicPublishedAction",
+          "line": 32,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 37,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "archiveComicAction",
+          "line": 48,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 53,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setComicStyleStatusAction",
+          "line": 64,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 66,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setBookStyleAction",
+          "line": 79,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 81,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setComicModelStatusAction",
+          "line": 95,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 97,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createComicTestAction",
+          "line": 119,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 121,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "deleteComicAction",
+          "line": 140,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 142,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/actions.ts",
+      "sha256": "7c1262722c77c973689c722a4f6cce86da7d7987d030edc2900ef6d931773cb0",
+      "actions": [
+        {
+          "name": "verifyFeedUrlAction",
+          "line": 95,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "discoverFeedsForSource",
+          "line": 119,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "addFeed",
+          "line": 148,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "setFeedEnabled",
+          "line": 193,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "deleteFeed",
+          "line": 203,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "runDiscovery",
+          "line": 240,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "startCoverage",
+          "line": 385,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "addFactCard",
+          "line": 467,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "addAttestation",
+          "line": 496,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "deleteFactCard",
+          "line": 517,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "publishComposedArticle",
+          "line": 532,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [
+            "run_content_quality_gates"
+          ],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "fetchContentGates",
+          "line": 599,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [
+            "run_content_quality_gates"
+          ],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "createBatch",
+          "line": 653,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "createComposeJob",
+          "line": 685,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "runComposeJobAction",
+          "line": 731,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "runBatchAction",
+          "line": 775,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        },
+        {
+          "name": "startCoverageFromUrls",
+          "line": 864,
+          "guard": "unconfirmed_rls_or_imported_helper",
+          "guardEvidence": [],
+          "rpcs": [],
+          "note": "No local requireAdmin call resolved. RLS/imported helper or no-DB action needs per-entry verification; not an established bypass."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/actions.ts",
+      "sha256": "cb41b80185f87a60e21e251374954fcebc390863a4212d748a5b09ddf2924e27",
+      "actions": [
+        {
+          "name": "saveExamStatsAction",
+          "line": 38,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 39,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setExamReadyAction",
+          "line": 49,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 50,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "saveItemTaggingAction",
+          "line": 74,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 75,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "csat_dx_save_item_tagging"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setPoolItemAction",
+          "line": 92,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 93,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "saveSettingsAction",
+          "line": 111,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 112,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "csat_dx_activate_settings"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/press/actions.ts",
+      "sha256": "8b0b5c8e4c0ffa42233c99c7c08b1e6619d4ec455bbf7a7094ed944ace41e66c",
+      "actions": [
+        {
+          "name": "decideVolumeAction",
+          "line": 43,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 49,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sourcing/actions.ts",
+      "sha256": "3c40fba01f00e2ad5655f294078853047468c5303501f0c4104394b53d698ff2",
+      "actions": [
+        {
+          "name": "retakeSourceSnapshotAction",
+          "line": 29,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 30,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "csat_source_snapshot_take"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/actions.ts",
+      "sha256": "ddb387585ff9e5b35f6ecaba14d404410294d9da5923a683ce08fda2626f2261",
+      "actions": [
+        {
+          "name": "deleteFailedBookAction",
+          "line": 37,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 41,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "bulkSetBooksToInProgressAction",
+          "line": 82,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 86,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "bulkRequeueBooksAction",
+          "line": 115,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 119,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchCurationJobsAction",
+          "line": 146,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 148,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "enqueueQuizJobsAction",
+          "line": 165,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 169,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchQuizJobsAction",
+          "line": 186,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 188,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "enqueueReviewJobsAction",
+          "line": 205,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 210,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchReviewJobsAction",
+          "line": 227,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 229,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/actions.ts",
+      "sha256": "002154edf3813867cfdf5905b3bb208b2299607201e8fc84f4c2a783206f234f",
+      "actions": [
+        {
+          "name": "setItemStatusAction",
+          "line": 74,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "editStatementAction",
+          "line": 134,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createItemAction",
+          "line": 160,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "addLinkAction",
+          "line": 199,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "addExternalEvidenceAction",
+          "line": 231,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "addCsatEvidenceAction",
+          "line": 270,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 46,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/vnext-actions.ts",
+      "sha256": "c48a89c7723905f2bf4dc3101fe8392a3d5253bb8a5bb58600ac0318121c5142",
+      "actions": [
+        {
+          "name": "createInquiryAction",
+          "line": 40,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setInquiryStatusAction",
+          "line": 54,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "linkInquiryAction",
+          "line": 78,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createResearchSourceAction",
+          "line": 99,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "addResearchEvidenceAction",
+          "line": 118,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setEvidenceAxesAction",
+          "line": 139,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setItemKindAction",
+          "line": 164,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createApplicationAction",
+          "line": 181,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "setApplicationStatusAction",
+          "line": 209,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createTrialAction",
+          "line": 233,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 29,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/pending-words/actions.ts",
+      "sha256": "0fc8491c3f427eb952a39918ac239532e51bc6c00a3b4451ed4b3fd5cec64651",
+      "actions": [
+        {
+          "name": "transitionPendingWord",
+          "line": 20,
+          "guard": "rpc_body_source_checked",
+          "guardEvidence": [],
+          "rpcs": [
+            "update_pending_word_status"
+          ],
+          "note": "update_pending_word_status SQL checks user_profiles.role=admin; live installed definition not queried."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/gates/actions.ts",
+      "sha256": "29879d812720d41ce83060b8c95194bd5faf423551e680458289d4848a118982",
+      "actions": [
+        {
+          "name": "runGlobalGates",
+          "line": 41,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 42,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "run_content_quality_gates"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/video/actions.ts",
+      "sha256": "318a15d286488e164e16082bcc48e5aaffb9f714b50c2366a8d7bf34b87a0194",
+      "actions": [
+        {
+          "name": "createVideoRequestAction",
+          "line": 39,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 41,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "video_request_create"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "reviewVideoRequestAction",
+          "line": 67,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 74,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "video_request_review"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "cancelVideoRequestAction",
+          "line": 95,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 97,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "video_request_cancel"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "retireVideoAction",
+          "line": 113,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 115,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "video_retire"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "restoreVideoAction",
+          "line": 131,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 133,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [
+            "video_restore"
+          ],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/compose-studio.ts",
+      "sha256": "5baa20f2247ddf5be6a06ccde871ad459b112f70d376c88d1ab6ddfb09478250",
+      "actions": [
+        {
+          "name": "fetchStudioCatalog",
+          "line": 47,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 48,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchStudioOptions",
+          "line": 83,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 84,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "previewBlueprint",
+          "line": 150,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 154,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "publishBlueprint",
+          "line": 212,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 217,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/curation.ts",
+      "sha256": "dce5b8f1866229e84e00ff37e972a443de576d51084ba8234cdaf41159a73bcc",
+      "actions": [
+        {
+          "name": "approveQueueItem",
+          "line": 40,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "rejectQueueItem",
+          "line": 58,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "editQueueItem",
+          "line": 76,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "reenrichQueueItem",
+          "line": 95,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "bulkApprove",
+          "line": 123,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "bulkReject",
+          "line": 146,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 32,
+              "via": "local-helper"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "beginCuration",
+          "line": 170,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 174,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/dict-lookup.ts",
+      "sha256": "1785e1530d4568ffe25997878a16c66025d44da9d33a800565b34eebec295392",
+      "actions": [
+        {
+          "name": "runDictionaryLookup",
+          "line": 17,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 21,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/enrich.ts",
+      "sha256": "264ae8b91f3455ac577d4a98e2227bde3c1c5ae8432f7d6c4940e9d58023e339",
+      "actions": [
+        {
+          "name": "exportEnrichmentPending",
+          "line": 40,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 45,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "checkEnrichmentStatus",
+          "line": 97,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 101,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "runEnrichmentCommand",
+          "line": 236,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 241,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "resetStaleEnrichmentChunks",
+          "line": 376,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 380,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "importEnrichmentFile",
+          "line": 425,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 431,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/method-a.ts",
+      "sha256": "ceceb4216fdb5a541ef0c4dea45b778d9a57c17cd311f7968846bf29230901b4",
+      "actions": [
+        {
+          "name": "listMethodASources",
+          "line": 22,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 26,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "runMethodAExtract",
+          "line": 36,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 41,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/precheck.ts",
+      "sha256": "cc8f35864aa81e5a8e95d959003dbc685c002d63a9b5a590862b633e3d6715c9",
+      "actions": [
+        {
+          "name": "precheckRun",
+          "line": 10,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 11,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/publish.ts",
+      "sha256": "b942be2cd4fe44d667df41782c36b7fbad22291b7a4ba4eefb01805107107cb6",
+      "actions": [
+        {
+          "name": "runPublish",
+          "line": 17,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 21,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/qa.ts",
+      "sha256": "25e5cc460fca4ad6b739db0dc480ffdab39c640a671b8c3178204ecf630540be",
+      "actions": [
+        {
+          "name": "runQaGate",
+          "line": 17,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 22,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/queue.ts",
+      "sha256": "ac9ee280e5790de43adb7570f3b028760b975566bd7e37a2bd4077d8864182b4",
+      "actions": [
+        {
+          "name": "fetchQueueItems",
+          "line": 17,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 26,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchQueueDetail",
+          "line": 37,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 40,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/run-create.ts",
+      "sha256": "aab6cec3f22b167e5fbfb0468bf5dfce02843457d55bb656a333cebd91d32a11",
+      "actions": [
+        {
+          "name": "createRun",
+          "line": 20,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 24,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/runs.ts",
+      "sha256": "80a646d452fe21663a3c039acbfcaec4f3ea24eb290cddaa9d954e7bba7c3503",
+      "actions": [
+        {
+          "name": "fetchRuns",
+          "line": 15,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 16,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchRunDetail",
+          "line": 21,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 22,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchPublishedSetsForRun",
+          "line": 39,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 42,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "fetchVcbCollections",
+          "line": 104,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 105,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/seed.ts",
+      "sha256": "721d77177311a0024fbcfb81dd985bc10dcae2d190138dc9d9af4cd6a33b8060",
+      "actions": [
+        {
+          "name": "generateSeedSpec",
+          "line": 51,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 55,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "checkSeedJobStatus",
+          "line": 140,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 144,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "runSeedListCommand",
+          "line": 302,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 307,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "loadSeedPreview",
+          "line": 527,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 531,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "deleteSeedListArtifacts",
+          "line": 666,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 670,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "importSeedList",
+          "line": 771,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 776,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/sources.ts",
+      "sha256": "e9522c3b397986bc54cde204ea28b5fab167274f845561951ebcdf214dbaf437",
+      "actions": [
+        {
+          "name": "fetchSources",
+          "line": 26,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 27,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createSource",
+          "line": 32,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 36,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        },
+        {
+          "name": "createSourceWithFile",
+          "line": 65,
+          "guard": "explicit_or_local_helper",
+          "guardEvidence": [
+            {
+              "call": "requireAdmin",
+              "line": 71,
+              "via": "direct"
+            }
+          ],
+          "rpcs": [],
+          "note": "Static call evidence; not a runtime authorization proof."
+        }
+      ]
+    }
+  ],
+  "supplementalEvidence": [
+    {
+      "file": "apps/web/src/middleware.ts",
+      "sha256": "c5cd06c6e60a146438e16679d7db22ca0cb9a6c4a7df84f4467ad8490aa813e9"
+    },
+    {
+      "file": "apps/web/src/app/admin/layout.tsx",
+      "sha256": "73b7b552185a3fec4d163d5faae4d0e72188203ce7410a008efb9a2a85b709a5"
+    },
+    {
+      "file": "apps/web/src/lib/auth/require-admin.ts",
+      "sha256": "ba02968ea84143f725df19682a792745c5089897a645a8b7225885bdd333ac1a"
+    },
+    {
+      "file": "apps/web/src/lib/auth/require-admin-api.ts",
+      "sha256": "172f7a06aa8b5b84dc0116a12e81d916734ac448743c96b0c38abfc7b5349cf4"
+    },
+    {
+      "file": "apps/web/src/app/api/topic-corpus/enqueue/route.ts",
+      "sha256": "48971adfc82dfbee6113cbb8e5f1a1494738837480db8d33d66e4f96329d2720"
+    },
+    {
+      "file": "apps/web/src/app/api/topic-corpus/drain/route.ts",
+      "sha256": "2adb43fdbaac524fcc287276da38762df816d6f69b006565cd511695b9579431"
+    },
+    {
+      "file": "apps/web/src/app/api/topic-corpus/promote/route.ts",
+      "sha256": "286c9edbc7a7cb6f1ae88a250cb626c44dbd746fea73b0ee3134681fcf25f49b"
+    },
+    {
+      "file": "apps/web/src/app/api/acp/dev-process/route.ts",
+      "sha256": "f4fe890d889469f50b12c0e85fce4dd382c607df282e8b532efdc1d715fa1cc1"
+    },
+    {
+      "file": "apps/web/src/app/api/lcp/dev-process/route.ts",
+      "sha256": "a8ce9ba2b59dd1d763a3cd36019c7b14e6e9ac8b69ea8c62a119a7cf0b406f22"
+    },
+    {
+      "file": "apps/web/src/app/api/pdcp/drain/route.ts",
+      "sha256": "5fa1e44eb92d682ba5c8014d5ff2a9f35e5066db87ec0067a406e137add2deb0"
+    },
+    {
+      "file": "supabase/migrations/20260812133000_restore_pending_words.sql",
+      "sha256": "a30a685a4df120494f0603a18a8e5d11293ffb403c8bcd7c3b9b524112b4b2c0"
+    },
+    {
+      "file": "supabase/migrations/20260718100020_judgment_harness_rpcs.sql",
+      "sha256": "5fe85ec1c30099f21248bb1e92360f46ee0d9123d15f0a6e2f8de70577efa0a1"
+    }
+  ]
+}

@@ -26,7 +26,9 @@
 'use client'
 
 import { Bot, Check, ClipboardCheck, Copy, Sparkles, TriangleAlert, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { withFactoryContext, updateAdminUrl } from '@/lib/admin/navigation'
 
 import { coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
 
@@ -174,7 +176,17 @@ export function OrderWizard({
   loadError,
   guide,
 }: WizardProps) {
-  const [pick, setPick] = useState<string | null>(null)
+  const search = useSearchParams() ?? new URLSearchParams()
+  const selectedVolume = volumes.find((v) => v.seriesId === search.get('series') && String(v.step) === search.get('band'))
+  const [pick, setPick] = useState<string | null>(() => selectedVolume ? selectedVolume.seriesId + '|' + selectedVolume.step : null)
+  useEffect(() => { setPick(selectedVolume ? selectedVolume.seriesId + '|' + selectedVolume.step : null) }, [selectedVolume])
+  function chooseVolume(v: OrderVolume) {
+    const url = new URL(window.location.href)
+    url.searchParams.set('series', v.seriesId)
+    url.searchParams.set('band', String(v.step))
+    updateAdminUrl(url)
+    setPick(v.seriesId + '|' + v.step)
+  }
   const [at, setAt] = useState(0)
   // ③ 규격의 단원 수 — 기본은 시중 실측 중앙값. 2026-09-24 전에는 이 값을 고를 수 없어서
   //   「왜 고정인가」가 됐다(조판기 `--units` 는 처음부터 받았다). 문제 수는 따라 바뀐다.
@@ -277,7 +289,7 @@ export function OrderWizard({
                         <button
                           type="button"
                           onClick={() => {
-                            setPick(key)
+                            chooseVolume(v)
                             setAt(1)
                           }}
                           className={`flex min-h-[44px] flex-col justify-center rounded-[var(--r-sm)] border px-2.5 py-1.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
@@ -567,9 +579,9 @@ export function OrderWizard({
               </ul>
               <p className="break-keep font-body text-[12px] leading-snug text-[var(--t2)]">
                 다음: 「확인하기」에서 네 겹 확인 → 「책으로 내기」에서 「발행 승인」. 승인하지 않으면 학습자에게 나가지 않아요.{' '}
-                <a href="/admin/csat/review" className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">확인하기 열기</a>
+                <a href={withFactoryContext('/admin/csat/review', search)} className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">확인하기 열기</a>
                 {' · '}
-                <a href="/admin/csat/press" className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">책으로 내기 열기</a>
+                <a href={withFactoryContext('/admin/csat/press', search)} className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">책으로 내기 열기</a>
               </p>
             </>
           )}

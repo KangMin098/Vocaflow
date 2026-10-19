@@ -790,3 +790,9 @@ export const VCB_HELP: HelpRegistry = {
     },
   },
 }
+
+// 어휘·사전: 기존 사전으로 조립(Studio), 새 seed로 제작(Runs), 입력 자료와 발행 컬렉션을 구분합니다. Runs의 보강·검수·발행은 유지하며 pending_words 사전 보강 드레인과 합치지 않습니다.
+RUNS_ENTRY.screen.fields = [
+  ...(RUNS_ENTRY.screen.fields ?? []),
+  { label: '제작 방식 선택', detail: '이미 있는 사전으로 조립하려면 기존 사전으로 조립(Studio), 새 seed의 보강·검수·발행을 이어가려면 새 seed로 제작(Runs)을 사용합니다. 학습 중 발견한 사전 공백은 별도 사전 보강에서 처리합니다.' },
+]

@@ -15,8 +15,12 @@
 //   현황판 세 곳에 그려져 「복잡하다」의 큰 몫이 됐고 레일을 걷어냈다(`admin/csat/layout.tsx`).
 //   여기는 앞뒤 한 칸씩만 보여 준다 — 전체 순서는 사이드바와 지도가 말한다.
 
+'use client'
+
 import { ArrowLeft, ArrowRight, Map as MapIcon } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { withFactoryContext } from '@/lib/admin/navigation'
 
 import type { StageStatus } from '@/lib/csat/factory-model'
 import { PLAIN_STEPS, neighbours, type PlainLab, type PlainStep } from '@/lib/csat/factory-plain'
@@ -42,6 +46,7 @@ export function StepHeader({
   help?: React.ReactNode
 }) {
   const { prev, next } = neighbours(step)
+  const search = useSearchParams()
   return (
     <header className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -110,7 +115,7 @@ export function StepHeader({
 
       <nav aria-label="앞뒤 걸음" className="flex flex-wrap justify-between gap-2 border-t border-[var(--bd)] pt-2">
         {prev ? (
-          <Link href={prev.href} className={linkCls}>
+          <Link href={withFactoryContext(prev.href, search)} className={linkCls}>
             <ArrowLeft size={14} strokeWidth={2} aria-hidden />
             앞 걸음 · {prev.name}
           </Link>
@@ -118,7 +123,7 @@ export function StepHeader({
           <span />
         )}
         {next ? (
-          <Link href={next.href} className={linkCls}>
+          <Link href={withFactoryContext(next.href, search)} className={linkCls}>
             {step.no == null ? '처음으로 · ' : '다음 걸음 · '}
             {next.name}
             <ArrowRight size={14} strokeWidth={2} aria-hidden />
@@ -142,13 +147,13 @@ export function LabHeader({
   return (
     <header className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <nav aria-label="공장 안 위치" className="flex flex-wrap items-center gap-x-2">
-          <Link href="/admin/csat" className={linkCls}>
+        <nav aria-label="연구 안 위치" className="flex flex-wrap items-center gap-x-2">
+          <Link href="/admin/knowledge" className={linkCls}>
             <MapIcon size={14} strokeWidth={2} aria-hidden />
-            공장 지도
+            연구·기준
           </Link>
           <span aria-hidden className="text-[var(--t3)]">›</span>
-          <span className="font-display text-[12.5px] font-[700] text-[var(--t2)]">기준을 세우는 곳</span>
+          <span className="font-display text-[12.5px] font-[700] text-[var(--t2)]">제작·진단 근거</span>
         </nav>
         {help}
       </div>
@@ -158,7 +163,8 @@ export function LabHeader({
       </div>
       <p className="break-keep font-body text-[14px] leading-relaxed text-[var(--t1)]">{lab.says}</p>
       <p className="break-keep font-body text-[12.5px] text-[var(--t2)]">
-        글감이 거쳐 가는 걸음은 아니에요 — 여기가 멈춰도 여덟 걸음은 계속 돌아요.
+        제작과 진단의 판단 근거를 확인합니다.
+        <Link href="/admin/csat" className={linkCls}>교재 제작에서 활용</Link>
       </p>
     </header>
   )

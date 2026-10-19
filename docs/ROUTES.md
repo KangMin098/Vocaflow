@@ -1,5 +1,16 @@
 # Routes Map
 
+### 관리자 업무 영역 및 호환 경로 (2026-10-19)
+
+관리자 기존 URL은 유지하며 lib/admin/navigation.ts가 7개 영역의 소속과 내부 내비를 정한다. 새 API/RPC/DB 변경은 없다.
+- /admin/library → /admin/curation?view=library: 검색·선택 파라미터 보존.
+- /admin/reports / /admin/billing → /admin/settings#reports / #billing: 연결·지원 상태에서 확인.
+- /admin/csat/explain → /admin/csat/authoring?view=explanation: 시리즈·단계 등 기존 파라미터 보존. view=items|explanation로 문항·해설 전환.
+- 도서: view=library|collect|review, 수집 method, 목록 q/source/level/status/page/selected 복원. 기존 tab은 호환 파싱한다.
+- /admin/vocab → /admin/vocab/runs의 기존 redirect는 유지. 새 내부 메뉴의 기본 제작 방식은 /admin/vocab/studio.
+- 영어 진단 및 어휘 수준/이력은 학습자 영역, 교재 기출 근거·전략·설계는 연구 영역에 표시한다. URL 재배치나 권한 확대는 없다.
+
+
 ### CSAT 원문 운영 API (2026-09-18)
 
 `/api/admin/csat/sources` — 관리자/큐레이터 전용, no-store.

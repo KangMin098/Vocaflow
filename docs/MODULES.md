@@ -1241,3 +1241,7 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 ### V2 Instrument 독립 수용 경계(2026-10-17)
 
 ContextSensePanel은 B 판별 조건 성공과 C 문장 선택을 분리하고(V2-F1: 제출 전 뜻 선택지 없음 · 뜻 D 는 B 정답 저장 뒤의 기록 없는 연습 · 유형별 밑줄 표지, [V2_F1_CUE_LEAK](./csat-learner/v62/V2_F1_CUE_LEAK.md)), writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.
+
+## 관리자 작업 영역 (2026-10-19)
+
+AdminShell·AdminSidebar·lib/admin/navigation.ts가 작업 홈/콘텐츠/교재/어휘/학습자/연구/운영의 소속·내부 내비를 공유한다. 영어·어휘 진단 엔진과 학습 데이터 계약은 변경하지 않았다. 문항·해설은 authoring의 두 보기이며 도서 입력은 세 작업 보기 안에서 선택한다. 상세는 [ADMIN_CONSOLE](./ADMIN_CONSOLE.md).

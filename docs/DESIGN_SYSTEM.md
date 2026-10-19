@@ -379,3 +379,7 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 - [ ] 맥락을 보존하는가? (단어는 스크립트/예문과 결합)
 
 (Calm UI · 비난 · 평균 회귀 점검 항목은 DD-66 으로 삭제.)
+
+## 관리자 업무 레일과 작업 패널 (2026-10-19)
+
+PC 관리자 레일은 7개 업무, 작업 패널 상단은 현재 영역의 화면·도구를 표시한다. 기존 3B 관리자 토큰과 44px 포커스 가능한 컨트롤을 쓴다. 기하는 components/admin/AdminShell.module.css의 CSS 변수와 [관리자 참조 명세](./design/refs/3b/admin/spec.json)에 둔다. 상단 56px·레일 216px·1440×900 패널 채움 (228,58,1200,min-height 830). `pnpm design:ref-compare --admin --base <URL>`는 외곽·색 토큰만 대조하며 표·상세·팝업 기능 검증을 대신하지 않는다. 모바일 전용 디자인은 추가하지 않았다.

@@ -56,7 +56,7 @@ export default async function VrlDashboardPage() {
     <div className="flex flex-col gap-6 p-6">
       <AdminPageHeader
         icon={Brain}
-        title="어휘 레벨"
+        title="사전 품질"
         description="VRL 파이프라인이 만든 사전 데이터의 품질 — 플랫폼 4 파이프라인 (R1-R4) 의 기초 자산 점검"
       />
       <Suspense fallback={<DashboardFallback />}>

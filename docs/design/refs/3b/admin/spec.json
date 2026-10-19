@@ -1,0 +1,13 @@
+{
+  "source": "docs/design/shots/reference-app/app-recents.png",
+  "computedSource": "docs/design/shots/reference-app/extract-recents.json",
+  "sourceSha256": "2e9aee9d5066bfe81689685d0b6e4a5ff4d2aae4165d95964044b51bce3f2d49",
+  "computedSourceSha256": "8257fe26b390580e14e2fab31659a6a34e2a87d42509f7bcc01ce053c7e5fa89",
+  "viewport": { "width": 1440, "height": 900 },
+  "measurement": "Reused 2026-10-03 reference measurement from design/replica-first. Capture-derived workspace bounds are not an authenticated DOM panel rectangle. Header 56px and rail 216px are recorded in reference-analysis. Source assets are locally retained under the repository's existing screenshot ignore policy. 2px tolerance applies to the outer frame, not all content or interaction states.",
+  "header": { "height": 56 },
+  "rail": { "width": 216 },
+  "panelFill": { "x": 228, "y": 58, "width": 1200, "minHeight": 830 },
+  "tokens": { "primary": "#0d0d17", "surface": "#ffffff", "canvas": "#fbf9f7" },
+  "adaptations": "Korean headings and 44px minimum targets retain product accessibility. No claim of whole-screen pixel identity."
+}

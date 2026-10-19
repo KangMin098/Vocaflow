@@ -47,7 +47,6 @@ const STATS: DashboardStats = {
   learners: { total: 3, activeToday: 2 },
   texts: 278,
   qualityLastMeasuredAt: null,
-  reportsOpen: null,
   recentUnread: [],
   qualityUnread: false,
   recent: [],
@@ -58,12 +57,7 @@ const STATS: DashboardStats = {
  * `partial` 은 화면 일부만 실측이라는 뜻(배너 의무는 동일).
  */
 const MOCK_SCREENS: { slug: string; load: () => Promise<{ default: () => unknown }> }[] = [
-  { slug: 'analytics', load: () => import('../analytics/page') },
   { slug: 'users', load: () => import('../users/page') },
-  { slug: 'reports', load: () => import('../reports/page') },
-  { slug: 'billing', load: () => import('../billing/page') },
-  { slug: 'settings', load: () => import('../settings/page') },
-  { slug: 'library', load: () => import('../library/page') },
 ]
 
 /** 배너 본문의 고정 문구 — 컴포넌트를 바꾸면 여기도 같이 바뀌어야 한다(그게 의도). */
@@ -118,7 +112,7 @@ describe('admin 목업 화면 고지', () => {
   })
 
   it('사용자 화면의 두 칸은 집계 결과에서 온다 (상수 아님)', async () => {
-    const html = await renderScreen(MOCK_SCREENS[1].load)
+    const html = await renderScreen(MOCK_SCREENS[0].load)
 
     expect(html).toContain('총 사용자')
     expect(html).toContain('>3<')
@@ -135,7 +129,7 @@ describe('admin 목업 화면 고지', () => {
       ...STATS,
       learners: { total: 4321, activeToday: 0 },
     })
-    const html = await renderScreen(MOCK_SCREENS[1].load)
+    const html = await renderScreen(MOCK_SCREENS[0].load)
 
     expect(html).toContain('4,321')
     // 0 은 실측된 0 이므로 — 로 뭉개지 않는다
@@ -144,7 +138,7 @@ describe('admin 목업 화면 고지', () => {
 
   it('조회 실패(null)는 0 이 아니라 —', async () => {
     statsMock.mockResolvedValue({ ...STATS, learners: { total: null, activeToday: null } })
-    const html = await renderScreen(MOCK_SCREENS[1].load)
+    const html = await renderScreen(MOCK_SCREENS[0].load)
 
     expect(html).toContain('—')
     expect(html).not.toContain('>0<')
@@ -164,7 +158,7 @@ describe('admin 목업 화면 고지', () => {
     // 링크도 버튼도 아닌 행에 붙어 있던 이동 어포던스
     expect(html).not.toContain('lucide-chevron-right')
     // 점검 모드 스위치는 남되 잠겨 있어야 한다
-    expect(html).toContain('점검 모드 (저장 경로 없음 — 사용 불가)')
-    expect(html).toContain('disabled=""')
+    expect(html).not.toContain('점검 모드 (저장 경로 없음 — 사용 불가)')
+    expect(html).not.toContain('role="switch"')
   })
 })

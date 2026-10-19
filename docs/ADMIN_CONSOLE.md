@@ -1,5 +1,7 @@
 # Admin Console
 
+관리자 재구조화: [로컬 1차 구현 기록](./admin-restructure.md)과 [하위 메뉴·파이프라인 심층 재설계 비교](./admin-submenu-redesign.md)를 구분한다. 후자는 7개 상위·22개 하위 작업 공간의 **미적용 제안**이다.
+
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).
 
 
@@ -59,119 +61,29 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 
 평문 `/admin/*` 사용 — URL 명시성 + 단일 layout scope.
 
-### AdminSidebar 그룹
+### 업무 영역 7개 (2026-10-19)
 
-```
-[ 단독 ]    대시보드 (LayoutDashboard)
-[ 교재 ]     (accent: var(--p))
-   교재 공장 (Factory) — 하위 14칸(여덟 걸음 + 낸 뒤 살피기 · 기준을 세우는 곳 3 · 도움 2). 이름은 `PLAIN_STEPS` 에서 온다. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
-[ 학습 원리 ] (accent: var(--p)) — 2026-09-28 · vNext 5개 업무 공간 2026-10-08. 공급이 아니라 판단 기준이라 교재와 공급 사이
-   원리 운영실        /admin/knowledge
-   역량 · 원리 지도   /admin/knowledge/map — 하위(본질 · 원리 · 방법론 · 공부법)
-   탐구 · 근거 연구소 /admin/knowledge/lab — 하위(연구 서지 · 검토 대기 · 근거 · 출처 · 기출 원천 · 전문가 · 채널 · 공백 · 가져오기 원장)
-   학습 설계 · 검증   /admin/knowledge/design
-   제품 적용 · 품질   /admin/knowledge/product
-   성과 검토 신호     /admin/knowledge/signals — 「제품 적용 · 품질」 탭 · 적용별 재검토 신호(읽기 전용 · efficacy 불변)
-   원리 근거 비교     /admin/knowledge/lab/compare — 「탐구 · 근거 연구소」 탭 · 근거 종류별 비교 · 영역 지도(읽기 전용)
-   적용 사슬 추적     /admin/knowledge/product/[id] — 끊긴 곳 · 탐구 → 근거 → 기제 → 방법 → 과제 → 적용 → 수행 → 효과(Phase 3 · 2026-10-08)
-   항목 상세에 「문장 고치기」 — 채택 · 적용 중이면 자신과 아래 층 재검토 + 적용 자동 중단. 근거 추가 · 축 변경도 같은 전파(lib/knowledge/review-cascade.ts + DB 트리거 20261008140000 — SQL 직접 변경도 같다)
-   = 5 공간 · 기존 URL 그대로 하위 · 화면 위 업무 공간 내비(WorkspaceNav) · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/VNEXT_ARCHITECTURE.md(SYSTEM.md 는 5층 원본)
-   쓰기: 항목 상세(/admin/knowledge/item/[slug])의 상태 변경·층 연결·근거 추가, 목록의 「새 항목 쓰기」
-   규칙 lib/knowledge/rules.ts — 근거 0 이면 채택 불가 · 반려는 이유 필수 · 「구현」은 바로 위 층만
-[ 콘텐츠 공급 ] (accent: var(--p))
-   콘텐츠            /admin/library
-   도서 수집   LCP   /admin/curation
-   짧은 글     ACP   /admin/articles
-   사실 재저작 Compose /admin/compose
-   만화        CCP   /admin/comic
-   스캔 만화   PDCP  /admin/pd-comics
-   주제 코퍼스 TCP   /admin/topic-corpus
-   = 7 항목
-[ 어휘 ]     (accent: var(--p))
-   단어장 마스터     /admin/vocabulary
-   어휘 빌드   VCB   /admin/vocab
-   어휘 레벨   VRL   /admin/vrl  — 하위 6칸 (같은 접기/펴기)
-   대기 단어         /admin/pending-words
-   = 4 항목
-[ 운영 ]     (accent: var(--info))
-   사용자 · 플랫폼 분석 · 영상 공장(VFP) · 신고/문의(실 데이터 뱃지) · 결제/구독
-   = 5 항목
-[ 품질 · 시스템 ] (accent: var(--active))
-   품질 지표 · 품질 게이트 · 추출 판정 · DB 헬스 · 시스템 설정
-   = 5 항목
-```
+메뉴와 화면 소속 정본은 lib/admin/navigation.ts다. AdminSidebar는 7개 업무 진입점만, AdminShell은 현재 영역의 화면과 작업 도구만 보여 준다. 옛 접기 저장값은 읽지 않으므로 새 메뉴를 가리지 않는다.
 
-#### 왜 이 모양인가 (2026-09-06 재설계 · 회귀 `components/admin/__tests__/sidebar-readability.test.tsx`)
-
-앞 판은 「사용자 & 콘텐츠」 한 묶음에 **1차 항목 13개**가 머리글 없이 이어졌고, 그중 일곱이
-이름 대신 약칭(`LCP Pipeline`·`VCB Pipeline`…)을 달고 있었다 — 라벨이 무엇을 만드는
-파이프라인인지 말하지 않으니 목록을 매번 처음부터 다시 읽는다. 실측으로 고친 것 넷:
-
-| | 앞 | 뒤 |
+| 영역 | 기본 진입 | 책임 |
 |---|---|---|
-| 가장 큰 묶음의 1차 항목 | **13** | **7** |
-| 묶음 수 | 4 | 6 (만드는 것 기준) |
-| 가장 작은 글자 | **9.5px** | **11px** |
-| 하위 항목이 부모 밖 href 에서 사라짐 | 1건(`원문 적격`) | 0 |
+| 작업 홈 | /admin | 실패·검토 대기·최근 작업과 실측 요약 |
+| 콘텐츠 | /admin/curation | 도서·짧은 글·만화·주제 코퍼스 |
+| 교재 제작 | /admin/csat | 제작 현황·한 권 만들기·발행 교재 |
+| 어휘·사전 | /admin/vocabulary | 사전·단어장 제작·사전 보강·품질·분류 |
+| 학습자·진단 | /admin/users | 사용자·영어/어휘 진단·수준 이력·활동 분석 |
+| 연구·기준 | /admin/knowledge | 기존 원리 5공간·기출 분석/운영·교재 기준 |
+| 운영·시스템 | /admin/quality | 콘텐츠 품질·DB 상태·홍보 영상·연결/지원 |
 
-- **약칭은 오른쪽 색인(`NavItem.tag`)으로 내렸다** — 지울 수는 없다(문서·스크립트가 「LCP」로
-  부르고, 각 화면의 제목도 아직 「VRL Pipeline」이다). 이름을 먼저 읽고 약칭이 다리를 놓는다.
-- **하위메뉴는 자기 면을 갖는다** — 부모의 아래쪽 모서리를 펴서 맞물린 패널 안에 들어가고,
-  줄마다 레일에서 뻗은 가지(`├`/`└`)가 걸린다. 앞 판은 세로선 하나뿐이라 **글자 크기만 1px
-  작은 형제 목록**으로 읽혔다("하위메뉴 같지 않다"의 실체가 이것이었다).
-- **`opacity` 로 글자를 깎지 않는다** — `--t3`(4.77:1)에 `opacity-60` 을 곱하면 실효 대비가
-  **2.31:1** 로 떨어져 AA 를 깬다. 「해설(준비 중)」 줄이 그랬다. 흐림은 색으로 표현한다.
-- **펼침 판정이 자식 href 까지 본다**(`inSection`). 「원문 적격」은 라우트가 아직
-  `/admin/textbook/sources` 라 부모 밖이었는데, 부모 href 만 보면 **그 항목을 누르는 순간
-  자기가 속한 메뉴가 통째로 접혔다.** 화면은 멀쩡히 뜨므로 눈으로는 안 잡힌다.
+최신 main 기준 관리자 페이지 파일 89개(상세·생성·호환 redirect 포함)를 전수 매핑한다. /csat/diagnosis는 학습자, /csat/evidence·strategy·blueprint는 연구이며 URL 접두사만으로 교재 소속을 정하지 않는다. 공통 CSAT 제목과 연구 머리띠도 이 소속을 따른다.
 
-#### 하위메뉴 접기 / 펴기 (2026-09-06)
+호환: /admin/library→도서 목록, /admin/reports·billing→연결·지원 상태의 해당 위치, /admin/csat/explain→문항·해설 작업면의 해설 보기. 검색/선택값을 보존하고 새 API·DB·권한은 추가하지 않는다. /admin/vocab의 기존 Runs redirect는 유지하고 새 단어장 제작 메뉴는 Studio로 진입한다.
 
-하위메뉴는 **경로가 정하는 것**이었다 — 그 파이프라인 안에 있으면 펴지고 나가면 접혔다.
-규칙 자체는 맞다(찾는 화면은 대개 지금 있는 곳 근처다). 문제는 관리자가 **그것을 바꿀 수
-없었다**는 것이다:
+신고 배지·홈의 안내 전용 카드 및 부재 reports 집계는 종료했다. 작업 홈은 요약과 실행할 작업면으로 연결하고, 리텐션·교사 퍼널의 상세는 활동 분석에 둔다. 화면도움말은 같은 변경에서 갱신한다. [이행과 검증](./admin-restructure.md).
 
-- 교재 공장 **밖**에서 「조판·발행」으로 가려면 부모를 먼저 눌러 하위가 펴지기를 기다린다 —
-  한 번에 갈 곳을 **두 번** 이동한다.
-- 반대로 하위 11칸이 필요 없는 동안에도 그 11줄이 자리를 먹어, 아래 묶음 셋이 스크롤 밖으로
-  밀린다. 1차 항목 22개짜리 메뉴에서 11줄은 **절반**이다.
+## /admin — 작업 홈
 
-그래서 경로 규칙을 **기본값**으로 격하하고 관리자의 클릭을 그 위에 얹는다:
-
-    열림 = 관리자가 정한 값(있으면) ?? 경로가 정하는 값
-
-| | |
-|---|---|
-| 조작 | 1차 항목 오른쪽 끝 화살표(`ChevronRight`). 이름을 누르면 이동, 화살표를 누르면 접기/펴기 |
-| 상태 표시 | 화살표가 **회전**한다(접힘 ▶ / 펼침 ▼ = `rotate-90`). 아이콘을 갈아 끼우지 않는 이유는, 두 그림을 오가면 "무엇이 무엇으로 바뀌었는지" 가 안 남기 때문이다. transform 이라 모션 예산 안 |
-| 저장 | `localStorage['vocaflow.admin.nav.open']` — **기본값과 다른 항목만** 담긴다 |
-| 접근성 | 버튼에 `aria-expanded` + `aria-controls`(펼침 패널 id) + "「…」 하위 N개 펼치기" 라벨. 44×44px |
-
-지킨 것 셋 — 전부 회귀(`sidebar-readability.test.tsx` ⑤)가 잠근다:
-
-- **링크 안에 버튼을 넣지 않는다.** 한 줄이 두 개의 조작이라 겹쳐 놓기 쉬운데, 중첩
-  인터랙티브는 **키보드로 도달할 수 없는 버튼**을 만든다. 면·테두리는 감싸는 `<div>` 가 갖고
-  링크와 버튼이 그 위에 나란히 눕는다.
-- **기본값으로 돌아오는 클릭은 저장값을 지운다.** 안 지우면 「지금 한 번 펴 둔 것」이 영구
-  고정으로 굳어서, 다른 파이프라인에 들어가도 남의 하위 11줄이 계속 따라다닌다.
-- **접어 둔 채 그 안에 있으면 부모 줄이 강조를 유지한다**(왼쪽 세로 막대 + `font-[600]`).
-  하위가 안 보이는 동안 그것이 자기 위치를 아는 **유일한 단서**다.
-
-⚠️ **서버 렌더는 항상 기본값(경로 규칙)으로 그린다.** 첫 렌더에서 `localStorage` 를 읽으면
-서버와 다른 HTML 이 나와 하이드레이션이 깨진다 — 저장값은 마운트 뒤에 얹는다.
-
-### 신고 뱃지 (v06.28 · ⚠️ 무효)
-
-`admin/layout.tsx` Server fetch `reports.status='open'` COUNT → AdminSidebar `reportsBadge` prop.
-- 0건 자동 숨김
-- ⚠️ **`reports` 테이블이 DB 에 없다** (2026-08-12 실측 — `PGRST205`, 2026-09-05 재확인 —
-  `to_regclass` NULL). 배지 부재 = "신고 0건" 이 아니라 **"집계할 테이블 없음"**.
-- 2026-09-05: `fetchPendingReportsCount` 가 `count ?? 0` 으로 뭉개던 것을 `number | null` 로
-  바꿨다. 둘의 차이가 코드에 남아 있어야 나중에 테이블이 생겼을 때 배지가 되살아난다.
-
----
-
-## /admin — 대시보드 (v06.35 실측화)
+현재 활동 분석 상세는 `/admin/analytics`에 있다. 아래 표와 목업 화면 목록은 v06.35 당시의 과거 실측화 기록이며 현재 메뉴·화면 계약은 위의 업무 영역 7개와 이행 문서를 따른다.
 
 `page.tsx` (RSC · `dynamic = 'force-dynamic'`) — `requireAdmin('/admin')` → `createAdminClient()`
 (service_role, dev-bypass 에서도 조회 가능) → `lib/admin/dashboard-stats.ts`.
@@ -351,18 +263,11 @@ manifest(파일) · `storage.objects` · `funnel_events` 셋으로 전부 답한
 
 ## /admin/curation — LCP
 
-### 8탭
+### 작업 보기 3개와 수집 방식
 
-| 탭 | 컴포넌트 | 기능 |
-|---|---|---|
-| Sources | `SourceCatalogTab.tsx` | 9 외부 소스 카탈로그 (composite_score) |
-| BulkFetch | `BulkFetchTab.tsx` | 일괄 fetch + "Dev 일괄 처리" 버튼 (v06.34) |
-| Seed | `SeedTab.tsx` | gutenberg/SE 시드 카드 |
-| Gutenberg ID | `GutenbergIdTab.tsx` | ID 입력 → preview-gutenberg |
-| Wikibooks ID | `WikibooksIdTab.tsx` | preview-wikibooks |
-| Wikisource ID | `WikisourceIdTab.tsx` | preview-wikisource |
-| OpenStax ID | `OpenStaxIdTab.tsx` | preview-openstax |
-| My Library | `MyLibraryTab.tsx` | Curated Books 테이블 |
+도서 목록 / 수집 / 검토 대기. 수집 안에서 소스 카탈로그·대량·추천 시드·Gutenberg ID·Wikibooks·Wikisource·OpenStax·StoryWeaver를 선택한다. 기존 소스별 입력과 EnqueueModal을 재사용한다.
+
+URL: view=library|collect|review, method=sources|bulk|seed|id|wikibooks|wikisource|openstax|storyweaver. 목록의 q/source/level/status/page/selected도 URL에서 복원한다. 25행씩 표시하고 전체 선택은 현재 페이지만 대상으로 한다. 명시적으로 고른 다른 페이지의 항목은 일괄 선택 수에 남는다. 필터 변경 시 페이지를 초기화하고, 큐 추가 성공 후에는 검색 조건을 해제한 전체 목록으로 돌아간다.
 
 ### Curated Books — 테이블 + 일괄 액션 (v06.34)
 
@@ -483,7 +388,7 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 | `/admin/vocab/sources` | sources 목록 |
 | `/admin/vocab/sources/new` | 신규 source |
 | `/admin/vocab/curate/[run_id]` | curate hub |
-| `/admin/vocabulary` | (legacy stub) |
+| `/admin/vocabulary` | 사전 검색·분류 필터·선택 단어 상세 |
 
 컴포넌트 (`components/admin/vcb/`):
 - 8 step 워크플로우
@@ -504,10 +409,10 @@ CLI 동등물: `pnpm vcb:compose --blueprint <id> [--commit]` · 평가: `pnpm v
 | `/admin/vrl` | ★ 실 구현 | Dashboard — KPI 4 (의심/진단/사용자/snapshot) + V-Level 12 진행 |
 | `/admin/vrl/taxonomy` | ★ 실 구현 | 4 tab (Levels/Tracks/Domains/Skills) read-only |
 | `/admin/vrl/automation` | ★ 실 구현 (v06.34) | pg_cron + V-Level 분포 + 진단 활용도 + track 분포 |
-| `/admin/vrl/concerns` | stub | `vrl_data_integrity_concerns` cleanup |
-| `/admin/vrl/diagnostic` | stub | 진단 시드/문제 편집 |
-| `/admin/vrl/users` | stub | `user_profiles.current_v_level` 분포 |
-| `/admin/vrl/snapshots` | stub | `user_level_snapshots` audit chain |
+| `/admin/vrl/concerns` | 조회 구현 | `vrl_data_integrity_concerns` cleanup |
+| `/admin/vrl/diagnostic` | 조회 구현 | 진단 시드/문제 편집 |
+| `/admin/vrl/users` | 조회 구현 | `user_profiles.current_v_level` 분포 |
+| `/admin/vrl/snapshots` | 조회 구현 | `user_level_snapshots` audit chain |
 
 ### 데이터 쿼리
 

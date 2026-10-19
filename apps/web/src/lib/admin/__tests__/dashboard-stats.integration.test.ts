@@ -71,9 +71,8 @@ describe.skipIf(skipIfNoEnv)('getAdminDashboardStats (integration)', () => {
     expect(broken, `집계 실패(테이블/컬럼/상태값 불일치): ${broken.join(', ')}`).toEqual([])
   })
 
-  it('없는 테이블(reports)은 0 이 아니라 null 로 온다', () => {
-    // reports 가 생기면 이 단언이 깨진다 — 그때 화면 문구("reports 테이블 없음")도 함께 고칠 것.
-    expect(stats.reportsOpen).toBeNull()
+  it('집계 모델에 미연동 신고 지표를 다시 넣지 않는다', () => {
+    expect(stats).not.toHaveProperty('reportsOpen')
   })
 
   it('최근 변경은 updated_at 내림차순 8건 이하', () => {
