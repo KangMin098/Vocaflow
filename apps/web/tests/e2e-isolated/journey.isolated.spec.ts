@@ -136,6 +136,12 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   expect(bindings.map((b) => b.delivery_id).sort()).toEqual(delivered.map((d) => d.did).sort())
   expect(bindings.every((b) => b.evidence === true && b.user_id === uid)).toBe(true)
 
+  // 진단 — 지도 근거 판정이 읽는 실제 행(첫 시도 원장 · 시도 원장 · 결속 원장)
+  const firsts = (await admin().from('learning_first_attempts').select('*').eq('user_id', uid)).data ?? []
+  const atts = (await admin().from('learning_task_attempts').select('id, item_ref, task_key, session_id, content_hash, activity, phase, help_level, synthetic').eq('user_id', uid)).data ?? []
+  const binds = (await admin().from('workspace_delivery_attempt').select('attempt_id, evidence, annotation_hash, session_id, non_evidence_reason').eq('user_id', uid)).data ?? []
+  console.log('JOURNEY_ROWS=' + JSON.stringify({ firsts, atts, binds }))
+
   // H 수행 후 관찰 — 근거로 바뀐 값(단순 복귀가 아니다)
   const after = await observe(page)
   console.log('JOURNEY_OBSERVE=' + JSON.stringify({ before, after }))
