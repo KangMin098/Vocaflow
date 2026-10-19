@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { recordOpen, stableKey, type DeliveredView } from '../server'
 
-const view = (role: DeliveredView['role']) => ({ ref: 'authored:x-1', role, deliveryId: 'd', taskId: 'r.central_meaning', format: 'central_meaning', sentences: [], stem: '', choices: [], teach: null, hints: null, extra: {}, probe: null, done: null, retry: false }) as DeliveredView
+const view = (role: DeliveredView['role']) => ({ ref: 'authored:x-1', role, deliveryId: 'd', taskId: 'r.central_meaning', format: 'central_meaning', sentences: [], stem: '', choices: [], teach: null, hints: null, extra: {}, probe: null, done: null, retry: false, annotationHash: null }) as DeliveredView
 
 function fakeAdmin(error: unknown = null) {
   const calls: { fn: string; args: Record<string, unknown> }[] = []

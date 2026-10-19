@@ -12,7 +12,7 @@
 //   독립 · 전이 · 지연 확인 = 단서 · 해설 없음. 표시 문법: 색만이 아니라 「중심」 「근거」 「반박」 「정답」 글자를 함께 쓴다.
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
 import { RELATIONS, RELATION_LABEL, type Relation } from '@/lib/knowledge/claim-support-labels'
@@ -21,6 +21,11 @@ import type { TeachStep } from '@/lib/knowledge/authored/authored-items'
 import { AUTHORED_ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 
 import styles from '@/components/knowledge/practice.module.css'
+import { ReasoningNoteForm } from '@/components/csat/theater/ReasoningNoteForm'
+import type { ReasoningNote } from '@/lib/csat/dissect'
+import { EMPTY_NOTE, type NoteDraft } from '@/lib/csat/explain-draft'
+import type { InquiryPrinciple } from '@/lib/csat/inquiry/labels'
+import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
 
 type Role = 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
 type Reveal = Record<string, unknown>
@@ -41,6 +46,8 @@ export interface AuthoredRunnerProps {
   done: null | { isCorrect: boolean; reveal: Reveal }
   /** 교수 자료(안내 연습)는 틀린 뒤 다시 풀 수 있다 — 평가 자료는 false(첫 결과 잠김 · FI-011) */
   retry?: boolean
+  /** 교수 자료의 현재 주석 hash — 있으면 결과 뒤 자기 설명 노트를 연다(FI-011 C). 평가 자료는 null */
+  annotationHash?: string | null
   returnHref: string
   /** TASK 이름(머리말) */
   taskLabel?: string
@@ -87,6 +94,18 @@ const MEANING_REL_LABEL: Record<string, string> = { synonym: '같은 뜻(동의�
 const CIRCLED = '①②③④⑤'
 const uuid = () => crypto.randomUUID()
 
+/**
+ * 자기 설명과 나란히 볼 공급 설명 — 응답 뒤 공개분(reveal)의 설명 문장 + 교수 단계 글. 새로 지어내지 않는다.
+ * 창작 설명은 사람 검수 전이라 「검수된 원리」로 부르지 않는다(MODEL_LABEL). 설명이 없으면 null(비교 자료 부족 안내)
+ */
+export const MODEL_LABEL = '제공된 설명(사람 검수 전)'
+export function modelOf(reveal: Record<string, unknown> | null, teach: readonly TeachStep[] | null): InquiryPrinciple | null {
+  const text = (['gist', 'rationale', 'why', 'reason', 'senseGloss'] as const).map((k) => reveal?.[k]).find((v): v is string => typeof v === 'string' && v.trim().length > 0)
+  const steps = (teach ?? []).map((t) => t.text).filter((x) => typeof x === 'string' && x.trim())
+  if (!text && !steps.length) return null
+  return { statement: text ?? steps[0], when_applies: text ? steps : steps.slice(1), when_not: [] }
+}
+
 export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [sessionId, setSessionId] = useState<string>(() => p.sessionId ?? uuid())
   const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
@@ -111,6 +130,22 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [rebinding, setRebinding] = useState(false)
   // 같은 답의 재시도는 제출 id · 판단 시각을 그대로(FI-008 — 시각이 바뀌면 G2 가 같은 제출의 다른 본문으로 보고 conflict)
   const mutation = useRef<{ key: string; id: string; at: string } | null>(null)
+  // 자기 설명 노트(교수 자료만) — 기존 원리 노트 저장(FI-015 CAS · 합집합 병합)을 그대로 쓴다. 채점 · 근거 · 숙달이 아니다
+  const ref = `authored:${p.id}`
+  const [notes, setNotes] = useState<ReasoningNote[]>([])
+  const [noteDraft, setNoteDraft] = useState<NoteDraft>(EMPTY_NOTE)
+  const explain = p.retry === true && !!p.annotationHash
+  useEffect(() => {
+    if (!explain) return
+    let live = true
+    loadSyncedDissectionRecord().then(({ record }) => { if (live) setNotes((record.reasoningNotes ?? []).filter((x) => x.item === ref)) }).catch(() => {})
+    return () => { live = false }
+  }, [explain, ref])
+  const saveNote = async (x: ReasoningNote) => {
+    const res = await updateDissectionRecord((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
+    if (res.saved) setNotes((res.record.reasoningNotes ?? []).filter((y) => y.item === ref))
+    return res.saved
+  }
   const finished = !!reveal
   const lock = finished || busy
 
@@ -454,6 +489,13 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           )}
           {p.retry && wrong && (
             <button type="button" className={styles.primary} onClick={again} data-testid="authored-retry">다시 풀기</button>
+          )}
+          {explain && (
+            <ReasoningNoteForm
+              itemId={ref} analysisVersion={null} principle={modelOf(reveal, p.teach)} pairs={[]} saved={notes}
+              onSave={saveNote} draft={noteDraft} onDraft={(fn) => setNoteDraft(fn)} modelLabel={MODEL_LABEL}
+              authored={{ deliveryId: p.deliveryId, annotationHash: p.annotationHash as string }}
+            />
           )}
           <Link className={styles.link} href={p.returnHref}>학습 지도로 돌아가 변화 보기</Link>
         </section>

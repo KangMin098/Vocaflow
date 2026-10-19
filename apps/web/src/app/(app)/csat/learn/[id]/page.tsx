@@ -22,13 +22,16 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
 import styles from '@/components/knowledge/practice.module.css'
+import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
 
 export const metadata: Metadata = { title: '글의 중심 잡기 — 기출' }
 export const dynamic = 'force-dynamic'
 
 const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 
-export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } }) {
+export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } & Record<string, string | string[] | undefined> }) {
+  // 지도 복귀(FI-011 C) — 지도 CTA 가 실은 문맥(형식만 검증 · lib/csat/map-return)을 그대로 돌려준다. 조회 권한으로 쓰지 않는다(지도가 현재 본인 계획과 비교)
+  const returnHref = searchParams.from === 'map' ? `/csat?from=learn${mapReturnQuery(parseMapReturn(returnQueryOf(searchParams)))}` : MAP_HREF
   if (!/^[a-z0-9][a-z0-9.-]{2,80}$/.test(params.id)) notFound()
   const db = (await createClient()) as unknown as SupabaseClient
   const { data: { user } } = await db.auth.getUser()
@@ -100,7 +103,7 @@ export default async function LearnPage({ params, searchParams }: { params: { id
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <AuthoredRunner
         id={params.id} deliveryId={v.deliveryId} role={v.role as never} format={v.format} sentences={v.sentences} stem={v.stem} choices={v.choices}
-        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} retry={v.retry} returnHref={MAP_HREF} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
+        teach={v.teach ?? null} hints={v.hints} extra={v.extra} probe={v.probe} done={v.done} retry={v.retry} annotationHash={v.annotationHash} returnHref={returnHref} taskLabel={AUTHORED_TASK_LABEL[v.taskId]}
         sessionId={opened2 ? sessionId : undefined}
       />
     </CsatShell>

@@ -87,11 +87,11 @@ export function mapReturnQuery(ctx: MapReturnCtx): string {
 }
 
 /**
- * 지도에서 나가는 문항 링크에 `from=map` 과 문맥을 싣는다. 문항 화면(`/csat/item/…`)만 — 연습 · 기록 등 다른 곳은 그대로 둔다.
+ * 지도에서 나가는 문항 링크에 `from=map` 과 문맥을 싣는다. 문항 화면(`/csat/item/…`)과 받은 창작 자료(`/csat/learn/…` · FI-011 C)만 — 연습 · 기록 등 다른 곳은 그대로 둔다.
  * 해시(#principle)는 끝에 유지하고, 이미 있는 같은 키는 덮어쓴다.
  */
 export function withMapReturn(href: string, ctx: MapReturnCtx): string {
-  if (!href.startsWith('/csat/item/')) return href
+  if (!href.startsWith('/csat/item/') && !href.startsWith('/csat/learn/')) return href
   const hashAt = href.indexOf('#')
   const hash = hashAt < 0 ? '' : href.slice(hashAt)
   const u = new URL(hashAt < 0 ? href : href.slice(0, hashAt), 'http://x')

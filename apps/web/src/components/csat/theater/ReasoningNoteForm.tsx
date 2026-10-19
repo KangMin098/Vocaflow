@@ -39,6 +39,8 @@ export function ReasoningNoteForm({
   candidate = [],
   onShowEvidence,
   now = () => Date.now(),
+  modelLabel = '검수된 원리',
+  authored,
 }: {
   itemId: string
   analysisVersion: number | null
@@ -59,6 +61,10 @@ export function ReasoningNoteForm({
   onShowEvidence?: (sentences: number[]) => void
   /** 시각 주입(테스트) */
   now?: () => number
+  /** 대조 모델 이름 — 사람 검수 전 창작 설명은 「검수된」 이라 부르지 않는다(FI-011 C) */
+  modelLabel?: string
+  /** 창작 교수 자료 결속(서버가 확인) — 있으면 노트에 싣는다 */
+  authored?: { deliveryId: string; annotationHash: string }
 }) {
   const { fields, pairIds, evidence, status } = draft
   const shown = draft.shownId ? saved.find((x) => x.id === draft.shownId) ?? null : null
@@ -72,7 +78,7 @@ export function ReasoningNoteForm({
     const x = normalizeReasoningNote({
       // 다시 시도면 같은 id — 병합이 한 건으로 합친다
       id, item: itemId, pairIds, binding: { analysisVersion }, ...fields, evidence,
-      afterExplanation: true, comparedWithModel: false, at, updatedAt: t,
+      afterExplanation: true, comparedWithModel: false, at, updatedAt: t, ...(authored ? { authored } : {}),
     })
     if (!x) return
     onDraft(() => next)
@@ -162,21 +168,21 @@ export function ReasoningNoteForm({
             {shown.binding.analysisVersion !== analysisVersion ? <p className={styles.quiet}>예전 분석으로 쓴 노트예요.</p> : null}
           </div>
           <div>
-            <b>검수된 원리</b>
+            <b>{modelLabel}</b>
             {principle ? (
               shown.comparedWithModel ? (
                 <>
                   <p className="break-keep">{principle.statement}</p>
-                  <p className="break-keep">통하는 조건: {principle.when_applies.join(' · ')}</p>
-                  <p className="break-keep">쓰면 안 되는 조건: {principle.when_not.join(' · ')}</p>
+                  {principle.when_applies.length ? <p className="break-keep">통하는 조건: {principle.when_applies.join(' · ')}</p> : null}
+                  {principle.when_not.length ? <p className="break-keep">쓰면 안 되는 조건: {principle.when_not.join(' · ')}</p> : null}
                 </>
               ) : (
                 <button type="button" onClick={() => void onSave({ ...shown, comparedWithModel: true, updatedAt: now() })} data-testid="note-open-model">
-                  검수된 원리 펼쳐 비교하기
+                  {modelLabel} 펼쳐 비교하기
                 </button>
               )
             ) : (
-              <p className={styles.quiet}>이 문항에는 검수된 원리가 아직 없어요.</p>
+              <p className={styles.quiet} data-testid="note-no-model">이 문항에는 비교할 설명({modelLabel})이 아직 없어요. 쓴 노트는 그대로 남아요.</p>
             )}
           </div>
           {shown.comparedWithModel ? <p className={styles.quiet}>조건과 경계를 같은 것으로 봤는지 스스로 확인해 보세요.</p> : null}

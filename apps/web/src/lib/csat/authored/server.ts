@@ -199,6 +199,8 @@ export interface DeliveredView {
   done: null | { isCorrect: boolean; reveal: ReturnType<typeof revealAfterAnswer> }
   /** 다시 풀 수 있는가 — 교수 자료(안내 연습 · 원리 설명)만. 평가 자료(혼자 · 다른 날 확인 · 전이)는 첫 결과로 잠긴다(FI-011) */
   retry: boolean
+  /** 교수 자료의 현재 주석 hash — 자기 설명 노트 결속용(FI-011 C). 평가 자료는 null(노트 입력 없음) */
+  annotationHash: string | null
 }
 
 export interface DeliveryChoice { deliveryId: string; role: AuthoredRole; deliveredAt: string }
@@ -233,6 +235,8 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
   const { item } = itemOfRow(row)
   // 평가 자료 = 첫 결과(첫 시도 원장과 같은 기준). 교수 자료 = 가장 최근 결과(오답 뒤 다시 풀어 맞혔으면 그것 · 이력은 append-only 로 남는다)
   const retry = !isAssessmentRole(delivery.role)
+  const hash = retry ? await admin.rpc('authored_item_gold_hash', { p_ref: ref }) : null
+  const annotationHash = hash && !hash.error && typeof hash.data === 'string' ? hash.data : null
   const prior = await admin.from('learning_task_attempts').select('is_correct').eq('user_id', userId).eq('item_ref', ref)
     .order('answered_at', { ascending: !retry }).limit(1)
   if (prior.error) throw new Error(`기록 조회 실패: ${prior.error.message}`)
@@ -245,6 +249,7 @@ export async function openDelivered(admin: SupabaseClient, learner: SupabaseClie
       probe: formatOf(item.body) === 'central_meaning' ? (item.gold as AuthoredGold).relationProbe.sentence : null,
       done: first ? { isCorrect: first.is_correct === true, reveal: revealAfterAnswer(item) } : null,
       retry,
+      annotationHash,
     },
   }
 }
@@ -253,6 +258,21 @@ async function loadRow(admin: SupabaseClient, ref: string): Promise<AuthoredRow 
   const r = await admin.from('authored_item').select('ref, task_id, task_key, role_class, intended_role, passage_group, body, gold, annotation_ref').eq('ref', ref).maybeSingle()
   if (r.error) { if (isMissing(r.error)) return null; throw new Error(`창작 원장 조회 실패: ${r.error.message}`) }
   return (r.data as AuthoredRow | null) ?? null
+}
+
+/**
+ * FI-011 C — 자기 설명 노트의 창작 결속 검증. 노트의 납품이 **본인 · 같은 자료 · 교수 역할 · 지금 유효**하고 주석 hash 가 현재와 같을 때만 true.
+ * 조회 실패 · 함수 없음 = false(fail-closed). 노트 내용은 채점하지 않는다 — 결속만 본다.
+ */
+export async function authoredNoteBindingOk(admin: SupabaseClient, learner: SupabaseClient, userId: string, item: string, binding: { deliveryId: string; annotationHash: string } | undefined): Promise<boolean> {
+  if (!binding || !item.startsWith('authored:')) return false
+  const d = await learner.from('workspace_content_delivery').select('id, role, artifact_ref')
+    .eq('user_id', userId).eq('artifact_kind', 'authored_item').eq('id', binding.deliveryId).limit(1)
+  const row = (d.data as { id: string; role: AuthoredRole; artifact_ref: string }[] | null)?.[0]
+  if (d.error || !row || row.artifact_ref !== item || isAssessmentRole(row.role)) return false
+  if ((await currentOf(learner, row.id)) !== true) return false
+  const hash = await admin.rpc('authored_item_gold_hash', { p_ref: item })
+  return !hash.error && hash.data === binding.annotationHash
 }
 
 // ── 수행 기록 ─────────────────────────────────────────────────────────

@@ -17,6 +17,7 @@ import { NextResponse } from 'next/server'
 import { correctnessItemIds, mergeDissection, withoutHeldCorrectness } from '@/lib/csat/continuity'
 import type { DissectionRecord } from '@/lib/csat/dissect'
 import { itemRevealDecision, revealHeldResponse } from '@/lib/csat/embargo-gate'
+import { authoredNoteBindingOk } from '@/lib/csat/authored/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -32,7 +33,24 @@ async function session() {
     data: { user },
   } = await auth.auth.getUser()
   // `Database` 타입에 새 표가 아직 없다 — record/route.ts 와 같은 완화(한 줄)
-  return { db: user ? (createAdminClient() as unknown as SupabaseClient) : null, user }
+  return { db: user ? (createAdminClient() as unknown as SupabaseClient) : null, user, learner: auth as unknown as SupabaseClient }
+}
+
+/**
+ * FI-011 C — 창작 교수 자료의 자기 설명 노트는 서버가 결속(본인 · 지금 유효한 교수 납품 · 현재 주석 hash)을 확인한 것만 받는다.
+ * 서버 사본과 같은(id · updatedAt) 노트는 다시 검사하지 않는다 — 결속이 나중에 무효가 돼도 과거 노트는 지우지 않는다(병합은 합집합).
+ * 검증 실패 노트는 들어온 기록에서만 뺀다(쓴 글은 기기에 남는다). 기출 노트는 그대로.
+ */
+async function withVerifiedAuthoredNotes(incoming: DissectionRecord, existing: unknown, db: SupabaseClient, learner: SupabaseClient, userId: string): Promise<DissectionRecord> {
+  const notes = incoming.reasoningNotes ?? []
+  if (!notes.some((x) => typeof x?.item === 'string' && x.item.startsWith('authored:'))) return incoming
+  const prev = new Map(((looksLikeRecord(existing) ? (existing as unknown as DissectionRecord).reasoningNotes : undefined) ?? []).map((x) => [x.id, x.updatedAt]))
+  const keep = await Promise.all(notes.map(async (x) => {
+    if (typeof x?.item !== 'string' || !x.item.startsWith('authored:')) return true
+    if (prev.get(x.id) === x.updatedAt) return true
+    return authoredNoteBindingOk(db, learner, userId, x.item, x.authored).catch(() => false)
+  }))
+  return { ...incoming, reasoningNotes: notes.filter((_, i) => keep[i]) }
 }
 
 /** 모양만 본다 — 내용 규칙은 코드(continuity)에 있다. 원문이 실릴 자리는 없다. */
@@ -73,7 +91,7 @@ export async function GET() {
 }
 
 export async function PUT(req: Request) {
-  const { db, user } = await session()
+  const { db, user, learner } = await session()
   if (!user || !db) return NextResponse.json({ ok: false, error: 'unauthenticated' }, { status: 401 })
   const text = await req.text()
   if (text.length > MAX_BYTES) return NextResponse.json({ ok: false, error: 'too-large' }, { status: 413 })
@@ -92,7 +110,7 @@ export async function PUT(req: Request) {
   const current = await db.from('csat_learner_state').select('record, updated_at').eq('user_id', user.id).maybeSingle()
   if (current.error) return NextResponse.json({ ok: false, error: current.error.message }, { status: 503 })
   const row = current.data as { record: unknown; updated_at: string | null } | null
-  const merged = await mergeForWrite(incoming, row?.record)
+  const merged = await mergeForWrite(await withVerifiedAuthoredNotes(incoming, row?.record, db, learner, user.id), row?.record)
   const at = nextStamp(row?.updated_at ?? null)
   if (!row) {
     const ins = await db.from('csat_learner_state').insert({ user_id: user.id, record: merged, updated_at: at })
