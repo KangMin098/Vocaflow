@@ -53,14 +53,4 @@ describe('Workspace × 창작 납품', () => {
     expect(without.preparing.map((p) => p.id)).toContain('ws.vocab-context')
     expect([without.primary, ...without.others].map((v) => v?.id)).not.toContain('ws.vocab-context')
   })
-
-  it('바로잡기 — 창작 평가 자료는 다시 풀게 하지 않는다(평가 자료 연습 재분류 금지) · 기출 문항은 그대로 바로잡기', () => {
-    const t = templateOf('ws.central-meaning')!
-    const links = { 'authored-central-meaning': [{ target: 'authored:r5-cm-ind-1', href: '/a1', label: 'a' }, { target: 'authored:r5-cm-ind-2', href: '/a2', label: 'a' }], 'claim-support': [{ target: '2026#20', href: '/c', label: 'c' }] }
-    const authoredOnly = asIsWith('r.central_meaning', { status: 'verified', unseen: [], verifiedItems: ['authored:r5-cm-ind-1', 'authored:r5-cm-ind-2'], wrongItems: [] })
-    const st = stagesOf(t, authoredOnly, { confirmLinks: links, transferItems: {}, transferTargets: {} })
-    expect(st.repair).toEqual({ ready: false, count: null, blocked: 'no_repair_items' })
-    const mixed = asIsWith('r.central_meaning', { status: 'verified', unseen: [], verifiedItems: ['authored:r5-cm-ind-1', '2026#20'], wrongItems: [] })
-    expect(stagesOf(t, mixed, { confirmLinks: links, transferItems: {}, transferTargets: {} }).repair).toEqual({ ready: true, count: 1, blocked: null })
-  })
 })

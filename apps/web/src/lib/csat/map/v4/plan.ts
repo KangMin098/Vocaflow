@@ -80,7 +80,7 @@ export interface TaskPlan {
   quantity: PlanQuantity
   achievement: Achievement
   /** 아직 풀리지 않은 것(문구 키) */
-  unresolved: ('no_content' | 'stage_locked' | 'repair_material_needed' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
+  unresolved: ('no_content' | 'stage_locked' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
 }
 
 export interface PlanActivity {
@@ -237,7 +237,7 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   if (stage === 'transfer' && planned !== null && (available ?? 0) < planned) unresolved.push('transfer_shortage')
   if (def.status === 'hold') unresolved.push('canon_hold')
   else if (!home || home.readiness !== 'live') unresolved.push('no_content')
-  else if (stage && !st?.ready) unresolved.push(st?.blocked === 'no_repair_items' ? 'repair_material_needed' : 'stage_locked')
+  else if (stage && !st?.ready) unresolved.push('stage_locked')
   if (t.basis !== 'direct_check' && def.status !== 'hold') unresolved.push('needs_direct_check')
   if (toBe && !need && def.status !== 'hold') unresolved.push('not_goal_related')
   return {
