@@ -293,6 +293,14 @@
 - 본문 첫 줄 URL: **출처 표기 데이터는 정상, 본문에 장 표식 줄이 남은 가공 결함** — 기록 [content-defects/2026-10-19-chapter-marker-in-body.md](../content-defects/2026-10-19-chapter-marker-in-body.md)(원문 ID · content_hash · 가공 경로 · 범위 10,255/11,161장 · 279권 · 선택지). DB · 출처는 바꾸지 않았다.
 - `/hub` · `/dashboard` · 인증 측정(`layout-measure`, `tmp/s4/hda/`): 허브 h1 64px = Tines 홈 64px(1440 시작선 x80 ↔ 참조 x40) · 대시보드 가운데 992 · 인증은 폼 카드(448) + 삽화 판(768) 2열 ↔ Tines 문의 화면은 흰 카드 한 장(774 · 모서리 16 · 왼쪽 안내 + 오른쪽 폼). **고친 것: 인증 머리 시작선**(로고 x≈168 → x80 = 폼 카드, 테마 단추 끝 = 1360). 카드 한 장 구조는 4 화면의 폼 카드(`ui/Card`)를 함께 바꿔야 해 백로그(B20).
 
+## 0-5. 남은 화면 렌더 확인 · 받아쓰기 출구 (2026-10-19)
+
+- **쓰기 차단 캡처**: `capture-learner --block-writes` — 브라우저의 Supabase REST/RPC · `/api/` 쓰기를 DB 에 보내지 않고 센다. 남은 56 주소(게임 19 · 만화 · 진단 · 교재 · 교사 · 계정 · 공개 · 인증 등)에서 **막은 쓰기 54건**(진입 이벤트 `POST /api/analytics/event` 53 · `rpc/save_comic_progress` 1). **서버 렌더 중 쓰기는 막지 못한다** — 남은 화면 중 해당하는 `/library/scripts/[id]`(로그인 시 학습 시작 기록)는 목록에서 뺐다(비로그인으로만 확인). 지난 회차(S0–S4) 캡처에는 진입 이벤트 쓰기가 있었을 수 있다.
+- 결과: 56 중 53 정상, 실패 3 = 이동 전용 주소(`/my` · `/my/words` · `/library` — 측정 중 주소가 바뀜). 표본 눈 확인: `/teacher` 정상(학급 0 빈 상태) · 해적 게임은 시작 전 브리핑 팝업 상태 · **`/library/textbooks/reading/1/practice` 는 「연습 문항 없음」 빈 상태**(자동 판정은 정상으로 셈 — 정상 렌더 안에 빈 상태 · 팝업 상태가 섞여 있다).
+- **분모(원장 [learner-render-ledger.md](./learner-render-ledger.md))**: 학습자 91 중 **정상 렌더 증거 81** · 격리 화면만 1(`/dictate/session`) · 미확인 9 = 이동 전용 6(`/comics` · `/library` · `/my` · `/my/texts` · `/my/words` · `/my/books/[bookId]`) + 진입 조건을 만들지 못한 3(`/dictate/results` — 세션 필요 · `/pairflip/results` — 직전 게임 상태 · `/fit/s/[payload]` — 공유 주소 필요). 시각 대조(V)는 이번에 늘지 않았다.
+- 받아쓰기 세션: 화면 안 「나가기」(router.back) 제거 — 세션 틀 「세션 닫기」(?from= 또는 /dictate)가 유일한 출구(B21 해소). 격리 검증 3/3 · 출구 수 1 · 막은 쓰기 1. 나가는 곳이 「직전 화면」에서 「세션 계약상 복귀 주소」로 바뀐다.
+- 환경: 메인 워크트리의 `.env.local` 이 디스크 정리 뒤 없어져, 같은 개발 환경 파일(`Vocaflow-db1-apply`)을 프로세스 안에서만 읽었다. 기준선 서버(3000)는 이 시점에 500 이라 기준선 비교는 하지 않았다.
+
 ## 1. 전역 틀 (모든 행이 공유)
 
 | 틀 | 마운트 위치 | 들어 있는 것 | 기준 · 참조 후보 | 비고 |
