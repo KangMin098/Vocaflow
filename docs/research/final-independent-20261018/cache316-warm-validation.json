@@ -1,0 +1,116 @@
+{
+  "pr": 316,
+  "head": "3f1bed0954199c9bf0d1ce0b5495c9e5a8ced7df",
+  "run": 39209821995,
+  "event": "pull_request",
+  "scope": "Same HEAD normal PR CI repeated once for cache behavior; shared dev skipped; no workflow_dispatch or dev DB writes",
+  "attempts": [
+    {
+      "attempt": 1,
+      "jobs": [
+        {
+          "job": "e2e-gate-faultclosed",
+          "id": 117920494284,
+          "conclusion": "success",
+          "buildSeconds": [
+            290
+          ],
+          "cache": []
+        },
+        {
+          "job": "verify",
+          "id": 117920494407,
+          "conclusion": "success",
+          "buildSeconds": [],
+          "cache": []
+        },
+        {
+          "job": "build",
+          "id": 117920494420,
+          "conclusion": "success",
+          "buildSeconds": [
+            275
+          ],
+          "cache": []
+        },
+        {
+          "job": "e2e",
+          "id": 117920494603,
+          "conclusion": "success",
+          "buildSeconds": [
+            272
+          ],
+          "cache": []
+        },
+        {
+          "job": "e2e-shared-dev",
+          "id": 117920495479,
+          "conclusion": "skipped",
+          "buildSeconds": [],
+          "cache": []
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "jobs": [
+        {
+          "job": "verify",
+          "id": 117926928658,
+          "conclusion": "success",
+          "buildSeconds": [],
+          "cache": []
+        },
+        {
+          "job": "e2e",
+          "id": 117926928813,
+          "conclusion": "success",
+          "buildSeconds": [
+            138
+          ],
+          "cache": [
+            "Cache hit for: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache restored from key: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache hit for: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb",
+            "Cache restored from key: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb"
+          ]
+        },
+        {
+          "job": "e2e-gate-faultclosed",
+          "id": 117926928843,
+          "conclusion": "success",
+          "buildSeconds": [
+            183
+          ],
+          "cache": [
+            "Cache hit for: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache restored from key: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache hit for: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb",
+            "Cache restored from key: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb"
+          ]
+        },
+        {
+          "job": "build",
+          "id": 117926929195,
+          "conclusion": "success",
+          "buildSeconds": [
+            104
+          ],
+          "cache": [
+            "Cache hit for: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache restored from key: node-cache-Linux-x64-pnpm-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528",
+            "Cache hit for: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb",
+            "Cache restored from key: nextjs-Linux-fbd4ece6d86b2d3d434ee3baafd619cbdc4b92cc9c5ce39639b40942f2fbe528-08fce76da8d20037e93b16f8658390db70edd11e18b38479a5cf22d51ffca2bb"
+          ]
+        },
+        {
+          "job": "e2e-shared-dev",
+          "id": 117926931472,
+          "conclusion": "skipped",
+          "buildSeconds": [],
+          "cache": []
+        }
+      ]
+    }
+  ]
+}

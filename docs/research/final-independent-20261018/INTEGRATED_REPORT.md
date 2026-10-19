@@ -1,6 +1,20 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+**2026-10-19 07:30 UTC · [VF-TASK FINAL-FI011-SUPPLY] 현재 판정: REWORK.** 실제303 90cff014d19482df4e20a7fbec8c53277258d17d의 별도 교수 공급 A와 재고 순환 수정 B를 접수했다. A/B 선택 지시의 실제 수신·ACK·착수·결과 반환은 이번 패킷으로 확인한다(임의 세션/직접 자동 전송 성공 주장은 없음). 아래 이전 HEAD의 판정은 역사 기록이다.
+
+B 단계 수정은 CODE_VERIFIED: 바로잡기 성공 뒤 재확인 재고0에서도 recheck가 유지된다. A는 PARTIAL: 실제 f140 CI39213965756 Playwright HTML을 해독해12/12를 확인했고, 동일 합성 계정의 별도 안내 연습 정답→G2 비근거→need_confirmed 유지·PLAN v4 transfer·원래 독립2오답/이력 보존 단언을 수용한다. 새 경로는1440px이며 첨부2개는 PNG가 아니므로 새 두 폭 시각 검토로 계산하지 않는다. [실제 보고서](./journey-ci-f140fc.json).
+
+현재90cff의 map157파일 바이트로 실행한 영향 단위19/19와 독립 정상 대조2/2는 성공했다. 그러나 [독립 반례4건](./fi011-supply-90cff.json)이 실패했다: 안내 연습을 recheck 수행1건으로 집계, guided를 전이 경험으로 집계, PLAN 성공과 lifecycle repairAt 불일치, 회차 전 서버 수신 기록도 클라이언트 판단 시각만으로 회차 성공 가능. 이 순수 함수 검증은 새 DB/브라우저 실행이 아니다. 별도로 실제 Runner/source에서 오답 뒤 완료 잠금·재시도 부재를 확인했다. **같은 FI-011/#304에서 P1 최소 수정**(교수 역할만 재시도, 역할·정확한 납품/수행·서버 회차 근거의 공통 판정)을 [Claude 기존 세션에 GitHub 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650)했다. 새 배정 표/보류 SQL 적용은 필수로 요구하지 않는다. 신선한 independent_check 후보2개는 아직 미작성이다.
+
+#316은 [독립 목적 검토](https://github.com/KangMin098/Vocaflow/pull/316#pullrequestreview-5568214813)·동일 HEAD 캐시 hit CI 시도2·필수8체크·기존 safe-merge로 **ACCEPT_WITH_LIMITS 및 병합 fcb40034d43ccfbf1a429c76de97ed840d0bac5d**. [계측](./cache316-warm-validation.json): build275→104초, e2e build272→138초, faultclosed build290→183초(각1회 관측). 전체 .next/cache의 Data Cache 범위는 기존 P2 후속으로 남고 shared-dev 결과 불변/비밀 누출 부재 전체 증명은 아니다. #314는 PROPOSED 유지. #2502549는 코드 범위 수용이나 필수 DB 이력 조회 자격 부재로 병합 차단, #303은 위 P1 때문에 병합 보류다.
+
+실제 개발 DB는 READ ONLY 재관찰: authored_item·content_human_decision 표 미설치, content_qualification0·workspace_content_delivery0. 미설치를 빈 표0으로 바꾸지 않았다. 이 결과는 적격 공급/사람 승인 성공이 아니다. A~D/F~H PARTIAL, E BLOCKED_EXTERNAL 유지. PRODUCT_CORE_READY=false / RELEASE_READY=false / FINAL_COMPLETE=false. 실제 학습 효과 NOT_VERIFIED.
+
+**후속 e44ac65df 접수:** 90cff의 CI39215220736은 이후 최종 SUCCESS·실제 HTML12/12로 완료했다([해독](./journey-ci-90cff.json)). e44ac65df9c769be967b4e150f4a70ee53f479aa는 새 independent_check 초안2개와 관련 검사/승인 패키지만 추가했다. map 바이트가 같아 위4실패와 B 성공을 재사용하고 같은 반례를 다시 돌리지 않았다. 새2개는 기존9개 내용/순서 불변, ref·그룹·정확한 본문 정체성 중복 없음, 승인 패키지 hash일치·현행 콘텐츠 검사 성공을 확인했다([결과](./recheck-draft-e44ac.json)). 두 새 글/선택지/Gold도 직접 읽었으며 AI 내부 정합 검토 범위다. 이전 두 맹검 검토를 새2개 승인으로 승계하지 않은 테스트 변경은 타당하다. 사람 Gold/권리·실제 공급·새 재확인 종단은 미검증이다. 원래9개와 신규2개를 구분해 사람 검수 범위를 명시한다.
+
+#316 병합 후 main CI39216025823의 faultclosed는 **캐시 복원 전 supabase/setup-cli 단계에서 실패**했다. 이전 PR HEAD 필수 CI 성공/병합 이력과 구분해 추적한다. main shared-dev job의 실제 build/browser 단계는 모두 SKIPPED라 개발 DB 검증/쓰기 성공으로 세지 않는다. 후속 main CI 복구는 Claude에 알리고 보호/필수 조건을 완화하지 않는다.
+
 **v3 실제 인계/병합 점검:** [A/B 구현 지시 GitHub 게시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261208827) 완료. 선택 작업의 SESSION_DELIVERED/ACK/착수는 아직 미확인이다. #2502549의 기존 검증5파일 바이트 일치를 확인해 코드 범위는 ACCEPT_WITH_LIMITS로 구분한다. 실제 safe-merge dry-run은 개발 DB 적용 이력 조회용 SUPABASE_ACCESS_TOKEN 부재로 BLOCKED_EXTERNAL이며 병합/우회/DB 쓰기는 하지 않았다. 이전 적용 이력 hash를 현재 필수 조회 대신 사용하지 않는다.
 
 **v3 선행 B 실제 반례:** 바로잡기 성공·서로 다른 전이2건 뒤 재확인 재고0이면 실제 stageNow가 recheck 대신 repair로 돌아간다(신규 순수 반례1실패, 선수 성공 조건은 통과). 같은 FI-011에서 수요/재고의 순환 의존을 최소 수정하도록 인계한다. 새 독립 후보2개와 함께 재고0에서도 recheck 수요를 유지해야 한다. 최신303850eaa5bb는 c45 대비 원장 문서만 바뀌었고 필수 체크 성공 관찰은 제품 수용과 구분한다. #316 캐시 P2 조정은 A/B 진행 게이트가 아니다.

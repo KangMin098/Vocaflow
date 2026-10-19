@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/FI011_REPAIR_SUPPLY_WORK_ORDER.md -->
 # FI-011 바로잡기 자료 공급 구현 지시
 
+**[VF-TASK FINAL-FI011-SUPPLY] 90cff 반환 후 최소 수정:** B recheck 유지 CODE_VERIFIED, A 별도 자료 정답 양성 경로는 실제 CI12/12 범위 수용. 현재 같은 FI-011의 P1은 (1) guided 오답 뒤 같은 유효 자료의 새 시도/응답 유실 멱등 재전송, (2) PLAN/lifecycle 공통 바로잡기 성공·guided의 recheck/transfer 집계 제외, (3) 기존 정확한 납품/수행 결속과 서버 회차 시각 검증이다. 새 표보다 기존 원장을 먼저 재사용한다. [반례](./fi011-supply-90cff.json), [실제 구현 반환에 대한 구체 수정 지시](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261971650). B의 새 independent 후보2개와 아래 조건부 C는 코드 수정과 병렬 준비한다. 원리 설명 단독 재고 표시의 세부는 선택 경로를 막지 않으면 후속 개선이다. 아래 상세 설계의 새 배정 표는 기존 원장으로 부족할 때만 대안이며 새 필수 게이트가 아니다.
+
 ## PRODUCT-FIRST FAST LOOP v3 — 현재 실행 지시
 
 2026-10-19 사용자 v3 지시를 적용한다. **아래 A/B가 현재 구현 범위이며 이전 상세안은 참고다.** 별도 배정 표·새 오케스트레이터·추가 설계 승인·추가 문서는 필수 게이트가 아니다. 기존 FI-011/#304/PR303·세션·VG/LM/TASK 정본을 유지하고 구현 가능한 최소 변경으로 진행한다.
@@ -31,6 +33,21 @@ Claude는 이 방향으로 바로 착수하고, 구현 중 계약 조정이 필�
 지금은 방향 인계 미확인과 연속 진단 커밋의 전체 CI가 우선 병목이다. Claude는 진단 로그·최소 실패 spec을 가능한 기존 격리 환경에서 먼저 묶어 확인하고, 논리적 수정 단위로 최종 CI를 실행한다. 로컬 환경이 불가하면 그 사실과 실제 대체 경로만 기록한다. 지원되는 GitHub/VFC/handoff를 재사용하며 새 세션·오케스트레이터를 만들지 않는다. 브라우저 설치 캐시·빌드 공유·DB 공유·필수 job 생략은 이번 A/B의 선행 조건이 아니다. 특히 faultclosed 환경 격리와 최신 HEAD 최종 CI·safe-merge 보호는 유지한다.
 
 **반납은 짧게:** 실제 세션/owner/task ID, 고정 HEAD, A/B 변경 범위, 핵심 검사/실제 브라우저 결과, DB/콘텐츠 승인 경계와 남은 결함. Codex는 변경 영향만 재검증하며 PRODUCT_CORE_READY / RELEASE_READY / FINAL_COMPLETE를 따로 판정한다.
+
+### FINAL-FI011-RUN 설계 답 · 후속 C 준비
+
+850eaa5bb와 후속47548d05f의 같은 평가 ref 재풀이를 현재 A로 수용하지 않는다. 처음 인계의 같은 ref 재시도 제안은 정정했고, 위 별도 교수 공급이 현재 선택안이다. 도움을 강제로 independent로 쓰거나 전체2분 규칙에서 practice를 제외하지 않는다. **새 교수 ref에서 실제 도움을 그대로 기록**하고 원래 평가 ref/첫 시도/G2를 보존한다. 실제 순수 crossSessionHelp 반례4/4(동일 ref 근접 도움=uncertain, 다른 교수 ref=원평가 independent 유지, 앞선 도움=helped, 앞선 근접 도움=uncertain) 및 SQL의 동일 user/item 결속을 확인했다. 이는 새 실제 SQL/브라우저 종단 성공이 아니다.
+
+재확인은 기존 independent_check 수요와 새2개로 해결한다. delayed_check 자동 전용이나 도움/첫 시도 보호 완화는 채택하지 않는다.475의 자료 부족 문구는 유지할 수 있지만 stageNow의 재고 순환 의존도 함께 수정해야 한다.
+
+**C는 A/B 이후 구현할 D/F의 다음 최소 단위이며 A/B 수용의 새 게이트가 아니다.** 창작 교수 화면에서 「원리를 내 말로 설명→공급된 모델과 스스로 대조→필요하면 고쳐 쓰기→같은 TASK/PLAN 복귀」를 연결한다. 현재 AuthoredRunner는 선택 응답 중심이고 이 자기 설명 입력이 없다(CODE 관찰, 새 브라우저 관찰 아님).
+
+- 기존 `theater/ReasoningNoteForm.tsx`, `DissectionRecord.reasoningNotes`, `continuity.mergeReasoningNotes`와 FI-015 CAS/409 저장을 우선 재사용한다. `MeaningDraft`는 의미 단위의 바꿔쓰기이며 출제 원리 자기 설명과 다른 기록이다. 해당 의미 노트에 억지로 새 역할을 넣지 않는다.
+- 교수 delivery/ref/annotation hash를 서버에서 검증해 노트의 분석 결속을 보존한다. 기존 노트 형식이 authored hash를 표현하지 못하면 호환 가능한 JSON 필드/어댑터만 추가하고 새 저장 엔진/DB 표는 기본안으로 만들지 않는다. API의 기존 보류 문항 필터를 꺼서는 안 된다. authored 항목은 본인 현재 instructional delivery 검증으로 분기하며 평가 Gold를 앞서 내보내지 않는다.
+- 자기 설명은 언제나 설명 후 연습이다. 쓰기/대조/수정은 자동 의미 채점·guided 정답·독립 근거·숙달·전이 수가 아니다. 원문·Gold를 새로 추정해 「검수된 모델」로 표시하지 않는다. 비교할 적격 모델이 없으면 입력을 지키고 비교 자료 부족을 안내한다. 처음 글·응답 유실 재전송·동시 두 노트·과거 결속을 보존한다.
+- 실제 돌아가기 버튼까지 같은 사용자1280/1440에서 확인한다. `csat/map-return.ts`의 형식 검증·`v62/return-ctx.ts`를 재사용한다. 현재 withMapReturn은 `/csat/item/`만 처리하고 LearnPage는 정적 MAP_HREF로 돌아가므로 authored 경로는 좁은 어댑터가 필요하다. query의 Workspace/목표/PLAN을 조회 권한으로 쓰지 않고 현재 본인 계획과 비교하는 문맥으로만 쓴다. 목표 변경/옛 PLAN 복구 금지 대조를 포함한다.
+
+Claude는 A/B의 실제 구현을 먼저 진행하고 C의 파일 충돌 여부만 확인한다. C 세부가 A/B 결과에 의존하는 부분은 조건부이며, 별도 사용자 설계 지시를 기다릴 필요는 없다.
 
 ---
 

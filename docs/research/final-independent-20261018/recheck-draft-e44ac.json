@@ -1,0 +1,31 @@
+{
+  "head": "e44ac65df9c769be967b4e150f4a70ee53f479aa",
+  "previous": "90cff014d19482df4e20a7fbec8c53277258d17d",
+  "contentSha256": "78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f",
+  "existingItemsUnchanged": 9,
+  "totalItems": 11,
+  "newDraftItems": [
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i3"
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i4"
+    }
+  ],
+  "uniqueItemGroupAndExactPassageBodies": true,
+  "approvalPackageHashMatches": true,
+  "mapCodeUnchanged": true,
+  "unitTests": {
+    "passed": 65,
+    "failed": 0
+  },
+  "aiContentReview": "New two texts/options/Gold read directly: answer and main-claim consistency provisionally acceptable; semantic originality and empirical scientific claims not independently certified",
+  "humanGold": "NOT_APPROVED",
+  "rights": "NOT_APPROVED",
+  "release": "NOT_APPROVED",
+  "dbWrite": false
+}

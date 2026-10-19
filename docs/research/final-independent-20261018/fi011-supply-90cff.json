@@ -1,0 +1,147 @@
+{
+  "taskId": "FINAL-FI011-SUPPLY",
+  "head": "90cff014d19482df4e20a7fbec8c53277258d17d",
+  "contractVersion": "rev4.0 + FI011_REPAIR_SUPPLY_WORK_ORDER A/B",
+  "environment": "Actual map source bytes over disposable existing dependency snapshot; Vitest pure functions only, no new browser or DB execution",
+  "mapFiles": 157,
+  "tests": 25,
+  "passed": 21,
+  "failed": 4,
+  "cases": [
+    {
+      "title": " B: guided repair success with no stock remains recheck",
+      "status": "passed"
+    },
+    {
+      "title": " A: explanation, wrong guided and previous episode do not pass",
+      "status": "passed"
+    },
+    {
+      "title": " guided practice does not count as recheck performance",
+      "status": "failed"
+    },
+    {
+      "title": " lifecycle agrees with PLAN on delivered guided repair success",
+      "status": "failed"
+    },
+    {
+      "title": " guided practice is not transfer experience",
+      "status": "failed"
+    },
+    {
+      "title": " server receipt before episode cannot be current episode success",
+      "status": "failed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 확인 전: 계획량 = 안 본 확인 문항 수(출처 · 규칙 표시) · 성취는 「직접 확인 전」",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 계획 진행 3/5 를 숙달률로 바꾸지 않는다 — 진행과 성취는 다른 칸",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 확정 뒤: 바로잡기 계획 = 막힌 문항 수 · 수행은 확정 뒤 그 문항 연습만",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 수행량 ≠ 검증된 성취 — 도움 받은 · 합성 풀이는 수행량에 들어가지만 확인 상태는 바꾸지 않는다(4차)",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 콘텐츠가 없으면 계획 불가(null) — 권장량을 지어내지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 적용 단계 잠김 — 확정 전에는 적용 계획이 없다(문항이 있어도)",
+      "status": "passed"
+    },
+    {
+      "title": " TASK 학습계획 — 정량 · 정성 분리 보류 TASK 는 계획 목록에 없다",
+      "status": "passed"
+    },
+    {
+      "title": " 학습자 조정 — 계획만 바뀐다 계획량은 0 ~ 가용량으로 자르고, 근거 · 성취 · 요구는 그대로",
+      "status": "passed"
+    },
+    {
+      "title": " 학습자 조정 — 계획만 바뀐다 조정이 As-Is 를 바꾸지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " 증거 · 자료 중복 없음 같은 TASK 가 두 Workspace 에 있어도 가용량 · 수행은 중심 Workspace 하나에서만",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ① 확정 직후 = 바로잡기 · 다음 활동은 막힌 확인 문항",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ② 막힌 문항을 다시 맞히면 = 다른 글에 적용(2지문) · 다음 활동은 연습 화면의 전이 문항",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ③ 적용 2지문 뒤 = 다시 확인 · 다음 활동은 아직 안 본 확인 문항 · 성취는 여전히 직접 확인 결과(수행 ≠ 성취)",
+      "status": "passed"
+    },
+    {
+      "title": " Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차) ④ 확정 전 수행은 바로잡기로 세지 않는다",
+      "status": "passed"
+    },
+    {
+      "title": " 자료 소진 안내(FAST LOOP v3 · B) 확인 문항을 다 봐 단계가 잠기면 「새 자료 필요」(material_needed) — 「앞 단계를 마치면」(stage_locked) 이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 안내 연습 정답(회차 뒤) = 바로잡기 성공 → 다음 단계",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 원리 설명 보기 · 안내 연습 오답 · 회차 전 기록은 성공이 아니다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정 바로잡기 다음 행동 — 기출 막힌 문항은 기존대로 재시도 먼저(기출 바로잡기 보존) · 창작 안내 연습도 바로잡기 자료로 열린다",
+      "status": "passed"
+    },
+    {
+      "title": " FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 순환이 아니다 성공 · 적용 자료 없음 · 다시 확인 문항 부족 → stage recheck · material_needed (repair 로 되돌리지 않음)",
+      "status": "passed"
+    }
+  ],
+  "sourceSha256": {
+    "v4/plan.ts": "e34ecc0a34c8d42c038fdebb59949ee2621bad8994a666c92d203aabee17d467",
+    "lifecycle-evidence.ts": "801b443fa4353afb30a5e0ed9348dbe1305589bdea16a59f7d720925e7cd4584"
+  },
+  "dbWrites": 0,
+  "additionalChangedWorkspaceTests": {
+    "file": "apps/web/src/lib/csat/map/v4/__tests__/workspace-authored.test.ts",
+    "passed": 5,
+    "failed": 0,
+    "head": "90cff014d19482df4e20a7fbec8c53277258d17d",
+    "scope": "Actual latest source and tests in same disposable snapshot; assessment exclusion / role separation controls"
+  },
+  "failures": [
+    {
+      "case": "guided counted as recheck",
+      "expected": 0,
+      "actual": 1
+    },
+    {
+      "case": "PLAN/lifecycle repair mismatch",
+      "expected": "repairAt present after qualified guided success",
+      "actual": null
+    },
+    {
+      "case": "guided counted as transfer",
+      "expected": null,
+      "actual": "instruction activity time"
+    },
+    {
+      "case": "episode boundary",
+      "expected": "pre-episode server receipt cannot advance",
+      "actual": "gate accepts using client answeredAt only",
+      "scope": "Pure current gate input, not a new API exploit execution"
+    }
+  ]
+}
