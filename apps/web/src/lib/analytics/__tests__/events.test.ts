@@ -137,7 +137,7 @@ describe('허용 이벤트 목록', () => {
     // 기출 오답 지도 · 계획(관리자 뷰) — 훈련 2종은 2026-09-17 에 은퇴
     'csat_atlas_scoped',
     'csat_plan_speed_set',
-    'csat_plan_ordered',
+    // csat_plan_ordered: 관리자 공용 계획의 개인 정렬 제거와 함께 은퇴(DB 과거 목록 유지).
     'csat_trap_opened',
     // 2026-09-23 — 기출 작업 공간(`/csat/space`) 2종. 이 화면의 값어치는 「한 판에서 좁혀
     // 들어간다」에 전부 걸려 있어서, 좁히는 조작이 0 이면 긴 목록 두 개일 뿐이다(DD-73).

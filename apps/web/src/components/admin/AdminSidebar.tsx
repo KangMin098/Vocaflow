@@ -1,4 +1,5 @@
 // apps/web/src/components/admin/AdminSidebar.tsx
+// tokens-from: ./AdminShell.module.css
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

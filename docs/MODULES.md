@@ -1000,7 +1000,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
 | 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다. `returningCardIds`·`drillBias` 가 기록을 **다음 훈련 세트**로 되먹인다(24시간 지난 최근 오답 · 문턱 넘은 약한 수법) |
 | 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
-| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` (`lib/analytics/events.ts` 닫힌 목록 · 훈련 2종은 2026-09-17 은퇴) |
+| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` (`lib/analytics/events.ts` 닫힌 목록 · 훈련 2종은 2026-09-17, 개인 정렬 `csat_plan_ordered`는 관리자 공용 계획 분리와 함께 은퇴) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |

@@ -1,4 +1,5 @@
 // apps/web/src/components/admin/AdminShell.tsx
+// tokens-from: ./AdminShell.module.css
 'use client'
 import { Suspense, useEffect, useState, type ReactNode } from 'react'
 import Link from 'next/link'

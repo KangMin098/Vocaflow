@@ -282,7 +282,8 @@ risk(유형) = Σ_수법  (내 오답 중 그 수법의 몫) × (그 유형 오�
 9. **계측을 같은 커밋에.** 조작을 넣었으면 그 조작이 실제로 일어나는지 세는 이벤트를 함께
    넣는다 — 안 재면 그 조작이 장식인지 아닌지 영원히 모른다.
    현재: `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_evidence_opened` ·
-   `csat_drill_answered` · `csat_drill_finished` · `csat_plan_ordered`.
+   훈련 `csat_drill_answered` · `csat_drill_finished`는 2026-09-17 은퇴했고, 개인 정렬
+   `csat_plan_ordered`는 관리자 공용 계획 분리와 함께 은퇴했다. 과거 DB 허용 목록·기록은 유지한다.
 10. **못 하는 것을 화면이 말한다.** 훈련 결과가 저장되지 않으면 그렇게 적는다 — 안 적으면
     학습자는 쌓이는 줄 알고 돌아왔다가 빈 화면을 본다. 막다른 화면 금지는 **거짓 약속 금지**다.
 
