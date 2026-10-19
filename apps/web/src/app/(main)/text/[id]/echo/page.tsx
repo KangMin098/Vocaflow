@@ -13,6 +13,7 @@ import { createClient } from '@/lib/supabase/server'
 import { splitIntoSentences } from '@/lib/echo/sentence-splitter'
 import type { EchoSentence } from '@/components/echo/EchoMatchPlayer'
 import { EchoMatchPlayerDynamic } from '@/components/echo/EchoMatchPlayerDynamic'
+import { stripLeadingChapterMarker } from '@/lib/reader/chapter-marker'
 
 interface PageProps {
   params: { id: string }
@@ -124,11 +125,15 @@ export default async function EchoModePage({ params }: PageProps) {
     }
   }
 
-  const sentences: EchoSentence[] = rawSentences.map((s, idx) => ({
-    id: `${t.id}-${idx}`,
-    text: s,
-    chapterIdx: t.chapter_idx ?? undefined,
-  }))
+  // 첫 문장에 장 표식 줄(제목 + U+001E + 원문 URL)이 붙어 있으면 표시에서만 걷어낸다(원본 · DB 그대로).
+  //   id 는 원래 순번으로 먼저 매긴다 — 걷어낸 뒤 매기면 기록과 연결된 문장 id 가 한 칸씩 밀린다.
+  const sentences: EchoSentence[] = rawSentences
+    .map((s, idx) => ({
+      id: `${t.id}-${idx}`,
+      text: idx === 0 ? stripLeadingChapterMarker(s).text : s,
+      chapterIdx: t.chapter_idx ?? undefined,
+    }))
+    .filter((s) => s.text.trim().length > 0)
   console.log('[Echo] sentences ready, count:', sentences.length)
 
   const chapterTitle =

@@ -9,6 +9,7 @@ import type { Word } from '@/types/library';
 import type { ChapterWord } from '@/lib/library/chapter-words-queries';
 import { enrichBook } from './word-enrichment';
 import { findSupportSpans, type SupportToken } from '@/lib/workspace/support';
+import { parseChapterMarker, type ChapterMarker } from '@/lib/reader/chapter-marker';
 
 export interface TextParagraphPart {
   text: string;
@@ -26,6 +27,11 @@ export interface TextParagraphSentence {
 export interface TextParagraph {
   id: number;
   sentences: TextParagraphSentence[];
+  /**
+   * 이 문단이 장 표식 줄이면(첫 문단만) 그 내용 — 문장은 비어 있고 화면은 장 머리의 출처 링크로 보인다.
+   * 문단을 목록에서 빼지 않는 이유: 이어읽기 위치(current_paragraph_idx)가 문단 번호라 한 칸 당겨지면 안 된다.
+   */
+  chapterMarker?: ChapterMarker;
 }
 
 // 문장 경계 분할 — 약어/이니셜 마침표 보호 (visible sentinel 토큰).
@@ -108,8 +114,13 @@ export function buildParagraphsFromContent(
 
   const filteredParas = rawSplits.filter((p) => p.length > 0);
 
+  // 2026-10-19 — 첫 문단이 장 표식 줄(CHAPTER N. 제목 + U+001E + 원문 URL)이면 문장으로 만들지 않는다.
+  //   원본 본문은 그대로 두고 표시 단계에서만 분리(docs/content-defects/2026-10-19-chapter-marker-in-body.md).
+  //   문장이 비면 음성 재생 · 낱말 풀이 · 문장 번호에서도 빠진다. 형식이 정확할 때만(lib/reader/chapter-marker).
+  const marker = filteredParas.length > 0 ? parseChapterMarker(filteredParas[0]!) : null;
+
   // 단락 → 실제 문장 분할 (reading order). 빈 분할은 단락 전체 1문장 fallback.
-  const perPara: string[][] = filteredParas.map((para) => splitIntoSentences(para));
+  const perPara: string[][] = filteredParas.map((para, i) => (i === 0 && marker ? [] : splitIntoSentences(para)));
 
   // 문장 단위 enrichment — flatten 후 enrich (consumedWords = 챕터 전체 첫 출현 기준)
   const flatSentences = perPara.flat();
@@ -127,7 +138,7 @@ export function buildParagraphsFromContent(
       parts: enrichedFlat[cursor + si]!,
     }));
     cursor += sents.length;
-    return { id: pIdx, sentences };
+    return pIdx === 0 && marker ? { id: pIdx, sentences, chapterMarker: marker } : { id: pIdx, sentences };
   });
 }
 
