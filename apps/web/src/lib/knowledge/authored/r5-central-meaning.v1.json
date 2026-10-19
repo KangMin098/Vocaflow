@@ -675,6 +675,138 @@
           }
         ]
       }
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i3",
+      "body": {
+        "sentences": [
+          "Many people believe that a good memory means being able to recall everything exactly as it happened.",
+          "Yet the brain is not built to store a perfect copy of the past.",
+          "It keeps the general meaning of an event and lets most of the small details fade.",
+          "Forgetting these details frees the mind from clutter and makes it easier to notice what is common across many experiences.",
+          "Someone who remembered every face in every crowd would struggle to recognize a friend whose hairstyle had changed.",
+          "In this sense, forgetting is not a failure of memory but part of what makes memory useful."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "좋은 기억력은 모든 일을 정확하게 떠올리는 능력이다.",
+          "세부 사항을 잊는 것은 기억을 유용하게 만드는 과정의 일부이다.",
+          "사람의 얼굴을 잘 기억하려면 반복해서 보아야 한다.",
+          "나이가 들수록 기억력이 떨어지는 것은 자연스럽다.",
+          "기억을 정확하게 하려면 세부 사항에 집중해야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 4,
+          "relation": "example"
+        },
+        "gist": "세부 사항을 잊는 것은 실패가 아니라 기억을 유용하게 만드는 과정의 일부이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 통념(1번)을 그대로 옮겼다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "예시(5번)의 얼굴 알아보기만 떼어 내 방법으로 바꿨다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "나이와 기억력의 관계는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "세부 사항을 잊는 것이 유용하다는 글의 방향(4·6번)을 뒤집었다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i4",
+      "body": {
+        "sentences": [
+          "A city that wants fewer traffic jams usually decides to build more roads.",
+          "For a short while, driving does become faster on the new lanes.",
+          "But the easier trips soon persuade more people to drive, and some who used to take the bus switch to their cars.",
+          "Within a few years the new roads are as crowded as the old ones were.",
+          "When one city closed a busy highway for repairs, many drivers simply chose other routes or other ways to travel, and overall traffic did not get worse.",
+          "Adding road space, then, tends to create more traffic rather than reduce it."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "도로를 늘리면 교통 체증이 줄기보다 오히려 교통량이 늘어난다.",
+          "도로 공사 기간에는 운전자들이 불편을 겪는다.",
+          "대중교통 요금을 낮추면 버스 이용자가 늘어난다.",
+          "새 도로는 처음 몇 년 동안 운전을 빠르게 해 준다.",
+          "도시는 교통 체증을 줄이기 위해 도로를 더 지어야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 2,
+          "relation": "reason"
+        },
+        "gist": "도로 공간을 늘리면 교통이 줄기보다 오히려 더 많은 교통이 생긴다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "공사 기간의 불편은 글이 다루지 않는다 — 5번은 오히려 교통이 나빠지지 않았다고 한다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "버스 요금 이야기는 글에 없다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "잠깐 빨라진다는 부분(2번)만 떼어 내 결론처럼 만들었다."
+          },
+          {
+            "choice": 4,
+            "design": "opposed_view",
+            "why": "필자가 문제 삼는 도시의 선택(1번)을 그대로 권했다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

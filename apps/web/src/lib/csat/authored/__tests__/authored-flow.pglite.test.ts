@@ -255,9 +255,11 @@ describe('FI-007(#299) — 철회 뒤 현재성', () => {
     expect(rows.find((x) => x.deliveryId === d)).toMatchObject({ current: false, attempted: true })
     const again = await supply(A, 'check', 2)
     if (again.status !== 'ok') throw new Error('supply')
-    // ind-1 만 지금 유효 — 철회된 ind-2 는 충족으로 세지 않고, 대체 재고가 없으니 생산 주문을 연다
-    expect(again.lines[0].delivered).toEqual([ref('r5-cm-ind-1')])
-    expect(again.lines[0].orderOpened).toBe(true)
+    // ind-1 만 지금 유효 — 철회된 ind-2 는 충족으로 세지 않고 부족분을 다시 센다. 대체 재고(다시 확인용 ind-3 · 4)가 있으면 그것으로 채워 생산 주문을 열지 않는다
+    expect(again.lines[0].delivered).toContain(ref('r5-cm-ind-1'))
+    expect(again.lines[0].delivered).not.toContain(r)
+    expect(again.lines[0].delivered.some((x) => x === ref('r5-cm-ind-3') || x === ref('r5-cm-ind-4'))).toBe(true)
+    expect(again.lines[0].orderOpened).toBe(false)
     expect((await q1<{ n: number }>(`select count(*)::int n from public.learning_task_attempts where user_id = $1 and item_ref = $2`, [A, r])).n).toBe(1)
   })
 })

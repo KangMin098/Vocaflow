@@ -114,7 +114,8 @@ describe('맹검 2인 대조(FINAL §4.3 — docs/final/review)', () => {
   for (const [name, raw] of [['A', blindA], ['B', blindB]] as const) {
     it(`검토자 ${name}: 9문항 정답이 Gold 와 같고, 고른 중심 문장은 채점이 정답으로 받는다`, () => {
       const r = norm(raw)
-      S.items.forEach((it, k) => {
+      // 맹검 기록은 처음 9문항(item-1~9)만 — 2026-10-19 추가한 다시 확인용 r5-cm-ind-3 · 4 는 맹검 검토 **대기**(검토했다고 세지 않는다)
+      S.items.slice(0, 9).forEach((it, k) => {
         const v = r[`item-${k + 1}`]
         expect(v, `${name} item-${k + 1}`).toBeDefined()
         expect(v.answer, `${name} ${it.id} answer`).toBe(G(it).answer)

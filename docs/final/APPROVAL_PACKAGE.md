@@ -24,7 +24,7 @@
 
 ## B. 사람 Gold — R5 창작 9문항(v2)
 
-- 콘텐츠: `apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json`(세트 `r5-central-meaning.v2` · 주석 ref 끝 `.v2`) · SHA-256 `d9e4002718b8ea931983aa87b85273eb87d3ee1ad431a372f3edc2fd30618fbb`(설명 글 문장 번호 1부터 · 내용 판단은 v2 그대로)
+- 콘텐츠: `apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json`(세트 `r5-central-meaning.v2` · 주석 ref 끝 `.v2`) · SHA-256 `78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f`(설명 글 문장 번호 1부터 · 내용 판단은 v2 그대로)
 - 평가 계약: 정답 = 한 줄 요지 선택 ✓ **그리고** 중심 문장 ✓(주장 또는 그 다시 말하기 문장). 근거 · 관계는 피드백. 화면 발문에 「같은 뜻을 다시 말한 문장도 돼요」를 명시해 발문 ↔ 채점을 맞췄다.
 - v2 변경(AI 검토 반영 · 사람 승인 아님): 정답 선택지 바꿔 쓰기 3건(ind-2 · transfer-2 · delayed-1) · transfer-1 약한 오답 2건 강화 · 오답 근거 감사 반영(guided-1 한 줄 요지 과장 「가장」→「매우」 · guided-2 오답① 유형 · 설명 문구 4건 · teach 단계 문장 번호).
 - AI 검토 기록(사람 승인 아님 · `docs/final/review/`): A · B 9/9 정답 일치(v1) · C 수정 5문항 5/5 · D v2 수정 4문항 4/4(방어 가능한 다른 선택지 0, 노출 mild) · 오답 근거 감사(9문항 정답 유일, 2문항 수정 → 반영).
@@ -33,7 +33,8 @@
   2. delayed-1 정답은 D 검토 뒤 한 번 더 바꿨다(「일하는 시간을 헛되지 않게」) — 최종 문구를 사람이 확인.
   3. transfer-1 의 0번 문장을 supportDisputed 로 둔 판단(반박되는 믿음의 일부로 볼 여지 · 감사 지적).
   4. 오답 설계 유형 라벨(too_narrow · distorted 등)이 학습자 피드백으로 적절한가.
-- 평가 역할 6문항(ind ×2 · transfer ×2 · delayed ×2)만 사람 Gold 가 필수. 교수 · 안내 3문항은 Gold 없이 공급 가능(권리는 필요).
+- **2026-10-19 추가(FI-011 B · 다시 확인 재고)**: `r5-cm-ind-3`(기억과 망각) · `r5-cm-ind-4`(도로와 교통량) 독립 확인 2문항 — 서로 다른 지문 · 기존 9문항 내용 · 순서 불변. **맹검 검토 대기 · 사람 Gold 대기 · 권리 대기**(이전 revision 승인 승계 없음).
+- 평가 역할 8문항(ind ×4 · transfer ×2 · delayed ×2)만 사람 Gold 가 필수. 교수 · 안내 3문항은 Gold 없이 공급 가능(권리는 필요).
 
 ## B2. 사람 Gold — TASK 확장 16세트(각 6문항 · 평가 역할 4문항씩)
 
