@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
-**[VF-TASK FINAL-COLLAB-20261019B] 최신 재수용**은 [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md)을 따른다. FI-018 실제312d786는21+독립5·목적·최종 CI·안전 dry-run/merge를 통과해 VERIFIED_FIXED이며 **#312 병합 SHA13e15e7367aad27e9fc3cafedbe02cebb5deeaff**다. 최초cefc 실패는 과거 이력으로 보존한다. FI-0110b8의 실제 report는12중11성공/양성1실패다. need_confirmed와 저장 check→repair는 관찰됐으나 동일 완료 문항의 바로잡기 실행 문맥 누락으로 전체 FI-011은 REWORK다.09681은 라벨 비교만 바뀐 입력이다.314는 PROPOSED/비활성/실행기 없음이며 권한자 채택 권고는 REWORK다. **전체 제품 REWORK**, #250/#303 미병합이다.
+**[VF-TASK FINAL-FI011-REPAIR] 최신 변경분 ACCEPT_WITH_LIMITS.** [FI-011 수용 결과](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 교수·안내 연습 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). 실제 f0790c5cc/CI39201324730 HTML report12/12·영향 단위43/43을 확인했다. 독립2오답→need_confirmed·저장 check→repair·목표/이력 보존·평가 재사용 차단/repair_material_needed는 해당 범위 VERIFIED_FIXED다. 새 교수 자료 공급·바로잡기 수행·성공 이후의 종단 연결은 미구현/미검증으로 전체 FI-011 PARTIAL, **전체 제품 REWORK**다. FI-018은 #312 병합13e15e736 완료, #314는 PROPOSED/채택 REWORK다. #250/#303은 미병합·main 결합/최종 CI/목적 리뷰/안전 병합이 남는다. 아래 이전 판정은 그 시점의 이력으로 보존한다.
 
 2026-10-19 사용자 양방향 계약을 [역할·실제 세션 결속 및 다음 구현 지시](./COLLABORATION_CONTRACT_20261019.md)에 반영했다. Codex는 분석/기획/설계/구현 지시와 독립 수용, Claude는 제품 구현/통합을 소유한다. 실제 직접 전송은 아직 검증되지 않아 GitHub 게시/세션 ACK를 구분한다. 최신3033c7478195/CI39196056859는 기존10성공·여정1실패다. 지도는 not_measured→checking으로 바뀌었지만 before/after 모두 stage_locked/next=null로 다음 행동 단언이 실패했고 PLAN v2는 미도달이다. 기존 FI-011에서 정당한 판정 전환이 있는 양성 경로를 설계했으며 새로운 교육 기준/목표를 만들지 않는다. 전체 REWORK·FI-018 잔여/병합0은 유지한다.
 
@@ -61,7 +61,7 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |G 독립 전이 / PARTIAL|노출/도움/동일 지문·근거 구분|FI-006/010 경계 범위|격리 최초/비근거 대조|새 적격 전이 NOT_VERIFIED|해당 revision Gold/권리 NOT_VERIFIED|실제 미노출/지연 전이 NOT_VERIFIED|NOT_VERIFIED|
 |H 증거 환류 / PARTIAL|delivery/G2·PLAN/이력 범위|결속/상태 보존 범위|격리 지도 복귀/표시 범위|수행→새 PLAN 의미 환류 NOT_VERIFIED|콘텐츠별 E에서 검수 필요|실제 환류 NOT_VERIFIED|NOT_VERIFIED|
 
-**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 6fe의 기록/목표/납품/Runner/G2 prefix에 이어0b8에서는1440px의 독립2오답→need_confirmed 및 저장 check→repair까지 관찰했다. 정답 진행 대조는 단계 불변/다음 문항 이동/버전 이력 검사를 통과했다. 양성 경로의 마지막 이력 단언과 실제 바로잡기 새 수행·D 교수 경험은 미검증이다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다.312 수용/병합은 완료했고 최신 main 기준250→303의 실행 연결·통합/안전 병합이 남아 있다.
+**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 최신 f079에서는 독립2오답→need_confirmed·저장 repair·목표/이력 보존까지 실제 양성 단언이 모두 통과했다. D 교수·안내 연습→repair 성공→전이/새 독립 확인 연결은 다음 구현 단위이며 전체 H 완료가 아니다. 아래0b8 실패는 최초 이력이다. 6fe의 기록/목표/납품/Runner/G2 prefix에 이어0b8에서는1440px의 독립2오답→need_confirmed 및 저장 check→repair까지 관찰했다. 정답 진행 대조는 단계 불변/다음 문항 이동/버전 이력 검사를 통과했다. 양성 경로의 마지막 이력 단언과 실제 바로잡기 새 수행·D 교수 경험은 미검증이다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다.312 수용/병합은 완료했고 최신 main 기준250→303의 실행 연결·통합/안전 병합이 남아 있다.
 
 ## 결함별 수정 수용
 

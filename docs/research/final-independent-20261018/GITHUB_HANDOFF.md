@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+**[VF-TASK FINAL-FI011-REPAIR]** f079/CI39201324730 실제12/12·영향43/43. [변경분 수용 ACCEPT_WITH_LIMITS](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 repair 공급 구현 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). need_confirmed/저장 repair/평가 재사용 차단은 확인, 전체 FI-011 PARTIAL·FINAL REWORK. 실제 교수 공급/수행·새 독립 확인은 미검증.312 병합13e15e736,314 PROPOSED 유지. 아래는 이전 인계 이력이다.
+
 **[VF-TASK FINAL-COLLAB-20261019B] ACK**. [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md), [312 기존 리뷰 갱신](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279), [314 보안6항목/PROPOSED 유지·채택 REWORK](https://github.com/KangMin098/Vocaflow/pull/314#pullrequestreview-5566857391). 실제312를 safe-merge로 병합한 SHA는13e15e7367aad27e9fc3cafedbe02cebb5deeaff다. [담당 회신](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259579458), DL-0187. FI-0110b8의 실제12건 중11성공/양성1실패를 해독하고 [기존 #304](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6259617760)/[PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259618044)에 바로잡기 실행 연결 수정 지시를 보냈다.314 비공개 상세는DL-0186이며 실제 DB/정책 채택/사람 승인 없음.
 
 2026-10-19 양방향 역할 계약과 [구체 구현 지시](./COLLABORATION_CONTRACT_20261019.md)를4e819d3e4로 게시했다. [PR303 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259334264), [PR312 비공개 수정 우선 인계](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6259334524), VFC DL-0185. [실제 세션/작업·전달 상태](./collaboration-delivery-20261019.json)는 GITHUB_POSTED_AWAITING_ACK이며 직접 세션 전송·수신·착수/완료는 미확인이다. 별도 세션을 만들지 않았고 Claude 실제 작업 ID/구현 가능성 응답을 기다린다. 최신3c CI의 not_measured→checking/stage_locked 불변 실패는 같은 FI-011에서 다루며 FI-018 해소를 우선한다.

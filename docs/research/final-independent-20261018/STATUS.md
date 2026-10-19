@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/STATUS.md -->
 # 전체 제품 독립 수용 — 진행 원장
 
+**[VF-TASK FINAL-FI011-REPAIR]** f079/CI39201324730 실제12/12·영향43/43. [변경분 수용 ACCEPT_WITH_LIMITS](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 repair 공급 구현 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). need_confirmed/저장 repair/평가 재사용 차단은 확인, 전체 FI-011 PARTIAL·FINAL REWORK. 실제 교수 공급/수행·새 독립 확인은 미검증.312 병합13e15e736,314 PROPOSED 유지. 아래는 이전 인계 이력이다.
+
 **FINAL-COLLAB-20261019B ACK / 전체 REWORK**. FI-018은 실제312d786의21+독립5/목적/최종 CI/안전 병합으로 VERIFIED_FIXED, 병합SHA13e15e736이다. FI-0110b8 실제12건 중11성공/양성1실패이며 need_confirmed/저장check→repair는 관찰했다. 완료 문항의 바로잡기 새 수행 연결은 CODE_VERIFIED 누락으로 기존 #304 수정 지시,303 수용/병합 보류다.314 보안6항목은PROPOSED 유지·채택REWORK, 상세비공개DL-0186. [현재 결과](./FINAL_COLLAB_20261019B_REVIEW.md). 아래는 고정 HEAD별 과거 이력이다.
 
 종단 테스트 후속:264f fixture 실패→f8 실제 PLAN422(FI-019)→e54 날짜 수정→35d43 팝업 조작 수정→6fe386770 화면 열거값 수정의 순서를 보존한다. [FI-019](./FI019_KST_PLAN.md)는 실제 수정에서 고정 시각5/5·단위29/29로 후보 코드 수정 확인했다. e54/35d43 여정은 PLAN 통과 뒤 수행 전 관찰에서 실패했으며 전체 종단은 미수용이다. 실제312cefc 잔여/REWORK·병합0은 유지한다.

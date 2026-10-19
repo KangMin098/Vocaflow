@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/COLLABORATION_CONTRACT_20261019.md -->
 # FINAL MISSION 양방향 역할 계약 및 다음 구현 지시
 
+**최신 FI-011 설계 선택:** [f079 변경분 수용](./FI011_REPAIR_ACCEPTANCE_20261019.md)과 [별도 교수·안내 연습 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md)가 현재 인계다. 완료된 authored 평가 ref의 재시도 제안은 채택하지 않는다. below의 기존 패킷은 이력이며 새 공급 지시가 다음 구현 범위를 정한다.312는 실제 병합13e15e736 완료,314는 PROPOSED/채택 REWORK다.
+
 근거는2026-10-19 사용자의 「Claude Code × Codex 양방향 협업 역할 계약」이다. 상위 목표는 기존 A~H 전체 제품 완성이고 VG/LM/TASK 정본을 대체하지 않는다. 이 문서는 기존 임무의 역할·인계와 바로 남은 구현을 구체화하며 새 목표 정본/로드맵이 아니다. 현재 전체 판정은 **REWORK**다.
 
 ## 역할·세션·소유권

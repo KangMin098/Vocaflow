@@ -44,7 +44,11 @@
   "decision": "DL-0185",
   "followupDesignReviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259351057",
   "followupImplementationHead": "323762ccf67cee3dcdf1e83b44f82923efd7b367",
-  "followupCi": {"runId": 39197238286, "observedStatus": "IN_PROGRESS", "accepted": false},
+  "followupCi": {
+    "runId": 39197238286,
+    "observedStatus": "IN_PROGRESS",
+    "accepted": false
+  },
   "workUnits": [
     "FI-018/#311/PR312",
     "FI-011/#304/PR303"
@@ -53,6 +57,34 @@
   "devDbWritePerformed": false,
   "humanGoldOrRightsApprovalPerformed": false,
   "safeMergeExecuted": true,
-  "merges": [{"pr": 312, "head": "d786d253818ee1a0dc2603e37667f84c3ad47a79", "mergeSha": "13e15e7367aad27e9fc3cafedbe02cebb5deeaff"}],
-  "incomingPacket": {"taskId": "FINAL-COLLAB-20261019B", "received": true, "ackPrinted": true, "sourceSessionClaimMatchesExistingBinding": true, "previousFINAL_REWORK_20261019QueueAck": "NOT_VERIFIED", "router315OverallAcceptance": "NOT_PERFORMED"}
+  "merges": [
+    {
+      "pr": 312,
+      "head": "d786d253818ee1a0dc2603e37667f84c3ad47a79",
+      "mergeSha": "13e15e7367aad27e9fc3cafedbe02cebb5deeaff"
+    }
+  ],
+  "incomingPacket": {
+    "taskId": "FINAL-COLLAB-20261019B",
+    "received": true,
+    "ackPrinted": true,
+    "sourceSessionClaimMatchesExistingBinding": true,
+    "previousFINAL_REWORK_20261019QueueAck": "NOT_VERIFIED",
+    "router315OverallAcceptance": "NOT_PERFORMED"
+  },
+  "latestRepairPacket": {
+    "taskId": "FINAL-FI011-REPAIR",
+    "received": true,
+    "ackPrinted": true,
+    "implementationHead": "f0790c5cc91ad7988d14cf7605d31917d5ee5c21",
+    "ciRun": 39201324730,
+    "scopeDecision": "ACCEPT_WITH_LIMITS",
+    "wholeFi011": "PARTIAL",
+    "workOrder": "FI011_REPAIR_SUPPLY_WORK_ORDER.md",
+    "claudeFeasibilityReview": "AWAITING_RETURN",
+    "outgoingStatus": "PREPARED",
+    "directSessionDelivery": "NOT_VERIFIED",
+    "previousFINALCOLLAB": "ACK_RECONFIRMED",
+    "previousFINALREWORK": "REFERENCE_ACK_NOW_ORIGINAL_QUEUE_RECEIPT_NOT_VERIFIED"
+  }
 }
