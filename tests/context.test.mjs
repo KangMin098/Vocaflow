@@ -164,14 +164,28 @@ test('r1: JSON·환경변수형 비밀값 가림 · DB 덤프 제외 · 중첩 g
   assert.ok(hit.files.includes('evidence-manifest.json'))
 })
 
-test('패킷 기준: 위임 작업 브랜치가 원격에 있으면 그 브랜치 · 없거나 실패하면 origin/main', async () => {
+test('패킷 기준(GITHUB 모드): 위임 작업 브랜치가 원격에 있으면 그 브랜치 · 없거나 실패하면 origin/main', async () => {
   const { contextRefFor } = await import('../lib/context.mjs')
+  const GH = { mode: 'GITHUB', integration_branch: 'local/integration' }
   const st = (dl) => ({ userGoals: { goals: { 'UG-x-1': { delegations: dl } } } })
   const calls = []
   const ok = (...a) => { calls.push(a.join(' ')); return 'abc' }
-  assert.equal(contextRefFor(st([{ branch: 'feat/w' }]), 'UG-x-1', ok), 'origin/feat/w')
+  assert.equal(contextRefFor(st([{ branch: 'feat/w' }]), 'UG-x-1', ok, GH), 'origin/feat/w')
   assert.ok(calls.some((c) => c.startsWith('fetch')), '브랜치를 먼저 받아 온다')
   const bad = () => { throw new Error('no such ref') }
-  assert.equal(contextRefFor(st([{ branch: 'feat/none' }]), 'UG-x-1', bad), 'origin/main')
-  assert.equal(contextRefFor(st([]), 'UG-x-1', ok), 'origin/main')
+  assert.equal(contextRefFor(st([{ branch: 'feat/none' }]), 'UG-x-1', bad, GH), 'origin/main')
+  assert.equal(contextRefFor(st([]), 'UG-x-1', ok, GH), 'origin/main')
+})
+
+test('패킷 기준(LOCAL_FAST): 원격 fetch 없이 로컬 작업 브랜치 · 통합 브랜치 없으면 로컬 origin/main 사본', async () => {
+  const { contextRefFor } = await import('../lib/context.mjs')
+  const LF = { mode: 'LOCAL_FAST', integration_branch: 'local/integration' }
+  const st = (dl) => ({ userGoals: { goals: { 'UG-x-1': { delegations: dl } } } })
+  const calls = []
+  const ok = (...a) => { calls.push(a.join(' ')); return 'abc' }
+  assert.equal(contextRefFor(st([{ branch: 'feat/w' }]), 'UG-x-1', ok, LF), 'feat/w')
+  assert.ok(!calls.some((c) => c.startsWith('fetch')), '원격을 부르지 않는다')
+  assert.equal(contextRefFor(st([]), 'UG-x-1', ok, LF), 'local/integration')
+  const bad = () => { throw new Error('no such ref') }
+  assert.equal(contextRefFor(st([{ branch: 'feat/none' }]), 'UG-x-1', bad, LF), 'origin/main')
 })

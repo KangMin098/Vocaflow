@@ -1,0 +1,72 @@
+{
+  "$comment": "개발 모드(lib/devmode.mjs). LOCAL_FAST = 일반 개발 GitHub 호출 0(PR · Actions · push · 원격 병합). 원격은 bin/backup.mjs(하루 최대 1회 + 복구 시점)와 Work Bridge 만. 일시 전환은 VFC_DEV_MODE=GITHUB.",
+  "mode": "LOCAL_FAST",
+  "auto_codex_review": true,
+  "$auto_codex_review": "2026-10-19 사용자 지시(Claude 구현 → Codex 자동 리뷰 · P0/P1 자동 환류). 끄려면 false 또는 VFC_AUTO_CODEX=0",
+  "integration_branch": "local/integration",
+  "integration_worktree": "D:/workspace/Vocaflow-integration",
+  "backup": {
+    "remote": "origin",
+    "ref_prefix": "backup/local-integration",
+    "max_per_day": 1
+  },
+  "e2e_criterion": "VG-L3-D2-01-AC1",
+  "checks": [
+    {
+      "id": "typecheck",
+      "kind": "typecheck",
+      "cwd": "apps/web",
+      "cmd": "pnpm",
+      "args": [
+        "exec",
+        "tsc",
+        "--noEmit",
+        "-p",
+        "."
+      ],
+      "timeout_ms": 900000
+    },
+    {
+      "id": "lint",
+      "kind": "lint",
+      "cwd": "apps/web",
+      "cmd": "pnpm",
+      "args": [
+        "exec",
+        "eslint",
+        "{changed_web_files}"
+      ],
+      "needs_web_files": true,
+      "timeout_ms": 600000
+    },
+    {
+      "id": "related-tests",
+      "kind": "test",
+      "cwd": "apps/web",
+      "cmd": "pnpm",
+      "args": [
+        "exec",
+        "vitest",
+        "related",
+        "--run",
+        "{changed_web_files}"
+      ],
+      "needs_web_files": true,
+      "timeout_ms": 900000
+    },
+    {
+      "id": "e2e-isolated",
+      "kind": "e2e",
+      "cwd": "apps/web",
+      "cmd": "pnpm",
+      "args": [
+        "exec",
+        "playwright",
+        "test",
+        "-c",
+        "playwright.isolated.config.ts"
+      ],
+      "timeout_ms": 1800000
+    }
+  ]
+}
