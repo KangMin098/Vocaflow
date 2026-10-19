@@ -19,8 +19,6 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 export type BindingStatus =
   | 'not_installed' | 'no_delivery' | 'no_provenance' | 'invalid_delivery' | 'role_mismatch' | 'bound' | 'error'
-  /** FI-011 바로잡기 연습 — 결속하지 않음(첫 독립 시도 · G2 불변) */
-  | 'repair_practice'
 
 export interface BindingResult {
   status: BindingStatus

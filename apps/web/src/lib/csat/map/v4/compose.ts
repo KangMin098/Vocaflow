@@ -123,7 +123,7 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
     : []
   const asIs = asIsMap({ asOf: at, sessions: data.v4.sessions, axisProxy: { ...axisProxyOf(data), covers: data.v4.proxyCovers }, checks, attempts })
   const toBe = toBeMap({ asIs, goal, refItems: data.v4.refItems, lineRefItems: data.model.lineRefItems, confirmLinks, transferredKeys: transferredKeysOf(data) })
-  const plan = planWorkspaces({ asIs, toBe, confirmLinks, transferItems: data.v4.transferItems, transferTargets: data.v4.transferTargets })
+  const plan = planWorkspaces({ asIs, toBe, confirmLinks, transferItems: data.v4.transferItems, transferTargets: data.v4.transferTargets, repairTargets: data.v4.repairTargets })
   // 수행 기록 — 생애주기 기록(지도 연결 과제 키의 본인 시도). 시각 없는 기록 · 기준 시점 뒤 기록은 세지 않는다(As-Is 와 같은 자격 · 리뷰 P1)
   const cut = ms(at)
   // Current annotation lookup is not an archived annotation at a historical asof.

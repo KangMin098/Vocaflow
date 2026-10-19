@@ -110,6 +110,8 @@ export interface MapV4Input {
   transferItems: Record<string, number>
   /** 확인 과제 키 → 「다른 글에 적용」 단계 링크(5차 · 6차 일반화) — 주장과 근거는 연습 화면 전이 문항, 다른 과제는 role=transfer 로 출시된 문항의 문항 화면. 확인 묶음 밖 · 공개 관문 통과 */
   transferTargets: Record<string, { target: string; href: string; label: string; passageKey?: string | null }[]>
+  /** FI-011 — 확인 과제 키 → 바로잡기 단계 자료(창작 교수 · 안내 연습 납품 · 지금 유효). 확인 링크 · 독립 첫 시도와 섞지 않는다 */
+  repairTargets: Record<string, { target: string; href: string; label: string; role: 'model_explanation' | 'guided_practice' }[]>
   /** 저장된 학습계획(4차) — 저장 구조가 없으면 status 'not_installed'(화면은 이 기기 초안 모드) */
   saved: SavedPlans
   /** v6.2 P-F8e — Workspace id → 영속 주문 · 공급 기록(표가 없으면 not_installed · 실패는 error). 「주문됨 · 공급 완료」의 유일한 근거 */
@@ -293,9 +295,9 @@ interface AuthoredTransfer { key: string; target: string; href: string; label: s
  * 납품받은 창작 평가 자료 — **지금 유효한** 납품만(권리 · Gold · 승인 철회 · 자격 대체 뒤에는 빠진다 · FI-007).
  * 혼자 확인 · 다른 날 확인 = 확인 링크, 전이 = 적용 링크(FI-011). 표가 없으면(창작 공급 SQL 미적용) 빈 목록.
  */
-async function loadAuthoredDeliveries(db: Db, userId: string): Promise<{ id: string; artifact_ref: string; task_id: string; role: string }[]> {
+async function loadAuthoredDeliveries(db: Db, userId: string, roles: readonly string[] = ['independent_check', 'delayed_check', 'transfer']): Promise<{ id: string; artifact_ref: string; task_id: string; role: string }[]> {
   const { data, error } = await db.from('workspace_content_delivery').select('id, artifact_ref, task_id, role')
-    .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', ['independent_check', 'delayed_check', 'transfer'])
+    .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', [...roles])
   if (error) { if (error.code && MISSING_TABLE.has(error.code)) return []; throw new Error(`창작 납품 조회 실패: ${error.message}`) }
   const rows = (data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]
   // 학습자 세션: supply_delivery_valid 는 service_role 전용 → 본인 납품 유효성 RPC workspace_delivery_current(FI-007, auth.uid() 결속).
@@ -524,6 +526,12 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const practiceLinks = withoutHeld(allLinks, gate)
   // FINAL §8 — 이 학습자에게 납품된 창작 평가 자료(혼자 확인 · 다른 날 확인)를 그 TASK 의 확인 대상에 더한다. 납품 안 된 창작 기록은 대상이 아니다
   const authoredRows = await loadAuthoredDeliveries(db, userId).catch((e) => { console.error('[csat-map authored deliveries]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
+  // FI-011 — 바로잡기 자료(교수 · 안내 연습). 평가 자료(혼자 확인 · 전이 · 다른 날 확인)는 바로잡기로 다시 쓰지 않는다(workspace.ts repairable)
+  const repairRows = await loadAuthoredDeliveries(db, userId, ['model_explanation', 'guided_practice']).catch((e) => { console.error('[csat-map authored repair]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
+  const repairTargets: Record<string, { target: string; href: string; label: string; role: 'model_explanation' | 'guided_practice' }[]> = {}
+  for (const r of repairRows) for (const key of authoredKeysOf(r.task_id)) {
+    (repairTargets[key] ??= []).push({ target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: r.role === 'guided_practice' ? '바로잡기 · 안내 연습' : '바로잡기 · 원리 설명 보기', role: r.role as 'model_explanation' | 'guided_practice' })
+  }
   const authoredTransfers: AuthoredTransfer[] = authoredRows.filter((r) => r.role === 'transfer').flatMap((r) => authoredKeysOf(r.task_id).map((key) => ({
     key, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: '받은 자료 · 다른 글에 적용',
   })))
@@ -616,6 +624,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       refItems: examIds.flatMap((id) => itemsByExam[id]),
       transferItems,
       transferTargets,
+      repairTargets,
       saved,
       supplyLedger,
       assessmentExposure,

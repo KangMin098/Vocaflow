@@ -179,3 +179,29 @@ describe('자료 소진 안내(FAST LOOP v3 · B)', () => {
     expect(p.unresolved).not.toContain('stage_locked')
   })
 })
+
+describe('FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정', () => {
+  // 확정(2 오답) 뒤 바로잡기 단계 · 바로잡기 자료 = 안내 연습 g1 · 원리 설명 m1(창작 · 별도 자격)
+  const repairTargets = { [KEY]: [{ target: 'authored:g1', href: '/csat/learn/g1?d=x', label: '바로잡기 · 안내 연습', role: 'guided_practice' as const }, { target: 'authored:m1', href: '/csat/learn/m1?d=y', label: '바로잡기 · 원리 설명 보기', role: 'model_explanation' as const }] }
+  const buildR = (activity: PlanActivity[]) => {
+    const a = asIs({ attempts: verified })
+    const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 2 }, repairTargets })
+    const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
+    return workspacePlan(cm, a, toBe, plan, activity).tasks.find((t) => t.task === 'r.central_meaning')!
+  }
+  const act = (itemRef: string, ok: boolean | null, at: string): PlanActivity => ({ itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, answeredAt: at, activity: 'practice' } as unknown as PlanActivity)
+  it('안내 연습 정답(회차 뒤) = 바로잡기 성공 → 다음 단계', () => {
+    expect(buildR([]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-12T00:00:00Z')]).stage).not.toBe('repair')
+  })
+  it('원리 설명 보기 · 안내 연습 오답 · 회차 전 기록은 성공이 아니다', () => {
+    expect(buildR([act('authored:m1', true, '2026-09-12T00:00:00Z')]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', false, '2026-09-12T00:00:00Z')]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-10T12:00:00Z')]).stage).toBe('repair') // 확정(09-11) 전
+  })
+  it('바로잡기 다음 행동 — 기출 막힌 문항은 기존대로 재시도 먼저(기출 바로잡기 보존) · 창작 안내 연습도 바로잡기 자료로 열린다', () => {
+    expect(['/csat/item/i1', '/csat/item/i2']).toContain(buildR([]).next?.href)
+    expect(buildR([]).quantity.available).toBeGreaterThanOrEqual(2)
+  })
+})

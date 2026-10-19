@@ -38,7 +38,8 @@ async function deliver(learner: SupabaseClient, uid: string, ws: string, planVer
   if (dem.error) throw new Error(`수요: ${dem.error.message}`)
   const line = (await learner.from('workspace_content_demand_line').select('id').eq('demand_id', dem.data as string).single()).data!.id as string
   const q = (await admin().from('content_qualification').select('id').eq('artifact_ref', `authored:${item.id}`).eq('role', item.role).single()).data!.id as string
-  const a = (await admin().from('content_release_approval').select('id').eq('qualification_id', q).eq('scope', 'assessment').single()).data!.id as string
+  const scope = ['independent_check', 'transfer', 'delayed_check'].includes(item.role) ? 'assessment' : 'public' // 교수 · 안내 연습은 공개 범위 승인
+  const a = (await admin().from('content_release_approval').select('id').eq('qualification_id', q).eq('scope', scope).single()).data!.id as string
   const r = await learner.rpc('workspace_delivery_record', { p_line: line, p_order: null, p_qualification: q, p_approval: a, p_request_key: crypto.randomUUID() })
   if (r.error) throw new Error(`납품 ${item.id}: ${r.error.message}`)
   return r.data as string
@@ -253,43 +254,40 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   expect(v3).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
   expect((await planRow(ws, 2)).task, 'PLAN v2 이력 불변').toEqual(base.task)
 
-  // 바로잡기 실행 — 지도 CTA(바로잡기 문맥 repair=1)를 그대로 따라가 다시 푼다 → 연습 · 도움받은 수행 · G2 결속 없음
-  expect(after.nextLabel, '바로잡기 CTA').toContain('바로잡기')
-  expect(after.nextHref ?? '').toMatch(/[?&]repair=1/)
-  await page.goto(after.nextHref!, { waitUntil: 'domcontentloaded' })
+  // 바로잡기 — 평가 자료는 다시 풀지 않는다. 자료가 없으면 「바로잡기 자료 필요」 대기(FI-011 · Codex 확정 설계)
+  expect(after.next, '평가 자료를 바로잡기로 다시 내밀지 않는다').toBeNull()
+  expect(after.blocked).toBe('repair_material_needed')
+  // 바로잡기 자료(안내 연습 · 별도 자격 · 평가 지문과 분리)를 받는다 → 지도 CTA 「바로잡기 · 안내 연습」
+  const guided = R5.items.find((i) => i.role === 'guided_practice')!
+  const guidedDid = await deliver(learner, uid, ws, 3, guided)
+  const withMaterial = await observe(page)
+  expect(withMaterial.nextLabel ?? '').toContain('안내 연습')
+  expect(withMaterial.next).toBe(`/csat/learn/${guided.id}`)
+  // 안내 연습 수행 — 실제 Runner · 서버 채점 · 연습 기록(G2 근거 false)
+  await page.goto(withMaterial.nextHref!, { waitUntil: 'domcontentloaded' })
   const runner = page.locator('[data-testid="authored-runner"]')
-  await expect(runner).toHaveAttribute('data-mode', 'repair', { timeout: 30_000 })
-  const repairId = after.next!.split('/').pop()!
-  const repairItem = delivered.find((d) => d.item.id === repairId)!.item
-  await runner.locator(`[data-sentence="${repairItem.gold.claim}"]`).click()
-  await runner.locator(`[data-sentence="${repairItem.gold.support[0]}"]`).click()
-  if (await runner.locator('[data-relation]').count()) await runner.locator(`[data-relation="${repairItem.gold.relationProbe?.relation ?? 'reason'}"]`).click()
-  await runner.locator(`[data-choice="${repairItem.gold.answer}"]`).click()
+  await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
+  await runner.locator(`[data-sentence="${guided.gold.claim}"]`).click()
+  await runner.locator(`[data-sentence="${guided.gold.support[0]}"]`).click()
+  if (await runner.locator('[data-relation]').count()) await runner.locator(`[data-relation="${guided.gold.relationProbe?.relation ?? 'reason'}"]`).click()
+  await runner.locator(`[data-choice="${guided.gold.answer}"]`).click()
   await runner.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
-  await expect(page.locator('[data-testid="authored-binding"]')).toHaveAttribute('data-status', 'repair_practice')
-  // 기록 — 새 시도는 연습 · viewed_first 정답, 처음 오답 2 · G2 결속 2 는 그대로
-  const all = (await admin().from('learning_task_attempts').select('item_ref, is_correct, activity, help_level').eq('user_id', uid).order('id')).data ?? []
-  expect(all.length).toBe(3)
-  expect(all.slice(0, 2).every((a) => a.is_correct === false)).toBe(true)
-  expect(all[2]).toMatchObject({ item_ref: `authored:${repairId}`, is_correct: true, activity: 'practice' }) // 바로잡기 = 연습 활동(직접 확인 근거 아님)
-  const binds2 = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid)).data ?? []
-  expect(binds2.map((b) => b.delivery_id).sort(), 'G2 결속 불변(바로잡기는 결속 안 함)').toEqual(delivered.map((d) => d.did).sort())
-  // 환류 — 바로잡기 성공(repairGate)으로 PLAN 이 바로잡기 다음으로 · 연습 정답은 독립 근거가 아니다(근거 상태 need_confirmed 유지)
-  // 진단 — 바로잡기 뒤 첫 시도 원장(지도 판정 입력)의 실효 도움 상태
-  const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, activity, phase, help_level, after_viewed_first, after_explanation, timing_uncertain, is_correct, answered_at').eq('user_id', uid)).data ?? []
-  console.log('JOURNEY_FIRSTS_AFTER_REPAIR=' + JSON.stringify(firstsAfter))
-  const sessDiag = (await admin().from('learning_sessions').select('id, client_session_id, item_ref, stage, help_level, help_received_at, help_server_at, explanation_viewed_at, explanation_server_at, help_clock_suspect').eq('user_id', uid)).data ?? []
-  const attDiag = (await admin().from('learning_task_attempts').select('id, item_ref, session_id, answered_at, received_at, help_level, is_correct').eq('user_id', uid).order('id')).data ?? []
-  console.log('JOURNEY_SESSIONS=' + JSON.stringify({ sessDiag, attDiag }))
+  await expect.poll(async () => (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data?.[0]?.evidence ?? null, { timeout: 15_000 }).toBe(false)
+  // 기록 — 처음 독립 오답 2 의 자격 · G2 결속은 그대로 · 안내 연습은 연습 활동
+  const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, help_level, timing_uncertain, is_correct').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
+  expect(firstsAfter.length).toBe(2)
+  expect(firstsAfter.every((x) => x.help_level === 'independent' && x.timing_uncertain === false && x.is_correct === false), '처음 독립 오답 자격 불변').toBe(true)
+  const indBinds = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid).in('delivery_id', delivered.map((d) => d.did))).data ?? []
+  expect(indBinds.every((b) => b.evidence === true) && indBinds.length === 2).toBe(true)
+  // 환류 — 안내 연습 정답 = 바로잡기 성공 → PLAN 적용 단계 · 연습은 독립 근거가 아니다(보완 필요 유지)
   const afterRepair = await observe(page)
   const p4 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 3, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p4.status(), await p4.text()).toBe(200)
   const v4 = await planRow(ws, 4)
-  console.log('JOURNEY_REPAIR_DONE=' + JSON.stringify({ afterRepair, v4: v4.task }))
-  expect(firstsAfter.every((x) => x.help_level === 'independent' && x.timing_uncertain === false && x.is_correct === false), '바로잡기가 처음 독립 오답의 자격을 소급해 바꾸지 않는다').toBe(true)
-  expect(afterRepair.evidence, '도움받은 바로잡기 정답은 독립 근거가 아니다 — 보완 필요 유지').toBe('need_confirmed')
-  expect(afterRepair.next, '바로잡은 문항은 다시 내밀지 않는다(다른 막힌 문항 또는 다음 단계 자료)').not.toBe(after.next)
+  console.log('JOURNEY_REPAIR_DONE=' + JSON.stringify({ withMaterial, afterRepair, v4: v4.task }))
+  expect(afterRepair.evidence, '안내 연습 정답은 독립 근거가 아니다').toBe('need_confirmed')
   expect(v4.task?.stage, '바로잡기 성공 → 적용 단계(전이 자료 있음)').toBe('transfer')
+  expect(afterRepair.next).toBe(`/csat/learn/${transferItem.id}`)
   expect((await planRow(ws, 3)).task, 'PLAN v3 이력 불변').toEqual(v3.task)
 })

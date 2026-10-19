@@ -261,26 +261,3 @@ describe('FI-007(#299) — 철회 뒤 현재성', () => {
     expect((await q1<{ n: number }>(`select count(*)::int n from public.learning_task_attempts where user_id = $1 and item_ref = $2`, [A, r])).n).toBe(1)
   })
 })
-
-describe('바로잡기 수행 문맥', () => {
-  it('바로잡기 문맥(FI-011): 이전 오답 없으면 거절 · 오답 뒤 다시 풀기 = 연습 · 도움받은 수행 · G2 결속 없음 · 첫 시도 불변', async () => {
-    // 이전 오답이 없는 문항(앞에서 정답) — 바로잡기 거절
-    await expect(recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-1'), { deliveryId: await dOf(A, ref('r5-cm-ind-1')), response: rightAnswer('r5-cm-ind-1'), mode: 'repair', ...meta() }, Date.now(), writer)).rejects.toMatchObject({ code: 'invalid_input' })
-    const R = ref('r5-cm-guided-1')
-    const g = goldOf('r5-cm-guided-1')
-    const wrong = { claim: g.claim === 0 ? 1 : 0, support: [g.claim === 2 ? 3 : 2], relation: g.relationProbe.relation, choice: (g.answer + 1) % 5 }
-    const first = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, R, { deliveryId: await dOf(A, R), response: wrong, ...meta() }, Date.now(), writer)
-    expect(first.grade.isCorrect).toBe(false)
-    const bindsBefore = (await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, R])).n
-    const fix = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, R, { deliveryId: await dOf(A, R), response: rightAnswer('r5-cm-guided-1'), mode: 'repair', ...meta() }, Date.now(), writer)
-    expect(fix.grade.isCorrect).toBe(true)
-    expect(fix.binding.status).toBe('repair_practice')
-    const rows = (await db.query<{ activity: string; help_level: string; is_correct: boolean }>(`select activity, help_level, is_correct from public.learning_task_attempts where user_id = $1 and item_ref = $2 order by id`, [A, R])).rows
-    expect(rows.at(-1)).toMatchObject({ activity: 'practice', is_correct: true }) // 연습 활동 = 직접 확인 근거 아님
-    // 도움 사건을 만들지 않는다 — 처음 독립 시도 세션의 도움 · 해설 시각이 그대로(뷰의 2분 순서 불확실 규칙이 첫 근거를 지우지 않게)
-    const helpRows = (await db.query<{ n: number }>("select count(*)::int n from public.learning_sessions where user_id = $1 and item_ref = $2 and (help_received_at is not null or explanation_viewed_at is not null)", [A, R])).rows[0]
-    expect(helpRows.n).toBe(0)
-    expect(rows[0].is_correct).toBe(false) // 첫 시도 불변
-    expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, R])).n).toBe(bindsBefore) // G2 결속 추가 없음
-  })
-})

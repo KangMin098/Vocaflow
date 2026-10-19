@@ -295,20 +295,7 @@ export async function recordAuthoredAttempt(
   if (!graded) throw new AuthoredInputError('고른 답을 다시 확인해 주세요', 'invalid_input')
   const hash = await admin.rpc('authored_item_gold_hash', { p_ref: ref })
   if (hash.error || typeof hash.data !== 'string') throw new Error(`채점 주석 hash 조회 실패: ${hash.error?.message ?? 'empty'}`)
-  // FI-011 — 바로잡기 수행 문맥(mode=repair). 이미 답 · 해설을 본 뒤 다시 푸는 연습이다:
-  //   · 이 학습자의 이 문항 이전 오답이 있어야 한다(바로잡기 대상 · 처음 시도를 바로잡기로 둔갑시키지 않는다)
-  //   · **연습 활동(activity practice)** 으로 새 세션에 남기고 G2 결속을 하지 않는다 — 연습은 직접 확인 근거가 아니다(skill-diagnosis) ·
-  //     첫 독립 시도 · 정오 · evidence · 노출 · 납품 영수증 불변. 바로잡기 의미는 response.mode='repair' 가 담는다
-  //   · 도움 사건(viewed_first · 해설 열람)을 따로 남기지 않는다 — learning_first_attempts 는 같은/다른 세션의 도움 시각이 시도 앞뒤 2분 안이면
-  //     과거 독립 시도를 「순서 확인 불가」로 만들어, 확인 직후의 바로잡기가 첫 근거를 소급해 지웠다(종단 e2e 실측 2026-10-19). 표기 방식은 Codex 설계 판정 대상
-  //   · 성공 여부는 지도의 repairGate(같은 과제 키 · 막힌 문항 · 확정 뒤 새 정답)가 읽는다. 같은 제출 id 재전송은 기존 기록 그대로(writer 멱등)
-  const repair = o.mode === 'repair'
-  if (repair) {
-    const prior = await admin.from('learning_task_attempts').select('id').eq('user_id', user.id).eq('item_ref', ref).eq('is_correct', false).limit(1)
-    if (prior.error) throw new Error(`이전 시도 조회 실패: ${prior.error.message}`)
-    if ((prior.data ?? []).length === 0) throw new AuthoredInputError('바로잡을 이전 오답이 없어요 — 학습 지도에서 다시 열어 주세요', 'invalid_input')
-  }
-  const shape = repair ? { activity: 'practice' as const, phase: 'practice' as const } : attemptShape(opened.view.role)
+  const shape = attemptShape(opened.view.role)
   const sec = Number.isInteger(o.sec) && (o.sec as number) >= 0 && (o.sec as number) <= 7200 ? (o.sec as number) : null
   const w: AttemptWrite = {
     userId: user.id,
@@ -318,7 +305,7 @@ export async function recordAuthoredAttempt(
     contentHash: hash.data,
     activity: shape.activity,
     phase: shape.phase,
-    helpLevel: repair ? 'independent' : meta.value.helpLevel, // 바로잡기는 연습 활동이라 근거 아님 — 도움 사건을 만들지 않는다(위)
+    helpLevel: meta.value.helpLevel,
     synthetic: isSyntheticEmail(user.email),
     clientMutationId: meta.value.clientMutationId,
     clientSessionId: meta.value.clientSessionId,
@@ -327,12 +314,11 @@ export async function recordAuthoredAttempt(
     isCorrect: graded.grade.isCorrect,
     answer: graded.response as unknown as Record<string, unknown>,
     // 결속 RPC 는 response.annotation = 산출물 주석 ref 를 확인한다
-    extra: { annotation: row.annotation_ref, grade: graded.grade, role: opened.view.role, ...(repair ? { mode: 'repair' } : {}) },
+    extra: { annotation: row.annotation_ref, grade: graded.grade, role: opened.view.role },
   }
   const sessionId = await writer.reveal(w)
   const outcome = await writer.record(w, sessionId)
   if (outcome === 'conflict') throw new AuthoredInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 'invalid_input')
-  if (repair) return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding: { status: 'repair_practice' } }
   const binding: BindingResult = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item', deliveryId: opened.view.deliveryId })
     .catch((e) => { console.error('[authored delivery binding]', e); return { status: 'error' as const } })
   return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding }
