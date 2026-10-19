@@ -307,6 +307,15 @@
 - **단어장 서가 무효 투명도 20곳**(`components/library/vocab/*` 6파일): `/library/vocab` 기본 화면 직전↔직후 0.00%. 바뀐 클래스는 상세 시트(`VocabSpreadSheet`) · 조건부 보기(`CategoryMatrix`) · **어디서도 쓰지 않는 `VocabSetMatrix`(8곳)** 에 있다 — 그 상태들은 미확인. 가드 기준선 26파일 60곳.
 - **B20 인증 카드 한 장(해소)**: 참조 tines.com/book-a-demo(흰 카드 774 · 모서리 16 · 왼쪽 안내 + 오른쪽 폼)처럼 `(auth)/layout.tsx` 가 카드 한 장(920 · 16px · 보라 14% 테두리 · 옅은 그림자)을 왼쪽 틴트 면 + 삽화 · 오른쪽 폼으로 나눈다. 네 페이지의 `Card` 는 그대로 두고 레이아웃에서 테두리 · 그림자 · 모서리만 꺼 이중 테두리를 막았다. 측정(`tmp/s6/auth/`): 로그인 · 가입 · 재설정 · 메일 인증 모두 x260(1280: x180) · 폭 920 · 16px. 동작 `scripts/design/auth-check.mjs` 4/4 — 빈 제출 검증 문구 · 인증 요청 0 · 비밀번호 보기 전환 · Tab 순서 · 링크(/signup · /reset-password). 다크 캡처 확인. 차이·의도: 참조 774 보다 넓은 920 — 우리 폼 칸(28rem)과 삽화 면을 함께 담기 위해.
 
+## 0-7. AI 템플릿 인상 제거 — 1차(2026-10-19)
+
+- **계기**: 사용자 「화면에 스타일이 전혀 다른데」 · 「slot(=AI slop) 방향은 절대 안 된다」. 같은 1440 폭 tines.com 실캡처(홈 · /library · /product · /customers · /university, `tmp/s7/tines/`)와 3041 캡처를 나란히 보면 색 · 탭 · 머리 판 골격은 이미 닮았고, 차이는 **삽화 화풍**(광택 아이소메트릭 렌더 ↔ 참조의 보라 선 + 평면 2–3색)과 **알약 · 번호 라벨 반복**이었다.
+- **삽화**: Codex(`codex exec` 이미지 생성)로 같은 id 16장을 선화로 다시 그려 교체 — tile-books · comics · csat · vault · articles · decks · textbooks · wordblitz · pairflip · spellforge · spot-dashboard · reading · memory · listening · teacher · search. 화면 코드는 id 로만 부르므로 이 그림을 쓰는 모든 화면이 함께 바뀐다. 2차 묶음(spot-comic · quiz · wordblitz · vault · echomatch · dictionary · empty-page · band-scatter)은 아래 행에 결과를 적는다.
+- **AreaHero**: 수치 알약 → 한 줄 글(값은 그대로 DB 실측) — 서가 · 단어장 등 AreaHero 를 쓰는 모든 구역 머리.
+- **대시보드**: 번호 괘선(Rule 01–04) → 큰 구간 제목(28/32px) · 판 안 중복 눈썹 제거 · 격언 꼬리 제거.
+- **전후**: `tmp/s7/before` ↔ `tmp/s7/after3`(+2차 뒤 `after4`) — /hub · /library/books · /dashboard 1440 라이트. 타입 검사 통과 · 관련 단위 테스트 66/66.
+- **남은 차이(정직하게)**: 3개 화면 외 학습자 화면의 구성(카드 겹침 · 리본)은 이번에 바꾸지 않았다. 바뀐 그림을 쓰는 화면은 그림만 바뀌었다.
+
 ## 1. 전역 틀 (모든 행이 공유)
 
 | 틀 | 마운트 위치 | 들어 있는 것 | 기준 · 참조 후보 | 비고 |

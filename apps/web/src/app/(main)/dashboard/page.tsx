@@ -35,7 +35,6 @@
 import Image from 'next/image'
 
 import { Screen } from '@/components/ui/ios'
-import { Rule } from '@/components/ui/press'
 import { ActivityTrace } from '@/components/dashboard/ActivityTrace'
 import { DurabilityLadder } from '@/components/dashboard/DurabilityLadder'
 import { LexicalReach } from '@/components/dashboard/LexicalReach'
@@ -58,6 +57,15 @@ function kstDateLabel(): string {
     day: 'numeric',
     weekday: 'long',
   })
+}
+
+/** 참조 도서관 「Featured stories」 구간 제목 — 번호 괘선(01 · 02 …) 대신 큰 제목과 여백으로 가른다(2026-10-19). */
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mt-12 break-keep font-display text-[28px] font-[500] leading-[1.15] tracking-[-0.02em] text-[var(--ju-ink)] md:text-[32px]">
+      {children}
+    </h2>
+  )
 }
 
 export default async function DashboardPage() {
@@ -118,7 +126,7 @@ export default async function DashboardPage() {
         {/* 2. 히어로 — 기억이 버티는 시간 */}
         {horizon && (
           <>
-            <Rule n="01" label="기억이 버티는 시간" tone="ju" className="mt-2" />
+            <SectionTitle>기억이 버티는 시간</SectionTitle>
             <DurabilityLadder ladder={horizon.ladder} />
           </>
         )}
@@ -126,7 +134,7 @@ export default async function DashboardPage() {
         {/* 3·4. 되찾은 단어 + 28일 흐름 — 한 줄에 나란히 (좌: 결과 · 우: 노정) */}
         {horizon && (
           <>
-            <Rule n="02" label="되찾은 것과 지나온 날" className="mt-4" />
+            <SectionTitle>되찾은 것과 지나온 날</SectionTitle>
             <div className="grid gap-4 lg:grid-cols-2">
               <RescuedWords rescued={horizon.rescued} />
               <ActivityTrace
@@ -141,26 +149,17 @@ export default async function DashboardPage() {
         {/* 5. 어휘의 무게중심 — 순위를 아는 단어가 없으면 스스로 사라진다 */}
         {horizon && (
           <>
-            <Rule n="03" label="어휘의 무게중심" className="mt-4" />
+            <SectionTitle>어휘의 무게중심</SectionTitle>
             <LexicalReach reach={horizon.reach} />
           </>
         )}
 
         {/* 6·7. 학습 관리 + 최근 학습 — 회고가 아니라 **조작**이라 한 구획으로 묶는다 */}
-        <Rule n="04" label="학습 관리" className="mt-4" />
+        <SectionTitle>학습 관리</SectionTitle>
         <ManageSection overview={overview} />
         <RecentActivity data={recent} />
 
-        {/* Calm closing — 정서적 부호화. 모바일 하단 탭에 가리지 않도록 여백을 둔다
-            (이전에는 관리 카드가 탭 뒤로 잘렸다 — 390px 실측). */}
-        <footer className="mt-4 pb-20 text-center md:pb-4">
-          <p className="font-english text-[14px] italic leading-relaxed text-[var(--t2)]">
-            “Slow is smooth, smooth is fast.”
-          </p>
-          <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
-            오늘도 차분한 페이스로 잘 해내고 있어요.
-          </p>
-        </footer>
+        <div className="pb-20 md:pb-8" />
       </div>
     </Screen>
   )

@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- design(learner): AI 템플릿 인상 제거 1차 — 광택 3D 삽화 → Codex 선화(같은 id 교체, `illo-codex-install.mjs`) · AreaHero 수치 알약 → 한 줄 글 · 대시보드 번호 괘선 → 큰 구간 제목 · DESIGN.md 에 금지 패턴 4개.
 - feat(design): 인증 4화면을 카드 한 장으로(참조 tines.com/book-a-demo) · PairFlip 카드 포커스 유지(aria-disabled) · 단어장 서가 무효 투명도 20곳 — auth-check 4/4 · pairflip-check 포커스 확인.
 - test(design): 남은 화면 56개 쓰기 차단 캡처(막은 쓰기 54건) → 렌더 증거 학습자 91 중 81 · 받아쓰기 세션 중복 출구 제거.
 - fix(reader): 장 본문 첫 줄 표식(CHAPTER N. 제목 + U+001E + 원문 URL)을 표시 단계에서만 분리 — 읽기 화면(문단 번호 유지 · 문장/음성에서 제외 · 장 머리 「원문 출처 ↗」) · 학습자 도서 미리보기 · Echo(문장 id 유지). 원본 본문 · DB 무변경, RS 없는 정상 첫 줄 202개 보존(단위 테스트 + chapter-marker-check).

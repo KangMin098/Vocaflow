@@ -78,11 +78,13 @@ export function AreaHero({
           <h1 className="mt-3 break-keep font-display text-[28px] font-[500] leading-[1.04] tracking-[-0.03em] sm:text-[38px] md:text-[52px]">{title}</h1>
           <p className="mt-3 max-w-[40ch] break-keep font-display text-[15.5px] font-[500] leading-[1.45] md:text-[17px]">{sub}</p>
           {stats && stats.length > 0 && (
-            <dl className="mt-6 flex flex-wrap gap-2">
+            /* 참조 도서관 머리에는 수치 알약이 없다 — 알약 줄은 AI 템플릿 인상의 첫째 원인이었다(2026-10-19 사용자 지적).
+               수치는 부제 아래 한 줄 글로만 남긴다(I5: 값은 그대로 DB 실측). */
+            <dl className="mt-5 flex flex-wrap items-baseline gap-x-5 gap-y-1 font-display text-[14px] font-[500] opacity-85">
               {stats.map((s) => (
-                <div key={s.label} className="flex items-baseline gap-2 rounded-[50px] bg-[color-mix(in_srgb,var(--on-deep)_14%,transparent)] px-4 py-2">
-                  <dt className="font-display text-[13px] font-[600]">{s.label}</dt>
-                  <dd className="font-mono text-[15px] font-[700] tabular-nums">{s.value}</dd>
+                <div key={s.label} className="flex items-baseline gap-1.5">
+                  <dt>{s.label}</dt>
+                  <dd className="font-[700] tabular-nums">{s.value}</dd>
                 </div>
               ))}
             </dl>
