@@ -77,6 +77,12 @@ async function deliveryOf(uid: string, ref: string, role: string): Promise<strin
   expect((r.data ?? []).length, `납품 없음 ${ref} ${role}`).toBe(1)
   return (r.data as { id: string }[])[0].id
 }
+/** UI 증거(UI Quality Gate) — 실제 화면 캡처를 시험 출력 폴더에(CI 가 e2e-isolated-report 로 올린다) · 가로 넘침 0 */
+async function snap(page: Page, name: string) {
+  const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+  expect(over, `${name} 가로 넘침`).toBeLessThanOrEqual(0)
+  await page.screenshot({ path: test.info().outputPath(`${name}-${page.viewportSize()?.width}.png`) })
+}
 async function planRow(ws: string, version: number) {
   const r = (await admin().from('learner_workspace_plan').select('user_id, plan_version, reason, goal_version_id, plan').eq('workspace_id', ws).eq('plan_version', version).single()).data!
   const t = (r.plan as { tasks: { task: string; stage?: string | null; planned?: unknown; available?: unknown }[] }).tasks.find((x) => x.task === TASK) ?? null
@@ -237,6 +243,8 @@ async function solveWrong(page: Page, item: Item & { gold: Item['gold'] & { clai
 for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome}) — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기 → 적용 → 다시 확인`, async ({ page }) => {
   test.setTimeout(300_000)
   const { uid, learner, ws, goalVersionId } = await begin(page, 'repair')
+  // PC 두 폭 — pass 갈래 1440 · fail 갈래 1280(UI 수용 기준 · 같은 화면을 두 폭에서)
+  if (outcome === 'fail') await page.setViewportSize({ width: 1280, height: 900 })
   const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
   const delivered: { item: Item; did: string }[] = []
   for (const item of ind) delivered.push({ item, did: await deliver(learner, uid, ws, 1, item) })
@@ -273,6 +281,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   // 바로잡기 — 평가 자료는 다시 풀지 않는다. 자료가 없으면 「바로잡기 자료 필요」 대기(FI-011 · Codex 확정 설계)
   expect(after.next, '평가 자료를 바로잡기로 다시 내밀지 않는다').toBeNull()
   expect(after.blocked).toBe('repair_material_needed')
+  await snap(page, 'map-repair-material-needed')
   // 바로잡기 자료(안내 연습 · 별도 자격 · 평가 지문과 분리)를 **실제 자료 받기 API** 로 받는다(T-0050 rev5 기준 0) — 지금 계획 단계(repair)의 수요만.
   //   평가 역할(혼자 확인 · 전이 · 다른 날)은 이 공급에 섞이지 않는다 → 지도 CTA 「바로잡기 · 안내 연습」
   const repairSupply = await supply(page)
@@ -284,6 +293,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   const withMaterial = await observe(page)
   expect(withMaterial.nextLabel ?? '').toContain('안내 연습')
   expect(withMaterial.next).toBe(`/csat/learn/${guided.id}`)
+  await snap(page, 'map-repair-guided-next')
   // 안내 연습 수행 — 실제 Runner · 서버 채점 · 연습 기록(G2 근거 false)
   const runner = page.locator('[data-testid="authored-runner"]')
   const solveGuided = async (choice: number) => {
@@ -341,6 +351,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   // 다시 확인 재고 0(혼자 확인 2 는 이미 봤다) → 정확한 대기(자료 필요) — 바로잡기로 되돌리지 않는다(FI-011 B)
   expect(afterTransfer.next).toBeNull()
   expect(afterTransfer.blocked).toBe('material_needed')
+  await snap(page, 'map-recheck-material-needed')
   expect(afterTransfer.evidence, '적용 수행은 독립 근거가 아니다').toBe('need_confirmed')
   // 다시 확인 자료 — 실제 공급 API(수요 = independent_check) · 이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다
   const recheckSupply = await supply(page)
@@ -350,6 +361,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   expect(fresh.length, '새 미노출 독립 확인 2').toBe(2)
   const withRecheck = await observe(page)
   expect(fresh.map((r) => `/csat/learn/${r.slice('authored:'.length)}`)).toContain(withRecheck.next)
+  await snap(page, 'map-recheck-next')
   // 새 독립 확인 2 — 지도 CTA 를 따라 실제 Runner · 서버 채점 · G2 결속(본인 · TASK · 납품 · 서버 결과). pass 는 정답, fail 은 명확한 오답
   const freshDids: string[] = []
   for (const ref of fresh) {
@@ -364,6 +376,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid).in('delivery_id', freshDids)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(2)
   // MAP — 새 독립 근거로만 판정이 바뀐다 · 처음 독립 오답 · G2 · 과거 PLAN 은 그대로
   const resolved = await observe(page)
+  await snap(page, `map-recheck-${outcome}`)
   const p6 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 5, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p6.status(), await p6.text()).toBe(200)
   const v6 = await planRow(ws, 6)
@@ -387,6 +400,7 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
     await page.goto(resolved.nextHref!, { waitUntil: 'domcontentloaded' })
     const again = page.locator('[data-testid="authored-retry"]')
     await expect(again).toHaveAttribute('data-after', 'right', { timeout: 30_000 })
+    await snap(page, 'learn-guided-retry-after-right')
     await again.click()
     await solveGuided(guided.gold.answer)
     await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
