@@ -36,6 +36,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
+import { LogoMark } from '@/components/marketing/site/LogoMark'
 import { SearchButton } from '@/components/marketing/site/SearchDialog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
@@ -121,36 +122,25 @@ export function AppHeader() {
       ref={root}
       aria-label="주 메뉴"
       onMouseLeave={hoverClose}
-      className="sticky top-0 z-40 hidden border-b border-[var(--bd)] bg-[var(--bg)] md:block"
+      className="sticky top-0 z-40 hidden bg-[var(--bg)] md:block"
     >
-      <div className="mx-auto flex h-[64px] w-full max-w-[1600px] items-center gap-3 px-4 lg:px-6">
-        {/* 로고 — 라틴은 Lora, 뒤에 주묵 권점 하나(사이드바 머리에서 그대로 옮겼다). */}
-        <div className="flex min-w-0 flex-1 items-center">
-          <Link
-            href="/hub"
-            aria-label="Vocaflow 홈"
-            className={`flex min-h-[44px] shrink-0 items-center gap-2.5 rounded-full pr-2 transition-opacity duration-[var(--dur-normal)] hover:opacity-90 ${FOCUS}`}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--ju)] font-english text-[16px] font-[500] leading-none text-[var(--on-ju)]"
-            >
-              V
-            </span>
-            <span className="hidden font-english text-[18px] font-[500] tracking-[0.01em] text-[var(--t1)] lg:inline">
-              Vocaflow
-              <span
-                aria-hidden
-                className="ml-[3px] inline-block h-[5px] w-[5px] rounded-full bg-[var(--ju)] align-[3px]"
-              />
-            </span>
-          </Link>
-        </div>
+      {/* 2026-10-19 재참조(tines.com 1440 실캡처): 막대는 공개 화면 `SiteHeader` 와 같은 틀 —
+          1360 · 좌우 40 · 높이 72 · **로고 바로 옆 왼쪽 글자 메뉴**(가운데 알약 묶음 · 네모 「V」 는 참조에 없다) ·
+          오른쪽 끝 진한 모노 대문자 알약 + 검색 원 · 아래 가는 선은 틀 폭 안에서만. */}
+      <div className="mx-auto flex h-[72px] w-full max-w-[1360px] items-center gap-6 border-b border-[color-mix(in_srgb,var(--ju)_16%,transparent)] px-4 lg:px-10">
+        <Link
+          href="/hub"
+          aria-label="Vocaflow 홈"
+          className={`flex min-h-[44px] shrink-0 items-center gap-2 rounded-full transition-opacity duration-[var(--dur-normal)] hover:opacity-90 ${FOCUS}`}
+        >
+          <LogoMark />
+          <span className="font-display text-[22px] font-[500] tracking-[-0.02em] text-[var(--ju)]">vocaflow</span>
+        </Link>
 
-        {/* 가운데 알약 다섯 — 참조의 `SiteNav` 와 같은 자리. 순서가 곧 화면의 순서다. */}
+        {/* 글자 메뉴 다섯 — 참조 Product ▾ · Solutions ▾ · Customers … 자리. 순서가 곧 화면의 순서다. */}
         <nav
           aria-label="주요 화면 메뉴"
-          className="flex shrink-0 items-center gap-0.5 rounded-full bg-[var(--bg2)] px-1.5 py-1"
+          className="flex min-w-0 flex-1 items-center gap-1"
         >
           {BAR_ENTRIES.map((e) => (
             <BarEntry
@@ -169,7 +159,7 @@ export function AppHeader() {
 
         {/* 오른쪽 — 참조의 「Book a demo」 자리. 학습자 동선이 아니라 역할이 바뀌는 곳이라
             가운데 다섯에 끼우지 않는다. */}
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+        <div className="flex shrink-0 items-center justify-end gap-3">
           <Link
             href={CLASS_ENTRY.kind === 'link' ? CLASS_ENTRY.item.href : '/teacher'}
             aria-current={
@@ -177,7 +167,8 @@ export function AppHeader() {
             }
             aria-label={CLASS_ENTRY.kind === 'link' ? CLASS_ENTRY.item.ariaLabel : undefined}
             onMouseEnter={close}
-            className={`inline-flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full border border-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--ju)] hover:text-[var(--on-ju)] ${FOCUS}`}
+            /* 참조 「BOOK A DEMO」 — 진한 보라 채움 · 모노 대문자 · 넓은 자간 */
+            className={`inline-flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full bg-[var(--p)] px-5 font-mono text-[13px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--ju)] ${FOCUS}`}
           >
             {CLASS_ENTRY.label}
             <ArrowUpRight size={14} aria-hidden className="shrink-0" />
@@ -198,7 +189,7 @@ export function AppHeader() {
             id={`${baseId}-${e.key}`}
             hidden={open !== e.key}
             onMouseEnter={() => hoverOpen(e.key)}
-            className="absolute inset-x-0 top-full px-4 pb-6 lg:px-6"
+            className="absolute inset-x-0 top-full px-4 pb-6 lg:px-10"
           >
             <Panel
               panel={e.panel}
@@ -252,10 +243,9 @@ function BarEntry({
   const here = hereKey === entry.key
   // 지금 있는 구역은 **면**이 찬다(참조도 고른 알약만 면을 갖는다). 색만으로 알리지 않으므로
   // 글자도 굵어지고, 메뉴 칸에는 sr-only 「(현재 구역)」 이 붙는다.
-  const base = `inline-flex min-h-[40px] shrink-0 items-center gap-1 rounded-full px-3.5 font-display text-[14px] transition-colors duration-[var(--dur-quick)] ${
-    here
-      ? 'bg-[var(--bg)] font-[700] text-[var(--t1)] shadow-[var(--sh-sm)]'
-      : 'font-[500] text-[var(--t2)] hover:bg-[color-mix(in_srgb,var(--t1)_7%,transparent)] hover:text-[var(--t1)]'
+  // 참조 막대 글자 메뉴: 면 없는 보라 글자 14/600 · 호버에만 옅은 면. 현재 구역은 색만으로 알리지 않게 밑줄 + 굵게.
+  const base = `inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-full px-3 font-display text-[14px] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] aria-expanded:bg-[var(--bg3)] ${
+    here ? 'font-[700] underline decoration-2 underline-offset-[6px]' : 'font-[600]'
   } ${FOCUS}`
 
   if (entry.kind === 'link') {

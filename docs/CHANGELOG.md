@@ -28,6 +28,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- design(shell): 학습자 셸을 tines.com 재참조로 — 머리(로고 옆 왼쪽 글자 메뉴 · 모노 대문자 CLASS) · 나침반 띠(라벤더 위치 알약 + 글자 링크) · 구역 줄(바탕 막대 제거) · 스킨 `--canvas`(페이지 바탕 한 장).
 - design(learner): AI 템플릿 인상 제거 1차 — 광택 3D 삽화 → Codex 선화(같은 id 교체, `illo-codex-install.mjs`) · AreaHero 수치 알약 → 한 줄 글 · 대시보드 번호 괘선 → 큰 구간 제목 · DESIGN.md 에 금지 패턴 4개.
 - feat(design): 인증 4화면을 카드 한 장으로(참조 tines.com/book-a-demo) · PairFlip 카드 포커스 유지(aria-disabled) · 단어장 서가 무효 투명도 20곳 — auth-check 4/4 · pairflip-check 포커스 확인.
 - test(design): 남은 화면 56개 쓰기 차단 캡처(막은 쓰기 54건) → 렌더 증거 학습자 91 중 81 · 받아쓰기 세션 중복 출구 제거.

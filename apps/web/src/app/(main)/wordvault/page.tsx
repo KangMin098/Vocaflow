@@ -68,7 +68,7 @@ export default async function WordVaultPage({ searchParams }: PageProps) {
   return (
     <WordVaultHubChrome activeView="hub">
       {/* 메인은 셸이 칠해진 **뒤에** 흘러 들어온다 — 아래 주석 참조 */}
-      <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
+      <main className="flex-1 overflow-y-auto bg-[var(--canvas,var(--bg2))] pb-12">
         <Suspense fallback={<WordVaultHubSkeleton />}>
           <HubSection />
         </Suspense>

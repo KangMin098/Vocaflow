@@ -28,7 +28,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const wayfinder = await fetchWayfinder()
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg2)]">
+    <div className="flex min-h-screen flex-col bg-[var(--canvas,var(--bg2))]">
       {/*
         건너뛰기 링크 — **키보드만 쓰는 학습자의 첫 번째 문.**
 

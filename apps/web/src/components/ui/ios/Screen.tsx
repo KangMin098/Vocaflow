@@ -38,7 +38,8 @@ const WIDTH_CLASS: Record<NonNullable<ScreenProps['width']>, string> = {
 
 const BG_CLASS: Record<NonNullable<ScreenProps['background']>, string> = {
   bg: 'bg-[var(--bg)]',
-  bg2: 'bg-[var(--bg2)]',
+  // 스킨이 --canvas 를 주면 그 값(Tines: 페이지 바탕 한 장), 없으면 예전 --bg2
+  bg2: 'bg-[var(--canvas,var(--bg2))]',
   transparent: '',
 }
 

@@ -111,7 +111,7 @@ export function AreaHero({
               data-shape="keep"
               className={`inline-flex min-h-[44px] items-center gap-2 rounded-t-[10px] px-5 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-quick)] ${FOCUS} ${
                 t.active
-                  ? 'bg-[var(--bg2)] text-[var(--on-ju)]'
+                  ? 'bg-[var(--canvas,var(--bg2))] text-[var(--on-ju)]'
                   : 'bg-[color-mix(in_srgb,var(--on-deep)_16%,transparent)] hover:bg-[color-mix(in_srgb,var(--on-deep)_26%,transparent)]'
               }`}
             >
