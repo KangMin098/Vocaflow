@@ -223,6 +223,9 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
   const delivered: { item: Item; did: string }[] = []
   for (const item of ind) delivered.push({ item, did: await deliver(learner, uid, ws, 1, item) })
+  // 전이 자료 1 — 바로잡기 성공 뒤 「적용」 단계로 넘어갈 자료(없으면 설계상 바로잡기에 머문다 · stageNow)
+  const transferItem = R5.items.find((i) => i.role === 'transfer')!
+  await deliver(learner, uid, ws, 1, transferItem)
   // 기준 PLAN(자료 받은 뒤) · 수행 전 관찰
   const p2 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'content_change', expectedVersion: 1, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p2.status(), await p2.text()).toBe(200)
@@ -286,6 +289,7 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   console.log('JOURNEY_REPAIR_DONE=' + JSON.stringify({ afterRepair, v4: v4.task }))
   expect(firstsAfter.every((x) => x.help_level === 'independent' && x.timing_uncertain === false && x.is_correct === false), '바로잡기가 처음 독립 오답의 자격을 소급해 바꾸지 않는다').toBe(true)
   expect(afterRepair.evidence, '도움받은 바로잡기 정답은 독립 근거가 아니다 — 보완 필요 유지').toBe('need_confirmed')
-  expect(v4.task?.stage, '바로잡기 성공 → 다음 단계').not.toBe('repair')
+  expect(afterRepair.next, '바로잡은 문항은 다시 내밀지 않는다(다른 막힌 문항 또는 다음 단계 자료)').not.toBe(after.next)
+  expect(v4.task?.stage, '바로잡기 성공 → 적용 단계(전이 자료 있음)').toBe('transfer')
   expect((await planRow(ws, 3)).task, 'PLAN v3 이력 불변').toEqual(v3.task)
 })
