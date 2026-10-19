@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-import { compose, deliver, findRollout, loadRegistry, resolve, verifyRollout } from '../codex-route.mjs'
+import { compose, confirmLanded, deliver, findRollout, loadRegistry, resolve, verifyRollout } from '../codex-route.mjs'
 
 const UUID = '01a14de8-2485-7a53-b530-d5612f35e57a'
 const NAME = 'Codex-VOCAFLOW-FINAL-ACCEPT'
@@ -60,6 +60,7 @@ test('CR4 전달 성공 — 큐 id · 세션 기록에 작업 ID 기록', () => 
   const { home, file } = fakeHome()
   const r = deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file), home, bin: 'codex' })
   assert.equal(r.delivered, true)
+  assert.equal(r.status, 'landed')
   assert.equal(r.queueId, '01a15248-9233-7f21-bab5-c80dea96fabf')
   assert.ok(fs.readFileSync(file, 'utf8').includes('[VF-TASK FINAL-FI006]'))
 })
@@ -71,11 +72,20 @@ test('CR5 실패는 미전달 + 재개 조건 — 새 세션으로 대체하지 
     deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file), home: fs.mkdtempSync(path.join(os.tmpdir(), 'vf-empty-')) }), // 기록 없음
     deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file, { fail: true }), home }), // 런타임 실패
     deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file, { wrongThread: true }), home }), // 다른 스레드 응답
-    deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file, { noAppend: true }), home }), // 기록에 안 들어감
     deliver({ registry: REG, to: NAME, message: '작업 ID 없는 글', run: fakeRun(file), home }),
   ]
   for (const r of cases) {
     assert.equal(r.delivered, false)
     assert.ok(r.reason && r.resume, JSON.stringify(r))
   }
+})
+
+test('CR6 큐 접수 · 처리 대기 — 대화가 진행 중이면 기록 반영 전(queued) · 나중에 confirm 으로 반영 확인', () => {
+  const { home, file } = fakeHome()
+  const r = deliver({ registry: REG, to: NAME, message: msg(), run: fakeRun(file, { noAppend: true }), home })
+  assert.equal(r.delivered, true)
+  assert.equal(r.status, 'queued')
+  assert.equal(confirmLanded({ registry: REG, to: NAME, task: 'FINAL-FI006', home }).landed, false)
+  fs.appendFileSync(file, `${JSON.stringify({ payload: { role: 'user', content: msg() } })}\n`) // 턴이 끝나 큐가 처리됨
+  assert.equal(confirmLanded({ registry: REG, to: NAME, task: 'FINAL-FI006', home }).landed, true)
 })

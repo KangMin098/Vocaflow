@@ -112,16 +112,24 @@ export function deliver({ registry, to, message, run = execFileSync, home = os.h
   }
   const queueId = out.match(/Queued message ([0-9a-f-]{36}) for thread ([0-9a-f-]{36})/)
   if (!queueId || queueId[2] !== target.uuid) return { delivered: false, reason: `큐 응답을 확인할 수 없다: ${out.slice(0, 160)}`, resume: '세션 기록을 확인한 뒤 다시 보낸다' }
+  // 큐 접수 ≠ 처리. 대화가 다른 턴을 진행 중이면 큐 메시지는 그 턴이 끝난 뒤 세션 기록에 들어간다 → status 'queued'(처리 대기)
   const after = fs.readFileSync(file, 'utf8')
-  const landed = after.length > before && after.slice(Math.max(0, before - 4096)).includes(nonce.replace(/[\]]/g, ']'))
-  if (!landed) return { delivered: false, queueId: queueId[1], reason: '큐에는 들어갔지만 세션 기록에 작업 ID 가 보이지 않는다', resume: 'Codex 대화를 열어 큐가 처리되는지 확인한다' }
-  return { delivered: true, queueId: queueId[1], uuid: target.uuid, rollout: file }
+  const landed = after.length > before && after.slice(Math.max(0, before - 4096)).includes(nonce)
+  return { delivered: true, status: landed ? 'landed' : 'queued', queueId: queueId[1], uuid: target.uuid, rollout: file }
+}
+
+/** 처리 확인 — 세션 기록에 그 작업 ID 가 들어갔는가(나중에 다시 부른다) */
+export function confirmLanded({ registry, to, task, home = os.homedir() }) {
+  const target = resolve(registry, to)
+  const file = findRollout(target.uuid, home)
+  if (!file) return { landed: false, reason: '세션 기록 없음' }
+  return { landed: fs.readFileSync(file, 'utf8').includes(`[VF-TASK ${task}]`), uuid: target.uuid }
 }
 
 /** GitHub 기록(전달 · 미전달 모두) — 부르는 쪽이 선택 */
 export function recordOnGitHub({ kind, number, task, result, run = execFileSync }) {
   const body = result.delivered
-    ? `[VF-TASK ${task}] Codex 대화(${result.uuid})에 전달됨 · 큐 id \`${result.queueId}\`.`
+    ? `[VF-TASK ${task}] Codex 대화(${result.uuid}) ${result.status === 'landed' ? '세션 기록 반영 확인' : '큐 접수 · 처리 대기(대화가 진행 중인 턴 뒤에 처리)'} · 큐 id \`${result.queueId}\`.`
     : `[VF-TASK ${task}] **Codex 미전달** — ${result.reason}\n재개 조건: ${result.resume}\n(새 Codex 세션으로 대체하지 않았다.)`
   run('gh', [kind === 'issue' ? 'issue' : 'pr', 'comment', String(number), '--body', body], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
 }
@@ -153,7 +161,12 @@ export function main(argv = process.argv.slice(2)) {
     if (issue) recordOnGitHub({ kind: 'issue', number: issue, task: arg(argv, '--task'), result })
     return result.delivered ? 0 : 3
   }
-  console.error('사용: codex-route.mjs check|send --to <이름> …')
+  if (cmd === 'confirm') {
+    const r = confirmLanded({ registry, to, task: arg(argv, '--task') })
+    console.log(JSON.stringify(r))
+    return r.landed ? 0 : 4
+  }
+  console.error('사용: codex-route.mjs check|send|confirm --to <이름> …')
   return 1
 }
 
