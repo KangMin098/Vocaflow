@@ -1,0 +1,51 @@
+{
+  "goal_id": "VG-L3-A2-01",
+  "title": "근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환",
+  "description": "T-0050/rev5 수용 후 기존 17세트 중 e.evidence_location의 실제 사용자 경로를 연결한다. 기존 실행기와 공급/PLAN을 재사용하고 확인된 단절만 수정한다. 설계: D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/NEXT_EVIDENCE_LOCATION_WORK_ORDER.md revision 1. 기존 Claude 세션 c513ff5b-86ef-44a3-8efd-7925a229614b, Codex 독립 세션 01a14de8-2485-7a53-b530-d5612f35e57a. T-0050과 동시 파일 쓰기 금지, 개발 DB 쓰기/SQL/Gold/권리 승인 없음.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "branch": "feat/vocaflow-final-product",
+  "depends_on": ["T-0050"],
+  "allowed_paths": [
+    "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+    "apps/web/src/lib/csat/authored/**",
+    "apps/web/src/lib/csat/map/**",
+    "apps/web/src/components/csat/authored/**",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "apps/web/src/components/csat/theater/ReasoningNoteForm.tsx",
+    "apps/web/src/app/(app)/csat/learn/**",
+    "apps/web/src/app/api/csat/authored/**",
+    "apps/web/tests/e2e-isolated/**",
+    "apps/web/scripts/authored/**",
+    "docs/final/**",
+    "docs/CHANGELOG.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [".env*", "apps/web/.env*", "supabase/**", "agents/**", ".github/**", "apps/mobile/**"],
+  "db_scope": {"mode": "none", "targets": []},
+  "approval_required": false,
+  "acceptance": [
+    "기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.",
+    "같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.",
+    "교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.",
+    "재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.",
+    "HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다."
+  ],
+  "ui_acceptance": ["1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다."],
+  "criterion_claims": [{"criterion_id": "VG-L3-A2-01-AC1", "claim": "partial"}],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A2-01",
+    "acceptance_ids": ["VG-L3-A2-01-AC1"],
+    "current_gap": "17개 창작 세트의 파일은 존재하지만 비R5 e.evidence_location의 실제 교수→연습→새 독립 확인 순환은 미검증이며 창작 초안만으로 새 독립2·전이1이 부족하다.",
+    "expected_impact": "advances",
+    "evidence_required": ["같은 합성 학습자의 실제 공급·Workspace·MAP/PLAN 브라우저 여정", "첫 수행/G2/과거 PLAN 보존과 TASK 고유 채점 대조", "격리 자격과 실제 미승인 공급 경계의 구분"],
+    "next_dependency": null,
+    "out_of_scope": ["T-0050 재구현 또는 rev6", "기존 TASK/VG/LM 정본 변경", "DB 적용·사람 승인·실제 효과 선언", "새 오케스트레이터·자동 역할 권한 확대", "전체17세트 무조건 확장"],
+    "dependency_type": "direct"
+  },
+  "base_commit": "57d03fd38cc203aea22db67eff9353b40272ada6",
+  "requires_ci": true,
+  "require_review_pass": true
+}
