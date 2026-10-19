@@ -42,7 +42,7 @@
 
 | TASK | 세트 · SHA-256 | 형식 · 정답 조건 | 사람이 판단할 쟁점 |
 |---|---|---|---|
-| e.evidence_location | `e-evidence-location.v1.json` · `de2262e47e1d688963fb508b06d3815664b5d54d65b5396a0562ea3d9574d1c8`(T-0052 · 9문항 — 앞 6문항 바이트 그대로 · 새 ev-ind-3 · ev-ind-4 · ev-transfer-2 는 **맹검 · 사람 Gold · 권리 전**, 이전 승인 대상 SHA df069509…) | choice_evidence — 선택 ✓ + 결정 근거 포함 + 범주 밖 근거 없음 | ev-delayed-1 결정 문장 단일화 결과 · ev-transfer-1 요약문 제외 안내 문구 |
+| e.evidence_location | `e-evidence-location.v1.json` · `b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe` · T-0052 REWORK: ev-transfer-2 decisiveAlt 추가(직전 `de2262e4…`(T-0052 · 9문항 — 앞 6문항 바이트 그대로 · 새 ev-ind-3 · ev-ind-4 · ev-transfer-2 는 **맹검 · 사람 Gold · 권리 전**, 이전 승인 대상 SHA df069509…) | choice_evidence — 선택 ✓ + 결정 근거 포함 + 범주 밖 근거 없음 | ev-delayed-1 결정 문장 단일화 결과 · ev-transfer-1 요약문 제외 안내 문구 |
 | e.option_correspondence | `e-option-correspondence.v1.json` · `c49e67cf1f0c802b84f7875e6a54a4e2c31bdbb3f0805010d4c4d93b1b87b3af` | 선지 5개 판정 전부 ✓ + 정답 선지 대응 문장 ✓ | 판정 경계(distorted/reversed) — 전부 맞아야 정답이라 경계 선지는 사람이 확정 |
 | r.inference | `r-inference.v1.json` · `fef751a23b29855d1ebf15f66dc7686c21fec2852259e71cbaba250ceb9c0ff5` | choice_evidence(함축 · 추론) | inf-transfer-1 새 정답이 「추론」 난이도로 충분한가 · 밑줄 문장 evidenceAlt 처리 |
 | r.relation | `r-relation.v1.json` · `9ce1b82dc3e1820ef1b76330f3e7826e64200e6949a38f0184ed1f3a3ccad98b` | 쌍마다 관계 ✓(허용 대안 포함) | 연결어 없는 쌍의 관계 단일성 · conclusion 범주 추가 타당성 |
