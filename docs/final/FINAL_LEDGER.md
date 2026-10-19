@@ -156,3 +156,11 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - C7 P2: 받은 자료 목록 링크에 지도 복귀 문맥 · 노트 소개 문구 modelLabel. 원노트 연결 메타데이터는 미구현(한계).
 - 검증: 로컬 tsc · eslint · 관련 단위 1,390. `b060561a7` PR CI 격리 e2e — 새 종단 pass 통과, 실패 2 는 링크 기대값(수정). `57d03fd38` 원격 CI_PENDING — **LOCAL_FAST 는 기다리지 않는다**(원격 상태는 AI-Control `state/REMOTE_INTEGRATION.json` 에서 따로 추적).
 - Codex 독립 수용: 인계 2회(01a154b4 · 01a154ba) queued · 판정 대기.
+
+## 13. 창작 17세트 ↔ 실제 제품 흐름 연결 실측 (2026-10-20 · 저장소 정본 직접 대조)
+
+- 원장: `apps/web/src/lib/knowledge/authored/*.json`(세트 · 역할 수) × `docs/csat-learner/v4/workspaces.json`(9 Workspace 의 core).
+- **중심 Workspace 있음 7/17** — r.central_meaning · e.evidence_location · e.option_correspondence · r.inference · r.relation · s.form_scope · v.contextual_sense.
+- **중심 Workspace 없음 10/17** — e.task_demand · r.discourse_function · r.discourse_structure · r.reference · s.attachment · s.chunk_boundary · s.sentence_core · s.structural_relation · v.multiword · v.semantic_relation. 「자료 받기」 카드는 Workspace 팝업의 core[0] 에만 뜨므로 학습자 진입 경로가 없다.
+- **다시 확인 재고**: R5 만 independent_check 4(ind-3 · 4). 나머지 16세트는 2 — T-0050 순환(바로잡기 → 적용 → 다시 확인)을 밟으면 다시 확인이 항상 `material_needed` 에서 멈춘다.
+- 다음 작업 후보(Codex 설계 입력 · 미채택): ① 10세트의 학습 진입 경로(기존 Workspace 보조 TASK 공급 또는 Workspace 정의 확장 — 정본 변경이면 사용자 결정) ② 7세트 다시 확인용 미노출 independent_check 2개씩 추가 작성(Gold · 권리는 사람 승인 별도).
