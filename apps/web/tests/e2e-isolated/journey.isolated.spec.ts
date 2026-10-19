@@ -50,8 +50,10 @@ async function observe(page: Page) {
   const node = page.locator(`[data-testid="umap-node"][data-node="${TASK}"]`)
   await expect(node).toBeVisible()
   const priority = await node.getAttribute('data-priority')
+  // 첫 누름 = 초점 · 다시 누름 = 자세히(팝업) — 노드 aria-label 의 안내 그대로
   await node.click()
   const pop = page.locator('[data-testid="task-pop"]')
+  if (!(await pop.isVisible())) await node.click()
   await expect(pop).toBeVisible({ timeout: 15_000 })
   const evidence = await pop.locator('[data-testid="pop-evidence"]').getAttribute('data-evidence')
   const next = (await pop.locator('[data-testid="pop-next"]').count()) ? await pop.locator('[data-testid="pop-next"]').getAttribute('href') : null
