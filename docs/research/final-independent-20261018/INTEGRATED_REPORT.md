@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+2026-10-19 사용자 양방향 계약을 [역할·실제 세션 결속 및 다음 구현 지시](./COLLABORATION_CONTRACT_20261019.md)에 반영했다. Codex는 분석/기획/설계/구현 지시와 독립 수용, Claude는 제품 구현/통합을 소유한다. 실제 직접 전송은 아직 검증되지 않아 GitHub 게시/세션 ACK를 구분한다. 최신3033c7478195/CI39196056859는 기존10성공·여정1실패다. 지도는 not_measured→checking으로 바뀌었지만 before/after 모두 stage_locked/next=null로 다음 행동 단언이 실패했고 PLAN v2는 미도달이다. 기존 FI-011에서 정당한 판정 전환이 있는 양성 경로를 설계했으며 새로운 교육 기준/목표를 만들지 않는다. 전체 REWORK·FI-018 잔여/병합0은 유지한다.
+
 2026-10-19 후속: **전체 REWORK**, 실제 safe-merge/병합0. FI-019는 실제 수정 e54def25a의 고정 시각 반례/정상 대조 **5/5**와 v4 단위 **29/29**를 확인해 **FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED**로 갱신했다. [최초 실패·수정 비교](./FI019_KST_PLAN.md)를 보존한다. FI-018은 실제312cefc에서 미해결이다. [6fe 실제 브라우저 report](./journey-ci-6fe386.json)는 기존10성공/여정1실패이며 이번 여정은 동일 합성 계정의 기록→목표→PLAN v1→3납품→실제 Runner→정확한 G2/evidence=true 결속까지 통과했다. 지도 after는 before와 같은 not_measured/relevance_unknown이었다. 새 계정의 모두 정답을 확정/해소로 기대한 전제는 [실제 교육 계약4대조](./journey-oracle-6fe386.json)와 어긋난다. PLAN v2 단언은 미도달이며 전체 H 성공이나 새로운 제품 결함으로 단정하지 않는다. 최신69b07ef47은 진단 출력만 추가했고 제품/평가 규칙 변화는 없다.
 
 최초 종단 입력264f는 fixture 적재에서 실패했고 f8은 그 오류를 수정한 뒤 실제 제품 FI-019를 드러냈다. [실패 원장](./journey-review-20261019.json)은 이 순서를 보존한다. 아래 f8 이전의 성공·관찰은 각 고정 HEAD의 이력이며 최신 여정 전체 수용을 뜻하지 않는다.
@@ -11,7 +13,7 @@
 |---|---|---|---|
 |#312|cefc3e5026daccd9ab695d452d1a085c5d24daaa|39132397689 필수 성공(같은 HEAD의 기존 결과 재사용)|FI-018 PARTIAL_FIX/OPEN; 병합 차단|
 |#250|2549e407d9b1138c83b7fd633556b1527b62648c|39136705847 필수 성공(같은 HEAD의 기존 결과 재사용)|#312 수용 후 최신 main 기준 재확인 필요; 미병합|
-|#303|69b07ef47e1081ca450106c3434e433fba5ecab9|39181170145 verify/build/faultclosed 성공, e2e 실패|G2까지 prefix 수용; 전체 여정/PLAN v2 미수용; 미병합|
+|#303|3c74781955fec081e48e48c2a42ff3a27de0c97e|39196056859 verify/build/faultclosed 성공, e2e 실패|지도 checking 변화 확인; 다음 행동 stage_locked 불변/PLAN v2 미도달; 미병합|
 
 원격 main은 c3a03d1680c1b064598fdc1ab319b645f370e68c로 재확인했다. **이번 재수용의 실제 safe-merge 실행0·병합 SHA 없음**. [기존 FI-011의 최신 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6257257593). FI-018의 같은 경계를 재실행하거나 새 중복 이슈를 만들지 않았다.
 
