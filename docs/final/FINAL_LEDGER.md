@@ -118,3 +118,16 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 서버 isCorrect=false · G2 evidence=true(독립 첫 노출) · 같은 user/workspace/목표 버전.
 - 발견 · 수정 결함: 바로잡기 단계가 방금 틀린 **창작 평가 자료**를 「받은 자료 · 혼자 확인」으로 다시 내밀었다(평가 자료 연습 재분류) → 바로잡기 자료에서 창작 평가 자료 제외 · 없으면 `repair_material_needed`(`539847fb3` · 빌드 수정 `f0790c5cc`).
 - 남은 것: 바로잡기 **자료 자체**(교수 · 안내 연습 납품 → 바로잡기 단계 실행 → 성공 근거 → 적용 · 다시 확인). Codex 설계 요청.
+
+## 10. 작업 큐 (FAST LOOP v3 · 2026-10-19 · 갱신 시각 기준)
+
+| TASK | 목표 | 상태 | Claude owner | Codex | HEAD / PR | 파일 범위 | 다음 행동 |
+|---|---|---|---|---|---|---|---|
+| FI-011 바로잡기 수행 환류 | H(F·G) | **VERIFYING** | FINAL-OWNER | ACCEPT(01a14de8) — 앞 패킷 ACK, 이 HEAD 미인계 | `c45fe30c2` / #303 · CI 39209447701 진행 | authored/server.ts · AuthoredRunner · learn page · v4/plan.ts · journey spec | CI 통과 시 Codex 재검증 인계 |
+| CI 빌드 캐시 | 총시간 KPI | **VERIFYING** | FINAL-OWNER | 미인계 | `3f1bed095` / #316 | .github/workflows/ci.yml(보호 경로) | 첫 실행은 캐시 생성 — 두 번째 실행부터 빌드 step 전후 비교 |
+| #314 위임 정책 | 정책 | **REWORK**(PROPOSED 유지) | FINAL-OWNER | REWORK 6항목(DL-0186) | `59779da3b` / #314 | agents/policies · delegation.mjs | 신뢰된 채택 경로 · Codex 작성 주체 결속 · DB fail-closed 보완(우선순위 낮음) |
+| #315 세션 라우터 | 협업 | **VERIFYING** | FINAL-OWNER | 미판정 | #315 | agents/sessions.json · codex-route.mjs | Codex 판정 대기 |
+| #250 · #303 병합 | 통합 | **BLOCKED**(FI-011 수용 대기) | FINAL-OWNER | — | #250 `2549e407d` · #303 | — | FI-011 ACCEPT 뒤 최신 main 기준 safe-merge |
+| A · B · B2 · C 승인 | E | **BLOCKED_EXTERNAL** | — | — | SQL `dfb29f2d…` | — | 사람 결정 대기 |
+
+계측(CI 최근 5회): 전체 8.5~11분 · e2e 556s(빌드 217 · 브라우저 125 · Supabase 116) · 빌드는 3 job 이 각자 217~277s.
