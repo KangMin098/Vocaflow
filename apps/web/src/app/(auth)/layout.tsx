@@ -75,11 +75,15 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* ── Main ── */}
-      {/* 참조 문의 폼 골격(DD-68 · tines-mapping §18): 왼쪽 폼 · 오른쪽 틴트 면 위 물건 소품(열린 문). 390 에서는 폼만. */}
-      <main className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 px-4 py-8 sm:py-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:gap-16 lg:px-10">
-        <div className="w-full max-w-md justify-self-center lg:justify-self-start">{children}</div>
-        <div aria-hidden className="tone-green hidden min-h-[440px] items-center justify-center overflow-hidden rounded-[var(--r-2xl)] p-10 lg:flex">
-          <Image src="/illustrations/tines/spot-welcome.webp" alt="" width={1328} height={1328} sizes="320px" className="h-auto w-[300px] select-none" />
+      {/* 참조 tines.com/book-a-demo(2026-10-19 layout-measure): 흰 카드 **한 장**(774 · 모서리 16 · 보라 14% 테두리)을
+          왼쪽 안내 면 · 오른쪽 폼으로 나눈다. 예전에는 폼 카드(448)와 삽화 판(768)이 떨어진 두 덩어리였다.
+          폼 쪽 각 페이지의 Card(테두리 · 그림자 · 모서리)는 여기서 꺼서 이중 테두리를 막는다 — 네 페이지 코드는 그대로. */}
+      <main className="mx-auto flex w-full max-w-[1360px] flex-1 items-center justify-center px-4 py-8 sm:py-12 lg:px-10">
+        <div className="grid w-full max-w-[920px] overflow-hidden rounded-[16px] border border-[color-mix(in_srgb,var(--ju)_14%,transparent)] bg-[var(--bg)] shadow-[0_20px_60px_color-mix(in_srgb,var(--t1)_5%,transparent)] lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)]">
+          <div aria-hidden className="tone-green hidden items-center justify-center p-10 lg:flex">
+            <Image src="/illustrations/tines/spot-welcome.webp" alt="" width={1328} height={1328} sizes="280px" className="h-auto w-[260px] select-none" />
+          </div>
+          <div className="w-full [&>*]:!rounded-none [&>*]:!border-0 [&>*]:!shadow-none">{children}</div>
         </div>
       </main>
 
