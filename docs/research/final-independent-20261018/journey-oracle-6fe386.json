@@ -1,0 +1,144 @@
+{
+  "head": "6fe386770e9b88920c526cdc7972a6f419d66ba6",
+  "level": "CODE_VERIFIED",
+  "sourceBindings": [
+    {
+      "file": "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+      "sha256": "d5f01c1ca6065bc1913b57d8444937700d77c4fd9d19beba7c2b2b9fafc88880"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/effect-signals.ts",
+      "sha256": "dba7095c2545ca62791f452068b1050dffc9901a69f9829db4b4a06f70854b10"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/assessment-exposure.ts",
+      "sha256": "eedc27bedfbf5eb048c8905ab755bc07b06358cce738216d3bfcf102b96a0e9c"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/as-is.ts",
+      "sha256": "7a4348deca323e44bf034976f37df5f0b8e210792f083e41573278cb589717bc"
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v4/definition.ts",
+      "sha256": "dc1454848443ee5b2b5e89ba634f11c3e4556ac3c7edee4bdb78e67da3240bc2"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/tasks.ts",
+      "sha256": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf"
+    }
+  ],
+  "rows": [
+    {
+      "id": "fresh-synthetic-two-right-plus-transfer-right",
+      "expectedSkill": "unverified",
+      "actualSkill": "unverified",
+      "expectedTask": "unmeasured",
+      "actualTask": "unmeasured",
+      "eligibleForPersonalJudgment": [
+        true,
+        true,
+        true
+      ],
+      "check": {
+        "taskKey": "authored-central-meaning",
+        "status": "unverified",
+        "independentItems": 0,
+        "attemptedItems": 2,
+        "verifiedItems": [],
+        "wrongItems": [],
+        "unseen": [],
+        "examSeen": [],
+        "verifiedAt": null,
+        "lastWrongAt": null,
+        "timingHeld": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "fresh-nonsynthetic-two-right-plus-transfer-right",
+      "expectedSkill": "unverified",
+      "actualSkill": "unverified",
+      "expectedTask": "checking",
+      "actualTask": "checking",
+      "eligibleForPersonalJudgment": [
+        true,
+        true,
+        true
+      ],
+      "check": {
+        "taskKey": "authored-central-meaning",
+        "status": "unverified",
+        "independentItems": 2,
+        "attemptedItems": 2,
+        "verifiedItems": [],
+        "wrongItems": [],
+        "unseen": [],
+        "examSeen": [],
+        "verifiedAt": null,
+        "lastWrongAt": null,
+        "timingHeld": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "two-distinct-wrongs-confirm-need",
+      "expectedSkill": "verified",
+      "actualSkill": "verified",
+      "expectedTask": "verified_need",
+      "actualTask": "verified_need",
+      "eligibleForPersonalJudgment": [
+        true,
+        true
+      ],
+      "check": {
+        "taskKey": "authored-central-meaning",
+        "status": "verified",
+        "independentItems": 0,
+        "attemptedItems": 2,
+        "verifiedItems": [
+          "authored:synthetic-oracle-1",
+          "authored:synthetic-oracle-2"
+        ],
+        "wrongItems": [],
+        "unseen": [],
+        "examSeen": [],
+        "verifiedAt": "2026-10-19T00:02:00.000Z",
+        "lastWrongAt": null,
+        "timingHeld": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "confirmed-need-then-two-new-rights",
+      "expectedSkill": "resolved",
+      "actualSkill": "resolved",
+      "expectedTask": "resolved",
+      "actualTask": "resolved",
+      "eligibleForPersonalJudgment": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "check": {
+        "taskKey": "authored-central-meaning",
+        "status": "resolved",
+        "independentItems": 0,
+        "attemptedItems": 4,
+        "verifiedItems": [
+          "authored:synthetic-oracle-1",
+          "authored:synthetic-oracle-2"
+        ],
+        "wrongItems": [],
+        "unseen": [],
+        "examSeen": [],
+        "verifiedAt": "2026-10-19T00:02:00.000Z",
+        "lastWrongAt": null,
+        "timingHeld": 0
+      },
+      "pass": true
+    }
+  ],
+  "result": "PASS",
+  "scope": "Actual skillDiagnosis/asIsMap, injected fixed time and fabricated rows. Not an API/DB/browser reexecution or a new product defect claim. Synthetic flag changes the current unverified personal-map status/count (unmeasured vs checking); both remain without confirmed need or resolution. Journey fresh-all-correct expectations must follow the existing education contract, not change grading criteria to satisfy the test."
+}

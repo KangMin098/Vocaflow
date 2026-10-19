@@ -3,6 +3,8 @@
 
 FI-019는 [#313](https://github.com/KangMin098/Vocaflow/issues/313) 하나로 추적한다. 실제f8 CI 첫 PLAN422와 최초 고정 시각 반례는 보존하고, 실제e54 수정에서5/5·v4단위29/29로 FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED를 확인했다. [원본·수정 비교](./FI019_KST_PLAN.md). e54/35d43의 여정은 초기 PLAN을 통과했으나 수행 전 조작/열거값에서 실패했다.6fe386770의 화면 용어 정정은 소스와 일치하며 전체 여정 성공은 별도 확인한다. FI-018 실제312cefc 잔여와 비공개 DL-0181 경로는 유지한다.
 
+71a471bf6 게시 후 [FI-019 수정 수용 댓글](https://github.com/KangMin098/Vocaflow/issues/313#issuecomment-6257007658)을 남겼다(DL-0183). [후속 교육적 기대값 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6257037500)는 실제 skillDiagnosis/asIsMap4대조에 근거하며 새 이슈나 교육 기준 변경을 요구하지 않는다. 최신 CI39180227987의 전체 여정 성공은 아직 미확인이다.
+
 동일 학습자 종단264f의 fixture 적재 실패/제약 불일치는 [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256578857)으로 인계했고 f8의 시험 메타데이터·합성 id 수정/새 CI를 검토 중이다. [실제 기록](./journey-review-20261019.json). FI-018은 기존 비공개 후보의 담당 경로 보정을 [PR312](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6256579031)에 안내했다. 새 결함/중복 이슈를 만들지 않았다.
 
 19일 재수용 게시: FI-010 [VERIFIED_FIXED 댓글](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6256471331), FI-015 [새 실제 브라우저 결과](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6256523052), [PR303 종합](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256523200). [기존 PR312 리뷰](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279)는 같은 HEAD의 REWORK로 갱신했으며 새 이슈/중복 재현은 만들지 않았다. 비공개 인계 경로는 DL-0181로 보정했고 결과는 DL-0182로 기록했다.
