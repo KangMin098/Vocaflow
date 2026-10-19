@@ -107,7 +107,7 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   expect(session[0]).toMatchObject({ user_id: uid, exam_id: 'M9901', raw_score: exOut.raw })
 
   // B 목표 — 실제 API · 목표 버전
-  const g = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, exam: 'suneung', clientKey: crypto.randomUUID() } })
+  const g = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, exam: 'kice6', clientKey: crypto.randomUUID() } })
   expect(g.status(), await g.text()).toBe(200)
   const goalVersionId = (await g.json() as { goalVersionId: number }).goalVersionId
   expect(goalVersionId).toBeTruthy()
