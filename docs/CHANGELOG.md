@@ -31,6 +31,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- ci: Next 컴파일 캐시(`apps/web/.next/cache` · actions/cache) — 같은 HEAD 빌드를 3 job 이 처음부터 하던 것(217~277s × 3) 재사용. 빌드 · 시험 대상 · 필수 체크 불변.
 
 - FINAL-COLLAB-20261019B: FI-018 실제312d786를21+독립5·목적·최종 CI/안전 병합으로 수용(SHA13e15e736). FI-011 실제12건 중11성공/양성1실패·바로잡기 실행 연결은REWORK다.314 보안6항목은PROPOSED 유지/채택REWORK, 실제312+314 결합26+5를 별도 검증했다. 실제 DB/정책 채택/사람 승인 없음.
 
