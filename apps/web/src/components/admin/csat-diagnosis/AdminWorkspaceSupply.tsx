@@ -1,9 +1,16 @@
 // apps/web/src/components/admin/csat-diagnosis/AdminWorkspaceSupply.tsx
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadSupplyLedger } from '@/lib/csat/map/v62/supply-store'
+import type { SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
+import { createClient } from '@/lib/supabase/server'
 
 export async function AdminWorkspaceSupply({ db, userId, workspaceId }: { db: SupabaseClient; userId: string; workspaceId: string }) {
-  const ledger = await loadSupplyLedger(db, userId, workspaceId).catch(() => ({ status: 'error' as const }))
+  let ledger: SupplyLedger
+  try {
+    // Workspace 소유 조회는 상위의 관리자 클라이언트, 충족도는 기존 RPC가 검사할 실제 관리자 세션.
+    const sessionDb = await createClient()
+    ledger = await loadSupplyLedger(db, userId, workspaceId, sessionDb)
+  } catch { ledger = { status: 'error' } }
   return <div className="mt-3 text-xs" data-admin-workspace-supply>
     <h4 className="font-semibold">이 Workspace의 개인 수요·공급 기록</h4>
     {ledger.status !== 'installed' ? <p role="status">{ledger.status === 'not_installed' ? '공급 원장 미설치' : '공급 원장 조회 불가'} · 공급 없음이나 완료로 판정하지 않습니다.</p>

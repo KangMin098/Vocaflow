@@ -29,6 +29,23 @@ const U = 'user-1'
 const WS = 'ws-1'
 
 describe('loadSupplyLedger', () => {
+  it('관리자 소유 조회와 세션이 필요한 충족도 RPC의 클라이언트를 분리한다', async () => {
+    const admin = fakeDb({
+      factory_order: { data: [] }, learner_workspace: { data: { id: WS } },
+      workspace_content_demand_line: { data: [{ id: 'L1', role: 'independent_check', task_id: 'r.flow_order', workspace_content_demand: { canonical: 'D' } }] },
+      workspace_content_delivery: { data: [{ line_id: 'L1' }] },
+    }, () => ({ error: { code: '42501', message: 'Forbidden: missing auth.uid()' } }))
+    const rpc = vi.fn().mockResolvedValue({ data: [{ requested: 3, delivered_valid: 1 }], error: null })
+    const session = { rpc } as unknown as Pick<SupabaseClient, 'rpc'>
+    expect(await loadSupplyLedger(admin.db, U, WS, session)).toEqual({ status: 'installed', lines: {
+      'r.flow_order|independent_check|D': { order: null, delivered: 1, requested: 3, validDelivered: 1 },
+    } })
+    expect(rpc).toHaveBeenCalledWith('workspace_line_fulfillment', { p_line: 'L1' })
+    expect(admin.calls).toEqual([])
+    expect(admin.filters.learner_workspace).toContainEqual(['user_id', U])
+    rpc.mockResolvedValueOnce({ data: null, error: { code: '42501' } })
+    expect(await loadSupplyLedger(admin.db, U, WS, session)).toEqual({ status: 'error' })
+  })
   it('표가 없으면 not_installed(PGRST205 · 42P01)', async () => {
     for (const code of ['PGRST205', '42P01']) {
       const { db } = fakeDb({ factory_order: { error: { code } } })
