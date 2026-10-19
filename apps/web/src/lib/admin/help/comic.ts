@@ -46,7 +46,7 @@ export const CCP_HELP: HelpRegistry = {
           '적재는 큐에 줄만 세운다. 이어서 드레인(generate-comic.mjs)을 돌리지 않으면 상태가 pending 에서 영원히 멈춰 있다.',
         ],
       },
-      'Published': {
+      '제작본': {
         summary: '만화 헤더가 있는 도서의 발행 스위치. 초안·보관본도 같은 표에 섞여 나온다.',
         fields: [
           {
@@ -210,7 +210,7 @@ export const CCP_HELP: HelpRegistry = {
         {
           label: '발행 차단 / 대기',
           detail:
-            '판정 권위는 comic_books.panels_pass 다. 실행이 완료여도 헤더 게이트가 false 면 차단으로 뜬다 — 검수 화면·Published 탭과 같은 값을 본다.',
+            '판정 권위는 comic_books.panels_pass 다. 실행이 완료여도 헤더 게이트가 false 면 차단으로 뜬다 — 검수 화면·제작본 탭과 같은 값을 본다.',
         },
         { label: '평가 이력', detail: '가장 최근 실행의 컷 이벤트 최대 40건. 이전 실행의 이벤트는 여기 안 나온다.' },
         { label: '실행 이력', detail: '실행이 2회 이상일 때만 나타난다.' },

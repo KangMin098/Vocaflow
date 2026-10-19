@@ -11,6 +11,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useQueryTab } from '@/lib/admin/use-query-tab'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { PdBasisPanel } from '@/components/admin/PdBasisPanel'
 import { TaxonomyBrowser } from '@/components/admin/TaxonomyBrowser'
@@ -121,6 +122,7 @@ const RISK_UI: Record<string, { label: string; fg: string; bg: string }> = {
 }
 
 type Tab = 'source' | 'queue' | 'pd' | 'monitor' | 'tools'
+const PD_TAB_KEYS: readonly Tab[] = ['source', 'queue', 'pd', 'monitor', 'tools']
 
 /**
  * 탭 라벨 — 화면 표시와 화면도움말 조회 키가 같은 문자열이어야 한다
@@ -147,7 +149,7 @@ export function AdminPdComicsClient({
   initialTruncated: boolean
   schemaReady: boolean
 }) {
-  const [tab, setTab] = useState<Tab>(initialRows.length ? 'queue' : 'source')
+  const [tab, setTab] = useQueryTab(PD_TAB_KEYS, initialRows.length ? 'queue' : 'source')
   const [rows, setRows] = useState(initialRows)
   const [counts, setCounts] = useState<PdAdminCounts>(initialCounts)
   const [truncated, setTruncated] = useState(initialTruncated)

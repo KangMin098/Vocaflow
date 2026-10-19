@@ -26,7 +26,7 @@ const moduleFiles = new Map([
   ['@/lib/knowledge/vnext-labels', 'apps/web/src/lib/knowledge/vnext-labels.ts'],
 ])
 const cache = new Map()
-function loadNavigation(specifier) {
+export function loadNavigation(specifier) {
   if (cache.has(specifier)) return cache.get(specifier)
   const file = moduleFiles.get(specifier)
   if (!file) throw new Error(`Navigation dependency is not allowlisted: ${specifier}`)

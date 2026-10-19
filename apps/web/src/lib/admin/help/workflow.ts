@@ -1,0 +1,27 @@
+// apps/web/src/lib/admin/help/workflow.ts
+import type { HelpRegistry } from './types'
+
+export const WORKFLOW_HELP: HelpRegistry = {
+  'kice-product-handoff': {
+    title: '출제 사고에서 제품 적용까지',
+    screen: {
+      summary: '문항과 분석 버전을 확인한 뒤 원문 근거를 검수하고, 실제 등록된 적용의 원리 사슬·trial·수행 근거를 추적합니다.',
+      steps: [
+        { title: '근거 검수', detail: '문항 ID와 시험 범위를 유지해 분석 운영으로 이동합니다. 지문 선택 이유·정답 변환은 분석 주석이며 검수 통과와 다릅니다.', done: '선택 문항의 근거·검수 결과를 확인합니다.' },
+        { title: '적용 추적', detail: '실제 surface_ref가 같은 TASK 적용만 연결합니다. 초안·중단·이전 버전도 보이며, 상태만으로 실제 노출·효과를 판단하지 않습니다.', done: '적용 상세의 사슬·근거·실험·수행을 각각 확인합니다.' },
+      ],
+      cautions: ['연결 조회 실패는 연결 없음이 아닙니다. 기출 문항 ID를 원리 slug로 임의 변환하지 않습니다.'],
+    },
+  },
+  'csat-learner-plans': {
+    title: '선택 학습자의 저장 계획',
+    screen: {
+      summary: '관리자 권한과 실제 계정 확인 뒤 같은 사용자 ID의 목표·열린 Workspace·저장된 계획 버전을 읽습니다.',
+      fields: [
+        { label: '기준 시각·정의·목표 버전', detail: '계획을 저장할 때의 근거입니다. 현재 가용량이나 현재 추천 결과로 바꾸어 읽지 않습니다.' },
+        { label: '저장된 TASK', detail: '계획량이며 수행량이 아닙니다. 이전 정의의 항목은 ID로 남을 수 있습니다.' },
+      ],
+      cautions: ['조회 실패·저장 구조 미설치·저장 기록 없음은 별개입니다.', '이 패널은 읽기 전용입니다. 수행·전이·재진단 관리자 연결은 아직 제공하지 않습니다.'],
+    },
+  },
+}

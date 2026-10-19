@@ -27,8 +27,6 @@ import { parseScope, withScope } from '@/lib/csat/scope'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
 import { loadTrapExamples } from '@/lib/csat/trap-atlas-examples'
 import { loadCsatTypeCards } from '@/lib/csat/learner'
-import { loadMyTraps } from '@/lib/csat/my-traps'
-import { createClient } from '@/lib/supabase/server'
 import { ATLAS_TYPES, CORPUS, standoutFor } from '@/lib/csat/trap-atlas'
 
 export const metadata: Metadata = {
@@ -44,12 +42,8 @@ const CHIP_COUNT = 8
 export default async function CsatHubPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   // 집합 범위 — 평가원(기본) / 학평 학년(scope.ts). 통계는 집합끼리 섞지 않는다
   const scope = parseScope(await searchParams)
-  // 내 훈련 기록 — 있으면 지도에 「내 기록」 칩이 생겨 **같은 막대를 내 오답으로 다시 센다.**
-  // 못 읽어도 화면은 그대로 뜬다(칩만 없다) — 지도는 로그인과 무관하게 볼 수 있어야 한다.
-  const [{ cards, error }, mine] = await Promise.all([
-    loadCsatTypeCards(scope),
-    createClient().then((db) => loadMyTraps(db)),
-  ])
+  // 공용 출제 분석은 로그인 관리자의 개인 수행 기록을 읽지 않는다.
+  const { cards, error } = await loadCsatTypeCards(scope)
   const ready = cards.filter((c) => c.ready).length
   const chips = ATLAS_TYPES.filter((t) => t.status !== 'retired' && t.recent > 0).slice(0, CHIP_COUNT)
 
@@ -64,7 +58,7 @@ export default async function CsatHubPage({ searchParams }: { searchParams: Prom
 
       {/* 함정 지도는 평가원 분석으로 구운 파일이다 — 학평 지도는 학년별로 따로 굽는다(별도 작업). 섞어 보이지 않는다 */}
       {scope.set === 'kice' ? (
-        <TrapAtlas chips={chips} as="h2" mine={mine} details={await loadTrapExamples()} />
+        <TrapAtlas chips={chips} as="h2" mine={null} details={await loadTrapExamples()} />
       ) : (
         <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           학평 고{scope.grade} 함정 지도는 아직 굽지 않았어요. 아래 유형 카드의 출제 수는 이 학년 회차 전체로 셉니다.

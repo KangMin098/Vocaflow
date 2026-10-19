@@ -10,7 +10,7 @@ const RUNS_ENTRY: ScreenHelpEntry = {
   title: 'VCB Pipeline Runs',
   screen: {
     summary:
-      '공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다.',
+      "공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다. 단어장 공간에서 기존 사전 조립·새 seed 제작·발행 컬렉션을 구별합니다. 보강 완료와 후처리·발행 완료는 별도입니다.",
     when: '새 공용 단어장을 시작할 때, 또는 진행 중인 run 을 이어서 처리할 때.',
     diagrams: [
       {

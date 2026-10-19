@@ -14,6 +14,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { AdminLearnerPlans } from '@/components/admin/csat-diagnosis/AdminLearnerPlans'
 
 export const dynamic = 'force-dynamic'
 
@@ -53,6 +54,7 @@ export default async function DiagnosisLearnerPage({ params, searchParams }: { p
         <AdminScreenHelp screen="csat-diagnosis-learner" />
       </DxHeader>
       <DxNav current="/admin/csat/diagnosis/learners" />
+      <AdminLearnerPlans db={db} userId={params.id} />
       <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} view={view} base={base} addHref={`${base}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
     </div>
   )

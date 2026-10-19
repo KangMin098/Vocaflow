@@ -127,14 +127,14 @@ test('옛 해설 경로가 제작 기준을 보존한 문항·해설 작업면�
   await page.waitForURL(/view=items/, { timeout: 60000 })
   await expect(page).toHaveURL(/view=items/)
   expect(new URL(page.url()).searchParams.get('series')).toBe('reading')
-  await expect(page.getByText(/주문별 진행률이 아닙니다/)).toBeVisible()
+  await expect(page.getByText(/공장 전체 공유 재고이며 선택 기준으로 필터링되지 않습니다/)).toBeVisible()
 })
 
 test('진단·연구의 제목과 복귀 경로는 교재 제작과 구분된다', async ({ page }) => {
   for (const [path, section, title] of [
-    ['/admin/csat/diagnosis', '학습자·진단', '영어 진단'],
-    ['/admin/csat/strategy', '연구·기준', '교재 기준'],
-    ['/admin/csat/blueprint', '연구·기준', '교재 기준'],
+    ['/admin/csat/diagnosis', '학습자·진단', '진단 운영'],
+    ['/admin/csat/strategy', '연구·기준', '설계·검증'],
+    ['/admin/csat/blueprint', '연구·기준', '설계·검증'],
   ]) {
     await openAdmin(page, path!)
     await expect(rail(page).locator('[aria-current=page]')).toHaveText(section!)

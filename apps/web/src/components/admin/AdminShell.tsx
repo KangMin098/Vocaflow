@@ -6,6 +6,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { AdminSidebar } from './AdminSidebar'
 import { getAdminLocation, withFactoryContext } from '@/lib/admin/navigation'
 import styles from './AdminShell.module.css'
+import { parseFactoryScope, factoryScopeDescription } from '@/lib/admin/factory-scope'
 
 const LINK =
   'inline-flex min-h-11 items-center rounded-[var(--r-sm)] px-3 text-[13px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--bdf)]'
@@ -18,10 +19,9 @@ function SectionNavigation() {
     section.id === 'factory' ? withFactoryContext(href, search) : href
   return (
     <div className="border-b border-[var(--bd)] px-4 py-2 sm:px-6" data-admin-local-nav>
-      {section.id === 'factory' && search.get('series') && search.get('band') && (
+      {section.id === 'factory' && (
         <p className="mb-2 break-keep text-xs text-[var(--t2)]">
-          제작 기준: {search.get('series')} · {search.get('band')}단계. 아래 재고는 공장 전체
-          현황이며 주문별 진행률이 아닙니다.
+          {factoryScopeDescription(parseFactoryScope(search), ['/admin/csat/review', '/admin/csat/press'].includes(location.tool?.href ?? ''))}
         </p>
       )}
       <nav aria-label={`${section.label} 화면`}>
@@ -57,6 +57,15 @@ function SectionNavigation() {
               </li>
             ))}
           </ul>
+        </nav>
+      )}
+      {!!section.utilities?.length && (
+        <nav aria-label={`${section.label} 안내`} className="mt-1">
+          {section.utilities.map((item) => (
+            <Link key={item.id} href={item.href} className={`${LINK} text-[var(--t2)] underline underline-offset-4`}>
+              {item.label}
+            </Link>
+          ))}
         </nav>
       )}
     </div>

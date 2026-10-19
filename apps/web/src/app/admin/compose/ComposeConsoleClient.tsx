@@ -6,9 +6,10 @@
 
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
+import { useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { useQueryTab } from '@/lib/admin/use-query-tab'
 import { COMPOSE_TABS, type ComposeTab } from '@/lib/admin/compose-tabs'
 
 import {
@@ -201,27 +202,7 @@ const TAB_STORE = 'vocaflow-compose-tab'
  * (2026-08-17 사용자 보고). 작업하던 자리에서 튕기면 무엇이 반영됐는지도 알 수 없다.
  */
 function usePersistedTab(initial?: Tab): [Tab, (t: Tab) => void] {
-  const [tab, setTab] = useState<Tab>(initial ?? '소스')
-
-  useEffect(() => {
-    if (initial) return // 렌더 스모크 등 진입 탭이 지정된 경우는 그대로 둔다
-    try {
-      const saved = sessionStorage.getItem(TAB_STORE)
-      if (saved && (COMPOSE_TABS as ReadonlyArray<string>).includes(saved)) setTab(saved as Tab)
-    } catch {
-      /* private mode — 세션 한정으로만 동작 */
-    }
-  }, [initial])
-
-  const set = (t: Tab): void => {
-    setTab(t)
-    try {
-      sessionStorage.setItem(TAB_STORE, t)
-    } catch {
-      /* private mode */
-    }
-  }
-  return [tab, set]
+  return useQueryTab(COMPOSE_TABS, '소스', initial, TAB_STORE)
 }
 
 export function ComposeConsoleClient({

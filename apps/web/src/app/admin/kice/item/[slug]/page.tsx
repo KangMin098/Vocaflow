@@ -14,6 +14,7 @@
 //    컬럼 자체가 없다. 이 화면은 **해설**이라 학습자가 평가원 공개 문제지를 곁에 두고 읽는다.
 //    그래서 오답은 번호로 가리키고, 지문은 근거 인용(짧은 발췌)까지만 나온다.
 
+import { AdminItemHandoff } from '@/components/admin/knowledge/AdminItemHandoff'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -219,6 +220,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             ) : null}
           </header>
 
+          <AdminItemHandoff itemId={item.id} scope={itemScope} design={item.design} analysisVersion={item.analysis_version} />
           {lecture ? <LecturePlayerBar /> : null}
 
           {/* ── 2층 · 출제 의도 ─────────────────────────────────────────

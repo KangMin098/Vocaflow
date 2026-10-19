@@ -1,5 +1,7 @@
 # Admin Console
 
+현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. Product Order별 생산/납품과 대상별 수행·재진단 연결은 미구현 Gap이다.
+
 관리자 재구조화: [로컬 1차 구현 기록](./admin-restructure.md)과 [하위 메뉴·파이프라인 심층 재설계 비교](./admin-submenu-redesign.md)를 구분한다. 후자는 7개 상위·22개 하위 작업 공간의 **미적용 제안**이다.
 
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).

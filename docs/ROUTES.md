@@ -2,6 +2,12 @@
 
 ### 관리자 업무 영역 및 호환 경로 (2026-10-19)
 
+v2.1은 상위 7개·하위 22개 작업 공간을 적용한다. 89개 페이지의 현재 소속과 한계는 [구현·지원 범위](admin-restructure/v21-delivery.md), [경로 대조](admin-restructure/v21-route-support.json)를 따른다.
+
+- Compose `tab=소스|피드|발견|원장|작성|가공|발행`, CCP `tab=catalog|published|styles|tests|models`, PDCP `tab=source|queue|pd|monitor|tools`를 URL에서 복원한다. CCP의 `published` 화면 이름은 제작본이다. 탭 변경은 다른 query/hash를 보존한다.
+- 교재 검수·발행의 `series`와 `band`는 시리즈·카탈로그 단계(`step`)다. 조판 행의 V밴드 키와 다르며 서버 조회는 `series+step`으로 제한한다. 불완전하거나 지원하지 않는 조합은 거부한다.
+- 기출 문항에서 근거 검수의 `item`·`exam` 및 기존 집합·학년을 전달하고, 등록 적용은 기존 `/admin/knowledge/product/[id]`의 실제 적용 ID로 연다.
+
 관리자 기존 URL은 유지하며 lib/admin/navigation.ts가 7개 영역의 소속과 내부 내비를 정한다. 새 API/RPC/DB 변경은 없다.
 - /admin/library → /admin/curation?view=library: 검색·선택 파라미터 보존.
 - /admin/reports / /admin/billing → /admin/settings#reports / #billing: 연결·지원 상태에서 확인.

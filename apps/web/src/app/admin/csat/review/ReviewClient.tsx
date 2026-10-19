@@ -70,7 +70,7 @@ export function ReviewClient({
   // 후자는 문항을 고친다). 이 화면이 그 둘을 섞던 것이 B4 0점의 실체였다.
   const blocks: StageBlock[] = [
     {
-      what: '3인 판정에서 막힌 문항 (revise · fail 미해소)',
+      what: '전체 문항 결함 — 선택 권과 별도 (revise · fail 미해소)',
       count: defects.available ? defects.itemsBlocked : null,
       unmeasuredReason: defects.loadError ?? '검수 기록을 못 읽었다',
     },
@@ -106,7 +106,7 @@ export function ReviewClient({
       //    같은 문장을 두 곳에 두면 한쪽만 고쳐져 갈린다(명령을 한자리로 모은 것과 같은 이유).
       commands={layers.map((l) => ({
         cmd: l.cmd,
-        why: `${l.id} ${l.name} 층을 돌린다`,
+        why: l.id === 'L2' ? '독해 V5 고정 예시 — 선택 권과 무관. 실행 전 시리즈·V밴드를 확인하세요.' : `${l.id} ${l.name} · 전체 범위 명령`,
         writes: l.cmd.includes('--commit'),
         claudeCode: l.id === 'L2',
       }))}
@@ -115,7 +115,7 @@ export function ReviewClient({
       }
       failures={
         <StageFailures
-          title="막힌 문항 — 개별 판정"
+          title="전체 문항 결함 — 선택 권과 별도 집계"
           total={defects.available ? (defects.byVerdict.revise ?? 0) + (defects.byVerdict.fail ?? 0) : null}
           rows={failureRows}
           emptyNote={
@@ -250,7 +250,7 @@ export function ReviewClient({
             </thead>
             <tbody>
               {volumes.map((v) => (
-                <tr key={`${v.volumeTitle ?? ''}|${v.band}`} className="border-b border-[var(--bd)] last:border-0">
+                <tr key={`${v.series ?? 'unknown'}|${v.band}`} className="border-b border-[var(--bd)] last:border-0">
                   <td className="py-2 pr-3 text-[var(--t1)]">
                     <span className="font-mono text-[10px] text-[var(--t3)]">V{v.band}</span>{' '}
                     {v.volumeTitle ?? '—'}

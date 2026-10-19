@@ -1,0 +1,718 @@
+{
+  "version": "v2.1",
+  "note": "Navigation applied; plannedView is the v2 design, not an assertion every internal panel is implemented. See v21-delivery.md for actual flow support and gaps.",
+  "rows": [
+    {
+      "route": "/admin/analytics",
+      "section": "학습자·진단",
+      "workspace": "활동 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "활동 / 리텐션 / 교사 퍼널"
+    },
+    {
+      "route": "/admin/articles",
+      "section": "콘텐츠",
+      "workspace": "짧은 글",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "원문 수집 / 커버리지·수집·검수·게시"
+    },
+    {
+      "route": "/admin/articles/preview/[id]",
+      "section": "콘텐츠",
+      "workspace": "짧은 글",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "원문 수집 / 글 상세"
+    },
+    {
+      "route": "/admin/billing",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "연결·지원 상태(정보 패널·기존 URL 보존)"
+    },
+    {
+      "route": "/admin/comic",
+      "section": "콘텐츠",
+      "workspace": "만화",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "디지털 제작 / 후보·처리·검수·발행"
+    },
+    {
+      "route": "/admin/comic/[bookId]/drain",
+      "section": "콘텐츠",
+      "workspace": "만화",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "디지털 제작 / 도서별 실행"
+    },
+    {
+      "route": "/admin/comic/[bookId]",
+      "section": "콘텐츠",
+      "workspace": "만화",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "디지털 제작 / 도서 상세"
+    },
+    {
+      "route": "/admin/compose",
+      "section": "콘텐츠",
+      "workspace": "짧은 글",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "사실 재저작 / 자료·사실·작성·발행"
+    },
+    {
+      "route": "/admin/csat/authoring",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "문항·해설"
+    },
+    {
+      "route": "/admin/csat/blueprint",
+      "section": "연구·기준",
+      "workspace": "설계·검증",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "교재 설계 / 설계 기준"
+    },
+    {
+      "route": "/admin/csat/catalog",
+      "section": "교재 제작",
+      "workspace": "발행 교재",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "렌더·발행본 목록"
+    },
+    {
+      "route": "/admin/csat/details",
+      "section": "교재 제작",
+      "workspace": "제작 현황",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "전체 재고 상세"
+    },
+    {
+      "route": "/admin/csat/diagnosis/exams",
+      "section": "학습자·진단",
+      "workspace": "진단 운영",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 / 시험·태깅"
+    },
+    {
+      "route": "/admin/csat/diagnosis/exams/[examId]",
+      "section": "학습자·진단",
+      "workspace": "진단 운영",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 / 시험·태깅"
+    },
+    {
+      "route": "/admin/csat/diagnosis/learners",
+      "section": "학습자·진단",
+      "workspace": "학습자 기록",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 진단 참여자"
+    },
+    {
+      "route": "/admin/csat/diagnosis/learners/[id]",
+      "section": "학습자·진단",
+      "workspace": "학습자 기록",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 진단 / 학습자 상세"
+    },
+    {
+      "route": "/admin/csat/diagnosis",
+      "section": "학습자·진단",
+      "workspace": "진단 운영",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 / 현황"
+    },
+    {
+      "route": "/admin/csat/diagnosis/settings",
+      "section": "학습자·진단",
+      "workspace": "진단 운영",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "영어 / 엔진 버전 설정"
+    },
+    {
+      "route": "/admin/csat/evidence",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분석 운영 / 처리 대기·유형 리포트"
+    },
+    {
+      "route": "/admin/csat/explain",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "문항·해설 / 해설(호환)"
+    },
+    {
+      "route": "/admin/csat/help",
+      "section": "교재 제작",
+      "workspace": "제작 현황",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "공정 용어 도움말"
+    },
+    {
+      "route": "/admin/csat/new",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "제작 기준 선택(저장 주문 아님)"
+    },
+    {
+      "route": "/admin/csat",
+      "section": "교재 제작",
+      "workspace": "제작 현황",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "전체 제작 현황"
+    },
+    {
+      "route": "/admin/csat/press",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "발행 승인"
+    },
+    {
+      "route": "/admin/csat/review",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "검수"
+    },
+    {
+      "route": "/admin/csat/sources",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "글감 후보 선택"
+    },
+    {
+      "route": "/admin/csat/sourcing",
+      "section": "교재 제작",
+      "workspace": "제작 공정",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "지문 제작"
+    },
+    {
+      "route": "/admin/csat/strategy",
+      "section": "연구·기준",
+      "workspace": "설계·검증",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "교재 설계 / 시중 교재 비교"
+    },
+    {
+      "route": "/admin/curation",
+      "section": "콘텐츠",
+      "workspace": "도서",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "도서 목록 / 수집 / 검토 대기"
+    },
+    {
+      "route": "/admin/curation/preview/[bookId]",
+      "section": "콘텐츠",
+      "workspace": "도서",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "도서 상세·미리보기"
+    },
+    {
+      "route": "/admin/db",
+      "section": "운영·시스템",
+      "workspace": "DB 점검",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "발견 / 점검 / 허용 조치·이력"
+    },
+    {
+      "route": "/admin/kice/item/[slug]",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "문항 분석 상세"
+    },
+    {
+      "route": "/admin/kice/map",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분포·출제 빈도 / 지도"
+    },
+    {
+      "route": "/admin/kice",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "시험·유형 개요 / 관리자 개인 내 기록 칩 분리 필요"
+    },
+    {
+      "route": "/admin/kice/plan",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분석 우선순위 / 관리자 개인 이력 분리 필요"
+    },
+    {
+      "route": "/admin/kice/predict",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분포·출제 빈도 / 최근 관측"
+    },
+    {
+      "route": "/admin/kice/[typeId]",
+      "section": "연구·기준",
+      "workspace": "기출 분석",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "유형 분석 상세"
+    },
+    {
+      "route": "/admin/knowledge/design",
+      "section": "연구·기준",
+      "workspace": "설계·검증",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "학습 과제·trial 설계"
+    },
+    {
+      "route": "/admin/knowledge/experts",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "전문가·채널 자료"
+    },
+    {
+      "route": "/admin/knowledge/gaps",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "탐구 공백"
+    },
+    {
+      "route": "/admin/knowledge/item/[slug]",
+      "section": "연구·기준",
+      "workspace": "역량·원리",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "원리·방법·과제 상세"
+    },
+    {
+      "route": "/admin/knowledge/lab/compare",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "주장·근거 비교"
+    },
+    {
+      "route": "/admin/knowledge/lab",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "탐구 질문"
+    },
+    {
+      "route": "/admin/knowledge/lab/research",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "연구 서지"
+    },
+    {
+      "route": "/admin/knowledge/lab/[slug]",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "탐구 질문 상세"
+    },
+    {
+      "route": "/admin/knowledge/map",
+      "section": "연구·기준",
+      "workspace": "역량·원리",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "관계 지도"
+    },
+    {
+      "route": "/admin/knowledge/methods",
+      "section": "연구·기준",
+      "workspace": "역량·원리",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "방법·과제"
+    },
+    {
+      "route": "/admin/knowledge",
+      "section": "연구·기준",
+      "workspace": "연구 현황",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "탐구·검토·적용 현황"
+    },
+    {
+      "route": "/admin/knowledge/principles",
+      "section": "연구·기준",
+      "workspace": "역량·원리",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "기제·원리"
+    },
+    {
+      "route": "/admin/knowledge/product",
+      "section": "연구·기준",
+      "workspace": "적용·성과",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "적용·배포"
+    },
+    {
+      "route": "/admin/knowledge/product/[id]",
+      "section": "연구·기준",
+      "workspace": "적용·성과",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "제품 적용 상세"
+    },
+    {
+      "route": "/admin/knowledge/review",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "채택 검토 대기"
+    },
+    {
+      "route": "/admin/knowledge/signals",
+      "section": "연구·기준",
+      "workspace": "적용·성과",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "성과 재검토 신호"
+    },
+    {
+      "route": "/admin/knowledge/sources/csat",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "기출 원천(정본 소속, 기출 분석에서 교차 연결)"
+    },
+    {
+      "route": "/admin/knowledge/sources",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "근거·출처"
+    },
+    {
+      "route": "/admin/library",
+      "section": "콘텐츠",
+      "workspace": "도서",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "도서 목록 / 수집 / 검토 대기"
+    },
+    {
+      "route": "/admin/methodology",
+      "section": "연구·기준",
+      "workspace": "탐구·근거",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "가져오기 원장"
+    },
+    {
+      "route": "/admin",
+      "section": "작업 홈",
+      "workspace": null,
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "처리할 일·최근 변경(조회 투영 제안)"
+    },
+    {
+      "route": "/admin/pd-comics",
+      "section": "콘텐츠",
+      "workspace": "만화",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "스캔 복원 / 수집·처리·권리검수·발행"
+    },
+    {
+      "route": "/admin/pd-comics/reader/[issueId]",
+      "section": "콘텐츠",
+      "workspace": "만화",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "스캔 복원 / 호 상세"
+    },
+    {
+      "route": "/admin/pending-words",
+      "section": "어휘·사전",
+      "workspace": "사전 보강",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "누락 판정 / 보강 / 적재 확인"
+    },
+    {
+      "route": "/admin/quality/gates",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "품질 검사 실행"
+    },
+    {
+      "route": "/admin/quality/judge",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "추출 판정 작업"
+    },
+    {
+      "route": "/admin/quality",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "품질 지표 / 도메인별 실행 연결(공통 조회는 신규)"
+    },
+    {
+      "route": "/admin/reports",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "연결·지원 상태(정보 패널·기존 URL 보존)"
+    },
+    {
+      "route": "/admin/settings",
+      "section": "운영·시스템",
+      "workspace": "품질·실행",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "연결·지원 상태(정보 패널·기존 URL 보존)"
+    },
+    {
+      "route": "/admin/topic-corpus",
+      "section": "어휘·사전",
+      "workspace": "관측·분류",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "주제 관측 / 수집·드레인·승격"
+    },
+    {
+      "route": "/admin/users",
+      "section": "학습자·진단",
+      "workspace": "학습자 기록",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "사용자 집계·미구현 범위 안내"
+    },
+    {
+      "route": "/admin/video",
+      "section": "운영·시스템",
+      "workspace": "홍보 영상",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "요청·제작 / 발행 영상 / 성과·점검"
+    },
+    {
+      "route": "/admin/video/requests/[id]",
+      "section": "운영·시스템",
+      "workspace": "홍보 영상",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "제작 요청 상세"
+    },
+    {
+      "route": "/admin/vocab/collections",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "발행 컬렉션"
+    },
+    {
+      "route": "/admin/vocab/curate/[run_id]",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / 큐레이션 상세"
+    },
+    {
+      "route": "/admin/vocab",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / run 목록"
+    },
+    {
+      "route": "/admin/vocab/runs/new",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / 생성·run 상세"
+    },
+    {
+      "route": "/admin/vocab/runs",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / run 목록"
+    },
+    {
+      "route": "/admin/vocab/runs/[id]",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / 생성·run 상세"
+    },
+    {
+      "route": "/admin/vocab/runs/[id]/seed",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / seed 생성"
+    },
+    {
+      "route": "/admin/vocab/runs/[id]/seed/preview",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "새 seed 제작 / seed 검토"
+    },
+    {
+      "route": "/admin/vocab/sources/new",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "입력 자료 / 등록·목록"
+    },
+    {
+      "route": "/admin/vocab/sources",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "입력 자료 / 등록·목록"
+    },
+    {
+      "route": "/admin/vocab/studio",
+      "section": "어휘·사전",
+      "workspace": "단어장",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "기존 사전 조립 / 조건·미리보기·발행"
+    },
+    {
+      "route": "/admin/vocabulary",
+      "section": "어휘·사전",
+      "workspace": "사전",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "사전 목록·단어 상세"
+    },
+    {
+      "route": "/admin/vrl/automation",
+      "section": "어휘·사전",
+      "workspace": "관측·분류",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분류 / 자동화"
+    },
+    {
+      "route": "/admin/vrl/concerns",
+      "section": "어휘·사전",
+      "workspace": "관측·분류",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분류 / 의심 단어"
+    },
+    {
+      "route": "/admin/vrl/diagnostic",
+      "section": "학습자·진단",
+      "workspace": "진단 운영",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "어휘 / 검사·문항·결과(조회)"
+    },
+    {
+      "route": "/admin/vrl",
+      "section": "어휘·사전",
+      "workspace": "관측·분류",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "사전 품질 / 지표·결함·이력"
+    },
+    {
+      "route": "/admin/vrl/snapshots",
+      "section": "학습자·진단",
+      "workspace": "학습자 기록",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "어휘 / 수준 이력"
+    },
+    {
+      "route": "/admin/vrl/taxonomy",
+      "section": "어휘·사전",
+      "workspace": "관측·분류",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "분류 / 수준·트랙·도메인·스킬"
+    },
+    {
+      "route": "/admin/vrl/users",
+      "section": "학습자·진단",
+      "workspace": "학습자 기록",
+      "navigation": "applied",
+      "processing": "existing_domain_engine",
+      "plannedView": "어휘 / 사용자 수준"
+    }
+  ]
+}

@@ -30,6 +30,7 @@ import {
 import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
+import { AdminWorkInbox } from '@/components/admin/AdminWorkInbox'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   fmt,
@@ -359,6 +360,9 @@ export default async function AdminDashboardPage() {
 
       <AdminScreenHelp screen="dashboard" className="-mt-4 mb-6" />
 
+      <AdminWorkInbox stats={stats} />
+      <details className="mb-6 rounded-[var(--r-md)] border border-[var(--bd)] p-4">
+        <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">영역별 현황·재고·운영 링크</summary>
       {/* ── KPI ── */}
       <section aria-label="핵심 지표">
         <AdminKpiGrid kpis={kpis} />
@@ -474,6 +478,7 @@ export default async function AdminDashboardPage() {
         </ul>
       </section>
 
+      </details>
       {/* ── 최근 변경 ── */}
       <section
         aria-label="최근 변경"

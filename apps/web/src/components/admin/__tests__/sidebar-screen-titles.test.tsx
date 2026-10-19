@@ -24,15 +24,22 @@ function pages(dir: string): string[] {
   )
 }
 describe('관리자 화면 소속과 호환 경로', () => {
+  it('7개 상위와 22개 하위를 유지하며 코퍼스·진단·기준 책임을 분리한다', () => {
+    expect(ADMIN_SECTIONS).toHaveLength(7)
+    expect(ADMIN_SECTIONS.flatMap(section => section.workspaces)).toHaveLength(22)
+    expect(getAdminLocation('/admin/topic-corpus')?.workspace?.id).toBe('words.observations')
+    expect(getAdminLocation('/admin/vrl/users')?.workspace?.id).toBe('learners.records')
+    expect(getAdminLocation('/admin/vrl/diagnostic')?.workspace?.id).toBe('learners.diagnostics')
+  })
   it('원리의 모든 기존 탭과 가져오기 원장이 원래 작업 공간에 연결된다', () => {
     for (const workspace of WORKSPACES) {
       for (const tab of workspace.tabs) {
         expect(getAdminLocation(tab.href)?.workspace?.id, tab.href).toBe(
-          `knowledge-${workspace.key}`
+          ({ ops: 'research.overview', map: 'research.principles', lab: 'research.evidence', design: 'research.design', product: 'research.application' })[workspace.key]
         )
       }
     }
-    expect(getAdminLocation('/admin/methodology')?.workspace?.id).toBe('knowledge-lab')
+    expect(getAdminLocation('/admin/methodology')?.workspace?.id).toBe('research.evidence')
   })
   it('현재 관리자 페이지 전수를 업무 영역에 연결한다', () => {
     const files = pages(join(APP, 'admin'))
@@ -61,10 +68,10 @@ describe('관리자 화면 소속과 호환 경로', () => {
   })
   it.each([
     ['/admin/csat/new', '교재 제작', '/admin/csat/new'],
-    ['/admin/csat/diagnosis/learners/u-1', '영어 진단', '/admin/csat/diagnosis'],
+    ['/admin/csat/diagnosis/learners/u-1', '학습자 기록', '/admin/csat/diagnosis/learners'],
     ['/admin/csat/evidence', '기출 분석', '/admin/kice'],
-    ['/admin/csat/strategy', '교재 기준', '/admin/csat/strategy'],
-    ['/admin/csat/blueprint', '교재 기준', '/admin/csat/strategy'],
+    ['/admin/csat/strategy', '설계·검증', '/admin/knowledge/design'],
+    ['/admin/csat/blueprint', '설계·검증', '/admin/knowledge/design'],
   ])('%s의 공통 제목과 복귀가 실제 업무 소속을 따른다', (path, title, href) => {
     pathname = path
     const html = renderToString(
@@ -78,12 +85,12 @@ describe('관리자 화면 소속과 호환 경로', () => {
     expect(html).not.toContain('교재 공장')
   })
   it('단어장 경계와 진단 예외를 접두사로 잘못 분류하지 않는다', () => {
-    expect(getAdminLocation('/admin/vocabulary')?.workspace?.id).toBe('dictionary')
-    expect(getAdminLocation('/admin/vocab/runs/7/seed')?.workspace?.id).toBe('decks')
+    expect(getAdminLocation('/admin/vocabulary')?.workspace?.id).toBe('words.dictionary')
+    expect(getAdminLocation('/admin/vocab/runs/7/seed')?.workspace?.id).toBe('words.decks')
     expect(getAdminLocation('/admin/vrl/users')?.section.id).toBe('learners')
     expect(getAdminLocation('/admin/vrl/taxonomy')?.section.id).toBe('words')
     expect(getAdminLocation('/admin/knowledge/item/mechanism-1')?.workspace?.id).toBe(
-      'knowledge-map'
+      'research.principles'
     )
     expect(getAdminLocation('/admin/unknown')).toBeNull()
   })

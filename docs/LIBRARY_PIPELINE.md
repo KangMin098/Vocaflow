@@ -1,5 +1,7 @@
 # Library Pipeline
 
+관리자 v2.1(2026-10-19)은 콘텐츠·교재·사전·관측의 작업 공간을 재배치하고 Compose·CCP·PDCP 내부 탭을 URL에 보존한다. CCP의 초안·보관 포함 목록은 제작본으로 표시한다. 실행 주체·발행/RPC·재수집 보호·외부 드레인은 기존 계약을 유지한다. Compose 17개 서버 액션은 입력·외부 조회·DB 접근 전 공통 관리자 검사를 수행한다. 새 큐·엔진·DB 변경은 없다. [구현·지원 범위](admin-restructure/v21-delivery.md).
+
 ## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
 
 최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.

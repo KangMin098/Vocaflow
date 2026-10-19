@@ -5,6 +5,7 @@
 'use client'
 
 import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
+import { useQueryTab } from '@/lib/admin/use-query-tab'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArchiveRestore, BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Palette, Plus, RotateCcw, ShieldCheck, XCircle } from 'lucide-react'
@@ -20,11 +21,13 @@ type TabKey = 'catalog' | 'published' | 'tests' | 'models' | 'styles'
 /** 탭 라벨 — 화면 표시와 화면도움말 조회에 같은 문자열을 쓴다(라벨을 바꾸면 help/comic.ts 도 함께). */
 const TAB_LABEL: Record<TabKey, string> = {
   catalog: 'Catalog',
-  published: 'Published',
+  published: '제작본',
   styles: '스타일',
   tests: '테스트',
   models: '모델',
 }
+
+const COMC_TABS: readonly TabKey[] = ['catalog', 'published', 'styles', 'tests', 'models']
 
 const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -35,7 +38,7 @@ const COMIC_STATUS_META: Record<ComicCatalogRow['comicStatus'], { label: string;
 
 export function AdminComicClient({ rows, stats, tests, models, styles }: { rows: ComicCatalogRow[]; stats: ComicStats; tests: ComicTest[]; models: ComicModel[]; styles: ComicStyle[] }) {
   const router = useRouter()
-  const [tab, setTab] = useState<TabKey>('catalog')
+  const [tab, setTab] = useQueryTab(COMC_TABS, 'catalog')
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [pending, start] = useTransition()
 
