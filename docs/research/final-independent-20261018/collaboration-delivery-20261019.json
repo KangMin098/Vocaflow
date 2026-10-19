@@ -102,5 +102,66 @@
       "sameFiAndIssue": true
     },
     "decisionLog": "DL-0189"
+  },
+  "fastLoopV3": {
+    "coordinationId": "FINAL-PRODUCT-FAST-V3-20261019",
+    "vfcTask": "T-0045",
+    "codexOwner": "final-independent-accept",
+    "codexSession": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "claudeSession": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "claudeOwner": "UNKNOWN",
+    "claudeVfcTask": "UNKNOWN",
+    "claudeActiveProcess": "NOT_VERIFIED_PREVIOUS_PID_NOT_PRESENT",
+    "implementationInput": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
+    "main": "13e15e7367aad27e9fc3cafedbe02cebb5deeaff",
+    "currentDecision": "REWORK",
+    "productCoreReady": false,
+    "releaseReady": false,
+    "finalComplete": false,
+    "workA": "FI011 separate model/guided repair execution using existing server/G2 provenance",
+    "workB": "New independent recheck candidate stock and supply, role unchanged",
+    "workOrder": "FI011_REPAIR_SUPPLY_WORK_ORDER.md",
+    "outgoing": "PREPARED",
+    "sessionDelivered": false,
+    "acknowledged": false,
+    "implementationStartedForSelectedWork": false,
+    "resultReturned": false,
+    "verified": false,
+    "scopeReuse": {
+      "taskId": "FINAL-FI011-REPAIR",
+      "head": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
+      "testScope": "No authored assessment repair readiness/candidate; independent 2-case original failure",
+      "contractVersion": "rev4.0-draft-1 + user FINAL-FI011-REPAIR no-assessment-reuse condition",
+      "environment": "Previously executed pure Vitest in own disposable map snapshot; current exact workspace/plan blobs match; no new DB/browser execution",
+      "blobs": [
+        {
+          "file": "apps/web/src/lib/csat/map/v4/workspace.ts",
+          "blob": "f79f7ac806cfb3c954e6ec51efb3f377de10ec0f",
+          "identicalTo": "8eafb6d3807445c40ed5bf0fd109dc74f2e6052a"
+        },
+        {
+          "file": "apps/web/src/lib/csat/map/v4/plan.ts",
+          "blob": "763741a383a7feeffde3d4eec8a2038b6a2d6190",
+          "identicalTo": "8eafb6d3807445c40ed5bf0fd109dc74f2e6052a"
+        }
+      ],
+      "reused": true,
+      "serverChangesCovered": false
+    },
+    "workBInventory": {
+      "source": "Repository authored draft only; not eligible/released supply",
+      "set": "r5-central-meaning.v2",
+      "task": "r.central_meaning",
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 2,
+        "independent_check": 2,
+        "transfer": 2,
+        "delayed_check": 2
+      },
+      "newIndependentCandidatesAfterOriginalTwoSeen": 0,
+      "humanApproval": false
+    },
+    "ciOptimization": "Reuse focused diagnostics before coherent final CI; do not redesign jobs or share DB/build environment for this product unit"
   }
 }
