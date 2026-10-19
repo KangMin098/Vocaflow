@@ -80,7 +80,7 @@ export interface TaskPlan {
   quantity: PlanQuantity
   achievement: Achievement
   /** 아직 풀리지 않은 것(문구 키) */
-  unresolved: ('no_content' | 'stage_locked' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
+  unresolved: ('no_content' | 'stage_locked' | 'material_needed' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
 }
 
 export interface PlanActivity {
@@ -241,7 +241,8 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   if (stage === 'transfer' && planned !== null && (available ?? 0) < planned) unresolved.push('transfer_shortage')
   if (def.status === 'hold') unresolved.push('canon_hold')
   else if (!home || home.readiness !== 'live') unresolved.push('no_content')
-  else if (stage && !st?.ready) unresolved.push('stage_locked')
+  // 단계가 열릴 차례인데 그 단계 자료를 다 썼거나 없다(앞 단계 미완료가 아니다) — 「새 자료가 필요해요」로 정확히 안내
+  else if (stage && !st?.ready) unresolved.push(st?.blocked === 'no_unseen_items' || st?.blocked === 'not_enough_unseen' || st?.blocked === 'no_transfer_items' ? 'material_needed' : 'stage_locked')
   if (t.basis !== 'direct_check' && def.status !== 'hold') unresolved.push('needs_direct_check')
   if (toBe && !need && def.status !== 'hold') unresolved.push('not_goal_related')
   return {

@@ -169,3 +169,13 @@ describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(
     expect(p.stage).toBe('repair')
   })
 })
+
+describe('자료 소진 안내(FAST LOOP v3 · B)', () => {
+  it('확인 문항을 다 봐 단계가 잠기면 「새 자료 필요」(material_needed) — 「앞 단계를 마치면」(stage_locked) 이 아니다', () => {
+    // 5문항 모두 정답(독립) — 확정 전이라 확인 단계인데 안 본 문항 0
+    const all = ITEMS.map((i, k) => attempt(i, true, `2026-09-1${k}T00:00:00Z`))
+    const p = build(asIs({ attempts: all }), 80).view.tasks.find((t) => t.task === 'r.central_meaning')!
+    expect(p.unresolved).toContain('material_needed')
+    expect(p.unresolved).not.toContain('stage_locked')
+  })
+})

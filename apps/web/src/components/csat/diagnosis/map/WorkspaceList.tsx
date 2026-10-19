@@ -46,6 +46,7 @@ export const READINESS_LABEL: Record<string, string> = {
 const WHY_NOT: Record<NotActionableReason, string> = {
   content_gap: '확인 자료 준비 중',
   stage_locked: '앞 단계 뒤에 열림',
+  material_needed: '새 자료 필요',
   canon_hold: '측정 방법 정하는 중',
   relevance_unknown: '목표 시험과의 연결 확인 전',
   no_next_activity: '지금 이어 할 활동 없음',
