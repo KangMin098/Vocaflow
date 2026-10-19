@@ -1,7 +1,7 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
-2026-10-19 후속: **전체 REWORK**, 실제 safe-merge/병합0. FI-019는 실제 수정 e54def25a의 고정 시각 반례/정상 대조 **5/5**와 v4 단위 **29/29**를 확인해 **FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED**로 갱신했다. [최초 실패·수정 비교](./FI019_KST_PLAN.md)를 보존한다. FI-018은 실제312cefc에서 미해결이다. 새 여정의 초기 PLAN은 수정 후 통과했으나 e54 CI는 지도 팝업 조작에서 실패했다. 후속35d43은 제품 계약에 맞는 두 번째 클릭만 추가했고 그 CI는 초기 근거 열거값 불일치에서 실패했다. 두 실패 모두 수행/환류 검증에 도달하지 않았다. 최신6fe386770은 실제 화면 열거값으로 고쳤으며 전체 여정의 성공은 별도 확인한다.
+2026-10-19 후속: **전체 REWORK**, 실제 safe-merge/병합0. FI-019는 실제 수정 e54def25a의 고정 시각 반례/정상 대조 **5/5**와 v4 단위 **29/29**를 확인해 **FIX_VERIFIED_IN_CANDIDATE / CODE_VERIFIED**로 갱신했다. [최초 실패·수정 비교](./FI019_KST_PLAN.md)를 보존한다. FI-018은 실제312cefc에서 미해결이다. [6fe 실제 브라우저 report](./journey-ci-6fe386.json)는 기존10성공/여정1실패이며 이번 여정은 동일 합성 계정의 기록→목표→PLAN v1→3납품→실제 Runner→정확한 G2/evidence=true 결속까지 통과했다. 지도 after는 before와 같은 not_measured/relevance_unknown이었다. 새 계정의 모두 정답을 확정/해소로 기대한 전제는 [실제 교육 계약4대조](./journey-oracle-6fe386.json)와 어긋난다. PLAN v2 단언은 미도달이며 전체 H 성공이나 새로운 제품 결함으로 단정하지 않는다. 최신69b07ef47은 진단 출력만 추가했고 제품/평가 규칙 변화는 없다.
 
 최초 종단 입력264f는 fixture 적재에서 실패했고 f8은 그 오류를 수정한 뒤 실제 제품 FI-019를 드러냈다. [실패 원장](./journey-review-20261019.json)은 이 순서를 보존한다. 아래 f8 이전의 성공·관찰은 각 고정 HEAD의 이력이며 최신 여정 전체 수용을 뜻하지 않는다.
 
@@ -45,7 +45,7 @@ A~H는 사용자가 지정한 상위 관점이다. VG/LM 정본이나 TASK를 �
 |G 독립 전이 / PARTIAL|노출/도움/동일 지문·근거 구분|FI-006/010 경계 범위|격리 최초/비근거 대조|새 적격 전이 NOT_VERIFIED|해당 revision Gold/권리 NOT_VERIFIED|실제 미노출/지연 전이 NOT_VERIFIED|NOT_VERIFIED|
 |H 증거 환류 / PARTIAL|delivery/G2·PLAN/이력 범위|결속/상태 보존 범위|격리 지도 복귀/표시 범위|수행→새 PLAN 의미 환류 NOT_VERIFIED|콘텐츠별 E에서 검수 필요|실제 환류 NOT_VERIFIED|NOT_VERIFIED|
 
-**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다. FI-018 수정/312 수용 뒤 최신 main 기준250→303의 통합/안전 병합과 해당 종단 검증이 남아 있다.
+**동일 합성 학습자의 A→H 전체 E2E는 NOT_VERIFIED**다. 6fe에서 기록 저장/목표/PLAN v1/3납품/Runner/G2의 같은 계정 prefix는1440px ISOLATED_BROWSER_VERIFIED로 추가 확인했지만, 시험의 문항/축 태깅·D 교수 화면·의미 환류/PLAN v2는 미검증이다. 실제 개발 DB의 새 공급·사람 Gold/권리·실제 수행/효과도 미충족이다. FI-018 수정/312 수용 뒤 최신 main 기준250→303의 통합/안전 병합과 해당 종단 검증이 남아 있다.
 
 ## 결함별 수정 수용
 

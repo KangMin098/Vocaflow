@@ -5,6 +5,8 @@ FI-019는 [#313](https://github.com/KangMin098/Vocaflow/issues/313) 하나로 �
 
 71a471bf6 게시 후 [FI-019 수정 수용 댓글](https://github.com/KangMin098/Vocaflow/issues/313#issuecomment-6257007658)을 남겼다(DL-0183). [후속 교육적 기대값 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6257037500)는 실제 skillDiagnosis/asIsMap4대조에 근거하며 새 이슈나 교육 기준 변경을 요구하지 않는다. 최신 CI39180227987의 전체 여정 성공은 아직 미확인이다.
 
+6fe CI 종료 후 같은 댓글을 실제 결과로 갱신했다(DL-0184). 같은 계정의 기록/목표/PLAN v1/3납품/Runner/G2 단언은 통과했으나 지도 after 기대값에서 실패했고 PLAN v2는 미도달이다.1440px 실패 화면도 직접 확인했다. [실제 report](./journey-ci-6fe386.json).69b07ef47은 진단 출력만 추가한 후속 입력이며 FI-018 실제 반영을 우선 요청했다. 비공개 재현 세부를 공개 댓글로 옮기지 않았다.
+
 동일 학습자 종단264f의 fixture 적재 실패/제약 불일치는 [PR303](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256578857)으로 인계했고 f8의 시험 메타데이터·합성 id 수정/새 CI를 검토 중이다. [실제 기록](./journey-review-20261019.json). FI-018은 기존 비공개 후보의 담당 경로 보정을 [PR312](https://github.com/KangMin098/Vocaflow/pull/312#issuecomment-6256579031)에 안내했다. 새 결함/중복 이슈를 만들지 않았다.
 
 19일 재수용 게시: FI-010 [VERIFIED_FIXED 댓글](https://github.com/KangMin098/Vocaflow/issues/302#issuecomment-6256471331), FI-015 [새 실제 브라우저 결과](https://github.com/KangMin098/Vocaflow/issues/308#issuecomment-6256523052), [PR303 종합](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6256523200). [기존 PR312 리뷰](https://github.com/KangMin098/Vocaflow/pull/312#pullrequestreview-5563390279)는 같은 HEAD의 REWORK로 갱신했으며 새 이슈/중복 재현은 만들지 않았다. 비공개 인계 경로는 DL-0181로 보정했고 결과는 DL-0182로 기록했다.
