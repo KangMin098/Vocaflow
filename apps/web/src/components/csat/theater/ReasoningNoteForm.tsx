@@ -4,7 +4,7 @@
 // **원리 노트 — 이 문항에서 얻은 조건부 원리를 내 말로.** (v3 M4 · CSAT_REASONING_DATA_V3 §ReasoningNote · 작업공간 W3)
 //
 // 원리 · 근거 · 통하는 조건 · 쓰면 안 되는 조건을 쓴다. 참여는 선택이고 다른 장면을 잠그지 않는다.
-// 저장한 뒤 검수된 원리와 나란히 놓고 스스로 대조한다 — 자동 채점 · 능력 판정 없음. 해설 뒤 기록이라 독립 수행이 아니다.
+// 저장한 뒤 대조 모델(modelLabel — 기본 「검수된 원리」 · 창작 교수 자료는 「제공된 설명(사람 검수 전)」)과 나란히 놓고 스스로 대조한다 — 자동 채점 · 능력 판정 없음. 해설 뒤 기록이라 독립 수행이 아니다.
 // 쓴 글 · 문항 id 는 분석 이벤트로 보내지 않는다(D3).
 //
 // 작업공간 W3: 초안은 부모(문항별 탭 메모리)가 갖는다 — 장면을 오가도 남는다. 근거 연결은 선택이다 — 지금 고른
@@ -89,7 +89,7 @@ export function ReasoningNoteForm({
   return (
     <section className={styles.explain} aria-labelledby="note-title" data-testid="reasoning-note">
       <h2 id="note-title">원리 노트 <span className={styles.optional}>선택</span></h2>
-      <p className="break-keep">이 문항에서 얻은 원리를 조건과 함께 적어 두세요. 저장하면 검수된 원리와 나란히 놓고 비교할 수 있어요. 점수는 매기지 않아요.</p>
+      <p className="break-keep">이 문항에서 얻은 원리를 조건과 함께 적어 두세요. 저장하면 비교할 설명({modelLabel})과 나란히 놓고 볼 수 있어요. 점수는 매기지 않아요.</p>
       {FIELDS.map((f) => (
         <label key={f.key} className={styles.explainField}>
           <span>{f.label} <span className={styles.quiet}>— {f.hint}</span></span>

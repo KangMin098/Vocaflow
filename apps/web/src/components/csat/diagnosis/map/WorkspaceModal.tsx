@@ -170,7 +170,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           </section>
 
           {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
-            <AuthoredSupplyCard task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} />
+            <AuthoredSupplyCard task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0], row.id)} />
           )}
         </>
       )}

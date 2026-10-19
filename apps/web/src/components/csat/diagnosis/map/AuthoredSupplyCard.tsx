@@ -12,6 +12,7 @@ import { PackageOpen } from 'lucide-react'
 
 import p from './popup.module.css'
 import u from './unified.module.css'
+import { withMapReturn, type MapReturnCtx } from '@/lib/csat/map-return'
 
 type Role = 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
 interface Row { ref: string; deliveryId: string; role: Role; deliveredAt: string; attempted: boolean; evidence: boolean | null; current?: boolean | null }
@@ -27,7 +28,7 @@ const ROLE: Record<Role, string> = {
 }
 const ORDER: Role[] = ['model_explanation', 'guided_practice', 'independent_check', 'transfer', 'delayed_check']
 
-export function AuthoredSupplyCard({ task, template, planSaved, past }: { task: string; template: string; planSaved: boolean; past: boolean }) {
+export function AuthoredSupplyCard({ task, template, planSaved, past, ctx }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx }) {
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
@@ -89,7 +90,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past }: { task: 
         <ul className={u.needList} data-testid="ws-authored-list">
           {rows.map((r) => (
             <li key={r.deliveryId} data-role={r.role}>
-              <Link href={`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>
+              {/* 지도 복귀 문맥(TASK · Workspace · 목표 · PLAN)을 싣는다 — PLAN CTA 와 같은 outgoingCtx(Codex C7 P2) */}
+                <Link href={ctx ? withMapReturn(`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`, ctx) : `/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>
               <span className={u.ledgerVal}>
                 {r.current === false ? (r.attempted ? '승인 철회 · 지난 결과만 남음' : '승인 철회 · 지금은 열 수 없음') : !r.attempted ? '아직 안 풂' : r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요'}
               </span>

@@ -20,7 +20,7 @@ const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const TEMPLATE = 'ws.central-meaning'
 const TASK = 'r.central_meaning'
 const ORDER = ['r.central_meaning', 'r.discourse_function', 'r.discourse_structure']
-type Item = { id: string; role: string; gold: { answer: number; claim: number; support: number[]; relationProbe?: { sentence: number; relation: string } } }
+type Item = { id: string; role: string; passageGroup: string; gold: { answer: number; claim: number; support: number[]; relationProbe?: { sentence: number; relation: string } } }
 const R5 = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../src/lib/knowledge/authored/r5-central-meaning.v1.json'), 'utf8')) as { taskId: string; items: Item[] }
 const admin = () => createClient(URL_, SERVICE, { auth: { persistSession: false } })
 const canonical = (v: unknown): string => v === null ? 'null' : Array.isArray(v) ? `[${v.map(canonical).join(',')}]`
@@ -61,6 +61,21 @@ async function observe(page: Page) {
   const blocked = (await pop.locator('[data-testid="pop-blocked"]').count()) ? await pop.locator('[data-testid="pop-blocked"]').getAttribute('data-reason') : null
   const nextLabel = (await pop.locator('[data-testid="pop-next"]').count()) ? (await pop.locator('[data-testid="pop-next"]').innerText()).trim() : null
   return { priority, evidence, next: next?.split('?')[0] ?? null, nextHref: next ?? null, nextLabel, blocked }
+}
+/** 실제 자료 받기 API(학습자 세션) — 지금 저장 PLAN · 단계의 수요로 공급. 줄마다 역할 · 받은 ref */
+async function supply(page: Page): Promise<{ role: string; delivered: string[]; requested: number }[]> {
+  const r = await page.request.post('/api/csat/authored/supply', { data: { task: TASK, template: TEMPLATE } })
+  const j = await r.json().catch(() => ({}))
+  expect(r.status(), JSON.stringify(j)).toBe(200)
+  expect(j.status, JSON.stringify(j)).toBe('ok')
+  return (j.lines ?? []).map((l: { role: string; delivered: string[]; requested: number }) => ({ role: l.role, delivered: l.delivered, requested: l.requested })).filter((l: { delivered: string[] }) => l.delivered.length > 0)
+}
+/** 그 학습자 · 자료 · 역할의 납품 id(DB 원장) */
+async function deliveryOf(uid: string, ref: string, role: string): Promise<string> {
+  const r = await admin().from('workspace_content_delivery').select('id').eq('user_id', uid).eq('artifact_ref', ref).eq('role', role).order('delivered_at', { ascending: false }).limit(1)
+  expect(r.error, r.error?.message).toBeNull()
+  expect((r.data ?? []).length, `납품 없음 ${ref} ${role}`).toBe(1)
+  return (r.data as { id: string }[])[0].id
 }
 async function planRow(ws: string, version: number) {
   const r = (await admin().from('learner_workspace_plan').select('user_id, plan_version, reason, goal_version_id, plan').eq('workspace_id', ws).eq('plan_version', version).single()).data!
@@ -257,15 +272,20 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   // 바로잡기 — 평가 자료는 다시 풀지 않는다. 자료가 없으면 「바로잡기 자료 필요」 대기(FI-011 · Codex 확정 설계)
   expect(after.next, '평가 자료를 바로잡기로 다시 내밀지 않는다').toBeNull()
   expect(after.blocked).toBe('repair_material_needed')
-  // 바로잡기 자료(안내 연습 · 별도 자격 · 평가 지문과 분리)를 받는다 → 지도 CTA 「바로잡기 · 안내 연습」
-  const guided = R5.items.find((i) => i.role === 'guided_practice')!
-  const guidedDid = await deliver(learner, uid, ws, 3, guided)
+  // 바로잡기 자료(안내 연습 · 별도 자격 · 평가 지문과 분리)를 **실제 자료 받기 API** 로 받는다(T-0050 rev5 기준 0) — 지금 계획 단계(repair)의 수요만.
+  //   평가 역할(혼자 확인 · 전이 · 다른 날)은 이 공급에 섞이지 않는다 → 지도 CTA 「바로잡기 · 안내 연습」
+  const repairSupply = await supply(page)
+  expect(repairSupply.map((l) => l.role).sort(), '바로잡기 단계 수요는 교수 · 안내 연습만').toEqual(expect.arrayContaining(['guided_practice', 'model_explanation']))
+  expect(repairSupply.some((l) => ['independent_check', 'transfer', 'delayed_check'].includes(l.role)), '평가 자료를 바로잡기로 공급하지 않는다').toBe(false)
+  const guidedRef = repairSupply.find((l) => l.role === 'guided_practice')!.delivered[0]
+  const guided = R5.items.find((i) => `authored:${i.id}` === guidedRef)!
+  const guidedDid = await deliveryOf(uid, guidedRef, 'guided_practice')
   const withMaterial = await observe(page)
   expect(withMaterial.nextLabel ?? '').toContain('안내 연습')
   expect(withMaterial.next).toBe(`/csat/learn/${guided.id}`)
   // 안내 연습 수행 — 실제 Runner · 서버 채점 · 연습 기록(G2 근거 false)
   const runner = page.locator('[data-testid="authored-runner"]')
-  const solve = async (choice: number) => {
+  const solveGuided = async (choice: number) => {
     await expect(runner).toHaveAttribute('data-format', 'central_meaning', { timeout: 30_000 })
     await runner.locator(`[data-sentence="${guided.gold.claim}"]`).click()
     await runner.locator(`[data-sentence="${guided.gold.support[0]}"]`).click()
@@ -275,7 +295,7 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   }
   // 1) 오답 — 바로잡기 성공이 아니다. 지도는 같은 안내 연습을 다시 내민다(Codex P1-1)
   await page.goto(withMaterial.nextHref!, { waitUntil: 'domcontentloaded' })
-  await solve((guided.gold.answer + 1) % 5) // 5지선다
+  await solveGuided((guided.gold.answer + 1) % 5) // 5지선다
   await expect(page.locator('[data-testid="authored-result"]')).toContainText('어긋났어요', { timeout: 30_000 })
   const afterWrong = await observe(page)
   expect(afterWrong.next, '오답 뒤에도 같은 안내 연습').toBe(`/csat/learn/${guided.id}`)
@@ -283,7 +303,7 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   // 2) 다시 열기 → 「다시 풀기」 → 정답(append-only 새 시도 · 앞 기록 유지)
   await page.goto(afterWrong.nextHref!, { waitUntil: 'domcontentloaded' })
   await page.locator('[data-testid="authored-retry"]').click()
-  await solve(guided.gold.answer)
+  await solveGuided(guided.gold.answer)
   await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
   await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data ?? []).map((b) => b.evidence), { timeout: 15_000 }).toEqual([false, false])
   const guidedRows = (await admin().from('learning_task_attempts').select('is_correct').eq('user_id', uid).eq('item_ref', `authored:${guided.id}`).order('answered_at')).data ?? []
@@ -304,4 +324,52 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   expect(v4.task?.stage, '바로잡기 성공 → 적용 단계(전이 자료 있음)').toBe('transfer')
   expect(afterRepair.next).toBe(`/csat/learn/${transferItem.id}`)
   expect((await planRow(ws, 3)).task, 'PLAN v3 이력 불변').toEqual(v3.task)
+
+  // ── T-0050 rev5: 적용(정본 2지문) → 다시 확인(새 미노출 독립 확인) → G2 → MAP → 다음 행동 → PLAN ──
+  // 적용 둘째 지문은 실제 공급 API 로(적용 단계 수요 = transfer 만)
+  const transferSupply = await supply(page)
+  expect(transferSupply.map((l) => l.role), '적용 단계 수요는 전이만').toEqual(['transfer'])
+  const transfers = [transferItem, ...transferSupply[0].delivered.filter((r) => r !== `authored:${transferItem.id}`).map((r) => R5.items.find((i) => `authored:${i.id}` === r)!)]
+  expect(new Set(transfers.map((t) => t.passageGroup)).size, '서로 다른 전이 지문 2').toBe(2)
+  for (const t of transfers) await solve(page, t, await deliveryOf(uid, `authored:${t.id}`, 'transfer'))
+  const afterTransfer = await observe(page)
+  const p5 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 4, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p5.status(), await p5.text()).toBe(200)
+  const v5 = await planRow(ws, 5)
+  expect(v5.task?.stage, '적용 2지문 → 다시 확인 단계').toBe('recheck')
+  // 다시 확인 재고 0(혼자 확인 2 는 이미 봤다) → 정확한 대기(자료 필요) — 바로잡기로 되돌리지 않는다(FI-011 B)
+  expect(afterTransfer.next).toBeNull()
+  expect(afterTransfer.blocked).toBe('material_needed')
+  expect(afterTransfer.evidence, '적용 수행은 독립 근거가 아니다').toBe('need_confirmed')
+  // 다시 확인 자료 — 실제 공급 API(수요 = independent_check) · 이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다
+  const recheckSupply = await supply(page)
+  expect(recheckSupply.map((l) => l.role)).toEqual(['independent_check'])
+  const seen = new Set(delivered.map((d) => `authored:${d.item.id}`))
+  const fresh = recheckSupply[0].delivered.filter((r) => !seen.has(r))
+  expect(fresh.length, '새 미노출 독립 확인 2').toBe(2)
+  const withRecheck = await observe(page)
+  expect(fresh.map((r) => `/csat/learn/${r.slice('authored:'.length)}`)).toContain(withRecheck.next)
+  // 새 독립 확인 2 정답 — 지도 CTA 를 따라 실제 Runner · 서버 채점 · G2 결속(본인 · TASK · 납품 · 서버 결과)
+  const freshDids: string[] = []
+  for (const ref of fresh) {
+    const item = R5.items.find((i) => `authored:${i.id}` === ref)!
+    const did = await deliveryOf(uid, ref, 'independent_check')
+    freshDids.push(did)
+    await solve(page, item, did)
+    await expect(page.locator('[data-testid="authored-result"]')).toContainText('정확히 해냈어요', { timeout: 30_000 })
+  }
+  await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid).in('delivery_id', freshDids)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(2)
+  // MAP — 새 독립 근거로만 판정이 바뀐다 · 처음 독립 오답 · G2 · 과거 PLAN 은 그대로
+  const resolved = await observe(page)
+  const p6 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 5, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
+  expect(p6.status(), await p6.text()).toBe(200)
+  const v6 = await planRow(ws, 6)
+  console.log('JOURNEY_RECHECK_DONE=' + JSON.stringify({ afterTransfer, withRecheck, resolved, v5: v5.task, v6: v6.task }))
+  expect(resolved.evidence, '새 지문 독립 확인 2 정답 → 현재 정책 통과').toBe('passed_current_policy')
+  expect(resolved.next, '해소 뒤 같은 TASK 를 다시 내밀지 않는다').not.toBe(withRecheck.next)
+  expect(v6.task?.stage ?? null, '해소 → 바로잡기 · 적용 단계가 아니다').not.toMatch(/^(repair|transfer)$/)
+  expect(v6).toMatchObject({ user_id: uid, reason: 'check_result', goal_version_id: goalVersionId })
+  for (const [n, t] of [[3, v3.task], [4, v4.task], [5, v5.task]] as const) expect((await planRow(ws, n)).task, `PLAN v${n} 이력 불변`).toEqual(t)
+  const firstsEnd = (await admin().from('learning_first_attempts').select('item_ref, is_correct, help_level').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
+  expect(firstsEnd.every((x) => x.is_correct === false && x.help_level === 'independent') && firstsEnd.length === 2, '처음 독립 오답 불변').toBe(true)
 })
