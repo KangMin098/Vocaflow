@@ -27,6 +27,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(agents): AUTONOMOUS_DELEGATED 위임 정책 **제안**(미채택) — `agents/policies/delegation.json` · 판정기 `delegation.mjs`(정책 활성 · SQL 등급 · 위임 DB 적용 조건 · 보호 경로) · safe-merge 보호 경로 게이트(정책·실행기·가드·CI 변경은 사람 병합) · AI_VERIFIED 원장 제안 SQL(`_pending_ai_verified_ledger.sql` 미적용). 채택 전 기존 승인 그대로.
 
 
 - docs(csat): 2020#24 Gold·권리 AI 검증 — 맹검 2모델 주장·관계 일치·문장 5 쟁점(채점 키 수정 필요) · 권리 INSUFFICIENT(대법원 2024 · 32조 영리 제외 · 서버 저장=복제) → 기출 평가 공급 불가, 자체 창작 전이 지문 대안

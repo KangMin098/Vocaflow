@@ -27,6 +27,7 @@ import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import { isMain, rel } from './lib.mjs'
+import { protectedChanges } from './delegation.mjs'
 
 /** 정책 정본(없거나 깨지면 던진다 — 정책 없이 병합하지 않는다) */
 export function loadPolicy(file = rel('agents', 'policies', 'pr-automation.json')) {
@@ -245,7 +246,12 @@ async function main() {
     r = { ok: false, reasons: [`체크 실행 · base 변경 이력을 읽지 못했다: ${String(e.stderr || e.message).slice(0, 160)}`] }
   }
   for (const note of g.notes) console.log(`[safe-merge] ${note}`)
-  const reasons = [...d.reasons, ...g.reasons, ...r.reasons]
+  // AUTONOMOUS_DELEGATED — 정책 · 실행기 · 가드 · 승인 훅 · CI 정의를 바꾸는 PR 은 에이전트가 병합하지 않는다(자기 승인 금지 · 사람 병합)
+  let delegation = null
+  try { delegation = JSON.parse(execFileSync('git', ['show', 'origin/main:agents/policies/delegation.json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })) } catch { /* main 에 아직 없음 — 기본 목록 */ }
+  const prot = protectedChanges((pr.files ?? []).map((f) => f.path), delegation)
+  const protReasons = prot.length ? [`정책 보호 경로 변경 ${prot.length}개(${prot.slice(0, 4).join(' · ')}${prot.length > 4 ? ' …' : ''}) — 에이전트 자동 병합 금지 · 사람이 병합`] : []
+  const reasons = [...d.reasons, ...g.reasons, ...r.reasons, ...protReasons]
   if (reasons.length) {
     console.log(`[safe-merge] PR #${n} 병합 안 함 · head ${pr.headRefOid.slice(0, 9)}\n- ${reasons.join('\n- ')}`)
     return 3

@@ -1,0 +1,58 @@
+{
+  "$comment": "agents/policies/delegation.json — AUTONOMOUS_DELEGATED 위임 정책 정본(기계 판독). 설명 docs/agents/AUTONOMOUS_DELEGATED.md. status 가 adopted 이고 adoption 기록이 사람 승인 티켓으로 채워지기 전에는 어떤 실행기도 이 정책을 근거로 쓰지 않는다(agents/scripts/delegation.mjs policyActive).",
+  "policy": "AUTONOMOUS_DELEGATED",
+  "version": "0.1",
+  "status": "proposed",
+  "adoption": null,
+  "roles": {
+    "claude": "설계 · 구현 · 수정 · 통합 · 실행",
+    "codex": "독립 검토 · 반례 · 안전 판정(수용 기록)",
+    "human": "위임 범위 채택 · 예외 승인 · 사람 사실 확인(Gold · 권리 · 출시)",
+    "executor": "정책 · 권한의 기계 집행(이 파일 + delegation.mjs + 승인 훅)"
+  },
+  "invariants": [
+    "두 AI 의 합의만으로 시스템 권한 · 사람의 사실 확인이 생기지 않는다",
+    "HUMAN_REVIEWED 의 의미를 바꾸지 않는다 — AI 검수는 AI_VERIFIED 로만 기록",
+    "이 정책 파일 · 실행기 · 가드 · 승인 훅을 바꾸는 변경은 에이전트가 자동 병합하지 않는다(protected_paths)",
+    "기존 승인 티켓을 위조 · 재사용하거나 훅을 우회하지 않는다"
+  ],
+  "code": {
+    "auto": ["기획 · 설계 · 구현 · 개선", "테스트 · 실제 브라우저 검사", "PR 생성 · 수정 · push", "Codex 독립 수용", "필수 CI", "목적 리뷰", "safe-merge(pr-automation.json 조건)"],
+    "protected_paths": [
+      "agents/policies/",
+      "agents/scripts/safe-merge.mjs",
+      "agents/scripts/guard.mjs",
+      "agents/scripts/db-approval.mjs",
+      "agents/scripts/db-approval-hook.mjs",
+      "agents/scripts/delegation.mjs",
+      ".claude/settings.json",
+      ".codex/config.toml",
+      ".github/workflows/"
+    ]
+  },
+  "db": {
+    "targets": ["jajenrevcbmrpaliomxv"],
+    "delegable_class": "additive",
+    "additive_definition": "새 표 · 새 컬럼(nullable 또는 default) · 새 인덱스 · 새 함수(security definer 는 search_path 고정) · 기존 함수 본문 교체 중 권한 · RLS 변화 없는 것 · 주석",
+    "never_delegable": ["데이터 삭제(DROP · TRUNCATE · DELETE · DROP COLUMN)", "기존 기록 덮어쓰기 · 백필로 의미 변경", "GRANT · REVOKE · RLS 정책 · ALTER ... OWNER · SECURITY 경계 변경", "운영 DB", "auth · storage 스키마"],
+    "required": ["대상 DB = targets", "migration 파일 = 적용 SQL(정확한 sha256)", "Codex 수용 기록이 같은 sha256 에 결속", "비밀값 · 권한 침해 없음(분류기 additive)", "적용 전 checkpoint", "단일 트랜잭션 · 실패 시 롤백 검증", "적용 후 스키마 · 권한 · 이력(schema_migrations sha) 확인", "실행 주체 · 결과 감사 기록"],
+    "executor": "scripts/db/delegated/deploy.mjs(미구현 — 정책 채택 뒤 별도 PR)",
+    "enabled": false
+  },
+  "gold": {
+    "human_reviewed": "사람이 그 revision 의 정답 · 루브릭을 직접 확인한 기록(content_human_decision kind=gold) — 의미 불변",
+    "ai_verified": {
+      "ledger": "content_ai_verification(제안 SQL supabase/migrations/_pending_ai_verified_ledger.sql · 미적용)",
+      "required_evidence": ["Claude 작성 · 수정 revision", "Codex 독립 판정(맹검)", "정답 · 오답 · 대안 근거", "과제별 채점 검증(형식 validator + 내용 검증)", "다른 지문 전이 검사", "콘텐츠 · Gold 해시", "검증 실패 · 철회 기록"]
+    },
+    "release_tiers": {
+      "internal": "AI_VERIFIED — 격리 · 내부 검증 · 합성 학습자만",
+      "learner_public": "사람 Gold(HUMAN_REVIEWED) 필수 — 사용자가 정책으로 AI_VERIFIED 공개를 채택하기 전까지"
+    }
+  },
+  "rights": {
+    "ledger": "content_human_decision kind=rights(사람 확인) · 자체 창작 제작 기록(authored_item.provenance)",
+    "self_authored_checks": ["제작 기록(작성자 · 방법 · derivedFrom=[])", "이용 조건(store · display · transmit · 평가 역할 assess)", "유사성 위험(기출 · 외부 저작물 대조)", "허용 범위"],
+    "rule": "기출 원문 · 외부 저작물은 권리 근거가 불충분하면 공급하지 않는다. AI 검토를 사람의 법적 확인으로 표시하지 않는다"
+  }
+}
