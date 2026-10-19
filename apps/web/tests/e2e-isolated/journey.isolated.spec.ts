@@ -277,6 +277,9 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   // 진단 — 바로잡기 뒤 첫 시도 원장(지도 판정 입력)의 실효 도움 상태
   const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, activity, phase, help_level, after_viewed_first, after_explanation, timing_uncertain, is_correct, answered_at').eq('user_id', uid)).data ?? []
   console.log('JOURNEY_FIRSTS_AFTER_REPAIR=' + JSON.stringify(firstsAfter))
+  const sessDiag = (await admin().from('learning_sessions').select('id, client_session_id, item_ref, stage, help_level, help_received_at, help_server_at, explanation_viewed_at, explanation_server_at, help_clock_suspect').eq('user_id', uid)).data ?? []
+  const attDiag = (await admin().from('learning_task_attempts').select('id, item_ref, session_id, answered_at, received_at, help_level, is_correct').eq('user_id', uid).order('id')).data ?? []
+  console.log('JOURNEY_SESSIONS=' + JSON.stringify({ sessDiag, attDiag }))
   const afterRepair = await observe(page)
   const p4 = await page.request.post('/api/csat/diagnosis/map/plan', { data: { template: TEMPLATE, order: ORDER, planned: {}, reason: 'check_result', expectedVersion: 3, expectedGoalVersion: goalVersionId, clientKey: crypto.randomUUID() } })
   expect(p4.status(), await p4.text()).toBe(200)
