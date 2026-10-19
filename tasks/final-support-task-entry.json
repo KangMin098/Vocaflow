@@ -1,0 +1,34 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "title": "기존 보조 TASK의 자료 진입·Workspace 복귀·다음 활동 연결",
+  "description": "기존9개 보조 TASK의 자료 진입을 연결하고 중심 TASK에 묶인 단계 계산 때문에 버튼만 열고 진전이 막히는 경로를 함께 확인한다. 설계 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/SUPPORT_TASK_ENTRY_WORK_ORDER.md revision1. T-0052 Gold P1 수정 우선, 공식 CI 대기 중 독립 준비 가능. 기존 Claude session c513ff5b-86ef-44a3-8efd-7925a229614b/owner final-product/worktree를 유지하며 같은 파일 동시 쓰기 금지.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "branch": "feat/vocaflow-final-product",
+  "allowed_paths": ["apps/web/src/components/csat/diagnosis/map/**", "apps/web/src/lib/csat/map/**", "apps/web/src/app/api/csat/authored/**", "apps/web/src/lib/csat/authored/**", "apps/web/tests/e2e-isolated/**", "docs/final/**", "docs/CHANGELOG.md", ".agent-goal.md"],
+  "forbidden_paths": [".env*", "apps/web/.env*", "supabase/**", "agents/**", ".github/**", "docs/csat-learner/v4/workspaces.json", "apps/mobile/**"],
+  "db_scope": {"mode": "none", "targets": []},
+  "approval_required": false,
+  "acceptance": [
+    "기존9개 보조 TASK는 실제 소속과 저장 계획을 검증한 자료 진입을 갖고 핵심/보조 구분을 보존한다. 미소속 s.attachment에 임의 Workspace를 만들지 않는다.",
+    "e.task_demand 대표 경로의 실제 공급·교수/연습·첫 독립 확인·같은 TASK 복귀와 다음 활동을 확인한다. 단계 계산은 해당 TASK의 자료/수행만 사용하고 재고 부족은 성공으로 바꾸지 않는다.",
+    "다른 TASK/학습자/부적합 Workspace/옛 목표와 PLAN 혼입·중복 노출을 차단하고 중심/보조 근거와 이전 기록을 보존한다.",
+    "변경 HEAD의 집중 테스트와 실제1280/1440 진입·부족·복귀 화면/격리 DB·브라우저 근거를 반환한다. DB/Gold/권리/정본 변경 없이 기존 공식 CI·safe-merge를 유지한다."
+  ],
+  "ui_acceptance": ["PC1280/1440의 선택 TASK 자료 진입, 현재 단계·부족 상태, 같은 TASK/최신 PLAN 복귀와 다음 행동이 실제로 연결된다."],
+  "criterion_claims": [{"criterion_id": "VG-L3-B2-02-AC1", "claim": "partial"}],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": ["VG-L3-B2-02-AC1"],
+    "current_gap": "9개 기존 보조 TASK는 계획 상세에서 보여도 자료 공급 진입이 없고 단계 가용량이 중심 Workspace에만 결속돼 실제 다음 학습으로 이어지지 않는다.",
+    "expected_impact": "advances",
+    "evidence_required": ["기존9개 소속/진입 전량 대조", "대표 보조 TASK의 실제 공급/수행/다음 단계와 PC복귀", "TASK별 근거·저장 이력 보존 반례"],
+    "next_dependency": null,
+    "out_of_scope": ["T-0052 신규 콘텐츠/Gold 수정 재구현", "s.attachment 소속 및 Workspace 정본 변경", "통합 관찰의 직접 평가/가짜 점수", "DB·사람 승인·새 오케스트레이터"],
+    "dependency_type": "direct"
+  },
+  "depends_on": [],
+  "base_commit": "5e2eaca8dec7af2ec55c2d4d0b9ee39a6cc523ef"
+}
