@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-19T00:33:33.138Z",
+  "observedAt": "2026-10-19T00:43:56.318Z",
   "main": "c3a03d1680c1b064598fdc1ab319b645f370e68c",
   "latest303": {
     "head": "69b07ef47e1081ca450106c3434e433fba5ecab9",
@@ -8,12 +8,12 @@
     "statusCheckRollup": [
       {
         "__typename": "CheckRun",
-        "completedAt": "0001-01-01T00:00:00Z",
-        "conclusion": "",
+        "completedAt": "2026-10-19T00:37:20Z",
+        "conclusion": "SUCCESS",
         "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032309",
         "name": "verify",
         "startedAt": "2026-10-19T00:31:41Z",
-        "status": "IN_PROGRESS",
+        "status": "COMPLETED",
         "workflowName": "CI"
       },
       {
@@ -38,12 +38,12 @@
       },
       {
         "__typename": "CheckRun",
-        "completedAt": "0001-01-01T00:00:00Z",
-        "conclusion": "",
+        "completedAt": "2026-10-19T00:37:23Z",
+        "conclusion": "SUCCESS",
         "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032275",
         "name": "build",
         "startedAt": "2026-10-19T00:31:41Z",
-        "status": "IN_PROGRESS",
+        "status": "COMPLETED",
         "workflowName": "CI"
       },
       {
@@ -98,12 +98,12 @@
       },
       {
         "__typename": "CheckRun",
-        "completedAt": "0001-01-01T00:00:00Z",
-        "conclusion": "",
+        "completedAt": "2026-10-19T00:41:59Z",
+        "conclusion": "FAILURE",
         "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032100",
         "name": "e2e",
         "startedAt": "2026-10-19T00:31:41Z",
-        "status": "IN_PROGRESS",
+        "status": "COMPLETED",
         "workflowName": "CI"
       },
       {
@@ -128,12 +128,12 @@
       },
       {
         "__typename": "CheckRun",
-        "completedAt": "0001-01-01T00:00:00Z",
-        "conclusion": "",
+        "completedAt": "2026-10-19T00:40:17Z",
+        "conclusion": "SUCCESS",
         "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032316",
         "name": "e2e-gate-faultclosed",
         "startedAt": "2026-10-19T00:31:41Z",
-        "status": "IN_PROGRESS",
+        "status": "COMPLETED",
         "workflowName": "CI"
       },
       {
@@ -159,42 +159,42 @@
     ],
     "runId": 39181170145,
     "ci": {
-      "conclusion": "",
+      "conclusion": "failure",
       "jobs": [
         {
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-19T00:41:59Z",
+          "conclusion": "failure",
           "databaseId": 117834032100,
           "name": "e2e",
           "startedAt": "2026-10-19T00:31:41Z",
-          "status": "in_progress",
+          "status": "completed",
           "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032100"
         },
         {
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-19T00:37:23Z",
+          "conclusion": "success",
           "databaseId": 117834032275,
           "name": "build",
           "startedAt": "2026-10-19T00:31:41Z",
-          "status": "in_progress",
+          "status": "completed",
           "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032275"
         },
         {
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-19T00:37:20Z",
+          "conclusion": "success",
           "databaseId": 117834032309,
           "name": "verify",
           "startedAt": "2026-10-19T00:31:41Z",
-          "status": "in_progress",
+          "status": "completed",
           "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032309"
         },
         {
-          "completedAt": "0001-01-01T00:00:00Z",
-          "conclusion": "",
+          "completedAt": "2026-10-19T00:40:17Z",
+          "conclusion": "success",
           "databaseId": 117834032316,
           "name": "e2e-gate-faultclosed",
           "startedAt": "2026-10-19T00:31:41Z",
-          "status": "in_progress",
+          "status": "completed",
           "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032316"
         },
         {
@@ -207,7 +207,7 @@
           "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39181170145/job/117834032961"
         }
       ],
-      "status": "in_progress"
+      "status": "completed"
     }
   },
   "productSourceUnchangedFrom88c3": false,
@@ -788,11 +788,34 @@
       "sourceOracle": "journey-oracle-6fe386.json",
       "nextHead": "69b07ef47e1081ca450106c3434e433fba5ecab9",
       "nextChange": "Diagnostics only; no source/criterion repair yet"
+    },
+    {
+      "head": "69b07ef47e1081ca450106c3434e433fba5ecab9",
+      "runId": 39181170145,
+      "jobId": 117834032100,
+      "browser": {
+        "passed": 10,
+        "failed": 1,
+        "source": "completed job log; no second HTML/trace decode"
+      },
+      "stage": "Same after-map expectation as 6fe; PLAN v2 not reached",
+      "classification": "EXISTING_SCENARIO_WITH_DIAGNOSTICS_NOT_NEW_DEFECT",
+      "artifact": "journey-diagnostics-69b07.json",
+      "diagnostics": {
+        "firsts": 3,
+        "originals": 3,
+        "bindings": 3,
+        "correctFirsts": 3,
+        "syntheticFirsts": 3,
+        "matchingIdentitiesAndHashes": 3
+      },
+      "ledgerLossObserved": false
     }
   ],
   "handoffs": [
     "DL-0181",
     "DL-0183",
     "DL-0184"
-  ]
+  ],
+  "diagnosticHandoff": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6257037500"
 }

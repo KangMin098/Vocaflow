@@ -1,0 +1,139 @@
+{
+  "head": "69b07ef47e1081ca450106c3434e433fba5ecab9",
+  "runId": 39181170145,
+  "jobId": 117834032100,
+  "level": "ISOLATED_BROWSER_VERIFIED",
+  "firstCount": 3,
+  "attemptCount": 3,
+  "bindingCount": 3,
+  "firsts": [
+    {
+      "itemRef": "authored:r5-cm-ind-1",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "practice",
+      "isCorrect": true,
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "NOT_EXPOSED_BY_QUERY"
+    },
+    {
+      "itemRef": "authored:r5-cm-ind-2",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "practice",
+      "isCorrect": true,
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "NOT_EXPOSED_BY_QUERY"
+    },
+    {
+      "itemRef": "authored:r5-cm-transfer-1",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "transfer",
+      "isCorrect": true,
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "NOT_EXPOSED_BY_QUERY"
+    }
+  ],
+  "attempts": [
+    {
+      "itemRef": "authored:r5-cm-transfer-1",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "transfer",
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "PRESENT"
+    },
+    {
+      "itemRef": "authored:r5-cm-ind-2",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "practice",
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "PRESENT"
+    },
+    {
+      "itemRef": "authored:r5-cm-ind-1",
+      "taskKey": "authored-central-meaning",
+      "activity": "theater",
+      "phase": "practice",
+      "synthetic": true,
+      "helpLevel": "independent",
+      "hasSession": true,
+      "contentHashState": "PRESENT"
+    }
+  ],
+  "bindings": [
+    {
+      "evidence": true,
+      "nonEvidenceReason": null,
+      "hasSession": true,
+      "hasAnnotationHash": true
+    },
+    {
+      "evidence": true,
+      "nonEvidenceReason": null,
+      "hasSession": true,
+      "hasAnnotationHash": true
+    },
+    {
+      "evidence": true,
+      "nonEvidenceReason": null,
+      "hasSession": true,
+      "hasAnnotationHash": true
+    }
+  ],
+  "observation": {
+    "before": {
+      "priority": "false",
+      "evidence": "not_measured",
+      "next": null,
+      "blocked": "relevance_unknown"
+    },
+    "after": {
+      "priority": "false",
+      "evidence": "not_measured",
+      "next": null,
+      "blocked": "relevance_unknown"
+    }
+  },
+  "scope": "Actual isolated CI diagnostic output, summarized without responses, learner identifiers, passage bodies or credentials. Synthetic user only. Not actual dev DB or learning effect.",
+  "queryErrorsCaptured": false,
+  "originalBindings": [
+    {
+      "itemRef": "authored:r5-cm-ind-1",
+      "originalPresent": true,
+      "bindingPresent": true,
+      "firstOriginalMatch": true,
+      "originalBindingMatch": true,
+      "evidence": true
+    },
+    {
+      "itemRef": "authored:r5-cm-ind-2",
+      "originalPresent": true,
+      "bindingPresent": true,
+      "firstOriginalMatch": true,
+      "originalBindingMatch": true,
+      "evidence": true
+    },
+    {
+      "itemRef": "authored:r5-cm-transfer-1",
+      "originalPresent": true,
+      "bindingPresent": true,
+      "firstOriginalMatch": true,
+      "originalBindingMatch": true,
+      "evidence": true
+    }
+  ],
+  "viewHashNote": "learning_first_attempts does not expose content_hash. Actual load.ts:209+ hydrates it from the identity/task/item/session-matched learning_task_attempts original before applyAuthoredBindings. NOT_EXPOSED_BY_QUERY is not proof of missing original content hash; all three originals and bindings are present and match in this diagnostic."
+}

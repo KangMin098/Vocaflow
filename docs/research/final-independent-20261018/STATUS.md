@@ -5,6 +5,8 @@
 
 6fe 실제 CI는 같은 합성 학습자의 기록→목표→PLAN v1→3납품/Runner/G2까지 통과했고 이후 지도 after 기대값에서 실패했다. [단계 원장](./journey-review-20261019.json)과 [교육 계약4대조](./journey-oracle-6fe386.json)를 구분한다. PLAN v2는 미도달, 전체 A~H는 미수용이며69b07ef47은 진단 출력만 추가한 새 입력이다.
 
+69 진단 CI도 같은 지점에서 실패했고 [첫 시도/원본/G2 각3행 및 일치3/3](./journey-diagnostics-69b07.json)을 확인했다. 실제 정답3·합성 표시true이며 원장 유실은 관찰되지 않았다. 전체 REWORK·FI-018 실제 반영 필요·PLAN v2 미수용을 유지한다.
+
 2026-10-19 [재수용 결과](./REACCEPT_20261019.md): 전체 REWORK, FI-010 해당 범위 VERIFIED_FIXED.312cefc 잔여 미해결/병합0,30388c3 새 두 기기 전체 화면 CI/report10/10 명시 범위 수용. 실제 DB READ ONLY 재관찰·A~H 일곱 증거 층위를 분리했다. 아래는 과거 이력이다.
 
 현재 후속 상태: **REWORK · 검증 계속**. FI-006/010/014/015/016/017은 실제 통합 코드/격리 경계에서 수정 확인, FI-018은 PR312cefc에서도 PARTIAL_FIX / OPEN이다. 최신303256f·2502549(실제 통합/재전송 상한·DB 주석 복원)와 CI/실제 DB READ ONLY·남은 A~H는 [통합 보고서](./INTEGRATED_REPORT.md)와 [변경분 원장](./REWORK_DELTA_REVERIFY.md)이 정본이며 아래는 시간순 이력이다.
