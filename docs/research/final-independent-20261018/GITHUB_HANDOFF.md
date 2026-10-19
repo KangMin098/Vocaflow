@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/GITHUB_HANDOFF.md -->
 # 최종 독립 검증 인계
 
+**FAST LOOP v3:** [현재 A/B 구현 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261208827)는 GITHUB_POSTED, 기존 Claude 세션의 선택 작업 ACK/착수는 미확인이다. B는 재확인 재고0에서 repair로 되돌아가는 실제1반례와 새 독립 후보 부족을 함께 해결한다. [현재 짧은 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). [#250 코드 범위 재수용](https://github.com/KangMin098/Vocaflow/pull/250#pullrequestreview-5562706376)은 기존 검증을 재사용했으며 safe-merge는 적용 이력 조회 자격 부재로 차단됐다. [#316 P2 캐시 범위 검토](https://github.com/KangMin098/Vocaflow/pull/316#issuecomment-6261336827)는 코어 A/B의 게이트가 아니다. 새 세션/실제 DB 쓰기/정책 채택/병합 없음.
+
 **현재 PR3038eafb6d38는 REWORK.** 인계 중 no-reuse 수정을 되돌리고 같은 평가 자료의 repair=1 재풀이를 추가했다. 현재 요청의 「평가 자료 재사용 없음」과 충돌하는 핵심 P2 목적 이탈이다. 같은 순수 반례2개는 f0792/2성공,8eaf0/2성공·2실패다. [최신 근거·최초/후속 이력](./FI011_REPAIR_ACCEPTANCE_20261019.md), [선택된 별도 교수 공급 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). 고정 f079 범위 수용은 보존하되 새 HEAD에 승계하지 않는다. [기존 #304 인계](https://github.com/KangMin098/Vocaflow/issues/304#issuecomment-6260133248), [PR303 인계](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6260133513). 전체 REWORK·새 병합0·DB/사람 승인0.
 
 **[VF-TASK FINAL-FI011-REPAIR]** f079/CI39201324730 실제12/12·영향43/43. [변경분 수용 ACCEPT_WITH_LIMITS](./FI011_REPAIR_ACCEPTANCE_20261019.md), [다음 repair 공급 구현 지시](./FI011_REPAIR_SUPPLY_WORK_ORDER.md). need_confirmed/저장 repair/평가 재사용 차단은 확인, 전체 FI-011 PARTIAL·FINAL REWORK. 실제 교수 공급/수행·새 독립 확인은 미검증.312 병합13e15e736,314 PROPOSED 유지. 아래는 이전 인계 이력이다.

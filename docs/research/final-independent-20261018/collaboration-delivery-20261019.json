@@ -119,9 +119,9 @@
     "releaseReady": false,
     "finalComplete": false,
     "workA": "FI011 separate model/guided repair execution using existing server/G2 provenance",
-    "workB": "New independent recheck candidate stock and supply, role unchanged",
+    "workB": "Recheck demand independent of stock, plus fresh independent recheck candidate stock",
     "workOrder": "FI011_REPAIR_SUPPLY_WORK_ORDER.md",
-    "outgoing": "PREPARED",
+    "outgoing": "GITHUB_POSTED",
     "sessionDelivered": false,
     "acknowledged": false,
     "implementationStartedForSelectedWork": false,
@@ -162,6 +162,70 @@
       "newIndependentCandidatesAfterOriginalTwoSeen": 0,
       "humanApproval": false
     },
-    "ciOptimization": "Reuse focused diagnostics before coherent final CI; do not redesign jobs or share DB/build environment for this product unit"
+    "ciOptimization": "Reuse focused diagnostics before coherent final CI; do not redesign jobs or share DB/build environment for this product unit",
+    "githubReceipt": "https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6261208827",
+    "states": {
+      "GITHUB_POSTED": true,
+      "SESSION_DELIVERED": false,
+      "ACKNOWLEDGED": false,
+      "IMPLEMENTATION_STARTED": false,
+      "RESULT_RETURNED": false,
+      "VERIFIED": false
+    },
+    "pr250": {
+      "head": "2549e407d9b1138c83b7fd633556b1527b62648c",
+      "codeScope": "ACCEPT_WITH_LIMITS",
+      "priorVerificationReused": true,
+      "sourceBindingsVerified": 5,
+      "safeMergeDryRun": {
+        "exit": 1,
+        "blocked": true,
+        "reason": "Could not read dev DB migration application history: SUPABASE_ACCESS_TOKEN unavailable",
+        "writePerformed": false,
+        "bypassAttempted": false
+      },
+      "merged": false,
+      "reviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/250#pullrequestreview-5562706376"
+    },
+    "workBProof": {
+      "taskId": "FINAL-PRODUCT-FAST-V3-20261019 / FI-011",
+      "head": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
+      "testScope": "stageNow after repair success and two distinct completed transfer passages, no recheck stock",
+      "contractVersion": "rev4.0-draft-1; supply demand exists independently of stock",
+      "environment": "Pure actual map functions in own disposable Vitest snapshot; no DB/browser mocks presented as E2E",
+      "command": "node .agent-logs/final-independent/probe-recheck-demand.cjs",
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "preconditionsVerified": [
+        "repairGate.succeeded=true",
+        "doneOf(transfer)=2"
+      ],
+      "expected": "recheck, no action until supply, fresh independent demand",
+      "actual": "repair fallback, instructional demand rather than independent demand",
+      "sourceLogSha256": "36869b6e3434278ef1f90142d005741e9b87e73f0354ac3d6f1bbc83cad986aa",
+      "issue": "Reuse FI-011/#304; no duplicate issue",
+      "minimumFix": "Keep stage recheck after existing prerequisite completion; represent inventory shortage in readiness/action and retain independent demand"
+    },
+    "latestPR303Observed": {
+      "head": "850eaa5bb64fb9e1f0496532551859e662452450",
+      "productHead": "c45fe30c2b90a35af776abeb79bfc4970c80f135",
+      "docsOnlyDelta": [
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "requiredChecksObservedSuccessful": true,
+      "acceptance": "REWORK",
+      "stageSourceUnchanged": true
+    },
+    "ci316": {
+      "head": "3f1bed0954199c9bf0d1ce0b5495c9e5a8ced7df",
+      "requiredChecksObservedSuccessful": true,
+      "warmPerformance": "NOT_VERIFIED",
+      "followup": "P2 cache scope: compilation directories rather than whole data cache",
+      "productABGate": false,
+      "reviewReceipt": "https://github.com/KangMin098/Vocaflow/pull/316#issuecomment-6261336827",
+      "merged": false
+    },
+    "decisionLog": "DL-0191"
   }
 }
