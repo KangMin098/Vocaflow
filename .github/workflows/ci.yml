@@ -71,6 +71,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
@@ -122,6 +129,14 @@ jobs:
       - if: steps.guard.outputs.ready == 'true'
         run: pnpm --filter web exec playwright install --with-deps chromium
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - if: steps.guard.outputs.ready == 'true'
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - if: steps.guard.outputs.ready == 'true'
         run: pnpm --filter web build
         env:
@@ -242,6 +257,13 @@ jobs:
           mkdir -p /tmp/pgconc && cd /tmp/pgconc && npm init -y >/dev/null && npm i --silent embedded-postgres@17.10.0-beta.17 pg@8.13.1
           cd "$GITHUB_WORKSPACE" && node scripts/csat/map/v62/authored-concurrency.mjs --deps /tmp/pgconc
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기
@@ -333,6 +355,13 @@ jobs:
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-gate-fault.mjs --mode absent --commit
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기
