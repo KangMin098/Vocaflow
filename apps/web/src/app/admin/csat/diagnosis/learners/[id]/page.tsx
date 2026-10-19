@@ -15,13 +15,14 @@ import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { AdminLearnerPlans } from '@/components/admin/csat-diagnosis/AdminLearnerPlans'
+import { AdminLearnerActivity } from '@/components/admin/csat-diagnosis/AdminLearnerActivity'
 
 export const dynamic = 'force-dynamic'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 
-export default async function DiagnosisLearnerPage({ params, searchParams }: { params: { id: string }; searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string } }) {
+export default async function DiagnosisLearnerPage({ params, searchParams }: { params: { id: string }; searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string; activityBefore?: string } }) {
   if (!UUID.test(params.id)) notFound()
   await requireAdmin(`/admin/csat/diagnosis/learners/${params.id}`)
   const db = createAdminClient() as unknown as SupabaseClient
@@ -55,6 +56,7 @@ export default async function DiagnosisLearnerPage({ params, searchParams }: { p
       </DxHeader>
       <DxNav current="/admin/csat/diagnosis/learners" />
       <AdminLearnerPlans db={db} userId={params.id} />
+      <AdminLearnerActivity db={db} userId={params.id} base={closeHref} before={searchParams.activityBefore} />
       <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} view={view} base={base} addHref={`${base}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
     </div>
   )

@@ -1,0 +1,56 @@
+// apps/web/tests/e2e/admin-final.spec.ts
+import { expect, test, type Page } from '@playwright/test'
+test.setTimeout(180000)
+test.use({ storageState: process.env.PLAYWRIGHT_ADMIN_STORAGE_STATE })
+async function open(page: Page, path: string) {
+  await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 150000 })
+  await expect(page.locator('[data-admin-ready=true]')).toBeVisible()
+  expect(new URL(page.url()).pathname).toBe(new URL(path, 'http://local').pathname)
+}
+test('기출 회차·검색 상태를 유지해 문항 상세에서 목록으로 복귀한다', async ({ page }) => {
+  await open(page, '/admin/kice/R-PURPOSE?q=2017&exam=2017')
+  await expect(page.getByRole('textbox', { name: '회차·문항 검색' })).toHaveValue('2017')
+  const item = page.locator('section[aria-labelledby="items-h"] a[href^="/admin/kice/item/"]').first()
+  await expect(item).toBeVisible()
+  await item.click()
+  await page.waitForURL(/\/admin\/kice\/item\//)
+  const back = page.getByRole('link', { name: /^←/ }).first()
+  await expect(back).toHaveAttribute('href', /q=2017&exam=2017/)
+  await back.click()
+  await expect(page.getByRole('textbox', { name: '회차·문항 검색' })).toHaveValue('2017')
+  await expect(page.getByRole('combobox', { name: '시험 회차' })).toHaveValue('2017')
+})
+test('같은 학습자의 실제 수행 수·계획 미결속·페이지 경계를 확인한다', async ({ page }) => {
+  const id = process.env.PLAYWRIGHT_ADMIN_TRACE_USER_ID
+  expect(id, 'existing read-only fixture account required').toMatch(/^[0-9a-f-]{36}$/i)
+  await open(page, `/admin/csat/diagnosis/learners/${id}?tab=records`)
+  const panel = page.locator('[data-admin-learner-activity]')
+  await panel.locator('summary').click()
+  await expect(panel).toContainText(id!)
+  await expect(panel.getByRole('table')).toBeVisible()
+  const records = Number(process.env.PLAYWRIGHT_ADMIN_TRACE_COUNT)
+  expect(records).toBeGreaterThan(0)
+  await expect(panel.locator('tbody tr')).toHaveCount(Math.min(20, records))
+  await expect(panel).toContainText('명시적 결속 없음')
+  const older = panel.getByRole('link', { name: '이전 시도', exact: true })
+  if (records > 20) {
+    await expect(older).toBeVisible()
+    await older.click()
+    await page.waitForURL(/activityBefore=/)
+    expect(new URL(page.url()).searchParams.get('tab')).toBe('records')
+    await expect(panel).toHaveAttribute('open')
+    await expect(panel.getByRole('table')).toBeVisible()
+    await page.reload()
+    await expect(panel).toHaveAttribute('open')
+  } else await expect(older).toHaveCount(0)
+  await expect(panel.getByRole('heading', { name: '저장 진단 이력 · 최근 계산 10건까지' })).toBeVisible()
+})
+test('실제 등록 적용의 버전·원장과 전역 효과를 별도로 표시한다', async ({ page }) => {
+  const id = process.env.PLAYWRIGHT_ADMIN_TRACE_APP_ID
+  expect(id, 'existing application required').toMatch(/^[0-9a-f-]{36}$/i)
+  await open(page, `/admin/knowledge/product/${id}`)
+  await expect(page.getByTestId('trace-attempts')).toContainText('버전 미상')
+  await expect(page.getByTestId('trace-efficacy')).toContainText('전역 효과 상태')
+  await expect(page.getByTestId('trace-breaks')).not.toContainText('학습자에게 나가 있다')
+  await expect(page.getByText(/현재 선택 적용:/)).toBeVisible()
+})

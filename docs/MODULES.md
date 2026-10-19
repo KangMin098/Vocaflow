@@ -1,5 +1,7 @@
 # Learning Modules
 
+관리자 후속(2026-10-20): `AdminLearnerActivity`는 시도 원장과 정확한 `workspace_delivery_attempt` 결속, 보류 판정을 거친 저장 진단을 읽는다. `AdminWorkspaceSupply`는 기존 개인 공급 reader를 재사용한다. 적용 추적은 저장 적용 버전·비합성 표시·trial과 전역 원리 효과 상태를 구분하며 학습자 판정 엔진을 바꾸지 않는다. [최종 인계](admin-restructure/final-delivery.md).
+
 관리자 v2.1(2026-10-19): `AdminWorkInbox`는 기존 실집계의 처리 대상 링크를 제공한다. `AdminItemHandoff`는 기출의 기존 지문 설계 주석·근거 검수·등록 적용을 잇고, `AdminLearnerPlans`는 확인한 동일 사용자 ID의 저장 목표·Workspace·TASK 계획을 읽는다. 공개 학습 흐름과 학습자 개인 분석은 바꾸지 않는다. [지원 범위·미연결 단계](admin-restructure/v21-delivery.md).
 
 > Factory I1 독립 검증(2026-10-17, DB 미적용): 학습지도 Inspector는 전체 canonical 수요별 공급을 선택해 PLAN 간 집계를 분리한다. 역사적 주문 종결과 현재 유효 공급은 별도이며 supersede·권리/공개 철회는 부족분으로 복귀한다. [독립 수용 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).

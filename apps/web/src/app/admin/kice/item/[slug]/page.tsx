@@ -15,6 +15,7 @@
 //    그래서 오답은 번호로 가리키고, 지문은 근거 인용(짧은 발췌)까지만 나온다.
 
 import { AdminItemHandoff } from '@/components/admin/knowledge/AdminItemHandoff'
+import { adminKiceReturn } from '@/lib/admin/kice-list-state'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -90,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CsatItemPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CsatItemPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ returnTo?: string }> }) {
   const { slug } = await params
   const { item, error } = await loadCsatItemExplain(fromItemSlug(slug), { admin: true })
 
@@ -183,7 +184,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
     <div className="mx-auto max-w-3xl">
       <Link
         // 돌아갈 유형 화면은 이 문항의 집합 범위로(학평 문항이면 그 학년) — 회차 id 에서 읽는다
-        href={withScope(item?.type_id ? `/admin/kice/${item.type_id}` : '/admin/kice', itemScope)}
+        href={adminKiceReturn((await searchParams)?.returnTo, withScope(item?.type_id ? `/admin/kice/${item.type_id}` : '/admin/kice', itemScope))}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← {item?.type_name ?? '유형 목록'}

@@ -2,6 +2,8 @@
 
 ### 관리자 업무 영역 및 호환 경로 (2026-10-19)
 
+- 후속(2026-10-20): `/admin/kice/[typeId]`는 `q/exam/page`와 집합/학년을 유지하고, 문항 상세의 `returnTo`는 허용된 관리자 유형 목록·허용 query만 복원한다. 학습자 상세의 `activityBefore`는 같은 대상의 시도 ID 커서다. 페이지 이동은 진단 tab/view를 유지한다. 새 라우트는 없다.
+
 v2.1은 상위 7개·하위 22개 작업 공간을 적용한다. 89개 페이지의 현재 소속과 한계는 [구현·지원 범위](admin-restructure/v21-delivery.md), [경로 대조](admin-restructure/v21-route-support.json)를 따른다.
 
 - Compose `tab=소스|피드|발견|원장|작성|가공|발행`, CCP `tab=catalog|published|styles|tests|models`, PDCP `tab=source|queue|pd|monitor|tools`를 URL에서 복원한다. CCP의 `published` 화면 이름은 제작본이다. 탭 변경은 다른 query/hash를 보존한다.

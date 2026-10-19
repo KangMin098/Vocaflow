@@ -3,6 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadSavedPlans, type SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { tasks } from '@/lib/csat/map/v4/definition'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { AdminWorkspaceSupply } from './AdminWorkspaceSupply'
 
 /** Caller has verified the target account and admin role. Never calls the map loader that logs decisions. */
 export async function AdminLearnerPlans({ db, userId }: { db: SupabaseClient; userId: string }) {
@@ -24,10 +25,11 @@ export async function AdminLearnerPlans({ db, userId }: { db: SupabaseClient; us
               <h3 className="text-sm font-semibold">{workspace.template} · 계획 v{workspace.latest.version}</h3>
               <p className="break-keep text-xs text-[var(--t2)]">Workspace {workspace.workspaceId} · 목표 버전 {workspace.latest.goalVersionId ?? '미결속'} · 정의 {workspace.latest.canon} · 기준 시각 {workspace.latest.asOf}</p>
               <ul className="mt-2 space-y-1 text-sm">{workspace.latest.plan.tasks.map(task => <li key={task.task}>{names.get(task.task) ?? task.task} · {task.stage ?? '단계 기록 없음'} · 계획 {task.planned ?? '미정'}문항 (저장 당시 가용 {task.available ?? '모름'})</li>)}</ul>
+              <AdminWorkspaceSupply db={db} userId={userId} workspaceId={workspace.workspaceId} />
             </section>
           ))}
         </>}
-      <p className="mt-3 break-keep text-xs text-[var(--t2)]">관리자 지원: 진단 기록 → 저장 목표·TASK 계획 조회. 미연결: 대상별 수행 원장·추천 근거 검증·재진단 비교. 학습자 화면으로 대리 로그인하거나 계획을 변경하지 않습니다.</p>
+      <p className="mt-3 break-keep text-xs text-[var(--t2)]">진단 기록·저장 목표·TASK 계획과 개인 공급을 읽습니다. 수행·계획의 명시적 결속과 저장 진단은 아래 이력에서 확인합니다. 추천 근거 재판정이나 학습 효과 자동 판정은 제공하지 않습니다.</p>
     </details>
   )
 }

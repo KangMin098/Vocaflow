@@ -7,17 +7,23 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { workspaceOf } from '@/lib/knowledge/vnext-labels'
+import { adminPath, getAdminLocation } from '@/lib/admin/navigation'
 
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
 
 export function WorkspaceNav() {
   const pathname = usePathname() ?? '/admin/knowledge'
   const current = workspaceOf(pathname)
+  const workspace = getAdminLocation(pathname)?.workspace
+  const provided = new Set([workspace?.href, ...(workspace?.tools?.map(t => t.href) ?? [])].filter((href): href is string => !!href).map(adminPath))
+  // The shell now owns work-area links. Retain only domain tabs it does not already provide.
+  const tabs = current?.tabs.filter(tab => !provided.has(adminPath(tab.href))) ?? []
+  if (tabs.length === 0) return null
   return (
     <nav aria-label="학습 원리 업무 공간" className="mb-6 border-b border-[var(--bd)]" data-testid="knowledge-workspaces">
-      {current && current.tabs.length > 0 && (
+      {current && (
         <ul className="flex flex-wrap gap-1 pb-2 pt-1" aria-label={`${current.label} 탭`}>
-          {current.tabs.map((t) => {
+          {tabs.map((t) => {
             const on = pathname === t.href
             return (
               <li key={t.href}>

@@ -40,7 +40,7 @@ export const KICE_HELP: HelpRegistry = {
         },
       ],
       cautions: [
-        '「내 기록」 칩과 계획의 「내 약한 것 먼저」는 옛 훈련 기록(`csat_trap_attempts`)을 읽는다. 새 세션의 풀이는 `csat_session_attempts` 에 쌓이지만(2026-09-17~) **이 화면은 아직 그 표를 읽지 않는다** — 훈련 화면이 없어진 뒤로 칩이 비어 보이는 것이 그 때문이다. 세션 기록을 보려면 표를 직접 조회한다.',
+        '공용 기출 분석은 로그인 관리자의 개인 오답 이력을 읽지 않습니다. 대상별 수행·저장 계획·진단 이력은 학습자 기록에서 실제 계정을 선택해 확인하세요.',
       ],
       seeAlso: [{ label: '기출 원천 — 분석 진행', href: '/admin/csat/evidence' }, SEE_SESSION],
     },
@@ -51,6 +51,7 @@ export const KICE_HELP: HelpRegistry = {
       summary: '한 유형의 리포트(근거 자리 · 되풀이 함정 · 풀이 절차 · 시간)와 그 유형의 기출 목록.',
       fields: [
         SCOPE_FIELD,
+        { label: '목록 검색·복귀', detail: '유형별 기출을 회차·검색어로 좁히고 20개씩 봅니다. 상세의 유형 복귀는 같은 집합·학년·회차·검색·쪽을 복원합니다. 임의 외부 복귀 주소는 받지 않습니다.' },
         {
           label: '풀이 절차 첫 줄',
           detail:
