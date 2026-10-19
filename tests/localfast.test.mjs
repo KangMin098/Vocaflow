@@ -85,3 +85,11 @@ test('integrate — 더러운 통합 worktree 는 손대지 않음 · 충돌은 
   assert.ok(calls.includes('merge'))
   assert.equal(integrate({ integrationGit: (...a) => (a[0] === 'rev-parse' ? 'f'.repeat(40) : ''), head: HEAD, message: 'm' }).sha, 'f'.repeat(40))
 })
+
+test('UI 게이트 — 테스트 파일만 바꾼 작업은 화면 작업이 아니다(T-0101 오탐) · 실제 컴포넌트는 그대로 UI', async () => {
+  const { isUiPath } = await import('../lib/uigate.mjs')
+  assert.equal(isUiPath('apps/web/src/components/csat/theater/__tests__/reasoning-note-authored.test.tsx'), false)
+  assert.equal(isUiPath('apps/web/src/components/x/Y.spec.tsx'), false)
+  assert.equal(isUiPath('apps/web/src/components/csat/theater/ReasoningNoteForm.tsx'), true)
+  assert.equal(isUiPath('apps/web/src/components/**'), true)
+})
