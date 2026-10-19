@@ -217,3 +217,20 @@ describe('segment_choice — 문항별 대체 이유', () => {
     expect(JSON.stringify(item('cb-ind-2').body)).not.toContain('reasonAlternatives')
   })
 })
+
+describe('T-0052 Codex P1 — ev-transfer-2 대체 결정 근거(decisiveAlt) · 무관 근거는 여전히 오답', () => {
+  it('결정 근거 · 직접 충분한 대체 근거(해충 먹는 곤충 · 비옥해진 흙)는 정답, 오답 선택 · 범주 밖 근거는 오답', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const { FORMAT_SPECS } = await import('@/lib/knowledge/authored/formats')
+    const set = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../authored/e-evidence-location.v1.json'), 'utf8')) as { items: { id: string; body: unknown; gold: unknown }[] }
+    const it = set.items.find((x) => x.id === 'ev-transfer-2')!
+    const ok = (r: unknown) => (FORMAT_SPECS as unknown as Record<string, { grade: (b: unknown, g: unknown, r: unknown) => { grade: { isCorrect: boolean } } | null }>).choice_evidence.grade(it.body, it.gold, r)?.grade.isCorrect
+    expect(ok({ choice: 4, evidence: [3] })).toBe(true)
+    expect(ok({ choice: 4, evidence: [2] })).toBe(true)
+    expect(ok({ choice: 4, evidence: [4] })).toBe(true)
+    expect(ok({ choice: 1, evidence: [2] })).toBe(false)
+    expect(ok({ choice: 4, evidence: [0] })).toBe(false)
+    expect(ok({ choice: 4, evidence: [2, 0] })).toBe(false)
+  })
+})
