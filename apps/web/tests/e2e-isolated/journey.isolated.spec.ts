@@ -269,8 +269,7 @@ test('양성 경로 — 서로 다른 독립 확인 2 오답 → 보완 필요 �
   const all = (await admin().from('learning_task_attempts').select('item_ref, is_correct, activity, help_level').eq('user_id', uid).order('id')).data ?? []
   expect(all.length).toBe(3)
   expect(all.slice(0, 2).every((a) => a.is_correct === false)).toBe(true)
-  // 바로잡기 = 원래 세션을 잇는 도움받은 수행(활동 모양은 원래 역할 그대로 · help viewed_first 라 독립 근거 아님)
-  expect(all[2]).toMatchObject({ item_ref: `authored:${repairId}`, is_correct: true, help_level: 'viewed_first' })
+  expect(all[2]).toMatchObject({ item_ref: `authored:${repairId}`, is_correct: true, activity: 'practice' }) // 바로잡기 = 연습 활동(직접 확인 근거 아님)
   const binds2 = (await admin().from('workspace_delivery_attempt').select('delivery_id, evidence').eq('user_id', uid)).data ?? []
   expect(binds2.map((b) => b.delivery_id).sort(), 'G2 결속 불변(바로잡기는 결속 안 함)').toEqual(delivered.map((d) => d.did).sort())
   // 환류 — 바로잡기 성공(repairGate)으로 PLAN 이 바로잡기 다음으로 · 연습 정답은 독립 근거가 아니다(근거 상태 need_confirmed 유지)

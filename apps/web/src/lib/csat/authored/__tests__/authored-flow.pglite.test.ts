@@ -276,10 +276,10 @@ describe('바로잡기 수행 문맥', () => {
     expect(fix.grade.isCorrect).toBe(true)
     expect(fix.binding.status).toBe('repair_practice')
     const rows = (await db.query<{ activity: string; help_level: string; is_correct: boolean }>(`select activity, help_level, is_correct from public.learning_task_attempts where user_id = $1 and item_ref = $2 order by id`, [A, R])).rows
-    expect(rows.at(-1)).toMatchObject({ help_level: 'viewed_first', is_correct: true })
-    // 원래 시도와 같은 학습 세션을 잇는다(다른 세션 도움 사건의 소급 「순서 확인 불가」 방지) — 뷰 판정은 CI 종단 e2e(실제 Postgres)가 본다
-    const sess = (await db.query<{ session_id: string | null }>('select session_id from public.learning_task_attempts where user_id = $1 and item_ref = $2 order by id', [A, R])).rows
-    expect(sess.at(-1)!.session_id).toBe(sess[0].session_id)
+    expect(rows.at(-1)).toMatchObject({ activity: 'practice', is_correct: true }) // 연습 활동 = 직접 확인 근거 아님
+    // 도움 사건을 만들지 않는다 — 처음 독립 시도 세션의 도움 · 해설 시각이 그대로(뷰의 2분 순서 불확실 규칙이 첫 근거를 지우지 않게)
+    const helpRows = (await db.query<{ n: number }>("select count(*)::int n from public.learning_sessions where user_id = $1 and item_ref = $2 and (help_received_at is not null or explanation_viewed_at is not null)", [A, R])).rows[0]
+    expect(helpRows.n).toBe(0)
     expect(rows[0].is_correct).toBe(false) // 첫 시도 불변
     expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, R])).n).toBe(bindsBefore) // G2 결속 추가 없음
   })

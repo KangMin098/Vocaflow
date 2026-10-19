@@ -89,7 +89,7 @@ const uuid = () => crypto.randomUUID()
 
 export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [sessionId] = useState<string>(() => p.sessionId ?? uuid())
-  const [help, setHelp] = useState<'independent' | 'viewed_first'>(p.repair ? 'viewed_first' : 'independent')
+  const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
   const [hintsOpen, setHintsOpen] = useState(0)
   // 형식 공통 응답 상태 — 형식마다 쓰는 칸이 다르다
   const [claim, setClaim] = useState<number | null>(null)
