@@ -122,7 +122,7 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
 
   // C 수행 전 관찰 — 지도가 계산한 근거 상태 · 다음 행동 · 우선순위
   const before = await observe(page)
-  expect(['check_first', 'unmeasured', 'insufficient', 'observed', 'analysis_pending', 'checking']).toContain(before.evidence)
+  expect(['not_measured', 'axis_observation', 'checking']).toContain(before.evidence) // 화면 용어(v6.2 InspectorEvidence)
 
   // F 납품 → 학습 · 독립 확인 2 · 전이 1(같은 user · 같은 Workspace · PLAN v1)
   const ind = R5.items.filter((i) => i.role === 'independent_check').slice(0, 2)
@@ -139,7 +139,7 @@ test('한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 
   // H 수행 후 관찰 — 근거로 바뀐 값(단순 복귀가 아니다)
   const after = await observe(page)
   console.log('JOURNEY_OBSERVE=' + JSON.stringify({ before, after }))
-  expect(['verified_need', 'resolved']).toContain(after.evidence)
+  expect(['need_confirmed', 'passed_current_policy']).toContain(after.evidence) // 직접 확인 판정
   expect(after.evidence, 'TASK 근거 상태가 수행 근거로 바뀌어야 한다').not.toBe(before.evidence)
   expect({ next: after.next, blocked: after.blocked }, '다음 행동이 바뀌어야 한다').not.toEqual({ next: before.next, blocked: before.blocked })
 
