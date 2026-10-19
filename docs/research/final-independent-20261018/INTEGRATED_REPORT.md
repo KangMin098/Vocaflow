@@ -1,6 +1,8 @@
 <!-- docs/research/final-independent-20261018/INTEGRATED_REPORT.md -->
 # Vocaflow 전체 제품 독립 수용 통합 보고서
 
+**[VF-TASK FINAL-COLLAB-20261019B] 최신 재수용**은 [결과 패킷](./FINAL_COLLAB_20261019B_REVIEW.md)을 따른다. FI-018 실제312d786는 작성자21·비공개 독립5·목적·최종 CI·실제 수정 guard의 safe-merge dry-run을 통과해 VERIFIED_FIXED다. 최초cefc 실패는 과거 이력으로 보존한다. FI-0110b8의 양성 경로는 실제 spec을 수용 입력으로 검토했고 CI 결과는 별도 확인 중이다. 후속a330은 문서만 변경했다.314는 PROPOSED/비활성/실행기 없음이며 권한자 채택 권고는 REWORK다. 실제 병합 결과가 확정되기 전 병합 성공으로 기록하지 않는다.
+
 2026-10-19 사용자 양방향 계약을 [역할·실제 세션 결속 및 다음 구현 지시](./COLLABORATION_CONTRACT_20261019.md)에 반영했다. Codex는 분석/기획/설계/구현 지시와 독립 수용, Claude는 제품 구현/통합을 소유한다. 실제 직접 전송은 아직 검증되지 않아 GitHub 게시/세션 ACK를 구분한다. 최신3033c7478195/CI39196056859는 기존10성공·여정1실패다. 지도는 not_measured→checking으로 바뀌었지만 before/after 모두 stage_locked/next=null로 다음 행동 단언이 실패했고 PLAN v2는 미도달이다. 기존 FI-011에서 정당한 판정 전환이 있는 양성 경로를 설계했으며 새로운 교육 기준/목표를 만들지 않는다. 전체 REWORK·FI-018 잔여/병합0은 유지한다.
 
 후속 입력323762ccf/CI39197238286은 납품 뒤 기준 PLAN v2·수행 후 v3 비교로 변경했다. 접수 시 CI 진행 중이며 수용하지 않았다. 자료 변화 분리는 유효하지만 check의 전체 계획량=미노출+수행이라는 기존 계약상1정답 뒤 저장 stage/planned/available은 같을 수 있음을 [설계 검토](https://github.com/KangMin098/Vocaflow/pull/303#issuecomment-6259351057)로 전달했다. 계획량을 진척량처럼 줄여 통과시키지 않는다. [역할·인계 영수증](./collaboration-delivery-20261019.json)은 GITHUB_POSTED_AWAITING_ACK다.
@@ -13,7 +15,7 @@
 
 |현재 PR|고정 HEAD|최종 확인 CI|독립 수용/병합|
 |---|---|---|---|
-|#312|cefc3e5026daccd9ab695d452d1a085c5d24daaa|39132397689 필수 성공(같은 HEAD의 기존 결과 재사용)|FI-018 PARTIAL_FIX/OPEN; 병합 차단|
+|#312|d786d253818ee1a0dc2603e37667f84c3ad47a79|39198046414 필수 성공|FI-018 VERIFIED_FIXED; 목적/안전 dry-run 수용; 실제 병합 별도|
 |#250|2549e407d9b1138c83b7fd633556b1527b62648c|39136705847 필수 성공(같은 HEAD의 기존 결과 재사용)|#312 수용 후 최신 main 기준 재확인 필요; 미병합|
 |#303|323762ccf67cee3dcdf1e83b44f82923efd7b367|39197238286 진행 중; 직전3c의39196056859 e2e 실패|새 계획 비교 설계 입력 검토/결과 미수용; 미병합|
 
