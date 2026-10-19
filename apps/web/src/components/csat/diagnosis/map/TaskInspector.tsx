@@ -74,6 +74,7 @@ export const NEED_V62_LABEL = { ...NEED_LABEL, RELEVANCE_UNKNOWN: '목표 시험
 export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   content_gap: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
+  repair_material_needed: '바로잡기 자료가 필요해요 — 틀린 평가 문항은 다시 풀지 않아요',
   canon_hold: '측정 방법을 정하는 중이에요(보류)',
   relevance_unknown: '목표 시험 문항과의 연결을 아직 검토하지 않았어요',
   no_next_activity: '지금 바로 할 활동은 없어요',

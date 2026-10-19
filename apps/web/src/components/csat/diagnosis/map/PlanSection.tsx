@@ -31,6 +31,7 @@ const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
   transfer_shortage: '기본 적용 계획보다 자료가 부족해요',
   no_content: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
+  repair_material_needed: '바로잡기 자료가 필요해요 — 틀린 평가 문항은 다시 풀지 않아요',
   canon_hold: '측정 방법을 정하는 중이에요',
   needs_direct_check: '아직 직접 확인 전 — 기출 기록으로만 보였어요',
   not_goal_related: '지금 목표 점수와 이어진 문항이 없어요',
