@@ -16,6 +16,8 @@ export async function probeDbEventAllowlist(db: SupabaseClient, events: readonly
     try {
       const cleanup = await db.from('funnel_events').delete().eq('surface', 'selftest').eq('meta->>selftest_run_id', runId)
       if (cleanup.error) throw new Error(`검사 실행 정리 실패: ${cleanup.error.message}`)
+      const remaining = await db.from('funnel_events').select('id', { head: true, count: 'exact' }).eq('surface', 'selftest').eq('meta->>selftest_run_id', runId)
+      if (remaining.error || remaining.count === null || remaining.count !== 0) throw new Error('검사 실행 정리 후 잔여 확인 실패')
     } catch (error) {
       errors.push(error instanceof Error ? error.message : '검사 실행 정리 실패')
     }
