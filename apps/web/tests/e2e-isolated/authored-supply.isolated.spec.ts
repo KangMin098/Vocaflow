@@ -134,8 +134,11 @@ for (const width of [1440, 1280]) {
     // 지도 복귀 — 받은 자료 카드에 결과가 돌아온다
     await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
     await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
-    await page.locator(`[data-testid="ws-row"][data-ws="${TEMPLATE}"] [data-testid="ws-open"]`).click()
-    await expect(page.locator('[data-testid="ws-authored-list"]')).toContainText('풀었어요')
+    // 복귀 문맥(from=map · ws)은 같은 Workspace 팝업을 복원한다(정상 동작) — 열려 있으면 그대로 확인, 닫혀 있을 때만 사용자처럼 연다(강제 클릭 없음)
+    const back = page.locator('[data-testid="ws-authored-list"]')
+    await page.waitForLoadState('networkidle')
+    if (!(await back.isVisible())) await page.locator(`[data-testid="ws-row"][data-ws="${TEMPLATE}"] [data-testid="ws-open"]`).click()
+    await expect(back).toContainText('풀었어요')
     await noOverflow(page)
   })
 }

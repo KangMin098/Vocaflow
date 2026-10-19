@@ -21,6 +21,7 @@ import type { TeachStep } from '@/lib/knowledge/authored/authored-items'
 import { AUTHORED_ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 
 import styles from '@/components/knowledge/practice.module.css'
+import local from './authored.module.css'
 import { ReasoningNoteForm } from '@/components/csat/theater/ReasoningNoteForm'
 import type { ReasoningNote } from '@/lib/csat/dissect'
 import { EMPTY_NOTE, type NoteDraft } from '@/lib/csat/explain-draft'
@@ -473,7 +474,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
       {error && <p className={styles.error} role="alert">{error}</p>}
 
       {reveal && (
-        <section className={styles.result} aria-live="polite" data-testid="authored-result">
+        <section className={`${styles.result} ${local.result}`} aria-live="polite" data-testid="authored-result">
           <h2>{graded ? (graded.isCorrect ? '정확히 해냈어요' : '이번에는 어긋났어요') : (p.done?.isCorrect ? '지난번에 정확히 해냈어요' : '지난번 풀이 결과예요')}</h2>
           <RevealBody format={p.format} reveal={reveal} graded={graded} probe={p.probe} choices={p.choices} />
           {binding?.status === 'bound' && (

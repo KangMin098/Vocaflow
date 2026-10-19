@@ -1,0 +1,15 @@
+/* apps/web/src/components/csat/authored/authored.module.css
+ * 받은 창작 자료 화면(/csat/learn — 3B 스킨)의 결과 카드. 공용 practice.module.css 의 .result 는 다른 스킨 화면도 써서 건드리지 않고 여기서만 덧입힌다.
+ * 값의 출처: docs/design/refs/3b/meaning-panel/spec.json card(bg · border · radius · insetX) — 눈대중이 아니라 참조 측정값(T-0050 E02 참조 비교 FAIL 수정).
+ */
+.result {
+  --ar-card-bg: #fbf9f7;
+  --ar-card-border: #e2e1e0;
+  --ar-card-radius: 12px;
+  --ar-card-inset-x: 24px;
+  background: var(--ar-card-bg);
+  border-color: var(--ar-card-border);
+  border-radius: var(--ar-card-radius);
+  padding-left: var(--ar-card-inset-x);
+  padding-right: var(--ar-card-inset-x);
+}
