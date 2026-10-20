@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-30-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#30",
+      "verdict": "pass",
+      "content_hash": "646f6674727aae40",
+      "binding": {
+        "analysisVersion": 8,
+        "unitsHash": "0081ae79d542e531",
+        "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+        "sourceSnapshotHash": "dfad632a30635c1f"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u4.exactKo 는 ⑤를 원문대로 옮기고 판정 해설을 섞지 않는다. simpleKo 는 주체(선수·코치)·정도(최대한)·목적(~하려고) 유지. u1~u3 simpleKo 도 조건(보편 기준 없을 때·친구끼리·심판 있는 경기)·양상(어쩌면)·범위(대부분)·비교(승리>배려) 보존. p5 는 bridging_inference 로 한계(대체 낱말 미확정) 명시. 새 영어 인용 없음."
+    }
+  ]
+}

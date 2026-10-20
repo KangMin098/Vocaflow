@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-28-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#28",
+      "verdict": "pass",
+      "content_hash": "5f2c10aacddd9bc2",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "9feee04dcf54fe88",
+        "basePublicHash": "4fc9cf20e98b2596e99db019e1aa1d1c7813be99533444cbb0ae65ff7377c464",
+        "sourceSnapshotHash": "f6a28d2f8729fc71"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "w2 지적 2건 반영 확인: u1.simpleKo 가 2026년 1월 1일~3월 31일 정확 수치, u3.simpleKo·r2.changeKo 가 양도 금지(소유권 이전 금지)로 범위 복원. p2 가 bridging_inference 로 바뀌고 행 배정 warrant·limit 명시(MS06 개선). 전체 재대조: 0/0/0 · 2/3/4 게임 · 할인 없음/50%/무료 · 식음료 20% · online only · 1인 1매 · 양도 불가 모두 원문 일치. MS04 r1·r2, MS07 bridges·designClaim, MS08 a1~a11 quote·range·spanHash 재계산 일치, MS10 새 영어 없음."
+    }
+  ]
+}

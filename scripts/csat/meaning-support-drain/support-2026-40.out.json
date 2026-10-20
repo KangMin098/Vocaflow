@@ -1,0 +1,544 @@
+{
+  "writer_run": "ms-wr-2026-40-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#40",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "b295ad1a07b37b9e",
+      "basePublicHash": "30b0828436f2c8713b7ad3c3cca10e735a0b7df0a30ff49fd4b321bcb501ff49",
+      "sourceSnapshotHash": "0c24452a9c1f412d"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 40,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u4",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 5,
+        "quote": "become economically unstable",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 5,
+        "quote": "increasingly depend on public and corporate funding",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 6,
+        "quote": "they retain their power of fascination",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 6,
+        "quote": "who prize the experiential, risk-loaded and one-time",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 7,
+        "quote": "performances still survive",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 2,
+        "sourceRange": {
+          "start": 74,
+          "end": 115,
+          "spanHash": "912858abf18921daadf569904108f05fe66000c975b51ec5f959692ff817ea58"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 2,
+        "sourceRange": {
+          "start": 142,
+          "end": 189,
+          "spanHash": "0f694d83b0f115d03d24c29526ad5612b56cc8bee45cb179008a1dfbd6b0746a"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 48,
+          "end": 83,
+          "spanHash": "45383bae42e4c5f8d7b67f3725fcb79b33002ac1d93630c72ab67ef9debe9e42"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 39,
+          "end": 74,
+          "spanHash": "1918847777fec2f8bfb38f018f61e14aeace89084612af4ea7f3047fb8145e6b"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 97,
+          "end": 138,
+          "spanHash": "637593958ae5c5cad603e3cc34c8e300d8eb60e2d65093a4a7a1238316a6f9cc"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 151,
+          "end": 188,
+          "spanHash": "4842dac0a55991ddd9b577d81821a3341542a78da543cd63179cbefe33c00035"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a12",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 0,
+          "end": 43,
+          "spanHash": "680dae4572c26c78ff0c182fb953dfc9f96e1e2f016b0d4b0558e97671c97c4a"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a13",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 0,
+          "end": 33,
+          "spanHash": "d678e9a630e0a4abc056a15d89409a0ca06bcc0481b9ba15c07ed1151b4f8a4d"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a14",
+        "sentence": 1,
+        "sourceRange": {
+          "start": 90,
+          "end": 146,
+          "spanHash": "7f6a26e493d821dab2d9ff257492123fd0071762ef5c39f322bdad04e922dd2e"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "현대 사회에서 공연예술은 녹화·편집된 공연을 매체로 대량 배포하는 것과 맞서는 별개의 범주다. 공연예술은 실제 시공간에서 펼쳐지고, 관객은 그 자리에서 인지적·정서적으로 반응한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a14",
+          "a6",
+          "a7"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "산업화·전산화된 문화에서는 공연예술을 지탱하는 기관이 공공·기업 자금에 점점 더 의존하기 때문에 공연예술이 경제적으로 불안정해진다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a12",
+          "a1",
+          "a2"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "그래도 공연예술은 대량까지는 아니어도 많은 관객을 사로잡는 힘을 유지하며, 그 관객은 체험적이고 위험을 안은 일회성 사건의 성질을 귀하게 여긴다. 전통·지역 문화에서는 공연은 더 작고 경제적으로 지속 가능한 환경에서 여전히 살아남는다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a8",
+          "a4",
+          "a13",
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "요약문 틀: 외부 자금 의존으로 인한 재정적 (A) 상황에서, 독특하고 생생한 경험을 주는 공연예술은 그 경험을 귀하게 여기는 관객을 (B) 한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a9",
+          "a10",
+          "a11"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "요약문의 앞부분(외부 자금 의존으로 인한 재정 상황)은 5번 문장의 원인-결과를 받아, (A)는 불안정에 맞는 재정 상태여야 한다. 뒷부분의 관객은 6번 문장의 관객을 받아, (B)는 공연예술이 주어일 때 관객을 놓치지 않는다는 방향이어야 한다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a9",
+          "a1",
+          "a2",
+          "a11",
+          "a4",
+          "a3"
+        ],
+        "warrantsKo": [
+          "5번 문장 because 이하의 자금 의존이 요약문의 외부 자금 의존에 대응한다",
+          "6번 문장의 관객 who prize 가 요약문의 관객 who value 에 대응한다",
+          "6번 문장의 However 가 불안정과 관객 유지를 맞세운다"
+        ],
+        "limitKo": "요약문의 빈칸 말은 지문에 없다. 요약문의 각 부분을 지문 문장에 대응시키는 것은 연결 추론이며, 1~4번 문장의 내용은 요약문에 직접 들어가지 않는다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1,
+          2,
+          3
+        ],
+        "legacyMeaningIds": [],
+        "labelKo": "공연예술 = 실제 시공간의 현장 경험",
+        "exactKo": "현대 사회에서 공연예술은 녹화·편집된 공연을 매체로 대량 배포하는 것과 맞서는 별개의 공공 오락 범주다. 연극·발레·서커스 등은 실제 공간과 시간 속에서 펼쳐지고, 그 자리에서 인지적·정서적으로 반응하는 관객을 끌어들인다. 공연자와 관객은 즐거움을 함께 나눈다.",
+        "simpleKo": "공연예술은 화면으로 보는 녹화물과 달리, 지금 이 자리에서 펼쳐지고 관객이 바로 반응하는 경험이다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "comparison",
+            "valueKo": "녹화·편집물의 대량 배포와 맞선다",
+            "anchorIds": [
+              "a14",
+              "a6"
+            ],
+            "explanationKo": "공연예술의 정체는 녹화 매체와의 대비로 정해진다: 실제 시공간에서 일어난다는 점이다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "그 자리에서 반응",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "관객 반응이 공연과 같은 시간·장소에서 일어난다. 이것이 뒤의 「일회성」「생생한 경험」으로 이어진다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          5
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "외부 자금 의존 → 경제적 불안정",
+        "exactKo": "산업화·전산화된 문화에서는 공연예술을 지탱하는 기관이 공공·기업 자금에 점점 더 의존하기 때문에, 공연예술이 경제적으로 불안정해진다.",
+        "simpleKo": "산업화된 사회에서는 공연을 운영하는 기관이 바깥 돈에 점점 기대게 되어, 공연예술의 살림이 불안해진다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "산업화·전산화된 문화에서",
+            "anchorIds": [
+              "a12"
+            ],
+            "explanationKo": "모든 문화가 아니라 이 범위의 문화에서 일어나는 일이다. 7번 문장의 전통·지역 문화와 구별된다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "자금에 기대는 쪽은 기관",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "공공·기업 자금에 의존하고 공연을 지탱하는 주체는 institutions(기관)이다. 공연예술이 누군가를 지원하는 것이 아니다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "자금 의존 → 불안정",
+            "anchorIds": [
+              "a2",
+              "a1"
+            ],
+            "explanationKo": "because 이하가 원인이다. 「점점 더」 의존한다는 변화도 함께 남긴다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4",
+          "m5"
+        ],
+        "labelKo": "그래도 관객을 사로잡는 힘은 유지된다",
+        "exactKo": "그러나 공연예술은 대량까지는 아니어도 많은 관객을 사로잡는 힘을 유지하며, 그 관객은 공연이 주는 체험적이고 위험을 안은 일회성 사건의 성질을 귀하게 여긴다. 전통·지역 문화에서는 공연이 더 작고 경제적으로 지속 가능한 환경에서 여전히 살아남아 관객에게 독특한 충족감을 준다.",
+        "simpleKo": "돈 사정은 불안해도, 공연예술은 대량까지는 아니어도 많은 관객을 여전히 사로잡는다. 그 관객은 한 번뿐인 생생한 경험을 귀하게 여긴다. 전통·지역 문화에서는 작지만 살림이 유지되는 곳에서 공연이 지금도 살아남는다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "polarity",
+            "valueKo": "그래도 유지한다",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "However 가 5번 문장의 불안정과 맞선다. 경제 쪽은 흔들려도 관객을 사로잡는 힘은 지킨다는 방향이다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "대량까지는 아니어도 많은 관객",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "「대량」이라고 말하지 않는다. 녹화 매체 같은 대량 관객과 구별되는 「많은」 관객이다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "그 관객 = 일회성 경험을 귀하게 여기는 사람들",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "who 는 앞의 많은 관객을 받는다. 요약문의 「그 경험을 귀하게 여기는 관객」이 이들이다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "전통·지역 문화에서",
+            "anchorIds": [
+              "a13",
+              "a5"
+            ],
+            "explanationKo": "7번 문장은 다른 범위의 문화에서 공연이 살아남는다고 덧붙인다. 그곳의 환경은 5번 문장과 달리 경제적으로 지속 가능하다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          8
+        ],
+        "legacyMeaningIds": [],
+        "labelKo": "요약문 틀: 재정 상황 (A) · 관객을 (B)",
+        "exactKo": "외부 자금 의존으로 인한 재정적 (A) 상황에서, 독특하고 생생한 경험을 주는 공연예술은 그 경험을 귀하게 여기는 관객을 (B) 한다.",
+        "simpleKo": "요약문은 「바깥 돈에 기대 생긴 재정 사정 속에서도, 현장 경험을 주는 공연예술이 그 경험을 아끼는 관객과 어떤 관계인가」를 묻는다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "causality",
+            "valueKo": "외부 자금 의존으로 인한 (A)",
+            "anchorIds": [
+              "a9",
+              "a2"
+            ],
+            "explanationKo": "(A)는 외부 자금 의존이 낳은 재정 상태다. 5번 문장에서 그 결과는 불안정이므로, 안정이나 이점 같은 반대 방향의 말은 이 틀과 맞지 않는다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "(B)의 주어는 공연예술",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "(B)는 공연예술이 관객에게 하는 일이다. 5번 문장에서 지원하는 쪽은 기관·자금이므로 주체를 섞지 않는다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "그 경험을 귀하게 여기는 관객 = 6번 문장의 관객",
+            "anchorIds": [
+              "a11",
+              "a4"
+            ],
+            "explanationKo": "요약문의 관객은 6번 문장의 일회성 경험을 귀하게 여기는 관객이다. 6번 문장은 이들을 사로잡는 힘을 유지한다고 하므로 (B)는 관객을 놓치는 방향이 아니다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "외부 자금 덕분에 재정이 안정되어, 공연예술이 관객을 지원한다.",
+          "lostFacet": "agent",
+          "whyWrongKo": "5번 문장에서 외부 자금 의존의 결과는 불안정이고, 자금에 기대 공연을 지탱하는 쪽은 기관이다. 결과의 방향과 지원 주체를 함께 바꾸면 요약이 지문과 반대가 된다.",
+          "anchorIds": [
+            "a1",
+            "a2",
+            "a9"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a6",
+          "a12",
+          "a1"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "add",
+        "beforeKo": "공연예술은 실제 시공간에서 관객과 함께하는 현장 경험이다.",
+        "afterKo": "산업화·전산화된 문화에서는 외부 자금 의존 때문에 경제적으로 불안정해진다.",
+        "changeKo": "공연예술이 무엇인지에서 그것이 처한 경제 사정으로 초점을 옮긴다. 현장 경험이라는 성격은 그대로 두고, 특정 문화 범위에서의 재정 문제를 새로 더한다."
+      },
+      {
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a1",
+          "a3",
+          "a8",
+          "a4"
+        ],
+        "basis": "source_observation",
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "concession",
+        "beforeKo": "외부 자금 의존 때문에 공연예술은 경제적으로 불안정해진다.",
+        "afterKo": "그래도 일회성 경험을 아끼는 많은 관객을 사로잡는 힘은 유지된다.",
+        "changeKo": "경제적 불안정은 인정한 채로, 관객을 사로잡는 힘은 지킨다고 제한한다. 그 이유를 관객이 귀하게 여기는 현장·일회성 경험에 두어 1~2번 문장의 성격과 다시 잇는다."
+      },
+      {
+        "propositionIds": [
+          "p2",
+          "p3",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a2",
+          "a9",
+          "a4",
+          "a11",
+          "a3"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "5번 문장의 because 이하와 요약문의 due to 이하가 같은 원인을 말한다",
+          "6번 문장 who prize 와 요약문 who value 가 같은 관객을 가리킨다"
+        ],
+        "limitKo": "빈칸에 들어갈 실제 말은 지문에 없다. 요약은 4번 문장(가끔 생기는 좌절)과 7번 문장의 세부를 다루지 않는다.",
+        "id": "r3",
+        "from": [
+          "u2",
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "reference",
+        "beforeKo": "외부 자금 의존 → 불안정, 그래도 관객을 사로잡는 힘은 유지.",
+        "afterKo": "외부 자금 의존으로 인한 재정적 (A) 상황에서, 공연예술은 그 경험을 귀하게 여기는 관객을 (B) 한다.",
+        "changeKo": "요약문은 5번 문장(원인과 불안정)과 6번 문장(관객 유지)을 한 문장으로 압축한다. 5번의 자금 의존은 요약문의 외부 자금 의존으로, 6번의 관객은 요약문의 관객으로 옮겨지고, However 의 대조는 「~한 상황에서도 관객을 지킨다」는 흐름으로 남는다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "공연예술은 실제 시공간에서 관객과 함께하는 현장 경험이다. 산업화된 문화에서는 외부 자금 의존 때문에 재정이 불안정해지지만, 그 일회성 경험을 아끼는 관객을 사로잡는 힘은 유지한다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "8번 문장은 지문이 아니라 요약문 틀이다.",
+        "4번 문장(의례적 행사 안에서 가끔 생기는 좌절)은 다루지 않았다.",
+        "출제 의도는 확인할 수 없다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m3",
+          "m4",
+          "m5"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      }
+    ]
+  }
+}

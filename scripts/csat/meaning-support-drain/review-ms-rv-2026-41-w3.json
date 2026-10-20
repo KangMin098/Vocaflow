@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-41-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#41",
+      "verdict": "pass",
+      "content_hash": "c83c8589718e468c",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+        "sourceSnapshotHash": "fa5ad2c0f157f192"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u3 simpleKo 에 17세기·움직임·그 시대·빈도(자주) 보존. 9번 문장을 근거에서 뺀 처리 정직."
+    }
+  ]
+}

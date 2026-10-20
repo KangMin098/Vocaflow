@@ -1,0 +1,440 @@
+{
+  "writer_run": "ms-wr-2026-45-w2",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#45",
+    "binding": {
+      "analysisVersion": 4,
+      "unitsHash": "ac4a9343a8650153",
+      "basePublicHash": "89646b0e7b1d57d78beb70017a4a8da7a28e0d3db23c90afa89ed48508445bdc",
+      "sourceSnapshotHash": "5f6c7161e1f7ee33"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 45,
+      "inputRef": "inquiry-origin:chunk-inq-16"
+    },
+    "defaultUnitId": "u4",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 4,
+        "quote": "Julia was concerned about her daughter",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 12,
+        "quote": "Everyone enjoyed the book Mia had chosen",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 19,
+        "quote": "scanned the shelves for nearly an hour",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 23,
+        "quote": "I like mysteries",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 26,
+        "quote": "Mia immediately shook her head",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 32,
+        "quote": "After some persuasion, Mia reluctantly agreed",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "3~4번 문장: Julia 는 스마트폰에 빠져 대답하지 않는 딸 Mia 를 걱정했다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "26번 문장: Sam 의 제안을 들은 Mia 의 첫 반응은 곧바로 고개를 젓는 거절이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "32번 문장: Mia 는 설득을 거친 뒤에야 마지못해 동의했다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a6"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "19·23번 문장: 도서관에서 Mia 는 거의 한 시간 동안 책장을 훑었고, 사서에게 미스터리를 좋아한다고 답했다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "12번 문장: 가족 모두가 Mia 가 고른 책을 즐겼다. 그 책은 도서관에서 사서가 건네고 Mia 가 빌린 책이다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a2"
+        ],
+        "warrantsKo": [
+          "13번 문장에 나오는 책 속 가게 이름과 24번 문장의 책 제목이 같다."
+        ],
+        "limitKo": "12번 문장은 책 제목을 직접 말하지 않는다."
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          3,
+          4
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "걱정한 사람: Julia",
+        "exactKo": "Julia 는 딸의 방에서 이어폰을 낀 채 스마트폰에 빠진 Mia 를 보고 딸을 걱정했다.",
+        "simpleKo": "엄마가 휴대전화만 보는 딸을 걱정했다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "걱정한 사람은 Julia",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "4번 문장의 주어가 Julia 다. 8번 문장의 Sam 은 그 걱정에 맞장구치는 것이지 이 문장의 주어가 아니다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          19,
+          23
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4"
+        ],
+        "labelKo": "도서관 장면의 사실",
+        "exactKo": "Mia 는 끝없는 책 제목 사이에서 막막해하며 거의 한 시간 동안 책장을 훑었고, 사서가 취향을 묻자 미스터리를 좋아한다고 답했다.",
+        "simpleKo": "Mia 는 한 시간 가까이 책을 찾았고, 미스터리가 좋다고 말했다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "정확히 한 시간이 아니라 거의 한 시간",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "nearly 는 한 시간에 조금 못 미친다는 뜻이다. 한 시간 넘게로 바꾸면 범위가 달라진다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "미스터리를 좋아한다고 말한 사람은 Mia",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "23번 문장의 전달 부분이 화자를 Mia 로 정한다. 14번 문장에서 Julia 가 수수께끼 같다고 한 말은 감상이지 장르 취향이 아니다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          12
+        ],
+        "legacyMeaningIds": [
+          "m2"
+        ],
+        "labelKo": "고른 사람과 즐긴 사람",
+        "exactKo": "첫 모임에서 가족 모두가 Mia 가 앞서 골라 둔 책을 즐겼다.",
+        "simpleKo": "Mia 가 고른 책을 식구들이 다 재미있게 읽었다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "책을 고른 사람은 Mia, 즐긴 사람은 가족 모두",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "사서가 책을 추천했어도 고르고 빌린 사람은 Mia 다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "책을 고른 일은 모임보다 먼저",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "과거완료는 모임 시점보다 앞선 선택을 가리킨다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          26,
+          27,
+          32
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m6"
+        ],
+        "labelKo": "첫 반응과 나중의 동의",
+        "exactKo": "Sam 의 제안을 들은 Mia 는 곧바로 고개를 저으며 시간이 없다고 거절했고, 설득을 받은 뒤에야 마지못해 동의했다.",
+        "simpleKo": "딸은 처음엔 바로 싫다고 했고, 아빠가 설득하자 내키지 않지만 하겠다고 했다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "time",
+            "valueKo": "첫 반응은 거절, 동의는 설득 뒤",
+            "anchorIds": [
+              "a5",
+              "a6"
+            ],
+            "explanationKo": "immediately 는 처음 들은 순간을, After some persuasion 은 동의가 설득보다 뒤라는 것을 정한다. 「처음부터」라는 시점은 거절 쪽에 놓인다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "동의했지만 내키지 않은 채로",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "reluctantly 는 기꺼운 마음이 아니라는 표시다. 동의를 환영으로 바꾸면 태도의 방향이 뒤집힌다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "Mia 는 아빠의 제안을 처음부터 반겼다.",
+          "lostFacet": "time",
+          "whyWrongKo": "결국 동의했다는 결과만 기억하고 첫 반응을 지운 읽기다. 원문의 첫 반응은 즉각적인 거절이고, 동의도 설득 뒤의 마지못한 것이었다.",
+          "anchorIds": [
+            "a5",
+            "a6"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "temporal",
+        "beforeKo": "Julia 가 휴대전화에 빠진 딸을 걱정함",
+        "afterKo": "Sam 의 제안을 Mia 가 거절했다가 마지못해 받아들임",
+        "changeKo": "부모의 걱정이 구체적인 제안으로 옮겨 가고, 그 제안 앞에서 Mia 의 태도가 거절에서 마지못한 동의로 바뀐다. 걱정의 원인(휴대전화)은 33번 문장에서 Mia 스스로도 인정한다.",
+        "propositionIds": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a1",
+          "a5",
+          "a6"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "10번 문장에서 Sam 이 Mia 와 이야기하겠다고 약속한 일이 26번 문장의 제안으로 실현된다."
+        ],
+        "limitKo": "(A)와 (D) 단락 사이의 시간 간격은 원문에 없다."
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u4"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "condition",
+        "beforeKo": "Mia 가 동의하고 첫 책을 고르겠다고 함",
+        "afterKo": "도서관에서 거의 한 시간 동안 책을 찾음",
+        "changeKo": "동의와 책 선택 허락이 있어야 도서관 장면의 행동이 성립한다. 19번 문장에서 Mia 가 막막해한 이유로 원문이 적은 것은 끝없는 책 제목이다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a6",
+          "a3"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "34~35번 문장에서 허락받은 첫 책 고르기를 21번 문장의 모임용 책 찾기가 실행한다."
+        ],
+        "limitKo": "도서관에 간 날짜는 원문에 없다. 마지못한 동의와 도서관에서의 막막함을 원인과 결과로 잇는 근거는 원문에 없다."
+      },
+      {
+        "id": "r3",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "reference",
+        "beforeKo": "도서관에서 Mia 가 사서의 추천으로 책을 빌림",
+        "afterKo": "그 책으로 연 첫 모임에서 가족 모두가 책을 즐김",
+        "changeKo": "선택된 책이 모임에서 쓰인다. 처음엔 거절했던 Mia 가 고른 책을 가족이 함께 즐기며, 18번 문장에서 Mia 는 다음 모임을 기다리게 된다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a2"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "12번 문장의 그 책은 앞서 고른 책을 가리키고, 13번 문장의 가게 이름이 24번 문장의 책 제목과 같다."
+        ],
+        "limitKo": "책 제목이 (B) 단락에 직접 적히지는 않는다."
+      }
+    ],
+    "whole": {
+      "genre": "narrative",
+      "summaryKo": "Julia 가 휴대전화에 빠진 딸을 걱정하자 Sam 이 독서 모임을 제안하고, Mia 는 처음엔 곧바로 거절했다가 설득 끝에 마지못해 동의한다. 이후 도서관에서 고른 책으로 연 첫 모임에서 가족은 그 책을 함께 즐긴다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "limitsKo": [
+        "문장 번호는 43~45번 공통 지문의 원래 번호이고, 단락 표지 (A)~(D)는 사건 순서와 다르다.",
+        "선지의 시점 한정어는 해당 장면 안에서 태도가 바뀌는 지점과 맞춰 읽었다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          1
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          4
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m2"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m6"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      }
+    ]
+  }
+}

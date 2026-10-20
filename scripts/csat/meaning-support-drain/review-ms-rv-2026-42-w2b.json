@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-42-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#42",
+      "verdict": "pass",
+      "content_hash": "1fd7215c7e2e91e3",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+        "sourceSnapshotHash": "49945168bf2ab839"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. w2 수정 반영 확인. MS02: p1 이 목적 조건(같은 무게를 주려면)과 much of(상당 부분)를 복원했다. u1.simpleKo 도 조건·필연·「많은 부분」을 보존해, u1.exactKo 와 일관된다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

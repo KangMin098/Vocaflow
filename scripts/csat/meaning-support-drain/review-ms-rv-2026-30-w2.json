@@ -1,0 +1,24 @@
+{
+  "reviewer": "ms-rv-2026-30-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#30",
+      "verdict": "revise",
+      "content_hash": "c8b589da3d561c3c",
+      "binding": {
+        "analysisVersion": 8,
+        "unitsHash": "0081ae79d542e531",
+        "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+        "sourceSnapshotHash": "dfad632a30635c1f"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS03",
+        "MS06"
+      ],
+      "why": "MS02(조건 삭제): u1.simpleKo 「상황 윤리는 늘 지켜야 할 고정된 규칙을 내려놓고, 결과가 좋으면 방법도 괜찮다고 본다」는 3번 문장의 조건 In the absence of a universal standard or law 를 빼고, 2번 문장의 주체(지지자들)와 양태(willingly permit = 기꺼이 허용)를 「이론이 내려놓는다」로 바꿨다. preserves 가 스스로 이 조건이 핵심이라 해 놓고 쉬운 말에서 지웠다. 수정: 「상황 윤리 지지자들은 고정된 절대 기준을 버리는 것을 받아들이고, 그런 보편 기준이 없을 때는 결과가 중요하니 목적이 수단을 정당화한다고 본다.」 MS02(가능성 삭제·뜻 변형): 6번 문장 maybe getting to keep playing 은 「어쩌면 계속 함께 경기할 수 있게 된다는 점」(가능성·기회)인데 p2.textKo 「계속 함께 경기하고 싶은 마음」, u2.simpleKo 「계속 같이 놀고 싶어서」는 maybe 를 지우고 기회를 욕구로 바꿨다(u2 preserves 의 「어쩌면」과도 모순). 수정 p2: 「…친구를 아끼는 마음과, 어쩌면 그 무리와 계속 경기할 수 있게 된다는 점이 그렇게 만든다.」 u2.simpleKo: 「친구끼리 할 때는 친구를 아끼고, 어쩌면 계속 같이 경기할 수 있어서 자기 반칙을 스스로 말한다.」 MS03/MS06(원문 오류와 교정 구별): 8번 문장 원문의 목적어는 abandon(경쟁 우위를 버린다)이고, 「이기는 데 유리하게」라는 목적은 p5 의 연결 추론(교정된 읽기)이다. 그런데 u4.simpleKo 첫 문장 「선수들은 상황 윤리를 「몰래 반칙해서라도 이기는 데 유리하게 만들기」로 넓혀 쓴다」와 whole.summaryKo 「이기기 위해 최대한 들키지 않고 넘기는 뜻으로 넓혀 써 왔다」가 교정된 목적을 원문이 말한 사실처럼 진술한다. 수정: u4.simpleKo 「선수들은 상황 윤리를 「들키지 않고 넘어가는 행동을 최대한 많이 하기」로 넓혀 쓴다. 그 행동은 이기려는 것이니 목적도 유리함을 얻는 쪽이어야 하는데(추론), ⑤는 유리함을 버린다는 정반대 뜻이다.」 summaryKo 끝: 「…들키지 않고 넘기는 행동을 최대한 하는 뜻으로 넓혀 써 왔고, 그 목적은 문맥상 경쟁 우위를 얻는 쪽이어야 해 ⑤의 「버림」과 맞지 않는다.」 그 외 축 문제 없음 — MS01 주체(지지자/선수와 코치)·대상 정확, most·as many as possible 보존 · MS04 r2 대조의 실제 변화(우선순위 관계→승리), r1·r3 추론 warrant·limit 명시 · MS07 bridges ①~⑤·designClaim 1~3 referent 일치, 대체 낱말 영어 미도입 · MS08 a1~a12 quote·range·spanHash 재계산 일치 · MS10 새 영어 없음."
+    }
+  ]
+}

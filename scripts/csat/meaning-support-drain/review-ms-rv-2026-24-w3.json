@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-24-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#24",
+      "verdict": "pass",
+      "content_hash": "fa5b621f001bdcec",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "a44261d498185788",
+        "basePublicHash": "9d7e2a664d0635755cb015e3af5eb5a3875844882a794e8dd475627bd56cd5ca",
+        "sourceSnapshotHash": "652fe4afe9943d26"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1 에 주체(정치인과 정책 입안자)와 획일화 복원, u2 에 필요 양태와 이득의 가능성 표시. 이익 대 위험 저울질, 성장하지만 취약 구조가 제목 선지 2 와 연결. 어느 쪽 우선인지 원문이 정하지 않음을 limit 로 둠."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-29-w4",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#29",
+      "verdict": "pass",
+      "content_hash": "5afd8918538c940d",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "a8a8d67346afd05e",
+        "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d",
+        "sourceSnapshotHash": "8eef55ee9132e60a"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1.simpleKo 가 「어느 채집 집단이든」「어떤 한 사람도 혼자」로 사용·창조 주체와 범위를 모두 보존. u2·u3 simpleKo 의 유일 이유·개인 한정·강한 부정 유지. 구문·correction(is) 한계 표기·관계 r1·r2 의 추론 한계 명시. 새 영어 인용 없음."
+    }
+  ]
+}

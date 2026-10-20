@@ -298,6 +298,16 @@ export type PublicEvent =
    * 질문: 목표를 정하고 노드를 열어 과제까지 가는가. goal 은 학습자가 정한 목표 점수(0~100).
    */
   | { name: 'csat_map_viewed'; props: { goal: number } }
+  /**
+   * **원문 이해 교수 판(v3.1 · scene=meaning)** — 어떤 설명을 열고 어떻게 거슬러 오르고 스스로 대조했나(보완안 「열람 · 작성 · 자기 대조 기록」).
+   * 의미 · 관계 id · 초안 글은 보내지 않는다(D3). 깊이 · 출발점 · 관계 종류 · 길이 구간만.
+   */
+  | { name: 'csat_meaning_unit_selected'; props: { from: 'chip' | 'map' | 'trace' | 'relation'; depth: 'brief' | 'why' | 'deep' } }
+  | { name: 'csat_meaning_depth_changed'; props: { depth: 'brief' | 'why' | 'deep' } }
+  | { name: 'csat_meaning_relation_opened'; props: { kind: 'add' | 'example' | 'contrast' | 'concession' | 'cause' | 'condition' | 'reference' | 'temporal' | 'purpose' | 'other'; from: 'unit' | 'trace' } }
+  | { name: 'csat_meaning_whole_traced'; props: { target: 'step' | 'link' | 'boundary' } }
+  | { name: 'csat_meaning_draft_compared'; props: { length: 'lt50' | 'lt200' | 'gte200' } }
+  | { name: 'csat_meaning_bridge_followed'; props: { scene: 'judgment' | 'design' } }
   | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' | 'task' } }
   | { name: 'csat_map_goal_set'; props: { goal: number } }
   | { name: 'csat_map_task_toggled'; props: { done: boolean } }
@@ -606,6 +616,12 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_dx_viewed: true,
   csat_dx_attempt_saved: true,
   csat_map_viewed: true,
+  csat_meaning_unit_selected: true,
+  csat_meaning_depth_changed: true,
+  csat_meaning_relation_opened: true,
+  csat_meaning_whole_traced: true,
+  csat_meaning_draft_compared: true,
+  csat_meaning_bridge_followed: true,
   csat_map_node_opened: true,
   csat_map_goal_set: true,
   csat_map_task_toggled: true,

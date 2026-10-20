@@ -1,6 +1,7 @@
 // apps/web/src/lib/csat/dissect.ts
 // Pure prediction/session rules. Passage text never belongs to this model.
 import type { LearnerCatalog } from './session/catalog'
+import type { MeaningNote } from './meaning-note'
 import type { CatalogItem } from './session/model'
 import type { RevealAnchor } from './session/reveal'
 import { countedPredictions, type LearningSession } from './learning-session'
@@ -80,6 +81,8 @@ export interface DissectionRecord {
   compares?: { id: string; item: string; other: string; at: number }[]
   /** 원리 노트(v3 M4) — 해설 뒤 학습자가 쓴 조건부 원리 · 근거 · 적용 경계. 병합은 id 단위(새로 고친 쪽) · 자동 채점 없음 · 독립 진단 아님 */
   reasoningNotes?: ReasoningNote[]
+  /** 원문 이해 「내 말로」 노트(v3.2 · `lib/csat/meaning-note.ts`) — 의미 하나에 하나. 병합은 id 단위(새로 고친 쪽) · 자동 채점 없음 */
+  meaningNotes?: MeaningNote[]
 }
 
 /**

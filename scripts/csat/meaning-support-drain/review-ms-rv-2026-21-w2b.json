@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-21-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#21",
+      "verdict": "pass",
+      "content_hash": "28f7fb7a95c85256",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "dd5f994711abc1e0",
+        "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+        "sourceSnapshotHash": "1df8a04025ad30fb"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. w2 수정 반영 확인. MS02: r2.afterKo 가 「대부분의 경우 현지 세금도 내지 않으며」로 5번 문장의 in most cases 를 보존하고, 「피하고」라는 의도 표현이 빠졌다. MS06: p5 에서 「그 결과」가 빠져 source_observation 이 5~6번 문장의 서술과 일치한다(인과는 r2 의 bridging_inference 가 맡는다). whole.propositionIds 는 p1→p2→p3→p4→p5 순으로 근거가 해석보다 먼저 온다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

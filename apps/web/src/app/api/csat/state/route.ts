@@ -84,12 +84,36 @@ export async function PUT(req: Request) {
     return NextResponse.json({ ok: false, error: 'bad-json' }, { status: 400 })
   }
   if (!looksLikeRecord(record)) return NextResponse.json({ ok: false, error: 'bad-record' }, { status: 400 })
-  const current = await db.from('csat_learner_state').select('record').eq('user_id', user.id).maybeSingle()
+  // FI-015(#308) — 읽기 → 병합 → 쓰기를 비교 갱신(updated_at CAS) 한 번으로 묶는다. 두 기기가 같은 옛 사본을 읽고 각자 덮으면 한쪽 노트가 사라졌다.
+  //   쓰기 직전 행이 바뀌었으면(다른 요청이 먼저 씀) 쓰지 않고 409 — 성공 응답은 「합친 결과가 서버에 남았다」는 뜻이다.
+  //   재시도는 클라이언트(session/store.ts)가 잠시 뒤 같은 기기 기록으로 다시 보내고, 서버는 그때 최신 사본과 다시 합친다.
+  //   서버 안 재시도 루프는 두지 않는다(요청 하나 = 쓰기 하나 · row-write-budget)
+  const incoming = record as unknown as DissectionRecord
+  const current = await db.from('csat_learner_state').select('record, updated_at').eq('user_id', user.id).maybeSingle()
   if (current.error) return NextResponse.json({ ok: false, error: current.error.message }, { status: 503 })
-  const existing = (current.data as { record: unknown } | null)?.record
+  const row = current.data as { record: unknown; updated_at: string | null } | null
+  const merged = await mergeForWrite(incoming, row?.record)
+  const at = nextStamp(row?.updated_at ?? null)
+  if (!row) {
+    const ins = await db.from('csat_learner_state').insert({ user_id: user.id, record: merged, updated_at: at })
+    if (!ins.error) return NextResponse.json({ ok: true })
+    // 다른 요청이 먼저 만들었다 — 이 기록은 아직 안 합쳐졌다
+    if (ins.error.code === '23505') return NextResponse.json({ ok: false, error: 'conflict' }, { status: 409 })
+    return NextResponse.json({ ok: false, error: ins.error.message }, { status: 503 })
+  }
+  let upd = db.from('csat_learner_state').update({ record: merged, updated_at: at }).eq('user_id', user.id)
+  upd = row.updated_at === null ? upd.is('updated_at', null) : upd.eq('updated_at', row.updated_at)
+  const { data, error } = await upd.select('user_id')
+  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 503 })
+  if ((data ?? []).length === 1) return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: false, error: 'conflict' }, { status: 409 })
+}
+
+/** 서버 사본과 합친 쓸 기록(보류 진행 세트 보호 포함 — 아래 규칙은 이전 단일 쓰기와 같다) */
+async function mergeForWrite(record: DissectionRecord, existing: unknown): Promise<unknown> {
   // 합집합 병합 — 보류로 빠진 채 돌아온 기록이 서버 사본의 항목을 지우지 않는다. 응답에는 기록을 싣지 않는다
-  let merged = looksLikeRecord(existing)
-    ? mergeDissection(record as unknown as DissectionRecord, existing as unknown as DissectionRecord)
+  let merged: unknown = looksLikeRecord(existing)
+    ? mergeDissection(record, existing as unknown as DissectionRecord)
     : record
   // GET 은 보류 문항이 든 진행 세트(active)를 통째로 뺀다. 그 사본이 더 새 것으로 돌아오면 병합이 active 를 새 쪽에서 가져가
   // 서버의 세트가 지워진다(Codex P1) — 들어온 기록에 active 가 없고 서버 세트에 보류 문항이 있으면 서버 세트를 지킨다(판정 실패도 보류로)
@@ -98,7 +122,7 @@ export async function PUT(req: Request) {
   if (serverActive) {
     const { held, failed } = await itemRevealDecision([...serverActive.items, ...Object.keys(serverActive.loci ?? {})])
     // 같은 세트(문항 목록이 같음)의 더 나아간 진행이면 그 진행을 받는다 — 서버 세트로 덮으면 index · loci 가 되돌아간다(P2)
-    const incoming = (record as unknown as DissectionRecord).active
+    const incoming = record.active
     const sameSet = Boolean(incoming) && incoming!.items.length === serverActive.items.length && incoming!.items.every((id, i) => id === serverActive.items[i])
       // 같은 세트라도 진행이 뒤로 가거나(index) 같은 자리에서 근거(loci) · 짝 확인(pairSeen)을 잃으면 서버 진행을 지킨다(Codex P2)
       && (incoming!.index > serverActive.index
@@ -107,11 +131,14 @@ export async function PUT(req: Request) {
           && (!serverActive.pairSeen || incoming!.pairSeen)))
     if ((failed || held.size) && !sameSet) merged = { ...(merged as DissectionRecord), active: serverActive }
   }
-  const { error } = await db
-    .from('csat_learner_state')
-    .upsert({ user_id: user.id, record: merged, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
-  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 503 })
-  return NextResponse.json({ ok: true })
+  return merged
+}
+
+/** 새 updated_at — 이전 값보다 반드시 뒤(같은 ms 두 쓰기가 같은 표지를 남기면 비교 갱신이 뒤 요청을 못 가른다) */
+function nextStamp(prev: string | null): string {
+  const now = Date.now()
+  const p = prev ? Date.parse(prev) : NaN
+  return new Date(Number.isFinite(p) && p >= now ? p + 1 : now).toISOString()
 }
 
 export async function DELETE() {

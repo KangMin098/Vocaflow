@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-39-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#39",
+      "verdict": "pass",
+      "content_hash": "8bbaf1849eb046e0",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "61ab9c3e9c947652",
+        "basePublicHash": "45ebfe515d93de4fc7dd8b25ccd352fda20cf7d141debfca069fbfd46c59675e",
+        "sourceSnapshotHash": "05bc91ab97ac6ac4"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u4 simpleKo 에 primarily(주로)·now(이제) 복원, 비유 제거. 같은 점(4)→차이(주어진 문장)→5번 이어받기 정확."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-32-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#32",
+      "verdict": "revise",
+      "content_hash": "7947b9be742343bc",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "0cae42a4b9958014",
+        "basePublicHash": "fb4a3a1ceb24a842392a16ff33a2e04fd98c9e3607f0962d8bf0980ff1dac472",
+        "sourceSnapshotHash": "a0ada9d2619c0ec5"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS07"
+      ],
+      "why": "(1) u4.simpleKo 가 빈칸 자리와 preserves reference(「사실상」 = 빈칸 재진술)를 지우고, 6번 문장의 이유(「상대가 없으니」)를 7번 문장 뜻에 끌어들였으며, 「상대가 없으니…상대가 보일 반응까지 떠올려야」는 정답 ⑤(부재 독자 반응 예상)를 그대로 풀어 쓴 것이라 빈칸 답을 노출한다. 수정안 u4.simpleKo: 「글쓴이로서 우리는 (빈칸)해야 한다. 다시 말해, 실제로는 오가지 않는 대화에서 내 몫과 상대 몫을 둘 다 머릿속으로 그려야 한다.」 (2) p4.textKo 「자리에 없는 독자 쪽의 반응까지 작가가 미리 떠올리는 행동」과 whole.summaryKo 「자리에 없는 독자의 반응까지 미리 떠올리며」도 정답 선지의 직역이다. 수정안: p4 → 「…그래서 빈칸은 작가가 대화의 상대 몫까지 스스로 채우는 행동이어야 문맥이 이어진다.」, summary → 「…작가는 대화의 양쪽을 혼자 상상해야 한다.」 u1(수정 대상)은 비교·주체·세 기대를 모두 보존해 문제없다."
+    }
+  ]
+}
