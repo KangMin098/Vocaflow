@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-10-20T17:26:29.248Z",
+  "task_id": "T-0068",
+  "status": "IN_PROGRESS",
+  "owner": "final-product",
+  "source": "official task show; owner-authored start history plus live process observation",
+  "history": [
+    {
+      "at": "2026-10-20T17:21:50.026Z",
+      "from": null,
+      "to": "READY",
+      "by": "final-independent-accept",
+      "note": "created"
+    },
+    {
+      "at": "2026-10-20T17:23:48.033Z",
+      "from": "READY",
+      "to": "IN_PROGRESS",
+      "by": "final-product",
+      "note": "c513ff5b-86ef-44a3-8efd-7925a229614b"
+    }
+  ],
+  "run": {
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 22712,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-20T17:23:48.033Z",
+    "start_head": "6d1c2fcccf00918d75cc81653eb8b251ff72d7dc"
+  },
+  "process_observed": {
+    "id": 22712,
+    "process_name": "claude",
+    "live": true,
+    "source": "Get-Process -Id 22712"
+  },
+  "delivery": "OWNER_START_OBSERVED; explicit separate ACK message not observed; not implementation completion",
+  "supersedes": "next-task-receipt.json READY state at creation; original receipt retained"
+}
