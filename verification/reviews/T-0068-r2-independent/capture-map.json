@@ -1,0 +1,50 @@
+[
+  {
+    "test": "T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px",
+    "attachment": "opt-supplied-1440",
+    "capture": "verification/ui/T-0068/ci-39470298963-9.png",
+    "sha256": "1f961665c2ec99122c27c359f99b56d0e49669acf13b827306ad59f924c0a240"
+  },
+  {
+    "test": "T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px",
+    "attachment": "opt-cycle-pass-1440",
+    "capture": "verification/ui/T-0068/ci-39470298963-31.png",
+    "sha256": "37d839e82b809e9283b0148b7d5d0a5e3b4417bba0560dbb653f7c0cc08d8bb7"
+  },
+  {
+    "test": "T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1280px",
+    "attachment": "opt-supplied-1280",
+    "capture": "verification/ui/T-0068/ci-39470298963-33.png",
+    "sha256": "2a60053a8db874260f16f8dd66448189ceb6e5bda5ecbe386cb0dedf4d782f1e"
+  },
+  {
+    "test": "T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1280px",
+    "attachment": "opt-cycle-fail-1280",
+    "capture": "verification/ui/T-0068/ci-39470298963-7.png",
+    "sha256": "373038e2e2cb84d2a3223699a0d382c6f23d042a48dcc1315c69c44509de3a5a"
+  },
+  {
+    "test": "T-0068 segment_choice 전체 순환 — s.sentence_core · 1440px",
+    "attachment": "sc-supplied-1440",
+    "capture": "verification/ui/T-0068/ci-39470298963-17.png",
+    "sha256": "99fdb933dfa70132d45686812f7635294fb7b9b2685c2270d0148ebbc5816856"
+  },
+  {
+    "test": "T-0068 segment_choice 전체 순환 — s.sentence_core · 1440px",
+    "attachment": "sc-cycle-pass-1440",
+    "capture": "verification/ui/T-0068/ci-39470298963-4.png",
+    "sha256": "968966111c466ceffeca4d39426c31718a65f8ed1a2480626ab928ec3e4a9911"
+  },
+  {
+    "test": "T-0068 segment_choice 전체 순환 — s.sentence_core · 1280px",
+    "attachment": "sc-supplied-1280",
+    "capture": "verification/ui/T-0068/ci-39470298963-35.png",
+    "sha256": "98160d680818a31deb8e11452214d3c1b5376ce96d10daf28e7e8bae435acacd"
+  },
+  {
+    "test": "T-0068 segment_choice 전체 순환 — s.sentence_core · 1280px",
+    "attachment": "sc-cycle-fail-1280",
+    "capture": "verification/ui/T-0068/ci-39470298963-5.png",
+    "sha256": "2e7b797d3c469ddb7e5c277dfd156d79ad4600590cf7bbfa902e1754f8d943a1"
+  }
+]

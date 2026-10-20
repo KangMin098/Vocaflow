@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-10-20T18:11:49.620Z",
+  "head": "d2f340cba90387931fcaf66bf579c081c21cf861",
+  "base": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+  "files": 19,
+  "commits": 3,
+  "scope_stable": true,
+  "full_pagination": true,
+  "local_remote_equal": true,
+  "reported_file_count": 21,
+  "corrected_file_count": 19,
+  "state": "open",
+  "mergeable": true
+}

@@ -1,0 +1,17 @@
+{
+  "type": "review",
+  "command_or_protocol": "Actual independent Codex final-head review:57 frozen-source probes and61 actual PGlite/adapter cases;27 authenticated isolated browser results plus artifacts4/captures47 checked;both P1s fixed",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "d2f340cba90387931fcaf66bf579c081c21cf861",
+  "artifact_path_or_url": "verification/reviews/T-0068-r2-independent/REVIEW.md",
+  "observed_at": "2026-10-20T18:14:27.735Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "note": "Candidate AI review only; not human Gold/rights or developer DB application. Initial25pass/2fail preserved; actual scope19files3commits."
+}

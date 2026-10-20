@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "head_sha": "d2f340cba90387931fcaf66bf579c081c21cf861",
+  "base_ref": "main",
+  "base_sha": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+  "expected_commits": 3,
+  "expected_paths": [
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/authored-responses.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/authored-responses.ts",
+    "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+    "apps/web/tests/e2e-isolated/authored-format-cycle.isolated.spec.ts",
+    "docs/final/APPROVAL_PACKAGE.md",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

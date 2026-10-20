@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-10-20T18:15:32.797Z",
+  "pr": {
+    "headRefOid": "d2f340cba90387931fcaf66bf579c081c21cf861",
+    "mergeCommit": {
+      "oid": "25566801020cc40ed6cd5d3b2bf45615b023989d"
+    },
+    "mergedAt": "2026-10-20T18:15:04Z",
+    "state": "MERGED",
+    "url": "https://github.com/KangMin098/Vocaflow/pull/324"
+  },
+  "main": "25566801020cc40ed6cd5d3b2bf45615b023989d",
+  "method": "unchanged protected safe-merge; exact19paths3commits and8checks",
+  "db_writes": 0,
+  "human_gold_rights": 0,
+  "official_task": "COMPLETED",
+  "code_decision": "ACCEPT_WITH_LIMITS",
+  "final_mission": "REWORK; not release or effect approval"
+}

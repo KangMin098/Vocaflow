@@ -453,3 +453,15 @@ reported no_content/notLive 분기는 현재 지시 범위 밖 엔진을 바꾸�
 - P2 후속 · 보고한 no_content 분기는 ranksOf에서 content_gap, nextActionOf에서 supply로 이어지고 실제 PGlite13 TASK의 공급/진전은 통과합니다. 현재 T0068의 차단 P1으로 삼지 않습니다. 적용 단계인데 확인 콘텐츠 준비로 보이는 PLAN 문구는 후속 개선입니다. canon readiness를 live로 승격하지 마세요.
 
 최소 문항 수정 후 관련 검사·해시만 갱신해 같은 작업으로 반환해 주세요. 새 PR을 아직 열지 않았다면 수정 HEAD로 한 번에 공식 pull_request 격리 CI를 돌리면 됩니다. 이미 시작했다면 최초 결과 보존 후 최종 HEAD에 필요한 실행만 확인합니다. 인증 브라우저4경로는 아직 미실행이며61/61로 대체하지 않습니다. 별도 ACK 수신은 이번 사용자 전달 패킷으로 확인했습니다.
+
+## 2026-10-21 KST · T-0068 ACCEPT_WITH_LIMITS / COMPLETED / #324 MERGED · next T-0069
+
+[VF-TASK T-0068] HEADd2f340cba90387931fcaf66bf579c081c21cf861 · ACCEPT_WITH_LIMITS. P1-1/2 VERIFIED_FIXED, 가상 사례 P2도 반영. 독립57/57 + 실제 PGlite/형식61/61(skip0), exact-head CI39470298963 인증27/27, 원장증거4/4·캡처47/47 해시 일치. 실제 보고서에서 새8첨부를 찾아 연결하고 opt/sc pass1440·fail1280 최종4화면을 직접 확인했습니다. 옛25성공/2실패(order422) 로그/반례 보존. 패킷21파일은 실제19파일/3커밋으로 정정합니다. 이중 메타/전체 페이지/localdiff일치, 기존 보호safe-merge dry-run 및 실제 실행의 필수8체크 통과.
+
+실제 E05 독립 owner 증거 및 completeTask를 통해 T0068 COMPLETED. #324 실제 병합 SHA25566801020cc40ed6cd5d3b2bf45615b023989d(main). 영수증/불변 수용 보고서 verification/reviews/T-0068-r2-independent/. 사람 Gold·권리 pending, 개발DB SQL 미적용, 실제 효과 미검증. 새 문항 후보의 코드 수용/격리 성공만이며 FINAL_COMPLETE 선언이 아닙니다. 원 audit2파일/local integration은 손대지 않았습니다.
+
+[VF-TASK T-0069] DESIGN_REVISION rev1 · READY · owner final-product · 기존 세션c513ff5b/PID22712·기존 worktree/branch. 설계 planning/handoff/FINAL-V1-VOCAB-ROUNDTRIP-rev1.json을 접수하고 같은 TASK_ID로 ACK해 주세요. Goal Alignment Gate 통과, T0068 의존성 COMPLETED. 새로운 실행기·worker·작업별 PR 없이 LOCAL_FAST로 진행합니다. 공식main255668010을 기존 소유권·audit보존 아래 반영하세요.
+
+다음 핵심 누락은 V1(v.core_meaning)의 실제 학습 진입/복귀입니다.21비보류TASK 전량 분류=16창작순환,1(s.attachment)연결결정보류,3통합관찰,남은1=V1. 정본의 WordVault/Flashcard/FSRS 자산을 재사용하고 ws.vocab-context 보조 카드→기존 자기 어휘 학습→같은 지도/TASK 복귀를 연결합니다. 새로운 문맥 객관식으로 기본 뜻 인출을 측정했다고 만들지 않습니다. 카드뒤집기/FSRS자기평가/뜻보기는 교육활동이며 CSAT G2/직접확인/해소/유지로 승격하지 않습니다. 빈 단어/조회실패/문맥없는 일반 진입을 구분하고 기존3B지도/Tines어휘화면 스킨과 map-return 검증을 재사용합니다. 기존 모듈 내 최소 한 실제 학습 후 복귀를 대표 인증격리1440/1280에서 확인하면 됩니다. 대규모 어휘 UI 개편/새 API/새SQL/채점기/정본 변경은 범위 밖입니다. 기존T0020의 구 지도개편 파일은 피했습니다.
+
+지연 유지 후속 분석: evidence-claims.ts는 승인된 간격/도구가 없어 NOT_ESTABLISHED를 고정하고 있습니다. 이 계약을 임의 하루/시간 기준으로 바꾸지 않습니다. 다른날 기록을 실제로 수집하는 것과 유지 성공 판정은 별개이며, 이번 T0069는 그 정책 결정을 선행 조건으로 요구하지 않습니다. 전달 상태=QUEUE_READY+LOCAL_INBOX_POSTED, 새 실제 ACK/착수는 아직 미관찰입니다.

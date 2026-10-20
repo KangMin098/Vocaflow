@@ -1,0 +1,36 @@
+{
+  "recorded_at": "2026-10-20T18:19:09.028Z",
+  "task": "T-0069",
+  "status": "READY",
+  "owner": "final-product",
+  "depends_on": [
+    "T-0068"
+  ],
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A2-01",
+    "acceptance_ids": [
+      "VG-L3-A2-01-AC1"
+    ],
+    "current_gap": "비보류 원자TASK 중 v.core_meaning은 정본에 WordVault/FSRS 자산이 있지만 창작세트 목록 기반Workspace카드에서 학습 왕복이 빠진다.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "기존 V1 학습 진입과 안전한 같은지도복귀",
+      "대표 인증격리 어휘수행과 근거비승격"
+    ],
+    "next_dependency": null,
+    "out_of_scope": [
+      "새 TASK/새 어휘 채점기/새 독립 확인도구",
+      "정본 승격/지연 간격 결정",
+      "DB적용/사람Gold·권리",
+      "전체 어휘 디자인개편",
+      "AI-Control/T0020 구 지도개편"
+    ],
+    "dependency_type": "direct",
+    "canon_version": "1.1.0",
+    "base_commit": "25566801020cc40ed6cd5d3b2bf45615b023989d",
+    "gate_ms": 1.1042
+  },
+  "delivery": "QUEUE_READY; not actual ACK/start"
+}
