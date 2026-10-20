@@ -1,6 +1,8 @@
 // apps/web/src/lib/csat/map/v62/__tests__/next-action.test.ts — T-0061: 첫 화면 「지금 할 일」은 순위 · 계획 · To-Be 를 그대로 읽는다(새 판정 · 만든 수량 없음)
 import { describe, expect, it } from 'vitest'
 
+import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
+
 import type { RefItem } from '../../target'
 import { asIsMap, type AxisProxyState } from '../../v4/as-is'
 import type { V4View } from '../../v4/compose'
@@ -54,12 +56,19 @@ describe('nextActionOf — 지금 할 일', () => {
     expect(nextActionOf(v, none, { byTemplate: { [ws]: {} } })!.kind).toBe('supply')
     expect(nextActionOf(v, none, { byTemplate: {} })!.kind).toBe('plan')
   })
-  it('창작 세트 없는 · 보류 · 단계 잠금은 wait — 이유만, 정확한 원인을 모르면 모른다고', () => {
-    for (const reason of ['canon_hold', 'stage_locked'] as const) {
-      const a = nextActionOf(v, { needRank: [], actionRank: [], notActionable: [{ task: 'r.central_meaning' as never, reason }] }, null)!
-      expect(a.kind).toBe('wait')
-      expect(a.blocked).toBe(reason)
-    }
+  it('계획 저장 전이면 단계 잠금이어도 plan(실제 첫 행동) · 정의 보류만 wait', () => {
+    const one = (reason: 'canon_hold' | 'stage_locked', saved: Parameters<typeof nextActionOf>[2]) => nextActionOf(v, { needRank: [], actionRank: [], notActionable: [{ task: 'r.central_meaning' as never, reason }] }, saved)!
+    expect(one('stage_locked', null).kind).toBe('plan')
+    expect(one('canon_hold', null).kind).toBe('wait')
+    expect(one('canon_hold', null).blocked).toBe('canon_hold')
+  })
+  it('계획 저장 뒤 확인 단계 잠금(확인 문항 연결 없음)인 창작 TASK → supply · 창작 세트 없으면 wait(이유)', () => {
+    const saved = (task: string) => ({ byTemplate: { [wsForTask(task, v)!]: {} } })
+    const one = (task: string) => nextActionOf(v, { needRank: [], actionRank: [], notActionable: [{ task: task as never, reason: 'stage_locked' }] }, saved(task))!
+    const cm = v.taskPlans.find((p) => p.task === 'r.central_meaning')!
+    if (!cm.stage || cm.stage === 'check') expect(one('r.central_meaning').kind).toBe('supply')
+    const plain = v.taskPlans.find((p) => !['r.central_meaning', 'e.evidence_location', 'e.task_demand'].includes(p.task) && wsForTask(p.task, v) && !AUTHORED_TASKS.includes(p.task))
+    if (plain) expect(one(plain.task).kind).toBe('wait')
     expect(WAIT_LABEL.no_next_activity).toContain('몰라요')
   })
   it('관련성 미확인만 있으면 추천하지 않는다(null) · 순위가 없으면 null', () => {

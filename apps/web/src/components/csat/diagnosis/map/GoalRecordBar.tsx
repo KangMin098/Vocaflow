@@ -205,7 +205,7 @@ function NextActionFacts({ next, selected }: { next: NextAction; selected: TaskI
   const q = next.quantity
   const amount = q && q.planned !== null ? `${q.done} / ${q.planned}${q.unit} ${q.source === 'saved' ? '(저장한 계획)' : '(제안 — 아직 확정 전)'}` : '계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요'
   return (
-    <ul className={`${u.topSub} break-keep`} data-testid="umap-next-facts" aria-label="추천 TASK 의 이번 학습">
+    <ul className={`${u.topFacts} ${u.topSub} break-keep`} data-testid="umap-next-facts" aria-label="추천 TASK 의 이번 학습">
       <li data-testid="umap-next-amount">이번 학습량 · {amount}</li>
       {next.criterion && <li data-testid="umap-next-criterion">확인 조건 · {next.criterion}</li>}
       {next.kind === 'plan' && <li>계획을 확정하면 자료 · 기록이 이 계획에 묶여요.</li>}

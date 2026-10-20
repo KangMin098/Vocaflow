@@ -66,7 +66,11 @@ export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): N
     return { ...base, kind: 'start', href: first.href, label: first.label, blocked: null }
   }
   const blocked = ranks.notActionable.find((n) => n.task === target)?.reason ?? 'no_next_activity'
-  const supplyable = ws && AUTHORED_TASKS.includes(target) && (blocked === 'content_gap' || blocked === 'material_needed' || blocked === 'repair_material_needed' || blocked === 'no_next_activity')
+  // 그 묶음 계획이 아직 저장 전이면 실제로 할 수 있는 첫 행동은 계획 확정이다(단계 대기를 「기다림」으로 보이면 학습자가 멈춘다 — CI 39387227895 캡처)
+  if (ws && !isSaved && blocked !== 'canon_hold') return { ...base, kind: 'plan', href: null, label: null, blocked }
+  // 확인 단계가 「확인 문항 연결 없음」으로 막힌 창작 TASK 는 첫 확인 자료 공급이 그 다음 행동이다(단계 잠금 그대로가 아님)
+  const firstCheckLocked = blocked === 'stage_locked' && (!plan?.stage || plan.stage === 'check')
+  const supplyable = ws && AUTHORED_TASKS.includes(target) && (firstCheckLocked || blocked === 'content_gap' || blocked === 'material_needed' || blocked === 'repair_material_needed' || blocked === 'no_next_activity')
   if (supplyable) return { ...base, kind: isSaved ? 'supply' : 'plan', href: null, label: null, blocked }
   return { ...base, kind: 'wait', href: null, label: null, blocked }
 }

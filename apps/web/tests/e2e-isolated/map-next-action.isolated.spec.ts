@@ -59,16 +59,11 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(task).toMatch(/^[a-z]\.[a-z_]+$/)
     await expect(page.locator('[data-testid="umap-next-why"]')).not.toBeEmpty()
     await expect(page.locator('[data-testid="umap-next-amount"]')).toContainText('이번 학습량')
-    const kind1 = await head.getAttribute('data-kind')
-    expect(['plan', 'wait'], `계획 저장 전 행동: ${kind1}`).toContain(kind1)
+    // 계획 저장 전 첫 행동은 계획 확정이다(「단계 대기」로 멈추지 않는다 — CI 39387227895 캡처에서 찾은 결함)
+    await expect(head, '계획 저장 전 행동').toHaveAttribute('data-kind', 'plan')
+    await expect(page.locator('[data-testid="umap-next-amount"]')).toContainText(/제안|계획량 없음/)
     await noOverflow(page)
     await shot(page, `before-plan-${width}`)
-    if (kind1 === 'wait') {
-      await expect(page.locator('[data-testid="umap-next-wait"]'), '할 수 없는 이유').not.toBeEmpty()
-      await expect(page.locator('[data-testid="umap-top-next"]'), '기다림에는 재요청 버튼이 없다').toHaveCount(0)
-      return
-    }
-    await expect(page.locator('[data-testid="umap-next-amount"]')).toContainText(/제안|계획량 없음/)
 
     // 키보드로 행동 → 같은 TASK 의 Workspace 계획 탭
     const cta = page.locator('[data-testid="umap-top-next"]')
@@ -102,8 +97,19 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     } else {
       await page.locator('[data-testid="umap-top-next"]').click()
       await expect(page.locator('[role="dialog"][data-testid="ws-modal"] [data-testid="ws-tab-overview"]')).toHaveAttribute('aria-selected', 'true')
-      await expect(page.locator(`[data-testid^="ws-authored"][data-task="${task}"]`).first(), '같은 TASK 의 자료 받기').toBeVisible()
+      const card = page.locator(`[data-testid^="ws-authored"][data-task="${task}"]`).first()
+      await expect(card, '같은 TASK 의 자료 받기').toBeVisible()
+      // 실제 공급 API — 서버가 그 TASK 의 확인 자료를 납품한다(재고 판정은 서버)
+      await card.locator('[data-testid$="-request"]').click()
+      await expect.poll(async () => ((await admin().from('workspace_content_delivery').select('task_id').eq('user_id', u.id)).data ?? []).map((d) => d.task_id), { timeout: 30_000 }).toContain(task)
       await shot(page, `supply-${width}`)
+      // 지도로 돌아오면 같은 추천이 이제 시작 가능한 활동을 가리킨다
+      await page.keyboard.press('Escape')
+      await openMap(page)
+      await expect(head).toHaveAttribute('data-task', task!)
+      await expect(head, '공급 뒤 행동').toHaveAttribute('data-kind', 'start')
+      expect(await page.locator('[data-testid="umap-top-next"]').getAttribute('href')).toContain('from=map')
+      await shot(page, `after-supply-${width}`)
     }
     await noOverflow(page)
   })
