@@ -5,10 +5,11 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { execFileSync } from 'node:child_process'
 
 import { baseRef, devConfig, readLocalEvidence } from '../lib/devmode.mjs'
 import { ciAllowsPass } from '../lib/goalcheck.mjs'
-import { countsOf, integrate, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
+import { countsOf, defaultGit, integrate, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
 
 const HEAD = 'a'.repeat(40)
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-lf-'))
@@ -58,6 +59,44 @@ function fixture({ status = 'COMPLETED', verdict = 'APPROVE', files = 'M\tapps/w
 test('staticGates — 정상 통과', () => {
   const f = fixture()
   assert.deepEqual(staticGates({ ...f, head: HEAD, base: 'local/integration' }).fail, [])
+})
+
+test('실제 Git blob 승인 — LF/CRLF·한글·앞뒤 공백을 보존하고 trim 해시는 거절', async (t) => {
+  for (const [label, sql] of [
+    ['LF', '-- approved SQL\ncreate table x();\n'],
+    ['CRLF and Unicode', '\uFEFF-- 승인 SQL\r\ncreate table x();\r\n \t\r\n'],
+  ]) await t.test(label, () => {
+    const repo = tmp()
+    const run = (...args) => execFileSync('git', ['-C', repo, ...args], { stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true })
+    try {
+      run('init', '-q')
+      run('config', 'core.autocrlf', 'false')
+      const commit = () => run('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-q', '--allow-empty', '-m', 'fixture')
+      commit()
+      const base = run('rev-parse', 'HEAD').toString().trim()
+      const file = 'supabase/migrations/20261020063000_fixture.sql'
+      fs.mkdirSync(path.join(repo, 'supabase/migrations'), { recursive: true })
+      const bytes = Buffer.from(sql, 'utf8')
+      fs.writeFileSync(path.join(repo, file), bytes)
+      run('add', '--', file)
+      commit()
+      const head = run('rev-parse', 'HEAD').toString().trim()
+      const git = defaultGit(repo)
+      assert.deepEqual(git('show', `${head}:${file}`), bytes, 'blob 바이트는 출력 trim/문자열 정규화를 하지 않는다')
+      assert.equal(git('rev-parse', 'HEAD'), head, '일반 Git 메타데이터는 여전히 문자열로 정리한다')
+      const sha = (value) => crypto.createHash('sha256').update(value).digest('hex')
+      const f = fixture({ allowed: ['supabase/**'], approval: { sql_sha256: sha(bytes) }, verified: head })
+      const check = () => staticGates({ ...f, git, head, base }).fail
+      assert.deepEqual(check(), [], '승인된 실제 바이트만 통과한다')
+      for (const altered of [sql.trim(), sql + '\n', sql.replace('table x', 'table y')]) {
+        f.task.approval = { sql_sha256: sha(altered) }
+        assert.match(check().join(' | '), /DB 승인/, '공백 정규화 또는 본문이 다른 승인은 거부한다')
+      }
+    } finally {
+      assert.ok(path.resolve(repo).startsWith(path.join(path.resolve(os.tmpdir()), 'vfc-lf-')))
+      fs.rmSync(repo, { recursive: true, force: true })
+    }
+  })
 })
 
 test('staticGates — 미완료 · REVIEW_UNKNOWN · 검증 뒤 커밋 · 범위 밖 · 비밀값 · .env · 승인 없는 마이그레이션 · 마이그레이션 삭제', () => {
