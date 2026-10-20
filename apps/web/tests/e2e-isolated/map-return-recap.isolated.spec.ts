@@ -21,6 +21,7 @@ test.beforeAll(() => {
   expect(SERVICE.length).toBeGreaterThan(20)
 })
 
+const shot = async (page: Page, name: string) => test.info().attach(name, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
 const admin = () => createClient(URL, SERVICE, { auth: { persistSession: false } })
 const gold = (id: string) => SET.items.find((i) => i.id === id)!.gold.answer
 async function noOverflow(page: Page) {
@@ -46,7 +47,12 @@ async function supply(page: Page, uid: string, expectRole: string) {
   return again
 }
 /** 자료를 열어 고르고 제출 → 결과 → 「학습 지도로」 복귀 → 팝업 닫고 TASK 정보의 돌아온 뒤 정리 */
-const hrefsOf = async (card: ReturnType<Page['locator']>, role: string) => card.locator(`li[data-role="${role}"] a`).evaluateAll((as) => as.map((a) => a.getAttribute('href')!))
+/** 그 역할의 자료 링크(목록이 다 불러와진 뒤에 읽는다) */
+async function hrefsOf(card: ReturnType<Page['locator']>, role: string) {
+  const links = card.locator(`li[data-role="${role}"] a`)
+  await expect(links.first()).toBeVisible({ timeout: 30_000 })
+  return links.evaluateAll((as) => as.map((a) => a.getAttribute('href')!))
+}
 async function solveAndReturn(page: Page, href: string, choice: (id: string) => number) {
   expect(new globalThis.URL(href, 'http://x').searchParams.get('from'), '지도 복귀 문맥').toBe('map')
   const id = href.split('/')[3].split('?')[0]
@@ -58,15 +64,20 @@ async function solveAndReturn(page: Page, href: string, choice: (id: string) => 
   await expect(page.locator('[data-testid="authored-result"]')).toBeVisible({ timeout: 30_000 })
   await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
   await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
-  const dialog = page.locator('[role="dialog"]')
-  if (await dialog.count()) { await page.keyboard.press('Escape'); await expect(dialog).toHaveCount(0) }
-  const recap = page.locator('[data-testid="inspector-return-summary"]')
+  // 복귀 문맥이 같은 Workspace 팝업을 복원하고, 그 맨 위에 이 TASK 의 「돌아온 뒤」 정리가 있다
+  const dialog = page.locator(`[role="dialog"][data-ws="${T}"]`)
+  await expect(dialog, '같은 Workspace 복원').toBeVisible({ timeout: 30_000 })
+  const recap = dialog.locator('[data-testid="ws-return-summary"]')
   await expect(recap, '돌아온 뒤 정리').toBeVisible({ timeout: 30_000 })
-  await expect(page.locator('[data-testid="task-inspector"]')).toHaveAttribute('data-task', TASK)
+  await expect(recap).toHaveAttribute('data-task', TASK)
   await noOverflow(page)
-  return recap
+  const text = await recap.innerText()
+  await shot(page, `return-${Date.now()}`)
+  // 키보드로 닫히고 초점이 지도로 돌아온다
+  await page.keyboard.press('Escape')
+  await expect(dialog).toHaveCount(0)
+  return text
 }
-const shot = async (page: Page, name: string) => test.info().attach(name, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
 
 for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
   test(`돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (${width}×${height})`, async ({ page }) => {
@@ -94,28 +105,25 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(inds).toHaveLength(2)
     await solveAndReturn(page, inds[0], wrong)
     const r1 = await solveAndReturn(page, inds[1], wrong)
-    await expect(r1).toContainText('독립 근거로 셌어요')
-    await expect(r1).toContainText('틀렸어요')
-    await expect(r1).toContainText('저장한 학습계획 v2')
-    await shot(page, `recap-independent-${width}`)
+    expect(r1).toContain('독립 근거로 셌어요')
+    expect(r1).toContain('틀렸어요')
+    expect(r1).toContain('저장한 학습계획 v2')
 
     // ② 확인 결과로 다시 확정 → 바로잡기 자료 → 안내 연습 정답 → 복귀: 안내 연습(독립 근거 아님) · 독립 근거 수 그대로
     await plan(page, 'check_result', 2, goal)
     card = await supply(page, uid, 'guided_practice')
     const r2 = await solveAndReturn(page, (await hrefsOf(card, 'guided_practice'))[0], gold)
-    await expect(r2).toContainText('안내 연습')
-    await expect(r2).toContainText('독립 근거로 세지 않아요')
-    await expect(r2).toContainText('독립 근거 2개')
-    await expect(r2).toContainText('직전 v2')
-    await shot(page, `recap-guided-${width}`)
+    expect(r2).toContain('안내 연습')
+    expect(r2).toContain('독립 근거로 세지 않아요')
+    expect(r2).toContain('독립 근거 2개')
+    expect(r2).toContain('직전 v2')
 
     // ③ 적용 단계 확정 → 적용 자료(재고 1편 · 계획 2편) → 적용 1편 → 복귀: 1 / 2편 — 완료 아님
     await plan(page, 'check_result', 3, goal)
     card = await supply(page, uid, 'transfer')
     const r3 = await solveAndReturn(page, (await hrefsOf(card, 'transfer'))[0], gold)
-    await expect(r3).toContainText(/처음 보는 지문 적용 1 \/ 2편 — 아직 계획만큼 하지 않았어요/)
-    await expect(r3).not.toContainText('적용한 기록은 아직 없어요')
-    await shot(page, `recap-transfer-partial-${width}`)
+    expect(r3).toMatch(/처음 보는 지문 적용 1 \/ 2편 — 아직 계획만큼 하지 않았어요/)
+    expect(r3).not.toContain('적용한 기록은 아직 없어요')
 
     // 근거 결속 = 처음 독립 확인 2 뿐(안내 연습 · 적용은 독립 근거가 아니다) · 계획 이력 = 학습자 확정 4회
     const binds = (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid)).data ?? []

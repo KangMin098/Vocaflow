@@ -114,6 +114,36 @@ export function homeWsOf(task: string, view: V4View, restoreWs: string | null): 
     ?? null
 }
 
+/** T-0062 — 돌아온 뒤 정리의 재료(서버 기록만 · 판정 없음). TASK 서랍과 복원되는 Workspace 팝업이 같은 값을 쓴다 */
+export function recapFor(task: TaskId, view: V4View, data: MapPageData, home: string | null) {
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  return returnRecap({
+    keys: evidenceKeysOfTask(task),
+    attempts: data.findAttempts,
+    activity: data.lifecycleActivity,
+    transfer: view.evidence?.[task]?.instructionPath,
+    history: savedWs?.history ?? [],
+    proposalDiffers: !!home && replanNeeded(task, home, view, data.v4?.saved),
+  })
+}
+
+/** 복원되는 Workspace 팝업에 보일 「돌아온 뒤」 문장 — TaskInspector 의 summary 와 같은 계산(같은 TASK · 같은 묶음) */
+export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, notes: readonly ReturnNote[]): string[] {
+  const need = view.toBe?.needs.find((n) => n.task === task)?.type ?? null
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  const plan = view.taskPlans.find((p) => p.task === task) ?? null
+  return returnSummary({
+    check: view.asIs.tasks[task]?.check ?? null,
+    taskDisplay: taskOf(task).display,
+    recap: recapFor(task, view, data, home),
+    remaining: need ? NEED_V62_LABEL[need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요',
+    nextLabel: plan?.next?.label ?? null,
+    notes,
+    planVersion: savedWs?.latest.version ?? null,
+    goalVersion: data.v4?.saved?.goalVersionId ?? null,
+  })
+}
+
 /** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
 export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
@@ -164,18 +194,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const fallback = supply.lines.length > 0 ? fallbackActions(bucketed, study.items.length > 0) : null
   const pItem = principleItem(study.items)
   const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
-  // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
-  const ip = view.evidence?.[t.id]?.instructionPath
   // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
   // T-0062 — 0편 · 일부(n/m) · 계획만큼 · 확인 불가를 섞지 않는다(1/2편을 「기록 없음」 · 「마쳤어요」로 말하지 않는다)
-  const recap = returnRecap({
-    keys: evidenceKeysOfTask(t.id as TaskId),
-    attempts: data.findAttempts,
-    activity: data.lifecycleActivity,
-    transfer: ip,
-    history: savedWs?.history ?? [],
-    proposalDiffers: !!home && replanNeeded(t.id as TaskId, home, view, data.v4?.saved),
-  })
+  const recap = recapFor(t.id as TaskId, view, data, home)
   const transferDone = recap.transfer.state === 'complete'
   const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
   const summary = returned ? returnSummary({ check, taskDisplay: t.display, recap, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null

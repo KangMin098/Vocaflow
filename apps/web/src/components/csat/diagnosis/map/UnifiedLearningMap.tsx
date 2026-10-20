@@ -30,7 +30,7 @@ import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/li
 import { useGoal } from './GoalBar'
 import { GoalRecordBar } from './GoalRecordBar'
 import { MapDialog } from './MapDialog'
-import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, TaskInspector } from './TaskInspector'
+import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor, TaskInspector } from './TaskInspector'
 import { TaskPopup } from './TaskPopup'
 import u from './unified.module.css'
 import { WorkspaceList } from './WorkspaceList'
@@ -428,6 +428,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           reason={modalRow.id === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null}
           tab={modal.tab}
           onTab={(tab) => setModal({ id: modalRow.id, tab })}
+          returned={restore?.mapTask && (modalRow.core.includes(restore.mapTask as TaskId) || modalRow.support.includes(restore.mapTask as TaskId)) ? { task: restore.mapTask as TaskId, lines: returnLinesFor(restore.mapTask as TaskId, view, data, modalRow.id, notes) } : null}
           onClose={closeModal}
           onPickTask={(id) => {
             setModal(null)

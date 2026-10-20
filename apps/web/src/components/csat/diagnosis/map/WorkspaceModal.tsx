@@ -31,7 +31,7 @@ import { Amount, READINESS_LABEL, STAGES, taskLabel, wsIcon, WS_STATE_LABEL } fr
 
 export type WsTab = 'overview' | 'plan'
 
-export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab, onClose, onPickTask }: {
+export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab, onClose, onPickTask, returned = null }: {
   row: WsRow
   view: V4View
   data: MapPageData
@@ -42,6 +42,8 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
   onTab: (t: WsTab) => void
   onClose: () => void
   onPickTask: (id: TaskId) => void
+  /** T-0062 — 학습 후 이 묶음으로 돌아왔을 때의 정리(TASK 서랍과 같은 계산) · 돌아온 게 아니면 null */
+  returned?: { task: TaskId; lines: string[] } | null
 }) {
   const Icon = wsIcon(row.id)
   const plan = view.plans[row.id] ?? null
@@ -90,6 +92,12 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
         </>
       }
     >
+      {returned && returned.lines.length > 0 && (
+        <section className={p.card} aria-labelledby="ws-return-h" data-testid="ws-return-summary" data-task={returned.task} role="status">
+          <h3 id="ws-return-h" className={p.cardTitle}>돌아온 뒤 — {taskLabel(returned.task).name} 에 무엇이 기록됐나</h3>
+          <ul className={u.ledger}>{returned.lines.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+        </section>
+      )}
       {tab === 'plan' && plan ? (
         <div id="umap-plan" className={u.planInModal} data-testid="umap-plan" data-ws={row.id}>
           {/* 묶음마다 다른 인스턴스 — 다른 묶음 저장의 늦은 응답 · 초안이 지금 묶음을 덮지 않는다 */}
