@@ -1,6 +1,7 @@
 // apps/web/src/components/admin/vcb/VcbCurationDetailPanel.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 // VcbCurationDetailPanel.tsx
 // 자율 재구성: spec 이 qa_flags badge style 직후 잘려, 이후 섹션 (definitions /
@@ -121,7 +122,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
               className="px-2 py-1 text-xs rounded-[var(--r-sm)] font-mono"
               style={{
                 background: `var(--cefr-${p.cefr}-bg)`,
-                color: `var(--cefr-${p.cefr}-text)`,
+                color: adminTextInk(`var(--cefr-${p.cefr}-text)`),
               }}
             >
               {p.cefr}
@@ -142,7 +143,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
           {detail.seed_origin === 'ai_generated' && (
             <span
               className="px-2 py-1 text-xs rounded-[var(--r-sm)]"
-              style={{ background: 'var(--info-light)', color: 'var(--info)' }}
+              style={{ background: 'var(--info-light)', color: adminTextInk('var(--info)') }}
             >
               AI Generated
             </span>
@@ -152,7 +153,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
               className="px-2 py-1 text-xs rounded-[var(--r-sm)] border font-mono"
               style={{
                 background: 'var(--warning-light)',
-                color: 'var(--warning)',
+                color: adminTextInk('var(--warning)'),
                 borderColor: 'var(--warning)',
               }}
             >

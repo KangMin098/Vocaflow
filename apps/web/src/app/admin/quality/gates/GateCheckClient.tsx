@@ -127,6 +127,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
         </div>
         {kind === 'book' ? (
           <select
+            aria-label="검사할 도서"
             value={bookId}
             onChange={(e) => {
               setBookId(e.target.value)
@@ -143,6 +144,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           </select>
         ) : (
           <select
+            aria-label="검사할 짧은 글"
             value={articleId}
             onChange={(e) => {
               setArticleId(e.target.value)

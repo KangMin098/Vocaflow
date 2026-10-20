@@ -106,9 +106,9 @@ function UsersView({ data }: { data: VrlUsersData }) {
 
       {/* V-Level 분포 */}
       <section className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-        <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
+        <h2 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
           V-Level 분포 (전체 {data.total} users)
-        </h3>
+        </h2>
         <div className="grid grid-cols-12 gap-2">
           {data.byLevel.map((n, i) => {
             const h = Math.round((n / maxLevelCount) * 60) + 4
@@ -116,6 +116,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
               <div key={i} className="flex flex-col items-center gap-1">
                 <div className="relative flex h-[68px] w-full items-end justify-center">
                   <div
+                    role="img"
                     className="w-full rounded-t-sm bg-gradient-to-t from-[var(--p)] to-[var(--p-light)]"
                     style={{ height: `${h}px` }}
                     aria-label={`L${i}: ${n}명`}

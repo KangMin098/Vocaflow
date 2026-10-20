@@ -74,7 +74,7 @@ export function StickyNav() {
         aria-label="Section navigation"
         className="sticky top-0 z-30 -mx-6 mb-2 border-b border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--bg)_80%,transparent)]"
       >
-        <ul className="flex items-center gap-1 overflow-x-auto" role="tablist">
+        <ul className="flex items-center gap-1 overflow-x-auto">
           {SECTIONS.map((s) => {
             const active = activeId === s.id
             const Icon = s.icon
@@ -82,8 +82,7 @@ export function StickyNav() {
               <li key={s.id} className="shrink-0">
                 <a
                   href={`#${s.id}`}
-                  role="tab"
-                  aria-selected={active}
+                  aria-current={active ? 'location' : undefined}
                   onClick={(e) => {
                     e.preventDefault()
                     const el = document.getElementById(s.id)

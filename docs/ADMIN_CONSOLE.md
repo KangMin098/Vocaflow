@@ -1,5 +1,9 @@
 # Admin Console
 
+도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
+
+3001 전수 사용성 점검(2026-10-20): 앞선 23개 목적지 수용과 별도로 89개 경로·팝업·18개 파이프라인을 PC 1440/1280에서 조사했다. 접근성 이름·긴 값 넘침·중첩 팝업의 포커스/뒤로가기 결함을 수정하고 실제 실행과 계약 검증·자료 부재·운영 차단을 구분한다. [검증 범위·수정·최종 결과](admin-restructure/usability-audit.md).
+
 최종 수용(2026-10-20): 실제 프로덕션 실행·Supabase 인증/DB에서 소유가 분리된 합성 계정으로 주문 등록/연결/개정/철회/개인 변경과 네 상태 화면을 검증했다. 메뉴 목적지 23 URL도 실제 관리자 인증으로 모두 200이었다. 검증 계정은 권한 제거·정지했고 Workspace/주문은 종료했으며 합성 이력만 보존했다. [최종 구성·기존 대비·실행 결과](admin-restructure/final-acceptance.md).
 
 Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했고 실제 합성 기록이 채워진 화면도 후속 검증했다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).

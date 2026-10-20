@@ -80,9 +80,9 @@ export default async function CsatOriginsPage() {
                           href={e.url}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex min-h-11 items-center underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                          className="inline-flex min-h-11 max-w-xs items-center break-all underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                         >
-                          {e.label}
+                          {e.label?.trim() || e.url}
                         </a>
                       </li>
                     ))}

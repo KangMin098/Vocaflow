@@ -8,6 +8,7 @@
 // 4단계: 커버리지 · 소스 GET · 검수 · 발행.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState, useTransition } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -247,7 +248,7 @@ function StageTabs({ stage, onChange }: { stage: Stage; onChange: (s: Stage) => 
               className="inline-flex h-5 w-5 items-center justify-center rounded-[var(--r-full)] font-mono text-[10px] font-[700]"
               style={{
                 backgroundColor: active ? 'var(--p)' : 'var(--bg2)',
-                color: active ? 'var(--ti)' : 'var(--t3)',
+                color: adminTextInk(active ? 'var(--ti)' : 'var(--t3)'),
               }}
               aria-hidden
             >
@@ -290,12 +291,12 @@ function StatsBar({ stats }: { stats: ArticleStats }) {
             className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
             style={{ backgroundColor: c.bg }}
           >
-            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: c.text }}>
+            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: adminTextInk(c.text) }}>
               {it.label}
             </span>
             <span
               className="font-display text-[24px] font-[700] tabular-nums"
-              style={{ color: c.value }}
+              style={{ color: adminTextInk(c.value) }}
               title={it.value == null ? '못 셌다 — 0건이라는 뜻이 아니다' : undefined}
             >
               {it.value == null ? '—' : it.value.toLocaleString()}

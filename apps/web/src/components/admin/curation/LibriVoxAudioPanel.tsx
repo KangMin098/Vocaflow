@@ -217,8 +217,8 @@ export function LibriVoxAudioPanel({
               type="button"
               onClick={connect}
               disabled={busy != null}
-              className="min-h-[44px] inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
-              style={{ background: 'var(--learn-review)' }}
+              className="min-h-[44px] inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+              style={{ background: 'var(--learn-review-ink)' }}
             >
               {busy === 'build' ? (
                 <Loader2 size={12} className="animate-spin" aria-hidden />

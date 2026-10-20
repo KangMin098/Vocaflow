@@ -1,5 +1,11 @@
 # Library Pipeline
 
+도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
+
+기출 소재 집계 보완(2026-10-20): 요약 16개·사유 12개 count는 각각 순차 조회하고 실패를 0건으로 대체하지 않는다. 공정은 요약 후 사유 집계를 시작하며 두 조회가 끝나기 전에는 미측정 상태다. 무거운 요약의 자동 재시도·창 포커스 재요청은 끄고 수동 재시도를 제공한다. 실제 전체 요약 지연은 [사용성 점검](admin-restructure/usability-audit.md)에 공개한다. DB 함수·인덱스·정책 변경 없음.
+
+ACP 목록 조회 보완(2026-10-20): 검수 목록의 실제 statement timeout을 조사하고, 관리자/큐레이터의 신원·계정 상태 확인 뒤 기존 서버 전용 관리자 조회를 사용하도록 했다. 원래 상태·소스·페이지·정렬과 조회 실패 전파는 유지한다. RLS 정책·DB 스키마·콘텐츠 상태는 바꾸지 않는다. [전수 사용성 점검·실행 증거](admin-restructure/usability-audit.md).
+
 최종 계보 실행 검증(2026-10-20): 기존 계획/수요/주문 RPC와 관리자 API를 실제 프로덕션 실행에서 통제된 합성 계정으로 연결했다. 등록/연결/개정/철회/개인 변경의 실제 DB 및 화면이 통과했다. 검증 전용 현재 주문·Workspace·권한은 종료했고 생산·발행·개인 납품은 수행하지 않았다. [최종 구성·프로세스·정리 결과](admin-restructure/final-acceptance.md).
 
 Factory 주문 계보(2026-10-20, 사용자 승인 후 개발 DB 적용): 안정 커밋 `663f2eee8`의 정본 봉인/기획 5파일을 재사용한다. 별도 registry envelope로 개인 수요 서명·조건과 정확한 주문 판/해시·계획 문항을 결속한다. 등록/철회/요청 영수증은 추가 전용이며, 공용 자료는 학습자 간 재사용한다. 기존 후보 crosswalk·환산표·실제 생성/검수/출시/D2 납품 게이트는 유지한다. 후속 합성 주문 검증과 실제 생산/납품은 구분한다. [계약 및 기존 대비](admin-restructure/product-order-lineage.md) · [적용·사후 검증](admin-restructure/product-order-lineage-deployment.md).

@@ -6,6 +6,7 @@
 // 소스 하드코딩 없음 — source-guide(SOURCE_SPECS + 소스→register 파생) 경유.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useMemo } from 'react'
 import { ArrowRight, Compass } from 'lucide-react'
@@ -111,8 +112,8 @@ export function GetGuidePanel({ coverage, feedHealth, level, onLevel, onPickSour
                 className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[10px]"
                 style={
                   n > 0
-                    ? { backgroundColor: 'var(--learn-error-light)', color: 'var(--learn-error)' }
-                    : { color: 'var(--t4)' }
+                    ? { backgroundColor: 'var(--learn-error-light)', color: adminTextInk('var(--learn-error)') }
+                    : { color: adminTextInk('var(--t4)') }
                 }
               >
                 {r.label} {n}
@@ -153,7 +154,7 @@ function RecCard({
       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{SOURCE_LABEL[rec.source]}</span>
       <span
         className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
-        style={{ backgroundColor: tone.bg, color: tone.fg }}
+        style={{ backgroundColor: tone.bg, color: adminTextInk(tone.fg) }}
       >
         {FIT_LABEL[rec.fit]}
       </span>

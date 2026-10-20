@@ -72,7 +72,7 @@ export function CoverageMatrix({ coverage, onCellClick }: Props) {
                       }
                     : { backgroundColor: 'var(--learn-known-light)' }
                   const inner = (
-                    <span className="relative flex min-h-[36px] items-center justify-center px-2 py-1">
+                    <span className="relative flex min-h-[44px] items-center justify-center px-2 py-1">
                       {isGap ? (
                         <span className="font-mono text-[9px] font-[700] uppercase tracking-wide text-[var(--learn-error)]">
                           GAP
@@ -97,7 +97,7 @@ export function CoverageMatrix({ coverage, onCellClick }: Props) {
                           type="button"
                           onClick={() => onCellClick({ register: r.key, cefr: c })}
                           aria-label={`${r.label} · ${c}${isGap ? ' — 빈 칸(소스 GET 으로 채우기)' : ` 발행 ${n}건`}`}
-                          className="block w-full transition-colors hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
+                          className="block min-h-[44px] w-full transition-colors hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
                         >
                           {inner}
                         </button>

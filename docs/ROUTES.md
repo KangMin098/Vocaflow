@@ -427,10 +427,14 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `POST /api/acp/dev-process` | article 단권 처리 |
 | `POST /api/acp/enqueue` | article 큐 등록 |
 
-### `/api/admin/library/*` (11)
+### `/api/admin/library/*` (14)
 
 | 경로 | 비고 |
 |---|---|
+| `GET /api/admin/library/curation-jobs?kind=voice\|quiz\|review` | 관리자·큐레이터 세션/RLS로 기존 큐 상태 조회. 캐시 없음. 화면 초기 조회·8초 폴링에 Server Action을 사용하지 않아 상세 선택과 경합하는 화면 재갱신 방지 |
+| `POST /api/admin/library/preview-storyweaver` | StoryWeaver 사전 검사 |
+| `POST /api/admin/library/enrich-seed-batch` | seed 후보 보강 |
+| `POST /api/admin/library/force-publish-book` | 관리자 수동 발행 |
 | `POST /api/admin/library/fetch-seed-batch` | BulkFetch — 9 소스에서 N권 batch fetch |
 | `POST /api/admin/library/preview-gutenberg` | Gutenberg ID 사전 검사 |
 | `POST /api/admin/library/preview-openstax` | OpenStax 사전 검사 |

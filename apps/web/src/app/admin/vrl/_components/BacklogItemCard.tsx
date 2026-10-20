@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/BacklogItemCard.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // BacklogSection 의 자식 카드.
 
@@ -34,19 +35,19 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
   return (
     <article
       aria-label={`${item.id} ${item.title}`}
-      className={`flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass} ${isDone ? 'opacity-75' : ''}`}
+      className={`flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass} ${isDone ? 'border-dashed' : ''}`}
     >
       <header className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           <span
-            className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
-            style={{ backgroundColor: accent }}
+            className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-[var(--on-p)]"
+            style={{ backgroundColor: adminTextInk(accent) }}
           >
             {item.priority}
           </span>
           <span
             className="font-display text-[12px] font-[800]"
-            style={{ color: accent }}
+            style={{ color: adminTextInk(accent) }}
           >
             {item.id}
           </span>
@@ -101,8 +102,8 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
         {item.affects.map((r) => (
           <span
             key={r}
-            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-white"
-            style={{ backgroundColor: RESP_COLOR[r] }}
+            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-[var(--on-p)]"
+            style={{ backgroundColor: adminTextInk(RESP_COLOR[r]) }}
           >
             {r}
           </span>

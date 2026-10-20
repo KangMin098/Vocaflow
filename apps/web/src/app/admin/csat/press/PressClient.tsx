@@ -17,6 +17,7 @@
 // 「냈음」으로 서고 공개 URL 로 열려 있었다. 이 화면이 그 사실을 적는다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState, useTransition } from 'react'
 
@@ -115,7 +116,7 @@ function DecideButtons({
             onClick={() =>
               start(async () => setSays((await onDecide(v.series, v.band, 'approved')).says))
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-stable)] hover:text-[var(--memory-stable)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-stable)] hover:text-[var(--success-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '발행 승인'}
           </button>
@@ -137,7 +138,7 @@ function DecideButtons({
                 ),
               )
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-risk)] hover:text-[var(--error-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '내린다'}
           </button>
@@ -256,7 +257,7 @@ export function PressClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -276,7 +277,7 @@ export function PressClient({
           <p className="font-body text-[11px] text-[var(--t3)]">옛 규격으로 찍힌 권</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: stale.length ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
+            style={{ color: adminTextInk(stale.length ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}
           >
             {stale.length}
           </p>
@@ -288,7 +289,7 @@ export function PressClient({
           <p className="font-body text-[11px] text-[var(--t3)]">해설 안 붙은 문항</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: missingExpl ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
+            style={{ color: adminTextInk(missingExpl ? 'var(--memory-risk)' : 'var(--memory-stable)') }}
           >
             {missingExpl.toLocaleString()}
           </p>
@@ -348,16 +349,16 @@ export function PressClient({
                     <td className="py-1.5 pr-3">
                       {v.publish == null ? (
                         // ⚠️ 「찍힘」으로 채우지 않는다 — 사람이 그렇게 판정한 것과 다르다.
-                        <span className="text-[var(--memory-new)]">판정 없음</span>
+                        <span className="text-[var(--t2)]">판정 없음</span>
                       ) : (
                         <span
                           style={{
                             color:
-                              v.publish.status === 'published' || v.publish.status === 'approved'
+                              adminTextInk(v.publish.status === 'published' || v.publish.status === 'approved'
                                 ? 'var(--memory-stable)'
                                 : v.publish.status === 'withdrawn'
                                   ? 'var(--memory-risk)'
-                                  : 'var(--memory-shaky)',
+                                  : 'var(--memory-shaky)'),
                           }}
                         >
                           {PUBLISH_KO[v.publish.status]}
@@ -371,14 +372,14 @@ export function PressClient({
                     </td>
                     <td className="py-1.5 pr-3">
                       {v.reach.hasContents ? (
-                        <span style={{ color: 'var(--memory-stable)' }}>있음</span>
+                        <span style={{ color: adminTextInk('var(--memory-stable)') }}>있음</span>
                       ) : (
-                        <span style={{ color: 'var(--memory-risk)' }}>없음 — 목차 절이 안 나간다</span>
+                        <span style={{ color: adminTextInk('var(--memory-risk)') }}>없음 — 목차 절이 안 나간다</span>
                       )}
                     </td>
                     <td className="break-keep py-1.5 pr-3 text-[11px]">
                       {why.length ? (
-                        <span style={{ color: 'var(--memory-shaky)' }}>{why.join(' · ')}</span>
+                        <span style={{ color: adminTextInk('var(--memory-shaky)') }}>{why.join(' · ')}</span>
                       ) : (
                         <span className="text-[var(--t3)]">없음</span>
                       )}
@@ -393,7 +394,7 @@ export function PressClient({
                         </a>
                       ) : (
                         // 단이 없으면 주소를 지어내지 않는다.
-                        <span className="text-[var(--memory-new)]">단 없음</span>
+                        <span className="text-[var(--t2)]">단 없음</span>
                       )}
                     </td>
                     <td className="py-1.5">
@@ -444,27 +445,27 @@ export function PressClient({
                     {v.units} · {v.items}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
-                    <span style={{ color: v.missingExplanations > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}>
+                    <span style={{ color: adminTextInk(v.missingExplanations > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)') }}>
                       {v.missingExplanations}
                     </span>
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.typeMixFit == null ? (
-                      <span className="text-[var(--memory-new)]">못 잼</span>
+                      <span className="text-[var(--t2)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.typeMixFit >= 0.8 ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
+                      <span style={{ color: adminTextInk(v.typeMixFit >= 0.8 ? 'var(--memory-stable)' : 'var(--memory-shaky)') }}>
                         {Math.round(v.typeMixFit * 100)}%
                       </span>
                     )}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">
-                    {v.distinctVolumes ?? <span className="text-[var(--memory-new)]">해당 없음</span>}
+                    {v.distinctVolumes ?? <span className="text-[var(--t2)]">해당 없음</span>}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.articlesIdle == null ? (
-                      <span className="text-[var(--memory-new)]">못 잼</span>
+                      <span className="text-[var(--t2)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.articlesIdle > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}>
+                      <span style={{ color: adminTextInk(v.articlesIdle > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}>
                         {v.articlesIdle.toLocaleString()}
                         {v.articlesWithItems != null ? (
                           <span className="ml-1 text-[10.5px] text-[var(--t3)]">
@@ -476,9 +477,9 @@ export function PressClient({
                   </td>
                   <td className="py-2">
                     {v.brandCurrent ? (
-                      <span className="text-[11px] text-[var(--memory-stable)]">최신</span>
+                      <span className="text-[11px] text-[var(--success-ink)]">최신</span>
                     ) : (
-                      <span className="text-[11px] text-[var(--memory-shaky)]">옛 규격</span>
+                      <span className="text-[11px] text-[var(--warning-ink)]">옛 규격</span>
                     )}
                   </td>
                 </tr>

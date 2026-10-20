@@ -170,9 +170,9 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
 
       {/* 시드 가이드 (운영자 안내) */}
       <section className="rounded-[var(--r-xl)] border border-dashed border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_4%,transparent)] p-5">
-        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--p)]">
+        <h2 className="mb-2 font-display text-[13px] font-[700] text-[var(--p)]">
           시드 가이드
-        </h3>
+        </h2>
         <ul className="space-y-1.5 font-body text-[12px] text-[var(--t2)]">
           <li>
             <strong>V-Level 진단</strong>: 12 Level × 3-5 시그니처 단어 (target_v_level

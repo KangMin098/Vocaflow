@@ -4,7 +4,9 @@ import { NextResponse } from 'next/server'
 const { guard, create, chain } = vi.hoisted(() => ({ guard: vi.fn(), create: vi.fn(), chain: vi.fn() }))
 vi.mock('@/lib/auth/require-admin-api', () => ({ requireAdminApi: guard }))
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: create }))
+vi.mock('@/lib/csat/drain-runs', () => ({ lastDrainRun: vi.fn().mockResolvedValue({ available: true, run: null }) }))
 import { GET, POST } from '../route'
+import { SOURCE_QUEUES } from '@/lib/textbook/source-operations'
 beforeEach(() => { vi.clearAllMocks(); guard.mockResolvedValue({ id: 'admin' }); create.mockReturnValue({ from: chain }) })
 it('GET and POST refuse before service access when admin guard fails', async () => {
   guard.mockResolvedValue(NextResponse.json({ error: 'Forbidden' }, { status: 403 }))
@@ -26,6 +28,54 @@ it('missing count is not interpreted as zero inventory', async () => {
   const response = await GET(new Request('http://localhost/api/admin/csat/sources?queue=all'))
   expect(response.status).toBe(503)
   expect(response.headers.get('cache-control')).toBe('no-store')
+})
+
+it('summary permits one count at a time and returns every real count', async () => {
+  let active = 0, peak = 0, started = 0
+  let release!: () => void, notify!: () => void
+  const held = new Promise<void>(r => { release = r })
+  const first = new Promise<void>(r => { notify = r })
+  chain.mockImplementation(() => {
+    let head = false
+    const q = {
+      select: vi.fn((_columns: string, options?: { head?: boolean }): unknown => { head = options?.head === true; return q }),
+      eq: vi.fn().mockReturnThis(), neq: vi.fn().mockReturnThis(), not: vi.fn().mockReturnThis(),
+      filter: vi.fn().mockReturnThis(), gt: vi.fn().mockReturnThis(), abortSignal: vi.fn().mockReturnThis(),
+      order: vi.fn().mockReturnThis(), limit: vi.fn().mockReturnThis(),
+      then: async (resolve: (r: unknown) => unknown) => {
+        if (!head) return resolve({ data: [], error: null })
+        active++; peak = Math.max(peak, active); started++
+        if (started === 1) { notify(); await held }
+        active--
+        return resolve({ count: started, error: null })
+      },
+    }
+    return q
+  })
+  const pending = GET(new Request('http://localhost/api/admin/csat/sources?summary=1'))
+  await first
+  expect(chain).toHaveBeenCalledTimes(1)
+  expect(active).toBe(1)
+  release()
+  const response = await pending
+  expect(response.status).toBe(200)
+  expect(peak).toBe(1)
+  const body = await response.json()
+  expect(body.counts).toEqual(Object.fromEntries(Object.keys(SOURCE_QUEUES).map((key, i) => [key, i + 1])))
+})
+
+it('summary stops at the first failed count rather than starting the remaining queries', async () => {
+  const q = { select: vi.fn().mockReturnThis(), abortSignal: vi.fn().mockResolvedValue({ count: null, error: { message: 'timeout' } }) }
+  chain.mockReturnValue(q)
+  expect((await GET(new Request('http://localhost/api/admin/csat/sources?summary=1'))).status).toBe(503)
+  expect(chain).toHaveBeenCalledTimes(1)
+})
+
+it('an aborted summary never starts a count', async () => {
+  const control = new AbortController()
+  control.abort()
+  expect((await GET(new Request('http://localhost/api/admin/csat/sources?summary=1', { signal: control.signal }))).status).toBe(503)
+  expect(chain).not.toHaveBeenCalled()
 })
 
 /* ── 조회 축 (2026-09-23) ──────────────────────────────────────────────────

@@ -1,6 +1,7 @@
 // apps/web/src/app/admin/curation/preview/[bookId]/AdminReviewClient.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { adminCurationReturn } from '@/lib/admin/curation-view'
@@ -88,7 +89,7 @@ export function AdminReviewClient({
             className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{
               backgroundColor: getToneStyle(statusInfo.tone).bg,
-              color: getToneStyle(statusInfo.tone).text,
+              color: adminTextInk(getToneStyle(statusInfo.tone).text),
             }}
           >
             {statusInfo.label}
@@ -123,7 +124,7 @@ export function AdminReviewClient({
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
-              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
+              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error-ink)]">
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
@@ -235,7 +236,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known-ink)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>

@@ -110,7 +110,7 @@ export const KICE_HELP: HelpRegistry = {
     title: '기출 분석 뷰 — 출제 지형',
     screen: {
       summary: '유형 × 학년도 히트맵. 칸을 고르면 그 유형 해부로 간다.',
-      fields: [SCOPE_FIELD],
+      fields: [SCOPE_FIELD, { label: '격자 탐색', detail: 'Tab으로 격자에 들어간 뒤 화살표로 연도·유형을 옮깁니다. Enter로 칸을 고르면 격자 아래에 다음 단계가 열립니다. 선택은 문항 데이터를 바꾸지 않습니다.' }],
       seeAlso: [{ label: '기출 분석 뷰', href: '/admin/kice' }],
     },
   },

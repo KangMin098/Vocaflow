@@ -3,6 +3,7 @@
 // 보라 액센트(var(--p)) · QC 게이트(panels_pass) 강제 발행.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useQueryTab } from '@/lib/admin/use-query-tab'
@@ -157,7 +158,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
           <Link
             href="/admin/library"
             className="inline-flex items-center gap-1 font-display text-[12px] font-[700] underline underline-offset-2"
-            style={{ color: ACCENT }}
+            style={{ color: adminTextInk(ACCENT) }}
           >
             라이브러리에서 도서 큐레이션하기 <ExternalLink size={12} />
           </Link>
@@ -252,11 +253,11 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{r.panelsTotal}</Td>
                   <Td>
                     {r.panelsPass ? (
-                      <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--memory-stable)]">
+                      <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--success-ink)]">
                         <ShieldCheck size={13} /> 통과
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--memory-risk)]">
+                      <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--error-ink)]">
                         <CircleSlash size={13} /> 미통과
                       </span>
                     )}
@@ -269,7 +270,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                       <button
                         onClick={() => runPublish(r, false)}
                         disabled={pending}
-                        className="min-h-[44px] rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
+                        className="min-h-[44px] rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--memory-risk)] hover:text-[var(--error-ink)] disabled:opacity-50"
                       >
                         회수
                       </button>
@@ -328,7 +329,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">먼저 구성 방식, 그다음 화풍</b> — 스타일은 두 축입니다. <b>①구성 방식(포맷)</b>은 <b>어떻게 배치하고 읽는가</b>(웹툰=세로 스크롤 / 만화·코믹=페이지 넘김 / 그래픽노블=대형 컷)로, 컷 비율·리더 모드·레이아웃을 정합니다. <b>②화풍</b>은 그 안의 <b>그림체·팔레트</b>(잉크/스크린톤/하프톤/컬러)입니다. 아래는 구성 방식별로 묶었고, 각 카드가 화풍입니다. 장르·연령은 큐레이션 필터. 도서 검수에서 스타일을 지정하면 드레인이 그 화풍으로 생성합니다.
         </p>
-        {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">스타일 상태 변경 실패 — {err}</p>}
+        {err && <p className="mt-2 font-body text-[12px] text-[var(--error-ink)]">스타일 상태 변경 실패 — {err}</p>}
       </div>
 
       {/* 차원 필터 */}
@@ -361,9 +362,9 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                 {/* 구성 방식 헤더 — 읽는 방식 + 레이아웃 설명 */}
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-[var(--r-md)] border-l-[3px] bg-[var(--bg2)] px-4 py-3" style={{ borderLeftColor: ACCENT }}>
                   <span className="inline-flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
-                    {scroll ? <ScrollText size={15} style={{ color: ACCENT }} /> : <BookOpen size={15} style={{ color: ACCENT }} />}{meta.label}
+                    {scroll ? <ScrollText size={15} style={{ color: adminTextInk(ACCENT) }} /> : <BookOpen size={15} style={{ color: adminTextInk(ACCENT) }} />}{meta.label}
                   </span>
-                  <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
+                  <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk(ACCENT), background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{meta.layout}</span>
                   <span className="font-body text-[11px] text-[var(--t2)]">· 화풍 {group.length}종</span>
                   <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t2)]">{meta.blurb}</p>
@@ -382,7 +383,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                       </div>
                       <figcaption className="flex flex-1 flex-col gap-2 p-3">
                         <div className="flex flex-wrap items-center gap-1">
-                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `color-mix(in srgb, ${genreHue(s.genre)} 10.2%, transparent)` }}>
+                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk(genreHue(s.genre)), background: `color-mix(in srgb, ${genreHue(s.genre)} 10.2%, transparent)` }}>
                             <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
                           </span>
                           {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">{t}</span>)}
@@ -441,7 +442,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 실행환경(RunPod/API)·다중참조·텍스트제어·캐릭터/화풍 일관성·VRAM·비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크.
         </p>
-        {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">상태 변경 실패 — {err}</p>}
+        {err && <p className="mt-2 font-body text-[12px] text-[var(--error-ink)]">상태 변경 실패 — {err}</p>}
       </div>
       {models.length === 0 ? (
         <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
@@ -457,13 +458,13 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
           <table className="w-full min-w-[900px] text-left">
             <thead>
               <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t2)]">
-                <Th>Fit</Th><Th>모델</Th><Th>실행환경</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>VRAM</Th><Th>상태</Th><Th></Th>
+                <Th>Fit</Th><Th>모델</Th><Th>실행환경</Th><Th>비용/장</Th><Th>다중참조</Th><Th>텍스트</Th><Th>캐릭터</Th><Th>화풍</Th><Th>VRAM</Th><Th>상태</Th><Th><span className="sr-only">작업</span></Th>
               </tr>
             </thead>
             <tbody>
               {models.map((m) => (
                 <tr key={m.key} className="border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] last:border-0 align-top hover:bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)]">
-                  <Td><span className="font-display text-[15px] font-[800] tabular-nums" style={{ color: (m.comic_fit ?? 0) >= 80 ? 'var(--memory-stable)' : (m.comic_fit ?? 0) >= 60 ? 'var(--memory-shaky)' : 'var(--t2)' }}>{m.comic_fit ?? '—'}</span></Td>
+                  <Td><span className="font-display text-[15px] font-[800] tabular-nums" style={{ color: adminTextInk((m.comic_fit ?? 0) >= 80 ? 'var(--memory-stable)' : (m.comic_fit ?? 0) >= 60 ? 'var(--memory-shaky)' : 'var(--t2)') }}>{m.comic_fit ?? '—'}</span></Td>
                   <Td>
                     <div className="flex items-center gap-2">
                       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{m.name}</span>
@@ -480,10 +481,10 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                     </div>
                   </Td>
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.cost_per_image_usd != null ? `$${m.cost_per_image_usd}` : (m.run_envs ?? []).some((e) => e !== 'api') ? '무료*' : '—'}</Td>
-                  <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--memory-stable)]" /> : <CircleSlash size={14} className="text-[var(--t2)]" />}</Td>
-                  <Td className="font-body text-[12px]" ><span style={{ color: m.text_control === 'strong' ? 'var(--memory-stable)' : m.text_control === 'weak' ? 'var(--memory-shaky)' : 'var(--t3)' }}>{m.text_control ?? '—'}</span></Td>
-                  <Td className="font-display text-[12px] font-[700]" ><span style={{ color: cap(m.char_consistency) }}>{m.char_consistency ?? '—'}</span></Td>
-                  <Td className="font-display text-[12px] font-[700]"><span style={{ color: cap(m.style_consistency) }}>{m.style_consistency ?? '—'}</span></Td>
+                  <Td>{m.multiref == null ? '—' : m.multiref ? <CheckCircle2 size={14} className="text-[var(--success-ink)]" /> : <CircleSlash size={14} className="text-[var(--t2)]" />}</Td>
+                  <Td className="font-body text-[12px]" ><span style={{ color: adminTextInk(m.text_control === 'strong' ? 'var(--memory-stable)' : m.text_control === 'weak' ? 'var(--memory-shaky)' : 'var(--t3)') }}>{m.text_control ?? '—'}</span></Td>
+                  <Td className="font-display text-[12px] font-[700]" ><span style={{ color: adminTextInk(cap(m.char_consistency)) }}>{m.char_consistency ?? '—'}</span></Td>
+                  <Td className="font-display text-[12px] font-[700]"><span style={{ color: adminTextInk(cap(m.style_consistency)) }}>{m.style_consistency ?? '—'}</span></Td>
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.min_vram_gb != null ? `${m.min_vram_gb}GB` : '—'}</Td>
                   <Td><ModelStatusPill status={m.status} /></Td>
                   <Td>
@@ -513,7 +514,7 @@ const ENV_META: Record<string, { label: string; tone: string }> = {
 }
 function EnvPill({ env }: { env: string }) {
   const m = ENV_META[env] ?? { label: env, tone: 'var(--t3)' }
-  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>{m.label}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk(m.tone), background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>{m.label}</span>
 }
 function ModelStatusPill({ status }: { status: string }) {
   const m: Record<string, { label: string; tone: string }> = {
@@ -521,7 +522,7 @@ function ModelStatusPill({ status }: { status: string }) {
     adopted: { label: '채택', tone: 'var(--memory-stable)' }, rejected: { label: '제외', tone: 'var(--memory-risk)' },
   }
   const s = m[status] ?? { label: status, tone: 'var(--t3)' }
-  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: s.tone, background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: adminTextInk(s.tone), background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
 }
 
 function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: ComicModel[]; styles: ComicStyle[] }) {
@@ -581,7 +582,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 <option value="">— 모델 선택 —</option>
                 {envModels.map((m) => <option key={m.key} value={m.key}>{m.name} · fit {m.comic_fit ?? '?'}{m.min_vram_gb ? ` · ${m.min_vram_gb}GB` : ''}</option>)}
               </select>
-              {envModels.length === 0 && <span className="font-body text-[11px] text-[var(--memory-shaky)]">이 환경에서 실행 가능한 모델이 없습니다 — 다른 환경을 선택하세요.</span>}
+              {envModels.length === 0 && <span className="font-body text-[11px] text-[var(--warning-ink)]">이 환경에서 실행 가능한 모델이 없습니다 — 다른 환경을 선택하세요.</span>}
             </label>
           </div>
         )}
@@ -606,7 +607,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
           <button onClick={submit} disabled={pending} className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
             {pending ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />} 계획 추가
           </button>
-          {msg && <span className="font-body text-[12px] text-[var(--memory-risk)]">{msg}</span>}
+          {msg && <span className="font-body text-[12px] text-[var(--error-ink)]">{msg}</span>}
         </div>
       </div>
 
@@ -618,15 +619,15 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
           {tests.map((t) => (
             <div key={t.id} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
               <div className="flex flex-wrap items-center gap-2">
-                <FlaskConical size={14} style={{ color: ACCENT }} />
+                <FlaskConical size={14} style={{ color: adminTextInk(ACCENT) }} />
                 <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{t.label}</span>
-                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>
+                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: adminTextInk(t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT), background: 'var(--bg2)' }}>
                   {t.status === 'running' && <Loader2 size={10} className="animate-spin" />}{t.status}
                 </span>
                 {(() => {
                   const url = (t.params as { kernel_url?: string } | null)?.kernel_url
                   return typeof url === 'string' ? (
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 25.1%, transparent)`, color: ACCENT }}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 25.1%, transparent)`, color: adminTextInk(ACCENT) }}>
                       <ExternalLink size={11} />모니터링
                     </a>
                   ) : null
@@ -683,21 +684,23 @@ function CatalogTable({
       <table className="w-full min-w-[760px] text-left">
         <thead>
           <tr className="border-b border-[var(--bd)] bg-[var(--bg2)] font-display text-[11px] uppercase tracking-wide text-[var(--t2)]">
-            <Th></Th><Th>제목</Th><Th>저자</Th><Th>V</Th><Th>도서</Th><Th>만화</Th><Th>컷</Th><Th>큐</Th>
+            <Th><span className="sr-only">선택</span></Th><Th>제목</Th><Th>저자</Th><Th>V</Th><Th>도서</Th><Th>만화</Th><Th>컷</Th><Th>큐</Th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => (
             <tr key={r.bookId} className="border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] last:border-0 hover:bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)]">
-              <Td>
+              <td className="px-3 py-0 align-middle">
+                <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
                 <input
                   type="checkbox"
                   checked={selected.has(r.bookId)}
                   onChange={() => onToggle(r.bookId)}
                   aria-label={`${r.title} 선택`}
-                  className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 accent-[var(--p)]'}
+                  className="h-4 w-4 accent-[var(--p)]"
                 />
-              </Td>
+                </label>
+              </td>
               <Td>
                 <Link
                   href={`/admin/comic/${r.bookId}`}
@@ -720,7 +723,7 @@ function CatalogTable({
                   <div className="flex flex-col items-start gap-1">
                     <span
                       className="inline-flex items-center gap-1 font-display text-[11px] font-[700]"
-                      style={{ color: r.jobStatus === 'failed' ? 'var(--memory-risk)' : ACCENT }}
+                      style={{ color: adminTextInk(r.jobStatus === 'failed' ? 'var(--memory-risk)' : ACCENT) }}
                     >
                       {r.jobStatus === 'running' && <Loader2 size={11} className="animate-spin" />}
                       {/* 색만으로 실패를 알리지 않는다 — 아이콘을 함께 붙인다. */}
@@ -739,7 +742,7 @@ function CatalogTable({
                         <button
                           onClick={() => onRetry(r)}
                           disabled={busy}
-                          className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
+                          className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--memory-risk)] hover:text-[var(--error-ink)] disabled:opacity-50"
                         >
                           <RotateCcw size={11} /> 재시도
                         </button>
@@ -763,7 +766,7 @@ function StatusPill({ status }: { status: ComicCatalogRow['comicStatus'] }) {
   return (
     <span
       className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-      style={{ color: m.tone, backgroundColor: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}
+      style={{ color: adminTextInk(m.tone), backgroundColor: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}
     >
       {m.label}
     </span>
@@ -785,7 +788,7 @@ function StatTile({
     <div className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
       <span
         className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)]"
-        style={{ backgroundColor: `color-mix(in srgb, ${tone} 12%, transparent)`, color: tone }}
+        style={{ backgroundColor: `color-mix(in srgb, ${tone} 12%, transparent)`, color: adminTextInk(tone) }}
         aria-hidden
       >
         <Icon size={15} />

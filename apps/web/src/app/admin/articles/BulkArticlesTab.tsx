@@ -1707,13 +1707,16 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     isEnqueued || r.isPublished ? 'opacity-60' : 'hover:bg-[var(--bg2)]'
                   }`}
                 >
-                  <input
+                    <label className="inline-flex min-h-[44px] min-w-[44px] shrink-0 cursor-pointer items-center justify-center">
+                    <input
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => toggleRow(key)}
                     disabled={isEnqueued || r.isPublished}
-                    className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'mt-1 h-3.5 w-3.5 shrink-0'}
+                      aria-label={`${r.title || '기사'} 선택`}
+                      className="h-3.5 w-3.5 shrink-0"
                   />
+                    </label>
                   <div className="min-w-0 flex-1">
                     <div className="mb-0.5 flex flex-wrap items-center gap-2">
                       {sourceCfg && (

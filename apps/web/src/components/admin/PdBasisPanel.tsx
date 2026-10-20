@@ -85,9 +85,9 @@ export function PdBasisPanel({ onMsg }: { onMsg: (s: string) => void }) {
         className="rounded-[var(--r-lg)] border p-4"
         style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.1%, transparent)` }}
       >
-        <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">
+        <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">
           PD 근거 확인 — 발행을 막고 있는 관문
-        </h3>
+        </h2>
         <p className="mt-1.5 max-w-[80ch] font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
           1930~1963 발행물은 <b>저작권 갱신 등록이 없었을 때만</b> 퍼블릭도메인입니다. 갱신은 호가 아니라{' '}
           <b>간행물 단위</b>로 등록되므로 시리즈 하나를 확인하면 그 시리즈의 여러 호에 적용됩니다.

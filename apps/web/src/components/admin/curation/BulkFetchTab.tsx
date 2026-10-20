@@ -4,6 +4,7 @@
 // 리스트형 행 디자인 (cover · title · author · source/장르/CEFR 칩 · enqueue 버튼).
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Loader2, Download, Plus, BookOpen, ExternalLink, Search, AlertCircle, CheckCircle2, Info, Clock, Calendar, FileText, Trash2, ArrowRightLeft } from 'lucide-react'
@@ -474,15 +475,15 @@ export function BulkFetchTab() {
           <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 font-mono text-[11px] text-[var(--t2)]">
             {lastResult.inserted === 0 && lastResult.skipped === 0 ? (
               <>
-                <AlertCircle size={12} className="text-[var(--learn-review)]" />
-                <span className="text-[var(--learn-review)]">
+                <AlertCircle size={12} className="text-[var(--learn-review-ink)]" />
+                <span className="text-[var(--learn-review-ink)]">
                   결과 0건 — 카테고리/필터가 매치되는 항목이 없거나 이미 모두 카탈로그에 있어요
                 </span>
               </>
             ) : (
               <>
-                <CheckCircle2 size={12} className="text-[var(--learn-known)]" />
-                신규 <strong className="text-[var(--learn-known)]">{lastResult.inserted}</strong>건 ·
+                <CheckCircle2 size={12} className="text-[var(--learn-known-ink)]" />
+                신규 <strong className="text-[var(--learn-known-ink)]">{lastResult.inserted}</strong>건 ·
                 중복 <span className="text-[var(--t2)]">{lastResult.skipped}</span>건
                 {lastResult.total_available != null && (
                   <span>· 소스 전체 ~{lastResult.total_available.toLocaleString()}권</span>
@@ -498,7 +499,7 @@ export function BulkFetchTab() {
           </div>
         )}
         {fetchError && (
-          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-3 font-body text-[12px] text-[var(--learn-error)]">
+          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-3 font-body text-[12px] text-[var(--learn-error-ink)]">
             <AlertCircle size={12} /> {fetchError}
           </div>
         )}
@@ -514,7 +515,7 @@ export function BulkFetchTab() {
           ))}
           {stats.shadowed > 0 && (
             <label
-              className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
+              className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review-ink)]"
               title="Standard Ebooks 가 같은 책을 가진 Gutenberg 행 — 기본 숨김"
             >
               <input
@@ -532,7 +533,7 @@ export function BulkFetchTab() {
               onClick={handleDeleteAllShadowed}
               disabled={bulkDeleting}
               title="SE 가 대체한 Gutenberg 중복 행 전체 삭제 (큐 추가된 행은 보호)"
-              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error-ink)] hover:opacity-90 disabled:opacity-50"
             >
               {bulkDeleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
               삭제 대상 {stats.shadowed}건 모두 삭제
@@ -600,7 +601,7 @@ export function BulkFetchTab() {
           </span>
         )}
         {enrichError && (
-          <span className="w-full font-body text-[11px] text-[var(--memory-risk)]">{enrichError}</span>
+          <span className="w-full font-body text-[11px] text-[var(--error-ink)]">{enrichError}</span>
         )}
       </section>
 
@@ -677,7 +678,7 @@ export function BulkFetchTab() {
                       <SourcePill source={r.source} />
                       {r.shadowed_by_se && (
                         <span
-                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--learn-error-ink)]"
                           title="Standard Ebooks 에 동일 도서 존재 — 이 Gutenberg 행은 삭제 대상"
                         >
                           <Trash2 size={9} aria-hidden /> 삭제 대상
@@ -773,7 +774,7 @@ export function BulkFetchTab() {
                         onClick={() => handleConvertToSe(r)}
                         disabled={rowActionId === r.id}
                         title="Standard Ebooks 에서 같은 도서를 찾아 카탈로그에 추가 (있으면 이 Gutenberg 는 삭제 대상으로 전환)"
-                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known-ink)] hover:opacity-90 disabled:opacity-50"
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -791,7 +792,7 @@ export function BulkFetchTab() {
                         disabled={rowActionId === r.id}
                         title="SE 가 대체한 Gutenberg 중복 행 삭제"
                         aria-label={`${r.title} Gutenberg 중복 삭제`}
-                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"}
+                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error-ink)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"}
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -801,7 +802,7 @@ export function BulkFetchTab() {
                       </button>
                     )}
                     {r.imported_to_books ? (
-                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
+                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 font-mono text-[10px] font-[700] text-[var(--learn-known-ink)]">
                         <CheckCircle2 size={11} /> 큐
                       </span>
                     ) : (
@@ -852,7 +853,7 @@ function SourcePill({ source }: { source: string }) {
   const cfg = SOURCE_OPTIONS.find((s) => s.value === source)
   return (
     <span className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
-      style={{ color: cfg?.color, backgroundColor: cfg ? `color-mix(in srgb, ${cfg.color} 12%, transparent)` : 'var(--bg2)' }}>
+      style={{ color: adminTextInk(cfg?.color), backgroundColor: cfg ? `color-mix(in srgb, ${cfg.color} 12%, transparent)` : 'var(--bg2)' }}>
       {cfg?.label ?? source}
     </span>
   )

@@ -580,20 +580,22 @@ describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체
     expect((html.match(/<svg/g) ?? []).length).toBeGreaterThanOrEqual(review.layers.length)
   })
 
-  it('처음 걸리는 층 아래는 흐리게 그리고 그 뜻을 적는다 — 아래 층 수치는 통과율이 아니다', () => {
+  it('처음 걸리는 층 아래는 점선으로 구분하고 읽을 수 있게 남긴다 — 아래 층 수치는 통과율이 아니다', () => {
     const html = renderToString(<ReviewClient {...review} />)
     // L3 이 3/7 로 처음 걸리므로 L4 는 「아래」다.
-    expect(html).toContain('opacity-55')
+    expect(html).toContain('border-dashed')
+    expect(html).not.toContain('opacity-55')
     expect(text(html)).toContain('여기까지 오지 않는다')
   })
 
-  it('전 층 통과면 흐린 층이 없다', () => {
+  it('전 층 통과면 도달하지 못한 층 표시가 없다', () => {
     const allPass = {
       ...review,
       layers: review.layers.map((l) => ({ ...l, passed: 5, total: 5, unmeasuredReason: null })),
     }
     const html = renderToString(<ReviewClient {...allPass} />)
     expect(html).not.toContain('opacity-55')
+    expect(html).not.toContain('border-dashed')
     expect(text(html)).not.toContain('여기까지 오지 않는다')
   })
 

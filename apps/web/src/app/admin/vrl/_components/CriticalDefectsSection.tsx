@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/CriticalDefectsSection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 4 — Critical Defects 자동 탐지 결과 (P0/P1/P2 그룹별 표시).
 //
@@ -73,7 +74,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
         <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
-            style={{ backgroundColor: 'var(--error-light)', color: 'var(--error)' }}
+            style={{ backgroundColor: 'var(--error-light)', color: adminTextInk('var(--error)') }}
             aria-hidden
           >
             <AlertTriangle size={17} strokeWidth={1.75} />
@@ -107,16 +108,16 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
               className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2"
               style={{ backgroundColor: g.bg }}
             >
-              <GIcon size={13} strokeWidth={2} style={{ color: g.color }} aria-hidden />
+              <GIcon size={13} strokeWidth={2} style={{ color: adminTextInk(g.color) }} aria-hidden />
               <h3
                 className="font-display text-[12px] font-[700]"
-                style={{ color: g.color }}
+                style={{ color: adminTextInk(g.color) }}
               >
                 {g.label}
               </h3>
               <span
                 className="ml-auto rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700]"
-                style={{ color: g.color }}
+                style={{ color: adminTextInk(g.color) }}
               >
                 {items.length}
               </span>
@@ -166,7 +167,7 @@ function ImpactSummary({
             }`}
             style={{
               backgroundColor: 'var(--bg2)',
-              color: RESP_COLOR[r],
+              color: adminTextInk(RESP_COLOR[r]),
               ...(isMax
                 ? { boxShadow: `0 0 0 1px ${RESP_COLOR[r]}` }
                 : {}),

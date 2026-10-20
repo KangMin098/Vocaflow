@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/csat/press/LadderFill.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // **사다리 7단 채움 띠 — 「조판된 계단 N / 7」을 숫자 대신 계단으로.**
 //
@@ -69,7 +70,7 @@ export function LadderFill({ volumes, rungs, selectedStep }: { volumes: Volume[]
               </span>
               <span
                 className="font-body text-[9.5px]"
-                style={{ color: !v ? 'var(--t3)' : stale ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
+                style={{ color: adminTextInk(!v ? 'var(--t3)' : stale ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}
               >
                 {label}
               </span>

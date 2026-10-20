@@ -16,6 +16,7 @@
 // 새 그림을 그리지 않는 것이 요점이다: 미리보기용 그림을 따로 만들면 둘이 갈린다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState } from 'react'
 
@@ -126,7 +127,7 @@ function Volume({
       }`}
     >
       {/* 기호 + 글자 + 색 셋을 함께 낸다 — 색만으로 말하면 색각 이상에서 사라진다. */}
-      <span aria-hidden className="font-mono text-[13px] leading-none" style={{ color: k.color }}>
+      <span aria-hidden className="font-mono text-[13px] leading-none" style={{ color: adminTextInk(k.color) }}>
         {k.mark}
       </span>
       <span className="break-keep text-center font-body text-[9.5px] leading-tight text-[var(--t3)]">
@@ -207,7 +208,7 @@ export function SeriesShelf({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -220,20 +221,20 @@ export function SeriesShelf({
       */}
       <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
         {unmeasured.length > 0 ? (
-          <span className="text-[var(--memory-new)]">생애를 못 잰 시리즈 {unmeasured.length}개</span>
+          <span className="text-[var(--t2)]">생애를 못 잰 시리즈 {unmeasured.length}개</span>
         ) : ready > 0 ? (
-          <span className="text-[var(--memory-stable)]">찍기만 하면 되는 권 {ready}권</span>
+          <span className="text-[var(--success-ink)]">찍기만 하면 되는 권 {ready}권</span>
         ) : revising.length > 0 ? (
-          <span className="text-[var(--memory-shaky)]">개정이 밀린 시리즈 {revising.length}개</span>
+          <span className="text-[var(--warning-ink)]">개정이 밀린 시리즈 {revising.length}개</span>
         ) : unshipped.length > 0 ? (
-          <span className="text-[var(--memory-shaky)]">한 번도 안 찍은 시리즈 {unshipped.length}개</span>
+          <span className="text-[var(--warning-ink)]">한 번도 안 찍은 시리즈 {unshipped.length}개</span>
         ) : (
           /*
             ⚠️ **「다 냈다」로 끝나지 않는다.** 낼 수 있는 권을 다 냈다는 것은 이 시리즈들의
                이번 판이 끝났다는 뜻이지 품목이 끝났다는 뜻이 아니다 — 시중 출판사는 그
                자리에서 다음 라인을 발의한다. 그래서 빈 자리 수를 이어 붙인다(DD-76).
           */
-          <span className="text-[var(--memory-stable)]">
+          <span className="text-[var(--success-ink)]">
             이번 판은 다 냈다
             {openSlots > 0 ? (
               <span className="text-[var(--t2)]">{` — 다음은 시장의 빈 자리 ${openSlots}칸`}</span>
@@ -276,7 +277,7 @@ export function SeriesShelf({
                     className="rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10.5px]"
                     style={{
                       background: `color-mix(in srgb, ${life?.color ?? 'var(--memory-new)'} 12.2%, transparent)`,
-                      color: life?.color ?? 'var(--memory-new)',
+                      color: adminTextInk(life?.color ?? 'var(--memory-new)'),
                     }}
                   >
                     {life?.label ?? '못 잼'}
@@ -285,7 +286,7 @@ export function SeriesShelf({
                     {`낸 권 ${r.published}/${r.rungs}`}
                   </span>
                   {r.stale != null && r.stale > 0 ? (
-                    <span className="font-mono text-[10.5px] tabular-nums text-[var(--memory-shaky)]">
+                    <span className="font-mono text-[10.5px] tabular-nums text-[var(--warning-ink)]">
                       {`옛 규격 ${r.stale}권`}
                     </span>
                   ) : null}
@@ -379,7 +380,7 @@ export function SeriesShelf({
       <p className="flex flex-wrap gap-x-3 gap-y-1 font-body text-[10.5px] text-[var(--t3)]">
         {(['published', 'ready', 'needsExplain', 'needsItems', 'noRung'] as const).map((s) => (
           <span key={s}>
-            <span aria-hidden style={{ color: VOLUME_STATUS_KO[s].color }}>
+            <span aria-hidden style={{ color: adminTextInk(VOLUME_STATUS_KO[s].color) }}>
               {VOLUME_STATUS_KO[s].mark}
             </span>{' '}
             {VOLUME_STATUS_KO[s].label}
@@ -398,7 +399,7 @@ export function SeriesShelf({
               className="rounded-[var(--r-full)] px-2 py-0.5 font-body text-[11px] font-[400]"
               style={{
                 background: `color-mix(in srgb, ${VOLUME_STATUS_KO[sel.v.status].color} 12.2%, transparent)`,
-                color: VOLUME_STATUS_KO[sel.v.status].color,
+                color: adminTextInk(VOLUME_STATUS_KO[sel.v.status].color),
               }}
             >
               {VOLUME_STATUS_KO[sel.v.status].label}

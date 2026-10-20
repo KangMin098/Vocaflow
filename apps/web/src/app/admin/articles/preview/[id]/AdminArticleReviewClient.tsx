@@ -8,6 +8,7 @@
 //   4) 학습 단어 추출 패널 + 검수 팝업 (책 BookExtractionPanel + ChapterWordSetPreviewModal)
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -239,7 +240,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
             <span>· {article.wordCount?.toLocaleString() ?? '—'}단어</span>
             {article.readingMinutes ? <span>· 약 {article.readingMinutes}분</span> : null}
             <span>· {article.license}</span>
-            <span className={article.copyrightSafeInKr ? 'text-[var(--learn-known)]' : 'text-[var(--learn-review)]'}>
+            <span className={article.copyrightSafeInKr ? 'text-[var(--learn-known-ink)]' : 'text-[var(--learn-review-ink)]'}>
               · {article.copyrightSafeInKr ? '저작권 게시 가능' : '저작권 확인 필요'}
             </span>
           </div>
@@ -264,11 +265,11 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
         {/* 푸터 액션 */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
           {error ? (
-            <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
+            <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error-ink)]">
               <AlertCircle size={12} aria-hidden /> {error}
             </span>
           ) : article.statusMessage ? (
-            <span className="inline-flex items-center gap-2 font-mono text-[11px] text-[var(--learn-error)]">
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] text-[var(--learn-error-ink)]">
               <AlertCircle size={12} aria-hidden /> {article.statusMessage}
             </span>
           ) : (
@@ -423,7 +424,7 @@ function GatePanel({
         <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">발행 게이트</span>
         <span
           className="font-mono text-[11px] font-[700] tabular-nums"
-          style={{ color: allPass ? 'var(--learn-known)' : 'var(--learn-error)' }}
+          style={{ color: adminTextInk(allPass ? 'var(--learn-known)' : 'var(--learn-error)') }}
         >
           {passCount} / {items.length}
         </span>
@@ -432,21 +433,21 @@ function GatePanel({
         {items.map((it) => (
           <li key={it.key} className="flex items-center gap-2 font-body text-[12px]">
             {it.pass ? (
-              <CheckCircle2 size={14} className="shrink-0 text-[var(--learn-known)]" aria-hidden />
+              <CheckCircle2 size={14} className="shrink-0 text-[var(--learn-known-ink)]" aria-hidden />
             ) : (
-              <XCircle size={14} className="shrink-0 text-[var(--learn-error)]" aria-hidden />
+              <XCircle size={14} className="shrink-0 text-[var(--learn-error-ink)]" aria-hidden />
             )}
-            <span style={{ color: it.pass ? 'var(--t2)' : 'var(--learn-error)' }}>{it.label}</span>
+            <span style={{ color: adminTextInk(it.pass ? 'var(--t2)' : 'var(--learn-error)') }}>{it.label}</span>
           </li>
         ))}
         {derivation === 'display_only' && (
-          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-review)]">
+          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-review-ink)]">
             <AlertCircle size={14} className="shrink-0" aria-hidden />
             단어세트 미발행(ND) — 본문 읽기 전용
           </li>
         )}
         {!copyrightSafe && (
-          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
+          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-error-ink)]">
             <XCircle size={14} className="shrink-0" aria-hidden />
             저작권 미확인 — 게시 차단
           </li>
@@ -454,7 +455,7 @@ function GatePanel({
       </ul>
       <div
         className="flex items-center gap-2 border-t border-[var(--bd)] pt-2 font-display text-[12px] font-[600]"
-        style={{ color: verdict.color }}
+        style={{ color: adminTextInk(verdict.color) }}
       >
         <VerdictIcon size={14} aria-hidden />
         {verdict.label}
@@ -481,9 +482,9 @@ function ActionButton({
 }) {
   const cls =
     tone === 'primary'
-      ? 'bg-[var(--p)] hover:bg-[var(--p-light)] text-[var(--on-p)]'
+      ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--on-p)]'
       : tone === 'danger'
-        ? 'border border-[var(--learn-error)] bg-[var(--bg)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)]'
+        ? 'border border-[var(--learn-error)] bg-[var(--bg)] text-[var(--learn-error-ink)] hover:bg-[var(--learn-error-light)]'
         : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]'
   return (
     <button
@@ -566,7 +567,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known-ink)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>
@@ -601,7 +602,7 @@ function StatusPill({
   return (
     <span
       className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
-      style={{ background: c.bg, color: c.fg }}
+      style={{ background: c.bg, color: adminTextInk(c.fg) }}
     >
       {label}
     </span>

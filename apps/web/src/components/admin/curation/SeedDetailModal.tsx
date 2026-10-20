@@ -17,6 +17,7 @@
 // 액자로, 제목은 크림 머리에 크게. 학습자 도서 상세(NetflixDetailSheet)와 같은 배치다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 
 import {
@@ -94,7 +95,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
         ) : (
           <span
             className="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] font-[700]"
-            style={{ color: sourceColor, background: `color-mix(in srgb, ${sourceColor} 12%, transparent)` }}
+            style={{ color: adminTextInk(sourceColor), background: `color-mix(in srgb, ${sourceColor} 12%, transparent)` }}
           >
             {sourceLabel}
           </span>
@@ -171,7 +172,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
         main={
           <div>
           {!hasCuration && (
-            <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] p-3 text-[12px] text-[var(--learn-review)]">
+            <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] p-3 text-[12px] text-[var(--learn-review-ink)]">
               <AlertCircle size={14} />
               <span>큐레이션 정보 미생성 — &ldquo;정보 없는 도서 큐에 추가&rdquo; 로 신청하세요.</span>
             </div>
@@ -270,7 +271,7 @@ function MetaCell({
       </span>
       <span
         className="inline-flex items-center gap-1 font-display text-[12.5px] font-[700] tabular-nums"
-        style={{ color: accent ?? 'var(--t1)' }}
+        style={{ color: adminTextInk(accent ?? 'var(--t1)') }}
       >
         {icon}
         <span className="truncate">{value}</span>

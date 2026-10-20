@@ -125,7 +125,7 @@ export const OPS_HELP: HelpRegistry = {
       summary:
         'shared_dictionary 를 단어 단위로 열어 다차원 분류(V-Level · CEFR · Track · Domain · Skill)가 서로 어긋나지 않는지 확인하는 읽기 전용 검토대.',
       when:
-        'VCB·VRL 작업 결과가 실제 사전 row 에 어떻게 들어갔는지 확인할 때, 또는 특정 단어의 분류 근거(claude_reasoning · rule_v1 대비 변화)를 찾을 때.',
+        'VCB·VRL 작업 결과가 실제 사전 row 에 어떻게 들어갔는지 확인할 때, 또는 특정 단어의 분류 근거(claude_reasoning · rule_v1 대비 변화)를 찾을 때. 검색과 V-Level·CEFR·품사·출처·검증 상태 필터는 선택 후에도 접근성 이름이 유지된다. 필터 변경은 사전 값을 저장하는 동작이 아니다.',
       diagrams: [
         {
           kind: 'keys',
@@ -439,7 +439,7 @@ export const OPS_HELP: HelpRegistry = {
         {
           label: '조치 등급 — 안전 / 사유 필요 / 없음',
           detail:
-            '안전: 통계 갱신 · 낡은 통계 일괄 갱신 · 쿼리 취소 · 잡 재개. 사유 필요: 세션 종료 · idle-in-tx 일괄 종료 · 잡 정지. 화면에 아예 없는 것: VACUUM FULL(표를 통째로 잠근다) · DROP INDEX(되돌리는 데 재생성 시간이 든다) · ALTER SYSTEM · 마이그레이션. 허용 목록은 DB 함수 본문에 박혀 있어 화면에서 늘릴 수 없다.',
+            '안전: 통계 갱신 · 낡은 통계 일괄 갱신 · 쿼리 취소 · 잡 재개. 사유 필요: 세션 종료 · idle-in-tx 일괄 종료 · 잡 정지. 세션의 취소·종료는 각각 최소 44px 영역이며, 누르기 전에 대상 PID와 현재 쿼리를 확인한다. 화면에 아예 없는 것: VACUUM FULL(표를 통째로 잠근다) · DROP INDEX(되돌리는 데 재생성 시간이 든다) · ALTER SYSTEM · 마이그레이션. 허용 목록은 DB 함수 본문에 박혀 있어 화면에서 늘릴 수 없다.',
         },
         {
           label: '경보 줄의 “SQL” 표식',

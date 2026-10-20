@@ -17,12 +17,12 @@ export function PresetGallery({ selectedPresetId, selectedVariantId, onSelect }:
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h3
+        <h2
           className="font-display font-semibold text-base mb-1"
           style={{ color: 'var(--t1)' }}
         >
           유형 선택
-        </h3>
+        </h2>
         <p className="text-sm font-body" style={{ color: 'var(--t3)' }}>
           사용자 페르소나에 맞는 프리셋을 선택하면 다음 단계 필터가 자동으로 채워집니다. 직접 만들고 싶으면 우측 하단 <b>사용자 정의</b>.
         </p>
@@ -114,7 +114,7 @@ function PresetCard({
           </div>
           <div className="text-xs font-body flex items-center gap-2 mt-0.5">
             <Sparkles className="w-3 h-3" style={{ color: preset.accent }} />
-            <span style={{ color: preset.accent }}>{preset.persona}</span>
+            <span style={{ color: 'var(--t2)' }}>{preset.persona}</span>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ function PresetCard({
               style={{
                 // Calm UI — solid accent 대신 12% tint + left accent bar (Material 3 토널)
                 background: isVariantSelected ? `color-mix(in srgb, ${preset.accent} 7.8%, transparent)` : 'var(--bg2)',
-                color: isVariantSelected ? preset.accent : 'var(--t1)',
+                color: 'var(--t1)',
                 borderLeft: `3px solid ${isVariantSelected ? preset.accent : 'transparent'}`,
               }}
             >
@@ -146,14 +146,14 @@ function PresetCard({
                 </span>
                 <span
                   className="text-[11px] font-body truncate"
-                  style={{ color: isVariantSelected ? `color-mix(in srgb, ${preset.accent} 80%, transparent)` : 'var(--t3)' }}
+                  style={{ color: 'var(--t2)' }}
                 >
                   {variant.hint}
                 </span>
               </div>
               <ChevronRight
                 className="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-0.5"
-                style={{ color: isVariantSelected ? preset.accent : 'var(--t3)' }}
+                style={{ color: 'var(--t2)' }}
               />
             </button>
           )

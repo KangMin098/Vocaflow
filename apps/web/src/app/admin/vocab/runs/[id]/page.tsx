@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vocab/runs/[id]/page.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -98,7 +99,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
             style={{
               background: 'var(--warning-light)',
               borderColor: 'var(--warning)',
-              color: 'var(--warning)',
+              color: adminTextInk('var(--warning)'),
             }}
           >
             <AlertTriangle className="w-4 h-4 flex-shrink-0" />
@@ -112,12 +113,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
       <VcbRunProgress status={run.status} />
 
       <section className="mb-10">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           파이프라인 진행
-        </h3>
+        </h2>
         <dl
           className="grid grid-cols-6 gap-4 p-4 rounded-[var(--r-lg)]"
           style={{ background: 'var(--bg2)' }}
@@ -147,7 +148,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
               </dt>
               <dd
                 className="font-display font-semibold text-xl m-0"
-                style={{ color: s.color }}
+                style={{ color: adminTextInk(s.color) }}
               >
                 {s.value.toLocaleString()}
               </dd>
@@ -159,24 +160,24 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
       {(run.status === 'created' || run.status === 'ingesting' ||
         run.status === 'normalized' || run.status === 'extracted') && (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             시드 확보 · 방식 A — 소스 파일에서 추출 (택1)
-          </h3>
+          </h2>
           <VcbMethodACard runId={runId} runStatus={run.status} />
         </section>
       )}
 
       {showSeedEntry ? (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             시드 확보 · 방식 B — AI 생성 (택1)
-          </h3>
+          </h2>
           <Link
             href={`/admin/vocab/runs/${runId}/seed`}
             className="group flex items-center gap-4 p-4 rounded-[var(--r-lg)] border transition-colors"
@@ -215,12 +216,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         run.status === 'curating' || run.status === 'publishing' ||
         run.status === 'published') && (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             사전 매칭 (Step 4)
-          </h3>
+          </h2>
           <VcbStep4LookupCard
             runId={runId}
             runStatus={run.status}
@@ -233,12 +234,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         run.status === 'qa' || run.status === 'curating' ||
         run.status === 'publishing' || run.status === 'published') && (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             AI Enrichment (Step 5)
-          </h3>
+          </h2>
           <VcbStep5EnrichCard
             runId={runId}
             runStatus={run.status}
@@ -251,12 +252,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         run.status === 'curating' || run.status === 'publishing' ||
         run.status === 'published') && (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             QA Gate (Step 6)
-          </h3>
+          </h2>
           <VcbStep6QaCard
             runId={runId}
             runStatus={run.status}
@@ -266,12 +267,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
       )}
 
       <section className="mb-10">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           Curation (Step 7)
-        </h3>
+        </h2>
         <VcbStepTriggerCard
           step={7}
           icon="sparkles"
@@ -292,12 +293,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
       {(run.status === 'curating' || run.status === 'publishing' ||
         run.status === 'published') && (
         <section className="mb-10">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             Publish (Step 8)
-          </h3>
+          </h2>
           <VcbStep8PublishCard
             runId={runId}
             runStatus={run.status}
@@ -308,12 +309,12 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
 
       {run.status === 'published' && publishedSets.length > 0 && (
         <section>
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
             style={{ color: 'var(--t2)' }}
           >
             발행 결과
-          </h3>
+          </h2>
           <div className="flex flex-col gap-3">
             {publishedSets.map((set) => {
               const setMismatch = set.actual_word_count !== set.word_count
@@ -325,7 +326,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                 >
                   <div
                     className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
-                    style={{ background: 'var(--success-light)', color: 'var(--success)' }}
+                    style={{ background: 'var(--success-light)', color: adminTextInk('var(--success)') }}
                   >
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
@@ -348,7 +349,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                           className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                           style={{
                             background: 'var(--success-light)',
-                            color: 'var(--success)',
+                            color: adminTextInk('var(--success)'),
                           }}
                         >
                           published
@@ -367,7 +368,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                       {setMismatch && (
                         <span
                           className="inline-flex items-center gap-1 font-display"
-                          style={{ color: 'var(--warning)' }}
+                          style={{ color: adminTextInk('var(--warning)') }}
                         >
                           <AlertTriangle className="w-3 h-3" />
                           캐시 {set.word_count.toLocaleString()} 불일치
