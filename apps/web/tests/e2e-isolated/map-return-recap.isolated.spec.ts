@@ -106,12 +106,13 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     await solveAndReturn(page, inds[0], wrong)
     const r1 = await solveAndReturn(page, inds[1], wrong)
     console.log(`RECAP_INDEPENDENT_${width}=${JSON.stringify(r1)}`)
+    expect(r1, '이번 활동 = 방금 연 자료(복귀 문맥 map_item · 본인 기록 대조)').toContain('이번 활동(')
     expect(r1).toContain('틀렸어요')
     expect(r1).toContain('저장한 학습계획 v2')
     // 최근 기록의 근거 판정과 독립 근거 수 줄이 서로 맞는다(셌다고 하면서 0개라고 하지 않는다)
     const counted = r1.includes('독립 근거로 셌어요')
     expect(r1.includes('독립 근거로 센 풀이는 없어요'), '최근 기록 판정 ↔ 독립 근거 수 일치').toBe(!counted)
-    const countOf = (text: string) => text.split(/\n/).find((l) => l.includes('독립 근거') && !l.startsWith('가장 최근'))
+    const countOf = (text: string) => text.split(/\n/).find((l) => l.includes('독립 근거') && !l.startsWith('이번 활동'))
     const countLine = countOf(r1)
 
     // ② 확인 결과로 다시 확정 → 바로잡기 자료 → 안내 연습 정답 → 복귀: 안내 연습(독립 근거 아님) · 독립 근거 수 그대로

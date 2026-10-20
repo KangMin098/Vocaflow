@@ -56,13 +56,14 @@ describe('principle path', () => {
   })
 })
 
-const NO_RECAP = { latest: { state: 'none' as const }, transfer: { state: 'none' as const, done: 0, planned: 2 }, plan: null }
+const NO_RECAP = { latest: { state: 'unidentified' as const }, transfer: { state: 'none' as const, done: 0, planned: 2 }, plan: null }
 
 describe('returnSummary', () => {
   it('계획 그대로 · 제안과 확정 분리', () => {
     const out = returnSummary({ check: check(2, 0), taskDisplay: 'R5', recap: NO_RECAP, remaining: '확인 필요', nextLabel: '확인하기', notes: [], planVersion: 3, goalVersion: 7 })
-    expect(out[0]).toContain('R5')
-    expect(out[1]).toContain('독립 근거로 센 풀이는 없어요')
+    expect(out[0]).toContain('이번 활동을 특정하지 못했어요')
+    expect(out[1]).toContain('R5')
+    expect(out[2]).toContain('독립 근거로 센 풀이는 없어요')
     expect(out.at(-1)).toContain('v3')
     expect(out.at(-1)).toContain('제안')
   })

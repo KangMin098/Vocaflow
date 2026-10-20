@@ -15,19 +15,23 @@ import type { PlanReason, SavedPlanVersion } from '../v4/plan-commit'
 export type LatestKind = 'independent_counted' | 'not_counted_helped' | 'not_counted_timing' | 'not_counted_unbound' | 'guided' | 'transfer' | 'other'
 
 export interface ReturnRecap {
-  latest: { state: 'unknown' } | { state: 'none' } | { state: 'found'; kind: LatestKind; isCorrect: boolean | null; at: string }
+  /** 이번 활동 — 복귀 문맥의 자료 id 와 본인 · 이 TASK 기록이 맞을 때만. 문맥이 없거나 맞는 기록이 없으면 unidentified(누적과 섞지 않는다) */
+  latest: { state: 'unknown' } | { state: 'unidentified' } | { state: 'found'; kind: LatestKind; isCorrect: boolean | null; at: string }
   transfer: { state: 'unknown' } | { state: 'none' | 'partial' | 'complete'; done: number; planned: number | null }
-  plan: null | { version: number; reason: PlanReason; prev: { version: number; reason: PlanReason } | null; proposalDiffers: boolean }
+  plan: null | { version: number; reason: PlanReason; goalVersionId: number | null; prev: { version: number; reason: PlanReason; goalVersionId: number | null } | null; proposalDiffers: boolean }
 }
 
 export function returnRecap(input: {
   keys: readonly string[]
+  /** 복귀 문맥의 「이번에 연 자료」 ref(authored:<id>) — 서버 학습 화면이 붙인 값. 없으면 이번 활동을 특정하지 않는다 */
+  activityRef: string | null
   /** As-Is 판정과 같은 첫 시도 기록 — undefined = 조회 실패 */
   attempts: readonly FindAttemptRow[] | undefined
   /** 생애주기 수행 기록(안내 연습 · 적용 포함) — undefined = 조회 실패 */
   activity: readonly ActivityRow[] | undefined
-  /** evidence-claims 의 instructionPath(전이 수행 · 계획) — undefined = 근거를 못 읽음 */
+  /** evidence-claims 의 instructionPath — undefined 또는 ledger 'unknown'(수행 원장을 못 읽음) = 확인 불가(0편으로 읽지 않는다) */
   transfer: { transferDone: number; transferPlanned: number | null } | undefined
+  ledger?: 'complete' | 'unknown'
   /** 이 묶음 저장 이력(최신 먼저) — 없으면 [] */
   history: readonly SavedPlanVersion[]
   /** 지금 재계산이 저장본과 어긋남(next-action 의 planDrift 판정 그대로) */
@@ -36,18 +40,19 @@ export function returnRecap(input: {
   const keys = new Set(input.keys)
   let latest: ReturnRecap['latest']
   if (!input.attempts || !input.activity) latest = { state: 'unknown' }
+  else if (!input.activityRef) latest = { state: 'unidentified' }
   else {
     const rows = [
-      ...input.attempts.filter((a) => keys.has(a.taskKey) && a.answeredAt).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: independentKind(a) })),
-      ...input.activity.filter((a) => keys.has(a.taskKey) && a.answeredAt && !input.attempts!.some((f) => f.attemptId && f.attemptId === a.attemptId)).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: activityKind(a) })),
+      ...input.attempts.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.answeredAt).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: independentKind(a) })),
+      ...input.activity.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.answeredAt && !input.attempts!.some((f) => f.attemptId && f.attemptId === a.attemptId)).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: activityKind(a) })),
     ].sort((x, y) => (x.at < y.at ? 1 : x.at > y.at ? -1 : 0))
-    latest = rows[0] ? { state: 'found', kind: rows[0].kind, isCorrect: rows[0].isCorrect, at: rows[0].at } : { state: 'none' }
+    latest = rows[0] ? { state: 'found', kind: rows[0].kind, isCorrect: rows[0].isCorrect, at: rows[0].at } : { state: 'unidentified' }
   }
   const t = input.transfer
-  const transfer: ReturnRecap['transfer'] = !t ? { state: 'unknown' }
+  const transfer: ReturnRecap['transfer'] = !t || input.ledger === 'unknown' ? { state: 'unknown' }
     : { state: t.transferDone <= 0 ? 'none' : t.transferPlanned !== null && t.transferDone >= t.transferPlanned ? 'complete' : 'partial', done: t.transferDone, planned: t.transferPlanned }
   const [cur, prev] = input.history
-  const plan: ReturnRecap['plan'] = cur ? { version: cur.version, reason: cur.reason, prev: prev ? { version: prev.version, reason: prev.reason } : null, proposalDiffers: input.proposalDiffers } : null
+  const plan: ReturnRecap['plan'] = cur ? { version: cur.version, reason: cur.reason, goalVersionId: cur.goalVersionId ?? null, prev: prev ? { version: prev.version, reason: prev.reason, goalVersionId: prev.goalVersionId ?? null } : null, proposalDiffers: input.proposalDiffers } : null
   return { latest, transfer, plan }
 }
 

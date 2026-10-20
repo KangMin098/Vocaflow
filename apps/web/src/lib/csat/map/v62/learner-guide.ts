@@ -157,15 +157,18 @@ export function returnSummary(input: {
   const out: string[] = []
   const attempted = check?.attemptedItems ?? 0
   const independent = check?.independentItems ?? 0
-  if (recap.latest.state === 'found') out.push(`가장 최근 기록(${recap.latest.at.slice(5, 16).replace('T', ' ')}): ${LATEST_LABEL[recap.latest.kind]}${recap.latest.isCorrect === null ? '' : recap.latest.isCorrect ? ' · 맞았어요' : ' · 틀렸어요'}.`)
-  else if (recap.latest.state === 'unknown') out.push('가장 최근 수행 기록을 지금 확인할 수 없어요 — 이번 활동이 반영됐는지 말하지 않을게요.')
+  if (recap.latest.state === 'found') out.push(`이번 활동(${recap.latest.at.slice(5, 16).replace('T', ' ')}): ${LATEST_LABEL[recap.latest.kind]}${recap.latest.isCorrect === null ? '' : recap.latest.isCorrect ? ' · 맞았어요' : ' · 틀렸어요'}.`)
+  else if (recap.latest.state === 'unknown') out.push('수행 기록을 지금 읽지 못했어요 — 이번 활동이 반영됐는지 말하지 않을게요.')
+  else out.push('이번 활동을 특정하지 못했어요 — 아래는 이 TASK 의 누적 기록이에요.')
   out.push(attempted > 0 ? `기록됨: ${taskDisplay} 확인 문항 풀이 ${attempted}개 — ${taskDisplay} 에 반영해요.` : `${taskDisplay} 에 반영된 확인 문항 풀이는 아직 없어요(해설 열람은 풀이 기록이 아니에요).`)
   out.push(independent > 0 ? `그중 처음 보는 문항을 혼자 푼 독립 근거 ${independent}개.` : '독립 근거로 센 풀이는 없어요.')
   out.push(transferLine(recap.transfer))
   out.push(`목표까지: ${remaining}`)
   if (nextLabel) out.push(`다음 추천: ${nextLabel} — 기록이 가장 부족한 단계부터 권해요.`)
   if (recap.plan) {
-    out.push(`저장한 학습계획 v${recap.plan.version}(${REASON_LABEL[recap.plan.reason]})${recap.plan.prev ? ` · 직전 v${recap.plan.prev.version}(${REASON_LABEL[recap.plan.prev.reason]})` : ''}${goalVersion !== null ? ` · 목표 v${goalVersion}` : ''} — 계획 버전이 바뀐 것은 실력 변화가 아니에요.`)
+    const g = (id: number | null) => (id === null ? '' : ` · 저장 당시 목표 v${id}`)
+    out.push(`저장한 학습계획 v${recap.plan.version}(${REASON_LABEL[recap.plan.reason]}${g(recap.plan.goalVersionId)})${recap.plan.prev ? ` · 직전 v${recap.plan.prev.version}(${REASON_LABEL[recap.plan.prev.reason]}${g(recap.plan.prev.goalVersionId)})` : ''} — 계획 버전이 바뀐 것은 실력 변화가 아니에요.`)
+    if (goalVersion !== null && recap.plan.goalVersionId !== null && goalVersion !== recap.plan.goalVersionId) out.push(`지금 목표는 v${goalVersion} — 저장한 계획 뒤에 목표가 바뀌었어요(계획은 그대로예요).`)
     out.push(recap.plan.proposalDiffers ? '지금 기록으로 다시 계산한 계획은 저장본과 달라요 — 제안이에요. 확정해야 저장 계획이 바뀌어요.' : '지금 다시 계산해도 저장한 계획과 같아요.')
   } else if (notes.length === 0 && planVersion !== null) out.push(`저장한 학습계획 v${planVersion}${goalVersion !== null ? ` · 목표 v${goalVersion}` : ''} 은 그대로예요. 추천은 제안일 뿐 계획을 바꾸지 않았어요.`)
   else if (notes.length === 0) out.push('저장한 학습계획이 없어요 — 추천은 제안이고, 계획은 저장할 때 확정돼요.')

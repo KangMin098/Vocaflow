@@ -115,27 +115,29 @@ export function homeWsOf(task: string, view: V4View, restoreWs: string | null): 
 }
 
 /** T-0062 — 돌아온 뒤 정리의 재료(서버 기록만 · 판정 없음). TASK 서랍과 복원되는 Workspace 팝업이 같은 값을 쓴다 */
-export function recapFor(task: TaskId, view: V4View, data: MapPageData, home: string | null) {
+export function recapFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, mapItem: string | null = null) {
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
   return returnRecap({
     keys: evidenceKeysOfTask(task),
+    activityRef: mapItem ? `authored:${mapItem}` : null,
     attempts: data.findAttempts,
     activity: data.lifecycleActivity,
     transfer: view.evidence?.[task]?.instructionPath,
+    ledger: view.evidence?.[task]?.ledger,
     history: savedWs?.history ?? [],
     proposalDiffers: !!home && replanNeeded(task, home, view, data.v4?.saved),
   })
 }
 
 /** 복원되는 Workspace 팝업에 보일 「돌아온 뒤」 문장 — TaskInspector 의 summary 와 같은 계산(같은 TASK · 같은 묶음) */
-export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, notes: readonly ReturnNote[]): string[] {
+export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, notes: readonly ReturnNote[], mapItem: string | null = null): string[] {
   const need = view.toBe?.needs.find((n) => n.task === task)?.type ?? null
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
   const plan = view.taskPlans.find((p) => p.task === task) ?? null
   return returnSummary({
     check: view.asIs.tasks[task]?.check ?? null,
     taskDisplay: taskOf(task).display,
-    recap: recapFor(task, view, data, home),
+    recap: recapFor(task, view, data, home, mapItem),
     remaining: need ? NEED_V62_LABEL[need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요',
     nextLabel: plan?.next?.label ?? null,
     notes,

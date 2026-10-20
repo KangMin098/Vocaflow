@@ -19,6 +19,8 @@ export interface MapReturnCtx {
   mapWs?: string | null
   mapPlan?: string | null
   mapGoal?: string | null
+  /** T-0062 — 학습 화면이 서버에서 붙이는 「이번에 연 자료」 id(창작 문항 slug). 지도는 본인 기록 안에서만 대조한다(조회 키 아님) */
+  mapItem?: string | null
 }
 
 const STEPS: readonly StepKey[] = ['vocab', 'sentence', 'relation', 'structure', 'option', 'evidence', 'integrate', 'l-sound', 'l-sentence', 'l-retain', 'l-respond']
@@ -43,12 +45,16 @@ export function parseMapUuid(v: string | undefined | null): string | null {
   return v && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v) ? v : null
 }
 
+/** 이번에 연 자료 id — 소문자 · 숫자 · 하이픈(61자 이하)만 */
+export function parseMapItem(v: string | undefined | null): string | null {
+  return v && /^[a-z0-9][a-z0-9-]{1,60}$/.test(v) ? v : null
+}
 /** 버전 · 이력 id — 1 이상의 정수(9자리 이하)만 */
 export function parseMapVersion(v: string | undefined | null): string | null {
   return v && /^[1-9][0-9]{0,8}$/.test(v) ? v : null
 }
 
-type ReturnQuery = { task?: string; ws?: string; step?: string; map_task?: string; map_ws?: string; map_plan?: string; map_goal?: string }
+type ReturnQuery = { task?: string; ws?: string; step?: string; map_task?: string; map_ws?: string; map_plan?: string; map_goal?: string; map_item?: string }
 
 /** 검증한 문맥만 남긴다 */
 export function parseMapReturn(q: ReturnQuery): Required<MapReturnCtx> {
@@ -60,10 +66,11 @@ export function parseMapReturn(q: ReturnQuery): Required<MapReturnCtx> {
     mapWs: parseMapUuid(q.map_ws),
     mapPlan: parseMapVersion(q.map_plan),
     mapGoal: parseMapVersion(q.map_goal),
+    mapItem: parseMapItem(q.map_item),
   }
 }
 
-const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step'], ['mapWs', 'map_ws'], ['mapPlan', 'map_plan'], ['mapGoal', 'map_goal']] as const
+const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step'], ['mapWs', 'map_ws'], ['mapPlan', 'map_plan'], ['mapGoal', 'map_goal'], ['mapItem', 'map_item']] as const
 const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({
   task: ctx.task ?? undefined,
   map_task: ctx.mapTask ?? undefined,
@@ -72,6 +79,7 @@ const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({
   map_ws: ctx.mapWs ?? undefined,
   map_plan: ctx.mapPlan ?? undefined,
   map_goal: ctx.mapGoal ?? undefined,
+  map_item: ctx.mapItem ?? undefined,
 })
 
 /** 주소 검색값(searchParams · 배열 허용)에서 복귀 문맥 쿼리 키만 뽑는다 — 페이지마다 같은 키 목록을 다시 쓰지 않게 */

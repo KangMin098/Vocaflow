@@ -32,7 +32,7 @@ const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 export default async function LearnPage({ params, searchParams }: { params: { id: string }; searchParams: { d?: string } & Record<string, string | string[] | undefined> }) {
   // 지도 복귀(FI-011 C) — 지도 CTA 가 실은 문맥(형식만 검증 · lib/csat/map-return)을 그대로 돌려준다. 조회 권한으로 쓰지 않는다(지도가 현재 본인 계획과 비교)
   //   돌아가는 곳은 원래 링크와 같은 전체 지도(Workspace 행 · 받은 자료 카드가 있는 화면) — 지도 홈(/csat)에는 Workspace 행이 없다(fbc5667f5 CI 실측)
-  const returnHref = searchParams.from === 'map' ? `${MAP_HREF}${mapReturnQuery(parseMapReturn(returnQueryOf(searchParams)))}` : MAP_HREF
+  const returnHref = searchParams.from === 'map' ? `${MAP_HREF}${mapReturnQuery(parseMapReturn({ ...returnQueryOf(searchParams), map_item: params.id }))}` : MAP_HREF
   if (!/^[a-z0-9][a-z0-9.-]{2,80}$/.test(params.id)) notFound()
   const db = (await createClient()) as unknown as SupabaseClient
   const { data: { user } } = await db.auth.getUser()
