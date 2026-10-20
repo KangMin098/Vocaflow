@@ -45,6 +45,9 @@ const EVL = AUTHORED_SETS.find((x) => x.taskId === 'e.evidence_location')!
 // T-0056 — 보조 TASK(e.task_demand · ws.evidence-locate 의 support) 학습자
 const G = '00000000-0000-4000-8000-0000000000c7'
 const TD = AUTHORED_SETS.find((x) => x.taskId === 'e.task_demand')!
+// T-0066 — 보조 발문 요구(e.task_demand) 전체 순환 학습자(pass · fail)
+const H = '00000000-0000-4000-8000-0000000000c8'
+const I = '00000000-0000-4000-8000-0000000000c9'
 const TASK = 'r.central_meaning'
 const TEMPLATE = 'ws.central-meaning'
 const S = R5_AUTHORED_SET
@@ -110,8 +113,8 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'); insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B, C, D, E, F, G]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'), ('${H}'), ('${I}'); insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D, E, F, G, H, I]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
@@ -223,7 +226,7 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
   const { key: KEY, task: CT, template: CW } = cfg
   const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   // 형식별 정답 응답 — central_meaning · choice_evidence(결정 근거 문장)
-  const rightOf = (id: string) => { const gd = goldOfC(id); return cfg.set.format === 'choice_evidence' ? { choice: gd.answer, evidence: [gd.decisive] } : { claim: gd.claim, support: gd.support, relation: gd.relationProbe.relation, choice: gd.answer } }
+  const rightOf = (id: string) => { const gd = goldOfC(id); return cfg.set.format === 'choice_evidence' ? { choice: gd.answer, evidence: [gd.decisive] } : cfg.set.format === 'demand_choice' ? { choice: gd.answer } : { claim: gd.claim, support: gd.support, relation: gd.relationProbe.relation, choice: gd.answer } }
   const supplyC = (uid: string, stage: string | null, planned: number | null) => requestAuthoredSupply(admin, learner(uid), uid, { view: ({ taskPlans: [{ task: CT, stage, need: 'GAP', quantity: { planned, done: 0 } }], asIs: { asOf: '2026-10-18T00:00:00.000Z', tasks: { [CT]: { status: 'verified_need', check: { independentItems: 2 } } } }, toBe: null }) as unknown as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
   type Row = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   async function world(uid: string) {
@@ -303,6 +306,8 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
 cycle({ label: 'T-0050 R5 중심 의미', set: S, task: 'r.central_meaning', template: 'ws.central-meaning', key: 'authored-central-meaning', ind: ['r5-cm-ind-1', 'r5-cm-ind-2'], fresh: ['r5-cm-ind-3', 'r5-cm-ind-4'], guided: 'r5-cm-guided-1', tr: ['r5-cm-transfer-1', 'r5-cm-transfer-2'], pass: C, fail: D })
 // T-0052 rev1 — 근거 찾기: 같은 순환 · 같은 판정(새 독립 2 · 전이 1 은 이번에 보충한 ev-ind-3 · 4 · ev-transfer-2)
 cycle({ label: 'T-0052 E 근거 위치', set: EVL, task: 'e.evidence_location', template: 'ws.evidence-locate', key: 'authored-evidence-locate', ind: ['ev-ind-1', 'ev-ind-2'], fresh: ['ev-ind-3', 'ev-ind-4'], guided: 'ev-guided-1', tr: ['ev-transfer-1', 'ev-transfer-2'], pass: E, fail: F })
+// T-0066 — 보조 발문 요구(ws.evidence-locate 의 support): 같은 순환 · 같은 판정(새 독립 2 · 전이 1 은 이번에 보충한 td-ind-3 · 4 · td-transfer-2)
+cycle({ label: 'T-0066 E1 발문 요구(보조)', set: TD, task: 'e.task_demand', template: 'ws.evidence-locate', key: 'authored-task-demand', ind: ['td-ind-1', 'td-ind-2'], fresh: ['td-ind-3', 'td-ind-4'], guided: 'td-guided-1', tr: ['td-transfer-1', 'td-transfer-2'], pass: H, fail: I })
 
 describe('철회 · 다른 학습자', () => {
   it('지연 확인 권리 결정 철회 → 다른 학습자 공급 거절(사람 결정) · 앞선 기록은 그대로', async () => {
@@ -427,9 +432,14 @@ describe('T-0056 보조 TASK — 실제 공급 · 교수/연습 · 첫 독립 �
     await answer('td-guided-1', true); w = await world()
     expect(w.row.stage, '안내 연습 정답 → 적용').toBe('transfer')
     expect(w.map.tasks[CT as never]?.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    // 재고 제한 fixture(명시) — T-0066 이 td-transfer-2 를 보충했으므로 이 반례는 그 한 편의 권리 결정을 철회해 「재고 1 / 계획 2」를 만든다.
+    //   순환 시험(T-0066 H · I)은 이 describe 보다 먼저 정의 · 실행되어 철회의 영향을 받지 않는다
+    const dec = (await q1<{ id: string }>(`select id from public.content_human_decision where artifact_ref = $1 and kind = 'rights'`, [ref('td-transfer-2')])).id
+    await (admin as unknown as FakeClient).auth()
+    await db.query(`select public.content_human_decision_revoke($1, '재고 제한 fixture — 부족 반례')`, [dec])
     const tr = await supplyNow(w)
     expect(tr.map((l) => l.role)).toEqual(['transfer'])
-    expect(tr[0].delivered, '전이 재고 1 — 2지문 계획에 모자람').toEqual([ref('td-transfer-1')])
+    expect(tr[0].delivered, '전이 재고 1(제한 fixture) — 2지문 계획에 모자람').toEqual([ref('td-transfer-1')])
     w = await world()
     expect(w.row.stage, '재고 부족은 적용 완료가 아니다').toBe('transfer')
     expect(w.row.unresolved).toContain('transfer_shortage')

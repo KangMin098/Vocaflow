@@ -63,6 +63,7 @@ async function openWs(page: Page, template: string) {
   return row
 }
 /** 학습 지도로 복귀 → 같은 Workspace 팝업 복원(복귀 문맥) → 개요 탭 */
+const shot = async (page: Page, name: string) => test.info().attach(name, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
 async function backToWs(page: Page, template: string) {
   await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
   await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
@@ -156,10 +157,63 @@ for (const width of [1440, 1280]) {
     expect(added.every((d) => d.artifact_ref.startsWith('authored:td-') && !ASSESS.includes(d.role)), `바로잡기 수요: ${JSON.stringify(added)}`).toBe(true)
     await expect(again.locator('[data-testid="ws-authored-support-list"] li[data-role="guided_practice"]').first()).toBeVisible({ timeout: 30_000 })
 
+    // T-0066 — 바로잡기 → 실제 다른 지문 2 적용 → 미노출 새 독립 2 → G2 → MAP/PLAN(1440 = pass · 1280 = fail)
+    const pass = width === 1440
+    const roleHrefs = async (role: string) => {
+      await openWs(page, T)
+      const card = page.locator(`[role="dialog"][data-ws="${T}"] [data-testid="ws-authored-support"][data-task="${TASK}"]`)
+      const links = card.locator(`[data-testid="ws-authored-support-list"] li[data-role="${role}"] a`)
+      await expect(links.first()).toBeVisible({ timeout: 30_000 })
+      return links.evaluateAll((as) => as.map((x) => x.getAttribute('href')!))
+    }
+    const supplyNext = async (expectRole: string, n: number) => {
+      await openWs(page, T)
+      await page.locator(`[role="dialog"][data-ws="${T}"] [data-testid="ws-authored-support"][data-task="${TASK}"] [data-testid="ws-authored-support-request"]`).click()
+      await expect.poll(async () => ((await admin().from('workspace_content_delivery').select('role').eq('user_id', a.id)).data ?? []).filter((d) => d.role === expectRole).length, { timeout: 30_000 }).toBe(n)
+    }
+    const solveChoice = async (href: string, right: boolean) => {
+      const id = href.split('/')[3].split('?')[0]
+      const g = TD.items.find((x) => x.id === id)!.gold.answer
+      await solve(page, href, async (r) => { await r.locator(`[data-choice="${right ? g : (g === 0 ? 1 : 0)}"]`).first().click() })
+      await backToWs(page, T)
+    }
+    // 안내 연습 정답(바로잡기 성공 · 독립 근거 아님)
+    await solveChoice((await roleHrefs('guided_practice'))[0], true)
+    await commitPlan(page, T, ORDER, { reason: 'check_result', expectedVersion: 3, goal })
+    // 적용 — 서로 다른 지문 2(보충된 td-transfer-2 포함)를 실제 공급
+    await supplyNext('transfer', 2)
+    const trs = (await admin().from('workspace_content_delivery').select('artifact_ref').eq('user_id', a.id).eq('role', 'transfer')).data ?? []
+    expect(trs.map((d) => d.artifact_ref).sort(), '전이 2지문 실제 공급').toEqual(['authored:td-transfer-1', 'authored:td-transfer-2'])
+    for (const h of await roleHrefs('transfer')) await solveChoice(h, true)
+    await commitPlan(page, T, ORDER, { reason: 'check_result', expectedVersion: 4, goal })
+    // 다시 확인 — 이미 본 혼자 확인(td-ind-1 · 2)은 다시 납품하지 않고 미노출 새 2(td-ind-3 · 4)만
+    await supplyNext('independent_check', 4)
+    const inds = ((await admin().from('workspace_content_delivery').select('artifact_ref').eq('user_id', a.id).eq('role', 'independent_check')).data ?? []).map((d) => d.artifact_ref).sort()
+    expect(inds, '새 독립 확인 = 미노출 2').toEqual(['authored:td-ind-1', 'authored:td-ind-2', 'authored:td-ind-3', 'authored:td-ind-4'])
+    const fresh = (await roleHrefs('independent_check')).filter((h) => /td-ind-[34]/.test(h))
+    expect(fresh).toHaveLength(2)
+    await solveChoice(fresh[0], true)
+    await solveChoice(fresh[1], pass)
+    // 새 독립 2 는 근거(G2) — 앞선 첫 독립 오답 2 결속은 그대로 · 안내 연습 · 적용은 근거 아님
+    await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', a.id)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(4)
+    // MAP/PLAN — 같은 TASK 의 계획 행이 서버 계산 그대로: pass = 해소 · fail = 새 바로잡기 회차
+    await openWs(page, T)
+    const dlg = page.locator(`[role="dialog"][data-ws="${T}"]`)
+    await dlg.locator('[data-testid="ws-tab-plan"]').click()
+    const row = dlg.locator(`li[data-task="${TASK}"]`)
+    if (pass) await expect(row, 'pass — 새 지문 독립 2 정답 = 현재 정책 충족').toHaveAttribute('data-achievement', 'resolved')
+    else {
+      await expect(row, 'fail — 새 회차 바로잡기(이전 안내 연습 성공 불승계)').toHaveAttribute('data-stage', 'repair')
+      await expect(row).not.toHaveAttribute('data-achievement', 'resolved')
+    }
+    await shot(page, `support-cycle-${pass ? 'pass' : 'fail'}-${width}`)
+    await page.keyboard.press('Escape')
+
     // 중심 TASK · 계획 · 목표 이력 불변
-    expect(all.some((d) => d.artifact_ref.startsWith('authored:ev-')), '중심 TASK 자료 공급 없음').toBe(false)
-    // 계획 이력 = 학습자가 확정한 세 번뿐 · 목표 이력 불변 · 중심 과제 시도 없음
-    expect(await snapshot(a.id)).toEqual({ plans: ['initial', 'content_change', 'check_result'], goals: before.goals })
+    const allEnd = (await admin().from('workspace_content_delivery').select('artifact_ref').eq('user_id', a.id)).data ?? []
+    expect(allEnd.some((d) => d.artifact_ref.startsWith('authored:ev-')), '중심 TASK 자료 공급 없음').toBe(false)
+    // 계획 이력 = 학습자가 확정한 다섯 번뿐 · 목표 이력 불변 · 중심 과제 시도 없음
+    expect(await snapshot(a.id)).toEqual({ plans: ['initial', 'content_change', 'check_result', 'check_result', 'check_result'], goals: before.goals })
     expect(((await admin().from('learning_task_attempts').select('task_key').eq('user_id', a.id)).data ?? []).every((x) => x.task_key === TD.taskKey)).toBe(true)
     await noOverflow(page)
   })

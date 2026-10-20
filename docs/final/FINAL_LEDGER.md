@@ -164,3 +164,9 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - **중심 Workspace 없음 10/17** — e.task_demand · r.discourse_function · r.discourse_structure · r.reference · s.attachment · s.chunk_boundary · s.sentence_core · s.structural_relation · v.multiword · v.semantic_relation. 「자료 받기」 카드는 Workspace 팝업의 core[0] 에만 뜨므로 학습자 진입 경로가 없다.
 - **다시 확인 재고**: R5 만 independent_check 4(ind-3 · 4). 나머지 16세트는 2 — T-0050 순환(바로잡기 → 적용 → 다시 확인)을 밟으면 다시 확인이 항상 `material_needed` 에서 멈춘다.
 - 다음 작업 후보(Codex 설계 입력 · 미채택): ① 10세트의 학습 진입 경로(기존 Workspace 보조 TASK 공급 또는 Workspace 정의 확장 — 정본 변경이면 사용자 결정) ② 7세트 다시 확인용 미노출 independent_check 2개씩 추가 작성(Gold · 권리는 사람 승인 별도).
+
+## 14. T-0066 / rev1 — 보조 발문 요구(e.task_demand) 적용 · 새 독립 확인 순환 (2026-10-20)
+
+- 세트 `e-task-demand.v1.json` 보충: independent_check 2(td-ind-3 「제목」 · td-ind-4 「흐름과 관계 없는 문장」) · transfer 1(td-transfer-2 「글의 순서」) — 새 지문 묶음 td-t7 · t8 · t9(기존 6문항 · 채점 계약 불변, diff 는 추가뿐). 검증기 통과.
+- 세트 SHA-256 `8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda`(이전 `dce3db7087d13ec1e069eb122eda5cca1a7201d6aba0b4fc30113ff4a2be0d55` — docs/final/APPROVAL_PACKAGE.md 표의 값은 이 작업 범위 밖이라 갱신 안 함 · 승인 직전 재대조). 사람 Gold · 권리 pending 유지 — 이전 revision 의 검토 · 승인은 승계하지 않는다.
+- 검증: PGlite cycle() 에 보조 TASK 순환(pass/fail) 추가 · T-0056 부족 반례는 td-transfer-2 권리 철회라는 **명시적 재고 제한 fixture** 로 유지. 격리 브라우저 authored-support 를 전체 순환으로 확장(1440 pass · 1280 fail). 격리 fixture 의 임시 자격은 실제 DB 적용 · Gold · 권리 · 출시 · 학습 효과 승인이 아니다.

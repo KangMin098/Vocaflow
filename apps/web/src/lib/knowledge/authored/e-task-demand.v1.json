@@ -10,7 +10,9 @@
     "derivedFrom": [],
     "createdAt": "2026-10-18",
     "humanGold": "pending — 사람 Gold 확정 전",
-    "rights": "pending — 사람 원저작 확인 전"
+    "rights": "pending — 사람 원저작 확인 전",
+    "supplementedAt": "2026-10-20",
+    "supplement": "T-0066 — independent_check 2(td-ind-3 · td-ind-4) · transfer 1(td-transfer-2) 새 지문 보충. 기존 6문항 내용 · 채점 계약 불변. 사람 Gold · 권리 pending 유지"
   },
   "items": [
     {
@@ -338,6 +340,155 @@
             "choice": 4,
             "design": "extra_condition",
             "why": "반대 사례를 찾으라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-3",
+      "role": "independent_check",
+      "passageGroup": "td-t7",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Many city parks now replace short-cut lawns with patches of wild grass and flowers.",
+          "These patches need less water and almost no mowing, which saves the city money.",
+          "They also give bees and butterflies places to feed and shelter during the summer.",
+          "Some residents first complained that the parks looked untidy.",
+          "Yet after small signs explained the purpose, most visitors came to see the patches as part of a living landscape."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글의 제목으로 가장 적절한 것은?",
+        "choices": [
+          "글에 나온 숫자 · 비용 정보 하나를 그대로 옮겨 적기",
+          "글 전체가 다루는 대상과 핵심 관점을 함께 담은 이름 고르기",
+          "주민 불만처럼 글의 한 부분만 드러내는 표현 고르기",
+          "글쓴이가 독자에게 권하는 행동을 명령문으로 바꾸기",
+          "글에 없는 다른 도시의 사례까지 덧붙여 판단하기"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "rationale": "'제목' 발문은 글 전체가 다루는 대상(공원의 야생 풀밭)과 그에 대한 핵심 관점(비용 절감 · 생태 · 인식 변화)을 함께 담은 이름을 고르라는 요구다 — 한 문장 · 한 세부가 아니라 글 전체가 단위다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "detail_focus",
+            "why": "비용 절감은 2번 문장의 세부일 뿐 글 전체를 대표하지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_scope",
+            "why": "주민 불만은 4번 문장의 일부 — 글 전체가 아닌 한 부분만 다룬다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_operation",
+            "why": "권고 행동을 찾는 것은 '주장' 발문의 판단이지 제목 고르기가 아니다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "글에 없는 사례를 덧붙이는 것은 발문 밖의 조건이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-4",
+      "role": "independent_check",
+      "passageGroup": "td-t8",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Sleep helps the brain sort the information it collected during the day.",
+          "During deep sleep, important memories are replayed and stored more firmly.",
+          "Less useful details are weakened, which keeps the brain from becoming overloaded.",
+          "Coffee shops in many cities now stay open until midnight for students.",
+          "This is why a good night's sleep before a test often helps more than staying up late to study."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+        "choices": [
+          "가장 어려운 단어가 들어 있는 문장 하나를 고르기",
+          "각 문장의 문법이 맞는지 하나씩 고쳐 보기",
+          "글의 첫 문장만 읽고 주제와 다른 문장을 짐작하기",
+          "글의 중심 화제와 흐름에 비추어 벗어난 문장 찾기",
+          "글쓴이의 의견이 들어간 문장을 모두 고르기"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "rationale": "'흐름과 관계 없는 문장' 발문은 글의 중심 화제(잠과 기억 정리)와 문장 사이의 연결을 기준으로, 그 흐름에서 벗어난 문장 하나를 찾으라는 요구다 — 여기서는 4번 문장(심야 카페)이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "단어 난도는 흐름 판단의 기준이 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "extra_condition",
+            "why": "문법을 고치라는 조건은 발문에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_scope",
+            "why": "첫 문장만 보면 문장 사이의 연결을 판단할 수 없다 — 글 전체 흐름이 범위다."
+          },
+          {
+            "choice": 4,
+            "design": "wrong_unit",
+            "why": "의견 문장을 모두 고르는 것이 아니라 흐름에서 벗어난 문장 하나가 단위다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-transfer-2",
+      "role": "transfer",
+      "passageGroup": "td-t9",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "[주어진 글] When Mina joined the school orchestra, she could barely read music.",
+          "(A) By the end of the year, she was invited to play a short solo at the spring concert.",
+          "(B) So every evening she practiced one page slowly, marking the notes she kept missing.",
+          "(C) After a few weeks, the pages she had marked began to feel easier, and she started a second book."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+        "choices": [
+          "(A) · (B) · (C) 중 가장 긴 단락을 먼저 놓기",
+          "각 단락의 내용을 한 문장으로 요약만 하기",
+          "연결어 · 지시어 · 시간 흐름 단서로 단락 사이의 연결을 정해 순서 세우기",
+          "주어진 글의 바로 다음 단락 하나만 정하고 나머지는 두기",
+          "글에 없는 결말을 상상해 마지막 단락을 새로 정하기"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "rationale": "'순서' 발문은 주어진 글과 각 단락의 연결 단서(So · After a few weeks · By the end of the year 같은 연결어와 시간 흐름)로 앞뒤를 정해 세 단락 전체의 순서를 세우라는 요구다 — 여기서는 (B)-(C)-(A)다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "단락 길이는 순서를 정하는 단서가 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "요약은 순서 판단이 아니다 — 연결 단서를 찾아야 한다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "바로 다음 단락 하나만 정하면 세 단락 전체 순서라는 요구의 일부만 다룬다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "글에 없는 결말을 만드는 것은 발문 밖의 조건이다."
           }
         ]
       }
