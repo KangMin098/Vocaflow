@@ -135,8 +135,14 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(r3).not.toContain('계획만큼 했어요')
 
     // 근거 결속 = 처음 독립 확인 2 뿐(안내 연습 · 적용은 독립 근거가 아니다) · 계획 이력 = 학습자 확정 4회
-    const binds = (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid)).data ?? []
-    expect(binds.filter((b) => b.evidence).length).toBe(2)
+    // 평가 근거 결속 = 처음 독립 확인 2 + 적용 1(평가 자료) · 안내 연습은 근거 아님
+    const binds = (await admin().from('workspace_delivery_attempt').select('evidence, session_id, annotation_hash, attempt_id, delivery_id, workspace_content_delivery(role)').eq('user_id', uid)).data ?? []
+    const roleOf = (b: (typeof binds)[number]) => (b.workspace_content_delivery as unknown as { role: string } | null)?.role
+    expect(binds.filter((b) => b.evidence).map(roleOf).sort()).toEqual(['independent_check', 'independent_check', 'transfer'])
+    expect(binds.filter((b) => roleOf(b) === 'guided_practice').every((b) => !b.evidence)).toBe(true)
+    // 진단 기록 — 지도가 결속된 독립 확인을 「도움 뒤」로 읽는 원인(해시 · 세션 대조) 확인용
+    const atts = (await admin().from('learning_task_attempts').select('id, session_id, content_hash, help_level, activity, phase').eq('user_id', uid)).data ?? []
+    console.log(`BIND_DIAG_${width}=${JSON.stringify({ binds: binds.map((b) => ({ a: b.attempt_id, ev: b.evidence, s: b.session_id, h: String(b.annotation_hash).slice(0, 12), role: roleOf(b) })), atts: atts.map((a) => ({ id: a.id, s: a.session_id, h: String(a.content_hash).slice(0, 12), help: a.help_level, act: a.activity, ph: a.phase })) })}`)
     expect((await admin().from('learner_workspace_plan').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count).toBe(4)
   })
 }
