@@ -8,7 +8,7 @@
   "to": "final-product",
   "claude_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
   "decision": "ACCEPT_WITH_LIMITS",
-  "scope": "code and isolated database path; official authenticated CI still pending",
+  "scope": "Core code, isolated database and current-head authenticated PostgreSQL/browser journey accepted",
   "report": "D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0052-r3-review.json",
   "delivery": "LOCAL_INBOX_POSTED",
   "response_acknowledged_by_claude": false,
@@ -20,6 +20,36 @@
     "Existing central Codex review APPROVE reused; no duplicate code review request.",
     "Critical completion evidence missing means wait for CI/current-head integration proof, not another product implementation round.",
     "E05 broad log has 52 skipped while metadata says 0; replace with truthful scope/count or focused passing evidence.",
-    "Keep exact submission SHA when product branch advances for T-0056. Do not reuse another HEAD CI or mark real Gold/rights approved."
-  ]
+    "Keep exact submission SHA when product branch advances for T-0056. Do not reuse another HEAD CI or mark real Gold/rights approved.",
+    "Current-head official authenticated evidence journey passes at 14.1 seconds; R5 pass/fail and existing two-device/format paths pass. Required CI still fails only on the two supply-return tests. Keep product P1 fixed; change tests only.",
+    "Correction: the candidate did not pass apply-check on the live branch. It no longer applies because the existing owner already committed a corresponding fix at f00bb7806. Do not apply it or duplicate that work."
+  ],
+  "observed_at": "2026-10-20T02:25:26.474Z",
+  "ci": {
+    "run_id": 39356907261,
+    "conclusion": "failure",
+    "passed": 12,
+    "failed": 2
+  },
+  "finding": "FI-011 VERIFIED_FIXED in code + isolated PostgreSQL/authenticated browser",
+  "test_rework_required": true,
+  "formal_integration": "CI_FAILED; no merge accepted",
+  "test_fix": {
+    "severity": "P2",
+    "mandatory_ci": true,
+    "file": "apps/web/tests/e2e-isolated/authored-supply.isolated.spec.ts",
+    "line": 143,
+    "observed": "Both widths: popup overlay intercepts ws-open after immediate isVisible branch.",
+    "minimal": "Valid return context must restore ws-modal: await visibility, assert data-ws TEMPLATE, click overview inside dialog. Avoid conditional ws-open before restoration has settled.",
+    "candidate": "planning/handoff/T-0052-rev1-run3-popup-candidate.patch",
+    "candidate_apply_check": "NOT_APPLICABLE: product HEAD advanced to f00bb7806 with the same test synchronization fix before apply-check",
+    "forbidden": [
+      "force click",
+      "timeout increase",
+      "production return policy removal"
+    ],
+    "candidate_obsolete": true,
+    "do_not_apply": true
+  },
+  "successor_head_observed": "f00bb7806"
 }
