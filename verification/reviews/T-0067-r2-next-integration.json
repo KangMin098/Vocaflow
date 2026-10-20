@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-10-20T16:08:09.337Z",
+  "source": "Existing read-only explorer git/gh assessment; no GitHub mutation or product branch edit",
+  "next_owner": "final-product",
+  "independent_task": "T-0045",
+  "pr250": {
+    "head": "2549e407d",
+    "state": "OPEN",
+    "merge_state": "CONFLICTING/DIRTY"
+  },
+  "pr303": {
+    "head": "235307553",
+    "state": "OPEN",
+    "merge_state": "MERGEABLE/CLEAN",
+    "main_diff_files": 253
+  },
+  "main": "0c8e0274d",
+  "pr250_already_ancestor_of_pr303": true,
+  "local_integration": {
+    "head": "b4fc9ff83",
+    "clean": true,
+    "other_owner_changes": "preserve"
+  },
+  "new_migration": {
+    "file": "20261014091841_funnel_allow_csat_meaning.sql",
+    "in_main": false,
+    "in_local_integration": false,
+    "product_sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+    "fresh_dev_db_read": "NOT_RUN_THIS_TURN"
+  },
+  "next_action": "Existing branch-owner conflict resolution and exact-head aggregate acceptance+CI+safe-merge; no new UI task",
+  "delivery": "LOCAL_INBOX_POSTED; ACK/start unobserved",
+  "no_db_writes": true,
+  "no_human_approval_claim": true
+}

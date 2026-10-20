@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-20T16:04:04.236Z",
+  "task_id": "T-0067",
+  "status": "COMPLETED",
+  "verified_commit": "235307553f810bcead5f3844d863e60d0a8e8866",
+  "reviewed_by": "final-independent-accept",
+  "review_record": "verification/reviews/T-0067-rev1-run2-independent-235307553.md",
+  "review_record_sha256": "2612126a60f9c4b52c0a44b6a5f0e49e2c6b78621fe1a1ac85b1a03c00d10555",
+  "evidence_added": "T-0067-R2-E09",
+  "source": "Official task.evidence and task.complete; full history remains in task state"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "review",
+  "command_or_protocol": "Actual existing independent Codex session: unchanged11 probes and focused18 pass; exact-head officialCI39452087310 and isolated23/23 inspected; null/missing eligibility display and503 cause fixed",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "235307553f810bcead5f3844d863e60d0a8e8866",
+  "artifact_path_or_url": "verification/reviews/T-0067-rev1-run2-independent-235307553.md",
+  "observed_at": "2026-10-20T16:04:03.908Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "note": "Supply/list responses in new UI browser test are mocked. Reuse unchanged actual learning DB journey; no live DB/application/Gold/rights or aggregate merge claim."
+}

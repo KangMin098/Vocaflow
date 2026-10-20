@@ -1,0 +1,48 @@
+{
+  "observed_at": "2026-10-20T16:03:18.182Z",
+  "task_id": "T-0067",
+  "status": "REVIEW",
+  "run_seq": 2,
+  "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+  "evidence": [
+    {
+      "id": "T-0067-R2-E05",
+      "type": "unit",
+      "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-r2-ci.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R2-E06",
+      "type": "ci",
+      "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-r2-ci.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R2-E07",
+      "type": "e2e",
+      "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-r2-ci.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R2-E08",
+      "type": "ui",
+      "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+      "path": "verification/ui/T-0067/ci-39452087310-1.png",
+      "hash_match": true,
+      "screens": 39,
+      "screens_match": true
+    }
+  ],
+  "ci": {
+    "run": "39452087310",
+    "event": "pull_request",
+    "exact_head": true,
+    "conclusion": "success",
+    "shared_dev": "skipped"
+  },
+  "e2e_summary": "23 passed (4.2m)",
+  "browser_limit": "Supply/list responses in map-supply-outcome are mocked; not delivery DB success evidence"
+}
