@@ -27,6 +27,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- chore(ci): 필수 체크 8 → 3(verify · build · e2e). TypeScript · 문서 링크 · migration 문서 · CHANGELOG · manifest 는 실행하되 병합을 막지 않는다(advisory_checks). DB 승인은 safe-merge 적용 이력 해시 게이트 그대로.
 
 - chore(agents): 중앙 LOCAL_FAST 실행 모드 어댑터와 원격 접근 전 종료, 세션 안내 및 회귀를 추가했다. 최신 main의 위험도별 검증·CI 캐시·병렬 빌드·타입 검사 재사용을 보존하고 CI 토큰은 contents:read로 한정한다.
 

@@ -29,12 +29,7 @@
   "required_checks": [
     "verify",
     "build",
-    "e2e",
-    "TypeScript 0 error",
-    "docs/*.md broken link check",
-    "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
-    "docs/CHANGELOG.md Unreleased 비어있지 않음",
-    "PROJECT_KNOWLEDGE_MANIFEST drift 점검"
+    "e2e"
   ],
   "merge": {
     "base": "main",
@@ -70,5 +65,13 @@
     "승인되지 않은 데이터 삭제",
     "수정 불가능한 외부 장애"
   ],
-  "ai_review": "사람 검수자가 필요한 일반 교육 · 개발 업무는 Claude Code · Codex · ChatGPT 에 역할 배정(독립 판정 · 반증 · 이견 조정 · 근거). 실제 사람의 수행 데이터 · 법적 동의를 AI 가 대신 만들거나 충족했다고 주장하지 않는다."
+  "ai_review": "사람 검수자가 필요한 일반 교육 · 개발 업무는 Claude Code · Codex · ChatGPT 에 역할 배정(독립 판정 · 반증 · 이견 조정 · 근거). 실제 사람의 수행 데이터 · 법적 동의를 AI 가 대신 만들거나 충족했다고 주장하지 않는다.",
+  "advisory_checks": [
+    "TypeScript 0 error",
+    "docs/*.md broken link check",
+    "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+    "docs/CHANGELOG.md Unreleased 비어있지 않음",
+    "PROJECT_KNOWLEDGE_MANIFEST drift 점검"
+  ],
+  "required_checks_note": "2026-10-20 사용자 결정 — 제품 검증 3개만 필수(타입 · lint · 단위는 verify). 나머지는 실행되지만 병합을 막지 않는다. DB 승인은 safe-merge 의 적용 이력 해시 게이트가 맡는다."
 }

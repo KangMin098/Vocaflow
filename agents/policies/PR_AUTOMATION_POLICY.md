@@ -49,7 +49,7 @@
 1. PR 필수 `e2e` 가 실제로 돈다 — 2026-10-11 전에는 시크릿이 없으면 건너뛰고도 SUCCESS 였다(가짜 통과). 이제 PR 필수 `e2e` 는 **격리 실행**(러너 안 로컬 Supabase + 저장소 마이그레이션 실제 적용 + next start + Playwright + DB 단언 · 공유 DB · 시크릿 불필요)이고, 공유 개발 DB E2E 는 `e2e-shared-dev`(main push · 수동 실행만 · 시크릿 필요)로 분리했다.
 2. 모든 base 의 PR 에서 필수 CI 가 돈다 — 전에는 `pull_request: branches: [main]` 이라 종속 PR(#206 · #207 · #209)에 CI 가 없었다. 필터를 풀었다.
 3. (선택) 공유 개발 DB 통합 E2E(`e2e-shared-dev`)에 쓸 저장소 시크릿 — PR 필수 조건은 아니다. 비밀값은 에이전트가 외부에 올리지 않는다.
-4. main 보호 — 2026-10-11 설정: branch protection(필수 체크 8 · strict · 관리자 포함 · PR 필수 · force push/삭제 금지) + Ruleset `Vocaflow-main-protection`(active · 우회 계정 없음). 확인 `gh api repos/KangMin098/Vocaflow/branches/main/protection` · `gh api repos/KangMin098/Vocaflow/rulesets`.
+4. main 보호 — 2026-10-11 설정: branch protection(필수 체크 3: verify · build · e2e — 2026-10-20 8→3 · strict · 관리자 포함 · PR 필수 · force push/삭제 금지) + Ruleset `Vocaflow-main-protection`(active · 우회 계정 없음). 확인 `gh api repos/KangMin098/Vocaflow/branches/main/protection` · `gh api repos/KangMin098/Vocaflow/rulesets`.
 
 활성화 뒤 첫 적용: #205 → #206 → #207 → #209 를 safe-merge 로 순차 병합(2026-10-11 · DB 승인 증거 = 개발 DB 적용 이력 해시 일치). 다시 끄면(값 false) 꺼져 있는 동안 `safe-merge.mjs` 는 **어떤 경로로도 병합하지 않는다**(`--dry-run` 판정만 · 자동/수동 구분 없음). 켜는 길은 이 값을 바꾸는 PR 하나뿐이고, 그 PR 도 보호된 main 의 필수 CI 를 거친다. 켜진 뒤에는 게이트를 통과한 PR 을 묻지 않고 병합한다.
 
