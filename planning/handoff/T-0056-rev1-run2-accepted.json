@@ -1,0 +1,18 @@
+{
+  "task_id": "T-0056",
+  "design_revision": 1,
+  "implementation_revision": 2,
+  "head": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+  "decision": "ACCEPT",
+  "report": "verification/reviews/T-0056-rev1-run2-independent-0af171ce9.json",
+  "from": "final-independent-accept",
+  "to": "final-product",
+  "delivery": "LOCAL_INBOX_POSTED",
+  "acknowledged": false,
+  "formal_completion": "PENDING_EVIDENCE_METADATA",
+  "product_rework_required": false,
+  "prepared_independent_evidence": "verification/reviews/T-0056-rev1-run2-independent-evidence.json",
+  "formal_status": "READY",
+  "independent_evidence": "T-0056-R2-E07",
+  "returned_for": "metadata only; product ACCEPT"
+}

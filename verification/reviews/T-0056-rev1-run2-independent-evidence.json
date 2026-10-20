@@ -1,0 +1,16 @@
+{
+  "type": "integration",
+  "command_or_protocol": "Independent exact-head archive63 checks pass incl unchanged original nine-support counterexample, zero-core shell and demand membership controls, actual server/PGlite. Independently verify GitHub API and download CI39369283456 job118453233060: exact final HEAD, pull_request,17 authenticated isolated browser tests pass including3 new support cases. Browser/DB executed by official isolated CI; no local browser rerun claimed.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r2-e2e.log",
+  "observed_at": "2026-10-20T04:37:07.187Z",
+  "commit": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "environment": "runner-local Supabase/PostgreSQL + authenticated Next + Chromium; synthetic fixtures"
+}

@@ -1,0 +1,139 @@
+{
+  "task_id": "T-0056",
+  "design_revision": 1,
+  "implementation_revision": 2,
+  "run_seq": 2,
+  "head": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+  "decision": "ACCEPT",
+  "reviewer": "final-independent-accept",
+  "observed_at": "2026-10-20T04:37:07.187Z",
+  "contract": "SUPPORT_TASK_ENTRY_WORK_ORDER revision1 / unchanged VG-LM-TASK canon",
+  "scope": "Code, independent isolated PGlite and exact-head official authenticated isolated Chromium acceptance; not product release",
+  "findings": [
+    {
+      "id": "T0056-P1-1",
+      "status": "VERIFIED_FIXED",
+      "evidence": "Original independent all-nine support enumeration is unchanged and now passes, including four previously excluded hosts. Empty-stock shells preserve original core readiness/preparing/primary/progress. Official sentence-core browser test confirms actual first supply, solve and return without core stock."
+    },
+    {
+      "id": "T0056-first-supply",
+      "status": "VERIFIED_FIXED",
+      "evidence": "buildDemand narrowly permits first independent_check for a TASK actually in template.support with no check. Independent demand tests cover membership/no-template controls; actual goal-bearing e.task_demand browser path passes both widths."
+    }
+  ],
+  "open_product_P0_P1": [],
+  "validation": {
+    "snapshot": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r2-WnKQKZ\\snapshot",
+    "independent": {
+      "passed": 63,
+      "failed": 0,
+      "skipped": 0,
+      "files": [
+        "original t0056-independent counterexample",
+        "plan",
+        "workspace-authored",
+        "demand-supply",
+        "authored-flow.pglite"
+      ],
+      "log": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r2-focused.log",
+      "sha256": "ffaecdc91fb98c29b657361d550177e116d382fc082f0a04150708303e40729d"
+    },
+    "official_browser": {
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "environment": "runner-local Supabase/PostgreSQL + authenticated Next + Chromium; synthetic fixtures",
+      "new_cases": [
+        "e.task_demand real record-goal-PLAN-card-supply-two wrong independent attempts-return-check_result-instructional-only resupply at1440",
+        "same support path at1280",
+        "ws.sentence-core zero core stock, three support empty cards, first support supply-solve-return at1440; core remains preparing"
+      ],
+      "source": "apps/web/tests/e2e-isolated/authored-support.isolated.spec.ts",
+      "log": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r2-e2e.log",
+      "sha256": "5d45b115f484f3d67b029995ff87acc0a88ba219c1f9d54d8b9c2b888e25436a",
+      "independently_downloaded": true,
+      "local_browser_rerun": false
+    },
+    "reuse": {
+      "previous44_scope": "unchanged membership route and core/other-TASK boundaries reused; impacted PGlite repeated within63",
+      "ui_components_css": "Byte-identical since8ba2ddc17; previous standalone component accessibility/reference captures remain scoped evidence, not newly captured authenticated screenshots",
+      "gold_sql": "No changes since previous independent input"
+    },
+    "submitted": [
+      {
+        "id": "T-0056-R2-E04",
+        "commit": null,
+        "hashMatch": true
+      },
+      {
+        "id": "T-0056-R2-E05",
+        "commit": null,
+        "hashMatch": true
+      },
+      {
+        "id": "T-0056-R2-E06",
+        "commit": null,
+        "hashMatch": true
+      }
+    ]
+  },
+  "ci": {
+    "id": 39369283456,
+    "head_sha": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+    "event": "pull_request",
+    "conclusion": "success",
+    "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39369283456",
+    "jobs": [
+      {
+        "id": 118453232817,
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "id": 118453233057,
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "success"
+      },
+      {
+        "id": 118453233060,
+        "name": "e2e",
+        "conclusion": "success"
+      },
+      {
+        "id": 118453233118,
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "id": 118453233954,
+        "name": "e2e-shared-dev",
+        "conclusion": "skipped"
+      }
+    ]
+  },
+  "formal_workflow": {
+    "status": "REVIEW",
+    "completion": "PENDING_EVIDENCE_METADATA",
+    "current_run_missing_commit": [
+      "T-0056-R2-E04",
+      "T-0056-R2-E05",
+      "T-0056-R2-E06"
+    ],
+    "current_run_ui_evidence": false,
+    "unit_E04_scope": "Original unit artifact predates final demand change; do not relabel the old2579 log as a new final-head run. Reuse exact-head independent63 or the final official verify log with stated provenance.",
+    "required": "Original owner resubmits same HEAD with all evidence.commit explicit and typed current-head UI evidence. Reuse valid artifacts with exact scope, no product reimplementation or unchanged test rerun. Existing CLI has no evidence-amend operation; return READY solely for metadata resubmission, preserving implementation acceptance."
+  },
+  "next": "Use existing final-product owner and worktree. Prioritize product/official integration preparation independently; no duplicate T-0056 or new canonical design revision. Keep existing dirty foreign audit files and safe-merge boundaries.",
+  "boundaries": {
+    "developer_db_writes": 0,
+    "sql_application": false,
+    "human_gold": false,
+    "rights": false,
+    "actual_learner_effect": false,
+    "official_merged": false,
+    "final_mission": "REWORK",
+    "product_core_ready": false,
+    "release_ready": false,
+    "final_complete": false
+  }
+}
