@@ -393,6 +393,180 @@
           }
         ]
       }
+    },
+    {
+      "id": "vcs-ind-3",
+      "role": "independent_check",
+      "passageGroup": "vcs-t7",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "In the winter of 1918, a dangerous fever spread quickly through a crowded port city.",
+          "Hospitals filled within days, and doctors had no medicine that could cure it.",
+          "Officials therefore closed schools and theaters to keep people apart.",
+          "These simple measures helped check the spread of the disease until the cold season ended.",
+          "Cities that waited longer to act suffered far more deaths."
+        ],
+        "target": {
+          "sentence": 3,
+          "word": "check"
+        },
+        "stem": "밑줄 친 낱말 'check'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "확인하다",
+          "억제하다",
+          "맡기다",
+          "계산서를 내다",
+          "촉진하다"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "cue": [
+          2,
+          3,
+          4
+        ],
+        "senseGloss": "(퍼지는 것·증가를) 억제하다, 막다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "'확인하다'는 check 의 가장 흔한 뜻이지만, 사람들을 떼어 놓으려는 조치(3번)가 확산을 '확인'했다는 것은 목적과 맞지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'맡기다'는 check a bag 처럼 짐·외투와 결합할 때의 뜻으로 spread(확산)와 어울리지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_part_of_speech",
+            "why": "명사 check(계산서)의 뜻을 동사 자리에 옮겼다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "늦게 대응한 도시가 더 많은 사망자를 냈다(5번)는 대조와 반대로, 확산을 부추겼다는 뜻이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-ind-4",
+      "role": "independent_check",
+      "passageGroup": "vcs-t8",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "After retiring from her job as a nurse, Mrs. Park did not want to sit at home.",
+          "She used her savings to open a small bakery near the train station.",
+          "Today she runs the shop with her two sons, who bake while she handles the customers.",
+          "The bakery has become a favorite stop for commuters each morning.",
+          "She says that managing a business keeps her mind as busy as nursing once did."
+        ],
+        "target": {
+          "sentence": 2,
+          "word": "runs"
+        },
+        "stem": "밑줄 친 낱말 'runs'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "달린다",
+          "출마한다",
+          "흘러나온다",
+          "운영한다",
+          "문을 닫는다"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "cue": [
+          1,
+          2,
+          4
+        ],
+        "senseGloss": "(가게·사업을) 운영하다, 경영하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "'달린다'는 run 의 기본 뜻이지만 목적어 the shop 을 받으면 성립하지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "collocation_mismatch",
+            "why": "'출마한다'는 run for office 처럼 for 와 선거 자리에 결합할 때의 뜻이다."
+          },
+          {
+            "choice": 2,
+            "design": "nearby_word",
+            "why": "빵을 굽는 가게(3·4번)에서 냄새·물이 흐른다는 자동사 run 의 뜻에 끌렸지만, 이 문장은 사람이 가게를 목적어로 받는다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "가게가 아침마다 붐비고 사업을 관리한다(4·5번)는 흐름과 정반대다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-transfer-2",
+      "role": "transfer",
+      "passageGroup": "vcs-t9",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Every mountain trail in the national park has a short list of rules posted at its entrance.",
+          "Hikers must stay on marked paths, carry out their trash, and never feed wild animals.",
+          "Rangers have found that most visitors observe these rules without being reminded.",
+          "When a few people ignore them, however, damage to plants can last for decades.",
+          "For this reason, repeat offenders may be banned from the park for a year."
+        ],
+        "target": {
+          "sentence": 2,
+          "word": "observe"
+        },
+        "stem": "밑줄 친 낱말 'observe'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "준수하다",
+          "관찰하다",
+          "언급하다",
+          "감시하다",
+          "어기다"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "senseGloss": "(규칙·법을) 지키다, 준수하다",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "basic_meaning",
+            "why": "'관찰하다'는 observe 의 가장 흔한 뜻이지만, 4번에서 규칙을 무시하는(ignore) 사람과 대조되므로 규칙을 지킨다는 뜻이어야 한다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'언급하다'는 observe that ~ 처럼 that 절과 결합할 때의 뜻으로, rules 를 목적어로 받지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "관리인 rangers(3번)에 끌린 뜻으로, 감시하는 쪽은 방문객이 아니라 관리인이다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "4번의 ignore 와 대조되는 행동을 오히려 규칙을 어긴다는 뜻으로 뒤집었다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

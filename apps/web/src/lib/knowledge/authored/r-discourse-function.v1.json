@@ -272,6 +272,107 @@
         "pattern": "cause_effect",
         "rationale": "1번 큰 일 뒤에만 칭찬하는 관행(배경), 2번 그 관행이 동기를 떨어뜨린다는 주제문, 3~5번 원인에서 결과로 이어지는 과정(근거), 6번 'in other words' 결론. 관행 → 결과를 따라가는 인과 구조다."
       }
+    },
+    {
+      "id": "df-ind-3",
+      "role": "independent_check",
+      "passageGroup": "df-i3",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Many people believe that bats are blind and find their way only by sound.",
+          "In fact, every species of bat can see, and some see quite well.",
+          "Large fruit bats rely mainly on their eyes to find ripe fruit at dusk.",
+          "Even bats that hunt insects by echo use their vision when they fly long distances.",
+          "Their eyes are simply suited to dim light, and because people rarely watch bats in daylight, the old belief has survived."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "topic",
+          "example",
+          "example",
+          "support"
+        ],
+        "alternatives": [
+          {
+            "index": 0,
+            "role": "concession"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번은 '박쥐는 눈이 멀었다'는 통념을 소개하는 배경, 2번 'In fact'로 그 통념을 뒤집는 필자의 주장(주제문), 3~4번은 과일박쥐와 곤충 사냥 박쥐라는 구체적 사례(예시), 5번은 박쥐 눈의 특성과 통념이 남은 이유를 설명하는 근거다. 마지막 문장은 앞을 맺는 결론이 아니라 이유를 덧붙이는 근거로 끝난다. 1번을 통념을 일단 받아들이는 양보로 읽어도 인정한다."
+      }
+    },
+    {
+      "id": "df-ind-4",
+      "role": "independent_check",
+      "passageGroup": "df-i4",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "In many apartment buildings, residents throw away large amounts of food every week.",
+          "Much of it is still safe to eat and has simply passed the date printed on the package.",
+          "A simple sharing shelf in the lobby can turn this waste into something useful.",
+          "Residents leave unopened items they will not use, and neighbors take whatever they need.",
+          "Imagine one building where such a shelf cut the amount of food thrown out by nearly a third within two months."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "topic",
+          "support",
+          "example"
+        ],
+        "alternatives": [
+          {
+            "index": 1,
+            "role": "background"
+          }
+        ],
+        "pattern": "problem_solution",
+        "rationale": "1~2번은 아파트의 음식 낭비라는 문제 상황(1번 배경, 2번 그 음식이 아직 먹을 만하다는 근거), 3번이 '나눔 선반'이라는 해결책을 내놓는 주제문, 4번은 그 선반이 작동하는 방식(근거), 5번은 한 건물에서 줄어든 모습을 그려 보이는 가상 사례(예시)다. 2번은 문제를 더 보여 주는 배경으로 읽어도 인정한다."
+      }
+    },
+    {
+      "id": "df-transfer-2",
+      "role": "transfer",
+      "passageGroup": "df-x2",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Dear Ms. Park, I am writing on behalf of the residents who use the riverside walking path.",
+          "Over the past month, three of the streetlights along the path have stopped working.",
+          "After sunset, the darkest section has become difficult and even unsafe to walk.",
+          "Last Tuesday, a jogger fell there after stepping into a hole she could not see.",
+          "We kindly ask that the broken lights be repaired as soon as possible.",
+          "Thank you for your attention to this matter."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "example",
+          "speech_act",
+          "closing"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "topic"
+          }
+        ],
+        "pattern": "request_letter",
+        "rationale": "1번은 누가 왜 쓰는지 밝히는 배경, 2~3번은 가로등 고장과 그로 인한 위험(근거), 4번은 지난주 한 조깅하는 사람이 넘어진 구체적 사건(예시), 5번 'We kindly ask'가 수리를 요청하는 화행으로 글의 목적이다(주제문으로 읽어도 인정), 6번은 인사로 맺음. 2~4번이 문제를 늘어놓아 problem_solution으로 보기 쉽지만, 필자는 해결책을 제시하는 것이 아니라 상대에게 행동을 요청하므로 화행 글이다."
+      }
     }
   ]
 }

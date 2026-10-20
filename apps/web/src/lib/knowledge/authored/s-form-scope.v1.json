@@ -437,6 +437,201 @@
           }
         ]
       }
+    },
+    {
+      "id": "gs-ind-3",
+      "role": "independent_check",
+      "passageGroup": "gs-i3",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Animal shelters depend on volunteers who give up their weekends to help.",
+          "Each of the volunteers is trained before working with the animals.",
+          "Many of the dogs that arrive there have abandoned by owners who could no longer care for them.",
+          "Many volunteers say that the hours they spend there are the most rewarding of their week.",
+          "Some even end up adopting the animals they once cared for."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "who"
+          },
+          {
+            "sentence": 1,
+            "text": "is trained"
+          },
+          {
+            "sentence": 2,
+            "text": "have abandoned"
+          },
+          {
+            "sentence": 3,
+            "text": "are"
+          },
+          {
+            "sentence": 4,
+            "text": "adopting"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "voice",
+        "correction": "have been abandoned",
+        "marks": [
+          {
+            "reason": "relative_clause",
+            "why": "선행사 volunteers 가 사람이고 관계절의 주어가 비어 있으므로 주격 관계대명사 who 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "Each of + 복수명사는 Each 가 주어라 단수 취급하므로 is trained 가 맞다."
+          },
+          {
+            "reason": "voice",
+            "why": "개들은 버림을 받은 쪽이고 행위자 by owners 가 따라오므로 능동 have abandoned 가 아니라 완료 수동 have been abandoned 여야 한다(abandon 은 목적어가 필요한 타동사라 능동으로는 문장이 성립하지 않는다)."
+          },
+          {
+            "reason": "agreement",
+            "why": "that 절의 주어는 관계절 they spend there 를 걷어낸 복수 명사 the hours 이므로 are 가 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "end up 은 뒤에 동명사를 취하므로 adopting 이 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-ind-4",
+      "role": "independent_check",
+      "passageGroup": "gs-i4",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "The city opened its first protected bike lane only five years ago.",
+          "Since then, the number of people cycling to work has tripled.",
+          "Riders say the lanes make them feel safe enough to use bikes for daily errands.",
+          "Shop owners, who once feared losing parking spaces, now report steady business.",
+          "In fact, cyclists tend to visit local shops more often than drivers are."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "opened"
+          },
+          {
+            "sentence": 1,
+            "text": "has tripled"
+          },
+          {
+            "sentence": 2,
+            "text": "feel"
+          },
+          {
+            "sentence": 3,
+            "text": "losing"
+          },
+          {
+            "sentence": 4,
+            "text": "are"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "comparison_scope",
+        "correction": "do",
+        "marks": [
+          {
+            "reason": "tense_aspect",
+            "why": "five years ago 처럼 과거 한 시점을 가리키는 말과 함께 쓰였으므로 과거형 opened 가 맞다."
+          },
+          {
+            "reason": "tense_aspect",
+            "why": "Since then 으로 과거부터 지금까지 이어진 변화를 말하고, 주어 the number 가 단수이므로 현재완료 has tripled 가 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "사역동사 make 는 목적어 뒤에 원형부정사를 취하므로 feel 이 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "fear 는 동명사 목적어를 취할 수 있으므로 losing 이 맞다."
+          },
+          {
+            "reason": "comparison_scope",
+            "why": "than 뒤에서 비교되는 것은 일반동사 visit 이므로 be동사 are 가 아니라 대동사 do 여야 한다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-transfer-2",
+      "role": "transfer",
+      "passageGroup": "gs-x2",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Not until telescopes were improved did astronomers notice the faint rings around the planet.",
+          "The rings, made of countless pieces of ice and rock, reflect sunlight unevenly.",
+          "Observers long wondered why the rings looked thinner in some years.",
+          "We now know what the change is caused by the angle at which Earth views them.",
+          "Hardly a decade passes without new details being discovered."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "did"
+          },
+          {
+            "sentence": 1,
+            "text": "reflect"
+          },
+          {
+            "sentence": 2,
+            "text": "why"
+          },
+          {
+            "sentence": 3,
+            "text": "what"
+          },
+          {
+            "sentence": 4,
+            "text": "being discovered"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "noun_clause",
+        "correction": "that",
+        "marks": [
+          {
+            "reason": "inversion",
+            "why": "Not until ... 가 문장 앞에 나와 조동사가 주어 앞으로 도치되었고, 과거이므로 did 뒤 원형 notice 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "삽입된 분사구를 걷어낸 주어 The rings 가 복수이므로 reflect 가 맞다."
+          },
+          {
+            "reason": "noun_clause",
+            "why": "wondered 의 목적어로 '왜 ~인지'를 나타내는 의문사절이며, 뒤 절이 완전하므로 why 가 맞다."
+          },
+          {
+            "reason": "noun_clause",
+            "why": "know 의 목적어절 the change is caused by ... 가 빠진 성분 없는 완전한 절이므로 what 이 아니라 접속사 that 이어야 한다."
+          },
+          {
+            "reason": "voice",
+            "why": "새로운 사실은 '발견되는' 대상이므로 전치사 without 뒤 동명사의 수동형 being discovered 가 맞다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

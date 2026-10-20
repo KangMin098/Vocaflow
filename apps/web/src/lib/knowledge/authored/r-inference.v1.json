@@ -419,6 +419,189 @@
           }
         ]
       }
+    },
+    {
+      "id": "inf-ind-3",
+      "role": "independent_check",
+      "passageGroup": "inf-i3",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "When a small company begins to grow, its founder often keeps making every decision personally.",
+          "This worked when there were five employees, because the founder knew every customer and every problem.",
+          "With fifty employees, however, questions pile up on one desk while others wait with nothing to do.",
+          "Capable managers hired to help find that their choices are quietly reversed.",
+          "Such a founder is a conductor who insists on playing every instrument in the orchestra.",
+          "Growth asks the founder to trust others with decisions he once made alone."
+        ],
+        "stem": "밑줄 친 \"a conductor who insists on playing every instrument in the orchestra\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "a leader who hires too many managers too quickly",
+          "a founder skilled at many different kinds of work",
+          "a leader who won't hand decisions to others as the group grows",
+          "a leader who leaves every choice to his staff",
+          "a founder who cares more about customers than staff"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "decisive": 0,
+        "decisiveAlt": [
+          [
+            3
+          ]
+        ],
+        "evidence": [
+          0,
+          3
+        ],
+        "evidenceAlt": [
+          2,
+          5
+        ],
+        "rationale": "회사가 커져도 창업자가 모든 결정을 직접 내리고(1번) 고용한 관리자의 결정까지 뒤집는다(4번) — 남에게 결정을 맡기지 않는 지도자라는 뜻이다(6번이 그 반대를 요구한다 — 요구 문장이라 단독 결정 근거로는 세지 않는다).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "4번에서 관리자를 고용하긴 하지만 문제는 고용 속도가 아니라 그들의 결정을 뒤집는 것이다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'모든 악기를 연주한다'를 재주가 많다는 뜻으로 글자 그대로 읽었다 — 글은 능력이 아니라 맡기지 않는 태도를 말한다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "그는 결정을 직원에게 맡기기는커녕 전부 직접 내린다(1번)."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "고객과 직원 중 누구를 더 아끼는지는 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-ind-4",
+      "role": "independent_check",
+      "passageGroup": "inf-i4",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Online reviews seem to offer a fair picture of what customers think of a product.",
+          "In practice, most buyers never write a review at all.",
+          "The people who do are usually those who were either delighted or furious.",
+          "The large group of customers who found the product simply fine stays silent.",
+          "A page of reviews is therefore a mirror that reflects only the loudest faces in the room.",
+          "Careful shoppers read reviews for specific details rather than for an overall verdict."
+        ],
+        "stem": "밑줄 친 \"a mirror that reflects only the loudest faces in the room\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "a record written mostly by the company itself",
+          "a picture that leaves out the quiet, average majority",
+          "a display that shows only customers' complaints",
+          "a guide that gives a fair view of all buyers",
+          "a list sorted to show the newest reviews first"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4
+        ],
+        "rationale": "리뷰는 크게 만족했거나 몹시 화난 사람들만 쓰고(3번) 그저 괜찮다고 느낀 다수는 침묵한다(4번) — 리뷰 페이지는 조용한 보통의 다수를 빠뜨린 그림이라는 뜻이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "회사가 리뷰를 쓴다는 내용은 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "목소리 큰 쪽에는 크게 만족한 사람도 있다(3번) — 불만만으로 좁혔다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "글은 리뷰가 공정해 보일 뿐 실제로는 그렇지 않다고 한다(1·4번)."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "리뷰 정렬 순서는 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-transfer-2",
+      "role": "transfer",
+      "passageGroup": "inf-x2",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "For years, the fictional Corran Public Library charged a small fine for each day a book was late.",
+          "Librarians assumed the fines encouraged people to return books on time.",
+          "When the library stopped charging fines for a trial year, late returns did not increase.",
+          "Instead, many borrowers who had stayed away because of unpaid fines came back and returned books they had kept for years.",
+          "The money the fines had raised turned out to be smaller than the cost of collecting it.",
+          "At the end of the trial, the library board voted to keep the new policy."
+        ],
+        "stem": "다음 글을 통해 추론할 수 있는 것으로 가장 적절한 것은?",
+        "choices": [
+          "연체료를 없애자 책을 늦게 돌려주는 사람이 크게 늘었다.",
+          "사서들은 처음부터 연체료가 효과가 없다고 생각했다.",
+          "연체료 수입은 도서관 운영비의 큰 부분을 차지했다.",
+          "이웃 도서관들도 곧 연체료를 없앴다.",
+          "연체료는 반납을 돕기보다 일부 이용자를 도서관에서 멀어지게 했다."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 3,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4,
+          5
+        ],
+        "rationale": "연체료를 없애도 늦은 반납은 늘지 않았고(3번), 밀린 연체료 때문에 발길을 끊었던 이용자들이 돌아와 오래 가진 책을 반납했다(4번). 글이 직접 말하지는 않지만, 연체료가 반납을 돕기보다 사람들을 도서관에서 멀어지게 했다는 함의를 이끌어 낼 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "3번은 연체료를 없애도 늦은 반납이 늘지 않았다고 했다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "2번은 사서들이 연체료가 제때 반납을 돕는다고 여겼다고 했다."
+          },
+          {
+            "choice": 2,
+            "design": "reversed",
+            "why": "5번은 연체료 수입이 걷는 비용보다도 적었다고 했다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "다른 도서관의 결정은 글에 나오지 않는다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

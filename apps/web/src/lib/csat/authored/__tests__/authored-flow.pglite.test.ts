@@ -23,6 +23,7 @@ import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import { applyAuthoredBindings } from '../evidence'
 import { listDelivered, openDelivered, recordAuthoredAttempt, requestAuthoredSupply } from '../server'
 import { FakeClient } from './pglite-supabase'
+import { rightResponse, wrongResponse } from '@/lib/knowledge/__tests__/authored-responses'
 
 const MIG = path.resolve(__dirname, '../../../../../../../supabase/migrations')
 const read = (f: string) => fs.readFileSync(path.join(MIG, f), 'utf8')
@@ -48,6 +49,17 @@ const TD = AUTHORED_SETS.find((x) => x.taskId === 'e.task_demand')!
 // T-0066 — 보조 발문 요구(e.task_demand) 전체 순환 학습자(pass · fail)
 const H = '00000000-0000-4000-8000-0000000000c8'
 const I = '00000000-0000-4000-8000-0000000000c9'
+// T-0068 — 비보류 13 TASK 순환(세트마다 pass · fail 학습자 한 쌍 · 다른 시험과 상태 분리)
+const T68 = [
+  ['e.option_correspondence', 'ws.option-match', 'opt'], ['r.discourse_function', 'ws.central-meaning', 'df'], ['r.discourse_structure', 'ws.central-meaning', 'ds'],
+  ['r.inference', 'ws.inference', 'inf'], ['r.reference', 'ws.cohesion', 'ref'], ['r.relation', 'ws.cohesion', 'rel'], ['s.chunk_boundary', 'ws.sentence-core', 'cb'],
+  ['s.form_scope', 'ws.grammar-scope', 'gs'], ['s.sentence_core', 'ws.sentence-core', 'sc'], ['s.structural_relation', 'ws.sentence-core', 'sr'],
+  ['v.contextual_sense', 'ws.vocab-context', 'vcs'], ['v.multiword', 'ws.vocab-context', 'mw'], ['v.semantic_relation', 'ws.option-match', 'sem'],
+].map(([task, template, p], k) => {
+  const set = AUTHORED_SETS.find((x) => x.taskId === task)!
+  const uid = (n: number) => `00000000-0000-4000-8000-000000000${(0xd00 + n).toString(16)}`
+  return { set, task, template, p, pass: uid(2 * k), fail: uid(2 * k + 1) }
+})
 const TASK = 'r.central_meaning'
 const TEMPLATE = 'ws.central-meaning'
 const S = R5_AUTHORED_SET
@@ -113,14 +125,14 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'), ('${H}'), ('${I}'); insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B, C, D, E, F, G, H, I]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'), ('${H}'), ('${I}'), ${T68.flatMap((x) => [x.pass, x.fail]).map((u) => `('${u}')`).join(', ')}; insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D, E, F, G, H, I, ...T68.flatMap((x) => [x.pass, x.fail])]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
   admin = new FakeClient(db, ADMIN) as unknown as SupabaseClient
   // ── 승인 패키지 실행 흉내: 등록 → 자격 → 사람 결정(권리 · 평가 역할 Gold) → 승인 ──
-  for (const [set, item] of [S, EVL, TD].flatMap((x) => x.items.map((i) => [x, i] as const))) {
+  for (const [set, item] of [S, EVL, TD, ...T68.map((x) => x.set)].flatMap((x) => x.items.map((i) => [x, i] as const))) {
     const r = await (admin as unknown as FakeClient).rpc('authored_item_register', registrationArgs(set, item))
     if (r.error) throw new Error(r.error.message)
     const ref = authoredRef(item.id)
@@ -221,12 +233,13 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
  * T-0050 rev5 — 실제 서버 기록(recordAuthoredAttempt) · 보류 SQL · G2 결속 → As-Is → To-Be → Workspace → PLAN 계산의 순환(Codex verify-repair-map-cycle 를 상시 회귀로).
  * 공급은 실제 requestAuthoredSupply. 한계: 목표 · 기준 시험 메타데이터는 합성, PLAN 저장 이력 · 브라우저 · 네이티브 RLS 는 이 시험 밖.
  */
-interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string }
+interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string; notLive?: true }
 function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차`, () => {
   const { key: KEY, task: CT, template: CW } = cfg
   const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
-  // 형식별 정답 응답 — central_meaning · choice_evidence(결정 근거 문장)
-  const rightOf = (id: string) => { const gd = goldOfC(id); return cfg.set.format === 'choice_evidence' ? { choice: gd.answer, evidence: [gd.decisive] } : cfg.set.format === 'demand_choice' ? { choice: gd.answer } : { claim: gd.claim, support: gd.support, relation: gd.relationProbe.relation, choice: gd.answer } }
+  // 형식별 유효 정답 · 유효 오답 응답 — 시험 어댑터(authored-responses · 제품 채점기로 자체 검증) · 오답은 틀린 판단 + 맞는 이유 쪽
+  const fmtC = cfg.set.format ?? 'central_meaning'
+  const bodyOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.body as Record<string, unknown>
   const supplyC = (uid: string, stage: string | null, planned: number | null) => requestAuthoredSupply(admin, learner(uid), uid, { view: ({ taskPlans: [{ task: CT, stage, need: 'GAP', quantity: { planned, done: 0 } }], asIs: { asOf: '2026-10-18T00:00:00.000Z', tasks: { [CT]: { status: 'verified_need', check: { independentItems: 2 } } } }, toBe: null }) as unknown as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
   type Row = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   async function world(uid: string) {
@@ -251,8 +264,8 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     return { map, goal, plan, activity, task: map.tasks[CT as never] as (typeof map.tasks)[keyof typeof map.tasks], row: plan.tasks.find((t) => t.task === CT)! }
   }
   const answer = async (uid: string, id: string, right = true) => {
-    const response = rightOf(id) as unknown as Record<string, number>
-    await recordAuthoredAttempt(admin, learner(uid), { id: uid, email: null }, ref(id), { ...meta({ helpLevel: id.includes('guided') ? 'viewed_first' : 'independent' }), deliveryId: await dOf(uid, ref(id)), response: right ? response : { ...response, choice: (response.choice + 1) % 5 } }, Date.now(), writer)
+    const response = right ? rightResponse(fmtC, goldOfC(id)) : wrongResponse(fmtC, bodyOfC(id), goldOfC(id))
+    await recordAuthoredAttempt(admin, learner(uid), { id: uid, email: null }, ref(id), { ...meta({ helpLevel: id.includes('guided') ? 'viewed_first' : 'independent' }), deliveryId: await dOf(uid, ref(id)), response }, Date.now(), writer)
   }
   const bindings = async (uid: string) => (await db.query<Row>('select * from workspace_delivery_attempt where user_id = $1 order by attempt_id', [uid])).rows
   const toRecheck = async (uid: string) => {
@@ -264,7 +277,8 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     await answer(uid, cfg.guided, false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
     await answer(uid, cfg.guided, true); w = await world(uid)
     expect(w.row.stage, '전이 자료가 아직 없어도 적용 단계(건너뛰지 않음)').toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
-    expect(w.row.unresolved, '자료가 없으면 부족으로 보인다(가용량을 만들지 않음)').toContain('material_needed')
+    // 정본 준비 상태가 live 가 아닌 Workspace 의 중심 TASK(창작 납품으로만 열림)는 PLAN 이 부족 대신 no_content 를 낸다(map/v4/plan.ts:272 · T-0068 범위 밖 · 보고함)
+    expect(w.row.unresolved, '자료가 없으면 부족으로 보인다(가용량을 만들지 않음)').toContain(cfg.notLive ? 'no_content' : 'material_needed')
     const tr = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
     expect(tr.status).toBe('ok'); if (tr.status !== 'ok') throw new Error('supply')
     expect(tr.lines.map((l) => l.role), '적용 단계 수요 = 전이').toEqual(['transfer'])
@@ -308,6 +322,9 @@ cycle({ label: 'T-0050 R5 중심 의미', set: S, task: 'r.central_meaning', tem
 cycle({ label: 'T-0052 E 근거 위치', set: EVL, task: 'e.evidence_location', template: 'ws.evidence-locate', key: 'authored-evidence-locate', ind: ['ev-ind-1', 'ev-ind-2'], fresh: ['ev-ind-3', 'ev-ind-4'], guided: 'ev-guided-1', tr: ['ev-transfer-1', 'ev-transfer-2'], pass: E, fail: F })
 // T-0066 — 보조 발문 요구(ws.evidence-locate 의 support): 같은 순환 · 같은 판정(새 독립 2 · 전이 1 은 이번에 보충한 td-ind-3 · 4 · td-transfer-2)
 cycle({ label: 'T-0066 E1 발문 요구(보조)', set: TD, task: 'e.task_demand', template: 'ws.evidence-locate', key: 'authored-task-demand', ind: ['td-ind-1', 'td-ind-2'], fresh: ['td-ind-3', 'td-ind-4'], guided: 'td-guided-1', tr: ['td-transfer-1', 'td-transfer-2'], pass: H, fail: I })
+
+// T-0068 — 비보류 13 TASK: 같은 순환(실제 공급 → 첫 독립 오답 → 안내 연습 → 실제 전이 2 → 미노출 새 독립 2 → G2 → As-Is/PLAN pass · fail)
+for (const x of T68) cycle({ label: `T-0068 ${x.task}`, set: x.set, task: x.task, template: x.template, key: x.set.taskKey, ind: [`${x.p}-ind-1`, `${x.p}-ind-2`], fresh: [`${x.p}-ind-3`, `${x.p}-ind-4`], guided: `${x.p}-guided-1`, tr: [`${x.p}-transfer-1`, `${x.p}-transfer-2`], pass: x.pass, fail: x.fail, ...(['r.inference', 'r.relation', 's.form_scope', 'v.contextual_sense'].includes(x.task) ? { notLive: true as const } : {}) })
 
 describe('철회 · 다른 학습자', () => {
   it('지연 확인 권리 결정 철회 → 다른 학습자 공급 거절(사람 결정) · 앞선 기록은 그대로', async () => {

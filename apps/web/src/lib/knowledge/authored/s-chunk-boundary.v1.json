@@ -206,6 +206,175 @@
           { "reason": "ellipsis_restored", "why": "that 이 생략된 관계절의 시작." }
         ]
       }
+    },
+    {
+      "id": "cb-ind-3",
+      "role": "independent_check",
+      "passageGroup": "cb-t7",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our town has been building a new library for two years.",
+          "The walls and roof were finished in the summer.",
+          "Whether the new library will open on time depends on the weather this winter.",
+          "Heavy snow could delay the work on the parking lot.",
+          "The mayor has promised an update in January."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "boundary",
+        "segments": [
+          "Whether the new library",
+          "will open on time",
+          "depends on",
+          "the weather this winter."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "clause_boundary",
+        "why": "Whether 가 이끄는 명사절(Whether the new library will open on time)이 통째로 주어다. 절 안의 동사 will open 을 지나 on time 에서 주어 덩어리가 끝나고, depends 가 문장의 동사다.",
+        "segments": [
+          {
+            "reason": "clause_internal",
+            "why": "주어 명사절을 여는 whether 와 절 안의 주어."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "명사절 안의 동사구. on time 에서 주어 명사절이 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "명사절 주어(단수 취급)에 맞는 문장의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "depends on 의 목적어."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb-ind-4",
+      "role": "independent_check",
+      "passageGroup": "cb-t8",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The weather service had warned the village for three days.",
+          "Most families moved their cars to higher ground.",
+          "The fishermen tied their boats together and went home early.",
+          "When the storm that had been building all afternoon finally reached the coast, the fishing boats were already in the harbor.",
+          "Nobody was hurt that night."
+        ],
+        "stem": "4번 문장에서 부사절이 끝나고 주절이 시작되는 덩어리는?",
+        "focus": {
+          "sentence": 3
+        },
+        "ask": "boundary",
+        "segments": [
+          "When the storm",
+          "that had been building all afternoon",
+          "finally reached the coast,",
+          "the fishing boats",
+          "were already in the harbor."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "clause_boundary",
+        "reasonAlternatives": [
+          {
+            "reason": "main_subject",
+            "why": "the fishing boats 는 주절의 주어이므로, 주절의 주어가 시작되는 곳이라는 이유도 맞다."
+          }
+        ],
+        "why": "When 부사절의 주어는 the storm, 동사는 that 관계절을 건너뛴 finally reached 다. 부사절은 coast 뒤 콤마에서 끝나고 the fishing boats 에서 주절이 시작된다. had been building 을 부사절의 동사로 읽고 끝을 앞당기는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "clause_internal",
+            "why": "부사절을 여는 접속사와 절의 주어."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "storm 을 꾸미는 관계절. 여기서 부사절이 끝나지 않는다."
+          },
+          {
+            "reason": "clause_internal",
+            "why": "부사절의 동사와 목적어. 콤마에서 부사절이 끝난다."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "주절이 시작되는 곳 — 주절의 주어."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주절의 동사와 보어."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb-transfer-2",
+      "role": "transfer",
+      "passageGroup": "cb-t9",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our class visited a botanical garden on Friday.",
+          "A guide led us along a path through the rainforest room.",
+          "Learning the names of every plant the guide pointed out took most of the morning.",
+          "After lunch we drew our favorite leaves.",
+          "I chose a fern with tiny silver spots."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "boundary",
+        "segments": [
+          "Learning the names",
+          "of every plant",
+          "the guide pointed out",
+          "took",
+          "most of the morning."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "reasonAlternatives": [
+          {
+            "reason": "ellipsis_restored",
+            "why": "plant 뒤에 목적격 관계대명사 that 이 생략된 관계절이므로, 생략을 되살려 경계를 찾는다는 이유도 맞다."
+          }
+        ],
+        "why": "동명사구 Learning the names 가 주어이고, of every plant 와 that 이 생략된 관계절 '(that) the guide pointed out'이 그 뒤를 꾸민다. out 에서 주어 덩어리가 끝나고 took 이 문장의 동사다. 관계절 안의 pointed 를 문장의 동사로 읽는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "동명사구 주어의 핵심. 아직 주어가 끝나지 않는다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "names 를 꾸미는 전치사구."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "plant 를 꾸미는 생략 관계절. out 에서 주어 덩어리가 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "동명사구 주어(단수)의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "took 의 목적어."
+          }
+        ]
+      }
     }
   ]
 }

@@ -265,6 +265,178 @@
           { "choice": 4, "design": "too_narrow", "why": "1번의 선택 상황 자체로 특정 방법이 아니다." }
         ]
       }
+    },
+    {
+      "id": "ref-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ref-t7",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Many museums now let visitors handle copies of ancient tools instead of only viewing the originals behind glass.",
+          "Curators first worried that this would make the real objects seem less special.",
+          "Surveys suggest the opposite: visitors who held a copy spent more time looking at the original afterward.",
+          "Visitors in rooms without any copies behaved differently.",
+          "Most of them read the label, glanced at the case, and moved on within a minute.",
+          "Some museums have therefore placed handling tables right beside the display cases."
+        ],
+        "stem": "밑줄 친 'them'이 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "visitors who held a copy of an ancient tool",
+          "visitors in rooms with no copies to handle",
+          "curators worried about the original objects",
+          "the labels placed beside the display cases",
+          "ancient tools kept behind glass"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          4
+        ],
+        "rationale": "4번에서 처음 나온 '복제품이 없는 전시실의 관람객'이 5번의 them 으로 이어진다 — 라벨을 읽고 진열장을 흘끗 본 뒤 1분 안에 떠나는 행동은 사람인 그들의 것이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "3번의 복제품을 만진 관람객은 오히려 원본을 더 오래 본 대조 집단이다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "2번의 학예사는 걱정했을 뿐 전시실을 돌아보는 주체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "5번 같은 문장의 목적어(label)로, 라벨이 라벨을 읽을 수는 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "1번의 원본 도구는 관람 대상이지 떠나는 주체가 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ref-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ref-t8",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "After a storm destroyed many street trees, the city of Ardel replanted with a single fast-growing species to restore shade quickly.",
+          "Within ten years the streets were green again, and residents praised the decision.",
+          "Then a beetle arrived that fed on exactly that species.",
+          "Because nearly every tree was the same kind, the insect spread from street to street with nothing to slow it.",
+          "City foresters now cite this as the main reason to mix many species on every block.",
+          "A varied street may grow more slowly, but no single pest can strip it bare."
+        ],
+        "stem": "밑줄 친 'this'가 가리키는 내용으로 가장 적절한 것은?",
+        "choices": [
+          "the storm that destroyed the street trees",
+          "residents praising the newly green streets",
+          "the slower growth of varied streets",
+          "one beetle sweeping through same-species trees",
+          "replanting quickly to restore shade"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          0,
+          2
+        ],
+        "rationale": "'this'는 3–4번에 걸친 사건, 곧 거의 모든 나무가 같은 종이라 딱정벌레 한 종이 거리마다 막힘없이 퍼진 일을 받는다. 그 확산이 완결되는 4번이 결정 문장이고, 그래서 여러 종을 섞어야 한다는 교훈으로 이어진다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "1번의 폭풍은 사건의 출발점일 뿐 종을 섞어야 할 이유가 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "2번의 주민 칭찬은 오히려 단일 종 식재가 성공해 보이던 시점이다."
+          },
+          {
+            "choice": 2,
+            "design": "opposed_view",
+            "why": "6번의 느린 성장은 여러 종을 섞을 때 감수할 단점으로, 지시어보다 뒤의 내용이다."
+          },
+          {
+            "choice": 4,
+            "design": "too_narrow",
+            "why": "1번의 빠른 재식재는 사건의 한 갈래일 뿐 해충 확산이라는 핵심을 빠뜨린다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ref-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ref-t9",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Students preparing for exams usually choose between two methods.",
+          "Some reread their notes several times, while others close the book and try to write down everything they remember.",
+          "The first method feels smoother, because the material looks more familiar with each reading.",
+          "The second feels harder and often reveals how little has actually stuck.",
+          "Yet in memory tests a week later, students who used the latter consistently outperform those who simply reread.",
+          "The feeling of ease, it seems, is a poor guide to how well we are learning."
+        ],
+        "stem": "밑줄 친 'the latter'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "rereading notes until they look familiar",
+          "the feeling of ease while studying",
+          "taking a memory test a week later",
+          "studying together with a classmate",
+          "writing down what one remembers, book closed"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 1,
+        "evidence": [
+          1
+        ],
+        "evidenceAlt": [
+          3
+        ],
+        "rationale": "2번이 두 방법(노트 다시 읽기 / 책을 덮고 기억나는 것 적기)을 순서대로 소개하고, 5번의 the latter 는 그중 뒤의 것, 곧 책을 덮고 기억해 적는 방법을 가리킨다(4번이 'The second'로 다시 부른다).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "다시 읽기는 the former 에 해당하며 5번에서 성적이 뒤지는 쪽이다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "6번의 편안한 느낌은 결론의 낱말로, 공부 방법이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "5번 같은 문장의 기억 시험은 두 방법을 비교하는 수단이지 방법 자체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "친구와 함께 공부하는 방법은 글에 나오지 않는다."
+          }
+        ]
+      }
     }
   ]
 }
