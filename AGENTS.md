@@ -30,7 +30,7 @@
 | DB 통계 블록 | `pnpm docs:db-stats` (확인만 `pnpm docs:db-stats:check`) |
 | 에이전트 설정 | `node agents/scripts/sync.mjs` (생성) · `node agents/scripts/check.mjs` (검사) · `node --test agents/scripts/__tests__/*.test.mjs` (스크립트 회귀) |
 | 잠금 · 인수인계 | `node agents/scripts/lock.mjs acquire\|release\|status <agent>` · `node agents/scripts/handoff.mjs <from> <to>` |
-| PR 병합(유일한 경로) | `node agents/scripts/safe-merge.mjs <PR> --wait` — 체크 전부 통과 + 확인한 HEAD SHA 일 때만. `gh pr merge` 를 직접 쓰거나 확인과 이어 붙이지 않는다(main 에 서버 보호 없음) |
+| 통합 | 기본 LOCAL_FAST: `node D:/workspace/Vocaflow-AI-Control/bin/local-integrate.mjs --task <ID>` · 명시적 GITHUB 모드의 원격 병합만 `safe-merge.mjs`(직접 `gh pr merge` 금지) |
 | worktree | `pnpm wt list` · `pnpm wt new <suffix>` · `pnpm wt remove <suffix>` |
 
 ## 문서 navigation — 작업 영역에 맞는 것만 읽는다
@@ -147,7 +147,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
 화면 라벨을 반복하지 말고 순서·전제·되돌리기 가능 여부·실패 결과·소요 시간을 쓴다. 파이프라인 수치가 나빠지면 코드보다 먼저 해당 도움말의 `cautions` 를 읽는다.
 
-**③ Git** — 논리적 milestone 종료 · 변경 파일 ≥5 · 다음 작업으로 넘어갈 때 커밋 + 현재 브랜치 push.
+**③ Git** — 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 실행 모드를 먼저 읽는다(`VFC_ROOT`·`VFC_DEV_MODE` 반영). 기본 **LOCAL_FAST**: milestone에 로컬 커밋, 독립 리뷰·로컬 게이트 후 통합. 일반 push·PR·Actions 조회/대기·원격 병합 0. 원격은 중앙 `bin/backup.mjs`의 하루 상한·복구 시점 및 Work Bridge만. 아래 PR 절차는 명시적 GITHUB 모드에 적용한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).

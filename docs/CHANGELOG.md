@@ -28,6 +28,12 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(agents): Git 권한 장애의 경로·ACL·잠금 부재·활성 정책과 외부 PowerShell 대조 미실행을 기록했다. 설정15파일을 누적 디자인125파일에서 분리해 보존하며 이번 원격 납품은 사용자 명시 지시로 허용하되 Git 쓰기 제한/원격 CI 미검증을 통과로 처리하지 않는다.
+
+- chore(ci): sync-check의 작업 브랜치 push/PR 중복 트리거를 줄이고 CI/sync-check에 PR별 이전 실행 취소와 contents:read를 적용했다. main 공유 DB 검사는 자동 취소하지 않으며 기존8필수 체크·job 본문·예약 감사·배포는 유지. 로컬 회귀162건 통과, 원격 미반영.
+
+- chore(agents): 중앙 LOCAL_FAST에 맞춰 이 worktree의 GitHub·CI 지침/세션 안내를 정합화하고 safe-merge의 원격 접근 전 종료를 추가했다. 일반 개발은 로컬 검증·커밋·독립 리뷰·로컬 통합이며 기존 GITHUB 보호/예약 감사는 유지한다. 에이전트 회귀157건 통과.
+
 - design(shell): 학습자 셸을 tines.com 재참조로 — 머리(로고 옆 왼쪽 글자 메뉴 · 모노 대문자 CLASS) · 나침반 띠(라벤더 위치 알약 + 글자 링크) · 구역 줄(바탕 막대 제거) · 스킨 `--canvas`(페이지 바탕 한 장).
 - design(learner): AI 템플릿 인상 제거 1차 — 광택 3D 삽화 → Codex 선화(같은 id 교체, `illo-codex-install.mjs`) · AreaHero 수치 알약 → 한 줄 글 · 대시보드 번호 괘선 → 큰 구간 제목 · DESIGN.md 에 금지 패턴 4개.
 - feat(design): 인증 4화면을 카드 한 장으로(참조 tines.com/book-a-demo) · PairFlip 카드 포커스 유지(aria-disabled) · 단어장 서가 무효 투명도 20곳 — auth-check 4/4 · pairflip-check 포커스 확인.

@@ -17,6 +17,7 @@
 - **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
 - 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
 - 사용자 승인은 DB 변경 · 데이터 삭제뿐(정책 정본 `agents/policies/PR_AUTOMATION_POLICY.md`). main 병합은 `safe-merge.mjs` 게이트 · `.env` 는 다루지 않는다.
+- 실행 모드는 중앙 `Vocaflow-AI-Control/config/dev-mode.json`을 먼저 읽는다. LOCAL_FAST는 로컬 검증·커밋·독립 리뷰·`bin/local-integrate.mjs --task <ID>`이며 일반 push·PR·Actions 조회/CI 대기·원격 병합은 하지 않는다. 원격 백업은 중앙 `bin/backup.mjs`만 사용한다. PR/CI·safe-merge 절차는 명시적 GITHUB 모드에 적용한다.
 
 ## 2. 같은 워크트리를 동시에 쓰지 않는다
 

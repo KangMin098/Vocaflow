@@ -8,6 +8,14 @@ on:
   # 모든 base 의 PR — 종속 PR(base ≠ main)에도 필수 CI 가 돌아야 safe-merge 가 판정할 수 있다(정책 v1.1 · 2026-10-11)
   pull_request:
 
+# 최신 PR 커밋만 검증한다. main의 공유 DB 검사는 중간 취소하지 않는다.
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest

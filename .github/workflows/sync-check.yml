@@ -1,3 +1,4 @@
+# .github/workflows/sync-check.yml
 # Claude Project ↔ VS Code (Claude Code) ↔ GitHub 동기화 무결성 검증.
 #
 # 목적: Project knowledge 에 indexing 되는 docs/*.md 와 코드/DB 의 정합을
@@ -10,15 +11,22 @@
 #      또는 docs/CHANGELOG.md Unreleased 섹션 언급
 #   4. docs/CHANGELOG.md Unreleased 가 비어있지 않음 (마지막 commit 이후 변경 있으면)
 #
-# 실행: PR open / push to main / push to chore/* 시
+# 실행: 모든 base의 PR / main push. 작업 브랜치 push는 PR과 중복 실행하지 않는다.
 
 name: sync-check
 
 on:
   push:
-    branches: ['main', 'chore/**', 'feat/**', 'fix/**']
+    branches: ['main']
   # 모든 base 의 PR(종속 PR 포함 · 정책 v1.1 · 2026-10-11)
   pull_request:
+
+concurrency:
+  group: sync-check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 jobs:
   typecheck:
