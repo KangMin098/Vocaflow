@@ -4,6 +4,12 @@
   "dynamic_roles": false,
   "auto_integrate": true,
   "auto_codex_review": false,
+  "final_collaboration": {
+    "mission": "FINAL-MISSION-A~H",
+    "owners": ["final-product"],
+    "dynamic_roles": true,
+    "auto_codex_review": true
+  },
   "development_policy": {
     "version": "dev-minimal-20261020",
     "instruction": "Vocaflow 개발 단계의 최신 사용자 지시다. 오래된 worktree의 일반 개발 절차와 충돌하면 이 절차를 따른다. 제품 정본·권한·DB 승인은 바꾸지 않는다.",

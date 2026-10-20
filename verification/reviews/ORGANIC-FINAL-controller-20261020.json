@@ -1,0 +1,97 @@
+{
+  "task": "ORGANIC-FINAL-20261020",
+  "status": "PARTIAL",
+  "goal": "FINAL-MISSION-A~H",
+  "author_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "review": {
+    "agent": "claude",
+    "role": "reviewer",
+    "ok": true,
+    "code": 0,
+    "ms": 52098,
+    "process_id": 27804,
+    "session_id": "a87b908a-9f6d-4920-bd48-9e786682e1a5",
+    "executable": "C:/Users/Administrator/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe",
+    "review": {
+      "ok": true,
+      "review": {
+        "verdict": "APPROVE",
+        "findings": [
+          {
+            "id": "P2-bridge-ordinary-gating",
+            "severity": "P2",
+            "scope": "in",
+            "claim": "orchestrator.mjs:1041 workBridgeAllowed(wantsWork()) disables Work Bridge for ordinary LOCAL_FAST (dynamic_roles:false), which previously always configured it; auto design requests (:1116) and collection of PENDING chatgpt rounds without local_work_exception stop — behavior change outside FINAL scope, confirm intent"
+          },
+          {
+            "id": "P2-mission-provenance-self-declared",
+            "severity": "P2",
+            "scope": "in",
+            "claim": "missionCollaboration trusts task.source.mission from task spec (tasks.mjs:279); only owner allowlist bounds it, no binding to the user authorization record"
+          },
+          {
+            "id": "P2-missing-negative-tests",
+            "severity": "P2",
+            "scope": "in",
+            "claim": "No explicit tests for VFC_AUTO_CODEX=0 with a mission task, a mission task with a non-listed owner, or the new ordinary LOCAL_FAST bridge gating"
+          }
+        ],
+        "ran_tests": false
+      }
+    }
+  },
+  "review_limit": "Actual Claude reviewed pre-commit core scope. Later read-only doctor fields, integration failure logging and documentation are static-checked; no claim of product acceptance or whole-mission completion.",
+  "tests": [
+    {
+      "command": "node --test --test-concurrency=1 tests/mission-collaboration.test.mjs tests/orchestrator.test.mjs",
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 601135.4519
+    },
+    {
+      "command": "node --test --test-concurrency=1 tests/roles.test.mjs tests/localfast.test.mjs tests/mission-collaboration.test.mjs",
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 12203.7472
+    }
+  ],
+  "isolated_fixture_limit": "Regression tests use disposable repositories and fake provider transports. They are not real product execution evidence.",
+  "real_execution": {
+    "agent": "claude",
+    "role": "reviewer",
+    "session": "a87b908a-9f6d-4920-bd48-9e786682e1a5",
+    "pid": 27804,
+    "ms": 52098,
+    "actual_product_implementation": "T-0062 original owner remains IN_PROGRESS, session c513ff5b-86ef-44a3-8efd-7925a229614b, pid24064; not re-claimed",
+    "next_task": "T-0063 READY, dependency T-0062, no ACK or start inferred"
+  },
+  "integration": {
+    "target": "local/integration",
+    "head": "e10c43a22",
+    "product_observed": "31a3f4b04d8691e1331123f79163dd40ae73c0a8",
+    "aggregate_changed_files": 280,
+    "task_delta_files": 7,
+    "status": "BLOCKED_AGGREGATE_ACCEPTANCE",
+    "source_scope_must_match_actual_merge": true
+  },
+  "boundaries": [
+    "No developer DB writes, SQL application, Gold or rights approval",
+    "No new orchestrator, worker, trust record, owner takeover or global mandatory AI review",
+    "No reset, stash, cleanup or adoption of foreign dirty files",
+    "No claimed actual product local integration or next-task automatic start"
+  ],
+  "measured_improvement": {
+    "approval_requests": 0,
+    "real_review_ms": 52098,
+    "matched_speed_comparison": null,
+    "reason": "No matched before/after product trial"
+  },
+  "file_hashes": {
+    "lib/devmode.mjs": "2a323ad4392baf9de466835ee3a7ff8e7b412fc4cd6b32a3c3a7e397c173e193",
+    "lib/localroles.mjs": "967792c11c8f4aa87dbd4c6a6fd133bc8af05dd1652e9b7d7b3a274505e0b52f",
+    "lib/orchestrator.mjs": "8f20def732c7b89b8b031ef5681062264c5c4c00a9bab56b146bf88235c4396e",
+    "config/dev-mode.json": "4538db3d03aa092d436de449aa8c7c648801186af098b3063373254eaf15a5d6"
+  }
+}

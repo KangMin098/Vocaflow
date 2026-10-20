@@ -1,0 +1,31 @@
+{
+  "goal_id": "VG-L3-A2-01",
+  "related_goal_ids": ["VG-L3-B2-02"],
+  "title": "교수·안내 연습에서 자기 설명 대조 후 고쳐 쓰고 같은 TASK로 복귀",
+  "description": "FINAL MISSION D/F의 실제 학습 행동 연결. AuthoredRunner가 사용하는 ReasoningNoteForm에는 저장과 제공 설명 비교가 있지만, 저장한 자기 설명을 고쳐 쓰고 원본과 수정본을 확인하는 행동이 없다. 기존 기출 MeaningDraft의 처음 설명 보존·고쳐 쓰기 경험과 기존 notes append/CAS·초안 복구·returnHref를 재사용한다. 교수·안내 연습에서 제공 설명과 대조한 노트를 고쳐 쓰되 원본을 덮어쓰지 않고 새 노트로 저장한다. 처음/고친 설명을 다시 열 수 있게 하고 같은 TASK/Workspace로 복귀한다. 저장 실패와 응답 유실은 기존 멱등 재전송을 재사용하고 두 기기의 다른 노트를 보존한다. 연결 메타데이터가 꼭 필요하면 기존 JSON에 선택 필드만 더하며 옛 노트를 그대로 읽는다. 모델 비교·수정은 선택이며 다른 학습을 잠그지 않는다. 채점·G2·독립 근거·PLAN 정책·Gold 설명 자체는 바꾸지 않는다. T-0062의 활동별 복귀 설명과 연결하되 이미 구현한 요약을 재구현하지 않는다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "roles": {"analyst": "codex", "planner": "codex", "architect": "codex", "implementer": "claude", "reviewer": "codex", "verifier": "codex"},
+  "allowed_paths": ["apps/web/src/components/csat/theater/ReasoningNoteForm.tsx", "apps/web/src/components/csat/theater/__tests__/**", "apps/web/src/components/csat/authored/**", "apps/web/src/lib/csat/explain-draft.ts", "apps/web/src/lib/csat/dissect.ts", "apps/web/src/lib/csat/__tests__/**", "apps/web/tests/e2e-isolated/**", "docs/final/**", ".agent-goal.md"],
+  "forbidden_paths": ["supabase/**", "**/*.sql", "**/.env*", ".github/**", "agents/**", "goals/**", "docs/csat-learner/v4/workspaces.json", "apps/web/src/lib/knowledge/authored/**", "apps/web/src/lib/csat/map/v4/**", "apps/web/src/lib/csat/map/v62/**"],
+  "db_scope": {"mode": "none", "targets": []},
+  "depends_on": ["T-0062"],
+  "criterion_claims": [{"criterion_id": "VG-L3-A2-01-AC1", "claim": "partial"}, {"criterion_id": "VG-L3-B2-02-AC1", "claim": "partial"}],
+  "acceptance": [
+    "실제 교수 또는 안내 연습에서 자기 설명 저장→제공 설명 대조→고쳐 쓰기→수정 저장→새로 열기 후 처음 내용과 고친 내용이 모두 남아 구분된다. 수정 취소는 원본을 바꾸지 않는다. 기존 노트 호환을 유지한다.",
+    "저장 실패·응답 유실 후 입력이 남고 같은 제출 재전송으로 노트가 중복 생성되지 않는다. 기존 CAS·ID 합집합을 사용해 다른 노트를 잃지 않는다. 다른 문항·다른 주석 hash의 노트를 현재 비교 자료로 연결하지 않는다.",
+    "같은 TASK/Workspace로 복귀한다. 자기 설명 대조·수정은 독립 근거·숙달·PLAN 진전을 만들지 않으며 평가 자료 잠금·G2·첫 독립 근거를 유지한다. 비교·수정 없이도 기존 학습을 계속할 수 있다.",
+    "영향 범위 단위·타입 검사와 기존 인증 격리 여정 하나를 확장해 저장·대조·수정·재열기·복귀를 확인한다. 1440/1280 실제 제품 화면·키보드·초점을 확인하고 변경 없는 순환 시험은 재사용한다. 실제 DB·사람 Gold·권리·효과 검증으로 계산하지 않는다."
+  ],
+  "ui_acceptance": ["1440/1280에서 처음 설명·제공 설명·고친 설명을 구분하고 저장·취소·재열기·같은 TASK 복귀가 가능하다. 기존 3B 화면과 초점 표시를 유지한다."],
+  "impact": {
+    "kind": "platform", "parent_goal_id": "VG-L3-A2-01", "acceptance_ids": ["VG-L3-A2-01-AC1", "VG-L3-B2-02-AC1"],
+    "current_gap": "창작 교수·안내 연습의 자기 설명은 저장/모델 대조에서 끝나며 설명을 실제로 수정하고 원본과 비교하는 학습 행동이 없다.",
+    "expected_impact": "advances", "dependency_type": "direct",
+    "evidence_required": ["같은 학습자 저장·대조·수정·재열기·같은 TASK 복귀", "원본/다른 노트 보존·멱등 재전송·다른 문항/hash 혼입 거부", "G2/PLAN 비근거 유지와 1440/1280 대표 화면"],
+    "out_of_scope": ["새 DB·정본·콘텐츠·학습 엔진", "Gold/권리/실제 DB 적용", "누적 PR 전체 통합 승인", "학습 효과·숙달 판정", "다른 owner 변경 인수"]
+  },
+  "source": {"mission": "FINAL-MISSION-A~H", "design_revision": "rev1", "goals_ah": ["D", "F"], "from_owner": "final-independent-accept", "request": "2026-10-20 ORGANIC DUAL-AGENT COLLABORATION v1", "evidence": "AuthoredRunner:497 ReasoningNoteForm; ReasoningNoteForm:180-201; MeaningDraft:106-194; journey-evidence:130-139"}
+}

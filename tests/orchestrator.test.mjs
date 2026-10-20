@@ -138,6 +138,25 @@ test('platform REVIEW is independently reviewed without worker or user_goal; exa
   integrity(root)
 })
 
+test('FINAL scoped submission uses a real reviewer process with global automatic review disabled', () => {
+  const root = setup(), t = addTask(root, { source: { mission: 'FINAL-MISSION-A~H' } })
+  submitPlatform(root, t)
+  fs.mkdirSync(path.join(root, 'config'), { recursive: true })
+  fs.writeFileSync(path.join(root, 'config', 'dev-mode.json'), JSON.stringify({ mode: 'LOCAL_FAST', auto_codex_review: false,
+    final_collaboration: { mission: 'FINAL-MISSION-A~H', owners: [OWNER], dynamic_roles: true, auto_codex_review: true } }))
+  const r = orch(root, ['--owner', OWNER], { VFC_AUTO_CODEX: '', VFC_CODEX_CMD: `node ${ROLE_FAKE} codex` })
+  assert.equal(r.code, 0, r.err + r.out)
+  const done = task(root, t.task_id)
+  assert.equal(done.status, 'COMPLETED', r.out)
+  assert.equal(done.role_assignment.roles.implementer, 'claude')
+  assert.equal(done.role_assignment.roles.reviewer, 'codex')
+  const report = fs.readFileSync(path.join(root, done.review_record), 'utf8')
+  assert.match(report, /FINAL-COLLAB\/1/)
+  assert.match(report, /"provenance"/)
+  assert.equal(r.json.run.events.some((e) => e.phase === 'implement'), false)
+  integrity(root)
+})
+
 test('platform submitted P1 feeds the existing implementation loop, then two local tasks complete', () => {
   const root = setup(), a = addTask(root), b = addTask(root, { depends_on: [a.task_id], worktree: a.wt })
   submitPlatform(root, a)
