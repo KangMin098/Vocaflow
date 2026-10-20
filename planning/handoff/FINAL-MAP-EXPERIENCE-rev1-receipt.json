@@ -1,0 +1,47 @@
+{
+  "observedAt": "2026-10-20T06:23:54.627Z",
+  "fromOwner": "final-independent-accept",
+  "registeredCodexSession": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "toOwner": "final-product",
+  "recipientSession": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "tasks": [
+    {
+      "taskId": "T-0061",
+      "designRevision": "rev1",
+      "file": "planning/handoff/FINAL-MAP-NEXT-ACTION-rev1.json",
+      "sha256": "8b2fb551d78407e07be5f4adaca9bd7e6fa4ea5f5646786efca9685e369dcf3d",
+      "goalAlignmentGate": "PASS",
+      "status": "READY"
+    },
+    {
+      "taskId": "T-0062",
+      "designRevision": "rev1",
+      "file": "planning/handoff/FINAL-MAP-LEARNING-RETURN-rev1.json",
+      "sha256": "d9de73da4180207c1a7a3d22de341efe0fbf2255b484ddd981ffe13458981ecb",
+      "goalAlignmentGate": "PASS",
+      "status": "READY"
+    }
+  ],
+  "delivery": "LOCAL_INBOX_POSTED",
+  "sessionDelivered": false,
+  "acknowledged": false,
+  "implementationStarted": false,
+  "githubPosted": false,
+  "dbWrite": false,
+  "sqlHistoryObserved": {
+    "version": "20261014091841",
+    "sourceAndHistorySha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089"
+  },
+  "prSnapshot": {
+    "250": {
+      "head": "2549e407d9b1138c83b7fd633556b1527b62648c",
+      "mergeable": "CONFLICTING"
+    },
+    "303": {
+      "head": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+      "mergeable": "CONFLICTING",
+      "changedFiles": 236
+    }
+  }
+}

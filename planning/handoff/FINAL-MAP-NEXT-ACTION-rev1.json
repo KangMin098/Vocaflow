@@ -1,0 +1,35 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "title": "전체 학습지도에서 지금 할 일·이유·학습량·자료 부족 행동 연결",
+  "description": "FINAL MISSION A~H 중 A/B/C/E/F의 사용자 경험 연결을 개선한다. 기준 HEAD 0af171ce9. T-0052·T-0056은 재사용한다. 현재 GoalRecordBar는 ready일 때 일반 문구와 actionRank[0] 링크만 보여 주고, 구체적 이유·학습량·도달 조건은 Inspector/PLAN에, 자료 받기는 Workspace 개요에 흩어져 있다. 자료 부족일 때 상단 none은 구체적 행동이 없다. 선택 설계: 기존 상단 띠와 TASK 팝업/Inspector를 이어 동일한 TASK·목표·PLAN의 ‘지금 할 일 / 왜 필요한가 / 이번 수행량과 확인 조건 / 시작 또는 자료 준비 행동’을 짧게 보여 준다. 그래프·6영역·기존 순위/진단 계산을 재설계하지 않는다. composeV4/ranksOf/taskInspector/workspacePlan/buildDemand/supply 및 기존 WorkspaceModal·PlanSection·AuthoredSupplyCard·outgoingCtx를 재사용한다. 상단과 TASK 선택을 혼동하지 않게 추천 TASK와 사용자가 선택한 TASK를 표시한다. 목표/기록 없음은 기존 입력 화면으로, 계획 미확정은 같은 TASK/Workspace의 계획 탭으로, 공급 가능·재고 부족은 개요/자료 받기로 연결한다. SQL 미설치·승인 대기·재고0·조회 실패는 서버가 실제 제공한 구분만 표시하고, 근거가 없으면 정확한 원인을 모른다고 한다. 주문/알림 등록이 실제 확인되지 않으면 요청 완료·자동 알림을 약속하지 않는다. 단순 점수 차를 TASK 능력 수치나 학습시간으로 바꾸지 않는다. 기존 UI와 3B 토큰을 재사용하는 점진적 변경이며 새 화면·TASK·Workspace·표·대시보드가 아니다. 구현 전 현재 인증 전체 페이지를 캡처하고 동일 조건으로 전후 비교한다. 현재 살펴본 support-card 캡처는 컴포넌트 근거일 뿐 전체 지도 UX 검증으로 간주하지 않는다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+  "allowed_paths": ["apps/web/src/components/csat/diagnosis/map/**", "apps/web/src/lib/csat/map/v62/**", "apps/web/tests/e2e-isolated/**", "apps/web/src/lib/analytics/events.ts", "docs/final/**", ".agent-goal.md"],
+  "forbidden_paths": ["supabase/**", "**/*.sql", "**/.env*", "agents/policies/**", "agents/scripts/safe-merge*", ".github/workflows/**", "docs/csat-learner/v4/workspaces.json", "apps/web/src/lib/knowledge/authored/**", "goals/**"],
+  "db_scope": { "mode": "none", "targets": [] },
+  "depends_on": ["T-0052", "T-0056"],
+  "criterion_claims": [{ "criterion_id": "VG-L3-B2-02-AC1", "claim": "partial" }],
+  "acceptance": [
+    "전체 지도 첫 화면에서 현재 추천 TASK·왜 필요한지·이번 학습량/도달 조건·다음 한 행동을 확인하고 해당 TASK의 자료/계획으로 이동한다. 수량은 저장 계획·정본·실제 수행/재고를 구분해 재사용하며 미측정 값은 만들지 않는다.",
+    "목표 없음·기록 없음·계획 미확정·자료0/승인 대기·조회 실패 각각에 실제 가능한 행동을 제공한다. 동일 부족 상태에서 반복 재요청만 유도하지 않으며, 검증되지 않은 생산/주문 완료나 준비 시각을 말하지 않는다.",
+    "r.central_meaning 또는 e.evidence_location 대표 중심과 e.task_demand 보조를 실제 화면에서 확인한다. 핵심/보조의 목표·계획·자료가 섞이지 않고 현재 순위·첫 노출·평가 잠금·G2·과거 PLAN은 불변이다.",
+    "변경 범위 단위/타입 검사와 실제 인증 격리 브라우저에서 1440×900·1280×800 전체 페이지→TASK→Workspace→자료 또는 부족 이유→복귀를 검증한다. 기존 T-0052/T-0056의 영향 없는 검증은 재사용하고 P0/핵심 P1만 현재 필수 수정으로 처리한다. DB/Gold/권리 승인과 실제 학습효과는 별개다."
+  ],
+  "ui_acceptance": [
+    "1440·1280 실제 전체 지도에서 주요 행동과 설명이 보이고 문서 전체 가로 넘침이 없다. 기존 지도 내부 캔버스 스크롤은 유지한다.",
+    "키보드로 TASK·계획/자료 열기·닫기·복귀가 가능하고 초점이 보인다. 새 추상 화면 대신 기존 모달/Inspector와 3B 부품을 재사용한다.",
+    "인증 전체 페이지와 상호작용 전후 캡처를 직접 확인한다. 컴포넌트 fixture·로딩·로그인·오류 화면을 정상 전체 여정의 증거로 대신하지 않는다."
+  ],
+  "impact": {
+    "kind": "platform", "parent_goal_id": "VG-L3-B2-02", "acceptance_ids": ["VG-L3-B2-02-AC1"],
+    "current_gap": "검증된 순환/보조 공급은 있으나 전체 지도 첫 화면의 구체적 추천 근거·수량·부족 시 행동이 분산돼 실제 자료/계획까지 이동하기 어렵다.",
+    "expected_impact": "advances", "dependency_type": "direct",
+    "evidence_required": ["같은 TASK/목표/PLAN의 추천→계획/자료 진입 근거", "1440·1280 인증 전체 화면과 부족 상태 행동", "현재 계산/이력/교육 증거 경계 보존"],
+    "next_dependency": "FINAL-MAP-LEARNING-RETURN rev1",
+    "out_of_scope": ["기존 학습 순환 재구현", "T-0020 learning-map 소유 worktree 및 옛 54라인 설계 변경", "TASK/Workspace/VG/LM 정본 변경", "개발 DB 쓰기·SQL 적용·Gold/권리 승인", "학습 효과/숙달 선언", "새 오케스트레이터·worker·원격 관리 PR"]
+  },
+  "source": { "mission": "FINAL-MISSION-A~H", "design_revision": "rev1", "goals_ah": ["A", "B", "C", "E", "F"], "from_owner": "final-independent-accept", "registered_codex_session": "01a14de8-2485-7a53-b530-d5612f35e57a", "recipient_session": "c513ff5b-86ef-44a3-8efd-7925a229614b", "request": "2026-10-20 FINAL MISSION 다음 작업 요청 · final-product" }
+}
