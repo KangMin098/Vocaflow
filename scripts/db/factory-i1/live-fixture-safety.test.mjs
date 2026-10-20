@@ -89,9 +89,19 @@ test('revision response loss retains both exact identities instead of losing the
   assert.deepEqual(f.withdrawn, [1, 2])
 })
 test('failed journal persistence prevents sending a registration', async () => {
+  const f = fixture()
   let sent = false
-  await assert.rejects(sendOwnedRegistration({ command: command(1), run: 'run-a', registrations: new Map(), persist: () => { throw Error('disk failure') }, send: async () => { sent = true } }), /disk failure/)
+  await assert.rejects(sendOwnedRegistration({ command: command(1), run: 'run-a', registrations: f.registrations, persist: () => { throw Error('disk failure') }, send: async () => { sent = true } }), /disk failure/)
   assert.equal(sent, false)
+  const errors = await runCleanupSteps([...f.registrations.values()].map(entry => ['withdraw', () => f.cleanup(entry)]))
+  assert.deepEqual(errors, [])
+  assert.equal(f.rows.size, 0, 'Finally cleanup must not register an intent whose durable journal failed')
+  assert.equal(f.registrations.size, 0)
+  // A prior durable identity must survive a failed attempt to replace it.
+  await sendOwnedRegistration({ command: command(1), run: 'run-a', registrations: f.registrations, persist: f.persist, send: f.commit })
+  const previous = f.registrations.get('D3-LIVE-run-a-A:1')
+  await assert.rejects(sendOwnedRegistration({ command: { ...command(1), request_key: 'new' }, run: 'run-a', registrations: f.registrations, persist: () => { throw Error('disk failure') }, send: async () => assert.fail() }))
+  assert.equal(f.registrations.get('D3-LIVE-run-a-A:1'), previous)
 })
 test('reconciliation refuses a different hash, actor or UUID and propagates lookup/settlement failure', async () => {
   const entry = { product_order_id: 'D3-LIVE-run-a-A', order_revision: 1, order_hash: 'a'.repeat(64), request_key: 'request-1', command: command(1) }

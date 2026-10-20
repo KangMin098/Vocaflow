@@ -29,9 +29,16 @@ function registrationIdentity(command, run) {
 }
 export async function sendOwnedRegistration({ command, run, registrations, persist, send }) {
   const entry = registrationIdentity(command, run)
-  registrations.set(`${entry.product_order_id}:${entry.order_revision}`, entry)
+  const key = `${entry.product_order_id}:${entry.order_revision}`
+  const previous = registrations.get(key)
+  registrations.set(key, entry)
   // A durable write-ahead record is required even when the server commits but its response is lost.
-  persist()
+  try { persist() }
+  catch (error) {
+    if (previous) registrations.set(key, previous)
+    else registrations.delete(key)
+    throw error
+  }
   return send(command)
 }
 export async function reconcileOwnedRegistration({ entry, run, actor, settle, lookup, withdraw }) {
