@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { afterEach, expect, it, vi } from 'vitest'
 import { readCurationQueue } from '../curation-queue-client'
-afterEach(() => vi.unstubAllGlobals())
+afterEach(() => { vi.unstubAllGlobals() })
 it('polls by uncached GET without entering the Server Action queue', async () => {
   const fetcher = vi.fn().mockResolvedValue(Response.json({ ok: true, data: [] }))
   vi.stubGlobal('fetch', fetcher)

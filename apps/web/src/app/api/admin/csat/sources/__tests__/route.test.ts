@@ -38,7 +38,7 @@ it('summary permits one count at a time and returns every real count', async () 
   chain.mockImplementation(() => {
     let head = false
     const q = {
-      select: vi.fn((_columns, options) => { head = options?.head === true; return q }),
+      select: vi.fn((_columns: string, options?: { head?: boolean }): unknown => { head = options?.head === true; return q }),
       eq: vi.fn().mockReturnThis(), neq: vi.fn().mockReturnThis(), not: vi.fn().mockReturnThis(),
       filter: vi.fn().mockReturnThis(), gt: vi.fn().mockReturnThis(), abortSignal: vi.fn().mockReturnThis(),
       order: vi.fn().mockReturnThis(), limit: vi.fn().mockReturnThis(),

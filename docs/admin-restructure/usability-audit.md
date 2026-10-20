@@ -293,6 +293,8 @@ PD 만화 화면에는 `heading-order` moderate 1건이 1440px·1280px 각각 �
 
 원 증거: `.agent-logs/admin-usability/bf1a8d50-70f2-4741-855b-1abdbf8dff23/`의 `result.json`, `popups.json`, `scenarios.log`, `runtime.json`, `all-audit-accounts-closed.json` 및 화면 캡처. 최종 격리 회귀는 `.agent-logs/admin-final-review-standard-green-r2.log`(24사례), 수정 전 재현은 `.agent-logs/admin-final-review-red.log`(2실패), 계약은 `.agent-logs/admin-usability-final6-web-tests.json`과 library/video 결과 파일이다. GitHub push·PR·원격 CI·main 병합은 실행하지 않았다.
 
-통합 준비 중 테스트 파일까지 lint 대상을 확장해, 큐 배너 격리 회귀의 일반 `Function` 타입 오류 2건을 확인했다. 콜백 타입을 명시한 뒤 테스트 lint와 표준 브라우저 24사례를 다시 통과했다. 앱 실행 소스 122개는 r22와 같으므로 실제 인증 화면·업무 흐름 증거는 소스 해시를 대조해 재사용한다.
+통합 준비 중 테스트 파일까지 lint 대상을 확장해, 큐 배너 격리 회귀의 일반 `Function` 타입 오류 2건을 확인했다. 콜백 타입을 명시한 뒤 테스트 lint와 표준 브라우저 24사례를 다시 통과했다. 당시 비교한 122개 소스에는 테스트 전용 파일 9개가 포함되어 있다.
+
+후속 로컬 통합의 standalone TypeScript 검사는 소재 API 테스트의 순환 mock 타입과 큐 클라이언트 테스트의 정리 훅 반환 타입 오류를 발견해 실패했고 통합은 수행되지 않았다. 테스트 두 파일만 수정한 뒤 전체 standalone 타입 검사·해당 25개 회귀·수정 테스트 lint를 통과했다. r22의 비교 대상 122개 중 제품 실행 소스 113개와 테스트 7개는 SHA-256이 그대로이며, 나머지 테스트 2개는 이 수정으로 바뀌었다. 실제 화면 증거는 동일한 제품 실행 소스를 근거로 재사용하며, 122개 파일 전체가 현재도 동일하다고 주장하지 않는다. 최초 실패와 후속 검사 영수증은 각각 보존한다. 기존 T-0060 수용 기록은 유지하고 T-0064로 후속 검토·로컬 통합을 추적한다.
 
 빌드에서도 관리자 외 공개 화면의 `library_book_vocabularies` trust-signals 집계 timeout 경고가 남았다(r20에서도 관찰). 정적 생성과 빌드는 완료했지만 해당 공개 집계가 정상이라고 주장하지 않는다. 후속 로컬 타입 검사 전에 종료된 r19/r20의 생성 타입 670파일을 앱 밖 보관 폴더로 옮겼고, 전후 SHA-256을 대조했다. 앱 소스·실행 JS·CSS는 그대로다.
