@@ -1,6 +1,6 @@
 # Product Order 계보 계약과 구현
 
-2026-10-20 · T-0057 · 공유 DB 적용 전. 사용자 승인 범위는 계약·설계·로컬 구현이며 실제 DB 적용은 별도 승인이다.
+2026-10-20 · T-0057 로컬 구현 이후 사용자가 공유 DB 적용을 별도 승인했다. 개발 DB에 `20261020063000`을 적용했으며 사후 검증 9개와 예정된 카탈로그 73객체 추가를 확인했다. [실제 적용·권한 안내·남은 검증](product-order-lineage-deployment.md). 실제 주문·납품과 populated 화면 검증은 아직 없다.
 
 ## 기존 구성과 변경
 
@@ -37,11 +37,11 @@
 
 ## 검증 및 적용
 
-격리 PostgreSQL 다중 연결에서 정본 변조·spec 불일치·PLAN 개정·권한·멱등·과배정·revision/철회 경쟁·개인정보 격리를 확인한다. 새 SQL은 기존 DB1/DB2에 섞지 않는다. 기존 DB1/2를 재적용하지 않으며 D3만 별도 SHA와 카탈로그 diff로 제시한다. 실제 DB에 대한 이번 단계는 읽기만 한다.
+격리 PostgreSQL 다중 연결에서 정본 변조·spec 불일치·PLAN 개정·권한·멱등·과배정·revision/철회 경쟁·개인정보 격리를 확인했다. 새 SQL은 기존 DB1/DB2에 섞지 않았다. 기존 DB1/2를 재적용하지 않으며 D3만 별도 SHA와 카탈로그 diff로 제시했다. 로컬 구현 단계는 실제 DB 읽기만 수행했고, 이후 별도 사용자 승인으로 D3를 적용한 상태다.
 
-적용 전 SQL 전체·SHA-256·변경 객체·선행 지문·복구안을 제시한다. 승인 후에만 checkpoint before/after와 카탈로그 diff를 수행한다. 데이터가 생긴 뒤 복구는 기능 중지와 읽기 보존을 우선하며 DROP/삭제는 별도 승인 없이 하지 않는다.
+적용 전 SQL 전체·SHA-256·변경 객체·선행 지문·복구안을 제시한다. 이번 승인 후 checkpoint before/after와 실제 카탈로그 diff를 수행했다. 데이터가 생긴 뒤 복구는 기능 중지와 읽기 보존을 우선하며 DROP/삭제는 별도 승인 없이 하지 않는다.
 
-정본 SQL은 [d3.sql](../../scripts/db/factory-i1/d3.sql), 승인용 전체 SQL은 [apply.sql](../../scripts/db/factory-i1/d3-package/apply.sql), 정확한 바이트 해시는 [MANIFEST.json](../../scripts/db/factory-i1/d3-package/MANIFEST.json)이다. `node scripts/db/factory-i1/d3-package.mjs --check`로 재생성 동일성을 확인한다. 생성기는 DB 접속·apply 기능이 없다. 기존 DB1/2 승인 러너의 stage를 임의로 재사용하지 않는다. 실제 실행은 별도 DB 승인과 프로젝트/SQL SHA가 결속된 실행 경로를 갖춘 뒤 진행한다.
+정본 SQL은 [d3.sql](../../scripts/db/factory-i1/d3.sql), 승인용 전체 SQL은 [apply.sql](../../scripts/db/factory-i1/d3-package/apply.sql), 정확한 바이트 해시는 [MANIFEST.json](../../scripts/db/factory-i1/d3-package/MANIFEST.json)이다. `node scripts/db/factory-i1/d3-package.mjs --check`로 재생성 동일성을 확인한다. 생성기는 DB 접속·apply 기능이 없다. 기존 DB1/2 승인 러너의 stage를 임의로 재사용하지 않는다. 실제 적용은 프로젝트/포트/TLS·196개 선행 지문을 확인한 뒤 기존 `apply-approved-sql.mjs`에서 전체 SQL SHA를 대조해 수행했다. [버전 파일](../../supabase/migrations/20261020063000_factory_product_order_lineage_v1.sql)은 적용 이력에 기록된 정본과 동일 바이트다. 재적용하지 않는다.
 
 검증: 재사용 Factory 회귀와 관리자 앱 회귀, 격리 PostgreSQL 23검사(요청 UUID 별칭·6역할·실제 닫힘·개정/철회↔링크 양방향 경합·원자성·선행 지문 차단·이력 원문·비파괴 쓰기 정지·누락 이력/RPC의 명시적 검증 실패 포함)를 사용한다. 격리 카탈로그 변화는 추가 73개·기존 변경/삭제 0개다. 실제 공유 DB 성공이나 정책·crosswalk 승인 증거는 아니다.
 

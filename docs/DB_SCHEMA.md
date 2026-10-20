@@ -1,6 +1,6 @@
 # DB Schema
 
-> **D3 로컬 구현·미적용(2026-10-20)**: Product Order 등록·개인 링크·별도 철회·요청 UUID 영수증 4표와 helper/RPC 11함수를 [별도 D3 SQL](../scripts/db/factory-i1/d3.sql)로 구현했다. 일반 관리자 JWT 직접 RPC 및 service_role 직접 표 쓰기를 막고 신뢰 서버에서만 정본을 검증·기록한다. 격리 PostgreSQL 추가 73객체·기존 변경/삭제 0; 개발 DB에는 아직 없다. [계약·검증·승인용 SQL](admin-restructure/product-order-lineage.md). 아래 DB1/2 미적용 표기는 당시 이력이며 재적용 근거가 아니다.
+> **D3 개발 DB 적용(2026-10-20)**: 사용자 승인 후 `20261020063000_factory_product_order_lineage_v1`을 적용했다. Product Order 등록·개인 링크·별도 철회·요청 UUID 영수증 4표와 helper/RPC 11함수이며, 실제 카탈로그는 73객체 추가·기존 변경/삭제 0이다. 이력 정본 SHA와 RLS/주요 RPC의 권한 등 9검사를 통과했다. 일반 관리자 JWT 직접 주요 RPC 및 service_role 직접 표 쓰기는 금지한다. 새 표는 비어 있고 실제 주문/납품은 수행하지 않았다. [실제 적용·advisor 변화·한계](admin-restructure/product-order-lineage-deployment.md) · [계약·SQL](admin-restructure/product-order-lineage.md). 아래 DB1/2 미적용 표기는 당시 이력이며 재적용 근거가 아니다.
 
 > **DB286 독립 배포 보완(미적용)**: 최신 main의 B NULL 버전 거절과 기존 권한 helper의 search_path 외 속성 불변 가드를 배포 정본에 반영했다. 영구 객체 범위는 기존 DB-1/2와 같고 I2 annotation binding은 제외한다. 전체 SHA·승인 차이·실제 이력 대기는 [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)·[독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md). 개발 DB는 읽기 전용 감사만 수행했다.
 

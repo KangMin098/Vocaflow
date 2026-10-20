@@ -1,10 +1,10 @@
 # Admin Console
 
-Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3 공유 DB 적용은 별도 승인 대기다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md).
+Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했다. 저장된 Workspace/주문이 없어 실제 populated 화면 검증은 남아 있다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).
 
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
-현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. 대상별 수행·저장 진단 읽기는 후속 구현했다. canonical Product Order별 생산/납품 계보는 미설치 Gap이다.
+현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. 대상별 수행·저장 진단 읽기는 후속 구현했다. canonical Product Order의 계획 계보는 설치했고 실제 생산/납품 기록과 그 화면 검증은 남아 있다.
 
 관리자 재구조화: [로컬 1차 구현 기록](./admin-restructure.md)과 [하위 메뉴·파이프라인 심층 재설계 비교](./admin-submenu-redesign.md)를 구분한다. 설계안의 적용 범위와 남은 계약은 위 구현·최종 인계를 따른다.
 
