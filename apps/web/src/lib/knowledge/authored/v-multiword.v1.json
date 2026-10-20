@@ -385,6 +385,177 @@
           }
         ]
       }
+    },
+    {
+      "id": "mw-ind-3",
+      "role": "independent_check",
+      "passageGroup": "mw-t7",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "The school garden club had no money to buy a fence against hungry rabbits.",
+          "Instead of giving up, the students came up with a cheaper plan.",
+          "They planted strong-smelling herbs around the vegetables, because rabbits avoid that scent.",
+          "By summer, the lettuce was growing untouched."
+        ],
+        "target": {
+          "sentence": 1,
+          "word": "came up with"
+        },
+        "stem": "밑줄 친 'came up with'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "~와 함께 올라왔다",
+          "~을 떠올려 내놓았다",
+          "~을 포기했다",
+          "~을 뒤따라잡았다",
+          "~을 빌려 왔다"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "cue": [
+          0,
+          1,
+          2
+        ],
+        "senseGloss": "come up with: (생각·계획을) 떠올리다, 생각해 내다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "come(오다)+up(위로)+with(함께)를 낱낱이 옮긴 직역이다."
+          },
+          {
+            "choice": 2,
+            "design": "opposite_sense",
+            "why": "'Instead of giving up'(포기하는 대신)과 정반대로 읽었다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "모양이 비슷한 'catch up with'(따라잡다)의 뜻이다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "계획을 남에게서 빌린다는 뜻은 come up with 와 결합하지 않으며, 3번의 방법은 학생들이 스스로 고안한 것이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mw-ind-4",
+      "role": "independent_check",
+      "passageGroup": "mw-t8",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Two climbers set out to cross the desert in four days.",
+          "On the third afternoon, a sandstorm forced them to wait in their tent.",
+          "By the time it passed, they had run out of water.",
+          "They walked through the night and reached a village well just before dawn."
+        ],
+        "target": {
+          "sentence": 2,
+          "word": "run out of"
+        },
+        "stem": "밑줄 친 'run out of'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "~에서 뛰쳐나왔다",
+          "~을 넉넉히 모았다",
+          "~을 쏟아 버렸다",
+          "~이 다 떨어졌다",
+          "~을 버리고 도망쳤다"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "senseGloss": "run out of A: A가 다 떨어지다, 바닥나다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "run(달리다)+out of(~밖으로)를 장소 이동으로 옮긴 직역이다. 그들은 텐트 안에서 기다렸다."
+          },
+          {
+            "choice": 1,
+            "design": "opposite_sense",
+            "why": "밤새 걸어 우물에 닿아야 했다(4번)는 흐름과 반대다."
+          },
+          {
+            "choice": 2,
+            "design": "nearby_word",
+            "why": "run 의 '흐르다' 뜻에 끌려 물을 쏟았다고 읽었지만, 물이 바닥난 까닭은 모래폭풍으로 지체된 시간(2번)이다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "'run away from'(~에서 도망치다)과 섞은 뜻으로 목적어 water 와 어울리지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mw-transfer-2",
+      "role": "transfer",
+      "passageGroup": "mw-t9",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Several customers reported that their online orders had been charged twice.",
+          "The company promised to look into the problem before the weekend.",
+          "Engineers traced the error to a payment page that reloaded when users pressed the button slowly.",
+          "Once the page was fixed, the company returned every extra charge."
+        ],
+        "target": {
+          "sentence": 1,
+          "word": "look into"
+        },
+        "stem": "밑줄 친 'look into'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "~을 조사하다",
+          "~ 안을 들여다보다",
+          "~을 무시하다",
+          "~을 돌보다",
+          "~을 고대하다"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "cue": [
+          0,
+          1,
+          2
+        ],
+        "senseGloss": "look into: (문제·사건을) 조사하다, 살펴보다",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "basic_meaning",
+            "why": "look(보다)+into(안으로)를 그대로 옮긴 직역으로, 문제의 '안'을 눈으로 들여다본다는 것은 성립하지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "opposite_sense",
+            "why": "엔지니어가 오류 원인을 추적했다(3번)는 흐름과 반대다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "모양이 비슷한 'look after'(돌보다)의 뜻이다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "'look forward to'(고대하다)와 섞은 뜻으로, 불만이 들어온 문제와 어울리지 않는다."
+          }
+        ]
+      }
     }
   ]
 }

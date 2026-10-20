@@ -378,6 +378,173 @@
           }
         ]
       }
+    },
+    {
+      "id": "sc-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sc-i3",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Three years ago, our district painted bike lanes on its main roads.",
+          "Parents worried at first that the lanes were too narrow.",
+          "The number of students who walk or cycle to school in our district has risen sharply since the new lanes opened.",
+          "Traffic near the schools has also become lighter.",
+          "The city now plans to add lanes in two more districts."
+        ],
+        "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "verb",
+        "segments": [
+          "The number",
+          "of students",
+          "who walk or cycle to school",
+          "in our district",
+          "has risen sharply",
+          "since the new lanes opened."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "main_verb",
+        "why": "3번 문장의 주어 핵심은 The number 다. of students 와 who 관계절을 걷어내면 The number has risen 이 남는다. walk · cycle 은 관계절 안의 동사, opened 는 since 절 안의 동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 단수라서 동사가 has 다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "number 를 꾸미는 전치사구 — students 는 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "students 를 꾸미는 관계절. walk · cycle 은 본동사가 아니다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "어느 지역 학생인지 범위를 한정한다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "단수 주어 number 에 맞는 본동사 has risen."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "has risen 의 기준 시점을 밝히는 부사절이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sc-i4",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our school's quiz team had a terrible record last year.",
+          "They did not win a single round in the league.",
+          "This season a new teacher began coaching them twice a week.",
+          "In the final round, the captain of the team that had lost every match last season answered the winning question.",
+          "The whole hall stood up and cheered."
+        ],
+        "stem": "표시된 문장의 주어(문장 전체의 주어) 핵심이 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 3
+        },
+        "ask": "subject",
+        "segments": [
+          "In the final round,",
+          "the captain",
+          "of the team",
+          "that had lost every match last season",
+          "answered the winning question."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "main_subject",
+        "why": "4번 문장은 때를 나타내는 전치사구(In the final round,)로 시작한다. 콤마 뒤 the captain 이 주어이고, of the team 과 that 관계절을 건너뛰면 answered 가 본동사다.",
+        "segments": [
+          {
+            "reason": "modifies_verb",
+            "why": "때를 나타내는 전치사구 — 주어가 아니다(함정)."
+          },
+          {
+            "reason": "main_subject",
+            "why": "문장 전체의 주어 — 질문에 답한 사람이다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "captain 을 꾸미는 전치사구 — team 은 주어가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "team 을 꾸미는 관계절. had lost 는 관계절 안의 동사다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 captain 의 본동사 answered 와 목적어."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sc-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sc-x2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "My uncle runs a small café in a mountain village.",
+          "The village sits more than two thousand meters above the sea.",
+          "To bake bread that rises well at high altitude takes more yeast than most recipes suggest.",
+          "He learned this after many flat loaves.",
+          "Now his bread is the most popular thing on the menu."
+        ],
+        "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "verb",
+        "segments": [
+          "To bake bread",
+          "that rises well",
+          "at high altitude",
+          "takes more yeast",
+          "than most recipes suggest."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "main_verb",
+        "why": "3번 문장은 to부정사구(To bake bread ... altitude)가 통째로 주어다. bake 는 to부정사, rises 는 관계절 안의 동사이고, 이를 지나 나오는 takes 가 본동사다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "to부정사구 주어의 시작 — bake 는 본동사가 아니다(함정)."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "bread 를 꾸미는 관계절. rises 는 관계절 안의 동사다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "rises 가 어디서인지 덧붙이는 전치사구다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "to부정사 주어(단수 취급)에 맞는 본동사 takes 와 목적어."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "more 와 짝을 이루는 비교절. suggest 는 본동사가 아니다."
+          }
+        ]
+      }
     }
   ]
 }

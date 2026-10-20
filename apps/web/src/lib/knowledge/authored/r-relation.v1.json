@@ -361,6 +361,158 @@
           }
         ]
       }
+    },
+    {
+      "id": "rel-ind-3",
+      "role": "independent_check",
+      "passageGroup": "rel-i3",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Coral reefs cover less than one percent of the ocean floor.",
+          "Yet they are home to about a quarter of all known marine species.",
+          "When ocean water grows too warm, corals push out the tiny algae that live inside them.",
+          "Without these algae, the corals lose their color and slowly starve.",
+          "Scientists call this process bleaching.",
+          "In 2016, for example, nearly a third of the corals on one large Australian reef died after a single hot summer."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "Yet — 1번의 '바다 밑바닥의 1%도 안 된다'와 2번의 '해양 생물의 4분의 1이 산다'를 맞세운다"
+          },
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "(연결어 없음: 'Without these algae'가 3번에서 산호가 내보낸 조류를 받아, 그 결과 색을 잃고 굶주린다고 말한다)"
+          },
+          {
+            "relation": "example",
+            "alt": [],
+            "cue": "for example"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-ind-4",
+      "role": "independent_check",
+      "passageGroup": "rel-i4",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Most people assume that a longer meeting produces a better decision.",
+          "In other words, they treat time spent talking as a sign of careful thought.",
+          "Research on workplace meetings suggests otherwise.",
+          "After about forty minutes, participants tend to repeat earlier points and grow less open to new ideas.",
+          "Moreover, decisions made late in long meetings are more often reversed the following week.",
+          "Short, focused meetings may therefore serve a team better than long ones."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "restatement",
+            "alt": [],
+            "cue": "In other words"
+          },
+          {
+            "relation": "addition",
+            "alt": [],
+            "cue": "Moreover"
+          },
+          {
+            "relation": "conclusion",
+            "alt": [
+              "cause_effect"
+            ],
+            "cue": "therefore — 4~5번의 연구 결과로부터 짧은 회의가 낫다는 결론을 끌어낸다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-transfer-2",
+      "role": "transfer",
+      "passageGroup": "rel-x2",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "The old mill on the hill stopped grinding grain in 1962.",
+          "Cheaper flour from large factories had made its work unprofitable.",
+          "For decades the building stood empty.",
+          "Then a group of residents bought it and repaired the great wooden wheel.",
+          "Today it grinds flour again, though mostly for visitors.",
+          "Unlike the factory flour that once replaced it, this flour is ground slowly and sold only at the mill door."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "(연결어 없음: 과거완료 'had made'가 2번이 1번보다 먼저 일어난 일, 곧 방앗간이 멈춘 원인임을 보여 준다 — 결과가 먼저, 원인이 뒤에 온다)"
+          },
+          {
+            "relation": "sequence",
+            "alt": [],
+            "cue": "Then — 수십 년 비어 있던 뒤에 주민들이 사들여 고친 다음 단계를 잇는다"
+          },
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "Unlike — 방앗간의 천천히 빻는 밀가루를 예전에 그것을 밀어낸 공장 밀가루와 맞세운다"
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

@@ -371,6 +371,168 @@
           }
         ]
       }
+    },
+    {
+      "id": "opt-ind-3",
+      "role": "independent_check",
+      "passageGroup": "opt-t7",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Varo Night Market is a fictional weekly market held in the parking lot of a closed factory.",
+          "It opens every Friday at sunset and closes at midnight, even in winter.",
+          "Only sellers who live within the region may rent a stall, and every stall costs the same regardless of its size.",
+          "Cash was the only accepted form of payment until 2019, when card readers were introduced.",
+          "Music is allowed, but loudspeakers must be turned off after ten o'clock.",
+          "Profits from stall fees are used to repair the old factory roof."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "매주 금요일 해 질 녘에 열어 자정에 닫는다.",
+          "그 지역 안에 사는 판매자만 자리를 빌릴 수 있다.",
+          "지금도 현금으로만 값을 치를 수 있다.",
+          "10시 이후에는 확성기를 꺼야 한다.",
+          "자리 임대료 수익은 옛 공장 지붕을 고치는 데 쓰인다."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 금요일 해 질 녘에 열고 자정에 닫는다(겨울에도)."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 지역 안에 사는 판매자만 자리를 빌릴 수 있다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 3,
+            "why": "4번 문장은 현금만 받던 것은 2019년까지이고 그 뒤 카드 단말기가 들어왔다고 했다 — 지금도 현금만이라는 것은 반대다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 4,
+            "why": "5번 문장: 음악은 되지만 10시 이후 확성기는 꺼야 한다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 5,
+            "why": "6번 문장: 임대료 수익으로 옛 공장 지붕을 수리한다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-ind-4",
+      "role": "independent_check",
+      "passageGroup": "opt-t8",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Sunford Library Choir is a fictional singing group that meets in a public library every Tuesday evening.",
+          "It was founded by two librarians who wanted to bring older residents and teenagers together.",
+          "Members do not need to read music, because every song is taught by ear.",
+          "The choir performs twice a year, once in the library hall and once at the town hospital.",
+          "Anyone may join, but new members must first attend three rehearsals as listeners.",
+          "Last year the group recorded its first album, and every copy was given away for free."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "두 사서가 노년층과 십대를 함께 모으려고 만들었다.",
+          "악보를 읽지 못해도 참여할 수 있다.",
+          "1년에 두 번 공연하며 그중 한 번은 병원에서 한다.",
+          "새 회원은 먼저 세 번의 연습에 듣는 사람으로 참석해야 한다.",
+          "첫 음반을 팔아 얻은 수익을 병원에 기부했다."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 두 사서가 노년 주민과 십대를 함께 모으려고 만들었다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 노래를 귀로 가르치므로 악보를 못 읽어도 된다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 1년에 두 번, 도서관 홀과 시립 병원에서 공연한다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 4,
+            "why": "5번 문장: 새 회원은 먼저 세 번의 연습을 듣는 사람으로 참석한다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 5,
+            "why": "6번 문장은 음반을 모두 무료로 나눠 주었다고 했다 — 팔아서 수익을 냈다는 것은 반대다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-transfer-2",
+      "role": "transfer",
+      "passageGroup": "opt-t9",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Orlen Ice Run is a fictional sled race held each February on a frozen river in the north.",
+          "Teams of two pull a wooden sled for twenty kilometers instead of riding on it.",
+          "Sleds must be built by the teams themselves, and metal runners are not permitted.",
+          "The race was first held in 1962 as a way to test whether the river ice was safe for winter travel.",
+          "If the ice is thinner than thirty centimeters, the race is moved to a nearby lake.",
+          "The winning team receives no prize money, only a carved wooden spoon."
+        ],
+        "stem": "다음 글의 내용과 일치하는 것은?",
+        "choices": [
+          "두 사람이 한 팀이 되어 썰매를 타고 20킬로미터를 달린다.",
+          "팀은 금속 날을 단 썰매를 사용해야 한다.",
+          "우승팀은 상금과 함께 나무 숟가락을 받는다.",
+          "처음에는 강 얼음이 겨울 이동에 안전한지 시험하려고 열렸다.",
+          "얼음이 얇으면 그해 경주는 취소된다."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "options": [
+          {
+            "verdict": "reversed",
+            "sentence": 1,
+            "why": "2번 문장은 썰매를 타는 대신 끈다고 했다 — 탄다는 것은 반대다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 2,
+            "why": "3번 문장은 금속 날이 허용되지 않는다고 했다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 5,
+            "why": "6번 문장은 상금 없이 나무 숟가락만 준다고 했다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 1962년 강 얼음이 겨울 이동에 안전한지 시험하려고 처음 열렸다."
+          },
+          {
+            "verdict": "distorted",
+            "sentence": 4,
+            "why": "5번 문장은 얼음이 얇으면 근처 호수로 장소를 옮긴다고 했다 — 취소로 바꿨다."
+          }
+        ]
+      }
     }
   ],
   "proseNumbering": "1-based"

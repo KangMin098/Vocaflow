@@ -248,6 +248,102 @@
         "pattern": "general_specific",
         "rationale": "1번이 '동물은 몸이 아니라 행동을 바꿔 겨울을 난다'는 일반 진술(주제문)이고, 2~4번이 다람쥐·새·꿀벌의 구체적 사례다. 5번은 사례들의 공통점을 묶어 일반 진술을 다시 뒷받침하는데, 글을 맺는 역할도 하므로 conclusion으로 보아도 인정한다. 일반 → 구체 사례의 흐름이므로 general_specific이다."
       }
+    },
+    {
+      "id": "ds-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ds-i3",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "When Minho first joined the school orchestra, he could barely read music.",
+          "For weeks he sat in the last chair and quietly copied the fingering of the student beside him.",
+          "Then, a month before the spring concert, that student moved to another city.",
+          "With no one left to copy, Minho began practicing each passage slowly at home.",
+          "By the night of the concert, he was playing parts that others in his section still found difficult.",
+          "Losing the person he depended on had turned out to be what finally taught him to play."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "turn",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 5,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "narrative",
+        "rationale": "1번이 인물과 처음 상황을 놓는 배경, 2번 옆 학생을 따라 하던 시기, 3번 'Then'으로 그 학생이 떠나는 전환, 4~5번 혼자 연습해 실력이 는 과정이 시간 순서로 이어진다. 6번이 사건 전체의 의미('의지하던 사람을 잃은 것이 오히려 배움이 되었다')를 밝히는 주제문이며 결론으로 읽어도 인정한다. 3번의 전환을 문제로, 4번을 해결로 보아 problem_solution으로 고르기 쉽지만, 글은 해결책을 제시하지 않고 한 인물의 경험을 시간 순으로 들려주므로 narrative이다."
+      }
+    },
+    {
+      "id": "ds-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ds-i4",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Night shifts at many hospitals are becoming harder to fill.",
+          "Nurses who work them for years often report poor sleep and other health problems.",
+          "As a result, many move to day jobs, and the nurses who remain are given even more night work.",
+          "Some hospitals have begun to break this cycle by limiting each nurse to a few months of night work in a row.",
+          "Under these schedules, fewer nurses quit, and the night shifts become easier to staff."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "topic",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "problem_solution",
+        "rationale": "1번이 야간 근무 인력 부족이라는 문제를 꺼내는 배경, 2~3번이 그 문제가 왜 생기고 어떻게 악순환이 되는지 설명하는 근거, 4번이 '야간 근무를 연속 몇 달로 제한한다'는 해결책을 내놓는 주제문, 5번이 그 해결책의 효과(근거)다. 3번 'As a result' 때문에 cause_effect로 보기 쉽지만, 인과는 문제를 설명하는 한 부분일 뿐 글 전체는 문제를 제시하고 해결책과 그 효과로 나아가므로 problem_solution이다."
+      }
+    },
+    {
+      "id": "ds-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ds-x2",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "A common warning says that going outside with wet hair in winter will give you a cold.",
+          "The idea seems sensible, since colds are more frequent in the colder months.",
+          "However, colds are caused by viruses, not by low temperatures themselves.",
+          "Winter colds spread mainly because people gather indoors, where viruses pass easily from one person to another.",
+          "Wet hair may make someone feel uncomfortable, but without a virus there is nothing to catch."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "concession",
+          "topic",
+          "support",
+          "support"
+        ],
+        "alternatives": [
+          {
+            "index": 1,
+            "role": "support"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번이 '젖은 머리로 나가면 감기에 걸린다'는 통념을 소개하는 배경, 2번은 그 통념이 그럴듯한 이유를 먼저 인정하는 양보(통념을 떠받치는 근거로 읽어도 인정), 3번 'However'로 감기의 원인은 바이러스라고 반박하는 주제문, 4~5번이 겨울 감기가 퍼지는 실제 이유와 젖은 머리만으로는 감기에 걸리지 않는다는 근거다. 겨울과 감기의 관계를 다뤄 cause_effect로 보기 쉽지만, 글의 뼈대는 널리 퍼진 믿음을 제시하고 부정하는 것이므로 myth_rebuttal이다."
+      }
     }
   ]
 }

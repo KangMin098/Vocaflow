@@ -253,6 +253,168 @@
           { "reason": "modifies_noun", "why": "대시 뒤에서 앞 두 절이 보여 준 차이 전체를 받아 설명하는 동격 명사구다." }
         ]
       }
+    },
+    {
+      "id": "sr-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sr-i3",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our science club spent a weekend at a wetland reserve.",
+          "Hundreds of herons nest there every spring.",
+          "The guide asked us not to feed the birds, not to leave the trail, and not to make loud noises near the nests.",
+          "We followed every rule and watched quietly from a hide.",
+          "By evening we had counted forty-two nests."
+        ],
+        "stem": "표시된 문장에서 'not to feed the birds'와 병렬로 연결된 마지막 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The guide asked us",
+          "not to feed the birds,",
+          "not to leave the trail,",
+          "and",
+          "not to make loud noises",
+          "near the nests."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "parallel_member",
+        "why": "and 뒤의 not to make loud noises 가 not to feed the birds · not to leave the trail 과 같은 not to 부정사로, 셋 다 asked us 의 목적격 보어로 나란히 연결된다. near the nests 는 make loud noises 를 꾸미는 부사구일 뿐 병렬 요소가 아니다.",
+        "segments": [
+          {
+            "reason": "subject_and_verb",
+            "why": "주어 · 동사 asked 와 목적어 us."
+          },
+          {
+            "reason": "complement",
+            "why": "asked us 의 첫 번째 목적격 보어로, 기준이 되는 병렬 요소다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "두 번째 병렬 요소다."
+          },
+          {
+            "reason": "phrase_boundary",
+            "why": "마지막 병렬 요소를 잇는 접속사다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "세 번째이자 마지막 병렬 요소다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "make loud noises 의 장소를 나타내는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sr-i4",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "My grandfather hurt his leg in a fall last week.",
+          "He is now recovering at home.",
+          "The nurse will change the bandage twice a day and, if necessary, call the doctor.",
+          "My mother has written her phone number on the fridge.",
+          "We all hope he can walk again by next month."
+        ],
+        "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The nurse",
+          "will change the bandage twice a day",
+          "and,",
+          "if necessary,",
+          "call the doctor."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "ellipsis_restored",
+        "why": "if necessary 는 if (it is) necessary 에서 주어와 be동사가 생략된 조건절이다. 이를 되살리면 '필요하다면'이라는 뜻이 분명해진다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "조동사 will 과 첫 번째 동사구 change ... 다."
+          },
+          {
+            "reason": "phrase_boundary",
+            "why": "두 동사구를 잇는 접속사다."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "it is 가 생략된 조건 부사절이다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "will 에 걸려 change 와 나란한 두 번째 동사구다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sr-x2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The city council is debating a plan to build a new sports center.",
+          "Some residents fear that the project will cost too much.",
+          "The plan, the mayor insists, will not raise local taxes.",
+          "Instead, a private company will pay most of the costs.",
+          "The council will vote on the plan next month."
+        ],
+        "stem": "표시된 문장에서 삽입된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The plan,",
+          "the mayor insists,",
+          "will not raise",
+          "local taxes."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "inserted_clause",
+        "why": "콤마 사이의 the mayor insists 는 주어 The plan 과 동사 will not raise 사이에 끼어든 삽입절로, 걷어내도 'The plan will not raise local taxes.'가 완전하다. the mayor 를 문장의 주어로 읽는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "inserted_clause",
+            "why": "주어와 동사 사이에 끼어든 삽입절로, 누구의 주장인지 밝힌다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 plan 의 동사다."
+          },
+          {
+            "reason": "object",
+            "why": "will not raise 의 목적어다."
+          }
+        ]
+      }
     }
   ]
 }
