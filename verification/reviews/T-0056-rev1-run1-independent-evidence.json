@@ -1,0 +1,16 @@
+{
+  "type": "integration",
+  "command_or_protocol": "Independent exact-head snapshot: actual server/PGlite flow, plan and route44 pass; enumerate nine support TASK host entries, four excluded despite own delivered check links; two isolation/control probes pass, one host-availability assertion fails. No local authenticated browser rerun claimed.",
+  "result": "fail",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r1-counterexample.log",
+  "observed_at": "2026-10-20T03:10:39.042Z",
+  "commit": "8ba2ddc17f358b53e672df6ceeee85ca0a481eb8",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "environment": "Isolated exact-head source + PGlite; synthetic fixture only"
+}

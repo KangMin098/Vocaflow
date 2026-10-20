@@ -1,0 +1,138 @@
+{
+  "task_id": "T-0056",
+  "design_revision": 1,
+  "run_seq": 1,
+  "head": "8ba2ddc17f358b53e672df6ceeee85ca0a481eb8",
+  "decision": "REWORK",
+  "observed_at": "2026-10-20T03:10:39.042Z",
+  "reviewer": "final-independent-accept",
+  "scope": "Nine existing support TASK entry paths, task-specific stages, API membership and unchanged evidence boundaries",
+  "findings": [
+    {
+      "id": "T0056-P1-1",
+      "severity": "P1",
+      "scope": "in",
+      "file": "apps/web/src/lib/csat/map/v4/workspace.ts",
+      "line": 155,
+      "title": "Support TASK entry is still removed by the core-only Workspace inclusion gate",
+      "actual": "planWorkspaces excludes ws.sentence-core and ws.vocab-context when only support TASK deliveries exist. Thus supportViewOf is never called for these hosts and composeV4.plans has no host; homeWsOf cannot resolve a Workspace and the new supply card cannot mount.",
+      "affected": [
+        "v.multiword",
+        "s.sentence_core",
+        "s.chunk_boundary",
+        "s.structural_relation"
+      ],
+      "reproduction": "Exact-head snapshot: enumerate all nine authored TASKs that have support membership but no core membership. Supply each TASK two own confirm links/check items, no core links. Four of nine have no Workspace in primary/others. No changes to TASK canon or goal relevance.",
+      "controls": [
+        "Five other support TASKs retain their host.",
+        "Adding core contextual_sense stock restores multiword host.",
+        "sentence-core host core is integrated s.o.sentence_meaning_model, which has no authored set: stock in the existing three support sets cannot open it.",
+        "Another support TASK stock does not populate available counts or central progress; null central progress remains null."
+      ],
+      "expected": "Existing non-held Workspace shell must provide support entry/PLAN and supply path independently of core stock. With no support deliveries keep quantities unknown and truthful shortage; with own deliveries compute only own support stages. Keep canonical core/support, held templates, integrated observation and central progress unchanged.",
+      "minimum_change": "Workspace inclusion/entry selection and related return lookup only as needed. Support delivery must be sufficient to retain its host; first-supply bootstrap must not require unavailable core material. Do not merely render another card in an already excluded host.",
+      "reverify": "All nine support hosts with no core stock; sentence-core bootstrap before/after support supply; multiword no-core control; unchanged core/held/no-stock boundaries; representative authenticated Next+DB supply/return journey through existing isolated CI."
+    }
+  ],
+  "validation": {
+    "exact_head_snapshot": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r1-zvAFlp\\snapshot",
+    "independent_rerun": {
+      "passed": 44,
+      "skipped": 0,
+      "files": [
+        "authored-flow.pglite.test.ts",
+        "plan.test.ts",
+        "supply/route.test.ts"
+      ],
+      "log": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r1-focused.log"
+    },
+    "independent_counterexample": {
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "log": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r1-counterexample.log",
+      "sha256": "53e19885399328d192a345be5d5df5a08d5ef9467431c38f7b956ef64d32be0c",
+      "source": "D:\\workspace\\Vocaflow-final-independent\\.agent-logs\\final-independent\\t0056-r1-zvAFlp\\snapshot\\apps\\web\\src\\lib\\csat\\map\\v4\\__tests__\\t0056-independent.test.ts"
+    },
+    "initial_probe_correction": "Initial exploratory assertions expected quantity=2 even for goal-unrelated TASKs and progress.done on legitimate null progress. These assertions were withdrawn, not reported as product defects. Final failure concerns missing host only; original exploratory log preserved.",
+    "submitted": [
+      {
+        "id": "T-0056-R1-E01",
+        "head": "8ba2ddc17f358b53e672df6ceeee85ca0a481eb8",
+        "hashMatches": true,
+        "screenshots": []
+      },
+      {
+        "id": "T-0056-R1-E02",
+        "head": "8ba2ddc17f358b53e672df6ceeee85ca0a481eb8",
+        "hashMatches": true,
+        "screenshots": [
+          {
+            "path": "verification/ui/T-0056/support-card-1440.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/supply-card-1440.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/guided-right-1440.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/guided-reset-1440.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/check-locked-1440.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/support-card-1280.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/supply-card-1280.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/guided-right-1280.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/guided-reset-1280.png",
+            "hashMatches": true
+          },
+          {
+            "path": "verification/ui/T-0056/check-locked-1280.png",
+            "hashMatches": true
+          }
+        ]
+      }
+    ],
+    "ui": {
+      "submitted_screen_checks": 27,
+      "accessibility": 18,
+      "reference": 14,
+      "independently_viewed": "support-card-1280.png",
+      "scope": "Standalone real-component mocked endpoint artifact; no authenticated Workspace modal/saved PLAN/DB browser journey. Accessibility/reference report reuses runner checks; not proof of support-modal geometry."
+    },
+    "authenticated_browser": "NOT_VERIFIED for new support TASK path; add representative existing isolated CI scenario on corrected HEAD",
+    "ci": "No current-head official CI supplied"
+  },
+  "positive_changes": [
+    "Core/support task-template mismatch returns400 before loading map or writing supply.",
+    "e.task_demand delivered stage availability is corrected and actual server/PGlite supply-repair-transfer shortage path passes.",
+    "Separate TASK return context and card identifiers are present."
+  ],
+  "next_action": "Original final-product owner corrects P1 in existing T-0056 rev1 and resubmits changed HEAD; reuse unchanged tests/artifacts. No new task/revision or core promotion.",
+  "boundaries": {
+    "product_files_edited": false,
+    "developer_db_writes": 0,
+    "sql_application": false,
+    "human_gold": false,
+    "rights": false,
+    "official_merge": false,
+    "final_mission": "REWORK"
+  }
+}

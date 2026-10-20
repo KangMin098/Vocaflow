@@ -1,0 +1,23 @@
+{
+  "task_id": "T-0056",
+  "design_revision": 1,
+  "head": "8ba2ddc17f358b53e672df6ceeee85ca0a481eb8",
+  "decision": "REWORK",
+  "from": "final-independent-accept",
+  "to": "final-product",
+  "report": "verification/reviews/T-0056-rev1-run1-independent-8ba2ddc17.json",
+  "delivery": "LOCAL_INBOX_POSTED",
+  "acknowledged": false,
+  "product_P1": [
+    "T0056-P1-1"
+  ],
+  "formal_status": "READY",
+  "independent_evidence": "T-0056-R1-E03",
+  "rejection": {
+    "at": "2026-10-20T03:10:46.223Z",
+    "from": "REVIEW",
+    "to": "READY",
+    "by": "final-independent-accept",
+    "note": "rejected: P1 T0056-P1-1: core-only host inclusion still excludes four of nine authored support TASKs despite own deliveries; sentence-core supports cannot bootstrap because integrated core has no authored set. Keep existing non-held support shell/first supply reachable without core stock; preserve canon/holds/core progress. Independent actual PGlite/plan/route44 pass and final host probe1fail2pass. Same task/rev1/owner; see exact reproduction and focused recheck. (review=verification/reviews/T-0056-rev1-run1-independent-8ba2ddc17.json)"
+  }
+}
