@@ -84,8 +84,9 @@ export function ReasoningNoteForm({
   const latest = chain.length > 1 ? chain[chain.length - 1] : null
   // 보여 줄 「내 설명」 = 고친 것이 있으면 마지막 고친 설명(처음 설명은 따로 보인다)
   const cur = (latest ?? shown)!
+  // 제공 설명과의 대조는 **화면에 실제로 보이는 설명(cur)** 의 주석 판으로 판정한다(T0063-P1-1 — 고른 처음 노트로 판정하면 판이 섞인다) · 옛 노트(결속 없음)는 그대로 대조
+  const sameEdition = !authored || !cur?.authored || cur.authored.annotationHash === authored.annotationHash
   const revising = draft.revising ? saved.find((x) => x.id === draft.revising) ?? null : null
-  const sameEdition = !authored || !shown?.authored || shown.authored.annotationHash === authored.annotationHash
   const startRevise = (n: ReasoningNote) => onDraft((d) => ({ ...edited(d, { fields: { statement: n.statement, grounds: n.grounds, applicability: n.applicability, limit: n.limit }, pairIds: [...n.pairIds], evidence: [...n.evidence] }), pendingId: null, pendingAt: null, sentRev: null, status: 'idle', revising: n.id }))
   const cancelRevise = () => onDraft((d) => ({ ...clearNote(d), pendingId: null, pendingAt: null, sentRev: null, status: 'idle' }))
 

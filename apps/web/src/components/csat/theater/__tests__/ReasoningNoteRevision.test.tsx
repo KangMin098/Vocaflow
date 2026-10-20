@@ -73,3 +73,19 @@ describe('두 기기 병합 — ID 합집합 · 고친 노트 보존(continuity.
     expect(merged.find((n) => n.id === 'note-0002')!.revisionOf).toBe('note-0001')
   })
 })
+
+describe('T0063-P1-1 — 판이 섞인 처음/고친 노트: 대조 판정은 보이는 설명 기준', () => {
+  const rootA = note({ authored: { deliveryId: DID, annotationHash: H1 } })
+  const revB = note({ id: 'note-0002', revisionOf: 'note-0001', statement: '판 B 로 고친 설명', at: 2, authored: { deliveryId: DID, annotationHash: H2 } })
+  it('지금 판 A · 처음 A 를 골라도 보이는 고친 설명은 판 B → 제공 설명(A)과 대조하지 않는다', () => {
+    const html = render([rootA, revB], { shownId: 'note-0001' }, H1)
+    expect(html).toContain('판 B 로 고친 설명')
+    expect(html).toContain('data-testid="note-other-edition"')
+    expect(html).not.toContain('data-testid="note-open-model"')
+  })
+  it('지금 판 B · 처음 A 를 골라도 보이는 고친 설명이 판 B → 같은 판 대조를 막지 않는다', () => {
+    const html = render([rootA, revB], { shownId: 'note-0001' }, H2)
+    expect(html).not.toContain('data-testid="note-other-edition"')
+    expect(html).toContain('data-testid="note-open-model"')
+  })
+})
