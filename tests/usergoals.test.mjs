@@ -281,7 +281,8 @@ test('F 한 목표가 ChatGPT 대기면 다른 목표 작업 진행 → 응답 �
   const t1 = a.created[0]
   const r2 = orch(root)
   assert.equal(r2.iterations[0].selected.task_id, t1, '활성 목표에 진행 가능한 작업이 생기면 우선순위(P3)가 낮아도 먼저')
-  assert.equal(task(root, t2b.task_id).status, 'READY')
+  // max_tasks 3(2026-10-20) — 다른 목표의 독립 작업도 같은 반복에서 진행될 수 있다. 순서(활성 목표 먼저)만 계약이다
+  void t2b
 })
 
 test('G 여러 목표 응답이 섞여 도착 — 다른 목표·라운드 응답 거부 · 중복 재적용 없음 · 복사 중 파일 무시', () => {

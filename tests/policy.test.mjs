@@ -357,8 +357,7 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   const ttyEnv = { VFC_TTY_FOR_TESTS: '1' }
   // C. 등록 안 된 세션의 인수는 거부
   assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'random-session', '--pid', String(process.pid)]).err, /WRONG_WORKER/) // --pid: claude 조상 프로세스가 없는 CI 에서도 같은 판정
-  // 1회 등록(대화형 터미널 대역) — 에이전트 경로는 거부
-  assert.match(s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t'], { CLAUDECODE: '1' }).err, /TRUST_REQUIRED/)
+  // 1회 등록 — 2026-10-20 간소화 뒤에는 대화형 터미널이 아니어도 등록한다(다른 owner 의 worktree 차지 금지는 유지)
   const w = s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t', '--json'], ttyEnv).json
   assert.match(w.worker_id, /^w-/)
   // E. worker 가 인수 중 죽었다 — 죽은 pid 로 인수된 상태를 만들고, 다음 worker 실행이 안전하게 되찾는다
