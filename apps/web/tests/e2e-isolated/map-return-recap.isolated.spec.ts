@@ -133,6 +133,22 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(countOf(r2), '안내 연습은 독립 근거 수를 바꾸지 않는다').toBe(countLine)
     expect(r2).toContain('직전 v2')
 
+    // T0062-F1 — 이미 푼 안내 연습을 새 답 없이 다시 열고 돌아오면, 지난 답을 「이번 활동」이라 부르지 않는다
+    {
+      const again = await openSupport(page)
+      const guidedHref = (await hrefsOf(again, 'guided_practice'))[0]
+      await page.goto(guidedHref, { waitUntil: 'domcontentloaded' })
+      await expect(page.locator('[data-testid="authored-result"]'), '지난 풀이 결과').toBeVisible({ timeout: 30_000 })
+      await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
+      await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
+      const dlg = page.locator(`[role="dialog"][data-ws="${T}"]`)
+      const reopen = await dlg.locator('[data-testid="ws-return-summary"]').innerText({ timeout: 30_000 })
+      console.log(`RECAP_REOPEN_${width}=${JSON.stringify(reopen)}`)
+      expect(reopen, '새 제출 없음 = 이번 활동 특정 안 함').toContain('이번 활동을 특정하지 못했어요')
+      expect(reopen).not.toMatch(/이번 활동\(/)
+      await page.keyboard.press('Escape')
+    }
+
     // ③ 적용 단계 확정 → 적용 자료(재고 1편 · 계획 2편) → 적용 1편 → 복귀: 1 / 2편 — 완료 아님
     await plan(page, 'check_result', 3, goal)
     card = await supply(page, uid, 'transfer')

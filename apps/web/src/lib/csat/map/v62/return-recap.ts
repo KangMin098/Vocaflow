@@ -25,6 +25,8 @@ export function returnRecap(input: {
   keys: readonly string[]
   /** 복귀 문맥의 「이번에 연 자료」 ref(authored:<id>) — 서버 학습 화면이 붙인 값. 없으면 이번 활동을 특정하지 않는다 */
   activityRef: string | null
+  /** 그 화면에서 실제로 저장된 제출의 수행 id(서버 응답) — 없으면(새 답 없는 재열기 · 옛 URL) 이번 활동을 특정하지 않는다(자료의 최신 답을 이번 활동이라 부르지 않는다) */
+  activityAttempt?: string | null
   /** As-Is 판정과 같은 첫 시도 기록 — undefined = 조회 실패 */
   attempts: readonly FindAttemptRow[] | undefined
   /** 생애주기 수행 기록(안내 연습 · 적용 포함) — undefined = 조회 실패 */
@@ -40,11 +42,11 @@ export function returnRecap(input: {
   const keys = new Set(input.keys)
   let latest: ReturnRecap['latest']
   if (!input.attempts || !input.activity) latest = { state: 'unknown' }
-  else if (!input.activityRef) latest = { state: 'unidentified' }
+  else if (!input.activityRef || !input.activityAttempt) latest = { state: 'unidentified' }
   else {
     const rows = [
-      ...input.attempts.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.answeredAt).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: independentKind(a) })),
-      ...input.activity.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.answeredAt && !input.attempts!.some((f) => f.attemptId && f.attemptId === a.attemptId)).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: activityKind(a) })),
+      ...input.attempts.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.attemptId === input.activityAttempt && a.answeredAt).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: independentKind(a) })),
+      ...input.activity.filter((a) => keys.has(a.taskKey) && a.itemRef === input.activityRef && a.attemptId === input.activityAttempt && a.answeredAt && !input.attempts!.some((f) => f.attemptId && f.attemptId === a.attemptId)).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: activityKind(a) })),
     ].sort((x, y) => (x.at < y.at ? 1 : x.at > y.at ? -1 : 0))
     latest = rows[0] ? { state: 'found', kind: rows[0].kind, isCorrect: rows[0].isCorrect, at: rows[0].at } : { state: 'unidentified' }
   }

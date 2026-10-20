@@ -107,6 +107,12 @@ export function modelOf(reveal: Record<string, unknown> | null, teach: readonly 
   return { statement: text ?? steps[0], when_applies: text ? steps : steps.slice(1), when_not: [] }
 }
 
+/** 복귀 링크에 이번 제출의 수행 id 를 더한다(지도 복귀 문맥일 때만) */
+function withAttempt(href: string, attempt: string | null): string {
+  if (!attempt || !href.includes('map_task=')) return href
+  return `${href}${href.includes('?') ? '&' : '?'}map_attempt=${attempt}`
+}
+
 export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [sessionId, setSessionId] = useState<string>(() => p.sessionId ?? uuid())
   const [help, setHelp] = useState<'independent' | 'viewed_first'>('independent')
@@ -126,6 +132,8 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [graded, setGraded] = useState<Record<string, unknown> | null>(null)
+  // T-0062 — 이 화면에서 실제로 저장된 제출의 수행 id(서버 응답). 지난 결과 보기 · 새 답 없는 재열기에는 없다 → 지도는 「이번 활동」을 특정하지 않는다
+  const [savedAttempt, setSavedAttempt] = useState<string | null>(null)
   const [reveal, setReveal] = useState<Reveal | null>(p.done?.reveal ?? null)
   const [binding, setBinding] = useState<Binding | null>(null)
   const [rebinding, setRebinding] = useState(false)
@@ -200,6 +208,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
       if (!res.ok) { setError(typeof j.error === 'string' ? j.error : '저장하지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }
       setGraded(j.grade as Record<string, unknown>); setReveal(j.reveal as Reveal)
       setBinding(j.binding && typeof j.binding === 'object' ? j.binding as Binding : null)
+      setSavedAttempt(typeof j.attemptId === 'string' && /^[1-9][0-9]{0,18}$/.test(j.attemptId) ? j.attemptId : null)
     } catch {
       setError('연결이 끊겼어요 — 같은 답으로 다시 누르면 한 번만 저장돼요')
     } finally {
@@ -212,7 +221,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   function again() {
     mutation.current = null
     setSessionId(uuid()); setHelp('viewed_first'); setHintsOpen(0)
-    setGraded(null); setReveal(null); setBinding(null); setError(null)
+    setGraded(null); setReveal(null); setBinding(null); setError(null); setSavedAttempt(null)
     setClaim(null); setPicked([]); setRelation(null); setChoice(null)
     setVerdicts(p.choices.map(() => ({ verdict: null, sentence: null })))
     setPairs(((p.extra.pairs as unknown[]) ?? []).map(() => null))
@@ -500,7 +509,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
               authored={{ deliveryId: p.deliveryId, annotationHash: p.annotationHash as string }}
             />
           )}
-          <Link className={styles.link} href={p.returnHref}>학습 지도로 돌아가 변화 보기</Link>
+          <Link className={styles.link} href={withAttempt(p.returnHref, savedAttempt)}>학습 지도로 돌아가 변화 보기</Link>
         </section>
       )}
     </div>

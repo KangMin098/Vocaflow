@@ -11,10 +11,10 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import { LATEST_LABEL, returnRecap, transferLine } from '../return-recap'
 
 const KEY = 'authored-evidence-locate'
-const att = (o: Partial<FindAttemptRow>): FindAttemptRow => ({ userId: 'u', itemRef: 'authored:ev-ind-1', taskKey: KEY, phase: 'practice', isCorrect: false, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: '2026-10-20T01:00:00.000Z', activity: 'theater', sessionId: 's', contentHash: 'c', expectedContentHash: 'c', ...o })
-const act = (o: Partial<ActivityRow>): ActivityRow => ({ itemRef: 'authored:ev-guided-1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-10-20T02:00:00.000Z', activity: 'practice', ...o })
+const att = (o: Partial<FindAttemptRow>): FindAttemptRow => ({ userId: 'u', attemptId: '63', itemRef: 'authored:ev-ind-1', taskKey: KEY, phase: 'practice', isCorrect: false, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: '2026-10-20T01:00:00.000Z', activity: 'theater', sessionId: 's', contentHash: 'c', expectedContentHash: 'c', ...o })
+const act = (o: Partial<ActivityRow>): ActivityRow => ({ attemptId: '65', itemRef: 'authored:ev-guided-1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-10-20T02:00:00.000Z', activity: 'practice', ...o })
 const REF = 'authored:ev-ind-1'
-const base = { keys: [KEY], activityRef: REF as string | null, attempts: [] as FindAttemptRow[], activity: [] as ActivityRow[], transfer: { transferDone: 0, transferPlanned: 2 }, history: [], proposalDiffers: false }
+const base = { keys: [KEY], activityRef: REF as string | null, activityAttempt: '63' as string | null, attempts: [] as FindAttemptRow[], activity: [] as ActivityRow[], transfer: { transferDone: 0, transferPlanned: 2 }, history: [], proposalDiffers: false }
 const ver = (version: number, reason: 'initial' | 'check_result' | 'content_change', goalVersionId: number | null = 10) => ({ version, reason, goalVersionId, plan: { order: [], tasks: [] }, note: null, restoredFrom: null, canon: 'x', asOf: '', createdAt: '' }) as never
 
 describe('returnRecap — 적용 0 · 일부 · 계획만큼 · 확인 불가', () => {
@@ -40,7 +40,7 @@ describe('returnRecap — 가장 최근 기록과 근거 채택', () => {
     expect(r.latest).toMatchObject({ state: 'found', kind: 'independent_counted', isCorrect: false })
   })
   it('그 뒤 안내 연습 정답 → 최근 = 안내 연습(독립 근거 아님) — 독립 근거 수를 늘리지 않는다', () => {
-    const r = returnRecap({ ...base, activityRef: 'authored:ev-guided-1', attempts: [att({})], activity: [act({})] })
+    const r = returnRecap({ ...base, activityRef: 'authored:ev-guided-1', activityAttempt: '65', attempts: [att({})], activity: [act({})] })
     expect(r.latest).toMatchObject({ state: 'found', kind: 'guided', isCorrect: true })
   })
   it('해설을 먼저 본 풀이는 셌다고 말하지 않는다', () => {
@@ -81,7 +81,7 @@ describe('returnRecap · returnSummary — 저장 계획 버전 · 제안', () =
 
 describe('T-0062 rework — 이번 활동 식별(F1) · 원장 조회 실패(F2) · 저장 당시 목표(F3)', () => {
   it('F1 문맥의 자료와 다른 같은 TASK 의 더 늦은 수행 B 는 이번 활동이 아니다', () => {
-    const later = att({ itemRef: 'authored:ev-ind-2', isCorrect: true, answeredAt: '2026-10-20T05:00:00.000Z' })
+    const later = att({ attemptId: '64', itemRef: 'authored:ev-ind-2', isCorrect: true, answeredAt: '2026-10-20T05:00:00.000Z' })
     const r = returnRecap({ ...base, attempts: [att({}), later] })
     expect(r.latest).toMatchObject({ state: 'found', isCorrect: false })
   })
@@ -121,5 +121,21 @@ describe('T0062-F4 — 제외 사유와 도움 사실 구분', () => {
     expect(isEligible(unbound), '결속 없음은 근거 자격 없음(fail-closed)').toBe(false)
     expect(label(unbound)).toBe('not_counted_unbound')
     for (const k of ['not_counted_synthetic', 'not_counted_help_unknown', 'not_counted_unbound'] as const) expect(LATEST_LABEL[k]).not.toContain('도움 · 해설을 본 뒤')
+  })
+})
+
+describe('T0062-F1 잔여 — 수행 단위 식별(새 답 없는 재열기 · 같은 자료 두 탭)', () => {
+  it('지난 결과만 다시 열고 새로 제출하지 않았으면(수행 id 없음) 이번 활동을 특정하지 않는다', () => {
+    expect(returnRecap({ ...base, activityAttempt: null, attempts: [att({})] }).latest.state).toBe('unidentified')
+  })
+  it('같은 자료를 두 탭에서: A 오답(63) → B 정답(64) 뒤 A 의 복귀 링크는 A 를 고른다', () => {
+    const a = att({ attemptId: '63', isCorrect: false, answeredAt: '2026-10-20T01:00:00.000Z' })
+    const b = att({ attemptId: '64', isCorrect: true, answeredAt: '2026-10-20T02:00:00.000Z' })
+    expect(returnRecap({ ...base, activityAttempt: '63', attempts: [a, b] }).latest).toMatchObject({ state: 'found', isCorrect: false })
+    expect(returnRecap({ ...base, activityAttempt: '64', attempts: [a, b] }).latest).toMatchObject({ state: 'found', isCorrect: true })
+  })
+  it('본인 기록에 없는 수행 id · 다른 자료의 수행 id 는 특정 못 함', () => {
+    expect(returnRecap({ ...base, activityAttempt: '999', attempts: [att({})] }).latest.state).toBe('unidentified')
+    expect(returnRecap({ ...base, activityRef: 'authored:ev-ind-2', activityAttempt: '63', attempts: [att({})] }).latest.state).toBe('unidentified')
   })
 })

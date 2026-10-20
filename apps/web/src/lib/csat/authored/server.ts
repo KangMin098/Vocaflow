@@ -294,6 +294,8 @@ export interface AuthoredAttemptResult {
   grade: Record<string, unknown> & { isCorrect: boolean }
   reveal: ReturnType<typeof revealAfterAnswer>
   binding: BindingResult
+  /** T-0062 — 이 제출이 저장 · 결속된 수행 id(learning_task_attempts.id · 본인 결속 행에서 읽음). 못 읽으면 null — 지도는 이번 활동을 특정하지 않는다 */
+  attemptId: string | null
 }
 
 /**
@@ -346,7 +348,12 @@ export async function recordAuthoredAttempt(
   if (outcome === 'conflict') throw new AuthoredInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 'invalid_input')
   const binding: BindingResult = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item', deliveryId: opened.view.deliveryId })
     .catch((e) => { console.error('[authored delivery binding]', e); return { status: 'error' as const } })
-  return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding }
+  // 이번 수행 식별자 — 학습자 세션으로 본인 결속 행에서만(RLS) 읽는다. 클라이언트 값을 쓰지 않는다
+  const attemptId = binding.status === 'bound' && binding.id
+    ? await learner.from('workspace_delivery_attempt').select('attempt_id').eq('user_id', user.id).eq('id', binding.id).maybeSingle()
+      .then((r: { data: { attempt_id?: unknown } | null }) => (r.data?.attempt_id != null ? String(r.data.attempt_id) : null), () => null)
+    : null
+  return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding, attemptId }
 }
 
 // ── Workspace 목록 ─────────────────────────────────────────────────────
