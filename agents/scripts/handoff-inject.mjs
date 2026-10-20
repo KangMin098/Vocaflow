@@ -5,7 +5,7 @@
 //   · .agent-handoff/latest.json 이 이 에이전트 앞으로 왔고 아직 읽음 표시(--ack)가 없으면 1–6항목을 주입
 //   · 워크트리 잠금이 남(다른 에이전트)에게 있으면 경고
 //   · PR 자동화 정책(agents/policies/pr-automation.json)이 없거나 origin/main 과 버전이 다르면 「[정책 낡음]」(2026-10-11 v1.1)
-// 아무것도 없으면 아무것도 출력하지 않는다(매 세션 컨텍스트를 낭비하지 않게). 항상 exit 0 — 세션 시작을 막지 않는다.
+// 중앙 개발 모드는 매번 안내한다. PR 정책 비교는 GITHUB 모드에만 적용한다. 항상 exit 0 — 세션 시작을 막지 않는다.
 //
 //   node agents/scripts/handoff-inject.mjs --agent claude
 
@@ -14,6 +14,7 @@ import path from 'node:path'
 import { DIR } from './handoff.mjs'
 import { git, isMain, lf, readText, rel } from './lib.mjs'
 import { read as readLock, state as lockState } from './lock.mjs'
+import { executionMode, executionNotice } from './execution-mode.mjs'
 
 const MAX_AGE_MS = 7 * 24 * 3600 * 1000
 
@@ -45,6 +46,9 @@ function readMainPolicy() {
 
 export function injection(agent) {
   const out = []
+  let mode
+  try { mode = executionMode(); out.push(executionNotice(mode)) }
+  catch (e) { out.push(`[개발 모드 오류] ${e.message} — 원격 작업을 시작하지 말고 설정을 확인합니다.`) }
   try {
     const js = path.join(DIR, 'latest.json')
     const md = path.join(DIR, 'latest.md')
@@ -64,8 +68,10 @@ export function injection(agent) {
   } catch (e) {
     out.push(`[인수인계] latest.json 을 읽지 못했다: ${e.message}`)
   }
-  const notice = policyNotice(readText(rel('agents', 'policies', 'pr-automation.json')), readMainPolicy())
-  if (notice) out.push(notice)
+  if (mode === 'GITHUB') {
+    const notice = policyNotice(readText(rel('agents', 'policies', 'pr-automation.json')), readMainPolicy())
+    if (notice) out.push(notice)
+  }
   const lock = readLock()
   if (lock && lock.agent !== agent && lockState(lock) === 'held')
     out.push(`[잠금] 이 워크트리는 ${lock.agent} 가 쓰는 중이다(pid ${lock.pid}, ${lock.started_at}). 쓰기 전에 사용자에게 확인하거나 \`pnpm wt new <suffix>\` 로 워크트리를 나눈다.`)

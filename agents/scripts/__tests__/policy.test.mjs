@@ -15,7 +15,7 @@ test('PC1 지금 저장소 — D11 전부 통과', () => {
 })
 
 test('PC2 AGENTS.md 정책 줄 버전이 정본과 다르면 실패(한쪽 세션이 옛 규칙으로 돈다)', () => {
-  const agents = real('AGENTS.md').replace(/PR_AUTOMATION_POLICY v1\.1/, 'PR_AUTOMATION_POLICY v1.0')
+  const agents = real('AGENTS.md').replace(/PR_AUTOMATION_POLICY v\d+(?:\.\d+)*/, 'PR_AUTOMATION_POLICY v0.0')
   const bad = policyChecks(files({ 'AGENTS.md': agents })).find((r) => r.name.startsWith('AGENTS.md 정책 줄'))
   assert.equal(bad.ok, false)
 })
@@ -29,6 +29,16 @@ test('PC4 정책 파일 없음 · 깨진 JSON · 이력 없음 → 실패', () =
   assert.equal(policyChecks(files({ 'agents/policies/pr-automation.json': null }))[0].ok, false)
   assert.equal(policyChecks(files({ 'agents/policies/pr-automation.json': '{' }))[0].ok, false)
   assert.equal(policyChecks(files({ 'agents/DECISIONS.md': '' })).find((r) => r.name.startsWith('정책 이력')).ok, false)
+})
+
+test('PC5 중대 보안 통제나 PR 범위 계약을 제거하면 실패', () => {
+  for (const remove of ['security', 'scope']) {
+    const policy = JSON.parse(real('agents/policies/pr-automation.json'))
+    if (remove === 'security') delete policy.approval_required.critical_security
+    else delete policy.merge.scope_contract_required
+    const rows = policyChecks(files({ 'agents/policies/pr-automation.json': JSON.stringify(policy) }))
+    assert.equal(rows.find((row) => row.name.startsWith('정책 형식')).ok, false)
+  }
 })
 
 test('PN1 정책 낡음 판정 — 같은 버전 · 둘 다 없음은 조용 · 다르거나 없으면 경고', () => {

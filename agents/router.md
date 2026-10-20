@@ -1,5 +1,7 @@
 # 두 에이전트 라우팅 — Claude Code · Codex CLI
 
+2026-10-20 일반 개발 절차는 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 `development_policy`를 따른다. 아래 교대·큐·worker 절차는 실제 협업을 선택했을 때만 사용한다. 단일 세션 일반 작업에는 등록·교대 양식·반대 AI 검토를 요구하지 않는다. DB·데이터 삭제 승인과 다른 작업자 변경 보존은 유지한다.
+
 > 어떤 일을 어느 에이전트에 보내는가, 한도에 걸리면 어떻게 넘기는가. 규칙 정본은 [AGENTS.md](../AGENTS.md),
 > 설계 결정은 [DECISIONS.md](./DECISIONS.md), 지시문 원문은 [docs/dual-agent-brief.md](../docs/dual-agent-brief.md).
 
@@ -16,7 +18,9 @@
 - 흐름의 기본형: **Claude 가 계획 → Codex 가 실행**(또는 그 역). 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다.
 - **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
 - 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
-- 사용자 승인은 DB 변경 · 데이터 삭제뿐(정책 정본 `agents/policies/PR_AUTOMATION_POLICY.md`). main 병합은 `safe-merge.mjs` 게이트 · `.env` 는 다루지 않는다.
+- 일반 개발/원격 납품은 재승인 없이 진행하고 DB 배포·데이터 삭제·중대 보안 변경은 정본 `agents/policies/PR_AUTOMATION_POLICY.md`를 따른다. main 병합은 범위 계약을 받은 `safe-merge.mjs`만 사용하며 `.env`는 출력하지 않는다.
+- 실행 모드는 중앙 `Vocaflow-AI-Control/config/dev-mode.json`을 먼저 읽는다. LOCAL_FAST는 로컬 검증·커밋·`bin/local-integrate.mjs --task <ID>`이며 일반 push·PR·Actions 조회/CI 대기·원격 병합은 하지 않는다. 원격 백업은 중앙 `bin/backup.mjs`만 사용한다. PR/CI·safe-merge 절차는 명시적 GITHUB 모드에 적용한다.
+- 2026-10-20 개발 자동화 지시는 공식 원격 납품을 상시 승인한다. 중앙 LOCAL_FAST의 공식 통합 경로를 재사용하며 이 저장소의 납품 단계에 VFC_DEV_MODE=GITHUB를 명시한다. 구현 워커의 격리와 호스트 납품 역할은 유지하고 호스트 실행을 현재 샌드박스의 우회 경로로 사용하지 않는다.
 
 ## 2. 같은 워크트리를 동시에 쓰지 않는다
 

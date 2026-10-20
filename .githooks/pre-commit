@@ -24,6 +24,10 @@ if ! command -v node >/dev/null 2>&1; then
 fi
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+# 일반 커밋은 미러를 읽거나 동기화하지 않는다. 인덱스는 그대로 둔다.
+if ! git diff --cached --name-only -- docs/AI_CONTEXT docs/CONTEXT.md | grep -q .; then
+  exit 0
+fi
 SCRIPT="$REPO_ROOT/scripts/sync-export-memory.mjs"
 
 if [ ! -f "$SCRIPT" ]; then
