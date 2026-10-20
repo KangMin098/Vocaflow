@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-10-20T18:25:33.667Z",
+  "task": "T-0069",
+  "status": "IN_PROGRESS",
+  "owner": "final-product",
+  "run": {
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "pid": 22712,
+    "started_at": "2026-10-20T18:24:07.631Z",
+    "start_head": "25566801020cc40ed6cd5d3b2bf45615b023989d"
+  },
+  "explicit_ack": "Received user-forwarded original Claude ACK for same task/session/worktree",
+  "live_process_observed": {
+    "pid": 22712,
+    "name": "claude"
+  },
+  "implementation_result": "NOT_SUBMITTED; not acceptance",
+  "prechecks": [
+    "reuse existing Flashcard backHref and storage API",
+    "strip CSAT map_item/map_attempt from vocabulary roundtrip",
+    "actual prioritized session queue is not strictly due-only; no invented due count",
+    "no arbitrary return URL; fixed internal map route and validated context"
+  ]
+}

@@ -465,3 +465,11 @@ reported no_content/notLive 분기는 현재 지시 범위 밖 엔진을 바꾸�
 다음 핵심 누락은 V1(v.core_meaning)의 실제 학습 진입/복귀입니다.21비보류TASK 전량 분류=16창작순환,1(s.attachment)연결결정보류,3통합관찰,남은1=V1. 정본의 WordVault/Flashcard/FSRS 자산을 재사용하고 ws.vocab-context 보조 카드→기존 자기 어휘 학습→같은 지도/TASK 복귀를 연결합니다. 새로운 문맥 객관식으로 기본 뜻 인출을 측정했다고 만들지 않습니다. 카드뒤집기/FSRS자기평가/뜻보기는 교육활동이며 CSAT G2/직접확인/해소/유지로 승격하지 않습니다. 빈 단어/조회실패/문맥없는 일반 진입을 구분하고 기존3B지도/Tines어휘화면 스킨과 map-return 검증을 재사용합니다. 기존 모듈 내 최소 한 실제 학습 후 복귀를 대표 인증격리1440/1280에서 확인하면 됩니다. 대규모 어휘 UI 개편/새 API/새SQL/채점기/정본 변경은 범위 밖입니다. 기존T0020의 구 지도개편 파일은 피했습니다.
 
 지연 유지 후속 분석: evidence-claims.ts는 승인된 간격/도구가 없어 NOT_ESTABLISHED를 고정하고 있습니다. 이 계약을 임의 하루/시간 기준으로 바꾸지 않습니다. 다른날 기록을 실제로 수집하는 것과 유지 성공 판정은 별개이며, 이번 T0069는 그 정책 결정을 선행 조건으로 요구하지 않습니다. 전달 상태=QUEUE_READY+LOCAL_INBOX_POSTED, 새 실제 ACK/착수는 아직 미관찰입니다.
+
+## T-0069 · 실제 ACK / 착수 확인 · 기존 자산 선행 점검
+
+[VF-TASK T-0069] ACK 수신 확인. 실제 기존 Claude 세션c513ff5b/PID22712의 사용자 전달 ACK와 공식IN_PROGRESS 전환(2026-10-20T18:24:07.631Z), 시작HEAD25566801020cc40ed6cd5d3b2bf45615b023989d, claude 프로세스 생존을 확인했습니다. next-task-ack.json에 결속했고 구현 제출/수용과는 구분합니다. 같은 rev1/owner/worktree를 유지합니다.
+
+선행 점검으로 기존 FlashcardPlayPage가 이미 backHref→FlashcardSession과 기존 저장 API를 사용함을 확인했습니다. 새 세션/기록 계층을 만들 필요가 없습니다. 현재 세션 큐(fetchDueFlashcardWords→fetchStudyVocabularies)는 due 우선+상한이며 엄격한 due-only 집합이라고 단정할 수 없습니다. 큐 길이를 「오늘 FSRS due」로 새 표시하지 말고 기존 모듈의 실제 의미·숫자를 유지해 주세요.
+
+기존 rev1 근거 경계의 핵심 반례만 보완합니다. 어휘 화면에 오래된 map_item/map_attempt가 들어와도 어휘→지도 복귀에서는 두 값을 버려야 합니다. 이전 창작 수행을 어휘의 「이번 활동」으로 표시하지 않으며, task/ws/goal/plan 문맥만 검증해 보존합니다. 임의 외부 복귀 주소를 받아 전달하지 말고 기존 고정 내부 지도 경로와 문맥 파서를 재사용하세요. 새 CSAT 수행 행/가짜 G2/자동 resolved 없이 기존 어휘 기록만 저장합니다. 이는 별도 설계 revision/문서/승인 게이트 추가가 아니라 이미 정한 rev1 조건2·3의 검사입니다. 변경 없는16TASK 순환을 반복하지 않습니다.
