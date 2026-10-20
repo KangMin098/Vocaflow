@@ -331,3 +331,15 @@ Exact-head official CI39407740729/pull_request success and21/21 browser accepted
 Corrected supplied UI metadata is preserved at `verification/reviews/T-0062-r1-ui-metadata.json` (all20 files exist; independent samples1/10/20 opened). Attachment raced with the real review rejection and was refused because status was already READY. No guard bypass. Reuse/rebind metadata honestly at the next original-owner run/HEAD; no need for a product change merely to fix metadata.
 
 Automatic repair has NOT started: existing foreign tracked audit results still block clean-worktree eligibility. Resolve them only through the original writer/preservation policy; do not reset/stash/adopt them. Original final-product owner may process this same task. T-0063 remains dependency-blocked. This packet is LOCAL_INBOX_POSTED; actual recipient ACK is not inferred.
+
+## 2026-10-20 · T-0062/rev1 run2 · HEAD67181a8c8 REWORK — F1 잔여1건
+
+[VF-TASK T-0062] HEAD67181a8c8efd5b451a63c8d9516b5e9fa7b10783 · 판정 REWORK. F2/F3/F4 VERIFIED_FIXED. 기존 probe에 새 activityRef 계약을 넣으면 기존7건은 전부 통과한다. 다른 자료/미확인 대조2건도 통과. 같은 안내 연습 두 시도 반례1건만 실패(총9pass/1fail/0skip). 관련 return-recap/learner-guide/map-return38/38도 통과. 공식 CI39420293362 exact-head pull_request 성공, 실제21/21/두 폭/일반 fixture 독립2·적용1/2/합성 이유 구분을 확인했다. R2-E04~E07 및20캡처 해시 일치, 새 UI 메타데이터는 정상이다. 기존 실패를 새 입력 누락으로 반복한 판정이 아니다.
+
+P1 F1 최소 정상 재현: 안내 연습을 이미 푼 뒤 다시 연다 → Runner는 `지난번 풀이 결과예요`를 보여준다 → 새 답을 제출하지 않고 지도로 돌아간다 → 지도는 이 과거 답을 `이번 활동 … 맞았어요/틀렸어요`로 표시한다. 두 탭 같은 자료에서 A오답→B정답 뒤 A의 기존 복귀 링크도 B정답을 이번 활동으로 고른다. map_item은 자료 식별자이며 수행 식별자가 아니다. LearnPage 렌더 시 붙이고 Runner returnHref는 제출/재시도 전후 불변이라 이를 막는 guard가 없다.
+
+선택 수정: 기존 저장 요청의 clientMutationId/sessionId 또는 서버 수행 식별자를 저장 성공과 결속해 서버가 본인·TASK·자료·해당 수행을 대조한다. 식별할 수 없으면 이번 활동은 특정 불가로 두고 필요하면 `이 자료의 최근 기록`을 별도로 표시한다. 새 표/SQL/배정 체계는 필요 없다. 단순히 자료의 최신 답을 이번 활동이라 바꾸어 부르지 않는다. 제출되지 않은 재열기를 새 수행으로 계산하지 않는다.
+
+P2(현재 P1 수정 시 함께 연결 가능): WorkspaceModal에는 복귀 mapItem이 가지만 TaskInspector의 recapFor(...home)에는 빠져 모달found/서랍unidentified가 된다. 두 표면에 같은 최종 복귀 입력을 전달한다. 별도 새 게이트/작업으로 늘리지 않는다.
+
+검증은 새 답 없는 재열기·동일 자료 두 시도/두 탭·정상 새 제출의 실제 연결에 집중한다. F2/F3/F4와 변경 없는 공급/G2/PLAN 검증은 재사용한다. 같은 T-0062/rev1/owner를 유지한다. 전체 보고서/재현: `verification/reviews/T-0062-rev1-run2-independent-67181a8c8.json`, `verification/reviews/T-0062-r2-independent-probe/`. T-0063은 대기 유지. 이전 중앙 실행기는 유한 대기 상한 후 종료됐고 현재 실제 자동 구현 프로세스는 없다. 이 인계는 LOCAL_INBOX_POSTED이며 ACK/착수는 별도 증거 전까지 주장하지 않는다.

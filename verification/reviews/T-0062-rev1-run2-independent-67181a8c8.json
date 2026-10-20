@@ -1,0 +1,98 @@
+{
+  "task_id": "T-0062",
+  "design_revision": "rev1",
+  "head": "67181a8c8efd5b451a63c8d9516b5e9fa7b10783",
+  "verdict": "REQUEST_CHANGES",
+  "decision": "REWORK",
+  "reviewed_by": "final-independent-accept",
+  "codex_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "fixed": {
+    "F2": "VERIFIED_FIXED: actual recapFor preserves ledger unknown",
+    "F3": "VERIFIED_FIXED: saved goal10/current11 remain separate",
+    "F4": "VERIFIED_FIXED: synthetic, null help and missing binding no longer assert actual help; fail-closed remains"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P1",
+      "scope": "in",
+      "file": "apps/web/src/lib/csat/map/v62/return-recap.ts",
+      "line": 45,
+      "claim": "map_item은 자료를 식별하지만 이번 수행을 식별하지 못해, 같은 안내 연습의 과거/다른 탭 시도를 이번 활동으로 표시한다",
+      "scenario": "이미 푼 안내 연습을 다시 열면 openDelivered가 p.done으로 과거 결과를 제공하고 Runner는 지난번 풀이 결과라고 표시한다. 새 답을 제출하지 않고 복귀해도 렌더 시 붙인 map_item은 동일하므로 과거 답이 이번 활동으로 표시된다. 두 탭의 같은 자료에서 A 오답 뒤 B 정답을 기록하면 A의 복귀 링크도 최신 B 정답을 이번 활동으로 고른다.",
+      "cause": "LearnPage가 자료 slug만 붙이고 AuthoredRunner의 returnHref는 새 제출/재시도 전후 불변이다. returnRecap은 같은 자료의 모든 시도를 시간순 정렬한다.",
+      "fix": "기존 제출의 clientMutationId/sessionId 또는 서버 수행 식별자를 실제 저장 성공과 연결해 본인·TASK·자료·수행을 대조한다. 식별자가 없거나 맞지 않으면 이번 활동은 특정 불가로 두고 자료의 최근 기록은 별도 이름으로 표시한다. map_item만을 수행 영수증으로 쓰지 않는다. 새 DB 표/SQL은 요구하지 않는다.",
+      "verification": "새 답 없이 과거 결과 재열기→복귀, 같은 자료 두 시도/두 탭의 이전 결과 링크→복귀, 정상 새 제출→해당 결과 복귀. 다른 자료/타인/미확인 반례와 첫 G2·PLAN 이력 불변은 유지한다. 변경 없는 F2/F3/F4와 기존21 E2E는 영향 근거에 따라 재사용한다."
+    },
+    {
+      "id": "F1-context-followup",
+      "severity": "P2",
+      "scope": "in",
+      "claim": "WorkspaceModal에는 mapItem을 전달하지만 TaskInspector의 recapFor 호출에는 누락돼 같은 복귀가 모달 found/서랍 unidentified로 갈린다",
+      "fix": "F1에서 확정한 동일 복귀 입력을 두 표면에 전달한다. 독립적인 추가 수용 게이트로 확대하지 않는다."
+    }
+  ],
+  "independent_tests": {
+    "original_counterexamples_adapted_to_activityRef": "7/7 pass",
+    "expanded_probe": {
+      "passed": 9,
+      "failed": 1,
+      "skipped": 0,
+      "exit": 1,
+      "remaining_failure": "same-material two-attempt ambiguity"
+    },
+    "related_units": {
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "directory": "verification/reviews/T-0062-r2-independent-probe",
+    "head_before_after": "67181a8c8efd5b451a63c8d9516b5e9fa7b10783"
+  },
+  "official_ci": {
+    "run": 39420293362,
+    "event": "pull_request",
+    "head": "67181a8c8efd5b451a63c8d9516b5e9fa7b10783",
+    "conclusion": "success",
+    "isolated_e2e": "21/21 pass",
+    "optional_shared_dev": "skipped",
+    "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39420293362",
+    "observed": "1440 isolated non-synthetic control counts2 independent and shows1/2 transfer;1280 synthetic fixture is explicitly labelled. Neither is actual learner-effect evidence."
+  },
+  "artifacts": {
+    "current_run_evidence_hash_matches": "4/4",
+    "current_screenshot_hash_matches": "20/20",
+    "actual_screens_opened": [
+      9,
+      14,
+      16,
+      18,
+      19,
+      20
+    ],
+    "widths_verified": [
+      1440,
+      1280
+    ],
+    "old_ui_metadata": "Not reused as current-head proof"
+  },
+  "handoff": {
+    "same_task": true,
+    "next_task": "T-0063 remains dependent on T-0062",
+    "native_runner": "Prior bounded run exited; no active central process observed for this submission. This is the actual existing Codex acceptance session review.",
+    "implementation_started": false,
+    "receipt": "LOCAL_INBOX_POSTED only until actual ACK/claim"
+  },
+  "boundaries": [
+    "No product code edits by reviewer",
+    "No new defect TASK or design revision",
+    "Original failures preserved",
+    "No SQL/DB writes, Gold/rights approval, source aggregate merge or FINAL_COMPLETE"
+  ],
+  "artifact_sha256": {
+    "verification/reviews/T-0062-r2-independent-probe/probe.test.ts": "db7f3d88451a1df12cd40465bff7606cfef3480df1883ac363be8cd192868541",
+    "verification/reviews/T-0062-r2-independent-probe/run.log": "7f05ba7a33fd99646b3a603a20de1ec30dbd1fe9c21eb16bdb2074d9fd51d810",
+    "verification/reviews/T-0062-r2-independent-probe/related.log": "e4009f6c6c8a53afc248810661f4a9ed7af748b1c2ffdbb6ce6039da5ffa486e"
+  }
+}
