@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-10-20T16:37:31.134Z",
+  "head": "235307553f810bcead5f3844d863e60d0a8e8866",
+  "base": "0c8e0274d62e642c7d480ef5bae0f3cba642b00a",
+  "files": 253,
+  "commits": 134,
+  "categories": {
+    "ci": 1,
+    "other": 1,
+    "web_source": 113,
+    "browser_tests": 11,
+    "docs": 23,
+    "scripts": 101,
+    "sql": 3
+  },
+  "migration": [
+    {
+      "path": "supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql",
+      "status": "added",
+      "sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089"
+    },
+    {
+      "path": "supabase/migrations/_pending_authored_supply.sql",
+      "status": "added",
+      "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229"
+    }
+  ],
+  "non_web_docs_scripts": [
+    ".github/workflows/ci.yml",
+    "supabase/deploy/authored-supply/20261020090000_authored_supply.sql",
+    "supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql",
+    "supabase/migrations/_pending_authored_supply.sql"
+  ],
+  "read_only": true
+}

@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-20T16:34:36.676Z",
+  "pr": 250,
+  "head": "aab0c918c13a1b8aa375fd2dcbdc314a5314b026",
+  "base": "0c8e0274d62e642c7d480ef5bae0f3cba642b00a",
+  "commits": 16,
+  "files": 124,
+  "scope": "Full pagination and double metadata read; reviewed old product bytes with approved-main-only merge",
+  "db_read": {
+    "version": "20261014091841",
+    "statements_sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+    "method": "Supabase execute_sql SELECT only, fresh independent read"
+  },
+  "dirty_audit_outputs": "Foreign uncommitted results preserved; remote committed tree is merge target, not local dirty files"
+}

@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-10-20T16:42:46.280Z",
+  "read_only": true,
+  "queries": [
+    "Migration statements SHA256 SELECT",
+    "to_regclass metadata SELECT only"
+  ],
+  "migration": {
+    "version": "20261014091841",
+    "statements_sha256": "bb4cc88d0ac62855908d610c9bdc394d60db22d61eadc04b218e05bfa367a089",
+    "matches_pr_source": true
+  },
+  "tables": {
+    "authored_item": null,
+    "content_human_decision": null,
+    "content_human_decision_revocation": null,
+    "workspace_content_delivery": "workspace_content_delivery",
+    "workspace_delivery_attempt": "workspace_delivery_attempt"
+  },
+  "pr250": {
+    "code_verdict": "ACCEPT_WITH_LIMITS",
+    "merge": "BLOCKED_EXTERNAL",
+    "review_url": "https://github.com/KangMin098/Vocaflow/pull/250#pullrequestreview-5588355433",
+    "dry_run_exit": 3,
+    "blocker": "Official safe-merge cannot read Management API history with available authentication; separate connector proof not injected",
+    "merge_sha": null
+  },
+  "report_commit": "12cf1a2fd",
+  "source": "Independent connected Supabase SELECTs; official tool dry-run; actual GitHub COMMENTED review"
+}

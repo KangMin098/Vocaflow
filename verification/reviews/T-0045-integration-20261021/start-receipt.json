@@ -1,0 +1,26 @@
+{
+  "task_id": "T-0045",
+  "status": "IN_PROGRESS",
+  "owner_id": "final-independent-accept",
+  "run": {
+    "run_seq": 3,
+    "session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "agent": "codex",
+    "pid": 31380,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-20T16:33:38.314Z",
+    "locks": [
+      {
+        "name": "task--T-0045",
+        "token": "e1cb9627a2ff27000ad35aa28ead10d3"
+      },
+      {
+        "name": "worktree--d__workspace_vocaflow-final-independent",
+        "token": "08ae06c849f56424758e81f9a11f3f1c"
+      }
+    ],
+    "product_lock_token": "0c21daba2de0aeae",
+    "start_head": "def3a5466cc48a27cf18a206f398166c3875028f"
+  },
+  "source": "Official task.start; existing actual acceptance session"
+}
