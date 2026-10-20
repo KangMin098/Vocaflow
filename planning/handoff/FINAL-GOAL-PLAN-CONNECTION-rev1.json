@@ -1,0 +1,53 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": ["VG-L3-A2-01"],
+  "title": "목표와 현재 근거에서 TASK별 이번 계획·실행·환류까지 한 지도에 연결",
+  "description": "FINAL A/B/C/E/F/H. main8905f3214의 수용된 T0061 다음 행동·T0062 수행 복귀 설명·T0050/52/56/68 순환·T0069 어휘 왕복을 재사용한다. 전체 지도의 목표/기록, TASK별 근거, Workspace별 저장 계획이 분리돼 목표에 따른 학습 요구와 지금 실행할 수 있는 순서를 함께 읽기 어렵다. 추가 재현: 정본 readiness가 live 아닌 네 중심 TASK는 실제 check 링크/가용2에도 no_content가 붙고, 시험 기록 없이 유효 직접 근거가 있는 학습자는 상단 no_record가 다음 행동을 숨긴다. 새로운 진단/숙달/점수 예측 없이 현재 데이터의 연결과 이 두 분기를 고친다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "8905f321440abeaac6f7cdb74b8e38b50fa5ced8",
+  "roles": {"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "allowed_paths": [
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+    "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+    "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/**",
+    "apps/web/src/lib/csat/map/v62/goal-plan.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/lib/csat/map/v62/rank.ts",
+    "apps/web/src/lib/csat/map/v62/learner-guide.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/**",
+    "apps/web/src/lib/csat/map/v4/plan.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan.test.ts",
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/tests/e2e-isolated/**",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [".env*","supabase/**","**/*.sql",".github/**","agents/**","goals/**","docs/csat-learner/v4/**","apps/web/src/lib/knowledge/authored/**","apps/web/src/app/api/**","apps/web/src/lib/csat/map/v4/as-is.ts","apps/web/src/lib/csat/map/v4/to-be.ts","apps/web/src/lib/csat/map/v4/plan-commit.ts","apps/web/src/lib/csat/skill-diagnosis.ts"],
+  "db_scope": {"mode":"none","targets":[]},
+  "depends_on": ["T-0061","T-0062","T-0068","T-0069"],
+  "criterion_claims": [{"criterion_id":"VG-L3-B2-02-AC1","claim":"partial"}],
+  "acceptance": [
+    "기존 단일 전체 지도와 하단 Workspace를 유지한다. 목표 시험·점수/저장 등급·시점은 기존 GoalRecordBar를 쓰고, 그 목표의 학습 요구→TASK별 현재 근거→이번 학습량/조건→같은 Workspace 계획·자료/활동 연결을 쉽게 확인한다. NeedRank 교육 순위와 ActionRank 지금 실행 가능 순위는 구별한다. 기존 상단 CTA를 중복 구현하지 않고 미니 요약/접기 목록 등 기존 영역 안에서 구현한다. 별도 거대 대시보드·새 화면은 만들지 않는다.",
+    "TASK 행은 기존 To-Be 요구/이유/관련도, As-Is basis·상태·유효 independentItems, 현재 단계 TaskPlan, 해당 Workspace의 applySaved(quantityBasis(latest))를 읽는다. 이번 운영 계획량·수행량·남음·저장/제안을 PLAN 편집기와 일치시킨다. 같은 단계 저장 행만 저장 계획으로 표시하고, 자료 부족 null·조회 불가·미지원 시험·관련성 unknown·정의 보류를 구별한다. 자료가 없으면 학습 요구를 지우지 않는다. 문항과 지문을 합산하지 않고 목표 점수까지 필요한 총학습량/기간/점수 상승/숙달률은 만들지 않는다. TASK 확인 조건 통과와 목표 시험 점수 달성을 구분한다.",
+    "no_content 분류의 원인을 최소 수정한다. def.status=hold의 보류는 유지하되 실제 현재 단계 ready/링크/가용량은 raw Workspace readiness와 구별한다. r.inference/r.relation/s.form_scope/v.contextual_sense의 실행 가능한 납품을 콘텐츠 없음이라고 말하지 않는다. 바로잡기 성공 후 전이 재고0은 transfer+material_needed, 전이1/2는 shortage, 적용 완료 후 새 독립0은 recheck+material_needed다. 실제 재고/납품 없으면 가용·계획은 null이며 준비 상태를 live로 승격하지 않는다. Gold/권리 대기는 서버의 확정 결과에서만 표시하고 빈 재고나 정본 ready만으로 사람 승인 상태를 추론하지 않는다.",
+    "목표+유효 직접 TASK 근거가 있으면 시험 기록0이어도 다음 TASK 행동/근거 설명을 숨기지 않는다. 시험 기록없음과 TASK 근거없음을 분리한다. 시험 proxy·연습·교수·어휘 자기평가를 직접 근거로 승격하지 않는다. 실제 기록0/목표없음 대조군을 유지한다. T0062의 정확한 map_item+map_attempt 복귀 설명과 현재/이전 PLAN·goalVersion 표시를 재사용하며, 단순 계획 버전 증가를 능력 개선이라고 표시하지 않는다.",
+    "L3 영향 검증: 독립 probe의 네 readiness 반례+무시험 유효근거 분기를 회귀로 이식하고 정상 대조를 보존한다. 기존 격리 A(R5 실패→repair→별도 transfer→미노출 recheck→PLAN변화)·B(미측정→독립근거축적→후속추천, 규칙상 단계불변도 정상) 여정을 재사용/확장해1440/1280 UI·서버·저장값을 비교한다. 하나는 새 설명/계획량과 실제 CTA·동일복귀를 끝까지 확인한다. 16 TASK 전량 E2E/재승인/새 검증 시스템은 요구하지 않는다. 인증 DB 브라우저가 미실행이면 NOT_VERIFIED로 제출하고 통합 묶음의 기존 격리 경로에서 보완한다. LOCAL_FAST에서 개별 작업별 새 PR·CI를 만들지 않는다. 실제 개발DB쓰기·삭제·SQL적용·사람Gold·권리 승인은 하지 않는다."
+  ],
+  "ui_acceptance": ["PC1440/1280에서 목표→내 근거→필요 TASK/이번 학습량/도달 조건→지금 한 행동→수행 후 변화/다음 계획을 기존3B지도 안에서 찾을 수 있다. 지도·하단Workspace가 긴 설명에 묻히지 않는다. 접힌 상세에 우선순위와 같은 TASK의 계획·자료 CTA가 있고 키보드·포커스·팝업복귀가 유지된다. 숫자는 실제 DTO·저장값에서만 온다."],
+  "impact": {"kind":"platform","parent_goal_id":"VG-L3-B2-02","acceptance_ids":["VG-L3-B2-02-AC1"],"current_gap":"상단 다음1행과 Workspace 계획 사이에 목표 관련 필요TASK/근거/현재단계별 운영계획 전체 연결이 흩어져 있고, 비live정본의 실제자료와 무시험직접근거가 오분류된다.","expected_impact":"advances","dependency_type":"direct","evidence_required":["같은HEAD 목표-근거-저장계획 일치와 분기 회귀","기존 격리 대표 A/B의 UI·서버·저장이 일치하는 실제1440/1280 증거"],"out_of_scope":["새채점/새TASK/새Workspace/정본변경","목표점수 달성 예측/임의권장총량/학습효과 주장","DB적용/Gold·권리 승인","AI-Control·worker·CI 확장","기존T0020 구지도 파일"],"next_dependency":"T0045에서 대표 목표경로 수용 후 통합관찰 산출물과 장기환류의 실제 공백 재평가"},
+  "source": {
+    "mission":"FINAL-MISSION-A~H", "design_revision":"rev1", "goals_ah":["A","B","C","E","F","H"],
+    "from_owner":"final-independent-accept", "from_session":"01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "baseline_evidence":"verification/reviews/NEXT-PRODUCT-CORE-20261021/baseline.json; 반례7개 중5실패/2정상. 초판probe는 To-Be=null이라 다음링크도null인 fixture오류를 고쳤으며 제품결함으로 세지 않는다.",
+    "reuse":"T0061 수량/저장차이; T0062 정확한 복귀receipt; T0067 공급결과; T0068의16TASK 실제순환; T0069 V1 근거비승격",
+    "ownership":"기존final-product 단일writer. T0020은 MapScreen/LearnerMap/옛LearningMap 등 다른범위이며 재구현하지 않는다. 허용한 현재화면 파일만 수정하고 기존audit2 미커밋파일을 보존한다."
+  }
+}

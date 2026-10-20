@@ -1,0 +1,392 @@
+{
+  "observed_at": "2026-10-20T23:45:21.725Z",
+  "product_head": "8905f321440abeaac6f7cdb74b8e38b50fa5ced8",
+  "sets_count": 17,
+  "items": 152,
+  "sets": [
+    {
+      "task": "e.evidence_location",
+      "set": "e-evidence-location.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.evidence-locate"
+      ],
+      "support": [],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "e.option_correspondence",
+      "set": "e-option-correspondence.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.option-match"
+      ],
+      "support": [],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "e.task_demand",
+      "set": "e-task-demand.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.evidence-locate"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.discourse_function",
+      "set": "r-discourse-function.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.central-meaning"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.discourse_structure",
+      "set": "r-discourse-structure.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.central-meaning"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.inference",
+      "set": "r-inference.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.inference"
+      ],
+      "support": [],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.reference",
+      "set": "r-reference.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.cohesion"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.relation",
+      "set": "r-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.cohesion"
+      ],
+      "support": [],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "r.central_meaning",
+      "set": "r5-central-meaning.v2",
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "sha256": "78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 2,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 2
+      },
+      "core": [
+        "ws.central-meaning"
+      ],
+      "support": [
+        "ws.option-match"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "s.attachment",
+      "set": "s-attachment.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [],
+      "entry": "DEFERRED_CONNECTION_DECISION",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "s.chunk_boundary",
+      "set": "s-chunk-boundary.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.sentence-core"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "s.form_scope",
+      "set": "s-form-scope.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.grammar-scope"
+      ],
+      "support": [],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "s.sentence_core",
+      "set": "s-sentence-core.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.sentence-core"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "s.structural_relation",
+      "set": "s-structural-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.sentence-core"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "v.contextual_sense",
+      "set": "v-contextual-sense.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [
+        "ws.vocab-context"
+      ],
+      "support": [
+        "ws.inference"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "v.multiword",
+      "set": "v-multiword.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.vocab-context"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    },
+    {
+      "task": "v.semantic_relation",
+      "set": "v-semantic-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "package_mentions_current_sha": true,
+      "roles": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "core": [],
+      "support": [
+        "ws.option-match"
+      ],
+      "entry": "EXISTING_WORKSPACE",
+      "human_approval": "NOT_ESTABLISHED; package is not an approval record"
+    }
+  ],
+  "remaining_nonheld": [
+    {
+      "task": "v.core_meaning",
+      "kind": "atomic",
+      "entry": "T0069_EXISTING_WORDVAULT_PRACTICE_ONLY"
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "kind": "integrated",
+      "entry": "EXISTING_INTEGRATED_OBSERVATION; no new score"
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "kind": "integrated",
+      "entry": "EXISTING_INTEGRATED_OBSERVATION; no new score"
+    },
+    {
+      "task": "e.o.final_judgment",
+      "kind": "integrated",
+      "entry": "EXISTING_INTEGRATED_OBSERVATION; no new score"
+    }
+  ],
+  "pending_sql": {
+    "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+    "package_mentions_current_sha": true,
+    "applied": false,
+    "applied_basis": "read-only DB metadata: authored/human decision tables absent"
+  },
+  "fresh_db": {
+    "observed_at": "2026-10-20T23:42:11.579993Z",
+    "authored_item": null,
+    "content_human_decision": null,
+    "content_human_decision_revocation": null,
+    "workspace_content_delivery": "workspace_content_delivery",
+    "workspace_delivery_attempt": "workspace_delivery_attempt",
+    "scope": "SELECT current_timestamp,to_regclass only; no learner rows or DB writes"
+  },
+  "limitations": [
+    "No fresh browser/isolated DB implementation acceptance; current UI snapshot reused from T0069 report",
+    "No actual Gold/rights approval inferred from package hashes",
+    "Goal Check baseline b4fc9ff83 is separate from official main"
+  ]
+}

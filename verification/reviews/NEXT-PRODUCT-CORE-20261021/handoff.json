@@ -1,0 +1,40 @@
+{
+  "task_id": "T-0070",
+  "design_revision": "rev1",
+  "base": "8905f321440abeaac6f7cdb74b8e38b50fa5ced8",
+  "design": "planning/handoff/FINAL-GOAL-PLAN-CONNECTION-rev1.json",
+  "design_sha256": "4739ddb1e95f2a84c6da67b036f36c8a0cbbae7003c2e8fa74612e272cb99d70",
+  "owner": "final-product",
+  "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "posted_at": "2026-10-20T23:46:08.482Z",
+  "delivery": "QUEUE_READY+LOCAL_INBOX_POSTED",
+  "acknowledged": false,
+  "implementation_started": false,
+  "automatic_execution_blocker": "Existing foreign tracked audit edits; guard preserved",
+  "product_code_changed_by_Codex": false,
+  "checked_at": "2026-10-20T23:47:24.189Z",
+  "official_task_status": "READY",
+  "accepted_session": null,
+  "execution": {
+    "task_id": "T-0070",
+    "owner_id": "final-product",
+    "status": "READY",
+    "execution_mode": "orchestrator",
+    "automatic_independent_review": true,
+    "dynamic_roles": true,
+    "owner_inbox_exists": true,
+    "dispatched": true,
+    "dispatch_acknowledged": false,
+    "claim_recorded": false,
+    "accepted_session": null,
+    "implementation_running": false,
+    "verified_commit": null,
+    "eligible": false,
+    "blockers": [
+      "automated_clean_worktree: 추적 파일에 미커밋 변경이 있다 — 기존 담당자가 보존/커밋한 뒤 실행"
+    ]
+  },
+  "active_runs": []
+}
