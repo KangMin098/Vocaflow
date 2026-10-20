@@ -28,6 +28,42 @@ const ROLE: Record<Role, string> = {
 }
 const ORDER: Role[] = ['model_explanation', 'guided_practice', 'independent_check', 'transfer', 'delayed_check']
 
+/** 서버가 확인한 거절 이유(닫힌 코드 · server.ts RejectReason)만 학습자 말로 — 모르는 코드는 「확인하지 못했어요」 */
+const REJECT: Record<string, string> = {
+  exposure: '이미 본 자료라 다시 드리지 않아요',
+  human_decision: '사람 검수 결정(권리 · 정답)이 없어 드릴 수 없어요',
+  approval: '출시 승인이 없어 드릴 수 없어요',
+  quantity: '이번 계획 수량을 이미 채웠어요',
+}
+
+export interface SupplyOutcome { lines: { role: Role; text: string; kind: 'full' | 'partial' | 'none' }[]; retry: boolean; unknown: boolean }
+
+/**
+ * T-0067 — 공급 응답을 사실대로: 역할마다 받은 수 / 요청 수 · 모자란 이유(서버가 확인한 코드만) · 제작 주문은 orderOpened === true 일 때만 「접수」(완료 · 일정은 말하지 않는다).
+ * orderOpened false · 누락 · 모양이 다른 응답은 「접수됐는지 확인하지 못했어요」 — 성공으로 뭉개지 않는다. 다시 확인이 필요하면 retry.
+ */
+export function supplyOutcome(raw: unknown): SupplyOutcome {
+  const lines = (raw && typeof raw === 'object' && Array.isArray((raw as { lines?: unknown }).lines) ? (raw as { lines: unknown[] }).lines : null)
+  if (!lines) return { lines: [], retry: true, unknown: true }
+  const out: SupplyOutcome['lines'] = []
+  let retry = false
+  for (const x of lines as Partial<LineOut>[]) {
+    const role = (ORDER as string[]).includes(x?.role as string) ? (x.role as Role) : null
+    const requested = Number.isInteger(x?.requested) ? (x.requested as number) : null
+    const got = Array.isArray(x?.delivered) ? x.delivered.length : null
+    if (!role || requested === null || got === null) { retry = true; out.push({ role: role ?? 'independent_check', kind: 'none', text: '이 단계의 결과를 확인하지 못했어요 — 다시 확인해 주세요.' }); continue }
+    const label = ROLE[role]
+    if (got >= requested) { out.push({ role, kind: 'full', text: `${label} ${got}개를 받았어요.` }); continue }
+    const reasons = [...new Set((Array.isArray(x.rejected) ? x.rejected : []).map((r) => REJECT[r?.reason as string] ?? null))]
+    const known = reasons.filter((r): r is string => !!r)
+    const why = known.length ? known.join(' · ') : reasons.length ? '일부 자료를 드리지 못한 이유를 확인하지 못했어요' : '지금 승인된 자료가 모자라요'
+    const order = x.orderOpened === true ? '모자란 만큼 제작 요청을 접수했어요(완료 시각은 정해지지 않았어요).' : '모자란 만큼 제작 요청이 접수됐는지 확인하지 못했어요.'
+    if (x.orderOpened !== true) retry = true
+    out.push({ role, kind: got > 0 ? 'partial' : 'none', text: `${label} ${got} / ${requested}개 — ${why}. ${order}` })
+  }
+  return { lines: out, retry, unknown: false }
+}
+
 /** kind=support — 이 Workspace 의 보조 TASK 자료(T-0056). 시험 id · 제목이 중심 카드와 겹치지 않게 접미사 · TASK 이름을 붙인다 */
 export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string }) {
   const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : x)
@@ -35,6 +71,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
+  const [outcome, setOutcome] = useState<SupplyOutcome | null>(null)
 
   const load = useCallback(async () => {
     try {
@@ -48,7 +85,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
 
   async function request() {
     if (busy) return
-    setBusy(true); setMsg(null)
+    setBusy(true); setMsg(null); setOutcome(null)
     try {
       const r = await fetch('/api/csat/authored/supply', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ task, template }) })
       const j = await r.json().catch(() => ({}))
@@ -56,14 +93,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
       else if (r.status === 503) setMsg('검수 · 승인이 끝난 자료가 아직 없어요.')
       else if (!r.ok) setMsg(typeof j.error === 'string' ? j.error : '자료를 받지 못했어요 — 잠시 뒤 다시 눌러 주세요.')
       else if (j.status === 'no_lines') setMsg('지금 단계에서 새로 받을 자료가 없어요.')
-      else {
-        const lines = (j.lines ?? []) as LineOut[]
-        const got = lines.reduce((n, l) => n + l.delivered.length, 0)
-        const short = lines.filter((l) => l.delivered.length < l.requested)
-        setMsg(got > 0
-          ? `자료 ${got}개가 준비됐어요.${short.length ? ' 일부 단계는 승인된 자료가 모자라 제작을 요청해 두었어요.' : ''}`
-          : '승인된 자료가 아직 없어 제작을 요청해 두었어요. 준비되면 여기서 받을 수 있어요.')
-      }
+      else if (j.status === 'ok') setOutcome(supplyOutcome(j))
+      else setOutcome({ lines: [], retry: true, unknown: true })
       await load()
     } catch { setMsg('연결이 끊겼어요 — 다시 눌러도 같은 자료가 두 번 오지 않아요.') }
     finally { setBusy(false) }
@@ -94,7 +125,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
           {rows.map((r) => (
             <li key={r.deliveryId} data-role={r.role}>
               {/* 지도 복귀 문맥(TASK · Workspace · 목표 · PLAN)을 싣는다 — PLAN CTA 와 같은 outgoingCtx(Codex C7 P2) */}
-                <Link href={ctx ? withMapReturn(`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`, ctx) : `/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>
+                {r.current === false && !r.attempted ? <span>{ROLE[r.role]}</span> : <Link href={ctx ? withMapReturn(`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`, ctx) : `/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>}
               <span className={u.ledgerVal}>
                 {r.current === false ? (r.attempted ? '승인 철회 · 지난 결과만 남음' : '승인 철회 · 지금은 열 수 없음') : !r.attempted ? '아직 안 풂' : r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요'}
               </span>
@@ -103,6 +134,22 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
         </ul>
       )}
       {msg && <p className={p.cardDesc} aria-live="polite" data-testid={tid('ws-authored-msg')}>{msg}</p>}
+      {outcome && (
+        <div aria-live="polite" data-testid={tid('ws-authored-msg')} data-unknown={outcome.unknown} data-retry={outcome.retry}>
+          {outcome.unknown ? (
+            <p className={`${p.cardDesc} break-keep`}>공급 결과를 확인하지 못했어요 — 받은 자료는 위 목록이 정확해요.</p>
+          ) : (
+            <ul className={`${u.needList} break-keep`} data-testid={tid('ws-authored-outcome')}>
+              {outcome.lines.map((l, i) => <li key={`${l.role}-${i}`} data-role={l.role} data-kind={l.kind}><span>{l.text}</span></li>)}
+            </ul>
+          )}
+          {outcome.retry && !past && (
+            <button type="button" className={p.whitePill} onClick={() => void request()} disabled={busy || !planSaved} data-testid={tid('ws-authored-retry')}>
+              다시 확인하기
+            </button>
+          )}
+        </div>
+      )}
     </section>
   )
 }
