@@ -14,6 +14,7 @@ import { build } from '@/components/csat/diagnosis/map/__tests__/r5-inspector-fi
 
 import { applySaved } from '../../v4/plan-commit'
 import { nextActionOf, WAIT_LABEL, wsForTask } from '../next-action'
+import { quantityBasis } from '../saved-plan'
 import { ranksOf, type Ranks } from '../rank'
 
 const KEY = 'claim-support'
@@ -129,5 +130,25 @@ describe('nextActionOf — 저장 뒤 자료가 바뀌면 다시 확정(planDrif
   })
   it('저장 당시와 자료가 같으면 start', () => {
     expect(nextActionOf(fv, fr, { byTemplate: { [ws]: { latest: latest(p.quantity.available, p.quantity.planned) } } } as never)!.kind).toBe('start')
+  })
+})
+
+describe('quantityBasis — 자료 없을 때 저장한 빈 행은 계획량을 덮지 않는다(CI 39394549057)', () => {
+  const { view: fv } = build({ goalSet: true, attempts: [], activity: [], asOfDay: 12, saved: false, fq: { status: 'installed', eligible: [] } })
+  const fr = ranksOf(fv)
+  const top = fr.actionRank[0]
+  const ws = wsForTask(top.task, fv)!
+  const p = fv.taskPlans.find((x) => x.task === top.task)!
+  const empty = { version: 1, plan: { order: [top.task], tasks: [{ task: top.task, stage: p.stage, planned: null, available: null, rule: null }] }, reason: 'initial', note: null, restoredFrom: null, canon: 'fixture', asOf: fv.asIs.asOf, createdAt: fv.asIs.asOf }
+  it('편집기 기본값(applySaved+quantityBasis) = 지금 기본 계획량 · 상단은 같은 값을 제안으로', () => {
+    const editor = applySaved(fv.plans[ws], quantityBasis(empty as never)).tasks.find((x) => x.task === top.task)!
+    expect(editor.quantity.planned).toBe(p.quantity.planned)
+    const a = nextActionOf(fv, fr, { byTemplate: { [ws]: { latest: empty } } } as never)!
+    expect([a.kind, a.replan, a.quantity?.planned, a.quantity?.source]).toEqual(['plan', true, p.quantity.planned, 'proposed'])
+  })
+  it('정한 값이 있는 행 · 가용량만 있던 행은 그대로', () => {
+    const kept = { ...empty, plan: { ...empty.plan, tasks: [{ ...empty.plan.tasks[0], planned: 1, available: 2 }] } }
+    expect(quantityBasis(kept as never)).toBe(kept)
+    expect(quantityBasis(null)).toBeNull()
   })
 })

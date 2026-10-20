@@ -14,6 +14,7 @@ import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 import type { V4View } from '../v4/compose'
 import { applySaved, planDrift } from '../v4/plan-commit'
 import type { SavedPlans, SavedWorkspace } from '../v4/plan-store'
+import { quantityBasis } from './saved-plan'
 import type { TaskId } from '../v4/definition'
 import type { TaskPlan } from '../v4/plan'
 import type { Need } from '../v4/to-be'
@@ -62,10 +63,10 @@ function replanNeeded(task: TaskId, ws: string, view: V4View, saved: Saved): boo
 function quantityOf(task: TaskId, ws: string | null, view: V4View, saved: Saved, fallback: TaskPlan | null): NextAction['quantity'] {
   const sw = savedWsOf(ws, saved)
   const pv = ws ? view.plans[ws] ?? null : null
-  const row = pv ? applySaved(pv, sw?.latest ?? null).tasks.find((t) => t.task === task) ?? null : null
+  const row = pv ? applySaved(pv, quantityBasis(sw?.latest ?? null)).tasks.find((t) => t.task === task) ?? null : null
   const p = row ?? fallback
   if (!p) return null
-  const savedRow = sw?.latest?.plan.tasks.find((t) => t.task === task) ?? null
+  const savedRow = quantityBasis(sw?.latest ?? null)?.plan.tasks.find((t) => t.task === task) ?? null
   const isSaved = !!savedRow && savedRow.stage === p.stage
   return { unit: p.quantity.unit, planned: p.quantity.planned, done: p.quantity.done, source: isSaved ? 'saved' : 'proposed' }
 }

@@ -17,6 +17,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, bindPlanDraft, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
+import { quantityBasis } from '@/lib/csat/map/v62/saved-plan'
 import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -103,7 +104,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const store = saved?.status === 'installed' && !saved.error
   const sw = store ? saved?.byTemplate[view.workspace] ?? null : null
   const savedVersion = sw?.latest.version ?? 0
-  const base = useMemo(() => applySaved(view, sw?.latest ?? null), [view, sw])
+  // 자료 없을 때 저장한 빈 행(계획량 · 가용량 null)으로 지금 계획량을 덮지 않는다(T-0061 · quantityBasis) — 재계획 판정은 원본으로
+  const base = useMemo(() => applySaved(view, quantityBasis(sw?.latest ?? null)), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
   const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
   const goalVersion = saved?.goalVersionId ?? null
