@@ -1,0 +1,16 @@
+{
+  "type": "review",
+  "command_or_protocol": "Existing independent Codex session: changed guard inspection; unchanged counterexample6/6 and note tests35/35; exact-head CI39437921706 and isolated21/21 logs/current artifact hashes inspected",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "38d4146c4490e50989753f577da6eda644319db9",
+  "artifact_path_or_url": "verification/reviews/T-0063-rev1-run2-independent-38d4146c4.md",
+  "observed_at": "2026-10-20T14:29:21.694Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "note": "Scoped acceptance only. Browser executed in exact-head official isolated CI; shared-dev skipped, no actual learner-effect evidence."
+}

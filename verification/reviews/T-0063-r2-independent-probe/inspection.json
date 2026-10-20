@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-10-20T14:28:37.391Z",
+  "task_id": "T-0063",
+  "status": "REVIEW",
+  "run_seq": 2,
+  "evidence": [
+    {
+      "id": "T-0063-R2-E05",
+      "type": "unit",
+      "commit": "38d4146c4490e50989753f577da6eda644319db9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-verify-r2.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0063-R2-E06",
+      "type": "ci",
+      "commit": "38d4146c4490e50989753f577da6eda644319db9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-e2e-r2.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0063-R2-E07",
+      "type": "e2e",
+      "commit": "38d4146c4490e50989753f577da6eda644319db9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-e2e-r2.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0063-R2-E08",
+      "type": "ui",
+      "commit": "38d4146c4490e50989753f577da6eda644319db9",
+      "path": "verification/ui/T-0063/ci-39437921706-1.png",
+      "hash_match": true,
+      "screenshots": 22,
+      "screens_match": true
+    }
+  ],
+  "e2e_result": "21 passed (3.6m)",
+  "e2e_1440": true,
+  "e2e_1280": true
+}
