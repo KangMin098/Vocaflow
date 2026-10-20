@@ -1,0 +1,231 @@
+# final-product 받은 편지함 (AI-Control 배정)
+
+배정은 수신 ACK가 아니다. 기존 Claude 세션에서 읽고 같은 TASK_ID로 ACK 및 task start를 남긴다.
+
+## 2026-10-19T12:26:20.814Z · FINAL-REPAIR-CYCLE rev5 · 사용자 직접 배정 · T-0050
+- 목표: FINAL-MISSION-A~H 「사용자 정의 제품 목표 · 새 정본 아님」 · 설계 vrev5 · 기준 []
+- 작업: FI-011 바로잡기 이후 새 독립 확인까지 실제 학습 순환 연결
+- 허용 경로: apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/lib/csat/dissect.ts, apps/web/src/lib/csat/continuity.ts, apps/web/src/lib/csat/map-return.ts, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/state/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, agents/policies/**, agents/scripts/safe-merge*, supabase/migrations/**
+- 수용 기준 0: 기존 A/B 독립 수용 결과를 재사용하고 같은 합성 학습자가 실제 자료 받기 UI/API에서 적격 교수·안내 연습으로 진입한다. 평가 자료를 연습에 재사용하지 않는다.
+- 수용 기준 1: 안내 연습 오답→재시도→정답 뒤 별도 미노출 independent_check 자료로 진입한다. 기존 기준이 요구하는 transfer는 별도 적격 미노출 자료로 수행한다.
+- 수용 기준 2: 교수·대조·노트·안내 연습을 독립 근거로 집계하지 않는다. 최초 독립 수행/G2/과거 PLAN은 불변이며 새 독립 수행은 본인·TASK·납품·서버 결과에 결속한다.
+- 수용 기준 3: 동일 user/workspace/goalVersion과 PLAN 이력을 추적하는 격리 DB+실제 브라우저 대표 경로를 제출한다. 재고 부족은 정확한 대기 상태로, 재실패는 새 repair 회차로 처리해 이전 성공을 승계하지 않는다.
+- 수용 기준 4: 개발 DB 쓰기·신규 SQL 적용·사람 Gold/권리 승인 없이 진행한다. AI fixture 자격과 실제 승인을 구분하고 공식 통합 CI/safe-merge를 유지한다.
+- UI 수용 기준 0: PC 1280/1440에서 현재 단계·다음 행동·공급 부족·저장 실패를 구별하고 실제 복귀 버튼이 같은 TASK/현재 계획으로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0050 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0050 <경로> --by final-product --branch <브랜치>`)
+- 메모: 설계 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/FI011_REPAIR_SUPPLY_WORK_ORDER.md · SHA256 05ea643366c832cd8b0300868ec9227f2f5a9779d582f38c2734f3c1b077fe2d. 기존 C c7c8a06dc 변경 범위 ACCEPT_WITH_LIMITS: 관련51/51·tsc·변경 lint·실제 격리 SQL1/1·합성 컴포넌트 Chromium6/6. 전체 제품 브라우저/SQL 종단은 미검증이며 완료로 계산하지 않는다. 같은 작업에서 받은 자료 목록 outgoingCtx/withMapReturn 및 소개 modelLabel을 최소 수정하고, 공급 버튼부터 새 독립 재확인까지 이어 간다. 원노트 연결 메타데이터는 한계로 기록한다. 판정/반례 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/fi011-c7.json. 기존 세션 c513ff5b-86ef-44a3-8efd-7925a229614b / owner final-product / worktree D:/workspace/Vocaflow-final-product. 수신 ACK/착수는 미확인. task start를 대신 실행하지 않았다. 개발 DB 읽기 전용·SQL/Gold/권리 승인 없음.
+
+### FINAL-REPAIR-CYCLE-RECHECK-COUNTEREXAMPLE
+Codex 기존 세션의 추가 독립 검사1/1 성공: 실제 서버 기록/SQL→MAP/계산된 TASK 계획→새 recheck 공급→resolved 및 재실패→repair·이전 성공 불승계. 증거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/fi011-c7.json. 실행 가능한 재현 스크립트 D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/verify-repair-map-cycle.cjs. 실제 PLAN 저장/브라우저까지 이어 가면 되며 기존 엔진을 다시 만들지 않는다. 이 파일 게시를 세션 수신으로 간주하지 않는다. 현재 기존 세션으로 직접 입력하는 지원 전송 연결과 자동 inbox 소비는 확인되지 않았다.
+
+## 2026-10-19T14:55:19.030Z · T-0050 · ACKNOWLEDGED
+- Claude 세션 c513ff5b-86ef-44a3-8efd-7925a229614b · owner final-product · 설계 rev5 수락(SHA256 05ea6433… 대조 일치)
+
+## 2026-10-19T14:56:18.064Z · T-0050 · IMPLEMENTATION_STARTED
+- worktree D:/workspace/Vocaflow-final-product · 기준 c7c8a06dc · 큐 task start 는 worker 등록(사람 tty) 대기
+
+### T0050-RECEIPT-RECONCILE
+Codex가 기존 세션의 rev5 해시 일치 ACK와 실제 제품 잠금/수정으로 착수를 확인했습니다. 공유 VFC 큐는 아직 READY·accepted_at=null·run=null입니다. 구현 수용 조건을 늘리지 말고 기존 task start 절차로 같은 T-0050 기록만 맞춰 주세요. Codex가 owner를 사칭해 start하지 않았습니다. 다음 선행 분석은 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/task-stock-c7.json 에 준비했으며 현재 rev5 추가 게이트가 아닙니다. READ ONLY 최신 DB 관찰/기존 migration 원본 바이트 일치 증거는 dev-readonly-t0050.json입니다. 보호 게이트/토큰 경로를 바꾸라는 지시가 아닙니다.
+
+### T0050-REV5-P1-SECOND-REPAIR · REWORK · FI-011/#304
+HEAD b060561a757ce6a698fd3592471ddb4dcf15a454 (현재 df2df7ff2decb89958c427f3fe028cb74f315fc4, Runner 동일 바이트=true). 최초 실패: 독립2오답→안내 연습 정답→적용2→새 확인 오답→새 repair. 지도는 이전에 맞힌 guided-1을 추천하지만 서버 view.done.isCorrect=true/retry=true를 받은 실제 Chromium에 재시작 버튼0개. repairGate=false라 과거 성공 승계도 안 됨 → 실제 학습 순환 단절. 원인 AuthoredRunner의 p.retry && wrong. 최소 수정: 교수 역할은 기존 정답 뒤에도 필요한 새 연습을 시작할 수 있게 again()을 재사용(평가 잠금 유지). SQL/표/정책 변경 불필요. 기존 fail 여정에서 안내 연습 CTA를 실제로 열고 새 수행→서버 시각/회차 성공→PLAN 진전까지 단언. 최초 독립/G2/이전 PLAN 불변 대조 유지. 증거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0050-rework.json. 같은 T-0050/rev5이고 rev6·새 FI·새 이슈가 아니다. 이 수정 요청의 세션 수신 ACK는 별도로 확인하며 큐 게시만으로 수신 완료라 쓰지 않는다.
+
+### T0050-REV5-P1-CANDIDATE-VERIFIED
+제출 HEAD 57d03fd38cc203aea22db67eff9353b40272ada6 및 후속 원장 df2df7ff2에도 같은 P1이 적용됨(critical source7개 바이트 일치). 독립 임시 후보 p.retry && wrong → p.retry는 실제 Chromium에서 재시작1개로 통과했고, 서버도 새 회차 교수 정답을 practice/evidence=false로 받아 repairGate만 진행시킴을 확인했습니다. 제품 파일에는 적용하지 않았습니다. 다음 수정 HEAD에서 fail 분기 실제 재시작까지 확인하면 됩니다. 후보 증거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0050-rework.json. 새로운 rev6·추가 이슈 없음. TRUST_REQUIRED인 worker 등록은 보호 조건대로 유지하며 공식 큐의 READY를 우회해 승격하지 않습니다.
+
+## 2026-10-19T15:46:33.854Z · NEXT-EVIDENCE-LOCATION-CYCLE-R1 · T-0052
+- 목표: VG-L3-A2-01 「기존 영역별 Practice 목표에 부분 기여 · A~H 새 정본 아님」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: 설계 revision 1: D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/NEXT_EVIDENCE_LOCATION_WORK_ORDER.md · SHA256 f6ef5afe04e393dbe649d81d91c1f079122ed249b997f6d45ad9775aaee4a621. T-0050 수용/COMPLETED 뒤에만 착수. 기존 세션 c513ff5b-86ef-44a3-8efd-7925a229614b가 구현 가능성/재사용 범위를 같은 TASK로 ACK해 주세요. 공식 worker/task start와 기존 owner/worktree를 유지하며 Codex가 대신 claim하지 않습니다. 현재 공유 큐 게시이며 실제 SESSION_DELIVERED/ACK/START는 미확인. T-0050 P1은 별도 원래 작업에서 처리하며 새 작업의 게이트로 중복 제출하지 않습니다.
+
+## 2026-10-19T15:59:58.276Z · T0050-REV5-FBC-INDEPENDENT-RETURN · T-0050
+- 목표: FINAL-MISSION-A~H 「기존 사용자 제품 목표 · 새 정본 아님」 · 설계 v- · 기준 []
+- 작업: FI-011 바로잡기 이후 새 독립 확인까지 실제 학습 순환 연결
+- 허용 경로: apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/lib/csat/dissect.ts, apps/web/src/lib/csat/continuity.ts, apps/web/src/lib/csat/map-return.ts, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/state/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, agents/policies/**, agents/scripts/safe-merge*, supabase/migrations/**
+- 수용 기준 0: 기존 A/B 독립 수용 결과를 재사용하고 같은 합성 학습자가 실제 자료 받기 UI/API에서 적격 교수·안내 연습으로 진입한다. 평가 자료를 연습에 재사용하지 않는다.
+- 수용 기준 1: 안내 연습 오답→재시도→정답 뒤 별도 미노출 independent_check 자료로 진입한다. 기존 기준이 요구하는 transfer는 별도 적격 미노출 자료로 수행한다.
+- 수용 기준 2: 교수·대조·노트·안내 연습을 독립 근거로 집계하지 않는다. 최초 독립 수행/G2/과거 PLAN은 불변이며 새 독립 수행은 본인·TASK·납품·서버 결과에 결속한다.
+- 수용 기준 3: 동일 user/workspace/goalVersion과 PLAN 이력을 추적하는 격리 DB+실제 브라우저 대표 경로를 제출한다. 재고 부족은 정확한 대기 상태로, 재실패는 새 repair 회차로 처리해 이전 성공을 승계하지 않는다.
+- 수용 기준 4: 개발 DB 쓰기·신규 SQL 적용·사람 Gold/권리 승인 없이 진행한다. AI fixture 자격과 실제 승인을 구분하고 공식 통합 CI/safe-merge를 유지한다.
+- UI 수용 기준 0: PC 1280/1440에서 현재 단계·다음 행동·공급 부족·저장 실패를 구별하고 실제 복귀 버튼이 같은 TASK/현재 계획으로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0050 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0050 <경로> --by final-product --branch <브랜치>`)
+- 메모: HEAD fbc5667f50f6ed099419c2c411c8fe53afcb51af · 판정 ACCEPT_WITH_LIMITS(수정 코드/P1 반례 범위). 실제 Runner Chromium 1280/1440 7/7 · 관련 단위17/17 · tsc/lint PASS. 서버/SQL/MAP6파일 바이트 동일로 기존 새 회차/G2 비근거 대조 재사용. P1 코드 수정은 확인됐습니다. 새 인증된 전체 fail 여정/PLANv7은 CI39280359004 queued이므로 아직 NOT_VERIFIED이며 task complete/통합/병합 수용은 아닙니다. 기존 T-0050에 해당 CI/실제 격리 여정과 증거를 반환·submit하면 독립 최종 판정을 연결하겠습니다. 후속 T-0052는 READY/같은 owner/depends_on T-0050이며 설계 가능성 ACK 요청입니다. 개발 DB/SQL/Gold/권리/안전 병합 보호 유지. 증거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0050-fbc-review.json. 기존 worker/task start가 성공한 것을 확인했으며 이전 TRUST_REQUIRED를 현재 차단으로 재사용하지 않습니다.
+
+## 2026-10-19T16:03:31.212Z · FINAL-NEXT-CORE-98D-AUDIT · T-0052
+- 목표: VG-L3-A2-01 「영역별 Practice · 기존 정본 부분 기여」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK FINAL-NEXT-CORE] HEAD 98d1b710a46260b8b711a25729d5fbf3119d0507 · 판정 ACCEPT_WITH_LIMITS(다음 핵심 기능 선정 입력). 고정 HEAD의 전체17 JSON/9 Workspace와 공급 카드 유일 호출을 직접 대조: 진입7/17, 비R5 독립2개16세트. 빠진10개 중9개는 기존 support이고 s.attachment만 membership 없음. 10개 신규 Workspace/자동 core 승격은 채택하지 않습니다. 다음 작업은 이미 Goal Gate 통과·READY인 T-0052/revision1/owner final-product로 유지하며 중복 작업을 만들지 않았습니다. 기존 e.evidence_location의 실제 순환을 먼저 연결하고, 수요·구동계가 검증되면 support TASK 자료 받기를 기존 멤버십/저장 계획과 함께 재사용하는 확장은 별도로 검토합니다. s.attachment의 Workspace 배정/새 정의가 필요하면 사용자 결정 항목으로 남깁니다. '항상 재확인이 막힌다'는 표현은 창작 재고만 사용하는 기본 경로에 한정해 주세요. 다른 현재 적격 자료/저장 정책까지 모두 막혔다고 입증하지 않았습니다(P2 서술 한계이며 현 제품 작업의 새 게이트 아님). 근거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/next-core-98d.json. T-0052 구현 가능성/재사용 범위를 같은 ID로 ACK하고, T-0050 완료 뒤 기존 worker로 인수하세요. 이 게시만으로 실제 수신/ACK/착수로 기록하지 않습니다.
+
+## 2026-10-19T17:04:46Z · T-0052 · ACKNOWLEDGED(구현 가능성 · 착수 전)
+- Claude 세션 c513ff5b-86ef-44a3-8efd-7925a229614b · owner final-product · 설계 revision 1 수락(SHA256 f6ef5afe… 대조 일치)
+- 재사용: T-0050 의 실제 공급 API · Runner(재시도 · 자기 설명) · 여정 시험 구조를 TASK 상수만 바꿔 그대로. 새 계약 · 엔진 없음
+- 재고: e-evidence-location 교수1 · 안내1 · 독립2 · 전이1 · 지연1 → 격리 종단(기출 문항 없음)에는 새 독립2 · 전이1 부족 — 이것만 보충 후보로 작성(Gold · 권리는 사람 승인 별도 · delayed/본 평가 지문 재사용 안 함)
+- s.attachment 정본 변경: 이 기능의 전제 아님(e.evidence_location 은 ws.evidence-locate 중심 TASK) — 범위 밖
+- 착수(IMPLEMENTATION_STARTED · task start)는 depends_on T-0050 COMPLETED 뒤
+
+## 2026-10-19T17:40:52.125Z · T0050-94-FORMAL-REWORK · T-0050
+- 목표: FINAL-MISSION-A~H 「기존 사용자 제품 목표」 · 설계 v- · 기준 []
+- 작업: FI-011 바로잡기 이후 새 독립 확인까지 실제 학습 순환 연결
+- 허용 경로: apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/lib/csat/dissect.ts, apps/web/src/lib/csat/continuity.ts, apps/web/src/lib/csat/map-return.ts, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/state/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, agents/policies/**, agents/scripts/safe-merge*, supabase/migrations/**
+- 수용 기준 0: 기존 A/B 독립 수용 결과를 재사용하고 같은 합성 학습자가 실제 자료 받기 UI/API에서 적격 교수·안내 연습으로 진입한다. 평가 자료를 연습에 재사용하지 않는다.
+- 수용 기준 1: 안내 연습 오답→재시도→정답 뒤 별도 미노출 independent_check 자료로 진입한다. 기존 기준이 요구하는 transfer는 별도 적격 미노출 자료로 수행한다.
+- 수용 기준 2: 교수·대조·노트·안내 연습을 독립 근거로 집계하지 않는다. 최초 독립 수행/G2/과거 PLAN은 불변이며 새 독립 수행은 본인·TASK·납품·서버 결과에 결속한다.
+- 수용 기준 3: 동일 user/workspace/goalVersion과 PLAN 이력을 추적하는 격리 DB+실제 브라우저 대표 경로를 제출한다. 재고 부족은 정확한 대기 상태로, 재실패는 새 repair 회차로 처리해 이전 성공을 승계하지 않는다.
+- 수용 기준 4: 개발 DB 쓰기·신규 SQL 적용·사람 Gold/권리 승인 없이 진행한다. AI fixture 자격과 실제 승인을 구분하고 공식 통합 CI/safe-merge를 유지한다.
+- UI 수용 기준 0: PC 1280/1440에서 현재 단계·다음 행동·공급 부족·저장 실패를 구별하고 실제 복귀 버튼이 같은 TASK/현재 계획으로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0050 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0050 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0050] HEAD 94e0c4f536261d9a526165e5413bef8e46958aff · 판정 REWORK(공식 작업 완료). 제품 수정은 ACCEPT_WITH_LIMITS, FI-011 핵심 P1은 VERIFIED_FIXED입니다. 독립25/25 성공·증거/캡처10해시 일치·CI39291472593 실제3여정 모두 성공(pass:새 독립 해소, fail:새 회차 재시도/G2 false/PLANv7/v6 보존). 해당 실행 코드/E2E7파일은94와 동일해 재사용합니다. CI전체는11/13: 공급 시험137행이 복귀 시 이미 열린 Workspace 팝업 뒤의 ws-open을 눌러 overlay에 막힘. 복원된 팝업의 Workspace/받은 자료를 바로 확인하거나 닫은 뒤 정상 재열기를 검증하세요. 강제 클릭/팝업 보호 해제/전체 timeout 증가는 필요 없습니다. 필수 완료 차단은 E02 unknown/skip2(접근성·참조 비교)이며 lib/tasks.mjs completeTask의 기존 NON_PASSING_EVIDENCE 조건입니다. 이를 삭제/덮어쓰거나 pass로 재명명하지 말고 실제 누락 검사를 끝내 새 run으로 재제출하세요. 대규모 접근성 프로젝트/재설계 요구가 아니라 현재 화면의 키보드·포커스·대비와 기존 참조 대비를 최소 실제 확인하면 됩니다. 동일T-0050/rev5를 기존 worker로 인수하고 완료한 검증은 바이트/HEAD/범위 결속해 재사용하세요. 정식 reject 완료로 현재 READY입니다. T-0052는 기존 READY/depends_on T-0050 유지. 원장·최초 실패 보존, DB/Gold/권리/공식 CI/safe-merge 경계 유지. 상세 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0050-94-review.json / verification/reviews/T-0050-rev5-94-final.md.
+
+## 2026-10-19T18:42:32.717Z · T0050-R2-LOCAL-COMPLETED-NEXT-T0052 · T-0052
+- 목표: VG-L3-A2-01 「기존 영역별 Practice · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0050] HEAD 7ec1398a3be16bc4ecab2acbd45b8c8e9905abba · 판정 ACCEPT_WITH_LIMITS(로컬 작업). 기존 task complete 게이트를 통과해 T-0050 COMPLETED/독립E05를 기록했습니다. E03/E04와 참조2파일 해시 일치, 단위227·a11y18·참조14·화면19 증거 수용, 새 실제Runner 독립Chromium9/9·변경lint PASS. 수정 공급 E2E2건은 NOT_RUN 그대로이며 공식 통합 CI에서 실제 확인하세요. 기존 인증3여정 근거를 재사용하고 unknown을 pass로 바꾸지 않았습니다. 다음T-0052는 선행 조건 해제·기존owner final-product·READY입니다. 기존 NEXT_EVIDENCE_LOCATION_WORK_ORDER revision1을 같은 세션/worker로 ACK하고 정상 task start 해주세요(Codex가 대신 start하지 않음). Goal Check --no-ci는 verification/goal-check/GC-2026-10-19T18-41-43-401Z.json, 분포 {"UNKNOWN":33,"FAIL":2}·변경0으로 전체완료 아님. local-integrate dry-run은 align: 목표 정렬 근거 없음(impact.parent_goal_id · user_goal_id) / align: 허용 범위 밖 변경 .github/workflows/ci.yml, apps/web/src/app/__tests__/client-boundary-imports.test.ts, apps/web/src/app/api/__tests__/route-guards.test.ts, apps/web/src/app/api/csat/delivery/bind/route.ts, apps/web/src/app/api/csat/item/[slug]/structure/route.ts 외 154 / approval: supabase/migrations/20261014091841_funnel_allow_csat_meaning.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로 / checks: 작업 worktree 에 커밋 안 된 추적 변경 — 검증 커밋 그대로가 아니다로 차단됐습니다. branch 정렬/승인/남의dirty파일을 우회하거나 broad PR전체를 강제로 합치지 않았고 새SQL/정책 변경을 요청한 것도 아닙니다. #250/#303 공식 통합과 새 공급시험2건 검증은 기존 최종CI/safe-merge 절차로 이어갑니다. DB/Gold/권리/실제효과 경계 유지. 최종 증거 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0050-7ec-review.json.
+
+## 2026-10-19T18:49:50Z · T-0052 · IMPLEMENTATION_STARTED
+- 선행 T-0050 COMPLETED(ACCEPT_WITH_LIMITS · 7ec1398a3) 확인 뒤 공식 인수(worker w-final-product-a2a98d)
+
+## 2026-10-19T19:27:47.304Z · T0052-REV1-ALT-EVIDENCE-REWORK · T-0052
+- 목표: VG-L3-A2-01 「영역별 Practice · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0052] HEAD 5e2eaca8dec7af2ec55c2d4d0b9ee39a6cc523ef · 판정 REWORK. P1: 새 ev-transfer-2에서 정답⑤+근거3번(0-based choice4/evidence[2])은 '해충을 먹는 곤충을 부름 → 주변 작물을 도움'이라는 직접 근거인데 choiceOk=true/extra0/decisiveOk=false로 오답입니다. 기존 FI-012 계약의 새 Gold 회귀이며 별도 이슈/엔진이 필요 없습니다. 실제 FORMAT_SPECS 채점기로 최초 실패, 대표 근거4번 성공, 오답 선택지/무관 근거 거절을 대조했습니다. 독립 임시 Gold decisiveAlt:[[2]]는 validator0·같은 정당 근거 true·무관 근거 false를 확인했지만 제품 파일에는 적용하지 않았습니다. 최소 수정: 이 문항의 충분한 대체 집합을 기존 decisiveAlt로 반영하고 새3문항의 대체 집합만 확인하세요(모든 evidenceAlt를 자동 정답으로 바꾸지 않음). 새 set/승인 패키지 SHA를 갱신하고 사람 Gold/권리는 pending 유지. 기존6문항 object bytes와 증거10해시 보존은 확인했고 실제 PGlite 파일15/15(양 TASK pass/fail)을 독립 수용합니다. UI choice_evidence 렌더는 확인했으나 mock 공급 카드가 이전 R5 fixture와 같아 TASK별 실제 API/PLAN 복귀 성공으로 세지 않습니다. 이미 명시된 수용 조건의 e.evidence_location 대표 여정을 기존 격리 CI에 연결해 같은 user/workspace/goal의 실제 공급·자기 설명/안내 연습·새 독립/G2·저장PLAN 이력을 확인하세요. 로컬 Supabase 없으면 공식 통합 격리 CI를 쓰고 개발 DB는 쓰지 않습니다. 현재 require_review_pass/requires_ci 게이트를 위조/완화하지 않습니다. 같은rev1/owner/기존worker 재인수로 처리하며 새설계/작업/권한 승격은 없습니다. 상세 D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0052-review.json, 실행 반례 .agent-logs/final-independent/t0052-rubric-candidate.log. T-0050 로컬COMPLETED는 그대로 재사용합니다.
+
+### T0052-CARD-SCOPE-CLARIFICATION
+앞선 카드 표현을 정확히 한정합니다: 이전 R5 자료와 **카드 캡처 이미지 바이트**가 같다는 관찰만 있으며, TASK props나 링크까지 같거나 증거가 잘못됐다고 판단한 것은 아닙니다. 실제 choice_evidence 문항 렌더는 확인했습니다. 남은 핵심은 별도로 명시한 TASK별 인증 API/저장 PLAN 여정의 미검증과 ev-transfer-2의 재현된 대체 근거 오답입니다.
+
+## 2026-10-19T20:05:32.516Z · T0056-SUPPORT-ENTRY-REV1 · T-0056
+- 목표: VG-L3-B2-02 「오늘 할 일과 다음 행동 연결 · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 기존 보조 TASK의 자료 진입·Workspace 복귀·다음 활동 연결
+- 허용 경로: apps/web/src/components/csat/diagnosis/map/**, apps/web/src/lib/csat/map/**, apps/web/src/app/api/csat/authored/**, apps/web/src/lib/csat/authored/**, apps/web/tests/e2e-isolated/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, docs/csat-learner/v4/workspaces.json, apps/mobile/**
+- 수용 기준 0: 기존9개 보조 TASK는 실제 소속과 저장 계획을 검증한 자료 진입을 갖고 핵심/보조 구분을 보존한다. 미소속 s.attachment에 임의 Workspace를 만들지 않는다.
+- 수용 기준 1: e.task_demand 대표 경로의 실제 공급·교수/연습·첫 독립 확인·같은 TASK 복귀와 다음 활동을 확인한다. 단계 계산은 해당 TASK의 자료/수행만 사용하고 재고 부족은 성공으로 바꾸지 않는다.
+- 수용 기준 2: 다른 TASK/학습자/부적합 Workspace/옛 목표와 PLAN 혼입·중복 노출을 차단하고 중심/보조 근거와 이전 기록을 보존한다.
+- 수용 기준 3: 변경 HEAD의 집중 테스트와 실제1280/1440 진입·부족·복귀 화면/격리 DB·브라우저 근거를 반환한다. DB/Gold/권리/정본 변경 없이 기존 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: PC1280/1440의 선택 TASK 자료 진입, 현재 단계·부족 상태, 같은 TASK/최신 PLAN 복귀와 다음 행동이 실제로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0056 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0056 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0056] DESIGN_REVISION rev1 · D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/SUPPORT_TASK_ENTRY_WORK_ORDER.md · SHA256 d67541781c3d25da4b145447393e8f9b0f89773a3ab332240ea3b608888b4858. 기존9개 support TASK의 자료 진입과 해당 TASK별 단계/가용량을 기존 계산으로 연결합니다. 버튼만 추가하고 core-only home 때문에 다음 단계가 막히는 구현은 피하세요. e.task_demand 대표 실제 공급·교수/연습·첫 독립·같은 TASK 복귀를 확인하고 재고 부족을 보존합니다. 중심/보조 정본·s.attachment·DB·Gold·권리는 범위 밖. T-0052의 현재 Gold P1 수정을 먼저 처리하며 CI 대기에는 이 작업을 독립 준비할 수 있습니다. 같은 worktree 한 writer를 유지하고 기존 session c513ff5b-86ef-44a3-8efd-7925a229614b/worker w-final-product-a2a98d를 사용하세요. 구현 가능성/대안 및 실제 ACK/start를 같은 TASK로 반환하세요. 등록/큐/이 편지함 게시만으로 수신이나 착수로 세지 않습니다. 기존 공식 통합 CI·safe-merge는 유지합니다.
+
+## 2026-10-19T20:10:28.195Z · T0056-OBSERVED-GAP-AND-INTEGRATION · T-0056
+- 목표: VG-L3-B2-02 「다음 행동 연결 · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 기존 보조 TASK의 자료 진입·Workspace 복귀·다음 활동 연결
+- 허용 경로: apps/web/src/components/csat/diagnosis/map/**, apps/web/src/lib/csat/map/**, apps/web/src/app/api/csat/authored/**, apps/web/src/lib/csat/authored/**, apps/web/tests/e2e-isolated/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, docs/csat-learner/v4/workspaces.json, apps/mobile/**
+- 수용 기준 0: 기존9개 보조 TASK는 실제 소속과 저장 계획을 검증한 자료 진입을 갖고 핵심/보조 구분을 보존한다. 미소속 s.attachment에 임의 Workspace를 만들지 않는다.
+- 수용 기준 1: e.task_demand 대표 경로의 실제 공급·교수/연습·첫 독립 확인·같은 TASK 복귀와 다음 활동을 확인한다. 단계 계산은 해당 TASK의 자료/수행만 사용하고 재고 부족은 성공으로 바꾸지 않는다.
+- 수용 기준 2: 다른 TASK/학습자/부적합 Workspace/옛 목표와 PLAN 혼입·중복 노출을 차단하고 중심/보조 근거와 이전 기록을 보존한다.
+- 수용 기준 3: 변경 HEAD의 집중 테스트와 실제1280/1440 진입·부족·복귀 화면/격리 DB·브라우저 근거를 반환한다. DB/Gold/권리/정본 변경 없이 기존 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: PC1280/1440의 선택 TASK 자료 진입, 현재 단계·부족 상태, 같은 TASK/최신 PLAN 복귀와 다음 행동이 실제로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0056 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0056 <경로> --by final-product --branch <브랜치>`)
+- 메모: 같은rev1 보충(새 작업/설계 버전 아님): 실제5e의 plan/workspace/definition/as-is/to-be 바이트를 대조한 독립 합성 입력에서 core e.evidence_location 미노출2는 available2, support e.task_demand 미노출2는 next링크가 있지만 available=null/no_content입니다. 버튼 추가만으로 학습량/단계 문제가 풀리지 않는다는 재현이며 실제 DB 납품을 수행했다는 주장이 아닙니다. 시험 원본은 Codex .agent-logs/final-independent/rework-GC5mo2/snapshot/apps/web/src/lib/csat/map/v4/__tests__/t0056-observation.test.ts; 구현 뒤에는 현재 null 관찰 단언을 목표 동작으로 교체해 대조하세요. 별도로 최신main fcb40034와 로컬5e 가상 병합 tree2cb2f38a는 로컬제품tree와 같고 PR250 HEAD2549는 그 조상입니다. 독립 실제제품 tsc --noEmit --incremental false PASS. PR250 단독main 충돌은 CHANGELOG만이지만 양쪽 기록을 보존해야 하며 병합 수용은 아닙니다. 원격303은 여전히33a57aa/e2eFAIL이므로 로컬 변경과 새 e.evidence_location 인증 여정을 공식 통합 CI에서 확인해야 합니다. 신규 승인형 authored DB러너는 오프라인6/6, SQL dfb29f2d와 보류본 바이트 일치를 확인했으나 적용/사람 승인/개발DB쓰기0입니다. 기존 T0052 Gold P1 먼저 수정·같은 세션/worker 실제 ACK/start 원칙을 유지하세요. 상세 docs/research/final-independent-20261018/local-integration-5e-review.json(Codex worktree).
+
+## 2026-10-19T21:08:56Z · T-0056 · ACKNOWLEDGED(착수 전 · 분석)
+- Claude 세션 c513ff5b-86ef-44a3-8efd-7925a229614b · owner final-product · rev1 수락. 같은 worktree 단일 writer — T-0052 수용 뒤 task start
+- 원인(코드 대조): v4/plan.ts:243 home = core 로 든 Workspace 만 · v4/workspace.ts stagesOf 는 core 단계만 계산 → 보조 전용 TASK(e.task_demand 등)는 home null → no_content · available null. 버튼만으로는 안 풀린다(Codex 재현과 일치)
+- 최소 설계안: Workspace 가 보조 TASK 별 단계(그 TASK 의 자료 · 수행만)를 함께 계산 → taskPlan 은 core 가 없으면 보조로 든 Workspace 를 home 으로(근거 · 진행은 그 TASK 키만 · 중심 진행 합에는 더하지 않음) → 팝업 받은 자료 카드를 보조 TASK 에도. s.attachment(미소속)는 Workspace 를 만들지 않고 「진입 없음」 유지
+
+## 2026-10-19T21:10:38.330Z · T0052-R2-CODE-FIX-ACCEPTED-CI-PENDING · T-0052
+- 목표: VG-L3-A2-01 「근거 찾기 학습 순환 · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0052] HEAD 8b82fa0d80df5dcd31f8753c05a85af27b1c1452 · 판정 ACCEPT_WITH_LIMITS(CODE/RUBRIC_SCOPE_ONLY; formal task remains REVIEW). P1 대체 근거 오답은 VERIFIED_FIXED: 결정/해충 억제/토양 개선 각각을 허용하는 [[2],[4]]를 수용합니다. 작물 지원이라는 결론에 토양 개선도 유효한 근거이며 [[2]]만으로 좁힐 필요 없습니다. 실제 채점기640조합에서 허용7·거절633, 기존형식28/28 PASS. 범주 밖 문장을 섞으면 거절되며 전역 채점기/서버 변경0, 나머지8문항 동일, 세트/패키지 b98f5d11… 및 E03/E04/캡처10해시 일치입니다. ev-ind-3의 잦은 방문만으로 총매출 비교까지, ind-4의 목록 망각만으로 이야기 집단의 한 달 유지까지 단독 입증되지 않으므로 이번 추가 없음은 방어 가능합니다. 이는 AI 검토로 사람 Gold/권리 승인 아님. 새 인증 여정은 실제 공급/연습재시도/자기설명/새독립/G2/저장PLAN를 덮도록 추가됐으며 CI39324821571 동일8b HEAD는 현재 실행 중입니다. 완료/병합 수용은 실제 report까지 확인 후 확정합니다. T-0056 ACK/분석 회신을 수신했습니다(공식 start로 소급하지 않음). 수정 P1은 코드 범위에서 해결됐으므로 기존 rev1 설계와 단일 writer를 지키며 T-0056 구현으로 진행할 수 있습니다. T52 CI 기다리며 새 push/정책 변경/DB 쓰기를 할 필요 없고 후속 변경은 별도 로컬커밋에 둡니다. 구현 가능성상 최소 대안이 있으면 같은 T56으로 반환하세요.
+
+## 2026-10-19T21:23:00.480Z · T0056-WORKER-SELECTOR-DIAGNOSIS · T-0056
+- 목표: VG-L3-B2-02 「기존 보조 TASK 연결 · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 기존 보조 TASK의 자료 진입·Workspace 복귀·다음 활동 연결
+- 허용 경로: apps/web/src/components/csat/diagnosis/map/**, apps/web/src/lib/csat/map/**, apps/web/src/app/api/csat/authored/**, apps/web/src/lib/csat/authored/**, apps/web/tests/e2e-isolated/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, docs/csat-learner/v4/workspaces.json, apps/mobile/**
+- 수용 기준 0: 기존9개 보조 TASK는 실제 소속과 저장 계획을 검증한 자료 진입을 갖고 핵심/보조 구분을 보존한다. 미소속 s.attachment에 임의 Workspace를 만들지 않는다.
+- 수용 기준 1: e.task_demand 대표 경로의 실제 공급·교수/연습·첫 독립 확인·같은 TASK 복귀와 다음 활동을 확인한다. 단계 계산은 해당 TASK의 자료/수행만 사용하고 재고 부족은 성공으로 바꾸지 않는다.
+- 수용 기준 2: 다른 TASK/학습자/부적합 Workspace/옛 목표와 PLAN 혼입·중복 노출을 차단하고 중심/보조 근거와 이전 기록을 보존한다.
+- 수용 기준 3: 변경 HEAD의 집중 테스트와 실제1280/1440 진입·부족·복귀 화면/격리 DB·브라우저 근거를 반환한다. DB/Gold/권리/정본 변경 없이 기존 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: PC1280/1440의 선택 TASK 자료 진입, 현재 단계·부족 상태, 같은 TASK/최신 PLAN 복귀와 다음 행동이 실제로 연결된다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0056 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0056 <경로> --by final-product --branch <브랜치>`)
+- 메모: 21:09 실행 정지 진단을 수신했습니다. inbox 게시≠대화형 수신과 worker 미기동 판단에는 동의합니다. 다만 현재 worker 실행만으로 T-0056이 인수된다는 최소안은 아직 성립하지 않습니다: bin/owner-worker.mjs nextTask는 READY 외에도 dispatch.to==owner와 UG.goals[t.user_goal_id].execution_mode==owner_session을 요구하는데 현재 T-0056은 platform 작업으로 user_goal_id/dispatch가 없습니다. T-0052도 같은 분류이고 지금 REVIEW입니다. 그래서 기존 worker를 실행해도 이 작업은 선택되지 않는 코드/상태입니다. 이를 맞추려고 임의 user goal/dispatch를 위조하거나 목표 정본을 변경하지 않습니다. 또한 worker run.session은 worker id이고 runClaude가 실제 기존 대화형 세션을 resume한다고 보장하지 않으므로 원 세션 전달로 보고해서는 안 됩니다. 자동 모드 분류기가 worker 실행을 막았다는 경계는 그대로 유지하고 Codex에서 재실행하거나 우회하지 않습니다. 지금 제품을 전진시키는 가장 짧은 기존 경로는 이 대화형 기존 owner/등록 worker로 정상 task start T-0056을 수행해 구현하는 것입니다. P1은 8b 코드/루브릭 범위 VERIFIED_FIXED이며 이미 같은 inbox에 T56 구현 진행 가능성을 보냈습니다. CI 대기와 독립 로컬 제품 작업을 분리하고, worker selector 개선은 기존 AI-Control 담당 범위에서 별도로 검토할 수 있습니다(새 오케스트레이터/세션 대체/현재 제품 게이트 추가 없음). 이 회신 역시 파일 게시이며 실제 읽음/착수 ACK는 별도입니다.
+
+## 2026-10-19T21:27:32.613Z · T0052-R2-ACTUAL-SUPPLY-STAGE-REWORK · T-0052
+- 목표: VG-L3-A2-01 「근거 찾기 실제 순환 · 부분 기여」 · 설계 v- · 기준 []
+- 작업: 근거 찾기 TASK의 교수·Workspace·새 독립 확인 학습 순환
+- 허용 경로: apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json, apps/web/src/lib/csat/authored/**, apps/web/src/lib/csat/map/**, apps/web/src/components/csat/authored/**, apps/web/src/components/csat/diagnosis/map/**, apps/web/src/components/csat/theater/ReasoningNoteForm.tsx, apps/web/src/app/(app)/csat/learn/**, apps/web/src/app/api/csat/authored/**, apps/web/tests/e2e-isolated/**, apps/web/scripts/authored/**, docs/final/**, docs/CHANGELOG.md, .agent-goal.md
+- 금지: .env*, apps/web/.env*, supabase/**, agents/**, .github/**, apps/mobile/**
+- 수용 기준 0: 기존 e.evidence_location 구현을 재사용해 같은 합성 학습자가 지도에서 원리 설명·자기 설명 저장/대조·안내 연습으로 진행하고 현재 TASK/Workspace로 복귀한다. 이미 작동하는 경로를 다시 구현하지 않는다.
+- 수용 기준 1: 같은 user/workspace/goalVersion의 최초 독립 오답→안내 연습→서로 다른 전이→미노출 새 독립 확인→G2→MAP/PLAN을 실제 공급 API와 격리 PostgreSQL/PC 브라우저로 연결하고 과거 PLAN을 보존한다.
+- 수용 기준 2: 교수·노트·안내 연습·전이는 독립 근거가 아니며 처음 수행/G2는 불변이다. 해당 TASK 고유의 정답/허용 근거, 첫 노출, 다른 TASK 혼입을 대조한다.
+- 수용 기준 3: 재고0/철회/사람 미승인은 공급 성공으로 계산하지 않는다. 기존 적격 대안을 먼저 확인하고 필요할 때만 새 독립2·전이1 후보를 보충하며 delayed_check나 본 평가 지문을 재사용하지 않는다.
+- 수용 기준 4: HEAD 결속 집중 테스트·실제 1280/1440 변경 화면·격리 DB/브라우저 증거와 외부 승인 한계를 반환한다. 개발 DB 쓰기/SQL/Gold/권리/정책 채택 없이 필수 공식 CI·safe-merge를 유지한다.
+- UI 수용 기준 0: 1280/1440 PC에서 TASK 필요 이유·운영 학습량·도달 조건·다음 행동·부족 상태와 실제 Workspace 복귀를 구분한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0052 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0052 <경로> --by final-product --branch <브랜치>`)
+- 메모: [VF-TASK T-0052] HEAD8b82fa0d8 · 판정 REWORK(같은rev1/FI-011). Gold P1은 VERIFIED_FIXED 유지, [[2],[4]] 모두 수용. P1: 실제 CI39324821571의 새 근거 찾기 여정142행에서 안내 연습 성공 뒤 저장PLANv4가 transfer 기대에 recheck로 나왔습니다. 독립 실제제품함수 합성반례로 원인 확인: 동일 need=REPAIR/repairSuccess=true/전이 수행0에서 아직 전이 납품링크가 없으면 transferPlanned=null → stageNow=recheck → buildDemand role=independent_check입니다. 똑같은 상태에 전이2링크를 미리 주면 stage=transfer/role=transfer가 됩니다. 즉 전이를 공급받아야 transfer 단계가 열리는데 공급 API는 현재단계로만 자료를 요청하는 순환입니다. 기존 PGlite의 전이 선납품 fixture가 이를 가렸으며 실제 API 여정 기대를 낮춰 통과시켜서는 안 됩니다. 최소 수정: 수요/현재단계에서 아직 납품되지 않음을 교육적 적용조건 충족과 분리하세요. 바로잡기 성공 뒤 운영 적용목표가 남으면 transfer에 머물러 전이 역할 수요를 내고, 없으면 material_needed/재고부족으로 표시합니다. 미공급 가용량이나 수행량을 만들어내지 말고 예정량이 null이어도 기존 수요 최소/저장 운영량 정책을 재사용할 수 있습니다. 실제 전이 수행 이후에만 recheck, 과거PLAN/첫독립/G2/Gold경계 보존. 검증: 아직 전이 납품0에서 실제 supply API로2지문→서로 다른 적용 수행→새 독립확인→v6 여정을 완주하고 재고부족/정상 대조를 확인하세요. 반례 원본 Codex .agent-logs/final-independent/rework-GC5mo2/snapshot/apps/web/src/lib/csat/map/v4/__tests__/t0052-stage-circularity.test.ts; 로그 t0052-r2-stage-cycle.log. P2(필수 CI 복구): authored-supply 1280/1440도140행 타임아웃입니다. ws-authored-list가 숨겨졌다고 팝업이 닫힌 것은 아닙니다. 복귀 문맥은 mapPlan일 때 열려 있는 plan 탭을 복원하고 이 탭에는 자료목록이 없습니다(WorkspaceModal의 목록은overview에만). 팝업이 열렸다면 그 안에서 개요(ws-tab-overview)를 정상 선택한 뒤 목록을 검사하고, 팝업 자체가 닫혔을 때만 ws-open을 누르세요. overlay뒤 클릭/force/timeout확대/제품 복귀 정책 삭제 없음. 최종 task reject/아티팩트 기록은 이어서 갱신합니다. 실제 개발DB쓰기/사람승인0; T56은 이 최소수정과 겹치는plan파일을 동시에 쓰지 않고 같은owner가 순차 처리합니다.
+
+## 2026-10-20T02:16:52.407Z | T-0052-rev1-run3-independent-ce6815f1b
+[VF-TASK T-0052] HEAD ce6815f1b | ACCEPT_WITH_LIMITS (code + isolated DB). Independent 66 passed including real PGlite 15 supply/G2 cycles; central code review APPROVE reused. No new product P1 found. Current-head official authenticated CI39356907261 is pending; missing CRIT-EV-1 evidence is completion evidence wait, not a request to reimplement the approved fix. E05 skip_count 0 conflicts with broad log 52 skipped: correct evidence scope/count, or use focused passing evidence. Re-submit the same task/HEAD with real completed CI/integration evidence through the existing owner path; do not impersonate another owner or downgrade gates. Existing T-0056 remains the next assigned task; prepare independently, preserving a single writer and current dirty files. Delivery = LOCAL_INBOX_POSTED only; no ACK/start claimed. Report: D:/workspace/Vocaflow-final-independent/docs/research/final-independent-20261018/t0052-r3-review.json
