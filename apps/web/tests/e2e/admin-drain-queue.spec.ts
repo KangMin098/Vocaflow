@@ -8,6 +8,10 @@ import { adminFixtureCss } from './_support/admin-fixture-css'
 const web = path.resolve(__dirname, '../..'), root = path.resolve(web, '../..')
 const requireTool = createRequire(path.join(web, 'package.json'))
 let server: http.Server, origin: string
+interface FixturePluginBuild {
+  onResolve(options: { filter: RegExp }, callback: () => { path: string; namespace: string }): void
+  onLoad(options: { filter: RegExp; namespace: string }, callback: () => { contents: string; loader: 'js' }): void
+}
 test.beforeAll(async () => {
   const { build } = requireTool(requireTool.resolve('esbuild', { paths: [path.join(root, 'node_modules/.pnpm/node_modules')] }))
   const bundle = await build({
@@ -19,7 +23,7 @@ test.beforeAll(async () => {
       function Fixture(){const [key,K]=useState(0);useEffect(()=>{window.reloadQueue=()=>K(k=>k+1)},[]);return <DrainQueueBanner reloadKey={key}/>}
       createRoot(document.getElementById('root')).render(<Fixture/>);
     ` },
-    plugins: [{ name: 'controlled-read-completion', setup(builder: { onResolve: Function; onLoad: Function }) {
+    plugins: [{ name: 'controlled-read-completion', setup(builder: FixturePluginBuild) {
       builder.onResolve({ filter: /^@\/lib\/library\/curation-queue-client$/ }, () => ({ path: 'read', namespace: 'fixture' }))
       builder.onLoad({ filter: /.*/, namespace: 'fixture' }, () => ({ contents: `export const readCurationQueue=kind=>new Promise(resolve=>window.queueResolvers[kind].push(resolve));`, loader: 'js' }))
     } }], bundle: true, write: false, format: 'iife', jsx: 'automatic', alias: { '@': path.join(web, 'src') },
