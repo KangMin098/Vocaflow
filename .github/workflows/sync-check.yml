@@ -25,6 +25,9 @@ concurrency:
   group: sync-check-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 jobs:
   docs-link-check:
     name: docs/*.md broken link check

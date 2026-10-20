@@ -13,6 +13,9 @@ concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 jobs:
   # 서버 보호 체크 이름을 보존한다. 실제 타입 검사는 verify에서 한 번만 실행한다.
   typecheck:

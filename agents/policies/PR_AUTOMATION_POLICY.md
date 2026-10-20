@@ -6,7 +6,13 @@
 
 ## 1. 기본값 = AUTO_CONTINUE
 
-사용자에게 매번 진행 여부를 묻지 않는다. 작업 단위의 구현 → 검증 → 수정 → 문서화 → 커밋 → push → PR → CI → 안전 병합을 할 수 있는 데까지 이어서 한다.
+**실행 모드를 먼저 적용한다(2026-10-20 확인).** 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 현재 모드는 `LOCAL_FAST`다. 중앙 `lib/devmode.mjs`가 모드·기준 ref·백업 상한의 정본이며 설정 사본을 만들지 않는다. `VFC_ROOT`는 중앙 위치, `VFC_DEV_MODE`는 명시적 모드 선택이다.
+
+- LOCAL_FAST: 로컬 구현 → 영향 범위 검증 → 로컬 커밋 → 중앙 `bin/local-integrate.mjs --task <ID>`. 일반 개발 push·PR·Actions 조회·CI 대기·원격 병합을 하지 않는다. 원격 CI 부재는 로컬 개발의 blocker가 아니다. 미실행 검증·로컬 리뷰 실패는 계속 미충족으로 남긴다.
+- 백업은 중앙 `bin/backup.mjs`만 사용하고 중앙 설정의 하루 상한·복구 시점을 따른다. 백업 실패로 로컬 개발을 중단하지 않는다. Work Bridge는 기존 설계 요청 범위로 사용한다.
+- GITHUB: 아래 v1.1의 PR·필수 CI·원격 병합 계약이 적용된다. 원격 보호·필수 체크를 줄여 LOCAL_FAST를 구현하지 않는다. `safe-merge.mjs`는 LOCAL_FAST에서 dry-run도 원격 조회 전에 종료한다.
+
+사용자에게 매번 진행 여부를 묻지 않는다. 위 실행 모드에 맞춰 구현 → 검증 → 수정 → 문서화 → 커밋 → 해당 모드의 통합까지 이어서 한다.
 
 **사용자 승인이 필요한 것은 두 가지뿐이다.**
 
