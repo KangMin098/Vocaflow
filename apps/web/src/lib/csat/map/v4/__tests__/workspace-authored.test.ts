@@ -51,7 +51,10 @@ describe('Workspace × 창작 납품', () => {
     expect([withLink.primary, ...withLink.others].map((v) => v?.id)).toContain('ws.vocab-context')
     const without = planWorkspaces({ asIs, toBe: null, transferItems: {}, transferTargets: {}, confirmLinks: {} })
     expect(without.preparing.map((p) => p.id)).toContain('ws.vocab-context')
-    expect([without.primary, ...without.others].map((v) => v?.id)).not.toContain('ws.vocab-context')
+    // T-0056 — 보조 TASK 의 집으로 목록에는 있을 수 있지만 primary 는 아니고 중심 단계는 닫힌 채다
+    expect(without.primary?.id).not.toBe('ws.vocab-context')
+    const shell = without.others.find((v) => v.id === 'ws.vocab-context')
+    if (shell) expect(Object.values(shell.stages).some((s) => s.ready)).toBe(false)
   })
 
   it('바로잡기 — 창작 평가 자료는 다시 풀게 하지 않는다(평가 자료 연습 재분류 금지) · 기출 문항은 그대로 바로잡기', () => {

@@ -13,7 +13,7 @@ import { CHECK_ITEMS } from '../skill-diagnosis'
 import type { AsIsMap } from './as-is'
 import { relationOf, templates, type TaskId, type V4Template } from './definition'
 import type { ConfirmLink, ToBeMap } from './to-be'
-import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
+import { AUTHORED_TASKS, authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import type { DirectCheck } from './types'
 
 export type StageKey = 'check' | 'repair' | 'transfer' | 'recheck'
@@ -153,7 +153,10 @@ export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
   const templateById = (id: string) => all.find((t) => t.id === id)!
   // 창작 납품이 있는 content_needed · blocked 템플릿은 「자료 준비 중」이 아니라 실행 가능한 Workspace 다(FI-011 — 단계만 열고 목록은 막던 어긋남)
   const delivered = (t: V4Template) => !t.hold && (t.readiness === 'content_needed' || t.readiness === 'blocked') && authoredLive(t, input)
-  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready' || delivered(t))).map((t) => viewOf(t, input))
+  // T-0056 — 창작 세트가 있는 보조 TASK 를 품은 묶음은 중심 자료가 없어도 보조 공급 · 수행의 집(host shell)으로 연다.
+  //   중심 단계 · readiness 는 그대로(content_needed) — primary 후보(live)가 아니고 preparing 에도 남는다(workspaceRows 가 「준비 중」 행 + 보조 TASK 로 그린다)
+  const hostShell = (t: V4Template) => !t.hold && (t.readiness === 'content_needed' || t.readiness === 'blocked') && !delivered(t) && t.support.some((id) => AUTHORED_TASKS.includes(id))
+  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready' || delivered(t) || hostShell(t))).map((t) => viewOf(t, input))
   const live = views.filter((v) => (v.readiness === 'live' || delivered(templateById(v.id))) && anyReady(v))
   const coreStatus = (v: WorkspaceView) => input.asIs.tasks[v.core[0]]?.status
   let primary: WorkspaceView | null = null

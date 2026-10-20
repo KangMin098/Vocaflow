@@ -7,7 +7,8 @@ import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import type { RefItem } from '../../target'
 
 import { asIsMap, type AsIsInput, type AxisProxyState } from '../as-is'
-import { DOMAINS, type Domain } from '../definition'
+import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
+import { DOMAINS, templates, type Domain } from '../definition'
 import { applyDraft, allTaskPlans, doneOf, repairGate, workspacePlan, type PlanActivity } from '../plan'
 import { lifecycleEvidence } from '../../lifecycle-evidence'
 import { toBeMap, type ConfirmLink } from '../to-be'
@@ -292,5 +293,29 @@ describe('T-0056 — 보조 TASK(e.task_demand)도 자기 자료 · 단계로 �
     expect(s.quantity.available).toBeNull()
     expect(s.unresolved).toContain('no_content')
     expect(v.tasks.find((t) => t.task === 'e.evidence_location')!.quantity.available).toBe(2)
+  })
+})
+
+describe('T-0056 rev2 — 보조 TASK 의 집(host shell): 중심 자료가 없는 묶음도 첫 공급을 위해 열린다', () => {
+  const hostless = () => {
+    const p = planWorkspaces({ asIs: asIs({ checks: [] }), toBe: null, confirmLinks: {}, transferItems: {} })
+    return { p, all: [p.primary, ...p.others].filter((x): x is NonNullable<typeof x> => !!x) }
+  }
+  it('창작 세트가 있는 모든 보조 TASK 는 재고 0 에서도 비보류 묶음 하나 이상에 집이 있다', () => {
+    const { all } = hostless()
+    const supportTasks = [...new Set(templates().filter((t) => !t.hold).flatMap((t) => t.support))].filter((id) => AUTHORED_TASKS.includes(id))
+    expect(supportTasks.length).toBeGreaterThan(0)
+    for (const id of supportTasks) expect(all.some((w) => w.support.includes(id)), id).toBe(true)
+  })
+  it('집 묶음의 중심은 그대로 자료 준비 중 — primary 아님 · 준비 중 목록 유지 · 보조 보기 없음(재고 0)', () => {
+    const { p, all } = hostless()
+    const shells = all.filter((w) => w.readiness === 'content_needed' || w.readiness === 'blocked')
+    expect(shells.length).toBeGreaterThan(0)
+    for (const w of shells) {
+      expect(Object.values(w.stages).every((s) => !s.ready), w.id).toBe(true)
+      expect(p.primary?.id).not.toBe(w.id)
+      expect(p.preparing.map((x) => x.id), '중심은 여전히 준비 중').toContain(w.id)
+      expect(w.supportViews, '재고 0 은 보조 보기를 만들지 않는다').toBeUndefined()
+    }
   })
 })
