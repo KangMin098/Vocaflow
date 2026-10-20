@@ -140,8 +140,11 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 **승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이고 나머지(개발 · 테스트 · 커밋 · push · PR · CI · 게이트를 통과한 병합)는 묻지 않고 끝까지 한다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
 
-**① 문서 동반 갱신** — 같은 작업 안에서 코드와 문서를 함께 바꾼다(사용자 요청 없어도). 검증 가능한 사실만.
-마이그레이션 → DB_SCHEMA + CHANGELOG · RPC/view/trigger → DB_SCHEMA · 라우트 → ROUTES · 도메인 컴포넌트 → MODULES · 학습 모듈/계층 → LEARNING_MODEL + MODULES · 토큰/패턴 → DESIGN_SYSTEM · Admin 라우트/일괄 액션 → ADMIN_CONSOLE · 큐레이션 RPC/파이프라인 → LIBRARY_PIPELINE · 코딩 패턴 → CONVENTIONS · 패키지 → STACK · 전부 → CHANGELOG Unreleased 한두 줄 · 콘텐츠·수요 수치 변동(드레인·발행·마이그레이션) → `pnpm docs:db-stats` **실행**(마커 안을 손으로 고치지 않는다).
+**⓪ 위험도별 검증(2026-10-20 사용자 결정 · 개발 단계)** — 파일 수가 아니라 영향으로 판정하고, 더 높은 위험을 발견하면 올린다.
+L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바뀌면 실제 렌더 확인 · L2 일반 기능 → 관련 단위 테스트 + 영향 범위 타입 · L3 인증·권한·학습기록·진단·공통 프레임워크·데이터 결속 → 단위·통합 + 영향받는 핵심 E2E(격리 DB), 필요 시 독립 검토 · L4 DB 구조·마이그레이션·실데이터 삭제 → 사용자 승인 + 영향·복구 확인 후 승인 범위만.
+같은 커밋에서 이미 통과한 검사는 다시 돌리지 않는다 · CI 는 병합 전 한 번(같은 PR 앞선 실행은 자동 취소).
+
+**① 문서 갱신 — 계약이 바뀔 때만** — 단순 UI·스타일·내부 리팩터링은 문서 불필요. 기능 계약 → 그 영역 정본 한 곳 · 라우트 추가/삭제 → ROUTES · 공개 API → 그 계약 문서 · DB 스키마(승인 후) → DB_SCHEMA · 제품 방향·중요 결정 → 결정 정본. CHANGELOG 는 병합되는 기능 단위로 한 줄. 작업 완료의 증거는 커밋 + 검증 결과다(별도 보고서·로그 파일 만들지 않는다). 콘텐츠·수요 수치 변동 → `pnpm docs:db-stats` 실행(마커 안을 손으로 고치지 않는다).
 
 **② Admin 화면도움말** — Admin 파이프라인 화면(탭 포함)은 `apps/web/src/lib/admin/help/<pipeline>.ts` 에 도움말을 갖고, 화면을 바꾸는 **같은 커밋**에서 고친다(낡은 도움말은 잘못된 조작을 유발한다 — 코드보다 위험).
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
@@ -151,7 +154,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).
-- 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. 파일 ≥30 은 승인이 아니라 추가 검증(PR 본문 `## 검증`).
+- 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. PR 은 그 작업 범위만 담는다(무관한 커밋을 섞지 않는다) · 파일 ≥30 PR 은 본문에 `## 검증` 한 단락(safe-merge 가 확인 — CI 결과를 옮기면 된다).
 
 **④ 분기 플랫폼 진단** — 1·4·7·10월 첫 주(다음 **2026-10**), 즉시 트리거는 PLATFORM_AUDIT 참조. 실패 모드는 "공급망 비대 / 수요 검증 0". **문서의 수치를 근거로 쓰지 않는다**(DB 질의 + 저장소 실계수 + 1차 공개자료). 측정 → 기록 → 결정 → 수정 순서(같은 턴에 고치면 측정이 오염 — 단 공개 라우트의 허위 수치는 즉시 제거). 산출물: 리포트 + PLATFORM_AUDIT §7 한 행 + CHANGELOG 한 줄. 기준선·산술은 [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md).
 
@@ -161,7 +164,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 - 같은 워크트리 동시 쓰기 금지: 쓰기 전에 `lock.mjs acquire <agent>`, 끝나면 `release`. 잠금이 남의 것이면 읽기 전용으로만 일한다. 장기 병행은 `pnpm wt new <suffix>`.
 - 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
-- **리뷰는 결함 + 목적 이탈 둘 다 본다**([agents/goal-review.md](./agents/goal-review.md)). 작업 시작에 목적 · 수용 기준 · 하지 않을 것을 워크트리 루트 `.agent-goal.md` 에 쓰고, 방향이 바뀌면 그 자리에서 고치고, PR 본문에 옮긴다. **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2): Stop·커밋·submit·DB 게이트·머지 어디서도 Codex 를 부르지 않는다. 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다. `node agents/scripts/review.mjs` 는 사용자가 요청할 때만 쓴다.
+- 독립 리뷰는 L3 이상 고위험 변경이나 요청이 있을 때만(결함 + 목적 이탈 · [goal-review](./agents/goal-review.md)). `.agent-goal.md` 는 DB 승인(마이그레이션 sha 기록)이나 여러 세션이 나눠 하는 큰 작업에만 쓴다. **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2): Stop·커밋·submit·DB 게이트·머지 어디서도 Codex 를 부르지 않는다. 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다. `node agents/scripts/review.mjs` 는 사용자가 요청할 때만 쓴다.
 - **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
 
 ## 하지 말 것 — 두 번 이상 고친 실수
