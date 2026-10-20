@@ -8,6 +8,7 @@
 import { goalCheckStep } from '../lib/orchestrator.mjs'
 import { ghAvailable, readLatestWorkflowJob } from '../lib/ci.mjs'
 import { validateCanon } from '../lib/goals.mjs'
+import { isLocalFast } from '../lib/devmode.mjs'
 
 const args = process.argv.slice(2)
 const v = validateCanon()
@@ -15,7 +16,8 @@ if (!v.ok) {
   console.error(`정본 검증 실패 — 검사하지 않는다:\n  ${v.errors.join('\n  ')}`)
   process.exit(1)
 }
-const ciEnabled = !args.includes('--no-ci') && ghAvailable()
+// LOCAL_FAST 는 gh 를 부르지 않는다(로컬 실행 증거 · lib/devmode) — ghAvailable 확인조차 하지 않는다
+const ciEnabled = !isLocalFast() && !args.includes('--no-ci') && ghAvailable()
 const r = goalCheckStep({ deps: { readWorkflowJob: (wf, job) => readLatestWorkflowJob(wf, job) }, ciEnabled, by: 'goal-check-cli' })
 if (args.includes('--json')) {
   console.log(JSON.stringify({ report: r.report, distribution: r.distribution, changes: r.changes, ci: ciEnabled }, null, 2))

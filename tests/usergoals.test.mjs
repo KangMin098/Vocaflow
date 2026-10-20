@@ -19,6 +19,28 @@ const FAKE_CODEX = `node ${path.join(REPO, 'tests', 'fakes', 'fake-codex.mjs').r
 const OWNER = 'r0-learning-journey'
 const CANON = 'VG-L3-A2-01'
 
+test('local goal planning supports either AI and preserves PROPOSED/human-policy approval boundary', () => {
+  const { root, wt } = setup()
+  fs.mkdirSync(path.join(root, 'config'), { recursive: true })
+  fs.writeFileSync(path.join(root, 'config/dev-mode.json'), JSON.stringify({ mode: 'LOCAL_FAST', dynamic_roles: true }))
+  const fake = path.join(REPO, 'tests/fakes/role-agent.mjs').replace(/\\/g, '/')
+  const extra = { VFC_CLAUDE_CMD: `node ${fake} claude`, VFC_CODEX_CMD: `node ${fake} codex` }
+  const draft = path.join(root, 'local-draft.json')
+  fs.writeFileSync(draft, JSON.stringify(design()))
+  const goal = ok(vfc(root, ['ugoal', 'start', '--from', 'claude', '--profile', 'DEEP', '--design-file', draft, '--title', 'local proposal', '--goals', CANON, '--by', OWNER], extra))
+  const planned = ok(vfc(root, ['ugoal', 'request-design', goal.ug_id, '--agent', 'claude', '--worktree', wt, '--by', OWNER], extra))
+  assert.equal(planned.ok, true, JSON.stringify(planned))
+  assert.equal(planned.saved.status, 'PROPOSED')
+  assert.equal(planned.saved.source, 'claude')
+  const s = state(root, 'USER_GOALS.json'), saved = s.goals[goal.ug_id]
+  assert.equal(saved.approval, null)
+  assert.equal(saved.local_design_active, null)
+  assert.equal(saved.designs[0].status, 'SUPERSEDED', 'existing unapproved draft is refined locally')
+  assert.equal(saved.designs[1].local_review.status, 'AI_VERIFIED')
+  assert.equal(state(root, 'TASK_QUEUE.json').tasks.some((t) => t.user_goal_id === goal.ug_id), false)
+  assert.notEqual(vfc(root, ['ugoal', 'request-design', goal.ug_id, '--worktree', wt, '--by', OWNER], extra).code, 0)
+})
+
 const env = (root, extra = {}) => ({ ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, VFC_AUTO_CODEX: '1', FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '', ...extra })
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args, '--json'], { env: env(root, extra), encoding: 'utf8' })

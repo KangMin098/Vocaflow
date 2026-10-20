@@ -1,15 +1,27 @@
 # ORCHESTRATOR — 목표 중심 자동 실행기 (WF-S5)
 
-목적은 AI 개발 자동화가 아니라 **Vocaflow 전체 플랫폼 목표(정본 v1.1.0)의 달성**이다. 오케스트레이터는 그 목표에서 아직 미달인 기준을 찾아, 실행 가능한 작업 하나를 Claude Code 로 구현하고 Codex 로 독립 검증한 뒤 목표 상태를 다시 계산한다.
+목적은 **Vocaflow 전체 플랫폼 목표(정본 v1.1.0)의 달성**이다. LOCAL_FAST는 [동적 역할 계약](./DYNAMIC_LOCAL_ROLES.md)에 따라 로컬 기획·설계와 Codex/Claude 양방향 구현·독립 리뷰를 지원한다. 아래 WF-S5의 고정 Claude 구현/Codex 리뷰 설명은 기존 모드의 계약이며, LOCAL_FAST의 역할·Work 사용·로컬 통합은 동적 역할 계약을 따른다. 목표·권한·승인·증거 게이트는 유지한다.
 
 ## 구성
+
+### LOCAL_FAST 연속 실행 연결 (2026-10-20)
+
+일반 플랫폼 작업은 별도 `owner-worker` 없이 기존 `goal-orchestrator`에서 처리한다. `owner-worker`는 기존 `owner_session` 목표의 등록·신뢰·세대 결속 호환 경로로만 남긴다. 미실행 worker 등록 이력은 실행 증거가 아니며 삭제하지 않는다. 받은 편지함 파일은 대화형 세션을 깨우지 않는다.
+
+`node bin/vfc.mjs doctor --owner final-product --json`은 코드 HEAD/루트, 실제 상태·설정 루트, 실행 중인 프로세스, 인수와 차단 사유를 읽기 전용으로 보여 준다. 다른 코드 worktree를 쓸 때에는 `VFC_ROOT`를 실제 공유 공간에 명시하고 그 공간의 `config/dev-mode.json`이 적용됨을 확인한다.
+
+`node bin/goal-orchestrator.mjs --owner final-product --max-tasks 3 --watch-seconds 60 --json`은 기존 owner만 선정하며 일반 플랫폼 `REVIEW` 제출도 독립 리뷰한다. P1 반려는 동일 작업의 다음 구현 입력으로 이어진다. 제출 완료도 같은 로컬 통합 게이트를 통과해야 한다. 고정 입력의 UNKNOWN 리뷰를 한 실행 안에서 재호출하지 않는다. 기본 대기는 0이며 명시한 대기도 시간·비용·작업 수·STOP 상한을 유지한다. 상한 종료는 자동 재시작을 뜻하지 않는다.
+
+자동 구현은 미커밋 추적 변경과 타 세션 잠금이 있으면 시작하지 않는다. 기존 담당자가 보존/커밋해야 하며 중앙이 정리·탈취하지 않는다. Claude의 세션 환경 표시를 지워 중첩 실행 거부를 우회하지 않는다. 제품 DB·Gold·권리·공식 CI와 safe-merge의 승인 경계는 그대로다.
+
+완료 판정 직전에 로컬 증거 파일의 기록된 해시도 재검사한다. 변경·삭제된 증거는 `EVIDENCE_CHANGED`로 거부한다. 검증 결과·최초 실패·실제 Claude 독립 리뷰와 한계는 [연속 실행 검증 기록](../verification/continuity-20261020.json)에 결속한다.
 
 | 파일 | 역할 |
 |---|---|
 | `bin/goal-check.mjs` · `lib/goalcheck.mjs` | 정본 40목표의 **수용 기준(criterion_id)마다** 판정 → `verification/goal-check/GC-*.json` + GOAL_STATUS(바뀐 것만, 이전 상태·이유) |
 | `bin/goal-priority.mjs` · `lib/priority.mjs` · `config/priority.json` | READY 작업 순위(범주 1~8 · 목표 상태 · R0 · 의존 수 · 작업 우선순위) + 이유. 최근 작업량은 입력이 아니다 |
 | `lib/feasibility.mjs` | 실행 가능성: owner · worktree(바인딩·존재·브랜치) · 잠금 · 제품 `.agent-lock` · 범위 · 승인 · DB 경로 · 도구 · ChatGPT 충돌 · 선행 · 기획 필요 |
-| `lib/agents.mjs` | Claude CLI(`claude.exe -p` · MCP 0 · 허용 도구 목록 · `--max-budget-usd`) · Codex CLI(`exec -s read-only`) · 리뷰/보고서 판독 |
+| `lib/agents.mjs` | Claude CLI(MCP 0·명시적 도구·USD 상한) · Codex CLI(구현 workspace-write, 나머지 read-only·MCP 비활성화) · 실제 프로세스/세션·리뷰/보고서 판독 |
 | `lib/ci.mjs` | GitHub Actions 판독 — job 초록 ≠ 실행. `::notice::…건너뜀` = job 전체 건너뜀 · 일반 「건너뜀」 줄은 `partial_skip_notes` |
 | `bin/goal-orchestrator.mjs` · `lib/orchestrator.mjs` | 지속 실행기 |
 

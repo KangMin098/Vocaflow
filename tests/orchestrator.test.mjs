@@ -18,8 +18,37 @@ const ORCH = path.join(REPO, 'bin', 'goal-orchestrator.mjs')
 const FAKE_CLAUDE = `node ${path.join(REPO, 'tests', 'fakes', 'fake-claude.mjs').replace(/\\/g, '/')}`
 const FAKE_CODEX = `node ${path.join(REPO, 'tests', 'fakes', 'fake-codex.mjs').replace(/\\/g, '/')}`
 const OWNER = 'r0-learning-journey'
+const ROLE_FAKE = path.join(REPO, 'tests', 'fakes', 'role-agent.mjs').replace(/\\/g, '/')
 const kids = []
 after(() => kids.forEach((k) => k.kill()))
+
+test('dynamic A/B: two tasks retain owner, opposite AI, P1 repair, exact HEAD and no unknown PASS', () => {
+  const root = setup()
+  const a = addTask(root, { priority: 'P2', roles: { planner: 'codex', implementer: 'claude' } })
+  const b = addTask(root, { priority: 'P2', roles: { planner: 'claude', implementer: 'codex' }, depends_on: [a.task_id], worktree: a.wt })
+  const r = orch(root, ['--max-tasks', '2'], { VFC_CLAUDE_CMD: `node ${ROLE_FAKE} claude`, VFC_CODEX_CMD: `node ${ROLE_FAKE} codex`, FAKE_ROLE_P1: '1' })
+  assert.equal(r.code, 0, r.err + r.out)
+  for (const id of [a.task_id, b.task_id]) {
+    const t = task(root, id)
+    assert.equal(t.status, 'COMPLETED', JSON.stringify(t.blocker) + r.out)
+    assert.notEqual(t.role_assignment.roles.implementer, t.role_assignment.roles.reviewer)
+    assert.equal(t.owner_id, OWNER)
+    const txt = fs.readFileSync(path.join(root, t.review_record), 'utf8')
+    assert.ok(txt.includes('"provenance"'))
+    assert.ok(t.orchestration.rounds >= 2, 'same task repaired after opposite-AI P1')
+  }
+  integrity(root)
+})
+
+test('explicit Work request never enters the combined local implementation path', () => {
+  const root = setup()
+  const a = addTask(root, { priority: 'P2', roles: { planner: 'claude', implementer: 'claude' }, work_requested: true })
+  const r = orch(root, [], { VFC_CLAUDE_CMD: `node ${ROLE_FAKE} claude`, VFC_CODEX_CMD: `node ${ROLE_FAKE} codex` })
+  assert.equal(r.code, 0, r.err)
+  assert.equal(task(root, a.task_id).status, 'WAITING_CHATGPT')
+  assert.equal(r.json.run.events.some((e) => e.role), false, 'no implementation or planner is invoked')
+  integrity(root)
+})
 
 function env(root, extra = {}) {
   return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, VFC_AUTO_CODEX: '1', FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), ...extra }
@@ -78,6 +107,142 @@ function integrity(root) {
   const locks = JSON.parse(vfc(root, ['lock', 'list', '--json']).out)
   assert.deepEqual(locks.map((l) => l.name), [], '실행이 끝나면 잠금이 남지 않는다')
 }
+
+function submitPlatform(root, t) {
+  const base = execFileSync('git', ['-C', t.wt, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+  assert.equal(vfc(root, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'real-submitter-fixture', '--pid', String(process.pid)]).code, 0)
+  fs.mkdirSync(path.join(t.wt, 'src'), { recursive: true })
+  fs.writeFileSync(path.join(t.wt, 'src', `${t.task_id}.ts`), '// submitted implementation\n')
+  fs.writeFileSync(path.join(t.wt, 'src', 'acceptance.test.cjs'), "// src/acceptance.test.cjs\nrequire('node:test')('submitted source exists',()=>require('node:assert').ok(require('node:fs').existsSync('src')))\n")
+  execFileSync('git', ['-C', t.wt, 'add', 'src'])
+  execFileSync('git', ['-C', t.wt, 'commit', '-qm', 'submitted implementation'])
+  const head = execFileSync('git', ['-C', t.wt, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+  const log = path.join(root, 'submitted.log'); fs.writeFileSync(log, 'fixture test evidence\n')
+  const evidence = path.join(root, 'submitted.json')
+  fs.writeFileSync(evidence, JSON.stringify({ type: 'unit', command_or_protocol: 'node fixture', result: 'pass', skip_count: 0, commit: head, artifact_path_or_url: log, observed_at: '2026-10-20T00:00:00Z', covers: [0, 1] }))
+  const ev = vfc(root, ['task', 'evidence', t.task_id, '--file', evidence, '--by', OWNER])
+  assert.equal(ev.code, 0, ev.err)
+  const sub = vfc(root, ['task', 'submit', t.task_id, '--by', OWNER]); assert.equal(sub.code, 0, sub.err)
+  return { base, head }
+}
+
+test('platform REVIEW is independently reviewed without worker or user_goal; exact submitted HEAD completes', () => {
+  const root = setup(), t = addTask(root)
+  const { head } = submitPlatform(root, t)
+  const r = orch(root, ['--owner', OWNER])
+  assert.equal(r.code, 0, r.err + r.out)
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', r.out)
+  assert.equal(task(root, t.task_id).verified_commit, head)
+  assert.equal(r.json.run.tasks_done.length, 1)
+  assert.equal(r.json.run.events.some((e) => e.phase === 'implement'), false, 'submitted work is not implemented again')
+  integrity(root)
+})
+
+test('platform submitted P1 feeds the existing implementation loop, then two local tasks complete', () => {
+  const root = setup(), a = addTask(root), b = addTask(root, { depends_on: [a.task_id], worktree: a.wt })
+  submitPlatform(root, a)
+  const r = orch(root, ['--owner', OWNER, '--max-tasks', '2'], { FAKE_CODEX: 'p1_once' })
+  assert.equal(r.code, 0, r.err + r.out)
+  assert.equal(task(root, a.task_id).status, 'COMPLETED', r.out)
+  assert.equal(task(root, b.task_id).status, 'COMPLETED', r.out)
+  assert.ok(task(root, a.task_id).history.some((h) => h.from === 'REVIEW' && h.to === 'READY'))
+  const logs = fs.readdirSync(path.join(root, 'runtime', 'runs', r.json.run_id), { recursive: true }).filter((f) => String(f).endsWith('prompt.md'))
+  assert.ok(logs.some((f) => /R-PREV/.test(fs.readFileSync(path.join(root, 'runtime', 'runs', r.json.run_id, f), 'utf8'))), 'new implementation receives the prior rejection')
+  integrity(root)
+})
+
+test('unknown submitted review stays REVIEW and is not repeatedly billed while waiting', () => {
+  const root = setup(), t = addTask(root); submitPlatform(root, t)
+  const r = orch(root, ['--owner', OWNER, '--watch-seconds', '1'], { FAKE_CODEX: 'garbage' })
+  assert.equal(r.code, 0, r.err)
+  assert.equal(task(root, t.task_id).status, 'REVIEW')
+  assert.equal(fs.readFileSync(path.join(root, 'codex-count'), 'utf8'), '1')
+  assert.equal(r.json.run.tasks_done.length, 0)
+  integrity(root)
+})
+
+test('non-dynamic submitted work retains deterministic evidence gate when automatic review is disabled', () => {
+  const root = setup(), t = addTask(root); submitPlatform(root, t)
+  // After-record tampering must fail even if deterministicReview returns APPROVE.
+  fs.writeFileSync(path.join(root, 'submitted.log'), 'changed evidence\n')
+  const r = orch(root, ['--owner', OWNER, '--max-review-rounds', '0'], { VFC_AUTO_CODEX: '0' })
+  assert.equal(r.code, 0, r.err)
+  assert.notEqual(task(root, t.task_id).status, 'COMPLETED')
+  assert.equal(fs.existsSync(path.join(root, 'codex-count')), false)
+  integrity(root)
+})
+
+test('automated work does not adopt another session\'s uncommitted tracked changes', () => {
+  const root = setup(), t = addTask(root)
+  fs.appendFileSync(path.join(t.wt, 'README.md'), 'other session work\n')
+  const r = orch(root, ['--owner', OWNER])
+  assert.equal(r.code, 0, r.err)
+  assert.equal(task(root, t.task_id).status, 'READY')
+  assert.match(JSON.stringify(r.json.iterations), /automated_clean_worktree/)
+  assert.match(fs.readFileSync(path.join(t.wt, 'README.md'), 'utf8'), /other session work/)
+  integrity(root)
+})
+
+test('doctor shows code/state separation, registration is not execution, and changes no shared state', () => {
+  const root = setup(); addTask(root)
+  const before = fs.readFileSync(path.join(root, 'state', 'TASK_QUEUE.json'))
+  const r = vfc(root, ['doctor', '--owner', OWNER, '--json'])
+  assert.equal(r.code, 0, r.err)
+  const d = JSON.parse(r.out)
+  assert.equal(d.state_root, root); assert.equal(d.code_root, REPO)
+  assert.deepEqual(d.active_runs, []); assert.deepEqual(d.workers, [])
+  assert.ok(d.tasks.every((t) => !t.dispatch_acknowledged && !t.claim_recorded && !t.implementation_running))
+  assert.deepEqual(fs.readFileSync(path.join(root, 'state', 'TASK_QUEUE.json')), before)
+})
+
+test('submitted review and consecutive work use guarded local integration with native Windows paths', () => {
+  const root = setup(), t = addTask(root)
+  const { base } = submitPlatform(root, t)
+  execFileSync('git', ['-C', t.wt, 'branch', 'local/integration', base])
+  fs.mkdirSync(path.join(root, 'config'))
+  fs.writeFileSync(path.join(root, 'config', 'dev-mode.json'), JSON.stringify({ mode: 'LOCAL_FAST', auto_integrate: true, integration_branch: 'local/integration', integration_worktree: path.join(root, 'integration'), checks: [{ id: 'actual-node-test', kind: 'test', cwd: '.', cmd: process.execPath, args: ['--test', 'src/acceptance.test.cjs'] }] }))
+  const next = addTask(root, { depends_on: [t.task_id], worktree: t.wt })
+  const r = orch(root, ['--owner', OWNER, '--max-tasks', '2'])
+  assert.equal(r.code, 0, r.err + r.out)
+  assert.equal(task(root, t.task_id).status, 'COMPLETED')
+  assert.equal(task(root, next.task_id).status, 'COMPLETED', r.out)
+  assert.deepEqual(r.json.run.tasks_done.map((t) => t.outcome), ['completed', 'completed'], r.out)
+  assert.equal(r.json.run.events.filter((e) => e.phase === 'local_integrate' && e.ok).length, 2)
+  integrity(root)
+})
+
+test('bounded wait observes later READY work without a worker; owner filter preserves other work', async () => {
+  const root = setup(), other = addTask(root, { owner_id: 'content-pipeline', priority: 'P0' })
+  const proc = spawn(process.execPath, [ORCH, '--no-ci', '--json', '--owner', OWNER, '--watch-seconds', '2'], { env: env(root) })
+  kids.push(proc)
+  let stdout = '', stderr = ''; proc.stdout.on('data', (x) => stdout += x); proc.stderr.on('data', (x) => stderr += x)
+  const exited = new Promise((resolve) => proc.on('close', resolve))
+  const t = addTask(root, { priority: 'P2' })
+  assert.equal(await exited, 0, stderr + stdout)
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', stdout)
+  assert.equal(task(root, other.task_id).status, 'READY')
+  integrity(root)
+})
+
+test('bounded queue wait still stops for runtime STOP without claiming work', async () => {
+  const root = setup()
+  const proc = spawn(process.execPath, [ORCH, '--no-ci', '--json', '--owner', OWNER, '--watch-seconds', '1'], { env: env(root) })
+  kids.push(proc)
+  let stdout = '', stderr = ''; proc.stdout.on('data', (x) => stdout += x); proc.stderr.on('data', (x) => stderr += x)
+  const exited = new Promise((resolve) => proc.on('close', resolve))
+  const log = path.join(root, 'runtime', 'logs', 'events.jsonl')
+  const deadline = Date.now() + 10000
+  while (!(fs.existsSync(log) && fs.readFileSync(log, 'utf8').includes('queue_wait'))) {
+    assert.ok(Date.now() < deadline, 'controller enters bounded wait')
+    await new Promise((resolve) => setTimeout(resolve, 25))
+  }
+  fs.writeFileSync(path.join(root, 'runtime', 'STOP'), 'test stop\n')
+  assert.equal(await exited, 0, stderr + stdout)
+  const r = JSON.parse(stdout)
+  assert.match(r.stop_reason, /사용자 중단/)
+  assert.deepEqual(r.run.tasks_done, [])
+  integrity(root)
+})
 
 // 1 · 12 · 11 — 목표 검사기 (순수 판정)
 test('1·12 목표 미달성 검출 · CI 초록이어도 내부 건너뜀이면 FAIL(PASS 아님)', async () => {

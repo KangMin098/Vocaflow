@@ -19,7 +19,8 @@ import * as W from '../lib/workers.mjs'
 import * as UG from '../lib/usergoals.mjs'
 import { goalMode } from '../lib/dispatch.mjs'
 import { implementStep, DEFAULT_LIMITS } from '../lib/orchestrator.mjs'
-import { runClaude, readClaudeReport } from '../lib/agents.mjs'
+import { runClaude, runCodex, readClaudeReport } from '../lib/agents.mjs'
+import { dynamicTask, roleBinding } from '../lib/localroles.mjs'
 
 const argv = process.argv.slice(2)
 const opt = {}
@@ -36,7 +37,7 @@ function nextTask(state, w, skip = new Set()) {
 function main() {
   const wid = opt.worker
   if (!wid) throw new Error('--worker <worker_id> 가 필요하다')
-  const deps = { runClaude: process.env.VFC_CLAUDE_CMD ? runClaude : runClaude, readClaudeReport }
+  const deps = { runClaude, runCodex, readClaudeReport }
   const maxTasks = Number(opt['max-tasks'] || 1)
   const until = Date.now() + Number(opt.minutes || 0) * 60_000
   const result = { worker: wid, claimed: [], submitted: [], skipped: [], stop: null }
@@ -73,7 +74,8 @@ function main() {
         const t = s.taskQueue.tasks.find((x) => x.task_id === cand.task_id)
         if (!t.worktree) Object.assign(t, { worktree: w.worktree, branch: w.branch })
         t.orchestration.rounds = (t.orchestration.rounds || 0) + 1
-        const started = T.startTask(s, t.task_id, { owner_id: w.owner_id, session: { label: wid, agent: 'claude', pid: process.pid }, pid: process.pid, worker_id: wid }, ctx)
+        if (dynamicTask(t)) t.role_assignment = roleBinding(t, Object.values(s.orchestrator.runs || {}).flatMap((r) => r.events || []))
+        const started = T.startTask(s, t.task_id, { owner_id: w.owner_id, session: { label: wid, agent: t.role_assignment?.roles.implementer || 'claude', pid: process.pid }, pid: process.pid, worker_id: wid }, ctx)
         try {
           started.run.start_head = git(w.worktree, ['rev-parse', 'HEAD'])
         } catch {

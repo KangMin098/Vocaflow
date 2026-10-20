@@ -1,0 +1,262 @@
+{
+  "schema": "vfc-continuity-verification/1",
+  "at": "2026-10-20T02:06:37.678Z",
+  "task": "LOCALFAST-CONTINUITY-20261020",
+  "verdict": "ACCEPT_WITH_LIMITS",
+  "scope": "Controller continuity; not FINAL MISSION product acceptance",
+  "inherited_implementation": "533ec248ffc1d66a137dc78420216c85c3194ed5",
+  "source_manifest": {
+    "bin/goal-orchestrator.mjs": "3c710c4f2317be09de94b907d0fc64dc59b27412c37b489f3d1ce21ed3129c9e",
+    "bin/vfc.mjs": "c4964ce8dcacf1f1f4e05573fcfcea53751dadeab1d57724102c9614bd6f47d0",
+    "lib/orchestrator.mjs": "4d6c531f1291bb2eeb1b0bada8ebd9d01e336caf7d94e6baa3885559aa3cd891",
+    "lib/execution-status.mjs": "c0f5add2368c90c2eb976e64f05b432feef82e3e041e84f70615a69a2b14f056",
+    "lib/feasibility.mjs": "02a4a24ea2eb3a10ad2b87310fc54dfe8d5be86ff6484cb4710210004cec6610",
+    "lib/agents.mjs": "b17096091af57ef0e92acd89a6172e894ad6be1c3aeb70d9953bb802368e3dca",
+    "lib/localgate.mjs": "0fae1ea205db37e13d2c8bd5b7f018b4846df316aafde0872f08d5233566efd9",
+    "lib/tasks.mjs": "1cbf837d4a0798f8b1fcf2d064b414b801b496f02ab9868b9133a3f2ce6865dd",
+    "tests/orchestrator.test.mjs": "bce4f9da64c882b8118f7092745b29d87112af5f2875ce02eb047a2a5b6626a0",
+    "tests/roles.test.mjs": "82e1494c77b9cc79448e89ba4ba3136ad91e0e09b09b48e3aed879b854c26c58"
+  },
+  "tests": [
+    {
+      "scope": "orchestrator",
+      "file": "runtime/continuity-orchestrator-final.log",
+      "passed": 34,
+      "failed": 0,
+      "sha256": "be56a51dc854a8df172690e81cc3d122cb2ac662169b2fbd1f4a4bc4e0ba01c5"
+    },
+    {
+      "scope": "approval_owner_critical",
+      "file": "runtime/continuity-security-final.log",
+      "passed": 48,
+      "failed": 0,
+      "sha256": "1ee2e0fbbeca18469f1db24d1548908dc6b4c66a3d1e6a4c854321150cfd0238"
+    },
+    {
+      "scope": "roles_policy_remote_integration",
+      "file": "runtime/continuity-gates.log",
+      "passed": 37,
+      "failed": 0,
+      "sha256": "90cca91f6257dced007681a04a81a05733146cd59c6b2c3a85cd5ed3e3ea7f47"
+    },
+    {
+      "scope": "watch_stop",
+      "file": "runtime/continuity-watch-stop.log",
+      "passed": 1,
+      "failed": 0,
+      "sha256": "c5592619559545ea0ffc8dc09e83d9db43196953a1d31480e8a19cd9c45ddec5"
+    },
+    {
+      "scope": "doctor_final",
+      "file": "runtime/continuity-doctor-final.log",
+      "passed": 1,
+      "failed": 0,
+      "sha256": "f82071af567b24840452dec1a8912c1151971bab5a82379e1a14dc349d56242e"
+    },
+    {
+      "scope": "evidence_tamper",
+      "file": "runtime/continuity-evidence.log",
+      "passed": 1,
+      "failed": 0,
+      "sha256": "abd4767bc9c6c99349a9ba521788b5f6b7ec0f13e95c38fa53992e3e706229ca"
+    }
+  ],
+  "distinct_passing_tests": 121,
+  "marker_test": {
+    "passed": true,
+    "file": "runtime/continuity-final-targeted.log",
+    "sha256": "287db39f831fc61a23b31fa315aeb4b2c300f908ef77663fb42f628256068644"
+  },
+  "independent_reviews": [
+    {
+      "file": "runtime/continuity-review-result.json",
+      "sha256": "1d5fe30655c20b2acb80c8a26303e9ccd94fd252ac93a1fa5354b00d02775367",
+      "agent": "claude",
+      "role": "reviewer",
+      "code": 0,
+      "ok": true,
+      "ms": 31691,
+      "session_id": "78248b51-389f-4142-9954-5da76eba97cc",
+      "process_id": 21520,
+      "cost_usd": 0.39029659999999994,
+      "parsed": {
+        "ok": true,
+        "review": {
+          "verdict": "APPROVE",
+          "findings": [
+            {
+              "id": "F1",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "The submitted-review sweep now picks up every REVIEW task, not only owner_session goals. When a task is non-dynamic (no role_assignment) and AUTO_CODEX is off, it gets deterministicReview() APPROVE, so completion depends only on completeTask's deterministic checks. This matches RP-2026-10-10.2, but it is a wider default path than before and is only tested for the dynamic or fake-codex cases.",
+              "file": "lib/orchestrator.mjs",
+              "line": 1067,
+              "fix": "Add a test showing that a non-dynamic platform REVIEW task with AUTO_CODEX off completes only through completeTask's evidence, commit and acceptance checks. Or keep the old owner_session filter for non-dynamic tasks."
+            },
+            {
+              "id": "F2",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "R-PREV is built from the last REVIEW->READY history entry at any point in the task's history. A task that was rejected, fixed, and later returned to READY for an unrelated reason (for example a recovery) gets the stale rejection fed back as P1.",
+              "file": "lib/orchestrator.mjs",
+              "line": 571,
+              "fix": "Use the rejection only if it is the newest status transition (history.at(-1)) or if it matches the current run_seq or design_version."
+            },
+            {
+              "id": "F3",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "The `reviewed` dedupe set only lives inside the process. Each new controller run reviews an unknown-result REVIEW task again, so a cron or repeated relaunch still bills the reviewer once per run. Within one run the cost is bounded.",
+              "file": "lib/orchestrator.mjs",
+              "line": 1031,
+              "fix": "Optionally persist the unknown-review key, or a cooldown, in run state."
+            },
+            {
+              "id": "F4",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "In execution-status.mjs, `inbox_written` checks the owner's inbox file and not the task, so the doctor output can say 'inbox written' for a task that never received a delivery.",
+              "file": "lib/execution-status.mjs",
+              "line": 28,
+              "fix": "Rename it to owner_inbox_exists, or check for the task_id inside the file."
+            }
+          ],
+          "ran_tests": false,
+          "notes": "I read .agent-goal.md, the full git diff (bin/goal-orchestrator.mjs, bin/vfc.mjs, lib/agents.mjs, lib/feasibility.mjs, lib/localgate.mjs, lib/orchestrator.mjs, tests/orchestrator.test.mjs), lib/execution-status.mjs, and the start of reviewSubmitted and deterministicReview. I found no P0 or P1 issues. Owner isolation: --owner is checked against existing owners; selectStep, the REVIEW sweep, and local and bridge design planning all filter by executor_owner; one test checks that another owner's P0 task stays READY. No bypass: agents.mjs no longer strips the CLAUDE* session markers, so a nested-session refusal stays a refusal (stricter than before); runs with uncommitted changes to tracked files are blocked by the new automated_clean_worktree check; reviewSubmitted keeps its unknown/disabled guards; no DB or gh calls were added. Flow: a REVIEW task gets an independent review; a P1 rejection becomes R-PREV in a new run; the review result is logged as an event; local integration is shared through integrateCompleted, and a failed or unparseable integration stops the run with integration_blocked. Limits: watchSeconds must be 0..86400; the wait sleeps at most 15s and goes back through the loop-top STOP check; the sweep checks max_tasks, budget and STOP; an unknown review is not re-billed within the same run. Existing behavior: the old inline integration is now the shared helper, the localgate change keeps the shell for .cmd/pnpm/npm/npx launchers, and doctor is read-only (a test checks that TASK_QUEUE is unchanged). I did not inspect submittedHead, completeTask or local-integrate.mjs beyond their call sites, and I ran no tests."
+        }
+      }
+    },
+    {
+      "file": "runtime/continuity-review-final-result.json",
+      "sha256": "20c477d6313a3b742f13707df2476800b8e1f8ede42aa8aa504c5194e0a10402",
+      "agent": "claude",
+      "role": "reviewer",
+      "code": 0,
+      "ok": true,
+      "ms": 40176,
+      "session_id": "05a39c6c-d685-4aeb-915d-930975ef7f8b",
+      "process_id": 22580,
+      "cost_usd": 0.269703,
+      "parsed": {
+        "ok": true,
+        "review": {
+          "verdict": "APPROVE",
+          "findings": [
+            {
+              "id": "F1",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "The submitted-REVIEW sweep no longer checks for goalMode==='owner_session'. Any task in REVIEW now goes to reviewSubmitted, including ones without a user_goal_id and orchestrator-mode tasks left in REVIEW by a crashed processTask run. That is intended for the non-dynamic case, but it also changes who reviews orphaned orchestrator-mode REVIEW tasks. The reviewKey dedupe stops repeat billing within one run, but a new run will review the same input again.",
+              "file": "lib/orchestrator.mjs",
+              "line": 1068,
+              "fix": "Write down that this widening is intended. Optionally skip tasks whose t.run is still live (another controller), or persist the reviewed key on the task so a new run doesn't bill the same input again."
+            },
+            {
+              "id": "F2",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "The completeTask evidence-hash recheck tries a relative path against process cwd first, then root, then the worktree. If a file with the same relative name exists in cwd, it can shadow the intended artifact. This fails closed (a mismatch throws EVIDENCE_CHANGED), so it cannot let tampered evidence through, but it can cause false rejections.",
+              "file": "lib/tasks.mjs",
+              "line": 639,
+              "fix": "Resolve relative paths in the same order recordEvidence used (worktree or root), and only accept absolute paths as given."
+            },
+            {
+              "id": "F3",
+              "severity": "P2",
+              "scope": "in",
+              "claim": "R-PREV is read from history.at(-1). If any later transition or annotation is appended after a REVIEW→READY rejection (for example a READY→READY requeue), the rejection is dropped without notice. That is acceptable since the latest transition is now the defined semantics.",
+              "file": "lib/orchestrator.mjs",
+              "line": 571,
+              "fix": "None required. Optionally add a test where a non-status event follows the rejection."
+            }
+          ],
+          "ran_tests": false,
+          "notes": "Read-only review. I read the diffs for lib/tasks.mjs and lib/orchestrator.mjs (first ~130 lines) and all of lib/execution-status.mjs. I did not read the remaining orchestrator diff hunks, bin/*, lib/agents.mjs, lib/feasibility.mjs, lib/localgate.mjs or the test files, and I did not run any tests. Findings: (1) No P0 or P1 found. (2) Owner scoping is applied consistently to selectStep, the REVIEW sweep and the design delegation paths, and an unknown owner throws. (3) Integration is gated on LOCAL_FAST plus auto_integrate. A failed or unparseable result counts as blocked, and the run stops. (4) The evidence hash check fails closed, and the needed imports (fs, path, crypto, root) are present. (5) executionStatus does not write anything. It only calls loadState, git rev-parse and checkFeasibility, and I did not verify that checkFeasibility has no side effects. (6) This review did not cover approval or DB protection paths, because the hunks I read don't change them."
+        }
+      }
+    }
+  ],
+  "worker": {
+    "default_platform_path": "EXCLUDED",
+    "standalone_owner_session_compatibility": "RETAINED",
+    "registration_and_history": "PRESERVED"
+  },
+  "initial_failures_preserved": [
+    {
+      "file": "runtime/continuity-orchestrator.log",
+      "cause": "Windows native executable under Program Files split by shell:true; fixed and final integration passed"
+    },
+    {
+      "file": "runtime/continuity-final-targeted.log",
+      "cause": "Local artifact mutation accepted before completion; hash recheck and final tampering test passed"
+    }
+  ],
+  "limitations": [
+    "Two-task implementation/rework/integration tests use fake providers with real Git/state/processes; not new actual-model implementation proof.",
+    "Actual Claude CLI independently reviewed code twice; it did not run tests; each review states inspected limits.",
+    "UNKNOWN review is deduplicated per run only; a new deliberate run can retry it.",
+    "Evidence relative-path resolution preserves existing recording order and can fail closed on path shadowing.",
+    "Bounded runner stops on limits, STOP, policy/provider refusal or integration failure; no daemon or automatic budget reset.",
+    "Product T-0052 owner session already active; its code/locks/task are not taken over."
+  ],
+  "github_development_calls": 0,
+  "developer_db_writes": 0,
+  "human_gold_approvals": 0,
+  "rights_approvals": 0,
+  "product_final_complete": false,
+  "adoption": {
+    "at": "2026-10-20T02:07:22.212Z",
+    "source": "D:\\workspace\\Vocaflow-AI-Control-continuity",
+    "source_head": "8a9d2596db62884d226c2ca6cca8c5b0072a893d",
+    "live": "D:/workspace/Vocaflow-AI-Control",
+    "live_base": "c1f8e7fd6908d7decc2d5222d476f851f9fc106c",
+    "files": [
+      "bin/goal-check.mjs",
+      "bin/goal-orchestrator.mjs",
+      "bin/owner-worker.mjs",
+      "bin/remote-track.mjs",
+      "bin/vfc.mjs",
+      "config/dev-mode.json",
+      "lib/agents.mjs",
+      "lib/ci.mjs",
+      "lib/devmode.mjs",
+      "lib/execution-status.mjs",
+      "lib/feasibility.mjs",
+      "lib/localgate.mjs",
+      "lib/localgoal.mjs",
+      "lib/localroles.mjs",
+      "lib/orchestrator.mjs",
+      "lib/remote.mjs",
+      "lib/roles.mjs",
+      "lib/tasks.mjs",
+      "lib/usergoals.mjs",
+      ".agent-goal.md",
+      "tests/orchestrator.test.mjs",
+      "tests/roles.test.mjs",
+      "tests/remote.test.mjs",
+      "tests/usergoals.test.mjs",
+      "tests/fakes/role-agent.mjs",
+      "README.md",
+      "docs/ORCHESTRATOR.md",
+      "docs/DYNAMIC_LOCAL_ROLES.md",
+      "verification/continuity-20261020.json"
+    ],
+    "file_count": 29,
+    "state_bytes_unchanged": true,
+    "state_hashes": {
+      "ACTIVE_TASKS.json": "8986eb70ac25fc662ea094a8173c782f561ef841e322c6631db2130b95f8b3d9",
+      "DECISION_LOG.json": "0febb993633ddd4bc993324f686c9dda30cba8ce4d83916f8f667270f93b6061",
+      "GOAL_STATUS.json": "4e50e4f0a27c0f85fdf932f900da33b5afcf6a73cef09113eba051421d23d833",
+      "ORCHESTRATOR.json": "cbb7c7ff88bdaa9f4b7ef81e247fd525bcbf7ce229fa82524126427a776dde54",
+      "OWNERSHIP_REGISTRY.json": "b27590b4ad72741da1fae90b47ab4a08b47382dfe0756516ddba50237961094d",
+      "REMOTE_INTEGRATION.json": "0e77cf0a6f7243b84279a57c2f12bd335ed3872ec10f50d9fb19913d750d6c80",
+      "TASK_QUEUE.json": "99ed24fdcc867830ec7f17a40746881cd124d21cd40d9735f9c92876e918fe2f",
+      "USER_GOALS.json": "4618724eca7f062338b71f44607481af9049829b9572426cf5d73c783bad86ee"
+    },
+    "foreign_dirty_files_preserved": [
+      "planning/inbox/learning-map.md",
+      "verification/ci/MAIN-ci.yml-e2e-37863144232.json"
+    ],
+    "github_calls": 0
+  }
+}

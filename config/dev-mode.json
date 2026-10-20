@@ -1,6 +1,8 @@
 {
   "$comment": "개발 모드(lib/devmode.mjs). LOCAL_FAST = 일반 개발 GitHub 호출 0(PR · Actions · push · 원격 병합). 원격은 bin/backup.mjs(하루 최대 1회 + 복구 시점)와 Work Bridge 만. 일시 전환은 VFC_DEV_MODE=GITHUB.",
   "mode": "LOCAL_FAST",
+  "dynamic_roles": true,
+  "auto_integrate": true,
   "auto_codex_review": true,
   "$auto_codex_review": "2026-10-19 사용자 지시(Claude 구현 → Codex 자동 리뷰 · P0/P1 자동 환류). 끄려면 false 또는 VFC_AUTO_CODEX=0",
   "integration_branch": "local/integration",

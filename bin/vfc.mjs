@@ -28,6 +28,12 @@ import { goalLevel } from '../lib/alignment.mjs'
 import * as POL from '../lib/policy.mjs'
 import * as LIVE from '../lib/liveverify.mjs'
 import * as W from '../lib/workers.mjs'
+import { isLocalFast, devConfig } from '../lib/devmode.mjs'
+import { planGoalLocally } from '../lib/localgoal.mjs'
+import { DEFAULT_LIMITS } from '../lib/orchestrator.mjs'
+import { runClaude, runCodex } from '../lib/agents.mjs'
+import { roleMetrics } from '../lib/roles.mjs'
+import { executionStatus } from '../lib/execution-status.mjs'
 
 function parse(argv) {
   const pos = []
@@ -106,7 +112,8 @@ const HELP = `vfc — Vocaflow AI Control
                                           impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
   verify live <UG> --test <apps/web/...live.test.ts> --acceptance i,j [--worktree wt] [--check]   읽기 전용 개발 DB 검증(정책 위임 · 해시 결속 · 건너뜀≠PASS)
-  worker register --owner O --worktree <path> --branch b   (1회 · 대화형 터미널) owner worker 등록 → node bin/owner-worker.mjs --worker <id>
+  doctor [--owner O]                              코드/상태 연결 · 실제 실행 · 인수/리뷰/통합 상태(읽기 전용)
+  worker register --owner O --worktree <path> --branch b   (기존 owner_session 호환 전용 · 일반 플랫폼 작업에는 불필요)
   worker list
   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
@@ -137,7 +144,7 @@ ChatGPT (파일 교환 · API 없음)
   ugoal start --from chatgpt --file <goal.md> --by O          ChatGPT 가 준 vfc-goal 블록 → 목표 + 설계 v1 PROPOSED
   ugoal start --from claude --title .. --goals VG-.. [--profile FAST|BALANCED|DEEP|CRITICAL] [--design-file d.json] --by O
   ugoal draft <UG> --design-file d.json --by O               설계 없는 목표에 Claude 초안(DRAFT, 승인 아님) — 패킷 범위용
-  ugoal request-design <UG> [--issue-file issue.json] [--commit sha] --by O   ChatGPT 설계 요청서(thread) · 재질의 예산 적용
+  ugoal request-design <UG> [--agent codex|claude] [--worktree path] [--work] --by O  LOCAL_FAST 로컬 설계(PROPOSED), --work 는 기존 Work 요청서
   ugoal intake [--min-age-ms 2000] --by O                     planning/responses 의 thread 응답을 원자적으로 인수(검증·중복 차단·버전 대조)
   ugoal approve <UG> --design N --decision <DL> [--paths a,b] [--db-decision <DL>] --by O
                                                               결정은 사용자 APPROVED 이고 summary/reference 에 「UG-…@vN」(DB 는 「UG-…@vN db」)
@@ -305,6 +312,8 @@ function main() {
       const st = loadState().state
       return out(Object.values(st.ownership.owners).flatMap((o) => Object.values(o.workers || {})).map((w) => ({ ...w, live: W.liveWorkers(st, w.owner_id).some((x) => x.worker_id === w.worker_id) })), opt)
     }
+    case 'doctor':
+      return out(executionStatus({ owner: opt.owner || null }), opt)
     case 'goal level':
       return out(goalLevel(loadState().state, pos[0]), opt)
     case 'task add': {
@@ -492,6 +501,24 @@ function main() {
     case 'ugoal request-design': {
       const r = requireValidCanon()
       const issue = opt['issue-file'] ? JSON.parse(fs.readFileSync(opt['issue-file'], 'utf8')) : null
+      if (isLocalFast() && devConfig().dynamic_roles === true && !opt.work) {
+        const state = loadState().state, g = UG.findGoal(state, pos[0])
+        const cwd = opt.worktree || g.delegations?.at(-1)?.worktree
+        if (!cwd) throw new T.RuleError('WORKTREE_REQUIRED', 'Local design needs the existing delegated worktree or --worktree; no new session/worktree is substituted')
+        withState((s) => UG.reserveLocalDesign(s, pos[0], { issue, by }))
+        let result
+        try {
+          result = planGoalLocally(state, pos[0], { agent: opt.agent || 'codex', cwd, runDir: path.join(p.runs(), `local-design-${pos[0]}-${Date.now()}`), issue, limits: UG.limitsFor(state, { user_goal_id: pos[0] }, DEFAULT_LIMITS), deps: { runClaude, runCodex }, record: (e) => withState((s) => { const goal = UG.findGoal(s, pos[0]); (goal.local_role_events ||= []).push({ ...e, at: new Date().toISOString() }) }) })
+          if (result.ok) result.saved = withState((s) => UG.addLocalDesign(s, pos[0], result.design, { ...result.provenance, by }))
+          else if (result.work) {
+            withState((s) => { UG.findGoal(s, pos[0]).local_work_exception = result.work })
+            const req = UG.requestDesign(withState, pos[0], { issue: issue || { problem: result.work, question: 'Resolve the bounded local design disagreement', evidence: [], alternatives: [], approval_scope_change: false }, canon_version: r.facts.canon_version, by })
+            result.work_handoff = { status: 'WORK_QUEUED', request_id: req.id, file: req.file }
+          }
+        } finally { withState((s) => { UG.findGoal(s, pos[0]).local_design_active = null }) }
+        return out(result, opt)
+      }
+      if (opt.work) withState((s) => { UG.findGoal(s, pos[0]).local_work_exception = 'user_explicit_work' })
       let context = null
       let contextError = null
       if (!opt['no-context']) {
@@ -592,6 +619,8 @@ function main() {
     }
     case 'perf report': {
       const m = measureRuns(loadState().state.orchestrator, { since: opt.since || null })
+      const metricState = loadState().state
+      m.dynamic_roles = roleMetrics([...Object.values(metricState.orchestrator.runs || {}).filter((r) => !opt.since || r.started_at >= opt.since).flatMap((r) => r.events || []), ...Object.values(metricState.userGoals?.goals || {}).flatMap((g) => (g.local_role_events || []).filter((e) => !e.run_id && (!opt.since || e.at >= opt.since)))])
       if (!opt.json) {
         const min = (ms) => `${(ms / 60000).toFixed(1)}분`
         return out([`실행 ${m.runs} · 벽시계 ${min(m.wall_ms)} · 완료 작업 ${m.completed_tasks} · 작업당 ${m.per_completed_task_ms ? min(m.per_completed_task_ms) : '-'} · 비용 $${m.cost_usd}`, ...Object.entries(m.by_phase).map(([k, v]) => `  ${k.padEnd(12)} ${min(v.ms).padStart(7)} ${String(v.pct).padStart(5)}%`)].join('\n'), opt)
