@@ -36,6 +36,14 @@ const REJECT: Record<string, string> = {
   quantity: '이번 계획 수량을 이미 채웠어요',
 }
 
+/** 받은 자료 한 줄 — 새 학습 링크는 지금 유효함이 확인된 자료(current === true)만 · 이미 푼 자료는 지난 결과 보기 · 확인 못 함은 학습 가능으로 올리지 않는다(T0067-P1-2) */
+export function rowState(r: Pick<Row, 'current' | 'attempted' | 'evidence'>): { link: boolean; label: string; unknown: boolean } {
+  if (r.current === false) return { link: r.attempted, label: r.attempted ? '승인 철회 · 지난 결과만 남음' : '승인 철회 · 지금은 열 수 없음', unknown: false }
+  if (r.current !== true && !r.attempted) return { link: false, label: '지금 열 수 있는지 확인하지 못했어요', unknown: true }
+  if (!r.attempted) return { link: true, label: '아직 안 풂', unknown: false }
+  return { link: true, label: r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요', unknown: false }
+}
+
 export interface SupplyOutcome { lines: { role: Role; text: string; kind: 'full' | 'partial' | 'none' }[]; retry: boolean; unknown: boolean }
 
 /**
@@ -90,7 +98,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
       const r = await fetch('/api/csat/authored/supply', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ task, template }) })
       const j = await r.json().catch(() => ({}))
       if (r.status === 409) setMsg('학습계획을 먼저 확정하면 자료를 받을 수 있어요.')
-      else if (r.status === 503) setMsg('검수 · 승인이 끝난 자료가 아직 없어요.')
+      else if (r.status === 503) setMsg('자료 공급을 아직 준비하고 있어요 — 잠시 뒤 다시 확인해 주세요.')
       else if (!r.ok) setMsg(typeof j.error === 'string' ? j.error : '자료를 받지 못했어요 — 잠시 뒤 다시 눌러 주세요.')
       else if (j.status === 'no_lines') setMsg('지금 단계에서 새로 받을 자료가 없어요.')
       else if (j.status === 'ok') setOutcome(supplyOutcome(j))
@@ -125,13 +133,20 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
           {rows.map((r) => (
             <li key={r.deliveryId} data-role={r.role}>
               {/* 지도 복귀 문맥(TASK · Workspace · 목표 · PLAN)을 싣는다 — PLAN CTA 와 같은 outgoingCtx(Codex C7 P2) */}
-                {r.current === false && !r.attempted ? <span>{ROLE[r.role]}</span> : <Link href={ctx ? withMapReturn(`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`, ctx) : `/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>}
+                {/* 새 학습 링크는 지금 유효함이 확인된(current === true) 자료만 · 이미 푼 자료는 지난 결과 보기(기존 권한 그대로) · 확인 못 함은 학습 가능으로 올리지 않는다(T0067-P1-2) */}
+                {!rowState(r).link ? <span data-testid={tid('ws-authored-unverified')} data-current={String(r.current ?? 'unknown')}>{ROLE[r.role]}</span> : <Link href={ctx ? withMapReturn(`/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`, ctx) : `/csat/learn/${r.ref.slice('authored:'.length)}?d=${r.deliveryId}`}>{ROLE[r.role]}</Link>}
               <span className={u.ledgerVal}>
-                {r.current === false ? (r.attempted ? '승인 철회 · 지난 결과만 남음' : '승인 철회 · 지금은 열 수 없음') : !r.attempted ? '아직 안 풂' : r.evidence === true ? '풀었어요 · 지도 근거' : r.evidence === false ? '풀었어요 · 연습 기록' : '풀었어요'}
+                {rowState(r).label}
               </span>
             </li>
           ))}
         </ul>
+      )}
+      {rows.some((r) => rowState(r).unknown) && (
+        <p className={`${p.cardDesc} break-keep`} data-testid={tid('ws-authored-recheck-note')}>
+          일부 자료는 지금 열 수 있는지 확인하지 못했어요.{' '}
+          <button type="button" className={p.whitePill} onClick={() => void load()} data-testid={tid('ws-authored-recheck')}>다시 확인하기</button>
+        </p>
       )}
       {msg && <p className={p.cardDesc} aria-live="polite" data-testid={tid('ws-authored-msg')}>{msg}</p>}
       {outcome && (

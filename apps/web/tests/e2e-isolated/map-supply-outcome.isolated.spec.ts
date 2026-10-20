@@ -79,5 +79,23 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     await expect(support.locator('[data-testid="ws-authored-support-retry"]')).toBeVisible()
     await noOverflow(page)
     await test.info().attach(`outcome-unknown-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
+
+    // T0067-P1-2 — 지금 열 수 있는지 확인 못 한 자료(current null)는 새 학습 링크가 아니다 · 확인된 자료(true)만 링크 · 다시 확인하기(목록 응답만 모의)
+    await page.route('**/api/csat/authored?task=e.evidence_location', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ status: 'installed', rows: [
+      { ref: 'authored:ev-ind-1', deliveryId: '11111111-1111-4111-8111-111111111111', role: 'independent_check', deliveredAt: '2026-10-21T00:00:00Z', attempted: false, evidence: null, current: null },
+      { ref: 'authored:ev-ind-2', deliveryId: '22222222-2222-4222-8222-222222222222', role: 'independent_check', deliveredAt: '2026-10-21T00:00:01Z', attempted: false, evidence: null, current: true },
+    ] }) }))
+    await page.reload({ waitUntil: 'domcontentloaded' })
+    await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
+    const dlg2 = page.locator(`[role="dialog"][data-ws="${T}"]`)
+    if (!(await dlg2.count())) await page.locator(`[data-testid="ws-row"][data-ws="${T}"] [data-testid="ws-open"]`).click()
+    await dlg2.locator('[data-testid="ws-tab-overview"]').click()
+    const list = dlg2.locator('[data-testid="ws-authored"] [data-testid="ws-authored-list"]')
+    await expect(list.locator('li')).toHaveCount(2)
+    await expect(list.locator('a'), '확인된 1 개만 링크').toHaveCount(1)
+    await expect(list.locator('[data-testid="ws-authored-unverified"]')).toHaveAttribute('data-current', 'unknown')
+    await expect(list).toContainText('지금 열 수 있는지 확인하지 못했어요')
+    await expect(dlg2.locator('[data-testid="ws-authored-recheck"]')).toBeVisible()
+    await noOverflow(page)
   })
 }

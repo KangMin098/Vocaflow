@@ -2,7 +2,7 @@
 // T-0067 — 공급 결과 표시가 응답 사실과 일치하는가(문구가 아니라 의미: 받은 수 · 접수 여부 · 확인된 이유 · 다시 확인)
 import { describe, expect, it } from 'vitest'
 
-import { supplyOutcome } from '../AuthoredSupplyCard'
+import { rowState, supplyOutcome } from '../AuthoredSupplyCard'
 
 const line = (o: Record<string, unknown>) => ({ role: 'independent_check', requested: 2, delivered: [], rejected: [], orderOpened: false, ...o })
 const text = (raw: unknown) => supplyOutcome(raw).lines.map((l) => l.text).join(' ')
@@ -51,5 +51,22 @@ describe('supplyOutcome', () => {
     expect(supplyOutcome(null)).toMatchObject({ unknown: true, retry: true })
     expect(supplyOutcome({ status: 'ok' })).toMatchObject({ unknown: true, retry: true })
     expect(supplyOutcome({ lines: [{ role: 'independent_check' }] }).lines[0].text).toContain('확인하지 못했어요')
+  })
+})
+
+describe('rowState — 받은 자료 한 줄(T0067-P1-2)', () => {
+  it('유효함 확인(current true)만 새 학습 링크 · 확인 못 함(null · 누락)은 링크 없음 + 확인 불가', () => {
+    expect(rowState({ current: true, attempted: false, evidence: null })).toEqual({ link: true, label: '아직 안 풂', unknown: false })
+    for (const current of [null, undefined]) {
+      const s = rowState({ current, attempted: false, evidence: null })
+      expect(s.link, `current=${current}`).toBe(false)
+      expect(s.unknown).toBe(true)
+      expect(s.label).not.toContain('아직 안 풂')
+    }
+  })
+  it('승인 철회 · 이미 푼 자료는 지난 결과 보기(기존 권한) · 안 푼 철회 자료는 열 수 없음', () => {
+    expect(rowState({ current: false, attempted: true, evidence: true })).toMatchObject({ link: true, unknown: false })
+    expect(rowState({ current: false, attempted: false, evidence: null })).toMatchObject({ link: false, unknown: false })
+    expect(rowState({ current: null, attempted: true, evidence: true })).toMatchObject({ link: true, label: '풀었어요 · 지도 근거' })
   })
 })
