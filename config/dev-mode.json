@@ -1,10 +1,22 @@
 {
   "$comment": "개발 모드(lib/devmode.mjs). LOCAL_FAST = 일반 개발 GitHub 호출 0(PR · Actions · push · 원격 병합). 원격은 bin/backup.mjs(하루 최대 1회 + 복구 시점)와 Work Bridge 만. 일시 전환은 VFC_DEV_MODE=GITHUB.",
   "mode": "LOCAL_FAST",
-  "dynamic_roles": true,
+  "dynamic_roles": false,
   "auto_integrate": true,
-  "auto_codex_review": true,
-  "$auto_codex_review": "2026-10-19 사용자 지시(Claude 구현 → Codex 자동 리뷰 · P0/P1 자동 환류). 끄려면 false 또는 VFC_AUTO_CODEX=0",
+  "auto_codex_review": false,
+  "development_policy": {
+    "version": "dev-minimal-20261020",
+    "instruction": "Vocaflow 개발 단계의 최신 사용자 지시다. 오래된 worktree의 일반 개발 절차와 충돌하면 이 절차를 따른다. 제품 정본·권한·DB 승인은 바꾸지 않는다.",
+    "verification": {
+      "L1": "문구·스타일·비기능 문서: 관련 정적 검사, 필요한 화면 확인",
+      "L2": "일반 기능: 영향 범위 단위·타입·기능 검증",
+      "L3": "인증·권한·학습기록·진단·공통 프레임워크·데이터 결속: 핵심 통합·관련 격리 E2E, 필요한 독립 검토",
+      "L4": "DB 변경·기존 데이터 삭제: 사용자 승인·영향 범위·격리·복구 검증"
+    },
+    "ordinary_work": "일반 개발에 AI 교차 리뷰·worker·subagent·새 worktree·작업 큐·handoff·세션 시작 동기화·별도 보고서를 강제하지 않는다. 문서는 계약이 바뀐 정본만 고친다. 모델·사고 수준은 작업에 맞춰 선택한다. LOCAL_FAST는 작업별 원격 CI를 기다리지 않는다. 기존 검증은 HEAD·범위·환경이 같으면 재사용한다.",
+    "safety": "DB 변경·데이터 삭제 승인, 비밀정보, 인증·접근 통제, 다른 작업자의 변경, 파괴적 Git 차단, PR 범위·HEAD 결속, 필요한 테스트 실제 통과를 유지한다. skip·미실행·REVIEW_UNKNOWN을 PASS로 만들지 않는다. 기존 명시적 독립 검토 계약은 자동 완화하지 않는다."
+  },
+  "$auto_codex_review": "2026-10-20: 일반 개발은 테스트·타입·영향 범위 검증으로 완료한다. 독립 AI 검토·동적 역할은 작업에서 명시적으로 요청할 때만 사용한다.",
   "integration_branch": "local/integration",
   "integration_worktree": "D:/workspace/Vocaflow-integration",
   "backup": {

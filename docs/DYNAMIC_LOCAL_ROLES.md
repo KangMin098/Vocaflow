@@ -1,5 +1,7 @@
 # LOCAL_FAST 동적 역할
 
+2026-10-20 개발 간소화: 동적 역할과 자동 독립 리뷰는 기본 꺼짐이다. 일반 작업은 구현자가 관련 테스트·타입·기능을 검증하고 기존 증거 게이트로 로컬 통합한다. 별도 AI 검토를 실행했다고 기록하지 않는다. 명시적인 역할/독립 검토·DB 승인 계약은 유지하며 필요한 작업에서만 선택한다. 단일 세션 일반 개발은 큐·worker·handoff 등록을 요구하지 않는다.
+
 2026-10-19 사용자 지시. 기존 `goal-orchestrator`, owner-worker, Task Queue, Goal Alignment Gate, Work Bridge와 `local-integrate`를 확장한다. 별도 서비스나 오케스트레이터는 없다. 제품 main·DB·봉인된 goals 정본은 변경하지 않는다.
 
 작업 JSON에 선택적으로 지정한다.

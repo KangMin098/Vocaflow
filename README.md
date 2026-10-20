@@ -7,7 +7,7 @@ Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기�
 - 정본: [goals/](./goals/) — STEP 2 승인 정본 v1.1.0 (2026-10-09), `CANON_MANIFEST.json` 으로 sha256 봉인
 - 사용법: [docs/USAGE.md](./docs/USAGE.md) · 데이터 계약: [docs/DATA_CONTRACT.md](./docs/DATA_CONTRACT.md) · 잠금: [docs/CONCURRENCY.md](./docs/CONCURRENCY.md) · 자동 실행: [docs/ORCHESTRATOR.md](./docs/ORCHESTRATOR.md) · ChatGPT: [docs/CHATGPT_CONNECTION.md](./docs/CHATGPT_CONNECTION.md)
 - 에이전트별 안내: [agents/claude](./agents/claude/README.md) · [agents/codex](./agents/codex/README.md) · [agents/chatgpt](./agents/chatgpt/README.md)
-- LOCAL_FAST 동적 역할(2026-10-19): [운영 계약](./docs/DYNAMIC_LOCAL_ROLES.md). 기존 실행기·큐·목표/승인 게이트를 재사용하며, 일반 기획은 로컬 CLI, 구현과 독립 리뷰는 서로 다른 AI가 맡는다.
+- LOCAL_FAST: 일반 작업은 구현과 실제 검증 증거로 진행한다. [동적 역할](./docs/DYNAMIC_LOCAL_ROLES.md)은 명시적으로 선택할 때만 사용하며, 독립 리뷰를 요청한 경우에만 구현자와 다른 AI를 배정한다. 최신 개발 절차는 `config/dev-mode.json`의 `development_policy`다.
 - 연속 실행: `node bin/vfc.mjs doctor --owner final-product --json`으로 코드/상태 경로·실제 실행·차단 사유를 확인한다. 플랫폼 작업은 `node bin/goal-orchestrator.mjs --owner final-product --max-tasks 3 --watch-seconds 60 --json`으로 기존 중앙 실행기에서 처리한다. 파일 inbox 기록만으로 세션 수신이나 실행을 주장하지 않는다.
 
 ## 구조

@@ -61,6 +61,19 @@ test('staticGates — 정상 통과', () => {
   assert.deepEqual(staticGates({ ...f, head: HEAD, base: 'local/integration' }).fail, [])
 })
 
+test('일반 작업의 증거 전용 통합은 AI 리뷰를 강제하지 않으며 명시적 독립 계약은 대체하지 않는다', () => {
+  const f = fixture()
+  const text = JSON.stringify({ verdict: 'APPROVE', verification_mode: 'evidence_only', independent_ai_review: false, notes: '자동 Codex 리뷰 없음' })
+  fs.writeFileSync(path.join(f.reviewRoot, 'r.md'), text)
+  f.task.review_record_sha256 = crypto.createHash('sha256').update(text).digest('hex')
+  assert.deepEqual(staticGates({ ...f, head: HEAD, base: 'local/integration' }).fail, [])
+  f.task.require_review_pass = true
+  assert.ok(staticGates({ ...f, head: HEAD, base: 'local/integration' }).fail.some((r) => r.startsWith('review:')))
+  f.task.require_review_pass = false
+  fs.appendFileSync(path.join(f.reviewRoot, 'r.md'), 'changed')
+  assert.ok(staticGates({ ...f, head: HEAD, base: 'local/integration' }).fail.some((r) => /완료 뒤 바뀌었다/.test(r)))
+})
+
 test('실제 Git blob 승인 — LF/CRLF·한글·앞뒤 공백을 보존하고 trim 해시는 거절', async (t) => {
   for (const [label, sql] of [
     ['LF', '-- approved SQL\ncreate table x();\n'],

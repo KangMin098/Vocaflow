@@ -4,11 +4,32 @@ import assert from 'node:assert/strict'
 import { assignRoles, validateRoles, roleMetrics, workReason, designReviewAllows } from '../lib/roles.mjs'
 import { parsePlan, planKey, checkProvenance, canCombinePlan } from '../lib/localroles.mjs'
 import { localPlan } from '../lib/localroles.mjs'
-import { runAgent, runClaude } from '../lib/agents.mjs'
+import { runAgent, runClaude, runCodex } from '../lib/agents.mjs'
 import { localDesignRunning } from '../lib/usergoals.mjs'
 import os from 'node:os'
 import fs from 'node:fs'
 import path from 'node:path'
+
+test('Codex inherits client effort by default and preserves an explicitly selected effort', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-effort-'))
+  const script = path.join(dir, 'provider.mjs')
+  fs.writeFileSync(script, 'console.log(JSON.stringify(process.argv.slice(2)))\n')
+  const before = process.env.VFC_CODEX_CMD
+  process.env.VFC_CODEX_CMD = `node ${script.replace(/\\/g, '/')}`
+  try {
+    const run = (effort) => runCodex({ prompt: 'fixture', cwd: dir, runDir: path.join(dir, effort || 'default'), timeoutMs: 5000, effort })
+    const inherited = run(undefined)
+    assert.equal(inherited.code, 0)
+    assert.ok(!JSON.parse(inherited.stdout).some((a) => a.startsWith('model_reasoning_effort=')))
+    const explicit = run('xhigh')
+    assert.equal(explicit.code, 0)
+    assert.ok(JSON.parse(explicit.stdout).includes('model_reasoning_effort="xhigh"'))
+    assert.throws(() => run('unsupported'), /Unsupported Codex effort/)
+  } finally {
+    if (before === undefined) delete process.env.VFC_CODEX_CMD
+    else process.env.VFC_CODEX_CMD = before
+  }
+})
 
 test('Claude child retains nested-session markers and DB sentinel; no refusal bypass', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-markers-'))
