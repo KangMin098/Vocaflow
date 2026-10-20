@@ -140,7 +140,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
-**승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이고 나머지(개발 · 테스트 · 커밋 · push · PR · CI · 게이트를 통과한 병합)는 묻지 않고 끝까지 한다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
+**승인 정책: PR_AUTOMATION_POLICY v1.2(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 개발 단계 기획·설계·구현·테스트·평가·개선·커밋·push·PR·CI·범위/검증 게이트를 통과한 병합은 재승인 없이 이어간다. 데이터 삭제·DB 배포 승인·중대한 보안/인증정보 변경 통제는 유지한다. 이미 승인된 정확한 범위는 재질문하지 않는다. 실행 환경의 강제 권한은 우회하지 않는다.
 
 **⓪ 위험도별 검증(2026-10-20 사용자 결정 · 개발 단계)** — 파일 수가 아니라 영향으로 판정하고, 더 높은 위험을 발견하면 올린다.
 L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바뀌면 실제 렌더 확인 · L2 일반 기능 → 관련 단위 테스트 + 영향 범위 타입 · L3 인증·권한·학습기록·진단·공통 프레임워크·데이터 결속 → 단위·통합 + 영향받는 핵심 E2E(격리 DB), 필요 시 독립 검토 · L4 DB 구조·마이그레이션·실데이터 삭제 → 사용자 승인 + 영향·복구 확인 후 승인 범위만.
@@ -152,7 +152,7 @@ L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바�
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
 화면 라벨을 반복하지 말고 순서·전제·되돌리기 가능 여부·실패 결과·소요 시간을 쓴다. 파이프라인 수치가 나빠지면 코드보다 먼저 해당 도움말의 `cautions` 를 읽는다.
 
-**③ Git** — 논리적 변경 완료 시 자기 파일만 커밋한다. LOCAL_FAST 일반 개발은 로컬 통합하며 작업별 push·PR·CI 대기를 요구하지 않는다. 원격은 백업 또는 공식 제품 통합 시에만 사용한다.
+**③ Git** — 논리적 변경 완료 시 자기 파일만 커밋한다. LOCAL_FAST 일반 개발은 로컬 통합하며 작업별 push·PR·CI 대기를 요구하지 않는다. 원격은 백업 또는 공식 제품 통합 시에만 사용한다. 범위 계약(HEAD/base SHA·정확한 경로·커밋 수)을 확인하고 공식 원격 납품에는 `VFC_DEV_MODE=GITHUB`를 명시한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).

@@ -108,8 +108,9 @@ export function policyChecks(read = (p) => readText(rel(p))) {
   add('정책 정본 2파일 존재', p !== null && read('agents/policies/PR_AUTOMATION_POLICY.md') !== null, 'agents/policies/PR_AUTOMATION_POLICY.md · pr-automation.json')
   if (!p) return out
   const shape = p.mode === 'AUTO_CONTINUE' && Array.isArray(p.required_checks) && p.required_checks.length > 0 && !!p.merge && typeof p.merge.auto_merge_enabled === 'boolean'
-    && JSON.stringify(Object.keys(p.approval_required ?? {}).sort()) === '["data_deletion","db_change"]'
-  add('정책 형식(AUTO_CONTINUE · 승인 2종 · 필수 체크 · 자동 병합 스위치)', shape, `v${p.version}`)
+    && ['data_deletion', 'db_change', 'critical_security'].every((key) => typeof p.approval_required?.[key] === 'string' && p.approval_required[key].trim())
+    && p.merge.scope_contract_required === true
+  add('정책 형식(AUTO_CONTINUE · DB/삭제/중대 보안 승인 · 범위 계약 · 필수 체크)', shape, `v${p.version}`)
   const agents = read('AGENTS.md') ?? ''
   const m = agents.match(/PR_AUTOMATION_POLICY v(\d+(?:\.\d+)*)/)
   add('AGENTS.md 정책 줄 버전 = 정본 버전', !!m && m[1] === p.version, m ? `AGENTS.md v${m[1]} · JSON v${p.version}` : 'AGENTS.md 에 「PR_AUTOMATION_POLICY v…」 줄 없음')
