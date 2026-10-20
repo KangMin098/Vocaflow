@@ -172,6 +172,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
             <AuthoredSupplyCard task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0], row.id)} />
           )}
+          {/* T-0056 — 이 Workspace 의 보조 TASK 자료(창작 세트가 있는 것만). 핵심/보조 표기 그대로 · 서버가 TASK 소속을 다시 확인한다 */}
+          {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
+            <AuthoredSupplyCard key={t} kind="support" task={t} taskName={taskLabel(t).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
+          ))}
         </>
       )}
     </MapDialog>

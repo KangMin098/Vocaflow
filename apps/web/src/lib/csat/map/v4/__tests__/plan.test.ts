@@ -263,3 +263,34 @@ describe('FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 �
     expect(p.next).toBeNull()
   })
 })
+
+describe('T-0056 — 보조 TASK(e.task_demand)도 자기 자료 · 단계로 계획된다(중심 TASK 와 섞지 않음)', () => {
+  const core = 'authored-evidence-locate', support = 'authored-task-demand'
+  const coreIds = ['authored:ev-ind-1', 'authored:ev-ind-2'], supportIds = ['authored:td-ind-1', 'authored:td-ind-2']
+  const ls = { [core]: coreIds.map((target) => ({ target, href: '/csat/learn/' + target.slice(9) + '?d=core', label: 'core' })), [support]: supportIds.map((target) => ({ target, href: '/csat/learn/' + target.slice(9) + '?d=support', label: 'support' })) }
+  const run = (withSupport: boolean) => {
+    const links = withSupport ? ls : { [core]: ls[core] }
+    const a = asIs({ checks: [{ taskKey: core, items: coreIds }, ...(withSupport ? [{ taskKey: support, items: supportIds }] : [])] })
+    const tb = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const p = planWorkspaces({ asIs: a, toBe: tb, confirmLinks: links, transferItems: {} })
+    const w = [p.primary, ...p.others].find((x) => x?.id === 'ws.evidence-locate')!
+    return { w, v: workspacePlan(w, a, tb, p, []) }
+  }
+  it('납품된 보조 확인 자료 → 그 TASK 의 가용량 · 다음 활동(이전 관찰: available null · no_content)', () => {
+    const { w, v } = run(true)
+    expect(w.support).toContain('e.task_demand')
+    const c = v.tasks.find((t) => t.task === 'e.evidence_location')!, s = v.tasks.find((t) => t.task === 'e.task_demand')!
+    expect(c.quantity.available, '중심 TASK 는 그대로').toBe(2)
+    expect(s.unresolved).not.toContain('no_content')
+    expect(s.quantity.available, '보조 TASK 자신의 미노출 확인 2').toBe(2)
+    expect(s.next?.href ?? '', '다음 활동은 보조 TASK 자료').toContain('?d=support')
+    expect(c.next?.href ?? '', '중심 TASK 다음 활동은 중심 자료').not.toContain('?d=support')
+  })
+  it('보조 TASK 자료가 없으면 지금처럼 no_content(가용량을 만들지 않음) · 중심 계산 불변', () => {
+    const { v } = run(false)
+    const s = v.tasks.find((t) => t.task === 'e.task_demand')!
+    expect(s.quantity.available).toBeNull()
+    expect(s.unresolved).toContain('no_content')
+    expect(v.tasks.find((t) => t.task === 'e.evidence_location')!.quantity.available).toBe(2)
+  })
+})

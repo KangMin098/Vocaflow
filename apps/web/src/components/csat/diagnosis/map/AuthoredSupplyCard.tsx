@@ -28,7 +28,10 @@ const ROLE: Record<Role, string> = {
 }
 const ORDER: Role[] = ['model_explanation', 'guided_practice', 'independent_check', 'transfer', 'delayed_check']
 
-export function AuthoredSupplyCard({ task, template, planSaved, past, ctx }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx }) {
+/** kind=support — 이 Workspace 의 보조 TASK 자료(T-0056). 시험 id · 제목이 중심 카드와 겹치지 않게 접미사 · TASK 이름을 붙인다 */
+export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string }) {
+  const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : x)
+  const hid = kind === 'support' ? 'ws-authored-' + task.replace(/[^a-z0-9]/gi, '-') : 'ws-authored'
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
@@ -68,14 +71,14 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx }: { t
 
   const rows = listed.status === 'installed' ? [...listed.rows].sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role)) : []
   return (
-    <section className={p.card} aria-labelledby="ws-authored" data-testid="ws-authored">
+    <section className={p.card} aria-labelledby={hid} data-testid={tid('ws-authored')} data-task={task}>
       <div className={p.cardHead}>
         <div>
-          <h3 id="ws-authored" className={p.cardTitle}>받은 자료</h3>
+          <h3 id={hid} className={p.cardTitle}>{kind === 'support' ? <>받은 자료 · 보조 TASK {taskName ?? task}</> : '받은 자료'}</h3>
           <p className={p.cardDesc}>지금 계획에 맞춰 검수 · 승인된 자료만 받아요. 혼자 확인 · 다른 글 적용 자료는 처음 보는 글이에요.</p>
         </div>
         {listed.status === 'installed' && !past && (
-          <button type="button" className={p.whitePill} onClick={request} disabled={busy || !planSaved} data-testid="ws-authored-request"
+          <button type="button" className={p.whitePill} onClick={request} disabled={busy || !planSaved} data-testid={tid('ws-authored-request')}
             title={planSaved ? undefined : '학습계획을 먼저 확정해 주세요'}>
             <PackageOpen size={14} strokeWidth={1.9} aria-hidden="true" />
             {busy ? '받는 중…' : '자료 받기'}
@@ -83,11 +86,11 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx }: { t
         )}
       </div>
       {listed.status === 'loading' && <p className={p.cardDesc}>불러오는 중…</p>}
-      {listed.status === 'not_installed' && <p className={p.cardDesc} data-testid="ws-authored-preparing">자료 공급을 준비하고 있어요 — 승인된 자료가 생기면 여기서 받을 수 있어요.</p>}
+      {listed.status === 'not_installed' && <p className={p.cardDesc} data-testid={tid('ws-authored-preparing')}>자료 공급을 준비하고 있어요 — 승인된 자료가 생기면 여기서 받을 수 있어요.</p>}
       {listed.status === 'error' && <p className={p.cardDesc} role="alert">받은 자료를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</p>}
-      {listed.status === 'installed' && rows.length === 0 && <p className={p.cardDesc} data-testid="ws-authored-empty">아직 받은 자료가 없어요.{!planSaved && ' 학습계획을 먼저 확정해 주세요.'}</p>}
+      {listed.status === 'installed' && rows.length === 0 && <p className={p.cardDesc} data-testid={tid('ws-authored-empty')}>아직 받은 자료가 없어요.{!planSaved && ' 학습계획을 먼저 확정해 주세요.'}</p>}
       {rows.length > 0 && (
-        <ul className={u.needList} data-testid="ws-authored-list">
+        <ul className={u.needList} data-testid={tid('ws-authored-list')}>
           {rows.map((r) => (
             <li key={r.deliveryId} data-role={r.role}>
               {/* 지도 복귀 문맥(TASK · Workspace · 목표 · PLAN)을 싣는다 — PLAN CTA 와 같은 outgoingCtx(Codex C7 P2) */}
@@ -99,7 +102,7 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx }: { t
           ))}
         </ul>
       )}
-      {msg && <p className={p.cardDesc} aria-live="polite" data-testid="ws-authored-msg">{msg}</p>}
+      {msg && <p className={p.cardDesc} aria-live="polite" data-testid={tid('ws-authored-msg')}>{msg}</p>}
     </section>
   )
 }

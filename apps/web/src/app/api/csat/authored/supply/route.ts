@@ -11,7 +11,7 @@ import { requestAuthoredSupply } from '@/lib/csat/authored/server'
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { loadMapPage } from '@/lib/csat/map/load'
 import { composeV4 } from '@/lib/csat/map/v4/compose'
-import { taskOf, type TaskId } from '@/lib/csat/map/v4/definition'
+import { taskOf, templateOf, type TaskId } from '@/lib/csat/map/v4/definition'
 import { createClient } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
@@ -26,6 +26,11 @@ export async function POST(req: Request) {
     const template = typeof b?.template === 'string' ? b.template : ''
     if (!/^[a-z]\.[a-z_]{2,60}$/.test(task) || !/^[a-z0-9.-]{2,80}$/.test(template) || !safeTask(task)) {
       return NextResponse.json({ error: 'invalid', code: 'invalid_input' }, { status: 400 })
+    }
+    // T-0056 — TASK 가 그 Workspace 의 중심 또는 보조로 실제 들어 있어야 한다(클라이언트가 고른 task · template 짝은 권한이 아니다)
+    const def = templateOf(template)
+    if (!def || !(def.core.includes(task as TaskId) || def.support.includes(task as TaskId))) {
+      return NextResponse.json({ error: '이 학습 묶음에 없는 과제예요', code: 'task_not_in_workspace' }, { status: 400 })
     }
     const data = await loadMapPage(ctx.db, ctx.userId, new Date())
     const saved = data?.v4?.saved.byTemplate[template]

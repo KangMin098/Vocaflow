@@ -243,12 +243,21 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   return pick ? { href: pick.href, label: pick.label } : null
 }
 
+/** 보조 TASK 의 home — 그 TASK 를 보조로 든 묶음 중 그 TASK 자신의 창작 자료 보기가 있는 첫 묶음(core 는 이 TASK 로 바꿔 단계 계산이 이 TASK 를 보게) */
+export function supportHome(ws: readonly WorkspaceView[], id: TaskId): WorkspaceView | null {
+  const w = ws.find((x) => x.support.includes(id) && x.supportViews?.[id])
+  const v = w?.supportViews?.[id]
+  return w && v ? { ...w, core: [id], support: [], stages: v.stages, next: v.next, stageItems: v.stageItems, readiness: v.readiness, supportViews: undefined } : null
+}
+
 export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: readonly WorkspaceView[], activity: readonly PlanActivity[], opts?: PlanOpts): TaskPlan {
   const def = taskOf(id)
   const t = asIs.tasks[id]
   const need = toBe?.needs.find((n) => n.task === id) ?? null
   // 단계 가용량은 이 TASK 를 **중심**으로 하는 Workspace 에서만(보조로 든 곳의 수를 더하지 않는다 — 증거 · 자료 중복 금지)
-  const home = ws.find((w) => w.core.includes(id)) ?? null
+  // T-0056 — 어느 묶음의 중심도 아니면, 보조로 든 묶음에서 **이 TASK 자신의** 단계 보기(supportViews)를 home 으로(자료 · 수행 · 단계는 이 TASK 것만).
+  //   진행 합(progressOf)은 그대로 중심 TASK 만 센다 — 보조 TASK 수행이 묶음 진전에 섞이지 않는다
+  const home = ws.find((w) => w.core.includes(id)) ?? supportHome(ws, id)
   const stage = stageNow(need, t, home, activity, opts)
   const st = home && stage ? home.stages[stage] : null
   const done = doneOf(stage, t, activity)

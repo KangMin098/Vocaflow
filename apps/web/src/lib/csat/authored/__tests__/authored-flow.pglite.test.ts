@@ -42,6 +42,9 @@ const D = '00000000-0000-4000-8000-0000000000c4'
 const E = '00000000-0000-4000-8000-0000000000c5'
 const F = '00000000-0000-4000-8000-0000000000c6'
 const EVL = AUTHORED_SETS.find((x) => x.taskId === 'e.evidence_location')!
+// T-0056 — 보조 TASK(e.task_demand · ws.evidence-locate 의 support) 학습자
+const G = '00000000-0000-4000-8000-0000000000c7'
+const TD = AUTHORED_SETS.find((x) => x.taskId === 'e.task_demand')!
 const TASK = 'r.central_meaning'
 const TEMPLATE = 'ws.central-meaning'
 const S = R5_AUTHORED_SET
@@ -107,14 +110,14 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'); insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B, C, D, E, F]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'); insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D, E, F, G]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
   admin = new FakeClient(db, ADMIN) as unknown as SupabaseClient
   // ── 승인 패키지 실행 흉내: 등록 → 자격 → 사람 결정(권리 · 평가 역할 Gold) → 승인 ──
-  for (const [set, item] of [S, EVL].flatMap((x) => x.items.map((i) => [x, i] as const))) {
+  for (const [set, item] of [S, EVL, TD].flatMap((x) => x.items.map((i) => [x, i] as const))) {
     const r = await (admin as unknown as FakeClient).rpc('authored_item_register', registrationArgs(set, item))
     if (r.error) throw new Error(r.error.message)
     const ref = authoredRef(item.id)
@@ -365,3 +368,72 @@ describe('FI-007(#299) — 철회 뒤 현재성', () => {
   })
 })
 
+
+/**
+ * T-0056 rev1 — 보조 TASK 대표 경로(e.task_demand · ws.evidence-locate support). 같은 실제 서버 기록 · 공급 · 결속 → As-Is → To-Be → Workspace(supportViews) → PLAN.
+ * 중심 TASK(e.evidence_location) 자료 · 수행과 섞지 않는다. 세트 재고(독립 2 · 전이 1)가 부족한 단계는 부족으로 남는다(성공으로 바꾸지 않음).
+ */
+describe('T-0056 보조 TASK — 실제 공급 · 교수/연습 · 첫 독립 확인 · 같은 TASK 단계 · 재고 부족 보존', () => {
+  const CT = 'e.task_demand', CW = 'ws.evidence-locate', KEY = 'authored-task-demand'
+  type Row = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
+  const gold = (id: string) => TD.items.find((i) => i.id === id)!.gold as Row
+  const answer = async (id: string, right: boolean) => {
+    const g = gold(id)
+    await recordAuthoredAttempt(admin, learner(G), { id: G, email: null }, ref(id), { ...meta({ helpLevel: id.includes('guided') ? 'viewed_first' : 'independent' }), deliveryId: await dOf(G, ref(id)), response: { choice: right ? g.answer : (g.answer + 1) % 5 } }, Date.now(), writer)
+  }
+  async function world() {
+    const attempts = (await db.query<Row>(`select a.*, b.evidence, b.annotation_hash, d.role from learning_task_attempts a left join workspace_delivery_attempt b on b.attempt_id = a.id left join workspace_content_delivery d on d.id = b.delivery_id where a.user_id = $1 order by a.answered_at, a.id`, [G])).rows
+    const iso = (t: unknown) => (t ? new Date(t as string).toISOString() : null)
+    const raw = attempts.map((a) => ({ userId: G, attemptId: String(a.id), itemRef: a.item_ref, taskKey: a.task_key, phase: a.phase, isCorrect: a.is_correct, synthetic: false, helpLevel: a.help_level, afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: iso(a.answered_at), activity: a.activity, sessionId: a.session_id, contentHash: a.content_hash, expectedContentHash: null })) as unknown as FindAttemptRow[]
+    const read = applyAuthoredBindings(raw, attempts.filter((a) => a.annotation_hash).map((a) => ({ attemptId: String(a.id), evidence: a.evidence, annotationHash: a.annotation_hash, sessionId: a.session_id })))
+    const deliveries = (await db.query<Row>('select * from workspace_content_delivery where user_id = $1 order by delivered_at', [G])).rows
+    const check = deliveries.filter((d) => d.role === 'independent_check')
+    const asOf = new Date(Math.max(Date.now(), ...attempts.map((a) => new Date(a.answered_at).getTime())) + 1000).toISOString()
+    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref) }], attempts: read })
+    const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role })
+    const links = { [KEY]: check.map(link) }
+    const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
+    const goal = toBeMap({ asIs: map, goal: { score: 80, set: true }, refItems: refs as never, lineRefItems: { B6: refs.slice(17, 24), A5: refs.slice(28, 34) } as never, confirmLinks: links as never })
+    const repair = { [KEY]: deliveries.filter((d) => ['guided_practice', 'model_explanation'].includes(d.role)).map((d) => ({ ...link(d), role: d.role })) }
+    const transfers = { [KEY]: deliveries.filter((d) => d.role === 'transfer').map(link) }
+    const homes = planWorkspaces({ asIs: map, toBe: goal, confirmLinks: links as never, repairTargets: repair as never, transferTargets: transfers as never, transferItems: { [KEY]: transfers[KEY].length } })
+    const home = [homes.primary, ...homes.others].find((x) => x?.id === CW)!
+    const activity = attempts.map((a) => ({ itemRef: a.item_ref, taskKey: a.task_key, phase: a.phase, activity: a.activity, isCorrect: a.is_correct, answeredAt: iso(a.answered_at), receivedAt: iso(a.received_at), ...(a.role === 'guided_practice' ? { repairRole: 'guided_practice' as const } : {}) })) as PlanActivity[]
+    const plan = workspacePlan(home, map, goal, homes, activity)
+    return { map, goal, plan, home, row: plan.tasks.find((t) => t.task === CT)!, coreRow: plan.tasks.find((t) => t.task === 'e.evidence_location')! }
+  }
+  const supplyNow = async (w: Awaited<ReturnType<typeof world>>) => {
+    const r = await requestAuthoredSupply(admin, learner(G), G, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[G], planVersion: 1, goalVersion: null })
+    expect(r.status).toBe('ok'); if (r.status !== 'ok') throw new Error('supply')
+    return r.lines
+  }
+  it('보조 TASK 의 실제 공급 → 첫 독립 오답 2 → 바로잡기 → 안내 연습 → 적용 단계(전이 재고 1/2 = 부족) · 중심 TASK 불변', async () => {
+    let w = await world()
+    expect(w.home.supportViews?.[CT as never], '납품 전에는 보조 TASK 창작 보기 없음').toBeUndefined()
+    // 확인 자료 — 보조 TASK 의 수요로 실제 공급(정본 키 아님 · 그 TASK 의 창작 독립 확인만)
+    const first = await requestAuthoredSupply(admin, learner(G), G, { view: ({ taskPlans: [{ task: CT, stage: 'check', need: 'GAP', quantity: { planned: 2, done: 0 } }], asIs: { asOf: '2026-10-18T00:00:00.000Z', tasks: { [CT]: { status: 'verified_need', check: { independentItems: 2 } } } }, toBe: null }) as unknown as V4View, task: CT as never, template: CW, workspaceId: ws[G], planVersion: 1, goalVersion: null })
+    expect(first.status === 'ok' && first.lines.flatMap((l) => l.delivered).sort()).toEqual([ref('td-ind-1'), ref('td-ind-2')])
+    w = await world()
+    expect(w.row.unresolved, '보조 TASK 도 자기 자료로 계획된다').not.toContain('no_content')
+    expect(w.row.next?.href ?? '', '다음 활동 = 보조 TASK 자료').toMatch(/td-ind-/)
+    await answer('td-ind-1', false); await answer('td-ind-2', false)
+    w = await world()
+    expect(w.map.tasks[CT as never]?.status).toBe('verified_need')
+    expect(w.row.stage).toBe('repair')
+    expect(w.coreRow.quantity.available, '중심 TASK 자료 · 수행과 섞이지 않는다(중심 자료 0)').toBeNull()
+    const rep = await supplyNow(w)
+    expect(rep.some((l) => ['independent_check', 'transfer', 'delayed_check'].includes(l.role)), '바로잡기 수요에 평가 역할 없음').toBe(false)
+    await answer('td-guided-1', false); w = await world(); expect(w.row.stage).toBe('repair')
+    await answer('td-guided-1', true); w = await world()
+    expect(w.row.stage, '안내 연습 정답 → 적용').toBe('transfer')
+    expect(w.map.tasks[CT as never]?.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    const tr = await supplyNow(w)
+    expect(tr.map((l) => l.role)).toEqual(['transfer'])
+    expect(tr[0].delivered, '전이 재고 1 — 2지문 계획에 모자람').toEqual([ref('td-transfer-1')])
+    w = await world()
+    expect(w.row.stage, '재고 부족은 적용 완료가 아니다').toBe('transfer')
+    expect(w.row.unresolved).toContain('transfer_shortage')
+    const binds = (await db.query<{ evidence: boolean; artifact_ref: string }>('select evidence, artifact_ref from workspace_delivery_attempt where user_id = $1 order by attempt_id', [G])).rows
+    expect(binds.filter((b) => b.evidence).map((b) => b.artifact_ref).sort(), '독립 근거 = 처음 독립 확인 2 뿐').toEqual([ref('td-ind-1'), ref('td-ind-2')])
+  }, 120000)
+})

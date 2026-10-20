@@ -40,6 +40,11 @@ export interface WorkspaceView {
   stageItems: { repair: (ConfirmLink & { role?: RepairLink['role'] })[]; transfer: ConfirmLink[] }
   /** 승인된 구조적 연결 · 제안 연결(검증 전) — 화면은 둘을 다른 말로 */
   relations: { structural: string[]; proposed: string[] }
+  /**
+   * T-0056 — 보조 TASK 별 단계 · 다음 활동 · 자료(그 TASK 의 창작 키 · 납품 · 수행만으로 같은 stagesOf 계산). 중심 TASK 의 수 · 자료를 복사하지 않는다.
+   * 어느 Workspace 의 중심도 아닌 보조 TASK 는 plan 이 이것을 home 으로 쓴다(core 승격 · 정본 변경 아님). 없으면 보조 TASK 창작 자료가 없는 것
+   */
+  supportViews?: Partial<Record<TaskId, Pick<WorkspaceView, 'stages' | 'next' | 'stageItems' | 'readiness'>>>
 }
 
 export interface WorkspacePlan {
@@ -113,6 +118,14 @@ export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInpu
   }
 }
 
+/** 보조 TASK 한 개의 단계 보기 — 그 TASK 를 중심으로 둔 가상 묶음에 같은 계산(정본 키 없이 그 TASK 의 창작 키만). 창작 납품이 없으면 undefined */
+function supportViewOf(t: V4Template, task: TaskId, input: WorkspaceInput): NonNullable<WorkspaceView['supportViews']>[TaskId] {
+  const own: V4Template = { ...t, core: [task], support: [], content_keys: [], readiness: 'content_needed' }
+  if (!authoredLive(own, input)) return undefined
+  const v = viewOf(own, input)
+  return { stages: v.stages, next: v.next, stageItems: v.stageItems, readiness: 'live' }
+}
+
 function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
   const stages = stagesOf(t, input.asIs, input)
   const c = input.asIs.tasks[t.core[0]]?.check ?? null
@@ -125,9 +138,11 @@ function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
     transfer: transfersOf(t, input.transferTargets),
   }
   const rels = t.relations.map((id) => relationOf(id)).filter((r): r is NonNullable<typeof r> => !!r)
+  const supportViews = Object.fromEntries(t.support.map((id) => [id, supportViewOf(t, id, input)] as const).filter(([, v]) => v)) as WorkspaceView['supportViews']
   return {
     id: t.id, name: t.name, goal: t.goal, core: t.core, support: t.support, readiness: t.readiness, stages, next, stageItems,
     relations: { structural: rels.filter((r) => r.status === 'approved').map((r) => r.id), proposed: rels.filter((r) => r.status !== 'approved').map((r) => r.id) },
+    ...(supportViews && Object.keys(supportViews).length ? { supportViews } : {}),
   }
 }
 
