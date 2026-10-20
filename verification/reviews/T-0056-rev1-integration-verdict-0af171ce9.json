@@ -1,0 +1,13 @@
+{
+  "task_id": "T-0056",
+  "head": "0af171ce9a6675a0153c966b4aac06aab0df1b59",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT",
+  "findings": [],
+  "scope": "T-0056 support host shell, own-stage, first-supply and authenticated isolated flow only; no approval of all236 aggregate branch files or SQL application",
+  "reviewer": "final-independent-accept",
+  "review_kind": "Actual Codex independent acceptance reused from run2; no new subprocess/retest",
+  "review_source": "verification/reviews/T-0056-rev1-run3-independent-0af171ce9.json",
+  "review_source_sha256": "baf3f2e2edc1fba003bb71083ab4a7135e94a4897b479a44fa5a2db6dbbf7eb7",
+  "note": "Supplement uses integration verdict schema. The immutable accepted review uses decision:ACCEPT and its bytes/hash are preserved. Do not silently rebind completed state or treat this narrow supplement as an aggregate branch approval."
+}
