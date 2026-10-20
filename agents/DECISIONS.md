@@ -22,6 +22,14 @@
 
 ## 결정
 
+### LOCAL_FAST 적용 정합 (2026-10-20)
+
+사용자 「GitHub 연계·CI 최소화 설정 확인」에 따라 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 LOCAL_FAST를 확인했다. 이 워크트리의 옛 자동 push/PR 지침을 중앙 모드 우선으로 맞추고 `execution-mode.mjs` 읽기 어댑터·세션 시작 안내·safe-merge의 원격 접근 전 종료를 적용했다. 일반 개발은 로컬 검증·커밋·독립 리뷰·중앙 local-integrate로 진행하며 원격 CI 부재를 blocker로 보지 않는다. 기존 GITHUB 필수 체크/브랜치 보호와 예약 소스 감사 워크플로는 유지한다. 원격 백업은 중앙 backup.mjs의 하루 상한/복구 시점만 따른다. 중앙 설정·자동 리뷰 정책은 이번 수정에서 변경하지 않았다.
+
+후속 CI 중복 축소: sync-check의 작업 브랜치 push 트리거를 main push/PR로 정리하고 CI/sync-check에 PR별 concurrency와 contents:read를 적용했다. main 공유 DB 검사 자동 취소는 하지 않고8개 필수 체크/기존 job 본문·예약 감사·배포를 보존했다. 원격 실행 없이 로컬 회귀162건 통과. 로컬 파일 변경이며 Git metadata 권한으로 커밋/원격 반영은 미완료다.
+
+### 기존 환경 결정
+
 | # | 결정 | 이유 |
 |---|---|---|
 | D-01 | **출처는 AGENTS.md** (지시문 §5-1 의 열린 항목) | `.claude/` 비중이 크지만(에이전트 5 · 명령 14 · 스킬 14) 그것들은 Claude 전용 **도구**이고, 규칙 문장은 전부 도구 중립이었다. 규칙을 AGENTS.md 에 두면 Codex 는 생성 단계 없이 읽고 Claude 는 import 한다 |

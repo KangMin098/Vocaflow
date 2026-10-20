@@ -28,6 +28,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- chore(agents): 중앙 LOCAL_FAST 실행 모드 어댑터와 원격 접근 전 종료, 세션 안내 및 회귀를 추가했다. 최신 main의 위험도별 검증·CI 캐시·병렬 빌드·타입 검사 재사용을 보존하고 CI 토큰은 contents:read로 한정한다.
+
 - 개발 간소화: 영향 범위 검증·계약 변경 때만 문서 갱신, 일반 커밋의 메모리 동기화 제거, 동일 SHA CI verify를 재사용해 중복 타입·빌드 내 lint/type 검사를 줄였다. DB·Git·HEAD/범위 보호와 필수 체크 이름은 유지한다.
 - chore(dev): 개발 절차 간소화 — CI 같은 PR 앞선 실행 자동 취소 · sync-check push+PR 이중 실행 제거 · 게이트 고장 e2e 는 DB·게이트·csat 경로 변경 PR 만(생략 사유 notice) · AGENTS.md 위험도별 검증 L1~L4 · 문서 갱신은 계약 변경 때만 · worktree/worker/subagent 는 병렬 이득 있을 때만 · 호출처 없는 셸 래퍼 4개 삭제. 필수 체크 8개 · DB 승인 · 비밀값 · force push 금지 불변.
 - ci: Next 컴파일 캐시(`apps/web/.next/cache` · actions/cache) — 같은 HEAD 빌드를 3 job 이 처음부터 하던 것(217~277s × 3) 재사용. 빌드 · 시험 대상 · 필수 체크 불변.
