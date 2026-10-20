@@ -1,0 +1,16 @@
+{
+  "type": "integration",
+  "command_or_protocol": "Actual independent original4 counterexamples/control tests and relevant37 unit tests on finalHEAD pass without skip; official exact-head pull_request CI39396181698/job118539379738 log read:19 authenticated isolated browser pass including replan DB2 and edited saved allocation DB3. E05-E08 and12screen hashes match;5 actual full-page captures opened. No local authenticated browser rerun or actual devDB success claimed.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "verification/reviews/T-0061-rev1-run2-independent-1d7dc6fce.json",
+  "observed_at": "2026-10-20T09:02:43.511Z",
+  "commit": "1d7dc6fce7e25639192b497a7fff2b7a2e20de43",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "environment": "Windows Node/Vitest + official runner-local Supabase/PostgreSQL/Next/Chromium; synthetic fixtures only"
+}

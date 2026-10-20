@@ -1,0 +1,83 @@
+{
+  "task_id": "T-0061",
+  "design_revision": "rev1",
+  "run_seq": 2,
+  "head": "1d7dc6fce7e25639192b497a7fff2b7a2e20de43",
+  "reviewer": "final-independent-accept",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT",
+  "scope": "T-0061 next-action and shared PlanSection quantityBasis correction only; not aggregate PR303 integration/release approval",
+  "findings": [],
+  "resolved": [
+    {
+      "id": "T0061-P1-1",
+      "status": "VERIFIED_FIXED",
+      "first_failure_preserved": "verification/reviews/T-0061-rev1-run1-independent-1fe03ede8.json",
+      "before": "Stored check quantity2/editor2 but top6 marked saved; stored prior repair stage/current check also marked saved.",
+      "after": "Original unchanged independent probe4/4: stored2/editor2/top2 saved; prior repair/current check top6 proposed. Unsaved and unchanged-save controls pass.",
+      "product_change": "quantityOf applies existing applySaved to actual latest saved task data, marks saved only for matching task/stage; replan uses original planDrift; quantityBasis filters only null-planned/null-available historical rows for display allocation so newly available quantity is not permanently erased. Original saved plan/history is not rewritten."
+    }
+  ],
+  "independent_execution": [
+    {
+      "command": "pnpm exec vitest run --config D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0061-independent-probe/probe.config.mjs",
+      "environment": "Windows Node/Vitest; final-head product imports; no DB or dotenv",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "pnpm exec vitest run src/lib/csat/map/v62/__tests__/next-action.test.ts src/lib/csat/map/v4/__tests__/plan-commit.test.ts src/lib/csat/map/v4/__tests__/plan-ack.test.ts",
+      "environment": "final-product/apps/web; pure unit tests; dotenv injected0",
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "per_file": {
+        "next-action": 14,
+        "plan-commit": 16,
+        "plan-ack": 7
+      }
+    }
+  ],
+  "official_evidence": {
+    "run_id": 39396181698,
+    "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39396181698",
+    "head_matches": true,
+    "event": "pull_request",
+    "conclusion": "success",
+    "actual_e2e_job_log_read": 118539379738,
+    "authenticated_isolated_browser": {
+      "passed": 19,
+      "map_next_action_1440": "passed9.3s",
+      "map_next_action_1280": "passed9.1s"
+    },
+    "reviewed_new_path": "Actual saved PLAN DB1 -> actual supply -> raw drift -> replan DB2 -> start -> reduce allocation by1 -> save DB3 -> top amount equals stored/editor amount. Existing regression19 includes T-0052/T-0056 learning paths; no unchanged local whole-product rerun claimed.",
+    "global_verify_limit": "Reported6160pass/252environment-skips is not global zero-skip or actual development DB verification. Independent relevant37 and original4 probes ran without skip; changed next-action14 ran.",
+    "shared_dev": "SKIPPED; never counted as success or DEV_DB_VERIFIED"
+  },
+  "visual_integrity": {
+    "evidence_E05_to_E08_hashes": "all match",
+    "screenshot_hashes": "all12 match",
+    "opened_images": [
+      "ci-39396181698-2.png",
+      "ci-39396181698-3.png",
+      "ci-39396181698-6.png",
+      "ci-39396181698-10.png",
+      "ci-39396181698-12.png"
+    ],
+    "observation": "Actual1440/1280 full product pages, plan modal, supply, truthful0/2 proposed with replan, then0/1 saved matching editor/PLANversion3. Existing internal graph scroll is not document overflow."
+  },
+  "nonblocking": [
+    "Other Workspace row stage-wait wording remains a low-risk follow-up; does not block this task.",
+    "Full dev DB/content eligibility/Gold/rights and real learner effectiveness remain outside this isolated acceptance."
+  ],
+  "next": "Complete existing T-0061/rev1 and permit original owner to start existing dependent T-0062/rev1. No duplicate task or new mandatory review framework.",
+  "boundaries": [
+    "No product files edited by reviewer",
+    "No actual dev DB writes or SQL application",
+    "No Gold/rights approval",
+    "No aggregate236-file main merge or FINAL_COMPLETE claim",
+    "Other owners' uncommitted audit/controller files preserved"
+  ],
+  "observed_at": "2026-10-20T09:02:43.511Z"
+}
