@@ -115,3 +115,19 @@ describe('nextActionOf — 저장 계획 수량 · 단계 출처(T0061-P1-1)', (
     expect(a.quantity?.planned).toBe(p.quantity.planned)
   })
 })
+
+describe('nextActionOf — 저장 뒤 자료가 바뀌면 다시 확정(planDrift)', () => {
+  const { view: fv } = build({ goalSet: true, attempts: [], activity: [], asOfDay: 12, saved: false, fq: { status: 'installed', eligible: [] } })
+  const fr = ranksOf(fv)
+  const top = fr.actionRank[0]
+  const ws = wsForTask(top.task, fv)!
+  const p = fv.taskPlans.find((x) => x.task === top.task)!
+  const latest = (available: number | null, planned: number | null) => ({ version: 1, plan: { order: [top.task], tasks: [{ task: top.task, stage: p.stage, planned, available, rule: p.quantity.rule }] }, reason: 'initial', note: null, restoredFrom: null, canon: 'fixture', asOf: fv.asIs.asOf, createdAt: fv.asIs.asOf })
+  it('자료 없을 때 저장(available·planned null) → 지금 자료가 있으면 plan · replan(옛 계획량으로 시작시키지 않음)', () => {
+    const a = nextActionOf(fv, fr, { byTemplate: { [ws]: { latest: latest(null, null) } } } as never)!
+    expect([a.kind, a.replan]).toEqual(['plan', true])
+  })
+  it('저장 당시와 자료가 같으면 start', () => {
+    expect(nextActionOf(fv, fr, { byTemplate: { [ws]: { latest: latest(p.quantity.available, p.quantity.planned) } } } as never)!.kind).toBe('start')
+  })
+})

@@ -12,7 +12,7 @@
 import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 
 import type { V4View } from '../v4/compose'
-import { applySaved } from '../v4/plan-commit'
+import { applySaved, planDrift } from '../v4/plan-commit'
 import type { SavedPlans, SavedWorkspace } from '../v4/plan-store'
 import type { TaskId } from '../v4/definition'
 import type { TaskPlan } from '../v4/plan'
@@ -34,6 +34,8 @@ export interface NextAction {
   /** start 일 때만 — 계획 그대로의 활동 링크 */
   href: string | null
   label: string | null
+  /** plan 이 「저장 뒤 자료 · 단계가 바뀌어 다시 확정」인 경우 */
+  replan?: boolean
   /** wait 일 때만 — ranksOf 의 이유 그대로 */
   blocked: NotActionableReason | null
 }
@@ -44,8 +46,21 @@ type Saved = Pick<SavedPlans, 'byTemplate'> & { status?: SavedPlans['status']; e
  * 이번 학습량 — 계획 편집기(PlanSection)와 같은 출처: 그 묶음의 최신 저장 버전을 applySaved 로 덮은 값.
  * 「저장한 계획」은 저장 행이 이 TASK 를 **지금과 같은 단계**로 담았을 때만(옛 단계 저장 · 저장 없음 = 제안). 적용 단계 수량은 저장 이력에서 이미 재생된 값.
  */
+function savedWsOf(ws: string | null, saved: Saved): SavedWorkspace | null {
+  return ws && saved?.status !== 'not_installed' && !saved?.error ? (saved?.byTemplate?.[ws] as SavedWorkspace | undefined) ?? null : null
+}
+
+/** 그 TASK 의 저장 계획이 지금 자료 · 단계와 어긋났나(PlanSection 의 재계획 제안과 같은 planDrift) */
+function replanNeeded(task: TaskId, ws: string, view: V4View, saved: Saved): boolean {
+  const latest = savedWsOf(ws, saved)?.latest ?? null
+  const pv = view.plans[ws]
+  if (!latest || !pv) return false
+  const d = planDrift(latest, pv)
+  return !!d && (d.content.some((c) => c.task === task) || d.stages.includes(task) || d.overAvailable.includes(task))
+}
+
 function quantityOf(task: TaskId, ws: string | null, view: V4View, saved: Saved, fallback: TaskPlan | null): NextAction['quantity'] {
-  const sw = ws && saved?.status !== 'not_installed' && !saved?.error ? (saved?.byTemplate?.[ws] as SavedWorkspace | undefined) ?? null : null
+  const sw = savedWsOf(ws, saved)
   const pv = ws ? view.plans[ws] ?? null : null
   const row = pv ? applySaved(pv, sw?.latest ?? null).tasks.find((t) => t.task === task) ?? null : null
   const p = row ?? fallback
@@ -80,6 +95,8 @@ export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): N
   }
   if (first) {
     if (ws && !isSaved) return { ...base, kind: 'plan', href: null, label: null, blocked: null }
+    // 저장 뒤 자료 · 단계가 바뀌었으면(계획 편집기의 planDrift 와 같은 판정) 다시 확정이 먼저 — 옛 계획량(없음)으로 시작시키지 않는다
+    if (ws && replanNeeded(target, ws, view, saved)) return { ...base, kind: 'plan', replan: true, href: null, label: null, blocked: null }
     return { ...base, kind: 'start', href: first.href, label: first.label, blocked: null }
   }
   const blocked = ranks.notActionable.find((n) => n.task === target)?.reason ?? 'no_next_activity'
