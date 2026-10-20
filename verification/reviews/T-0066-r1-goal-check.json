@@ -1,0 +1,9 @@
+{
+  "report": "verification/goal-check/GC-2026-10-20T15-14-35-985Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 2
+  },
+  "changes": [],
+  "ci": false
+}

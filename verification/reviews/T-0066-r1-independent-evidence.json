@@ -1,0 +1,16 @@
+{
+  "type": "review",
+  "command_or_protocol": "Actual independent Codex review: content/grading9 pass; relevant111 pass including18 PGlite; exact-head officialCI and isolated21/21 inspected",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+  "artifact_path_or_url": "verification/reviews/T-0066-rev1-run1-independent-07d528754.md",
+  "observed_at": "2026-10-20T15:12:42.318Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "note": "AI content/candidate and isolated behavior only; human Gold/rights pending, no developer DB application or aggregate merge."
+}

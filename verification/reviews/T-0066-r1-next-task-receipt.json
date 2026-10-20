@@ -1,0 +1,38 @@
+{
+  "observed_at": "2026-10-20T15:14:35.252Z",
+  "task_id": "T-0067",
+  "status": "READY",
+  "owner_id": "final-product",
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "depends_on": [
+    "T-0066"
+  ],
+  "goal_alignment": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1",
+      "VG-L3-A2-01-AC1"
+    ],
+    "current_gap": "제작 요청이 확인되지 않아도 성공으로 안내해 자료가 없는 학습자가 실제 다음 행동을 알 수 없다.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "공급0/부분/전체·주문 확인/미확인 표시 대조",
+      "현재 자료 자격과 같은TASK 이동/복귀 보존",
+      "중심/보조 카드 상호작용과1440/1280"
+    ],
+    "next_dependency": null,
+    "out_of_scope": [
+      "콘텐츠 일괄확장",
+      "새 DB/정본/제작엔진",
+      "실제DB쓰기·Gold·권리승인",
+      "PR303전체병합",
+      "새자동화·대시보드"
+    ],
+    "dependency_type": "direct",
+    "canon_version": "1.1.0",
+    "base_commit": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+    "gate_ms": 0.7321
+  },
+  "source": "Official task.add; queue only, no ACK or execution claim"
+}

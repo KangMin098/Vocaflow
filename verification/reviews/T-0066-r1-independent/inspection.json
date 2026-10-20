@@ -1,0 +1,166 @@
+{
+  "observed_at": "2026-10-20T15:11:43.122Z",
+  "task": "T-0066",
+  "status": "REVIEW",
+  "run_seq": 1,
+  "evidence": [
+    {
+      "id": "T-0066-R1-E01",
+      "type": "unit",
+      "head": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0066-verify.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0066-R1-E02",
+      "type": "ci",
+      "head": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0066-e2e.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0066-R1-E03",
+      "type": "e2e",
+      "head": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0066-e2e.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0066-R1-E04",
+      "type": "ui",
+      "head": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+      "path": "verification/ui/T-0066/ci-39443841208-1.png",
+      "hash_match": true,
+      "screenshots": 24,
+      "screens_match": true
+    }
+  ],
+  "screens": [
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-1.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-10.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-11.png",
+      "width": 1440,
+      "height": 1439
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-12.png",
+      "width": 1280,
+      "height": 1544
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-13.png",
+      "width": 1280,
+      "height": 2369
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-14.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-15.png",
+      "width": 1440,
+      "height": 1439
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-16.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-17.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-18.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-19.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-2.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-20.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-21.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-22.png",
+      "width": 1280,
+      "height": 1544
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-23.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-24.png",
+      "width": 1280,
+      "height": 1544
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-3.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-4.png",
+      "width": 1440,
+      "height": 2369
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-5.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-6.png",
+      "width": 1280,
+      "height": 1524
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-7.png",
+      "width": 1440,
+      "height": 1419
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-8.png",
+      "width": 1280,
+      "height": 1544
+    },
+    {
+      "path": "verification/ui/T-0066/ci-39443841208-9.png",
+      "width": 1280,
+      "height": 1544
+    }
+  ],
+  "e2e_summary": "21 passed (4.9m)",
+  "browser_scope": [
+    "  ✓   5 [chromium] › tests/e2e-isolated/authored-support.isolated.spec.ts:95:7 › 보조 TASK(e.task_demand) 공급 · 첫 확인 · 복귀 · 다음 단계 — 1440px (21.3s)",
+    "  ✓   6 [chromium] › tests/e2e-isolated/authored-support.isolated.spec.ts:95:7 › 보조 TASK(e.task_demand) 공급 · 첫 확인 · 복귀 · 다음 단계 — 1280px (22.0s)",
+    "  ✓   7 [chromium] › tests/e2e-isolated/authored-support.isolated.spec.ts:224:5 › 중심 재고 0 묶음(ws.sentence-core)의 보조 s.sentence_core — 준비 중 행에서 첫 공급 · 풀이 · 복귀(1440px) (5.0s)"
+  ]
+}

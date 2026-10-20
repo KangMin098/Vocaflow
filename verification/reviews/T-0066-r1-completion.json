@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-20T15:12:42.629Z",
+  "task_id": "T-0066",
+  "status": "COMPLETED",
+  "verified_commit": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+  "reviewed_by": "final-independent-accept",
+  "review_record": "verification/reviews/T-0066-rev1-run1-independent-07d528754.md",
+  "review_record_sha256": "869b87cb3076f7c3e195eb9807aeb5baf05cfeac671bdd9ac62512e2917c5fa9",
+  "evidence_added": "T-0066-R1-E05",
+  "source": "Official task evidence/complete CLI; full immutable history remains in TASK_QUEUE"
+}

@@ -1,0 +1,32 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": ["VG-L3-A2-01"],
+  "title": "자료 공급 결과를 사실대로 알리고 가능한 다음 학습으로 연결",
+  "description": "FINAL MISSION E/F. 현재 AuthoredSupplyCard는 제작 주문 RPC가 실패해 orderOpened=false여도 공급0/부분공급 응답에 제작 요청 완료를 표시한다. 실제 카드 request handler의 합성 응답 반례2건 실패·정상대조1건 통과를 재현했다. 기존 카드/수요·납품 원장·복귀 링크를 재사용해 실제 납품, 확인된 주문 접수, 승인 거절, 결과 미확인을 구분하고 받은 유효 자료 또는 안전한 재조회로 연결한다. 콘텐츠 추가나 새 실행 시스템보다 현재 모든 TASK가 만나는 공급 결과 경험을 먼저 고친다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "07d5287540f9d61f7d8cc8e77ab76ca7d120d5f8",
+  "roles": {"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "allowed_paths": ["apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx", "apps/web/src/components/csat/diagnosis/map/__tests__/**", "apps/web/src/lib/csat/authored/server.ts", "apps/web/src/lib/csat/authored/__tests__/**", "apps/web/src/lib/csat/map/v62/supply-ledger.ts", "apps/web/src/lib/csat/map/v62/__tests__/supply-ledger.test.ts", "apps/web/tests/e2e-isolated/**", "docs/final/FINAL_LEDGER.md", ".agent-goal.md"],
+  "forbidden_paths": ["supabase/**", "**/*.sql", "**/.env*", ".github/**", "agents/**", "goals/**", "docs/csat-learner/v4/workspaces.json", "apps/web/src/lib/knowledge/authored/**", "apps/web/src/lib/csat/map/v4/**"],
+  "db_scope": {"mode":"none","targets":[]},
+  "depends_on": ["T-0066"],
+  "criterion_claims": [{"criterion_id":"VG-L3-B2-02-AC1","claim":"partial"},{"criterion_id":"VG-L3-A2-01-AC1","claim":"partial"}],
+  "acceptance": [
+    "공급0·부분공급·완전공급 및 orderOpened true/false가 실제 응답과 일치한다. false/누락/오류/이유불명은 제작 요청 성공이나 제작 중으로 표시하지 않는다. true도 주문 접수만 뜻하며 제작 완료·예상 일정을 지어내지 않는다. 여러 역할의 부분공급/주문 결과를 하나의 성공으로 뭉개지 않는다.",
+    "서버가 확인한 부족/거절 이유만 학습자 언어로 안내한다. 빈 재고나 모든 오류를 권리·Gold 문제로 추정하지 않는다. 알 수 없으면 확인 불가로 표시한다. 구현상 기존 응답만으로 충분하면 서버를 고치지 않는다. 서버 이유를 추가해도 기존 자격·권한·RLS·멱등 공급·노출·채점 정책은 바꾸지 않는다.",
+    "유효하게 받은 자료가 있으면 해당 역할·TASK의 학습 링크와 같은Workspace 복귀 문맥을 유지한다. 자료0 또는 결과 미확인은 가능한 재조회/다시 요청 행동을 제공한다. 승인 철회·현재 자격 미확인은 학습 가능으로 승격하지 않는다. 준비중/계획 미확정/과거 계획 경계를 유지한다.",
+    "현재 실패 반례2건과 정상대조를 재사용하되 문구 자체보다 응답 사실과 표시의 일치를 검증한다. 관련 단위·타입·오류/부분공급 실제 카드 상호작용 및1440/1280 화면을 확인한다. 중심·보조 카드 공통 로직을 확인하고 변경 없는 DB·학습 순환은 재사용한다. 이 범위의 브라우저 모의응답은 실제 납품 DB 성공과 구분한다."
+  ],
+  "ui_acceptance": ["1440/1280에서 공급0·부분공급·요청미확인의 이유와 다음 행동을 읽고 실행할 수 있다. 기존3B스킨과 키보드초점·aria-live를 재사용한다."],
+  "impact": {
+    "kind":"platform", "parent_goal_id":"VG-L3-B2-02", "acceptance_ids":["VG-L3-B2-02-AC1","VG-L3-A2-01-AC1"],
+    "current_gap":"제작 요청이 확인되지 않아도 성공으로 안내해 자료가 없는 학습자가 실제 다음 행동을 알 수 없다.",
+    "expected_impact":"advances", "dependency_type":"direct",
+    "evidence_required":["공급0/부분/전체·주문 확인/미확인 표시 대조", "현재 자료 자격과 같은TASK 이동/복귀 보존", "중심/보조 카드 상호작용과1440/1280"],
+    "out_of_scope":["콘텐츠 일괄확장", "새 DB/정본/제작엔진", "실제DB쓰기·Gold·권리승인", "PR303전체병합", "새자동화·대시보드"]
+  },
+  "source": {"mission":"FINAL-MISSION-A~H","design_revision":"rev1","goals_ah":["E","F"],"from_owner":"final-independent-accept","request":"최종목표 자동진행·자료/권리 없을 때 이유와 다음 행동","evidence":"HEAD07d528754: AuthoredSupplyCard.tsx56-69; authored/server.ts169-177; verification/reviews/T-0067-initial-probe (actual handler with mocked hooks/fetch,2fail1pass)"}
+}
