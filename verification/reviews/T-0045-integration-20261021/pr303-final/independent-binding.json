@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-10-20T17:15:39.738Z",
+  "head": "6d1c2fcccf00918d75cc81653eb8b251ff72d7dc",
+  "base": "5b58b7f985fc2c657622c53ab244bc1e3ae934d1",
+  "previousAcceptedHead": "235307553f810bcead5f3844d863e60d0a8e8866",
+  "oldTree": "014735cb1ff89eb398ae23c230baa2bac152736e",
+  "tree": "014735cb1ff89eb398ae23c230baa2bac152736e",
+  "tree_identical": true,
+  "files": 136,
+  "commits": 120,
+  "submitted_scope_matches": true,
+  "scopeStable": true,
+  "pending_sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+  "deploy_sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+  "changed_db_paths": [
+    "supabase/migrations/_pending_authored_supply.sql"
+  ],
+  "reuse": "All unchanged source/content/G2/PLAN/security and23-case previous browser proofs retained; new CI run pinned to merge HEAD"
+}

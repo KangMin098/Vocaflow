@@ -1,0 +1,83 @@
+{
+  "recorded_at": "2026-10-20T17:16:10.201Z",
+  "run": "39461175124",
+  "initial": {
+    "head": "6d1c2fcccf00918d75cc81653eb8b251ff72d7dc",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "success"
+      },
+      {
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e",
+        "conclusion": "failure"
+      },
+      {
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e-shared-dev",
+        "conclusion": "skipped"
+      },
+      {
+        "name": "TypeScript 0 error",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "retry": {
+    "head": "6d1c2fcccf00918d75cc81653eb8b251ff72d7dc",
+    "attempt": 2,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "e2e",
+        "conclusion": "success"
+      },
+      {
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "name": "TypeScript 0 error",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e-shared-dev",
+        "conclusion": "skipped"
+      },
+      {
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "initial_evidence": [
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T16:57:34.8199252Z   ✘   3 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1440px (2.6s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T16:57:42.5666521Z   ✓   4 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1280px (7.0s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:01:43.4702973Z   1) [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1440px ─────",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:01:43.4703963Z     Error: apiRequestContext.post: socket hang up",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:01:43.4953329Z   1 failed",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:01:43.4954174Z     [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1440px ──────",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:01:43.4954874Z   22 passed (4.9m)"
+  ],
+  "retry_evidence": [
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:07:59.9073078Z   ✓   3 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1440px (8.0s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:08:07.5248270Z   ✓   4 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1280px (7.6s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T17:12:24.1778505Z   23 passed (5.2m)"
+  ],
+  "interpretation": "Initial transport failure preserved, not silently counted as pass. Same source/test tree, successful full retry; exact root cause not established. No test weakening or product change between attempts."
+}

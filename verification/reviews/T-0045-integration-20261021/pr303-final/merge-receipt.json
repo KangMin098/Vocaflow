@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-10-20T17:18:06.525Z",
+  "p250": {
+    "headRefOid": "aab0c918c13a1b8aa375fd2dcbdc314a5314b026",
+    "mergeCommit": {
+      "oid": "5b58b7f985fc2c657622c53ab244bc1e3ae934d1"
+    },
+    "mergedAt": "2026-10-20T16:44:12Z",
+    "state": "MERGED"
+  },
+  "p303": {
+    "headRefOid": "6d1c2fcccf00918d75cc81653eb8b251ff72d7dc",
+    "mergeCommit": {
+      "oid": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f"
+    },
+    "mergedAt": "2026-10-20T17:17:37Z",
+    "state": "MERGED"
+  },
+  "current_main": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+  "review": {
+    "html_url": "https://github.com/KangMin098/Vocaflow/pull/303#pullrequestreview-5588849156",
+    "id": 5588849156,
+    "state": "COMMENTED",
+    "submitted_at": "2026-10-20T17:17:24Z"
+  },
+  "method": "Existing protected safe-merge; exact scope and8 required checks; no bypass",
+  "db_writes": 0,
+  "new_credentials": 0,
+  "human_gold_or_rights": 0,
+  "final_mission": "REWORK; representative code accepted, release/coverage/effects pending"
+}

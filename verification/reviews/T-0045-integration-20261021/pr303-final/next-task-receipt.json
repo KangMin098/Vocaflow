@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-10-20T17:21:50.078Z",
+  "task_id": "T-0068",
+  "status": "READY",
+  "owner": "final-product",
+  "depends_on": [
+    "T-0067"
+  ],
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "scope": "13 existing nondeferred sets;39 new candidate items;test adapter only;no engine/SQL/canon change",
+  "goal_alignment": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1",
+      "VG-L3-A2-01-AC1"
+    ],
+    "current_gap": "이미 연결된 비보류13TASK는 전이1/2와 미노출독립재고0 때문에 핵심학습순환이 멈춘다.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "39후보문항의 독립내용/대체정답/형식 검토와 원문보존",
+      "13TASK 실제공급·서버·G2·MAP/PLAN pass/fail",
+      "새대표2형식 인증브라우저 및 pending승인경계"
+    ],
+    "next_dependency": null,
+    "out_of_scope": [
+      "새제품TASK/Workspace/학습엔진/SQL",
+      "s.attachment연결결정",
+      "사람Gold·권리·DB적용",
+      "새오케스트레이터",
+      "실학습효과/지연성공주장"
+    ],
+    "dependency_type": "direct",
+    "canon_version": "1.1.0",
+    "base_commit": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+    "gate_ms": 1.1576
+  },
+  "delivery": "QUEUE_READY;not actual ACK/start"
+}
