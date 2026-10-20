@@ -1,0 +1,20 @@
+{
+  "type": "integration",
+  "command_or_protocol": "Independent acceptance: exact-head Git diff is test-only; verify GitHub API CI39359048754 success and actual isolated PostgreSQL/Next/Chromium job118420616675 log (14 passed, zero skipped), E07 93 passed, E08/E09 and eight screenshot hashes. Reuse unchanged core 66 checks from ce6815f1b; no local browser rerun claimed.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-final-independent/.agent-logs/final-independent/t0052-r4-e2e.log",
+  "observed_at": "2026-10-20T02:39:50.495Z",
+  "commit": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "environment": "Official GitHub Actions isolated PostgreSQL + authenticated Next + Chromium; independent API/log review",
+  "ci_run": 39359048754,
+  "ci_job": 118420616675,
+  "learner_scope": "synthetic only; human Gold/rights/developer DB application not approved"
+}

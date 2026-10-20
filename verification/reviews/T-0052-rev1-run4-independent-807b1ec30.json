@@ -1,0 +1,202 @@
+{
+  "taskId": "T-0052",
+  "designRevision": 1,
+  "runSeq": 4,
+  "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+  "observedAt": "2026-10-20T02:43:02.189Z",
+  "decision": "ACCEPT",
+  "scope": "T-0052 rev1 representative learning cycle and correction of current-head mandatory CI tests; not full product release",
+  "changes": {
+    "files": [
+      "apps/web/tests/e2e-isolated/authored-supply.isolated.spec.ts"
+    ],
+    "productionCodeUnchangedFrom": "ce6815f1b6216f647a4f97a80fe3403a788f8488",
+    "review": "Await restoration of same Workspace dialog and select overview within it; no forced clicks or suppressed restoration assertions"
+  },
+  "inputIntegrity": {
+    "task_id": "T-0052",
+    "run_seq": 4,
+    "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+    "evidence": [
+      {
+        "id": "T-0052-R4-E07",
+        "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+        "hashMatches": true
+      },
+      {
+        "id": "T-0052-R4-E08",
+        "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+        "hashMatches": true
+      },
+      {
+        "id": "T-0052-R4-E09",
+        "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/supply-card-1440.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/guided-right-1440.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/guided-reset-1440.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/check-locked-1440.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/supply-card-1280.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/guided-right-1280.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/guided-reset-1280.png",
+        "hashMatches": true
+      },
+      {
+        "path": "verification/ui/T-0052/check-locked-1280.png",
+        "hashMatches": true
+      }
+    ],
+    "log": ".agent-logs/final-independent/t0052-r4-e2e.log",
+    "log_sha256": "4d88cf770d0e3e1c1d6e9d4cb55bd84690d4b7f596ee613c24e68899514e684a",
+    "unit": 93,
+    "browser": 14,
+    "passedLines": [
+      "2026-10-20T02:34:13.8983287Z   ✓   1 [chromium] › tests/e2e-isolated/authored-formats.isolated.spec.ts:112:7 › 창작 형식 9종 종단 — 1440px (17.1s)",
+      "2026-10-20T02:34:29.9701535Z   ✓   2 [chromium] › tests/e2e-isolated/authored-formats.isolated.spec.ts:112:7 › 창작 형식 9종 종단 — 1280px (16.0s)",
+      "2026-10-20T02:34:36.5152205Z   ✓   3 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1440px (6.5s)",
+      "2026-10-20T02:34:42.5042642Z   ✓   4 [chromium] › tests/e2e-isolated/authored-supply.isolated.spec.ts:50:7 › 창작 공급 종단 — 1280px (6.0s)",
+      "2026-10-20T02:34:46.0139346Z   ✓   5 [chromium] › tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts:187:5 › A — 보류 없음: 2026#34 공개 · 2026#38 stale fallback (3.5s)",
+      "2026-10-20T02:34:49.0344920Z   ✓   6 [chromium] › tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts:195:5 › B — 실제 보류(record_session_held): 세 문항 item-held · 교수 설명 비노출 (3.0s)",
+      "2026-10-20T02:34:52.5901462Z   ✓   7 [chromium] › tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts:233:5 › C — 학습자 해제(capture_open → capture_finish): 34 다시 공개 · 38 stale 유지 · 정리 단언 (3.4s)",
+      "2026-10-20T02:35:17.8083336Z   ✓   8 [chromium] › tests/e2e-isolated/csat-v32-mywords-sync.isolated.spec.ts:69:7 › 「내 말로」 두 기기 저장 — 1440px (25.2s)",
+      "2026-10-20T02:35:42.2739074Z   ✓   9 [chromium] › tests/e2e-isolated/csat-v32-mywords-sync.isolated.spec.ts:69:7 › 「내 말로」 두 기기 저장 — 1280px (24.5s)",
+      "2026-10-20T02:35:53.4349756Z   ✓  10 [chromium] › tests/e2e-isolated/journey-evidence.isolated.spec.ts:81:5 › 근거 찾기 대표 여정 — 독립 오답 → 바로잡기(안내 연습 · 자기 설명) → 적용 2 → 새 독립 확인 → G2 → MAP · PLAN (11.1s)",
+      "2026-10-20T02:35:59.2384138Z   ✓  11 [chromium] › tests/e2e-isolated/journey.isolated.spec.ts:104:5 › 한 학습자 종단 — 시험 기록 → 목표 → PLAN → 지도 → 납품 → 독립 확인 · 전이 → G2 → 지도 · PLAN 재계산 (5.8s)",
+      "2026-10-20T02:36:15.2875755Z   ✓  12 [chromium] › tests/e2e-isolated/journey.isolated.spec.ts:243:54 › 양성 경로(pass) — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기 → 적용 → 다시 확인 (16.0s)",
+      "2026-10-20T02:36:32.9966499Z   ✓  13 [chromium] › tests/e2e-isolated/journey.isolated.spec.ts:243:54 › 양성 경로(fail) — 서로 다른 독립 확인 2 오답 → 보완 필요 확정 → PLAN 확인 → 바로잡기 → 적용 → 다시 확인 (17.7s)",
+      "2026-10-20T02:36:36.4653620Z   ✓  14 [chromium] › tests/e2e-isolated/map-goal.isolated.spec.ts:32:5 › 학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB) (3.4s)",
+      "2026-10-20T02:36:36.7288147Z   14 passed (2.7m)"
+    ]
+  },
+  "validation": {
+    "unit": {
+      "passed": 93,
+      "skipped": 0,
+      "independentlyReadLog": true,
+      "rerunByCodex": false
+    },
+    "coreIndependentTests": {
+      "reusedFrom": "ce6815f1b",
+      "passed": 66,
+      "reason": "All production/content/SQL files unchanged"
+    },
+    "isolatedBrowser": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "environment": "Official isolated PostgreSQL + authenticated Next + Chromium",
+      "coverage": [
+        "evidence task complete supply/repair/transfer/recheck/G2/PLAN journey",
+        "R5 pass/fail",
+        "supply return at 1440 and 1280",
+        "nine formats at both widths",
+        "two-device explanation storage at both widths",
+        "goal and RLS"
+      ]
+    },
+    "ui": {
+      "screens": 19,
+      "accessibility": 18,
+      "reference": 14,
+      "scope": "Existing isolated component/browser artifacts; source unchanged and hashes rechecked"
+    }
+  },
+  "ci": {
+    "run_id": 39359048754,
+    "head_sha": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+    "event": "pull_request",
+    "conclusion": "success",
+    "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39359048754",
+    "jobs": [
+      {
+        "id": 118420616492,
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 118420616617,
+        "name": "verify",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 118420616675,
+        "name": "e2e",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 118420616743,
+        "name": "build",
+        "conclusion": "success",
+        "status": "completed"
+      },
+      {
+        "id": 118420617407,
+        "name": "e2e-shared-dev",
+        "conclusion": "skipped",
+        "status": "completed"
+      }
+    ]
+  },
+  "findings": {
+    "FI011": "VERIFIED_FIXED in accepted task scope",
+    "supplyReturnP2": "VERIFIED_FIXED",
+    "E05SkipMetadata": "RESOLVED by focused E07 with 93 passing and zero skipped"
+  },
+  "formalWorkflow": {
+    "status": "READY after central completion-evidence refusal",
+    "centralCodeReview": "APPROVE; no findings",
+    "missing": "Additional typed integration and independently recorded evidence required by CRIT-EV-1",
+    "preparedIndependentEvidence": ".agent-logs/final-independent/t0052-r4-independent-evidence.json",
+    "attachAttempt": "Rejected by existing CLI: READY cannot receive evidence; no state/owner bypass",
+    "requiredAction": "Existing owner resubmits the same HEAD with integration evidence; independent reviewer attaches prepared evidence in REVIEW before formal completion",
+    "productCodeReworkRequired": false
+  },
+  "next": {
+    "task": "T-0056",
+    "owner": "final-product",
+    "status": "Existing READY, no dependency on T-0052",
+    "instruction": "Proceed with existing rev1 support TASK entry work order under single writer. No new task/design revision or duplicate implementation."
+  },
+  "integration": {
+    "localMerged": false,
+    "officialMerged": false,
+    "scope": "PR303/250 final integration and safe-merge remain separate",
+    "localChecked": true
+  },
+  "boundaries": {
+    "developerDbWrites": 0,
+    "sqlAppliedToDeveloperDb": false,
+    "humanGoldApproved": false,
+    "rightsApproved": false,
+    "actualLearnerEffectVerified": false
+  },
+  "finalMission": {
+    "decision": "REWORK",
+    "PRODUCT_CORE_READY": false,
+    "RELEASE_READY": false,
+    "FINAL_COMPLETE": false
+  }
+}

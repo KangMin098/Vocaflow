@@ -1,0 +1,27 @@
+{
+  "packet_id": "T-0052-rev1-run4-independent-807b1ec30",
+  "task_id": "T-0052",
+  "design_revision": 1,
+  "run_seq": 4,
+  "head": "807b1ec304d65dcf80d2bad82fcd3fc87e38e28d",
+  "from": "final-independent-accept",
+  "to": "final-product",
+  "decision": "ACCEPT",
+  "report": "verification/reviews/T-0052-rev1-run4-independent-807b1ec30.json",
+  "delivery": "LOCAL_INBOX_POSTED",
+  "acknowledged_by_claude": false,
+  "formal_task_complete": false,
+  "product_rework_required": false,
+  "prepared_independent_evidence": "verification/reviews/T-0052-r4-independent-evidence.json",
+  "next_task": "T-0056",
+  "next_owner": "final-product",
+  "next_revision": 1,
+  "next_start_allowed": true,
+  "notes": [
+    "Required current-head CI39359048754 verified success; isolated browser14/14; E07 93/93 skip0; all submitted artifacts and screenshots match.",
+    "Central actual code review APPROVE reused. No repeat of unchanged product tests.",
+    "READY is a completion-evidence classification hold, not product REWORK. Existing owner should resubmit same HEAD with typed integration evidence reused from the actual CI job; then independent reviewer adds the prepared evidence while REVIEW. Do not impersonate reviewer or bypass state guards.",
+    "No new code commit or re-run of unchanged checks is requested to fix ledger metadata. T-0056 existing READY has no dependency on T-0052 and may start under original owner and single writer.",
+    "Local/official integration and DB/Gold/rights/release remain separate."
+  ]
+}
