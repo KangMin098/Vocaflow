@@ -14,10 +14,12 @@
 
 ## 플랫폼 목표 정본 · 작업 범위 (Claude · Codex · ChatGPT 공통)
 
+- 개발 절차의 최신 공용 정책은 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 `development_policy`(`dev-minimal-20261020`)다. 오래된 작업 절차보다 우선하며 제품 정본·DB 승인·권한 보호는 그대로다.
+
 - **최상위 목표 = 승인 정본 v1.1.0**(2026-10-09): `D:/workspace/Vocaflow-AI-Control/goals/PROJECT_GOAL.md`(VG-L0~L4) · `GOAL_ACCEPTANCE_CRITERIA.json` — 원격은 브랜치 `ai-control`. 사본을 만들지 않는다(봉인 `CANON_MANIFEST.json`). 이 파일의 제품 서술(「9 모듈」·「모바일 Phase 2」 등)과 다르면 정본이 우선한다.
 - 확정 전략 SD-R0-01~04(중등 일반 독해 · 비로그인 체험→가입 · PC 웹 우선 · 교실/결제 후순위)는 다시 묻지 않는다. 바꿀 필요는 제안으로만.
 - **작업 범위는 작업 단위마다 따로다**: `node D:/workspace/Vocaflow-AI-Control/bin/vfc.mjs task show <id>` 의 goal_id · allowed/forbidden_paths · db_scope · approval 과 worktree 의 `.agent-goal.md`. 한 작업의 「하지 않을 것」을 다른 작업이나 전역 규칙으로 적용하지 않는다(리뷰도 같다 — 범위 밖 지적은 별도 티켓).
-- 작업 소유는 세션 이름이 아니라 고정 owner_id(`vfc owner list`). 작업 시작은 `vfc task start` — task·worktree·DB 잠금을 원자적으로 잡고, 이 저장소의 `.agent-lock` 도 존중한다. 근거 없는 목표는 UNKNOWN, skip 은 통과가 아니다.
+- 여러 세션이 나누는 등록 작업만 owner_id와 `vfc task start`로 추적한다. 단일 세션의 일반 개발에는 큐·worker·handoff 등록을 요구하지 않는다. VFC가 잠금을 잡았으면 수동으로 중복 획득하지 않는다. skip과 미실행은 통과가 아니다.
 
 ## 명령
 
@@ -53,8 +55,8 @@
 | 정기 진단 | [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md) |
 | 첫 진입 | [PROJECT](./docs/PROJECT.md) · [STACK](./docs/STACK.md) |
 
-진입 순서: 이 파일 → 영역 문서 1–3개 → **사실 검증**(DB 직접 질의 · 라우트 grep) → 변경 시 CONVENTIONS 자가 점검 → 머지 후 CHANGELOG Unreleased 갱신.
-세션 시작에 한 번: `pnpm sync:memory --check` → stale 이면 `pnpm sync:memory` 뒤 **별도 커밋**(훅은 더 이상 자동 갱신하지 않는다 — DD-49).
+진입 순서: 이 파일 → 필요한 영역 문서 → 변경 영향 범위의 사실 검증. CHANGELOG는 기능 통합 때 한 줄만 갱신한다.
+메모리 동기화는 `docs/AI_CONTEXT` 미러를 실제로 갱신할 때만 실행한다. 세션 시작·일반 커밋에는 실행하지 않는다.
 
 ## 디자인 방향 · 학습 과학 7
 
@@ -150,7 +152,7 @@ L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바�
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
 화면 라벨을 반복하지 말고 순서·전제·되돌리기 가능 여부·실패 결과·소요 시간을 쓴다. 파이프라인 수치가 나빠지면 코드보다 먼저 해당 도움말의 `cautions` 를 읽는다.
 
-**③ Git** — 논리적 milestone 종료 · 변경 파일 ≥5 · 다음 작업으로 넘어갈 때 커밋 + 현재 브랜치 push.
+**③ Git** — 논리적 변경 완료 시 자기 파일만 커밋한다. LOCAL_FAST 일반 개발은 로컬 통합하며 작업별 push·PR·CI 대기를 요구하지 않는다. 원격은 백업 또는 공식 제품 통합 시에만 사용한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).
@@ -161,8 +163,8 @@ L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바�
 ## 공유 워크스페이스 · 두 에이전트 규약
 
 - 이 저장소는 **여러 세션·두 종류 에이전트가 git 인덱스·DB·검증 계정을 공유**한다. 커밋은 `git commit --only <paths>` 로 자기 파일만. `git add` 와 commit 사이에 틈을 두지 않는다(남의 커밋에 흡수된다).
-- 같은 워크트리 동시 쓰기 금지: 쓰기 전에 `lock.mjs acquire <agent>`, 끝나면 `release`. 잠금이 남의 것이면 읽기 전용으로만 일한다. 장기 병행은 `pnpm wt new <suffix>`.
-- 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
+- 같은 워크트리 동시 쓰기 금지(남의 `lock.mjs` 잠금이 있으면 읽기 전용). 새 worktree · worker · subagent 는 **실제 병렬 이득이 있을 때만** — 단독 작업은 지금 환경을 재사용하고, 한 에이전트가 끝낼 수 있는 일은 다른 에이전트를 부르지 않는다.
+- 실제 담당자가 바뀔 때만 변경·남은 일·검증 결과를 전달한다. 같은 세션의 일반 작업에는 handoff 양식·ACK·별도 보고서가 필요 없다. 전달을 받았다면 수용 기준과 현재 Git 상태부터 확인한다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
 - 독립 리뷰는 L3 이상 고위험 변경이나 요청이 있을 때만(결함 + 목적 이탈 · [goal-review](./agents/goal-review.md)). `.agent-goal.md` 는 DB 승인(마이그레이션 sha 기록)이나 여러 세션이 나눠 하는 큰 작업에만 쓴다. **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2): Stop·커밋·submit·DB 게이트·머지 어디서도 Codex 를 부르지 않는다. 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다. `node agents/scripts/review.mjs` 는 사용자가 요청할 때만 쓴다.
 - **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
