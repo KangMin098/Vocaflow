@@ -1,0 +1,84 @@
+{
+  "observed_at": "2026-10-20T14:08:45.243Z",
+  "status": "REVIEW",
+  "run": {
+    "run_seq": 1,
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 25472,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-20T12:53:45.443Z",
+    "locks": [],
+    "product_lock_token": null,
+    "start_head": "7f99ac80bd441f855a082bddf15673b8946f6048",
+    "ended_at": "2026-10-20T13:44:48.243Z"
+  },
+  "evidence": [
+    {
+      "id": "T-0063-R1-E01",
+      "type": "unit",
+      "commit": "60d1fc1267be34ff5e93f29ab7f1c6a6fcda186e",
+      "artifact": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-verify.log",
+      "expected": "da938580b43ccde8ea902af0d05ca1a2c645b464cc4d638369a8f77873d073e3",
+      "actual": "da938580b43ccde8ea902af0d05ca1a2c645b464cc4d638369a8f77873d073e3"
+    },
+    {
+      "id": "T-0063-R1-E02",
+      "type": "ci",
+      "commit": "60d1fc1267be34ff5e93f29ab7f1c6a6fcda186e",
+      "artifact": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-e2e.log",
+      "expected": "98db838e7a8ef795bb73dccd6fd9300e4cc26708d186c4ec07f289d6bc033800",
+      "actual": "98db838e7a8ef795bb73dccd6fd9300e4cc26708d186c4ec07f289d6bc033800"
+    },
+    {
+      "id": "T-0063-R1-E03",
+      "type": "e2e",
+      "commit": "60d1fc1267be34ff5e93f29ab7f1c6a6fcda186e",
+      "artifact": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0063-e2e.log",
+      "expected": "98db838e7a8ef795bb73dccd6fd9300e4cc26708d186c4ec07f289d6bc033800",
+      "actual": "98db838e7a8ef795bb73dccd6fd9300e4cc26708d186c4ec07f289d6bc033800"
+    },
+    {
+      "id": "T-0063-R1-E04",
+      "type": "ui",
+      "commit": "60d1fc1267be34ff5e93f29ab7f1c6a6fcda186e",
+      "artifact": "verification/ui/T-0063/ci-39431605974-1.png",
+      "expected": "e404518c2fe917b9cb7a5ffb90fdef47273e729c97fc8681ccdf78a6dc78a049",
+      "actual": "e404518c2fe917b9cb7a5ffb90fdef47273e729c97fc8681ccdf78a6dc78a049",
+      "screenCount": 22,
+      "screensMatch": true
+    }
+  ],
+  "ci": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "headSha": "60d1fc1267be34ff5e93f29ab7f1c6a6fcda186e",
+    "jobs": [
+      {
+        "name": "build",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e",
+        "conclusion": "success"
+      },
+      {
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e-gate-faultclosed",
+        "conclusion": "success"
+      },
+      {
+        "name": "e2e-shared-dev",
+        "conclusion": "skipped"
+      },
+      {
+        "name": "TypeScript 0 error",
+        "conclusion": "success"
+      }
+    ],
+    "status": "completed"
+  }
+}
