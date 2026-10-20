@@ -8,6 +8,7 @@
 // 한 호 52페이지를 한 요청에 처리하면 어떤 타임아웃에도 안 들어가기 때문이다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -179,7 +180,7 @@ export function AdminPdComicsClient({
             className="-mb-px min-h-[44px] border-b-2 px-3 font-display text-[13px] font-[700] transition-colors"
             style={{
               borderColor: tab === k ? ACCENT : 'transparent',
-              color: tab === k ? ACCENT : 'var(--t2)',
+              color: adminTextInk(tab === k ? ACCENT : 'var(--t2)'),
             }}
             aria-current={tab === k ? 'page' : undefined}
           >
@@ -326,7 +327,7 @@ function BulkIngestPanel({
       </div>
 
       {lines.length > 0 && (
-        <pre className="mt-3 max-h-[280px] overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+        <pre tabIndex={0} className="mt-3 max-h-[280px] overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
           {lines.join('\n')}
         </pre>
       )}
@@ -415,11 +416,11 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
           <ul className="divide-y divide-[var(--bd)]">
             {cands.map((c) => (
               <li key={c.identifier} className="flex items-center gap-3 px-3 py-2">
-                <span className="w-10 shrink-0 text-center font-mono text-[13px] font-[800] tabular-nums" style={{ color: ACCENT }}>{c.fit.toFixed(1)}</span>
+                <span className="w-10 shrink-0 text-center font-mono text-[13px] font-[800] tabular-nums" style={{ color: adminTextInk(ACCENT) }}>{c.fit.toFixed(1)}</span>
                 <div className="min-w-0 flex-1">
                   <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{c.title}{c.publishedYear && <span className="ml-2 font-mono text-[10.5px] text-[var(--t2)]">{c.publishedYear}</span>}{c.pageCount && <span className="ml-1.5 font-mono text-[10.5px] text-[var(--t2)]">{c.pageCount}p</span>}</p>
                   <p className="mt-0.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
-                    {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: RISK_UI[c.pdRisk].fg, background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
+                    {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: adminTextInk(RISK_UI[c.pdRisk].fg), background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
                     {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9.5px] text-[var(--t2)]">{w}</span>)}
                   </p>
                 </div>
@@ -681,7 +682,7 @@ function SourceTab({
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-[var(--bd)] pt-3">
-          <label className="flex items-center gap-2 font-body text-[12.5px] text-[var(--t1)]">
+          <label className="flex min-h-[44px] cursor-pointer items-center gap-2 font-body text-[12.5px] text-[var(--t1)]">
             <input type="checkbox" checked={testMode} onChange={(e) => setTestMode(e.target.checked)} />
             <b>테스트 모드</b>
           </label>
@@ -748,6 +749,7 @@ function SourceTab({
               const checked = sel.has(it.identifier)
               return (
                 <li key={it.identifier} className="flex gap-3 px-4 py-3">
+                  <label className="flex min-h-[44px] min-w-[44px] shrink-0 cursor-pointer items-center justify-center">
                   <input
                     type="checkbox"
                     checked={checked}
@@ -758,9 +760,10 @@ function SourceTab({
                       else n.delete(it.identifier)
                       setSel(n)
                     }}
-                    className="mt-1 shrink-0"
+                    className="shrink-0"
                     aria-label={`${it.title} 선택`}
                   />
+                  </label>
                   <div className="min-w-0 flex-1">
                     <p className="font-display text-[13px] font-[700] text-[var(--t1)]">
                       {it.title}
@@ -771,7 +774,7 @@ function SourceTab({
                       {it.pdRisk && RISK_UI[it.pdRisk] && (
                         <span
                           className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
-                          style={{ color: RISK_UI[it.pdRisk].fg, background: RISK_UI[it.pdRisk].bg }}
+                          style={{ color: adminTextInk(RISK_UI[it.pdRisk].fg), background: RISK_UI[it.pdRisk].bg }}
                         >
                           {RISK_UI[it.pdRisk].label}
                         </span>
@@ -1056,7 +1059,7 @@ function RowViewControls({
             onClick={() => view.setStatusFilter(c.key)}
             aria-pressed={on}
             className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-            style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` : 'transparent' }}
+            style={{ borderColor: on ? ACCENT : 'var(--bd)', color: adminTextInk(on ? ACCENT : 'var(--t2)'), background: on ? `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` : 'transparent' }}
           >
             {c.label} <span className="font-mono tabular-nums">{c.n}</span>
           </button>
@@ -1217,7 +1220,7 @@ function QueueTab({
       {log.length > 0 && (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
           <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">드레인 로그</p>
-          <pre className="max-h-64 overflow-auto whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--t2)]">
+          <pre tabIndex={0} className="max-h-64 overflow-auto whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
             {log.join('\n')}
           </pre>
         </section>
@@ -1240,7 +1243,7 @@ function QueueTab({
                     이 호 재시도
                   </button>
                 </div>
-                <pre className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+                <pre tabIndex={0} className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
                   {r.lastError}
                 </pre>
               </li>
@@ -1381,7 +1384,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
         <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
         <div className="ml-auto flex items-center gap-2">
           <span className="font-mono text-[11px] text-[var(--t2)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
-          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
+          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: adminTextInk(live ? ACCENT : 'var(--t2)') }} aria-pressed={live}>
             {live ? '● LIVE' : '○ 정지'}
           </button>
           <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
@@ -1392,9 +1395,9 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
       <StageCounters counts={counts} />
       <TruncationNote counts={counts} shown={rows.length} truncated={truncated} />
       <div className="flex flex-wrap gap-2 font-body text-[11.5px]">
-        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {counts.drainablePending}</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--success-light)', color: adminTextInk('var(--success)') }}>드레인 대상 {counts.drainablePending}</span>
         <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--p-light)', color: 'var(--p)' }}>방금 진행 {runningNow.length}</span>
-        {counts.stuck > 0 && <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {counts.stuck}</span>}
+        {counts.stuck > 0 && <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--error-light)', color: adminTextInk('var(--error)') }}>멈춤 {counts.stuck}</span>}
       </div>
 
       <SelfDevTimeline active={active} />
@@ -1421,7 +1424,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                   {running && <span className="inline-block h-2 w-2 rounded-full" style={{ background: ACCENT }} aria-label="방금 진행" />}
                   <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{r.sourceAdapter}</span>
-                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
+                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)`, color: adminTextInk(ACCENT) }}>테스트 · 앞 {r.acquirePages}쪽</span>}
                   <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
                 </div>
                 <Stepper status={r.status} failed={Boolean(r.lastError)} />
@@ -1431,7 +1434,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                   <span>최근 실행 {relTime(r.lastRunAt)}</span>
                   {tookMs != null && <span>{(tookMs / 1000).toFixed(1)}s</span>}
                   {ocr?.bubbles != null && <span className="text-[var(--t2)]">OCR {ocr.bubbles}대사 · 검수 {ocr.needsReview ?? 0}</span>}
-                  {usablePct != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-[700]" style={{ color: usableTone, background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
+                  {usablePct != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-[700]" style={{ color: adminTextInk(usableTone), background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
                   <span className="text-[var(--t2)]">PD {r.pdBasis ?? '미기재'}</span>
                 </div>
                 {/* 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단). 텍스트 소스(hOCR vs 이미지 OCR)·형식·복원 프로파일 */}
@@ -1440,7 +1443,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                     <span className="font-display text-[10px] font-[700] text-[var(--t2)]">작업 방식</span>
                     {/* 로컬 OCR 은퇴(2026-08-15) 후 경로는 두 갈래뿐이다 — 소스 hOCR 이 있거나, 대사가 비어 있거나.
                         "tesseract 로 읽었다" 는 제3의 경우는 더 이상 없다(있는 것처럼 적으면 검수자가 오탈자를 찾는다). */}
-                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : 'var(--warning)', background: method.hocrUsed ? 'var(--success-light)' : 'var(--warning-light)' }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 오탈자는 원본 OCR 품질을 따라간다' : '소스가 hOCR 을 주지 않아 대사가 비어 있다 — 전사부터 사람·Claude Code 몫'}>
+                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk(method.hocrUsed ? 'var(--success)' : 'var(--warning)'), background: method.hocrUsed ? 'var(--success-light)' : 'var(--warning-light)' }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 오탈자는 원본 OCR 품질을 따라간다' : '소스가 hOCR 을 주지 않아 대사가 비어 있다 — 전사부터 사람·Claude Code 몫'}>
                       {method.textSource ?? (method.hocrUsed ? 'hOCR' : '대사 없음 — 수동 입력')}
                     </span>
                     {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">형식 {method.format}</span>}
@@ -1452,16 +1455,16 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
                   {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-11 rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
-                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
+                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: adminTextInk(openLive === r.id ? ACCENT : 'var(--t2)') }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
                   {/* 현대화 3종은 **그 액션이 유효한 상태에서만** 뜬다 — 정본(model.ts)이 정한다.
                       예전엔 상태와 무관하게 항상 떠서, 취득 직후 눌린 호가 산출물 없이
                       'modernized' 가 되고 큐에서 빠졌다. */}
                   {pdActionAllowed('modernize', r.status) && (
                     <>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--memory-stable)', color: 'var(--memory-stable)' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--memory-stable)', color: adminTextInk('var(--memory-stable)') }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
                       <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: adminTextInk(ACCENT) }}>AI 리스타일</button>
                     </>
                   )}
                   <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-11 inline-flex items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
@@ -1472,7 +1475,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                   {(pdActionAllowed('publish', r.status) ||
                     pdActionAllowed('archive', r.status) ||
                     pdActionAllowed('restore', r.status)) && (
-                    <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>
+                    <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: adminTextInk(openPublish === r.id ? ACCENT : 'var(--t2)') }} aria-expanded={openPublish === r.id}>
                       {openPublish === r.id
                         ? '발행 닫기'
                         : r.status === 'published'
@@ -1540,7 +1543,7 @@ function ModernizationMethods() {
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
       <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-3 text-left">
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
-        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>기본 · 작화 보존</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: adminTextInk('var(--memory-stable)'), background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>기본 · 작화 보존</span>
         <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: 'var(--p)', background: 'var(--p-light)' }}>선택 · AI 리스타일</span>
         <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '▾' : '▸'}</span>
       </button>
@@ -1549,14 +1552,14 @@ function ModernizationMethods() {
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">① 작화 보존 <span className="font-body font-[500] text-[var(--t2)]">— Claude Code / CPU · $0</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작 그림 <b>그대로</b> + 색채·디자인(ffmpeg)·대사(HTML)만 현대화. 저작권 안전. <b>발행 기본.</b></p>
-            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">page-modern.mjs --workdir work/&lt;slug&gt; --level MAX
+            <pre tabIndex={0} role="region" aria-label="대사 현대화 명령" className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">page-modern.mjs --workdir work/&lt;slug&gt; --level MAX
 page-html.mjs --workdir work/&lt;slug&gt;
 render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
           <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t2)]">— GPU 모델 · 선택</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 RunPod 에만 프로비저닝돼 있습니다(Kaggle-t4 는 t2i-only 라 쓸 수 없어 경로 자체를 제거). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
-            <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(RunPod/ComfyUI)
+            <pre tabIndex={0} role="region" aria-label="이미지 현대화 명령" className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">connect-check.mjs        # 연결 점검(RunPod/ComfyUI)
 # COMFY_URL 설정: RunPod=pod.mjs start
 pd/modernize.mjs --workdir work/&lt;slug&gt; --erase-only   # GPU 전 지우기 확인
 pd/modernize.mjs --workdir work/&lt;slug&gt; --model qwen-image-edit-2511 --env runpod-4090
@@ -1619,7 +1622,7 @@ function SelfDevTimeline({ active }: { active: boolean }) {
                 <span className="hidden items-center gap-1 sm:flex">
                   {steps.map((s) => <span key={s.seq} title={`${OP_META[s.action].label} · ${s.title}`} className="h-2 w-2 rounded-full" style={{ background: OP_META[s.action].color }} />)}
                 </span>
-                <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: lm.color, background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
+                <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: adminTextInk(lm.color), background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
                 <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">{steps.length}스텝</span>
                 <span className="font-mono text-[11px] text-[var(--t2)]">{isOpen ? '▾' : '▸'}</span>
               </button>
@@ -1634,10 +1637,10 @@ function SelfDevTimeline({ active }: { active: boolean }) {
                         <span className="relative z-10 mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-[var(--bg)]" style={{ background: m.color }} />
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]" style={{ color: m.color, background: m.bg }}>{m.label}</span>
+                            <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]" style={{ color: adminTextInk(m.color), background: m.bg }}>{m.label}</span>
                             <span className="font-mono text-[9.5px] text-[var(--t2)]">{s.phase}</span>
                             <span className="font-body text-[12px] font-[600] text-[var(--t1)]">{s.title}</span>
-                            {s.verdict && <span className="font-mono text-[10px] font-[700]" style={{ color: m.color }}>· {s.verdict}</span>}
+                            {s.verdict && <span className="font-mono text-[10px] font-[700]" style={{ color: adminTextInk(m.color) }}>· {s.verdict}</span>}
                           </div>
                           {s.detail && <p className="mt-0.5 font-body text-[11px] leading-snug text-[var(--t2)]">{s.detail}</p>}
                           {s.next && <p className="mt-0.5 font-body text-[10.5px] text-[var(--t2)]">→ 다음: {s.next}</p>}
@@ -1780,13 +1783,13 @@ function PanelDrill({ issueId }: { issueId: string }) {
                     const refined = (b as { refined?: boolean }).refined
                     return (
                       <li key={i} className="flex items-baseline gap-2 font-body text-[11.5px] text-[var(--t1)]">
-                        <span className="shrink-0 font-mono text-[9.5px]" style={{ color: refined ? 'var(--success)' : 'var(--t4)' }}>{b.kind ?? 'speech'}{refined ? '·정제' : (typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : '')}</span>
-                        <span className="flex-1">{b.text || <em className="text-[var(--t4)]">(빈 대사)</em>}</span>
+                        <span className="shrink-0 font-mono text-[9.5px]" style={{ color: adminTextInk(refined ? 'var(--success)' : 'var(--t4)') }}>{b.kind ?? 'speech'}{refined ? '·정제' : (typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : '')}</span>
+                        <span className="flex-1">{b.text || <em className="text-[var(--t2)]">(빈 대사)</em>}</span>
                       </li>
                     )
                   })}
                 </ul>
-              ) : <p className="mt-1 font-body text-[11px] text-[var(--t4)]">대사 없음</p>}
+              ) : <p className="mt-1 font-body text-[11px] text-[var(--t2)]">대사 없음</p>}
             </div>
           </li>
         ))}
@@ -1885,7 +1888,7 @@ function PublishPanel({ issueId, publishedYear, onMsg, onRefresh }: { issueId: s
   }
 
   const item = (ok: boolean, label: string) => (
-    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t2)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]" style={ok ? { color: adminTextInk('var(--success)'), background: 'var(--success-light)' } : { color: 'var(--t2)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
   )
   const gateOk = check && check.pdBasis && check.pdChecked && check.sourceUrl
   const canPublish = gateOk && check?.contentServable
@@ -1947,9 +1950,9 @@ function ModernBadges({ modern }: { modern?: { preserve: boolean; reader: boolea
     <div className="mt-1.5 flex flex-wrap items-center gap-2">
       <span className="font-display text-[10px] font-[700] text-[var(--t2)]">현대화</span>
       {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">아직 안 함</span>}
-      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>작화보존 ✓</span>}
-      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>리더 ✓</span>}
-      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 9.4%, transparent)` }}>AI 리스타일 ✓</span>}
+      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk('var(--memory-stable)'), background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>작화보존 ✓</span>}
+      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk('var(--memory-stable)'), background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>리더 ✓</span>}
+      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: adminTextInk(ACCENT), background: `color-mix(in srgb, ${ACCENT} 9.4%, transparent)` }}>AI 리스타일 ✓</span>}
     </div>
   )
 }
@@ -1966,12 +1969,12 @@ function Stepper({ status, failed }: { status: string; failed?: boolean }) {
             className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
             style={
               failed
-                ? { background: 'var(--error-light)', color: 'var(--error)' }
+                ? { background: 'var(--error-light)', color: adminTextInk('var(--error)') }
                 : i < cur
-                  ? { background: 'var(--success-light)', color: 'var(--success)' }
+                  ? { background: 'var(--success-light)', color: adminTextInk('var(--success)') }
                   : i === cur
                     ? { background: 'var(--p-light)', color: 'var(--p)' }
-                    : { background: 'var(--bg2)', color: 'var(--t4)' }
+                    : { background: 'var(--bg2)', color: adminTextInk('var(--t4)') }
             }
           >
             {s.label}
@@ -2042,12 +2045,12 @@ function ToolsTab() {
           onClick={() => void connectCheck()}
           disabled={connBusy}
           className="mt-3 min-h-[44px] rounded-[var(--r-md)] border px-4 font-display text-[13px] font-[700] disabled:opacity-50"
-          style={{ borderColor: ACCENT, color: ACCENT }}
+          style={{ borderColor: ACCENT, color: adminTextInk(ACCENT) }}
         >
           {connBusy ? '점검 중…' : 'GPU 연결 점검 (connect-check)'}
         </button>
         {conn && (
-          <pre className="mt-3 overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+          <pre tabIndex={0} className="mt-3 overflow-auto rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[11px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
             {conn}
           </pre>
         )}
@@ -2067,7 +2070,7 @@ function ToolsTab() {
       )}
 
       {out && (
-        <pre className="overflow-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-mono text-[11px] leading-relaxed text-[var(--t2)]">
+        <pre tabIndex={0} className="overflow-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-mono text-[11px] leading-relaxed text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
           {out}
         </pre>
       )}

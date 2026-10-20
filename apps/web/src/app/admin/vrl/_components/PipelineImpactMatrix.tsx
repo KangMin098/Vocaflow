@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/PipelineImpactMatrix.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 5 — Pipeline Impact Matrix.
 //
@@ -92,7 +93,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
             </p>
             <p
               className="font-display text-[16px] font-[800] leading-none"
-              style={{ color: RESP_COLOR[maxImpactedR] }}
+              style={{ color: adminTextInk(RESP_COLOR[maxImpactedR]) }}
             >
               {maxImpactedR}
               <span className="ml-1 font-body text-[11px] font-[500] text-[var(--t2)]">
@@ -132,13 +133,13 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                   >
                     <p
                       className="font-display text-[11px] font-[800]"
-                      style={{ color: accent }}
+                      style={{ color: adminTextInk(accent) }}
                     >
                       {r}
                     </p>
                     <p
                       className="font-display text-[18px] font-[800] leading-none"
-                      style={{ color: accent }}
+                      style={{ color: adminTextInk(accent) }}
                     >
                       {readiness?.score ?? '—'}
                     </p>
@@ -161,8 +162,8 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                 <td className="px-3 py-2 align-top">
                   <div className="flex items-center gap-2">
                     <span
-                      className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
-                      style={{ backgroundColor: PRIORITY_COLOR[d.priority] }}
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-[var(--on-p)]"
+                      style={{ backgroundColor: adminTextInk(PRIORITY_COLOR[d.priority]) }}
                     >
                       {d.priority}
                     </span>
@@ -193,6 +194,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                     >
                       {isImpacted ? (
                         <span
+                          role="img"
                           className="inline-block h-2.5 w-2.5 rounded-full"
                           style={{
                             backgroundColor: sev.bg,

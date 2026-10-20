@@ -61,11 +61,27 @@ test('실제 등록 적용의 버전·원장과 전역 효과를 별도로 표�
 })
 
 test('도서 목록의 상세에서 본문 검수를 보고 같은 검색·선택으로 돌아온다', async ({ page }) => {
+  const queueReads: string[] = [], actionPosts: string[] = []
+  page.on('request', request => {
+    if (request.url().includes('/api/admin/library/curation-jobs?')) queueReads.push(request.url())
+    if (request.method() === 'POST' && request.headers()['next-action']) actionPosts.push(request.url())
+  })
   await open(page, '/admin/curation?view=library&source=gutenberg&status=published&page=2')
   await expect(page.locator('[data-curation-ready=true]')).toBeVisible()
   const first = page.getByRole('region', {name:'도서 목록',exact:true}).locator('tbody tr').first().getByRole('button').first()
   await expect(first).toBeVisible()
   const q = (await first.innerText()).trim().slice(0, 12)
+  await first.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(first).toBeFocused()
+  await expect(page).not.toHaveURL(/selected=/)
+  // A history traversal can briefly hide the dialog before URL state reopens it.
+  await page.waitForTimeout(300)
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  expect(queueReads.length, 'initial queue reads use the GET transport').toBeGreaterThanOrEqual(3)
+  expect(actionPosts, 'initial queue polling must not interrupt Next URL restoration').toEqual([])
   await page.getByRole('textbox',{name:'제목 또는 저자 검색',exact:true}).fill(q)
   await page.waitForURL(url => url.searchParams.get('q') === q)
   await first.click()

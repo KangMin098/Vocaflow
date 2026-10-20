@@ -1,5 +1,9 @@
 # Learning Modules
 
+도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
+
+관리자 사용성 점검(2026-10-20): 도서 검수 제목·상태 표시·어휘 필터 이름·VRL 구간 링크와 중첩 Dialog의 포커스/Back/스크롤 복원을 보완했다. 작업 중 닫기 거부는 `closeDisabled`/`canClose`로 이력까지 보존한다. 지도 셀과 진단 팝업 컨트롤은 44px, 선택 체크박스는 그림 대신 레이블의 클릭 영역을 보장한다. 만화 실행 시각은 KST 고정 표시를 사용한다. 관리자 경로·학습자 판정 규칙·DB 계약은 바꾸지 않는다. [범위와 실제 실행 결과](admin-restructure/usability-audit.md).
+
 관리자 주문 계보(2026-10-20): `AdminWorkspaceSupply`는 인증된 행위자와 대상 사용자·Workspace로 서버 RPC를 조회하며 `ProductOrderLineageView`가 현재/철회/이전 판/개인 변경 및 미설치/실패/빈 목록을 구분한다. 이 패널은 계획 연결량만 표시하며 학습자 수요·생산 진척·개인 납품 판정을 바꾸지 않는다. [계약과 적용 대기](admin-restructure/product-order-lineage.md).
 
 도서 검수 이동(2026-10-20): `BookDetailModal`은 닫기 전에 검색·선택 복귀 주소를 보존하고 공용 `Dialog`의 선택적 `afterUnwindRef`로 오버레이 이력을 걷은 뒤 이동한다. 기존 `useCloseOnBack` 계약을 재사용한다.

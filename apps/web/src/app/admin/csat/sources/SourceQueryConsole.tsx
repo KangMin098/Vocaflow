@@ -130,7 +130,7 @@ export function SourceQueryConsole({ queue, onQueue, reason, onReason }: {
     patch({ uses: filters.uses.includes(tag) ? filters.uses.filter(x => x !== tag) : [...filters.uses, tag] })
 
   const { data, error, isLoading, mutate } = useSWR<ListReply>(`${API}?${queryString(queue, filters, page, reason)}`, get, { keepPreviousData: true })
-  const { data: counts } = useSWR<{ counts: Record<SourceQueue, number>; drain: DrainRunView }>(`${API}?summary=1`, get)
+  const { data: counts, error: countsError, mutate: retryCounts } = useSWR<{ counts: Record<SourceQueue, number>; drain: DrainRunView }>(`${API}?summary=1`, get, { shouldRetryOnError: false, revalidateOnFocus: false })
 
   // 띠는 **지금 쪽에 실제로 온 행**을 그린다 — 원 하나가 한 편, 지름이 그 편에 붙은 문항 수다.
   // 전체 집계로 그리면 거르개를 바꿔도 무늬가 안 변해서 띠가 거짓말을 한다.
@@ -180,6 +180,7 @@ export function SourceQueryConsole({ queue, onQueue, reason, onReason }: {
       {counts?.drain ? <LastDrain view={counts.drain} /> : null}
 
       {/* ── ② 개수 뱃지 탭 ─────────────────────────────────────────────── */}
+      {countsError ? <p role="alert">요약 집계를 읽지 못했습니다. 표시된 수치는 마지막 조회 값일 수 있습니다. <button type="button" className={styles.tab} onClick={() => void retryCounts()}>요약 다시 읽기</button></p> : !counts ? <p role="status">요약을 순서대로 집계하고 있습니다. 목록은 먼저 사용할 수 있습니다.</p> : null}
       <div className={styles.tabs} role="tablist" aria-label="검토 큐">
         {(Object.keys(SOURCE_QUEUES) as SourceQueue[]).map(key => (
           <button

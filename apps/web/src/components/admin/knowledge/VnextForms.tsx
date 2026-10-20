@@ -46,7 +46,7 @@ function useSubmit() {
 function Box({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="mb-6 grid gap-3 border-y border-[var(--bd)] py-5">
-      <h3 className="font-semibold text-[var(--t1)]">{title}</h3>
+      <h2 className="font-semibold text-[var(--t1)]">{title}</h2>
       {children}
     </section>
   )

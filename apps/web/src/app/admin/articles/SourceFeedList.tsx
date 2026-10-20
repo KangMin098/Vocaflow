@@ -9,6 +9,7 @@
 'use client'
 
 import { Volume2 } from 'lucide-react'
+import { adminTextInk } from '@/lib/admin/text-ink'
 import { SourceNameButton } from '@/components/admin/SourceProfileDialog'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
@@ -89,7 +90,7 @@ function SourceBlock({
           <button
             type="button"
             onClick={() => onPickSource(source)}
-            className="font-display text-[13px] font-[700] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center font-display text-[13px] font-[700] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {label}
           </button>
@@ -109,7 +110,7 @@ function SourceBlock({
         {policy.attribution === 'required' && (
           <PolicyTag label={ATTRIBUTION_LABEL.required} tone="review" />
         )}
-        <span className="ml-auto font-mono text-[10px] text-[var(--t5)]">{totalPending} 대기</span>
+        <span className="ml-auto font-mono text-[10px] text-[var(--t2)]">{totalPending} 대기</span>
       </div>
 
       <ul role="list" className="flex flex-col gap-1">
@@ -123,7 +124,7 @@ function SourceBlock({
             </span>
             {f.audioN > 0 && (
               <span
-                className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--learn-known)]"
+                className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--learn-known-ink)]"
                 title={`${f.audioN}건 audio`}
               >
                 <Volume2 size={11} aria-hidden />
@@ -153,7 +154,7 @@ function PolicyTag({ label, tone }: { label: string; tone: Tone }) {
   return (
     <span
       className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[9px] font-[600]"
-      style={{ backgroundColor: c.bg, color: c.fg }}
+      style={{ backgroundColor: c.bg, color: adminTextInk(c.fg) }}
     >
       {label}
     </span>

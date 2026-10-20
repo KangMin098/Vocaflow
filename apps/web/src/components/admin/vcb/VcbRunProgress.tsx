@@ -1,4 +1,5 @@
 // apps/web/src/components/admin/vcb/VcbRunProgress.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 // run.status 기반 파이프라인 진행 오리엔테이션 — "지금 어디 · 다음 할 일" 을 한눈에.
 // DB status 만 사용(FS 비의존) — 결정 B(FS/CLI 결합 탈피) 정합. FS 의존 VcbPipelineGuide 를 대체.
 
@@ -54,7 +55,7 @@ export function VcbRunProgress({ status }: { status: RunStatus }) {
                     : active
                       ? 'var(--admin)'
                       : 'var(--bg)',
-                  color: done ? 'var(--success)' : active ? 'var(--ti)' : 'var(--t4)',
+                  color: adminTextInk(done ? 'var(--success)' : active ? 'var(--ti)' : 'var(--t4)'),
                   border: `1px solid ${
                     done ? 'var(--success)' : active ? 'var(--admin)' : 'var(--bd)'
                   }`,
@@ -66,7 +67,7 @@ export function VcbRunProgress({ status }: { status: RunStatus }) {
               {i < PHASES.length - 1 && (
                 <ArrowRight
                   className="w-3.5 h-3.5 shrink-0"
-                  style={{ color: 'var(--t4)' }}
+                  style={{ color: adminTextInk('var(--t4)') }}
                   aria-hidden
                 />
               )}
@@ -77,11 +78,11 @@ export function VcbRunProgress({ status }: { status: RunStatus }) {
 
       <p
         className="mt-3 text-sm font-body flex items-center gap-2"
-        style={{ color: isFailed ? 'var(--error)' : 'var(--t2)' }}
+        style={{ color: adminTextInk(isFailed ? 'var(--error)' : 'var(--t2)') }}
       >
         <span
           className="font-display font-semibold shrink-0"
-          style={{ color: isFailed ? 'var(--error)' : isPublished ? 'var(--success)' : 'var(--p)' }}
+          style={{ color: adminTextInk(isFailed ? 'var(--error)' : isPublished ? 'var(--success)' : 'var(--p)') }}
         >
           {isPublished ? '완료' : isFailed ? '오류' : '다음'}
         </span>

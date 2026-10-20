@@ -7,7 +7,7 @@
 // 안 보인다. 실제 구조는 나란함이 아니라 **순서**다 — 기계 게이트를 통과한 것만 사람이 읽고,
 // 사람이 통과시킨 것만 조판에 올라가고, 조판된 것만 시중과 견줄 수 있다.
 //
-// 그래서 위에서 아래로 쌓고, **처음 막히는 층 아래는 흐리게** 그린다. 원고가 거기까지 못 온다는
+// 그래서 위에서 아래로 쌓고, **처음 막히는 층 아래는 점선으로** 구분한다. 원고가 거기까지 못 온다는
 // 뜻이고, 그러면 아래 층의 수치는 「좋아 보여도 의미가 없다」 — 표본이 안 온 것뿐이다.
 //
 // ⚠️ 층마다 **무엇을 보는지**를 지운 적이 없다. 넷이 같은 것을 보면 층이 넷이 아니라 하나이고,
@@ -70,7 +70,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
             key={l.id}
             className={`rounded-[var(--r-md)] border bg-[var(--bg)] p-3 transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] ${
               i === stopAt ? 'border-[var(--memory-shaky)]' : 'border-[var(--bd)]'
-            } ${below ? 'opacity-55' : ''}`}
+            } ${below ? 'border-dashed' : ''}`}
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <h3 className="flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--t1)]">
@@ -87,7 +87,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
                     ) : null}
                   </>
                 ) : (
-                  <span className="text-[var(--memory-new)]">못 잼</span>
+                  <span className="text-[var(--t2)]">못 잼</span>
                 )}
               </span>
             </div>
@@ -107,7 +107,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
             </p>
 
             {l.unmeasuredReason ? (
-              <p className="mt-1 break-keep font-body text-[11px] leading-snug text-[var(--memory-new)]">
+              <p className="mt-1 break-keep font-body text-[11px] leading-snug text-[var(--t2)]">
                 {l.unmeasuredReason}
               </p>
             ) : null}

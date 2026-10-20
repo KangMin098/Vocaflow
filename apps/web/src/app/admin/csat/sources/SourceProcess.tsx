@@ -65,29 +65,29 @@ export function SourceProcess({
 }: {
   onQuery: (target: { queue: SourceQueue; reason?: SourceBreakdownReason }) => void
 }) {
-  const { data, error, mutate: retry } = useSWR<Summary>(`${API}?summary=1`, get)
-  const { data: breakdown } = useSWR<Breakdown>(`${API}?breakdown=all`, get)
+  const { data, error, mutate: retry } = useSWR<Summary>(`${API}?summary=1`, get, { shouldRetryOnError: false, revalidateOnFocus: false })
+  const { data: breakdown, error: breakdownError, mutate: retryBreakdown } = useSWR<Breakdown>(data ? `${API}?breakdown=all` : null, get, { shouldRetryOnError: false, revalidateOnFocus: false })
 
-  if (error)
+  if (error || breakdownError)
     return (
       <p className={styles.notice} role="alert">
-        공정 집계를 읽지 못했습니다. <button type="button" onClick={() => void retry()}>다시 읽기</button>
+        공정 집계를 읽지 못했습니다. <button type="button" onClick={() => void (error ? retry() : retryBreakdown())}>다시 읽기</button>
       </p>
     )
-  if (!data)
+  if (!data || !breakdown)
     return (
       <p className={styles.notice} role="status">
-        원문이 어느 관문에 걸려 있는지 세고 있습니다.
+        원문이 어느 관문에 걸려 있는지 순서대로 세고 있습니다. 조회가 끝날 때까지 목록 탭을 먼저 사용할 수 있습니다.
       </p>
     )
 
-  const r = breakdown?.reasons
+  const r = breakdown.reasons
   const view = buildSourceProcess({
     intake: data.counts.all,
     analysisIncomplete: data.counts.analysis,
     rawPendingExtraction: data.counts.raw,
     contentUnjudged: data.counts.content,
-    contentRejected: r?.content_rejected ?? 0,
+    contentRejected: r.content_rejected,
     cefrAboveBand: data.counts.cefr,
     qualitySignals: data.counts.quality,
     rejectedWithItems: data.counts.p0,

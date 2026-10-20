@@ -2,6 +2,7 @@
 // LCP v2.0 Phase 12 묶음 C — Curated Books 테이블 (Tab 4)
 
 'use client';
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -21,8 +22,8 @@ import {
   deleteFailedBookAction,
   enqueueQuizJobsAction,
   enqueueReviewJobsAction,
-  fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
+import { readCurationQueue } from '@/lib/library/curation-queue-client';
 import { BookDetailModal } from './BookDetailModal';
 import { DrainQueueBanner } from './DrainQueueBanner';
 
@@ -117,7 +118,7 @@ export function MyLibraryTab({ books, onRefetch, initialStatus }: MyLibraryTabPr
   useEffect(() => {
     let alive = true;
     void (async () => {
-      const res = await fetchCurationJobsAction();
+      const res = await readCurationQueue('voice');
       if (!alive || !res.ok) return;
       const m = new Map<string, CurationJobRow>();
       for (const j of res.data ?? []) m.set(j.bookId, j);
@@ -944,24 +945,27 @@ function BookRow({
       ].join(' ')}
       onClick={onClick}
     >
-      <td className="w-9 px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+      <td className="w-14 px-1 py-0 text-center" onClick={(e) => e.stopPropagation()}>
+        <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
         <input
           type="checkbox"
           checked={selected}
           onChange={onToggleSelected}
           aria-label={`${book.title} 선택`}
-          className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
+          className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         />
+        </label>
       </td>
-      <Td>
+      <td className="px-3 py-0">
         <button
           type="button"
+          data-focus-restore-id={`book-detail:${book.id}`}
           onClick={onClick}
-          className="text-left line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
+          className="min-h-[44px] min-w-[44px] text-left line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
         >
           {book.title}
         </button>
-      </Td>
+      </td>
       <Td>
         <span className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {book.author ?? '—'}
@@ -1004,7 +1008,7 @@ function BookRow({
           {book.cefrj_confidence && (
             <span
               className="font-mono text-[10px] tabular-nums"
-              style={{ color: confidenceColor(parseFloat(book.cefrj_confidence)) }}
+              style={{ color: adminTextInk(confidenceColor(parseFloat(book.cefrj_confidence))) }}
               title="자동 부여 confidence (소스 tier × coverage)"
             >
               {book.cefrj_confidence}
@@ -1148,7 +1152,7 @@ function ExtractionCell({
   return (
     <span
       className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
-      style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
+      style={{ background: colors.bg, color: adminTextInk(colors.fg), borderColor: colors.border }}
       title={title}
     >
       {isComplete ? (
@@ -1220,7 +1224,7 @@ function FilterChip({
       aria-checked={active}
       onClick={onClick}
       className={[
-        'min-h-[44px] rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center gap-1',
+          'min-h-[44px] min-w-[44px] rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center justify-center gap-1',
         'font-display text-[11px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -1315,7 +1319,7 @@ function SourceBadge({
     <span
       className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{
-        color: cfg.color,
+        color: adminTextInk(cfg.color),
         backgroundColor: `color-mix(in srgb, ${cfg.color} 12%, transparent)`,
       }}
       title={sourceLabel(source)}
@@ -1357,7 +1361,7 @@ function StatusPill({
   return (
     <span
       className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
-      style={{ backgroundColor: bg, color: text }}
+      style={{ backgroundColor: bg, color: adminTextInk(text) }}
     >
       {label}
     </span>
@@ -1388,7 +1392,7 @@ function JobQueueBadge({
   return (
     <span
       className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
-      style={{ backgroundColor: m.bg, color: m.fg }}
+      style={{ backgroundColor: m.bg, color: adminTextInk(m.fg) }}
       title={
         `Dev 매핑 큐 · ${mode === 'dev_reprocess' ? '재처리' : '처리'} · ${status}` +
         (error ? `\n${error}` : '')
@@ -1857,13 +1861,13 @@ function DrainBanner({
     >
       <div className="flex items-center gap-3">
         {state.running && (
-          <Loader2 size={18} className="animate-spin" style={{ color: c.fg }} aria-hidden />
+          <Loader2 size={18} className="animate-spin" style={{ color: adminTextInk(c.fg) }} aria-hidden />
         )}
         <div className="flex flex-col">
-          <span className="font-display text-[13px] font-[700]" style={{ color: c.fg }}>
+          <span className="font-display text-[13px] font-[700]" style={{ color: adminTextInk(c.fg) }}>
             {headline}
           </span>
-          <span className="font-mono text-[11px]" style={{ color: c.fg, opacity: 0.85 }}>
+          <span className="font-mono text-[11px]" style={{ color: adminTextInk(c.fg), opacity: 0.85 }}>
             {detail}
           </span>
         </div>
@@ -1876,7 +1880,7 @@ function DrainBanner({
             onClick={onStop}
             title="현재 라운드 끝낸 뒤 자동 반복 중지"
             className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
-            style={{ borderColor: c.border, color: c.fg }}
+            style={{ borderColor: c.border, color: adminTextInk(c.fg) }}
           >
             <X size={12} aria-hidden />
             중지
@@ -1901,7 +1905,7 @@ function DrainBanner({
                 onClick={onRestart}
                 title="남은 큐 계속 처리"
                 className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
-                style={{ borderColor: c.border, color: c.fg }}
+                style={{ borderColor: c.border, color: adminTextInk(c.fg) }}
               >
                 <PlayCircle size={12} aria-hidden />
                 계속 ({state.remaining}권)
@@ -1974,14 +1978,16 @@ function SelectAllCheckbox({
     if (el) el.indeterminate = indeterminate;
   };
   return (
+    <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
     <input
       type="checkbox"
       ref={setRef}
       checked={checked}
       onChange={onChange}
       aria-label={ariaLabel}
-      className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
+      className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     />
+    </label>
   );
 }
 

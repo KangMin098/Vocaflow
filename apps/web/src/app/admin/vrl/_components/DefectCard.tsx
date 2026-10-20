@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/DefectCard.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // CriticalDefect 공통 카드 — CriticalDefectsSection / PipelineImpactMatrix 의 자식.
 //
@@ -72,7 +73,7 @@ export function DefectCard({ defect }: DefectCardProps) {
       <header className="flex items-start gap-3">
         <span
           className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)]"
-          style={{ backgroundColor: sev.bg, color: sev.dot }}
+          style={{ backgroundColor: sev.bg, color: adminTextInk(sev.dot) }}
           aria-hidden
         >
           <SevIcon size={14} strokeWidth={2} />
@@ -80,8 +81,8 @@ export function DefectCard({ defect }: DefectCardProps) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <span
-              className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
-              style={{ backgroundColor: PRIORITY_COLOR[defect.priority] }}
+              className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-[var(--on-p)]"
+              style={{ backgroundColor: adminTextInk(PRIORITY_COLOR[defect.priority]) }}
             >
               {defect.priority}
             </span>
@@ -119,7 +120,7 @@ export function DefectCard({ defect }: DefectCardProps) {
           </div>
           <p
             className="font-display text-[20px] font-[800] leading-tight"
-            style={{ color: sev.dot }}
+            style={{ color: adminTextInk(sev.dot) }}
           >
             {defect.metrics.current}
             <span className="ml-0.5 font-body text-[10px] font-[500] text-[var(--t2)]">
@@ -139,8 +140,8 @@ export function DefectCard({ defect }: DefectCardProps) {
         {defect.impactsOn.map((r) => (
           <span
             key={r}
-            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-white"
-            style={{ backgroundColor: RESP_COLOR[r] }}
+            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-[var(--on-p)]"
+            style={{ backgroundColor: adminTextInk(RESP_COLOR[r]) }}
             title={`Affects ${r}`}
           >
             {r}
@@ -167,7 +168,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             <Workflow
               size={12}
               strokeWidth={2}
-              style={{ color: PRIORITY_COLOR[defect.priority] }}
+              style={{ color: adminTextInk(PRIORITY_COLOR[defect.priority]) }}
               aria-hidden
             />
             <h4 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
@@ -176,7 +177,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             {defect.improvement.backlogId && (
               <span
                 className="ml-1 rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[9px] font-[700]"
-                style={{ color: PRIORITY_COLOR[defect.priority] }}
+                style={{ color: adminTextInk(PRIORITY_COLOR[defect.priority]) }}
               >
                 {defect.improvement.backlogId}
               </span>

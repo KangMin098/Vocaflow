@@ -34,7 +34,7 @@
 
 'use client'
 
-import { useEffect, type RefObject } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 
 /**
  * 포커스를 받을 수 있는 요소들. `[tabindex="-1"]` 은 제외한다 —
@@ -44,6 +44,74 @@ import { useEffect, type RefObject } from 'react'
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
   'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+const activePanels: HTMLElement[] = []
+let cancelRestoreWatch: (() => void) | null = null
+
+/** An opt-in logical trigger can survive a same-route RSC DOM replacement. */
+function watchReplacedTrigger(target: HTMLElement) {
+  const key = target.dataset.focusRestoreId
+  if (!key) return
+  cancelRestoreWatch?.()
+  const pathname = window.location.pathname
+  const stop = () => {
+    observer.disconnect()
+    document.removeEventListener('pointerdown', stop, true)
+    document.removeEventListener('keydown', stop, true)
+    document.removeEventListener('focusin', onFocus, true)
+    window.removeEventListener('pagehide', stop)
+    if (cancelRestoreWatch === stop) cancelRestoreWatch = null
+  }
+  const onFocus = (event: FocusEvent) => {
+    if (event.target !== target && event.target !== document.body) stop()
+  }
+  const restore = () => {
+    if (window.location.pathname !== pathname || activePanels.some(p => p.isConnected)) { stop(); return }
+    if (target.isConnected) return
+    if (document.activeElement !== document.body) { stop(); return }
+    const replacement = [...document.querySelectorAll<HTMLElement>(`[data-focus-restore-id="${CSS.escape(key)}"]`)].find(el =>
+      el.isConnected && el.matches(FOCUSABLE) && el.getClientRects().length > 0 &&
+      !el.matches(':disabled,[aria-disabled="true"]') && !el.closest('[inert],[aria-hidden="true"]') &&
+      getComputedStyle(el).visibility !== 'hidden',
+    )
+    if (replacement) { stop(); replacement.focus() }
+  }
+  const observer = new MutationObserver(restore)
+  cancelRestoreWatch = stop
+  observer.observe(document.body, { childList: true, subtree: true })
+  document.addEventListener('pointerdown', stop, true)
+  document.addEventListener('keydown', stop, true)
+  document.addEventListener('focusin', onFocus, true)
+  window.addEventListener('pagehide', stop)
+  restore()
+}
+
+export function isTopFocusPanel(panel: HTMLElement | null): boolean {
+  return panel !== null && activePanels.filter(p => p.isConnected).at(-1) === panel
+}
+const mountingPanels = new Map<HTMLElement, number>()
+let panelSequence = 0
+let focusQueued = false
+
+function scheduleInitialFocus(panel: HTMLElement, order: number) {
+  mountingPanels.set(panel, order)
+  if (focusQueued) return
+  focusQueued = true
+  queueMicrotask(() => {
+    focusQueued = false
+    const batch = [...mountingPanels].filter(([p]) => activePanels.includes(p))
+      .sort((a, b) => a[1] - b[1])
+    mountingPanels.clear()
+    for (const [p] of batch) {
+      const index = activePanels.indexOf(p)
+      if (index !== -1) activePanels.splice(index, 1)
+      activePanels.push(p)
+    }
+    const top = activePanels.filter(p => p.isConnected).at(-1)
+    if (top?.hasAttribute('tabindex')) top.focus()
+    else if (top) visibleFocusables(top)[0]?.focus()
+  })
+}
 
 /**
  * 지금 실제로 누를 수 있는 것만 남긴다.
@@ -69,23 +137,26 @@ export function useFocusTrap(
   options?: { restoreFocus?: boolean },
 ): void {
   const restoreFocus = options?.restoreFocus ?? true
+  const identity = useRef<number>()
+  if (identity.current === undefined) identity.current = ++panelSequence
 
   useEffect(() => {
     if (!active) return
     const panel = panelRef.current
     if (!panel) return
+    cancelRestoreWatch?.()
 
     // 정리 시점에는 이 값이 이미 바뀌어 있을 수 있다 — 지금 붙잡아 둔다.
     const prevActive = document.activeElement as HTMLElement | null
+    activePanels.push(panel)
 
     // 열 때 안으로 들여보낸다. 패널이 스스로 포커스를 받을 수 있으면(`tabIndex={-1}`)
     // 패널을 잡는다 — 긴 시트에서 첫 버튼(보통 「닫기」)으로 뛰면 본문을 건너뛴 셈이 된다.
     const panelFocusable = panel.getAttribute('tabindex') !== null
-    if (panelFocusable) panel.focus()
-    else visibleFocusables(panel)[0]?.focus()
+    scheduleInitialFocus(panel, identity.current!)
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return
+      if (e.key !== 'Tab' || e.defaultPrevented || !isTopFocusPanel(panel)) return
       const nodes = visibleFocusables(panel)
       if (nodes.length === 0) {
         // 누를 것이 하나도 없는 모달 — 나가는 것보다 제자리가 낫다.
@@ -115,8 +186,17 @@ export function useFocusTrap(
     document.addEventListener('keydown', onKey)
     return () => {
       document.removeEventListener('keydown', onKey)
+      const index = activePanels.lastIndexOf(panel)
+      if (index !== -1) activePanels.splice(index, 1)
+      mountingPanels.delete(panel)
       // 닫으면 원래 있던 곳으로 — 키보드 사용자가 목록의 자리를 잃지 않게.
-      if (restoreFocus && prevActive?.isConnected) prevActive.focus()
+      const remaining = activePanels.filter(p => p.isConnected).at(-1)
+      if (restoreFocus && prevActive?.isConnected && (!remaining || remaining.contains(prevActive))) prevActive.focus()
+      else if (restoreFocus && remaining) {
+        if (remaining.hasAttribute('tabindex')) remaining.focus()
+        else visibleFocusables(remaining)[0]?.focus()
+      }
+      if (restoreFocus && !remaining && prevActive) watchReplacedTrigger(prevActive)
     }
   }, [active, panelRef, restoreFocus])
 }

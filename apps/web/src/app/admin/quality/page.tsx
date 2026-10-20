@@ -248,7 +248,7 @@ export default async function AdminQualityPage() {
                           {Object.entries(dims).map(([k, v]) => (
                             <div key={k} className="flex items-baseline gap-1">
                               <dt className="font-mono text-[10px] text-[var(--t2)]">{k}</dt>
-                              <dd className="font-mono text-[11px] font-[600] text-[var(--t2)]">
+                              <dd className="min-w-0 break-all font-mono text-[11px] font-[600] text-[var(--t2)]">
                                 {formatDim(v)}
                               </dd>
                             </div>

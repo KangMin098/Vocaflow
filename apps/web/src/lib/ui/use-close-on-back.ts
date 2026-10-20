@@ -1,114 +1,192 @@
 // apps/web/src/lib/ui/use-close-on-back.ts
-//
-// **뒤로가기로 팝업을 닫는다** — 열려 있는 오버레이의 공통 계약.
-//
-// ── 왜 한 곳에 모으나 (실측 2026-08-30) ─────────────────────────────────
-// `31-popup-return` 이 팝업의 다섯 축(열림·주소·스크롤·잠금·포커스)을 이미 보고 있었는데,
-// **뒤로가기는 한 번도 누르지 않았다**(그 스펙의 `goBack` 호출 수가 0이었다). 축을 올리자
-// 재던 팝업 6개 중 **6개 전부**가 같은 방식으로 틀렸다:
-//
-//   · `/library/books` 상세 시트 열고 뒤로가기 → `/library/scripts` 로 **떠남**
-//   · `/library/vocab` 미리보기 열고 뒤로가기 → 고르던 카테고리를 잃음
-//   · `/arcade` 게임 설명 · `/library/scripts` 학습 안내 · `/comics` 콘텐츠 정보 — 같음
-//
-// 폰에는 Esc 가 없다. 뒤로가기(제스처)가 **덮인 것을 치우는** 가장 흔한 동작인데,
-// 그걸 누르면 학습자는 보던 것에서 튕겨 나가고 고르던 자리(필터·스크롤·펼친 만큼)를
-// 함께 잃는다. 화면은 멀쩡히 뜨므로 어떤 오류로도 잡히지 않는다.
-//
-// 여섯 곳에 같은 useEffect 를 베껴 넣으면 반드시 갈라진다(CONVENTIONS "같은 규칙을
-// 두 곳에 쓰지 말 것"). 그래서 훅 하나로 둔다 — 다음에 생기는 팝업도 한 줄이면 된다.
-//
-// ── 어떻게 ─────────────────────────────────────────────────────────────
-// 열릴 때 히스토리에 표식을 하나 쌓고(`pushState`), `popstate` 를 받으면 이동 대신 닫는다.
-// 다른 방법으로 닫혔을 때(Esc·닫기 버튼·바깥 클릭)는 쌓아 둔 항목을 **되감아** 히스토리를
-// 원래대로 돌려놓는다 — 안 그러면 닫은 뒤 뒤로가기를 **두 번** 눌러야 앞 화면으로 간다.
-// 시트를 연 것은 이동이 아니므로 그것도 틀린 동작이다.
-//
-// ⚠️ 주소는 바꾸지 않는다(`pushState(state, '')` — 현재 URL 유지). 팝업은 이동이 아니고,
-//    `31-popup-return` 의 "열고 닫아도 URL 이 그대로다" 계약도 그대로 지켜야 한다.
-//
-// ⚠️ `onClose` 는 **매 렌더 새로 만들어도 된다** — 훅이 ref 로 최신 값을 읽으므로
-//    effect 가 재실행되지 않는다. 호출부가 useCallback 을 강제당하면 적용이 안 퍼진다.
-
 'use client'
 
-import { useEffect, useRef, type MutableRefObject } from 'react'
+import { useEffect, useLayoutEffect, useRef, type MutableRefObject } from 'react'
 
-/**
- * 되감기 예약 — **StrictMode 안전장치.**
- *
- * ⚠️ 이게 없으면 개발 모드에서 팝업이 열리자마자 닫힌다. React 18 StrictMode(Next 14 기본값)는
- *    effect 를 **mount → cleanup → mount** 로 두 번 돌린다. 순진하게 짜면:
- *      mount① pushState → cleanup① history.back() → mount② 리스너 부착
- *      → ①이 부른 back 의 popstate 가 **②의 리스너**에 걸려 곧바로 onClose()
- *    실측 2026-08-30: `SeriesInfoModal` 이 정확히 이렇게 열리자마자 닫혔고,
- *    이미 통과하던 "열고 닫아도 …" 검사까지 같이 깨졌다. 나머지 팝업은 타이밍이
- *    운 좋게 어긋나 통과했을 뿐이라 **전부 같은 경주 위에 있었다.**
- *
- * 그래서 되감기를 한 틱 미룬다. 곧바로 다시 mount 되면(= StrictMode 재실행이거나
- * 리렌더) 예약을 취소하고 쌓아 둔 항목을 그대로 쓴다 — 히스토리는 언제나 한 칸만 는다.
- */
-let pendingUnwind: ReturnType<typeof setTimeout> | null = null
+interface Popup {
+  id: string
+  order: number
+  active: boolean
+  registered: boolean
+  unwound: number
+  barrier: boolean
+  canClose: () => boolean
+  openHref: () => string
+  after: (() => void) | null
+  href: string
+  returnHref: string | undefined
+  baseHref: string
+  baseState: Record<string, unknown>
+  closedHref?: string
+}
+const popups: Popup[] = []
+const mounting = new Set<Popup>()
+const handled = new WeakSet<PopStateEvent>()
+let sequence = 0
+let mountingQueued = false
+let unwindTimer: ReturnType<typeof setTimeout> | null = null
+const useClientLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-/**
- * 닫힌 **뒤에** 할 일(선택) — 팝업에서 다른 주소로 이동하거나 주소를 바꿀 때.
- *
- * ⚠️ 닫으면서 곧바로 `router.push` 하면 안 된다: 정리(cleanup)가 예약한 `history.back()` 이 한 틱 뒤에 돌아
- *    **방금 간 새 페이지를 되돌린다.** 그래서 호출부는 닫기 전에 이 ref 에 할 일을 넣고, 훅은 우리 표식을
- *    정확히 한 번 걷어낸 것을 확인한 뒤(되감기의 popstate · 이미 뒤로가기로 걷혔으면 그 자리에서) 실행한다.
- *    타이머로 몇 ms 기다리지 않고, back 을 두 번 부르지 않는다. ref 를 안 주면 동작은 예전 그대로다.
- */
-export interface CloseOnBackOptions {
-  afterUnwindRef?: MutableRefObject<(() => void) | null>
+function ensurePendingBarrier() {
+  const popup = popups.filter(p => p.active).at(-1)
+  if (!popup || popup.barrier || popup.canClose() || window.history.state?.vocaflowOverlayId !== popup.id) return
+  // The router reads location before later Window listeners. Keep one same-URL
+  // entry above the dialog while pending, so ordinary Back cannot remove its query.
+  popup.barrier = true
+  window.history.pushState({ ...window.history.state, vocaflowPendingId: popup.id }, '', popup.openHref())
 }
 
-/**
- * @param open   팝업이 열려 있는가
- * @param onClose 닫는 함수 (매 렌더 새 참조여도 된다)
- */
+function restorePendingEntries(event: PopStateEvent) {
+  const active = popups.filter(p => p.active)
+  const target = active.findIndex(p => p.id === event.state?.vocaflowOverlayId)
+  const push = (state: Record<string, unknown>, href: string) => {
+    // Use Next's public History API path so its earlier popstate restoration is
+    // followed by the selected URL, including when several entries were skipped.
+    const { __NA, _N, ...rest } = state
+    void __NA; void _N
+    window.history.pushState(rest, '', href)
+  }
+  if (target < 0 && active.length && event.state?.vocaflowBaseId !== active[0].id) {
+    // Preserve the saved router tree on this intermediate entry. The following
+    // public push then copies that tree, rather than a traversed foreign route.
+    window.history.pushState(active[0].baseState, '', active[0].baseHref)
+  }
+  if (target >= 0 && active[target].barrier && event.state?.vocaflowPendingId !== active[target].id) {
+    push({ ...event.state, vocaflowPendingId: active[target].id }, active[target].openHref())
+  }
+  // A push prunes all skipped forward entries. Recreate every missing active
+  // ancestor too, rather than counting a barrier whose normal entry is gone.
+  for (const popup of active.slice(target + 1)) {
+    const { vocaflowPendingId, ...state } = popup.baseState
+    void vocaflowPendingId
+    push({ ...state, vocaflowOverlay: true, vocaflowOverlayId: popup.id }, popup.openHref())
+    if (popup.barrier) push({ ...window.history.state, vocaflowPendingId: popup.id }, popup.openHref())
+    popup.unwound = 0
+  }
+  ensurePendingBarrier()
+}
+
+function registerPending() {
+  if (mountingQueued) return
+  mountingQueued = true
+  queueMicrotask(() => {
+    mountingQueued = false
+    // Effects run child-first. Render order restores parent -> child history order.
+    const batch = [...mounting].filter(p => p.active).sort((a, b) => a.order - b.order)
+    mounting.clear()
+    for (const popup of batch) {
+      popup.registered = true
+      popups.push(popup)
+      // URL-selected dialogs need a closed-list entry below the overlay. If that
+      // entry also contains selected=, Next can restore/reopen it before cleanup.
+      const openHref = window.location.href
+      let returnHref: URL | null = null
+      try { returnHref = popup.returnHref ? new URL(popup.returnHref, openHref) : null } catch { /* Ignore an invalid optional return URL. */ }
+      const anchor = returnHref && openHref === popup.href && returnHref.origin === window.location.origin &&
+        returnHref.pathname === window.location.pathname && returnHref.href !== openHref
+      if (anchor) window.history.replaceState(window.history.state, '', returnHref!.href)
+      popup.baseHref = window.location.href
+      popup.baseState = { ...window.history.state, vocaflowBaseId: popup.id }
+      window.history.replaceState(popup.baseState, '', popup.baseHref)
+      window.history.pushState({ ...window.history.state, vocaflowOverlay: true, vocaflowOverlayId: popup.id }, '', anchor ? openHref : '')
+    }
+    ensurePendingBarrier()
+  })
+}
+function scheduleUnwind() {
+  if (unwindTimer !== null) return
+  unwindTimer = setTimeout(() => {
+    unwindTimer = null
+    const closing: Popup[] = []
+    while (popups.length && !popups.at(-1)!.active) closing.push(popups.pop()!)
+    const entries = closing.flatMap(p => Array.from({ length: Math.max(0, (p.barrier ? 2 : 1) - p.unwound) }, () => p))
+    const changedRoute = closing.length > 0 && closing.every(p => new URL(p.href).pathname !== window.location.pathname)
+    const replacedAfterClose = !closing.some(p => p.id === window.history.state?.vocaflowOverlayId) && closing.every(p =>
+      p.closedHref !== window.location.href && p.baseHref !== window.location.href)
+    if (entries.length && (changedRoute || replacedAfterClose)) {
+      // A new navigation may have won the turn after close/focus restoration.
+      // Its entry is above the closed popup: traversing now would undo that
+      // navigation rather than remove the popup. Preserve the user's route.
+      ensurePendingBarrier()
+      return
+    }
+    const closedHref = window.location.href
+    const changedQuery = entries.some(p => p.href !== closedHref && new URL(p.href).origin === window.location.origin && new URL(p.href).pathname === window.location.pathname)
+    const after = () => {
+      if (changedQuery) {
+        // Closing may remove a selected= query before this traversal. Do not
+        // resurrect it from the pre-overlay entry. Next's patched History API
+        // must receive a non-internal state to synchronize useSearchParams too.
+        const { __NA, _N, ...state } = window.history.state ?? {}
+        void __NA; void _N
+        window.history.replaceState(state, '', closedHref)
+      }
+      ensurePendingBarrier()
+      closing.forEach(p => p.after?.())
+    }
+    if (!entries.length) { after(); return }
+    // Coalesce a whole closing subtree into one traversal; never race history.back().
+    window.addEventListener('popstate', after, { once: true })
+    window.history.go(-entries.length)
+  }, 0)
+}
+export interface CloseOnBackOptions {
+  /** Same-page URL beneath a URL-selected dialog; retains filters and router state. */
+  returnHref?: string
+  /** Run navigation only after the popup history entry has actually been removed. */
+  afterUnwindRef?: MutableRefObject<(() => void) | null>
+  /** Pending operations may refuse closing without consuming their history entry. */
+  canClose?: boolean
+}
 export function useCloseOnBack(open: boolean, onClose: () => void, options?: CloseOnBackOptions): void {
   const closeRef = useRef(onClose)
   closeRef.current = onClose
+  const canCloseRef = useRef(options?.canClose !== false)
+  canCloseRef.current = options?.canClose !== false
   const afterRef = options?.afterUnwindRef
-
+  const returnHrefRef = useRef(options?.returnHref)
+  returnHrefRef.current = options?.returnHref
+  const openHrefRef = useRef<string>()
+  if (open && typeof window !== 'undefined') openHrefRef.current = window.location.href
+  const identity = useRef<number>()
+  if (identity.current === undefined) identity.current = ++sequence
+  const instance = useRef<Popup>()
   useEffect(() => {
-    if (!open) return
-    if (typeof window === 'undefined') return
-
-    // 방금 예약된 되감기가 있으면 취소한다 — 그 항목을 우리가 이어서 쓴다(위 주석 참조).
-    let reusedEntry = false
-    if (pendingUnwind !== null) {
-      clearTimeout(pendingUnwind)
-      pendingUnwind = null
-      reusedEntry = true
+    if (!open || typeof window === 'undefined') return
+    // Reuse only this instance during StrictMode's cleanup/remount cycle.
+    let popup = instance.current
+    if (!popup || !popups.includes(popup)) {
+      popup = { id: `vocaflow-popup-${identity.current}`, order: identity.current!, active: true, registered: false, unwound: 0, barrier: false, canClose: () => canCloseRef.current, openHref: () => openHrefRef.current ?? window.location.href, after: null, href: window.location.href, returnHref: returnHrefRef.current, baseHref: window.location.href, baseState: {} }
+      instance.current = popup
+      mounting.add(popup)
+      registerPending()
     }
-    if (!reusedEntry) window.history.pushState({ vocaflowOverlay: true }, '')
-
-    let unwound = false
-    const onPop = () => {
-      // 뒤로가기가 우리 표식을 이미 걷어냈다 — 되감을 것이 없다.
-      unwound = true
+    popup.active = true
+    const current = popup
+    const onPop = (event: PopStateEvent) => {
+      if (handled.has(event) || popups.filter(p => p.active).at(-1) !== current) return
+      const ownEntry = event.state?.vocaflowOverlayId === current.id
+      if (ownEntry && (!current.barrier || event.state?.vocaflowPendingId === current.id)) return
+      handled.add(event)
+      if (!canCloseRef.current) {
+        restorePendingEntries(event)
+        return
+      }
+      current.unwound = ownEntry ? 1 : current.barrier ? 2 : 1
       closeRef.current()
     }
     window.addEventListener('popstate', onPop)
-
     return () => {
       window.removeEventListener('popstate', onPop)
-      // 닫힌 뒤 할 일 — 정리 시점에 한 번만 꺼낸다(StrictMode 의 가짜 정리에는 아직 비어 있다)
-      const after = afterRef?.current ?? null
+      current.active = false
+      current.closedHref = window.location.href
+      current.after = afterRef?.current ?? null
       if (afterRef) afterRef.current = null
-      // 뒤로가기가 아닌 방법으로 닫혔으면 우리가 쌓은 항목을 직접 걷어낸다 — 다만
-      // 곧바로 다시 열리는 경우(StrictMode)를 위해 한 틱 미룬다.
-      if (unwound) {
-        after?.()
-        return
-      }
-      pendingUnwind = setTimeout(() => {
-        pendingUnwind = null
-        // 우리 되감기의 popstate 를 받은 뒤에 이동한다 — 그 전에 가면 back 이 새 페이지를 되돌린다
-        if (after) window.addEventListener('popstate', () => after(), { once: true })
-        window.history.back()
-      }, 0)
+      mounting.delete(current)
+      if (current.registered) scheduleUnwind()
     }
   }, [open, afterRef])
+  useClientLayoutEffect(() => {
+    if (open && !canCloseRef.current) ensurePendingBarrier()
+  }, [open, options?.canClose])
 }

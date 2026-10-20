@@ -1,5 +1,9 @@
 # Conventions
 
+## 관리자 화면의 읽기 폴링
+
+URL 선택·팝업과 함께 실행되는 초기 조회/폴링은 관리자 GET API로 읽고 캐시를 금지한다. 읽기 Server Action이 진행 중일 때 History API의 URL 복원이 끼어들면 Next가 재갱신을 예약하고 화면을 재마운트할 수 있다. 도서 큐에서 실제 상세 자동 닫힘을 재현했다. 큐 조회는 `GET /api/admin/library/curation-jobs`와 기존 세션/RLS 조회를 사용하며, 적재·삭제 같은 변경만 기존 Server Action에 둔다. 가드 실패·종류 오류의 데이터 조회 금지와 통신 실패의 명시적 실패 결과를 회귀로 지킨다.
+
 ## 공유 DB 쓰기 테스트
 
 환경 키가 있다는 이유만으로 공유 DB에 쓰는 테스트를 실행하지 않는다. `allowMutatingSharedDbTests(process.env)`는 승인된 명시적 로컬 실행의 `RUN_MUTATING_DB_TESTS=1`만 허용하고 CI에서는 플래그가 있어도 차단한다. 플래그는 사용자 DB 승인을 대신하지 않는다. 일반 로컬 회귀·중앙 related 검증은 쓰기 없이 실행한다. `loadMapPage`처럼 조회 안에서 결정을 기록하는 함수도 쓰기 경로다.

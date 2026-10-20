@@ -37,7 +37,7 @@ export default async function ExpertsPage() {
           {experts.map((e) => (
             <li key={e.id} className="grid gap-2 py-4 md:grid-cols-[12rem_1fr_8rem]">
               <div>
-                <h3 className="font-semibold text-[var(--t1)]">{e.name}</h3>
+                <h2 className="font-semibold text-[var(--t1)]">{e.name}</h2>
                 <p className="text-sm text-[var(--t2)]">{e.organization}</p>
               </div>
               <div className="min-w-0 text-sm">

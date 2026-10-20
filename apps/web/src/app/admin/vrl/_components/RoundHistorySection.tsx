@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/RoundHistorySection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 7-B — Round History.
 //
@@ -285,7 +286,7 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
                     backgroundColor:
                       r.status === 'in_progress' ? 'var(--warning-light)' : 'var(--bg3)',
                     color:
-                      r.status === 'in_progress' ? 'var(--active)' : 'var(--t3)',
+                      adminTextInk(r.status === 'in_progress' ? 'var(--active)' : 'var(--t3)'),
                   }}
                 >
                   {r.status === 'in_progress' ? '진행 중' : '대기'}
@@ -331,7 +332,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
         </div>
         <span
           className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[9px] font-[700]"
-          style={{ backgroundColor: meta.bg, color: meta.fg }}
+          style={{ backgroundColor: meta.bg, color: adminTextInk(meta.fg) }}
         >
           <Icon size={11} strokeWidth={2} aria-hidden />
           {meta.label}
@@ -341,7 +342,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
       <div className="flex items-baseline gap-2">
         <p
           className="font-display text-[22px] font-[800] leading-none"
-          style={{ color: meta.fg }}
+          style={{ color: adminTextInk(meta.fg) }}
         >
           {round.retentionPct.toFixed(1)}%
         </p>

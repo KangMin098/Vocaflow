@@ -1,10 +1,10 @@
 /* apps/web/src/components/admin/methodology/methodology.module.css */
 .workbench { color: var(--t1); max-width: 1500px; margin: auto; word-break: keep-all; overflow-wrap: anywhere; }
 .workbench button, .workbench input, .workbench select, .workbench summary { min-height: 44px; }
-.workbench button, .workbench a, .workbench summary { transition: opacity var(--dur-normal) var(--ease); }
+.workbench button, .workbench a, .workbench summary { transition: box-shadow var(--dur-normal) var(--ease); }
 .workbench button { text-align: left; color: var(--p); padding: 8px 12px; border: 1px solid var(--bd); background: var(--bg); }
-.workbench button:hover, .workbench a:hover, .workbench summary:hover { opacity: .8; }
-.workbench button:active, .workbench a:active, .workbench summary:active { opacity: .65; }
+.workbench button:hover, .workbench a:hover, .workbench summary:hover { box-shadow: inset 0 0 0 1px var(--bd); }
+.workbench button:active, .workbench a:active, .workbench summary:active { box-shadow: inset 0 0 0 2px var(--p); }
 .workbench button:focus-visible, .workbench a:focus-visible, .workbench summary:focus-visible, .workbench input:focus-visible, .workbench select:focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
 .workbench button:disabled { opacity: .5; cursor: not-allowed; }
 .workbench button[aria-pressed=true] { border-color: var(--p); background: var(--bg2); font-weight: 600; }

@@ -42,9 +42,16 @@ test('선택 권의 조판 범위와 집필 공유 재고를 구분한다', asyn
   await page.getByRole('navigation', { name: '제작 공정 작업' }).getByRole('link', { name: '문항·해설', exact: true }).click()
   await expect(page.getByText(/공장 전체 공유 재고이며 선택 기준으로 필터링되지 않습니다/)).toBeVisible()
   expect(new URL(page.url()).searchParams.get('band')).toBe('4')
-  // App Router can stream the shell with HTTP 200 before notFound renders.
-  await page.goto('/admin/csat/press?series=unknown&band=4', { timeout: 120000 })
-  await expect(page.getByText('Admin Console · 404', { exact: true })).toBeVisible()
+  const errors: string[] = []
+  page.on('pageerror', error => errors.push(error.message))
+  for (const route of ['/admin/csat/press', '/admin/csat/review']) {
+    await page.goto(route + '?series=unknown&band=4', { timeout: 120000 })
+    await expect(page.getByRole('heading', { name: '제작 기준을 확인하세요', exact: true })).toBeVisible()
+    await page.getByRole('link', { name: '제작 기준 다시 선택', exact: true }).click()
+    await expect(page).toHaveURL(/\/admin\/csat\/new$/)
+    await expect(page.locator('[data-admin-ready=true]')).toBeVisible()
+  }
+  expect(errors).toEqual([])
 })
 test('작업 홈은 처리할 일과 최근 변경을 먼저 보여준다', async ({ page }) => {
   await open(page, '/admin')

@@ -17,6 +17,7 @@
 // 한 제품의 우위가 두 화면에서 다른 근거로 두 번 주장되고 있었다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import type { EvalDimension, Standing } from '@vocaflow/library-pipeline/textbook-evaluation'
 import { CATEGORY_KO, type EvalCategory } from '@vocaflow/library-pipeline/textbook-evaluation'
@@ -46,7 +47,7 @@ const ORDER: readonly Standing[] = ['inferior', 'absent', 'unmeasured', 'parity'
 function StandingMark({ s }: { s: Standing }) {
   const k = STANDING_KO[s]
   return (
-    <span className="whitespace-nowrap" style={{ color: k.color }}>
+    <span className="whitespace-nowrap" style={{ color: adminTextInk(k.color) }}>
       <span aria-hidden className="font-mono">
         {k.mark}
       </span>{' '}

@@ -13,7 +13,7 @@ export const LCP_HELP: HelpRegistry = {
     screen: {
       summary:
         'PD/CC 소스에서 책을 끌어와 큐 → 로직 처리 → 검수 → 게시까지 밀어 넣는 콘솔. 도서 목록·수집·검토 대기로 나뉜다. 수집 방식에서 소스·추천·대량·ID 입력을 선택하고 목록에서 추적한다.',
-      when: '새 도서를 카탈로그에 넣을 때, 또는 처리가 멈춘 도서의 상태를 확인할 때.',
+      when: '새 도서를 카탈로그에 넣을 때, 또는 처리가 멈춘 도서의 상태를 확인할 때. 큐의 자동 조회·새로고침은 열린 상세의 선택과 목록 조건을 유지한다.',
       diagrams: [
         {
           kind: 'flow',
@@ -74,6 +74,7 @@ export const LCP_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        '도서 상세 안의 삭제·검토 복귀 확인은 별도 팝업이다. Tab은 맨 위 확인창 안에서 순환하고 Escape·뒤로가기는 한 창씩 닫는다. 상세를 닫으면 선택 URL을 지우고 목록의 검색 조건과 열었던 버튼의 포커스를 유지한다. 취소만으로 게시·단어장·원문은 바뀌지 않는다.',
         '「큐 처리 (dev)」·「Dev 일괄 처리」·상세 모달의 「재처리 (dev)」는 dev 서버 전용이다. production 에서는 API 가 거부한다(pg_cron 경로 사용).',
       ],
       seeAlso: [
@@ -556,7 +557,7 @@ export const LCP_HELP: HelpRegistry = {
 // Outer work views share the existing source-specific help; old labels remain compatible.
 LCP_HELP.curation.tabs!['도서 목록'] = {
   ...LCP_HELP.curation.tabs!['도서 목록']!,
-  summary: '검색·소스·수준·상태·페이지·선택 도서는 URL에 남습니다. 한 페이지의 도서만 전체 선택되며, 페이지를 옮겨도 명시적으로 고른 항목은 일괄 선택 수에 남습니다.',
+  summary: '검색·소스·수준·상태·페이지·선택 도서는 URL에 남습니다. 왼쪽 체크 선택 영역은 일괄 작업 대상을 고르고, 제목은 상세를 엽니다. 한 페이지의 도서만 전체 선택되며, 페이지를 옮겨도 명시적으로 고른 항목은 일괄 선택 수에 남습니다.',
 }
 LCP_HELP.curation.tabs!['검토 대기'] = {
   ...LCP_HELP.curation.tabs!['도서 목록']!,

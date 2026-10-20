@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/concerns/page.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 // VRL Pipeline · Data Integrity Concerns (실 구현)
 
 import { Suspense } from 'react'
@@ -88,9 +89,9 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
 
       {/* concern_type 분포 */}
       <section className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-        <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
+        <h2 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
           유형별 분포
-        </h3>
+        </h2>
         <div className="flex flex-wrap gap-2">
           {data.byType.map((t) => (
             <span
@@ -141,7 +142,7 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
                 <td className="px-3 py-2 font-mono text-[10px] text-[var(--t2)]">
                   {r.detectedAt ? r.detectedAt.slice(0, 10) : '—'}
                   {r.detectedDuring && (
-                    <span className="ml-1 opacity-70">· {r.detectedDuring}</span>
+                    <span className="ml-1">· {r.detectedDuring}</span>
                   )}
                 </td>
                 <td className="px-3 py-2 text-center">
@@ -183,7 +184,7 @@ function Stat({
     <div className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
       <span
         className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)]"
-        style={{ backgroundColor: bg, color: accent }}
+        style={{ backgroundColor: bg, color: adminTextInk(accent) }}
       >
         <Icon size={18} strokeWidth={1.75} aria-hidden />
       </span>
@@ -193,7 +194,7 @@ function Stat({
         </p>
         <p
           className="font-display text-[24px] font-[800] leading-tight"
-          style={{ color: accent }}
+          style={{ color: adminTextInk(accent) }}
         >
           {value.toLocaleString()}
         </p>

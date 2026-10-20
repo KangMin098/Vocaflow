@@ -37,9 +37,9 @@ export function VcbRunCard({ run }: { run: VcbRunSummary }) {
       }}
     >
       <header className="flex items-start justify-between gap-3 mb-1">
-        <h3 className="font-display font-semibold text-base m-0" style={{ color: 'var(--t1)' }}>
+        <h2 className="font-display font-semibold text-base m-0" style={{ color: 'var(--t1)' }}>
           {run.collection_title}
-        </h3>
+        </h2>
         <VcbRunStatusBadge status={run.status} size="sm" />
       </header>
 

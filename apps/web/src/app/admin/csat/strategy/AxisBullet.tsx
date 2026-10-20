@@ -44,7 +44,7 @@ export function AxisBullet({ axis, target }: { axis: BenchAxis; target: number }
           {axis.name}
         </span>
         <span className="shrink-0 font-mono text-[11.5px] tabular-nums text-[var(--t1)]">
-          {measured ? v.toFixed(3) : <span className="text-[var(--memory-new)]">못 잼</span>}
+          {measured ? v.toFixed(3) : <span className="text-[var(--t2)]">못 잼</span>}
         </span>
       </div>
 
@@ -77,7 +77,7 @@ export function AxisBullet({ axis, target }: { axis: BenchAxis; target: number }
           />
         </div>
       ) : (
-        <p className="break-keep font-body text-[10.5px] leading-snug text-[var(--memory-new)]">
+        <p className="break-keep font-body text-[10.5px] leading-snug text-[var(--t2)]">
           {axis.insufficient ?? '이 축은 아직 재지 않았다'}
         </p>
       )}
