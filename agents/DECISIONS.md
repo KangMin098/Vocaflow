@@ -1,5 +1,11 @@
 # 두 에이전트 환경 — 결정 기록
 
+## DD-PR-AUTO-1.2 — 개발 단계 자동화와 PR 범위 결속(2026-10-20)
+
+- 사용자 지시: 저위험 개발의 기획→구현→검증→원격 납품→안전 병합을 재승인 없이 이어간다. 데이터 삭제/파괴적 DB/중대 보안 통제와 실행 환경의 강제 권한은 유지한다. DB 배포 티켓 검증은 이번 변경에서 완화하지 않는다.
+- PR_SCOPE_GUARD는 정확한 경로·HEAD/base SHA·커밋 수를 계약과 대조하고 병합 직전에 다시 확인한다. 계약 부재/조회 실패는 병합 불가. 기존8필수 체크/DB 이력/보호 정책을 대체하지 않는다.
+- 프로젝트의 향후 Codex workspace 실행은 개발 네트워크 사용을 허용한다. 관리형 현재 채팅의 권한은 별도다. 중앙 LOCAL_FAST는 공식 원격 통합을 이미 허용하므로 기존 모드/역할을 재사용한다. 이 저장소의 납품 단계만 GITHUB를 명시한다. 전역/관리형 권한은 변경하지 않았다.
+
 > 지시문 [docs/dual-agent-brief.md](../docs/dual-agent-brief.md) 를 실행하며 내린 결정. 질문하지 않고 여기에 적었다.
 > 날짜 2026-09-17 · 작성 Claude Code. 게이트 결과는 [docs/agents/dual-agent-report.md](../docs/agents/dual-agent-report.md).
 
@@ -21,6 +27,14 @@
 | `claude` | 2.1.133 | Gate 3 실측에 사용 |
 
 ## 결정
+
+### LOCAL_FAST 적용 정합 (2026-10-20)
+
+사용자 「GitHub 연계·CI 최소화 설정 확인」에 따라 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 LOCAL_FAST를 확인했다. 이 워크트리의 옛 자동 push/PR 지침을 중앙 모드 우선으로 맞추고 `execution-mode.mjs` 읽기 어댑터·세션 시작 안내·safe-merge의 원격 접근 전 종료를 적용했다. 일반 개발은 로컬 검증·커밋·독립 리뷰·중앙 local-integrate로 진행하며 원격 CI 부재를 blocker로 보지 않는다. 기존 GITHUB 필수 체크/브랜치 보호와 예약 소스 감사 워크플로는 유지한다. 원격 백업은 중앙 backup.mjs의 하루 상한/복구 시점만 따른다. 중앙 설정·자동 리뷰 정책은 이번 수정에서 변경하지 않았다.
+
+후속 CI 중복 축소: sync-check의 작업 브랜치 push 트리거를 main push/PR로 정리하고 CI/sync-check에 PR별 concurrency와 contents:read를 적용했다. main 공유 DB 검사 자동 취소는 하지 않고8개 필수 체크/기존 job 본문·예약 감사·배포를 보존했다. 원격 실행 없이 로컬 회귀162건 통과. 로컬 파일 변경이며 Git metadata 권한으로 커밋/원격 반영은 미완료다.
+
+### 기존 환경 결정
 
 | # | 결정 | 이유 |
 |---|---|---|

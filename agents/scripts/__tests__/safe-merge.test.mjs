@@ -118,10 +118,11 @@ test('SM-P5 30파일 이상은 승인이 아니라 「## 검증」 절 — 없�
 })
 
 // 스위치 값 자체(켜짐 · 꺼짐)는 단언하지 않는다 — 2026-10-11 사용자가 활성화했다. 효력은 SM-P10(origin/main 에서만 읽음)이 지킨다
-test('SM-P6 정책 정본 — 형식 · 승인 2종 · 필수 체크 · 자동 병합 스위치는 불리언', () => {
+test('SM-P6 정책 정본 — 개발 자동화 · DB/삭제/중대 보안 통제 · 필수 체크', () => {
   assert.equal(policy.mode, 'AUTO_CONTINUE')
   assert.equal(typeof policy.merge.auto_merge_enabled, 'boolean')
-  assert.deepEqual(Object.keys(policy.approval_required).sort(), ['data_deletion', 'db_change'])
+  assert.deepEqual(Object.keys(policy.approval_required).sort(), ['critical_security', 'data_deletion', 'db_change'])
+  assert.equal(policy.merge.scope_contract_required, true)
   for (const n of ['verify', 'build', 'e2e']) assert.ok(policy.required_checks.includes(n), n)
 })
 
@@ -173,4 +174,36 @@ test('SM-P11 필수가 아닌 체크의 SKIPPED 는 막지 않는다 · 필수 �
   assert.equal(decide(pr([run('verify', 'SUCCESS'), run('e2e-shared-dev', 'SKIPPED')]), { required: req }).ok, true)
   assert.equal(decide(pr([run('verify', 'SKIPPED')]), { required: req }).ok, false)
   assert.equal(decide(pr([run('verify', 'SUCCESS'), run('extra', 'FAILURE')]), { required: req }).ok, false)
+})
+
+test('SM-F1 변경 파일 목록 완전성 — 잘린 목록 · HEAD 이동 · 상한 초과는 병합 불가(FI-018)', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const list = (n) => Array.from({ length: n }, (_, i) => ({ filename: `f${i}.ts` }))
+  const ok = completeFiles(list(119), { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' })
+  assert.equal(ok.ok, true)
+  assert.equal(ok.files.length, 119)
+  assert.equal(completeFiles(list(100), { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(5), { changedFiles: 5, headBefore: 'a', headAfter: 'b', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(5), { changedFiles: 5, headBefore: 'b', headAfter: 'b', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(3000), { changedFiles: 3001, headBefore: 'a', headAfter: 'a', prHead: 'a' }).ok, false)
+  assert.equal(completeFiles(list(3), {}).ok, false)
+})
+
+test('SM-F2 100개 뒤의 마이그레이션도 게이트에 들어간다 — 전체 목록이면 적용 이력 불일치를 잡는다', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const files = [...Array.from({ length: 118 }, (_, i) => ({ filename: `apps/web/x${i}.ts` })), { filename: 'supabase/migrations/20261014091841_x.sql' }]
+  const full = completeFiles(files, { changedFiles: 119, headBefore: 'a', headAfter: 'a', prHead: 'a' })
+  assert.ok(full.files.some((f) => f.path.startsWith('supabase/migrations/')))
+  const pol = loadPolicy()
+  const g = gates({ baseRefName: 'main', body: '## 검증\nx', files: full.files }, pol, { 'supabase/migrations/20261014091841_x.sql': 'select 1;' }, { '20261014091841': 'deadbeef' })
+  assert.equal(g.ok, false)
+})
+
+test('SM-F3 변경 목록 형식 · HEAD 메타데이터가 불완전하면 병합 불가(FI-018 후속)', async () => {
+  const { completeFiles } = await import('../safe-merge.mjs')
+  const ok = { changedFiles: 2, headBefore: 'a', headAfter: 'a', prHead: 'a' }
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'y.ts' }], ok).ok, true)
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'x.ts' }], ok).ok, false)
+  assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: ' ' }], ok).ok, false)
+  for (const k of ['headBefore', 'headAfter', 'prHead']) assert.equal(completeFiles([{ filename: 'x.ts' }, { filename: 'y.ts' }], { ...ok, [k]: undefined }).ok, false, k)
 })

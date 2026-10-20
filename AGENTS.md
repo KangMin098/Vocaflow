@@ -14,10 +14,12 @@
 
 ## 플랫폼 목표 정본 · 작업 범위 (Claude · Codex · ChatGPT 공통)
 
+- 개발 절차의 최신 공용 정책은 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 `development_policy`(`dev-minimal-20261020`)다. 오래된 작업 절차보다 우선하며 제품 정본·DB 승인·권한 보호는 그대로다.
+
 - **최상위 목표 = 승인 정본 v1.1.0**(2026-10-09): `D:/workspace/Vocaflow-AI-Control/goals/PROJECT_GOAL.md`(VG-L0~L4) · `GOAL_ACCEPTANCE_CRITERIA.json` — 원격은 브랜치 `ai-control`. 사본을 만들지 않는다(봉인 `CANON_MANIFEST.json`). 이 파일의 제품 서술(「9 모듈」·「모바일 Phase 2」 등)과 다르면 정본이 우선한다.
 - 확정 전략 SD-R0-01~04(중등 일반 독해 · 비로그인 체험→가입 · PC 웹 우선 · 교실/결제 후순위)는 다시 묻지 않는다. 바꿀 필요는 제안으로만.
 - **작업 범위는 작업 단위마다 따로다**: `node D:/workspace/Vocaflow-AI-Control/bin/vfc.mjs task show <id>` 의 goal_id · allowed/forbidden_paths · db_scope · approval 과 worktree 의 `.agent-goal.md`. 한 작업의 「하지 않을 것」을 다른 작업이나 전역 규칙으로 적용하지 않는다(리뷰도 같다 — 범위 밖 지적은 별도 티켓).
-- 작업 소유는 세션 이름이 아니라 고정 owner_id(`vfc owner list`). 작업 시작은 `vfc task start` — task·worktree·DB 잠금을 원자적으로 잡고, 이 저장소의 `.agent-lock` 도 존중한다. 근거 없는 목표는 UNKNOWN, skip 은 통과가 아니다.
+- 여러 세션이 나누는 등록 작업만 owner_id와 `vfc task start`로 추적한다. 단일 세션의 일반 개발에는 큐·worker·handoff 등록을 요구하지 않는다. VFC가 잠금을 잡았으면 수동으로 중복 획득하지 않는다. skip과 미실행은 통과가 아니다.
 
 ## 명령
 
@@ -30,7 +32,7 @@
 | DB 통계 블록 | `pnpm docs:db-stats` (확인만 `pnpm docs:db-stats:check`) |
 | 에이전트 설정 | `node agents/scripts/sync.mjs` (생성) · `node agents/scripts/check.mjs` (검사) · `node --test agents/scripts/__tests__/*.test.mjs` (스크립트 회귀) |
 | 잠금 · 인수인계 | `node agents/scripts/lock.mjs acquire\|release\|status <agent>` · `node agents/scripts/handoff.mjs <from> <to>` |
-| PR 병합(유일한 경로) | `node agents/scripts/safe-merge.mjs <PR> --wait` — 체크 전부 통과 + 확인한 HEAD SHA 일 때만. `gh pr merge` 를 직접 쓰거나 확인과 이어 붙이지 않는다(main 에 서버 보호 없음) |
+| 통합 | 기본 LOCAL_FAST: `node D:/workspace/Vocaflow-AI-Control/bin/local-integrate.mjs --task <ID>` · 명시적 GITHUB 모드의 원격 병합만 `safe-merge.mjs`(직접 `gh pr merge` 금지) |
 | worktree | `pnpm wt list` · `pnpm wt new <suffix>` · `pnpm wt remove <suffix>` |
 
 ## 문서 navigation — 작업 영역에 맞는 것만 읽는다
@@ -53,8 +55,8 @@
 | 정기 진단 | [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md) |
 | 첫 진입 | [PROJECT](./docs/PROJECT.md) · [STACK](./docs/STACK.md) |
 
-진입 순서: 이 파일 → 영역 문서 1–3개 → **사실 검증**(DB 직접 질의 · 라우트 grep) → 변경 시 CONVENTIONS 자가 점검 → 머지 후 CHANGELOG Unreleased 갱신.
-세션 시작에 한 번: `pnpm sync:memory --check` → stale 이면 `pnpm sync:memory` 뒤 **별도 커밋**(훅은 더 이상 자동 갱신하지 않는다 — DD-49).
+진입 순서: 이 파일 → 필요한 영역 문서 → 변경 영향 범위의 사실 검증. CHANGELOG는 기능 통합 때 한 줄만 갱신한다.
+메모리 동기화는 `docs/AI_CONTEXT` 미러를 실제로 갱신할 때만 실행한다. 세션 시작·일반 커밋에는 실행하지 않는다.
 
 ## 디자인 방향 · 학습 과학 7
 
@@ -138,30 +140,33 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
-**승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이고 나머지(개발 · 테스트 · 커밋 · push · PR · CI · 게이트를 통과한 병합)는 묻지 않고 끝까지 한다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
+**승인 정책: PR_AUTOMATION_POLICY v1.2(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 개발 단계 기획·설계·구현·테스트·평가·개선·커밋·push·PR·CI·범위/검증 게이트를 통과한 병합은 재승인 없이 이어간다. 데이터 삭제·DB 배포 승인·중대한 보안/인증정보 변경 통제는 유지한다. 이미 승인된 정확한 범위는 재질문하지 않는다. 실행 환경의 강제 권한은 우회하지 않는다.
 
-**① 문서 동반 갱신** — 같은 작업 안에서 코드와 문서를 함께 바꾼다(사용자 요청 없어도). 검증 가능한 사실만.
-마이그레이션 → DB_SCHEMA + CHANGELOG · RPC/view/trigger → DB_SCHEMA · 라우트 → ROUTES · 도메인 컴포넌트 → MODULES · 학습 모듈/계층 → LEARNING_MODEL + MODULES · 토큰/패턴 → DESIGN_SYSTEM · Admin 라우트/일괄 액션 → ADMIN_CONSOLE · 큐레이션 RPC/파이프라인 → LIBRARY_PIPELINE · 코딩 패턴 → CONVENTIONS · 패키지 → STACK · 전부 → CHANGELOG Unreleased 한두 줄 · 콘텐츠·수요 수치 변동(드레인·발행·마이그레이션) → `pnpm docs:db-stats` **실행**(마커 안을 손으로 고치지 않는다).
+**⓪ 위험도별 검증(2026-10-20 사용자 결정 · 개발 단계)** — 파일 수가 아니라 영향으로 판정하고, 더 높은 위험을 발견하면 올린다.
+L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바뀌면 실제 렌더 확인 · L2 일반 기능 → 관련 단위 테스트 + 영향 범위 타입 · L3 인증·권한·학습기록·진단·공통 프레임워크·데이터 결속 → 단위·통합 + 영향받는 핵심 E2E(격리 DB), 필요 시 독립 검토 · L4 DB 구조·마이그레이션·실데이터 삭제 → 사용자 승인 + 영향·복구 확인 후 승인 범위만.
+같은 커밋에서 이미 통과한 검사는 다시 돌리지 않는다 · CI 는 병합 전 한 번(같은 PR 앞선 실행은 자동 취소).
+
+**① 문서 갱신 — 계약이 바뀔 때만** — 단순 UI·스타일·내부 리팩터링은 문서 불필요. 기능 계약 → 그 영역 정본 한 곳 · 라우트 추가/삭제 → ROUTES · 공개 API → 그 계약 문서 · DB 스키마(승인 후) → DB_SCHEMA · 제품 방향·중요 결정 → 결정 정본. CHANGELOG 는 병합되는 기능 단위로 한 줄. 작업 완료의 증거는 커밋 + 검증 결과다(별도 보고서·로그 파일 만들지 않는다). 콘텐츠·수요 수치 변동 → `pnpm docs:db-stats` 실행(마커 안을 손으로 고치지 않는다).
 
 **② Admin 화면도움말** — Admin 파이프라인 화면(탭 포함)은 `apps/web/src/lib/admin/help/<pipeline>.ts` 에 도움말을 갖고, 화면을 바꾸는 **같은 커밋**에서 고친다(낡은 도움말은 잘못된 조작을 유발한다 — 코드보다 위험).
 버튼/액션 → `fields`·`steps` · 탭 추가/삭제/**라벨 변경** → `tabs` 키(라벨 문자열로 조회 — 라벨만 바꾸면 도움말이 조용히 사라진다) · 순서/상태 전이 → `steps`(+`done`) · 드레인 절차 → `drain.procedure`·`prerequisites`·`verify`·`recovery`(재실행 안전 명시) · 되돌릴 수 없는 동작 → `cautions` · 새 화면 → 항목 추가 + `<AdminScreenHelp screen="<슬러그>" tab={활성탭} />`.
 화면 라벨을 반복하지 말고 순서·전제·되돌리기 가능 여부·실패 결과·소요 시간을 쓴다. 파이프라인 수치가 나빠지면 코드보다 먼저 해당 도움말의 `cautions` 를 읽는다.
 
-**③ Git** — 논리적 milestone 종료 · 변경 파일 ≥5 · 다음 작업으로 넘어갈 때 커밋 + 현재 브랜치 push.
+**③ Git** — 논리적 변경 완료 시 자기 파일만 커밋한다. LOCAL_FAST 일반 개발은 로컬 통합하며 작업별 push·PR·CI 대기를 요구하지 않는다. 원격은 백업 또는 공식 제품 통합 시에만 사용한다. 범위 계약(HEAD/base SHA·정확한 경로·커밋 수)을 확인하고 공식 원격 납품에는 `VFC_DEV_MODE=GITHUB`를 명시한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).
-- 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. 파일 ≥30 은 승인이 아니라 추가 검증(PR 본문 `## 검증`).
+- 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. PR 은 그 작업 범위만 담는다(무관한 커밋을 섞지 않는다) · 파일 ≥30 PR 은 본문에 `## 검증` 한 단락(safe-merge 가 확인 — CI 결과를 옮기면 된다).
 
 **④ 분기 플랫폼 진단** — 1·4·7·10월 첫 주(다음 **2026-10**), 즉시 트리거는 PLATFORM_AUDIT 참조. 실패 모드는 "공급망 비대 / 수요 검증 0". **문서의 수치를 근거로 쓰지 않는다**(DB 질의 + 저장소 실계수 + 1차 공개자료). 측정 → 기록 → 결정 → 수정 순서(같은 턴에 고치면 측정이 오염 — 단 공개 라우트의 허위 수치는 즉시 제거). 산출물: 리포트 + PLATFORM_AUDIT §7 한 행 + CHANGELOG 한 줄. 기준선·산술은 [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md).
 
 ## 공유 워크스페이스 · 두 에이전트 규약
 
 - 이 저장소는 **여러 세션·두 종류 에이전트가 git 인덱스·DB·검증 계정을 공유**한다. 커밋은 `git commit --only <paths>` 로 자기 파일만. `git add` 와 commit 사이에 틈을 두지 않는다(남의 커밋에 흡수된다).
-- 같은 워크트리 동시 쓰기 금지: 쓰기 전에 `lock.mjs acquire <agent>`, 끝나면 `release`. 잠금이 남의 것이면 읽기 전용으로만 일한다. 장기 병행은 `pnpm wt new <suffix>`.
-- 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
+- 같은 워크트리 동시 쓰기 금지(남의 `lock.mjs` 잠금이 있으면 읽기 전용). 새 worktree · worker · subagent 는 **실제 병렬 이득이 있을 때만** — 단독 작업은 지금 환경을 재사용하고, 한 에이전트가 끝낼 수 있는 일은 다른 에이전트를 부르지 않는다.
+- 실제 담당자가 바뀔 때만 변경·남은 일·검증 결과를 전달한다. 같은 세션의 일반 작업에는 handoff 양식·ACK·별도 보고서가 필요 없다. 전달을 받았다면 수용 기준과 현재 Git 상태부터 확인한다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
-- **리뷰는 결함 + 목적 이탈 둘 다 본다**([agents/goal-review.md](./agents/goal-review.md)). 작업 시작에 목적 · 수용 기준 · 하지 않을 것을 워크트리 루트 `.agent-goal.md` 에 쓰고, 방향이 바뀌면 그 자리에서 고치고, PR 본문에 옮긴다. **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2): Stop·커밋·submit·DB 게이트·머지 어디서도 Codex 를 부르지 않는다. 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다. `node agents/scripts/review.mjs` 는 사용자가 요청할 때만 쓴다.
+- 독립 리뷰는 L3 이상 고위험 변경이나 요청이 있을 때만(결함 + 목적 이탈 · [goal-review](./agents/goal-review.md)). `.agent-goal.md` 는 DB 승인(마이그레이션 sha 기록)이나 여러 세션이 나눠 하는 큰 작업에만 쓴다. **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2): Stop·커밋·submit·DB 게이트·머지 어디서도 Codex 를 부르지 않는다. 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다. `node agents/scripts/review.mjs` 는 사용자가 요청할 때만 쓴다.
 - **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
 
 ## 하지 말 것 — 두 번 이상 고친 실수

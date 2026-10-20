@@ -132,6 +132,10 @@ worktree 는 브랜치를 격리하지만, **같은 worktree 를 두 에이전�
 
 ## 6. push / 머지 동시성
 
+**LOCAL_FAST가 우선이다(2026-10-20).** 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`과 `VFC_ROOT`/`VFC_DEV_MODE`를 읽는다. 일반 milestone은 로컬 검증·커밋·중앙 `bin/local-integrate.mjs --task <ID>`로 통합한다. 아래 원격 push/PR 절차는 명시적 GITHUB 모드에서만 적용한다. LOCAL_FAST의 백업은 중앙 `bin/backup.mjs`만 사용하며 하루 상한/복구 시점을 따른다. 일반 개발 중 PR·Actions 조회·CI 대기·원격 병합을 하지 않는다.
+
+위 문단은 최초 최소화 결정의 기록이다. 이후 사용자 개발환경 자동화 지시는 저위험 작업의 commit/push/PR/CI/범위 검증 후 안전 병합을 상시 승인했다. 중앙 LOCAL_FAST의 공식 원격 통합 허용을 재사용하며 이 저장소의 납품 단계에 VFC_DEV_MODE=GITHUB를 명시한다. 기존 공간/잠금/인덱스를 안전하게 재사용할 수 있으면 새 worktree를 추가하지 않는다. 범위 계약을 받은 safe-merge로만 병합하며 실제 실행 권한과 프로젝트 승인을 구분한다.
+
 | 동작 | 동시 가능 |
 |---|---|
 | 각자 다른 브랜치 push | ✅ 무제한 |

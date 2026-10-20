@@ -20,13 +20,15 @@
 //   · 30파일 이상 → 본문 `## 검증` 절(승인이 아니라 추가 검증 조건)
 //   · auto_merge_enabled=false → 어떤 경로로도 병합하지 않는다(--dry-run 판정만) · 병합 직전 HEAD · base 재확인
 //
-//   node agents/scripts/safe-merge.mjs <PR번호> [--wait] [--timeout-min 30] [--method merge|squash|rebase] [--dry-run]
+//   node agents/scripts/safe-merge.mjs <PR번호> --scope-file <계약.json> [--wait] [--timeout-min 30] [--method merge|squash|rebase] [--dry-run]
 // 종료 코드: 0 병합(또는 --dry-run 통과) · 3 병합 불가(실패·대기·SKIP 뿐·충돌) · 1 실행 오류
 
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import { isMain, rel } from './lib.mjs'
+import { executionMode, executionNotice } from './execution-mode.mjs'
+import { parseScope, checkScope } from './pr-scope.mjs'
 
 /** 정책 정본(없거나 깨지면 던진다 — 정책 없이 병합하지 않는다) */
 export function loadPolicy(file = rel('agents', 'policies', 'pr-automation.json')) {
@@ -142,6 +144,24 @@ export function gates(pr, policy, contents = {}, applied = {}) {
  * 필수 체크가 **이 HEAD** 에서 · **마지막 base 변경 뒤에** 성공했는지(순수).
  * runs: commits/<sha>/check-runs 의 { name, head_sha, status, conclusion, started_at } · baseChangedAt: ISO | null
  */
+/**
+ * 변경 파일 목록의 완전성 — 게이트(마이그레이션 · 삭제 · 대규모)는 **같은 HEAD 의 전체 목록**으로만 판정한다.
+ * listed: REST pulls/<n>/files 를 끝까지 읽은 것 · meta: 같은 PR 의 changed_files · 목록 전후의 head sha.
+ * 개수 불일치 · 목록 중 HEAD 이동 · REST 상한(3000) 초과는 병합 불가(fail-closed)
+ */
+export function completeFiles(listed, meta) {
+  const reasons = []
+  const paths = (listed ?? []).map((f) => f.filename ?? f.path).filter((p) => typeof p === 'string')
+  if (paths.some((p) => p.trim().length === 0) || new Set(paths).size !== paths.length) reasons.push('변경 파일 목록의 경로가 비어 있거나 중복됐다')
+  if (['headBefore', 'headAfter', 'prHead'].some((k) => typeof meta?.[k] !== 'string' || meta[k].trim().length === 0)) reasons.push('변경 파일 목록의 HEAD 메타데이터를 확인할 수 없다')
+  if (!meta || typeof meta.changedFiles !== 'number') reasons.push('변경 파일 수(changed_files)를 읽지 못했다')
+  else if (meta.changedFiles > 3000) reasons.push(`변경 파일 ${meta.changedFiles}개 — 목록 API 상한(3000) 초과로 전체를 확인할 수 없다`)
+  else if (paths.length !== meta.changedFiles) reasons.push(`변경 파일 목록 ${paths.length}개 ≠ PR changed_files ${meta.changedFiles}개 — 목록이 잘렸다`)
+  if (meta && meta.headBefore && meta.headAfter && meta.headBefore !== meta.headAfter) reasons.push('변경 파일을 읽는 동안 HEAD 가 바뀌었다')
+  if (meta && meta.headBefore && meta.prHead && meta.headBefore !== meta.prHead) reasons.push('변경 파일 목록의 HEAD 가 판정 HEAD 와 다르다')
+  return { ok: reasons.length === 0, reasons, files: paths.map((path) => ({ path })) }
+}
+
 export function verifyRuns(required, runs, headSha, baseChangedAt = null) {
   const reasons = []
   for (const name of required) {
@@ -196,14 +216,41 @@ function runsAndBaseChange(n, sha) {
   return { runs, baseChangedAt: changed }
 }
 const view = (n) => JSON.parse(gh(['pr', 'view', String(n), '--json', FIELDS]))
+/** 같은 HEAD 의 전체 변경 파일(REST 를 끝까지) — gh pr view 의 files 는 100개에서 잘린다 */
+function allFiles(n, prHead) {
+  const meta0 = JSON.parse(gh(['api', `repos/{owner}/{repo}/pulls/${n}`]))
+  const listed = JSON.parse(gh(['api', '--paginate', '--slurp', `repos/{owner}/{repo}/pulls/${n}/files?per_page=100`])).flat()
+  const meta1 = JSON.parse(gh(['api', `repos/{owner}/{repo}/pulls/${n}`]))
+  return { ...completeFiles(listed, { changedFiles: meta1.changed_files, headBefore: meta0.head?.sha, headAfter: meta1.head?.sha, prHead }), baseSha: meta1.base?.sha, commitCount: meta1.commits }
+}
 
 async function main() {
   const argv = process.argv.slice(2)
   const n = argv.find((a) => /^\d+$/.test(a))
   const arg = (k, d) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : d)
   if (!n) {
-    console.error('사용: node agents/scripts/safe-merge.mjs <PR번호> [--wait] [--timeout-min 30] [--method merge|squash|rebase] [--dry-run]')
+    console.error('사용: node agents/scripts/safe-merge.mjs <PR번호> --scope-file <계약.json> [--wait] [--timeout-min 30] [--method merge|squash|rebase] [--dry-run]')
     return 1
+  }
+  // dry-run도 원격을 읽으므로 fetch/PR/Actions 조회보다 먼저 모드를 확인한다.
+  try {
+    const mode = executionMode()
+    if (mode === 'LOCAL_FAST') {
+      console.log(`[safe-merge] ${executionNotice(mode)} 원격 호출 없이 종료합니다.`)
+      return 3
+    }
+  } catch (e) {
+    console.error(`[safe-merge] ${e.message} — 원격 호출 없이 종료합니다.`)
+    return 1
+  }
+  let scope
+  try {
+    const file = arg('--scope-file', null)
+    if (!file) throw new Error('PR_SCOPE_GUARD: --scope-file <계약.json>이 필요하다')
+    scope = parseScope(fs.readFileSync(file, 'utf8'))
+  } catch (e) {
+    console.error(`[safe-merge] ${e.message} — 원격 호출 없이 종료합니다.`)
+    return 3
   }
   const method = arg('--method', 'merge')
   if (!['merge', 'squash', 'rebase'].includes(method)) {
@@ -225,12 +272,31 @@ async function main() {
   const deadline = Date.now() + Number(arg('--timeout-min', 30)) * 60_000
   let pr
   let d
+  let full
   for (;;) {
     try {
       pr = view(n)
     } catch (e) {
       console.error(`[safe-merge] PR #${n} 를 읽지 못했다(병합하지 않음): ${String(e.stderr || e.message).slice(0, 300)}`)
       return 1
+    }
+    // Reject scope drift before waiting for CI. Read the complete file list once per verified HEAD.
+    if (!full) {
+      try {
+        full = allFiles(n, pr.headRefOid)
+      } catch (e) {
+        full = { ok: false, reasons: [`변경 파일 전체 목록을 읽지 못했다: ${String(e.stderr || e.message).slice(0, 160)}`], files: [] }
+      }
+      if (!full.ok) {
+        console.log(`[safe-merge] PR #${n} 병합 안 함 · head ${pr.headRefOid.slice(0, 9)}\n- ${full.reasons.join('\n- ')}`)
+        return 3
+      }
+    }
+    pr = { ...pr, files: full.files, baseSha: full.baseSha, commitCount: full.commitCount }
+    const scoped = checkScope(pr, scope)
+    if (!scoped.ok) {
+      console.log(`[safe-merge] PR #${n} 병합 안 함\n- ${scoped.reasons.join('\n- ')}`)
+      return 3
     }
     d = decide(pr, { required: policy.required_checks })
     if (d.ok || !d.pending || !argv.includes('--wait') || Date.now() > deadline) break
@@ -263,6 +329,16 @@ async function main() {
   const again = view(n)
   if (again.headRefOid !== pr.headRefOid || again.baseRefName !== pr.baseRefName) {
     console.log(`[safe-merge] PR #${n} 확인 뒤 HEAD/base 가 바뀌었다(${pr.headRefOid.slice(0, 9)} → ${again.headRefOid.slice(0, 9)}) — 다시 검증한다 · 병합하지 않음`)
+    return 3
+  }
+  try {
+    const latest = JSON.parse(gh(['api', `repos/{owner}/{repo}/pulls/${n}`]))
+    if (latest.head?.sha !== scope.head_sha || latest.base?.sha !== scope.base_sha || latest.commits !== scope.expected_commits) {
+      console.log('[safe-merge] PR_SCOPE_GUARD: 병합 직전 HEAD/base/커밋 수가 바뀌었다 — 병합하지 않음')
+      return 3
+    }
+  } catch {
+    console.error(`[safe-merge] 병합 직전 범위 결속 조회 실패 — 병합하지 않음`)
     return 3
   }
   try {
