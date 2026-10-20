@@ -1,0 +1,71 @@
+{
+  "task_id": "T-0061",
+  "design_revision": "rev1",
+  "run_seq": 1,
+  "head": "1fe03ede881c22af6479874c4a346fd24a8acca8",
+  "reviewer": "final-independent-accept",
+  "verdict": "REQUEST_CHANGES",
+  "decision": "REWORK",
+  "scope": "T-0061 next-action product diff and relevant main synchronization only; not aggregate PR303 acceptance",
+  "findings": [
+    {
+      "id": "T0061-P1-1",
+      "severity": "P1",
+      "title": "Recomputed proposal is displayed as the user's saved quantity",
+      "file": "apps/web/src/lib/csat/map/v62/next-action.ts",
+      "cause": "isSaved only checks existence of saved.byTemplate[ws], while quantity.planned comes from freshly computed view.taskPlans and never reads the saved target task/quantity/stage. composeV4 replays durable transfer policy only; normal saved per-task allocation is applied by existing applySaved in PlanSection, not in taskPlans.",
+      "first_failure": {
+        "task": "r.central_meaning",
+        "stage": "check",
+        "available": 6,
+        "saved_planned": 2,
+        "plan_editor_planned": 2,
+        "top_planned": 6,
+        "top_source": "saved"
+      },
+      "second_counterexample": {
+        "saved_stage": "repair",
+        "current_stage": "check",
+        "top_planned": 6,
+        "top_source": "saved",
+        "expected_source": "proposed"
+      },
+      "expected": "The top summary must agree with the existing PLAN editor for a matching saved task/stage: saved2 is2, not recomputed6 labeled saved. A newly calculated stage/quantity must be labeled a proposal; absent/mismatched target task or historical stage must not inherit saved labeling merely from Workspace existence. If both saved and proposed amounts are displayed, distinguish both explicitly.",
+      "minimum_fix": "Reuse the existing applySaved/planDrift/PlanSection source semantics in next-action; use real SavedWorkspace/latest.plan task data, preserving existing transfer-policy replay rules. Keep current rank/diagnosis, delivery, G2 and history unchanged. Replace empty-object saved fixtures with real saved payloads. No SQL, new table or broad learning-engine refactor.",
+      "recheck": "Normal unsaved and matching-saved controls; edited saved allocation2 versus calculated6; old stage versus current stage; actual top/PLAN agreement. Add focused unit/interaction coverage and reuse unchanged official19-browser paths. Only rerun final-head browser scope affected by this correction; do not rerun unchanged whole product locally."
+    }
+  ],
+  "observed": {
+    "official_ci": {
+      "run": 39389184003,
+      "head_matches": true,
+      "event": "pull_request",
+      "conclusion": "success",
+      "authenticated_isolated_browser": "19 passed, including map-next-action1440 and1280; official job118516292673 log read",
+      "shared_dev": "skipped, not DEV_DB_VERIFIED"
+    },
+    "artifact_integrity": "E01-E04 hashes and all10 screenshot hashes match recorded evidence",
+    "visual_review": "Opened actual full-page screenshots1,3,5,6,10: before-plan, supply and1280/1440 product-shell paths; no fabricated screenshot pass",
+    "independent_probe": {
+      "environment": "Windows Vitest; actual final-head product modules and existing R5 fixture; no dotenv or DB requests",
+      "passed": 2,
+      "failed": 2,
+      "skipped": 0,
+      "tests": "verification/reviews/T-0061-independent-probe/probe.test.ts",
+      "config": "verification/reviews/T-0061-independent-probe/probe.config.mjs",
+      "original_command": "pnpm exec vitest run --config D:/workspace/Vocaflow-AI-Control/runtime/t0061-independent/probe.config.mjs",
+      "replay_command": "cd D:/workspace/Vocaflow-final-product/apps/web; pnpm exec vitest run --config D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0061-independent-probe/probe.config.mjs"
+    }
+  },
+  "nonblocking": [
+    "Other Workspace row stage-wait wording remains a low-risk follow-up, not a new acceptance blocker.",
+    "T-0052/T-0056 accepted evidence is reused; no unrelated product retesting."
+  ],
+  "boundaries": [
+    "No product edits or actual development DB writes",
+    "No Gold/rights/release approval",
+    "No PR303 aggregate236-file acceptance or safe-merge approval",
+    "Keep original T-0061/rev1 and owner; no duplicate task"
+  ],
+  "observed_at": "2026-10-20T08:05:03.798Z"
+}
