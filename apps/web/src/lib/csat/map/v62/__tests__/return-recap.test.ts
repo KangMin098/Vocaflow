@@ -5,7 +5,10 @@ import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 
 import type { ActivityRow } from '../../lifecycle-evidence'
 import { returnSummary } from '../learner-guide'
-import { returnRecap, transferLine } from '../return-recap'
+import { applyAuthoredBindings } from '@/lib/csat/authored/evidence'
+import { isEligible } from '@/lib/knowledge/effect-signals'
+
+import { LATEST_LABEL, returnRecap, transferLine } from '../return-recap'
 
 const KEY = 'authored-evidence-locate'
 const att = (o: Partial<FindAttemptRow>): FindAttemptRow => ({ userId: 'u', itemRef: 'authored:ev-ind-1', taskKey: KEY, phase: 'practice', isCorrect: false, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: '2026-10-20T01:00:00.000Z', activity: 'theater', sessionId: 's', contentHash: 'c', expectedContentHash: 'c', ...o })
@@ -100,5 +103,23 @@ describe('T-0062 rework — 이번 활동 식별(F1) · 원장 조회 실패(F2)
     expect(out).toContain('저장 당시 목표 v9')
     expect(out).toContain('지금 목표는 v11')
     expect(out).not.toMatch(/v3\([^)]*목표 v11/)
+  })
+})
+
+// T0062-F4 — 제외 사유는 「도움을 봤다」는 사실이 아니다(Codex probe 이식 · 정상 대조군 포함)
+describe('T0062-F4 — 제외 사유와 도움 사실 구분', () => {
+  const label = (a: FindAttemptRow) => { const r = returnRecap({ ...base, attempts: [a] }).latest; return r.state === 'found' ? r.kind : r.state }
+  it('대조: 진짜 독립 오답은 셈 · 실제 해설 뒤 · 시각 불확실은 그 이유로 제외', () => {
+    expect(label(att({}))).toBe('independent_counted')
+    expect(label(att({ afterExplanation: true }))).toBe('not_counted_helped')
+    expect(label(att({ timingUncertain: true }))).toBe('not_counted_timing')
+  })
+  it('합성 계정 · 도움 기록 없음 · 결속 없음은 「도움 뒤」가 아니다(자격은 여전히 닫힘)', () => {
+    expect(label(att({ synthetic: true }))).toBe('not_counted_synthetic')
+    expect(label(att({ helpLevel: null }))).toBe('not_counted_help_unknown')
+    const [unbound] = applyAuthoredBindings([att({ attemptId: '63' })], null)
+    expect(isEligible(unbound), '결속 없음은 근거 자격 없음(fail-closed)').toBe(false)
+    expect(label(unbound)).toBe('not_counted_unbound')
+    for (const k of ['not_counted_synthetic', 'not_counted_help_unknown', 'not_counted_unbound'] as const) expect(LATEST_LABEL[k]).not.toContain('도움 · 해설을 본 뒤')
   })
 })

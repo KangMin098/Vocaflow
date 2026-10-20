@@ -16,7 +16,8 @@ export function applyAuthoredBindings(rows: readonly FindAttemptRow[], bindings:
     if (!isAuthoredRef(r.itemRef)) return r
     const b = r.attemptId ? ok.get(r.attemptId) : undefined
     if (!b || r.contentHash !== b.annotationHash || (r.sessionId && r.sessionId !== b.sessionId)) {
-      return { ...r, helpLevel: 'viewed_first', afterViewedFirst: true }
+      // 근거 자격은 닫는다(fail-closed) — 다만 「도움을 봤다」는 사실이 아니라 결속 미확인이다(T-0062 F4: 화면이 이유를 구별)
+      return { ...r, helpLevel: 'viewed_first', afterViewedFirst: true, authoredBinding: !b ? 'missing' as const : 'mismatch' as const }
     }
     return { ...r, sessionId: b.sessionId, expectedContentHash: b.annotationHash }
   })

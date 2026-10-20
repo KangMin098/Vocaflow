@@ -83,7 +83,9 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
   test(`돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (${width}×${height})`, async ({ page }) => {
     test.setTimeout(420_000)
     await page.setViewportSize({ width, height })
-    const email = `iso-recap-${width}-${Date.now()}@example.com`, password = `Iso-${Math.random().toString(36).slice(2)}-Aa1`
+    // 1440 = 합성 아닌 격리 계정(진짜 독립 근거 대조군) · 1280 = 명시적 합성 계정(example.com — 근거 제외 경로). 둘 다 격리 fixture 이며 학습 효과 근거가 아니다
+    const genuine = width === 1440
+    const email = `iso-recap-${width}-${Date.now()}@${genuine ? 'iso-learner.test' : 'example.com'}`, password = `Iso-${Math.random().toString(36).slice(2)}-Aa1`
     const made = await admin().auth.admin.createUser({ email, password, email_confirm: true })
     expect(made.error).toBeNull()
     const uid = made.data.user!.id
@@ -110,8 +112,14 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(r1).toContain('틀렸어요')
     expect(r1).toContain('저장한 학습계획 v2')
     // 최근 기록의 근거 판정과 독립 근거 수 줄이 서로 맞는다(셌다고 하면서 0개라고 하지 않는다)
-    const counted = r1.includes('독립 근거로 셌어요')
-    expect(r1.includes('독립 근거로 센 풀이는 없어요'), '최근 기록 판정 ↔ 독립 근거 수 일치').toBe(!counted)
+    if (genuine) {
+      expect(r1, '진짜 독립 오답은 독립 근거로 센다').toContain('독립 근거로 셌어요')
+      expect(r1).toContain('독립 근거 2개')
+    } else {
+      expect(r1, '합성 계정 제외는 「도움 뒤」가 아니라 합성 사유').toContain('시험 · 합성 계정 기록')
+      expect(r1).not.toContain('도움 · 해설을 본 뒤')
+      expect(r1).toContain('독립 근거로 센 풀이는 없어요')
+    }
     const countOf = (text: string) => text.split(/\n/).find((l) => l.includes('독립 근거') && !l.startsWith('이번 활동'))
     const countLine = countOf(r1)
 

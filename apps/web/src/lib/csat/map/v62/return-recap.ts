@@ -12,7 +12,7 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import { isInstructional, type ActivityRow } from '../lifecycle-evidence'
 import type { PlanReason, SavedPlanVersion } from '../v4/plan-commit'
 
-export type LatestKind = 'independent_counted' | 'not_counted_helped' | 'not_counted_timing' | 'not_counted_unbound' | 'guided' | 'transfer' | 'other'
+export type LatestKind = 'independent_counted' | 'not_counted_synthetic' | 'not_counted_help_unknown' | 'not_counted_helped' | 'not_counted_timing' | 'not_counted_unbound' | 'guided' | 'transfer' | 'other'
 
 export interface ReturnRecap {
   /** 이번 활동 — 복귀 문맥의 자료 id 와 본인 · 이 TASK 기록이 맞을 때만. 문맥이 없거나 맞는 기록이 없으면 unidentified(누적과 섞지 않는다) */
@@ -61,8 +61,11 @@ function independentKind(a: FindAttemptRow): LatestKind {
   if (a.phase === 'transfer') return 'transfer'
   if (a.activity === 'practice') return 'guided'
   if (a.phase === 'practice' && isEligible(a) && a.isCorrect !== null) return 'independent_counted'
-  // 세지 않은 이유는 기록 표지 그대로(추측하지 않는다): 도움 · 해설 뒤 → 제출 시각 불확실 → 화면 · 납품 결속 확인 안 됨
-  if (a.helpLevel !== 'independent' || a.afterViewedFirst || a.afterExplanation || a.synthetic) return 'not_counted_helped'
+  // 세지 않은 이유는 기록 표지 그대로(추측하지 않는다) — 제외 사유와 「도움을 봤다」는 사실을 섞지 않는다(T-0062 F4)
+  if (a.synthetic) return 'not_counted_synthetic'
+  if ((a as FindAttemptRow & { authoredBinding?: 'missing' | 'mismatch' }).authoredBinding) return 'not_counted_unbound'
+  if (a.helpLevel === null || a.helpLevel === undefined) return 'not_counted_help_unknown'
+  if (a.helpLevel !== 'independent' || a.afterViewedFirst || a.afterExplanation) return 'not_counted_helped'
   if (a.timingUncertain) return 'not_counted_timing'
   return 'not_counted_unbound'
 }
@@ -75,6 +78,8 @@ function activityKind(a: ActivityRow): LatestKind {
 
 export const LATEST_LABEL: Record<LatestKind, string> = {
   independent_counted: '처음 보는 문항을 혼자 푼 기록 — 독립 근거로 셌어요',
+  not_counted_synthetic: '확인 문항 풀이 — 시험 · 합성 계정 기록이라 독립 근거로 세지 않아요(학습 효과 근거 아님)',
+  not_counted_help_unknown: '확인 문항 풀이 — 도움 여부가 기록되지 않아 독립 근거로 세지 않았어요',
   not_counted_helped: '확인 문항 풀이 — 도움 · 해설을 본 뒤라 독립 근거로 세지 않았어요',
   not_counted_timing: '확인 문항 풀이 — 제출 시각을 확인하지 못해 아직 독립 근거로 세지 않았어요',
   not_counted_unbound: '확인 문항 풀이 — 이 문항 · 납품과의 연결을 확인하지 못해 독립 근거로 세지 않았어요',

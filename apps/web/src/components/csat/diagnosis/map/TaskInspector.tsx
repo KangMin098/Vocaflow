@@ -24,7 +24,11 @@ import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
 import { FQ_READER_LABEL } from '@/lib/csat/map/v62/assessment-exposure'
 import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
+import { savedTransferOf } from '@/lib/csat/map/v4/compose'
 import { checkKeysOfTask, evidenceKeysOfTask, type TaskId } from '@/lib/csat/map/v4/definition'
+import { transferDoneOf } from '@/lib/csat/map/v4/plan'
+import { TRANSFER_PASSAGES } from '@/lib/csat/map/v4/workspace'
+import { transferTarget } from '@/lib/csat/map/lifecycle-evidence'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { returnRecap } from '@/lib/csat/map/v62/return-recap'
 import { replanNeeded } from '@/lib/csat/map/v62/next-action'
@@ -122,11 +126,26 @@ export function recapFor(task: TaskId, view: V4View, data: MapPageData, home: st
     activityRef: mapItem ? `authored:${mapItem}` : null,
     attempts: data.findAttempts,
     activity: data.lifecycleActivity,
-    transfer: view.evidence?.[task]?.instructionPath,
-    ledger: view.evidence?.[task]?.ledger,
+    // 근거 묶음(evidence-claims)이 없는 TASK(보조 · 창작 전용)는 같은 수행 원장에서 기존 transferDoneOf 로 센다 — 원장을 못 읽었으면 확인 불가
+    transfer: view.evidence?.[task]?.instructionPath ?? (data.lifecycleActivity ? fallbackTransfer(task, view, data) : undefined),
+    ledger: view.evidence?.[task]?.ledger ?? (data.lifecycleActivity ? 'complete' : 'unknown'),
     history: savedWs?.history ?? [],
     proposalDiffers: !!home && replanNeeded(task, home, view, data.v4?.saved),
   })
+}
+
+/** 저장 운영량(옛 · 부분 저장 입력이면 없음으로 — 정본 기본 2지문) */
+function savedTransferSafe(data: MapPageData, task: TaskId): number | undefined {
+  try { return savedTransferOf(data)[task] } catch { return undefined }
+}
+
+function fallbackTransfer(task: TaskId, view: V4View, data: MapPageData) {
+  const plan = view.taskPlans?.find((p) => p.task === task) ?? null
+  return {
+    transferDone: transferDoneOf(task, view.asIs?.tasks?.[task]?.check?.verifiedAt ?? null, data.lifecycleActivity ?? []),
+    // 계획량은 StepSheet · PLAN 과 같은 transferTarget(저장 운영량 > 정본 2지문 · 자료 부족으로 줄이지 않음)
+    transferPlanned: plan?.stage === 'transfer' ? transferTarget(plan.transferAvailable ?? plan.quantity.available, savedTransferSafe(data, task), TRANSFER_PASSAGES) : null,
+  }
 }
 
 /** 복원되는 Workspace 팝업에 보일 「돌아온 뒤」 문장 — TaskInspector 의 summary 와 같은 계산(같은 TASK · 같은 묶음) */
