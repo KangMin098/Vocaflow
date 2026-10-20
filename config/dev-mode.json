@@ -29,6 +29,7 @@
     {
       "id": "typecheck",
       "kind": "typecheck",
+      "needs_web_types": true,
       "cwd": "apps/web",
       "cmd": "pnpm",
       "args": [

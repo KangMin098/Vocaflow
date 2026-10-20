@@ -10,7 +10,7 @@ import path from 'node:path'
 
 import { devConfig, isLocalFast, localEvidenceDir } from '../lib/devmode.mjs'
 import { appendLog } from '../lib/fsutil.mjs'
-import { defaultGit, integrate, runChecks, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
+import { defaultGit, integrate, runChecks, selectChecks, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
 import { p, root } from '../lib/paths.mjs'
 import { loadState } from '../lib/state.mjs'
 
@@ -40,11 +40,7 @@ const wtHead = git('rev-parse', 'HEAD')
 const dirty = git('status', '--porcelain', '--untracked-files=no')
 if (wtHead !== head) gates.fail.push(`checks: 작업 worktree HEAD ${wtHead.slice(0, 9)} ≠ 검증 커밋 ${head.slice(0, 9)}`)
 if (dirty) gates.fail.push('checks: 작업 worktree 에 커밋 안 된 추적 변경 — 검증 커밋 그대로가 아니다')
-const webFiles = gates.files.filter((f) => f.startsWith('apps/web/') && /\.(ts|tsx)$/.test(f) && fs.existsSync(path.join(task.worktree, f))).map((f) => f.slice('apps/web/'.length))
-const expand = (args) => args.flatMap((a) => (a === '{changed_web_files}' ? webFiles : [a]))
-const checks = (cfg.checks || [])
-  .filter((c) => (c.kind !== 'e2e' || argv.includes('--e2e')) && (!c.needs_web_files || webFiles.length))
-  .map((c) => ({ ...c, cwd: path.join(task.worktree, c.cwd || '.'), args: expand(c.args || []) }))
+const checks = selectChecks(cfg.checks || [], { files: gates.files, worktree: task.worktree, e2e: argv.includes('--e2e') })
 
 let results = []
 if (!gates.fail.length && !argv.includes('--dry-run')) {

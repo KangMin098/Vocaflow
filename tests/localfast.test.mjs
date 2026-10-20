@@ -9,7 +9,7 @@ import { execFileSync } from 'node:child_process'
 
 import { baseRef, devConfig, readLocalEvidence } from '../lib/devmode.mjs'
 import { ciAllowsPass } from '../lib/goalcheck.mjs'
-import { countsOf, defaultGit, integrate, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
+import { countsOf, defaultGit, integrate, selectChecks, staticGates, writeLocalEvidence } from '../lib/localgate.mjs'
 
 const HEAD = 'a'.repeat(40)
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-lf-'))
@@ -20,6 +20,21 @@ test('devConfig — 기본 LOCAL_FAST · 환경변수 우선 · 잘못된 모드
   assert.equal(baseRef(devConfig({ env: {}, file: f })), 'local/integration')
   assert.equal(baseRef(devConfig({ env: { VFC_DEV_MODE: 'GITHUB' }, file: f })), 'origin/main')
   assert.throws(() => devConfig({ env: { VFC_DEV_MODE: 'X' }, file: f }))
+})
+
+test('로컬 검사 범위 — 문서·스타일은 web 타입 생략, 삭제·공유 코드·의존성은 유지, E2E는 요청 때만', () => {
+  const worktree = tmp()
+  const checks = JSON.parse(fs.readFileSync(new URL('../config/dev-mode.json', import.meta.url))).checks
+  const ids = (files, e2e = false) => selectChecks(checks, { files, worktree, e2e }).map((c) => c.id)
+  assert.deepEqual(ids(['docs/help.md', 'AGENTS.md', 'apps/web/src/styles.css']), [])
+  for (const f of ['apps/web/src/deleted.ts', 'packages/types/src/a.ts', 'apps/web/next.config.mjs', 'pnpm-lock.yaml']) {
+    assert.ok(ids([f]).includes('typecheck'), f)
+    assert.ok(!ids([f]).includes('e2e-isolated'), f)
+  }
+  fs.mkdirSync(path.join(worktree, 'apps/web/src'), { recursive: true })
+  fs.writeFileSync(path.join(worktree, 'apps/web/src/a.tsx'), 'export {}')
+  assert.deepEqual(ids(['apps/web/src/a.tsx']), ['typecheck', 'lint', 'related-tests'])
+  assert.deepEqual(ids(['docs/help.md'], true), ['e2e-isolated'])
 })
 
 test('로컬 e2e 증거 → goal-check 의 CI 규칙(skip=0 · 실행>0 · 커밋 일치)을 그대로 통과/거부', () => {
