@@ -501,8 +501,8 @@
         "sentences": [
           "My uncle runs a small café in a mountain village.",
           "The village sits more than two thousand meters above the sea.",
-          "To bake bread that rises well at high altitude takes more yeast than most recipes suggest.",
-          "He learned this after many flat loaves.",
+          "To bake bread that rises well at high altitude takes less yeast than most recipes suggest.",
+          "He learned this after many loaves rose too fast and then collapsed.",
           "Now his bread is the most popular thing on the menu."
         ],
         "stem": "표시된 문장의 본동사(문장 전체의 동사)가 들어 있는 덩어리는?",
@@ -514,7 +514,7 @@
           "To bake bread",
           "that rises well",
           "at high altitude",
-          "takes more yeast",
+          "takes less yeast",
           "than most recipes suggest."
         ]
       },
@@ -541,7 +541,7 @@
           },
           {
             "reason": "clause_boundary",
-            "why": "more 와 짝을 이루는 비교절. suggest 는 본동사가 아니다."
+            "why": "less 와 짝을 이루는 비교절. suggest 는 본동사가 아니다."
           }
         ]
       }

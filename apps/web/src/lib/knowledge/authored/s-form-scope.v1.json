@@ -447,7 +447,7 @@
         "sentences": [
           "Animal shelters depend on volunteers who give up their weekends to help.",
           "Each of the volunteers is trained before working with the animals.",
-          "Dogs that have lived in a shelter for months often grow nervous, so they need to be walking every day.",
+          "Many of the dogs that arrive there have abandoned by owners who could no longer care for them.",
           "Many volunteers say that the hours they spend there are the most rewarding of their week.",
           "Some even end up adopting the animals they once cared for."
         ],
@@ -463,7 +463,7 @@
           },
           {
             "sentence": 2,
-            "text": "to be walking"
+            "text": "have abandoned"
           },
           {
             "sentence": 3,
@@ -478,7 +478,7 @@
       "gold": {
         "answer": 2,
         "reason": "voice",
-        "correction": "to be walked",
+        "correction": "have been abandoned",
         "marks": [
           {
             "reason": "relative_clause",
@@ -490,7 +490,7 @@
           },
           {
             "reason": "voice",
-            "why": "개들은 산책을 '시켜지는' 대상이므로 능동 진행 to be walking 이 아니라 수동 to be walked 여야 한다."
+            "why": "개들은 버림을 받은 쪽이고 행위자 by owners 가 따라오므로 능동 have abandoned 가 아니라 완료 수동 have been abandoned 여야 한다(abandon 은 목적어가 필요한 타동사라 능동으로는 문장이 성립하지 않는다)."
           },
           {
             "reason": "agreement",

@@ -421,9 +421,9 @@
         "sentences": [
           "Most people assume that a longer meeting produces a better decision.",
           "In other words, they treat time spent talking as a sign of careful thought.",
-          "Research on workplace meetings suggests otherwise.",
-          "After about forty minutes, participants tend to repeat earlier points and grow less open to new ideas.",
-          "Moreover, decisions made late in long meetings are more often reversed the following week.",
+          "One imagined team that timed its own meetings for a year found otherwise.",
+          "After about forty minutes, its members tended to repeat earlier points and grew less open to new ideas.",
+          "Moreover, decisions made late in its long meetings were more often reversed the following week.",
           "Short, focused meetings may therefore serve a team better than long ones."
         ],
         "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
@@ -459,7 +459,7 @@
             "alt": [
               "cause_effect"
             ],
-            "cue": "therefore — 4~5번의 연구 결과로부터 짧은 회의가 낫다는 결론을 끌어낸다"
+            "cue": "therefore — 4~5번에서 그 팀이 겪은 일로부터 짧은 회의가 낫다는 결론을 끌어낸다"
           }
         ]
       }
