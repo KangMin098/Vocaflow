@@ -16,9 +16,14 @@ name: sync-check
 
 on:
   push:
-    branches: ['main', 'chore/**', 'feat/**', 'fix/**']
+    branches: ['main']  # 작업 브랜치는 pull_request 로만 — push + PR 이중 실행 제거(2026-10-20)
   # 모든 base 의 PR(종속 PR 포함 · 정책 v1.1 · 2026-10-11)
   pull_request:
+
+# 같은 PR 의 앞선 실행은 새 커밋이 오면 취소(main push 는 취소하지 않음)
+concurrency:
+  group: sync-check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   typecheck:
