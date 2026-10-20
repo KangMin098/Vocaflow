@@ -1,0 +1,22 @@
+{
+  "evidence_id": "T-0062-R3-E12",
+  "run_seq": 3,
+  "recorded_by": "final-independent-accept",
+  "type": "review",
+  "command_or_protocol": "Actual existing Codex acceptance session: changed-source/RLS receipt review, independent11 and relevant57 pass; exact-head official21 browser and current artifact hashes inspected",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "7f99ac80bd441f855a082bddf15673b8946f6048",
+  "artifact_path_or_url": "verification/reviews/T-0062-rev1-run3-independent-7f99ac80b.md",
+  "observed_at": "2026-10-20T12:52:06.097Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "note": "Task-scoped independent acceptance, not aggregate merge/release approval. Actual local tests executed; authenticated browser evidence read from exact-head official CI.",
+  "artifact_sha256": "fab2e7d617e20c90702d550ad0523dc4807c98988e27270405db1c1f2f527bed",
+  "recorded_at": "2026-10-20T12:52:06.310Z"
+}

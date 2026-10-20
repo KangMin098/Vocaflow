@@ -1,0 +1,17 @@
+{
+  "task_id": "T-0062",
+  "status": "COMPLETED",
+  "head": "7f99ac80bd441f855a082bddf15673b8946f6048",
+  "reviewed_by": "final-independent-accept",
+  "review_record": "verification/reviews/T-0062-rev1-run3-independent-7f99ac80b.md",
+  "review_record_sha256": "fab2e7d617e20c90702d550ad0523dc4807c98988e27270405db1c1f2f527bed",
+  "transition": {
+    "at": "2026-10-20T12:52:06.584Z",
+    "from": "REVIEW",
+    "to": "COMPLETED",
+    "by": "final-independent-accept",
+    "note": "review=verification/reviews/T-0062-rev1-run3-independent-7f99ac80b.md"
+  },
+  "independent_evidence": "T-0062-R3-E12",
+  "next_task": "READY"
+}

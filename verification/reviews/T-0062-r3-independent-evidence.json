@@ -1,0 +1,17 @@
+{
+  "type": "review",
+  "command_or_protocol": "Actual existing Codex acceptance session: changed-source/RLS receipt review, independent11 and relevant57 pass; exact-head official21 browser and current artifact hashes inspected",
+  "result": "pass",
+  "skip_count": 0,
+  "commit": "7f99ac80bd441f855a082bddf15673b8946f6048",
+  "artifact_path_or_url": "verification/reviews/T-0062-rev1-run3-independent-7f99ac80b.md",
+  "observed_at": "2026-10-20T12:52:06.097Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "note": "Task-scoped independent acceptance, not aggregate merge/release approval. Actual local tests executed; authenticated browser evidence read from exact-head official CI."
+}
