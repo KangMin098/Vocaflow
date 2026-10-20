@@ -1,6 +1,8 @@
 # Admin Console
 
-Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했다. 저장된 Workspace/주문이 없어 실제 populated 화면 검증은 남아 있다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).
+최종 수용(2026-10-20): 실제 프로덕션 실행·Supabase 인증/DB에서 소유가 분리된 합성 계정으로 주문 등록/연결/개정/철회/개인 변경과 네 상태 화면을 검증했다. 메뉴 목적지 23 URL도 실제 관리자 인증으로 모두 200이었다. 검증 계정은 권한 제거·정지했고 Workspace/주문은 종료했으며 합성 이력만 보존했다. [최종 구성·기존 대비·실행 결과](admin-restructure/final-acceptance.md).
+
+Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했고 실제 합성 기록이 채워진 화면도 후속 검증했다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).
 
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
