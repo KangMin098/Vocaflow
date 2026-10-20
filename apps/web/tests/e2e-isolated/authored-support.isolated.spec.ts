@@ -195,7 +195,9 @@ for (const width of [1440, 1280]) {
     await solveChoice(fresh[0], true)
     await solveChoice(fresh[1], pass)
     // 새 독립 2 는 근거(G2) — 앞선 첫 독립 오답 2 결속은 그대로 · 안내 연습 · 적용은 근거 아님
-    await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', a.id)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(4)
+    // 평가 근거 결속 = 독립 확인 4(처음 2 + 새 2) · 적용 2(평가 자료) · 안내 연습 0 — 역할별로 센다
+    const evByRole = async () => { const r = (await admin().from('workspace_delivery_attempt').select('evidence, workspace_content_delivery(role)').eq('user_id', a.id)).data ?? []; const c: Record<string, number> = {}; for (const b of r) if (b.evidence) { const role = (b.workspace_content_delivery as unknown as { role: string } | null)?.role ?? '?'; c[role] = (c[role] ?? 0) + 1 } return c }
+    await expect.poll(evByRole, { timeout: 15_000 }).toEqual({ independent_check: 4, transfer: 2 })
     // MAP/PLAN — 같은 TASK 의 계획 행이 서버 계산 그대로: pass = 해소 · fail = 새 바로잡기 회차
     await openWs(page, T)
     const dlg = page.locator(`[role="dialog"][data-ws="${T}"]`)
