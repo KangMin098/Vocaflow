@@ -10,6 +10,9 @@ import { DOMAINS, type Domain } from '../../v4/definition'
 import { allTaskPlans, workspacePlan } from '../../v4/plan'
 import { toBeMap, type ConfirmLink } from '../../v4/to-be'
 import { planWorkspaces } from '../../v4/workspace'
+import { build } from '@/components/csat/diagnosis/map/__tests__/r5-inspector-fixture'
+
+import { applySaved } from '../../v4/plan-commit'
 import { nextActionOf, WAIT_LABEL, wsForTask } from '../next-action'
 import { ranksOf, type Ranks } from '../rank'
 
@@ -28,6 +31,9 @@ function view(): V4View {
   return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, []) }
 }
 
+/** 그 묶음 계획이 저장돼 있다(최신 버전에 이 TASK 행은 없음) — 행동 종류 판정용 */
+const savedWs = (ws: string) => ({ byTemplate: { [ws]: { latest: { plan: { order: [], tasks: [] } } } } }) as never
+
 describe('nextActionOf — 지금 할 일', () => {
   const v = view()
   const r = ranksOf(v)
@@ -36,12 +42,13 @@ describe('nextActionOf — 지금 할 일', () => {
   it('활동이 있고 그 묶음 계획이 저장됨 → start: 계획의 활동 링크 · 저장 계획 수량 그대로', () => {
     expect(first).toBeTruthy()
     const ws = wsForTask(first.task, v)!
-    const a = nextActionOf(v, r, { byTemplate: { [ws]: {} } })!
+    const a = nextActionOf(v, r, savedWs(ws))!
     const p = v.taskPlans.find((x) => x.task === first.task)!
     expect(a.kind).toBe('start')
     expect(a.href).toBe(first.href)
     expect(a.ws).toBe(ws)
-    expect(a.quantity).toEqual({ unit: p.quantity.unit, planned: p.quantity.planned, done: p.quantity.done, source: 'saved' })
+    // 묶음은 저장됐지만 이 TASK 행이 없으면 출처는 제안(실제 저장 행 출처는 아래 T0061-P1-1 회귀)
+    expect(a.quantity).toEqual({ unit: p.quantity.unit, planned: p.quantity.planned, done: p.quantity.done, source: 'proposed' })
     expect(a.criterion).toBe(p.criterion)
   })
   it('같은 활동이라도 계획 저장 전 → plan(같은 묶음 계획 탭) · 수량은 제안 계획으로 표시', () => {
@@ -53,7 +60,7 @@ describe('nextActionOf — 지금 할 일', () => {
   it('지금 할 활동 없음 · 창작 세트 있는 TASK → 계획 저장 뒤 supply(자료 받기) — 재고 판정은 서버 몫', () => {
     const ws = wsForTask('e.task_demand', v)!
     const none: Ranks = { needRank: [], actionRank: [], notActionable: [{ task: 'e.task_demand' as never, reason: 'content_gap' }] }
-    expect(nextActionOf(v, none, { byTemplate: { [ws]: {} } })!.kind).toBe('supply')
+    expect(nextActionOf(v, none, savedWs(ws))!.kind).toBe('supply')
     expect(nextActionOf(v, none, { byTemplate: {} })!.kind).toBe('plan')
   })
   it('계획 저장 전이면 단계 잠금이어도 plan(실제 첫 행동) · 정의 보류만 wait', () => {
@@ -63,7 +70,7 @@ describe('nextActionOf — 지금 할 일', () => {
     expect(one('canon_hold', null).blocked).toBe('canon_hold')
   })
   it('계획 저장 뒤 확인 단계 잠금(확인 문항 연결 없음)인 창작 TASK → supply · 창작 세트 없으면 wait(이유)', () => {
-    const saved = (task: string) => ({ byTemplate: { [wsForTask(task, v)!]: {} } })
+    const saved = (task: string) => savedWs(wsForTask(task, v)!)
     const one = (task: string) => nextActionOf(v, { needRank: [], actionRank: [], notActionable: [{ task: task as never, reason: 'stage_locked' }] }, saved(task))!
     const cm = v.taskPlans.find((p) => p.task === 'r.central_meaning')!
     if (!cm.stage || cm.stage === 'check') expect(one('r.central_meaning').kind).toBe('supply')
@@ -74,5 +81,37 @@ describe('nextActionOf — 지금 할 일', () => {
   it('관련성 미확인만 있으면 추천하지 않는다(null) · 순위가 없으면 null', () => {
     expect(nextActionOf(v, { needRank: [], actionRank: [], notActionable: [{ task: 'r.central_meaning' as never, reason: 'relevance_unknown' }] }, null)).toBeNull()
     expect(nextActionOf(v, null, null)).toBeNull()
+  })
+})
+
+// T0061-P1-1 회귀 — 실제 저장 행으로(byTemplate:{} 대역이 아니라). 상단 학습량 = 계획 편집기(applySaved)와 같은 값 · 옛 단계 저장은 제안
+describe('nextActionOf — 저장 계획 수량 · 단계 출처(T0061-P1-1)', () => {
+  const { view: fv } = build({ goalSet: true, attempts: [], activity: [], asOfDay: 12, saved: false, fq: { status: 'installed', eligible: [] } })
+  const fr = ranksOf(fv)
+  const top = fr.actionRank[0]
+  const ws = wsForTask(top.task, fv)!
+  const p = fv.taskPlans.find((x) => x.task === top.task)!
+  const row = (stage: string | null, planned: number | null) => ({ version: 2, plan: { order: [top.task], tasks: [{ task: top.task, stage, planned, available: p.quantity.available, rule: p.quantity.rule }] }, reason: 'initial' as const, note: null, restoredFrom: null, canon: 'fixture', asOf: fv.asIs.asOf, createdAt: fv.asIs.asOf })
+  const of = (latest: ReturnType<typeof row>) => ({ byTemplate: { [ws]: { latest } } }) as never
+  it('저장 안 함 → plan · 제안', () => {
+    const a = nextActionOf(fv, fr, { byTemplate: {} })!
+    expect([a.kind, a.quantity?.source]).toEqual(['plan', 'proposed'])
+  })
+  it('바꾸지 않은 저장 수량 → start · 저장', () => {
+    const a = nextActionOf(fv, fr, of(row(p.stage, p.quantity.planned)))!
+    expect([a.kind, a.quantity?.planned, a.quantity?.source]).toEqual(['start', p.quantity.planned, 'saved'])
+  })
+  it('학습자가 2로 줄여 저장 → 상단도 2(편집기와 같은 값) · 저장', () => {
+    const r = row(p.stage, 2)
+    const editor = applySaved(fv.plans[ws], r as never).tasks.find((x) => x.task === top.task)!
+    const a = nextActionOf(fv, fr, of(r))!
+    expect(editor.quantity.planned).toBe(2)
+    expect(a.quantity?.planned).toBe(editor.quantity.planned)
+    expect(a.quantity?.source).toBe('saved')
+  })
+  it('옛 단계로 저장된 행은 지금 단계 제안을 「저장한 계획」으로 만들지 않는다', () => {
+    const a = nextActionOf(fv, fr, of(row(p.stage === 'check' ? 'repair' : 'check', 2)))!
+    expect(a.quantity?.source).toBe('proposed')
+    expect(a.quantity?.planned).toBe(p.quantity.planned)
   })
 })

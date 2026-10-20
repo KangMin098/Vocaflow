@@ -12,6 +12,8 @@
 import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 
 import type { V4View } from '../v4/compose'
+import { applySaved } from '../v4/plan-commit'
+import type { SavedPlans, SavedWorkspace } from '../v4/plan-store'
 import type { TaskId } from '../v4/definition'
 import type { TaskPlan } from '../v4/plan'
 import type { Need } from '../v4/to-be'
@@ -36,7 +38,22 @@ export interface NextAction {
   blocked: NotActionableReason | null
 }
 
-type Saved = { byTemplate: Record<string, unknown> } | null | undefined
+type Saved = Pick<SavedPlans, 'byTemplate'> & { status?: SavedPlans['status']; error?: unknown } | null | undefined
+
+/**
+ * 이번 학습량 — 계획 편집기(PlanSection)와 같은 출처: 그 묶음의 최신 저장 버전을 applySaved 로 덮은 값.
+ * 「저장한 계획」은 저장 행이 이 TASK 를 **지금과 같은 단계**로 담았을 때만(옛 단계 저장 · 저장 없음 = 제안). 적용 단계 수량은 저장 이력에서 이미 재생된 값.
+ */
+function quantityOf(task: TaskId, ws: string | null, view: V4View, saved: Saved, fallback: TaskPlan | null): NextAction['quantity'] {
+  const sw = ws && saved?.status !== 'not_installed' && !saved?.error ? (saved?.byTemplate?.[ws] as SavedWorkspace | undefined) ?? null : null
+  const pv = ws ? view.plans[ws] ?? null : null
+  const row = pv ? applySaved(pv, sw?.latest ?? null).tasks.find((t) => t.task === task) ?? null : null
+  const p = row ?? fallback
+  if (!p) return null
+  const savedRow = sw?.latest?.plan.tasks.find((t) => t.task === task) ?? null
+  const isSaved = !!savedRow && savedRow.stage === p.stage
+  return { unit: p.quantity.unit, planned: p.quantity.planned, done: p.quantity.done, source: isSaved ? 'saved' : 'proposed' }
+}
 
 /** 이 TASK 를 여는 Workspace — 중심으로 둔 계획 먼저, 다음 보조(TaskInspector.homeWsOf 와 같은 순서) */
 export function wsForTask(task: string, view: Pick<V4View, 'plans'>): string | null {
@@ -58,7 +75,7 @@ export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): N
     name: plan?.name ?? target,
     ws,
     why: { need: need?.type ?? null, evidence: plan?.evidence ?? need?.evidence ?? null, items: need?.relevance.items ?? null, pointsPerExam: need?.relevance.pointsPerExam ?? null },
-    quantity: plan ? { unit: plan.quantity.unit, planned: plan.quantity.planned, done: plan.quantity.done, source: isSaved ? 'saved' as const : 'proposed' as const } : null,
+    quantity: quantityOf(target, ws, view, saved, plan),
     criterion: plan?.criterion ?? null,
   }
   if (first) {
