@@ -1,0 +1,48 @@
+{
+  "observed_at": "2026-10-20T15:38:42.792Z",
+  "task": "T-0067",
+  "status": "REVIEW",
+  "run_seq": 1,
+  "head": "d62e99779a0177a7e3e57ff4f4ae9e71171e83a9",
+  "evidence": [
+    {
+      "id": "T-0067-R1-E01",
+      "type": "unit",
+      "commit": "d62e99779a0177a7e3e57ff4f4ae9e71171e83a9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-verify.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R1-E02",
+      "type": "ci",
+      "commit": "d62e99779a0177a7e3e57ff4f4ae9e71171e83a9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-e2e.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R1-E03",
+      "type": "e2e",
+      "commit": "d62e99779a0177a7e3e57ff4f4ae9e71171e83a9",
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0067-e2e.log",
+      "hash_match": true
+    },
+    {
+      "id": "T-0067-R1-E04",
+      "type": "ui",
+      "commit": "d62e99779a0177a7e3e57ff4f4ae9e71171e83a9",
+      "path": "verification/ui/T-0067/ci-39448091504-1.png",
+      "hash_match": true,
+      "screens_count": 28,
+      "screens_match": true
+    }
+  ],
+  "ci": {
+    "run": "39448091504",
+    "head_match": true,
+    "event": "pull_request",
+    "conclusion": "success",
+    "shared_dev": "skipped"
+  },
+  "e2e_summary": "23 passed (5.1m)",
+  "browser_limit": "New outcome test mocks supply API responses;not actual delivery DB success"
+}

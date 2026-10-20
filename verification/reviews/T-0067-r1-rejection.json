@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-10-20T15:39:34.096Z",
+  "task_id": "T-0067",
+  "status": "READY",
+  "review_record": "verification/reviews/T-0067-rev1-run1-independent-d62e99779.md",
+  "blocking": "T0067-P1-2",
+  "nonblocking": "T0067-P2-1",
+  "original": "T0067-P1-1 VERIFIED_FIXED",
+  "source": "Official task.reject; same task/revision/owner retained"
+}
