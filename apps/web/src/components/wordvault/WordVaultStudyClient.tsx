@@ -26,17 +26,83 @@ interface WordVaultStudyClientProps {
    * "이 단어로 학습 시작" 을 눌러 들어온 사람도 끝나면 목록을 잃었다.
    */
   backHref?: string
+  /**
+   * T-0069 — 학습 지도(V1 기본 의미)에서 왔을 때 돌아갈 지도 주소(페이지가 map-return 으로 검증해 넘긴다).
+   * 있으면 화면 위에 「학습 지도로」 를 늘 둔다 — 복습 도중 · 끝난 뒤 · 빈 상태 · 실패 모두.
+   */
+  mapBack?: string | null
+  /** 지도에서 온 화면에서 단어 조회가 실패했다 — 「0개」 로 보이지 않게 따로 알린다 */
+  loadFailed?: boolean
 }
 
-export function WordVaultStudyClient({
+/** 지도에서 온 어휘 학습의 위치 안내 — 이 복습은 학습 활동이지 지도 근거가 아니다(V1 직접 확인 도구 없음) */
+function MapReturnBar({ href }: { href: string }) {
+  return (
+    <div className="mx-auto mt-s-4 flex max-w-[680px] flex-wrap items-center justify-between gap-s-3 rounded-xl border border-bd bg-bg px-s-5 py-s-3" data-testid="vocab-map-bar">
+      <p className="break-keep font-body text-[13px] text-t2">
+        학습 지도 · 기본 의미(V1) 복습 — 스스로 매긴 기억 정도는 학습 기록이에요. 지도의 확인 · 해소 근거로 세지 않아요.
+      </p>
+      <Link
+        href={href}
+        data-testid="vocab-map-return"
+        className="inline-flex min-h-[44px] items-center rounded-md bg-bg2 px-s-4 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+      >
+        학습 지도로
+      </Link>
+    </div>
+  )
+}
+
+export function WordVaultStudyClient(props: WordVaultStudyClientProps) {
+  if (!props.mapBack) return <StudyBody {...props} />
+  return (
+    <>
+      <MapReturnBar href={props.mapBack} />
+      <StudyBody {...props} />
+    </>
+  )
+}
+
+function StudyBody({
   words,
   mode = 'study',
   backHref = '/wordvault',
+  mapBack = null,
+  loadFailed = false,
 }: WordVaultStudyClientProps) {
   const router = useRouter()
   const [done, setDone] = useState(false)
 
   const screenName = mode === 'review' ? '복습' : '학습'
+
+  if (loadFailed) {
+    return (
+      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center" data-testid="vocab-load-failed">
+        <h1 className="sr-only">{screenName}</h1>
+        <h2 role="alert" className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
+          단어를 불러오지 못했어요
+        </h2>
+        <p className="mb-s-6 break-keep font-body text-sm text-t2">복습할 단어가 없다는 뜻이 아니에요. 잠시 뒤 다시 열어 주세요.</p>
+      </div>
+    )
+  }
+
+  if (words.length === 0 && mapBack) {
+    // 지도에서 온 화면 — 복습 대상 조회는 내 단어 전체(복습 시점 순)라 0 은 「모은 단어가 아직 없다」 는 뜻이다
+    return (
+      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center" data-testid="vocab-empty">
+        <h1 className="sr-only">{screenName}</h1>
+        <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">아직 복습할 내 단어가 없어요</h2>
+        <p className="mb-s-6 break-keep font-body text-sm text-t2">내 단어장에서 먼저 단어를 모으면, 여기서 기본 뜻을 떠올리는 복습을 할 수 있어요.</p>
+        <Link
+          href="/wordvault/browse"
+          className="inline-flex min-h-[44px] items-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          내 단어장에서 단어 모으기 →
+        </Link>
+      </div>
+    )
+  }
 
   if (words.length === 0) {
     return (
@@ -96,7 +162,7 @@ export function WordVaultStudyClient({
             href={backHref}
             className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
-            돌아가기
+            {mapBack ? '학습 지도로 돌아가기' : '돌아가기'}
           </Link>
           {/* 복습 화면은 "지금 복습할 것" 만 담으므로, 방금 학습한 뒤에도 비어 있을 수 있다.
               그래서 목록을 두 번째 길로 함께 둔다 — 막다른 화면을 만들지 않는다. */}

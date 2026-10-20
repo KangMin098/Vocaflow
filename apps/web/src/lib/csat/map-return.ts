@@ -107,7 +107,7 @@ export function mapReturnQuery(ctx: MapReturnCtx): string {
  * 해시(#principle)는 끝에 유지하고, 이미 있는 같은 키는 덮어쓴다.
  */
 export function withMapReturn(href: string, ctx: MapReturnCtx): string {
-  if (!href.startsWith('/csat/item/') && !href.startsWith('/csat/learn/')) return href
+  if (!href.startsWith('/csat/item/') && !href.startsWith('/csat/learn/') && !VOCAB_PATHS.some((p) => href === p || href.startsWith(p + '?'))) return href
   const hashAt = href.indexOf('#')
   const hash = hashAt < 0 ? '' : href.slice(hashAt)
   const u = new URL(hashAt < 0 ? href : href.slice(0, hashAt), 'http://x')
@@ -117,4 +117,21 @@ export function withMapReturn(href: string, ctx: MapReturnCtx): string {
     if (c[k]) u.searchParams.set(q, c[k]!)
   }
   return `${u.pathname}${u.search}${hash}`
+}
+
+/** T-0069 — V1(v.core_meaning) 기본 의미 학습이 쓰는 기존 어휘 화면(고정 내부 경로만 · 하위 화면 전체가 아니다) */
+export const VOCAB_PATHS = ['/wordvault/review'] as const
+
+/** 학습 화면이 돌아갈 지도 주소 — 창작 학습 화면(/csat/learn)과 같은 전체 지도 + 검증한 문맥만 */
+export const MAP_HOME_HREF = '/csat/diagnosis?tab=map&view=full'
+
+/**
+ * T-0069 — 어휘 학습 화면의 「학습 지도로」 주소. `from=map` 이 아니면 null(옛 주소 · 일반 진입은 그대로).
+ * 어휘 활동은 창작 자료가 아니라 `map_item` · `map_attempt` 를 싣지 않는다(지어내지 않는다 — 들어와도 버린다).
+ */
+export function vocabMapReturnHref(sp: Record<string, string | string[] | undefined>): string | null {
+  const from = Array.isArray(sp.from) ? sp.from[0] : sp.from
+  if (from !== 'map') return null
+  const q = returnQueryOf(sp)
+  return MAP_HOME_HREF + mapReturnQuery(parseMapReturn({ ...q, map_item: undefined, map_attempt: undefined }))
 }
