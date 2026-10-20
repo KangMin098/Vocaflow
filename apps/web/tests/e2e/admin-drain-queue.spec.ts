@@ -1,10 +1,10 @@
 // apps/web/tests/e2e/admin-drain-queue.spec.ts
 // Actual banner with controlled GET completion order and polling ticks; no DB.
-import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { expect, test } from '@playwright/test'
+import { adminFixtureCss } from './_support/admin-fixture-css'
 const web = path.resolve(__dirname, '../..'), root = path.resolve(web, '../..')
 const requireTool = createRequire(path.join(web, 'package.json'))
 let server: http.Server, origin: string
@@ -25,8 +25,7 @@ test.beforeAll(async () => {
     } }], bundle: true, write: false, format: 'iife', jsx: 'automatic', alias: { '@': path.join(web, 'src') },
     define: { 'process.env.NODE_ENV': '"development"' },
   })
-  const cssDir = path.join(web, process.env.ADMIN_DIALOG_CSS_DIST ?? '.next-lineage-build', 'static')
-  const css = fs.readdirSync(cssDir, { recursive: true }).map(String).filter(f => f.endsWith('.css')).map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('\n')
+  const css = await adminFixtureCss(web)
   server = http.createServer((request, response) => {
     if (request.method !== 'GET') { response.writeHead(405); response.end(); return }
     response.setHeader('content-type', 'text/html; charset=utf-8')
@@ -35,7 +34,7 @@ test.beforeAll(async () => {
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
   origin = `http://127.0.0.1:${(server.address() as import('node:net').AddressInfo).port}`
 })
-test.afterAll(async () => { await new Promise<void>(resolve => server.close(() => resolve())) })
+test.afterAll(async () => { if (server) await new Promise<void>(resolve => server.close(() => resolve())) })
 type ControlledWindow = { queueResolvers: Record<string, Array<(value: unknown) => void>>; pollQueue: () => void; reloadQueue: () => void }
 async function finish(page: import('@playwright/test').Page, index: number, active: boolean) {
   await page.evaluate(({ index, active }) => {

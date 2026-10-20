@@ -11,6 +11,7 @@ interface Popup {
   unwound: number
   barrier: boolean
   canClose: () => boolean
+  close: () => void
   openHref: () => string
   after: (() => void) | null
   href: string
@@ -156,7 +157,7 @@ export function useCloseOnBack(open: boolean, onClose: () => void, options?: Clo
     // Reuse only this instance during StrictMode's cleanup/remount cycle.
     let popup = instance.current
     if (!popup || !popups.includes(popup)) {
-      popup = { id: `vocaflow-popup-${identity.current}`, order: identity.current!, active: true, registered: false, unwound: 0, barrier: false, canClose: () => canCloseRef.current, openHref: () => openHrefRef.current ?? window.location.href, after: null, href: window.location.href, returnHref: returnHrefRef.current, baseHref: window.location.href, baseState: {} }
+      popup = { id: `vocaflow-popup-${identity.current}`, order: identity.current!, active: true, registered: false, unwound: 0, barrier: false, canClose: () => canCloseRef.current, close: () => closeRef.current(), openHref: () => openHrefRef.current ?? window.location.href, after: null, href: window.location.href, returnHref: returnHrefRef.current, baseHref: window.location.href, baseState: {} }
       instance.current = popup
       mounting.add(popup)
       registerPending()
@@ -165,15 +166,25 @@ export function useCloseOnBack(open: boolean, onClose: () => void, options?: Clo
     const current = popup
     const onPop = (event: PopStateEvent) => {
       if (handled.has(event) || popups.filter(p => p.active).at(-1) !== current) return
-      const ownEntry = event.state?.vocaflowOverlayId === current.id
-      if (ownEntry && (!current.barrier || event.state?.vocaflowPendingId === current.id)) return
+      const active = popups.filter(p => p.active)
+      const target = active.findIndex(p => p.id === event.state?.vocaflowOverlayId)
+      const destination = active[target]
+      const firstClosing = target < 0 ? 0 : target + (
+        destination.barrier && event.state?.vocaflowPendingId !== destination.id ? 0 : 1
+      )
+      const closing = active.slice(firstClosing)
+      if (!closing.length) return
       handled.add(event)
-      if (!canCloseRef.current) {
+      if (closing.some(p => !p.canClose())) {
         restorePendingEntries(event)
         return
       }
-      current.unwound = ownEntry ? 1 : current.barrier ? 2 : 1
-      closeRef.current()
+      // A single traversal can consume several overlays. Record every consumed
+      // entry before closing child -> parent, so cleanup never walks them again.
+      for (const popup of closing) {
+        popup.unwound = popup.id === event.state?.vocaflowOverlayId ? 1 : popup.barrier ? 2 : 1
+      }
+      for (const popup of closing.reverse()) popup.close()
     }
     window.addEventListener('popstate', onPop)
     return () => {

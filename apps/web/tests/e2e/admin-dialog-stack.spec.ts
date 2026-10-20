@@ -1,10 +1,10 @@
 // apps/web/tests/e2e/admin-dialog-stack.spec.ts
 // Real React/Dialog/hooks in Chromium, isolated from auth/DB and additional DOM-test dependencies.
-import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { test, expect } from '@playwright/test'
+import { adminFixtureCss } from './_support/admin-fixture-css'
 
 const web = path.resolve(__dirname, '../..')
 const root = path.resolve(web, '../..')
@@ -16,6 +16,7 @@ test.beforeAll(async () => {
     stdin: { resolveDir: web, loader: 'tsx', contents: `
       import {StrictMode,startTransition,useCallback,useEffect,useRef,useState} from 'react'; import {createRoot} from 'react-dom/client';
       import {Dialog} from './src/components/ui/Dialog';
+      import {useFocusTrap} from './src/lib/ui/use-focus-trap';
       import {adminTextInk} from './src/lib/admin/text-ink';
       import {VcbCurationList} from './src/components/admin/vcb/VcbCurationList';
       import {Heatmap} from './src/components/csat/Heatmap';
@@ -40,6 +41,7 @@ test.beforeAll(async () => {
         </>
       }
       function ReplacementExample(){const [open,O]=useState(false),[version,V]=useState(0),[disabled,D]=useState(false);window.replaceFocusOpener=(disabled=false)=>{D(disabled);V(v=>v+1)};return <><button key={version} data-version={version} data-focus-restore-id="book:one" disabled={disabled} onClick={()=>O(true)}>교체되는 도서</button><button>다른 작업</button>{open&&<Dialog title="교체 상세" onClose={()=>O(false)}><p>목록이 새로 렌더링되어도 논리적 도서 위치를 유지합니다.</p></Dialog>}</>}
+      function SearchExample(){const panel=useRef(null),input=useRef(null);useFocusTrap(true,panel);useEffect(()=>{input.current.focus()},[]);return <div ref={panel} role="dialog" aria-label="검색 시작" tabIndex={-1}><input ref={input} aria-label="문항 검색"/></div>}
       function MapExample(){const [picked,P]=useState('없음');return <><output aria-label="지도 선택">{picked}</output><Heatmap data={{years:[2025,2026],max:2,rows:[{typeId:'R-PURPOSE',name:'목적 파악',total:3,recent:3,cells:[{year:2025,n:2,hard:1},{year:2026,n:1,hard:0}]}]}} onPick={(type,year)=>P(type+':'+year)}/></>}
       function VCBExample(){const [selected,S]=useState(null),[ids,I]=useState(new Set());return <>
         <output aria-label="상세 선택">{selected??'없음'}</output>
@@ -50,14 +52,12 @@ test.beforeAll(async () => {
         <button data-focus-restore-id="parent-opener" onClick={()=>P(true)}>목록에서 열기</button>
         {parent&&<Dialog title="부모 상세" onClose={closeParent} closeDisabled={pending}><button data-focus-restore-id="child-opener" onClick={()=>C(true)}>확인 열기</button><button onClick={()=>B(!pending)}>{pending?'작업 종료':'작업 시작'}</button>
           {child&&<Dialog title="중첩 확인" onClose={closeChild} closeDisabled={childPending}><button disabled={childPending} onClick={()=>C(false)}>취소</button><button>실행</button><button onClick={()=>CP(!childPending)}>{childPending?'하위 작업 종료':'하위 작업 시작'}</button></Dialog>}
-        </Dialog>}</>};createRoot(document.getElementById('root')!).render(<StrictMode>{location.search.includes('fixture=history')?<HistoryExample/>:location.search.includes('fixture=replacement')?<ReplacementExample/>:location.search.includes('fixture=map')?<MapExample/>:location.search.includes('fixture=vcb')?<VCBExample/>:<Example/>}</StrictMode>);
+        </Dialog>}</>};createRoot(document.getElementById('root')!).render(<StrictMode>{location.search.includes('fixture=search')?<SearchExample/>:location.search.includes('fixture=history')?<HistoryExample/>:location.search.includes('fixture=replacement')?<ReplacementExample/>:location.search.includes('fixture=map')?<MapExample/>:location.search.includes('fixture=vcb')?<VCBExample/>:<Example/>}</StrictMode>);
     ` },
     bundle: true, write: false, format: 'iife', jsx: 'automatic', alias: { '@': path.join(web, 'src') },
     define: { 'process.env.NODE_ENV': '"development"' },
   })
-  const dist = path.resolve(web, process.env.ADMIN_DIALOG_CSS_DIST ?? '.next-lineage-build')
-  const cssDir = path.join(dist, 'static')
-  const css = fs.readdirSync(cssDir, { recursive: true }).map(String).filter(f => f.endsWith('.css')).map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('\n')
+  const css = await adminFixtureCss(web)
   server = http.createServer((req, res) => {
     if (req.method !== 'GET') { res.writeHead(405); res.end(); return }
     res.setHeader('content-type', 'text/html; charset=utf-8')
@@ -66,7 +66,7 @@ test.beforeAll(async () => {
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
   origin = `http://127.0.0.1:${(server.address() as import('node:net').AddressInfo).port}`
 })
-test.afterAll(async () => { await new Promise<void>(resolve => server.close(() => resolve())) })
+test.afterAll(async () => { if (server) await new Promise<void>(resolve => server.close(() => resolve())) })
 test.beforeEach(async ({ page }) => {
   await page.goto(`${origin}/?source=gutenberg`)
   await page.evaluate(() => history.replaceState({ retained: 'router-state' }, ''))
@@ -245,6 +245,50 @@ async function openBoth(page: import('@playwright/test').Page) {
   await page.getByRole('button', { name: '확인 열기' }).click()
   await expect(page.getByRole('dialog', { name: '중첩 확인' })).toBeVisible()
 }
+
+test('여러 이력 이동은 건너뛴 중첩 창을 함께 닫고 목록 이력을 보존한다', async ({ page }) => {
+  await page.evaluate(() => {
+    history.replaceState({ retained: 'previous' }, '', '/?source=previous')
+    history.pushState({ retained: 'router-state' }, '', '/?source=gutenberg')
+  })
+  await openBoth(page)
+  await page.evaluate(() => history.go(-2))
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  expect(await page.evaluate(() => history.state.retained)).toBe('router-state')
+  await page.evaluate(() => history.back())
+  await expect(page).toHaveURL(`${origin}/?source=previous`)
+})
+
+test('검색 입력의 명시적 초기 포커스를 지연된 공용 포커스가 덮지 않는다', async ({ page }) => {
+  await page.goto(`${origin}/?fixture=search`)
+  await expect(page.getByRole('textbox', { name: '문항 검색' })).toBeFocused()
+  await page.keyboard.type('evidence')
+  await expect(page.getByRole('textbox', { name: '문항 검색' })).toHaveValue('evidence')
+})
+
+test('pending 부모를 건너뛰는 정상 자식의 다중 이동도 전체 거부한다', async ({ page }) => {
+  await page.evaluate(() => {
+    history.replaceState({ retained: 'previous' }, '', '/?source=previous')
+    history.pushState({ retained: 'router-state' }, '', '/?source=gutenberg')
+  })
+  await page.getByRole('button', { name: '목록에서 열기' }).click()
+  await page.getByRole('button', { name: '작업 시작', exact: true }).click()
+  await expect.poll(() => page.evaluate(() => Boolean(history.state?.vocaflowPendingId))).toBe(true)
+  await page.getByRole('button', { name: '확인 열기' }).click()
+  await page.evaluate(() => history.go(-3))
+  await expect.poll(() => page.evaluate(() => (window as unknown as { routerSnapshots: string[] }).routerSnapshots.length)).toBe(1)
+  await expect(page.getByRole('dialog', { name: '중첩 확인' })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog', { name: '중첩 확인' })).toHaveCount(0)
+  await expect(page.getByRole('dialog', { name: '부모 상세' })).toBeVisible()
+  await page.getByRole('button', { name: '작업 종료', exact: true }).click()
+  await page.evaluate(() => history.back())
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await expect.poll(() => page.evaluate(() => Boolean(history.state?.vocaflowOverlayId))).toBe(false)
+  expect(await page.evaluate(() => history.state.retained)).toBe('router-state')
+  await page.evaluate(() => history.back())
+  await expect(page).toHaveURL(`${origin}/?source=previous`)
+})
 test('중첩의 Tab/Escape만 처리하고 부모 포커스와 Router 상태를 보존한다', async ({ page }) => {
   await openBoth(page)
   await page.getByRole('button', { name: '실행', exact: true }).focus()

@@ -108,6 +108,9 @@ function scheduleInitialFocus(panel: HTMLElement, order: number) {
       activePanels.push(p)
     }
     const top = activePanels.filter(p => p.isConnected).at(-1)
+    // A caller may deliberately focus its search/input in the same effect turn.
+    // Initial stack sorting must not replace that valid focus with the panel.
+    if (top?.contains(document.activeElement)) return
     if (top?.hasAttribute('tabindex')) top.focus()
     else if (top) visibleFocusables(top)[0]?.focus()
   })
