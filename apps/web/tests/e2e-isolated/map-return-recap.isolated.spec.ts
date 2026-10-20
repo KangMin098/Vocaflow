@@ -161,7 +161,9 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
       await expect(noteForm.locator('[data-testid="note-statement"]')).toHaveValue('')
       // 다시 고쳐 써서 저장 — 새 노트로 남는다
       const REVISED = `발문의 대상과 조건을 함께 확인한다 ${width}`
-      await noteForm.locator('[data-testid="note-show-last"]').click().catch(() => undefined)
+      // 취소 뒤에도 대조 화면은 열려 있다 — 닫혀 있을 때만 마지막 노트를 연다(없는 버튼을 기다리지 않는다)
+      const showLast = noteForm.locator('[data-testid="note-show-last"]')
+      if (await showLast.count()) await showLast.click()
       await noteForm.locator('[data-testid="note-revise"]').click()
       await noteForm.locator('[data-testid="note-statement"]').fill(REVISED)
       await expect(noteForm.locator('[data-testid="note-save"]')).toHaveText('고친 설명 저장')
