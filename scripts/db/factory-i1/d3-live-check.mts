@@ -12,7 +12,7 @@ import { lineageOrder } from '../../../apps/web/src/lib/csat/map/v62/__tests__/o
 import { lineageHash, specFromDemand } from '../../../packages/library-pipeline/src/textbook/order-lineage'
 import { ADMIN_SECTIONS } from '../../../apps/web/src/lib/admin/navigation'
 import { targetOf } from './deploy.mjs'
-import { assertLiveFixtureOptIn, assertOwnedFixture, liveFixtureEmail, sendOwnedRegistration, reconcileOwnedRegistration, runCleanupSteps } from './live-fixture-safety.mjs'
+import { assertLiveFixtureOptIn, assertOwnedFixture, verifyOwnedFixture, liveFixtureEmail, sendOwnedRegistration, sendJournaledIntent, reconcileOwnedRegistration, runCleanupSteps } from './live-fixture-safety.mjs'
 
 const option = (name: string) => { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : undefined }
 assertLiveFixtureOptIn(process.argv, process.env)
@@ -36,6 +36,7 @@ const adminDb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.
 const sql = new Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { ca: fs.readFileSync(option('--ca'), 'utf8'), rejectUnauthorized: true }, connectionTimeoutMillis: 15000, application_name: 'vf-d3-owned-live-check' })
 const checks: Array<{ name: string; ok: boolean; detail?: unknown }> = []
 const registrations = new Map<string, { product_order_id: string; order_revision: number; order_hash: string; request_key: string; command: any }>()
+const intents = new Map<string, any>()
 let uid: string | null = null, workspace: string | null = null, orderId: string | null = null
 let browser: any, context: any, page: any, userDb: any
 let step = 'preflight', failed = false, beforeRecorded = false
@@ -49,7 +50,7 @@ const recovery = () => {
   const journal = path.join(out, 'ownership.json')
   const fd = fs.openSync(`${journal}.tmp`, 'w')
   try {
-    fs.writeFileSync(fd, JSON.stringify({ run, uid, workspace, orderId, registrations: [...registrations.values()], scope: 'Owned synthetic fixture; retain append-only history, close/withdraw/suspend only' }, null, 2) + '\n')
+    fs.writeFileSync(fd, JSON.stringify({ run, uid, workspace, orderId, intents: Object.fromEntries(intents), registrations: [...registrations.values()], scope: 'Owned synthetic fixture; retain append-only history, close/withdraw/suspend only' }, null, 2) + '\n')
     fs.fsyncSync(fd)
   } finally { fs.closeSync(fd) }
   fs.renameSync(`${journal}.tmp`, journal)
@@ -90,8 +91,13 @@ try {
   beforeRecorded = true
   step = 'create-owned-account'
   const email = liveFixtureEmail(run), password = `D3!aA1${randomBytes(28).toString('base64url')}`
-  const created: any = must(await adminDb.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { name: 'D3 controlled verification', e2e_run: run, synthetic: true } }), 'create_owned_user')
-  uid = created.user.id; recovery()
+  // The supported auth-admin id attribute fixes identity before any uncertain response; never journal credentials.
+  const account = { id: randomUUID(), email, email_confirm: true, user_metadata: { name: 'D3 controlled verification', e2e_run: run, synthetic: true } }
+  const created: any = await sendJournaledIntent({ intents, key: 'account', input: account, persist: recovery, send: async (params: any) => {
+    uid = params.id
+    return must(await adminDb.auth.admin.createUser({ ...params, password }), 'create_owned_user')
+  } })
+  assert.equal(created.user.id, uid); recovery()
   const owner: any = must(await adminDb.auth.admin.getUserById(uid), 'verify_owned_user')
   assertOwnedFixture(owner.user, uid, run)
   const promoted: any = must(await adminDb.from('user_profiles').update({ role: 'admin', status: 'active' }).eq('user_id', uid).select('role,status').single(), 'set_owned_test_role')
@@ -116,14 +122,15 @@ try {
   const taskIds = [...new Set([...template.core, ...template.support])]
   const plan = { order: taskIds, tasks: taskIds.map(task => ({ task, available: 0, planned: null })) }
   const commit = async (expected: number, reason: string) => {
-    const rows: any = must(await adminDb.rpc('learner_workspace_plan_commit', { p_user: uid, p_template: template.id, p_template_tasks: taskIds, p_canon: CANON_VERSION, p_plan: plan, p_reason: reason, p_note: `${prefix}: synthetic test, no learner recommendation or production`, p_as_of: new Date().toISOString(), p_goal_version: null, p_expected_version: expected, p_client_key: randomUUID(), p_restore_of: null }), 'owned_plan_commit')
+    const input = { p_user: uid, p_template: template.id, p_template_tasks: taskIds, p_canon: CANON_VERSION, p_plan: plan, p_reason: reason, p_note: `${prefix}: synthetic test, no learner recommendation or production`, p_as_of: new Date().toISOString(), p_goal_version: null, p_expected_version: expected, p_client_key: randomUUID(), p_restore_of: null }
+    const rows: any = await sendJournaledIntent({ intents, key: `plan:${expected}`, input, persist: recovery, send: async (params: any) => must(await adminDb.rpc('learner_workspace_plan_commit', params), 'owned_plan_commit') })
     assert.equal(rows[0].plan_version, expected + 1); return rows[0]
   }
   workspace = (await commit(0, 'initial')).workspace_id; recovery()
   const canonical = canonicalJson({ v: 2, user: uid, template: template.id, workspaceId: workspace, goalVersion: null, planVersion: 1, definitionVersion: CANON_VERSION, core: 'r.central_meaning', support: [], lines: [{ role: 'guided_practice', task: 'r.central_meaning', n: 4, types: ['R-TOPIC'], keys: [], requires: {}, reason: `${prefix}: controlled test only` }] })
   const demand: any = must(await userDb.rpc('workspace_demand_record', { p_canonical: canonical }), 'owned_demand')
   const line: any = must(await userDb.from('workspace_content_demand_line').select('id').eq('demand_id', demand).eq('user_id', uid).single(), 'owned_line')
-  orderId = must(await userDb.rpc('factory_order_open', { p_line: line.id, p_reason: 'initial', p_quantity: 4, p_request_key: randomUUID() }), 'owned_order') as string; recovery()
+  orderId = await sendJournaledIntent({ intents, key: 'personal-order', input: { p_line: line.id, p_reason: 'initial', p_quantity: 4, p_request_key: randomUUID() }, persist: recovery, send: async (params: any) => must(await userDb.rpc('factory_order_open', params), 'owned_order') }) as string; recovery()
   const spec = specFromDemand(canonical, 0)
   const register = async (suffix: string, revision: number) => {
     const sealed = lineageOrder(`${prefix}-${suffix}`, revision)
@@ -175,9 +182,27 @@ try {
   step = 'owned-cleanup'
   try {
     if (uid) {
-      const own: any = must(await adminDb.auth.admin.getUserById(uid), 'cleanup_verify_ownership')
-      assertOwnedFixture(own.user, uid, run)
+      await verifyOwnedFixture({ expectedId: uid, run,
+        lookupAuth: async () => (must(await adminDb.auth.admin.getUserById(uid), 'cleanup_verify_ownership') as any).user,
+        lookupDb: async () => (await sql.query('select id,raw_user_meta_data user_metadata from auth.users where id=$1', [uid])).rows[0],
+      })
       const operations: Array<[string, () => Promise<void>]> = []
+      operations.push(['recover-workspace-identity', async () => {
+        if (!workspace && intents.has('plan:0')) {
+          const params = intents.get('plan:0'); assert.equal(params.p_user, uid)
+          const rows: any = must(await adminDb.rpc('learner_workspace_plan_commit', params), 'recover_owned_workspace')
+          workspace = rows[0].workspace_id; recovery()
+        }
+      }])
+      operations.push(['recover-order-identity', async () => {
+        if (!orderId && intents.has('personal-order')) {
+          assert.ok(userDb)
+          const params = intents.get('personal-order')
+          const line = (await sql.query('select user_id from public.workspace_content_demand_line where id=$1', [params.p_line])).rows[0]
+          assert.equal(line?.user_id, uid)
+          orderId = must(await userDb.rpc('factory_order_open', params), 'recover_owned_order') as string; recovery()
+        }
+      }])
       for (const entry of registrations.values()) operations.push([`withdraw:${entry.product_order_id}:${entry.order_revision}`, async () => {
         await reconcileOwnedRegistration({ entry, run, actor: uid,
           settle: async (command: any) => { must(await adminDb.rpc('factory_product_order_register', { p_actor: uid, p_canonical: canonicalJson(command.order), p_hash: command.order_hash, p_spec: command.spec, p_quantity: command.quantity, p_reason: command.reason, p_request: command.request_key }), 'settle_owned_registration') },

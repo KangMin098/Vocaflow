@@ -8,6 +8,13 @@ export function assertOwnedFixture(user, expectedId, run) {
   if (!user || user.id !== expectedId || user.user_metadata?.e2e_run !== run || user.user_metadata?.synthetic !== true)
     throw new Error('Fixture ownership mismatch; do not change this account')
 }
+export async function verifyOwnedFixture({ expectedId, run, lookupAuth, lookupDb }) {
+  let user
+  try { user = await lookupAuth() }
+  catch { user = await lookupDb() }
+  // An available but mismatched identity is never overridden by a fallback.
+  assertOwnedFixture(user, expectedId, run)
+}
 export function assertOwnedProduct(id, run) {
   if (typeof id !== 'string' || !id.startsWith(`D3-LIVE-${run}-`))
     throw new Error('Product does not belong to this exact fixture run')
@@ -30,16 +37,19 @@ function registrationIdentity(command, run) {
 export async function sendOwnedRegistration({ command, run, registrations, persist, send }) {
   const entry = registrationIdentity(command, run)
   const key = `${entry.product_order_id}:${entry.order_revision}`
-  const previous = registrations.get(key)
-  registrations.set(key, entry)
+  return sendJournaledIntent({ intents: registrations, key, input: entry, persist, send: () => send(command) })
+}
+export async function sendJournaledIntent({ intents, key, input, persist, send }) {
+  const previous = intents.get(key)
+  intents.set(key, input)
   // A durable write-ahead record is required even when the server commits but its response is lost.
   try { persist() }
   catch (error) {
-    if (previous) registrations.set(key, previous)
-    else registrations.delete(key)
+    if (previous) intents.set(key, previous)
+    else intents.delete(key)
     throw error
   }
-  return send(command)
+  return send(input)
 }
 export async function reconcileOwnedRegistration({ entry, run, actor, settle, lookup, withdraw }) {
   assertOwnedProduct(entry.product_order_id, run)

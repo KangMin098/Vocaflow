@@ -2,7 +2,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import { assertLiveFixtureOptIn, assertOwnedFixture, assertOwnedProduct, liveFixtureEmail, sendOwnedRegistration, reconcileOwnedRegistration, runCleanupSteps } from './live-fixture-safety.mjs'
+import { assertLiveFixtureOptIn, assertOwnedFixture, verifyOwnedFixture, assertOwnedProduct, liveFixtureEmail, sendOwnedRegistration, sendJournaledIntent, reconcileOwnedRegistration, runCleanupSteps } from './live-fixture-safety.mjs'
 
 test('live fixture is default-off and cannot run in CI', () => {
   assert.throws(() => assertLiveFixtureOptIn([], {}))
@@ -120,4 +120,47 @@ test('a journal command mismatch is rejected before replay can change any row', 
   const entry = { product_order_id: cmd.order.product_order_id, order_revision: 2, order_hash: cmd.order_hash, request_key: cmd.request_key, command: cmd }
   await assert.rejects(reconcileOwnedRegistration({ entry, run: 'run-a', actor: 'owned', settle: async () => { settled = true }, lookup: async () => assert.fail(), withdraw: async () => assert.fail() }), /Journal command mismatch/)
   assert.equal(settled, false)
+})
+test('ownership auth outage falls back to exact DB metadata so role removal and banning continue', async () => {
+  const calls = []
+  await verifyOwnedFixture({ expectedId: 'owned', run: 'run-a', lookupAuth: async () => { throw Error('auth unavailable') }, lookupDb: async () => {
+    calls.push('db-identity'); return { id: 'owned', user_metadata: { e2e_run: 'run-a', synthetic: true } }
+  } })
+  const errors = await runCleanupSteps([['remove-role', async () => { calls.push('remove-role') }], ['ban', async () => { calls.push('ban') }]])
+  assert.deepEqual(errors, [])
+  assert.deepEqual(calls, ['db-identity', 'remove-role', 'ban'])
+})
+test('ownership mismatch is never overridden by fallback and dual outages remain failed', async () => {
+  let fallback = false
+  await assert.rejects(verifyOwnedFixture({ expectedId: 'owned', run: 'run-a', lookupAuth: async () => ({ id: 'other', user_metadata: {} }), lookupDb: async () => { fallback = true } }), /ownership mismatch/)
+  assert.equal(fallback, false)
+  await assert.rejects(verifyOwnedFixture({ expectedId: 'owned', run: 'run-a', lookupAuth: async () => { throw Error('auth unavailable') }, lookupDb: async () => { throw Error('db unavailable') } }), /db unavailable/)
+})
+test('plan and personal order commit-then-response-loss recover exact UUID/full body and close both resources', async () => {
+  const intents = new Map(), durable = new Map(), rows = new Map(), closed = []
+  const persist = () => { for (const [key, value] of intents) durable.set(key, JSON.parse(JSON.stringify(value))) }
+  const plan = { p_user: 'owned', p_client_key: 'plan-request', p_as_of: '2026-10-20T00:00:00.000Z', p_plan: { tasks: [] }, p_expected_version: 0 }
+  const order = { p_line: 'owned-line', p_request_key: 'order-request', p_quantity: 4, p_reason: 'initial' }
+  const rpc = async input => {
+    const key = input.p_client_key ?? input.p_request_key
+    if (rows.has(key)) { assert.deepEqual(rows.get(key).input, input); return rows.get(key).id }
+    const id = input.p_client_key ? 'owned-workspace' : 'owned-order'
+    rows.set(key, { input: JSON.parse(JSON.stringify(input)), id }); return id
+  }
+  for (const [key, input] of [['plan:0', plan], ['personal-order', order]]) {
+    await assert.rejects(sendJournaledIntent({ intents, key, input, persist, send: async params => {
+      assert.deepEqual(durable.get(key), input)
+      await rpc(params); throw Error('response lost after commit')
+    } }), /response lost/)
+  }
+  let workspace = null, orderId = null
+  const errors = await runCleanupSteps([
+    ['recover-workspace', async () => { workspace = await rpc(durable.get('plan:0')) }],
+    ['recover-order', async () => { orderId = await rpc(durable.get('personal-order')) }],
+    ['close-order', async () => { assert.equal(orderId, 'owned-order'); closed.push(orderId) }],
+    ['close-workspace', async () => { assert.equal(workspace, 'owned-workspace'); closed.push(workspace) }],
+  ])
+  assert.deepEqual(errors, [])
+  assert.equal(rows.size, 2, 'Recovery must not create a second plan or order')
+  assert.deepEqual(closed, ['owned-order', 'owned-workspace'])
 })
