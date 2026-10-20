@@ -14,13 +14,11 @@
 //   5. 훅 우회                git commit/push --no-verify
 // git commit 이면 커밋 전 검사를 더 돈다:
 //   · 커밋될 추가 줄의 비밀값 패턴 · .env 파일 커밋
-//   · 에이전트 설정 파일이 끼면 agents/scripts/check.mjs (D1–D3)
-//   · 커밋될 apps/web 의 .ts/.tsx 에 eslint (오류만 차단)
+//   (eslint · check.mjs 는 CI verify 가 맡는다)
 //
 // 시험: echo '{"tool_name":"Bash","tool_input":{"command":"rm -rf x"}}' | node agents/scripts/guard.mjs --agent test
 // 판정만 보기: node agents/scripts/guard.mjs --explain "git push -f origin x"   (커밋 전 검사는 돌지 않는다)
 
-import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { isSingleCommand, parseApply } from './db-approval.mjs'
@@ -259,8 +257,6 @@ export function explain(cmd, depth = 0) {
 
 // ── 커밋 전 검사 ─────────────────────────────────────────────────────────
 
-const AGENT_CONFIG = /^(AGENTS\.md|CLAUDE\.md|\.mcp\.json|agents\/|\.codex\/|\.claude\/settings\.json)/
-
 /** git commit 세그먼트 → 커밋될 경로(null = 인덱스 전체) */
 function commitPaths(args) {
   const { rest } = gitSub(args)
@@ -320,27 +316,7 @@ export function precommit(args) {
   const scan = files.filter((f) => !/\.(png|jpe?g|gif|webp|pdf|zip|glb|woff2?|mp3|mp4|wav)$/i.test(f))
   const hits = findSecrets(addedText(sel, scan))
   if (hits.length) reasons.push(`커밋될 줄에 비밀값 패턴 ${hits.length}건: ${[...new Set(hits.map((h) => h.name))].join(', ')}`)
-
-  if (files.some((f) => AGENT_CONFIG.test(f))) {
-    const r = spawnSync(process.execPath, [path.join(ROOT, 'agents/scripts/check.mjs'), '--quiet'], { cwd: ROOT, encoding: 'utf8' })
-    if (r.status !== 0) reasons.push(`에이전트 설정 검사 실패(node agents/scripts/check.mjs):\n${(r.stdout + r.stderr).trim()}`)
-  }
-
-  const lintable = files
-    .filter((f) => /^apps\/web\/.*\.(tsx?|jsx?|mjs)$/.test(f) && fs.existsSync(path.join(ROOT, f)))
-    .map((f) => f.slice('apps/web/'.length))
-  if (lintable.length && process.env.AGENT_GUARD_SKIP_LINT !== '1') {
-    const eslint = path.join(ROOT, 'apps/web/node_modules/.bin', process.platform === 'win32' ? 'eslint.cmd' : 'eslint')
-    if (fs.existsSync(eslint)) {
-      const r = spawnSync(eslint, ['--quiet', ...lintable], {
-        cwd: path.join(ROOT, 'apps/web'),
-        encoding: 'utf8',
-        shell: process.platform === 'win32',
-        timeout: 150_000,
-      })
-      if (r.status === 1) reasons.push(`eslint 오류(커밋될 파일 ${lintable.length}개):\n${(r.stdout || '').trim().slice(0, 3000)}`)
-    }
-  }
+  // eslint · check.mjs 는 CI verify 가 같은 내용을 검사한다 — 커밋마다 다시 돌리지 않는다(2026-10-20 개발 단계 간소화)
   return reasons
 }
 
