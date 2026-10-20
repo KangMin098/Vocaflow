@@ -71,10 +71,9 @@ jobs:
   # 실 백엔드 불요: force-dynamic 페이지는 build-time 에 미실행 → placeholder env 로 충분
   # (CI 시뮬레이션으로 .env.local 없이 green 확인). lint 는 verify job 이 담당.
   build:
-    needs: verify
     runs-on: ubuntu-latest
     env:
-      VOCAFLOW_VERIFIED_SHA: ${{ github.sha }}
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -117,11 +116,10 @@ jobs:
   #    (SERVICE_ROLE 은 DB 단언용 — 없으면 UI 검증만 하고 DB 단언은 건너뛴다)
   # 공유 개발 DB 통합 E2E(신뢰 경로) — 저장소 시크릿 필요 · PR 에서는 돌지 않는다(PR 필수는 아래 격리 e2e). main push · 수동 실행만
   e2e-shared-dev:
-    needs: verify
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     env:
-      VOCAFLOW_VERIFIED_SHA: ${{ github.sha }}
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -204,10 +202,9 @@ jobs:
   #   러너 안 로컬 Supabase(supabase start · 로컬 데모 키) → 저장소 마이그레이션 실제 적용(파일별 · 기준 목록 밖 실패 = 실패)
   #   → 실제 Next.js 빌드 · 기동 → Playwright 실제 브라우저 → DB 단언(목표 행 · RLS) → 러너와 함께 폐기
   e2e:
-    needs: verify
     runs-on: ubuntu-latest
     env:
-      VOCAFLOW_VERIFIED_SHA: ${{ github.sha }}
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -304,10 +301,9 @@ jobs:
   #   일회용 DB 에서 Reveal Gate 서비스 RPC 셋을 실제로 DROP 해(진짜 부재) 앱이 fail-closed 로 닫히는지 본다.
   #   앱 플래그 · 가짜 RPC 없음. 이 job 의 spec 은 tests/e2e-isolated-fault(playwright.isolated-fault.config.ts)만 — 주 격리 job 과 겹치지 않는다.
   e2e-gate-faultclosed:
-    needs: verify
     runs-on: ubuntu-latest
     env:
-      VOCAFLOW_VERIFIED_SHA: ${{ github.sha }}
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4

@@ -6,13 +6,14 @@ import os from 'node:os'
 import path from 'node:path'
 import { spawnSync, execFileSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { decide } from '../safe-merge.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const bash = process.platform === 'win32' ? 'C:/Program Files/Git/bin/bash.exe' : 'bash'
 
-test('Next 빌드 중복 검사 생략은 동일 SHA의 선행 CI verify에만 적용되고 로컬·다른 SHA에는 적용되지 않는다', async () => {
+test('Next 빌드 검사는 동일 SHA의 필수 병렬 CI에 위임하고 로컬·다른 SHA에는 위임하지 않는다', async () => {
   const config = (await import(pathToFileURL(path.join(root, 'apps/web/next.config.mjs')))).default
-  const keys = ['CI', 'GITHUB_SHA', 'VOCAFLOW_VERIFIED_SHA']
+  const keys = ['CI', 'GITHUB_SHA', 'VOCAFLOW_STATIC_CHECK_SHA']
   const before = keys.map((k) => process.env[k])
   const sha = 'a'.repeat(40)
   try {
@@ -31,7 +32,20 @@ test('Next 빌드 중복 검사 생략은 동일 SHA의 선행 CI verify에만 �
   }
   const workflow = fs.readFileSync(path.join(root, '.github/workflows/ci.yml'), 'utf8')
   for (const job of ['build', 'e2e', 'e2e-shared-dev', 'e2e-gate-faultclosed']) {
-    assert.match(workflow, new RegExp(`  ${job}:\\r?\\n    needs: verify`))
+    const block = workflow.split(`  ${job}:`)[1].split(/\r?\n  [a-z][\w-]*:/)[0]
+    assert.doesNotMatch(block, /needs: verify/)
+    assert.match(block, /VOCAFLOW_STATIC_CHECK_SHA: \$\{\{ github.sha \}\}/)
+  }
+  const policy = JSON.parse(fs.readFileSync(path.join(root, 'agents/policies/pr-automation.json'), 'utf8'))
+  assert.ok(policy.required_checks.includes('verify'))
+  for (const result of ['FAILURE', 'CANCELLED', 'SKIPPED', '']) {
+    const checks = policy.required_checks.map((name) => ({
+      name, status: name === 'verify' && !result ? 'IN_PROGRESS' : 'COMPLETED',
+      conclusion: name === 'verify' ? result : 'SUCCESS',
+    }))
+    assert.equal(decide({ state: 'OPEN', mergeable: 'MERGEABLE', statusCheckRollup: checks }, {
+      required: policy.required_checks,
+    }).ok, false, `parallel builds cannot replace verify: ${result || 'pending'}`)
   }
 })
 

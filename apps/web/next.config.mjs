@@ -310,15 +310,16 @@ export default (phase) => {
   const distDir = process.env.NEXT_DIST_DIR || (isDev ? '.next-dev' : '.next')
   if (isDev) claimDistDir(distDir)
   else if (phase === PHASE_PRODUCTION_BUILD) assertDistDirFree(distDir)
-  // CI의 동일 SHA verify가 먼저 통과한 빌드만 lint/typecheck를 재사용한다.
+  // CI는 동일 SHA의 필수 verify에서 lint/typecheck를 병렬 실행한다.
+  // verify 실패·취소·미실행은 별도 필수 체크로 병합을 차단한다.
   // 로컬 빌드와 근거 없는 환경에서는 기존 검사를 그대로 실행한다.
-  const verifiedCi = process.env.CI === 'true'
+  const parallelCiChecks = process.env.CI === 'true'
     && /^[0-9a-f]{40}$/.test(process.env.GITHUB_SHA || '')
-    && process.env.VOCAFLOW_VERIFIED_SHA === process.env.GITHUB_SHA
+    && process.env.VOCAFLOW_STATIC_CHECK_SHA === process.env.GITHUB_SHA
   return {
     ...nextConfig,
     distDir,
-    eslint: { ...nextConfig.eslint, ignoreDuringBuilds: verifiedCi },
-    typescript: { ignoreBuildErrors: verifiedCi },
+    eslint: { ...nextConfig.eslint, ignoreDuringBuilds: parallelCiChecks },
+    typescript: { ignoreBuildErrors: parallelCiChecks },
   }
 }
