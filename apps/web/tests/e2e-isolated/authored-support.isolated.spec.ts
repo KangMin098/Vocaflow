@@ -46,9 +46,9 @@ async function noOverflow(page: Page) {
   const o = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(o, '가로 넘침').toBeLessThanOrEqual(1)
 }
-async function commitPlan(page: Page, template: string, order: string[]) {
+async function commitPlan(page: Page, template: string, order: string[], o: { reason?: string; expectedVersion?: number; goal?: number } = {}) {
   const r = await page.request.post('/api/csat/diagnosis/map/plan', {
-    data: { template, order, planned: {}, reason: 'initial', expectedVersion: 0, clientKey: crypto.randomUUID() },
+    data: { template, order, planned: {}, reason: o.reason ?? 'initial', expectedVersion: o.expectedVersion ?? 0, ...(o.goal ? { expectedGoalVersion: o.goal } : {}), clientKey: crypto.randomUUID() },
   })
   expect(r.status(), `계획 확정 ${template}: ${await r.text()}`).toBe(200)
 }
@@ -56,6 +56,8 @@ async function openWs(page: Page, template: string) {
   await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
   await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
   const row = page.locator(`[data-testid="ws-row"][data-ws="${template}"]`)
+  // 자료 준비 중 행은 접힌 묶음 안 — 사용자처럼 펼친다
+  if ((await row.getAttribute('data-kind')) === 'preparing' && !(await row.isVisible())) await page.locator('[data-testid="ws-preparing"] > summary').click()
   await expect(row, `${template} 행`).toBeVisible()
   await row.locator('[data-testid="ws-open"]').click()
   return row
@@ -84,7 +86,7 @@ async function solve(page: Page, href: string, act: (runner: ReturnType<Page['lo
   return u.searchParams.get('d')!
 }
 const snapshot = async (uid: string) => ({
-  plans: (await admin().from('learner_workspace_plan').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count,
+  plans: ((await admin().from('learner_workspace_plan').select('reason, plan_version').eq('user_id', uid).order('plan_version')).data ?? []).map((r) => r.reason),
   goals: (await admin().from('csat_map_goal_version').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count,
 })
 
@@ -95,9 +97,17 @@ for (const width of [1440, 1280]) {
     const a = await makeUser(`td${width}`)
     await login(page, a)
     const T = 'ws.evidence-locate', TASK = 'e.task_demand'
-    await commitPlan(page, T, ['e.evidence_location', TASK])
+    const ORDER = ['e.evidence_location', TASK]
+    // 실제 학습자 흐름 — 시험 기록 → 목표 → PLAN(journey-evidence 와 같은 API)
+    const today = new Date(Date.now() + 9 * 3600_000).toISOString().slice(0, 10)
+    const ex = await page.request.post('/api/csat/diagnosis/sessions', { data: { examId: 'M9901', mode: 'live', takenAt: today, clientKey: crypto.randomUUID(), choices: Object.fromEntries(Array.from({ length: 45 }, (_, i) => [i + 1, ((i + 1) % 5) + 1])) } })
+    expect(ex.status(), await ex.text()).toBe(200)
+    const g = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, exam: 'kice6', clientKey: crypto.randomUUID() } })
+    expect(g.status(), await g.text()).toBe(200)
+    const goal = (await g.json() as { goalVersionId: number }).goalVersionId
+    await commitPlan(page, T, ORDER, { goal })
     const before = await snapshot(a.id)
-    expect(before.plans).toBe(1)
+    expect(before.plans).toEqual(['initial'])
 
     await openWs(page, T)
     const card = page.locator(`[data-testid="ws-authored-support"][data-task="${TASK}"]`)
@@ -114,6 +124,7 @@ for (const width of [1440, 1280]) {
     expect(first.length).toBeGreaterThan(0)
     expect(first.every((d) => d.artifact_ref.startsWith('authored:td-')), '보조 TASK 자기 자료만').toBe(true)
     expect(first.every((d) => d.role === 'independent_check'), '첫 수요 = 혼자 확인').toBe(true)
+    await commitPlan(page, T, ORDER, { reason: 'content_change', expectedVersion: 1, goal })
 
     // 첫 독립 확인 2 — 둘 다 오답(서버 채점)
     const hrefs = await list.locator('li[data-role="independent_check"] a').evaluateAll((as) => as.map((x) => x.getAttribute('href')!))
@@ -129,6 +140,10 @@ for (const width of [1440, 1280]) {
     }
     const attempts = (await admin().from('learning_task_attempts').select('task_key, is_correct').eq('user_id', a.id)).data ?? []
     expect(attempts.map((x) => [x.task_key, x.is_correct])).toEqual([[TD.taskKey, false], [TD.taskKey, false]])
+    await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', a.id)).data ?? []).filter((b) => b.evidence === true).length, { timeout: 15_000 }).toBe(2)
+    // 확인 결과로 계획을 다시 확정(학습자 동작) — 서버가 그 TASK 의 단계를 바로잡기로 옮긴다
+    await commitPlan(page, T, ORDER, { reason: 'check_result', expectedVersion: 2, goal })
+    await openWs(page, T)
 
     // 다음 단계 — 서버가 지금 계획으로 수요를 다시 만든다: 바로잡기(교수 · 안내 연습)만, 평가 역할 없음
     const dialog = page.locator(`[role="dialog"][data-ws="${T}"]`)
@@ -143,7 +158,9 @@ for (const width of [1440, 1280]) {
 
     // 중심 TASK · 계획 · 목표 이력 불변
     expect(all.some((d) => d.artifact_ref.startsWith('authored:ev-')), '중심 TASK 자료 공급 없음').toBe(false)
-    expect(await snapshot(a.id)).toEqual(before)
+    // 계획 이력 = 학습자가 확정한 세 번뿐 · 목표 이력 불변 · 중심 과제 시도 없음
+    expect(await snapshot(a.id)).toEqual({ plans: ['initial', 'content_change', 'check_result'], goals: before.goals })
+    expect(((await admin().from('learning_task_attempts').select('task_key').eq('user_id', a.id)).data ?? []).every((x) => x.task_key === TD.taskKey)).toBe(true)
     await noOverflow(page)
   })
 }
