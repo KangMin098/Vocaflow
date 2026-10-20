@@ -1,0 +1,214 @@
+{
+  "recorded_at": "2026-10-20T17:48:07.352Z",
+  "task": "T-0068",
+  "revision": "rev1",
+  "head": "8ec7d978d94217fd2a85c5b95e16e86eb5e13111",
+  "base": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+  "decision": "REWORK",
+  "official_status_at_review": "IN_PROGRESS; implementation preview before formal submission",
+  "new_pr": {
+    "baseRefOid": "9ba70cfcca6fb197b8e9fa966a19c1812835c52f",
+    "headRefOid": "8ec7d978d94217fd2a85c5b95e16e86eb5e13111",
+    "number": 324,
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609541/job/118786450654",
+        "name": "verify",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:44:12Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609547/job/118786451532",
+        "name": "docs/*.md broken link check",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:46:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609541/job/118786451356",
+        "name": "build",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:44:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609547/job/118786451390",
+        "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+        "startedAt": "2026-10-20T17:43:52Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:43:50Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609541/job/118786453539",
+        "name": "e2e-shared-dev",
+        "startedAt": "2026-10-20T17:43:51Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:44:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609547/job/118786451188",
+        "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609541/job/118786451131",
+        "name": "e2e",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-20T17:44:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609547/job/118786450713",
+        "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "COMPLETED",
+        "workflowName": "sync-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/KangMin098/Vocaflow/actions/runs/39468609541/job/118786451396",
+        "name": "e2e-gate-faultclosed",
+        "startedAt": "2026-10-20T17:43:53Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "CI"
+      }
+    ],
+    "url": "https://github.com/KangMin098/Vocaflow/pull/324"
+  },
+  "paths": [
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/authored-responses.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/authored-responses.ts",
+    "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+    "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+    "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+    "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+    "apps/web/tests/e2e-isolated/authored-format-cycle.isolated.spec.ts",
+    "docs/final/APPROVAL_PACKAGE.md",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "hashes": [
+    {
+      "path": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "sha256": "0d95c0aa0545cb8084794ab1027e18f372312c4c8c9807507f2ac4e1b946173f"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "sha256": "969d626fafccd476e3a896fbfdc2fece4c6e9e79bc60a79525df0edb54c23cb5"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "sha256": "830fd3658fc7fc0c0ac2d01993b2b019711c2e1b6f3965546e91ac5ae750fb55"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "sha256": "e35d4fd60d558ba7bf1fa87b31ddac88b01e1e7976003bee8bd73d3ec0ef055b"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358"
+    }
+  ],
+  "actual_independent_execution": [
+    {
+      "command": "vitest run --config verification/reviews/T-0068-r1-independent/probe.config.mjs",
+      "passed": 55,
+      "failed": 0,
+      "skip": 0,
+      "duration_seconds": 3.26
+    },
+    {
+      "command": "vitest run authored-responses.test.ts authored-flow.pglite.test.ts",
+      "passed": 61,
+      "failed": 0,
+      "skip": 0,
+      "duration_seconds": 16.04
+    }
+  ],
+  "content_review": {
+    "items_read": 39,
+    "semantic_P1": [
+      "T0068-P1-1 gs-ind-3 valid active progressive misclassified as grammatical error",
+      "T0068-P1-2 sc-transfer-2 reverse high-altitude yeast claim"
+    ],
+    "nonblocking": [
+      "unsupported precise research framing",
+      "non-live no_content label; actual supply CTA remains available"
+    ]
+  },
+  "browser": "NOT_VERIFIED; official new pull_request isolated workflow authorized; no shared-dev dispatch",
+  "db_writes": 0,
+  "human_approvals": 0,
+  "delivery": "LOCAL_INBOX_POSTED; original implementation ACK observed, corrective ACK not yet observed"
+}
