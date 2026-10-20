@@ -24,8 +24,10 @@ import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
 import { FQ_READER_LABEL } from '@/lib/csat/map/v62/assessment-exposure'
 import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
-import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
+import { checkKeysOfTask, evidenceKeysOfTask, type TaskId } from '@/lib/csat/map/v4/definition'
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { returnRecap } from '@/lib/csat/map/v62/return-recap'
+import { replanNeeded } from '@/lib/csat/map/v62/next-action'
 import { abilityNow, fallbackActions, isAiOnly, PRINCIPLE_STEPS, PROGRESS_LABEL, principleItem, returnSummary, SUPPLY_BUCKET_LABEL, supplyBucket } from '@/lib/csat/map/v62/learner-guide'
 import type { ReturnNote } from '@/lib/csat/map/v62/return-ctx'
 
@@ -165,9 +167,18 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
   const ip = view.evidence?.[t.id]?.instructionPath
   // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
-  const transferDone = !!ip && ip.transferPlanned !== null && ip.transferDone > 0 && ip.transferDone >= ip.transferPlanned
+  // T-0062 — 0편 · 일부(n/m) · 계획만큼 · 확인 불가를 섞지 않는다(1/2편을 「기록 없음」 · 「마쳤어요」로 말하지 않는다)
+  const recap = returnRecap({
+    keys: evidenceKeysOfTask(t.id as TaskId),
+    attempts: data.findAttempts,
+    activity: data.lifecycleActivity,
+    transfer: ip,
+    history: savedWs?.history ?? [],
+    proposalDiffers: !!home && replanNeeded(t.id as TaskId, home, view, data.v4?.saved),
+  })
+  const transferDone = recap.transfer.state === 'complete'
   const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
-  const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
+  const summary = returned ? returnSummary({ check, taskDisplay: t.display, recap, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 
   return (
     <aside className={u.inspector} aria-labelledby="ins-h" data-testid="task-inspector" data-task={t.id}>

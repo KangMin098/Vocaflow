@@ -1,0 +1,80 @@
+// apps/web/src/lib/csat/map/v62/return-recap.ts
+//
+// T-0062 — 학습 후 같은 지도로 돌아왔을 때의 짧은 정리. 새 판정을 하지 않고 서버가 이미 본인 · TASK · 납품으로 검증한 기록만 읽는다.
+//   latest   — 이 TASK 의 가장 최근 수행 기록 하나와, 그것이 독립 근거로 셌는지(As-Is 와 같은 자격 isEligible · 확인 과제 · 화면 종류)
+//   transfer — 처음 보는 지문 적용: 0편 · 일부(n/m) · 계획만큼 · 확인 불가(근거를 못 읽음)를 섞지 않는다
+//   plan     — 이 묶음의 저장 계획 최신 · 직전 버전과 바꾼 이유 · 지금 재계산이 저장본과 다른지(다르면 제안이지 저장이 아니다)
+// 기록을 못 읽었으면 「확인할 수 없어요」 — 0 이나 「없음」 으로 바꾸지 않는다. 과거 상태를 추정해 전후 수치를 만들지 않는다.
+
+import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
+import { isEligible } from '@/lib/knowledge/effect-signals'
+
+import { isInstructional, type ActivityRow } from '../lifecycle-evidence'
+import type { PlanReason, SavedPlanVersion } from '../v4/plan-commit'
+
+export type LatestKind = 'independent_counted' | 'independent_not_counted' | 'guided' | 'transfer' | 'other'
+
+export interface ReturnRecap {
+  latest: { state: 'unknown' } | { state: 'none' } | { state: 'found'; kind: LatestKind; isCorrect: boolean | null; at: string }
+  transfer: { state: 'unknown' } | { state: 'none' | 'partial' | 'complete'; done: number; planned: number | null }
+  plan: null | { version: number; reason: PlanReason; prev: { version: number; reason: PlanReason } | null; proposalDiffers: boolean }
+}
+
+export function returnRecap(input: {
+  keys: readonly string[]
+  /** As-Is 판정과 같은 첫 시도 기록 — undefined = 조회 실패 */
+  attempts: readonly FindAttemptRow[] | undefined
+  /** 생애주기 수행 기록(안내 연습 · 적용 포함) — undefined = 조회 실패 */
+  activity: readonly ActivityRow[] | undefined
+  /** evidence-claims 의 instructionPath(전이 수행 · 계획) — undefined = 근거를 못 읽음 */
+  transfer: { transferDone: number; transferPlanned: number | null } | undefined
+  /** 이 묶음 저장 이력(최신 먼저) — 없으면 [] */
+  history: readonly SavedPlanVersion[]
+  /** 지금 재계산이 저장본과 어긋남(next-action 의 planDrift 판정 그대로) */
+  proposalDiffers: boolean
+}): ReturnRecap {
+  const keys = new Set(input.keys)
+  let latest: ReturnRecap['latest']
+  if (!input.attempts || !input.activity) latest = { state: 'unknown' }
+  else {
+    const rows = [
+      ...input.attempts.filter((a) => keys.has(a.taskKey) && a.answeredAt).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: independentKind(a) })),
+      ...input.activity.filter((a) => keys.has(a.taskKey) && a.answeredAt && !input.attempts!.some((f) => f.attemptId && f.attemptId === a.attemptId)).map((a) => ({ at: a.answeredAt!, isCorrect: a.isCorrect, kind: activityKind(a) })),
+    ].sort((x, y) => (x.at < y.at ? 1 : x.at > y.at ? -1 : 0))
+    latest = rows[0] ? { state: 'found', kind: rows[0].kind, isCorrect: rows[0].isCorrect, at: rows[0].at } : { state: 'none' }
+  }
+  const t = input.transfer
+  const transfer: ReturnRecap['transfer'] = !t ? { state: 'unknown' }
+    : { state: t.transferDone <= 0 ? 'none' : t.transferPlanned !== null && t.transferDone >= t.transferPlanned ? 'complete' : 'partial', done: t.transferDone, planned: t.transferPlanned }
+  const [cur, prev] = input.history
+  const plan: ReturnRecap['plan'] = cur ? { version: cur.version, reason: cur.reason, prev: prev ? { version: prev.version, reason: prev.reason } : null, proposalDiffers: input.proposalDiffers } : null
+  return { latest, transfer, plan }
+}
+
+/** As-Is(as-is.ts independent)와 같은 자격 — 확인 과제 화면 · 첫 시도 자격 · 정오 있음 */
+function independentKind(a: FindAttemptRow): LatestKind {
+  if (a.phase === 'transfer') return 'transfer'
+  if (a.activity === 'practice') return 'guided'
+  return a.phase === 'practice' && isEligible(a) && a.isCorrect !== null ? 'independent_counted' : 'independent_not_counted'
+}
+
+function activityKind(a: ActivityRow): LatestKind {
+  if (a.phase === 'transfer') return 'transfer'
+  if (isInstructional(a)) return 'guided'
+  return 'other'
+}
+
+export const LATEST_LABEL: Record<LatestKind, string> = {
+  independent_counted: '처음 보는 문항을 혼자 푼 기록 — 독립 근거로 셌어요',
+  independent_not_counted: '확인 문항 풀이 — 도움을 받았거나 이미 본 문항이라 독립 근거로 세지 않았어요',
+  guided: '안내 연습 — 바로잡기 기록이에요(독립 근거로 세지 않아요)',
+  transfer: '처음 보는 지문에 적용한 기록',
+  other: '학습 기록 — 독립 근거는 아니에요',
+}
+
+export function transferLine(t: ReturnRecap['transfer']): string {
+  if (t.state === 'unknown') return '처음 보는 지문 적용 기록을 지금 확인할 수 없어요.'
+  if (t.state === 'none') return '처음 보는 지문에 적용한 기록은 아직 없어요.'
+  if (t.state === 'partial') return `처음 보는 지문 적용 ${t.done}${t.planned !== null ? ` / ${t.planned}` : ''}편 — 아직 계획만큼 하지 않았어요(일부 수행은 완료가 아니에요).`
+  return `처음 보는 지문 적용 ${t.done}${t.planned !== null ? ` / ${t.planned}` : ''}편 — 계획만큼 했어요(적용 경험은 실력 판정이 아니에요).`
+}

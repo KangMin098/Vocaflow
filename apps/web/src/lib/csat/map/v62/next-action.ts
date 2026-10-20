@@ -52,10 +52,10 @@ function savedWsOf(ws: string | null, saved: Saved): SavedWorkspace | null {
 }
 
 /** 그 TASK 의 저장 계획이 지금 자료 · 단계와 어긋났나(PlanSection 의 재계획 제안과 같은 planDrift) */
-function replanNeeded(task: TaskId, ws: string, view: V4View, saved: Saved): boolean {
+export function replanNeeded(task: TaskId, ws: string, view: V4View, saved: Saved): boolean {
   const latest = savedWsOf(ws, saved)?.latest ?? null
   const pv = view.plans[ws]
-  if (!latest || !pv) return false
+  if (!latest?.plan?.tasks || !pv) return false
   const d = planDrift(latest, pv)
   return !!d && (d.content.some((c) => c.task === task) || d.stages.includes(task) || d.overAvailable.includes(task))
 }
