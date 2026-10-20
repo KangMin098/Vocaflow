@@ -186,6 +186,11 @@ export function transferPlanned(t: AsIsTask, home: WorkspaceView | null, opts?: 
   return transferTarget(st?.ready ? st.count : 0, opts?.savedTransfer?.[t.id], TRANSFER_PASSAGES)
 }
 
+/** 자료가 아직 없을 때의 적용 목표 — 저장 계획량(1 이상)이 있으면 그것, 없으면 정본 2지문(transferTarget 과 같은 정책 · 가용량 없이) */
+function transferGoal(saved: number | null | undefined): number {
+  return saved !== null && saved !== undefined && Number.isInteger(saved) && saved >= 1 ? saved : TRANSFER_PASSAGES
+}
+
 const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', repair: 'blocked_items', transfer: 'transfer_pool', recheck: 'recheck_items' }
 
 /**
@@ -201,8 +206,11 @@ export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | n
   if (need.type !== 'REPAIR' || !home) return base
   if (!repairGate(t, activity).succeeded) return 'repair'
   // 적용 — 운영 계획량(저장 계획량 · 정본 2지문)을 채울 때까지. 1회 경험 ≠ 계획 완료. 자료가 없으면(null) 건너뛴다(완료로 꾸미지 않는다)
-  const planned = transferPlanned(t, home, opts)
-  if (planned !== null && doneOf('transfer', t, activity) < planned) return 'transfer'
+  // 적용 목표 = 운영 계획량(저장 계획량 · 정본 2지문). 아직 전이 자료를 **받지 않았다는 것**은 적용을 마친 것이 아니다(T-0052 Codex P1 —
+  //   전이 링크가 있어야 transfer 가 열리고 공급은 현재 단계로만 요청하던 순환). 목표가 남으면 transfer 에 머물고, 자료가 없으면 그 단계의
+  //   부족(no_transfer_items → material_needed)으로 보이며 수요는 전이 역할로 난다. 가용량 · 수행량은 만들어내지 않는다
+  const planned = transferPlanned(t, home, opts) ?? transferGoal(opts?.savedTransfer?.[t.id])
+  if (doneOf('transfer', t, activity) < planned) return 'transfer'
   // 바로잡기 성공 · 적용 운영 조건 충족 뒤에는 「다시 확인」 단계다 — 다시 확인 문항이 부족해도 성공한 바로잡기로 되돌리지 않는다(FI-011 B · 순환 방지).
   //   부족은 recheck.ready=false → material_needed(새 독립 확인 자료 필요)로 안내하고, 수요는 그 단계 역할(independent_check)로 만든다
   return 'recheck'

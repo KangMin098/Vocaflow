@@ -250,12 +250,19 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
   }
   const bindings = async (uid: string) => (await db.query<Row>('select * from workspace_delivery_attempt where user_id = $1 order by attempt_id', [uid])).rows
   const toRecheck = async (uid: string) => {
-    await supplyC(uid, 'check', 2); await supplyC(uid, 'transfer', 2); await supplyC(uid, 'repair', null)
+    // 전이 자료는 미리 넣지 않는다 — 바로잡기 성공 뒤 그 단계 수요로 실제 공급받아야 한다(T-0052 Codex P1: 선납품 fixture 가 순환을 가렸다)
+    await supplyC(uid, 'check', 2); await supplyC(uid, 'repair', null)
     await answer(uid, cfg.ind[0], false); await answer(uid, cfg.ind[1], false)
     let w = await world(uid)
     expect(w.task.status).toBe('verified_need'); expect(w.row.stage).toBe('repair')
     await answer(uid, cfg.guided, false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
-    await answer(uid, cfg.guided, true); w = await world(uid); expect(w.row.stage).toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    await answer(uid, cfg.guided, true); w = await world(uid)
+    expect(w.row.stage, '전이 자료가 아직 없어도 적용 단계(건너뛰지 않음)').toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
+    expect(w.row.unresolved, '자료가 없으면 부족으로 보인다(가용량을 만들지 않음)').toContain('material_needed')
+    const tr = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
+    expect(tr.status).toBe('ok'); if (tr.status !== 'ok') throw new Error('supply')
+    expect(tr.lines.map((l) => l.role), '적용 단계 수요 = 전이').toEqual(['transfer'])
+    expect(tr.lines[0].delivered.sort(), '서로 다른 전이 2지문 실제 공급').toEqual([ref(cfg.tr[0]), ref(cfg.tr[1])].sort())
     await answer(uid, cfg.tr[0], true); await answer(uid, cfg.tr[1], false)
     w = await world(uid); expect(w.row.stage).toBe('recheck'); expect(w.task.status, '전이는 독립 근거가 아니다').toBe('verified_need')
     const req = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })

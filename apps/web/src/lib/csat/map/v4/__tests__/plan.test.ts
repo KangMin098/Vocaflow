@@ -257,7 +257,8 @@ describe('FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 �
     const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
     const success = [{ itemRef: 'authored:g1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-09-12T00:00:00Z', receivedAt: '2026-09-12T00:00:00Z', repairRole: 'guided_practice', activity: 'practice' } as unknown as PlanActivity]
     const p = workspacePlan(cm, a, toBe, plan, success).tasks.find((t) => t.task === 'r.central_meaning')!
-    expect(p.stage).toBe('recheck')
+    // T-0052 Codex P1 — 전이 자료가 없으면 적용을 건너뛰지 않는다(적용 목표가 남음 → transfer 에 머물러 자료 필요 · 수요 = 전이). 바로잡기로 되돌리지도 않는다
+    expect(p.stage).toBe('transfer')
     expect(p.unresolved).toContain('material_needed')
     expect(p.next).toBeNull()
   })
