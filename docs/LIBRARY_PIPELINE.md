@@ -1,6 +1,8 @@
 # Library Pipeline
 
-Factory 주문 계보(2026-10-20, 사용자 승인 후 개발 DB 적용): 안정 커밋 `663f2eee8`의 정본 봉인/기획 5파일을 재사용한다. 별도 registry envelope로 개인 수요 서명·조건과 정확한 주문 판/해시·계획 문항을 결속한다. 등록/철회/요청 영수증은 추가 전용이며, 공용 자료는 학습자 간 재사용한다. 기존 후보 crosswalk·환산표·실제 생성/검수/출시/D2 납품 게이트는 유지한다. 실제 주문 생성이나 납품은 수행하지 않았다. [계약 및 기존 대비](admin-restructure/product-order-lineage.md) · [적용·사후 검증](admin-restructure/product-order-lineage-deployment.md).
+최종 계보 실행 검증(2026-10-20): 기존 계획/수요/주문 RPC와 관리자 API를 실제 프로덕션 실행에서 통제된 합성 계정으로 연결했다. 등록/연결/개정/철회/개인 변경의 실제 DB 및 화면이 통과했다. 검증 전용 현재 주문·Workspace·권한은 종료했고 생산·발행·개인 납품은 수행하지 않았다. [최종 구성·프로세스·정리 결과](admin-restructure/final-acceptance.md).
+
+Factory 주문 계보(2026-10-20, 사용자 승인 후 개발 DB 적용): 안정 커밋 `663f2eee8`의 정본 봉인/기획 5파일을 재사용한다. 별도 registry envelope로 개인 수요 서명·조건과 정확한 주문 판/해시·계획 문항을 결속한다. 등록/철회/요청 영수증은 추가 전용이며, 공용 자료는 학습자 간 재사용한다. 기존 후보 crosswalk·환산표·실제 생성/검수/출시/D2 납품 게이트는 유지한다. 후속 합성 주문 검증과 실제 생산/납품은 구분한다. [계약 및 기존 대비](admin-restructure/product-order-lineage.md) · [적용·사후 검증](admin-restructure/product-order-lineage-deployment.md).
 
 관리자 v2.1(2026-10-19)은 콘텐츠·교재·사전·관측의 작업 공간을 재배치하고 Compose·CCP·PDCP 내부 탭을 URL에 보존한다. CCP의 초안·보관 포함 목록은 제작본으로 표시한다. 실행 주체·발행/RPC·재수집 보호·외부 드레인은 기존 계약을 유지한다. Compose 17개 서버 액션은 입력·외부 조회·DB 접근 전 공통 관리자 검사를 수행한다. 새 큐·엔진·DB 변경은 없다. [구현·지원 범위](admin-restructure/v21-delivery.md).
 
