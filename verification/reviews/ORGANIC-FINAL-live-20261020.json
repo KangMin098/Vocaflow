@@ -1,0 +1,125 @@
+{
+  "at": "2026-10-20T10:02:32.386Z",
+  "controller_head": "687cf8fec15558dfd58df0bdccc9faa75b3b1f0d",
+  "actual_codex_author_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "live_runs": [
+    {
+      "run_id": "20261020T100018-ec0e99",
+      "pid": 18092,
+      "phase": "queue_wait",
+      "task_id": null
+    }
+  ],
+  "run_id": "20261020T100018-ec0e99",
+  "run_started": "2026-10-20T10:00:18.739Z",
+  "limits": {
+    "max_tasks": 3,
+    "max_minutes": 90,
+    "max_cost_usd": 15,
+    "claude_budget_usd": 5,
+    "max_review_rounds": 3,
+    "max_same_failure": 2,
+    "claude_timeout_ms": 1800000,
+    "codex_timeout_ms": 600000
+  },
+  "status": "running",
+  "phase": "queue_wait",
+  "events": [
+    {
+      "at": "2026-10-20T10:02:22.045Z",
+      "phase": "goal_check"
+    },
+    {
+      "at": "2026-10-20T10:02:22.536Z",
+      "phase": "select",
+      "goal_check": "verification/goal-check/GC-2026-10-20T10-02-22-351Z.json",
+      "changes": []
+    },
+    {
+      "at": "2026-10-20T10:02:23.676Z",
+      "phase": "selected",
+      "task_id": null,
+      "skipped": [
+        {
+          "task_id": "T-0063",
+          "score": 845,
+          "reason": "automated_clean_worktree: 추적 파일에 미커밋 변경이 있다 — 기존 담당자가 보존/커밋한 뒤 실행 / product_lock_free: .agent-lock pid 24064 (남의 살아 있는 잠금) / lock_worktree: worktree--d__workspace_vocaflow-final-product: suspect / dependency_T-0062: 선행 T-0062: IN_PROGRESS"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-20T10:02:23.792Z",
+      "phase": "queue_wait",
+      "remaining_ms": 3477560,
+      "owner": "final-product"
+    }
+  ],
+  "task_states": [
+    {
+      "task_id": "T-0062",
+      "owner_id": "final-product",
+      "status": "IN_PROGRESS",
+      "execution_mode": "orchestrator",
+      "automatic_independent_review": true,
+      "dynamic_roles": true,
+      "owner_inbox_exists": true,
+      "dispatched": false,
+      "dispatch_acknowledged": false,
+      "claim_recorded": true,
+      "accepted_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+      "implementation_running": true,
+      "verified_commit": null,
+      "eligible": false,
+      "blockers": []
+    },
+    {
+      "task_id": "T-0063",
+      "owner_id": "final-product",
+      "status": "READY",
+      "execution_mode": "orchestrator",
+      "automatic_independent_review": true,
+      "dynamic_roles": true,
+      "owner_inbox_exists": true,
+      "dispatched": false,
+      "dispatch_acknowledged": false,
+      "claim_recorded": false,
+      "accepted_session": null,
+      "implementation_running": false,
+      "verified_commit": null,
+      "eligible": false,
+      "blockers": [
+        "automated_clean_worktree: 추적 파일에 미커밋 변경이 있다 — 기존 담당자가 보존/커밋한 뒤 실행",
+        "product_lock_free: .agent-lock pid 24064 (남의 살아 있는 잠금)",
+        "lock_worktree: worktree--d__workspace_vocaflow-final-product: suspect",
+        "dependency_T-0062: 선행 T-0062: IN_PROGRESS"
+      ]
+    }
+  ],
+  "workers": [
+    {
+      "worker_id": "w-final-product-a2a98d",
+      "owner_id": "final-product",
+      "status": "registered",
+      "process_live": false,
+      "default_platform_path": false
+    }
+  ],
+  "actual_product_proof": {
+    "ack_and_existing_implementation": "T-0062 original actual session/PID remains live, no duplicate claim",
+    "new_central_implementation": false,
+    "central_product_review": false,
+    "local_integration": false,
+    "next_task_started": false
+  },
+  "blocked": [
+    "T-0062 has not submitted; original owner is repairing exact-head official browser failures",
+    "Old local/integration aggregate scope and SQL source approval/history cannot be replaced with narrow task acceptance",
+    "Foreign tracked audit files and original live worktree lock are preserved"
+  ],
+  "github_usage": {
+    "central_local_fast": 0,
+    "foreground_official_integration_read_calls": 3,
+    "remote_mutations": 0
+  },
+  "protection": "No DB writes, SQL apply, Gold/rights decision or gate bypass; actual source run stops at its finite limits or integration failure"
+}
