@@ -1,25 +1,28 @@
-# PR 자동화 · 승인 최소화 정책 v1.1
+# PR 자동화 · 승인 최소화 정책 v1.2
 
 > 기계 판독 정본: [pr-automation.json](./pr-automation.json) — 값(버전 · 필수 체크 · 경로)은 거기가 정본이고, 이 문서는 이유와 절차를 쓴다.
 > 채택 2026-10-11(사용자 지시 「전체 세션 승인 최소화 정책 v1.1」) · 이력: [agents/DECISIONS.md](../DECISIONS.md) DD-PR-AUTO-1.1.
 > 적용 대상: 모든 Claude Code · Codex · AI-Control 세션과 모든 워크트리.
 
+> v1.2(2026-10-20): 사용자 개발환경 자동화 지시. 운영 DB가 없는 개발 단계이며 저위험 개발/원격 납품을 상시 승인한다. 파괴적 변경·DB 배포·중대 보안 통제와 제품/OS의 강제 권한은 유지한다. 이 정책은 관리형 실행 권한을 변경하지 않는다. 이력 DD-PR-AUTO-1.2.
+
 ## 1. 기본값 = AUTO_CONTINUE
 
-**실행 모드를 먼저 적용한다(2026-10-20 확인).** 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 현재 모드는 `LOCAL_FAST`다. 중앙 `lib/devmode.mjs`가 모드·기준 ref·백업 상한의 정본이며 설정 사본을 만들지 않는다. `VFC_ROOT`는 중앙 위치, `VFC_DEV_MODE`는 명시적 모드 선택이다.
+**실행 모드와 승인 범위를 구분한다.** 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`은 `LOCAL_FAST`다. 중앙 `lib/devmode.mjs`는 LOCAL_FAST에서도 공식 원격 통합을 허용한다. 로컬 개발/검증과 승인된 공식 납품 단계를 분리해 기존 구조를 재사용하고 이 저장소의 원격 납품은 `VFC_DEV_MODE=GITHUB`를 명시한다. push·PR·CI·safe-merge에 단계별 사람 승인을 새로 요구하지 않는다. 중앙 모드·기준 ref·백업 상한의 정본이나 전역 기본값은 이 작업에서 바꾸지 않는다.
 
 - LOCAL_FAST: 로컬 구현 → 영향 범위 검증 → 로컬 커밋 → 중앙 `bin/local-integrate.mjs --task <ID>`. 일반 개발 push·PR·Actions 조회·CI 대기·원격 병합을 하지 않는다. 원격 CI 부재는 로컬 개발의 blocker가 아니다. 미실행 검증·로컬 리뷰 실패는 계속 미충족으로 남긴다.
 - 백업은 중앙 `bin/backup.mjs`만 사용하고 중앙 설정의 하루 상한·복구 시점을 따른다. 백업 실패로 로컬 개발을 중단하지 않는다. Work Bridge는 기존 설계 요청 범위로 사용한다.
-- GITHUB: 아래 v1.1의 PR·필수 CI·원격 병합 계약이 적용된다. 원격 보호·필수 체크를 줄여 LOCAL_FAST를 구현하지 않는다. `safe-merge.mjs`는 LOCAL_FAST에서 dry-run도 원격 조회 전에 종료한다.
+- GITHUB: 아래 PR·필수 CI·범위 계약이 적용된다. 일반 commit/push/PR/CI/병합마다 사람 승인을 요구하지 않는다. 원격 보호·필수 체크를 줄이지 않는다. 명시적 LOCAL_FAST는 선택 가능한 로컬 절차로 남기며 그 모드에서 safe-merge가 원격 전에 종료하는 계약도 유지한다.
 
 사용자에게 매번 진행 여부를 묻지 않는다. 위 실행 모드에 맞춰 구현 → 검증 → 수정 → 문서화 → 커밋 → 해당 모드의 통합까지 이어서 한다.
 
-**사용자 승인이 필요한 것은 두 가지뿐이다.**
+**기존 데이터·DB 배포 통제를 유지하고 중대한 보안 변경을 명시한다.** 저위험 개발의 재승인과 혼동하지 않는다. 이번 정책 수정은 DB 배포 러너/승인 티켓 검증을 완화하지 않는다.
 
 | 유형 | 범위 | 승인 요청에 붙일 것 |
 |---|---|---|
 | DB 변경 | 테이블 · 컬럼 · 제약 · 인덱스 · 마이그레이션 적용 · RPC · 함수 · 트리거 · RLS · 권한 · 데이터 의미를 바꾸는 대량 변환 | SQL 전문 · 영향 분석 · 되돌리기 |
 | 데이터 삭제 | 기존 사용자 · 시험 · 학습 · 콘텐츠 데이터 삭제 · DROP · TRUNCATE · 대량 DELETE · 기록을 잃는 초기화 · 재적재 · 덮어쓰기 | 대상 · 범위 · 복구 방법 |
+| 중대한 보안 변경 | 인증/권한 경계·브랜치 보호·필수 CI 완화, 인증정보 생성/회전/공유/외부 전송, 관리형 보안 정책 변경 | 정확한 범위 · 영향 · 복구 · 승인 증거. 이미 명시 승인된 범위는 재질문하지 않음 |
 
 앱의 정상적인 INSERT · UPDATE · UPSERT, 기존 승인 범위의 데이터 처리, 실행별 소유권이 확인된 임시 테스트 데이터 정리는 승인 없이 한다.
 승인을 기다리는 부분만 멈추고, 독립적인 나머지 작업은 계속한다.
@@ -33,9 +36,10 @@
 
 개발 완료 → 로컬 검증 → 커밋 · push → PR → 필수 CI → 실패 원인 분석 · 허용 범위 수정 · 재검증 → `safe-merge.mjs` → main 병합 → 결과 보고.
 
-`node agents/scripts/safe-merge.mjs <PR> [--wait] [--dry-run]` 이 병합 직전에 한 번에 확인한다:
+`node agents/scripts/safe-merge.mjs <PR> --scope-file <계약.json> [--wait] [--dry-run]`이 병합 직전에 확인한다. 계약은 승인 작업의 정확한 경로와 HEAD/base SHA·예상 커밋 수를 담으며 없거나 불일치하면 원격 병합하지 않는다. 예시/진단은 [개발환경 감사](../../docs/agents/development-autonomy-audit.md).
 
 1. PR 열림 · MERGEABLE · **base = main**(종속 PR 은 앞 PR 병합 뒤 base 가 main 으로 바뀌고 CI 가 다시 돈 다음에만).
+   범위 계약의 HEAD/base SHA·전체 변경 경로·커밋 수도 일치해야 한다. #318처럼 CI가 성공한24커밋160파일을 승인15파일의 작업으로 병합하지 않는다. 병합 직전 HEAD/base/커밋 수를 다시 대조한다.
 2. **필수 체크 전부**(pr-automation.json `required_checks`)가 최신 HEAD 에서 SUCCESS — 하나라도 없으면(누락) · SKIPPED 뿐이면 · 대기면 병합 안 함.
 3. **DB 변경 승인 증거 = 개발 DB 적용 이력** — `supabase/migrations/` 를 바꾼 PR 은 파일마다 개발 DB `supabase_migrations.schema_migrations` 의 statements sha256 이 PR HEAD 본문 sha256 과 같아야 한다. 적용은 사용자 승인 + DB 쓰기 훅을 거쳐서만 생기므로 PR 작성자가 꾸밀 수 없다. **PR 본문 문자열은 증거가 아니다**(이 머신은 에이전트와 사용자가 같은 GitHub 계정을 써서 작성자를 가릴 수 없다). 미적용 · 적용 뒤 수정 · 이력 조회 실패(SUPABASE_ACCESS_TOKEN 없음)는 병합 안 함. `_pending_` 제안본은 적용되지 않으므로 메모로만 남긴다.
 4. **데이터 삭제** — 삭제 구문(DROP TABLE · TRUNCATE · DELETE FROM · DROP COLUMN)이 있는 마이그레이션은 종류를 밝히고 같은 적용 이력 증거가 필요하다. 마이그레이션 파일 삭제는 승인 대상이라 막는다.
