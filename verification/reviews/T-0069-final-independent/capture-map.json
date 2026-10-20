@@ -1,0 +1,38 @@
+[
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1440px",
+    "attachment": "vocab-card-1440",
+    "capture": "verification/ui/T-0069/ci-39477451406-32.png",
+    "sha256": "65a6d1121b351668dd9bc2535673a51bc3a03294d866f36538f9eea97083e62b"
+  },
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1440px",
+    "attachment": "vocab-done-1440",
+    "capture": "verification/ui/T-0069/ci-39477451406-39.png",
+    "sha256": "0d08920b9fb15bcbb68d786300044bf8e58d90ded9c395c835669848bcc8869d"
+  },
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1440px",
+    "attachment": "vocab-return-1440",
+    "capture": "verification/ui/T-0069/ci-39477451406-15.png",
+    "sha256": "cf01e27382d618059e7f1c0ef085b2e30580862bd070b4b921f89a26194e6be3"
+  },
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1280px",
+    "attachment": "vocab-card-1280",
+    "capture": "verification/ui/T-0069/ci-39477451406-25.png",
+    "sha256": "dbc786d9e1c14e2f1ac65c1f7a7c95a9596ba3f6252f5c7964ac363e0e149cdb"
+  },
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1280px",
+    "attachment": "vocab-done-1280",
+    "capture": "verification/ui/T-0069/ci-39477451406-6.png",
+    "sha256": "9f228370c9a2fa44ac974a7d88d964f5d3e333df40e4ff3008087c2f6351acf1"
+  },
+  {
+    "test": "V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1280px",
+    "attachment": "vocab-return-1280",
+    "capture": "verification/ui/T-0069/ci-39477451406-27.png",
+    "sha256": "a68a5008dd38d546527452340630ddd12325767ec5c04e30800e5ffbdd82d73f"
+  }
+]

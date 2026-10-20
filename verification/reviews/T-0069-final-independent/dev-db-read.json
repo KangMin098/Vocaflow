@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-20T19:14:22.23172Z",
+  "method": "connected Supabase read-only SELECT to_regclass; no learner rows",
+  "authored_item": null,
+  "human_decision": null,
+  "human_revocation": null,
+  "delivery_ledger": "workspace_content_delivery",
+  "g2_binding": "workspace_delivery_attempt",
+  "interpretation": "proposed authored SQL is still absent; code merge is not actual supply or human approval",
+  "writes": 0
+}

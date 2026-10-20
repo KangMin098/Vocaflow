@@ -483,3 +483,15 @@ reported no_content/notLive 분기는 현재 지시 범위 밖 엔진을 바꾸�
 독립14/14 + 관련20/20(skip0) 통과. 관련20은 제출12+기존map-return8이므로12를 더해 중복 집계하지 않습니다. 실제 RSC 페이지를 인증/조회 mock으로 실행해 읽기실패≠빈결과, 본인쿼리, 일반진입오류전파와 로그인redirect를 확인했습니다. 어휘복귀의 옛map_item/map_attempt제거·고정지도경로·실제CSAT복귀ID보존도 확인했습니다. 새코드에서 P0/핵심P1은 현재 발견하지 않았습니다. 기존 fetchStudyVocabularies의 실제throw와 due우선+상한 의미도 직접 확인했습니다.
 
 실제 #325가 같은HEAD로 생성된 것을 확인했습니다. 최종 코드수용은 실제1440/1280 인증격리 수행/복귀 및 공식CI 결과까지 본 뒤입니다. 미실행을 통과로 계산하지 않으며, 아직 정식완료/병합하지 않습니다. 새선택이나승인은 필요 없습니다. 결과를 같은TASK/rev1로 제출해 주세요. 낮은위험의 빈상태→단어모으기 하위흐름 복귀와 세션만료후문맥보존은 후속한계로 기록했고 이번필수게이트로 늘리지 않았습니다. 상세/실행가능반례 verification/reviews/T-0069-r1-independent/REVIEW.md 및 probe.*.
+
+## T-0069 최종 ACCEPT_WITH_LIMITS / COMPLETED / #325 MERGED
+
+[VF-TASK T-0069] HEADa14ab5ecdc86baeec84d076f789386985ee0c36f · ACCEPT_WITH_LIMITS. 같은HEAD 독립14/14·관련20/20을 재사용했고, 실제CI39477451406 attempt1의V1두경로 성공과28/1,attempt2의29/29를 각각 조회했습니다. gh로그는 --attempt를 명시해야 최초 로그가 최신재실행으로 대체되지 않는 점을 점검했습니다. 증거4/53캡처 해시 일치, 보고서에서새V1첨부6개를연결하고1440/1280의지도·복습완료·복귀화면을직접확인했습니다. 기존CSAT/G2/목표/계획행불변·실제어휘기록증가를수용합니다.
+
+실제독립E05와완료게이트통과로 T0069 COMPLETED. 정확9파일/1커밋과필수8체크를기존safe-merge로확인해#325병합완료:8905f321440abeaac6f7cdb74b8e38b50fa5ced8. 불변보고서/최초실패/완료/병합영수증 verification/reviews/T-0069-final-independent/. 공개검토 https://github.com/KangMin098/Vocaflow/pull/325#pullrequestreview-5590318829.
+
+연결끊김후속은같은관찰로추적합니다. 실제stack은 첫테스트의후반 PLAN저장(test144→commit60)이며 「첫 API/기동 불량」으로확정하지않습니다. 이전39461175124 socket hang up과이번ECONNRESET 두관찰의원인은미확정입니다. 일반retry/timeout늘림/정상실패숨김/새필수게이트는추가하지않았습니다. 진단자료가더필요한P2로남깁니다.
+
+2026-10-20T19:14:22Z 실제개발DB metadata SELECT를새로확인했습니다: authored_item/content_human_decision/content_human_decision_revocation는아직없고 delivery/G2원장은존재합니다. SQL미적용·실제적격창작공급/사람Gold·권리/학습효과미검증을코드병합으로바꾸지않습니다. V1은여전히자기평가학습연결이며독립측정도구는아닙니다.
+
+다음전체수용은기존T0045에서A~H와비보류전체TASK를현재main에재대조하는일을유지합니다. 통합관찰3TASK는하위직접근거표시와실제명제/구조도/배제이유산출물을구별해야하며, 기존MeaningDraft·ReasoningNote·GateCommit이이미남기는기록을재사용할수있는지선행검토했습니다. 산출물의범위를확인하기전새통합채점기나거대한추상화를배정하지않습니다. 낮은위험의미세UI나중복문서작업을새READY로늘리지않았으며,이메시지는새구현착수주장이아닙니다. 원audit2파일과다른소유자의local/integration은그대로보존합니다.

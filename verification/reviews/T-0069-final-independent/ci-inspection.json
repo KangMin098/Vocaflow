@@ -1,0 +1,111 @@
+{
+  "recorded_at": "2026-10-20T19:11:56.929Z",
+  "run": "39477451406",
+  "runs": [
+    {
+      "attempt": 1,
+      "head": "a14ab5ecdc86baeec84d076f789386985ee0c36f",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "verify",
+          "result": "success"
+        },
+        {
+          "name": "e2e",
+          "result": "failure"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "result": "success"
+        },
+        {
+          "name": "build",
+          "result": "success"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "result": "skipped"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "result": "success"
+        }
+      ],
+      "selected_log": [
+        "e2e\tRun pnpm --filter web build\t2026-10-20T18:49:29.1908754Z [seo/content-entries] 짧은 글 Error: library_articles 조회 실패: Could not find the table 'public.library_articles' in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T18:49:35.8493674Z [textfit] 사전 해석기 실패 — shared_words 폴백으로 내려간다: Error: textfit_resolve_levels_public RPC 실패: Could not find the function public.textfit_resolve_levels_public(p_words) in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T18:49:35.8512690Z [hero-demo] 계산 실패: Error: shared_words.lemma 레벨 표적 조회 조회 실패: column shared_words.lemma does not exist",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T18:49:35.8527712Z [textfit] 사전 해석기 실패 — shared_words 폴백으로 내려간다: Error: textfit_resolve_levels_public RPC 실패: Could not find the function public.textfit_resolve_levels_public(p_words) in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T18:49:35.8540171Z [hero-demo] 계산 실패: Error: shared_words.lemma 레벨 표적 조회 조회 실패: column shared_words.lemma does not exist",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:50:13.2272563Z   ✘   1 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px (22.5s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:50:39.7406641Z   ✓   2 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1280px (25.8s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:51:02.1310084Z   ✓   3 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 segment_choice 전체 순환 — s.sentence_core · 1440px (22.4s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:51:25.4052336Z   ✓   4 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 segment_choice 전체 순환 — s.sentence_core · 1280px (23.3s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:34.4014926Z   ✓  28 [chromium] › tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts:22:7 › V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1440px (5.7s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:39.8723911Z   ✓  29 [chromium] › tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts:22:7 › V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1280px (5.5s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4071185Z   1) [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px ",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4072824Z     Error: apiRequestContext.post: read ECONNRESET",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4246575Z         at commit (/home/runner/work/Vocaflow/Vocaflow/apps/web/tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:60:36)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4247496Z         at /home/runner/work/Vocaflow/Vocaflow/apps/web/tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:144:11",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4255818Z   1 failed",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4256626Z     [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px ",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T18:56:40.4257468Z   28 passed (6.9m)",
+        "e2e\t서버 로그\t﻿2026-10-20T18:56:40.6501718Z ##[group]Run grep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true",
+        "e2e\t서버 로그\t2026-10-20T18:56:40.6502416Z ^[[36;1mgrep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true^[[0m",
+        "e2e\t서버 로그\t2026-10-20T18:56:40.6677676Z 317: ⨯ Error: aborted"
+      ]
+    },
+    {
+      "attempt": 2,
+      "head": "a14ab5ecdc86baeec84d076f789386985ee0c36f",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "e2e",
+          "result": "success"
+        },
+        {
+          "name": "e2e-gate-faultclosed",
+          "result": "success"
+        },
+        {
+          "name": "e2e-shared-dev",
+          "result": "skipped"
+        },
+        {
+          "name": "build",
+          "result": "success"
+        },
+        {
+          "name": "TypeScript 0 error",
+          "result": "success"
+        },
+        {
+          "name": "verify",
+          "result": "success"
+        }
+      ],
+      "selected_log": [
+        "e2e\tRun pnpm --filter web build\t2026-10-20T19:01:50.2886463Z [seo/content-entries] 짧은 글 Error: library_articles 조회 실패: Could not find the table 'public.library_articles' in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T19:01:54.7850038Z [textfit] 사전 해석기 실패 — shared_words 폴백으로 내려간다: Error: textfit_resolve_levels_public RPC 실패: Could not find the function public.textfit_resolve_levels_public(p_words) in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T19:01:54.7856606Z [hero-demo] 계산 실패: Error: shared_words.lemma 레벨 표적 조회 조회 실패: column shared_words.lemma does not exist",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T19:01:54.7864187Z [textfit] 사전 해석기 실패 — shared_words 폴백으로 내려간다: Error: textfit_resolve_levels_public RPC 실패: Could not find the function public.textfit_resolve_levels_public(p_words) in the schema cache",
+        "e2e\tRun pnpm --filter web build\t2026-10-20T19:01:54.7871966Z [hero-demo] 계산 실패: Error: shared_words.lemma 레벨 표적 조회 조회 실패: column shared_words.lemma does not exist",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:02:28.1048398Z   ✓   1 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1440px (22.4s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:02:47.8256150Z   ✓   2 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 option_correspondence 전체 순환 — e.option_correspondence · 1280px (19.7s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:03:05.8422707Z   ✓   3 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 segment_choice 전체 순환 — s.sentence_core · 1440px (18.0s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:03:23.6013884Z   ✓   4 [chromium] › tests/e2e-isolated/authored-format-cycle.isolated.spec.ts:38:7 › T-0068 segment_choice 전체 순환 — s.sentence_core · 1280px (17.8s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:07:32.6739841Z   ✓  28 [chromium] › tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts:22:7 › V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1440px (4.6s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:07:37.3221132Z   ✓  29 [chromium] › tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts:22:7 › V1 기본 의미 — 지도 → 내 단어 복습 → 같은 Workspace 복귀 · 1280px (4.6s)",
+        "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-20T19:07:38.0499464Z   29 passed (5.6m)",
+        "e2e\t서버 로그\t﻿2026-10-20T19:07:38.2436063Z ##[group]Run grep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true",
+        "e2e\t서버 로그\t2026-10-20T19:07:38.2436996Z ^[[36;1mgrep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true^[[0m"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "head_sha": "a14ab5ecdc86baeec84d076f789386985ee0c36f",
+  "base_ref": "main",
+  "base_sha": "25566801020cc40ed6cd5d3b2bf45615b023989d",
+  "expected_commits": 1,
+  "expected_paths": [
+    "apps/web/src/app/(main)/wordvault/review/page.tsx",
+    "apps/web/src/components/csat/diagnosis/map/VocabLearningCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/vocab-learning.test.tsx",
+    "apps/web/src/components/wordvault/WordVaultStudyClient.tsx",
+    "apps/web/src/lib/csat/__tests__/map-return-vocab.test.ts",
+    "apps/web/src/lib/csat/map-return.ts",
+    "apps/web/tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}
