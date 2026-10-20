@@ -1,0 +1,78 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-20T10:35:25Z",
+  "commit": "5f4a9fa36bddbd2221bdc0a20306f9a3bd90acdc",
+  "type": "ui",
+  "command_or_protocol": "공식 CI 인증 격리 Chromium 전체 페이지 캡처(같은 run 보고서 첨부 — map-return-recap 복귀 화면 포함)",
+  "artifact_path_or_url": "verification/ui/T-0062/ci-39407740729-1.png",
+  "covers": [
+    0,
+    3,
+    4
+  ],
+  "urls": [
+    "http://127.0.0.1:3000/csat/diagnosis?tab=map&view=full"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "environment": "GitHub Actions e2e job · 로컬 Supabase(54321) · next start · Chromium · 1440×900/1280×800",
+  "screenshots": [
+    "verification/ui/T-0062/ci-39407740729-1.png",
+    "verification/ui/T-0062/ci-39407740729-10.png",
+    "verification/ui/T-0062/ci-39407740729-11.png",
+    "verification/ui/T-0062/ci-39407740729-12.png",
+    "verification/ui/T-0062/ci-39407740729-13.png",
+    "verification/ui/T-0062/ci-39407740729-14.png",
+    "verification/ui/T-0062/ci-39407740729-15.png",
+    "verification/ui/T-0062/ci-39407740729-16.png",
+    "verification/ui/T-0062/ci-39407740729-17.png",
+    "verification/ui/T-0062/ci-39407740729-18.png",
+    "verification/ui/T-0062/ci-39407740729-19.png",
+    "verification/ui/T-0062/ci-39407740729-2.png",
+    "verification/ui/T-0062/ci-39407740729-20.png",
+    "verification/ui/T-0062/ci-39407740729-3.png",
+    "verification/ui/T-0062/ci-39407740729-4.png",
+    "verification/ui/T-0062/ci-39407740729-5.png",
+    "verification/ui/T-0062/ci-39407740729-6.png",
+    "verification/ui/T-0062/ci-39407740729-7.png",
+    "verification/ui/T-0062/ci-39407740729-8.png",
+    "verification/ui/T-0062/ci-39407740729-9.png"
+  ],
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "defects": [
+    {
+      "kind": "objective",
+      "claim": "돌아온 뒤 정리가 TASK 서랍에만 있어 복귀 시 안 보임",
+      "status": "fixed"
+    },
+    {
+      "kind": "objective",
+      "claim": "세지 않은 이유를 추측한 문구",
+      "status": "fixed"
+    },
+    {
+      "kind": "suggestion",
+      "claim": "보조 TASK 적용 진행 근거(instructionPath) 부재로 확인 불가 표기",
+      "status": "open"
+    }
+  ],
+  "ui_acceptance_results": [
+    "pass",
+    "pass"
+  ],
+  "note": "캡처 20장은 같은 run 보고서 전체(다른 spec 포함) — 재사용 범위 명시. 문서 넘침 0 · Escape 닫기 검증. · 범위 밖 기존 결함(지도 As-Is 가 결속된 독립 확인을 0 으로 읽음)은 T-0062 화면 결함이 아니라 v4 As-Is/load 판정 문제 — e2e 증거 노트와 Codex 보고로 분리. | Metadata supplied by final-product; independent acceptance owner checked exact official pull_request HEAD/run and visually opened captures1,10,20. This records the supplied UI evidence, not acceptance of the separately reported G2/MAP inconsistency."
+}

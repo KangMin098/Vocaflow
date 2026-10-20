@@ -1,0 +1,104 @@
+{
+  "task_id": "T-0062",
+  "design_revision": "rev1",
+  "head": "5f4a9fa36bddbd2221bdc0a20306f9a3bd90acdc",
+  "verdict": "REQUEST_CHANGES",
+  "decision": "REWORK",
+  "native_review": "verification/reviews/T-0062-owner-20261020T100018-ec0e99.md",
+  "actual_reviewer": {
+    "agent": "codex",
+    "pid": 22896,
+    "session": "01a158e1-ecc2-75b3-941b-e80d78d55640"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P1",
+      "scope": "in",
+      "claim": "이번 복귀 활동 대신 TASK 전체의 최신 기록을 골라 다른 탭·옛 URL의 활동을 구별하지 못한다",
+      "expected": "기존 복귀 문맥에 최소 attempt/delivery 식별자를 연결하고 서버에서 본인·TASK·납품·수행을 대조한다. 미확인은 이번 활동 확인 불가로 표시하고 누적/최근 기록과 구분한다"
+    },
+    {
+      "id": "F2",
+      "severity": "P1",
+      "scope": "in",
+      "claim": "lifecycle ledger=unknown인데 recapFor가 transferDone=0을 전달해 조회 실패를 기록 없음으로 바꾼다",
+      "independent_reproduction": "actual recapFor: ledger unknown + instructionPath zero + lifecycleActivity undefined -> transfer.state none; expected unknown"
+    },
+    {
+      "id": "F3",
+      "severity": "P1",
+      "scope": "in",
+      "claim": "목표 v10에 저장한 PLAN을 현재 목표 v11에 저장한 것처럼 표시한다",
+      "independent_reproduction": "saved history goalVersionId10 + current11 -> saved PLAN line says goal11; expected saved10/current11 distinguished"
+    },
+    {
+      "id": "F4",
+      "severity": "P1",
+      "scope": "in",
+      "file": "apps/web/src/lib/csat/map/v62/return-recap.ts",
+      "line": 60,
+      "claim": "합성 기록·도움 수준 불명·납품 결속 불명을 실제 도움/해설 열람 사실로 표시한다",
+      "independent_reproduction": "synthetic:true only; helpLevel:null only; applyAuthoredBindings(normal,null): all print helped explanation with no actual help fact",
+      "expected": "독립 인정의 fail-closed를 유지하고 합성/불명/결속 미확인을 실제 도움과 구분한다. 집단 효과 분석의 합성 제외를 해제하지 않는다"
+    }
+  ],
+  "independent_tests": {
+    "command": "pnpm --filter web exec vitest run -c D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0062-independent-probe/probe.config.mjs",
+    "result": "fail_expected_counterexamples",
+    "passed_controls": 2,
+    "failed_counterexamples": 5,
+    "skipped": 0,
+    "log": "verification/reviews/T-0062-independent-probe/first-run.log",
+    "head_before_after_equal": true
+  },
+  "ci": {
+    "run": 39407740729,
+    "event": "pull_request",
+    "head": "5f4a9fa36bddbd2221bdc0a20306f9a3bd90acdc",
+    "conclusion": "success",
+    "isolated_browser_passed": 21,
+    "shared_dev": "skipped",
+    "url": "https://github.com/KangMin098/Vocaflow/actions/runs/39407740729",
+    "limits": "Browser test accepts independent0 iff recap agrees and accepts transfer unknown after a real1/2 completion. Thus green CI does not prove correct independent attribution or actual1/2 display."
+  },
+  "reported_map_inconsistency": {
+    "confirmed_source_path": [
+      "map-return-recap account uses example.com",
+      "isSyntheticEmail marks these attempts synthetic",
+      "v4 As-Is calls isEligible and excludes synthetic",
+      "skillDiagnosis evaluates personal diagnosis with synthetic:false",
+      "new recap conflates synthetic exclusion with helped"
+    ],
+    "not_confirmed": "Normal non-synthetic learner false exclusion via loadCrossVerdicts is not established by this log. No new generic loader fix task is created from that hypothesis."
+  },
+  "ui": {
+    "corrected_metadata": "verification/reviews/T-0062-r1-ui-metadata.json",
+    "files_exist": 20,
+    "independently_opened": [
+      1,
+      10,
+      20
+    ],
+    "attachment": "Not recorded: central actual review had already returned REVIEW->READY and official CLI refused BAD_TRANSITION. No state or ownership bypass. Resubmit corrected metadata during the next original-owner run."
+  },
+  "handoff": {
+    "queue": "Same T-0062/rev1 returned READY by actual central reviewer",
+    "next": "T-0063 remains dependency-blocked",
+    "implementation": "Automatic repair not started: foreign tracked audit files block clean-worktree gate",
+    "receipt": "LOCAL_INBOX_POSTED is not ACK or implementation start"
+  },
+  "boundaries": [
+    "No product source edits by acceptance session",
+    "No DB writes or SQL application",
+    "No Gold/rights or real learner-effect approval",
+    "No aggregate product merge approval",
+    "Preserve first failure, original native report and old PLAN/evidence history"
+  ],
+  "artifact_sha256": {
+    "verification/reviews/T-0062-owner-20261020T100018-ec0e99.md": "b1e4d41a2911e3f1fc5b2191521bcdb2d3bc807ba7ea2fa04171cab184b874eb",
+    "verification/reviews/T-0062-independent-probe/probe.test.ts": "c18fcdb8729d20c2ac38b24fb326037bdf4a2c10bbaea4b82a001cfbbd07eafd",
+    "verification/reviews/T-0062-independent-probe/first-run.log": "791aefca1039700ea3ad3b2f8d69854129b8ad97549c6632e7fc08883fdf5a80",
+    "verification/reviews/T-0062-r1-ui-metadata.json": "7777bdd439a5fdb9ed29bbf8479bb67bd16ceb5c57225d54d7ab28c722a6f121"
+  }
+}

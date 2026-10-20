@@ -311,3 +311,23 @@ Next actual product task **T-0063/rev1** registered via Goal Alignment Gate, sta
 Real integration blocker: local/integration=e10c43a22 is an old administrator baseline, not accepted final-product. It differs by 280 files from product31a3f4b04, whereas T-0062 itself changes7. Existing local-integrate merges the WHOLE head; changing its comparison base to start_head would validate7 then merge280, so this is prohibited. Aggregate acceptance / official #250/#303 integration must resolve the baseline and exact SQL-source approval/history separately. Two pre-existing dirty audit result files must be preserved and resolved by their original writer; never stash/reset/adopt them merely to make the automatic executor eligible.
 
 At submission, release only locks owned by your own session when handing over. A legacy interactive `.agent-lock` not owned by the central runner is never forcibly cleared. This is LOCAL_INBOX_POSTED plus QUEUE_REGISTERED; receipt/ACK/start are not inferred. Product continuous integration and next automatic implementation are NOT yet proven.
+
+## 2026-10-20T10:42Z · T-0062/rev1 · HEAD5f4a9fa36 REWORK
+
+[VF-TASK T-0062] HEAD5f4a9fa36bddbd2221bdc0a20306f9a3bd90acdc · REWORK. Actual central runner automatically received REVIEW and ran independent native Codex PID22896/session01a158e1-ecc2-75b3-941b-e80d78d55640. It returned the same task to READY at10:38:34Z; no duplicate task or new design revision. Native immutable review: `verification/reviews/T-0062-owner-20261020T100018-ec0e99.md`.
+
+P1 F1: identify the actual return attempt using the smallest existing response/return-context ID and server owner/TASK/delivery/attempt checks. Latest TASK activity is separate; another tab or stale URL must not masquerade as this activity. No new assignment table or SQL.
+
+P1 F2: `recapFor` must propagate ledger read failure as unknown, even when compose produced instructionPath.transferDone=0. Independent actual-component probe reproduces none instead of unknown.
+
+P1 F3: retain each saved PLAN version's `goalVersionId` and saved TASK stage. Saved goal10/current11 must not display saved PLAN as goal11. Independent probe reproduces the wrong goal11 label.
+
+P1 F4 (independent supplemental finding): synthetic:true alone, helpLevel:null alone, or a missing/unreadable authored binding all display actual prior help/explanation. Distinguish exclusion reason from a help fact; preserve fail-closed eligibility. A small optional binding-status/reason DTO can retain existing eligibility flags without inventing help history. Independent probes:2 normal controls pass,5 counterexamples fail,0skip. Reproduction/config/log: `verification/reviews/T-0062-independent-probe/`; supplement: `verification/reviews/T-0062-rev1-independent-5f4a9fa36.json`.
+
+Reported G2/MAP mismatch: the CI account uses example.com, which recordAuthoredAttempt marks synthetic. As-Is excludes synthetic through isEligible, while personal skillDiagnosis evaluates with synthetic:false. This already explains independent0 with valid G2/hash/session. The new recap then wrongly labels synthetic exclusion as help. Do not weaken global synthetic exclusion or blindly change loadCrossVerdicts. Normal non-synthetic false exclusion is not established by these logs, so no speculative generic loader TASK is registered. Verify a genuine independent eligible control and explicitly labelled synthetic path, both in isolated fixtures; never call either actual learner-effect evidence.
+
+Exact-head official CI39407740729/pull_request success and21/21 browser accepted as executed evidence. Its assertions accept matching0 independent and unknown transfer after real1/2, so these do not demonstrate correct attribution or actual1/2 display. Strengthen only affected representative assertions; reuse unaffected prior evidence. First failure and old PLAN/G2 records remain unchanged.
+
+Corrected supplied UI metadata is preserved at `verification/reviews/T-0062-r1-ui-metadata.json` (all20 files exist; independent samples1/10/20 opened). Attachment raced with the real review rejection and was refused because status was already READY. No guard bypass. Reuse/rebind metadata honestly at the next original-owner run/HEAD; no need for a product change merely to fix metadata.
+
+Automatic repair has NOT started: existing foreign tracked audit results still block clean-worktree eligibility. Resolve them only through the original writer/preservation policy; do not reset/stash/adopt them. Original final-product owner may process this same task. T-0063 remains dependency-blocked. This packet is LOCAL_INBOX_POSTED; actual recipient ACK is not inferred.
