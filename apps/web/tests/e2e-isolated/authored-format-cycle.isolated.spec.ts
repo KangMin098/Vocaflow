@@ -26,7 +26,7 @@ test.beforeAll(() => {
 const admin = () => createClient(URL, SERVICE, { auth: { persistSession: false } })
 
 const CASES = [
-  { name: 'option_correspondence', file: 'e-option-correspondence.v1.json', prefix: 'opt', ws: 'ws.option-match', task: 'e.option_correspondence', order: ['e.option_correspondence', 'v.semantic_relation'], core: true },
+  { name: 'option_correspondence', file: 'e-option-correspondence.v1.json', prefix: 'opt', ws: 'ws.option-match', task: 'e.option_correspondence', order: ['e.option_correspondence', 'v.semantic_relation', 'r.central_meaning'], core: true },
   { name: 'segment_choice', file: 's-sentence-core.v1.json', prefix: 'sc', ws: 'ws.sentence-core', task: 's.sentence_core', order: ['s.o.sentence_meaning_model', 's.sentence_core', 's.chunk_boundary', 's.structural_relation'], core: false },
 ] as const
 
