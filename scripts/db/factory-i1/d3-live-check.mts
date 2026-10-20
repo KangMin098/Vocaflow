@@ -12,9 +12,8 @@ import { lineageOrder } from '../../../apps/web/src/lib/csat/map/v62/__tests__/o
 import { lineageHash, specFromDemand } from '../../../packages/library-pipeline/src/textbook/order-lineage'
 import { ADMIN_SECTIONS } from '../../../apps/web/src/lib/admin/navigation'
 import { targetOf } from './deploy.mjs'
-import { assertLiveFixtureOptIn, assertOwnedFixture, assertOwnedProduct, runCleanupSteps } from './live-fixture-safety.mjs'
+import { assertLiveFixtureOptIn, assertOwnedFixture, liveFixtureEmail, sendOwnedRegistration, reconcileOwnedRegistration, runCleanupSteps } from './live-fixture-safety.mjs'
 
-const flag = (name: string) => process.argv.includes(name)
 const option = (name: string) => { const index = process.argv.indexOf(name); return index >= 0 ? process.argv[index + 1] : undefined }
 assertLiveFixtureOptIn(process.argv, process.env)
 assert.ok(option('--deps') && option('--ca'), '--deps and --ca are required')
@@ -36,7 +35,7 @@ fs.mkdirSync(out, { recursive: true })
 const adminDb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } })
 const sql = new Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { ca: fs.readFileSync(option('--ca'), 'utf8'), rejectUnauthorized: true }, connectionTimeoutMillis: 15000, application_name: 'vf-d3-owned-live-check' })
 const checks: Array<{ name: string; ok: boolean; detail?: unknown }> = []
-const products = new Map<string, { order: any; order_hash: string; withdrawn: boolean }>()
+const registrations = new Map<string, { product_order_id: string; order_revision: number; order_hash: string; request_key: string; command: any }>()
 let uid: string | null = null, workspace: string | null = null, orderId: string | null = null
 let browser: any, context: any, page: any, userDb: any
 let step = 'preflight', failed = false, beforeRecorded = false
@@ -46,7 +45,15 @@ const record = (name: string, ok: boolean, detail?: unknown) => {
   assert.ok(ok, name)
 }
 const must = <T,>(r: { data: T; error: any }, name: string): T => { if (r.error) throw new Error(`${name}:${r.error.code ?? 'error'}`); return r.data }
-const recovery = () => fs.writeFileSync(path.join(out, 'ownership.json'), JSON.stringify({ run, uid, workspace, orderId, productIds: [...products.keys()], scope: 'Owned synthetic fixture; retain append-only history, close/withdraw/suspend only' }, null, 2) + '\n')
+const recovery = () => {
+  const journal = path.join(out, 'ownership.json')
+  const fd = fs.openSync(`${journal}.tmp`, 'w')
+  try {
+    fs.writeFileSync(fd, JSON.stringify({ run, uid, workspace, orderId, registrations: [...registrations.values()], scope: 'Owned synthetic fixture; retain append-only history, close/withdraw/suspend only' }, null, 2) + '\n')
+    fs.fsyncSync(fd)
+  } finally { fs.closeSync(fd) }
+  fs.renameSync(`${journal}.tmp`, journal)
+}
 const api = async (body: unknown, expected = 200) => {
   const r = await context.request.post(`${base.origin}/api/admin/csat/product-order-lineage`, { headers: { origin: base.origin }, data: body })
   const json = await r.json()
@@ -82,7 +89,7 @@ try {
   await sql.query('select public.record_db_health_checkpoint($1,$2,$3)', [prefix, 'before', 'Owned D3 synthetic live acceptance; no production or schema changes'])
   beforeRecorded = true
   step = 'create-owned-account'
-  const email = `d3-live-${run}@vocaflow.test`, password = `D3!aA1${randomBytes(28).toString('base64url')}`
+  const email = liveFixtureEmail(run), password = `D3!aA1${randomBytes(28).toString('base64url')}`
   const created: any = must(await adminDb.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { name: 'D3 controlled verification', e2e_run: run, synthetic: true } }), 'create_owned_user')
   uid = created.user.id; recovery()
   const owner: any = must(await adminDb.auth.admin.getUserById(uid), 'verify_owned_user')
@@ -122,8 +129,7 @@ try {
     const sealed = lineageOrder(`${prefix}-${suffix}`, revision)
     const cmd = { action: 'register', order: sealed.order, order_hash: sealed.order_hash, spec, quantity: 4, reason: `${prefix}: synthetic non-production registration`, request_key: randomUUID() }
     // The sealer returns exactly order/order_hash. Nothing is manufactured as production approval.
-    const result = await api(cmd)
-    products.set(sealed.order.product_order_id, { ...sealed, withdrawn: false }); recovery()
+    const result = await sendOwnedRegistration({ command: cmd, run, registrations, persist: recovery, send: api })
     assert.equal(result.delivery, 'not_performed'); assert.equal(result.current, 'read_required')
     return { ...sealed, command: cmd, id: result.recorded_id }
   }
@@ -147,7 +153,7 @@ try {
   step = 'withdrawal'
   const withdrawal = { action: 'withdraw', product_order_id: a2.order.product_order_id, order_revision: 2, order_hash: a2.order_hash, reason: `${prefix}: controlled withdrawal`, request_key: randomUUID() }
   const w1 = await api(withdrawal), w2 = await api(withdrawal)
-  assert.equal(w1.recorded_id, w2.recorded_id); products.get(a2.order.product_order_id)!.withdrawn = true
+  assert.equal(w1.recorded_id, w2.recorded_id)
   record('actual-withdrawal-and-replay', (await read()).rows.some((r: any) => r.status === 'withdrawn'))
   await show('withdrawn', ['철회된 주문', '이전 주문 판'])
   step = 'personal-plan-change'
@@ -172,9 +178,12 @@ try {
       const own: any = must(await adminDb.auth.admin.getUserById(uid), 'cleanup_verify_ownership')
       assertOwnedFixture(own.user, uid, run)
       const operations: Array<[string, () => Promise<void>]> = []
-      for (const [id, product] of products) operations.push([`withdraw:${id}`, async () => {
-        assertOwnedProduct(id, run)
-        if (!product.withdrawn) must(await adminDb.rpc('factory_product_order_withdraw', { p_actor: uid, p_id: id, p_revision: product.order.order_revision, p_hash: product.order_hash, p_reason: `${prefix}: verification finished; retain history`, p_request: randomUUID() }), 'close_owned_product')
+      for (const entry of registrations.values()) operations.push([`withdraw:${entry.product_order_id}:${entry.order_revision}`, async () => {
+        await reconcileOwnedRegistration({ entry, run, actor: uid,
+          settle: async (command: any) => { must(await adminDb.rpc('factory_product_order_register', { p_actor: uid, p_canonical: canonicalJson(command.order), p_hash: command.order_hash, p_spec: command.spec, p_quantity: command.quantity, p_reason: command.reason, p_request: command.request_key }), 'settle_owned_registration') },
+          lookup: async (identity: any) => (await sql.query('select product_order_id,order_revision,order_hash,request_key,registered_by,public.factory_product_order_is_current(product_order_id,order_revision) is_current from public.factory_product_order where product_order_id=$1 and order_revision=$2', [identity.product_order_id, identity.order_revision])).rows[0],
+          withdraw: async (identity: any) => { must(await adminDb.rpc('factory_product_order_withdraw', { p_actor: uid, p_id: identity.product_order_id, p_revision: identity.order_revision, p_hash: identity.order_hash, p_reason: `${prefix}: verification finished; retain history`, p_request: randomUUID() }), 'close_owned_product') },
+        })
       }])
       operations.push(['close-order', async () => {
       if (orderId && userDb) {
