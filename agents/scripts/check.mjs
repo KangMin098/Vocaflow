@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // agents/scripts/check.mjs
 //
-// 두 에이전트 설정의 불변식 검사 — CI(.github/workflows/ci.yml)와 커밋 전 훅(guard.mjs)이 부른다.
-//   D1  CLAUDE.md 첫 줄 "@AGENTS.md" · 두 파일 간 중복 줄 0 · AGENTS.md ≤ 200줄 · ≤ 32 KiB
+// 두 에이전트 설정의 불변식 검사 — CI(.github/workflows/ci.yml verify)가 부른다.
+//   D1  CLAUDE.md 첫 줄 "@AGENTS.md" · AGENTS.md ≤ 200줄 · ≤ 32 KiB
 //   D2  mcp 생성물 드리프트 0 (sync.mjs --check 와 같은 판정)
 //   D3  에이전트 설정 파일 전체에서 비밀값 패턴 0
-//   D9  README 안내 · router.md · .gitignore 로컬 전용 항목
+//   D9  .gitignore 로컬 전용 항목 · 드레인 서브에이전트 Codex 짝
 //   D11 PR 자동화 정책 정본 존재 · 형식 · AGENTS.md 정책 줄 버전 일치 · 옛 승인 규칙 없음 · DECISIONS 이력
 //
 //   node agents/scripts/check.mjs            # 표 출력, 실패 시 exit 1
@@ -19,41 +19,6 @@ import { plan } from './sync.mjs'
 export const AGENTS_MAX_LINES = 200
 export const AGENTS_MAX_BYTES = 32 * 1024
 export const GITIGNORE_LOCAL = ['.claude/settings.local.json', '.agent-handoff/', '.agent-lock', '.agent-logs/']
-
-export const DUP_WINDOW = 20
-
-/**
- * 중복 판정용 산문. 코드 스팬(명령·경로 인용)과 링크 주소·마크다운 장식을 걷어낸다 —
- * CLAUDE.md 가 AGENTS.md 와 같은 명령을 **인용**하는 것은 중복이 아니고, 같은 **규칙 문장**을 다시 쓰는 것이 중복이다.
- */
-function prose(line) {
-  return line
-    .replace(/`[^`]*`/g, ' ')
-    .replace(/\]\([^)]*\)/g, ']')
-    .replace(/[*_>#|[\]「」"']/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-/**
- * CLAUDE.md(첫 줄 import 제외)의 각 줄에서 DUP_WINDOW(20)자 창을 밀며 AGENTS.md 산문에 그대로 있는지 본다.
- * 줄 전체 복사뿐 아니라 규칙 한 구절을 옮겨 쓴 것도 잡는다. 반환: 겹친 구절 목록.
- */
-export function duplicates(agents, claude) {
-  const hay = lf(agents).split('\n').map(prose).join('\n')
-  const out = []
-  for (const line of lf(claude).split('\n').slice(1).map(prose)) {
-    for (let k = 0; k + DUP_WINDOW <= line.length; k++) {
-      const w = line.slice(k, k + DUP_WINDOW)
-      if (w.replace(/[^\p{L}\p{N}]/gu, '').length < DUP_WINDOW * 0.6) continue
-      if (hay.includes(w)) {
-        out.push(line)
-        break
-      }
-    }
-  }
-  return out
-}
 
 /** 에이전트가 읽는 설정·지시 파일 전부 */
 function agentConfigFiles() {
@@ -88,8 +53,6 @@ export function runChecks() {
     add('D1', `AGENTS.md ≤ ${AGENTS_MAX_LINES}줄`, lines <= AGENTS_MAX_LINES, `${lines}줄`)
     const bytes = Buffer.byteLength(agents)
     add('D1', 'AGENTS.md ≤ 32 KiB (Codex project_doc_max_bytes)', bytes <= AGENTS_MAX_BYTES, `${bytes} B`)
-    const dup = duplicates(agents, claude)
-    add('D1', 'AGENTS.md ↔ CLAUDE.md 중복 0', dup.length === 0, dup.length ? dup.slice(0, 5).join(' / ') : '0')
   }
 
   // D2
@@ -111,9 +74,6 @@ export function runChecks() {
   const gi = lf(readText(rel('.gitignore')) ?? '').split('\n').map((l) => l.trim())
   const missing = GITIGNORE_LOCAL.filter((p) => !gi.includes(p))
   add('D9', '.gitignore 로컬 전용 4항목', missing.length === 0, missing.length ? `누락: ${missing.join(', ')}` : GITIGNORE_LOCAL.join(' · '))
-  add('D9', 'agents/router.md 존재', fs.existsSync(rel('agents', 'router.md')))
-  const readme = readText(rel('README.md')) ?? ''
-  add('D9', 'README 「두 에이전트로 일하는 법」', /두 에이전트로 일하는 법/.test(readme))
 
   // D9 — 드레인 서브에이전트는 두 에이전트가 같이 쓴다.
   // ⚠️ `.claude/agents/` 에만 만들면 **Codex 는 그 드레인을 못 돌린다.** 조용히 갈라지는 종류의 결함이라

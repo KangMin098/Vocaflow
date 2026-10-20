@@ -14,6 +14,16 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # 서버 보호 체크 이름을 보존한다. 실제 타입 검사는 verify에서 한 번만 실행한다.
+  typecheck:
+    name: TypeScript 0 error
+    needs: verify
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: 실제 verify 결과 확인 (타입 검사 재실행 없음)
+        run: test '${{ needs.verify.result }}' = 'success'
+
   verify:
     runs-on: ubuntu-latest
     steps:
@@ -62,6 +72,8 @@ jobs:
   # (CI 시뮬레이션으로 .env.local 없이 green 확인). lint 는 verify job 이 담당.
   build:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -106,6 +118,8 @@ jobs:
   e2e-shared-dev:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -189,6 +203,8 @@ jobs:
   #   → 실제 Next.js 빌드 · 기동 → Playwright 실제 브라우저 → DB 단언(목표 행 · RLS) → 러너와 함께 폐기
   e2e:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -286,6 +302,8 @@ jobs:
   #   앱 플래그 · 가짜 RPC 없음. 이 job 의 spec 은 tests/e2e-isolated-fault(playwright.isolated-fault.config.ts)만 — 주 격리 job 과 겹치지 않는다.
   e2e-gate-faultclosed:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4

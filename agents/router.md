@@ -1,5 +1,7 @@
 # 두 에이전트 라우팅 — Claude Code · Codex CLI
 
+2026-10-20 일반 개발 절차는 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`의 `development_policy`를 따른다. 아래 교대·큐·worker 절차는 실제 협업을 선택했을 때만 사용한다. 단일 세션 일반 작업에는 등록·교대 양식·반대 AI 검토를 요구하지 않는다. DB·데이터 삭제 승인과 다른 작업자 변경 보존은 유지한다.
+
 > 어떤 일을 어느 에이전트에 보내는가, 한도에 걸리면 어떻게 넘기는가. 규칙 정본은 [AGENTS.md](../AGENTS.md),
 > 설계 결정은 [DECISIONS.md](./DECISIONS.md), 지시문 원문은 [docs/dual-agent-brief.md](../docs/dual-agent-brief.md).
 

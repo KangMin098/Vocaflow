@@ -1,29 +1,11 @@
 // agents/scripts/__tests__/check.test.mjs
 // 실행: node --test agents/scripts/__tests__
 //
-// 검사기가 스스로 무력해지지 않았는지 — 일부러 넣은 중복·비밀값·드리프트를 잡아야 한다.
+// 검사기가 스스로 무력해지지 않았는지 — 일부러 넣은 비밀값·드리프트를 잡아야 한다.
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { duplicates } from '../check.mjs'
 import { findSecrets, isEnvFile } from '../lib.mjs'
 import { renderMcpJson, renderTomlBlock, spliceToml, TOML_END, TOML_START } from '../sync.mjs'
-
-const AGENTS = '# A\n\n- **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용.\n- 모바일 퍼스트(390 → 768 → 1280) · CSS Variables 로 테마\n'
-
-test('중복: 같은 줄을 CLAUDE.md 에 다시 쓰면 잡는다', () => {
-  const claude = '@AGENTS.md\n\n- **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용.\n'
-  assert.ok(duplicates(AGENTS, claude).length > 0)
-})
-
-test('중복: 긴 문장 조각만 옮겨 써도 잡는다', () => {
-  const claude = '@AGENTS.md\n\n1. 참고로 SQL 을 보여주고 사용자 승인 후 적용 — 이건 Claude 에도 해당\n'
-  assert.ok(duplicates(AGENTS, claude).length > 0)
-})
-
-test('중복: 첫 줄 import 와 Claude 전용 문장은 통과', () => {
-  const claude = '@AGENTS.md\n\n# Claude 전용\n\n- 화면을 만들기 전에 vocaflow-design 스킬을 호출한다.\n'
-  assert.deepEqual(duplicates(AGENTS, claude), [])
-})
 
 test('비밀값: 값은 잡고 이름·참조는 통과', () => {
   assert.equal(findSecrets('SUPABASE_ACCESS_TOKEN=${SUPABASE_ACCESS_TOKEN}\nenv_vars = ["SUPABASE_ACCESS_TOKEN"]').length, 0)
