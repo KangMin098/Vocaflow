@@ -147,6 +147,8 @@ export interface ReasoningNote {
    * 현재 주석 hash 와 맞을 때만 받는다. 기출 노트에는 없다(기존 노트 호환)
    */
   authored?: { deliveryId: string; annotationHash: string }
+  /** T-0063 — 고쳐 쓴 노트면 고친 대상 노트 id(같은 문항). 원본은 덮어쓰지 않고 새 노트로 남는다 · 없으면 처음 쓴 노트(옛 노트 호환) */
+  revisionOf?: string
   at: number
   updatedAt: number
 }
@@ -173,6 +175,7 @@ export function normalizeReasoningNote(x: Partial<ReasoningNote> | null | undefi
     comparedWithModel: x.comparedWithModel === true,
     ...(x.authored && typeof x.authored.deliveryId === 'string' && /^[0-9a-f-]{36}$/i.test(x.authored.deliveryId) && typeof x.authored.annotationHash === 'string' && /^[0-9a-f]{16,128}$/i.test(x.authored.annotationHash)
       ? { authored: { deliveryId: x.authored.deliveryId, annotationHash: x.authored.annotationHash } } : {}),
+    ...(typeof x.revisionOf === 'string' && x.revisionOf !== x.id && /^[A-Za-z0-9-]{8,64}$/.test(x.revisionOf) ? { revisionOf: x.revisionOf } : {}),
     at, updatedAt: Number.isFinite(x.updatedAt) ? Number(x.updatedAt) : at,
   }
 }

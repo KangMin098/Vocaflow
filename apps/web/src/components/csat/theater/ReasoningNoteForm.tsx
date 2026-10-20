@@ -12,7 +12,7 @@
 // 지도 결속을 확인할 수 없거나 문장 단위가 아닌 유형은 연결하지 않는다(번호를 지어내지 않는다). evidence 가 빈 기존 노트는 정상이다.
 
 import { NOTE_FIELD_MAX, normalizeReasoningNote, type ReasoningNote } from '@/lib/csat/dissect'
-import { clearNote, edited, EMPTY_NOTE, sending, settled, type NoteDraft } from '@/lib/csat/explain-draft'
+import { clearNote, edited, EMPTY_NOTE, revisionChain, sending, settled, type NoteDraft } from '@/lib/csat/explain-draft'
 import type { InquiryPrinciple, V3PairView } from '@/lib/csat/inquiry/labels'
 
 import styles from './theater.module.css'
@@ -78,6 +78,16 @@ export function ReasoningNoteForm({
   const last = saved.length ? saved[saved.length - 1] : null
   const linked = evidence.length > 0
   const sameAsCandidate = linked && candidate.length === evidence.length && candidate.every((n, i) => n === evidence[i])
+  // T-0063 — 처음 설명 · 고친 설명(원본은 덮어쓰지 않는다). 창작 자료는 지금 주석과 같은 판에서 쓴 노트만 제공 설명과 대조한다
+  const chain = shown ? revisionChain(saved, shown) : []
+  const first = chain[0] ?? null
+  const latest = chain.length > 1 ? chain[chain.length - 1] : null
+  // 보여 줄 「내 설명」 = 고친 것이 있으면 마지막 고친 설명(처음 설명은 따로 보인다)
+  const cur = (latest ?? shown)!
+  const revising = draft.revising ? saved.find((x) => x.id === draft.revising) ?? null : null
+  const sameEdition = !authored || !shown?.authored || shown.authored.annotationHash === authored.annotationHash
+  const startRevise = (n: ReasoningNote) => onDraft((d) => ({ ...edited(d, { fields: { statement: n.statement, grounds: n.grounds, applicability: n.applicability, limit: n.limit }, pairIds: [...n.pairIds], evidence: [...n.evidence] }), pendingId: null, pendingAt: null, sentRev: null, status: 'idle', revising: n.id }))
+  const cancelRevise = () => onDraft((d) => ({ ...clearNote(d), pendingId: null, pendingAt: null, sentRev: null, status: 'idle' }))
 
   const save = async () => {
     const t = now()
@@ -85,7 +95,7 @@ export function ReasoningNoteForm({
     const x = normalizeReasoningNote({
       // 다시 시도면 같은 id — 병합이 한 건으로 합친다
       id, item: itemId, pairIds, binding: { analysisVersion }, ...fields, evidence,
-      afterExplanation: true, comparedWithModel: false, at, updatedAt: t, ...(authored ? { authored } : {}),
+      afterExplanation: true, comparedWithModel: false, at, updatedAt: t, ...(authored ? { authored } : {}), ...(draft.revising ? { revisionOf: draft.revising } : {}),
     })
     if (!x) return
     onDraft(() => next)
@@ -97,6 +107,12 @@ export function ReasoningNoteForm({
     <section className={styles.explain} aria-labelledby="note-title" data-testid="reasoning-note">
       <h2 id="note-title">원리 노트 <span className={styles.optional}>선택</span></h2>
       <p className="break-keep">이 문항에서 얻은 원리를 조건과 함께 적어 두세요. 저장하면 {josa(modelLabel, "과", "와")} 나란히 놓고 볼 수 있어요. 점수는 매기지 않아요.</p>
+      {revising ? (
+        <p className={`${styles.draftNote} break-keep`} role="status" data-testid="note-revising">
+          처음 설명을 고쳐 쓰는 중이에요 — 저장하면 <b>새 노트</b>로 남고 처음 설명은 그대로예요.{' '}
+          <button type="button" className={styles.back} onClick={cancelRevise} data-testid="note-revise-cancel">고쳐 쓰기 취소</button>
+        </p>
+      ) : null}
       {FIELDS.map((f) => (
         <label key={f.key} className={styles.explainField}>
           <span>{f.label} <span className={styles.quiet}>— {f.hint}</span></span>
@@ -147,7 +163,7 @@ export function ReasoningNoteForm({
       <p className={styles.draftNote}>저장하지 않은 노트는 이 탭에만 있어요 — 새로고침하거나 탭을 닫으면 사라져요.</p>
       <div className={styles.explainActions}>
         <button type="button" onClick={() => void save()} disabled={!fields.statement.trim() || status === 'saving'} data-testid="note-save">
-          {status === 'failed' ? '다시 저장' : status === 'saving' ? '저장하는 중…' : '노트 저장'}
+          {status === 'failed' ? '다시 저장' : status === 'saving' ? '저장하는 중…' : revising ? '고친 설명 저장' : '노트 저장'}
         </button>
       </div>
       <p role="status" aria-live="polite" className="break-keep text-[12.5px]" data-testid="note-status" data-status={status}>
@@ -155,36 +171,46 @@ export function ReasoningNoteForm({
       </p>
 
       {shown ? (
-        <div className={styles.explainCompare} data-testid="note-compare">
-          <div>
-            <b>내 노트</b>
-            <p className="break-keep">{shown.statement}</p>
-            {shown.applicability ? <p className="break-keep">통하는 조건: {shown.applicability}</p> : null}
-            {shown.limit ? <p className="break-keep">쓰면 안 되는 조건: {shown.limit}</p> : null}
-            {shown.evidence.length ? (
-              shown.binding.analysisVersion === analysisVersion && onShowEvidence ? (
-                <button type="button" className={styles.back} onClick={() => onShowEvidence(shown.evidence)} data-testid="note-evidence-show">
-                  연결한 근거 {nums(shown.evidence)} 문장 짚기
+        <div className={styles.explainCompare} data-testid="note-compare" data-revisions={chain.length}>
+          {latest && first && latest.id !== first.id ? (
+            <div data-testid="note-first">
+              <b>처음 설명</b>
+              <p className="break-keep">{first.statement}</p>
+              {first.applicability ? <p className="break-keep">통하는 조건: {first.applicability}</p> : null}
+              {first.limit ? <p className="break-keep">쓰면 안 되는 조건: {first.limit}</p> : null}
+            </div>
+          ) : null}
+          <div data-testid={latest ? 'note-revised' : 'note-mine'}>
+            <b>{latest ? '고친 설명' : '내 노트'}</b>
+            <p className="break-keep">{cur.statement}</p>
+            {cur.applicability ? <p className="break-keep">통하는 조건: {cur.applicability}</p> : null}
+            {cur.limit ? <p className="break-keep">쓰면 안 되는 조건: {cur.limit}</p> : null}
+            {cur.evidence.length ? (
+              cur.binding.analysisVersion === analysisVersion && onShowEvidence ? (
+                <button type="button" className={styles.back} onClick={() => onShowEvidence(cur.evidence)} data-testid="note-evidence-show">
+                  연결한 근거 {nums(cur.evidence)} 문장 짚기
                 </button>
               ) : (
-                <p className={styles.quiet} data-testid="note-evidence-stale">연결한 근거 {nums(shown.evidence)} 문장 — 예전 분석 기준이거나 지도와 맞춰 볼 수 없어 위치는 짚지 않아요.</p>
+                <p className={styles.quiet} data-testid="note-evidence-stale">연결한 근거 {nums(cur.evidence)} 문장 — 예전 분석 기준이거나 지도와 맞춰 볼 수 없어 위치는 짚지 않아요.</p>
               )
             ) : (
               <p className={styles.quiet}>연결한 근거 없음</p>
             )}
-            {shown.binding.analysisVersion !== analysisVersion ? <p className={styles.quiet}>예전 분석으로 쓴 노트예요.</p> : null}
+            {cur.binding.analysisVersion !== analysisVersion ? <p className={styles.quiet}>예전 분석으로 쓴 노트예요.</p> : null}
           </div>
           <div>
             <b>{modelLabel}</b>
-            {principle ? (
-              shown.comparedWithModel ? (
+            {!sameEdition ? (
+              <p className={styles.quiet} data-testid="note-other-edition">이 노트는 다른 판 자료로 썼어요 — 지금 {josa(modelLabel, '과', '와')} 나란히 대조하지 않아요. 노트는 그대로 남아요.</p>
+            ) : principle ? (
+              cur.comparedWithModel ? (
                 <>
                   <p className="break-keep">{principle.statement}</p>
                   {principle.when_applies.length ? <p className="break-keep">통하는 조건: {principle.when_applies.join(' · ')}</p> : null}
                   {principle.when_not.length ? <p className="break-keep">쓰면 안 되는 조건: {principle.when_not.join(' · ')}</p> : null}
                 </>
               ) : (
-                <button type="button" onClick={() => void onSave({ ...shown, comparedWithModel: true, updatedAt: now() })} data-testid="note-open-model">
+                <button type="button" onClick={() => void onSave({ ...cur, comparedWithModel: true, updatedAt: now() })} data-testid="note-open-model">
                   {modelLabel} 펼쳐 비교하기
                 </button>
               )
@@ -192,7 +218,15 @@ export function ReasoningNoteForm({
               <p className={styles.quiet} data-testid="note-no-model">이 문항에는 비교할 {josa(modelLabel, "이", "가")} 아직 없어요. 쓴 노트는 그대로 남아요.</p>
             )}
           </div>
-          {shown.comparedWithModel ? <p className={styles.quiet}>조건과 경계를 같은 것으로 봤는지 스스로 확인해 보세요.</p> : null}
+          {cur.comparedWithModel ? <p className={styles.quiet}>조건과 경계를 같은 것으로 봤는지 스스로 확인해 보세요.</p> : null}
+          {!revising ? (
+            <p className="break-keep">
+              <button type="button" className={styles.back} onClick={() => startRevise(latest ?? shown)} data-testid="note-revise">
+                대조해 보고 고쳐 쓰기
+              </button>{' '}
+              <span className={styles.quiet}>— 고친 설명은 새 노트로 남아요(선택 · 점수 없음)</span>
+            </p>
+          ) : null}
         </div>
       ) : last ? (
         <p className={styles.quiet}>

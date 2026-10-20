@@ -139,6 +139,44 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
       const guidedHref = (await hrefsOf(again, 'guided_practice'))[0]
       await page.goto(guidedHref, { waitUntil: 'domcontentloaded' })
       await expect(page.locator('[data-testid="authored-result"]'), '지난 풀이 결과').toBeVisible({ timeout: 30_000 })
+
+      // T-0063 — 자기 설명 저장 → 제공 설명 대조 → 고쳐 쓰기(취소 1회 · 원본 불변) → 고친 설명 저장 → 새로 열어도 처음 · 고친 설명 둘 다
+      const noteForm = page.locator('[data-testid="reasoning-note"]')
+      await expect(noteForm, '교수 · 안내 연습의 자기 설명').toBeVisible({ timeout: 30_000 })
+      const ORIGINAL = `발문이 묻는 대상을 먼저 정한다 ${width}`
+      await noteForm.locator('[data-testid="note-statement"]').fill(ORIGINAL)
+      await noteForm.locator('[data-testid="note-save"]').click()
+      await expect(noteForm.locator('[data-testid="note-status"]')).toHaveAttribute('data-status', 'saved', { timeout: 30_000 })
+      await expect(noteForm.locator('[data-testid="note-compare"]')).toContainText(ORIGINAL)
+      const openModel = noteForm.locator('[data-testid="note-open-model"]')
+      if (await openModel.count()) await openModel.click()
+      // 고쳐 쓰기 → 취소: 원본은 그대로, 초안은 비워진다
+      const revise = noteForm.locator('[data-testid="note-revise"]')
+      await revise.focus(); await expect(revise).toBeFocused(); await page.keyboard.press('Enter')
+      await expect(noteForm.locator('[data-testid="note-revising"]')).toBeVisible()
+      await expect(noteForm.locator('[data-testid="note-statement"]')).toHaveValue(ORIGINAL)
+      await noteForm.locator('[data-testid="note-statement"]').fill('취소할 문장')
+      await noteForm.locator('[data-testid="note-revise-cancel"]').click()
+      await expect(noteForm.locator('[data-testid="note-revising"]')).toHaveCount(0)
+      await expect(noteForm.locator('[data-testid="note-statement"]')).toHaveValue('')
+      // 다시 고쳐 써서 저장 — 새 노트로 남는다
+      const REVISED = `발문의 대상과 조건을 함께 확인한다 ${width}`
+      await noteForm.locator('[data-testid="note-show-last"]').click().catch(() => undefined)
+      await noteForm.locator('[data-testid="note-revise"]').click()
+      await noteForm.locator('[data-testid="note-statement"]').fill(REVISED)
+      await expect(noteForm.locator('[data-testid="note-save"]')).toHaveText('고친 설명 저장')
+      await noteForm.locator('[data-testid="note-save"]').click()
+      await expect(noteForm.locator('[data-testid="note-status"]')).toHaveAttribute('data-status', 'saved', { timeout: 30_000 })
+      await expect(noteForm.locator('[data-testid="note-first"]'), '처음 설명 보존').toContainText(ORIGINAL)
+      await expect(noteForm.locator('[data-testid="note-revised"]'), '고친 설명').toContainText(REVISED)
+      await noOverflow(page)
+      await shot(page, `note-revised-${width}`)
+      // 새로 열기 — 처음 · 고친 설명이 둘 다 남고 구분된다
+      await page.reload({ waitUntil: 'domcontentloaded' })
+      await expect(noteForm).toBeVisible({ timeout: 30_000 })
+      await noteForm.locator('[data-testid="note-show-last"]').click()
+      await expect(noteForm.locator('[data-testid="note-first"]')).toContainText(ORIGINAL)
+      await expect(noteForm.locator('[data-testid="note-revised"]')).toContainText(REVISED)
       await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
       await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
       const dlg = page.locator(`[role="dialog"][data-ws="${T}"]`)
