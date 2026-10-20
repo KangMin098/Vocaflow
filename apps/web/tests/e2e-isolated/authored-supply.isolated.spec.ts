@@ -138,8 +138,9 @@ for (const width of [1440, 1280]) {
     const back = page.locator('[data-testid="ws-authored-list"]')
     // 복귀 문맥에 PLAN 이 있으면 같은 Workspace 팝업이 계획 탭으로 복원된다(제품 동작) — 복원을 기다렸다가 사용자처럼 개요 탭을 누른다.
     //   「지금 보이나」 즉시 판정은 복원 전에 열기 버튼을 눌러 오버레이에 막혔다(CI 39356907261 경쟁) — 복원이 안 되면 그 자체가 실패다(Codex T-0052 P2)
-    const overview = page.locator('[data-testid="ws-tab-overview"]')
-    await expect(overview, '복귀 문맥이 같은 Workspace 팝업을 복원한다').toBeVisible({ timeout: 30_000 })
+    const dialog = page.locator(`[role="dialog"][data-ws="${TEMPLATE}"]`)
+    await expect(dialog, '복귀 문맥이 같은 Workspace 팝업을 복원한다').toBeVisible({ timeout: 30_000 })
+    const overview = dialog.locator('[data-testid="ws-tab-overview"]')
     if (!(await back.isVisible())) await overview.click()
     await expect(back).toContainText('풀었어요')
     await noOverflow(page)
