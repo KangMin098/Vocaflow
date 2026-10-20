@@ -325,3 +325,13 @@ describe('Workspace 대표 선정 · 단계', () => {
     expect(tb2.needs.find((n) => n.task === 'r.central_meaning')?.type).toBe('MAINTAIN')
   })
 })
+
+describe('기준 시점 — 날짜만 있는 시험 기록(KST)', () => {
+  it('KST 새벽(UTC 전날)에 오늘 날짜로 넣은 기록은 미래가 아니다 — as_of 가 지금을 넘지 않는다', async () => {
+    const { currentAsOf } = await import('../compose')
+    const { ms } = await import('../as-is')
+    const now = '2026-10-18T18:30:00.000Z' // KST 2026-10-19 03:30
+    expect(ms('2026-10-19')).toBe(Date.parse('2026-10-18T15:00:00.000Z'))
+    expect(currentAsOf(now, [{ enteredAt: now, takenAt: '2026-10-19' }], [])).toBe(now)
+  })
+})

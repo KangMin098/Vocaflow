@@ -1,0 +1,8 @@
+{
+  "item-1": {"answer": 3, "defensibleOther": {"value": false, "why": "1은 주제 유형 요구, 주장 유형은 필자의 당위 판단(6번 문장)"}, "giveaway": {"level": "mild", "why": "'필자가' 어휘가 발문과 정답에만 겹침"}, "taskStemNatural": {"value": true, "why": "표준 주장 발문"}},
+  "item-2": {"answer": 1, "defensibleOther": {"value": false, "why": "4는 제목 유형(게다가 '영어 제목'), 나머지는 부분·이탈"}, "giveaway": {"level": "none", "why": "길이·어휘 고름"}, "taskStemNatural": {"value": true, "why": "표준 주제 발문"}},
+  "item-3": {"answer": 5, "defensibleOther": {"value": false, "why": "3은 한 조건만 확인해 불충분"}, "giveaway": {"level": "mild", "why": "정답만 '어긋난 것'으로 '일치하지 않는' 발문과 의미 직결; 정답이 가장 절차적"}, "taskStemNatural": {"value": true, "why": "표준 내용 불일치 발문"}},
+  "item-4": {"answer": 2, "defensibleOther": {"value": false, "why": "1은 주장 유형, 3은 사전적 의미"}, "giveaway": {"level": "strong", "why": "'밑줄'·'맥락에서 뜻하는 바'가 발문 '밑줄 친 … 의미하는 바'와 직접 겹치고 다른 선택지엔 밑줄 언급 없음"}, "taskStemNatural": {"value": true, "why": "표준 함축 의미 발문"}},
+  "item-5": {"answer": 3, "defensibleOther": {"value": false, "why": "1은 (B)를 배제해 불완전"}, "giveaway": {"level": "mild", "why": "(A)·(B)가 1·3에만 등장해 사실상 2지선다; 정답이 가장 길다"}, "taskStemNatural": {"value": false, "why": "실제 수능은 요약문을 발문에 '→'로 넣지 않고 글 아래 상자로 제시; 발문 자체는 표준이나 형식 혼합"}},
+  "item-6": {"answer": 1, "defensibleOther": {"value": false, "why": "2는 문법만, 나머지 이탈"}, "giveaway": {"level": "mild", "why": "'빈칸 채우기' 어휘 겹침, 단 2·5도 '빈칸' 언급해 완화"}, "taskStemNatural": {"value": true, "why": "표준 빈칸 발문"}}
+}

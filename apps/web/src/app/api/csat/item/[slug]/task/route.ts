@@ -3,7 +3,8 @@
 // POST /api/csat/item/[slug]/task — 문항의 확인 과제 응답 한 건(Phase 3 · 과제 종류는 item-tasks 레지스트리 — 주장과 근거 · 이어 주는 단서).
 // 거부(400)는 { error, code } — code: no_task(주석 없음) · not_live(적용이 켜져 있지 않음 — 노출 게이트) · invalid_input(답 · 메타 형식 · 같은 id 다른 요청).
 // 본문: { response, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약). 응답: { grade, attempts, outcome, binding }.
-// binding: 납품 결속 상태(not_installed · no_delivery · bound · error) — 결속 실패는 기록을 되돌리지 않는다.
+// binding: 납품 결속 상태(not_installed · no_delivery · no_provenance · invalid_delivery · role_mismatch · bound · error) · bindingDetail(근거 여부) —
+// 결속 실패는 기록을 되돌리지 않는다. 본문 deliveryId(선택) = 화면이 연 납품 — 없으면 결속하지 않는다(FI-001).
 // userId 는 세션에서만 온다(learnerContext). 채점 · 게이트(채택 사슬 · 적용 active · 주석 서명)는 서버가 한다.
 // 쓰기는 service_role 로만 — 학습자 키는 learning_task_attempts 에 쓰기 권한이 없다(본인 SELECT 만).
 
@@ -35,11 +36,13 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     const result = await recordItemTaskAttempt(ctx.db, { id: ctx.userId, email: ctx.email }, itemRef, body, Date.now())
     // R5 §6 — 이 학습자에게 납품된 자료였다면 시도를 그 납품에 결속(학습자 세션 · 판정은 DB). 실패해도 기록은 이미 남았다
     const cmid = (body as { clientMutationId?: unknown } | null)?.clientMutationId
+    // FI-001 — 납품 출처(deliveryId)는 화면이 연 납품에서만 온다. 없으면 최신 납품을 추측하지 않는다(no_provenance · 기록 보존 · 복구 API)
+    const did = (body as { deliveryId?: unknown } | null)?.deliveryId
     const binding = typeof cmid === 'string'
-      ? await bindDeliveryAttempt(await createClient() as unknown as Parameters<typeof bindDeliveryAttempt>[0], { userId: ctx.userId, itemRef, clientMutationId: cmid })
+      ? await bindDeliveryAttempt(await createClient() as unknown as Parameters<typeof bindDeliveryAttempt>[0], { userId: ctx.userId, itemRef, clientMutationId: cmid, deliveryId: typeof did === 'string' ? did : null })
           .catch((e) => { console.error('[task delivery binding]', e); return { status: 'error' as const } })
       : { status: 'error' as const }
-    return NextResponse.json({ ...result, binding: binding.status })
+    return NextResponse.json({ ...result, binding: binding.status, bindingDetail: binding })
   } catch (e) {
     if (e instanceof TaskInputError) return NextResponse.json({ error: e.message, code: e.code }, { status: 400 })
     return failure(e)

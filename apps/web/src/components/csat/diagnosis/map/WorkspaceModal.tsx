@@ -19,6 +19,9 @@ import { STAGE_BLOCKED_LABEL, STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 
+import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
+
+import { AuthoredSupplyCard } from './AuthoredSupplyCard'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
@@ -28,7 +31,7 @@ import { Amount, READINESS_LABEL, STAGES, taskLabel, wsIcon, WS_STATE_LABEL } fr
 
 export type WsTab = 'overview' | 'plan'
 
-export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab, onClose, onPickTask }: {
+export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab, onClose, onPickTask, returned = null }: {
   row: WsRow
   view: V4View
   data: MapPageData
@@ -39,6 +42,8 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
   onTab: (t: WsTab) => void
   onClose: () => void
   onPickTask: (id: TaskId) => void
+  /** T-0062 — 학습 후 이 묶음으로 돌아왔을 때의 정리(TASK 서랍과 같은 계산) · 돌아온 게 아니면 null */
+  returned?: { task: TaskId; lines: string[] } | null
 }) {
   const Icon = wsIcon(row.id)
   const plan = view.plans[row.id] ?? null
@@ -87,6 +92,12 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
         </>
       }
     >
+      {returned && returned.lines.length > 0 && (
+        <section className={p.card} aria-labelledby="ws-return-h" data-testid="ws-return-summary" data-task={returned.task} role="status">
+          <h3 id="ws-return-h" className={p.cardTitle}>돌아온 뒤 — {taskLabel(returned.task).name} 에 무엇이 기록됐나</h3>
+          <ul className={u.ledger}>{returned.lines.map((x) => <li key={x} className="break-keep">{x}</li>)}</ul>
+        </section>
+      )}
       {tab === 'plan' && plan ? (
         <div id="umap-plan" className={u.planInModal} data-testid="umap-plan" data-ws={row.id}>
           {/* 묶음마다 다른 인스턴스 — 다른 묶음 저장의 늦은 응답 · 초안이 지금 묶음을 덮지 않는다 */}
@@ -165,6 +176,14 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
             )}
             <p className={p.cardDesc}>문항 수는 실력 점수가 아니에요. TASK 마다의 자료 준비 상태는 TASK 의 「자세한 근거 보기」에서 봐요.</p>
           </section>
+
+          {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
+            <AuthoredSupplyCard task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0], row.id)} />
+          )}
+          {/* T-0056 — 이 Workspace 의 보조 TASK 자료(창작 세트가 있는 것만). 핵심/보조 표기 그대로 · 서버가 TASK 소속을 다시 확인한다 */}
+          {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
+            <AuthoredSupplyCard key={t} kind="support" task={t} taskName={taskLabel(t).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
+          ))}
         </>
       )}
     </MapDialog>

@@ -103,3 +103,18 @@ describe('P-F2 공급 판정', () => {
     expect(JSON.stringify(s)).not.toMatch(/generating|in_production|생성 중/)
   })
 })
+
+describe('T-0056 — 목표가 있어도 직접 확인 전 보조 TASK 는 그 묶음에서 확인 수요를 남긴다', () => {
+  // 실제 서버 관찰(CI 39367245139): 목표가 있는 학습자의 보조 TASK 에 계획 단계 · 요구가 없으면 첫 공급이 「새로 받을 자료 없음」이었다
+  const base = view([], 12)
+  const v = { ...base, taskPlans: base.taskPlans.filter((p) => p.task !== 'e.task_demand') }
+  it('ws.evidence-locate 의 보조 e.task_demand — 단계 · 목표 요구가 없어도 independent_check(첫 공급)', () => {
+    expect(v.toBe).not.toBeNull()
+    const d = buildDemand(v, 'e.task_demand', 'ws.evidence-locate', ctx)
+    expect(d.lines.map((l) => [l.role, l.reason])).toEqual([['independent_check', 'need_without_stage']])
+  })
+  it('묶음 밖 · 그 묶음의 보조가 아니면 기존 규칙 그대로 — 근거 없이 수요를 만들지 않는다', () => {
+    expect(buildDemand(v, 'e.task_demand', null, ctx).lines).toEqual([])
+    expect(buildDemand(v, 'e.task_demand', 'ws.central-meaning', ctx).lines).toEqual([])
+  })
+})

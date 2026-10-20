@@ -120,6 +120,20 @@
   font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-ink2);
 }
+/* T-0061 — 추천 TASK 의 이번 학습량 · 확인 조건 · 기다림 이유: 상단 띠 아래 한 줄(전체 폭) */
+.topFacts {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 8px 16px;
+  list-style: none;
+  border-top: 1px solid var(--m-g200);
+}
+.topFacts > li {
+  min-width: 0;
+}
 /* PM4-P2-02 — 과거 기준 보기: 상단이 읽기 전용임을 처음부터 말한다 */
 .pastBar {
   grid-column: 1 / -1;

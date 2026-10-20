@@ -76,9 +76,10 @@ describe('LM-G1.1 R5 단계 판정 — 수행량 ≠ 단계 준비', () => {
     expect(ev.transferAt).not.toBeNull()
   })
 
-  it('T06 TRANSFER 자료 없음 → 적용 단계를 완료로 꾸미지 않는다(성취 그대로 · 적용 링크 없음)', () => {
+  it('T06 TRANSFER 자료 없음 → 적용 단계에 머물고 자료 필요로 보인다(완료로 꾸미지 않음 · 건너뛰지 않음 · T-0052 Codex P1)', () => {
     const { p } = build(asIs({ attempts: VERIFIED }), [act('i1', true, '2026-09-13T00:00:00Z')], 0)
-    expect(p.stage).not.toBe('transfer')
+    expect(p.stage, '전이 자료를 아직 받지 않았다고 적용을 건너뛰지 않는다 — 공급 수요가 전이 역할로 나야 한다').toBe('transfer')
+    expect(p.unresolved).toContain('material_needed')
     expect(p.achievement).toBe('need_confirmed')
     expect(p.next?.href ?? '').not.toMatch(/x1|x2/)
   })

@@ -10,7 +10,7 @@
 import { splitMust, itemKey, type ItemKey, type RefItem } from '../target'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
-import { CANON_VERSION, checkKeysOfTask, linesOfTask, partsOf, taskOf, tasks, templates, type TaskId } from './definition'
+import { CANON_VERSION, evidenceKeysOfTask, linesOfTask, partsOf, taskOf, tasks, templates, type TaskId } from './definition'
 import type { DirectCheck } from './types'
 
 export type NeedType = 'CONFIRM' | 'REPAIR' | 'INTEGRATE' | 'TRANSFER' | 'MAINTAIN' | 'EXAM_PRACTICE'
@@ -121,7 +121,7 @@ function needOf(t: AsIsTask, asIs: AsIsMap, transferred: ReadonlySet<string>): {
     case 'verified_need':
       return { type: 'REPAIR', reason: 'verified_need' }
     case 'resolved': {
-      const done = checkKeysOfTask(t.id).some((k) => transferred.has(k))
+      const done = evidenceKeysOfTask(t.id).some((k) => transferred.has(k))
       return done ? { type: 'MAINTAIN', reason: 'resolved_transferred' } : { type: 'TRANSFER', reason: 'resolved_not_transferred' }
     }
     case 'unmeasurable':
@@ -161,7 +161,8 @@ export function toBeMap(input: ToBeInput): ToBeMap | null {
       else unrelated.push(def.id)
       continue
     }
-    const keys = checkKeysOfTask(def.id)
+    // FI-011 — 확인 · 전이 키는 정본 + 이 TASK 의 창작 키(납품된 창작 확인 링크도 실행 가능한 다음 행동)
+    const keys = evidenceKeysOfTask(def.id)
     const unseen = new Set(t.check?.unseen ?? [])
     const executable = n.type === 'CONFIRM' || n.type === 'MAINTAIN'
       // 아직 본 적 없는 확인 문항만 — 이미 푼 문항을 「확인」으로 다시 내밀지 않는다(독립 첫 시도 원칙)

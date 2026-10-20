@@ -15,7 +15,7 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import { skillDiagnosis, type SkillStatus } from '../skill-diagnosis'
 
-import { CANON_EFFECTIVE_FROM, CANON_VERSION, DOMAINS, RULE_VERSION, checkKeysOfTask, tasks, type Domain, type TaskId } from './definition'
+import { CANON_EFFECTIVE_FROM, CANON_VERSION, DOMAINS, RULE_VERSION, evidenceKeysOfTask, tasks, type Domain, type TaskId } from './definition'
 import type { DirectCheck } from './types'
 
 /** 축 proxy 의 학생 쪽 상태(learner-path 의 단계 근거 상태를 축 단위로) */
@@ -146,8 +146,12 @@ const HOLD_DOMAINS = new Set<Domain>(['L', 'X'])
  * 시각 비교는 밀리초로 — taken_at 은 날짜만(`2026-10-10`), 나머지는 ISO 시각이라 문자열 비교는 같은 날을 「앞」으로 잘못 본다(2차 화면 검토).
  * 날짜만 있는 값은 그날 0시(UTC)로 읽는다. 읽을 수 없는 값은 가장 뒤(기준 시점 필터에서 빠지게).
  */
+/**
+ * 시각 → ms. 날짜만 있는 값(시험 기록 taken_at 'YYYY-MM-DD')은 **KST 그날 시작**으로 읽는다 — `new Date('YYYY-MM-DD')` 는 UTC 자정이라
+ * KST 00:00~09:00 에 오늘 날짜로 넣은 기록이 「미래」가 되어 계획 확정이 as_of_future 로 거절됐다(종단 e2e 실측 · 2026-10-19).
+ */
 export function ms(v: string): number {
-  const t = new Date(v).getTime()
+  const t = new Date(/^\d{4}-\d{2}-\d{2}$/.test(v) ? `${v}T00:00:00+09:00` : v).getTime()
   return Number.isNaN(t) ? Number.POSITIVE_INFINITY : t
 }
 
@@ -203,7 +207,7 @@ export function asIsMap(input: AsIsInput): AsIsMap {
       continue
     }
     // 직접 확인 — 이 TASK 를 중심으로 겨누는 확인 과제 키가 있고, 확인 문항이 실제로 연결돼 있을 때만
-    const keys = new Set(checkKeysOfTask(t.id))
+    const keys = new Set(evidenceKeysOfTask(t.id))
     const targets = input.checks.filter((c) => keys.has(c.taskKey)).flatMap((c) => c.items.map((itemRef) => ({ itemRef, taskKey: c.taskKey })))
     let check: AsIsTask['check'] = null
     let fromCheck: TaskEvidence | null = null

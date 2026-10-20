@@ -265,6 +265,22 @@ jobs:
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-seed.mjs --commit
 
+      # FINAL — 보류 창작 공급 SQL 을 **러너 DB 에만** 적용(개발 DB 무관 · 승인 전 SQL 의 실제 Postgres 검증). 그 위에 R5 창작 fixture
+      # (자격 · 결정 · 승인 = 「CI 격리 fixture — 사람 결정 아님」)를 적재한다. 가드: loopback:54321 · CI 러너
+      - name: 격리 전용 — 보류 창작 공급 SQL 적용 + R5 창작 fixture
+        run: |
+          case "$NEXT_PUBLIC_SUPABASE_URL" in http://127.0.0.1:54321*) ;; *) echo "::error::격리 DB 가 아니다"; exit 1 ;; esac
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f supabase/_all_migrations/_pending_authored_supply.sql
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/authored-open-fault.sql
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/journey-exam-fixture.sql
+          node scripts/ci/authored-isolated-seed.mjs --commit
+
+      # FI-006(#298) — 보류 창작 공급 SQL 의 동시 공급 직렬화를 **실제 PostgreSQL 17 두 연결**로(임시 클러스터 · 러너 안에서 폐기)
+      - name: 격리 전용 — 창작 공급 동시성(실제 Postgres)
+        run: |
+          mkdir -p /tmp/pgconc && cd /tmp/pgconc && npm init -y >/dev/null && npm i --silent embedded-postgres@17.10.0-beta.17 pg@8.13.1
+          cd "$GITHUB_WORKSPACE" && node scripts/csat/map/v62/authored-concurrency.mjs --deps /tmp/pgconc
+
       # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
       - uses: actions/cache@v4
         with:
@@ -284,7 +300,9 @@ jobs:
 
       - if: always()
         name: 서버 로그
-        run: tail -n 80 /tmp/next.log || true
+        run: |
+          grep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true
+          tail -n 80 /tmp/next.log || true
 
       - if: always()
         uses: actions/upload-artifact@v4

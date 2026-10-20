@@ -59,9 +59,30 @@ export interface NoteDraft extends DraftMeta {
   fields: { statement: string; grounds: string; applicability: string; limit: string }
   pairIds: string[]
   evidence: number[]
+  /** T-0063 — 고쳐 쓰는 중이면 고칠 대상 노트 id(저장하면 새 노트 · revisionOf). 없으면 새로 쓰기 */
+  revising?: string | null
 }
-export const EMPTY_NOTE: NoteDraft = { ...EMPTY_META, fields: { statement: '', grounds: '', applicability: '', limit: '' }, pairIds: [], evidence: [] }
-export const clearNote = (d: NoteDraft): NoteDraft => ({ ...d, fields: { ...EMPTY_NOTE.fields }, pairIds: [], evidence: [] })
+export const EMPTY_NOTE: NoteDraft = { ...EMPTY_META, fields: { statement: '', grounds: '', applicability: '', limit: '' }, pairIds: [], evidence: [], revising: null }
+export const clearNote = (d: NoteDraft): NoteDraft => ({ ...d, fields: { ...EMPTY_NOTE.fields }, pairIds: [], evidence: [], revising: null })
+
+/** 고쳐 쓴 노트들의 처음 노트 — revisionOf 를 따라 올라간다(같은 문항 · 순환 방지 · 대상이 없으면 거기서 멈춤) */
+export function rootNoteOf<N extends { id: string; revisionOf?: string }>(notes: readonly N[], note: N): N {
+  let cur = note
+  const seen = new Set<string>([cur.id])
+  while (cur.revisionOf) {
+    const up = notes.find((n) => n.id === cur.revisionOf)
+    if (!up || seen.has(up.id)) break
+    seen.add(up.id)
+    cur = up
+  }
+  return cur
+}
+
+/** 같은 처음 노트에서 이어진 노트들(처음 → 마지막 고친 것, 쓴 시각 순) */
+export function revisionChain<N extends { id: string; revisionOf?: string; at: number }>(notes: readonly N[], note: N): N[] {
+  const root = rootNoteOf(notes, note)
+  return notes.filter((n) => rootNoteOf(notes, n).id === root.id).sort((a, b) => a.at - b.at)
+}
 
 /**
  * 노트에 연결할 수 있는 근거 번호 — 지금 문항 지도의 실제 문장 범위 안 · 중복 없음 · 오름차순 · 최대 20(normalizeReasoningNote 와 같은 상한).

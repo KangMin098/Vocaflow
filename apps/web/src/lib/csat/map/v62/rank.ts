@@ -28,7 +28,7 @@ export interface ActionRankEntry {
   needRank: number
 }
 
-export type NotActionableReason = 'content_gap' | 'stage_locked' | 'canon_hold' | 'relevance_unknown' | 'no_next_activity'
+export type NotActionableReason = 'content_gap' | 'stage_locked' | 'material_needed' | 'repair_material_needed' | 'canon_hold' | 'relevance_unknown' | 'no_next_activity'
 
 export interface Ranks {
   needRank: NeedRankEntry[]
@@ -58,7 +58,7 @@ export function ranksOf(view: V4View): Ranks {
       continue
     }
     const u = p?.unresolved ?? []
-    const reason: NotActionableReason = taskOf(e.task).status === 'hold' || u.includes('canon_hold') ? 'canon_hold' : u.includes('no_content') ? 'content_gap' : u.includes('stage_locked') ? 'stage_locked' : 'no_next_activity'
+    const reason: NotActionableReason = taskOf(e.task).status === 'hold' || u.includes('canon_hold') ? 'canon_hold' : u.includes('no_content') ? 'content_gap' : u.includes('repair_material_needed') ? 'repair_material_needed' : u.includes('material_needed') ? 'material_needed' : u.includes('stage_locked') ? 'stage_locked' : 'no_next_activity'
     notActionable.push({ task: e.task, reason })
   }
   return { needRank, actionRank, notActionable }

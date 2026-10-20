@@ -7,8 +7,10 @@ import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 import type { RefItem } from '../../target'
 
 import { asIsMap, type AsIsInput, type AxisProxyState } from '../as-is'
-import { DOMAINS, type Domain } from '../definition'
-import { applyDraft, allTaskPlans, workspacePlan, type PlanActivity } from '../plan'
+import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
+import { DOMAINS, templates, type Domain } from '../definition'
+import { applyDraft, allTaskPlans, doneOf, repairGate, workspacePlan, type PlanActivity } from '../plan'
+import { lifecycleEvidence } from '../../lifecycle-evidence'
 import { toBeMap, type ConfirmLink } from '../to-be'
 import { planWorkspaces } from '../workspace'
 
@@ -167,5 +169,153 @@ describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(
   it('④ 확정 전 수행은 바로잡기로 세지 않는다', () => {
     const p = view(a, [later('i1', 'practice', 9), later('i2', 'practice', 9)])
     expect(p.stage).toBe('repair')
+  })
+})
+
+describe('자료 소진 안내(FAST LOOP v3 · B)', () => {
+  it('확인 문항을 다 봐 단계가 잠기면 「새 자료 필요」(material_needed) — 「앞 단계를 마치면」(stage_locked) 이 아니다', () => {
+    // 5문항 모두 정답(독립) — 확정 전이라 확인 단계인데 안 본 문항 0
+    const all = ITEMS.map((i, k) => attempt(i, true, `2026-09-1${k}T00:00:00Z`))
+    const p = build(asIs({ attempts: all }), 80).view.tasks.find((t) => t.task === 'r.central_meaning')!
+    expect(p.unresolved).toContain('material_needed')
+    expect(p.unresolved).not.toContain('stage_locked')
+  })
+})
+
+describe('FI-011 창작 바로잡기 — 교수 · 안내 연습 자료로 성공 판정', () => {
+  // 확정(2 오답) 뒤 바로잡기 단계 · 바로잡기 자료 = 안내 연습 g1 · 원리 설명 m1(창작 · 별도 자격)
+  const repairTargets = { [KEY]: [{ target: 'authored:g1', href: '/csat/learn/g1?d=x', label: '바로잡기 · 안내 연습', role: 'guided_practice' as const }, { target: 'authored:m1', href: '/csat/learn/m1?d=y', label: '바로잡기 · 원리 설명 보기', role: 'model_explanation' as const }] }
+  const buildR = (activity: PlanActivity[]) => {
+    const a = asIs({ attempts: verified })
+    const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 2 }, repairTargets })
+    const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
+    return workspacePlan(cm, a, toBe, plan, activity).tasks.find((t) => t.task === 'r.central_meaning')!
+  }
+  // 서버 loader 가 정확한 납품 결속을 확인한 안내 연습 시도 = repairRole + 서버 수신 시각(기본 판단 시각과 같음)
+  const act = (itemRef: string, ok: boolean | null, at: string, bind: { bound?: boolean; receivedAt?: string | null } = {}): PlanActivity => ({ itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, answeredAt: at, activity: 'practice', receivedAt: bind.receivedAt === undefined ? at : bind.receivedAt, ...(bind.bound === false || itemRef === 'authored:m1' ? {} : { repairRole: 'guided_practice' }) } as unknown as PlanActivity)
+  it('안내 연습 정답(회차 뒤) = 바로잡기 성공 → 다음 단계', () => {
+    expect(buildR([]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-12T00:00:00Z')]).stage).not.toBe('repair')
+  })
+  it('원리 설명 보기 · 안내 연습 오답 · 회차 전 기록은 성공이 아니다', () => {
+    expect(buildR([act('authored:m1', true, '2026-09-12T00:00:00Z')]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', false, '2026-09-12T00:00:00Z')]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-10T12:00:00Z')]).stage).toBe('repair') // 확정(09-11) 전
+  })
+  it('Codex 반례 3 — 결속 없는 시도 · 서버 수신이 회차 앞이거나 없는 시도는 이번 회차를 진전시키지 않는다', () => {
+    expect(buildR([act('authored:g1', true, '2026-09-12T00:00:00Z', { bound: false })]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-12T00:00:00Z', { receivedAt: '2026-09-10T12:00:00Z' })]).stage).toBe('repair')
+    expect(buildR([act('authored:g1', true, '2026-09-12T00:00:00Z', { receivedAt: null })]).stage).toBe('repair')
+  })
+  it('Codex P1-1 — 안내 연습 오답 → 다음 행동은 그 안내 연습(다시 풀기) → 재시도 정답 → 다음 단계', () => {
+    const wrong = act('authored:g1', false, '2026-09-12T00:00:00Z')
+    const gate = repairGate(asIs({ attempts: verified }).tasks['r.central_meaning'], [wrong])
+    expect(gate.succeeded).toBe(false)
+    expect(gate.guidedTried).toEqual(['authored:g1'])
+    expect(buildR([wrong, act('authored:g1', true, '2026-09-12T00:05:00Z')]).stage).not.toBe('repair')
+  })
+  it('Codex P1-2 — 안내 연습 정답은 다시 확인 · 적용 수에 들어가지 않고, 바로잡기 수와 lifecycle repairAt 에만 반영된다(PLAN 과 같은 판정)', () => {
+    const t = asIs({ attempts: verified }).tasks['r.central_meaning']
+    const g = act('authored:g1', true, '2026-09-12T00:00:00Z')
+    expect(doneOf('recheck', t, [g])).toBe(0)
+    expect(doneOf('repair', t, [g])).toBe(1)
+    expect(repairGate(t, [g]).succeeded).toBe(true)
+    const skill = { status: t.check!.status, verifiedAt: t.check!.verifiedAt, verifiedItems: t.check!.verifiedItems, check: { wrongItems: t.check!.wrongItems, lastWrongAt: t.check!.lastWrongAt ?? null } }
+    const ev = lifecycleEvidence(skill, t.check!.verifiedItems.map((itemRef) => ({ itemRef, taskKey: KEY })), [{ ...g, isCorrect: true }] as never)
+    expect(ev.transferAt).toBeNull()
+    expect(ev.repairAt).toBe('2026-09-12T00:00:00Z')
+    // 결속을 못 읽은 창작 practice 도 적용 · 다시 확인으로 새지 않는다(fail-closed) — 바로잡기 성공도 아니다
+    const unbound = act('authored:g1', true, '2026-09-12T00:00:00Z', { bound: false })
+    expect(doneOf('recheck', t, [unbound])).toBe(0)
+    expect(lifecycleEvidence(skill, [], [{ ...unbound, isCorrect: true }] as never)).toMatchObject({ repairAt: null })
+    expect(lifecycleEvidence(skill, t.check!.verifiedItems.map((itemRef) => ({ itemRef, taskKey: KEY })), [{ ...unbound, isCorrect: true }] as never).transferAt).toBeNull()
+  })
+  it('Codex 잔여 P1 — 막힌 창작 평가 문항을 다시 맞힌 기록은 기출 분기의 바로잡기 성공 · 수행량이 아니다(기출 재시도는 그대로)', () => {
+    const t0 = asIs({ attempts: verified }).tasks['r.central_meaning']
+    const t = { ...t0, check: { ...t0.check!, verifiedItems: ['authored:a1', ...t0.check!.verifiedItems], wrongItems: ['authored:a1', ...(t0.check!.wrongItems ?? [])] } }
+    const repeat = { itemRef: 'authored:a1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-09-12T00:00:00Z', receivedAt: '2026-09-12T00:00:00Z', activity: 'theater' } as unknown as PlanActivity
+    expect(repairGate(t, [repeat]).succeeded).toBe(false)
+    expect(doneOf('repair', t, [repeat])).toBe(0)
+    const kice = { ...repeat, itemRef: t0.check!.verifiedItems[0] } as PlanActivity
+    expect(repairGate(t, [kice]).succeeded, '기출 막힌 문항 재시도 정답은 기존대로 성공').toBe(true)
+    expect(doneOf('repair', t, [kice])).toBe(1)
+  })
+  it('바로잡기 다음 행동 — 기출 막힌 문항은 기존대로 재시도 먼저(기출 바로잡기 보존) · 창작 안내 연습도 바로잡기 자료로 열린다', () => {
+    expect(['/csat/item/i1', '/csat/item/i2']).toContain(buildR([]).next?.href)
+    expect(buildR([]).quantity.available).toBeGreaterThanOrEqual(2)
+  })
+})
+
+describe('FI-011 B — 바로잡기 성공 뒤 다시 확인 문항 부족은 순환이 아니다', () => {
+  it('성공 · 적용 자료 없음 · 다시 확인 문항 부족 → stage recheck · material_needed (repair 로 되돌리지 않음)', () => {
+    // 나머지 확인 문항 i3~i5 는 연습으로 이미 봤다(근거 아님 · 미노출 아님) → 다시 확인 재고 0
+    const seenPractice = ['i3', 'i4', 'i5'].map((i) => ({ ...attempt(i, true, '2026-09-09T00:00:00Z'), activity: 'practice' }) as FindAttemptRow)
+    const a = asIs({ attempts: [...verified, ...seenPractice] })
+    const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const repairTargets = { [KEY]: [{ target: 'authored:g1', href: '/g1', label: 'g', role: 'guided_practice' as const }] }
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 0 }, repairTargets })
+    const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
+    const success = [{ itemRef: 'authored:g1', taskKey: KEY, phase: 'practice', isCorrect: true, answeredAt: '2026-09-12T00:00:00Z', receivedAt: '2026-09-12T00:00:00Z', repairRole: 'guided_practice', activity: 'practice' } as unknown as PlanActivity]
+    const p = workspacePlan(cm, a, toBe, plan, success).tasks.find((t) => t.task === 'r.central_meaning')!
+    // T-0052 Codex P1 — 전이 자료가 없으면 적용을 건너뛰지 않는다(적용 목표가 남음 → transfer 에 머물러 자료 필요 · 수요 = 전이). 바로잡기로 되돌리지도 않는다
+    expect(p.stage).toBe('transfer')
+    expect(p.unresolved).toContain('material_needed')
+    expect(p.next).toBeNull()
+  })
+})
+
+describe('T-0056 — 보조 TASK(e.task_demand)도 자기 자료 · 단계로 계획된다(중심 TASK 와 섞지 않음)', () => {
+  const core = 'authored-evidence-locate', support = 'authored-task-demand'
+  const coreIds = ['authored:ev-ind-1', 'authored:ev-ind-2'], supportIds = ['authored:td-ind-1', 'authored:td-ind-2']
+  const ls = { [core]: coreIds.map((target) => ({ target, href: '/csat/learn/' + target.slice(9) + '?d=core', label: 'core' })), [support]: supportIds.map((target) => ({ target, href: '/csat/learn/' + target.slice(9) + '?d=support', label: 'support' })) }
+  const run = (withSupport: boolean) => {
+    const links = withSupport ? ls : { [core]: ls[core] }
+    const a = asIs({ checks: [{ taskKey: core, items: coreIds }, ...(withSupport ? [{ taskKey: support, items: supportIds }] : [])] })
+    const tb = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const p = planWorkspaces({ asIs: a, toBe: tb, confirmLinks: links, transferItems: {} })
+    const w = [p.primary, ...p.others].find((x) => x?.id === 'ws.evidence-locate')!
+    return { w, v: workspacePlan(w, a, tb, p, []) }
+  }
+  it('납품된 보조 확인 자료 → 그 TASK 의 가용량 · 다음 활동(이전 관찰: available null · no_content)', () => {
+    const { w, v } = run(true)
+    expect(w.support).toContain('e.task_demand')
+    const c = v.tasks.find((t) => t.task === 'e.evidence_location')!, s = v.tasks.find((t) => t.task === 'e.task_demand')!
+    expect(c.quantity.available, '중심 TASK 는 그대로').toBe(2)
+    expect(s.unresolved).not.toContain('no_content')
+    expect(s.quantity.available, '보조 TASK 자신의 미노출 확인 2').toBe(2)
+    expect(s.next?.href ?? '', '다음 활동은 보조 TASK 자료').toContain('?d=support')
+    expect(c.next?.href ?? '', '중심 TASK 다음 활동은 중심 자료').not.toContain('?d=support')
+  })
+  it('보조 TASK 자료가 없으면 지금처럼 no_content(가용량을 만들지 않음) · 중심 계산 불변', () => {
+    const { v } = run(false)
+    const s = v.tasks.find((t) => t.task === 'e.task_demand')!
+    expect(s.quantity.available).toBeNull()
+    expect(s.unresolved).toContain('no_content')
+    expect(v.tasks.find((t) => t.task === 'e.evidence_location')!.quantity.available).toBe(2)
+  })
+})
+
+describe('T-0056 rev2 — 보조 TASK 의 집(host shell): 중심 자료가 없는 묶음도 첫 공급을 위해 열린다', () => {
+  const hostless = () => {
+    const p = planWorkspaces({ asIs: asIs({ checks: [] }), toBe: null, confirmLinks: {}, transferItems: {} })
+    return { p, all: [p.primary, ...p.others].filter((x): x is NonNullable<typeof x> => !!x) }
+  }
+  it('창작 세트가 있는 모든 보조 TASK 는 재고 0 에서도 비보류 묶음 하나 이상에 집이 있다', () => {
+    const { all } = hostless()
+    const supportTasks = [...new Set(templates().filter((t) => !t.hold).flatMap((t) => t.support))].filter((id) => AUTHORED_TASKS.includes(id))
+    expect(supportTasks.length).toBeGreaterThan(0)
+    for (const id of supportTasks) expect(all.some((w) => w.support.includes(id)), id).toBe(true)
+  })
+  it('집 묶음의 중심은 그대로 자료 준비 중 — primary 아님 · 준비 중 목록 유지 · 보조 보기 없음(재고 0)', () => {
+    const { p, all } = hostless()
+    const shells = all.filter((w) => w.readiness === 'content_needed' || w.readiness === 'blocked')
+    expect(shells.length).toBeGreaterThan(0)
+    for (const w of shells) {
+      expect(Object.values(w.stages).every((s) => !s.ready), w.id).toBe(true)
+      expect(p.primary?.id).not.toBe(w.id)
+      expect(p.preparing.map((x) => x.id), '중심은 여전히 준비 중').toContain(w.id)
+      expect(w.supportViews, '재고 0 은 보조 보기를 만들지 않는다').toBeUndefined()
+    }
   })
 })

@@ -98,7 +98,8 @@ import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
 import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
 import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
-import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
+import { DesignSelection, DistractorDesign, PrincipleDesign, TransformDiagram } from './SceneDiagrams'
+import { StructurePredict } from './StructurePredict'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import { MeaningSupportPanel } from './MeaningSupportPanel'
@@ -958,7 +959,8 @@ export function AnalysisTheater({
   // 근거·관계 판의 「관계」 보기 — 이 장면에 검수된 설계 도식이 있을 때만(없으면 지도 · 빈 상태). 관계선을 새로 만들지 않는다
   const relation =
     !gate.design ? null
-      : scene === 'meaning' ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} />
+      // FINAL §6 ⑤ — 구조 도식을 바로 보이지 않고 먼저 예측하게 한다(서버 대조 뒤 도식). 예측 없이 보기도 된다
+      : scene === 'meaning' ? <StructurePredict key={itemId} slug={toItemSlug(itemId)} design={gate.design} sentenceCount={map ? map.sentences.length : null} />
         : scene === 'judgment' ? <TransformDiagram design={gate.design} />
           : scene === 'design' ? <DesignSelection design={gate.design} />
             : null

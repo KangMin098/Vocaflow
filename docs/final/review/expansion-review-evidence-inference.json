@@ -1,0 +1,14 @@
+{"e-evidence-location":{
+"item-1":{"answer":3,"decisive":5,"evidence":[3,5,7],"defensibleOther":false,"giveaway":"mild","issues":"(3) echoes s7 'checks how long her last three books took' closely; (1) is attractive trap supported by nothing but fine."},
+"item-2":{"answer":1,"decisive":4,"evidence":[3,4],"defensibleOther":false,"giveaway":"none","issues":"none"},
+"item-3":{"answer":4,"decisive":4,"evidence":[4,5],"defensibleOther":false,"giveaway":"none","issues":"(3) is a deliberate reversal trap; ok."},
+"item-4":{"answer":2,"decisive":4,"evidence":[3,4,5],"defensibleOther":false,"giveaway":"none","issues":"none"},
+"item-5":{"answer":5,"decisive":3,"evidence":[3,4],"defensibleOther":false,"giveaway":"mild","issues":"Summary sentence [6] is numbered as a passage sentence; summary line should not count as evidence. 'steer away from' is the only avoidance option, easy."},
+"item-6":{"answer":3,"decisive":3,"evidence":[3,4,5],"defensibleOther":false,"giveaway":"none","issues":"Evidence spread over 3-5; decisive sentence somewhat arbitrary between 3 and 4."}},
+"r-inference":{
+"item-1":{"answer":2,"decisive":6,"evidence":[3,4,6],"defensibleOther":false,"giveaway":"none","issues":"Metaphor 'benches that wear out' slightly odd (wear = usage count), but works."},
+"item-2":{"answer":4,"decisive":4,"evidence":[3,4,6],"defensibleOther":false,"giveaway":"mild","issues":"(4) is the only abstract paraphrase; (5) literal 'games' trap is crude."},
+"item-3":{"answer":1,"decisive":4,"evidence":[3,4],"defensibleOther":false,"giveaway":"mild","issues":"(1) is longest and copies 'field'; others are clearly off-topic, weak distractors."},
+"item-4":{"answer":5,"decisive":4,"evidence":[3,4],"defensibleOther":false,"giveaway":"strong","issues":"(5) is noticeably longest and only one mentioning dependence; distractors too weak."},
+"item-5":{"answer":3,"decisive":5,"evidence":[4,5,6],"defensibleOther":false,"giveaway":"none","issues":"Stem is generic inference but it is really main-idea; (5) overgeneralization trap fine."},
+"item-6":{"answer":4,"decisive":3,"evidence":[2,3,4],"defensibleOther":false,"giveaway":"mild","issues":"(4) longest and paraphrases s3 directly."}}}

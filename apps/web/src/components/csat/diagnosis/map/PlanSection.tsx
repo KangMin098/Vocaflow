@@ -17,6 +17,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, bindPlanDraft, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
+import { quantityBasis } from '@/lib/csat/map/v62/saved-plan'
 import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
@@ -31,6 +32,8 @@ const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
   transfer_shortage: '기본 적용 계획보다 자료가 부족해요',
   no_content: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
+  repair_material_needed: '바로잡기 자료가 필요해요 — 학습 묶음에서 「자료 받기」로 설명 · 안내 연습을 받아요(틀린 평가 문항은 다시 풀지 않아요)',
+  material_needed: '새 자료가 필요해요 — 학습 묶음에서 「자료 받기」를 눌러 주세요',
   canon_hold: '측정 방법을 정하는 중이에요',
   needs_direct_check: '아직 직접 확인 전 — 기출 기록으로만 보였어요',
   not_goal_related: '지금 목표 점수와 이어진 문항이 없어요',
@@ -101,7 +104,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const store = saved?.status === 'installed' && !saved.error
   const sw = store ? saved?.byTemplate[view.workspace] ?? null : null
   const savedVersion = sw?.latest.version ?? 0
-  const base = useMemo(() => applySaved(view, sw?.latest ?? null), [view, sw])
+  // 자료 없을 때 저장한 빈 행(계획량 · 가용량 null)으로 지금 계획량을 덮지 않는다(T-0061 · quantityBasis) — 재계획 판정은 원본으로
+  const base = useMemo(() => applySaved(view, quantityBasis(sw?.latest ?? null)), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
   const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
   const goalVersion = saved?.goalVersionId ?? null

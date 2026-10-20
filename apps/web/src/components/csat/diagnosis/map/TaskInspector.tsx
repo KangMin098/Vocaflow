@@ -24,8 +24,14 @@ import { ROLE_LABEL_KO, supplyFor } from '@/lib/csat/map/v62/supply'
 import { FQ_READER_LABEL } from '@/lib/csat/map/v62/assessment-exposure'
 import { ledgerNote, SUPPLY_STEP_LABEL, supplyStep, type SupplyLedger } from '@/lib/csat/map/v62/supply-ledger'
 import { confirmLinksOf } from '@/lib/csat/map/v4/compose'
-import { checkKeysOfTask } from '@/lib/csat/map/v4/definition'
+import { savedTransferOf } from '@/lib/csat/map/v4/compose'
+import { checkKeysOfTask, evidenceKeysOfTask, type TaskId } from '@/lib/csat/map/v4/definition'
+import { transferDoneOf } from '@/lib/csat/map/v4/plan'
+import { TRANSFER_PASSAGES } from '@/lib/csat/map/v4/workspace'
+import { transferTarget } from '@/lib/csat/map/lifecycle-evidence'
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { returnRecap } from '@/lib/csat/map/v62/return-recap'
+import { replanNeeded } from '@/lib/csat/map/v62/next-action'
 import { abilityNow, fallbackActions, isAiOnly, PRINCIPLE_STEPS, PROGRESS_LABEL, principleItem, returnSummary, SUPPLY_BUCKET_LABEL, supplyBucket } from '@/lib/csat/map/v62/learner-guide'
 import type { ReturnNote } from '@/lib/csat/map/v62/return-ctx'
 
@@ -51,7 +57,10 @@ import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskIn
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
 
+import { integratedObservation, OBSERVATION_LABEL, OBSERVATION_NOTE } from '@/lib/csat/map/v4/observation'
+
 import { EvidenceBlock } from './EvidenceClaims'
+import { taskLabel } from './WorkspaceList'
 import { StepSheet } from './StepSheet'
 import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
@@ -71,6 +80,8 @@ export const NEED_V62_LABEL = { ...NEED_LABEL, RELEVANCE_UNKNOWN: '목표 시험
 export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   content_gap: '확인 콘텐츠를 준비하고 있어요',
   stage_locked: '앞 단계를 마치면 열려요',
+  repair_material_needed: '바로잡기 자료가 필요해요 — 학습 묶음에서 「자료 받기」로 설명 · 안내 연습을 받아요(틀린 평가 문항은 다시 풀지 않아요)',
+  material_needed: '새 자료가 필요해요 — 학습 묶음에서 「자료 받기」를 눌러 주세요',
   canon_hold: '측정 방법을 정하는 중이에요(보류)',
   relevance_unknown: '목표 시험 문항과의 연결을 아직 검토하지 않았어요',
   no_next_activity: '지금 바로 할 활동은 없어요',
@@ -107,8 +118,57 @@ export function homeWsOf(task: string, view: V4View, restoreWs: string | null): 
     ?? null
 }
 
+/** T-0062 — 돌아온 뒤 정리의 재료(서버 기록만 · 판정 없음). TASK 서랍과 복원되는 Workspace 팝업이 같은 값을 쓴다 */
+export type ReturnRef = { item: string | null; attempt: string | null } | null
+export function recapFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, ret: ReturnRef = null) {
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  return returnRecap({
+    keys: evidenceKeysOfTask(task),
+    activityRef: ret?.item ? `authored:${ret.item}` : null,
+    activityAttempt: ret?.attempt ?? null,
+    attempts: data.findAttempts,
+    activity: data.lifecycleActivity,
+    // 근거 묶음(evidence-claims)이 없는 TASK(보조 · 창작 전용)는 같은 수행 원장에서 기존 transferDoneOf 로 센다 — 원장을 못 읽었으면 확인 불가
+    transfer: view.evidence?.[task]?.instructionPath ?? (data.lifecycleActivity ? fallbackTransfer(task, view, data) : undefined),
+    ledger: view.evidence?.[task]?.ledger ?? (data.lifecycleActivity ? 'complete' : 'unknown'),
+    history: savedWs?.history ?? [],
+    proposalDiffers: !!home && replanNeeded(task, home, view, data.v4?.saved),
+  })
+}
+
+/** 저장 운영량(옛 · 부분 저장 입력이면 없음으로 — 정본 기본 2지문) */
+function savedTransferSafe(data: MapPageData, task: TaskId): number | undefined {
+  try { return savedTransferOf(data)[task] } catch { return undefined }
+}
+
+function fallbackTransfer(task: TaskId, view: V4View, data: MapPageData) {
+  const plan = view.taskPlans?.find((p) => p.task === task) ?? null
+  return {
+    transferDone: transferDoneOf(task, view.asIs?.tasks?.[task]?.check?.verifiedAt ?? null, data.lifecycleActivity ?? []),
+    // 계획량은 StepSheet · PLAN 과 같은 transferTarget(저장 운영량 > 정본 2지문 · 자료 부족으로 줄이지 않음)
+    transferPlanned: plan?.stage === 'transfer' ? transferTarget(plan.transferAvailable ?? plan.quantity.available, savedTransferSafe(data, task), TRANSFER_PASSAGES) : null,
+  }
+}
+
+/** 복원되는 Workspace 팝업에 보일 「돌아온 뒤」 문장 — TaskInspector 의 summary 와 같은 계산(같은 TASK · 같은 묶음) */
+export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, home: string | null, notes: readonly ReturnNote[], ret: ReturnRef = null): string[] {
+  const need = view.toBe?.needs.find((n) => n.task === task)?.type ?? null
+  const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
+  const plan = view.taskPlans.find((p) => p.task === task) ?? null
+  return returnSummary({
+    check: view.asIs.tasks[task]?.check ?? null,
+    taskDisplay: taskOf(task).display,
+    recap: recapFor(task, view, data, home, ret),
+    remaining: need ? NEED_V62_LABEL[need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요',
+    nextLabel: plan?.next?.label ?? null,
+    notes,
+    planVersion: savedWs?.latest.version ?? null,
+    goalVersion: data.v4?.saved?.goalVersionId ?? null,
+  })
+}
+
 /** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
-export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null }) {
+export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null, returnRef = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null; returnRef?: ReturnRef }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
   const tasks = useTaskDone(data.doneTaskIds)
   const t = ins.task
@@ -124,6 +184,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const confirmMine = keys.flatMap((k) => confirmAll[k] ?? [])
   const transferMine = keys.flatMap((k) => data.v4?.transferTargets?.[k] ?? [])
   const check = view.asIs.tasks[t.id]?.check ?? null
+  // FINAL §3 — 통합 관찰 TASK 는 하위 TASK 의 직접 확인 근거만으로 상태를 보인다(점수 없음)
+  const obs = t.kind === 'integrated' ? integratedObservation(t.id, view.asIs) : null
   const study = studyItemsFor(t.id, check, confirmMine, transferMine)
   // P-F1 · P-F2 — 이 TASK · 묶음의 자료 수요와 기존 자산 공급 상태(판정 · 생산 없음). 공장 재고는 이 화면에서 조회하지 않는다(null)
   const savedWs = home && data.v4?.saved?.status === 'installed' ? data.v4.saved.byTemplate[home] ?? null : null
@@ -155,12 +217,12 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const fallback = supply.lines.length > 0 ? fallbackActions(bucketed, study.items.length > 0) : null
   const pItem = principleItem(study.items)
   const remaining = ins.now.need ? NEED_V62_LABEL[ins.now.need] : view.toBe ? '이 목표에서 지금 요구 없음' : '목표를 정하면 보여요'
-  // 처음 보는 지문 적용 = 실제 전이 수행 기록(evidenceView.newPassageTransfer) — Workspace 단계 플래그로 추정하지 않는다
-  const ip = view.evidence?.[t.id]?.instructionPath
   // 「마쳤어요」 는 계획한 지문 수를 채웠을 때만(1지문 경험 ≠ 단계 완료)
-  const transferDone = !!ip && ip.transferPlanned !== null && ip.transferDone > 0 && ip.transferDone >= ip.transferPlanned
+  // T-0062 — 0편 · 일부(n/m) · 계획만큼 · 확인 불가를 섞지 않는다(1/2편을 「기록 없음」 · 「마쳤어요」로 말하지 않는다)
+  const recap = recapFor(t.id as TaskId, view, data, home, returned ? returnRef : null)
+  const transferDone = recap.transfer.state === 'complete'
   const transferHref = ins.plan?.stage === 'transfer' && ins.next ? ins.next.href : null
-  const summary = returned ? returnSummary({ check, taskDisplay: t.display, transferDone, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
+  const summary = returned ? returnSummary({ check, taskDisplay: t.display, recap, remaining, nextLabel: ins.next?.label ?? null, notes: returned, planVersion: savedWs?.latest.version ?? null, goalVersion: data.v4?.saved?.goalVersionId ?? null }) : null
 
   return (
     <aside className={u.inspector} aria-labelledby="ins-h" data-testid="task-inspector" data-task={t.id}>
@@ -194,6 +256,19 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
       </header>
 
       <div className={u.insBody}>
+        {obs && (
+          <section className={u.insSec} aria-labelledby="ins-obs" data-testid="inspector-observation" data-state={obs.state}>
+            <h3 id="ins-obs" className={u.insH}>통합 관찰 — {OBSERVATION_LABEL[obs.state]}</h3>
+            <p className="break-keep">{OBSERVATION_NOTE[obs.state]}</p>
+            <ul className={u.ledger}>
+              {obs.parts.map((p) => (
+                <li key={p.task} className="break-keep" data-part={p.task} data-evidence={p.evidence}>
+                  {taskLabel(p.task).code} {taskLabel(p.task).name} — {p.evidence === 'direct' ? '직접 확인됨' : p.evidence === 'no_direct' ? '아직 직접 확인 전' : '확인 자료 준비 중'}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         {summary && (
           <section className={u.insSec} aria-labelledby="ins-return" data-testid="inspector-return-summary" role="status">
             <h3 id="ins-return" className={u.insH}>돌아온 뒤 — 무엇이 기록됐나</h3>

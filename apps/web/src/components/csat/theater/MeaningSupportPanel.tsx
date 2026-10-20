@@ -114,6 +114,12 @@ export function MeaningSupportPanel({
   const showDeep = depth === 'deep'
   const aligned = textAlign.state === 'ok' ? textAlign : null
   const rows = unit ? phraseRowsOf(unit) : []
+  // FINAL §6 ② — 문장 구조 직접 상호작용: 역할이 검수된 구절(syntax)이 있으면 역할을 먼저 짚어 보게 한다(맞춰 보기 · 건너뛰기 뒤 공개)
+  const [guess, setGuess] = useState<Record<string, string>>({})
+  const [opened, setOpened] = useState<Record<string, 'checked' | 'skipped'>>({})
+  const roleRows = rows.filter((r) => r.role)
+  const askRoles = Boolean(unit && unit.syntax && roleRows.length > 0 && !opened[unit.id])
+  const checked = unit ? opened[unit.id] === 'checked' : false
   const english = (id: string): { text: string; from: 'public' | 'paper' } | null => {
     const a = anchor(id)
     if (!a) return null
@@ -186,8 +192,37 @@ export function MeaningSupportPanel({
           </p>
 
           {/* 구절 대응 — 영어 구절 → 문장 속 역할 → 뜻. 고르면 문제지 · 지도에 그 자리가 표시된다(대조된 경우만) */}
-          {rows.length ? (
+          {askRoles && unit ? (
+            <div data-testid="ms-role-check">
+              <span className={styles.diagramLabel}>먼저 짚어 보기 — 이 구절은 문장에서 무슨 일을 하나요?</span>
+              <ol className={styles.msPhrases}>
+                {roleRows.map((r) => {
+                  const e = english(r.anchorIds[0])
+                  return (
+                    <li key={r.key} style={{ display: 'grid', gap: 6 }}>
+                      {e ? <q lang="en">{e.text}</q> : <span className={styles.quiet}>({anchor(r.anchorIds[0])?.sentence ?? '?'}번 문장 일부 — 문제지를 놓으면 보여요)</span>}
+                      <span className={styles.cmpFilters} role="group" aria-label="구절 역할">
+                        {Object.entries(ROLE_LABEL).map(([k, label]) => (
+                          <button key={k} type="button" aria-pressed={guess[r.key] === k} onClick={() => setGuess((g) => ({ ...g, [r.key]: k }))}>{label}</button>
+                        ))}
+                      </span>
+                    </li>
+                  )
+                })}
+              </ol>
+              <span className={styles.cmpFilters}>
+                <button type="button" disabled={!roleRows.every((r) => guess[r.key])} onClick={() => setOpened((o) => ({ ...o, [unit.id]: 'checked' }))} data-testid="ms-role-submit">맞춰 보기</button>
+                <button type="button" onClick={() => setOpened((o) => ({ ...o, [unit.id]: 'skipped' }))}>짚지 않고 보기</button>
+              </span>
+            </div>
+          ) : null}
+          {rows.length && !askRoles ? (
             <div data-testid="ms-phrases">
+              {checked ? (
+                <p className="break-keep" role="status" data-testid="ms-role-result">
+                  역할 {roleRows.length}개 중 {roleRows.filter((r) => guess[r.key] === r.role).length}개를 검수된 대응과 같게 짚었어요{roleRows.some((r) => guess[r.key] !== r.role) ? ' — 다르게 짚은 구절은 아래에 「내 생각」으로 표시했어요' : ''}.
+                </p>
+              ) : null}
               <span className={styles.diagramLabel}>구절 대응 — 영어 구절 → 문장 속 역할 → 뜻</span>
               <ol className={styles.msPhrases}>
                 {rows.map((r) => {
@@ -211,7 +246,7 @@ export function MeaningSupportPanel({
                         </span>
                         <span aria-hidden className={styles.msArrow}>→</span>
                         {/* 역할 칸은 늘 둔다(없으면 빈 칸) — 열이 밀려 영어가 한 단어씩 꺾이지 않게 */}
-                        <span>{r.role ? <span className={styles.epistemic}>{ROLE_LABEL[r.role] ?? r.role}</span> : null}</span>
+                        <span>{r.role ? <span className={styles.epistemic}>{ROLE_LABEL[r.role] ?? r.role}{checked && guess[r.key] && guess[r.key] !== r.role ? ` · 내 생각 ${ROLE_LABEL[guess[r.key]] ?? guess[r.key]}` : ''}</span> : null}</span>
                         <span className="break-keep">{r.meaningKo}</span>
                       </button>
                     </li>

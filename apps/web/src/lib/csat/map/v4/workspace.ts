@@ -13,6 +13,7 @@ import { CHECK_ITEMS } from '../skill-diagnosis'
 import type { AsIsMap } from './as-is'
 import { relationOf, templates, type TaskId, type V4Template } from './definition'
 import type { ConfirmLink, ToBeMap } from './to-be'
+import { AUTHORED_TASKS, authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import type { DirectCheck } from './types'
 
 export type StageKey = 'check' | 'repair' | 'transfer' | 'recheck'
@@ -22,7 +23,7 @@ export interface StageReadiness {
   /** 실제 학습량(문항 수) — 계산할 수 없으면 null */
   count: number | null
   /** 준비되지 않은 이유 코드(화면 문구 키) — 준비됐으면 null */
-  blocked: null | 'after_check' | 'after_repair' | 'no_unseen_items' | 'no_transfer_items' | 'not_enough_unseen' | 'resolved' | 'no_check_link' | 'content_needed' | 'canon_hold' | 'awaiting_release'
+  blocked: null | 'after_check' | 'after_repair' | 'no_unseen_items' | 'no_repair_items' | 'no_transfer_items' | 'not_enough_unseen' | 'resolved' | 'no_check_link' | 'content_needed' | 'canon_hold' | 'awaiting_release'
 }
 
 export interface WorkspaceView {
@@ -36,9 +37,14 @@ export interface WorkspaceView {
   /** 지금 할 수 있는 다음 행동 하나 — 확인 문항 링크. 없으면 null */
   next: ConfirmLink | null
   /** 단계별 활동 대상(5차) — 바로잡기 = 확정 · 다시 확인에서 막힌 확인 문항 · 적용 = 연습 풀의 전이 유형 문항(확인 묶음 밖). 계획이 아직 안 한 것 하나를 고른다 */
-  stageItems: { repair: ConfirmLink[]; transfer: ConfirmLink[] }
+  stageItems: { repair: (ConfirmLink & { role?: RepairLink['role'] })[]; transfer: ConfirmLink[] }
   /** 승인된 구조적 연결 · 제안 연결(검증 전) — 화면은 둘을 다른 말로 */
   relations: { structural: string[]; proposed: string[] }
+  /**
+   * T-0056 — 보조 TASK 별 단계 · 다음 활동 · 자료(그 TASK 의 창작 키 · 납품 · 수행만으로 같은 stagesOf 계산). 중심 TASK 의 수 · 자료를 복사하지 않는다.
+   * 어느 Workspace 의 중심도 아닌 보조 TASK 는 plan 이 이것을 home 으로 쓴다(core 승격 · 정본 변경 아님). 없으면 보조 TASK 창작 자료가 없는 것
+   */
+  supportViews?: Partial<Record<TaskId, Pick<WorkspaceView, 'stages' | 'next' | 'stageItems' | 'readiness'>>>
 }
 
 export interface WorkspacePlan {
@@ -60,53 +66,83 @@ export interface WorkspaceInput {
   transferItems: Record<string, number>
   /** 확인 과제 키 → 「다른 글에 적용」 링크로 열 전이 유형 문항 id(연습 화면 ?item=) — 없으면 적용 링크 없음 */
   transferTargets?: Record<string, readonly ConfirmLink[]>
+  /** FI-011 — 확인 과제 키 → 바로잡기 단계 자료(창작 교수 · 안내 연습 납품). 평가 자료와 섞지 않는다 */
+  repairTargets?: Record<string, readonly RepairLink[]>
 }
 
+/** 바로잡기 단계 자료 — 역할이 있다(안내 연습의 정답만 바로잡기 성공 근거 · 설명 보기는 성공이 아니다) */
+export interface RepairLink extends ConfirmLink { role: 'model_explanation' | 'guided_practice' }
+
 const LIVE_ORDER = ['ws.central-meaning', 'ws.option-match', 'ws.evidence-locate']
+
+/** 이 묶음의 확인 · 전이 과제 키 — 정본 첫 키 + 중심 TASK 의 창작 키(FI-011). 창작 키 링크는 납품된 자료만 들어온다(load.ts) */
+function keysOf(t: V4Template): string[] {
+  return [...t.content_keys.slice(0, 1), ...authoredKeysOf(t.core[0] ?? '')]
+}
+const linksOf = (t: V4Template, confirmLinks: Record<string, readonly ConfirmLink[]>) => keysOf(t).flatMap((k) => confirmLinks[k] ?? [])
+const transfersOf = (t: V4Template, targets?: Record<string, readonly ConfirmLink[]>) => keysOf(t).flatMap((k) => targets?.[k] ?? [])
+const repairsOf = (t: V4Template, targets?: Record<string, readonly RepairLink[]>): RepairLink[] => keysOf(t).flatMap((k) => targets?.[k] ?? [])
+/** 창작 납품(확인 · 전이)이 있는가 — 있으면 정본 준비 상태(content_needed · ready)와 무관하게 그 자료로 단계를 연다 */
+const authoredLive = (t: V4Template, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferTargets'>) =>
+  authoredKeysOf(t.core[0] ?? '').some((k) => (input.confirmLinks[k]?.length ?? 0) + (input.transferTargets?.[k]?.length ?? 0) > 0)
 /** 정본 quantity_policy 「전이 2지문」(workspaces.json) — 적용 단계 계획량의 상한 */
 export const TRANSFER_PASSAGES = 2
 
-export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferItems' | 'transferTargets'>): Record<StageKey, StageReadiness> {
+export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferItems' | 'transferTargets' | 'repairTargets'>): Record<StageKey, StageReadiness> {
   const off = (blocked: StageReadiness['blocked']): StageReadiness => ({ ready: false, count: null, blocked })
   if (t.hold) return { check: off('canon_hold'), repair: off('canon_hold'), transfer: off('canon_hold'), recheck: off('canon_hold') }
-  if (t.readiness === 'ready') return { check: off('awaiting_release'), repair: off('awaiting_release'), transfer: off('awaiting_release'), recheck: off('awaiting_release') }
-  if (t.readiness === 'content_needed' || t.readiness === 'blocked') return { check: off('content_needed'), repair: off('content_needed'), transfer: off('content_needed'), recheck: off('content_needed') }
+  const live = authoredLive(t, input)
+  if (t.readiness === 'ready' && !live) return { check: off('awaiting_release'), repair: off('awaiting_release'), transfer: off('awaiting_release'), recheck: off('awaiting_release') }
+  if ((t.readiness === 'content_needed' || t.readiness === 'blocked') && !live) return { check: off('content_needed'), repair: off('content_needed'), transfer: off('content_needed'), recheck: off('content_needed') }
   const key = t.content_keys[0]
-  const links = input.confirmLinks[key] ?? []
+  const links = linksOf(t, input.confirmLinks)
   const c = asIs.tasks[t.core[0]]?.check ?? null
   if (!c || links.length === 0) return { check: off('no_check_link'), repair: off('after_check'), transfer: off('after_repair'), recheck: off('after_check') }
   const unseenLinked = c.unseen.filter((i) => links.some((l) => l.target === i))
   const opened = c.status === 'verified' || c.status === 'still_needed'
   const resolved = c.status === 'resolved'
   // 적용 가능한 문항 = 링크로 열 수 있는 전이 문항이 있으면 그 수, 없으면 풀 전체 수(옛 입력) — 계획량은 정본 「전이 2지문」을 넘지 않는다
-  const transfer = input.transferTargets?.[key] ? new Set(input.transferTargets[key].map(l => passageIdentity(l.target, l.passageKey)).filter(Boolean)).size : input.transferItems[key] ?? 0
+  const tt = transfersOf(t, input.transferTargets)
+  const transfer = tt.length || input.transferTargets?.[key] ? new Set(tt.map(l => passageIdentity(l.target, l.passageKey)).filter(Boolean)).size : input.transferItems[key] ?? 0
   return {
     check: opened || resolved
       ? { ready: false, count: null, blocked: resolved ? 'resolved' : null }
       : unseenLinked.length > 0 ? { ready: true, count: unseenLinked.length, blocked: null } : off('no_unseen_items'),
-    // 바로잡기 대상 = 확정에 쓴 문항 + 다시 확인에서 막힌 문항(실제 막힌 곳만)
-    repair: opened ? { ready: true, count: new Set([...c.verifiedItems, ...c.wrongItems]).size, blocked: null } : off('after_check'),
+    // 바로잡기 대상 = 확정에 쓴 문항 + 다시 확인에서 막힌 문항(실제 막힌 곳만).
+    //   창작 평가 자료(혼자 확인 · 다른 날 확인 · 전이)는 다시 풀게 하지 않는다 — 평가 자료를 연습으로 재분류하지 않는다(FI-011 · 2026-10-19).
+    //   남는 바로잡기 문항이 없으면 바로잡기 단계에 머물되 「바로잡기 자료 필요」 로 막는다(다른 단계로 건너뛰지 않는다)
+    //   바로잡기 자료 = 기출 막힌 문항 + 이 학습자에게 납품된 창작 교수 · 안내 연습(FI-011 · 별도 자격 · 평가 지문과 분리)
+    repair: !opened ? off('after_check') : repairable(c).length + repairsOf(t, input.repairTargets).length > 0 ? { ready: true, count: repairable(c).length + repairsOf(t, input.repairTargets).length, blocked: null } : off('no_repair_items'),
     transfer: !(opened || resolved) ? off('after_repair') : transfer > 0 ? { ready: true, count: Math.min(transfer, TRANSFER_PASSAGES), blocked: null } : off('no_transfer_items'),
     recheck: !opened ? off(resolved ? 'resolved' : 'after_check') : unseenLinked.length >= CHECK_ITEMS ? { ready: true, count: CHECK_ITEMS, blocked: null } : off('not_enough_unseen'),
   }
 }
 
+/** 보조 TASK 한 개의 단계 보기 — 그 TASK 를 중심으로 둔 가상 묶음에 같은 계산(정본 키 없이 그 TASK 의 창작 키만). 창작 납품이 없으면 undefined */
+function supportViewOf(t: V4Template, task: TaskId, input: WorkspaceInput): NonNullable<WorkspaceView['supportViews']>[TaskId] {
+  const own: V4Template = { ...t, core: [task], support: [], content_keys: [], readiness: 'content_needed' }
+  if (!authoredLive(own, input)) return undefined
+  const v = viewOf(own, input)
+  return { stages: v.stages, next: v.next, stageItems: v.stageItems, readiness: 'live' }
+}
+
 function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
   const stages = stagesOf(t, input.asIs, input)
   const c = input.asIs.tasks[t.core[0]]?.check ?? null
-  const links = input.confirmLinks[t.content_keys[0]] ?? []
+  const links = linksOf(t, input.confirmLinks)
   // 다음 행동 — 확인 · 다시 확인이 열려 있으면 아직 안 본 확인 문항 하나
   const next = (stages.check.ready || stages.recheck.ready) && c ? links.find((l) => c.unseen.includes(l.target)) ?? null : null
-  const blocked = new Set([...(c?.verifiedItems ?? []), ...(c?.wrongItems ?? [])])
-  const key = t.content_keys[0]
+  const blocked = new Set(c ? repairable(c) : [])
   const stageItems = {
-    repair: links.filter((l) => blocked.has(l.target)),
-    transfer: [...(input.transferTargets?.[key] ?? [])],
+    repair: [...links.filter((l) => blocked.has(l.target)), ...repairsOf(t, input.repairTargets)],
+    transfer: transfersOf(t, input.transferTargets),
   }
   const rels = t.relations.map((id) => relationOf(id)).filter((r): r is NonNullable<typeof r> => !!r)
+  const supportViews = Object.fromEntries(t.support.map((id) => [id, supportViewOf(t, id, input)] as const).filter(([, v]) => v)) as WorkspaceView['supportViews']
   return {
     id: t.id, name: t.name, goal: t.goal, core: t.core, support: t.support, readiness: t.readiness, stages, next, stageItems,
     relations: { structural: rels.filter((r) => r.status === 'approved').map((r) => r.id), proposed: rels.filter((r) => r.status !== 'approved').map((r) => r.id) },
+    ...(supportViews && Object.keys(supportViews).length ? { supportViews } : {}),
   }
 }
 
@@ -114,8 +150,14 @@ const anyReady = (v: WorkspaceView) => Object.values(v.stages).some((s) => s.rea
 
 export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
   const all = templates()
-  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready')).map((t) => viewOf(t, input))
-  const live = views.filter((v) => v.readiness === 'live' && anyReady(v))
+  const templateById = (id: string) => all.find((t) => t.id === id)!
+  // 창작 납품이 있는 content_needed · blocked 템플릿은 「자료 준비 중」이 아니라 실행 가능한 Workspace 다(FI-011 — 단계만 열고 목록은 막던 어긋남)
+  const delivered = (t: V4Template) => !t.hold && (t.readiness === 'content_needed' || t.readiness === 'blocked') && authoredLive(t, input)
+  // T-0056 — 창작 세트가 있는 보조 TASK 를 품은 묶음은 중심 자료가 없어도 보조 공급 · 수행의 집(host shell)으로 연다.
+  //   중심 단계 · readiness 는 그대로(content_needed) — primary 후보(live)가 아니고 preparing 에도 남는다(workspaceRows 가 「준비 중」 행 + 보조 TASK 로 그린다)
+  const hostShell = (t: V4Template) => !t.hold && (t.readiness === 'content_needed' || t.readiness === 'blocked') && !delivered(t) && t.support.some((id) => AUTHORED_TASKS.includes(id))
+  const views = all.filter((t) => !t.hold && (t.readiness === 'live' || t.readiness === 'ready' || delivered(t) || hostShell(t))).map((t) => viewOf(t, input))
+  const live = views.filter((v) => (v.readiness === 'live' || delivered(templateById(v.id))) && anyReady(v))
   const coreStatus = (v: WorkspaceView) => input.asIs.tasks[v.core[0]]?.status
   let primary: WorkspaceView | null = null
   let reason: WorkspacePlan['reason'] = null
@@ -143,8 +185,16 @@ export function planWorkspaces(input: WorkspaceInput): WorkspacePlan {
     primary: chosen,
     reason,
     others: views.filter((v) => v.id !== chosen?.id),
-    preparing: all.filter((t) => t.hold || t.readiness === 'content_needed' || t.readiness === 'blocked').map((t) => ({ id: t.id, name: t.name, readiness: t.readiness })),
+    preparing: all.filter((t) => t.hold || ((t.readiness === 'content_needed' || t.readiness === 'blocked') && !delivered(t))).map((t) => ({ id: t.id, name: t.name, readiness: t.readiness })),
   }
+}
+
+/** 바로잡기에 다시 쓸 수 있는 문항 — 확정에 쓴 문항 · 막힌 문항 중 창작 평가 자료를 뺀 것 */
+// 창작 자료 ref 판정(authored-items.ts isAuthoredRef 와 같은 규칙) — 그 파일은 서버 전용 의존(node:crypto)을 끌어와 클라이언트 번들이 깨진다
+const isAuthoredRef = (ref: string) => ref.startsWith('authored:')
+
+function repairable(c: { verifiedItems: readonly string[]; wrongItems: readonly string[] }): string[] {
+  return [...new Set([...c.verifiedItems, ...c.wrongItems])].filter((i) => !isAuthoredRef(i))
 }
 
 export const STAGE_LABEL: Record<StageKey, string> = { check: '확인하기', repair: '바로잡기', transfer: '다른 글에 적용', recheck: '다시 확인하기' }
@@ -152,6 +202,7 @@ export const STAGE_BLOCKED_LABEL: Record<NonNullable<StageReadiness['blocked']>,
   after_check: '확인 결과가 나온 뒤 열려요',
   after_repair: '바로잡기 뒤에 열려요',
   no_unseen_items: '아직 풀지 않은 확인 문항이 남아 있지 않아요',
+  no_repair_items: '바로잡기 자료가 필요해요 — 틀린 평가 문항은 다시 풀지 않아요',
   no_transfer_items: '적용할 다른 문항을 준비하고 있어요',
   not_enough_unseen: `다시 확인할 새 문항이 ${CHECK_ITEMS}개보다 적어요`,
   resolved: '이미 다시 확인을 통과했어요',

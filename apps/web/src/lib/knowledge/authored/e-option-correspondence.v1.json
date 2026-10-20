@@ -1,0 +1,377 @@
+{
+  "set": "e-option-correspondence.v1",
+  "taskId": "e.option_correspondence",
+  "taskKey": "authored-option-match",
+  "format": "option_correspondence",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "opt-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "opt-t1",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Varnel Lantern Festival is held every autumn in the small river town of Ostrey.",
+          "It began in 1872, when fishermen floated paper lanterns downstream to thank the river for a safe season.",
+          "Today, visitors are invited to make their own lanterns at workshops that open three days before the festival.",
+          "Only lanterns made of paper and plant-based glue may be placed on the water, because the town wants to protect the fish.",
+          "On the final night, the lanterns are released together at sunset while a local choir sings traditional songs.",
+          "Volunteers collect the lanterns at a net downstream the next morning, and the paper is turned into compost for public gardens.",
+          "Although the festival is free, donations are used to repair the old wooden bridge where the release takes place."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "어부들이 무사한 조업 철에 감사하는 뜻에서 시작되었다.",
+          "축제 사흘 전부터 등 만들기 작업장이 열린다.",
+          "물고기 보호를 위해 등을 물에 띄우지 않고 강가에 걸어 둔다.",
+          "마지막 날 밤 해 질 녘에 등을 함께 띄워 보낸다.",
+          "기부금은 오래된 나무다리 수리에 쓰인다."
+        ],
+        "teach": [
+          {
+            "step": "선지를 먼저 훑고 찾을 낱말 정하기",
+            "text": "내용 일치 문항은 선지 순서가 대개 본문 순서를 따른다. 각 선지에서 '사흘 전' '물고기' '해 질 녘'처럼 본문에서 찾기 쉬운 표지를 골라 두고 문장 번호를 대응시킨다.",
+            "sentences": [
+              1,
+              2,
+              4,
+              6
+            ]
+          },
+          {
+            "step": "대응 문장과 한 낱말씩 맞대기",
+            "text": "③은 4번 문장에 대응한다. 본문은 물고기 보호를 위해 종이 · 식물성 풀로 만든 등만 'placed on the water'(물 위에 띄운다)고 했는데, 선지는 같은 이유를 달고 '물에 띄우지 않는다'로 행위를 뒤집었다. 출제자는 이유(물고기 보호)를 그대로 두어, 이유만 확인하고 넘어가는 학습자를 노렸다.",
+            "sentences": [
+              3
+            ]
+          },
+          {
+            "step": "나머지 선지가 왜 맞는지 확인하기",
+            "text": "①은 2번, ②는 3번, ④는 5번, ⑤는 7번 문장을 우리말로 옮긴 것이다. 정답 설계는 '한 요소 바꾸기', 오답(일치 선지) 설계는 '표현만 바꾸기'다 — 표현이 달라도 뜻이 같으면 일치다.",
+            "sentences": [
+              1,
+              2,
+              4,
+              6
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 어부들이 안전한 조업 철에 감사하려고 등을 띄웠다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 작업장은 축제 사흘 전에 문을 연다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 3,
+            "why": "4번 문장은 종이 · 식물성 풀 등을 물 위에 띄운다고 했다 — 물에 띄우지 않는다는 것은 정반대다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 4,
+            "why": "5번 문장: 마지막 날 밤 해 질 녘에 함께 띄운다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 6,
+            "why": "7번 문장: 기부금은 오래된 나무다리 수리에 쓰인다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "opt-t2",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The marsh pika is a small mammal that lives only in the reed beds of the imaginary Tarrow Valley.",
+          "Unlike most pikas, which live among rocks on mountains, it builds floating nests out of woven reeds.",
+          "Adults weigh about 120 grams and have unusually long back toes that help them swim short distances.",
+          "During summer, each family gathers wet grass and dries it on top of the nest to store for winter.",
+          "Marsh pikas communicate with soft whistles, and young pikas learn the family's whistle within two weeks of birth.",
+          "Because their reed beds are shrinking, the species has been protected by valley law since 1998."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "Tarrow 계곡의 갈대밭에서만 산다.",
+          "갈대를 엮어 물에 뜨는 둥지를 만든다.",
+          "긴 뒷발가락이 짧은 거리를 헤엄치는 데 도움이 된다.",
+          "여름에 풀을 모아 둥지 위에서 말려 저장한다.",
+          "새끼는 태어난 지 두 달이 지나야 가족의 휘파람을 익힌다."
+        ],
+        "hints": [
+          "숫자나 기간이 들어 있는 선지는 본문의 숫자 · 단위와 그대로 맞대어 보세요.",
+          "선지 순서대로 본문 문장을 하나씩 짝지어 보면 빠뜨리는 문장이 없어요."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 0,
+            "why": "1번 문장: 계곡의 갈대밭에서만 산다고 했다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 엮은 갈대로 떠 있는 둥지를 짓는다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 긴 뒷발가락이 짧은 거리 수영을 돕는다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 여름에 젖은 풀을 둥지 위에서 말려 저장한다."
+          },
+          {
+            "verdict": "distorted",
+            "sentence": 4,
+            "why": "5번 문장은 태어난 지 2주 안에 익힌다고 했다 — 두 달로 기간을 바꿨다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-ind-1",
+      "role": "independent_check",
+      "passageGroup": "opt-t3",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "Elna Corrow, a fictional clockmaker from the port city of Bresk, is remembered for inventing the tide clock.",
+          "As a girl, she repaired ship instruments in her uncle's workshop instead of attending school.",
+          "Her tide clock used a second hand that moved with the moon, so sailors could read the time of high water at a glance.",
+          "At first, harbor officials refused to use it, saying that printed tide tables were already accurate enough.",
+          "After the clock correctly warned of an unusually high tide in 1851, the harbor ordered twelve of them.",
+          "Corrow never applied for a patent, and she taught her method freely to any apprentice who asked.",
+          "One of her original clocks still runs in the Bresk maritime museum."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "학교에 다니면서 삼촌의 작업장에서 일을 배웠다.",
+          "그녀의 시계는 만조 시각을 한눈에 읽을 수 있게 했다.",
+          "항만 관리들은 처음에 그 시계의 사용을 거부했다.",
+          "특허를 신청하지 않고 방법을 자유롭게 가르쳤다.",
+          "그녀가 만든 원래 시계 하나가 지금도 박물관에서 작동한다."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "options": [
+          {
+            "verdict": "reversed",
+            "sentence": 1,
+            "why": "2번 문장은 학교에 다니는 대신 작업장에서 일했다고 했다 — 학교에 다녔다는 것은 반대다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 선원이 만조 시각을 한눈에 읽을 수 있었다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 처음엔 인쇄된 조석표로 충분하다며 거부했다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 5,
+            "why": "6번 문장: 특허를 내지 않고 견습생에게 자유롭게 가르쳤다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 6,
+            "why": "7번 문장: 원래 시계 하나가 해양 박물관에서 아직 작동한다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-ind-2",
+      "role": "independent_check",
+      "passageGroup": "opt-t4",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Halden Seed Library is a fictional community project that lends seeds instead of books.",
+          "Members borrow seeds in spring, grow the plants in their own gardens, and return new seeds in autumn.",
+          "Each packet comes with a card on which growers record the soil type and the date of the first flower.",
+          "The library focuses on old local vegetable varieties that are no longer sold in shops.",
+          "Children under twelve may borrow seeds only when an adult member signs the card with them.",
+          "Since the project started, the number of varieties it keeps has grown from 40 to more than 300."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "회원은 봄에 씨앗을 빌리고 가을에 새 씨앗을 돌려준다.",
+          "씨앗 봉투의 카드에 토양 종류와 첫 개화 날짜를 기록한다.",
+          "상점에서 더 이상 팔지 않는 지역 토종 채소 품종에 집중한다.",
+          "12세 미만 어린이는 어른 회원 없이 혼자서도 씨앗을 빌릴 수 있다.",
+          "보유 품종 수가 40종에서 300종 이상으로 늘었다."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 봄에 빌리고 가을에 새 씨앗을 돌려준다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 카드에 토양 종류와 첫 꽃 날짜를 적는다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 상점에서 팔지 않는 오래된 지역 품종에 집중한다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 4,
+            "why": "5번 문장은 12세 미만은 어른 회원이 함께 서명할 때만 빌릴 수 있다고 했다 — 혼자서도 된다는 것은 반대다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 5,
+            "why": "6번 문장: 40종에서 300종 넘게 늘었다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-transfer-1",
+      "role": "transfer",
+      "passageGroup": "opt-t5",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The glass frog of the fictional Merrin Islands is known for skin so thin that its heart can be seen beating.",
+          "It is active mainly at night and spends the day resting under wide leaves near waterfalls.",
+          "Males, not females, guard the eggs, which are laid on leaves that hang over streams.",
+          "When the tadpoles hatch, they drop into the water below and grow there for about three months.",
+          "The frog's call is so high that most human visitors cannot hear it without special equipment.",
+          "Island researchers count the frogs each year, and the population has stayed stable for a decade."
+        ],
+        "stem": "다음 글의 내용과 일치하는 것은?",
+        "choices": [
+          "낮에 주로 활동하고 밤에는 폭포 근처에서 쉰다.",
+          "알이 부화하면 올챙이는 아래 물로 떨어져 약 석 달간 자란다.",
+          "암컷이 시냇물 위 잎에 낳은 알을 지킨다.",
+          "울음소리가 낮아서 방문객 대부분이 쉽게 들을 수 있다.",
+          "섬 연구자들은 이 개구리의 수를 따로 세지 않는다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "options": [
+          {
+            "verdict": "reversed",
+            "sentence": 1,
+            "why": "2번 문장은 밤에 활동하고 낮에 쉰다고 했다 — 낮과 밤을 뒤집었다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 3,
+            "why": "4번 문장: 올챙이가 아래 물로 떨어져 약 석 달 자란다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 2,
+            "why": "3번 문장은 암컷이 아니라 수컷이 알을 지킨다고 했다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 4,
+            "why": "5번 문장은 소리가 너무 높아 장비 없이는 대부분 못 듣는다고 했다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 5,
+            "why": "6번 문장은 연구자들이 해마다 수를 센다고 했다 — 세지 않는다는 것은 정반대다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "opt-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "opt-t6",
+      "body": {
+        "format": "option_correspondence",
+        "sentences": [
+          "The Kestly Night Market is a fictional weekly market held in the parking lot of an old train station.",
+          "It opens every Friday from six in the evening until midnight, except in January, when it closes for repairs.",
+          "Sellers must use their own lights, and many hang small solar lamps that they charge during the day.",
+          "Most stalls sell food, but a corner of the market is reserved for students who sell handmade crafts.",
+          "Visitors who bring their own cups and plates receive a small discount at every food stall.",
+          "The market was started by a group of bus drivers who wanted a place to eat after late shifts.",
+          "It now attracts about two thousand visitors each week."
+        ],
+        "stem": "다음 글의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "1월을 제외하고 매주 금요일 저녁에 열린다.",
+          "판매자는 자신의 조명을 직접 사용해야 한다.",
+          "학생 공예품 구역은 따로 없고 모든 노점이 음식을 판다.",
+          "자기 컵과 접시를 가져오면 할인을 받는다.",
+          "늦은 근무 뒤 식사할 곳을 원한 버스 기사들이 시작했다."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "options": [
+          {
+            "verdict": "matches",
+            "sentence": 1,
+            "why": "2번 문장: 1월을 빼고 매주 금요일 저녁 6시부터 연다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 2,
+            "why": "3번 문장: 판매자는 자기 조명을 써야 한다."
+          },
+          {
+            "verdict": "reversed",
+            "sentence": 3,
+            "why": "4번 문장은 한 구석을 학생 공예품 판매용으로 남겨 둔다고 했다 — 그런 구역이 없다는 것은 정반대다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 4,
+            "why": "5번 문장: 자기 컵 · 접시를 가져오면 할인받는다."
+          },
+          {
+            "verdict": "matches",
+            "sentence": 5,
+            "why": "6번 문장: 늦은 근무 뒤 먹을 곳을 원한 버스 기사들이 시작했다."
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}

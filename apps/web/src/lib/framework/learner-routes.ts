@@ -205,6 +205,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     section: '연습과 세션',
   },
   {
+    path: '/csat/learn/[id]',
+    screen: 'csat-learn',
+    label: '받은 자료 풀기',
+    says: '학습 지도에서 받은 자체 창작 글로 중심 문장 · 근거 · 한 줄 요지를 고르고, 결과를 지도로 가져간다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
+  {
     path: '/csat/dissect',
     screen: 'csat-dissect',
     label: '기출 해부',

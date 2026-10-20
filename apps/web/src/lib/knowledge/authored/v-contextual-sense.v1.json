@@ -1,0 +1,399 @@
+{
+  "set": "v-contextual-sense.v1",
+  "taskId": "v.contextual_sense",
+  "taskKey": "authored-vocab-context",
+  "format": "contextual_sense",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "vcs-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "vcs-t1",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Farmers in dry regions have long searched for crops that can survive with very little rain.",
+          "One approach is to plant varieties whose roots reach deep into the soil, where moisture remains after the surface has dried.",
+          "In recent trials, such deep-rooted wheat continued to grow through a month without rainfall.",
+          "More importantly, it yielded nearly twice as much grain per field as the traditional variety did.",
+          "For families who depend on a single harvest, that difference can decide whether they have enough food for the year.",
+          "Researchers now hope to combine deep roots with resistance to common plant diseases."
+        ],
+        "target": {
+          "sentence": 3,
+          "word": "yielded"
+        },
+        "stem": "밑줄 친 낱말 'yielded'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "굴복했다",
+          "양보했다",
+          "산출했다",
+          "흡수했다",
+          "손실을 냈다"
+        ],
+        "teach": [
+          {
+            "step": "목표 낱말의 짝 찾기",
+            "text": "다의어는 함께 쓰인 말이 뜻을 정한다. 'yielded' 바로 뒤의 목적어 'nearly twice as much grain per field'(밭당 거의 두 배의 곡물)를 보면, 무엇인가를 '내놓은' 양을 말하고 있다.",
+            "sentences": [
+              3
+            ]
+          },
+          {
+            "step": "앞뒤 문장으로 확인",
+            "text": "3번 문장은 가뭄 속에서도 밀이 계속 자랐다고 하고, 5번 문장은 그 차이가 한 해 식량을 좌우한다고 한다. 둘 다 '수확량'의 이야기이므로 '산출했다'가 맞다.",
+            "sentences": [
+              2,
+              4
+            ]
+          },
+          {
+            "step": "출제자의 오답 설계",
+            "text": "'굴복했다'·'양보했다'는 yield 의 가장 흔히 외우는 뜻(기본 뜻 함정)이다. '흡수했다'는 뿌리·수분 이야기에 끌린 근처 낱말 함정, '손실을 냈다'는 정반대 뜻 함정이다. 출제자는 사전 첫 뜻이 아니라 '이 문장에서의 뜻'을 고르는지 재려고 이렇게 만들었다.",
+            "sentences": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "cue": [
+          2,
+          3,
+          4
+        ],
+        "senseGloss": "(농작물·땅이) 수확물을 내다, 산출하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "yield 의 '굴복하다' 뜻은 압력에 지는 상황에서 쓰이며 곡물을 목적어로 받지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "basic_meaning",
+            "why": "'양보하다'도 흔히 외우는 뜻이지만 밀이 무엇을 양보하는 맥락이 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "뿌리와 수분 이야기(2번)에 끌린 뜻으로, 곡물을 '흡수'한다는 것은 말이 되지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "두 배의 곡물을 냈다는 이득을 정반대인 손실로 바꿨다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "vcs-t2",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Before a new bridge is opened to traffic, engineers must show that its design is safe.",
+          "They test models in wind tunnels, measure how the steel behaves under heavy loads, and check every calculation twice.",
+          "Only when the results agree with one another do they declare the structure sound.",
+          "Even then, sensors are placed along the bridge to report any unexpected movement in the years that follow.",
+          "This combination of careful testing and constant monitoring is why serious bridge failures are now extremely rare."
+        ],
+        "target": {
+          "sentence": 2,
+          "word": "sound"
+        },
+        "stem": "밑줄 친 낱말 'sound'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "튼튼하고 안전한",
+          "소리가 나는",
+          "깊이 잠든",
+          "사리에 맞는",
+          "결함이 있는"
+        ],
+        "hints": [
+          "'declare the structure ___' — 구조물을 어떤 상태라고 선언하는지, 품사부터 생각해 보세요.",
+          "앞 문장들이 무엇을 확인하려고 실험하는지 첫 문장에서 찾아보세요."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "cue": [
+          0,
+          1,
+          2
+        ],
+        "senseGloss": "(구조물이) 결함 없이 튼튼한, 안전한",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "wrong_part_of_speech",
+            "why": "명사 sound(소리)의 뜻을 형용사 자리에 억지로 옮겼다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'깊이 잠든'은 sound asleep 같은 결합에서만 쓰이고 구조물과 어울리지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "'계산을 두 번 확인한다'(2번)에 끌린 sound advice 의 뜻(판단이 합리적인)으로, 구조물 자체의 상태를 말하지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "시험 결과가 일치해 안전하다고 선언한 것과 정반대다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-ind-1",
+      "role": "independent_check",
+      "passageGroup": "vcs-t3",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Historians who study old trade routes often work with incomplete records.",
+          "A ship's log may survive while the merchant's accounts are lost, or the reverse.",
+          "To estimate how much silk passed through a port, one historian compared tax receipts from several decades.",
+          "The figure she arrived at was far larger than earlier scholars had assumed.",
+          "Her estimate suggests that the port was not a minor stop but a central link in the regional economy.",
+          "Other researchers are now reexamining nearby ports with the same method."
+        ],
+        "target": {
+          "sentence": 3,
+          "word": "figure"
+        },
+        "stem": "밑줄 친 낱말 'figure'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "인물",
+          "도표",
+          "몸매",
+          "수치",
+          "비유"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "cue": [
+          2,
+          3,
+          4
+        ],
+        "senseGloss": "(계산해 얻은) 수치, 숫자",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "'중요 인물'의 뜻은 흔하지만 여기서는 세금 영수증으로 계산한 결과를 말한다."
+          },
+          {
+            "choice": 1,
+            "design": "nearby_word",
+            "why": "학자의 연구라는 맥락(1·4번)에 끌린 논문 속 도표(Figure)의 뜻으로, 도달한 추정치가 더 크다는 양의 비교와 맞지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'몸매'는 사람의 외형과 결합하는 뜻이라 arrived at(도달한) 결과와 어울리지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "collocation_mismatch",
+            "why": "'비유'는 figure of speech 결합에서만 쓰이고, 세금 영수증으로 계산해 얻은 결과와 어울리지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-ind-2",
+      "role": "independent_check",
+      "passageGroup": "vcs-t4",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "When a town's only factory closed, many residents expected the local government to act quickly.",
+          "Instead, officials spent months writing reports that described the situation in great detail.",
+          "Critics argued that describing a problem is not the same as solving it.",
+          "Finally, a new council was elected with a promise to address unemployment directly.",
+          "Within a year it had opened a training center and attracted two smaller companies to the area.",
+          "Residents still debate whether the earlier reports helped or merely delayed this progress."
+        ],
+        "target": {
+          "sentence": 3,
+          "word": "address"
+        },
+        "stem": "밑줄 친 낱말 'address'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "연설하다",
+          "말을 걸다",
+          "글로 기록하다",
+          "외면하다",
+          "대처하다"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "cue": [
+          2,
+          3,
+          4
+        ],
+        "senseGloss": "(문제·과제에) 착수하여 대처하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "'연설하다'는 address 의 익숙한 뜻이지만 실업을 상대로 연설한다는 것은 맥락에 맞지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "collocation_mismatch",
+            "why": "'말을 걸다'는 사람을 목적어로 받을 때의 뜻으로, unemployment 같은 문제와 결합하지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "nearby_word",
+            "why": "앞의 reports(2번)에 끌린 뜻으로, 3번은 기술만 하는 것을 오히려 비판한다."
+          },
+          {
+            "choice": 3,
+            "design": "opposite_sense",
+            "why": "직접 대처하겠다는 약속(5번에서 실행)과 정반대다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-transfer-1",
+      "role": "transfer",
+      "passageGroup": "vcs-t5",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Some decisions in a hospital cannot wait for a full discussion.",
+          "When a patient's condition suddenly worsens, one person must give instructions and the others must follow them without delay.",
+          "For this reason, emergency teams agree in advance on who will be in charge.",
+          "That person does not need to be the most senior doctor in the room.",
+          "What matters is that everyone knows whose voice to listen to.",
+          "Teams that settle this question early command the situation instead of being overwhelmed by it."
+        ],
+        "target": {
+          "sentence": 5,
+          "word": "command"
+        },
+        "stem": "밑줄 친 낱말 'command'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "요구하다",
+          "통제하다",
+          "내려다보다",
+          "얻어 내다",
+          "내맡기다"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "cue": [
+          1,
+          2,
+          5
+        ],
+        "senseGloss": "(사태를) 장악하여 통제하다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "collocation_mismatch",
+            "why": "'요구하다'는 command a high price 처럼 값·대가와 결합할 때의 뜻이라 situation 과 맞지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "collocation_mismatch",
+            "why": "'내려다보다'는 command a view 처럼 장소·경치와 결합할 때의 뜻이다."
+          },
+          {
+            "choice": 3,
+            "design": "nearby_word",
+            "why": "5번 문장의 voice·listen 에 끌린 command respect(존경을 얻어 내다)의 뜻으로, 상황을 얻어 낸다는 것은 성립하지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "미리 책임자를 정해 상황을 쥐고 있다는 글의 흐름(2·3번)과 정반대로, 상황에 몸을 맡긴다는 뜻이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vcs-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "vcs-t6",
+      "body": {
+        "format": "contextual_sense",
+        "sentences": [
+          "Children learn early that some promises are easy to make and hard to keep.",
+          "A parent who says \"We'll go to the beach tomorrow\" and then cancels may think the matter is small.",
+          "To the child, however, the broken promise can bear a heavy meaning.",
+          "It may suggest that adults' words cannot be trusted, a lesson that is difficult to unlearn.",
+          "Psychologists therefore advise parents to promise less and keep more.",
+          "Children who see promises kept tend to make careful promises themselves."
+        ],
+        "target": {
+          "sentence": 2,
+          "word": "bear"
+        },
+        "stem": "밑줄 친 낱말 'bear'의 이 글에서의 뜻으로 가장 적절한 것은?",
+        "choices": [
+          "참다",
+          "낳다",
+          "지니다",
+          "맺다",
+          "덜다"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "senseGloss": "(의미·특징을) 지니다, 담고 있다",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "basic_meaning",
+            "why": "'참다'는 can't bear it 처럼 흔히 외우는 뜻이지만 약속이 의미를 참는다는 것은 성립하지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "nearby_word",
+            "why": "글에 나오는 아이·부모에 끌린 '낳다'의 뜻으로, 목적어 meaning 과 어울리지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "collocation_mismatch",
+            "why": "'맺다'는 bear fruit 처럼 열매와 결합할 때의 뜻으로, 약속이 의미를 맺는다는 결합은 쓰이지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "opposite_sense",
+            "why": "부모는 작게 여기지만(2번) 아이에게는 무거운 의미를 지닌다는 대조를 뒤집어, 의미를 덜어 낸다고 했다."
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}
