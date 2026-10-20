@@ -192,3 +192,11 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 검증: PGlite cycle() 을 13 TASK 실제 공급 · 서버 채점 · G2 결속 · As-Is · PLAN pass/fail 로 확장(44/44). 형식별 유효 정답 · 유효 오답은 시험 어댑터 `apps/web/src/lib/knowledge/__tests__/authored-responses.ts`(제품 채점기로 17세트 전 문항 자체 검증). 격리 브라우저 `authored-format-cycle` = option_correspondence(중심) · segment_choice(보조) 1440 pass · 1280 fail. 격리 fixture 는 합성(「CI 격리 fixture — 사람 결정 아님」) — 실제 DB 적용 · 사람 승인 · 학습 효과로 세지 않는다.
 - 발견(범위 밖 · 보고): 정본 준비 상태가 live 가 아닌 Workspace(ws.inference · ws.cohesion · ws.grammar-scope · ws.vocab-context)의 중심 TASK 는 적용 단계에 자료가 없을 때 PLAN 이 `material_needed` 대신 `no_content` 를 낸다(`map/v4/plan.ts:272` 가 home.readiness 만 본다). 순환 자체(단계 · 공급 · 해소)는 같다. map/v4 는 이 작업의 금지 경로라 고치지 않았고 시험은 현재 동작을 명시적으로 단언한다.
 - rev1 REWORK(Codex P1 · 문항만): gs-ind-3 = 행위자 by 구가 있는 완료 수동(have abandoned → have been abandoned)으로 유일 오류화 · sc-transfer-2 = 고지대 제빵 사실 정정(takes less yeast · CSU Extension 「Baking at Elevation」) · P2 df-ind-4 · rel-ind-4 를 가상 사례로 표시. 위 SHA 는 수정 뒤 값. 채점기 · 검증기 · 엔진 무변경 · Gold/권리 pending.
+
+## 16. T-0069 — V1 기본 의미(v.core_meaning) 학습 진입 · 같은 지도 복귀 (2026-10-21)
+
+- ws.vocab-context 팝업의 보조 v.core_meaning 에 `VocabLearningCard`(창작 공급 카드 아님) — 기존 WordVault 복습(`/wordvault/review` · FSRS 자기 평가)으로 보낸다. 카드는 단어 수 · 오늘 복습 수 · 시험 빈도를 세지 않는다(조회 없이 만들지 않음).
+- 복귀: `map-return` 의 고정 내부 경로 `VOCAB_PATHS`(/wordvault/review 하나) · `vocabMapReturnHref` — from=map 일 때만 전체 지도 + 검증한 문맥(map_task · ws · map_ws · map_plan · map_goal). map_item · map_attempt 는 싣지 않고 들어와도 버린다. 문맥 없는 일반 진입 · 옛 주소는 그대로.
+- 복습 화면(지도에서 왔을 때만): 「학습 지도로」 막대 + 「학습 기록이지 지도의 확인 · 해소 근거가 아님」 안내 · 빈 단어 = 내 단어장에서 모으기 안내(「잘 따라가고 있어요」 아님) · 조회 실패 = 「0개가 아님」 알림(일반 진입은 예전처럼 오류 경계) · 끝난 뒤에도 「학습 지도로 돌아가기」.
+- 근거 비승격: 뜻 보기 · 예문 · 자기 평가는 learning_records(FSRS)만 쓴다 — CSAT 시도 · G2 결속 · 계획 · 목표 이력 불변(격리 e2e 가 행 수로 단언). V1 직접 확인 도구는 아직 없다고 카드가 알린다. 지연 유지 간격은 정본 미승인 그대로(evidence-claims NOT_ESTABLISHED 무변경).
+- 검증: 단위 map-return-vocab 6 · vocab-learning 6(빈 단어 · 조회 실패 · 문맥 없음 대조군) · web vitest 510 files pass. 인증 격리 `vocab-core-roundtrip` 1440/1280(지도 → 키보드 복습 진입 → 실제 복습 1회 → 완료 → 키보드 복귀 → 같은 Workspace 팝업) — fixture 는 격리 DB 의 내 단어 1개(합성).

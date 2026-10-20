@@ -25,6 +25,7 @@ import { AuthoredSupplyCard } from './AuthoredSupplyCard'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
+import { VocabLearningCard } from './VocabLearningCard'
 import p from './popup.module.css'
 import u from './unified.module.css'
 import { Amount, READINESS_LABEL, STAGES, taskLabel, wsIcon, WS_STATE_LABEL } from './WorkspaceList'
@@ -184,6 +185,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
             <AuthoredSupplyCard key={t} kind="support" task={t} taskName={taskLabel(t).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
           ))}
+          {/* T-0069 — V1 기본 의미는 창작 세트가 아니라 기존 WordVault 복습이 정본 자산이다 · 같은 지도 복귀 문맥(outgoingCtx)을 싣는다 */}
+          {(['core', 'support'] as const).flatMap((k) => (k === 'core' ? row.core.slice(0, 1) : row.support).filter((t) => t === 'v.core_meaning').map((t) => (
+            <VocabLearningCard key={t} kind={k} taskName={taskLabel(t).name} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
+          )))}
         </>
       )}
     </MapDialog>
