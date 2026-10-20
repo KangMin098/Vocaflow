@@ -41,7 +41,11 @@ describe('returnRecap — 가장 최근 기록과 근거 채택', () => {
   })
   it('해설을 먼저 본 풀이는 셌다고 말하지 않는다', () => {
     const r = returnRecap({ ...base, attempts: [att({ afterExplanation: true, helpLevel: 'viewed_first' })] })
-    expect(r.latest).toMatchObject({ kind: 'independent_not_counted' })
+    expect(r.latest).toMatchObject({ kind: 'not_counted_helped' })
+  })
+  it('세지 않은 이유는 기록 표지 그대로 — 시각 불확실 · 결속 미확인', () => {
+    expect(returnRecap({ ...base, attempts: [att({ timingUncertain: true })] }).latest).toMatchObject({ kind: 'not_counted_timing' })
+    expect(returnRecap({ ...base, attempts: [att({ contentHash: null })] }).latest).toMatchObject({ kind: 'not_counted_unbound' })
   })
   it('다른 TASK 기록은 섞지 않는다 · 기록 없음 = none · 조회 실패 = unknown', () => {
     expect(returnRecap({ ...base, attempts: [att({ taskKey: 'other' })] }).latest.state).toBe('none')

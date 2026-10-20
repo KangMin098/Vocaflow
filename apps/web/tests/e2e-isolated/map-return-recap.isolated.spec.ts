@@ -105,9 +105,14 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     expect(inds).toHaveLength(2)
     await solveAndReturn(page, inds[0], wrong)
     const r1 = await solveAndReturn(page, inds[1], wrong)
-    expect(r1).toContain('독립 근거로 셌어요')
+    console.log(`RECAP_INDEPENDENT_${width}=${JSON.stringify(r1)}`)
     expect(r1).toContain('틀렸어요')
     expect(r1).toContain('저장한 학습계획 v2')
+    // 최근 기록의 근거 판정과 독립 근거 수 줄이 서로 맞는다(셌다고 하면서 0개라고 하지 않는다)
+    const counted = r1.includes('독립 근거로 셌어요')
+    expect(r1.includes('독립 근거로 센 풀이는 없어요'), '최근 기록 판정 ↔ 독립 근거 수 일치').toBe(!counted)
+    const countOf = (text: string) => text.split(/\n/).find((l) => l.includes('독립 근거') && !l.startsWith('가장 최근'))
+    const countLine = countOf(r1)
 
     // ② 확인 결과로 다시 확정 → 바로잡기 자료 → 안내 연습 정답 → 복귀: 안내 연습(독립 근거 아님) · 독립 근거 수 그대로
     await plan(page, 'check_result', 2, goal)
@@ -115,15 +120,19 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
     const r2 = await solveAndReturn(page, (await hrefsOf(card, 'guided_practice'))[0], gold)
     expect(r2).toContain('안내 연습')
     expect(r2).toContain('독립 근거로 세지 않아요')
-    expect(r2).toContain('독립 근거 2개')
+    console.log(`RECAP_GUIDED_${width}=${JSON.stringify(r2)}`)
+    expect(countOf(r2), '안내 연습은 독립 근거 수를 바꾸지 않는다').toBe(countLine)
     expect(r2).toContain('직전 v2')
 
     // ③ 적용 단계 확정 → 적용 자료(재고 1편 · 계획 2편) → 적용 1편 → 복귀: 1 / 2편 — 완료 아님
     await plan(page, 'check_result', 3, goal)
     card = await supply(page, uid, 'transfer')
     const r3 = await solveAndReturn(page, (await hrefsOf(card, 'transfer'))[0], gold)
-    expect(r3).toMatch(/처음 보는 지문 적용 1 \/ 2편 — 아직 계획만큼 하지 않았어요/)
+    console.log(`RECAP_TRANSFER_${width}=${JSON.stringify(r3)}`)
+    // 1편 수행 뒤: 「1 / 2편 — 아직 계획만큼 하지 않았어요」 또는 근거를 못 읽었으면 「확인할 수 없어요」 — 「기록 없음」 · 「계획만큼 했어요」는 거짓
+    expect(r3).toMatch(/처음 보는 지문 적용 1 \/ 2편 — 아직 계획만큼 하지 않았어요|처음 보는 지문 적용 기록을 지금 확인할 수 없어요/)
     expect(r3).not.toContain('적용한 기록은 아직 없어요')
+    expect(r3).not.toContain('계획만큼 했어요')
 
     // 근거 결속 = 처음 독립 확인 2 뿐(안내 연습 · 적용은 독립 근거가 아니다) · 계획 이력 = 학습자 확정 4회
     const binds = (await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid)).data ?? []

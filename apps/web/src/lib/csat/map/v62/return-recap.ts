@@ -12,7 +12,7 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import { isInstructional, type ActivityRow } from '../lifecycle-evidence'
 import type { PlanReason, SavedPlanVersion } from '../v4/plan-commit'
 
-export type LatestKind = 'independent_counted' | 'independent_not_counted' | 'guided' | 'transfer' | 'other'
+export type LatestKind = 'independent_counted' | 'not_counted_helped' | 'not_counted_timing' | 'not_counted_unbound' | 'guided' | 'transfer' | 'other'
 
 export interface ReturnRecap {
   latest: { state: 'unknown' } | { state: 'none' } | { state: 'found'; kind: LatestKind; isCorrect: boolean | null; at: string }
@@ -55,7 +55,11 @@ export function returnRecap(input: {
 function independentKind(a: FindAttemptRow): LatestKind {
   if (a.phase === 'transfer') return 'transfer'
   if (a.activity === 'practice') return 'guided'
-  return a.phase === 'practice' && isEligible(a) && a.isCorrect !== null ? 'independent_counted' : 'independent_not_counted'
+  if (a.phase === 'practice' && isEligible(a) && a.isCorrect !== null) return 'independent_counted'
+  // 세지 않은 이유는 기록 표지 그대로(추측하지 않는다): 도움 · 해설 뒤 → 제출 시각 불확실 → 화면 · 납품 결속 확인 안 됨
+  if (a.helpLevel !== 'independent' || a.afterViewedFirst || a.afterExplanation || a.synthetic) return 'not_counted_helped'
+  if (a.timingUncertain) return 'not_counted_timing'
+  return 'not_counted_unbound'
 }
 
 function activityKind(a: ActivityRow): LatestKind {
@@ -66,7 +70,9 @@ function activityKind(a: ActivityRow): LatestKind {
 
 export const LATEST_LABEL: Record<LatestKind, string> = {
   independent_counted: '처음 보는 문항을 혼자 푼 기록 — 독립 근거로 셌어요',
-  independent_not_counted: '확인 문항 풀이 — 도움을 받았거나 이미 본 문항이라 독립 근거로 세지 않았어요',
+  not_counted_helped: '확인 문항 풀이 — 도움 · 해설을 본 뒤라 독립 근거로 세지 않았어요',
+  not_counted_timing: '확인 문항 풀이 — 제출 시각을 확인하지 못해 아직 독립 근거로 세지 않았어요',
+  not_counted_unbound: '확인 문항 풀이 — 이 문항 · 납품과의 연결을 확인하지 못해 독립 근거로 세지 않았어요',
   guided: '안내 연습 — 바로잡기 기록이에요(독립 근거로 세지 않아요)',
   transfer: '처음 보는 지문에 적용한 기록',
   other: '학습 기록 — 독립 근거는 아니에요',
