@@ -1,0 +1,21 @@
+{
+  "task_id": "T-0074",
+  "head": "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "task_status": "COMPLETED",
+  "review": "verification/reviews/T-0074-r1-independent/REVIEW.md",
+  "evidence": [
+    "T-0074-R1-E01",
+    "T-0074-R1-E02",
+    "T-0074-R1-E03",
+    "T-0074-R1-E04",
+    "T-0074-R1-E05"
+  ],
+  "delivery": "QUEUED",
+  "recipient_owner": "final-product",
+  "recipient_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "acknowledged": false,
+  "authenticated_next_db": "NOT_VERIFIED",
+  "official_main_integration": false,
+  "observed_at": "2026-10-21T09:14:56.167Z"
+}

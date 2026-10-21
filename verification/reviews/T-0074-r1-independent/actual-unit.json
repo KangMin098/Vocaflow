@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T09:14:09.848Z",
+  "commit": "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+  "type": "unit",
+  "covers": [
+    0,
+    1
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0074-r1-independent/actual-enum-results.json",
+  "command_or_protocol": "Independent actual-enum probe3/3, skip0, using EvidenceView.currentCheck=passed and explicit nonblank current-check label assertion."
+}

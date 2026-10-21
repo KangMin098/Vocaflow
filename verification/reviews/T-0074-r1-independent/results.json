@@ -1,0 +1,33 @@
+{
+  "environment": "actual Chromium + actual React GoalPlanSummary; fixed data; no auth Next/DB",
+  "results": [
+    {
+      "case": "통과 행 = 지금 확인 · 시간 지나 다시 확인 아직 + 다른 날 미확인 안내 / 미측정 행 칩 없음 / 원장 불명확 안내 · 키보드 펼치기 · 1440",
+      "passed": true,
+      "open": true,
+      "chips": "NOT_ESTABLISHED",
+      "correctCurrent": true,
+      "focusVisible": true,
+      "missing": "근거 범위를 지금 확인할 수 없어요 — 확인한 것이 0개라는 뜻은 아니에요.",
+      "note": 1,
+      "r2chips": 0,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "case": "통과 행 = 지금 확인 · 시간 지나 다시 확인 아직 + 다른 날 미확인 안내 / 미측정 행 칩 없음 / 원장 불명확 안내 · 키보드 펼치기 · 1280",
+      "passed": true,
+      "open": true,
+      "chips": "NOT_ESTABLISHED",
+      "correctCurrent": true,
+      "focusVisible": true,
+      "missing": "근거 범위를 지금 확인할 수 없어요 — 확인한 것이 0개라는 뜻은 아니에요.",
+      "note": 1,
+      "r2chips": 0,
+      "overflow": 0,
+      "errors": []
+    }
+  ],
+  "passed": 2,
+  "failed": 0
+}

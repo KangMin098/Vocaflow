@@ -1,0 +1,15 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T09:14:09.848Z",
+  "commit": "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+  "type": "review",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0074-r1-independent/REVIEW.md",
+  "command_or_protocol": "Independent changed-source review; focused18/18; corrected real-enum3/3; actual React/Chromium component2/2 and both captures inspected. Authenticated journey intentionally NOT_VERIFIED until next official integration."
+}
