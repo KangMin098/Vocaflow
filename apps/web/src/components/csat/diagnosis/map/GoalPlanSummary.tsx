@@ -52,6 +52,8 @@ const UNRESOLVED_LABEL: Record<GoalPlanRow['unresolved'][number], string> = {
 function amount(r: GoalPlanRow): string {
   const q = r.quantity
   if (q.source === 'unknown') return '저장한 계획을 불러오지 못했어요'
+  // T-0082 — 지금 확인 통과 · 유지: 「앞 단계를 마치면」 · 「자료 없음」으로 말하지 않는다(다른 날 유지 확인 기준 미정)
+  if (r.blocked === 'maintain_pending') return '지금 확인 통과 — 다른 날 유지 확인은 기준이 정해지지 않아 이번 학습량이 없어요'
   if (q.planned === null) return r.unresolved.map((x) => UNRESOLVED_LABEL[x]).join(' · ') || '지금 계획할 수 있는 자료가 없어요'
   return `${q.source === 'saved' ? '저장한 계획' : '제안(저장 전)'} ${q.planned}${q.unit} · 수행 ${q.done} · 남음 ${q.remaining ?? '—'}`
 }
