@@ -334,6 +334,8 @@
 - feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).
 
 - docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.
+- docs(methodology): 학습 원리 vNext 종단 간 연결 감사(다섯 질문 판정) · G2 통합 SQL 동시성 시험 `scripts/knowledge/g2-concurrency-test.mjs`(격리 PostgreSQL 12/12, 공유 DB 쓰기 0) — `docs/methodology/VNEXT_E2E_AUDIT.md`.
+
 - feat(csat-map): 학습 지도 목표 중심 재설계 — 첫 화면 「내 목표 · 현재 위치」 바(목표 · 등급 구간 · 목표 미설정 구분 · 실제 최근 기록 · 이전↔최근 · 목표까지 · 단계 근거 상태) → 가운데 「목표 N점으로 가는 영어 독해의 길」 → 오른쪽 「지금 먼저 할 일」 하나. 단계 시트에 「목표와의 관계」(기준 시험 문항 · 배점 사실) · 「아직 모르는 것」. 목표 달성률 · 숙달 역산 · 점수 상승 약속 없음 · 진단 계약 그대로 · DB 변경 없음. 상태 E2E `e2e-map-goal.mjs`.
 - docs(csat-learner): G2 통합 SQL(da627938 · methodology e294b4642) 적용 전 독립 심사 — CONDITIONAL. 해시 일치 · 회귀 44/44 · 되돌리기 실행 확인 · P1: M5a 가 help_level 에 「가장 이른 공개」를 적용해 해설 먼저 본 뒤의 판단을 독립으로 소급 승격(두 기기 공유 세션) · B8 연결은 별도 mutation id 필수. [심사](./csat-learner/G2_SQL_REVIEW_da627938.md)
 
