@@ -101,7 +101,7 @@ export function GoalPlanSummary({ data, goalSet, saved = null, past = false, onS
               </dl>
               <div className={u.gpActs}>
                 {past ? null : r.planGate ? (
-                  <span className={u.gpBlocked} data-testid="goal-plan-gate" data-gate={r.planGate}>{r.planGate === 'replan' ? '자료 · 단계가 바뀌었어요 — 계획을 다시 확정한 뒤 시작해요' : '이 묶음 계획을 먼저 확정해요'}</span>
+                  <span className={u.gpBlocked} data-testid="goal-plan-gate" data-gate={r.planGate} data-why={r.replanWhy ?? ''}>{r.planGate === 'replan' ? (r.replanWhy === 'goal' ? '목표가 바뀌었어요 — 지금 목표로 계획을 다시 확정한 뒤 시작해요' : '자료 · 단계가 바뀌었어요 — 계획을 다시 확정한 뒤 시작해요') : '이 묶음 계획을 먼저 확정해요'}</span>
                 ) : r.action ? (
                   <Link className={u.ghost} href={withMapReturn(r.action.href, outgoingCtx(saved, r.task, r.workspace))} data-testid="goal-plan-do" onClick={() => onSelect(r.task)}>
                     <PlayCircle size={14} strokeWidth={1.9} aria-hidden="true" />지금 할 수 있어요 {r.action.rank} · {r.action.label}

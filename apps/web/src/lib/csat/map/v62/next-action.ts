@@ -37,11 +37,13 @@ export interface NextAction {
   label: string | null
   /** plan 이 「저장 뒤 자료 · 단계가 바뀌어 다시 확정」인 경우 */
   replan?: boolean
+  /** T-0072 — 다시 확정해야 하는 이유: 목표 버전이 바뀜(goal) · 저장 뒤 자료/단계가 바뀜(content) */
+  replanWhy?: 'goal' | 'content'
   /** wait 일 때만 — ranksOf 의 이유 그대로 */
   blocked: NotActionableReason | null
 }
 
-type Saved = Pick<SavedPlans, 'byTemplate'> & { status?: SavedPlans['status']; error?: unknown } | null | undefined
+type Saved = Pick<SavedPlans, 'byTemplate'> & { status?: SavedPlans['status']; error?: unknown; goalVersionId?: number | null } | null | undefined
 
 /**
  * 이번 학습량 — 계획 편집기(PlanSection)와 같은 출처: 그 묶음의 최신 저장 버전을 applySaved 로 덮은 값.
@@ -51,11 +53,23 @@ function savedWsOf(ws: string | null, saved: Saved): SavedWorkspace | null {
   return ws && saved?.status !== 'not_installed' && !saved?.error ? (saved?.byTemplate?.[ws] as SavedWorkspace | undefined) ?? null : null
 }
 
-/** 그 TASK 의 저장 계획이 지금 자료 · 단계와 어긋났나(PlanSection 의 재계획 제안과 같은 planDrift) */
+/**
+ * T-0072 — 그 묶음의 최신 저장 PLAN 이 **지금 목표가 아닌** 목표 버전에 묶였나. 단계 · 자료 · 수량이 같아도 목표가 바뀌었으면 지금 목표의 확정 계획이 아니다.
+ * 저장 당시 목표 기록이 없는 옛 계획(legacy null)은 지금 목표가 있으면 어긋남으로 본다(추측해 지금 목표 확정으로 올리지 않는다). 저장본을 못 읽으면 판단하지 않는다(false).
+ * 상단 CTA(nextActionOf) · 요약(goalPlanRows) · 계획 편집기(PlanSection)가 이 판정을 같이 쓴다.
+ */
+export function goalMismatch(ws: string, saved: Saved): boolean {
+  const latest = savedWsOf(ws, saved)?.latest ?? null
+  if (!latest) return false
+  return (latest.goalVersionId ?? null) !== (saved?.goalVersionId ?? null)
+}
+
+/** 그 TASK 의 저장 계획이 지금 자료 · 단계 · 목표와 어긋났나(PlanSection 의 재계획 제안과 같은 planDrift + 목표 버전) */
 export function replanNeeded(task: TaskId, ws: string, view: V4View, saved: Saved): boolean {
   const latest = savedWsOf(ws, saved)?.latest ?? null
   const pv = view.plans[ws]
   if (!latest?.plan?.tasks || !pv) return false
+  if (goalMismatch(ws, saved)) return true
   const d = planDrift(latest, pv)
   return !!d && (d.content.some((c) => c.task === task) || d.stages.includes(task) || d.overAvailable.includes(task))
 }
@@ -97,7 +111,7 @@ export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): N
   if (first) {
     if (ws && !isSaved) return { ...base, kind: 'plan', href: null, label: null, blocked: null }
     // 저장 뒤 자료 · 단계가 바뀌었으면(계획 편집기의 planDrift 와 같은 판정) 다시 확정이 먼저 — 옛 계획량(없음)으로 시작시키지 않는다
-    if (ws && replanNeeded(target, ws, view, saved)) return { ...base, kind: 'plan', replan: true, href: null, label: null, blocked: null }
+    if (ws && replanNeeded(target, ws, view, saved)) return { ...base, kind: 'plan', replan: true, replanWhy: goalMismatch(ws, saved) ? 'goal' : 'content', href: null, label: null, blocked: null }
     return { ...base, kind: 'start', href: first.href, label: first.label, blocked: null }
   }
   const blocked = ranks.notActionable.find((n) => n.task === target)?.reason ?? 'no_next_activity'

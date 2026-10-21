@@ -12,7 +12,7 @@ import type { TaskPlan } from '../v4/plan'
 import type { SavedPlans } from '../v4/plan-store'
 import type { StageKey } from '../v4/workspace'
 import type { NeedRankEntry, NotActionableReason, Ranks } from './rank'
-import { replanNeeded, wsForTask } from './next-action'
+import { goalMismatch, replanNeeded, wsForTask } from './next-action'
 import { quantityBasis } from './saved-plan'
 
 export type QuantitySource =
@@ -49,6 +49,8 @@ export interface GoalPlanRow {
   action: { rank: number; href: string; label: string } | null
   /** T-0070 P1-1 — 실행 링크가 있어도 그 묶음 계획을 아직 저장하지 않았거나(plan) 저장 뒤 자료 · 단계가 바뀌었으면(replan) 계획이 먼저 */
   planGate: 'plan' | 'replan' | null
+  /** T-0072 — replan 의 이유(목표 버전이 바뀜 · 자료/단계가 바뀜) */
+  replanWhy: 'goal' | 'content' | null
   /** 지금 못 하는 이유(학생 결손이 아니라 자료 · 단계 상태) */
   blocked: NotActionableReason | null
   /** 계획량이 없는 이유(needs_direct_check 제외) */
@@ -106,6 +108,7 @@ export function goalPlanRows(view: V4View, ranks: Ranks | null, saved: SavedPlan
       achievement: shown?.achievement ?? null,
       action: a ? { rank: a.rank, href: a.href, label: a.label } : null,
       planGate,
+      replanWhy: planGate === 'replan' && gws ? (goalMismatch(gws, saved) ? 'goal' : 'content') : null,
       blocked: a || planGate ? null : blocked.get(e.task) ?? null,
       unresolved: (shown?.unresolved ?? []).filter((u) => u !== 'needs_direct_check'),
     }
