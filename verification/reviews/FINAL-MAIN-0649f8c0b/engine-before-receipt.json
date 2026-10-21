@@ -1,0 +1,12 @@
+{
+  "main": "0649f8c0b1a21e51ba8431a35ac869d8ea620eaf",
+  "ref": "origin/main",
+  "report": "verification/goal-check/GC-2026-10-21T04-01-46-828Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 2
+  },
+  "changes": [],
+  "config_globally_unchanged": true,
+  "ci_source": "Official PR326 inspected log/report, no new run; actual head retained."
+}
