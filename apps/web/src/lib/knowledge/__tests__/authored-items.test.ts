@@ -1,12 +1,16 @@
 // apps/web/src/lib/knowledge/__tests__/authored-items.test.ts
 // FINAL §4.1·§4.3 — R5 창작 세트 규칙 · 채점 · 맹검 2인 대조(채점이 합리적 해석을 오답 처리하지 않는가)
+import { createHash } from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import blindA from '../../../../../../docs/final/review/r5-authored-blind-A.json'
 import blindB from '../../../../../../docs/final/review/r5-authored-blind-B.json'
 import {
   R5_AUTHORED_SET, annotationRefOf, authoredItemsFor, findAuthored, gradeAuthored, isAssessmentRole, learnerView,
-  AUTHORED_SETS, registrationArgs, validateAuthoredSet, type AuthoredGold, type AuthoredSet,
+  AUTHORED_SETS, SUPPLEMENTAL_SETS, authoredRef, registrationArgs, validateAuthoredSet, type AuthoredGold, type AuthoredSet,
 } from '../authored/authored-items'
 import { AUTHORED_TASKS, AUTHORED_TASK_KEYS, AUTHORED_TASK_LABEL } from '../authored/tasks'
 import { tasks } from '@/lib/csat/map/v4/definition'
@@ -36,7 +40,8 @@ describe('세트 규칙', () => {
   })
 
   it('클라이언트용 TASK 표 = 창작 세트(TASK · 과제 키 · 라벨) — 세트 JSON 을 클라이언트에 넣지 않는다', () => {
-    expect([...AUTHORED_TASKS].sort()).toEqual(AUTHORED_SETS.map((x) => x.taskId).sort())
+    // 2E — 보충 세트는 같은 TASK 의 두 번째 세트다(TASK 표는 TASK 당 1행)
+    expect([...AUTHORED_TASKS].sort()).toEqual([...new Set(AUTHORED_SETS.map((x) => x.taskId))].sort())
     for (const set of AUTHORED_SETS) {
       expect(AUTHORED_TASK_KEYS[set.taskId], set.set).toBe(set.taskKey)
       expect(AUTHORED_TASK_LABEL[set.taskId], set.set).toBeTruthy()
@@ -125,6 +130,29 @@ describe('맹검 2인 대조(FINAL §4.3 — docs/final/review)', () => {
   }
 })
 
+describe('2E 보충 세트 등록 정책', () => {
+  const supp = AUTHORED_SETS.find((s) => s.set === 'r5-central-meaning-cycle.v1')!
+  it('검토된 바이트 그대로(sha) · 원 세트 바이트 불변 · 등록된 부분집합만 통과', () => {
+    const sha = (f: string) => createHash('sha256').update(fs.readFileSync(path.join(__dirname, '../authored', f))).digest('hex')
+    expect(sha('r5-cycle-supplement.v1.json')).toBe(SUPPLEMENTAL_SETS[supp.set]!.sha256)
+    expect(validateAuthoredSet(supp)).toEqual([])
+    // 등록되지 않은 같은 내용 = 5역할 요구로 거절(전역 완화 없음) · 등록 세트가 역할을 하나 더/덜 가져도 거절 · 일반 세트에서 역할 하나 빼도 거절
+    expect(validateAuthoredSet({ ...supp, set: 'r5-unknown-supplement.v1' }).join()).toMatch(/역할 5종/)
+    expect(validateAuthoredSet({ ...supp, items: supp.items.filter((i) => i.role !== 'transfer') }).join()).toMatch(/등록된 보충 역할/)
+    expect(validateAuthoredSet({ ...supp, taskId: 'e.evidence_location' }).join()).toMatch(/보충 세트 TASK/)
+    const base = AUTHORED_SETS[0]!
+    expect(validateAuthoredSet({ ...base, items: base.items.filter((i) => i.role !== 'delayed_check') }).join()).toMatch(/역할 5종/)
+  })
+  it('레지스트리: 문항 id · 지문 묶음 전역 유일 · TASK 조회 · ref 조회', () => {
+    const ids = AUTHORED_SETS.flatMap((s) => s.items.map((i) => i.id))
+    expect(new Set(ids).size).toBe(ids.length)
+    const groups = AUTHORED_SETS.flatMap((s) => s.items.map((i) => `${s.taskId}:${i.passageGroup}`))
+    expect(new Set(groups).size).toBe(groups.length)
+    expect(authoredItemsFor('r.central_meaning', 'transfer').map((x) => x.item.id)).toContain('r5-cycle-transfer-2')
+    expect(findAuthored(authoredRef('r5-cycle-ind-1'))?.set.set).toBe(supp.set)
+  })
+})
+
 describe('모든 창작 세트(FINAL §5 확장)', () => {
   for (const set of AUTHORED_SETS) {
     describe(set.set, () => {
@@ -132,7 +160,8 @@ describe('모든 창작 세트(FINAL §5 확장)', () => {
         expect(validateAuthoredSet(set)).toEqual([])
         const def = tasks().find((t) => t.id === set.taskId)
         expect(def?.status, '정본에서 보류(hold) TASK 에는 창작 세트를 두지 않는다').not.toBe('hold')
-        expect(new Set(set.items.map((i) => i.role)).size).toBe(5)
+        // 2E — 역할 계약은 validateAuthoredSet 이 강제한다: 일반 세트 = 5종 · 등록된 보충 세트만 등록 부분집합
+        expect(new Set(set.items.map((i) => i.role)).size).toBe(SUPPLEMENTAL_SETS[set.set]?.roles.length ?? 5)
         expect(new Set(set.items.map((i) => i.passageGroup)).size).toBe(set.items.length)
         expect(set.items.filter((i) => i.role === 'independent_check').length).toBeGreaterThanOrEqual(2)
       })

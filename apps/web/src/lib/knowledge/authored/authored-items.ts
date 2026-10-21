@@ -26,6 +26,7 @@ import attachSet from './s-attachment.v1.json'
 import chunkSet from './s-chunk-boundary.v1.json'
 import structSet from './s-structural-relation.v1.json'
 import semSet from './v-semantic-relation.v1.json'
+import r5CycleSet from './r5-cycle-supplement.v1.json'
 
 export { DISTRACTOR_DESIGNS, type DistractorDesign } from './formats'
 
@@ -92,9 +93,28 @@ const setVersion = (s: AuthoredSet) => s.set.slice(s.set.lastIndexOf('.') + 1)
 export const annotationRefOf = (s: AuthoredSet, item: AuthoredItem) => `${s.taskKey}-${item.id}.${setVersion(s)}`
 export const setFormat = (s: AuthoredSet): FormatId => s.format ?? 'central_meaning'
 
+/**
+ * 2E — 보충 세트 등록 정책(신뢰 레지스트리 · 정확한 세트 ID 키). 일반 세트는 역할 5종을 모두 갖춰야 한다.
+ * 여기 적힌 세트만 적힌 역할 부분집합을 **정확히** 가질 수 있다 — 등록되지 않은 세트는 우회하지 못한다.
+ * 검토된 바이트는 고치지 않는다(표식은 파일이 아니라 이 표에 둔다). sha256 = 두 AI 검토 영수증이 결속한 파일 바이트(시험이 확인).
+ */
+export const SUPPLEMENTAL_SETS: Readonly<Record<string, { taskId: string; roles: readonly AuthoredRole[]; supplements: string; sha256: string }>> = {
+  'r5-central-meaning-cycle.v1': {
+    taskId: 'r.central_meaning', roles: ['independent_check', 'transfer'], supplements: 'r5-central-meaning.v1',
+    sha256: '109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74',
+  },
+}
+const ALL_ROLES: readonly AuthoredRole[] = [...ASSESSMENT_ROLES, ...INSTRUCTION_ROLES]
+
 /** 세트 규칙 위반 목록(빈 배열 = 통과). 등록 전 · 테스트에서 돈다 */
 export function validateAuthoredSet(s: AuthoredSet): string[] {
   const errs: string[] = []
+  // 역할 계약 — 일반 세트 = 5종 모두 · 등록된 보충 세트 = 등록된 부분집합과 정확히 같고 TASK 도 같아야 한다
+  const supp = Object.prototype.hasOwnProperty.call(SUPPLEMENTAL_SETS, s.set) ? SUPPLEMENTAL_SETS[s.set] : null
+  const want = [...(supp?.roles ?? ALL_ROLES)].sort().join(',')
+  const have = [...new Set(s.items.map((i) => i.role))].sort().join(',')
+  if (have !== want) errs.push(`역할 ${have} — ${supp ? '등록된 보충 역할' : '역할 5종'}(${want})과 다르다`)
+  if (supp && supp.taskId !== s.taskId) errs.push(`보충 세트 TASK ${s.taskId} ≠ 등록 ${supp.taskId}`)
   const ids = new Set<string>()
   const groupClass = new Map<string, 'instruction' | 'assessment'>()
   const fmt = setFormat(s)
@@ -193,7 +213,9 @@ export function registrationArgs(s: AuthoredSet, it: AuthoredItem) {
   }
 }
 
-const SETS: AuthoredSet[] = [R5_AUTHORED_SET, ...[evidenceSet, optionSet, inferenceSet, relationSet, formSet, senseSet, refSet, multiwordSet, dfSet, dsSet, demandSet, coreSet, attachSet, chunkSet, structSet, semSet].map((x) => x as unknown as AuthoredSet)]
+/** 2E 보충 — 정본 순환(확인 → 바로잡기 → 전이 → 다시 확인)의 미노출 독립 확인 2 · 전이 1(SUPPLEMENTAL_SETS 등록) */
+export const R5_CYCLE_SUPPLEMENT = r5CycleSet as unknown as AuthoredSet
+const SETS: AuthoredSet[] = [R5_AUTHORED_SET, R5_CYCLE_SUPPLEMENT, ...[evidenceSet, optionSet, inferenceSet, relationSet, formSet, senseSet, refSet, multiwordSet, dfSet, dsSet, demandSet, coreSet, attachSet, chunkSet, structSet, semSet].map((x) => x as unknown as AuthoredSet)]
 export const AUTHORED_SETS: readonly AuthoredSet[] = SETS
 
 export function findAuthored(ref: string): { set: AuthoredSet; item: AuthoredItem } | null {

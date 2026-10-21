@@ -26,6 +26,7 @@ import type { AsIsSession } from './v4/as-is'
 import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
 import { scopeCandidates, type GoalVersion, type ScopeCandidate, type ScopeStatus, type GoalExam } from './v62/target-goal'
 import type { ActivityRow } from './lifecycle-evidence'
+import { loadSourceRepairReceipts, receiptActivity, receiptTargets } from './source-repair-receipt'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
 import { recordDecisions, type DecisionLogEntry } from '../../knowledge/decision-log-server'
@@ -563,6 +564,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
   const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set([...Object.values(practiceLinks).map((l) => l.taskKey), ...Object.keys(practiceLinks).flatMap(authoredKeysOf)])], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
   if (lifecycleActivity) await markGuidedRepairs(db, userId, lifecycleActivity, repairRows).catch((e) => console.error('[csat-map guided bindings]', e))
+  // 2D/2E — 원문 안내 연습 수행 사실(서버 영수증 · 검증된 userId · 같은 목표 · asOf=now). 미설치 = 없음 · 권한/DB 오류 · 모양 불일치 = 던진다
+  //   (끝낸 바로잡기가 조용히 사라져 repair 로 되돌아가는 것보다 지도 오류가 낫다)
+  const receipts = await loadSourceRepairReceipts(db, userId, now)
+  if (lifecycleActivity && receipts.length) lifecycleActivity.push(...receiptActivity(receipts, authoredKeysOf, now))
+  for (const [key, list] of Object.entries(receiptTargets(receipts, authoredKeysOf))) (repairTargets[key] ??= []).push(...list)
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))

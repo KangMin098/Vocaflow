@@ -20,9 +20,13 @@ export const row = (o: Record<string, unknown> = {}) => ({
 })
 export const snapshot = (o: Record<string, unknown> = {}) => ({ snapshot_kind: 'read_only_database_export' as const, current_time: '2026-10-21 05:50:28 UTC', row: row(o) })
 
-export async function prepared() {
+/**
+ * keys 를 주면(2E) 실제 buildDemand 의 taskKeys 로 같은 실제 draft 경로를 다시 돌린 **합성 계보** 패킷이다(입학 준비 아님).
+ * 주지 않으면 1B 역사 패킷과 같은 keys [](불변 고정물).
+ */
+export async function prepared(keys?: readonly string[]) {
   const lines = JSON.parse(canonicalBody()).lines as Array<Record<string, unknown>>
-  lines[2] = { ...lines[2], n: 3 }
+  lines[2] = { ...lines[2], n: 3, ...(keys ? { keys: [...keys].sort() } : {}) }
   const canonical = canonicalBody({ lines })
   const state = fixtureState()
   state.line = { ...state.line!, quantity: 3 }
@@ -56,8 +60,8 @@ const items = () => [
 export const request = () => ({ schema: 'vf.local-production-request/1', role: 'guided_practice', task: 'r.central_meaning', quantity: 3, item_types: ['topic', 'title', 'main_point'] })
 
 /** synthetic=false 는 격리 하네스에서 「실제 등록 주문」 자리를 대신하는 시험 전용 표시다 — 정책 hash 는 여전히 합성이다 */
-export const packetOf = async (synthetic = true, s: unknown = snapshot()) =>
-  buildPacket({ prepared: { synthetic_demand: synthetic, prepared: await prepared() }, snapshot: s, request: request() }, { runId: 'run-1', now: '2026-10-21T06:00:00.000Z' })
+export const packetOf = async (synthetic = true, s: unknown = snapshot(), keys?: readonly string[]) =>
+  buildPacket({ prepared: { synthetic_demand: synthetic, prepared: await prepared(keys) }, snapshot: s, request: request() }, { runId: 'run-1', now: '2026-10-21T06:00:00.000Z' })
 
 export const outputOf = (p: ProductionPacket): ProductionOutput => ({
   schema: 'vf.local-production-output/1', task_id: p.task_id, packet_hash: p.packet_hash, request_id: p.body.request_id,

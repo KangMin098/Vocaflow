@@ -1,5 +1,9 @@
 # CHANGELOG
 
+- test(csat): 2E의 복제 계획 저장 코드를 실제 plan POST·composeV4·nextActionOf 호출로 대체했다. 신규 Codex 응답으로 전이·미노출 재확인 후 실제 MAINTAIN 계획 저장, 관련97 통과. 근거/관계 하위 판정 불일치는 원시 AI 증거에 보존했다.
+
+- feat(csat): 2D 원문 안내 연습 수행 영수증(`_pending_source_lesson_repair_receipt.sql` · 보류 SQL) → `loadMapPage` 바로잡기 자료·수행 연결. 같은 목표의 다음 계획 뒤에도 끝난 바로잡기 사실 보존(구계획 신규 열기는 계속 차단) · 안내 연습 기본 수량 = 교수 청사진 3활동. 격리 PGlite 로 check→repair(실제 buildDemand)→원문 교수→transfer 계획 저장 확인. 2E: 영수증 성공 = 세 단계 완료 시각(과거 asOf 재생 반례 수정) · RPC `source_lesson_repair_receipts(p_user, p_as_of)` 본인/service_role 전용 · 권한/DB 오류는 던짐 · 보충 세트 `r5-central-meaning-cycle.v1`(등록 부분집합 정책) 실제 AI 검토 등록 → transfer 2지문 → recheck 새 2 → 다음 계획 저장(격리 PGlite).
+
 - docs(csat): 2C 설명 복원/격리 계획 저장25개 재확인. 목적 검토에서 source 안내 기록의 canonical repair 진행 연결과 실제 compose/route 검증이 빠져 있음을 확인해 2D로 명시했다.
 
 - fix(csat): 교수 설명 저장에 기대 납품을 DB에서 선검사하고 잘못된200을 완료로 처리하지 않게 했다. 제출 답 비교·시범 재시도와 사람 대기 문구도 정리했다(관련79·브라우저4 통과). 독립 평가→재계획은 2C로 이어진다.
