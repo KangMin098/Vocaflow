@@ -1,5 +1,9 @@
 # CHANGELOG
 
+- feat(admin): AI 검수 등록 서비스에 원본 입력·응답·완료 세션을 요구하는 실제 preview/register API를 연결했다. 미리보기 쓰기0·등록은 관리자 본인 세션·관련42 통과. 공유 DB 적용은 미실행.
+
+- feat(csat): 2A 두 AI(Claude·Codex) 검토 영수증으로 창작 R5 v3 중 5문항만 등록→AI 결정→자격·승인→공급→채점→G2 결속하는 경로(`ai-review.ts` · 미적용 `_pending_authored_ai_review.sql`). 사람 결정 0 · 권리 부여 아님 · 결합 설치에서 1C/1D 회귀 통과.
+
 - fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
 
 - feat(factory): 1D 납품된 공장 DCP 지도 연습을 학습자가 Workspace 카드 → `/csat/factory/[deliveryId]`(기존 DcpPlayer) → 서버 제출(실제 `grade_dcp_item`+결속 영수증, 멱등) → Workspace 복귀로 푼다. 보류 SQL `_pending_factory_dcp_learning.sql`(**미적용**). 연습은 근거 아님(evidence=false). 완료 주문의 받은 자료 열기 · 채점 시도 FK/일치 확인 · writer 가드 · 1C 잠금 순서 · 계측 3종 포함. 검증 결과는 `01D-LEARNER-RESULT.md`.

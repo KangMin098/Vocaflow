@@ -113,7 +113,9 @@ beforeAll(async () => {
   await db.exec(`alter default privileges in schema public grant all on tables to anon, authenticated, service_role`)
   for (const s of [C_SQL, B_SQL, read('_pending_workspace_supply_i1_safety.sql'), read('_pending_workspace_supply_i1_partial.sql'),
     read('20261018120000_workspace_supply_c_annotation_binding.sql'), read('20261018120100_r5_delivery_g2_binding.sql'),
-    read('20261020063000_factory_product_order_lineage_v1.sql'), GRADE_SQL, read('_pending_factory_dcp_admission.sql'),
+    // 2A 결합 설치 순서 — 창작 공급 → AI 검토 overlay → 1C → 1D(02A-AI-REVIEW-RESULT.md)
+    read('20261020063000_factory_product_order_lineage_v1.sql'), GRADE_SQL, read('_pending_authored_supply.sql'),
+    read('_pending_authored_ai_review.sql'), read('_pending_factory_dcp_admission.sql'),
     read('_pending_factory_dcp_learning.sql')]) await db.exec(s)
   await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'); insert into public.admins values ('${ADMIN}', 'admin');`)
   packet = await packetOf(false)

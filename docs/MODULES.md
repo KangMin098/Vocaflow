@@ -1103,6 +1103,11 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 저장 실패 · 모양이 다른 200(영수증 · 실제 채점 시도 id 없음)은 「채점을 못 했어요」(오답 · 완료 아님 · 고른 답 유지). 완료 문구는 `DcpPlayer` 의 `doneCopy` 로 연습 기록 경계를 말하고, 돌아가기는 같은 Workspace 의 기존 다음 행동으로 간다. 근거 경계는 [LEARNING_MODEL](./LEARNING_MODEL.md) §공장 DCP 안내 연습.
 - 계측 `csat_factory_dcp_opened`(type · attempts) · `_submitted`(type · correct · replayed) · `_returned`(finished). DB 허용 목록은 보류 SQL 에 있어 적용 전에는 0건이다.
 
+## 창작 평가 자료의 AI 검토 공급 (2A · 2026-10-21)
+
+- 관리자 세션 서비스 `lib/csat/authored/ai-review.ts`(`verifyAiReviewReceipt` → `recordAiReviewedSupply`: 등록 → `content_ai_decision_record` → `authored_ai_qualify` → 승인). 영수증 원본 `docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/`. 학습자 화면 · 라우트는 기존 창작 경로(`/api/csat/authored/*`) 그대로이며, `server.ts` 재고 선택은 `authored_supply_decision_state` 가 `human`·`ai` 인 자격만 후보로 둔다(함수 미설치 시 기존 동작).
+- 관리자 API 라우트는 아직 없다(2B 이후). SQL 미적용 상태에서는 아무 행도 만들지 않는다.
+
 ---
 
 ## 기출 해부 — 예측 · 대조 · 공식 (2026-09-17)
