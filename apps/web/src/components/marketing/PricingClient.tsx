@@ -125,7 +125,7 @@ const BARS: readonly { x: string; y: number; w: number; c: string }[] = [
  */
 function PlanCard({ tone, tab, spot, children }: { tone: string; tab: string; spot: string; children: React.ReactNode }) {
   return (
-    <li className={`${tone} relative flex flex-col items-center overflow-hidden rounded-[14px] border border-[var(--bd)] px-7 pb-24 pt-14 text-center text-[var(--t1)]`}>
+    <li className={`pricing-reference__plan ${tone} relative flex flex-col items-center overflow-hidden rounded-[14px] border border-[var(--bd)] px-7 pb-24 pt-14 text-center text-[var(--t1)]`}>
       <span className="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-[8px] bg-[color-mix(in_srgb,var(--ju)_16%,transparent)] px-4 py-1.5 font-display text-[12.5px] font-[700] tracking-[0.04em]">
         {tab}
       </span>
@@ -156,9 +156,9 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
   const seriesVideos = videosByKind().series
 
   return (
-    <div className="bg-[var(--bg)]">
+    <div className="pricing-reference bg-[var(--bg)]">
       {/* ── 보라 띠 — 가운데 제목 · 실측 지표 · 이름표 카드 3 · 출처 흐름 · 약속 카드 (참조 요금제 상단) ── */}
-      <section aria-labelledby="pricing-title" className="relative overflow-hidden bg-[var(--ju)] pb-24 pt-14 text-[var(--on-ju)] md:pt-20">
+      <section aria-labelledby="pricing-title" className="pricing-reference__opening relative overflow-hidden bg-[var(--ju)] pb-24 pt-14 text-[var(--on-ju)] md:pt-20">
         {/* 참조 제목 양옆 기계 소품 + 흩어진 색 막대 — 장식 */}
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 mx-auto hidden h-[300px] max-w-[1180px] select-none lg:block">
           <Image src="/illustrations/tines/spot-dashboard.webp" alt="" width={1328} height={1328} className="absolute left-[4%] top-8 w-[150px]" />
@@ -265,12 +265,12 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
         </ul>
 
         {/* 참조 고객 로고 흐름 자리 — 실제 콘텐츠 출처 이름. 보라 띠 위라 글자는 크림(--on-ju). */}
-        <div className="mt-8 [--ju:var(--on-ju)]">
+        <div className="pricing-reference__sources mt-8 [--ju:var(--on-ju)]">
           <SourceMarquee label="읽을거리를 가져오는 곳" names={CONTENT_SOURCES} />
         </div>
 
         {/* 참조 접힌 모서리 인용 카드 자리 — 지어낸 추천사 대신 이 화면이 지키는 약속 */}
-        <figure className={`${WRAP} relative mt-20`}>
+        <figure className={`pricing-reference__promise ${WRAP} relative mt-20`}>
           <div className="relative mx-auto max-w-[940px]">
             <span aria-hidden className="absolute -left-[5%] -top-6 bottom-6 w-[30%] rounded-[12px] bg-[color-mix(in_srgb,var(--p)_45%,var(--ju))] [clip-path:polygon(0_0,55%_0,100%_18px,100%_100%,0_100%)]" />
             <div className="relative rounded-[12px] border border-[color-mix(in_srgb,var(--on-ju)_20%,transparent)] bg-[color-mix(in_srgb,var(--p)_70%,var(--deep-ink))] px-8 py-10 text-[var(--on-deep)] md:px-12 md:py-12">

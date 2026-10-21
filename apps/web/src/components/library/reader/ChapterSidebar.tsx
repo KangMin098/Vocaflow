@@ -186,7 +186,7 @@ export function ChapterSidebar({
                   type="button"
                   onClick={() => toggle(seg.key)}
                   aria-expanded={!isCollapsed}
-                  className="flex w-full items-center gap-1 rounded-[var(--r-sm)] px-2 py-2 text-left text-[var(--t2)] transition-colors hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  className={`flex w-full items-center gap-1 rounded-[var(--r-sm)] px-2 py-2 text-left text-[var(--t2)] transition-colors hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${mode === 'user-preview' ? 'lg:min-h-11' : ''}`}
                 >
                   {isCollapsed ? (
                     <ChevronRight size={12} className="shrink-0 text-[var(--t2)]" aria-hidden />
@@ -210,6 +210,7 @@ export function ChapterSidebar({
                       ch={ch}
                       active={ch.chapter_idx === activeIdx}
                       locked={mode === 'user-preview' && ch.chapter_idx > 1}
+                      desktopLargeTarget={mode === 'user-preview'}
                       onSelect={onSelect}
                       sourceUrl={
                         showSourceLink
@@ -234,12 +235,14 @@ function ChapterRow({
   ch,
   active,
   locked,
+  desktopLargeTarget,
   onSelect,
   sourceUrl,
 }: {
   ch: ChapterListItem
   active: boolean
   locked: boolean
+  desktopLargeTarget: boolean
   onSelect: (idx: number) => void
   /** v06.34 — admin 모드에서 챕터별 원본 소스 URL */
   sourceUrl?: string | null
@@ -254,6 +257,7 @@ function ChapterRow({
         className={[
           'group flex w-full items-center justify-between gap-2',
           'rounded-[var(--r-sm)] px-3 py-2 text-left',
+          desktopLargeTarget ? 'lg:min-h-11' : '',
           sourceUrl ? 'pr-9' : '',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',

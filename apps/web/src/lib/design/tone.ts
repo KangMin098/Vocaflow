@@ -46,6 +46,8 @@ export const MATERIAL_TONE: Record<MaterialType | 'textbook' | 'comic', { tint: 
 export type ModuleKey =
   | 'read' | 'echo' | 'wordvault' | 'flashcard' | 'wordblitz' | 'pairflip' | 'spellforge' | 'scriptquiz' | 'dictation' | 'dashboard'
 
+/** Compatibility presentation for existing small-screen/legacy callers.
+ * PC learner activity semantics are owned by learning-colors.ts, not these historic module hues. */
 export const MODULE_TONE: Record<ModuleKey, { tint: Tint; deep: Deep }> = {
   read: { tint: 'green', deep: 'green' },
   echo: { tint: 'teal', deep: 'green' },

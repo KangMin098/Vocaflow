@@ -33,6 +33,7 @@
 // 이 화면은 "얼마나 오래 가나"(backward)를 맡는다.
 
 import Image from 'next/image'
+import { ChartNoAxesCombined, History, Hourglass, PanelsTopLeft, type LucideIcon } from 'lucide-react'
 
 import { Screen } from '@/components/ui/ios'
 import { ActivityTrace } from '@/components/dashboard/ActivityTrace'
@@ -60,10 +61,10 @@ function kstDateLabel(): string {
 }
 
 /** 참조 도서관 「Featured stories」 구간 제목 — 번호 괘선(01 · 02 …) 대신 큰 제목과 여백으로 가른다(2026-10-19). */
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function SectionTitle({ children, icon: Icon }: { children: React.ReactNode; icon: LucideIcon }) {
   return (
     <h2 className="mt-12 break-keep font-display text-[28px] font-[500] leading-[1.15] tracking-[-0.02em] text-[var(--ju-ink)] md:text-[32px]">
-      {children}
+      <Icon aria-hidden className="mr-3 hidden h-7 w-7 shrink-0 align-middle lg:inline-block" strokeWidth={1.4} />{children}
     </h2>
   )
 }
@@ -90,8 +91,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-4 py-6 md:py-8">
+    <Screen width="shelf" background="bg2" padX="md">
+      <div className="dashboard-reference flex flex-col gap-4 py-6 md:py-8">
         {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다.
             v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
             "여기가 당신" 이라고 말하는 자리는 하나이고, 그 표식은 브랜드 색이 맡는다. */}
@@ -112,8 +113,9 @@ export default async function DashboardPage() {
             width={1328}
             height={1328}
             priority
-            className="hidden w-[120px] shrink-0 select-none md:block"
+            className="hidden w-[120px] shrink-0 select-none md:block lg:hidden"
           />
+          <Image src="/illustrations/tines/scene-growth-v5.png" alt="" width={1200} height={800} priority sizes="400px" className="reference-scene hidden h-auto w-[400px] shrink-0 select-none lg:block" />
         </header>
 
         {/* ── v07 「주묵 판면」 ────────────────────────────────────────────────
@@ -125,16 +127,16 @@ export default async function DashboardPage() {
 
         {/* 2. 히어로 — 기억이 버티는 시간 */}
         {horizon && (
-          <>
-            <SectionTitle>기억이 버티는 시간</SectionTitle>
+          <div className="dashboard-reference__memory">
+            <SectionTitle icon={Hourglass}>기억이 버티는 시간</SectionTitle>
             <DurabilityLadder ladder={horizon.ladder} />
-          </>
+          </div>
         )}
 
         {/* 3·4. 되찾은 단어 + 28일 흐름 — 한 줄에 나란히 (좌: 결과 · 우: 노정) */}
         {horizon && (
-          <>
-            <SectionTitle>되찾은 것과 지나온 날</SectionTitle>
+          <div className="dashboard-reference__history">
+            <SectionTitle icon={History}>되찾은 것과 지나온 날</SectionTitle>
             <div className="grid gap-4 lg:grid-cols-2">
               <RescuedWords rescued={horizon.rescued} />
               <ActivityTrace
@@ -143,21 +145,23 @@ export default async function DashboardPage() {
                 activeDays={horizon.activeDays}
               />
             </div>
-          </>
+          </div>
         )}
 
         {/* 5. 어휘의 무게중심 — 순위를 아는 단어가 없으면 스스로 사라진다 */}
         {horizon && (
-          <>
-            <SectionTitle>어휘의 무게중심</SectionTitle>
+          <div className="dashboard-reference__reach">
+            <SectionTitle icon={ChartNoAxesCombined}>어휘의 무게중심</SectionTitle>
             <LexicalReach reach={horizon.reach} />
-          </>
+          </div>
         )}
 
         {/* 6·7. 학습 관리 + 최근 학습 — 회고가 아니라 **조작**이라 한 구획으로 묶는다 */}
-        <SectionTitle>학습 관리</SectionTitle>
-        <ManageSection overview={overview} />
-        <RecentActivity data={recent} />
+        <div className="dashboard-reference__manage">
+          <SectionTitle icon={PanelsTopLeft}>학습 관리</SectionTitle>
+          <ManageSection overview={overview} />
+          <RecentActivity data={recent} />
+        </div>
 
         <div className="pb-20 md:pb-8" />
       </div>

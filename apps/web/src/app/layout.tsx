@@ -6,6 +6,7 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/ui/Toast";
 import { DevicePreferences } from "@/components/layout/DevicePreferences";
+import { LearnerColorScope } from "@/components/layout/LearnerColorScope";
 import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -193,6 +194,7 @@ export default function RootLayout({
             저장은 설정 화면이 하지만 적용은 여기 한 곳이다. 테마는 위 선행 스크립트가
             첫 페인트 전에 칠하므로 여기서 다시 만지지 않는다(두 곳이 칠하면 깜빡인다). */}
         <DevicePreferences />
+        <LearnerColorScope />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

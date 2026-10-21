@@ -115,7 +115,7 @@ export function PurplePanel({
 }) {
   return (
     <section className={WRAP}>
-      <div className="relative overflow-hidden rounded-[var(--r-2xl)] bg-[var(--ju)] text-[var(--on-ju)] lg:min-h-[760px]">
+      <div data-marketing-panel className="relative overflow-hidden rounded-[var(--r-2xl)] bg-[var(--ju)] text-[var(--on-ju)] lg:min-h-[760px]">
         <div className="relative z-10 grid gap-12 px-6 pb-[34vw] pt-12 md:px-14 md:pt-14 lg:grid-cols-[1fr_1.1fr] lg:pb-16">
           <div>
             <Kicker>{kicker}</Kicker>
@@ -157,7 +157,7 @@ const TONE_CLASS: Record<Tone, string> = { success: 'tone-deep-green', ju: 'tone
 export function ToneCards({ items, columns = 5 }: { items: { title: string; body: string; tone: Tone; illo?: string; href?: string }[]; columns?: 3 | 4 | 5 }) {
   const cols = columns === 5 ? 'lg:grid-cols-5' : columns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
   return (
-    <ul className={`grid overflow-hidden rounded-[var(--r-xl)] sm:grid-cols-2 ${cols}`}>
+    <ul data-marketing-tone-cards className={`grid overflow-hidden rounded-[var(--r-xl)] sm:grid-cols-2 ${cols}`}>
       {items.map((m) => {
         const body = (
           <>

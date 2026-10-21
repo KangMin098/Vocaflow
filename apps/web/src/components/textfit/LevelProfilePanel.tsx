@@ -228,7 +228,7 @@ export function LevelProfilePanel({
               있습니다.
             </p>
           )}
-          <ul className="flex flex-wrap gap-2">
+          <ul data-fit-words className="flex flex-wrap gap-2">
             {profile.hardestWords.slice(0, 16).map((w) => (
               <li
                 key={w.lemma}

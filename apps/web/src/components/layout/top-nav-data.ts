@@ -197,7 +197,7 @@ export const LIBRARY_ENTRY: TopEntry = {
         eyebrow: '읽을 곳',
         step: stepOf(READ),
         wide: true,
-        features: [feature(library), feature(myLibrary)],
+        features: [feature(library), feature(myLibrary, { art: 'spot-reading' })],
         rows: [],
       },
       {

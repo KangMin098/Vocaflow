@@ -9,6 +9,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { POPOVER_MENU } from '@/components/ui/tines-kit'
+import { usePopoverFocus } from '@/lib/ui/use-popover-focus'
 import {
   applyReaderTypePrefs,
   readReaderTypePrefs,
@@ -17,6 +18,7 @@ import {
 } from '@/lib/reader/type-prefs'
 
 interface TypePopoverProps {
+  id?: string
   onClose: () => void
 }
 
@@ -35,9 +37,10 @@ const LINE_HEIGHTS = [
   { value: 1.85, label: '넓게', gap: '6px' },
 ]
 
-export function TypePopover({ onClose }: TypePopoverProps) {
+export function TypePopover({ id, onClose }: TypePopoverProps) {
   const [prefs, setPrefs] = useState<ReaderTypePrefs>(readReaderTypePrefs)
   const ref = useRef<HTMLDivElement>(null)
+  usePopoverFocus(ref)
 
   /** 고를 때만 적용 · 저장한다 — 여는 것만으로는 본문이 바뀌지 않는다. */
   const choose = (patch: Partial<ReaderTypePrefs>) => {
@@ -56,9 +59,10 @@ export function TypePopover({ onClose }: TypePopoverProps) {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
-    setTimeout(() => document.addEventListener('mousedown', handleClickOutside), 0)
+    const outsideTimer = setTimeout(() => document.addEventListener('mousedown', handleClickOutside), 0)
     document.addEventListener('keydown', handleKey)
     return () => {
+      clearTimeout(outsideTimer)
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('keydown', handleKey)
     }
@@ -66,6 +70,7 @@ export function TypePopover({ onClose }: TypePopoverProps) {
 
   return (
     <div
+      id={id}
       ref={ref}
       className={`absolute right-0 top-[calc(100%+8px)] z-[70] w-60 p-4 ${POPOVER_MENU}`}
       role="dialog"

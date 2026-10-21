@@ -1,0 +1,254 @@
+/* apps/web/src/components/layout/learner-reference.css */
+/* PC: Library 레일 288·본문 x400은 유지한다. 사용자 2026-10-19 재판정:
+   큰 단색 머리 판 대신 열린 지면·내용 있는 장면·짧은 설명. 제외 라우트의 전역 토큰은 바꾸지 않는다. */
+@media (max-width: 1023px) {
+  .books-reference, .books-reference__body, .books-reference__hero { display: contents; }
+  .books-reference__catalogue { margin-top: 12px; }
+}
+@media (min-width: 1024px) {
+  /* My Library owns its heading. Remove the duplicate tinted strip and glossy tile on PC. */
+  body:has(.my-library-reference) [data-module-banner] { display: none; }
+  .my-library-reference > main { max-width: 1360px; padding-inline: 40px; }
+  .my-library-reference > main > div,
+  .my-library-reference > main > section { max-width: none; padding-inline: 0; }
+  .my-library-reference [aria-label="첫 스크립트 시작"] { background: transparent; border-radius: 0; }
+  /* 만화 서가: 실제 작품 표지를 중심으로, 생성 장면은 머리에서만 쓴다. */
+  .comics-reference [role="list"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .comics-reference [data-book-id] { display: grid; grid-template-columns: minmax(140px, .85fr) 1.15fr; border-width: 0 0 1px; border-radius: 0; background: transparent; box-shadow: none; transform: none; }
+  .comics-reference [data-book-id] > div:first-child { aspect-ratio: auto; min-height: 240px; }
+  .comics-reference [data-book-id] > div:last-child { padding: 20px; }
+  .comics-reference [data-book-id] h3 { font-size: 23px; font-weight: 500; }
+  .comics-reference [data-book-id] > div:last-child > span:last-child { background: transparent !important; color: var(--p) !important; border: 1px solid var(--bd); box-shadow: none; padding-inline: 14px; }
+  .comics-reference > div > section > div > h2 { font-size: 28px; font-weight: 500; }
+  .comics-reference section > ul { gap: 28px; }
+  .comics-reference section > ul > li > a { border-width: 0 0 1px; border-radius: 0; background: transparent; transform: none; }
+  .comics-reference section > ul > li > a > div:last-child { padding-inline: 0; }
+  .comics-reference [data-comic-year] { background: var(--tint-lavender); color: var(--p); backdrop-filter: none; }
+  .comics-detail-reference > header { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 32px; min-height: 250px; }
+  .comics-detail-reference > header h1 { margin-top: 12px; }
+  .comics-detail-reference > header p { margin-top: 12px; }
+  .comics-detail-reference > header .reference-scene { max-width: 440px; }
+  .comics-detail-reference > section[aria-label="만화 미리보기"] > div { gap: 24px; }
+  /* 승인한 열린 서가 머리를 Dispatches·Decks·Textbooks에도 적용한다.
+     자료 유형만 레일에 두고 검색/분류 상태와 기존 진입 경로는 각 부품에 남긴다. */
+  .catalog-reference-page > main { max-width: var(--content-shelf-max); padding-inline: 40px; }
+  .catalog-reference { display: grid; grid-template-columns: 288px minmax(0, 1fr); gap: clamp(48px, 5vw, 72px); padding-top: 18px; }
+  .catalog-reference__rail { position: sticky; top: 88px; max-height: calc(100dvh - 104px); overflow-y: auto; align-self: start; }
+  .catalog-reference__rail nav { padding-top: 0; }
+  .catalog-reference__body { min-width: 0; }
+  .catalog-reference__body > div:first-child { padding-top: 0; padding-bottom: 64px; }
+  .catalog-reference__body [data-area-hero] {
+    --t1: var(--ju-ink); --t2: inherit; --ju: var(--p); --on-ju: var(--p); --on-deep: var(--ju-ink);
+    background: transparent; min-height: 300px; padding: 0; border-radius: 0;
+  }
+  .catalog-reference__body [data-area-hero] > .grid { min-height: 300px; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .catalog-reference__body [data-area-hero] > .grid > div > p:first-child { display: none; }
+  .catalog-reference__body [data-area-hero] h1 { font-size: 44px; }
+  .catalog-reference__body [data-area-hero] .reference-scene { width: 100%; max-width: 460px; height: 280px; object-fit: contain; }
+  .catalog-reference__body [aria-label="교재 시리즈"] { padding: 0; background: transparent; box-shadow: none; border-radius: 0; border: 0; border-bottom: 1px solid var(--bd); gap: 0; }
+  .catalog-reference__body [aria-label="교재 시리즈"] > a { background: transparent; color: var(--t1); border-radius: 0; padding-block: 14px; }
+  .catalog-reference__body [aria-label="교재 시리즈"] > a[aria-current="page"] { box-shadow: inset 0 -2px var(--p); }
+  .catalog-reference__body [aria-label="교재 시리즈"] > a > span { color: var(--t1); }
+  .catalog-reference__body [aria-label="학령 사다리"] li { border-radius: 0; background: transparent; border-width: 0 0 1px; border-color: var(--bd); box-shadow: none; padding: 12px; color: var(--t1); }
+  .catalog-reference__body [aria-label="학령 사다리"] li[aria-current="step"] { border-color: var(--p); box-shadow: inset 0 -2px var(--p); }
+  .catalog-reference__body [aria-label="다른 시리즈"] > h2 { font-size: 28px; font-weight: 500; margin-top: 16px; }
+  .catalog-reference__body [aria-label="다른 시리즈"] > ul { gap: 0; }
+  .catalog-reference__body [aria-label="다른 시리즈"] li { border: 0; border-bottom: 1px solid var(--bd); border-radius: 0; background: transparent; }
+  .catalog-reference__body [aria-label="추천 시리즈"] > div { border-width: 1px 0; border-radius: 0; background: transparent !important; box-shadow: none; transform: none; }
+  .catalog-reference__body [aria-label="추천 시리즈"] h2 { font-size: 26px; font-weight: 500; }
+  .catalog-reference__body [aria-label="추천 시리즈"] > div > button > div:nth-child(2) { align-items: center; }
+  .catalog-reference__body [aria-label="추천 시리즈"] > div > button > div:nth-child(2) > div > p { display: none; }
+  .catalog-reference__body [aria-label="추천 시리즈"] > div > button > div:nth-child(2) > span:first-child { width: 80px; height: 105px; }
+  .catalog-reference__body figure { margin-block: 16px; }
+  .catalog-reference__body [data-vocab-wall] { margin-inline: 0; background: transparent; font-family: var(--font-display) !important; }
+  .catalog-reference__body [data-vocab-wall] > div:first-child { padding-inline: 0; }
+  .catalog-reference__body [data-vocab-wall] > div:first-child h2,
+  .catalog-reference__body [data-vocab-wall] > div:first-child p { color: var(--t1); }
+  .catalog-reference__body [data-vocab-wall] > [role="group"] { width: 100%; padding: 48px 24px 56px; }
+  .catalog-reference__body [data-vocab-wall] > [role="group"] > div > [aria-hidden] { display: none; }
+  .catalog-reference__body [data-vocab-wall] > [role="group"] > div > div > button { width: calc((100% - 120px) / 5); max-width: 196px; box-shadow: none !important; transform: none !important; }
+  .catalog-reference__body [data-vocab-wall] > [role="group"] > div > div > button:focus-visible { outline-color: var(--p); }
+  [data-compass-row] {
+    max-width: 1440px;
+    min-height: 64px;
+    flex-wrap: nowrap;
+    padding: 4px 40px;
+    gap: 16px;
+  }
+  [data-area-nav-slot]:empty { display: none; }
+  [data-area-nav-slot] { flex: 1; }
+  [data-area-nav-slot] > div > span:first-child { display: none; }
+  [data-area-nav-slot] [aria-selected="true"] { background: transparent; }
+  [data-compass-row]:has([data-area-nav-slot] > *) [data-compass-message] { display: none; }
+  [data-area-layout]:has([data-area-nav-portalled]) { padding-top: 0; }
+  [data-area-layout]:has([data-area-nav-portalled]) > div:empty { display: none; }
+
+  .books-reference {
+    display: grid;
+    grid-template-columns: 288px minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(48px, 5vw, 72px);
+  }
+  .books-reference__rail { position: sticky; top: 88px; max-height: calc(100dvh - 104px); overflow-y: auto; padding-bottom: 24px; }
+  .books-reference__rail details { border-bottom: 0; }
+  .books-reference-page { padding-top: 18px; }
+  .books-reference__body { min-width: 0; display: flex; flex-direction: column; }
+  .books-reference__hero { order: 0; }
+  .books-reference__recommendations { order: 1; }
+  .books-reference__comic { order: 2; margin-top: 60px; }
+  .books-reference__catalogue { order: 3; }
+  .books-reference__hero > header {
+    --t1: var(--ju-ink);
+    --t2: inherit;
+    --ju: var(--p);
+    --on-ju: var(--p);
+    --on-deep: var(--ju-ink);
+    background: transparent;
+    min-height: 320px;
+    padding: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .books-reference__hero > header > .grid { flex: 1; grid-template-columns: .85fr 1.15fr; gap: 16px; }
+  .books-reference__hero h1 { font-size: 48px; }
+  .books-reference__hero > header > .grid > div > p:first-child { display: none; }
+  .books-reference__hero dl > div:not(:first-child) { display: none; }
+  .books-reference__hero > header > .grid > div > div:last-child { display: none; }
+  .books-reference__hero [aria-current="page"] { color: var(--ju-ink); }
+  .books-reference__hero nav { margin-top: 12px; border-bottom: 1px solid var(--ju-wash); }
+  .books-reference__hero nav a { background: transparent; border-radius: 0; }
+  .books-reference__hero nav [aria-current="page"] { box-shadow: inset 0 -2px var(--p); }
+  .books-reference__hero .reference-scene { width: 100%; max-width: 520px; }
+  .books-reference__section { margin-top: 36px; }
+  .books-reference__section > h2 { margin-bottom: 36px; font: 500 32px/1.15 var(--font-display); letter-spacing: -.02em; color: var(--ju-ink); }
+  .books-reference__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+  .book-feature-card { position: relative; display: grid; grid-template-columns: 110px 1fr; align-content: start; column-gap: 22px; padding: 20px 0 28px; min-height: 220px; border-radius: 0; border-bottom: 1px solid var(--bd); background: transparent; color: var(--t1); text-decoration: none; }
+  .book-feature-card:nth-child(2n) { background: transparent; color: var(--t1); }
+  .book-feature-card > :not(.book-feature-card__top) { grid-column: 2; margin-top: 10px; }
+  .book-feature-card > h3 { margin-top: 0; padding-right: 22px; }
+  .book-feature-card:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+  .book-feature-card:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+  .book-feature-card__top { grid-column: 1; grid-row: 1 / 6; }
+  .book-feature-card__top > img { width: 110px; height: 150px; }
+  .book-feature-card__top > svg { position: absolute; right: 0; top: 20px; width: 18px; }
+  .book-feature-card__cover { display: flex; align-items: center; width: 90px; height: 120px; padding: 12px; background: var(--bg); font: 500 14px/1.2 var(--font-serif); }
+  .books-reference__body > .books-reference__catalogue { margin-top: 72px; }
+  .books-reference__body .books-reference__catalogue > h2 { font-size: 32px; font-weight: 500; margin-bottom: 20px; }
+  .books-reference__catalogue-layout { display: block; }
+  .books-reference__catalogue-layout > aside { display: none; }
+  .books-reference[data-filtering="true"] .books-reference__recommendations { display: none; }
+
+  /* Growth: 열린 큰 제목 다음, 기억 기록과 최근 흐름을 나란히 읽는다.
+     단일 좁은 카드 열과 판 안의 흰 판을 없애고 데이터/조회는 기존 부품을 유지한다. */
+  .dashboard-reference { display: grid; grid-template-columns: 1.15fr 1fr; gap: 44px 72px; padding-top: 18px; }
+  .dashboard-reference > header { grid-column: 1 / -1; min-height: 240px; align-items: center; }
+  .dashboard-reference > header h1 { max-width: 20ch; font-size: 44px; }
+  .dashboard-reference > header .reference-scene { width: 400px; }
+  .dashboard-reference > div > h2 { font-size: 26px; }
+  .dashboard-reference h2 { margin-top: 0; }
+  .dashboard-reference__memory > h2,
+  .dashboard-reference__history > h2,
+  .dashboard-reference__reach > h2,
+  .dashboard-reference__manage > h2 { margin-bottom: 32px; }
+  .growth-memory-detail { padding: 0; background: transparent; border-radius: 0; }
+  .growth-memory-detail h2 { font: 400 76px/1 var(--font-display); }
+  .growth-memory-detail > aside { margin-top: 32px; padding: 24px 0; border-top: 1px solid var(--bd); border-radius: 0; background: transparent; }
+  .growth-memory-detail > aside > p:first-child { font-size: 15px; }
+  .dashboard-reference__history > div { grid-template-columns: 1fr; gap: 32px; }
+  .dashboard-reference__history > div > section { padding: 28px; }
+  .dashboard-reference__reach, .dashboard-reference__manage { grid-column: 1 / -1; }
+  .dashboard-reference [data-design-card] { border-radius: 0; border-width: 1px 0 0; padding: 24px 0; background: transparent; box-shadow: none; }
+  .dashboard-reference [data-design-card] h3 { font-size: 24px; font-weight: 500; }
+
+  /* Vault: 한 화면 폭의 머리 + 열린 자산/분포 + 두 열의 실제 자료 목록. */
+  [data-vault-hero="hub"] { max-width: 1440px; padding: 18px 40px 0; }
+  [data-vault-hero="hub"] > header {
+    --t1: var(--ju-ink);
+    --t2: inherit;
+    --on-ju: var(--ju-ink);
+    --ju: var(--p);
+    --on-deep: var(--ju-ink);
+    min-height: 300px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+    background: transparent;
+  }
+  [data-vault-hero="hub"] > header > .grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 56px; text-align: left; }
+  [data-vault-hero="hub"] > header > .grid > div > p:first-child { display: none; }
+  [data-vault-hero="hub"] > header > .grid .reference-scene { position: static; width: 100%; max-width: 480px; height: 280px; object-fit: contain; justify-self: end; }
+  [data-vault-hero="hub"] h1 { font: 400 52px/1.1 var(--font-serif); }
+  [data-vault-hero="hub"] nav { justify-content: flex-start; margin: 12px 0 0; padding: 0; background: transparent; border-bottom: 1px solid var(--ju-wash); border-top: 0; border-radius: 0; }
+  [data-vault-hero="hub"] nav a { color: var(--ju-ink); }
+  [data-vault-hero="hub"] nav a { background: transparent; border-radius: 0; }
+  [data-vault-hero="hub"] nav [aria-current="page"] { box-shadow: inset 0 -2px var(--p); }
+  .vault-reference { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1440px; padding: 48px 40px 80px; gap: 64px 72px; }
+  .vault-reference > section { min-width: 0; border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; }
+  .vault-reference > section > header h2 { font-size: 32px; font-weight: 500; }
+  .vault-reference__identity > .grid > div:last-child > div > span:first-child { font-size: 76px; }
+  .vault-reference__identity { grid-column: 1 / -1; }
+  .vault-reference__identity > .grid { grid-template-columns: 136px 1fr; }
+  .vault-reference__identity > a { width: fit-content; gap: 24px; padding-right: 24px; }
+  .vault-reference [data-vault-book-cover] { border-radius: 8px; box-shadow: none; }
+  .vault-reference__memory { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-top: 40px; padding: 28px 0; border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
+
+  /* Home: 장식은 실제 자체 선화 띠 한 장, 오늘의 실제 데이터는 열린 작업면. */
+  .hub-reference { max-width: 1440px; }
+  .hub-reference { padding-top: 18px; }
+  .hub-reference > div:first-child { display: grid; grid-template-columns: 1fr 1.15fr; gap: 32px; align-items: center; }
+  .hub-reference__intro { grid-column: 1; grid-row: 1; }
+  .hub-reference__intro h1 { font-size: 48px; }
+  .hub-reference__intro > p { font-size: 20px; }
+  .hub-reference__art { grid-column: 2; grid-row: 1; height: 400px; margin: 0; overflow: hidden; }
+  .hub-reference__art img { object-fit: contain; }
+  .hub-reference > div:first-child > :not(.hub-reference__intro):not(.hub-reference__art) { grid-column: 1 / -1; }
+  .hub-reference > section { position: relative; }
+  .hub-reference__section-head { display: flex; max-width: none; align-items: center; justify-content: space-between; gap: 40px; }
+  .hub-reference__section-head h2 { font-size: 36px; margin-top: 0; }
+  .hub-reference__section-head > div > p:first-child { display: none; }
+  .hub-reference__section-head > div > p:last-child { font-size: 18px; margin-top: 16px; }
+  .hub-reference__section-head > img { width: 300px; height: 200px; object-fit: contain; }
+  .hub-reference .hub-reference__today { border: 0; border-radius: 0; background: transparent; padding: 0; }
+  .hub-reference__today > div { grid-template-columns: 288px minmax(0, 1fr); gap: 72px; border: 0; border-radius: 0; background: transparent; }
+  .hub-reference__today > div > nav { padding: 0; border: 0; background: transparent; }
+  .hub-reference .hub-reference__today-content { grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); padding: 0; gap: 24px 32px; align-items: start; }
+  .hub-reference__today-content > * { border: 0; border-radius: 0; background: transparent; }
+  .hub-reference__today-content > [data-hub-kpi] { grid-column: 1 / -1; padding: 0 0 28px; border-bottom: 1px solid var(--bd); }
+  .hub-reference__today-content > [data-hub-memory] { grid-column: 1; grid-row: 2; border-radius: 0; padding: 24px 0; border-top: 1px solid var(--bd); background: transparent; }
+  .hub-reference__today-content > [data-hub-forecast] { grid-column: 1; grid-row: 3; border-radius: 0; padding: 24px 0; border-top: 1px solid var(--bd); background: transparent; }
+  .hub-reference__today-content > [data-hub-memory] h3,
+  .hub-reference__today-content > [data-hub-forecast] h3 { font-size: 20px; font-weight: 500; }
+  .hub-reference__today-content > [data-hub-books] { grid-column: 2; grid-row: 2 / span 2; padding: 24px 0 0; border-top: 1px solid var(--bd); }
+  .hub-reference__today-content:not(:has(> [data-hub-memory])) > [data-hub-books] { grid-column: 1 / -1; grid-row: auto; }
+  .hub-reference__today > div > nav a { min-height: 44px; }
+  .hub-reference [class*="tone-deep-"] {
+    --t1: var(--tint-lavender-ink);
+    --t2: var(--t1);
+    --t3: var(--t1);
+    --ju: var(--t1);
+    --on-ju: var(--t1);
+    --on-deep: var(--canvas, var(--bg2));
+    background-color: var(--tint-lavender);
+  }
+  .hub-reference .tone-deep-green { --t1: var(--tint-green-ink); background-color: var(--tint-green); }
+  .hub-reference .tone-deep-orange { --t1: var(--tint-peach-ink); background-color: var(--tint-peach); }
+  .hub-reference .tone-deep-magenta { --t1: var(--tint-pink-ink); background-color: var(--tint-pink); }
+  .hub-reference .tone-deep-charcoal { --t1: var(--tint-teal-ink); background-color: var(--tint-teal); }
+  .hub-reference [data-hub-collection] { background: transparent; border-radius: 0; color: var(--t1); --on-ju: var(--p); }
+  .hub-reference [data-hub-collection] > div { padding: 0; gap: 72px; }
+  .hub-reference [data-hub-collection] h2 { font-size: 40px; margin-top: 20px; }
+  .hub-reference [data-hub-collection] article h3 { font-size: 22px; }
+  .hub-reference [data-hub-collection] article p { font-size: 14px; max-width: 26ch; }
+  .hub-reference [data-hub-benefits] a { background: var(--tint-lavender); color: var(--tint-lavender-ink); min-height: 280px; }
+  .hub-reference [data-hub-benefits] li:nth-child(4n + 1) a { background: var(--tint-green); color: var(--tint-green-ink); }
+  .hub-reference [data-hub-benefits] li:nth-child(4n + 2) a { background: var(--tint-peach); color: var(--tint-peach-ink); }
+  .hub-reference [data-hub-benefits] li:nth-child(4n + 3) a { background: var(--tint-teal); color: var(--tint-teal-ink); }
+  .hub-reference [data-hub-final] { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; }
+  .hub-reference [data-hub-final] > div[aria-hidden] { position: static; grid-column: 2; grid-row: 1; height: 300px; }
+  .hub-reference [data-hub-final] > div:last-child { grid-column: 1; grid-row: 1; min-height: 280px; max-width: none; margin: 0; padding: 0; }
+  .hub-reference [data-hub-final] > div:last-child > div { border: 0; border-radius: 0; background: transparent; padding: 0; text-align: left; }
+  .hub-reference [data-hub-final] > div:last-child > div > div { justify-content: flex-start; }
+}

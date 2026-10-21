@@ -14,6 +14,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { DEEP_CLASS, type Deep, type Tint } from '@/lib/design/tone'
+import { editorialScene } from '@/lib/design/editorial-art'
 
 /** 면 색 — 구역의 범주 색(`lib/design/tone.ts` MATERIAL_TONE · MODULE_TONE)을 넘긴다. */
 export type AreaTint = Tint
@@ -41,6 +42,8 @@ export function AreaHero({
   sub,
   stats,
   tile,
+  desktopScene,
+  desktopSub,
   tint = 'lavender',
   deep,
   tabs,
@@ -56,6 +59,9 @@ export function AreaHero({
    * 참조 히어로 그림은 오른쪽(43%) · 대부분 진한 단색 정사각 타일이다(tines-mapping §13-2).
    */
   tile: string
+  /** PC의 열린 머리에 쓰는 상세 장면. 작은 화면의 기존 소품은 유지한다. */
+  desktopScene?: string
+  desktopSub?: string
   /** 구역의 범주 색 — 판 색은 이 계열의 진한 면 */
   tint?: AreaTint
   /** 판 색을 직접 고를 때(기본은 `tint` 의 진한 계열) */
@@ -69,14 +75,17 @@ export function AreaHero({
 }) {
   const hasTabs = !!tabs && tabs.length > 0
   return (
-    <header className={`${DEEP_CLASS[deep ?? DEEP_OF[tint]]} relative overflow-hidden rounded-[var(--r-2xl)] px-6 pt-8 text-[var(--t1)] md:px-12 md:pt-10 ${hasTabs ? '' : 'pb-8 md:pb-10'}`}>
+    <header data-area-hero className={`${DEEP_CLASS[deep ?? DEEP_OF[tint]]} relative overflow-hidden rounded-[var(--r-2xl)] px-6 pt-8 text-[var(--t1)] md:px-12 md:pt-10 ${hasTabs ? '' : 'pb-8 md:pb-10'}`}>
       {trailing && <div className="absolute right-3 top-3 z-10 md:right-4 md:top-4">{trailing}</div>}
       <div className="grid items-center gap-6 md:grid-cols-[1fr_auto] md:gap-10">
         <div className="flex flex-col justify-center py-2">
           {/* 모노는 한글이 없어 공백만 모노 폭이 된다(pill.ts) — 눈썹은 산세리프 굵게 */}
           <p className="font-display text-[13px] font-[700] uppercase tracking-[0.05em]">{kicker}</p>
           <h1 className="mt-3 break-keep font-display text-[28px] font-[500] leading-[1.04] tracking-[-0.03em] sm:text-[38px] md:text-[52px]">{title}</h1>
-          <p className="mt-3 max-w-[40ch] break-keep font-display text-[15.5px] font-[500] leading-[1.45] md:text-[17px]">{sub}</p>
+          <p className="mt-3 max-w-[40ch] break-keep font-display text-[15.5px] font-[500] leading-[1.45] md:text-[17px]">
+            <span className={desktopSub ? 'lg:hidden' : undefined}>{sub}</span>
+            {desktopSub && <span className="hidden lg:inline">{desktopSub}</span>}
+          </p>
           {stats && stats.length > 0 && (
             /* 참조 도서관 머리에는 수치 알약이 없다 — 알약 줄은 AI 템플릿 인상의 첫째 원인이었다(2026-10-19 사용자 지적).
                수치는 부제 아래 한 줄 글로만 남긴다(I5: 값은 그대로 DB 실측). */
@@ -98,8 +107,9 @@ export function AreaHero({
           height={1328}
           priority
           sizes="(min-width: 768px) 240px, 50vw"
-          className="hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px]"
+          className={`hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] ${desktopScene ? 'lg:hidden' : 'lg:w-[240px]'}`}
         />
+        {desktopScene && <Image src={editorialScene(desktopScene)} alt="" width={1536} height={1024} priority sizes="(min-width: 1440px) 500px, 42vw" className="reference-scene hidden h-auto w-full select-none lg:block" />}
       </div>
       {hasTabs && (
         <nav aria-label="보기" className="mt-6 flex flex-wrap items-end gap-1.5">

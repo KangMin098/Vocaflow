@@ -1,0 +1,64 @@
+/* apps/web/src/components/marketing/public-reference.css */
+/* Approved S12 palette and airy PC composition. Small-screen layouts keep their existing presentation. */
+.home-reference__short, .home-reference__scene, .video-reference__scene, .join-reference__icon { display: none; }
+@media (min-width: 1024px) {
+  .about-reference [data-marketing-panel] { --ju: var(--tint-peach); --on-ju: var(--tint-peach-ink); background: var(--tint-peach); color: var(--tint-peach-ink); }
+  .about-reference [data-marketing-tone-cards] { gap: 12px; overflow: visible; }
+  .about-reference [data-marketing-tone-cards] > li { --t1: var(--tint-teal-ink); --t2: var(--tint-teal-ink); color: var(--t1); background: var(--tint-teal); border-radius: 12px; }
+  .about-reference [data-marketing-tone-cards] > li:nth-child(4n + 1) { --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); background: var(--tint-green); }
+  .about-reference [data-marketing-tone-cards] > li:nth-child(4n + 2) { --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); background: var(--tint-pink); }
+  .about-reference [data-marketing-tone-cards] > li:nth-child(4n) { --t1: var(--tint-yellow-ink); --t2: var(--tint-yellow-ink); background: var(--tint-yellow); }
+  .home-reference, .legal-reference, .video-reference, .pricing-reference, .video-detail-reference { --ju: var(--ju-ink); }
+  .home-reference__hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 32px 20px; }
+  .home-reference__hero h1 { font-size: clamp(44px, 3.8vw, 54px); color: var(--ju-ink); line-height: 1.18; }
+  .home-reference__hero > div > p { max-width: 30ch; font-family: var(--font-body); font-size: 19px; line-height: 1.6; color: var(--t2); }
+  .home-reference__original { display: none; }
+  .home-reference__short { display: inline; }
+  .home-reference__scene { display: block; width: 100%; height: auto; object-fit: contain; }
+  .video-reference__original { display: none; }
+  .video-reference__scene { display: block; width: 100%; max-width: 560px; height: auto; margin-inline: auto; }
+  .video-reference h1 { font-size: 52px; line-height: 1.18; }
+  .video-reference h1 + p { margin-top: 20px; font-family: var(--font-body); font-size: 18px; }
+  .video-reference article { min-width: 0; }
+  .video-reference article > div { border: 0; box-shadow: none; padding: 0; background: transparent; }
+  .video-reference article h3 a { display: flex; align-items: center; min-height: 44px; }
+  .video-detail-reference { max-width: 1120px; padding-block: 48px 80px; }
+  .video-detail-reference > nav a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+  .video-detail-reference > h1 { max-width: 24ch; font-family: var(--font-display); font-size: 44px; font-weight: 500; }
+  .video-detail-reference > section { max-width: 760px; margin-top: 48px; }
+  .video-detail-reference ol { gap: 14px; }
+  .video-detail-reference ol li { font-size: 16px; line-height: 1.8; }
+  .pricing-reference__opening { background: transparent; color: var(--t1); padding-top: 64px; padding-bottom: 64px; }
+  .pricing-reference__opening h1 { font-size: 56px; }
+  .pricing-reference__opening > div:nth-child(2) > p:last-of-type { max-width: 44ch; font-family: var(--font-body); font-size: 18px; line-height: 1.7; }
+  .pricing-reference__opening > ul { gap: 40px; margin-top: 56px; }
+  .pricing-reference__plan { --ju: var(--ju-ink); --on-ju: var(--bg); background: transparent; color: var(--t1); border-width: 1px 0 0; border-radius: 0; padding-inline: 8px; text-align: left; align-items: stretch; }
+  .pricing-reference__plan > span:first-child { left: 8px; transform: none; background: var(--tint-lavender); color: var(--tint-lavender-ink); padding: 8px 14px; }
+  .pricing-reference__plan:first-child > span:first-child { background: var(--tint-green); color: var(--tint-green-ink); }
+  .pricing-reference__plan:last-child > span:first-child { background: var(--tint-peach); color: var(--tint-peach-ink); }
+  .pricing-reference__plan h2 { font-family: var(--font-display); font-size: 26px; font-weight: 500; }
+  .pricing-reference__plan > div { justify-content: flex-start; }
+  .pricing-reference__plan > div > span { display: none; }
+  .pricing-reference__sources { --ju: var(--ju-ink); }
+  .pricing-reference__promise > div > span { display: none; }
+  .pricing-reference__promise > div > div { background: var(--tint-teal); color: var(--tint-teal-ink); border-color: var(--bd); }
+  .pricing-reference__promise blockquote { margin-top: 16px; font-size: 26px; }
+  .legal-reference > header { background: transparent; }
+  .legal-reference > header > div, .legal-reference > div { max-width: 1280px; padding-inline: 40px; }
+  .legal-reference > header > div { padding-block: 48px; }
+  .legal-reference h1 { font-family: var(--font-display); font-size: 44px; font-weight: 500; }
+  .legal-reference h1 + p { max-width: 48ch; font-size: 16px; line-height: 1.7; }
+  .legal-reference > div > div { grid-template-columns: 248px minmax(0, 1fr); gap: 64px; }
+  .legal-reference nav a { display: flex; align-items: center; gap: 8px; min-height: 44px; min-width: 44px; padding-block: 10px; font-size: 14px; }
+  .legal-reference nav a:focus-visible, .video-detail-reference a:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; border-radius: 4px; }
+  .legal-reference nav a[aria-current="location"] { text-decoration: underline; text-underline-offset: 4px; }
+  .legal-reference article { max-width: 760px; }
+  .legal-reference article section { scroll-margin-top: 100px; }
+  .legal-reference article p, .legal-reference article li { font-size: 16px; line-height: 1.85; }
+  .legal-reference article footer a { display: inline-flex; min-height: 44px; align-items: center; }
+  .join-reference { display: grid; grid-template-columns: 96px minmax(0, 1fr); max-width: 880px; gap: 20px 32px; padding-block: 64px 80px; }
+  .join-reference__icon { display: block; grid-row: 1 / 4; margin-top: 8px; color: var(--ju-ink); }
+  .join-reference h1 { max-width: 22ch; font-family: var(--font-display); font-size: 36px; font-weight: 500; line-height: 1.3; }
+  .join-reference p { max-width: 46ch; font-size: 16px; line-height: 1.8; color: var(--t2); }
+  .join-reference > a { grid-column: 2; border-radius: 999px; }
+}

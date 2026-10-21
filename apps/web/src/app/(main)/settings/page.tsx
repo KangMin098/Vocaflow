@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 // ──────────────────────────────────────────────
@@ -259,16 +260,17 @@ export default function SettingsPage() {
 
   return (
     <Screen width="content" background="bg2" padX="md">
-      <div className="py-6 md:py-8">
+      <div className="settings-reference py-6 md:py-8">
         <SaveIndicator />
         {/* ── Header ── */}
-        <header className="mb-6 px-1">
+        <header className="account-reference__intro mb-6 px-1">
           <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
             설정
           </h1>
           <p className="mt-2 font-body text-[15px] leading-relaxed text-[var(--t2)]">
             학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요.
           </p>
+          <Image src="/illustrations/tines/scene-settings-tune-v1.webp" alt="" width={1536} height={1024} sizes="320px" className="account-reference__scene hidden lg:block" />
         </header>
 
         {/* ── Quick TOC — iOS 캡슐 ── */}
@@ -276,11 +278,11 @@ export default function SettingsPage() {
           {[
             // 'Reminders' 를 쓴다 — 'Notifications' 는 뱃지·알림음을 연상시키는데
             // 이 제품은 그걸 금지한다(Calm UI). 이름이 먼저 약속을 어기면 안 된다.
-            { href: '#learning', label: 'Study Flow' },
-            { href: '#appearance', label: 'Appearance' },
-            { href: '#audio', label: 'Voice' },
-            { href: '#notifications', label: 'Reminders' },
-            { href: '#account', label: 'Account & Data' },
+            { href: '#learning', label: 'Study Flow', desktop: '학습 흐름', icon: Brain },
+            { href: '#appearance', label: 'Appearance', desktop: '외형', icon: Palette },
+            { href: '#audio', label: 'Voice', desktop: '음성', icon: Volume2 },
+            { href: '#notifications', label: 'Reminders', desktop: '알림', icon: BellOff },
+            { href: '#account', label: 'Account & Data', desktop: '계정·데이터', icon: Shield },
           ].map((c) => (
             <a
               key={c.href}
@@ -289,7 +291,8 @@ export default function SettingsPage() {
               // 누르는 높이만 44px 로 — inline-flex + items-center 라 알약은 그대로 보인다.
               className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-ios-pill bg-[var(--bg)] px-3 py-2 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
             >
-              {c.label}
+              <span className="lg:hidden">{c.label}</span>
+              <span className="hidden items-center gap-3 lg:inline-flex"><c.icon aria-hidden size={18} strokeWidth={1.4} />{c.desktop}</span>
             </a>
           ))}
         </nav>

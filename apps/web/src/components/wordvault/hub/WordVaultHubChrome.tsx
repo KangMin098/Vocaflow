@@ -42,12 +42,14 @@ export function WordVaultHubChrome({ activeView, children }: WordVaultHubChromeP
   return (
     <>
       {/* 본문(WordVaultHub)과 같은 틀 — max 820 · px-4/6 — 이라 판과 본문 카드가 한 시작선에 선다 */}
-      <div className="mx-auto w-full max-w-[820px] px-4 pt-4 md:px-6 md:pt-5">
+      <div data-vault-hero={activeView} className="mx-auto w-full max-w-[820px] px-4 pt-4 md:px-6 md:pt-5">
         <AreaHero
           kicker={stage ? `${stage.label} · ${stage.item}` : 'WordVault'}
           title="WordVault"
           sub={stage?.says ?? '만난 단어를 내 것으로 모아요'}
           tile="tile-vault"
+          desktopScene={activeView === 'hub' ? 'scene-vault-v4' : undefined}
+          desktopSub={activeView === 'hub' ? '읽다가 만난 단어, 여기서 다시 만나요.' : undefined}
           tint={MODULE_TONE.wordvault.tint}
           deep={MODULE_TONE.wordvault.deep}
           tabs={VIEWS.map((v) => ({ href: v.href, label: v.label, active: v.key === activeView }))}

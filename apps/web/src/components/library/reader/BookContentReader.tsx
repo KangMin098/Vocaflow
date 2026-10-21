@@ -364,6 +364,7 @@ export function BookContentReader({
       <WordLookupPopover
         surface={lookup.word}
         anchorRect={lookup.rect}
+        desktopLearner={mode === 'user-preview'}
         onClose={() => setLookup(null)}
       />
     )}

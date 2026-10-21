@@ -12,7 +12,8 @@
 
 import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 import { scrollActiveIntoView, useScrollHint } from '@/hooks/useScrollHint'
 import type { Tint } from '@/lib/design/tone'
@@ -52,14 +53,25 @@ export function AreaNav({
   /** 예전 막대 면 색 — 막대를 걷어 지금은 쓰지 않는다(호출부 호환) */
   tint?: Tint
 }) {
-  const { ref, hint, measure } = useScrollHint<HTMLElement>()
+  const [portalHost, setPortalHost] = useState<HTMLElement | null>(null)
+  const { ref, hint, measure } = useScrollHint<HTMLElement>(portalHost)
+
+  // PC 구역 내비를 나침반의 같은 줄로 옮긴다. 기존 링크·선택 상태를 복사하지 않는다.
+  // 세션/CSAT처럼 나침반이 없으면 원래 위치, 작은 화면도 원래 DOM을 유지한다.
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px)')
+    const update = () => setPortalHost(media.matches ? document.querySelector<HTMLElement>('[data-area-nav-slot]') : null)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [watch])
 
   useEffect(() => {
     scrollActiveIntoView(ref.current, '[aria-selected="true"]')
     measure()
-  }, [watch, ref, measure])
+  }, [watch, ref, measure, portalHost])
 
-  return (
+  const navigation = (
     <div className="flex items-center gap-2">
       <span className={`hidden shrink-0 items-center rounded-full ${PILL} px-3 font-display text-[14px] font-[600] leading-[30px] text-[var(--ju)] sm:inline-flex`}>
         {area}
@@ -95,4 +107,6 @@ export function AreaNav({
       {right && <div className="hidden shrink-0 md:block">{right}</div>}
     </div>
   )
+
+  return portalHost ? <><span hidden data-area-nav-portalled />{createPortal(navigation, portalHost)}</> : navigation
 }

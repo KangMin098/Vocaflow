@@ -5,6 +5,7 @@
 - **CSS Variables 본체** — `src/tokens.css` (웹 전용, `apps/web/src/app/globals.css` 에서 import)
 - **JS/TS 토큰 객체** — `src/colors.ts` 외 (RN 전용 + 타입 추론용)
 - **스킨(웹 PC 디자인 층)** — `src/skins/tines.css`(학습자 Tines) · `src/skins/admin-app.css`(관리자 3B). 값 동기 대상은 `skins/tines.ts` 하나(`skin-parity.test.ts`) — RN 앱 화면을 바꾸라는 뜻이 아니다
+- **PC 학습자 색 역할** — `src/skins/learner-pc.css`는 1024px 이상·학습자 라우트 표식에만 적용하는 웹 전용 재정의다. 중립 읽기/보조 문구·다색 면/잉크 조합을 소유하며 기본/RN 값과 동기화하지 않는다. `/admin`·`/csat`는 표식이 없다.
 - **디자인 기준 문서** — 루트 `DESIGN.md`(라우트별 기준)
 
 ## 변경 시 절차

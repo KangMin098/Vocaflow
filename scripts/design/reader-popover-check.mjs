@@ -4,6 +4,9 @@
 //   장 목록 · 타이포 설정 · 다음 단계 추천 · 단어 누르기(풀이/회상 카드) — 모서리 · 테두리 · 그림자 · 크기 · Esc 닫힘
 //   타이포 설정: 열기만 해서는 본문 글자 크기가 그대로 · 고르면 바뀜 · 새로고침 후 유지 · 「기본」으로 되돌림
 // 사용: node scripts/design/reader-popover-check.mjs --base http://localhost:3041 --text <texts.id> --out <dir> [--width 1440] [--theme light|dark]
+// 주의: 개인 본문 GET은 서버에서 진도/학습 활성화를 기록한다. 브라우저 POST 차단만으로 읽기 전용이 아니다.
+// DB 쓰기가 별도로 승인된 실행만 --allow-learning-writes를 준다. 이 플래그는 승인을 대신하지 않는다.
+// 쓰기 없는 컴포넌트 검증: node scripts/design/workspace-popup-isolated-check.mjs
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -14,6 +17,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const require_ = createRequire(path.join(ROOT, 'apps/web/package.json'))
 const { chromium } = require_('@playwright/test')
 const args = process.argv.slice(2)
+if (!args.includes('--allow-learning-writes')) {
+  throw new Error('WORKSPACE_GET_WRITES: private /text/[id] GET can record progress and activate learning. Use workspace-popup-isolated-check.mjs for no-DB component checks; only an explicitly approved DB-writing run may pass --allow-learning-writes.')
+}
 const arg = (name, fallback) => {
   const i = args.indexOf(`--${name}`)
   return i >= 0 ? args[i + 1] : fallback

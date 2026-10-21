@@ -37,7 +37,7 @@ import { Input } from '@/components/ui/Input'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { useToast } from '@/components/ui/Toast'
 import { mapSignupError } from '@/lib/auth/errors'
-import { RETURN_PARAM, resolveReturnTo } from '@/lib/auth/redirect'
+import { RETURN_PARAM, loginUrlWithReturn, resolveReturnTo } from '@/lib/auth/redirect'
 import {
   DISPLAY_NAME_MAX_LENGTH,
   encodeDisplayNameB64,
@@ -192,13 +192,13 @@ function SignupForm() {
         </p>
 
         <h1 className="mb-s-2 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
-          영어 학습을
+          영어 학습을{' '}
           <br />
           시작하세요
         </h1>
         <p className="font-body text-sm text-t2">
           이미 계정이 있으신가요?{' '}
-          <Link href="/login" className="font-semibold text-p underline-offset-4 hover:underline">
+          <Link href={loginUrlWithReturn(returnTo)} className="font-semibold text-p underline-offset-4 hover:underline">
             로그인
           </Link>
         </p>

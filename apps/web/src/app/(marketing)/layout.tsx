@@ -6,10 +6,11 @@
 import { MarketingTail } from '@/components/marketing/site/MarketingTail'
 import { SiteFooter } from '@/components/marketing/site/SiteFooter'
 import { SiteHeader } from '@/components/marketing/site/SiteHeader'
+import '@/components/marketing/public-reference.css'
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
+    <div className="public-reference flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
       <SiteHeader />
       <main className="flex-1">{children}</main>
       <MarketingTail />

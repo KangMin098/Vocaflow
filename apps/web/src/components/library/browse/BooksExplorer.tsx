@@ -16,7 +16,7 @@
 
 'use client'
 
-import { useCallback, useMemo, useState, useTransition } from 'react'
+import { useCallback, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpen, Compass, PlayCircle, TrendingUp } from 'lucide-react'
@@ -70,6 +70,8 @@ import {
   type EnrollFilter,
 } from './BookFilterBar'
 import { BookQuickPicks } from './BookQuickPicks'
+import { FeaturedBookCard } from './FeaturedBookCard'
+import { LibraryTabs } from '@/components/library/LibraryTabs'
 
 const SPOTLIGHT_N = 10
 const RAIL_N = 12
@@ -142,6 +144,8 @@ interface Props {
   userMastery: UserMastery
   /** `?show=all` 로 들어왔는가 — 그러면 전체 탐색 그리드를 처음부터 전량 그린다. */
   showAll?: boolean
+  header?: ReactNode
+  feature?: ReactNode
 }
 
 function nullsLast(a: number | null | undefined, b: number | null | undefined, dir: 1 | -1) {
@@ -153,7 +157,7 @@ function nullsLast(a: number | null | undefined, b: number | null | undefined, d
   return (av - bv) * dir
 }
 
-export function BooksExplorer({ books, userVLevel, userMastery, showAll = false }: Props) {
+export function BooksExplorer({ books, userVLevel, userMastery, showAll = false, header, feature }: Props) {
   const router = useRouter()
   const diagnosed = userVLevel >= 1
   const ctx = useMemo(() => ({ userVLevel, userMastery }), [userVLevel, userMastery])
@@ -425,11 +429,22 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   }
 
   if (books.length === 0) {
-    return <LibraryGrid books={[]} userVLevel={userVLevel} />
+    return <>{header}{feature}<LibraryGrid books={[]} userVLevel={userVLevel} /></>
   }
 
+  const filtering = showAll || Object.values(filters).some((value) => value !== null && value !== false && value !== '')
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="books-reference" data-filtering={filtering}>
+      <aside aria-label="도서 검색과 분류" className="books-reference__rail hidden lg:block">
+        <BookFilterBar variant="rail" filters={filters} onChange={patchFilters} sort={sort} onSortChange={applySort}
+          resultCount={visible.length} totalCount={books.length} facets={facets} diagnosed={diagnosed}
+          userVLevel={userVLevel} onReset={() => applyFilters(EMPTY_FILTERS)} navigation={<LibraryTabs variant="rail" />} />
+      </aside>
+      <div className="books-reference__body flex min-w-0 flex-col gap-8 lg:gap-0">
+      <div className="books-reference__hero">{header}</div>
+      {feature && <div className="books-reference__comic">{feature}</div>}
+      <div className="books-reference__recommendations flex flex-col gap-8">
       {/* 미진단 cold-start 배너 */}
       {!diagnosed && (
         <Link
@@ -456,8 +471,14 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       )}
 
       {/* ① Spotlight — For You 코버플로우 (LibraryGrid 재사용, 자체 sheet) */}
-      <section aria-label="오늘의 추천">
+      <section aria-label="오늘의 추천" className="lg:hidden">
         <LibraryGrid books={spotlight} userVLevel={userVLevel} />
+      </section>
+      <section aria-label="추천 도서" className="books-reference__section hidden lg:block">
+        <h2 className="flex items-center gap-3"><BookOpen aria-hidden size={26} strokeWidth={1.4} />추천 도서</h2>
+        <div className="books-reference__grid">
+          {spotlight.map((book) => <FeaturedBookCard key={book.id} book={book} onOpen={openDetail} />)}
+        </div>
       </section>
 
       {/* ② Rails */}
@@ -501,15 +522,16 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
         reasonsByBook={reasonsByBook}
         onOpen={openDetail}
       />
+      </div>
 
       {/* ③ Browse — 전체 탐색 */}
       {/* id=browse — 서가 머리의 「전체 탐색 ↓」 링크 목적지. scroll-mt 는 고정 헤더(88px)에 제목이 가리지 않게 */}
-      <section id="browse" className="flex scroll-mt-[96px] flex-col gap-4" aria-label="전체 도서 탐색">
+      <section id="browse" className="books-reference__catalogue flex scroll-mt-[96px] flex-col gap-4" aria-label="전체 도서 탐색">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">전체 탐색</h2>
 
         {/* 왼쪽 조건 레일 + 오른쪽 결과 — 참조 tines.com/library 의 「검색·분류 레일 288px + 본문」(1440 실측: 레일 x40 w288,
             본문 x400). 이전에는 조건 8줄(약 630px)이 결과 위를 막아 책 격자가 세 번째 화면에서야 시작했다(y 3137). */}
-        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[288px_minmax(0,1fr)] lg:items-start lg:gap-x-[clamp(48px,5vw,72px)]">
+        <div className="books-reference__catalogue-layout flex flex-col gap-4">
           <aside aria-label="도서 조건" className="lg:sticky lg:top-[88px] lg:max-h-[calc(100dvh-104px)] lg:overflow-y-auto lg:pb-4 lg:pr-1">
             <BookFilterBar
               variant="rail"
@@ -598,6 +620,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
 
       {/* rail/그리드 공용 상세 sheet (spotlight 은 LibraryGrid 자체 sheet) */}
       <NetflixDetailSheet variant={detail} onClose={() => setDetail(null)} />
+      </div>
     </div>
   )
 }

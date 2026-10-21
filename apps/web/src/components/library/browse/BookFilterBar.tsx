@@ -8,8 +8,8 @@
 
 'use client'
 
-import { createContext, useContext, useState } from 'react'
-import { BookImage, BookOpen, ChevronDown, Search, SlidersHorizontal, Volume2, X } from 'lucide-react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
+import { BookImage, BookOpen, ChevronDown, Clock, Gauge, Search, SlidersHorizontal, Tags, Users, Volume2, X, type LucideIcon } from 'lucide-react'
 
 import {
   AGE_BANDS,
@@ -121,9 +121,11 @@ interface Props {
    * 같은 골격을 쓴다(2026-10-18 layout-measure · learner-tines-audit §S3 서가). 상태·패싯은 같다.
    */
   variant?: 'panel' | 'rail'
+  navigation?: ReactNode
 }
 
 const VariantCtx = createContext<'panel' | 'rail'>('panel')
+const SECTION_ICONS: Record<string, LucideIcon> = { '내 학습': BookOpen, '나에게': Users, '레벨': Gauge, '장르': BookOpen, '주제': Tags, '연령': Users, '길이': Clock, '포맷': BookImage }
 
 function Chip({
   active,
@@ -156,11 +158,13 @@ function Chip({
  */
 function Section({ label, active = false, defaultOpen = false, children }: { label: string; active?: boolean; defaultOpen?: boolean; children: React.ReactNode }) {
   const variant = useContext(VariantCtx)
+  const Icon = SECTION_ICONS[label] ?? SlidersHorizontal
   if (variant === 'rail') {
     return (
       <details open={active || defaultOpen} className="group border-b border-[var(--bd)] last:border-b-0">
         <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-[var(--r-md)] px-2 font-display text-[14px] font-[500] text-[var(--t1)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] [&::-webkit-details-marker]:hidden">
           <span className="inline-flex items-center gap-2">
+            <Icon aria-hidden size={16} strokeWidth={1.5} className="hidden lg:inline-block" />
             {label}
             {active && <span aria-label="선택됨" className="h-1.5 w-1.5 rounded-full bg-[var(--p)]" />}
           </span>
@@ -192,6 +196,7 @@ export function BookFilterBar({
   userVLevel,
   onReset,
   variant = 'panel',
+  navigation,
 }: Props) {
   const [allThemes, setAllThemes] = useState(false)
 
@@ -281,10 +286,11 @@ export function BookFilterBar({
         </span>
       </div>
 
+      {navigation}
       {rail && <span className="sr-only">조건</span>}
       {/* 내 학습 상태 — 로그인 + 등록 도서 존재 시 (최상단 구획) */}
       {facets.hasEnrollments && (
-        <Section label="내 학습" active={filters.enroll !== null} defaultOpen>
+        <Section label="내 학습" active={filters.enroll !== null} defaultOpen={!navigation}>
           {ENROLL_OPTIONS.map((o) => (
             <Chip
               key={o.key}
@@ -299,7 +305,7 @@ export function BookFilterBar({
 
       {/* 나에게 — i+1 적합도 (진단 사용자) */}
       {diagnosed && (
-        <Section label="나에게" active={filters.fit !== null} defaultOpen>
+        <Section label="나에게" active={filters.fit !== null} defaultOpen={!navigation}>
           {FIT_OPTIONS.map((o) => (
             <Chip
               key={o.key}
@@ -314,7 +320,7 @@ export function BookFilterBar({
 
       {/* 레벨 — V 밴드 */}
       {facets.vBands.length > 0 && (
-        <Section label="레벨" active={filters.vBand !== null} defaultOpen>
+        <Section label="레벨" active={filters.vBand !== null} defaultOpen={!navigation}>
           {V_BANDS.filter((b) => facets.vBands.includes(b.key)).map((b) => (
             <Chip
               key={b.key}

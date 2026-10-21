@@ -10,6 +10,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { reportEvidence } from './lib/render-evidence.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const APP = path.join(ROOT, 'apps/web/src/app')
@@ -64,22 +65,9 @@ const add = (pathname, rec) => {
 for (const f of files) {
   let j
   try { j = JSON.parse(fs.readFileSync(f, 'utf8')) } catch { continue }
-  const rows = Array.isArray(j) ? j : Array.isArray(j.results) ? j.results : null
   const rel = path.relative(ROOT, f).split(path.sep).join('/')
-  if (rows) {
-    for (const r of rows) {
-      const landedRaw = r.landed ?? (r.url && !/^https?:/.test(r.url) ? r.url : r.url ? new URL(r.url).pathname : null)
-      if (!landedRaw || /^https?:\/\/(www\.)?tines\.com/.test(r.url ?? '')) continue
-      const landed = /^https?:/.test(landedRaw) ? new URL(landedRaw).pathname : landedRaw
-      const okRender = (r.ok !== false || r.m) && !r.error && !r.errorLike && (landed === '/login' || !landed.startsWith('/login'))
-      if (!okRender) continue
-      add(landed, { file: rel, at: r.at ?? null, base: r.base ?? null, width: r.width ?? null, theme: r.theme ?? null })
-    }
-  } else if (j.steps && j.base) {
-    // 단일 화면 검사(서가 · 단어장 · 읽기 · 받아쓰기 격리 등) — 화면 주소는 파일 이름으로 판단하지 않고 기록의 첫 단계가 통과했는지만 본다
-    const okAny = j.steps.some((s) => s.ok)
-    const where = /_shelf/.test(f) ? '/library/books' : /_vault/.test(f) ? '/wordvault' : /_reader/.test(f) ? '/text/x' : /_modepills/.test(f) ? '/text/x' : /_dictation/.test(f) ? '/dictate/session' : null
-    if (okAny && where) add(where, { file: rel, at: j.at ?? null, base: j.base, width: j.width ?? null, theme: j.theme ?? null, note: /_dictation/.test(f) ? '격리(네트워크 고정 · 쓰기 차단)' : undefined })
+  for (const record of reportEvidence(j, { file: rel })) {
+    add(record.route, { ...record, note: record.isolated ? '격리 부품 — 정상 라우트 아님' : undefined })
   }
 }
 

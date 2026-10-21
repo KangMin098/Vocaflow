@@ -17,6 +17,8 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 import { DEFAULT_SCENE_TIME, freezeMotion, installFreezeMotion, settleImages } from './lib/freeze-motion.mjs'
+import { blockLearningWrites } from './lib/read-only-context.mjs'
+import { saveCaptureReport } from './lib/capture-report.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const WEB = path.join(ROOT, 'apps/web')
@@ -44,11 +46,18 @@ const themes = (arg('themes', 'light')).split(',')
 const anon = new Set((arg('anon', '')).split(',').filter(Boolean))
 const serverSha = arg('sha', 'unknown')
 // --block-writes: 화면을 여는 것만으로 생기는 쓰기(진입 이벤트 · 열람 시각 · 세션 생성 등)를 DB 에 보내지 않는다.
-//   Supabase REST/RPC 와 앱 /api/ 의 GET 이 아닌 요청을 가짜 성공으로 응답하고 개수를 _report.json 에 남긴다.
+//   인증을 제외한 모든 비읽기 요청(REST/RPC · API · Server Action 포함)을 차단하고 개수를 남긴다.
 //   (공유 개발 DB 에 쓰지 않는 읽기 전용 시나리오 — 사용자 지시 2026-10-19)
 const blockWrites = args.includes('--block-writes')
 const blocked = []
 const fullPage = !args.includes('--fold')
+
+// 인증 확인용 첫 /hub 방문도 학습 진입 이벤트를 보낸다. 캡처 루프뿐 아니라
+// 새 컨텍스트를 만든 즉시 쓰기를 막고, /api 밖의 Server Action POST도 막는다.
+async function guardWrites(context) {
+  if (!blockWrites) return
+  await blockLearningWrites(context, blocked)
+}
 
 /** 학습자 라우트 — 파일 시스템에서 읽는다(e2e/utils/learner-routes.ts 와 같은 규칙). */
 function learnerRoutes() {
@@ -101,17 +110,18 @@ async function login(page) {
  *    (이 워크스페이스는 검증 계정 하나를 여러 세션이 공유하므로 남의 실행도 같은 한도를 쓴다.)
  */
 const STATE_FILE = path.join(ROOT, 'apps/web/playwright-auth/.auth-design-capture.json')
-const STATE_TTL_MS = 25 * 60 * 1000
 
 const run = async () => {
   fs.mkdirSync(outDir, { recursive: true })
   fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true })
   const browser = await chromium.launch()
-  const fresh =
-    fs.existsSync(STATE_FILE) && Date.now() - fs.statSync(STATE_FILE).mtimeMs < STATE_TTL_MS
+  try {
+  // 파일 나이로 정상 세션을 버리지 않는다. 아래 실제 /hub 접근으로 유효성을 확인한다.
+  const fresh = fs.existsSync(STATE_FILE)
   let ctx
   if (fresh) {
     ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, storageState: STATE_FILE })
+    await guardWrites(ctx)
     // ⚠️ 파일 나이만 보고 믿지 않는다. 공유 계정이라 다른 세션 로그인이 이쪽 토큰을 회전시키면
     //    **파일은 새것인데 세션은 죽어 있다.** 한 번 열어 보고, 죽었으면 다시 로그인한다.
     const probe = await ctx.newPage()
@@ -125,6 +135,7 @@ const run = async () => {
       console.log('저장된 상태가 죽어 있다 — 다시 로그인한다')
       await ctx.close()
       ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+      await guardWrites(ctx)
       const page = await ctx.newPage()
       await login(page)
       await page.close()
@@ -132,6 +143,7 @@ const run = async () => {
     }
   } else {
     ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+    await guardWrites(ctx)
     const page = await ctx.newPage()
     await login(page)
     await page.close()
@@ -151,15 +163,7 @@ const run = async () => {
       isMobile: w <= 430,
       hasTouch: w <= 430,
     })
-    if (blockWrites) {
-      await c.route(/\/rest\/v1\/|\/rpc\/|\/api\//, async (route) => {
-        const m = route.request().method()
-        if (m === 'GET' || m === 'HEAD' || m === 'OPTIONS') return route.continue()
-        // 로그인 갱신 · 인증은 막지 않는다(auth/v1 은 패턴에 없음)
-        blocked.push(`${m} ${route.request().url().replace(/^https?:\/\/[^/]+/, '').slice(0, 80)}`)
-        return route.fulfill({ status: 200, contentType: 'application/json', body: '{}' })
-      })
-    }
+    await guardWrites(c)
     const p = await c.newPage()
     // 첫 프레임부터 모션을 세운다 — 연 **뒤**에 거는 것만으로는 이미 돌던 루프가 안 되감긴다.
     await installFreezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
@@ -196,11 +200,15 @@ const run = async () => {
           skin: document.documentElement.getAttribute('data-skin'),
           dataTheme: document.documentElement.getAttribute('data-theme'),
           errorLike: /문제가 생겼|오류가 발생|찾을 수 없|Application error|Unhandled Runtime Error/.test(document.body.innerText.slice(0, 4000)),
+          loadingLike: /(?:불러오는 중|불러오고 있어|로딩 중|Loading[.…]*)/i.test((document.querySelector('main') ?? document.body).innerText.slice(0, 4000)),
         }))
-        await p.screenshot({ path: file, fullPage })
-        report.push({ ...meta, landed, ok: !probe.errorLike, ...probe, images: imgs, file: path.relative(ROOT, file).split(path.sep).join('/') })
+        const ok = !probe.errorLike && !probe.loadingLike
+        // 오류/로딩 캡처는 별도 파일에 남겨 정상 화면을 덮지 않는다.
+        const captureFile = ok ? file : file.replace(/\.png$/, '-unverified.png')
+        await p.screenshot({ path: captureFile, fullPage })
+        report.push({ ...meta, landed, ok, ...probe, images: imgs, file: path.relative(ROOT, captureFile).split(path.sep).join('/') })
         process.stdout.write(
-          `✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}` +
+          `${ok ? '✓' : '✗'} ${r} @${w}${landed !== r ? ` → ${landed}` : ''}` +
           `${imgs.pending > 0 ? ` · ⚠ 그림 ${imgs.pending}/${imgs.total} 못 받음(캡처가 흔들릴 수 있다)` : ''}\n`,
         )
       } catch (e) {
@@ -211,11 +219,15 @@ const run = async () => {
     await c.close()
   }
   await ctx.close()
-  await browser.close()
-  fs.writeFileSync(path.join(outDir, '_report.json'), JSON.stringify(report, null, 2))
+  saveCaptureReport(outDir, report, routes.length * widths.length * themes.length)
   if (blockWrites) fs.writeFileSync(path.join(outDir, '_blocked-writes.txt'), blocked.join('\n'))
   const ok = report.filter((r) => r.ok).length
   console.log(`\n캡처 ${ok}/${report.length} → ${outDir}`)
+  if (ok !== report.length) process.exitCode = 1
+  } finally {
+    // Authentication can fail before the route loop. Close the browser on that path too.
+    await browser.close()
+  }
 }
 
 run().catch((e) => { console.error(e); process.exit(1) })

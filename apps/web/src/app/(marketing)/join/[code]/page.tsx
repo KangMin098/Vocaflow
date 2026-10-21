@@ -26,7 +26,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { Users } from 'lucide-react'
+import { Link2Off, Users } from 'lucide-react'
 
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { invitePath, normalizeInviteCode } from '@/lib/teacher/invite-link'
@@ -73,7 +73,7 @@ export default async function JoinPage({ params }: PageProps) {
   const next = invitePath(code)
 
   return (
-    <main className="mx-auto flex w-full max-w-[520px] flex-col gap-6 px-4 py-12 md:py-16">
+    <section className="mx-auto flex w-full max-w-[520px] flex-col gap-6 px-4 py-12 md:py-16">
       <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
         <p className="font-display text-[11px] font-[800] uppercase tracking-[0.14em] text-[var(--p)]">
           클래스 초대
@@ -122,7 +122,7 @@ export default async function JoinPage({ params }: PageProps) {
       <p className="m-0 text-center font-body text-[12px] leading-relaxed text-[var(--t3)]">
         참여하면 선생님이 보낸 단어와 지문을 받아볼 수 있어요. 언제든 나갈 수 있습니다.
       </p>
-    </main>
+    </section>
   )
 }
 
@@ -134,7 +134,8 @@ export default async function JoinPage({ params }: PageProps) {
  */
 function UnknownCode({ code }: { code: string }) {
   return (
-    <main className="mx-auto flex w-full max-w-[520px] flex-col gap-4 px-4 py-12 md:py-16">
+    <section className="join-reference mx-auto flex w-full max-w-[520px] flex-col gap-4 px-4 py-12 md:py-16">
+      <Link2Off className="join-reference__icon" size={72} strokeWidth={1.25} aria-hidden />
       <h1 className="m-0 font-editorial text-[22px] font-[800] tracking-tight text-[var(--t1)]">
         이 초대 링크는 확인할 수 없어요
       </h1>
@@ -148,6 +149,6 @@ function UnknownCode({ code }: { code: string }) {
       >
         Vocaflow 둘러보기
       </Link>
-    </main>
+    </section>
   )
 }

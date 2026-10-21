@@ -10,7 +10,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import {
   ArrowLeft,
   Bookmark,
@@ -90,6 +90,7 @@ export function UnifiedHeader({
   arcadeHref,
 }: UnifiedHeaderProps) {
   const [isTypeOpen, setIsTypeOpen] = useState(false)
+  const typePopoverId = useId()
   // 지난번 고른 글자 크기 · 줄 간격을 읽기 화면이 열릴 때 적용한다(타이포 팝오버가 저장 — lib/reader/type-prefs)
   useEffect(() => {
     applyReaderTypePrefs(readReaderTypePrefs())
@@ -136,7 +137,7 @@ export function UnifiedHeader({
         <Link
           href={hasChapterContext ? `/library/books/${book.id}?preview=1` : '/text'}
           aria-label={hasChapterContext ? '책으로 돌아가기' : '라이브러리로 돌아가기'}
-          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-8 w-8 lg:h-11 lg:w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] border border-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={16} strokeWidth={2} aria-hidden />
         </Link>
@@ -248,7 +249,7 @@ export function UnifiedHeader({
             onClick={onToggleBookmark}
             aria-label={isBookmarked ? '북마크 해제' : '북마크 추가'}
             aria-pressed={isBookmarked}
-            className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+            className={`inline-flex h-8 w-8 lg:h-11 lg:w-11 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
               isBookmarked
                 ? 'border-[color-mix(in_srgb,var(--active)_25%,transparent)] bg-[var(--active-light)] text-[var(--active)]'
                 : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
@@ -268,12 +269,14 @@ export function UnifiedHeader({
               type="button"
               onClick={() => setIsTypeOpen((o) => !o)}
               aria-label="타이포 설정"
+              aria-haspopup="dialog"
               aria-expanded={isTypeOpen}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              aria-controls={isTypeOpen ? typePopoverId : undefined}
+              className="inline-flex h-8 w-8 lg:h-11 lg:w-11 items-center justify-center rounded-[var(--r-md)] border border-transparent bg-transparent text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
             >
               <Type size={16} strokeWidth={1.75} aria-hidden />
             </button>
-            {isTypeOpen && <TypePopover onClose={() => setIsTypeOpen(false)} />}
+            {isTypeOpen && <TypePopover id={typePopoverId} onClose={() => setIsTypeOpen(false)} />}
           </div>
 
           {/* Focus */}
@@ -282,7 +285,7 @@ export function UnifiedHeader({
             onClick={onToggleFocus}
             aria-label="집중 모드"
             aria-pressed={isFocusMode}
-            className={`inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] ${
+            className={`inline-flex h-8 w-8 lg:h-11 lg:w-11 items-center justify-center rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
               isFocusMode
                 ? 'border-[color-mix(in_srgb,var(--p)_25%,transparent)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 : 'border-transparent bg-transparent text-[var(--t2)] hover:border-[var(--bd)] hover:bg-[var(--bg)] hover:text-[var(--t1)]'
@@ -302,7 +305,7 @@ export function UnifiedHeader({
                 onClick={() => setNavOpen((v) => !v)}
                 aria-expanded={navOpen}
                 aria-controls="chapter-nav-popover"
-                className="inline-flex min-h-[28px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                className="inline-flex min-h-[28px] lg:min-h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               >
                 <List size={11} aria-hidden />
                 목차
@@ -366,7 +369,7 @@ function ChapterNavButton({
         type="button"
         disabled
         aria-label={label}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
+        className="inline-flex h-8 w-8 lg:h-11 lg:w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
       >
         <Icon size={14} aria-hidden />
       </button>
@@ -377,7 +380,7 @@ function ChapterNavButton({
     <Link
       href={`/text/${chapter.textId}?mode=read`}
       aria-label={`${label} — Chapter ${chapter.chapterIdx}`}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex h-8 w-8 lg:h-11 lg:w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <Icon size={14} aria-hidden />
     </Link>

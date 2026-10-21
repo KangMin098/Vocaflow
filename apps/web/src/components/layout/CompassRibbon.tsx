@@ -123,6 +123,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
     <div className="bg-[var(--bg)]">
       <div
         aria-label="오늘 상태"
+        data-compass-row
         className="mx-auto flex w-full max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2.5 lg:px-10"
       >
         {/* ① 나는 어디에 있나 — 데스크톱에서만. 모바일은 하단 탭이 이미 위치를 말한다 */}
@@ -132,11 +133,13 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           </span>
         )}
 
+        <div data-area-nav-slot className="hidden min-w-0 lg:block" />
+
         {/* ② 오늘 어디까지 왔나 — 계단이 있을 때만 그린다 */}
         {model.steps.length > 0 && <StepDots model={model} />}
 
         {/* ③ 지금 누를 한 개 */}
-        <p className="flex min-w-0 flex-1 items-baseline gap-2">
+        <p data-compass-message className="flex min-w-0 flex-1 items-baseline gap-2">
           <span className="shrink-0 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
             {model.now.kicker}
           </span>
@@ -147,6 +150,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
 
         <Link
           href={model.now.href}
+          title={model.now.headline}
           onClick={() =>
             track({ name: 'wayfinder_cta_clicked', props: { phase: model.phase, done: model.done } })
           }

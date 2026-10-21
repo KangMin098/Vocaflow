@@ -82,7 +82,15 @@ export function AppHeader() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(null)
+      if (e.key !== 'Escape') return
+      const trigger = root.current?.querySelector<HTMLButtonElement>(
+        'button[aria-expanded="true"][aria-controls]',
+      )
+      const panelId = trigger?.getAttribute('aria-controls')
+      const panel = panelId ? document.getElementById(panelId) : null
+      const focusInPanel = panel?.contains(document.activeElement)
+      setOpen(null)
+      if (focusInPanel) trigger?.focus()
     }
     const onDown = (e: MouseEvent) => {
       if (root.current && !root.current.contains(e.target as Node)) setOpen(null)
