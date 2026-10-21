@@ -16,6 +16,7 @@ import type { WorkspaceDemand } from '../../demand'
 import { canonicalDemand } from '../../persist-contract'
 import { B_SQL, C_SQL, STUB, as } from '../../__tests__/supply-sql-harness'
 import { listFactoryDeliveries, openFactoryDelivery, submitFactoryAttempt } from '../dcp-learning'
+import { formativeFeedback, LESSON_SHA256, lessonProgress, modelAfterAttempt, parseReflectionRequest, submitReflection, type ReflectionBody } from '../source-lesson'
 import { admitCandidates, approveForGuidedPractice, d3Linker, receiveForLearner, type SourceReader, type SupplyClient } from '../dcp-supply'
 import type { ProductionOutput, ProductionPacket } from '../local-production'
 import { fileSha, outputOf, packetOf, prepared, reviewOf, row } from './dcp-fixture'
@@ -117,6 +118,9 @@ beforeAll(async () => {
     read('20261020063000_factory_product_order_lineage_v1.sql'), GRADE_SQL, read('_pending_authored_supply.sql'),
     read('_pending_authored_ai_review.sql'), read('_pending_factory_dcp_admission.sql'),
     read('_pending_factory_dcp_learning.sql')]) await db.exec(s)
+  // Reproduce production function defaults for the new lesson functions too.
+  await db.exec(`alter default privileges in schema public grant execute on functions to anon, authenticated, service_role`)
+  await db.exec(read('_pending_source_lesson_reflection.sql'))
   await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'); insert into public.admins values ('${ADMIN}', 'admin');`)
   packet = await packetOf(false)
   output = outputOf(packet)
@@ -149,6 +153,16 @@ beforeAll(async () => {
 }, 180000)
 
 const byType = (t: string) => deliveries.find((d) => d.type === t)!
+
+describe('2B · 풀이 전 — 시범 없음', () => {
+  it('저장된 요지 풀이가 없으면 진행은 attempted=false 이고 시범을 내리지 않는다 · 단계는 같은 주문의 3개', async () => {
+    const before = await lessonProgress(learnerA, byType('main_point').delivery)
+    if (!before.ok) throw new Error(before.code)
+    expect(before.progress.steps.map((s) => s.type)).toEqual(['main_point', 'title', 'topic'])
+    expect(before.progress.steps.every((s) => !s.attempted && !s.reflected && s.state === 'ok')).toBe(true)
+    expect(modelAfterAttempt(before.progress)).toBeNull()
+  })
+})
 
 describe('D1 · 목록 → 열기 → 실제 채점 → 결속 영수증', () => {
   it('keeps already delivered materials usable after the production order is fulfilled', async () => {
@@ -318,6 +332,131 @@ describe('D3 · 멱등 · 재전송 · 키 재사용 거절', () => {
       const r = await learnerA.rpc('factory_dcp_attempt', { p_delivery: byType('topic').delivery, p_answer: ans, p_mutation: key() })
       expect(r.error?.message).toMatch(/answer must be/)
     }
+  })
+})
+
+// 2B — 같은 원문 요지 → 제목 → 주제 자기 설명(_pending_source_lesson_reflection.sql)을 실제 1D 영수증 위에 저장한다
+describe('2B · 교수 자료 결속 · 시범 타이밍 · 자기 설명 저장', () => {
+  const bodyOf = (step: ReflectionBody['step'], o: Partial<ReflectionBody> = {}): ReflectionBody => ({
+    step, claim: step === 'title' ? null : 6, support: [3], relation: '제목이 시선의 출발점을 정한다는 설명이 판단을 받친다.',
+    comparison: step === 'main_point' ? '나는 하늘 사례에 머물렀고 시범은 사례 너머의 기능을 찾았다.' : null,
+    procedure: step === 'topic' ? '사례와 설명을 가르고, 설명을 필자 판단으로 압축한 뒤 근거로 확인한다.' : null, ...o,
+  })
+  const attempt = async (t: string) => {
+    const r = await submitFactoryAttempt(learnerA, byType(t).delivery, { choice: byType(t).answer, mutationId: key() })
+    if (!r.ok) throw new Error(r.code)
+    return r.result.receiptId
+  }
+
+  it('교수 자료 파일은 수락된 정확한 바이트(SHA 0b653454…)', async () => {
+    const { createHash } = await import('node:crypto')
+    const bytes = fs.readFileSync(path.resolve(__dirname, '../../../../../knowledge/authored/source-lesson-title-route.v3.json'))
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(LESSON_SHA256)
+    expect(await q1(`select has_function_privilege('service_role','public.source_lesson_reflect(uuid,text,jsonb,uuid,uuid)','execute') writer,
+      has_function_privilege('service_role','public.source_lesson_check(uuid)','execute') helper,
+      has_function_privilege('anon','public.source_lesson_progress(uuid,text)','execute') anonymous`)).toEqual({ writer: false, helper: false, anonymous: false })
+  })
+
+  it('시범은 이 요지 납품에 저장된 풀이가 생긴 뒤에만 · 단계 3개는 같은 Workspace · 같은 주문', async () => {
+    // 풀이 전 상태(attempted=false → 시범 null)는 파일 첫 describe 「2B · 풀이 전」에서 단언한다(앞선 1D 시험이 요지를 이미 풀었다)
+    const mp = byType('main_point').delivery
+    await attempt('main_point')
+    const after = await lessonProgress(learnerA, mp)
+    if (!after.ok) throw new Error(after.code)
+    expect(modelAfterAttempt(after.progress)?.length).toBe(3)
+    // 제목 · 주제 단계에는 시범이 없다(저장된 풀이가 있어도)
+    const tp = await lessonProgress(learnerA, byType('title').delivery)
+    expect(tp.ok && modelAfterAttempt(tp.progress)).toBeNull()
+  })
+
+  it('경로의 납품과 다른 본인 영수증은 저장 전에 거절하고 행을 남기지 않는다', async () => {
+    await db.exec('begin')
+    try {
+      const receipt = await attempt('main_point')
+      const n = await count('public.source_lesson_reflection')
+      const request = { body: bodyOf('main_point'), mutationId: key(), deliveryId: byType('title').delivery }
+      expect(await submitReflection(learnerA, receipt, request)).toEqual({ ok: false, code: 'not_found' })
+      expect(await count('public.source_lesson_reflection')).toBe(n)
+    } finally { await db.exec('rollback') }
+  })
+
+  it('순서 · 멱등 · 같은 키 다른 본문 거절 · 단계당 하나 · 근거 아님', async () => {
+    const titleReceipt = await attempt('title')
+    expect(await submitReflection(learnerA, titleReceipt, { body: bodyOf('title', { support: [4] }), mutationId: key() })).toEqual({ ok: false, code: 'out_of_order' })
+    const mpReceipt = await attempt('main_point')
+    const k = key()
+    const saved = await submitReflection(learnerA, mpReceipt, { body: bodyOf('main_point'), mutationId: k })
+    if (!saved.ok) throw new Error(saved.code)
+    expect(saved.result).toMatchObject({ step: 'main_point', recorded: true, evidence: false, replayed: false })
+    const n = await count('public.source_lesson_reflection')
+    // 응답 유실 뒤 같은 본문 재전송 = 같은 결과, 행 추가 없음
+    const replay = await submitReflection(learnerA, mpReceipt, { body: bodyOf('main_point'), mutationId: k })
+    expect(replay.ok && replay.result).toMatchObject({ reflectionId: saved.result.reflectionId, replayed: true })
+    expect(await submitReflection(learnerA, mpReceipt, { body: bodyOf('main_point', { comparison: '다른 내용' }), mutationId: k })).toEqual({ ok: false, code: 'conflict' })
+    expect(await submitReflection(learnerA, mpReceipt, { body: bodyOf('main_point', { comparison: '새 키 다른 내용' }), mutationId: key() })).toEqual({ ok: false, code: 'conflict' })
+    expect(await count('public.source_lesson_reflection')).toBe(n)
+    expect(await q1(`select evidence, non_evidence_reason, step, workspace_id, lesson_sha256 from public.source_lesson_reflection where id = $1`, [saved.result.reflectionId]))
+      .toEqual({ evidence: false, non_evidence_reason: 'guided_reflection', step: 'main_point', workspace_id: wsA, lesson_sha256: LESSON_SHA256 })
+    // 이제 제목 → 주제
+    const t = await submitReflection(learnerA, titleReceipt, { body: bodyOf('title', { support: [8] }), mutationId: key() })
+    expect(t.ok).toBe(true)
+    // 주제 단계는 자기 절차가 없으면 DB 가 거절(클라이언트 거름을 건너뛴 직접 호출)
+    const topicReceipt = await attempt('topic')
+    expect(await submitReflection(learnerA, topicReceipt, { body: bodyOf('topic', { procedure: null }), mutationId: key() })).toEqual({ ok: false, code: 'invalid_input' })
+    // 영수증과 다른 단계 이름은 거절
+    expect(await submitReflection(learnerA, topicReceipt, { body: bodyOf('title'), mutationId: key() })).toEqual({ ok: false, code: 'invalid_input' })
+    expect((await submitReflection(learnerA, topicReceipt, { body: bodyOf('topic', { support: [1, 5] }), mutationId: key() })).ok).toBe(true)
+    const p = await lessonProgress(learnerA, byType('topic').delivery)
+    expect(p.ok && p.progress.steps.every((s) => s.reflected)).toBe(true)
+  })
+
+  it('안내 설명은 독립 평가 근거(G2 · learning_task_attempts)를 만들지 않는다', async () => {
+    for (const t of ['public.learning_task_attempts', 'public.workspace_delivery_attempt']) {
+      const exists = (await q1<{ r: string | null }>(`select to_regclass($1)::text r`, [t])).r
+      if (exists) expect(await count(t)).toBe(0)
+    }
+    expect(await count(`public.source_lesson_reflection where evidence is not false`)).toBe(0)
+  })
+
+  it('타인 · 교수 자료 판본 불일치 · 닫힌 Workspace · 철회 · 직접 insert 거절', async () => {
+    const r = (await q1<{ id: string }>(`select id from public.factory_dcp_attempt where user_id = $1 limit 1`, [A])).id
+    expect(await submitReflection(learnerB, r, { body: bodyOf('main_point'), mutationId: key() })).toEqual({ ok: false, code: 'not_found' })
+    expect(await lessonProgress(learnerB, byType('main_point').delivery)).toEqual({ ok: false, code: 'not_found' })
+    const bad = await learnerA.rpc('source_lesson_progress', { p_delivery: byType('main_point').delivery, p_lesson_sha: '0'.repeat(64) })
+    expect(bad.data).toEqual({ state: 'lesson_mismatch' })
+    await db.exec('begin')
+    try {
+      await db.query(`update public.learner_workspace set status = 'closed' where id = $1`, [wsA])
+      expect(await lessonProgress(learnerA, byType('title').delivery)).toEqual({ ok: false, code: 'workspace_closed' })
+    } finally { await db.exec('rollback') }
+    await db.exec('begin')
+    try {
+      const receipt = await attempt('topic')
+      const rv = await admin.rpc('content_release_revoke', { p_approval: byType('topic').approval, p_reason: '2B 격리 철회 시험' })
+      expect(rv.error).toBeNull()
+      expect(await lessonProgress(learnerA, byType('topic').delivery)).toEqual({ ok: false, code: 'not_current' })
+      expect(await submitReflection(learnerA, receipt, { body: bodyOf('topic'), mutationId: key() })).toEqual({ ok: false, code: 'not_current' })
+    } finally { await db.exec('rollback') }
+    await expect(db.query(`insert into public.source_lesson_reflection (user_id, mutation_id, lesson_id, lesson_sha256, source_id, source_content_sha256, attempt_id,
+      delivery_id, workspace_id, order_id, artifact_revision, step, body, body_hash, result) select $1, gen_random_uuid(), 'title-route-central-meaning.v3', $2,
+      gen_random_uuid(), 'x', id, delivery_id, workspace_id, gen_random_uuid(), artifact_revision, 'main_point', '{}', repeat('a', 64), '{}' from public.factory_dcp_attempt limit 1`,
+      [A, LESSON_SHA256])).rejects.toThrow()
+  })
+
+  it('형성 피드백: 단계별 근거 대안 · 주장 6/7 · 목록 밖은 오답이 아닌 함께 검토 · 클라이언트 본문은 닫힌 키', () => {
+    for (const s of [[2], [3], [4], [5]]) expect(formativeFeedback('main_point', 7, s).support).toBe('sufficient')
+    expect(formativeFeedback('main_point', 6, [0, 1]).support).toBe('discussable')
+    expect(formativeFeedback('main_point', 6, [2]).claim).toBe('accepted')
+    expect(formativeFeedback('main_point', 1, [2]).claim).toBe('discussable')
+    for (const s of [[3], [4], [8]]) expect(formativeFeedback('title', null, s).support).toBe('sufficient')
+    for (const s of [[1, 5], [1, 2], [2, 5]]) expect(formativeFeedback('topic', 7, s).support).toBe('sufficient')
+    expect(formativeFeedback('topic', 7, [5]).support).toBe('discussable')
+    expect(formativeFeedback('topic', 1, [1, 5]).claim).toBe('not_asked')
+    const ok = { attemptId: key(), mutationId: key(), body: bodyOf('main_point') }
+    expect(parseReflectionRequest(ok)).not.toBeNull()
+    expect(parseReflectionRequest({ ...ok, userId: A })).toBeNull()
+    expect(parseReflectionRequest({ ...ok, body: { ...ok.body, comparison: null } })).toBeNull()
+    expect(parseReflectionRequest({ ...ok, body: { ...ok.body, evidence: true } })).toBeNull()
   })
 })
 

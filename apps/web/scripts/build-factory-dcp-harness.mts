@@ -21,6 +21,7 @@ import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
 
 import { CONTENT } from '../src/lib/csat/map/v62/factory-bridge/__tests__/dcp-fixture'
+import { beforeAnswerSupport, LESSON_SENTENCES } from '../src/lib/csat/map/v62/factory-bridge/source-lesson'
 
 const ROOT = path.resolve('.')
 const require = createRequire(path.join(ROOT, 'package.json'))
@@ -74,6 +75,13 @@ const ITEM = {
   },
 }
 const DELIVERY = '00000000-0000-4000-8000-00000000dd01'
+const reviewed = JSON.parse(fs.readFileSync(path.resolve('../../docs/implementation/learning-outcomes-20261021/evidence/ai-trial-portable-evidence.json'), 'utf8'))
+  .training_script.items as { type: string; stem: string; choices: { text: string }[] }[]
+const lessonItems = Object.fromEntries(reviewed.map((it) => [it.type, {
+  ...ITEM, type: it.type, payload: { ...ITEM.payload, stemKo: it.stem, choices: it.choices.map((c) => c.text) },
+}]))
+// Compute server-only lesson projections here: the browser bundle receives no model/Gold asset.
+const lessonBefore = Object.fromEntries((['main_point', 'title', 'topic'] as const).map((s) => [s, beforeAnswerSupport(s)]))
 
 const shims: Record<string, string> = {
   'next/link': `import { createElement } from 'react'; export default function Link({ href, children, ...rest }) { return createElement('a', { href: typeof href === 'string' ? href : String(href), ...rest }, children) }`,
@@ -86,12 +94,20 @@ const entry = `
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { FactoryDcpRunner } from '@/components/csat/factory/FactoryDcpRunner'
-createRoot(document.getElementById('root')).render(createElement(FactoryDcpRunner, ${JSON.stringify({ deliveryId: DELIVERY, item: ITEM, returnHref: '/csat/diagnosis?tab=map&view=full', attempts: 0 })}))
+// 2B — #lesson=main_point|title|topic 이면 페이지(page.tsx)가 넘기는 것과 같은 교수 자료 props(답변 전 지원 · 문장 목록)를 싣는다. 시범은 싣지 않는다
+const base = ${JSON.stringify({ deliveryId: DELIVERY, item: ITEM, returnHref: '/csat/diagnosis?tab=map&view=full', attempts: 0 })}
+const step = (/lesson=(main_point|title|topic)/.exec(location.hash) || [])[1]
+const items = ${JSON.stringify(lessonItems)}
+const before = ${JSON.stringify(lessonBefore)}
+const sentences = ${JSON.stringify(LESSON_SENTENCES)}
+const props = step ? { ...base, item: items[step],
+  lesson: { step, before: before[step], sentences, returnQuery: '?from=map' } } : base
+createRoot(document.getElementById('root')).render(createElement(FactoryDcpRunner, props))
 `
 
 const r = await build({
   stdin: { contents: entry, resolveDir: ROOT, loader: 'tsx' },
-  bundle: true, write: false, format: 'iife', platform: 'browser', jsx: 'automatic', target: 'es2020',
+  bundle: true, write: false, metafile: true, format: 'iife', platform: 'browser', jsx: 'automatic', target: 'es2020',
   define: { 'process.env.NODE_ENV': '"production"' },
   loader: { '.css': 'empty' },
   plugins: [{
@@ -104,6 +120,9 @@ const r = await build({
   }],
 })
 const js = r.outputFiles[0]!.text
+if (!r.metafile || Object.keys(r.metafile.inputs).some((f) => f.replace(/\\/g, '/').endsWith('/source-lesson-title-route.v3.json'))) {
+  throw new Error('server-only model/Gold asset entered the browser harness bundle')
+}
 const out = path.resolve('tests/fixtures/factory-dcp-harness.html')
 fs.mkdirSync(path.dirname(out), { recursive: true })
 fs.writeFileSync(out, `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

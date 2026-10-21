@@ -325,6 +325,8 @@ export type PublicEvent =
   | { name: 'csat_factory_dcp_opened'; props: { type: 'topic' | 'title' | 'main_point'; attempts: number } }
   | { name: 'csat_factory_dcp_submitted'; props: { type: 'topic' | 'title' | 'main_point'; correct: boolean; replayed: boolean } }
   | { name: 'csat_factory_dcp_returned'; props: { finished: boolean } }
+  /** 2B — 한 원문 안내 연습의 자기 설명이 저장됐다(형성 피드백 근거 충분/함께 검토). DB 허용 목록 `_pending_source_lesson_reflection.sql`(미적용) */
+  | { name: 'csat_source_lesson_reflected'; props: { step: 'main_point' | 'title' | 'topic'; support: 'sufficient' | 'discussable'; replayed: boolean } }
   /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
@@ -622,6 +624,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_factory_dcp_opened: true,
   csat_factory_dcp_submitted: true,
   csat_factory_dcp_returned: true,
+  csat_source_lesson_reflected: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

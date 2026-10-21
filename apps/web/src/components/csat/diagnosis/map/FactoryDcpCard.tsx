@@ -29,6 +29,24 @@ const STATE: Record<string, string> = {
   product_not_current: '제작 주문이 바뀜',
 }
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+/** 목록 응답의 닫힌 모양 — 한 줄이라도 모르면 전체를 오류로 본다(미상을 0 · 학습 가능으로 바꾸지 않는다) */
+export function readFactoryList(j: unknown): { rows: Row[]; sources: number } | null {
+  if (!j || typeof j !== 'object') return null
+  const { rows, sources } = j as { rows?: unknown; sources?: unknown }
+  if (!Array.isArray(rows) || typeof sources !== 'number' || !Number.isInteger(sources) || sources < 0) return null
+  const out: Row[] = []
+  for (const x of rows) {
+    const r = x as Record<string, unknown>
+    if (!r || typeof r !== 'object' || typeof r.deliveryId !== 'string' || !UUID.test(r.deliveryId) || typeof r.sourceId !== 'string' || !UUID.test(r.sourceId)
+        || !(r.type === 'topic' || r.type === 'title' || r.type === 'main_point') || typeof r.state !== 'string'
+        || typeof r.attempts !== 'number' || !Number.isInteger(r.attempts) || r.attempts < 0 || !(r.lastCorrect === null || typeof r.lastCorrect === 'boolean')) return null
+    out.push({ deliveryId: r.deliveryId, sourceId: r.sourceId, type: r.type, state: r.state, attempts: r.attempts, lastCorrect: r.lastCorrect })
+  }
+  if (new Set(out.map((r) => r.sourceId)).size !== sources) return null
+  return { rows: out, sources }
+}
+
 /** 한 줄 상태 — 링크는 state === 'ok' 일 때만. 모르는 상태는 학습 가능으로 올리지 않는다 */
 export function factoryRowState(r: Pick<Row, 'state' | 'attempts' | 'lastCorrect'>): { link: boolean; label: string } {
   if (r.state !== 'ok') return { link: false, label: STATE[r.state] ?? '지금 열 수 있는지 확인하지 못했어요' }
@@ -47,7 +65,8 @@ export function FactoryDcpCard({ template, ctx }: { template: string; ctx?: MapR
         if (!live) return
         if (!r.ok || !j) return setListed({ status: 'error' })
         if (j.status === 'not_installed') return setListed({ status: 'not_installed' })
-        if (j.status === 'installed' && Array.isArray(j.rows)) return setListed({ status: 'installed', rows: j.rows as Row[], sources: Number(j.sources) || 0 })
+        const list = j.status === 'installed' ? readFactoryList(j) : null
+        if (list) return setListed({ status: 'installed', ...list })
         setListed({ status: 'error' })
       } catch { if (live) setListed({ status: 'error' }) }
     })()

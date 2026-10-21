@@ -97,9 +97,9 @@ const uuid = () => crypto.randomUUID()
 
 /**
  * 자기 설명과 나란히 볼 공급 설명 — 응답 뒤 공개분(reveal)의 설명 문장 + 교수 단계 글. 새로 지어내지 않는다.
- * 창작 설명은 사람 검수 전이라 「검수된 원리」로 부르지 않는다(MODEL_LABEL). 설명이 없으면 null(비교 자료 부족 안내)
+ * 공용 표시에서 개별 검수 상태를 추정하지 않고 「제공된 설명」으로 부른다. 설명이 없으면 null(비교 자료 부족 안내)
  */
-export const MODEL_LABEL = '제공된 설명(사람 검수 전)'
+export const MODEL_LABEL = '제공된 설명'
 export function modelOf(reveal: Record<string, unknown> | null, teach: readonly TeachStep[] | null): InquiryPrinciple | null {
   const text = (['gist', 'rationale', 'why', 'reason', 'senseGloss'] as const).map((k) => reveal?.[k]).find((v): v is string => typeof v === 'string' && v.trim().length > 0)
   const steps = (teach ?? []).map((t) => t.text).filter((x) => typeof x === 'string' && x.trim())

@@ -32,7 +32,7 @@ const ORDER: Role[] = ['model_explanation', 'guided_practice', 'independent_chec
 /** 서버가 확인한 거절 이유(닫힌 코드 · server.ts RejectReason)만 학습자 말로 — 모르는 코드는 「확인하지 못했어요」 */
 const REJECT: Record<string, string> = {
   exposure: '이미 본 자료라 다시 드리지 않아요',
-  human_decision: '사람 검수 결정(권리 · 정답)이 없어 드릴 수 없어요',
+  human_decision: '권리·정답 검수 결정을 확인하지 못해 드릴 수 없어요',
   approval: '출시 승인이 없어 드릴 수 없어요',
   quantity: '이번 계획 수량을 이미 채웠어요',
 }

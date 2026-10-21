@@ -3,11 +3,26 @@
 import { describe, expect, it } from 'vitest'
 
 import { newMutationKey, readAttemptResponse } from '../FactoryDcpRunner'
+import { readReflectionResponse } from '../SourceLessonPanel'
 
 const D = '11111111-1111-4111-8111-111111111111'
 const A = '22222222-2222-4222-8222-222222222222'
 const R = '66666666-6666-4666-8666-666666666666'
 const V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+
+describe('reflection save confirmation', () => {
+  const response = () => ({ result: { reflectionId: R, deliveryId: D, attemptId: A, step: 'main_point', recorded: true, evidence: false, replayed: false }, feedback: { support: 'sufficient', claim: 'accepted', note: '고른 근거가 판단을 받친다.' } })
+  it('requires an actual receipt for this delivery and attempt', () => {
+    expect(readReflectionResponse(response(), D, A, 'main_point')).toMatchObject({ replayed: false })
+    expect(readReflectionResponse({ result: { recorded: true, evidence: false, attemptId: A, step: 'main_point' }, feedback: response().feedback }, D, A, 'main_point')).toBeNull()
+    expect(readReflectionResponse(response(), A, A, 'main_point')).toBeNull()
+    expect(readReflectionResponse(response(), D, D, 'main_point')).toBeNull()
+  })
+  it('does not turn unknown replay or feedback fields into completion', () => {
+    expect(readReflectionResponse({ ...response(), result: { ...response().result, replayed: undefined } }, D, A, 'main_point')).toBeNull()
+    expect(readReflectionResponse({ ...response(), feedback: { ...response().feedback, claim: 'unknown' } }, D, A, 'main_point')).toBeNull()
+  })
+})
 
 describe('newMutationKey', () => {
   it('randomUUID 를 쓴다', () => expect(newMutationKey({ randomUUID: () => R, getRandomValues: <T,>(b: T) => b })).toBe(R))
@@ -25,7 +40,7 @@ describe('newMutationKey', () => {
 
 describe('readAttemptResponse — 200 이어도 영수증 · 실제 시도 id 가 없으면 완료가 아니다', () => {
   const ok = { result: { receiptId: R, deliveryId: D, correct: false, csatAttemptId: A, answerKey: { answer: 3 }, evidence: false, replayed: false } }
-  it('정상', () => expect(readAttemptResponse(ok, D)).toEqual({ correct: false, csatAttemptId: A, answerKey: { answer: 3 }, replayed: false }))
+  it('정상', () => expect(readAttemptResponse(ok, D)).toEqual({ correct: false, receiptId: R, csatAttemptId: A, answerKey: { answer: 3 }, replayed: false }))
   it.each([
     [{ result: { correct: true } }], [{ result: { ...ok.result, receiptId: undefined } }], [{ result: { ...ok.result, csatAttemptId: null } }],
     [{ result: { ...ok.result, csatAttemptId: 'x' } }], [{ result: { ...ok.result, deliveryId: A } }], [{ result: { ...ok.result, evidence: true } }],
