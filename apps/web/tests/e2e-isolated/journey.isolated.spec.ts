@@ -62,6 +62,13 @@ async function observe(page: Page) {
   const nextLabel = (await pop.locator('[data-testid="pop-next"]').count()) ? (await pop.locator('[data-testid="pop-next"]').innerText()).trim() : null
   return { priority, evidence, next: next?.split('?')[0] ?? null, nextHref: next ?? null, nextLabel, blocked }
 }
+/** T-0076 — 지도 팝업 → 자세히(키보드) → 근거 상세: 바로잡기 상태 · 이번 판정 독립 확인 수(observe 뒤 팝업이 열린 상태에서) */
+async function evidenceDetail(page: Page) {
+  await page.locator('[data-testid="pop-detail"]').focus(); await page.keyboard.press('Enter')
+  const block = page.locator('[data-testid="task-inspector"] [data-testid="ins-evidence-claims"]')
+  await expect(block).toBeVisible({ timeout: 15_000 })
+  return { repair: (await block.locator('[data-testid="ev-repair"]').innerText()).trim(), items: await block.locator('[data-testid="ev-check"]').getAttribute('data-current-items') }
+}
 /** 실제 자료 받기 API(학습자 세션) — 지금 저장 PLAN · 단계의 수요로 공급. 줄마다 역할 · 받은 ref */
 async function supply(page: Page): Promise<{ role: string; delivered: string[]; requested: number }[]> {
   const r = await page.request.post('/api/csat/authored/supply', { data: { task: TASK, template: TEMPLATE } })
@@ -334,6 +341,10 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   const afterWrong = await observe(page)
   expect(afterWrong.next, '오답 뒤에도 같은 안내 연습').toBe(`/csat/learn/${guided.id}`)
   expect(afterWrong.evidence).toBe('need_confirmed')
+  // T-0076 — 근거 상세 = PLAN repairGate 와 같은 판정: 결속된 안내 연습 오답 = 해 봤어요(성공 아님) · 이번 판정 독립 확인 2문항(0 으로 바꾸지 않음)
+  const wrongDetail = await evidenceDetail(page)
+  expect(wrongDetail.repair, '안내 연습 오답 = 시도').toContain('해 봤어요')
+  expect(wrongDetail.items, '이번 판정 독립 확인 수').toBe('2')
   // 2) 다시 열기 → 「다시 풀기」 → 정답(append-only 새 시도 · 앞 기록 유지)
   await page.goto(afterWrong.nextHref!, { waitUntil: 'domcontentloaded' })
   await page.locator('[data-testid="authored-retry"]').click()
@@ -342,6 +353,11 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
   await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid).eq('delivery_id', guidedDid)).data ?? []).map((b) => b.evidence), { timeout: 15_000 }).toEqual([false, false])
   const guidedRows = (await admin().from('learning_task_attempts').select('is_correct').eq('user_id', uid).eq('item_ref', `authored:${guided.id}`).order('answered_at')).data ?? []
   expect(guidedRows.map((r) => r.is_correct), '안내 연습 이력 append-only').toEqual([false, true])
+  await observe(page)
+  const rightDetail = await evidenceDetail(page)
+  expect(rightDetail.repair, 'T-0076 결속된 안내 연습 정답 = 맞혀 봤어요(PLAN 바로잡기 통과와 같은 판정)').toContain('맞혀 봤어요')
+  expect(rightDetail.items).toBe('2')
+  await snap(page, 'map-evidence-guided-right')
   // 기록 — 처음 독립 오답 2 의 자격 · G2 결속은 그대로 · 안내 연습은 연습 활동
   const firstsAfter = (await admin().from('learning_first_attempts').select('item_ref, help_level, timing_uncertain, is_correct').eq('user_id', uid).in('item_ref', delivered.map((d) => `authored:${d.item.id}`))).data ?? []
   expect(firstsAfter.length).toBe(2)
