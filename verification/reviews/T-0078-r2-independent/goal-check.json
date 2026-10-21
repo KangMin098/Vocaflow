@@ -1,0 +1,15 @@
+{
+  "main": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+  "ref": "main",
+  "worktree": "D:/workspace/Vocaflow-main-serving",
+  "report": "verification/goal-check/GC-2026-10-21T11-56-46-895Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 1,
+    "EXTERNAL_INPUT_REQUIRED": 1
+  },
+  "changes": [],
+  "ci_read": false,
+  "global_config_changed": false,
+  "note": "Actual canonical local main after T0078. UNKNOWN is evidence not established, not an unimplemented count. Component/API mock acceptance does not close broad product or real DB/content criteria."
+}
