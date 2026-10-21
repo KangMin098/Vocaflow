@@ -234,6 +234,9 @@ const nextConfig = {
   // "failed to parse input file: Syntax Error" 로 실패. Terser minifier 로 폴백.
   // (기존 main 부터 깨진 상태 — CI 가 typecheck/lint 만 게이트해 미발견.)
   swcMinify: false,
+  // 공유 PC의 전체 CPU 수만큼 Terser Worker를 만들면 큰 청크 전달 중
+  // DataCloneError/OOM이 난다(2026-10-21 격리 빌드 실측). 빌드 병렬도를 제한한다.
+  experimental: { cpus: 2 },
   // v06.92 — 기존 lint 부채(74건)로 `next build` 산출물 생성이 막혀 임시로 lint 를 빌드에서 분리했었음.
   // v06.117 — 부채 청산 완료(`next lint` = 0 error / 6 warning). 빌드-타임 lint 게이트 복원.
   //   build 는 error 만 차단(warning 은 통과) — exhaustive-deps 잔여 6건은 warning 이라 무영향.

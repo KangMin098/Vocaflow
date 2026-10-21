@@ -1,5 +1,9 @@
 # Conventions
 
+## 공유 PC의 프로덕션 빌드
+
+Next 14의 Terser 병렬도는 `experimental.cpus`를 따른다. 전체 CPU 수로 큰 청크를 Worker에 보내면 공유 16GB PC에서 `DataCloneError: Data cannot be cloned, out of memory`가 발생해, 기본 병렬도를 2로 제한한다. SWC 대체·minify 비활성화로 검사나 산출물 형식을 바꾸지 않는다. 검증 빌드는 실행 서버와 별도 `NEXT_DIST_DIR`을 사용한다. 실패 로그와 재실행 로그는 구분해 보존한다.
+
 ## 관리자 화면의 읽기 폴링
 
 URL 선택·팝업과 함께 실행되는 초기 조회/폴링은 관리자 GET API로 읽고 캐시를 금지한다. 읽기 Server Action이 진행 중일 때 History API의 URL 복원이 끼어들면 Next가 재갱신을 예약하고 화면을 재마운트할 수 있다. 도서 큐에서 실제 상세 자동 닫힘을 재현했다. 큐 조회는 `GET /api/admin/library/curation-jobs`와 기존 세션/RLS 조회를 사용하며, 적재·삭제 같은 변경만 기존 Server Action에 둔다. 가드 실패·종류 오류의 데이터 조회 금지와 통신 실패의 명시적 실패 결과를 회귀로 지킨다.

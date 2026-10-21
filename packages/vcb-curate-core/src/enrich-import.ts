@@ -168,11 +168,12 @@ export async function importEnrichmentResult(
     }
 
     return {
-      ok: true,
+      ok: failed === 0,
       imported,
       skipped,
       failed,
       total: parsed.items.length,
+      ...(failed > 0 ? { error: `${failed} enrichment queue updates failed; check persisted rows before retrying` } : {}),
     }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
