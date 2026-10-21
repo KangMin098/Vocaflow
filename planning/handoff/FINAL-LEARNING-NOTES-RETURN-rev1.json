@@ -1,0 +1,39 @@
+{
+  "goal_id":"VG-L3-B2-02",
+  "related_goal_ids":["VG-L3-A2-01"],
+  "title":"Workspace에서 내 원리 노트·고쳐 쓴 설명을 다시 찾고 학습 이어가기",
+  "description":"FINAL D/F/H. T0063은 교수·안내 자료 안에서 자기 설명 작성→대조→고쳐 쓰기→같은 지도 복귀를 이미 해결했다. 그러나 지도/Workspace는 reasoningNotes를 읽지 않아 재방문한 학습자는 내 설명을 찾으려면 원래 자료부터 다시 열어야 한다. 기존 서버의 본인 노트와 TASK별 납품 목록을 읽기 전용으로 이어, 이 TASK에서 내가 남긴 생각과 수정 이력을 보고 유효한 교수 자료 학습으로 돌아가게 한다. T0070 목표-계획 요약/판정/관문은 재구현하지 않는다. 새 통합관찰 채점기나 숙달 지표를 만들지 않는다.",
+  "priority":"P1",
+  "owner_id":"final-product",
+  "branch":"feat/vocaflow-final-product",
+  "worktree":"D:/workspace/Vocaflow-final-product",
+  "base_commit":"7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a",
+  "duplicate_reason":"T0070과같은상위수용기준의partial기여이나기능은별개다. T0070은목표-계획요약,본작업은기존노트재조회다. 공유경로는기존공통문서/테스트부모범위이며실제제품파일(AuthoredSupplyCard/WorkspaceModal/새LearningNotesPanel)은T0070변경파일과겹치지않는다. 기존단일writer가순차구현하고T0070완료로위장하거나범위를탈취하지않는다.",
+  "roles":{"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "allowed_paths":[
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/LearningNotesPanel.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/popup.module.css",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/learning-notes*.test.tsx",
+    "apps/web/src/lib/csat/map/v62/learning-notes.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/learning-notes.test.ts",
+    "apps/web/tests/e2e-isolated/**",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths":[".env*","supabase/**","**/*.sql",".github/**","agents/**","goals/**","docs/csat-learner/v4/**","apps/web/src/app/api/**","apps/web/src/lib/knowledge/**","apps/web/src/lib/csat/map/v4/**","apps/web/src/lib/csat/map/v62/goal-plan.ts","apps/web/src/lib/csat/map/v62/next-action.ts","apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx","apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx","apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx","apps/web/src/components/csat/diagnosis/map/unified.module.css","apps/web/src/lib/csat/dissect.ts","apps/web/src/lib/csat/continuity.ts","apps/web/src/lib/csat/session/store.ts","apps/web/src/components/csat/theater/ReasoningNoteForm.tsx"],
+  "depends_on":["T-0063","T-0067"],
+  "db_scope":{"mode":"none","targets":[]},
+  "criterion_claims":[{"criterion_id":"VG-L3-B2-02-AC1","claim":"partial"}],
+  "acceptance":[
+    "기존 Workspace의 TASK별 받은 자료 영역에 접힌 '내 원리 노트' 조회를 연결한다(새화면/새탭 불필요). 해당 TASK에서 이미 저장한 내 설명·근거·적용 조건/한계를 읽고 처음/고친 설명의 연결을 확인할 수 있다. T0063의 rootNoteOf/revisionChain·텍스트 렌더·기존3B카드를 재사용한다. 단순 글 수정 횟수나 노트 수를 성취로 표시하지 않는다. 기존 노트 작성·고쳐쓰기·서버 저장 계약은 바꾸지 않는다.",
+    "인증된 GET /api/csat/state의 서버 사본과 GET /api/csat/authored?task=...의 본인 납품 메타데이터만 재사용한다. 먼저 사용자가 펼친 TASK만 지연 조회해 불필요한 반복 요청을 줄인다. item ref+authored.deliveryId가 이 TASK 납품에 정확히 일치하고 역할이 model_explanation/guided_practice인 노트만 연결한다. 다른 TASK/남의 납품/평가 역할/유효한 연결을 모르는 노트를 현재 TASK 노트로 추측하지 않는다. 다른 Workspace에서 쓴 노트여도 같은 TASK에 정확히 결속되면 '이 TASK의 기록'으로 보되 지금 목표·계획에서 쓴 기록이라고 주장하지 않는다. 기출·MeaningNote·통합관찰3종·V1 기록을 새로 이 목록에 억지 매핑하지 않는다.",
+    "조회는 읽기 전용이다. loadSyncedDissectionRecord는 로컬+서버 병합/PUT을 일으킬 수 있으므로 이 조회를 위해 쓰지 않는다. 새 IndexedDB/전역 캐시/저장API/표를 만들지 않는다. viewer/TASK가 바뀔 때 이전 응답·화면을 지우고 늦은 응답이 섞이지 않게 한다. 보류 판정 실패·로그아웃·서버 오류·공급 미설치/알 수 없는 연결은 '확인 못 함/준비중'이고 성공적으로 읽은 빈 목록과 구별한다. 서버에서 걸러진 보류 문항 노트를 로컬 사본으로 되살리지 않는다. 노트 본문/문항 원문/학습자 식별자는 이벤트·로그에 보내지 않는다.",
+    "현재 유효함(current===true)이 확인된 해당 교수 납품만 기존 학습 화면의 '이어서 보기/대조하기'로 연결한다. 철회·현재 상태 미확인일 때는 새 자료 링크 없이 허용된 본인 과거 노트의 읽기만 유지한다. 노트의 작성 당시 주석과 현재 설명이 같은 판인지 확인되지 않으면 최신 설명과 대조 완료했다고 말하지 않는다. 실제 대조·고쳐쓰기는 기존 학습 화면의 판 검사로 맡긴다. 과거 기준 지도는 조회만 하고 학습 링크는 내지 않는다. 복귀는 기존 withMapReturn/outgoingCtx로 같은 TASK/Workspace/현재 목표·PLAN 문맥을 보존하고 map_item/map_attempt를 지어내거나 옛 영수증을 넘기지 않는다.",
+    "이 경로는 설명 뒤의 학습 기록 조회이며 독립 첫 시도/G2/As-Is/통합관찰 완료/PLAN 진전/숙달/지연 유지로 승격하지 않는다. 대표 격리 학습자가 기존 경로로 노트 작성·대조·고쳐쓰기→지도 복귀→새로고침/다시 진입→같은 TASK의 처음/고친 노트 조회→유효 교수 자료로 이동→같은 지도 복귀를 수행할 때 본인 노트와 최초 독립 근거·G2·목표·PLAN 이력이 유지되는지 확인한다. T0062/63의 기존 인증 여정을 확장해1440/1280에서 확인하고 T0070 A/B와 다음 공식 통합 묶음으로 실행한다. 미실행 브라우저를 단위 성공으로 대체하지 않는다. 관련 단위/컴포넌트 반례만 로컬 실행하며 전량 재시험/개별PR·CI/worker를 추가하지 않는다. 실제 개발DB쓰기·SQL적용·사람Gold/권리 승인 금지."
+  ],
+  "ui_acceptance":["기존3B Workspace와 받은 자료 카드에서 '내가 무엇을 설명했고 어떻게 고쳤는지'를 쉽게 찾는다. 기본은 접힌 짧은 안내이며 상세는 필요할 때만 연다. 빈 기록과 조회 실패를 구분하고, 키보드 펼치기·노트 읽기·현재 자격 자료로 이동·같은 지도 복귀가1440/1280에서 작동한다. 설명 뒤 기록임을 알리고 미측정 능력이나 수행 효과 수치를 만들지 않는다."],
+  "impact":{"kind":"platform","parent_goal_id":"VG-L3-B2-02","acceptance_ids":["VG-L3-B2-02-AC1"],"current_gap":"T0063의 내 설명·수정 이력이 자료 안에만 있고 지도/Workspace 재방문에서는 읽히지 않아 저장한 학습을 다음 학습의 출발점으로 찾기 어렵다.","expected_impact":"advances","dependency_type":"direct","evidence_required":["기존 본인 노트/납품의 엄격한 TASK 연결·읽기전용·권한/오류 반례","기존 인증 여정에서 저장한 설명 재조회와 동일TASK 왕복·진단/원장 불변"],"out_of_scope":["새 노트 작성기/동기화·CAS 재구현","새 TASK/Workspace/통합관찰 자동판정","노트 내용을 능력·G2·숙달·PLAN 진전으로 채점","기출/어휘 기록의 임의 TASK 매핑","DB/Gold/권리 적용","T0070 재구현·작업별PR/CI·AI-Control 확장"],"next_dependency":"T0045에서 T0070+본작업의 공식 묶음 인증브라우저 수용 후 통합관찰 실제 산출물의 다음 공백 평가"},
+  "source":{"mission":"FINAL-MISSION-A~H","design_revision":"rev1","goals_ah":["D","F","H"],"from_owner":"final-independent-accept","from_session":"01a14de8-2485-7a53-b530-d5612f35e57a","to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b","facts":"현재head7c8eefe21. WorkspaceModal/AuthoredSupplyCard는 납품/복귀만 표시; reasoningNotes 읽기는 AuthoredRunner와AnalysisTheater에만 존재. GET state는 본인+보류필터, GET authored는 TASK별 본인납품/current메타. 기존store의loadSyncedDissectionRecord는읽으면서PUT할수있어제외. 통합관찰3종은하위근거만모으고별도숙달계산없음.","dedup":"T0063 작성/대조/수정은완료범위로재사용. T0070 목표-계획요약은REVIEW/코드수용범위그대로. T0020 구지도개편파일과겹치지않음. 기존final-product 단일writer/워크트리;원audit2파일보존.","t0070_canonical_evidence":"T-0070-R2-E02; independent E03 is supplemental, not replacement; browser remains NOT_VERIFIED"}
+}

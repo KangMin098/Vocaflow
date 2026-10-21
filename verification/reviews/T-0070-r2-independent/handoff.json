@@ -9,5 +9,10 @@
   "independent_evidence": "T-0070-R2-E03",
   "remaining": "Authenticated isolated A/B; actual1440/1280 UI; no task completion/integration/merge",
   "db_writes": 0,
-  "acknowledged": false
+  "acknowledged": false,
+  "canonical_implementation_evidence": "T-0070-R2-E02",
+  "independent_evidence_role": "T-0070-R2-E03 supplemental only",
+  "pending_browser_protocol": "Next formal integration exact-head authenticated A/B and actual1440/1280; pass completes same task, failure returns only its defect",
+  "next_product_task": "T-0071",
+  "updated_at": "2026-10-21T00:59:34.544Z"
 }
