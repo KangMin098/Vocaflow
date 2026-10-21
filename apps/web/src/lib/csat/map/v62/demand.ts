@@ -7,6 +7,7 @@
 
 import type { V4View } from '../v4/compose'
 import { CANON_VERSION, checkKeysOfTask, taskOf, templateOf, type TaskId } from '../v4/definition'
+import { supplementOf } from './instructional-supplement'
 import type { StageKey } from '../v4/workspace'
 import { TRANSFER_PASSAGES } from '../v4/workspace'
 import { CHECK_ITEMS, VERIFY_ITEMS } from '../skill-diagnosis'
@@ -133,7 +134,10 @@ export function buildDemand(view: V4View, task: TaskId, template: string | null,
     reason,
   })
   const lines: DemandLine[] = []
-  if (def.status !== 'hold') {
+  // T-0083 — 학습 전용 보조 진입(닫힌 표): 교수 2역할만 · 평가 역할 없음 · 단계/REPAIR 판정을 만들지 않는다(기존 이유 need_without_stage)
+  const supplement = supplementOf(template, task)
+  if (supplement && def.status !== 'hold') for (const r of supplement.roles) lines.push(base(r, 'need_without_stage'))
+  else if (def.status !== 'hold') {
     if (stage) for (const s of STAGE_ROLES[stage]) lines.push(base(s.role, s.reason))
     else if (plan?.need === 'MAINTAIN') lines.push(base('delayed_check', 'maintain'))
     // 단계가 없어도(콘텐츠 없음 · 목표 없음) 교육적 필요가 있으면 확인 수요를 남긴다 — 재고 0 을 「무관」으로 바꾸지 않는다

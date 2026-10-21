@@ -12,6 +12,7 @@ import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-he
 import { loadMapPage } from '@/lib/csat/map/load'
 import { composeV4 } from '@/lib/csat/map/v4/compose'
 import { EVIDENCE_UNAVAILABLE, evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
+import { supplementOf } from '@/lib/csat/map/v62/instructional-supplement'
 import { taskOf, templateOf, type TaskId } from '@/lib/csat/map/v4/definition'
 import { createClient } from '@/lib/supabase/server'
 
@@ -30,7 +31,8 @@ export async function POST(req: Request) {
     }
     // T-0056 — TASK 가 그 Workspace 의 중심 또는 보조로 실제 들어 있어야 한다(클라이언트가 고른 task · template 짝은 권한이 아니다)
     const def = templateOf(template)
-    if (!def || !(def.core.includes(task as TaskId) || def.support.includes(task as TaskId))) {
+    // T-0083 — 정본 밖 예외는 닫힌 학습 전용 보조 진입(instructional-supplement)만 — 교수 2역할만 수요가 된다(buildDemand)
+    if (!def || !(def.core.includes(task as TaskId) || def.support.includes(task as TaskId) || supplementOf(template, task))) {
       return NextResponse.json({ error: '이 학습 묶음에 없는 과제예요', code: 'task_not_in_workspace' }, { status: 400 })
     }
     const data = await loadMapPage(ctx.db, ctx.userId, new Date())
