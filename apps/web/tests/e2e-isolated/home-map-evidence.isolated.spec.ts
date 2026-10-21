@@ -100,6 +100,25 @@ for (const width of [1440, 1280]) {
       await page.waitForTimeout(1000)
       await page.keyboard.press('Escape')
     }
+    // T-0081 — 평가 본문을 처음 보기 전: 지도에서 다른 TASK 를 고른 뒤 홈 저장 계획 카드(continue_plan)를 키보드로 따라가면 그 계획의 미완료 TASK · 묶음
+    {
+      const planOther = page.locator('[data-testid="umap-node"]').nth(3)
+      await planOther.focus(); await page.keyboard.press('Enter'); await page.keyboard.press('Escape')
+      await page.goto('/csat', { waitUntil: 'domcontentloaded' })
+      await expect(sug).toHaveAttribute('data-kind', 'continue_plan', { timeout: 60_000 })
+      const go = page.locator('[data-testid="home-continue-plan-go"]')
+      const q = new globalThis.URL((await go.getAttribute('href'))!, 'http://x').searchParams
+      const planTask = q.get('map_task')
+      expect(planTask, '계획 이어보기는 실제 TASK 를 map_task 로').toBeTruthy()
+      expect(q.get('ws')).toBe(ws)
+      for (const k of ['map_item', 'map_attempt', 'map_plan', 'map_goal']) expect(q.get(k)).toBeNull()
+      await go.focus(); await page.keyboard.press('Enter')
+      await page.waitForURL((u) => u.searchParams.get('map_task') === planTask)
+      const m = page.locator('[data-testid="home-map"] [data-testid="unified-map"]')
+      await expect(m).toHaveAttribute('data-selected', planTask!, { timeout: 60_000 })
+      await expect(m).toHaveAttribute('data-ws', ws)
+      await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
+    }
     const start = page.locator('a[data-testid="umap-top-next"]')
     await expect(start).toBeVisible()
     await start.click()

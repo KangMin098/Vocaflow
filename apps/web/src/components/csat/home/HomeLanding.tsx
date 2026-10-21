@@ -222,7 +222,7 @@ export function HomeLanding({
                     <b>{progress.plan.name}</b> 계획에서 {progress.plan.planned}개 중 {progress.plan.done}개를 했어요.
                   </p>
                   <div className={home.cardActions}>
-                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ mapTask: progress.plan.task, ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
                       계획 이어서 보기 <ArrowRight size={14} aria-hidden="true" />
                     </Link>
                   </div>

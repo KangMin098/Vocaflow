@@ -13,7 +13,8 @@ import { applySaved } from './v4/plan-commit'
 
 export interface MapProgress {
   check: { task: string; name: string; ws: string | null } | null
-  plan: { ws: string; name: string; planned: number; done: number } | null
+  /** task — 그 계획의 실제 미완료 TASK 행(T-0081 · 홈 이어보기가 map_task 로 연다) */
+  plan: { ws: string; name: string; planned: number; done: number; task: string } | null
 }
 
 export function mapProgressOf(data: MapPageData): MapProgress {
@@ -42,9 +43,13 @@ export function mapProgressOf(data: MapPageData): MapProgress {
     for (const id of ids) {
       const sw = saved.byTemplate[id]
       if (!sw) continue
-      const p = applySaved(v.plans[id], sw.latest).progress
+      const applied = applySaved(v.plans[id], sw.latest)
+      const p = applied.progress
       if (p && p.planned > 0 && p.done < p.planned) {
-        plan = { ws: id, name: templateOf(id)?.name ?? '학습계획', planned: p.planned, done: p.done }
+        // T-0081 — 이 계획의 현재 TASK 행 중 계획량이 있고 수행량이 못 미친 첫 행(계획 순서 그대로). 못 찾으면 추정하지 않고 이 묶음의 이어보기를 닫는다
+        const row = applied.tasks.find((t) => t.quantity.planned !== null && t.quantity.planned > 0 && t.quantity.done < t.quantity.planned)
+        if (!row) continue
+        plan = { ws: id, name: templateOf(id)?.name ?? '학습계획', planned: p.planned, done: p.done, task: row.task }
         break
       }
     }

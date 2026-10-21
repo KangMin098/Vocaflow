@@ -30,7 +30,7 @@ describe('HomeLanding — 첫 제안 분기', () => {
   })
   it('지도에서 하던 일 — 확인 중 과제 카드는 그 과제 · 묶음으로 지도를 다시 여는 링크', () => {
     // T-0080 — progress.check.task 는 지도 TASK id(home-progress) → map_task 로 보낸다(task = 과거 활동 키 칸 아님)
-    const progress = { check: { task: 'e.evidence_location', name: '근거 찾기', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const progress = { check: { task: 'e.evidence_location', name: '근거 찾기', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2, task: 'r.relation' } }
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
     expect(html).toContain('data-kind="continue_check"')
     const tag = html.match(/<a[^>]*data-testid="home-continue-check-go"[^>]*>/)![0]
@@ -43,11 +43,18 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(html).not.toContain('data-testid="home-continue-plan"')
   })
   it('지도에서 하던 일 — 확인 중 과제가 없으면 저장 계획 카드(진행 수 · 그 묶음으로)', () => {
-    const progress = { check: null, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const progress = { check: null, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2, task: 'r.relation' } }
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
     expect(html).toContain('data-kind="continue_plan"')
     expect(html).toContain('6개 중 2개')
-    expect(html).toContain('href="/csat?ws=ws.cohesion"')
+    // T-0081 — 실제 미완료 TASK 행 + 묶음을 지도 파서가 읽는 map_task · ws 로(수행 문맥 키 없음)
+    const tag = html.match(/<a[^>]*data-testid="home-continue-plan-go"[^>]*>/)![0]
+    const href = tag.match(/href="([^"]+)"/)![1].replace(/&amp;/g, '&')
+    const ctx = parseMapReturn(Object.fromEntries(new URL(href, 'http://x').searchParams))
+    expect(ctx.mapTask).toBe(progress.plan.task)
+    expect(ctx.ws).toBe(progress.plan.ws)
+    expect(ctx.task ?? null).toBeNull()
+    for (const k of ['map_item', 'map_attempt', 'map_plan', 'map_goal']) expect(href).not.toContain(k)
   })
   it('정상 복귀는 탐구 복귀 카드 · 그 문항 링크 · 오류 문구 없음', () => {
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="preparing" mapData={null} focusKind={null} returned={returned} />)

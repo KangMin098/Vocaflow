@@ -279,3 +279,9 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 
 - HomeLanding continue_check 링크: mapReturnQuery({ task }) → mapReturnQuery({ mapTask, ws }). home-progress 의 check.task 는 지도 TASK id 인데 과거 활동 키 칸(task)으로 보내 지도가 TASK 선택으로 쓰지 않았다 — 같은 탭의 옛 SESSION_CTX 선택이 남았다. map_item · map_attempt · map_plan · map_goal 은 만들지 않음. 저장 계획 관문 · 추천 우선순위 · 진단 · 계획 이어하기 분기 무변경.
 - 검증(로컬): HomeLanding render 7(진짜 링크를 parseMapReturn 으로 읽어 mapTask · ws = progress · task null · 수행 문맥 키 없음) · tsc 0 · lint 0. 실제 Chromium(실제 React UnifiedLearningMap · Codex T-0078 compose fixture · 같은 모듈 런타임 재마운트) 4/4: 1440/1280 다른 TASK(v.core_meaning) 키보드 선택 뒤 map_task 링크 문맥 → r.central_meaning · ws.central-meaning 복원 / 대조 옛 task 링크 → 옛 선택 남음(반례 재현). 인증 home-map-evidence(T0079-P2-1 보완): 독립 확인 1회 뒤 continue_check 카드 링크(map_task · task 없음)를 키보드로 따라 같은 TASK · 묶음 지도, 앞서 지도에서 다른 TASK 선택 — NOT_VERIFIED, 다음 공식 일일 묶음.
+
+## 28. T-0081 — 홈 저장 계획 이어보기가 실제 미완료 TASK · Workspace 로 (2026-10-21)
+
+- home-progress.mapProgressOf: 저장 계획 제안에 task 추가 — 이미 계산한 applySaved(v.plans[id], sw.latest) 의 TASK 행 중 계획량이 있고 수행량이 못 미친 첫 행(계획 순서). 못 찾으면 그 묶음 이어보기를 닫는다(핵심 TASK 복사 · 추정 없음). 묶음 우선순위 · 계획량 · 수행량 · 단계 판정 · 과거 보기/목표 없음/미설치/조회 실패/원장 미확인/완료 보호 그대로.
+- HomeLanding continue_plan 링크: mapReturnQuery({ ws }) → ({ mapTask: plan.task, ws }). 수행 문맥 키 없음 · 재확정 관문 우회 · 자동 저장 없음. continue_check(T-0080) · 다른 우선순위 무변경.
+- 검증(로컬): home-progress 7(최소 유효 TASK 행 추가 · 중심 완료 + 보조 남음 = 보조 행 · 남은 행 없음 = 닫음 · 기존 완료/없음/에러 단언 보존) · HomeLanding render 7(계획 링크 parseMapReturn = mapTask/ws · task null · 수행 키 없음) · tsc 0 · lint 0. 실제 Chromium(실제 mapProgressOf + UnifiedLearningMap · Codex compose fixture + 저장 계획) 2/2: 1440/1280 다른 TASK(v.core_meaning) 키보드 선택 → 계획 카드 링크 문맥 재진입 = r.central_meaning · ws.central-meaning 복원. 인증 home-map-evidence: 평가 본문 첫 노출 전(계획 · 공급 뒤 start 전) 다른 TASK 선택 → 홈 continue_plan 키보드 → 같은 TASK · 묶음(기존 G2 독립 1 · 시험 0 단언 유지) — NOT_VERIFIED, 다음 공식 일일 묶음.

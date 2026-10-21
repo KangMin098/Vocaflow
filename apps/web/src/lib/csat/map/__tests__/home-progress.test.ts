@@ -14,13 +14,14 @@ vi.mock('../v4/plan-commit', () => ({ applySaved: (view: { progress: unknown }, 
 const { mapProgressOf } = await import('../home-progress')
 
 const check = (attemptedItems: number, verifiedAt: string | null) => ({ check: { attemptedItems, verifiedAt } })
-const view = (o: { mode?: string; tasks?: Record<string, unknown>; needs?: string[] } = {}) => ({
+const view = (o: { mode?: string; tasks?: Record<string, unknown>; needs?: string[]; cohesionRows?: unknown[] } = {}) => ({
   asIs: { mode: o.mode ?? 'current', tasks: o.tasks ?? {} },
   toBe: { needs: (o.needs ?? []).map((task) => ({ task })) },
   plan: { primary: { id: 'ws.central-meaning' }, others: [{ id: 'ws.cohesion' }] },
   plans: {
     'ws.central-meaning': { core: ['A'], tasks: [{ task: 'A' }], progress: null },
-    'ws.cohesion': { core: ['B'], tasks: [{ task: 'B' }], progress: null },
+    // T-0081 — 새 계약을 표현하는 최소 유효 TASK 행(계획량 · 수행량)
+    'ws.cohesion': { core: ['B'], tasks: o.cohesionRows ?? [{ task: 'B', quantity: { planned: 6, done: 2 } }], progress: null },
   },
 })
 const data = (o: { goalSet?: boolean; findAttempts?: unknown[] | undefined; activity?: unknown[] | undefined; saved?: unknown } = {}) =>
@@ -52,7 +53,13 @@ describe('mapProgressOf — 저장 계획', () => {
   const saved = (progress: unknown) => ({ status: 'installed', goalVersionId: 1, byTemplate: { 'ws.cohesion': { latest: { progress } } } })
   it('계획량에 못 미친 저장 계획 — 그 묶음과 진행', () => {
     compose.mockReturnValue(view())
-    expect(mapProgressOf(data({ saved: saved({ planned: 6, done: 2 }) })).plan).toEqual({ ws: 'ws.cohesion', name: '묶음 ws.cohesion', planned: 6, done: 2 })
+    expect(mapProgressOf(data({ saved: saved({ planned: 6, done: 2 }) })).plan).toEqual({ ws: 'ws.cohesion', name: '묶음 ws.cohesion', planned: 6, done: 2, task: 'B' })
+  })
+  it('T-0081 — 중심 TASK 는 다 했고 보조 TASK 가 남았으면 그 보조 행(계획 순서 그대로) · 남은 행을 못 찾으면 제안을 닫는다(추정 없음)', () => {
+    compose.mockReturnValue(view({ cohesionRows: [{ task: 'B', quantity: { planned: 2, done: 2 } }, { task: 'S', quantity: { planned: null, done: 0 } }, { task: 'T', quantity: { planned: 4, done: 1 } }] }))
+    expect(mapProgressOf(data({ saved: saved({ planned: 6, done: 3 }) })).plan?.task).toBe('T')
+    compose.mockReturnValue(view({ cohesionRows: [{ task: 'B', quantity: { planned: 2, done: 2 } }] }))
+    expect(mapProgressOf(data({ saved: saved({ planned: 6, done: 3 }) })).plan).toBeNull()
   })
   it('다 했거나 계획량이 없으면 · 저장소가 없거나 읽기 실패면 제안하지 않는다', () => {
     compose.mockReturnValue(view())
