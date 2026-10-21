@@ -51,3 +51,18 @@ describe('POST /api/csat/authored/supply — 원장 미확인(T-0078)', () => {
     expect(requestAuthoredSupply).not.toHaveBeenCalled()
   })
 })
+
+describe('POST /api/csat/authored/supply — 학습 전용 보조 진입(T-0083)', () => {
+  beforeEach(() => { loadMapPage.mockReset(); requestAuthoredSupply.mockReset(); loadMapPage.mockResolvedValue(null) })
+  it('ws.sentence-core × s.attachment 만 소속 검사를 통과(다음은 기존 계획 확인) · 다른 묶음의 s.attachment 는 그대로 거절', async () => {
+    expect((await (await post({ task: 's.attachment', template: 'ws.sentence-core' })).json()).code).toBe('plan_required')
+    const r = await post({ task: 's.attachment', template: 'ws.central-meaning' })
+    expect(r.status).toBe(400)
+    expect((await r.json()).code).toBe('task_not_in_workspace')
+    expect(requestAuthoredSupply).not.toHaveBeenCalled()
+  })
+  it('본문에 role · 수량을 실어도 무시된다(서버 수요는 buildDemand 가 교수 2역할로만 만든다)', async () => {
+    await post({ task: 's.attachment', template: 'ws.sentence-core', role: 'independent_check', quantity: 9 })
+    expect(requestAuthoredSupply).not.toHaveBeenCalled() // 계획 미저장 보호가 먼저(공급 0)
+  })
+})

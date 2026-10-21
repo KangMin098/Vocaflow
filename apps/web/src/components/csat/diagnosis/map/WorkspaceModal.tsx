@@ -22,6 +22,7 @@ import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 
 import { AuthoredSupplyCard } from './AuthoredSupplyCard'
+import { supplementsOfTemplate } from '@/lib/csat/map/v62/instructional-supplement'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
@@ -184,6 +185,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           {/* T-0056 — 이 Workspace 의 보조 TASK 자료(창작 세트가 있는 것만). 핵심/보조 표기 그대로 · 서버가 TASK 소속을 다시 확인한다 */}
           {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
             <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} key={t} kind="support" task={t} taskName={taskLabel(t).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, t, row.id)} />
+          ))}
+          {/* T-0083 — 학습 전용 보조 진입(정본 core/support 밖 · 닫힌 표) — 교수 자료만 · 같은 묶음 복귀 문맥 */}
+          {supplementsOfTemplate(row.id).filter((s) => AUTHORED_TASKS.includes(s.task)).map((s) => (
+            <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} key={`learn-${s.task}`} kind="instructional" task={s.task} taskName={taskLabel(s.task).name} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0] ?? s.task, row.id)} />
           ))}
           {/* T-0069 — V1 기본 의미는 창작 세트가 아니라 기존 WordVault 복습이 정본 자산이다 · 같은 지도 복귀 문맥(outgoingCtx)을 싣는다 */}
           {(['core', 'support'] as const).flatMap((k) => (k === 'core' ? row.core.slice(0, 1) : row.support).filter((t) => t === 'v.core_meaning').map((t) => (

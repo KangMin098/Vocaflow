@@ -74,9 +74,10 @@ export function supplyOutcome(raw: unknown): SupplyOutcome {
 }
 
 /** kind=support — 이 Workspace 의 보조 TASK 자료(T-0056). 시험 id · 제목이 중심 카드와 겹치지 않게 접미사 · TASK 이름을 붙인다 */
-export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName, viewer = null }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string; viewer?: string | null }) {
-  const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : x)
-  const hid = kind === 'support' ? 'ws-authored-' + task.replace(/[^a-z0-9]/gi, '-') : 'ws-authored'
+export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName, viewer = null }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support' | 'instructional'; taskName?: string; viewer?: string | null }) {
+  // T-0083 — instructional = 학습 전용 보조 진입(원리 설명 · 안내 연습만 · 서버가 교수 2역할만 수요로 만든다)
+  const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : kind === 'instructional' ? x.replace('ws-authored', 'ws-authored-learn') : x)
+  const hid = kind === 'core' ? 'ws-authored' : `ws-authored-${kind === 'instructional' ? 'learn-' : ''}` + task.replace(/[^a-z0-9]/gi, '-')
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<string | null>(null)
@@ -116,8 +117,10 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
     <section className={p.card} aria-labelledby={hid} data-testid={tid('ws-authored')} data-task={task}>
       <div className={p.cardHead}>
         <div>
-          <h3 id={hid} className={p.cardTitle}>{kind === 'support' ? <>받은 자료 · 보조 TASK {taskName ?? task}</> : '받은 자료'}</h3>
-          <p className={p.cardDesc}>지금 계획에 맞춰 검수 · 승인된 자료만 받아요. 혼자 확인 · 다른 글 적용 자료는 처음 보는 글이에요.</p>
+          <h3 id={hid} className={p.cardTitle}>{kind === 'support' ? <>받은 자료 · 보조 TASK {taskName ?? task}</> : kind === 'instructional' ? <>학습 자료 · {taskName ?? task}</> : '받은 자료'}</h3>
+          {kind === 'instructional'
+            ? <p className={p.cardDesc} data-testid={tid('ws-authored-scope')}>원리 설명 · 안내 연습으로 배우는 자료예요. 이 힘의 혼자 확인은 아직 준비 중이라 여기서 받은 풀이는 연습 기록으로만 남고, 이 묶음의 계획 · 확인 결과는 바뀌지 않아요.</p>
+            : <p className={p.cardDesc}>지금 계획에 맞춰 검수 · 승인된 자료만 받아요. 혼자 확인 · 다른 글 적용 자료는 처음 보는 글이에요.</p>}
         </div>
         {listed.status === 'installed' && !past && (
           <button type="button" className={p.whitePill} onClick={request} disabled={busy || !planSaved} data-testid={tid('ws-authored-request')}
