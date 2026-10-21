@@ -295,17 +295,20 @@ interface AuthoredTransfer { key: string; target: string; href: string; label: s
  * 납품받은 창작 평가 자료 — **지금 유효한** 납품만(권리 · Gold · 승인 철회 · 자격 대체 뒤에는 빠진다 · FI-007).
  * 혼자 확인 · 다른 날 확인 = 확인 링크, 전이 = 적용 링크(FI-011). 표가 없으면(창작 공급 SQL 미적용) 빈 목록.
  */
-async function loadAuthoredDeliveries(db: Db, userId: string, roles: readonly string[] = ['independent_check', 'delayed_check', 'transfer']): Promise<{ id: string; artifact_ref: string; task_id: string; role: string }[]> {
+export async function loadAuthoredDeliveries(db: Db, userId: string, roles: readonly string[] = ['independent_check', 'delayed_check', 'transfer']): Promise<{ id: string; artifact_ref: string; task_id: string; role: string }[]> {
   const { data, error } = await db.from('workspace_content_delivery').select('id, artifact_ref, task_id, role')
     .eq('user_id', userId).eq('artifact_kind', 'authored_item').in('role', [...roles])
   if (error) { if (error.code && MISSING_TABLE.has(error.code)) return []; throw new Error(`창작 납품 조회 실패: ${error.message}`) }
   const rows = (data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]
   // 학습자 세션: supply_delivery_valid 는 service_role 전용 → 본인 납품 유효성 RPC workspace_delivery_current(FI-007, auth.uid() 결속).
   // service_role(/csat 홈): auth.uid() 가 없어 위 RPC 가 null → supply_delivery_valid 로(행은 이미 user_id 로 걸렀다). 실패 · null = 비유효(fail-closed)
+  // T0078-P1-1 — 성공한 명시적 boolean 만 판정으로 받는다(본인 RPC false = 비유효 · 대체 RPC true/false = 그 판정). 둘 다 오류 · null 이면 비유효로 접지 않고 던진다 → 납품 조회 실패(원장 미확인)
   const validOf = async (id: string) => {
     const mine = await db.rpc('workspace_delivery_current', { p_delivery: id })
     if (!mine.error && typeof mine.data === 'boolean') return mine.data
-    return (await db.rpc('supply_delivery_valid', { p_delivery: id })).data === true
+    const svc = await db.rpc('supply_delivery_valid', { p_delivery: id })
+    if (!svc.error && typeof svc.data === 'boolean') return svc.data
+    throw new Error(`창작 납품 유효성 확인 실패: ${svc.error?.message ?? mine.error?.message ?? 'no verdict'}`)
   }
   const valid = await Promise.all(rows.map((r) => validOf(r.id)))
   return rows.filter((_, i) => valid[i])
@@ -320,12 +323,13 @@ async function loadAuthoredConfirms(db: Db, userId: string, rows?: { id: string;
 }
 
 /** 창작 자료 첫 시도 — DB 결속 원장이 근거로 센 시도만 독립 자격(규칙은 authored/evidence.ts). 조회 실패 = 비근거 */
-async function gateAuthoredFirsts(db: Db, userId: string, rows: FindAttemptRow[]): Promise<FindAttemptRow[]> {
+export async function gateAuthoredFirsts(db: Db, userId: string, rows: FindAttemptRow[]): Promise<FindAttemptRow[]> {
   const ids = rows.filter((r) => isAuthoredRef(r.itemRef) && r.attemptId).map((r) => r.attemptId!)
   if (ids.length === 0) return rows
   const { data, error } = await db.from('workspace_delivery_attempt').select('attempt_id, evidence, annotation_hash, session_id').eq('user_id', userId).in('attempt_id', ids)
-  if (error) console.error('[csat-map authored bindings]', error.message)
-  return applyAuthoredBindings(rows, error ? null : ((data ?? []) as { attempt_id: number | string; evidence: boolean; annotation_hash: string; session_id: string }[])
+  // T-0078 — 결속 조회 오류는 「결속 없음」(정상 0행)이 아니다 → 던져서 첫 시도 원장 전체를 읽지 못함(undefined)으로
+  if (error) throw new Error(`창작 결속 조회 실패: ${error.message}`)
+  return applyAuthoredBindings(rows, ((data ?? []) as { attempt_id: number | string; evidence: boolean; annotation_hash: string; session_id: string }[])
     .map((b) => ({ attemptId: String(b.attempt_id), evidence: b.evidence, annotationHash: b.annotation_hash, sessionId: b.session_id })))
 }
 
@@ -333,7 +337,7 @@ async function gateAuthoredFirsts(db: Db, userId: string, rows: FindAttemptRow[]
  * FI-011 — 안내 연습 수행의 정확한 계보. 시도(attempt_id)가 이 학습자의 **지금 유효한 guided_practice 납품**(repairRows)에 결속됐고,
  * 그 납품 자료가 시도 문항과 같을 때만 repairRole 을 단다. 조회 실패 · 결속 없음 = 표시 안 함(바로잡기 성공 근거가 아니다 · fail-closed)
  */
-async function markGuidedRepairs(db: Db, userId: string, rows: ActivityRow[], repairRows: readonly { id: string; artifact_ref: string; role: string }[]): Promise<void> {
+export async function markGuidedRepairs(db: Db, userId: string, rows: ActivityRow[], repairRows: readonly { id: string; artifact_ref: string; role: string }[]): Promise<void> {
   const guided = new Map(repairRows.filter((r) => r.role === 'guided_practice').map((r) => [r.id, r.artifact_ref]))
   if (guided.size === 0) return
   const { data, error } = await db.from('workspace_delivery_attempt').select('attempt_id, delivery_id').eq('user_id', userId).in('delivery_id', [...guided.keys()])
@@ -538,9 +542,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   if (gate.failed) throw new Error('확인 문항의 공개 적격성을 확인하지 못했어요')
   const practiceLinks = withoutHeld(allLinks, gate)
   // FINAL §8 — 이 학습자에게 납품된 창작 평가 자료(혼자 확인 · 다른 날 확인)를 그 TASK 의 확인 대상에 더한다. 납품 안 된 창작 기록은 대상이 아니다
-  const authoredRows = await loadAuthoredDeliveries(db, userId).catch((e) => { console.error('[csat-map authored deliveries]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
+  // T-0078 — 납품 조회 오류는 「받은 자료 없음」이 아니다. 확인 대상 · 바로잡기 자료가 빠진 채 계산하지 않도록 원장 신호(undefined)에 잇는다(미설치 표는 loadAuthoredDeliveries 가 정상 [])
+  let deliveriesRead = true
+  const authoredRows = await loadAuthoredDeliveries(db, userId).catch((e) => { deliveriesRead = false; console.error('[csat-map authored deliveries]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
   // FI-011 — 바로잡기 자료(교수 · 안내 연습). 평가 자료(혼자 확인 · 전이 · 다른 날 확인)는 바로잡기로 다시 쓰지 않는다(workspace.ts repairable)
-  const repairRows = await loadAuthoredDeliveries(db, userId, ['model_explanation', 'guided_practice']).catch((e) => { console.error('[csat-map authored repair]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
+  const repairRows = await loadAuthoredDeliveries(db, userId, ['model_explanation', 'guided_practice']).catch((e) => { deliveriesRead = false; console.error('[csat-map authored repair]', e); return [] as { id: string; artifact_ref: string; task_id: string; role: string }[] })
   const repairTargets: Record<string, { target: string; href: string; label: string; role: 'model_explanation' | 'guided_practice' }[]> = {}
   for (const r of repairRows) for (const key of authoredKeysOf(r.task_id)) {
     (repairTargets[key] ??= []).push({ target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: r.role === 'guided_practice' ? '바로잡기 · 안내 연습' : '바로잡기 · 원리 설명 보기', role: r.role as 'model_explanation' | 'guided_practice' })
@@ -548,21 +554,22 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const authoredTransfers: AuthoredTransfer[] = authoredRows.filter((r) => r.role === 'transfer').flatMap((r) => authoredKeysOf(r.task_id).map((key) => ({
     key, target: r.artifact_ref, href: `/csat/learn/${r.artifact_ref.slice('authored:'.length)}?d=${r.id}`, label: '받은 자료 · 다른 글에 적용',
   })))
-  for (const c of await loadAuthoredConfirms(db, userId, authoredRows).catch((e) => { console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
+  for (const c of await loadAuthoredConfirms(db, userId, authoredRows).catch((e) => { deliveriesRead = false; console.error('[csat-map authored confirms]', e); return [] as AuthoredConfirm[] })) {
     const l = practiceLinks[c.task]
     if (l && !l.confirm.some((x) => x.target === c.confirm.target)) practiceLinks[c.task] = { ...l, confirm: [...l.confirm, c.confirm] }
     // 정본 연습 연결이 없는 TASK(문맥 어휘 · 어법 등 content_needed) — 창작 납품이 그 TASK 의 유일한 확인 자료다. 버리면 Workspace 가 영영 「자료 준비 중」에 남는다.
     //   원리 사슬 · 적용(chain · application)은 붙이지 않는다 — 지식 적용 원장에 없는 자료를 적용으로 기록하지 않는다
     else if (!l) practiceLinks[c.task] = { href: c.confirm.href, label: c.confirm.label, itemId: c.confirm.target.slice('authored:'.length), target: c.confirm.target, taskKey: c.confirm.taskKey, confirm: [c.confirm] }
   }
-  const findAttempts = linksRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).then((rows) => gateAuthoredFirsts(db, userId, rows)).catch((e) => {
+  const findAttempts = linksRead && deliveriesRead ? await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).then((rows) => gateAuthoredFirsts(db, userId, rows)).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
     return undefined
   }) : undefined
   const practiceResults = linksRead ? await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined }) : undefined
-  const lifecycleActivity = linksRead ? await loadLifecycleActivity(db, userId, [...new Set([...Object.values(practiceLinks).map((l) => l.taskKey), ...Object.keys(practiceLinks).flatMap(authoredKeysOf)])], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
-  if (lifecycleActivity) await markGuidedRepairs(db, userId, lifecycleActivity, repairRows).catch((e) => console.error('[csat-map guided bindings]', e))
+  let lifecycleActivity = linksRead && deliveriesRead ? await loadLifecycleActivity(db, userId, [...new Set([...Object.values(practiceLinks).map((l) => l.taskKey), ...Object.keys(practiceLinks).flatMap(authoredKeysOf)])], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined }) : undefined
+  // T-0078 — 안내 연습 결속 조회 오류는 「결속 0행」이 아니다(바로잡기 성공을 지운 수행 기록으로 계산하지 않는다) → 수행 기록을 읽지 못함으로
+  if (lifecycleActivity) await markGuidedRepairs(db, userId, lifecycleActivity, repairRows).catch((e) => { console.error('[csat-map guided bindings]', e); lifecycleActivity = undefined })
   // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
   if (findAttempts) {
     await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))

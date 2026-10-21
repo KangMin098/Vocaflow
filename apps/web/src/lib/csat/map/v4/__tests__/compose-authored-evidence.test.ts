@@ -35,11 +35,13 @@ describe('composeV4 근거 설명 범위(T-0076)', () => {
     const v = composeV4(data(), { score: 80, set: true })!
     expect(v.evidence?.['r.central_meaning']?.taskKey).toBe(checkKeysOfTask('r.central_meaning')[0])
   })
-  it('근거 키가 전혀 없는 TASK 는 생략(새 근거를 만들지 않는다) · 원장 못 읽음 = unknown 유지', () => {
-    const v = composeV4(data({ lifecycleActivity: undefined } as never), { score: 80, set: true })!
-    for (const id of Object.keys(v.asIs.tasks) as TaskId[]) {
-      if (evidenceKeysOfTask(id).length === 0) expect(v.evidence?.[id], id).toBeUndefined()
-      else expect(v.evidence?.[id]?.ledger, id).toBe('unknown')
-    }
+  it('근거 키가 전혀 없는 TASK 는 생략(새 근거를 만들지 않는다)', () => {
+    const v = composeV4(data(), { score: 80, set: true })!
+    for (const id of Object.keys(v.asIs.tasks) as TaskId[]) if (evidenceKeysOfTask(id).length === 0) expect(v.evidence?.[id], id).toBeUndefined()
+  })
+  // T-0078 — 이전 기대(원장 못 읽음 → 근거 설명 ledger unknown)는 바뀌었다: 필수 원장을 못 읽으면 compose 가 개인화 계산 자체를 하지 않는다(null · 복구 화면).
+  //   이유: 0건으로 계산한 진단 · 계획이 저장 · 공급에 쓰였다(T-0078 반례). 가짜 [] 로 통과시키지 않는다
+  it('원장 못 읽음 = 개인화 계산 없음(null)', () => {
+    expect(composeV4(data({ lifecycleActivity: undefined } as never), { score: 80, set: true })).toBeNull()
   })
 })

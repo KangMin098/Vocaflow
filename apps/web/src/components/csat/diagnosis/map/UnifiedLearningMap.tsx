@@ -13,7 +13,8 @@
 'use client'
 
 import { Headphones, MoreVertical, Search, Timer, X } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -38,6 +39,8 @@ import { MapDialog } from './MapDialog'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor, TaskInspector } from './TaskInspector'
 import { TaskPopup } from './TaskPopup'
 import u from './unified.module.css'
+import { MapReadUnavailable } from './MapReadUnavailable'
+import { evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
 import { WorkspaceList } from './WorkspaceList'
 import { WorkspaceModal, type WsTab } from './WorkspaceModal'
 
@@ -67,7 +70,22 @@ export function wsSlug(id: string | null): WsSlug | null {
   return s === 'central-meaning' || s === 'option-match' || s === 'evidence-locate' || s === 'cohesion' ? s : null
 }
 
-export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }) {
+type UnifiedProps = { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }
+
+/**
+ * T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 못 읽으면 지도를 0건으로 계산하지 않고 복구 상태만 그린다.
+ *   지도 본체는 읽힌 데이터가 왔을 때 새로 마운트돼 복귀 문맥(map_task · ws · map_plan)으로 처음 상태를 잡는다(빈 데이터로 굳은 상태를 잇지 않는다)
+ */
+export function UnifiedLearningMap(props: UnifiedProps) {
+  const router = useRouter()
+  const [retrying, startRetry] = useTransition()
+  if (props.data.v4 && props.data.now && evidenceReadOf(props.data) !== 'ok') {
+    return <MapReadUnavailable retrying={retrying} onRetry={() => startRetry(() => router.refresh())} />
+  }
+  return <UnifiedLearningMapView {...props} />
+}
+
+function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: UnifiedProps) {
   const g = useGoal(data)
   const goalSet = data.model.goalSet || g.saved
   const view = useMemo(() => composeV4(data, { score: g.goal, set: goalSet }, asOf), [data, g.goal, goalSet, asOf])
@@ -115,6 +133,8 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   // 고른 문맥 → 탭 기억 · 주소(replaceState — 새로 고침 · 뒤로가기에서 같은 문맥). 다른 쿼리(tab · view · asof)는 그대로 둔다
   useEffect(() => {
+    // T-0078 — 계산 결과가 없으면(읽기 실패) 대체 TASK 로 탭 기억 · 주소 문맥(map_task · ws · 일회성 복귀 키)을 덮지 않는다 — 재조회 뒤 같은 문맥에서 잇는다
+    if (!view) return
     SESSION_CTX.selected = selected
     SESSION_CTX.ws = ws
     SESSION_CTX.modal = modal
@@ -127,7 +147,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     if (lit && ws) url.searchParams.set('ws', ws)
     else url.searchParams.delete('ws')
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url.href)
-  }, [selected, ws, modal, lit])
+  }, [selected, ws, modal, lit, view])
   // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
   useEffect(() => {
     track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })

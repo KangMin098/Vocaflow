@@ -11,6 +11,7 @@ import type { MapPageData } from '../load'
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
 import { DOMAINS, evidenceKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
 import { evidenceView, type EvidenceView } from '../v62/evidence-claims'
+import { evidenceReadOf } from '../v62/evidence-read'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
 import { transferPolicy } from './plan-commit'
@@ -115,6 +116,8 @@ export function savedTransferOf(data: Pick<MapPageData, 'v4'>): Partial<Record<s
 
 export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4View | null {
   if (!data.v4 || !data.now) return null
+  // T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 읽지 못했으면 개인화 계산을 하지 않는다(0건으로 다시 만든 진단 · 계획 · 공급 금지). 성공한 [] 는 정상
+  if (evidenceReadOf(data) !== 'ok') return null
   const confirmLinks = confirmLinksOf(data)
   const attempts: FindAttemptRow[] = data.findAttempts ?? []
   const at = asOf ?? currentAsOf(data.now, data.v4.sessions, attempts)
