@@ -26,7 +26,7 @@ import attachSet from './s-attachment.v1.json'
 import chunkSet from './s-chunk-boundary.v1.json'
 import structSet from './s-structural-relation.v1.json'
 import semSet from './v-semantic-relation.v1.json'
-import r5CycleSet from './r5-cycle-supplement.v1.json'
+import r5CycleSet from './r5-cycle-supplement.v2.json'
 
 export { DISTRACTOR_DESIGNS, type DistractorDesign } from './formats'
 
@@ -99,9 +99,9 @@ export const setFormat = (s: AuthoredSet): FormatId => s.format ?? 'central_mean
  * 검토된 바이트는 고치지 않는다(표식은 파일이 아니라 이 표에 둔다). sha256 = 두 AI 검토 영수증이 결속한 파일 바이트(시험이 확인).
  */
 export const SUPPLEMENTAL_SETS: Readonly<Record<string, { taskId: string; roles: readonly AuthoredRole[]; supplements: string; sha256: string }>> = {
-  'r5-central-meaning-cycle.v1': {
-    taskId: 'r.central_meaning', roles: ['independent_check', 'transfer'], supplements: 'r5-central-meaning.v1',
-    sha256: '109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74',
+  'r5-central-meaning-cycle.v2': {
+    taskId: 'r.central_meaning', roles: ['independent_check', 'transfer'], supplements: R5_AUTHORED_SET.set,
+    sha256: '408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c',
   },
 }
 const ALL_ROLES: readonly AuthoredRole[] = [...ASSESSMENT_ROLES, ...INSTRUCTION_ROLES]

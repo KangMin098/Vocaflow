@@ -535,7 +535,7 @@ function RevealBody({ format, reveal: rv, graded: g, probe, choices }: { format:
           {g && (
             <ul className={styles.note}>
               <li>중심 문장: {g.claimOk ? '맞음' : g.claimRestated ? '중심을 다시 말한 문장을 골랐어요 — 같은 뜻이라 맞음으로 봐요' : `문장 ${num(rv.claim)}이 중심이에요`}</li>
-              <li>떠받치는 문장: {g.supportOk ? '맞음' : (g.supportMissed as number[] | undefined)?.length ? `문장 ${list(g.supportMissed)}도 중심을 떠받쳐요` : '중심과 관계없는 문장을 함께 골랐어요'}</li>
+              <li>떠받치는 문장: {g.supportOk ? '맞음' : (g.supportMissed as number[] | undefined)?.length ? `문장 ${list(g.supportMissed)}도 중심을 떠받쳐요` : '해설과 다른 문장도 골랐어요. 필자의 주장과 어떤 관계인지 다시 구분해 보세요'}</li>
               {probe !== null && <li>관계: {g.relationOk ? '맞음' : '다시 볼 곳 — 표시된 문장이 중심을 어떻게 돕는지 보세요'}</li>}
               <li>요지 선택: {g.choiceOk ? '맞음' : '다시 볼 곳'}</li>
               {picked}

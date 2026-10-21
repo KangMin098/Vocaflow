@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(learning): 실제 AI 응답·독립 반례 검토에 따라 모호한 관계 질문을 보충 세트 v2로 바꾸고 과도한 ‘무관한 문장’ 피드백을 수정했다. 역사적 판본/응답은 보존하며 활성 v2의 두 AI 검토를 해시로 검증한다.
+
 - fix(csat): 공장 자료 재수령과 승인 재응답에 현재 납품·원천 적격·제품주문을 재확인하고 교수 원문 판본의 3활동만 공급한다. 변경 본문/부적격 승인 반례 수정 후 관련41 통과.
 
 - feat(csat): 2F 공장 연습 자료 실제 공급 호출부 — Workspace `FactoryDcpCard` 요청 단추 → `POST /api/csat/factory/request`(서버 수요 재계산 · 학습자 세션 쓰기 · 기존 D3 링크 읽기 확인 · 링크 없으면 주문 보존 대기) → `receiveForLearner`. 관리자 `dcp-admission` `approve` 동작이 등록 공장 후보 결속 확인 뒤 `approveForGuidedPractice` 호출. 계측 `csat_factory_dcp_requested`(보류 SQL CHECK 확장 · 미적용). 격리 PGlite 실제 API→서비스→SQL 확인.

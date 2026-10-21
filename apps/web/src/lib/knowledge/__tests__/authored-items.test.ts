@@ -131,10 +131,12 @@ describe('맹검 2인 대조(FINAL §4.3 — docs/final/review)', () => {
 })
 
 describe('2E 보충 세트 등록 정책', () => {
-  const supp = AUTHORED_SETS.find((s) => s.set === 'r5-central-meaning-cycle.v1')!
+  const supp = AUTHORED_SETS.find((s) => s.set === 'r5-central-meaning-cycle.v2')!
   it('검토된 바이트 그대로(sha) · 원 세트 바이트 불변 · 등록된 부분집합만 통과', () => {
     const sha = (f: string) => createHash('sha256').update(fs.readFileSync(path.join(__dirname, '../authored', f))).digest('hex')
-    expect(sha('r5-cycle-supplement.v1.json')).toBe(SUPPLEMENTAL_SETS[supp.set]!.sha256)
+    expect(sha('r5-cycle-supplement.v2.json')).toBe(SUPPLEMENTAL_SETS[supp.set]!.sha256)
+    expect(validateAuthoredSet({ ...supp, set: 'r5-central-meaning-cycle.v1' })).not.toEqual([])
+    expect(supp.items.find(i => i.id === 'r5-cycle-ind-1')!.gold.relationProbe).toEqual({ sentence: 4, relation: 'restatement' })
     expect(validateAuthoredSet(supp)).toEqual([])
     // 등록되지 않은 같은 내용 = 5역할 요구로 거절(전역 완화 없음) · 등록 세트가 역할을 하나 더/덜 가져도 거절 · 일반 세트에서 역할 하나 빼도 거절
     expect(validateAuthoredSet({ ...supp, set: 'r5-unknown-supplement.v1' }).join()).toMatch(/역할 5종/)

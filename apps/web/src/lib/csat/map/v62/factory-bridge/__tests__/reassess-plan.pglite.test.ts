@@ -70,9 +70,9 @@ const RAW: RawEvidence = {
   claude: { result: fs.readFileSync(path.join(EV, 'claude-65b8975d/result.txt')), session: JSON.parse(fs.readFileSync(path.join(EV, 'claude-65b8975d/session.json'), 'utf8')) },
   codex: { result: fs.readFileSync(path.join(EV, 'codex-f67f4b9a/result.txt')), session: JSON.parse(fs.readFileSync(path.join(EV, 'codex-f67f4b9a/session.json'), 'utf8')) },
 }
-const EV2 = path.join(ROOT, 'docs/implementation/learning-outcomes-20261021/evidence/2d-cycle')
-const SUPP_BYTES = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json'))
-const SUPP_RECEIPT = JSON.parse(fs.readFileSync(path.join(EV2, 'cycle-supplement-ai-review.json'), 'utf8')) as AiReviewReceipt
+const EV3 = path.join(ROOT, 'docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic')
+const SUPP_BYTES = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json'))
+const SUPP_RECEIPT = JSON.parse(fs.readFileSync(path.join(EV3, 'cycle-supplement-v2-ai-review.json'), 'utf8')) as AiReviewReceipt
 const I1_STUB = fs.readFileSync(path.resolve(__dirname, '../../__tests__/supply-i1-stub.sql'), 'utf8')
 const GRADE_SQL = (() => {
   const s = read('20260920120000_grade_dcp_band_is_fit_not_eligibility.sql')
@@ -615,7 +615,7 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
 
   it('2E 보충 세트 실제 AI 검토 등록 → transfer 미노출 2지문(실제 buildDemand 공급) → recheck 새 독립 2 → 결과 → 다음 저장 계획', async () => {
     // 실제 두 AI 검토(Claude d44fe4b7 · Codex 01a15e16) 영수증 + 원본 응답 · 세션(evidence/2d-cycle) — 사람 결정 0 · 권리 부여 아님
-    const ev = JSON.parse(fs.readFileSync(path.join(EV2, 'cycle-supplement-ai-evidence.json'), 'utf8')) as { roles: { metadata: Row; response: string }[] }
+    const ev = JSON.parse(fs.readFileSync(path.join(EV3, 'cycle-supplement-v2-ai-evidence.json'), 'utf8')) as { roles: { metadata: Row; response: string }[] }
     const raw = Object.fromEntries(ev.roles.map((r) => [r.metadata.agent, { result: r.response, session: r.metadata }])) as RawEvidence
     const human0 = await count('public.content_human_decision')
     const reg = await recordAiReviewedSupply(fcAdmin(), R5_CYCLE_SUPPLEMENT, SUPP_BYTES, SUPP_RECEIPT, raw)
@@ -631,7 +631,7 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     const answer = async (ref: string, right: boolean) => {
       const item = findAuthored(ref)!.item
       const at = new Date(t0 + ++tick * 60_000).toISOString()
-      const live = JSON.parse(fs.readFileSync(path.join(EV2, 'cycle-live-v2-ai-results.json'), 'utf8')) as { records: { agent: string; item_id: string; normalized_response: unknown; actual_product_grade: Record<string, unknown> }[] }
+      const live = JSON.parse(fs.readFileSync(path.join(EV3, 'cycle-live-v3-ai-results.json'), 'utf8')) as { records: { agent: string; item_id: string; normalized_response: unknown; actual_product_grade: Record<string, unknown> }[] }
       const observed = live.records.find((r) => r.agent === 'codex' && authoredRef(r.item_id) === ref)
       expect(observed, 'fresh AI learner response exists, no Gold-generated success response').toBeTruthy()
       const res = await recordAuthoredAttempt(fcAdmin(), fcLearner(A), { id: A, email: null }, ref, {
@@ -665,8 +665,8 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     for (const r of re) await answer(r, true)
     const after = (await world(A))
     const row = after.view.tasks.find((t) => t.task === TASK)!
-    // 결과: 새 독립 2 첫 시도 정답(합성 회귀) → As-Is resolved(다시 확인 통과) · 정본 To-Be 요구 = TRANSFER(STAGE_OF_NEED) → 다음 단계 transfer.
-    //   이것은 기능 회귀다 — AI 학습자 관측 · 학습 효과 주장이 아니다
+    // 결과: 실제 AI 응답의 새 독립 2 통과 → resolved · 전이 이력 반영 → MAINTAIN/recheck.
+    // 최초 오답 상태는 합성 기능 회귀이며 이 연결을 인과 학습효과로 주장하지 않는다.
     expect({ stage: row.stage, status: after.status, need: after.v4.toBe?.needs.find((n) => n.task === TASK)?.type }).toEqual({ stage: 'recheck', status: 'resolved', need: 'MAINTAIN' })
     // 결과 → 다음 계획 저장(정본 계획 RPC) · 저장 단계 = 다시 계산한 단계
     const cur = await plan()
