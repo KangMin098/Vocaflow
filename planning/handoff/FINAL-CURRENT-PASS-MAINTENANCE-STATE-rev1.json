@@ -38,7 +38,9 @@
     "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
     "apps/web/src/components/csat/diagnosis/map/__tests__/maintenance-state.test.tsx",
     "docs/final/FINAL_LEDGER.md",
-    ".agent-goal.md"
+    ".agent-goal.md",
+    "apps/web/src/lib/csat/map/v62/workspace-list.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/workspace-list.test.ts"
   ],
   "forbidden_paths": [
     ".env*",
@@ -103,6 +105,11 @@
     "source_base": "ad22826906b554a76bce054b5309ec24929a44fe",
     "probe": "verification/reviews/T-0045-integration-20261021/dg-demand/probe.test.ts",
     "baseline": "verification/reviews/T-0045-integration-20261021/dg-demand/maintain-results.json",
-    "delivery": "QUEUED until actual ACK/start"
+    "delivery": "QUEUED until actual ACK/start",
+    "same_revision_scope_extension": {
+      "finding": "T0082-P1-1",
+      "review": "verification/reviews/T-0082-r1-independent/REWORK.md",
+      "reason": "Use the same current-pass projection in actual Workspace row next/state; no acceptance, owner, DB or canon change"
+    }
   }
 }
