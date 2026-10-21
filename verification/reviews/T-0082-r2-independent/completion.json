@@ -52,7 +52,18 @@
     "owner": "final-product",
     "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
     "pid_recorded_at_start": 22044,
-    "background_new_task_started": false
+    "background_new_task_started": false,
+    "acceptance_ack": "2026-10-21T14:28:41.000Z"
   },
-  "observed_at": "2026-10-21T14:28:16.248Z"
+  "observed_at": "2026-10-21T14:28:16.248Z",
+  "next_analysis": {
+    "kind": "read_only",
+    "scope": "New main learning-outcomes/FAST integration vs existing D/E/F/H paths and approval/ledger boundaries",
+    "queued_at": "2026-10-21T14:28:16.249Z",
+    "owner_ack_at": "2026-10-21T14:28:41.000Z",
+    "owner": "final-product",
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "status": "ACKNOWLEDGED_ANALYSIS_STARTED",
+    "implementation_started": false
+  }
 }
