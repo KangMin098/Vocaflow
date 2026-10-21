@@ -1,5 +1,7 @@
 # Admin Console
 
+2026-10-22: 공장 DCP/창작 AI 검토·원문 교수의 승인된 7단계 DB 설치가 완료됐다(migration `20261021175340`). 아래 관련 SQL 미적용 안내는 설치 전 기록이다. 실제 입고·콘텐츠 출시·학습자 공급은 하지 않았으며 관리자 액션에서 현재 행/계보·검수·자격·별도 출시 승인을 계속 확인한다. [실제 적용 결과](implementation/learning-outcomes-20261021/06-DB-ACTIVATION-RESULT.md).
+
 파이프라인 전체 단계 점검(2026-10-21, 진행 중): 앞선 조회·팝업 검증에 이어 격리 DB에서 생성·발행·실패·복구를 실행한다. TCP의 실패 시 자동 반복 중지와 이미 처리한 문서의 claim 종료, VCB의 보강 저장 실패·발행 시작·재발행 복구를 보완한다. [단계별 실제 실행 범위와 잔여](admin-restructure/pipeline-depth-audit.md). 공유 DB 쓰기·유료 외부 생성·실서비스 발행은 실행하지 않는다.
 
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.

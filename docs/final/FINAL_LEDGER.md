@@ -1,5 +1,7 @@
 # Vocaflow 최종 목표 추적 원장 (FINAL LEDGER)
 
+> **2026-10-22 실제 DB 후속:** 학습성과 연결 대화의 사용자 직접 승인 후 7단계 SQL을 `20261021175340`으로 적용했다. 기존 A SQL `dfb29f2d…`도 이 묶음에 포함됐으며 전체 적용 SHA `e84a9607…312d8d`는 승인본/서버 이력과 같다. 새 원장9개는 비어 있고 권한·기존 기록 보존·두 해설 수정 및 현재 행 검수 결속을 확인했다. 콘텐츠 등록·사람 결정·출시·납품은 0건으로 개별 콘텐츠/FINAL_COMPLETE 승격은 없다. 아래 DB 미적용 사실은 관측 당시 이력이다. [적용 증거·잔여 범위](../implementation/learning-outcomes-20261021/06-DB-ACTIVATION-RESULT.md).
+
 > 최상위 지시: 「VOCAFLOW FINAL MISSION」(2026-10-18 사용자). 목표 A~H 전체 경로 = 최종 제품.
 > 작업 공간: `D:\workspace\Vocaflow-final-product` · 브랜치 `feat/vocaflow-final-product` · 기준 origin/main `c3a03d168`(#292 병합).
 > 이 파일은 후속 세션이 같은 지시문만으로 이어 가기 위한 체크포인트다. 상태 값은 지시문 §2 의 7종만 쓴다.

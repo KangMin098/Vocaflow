@@ -1,7 +1,9 @@
 <!-- docs/implementation/learning-outcomes-20261021/05-DB-ACTIVATION-APPROVAL.md -->
 # 학습성과 연결 — 공유 DB 적용 승인 패키지
 
-상태 **SQL 제안 준비됨 · 정책 범위 채택 미확인 · 미적용 · 공유 DB 쓰기 0**. 사용자 승인 전 실행하지 않는다. 중앙 `dev-minimal-20261020.development_policy.db_apply`와 AGENTS의 마이그레이션 자동 적용 금지를 따른다.
+상태 **2026-10-22 현재 대화에서 사용자 직접 승인 → 동일 SQL 적용·사후 검증 완료**. migration `20261021175340_learning_outcomes_ai_factory_activation_approved_20261022`의 이력 statements SHA가 아래 승인 SHA와 같다. [적용 결과](./06-DB-ACTIVATION-RESULT.md) · [사후 관측 증거](./evidence/activation-20261022/activation-verification.json). 원래 SQL/manifest는 승인 당시 바이트로 보존한다.
+
+직전 요청은 “신규 원장9개·관련 RPC·기존 해설2건 수정 적용”이었고 사용자가 직접 `승인`이라고 답했다. 이 승인으로 실제 7단계 설치와 두 데이터 수정이 이루어졌다. 기존 FINAL MISSION A의 다른 범위 승인으로 갈음하지 않으며, 콘텐츠 등록·Gold/권리 판정·출시·실제 공급은 이번 적용에 포함하지 않았다. 아래 미적용/향후 절차 설명은 승인 요청 당시 범위 기록이다.
 
 FINAL MISSION의 기존 A는 `_pending_authored_supply.sql`(SHA-256 `dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229`)의 스키마 적용 범위다. 아래 7단계 묶음은 AI 공급 정책 래퍼와 기존 해설 DATA 두 행 변경도 포함하므로, 기존 A와 같은 승인 대상으로 취급하지 않는다. B/B2 Gold·C 권리·출시 승인 경계는 별도다. 전달된 세션 지시만으로 이 경계의 대체가 채택됐다고 판정하지 않는다([정책 범위 정정](./02A-AI-REVIEW-SPEC.md)). 기존 SQL/manifest 바이트는 그대로 보존하며 이 문서 정정은 적용 승인이 아니다.
 
