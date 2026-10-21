@@ -1,0 +1,112 @@
+{
+  "goal_id": "VG-L3-A3-02",
+  "related_goal_ids": [
+    "VG-L3-A1-02",
+    "VG-L3-B2-02"
+  ],
+  "title": "홈 확인 이어하기가 실제 TASK·Workspace를 복원하도록 연결",
+  "description": "FINAL F/H. T0079 수용후 최신 canonical main59839a4f0 실제 UnifiedLearningMap Chromium1440/1280 반례: 전에 e.evidence_location을 선택하고 홈 continue_check가 요구하는 r.central_meaning을 legacy task로 전달하면 예전TASK가 남는다. 같은 입력의 map_task 대조는 r.central_meaning 복원. 기존 링크 직렬화가 현재 지도 restore.mapTask와 어긋나는 최소 문맥결함이며 T0079 추천종류/읽기상태 수정과 별개다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "depends_on": [
+    "T-0079"
+  ],
+  "duplicate_reason": "final-product 활성작업0. T0079는 직접근거/홈추천종류/읽기오류 의미를 수용했다. 이번 반례는 기존continue_check 링크가 옛활동task 필드로 TASK를 보내는 별도원인이고 최신지도는 mapTask만읽는다. 기존T0020/관리자소유파일 변경없음.",
+  "allowed_paths": [
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "requires_ci": false,
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "acceptance": [
+    "기존 HomeLanding continue_check CTA가 현재 지도에 학습TASK를 map_task로 보낸다(mapReturnQuery({mapTask: progress.check.task, ws: progress.check.ws}) 재사용). 과거활동키 task에 TASK를 넣지 않는다. 저장계획 관문/추천우선순위/진단/수량/노출/원장판정은 바꾸지 않는다. 명시적 TASK가 현재정본에 있을때 같은탭 SESSION_CTX의 옛선택보다 우선하도록 이미있는 지도 동작을 이용한다. ws null/없는 대상은 기존파서/지도무시 보호 그대로. map_item/map_attempt/map_plan/map_goal을 수행없이 만들지 않는다. 계획이어하기 등 다른제안 분기는 이번 반례없이 넓히지 않는다.",
+    "관련 렌더시험에서 진짜continue_check 링크를 parseMapReturn으로 읽어 mapTask/Workspace가 실제progress와같고 task는null인지 확인한다. 실제 UnifiedLearningMap+Chromium1440/1280: 먼저 다른TASK선택→확인이어하기 문맥으로 같은모듈런타임에서 재진입→요청한TASK/묶음 복원. explicit map_task 대조와 기존 오류/보류/목표/no-record초점 우선순위는 변경없음으로 재사용. 인증Next라우팅으로 주장하지 않는다. 전체suite 반복없이 타입/lint/해당파일 관련시험만.",
+    "T0079-P2-1의 미실행인증시험 기대값도 같은파일에서 최소 보완한다: 독립확인1회뒤 실제continue_check 카드의 home-continue-check-go를 키보드로 따라 동일TASK/묶음 지도복귀를 검증(무조건 a[href=\"#umap-h\"]를 찾지 않음). 첫사용자/목표/PLAN/실제공급·시도/G2 evidence1/시험0 단언은 약화하지 않는다. 가능하면 같은탭의 기존다른TASK 선택 후 실제링크 재진입을 단언. 실제인증격리환경 없으면 NOT_VERIFIED로 다음 기존일일공식묶음에 남김. 새갈고리/모의성공/작업별원격CI 없음."
+  ],
+  "ui_acceptance": [
+    "기존3B 홈의 확인이어하기 링크를 키보드로 따라가면 이름이 가리키는 실제TASK/Workspace로 복귀한다. 1440/1280의 다른TASK 옛선택 대조를 실제지도컴포넌트에서 확인한다. 새화면/자동수행/거짓수행영수증 없음."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A3-02",
+    "acceptance_ids": [
+      "VG-L3-A3-02-AC1"
+    ],
+    "current_gap": "canonical local main59839a4f0 actual React/Chromium1440/1280: selected e.evidence_location remains after requested r.central_meaning encoded as legacy task, explicit map_task restores r.central_meaning. Existing home continue-check serializes exactly that legacy shape. Not an authenticated Next navigation run.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "현재지도파서가읽는명시적TASK복원",
+      "같은탭옛선택보다이어서확인대상우선",
+      "기존권한/계획/G2/순위불변"
+    ],
+    "next_dependency": "로컬수용·통합후 기존일일공식묶음의 인증홈이어하기 증거. DB/Gold/권리는 별개.",
+    "out_of_scope": [
+      "전체지도초기선택정책재작성",
+      "계획이어하기/다른링크 무근거변경",
+      "DB/API/SQL/Gold/권리",
+      "새실행기/작업별CI"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-HOME-CHECK-CONTEXT-rev1",
+    "goals_ah": [
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main": "59839a4f0db15e2960d6a5a8f755218f03172810",
+    "source_base": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+    "scope_main_source_diff": "HomeLanding and target tests equal in source26a and canonical main598; other main commits are retained separately.",
+    "probe": "verification/reviews/NEXT-HOME-CONTINUATION-CONTEXT/run.mjs",
+    "baseline": "verification/reviews/NEXT-HOME-CONTINUATION-CONTEXT/results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  }
+}

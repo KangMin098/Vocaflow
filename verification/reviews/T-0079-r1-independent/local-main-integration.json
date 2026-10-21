@@ -1,0 +1,44 @@
+{
+  "task_id": "T-0079",
+  "source_head": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "base": "6d32fd84cf1cb1ef57ba3fcf01aad748977d9d60",
+  "task_delta_base": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "merge_sha": "59839a4f0db15e2960d6a5a8f755218f03172810",
+  "tree": "93107629fa79d2807b4f1ec659f8a63f4fadd532",
+  "commits": [
+    "26a7be72ed932959fd6024b6aa547beb6e367f3f"
+  ],
+  "files": [
+    "apps/web/src/app/(app)/csat/page.tsx",
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/home-focus.test.ts",
+    "apps/web/src/lib/csat/map/v62/home-focus.ts",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "source_foreign_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "method": "Existing exact-task staticGates and integrate helper; clean locked main. Preserve separate development-policy commits, do not touch local/integration or other writer edits.",
+  "p2_test_expectation": "Before official daily bundle; authenticated E2E NOT_VERIFIED. Product code acceptance does not claim that unrun test passed.",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T12:12:41.375Z",
+  "post_merge": {
+    "typecheck": {
+      "exit_code": 0
+    },
+    "focused": {
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "file": "verification/reviews/T-0079-r1-independent/main-focused-results.json"
+    },
+    "main_tracked_clean": true,
+    "lock_released": true
+  }
+}

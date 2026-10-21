@@ -1,0 +1,14 @@
+{
+  "task_id": "T-0080",
+  "status": "READY",
+  "alignment_gate": "PASSED by addTask",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "QUEUED",
+  "acknowledged": false,
+  "implementation_started": false,
+  "source_base": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "canonical_main": "59839a4f0db15e2960d6a5a8f755218f03172810",
+  "spec": "planning/handoff/FINAL-HOME-CHECK-CONTEXT-rev1.json",
+  "at": "2026-10-21T12:17:25.471Z"
+}

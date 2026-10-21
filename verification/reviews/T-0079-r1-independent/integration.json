@@ -1,0 +1,15 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:11:50.572Z",
+  "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "type": "integration",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/results.json",
+  "command_or_protocol": "Actual composeV4→homeFocus/homeMapState→homeProgress→pickHomeSuggestion pipeline, known direct/goal-unset/empty and state precedence; fixed synthetic DTO, no real DB or RLS claim."
+}

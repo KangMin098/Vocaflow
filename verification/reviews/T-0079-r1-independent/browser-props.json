@@ -1,0 +1,46 @@
+{
+  "direct": {
+    "map": "ok",
+    "focusKind": "step",
+    "progress": {
+      "check": null,
+      "plan": null
+    }
+  },
+  "partial": {
+    "map": "ok",
+    "focusKind": "pending",
+    "progress": {
+      "check": {
+        "task": "r.central_meaning",
+        "name": "중심 의미",
+        "ws": "ws.central-meaning"
+      },
+      "plan": null
+    }
+  },
+  "empty": {
+    "map": "ok",
+    "focusKind": "record",
+    "progress": {
+      "check": null,
+      "plan": null
+    }
+  },
+  "error": {
+    "map": "error",
+    "focusKind": "none",
+    "progress": {
+      "check": null,
+      "plan": null
+    }
+  },
+  "held": {
+    "map": "withheld",
+    "focusKind": "step",
+    "progress": {
+      "check": null,
+      "plan": null
+    }
+  }
+}

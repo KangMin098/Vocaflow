@@ -1,0 +1,52 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:11:50.572Z",
+  "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "type": "ui",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0079-r1-independent/browser/home-direct-1440.png",
+    "verification/reviews/T-0079-r1-independent/browser/home-error-1440.png",
+    "verification/reviews/T-0079-r1-independent/browser/home-empty-1280.png",
+    "verification/reviews/T-0079-r1-independent/browser/home-partial-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1:5173/ (closed component harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React HomeLanding and module CSS, actual algorithm-generated props, router/link shim, mapData null (map body excluded), Chromium1440/1280. No auth Next/DB or global skin/pixel claim.",
+  "command_or_protocol": "node verification/reviews/T-0079-r1-independent/browser/run.mjs; 10/10. Keyboard direct anchor / explicit refresh once / partial real task+Workspace link focus; analytics beacon separated from mutation POST.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [
+    {
+      "kind": "suggestion",
+      "claim": "P2 test-only isolated final CTA expectation supplement before official bundle; authenticated Next+DB not established by this UI harness.",
+      "status": "open"
+    }
+  ],
+  "note": "Checks are scoped to unchanged home presentation/state/context/keyboard; not full-map, global3B/pixel comparison, contrast or authenticated navigation."
+}

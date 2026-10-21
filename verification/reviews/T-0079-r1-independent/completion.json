@@ -1,0 +1,373 @@
+﻿{
+  "task_id": "T-0079",
+  "goal_id": "VG-L3-A3-02",
+  "related_goal_ids": [
+    "VG-L3-A1-02",
+    "VG-L3-B2-02"
+  ],
+  "template": null,
+  "title": "홈 첫 제안을 현재 TASK 근거·지도 읽기 상태와 연결",
+  "description": "FINAL A/F/H. 최신 로컬 main cc93cfdc6에서 유효한 direct_check+목표+시험0인 학습자가 실제 homeFocusOf→pickHomeSuggestion 경로에서 no_records로 돌아간다(반례1fail·정상2pass). 홈은 기록을 넣어야 지도가 그려진다고 말하지만 T0073 첫 수행 경로와 실제 직접근거는 이미 있다. 기존 지도의 판정·활동을 재사용해 홈에서 다음 학습으로 자연스럽게 이어지게 하고 T0078 원장 미확인도 기존 홈 오류 카드로 전파한다.",
+  "priority": "P1",
+  "status": "COMPLETED",
+  "owner_id": "final-product",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "local_roles": true,
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/v62/home-focus.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/home-focus.test.ts",
+    "apps/web/src/lib/csat/home-suggestion.ts",
+    "apps/web/src/lib/csat/__tests__/home-suggestion.test.ts",
+    "apps/web/src/app/(app)/csat/page.tsx",
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "ui_gate": true,
+  "ui_acceptance": [
+    "PC1440/1280의 기존3B 홈 골격에서 직접근거가 있는 학습자는 기록을 다시 입력하라는 거짓필수 안내 없이 지도 다음학습으로 이동한다. 정상 첫사용자·조회오류·보류를 구별하고 기존 기출탐구/포커스/키보드 동작을 보존한다. 새대시보드·통계·정적숙달배지 없음."
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/home-progress.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "approval_kinds": [],
+  "approval": null,
+  "acceptance": [
+    "기존 homeFocusOf가 시험회차0만으로 record를 먼저 반환하지 않게 한다. composeV4의 As-Is basis=direct_check가 실제로 있으면 기존 ranksOf 또는 nextActionOf 결과를 사용해 학습 지도에 계속 진입시킨다. 직접근거를 새로 계산하거나 axis_proxy/안내연습/WordVault 자기평가를 direct_check로 승격하지 않는다. 교수·바로잡기·적용 상태를 첫 독립확인으로 잘못 부르는 문구를 피하고 홈→기존 지도에서 실제 다음 행동(계획/재확정·공급·수행·대기)을 보게 한다. 새 CTA 정책·저장·별도 학습화면을 만들지 않는다. 기존 홈의 지도 anchor를 재사용할 수 있고 task 문맥이 필요하면 이미 검증하는 map-return 경로를 사용한다; 실행 링크로 plan/goal gate를 우회하지 않는다.",
+    "진짜 기록0·직접근거0 학습자에게도 시험 기록 입력이 학습의 필수조건이라고 설명하지 않는다. no_records 열거형을 유지해도 되지만 실제 의미를 미측정/시작 전으로 정확히 안내하고 기존 지도 T0073의 계획→자료→확인을 이용할 수 있게 한다. 목표 미설정은 기존 목표 정하기, 시험 기록 입력과 기출 탐구는 계속 열려 있다. direct_check가 있으나 새 활동이 없는 상태도 기록없음/처음 시작 전이라 하지 않고 기존 자료/단계 대기 의미를 보존한다. 수치·숙달·권리 이유 추정 없음.",
+    "서버 MapHome의 map 상태가 T0078 필수 수행원장 미확인을 ok로 넘기지 않게 evidenceReadOf를 재사용한다(해당 현대 DTO v4/now 조건은 기존 지도와 맞춤). 미확인은 기존 HomeLanding 오류 카드+명시적 재조회, held는 기존withheld, 정상[]는 정상 첫진입, null 미설치는preparing으로 구분한다. 오류/권한→탐구복귀→진행중세트→확인진행/저장계획→초점의 기존 우선순위를 그대로 유지한다. 읽기 실패에서 no_records/records_only로 잘못 안내하거나 이전누적을 최신근거로 부활시키지 않는다. 자동재조회/POST·새권한·새API 없음.",
+    "관련 범위 L2/L3: 제공 probe 최신main1fail2pass→통과; goal없음·진짜빈목록·간접근거만·직접근거있음·현대DTO 원장undefined/error와 정상[]/held/null 대조를 기존 실제 함수로 확인한다. 기존 home-suggestion 우선순위와 HomeLanding 렌더 시험 재사용. 실제 React Chromium1440/1280에서 직접근거 상태의 안내/키보드 지도진입과 오류→명시적 재조회·넘침을 확인; 모의환경은 인증Next+DB로 주장하지 않는다. 인증 isolated 홈→지도 확인은 다음 기존 일일공식묶음 NOT_VERIFIED로 추가, 서버장애제품갈고리 만들지 않음. 관련 타입/lint 및 영향테스트만, 전체2700/전체빌드 반복 없이 LOCAL_FAST commit+제출. 작업별push/PR/CI 없음."
+  ],
+  "evidence": [
+    {
+      "evidence_id": "T-0079-R1-E01",
+      "run_seq": 1,
+      "recorded_by": "final-product",
+      "type": "unit",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:05:28Z",
+      "observed_at": "2026-10-21T12:05:28Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0079-unit.log",
+      "command_or_protocol": "Codex NEXT-HOME-MAP-ALIGNMENT probe 3/3(이 worktree 별칭 · 기준선 1 fail 2 pass) · home-focus 4 + HomeLanding render + home-suggestion(합 22) · tsc 0 · lint 0",
+      "note": "LOCAL_FAST 로컬 커밋만. 전체 suite · 빌드 미실행(지시).",
+      "artifact_sha256": "6913f8081b63b70dc23fdf5066f6a27039d8b15447d901eb70278a7e4e89d564",
+      "recorded_at": "2026-10-21T12:05:38.626Z"
+    },
+    {
+      "evidence_id": "T-0079-R1-E02",
+      "run_seq": 1,
+      "recorded_by": "final-product",
+      "type": "e2e",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:05:28Z",
+      "observed_at": "2026-10-21T12:05:28Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0079-browser/results.json",
+      "command_or_protocol": "실제 React HomeLanding + Chromium(고정 props · mapData null · router/link shim · 인증 Next/DB 아님) 6/6: 1440·1280 × 직접 근거(data-kind check · 기록 없음 문구 없음 · 키보드 지도에서 보기 → #umap-h) · 오류(기록 없다는 뜻 아님 · 키보드 다시 열기 refresh 1회) · 진짜 첫 사용자(no_records 새 문구) · 넘침 0 · 오류 0 · 계획/공급 POST 0",
+      "note": "분석 beacon(/api/analytics/event, 기존 D2)은 POST 집계에서 분리해 따로 셈. 지도 본체(MapScreen)는 제외. 캡처 home-*-1440/1280.png. 인증 home-map-evidence NOT_VERIFIED.",
+      "artifact_sha256": "8700c8094c82ca2261ddd4d38f6029838c749f9ea7381db319dd6c3a3e312214",
+      "recorded_at": "2026-10-21T12:05:39.044Z"
+    },
+    {
+      "evidence_id": "T-0079-R1-E03",
+      "run_seq": 1,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:11:50.572Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "type": "unit",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/focused-results.json",
+      "command_or_protocol": "Independently executed26 focused home regressions; own actual algorithm pipeline6 in results.json, no skips.",
+      "artifact_sha256": "bbfc1366fae1eb56128a4f8cd6108edf3df1f06aaf0a8233e430b9794272c740",
+      "recorded_at": "2026-10-21T12:11:50.761Z"
+    },
+    {
+      "evidence_id": "T-0079-R1-E04",
+      "run_seq": 1,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:11:50.572Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "type": "integration",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/results.json",
+      "command_or_protocol": "Actual composeV4→homeFocus/homeMapState→homeProgress→pickHomeSuggestion pipeline, known direct/goal-unset/empty and state precedence; fixed synthetic DTO, no real DB or RLS claim.",
+      "artifact_sha256": "c30c1bff94d4df8e564d28f206403676963e8e7b97da34676b118b59d13fec2c",
+      "recorded_at": "2026-10-21T12:11:51.014Z"
+    },
+    {
+      "evidence_id": "T-0079-R1-E05",
+      "run_seq": 1,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:11:50.572Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "type": "review",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/REVIEW.md",
+      "command_or_protocol": "Independent product review and actual Chromium10/10; no P0/P1; nonblocking P2 isolated selector supplement tracked; authentication NOT_VERIFIED.",
+      "artifact_sha256": "93382309ad2e647501c219d8838e83ddb43e3266a1e932c27f2a1a22c1cc1fa1",
+      "recorded_at": "2026-10-21T12:11:51.258Z"
+    },
+    {
+      "evidence_id": "T-0079-R1-E06",
+      "run_seq": 1,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:11:50.572Z",
+      "commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "type": "ui",
+      "covers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0079-r1-independent/browser/results.json",
+      "screenshots": [
+        "verification/reviews/T-0079-r1-independent/browser/home-direct-1440.png",
+        "verification/reviews/T-0079-r1-independent/browser/home-error-1440.png",
+        "verification/reviews/T-0079-r1-independent/browser/home-empty-1280.png",
+        "verification/reviews/T-0079-r1-independent/browser/home-partial-1280.png"
+      ],
+      "urls": [
+        "http://127.0.0.1:5173/ (closed component harness)"
+      ],
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "environment": "Actual React HomeLanding and module CSS, actual algorithm-generated props, router/link shim, mapData null (map body excluded), Chromium1440/1280. No auth Next/DB or global skin/pixel claim.",
+      "command_or_protocol": "node verification/reviews/T-0079-r1-independent/browser/run.mjs; 10/10. Keyboard direct anchor / explicit refresh once / partial real task+Workspace link focus; analytics beacon separated from mutation POST.",
+      "checks": {
+        "render": "pass",
+        "layout_pc": "pass",
+        "readability_hierarchy": "pass",
+        "design_system": "pass",
+        "journey_interaction": "pass",
+        "states": "pass",
+        "accessibility": "pass",
+        "navigation_progress": "pass",
+        "visual_regression": "pass",
+        "design_acceptance": "pass"
+      },
+      "ui_acceptance_results": [
+        "pass"
+      ],
+      "defects": [
+        {
+          "kind": "suggestion",
+          "claim": "P2 test-only isolated final CTA expectation supplement before official bundle; authenticated Next+DB not established by this UI harness.",
+          "status": "open"
+        }
+      ],
+      "note": "Checks are scoped to unchanged home presentation/state/context/keyboard; not full-map, global3B/pixel comparison, contrast or authenticated navigation.",
+      "artifact_sha256": "3a810c7cca75ccf489a80e84b61d8bf9641075378587504d10b906ae347fa965",
+      "screenshots_sha256": [
+        {
+          "path": "verification/reviews/T-0079-r1-independent/browser/home-direct-1440.png",
+          "sha256": "ff78ae94ccbb8305a06e85a833f8789d3a6fc24030787caa70979bbf06a20a75"
+        },
+        {
+          "path": "verification/reviews/T-0079-r1-independent/browser/home-error-1440.png",
+          "sha256": "a3a0b8a73e6195756cd4889e984e874b6807955447c3c3a15da2b1244cef1a61"
+        },
+        {
+          "path": "verification/reviews/T-0079-r1-independent/browser/home-empty-1280.png",
+          "sha256": "c53e270e1ab3e408496c3876fa2d369b6ff5d830c0b5431b2a1677bf73cc7644"
+        },
+        {
+          "path": "verification/reviews/T-0079-r1-independent/browser/home-partial-1280.png",
+          "sha256": "1773b64b31d95c1c1bbefae24ae5857b69f230adaec1b3c79c71fc74b27ea65c"
+        }
+      ],
+      "recorded_at": "2026-10-21T12:11:51.499Z"
+    }
+  ],
+  "run_seq": 1,
+  "depends_on": [
+    "T-0078"
+  ],
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A3-02",
+    "acceptance_ids": [
+      "VG-L3-A3-02-AC1"
+    ],
+    "current_gap": "canonical local main cc93cfdc6 pure actual home recommendation pipeline: direct_check+goal+exam0→no_records; 1failed2passed controls. page MapHome classifies nonnull heldGate-ok DTO asok without evidenceReadOf; T0078 unavailable compose givesnull, homefocusnone can become records_only. No actual learner/DB failure claimed.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "현재TASK근거와홈안내일치",
+      "기록없는첫수행/목표관문유지",
+      "필수원장미확인홈오류구분"
+    ],
+    "next_dependency": "수용후기존로컬main통합·일일공식묶음에서인증홈진입확인. DB/Gold/권리조건과별개.",
+    "out_of_scope": [
+      "새진단/학습량/PLAN순위정책",
+      "SQL/실제DB쓰기/사람승인",
+      "전체지도개편/홈재디자인",
+      "실행기/정책관리확장"
+    ],
+    "dependency_type": "direct",
+    "canon_version": "1.1.0",
+    "base_commit": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+    "duplicate_reason": "final-product 활성 작업0. T0073은 전체 지도 GoalRecordBar의 기록없는 시작, T0078은 원장 읽기 실패의 지도/API 복구를 끝냈고 홈 추천은 명시적으로 범위 밖이었다. T0020은 구 지도 컴포넌트 소유이고 이 작업은 home/page와 home-focus에 한정한다. 관리자 broad READY는 실제 관리자 작업이며 해당 owner·파일을 인수하지 않는다.",
+    "gate_ms": 1.4677
+  },
+  "flags": [],
+  "pr": null,
+  "requires_ci": false,
+  "verified_commit": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "orchestration": {
+    "rounds": 0,
+    "failures": {},
+    "budget_used_usd": 0
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-HOME-MAP-EVIDENCE-ALIGNMENT-rev1",
+    "goals_ah": [
+      "A",
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+    "source_base": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+    "scope_main_source_diff": "0 files for home/page paths; verified before assignment",
+    "probe": "verification/reviews/NEXT-HOME-MAP-ALIGNMENT/probe.test.ts",
+    "baseline": "verification/reviews/NEXT-HOME-MAP-ALIGNMENT/main-baseline-results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  },
+  "created_at": "2026-10-21T11:54:57.225Z",
+  "updated_at": "2026-10-21T12:12:11.143Z",
+  "history": [
+    {
+      "at": "2026-10-21T11:54:57.225Z",
+      "from": null,
+      "to": "READY",
+      "by": "final-independent-accept",
+      "note": "created"
+    },
+    {
+      "at": "2026-10-21T11:58:42.454Z",
+      "from": "READY",
+      "to": "IN_PROGRESS",
+      "by": "final-product",
+      "note": "c513ff5b-86ef-44a3-8efd-7925a229614b"
+    },
+    {
+      "at": "2026-10-21T12:05:39.451Z",
+      "from": "IN_PROGRESS",
+      "to": "REVIEW",
+      "by": "final-product",
+      "note": null
+    },
+    {
+      "at": "2026-10-21T12:12:11.143Z",
+      "from": "REVIEW",
+      "to": "COMPLETED",
+      "by": "final-independent-accept",
+      "note": "review=verification/reviews/T-0079-r1-independent/REVIEW.md"
+    }
+  ],
+  "run": {
+    "run_seq": 1,
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 19636,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-21T11:58:42.453Z",
+    "locks": [],
+    "product_lock_token": null,
+    "worker_id": "w-final-product-a2a98d",
+    "generation": 1,
+    "start_head": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+    "ended_at": "2026-10-21T12:05:39.451Z"
+  },
+  "dispatch": {
+    "to": "final-product",
+    "at": "2026-10-21T11:54:57.225Z",
+    "accepted_at": "2026-10-21T11:58:42.454Z",
+    "accepted_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "generation": 1
+  },
+  "reviewed_by": "final-independent-accept",
+  "review_record": "verification/reviews/T-0079-r1-independent/REVIEW.md",
+  "review_record_sha256": "93382309ad2e647501c219d8838e83ddb43e3266a1e932c27f2a1a22c1cc1fa1"
+}

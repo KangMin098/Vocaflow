@@ -1,0 +1,118 @@
+{
+  "tested_head": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "environment": "actual Chromium + actual React HomeLanding; actual compose+homeFocus+homeProgress derived props; mapData null, map body excluded; router/link shim; no auth Next/DB",
+  "results": [
+    {
+      "width": 1440,
+      "case": "direct",
+      "passed": true,
+      "kind": "check",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "hash": "#umap-h"
+    },
+    {
+      "width": 1440,
+      "case": "error",
+      "passed": true,
+      "kind": "error",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "refreshes": 1
+    },
+    {
+      "width": 1440,
+      "case": "empty",
+      "passed": true,
+      "kind": "no_records",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1
+    },
+    {
+      "width": 1440,
+      "case": "partial",
+      "passed": true,
+      "kind": "continue_check",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "href": "/csat?task=r.central_meaning&ws=ws.central-meaning",
+      "wrongSelectorCount": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "case": "held",
+      "passed": true,
+      "kind": "withheld",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1
+    },
+    {
+      "width": 1280,
+      "case": "direct",
+      "passed": true,
+      "kind": "check",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "hash": "#umap-h"
+    },
+    {
+      "width": 1280,
+      "case": "error",
+      "passed": true,
+      "kind": "error",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "refreshes": 1
+    },
+    {
+      "width": 1280,
+      "case": "empty",
+      "passed": true,
+      "kind": "no_records",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1
+    },
+    {
+      "width": 1280,
+      "case": "partial",
+      "passed": true,
+      "kind": "continue_check",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1,
+      "href": "/csat?task=r.central_meaning&ws=ws.central-meaning",
+      "wrongSelectorCount": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1280,
+      "case": "held",
+      "passed": true,
+      "kind": "withheld",
+      "overflow": 0,
+      "errors": [],
+      "posts": [],
+      "beacons": 1
+    }
+  ],
+  "passed": 10,
+  "failed": 0
+}

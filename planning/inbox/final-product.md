@@ -915,3 +915,37 @@ HEAD d9beb9708f062f723159297ad9cbfbf3d4fcb892 · ACCEPT_WITH_LIMITS · COMPLETED
 
 다음 T-0079 rev1 을 같은 final-product/session c513ff5b 에 배정했습니다. 정본 planning/handoff/FINAL-HOME-MAP-EVIDENCE-ALIGNMENT-rev1.json. 홈의 유효직접근거를 기록없음으로 되돌리는 실제 반례1fail2pass가 현재main에서도 재현됩니다. 기존 T0073/T0078 재구현 없이 홈→지도 경험만 연결합니다. 실제 ACK/start는 owner가 같은ID로 기록해 주세요. 현재 전달상태 QUEUED; 사용자추가지시/강제main동기화 없이 허용홈경로가 main과같은 기존source d9 위에서 LOCAL_FAST로 진행.
 
+
+## 2026-10-21T11:58:44.000Z · T-0078 · ACKNOWLEDGED
+- T-0078 수용 · 로컬 main cc93cfdc6 통합 수신. HEAD d9beb9708 보존 · 재병합/작업별 PR 없음.
+
+## 2026-10-21T11:58:44.000Z · T-0079 · ACKNOWLEDGED
+- Claude 세션 c513ff5b · owner final-product · rev1 FINAL-HOME-MAP-EVIDENCE-ALIGNMENT 수신 · task start IN_PROGRESS · worktree D:/workspace/Vocaflow-final-product(HEAD d9beb9708)
+
+## 2026-10-21T12:16:02.451Z · LOCAL_ACCEPT_WITH_LIMITS · T-0079
+
+# T-0079 rev1 LOCAL_ACCEPT_WITH_LIMITS · 실제 로컬 통합
+
+HEAD26a7be72ed932959fd6024b6aa547beb6e367f3f · ACCEPT_WITH_LIMITS / COMPLETED. 독립 pipeline6/6+focused26/26(skip0), 실제 HomeLanding Chromium1440/128010/10. 직접TASK근거→기록없음 회귀 해소; 원장미확인→기존오류카드, 정상빈목록/보류/목표없음/기존복귀우선순위 유지. 모의props·mapData null 환경이며 인증Next/DB/전체지도/3B전체대조를 통과로 세지 않았습니다.
+
+정확한1커밋/7파일을 기존 staticGates+integrate로 clean locked main에 통합했습니다. 6d32fd84c → 59839a4f0db15e2960d6a5a8f755218f03172810; 기존개발정책커밋 보존, 미리보기/실제tree일치. 통합 후 tsc0·관련26/26·main tracked clean·잠금해제. 외부감사2파일/부산물/local-integration미변경. 다시main병합/작업별push·PR·CI없음. 실제3000build갱신과 원격일일공식통합은 별개입니다.
+
+비차단 P2 T0079-P2-1: 새 isolated시험 마지막은 혼자확인1회뒤 항상 a[href="#umap-h"]를 찾지만 실제compose→homeProgress→HomeLanding은 continue_check를 고르고 home-continue-check-go를 냅니다. 독립실제React 두너비에서 해당anchor0개, continuation링크 task/ws정상 확인. 제품우선순위를 시험에 맞춰 바꾸지 마세요. 다음 공식묶음 전 시험만 실제카드/CTA로 보완하고 G2 evidence1·시험0·키보드·문맥 단언은 보존하세요(인증실패run이 있었다는 뜻은 아님). 제품코드수용을 막는 P0/P1은 없으며, 이 P2때문에 전체테스트 재실행/새TASK/작업별PR 요구없음. 인증E2E는 NOT_VERIFIED 그대로.
+
+실제협업: QUEUED11:54:57Z → 같은세션c513ff5b ACK/start11:58:42Z(pid19636) → 결과12:05:39Z. 이 실제1건의 인수/착수를 확인했으며 지속운영/다른작업시작을 추정하지 않습니다. 개발DB쓰기·SQL적용·사람Gold/권리0; 전체FINAL_COMPLETE 아님.
+
+Codex가 홈의 기존 이어하기 문맥(task vs map_task)을 별도로 반례 분석 중입니다. 확인 전 새 구현 지시/실행으로 기록하지 않습니다.
+
+## 2026-10-21T12:17:25.471Z · NEXT_PRODUCT_READY · T-0080
+- 목표: VG-L3-A3-02 「홈 확인 이어하기가 실제 TASK·Workspace를 복원하도록 연결」 · 설계 v- · 기준 []
+- 작업: 홈 확인 이어하기가 실제 TASK·Workspace를 복원하도록 연결
+- 허용 경로: apps/web/src/components/csat/home/HomeLanding.tsx, apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx, apps/web/src/lib/csat/map/__tests__/home-progress.test.ts, apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts, docs/final/FINAL_LEDGER.md, .agent-goal.md
+- 금지: .env*, supabase/**, **/*.sql, .github/**, agents/**, goals/**, apps/web/src/lib/knowledge/**, apps/web/src/lib/csat/skill-diagnosis.ts, apps/web/src/lib/csat/map/load.ts, apps/web/src/lib/csat/map/lifecycle-evidence.ts, apps/web/src/lib/csat/map/v4/**, apps/web/src/lib/csat/map/v62/evidence-read.ts, apps/web/src/lib/csat/map/v62/next-action.ts, apps/web/src/components/csat/diagnosis/map/**, scripts/audit/**
+- 수용 기준 0: 기존 HomeLanding continue_check CTA가 현재 지도에 학습TASK를 map_task로 보낸다(mapReturnQuery({mapTask: progress.check.task, ws: progress.check.ws}) 재사용). 과거활동키 task에 TASK를 넣지 않는다. 저장계획 관문/추천우선순위/진단/수량/노출/원장판정은 바꾸지 않는다. 명시적 TASK가 현재정본에 있을때 같은탭 SESSION_CTX의 옛선택보다 우선하도록 이미있는 지도 동작을 이용한다. ws null/없는 대상은 기존파서/지도무시 보호 그대로. map_item/map_attempt/map_plan/map_goal을 수행없이 만들지 않는다. 계획이어하기 등 다른제안 분기는 이번 반례없이 넓히지 않는다.
+- 수용 기준 1: 관련 렌더시험에서 진짜continue_check 링크를 parseMapReturn으로 읽어 mapTask/Workspace가 실제progress와같고 task는null인지 확인한다. 실제 UnifiedLearningMap+Chromium1440/1280: 먼저 다른TASK선택→확인이어하기 문맥으로 같은모듈런타임에서 재진입→요청한TASK/묶음 복원. explicit map_task 대조와 기존 오류/보류/목표/no-record초점 우선순위는 변경없음으로 재사용. 인증Next라우팅으로 주장하지 않는다. 전체suite 반복없이 타입/lint/해당파일 관련시험만.
+- 수용 기준 2: T0079-P2-1의 미실행인증시험 기대값도 같은파일에서 최소 보완한다: 독립확인1회뒤 실제continue_check 카드의 home-continue-check-go를 키보드로 따라 동일TASK/묶음 지도복귀를 검증(무조건 a[href="#umap-h"]를 찾지 않음). 첫사용자/목표/PLAN/실제공급·시도/G2 evidence1/시험0 단언은 약화하지 않는다. 가능하면 같은탭의 기존다른TASK 선택 후 실제링크 재진입을 단언. 실제인증격리환경 없으면 NOT_VERIFIED로 다음 기존일일공식묶음에 남김. 새갈고리/모의성공/작업별원격CI 없음.
+- UI 수용 기준 0: 기존3B 홈의 확인이어하기 링크를 키보드로 따라가면 이름이 가리키는 실제TASK/Workspace로 복귀한다. 1440/1280의 다른TASK 옛선택 대조를 실제지도컴포넌트에서 확인한다. 새화면/자동수행/거짓수행영수증 없음.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0080 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0080 <경로> --by final-product --branch <브랜치>`)
+- 메모: T0079 LOCAL_ACCEPT_WITH_LIMITS/main59839a4f0. 다음 T-0080 rev1: planning/handoff/FINAL-HOME-CHECK-CONTEXT-rev1.json. 실제지도Chrome 반례 두너비 재현. 최소 홈링크 mapTask 수정과 기존 T0079 isolated 기대값보완(같은파일)을 함께. 기존source26a위 LOCAL_FAST, main 강제동기화/작업별PR없음. 실제ACK전착수기록없음.
