@@ -9,7 +9,7 @@ import { learnerPath, type StepEvidence } from '../learner-path'
 import type { MapPageData } from '../load'
 
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
-import { DOMAINS, checkKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
+import { DOMAINS, evidenceKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
 import { evidenceView, type EvidenceView } from '../v62/evidence-claims'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
@@ -135,7 +135,8 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const views = [plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w)
   const evidence: Partial<Record<TaskId, EvidenceView>> = {}
   for (const id of Object.keys(asIs.tasks) as TaskId[]) {
-    if (checkKeysOfTask(id).length === 0) continue
+    // T-0076 — 정본 확인 키가 없어도 창작 채점 키가 있는 TASK 는 근거 설명을 만든다(PLAN 과 같은 근거 키 · 키가 전혀 없으면 생략)
+    if (evidenceKeysOfTask(id).length === 0) continue
     const t = asIs.tasks[id]
     const home = views.find((w) => w.core.includes(id)) ?? null
     const firsts = data.findAttempts ? data.findAttempts.filter((f) => !f.answeredAt || ms(f.answeredAt) <= cut) : undefined
