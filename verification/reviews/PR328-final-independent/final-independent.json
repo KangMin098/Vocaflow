@@ -1,0 +1,15 @@
+{
+  "type": "review",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T06:47:21.886Z",
+  "commit": "f9dd70ea498043f3e6fc9551fabee3099790c7bc",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/PR328-final-independent/FINAL-REVIEW.md",
+  "command_or_protocol": "Independent source + real-ranksOf counterexample/control2/2 + focused35/35 + protection3/3, all skip0; official authenticated1440/1280 assertions/report and four actual captures inspected."
+}

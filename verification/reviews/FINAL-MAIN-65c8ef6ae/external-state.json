@@ -1,0 +1,119 @@
+{
+  "observed_at": "2026-10-21T06:51:03.105766Z",
+  "method": "read-only Supabase SELECT to_regclass",
+  "authored_item": null,
+  "content_human_decision": null,
+  "content_human_decision_revocation": null,
+  "workspace_content_delivery": "present",
+  "workspace_delivery_attempt": "present",
+  "actual_authored_installation": "NOT_INSTALLED",
+  "human_gold_and_rights": "No recorded DB qualification evidence; AI review is not human approval",
+  "sets": [
+    {
+      "file": "e-evidence-location.v1.json",
+      "items": 9,
+      "sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "package_match": true
+    },
+    {
+      "file": "e-option-correspondence.v1.json",
+      "items": 9,
+      "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "package_match": true
+    },
+    {
+      "file": "e-task-demand.v1.json",
+      "items": 9,
+      "sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "package_match": true
+    },
+    {
+      "file": "r-discourse-function.v1.json",
+      "items": 9,
+      "sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "package_match": true
+    },
+    {
+      "file": "r-discourse-structure.v1.json",
+      "items": 9,
+      "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "package_match": true
+    },
+    {
+      "file": "r-inference.v1.json",
+      "items": 9,
+      "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "package_match": true
+    },
+    {
+      "file": "r-reference.v1.json",
+      "items": 9,
+      "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "package_match": true
+    },
+    {
+      "file": "r-relation.v1.json",
+      "items": 9,
+      "sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "package_match": true
+    },
+    {
+      "file": "r5-central-meaning.v1.json",
+      "items": 11,
+      "sha256": "78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f",
+      "package_match": true
+    },
+    {
+      "file": "s-attachment.v1.json",
+      "items": 6,
+      "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "package_match": true
+    },
+    {
+      "file": "s-chunk-boundary.v1.json",
+      "items": 9,
+      "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "package_match": true
+    },
+    {
+      "file": "s-form-scope.v1.json",
+      "items": 9,
+      "sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "package_match": true
+    },
+    {
+      "file": "s-sentence-core.v1.json",
+      "items": 9,
+      "sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "package_match": true
+    },
+    {
+      "file": "s-structural-relation.v1.json",
+      "items": 9,
+      "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "package_match": true
+    },
+    {
+      "file": "v-contextual-sense.v1.json",
+      "items": 9,
+      "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "package_match": true
+    },
+    {
+      "file": "v-multiword.v1.json",
+      "items": 9,
+      "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "package_match": true
+    },
+    {
+      "file": "v-semantic-relation.v1.json",
+      "items": 9,
+      "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "package_match": true
+    }
+  ],
+  "items": 152,
+  "pending_sql_sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+  "deploy_copy_sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+  "db_writes": 0
+}

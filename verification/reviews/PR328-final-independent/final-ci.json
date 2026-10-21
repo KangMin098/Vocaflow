@@ -1,0 +1,15 @@
+{
+  "type": "ci",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T06:47:21.886Z",
+  "commit": "f9dd70ea498043f3e6fc9551fabee3099790c7bc",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "https://github.com/KangMin098/Vocaflow/actions/runs/39555680677",
+  "command_or_protocol": "Independent exact-head official run/artifact inspection; attempt1 isolated33/33 skip0; verify/build/TypeScript/faultclosed success. Shared-dev skipped, not dev evidence."
+}

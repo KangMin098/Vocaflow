@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "head_sha": "f9dd70ea498043f3e6fc9551fabee3099790c7bc",
+  "base_ref": "main",
+  "base_sha": "0649f8c0b1a21e51ba8431a35ac869d8ea620eaf",
+  "expected_commits": 3,
+  "expected_paths": [
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/plan-goal-refresh.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/goal-plan.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/next-action.test.ts",
+    "apps/web/src/lib/csat/map/v62/goal-plan.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "main": "65c8ef6ae4534f8f1aa4d68d5188128fa5553782",
+  "ref": "origin/main",
+  "report": "verification/goal-check/GC-2026-10-21T06-49-24-759Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 1,
+    "EXTERNAL_INPUT_REQUIRED": 1
+  },
+  "changes": [],
+  "config_globally_unchanged": true,
+  "ci_source": "Official PR328 inspected log/report, no new run; actual head retained."
+}

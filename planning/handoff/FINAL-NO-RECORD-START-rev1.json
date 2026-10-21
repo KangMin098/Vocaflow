@@ -1,0 +1,26 @@
+{
+  "goal_id":"VG-L3-A1-01",
+  "related_goal_ids":["VG-L3-B2-02"],
+  "title":"시험 기록 없는 학습자의 목표에서 첫 직접 확인까지 연결",
+  "description":"FINAL A/B/C/F/G/H. main65c8ef6ae의 T0072를 재사용한다. 실제 GoalRecordBar SSR 반례1실패/정상2통과: 목표가 있고 시험 기록·직접 근거0이면 nextActionOf는 같은 Workspace plan을 주는데 상단은 no_record 분기에서 시험 기록 입력만 제공한다. 미측정 상태를 유지하면서 기록 입력 또는 기존 PLAN→공급→첫 직접 확인 중 가능한 행동을 선택할 수 있게 연결한다. 하단 Workspace가 사라진 전면 장애가 아니라 신규 학습자의 시작 경험 누락이다.",
+  "priority":"P1",
+  "owner_id":"final-product",
+  "roles":{"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "branch":"feat/vocaflow-final-product",
+  "worktree":"D:/workspace/Vocaflow-final-product",
+  "base_commit":"65c8ef6ae4534f8f1aa4d68d5188128fa5553782",
+  "depends_on":["T-0072"],
+  "duplicate_reason":"T0070은 기록0에서도 이미 있는 direct_check 근거를 읽는 기능이고 T0072는 목표 변경 재확정이다. 이번은 직접 근거가 아직0인 최초 진입이다. 완료 기능을 재구현하지 않는다. T0020은 learning-map 소유 구 지도개편이며 재배정하지 않는다. 현재 final-product READY0, 같은 파일의 다른 활성 작업 없음.",
+  "allowed_paths":["apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx","apps/web/src/components/csat/diagnosis/map/unified.module.css","apps/web/src/components/csat/diagnosis/map/__tests__/no-record-start.test.tsx","apps/web/src/components/csat/diagnosis/map/__tests__/map-state-direct.test.ts","apps/web/tests/e2e-isolated/map-no-record-start.isolated.spec.ts","docs/final/FINAL_LEDGER.md",".agent-goal.md"],
+  "forbidden_paths":[".env*","supabase/**","**/*.sql",".github/**","agents/**","goals/**","apps/web/src/app/api/**","apps/web/src/lib/knowledge/**","apps/web/src/lib/csat/map/v4/**","apps/web/src/lib/csat/map/v62/**","docs/csat-learner/v4/**"],
+  "db_scope":{"mode":"none","targets":[]},
+  "acceptance":[
+    "목표 있음·시험 기록0·직접 TASK 근거0에서도 기존 nextActionOf가 돌려주는 실제 plan/supply/start 또는 wait 이유를 상단에서 사용할 수 있다. 미측정/no_record 의미는 유지하고 부족·숙달·가짜 시험 기록으로 승격하지 않는다. 시험 기록 입력은 기존 기록 영역/보조 행동으로 유지하며 시험 한 회 입력을 직접 확인의 필수 선행으로 만들지 않는다.",
+    "같은 NextActionButton/onOpenWs/outgoingCtx/withMapReturn과 T0072 목표 재확정 보호를 재사용한다. 새 순위·진단·수량 계산·자동 저장·새 화면 없음. 저장 전 PLAN 먼저, 자료0이면 공급/정직한 부족, 정의 보류는 보류, no_goal·past 읽기전용·저장 조회 실패는 기존 보호를 유지한다. 실제 승인 없는 공급 가능·실행 링크를 약속하지 않는다.",
+    "실행 후 같은 Workspace로 복귀하고 시험 기록0을 유지한 채 실제 직접 수행만 기존 G2/As-Is/PLAN으로 반영한다. 교수·노트·WordVault 자기평가를 독립 근거로 승격하지 않는다. 첫 1회 수행만으로 목표 달성/숙달을 만들지 않는다. 완료된 전체 pass/fail/repair 순환과 CAS는 재구현·반복 검증하지 않는다.",
+    "제공 SSR 반례와 no_goal/past 대조를 최소 회귀로 이식하고 관련 타입/lint/단위 및 실제 Chromium1440/1280의 시작/복귀/키보드를 확인한다. 인증 격리 시험은 시험 기록0의 합성 계정→실제 목표→상단 PLAN→실제 공급→필요한 재확정→새 독립1회→G2→같은 Workspace 복귀, 시험 행0·과거 이력 보존을 확인한다. 로컬 Supabase 없으면 NOT_VERIFIED로 두고 다음 공식 통합 묶음에서 실행한다. 작업별 push/PR/CI·worker 생성 없음. 실패한 초기 반례는 보존한다."
+  ],
+  "ui_acceptance":["기존 3B 단일 지도 상단과 Workspace 재사용. 1440/1280에서 미측정인 이유와 지금 할 실제 행동·시험 입력 대안·실행 후 복귀를 간결하게 구분한다. 보이는 포커스/키보드 실행/가로 넘침 방지, 수량·효과 허위 표시 없음."],
+  "impact":{"kind":"platform","parent_goal_id":"VG-L3-A1-01","acceptance_ids":["VG-L3-A1-01-AC1"],"current_gap":"목표 있음·기록0에서 기존 plan 행동을 상단이 숨기고 시험 입력만 권한다. 실제 SSR1실패/정상2통과, 하단 진입은 있어 전면 장애로 과장하지 않는다.","expected_impact":"advances","dependency_type":"direct","evidence_required":["기록0 첫 진입 반례와 no_goal/past 대조","기존 PLAN/공급/첫 노출/G2/복귀 재사용","1440/1280 실제 UI, 미실행은 별도"],"out_of_scope":["기출 기록 조작","TASK/진단/학습량 정본 변경","DB/Gold/권리 승인","T0020 재배정","AI-Control 확장","전체 순환 중복 구현"],"next_dependency":"수용 후 T0045가 전체 A~H 미완성 핵심 경로를 재평가한다. 실제 콘텐츠 승인 대기는 병렬로 별도 유지."},
+  "source":{"mission":"FINAL-MISSION-A~H","design_revision":"rev1","design_id":"FINAL-NO-RECORD-START-rev1","goals_ah":["A","B","C","F","G","H"],"from_owner":"final-independent-accept","from_session":"01a14de8-2485-7a53-b530-d5612f35e57a","to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b","probe":"verification/reviews/FINAL-MAIN-65c8ef6ae/no-record-start.test.ts","baseline":"verification/reviews/FINAL-MAIN-65c8ef6ae/no-record-results.json","facts":"GoalRecordBar next를ready/none에서만 계산하고 no_record는focus-record만 렌더한다. mapStateOf 기존 direct_check 인식은 그대로 재사용한다.","delivery":"QUEUED until genuine ACK and start; file write alone is not implementation"}
+}

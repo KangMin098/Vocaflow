@@ -1,0 +1,39 @@
+{
+  "task_id": "T-0073",
+  "design_revision": "rev1",
+  "owner": "final-product",
+  "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+  "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "inbox": "D:\\workspace\\Vocaflow-AI-Control\\planning\\inbox\\final-product.md",
+  "queued_at": "2026-10-21T06:52:33.494Z",
+  "status": "IN_PROGRESS",
+  "acknowledged": true,
+  "implementation_started": true,
+  "accepted_at": "2026-10-21T06:53:50.008Z",
+  "accepted_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "run": {
+    "run_seq": 1,
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 19636,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-21T06:53:50.007Z",
+    "locks": [
+      {
+        "name": "task--T-0073",
+        "token": "fbd73e797827c97059fb621f7bc877da"
+      },
+      {
+        "name": "worktree--d__workspace_vocaflow-final-product",
+        "token": "a6576408fc396c254fd158a023a6beb0"
+      }
+    ],
+    "product_lock_token": null,
+    "worker_id": "w-final-product-a2a98d",
+    "generation": 1,
+    "start_head": "65c8ef6ae4534f8f1aa4d68d5188128fa5553782"
+  },
+  "result_returned": false,
+  "queue_to_ack_ms": 114946,
+  "recorded_at": "2026-10-21T06:56:46.004Z"
+}

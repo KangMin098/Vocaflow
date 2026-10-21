@@ -1,0 +1,82 @@
+{
+  "head": "f9dd70ea498043f3e6fc9551fabee3099790c7bc",
+  "attempt": 1,
+  "conclusion": "success",
+  "stats": {
+    "total": 33,
+    "expected": 33,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "jobs": [
+    {
+      "name": "e2e-gate-faultclosed",
+      "conclusion": "success"
+    },
+    {
+      "name": "build",
+      "conclusion": "success"
+    },
+    {
+      "name": "verify",
+      "conclusion": "success"
+    },
+    {
+      "name": "e2e",
+      "conclusion": "success"
+    },
+    {
+      "name": "e2e-shared-dev",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "TypeScript 0 error",
+      "conclusion": "success"
+    }
+  ],
+  "selected": [
+    {
+      "test": "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1440px",
+      "attachment": "goalver-before-1440",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr328-f9dd\\artifact\\apps\\web\\playwright-report-isolated\\data\\32dfa7ae2e94cddeff62ef4201a3814b0fa6525c.png",
+      "sha256": "12b7ebd94eb0a97a619ffff348e35051669fc5eb28b0e63c8b5100b1d3beb8b5",
+      "width": 1440,
+      "height": 1501
+    },
+    {
+      "test": "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1440px",
+      "attachment": "goalver-after-1440",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr328-f9dd\\artifact\\apps\\web\\playwright-report-isolated\\data\\3ffb3d23a99c0ab27adcad9e1e3d948fb28cc447.png",
+      "sha256": "ab2e7a497bffcf4d85e77f55095c93e109e56f8f56b6a8cf44316f82fefd1a7d",
+      "width": 1440,
+      "height": 1481
+    },
+    {
+      "test": "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1280px",
+      "attachment": "goalver-before-1280",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr328-f9dd\\artifact\\apps\\web\\playwright-report-isolated\\data\\9b9498ca16a921749a4195c04feb1e575b971849.png",
+      "sha256": "7620517bd2e27975bd5d2eec3fc1909ec7ef32cb7e84e047f6821a74ae6c22fb",
+      "width": 1280,
+      "height": 1606
+    },
+    {
+      "test": "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1280px",
+      "attachment": "goalver-after-1280",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr328-f9dd\\artifact\\apps\\web\\playwright-report-isolated\\data\\8f11d461b24b6d7734e18f8d582e99f4b56bd915.png",
+      "sha256": "cf851d35c795db6265fa608b91ac83ea7f86173aeb7b87790f58bfcb3d1cb2dd",
+      "width": 1280,
+      "height": 1606
+    }
+  ],
+  "testTitles": [
+    "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1440px",
+    "T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1280px"
+  ],
+  "selectedLog": [
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T06:38:51.3288473Z   ✓  19 [chromium] › tests/e2e-isolated/goal-plan-version.isolated.spec.ts:24:7 › T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1440px (4.5s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T06:38:55.8919619Z   ✓  20 [chromium] › tests/e2e-isolated/goal-plan-version.isolated.spec.ts:24:7 › T-0072 목표 변경 → 이전 PLAN 구분 → 새 목표 재확정 → 다음 활동 · 1280px (4.6s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T06:41:06.7477440Z   33 passed (6.5m)"
+  ]
+}

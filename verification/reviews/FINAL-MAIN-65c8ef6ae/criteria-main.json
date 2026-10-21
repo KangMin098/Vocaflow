@@ -1,0 +1,367 @@
+{
+  "main": "65c8ef6ae4534f8f1aa4d68d5188128fa5553782",
+  "formal_engine_report": "verification/goal-check/GC-2026-10-21T06-49-24-759Z.json",
+  "instantiated_criteria": 35,
+  "templates_excluded": 5,
+  "distribution": {
+    "EVIDENCE_MISSING": 7,
+    "PARTIAL_IMPLEMENTED": 19,
+    "BLOCKED_EXTERNAL": 2,
+    "DEFECT": 2,
+    "IMPLEMENTED_IN_TESTED_SCOPE": 3,
+    "PARTIAL_EVIDENCE": 2
+  },
+  "warning": "Independent classifications explain existing goal states; they are not new canonical statuses, blanket goal PASS or an A-H1:1 mapping.",
+  "rows": [
+    {
+      "goal_id": "VG-L0",
+      "criterion_id": "VG-L0-AC1",
+      "condition": "검증 가능한 학습 수행 개선과 운영 신뢰성이 다양한 목표 학습자에게 확인된다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Actual multi-cohort learning improvement/long-term operational reliability not established; isolated synthetic journeys are not effectiveness evidence.",
+      "evidence": "T0045 integrated report",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L1-A",
+      "criterion_id": "VG-L1-A-AC1",
+      "condition": "목표별 독립 수행·유지·전이·재평가 증거가 있다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Independent/transfer code paths verified in isolation; actual retention/reassessment outcomes require learner evidence and an approved study.",
+      "evidence": "T0050/T0052/T0068; evidence-claims.ts",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L1-B",
+      "criterion_id": "VG-L1-B-AC1",
+      "condition": "대상별 학습 경로가 접근 가능하고 실제 완주할 수 있다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Representative CSAT/WordVault routes complete; every platform target group/accessibility journey not independently covered.",
+      "evidence": "T0061/T0062/T0069/T0070/T0071",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L1-C",
+      "criterion_id": "VG-L1-C-AC1",
+      "condition": "공개 콘텐츠가 적격성·품질·계보 계약을 충족한다",
+      "engine_status": "UNKNOWN",
+      "classification": "BLOCKED_EXTERNAL",
+      "reason": "Authored publication qualification cannot be established in actual dev DB before installation and recorded human rights/Gold decisions.",
+      "evidence": "Dev SELECT2026-10-21T06:51:03Z; APPROVAL_PACKAGE",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L1-D",
+      "criterion_id": "VG-L1-D-AC1",
+      "condition": "기술 품질과 학습 성과 상태가 분리되어 증빙된다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Technical verification and effects limits explicitly separate; actual deployment/effectiveness remain unverified.",
+      "evidence": "PR326 receipts; T0045",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-A1",
+      "criterion_id": "VG-L2-A1-AC1",
+      "condition": "목표 설정 및 불확실성 반영 계획을 생성한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "T0072 goal-only PLAN mismatch fixed and safe-merged main65c8ef6ae; exact-head counterexample/control and authenticated1440/1280 pass. New no-record first-entry UX gap isolated and assigned T0073; broader criteria not blanket PASS.",
+      "evidence": "PR328 CI39555680677; FINAL-REVIEW; T0073 baseline1fail2pass",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-A2",
+      "criterion_id": "VG-L2-A2-AC1",
+      "condition": "영역별 실제 과제와 복습이 사용 가능하다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "R0 reading instructional/guided/independent cycles and V1 learning return implemented; deferred instruments are not fabricated.",
+      "evidence": "T0050/T0052/T0056/T0068/T0069",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-A3",
+      "criterion_id": "VG-L2-A3-AC1",
+      "condition": "미노출 과제와 비교 가능한 재평가를 실행한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Unseen different-passage transfer/recheck exercised with synthetic learners; actual comparable delayed learner evaluation missing.",
+      "evidence": "T0068 pass/fail cycles; evidence-claims.ts",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-B1",
+      "criterion_id": "VG-L2-B1-AC1",
+      "condition": "목적별 경로가 공통 학습 상태에 연결된다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Different general-reading/CSAT routes and WordVault roundtrip exist; full platform route/state coverage is not established by FINAL tests.",
+      "evidence": "ROUTES; T0069",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-B2",
+      "criterion_id": "VG-L2-B2-AC1",
+      "condition": "완료·다음 할 일·이력이 일관되게 표시된다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "T0072 goal-only PLAN mismatch fixed and safe-merged main65c8ef6ae; exact-head counterexample/control and authenticated1440/1280 pass. New no-record first-entry UX gap isolated and assigned T0073; broader criteria not blanket PASS.",
+      "evidence": "PR328 CI39555680677; FINAL-REVIEW; T0073 baseline1fail2pass",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-C1",
+      "criterion_id": "VG-L2-C1-AC1",
+      "condition": "배포 자료의 계보와 공개 판정이 존재한다",
+      "engine_status": "UNKNOWN",
+      "classification": "BLOCKED_EXTERNAL",
+      "reason": "Source/revision/delivery qualification contracts exist; actual authored deployment/decisions absent.",
+      "evidence": "17-set hash check; dev metadata SELECT",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-C2",
+      "criterion_id": "VG-L2-C2-AC1",
+      "condition": "콘텐츠 사용과 공급 우선순위를 비교한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "TASK demand/order/supply outcomes implemented; actual approved authored supply/use feedback is blocked, broader corpus sampling not re-audited.",
+      "evidence": "T0067; demand.ts; AuthoredSupplyCard",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-D1",
+      "criterion_id": "VG-L2-D1-AC1",
+      "condition": "학습 이벤트가 정확히 연결되고 개발/실사용 데이터가 분리된다",
+      "engine_status": "UNKNOWN",
+      "classification": "DEFECT",
+      "reason": "G2/request/CAS IDs verified, but aggregate QA/internal account contamination still exists in current dashboard metrics.",
+      "evidence": "dashboard-stats.ts:205,460-461; T0006 partial",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-D2",
+      "criterion_id": "VG-L2-D2-AC1",
+      "condition": "필수 E2E/배포/보안이 실제 통과한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Required CI and isolated tests genuinely run; actual deployment smoke for this main has no supplied proof.",
+      "evidence": "PR328 CI39555680677; merge identical-tree proof",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L2-D3",
+      "criterion_id": "VG-L2-D3-AC1",
+      "condition": "실제 사용자 사용성과 학습 효과 결과를 구분해 평가한다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Actual external-user usability and learning-effect studies not established by synthetic browser success.",
+      "evidence": "T0045 evidence-level separation",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A1-01",
+      "criterion_id": "VG-L3-A1-01-AC1",
+      "condition": "목표 선택 후 적절한 첫 과제가 추천되고 원인이 불확실하면 이를 표시한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "T0072 goal-only PLAN mismatch fixed and safe-merged main65c8ef6ae; exact-head counterexample/control and authenticated1440/1280 pass. New no-record first-entry UX gap isolated and assigned T0073; broader criteria not blanket PASS.",
+      "evidence": "PR328 CI39555680677; FINAL-REVIEW; T0073 baseline1fail2pass",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A1-02",
+      "criterion_id": "VG-L3-A1-02-AC1",
+      "condition": "의심·제외 기록으로 확정 진단을 만들지 않는다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Diagnosis eligibility/help/synthetic/timing guards exist and R0 regression evidence reused; all bad-data sources not independently re-audited.",
+      "evidence": "as-is.ts; isEligible; T0062",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A2-01",
+      "criterion_id": "VG-L3-A2-01-AC1",
+      "condition": "어휘·문장·읽기·듣기 타입의 측정 계약을 별도로 정의하고 R0 읽기 과제를 통과한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "R0 reading and nondeferred16 TASK cycles verified; V1 is learning-only and held/listening instruments cannot be treated as measured.",
+      "evidence": "T0068/T0069; codebook",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A2-02",
+      "criterion_id": "VG-L3-A2-02-AC1",
+      "condition": "강의·게임 없이도 R0 과제를 완결하고 사용 시 재생과 연습 성과를 구분한다",
+      "engine_status": "UNKNOWN",
+      "classification": "IMPLEMENTED_IN_TESTED_SCOPE",
+      "reason": "Representative R0 path completes without lecture/game; instructional practice and independent evidence are distinguished.",
+      "evidence": "T0050/T0052/PR326 isolated journeys",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A3-01",
+      "criterion_id": "VG-L3-A3-01-AC1",
+      "condition": "기존 학습과 다른 콘텐츠/아이템 ID를 갖는 전이 과제를 수행한다",
+      "engine_status": "UNKNOWN",
+      "classification": "IMPLEMENTED_IN_TESTED_SCOPE",
+      "reason": "Fresh independent/transfer items use distinct passages/content IDs; duplicate exposure/cross-role protections tested.",
+      "evidence": "T0068; authored-flow PGlite; PR326 regression",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-A3-02",
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "condition": "평가 조건과 불확실성을 함께 저장하고 과장 없이 표시한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Current-policy/eligibility/uncertainty kept with attempts; approved delayed retention instrument is absent (NOT_ESTABLISHED), not invented.",
+      "evidence": "evidence-claims.ts:delayedRetention; T0062",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-B1-01",
+      "criterion_id": "VG-L3-B1-01-AC1",
+      "condition": "일반 읽기와 시험 대비가 동일 화면만 강제하지 않고 적절한 분기점을 갖는다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "General reading/word review and exam map are distinct entry paths; R0 vocabulary contextual return is verified.",
+      "evidence": "T0069; route source",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-B1-02",
+      "criterion_id": "VG-L3-B1-02-AC1",
+      "condition": "선택적 게임·강의·교실 기록이 기존 학습을 손상시키지 않는다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Full optional classroom/game/lecture regression across shared learner state lies beyond this FINAL synthetic scope; no claim of missing implementation.",
+      "evidence": "Existing platform routes; UNMAPPED full criteria coverage",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-B2-01",
+      "criterion_id": "VG-L3-B2-01-AC1",
+      "condition": "원자료·척도는 보존하면서 한 학습자 내역에서 탐색한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "CSAT records/history plus WordVault roundtrip preserve raw scales; one global cross-module history criterion is not fully evidenced by that.",
+      "evidence": "T0062/T0069; independent reports",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-B2-02",
+      "criterion_id": "VG-L3-B2-02-AC1",
+      "condition": "오늘 할 일, 완료, 다음 행동, 실패 복귀를 명확히 보여준다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "T0072 goal-only PLAN mismatch fixed and safe-merged main65c8ef6ae; exact-head counterexample/control and authenticated1440/1280 pass. New no-record first-entry UX gap isolated and assigned T0073; broader criteria not blanket PASS.",
+      "evidence": "PR328 CI39555680677; FINAL-REVIEW; T0073 baseline1fail2pass",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-C1-01",
+      "criterion_id": "VG-L3-C1-01-AC1",
+      "condition": "R0 게시 대상 자료의 원천·변형·적합성·버전을 조회 가능하다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Source/set/revision/hash provenance and existing ledger binding verified in isolated code; actual authored release absent.",
+      "evidence": "APPROVAL_PACKAGE;17hashes;FI001/FI006",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-C1-02",
+      "criterion_id": "VG-L3-C1-02-AC1",
+      "condition": "미확인 또는 부적격 자료는 공개할 수 없다",
+      "engine_status": "UNKNOWN",
+      "classification": "IMPLEMENTED_IN_TESTED_SCOPE",
+      "reason": "Unapproved/revoked/stale revision/wrong role blocked in isolated SQL/API; real supply0 is not a successful eligible delivery.",
+      "evidence": "Previous qualification/RLS/PostgreSQL evidence; T0067",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-C2-01",
+      "criterion_id": "VG-L3-C2-01-AC1",
+      "condition": "학습 수요와 이용률을 공급 데이터에 대응한다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Goal/TASK demand roles/shortage and supply outcomes exist; no actual approved authored use measurements yet.",
+      "evidence": "demand.ts; T0056/T0067",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-C2-02",
+      "criterion_id": "VG-L3-C2-02-AC1",
+      "condition": "기사·구문·만화 유지/동결/폐기를 검토해 결정 기록이 있다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Article/phrase/comic retention/discard decisions are a separate platform audit scope; do not assign duplicate cleanup work to final-product.",
+      "evidence": "T0045 scope; other corpus owners",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D1-01",
+      "criterion_id": "VG-L3-D1-01-AC1",
+      "condition": "핵심 여정 이벤트에 안정된 ID가 있고 중복 생성되지 않는다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_IMPLEMENTED",
+      "reason": "Core R0 request/attempt/session/delivery/goal/plan IDs and replay controls verified; every platform event contract not claimed complete.",
+      "evidence": "FI006/FI015/FI016; PR326",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D1-02",
+      "criterion_id": "VG-L3-D1-02-AC1",
+      "condition": "QA·합성 데이터가 사용자 지표와 효과 평가에서 제외된다",
+      "engine_status": "FAIL",
+      "classification": "DEFECT",
+      "reason": "Current dashboard totals still count all user_profiles and today daily_activity without QA/internal eligibility filtering.",
+      "evidence": "dashboard-stats.ts:205,460-461; T0006 audit retained",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D2-01",
+      "criterion_id": "VG-L3-D2-01-AC1",
+      "condition": "핵심 E2E skip=0, 실제 배포 후 스모크 pass, 실행 ID가 남는다",
+      "engine_status": "EXTERNAL_INPUT_REQUIRED",
+      "classification": "PARTIAL_EVIDENCE",
+      "reason": "Historical execution0 cause resolved by33 actual tests; deployment smoke missing. Engine external-input state also reflects an old open CI decision, not a request for new CI secrets.",
+      "evidence": "PR328 CI39555680677; original PR158 failure history",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D2-02",
+      "criterion_id": "VG-L3-D2-02-AC1",
+      "condition": "필수 접근권한과 데이터 처리·접근성 점검에 중대 결함이 없다",
+      "engine_status": "UNKNOWN",
+      "classification": "PARTIAL_EVIDENCE",
+      "reason": "Independent auth/RLS/CAS/security boundaries and representative PC keyboard checks reused; no new blanket platform privacy/accessibility PASS.",
+      "evidence": "Prior FI security private verification; PR326",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D3-01",
+      "criterion_id": "VG-L3-D3-01-AC1",
+      "condition": "대상 외부 사용자에게서 학습 여정 과제 수행/오류/이탈 증거를 수집한다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "No verified actual external learner usability cohort supplied; synthetic browser accounts do not satisfy it.",
+      "evidence": "T0045 ACTUAL_LEARNER_EVIDENCE remains unverified",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    },
+    {
+      "goal_id": "VG-L3-D3-02",
+      "criterion_id": "VG-L3-D3-02-AC1",
+      "condition": "사전등록한 기준선/후속/지연/전이 연구를 실시하고 한계를 보고한다",
+      "engine_status": "UNKNOWN",
+      "classification": "EVIDENCE_MISSING",
+      "reason": "Actual preregistered baseline/followup/delayed/transfer study results not supplied; effects cannot be inferred.",
+      "evidence": "evidence-claims.ts NOT_EVALUATED; T0045",
+      "scope": "FINAL R0 code/isolated evidence where stated; not full platform or actual learner completion"
+    }
+  ]
+}
