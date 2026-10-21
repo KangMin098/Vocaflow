@@ -1,0 +1,42 @@
+{
+  "observed_at": "2026-10-21T14:35:27.330Z",
+  "mission": "FINAL-MISSION-A~H",
+  "task": "T-0045",
+  "head": "f3fbcabeb64403a824710504a0ab77ddbc6974d6",
+  "mode": "READ_ONLY_PRODUCT_REVIEW",
+  "facts": {
+    "source_receipt_loader": "load.ts:576-578 calls loadSourceRepairReceipts then receiptActivity and receiptTargets",
+    "plan_repair": "receiptActivity uses server-validated source lesson receipt; complete activity can advance repairSuccess, not independent G2",
+    "card_history": "FactoryDcpCard.tsx:54-57 displays attempt count and latest correctness",
+    "factory_attempt": "evidence=false remains; raw DCP attempt alone is not independent or repair success"
+  },
+  "independent_verification": {
+    "command": "pnpm.cmd exec vitest run src/lib/csat/map/__tests__/source-repair-receipt.test.ts src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts",
+    "environment": "LOCAL_MAIN / Vitest + isolated PGlite",
+    "files": 2,
+    "passed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "scope": [
+      "partial/all-wrong lesson not successful",
+      "completed lesson repair within cycle",
+      "prior cycle / future-asOf excluded",
+      "stale plan links closed; records preserved",
+      "real SQL supply / grading / G2 / plan version cycle"
+    ],
+    "limits": [
+      "PGlite auth adapter is not actual Supabase RLS verification",
+      "Authenticated Next+DB browser not run",
+      "Two-connection PostgreSQL race not run",
+      "No DB apply or human Gold/rights decision performed"
+    ]
+  },
+  "decision": "Existing completed integration reused; reported total disconnection and absent card history disproved. No duplicate activity ingestion task.",
+  "next_analysis": {
+    "owner": "final-product",
+    "scope": "Exact SourceLesson return receipt attribution versus existing T0062 recap, no code or SQL changes until actual gap and non-duplication confirmed",
+    "delivery": "QUEUED_ONLY",
+    "ack": "NOT_YET_CONFIRMED"
+  }
+}
