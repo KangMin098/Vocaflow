@@ -233,7 +233,7 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
  * T-0050 rev5 — 실제 서버 기록(recordAuthoredAttempt) · 보류 SQL · G2 결속 → As-Is → To-Be → Workspace → PLAN 계산의 순환(Codex verify-repair-map-cycle 를 상시 회귀로).
  * 공급은 실제 requestAuthoredSupply. 한계: 목표 · 기준 시험 메타데이터는 합성, PLAN 저장 이력 · 브라우저 · 네이티브 RLS 는 이 시험 밖.
  */
-interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string; notLive?: true }
+interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string }
 function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차`, () => {
   const { key: KEY, task: CT, template: CW } = cfg
   const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -277,8 +277,9 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     await answer(uid, cfg.guided, false); w = await world(uid); expect(w.row.stage, '안내 연습 오답은 바로잡기 성공이 아니다').toBe('repair')
     await answer(uid, cfg.guided, true); w = await world(uid)
     expect(w.row.stage, '전이 자료가 아직 없어도 적용 단계(건너뛰지 않음)').toBe('transfer'); expect(w.task.status, '안내 연습은 독립 근거가 아니다').toBe('verified_need')
-    // 정본 준비 상태가 live 가 아닌 Workspace 의 중심 TASK(창작 납품으로만 열림)는 PLAN 이 부족 대신 no_content 를 낸다(map/v4/plan.ts:272 · T-0068 범위 밖 · 보고함)
-    expect(w.row.unresolved, '자료가 없으면 부족으로 보인다(가용량을 만들지 않음)').toContain(cfg.notLive ? 'no_content' : 'material_needed')
+    // T-0070 — 정본 readiness 가 live 가 아닌 Workspace 의 중심 TASK(창작 납품으로 열림)도 「콘텐츠 없음」이 아니라 이 단계 자료 부족이다
+    expect(w.row.unresolved, '자료가 없으면 부족으로 보인다(가용량을 만들지 않음)').toContain('material_needed')
+    expect(w.row.unresolved, '실제 납품이 있는 묶음을 콘텐츠 없음이라 하지 않는다').not.toContain('no_content')
     const tr = await requestAuthoredSupply(admin, learner(uid), uid, { view: { asIs: w.map, toBe: w.goal, taskPlans: w.plan.tasks } as V4View, task: CT as never, template: CW, workspaceId: ws[uid], planVersion: 1, goalVersion: null })
     expect(tr.status).toBe('ok'); if (tr.status !== 'ok') throw new Error('supply')
     expect(tr.lines.map((l) => l.role), '적용 단계 수요 = 전이').toEqual(['transfer'])
@@ -324,7 +325,7 @@ cycle({ label: 'T-0052 E 근거 위치', set: EVL, task: 'e.evidence_location', 
 cycle({ label: 'T-0066 E1 발문 요구(보조)', set: TD, task: 'e.task_demand', template: 'ws.evidence-locate', key: 'authored-task-demand', ind: ['td-ind-1', 'td-ind-2'], fresh: ['td-ind-3', 'td-ind-4'], guided: 'td-guided-1', tr: ['td-transfer-1', 'td-transfer-2'], pass: H, fail: I })
 
 // T-0068 — 비보류 13 TASK: 같은 순환(실제 공급 → 첫 독립 오답 → 안내 연습 → 실제 전이 2 → 미노출 새 독립 2 → G2 → As-Is/PLAN pass · fail)
-for (const x of T68) cycle({ label: `T-0068 ${x.task}`, set: x.set, task: x.task, template: x.template, key: x.set.taskKey, ind: [`${x.p}-ind-1`, `${x.p}-ind-2`], fresh: [`${x.p}-ind-3`, `${x.p}-ind-4`], guided: `${x.p}-guided-1`, tr: [`${x.p}-transfer-1`, `${x.p}-transfer-2`], pass: x.pass, fail: x.fail, ...(['r.inference', 'r.relation', 's.form_scope', 'v.contextual_sense'].includes(x.task) ? { notLive: true as const } : {}) })
+for (const x of T68) cycle({ label: `T-0068 ${x.task}`, set: x.set, task: x.task, template: x.template, key: x.set.taskKey, ind: [`${x.p}-ind-1`, `${x.p}-ind-2`], fresh: [`${x.p}-ind-3`, `${x.p}-ind-4`], guided: `${x.p}-guided-1`, tr: [`${x.p}-transfer-1`, `${x.p}-transfer-2`], pass: x.pass, fail: x.fail })
 
 describe('철회 · 다른 학습자', () => {
   it('지연 확인 권리 결정 철회 → 다른 학습자 공급 거절(사람 결정) · 앞선 기록은 그대로', async () => {

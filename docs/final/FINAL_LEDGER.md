@@ -200,3 +200,11 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 복습 화면(지도에서 왔을 때만): 「학습 지도로」 막대 + 「학습 기록이지 지도의 확인 · 해소 근거가 아님」 안내 · 빈 단어 = 내 단어장에서 모으기 안내(「잘 따라가고 있어요」 아님) · 조회 실패 = 「0개가 아님」 알림(일반 진입은 예전처럼 오류 경계) · 끝난 뒤에도 「학습 지도로 돌아가기」.
 - 근거 비승격: 뜻 보기 · 예문 · 자기 평가는 learning_records(FSRS)만 쓴다 — CSAT 시도 · G2 결속 · 계획 · 목표 이력 불변(격리 e2e 가 행 수로 단언). V1 직접 확인 도구는 아직 없다고 카드가 알린다. 지연 유지 간격은 정본 미승인 그대로(evidence-claims NOT_ESTABLISHED 무변경).
 - 검증: 단위 map-return-vocab 6 · vocab-learning 6(빈 단어 · 조회 실패 · 문맥 없음 대조군) · web vitest 510 files pass. 인증 격리 `vocab-core-roundtrip` 1440/1280(지도 → 키보드 복습 진입 → 실제 복습 1회 → 완료 → 키보드 복귀 → 같은 Workspace 팝업) — fixture 는 격리 DB 의 내 단어 1개(합성).
+
+## 17. T-0070 — 목표 → TASK 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 수행 후 PLAN 을 한 지도에 (2026-10-21)
+
+- 화면: 전체 지도 상단 GoalRecordBar 아래 접힌 `GoalPlanSummary`(처음 한 줄: 목표에 필요한 TASK 수 · 지금 할 수 있는 수 · 시험 기록 수와 직접 확인 TASK 수를 따로). 펼치면 TASK 행 = NeedRank 순서 · 영역 · 목표와의 관계(사실 문항 · 배점) · 내 근거(직접 확인 vs 기출 관찰 간접) · 이번 단계 학습량(저장한 계획 / 제안 / 자료 없음 이유 / 조회 불가) · 도달 조건 · 「지금 할 수 있어요 n」(ActionRank · 상단 CTA 와 같은 지도 복귀 문맥) 또는 막힌 이유 · 같은 Workspace 계획 · 자료 버튼. 새 화면 · 새 순위 · 점수 · 기간 · 숙달률 없음.
+- 계산: `lib/csat/map/v62/goal-plan.ts` — V4View · Ranks · 저장 계획만 읽는다. 계획량 = PLAN 편집기와 같은 applySaved(quantityBasis(latest)) · 같은 단계 저장 행만 「저장한 계획」.
+- 결함 수정 ① `map/v4/plan.ts` — 정본 readiness 가 live 가 아니어도 단계가 열렸거나 단계 자료 링크가 있으면 no_content 가 아니라 그 단계 실제 상태(material_needed · shortage · stage_locked). readiness 는 live 로 올리지 않는다 · 실제 자료 없으면 null · no_content 그대로. T-0068 PGlite 의 notLive 예외를 지우고 13 TASK 모두 material_needed 를 단언.
+- 결함 수정 ② `GoalRecordBar.mapStateOf` — 시험 기록 0 이어도 direct_check 근거가 있는 TASK 가 있으면 no_record 로 다음 행동을 숨기지 않는다(시험 proxy 는 승격하지 않음 · 기록 0 · 근거 0 · 목표 없음 대조군 유지).
+- 검증(로컬): Codex probe 7/7(기준 5 실패 → 통과 · 정상 2 유지) · 이식 회귀 plan.test(readiness 4 + 정상) · map-state-direct 3 · goal-plan 6 · goal-plan-summary 5 · authored-flow PGlite 44 · web vitest 513 files. 인증 격리 `goal-plan-summary` A(1440 오답 → 바로잡기) · B(1280 정답 → 근거 축적) 작성 — 로컬 격리 Supabase 없음으로 **NOT_VERIFIED**, 다음 공식 통합 묶음 CI 에서 실행.
