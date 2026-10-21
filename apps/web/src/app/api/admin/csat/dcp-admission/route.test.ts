@@ -9,6 +9,9 @@ const mocks = vi.hoisted(() => ({
   admit: vi.fn(),
   reader: vi.fn(),
   approve: vi.fn(),
+  previewReuse: vi.fn(),
+  admitReuse: vi.fn(),
+  rows: vi.fn(),
 }))
 vi.mock('@/lib/csat/map/v62/factory-bridge/dcp-request', () => ({ approveFactoryDcp: mocks.approve }))
 vi.mock('@/lib/auth/require-admin-api', () => ({ requireAdminApi: mocks.guard }))
@@ -18,6 +21,9 @@ vi.mock('@/lib/admin/dcp-admission', () => ({
   previewDcpAdmission: mocks.preview,
   admitDcpCandidates: mocks.admit,
   currentSourceReader: mocks.reader,
+  previewDcpReuse: mocks.previewReuse,
+  admitDcpReuse: mocks.admitReuse,
+  existingDcpRowReader: mocks.rows,
 }))
 import { POST } from './route'
 
@@ -37,6 +43,50 @@ beforeEach(() => {
   mocks.reader.mockReturnValue('reader')
   mocks.preview.mockResolvedValue({ status: 'ok', plan: { items: [], real_admissible: false }, writes: 'not_performed' })
   mocks.admit.mockResolvedValue({ status: 'not_installed' })
+})
+
+describe('dcp-admission route · 04 재사용', () => {
+  const MAP = [{ item_id: 'cm-title-01', dcp_item_id: '4dbcca67-2e17-4e96-a2d1-9d513b4b87b6' }]
+  beforeEach(() => {
+    mocks.rows.mockReturnValue('rows')
+    mocks.previewReuse.mockResolvedValue({ status: 'ok', plan: { items: [] }, writes: 'not_performed' })
+    mocks.admitReuse.mockResolvedValue({ status: 'ok', items: [], release: 'not_performed', delivery: 'not_performed' })
+  })
+
+  it('닫힌 본문 — reuse 는 재사용 동작에서만 · 행 본문 · actor 주입 · 잘못된 UUID · 빈 매핑 거절', async () => {
+    expect((await POST(post(body({ reuse: MAP })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'preview_reuse' })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'preview_reuse', reuse: [] })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'preview_reuse', reuse: [{ ...MAP[0], payload: {} }] })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'preview_reuse', reuse: [{ item_id: 'x', dcp_item_id: 'not-a-uuid' }] })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP, existing_rows: [] })))).status).toBe(400)
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP, actor: 'x' })))).status).toBe(400)
+    expect(mocks.previewReuse).not.toHaveBeenCalled()
+    expect(mocks.admitReuse).not.toHaveBeenCalled()
+  })
+
+  it('preview_reuse 는 service 로 원천 · 기존 행만 읽고 세션을 만들지 않는다(curator 가능)', async () => {
+    mocks.guard.mockResolvedValue({ id: 'c-1', role: 'curator' })
+    const r = await POST(post(body({ action: 'preview_reuse', reuse: MAP })))
+    expect(r.status).toBe(200)
+    expect(mocks.rows).toHaveBeenCalledWith({ service: true })
+    expect(mocks.previewReuse).toHaveBeenCalledWith('reader', 'rows', expect.objectContaining({ reuse: MAP }))
+    expect(mocks.session).not.toHaveBeenCalled()
+  })
+
+  it('admit_reuse 는 admin 만 · 관리자 세션으로 · 거절은 409 · 미설치 503 · 읽기 오류 503', async () => {
+    mocks.guard.mockResolvedValue({ id: 'c-1', role: 'curator' })
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP })))).status).toBe(403)
+    mocks.guard.mockResolvedValue({ id: 'admin-1', role: 'admin' })
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP })))).status).toBe(200)
+    expect(mocks.admitReuse).toHaveBeenCalledWith({ session: true }, 'reader', 'rows', expect.objectContaining({ reuse: MAP }))
+    mocks.admitReuse.mockResolvedValue({ status: 'rejected', code: 'reuse_review_missing_existing_rows' })
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP })))).status).toBe(409)
+    mocks.admitReuse.mockResolvedValue({ status: 'not_installed' })
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP })))).status).toBe(503)
+    mocks.admitReuse.mockRejectedValue(new Error('existing_rows_read_failed:x'))
+    expect((await POST(post(body({ action: 'admit_reuse', reuse: MAP })))).status).toBe(503)
+  })
 })
 
 describe('dcp-admission route', () => {

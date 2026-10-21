@@ -1,5 +1,7 @@
 # DB Schema
 
+> **미적용 04 기존 DCP 재사용·별도 DATA 수정안**(2026-10-21): `_pending_factory_dcp_admission.sql`의 `factory_dcp_admit`는 지정된 기존 practice 행을 잠그고 자연키·payload·answer_key를 재대조하여 기존 id에 영수증만 추가할 수 있다. 원래 자연키 충돌 거절은 유지한다. `supabase/deploy/learning-outcomes-20261021/rationale-correction.sql`은 별도 승인 후 두 관측 행의 `answer_key.rationale_ko`만 수정하는 제안이다(문항·정답·시도 불변). 원문/행 해시·기존 자격/입고 없음 가드, 조건부 복구 SQL과 격리 SQL 시험을 포함한다. 공유 DB 미적용. [결과](implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-RESULT.md).
+
 > **미적용 2D/2E 원문 교수 수행 조회**(2026-10-21): `_pending_source_lesson_repair_receipt.sql`은 표·행 추가 없이 `source_lesson_fact_state(uuid,uuid)`(내부 전용)와 `source_lesson_repair_receipts(uuid,timestamptz)`(본인 또는 실제 service_role의 명시적 사용자 범위 읽기)를 추가한다. 같은 목표·원문/판본·현재 권리/승인·제품 계보를 확인하며, 같은 목표의 새 계획 뒤에도 이미 끝난 교수 수행 사실을 유지한다. 구계획의 신규 열기 허용은 바꾸지 않는다. 세 활동 완료 시각 이전에 성공을 만들지 않고 독립 근거/G2를 생성하지 않는다. 2B 뒤 설치하며 **공유 DB 미적용**. 실제 계획 POST·composeV4·nextActionOf와 결합 PGlite 14개 통과([최신 결과](implementation/learning-outcomes-20261021/02E-CANONICAL-CYCLE-RESULT.md)).
 
 > **2026-10-21 코드/DB 이력 정합:** 이미 개발 DB에 적용된 `20260920014828_revoke_video_job_writers_from_clients`와 `20260920023713_revoke_csat_source_eligibility_from_anon`의 원문을 이력 statements 바이트 그대로 저장소에 보존했다. SHA-256은 각각 `e3a81fcc…901a39`, `6a614002…ea1712`이며 SQL 재실행·DB 변경은 하지 않았다. 현재 카탈로그에서 영상 writer 2개·eligibility 함수·history trigger 함수의 anon EXECUTE는 모두 false다. eligibility의 authenticated도 후속 정책에 따라 false이므로 옛 #117의 authenticated 유지 관측을 현재 사실로 쓰지 않는다.

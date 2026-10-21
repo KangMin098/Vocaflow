@@ -15,6 +15,7 @@ import {
   type AdmissionItemPlan,
   type AdmissionPlan,
 } from './dcp-admission'
+import { parseReuseMapping, planExistingDcpReuse, type ExistingDcpRow, type ReuseInput, type ReusePlan } from './dcp-reuse'
 import { LocalProductionError } from './local-production'
 
 export interface RpcResult<T> {
@@ -59,8 +60,20 @@ export async function admitCandidates(
 ): Promise<{ ok: true; plan: AdmissionPlan; items: AdmittedItem[] } | Fail> {
   const preview = await previewAdmission(readSource, input)
   if (!preview.ok) return preview
-  const plan = preview.plan
+  const r = await admitPlan(admin, preview.plan, opts)
+  return r.ok ? { ok: true, plan: preview.plan, items: r.items } : r
+}
+
+/** 계획의 문항마다 별도 RPC(문항 단위 원자) — 한 묶음 전체가 원자는 아니다. 같은 본문 재요청은 replayed 로 복구된다 */
+async function admitPlan(admin: SupplyClient, plan: AdmissionPlan, opts: { isolated?: boolean }): Promise<{ ok: true; items: AdmittedItem[] } | Fail> {
   if (!plan.real_admissible && !opts.isolated) return fail('not_admissible', plan.blockers.join(','))
+  // Reject the entire content batch before reserving any immutable admission/slot.
+  // Rights/runtime holds may remain candidates; failed or missing content review may not.
+  const unchecked = plan.items.filter((it) =>
+    (['B', 'C', 'D'] as const).some((axis) => it.axes[axis].state !== 'pass') ||
+    it.held.some((reason) => reason === 'item_not_reviewed' || reason.startsWith('review_conclusion_')),
+  )
+  if (unchecked.length) return fail('content_review_not_pass', unchecked.map((it) => it.item_id).join(','))
   const items: AdmittedItem[] = []
   for (const it of plan.items) {
     const r = await call<{ dcp_item_id: string; artifact_revision: string; replayed: boolean }>(admin, 'factory_dcp_admit', { p_request_key: it.request_key, p_body: it.body })
@@ -71,7 +84,50 @@ export async function admitCandidates(
     if (q && !q.ok) return { ...q, detail: `${it.item_id}: ${q.detail ?? ''}` }
     items.push({ item_id: it.item_id, ...r.data, qualification_id: q?.data ?? null, held: it.held })
   }
-  return { ok: true, plan, items }
+  return { ok: true, items }
+}
+
+/** 기존 DCP 행 읽기(서버 service SELECT) — 매핑의 id 들만. 오류는 던진다(0건으로 삼키지 않는다) */
+export type ExistingRowReader = (ids: string[]) => Promise<ExistingDcpRow[]>
+
+/** 재사용 미리보기 — 지금 원천 행 · 지금 기존 행으로 planExistingDcpReuse 만. RPC · 쓰기 없음 */
+export async function previewReuse(
+  readSource: SourceReader,
+  readRows: ExistingRowReader,
+  input: Omit<ReuseInput, 'currentSource' | 'existingRows'>,
+): Promise<{ ok: true; plan: ReusePlan } | Fail> {
+  const packetSourceId = (input.packet as { body?: { source?: { id?: unknown } } })?.body?.source?.id
+  if (typeof packetSourceId !== 'string') return fail('packet_shape')
+  let mapping
+  try {
+    mapping = parseReuseMapping(input.reuse)
+  } catch (e) {
+    if (e instanceof LocalProductionError) return fail(e.code, e.detail.join(','))
+    throw e
+  }
+  const current = await readSource(packetSourceId)
+  if (!current) return fail('source_not_found')
+  const existingRows = await readRows(mapping.map((m) => m.dcp_item_id))
+  try {
+    return { ok: true, plan: planExistingDcpReuse({ ...input, reuse: mapping, currentSource: current, existingRows }) }
+  } catch (e) {
+    if (e instanceof LocalProductionError) return fail(e.code, e.detail.join(','))
+    throw e
+  }
+}
+
+/** 재사용 입고 — 기존 행은 영수증만(행 불변) · 매핑 밖 문항은 원래 INSERT 경로. 자격은 기존 경로 그대로 */
+export async function admitReuse(
+  admin: SupplyClient,
+  readSource: SourceReader,
+  readRows: ExistingRowReader,
+  input: Omit<ReuseInput, 'currentSource' | 'existingRows'>,
+  opts: { isolated?: boolean } = {},
+): Promise<{ ok: true; plan: ReusePlan; items: AdmittedItem[] } | Fail> {
+  const preview = await previewReuse(readSource, readRows, input)
+  if (!preview.ok) return preview
+  const r = await admitPlan(admin, preview.plan as unknown as AdmissionPlan, opts)
+  return r.ok ? { ok: true, plan: preview.plan, items: r.items } : r
 }
 
 function qualify(admin: SupplyClient, plan: AdmissionPlan, it: AdmissionItemPlan, dcpId: string, rev: string) {
