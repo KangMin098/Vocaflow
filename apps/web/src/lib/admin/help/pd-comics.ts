@@ -77,6 +77,7 @@ export const PDCP_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        '대사 정제 CLI는 hOCR 기본 출력 bubbles.manifest.json과 자체 OCR 출력 bubbles.local.manifest.json을 모두 받는다. 둘 다 있으면 자체 OCR을 우선하며 정제 intake·결과에 실제 입력 파일명을 기록한다. 정제 실패는 같은 intake에서 재실행할 수 있다.',
         '드레인 · 라이브 진행 · 모던 리더 · 브라우저 보조는 모두 dev 전용이다 — 배포 환경에서는 403/404 로 막힌다(서버 프로세스가 ffmpeg 을 돌려야 하기 때문).',
         '1964년 이후 발행분은 저작권이 자동 갱신돼 사용할 수 없고, 1930~1963 은 갱신 기록 확인 전까지 PD 가 아니다. Classics Illustrated Junior 는 제외 대상.',
         '잘못 담은 호를 큐에서 빼는 버튼은 화면에 없다 — DELETE /api/pdcp/issue?id=<uuid>(발행본은 409로 거부). 작업 디렉터리는 기본 보존되고 purge=1 일 때만 함께 지워진다.',

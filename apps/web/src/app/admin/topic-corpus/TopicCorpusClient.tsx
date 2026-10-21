@@ -170,19 +170,23 @@ export function TopicCorpusClient({
             body: JSON.stringify({ sourceId, max: 10 }),
           })
           const json = (await res.json()) as DrainResponse
+          if ((json.claimed ?? 0) > 0) progressed = true
           if (!res.ok) {
             push(`${sourceId} 드레인 실패 — ${json.message ?? res.status}`, 'warn')
             return
           }
           if (json.claimed === 0) {
-            push(`${sourceId} 큐가 비었습니다.`, 'ok')
+            push(`${sourceId} 처리 가능한 대기 작업이 없습니다. 실패·재시도 상태를 확인하세요.`, 'info')
             return
           }
-          progressed = true
           push(
             `${sourceId} #${round} — 수확 ${json.harvested ?? 0} · 건너뜀 ${json.skipped ?? 0} · 실패 ${json.failed ?? 0}`,
             (json.failed ?? 0) > 0 ? 'warn' : 'info',
           )
+          if ((json.failed ?? 0) > 0) {
+            push(`${sourceId} 실패가 있어 자동 반복을 중단했습니다. 원인과 큐 상태를 확인한 뒤 다시 실행하세요.`, 'warn')
+            return
+          }
           if (json.drained) {
             push(`${sourceId} 드레인 완료.`, 'ok')
             return

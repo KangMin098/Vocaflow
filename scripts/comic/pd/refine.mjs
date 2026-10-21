@@ -25,7 +25,11 @@ if (!workDir || typeof workDir !== 'string') {
   console.error('사용법: node refine.mjs --intake <workdir> | --ingest <workdir> [--modernize]')
   process.exit(2)
 }
-const LOCAL = path.join(workDir, 'bubbles.local.manifest.json')
+// hOCR 정규 출력과 자체 OCR 출력을 모두 받는다. 자체 OCR이 있으면 우선한다.
+const LOCAL = ['bubbles.local.manifest.json', 'bubbles.manifest.json']
+  .map((name) => path.join(workDir, name))
+  .find((file) => fs.existsSync(file)) ?? path.join(workDir, 'bubbles.manifest.json')
+const SOURCE = path.basename(LOCAL)
 const INTAKE = path.join(workDir, 'refine.intake.json')
 const OUTPUT = path.join(workDir, 'refine.output.json')
 const REFINED = path.join(workDir, 'bubbles.refined.manifest.json')
@@ -42,7 +46,7 @@ if (has('intake')) {
     .filter((p) => p.fragments.length > 0)
   const intake = {
     slug: path.basename(workDir),
-    generatedFrom: 'bubbles.local.manifest.json',
+    generatedFrom: SOURCE,
     guide: [
       '각 컷(panel)의 fragments 는 OCR 이 쪼갠 파편이다. 이것을 읽는 순서로 병합하고 OCR 오탈자를 교정해',
       '컷별로 자연스러운 대사/캡션을 만든다. kind 는 caption(내레이션) 또는 speech(말풍선)로 구분한다.',
@@ -77,7 +81,7 @@ if (has('ingest')) {
   })
   const totalBubbles = panels.reduce((a, p) => a + (p.bubbles || []).length, 0)
   const refined = {
-    engine: 'claude-refine', source: 'bubbles.local.manifest.json',
+    engine: 'claude-refine', source: SOURCE,
     modernized: !!out.modernized || has('modernize'),
     stats: { panels: panels.length, refinedPanels, refinedBubbles, bubbles: totalBubbles,
       fromOcr: (mf.stats && mf.stats.bubbles) || null },
