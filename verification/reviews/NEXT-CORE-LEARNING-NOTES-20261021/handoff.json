@@ -10,8 +10,8 @@
   "spec": "planning/handoff/FINAL-LEARNING-NOTES-RETURN-rev1.json",
   "sha256": "ac43490983e6964c9e48e19a47e3ba7ea1f2910b9eecc4fdc4fb9f2468eb696e",
   "delivery": "QUEUE_READY+LOCAL_INBOX_POSTED",
-  "acknowledged": false,
-  "implementation_started": false,
+  "acknowledged": true,
+  "implementation_started": true,
   "t0070": {
     "status": "REVIEW",
     "head": "7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a",
@@ -20,7 +20,18 @@
     "pending": "authenticated A/B and actual1440/1280; no new run claimed"
   },
   "inbox": "D:\\workspace\\Vocaflow-AI-Control\\planning\\inbox\\final-product.md",
-  "checked_at": "2026-10-21T01:00:11.571Z",
-  "official_status": "READY",
-  "accepted_session": null
+  "checked_at": "2026-10-21T01:04:14.944Z",
+  "official_status": "IN_PROGRESS",
+  "accepted_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "accepted_at": "2026-10-21T01:03:39.718Z",
+  "process": {
+    "pid": 22712,
+    "live_observed": true,
+    "start_head": "7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a",
+    "lock_names": [
+      "task--T-0071",
+      "worktree--d__workspace_vocaflow-final-product"
+    ]
+  },
+  "official_bundle_acknowledged": true
 }
