@@ -236,3 +236,10 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 
 - GoalPlanSummary: 직접 확인(basis direct_check) 행에 기존 근거 칩(EvidenceChips · view.evidence)을 함께 보인다 — 지금 정책 통과여도 「시간 지나 다시 확인 · 아직 근거 없음」(delayedRetention NOT_ESTABLISHED)이 옆에 남고, 통과 행에는 「지금 정책의 다시 확인은 통과했어요 — 도달 조건의 「다른 날」 유지는 아직 확인하지 않았어요」 안내. 범위 자료 없음 = 「확인할 수 없어요 — 0개라는 뜻은 아니에요」 · 원장 불명확 = 범위 확인 불가 안내. 직접 근거 없는 행에는 칩 · 안내 없음. GoalRecordBar 이유 문구에도 다시 확인 근거 없음. 정본 도달 조건 원문 · 새 판정 · 숙달/학습 효과/장기 유지 문구 없음.
 - 검증(로컬): Codex criterion-scope probe 3/3 · criterion-scope 렌더 5 · 관련 21 · tsc 0 · lint 0. 실제 Chromium(실제 React GoalPlanSummary · 고정 데이터) 2/2: 1440/1280 통과 · 미측정 · 원장 불명확 행 · 키보드 펼치기 · 넘침 0. 인증 격리 journey pass 분기에 요약 칩 · 안내 단언 추가 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 22. T-0075 — 풀이 저장 뒤 자료 연결 실패 복구 · 같은 수행 지도 복귀 (2026-10-21)
+
+- AuthoredRunner 「다시 연결하기」: fetch 거절 · HTTP 오류 · JSON 모양 이상을 잡아 「방금 다시 연결하지 못했어요 — 풀이와 답은 그대로」 + 같은 버튼(키보드)으로 재시도. 결과 · 답 · clientMutationId · deliveryId 보존, 답 재전송 · 새 시도 없음, 반복 클릭 잠금 · finally 복원 유지. 첫 응답에 결속 메타가 없으면 「연결됐는지 확인하지 못했어요」 + 다시 연결하기(이전엔 아무것도 안 보였다).
+- 결속 문구(binding-feedback.ts): evidence===true 만 「혼자 해낸 근거」. false 는 DB CHECK 닫힌 사유 7개만 사실대로(철회 · 첫 노출 아님 · 노출 확인 불가 · 자격 변경 · 납품 무효 · 도움 상태 불일치 · 연습 자료). 누락 · null · 미지 사유 = 확인 못 함 — 「연습 · 도움 받은 풀이」로 추정하던 문구 제거.
+- 복귀: bind API 가 boundAttemptId(학습자 세션 · user_id · 결속 id 로 결속 행의 attempt_id — server.ts 정상 제출과 같은 helper)를 함께 돌려주고, Runner 는 양의 정수만 받아 map_attempt 로 잇는다. 조회 실패 · 남의 결속 · 없음 = null(이번 활동 특정 안 함). 새 표 · SQL · 판정 없음.
+- 검증(로컬): binding-feedback 6 · bind route 3 · PGlite authored-flow 45(복구 멱등 · 같은 수행 id · 시도/결속 행 수 불변 · 다른 학습자/결속 아님/모르는 id null 포함) · authored Runner/delivery-binding 관련 · tsc 0 · lint 0. 실제 Chromium(실제 AuthoredRunner · 통제 HTTP 응답 · 인증/DB 아님) 16/16: 1440/1280 × unknown · revoked · network(첫 거절 → 키보드 재시도 성공) · http · shape · recovered · 메타 손실 · normal — 시도 POST 1 · bind 같은 제출 id/납품 · 오류 0 · 넘침 0. 인증 journey 에 통제 손실(실제 저장 · 결속 후 첫 응답 메타만 삭제) → 실제 bind API → 같은 attempt 복귀 · 시도/G2/PLAN 행 수 불변 단언 추가 — NOT_VERIFIED, T0074 와 한 공식 통합 묶음.

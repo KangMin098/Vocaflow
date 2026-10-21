@@ -18,7 +18,7 @@ import { buildDemand, type MaterialRole } from '@/lib/csat/map/v62/demand'
 import { canonicalDemand } from '@/lib/csat/map/v62/persist-contract'
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
-import { bindDeliveryAttempt, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
+import { bindDeliveryAttempt, boundAttemptId, type BindingResult } from '@/lib/csat/map/v62/delivery-binding'
 import { selectWriter, type AttemptWrite, type AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { isSyntheticEmail, parseClientMeta } from '@/lib/knowledge/practice'
 import { formatOf, type FormatId } from '@/lib/knowledge/authored/formats'
@@ -349,10 +349,7 @@ export async function recordAuthoredAttempt(
   const binding: BindingResult = await bindDeliveryAttempt(learner, { userId: user.id, itemRef: ref, clientMutationId: meta.value.clientMutationId, artifactKind: 'authored_item', deliveryId: opened.view.deliveryId })
     .catch((e) => { console.error('[authored delivery binding]', e); return { status: 'error' as const } })
   // 이번 수행 식별자 — 학습자 세션으로 본인 결속 행에서만(RLS) 읽는다. 클라이언트 값을 쓰지 않는다
-  const attemptId = binding.status === 'bound' && binding.id
-    ? await learner.from('workspace_delivery_attempt').select('attempt_id').eq('user_id', user.id).eq('id', binding.id).maybeSingle()
-      .then((r: { data: { attempt_id?: unknown } | null }) => (r.data?.attempt_id != null ? String(r.data.attempt_id) : null), () => null)
-    : null
+  const attemptId = await boundAttemptId(learner, user.id, binding)
   return { grade: graded.grade as unknown as AuthoredAttemptResult['grade'], reveal: revealAfterAnswer(item), binding, attemptId }
 }
 

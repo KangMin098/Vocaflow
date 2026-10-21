@@ -23,6 +23,7 @@ import { AUTHORED_ROLE_LABEL } from '@/lib/knowledge/authored/labels'
 import styles from '@/components/knowledge/practice.module.css'
 import local from './authored.module.css'
 import { ReasoningNoteForm } from '@/components/csat/theater/ReasoningNoteForm'
+import { attemptIdOf, bindingFeedback } from '@/lib/csat/authored/binding-feedback'
 import type { ReasoningNote } from '@/lib/csat/dissect'
 import { EMPTY_NOTE, type NoteDraft } from '@/lib/csat/explain-draft'
 import type { InquiryPrinciple } from '@/lib/csat/inquiry/labels'
@@ -137,6 +138,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [reveal, setReveal] = useState<Reveal | null>(p.done?.reveal ?? null)
   const [binding, setBinding] = useState<Binding | null>(null)
   const [rebinding, setRebinding] = useState(false)
+  const [rebindFailed, setRebindFailed] = useState(false)
   // 같은 답의 재시도는 제출 id · 판단 시각을 그대로(FI-008 — 시각이 바뀌면 G2 가 같은 제출의 다른 본문으로 보고 conflict)
   const mutation = useRef<{ key: string; id: string; at: string } | null>(null)
   // 자기 설명 노트(교수 자료만) — 기존 원리 노트 저장(FI-015 CAS · 합집합 병합)을 그대로 쓴다. 채점 · 근거 · 숙달이 아니다
@@ -208,7 +210,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
       if (!res.ok) { setError(typeof j.error === 'string' ? j.error : '저장하지 못했어요 — 잠시 뒤 다시 눌러 주세요'); return }
       setGraded(j.grade as Record<string, unknown>); setReveal(j.reveal as Reveal)
       setBinding(j.binding && typeof j.binding === 'object' ? j.binding as Binding : null)
-      setSavedAttempt(typeof j.attemptId === 'string' && /^[1-9][0-9]{0,18}$/.test(j.attemptId) ? j.attemptId : null)
+      setSavedAttempt(attemptIdOf(j.attemptId)); setRebindFailed(false)
     } catch {
       setError('연결이 끊겼어요 — 같은 답으로 다시 누르면 한 번만 저장돼요')
     } finally {
@@ -221,7 +223,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   function again() {
     mutation.current = null
     setSessionId(uuid()); setHelp('viewed_first'); setHintsOpen(0)
-    setGraded(null); setReveal(null); setBinding(null); setError(null); setSavedAttempt(null)
+    setGraded(null); setReveal(null); setBinding(null); setError(null); setSavedAttempt(null); setRebindFailed(false)
     setClaim(null); setPicked([]); setRelation(null); setChoice(null)
     setVerdicts(p.choices.map(() => ({ verdict: null, sentence: null })))
     setPairs(((p.extra.pairs as unknown[]) ?? []).map(() => null))
@@ -230,14 +232,22 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const wrong = graded ? graded.isCorrect !== true : p.done?.isCorrect === false
 
   // 복구 — 같은 제출 id 를 이 화면의 납품에 다시 결속(이미 결속돼 있으면 그 결과가 온다)
+  //   T-0075 — 거절 · HTTP 오류 · 모양 이상은 「이번 다시 연결 실패」로만 남긴다(결과 · 답 · 제출 id · 납품은 그대로 · 답을 다시 보내지 않는다).
+  //   성공하면 서버가 본인 결속 행에서 읽은 수행 id 로 지도 복귀를 잇는다(특정 불가 = 그대로 null)
   async function rebind() {
     if (!mutation.current || rebinding) return
-    setRebinding(true)
+    setRebinding(true); setRebindFailed(false)
     try {
       const r = await fetch('/api/csat/delivery/bind', { method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ kind: 'authored_item', itemRef: `authored:${p.id}`, clientMutationId: mutation.current.id, deliveryId: p.deliveryId }) })
-      const j = await r.json().catch(() => ({}))
-      if (r.ok && j.binding) setBinding(j.binding as Binding)
+      const j = await r.json().catch(() => null) as { binding?: unknown; attemptId?: unknown } | null
+      const b = j?.binding as Binding | undefined
+      if (!r.ok || !b || typeof b !== 'object' || typeof b.status !== 'string') { setRebindFailed(true); return }
+      setBinding(b)
+      const id = attemptIdOf(j?.attemptId)
+      if (id) setSavedAttempt(id)
+    } catch {
+      setRebindFailed(true)
     } finally { setRebinding(false) }
   }
 
@@ -486,17 +496,20 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
         <section className={`${styles.result} ${local.result}`} aria-live="polite" data-testid="authored-result">
           <h2>{graded ? (graded.isCorrect ? '정확히 해냈어요' : '이번에는 어긋났어요') : (p.done?.isCorrect ? '지난번에 정확히 해냈어요' : '지난번 풀이 결과예요')}</h2>
           <RevealBody format={p.format} reveal={reveal} graded={graded} probe={p.probe} choices={p.choices} />
-          {binding?.status === 'bound' && (
-            <p className={styles.note} data-testid="authored-binding" data-evidence={String(binding.evidence ?? '')}>
-              {binding.evidence ? '이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.' : '이 풀이는 받은 자료에 연결돼 기록으로 남아요. 연습 · 도움 받은 풀이라 혼자 해낸 근거로는 세지 않아요.'}
-            </p>
-          )}
-          {binding && binding.status !== 'bound' && mutation.current && (
-            <p className={styles.note} role="status" data-testid="authored-binding" data-status={binding.status}>
-              풀이는 저장됐지만 받은 자료와 연결하지 못했어요.{' '}
-              <button type="button" className={styles.link} disabled={rebinding} onClick={rebind}>{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>
-            </p>
-          )}
+          {/* 자료 연결 — 이 화면에서 저장한 제출만. 연결됨 · 근거로 셈 · 정오는 서로 다른 사실이다(T-0075) */}
+          {graded && mutation.current && (() => {
+            const fb = bindingFeedback(binding)
+            const rebindBtn = (
+              <button type="button" className={styles.link} disabled={rebinding} onClick={rebind} data-testid="authored-rebind">{rebinding ? '다시 연결하는 중…' : '다시 연결하기'}</button>
+            )
+            return (
+              <p className={styles.note} role="status" data-testid="authored-binding" data-kind={fb.kind} data-status={binding?.status ?? 'unknown'} data-evidence={String(binding?.evidence ?? '')} data-reason={fb.kind === 'not_evidence' ? fb.reason : undefined}>
+                {fb.kind === 'unbound' ? '풀이는 저장됐지만 받은 자료와 연결하지 못했어요.' : fb.text}
+                {(fb.kind === 'unbound' || fb.kind === 'unknown') && <>{' '}{rebindBtn}</>}
+                {rebindFailed && <span className={styles.error} data-testid="authored-rebind-failed"> 방금 다시 연결하지 못했어요 — 풀이와 답은 그대로 저장돼 있어요. 다시 연결하기를 다시 눌러 주세요.</span>}
+              </p>
+            )
+          })()}
           {/* 교수 자료(안내 연습 · 원리 설명)는 맞혔어도 다시 풀 수 있다 — 다시 확인에서 막혀 새 바로잡기 회차가 열리면 지도가 같은 안내 연습을 다시 내민다(T-0050 Codex P1).
               평가 자료(혼자 · 다른 날 확인 · 전이)는 p.retry=false 라 첫 결과로 잠긴다 */}
           {p.retry && (
