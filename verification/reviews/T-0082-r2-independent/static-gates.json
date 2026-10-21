@@ -1,0 +1,15 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/maintenance-state.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/maintenance-state.test.ts",
+    "apps/web/src/lib/csat/map/v62/maintenance-state.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/lib/csat/map/v62/rank.ts",
+    "apps/web/src/lib/csat/map/v62/workspace-list.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

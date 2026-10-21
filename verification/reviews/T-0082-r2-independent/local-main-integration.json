@@ -1,0 +1,32 @@
+{
+  "task": "T-0082",
+  "source_head": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "source_base": "ad22826906b554a76bce054b5309ec24929a44fe",
+  "main_before": "503a4777eb63fdf953253cf6bbf05ff97787457f",
+  "main_after": "f3fbcabeb64403a824710504a0ab77ddbc6974d6",
+  "tree": "7d904ff66bd1191221fedc272b8576f23d7fcc89",
+  "commits": [
+    "0dd0281d831908e435454cdb470ed0c207a378c7",
+    "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235"
+  ],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/maintenance-state.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/maintenance-state.test.ts",
+    "apps/web/src/lib/csat/map/v62/maintenance-state.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/lib/csat/map/v62/rank.ts",
+    "apps/web/src/lib/csat/map/v62/workspace-list.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "foreign_source_changes_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "method": "Existing exact-task staticGates + integrate helper on clean owned locked canonical main; preserve independent learning-outcomes/FAST work, auxiliary integration untouched.",
+  "remote": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T14:25:37.471Z"
+}

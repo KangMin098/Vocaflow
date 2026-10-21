@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T14:21:49.656Z",
+  "observed_at": "2026-10-21T14:24:31.072Z",
+  "commit": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "type": "integration",
+  "artifact_path_or_url": "verification/reviews/T-0082-r2-independent/browser/results.json",
+  "command_or_protocol": "Actual compose/scorer + React GoalRecordBar/GoalPlanSummary/WorkspaceList Chromium4/4; mocked transport/navigation, not authenticated server integration."
+}

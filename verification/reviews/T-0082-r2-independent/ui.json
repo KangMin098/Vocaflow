@@ -1,0 +1,51 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T14:21:49.656Z",
+  "observed_at": "2026-10-21T14:24:31.072Z",
+  "commit": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "type": "ui",
+  "artifact_path_or_url": "verification/reviews/T-0082-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0082-r2-independent/browser/row-1440-1.png",
+    "verification/reviews/T-0082-r2-independent/browser/row-1280-1.png"
+  ],
+  "urls": [
+    "http://127.0.0.1/ (ephemeral local scoped React harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React/Chromium two PC widths, raw synthetic attempts through actual scorer/compose; focused real need; router/link/HTTP shims; authenticated Next+DB and global3B skin NOT_VERIFIED.",
+  "command_or_protocol": "R2 browser/run.mjs 4/4 + final source/owner full UnifiedLearningMap4/4 reviewed. Localized state/text/navigation scope; unchanged CSS/tokens/DOM mechanics reused; no whole-app reference/a11y audit claim.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [
+    {
+      "kind": "suggestion",
+      "claim": "T0082-P2-1: prefer maintenance-specific top quantity copy; existing explicit wait reason is correct and execution is closed.",
+      "status": "open"
+    }
+  ],
+  "note": "Checks are limited to changed status/CTA projection and existing component mechanics at1280/1440. Global3B reference, authentication/RLS, real supply and learning effects remain NOT_VERIFIED. No new interactive control or CSS/token change; status is conveyed in visible text, other task link remains available."
+}

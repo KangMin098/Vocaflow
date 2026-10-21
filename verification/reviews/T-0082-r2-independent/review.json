@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T14:21:49.656Z",
+  "observed_at": "2026-10-21T14:24:31.072Z",
+  "commit": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "type": "review",
+  "artifact_path_or_url": "verification/reviews/T-0082-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent fix acceptance; no P0/P1, T0082-P1-1 fixed; P2 remains optional, global skin/auth not verified."
+}

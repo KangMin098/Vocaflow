@@ -1,0 +1,58 @@
+{
+  "task": "T-0082",
+  "revision": "rev1",
+  "head": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "status": "COMPLETED",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "verified_fixed": [
+    "T0082-P1-1"
+  ],
+  "p2_open": [
+    "T0082-P2-1"
+  ],
+  "independent_tests": {
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "passed": 4,
+    "failed": 0,
+    "environment": "Synthetic raw attempts through actual scorer/compose and actual React; router/HTTP shims; auth/global3B NOT_VERIFIED"
+  },
+  "local_main": "f3fbcabeb64403a824710504a0ab77ddbc6974d6",
+  "combined_typecheck_exit": 0,
+  "combined_focused": {
+    "files": 3,
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0
+  },
+  "main_clean": true,
+  "lock_released": true,
+  "official_remote": "NOT_RUN_LOCAL_FAST",
+  "db": {
+    "observed_at": "2026-10-21T14:27:00.836324Z",
+    "authored_item": null,
+    "human_decision": null,
+    "human_revocation": null,
+    "qualification_rows": 0,
+    "delivery_rows": 0,
+    "write": false,
+    "offline_human_review": "UNKNOWN"
+  },
+  "collaboration": {
+    "queued": "2026-10-21T13:48:49.075Z",
+    "first_actual_start": "2026-10-21T13:53:44.301Z",
+    "first_result": "2026-10-21T14:03:16.655Z",
+    "rework": "2026-10-21T14:14:30.646Z",
+    "second_actual_start": "2026-10-21T14:18:43.778Z",
+    "second_result": "2026-10-21T14:20:49.661Z",
+    "accepted": "2026-10-21T14:24:32.070Z",
+    "owner": "final-product",
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "pid_recorded_at_start": 22044,
+    "background_new_task_started": false
+  },
+  "observed_at": "2026-10-21T14:28:16.248Z"
+}

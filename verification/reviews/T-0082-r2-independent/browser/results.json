@@ -1,0 +1,64 @@
+{
+  "head": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "scope": "Only-maintenance fallback; actual scorer/compose/GoalRecordBar/GoalPlanSummary; focused real need; HTTP/router shim; global skin/authenticated Next+DB NOT_VERIFIED",
+  "passed": 4,
+  "failed": 0,
+  "results": [
+    {
+      "width": 1440,
+      "unseen": 0,
+      "passed": true,
+      "kind": "wait",
+      "text": "지금 확인은 통과했어요 — 다른 날 유지 확인은 기준(간격 · 도구)이 아직 정해지지 않아 열지 않았어요. 숙달 · 목표 달성 판정이 아니에요.",
+      "amount": "이번 학습량 · 계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요",
+      "executionLinks": 0,
+      "rowNextCount": 0,
+      "rowHref": null,
+      "rowState": "maintain",
+      "posts": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "unseen": 1,
+      "passed": true,
+      "kind": "wait",
+      "text": "지금 확인은 통과했어요 — 다른 날 유지 확인은 기준(간격 · 도구)이 아직 정해지지 않아 열지 않았어요. 숙달 · 목표 달성 판정이 아니에요.",
+      "amount": "이번 학습량 · 계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요",
+      "executionLinks": 0,
+      "rowNextCount": 0,
+      "rowHref": null,
+      "rowState": "maintain",
+      "posts": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "unseen": 0,
+      "passed": true,
+      "kind": "wait",
+      "text": "지금 확인은 통과했어요 — 다른 날 유지 확인은 기준(간격 · 도구)이 아직 정해지지 않아 열지 않았어요. 숙달 · 목표 달성 판정이 아니에요.",
+      "amount": "이번 학습량 · 계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요",
+      "executionLinks": 0,
+      "rowNextCount": 0,
+      "rowHref": null,
+      "rowState": "maintain",
+      "posts": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "unseen": 1,
+      "passed": true,
+      "kind": "wait",
+      "text": "지금 확인은 통과했어요 — 다른 날 유지 확인은 기준(간격 · 도구)이 아직 정해지지 않아 열지 않았어요. 숙달 · 목표 달성 판정이 아니에요.",
+      "amount": "이번 학습량 · 계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요",
+      "executionLinks": 0,
+      "rowNextCount": 0,
+      "rowHref": null,
+      "rowState": "maintain",
+      "posts": [],
+      "errors": []
+    }
+  ]
+}
