@@ -15,7 +15,7 @@ const row = (o: Record<string, unknown> = {}) => ({
   quantity: { unit: '문항', planned: null, done: 0, remaining: null, source: 'none' }, criterion: taskOf(task).learner_criterion, achievement: 'resolved', action: null, planGate: null, replanWhy: null, blocked: 'material_needed', unresolved: ['material_needed'], ...o,
 }) as GoalPlanSummaryData['rows'][number]
 const ev = (o: Record<string, unknown> = {}) => ({
-  task, taskKey: null, currentCheck: { status: 'passed_current_policy', independentItems: 4, policy: 'existing' }, instructionPath: { repair: 'succeeded', transferDone: 2, transferPlanned: 2 },
+  task, taskKey: null, currentCheck: { status: 'passed', independentItems: 4, policy: 'existing' }, instructionPath: { repair: 'succeeded', transferDone: 2, transferPlanned: 2 },
   newPassageTransfer: { status: 'experienced', passages: 2 }, delayedRetention: { status: 'NOT_ESTABLISHED', reason: 'no_approved_interval_or_instrument' }, learningEffect: 'NOT_EVALUATED', ledger: 'complete', attempts: [], sharedPassageGroups: [], scope: null, ...o,
 })
 const render = (rows: GoalPlanSummaryData['rows'], evidence: unknown) => renderToStaticMarkup(<GoalPlanSummary data={{ rows, required: rows.length, relevanceUnknown: 0, examSessions: 0, directTasks: 1, actionable: 0 }} evidence={evidence as never} goalSet onSelect={() => undefined} onOpenWs={() => undefined} />)
@@ -25,6 +25,7 @@ describe('지금 확인한 범위 vs 도달 조건', () => {
     const h = render([row()], { [task]: ev() })
     expect(h).toContain('data-testid="goal-plan-evidence"')
     expect(h).toContain('data-delay="NOT_ESTABLISHED"')
+    expect(h).toContain('지금 확인 · 통과(지금 기준)')
     expect(h).toContain('시간 지나 다시 확인 · 아직 근거 없음')
     expect(h).toContain('data-testid="goal-plan-scope-note"')
   })
