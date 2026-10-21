@@ -209,3 +209,11 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 결함 수정 ② `GoalRecordBar.mapStateOf` — 시험 기록 0 이어도 direct_check 근거가 있는 TASK 가 있으면 no_record 로 다음 행동을 숨기지 않는다(시험 proxy 는 승격하지 않음 · 기록 0 · 근거 0 · 목표 없음 대조군 유지).
 - 검증(로컬): Codex probe 7/7(기준 5 실패 → 통과 · 정상 2 유지) · 이식 회귀 plan.test(readiness 4 + 정상) · map-state-direct 3 · goal-plan 6 · goal-plan-summary 5 · authored-flow PGlite 44 · web vitest 513 files. 인증 격리 `goal-plan-summary` A(1440 오답 → 바로잡기) · B(1280 정답 → 근거 축적) 작성 — 로컬 격리 Supabase 없음으로 **NOT_VERIFIED**, 다음 공식 통합 묶음 CI 에서 실행.
 - rev1 REWORK R1(Codex P1 3): ① 요약 행 실행 링크에 상단 CTA(nextActionOf)와 같은 관문 — 그 묶음 저장 계획 없음 = 「계획 먼저 확정」 · 저장 뒤 자료/단계 변화(replanNeeded) = 「다시 확정」, 그때는 실행 링크 없음 ② 관련성 미확인을 「목표에 필요한 TASK」 수에 넣지 않고 「관련성 확인 전 n개」로 따로(행은 유지) ③ 지난 기준(past)은 보기 전용 — 실행 링크 · 계획/자료 버튼 없음 + 지금 기준 안내. Codex 새 probe 6/6 · 기존 probe 7/7.
+
+## 18. T-0071 — Workspace 에서 내 원리 노트 · 고쳐 쓴 설명 다시 찾기 (2026-10-21)
+
+- 받은 자료 카드(중심 · 보조) 안에 접힌 `LearningNotesPanel`(「내 원리 노트」). 펼칠 때만 GET /api/csat/state 를 읽는다 — PUT · loadSyncedDissectionRecord(기기 병합) · 새 캐시 · 새 저장소 없음. 카드가 이미 받은 그 TASK 본인 납품 목록(GET /api/csat/authored?task=…)과 잇는다.
+- 결속(`lib/csat/map/v62/learning-notes.ts`): 노트 item = 납품 ref · 노트 authored.deliveryId = 납품 id · 납품 역할 = 원리 설명/안내 연습일 때만. 다른 TASK · 남의 납품 · 평가 역할 · 결속 없음(기출 노트)은 넣지 않는다. 처음/고친 계보는 T-0063 rootNoteOf/revisionChain(같은 문항 전체로 세우고 결속된 노트만 보임).
+- 상태: 성공한 빈 목록 ≠ 확인 못 함(401 로그아웃 · 423 보류 판정 · 오류 · 공급 미설치). 보류로 걸러진 노트를 기기 사본으로 되살리지 않는다. TASK 가 바뀌면 key 로 새로 그리고 늦은 응답은 요청 순번으로 버린다.
+- 이어 보기: 지금 유효(current=true)한 교수 납품만 「이어서 보기 · 대조하기」(withMapReturn + outgoingCtx · map_item/map_attempt 제거). 철회 · 미확인 · 지난 기준은 노트만. 지금 설명판과의 대조 완료를 주장하지 않는다(학습 화면 판 검사에 맡김). 노트 조회는 G2 · As-Is · PLAN · 숙달로 세지 않는다.
+- 검증(로컬): learning-notes 7 · learning-notes-panel 5(렌더 · 상태 · 링크 문맥) · web vitest 515 files · tsc 0 · lint 0. 인증 격리: map-return-recap 의 T-0063 노트 여정을 확장(키보드 펼치기 → 처음/고친 계보 → 유효 안내 연습으로 이동 → 같은 지도 복귀 · 결속/계획 행 수 불변) — 미실행 NOT_VERIFIED, T-0070 A/B 와 같은 공식 통합 묶음 CI 에서 실행. jsdom/testing-library 가 없어 늦은 응답 버림은 단위가 아닌 코드 구조(순번)로만 보장.

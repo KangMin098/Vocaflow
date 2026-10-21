@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { PackageOpen } from 'lucide-react'
 
+import { LearningNotesPanel } from './LearningNotesPanel'
 import p from './popup.module.css'
 import u from './unified.module.css'
 import { withMapReturn, type MapReturnCtx } from '@/lib/csat/map-return'
@@ -148,6 +149,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
           <button type="button" className={p.whitePill} onClick={() => void load()} data-testid={tid('ws-authored-recheck')}>다시 확인하기</button>
         </p>
       )}
+      {/* T-0071 — 이 TASK 에서 쓴 내 원리 노트(펼칠 때만 읽기 · 정확한 납품 결속만) */}
+      <LearningNotesPanel key={task} task={task} rows={rows} listed={listed.status} past={past} ctx={ctx} testPrefix={tid('ws-authored').replace('ws-authored', 'ws-notes')} />
       {msg && <p className={p.cardDesc} aria-live="polite" data-testid={tid('ws-authored-msg')}>{msg}</p>}
       {outcome && (
         <div aria-live="polite" data-testid={tid('ws-authored-msg')} data-unknown={outcome.unknown} data-retry={outcome.retry}>
